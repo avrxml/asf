@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\gpio_local_bus_example.ewp</path>
+	</project>
+</workspace>

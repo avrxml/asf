@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta content="text/html; charset=us-ascii" http-equiv="content-type">
+  <meta content="Xavier Leprevost" name="author">
+  <meta content="avr32,demo,web,server,UC3" name="keywords">
+
+  <title>WEB CONTROL PANEL - Sensors</title>
+  <link href="sensor.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="zxml.js">
+</script>
+<script type="text/javascript" src="sensor.js">
+</script>
+</head>
+
+<body>
+  <div class="header">
+    <a href="index.htm"><img src="logo_atmel.gif" align="left" alt="Home" border="0"></a> <a href=
+    "sensor.htm">Sensors</a> - <a href="sensorg.htm">Graphic</a> - <a href="actuator.htm">Actuators</a> - <a href="sensorc.htm">Sensors
+    Configuration</a> - <a href="config.htm">System Configuration - <a href="help.htm">Help</a>
+  </div>
+
+  <div class="leftmenu">
+    <a href="#temp_section">Temperature</a><br>
+    <a href="#light_section">Light</a><br>
+    <a href="#pb1_section">Push Button 1</a><br>
+    <a href="#pb2_section">Push Button 2</a><br>
+    <a href="#pb3_section">Push Button 3</a><br>
+    <a href="#js_section">Joystick</a><br>
+    <a href="#pot_section">Potentiometer</a><br>
+  </div>
+  
+  <form id="all" name="all">
+        <input type="hidden" name="repeattime" value="200">
+  </form>
+  
+  
+  <div class="right_column">
+    <br>
+
+    <div class="content_header">
+      <a name="temp_section" id="temp_section">Temperature</a>
+    </div>
+
+    <div class="content_body">
+      <form id="temp" name="temp">
+        <input type="hidden" name="repeattime" value="500">
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="light_section" id="light_section">Light</a>
+    </div>
+
+    <div class="content_body">
+      <form id="light" name="light">
+        <input type="hidden" name="repeattime" value="500">
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="pb1_section" id="pb1_section">Push Button 1</a>
+    </div>
+
+    <div class="content_body">
+      <form id="pb1" name="pb1">
+        <input type="hidden" name="repeattime" value="100">
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="pb2_section" id="pb2_section">Push Button 2</a>
+    </div>
+
+    <div class="content_body">
+      <form id="pb2" name="pb2">
+        <input type="hidden" name="repeattime" value="100">
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="pb3_section" id="pb3_section">Push Button 3</a>
+    </div>
+
+    <div class="content_body">
+      <form id="pb3" name="pb3">
+        <input type="hidden" name="repeattime" value="100">
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="js_section" id="js_section">Joystick</a>
+    </div>
+
+    <div class="content_body">
+      <form id="js" name="js">
+        <input type="hidden" name="repeattime" value="100">
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="pot_section" id="pot_section">Potentiometer</a>
+    </div>
+
+    <div class="content_body">
+      <form id="pot" name="pot">
+        <input type="hidden" name="repeattime" value="500">
+      </form>
+    </div>
+  </div>
+</body>
+</html>

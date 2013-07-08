@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\bootloader_avr32.ewp</path>
+	</project>
+</workspace>

@@ -1,0 +1,140 @@
+.header {
+	height: 45px;
+	line-height: 45px;
+	width: 950px;
+	padding:3px;
+	text-align: center;
+	background: #2477E6;
+	color: #FFF;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.header a:link, .header a:visited {
+	text-decoration: none;
+	color : #FFF;
+}
+
+.header a:hover {
+	 text-decoration: none;
+	color : #707070;
+}
+
+body {
+	margin-left: 8px;
+	margin-right: 8px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	padding: 0;
+	background-color: white;
+	color: black;
+	font-size: 12px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+	font-size: 24px;
+	font-weight: bold;
+	color: #03F;
+}
+
+.title {
+	width: 900px;
+}
+
+.titletop {
+	height: 21px;
+	width: 716px;
+	color: white;
+	font-weight: bold;
+	background-image: url(title_bg.gif);
+	float: left;
+}
+
+.leftmenu {
+	height: 1520px;
+	line-height: 45px;
+	padding:3px;
+	text-align: left;
+	float: left;
+	background: #2477E6;
+	color: #FFF;
+	font-size: 14px;
+	font-weight: bold;
+	width: 130px;
+}
+
+.leftmenu a:link, .leftmenu a:visited {
+	text-decoration: none;
+	color : #FFF;
+}
+
+.leftmenu a:hover {
+	text-decoration: none;
+	color : #707070;
+}
+
+.right_column {
+	margin-right: 10px;
+	margin-left: 175px;
+}
+
+.content_header {
+	width : 775px;
+	background: #2477E6;
+	padding: 3px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	border: 1px solid #000;
+}
+
+.content_body {
+	width : 775px;
+	background: #FFF;
+	padding: 3px;
+	text-align: left;
+	color: #000;
+	font-size: 12px;
+	border-bottom:1px solid #000;
+	border-left:1px solid #000;
+	border-right:1px solid #000;
+	margin-bottom:15px;
+}
+
+.content_body_right {
+	width : 775px;
+	background: #FFF;
+	padding: 3px;
+	text-align: right;
+	color: #000000;
+	font-size: 12px;
+	border-bottom:1px solid #000;
+	border-left:1px solid #000;
+	border-right:1px solid #000;
+	margin-bottom:15px;
+}
+
+a.content_link:link, a.content_link:visited {
+	text-decoration: none;
+	color : #000;
+}
+
+a.content_link:hover {
+	text-decoration: none;
+	color : #707070;
+}
+
+.fade_block {	
+	width : 470px;
+	height : 300px;
+	background: #FFF;
+	background-repeat : none
+	padding: 10px;
+	text-align: center;
+	color: #2477E6;
+	font-size: 20px;
+	font-weight: bold;
+	float: right;
+}

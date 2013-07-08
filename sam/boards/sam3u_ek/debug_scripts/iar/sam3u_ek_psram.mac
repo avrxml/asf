@@ -1,0 +1,126 @@
+// ---------------------------------------------------------
+//   ATMEL Microcontroller Software Support
+// ---------------------------------------------------------
+// The software is delivered "AS IS" without warranty or
+// condition of any  kind, either express, implied or
+// statutory. This includes without limitation any warranty
+// or condition with respect to merchantability or fitness
+// for any particular purpose, or against the infringements of
+// intellectual property rights of others.
+// ---------------------------------------------------------
+//  File: at91sam3u-ek-psram.mac
+//  User setup file for CSPY debugger.
+// ---------------------------------------------------------
+__var __mac_i;
+__var __mac_pt;
+
+/*********************************************************************
+*
+*       execUserReset()
+*/
+execUserReset()
+{
+    __message "------------------------------ execUserReset ---------------------------------";
+    __message "-------------------------------Set PC Reset ----------------------------------";
+
+    __hwReset(0);                          //* Hardware Reset: CPU is automatically halted after the reset
+    
+    // perpheral reset RSTC_CR
+    __writeMemory32(0xA5000004,0x400e1200,"Memory");
+
+    __initPSRAM();                         //* Init PSRAM before load
+}
+
+/*********************************************************************
+*
+*       execUserPreload()
+*/
+execUserPreload()
+{
+    __message "------------------------------ execUserPreload ---------------------------------";
+    __hwReset(0);                          //* Hardware Reset: CPU is automatically halted after the reset
+
+    // perpheral reset RSTC_CR
+    __writeMemory32(0xA5000004,0x400e1200,"Memory");
+    
+    __initPSRAM();                         //* Init PSRAM before load
+}
+
+
+/*********************************************************************
+*
+*       __initPSRAM()
+* Function description
+* Set PSRAM for works at 48 MHz
+*/
+__initPSRAM()
+{
+//*    // Open EBI clock
+//    AT91C_BASE_PMC->PMC_PCER = (1<< AT91C_ID_HSMC4);
+    __writeMemory32(0x00000200,0x400E0410,"Memory");
+
+//*    // Configure I/O
+// 0x400E0E00 --- (PIOB) Base Address
+// 0x400E1000 --- (PIOC) Base Address
+//#define PIN_EBI_DATA_BUS            {0xfe01fe00, AT91C_BASE_PIOB, AT91C_ID_PIOB, PIO_PERIPH_A, PIO_PULLUP}, \
+//                                        {1 << 6, AT91C_BASE_PIOB, AT91C_ID_PIOB, PIO_PERIPH_B, PIO_PULLUP}
+//#define PIN_EBI_NCS0                {1 << 20, AT91C_BASE_PIOB, AT91C_ID_PIOB, PIO_PERIPH_A, PIO_PULLUP}
+//#define PIN_EBI_NRD                 {1 << 19, AT91C_BASE_PIOB, AT91C_ID_PIOB, PIO_PERIPH_A, PIO_PULLUP}
+//#define PIN_EBI_NWE                 {1 << 23, AT91C_BASE_PIOB, AT91C_ID_PIOB, PIO_PERIPH_A, PIO_PULLUP}
+//#define PIN_EBI_PSRAM_ADDR_BUS      {0x3f00fff, AT91C_BASE_PIOC, AT91C_ID_PIOC, PIO_PERIPH_A, PIO_PULLUP}
+//#define PIN_EBI_PSRAM_NBS           {1 << 7, AT91C_BASE_PIOB, AT91C_ID_PIOB, PIO_PERIPH_B, PIO_PULLUP}, \
+//                                        {1 << 15, AT91C_BASE_PIOC, AT91C_ID_PIOC, PIO_PERIPH_A, PIO_PULLUP}
+//#define PIN_EBI_A1                  {1 << 8, AT91C_BASE_PIOB, AT91C_ID_PIOB, PIO_PERIPH_B, PIO_PULLUP}
+//
+//#define PIN_EBI_NCS2                {1 << 16, AT91C_BASE_PIOC, AT91C_ID_PIOC, PIO_PERIPH_A, PIO_PULLUP}
+//    PIO_Configure(pinPsram, PIO_LISTSIZE(pinPsram));
+    __writeMemory32(0x000001C0,0x400E0E70,"Memory");  // (PIOB) PIO_ABSR
+    __writeMemory32(0xFE99FFC0,0x400E0E04,"Memory");  // (PIOB) PIO_PDR
+    __writeMemory32(0x00000000,0x400E1070,"Memory");  // (PIOC) PIO_ABSR
+    __writeMemory32(0x03F08FFF,0x400E1004,"Memory");  // (PIOC) PIO_PDR
+
+//*    // Setup the PSRAM (HSMC4_EBI.CS0, 0x60000000 ~ 0x60FFFFFF)
+//    pSMC->HSMC4_SETUP = 0
+//                        | ((1 <<  0) & AT91C_HSMC4_NWE_SETUP)
+//                        | ((1 <<  8) & AT91C_HSMC4_NCS_WR_SETUP)
+//                        | ((1 << 16) & AT91C_HSMC4_NRD_SETUP)
+//                        | ((1 << 24) & AT91C_HSMC4_NCS_RD_SETUP)
+//                        ;
+    __writeMemory32(0x01010101,0x400E0070,"Memory");
+
+//    pSMC->HSMC4_PULSE = 0
+//                        | ((5 <<  0) & AT91C_HSMC4_NWE_PULSE)
+//                        | ((5 <<  8) & AT91C_HSMC4_NCS_WR_PULSE)
+//                        | ((5 << 16) & AT91C_HSMC4_NRD_PULSE)
+//                        | ((5 << 24) & AT91C_HSMC4_NCS_RD_PULSE)
+//                        ;
+    __writeMemory32(0x05050505,0x400E0074,"Memory");
+
+//    pSMC->HSMC4_CYCLE = 0
+//                        | ((6 <<  0) & AT91C_HSMC4_NWE_CYCLE)
+//                        | ((6 << 16) & AT91C_HSMC4_NRD_CYCLE)
+//                        ;
+    __writeMemory32(0x00060006,0x400E0078,"Memory");
+
+//    tmp = pSMC->HSMC4_TIMINGS
+//        & (AT91C_HSMC4_OCMSEN | AT91C_HSMC4_RBNSEL | AT91C_HSMC4_NFSEL);
+//    pSMC->HSMC4_TIMINGS = tmp
+//                        | ((0 <<  0) & AT91C_HSMC4_TCLR) // CLE to REN
+//                        | ((0 <<  4) & AT91C_HSMC4_TADL) // ALE to Data
+//                        | ((0 <<  8) & AT91C_HSMC4_TAR)  // ALE to REN
+//                        | ((0 << 16) & AT91C_HSMC4_TRR)  // Ready to REN
+//                        | ((0 << 24) & AT91C_HSMC4_TWB)  // WEN to REN
+//                        ;
+    __writeMemory32(0x00000000,0x400E007C,"Memory");
+
+//    tmp = pSMC->HSMC4_MODE & ~(AT91C_HSMC4_DBW);
+//    pSMC->HSMC4_MODE = tmp
+//                        | (AT91C_HSMC4_READ_MODE)
+//                        | (AT91C_HSMC4_WRITE_MODE)
+//                        | (AT91C_HSMC4_DBW_WIDTH_SIXTEEN_BITS)
+//                        //| (AT91C_HSMC4_PMEN)
+//                        ;
+    __writeMemory32(0x10001003,0x400E0080,"Memory");
+
+   __message "------------------------------- PSRAM Done at 48 MHz -------------------------------";
+}

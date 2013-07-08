@@ -1,0 +1,14 @@
+µC/OS-II is provided in source form for FREE evaluation, educational use or for peaceful research.
+If you plan on using µC/OS-II in a commercial product you need to contact Micriµm to properly license its use in your product.
+
+Your honesty is greatly appreciated.
+
+           M I C R I U M
+           949 Crestview Circle
+           Weston, FL 33327
+           USA
+
+Telephone: +1 954 217 2036
+FAX      : +1 954 217 2037
+e-mail   : Sales@Micrium.com
+Web Site : www.micrium.com

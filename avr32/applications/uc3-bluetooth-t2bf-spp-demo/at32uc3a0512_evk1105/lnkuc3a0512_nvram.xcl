@@ -1,0 +1,171 @@
+/************************************************************************
+ * XLINK command file for AVR32 IAR C/C++ Compiler.
+ *
+ * This file is configured to suite a UC3A0512 part.
+ * It can be used directly, or as a template.
+ *
+ * Although the file can be used in any AVR32 IAR Embedded Workbench
+ * project, this file is specifically suited to projects using the AVR32
+ * IAR C/C++ compiler, as the file includes directives for placing
+ * segments created by the compiler.
+ *
+ * This file can be used as a template for your own application-specific
+ * XLINK command file.
+ *
+ * The assumed memory layout is:
+ *
+ *   Start	Stop		Name	Type
+ *   ----------	----------	-----	--------------
+ *   0x00000000	0x0000FFFF	SRAM	RAM
+ *   0x80000000	0x8007FFFF	FLASH	FLASH
+ *
+ * Usage:  xlink  your_file(s)  -f xcl-file  libraries
+ *
+ * Copyright 2008 IAR Systems. All rights reserved.
+ *
+ * $Revision: 3149 $
+ *
+ ************************************************************************/
+
+/************************************************************************/
+/*      The following segments are defined in this template link file:  */
+/*                                                                      */
+/*      Code segments                                                   */
+/*      CODE21    -- Program code used by __code21 functions.           */
+/*      CODE32    -- Program code used by __code32 functions.           */
+/*      RESET     -- Reset code.                                        */
+/*      EVSEG     -- Exception vector handlers.                         */
+/*                                                                      */
+/*      Constant segments                                               */
+/*      INITTAB   -- Segment initializer table segment.                 */
+/*      DIFUNCT   -- Dynamic initialization vector used by C++.         */
+/*      SWITCH    -- Switch tables.                                     */
+/*      ACTAB     -- Table of pointers to acall functions.              */
+/*      SCTAB     -- Table of pointers to scall functions.              */
+/*                                                                      */
+/*      DATA21_ID -- Initialization data for DATA21_I.                  */
+/*      DATA32_ID -- Initialization data for DATA32_I.                  */
+/*      DATA21_C  -- Constant __data21 data.                            */
+/*      DATA32_C  -- Constant __data32 data.                            */
+/*                                                                      */
+/*      CHECKSUM  -- Checksum segment.                                  */
+/*                                                                      */
+/*      Data segments                                                   */
+/*      DATA21_I  -- Initialized __data21 data with non-zero            */
+/*                   initial value.                                     */
+/*      DATA32_I  -- Initialized __data32 data with non-zero            */
+/*                   initial value.                                     */
+/*      DATA21_Z  -- Initialized __data21 data with zero initial value. */
+/*      DATA32_Z  -- Initialized __data32 data with zero initial value. */
+/*      DATA21_N  -- Non-initialized __data21.                          */
+/*      DATA32_N  -- Non-initialized __data32.                          */
+/*      SSTACK    -- The system stack.                                  */
+/*      CSTACK    -- The application stack.                             */
+/*      HEAP      -- The heap used by malloc and free.                  */
+/*                                                                      */
+/************************************************************************/
+
+/************************************************************************/
+/*      Define CPU                                                      */
+/************************************************************************/
+
+-cavr32
+
+// Declare the IPR0 memory location
+-DIPR0=FFFF0800
+
+/************************************************************************/
+/*      Reset code is located at address 0x80000000 and up.             */
+/************************************************************************/
+
+-Z(CODE)RESET=80000000-8007FFFF
+
+/************************************************************************/
+/*      Size of the stacks and the heap.                                */
+/*                                                                      */
+/*      The size is specified in hexadecimal numbers.                   */
+/*                                                                      */
+/*      We assume that the supervisor stack is rather small (1K),       */
+/*      that the application stack is larger (8K) and that the heap     */
+/*      is rather small (2K). You will need to adjust these values      */
+/*      to fit the needs of your application.                           */
+/*                                                                      */
+/*      Uncomment if used from the command line.                        */
+/************************************************************************/
+
+//-D_SSTACK_SIZE=400
+//-D_CSTACK_SIZE=2000
+//-D_HEAP_SIZE=800
+
+/************************************************************************/
+/*      The exception handler code is located at address 0x80000000     */
+/*      and up. Make sure that the exception table gets properly        */
+/*      allocated. By using the special -Z@ allocation primitive, the   */
+/*      placement is guaranteed to be at _EVBASE and onwards.           */
+/************************************************************************/
+
+-Z@(CODE)EVTAB=80004000-8003FFFF
+-Z@(CODE)EV100=80004100-8003FFFF
+-P(CODE)EVSEG=80004000-8003FFFF
+
+/************************************************************************/
+/*      Allocate code and const segments.                               */
+/************************************************************************/
+
+/*
+-P(CODE)CODE32=80000000-8007FFFF
+-P(CONST)DATA32_C=80000000-8007FFFF
+
+// initializers
+-Z(CONST)INITTAB,DIFUNCT=80000000-8007FFFF
+-Z(CONST)CHECKSUM,SWITCH=80000000-8007FFFF
+-Z(CONST)DATA21_ID,DATA32_ID=80000000-8007FFFF
+-Z(CONST)RAMCODE21_ID,RAMCODE32_ID=80000000-8007FFFF
+
+-Z(CONST)ACTAB,HTAB=80000000-8007FFFF
+
+-Z@(CONST)NVRAM=8007F000-8007FFFF
+*/
+
+-P(CODE)CODE32=80000000-8003EFFF
+-P(CONST)DATA32_C=80000000-8003EFFF
+
+// initializers
+-Z(CONST)INITTAB,DIFUNCT=80000000-8003EFFF
+-Z(CONST)CHECKSUM,SWITCH=80000000-8003EFFF
+-Z(CONST)DATA21_ID,DATA32_ID=80000000-8003EFFF
+-Z(CONST)RAMCODE21_ID,RAMCODE32_ID=80000000-8003EFFF
+
+-Z(CONST)ACTAB,HTAB=80000000-8003EFFF
+
+-Z@(CONST)NVRAM=8003F000-8003FFFF
+
+/************************************************************************/
+/*      Allocate the read/write segments that are mapped to RAM.        */
+/*                                                                      */
+/*      To reflect the absence of DATA21 RAM, these segments are        */
+/*      not declared. You will get a linker error if you by mistake     */
+/*      have declared a __data21 variable.                              */
+/*                                                                      */
+/************************************************************************/
+
+-Z(CODE)RAMCODE21=00000001-0000FFFF
+-Z(DATA)DATA21_I,DATA21_Z,DATA21_N=00000001-0000FFFF
+-Z(CODE)RAMCODE32=00000001-0000FFFF
+-Z(DATA)DATA32_I,DATA32_Z,DATA32_N=00000001-0000FFFF
+-Z(DATA)TRACEBUFFER=00000001-0000FFFF
+
+-Z(DATA)SSTACK+_SSTACK_SIZE#00000001-0000FFFF
+-Z(DATA)CSTACK+_CSTACK_SIZE#00000001-0000FFFF
+-Z(DATA)HEAP+_HEAP_SIZE=00000001-0000FFFF
+
+/************************************************************************/
+/*      Copy the RAMCODE bytes to the initializer segments              */
+/************************************************************************/
+
+-QRAMCODE21=RAMCODE21_ID
+-QRAMCODE32=RAMCODE32_ID
+
+/************************************************************************/
+/*      End of File                                                     */
+/************************************************************************/

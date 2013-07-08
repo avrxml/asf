@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\uc3c-fpu-demo.ewp</path>
+	</project>
+</workspace>

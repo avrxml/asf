@@ -1,0 +1,4 @@
+alarm=off
+min=2%
+max=98%
+lograte=8

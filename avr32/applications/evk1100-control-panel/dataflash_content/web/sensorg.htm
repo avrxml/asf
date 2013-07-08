@@ -1,0 +1,535 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+ <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+ <meta content="Atmel" name="author">
+ <meta content="avr32,demo,web,server,UC3" name="keywords">
+ <title>WEB CONTROL PANEL - Graphical Display</title> 
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style  TYPE="text/css">
+<!--
+.header {
+ height: 45px;
+ line-height: 45px;
+ width: 950px;
+ padding:3px;
+ text-align: center;
+ background: #2477E6;
+ color: #FFF;
+ font-size: 14px;
+ font-weight: bold;
+}
+
+.header a:link, .header a:visited {
+ text-decoration: none;
+ color : #FFF;
+}
+
+.header a:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+body {
+ margin-left: 8px;
+ margin-right: 8px;
+ margin-top: 8px;
+ margin-bottom: 8px;
+ padding: 0;
+ background-color: white;
+ color: black;
+ font-size: 12px;
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+ font-size: 24px;
+ font-weight: bold;
+ color: #03F;
+}
+
+.title {
+ width: 900px;
+}
+
+.titletop {
+ height: 21px;
+ width: 716px;
+ color: white;
+ font-weight: bold;
+ background-image: url(title_bg.gif);
+ float: left;
+}
+
+.leftmenu {
+ height: 1520px;
+ line-height: 45px;
+ padding:3px;
+ text-align: left;
+ float: left;
+ background: #2477E6;
+ color: #FFF;
+ font-size: 14px;
+ font-weight: bold;
+ width: 130px;
+}
+
+.leftmenu a:link, .leftmenu a:visited {
+ text-decoration: none;
+ color : #FFF;
+}
+
+.leftmenu a:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+.right_column {
+ margin-right: 10px;
+ margin-left: 175px;
+}
+
+.content_header {
+ width : 775px;
+ background: #2477E6;
+ padding: 3px;
+ text-align: center;
+ color: #ffffff;
+ font-size: 14px;
+ font-weight: bold;
+ border: 1px solid #000;
+}
+
+.content_body {
+ width : 775px;
+ background: #FFF;
+ padding: 3px;
+ text-align: left;
+ color: #000;
+ font-size: 12px;
+ border-bottom:1px solid #000;
+ border-left:1px solid #000;
+ border-right:1px solid #000;
+ margin-bottom:15px;
+}
+
+.content_body_right {
+ width : 775px;
+ background: #FFF;
+ padding: 3px;
+ text-align: right;
+ color: #000000;
+ font-size: 12px;
+ border-bottom:1px solid #000;
+ border-left:1px solid #000;
+ border-right:1px solid #000;
+ margin-bottom:15px;
+}
+
+a.content_link:link, a.content_link:visited {
+ text-decoration: none;
+ color : #000;
+}
+
+a.content_link:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+.fade_block { 
+ width : 470px;
+ height : 300px;
+ background: #FFF;
+ background-repeat : none
+ padding: 10px;
+ text-align: center;
+ color: #2477E6;
+ font-size: 20px;
+ font-weight: bold;
+ float: right;
+}
+-->
+</style>
+<script language="javascript">
+<!--
+var zXml={useActiveX:(typeof ActiveXObject!="undefined"),useDom:document.implementation&&document.implementation.createDocument,useXmlHttp:(typeof XMLHttpRequest!="undefined")};zXml.ARR_XMLHTTP_VERS=["MSXML2.XmlHttp.6.0","MSXML2.XmlHttp.3.0"];zXml.ARR_DOM_VERS=["MSXML2.DOMDocument.6.0","MSXML2.DOMDocument.3.0"];function zXmlHttp(){}zXmlHttp.createRequest=function(){if(zXml.useXmlHttp){return new XMLHttpRequest();}else if(zXml.useActiveX){if(!zXml.XMLHTTP_VER){for(var i=0;i<zXml.ARR_XMLHTTP_VERS.length;i++){try{new ActiveXObject(zXml.ARR_XMLHTTP_VERS[i]);zXml.XMLHTTP_VER=zXml.ARR_XMLHTTP_VERS[i];break;}catch(oError){;}}}if(zXml.XMLHTTP_VER){return new ActiveXObject(zXml.XMLHTTP_VER);}else{throw new Error("Could not create XML HTTP Request.");}}else{throw new Error("Your browser doesn't support an XML HTTP Request.");}};zXmlHttp.isSupported=function(){return zXml.useXmlHttp||zXml.useActiveX;};
+
+-->
+</script>
+<script language="javascript">
+<!--
+var iInterval = 200;
+var iGraphWidth = 100;
+var iGraphMiny = 0;
+var iGraphMaxy = 100;
+var iArrayLength = 100;
+var aStore = new Array();
+var aStoreGraph = new Array();
+var aStoreGraphIndex = new Array();
+var aStoreArray = new Array();
+var aStoreArrayIndex = new Array();
+var aSensorList = new Array("temp","pot","light","pb1","pb2","pb3","js");
+var sSensorAll = "all";
+sNavigator="";
+
+
+function downloadAllSensors() {
+ var oXmlHttp = zXmlHttp.createRequest();
+ var divAdditionalLinks = document.getElementById(sSensorAll);
+ var command_line="get_sensor_value.cgi?sensor="+sSensorAll;
+ var repeatTime = iInterval;
+ var imax = 0;
+ if (divAdditionalLinks.logsize != undefined) {
+ command_line=command_line+"&logzise="+divAdditionalLinks.logsize.value; 
+ }
+ if (divAdditionalLinks.repeattime != undefined) {
+ repeatTime = divAdditionalLinks.repeattime.value;
+ }
+ oXmlHttp.open("get",command_line , true);
+ oXmlHttp.onreadystatechange = function () {
+ if (oXmlHttp.readyState == 4) { 
+ if (oXmlHttp.status == 200) {
+ // For Each Sensor
+ var regLine=new RegExp("[\n]+", "g");
+ var regPipe=new RegExp("[|]+", "g");
+ var aLine=oXmlHttp.responseText.split(regLine);
+ if(sNavigator=="IE6") {imax = aLine.length; }
+ else {imax = (aLine.length - 1); }
+ for (var i=0; i<imax ; i++) { 
+ var newText="<table border=\"1\" width=\"100%\" bordercolor=\"black\"><colgroup><col width=\"1*\"><col width=\"3*\"><col width=\"2*\"><col width=\"2*\"></colgroup><tr><th>Sensor</th><th>Date</th><th>Value</th><th>Alarm</th></tr>";
+ var ligne=aLine[i].split(regPipe);
+ newText=newText+("<tr>");
+ for (var j=0; j<ligne.length; j++) {
+ newText=newText+("<td>"+ligne[j]+"</td>");
+ } 
+ newText=newText+("</tr></table>");
+ var id = ligne[0].replace(/ /,"");
+ var divSensorLinks = document.getElementById(id);
+ divSensorLinks.innerHTML = newText; 
+ divSensorLinks.style.display = "block";
+ }
+ 
+ setTimeout(function(){downloadAllSensors()},repeatTime);
+ }
+ }
+ }
+ oXmlHttp.send(null); 
+}
+
+function downloadSensors(sensor) {
+ var oXmlHttp = zXmlHttp.createRequest();
+ var divAdditionalLinks = document.getElementById(sensor);
+ var command_line="get_sensor_value.cgi?sensor="+sensor;
+ var repeatTime = iInterval;
+ if (divAdditionalLinks.logsize != undefined) {
+ command_line=command_line+"&logzise="+divAdditionalLinks.logsize.value; 
+ }
+ if (divAdditionalLinks.repeattime != undefined) {
+ repeatTime = divAdditionalLinks.repeattime.value;
+ }
+ oXmlHttp.open("get",command_line , true);
+ oXmlHttp.onreadystatechange = function () {
+ if (oXmlHttp.readyState == 4) { 
+ if (oXmlHttp.status == 200) {
+ var newText="<table border=\"1\" width=\"100%\" bordercolor=\"black\"><colgroup><col width=\"1*\"><col width=\"3*\"><col width=\"2*\"><col width=\"2*\"></colgroup><tr><th>Sensor</th><th>Date</th><th>Value</th><th>Alarm</th></tr>";
+ var regpipe=new RegExp("[|]+", "g");
+ if (divAdditionalLinks.logsize == undefined) { 
+ var ligne=oXmlHttp.responseText.split(regpipe);
+ newText=newText+("<tr>");
+ for (var j=0; j<ligne.length; j++) {
+ newText=newText+("<td>"+ligne[j]+"</td>");
+ } 
+ newText=newText+("</tr></table>");
+ divAdditionalLinks.innerHTML = newText; 
+ divAdditionalLinks.style.display = "block";
+ }
+ else { 
+ var reg=new RegExp("[\n]+", "g");
+ var tableau=oXmlHttp.responseText.split(reg);
+ for (var i=0; i<tableau.length; i++) {
+ newText=newText+("<tr>");
+ var ligne=tableau[i].split(regpipe);
+ for (var j=0; j<ligne.length; j++) {
+ newText=newText+("<td>"+ligne[j]+"</td>");
+ }
+ newText=newText+("</tr>");
+ }
+ newText=newText+"</table>";
+ divAdditionalLinks.innerHTML = "Log Size is:"+divAdditionalLinks.logsize.value+
+ "<br>refresh time is :"+divAdditionalLinks.repeattime.value+"ms<br>"+
+ newText;
+ divAdditionalLinks.style.display = "block"; 
+ }
+ setTimeout(function(){downloadSensors(sensor)},repeatTime);
+ }
+ }
+ }
+ oXmlHttp.send(null); 
+}
+
+function initSensorsGraph(sensor) 
+{
+ var maxWidth = iGraphWidth;
+ var miny = iGraphMiny;
+ var divConfig = document.getElementById(sensor+"_config");
+ if (divConfig.width != undefined) { 
+ maxWidth = parseInt(divConfig.width.value);
+ }
+ if (divConfig.miny != undefined) { 
+ miny = parseInt(divConfig.miny.value);
+ }
+ aStoreGraphIndex[sensor]=-1*maxWidth;
+ for(i=0;i<maxWidth;i++) {
+ aStoreGraph[sensor].push([aStoreGraphIndex[sensor]++,miny] ); 
+ }
+}
+
+function downloadSensorsGraph(sensor) {
+ var repeatTime = iInterval ;
+ var maxWidth = iGraphWidth ;
+ var maxy = iGraphMaxy 
+ var miny = iGraphMiny
+ 
+ var divAdditionalLinks = document.getElementById(sensor);
+ var divConfig = document.getElementById(sensor+"_config");
+ var reg=new RegExp("[_]", "");
+ var sendValue=sensor.split(reg);
+ var command_line="get_sensor_value.cgi?sensor="+sendValue[0];
+
+ if (divConfig.repeattime != undefined) {
+ repeatTime = parseInt(divConfig.repeattime.value);
+ }
+ if (divConfig.width != undefined) { 
+ maxWidth = parseInt(divConfig.width.value);
+ }
+ if (divConfig.maxy != undefined) { 
+ maxy = parseInt(divConfig.maxy.value);
+ }
+ if (divConfig.miny != undefined) { 
+ miny = parseInt(divConfig.miny.value);
+ }
+ var oXmlHttp = zXmlHttp.createRequest();
+ oXmlHttp.open("get",command_line , true); 
+ oXmlHttp.onreadystatechange = function () {
+ 
+ if (oXmlHttp.readyState == 4) { 
+ if (oXmlHttp.status == 200) { 
+ 
+ var regColone=new RegExp("[|]+", "g");
+ var colone=oXmlHttp.responseText.split(regColone);
+ colone[2]=parseFloat(colone[2]);
+ aStoreGraph[sensor].push([aStoreGraphIndex[sensor]++,colone[2]] );
+ if(aStoreGraph[sensor].length>maxWidth) {
+ aStoreGraph[sensor].shift();
+ }
+ divAdditionalLinks.innerHTML="";
+ if(aStoreGraph[sensor].length<maxWidth) {
+ var options = {"xAxis": [0,maxWidth], "yAxis":[miny,maxy]};
+ } 
+ else {
+ var minx=aStoreGraphIndex[sensor] - aStoreGraph[sensor].length;
+ var maxx = aStoreGraphIndex[sensor];
+ var options = {"xAxis": [minx,maxx], "yAxis":[miny,maxy]};
+ } 
+ var plotter = EasyPlot("line",options , $(sensor), [aStoreGraph[sensor]]);
+ divAdditionalLinks.style.display = "block";
+ setTimeout(function(){downloadSensorsGraph(sensor)},repeatTime);
+ }
+ }
+ }
+ oXmlHttp.send(null); 
+}
+
+function downloadSensorsArray(sensor) {
+ var repeatTime = iInterval ;
+ var maxLength = iArrayLength ;
+ var divAdditionalLinks = document.getElementById(sensor);
+ var divConfig = document.getElementById(sensor+"_config");
+ var reg=new RegExp("[_]", "");
+ var sendValue=sensor.split(reg);
+ var command_line="get_sensor_value.cgi?sensor="+sendValue[0];
+ if (divConfig.repeattime != undefined) {
+ repeatTime = divConfig.repeattime.value;
+ }
+ if (divConfig.length != undefined) { 
+ maxLength = divConfig.length.value;
+ }
+ var oXmlHttp = zXmlHttp.createRequest();
+ oXmlHttp.open("get",command_line , true);
+ oXmlHttp.onreadystatechange = function () {
+ if (oXmlHttp.readyState == 4) { 
+ if (oXmlHttp.status == 200) {
+ aStoreArray[sensor].unshift(oXmlHttp.responseText);
+ if(aStoreArray[sensor].length>maxLength) {
+ aStoreArray[sensor].pop();
+ }
+ 
+ var regpipe=new RegExp("[|]+", "g");
+ var newText="<table border=\"1\" width=\"100%\" bordercolor=\"black\"><colgroup><col width=\"1*\"><col width=\"3*\"><col width=\"2*\"><col width=\"2*\"></colgroup><tr><th>Sensor</th><th>Date</th><th>Value</th><th>Alarm</th></tr>";
+ for (index in aStoreArray[sensor]) {
+ var ligne=aStoreArray[sensor][index].split(regpipe);
+ newText=newText+("<tr>");
+ for (var j=0; j<ligne.length; j++) {
+ newText=newText+("<td>"+ligne[j]+"</td>");
+ }
+ newText=newText+("</tr>");
+ }
+ newText=newText+"</table></center>";
+ divAdditionalLinks.innerHTML= "refresh time is :"+repeatTime+"ms<br>"+
+ " Storing the last :" +aStoreArray[sensor].length + " values<br>"+
+ newText;
+ divAdditionalLinks.style.display = "block";
+ setTimeout(function(){downloadSensorsArray(sensor)},repeatTime);
+ }
+ }
+ }
+ oXmlHttp.send(null); 
+}
+
+window.onload = function () {
+ var index;
+
+ FindNavigator();
+
+ if (zXmlHttp.isSupported()) {
+ var divAdditionalLinks = document.getElementById(sSensorAll);
+ if(divAdditionalLinks) {
+ downloadAllSensors();
+ }
+ else {
+ for (index in aSensorList) { 
+ var divAdditionalLinks = document.getElementById(aSensorList[index]);
+ if(divAdditionalLinks) {
+ downloadSensors(aSensorList[index]); 
+ }
+ }
+ }
+ for (index in aSensorList) { 
+ var divAdditionalLinks = document.getElementById(aSensorList[index]+"_graph");
+ if(divAdditionalLinks) {
+ aStoreGraph[aSensorList[index]+"_graph"] = new Array();
+ aStoreGraphIndex[aSensorList[index]+"_graph"] = 0;
+ initSensorsGraph(aSensorList[index]+"_graph");
+ downloadSensorsGraph(aSensorList[index]+"_graph");
+ }
+ }
+ for (index in aSensorList) { 
+ var divAdditionalLinks = document.getElementById(aSensorList[index]+"_array");
+ if(divAdditionalLinks) {
+ aStoreArray[aSensorList[index]+"_array"] = new Array();
+ aStoreArrayIndex[aSensorList[index]+"_array"] = 0;
+ downloadSensorsArray(aSensorList[index]+"_array");
+ }
+ }
+ 
+ }
+ else {
+ alert("zXmlHttp not Supported");
+ }
+} 
+
+function FindNavigator() {
+ sNavigator="";
+ var strChUserAgent = navigator.userAgent;
+ var intSplitStart = strChUserAgent.indexOf("(",0);
+ var intSplitEnd = strChUserAgent.indexOf(")",0);
+ var strChStart = strChUserAgent.substring(0,intSplitStart);
+ var strChMid = strChUserAgent.substring(intSplitStart, intSplitEnd);
+ var strChEnd = strChUserAgent.substring(strChEnd);
+
+ if(strChMid.indexOf("MSIE 7") != -1)
+ sNavigator="IE7"
+ else if(strChMid.indexOf("MSIE 6") != -1)
+ sNavigator="IE6";
+ else if(strChEnd.indexOf("Firefox/2") != -1)
+ sNavigator="FIREFOX2";
+ else if(strChEnd.indexOf("Firefox") != -1)
+ sNavigator="FIREFOX";
+ else if(strChEnd.indexOf("Netscape/7") != -1)
+ sNavigator="NETSCAPE7";
+ else if(strChEnd.indexOf("Netscape") != -1)
+ sNavigator="NETSCAPE";
+ else if(strChStart.indexOf("Opera/9") != -1)
+ sNavigator="OPERA9";
+ else if(strChStart.indexOf("Opera") != -1)
+ sNavigator="OPERA";
+ else
+ sNavigator="AUTRE";
+
+}
+-->
+</script>
+ <script src="mochi/MochiKit.js" type="text/javascript"></script>
+ <script src="mochi/excanvas.js" type="text/javascript"></script>
+ <script src="mochi/PlotKit_Packed.js" type="text/javascript"></script>
+</head>
+
+<body>
+ <div class="header">
+ <a href="index.htm"><img src="logo_atmel.gif" align="left" alt="Home" border="0"></a> <a href="sensor.htm">Sensors</a> - <a href="sensorg.htm">Graphic</a> - <a href="actuator.htm">Actuators</a> - <a href="sensorc.htm">Sensors Configuration</a> - <a href="config.htm">System Configuration - <a href="help.htm">Help</a>
+ </div>
+ <div class="leftmenu">
+ <a href="#temp_graph">Temp graph</a><br> 
+ <a href="#temp_array">Temp array</a><br>
+ <a href="#pot_graph">Pot graph</a><br>
+ <a href="#pot_array">Pot array</a><br>
+ </div>
+ </div>
+ 
+ <div class="right_column">
+ <br>
+ 
+ <div class="content_header">
+ <a name="temp_graph">Temperature Graph</a> 
+ </div>
+ 
+ <div class="content_body">
+ <div id="temp_graph" style="margin: 0 auto 0 auto;" width="580" height="400"></div>
+ <form id="temp_graph_config"
+ <input type="hidden" name="repeattime" value="500">
+ <input type="hidden" name="width" value="100">
+ <input type="hidden" name="miny" value="-10">
+ <input type="hidden" name="maxy" value="40">
+ </form> 
+ </div> 
+ 
+ <div class="content_header">
+ <a name="temp_array">Temperature Array</a> 
+ </div>
+ 
+ <div class="content_body">
+ <div id="temp_array"></div>
+ <form id="temp_array_config"
+ <input type="hidden" name="repeattime" value="500">
+ <input type="hidden" name="length" value="10">
+ </form> 
+ </div>
+ 
+ <div class="content_header">
+ <a name="pot_graph">Potentiometer Graph</a> 
+ </div>
+ 
+ <div class="content_body">
+ <div id="pot_graph" style="margin: 0 auto 0 auto;" width="580" height="400"></div>
+ <form id="pot_graph_config"
+ <input type="hidden" name="repeattime" value="500">
+ <input type="hidden" name="width" value="100">
+ <input type="hidden" name="miny" value="0">
+ <input type="hidden" name="maxy" value="100">
+ </form> 
+ </div> 
+ 
+ <div class="content_header">
+ <a name="pot_array">Potentiometer Array</a> 
+ </div>
+ 
+ <div class="content_body">
+ <div id="pot_array"></div>
+ <form id="pot_array_config"
+ <input type="hidden" name="repeattime" value="500">
+ <input type="hidden" name="length" value="10">
+ </form> 
+ </div> 
+ 
+</body>
+</html>

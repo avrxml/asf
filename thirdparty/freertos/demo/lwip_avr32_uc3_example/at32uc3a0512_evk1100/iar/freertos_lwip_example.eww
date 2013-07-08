@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\freertos_lwip_example.ewp</path>
+	</project>
+</workspace>

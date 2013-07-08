@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\uc3-bluetooth-t2bf-spp-demo-demo.ewp</path>
+	</project>
+</workspace>

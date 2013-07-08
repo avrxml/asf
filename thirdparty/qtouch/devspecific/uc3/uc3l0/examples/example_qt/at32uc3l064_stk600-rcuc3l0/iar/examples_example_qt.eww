@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\examples_example_qt.ewp</path>
+	</project>
+</workspace>

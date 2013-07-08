@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\xmega_e5_xplained_demo.ewp</path>
+	</project>
+</workspace>

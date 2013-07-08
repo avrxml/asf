@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\evk1104-usb-msc-sd-demo.ewp</path>
+	</project>
+</workspace>

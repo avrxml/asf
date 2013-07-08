@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\ext_int_example1.ewp</path>
+	</project>
+</workspace>

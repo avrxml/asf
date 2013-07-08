@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+    <meta content="Atmel" name="author">
+    <meta content="avr32,demo,web,server,UC3" name="keywords">
+    <title>WEB CONTROL PANEL - Graphical Display</title> 
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <link href="sensor.css" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="zxml.js"></script>
+   <script type="text/javascript" src="sensor.js"></script>
+   <script src="mochi/MochiKit.js" type="text/javascript"></script>
+   <script src="mochi/excanvas.js" type="text/javascript"></script>
+   <script src="mochi/PlotKit_Packed.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <div class="header">
+    <a href="index.htm"><img src="logo_atmel.gif" align="left" alt="Home" border="0"></a> <a href="sensor.htm">Sensors</a> - <a href="sensorg.htm">Graphic</a> - <a href="actuator.htm">Actuators</a> - <a href="sensorc.htm">Sensors Configuration</a> - <a href="config.htm">System Configuration - <a href="help.htm">Help</a>
+  </div>
+  <div class="leftmenu">
+    <a href="#temp_graph">Temp graph</a><br> 
+    <a href="#temp_array">Temp array</a><br>
+    <a href="#pot_graph">Pot graph</a><br>
+    <a href="#pot_array">Pot array</a><br>
+  </div>
+    </div>
+    
+    <div class="right_column">
+    <br>
+	
+    <div class="content_header">
+	<a name="temp_graph">Temperature Graph</a> 
+    </div>
+    
+    <div class="content_body">
+	<div id="temp_graph" style="margin: 0 auto 0 auto;" width="580" height="400"></div>
+	<form id="temp_graph_config"
+	        <input type="hidden" name="repeattime" value="500">
+		<input type="hidden" name="width" value="100">
+		<input type="hidden" name="miny" value="-10">
+		<input type="hidden" name="maxy" value="40">
+	</form>	
+    </div>    
+    
+    <div class="content_header">
+	<a name="temp_array">Temperature Array</a> 
+    </div>
+    
+    <div class="content_body">
+	<div id="temp_array"></div>
+	<form id="temp_array_config"
+	        <input type="hidden" name="repeattime" value="500">
+		<input type="hidden" name="length" value="10">
+	</form>	
+    </div>
+    
+     <div class="content_header">
+	<a name="pot_graph">Potentiometer Graph</a> 
+    </div>
+    
+    <div class="content_body">
+	<div id="pot_graph" style="margin: 0 auto 0 auto;" width="580" height="400"></div>
+	<form id="pot_graph_config"
+	        <input type="hidden" name="repeattime" value="500">
+		<input type="hidden" name="width" value="100">
+		<input type="hidden" name="miny" value="0">
+		<input type="hidden" name="maxy" value="100">
+	</form>	
+    </div>    
+    
+    <div class="content_header">
+	<a name="pot_array">Potentiometer Array</a> 
+    </div>
+    
+    <div class="content_body">
+	<div id="pot_array"></div>
+	<form id="pot_array_config"
+	        <input type="hidden" name="repeattime" value="500">
+		<input type="hidden" name="length" value="10">
+	</form>	
+    </div>        
+        
+</body>
+</html>

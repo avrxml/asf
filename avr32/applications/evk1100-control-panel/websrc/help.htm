@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta content="text/html; charset=us-ascii" http-equiv="content-type">
+  <meta content="Atmel" name="author">
+  <meta content="avr32,demo,web,server,UC3" name="keywords">
+
+  <title>WEB CONTROL PANEL - Help </title>
+  <link href="sensor.css" rel="stylesheet" type="text/css">
+</head>
+
+
+<body>
+  <div class="header">
+    <a href="index.htm"><img src="logo_atmel.gif" align="left" alt="Home" border="0"></a> <a href=
+    "sensor.htm">Sensors</a> - <a href="sensorg.htm">Graphic</a> - <a href="actuator.htm">Actuators</a> - <a href="sensorc.htm">Sensors
+    Configuration</a> - <a href="config.htm">System Configuration - <a href="help.htm">Help</a>
+  </div>
+  
+  <div class="leftmenu">
+    Help <br>
+  </div>
+
+
+<div class="right_column">
+    <br>
+
+    <div class="content_header">
+      <a name="temp_welcome" id="temp_welcome">AVR&reg;32 UC3 Control Panel</a>
+    </div>
+    
+ 
+
+  <div class="content_body">
+      
+   <h2>Control Panel Source</h2>
+   The control Panel is part of the AVR32 UC3 Software Framework. </p>
+   <i>For more information, refer to the Control Panel User's Guide: /APPLICATIONS/EVK1100-CONTROL-PANEL/readme.html </i>
+  
+   <p>&nbsp;</p>
+
+   <h2>Control Panel Features</h2>
+
+   <h3><b>1. ADC data acquisition </b></h3>
+     <ul> From sensors and actuators as logs.
+          These logs are saved in text files on the embedded file system FAT on the EVK1100's dataflash. </p></ul>
+    
+    
+    <h3>2. An embedded <b>web server</b></h3>
+    <ul> Allowing a remote user to consult the logs
+    and set the actuators in real time and configure the Control Panel modules
+    through any web browser.</ul>
+    
+    
+    <h3>3. A <b>USB Mass Storage device </b></h3>
+    <ul> Allowing a USB host to connect to the board
+      and browse the Control Panel embedded file system.</p>
+      As mentionned on the LCD on line 3 "Press -> Mass Storage", press the joystick to switch to Mass Storage device mode.
+      You may now plug a USB host to the EVK1100 board to enter the USB device mass storage mode (note that the message on the LCD on line 3 has changed to "Waiting for Host" then to "USB Mass Storage").
+      </ul>
+    
+    <h3>4. A <b>USB Mass Storage host </b></h3>
+    <ul> Allowing to plug a Mass Storage USB key onto the board. 
+      The Control Panel then acts as a USB host and the user may actions using the local man-machine interface.       
+      Plug your USB key to a miniA plug to STD-A Receptacle OTG cable to adapt to the miniA-B receptacle on the board the Control Panel
+      is running on. </p> 
+      Then plug the cable to the board. You shall see the USB sign appear on the LCD(last column of the second line).
+      The symbol on the last column of the menu line(a right arrow) tells the user that there is new actions in this menu to perform.
+      </ul>
+    
+    
+    <h3>5. A <b>Shell-like interface</b></h3>    
+    <ul>On the EVK1100 USART_0 (57600bps/8bit data/1 stop bit/no flow control), allowing to navigate on the
+    Control Panel file system, to configure the system, to interface with the sensors and actuators. </ul>
+    
+    <h3>6. A <b>RS-232 debug output</b></h3>
+    <ul>On the EVK1100 USART_1 (57600bps/8bit data/1 stop bit/no flow control). </ul>
+    
+
+</body>
+</html>

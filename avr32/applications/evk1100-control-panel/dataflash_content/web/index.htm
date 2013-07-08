@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+ <meta content="text/html; charset=us-ascii" http-equiv="content-type">
+ <meta content="Atmel" name="author">
+ <meta content="avr32,demo,web,server,UC3" name="keywords">
+ <title>WEB CONTROL PANEL - Index</title>
+<style  TYPE="text/css">
+<!--
+.header {
+ height: 45px;
+ line-height: 45px;
+ width: 950px;
+ padding:3px;
+ text-align: center;
+ background: #2477E6;
+ color: #FFF;
+ font-size: 14px;
+ font-weight: bold;
+}
+
+.header a:link, .header a:visited {
+ text-decoration: none;
+ color : #FFF;
+}
+
+.header a:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+body {
+ margin-left: 8px;
+ margin-right: 8px;
+ margin-top: 8px;
+ margin-bottom: 8px;
+ padding: 0;
+ background-color: white;
+ color: black;
+ font-size: 12px;
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+ font-size: 24px;
+ font-weight: bold;
+ color: #03F;
+}
+
+.title {
+ width: 900px;
+}
+
+.titletop {
+ height: 21px;
+ width: 716px;
+ color: white;
+ font-weight: bold;
+ background-image: url(title_bg.gif);
+ float: left;
+}
+
+.leftmenu {
+ height: 1520px;
+ line-height: 45px;
+ padding:3px;
+ text-align: left;
+ float: left;
+ background: #2477E6;
+ color: #FFF;
+ font-size: 14px;
+ font-weight: bold;
+ width: 130px;
+}
+
+.leftmenu a:link, .leftmenu a:visited {
+ text-decoration: none;
+ color : #FFF;
+}
+
+.leftmenu a:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+.right_column {
+ margin-right: 10px;
+ margin-left: 175px;
+}
+
+.content_header {
+ width : 775px;
+ background: #2477E6;
+ padding: 3px;
+ text-align: center;
+ color: #ffffff;
+ font-size: 14px;
+ font-weight: bold;
+ border: 1px solid #000;
+}
+
+.content_body {
+ width : 775px;
+ background: #FFF;
+ padding: 3px;
+ text-align: left;
+ color: #000;
+ font-size: 12px;
+ border-bottom:1px solid #000;
+ border-left:1px solid #000;
+ border-right:1px solid #000;
+ margin-bottom:15px;
+}
+
+.content_body_right {
+ width : 775px;
+ background: #FFF;
+ padding: 3px;
+ text-align: right;
+ color: #000000;
+ font-size: 12px;
+ border-bottom:1px solid #000;
+ border-left:1px solid #000;
+ border-right:1px solid #000;
+ margin-bottom:15px;
+}
+
+a.content_link:link, a.content_link:visited {
+ text-decoration: none;
+ color : #000;
+}
+
+a.content_link:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+.fade_block { 
+ width : 470px;
+ height : 300px;
+ background: #FFF;
+ background-repeat : none
+ padding: 10px;
+ text-align: center;
+ color: #2477E6;
+ font-size: 20px;
+ font-weight: bold;
+ float: right;
+}
+-->
+</style>
+<script language="javascript">
+<!--
+var aFadeMessage = new Array(
+ '<img alt="AVR32" src="AVR_logo_black.png">',
+ '<img alt="AT32UC3A0512" src="AT32UC3A0512.jpg">',
+ 'AVR UC3A0/A1 Series MCUs',
+ '512KB Flash, 64KB SRAM, 10/100 Ethernet MAC, Full-speed (12 Mbps) USB 2.0 with On-The-Go (OTG) capability, I2S, Built-in Audio DAC',
+ 'Delivers 91 DMIPS at 66 MHz and consumes only 40 mA at 3.3V'
+ );
+window.onload = function () {
+ var fade = document.getElementById("fade1");
+ if(fade) {
+ fading0();
+ }
+} 
+ 
+/// Fading Effect
+function $(v) { return(document.getElementById(v)); }
+
+function $S(v) { return($(v).style); }
+
+function uni(v,id,s,top) { var ob=$S(id),b=v/100; ob.opacity=b; ob.top=top+'px'; ob.MozOpacity=b; ob.KhtmlOpacity=b; ob.filter="alpha(opacity="+v+")"; }
+
+function zero(v) { v=parseInt(v); return(!isNaN(v)?v:0); }
+
+function fade(id,ln,s) { 
+ var top=zero(parseInt($S(id).top));
+ function opacity(oStart,oEnd,ln) { 
+ var speed=Math.round(ln/100),timer=0;
+ if(oStart>oEnd) { 
+ for(i=oStart; i>=oEnd; i--) { 
+ setTimeout("uni("+i+",'"+id+"','','"+(top--)+"')",timer*speed); 
+ timer++; 
+ } 
+ //setTimeout("$S('"+id+"').display='none';",timer*speed); 
+ }
+ else if(oStart<oEnd) { 
+ $S(id).display='inline'; 
+ for(i=oStart; i<=oEnd; i++) { 
+ setTimeout("uni("+i+",'"+id+"','"+1+"','"+(top++)+"')",timer*speed); timer++; 
+ } 
+ }
+
+ }
+
+ if(s==1 || (!s && $S(id).opacity==0)) {
+ opacity(0,100,ln); 
+ }
+ else {
+ opacity(100,0,ln);
+ }
+
+}
+
+function fading0() {
+ var fade2 = document.getElementById("fade2");
+ var fade3 = document.getElementById("fade3");
+ fade2.innerHTML="";
+ fade3.innerHTML="";
+ var divAdditionalLinks = document.getElementById("fade1");
+ divAdditionalLinks.innerHTML=aFadeMessage[0];
+ fade("fade1",1000,1);
+ setTimeout(function(){fadout0()},3000); 
+}
+
+function fadout0() {
+ fade("fade1",1000,0);
+ setTimeout(function(){fading1()},1100);
+}
+
+function fading1() {
+ var divAdditionalLinks = document.getElementById("fade1");
+ divAdditionalLinks.innerHTML=aFadeMessage[1];
+ fade("fade1",1000,1);
+ setTimeout(function(){fadout1()},3000); 
+}
+
+function fadout1() {
+ fade("fade1",1000,0);
+ setTimeout(function(){fading2()},1100);
+}
+
+
+function fading2() {
+ fade("fade1",1000,0);
+ var divAdditionalLinks = document.getElementById("fade1");
+ divAdditionalLinks.innerHTML=aFadeMessage[2];
+ fade("fade1",1000,1);
+ setTimeout(function(){fading3()},2000); 
+}
+
+function fading3() {
+ var divAdditionalLinks = document.getElementById("fade2");
+ divAdditionalLinks.innerHTML=aFadeMessage[3];
+ fade("fade2",1000,1);
+ setTimeout(function(){fading4()},3000);
+}
+
+function fading4() {
+ var divAdditionalLinks = document.getElementById("fade3");
+ divAdditionalLinks.innerHTML=aFadeMessage[4];
+ fade("fade3",1000,1);
+ setTimeout(function(){fadoutall()},4000);
+}
+
+function fadoutall() {
+ fade("fade1",1000,0);
+ fade("fade2",1000,0);
+ fade("fade3",1000,0);
+ setTimeout(function(){fading0()},1100);
+}
+-->
+</script>
+</script>
+</head>
+
+<body>
+ <div class="header">
+ <a href="index.htm"><img src="logo_atmel.gif" align="left" alt="Home" border="0"></a> <a href=
+ "sensor.htm">Sensors</a> - <a href="sensorg.htm">Graphic</a> - <a href="actuator.htm">Actuators</a> - <a href="sensorc.htm">Sensors
+ Configuration</a> - <a href="config.htm">System Configuration - <a href="help.htm">Help</a>
+ </div>
+
+ <div class="leftmenu">
+ Welcome<br>
+ </div>
+
+ <div class="right_column">
+ <br>
+
+ <div class="content_header">
+ <a name="temp_welcome" id="temp_welcome">AVR&reg; UC3&trade; EVK1100 Control Panel</a>
+ </div>
+
+ <div class="content_body">
+ Welcome to the <b>AVR UC3 Control Panel</b> based on the EVK1100 evaluation kit and its embedded web server.</p>
+ 
+ <h2>Description</h2>
+ The Control Panel application is a demonstration application running on top of the freeRTOS.org operating system. 
+ Its purpose is to log local sensors and actuators data and events(data acquisition) and make these available through the various connectivity channels supported by the AVR UC3A microcontroller.</p>
+ 
+ <p>&nbsp;</p>
+ 
+ <div class="fade_block">
+ <div id="fade1" style="display: none; opacity: 0"></div><br><br>
+ <div id="fade2" style="display: none; opacity: 0"></div><br><br>
+ <div id="fade3" style="display: none; opacity: 0"></div>
+ </div>
+ 
+ <h2>Web Server Features</h2>
+ 
+ <h3><a href="sensor.htm">Sensors</a></h3>
+ <p>Access to the board sensors (Temperature, light...) states in real time.</p>
+ <h3><a href="sensorg.htm">Graphic</a></h3>
+ <p>Get a graphical history for temperature <br>sensor and potentiometer.</p>
+ <h3><a href="Actuator.htm">Actuators</a></h3>
+ <p>Change actuators (LEDs) states of the board.</p>
+ <h3><a href="Sensorc.htm">Sensors Configuration</a></h3>
+ <p>Configure sensors levels and triggers. Add alarm if needed</p>
+ <h3><a href="config.htm">System Configuration</a></h3>
+ <p>Set the system configuration (network...).</p>
+ </div>
+ </div>
+ </body>
+</html>

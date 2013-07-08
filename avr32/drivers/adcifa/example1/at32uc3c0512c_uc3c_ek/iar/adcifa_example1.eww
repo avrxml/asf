@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\adcifa_example1.ewp</path>
+	</project>
+</workspace>

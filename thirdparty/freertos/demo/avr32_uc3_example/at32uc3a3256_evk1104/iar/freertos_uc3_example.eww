@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\freertos_uc3_example.ewp</path>
+	</project>
+</workspace>

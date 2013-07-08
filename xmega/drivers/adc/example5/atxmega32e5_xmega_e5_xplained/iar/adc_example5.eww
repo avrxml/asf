@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\adc_example5.ewp</path>
+	</project>
+</workspace>

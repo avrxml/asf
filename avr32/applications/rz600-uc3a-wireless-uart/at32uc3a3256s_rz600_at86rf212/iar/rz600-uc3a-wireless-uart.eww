@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\rz600-uc3a-wireless-uart.ewp</path>
+	</project>
+</workspace>

@@ -1,0 +1,9 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\usart_usart_iso7816_example_flash.ewp</path>
+	</project>
+	<project>
+		<path>$WS_DIR$\usart_usart_iso7816_example_sram.ewp</path>
+	</project>
+</workspace>

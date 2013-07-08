@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\evk11xx-uc3b-bootselector.ewp</path>
+	</project>
+</workspace>

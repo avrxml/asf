@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\low_power_demo_xmega.ewp</path>
+	</project>
+</workspace>

@@ -1,0 +1,6 @@
+/*
+ * Only the CMSIS required parts for ASF are included here, go to the below
+ * address for the full package:
+ * http://www.arm.com/products/processors/cortex-m/cortex-microcontroller-software-interface-standard.php
+ *
+ */

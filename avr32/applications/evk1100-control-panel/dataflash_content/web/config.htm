@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+ <meta content="text/html; charset=us-ascii" http-equiv="content-type">
+ <meta content="Atmel" name="author">
+ <meta content="avr32,demo,web,server,UC3" name="keywords">
+
+ <title>WEB CONTROL PANEL - System Configuration</title>
+<style  TYPE="text/css">
+<!--
+.header {
+ height: 45px;
+ line-height: 45px;
+ width: 950px;
+ padding:3px;
+ text-align: center;
+ background: #2477E6;
+ color: #FFF;
+ font-size: 14px;
+ font-weight: bold;
+}
+
+.header a:link, .header a:visited {
+ text-decoration: none;
+ color : #FFF;
+}
+
+.header a:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+body {
+ margin-left: 8px;
+ margin-right: 8px;
+ margin-top: 8px;
+ margin-bottom: 8px;
+ padding: 0;
+ background-color: white;
+ color: black;
+ font-size: 12px;
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+ font-size: 24px;
+ font-weight: bold;
+ color: #03F;
+}
+
+.title {
+ width: 900px;
+}
+
+.titletop {
+ height: 21px;
+ width: 716px;
+ color: white;
+ font-weight: bold;
+ background-image: url(title_bg.gif);
+ float: left;
+}
+
+.leftmenu {
+ height: 1520px;
+ line-height: 45px;
+ padding:3px;
+ text-align: left;
+ float: left;
+ background: #2477E6;
+ color: #FFF;
+ font-size: 14px;
+ font-weight: bold;
+ width: 130px;
+}
+
+.leftmenu a:link, .leftmenu a:visited {
+ text-decoration: none;
+ color : #FFF;
+}
+
+.leftmenu a:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+.right_column {
+ margin-right: 10px;
+ margin-left: 175px;
+}
+
+.content_header {
+ width : 775px;
+ background: #2477E6;
+ padding: 3px;
+ text-align: center;
+ color: #ffffff;
+ font-size: 14px;
+ font-weight: bold;
+ border: 1px solid #000;
+}
+
+.content_body {
+ width : 775px;
+ background: #FFF;
+ padding: 3px;
+ text-align: left;
+ color: #000;
+ font-size: 12px;
+ border-bottom:1px solid #000;
+ border-left:1px solid #000;
+ border-right:1px solid #000;
+ margin-bottom:15px;
+}
+
+.content_body_right {
+ width : 775px;
+ background: #FFF;
+ padding: 3px;
+ text-align: right;
+ color: #000000;
+ font-size: 12px;
+ border-bottom:1px solid #000;
+ border-left:1px solid #000;
+ border-right:1px solid #000;
+ margin-bottom:15px;
+}
+
+a.content_link:link, a.content_link:visited {
+ text-decoration: none;
+ color : #000;
+}
+
+a.content_link:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+.fade_block { 
+ width : 470px;
+ height : 300px;
+ background: #FFF;
+ background-repeat : none
+ padding: 10px;
+ text-align: center;
+ color: #2477E6;
+ font-size: 20px;
+ font-weight: bold;
+ float: right;
+}
+-->
+</style>
+<script language="javascript">
+<!--
+var zXml={useActiveX:(typeof ActiveXObject!="undefined"),useDom:document.implementation&&document.implementation.createDocument,useXmlHttp:(typeof XMLHttpRequest!="undefined")};zXml.ARR_XMLHTTP_VERS=["MSXML2.XmlHttp.6.0","MSXML2.XmlHttp.3.0"];zXml.ARR_DOM_VERS=["MSXML2.DOMDocument.6.0","MSXML2.DOMDocument.3.0"];function zXmlHttp(){}zXmlHttp.createRequest=function(){if(zXml.useXmlHttp){return new XMLHttpRequest();}else if(zXml.useActiveX){if(!zXml.XMLHTTP_VER){for(var i=0;i<zXml.ARR_XMLHTTP_VERS.length;i++){try{new ActiveXObject(zXml.ARR_XMLHTTP_VERS[i]);zXml.XMLHTTP_VER=zXml.ARR_XMLHTTP_VERS[i];break;}catch(oError){;}}}if(zXml.XMLHTTP_VER){return new ActiveXObject(zXml.XMLHTTP_VER);}else{throw new Error("Could not create XML HTTP Request.");}}else{throw new Error("Your browser doesn't support an XML HTTP Request.");}};zXmlHttp.isSupported=function(){return zXml.useXmlHttp||zXml.useActiveX;};
+
+-->
+</script>
+</script>
+<script language="javascript">
+<!--
+var aSysConfig = new Array("net","time","tftp","http","smtp","pop3","telnet","log");
+
+
+window.onload = function () {
+ var index;
+
+ if (zXmlHttp.isSupported()) {
+ for (index in aSysConfig) { 
+ var divAdditionalLinks = document.getElementById(aSysConfig[index]);
+ if(divAdditionalLinks) {
+ get_sys_config(aSysConfig[index]);
+ }
+ } 
+ }
+ else {
+ alert("zXmlHttp not Supported");
+ }
+} 
+
+
+function check_sys_config(sys)
+{
+ if(sys==1) { // "net"
+ var divAdditionalLinks = document.getElementById("net"); 
+ set_sys_config("net_macaddr",divAdditionalLinks.net_macaddr.value);
+ set_sys_config("net_ipaddr" ,divAdditionalLinks.net_ipaddr.value);
+ set_sys_config("net_submask",divAdditionalLinks.net_submask.value);
+ set_sys_config("net_gwaddr" ,divAdditionalLinks.net_gwaddr.value);
+ }
+ if(sys==2) { // "time"
+ var divAdditionalLinks = document.getElementById("time"); 
+ set_sys_config("time_remoteipaddr",divAdditionalLinks.time_remoteipaddr.value);
+ set_sys_config("time_remoteport",divAdditionalLinks.time_remoteport.value);
+ set_sys_config("time_retrydelay",divAdditionalLinks.time_retrydelay.value);
+ set_sys_config("time_curtime",divAdditionalLinks.time_curtime.value);
+ }
+ if(sys==3) { // "tftp"
+ var divAdditionalLinks = document.getElementById("tftp"); 
+ set_sys_config("tftp_port",divAdditionalLinks.tftp_port.value);
+ }
+ if(sys==4) { // "http"
+ var divAdditionalLinks = document.getElementById("http"); 
+ set_sys_config("http_port",divAdditionalLinks.http_port.value);
+ }
+ if(sys==5) { // "smtp"
+ var divAdditionalLinks = document.getElementById("smtp"); 
+ set_sys_config("smtp_mailto",divAdditionalLinks.smtp_mailto.value);
+ set_sys_config("smtp_mailfrom",divAdditionalLinks.smtp_mailfrom.value);
+ set_sys_config("smtp_port",divAdditionalLinks.smtp_port.value);
+ set_sys_config("smtp_server",divAdditionalLinks.smtp_server.value);
+ }
+ if(sys==6) { // "pop3"
+ var divAdditionalLinks = document.getElementById("pop3"); 
+ set_sys_config("pop3_remoteipaddr",divAdditionalLinks.pop3_remoteipaddr.value);
+ set_sys_config("pop3_remoteport",divAdditionalLinks.pop3_remoteport.value);
+ set_sys_config("pop3_retrydelay",divAdditionalLinks.pop3_retrydelay.value);
+ }
+ if(sys==7) { // "telnet"
+ var divAdditionalLinks = document.getElementById("telnet"); 
+ set_sys_config("telnet_port",divAdditionalLinks.telnet_port.value);
+ }
+ if(sys==8) { // "log"
+ var divAdditionalLinks = document.getElementById("log"); 
+ set_sys_config("log_persmtp",divAdditionalLinks.log_persmtp.value);
+ set_sys_config("log_maxfilelen",divAdditionalLinks.log_maxfilelen.value);
+ }
+}
+
+function set_sys_config(field,value) {
+ var oXmlHttp = zXmlHttp.createRequest();
+ var reg=new RegExp("[_]", "");
+ var sendValue=field.split(reg);
+ 
+ if(sendValue[1] == "curtime") {
+ var commandline="set_sys_config.cgi?sys="+sendValue[0]+"&"+sendValue[1]+"="+"\""+value+"\"";
+ }
+ else {
+ var commandline="set_sys_config.cgi?sys="+sendValue[0]+"&"+sendValue[1]+"="+value;
+ }
+ oXmlHttp.open("get",commandline , true);
+ oXmlHttp.onreadystatechange = function () { 
+ if (oXmlHttp.readyState == 4) { 
+ if (oXmlHttp.status == 200) {
+ if(oXmlHttp.responseText.length>1) {
+ alert(oXmlHttp.responseText);
+ }
+ }
+ }
+ }
+ oXmlHttp.send(null);
+}
+
+
+function get_sys_config(sys) {
+ var oXmlHttp = zXmlHttp.createRequest();
+ oXmlHttp.open("get","get_sys_config.cgi?sys="+sys , true);
+ oXmlHttp.onreadystatechange = function () { 
+ if (oXmlHttp.readyState == 4) { 
+ if (oXmlHttp.status == 200) {
+ var divAdditionalLinks = document.getElementById(sys);
+ if(divAdditionalLinks) { 
+ var line=new RegExp("[\n]+", "g");
+ var colum=new RegExp("[=]+", "g");
+ var aLine=oXmlHttp.responseText.split(line);
+ for (var i=0; i<aLine.length; i++) {
+ var aColum=aLine[i].split(colum);
+ var subDivAdditionalLinks = document.getElementById(sys+"_"+aColum[0]); 
+ if(subDivAdditionalLinks != undefined) {
+ subDivAdditionalLinks.value=aColum[1];
+ }
+ }
+ }
+ }
+ }
+ }
+ oXmlHttp.send(null); 
+}
+
+-->
+</script>
+</script>
+</head>
+
+<body>
+ <div class="header">
+ <a href="index.htm"><img src="logo_atmel.gif" align="left" alt="Home" border="0"></a> <a href=
+ "sensor.htm">Sensors</a> - <a href="sensorg.htm">Graphic</a> - <a href="actuator.htm">Actuators</a> - <a href="sensorc.htm">Sensors
+ Configuration</a> - <a href="config.htm">System Configuration - <a href="help.htm">Help</a>
+ </div>
+
+ <div class="leftmenu">
+ <a href="#net_section">Network</a><br>
+ <a href="#time_section">Time</a><br>
+ <a href="#tftp_section">TFTP</a><br>
+ <a href="#http_section">HTTP</a><br>
+ <a href="#smtp_section">SMTP</a><br>
+ <a href="#pop3_section">POP3</a><br>
+ <a href="#telnet_section">Telnet</a><br>
+ <a href="#log_section">Data logger</a><br>
+ </div>
+
+ <div class="right_column">
+ <br>
+
+ <div class="content_header">
+ <a name="net_section" id="net_section">Network Configuration</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="net" name="net">
+ <p><label for="mac">MAC address :</label> <input type="text" id="net_macaddr"></p>
+
+ <p><label for="ipaddr">IP address :</label> <input type="text" id="net_ipaddr"></p>
+
+ <p><label for="submask">Subnet IP Mask :</label> <input type="text" id="net_submask"></p>
+
+ <p><label for="gwaddr">Gateway IP address :</label> <input type="text" id="net_gwaddr"></p>
+
+ <p><input type="button" value="submit" onclick="check_sys_config(1)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="time_section" id="time_section">Time</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="time" name="time">
+ <label for="remoteipaddr">Server IP Address :</label> <input type="text" id=
+ "time_remoteipaddr">
+
+ <p><label for="remoteport">Server UDP port :</label> <input type="text" id=
+ "time_remoteport"></p>
+
+ <p><label for="retrydelay">Retry Delay :</label> <input type="text" id=
+ "time_retrydelay"></p>
+
+ <p><label for="curtime">Current Time :</label> <input type="text" id="time_curtime"></p>
+
+ <p><input type="button" value="submit" onclick="check_sys_config(2)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="tftp_section" id="tftp_section">TFTP</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="tftp" name="tftp">
+ <label for="tftpport">TFTP UDP port :</label> <input type="text" id="tftp_port">
+
+ <p><input type="button" value="submit" onclick="check_sys_config(3)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="http_section" id="http_section">HTTP</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="http" name="http">
+ <label for="httpport">HTTP TCP port :</label> <input type="text" id="http_port">
+
+ <p><input type="button" value="submit" onclick="check_sys_config(4)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="smtp_section" id="smtp_section">SMTP</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="smtp" name="smtp">
+ <label for="mailto">Mail recipient :</label> <input type="text" id=
+ "smtp_mailto">
+
+ <p><label for="mailfrom">Mail sender :</label> <input type="text" id=
+ "smtp_mailfrom"></p>
+
+ <p><label for="port">Server TCP port :</label> <input type="text" id=
+ "smtp_port"></p>
+
+ <p><label for="server">Outgoing server address :</label> <input type="text" id=
+ "smtp_server"></p>
+ 
+ <input type="button" value="submit" onclick="check_sys_config(5)">
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="pop3_section" id="pop3_section">POP3</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="pop3" name="pop3">
+ <label for="remoteipaddr">Server IP Address :</label> <input type="text" id=
+ "pop3_remoteipaddr">
+
+ <p><label for="remoteport">Server TCP port :</label> <input type="text" id=
+ "pop3_remoteport"></p>
+
+ <p><label for="retrydelay">Retry Delay :</label> <input type="text" id=
+ "pop3_retrydelay"></p><input type="button" value="submit" onclick="check_sys_config(6)">
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="Telnet_section" id="Telnet_section">Telnet</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="telnet" name="telnet">
+ <label for="telnetport">Telnet TCP port :</label> <input type="text" id="telnet_port">
+
+ <p><input type="button" value="submit" onclick="check_sys_config(7)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="log_section" id="log_section">Data Logger</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="log" name="log">
+ <p><label for="persmtp">Periodic log over SMTP :</label> <input type="text" id=
+ "log_persmtp"></p>
+
+ <p><label for="maxfilelen">Max data-log file length :</label> <input type="text" id=
+ "log_maxfilelen"></p>
+
+ <p><input type="button" value="submit" onclick="check_sys_config(8)"></p>
+ </form>
+ </div>
+
+ </div>
+</body>
+</html>

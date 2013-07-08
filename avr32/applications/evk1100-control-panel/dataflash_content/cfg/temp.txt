@@ -1,0 +1,4 @@
+alarm=off
+min=3C
+max=30C
+lograte=7

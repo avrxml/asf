@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\single_button_ctr_ncp.ewp</path>
+	</project>
+</workspace>

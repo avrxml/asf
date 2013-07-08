@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta content="text/html; charset=us-ascii" http-equiv="content-type">
+  <meta content="Atmel" name="author">
+  <meta content="avr32,demo,web,server,UC3" name="keywords">
+
+  <title>WEB CONTROL PANEL - System Configuration</title>
+  <link href="sensor.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="zxml.js">
+</script>
+<script type="text/javascript" src="system.js">
+</script>
+</head>
+
+<body>
+  <div class="header">
+    <a href="index.htm"><img src="logo_atmel.gif" align="left" alt="Home" border="0"></a> <a href=
+    "sensor.htm">Sensors</a> - <a href="sensorg.htm">Graphic</a> - <a href="actuator.htm">Actuators</a> - <a href="sensorc.htm">Sensors
+    Configuration</a> - <a href="config.htm">System Configuration - <a href="help.htm">Help</a>
+  </div>
+
+  <div class="leftmenu">
+    <a href="#net_section">Network</a><br>
+    <a href="#time_section">Time</a><br>
+    <a href="#tftp_section">TFTP</a><br>
+    <a href="#http_section">HTTP</a><br>
+    <a href="#smtp_section">SMTP</a><br>
+    <a href="#pop3_section">POP3</a><br>
+    <a href="#telnet_section">Telnet</a><br>
+    <a href="#log_section">Data logger</a><br>
+  </div>
+
+  <div class="right_column">
+    <br>
+
+    <div class="content_header">
+      <a name="net_section" id="net_section">Network Configuration</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="net" name="net">
+        <p><label for="mac">MAC address :</label> <input type="text" id="net_macaddr"></p>
+
+        <p><label for="ipaddr">IP address :</label> <input type="text" id="net_ipaddr"></p>
+
+        <p><label for="submask">Subnet IP Mask :</label> <input type="text" id="net_submask"></p>
+
+        <p><label for="gwaddr">Gateway IP address :</label> <input type="text" id="net_gwaddr"></p>
+
+        <p><input type="button" value="submit" onclick="check_sys_config(1)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="time_section" id="time_section">Time</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="time" name="time">
+        <label for="remoteipaddr">Server IP Address :</label> <input type="text" id=
+        "time_remoteipaddr">
+
+        <p><label for="remoteport">Server UDP port :</label> <input type="text" id=
+        "time_remoteport"></p>
+
+        <p><label for="retrydelay">Retry Delay :</label> <input type="text" id=
+        "time_retrydelay"></p>
+
+        <p><label for="curtime">Current Time :</label> <input type="text" id="time_curtime"></p>
+
+        <p><input type="button" value="submit" onclick="check_sys_config(2)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="tftp_section" id="tftp_section">TFTP</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="tftp" name="tftp">
+        <label for="tftpport">TFTP UDP port :</label> <input type="text" id="tftp_port">
+
+        <p><input type="button" value="submit" onclick="check_sys_config(3)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="http_section" id="http_section">HTTP</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="http" name="http">
+        <label for="httpport">HTTP TCP port :</label> <input type="text" id="http_port">
+
+        <p><input type="button" value="submit" onclick="check_sys_config(4)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="smtp_section" id="smtp_section">SMTP</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="smtp" name="smtp">
+        <label for="mailto">Mail recipient :</label> <input type="text" id=
+        "smtp_mailto">
+
+        <p><label for="mailfrom">Mail sender :</label> <input type="text" id=
+        "smtp_mailfrom"></p>
+
+        <p><label for="port">Server TCP port :</label> <input type="text" id=
+        "smtp_port"></p>
+
+        <p><label for="server">Outgoing server address :</label> <input type="text" id=
+        "smtp_server"></p>
+        
+        <input type="button" value="submit" onclick="check_sys_config(5)">
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="pop3_section" id="pop3_section">POP3</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="pop3" name="pop3">
+        <label for="remoteipaddr">Server IP Address :</label> <input type="text" id=
+        "pop3_remoteipaddr">
+
+        <p><label for="remoteport">Server TCP port :</label> <input type="text" id=
+        "pop3_remoteport"></p>
+
+        <p><label for="retrydelay">Retry Delay :</label> <input type="text" id=
+        "pop3_retrydelay"></p><input type="button" value="submit" onclick="check_sys_config(6)">
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="Telnet_section" id="Telnet_section">Telnet</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="telnet" name="telnet">
+        <label for="telnetport">Telnet TCP port :</label> <input type="text" id="telnet_port">
+
+        <p><input type="button" value="submit" onclick="check_sys_config(7)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="log_section" id="log_section">Data Logger</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="log" name="log">
+        <p><label for="persmtp">Periodic log over SMTP :</label> <input type="text" id=
+        "log_persmtp"></p>
+
+        <p><label for="maxfilelen">Max data-log file length :</label> <input type="text" id=
+        "log_maxfilelen"></p>
+
+        <p><input type="button" value="submit" onclick="check_sys_config(8)"></p>
+      </form>
+    </div>
+
+  </div>
+</body>
+</html>

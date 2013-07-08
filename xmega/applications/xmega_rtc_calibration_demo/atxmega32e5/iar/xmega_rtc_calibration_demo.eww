@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\xmega_rtc_calibration_demo.ewp</path>
+	</project>
+</workspace>

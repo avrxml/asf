@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta content="text/html; charset=us-ascii" http-equiv="content-type">
+  <meta content="Atmel" name="author">
+  <meta content="avr32,demo,web,server,UC3" name="keywords">
+
+  <title>WEB CONTROL PANEL - Sensors Configuration</title>
+  <link href="sensor.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="zxml.js">
+</script>
+<script type="text/javascript" src="sensor_config.js">
+</script>
+</head>
+
+<body>
+  <div class="header">
+    <a href="index.htm"><img src="logo_atmel.gif" align="left" alt="Home" border="0"></a> <a href=
+    "sensor.htm">Sensors</a> - <a href="sensorg.htm">Graphic</a> - <a href="actuator.htm">Actuators</a> - <a href="sensorc.htm">Sensors
+    Configuration</a> - <a href="config.htm">System Configuration - <a href="help.htm">Help</a>
+  </div>
+
+  <div class="leftmenu">
+    <a href="#temp_section">Temperature</a><br>
+    <a href="#pot_section">Potentiometer</a><br>
+    <a href="#lig_section">Light</a><br>
+    <a href="#pb1_section">Push Button 1</a><br>
+    <a href="#pb2_section">Push Button 2</a><br>
+    <a href="#pb3_section">Push Button 3</a><br>
+    <a href="#js_section">JoyStick</a><br>
+  </div>
+
+  <div class="right_column">
+    <br>
+
+    <div class="content_header">
+      <a name="temp_section" id="temp_section">Temperature Configuration</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="temp_conf" name="temp_conf">
+        <p><label for="lograte">Log Rate (sec):</label> <input type="text" id="temp_lograte"></p>
+
+        <p><label for="min_val">Min temperature :</label> <input type="text" id="temp_min"></p>
+
+        <p><label for="max_val">Max temperature :</label> <input type="text" id="temp_max"></p>
+
+        <p><label for="alarm">Temperature Alarm:</label> <input type="text" id=
+        "temp_alarm"></p>
+
+        <p><input type="button" value="submit" onclick="check_sensor_config(1)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="pot_section" id="pot_section">Potentiometer Configuration</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="pot_conf" name="pot_conf">
+        <p><label for="lograte">Log Rate (sec):</label> <input type="text" id="pot_lograte"></p>
+
+        <p><label for="min">Min position :</label> <input type="text" id="pot_min"></p>
+
+        <p><label for="max">Max position :</label> <input type="text" id="pot_max"></p>
+
+        <p><label for="alarm">Potentiometer Alarm:</label> <input type="text" id="pot_alarm"></p>
+
+        <p><input type="button" value="submit" onclick="check_sensor_config(2)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="lig_section" id="lig_section">Light Configuration</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="light_conf" name="light_conf">
+        <p><label for="lograte">Log Rate (sec):</label> <input type="text" id="light_lograte"></p>
+
+        <p><label for="min">Min value :</label> <input type="text" id="light_min"></p>
+
+        <p><label for="max">Max value :</label> <input type="text" id="light_max"></p>
+
+        <p><label for="alarm">Light Alarm:</label> <input type="text" id="light_alarm"></p>
+
+        <p><input type="button" value="submit" onclick="check_sensor_config(3)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="pb1_section" id="pb1_section"></a>Push Button 1 Configuration
+    </div>
+
+    <div class="content_body_right">
+      <form id="pb1_conf" name="pb1_conf">
+        <p><label for="alarm">Push Button 1 Alarm :</label> <input type="text" id="pb1_alarm"></p>
+
+        <p><input type="button" value="submit" onclick="check_sensor_config(4)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="pb2_section" id="pb2_section"></a>Push Button 2 Configuration
+    </div>
+
+    <div class="content_body_right">
+      <form id="pb2_conf" name="pb2_conf">
+        <p><label for="alarm">Push Button 2 Alarm :</label> <input type="text" id="pb2_alarm"></p>
+
+        <p><input type="button" value="submit" onclick="check_sensor_config(5)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="pb3_section" id="pb3_section"></a>Push Button 3 Configuration
+    </div>
+
+    <div class="content_body_right">
+      <form id="pb3_conf" name="pb3_conf">
+        <p><label for="alarm">Push Button 3 Alarm :</label> <input type="text" id="pb3_alarm"></p>
+
+        <p><input type="button" value="submit" onclick="check_sensor_config(6)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="js_section" id="js_section"></a>Joystick Configuration
+    </div>
+
+    <div class="content_body_right">
+      <form id="js_conf" name="js_conf">
+        <p><label for="alarm">Joystick Alarm :</label> <input type="text" id="js_alarm"></p>
+
+        <p><input type="button" value="submit" onclick="check_sensor_config(7)"></p>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

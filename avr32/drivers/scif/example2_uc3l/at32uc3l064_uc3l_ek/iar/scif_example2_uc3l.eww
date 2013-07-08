@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\scif_example2_uc3l.ewp</path>
+	</project>
+</workspace>

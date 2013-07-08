@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\xmega_b1_xplained_voltage_meter.ewp</path>
+	</project>
+</workspace>

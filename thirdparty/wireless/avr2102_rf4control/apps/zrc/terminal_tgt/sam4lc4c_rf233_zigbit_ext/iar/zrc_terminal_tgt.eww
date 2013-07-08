@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\zrc_terminal_tgt_flash.ewp</path>
+	</project>
+</workspace>

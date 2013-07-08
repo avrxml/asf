@@ -1,0 +1,9 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\usart_usart_hard_handshaking_example_flash.ewp</path>
+	</project>
+	<project>
+		<path>$WS_DIR$\usart_usart_hard_handshaking_example_sram.ewp</path>
+	</project>
+</workspace>

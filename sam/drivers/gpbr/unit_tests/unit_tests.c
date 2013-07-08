@@ -1,0 +1,289 @@
+/**
+ * \file
+ *
+ * \brief Unit tests for GPBR driver.
+ *
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ *
+ * \asf_license_start
+ *
+ * \page License
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. The name of Atmel may not be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * 4. This software may only be redistributed and used in connection with an
+ *    Atmel microcontroller product.
+ *
+ * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+ * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * \asf_license_stop
+ *
+ */
+
+#include <board.h>
+#include <sysclk.h>
+#include "gpbr.h"
+#include <string.h>
+#include <unit_test/suite.h>
+#include <stdio_serial.h>
+#include <conf_test.h>
+#include <conf_board.h>
+#include "rtt.h"
+#include "supc.h"
+#include "flash_efc.h"
+/**
+ * \mainpage
+ *
+ * \section intro Introduction
+ * This is the unit test application for the GPBR driver.
+ * It consists of the following test steps:
+ * - Write a value to the GPBR
+ * - Enter the backup mode
+ * - Wake up from the backup mode
+ * - Read the GPBR register and compare
+ *
+ * \section files Main Files
+ * - \ref unit_tests.c
+ * - \ref conf_test.h
+ * - \ref conf_board.h
+ * - \ref conf_clock.h
+ * - \ref conf_usart_serial.h
+ *
+ * \section device_info Device Info
+ * All SAM devices can be used.
+ * This example has been tested with the following setup:
+ * - sam3n4c_sam3n_ek
+ * - sam3s4c_sam3s_ek
+ * - sam3sd8c_sam3s_ek2
+ * - sam3u4e_sam3u_ek
+ * - sam3x8h_sam3x_ek
+ * - sam4s16c_sam4s_ek
+ * - sam4sd32c_sam4s_ek2
+ *
+ * \section compinfo Compilation info
+ * This software was written for the GNU GCC and IAR for ARM. Other compilers
+ * may or may not work.
+ *
+ * \section contactinfo Contact Information
+ * For further information, visit <a href="http://www.atmel.com/">Atmel</a>.\n
+ * Support and FAQ: http://support.atmel.no/
+ */
+
+//! \name Unit test configuration
+//@{
+/**
+ * \def CONF_TEST_GPBR
+ * \brief Test the functions provided by the GPBR driver.
+ */
+//@}
+
+/** RTT wait time */
+#define RTT_WAIT_TIME  2
+
+/** Flash wait state number. */
+#define FLASH_WAIT_STATE_NBR   6
+
+/** Backup mode flag. */
+#define BACKUP_MODE_FLAG             0xAA55AA55
+
+/** Normal mode flag. */
+#define NORMAL_MODE_FLAG             0xffffffff
+
+/** GPBR unit test const written data */
+#define GPBR_UNIT_TEST_CONST_DATA (0xdeadbeef)
+
+
+/**
+ * \brief Interrupt handler for the RTT.
+ *
+ * Get current RTT status.
+ */
+void RTT_Handler(void)
+{
+	uint32_t status;
+
+	/* Get RTT status */
+	status = rtt_get_status(RTT);
+
+	/* Alarm */
+	if ((status & RTT_SR_ALMS) == RTT_SR_ALMS) {
+		/* Doing nothing here */
+	}
+}
+
+
+/**
+ * \brief RTT configuration function.
+ *
+ * Configures the RTT to generate a one second tick, which triggers
+ * the RTT alarms interrupt.
+ */
+static void gpbr_test_configure_rtt(void)
+{
+	uint32_t ul_previous_time;
+
+	/* Configure RTT for a 1 second tick interrupt */
+	rtt_init(RTT, 32768);
+	ul_previous_time = rtt_read_timer_value(RTT);
+	while (ul_previous_time == rtt_read_timer_value(RTT));
+
+	/* Enable RTT alarms interrupt to return from backup mode */
+	NVIC_DisableIRQ(RTT_IRQn);
+	NVIC_ClearPendingIRQ(RTT_IRQn);
+	NVIC_SetPriority(RTT_IRQn, 0);
+	NVIC_EnableIRQ(RTT_IRQn);
+	rtt_enable_interrupt(RTT, RTT_MR_ALMIEN);
+}
+
+/**
+ * \brief Test GPBR read/write interfaces.
+ *
+ * \param test Current test case.
+ */
+static void run_gpbr_test(const struct test_case *test)
+{
+	uint32_t ul_read_value = 0;
+	uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
+	uint32_t *ul_back_mode_flag_addr = (uint32_t *) ul_last_page_addr;
+	uint32_t ul_normal_mode_flag = NORMAL_MODE_FLAG;
+	uint32_t ul_backup_mode_flag = BACKUP_MODE_FLAG;
+	uint8_t uc_write_success_flag = 1;
+
+	/* Initialize flash: 6 wait states for flash writing. */
+	flash_init(FLASH_ACCESS_MODE_128, FLASH_WAIT_STATE_NBR);
+
+	/* Unlock flash page. */
+	flash_unlock(ul_last_page_addr,
+			ul_last_page_addr + IFLASH_PAGE_SIZE - 1, NULL, NULL);
+
+	if ((*ul_back_mode_flag_addr) == BACKUP_MODE_FLAG) {
+		/* Read the data from GPBR0 */
+		ul_read_value = gpbr_read(GPBR0);
+
+#if (SAM4S || SAM4E)
+		/* Erase flag page */
+		flash_erase_page(ul_last_page_addr, IFLASH_ERASE_PAGES_8);
+
+		/* Clear backup mode flag */
+		if (flash_write(ul_last_page_addr, (uint8_t *)&ul_normal_mode_flag,
+				sizeof(uint32_t), 0) != FLASH_RC_OK) {
+			uc_write_success_flag = 0;
+		}
+#else
+		/* Clear backup mode flag */
+		if (flash_write(ul_last_page_addr, (uint8_t *)&ul_normal_mode_flag,
+				sizeof(uint32_t), 1) != FLASH_RC_OK) {
+			uc_write_success_flag = 0;
+		}
+#endif
+
+		/* Return test result */
+		test_assert_true(test, (ul_read_value == GPBR_UNIT_TEST_CONST_DATA)
+				&& uc_write_success_flag, "Test GPBR: GPBR write error!");
+
+		/* Clear GPBR 0 */
+		gpbr_write(GPBR0, 0);
+
+		return;
+	}
+
+	/* Write the data to the backup register 0 */
+	gpbr_write(GPBR0, GPBR_UNIT_TEST_CONST_DATA);
+
+	/* Enable RTT wake up */
+	supc_set_wakeup_mode(SUPC, SUPC_WUMR_RTTEN);
+
+	/* Configure RTT */
+	gpbr_test_configure_rtt();
+
+	/* Wait for RTT alarm event */
+	rtt_write_alarm_time(RTT, RTT_WAIT_TIME);
+
+#if (SAM4S || SAM4E)
+	/* Erase flag page */
+	if(flash_erase_page(ul_last_page_addr, IFLASH_ERASE_PAGES_8) != FLASH_RC_OK)
+		printf("erase page failed!\r\n");
+
+	/* Write backup mode flag */
+	if (flash_write(ul_last_page_addr, (uint8_t *) & ul_backup_mode_flag,
+					sizeof(uint32_t), 0) != FLASH_RC_OK) {
+		/* Flag write failed, return error */
+		test_assert_true(test, 0, "Test GPBR: GPBR write error!");
+	}
+#else
+	/* Write backup mode flag */
+	if (flash_write(ul_last_page_addr, (uint8_t *) & ul_backup_mode_flag,
+					sizeof(uint32_t), 1) != FLASH_RC_OK) {
+		/* Flag write failed, return error */
+		test_assert_true(test, 0, "Test GPBR: GPBR write error!");
+	}
+#endif
+
+	/* Enter backup mode */
+	pmc_enable_backupmode();
+#if (!(SAM4S) && !(SAM4E))
+	supc_enable_backup_mode(SUPC);
+#endif
+
+	/* We should never reach here */
+	test_assert_true(test, 0, "Test GPBR: GPBR write error!");
+}
+
+
+/**
+ * \brief Run GPBR driver unit tests
+ */
+int main(void)
+{
+	const usart_serial_options_t usart_serial_options = {
+		.baudrate = CONF_TEST_BAUDRATE,
+		.paritytype = CONF_TEST_PARITY
+	};
+
+	/* Initialize the system clock and board */
+	sysclk_init();
+	board_init();
+
+	/* Enable the debug uart */
+	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
+	stdio_serial_init(CONF_TEST_USART, &usart_serial_options);
+
+	/* Define all the test cases */
+	DEFINE_TEST_CASE(gpbr_test, NULL, run_gpbr_test, NULL,
+			"GPBR read/write test");
+
+	/* Put test case addresses in an array */
+	DEFINE_TEST_ARRAY(gpbr_tests) = {
+	&gpbr_test};
+
+	/* Define the test suite */
+	DEFINE_TEST_SUITE(gpbr_suite, gpbr_tests, "SAM GPBR driver test suite");
+
+	/* Run all tests in the test suite */
+	test_suite_run(&gpbr_suite);
+
+	while (1) {
+		/* Busy-wait forever. */
+	}
+}

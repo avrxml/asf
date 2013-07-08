@@ -1,0 +1,212 @@
+/*
+  Companion assembly file for layer3.c
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
+
+  RSEG CODE32:CODE:NOROOT(2)
+
+  PUBLIC  iii_imdct_s_step1
+  PUBLIC  iii_imdct_s_step2
+  PUBLIC  __asm_mad_f_mul
+
+
+iii_imdct_s_step1:
+// imputs:
+// r12 = s
+// r11 = X
+// r10 = yptr
+// r9 = i
+
+// tmp0 = r1-r0
+// tmp1 = r3-r2
+// tmp2 = r5-r4
+// tmp3 = r7-r6
+// acc  = r9-r8
+
+  pushm   r0-r7, r8-r9, lr
+
+  mov     lr, r9 // lr = i
+
+  ld.d r0, r12++
+  ld.d r2, r11[0]
+  ld.d r4, r11[2*4]
+  ld.d r6, r11[4*4]
+  mulwh.d r8, r3, r1:t
+  macwh.d r8, r2, r1:b
+  ld.w r1, r12++
+  macwh.d r8, r5, r0:t
+  macwh.d r8, r4, r0:b
+  macwh.d r8, r7, r1:t
+  macwh.d r8, r6, r1:b
+  ld.d r0, r12++
+  rol r8
+  rol r9
+
+  st.w r10[lr << 2], r9
+  neg  r9
+  rsub lr, lr, 5
+  st.w r10[lr << 2], r9
+  rsub lr, lr, 5
+
+  mulwh.d r8, r3, r1:t
+  macwh.d r8, r2, r1:b
+  ld.w r1, r12++
+  macwh.d r8, r5, r0:t
+  macwh.d r8, r4, r0:b
+  macwh.d r8, r7, r1:t
+  macwh.d r8, r6, r1:b
+  rol r8
+  rol r9
+
+  sub lr, -6
+  st.w r10[lr << 2], r9
+  rsub lr, lr, 17
+  st.w r10[lr << 2], r9
+
+
+  popm  r0-r7, r8-r9, pc
+
+iii_imdct_s_step2:
+// imputs:
+// r12 = z
+// r11 = wptr
+// r10 = yptr
+
+// tmp = r1-r0
+// w0123 = r3-r2
+// w4567 = r5-r4
+// w891011 = r7-r6
+// tmp2 = r9-r8
+
+
+   pushm  r0-r7, r8-r9, lr
+
+   mov r1, 0
+   mov r0, r1
+   st.d r12[0], r0
+   st.d r12[2*4], r0
+   st.d r12[4*4], r0
+   st.d r12[30*4], r0
+   st.d r12[32*4], r0
+   st.d r12[34*4], r0
+
+/////
+   ld.d r2, r11[0*4]
+   ld.d r0, r10[0*4]
+   ld.d r4, r11[2*4]
+   ld.d r6, r11[4*4]
+   mulsatrndwh.w r1, r1, r3:t
+   mulsatrndwh.w r0, r0, r3:b
+   ld.d r8, r10[2*4]
+   st.d r12[6*4], r0
+
+   mulsatrndwh.w r9, r9, r2:t
+   mulsatrndwh.w r8, r8, r2:b
+   ld.d r0, r10[4*4]
+   st.d r12[8*4], r8
+
+   mulsatrndwh.w r1, r1, r5:t
+   mulsatrndwh.w r0, r0, r5:b
+   ld.d r8, r10[30*4]
+   st.d r12[10*4], r0
+
+   mulsatrndwh.w r9, r9, r4:t
+   mulsatrndwh.w r8, r8, r4:b
+   ld.d r0, r10[32*4]
+   st.d r12[24*4], r8
+
+   mulsatrndwh.w r1, r1, r7:t
+   mulsatrndwh.w r0, r0, r7:b
+   ld.d r8, r10[34*4]
+   st.d r12[26*4], r0
+
+   mulsatrndwh.w r9, r9, r6:t
+   mulsatrndwh.w r8, r8, r6:b
+   st.d r12[28*4], r8
+
+
+//
+// tmp3 = r11-r10
+
+   mov lr, r10 // lr = yptr
+   ld.d r0, lr[6*4]
+   ld.d r8, lr[12*4]
+   mulwh.d r10, r1, r4:t
+   macwh.d r10, r9, r3:t
+   mulwh.d r0, r0, r4:b
+   macwh.d r0, r8, r3:b
+   lsl r11, 1
+   lsl r10, r1, 1
+   st.d r12[12*4], r10
+
+   ld.d r0, lr[18*4]
+   ld.d r8, lr[24*4]
+   mulwh.d r10, r1, r4:t
+   macwh.d r10, r9, r3:t
+   mulwh.d r0, r0, r4:b
+   macwh.d r0, r8, r3:b
+   lsl r11, 1
+   lsl r10, r1, 1
+   st.d r12[18*4], r10
+
+//
+   ld.d r0, lr[8*4]
+   ld.d r8, lr[14*4]
+   mulwh.d r10, r1, r7:t
+   macwh.d r10, r9, r2:t
+   mulwh.d r0, r0, r7:b
+   macwh.d r0, r8, r2:b
+   lsl r11, 1
+   lsl r10, r1, 1
+   st.d r12[14*4], r10
+
+   ld.d r0, lr[20*4]
+   ld.d r8, lr[26*4]
+   mulwh.d r10, r1, r7:t
+   macwh.d r10, r9, r2:t
+   mulwh.d r0, r0, r7:b
+   macwh.d r0, r8, r2:b
+   lsl r11, 1
+   lsl r10, r1, 1
+   st.d r12[20*4], r10
+
+//
+   ld.d r0, lr[10*4]
+   ld.d r8, lr[16*4]
+   mulwh.d r10, r1, r6:t
+   macwh.d r10, r9, r5:t
+   mulwh.d r0, r0, r6:b
+   macwh.d r0, r8, r5:b
+   lsl r11, 1
+   lsl r10, r1, 1
+   st.d r12[16*4], r10
+
+   ld.d r0, lr[22*4]
+   ld.d r8, lr[28*4]
+   mulwh.d r10, r1, r6:t
+   macwh.d r10, r9, r5:t
+   mulwh.d r0, r0, r6:b
+   macwh.d r0, r8, r5:b
+   lsl r11, 1
+   lsl r10, r1, 1
+   st.d r12[22*4], r10
+
+   popm r0-r7, r8-r9, pc
+
+__asm_mad_f_mul:
+  mulsatrndwh.w  r12, r12, r11:b
+  retal r12
+
+  END

@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\lcd_example.ewp</path>
+	</project>
+</workspace>

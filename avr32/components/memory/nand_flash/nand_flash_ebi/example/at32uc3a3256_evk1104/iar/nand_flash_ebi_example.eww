@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\nand_flash_ebi_example.ewp</path>
+	</project>
+</workspace>

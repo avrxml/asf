@@ -1,0 +1,9 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\qt_i2c_example_flash.ewp</path>
+	</project>
+	<project>
+		<path>$WS_DIR$\qt_i2c_example_sram.ewp</path>
+	</project>
+</workspace>

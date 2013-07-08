@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\example_hidms_msc_flash.ewp</path>
+	</project>
+</workspace>

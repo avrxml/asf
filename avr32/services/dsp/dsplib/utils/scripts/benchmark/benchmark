@@ -1,0 +1,277 @@
+#!/bin/sh
+
+# Copyright (C) 2006-2008, Atmel Corporation All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice,
+# this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+# this list of conditions and the following disclaimer in the documentation
+# and/or other materials provided with the distribution.
+#
+# 3. The name of ATMEL may not be used to endorse or promote products derived
+# from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY ATMEL ``AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE EXPRESSLY AND
+# SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT,
+# INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+# THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# ******* BENCH CONFIG ******
+
+# *** Constants’ configuration *** 
+param1='6#8#10'
+param1_def='NLOG'
+param2='SPACE'
+param2_def='A'
+param3='SPACE'
+param3_def='B'
+param4='SPACE'
+param4_def='C'
+
+# *** Program’s parameters *** 
+QA='1'
+QB='15'
+OUTPUT_DATA_TYPE='real'
+FREQ='12000000'
+
+# *** Path configuration ***
+CUR_PATH="`pwd`/../../../EXAMPLES/BENCHMARK/AT32UC3A0512_EVK1100/GCC"
+SCRIPT_ERROR_FILE_PATH="../../../../UTILS/SCRIPTS/BENCHMARK/RESOURCES/ref_fft.sce"
+CONFIG_FILE_PATH='../../bench_config.h'
+
+# *** Program locations *** 
+DATAGET="`pwd`/../../PROGRAMS/WINDOWS/DATA_GET/DataGet.exe"
+DATAEXTRACT="`pwd`/../../PROGRAMS/WINDOWS/DATA_EXTRACT/DataExtract.exe"
+SCILAB_PATH='/cygdrive/c/Program Files/scilab-5.1'
+
+# ***************************
+
+LOG_FILE_PATH='./dsp_bench_log.txt'
+TEMPORARY_FILE_PATH='./dsp_bench_temp'
+DATA_FILE_PATH='./dsp_bench_data'
+OUTPUT_FILE_PATH='./dsp_bench_result.txt'
+REAL_COEF_FILE_PATH='./dsp_bench_real_parts'
+IMAG_COEF_FILE_PATH='./dsp_bench_imag_parts'
+
+
+# Argument 1 is the name of the proc
+kill_proc () {
+  PID=`ps aux | grep $1 | gawk "/:/ {print $""1}" | head -n 1`
+  while [ "$PID" != "" ]
+  do
+    temp=`expr "$PID" : '\([0-9]*\)'` 
+    if [ "$temp" != "" ]; then
+      PID=`echo $PID | sed 's%/% %2' | sort -r +2 | uniq -f 2 | sort -r | sed 's% %/%1;'`
+      kill -9 $PID 1> /dev/null 2> /dev/null
+      PID=`ps aux | grep $1 | gawk "/:/ {print $""1}" | head -n 1`
+    else
+      PID=""
+    fi
+  done
+}
+
+echo "Killing processes..."
+
+#kill_proc sh
+kill_proc Scilex
+kill_proc bc
+kill_proc sleep
+kill_proc DatafGet
+
+echo "Checking configuration..."
+
+# test if CUR_PATH is valid
+if [ ! -d "$CUR_PATH" ];
+then
+  echo "CUR_PATH='$CUR_PATH' is not a valid directory."
+  exit
+fi
+
+# Go to the current directory
+init_path=`pwd`
+cd "$CUR_PATH"
+
+# Check program paths
+# Scilab
+if [ ! -s "$SCILAB_PATH""/bin/Scilex.exe" ];
+then
+  echo "Scilab					[ FAILED ]"
+  echo "> SCILAB_PATH: '$SCILAB_PATH""/bin/Scilex.exe' is missing."
+  exit
+fi
+if [ ! -d "$SCILAB_PATH""/contrib/" ];
+then
+  echo "Scilab					[ FAILED ]"
+  echo "> SCILAB_PATH: '$SCILAB_PATH""/contrib/' is missing."
+  exit
+fi
+echo "Scilab					[ OK ]"
+# DataGet
+if [ ! -s "$DATAGET" ];
+then
+  echo "DataGet					[ FAILED ]"
+  echo "> The file pointed by DATAGET='$DATAGET', is missing."
+  exit
+fi
+echo "DataGet					[ OK ]"
+# DataExtract
+if [ ! -s "$DATAEXTRACT" ];
+then
+  echo "DataExtract				[ FAILED ]"
+  echo "> The file pointed by DATAEXTRACT='$DATAEXTRACT', is missing."
+  exit
+fi
+echo "DataExtract				[ OK ]"
+
+# SCRIPT_ERROR_FILE_PATH
+if [ ! -s "$SCRIPT_ERROR_FILE_PATH" ];
+then
+  echo "Scilab script data comparison		[ FAILED ]"
+  echo "> The file pointed by SCRIPT_ERROR_FILE_PATH='$SCRIPT_ERROR_FILE_PATH', is missing."
+  exit
+fi
+echo "Scilab script data comparison		[ OK ]"
+
+# Utility programs
+
+# Argument 1 is the name of the program
+check_utility () {
+  which $1 > $TEMPORARY_FILE_PATH 2>> $LOG_FILE_PATH
+  version=`cat $TEMPORARY_FILE_PATH`
+
+  if [ ! "$version" ];
+  then
+    echo "Utility programs			[ FAILED ]"
+    echo "> You need the '$1' program to make this script works."
+    exit
+  fi
+}
+
+check_utility bc
+check_utility gawk
+check_utility expr
+check_utility cp
+check_utility mv
+check_utility rm
+check_utility make
+check_utility rxvt
+check_utility sed
+check_utility sort
+check_utility uniq
+check_utility printf
+
+echo "Utility programs			[ OK ]"
+
+# Makefile
+if [ ! -s "./Makefile" ];
+then
+  echo "Makefile				[ FAILED ]"
+  echo "> The repertory '$CUR_PATH' does not contain a Makefile."
+  exit
+fi
+echo "Makefile				[ OK ]"
+
+echo "...configuration checked."
+cd "$init_path"
+
+echo "*********************"
+echo "Data format: Q$QA.$QB"
+echo "Data length: "`expr $QA + $QB`" bit(s)"
+if [ "$OUTPUT_DATA_TYPE" = "real" ];
+then
+  echo "Output data type: real"
+elif [ "$OUTPUT_DATA_TYPE" = "imag" ];
+then
+  echo "Output data type: imaginary"
+else
+  echo "Output data type: <INVALID>"
+  exit
+fi
+
+
+echo "***** benchmark *****"
+echo "If you have any problem with this script, please refer to the manual or check the error in the dsp_bench_log.txt file or dsp_bench_temp file."
+
+TEMP_PATH=$CUR_PATH/$OUTPUT_FILE_PATH
+
+# Delete the output file
+if test -f $TEMP_PATH
+then
+	rep=""
+	until [ "$rep" = "y" -o "$rep" = "n" ];
+	do
+		printf "Do you want to reset the file \"$TEMP_PATH\" ? (y or n): "
+		read rep
+	done
+	if [ "$rep" = "y" ]
+	then
+		rm $TEMP_PATH 2> /dev/null 
+	fi
+fi
+
+echo "< Running sentinel >"
+
+echo $param1 > .temp
+echo $param1_def >> .temp
+echo $param2 >> .temp
+echo $param2_def >> .temp
+echo $param3 >> .temp
+echo $param3_def >> .temp
+echo $param4 >> .temp
+echo $param4_def >> .temp
+echo $QA >> .temp
+echo $QB >> .temp
+echo $OUTPUT_DATA_TYPE >> .temp
+echo $FREQ >> .temp
+echo $CUR_PATH >> .temp
+echo $SCRIPT_ERROR_FILE_PATH >> .temp
+echo $CONFIG_FILE_PATH >> .temp
+echo $DATAGET >> .temp
+echo $DATAEXTRACT >> .temp
+echo $SCILAB_PATH >> .temp
+
+# kill all process called sleep
+PID=`ps aux | grep sleep | gawk "/:/ {print $""1}" | head -n 1`
+while [ "$PID" != "" ]
+do
+PID=`echo $PID | sed 's%/% %2' | sort -r +2 | uniq -f 2 | sort -r | sed 's% %/%1;'`
+kill -9 $PID
+PID=`ps aux | grep sleep | gawk "/:/ {print $""1}" | head -n 1`
+done
+
+./benchmark_proc < .temp &
+rm .temp
+sleep 1
+
+ppid=`ps -a | grep sleep | sort -rnk 3 | gawk "/:/ {print $""2}" | tail -n 1`
+RES=`ps -a | grep $ppid`
+while [ "$RES" != "" ]
+do
+sleep 1
+RES=`ps -a | grep $ppid`
+done
+
+echo ""
+echo "SENTINEL EXIT - cleanning base..."
+
+rm $TEMPORARY_FILE_PATH 2> /dev/null 
+mv "$SCILAB_PATH""/contrib/loader.sce~" "$SCILAB_PATH""/contrib/loader.sce" 2> /dev/null 
+
+cd $CUR_PATH
+
+rm $TEMPORARY_FILE_PATH 2> /dev/null 
+rm $DATA_FILE_PATH 2> /dev/null 
+rm $REAL_COEF_FILE_PATH 2> /dev/null 
+rm $IMAG_COEF_FILE_PATH 2> /dev/null 
+
+echo "done"

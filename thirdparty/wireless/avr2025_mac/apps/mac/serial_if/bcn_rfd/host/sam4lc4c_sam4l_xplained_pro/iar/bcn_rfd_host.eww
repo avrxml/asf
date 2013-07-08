@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\bcn_rfd_host_flash.ewp</path>
+	</project>
+</workspace>

@@ -1,0 +1,9 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\example_hids_cdc_msc_flash.ewp</path>
+	</project>
+	<project>
+		<path>$WS_DIR$\example_hids_cdc_msc_sram.ewp</path>
+	</project>
+</workspace>

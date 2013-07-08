@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\rtt_example_flash.ewp</path>
+	</project>
+</workspace>

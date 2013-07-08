@@ -1,0 +1,105 @@
+#!/bin/sh
+
+# Copyright (C) 2006-2008, Atmel Corporation All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice,
+# this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+# this list of conditions and the following disclaimer in the documentation
+# and/or other materials provided with the distribution.
+#
+# 3. The name of ATMEL may not be used to endorse or promote products derived
+# from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY ATMEL ``AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE EXPRESSLY AND
+# SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT,
+# INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+# THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+#********************* Usage *****************************
+# scope [-port portname] [-speed baudrate]
+#*********************************************************
+
+#********************* Configuration *********************
+#********* Arguments *******************
+COM_PORT='COM1'
+COM_BAUDRATE=57600
+#********* Software path **************
+DATAGET="`pwd`/../../PROGRAMS/WINDOWS/DATA_GET/DataGet.exe"
+DATAEXTRACT="`pwd`/../../PROGRAMS/WINDOWS/DATA_EXTRACT/DataExtract.exe"
+DATAPRINT="`pwd`/../../PROGRAMS/WINDOWS/DATA_PRINT/DataPrint.exe"
+#*********************************************************
+
+usage () {
+echo "usage: scope [-port portname] [-speed baudrate]";
+}
+
+while [ $# -ne 0 ]
+do
+	if [ $1 == "-port" ];
+  then
+    shift
+    COM_PORT=$1
+  elif [ $1 == "-speed" ]; then
+    shift
+    COM_BAUDRATE=$1
+  else
+    usage
+    exit
+  fi
+  shift
+done
+
+TEMP_FILE='./temp'
+echo "" > "$TEMP_FILE"
+
+
+# kill all process called DataGet
+PID=`ps aux | grep DataGet | gawk "/:/ {print $""1}" | head -n 1`
+while [ "$PID" != "" ]
+do
+PID=`echo $PID | sed 's%/% %2' | sort -r +2 | uniq -f 2 | sort -r | sed 's% %/%1;'`
+kill -9 $PID
+PID=`ps aux | grep DataGet | gawk "/:/ {print $""1}" | head -n 1`
+done
+
+# kill all process called DataPrint
+PID=`ps aux | grep DataPrint | gawk "/:/ {print $""1}" | head -n 1`
+while [ "$PID" != "" ]
+do
+PID=`echo $PID | sed 's%/% %2' | sort -r +2 | uniq -f 2 | sort -r | sed 's% %/%1;'`
+kill -9 $PID
+PID=`ps aux | grep DataPrint | gawk "/:/ {print $""1}" | head -n 1`
+done
+
+# Launch the DataPrint application
+$DATAPRINT "$TEMP_FILE" &
+# Launch the DataGet application and specifies taht the output file has to be updated after 10 lines retrieved
+$DATAGET -l 10 -f "$TEMP_FILE" $COM_PORT $COM_BAUDRATE &
+
+# Wait until the DataPrint application is killed
+ppid=`ps -a | grep DataPrint | sort -rnk 3 | gawk "/:/ {print $""1}" | tail -n 1`
+RES=`ps -a | grep $ppid`
+while [ "$RES" != "" ]
+do
+sleep 1
+RES=`ps -a | grep $ppid`
+done
+
+# Kill the DataGet application
+PID=`ps aux | grep DataGet | gawk "/:/ {print $""1}" | head -n 1`
+PID=`echo $PID | sed 's%/% %2' | sort -r +2 | uniq -f 2 | sort -r | sed 's% %/%1;'`
+kill -9 $PID 2> /dev/null > /dev/null
+
+#remove temporary files
+rm $TEMP_FILE 2> /dev/null

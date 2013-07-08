@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\zrc_button_ctr.ewp</path>
+	</project>
+</workspace>

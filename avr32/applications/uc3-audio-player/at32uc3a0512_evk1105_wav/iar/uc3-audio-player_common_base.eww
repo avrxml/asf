@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\uc3-audio-player_common_base.ewp</path>
+	</project>
+</workspace>

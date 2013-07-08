@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+ <meta content="text/html; charset=us-ascii" http-equiv="content-type">
+ <meta content="Atmel" name="author">
+ <meta content="avr32,demo,web,server,UC3" name="keywords">
+
+ <title>WEB CONTROL PANEL - Sensors Configuration</title>
+<style  TYPE="text/css">
+<!--
+.header {
+ height: 45px;
+ line-height: 45px;
+ width: 950px;
+ padding:3px;
+ text-align: center;
+ background: #2477E6;
+ color: #FFF;
+ font-size: 14px;
+ font-weight: bold;
+}
+
+.header a:link, .header a:visited {
+ text-decoration: none;
+ color : #FFF;
+}
+
+.header a:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+body {
+ margin-left: 8px;
+ margin-right: 8px;
+ margin-top: 8px;
+ margin-bottom: 8px;
+ padding: 0;
+ background-color: white;
+ color: black;
+ font-size: 12px;
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+ font-size: 24px;
+ font-weight: bold;
+ color: #03F;
+}
+
+.title {
+ width: 900px;
+}
+
+.titletop {
+ height: 21px;
+ width: 716px;
+ color: white;
+ font-weight: bold;
+ background-image: url(title_bg.gif);
+ float: left;
+}
+
+.leftmenu {
+ height: 1520px;
+ line-height: 45px;
+ padding:3px;
+ text-align: left;
+ float: left;
+ background: #2477E6;
+ color: #FFF;
+ font-size: 14px;
+ font-weight: bold;
+ width: 130px;
+}
+
+.leftmenu a:link, .leftmenu a:visited {
+ text-decoration: none;
+ color : #FFF;
+}
+
+.leftmenu a:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+.right_column {
+ margin-right: 10px;
+ margin-left: 175px;
+}
+
+.content_header {
+ width : 775px;
+ background: #2477E6;
+ padding: 3px;
+ text-align: center;
+ color: #ffffff;
+ font-size: 14px;
+ font-weight: bold;
+ border: 1px solid #000;
+}
+
+.content_body {
+ width : 775px;
+ background: #FFF;
+ padding: 3px;
+ text-align: left;
+ color: #000;
+ font-size: 12px;
+ border-bottom:1px solid #000;
+ border-left:1px solid #000;
+ border-right:1px solid #000;
+ margin-bottom:15px;
+}
+
+.content_body_right {
+ width : 775px;
+ background: #FFF;
+ padding: 3px;
+ text-align: right;
+ color: #000000;
+ font-size: 12px;
+ border-bottom:1px solid #000;
+ border-left:1px solid #000;
+ border-right:1px solid #000;
+ margin-bottom:15px;
+}
+
+a.content_link:link, a.content_link:visited {
+ text-decoration: none;
+ color : #000;
+}
+
+a.content_link:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+.fade_block { 
+ width : 470px;
+ height : 300px;
+ background: #FFF;
+ background-repeat : none
+ padding: 10px;
+ text-align: center;
+ color: #2477E6;
+ font-size: 20px;
+ font-weight: bold;
+ float: right;
+}
+-->
+</style>
+<script language="javascript">
+<!--
+var zXml={useActiveX:(typeof ActiveXObject!="undefined"),useDom:document.implementation&&document.implementation.createDocument,useXmlHttp:(typeof XMLHttpRequest!="undefined")};zXml.ARR_XMLHTTP_VERS=["MSXML2.XmlHttp.6.0","MSXML2.XmlHttp.3.0"];zXml.ARR_DOM_VERS=["MSXML2.DOMDocument.6.0","MSXML2.DOMDocument.3.0"];function zXmlHttp(){}zXmlHttp.createRequest=function(){if(zXml.useXmlHttp){return new XMLHttpRequest();}else if(zXml.useActiveX){if(!zXml.XMLHTTP_VER){for(var i=0;i<zXml.ARR_XMLHTTP_VERS.length;i++){try{new ActiveXObject(zXml.ARR_XMLHTTP_VERS[i]);zXml.XMLHTTP_VER=zXml.ARR_XMLHTTP_VERS[i];break;}catch(oError){;}}}if(zXml.XMLHTTP_VER){return new ActiveXObject(zXml.XMLHTTP_VER);}else{throw new Error("Could not create XML HTTP Request.");}}else{throw new Error("Your browser doesn't support an XML HTTP Request.");}};zXmlHttp.isSupported=function(){return zXml.useXmlHttp||zXml.useActiveX;};
+
+-->
+</script>
+</script>
+<script language="javascript">
+<!--
+var aSensorList = new Array("temp","pot","light","pb1","pb2","pb3","js");
+
+window.onload = function () {
+ var index;
+
+ if (zXmlHttp.isSupported()) {
+ for (index in aSensorList) { 
+ var divAdditionalLinks = document.getElementById(aSensorList[index]+"_conf");
+ if(divAdditionalLinks) {
+ get_sensor_config(aSensorList[index]);
+ }
+ } 
+ }
+ else {
+ alert("zXmlHttp not Supported");
+ }
+} 
+
+function check_sensor_config(sensor)
+{
+ if(sensor==1) { // "temp"
+ var divAdditionalLinks = document.getElementById("temp_conf"); 
+ set_sensor_config("temp_lograte" ,divAdditionalLinks.temp_lograte.value);
+ set_sensor_config("temp_min" ,divAdditionalLinks.temp_min.value);
+ set_sensor_config("temp_max" ,divAdditionalLinks.temp_max.value);
+ set_sensor_config("temp_alarm" ,divAdditionalLinks.temp_alarm.value);
+ } 
+ if(sensor==2) { // "pot"
+ var divAdditionalLinks = document.getElementById("pot_conf"); 
+ set_sensor_config("pot_lograte" ,divAdditionalLinks.pot_lograte.value);
+ set_sensor_config("pot_min" ,divAdditionalLinks.pot_min.value);
+ set_sensor_config("pot_max" ,divAdditionalLinks.pot_max.value);
+ set_sensor_config("pot_alarm" ,divAdditionalLinks.pot_alarm.value);
+ }
+ if(sensor==3) { // "light"
+ var divAdditionalLinks = document.getElementById("light_conf"); 
+ set_sensor_config("light_lograte" ,divAdditionalLinks.light_lograte.value);
+ set_sensor_config("light_min" ,divAdditionalLinks.light_min.value);
+ set_sensor_config("light_max" ,divAdditionalLinks.light_max.value);
+ set_sensor_config("light_alarm" ,divAdditionalLinks.light_alarm.value);
+ }
+ if(sensor==4) { // "pb1"
+ var divAdditionalLinks = document.getElementById("pb1_conf"); 
+ set_sensor_config("pb1_alarm" ,divAdditionalLinks.pb1_alarm.value);
+ }
+ if(sensor==5) { // "pb2"
+ var divAdditionalLinks = document.getElementById("pb2_conf"); 
+ set_sensor_config("pb2_alarm" ,divAdditionalLinks.pb2_alarm.value);
+ }
+ if(sensor==6) { // "pb3"
+ var divAdditionalLinks = document.getElementById("pb3_conf"); 
+ set_sensor_config("pb3_alarm" ,divAdditionalLinks.pb3_alarm.value);
+ }
+ if(sensor==7) { // "js"
+ var divAdditionalLinks = document.getElementById("js_conf"); 
+ set_sensor_config("js_alarm" ,divAdditionalLinks.js_alarm.value);
+ }
+}
+
+function set_sensor_config(field,value) {
+ var oXmlHttp = zXmlHttp.createRequest();
+ var reg=new RegExp("[_]", "");
+ var sendValue=field.split(reg);
+ var commandline="set_sensor_config.cgi?sensor="+sendValue[0]+"&"+sendValue[1]+"="+value;
+ oXmlHttp.open("get",commandline , true);
+ oXmlHttp.onreadystatechange = function () { 
+ if (oXmlHttp.readyState == 4) { 
+ if (oXmlHttp.status == 200) {
+ if(oXmlHttp.responseText.length>1) {
+ alert(oXmlHttp.responseText);
+ }
+ }
+ }
+ }
+ oXmlHttp.send(null);
+}
+
+function get_sensor_config(sensor) {
+ var oXmlHttp = zXmlHttp.createRequest();
+ oXmlHttp.open("get","get_sensor_config.cgi?sensor="+sensor , true);
+ oXmlHttp.onreadystatechange = function () { 
+ if (oXmlHttp.readyState == 4) { 
+ if (oXmlHttp.status == 200) {
+ var divAdditionalLinks = document.getElementById(sensor+"_conf");
+ if(divAdditionalLinks) { 
+ var line=new RegExp("[\n]+", "g");
+ var colum=new RegExp("[=]+", "g");
+ var aLine=oXmlHttp.responseText.split(line);
+ for (var i=0; i<aLine.length; i++) {
+ var aColum=aLine[i].split(colum);
+ var subDivAdditionalLinks = document.getElementById(sensor+"_"+aColum[0]); 
+ if(subDivAdditionalLinks != undefined) {
+ subDivAdditionalLinks.value=aColum[1];
+ }
+ }
+ }
+ }
+ }
+ }
+ oXmlHttp.send(null); 
+}
+
+-->
+</script>
+</script>
+</head>
+
+<body>
+ <div class="header">
+ <a href="index.htm"><img src="logo_atmel.gif" align="left" alt="Home" border="0"></a> <a href=
+ "sensor.htm">Sensors</a> - <a href="sensorg.htm">Graphic</a> - <a href="actuator.htm">Actuators</a> - <a href="sensorc.htm">Sensors
+ Configuration</a> - <a href="config.htm">System Configuration - <a href="help.htm">Help</a>
+ </div>
+
+ <div class="leftmenu">
+ <a href="#temp_section">Temperature</a><br>
+ <a href="#pot_section">Potentiometer</a><br>
+ <a href="#lig_section">Light</a><br>
+ <a href="#pb1_section">Push Button 1</a><br>
+ <a href="#pb2_section">Push Button 2</a><br>
+ <a href="#pb3_section">Push Button 3</a><br>
+ <a href="#js_section">JoyStick</a><br>
+ </div>
+
+ <div class="right_column">
+ <br>
+
+ <div class="content_header">
+ <a name="temp_section" id="temp_section">Temperature Configuration</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="temp_conf" name="temp_conf">
+ <p><label for="lograte">Log Rate (sec):</label> <input type="text" id="temp_lograte"></p>
+
+ <p><label for="min_val">Min temperature :</label> <input type="text" id="temp_min"></p>
+
+ <p><label for="max_val">Max temperature :</label> <input type="text" id="temp_max"></p>
+
+ <p><label for="alarm">Temperature Alarm:</label> <input type="text" id=
+ "temp_alarm"></p>
+
+ <p><input type="button" value="submit" onclick="check_sensor_config(1)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="pot_section" id="pot_section">Potentiometer Configuration</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="pot_conf" name="pot_conf">
+ <p><label for="lograte">Log Rate (sec):</label> <input type="text" id="pot_lograte"></p>
+
+ <p><label for="min">Min position :</label> <input type="text" id="pot_min"></p>
+
+ <p><label for="max">Max position :</label> <input type="text" id="pot_max"></p>
+
+ <p><label for="alarm">Potentiometer Alarm:</label> <input type="text" id="pot_alarm"></p>
+
+ <p><input type="button" value="submit" onclick="check_sensor_config(2)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="lig_section" id="lig_section">Light Configuration</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="light_conf" name="light_conf">
+ <p><label for="lograte">Log Rate (sec):</label> <input type="text" id="light_lograte"></p>
+
+ <p><label for="min">Min value :</label> <input type="text" id="light_min"></p>
+
+ <p><label for="max">Max value :</label> <input type="text" id="light_max"></p>
+
+ <p><label for="alarm">Light Alarm:</label> <input type="text" id="light_alarm"></p>
+
+ <p><input type="button" value="submit" onclick="check_sensor_config(3)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="pb1_section" id="pb1_section"></a>Push Button 1 Configuration
+ </div>
+
+ <div class="content_body_right">
+ <form id="pb1_conf" name="pb1_conf">
+ <p><label for="alarm">Push Button 1 Alarm :</label> <input type="text" id="pb1_alarm"></p>
+
+ <p><input type="button" value="submit" onclick="check_sensor_config(4)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="pb2_section" id="pb2_section"></a>Push Button 2 Configuration
+ </div>
+
+ <div class="content_body_right">
+ <form id="pb2_conf" name="pb2_conf">
+ <p><label for="alarm">Push Button 2 Alarm :</label> <input type="text" id="pb2_alarm"></p>
+
+ <p><input type="button" value="submit" onclick="check_sensor_config(5)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="pb3_section" id="pb3_section"></a>Push Button 3 Configuration
+ </div>
+
+ <div class="content_body_right">
+ <form id="pb3_conf" name="pb3_conf">
+ <p><label for="alarm">Push Button 3 Alarm :</label> <input type="text" id="pb3_alarm"></p>
+
+ <p><input type="button" value="submit" onclick="check_sensor_config(6)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="js_section" id="js_section"></a>Joystick Configuration
+ </div>
+
+ <div class="content_body_right">
+ <form id="js_conf" name="js_conf">
+ <p><label for="alarm">Joystick Alarm :</label> <input type="text" id="js_alarm"></p>
+
+ <p><input type="button" value="submit" onclick="check_sensor_config(7)"></p>
+ </form>
+ </div>
+ </div>
+</body>
+</html>

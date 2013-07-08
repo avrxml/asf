@@ -1,0 +1,9 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\afec_example4_flash.ewp</path>
+	</project>
+	<project>
+		<path>$WS_DIR$\afec_example4_sram.ewp</path>
+	</project>
+</workspace>

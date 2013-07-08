@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\sam4e_ek_demo_flash.ewp</path>
+	</project>
+</workspace>

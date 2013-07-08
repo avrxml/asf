@@ -1,0 +1,117 @@
+#
+# Copyright (c) 2010 Atmel Corporation. All rights reserved.
+#
+# \asf_license_start
+#
+# \page License
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice,
+#    this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
+#    and/or other materials provided with the distribution.
+#
+# 3. The name of Atmel may not be used to endorse or promote products derived
+#    from this software without specific prior written permission.
+#
+# 4. This software may only be redistributed and used in connection with an
+#    Atmel microcontroller product.
+#
+# THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+# EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+# STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+# ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#
+# \asf_license_stop
+#
+
+# Perform a JTAG chip erase command
+.PHONY: chiperase
+chiperase:
+	@echo $(MSG_ERASING_CHIP)
+	$(Q)$(PROGRAM) chiperase
+
+# Get CPU information
+.PHONY: cpuinfo
+cpuinfo:
+	@echo $(MSG_GETTING_CPU_INFO)
+	$(Q)$(PROGRAM) cpuinfo
+
+# Open a debug connection with the MCU
+.PHONY: debug
+debug: $(filter program,$(MAKECMDGOALS))
+	@echo $(MSG_DEBUGGING)
+	$(Q)$(GDBPROXY) $(FLASH:%=-f%)
+
+# Perform a flash erase
+.PHONY: erase
+erase:
+# The erase target should only be executed when program target is NOT given.
+ifeq ($(filter program,$(MAKECMDGOALS)),)
+	@echo $(MSG_ERASING)
+	$(Q)$(PROGRAM) erase $(FLASH:%=-f%)
+else
+	@:
+endif
+
+# Stop CPU execution
+.PHONY: halt
+halt:
+	@echo $(MSG_HALTING)
+	$(Q)$(PROGRAM) halt
+
+# Program MCU memory from ELF output file
+.PHONY: program
+program: $(target)
+	@echo $(MSG_PROGRAMMING)
+	$(Q)$(PROGRAM) program $(FLASH:%=-f%) $(PROG_CLOCK:%=-c%) -e -v $(if $(findstring reset,$(MAKECMDGOALS)),-R) $(if $(findstring run,$(MAKECMDGOALS)),-r) $(target)
+
+# Reset MCU.
+.PHONY: reset
+reset:
+# The reset target should only be executed when run and program targets are NOT
+# given.
+ifeq ($(filter run program,$(MAKECMDGOALS)),)
+	@echo $(MSG_RESETTING)
+	$(Q)$(PROGRAM) reset
+else
+	@:
+endif
+
+# Read CPU registers
+.PHONY: readregs
+readregs:
+	@echo $(MSG_READING_CPU_REGS)
+	$(Q)$(PROGRAM) readregs
+
+# Start CPU execution
+.PHONY: run
+run:
+# The run target should only be executed when the program target is NOT given.
+ifeq ($(filter program,$(MAKECMDGOALS)),)
+	@echo $(MSG_RUNNING)
+	$(Q)$(PROGRAM) run $(if $(findstring reset,$(MAKECMDGOALS)),-R)
+else
+	@:
+endif
+
+# Protect chip by setting security bit
+.PHONY: secureflash
+# TODO: the secureflash target is not thread safe and should depend upon erase
+# and program if these goals are given to make. By adding these dependencies to
+# secureflash will cause make to print unnecessary "Nothing to be done for..."
+# messages.
+secureflash:
+	@echo $(MSG_SECURING_FLASH)
+	$(Q)$(PROGRAM) secureflash

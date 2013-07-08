@@ -1,0 +1,138 @@
+#
+# Copyright (c) 2010 Atmel Corporation. All rights reserved.
+#
+# \asf_license_start
+#
+# \page License
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice,
+#    this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
+#    and/or other materials provided with the distribution.
+#
+# 3. The name of Atmel may not be used to endorse or promote products derived
+#    from this software without specific prior written permission.
+#
+# 4. This software may only be redistributed and used in connection with an
+#    Atmel microcontroller product.
+#
+# THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+# EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+# STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+# ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#
+# \asf_license_stop
+#
+
+isp-runflags-y  :=
+
+# Should the device start executing after tool has done the requested work?
+ifeq ($(findstring run,$(MAKECMDGOALS)),run)
+isp-runflags-y  += start
+# Should the device be reset after tool has done the requested work?
+ifeq ($(findstring reset,$(MAKECMDGOALS)),reset)
+isp-runflags-y  += reset 0
+else
+isp-runflags-y  += noreset 0
+endif
+# Even though the device shouldn't run, should it be reset?
+else
+ifeq ($(findstring reset,$(MAKECMDGOALS)),reset)
+isp-runflags-y  += reset 0
+endif
+endif
+
+.PHONY: isp
+isp:
+# Intentionally left empty
+	@:
+
+.PHONY: unsupported_target
+unsupported_target:
+	@echo "The make targets '$(MAKECMDGOALS)' are unsupported by the" \
+		"BatchISP tool"
+
+# Perform a JTAG chip erase command (not supported by BatchISP)
+.PHONY: chiperase
+chiperase: unsupported_target
+
+# Get CPU information (not supported by BatchISP)
+.PHONY: cpuinfo
+cpuinfo: unsupported_target
+
+# Open a debug connection with the MCU
+.PHONY: debug
+debug: $(filter program,$(MAKECMDGOALS))
+	@echo $(MSG_DEBUGGING)
+	$(Q)$(GDBPROXY) $(FLASH:%=-f%)
+
+# Perform a flash chip erase
+.PHONY: erase
+erase:
+# The erase target should only be executed when program target is NOT given.
+ifeq ($(filter program,$(MAKECMDGOALS)),)
+	@echo $(MSG_ERASING)
+	$(Q)$(BATCHISP) $(ispflags-y) erase f memory flash blankcheck
+else
+	@:
+endif
+
+# Stop CPU execution (not supported by BatchISP)
+.PHONY: halt
+halt: unsupported_target
+
+# Program MCU memory from ELF output file
+.PHONY: program
+program: $(target)
+	@echo $(MSG_PROGRAMMING)
+# isp-runflags-y is not passed as arguments if flash should be secured in the
+# same go. The secureflash target will take care of reset and execution.
+ifeq ($(findstring secureflash,$(MAKECMDGOALS)),secureflash)
+	$(Q)$(BATCHISP) $(ispflags-y) erase f memory flash blankcheck loadbuffer $(target) program verify
+else
+	$(Q)$(BATCHISP) $(ispflags-y) erase f memory flash blankcheck loadbuffer $(target) program verify $(isp-runflags-y)
+endif
+
+# Reset MCU (not supported directly by BatchISP)
+.PHONY: reset
+reset:
+# Intentionally left empty
+	@:
+
+# Read CPU registers (not supported by BatchISP)
+.PHONY: readregs
+readregs: unsupported_target
+
+# Start CPU execution
+.PHONY: run
+run:
+# The run target should only be executed when program and secureflash targets
+# are NOT given.
+ifeq ($(filter program secureflash,$(MAKECMDGOALS)),)
+	@echo $(MSG_RUNNING)
+	$(Q)$(BATCHISP) $(ispflags-y) $(isp-runflags-y)
+else
+	@:
+endif
+
+# Protect chip by setting security bit
+.PHONY: secureflash
+# TODO: the secureflash target is not thread safe and should depend upon erase
+# and program if these goals are given to make. By adding these dependencies to
+# secureflash will cause make to print unnecessary "Nothing to be done for..."
+# messages.
+secureflash:
+	@echo $(MSG_SECURING_FLASH)
+	$(Q)$(BATCHISP) $(ispflags-y) memory security addrange 0x0 0x0 fillbuffer 0x01 program $(isp-runflags-y)

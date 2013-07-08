@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta content="text/html; charset=us-ascii" http-equiv="content-type">
+  <meta content="Atmel" name="author">
+  <meta content="avr32,demo,web,server,UC3" name="keywords">
+
+  <title>WEB CONTROL PANEL - Actuators</title>
+  <link href="sensor.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="zxml.js">
+</script>
+<script type="text/javascript" src="actuator.js">
+</script>
+</head>
+
+<body>
+  <div class="header">
+    <a href="index.htm"><img src="logo_atmel.gif" align="left" alt="Home" border="0"></a> <a href=
+    "sensor.htm">Sensors</a> - <a href="sensorg.htm">Graphic</a> - <a href="actuator.htm">Actuators</a> - <a href="sensorc.htm">Sensors
+    Configuration</a> - <a href="config.htm">System Configuration - <a href="help.htm">Help </a>
+  </div>
+
+  <div class="leftmenu menu_items">
+    <a href="#ledb1_section">Bicolor LED 1</a><br>
+    <a href="#ledb2_section">Bicolor LED 2</a><br>
+    <a href="#ledm1_section">LED 1</a><br>
+    <a href="#ledm2_section">LED 2</a><br>
+    <a href="#lcd_section">LCD</a><br>
+  </div>
+
+  <div class="right_column">
+    <br>
+
+    <div class="content_header">
+      <a name="ledb1_section" id="ledb1_section">Bicolor LED 1</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="ledb1" name="ledb1">
+        <p><label for="green">Green value (0 [off] to 255 [on]):</label> <input type="text" id="ledb1_green"></p>
+
+        <p><label for="red">Red Value (0 [off] to 255 [on]):</label> <input type="text" id="ledb1_red"></p>
+
+        <p><label for="time">Date (3 or more seconds):</label> <input type="text" id="ledb1_time"></p>
+
+        <p><input type="button" value="submit" onclick="check_actuator_config(1)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="ledb2_section" id="ledb2_section">Bicolor LED 2</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="ledb2" name="ledb2">
+        <p><label for="green">Green value (0 [off] to 255 [on]):</label> <input type="text" id="ledb2_green"></p>
+
+        <p><label for="red">Red Value (0 [off] to 255 [on]):</label> <input type="text" id="ledb2_red"></p>
+
+        <p><label for="time">Date (3 or more seconds):</label> <input type="text" id="ledb2_time"></p>
+
+        <p><input type="button" value="submit" onclick="check_actuator_config(2)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="ledm2_section" id="ledm2_section">Monochrom LED 1</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="ledm1" name="ledm1">
+        <label for="on_off">On/Off :</label> <input type="checkbox" id="ledm1_state">
+
+        <p><label for="time">Date (3 or more seconds):</label> <input type="text" id="ledm1_time"></p>
+
+        <p><input type="button" value="submit" onclick="check_actuator_config(3)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="ledm2_section" id="ledm2_section">Monochrom LED 2</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="ledm2" name="ledm2">
+        <label for="on_off">On/Off :</label> <input type="checkbox" id="ledm2_state">
+
+        <p><label for="time">Date (3 or more seconds):</label> <input type="text" id="ledm2_time"></p>
+
+        <p><input type="button" value="submit" onclick="check_actuator_config(4)"></p>
+      </form>
+    </div>
+
+    <div class="content_header">
+      <a name="lcd_section" id="lcd_section">LCD : User Message</a>
+    </div>
+
+    <div class="content_body_right">
+      <form id="lcd" name="lcd">
+        <label for="user_message">User Message :</label> <input type="text" id="lcd_usrmsg">
+
+        <p><label for="time">Date (3 or more seconds):</label> <input type="text" id="lcd_time"></p>
+
+        <p><input type="button" value="submit" onclick="check_actuator_config(5)"></p>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

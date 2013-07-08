@@ -1,0 +1,259 @@
+#!/bin/sh
+
+# Copyright (C) 2006-2008, Atmel Corporation All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice,
+# this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+# this list of conditions and the following disclaimer in the documentation
+# and/or other materials provided with the distribution.
+#
+# 3. The name of ATMEL may not be used to endorse or promote products derived
+# from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY ATMEL ``AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE EXPRESSLY AND
+# SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT,
+# INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+# THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+sleep 2
+
+LOG_FILE_PATH='./dsp_bench_log.txt'
+TEMPORARY_FILE_PATH='./dsp_bench_temp'
+DATA_FILE_PATH='./dsp_bench_data'
+OUTPUT_FILE_PATH='./dsp_bench_result.txt'
+REAL_COEF_FILE_PATH='./dsp_bench_real_parts'
+IMAG_COEF_FILE_PATH='./dsp_bench_imag_parts'
+
+
+
+read param1
+read param1_def
+read param2
+read param2_def
+read param3
+read param3_def
+read param4
+read param4_def
+read QA
+read QB
+read OUTPUT_DATA_TYPE
+read FREQ
+read CUR_PATH
+read SCRIPT_ERROR_FILE_PATH
+read CONFIG_FILE_PATH
+read DATAGET
+read DATAEXTRACT
+read SCILAB_PATH
+
+# Change the scilab startup script
+mv "$SCILAB_PATH""/contrib/loader.sce" "$SCILAB_PATH""/contrib/loader.sce~"
+cp "./benchmark_loader.sce" "$SCILAB_PATH""/contrib/loader.sce"
+
+# Change the current path to $CUR_PATH
+cd $CUR_PATH
+
+CAR_ANTISLASH=`echo "" | gawk '{print "\r"}'`
+BARRE=''
+CUR_PERCENTAGE=0
+CLEAR_BAR='                                                                         '
+
+# Argument 1 is the percentage realized
+set_bar () {
+
+	SET_BAR='[                                        ]'
+	percentage=`echo "scale=1; $1*100/$2;" | bc -l`
+	printf "$SET_BAR  "$percentage"%%"$CAR_ANTISLASH'['
+
+	j=`echo "scale=0; $1*40/$2;" | bc -l`
+
+	i=`expr $j - $CUR_PERCENTAGE`
+	CUR_PERCENTAGE=$j
+	while test $i -gt 0
+	do
+		BARRE=$BARRE'='
+		i=`expr $i - 1`
+	done
+
+	if [ "$BARRE" != "" ];
+	then
+		printf $BARRE
+	fi
+}
+
+clear_bar ()
+{
+	printf "$CAR_ANTISLASH$CLEAR_BAR$CAR_ANTISLASH"
+}
+
+
+# Parameters generation
+
+# size
+param1=`echo $param1 | tr -s '#' '\n'`
+param2=`echo $param2 | tr -s '#' '\n'`
+param3=`echo $param3 | tr -s '#' '\n'`
+param4=`echo $param4 | tr -s '#' '\n'`
+
+nb_param1=`echo $param1 | wc -w`
+nb_param2=`echo $param2 | wc -w`
+nb_param3=`echo $param3 | wc -w`
+nb_param4=`echo $param4 | wc -w`
+
+percent_max=`echo "scale=10; $nb_param1*$nb_param2*$nb_param3*$nb_param4*6;" | bc -l`
+cur_inc=0
+
+# Generate the $CONFIG_FILE_PATH file with the appropriate defines
+for cur_param1 in $param1
+do
+	if [ "$cur_param1" = "SPACE" ] ; then
+		cur_param1=' ';
+	fi
+	for cur_param2 in $param2
+	do
+		if [ "$cur_param2" = "SPACE" ] ; then
+			cur_param2=' ';
+		fi
+		for cur_param3 in $param3
+		do
+			if [ "$cur_param3" = "SPACE" ] ; then
+				cur_param3=' ';
+			fi
+			for cur_param4 in $param4
+			do
+				if [ "$cur_param4" = "SPACE" ] ; then
+					cur_param4=' ';
+				fi
+
+				echo "";
+
+				# scilab config file
+				echo 'QA = '$QA';' > ./benchmark_init.sce
+				echo 'QB = '$QB';' >> ./benchmark_init.sce
+				echo 'FILE_REAL_COEF = "'$REAL_COEF_FILE_PATH'";' >> ./benchmark_init.sce
+				echo 'FILE_IMAG_COEF = "'$IMAG_COEF_FILE_PATH'";' >> ./benchmark_init.sce
+				echo 'SCRIPT_ERR = "'$SCRIPT_ERROR_FILE_PATH'";' >> ./benchmark_init.sce
+
+				cur_param=`expr "$cur_param1" : '\([0-9]*\)'` 
+				if [ "$cur_param" != "" ]; then
+					echo $param1_def' = '$cur_param';' >> ./benchmark_init.sce
+				fi
+				cur_param=`expr "$cur_param2" : '\([0-9]*\)'` 
+				if [ "$cur_param" != "" ]; then
+					echo $param2_def' = '$cur_param';' >> ./benchmark_init.sce
+				fi
+				cur_param=`expr "$cur_param3" : '\([0-9]*\)'` 
+				if [ "$cur_param" != "" ]; then
+					echo $param3_def' = '$cur_param';' >> ./benchmark_init.sce
+				fi
+				cur_param=`expr "$cur_param4" : '\([0-9]*\)'` 
+				if [ "$cur_param" != "" ]; then
+					echo $param4_def' = '$cur_param';' >> ./benchmark_init.sce
+				fi
+
+				clear_bar
+				echo 'OPTIONS: ['$cur_param1' - '$cur_param2' - '$cur_param3' - '$cur_param4']'
+
+				echo '  Creation of the '$CONFIG_FILE_PATH' file.'
+				cur_inc=`expr $cur_inc + 1`
+				set_bar $cur_inc $percent_max
+
+				echo '#ifndef __DSP_BENCH_CONFIG_H' > $CONFIG_FILE_PATH
+				echo '#define __DSP_BENCH_CONFIG_H' >> $CONFIG_FILE_PATH
+				echo '#  define '$param1_def'	'$cur_param1 >> $CONFIG_FILE_PATH
+				echo '#  define '$param2_def'	'$cur_param2 >> $CONFIG_FILE_PATH
+				echo '#  define '$param3_def'	'$cur_param3 >> $CONFIG_FILE_PATH
+				echo '#  define '$param4_def'	'$cur_param4 >> $CONFIG_FILE_PATH
+				echo '#endif' >> $CONFIG_FILE_PATH
+
+				clear_bar
+				echo '  Building and Downloading program.'
+				cur_inc=`expr $cur_inc + 1`
+				set_bar $cur_inc $percent_max
+
+        make clean > /dev/null 2>> $LOG_FILE_PATH
+				make reset > /dev/null 2>> $LOG_FILE_PATH
+				make program > /dev/null 2>> $LOG_FILE_PATH
+
+				echo "#!/bin/sh" > ./temp_script____.sh
+				echo "sleep 2" >> ./temp_script____.sh
+				echo "make run > /dev/null 2> $LOG_FILE_PATH" >> ./temp_script____.sh
+				echo 'RES=`grep "make: ***" '$LOG_FILE_PATH'`' >> ./temp_script____.sh
+				echo 'while [ "$RES" != "" ]' >> ./temp_script____.sh
+				echo 'do' >> ./temp_script____.sh
+				echo 'printf "$CAR_ANTISLASH$CLEAR_BAR$CAR_ANTISLASH"' >> ./temp_script____.sh
+				echo 'echo ! Running failed - retrying.' >> ./temp_script____.sh
+				echo "sleep 6" >> ./temp_script____.sh
+				echo "make run > /dev/null 2> $LOG_FILE_PATH" >> ./temp_script____.sh
+				echo 'RES=`grep "make: ***" '$LOG_FILE_PATH'`' >> ./temp_script____.sh
+				echo 'done' >> ./temp_script____.sh
+
+				./temp_script____.sh &
+
+				clear_bar
+				echo '  Waiting to get information...'
+				echo '  Running target.'
+				cur_inc=`expr $cur_inc + 1`
+				set_bar $cur_inc $percent_max
+				$DATAGET -f $DATA_FILE_PATH COM1 9600
+
+				rm ./temp_script____.sh
+
+				clear_bar
+				echo '  Extracting data to be analyzed.'
+				cur_inc=`expr $cur_inc + 1`
+				set_bar $cur_inc $percent_max
+				CYCLE=`$DATAEXTRACT $DATA_FILE_PATH "Cycle count: %f" 1`
+				CYCLE=`echo $CYCLE |  sed 's%/% %2' | sort -r +2 | uniq -f 2 | sort -r | sed 's% %/%1;'`
+				echo $CYCLE >> $OUTPUT_FILE_PATH
+
+				CUR_FREQ=`eval 'echo "scale=10; '$FREQ';" | bc -l'`
+				EXEC_TIME=`echo "scale=10; $CYCLE/$CUR_FREQ;" | bc -l`
+				echo $EXEC_TIME >> $OUTPUT_FILE_PATH
+
+				# Error calculation
+				if [ "$OUTPUT_DATA_TYPE" = "imag" ]; then
+					$DATAEXTRACT $DATA_FILE_PATH "%d %f + %fi" 2 > $REAL_COEF_FILE_PATH
+					$DATAEXTRACT $DATA_FILE_PATH "%d %f + %fi" 3 > $IMAG_COEF_FILE_PATH
+				else
+					$DATAEXTRACT $DATA_FILE_PATH "%d %f" 2 > $REAL_COEF_FILE_PATH
+				fi
+
+				clear_bar
+				echo '  Computing data.'
+				cur_inc=`expr $cur_inc + 1`
+				set_bar $cur_inc $percent_max
+				rxvt -e cd $CUR_PATH | exec "$SCILAB_PATH""/bin/Scilex.exe" > $TEMPORARY_FILE_PATH
+
+				#echo "\""$SCILAB_PATH""/bin/Scilex.exe"\" > $TEMPORARY_FILE_PATH &" > $TEMPORARY_FILE_PATH
+				#sh $TEMPORARY_FILE_PATH
+
+				rm ./benchmark_init.sce
+
+				clear_bar
+				echo '  Storing data.'
+				cur_inc=`expr $cur_inc + 1`
+				set_bar $cur_inc $percent_max
+				TEMP1=`$DATAEXTRACT $TEMPORARY_FILE_PATH "Average: %f" 1`
+				TEMP1=`echo $TEMP1 | sed 's%/% %2' | sort -r +2 | uniq -f 2 | sort -r | sed 's% %/%1;'`
+				echo $TEMP1 >> $OUTPUT_FILE_PATH
+				TEMP2=`$DATAEXTRACT $TEMPORARY_FILE_PATH "Maximum: %f" 1`
+				TEMP2=`echo $TEMP2 | sed 's%/% %2' | sort -r +2 | uniq -f 2 | sort -r | sed 's% %/%1;'`
+				echo $TEMP2 >> $OUTPUT_FILE_PATH
+
+				clear_bar
+				echo "Report at $CUR_FREQ Hz: $CYCLE cycles ($EXEC_TIME s), error average: $TEMP1, maximal error: $TEMP2"
+			done;
+		done;
+	done;
+done;

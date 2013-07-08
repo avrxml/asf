@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+ <meta content="text/html; charset=us-ascii" http-equiv="content-type">
+ <meta content="Atmel" name="author">
+ <meta content="avr32,demo,web,server,UC3" name="keywords">
+
+ <title>WEB CONTROL PANEL - Actuators</title>
+<style  TYPE="text/css">
+<!--
+.header {
+ height: 45px;
+ line-height: 45px;
+ width: 950px;
+ padding:3px;
+ text-align: center;
+ background: #2477E6;
+ color: #FFF;
+ font-size: 14px;
+ font-weight: bold;
+}
+
+.header a:link, .header a:visited {
+ text-decoration: none;
+ color : #FFF;
+}
+
+.header a:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+body {
+ margin-left: 8px;
+ margin-right: 8px;
+ margin-top: 8px;
+ margin-bottom: 8px;
+ padding: 0;
+ background-color: white;
+ color: black;
+ font-size: 12px;
+ font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+ font-size: 24px;
+ font-weight: bold;
+ color: #03F;
+}
+
+.title {
+ width: 900px;
+}
+
+.titletop {
+ height: 21px;
+ width: 716px;
+ color: white;
+ font-weight: bold;
+ background-image: url(title_bg.gif);
+ float: left;
+}
+
+.leftmenu {
+ height: 1520px;
+ line-height: 45px;
+ padding:3px;
+ text-align: left;
+ float: left;
+ background: #2477E6;
+ color: #FFF;
+ font-size: 14px;
+ font-weight: bold;
+ width: 130px;
+}
+
+.leftmenu a:link, .leftmenu a:visited {
+ text-decoration: none;
+ color : #FFF;
+}
+
+.leftmenu a:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+.right_column {
+ margin-right: 10px;
+ margin-left: 175px;
+}
+
+.content_header {
+ width : 775px;
+ background: #2477E6;
+ padding: 3px;
+ text-align: center;
+ color: #ffffff;
+ font-size: 14px;
+ font-weight: bold;
+ border: 1px solid #000;
+}
+
+.content_body {
+ width : 775px;
+ background: #FFF;
+ padding: 3px;
+ text-align: left;
+ color: #000;
+ font-size: 12px;
+ border-bottom:1px solid #000;
+ border-left:1px solid #000;
+ border-right:1px solid #000;
+ margin-bottom:15px;
+}
+
+.content_body_right {
+ width : 775px;
+ background: #FFF;
+ padding: 3px;
+ text-align: right;
+ color: #000000;
+ font-size: 12px;
+ border-bottom:1px solid #000;
+ border-left:1px solid #000;
+ border-right:1px solid #000;
+ margin-bottom:15px;
+}
+
+a.content_link:link, a.content_link:visited {
+ text-decoration: none;
+ color : #000;
+}
+
+a.content_link:hover {
+ text-decoration: none;
+ color : #707070;
+}
+
+.fade_block { 
+ width : 470px;
+ height : 300px;
+ background: #FFF;
+ background-repeat : none
+ padding: 10px;
+ text-align: center;
+ color: #2477E6;
+ font-size: 20px;
+ font-weight: bold;
+ float: right;
+}
+-->
+</style>
+<script language="javascript">
+<!--
+var zXml={useActiveX:(typeof ActiveXObject!="undefined"),useDom:document.implementation&&document.implementation.createDocument,useXmlHttp:(typeof XMLHttpRequest!="undefined")};zXml.ARR_XMLHTTP_VERS=["MSXML2.XmlHttp.6.0","MSXML2.XmlHttp.3.0"];zXml.ARR_DOM_VERS=["MSXML2.DOMDocument.6.0","MSXML2.DOMDocument.3.0"];function zXmlHttp(){}zXmlHttp.createRequest=function(){if(zXml.useXmlHttp){return new XMLHttpRequest();}else if(zXml.useActiveX){if(!zXml.XMLHTTP_VER){for(var i=0;i<zXml.ARR_XMLHTTP_VERS.length;i++){try{new ActiveXObject(zXml.ARR_XMLHTTP_VERS[i]);zXml.XMLHTTP_VER=zXml.ARR_XMLHTTP_VERS[i];break;}catch(oError){;}}}if(zXml.XMLHTTP_VER){return new ActiveXObject(zXml.XMLHTTP_VER);}else{throw new Error("Could not create XML HTTP Request.");}}else{throw new Error("Your browser doesn't support an XML HTTP Request.");}};zXmlHttp.isSupported=function(){return zXml.useXmlHttp||zXml.useActiveX;};
+
+-->
+</script>
+</script>
+<script language="javascript">
+<!--
+var aActuator = new Array("ledb1","ledb2","ledm1","ledm2","lcd");
+
+window.onload = function () {
+ var index;
+
+ if (zXmlHttp.isSupported()) {
+ for (index in aActuator) { 
+ var divAdditionalLinks = document.getElementById(aActuator[index]);
+ if(divAdditionalLinks) {
+ get_actuator(aActuator[index]);
+ }
+ } 
+ }
+ else {
+ alert("zXmlHttp not Supported");
+ }
+} 
+
+function get_actuator(actuator) {
+ var oXmlHttp = zXmlHttp.createRequest();
+ var commande="get_actuator_value.cgi?actuator="+actuator;
+ var red;
+ var green;
+ oXmlHttp.open("get",commande , true);
+ oXmlHttp.onreadystatechange = function () { 
+ if (oXmlHttp.readyState == 4) { 
+ if (oXmlHttp.status == 200) {
+ var divAdditionalLinks = document.getElementById(actuator);
+ if(divAdditionalLinks) {
+ var line=new RegExp("[|]+", "g");
+ var value=new RegExp("[,]+", "g");
+ var aLine=oXmlHttp.responseText.split(line);
+ 
+ if((aLine[0].match(/ledb1/i))||(aLine[0].match(/ledb2/i))) {
+ var aValue=aLine[2].split(value);
+ if(aValue[0]!=undefined) {
+ var subDivAdditionalLinks = document.getElementById(actuator+"_green");
+ subDivAdditionalLinks.value=aValue[0];
+ green=aValue[0];
+ }
+ if(aValue[1]!=undefined) { 
+ var subDivAdditionalLinks = document.getElementById(actuator+"_red");
+ subDivAdditionalLinks.value=aValue[1];
+ red=aValue[1];
+ }
+ }
+ else if((aLine[0].match(/ledm1/i))||(aLine[0].match(/ledm2/i))) {
+ var aValue=aLine[2].split(value);
+ if(aValue[0]!=undefined) {
+ var subDivAdditionalLinks = document.getElementById(actuator+"_state");
+ if(aValue[0].match(/on/i)) {
+ subDivAdditionalLinks.checked=true;
+ }
+ else if (aValue[0].match(/off/i)) {
+ subDivAdditionalLinks.checked=false; 
+ }
+ } 
+ }
+ else if(aLine[0].match(/lcd/i)) { 
+ var aValue=aLine[2].split(value);
+ if(aValue[0]!=undefined) {
+ var subDivAdditionalLinks = document.getElementById(actuator+"_usrmsg");
+ subDivAdditionalLinks.value=aValue[0];
+ } 
+ }
+ else {
+ alert(oXmlHttp.responseText);
+ }
+ }
+ }
+ }
+ }
+ oXmlHttp.send(null); 
+}
+
+function check_actuator_config(actuator)
+{
+ var sMessage="";
+ if(actuator==1) { // "ledb1"
+ var divAdditionalLinks = document.getElementById("ledb1");
+ message = "actuator=ledb1&green="+parseInt(divAdditionalLinks.ledb1_green.value)+
+ "&red="+parseInt(divAdditionalLinks.ledb1_red.value);
+ var time = divAdditionalLinks.ledb1_time.value;
+ if(time.length>0) {
+ message=message+"&time="+divAdditionalLinks.ledb1_time.value;
+ }
+ set_actuator_value(message);
+ }
+ if(actuator==2) { // "ledb2"
+ var divAdditionalLinks = document.getElementById("ledb2"); 
+ message = "actuator=ledb2&green="+parseInt(divAdditionalLinks.ledb2_green.value)+
+ "&red="+parseInt(divAdditionalLinks.ledb2_red.value);
+ var time = divAdditionalLinks.ledb2_time.value;
+ if(time.length>0) {
+ message=message+"&time="+divAdditionalLinks.ledb2_time.value;
+ }
+ set_actuator_value(message);
+ }
+ if(actuator==3) { // "ledm1"
+ var divAdditionalLinks = document.getElementById("ledm1"); 
+ message = "actuator=ledm1&state=";
+ if(divAdditionalLinks.ledm1_state.checked==true) {
+ message = message+"on";
+ }
+ else {
+ message = message+"off";
+ }
+ var time = divAdditionalLinks.ledm1_time.value;
+ if(time.length>0) {
+ message=message+"&time="+divAdditionalLinks.ledm1_time.value;
+ }
+ set_actuator_value(message);
+ }
+ if(actuator==4) { // "ledm2"
+ var divAdditionalLinks = document.getElementById("ledm2"); 
+ message = "actuator=ledm2&state=";
+ if(divAdditionalLinks.ledm2_state.checked==true) {
+ message = message+"on";
+ }
+ else {
+ message = message+"off";
+ }
+ var time = divAdditionalLinks.ledm2_time.value;
+ if(time.length>0) {
+ message=message+"&time="+divAdditionalLinks.ledm2_time.value;
+ }
+ set_actuator_value(message);
+ }
+ if(actuator==5) { // "lcd"
+ var divAdditionalLinks = document.getElementById("lcd");
+ message = "actuator=lcd&usrmsg="+"\""+divAdditionalLinks.lcd_usrmsg.value+"\""; 
+ var time = divAdditionalLinks.lcd_time.value;
+ if(time.length>0) {
+ message=message+"&time="+divAdditionalLinks.lcd_time.value;
+ }
+ set_actuator_value(message);
+ } 
+}
+
+function set_actuator_value(value) {
+ var oXmlHttp = zXmlHttp.createRequest();
+ var commandline="set_actuator_value.cgi?"+value;
+ oXmlHttp.open("get",commandline , true);
+ oXmlHttp.onreadystatechange = function () { 
+ if (oXmlHttp.readyState == 4) { 
+ if (oXmlHttp.status == 200) {
+ if(oXmlHttp.responseText.length>1) {
+ alert(oXmlHttp.responseText);
+ }
+ }
+ }
+ }
+ oXmlHttp.send(null);
+}
+-->
+</script>
+</script>
+</head>
+
+<body>
+ <div class="header">
+ <a href="index.htm"><img src="logo_atmel.gif" align="left" alt="Home" border="0"></a> <a href=
+ "sensor.htm">Sensors</a> - <a href="sensorg.htm">Graphic</a> - <a href="actuator.htm">Actuators</a> - <a href="sensorc.htm">Sensors
+ Configuration</a> - <a href="config.htm">System Configuration - <a href="help.htm">Help </a>
+ </div>
+
+ <div class="leftmenu menu_items">
+ <a href="#ledb1_section">Bicolor LED 1</a><br>
+ <a href="#ledb2_section">Bicolor LED 2</a><br>
+ <a href="#ledm1_section">LED 1</a><br>
+ <a href="#ledm2_section">LED 2</a><br>
+ <a href="#lcd_section">LCD</a><br>
+ </div>
+
+ <div class="right_column">
+ <br>
+
+ <div class="content_header">
+ <a name="ledb1_section" id="ledb1_section">Bicolor LED 1</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="ledb1" name="ledb1">
+ <p><label for="green">Green value (0 [off] to 255 [on]):</label> <input type="text" id="ledb1_green"></p>
+
+ <p><label for="red">Red Value (0 [off] to 255 [on]):</label> <input type="text" id="ledb1_red"></p>
+
+ <p><label for="time">Date (3 or more seconds):</label> <input type="text" id="ledb1_time"></p>
+
+ <p><input type="button" value="submit" onclick="check_actuator_config(1)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="ledb2_section" id="ledb2_section">Bicolor LED 2</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="ledb2" name="ledb2">
+ <p><label for="green">Green value (0 [off] to 255 [on]):</label> <input type="text" id="ledb2_green"></p>
+
+ <p><label for="red">Red Value (0 [off] to 255 [on]):</label> <input type="text" id="ledb2_red"></p>
+
+ <p><label for="time">Date (3 or more seconds):</label> <input type="text" id="ledb2_time"></p>
+
+ <p><input type="button" value="submit" onclick="check_actuator_config(2)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="ledm2_section" id="ledm2_section">Monochrom LED 1</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="ledm1" name="ledm1">
+ <label for="on_off">On/Off :</label> <input type="checkbox" id="ledm1_state">
+
+ <p><label for="time">Date (3 or more seconds):</label> <input type="text" id="ledm1_time"></p>
+
+ <p><input type="button" value="submit" onclick="check_actuator_config(3)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="ledm2_section" id="ledm2_section">Monochrom LED 2</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="ledm2" name="ledm2">
+ <label for="on_off">On/Off :</label> <input type="checkbox" id="ledm2_state">
+
+ <p><label for="time">Date (3 or more seconds):</label> <input type="text" id="ledm2_time"></p>
+
+ <p><input type="button" value="submit" onclick="check_actuator_config(4)"></p>
+ </form>
+ </div>
+
+ <div class="content_header">
+ <a name="lcd_section" id="lcd_section">LCD : User Message</a>
+ </div>
+
+ <div class="content_body_right">
+ <form id="lcd" name="lcd">
+ <label for="user_message">User Message :</label> <input type="text" id="lcd_usrmsg">
+
+ <p><label for="time">Date (3 or more seconds):</label> <input type="text" id="lcd_time"></p>
+
+ <p><input type="button" value="submit" onclick="check_actuator_config(5)"></p>
+ </form>
+ </div>
+ </div>
+</body>
+</html>

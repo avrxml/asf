@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\serial_if_host_flash.ewp</path>
+	</project>
+</workspace>

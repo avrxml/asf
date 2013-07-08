@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\uc3l-ek-touch-demo.ewp</path>
+	</project>
+</workspace>

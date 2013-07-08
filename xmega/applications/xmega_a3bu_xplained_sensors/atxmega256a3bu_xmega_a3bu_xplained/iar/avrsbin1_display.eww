@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\avrsbin1_display.ewp</path>
+	</project>
+</workspace>

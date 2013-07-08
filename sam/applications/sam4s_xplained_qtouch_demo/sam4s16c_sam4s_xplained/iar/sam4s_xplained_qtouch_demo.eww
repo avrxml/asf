@@ -1,0 +1,9 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\sam4s_xplained_qtouch_demo_flash.ewp</path>
+	</project>
+	<project>
+		<path>$WS_DIR$\sam4s_xplained_qtouch_demo_sram.ewp</path>
+	</project>
+</workspace>
