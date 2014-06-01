@@ -3,7 +3,7 @@
  *
  * \brief SAM4S-Xplained QTouch and LED demonstration.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,16 +63,7 @@
  *
  * \section Usage
  *
- * -# Build the program and download it inside the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a>
- *    application note or to the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>,
- *    depending on your chosen solution.
+ * -# Build the program and download it inside the evaluation board.
  * -# Start the application.
  * -# Two LEDs should start blinking on the board.
  * -# Press and release the QTouch slider will set the LEDs blinking at a
@@ -127,12 +118,6 @@
 
 /** QTouch max data value */
 #define QT_MAX_DATA    255
-
-/* This configuration data structure parameters if needs to be changed will be
- * changed in the qt_set_parameters function */
-extern qt_touch_lib_config_data_t qt_config_data;
-/* Measurement data */
-extern qt_touch_lib_measure_data_t qt_measure_data;
 
 /** Flag set by timer ISR when it's time to measure touch */
 static volatile uint8_t time_to_measure_touch = 0u;

@@ -5,7 +5,7 @@
  *        in the example application of the coordinator in addition to the
  *        underlaying stack.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -62,7 +62,7 @@
 #define NUMBER_OF_APP_TIMERS        (0)
 
 /** Defines the total number of timers used by the application and the layers
- *below. */
+ * below. */
 #define TOTAL_NUMBER_OF_TIMERS      (NUMBER_OF_APP_TIMERS + \
 	NUMBER_OF_TOTAL_STACK_TIMERS)
 

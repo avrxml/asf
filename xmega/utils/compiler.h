@@ -3,7 +3,7 @@
  *
  * \brief Commonly used includes, types and macros.
  *
- * Copyright (c) 2010-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -395,12 +395,12 @@ ERROR_FUNC(compiler_demux_bad_size, "Invalid parameter size");
  *
  * Usage:
  * \code
- * void foo8(uint8_t a, void *b);
- * void foo16(uint16_t a, void *b);
- * void foo32(uint32_t a, void *b);
- *
- * #define foo(x, y)    compiler_demux_size(sizeof(x), foo, x, y)
- * \endcode
+	 void foo8(uint8_t a, void *b);
+	 void foo16(uint16_t a, void *b);
+	 void foo32(uint32_t a, void *b);
+
+	 #define foo(x, y)    compiler_demux_size(sizeof(x), foo, x, y)
+\endcode
  *
  * \param size Size of the datatype.
  * \param func Base function name.

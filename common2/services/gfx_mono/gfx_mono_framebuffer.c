@@ -3,7 +3,7 @@
  *
  * \brief Local framebuffer
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,9 +54,9 @@ static uint8_t *fbpointer;
  *
  * A small example:
  * \code
- * uint8_t framebuffer[FRAMEBUFFER_SIZE];
- * gfx_mono_set_framebuffer(framebuffer);
- * \endcode
+	uint8_t framebuffer[FRAMEBUFFER_SIZE];
+	gfx_mono_set_framebuffer(framebuffer);
+\endcode
  */
 void gfx_mono_set_framebuffer(uint8_t *framebuffer)
 {
@@ -74,8 +74,8 @@ void gfx_mono_set_framebuffer(uint8_t *framebuffer)
  * The following example will write 32 bytes from data_buf to the page 0,
  * column 10 (byte 10 to 42 in the framebuffer).
  * \code
- * gfx_mono_framebuffer_put_page(data_buf, 0, 10, 32);
- * \endcode
+	gfx_mono_framebuffer_put_page(data_buf, 0, 10, 32);
+\endcode
  */
 void gfx_mono_framebuffer_put_page(gfx_mono_color_t *data, gfx_coord_t page,
 		gfx_coord_t column, gfx_coord_t width)
@@ -100,8 +100,8 @@ void gfx_mono_framebuffer_put_page(gfx_mono_color_t *data, gfx_coord_t page,
  * The following example will read back the first 128 bytes (first page) from
  * the framebuffer:
  * \code
- * gfx_mono_framebuffer_get_page(read_buffer, 0, 0, 128);
- * \endcode
+	gfx_mono_framebuffer_get_page(read_buffer, 0, 0, 128);
+\endcode
  */
 void gfx_mono_framebuffer_get_page(gfx_mono_color_t *data, gfx_coord_t page, \
 		gfx_coord_t column, gfx_coord_t width)
@@ -195,8 +195,8 @@ uint8_t gfx_mono_framebuffer_get_pixel(gfx_coord_t x, gfx_coord_t y)
  *
  * This example will put the value 0xFF to the first byte in the framebuffer
  * \code
- * gfx_mono_framebuffer_put_byte(0, 0, 0xFF);
- * \endcode
+	gfx_mono_framebuffer_put_byte(0, 0, 0xFF);
+\endcode
  */
 void gfx_mono_framebuffer_put_byte(gfx_coord_t page, gfx_coord_t column,
 		uint8_t data)
@@ -213,8 +213,8 @@ void gfx_mono_framebuffer_put_byte(gfx_coord_t page, gfx_coord_t column,
  *
  * The following code will read the first byte of the framebuffer
  * \code
- * data = gfx_mono_framebuffer_get_byte(0, 0);
- * \endcode
+	data = gfx_mono_framebuffer_get_byte(0, 0);
+\endcode
  */
 uint8_t gfx_mono_framebuffer_get_byte(gfx_coord_t page, gfx_coord_t column)
 {
@@ -235,8 +235,8 @@ uint8_t gfx_mono_framebuffer_get_byte(gfx_coord_t page, gfx_coord_t column)
  *
  * A small example that will XOR the first byte of the framebuffer with 0xAA
  * \code
- * gfx_mono_framebuffer_mask_byte(0,0,0xAA,GFX_PIXEL_XOR);
- * \endcode
+	gfx_mono_framebuffer_mask_byte(0,0,0xAA,GFX_PIXEL_XOR);
+\endcode
  */
 void gfx_mono_framebuffer_mask_byte(gfx_coord_t page, gfx_coord_t column,
 		gfx_mono_color_t pixel_mask, gfx_mono_color_t color)

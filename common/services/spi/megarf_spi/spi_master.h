@@ -3,7 +3,7 @@
  *
  * \brief SPI master driver definition for megaRF.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -286,31 +286,31 @@ inline static bool spi_is_rx_ready(volatile void *spi)
  * \subsection spi_master_megarf_basic_setup_code Example code
  * Add to application C-file (e.g. main.c):
  * \code
- *  #define SPI_SCK       IOPORT_CREATE_PIN(PORTB, 1)
- *  #define SPI_MOSI      IOPORT_CREATE_PIN(PORTB, 2)
- *  #define SPI_MISO      IOPORT_CREATE_PIN(PORTB, 3)
- *  #define SPI_SS        IOPORT_CREATE_PIN(PORTB, 0)
- *
- *   void spi_init_pins(void)
- *   {
- *       gpio_configure_pin(SPI_SCK, IOPORT_INIT_HIGH | IOPORT_DIR_OUTPUT);
- *       gpio_configure_pin(SPI_MOSI, IOPORT_INIT_HIGH | IOPORT_DIR_OUTPUT);
- *       gpio_configure_pin(SPI_MISO, IOPORT_DIR_INPUT);
- *       gpio_configure_pin(SPI_SS, IOPORT_INIT_HIGH | IOPORT_DIR_OUTPUT);
- *   }
- *
- *   void spi_init_module(void)
- *   {
- *      struct spi_device spi_device_conf = {
- *          .id = IOPORT_CREATE_PIN(PORTB, 0)
- *      };
- *
- *      spi_master_init(&SPCR);
- *      spi_master_setup_device(&SPCR, &spi_device_conf, SPI_MODE_0,
- *        1000000,0);
- *      spi_enable(&SPCR);
- *   }
- * \endcode
+	  #define SPI_SCK       IOPORT_CREATE_PIN(PORTB, 1)
+	  #define SPI_MOSI      IOPORT_CREATE_PIN(PORTB, 2)
+	  #define SPI_MISO      IOPORT_CREATE_PIN(PORTB, 3)
+	  #define SPI_SS        IOPORT_CREATE_PIN(PORTB, 0)
+
+	   void spi_init_pins(void)
+	   {
+	       gpio_configure_pin(SPI_SCK, IOPORT_INIT_HIGH | IOPORT_DIR_OUTPUT);
+	       gpio_configure_pin(SPI_MOSI, IOPORT_INIT_HIGH | IOPORT_DIR_OUTPUT);
+	       gpio_configure_pin(SPI_MISO, IOPORT_DIR_INPUT);
+	       gpio_configure_pin(SPI_SS, IOPORT_INIT_HIGH | IOPORT_DIR_OUTPUT);
+	   }
+
+	   void spi_init_module(void)
+	   {
+	      struct spi_device spi_device_conf = {
+	          .id = IOPORT_CREATE_PIN(PORTB, 0)
+	      };
+
+	      spi_master_init(&SPCR);
+	      spi_master_setup_device(&SPCR, &spi_device_conf, SPI_MODE_0,
+	        1000000,0);
+	      spi_enable(&SPCR);
+	   }
+\endcode
  *
  * \subsection spi_master_megarf_basic_setup Workflow
  * -# Ensure that \ref conf_spi_master.h is present for the driver.
@@ -320,77 +320,77 @@ inline static bool spi_is_rx_ready(volatile void *spi)
  * the ATmega128rfa1 device).
  * -# Define the pins used by the SPI interface
  *  - \code
- *     #define SPI_SCK       IOPORT_CREATE_PIN(PORTB, 1)
- *     #define SPI_MOSI      IOPORT_CREATE_PIN(PORTB, 2)
- *     #define SPI_MISO      IOPORT_CREATE_PIN(PORTB, 3)
- *     #define SPI_SS        IOPORT_CREATE_PIN(PORTB, 0)
- *    \endcode
+	#define SPI_SCK       IOPORT_CREATE_PIN(PORTB, 1)
+	#define SPI_MOSI      IOPORT_CREATE_PIN(PORTB, 2)
+	#define SPI_MISO      IOPORT_CREATE_PIN(PORTB, 3)
+	#define SPI_SS        IOPORT_CREATE_PIN(PORTB, 0)
+\endcode
  *  -# Set the pin used for slave select as output high:
  *    \code
- *    ioport_configure_port_pin(SPI_SS, IOPORT_INIT_HIGH | IOPORT_DIR_OUTPUT);
- *    \endcode
+	ioport_configure_port_pin(SPI_SS, IOPORT_INIT_HIGH | IOPORT_DIR_OUTPUT);
+\endcode
  *  -# Set MOSI and SCL as output high, and set MISO as input:
  *    \code
- *    ioport_configure_port_pin(SPI_SCK, IOPORT_INIT_HIGH | IOPORT_DIR_OUTPUT);
- *    ioport_configure_port_pin(SPI_MOSI, IOPORT_INIT_HIGH | IOPORT_DIR_OUTPUT);
- *    ioport_configure_port_pin(SPI_MISO, IOPORT_DIR_INPUT);
- *    \endcode
+	ioport_configure_port_pin(SPI_SCK, IOPORT_INIT_HIGH | IOPORT_DIR_OUTPUT);
+	ioport_configure_port_pin(SPI_MOSI, IOPORT_INIT_HIGH | IOPORT_DIR_OUTPUT);
+	ioport_configure_port_pin(SPI_MISO, IOPORT_DIR_INPUT);
+\endcode
  * -# Define the SPI device configuration struct to describe which pin the
  * slave select (slave chip select) is connected to, in this case the slave
  * select pin has been connected to PORTB pin 0 (PB0):
  *  - \code
- *   struct spi_device spi_device_conf = {
- *       .id = IOPORT_CREATE_PIN(PORTB, 0)
- *   };
- * \endcode
+	struct spi_device spi_device_conf = {
+	    .id = IOPORT_CREATE_PIN(PORTB, 0)
+	};
+\endcode
  * -# Initialize the SPI module:
  *  - \code
- *    spi_master_init(&SPCR);
- *    \endcode
+	spi_master_init(&SPCR);
+\endcode
  * -# Setup the SPI master module for a specific device:
  *  - \code
- *   spi_master_setup_device(&SPCR, &spi_device_conf, SPI_MODE_0, 1000000, 0);
- * \endcode
+	spi_master_setup_device(&SPCR, &spi_device_conf, SPI_MODE_0, 1000000, 0);
+\endcode
  *  - \note The last argument, which is zero in this case, can be ignored and is
  *  only included for compatibility purposes.
  * -# Then enable the SPI:
  *  - \code
- *    spi_enable(&SPCR);
- *    \endcode
+	spi_enable(&SPCR);
+\endcode
  *
  * \section spi_master_megarf_basic_usage Usage steps
  * \subsection spi_master_megarf_basic_usage_code Example code
  * Add to, e.g., the main loop in the application C-file:
  * \code
- *   uint8_t data_buffer[1] = {0xD7};
- *
- *   struct spi_device spi_device_conf = {
- *       .id = IOPORT_CREATE_PIN(PORTB, 0)
- *   };
- *
- *   spi_select_device(&SPCR, &spi_device_conf);
- *
- *   spi_write_packet(&SPCR, data_buffer, 1);
- *   spi_read_packet(&SPCR, data_buffer, 1);
- *
- *   spi_deselect_device(&SPCR, &spi_device_conf);
- * \endcode
+	   uint8_t data_buffer[1] = {0xD7};
+
+	   struct spi_device spi_device_conf = {
+	       .id = IOPORT_CREATE_PIN(PORTB, 0)
+	   };
+
+	   spi_select_device(&SPCR, &spi_device_conf);
+
+	   spi_write_packet(&SPCR, data_buffer, 1);
+	   spi_read_packet(&SPCR, data_buffer, 1);
+
+	   spi_deselect_device(&SPCR, &spi_device_conf);
+\endcode
  *
  * \subsection spi_master_megarf_basic_usage_flow Workflow
  * -# Create a buffer for data to be sent/received on the SPI bus, in this case
  * a single byte buffer is used. The buffer can be of arbitrary size as long as
  * there is space left in SRAM:
  *  - \code
- *    uint8_t data_buffer[1] = {0xD7};
- *    \endcode
+	uint8_t data_buffer[1] = {0xD7};
+\endcode
  * -# Define the SPI device configuration struct to describe which pin the
  * slave select (slave chip select) is connected to, in this case the slave
  * select pin has been connected to PORTB pin01 (PB0):
  *  - \code
- *   struct spi_device spi_device_conf = {
- *       .id = IOPORT_CREATE_PIN(PORTB, 0)
- *   };
- * \endcode
+	struct spi_device spi_device_conf = {
+	    .id = IOPORT_CREATE_PIN(PORTB, 0)
+	};
+\endcode
  *  - \note As this struct is the same for both the initializing part and the
  *usage
  * part it could be a good idea to make the struct global, and hence accessible
@@ -398,26 +398,26 @@ inline static bool spi_is_rx_ready(volatile void *spi)
  * create the struct in the main function and pass the address of the struct to
  * the spi_init_module() function, e.g.:
  *  \code
- *   void spi_init_module(struct spi_device *spi_device_conf)
- *   {
- *       ...
- *
- *       spi_master_setup_device(&SPCR, spi_device_conf, SPI_MODE_0, 
- *       1000000, 0);
- *
- *       ...
- *   }
- * \endcode
+	   void spi_init_module(struct spi_device *spi_device_conf)
+	   {
+	       ...
+
+	       spi_master_setup_device(&SPCR, spi_device_conf, SPI_MODE_0, 
+	       1000000, 0);
+
+	       ...
+	   }
+\endcode
  * -# Write data to the SPI slave device, in this case write one byte from the
  * data_buffer:
  *  - \code
- *   spi_write_packet(&SPCR, data_buffer, 1);
- * \endcode
+	spi_write_packet(&SPCR, data_buffer, 1);
+\endcode
  * -# Read data from the SPI slave device, in this case read one byte and put it
  * into the data_buffer:
  *  - \code
- *   spi_read_packet(&SPCR, data_buffer, 1);
- * \endcode
+	spi_read_packet(&SPCR, data_buffer, 1);
+\endcode
  *  - \attention As the SPI works as a shift register so that data is shifted in
  * at the same time as data is shifted out a read operation will mean that a dummy
  * byte \ref CONFIG_SPI_MASTER_DUMMY is written to the SPI bus. \ref
@@ -426,8 +426,8 @@ inline static bool spi_is_rx_ready(volatile void *spi)
  * conf_spi_master.h file.
  * -# When read and write operations is done de-select the slave:
  *  - \code
- *   spi_deselect_device(&SPCR, &spi_device_conf);
- * \endcode
+	spi_deselect_device(&SPCR, &spi_device_conf);
+\endcode
  *
  */
 

@@ -4,7 +4,7 @@
  * @brief This file implements miscellaneous MAC sublayer components.
  *
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -69,9 +69,12 @@
 #include "mac.h"
 #include "mac_config.h"
 #include "mac_build_config.h"
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
 #include "mac_security.h"
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
+#ifdef STB_ON_SAL
+#include "stb.h"
+#endif
 
 /* === Macros =============================================================== */
 
@@ -84,9 +87,11 @@ uint8_t T_Superframe;
 uint8_t T_Missed_Beacon;
     #if (MAC_START_REQUEST_CONFIRM == 1)
 uint8_t T_Beacon;
-
 uint8_t T_Beacon_Preparation;
     #endif /* (MAC_START_REQUEST_CONFIRM == 1) */
+#ifdef GTS_SUPPORT
+uint8_t T_CAP;
+#endif /* GTS_SUPPORT */
 #endif  /* BEACON_SUPPORT / No BEACON_SUPPORT */
 
 #if (MAC_INDIRECT_DATA_BASIC == 1)
@@ -132,8 +137,12 @@ static void reset_globals(void)
 	mac_bc_data_indicated = false;
 #endif  /* BEACON_SUPPORT */
 	mac_last_dsn = 0;
-	mac_last_src_addr = 0xFFFFFFFFFFFFFFFF;
+	memset((uint8_t *)&mac_last_src_addr, 0xFF, sizeof(mac_last_src_addr));
+	/* mac_last_src_addr = 0xFFFFFFFFFFFFFFFFULL; */
 	mac_rx_enabled = false;
+#ifdef GTS_SUPPORT
+	reset_gts_globals();
+#endif /* GTS_SUPPORT */
 }
 
 /**
@@ -143,10 +152,43 @@ static void reset_globals(void)
  */
 retval_t mac_init(void)
 {
+	#ifdef GTS_DEBUG
+	struct port_config config_port_pin;
+	config_port_pin.direction = PORT_PIN_DIR_OUTPUT;
+	port_pin_set_config(DEBUG_PIN1, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN2, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN3, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN4, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN5, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN6, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN7, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN8, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN9, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN10, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN11, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN12, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN13, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN14, &config_port_pin);
+	port_pin_set_config(DEBUG_PIN15, &config_port_pin);
+
+	/*ioport_configure_pin(DEBUG_PIN1, IOPORT_DIR_OUTPUT |
+	*  IOPORT_INIT_LOW);
+	*  ioport_configure_pin(DEBUG_PIN2, IOPORT_DIR_OUTPUT |
+	*  IOPORT_INIT_LOW);
+	*  ioport_configure_pin(DEBUG_PIN3, IOPORT_DIR_OUTPUT |
+	*  IOPORT_INIT_LOW);
+	*  ioport_configure_pin(DEBUG_PIN4, IOPORT_DIR_OUTPUT |
+	*  IOPORT_INIT_LOW);*/
+	#endif
+
 	/* Initialize TAL */
 	if (tal_init() != MAC_SUCCESS) {
 		return FAILURE;
 	}
+
+#ifdef STB_ON_SAL
+	stb_init();
+#endif
 
 #ifdef ENABLE_RTB
 	/* Initialize RTB */
@@ -194,6 +236,7 @@ retval_t mac_init(void)
     #endif  /* BEACON_SUPPORT */
     #endif /* (MAC_START_REQUEST_CONFIRM == 1) */
 #endif  /* ENABLE_QUEUE_CAPACITY */
+
 	return MAC_SUCCESS;
 }
 
@@ -225,6 +268,7 @@ void mac_idle_trans(void)
 
 #if (_DEBUG_ > 0)
 		Assert(MAC_SUCCESS == set_status);
+		set_status = set_status;
 #endif
 	}
 
@@ -260,6 +304,10 @@ static void do_init_pib(void)
 	mac_pib.mac_BSN = (uint8_t)rand();
 #endif  /* (MAC_START_REQUEST_CONFIRM == 1) */
 
+#ifdef GTS_SUPPORT
+	mac_pib.mac_GTSPermit = macGTSPermit_def;
+#endif /* GTS_SUPPORT */
+
 #if (MAC_INDIRECT_DATA_FFD == 1)
 	mac_pib.mac_TransactionPersistenceTime
 		= macTransactionPersistenceTime_def;
@@ -267,18 +315,20 @@ static void do_init_pib(void)
 
 	mac_pib.mac_AutoRequest = macAutoRequest_def;
 	mac_pib.mac_BattLifeExtPeriods = macBattLifeExtPeriods_def;
-	mac_pib.mac_CoordExtendedAddress = CLEAR_ADDR_64;
+	memset((uint8_t *)&mac_pib.mac_CoordExtendedAddress, 0,
+			sizeof(mac_pib.mac_CoordExtendedAddress));
+	/* mac_pib.mac_CoordExtendedAddress = (uint64_t)CLEAR_ADDR_64; */
 	mac_pib.mac_CoordShortAddress = macCoordShortAddress_def;
 	mac_pib.mac_DSN = (uint8_t)rand();
 	mac_pib.mac_RxOnWhenIdle = macRxOnWhenIdle_def;
 
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
 	/* TODO: Create a specific function for security PIB initialization? */
 	mac_sec_pib.KeyTableEntries = macKeyTableEntries_def;
 	mac_sec_pib.DeviceTableEntries = macDeviceTable_def;
 	mac_sec_pib.SecurityLevelTableEntries = macSecurityLevelTable_def;
 	mac_sec_pib.FrameCounter = macFrameCounter_def;
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 
 #ifdef TEST_HARNESS
 	mac_pib.privateIllegalFrameType = 1;
@@ -311,7 +361,7 @@ void mlme_reset_request(uint8_t *m)
 
 	/*
 	 * As this is a mlme_reset request, all the requests, data (whether
-	 *direct
+	 * direct
 	 * or indirect), incoming frames are removed from the queues
 	 */
 	flush_queues();
@@ -382,7 +432,14 @@ static void mac_soft_reset(uint8_t init_pib)
 void mac_sleep_trans(void)
 {
 	/* Go to sleep? */
+#ifdef BEACON_SUPPORT
+	if ((NON_BEACON_NWK > tal_pib.BeaconOrder && MAC_INACTIVE ==
+			mac_superframe_state && (!mac_rx_enabled)) ||
+			(NON_BEACON_NWK == tal_pib.BeaconOrder &&
+			(!mac_pib.mac_RxOnWhenIdle) && (!mac_rx_enabled))) {
+#else /* BEACON_SUPPORT */
 	if ((!mac_pib.mac_RxOnWhenIdle) && (!mac_rx_enabled)) {
+#endif /* BEACON_SUPPORT */
 #if (MAC_SYNC_REQUEST == 1)
 
 		/*
@@ -420,6 +477,11 @@ static void flush_queues(void)
 	/* Flush MAC-NHLE queue */
 	qmm_queue_flush(&mac_nhle_q);
 #endif
+
+#ifdef GTS_SUPPORT
+	/* Flush MAC GTS queue */
+	flush_gts_queues();
+#endif /* GTS_SUPPORT */
 
 #if (MAC_INDIRECT_DATA_FFD == 1)
 	/* Flush MAC indirect queue */
@@ -466,14 +528,14 @@ void mac_mlme_comm_status(uint8_t status,
 {
 	/*
 	 * The pointer to the destination address (received as one of the
-	 *function
+	 * function
 	 * paramters) points to a location in buf_ptr.
 	 * As the same buffer is used to generate the comm status
 	 * indication, it is typecasted to the 'mlme_comm_status_ind_t'. This
-	 *may
+	 * may
 	 * result in loosing destination address (which is still a part of this
 	 * buffer), hence the destination address is backed up in a stack
-	 *variable.
+	 * variable.
 	 */
 	frame_info_t *frame_ptr = (frame_info_t *)BMM_BUFFER_POINTER(buf_ptr);
 	uint64_t destination_address;
@@ -565,7 +627,13 @@ retval_t mac_timers_init(void)
 	if (MAC_SUCCESS != pal_timer_get_id(&T_Beacon_Preparation)) {
 		return FAILURE;
 	}
+
     #endif /* (MAC_START_REQUEST_CONFIRM == 1) */
+#ifdef GTS_SUPPORT
+	if (MAC_SUCCESS != pal_timer_get_id(&T_CAP)) {
+		return FAILURE;
+	}
+#endif /* GTS_SUPPORT */
 #endif  /* BEACON_SUPPORT / No BEACON_SUPPORT */
 
 #if (MAC_INDIRECT_DATA_BASIC == 1)
@@ -607,6 +675,9 @@ retval_t mac_timers_stop(void)
 	pal_timer_stop(T_Beacon);
 	pal_timer_stop(T_Beacon_Preparation);
     #endif /* (MAC_START_REQUEST_CONFIRM == 1) */
+#ifdef GTS_SUPPORT
+	pal_timer_stop(T_CAP);
+#endif /* GTS_SUPPORT */
 #endif  /* BEACON_SUPPORT / No BEACON_SUPPORT */
 
 #if (MAC_INDIRECT_DATA_BASIC == 1)

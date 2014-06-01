@@ -3,7 +3,7 @@
  *
  * \brief DSP task for the FreeRTOS Web/DSP Demo.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,10 +54,10 @@
 #include <stdio_serial.h>
 #include <serial.h>
 
-/** sound sampling frequency */
+/** Sound sampling frequency. */
 #define SAMPLING_FREQUENCY  22050UL
 
-/** ADC relateddefinition*/
+/** ADC definitions. */
 #define ADC_CHANNEL_POTENTIOMETER  AFEC_CHANNEL_5
 #define ADC_CHANNEL_MICROPHONE     AFEC_CHANNEL_4
 #define ADC_POTENTIOMETER_NOISE    10
@@ -114,8 +114,6 @@ static uint32_t cur_dac_buffer = 2;
 /** Pointer to PDC register base. */
 Pdc *dacc_pdc;
 
-extern uint32_t g_ip_mode;
-
 /** Wave/Sinus mode selection. */
 uint32_t g_mode_select = 1;
 
@@ -162,8 +160,7 @@ void DACC_Handler(void)
 	/** Check if one PDC buffer has been received. */
 	if (isr & DACC_ISR_ENDTX) {
 		/** Add cur_dac_buffer as next transfert for PDC. */
-		g_pdc_nextpacket.ul_addr =
-				(uint32_t) dacc_out_buffer[cur_dac_buffer];
+		g_pdc_nextpacket.ul_addr = (uint32_t) dacc_out_buffer[cur_dac_buffer];
 		g_pdc_nextpacket.ul_size = SAMPLE_BLOCK_SIZE;
 		pdc_tx_init(dacc_pdc, NULL, &g_pdc_nextpacket);
 
@@ -245,8 +242,7 @@ static void dsp_task(void *pvParameters)
 	while (1) {
 		/* Using input wave signal. */
 		if (g_mode_select == 1) {
-			if (xSemaphoreTake(dacc_notification_semaphore,
-					max_block_time_ticks)) {
+			if (xSemaphoreTake(dacc_notification_semaphore, max_block_time_ticks)) {
 				/* Copy dsp_sfx into wav_in_buffer and prepare Q15 format. */
 				for (i = 0, j = 0; i < 512; ++j) {
 					tmp = (((dsp_sfx[offset] - (float) 128)) / 100);
@@ -274,8 +270,7 @@ static void dsp_task(void *pvParameters)
 			}
 		} else {
 			/* Using generated input sinus signal. */
-			if (xSemaphoreTake(dacc_notification_semaphore,
-					max_block_time_ticks)) {
+			if (xSemaphoreTake(dacc_notification_semaphore, max_block_time_ticks)) {
 				/*
 				 * Read potentiometer value and generate
 				 * sinus signal accordingly.

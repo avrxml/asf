@@ -6,7 +6,7 @@
  * This file contains basic functions for the SAM USART, with support for all
  * modes, settings and clock speeds.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -151,166 +151,166 @@ void usart_lin_handler(uint8_t uc_node);
  * \subsection lin_master_use_case_setup_code Code
  * The following definitions must be added to the project.
  * \code
- * #define LIN_FRAME_ID_12    0x12
- * #define LIN_TRANSFER_BYTE    0x55
- * #define LIN_MASTER_NODE_NUM 0
- * #define TC_CHANNEL        0
- * #define TC_FREQ             20
- * \endcode
+	#define LIN_FRAME_ID_12    0x12
+	#define LIN_TRANSFER_BYTE    0x55
+	#define LIN_MASTER_NODE_NUM 0
+	#define TC_CHANNEL        0
+	#define TC_FREQ             20
+\endcode
  *
  * An array for the transfer bytes must be added:
  * \code
- * uint8_t lin_data_node[8];
- * \endcode
+	uint8_t lin_data_node[8];
+\endcode
  *
  * The Timer Counter are used to generate period cycle for the LIN
  * master transfer. More information about how to configure and
  * use TC can be found at \ref sam_drivers_tc_group.
  * \code
- * void configure_tc(void)
- * {
- *	uint32_t ul_div;
- *	uint32_t ul_tcclks;
- *	static uint32_t ul_sysclk;
- *
- *	ul_sysclk = sysclk_get_cpu_hz();
- *
- *	pmc_enable_periph_clk(ID_TC0);
- *
- *	tc_find_mck_divisor(TC_FREQ, ul_sysclk, &ul_div, &ul_tcclks, ul_sysclk);
- *	tc_init(TC0, 0, ul_tcclks | TC_CMR_CPCTRG);
- *	tc_write_rc(TC0, 0, (ul_sysclk / ul_div) / TC_FREQ);
- *
- *	NVIC_EnableIRQ((IRQn_Type)ID_TC0);
- *	tc_enable_interrupt(TC0, 0, TC_IER_CPCS);
- * }
- * \endcode
+	 void configure_tc(void)
+	 {
+		uint32_t ul_div;
+		uint32_t ul_tcclks;
+		static uint32_t ul_sysclk;
+
+		ul_sysclk = sysclk_get_cpu_hz();
+
+		pmc_enable_periph_clk(ID_TC0);
+
+		tc_find_mck_divisor(TC_FREQ, ul_sysclk, &ul_div, &ul_tcclks, ul_sysclk);
+		tc_init(TC0, 0, ul_tcclks | TC_CMR_CPCTRG);
+		tc_write_rc(TC0, 0, (ul_sysclk / ul_div) / TC_FREQ);
+
+		NVIC_EnableIRQ((IRQn_Type)ID_TC0);
+		tc_enable_interrupt(TC0, 0, TC_IER_CPCS);
+	 }
+\endcode
  *
  * Add to application initialization:
  * \code
- * {
- *    sysclk_init();
- *	board_init();
- *
- *	pmc_enable_periph_clk(BOARD_ID_USART);
- *
- *	lin_init( USART0, true, LIN_MASTER_NODE_NUM, 9600, sysclk_get_cpu_hz());
- *
- *	lin_desc.uc_id = LIN_FRAME_ID_12;
- *	lin_desc.uc_dlc = sizeof(lin_data_node);
- *	lin_desc.lin_cmd = PUBLISH;
- *	lin_desc.uc_status = 0;
- *	lin_desc.uc_pt_data = lin_data_node;
- *	lin_register_desciptor(LIN_MASTER_NODE_NUM, 0, &lin_desc);
- *
- *	configure_tc();
- *	tc_start(TC0, 0);
- * }
- * \endcode
+	 {
+	    sysclk_init();
+		board_init();
+
+		pmc_enable_periph_clk(BOARD_ID_USART);
+
+		lin_init( USART0, true, LIN_MASTER_NODE_NUM, 9600, sysclk_get_cpu_hz());
+
+		lin_desc.uc_id = LIN_FRAME_ID_12;
+		lin_desc.uc_dlc = sizeof(lin_data_node);
+		lin_desc.lin_cmd = PUBLISH;
+		lin_desc.uc_status = 0;
+		lin_desc.uc_pt_data = lin_data_node;
+		lin_register_desciptor(LIN_MASTER_NODE_NUM, 0, &lin_desc);
+
+		configure_tc();
+		tc_start(TC0, 0);
+	 }
+\endcode
  *
  * \subsection lin_basic_use_case_setup_code_lin_master Workflow
  * -# LIN master node ID:
  *   \code
- * #define LIN_FRAME_ID_12    0x12
- *   \endcode
+	#define LIN_FRAME_ID_12    0x12
+\endcode
  * -# First data of the transfer:
  *   \code
- * #define LIN_TRANSFER_BYTE    0x55
- *   \endcode
+	#define LIN_TRANSFER_BYTE    0x55
+\endcode
  * -# Mater node number:
  *   \code
- * #define LIN_MASTER_NODE_NUM 0
- *   \endcode
+	#define LIN_MASTER_NODE_NUM 0
+\endcode
  * -# Timer Counter channel number:
  *   \code
- * #define TC_CHANNEL        0
- *   \endcode
+	#define TC_CHANNEL        0
+\endcode
  * -# Timer Counter frequency:
  *   \code
- * #define TC_FREQ             20
- *   \endcode
+	#define TC_FREQ             20
+\endcode
  * -# Initialize system clock:
  *   \code
- *   sysclk_init();
- *   \endcode
+	sysclk_init();
+\endcode
  * -# Initialize board peripherals:
  *   \code
- *   board_init();
- *   \endcode
+	board_init();
+\endcode
  * -# Enable PMC for USART:
  *   \code
- *   pmc_enable_periph_clk(BOARD_ID_USART);
- *   \endcode
+	pmc_enable_periph_clk(BOARD_ID_USART);
+\endcode
  * -# Initialize LIN master, set the master with baudrate 9600:
  *   \code
- *   lin_init( USART0, true, LIN_MASTER_NODE_NUM, 9600, sysclk_get_cpu_hz());
- *   \endcode
+	lin_init( USART0, true, LIN_MASTER_NODE_NUM, 9600, sysclk_get_cpu_hz());
+\endcode
  * -# Set LIN master descriptor ID:
  *   \code
- *	lin_desc.uc_id = LIN_FRAME_ID_12;
- *   \endcode
+	lin_desc.uc_id = LIN_FRAME_ID_12;
+\endcode
  * -# Set LIN master descriptor transfer size:
  *   \code
- *	lin_desc.uc_dlc = sizeof(lin_data_node);
- *   \endcode
+	lin_desc.uc_dlc = sizeof(lin_data_node);
+\endcode
  * -# Set LIN master transfer type PUBLISHER:
  *   \code
- *	lin_desc.lin_cmd = PUBLISH;
- *   \endcode
+	lin_desc.lin_cmd = PUBLISH;
+\endcode
  * -# Set LIN master default transfer status:
  *   \code
- *	lin_desc.uc_status = 0;
- *   \endcode
+	lin_desc.uc_status = 0;
+\endcode
  * -# Set LIN master transfer data buffer:
  *   \code
- *	lin_desc.uc_pt_data = lin_data_node;
- *   \endcode
+	lin_desc.uc_pt_data = lin_data_node;
+\endcode
  * -# Setup the master descriptor:
  *   \code
- *	lin_register_desciptor(LIN_MASTER_NODE_NUM, 0, &lin_desc);
- *   \endcode
+	lin_register_desciptor(LIN_MASTER_NODE_NUM, 0, &lin_desc);
+\endcode
  * -# Initialize the Timer Counter:
  *   \code
- *	configure_tc();
- *   \endcode
+	configure_tc();
+\endcode
  * -# Start the Timer Counter:
  *   \code
- *	configure_tc();
- *   \endcode
+	configure_tc();
+\endcode
  *
  * \section lin_master_use_case_usage Use case
  *
  * \subsection lin_basic_use_case_usage_code Example code
  * Add to application C-file:
  * \code
- * void TC0_Handler(void)
- * {
- *	tc_get_status(TC0, 0);
- *
- *	lin_data_node[0] = LIN_FIRST_BYTE;
- *	lin_send_cmd(LIN_MASTER_NODE_NUM, LIN_FRAME_ID_12,
- *			sizeof(lin_data_node));
- * }
- * \endcode
+	 void TC0_Handler(void)
+	 {
+		tc_get_status(TC0, 0);
+
+		lin_data_node[0] = LIN_FIRST_BYTE;
+		lin_send_cmd(LIN_MASTER_NODE_NUM, LIN_FRAME_ID_12,
+				sizeof(lin_data_node));
+	 }
+\endcode
  *
  * \subsection lin_master_use_case_usage_flow Workflow
  * -# The LIN master period is generated by TC interrupt service routine:
  *   \code
- *     void TC0_Handler(void)
- *   \endcode
+	void TC0_Handler(void)
+\endcode
  * -# Clear Timer Counter status:
  *   \code
- *      tc_get_status(TC0, 0);
- *   \endcode
+	tc_get_status(TC0, 0);
+\endcode
  * -# Set the first byte of the transfer:
  *   \code
- *      lin_data_node[0] = LIN_FIRST_BYTE;
- *   \endcode
+	lin_data_node[0] = LIN_FIRST_BYTE;
+\endcode
  * -# Start the transfer:
  *   \code
- *       lin_send_cmd(LIN_MASTER_NODE_NUM, LIN_FRAME_ID_12,
- *			sizeof(lin_data_node));
- *   \endcode
+	       lin_send_cmd(LIN_MASTER_NODE_NUM, LIN_FRAME_ID_12,
+				sizeof(lin_data_node));
+\endcode
  *
  *
  * \section lin_slave_use_case LIN slave use case - Setup LIN slave.
@@ -325,129 +325,129 @@ void usart_lin_handler(uint8_t uc_node);
  * \subsection lin_slave_use_case_setup_code Code
  * The following definitions must be added to the project.
  * \code
- * #define LIN_FRAME_ID_12    0x12
- * #define LIN_SPECIFIC_BYTE    0x55
- * #define LIN_SLAVE_NODE_NUM 0
- * \endcode
+	#define LIN_FRAME_ID_12    0x12
+	#define LIN_SPECIFIC_BYTE    0x55
+	#define LIN_SLAVE_NODE_NUM 0
+\endcode
  *
  * An array for the received byte must be added:
  * \code
- * uint8_t lin_data_node[8];
- * \endcode
+	uint8_t lin_data_node[8];
+\endcode
  *
  * The usart0 interrupt service handler must be created to receive the LIN
  * frame.
  * \code
- * void USART0_Handler(void)
- * {
- *      usart_lin_handler(LIN_SLAVE_NODE_NUM);
- * }
- * \endcode
+	void USART0_Handler(void)
+	{
+	     usart_lin_handler(LIN_SLAVE_NODE_NUM);
+	}
+\endcode
  *
  * Add to application initialization:
  * \code
- * {
- *    sysclk_init();
- *	board_init();
- *
- *	pmc_enable_periph_clk(BOARD_ID_USART);
- *
- *	lin_init( USART0, false, LIN_SLAVE_NODE_NUM, 9600, sysclk_get_cpu_hz());
- *
- *	lin_desc.uc_id = LIN_FRAME_ID_12;
- *	lin_desc.uc_dlc = sizeof(lin_data_node);
- *	lin_desc.lin_cmd = SUBSCRIBE;
- *	lin_desc.uc_status = 0;
- *	lin_desc.uc_pt_data = lin_data_node;
- *    lin_desc.pt_function = lin_slave_task_ID12;
- *	lin_register_desciptor(LIN_MASTER_NODE_NUM, 0, &lin_desc);
- *
- *	NVIC_EnableIRQ(USART0_IRQn);
- *	usart_enable_interrupt(USART0, US_IER_LINID);
- * \endcode
+	 {
+	    sysclk_init();
+		board_init();
+
+		pmc_enable_periph_clk(BOARD_ID_USART);
+
+		lin_init( USART0, false, LIN_SLAVE_NODE_NUM, 9600, sysclk_get_cpu_hz());
+
+		lin_desc.uc_id = LIN_FRAME_ID_12;
+		lin_desc.uc_dlc = sizeof(lin_data_node);
+		lin_desc.lin_cmd = SUBSCRIBE;
+		lin_desc.uc_status = 0;
+		lin_desc.uc_pt_data = lin_data_node;
+	    lin_desc.pt_function = lin_slave_task_ID12;
+		lin_register_desciptor(LIN_MASTER_NODE_NUM, 0, &lin_desc);
+
+		NVIC_EnableIRQ(USART0_IRQn);
+		usart_enable_interrupt(USART0, US_IER_LINID);
+\endcode
  *
  * \subsection lin_slave_use_case_setup_code Workflow
  * -# LIN slave node ID:
  *   \code
- * #define LIN_FRAME_ID_12    0x12
- *   \endcode
+	#define LIN_FRAME_ID_12    0x12
+\endcode
  * -# Specific data to flash the LED:
  *   \code
- * #define LIN_SPECIFIC_BYTE    0x55
- *   \endcode
+	#define LIN_SPECIFIC_BYTE    0x55
+\endcode
  * -# Slave node number:
  *   \code
- * #define LIN_SLAVE_NODE_NUM 0
- *   \endcode
+	#define LIN_SLAVE_NODE_NUM 0
+\endcode
  * -# Initialize system clock:
  *   \code
- *   sysclk_init();
- *   \endcode
+	sysclk_init();
+\endcode
  * -# Initialize board peripherals:
  *   \code
- *   board_init();
- *   \endcode
+	board_init();
+\endcode
  * -# Enable PMC for USART:
  *   \code
- *   pmc_enable_periph_clk(BOARD_ID_USART);
- *   \endcode
+	pmc_enable_periph_clk(BOARD_ID_USART);
+\endcode
  * -# Initialize LIN master, set the master with baudrate 9600:
  *   \code
- *   lin_init( USART0, false, LIN_SLAVE_NODE_NUM, 9600, sysclk_get_cpu_hz());
- *   \endcode
+	lin_init( USART0, false, LIN_SLAVE_NODE_NUM, 9600, sysclk_get_cpu_hz());
+\endcode
  * -# Set LIN slave descriptor ID:
  *   \code
- *	lin_desc.uc_id = LIN_FRAME_ID_12;
- *   \endcode
+	lin_desc.uc_id = LIN_FRAME_ID_12;
+\endcode
  * -# Set LIN master descriptor transfer size:
  *   \code
- *	lin_desc.uc_dlc = sizeof(lin_data_node);
- *   \endcode
+	lin_desc.uc_dlc = sizeof(lin_data_node);
+\endcode
  * -# Set LIN slave transfer type SUBSCRIBE:
  *   \code
- *	lin_desc.lin_cmd = SUBSCRIBE;
- *   \endcode
+	lin_desc.lin_cmd = SUBSCRIBE;
+\endcode
  * -# Set LIN master default transfer status:
  *   \code
- *	lin_desc.uc_status = 0;
- *   \endcode
+	lin_desc.uc_status = 0;
+\endcode
  * -# Set LIN slave transfer data buffer:
  *   \code
- *	lin_desc.uc_pt_data = lin_data_node;
- *   \endcode
+	lin_desc.uc_pt_data = lin_data_node;
+\endcode
  * -# Set LIN slave task handle:
  *   \code
- *	lin_desc.pt_function = lin_slave_task_ID12;
- *   \endcode
+	lin_desc.pt_function = lin_slave_task_ID12;
+\endcode
  * -# Setup the salve descriptor:
  *   \code
- *	lin_register_desciptor(LIN_SLAVE_NODE_NUM, 0, &lin_desc);
- *   \endcode
+	lin_register_desciptor(LIN_SLAVE_NODE_NUM, 0, &lin_desc);
+\endcode
  *
  * \section lin_slave_use_case_usage Use case
  *
  * \subsection lin_basic_use_case_usage_code Example code
  * Add to application C-file:
  * \code
- * void  lin_slave_task_ID12(uint8_t *uc_buf)
- * {
- *      if (uc_buf[0] == LIN_SPECIFIC_BYTE) {
- *                      LED_Toggle(LED0_GPIO);
- *              }
- * }
- * \endcode
+	void  lin_slave_task_ID12(uint8_t *uc_buf)
+	{
+	     if (uc_buf[0] == LIN_SPECIFIC_BYTE) {
+	                     LED_Toggle(LED0_GPIO);
+	             }
+	}
+\endcode
  *
  * \subsection lin_master_use_case_usage_flow Workflow
  * -# The slave task is defined in the LIN descriptor.
  * \code
- * void  lin_slave_task_ID12(uint8_t *uc_buf)
- * \endcode
+	void  lin_slave_task_ID12(uint8_t *uc_buf)
+\endcode
  * -# Check if received the spcific byte and flash the LED.
  * \code
- *      if (uc_buf[0] == LIN_SPECIFIC_BYTE) {
- *                      LED_Toggle(LED0_GPIO);
- *              }
- * \endcode
+	if (uc_buf[0] == LIN_SPECIFIC_BYTE) {
+	                LED_Toggle(LED0_GPIO);
+	        }
+\endcode
  */
 
 #endif  /* LIN_H_INCLUDED */

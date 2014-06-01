@@ -3,7 +3,7 @@
  *
  * @brief Processes the TAL tx frame status received on the frame transmission.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -76,19 +76,25 @@
 
 static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame);
 
-#if (MAC_INDIRECT_DATA_FFD == 1)
+#if (MAC_INDIRECT_DATA_FFD == 1) || (defined GTS_SUPPORT)
 static uint8_t find_buffer_cb(void *buf, void *address);
+
+#endif /* (MAC_INDIRECT_DATA_FFD == 1) || (defined GTS_SUPPORT) */
+#if (MAC_INDIRECT_DATA_FFD == 1)
 static void remove_frame_from_indirect_q(frame_info_t *f_ptr);
 
 #endif /* (MAC_INDIRECT_DATA_FFD == 1) */
+#ifdef GTS_SUPPORT
+static void remove_frame_from_gts_q(frame_info_t *f_ptr);
 
+#endif /* GTS_SUPPORT */
 /* === Implementation ====================================================== */
 
 /*
  * @brief Process tal_tx_frame_done_cb status
  *
  * This function is called, if an ACK is requested in the last transmitted
- *frame.
+ * frame.
  * According to the frame type that has previously been sent, the
  * corresponding actions are taken and the MAC returns to its standard state.
  *
@@ -121,6 +127,27 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 			}
 		} else /* Not indirect */
 #endif /* (MAC_INDIRECT_DATA_FFD == 1) */
+#ifdef GTS_SUPPORT
+		if (frame->gts_queue) {
+			if ((tx_status == MAC_SUCCESS) ||
+					(tx_status == TAL_FRAME_PENDING)) {
+				handle_gts_data_tx_end();
+				remove_frame_from_gts_q(frame);
+
+				buffer_t *mcps_buf = frame->buffer_header;
+
+				/* Create the MCPS DATA confirmation message */
+				mac_gen_mcps_data_conf((buffer_t *)mcps_buf,
+						(uint8_t)tx_status,
+#ifdef ENABLE_TSTAMP
+						frame->msduHandle,
+						frame->time_stamp);
+#else
+						frame->msduHandle);
+#endif  /* ENABLE_TSTAMP */
+			}
+		} else
+#endif
 		{
 			buffer_t *mcps_buf = frame->buffer_header;
 
@@ -160,11 +187,11 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 				remove_frame_from_indirect_q(frame);
 
 				/* Create the MLME DISASSOCIATION confirmation
-				 *message */
+				 * message */
 
 				/*
 				 * Prepare disassociation confirm message after
-				 *transmission of
+				 * transmission of
 				 * the disassociation notification frame.
 				 */
 				mac_prep_disassoc_conf(frame->buffer_header,
@@ -174,11 +201,11 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 #endif  /* (MAC_DISASSOCIATION_FFD_SUPPORT == 1) */
 		{
 			/* Create the MLME DISASSOCIATION confirmation message
-			 **/
+			**/
 
 			/*
 			 * Prepare disassociation confirm message after
-			 *transmission of
+			 * transmission of
 			 * the disassociation notification frame.
 			 */
 			mac_prep_disassoc_conf(frame->buffer_header,
@@ -187,7 +214,7 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 
 		/*
 		 * Only an associated device should go to idle on transmission
-		 *of a
+		 * of a
 		 * disassociation frame.
 		 */
 		if (MAC_ASSOCIATED == mac_state) {
@@ -214,7 +241,7 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 			 * association attempt was unsuccessful.
 			 * On a successful association, the
 			 * actual value will be filled in based on the response
-			 *to the
+			 * to the
 			 * data request obtained from the coordinator.
 			 */
 			mac_gen_mlme_associate_conf(frame->buffer_header,
@@ -228,7 +255,7 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 
 			/*
 			 * For purely testing purposes the coordinator may be
-			 *set
+			 * set
 			 * into a state where it will never respond with an
 			 * Assoc Response frame
 			 */
@@ -237,7 +264,6 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 
 				break;
 			}
-
 #endif /* TEST_HARNESS */
 
 			mac_poll_state = MAC_AWAIT_ASSOC_RESPONSE;
@@ -270,9 +296,9 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 
 #if (MAC_INDIRECT_DATA_BASIC == 1)
 	case DATAREQUEST:           /* Explicit poll caused by MLME-POLL.request
-		                     **/
+		                    **/
 	case DATAREQUEST_IMPL_POLL: /* Implicit poll without MLME-POLL.request
-		                     **/
+		                    **/
 	{
 		/* Free the data_request buffer */
 		bmm_buffer_free(frame->buffer_header);
@@ -288,7 +314,7 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 				/* Explicit poll caused by MLME-POLL.request */
 				if (TAL_FRAME_PENDING != tx_status) {
 					/* Reuse the poll request buffer for
-					 *poll confirmation */
+					 * poll confirmation */
 					mlme_poll_conf_t *mpc
 						= (mlme_poll_conf_t
 							*)
@@ -314,14 +340,14 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 						!= tx_status)) {
 					/*
 					 * Sucessful transmission of Data
-					 *Request frame due to
+					 * Request frame due to
 					 * implicit poll without explicit poll
-					 *request.
+					 * request.
 					 */
 					mac_poll_state = MAC_POLL_IMPLICIT;
 				} else {
 					/* Data request for implicit poll could
-					 *not be sent. */
+					 * not be sent. */
 					/* Set radio to sleep if allowed */
 					mac_sleep_trans();
 					return;
@@ -334,7 +360,7 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 
 				/*
 				 * Start T_Poll_Wait_Time only if we are not in
-				 *the
+				 * the
 				 * middle of an association.
 				 */
 				response_timer
@@ -368,23 +394,23 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 
 		/*
 		 * Association Response is ALWAYS indirect, so not further check
-		 *for
+		 * for
 		 * indirect_in_transit required, but clear the flag.
 		 */
 		frame->indirect_in_transit = false;
 		if ((tx_status == MAC_SUCCESS) ||
 				(tx_status == TAL_FRAME_PENDING)) {
 			/* Association resonse frames are always sent
-			 *indirectly. */
+			 * indirectly. */
 
 			/*
 			 * The removal of this frame from the indirect queue
-			 *needs
+			 * needs
 			 * to be done BEFORE the subsequent call of function
 			 * mac_mlme_comm_status(), since the variable frame is
-			 *reused
+			 * reused
 			 * for the comm status indication buffer and would be
-			 *invalid
+			 * invalid
 			 * afterwards.
 			 */
 			remove_frame_from_indirect_q(frame);
@@ -409,8 +435,9 @@ static void mac_process_tal_tx_status(retval_t tx_status, frame_info_t *frame)
 
 #if (MAC_PAN_ID_CONFLICT_NON_PC == 1)
 	case PANIDCONFLICTNOTIFICAION:
+
 		/* Free the buffer allocated for the Pan-Id conflict
-		 *notification frame */
+		 * notification frame */
 		bmm_buffer_free(frame->buffer_header);
 
 		/* Generate a sync loss to the higher layer. */
@@ -498,13 +525,28 @@ void tal_tx_frame_done_cb(retval_t status, frame_info_t *frame)
 	}
 }
 
+#ifdef GTS_SUPPORT
+static void remove_frame_from_gts_q(frame_info_t *f_ptr)
+{
+	search_t find_buf;
+
+	find_buf.criteria_func = find_buffer_cb;
+
+	/* Update the address to be searched */
+	find_buf.handle = (void *)f_ptr->buffer_header;
+
+	qmm_queue_remove(f_ptr->gts_queue, &find_buf);
+}
+
+#endif
+
 #if (MAC_INDIRECT_DATA_FFD == 1)
 
 /**
  * @brief Helper function to remove transmitted indirect data from the queue
  *
  * @param f_ptr Pointer to frame_info_t structure of previously transmitted
- *frame
+ * frame
  */
 static void remove_frame_from_indirect_q(frame_info_t *f_ptr)
 {
@@ -520,7 +562,7 @@ static void remove_frame_from_indirect_q(frame_info_t *f_ptr)
 
 #endif /* (MAC_INDIRECT_DATA_FFD == 1) */
 
-#if (MAC_INDIRECT_DATA_FFD == 1)
+#if (MAC_INDIRECT_DATA_FFD == 1) || (defined GTS_SUPPORT)
 
 /**
  * @brief Checks whether the indirect data frame address matches
@@ -534,7 +576,7 @@ static void remove_frame_from_indirect_q(frame_info_t *f_ptr)
 
 static uint8_t find_buffer_cb(void *buf, void *buffer)
 {
-	uint8_t *buf_body = BMM_BUFFER_POINTER((buffer_t *)buffer);
+	uint8_t *buf_body = (uint8_t *)BMM_BUFFER_POINTER((buffer_t *)buffer);
 	if (buf == buf_body) {
 		return 1;
 	}
@@ -542,6 +584,5 @@ static uint8_t find_buffer_cb(void *buf, void *buffer)
 	return 0;
 }
 
-#endif /* (MAC_INDIRECT_DATA_FFD == 1) */
-
+#endif /*(MAC_INDIRECT_DATA_FFD == 1 || defined GTS_SUPPORT)*/
 /* EOF */

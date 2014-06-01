@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Analog Comparator (AC) Unit test
+ * \brief SAM D20/D21 Analog Comparator (AC) Unit test
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,60 +42,84 @@
  */
 
 /**
- * \mainpage AC UNIT TEST
+ * \mainpage SAM D20/D21 AC Unit Test
+ * See \ref appdoc_main "here" for project documentation.
+ * \copydetails appdoc_preface
  *
- * \section intro Introduction
+ *
+ * \page appdoc_preface Overview
  * This unit test carries out tests for the AC driver.
  * It consists of test cases for the following functionalities:
  *      - Test for AC initialization.
  *      - Test for AC single shot comparison.
- *      - Test for ADC callback mode comparison.
- *      - Test for ADC continuous window mode comparison.
+ *      - Test for AC callback mode comparison.
+ *      - Test for AC continuous window mode comparison.
+ */
+
+/**
+ * \page appdoc_main SAM D20/D21 AC Unit Test
+ *
+ * Overview:
+ * - \ref appdoc_sam0_ac_unit_test_intro
+ * - \ref appdoc_sam0_ac_unit_test_setup
+ * - \ref appdoc_sam0_ac_unit_test_usage
+ * - \ref appdoc_sam0_ac_unit_test_compinfo
+ * - \ref appdoc_sam0_ac_unit_test_contactinfo
+ *
+ * \section appdoc_sam0_ac_unit_test_intro Introduction
+ * \copydetails appdoc_preface
+ *
  * Input to the AC is provided with the DAC module.
  *
  * The following kit is required for carrying out the test:
  *      - SAM D20 Xplained Pro board
+ *      - SAM D21 Xplained Pro board
  *
- * \section Setup
+ * \section appdoc_sam0_ac_unit_test_setup Setup
+ * The following connections has to be made using wires:
+ *  - \b DAC VOUT (PA02) <-----> AIN0 (PA04)
  *
- * The following connection has to be made on the board.
+ * To run the test:
+ *  - Connect the SAM D20/D21 Xplained Pro board to the computer using a
+ *    micro USB cable.
+ *  - Open the virtual COM port in a terminal application.
+ *    \note The USB composite firmware running on the Embedded Debugger (EDBG)
+ *          will enumerate as debugger, virtual COM port and EDBG data
+ *          gateway.
+ *  - Build the project, program the target and run the application.
+ *    The terminal shows the results of the unit test.
  *
- *      - DAC VOUT (PA02) <-----> AIN0 (PA04)
+ * \section appdoc_sam0_ac_unit_test_usage Usage
+ *  - The unit test configures DAC module to provide voltage to the AC positive
+ *    input.
+ *  - AC negative input is given from internal voltage scaler.
+ *  - DAC output is adjusted to generate various voltages which are compared by
+ *    the AC.
+ *  - Different modes of the AC are tested.
  *
- * The following steps has to be done:
- *      - Connect the SAM D20 Xplained Pro board to the computer using
- *        a micro USB cable.
- *      - Open the virtual COM port in a terminal application.
- * \note  The USB composite firmware running on the Embedded Debugger (EDBG)
- *        will enumerate as debugger, virtual COM port and EDBG data
- *        gateway.
- *      - Build the project, program the target and run the application.
- *        The terminal shows the results of the unit test.
+ * \section appdoc_sam0_ac_unit_test_compinfo Compilation Info
+ * This software was written for the GNU GCC and IAR for ARM.
+ * Other compilers may or may not work.
  *
- * \section Description
- *
- *      - The unit test configures DAC module to provide
- *        voltage to the AC positive input.
- *      - AC negative input is given from internal voltage scaler.
- *      - DAC output is adjusted to generate various voltages
- *        which are compared by the AC.
- *      - Different modes of the AC are tested.
- *
- * \section contactinfo Contact Information
- * For further information, visit <a href="http://www.atmel.com/">Atmel</a>.\n
- * Support and FAQ: http://support.atmel.no/
+ * \section appdoc_sam0_ac_unit_test_contactinfo Contact Information
+ * For further information, visit
+ * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
 
 #include <asf.h>
 #include <stdio_serial.h>
 #include <string.h>
+#include "conf_test.h"
 
 #define AC_SCALER_0_25_VOLT 4
 #define AC_SCALER_0_50_VOLT 9
 #define AC_SCALER_0_75_VOLT 14
 
+/* Theoretical DAC value for 0.0V output*/
 #define DAC_VAL_ZERO_VOLT   0
+/* Theoretical DAC value for 0.5V output*/
 #define DAC_VAL_HALF_VOLT   512
+/* Theoretical DAC value for 1.0V output*/
 #define DAC_VAL_ONE_VOLT    1023
 
 /* Structure for UART module connected to EDBG (used for unit test output) */
@@ -126,24 +150,24 @@ static void ac_user_callback(struct ac_module *const module_inst)
 /**
  * \brief Initialize the USART for unit test
  *
- * Initializes the SERCOM USART (SERCOM3) used for sending the
- * unit test status to the computer via the EDBG CDC gateway.
+ * Initializes the SERCOM USART used for sending the unit test status to the
+ * computer via the EDBG CDC gateway.
  */
 static void cdc_uart_init(void)
 {
-	struct usart_config cdc_uart_config;
+	struct usart_config usart_conf;
 
 	/* Configure USART for unit test output */
-	usart_get_config_defaults(&cdc_uart_config);
-	cdc_uart_config.mux_setting     = USART_RX_3_TX_2_XCK_3;
-	cdc_uart_config.pinmux_pad3     = EDBG_UART_RX_PINMUX;
-	cdc_uart_config.pinmux_pad2     = EDBG_UART_TX_PINMUX;
-	cdc_uart_config.baudrate        = 115200;
-	stdio_serial_init(&cdc_uart_module, EDBG_CDC_MODULE, &cdc_uart_config);
+	usart_get_config_defaults(&usart_conf);
+	usart_conf.mux_setting = CONF_STDIO_MUX_SETTING;
+	usart_conf.pinmux_pad0 = CONF_STDIO_PINMUX_PAD0;
+	usart_conf.pinmux_pad1 = CONF_STDIO_PINMUX_PAD1;
+	usart_conf.pinmux_pad2 = CONF_STDIO_PINMUX_PAD2;
+	usart_conf.pinmux_pad3 = CONF_STDIO_PINMUX_PAD3;
+	usart_conf.baudrate    = CONF_STDIO_BAUDRATE;
+
+	stdio_serial_init(&cdc_uart_module, CONF_STDIO_USART, &usart_conf);
 	usart_enable(&cdc_uart_module);
-	/* Enable transceivers */
-	usart_enable_transceiver(&cdc_uart_module, USART_TRANSCEIVER_TX);
-	usart_enable_transceiver(&cdc_uart_module, USART_TRANSCEIVER_RX);
 }
 
 /**
@@ -585,7 +609,7 @@ int main(void)
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(ac_test_suite, ac_tests,
-			"SAM D20 AC driver test suite");
+			"SAM D20/D21 AC driver test suite");
 
 	/* Run all tests in the suite*/
 	test_suite_run(&ac_test_suite);

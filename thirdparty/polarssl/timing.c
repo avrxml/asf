@@ -250,13 +250,6 @@ void m_sleep( int milliseconds )
 
 t_cpu_time timer;
 
-time_t time(time_t* timer) {
-	if(timer!=NULL) {
-		*timer=cpu_cy_2_us(Get_sys_count(), HZ)/1000000;
-	}
-	return 1;
-}
-
 void set_alarm( int seconds )
 {
   cpu_set_timeout( seconds*1000, &timer );

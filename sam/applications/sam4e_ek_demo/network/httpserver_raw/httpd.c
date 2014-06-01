@@ -3,7 +3,7 @@
  *
  * \brief Httpd server.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -87,9 +87,9 @@ static const char http_html_hdr_500[] = "HTTP/1.0 500 Internal Server Error\r\n"
 const char http_server_error[] = " \
 <!DOCTYPE html PUBLIC \"-//IETF//DTD HTML 2.0//EN\"> \
 <html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"> \
-<title>500 Internal Server error</title></head><body><img src=\"bertos_logo_jpg\"><h1>500 Internal Server error</h1>\
-<p>The internal server error was occur while processing the requested page.</p><hr>\
-<address>BeRTOS simple HTTP server</address></body></html>"                                                                                                                                                                                                                                                                                                                                                                                      ;
+<title>500 Internal Server error</title></head><body><h1>500 Internal Server error</h1> \
+<p>The internal server error was occur while processing the requested page.</p> \
+</body></html>";
 
 /** board status info*/
 BoardStatus status;
@@ -139,7 +139,7 @@ static void http_send_data(struct tcp_pcb *pcb, struct http_state *hs)
 {
 	err_t err;
 	u32_t len;
-	
+
 	/* We cannot send more data than space available in the send buffer. */
 	if (tcp_sndbuf(pcb) < hs->left) {
 		len = tcp_sndbuf(pcb);
@@ -148,7 +148,8 @@ static void http_send_data(struct tcp_pcb *pcb, struct http_state *hs)
 	}
 
 	do {
-		err = tcp_write(pcb, hs->file, len, 0);
+		/* Use copy flag to avoid using flash as a DMA source (forbidden). */
+		err = tcp_write(pcb, hs->file, len, TCP_WRITE_FLAG_COPY);
 		if (err == ERR_MEM) {
 			len /= 2;
 		}
@@ -236,9 +237,9 @@ void http_write(const char *buf, u32_t len)
 
 	http_send_data(g_pcb, g_hs);
 
-	/* 
+	/*
 	 * Tell TCP that we wish be to informed of buf that has been
-	 * successfully sent by a call to the http_sent() callback. 
+	 * successfully sent by a call to the http_sent() callback.
 	 */
 	tcp_sent(g_pcb, http_sent);
 }
@@ -625,8 +626,8 @@ static err_t http_accept(void *arg, struct tcp_pcb *pcb, err_t err)
 	/* Tell TCP that this is the structure we wish to be passed to our callback. */
 	tcp_arg(pcb, hs);
 
-	/* 
-	 * Tell TCP that we wish to be informed of incoming data using 
+	/*
+	 * Tell TCP that we wish to be informed of incoming data using
 	 * http_recv() callback.
 	 */
 	tcp_recv(pcb, http_recv);

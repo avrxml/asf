@@ -108,11 +108,11 @@
 				</option>
 				<option>
 					<name>GUnhandledInterrupts</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GUnhandledExceptions</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GTraceBufferSize</name>
@@ -323,7 +323,9 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../utils/debug</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../usart</state>
@@ -332,10 +334,8 @@
 					<state>$PROJ_DIR$/../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../pm</state>
-					<state>$PROJ_DIR$/../../../../../intc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -453,7 +453,9 @@
 				</option>
 				<option>
 					<name>AIncludePaths</name>
-					<state>$PROJ_DIR$/../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../utils/debug</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../usart</state>
@@ -462,10 +464,8 @@
 					<state>$PROJ_DIR$/../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../pm</state>
-					<state>$PROJ_DIR$/../../../../../intc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -977,11 +977,11 @@
 				</option>
 				<option>
 					<name>GUnhandledInterrupts</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GUnhandledExceptions</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GTraceBufferSize</name>
@@ -1192,7 +1192,9 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../utils/debug</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../usart</state>
@@ -1201,10 +1203,8 @@
 					<state>$PROJ_DIR$/../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../pm</state>
-					<state>$PROJ_DIR$/../../../../../intc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1322,7 +1322,9 @@
 				</option>
 				<option>
 					<name>AIncludePaths</name>
-					<state>$PROJ_DIR$/../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../utils/debug</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../usart</state>
@@ -1331,10 +1333,8 @@
 					<state>$PROJ_DIR$/../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../pm</state>
-					<state>$PROJ_DIR$/../../../../../intc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1743,25 +1743,34 @@
 		<group>
 			<name>drivers</name>
 			<group>
-				<name>pm</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../pm/pm_conf_clocks.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../pm/power_clocks_lib.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../pm/pm.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../pm/sleep.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../pm/power_clocks_lib.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../pm/pm.h</name>
-				</file>
+				<name>cpu</name>
+				<group>
+					<name>cycle_counter</name>
+					<group>
+						<name>example</name>
+						<file>
+							<name>$PROJ_DIR$/../../cycle_counter_example.c</name>
+						</file>
+						<group>
+							<name>at32uc3a3256_evk1104</name>
+							<file>
+								<name>$PROJ_DIR$/../conf_clock.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../conf_board.h</name>
+							</file>
+							<group>
+								<name>iar</name>
+								<file>
+									<name>$PROJ_DIR$/asf.h</name>
+								</file>
+							</group>
+						</group>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../cycle_counter.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>gpio</name>
@@ -1770,18 +1779,6 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../gpio/gpio.h</name>
-				</file>
-			</group>
-			<group>
-				<name>intc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../intc/intc.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../intc/exception.s82</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../intc/intc.h</name>
 				</file>
 			</group>
 			<group>
@@ -1801,30 +1798,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../usart/usart.h</name>
 				</file>
-			</group>
-			<group>
-				<name>cpu</name>
-				<group>
-					<name>cycle_counter</name>
-					<group>
-						<name>example</name>
-						<file>
-							<name>$PROJ_DIR$/../../cycle_counter_example.c</name>
-						</file>
-						<group>
-							<name>at32uc3a3256_evk1104</name>
-							<group>
-								<name>iar</name>
-								<file>
-									<name>$PROJ_DIR$/asf.h</name>
-								</file>
-							</group>
-						</group>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../cycle_counter.h</name>
-					</file>
-				</group>
 			</group>
 		</group>
 		<group>
@@ -1851,15 +1824,6 @@
 				<name>$PROJ_DIR$/../../../../../../utils/status_codes.h</name>
 			</file>
 			<group>
-				<name>header_files</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../utils/header_files/uc3l3_l4_defines_fix.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../utils/header_files/uc3d_defines_fix.h</name>
-				</file>
-			</group>
-			<group>
 				<name>preprocessor</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../utils/preprocessor/tpaste.h</name>
@@ -1874,6 +1838,15 @@
 					<name>$PROJ_DIR$/../../../../../../utils/preprocessor/preprocessor.h</name>
 				</file>
 			</group>
+			<group>
+				<name>header_files</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../utils/header_files/uc3d_defines_fix.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../utils/header_files/uc3l3_l4_defines_fix.h</name>
+				</file>
+			</group>
 			<file>
 				<name>$PROJ_DIR$/../../../../../../utils/compiler.h</name>
 			</file>
@@ -1886,16 +1859,52 @@
 					<name>$PROJ_DIR$/../../../../../../boards/evk1104/led.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../boards/evk1104/evk1104.h</name>
+					<name>$PROJ_DIR$/../../../../../../boards/evk1104/led.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../boards/evk1104/led.h</name>
+					<name>$PROJ_DIR$/../../../../../../boards/evk1104/evk1104.h</name>
 				</file>
 			</group>
 		</group>
 	</group>
 	<group>
 		<name>common</name>
+		<group>
+			<name>services</name>
+			<group>
+				<name>clock</name>
+				<group>
+					<name>uc3a3_a4</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/uc3a3_a4/sysclk.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/uc3a3_a4/osc.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/uc3a3_a4/genclk.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/uc3a3_a4/pll.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/uc3a3_a4/sysclk.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../common/services/clock/sysclk.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../common/services/clock/genclk.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../common/services/clock/pll.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../common/services/clock/osc.h</name>
+				</file>
+			</group>
+		</group>
 		<group>
 			<name>utils</name>
 			<group>

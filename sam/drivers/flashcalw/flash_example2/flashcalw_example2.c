@@ -3,7 +3,7 @@
  *
  * \brief FLASHCALW example2 for SAM.
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,7 +51,7 @@
  *
  * Operating mode of the example:
  *   -# After reset, the system clocks and serial console will be initialized.
- *   -# Then unique ID will be read and printed through the serial console. 
+ *   -# Then unique ID will be read and printed through the serial console.
  *
  * \section files Main Files
  *   - flashcalw.c: FLASHCALW driver;
@@ -66,10 +66,13 @@
  * All SAM devices with a FLASHCALW module can be used.
  *
  * \section configinfo Configuration Information
+ * This example has been tested with the following kits:
+ * - SAM4L-EK evaluation kit;
+ * - SAM4L Xplained Pro
+ * - SAM4L8 Xplained Pro
  * This example has been tested with the following configuration:
- * - SAM4L_EK evaluation kit;
  * - CPU clock: 12 MHz;
- * - USART2 (on SAM4L_EK) abstracted with a USB CDC connection to a PC;
+ * - USARTx abstracted with a USB CDC connection to a PC;
  * - PC terminal settings:
  *   - 115200 bps,
  *   - 8 data bits,
@@ -131,7 +134,7 @@ int main(void)
 	printf("-- Compiled: %s %s --\n\r", __DATE__, __TIME__);
 
 	printf("ID: ");
-	
+
 	/* Read the unique id and print it */
 	for (i=0; i<15; i++) {
 		printf("%02x",*unique_id_addr++);

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Peripheral Digital-to-Analog Converter Driver
+ * \brief SAM D20/D21 Peripheral Digital-to-Analog Converter Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,9 +44,9 @@
 #define DAC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_samd20_dac_group SAM D20 Digital-to-Analog Driver (DAC)
+ * \defgroup asfdoc_sam0_dac_group SAM D20/D21 Digital-to-Analog Driver (DAC)
  *
- * This driver for SAM D20 devices provides an interface for the conversion of
+ * This driver for SAM D20/D21 devices provides an interface for the conversion of
  * digital values to analog voltage. The following driver API modes are covered
  * by this manual:
  *
@@ -60,23 +60,23 @@
  *  - DAC (Digital to Analog Converter)
  *
  * The outline of this documentation is as follows:
- *  - \ref asfdoc_samd20_dac_prerequisites
- *  - \ref asfdoc_samd20_dac_module_overview
- *  - \ref asfdoc_samd20_dac_special_considerations
- *  - \ref asfdoc_samd20_dac_extra_info
- *  - \ref asfdoc_samd20_dac_examples
- *  - \ref asfdoc_samd20_dac_api_overview
+ *  - \ref asfdoc_sam0_dac_prerequisites
+ *  - \ref asfdoc_sam0_dac_module_overview
+ *  - \ref asfdoc_sam0_dac_special_considerations
+ *  - \ref asfdoc_sam0_dac_extra_info
+ *  - \ref asfdoc_sam0_dac_examples
+ *  - \ref asfdoc_sam0_dac_api_overview
  *
  *
- * \section asfdoc_samd20_dac_prerequisites Prerequisites
+ * \section asfdoc_sam0_dac_prerequisites Prerequisites
  *
  * There are no prerequisites for this module.
  *
  *
- * \section asfdoc_samd20_dac_module_overview Module Overview
+ * \section asfdoc_sam0_dac_module_overview Module Overview
  *
  * The Digital-to-Analog converter converts a digital value to analog voltage.
- * The SAM D20 DAC module has one channel with 10-bit resolution, and is capable
+ * The SAM D20/D21 DAC module has one channel with 10-bit resolution, and is capable
  * of converting up to 350k samples per second (ksps).
  *
  * A common use of DAC is to generate audio signals by connecting the DAC
@@ -92,24 +92,27 @@
  * to trigger the conversion from the event system.
  *
  * A simplified block diagram of the DAC can be seen in
- * \ref asfdoc_samd20_dac_module_block_diagram "the figure below".
+ * \ref asfdoc_sam0_dac_module_block_diagram "the figure below".
  *
- * \anchor asfdoc_samd20_dac_module_block_diagram
+ * \anchor asfdoc_sam0_dac_module_block_diagram
  * \image html dac_block_diagram.gif "DAC Block Diagram"
  *
- * \subsection asfdoc_samd20_dac_conversion_range Conversion Range
+ * \subsection asfdoc_sam0_dac_conversion_range Conversion Range
  * The conversion range is between GND and the selected voltage reference.
  * Available voltage references are:
  * \li AVCC voltage reference
  * \li Internal 1V reference (INT1V)
  * \li External voltage reference (AREF)
  *
+ * \note Internal references will be enabled by the driver, but not disabled.
+ * Any reference not used by the application should be disabled by the application.
+ *
  * The output voltage from a DAC channel is given as:
  * \f[
  *    V_{OUT} = \frac{DATA}{0x3FF} \times VREF
  * \f]
  *
- * \subsection asfdoc_samd20_dac_conversion Conversion
+ * \subsection asfdoc_sam0_dac_conversion Conversion
  * The digital value written to the conversion data register (DATA) will be
  * converted to an analog value.
  * Writing the DATA register will start a new conversion.
@@ -117,21 +120,21 @@
  * the writing of the DATA register can then be triggered from the event
  * system, which will load the value from DATABUF to DATA.
  *
- * \subsection asfdoc_samd20_dac_analog_output Analog Output
+ * \subsection asfdoc_sam0_dac_analog_output Analog Output
  * The analog output value can be output to either the VOUT pin or internally,
  * but not both at the same time.
  *
- * \subsubsection asfdoc_samd20_dac_analog_output_external External Output
+ * \subsubsection asfdoc_sam0_dac_analog_output_external External Output
  * The output buffer must be enabled in order to drive the DAC output to the
  * VOUT pin. Due to the output buffer, the DAC has high drive strength, and is
  * capable of driving both resistive and capacitive loads, as well as loads
  * which combine both.
  *
- * \subsubsection asfdoc_samd20_dac_analog_output_internal Internal Output
+ * \subsubsection asfdoc_sam0_dac_analog_output_internal Internal Output
  * The analog value can be internally available for use as input to the
  * AC or ADC modules.
  *
- * \subsection asfdoc_samd20_dac_events Events
+ * \subsection asfdoc_sam0_dac_events Events
  * Events generation and event actions are configurable in the DAC.
  * The DAC has one event line input and one event output: <i>Start Conversion</i>
  * and <i>Data Buffer Empty</i>.
@@ -146,14 +149,20 @@
  * events will be generated when the DAC data buffer register becomes empty and
  * new data can be loaded to the buffer.
  *
- * \subsection asfdoc_samd20_dac_data_adjust Left and Right Adjusted Values
+ * \note The connection of events between modules requires the use of the
+ *       \ref asfdoc_sam0_events_group "SAM D20/D21 Event System Driver (EVENTS)"
+ *       to route output event of one module to the the input event of another.
+ *       For more information on event routing, refer to the event driver
+ *       documentation.
+ *
+ * \subsection asfdoc_sam0_dac_data_adjust Left and Right Adjusted Values
  * The 10-bit input value to the DAC is contained in a 16-bit register. This
  * can be configured to be either left or right adjusted. In
- * \ref asfdoc_samd20_dac_module_adj_modes "the figure below" both options are
+ * \ref asfdoc_sam0_dac_module_adj_modes "the figure below" both options are
  * shown, and the position of the most (MSB) and the least (LSB) significant bits
  * are indicated. The unused bits should always be written to zero.
  *
- * \anchor asfdoc_samd20_dac_module_adj_modes
+ * \anchor asfdoc_sam0_dac_module_adj_modes
  * \dot
  * digraph {
  *   subgraph cluster_right {
@@ -241,7 +250,7 @@
  * }
  * \enddot
  *
- * \subsection asfdoc_samd20_dac_clk_sources Clock Sources
+ * \subsection asfdoc_sam0_dac_clk_sources Clock Sources
  * The clock for the DAC interface (CLK_DAC) is generated by the Power Manager.
  * This clock is turned on by default, and can be enabled and disabled in the
  * Power Manager.
@@ -256,37 +265,37 @@
  * The oscillator source for the GCLK_DAC clock is selected in the System
  * Control Interface (SCIF).
  *
- * \section asfdoc_samd20_dac_special_considerations Special Considerations
+ * \section asfdoc_sam0_dac_special_considerations Special Considerations
  *
- * \subsection asfdoc_samd20_dac_special_considerations_output_buffer Output Driver
+ * \subsection asfdoc_sam0_dac_special_considerations_output_buffer Output Driver
  * The DAC can only do conversions in Active or Idle modes. However, if the
  * output buffer is enabled it will draw current even if the system is in
  * sleep mode. Therefore, always make sure that the output buffer is not
  * enabled when it is not needed, to ensure minimum power consumption.
  *
- * \subsection asfdoc_samd20_dac_special_considerations_conversion_time Conversion Time
+ * \subsection asfdoc_sam0_dac_special_considerations_conversion_time Conversion Time
  * DAC conversion time is approximately 2.85us. The user must ensure that new
  * data is not written to the DAC before the last conversion is complete.
  * Conversions should be triggered by a periodic event from a Timer/Counter or
  * another peripheral.
  *
  *
- * \section asfdoc_samd20_dac_extra_info Extra Information for DAC
+ * \section asfdoc_sam0_dac_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_samd20_dac_extra. This includes:
- *  - \ref asfdoc_samd20_dac_extra_acronyms
- *  - \ref asfdoc_samd20_dac_extra_dependencies
- *  - \ref asfdoc_samd20_dac_extra_errata
- *  - \ref asfdoc_samd20_dac_extra_history
+ * For extra information see \ref asfdoc_sam0_dac_extra. This includes:
+ *  - \ref asfdoc_sam0_dac_extra_acronyms
+ *  - \ref asfdoc_sam0_dac_extra_dependencies
+ *  - \ref asfdoc_sam0_dac_extra_errata
+ *  - \ref asfdoc_sam0_dac_extra_history
  *
  *
- * \section asfdoc_samd20_dac_examples Examples
+ * \section asfdoc_sam0_dac_examples Examples
  *
  * For a list of examples related to this driver, see
- * \ref asfdoc_samd20_dac_exqsg.
+ * \ref asfdoc_sam0_dac_exqsg.
  *
  *
- * \section asfdoc_samd20_dac_api_overview API Overview
+ * \section asfdoc_sam0_dac_api_overview API Overview
  * @{
  */
 
@@ -298,9 +307,50 @@ extern "C" {
 #include <clock.h>
 #include <gclk.h>
 
+/**
+ * Define DAC features set according to different device family
+ * @{
+ */
+#if (SAMD21)
+#  define FEATURE_DAC_DATABUF_WRITE_PROTECTION
+#endif
+/*@}*/
+
+#ifndef DAC_TIMEOUT
+#  define DAC_TIMEOUT 0xFFFF
+#endif
+
 #if DAC_CALLBACK_MODE == true
 #  include <system_interrupt.h>
-#  include "dac_callback.h"
+
+/** Forward definition of the device instance */
+struct dac_module;
+
+#if !defined(__DOXYGEN__)
+extern struct dac_module *_dac_instances[DAC_INST_NUM];
+#endif
+
+/** Type definition for a DAC module callback function. */
+typedef void (*dac_callback_t)(uint8_t channel);
+
+/** Enum for the possible callback types for the DAC module. */
+enum dac_callback {
+	/** Callback type for when a DAC channel data empty condition occurs
+	 *  (requires event triggered mode). */
+	DAC_CALLBACK_DATA_EMPTY,
+
+	/** Callback type for when a DAC channel data under-run condition occurs
+	 *  (requires event triggered mode). */
+	DAC_CALLBACK_DATA_UNDERRUN,
+
+	/** Callback type for when a DAC channel write buffer job complete.
+	 *  (requires event triggered mode). */
+	DAC_CALLBACK_TRANSFER_COMPLETE,
+#if !defined(__DOXYGEN__)
+	DAC_CALLBACK_N,
+#endif
+};
+
 #endif
 
 /**
@@ -376,11 +426,23 @@ struct dac_module {
 	Dac *hw;
 	/** DAC output selection */
 	enum dac_output output;
+	/** Reference selection */
+	enum dac_reference reference;
 	/** DAC event selection */
 	bool start_on_event;
 #  if DAC_CALLBACK_MODE == true
+	/** Pointer to buffer used for ADC results */
+	volatile uint16_t *job_buffer;
+	/** Remaining number of conversions in current job */
+	volatile uint16_t remaining_conversions;
+	/** Transferred number of conversions in current job */
+	volatile uint16_t transferred_conversions;
+	/** DAC callback enable */
+	bool callback_enable[DAC_CALLBACK_N];
 	/** DAC registered callback functions */
 	dac_callback_t callback[DAC_CALLBACK_N];
+	/** Holds the status of the ongoing or last conversion job */
+	volatile enum status_code job_status;
 #  endif
 #endif
 };
@@ -401,6 +463,12 @@ struct dac_config {
 	bool left_adjust;
 	/** GCLK generator used to clock the peripheral */
 	enum gclk_generator clock_source;
+#ifdef FEATURE_DAC_DATABUF_WRITE_PROTECTION
+	/** Bypass DATABUF write protection */
+	bool databuf_protection_bypass;
+#endif
+	/** Voltage pump disable */
+	bool voltage_pump_disable;
 	/**
 	 * The DAC behaves as in normal mode when the chip enters STANDBY sleep
 	 * mode
@@ -457,7 +525,7 @@ struct dac_chan_config {
  * \retval false if the module synchronization is ongoing
  */
 static inline bool dac_is_syncing(
-	struct dac_module *const dev_inst)
+		struct dac_module *const dev_inst)
 {
 	/* Sanity check arguments */
 	Assert(dev_inst);
@@ -499,9 +567,13 @@ static inline void dac_get_config_defaults(
 	config->reference      = DAC_REFERENCE_INT1V;
 	config->output         = DAC_OUTPUT_EXTERNAL;
 	config->left_adjust    = false;
+#ifdef FEATURE_DAC_DATABUF_WRITE_PROTECTION
+	config->databuf_protection_bypass = false;
+#endif
+	config->voltage_pump_disable = false;
 	config->clock_source   = GCLK_GENERATOR_0;
 	config->run_in_standby = false;
-};
+}
 
 enum status_code dac_init(
 		struct dac_module *const dev_inst,
@@ -619,7 +691,7 @@ static inline void dac_chan_get_config_defaults(
 {
 	/* Sanity check arguments */
 	Assert(config);
-};
+}
 
 void dac_chan_set_config(
 		struct dac_module *const dev_inst,
@@ -654,6 +726,12 @@ enum status_code dac_chan_write(
 		enum dac_channel channel,
 		const uint16_t data);
 
+enum status_code dac_chan_write_buffer_wait(
+		struct dac_module *const module_inst,
+		enum dac_channel channel,
+		uint16_t *buffer,
+		uint32_t length);
+
 /** @} */
 
 /**
@@ -665,6 +743,7 @@ uint32_t dac_get_status(
 void dac_clear_status(
 		struct dac_module *const module_inst,
 		uint32_t status_flags);
+
 /** @} */
 
 #ifdef __cplusplus
@@ -674,9 +753,9 @@ void dac_clear_status(
 /** @} */
 
 /**
- * \page asfdoc_samd20_dac_extra Extra Information for DAC Driver
+ * \page asfdoc_sam0_dac_extra Extra Information for DAC Driver
  *
- * \section asfdoc_samd20_dac_extra_acronyms Acronyms
+ * \section asfdoc_sam0_dac_extra_acronyms Acronyms
  * The table below presents the acronyms used in this module:
  *
  * <table>
@@ -704,20 +783,24 @@ void dac_clear_status(
  *		<td>MSB</td>
  *		<td>Most Significant Bit</td>
  *	</tr>
+ *	<tr>
+ *		<td>DMA</td>
+ *		<td>Direct Memory Access</td>
+ *	</tr>
  * </table>
  *
  *
- * \section asfdoc_samd20_dac_extra_dependencies Dependencies
+ * \section asfdoc_sam0_dac_extra_dependencies Dependencies
  * This driver has the following dependencies:
  *
- *  - \ref asfdoc_samd20_system_pinmux_group "System Pin Multiplexer Driver"
+ *  - \ref asfdoc_sam0_system_pinmux_group "System Pin Multiplexer Driver"
  *
  *
- * \section asfdoc_samd20_dac_extra_errata Errata
+ * \section asfdoc_sam0_dac_extra_errata Errata
  * There are no errata related to this driver.
  *
  *
- * \section asfdoc_samd20_dac_extra_history Module History
+ * \section asfdoc_sam0_dac_extra_history Module History
  * An overview of the module history is presented in the table below, with
  * details on the enhancements and fixes made to the module since its first
  * release. The current version of this corresponds to the newest version in
@@ -728,29 +811,62 @@ void dac_clear_status(
  *		<th>Changelog</th>
  *	</tr>
  *	<tr>
+ *		<td>Added new configuration parameters \c databuf_protection_bypass,
+ *		\c voltage_pump_disable. Added new callback functions 
+ *		\c dac_chan_write_buffer_wait,
+ *		\c dac_chan_write_buffer_job, \c dac_chan_write_job,
+ *		\c dac_get_job_status, \c dac_abort_job and new callback type
+ *		\c DAC_CALLBACK_TRANSFER_COMPLETE for DAC conversion job</td>
+ *	</tr>
+ *	<tr>
  *		<td>Initial Release</td>
  *	</tr>
  * </table>
  */
 
 /**
- * \page asfdoc_samd20_dac_exqsg Examples for DAC Driver
+ * \page asfdoc_sam0_dac_exqsg Examples for DAC Driver
  *
  * This is a list of the available Quick Start guides (QSGs) and example
- * applications for \ref asfdoc_samd20_dac_group. QSGs are simple examples with
+ * applications for \ref asfdoc_sam0_dac_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
  * use cases. Note that QSGs can be compiled as a standalone application or be
  * added to the user application.
  *
- *  - \subpage asfdoc_samd20_dac_basic_use_case
+ *  - \subpage asfdoc_sam0_dac_basic_use_case
+ * \if DAC_CALLBACK_MODE
+ *  - \subpage asfdoc_sam0_dac_basic_use_case_callback
+ * \endif
+ * \if DAC_DMA_USE_MODE_SELECTION  
+ *	- \subpage asfdoc_sam0_adc_dma_use_case_dac_in_dma	
+ *	\else  
+ *  - \subpage asfdoc_sam0_adc_dma_use_case  
+ * \endif  
  *
- * \page asfdoc_samd20_dac_document_revision_history Document Revision History
+ * \if DAC_DMA_USE_MODE_SELECTION 
+ * \page asfdoc_sam0_adc_dma_use_case_dac_in_dma Quick Start Guide for Using DMA with ADC/DAC  
+ * For	this examples, see	
+ * \ref asfdoc_sam0_adc_dma_use_case  
+ * \endif
+ *
+ * \page asfdoc_sam0_dac_document_revision_history Document Revision History
  *
  * <table>
  *	<tr>
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>C</td>
+ *		<td>01/2014</td>
+ *		<td>Add SAMD21 support.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>B</td>
+ *		<td>06/2013</td>
+ *		<td>Added additional documentation on the event system. Corrected
+ *          documentation typos.</td>
  *	</tr>
  *	<tr>
  *		<td>A</td>

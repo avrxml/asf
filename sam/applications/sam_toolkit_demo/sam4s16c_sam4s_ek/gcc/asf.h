@@ -78,8 +78,10 @@
 #include <rtouch.h>
 #include <rtouch_ads7843.h>
 
-// From module: Display - ILI9325 LCD Controller
-#include <ili9325.h>
+// From module: Display - ILI93xx LCD Controller
+#include <ili9325_regs.h>
+#include <ili9341_regs.h>
+#include <ili93xx.h>
 
 // From module: EEFC - Enhanced Embedded Flash Controller
 #include <efc.h>
@@ -170,9 +172,6 @@
 
 // From module: SAM4S EK LED support enabled
 #include <led.h>
-
-// From module: SAM4S startup code
-#include <exceptions.h>
 
 // From module: SMC - Static Memory Controller
 #include <smc.h>

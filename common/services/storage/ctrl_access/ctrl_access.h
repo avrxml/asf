@@ -15,7 +15,7 @@
  *   - specific features;
  *   - etc.
  *
- * Copyright (c) 2009 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -57,6 +57,10 @@
 #ifndef _CTRL_ACCESS_H_
 #define _CTRL_ACCESS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * \defgroup group_common_services_storage_ctrl_access Memory Control Access
  *
@@ -69,7 +73,9 @@
 #include "compiler.h"
 #include "conf_access.h"
 
+#ifndef SECTOR_SIZE
 #define SECTOR_SIZE  512
+#endif
 
 //! Status returned by CTRL_ACCESS interfaces.
 typedef enum
@@ -385,5 +391,9 @@ extern U16 stream_stop(U8 id);
 /**
  * \}
  */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  // _CTRL_ACCESS_H_

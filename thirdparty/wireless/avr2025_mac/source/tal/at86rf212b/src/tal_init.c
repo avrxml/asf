@@ -3,7 +3,7 @@
  *
  * @brief This file implements functions for initializing TAL.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -52,6 +52,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <string.h>
 #include "pal.h"
 #include "return_val.h"
 #include "tal.h"
@@ -145,7 +146,7 @@ static retval_t internal_tal_reset(bool set_default_pib);
 
 /**
  * \brief Initializes all timers used by the TAL module by assigning id's to
- *each of them
+ * each of them
  */
 static retval_t tal_timer_init(void);
 
@@ -205,8 +206,11 @@ retval_t tal_init(void)
 	 * rare case that such an address is randomly
 	 * generated again, we must repeat this.
 	 */
+	uint64_t invalid_ieee_address;
+	memset((uint8_t *)&invalid_ieee_address, 0xFF,
+			sizeof(invalid_ieee_address));
 	while ((tal_pib.IeeeAddress == 0x0000000000000000) ||
-			(tal_pib.IeeeAddress == 0xFFFFFFFFFFFFFFFF)) {
+			(tal_pib.IeeeAddress == invalid_ieee_address)) {
 		/*
 		 * In case no valid IEEE address is available, a random
 		 * IEEE address will be generated to be able to run the
@@ -216,7 +220,7 @@ retval_t tal_init(void)
 
 		/*
 		 * The proper seed for function rand() has already been
-		 *generated
+		 * generated
 		 * in function tal_generate_rand_seed().
 		 */
 		uint8_t *ptr_pib = (uint8_t *)&tal_pib.IeeeAddress;
@@ -228,7 +232,7 @@ retval_t tal_init(void)
 			 * Note:
 			 * Even if casting the 16 bit rand value back to 8 bit,
 			 * and running the loop 8 timers (instead of only 4
-			 *times)
+			 * times)
 			 * may look cumbersome, it turns out that the code gets
 			 * smaller using 8-bit here.
 			 * And timing is not an issue at this place...
@@ -244,7 +248,7 @@ retval_t tal_init(void)
 	 * Configure interrupt handling.
 	 * Install a handler for the main transceiver interrupt.
 	 */
-	pal_trx_irq_init((FUNC_PTR)trx_irq_handler_cb);
+	trx_irq_init((FUNC_PTR)trx_irq_handler_cb);
 	pal_trx_irq_en(); /* Enable main transceiver interrupt. */
 
 #if ((defined BEACON_SUPPORT) || (defined ENABLE_TSTAMP)) && \
@@ -260,7 +264,7 @@ retval_t tal_init(void)
 #endif
 
 	/* Initialize the buffer management module and get a buffer to store
-	 *reveived frames. */
+	 * reveived frames. */
 	bmm_buffer_init();
 	tal_rx_buffer = bmm_buffer_alloc(LARGE_BUFFER_SIZE);
 
@@ -296,20 +300,20 @@ static retval_t trx_init(void)
 	pal_timer_delay(P_ON_TO_CLKM_AVAILABLE_TYP_US);
 
 	/* make sure SPI is working properly */
-	/*    while ((tal_trx_status_t)pal_trx_bit_read(SR_TRX_STATUS) != P_ON); */
+	/*    while ((tal_trx_status_t)trx_bit_read(SR_TRX_STATUS) != P_ON); */
 
 	/* Apply reset pulse. Ensure control lines have correct levels (SEL is
 	 * already set in TRX_INIT().
 	 */
-	PAL_RST_LOW();
-	PAL_SLP_TR_LOW();
+	TRX_RST_LOW();
+	TRX_SLP_TR_LOW();
 	pal_timer_delay(RST_PULSE_WIDTH_US);
-	PAL_RST_HIGH();
+	TRX_RST_HIGH();
 
 	/* Wait typical time of timer TR13. */
 	pal_timer_delay(30);
 
-	test_status = (tal_trx_status_t)pal_trx_bit_read(SR_TRX_STATUS);
+	test_status = (tal_trx_status_t)trx_bit_read(SR_TRX_STATUS);
 
 	/* Dummy assignment, to avoid compiler warning */
 	test_status = test_status;
@@ -324,28 +328,29 @@ static retval_t trx_init(void)
 		/* Wait a short time interval. */
 		pal_timer_delay(TRX_POLL_WAIT_TIME_US);
 		poll_counter++;
+
 		/* Check if AT86RF212B is connected; omit manufacturer id check
-		 **/
-	} while (pal_trx_reg_read(RG_PART_NUM) != PART_NUM_AT86RF212B);
+		**/
+	} while (trx_reg_read(RG_PART_NUM) != PART_NUM_AT86RF212B);
 #endif  /* !defined FPGA_EMULATION */
 
 	/* Set trx to off mode */
-	pal_trx_reg_write(RG_TRX_STATE, CMD_TRX_OFF);
+	trx_reg_write(RG_TRX_STATE, CMD_TRX_OFF);
 
 	/* \todo remove this line?! */
-	while ((tal_trx_status_t)pal_trx_bit_read(SR_TRX_STATUS) != TRX_OFF) {
+	while ((tal_trx_status_t)trx_bit_read(SR_TRX_STATUS) != TRX_OFF) {
 	}
 
 #if (_DEBUG_ > 0)
 	tal_trx_status_t trx_status;
-	trx_status = (tal_trx_status_t)pal_trx_bit_read(SR_TRX_STATUS);
+	trx_status = (tal_trx_status_t)trx_bit_read(SR_TRX_STATUS);
 	if (trx_status != TRX_OFF) {
 		return FAILURE;
 	}
 
 #endif
 
-	pal_trx_reg_write(RG_IRQ_MASK, TRX_NO_IRQ);
+	trx_reg_write(RG_IRQ_MASK, TRX_NO_IRQ);
 	tal_trx_status = TRX_OFF;
 
 	return MAC_SUCCESS;
@@ -381,7 +386,7 @@ static retval_t internal_tal_reset(bool set_default_pib)
 		init_tal_pib(); /* implementation can be found in 'tal_pib.c' */
 	} else {
 		/* nothing to do - the current TAL PIB attribute values are used
-		 **/
+		**/
 	}
 
 	/*
@@ -415,8 +420,8 @@ static retval_t internal_tal_reset(bool set_default_pib)
 static void trx_config(void)
 {
 	/* Set pin driver strength */
-	pal_trx_bit_write(SR_PAD_IO_CLKM, PAD_CLKM_2_MA);
-	pal_trx_bit_write(SR_CLKM_SHA_SEL, CLKM_SHA_DISABLE);
+	trx_bit_write(SR_PAD_IO_CLKM, PAD_CLKM_2_MA);
+	trx_bit_write(SR_CLKM_SHA_SEL, CLKM_SHA_DISABLE);
 
 #ifndef SW_CONTROLLED_CSMA
 
@@ -430,37 +435,37 @@ static void trx_config(void)
 	 * Init the SEED value of the CSMA backoff algorithm.
 	 */
 	uint16_t rand_value = (uint16_t)rand();
-	pal_trx_reg_write(RG_CSMA_SEED_0, (uint8_t)rand_value);
-	pal_trx_bit_write(SR_CSMA_SEED_1, (uint8_t)(rand_value >> 8));
+	trx_reg_write(RG_CSMA_SEED_0, (uint8_t)rand_value);
+	trx_bit_write(SR_CSMA_SEED_1, (uint8_t)(rand_value >> 8));
 
 	/*
 	 * To make sure that the CSMA seed is properly set within the
-	 *transceiver,
+	 * transceiver,
 	 * put the trx to sleep briefly and wake it up again.
 	 */
 	tal_trx_sleep(SLEEP_MODE_1);
 	tal_trx_wakeup();
 #endif
 
-	pal_trx_bit_write(SR_AACK_SET_PD, SET_PD); /* ACKs for data requests,
-	                                            *indicate pending data */
-	pal_trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /* Enable
-	                                                          *buffer
-	                                                          *protection
-	                                                          *mode */
-	pal_trx_bit_write(SR_IRQ_MASK_MODE, IRQ_MASK_MODE_ON); /* Enable poll
-	                                                        *mode */
-	pal_trx_reg_write(RG_IRQ_MASK, TRX_IRQ_DEFAULT); /* The TRX_END
-	                                                  *interrupt of the
-	                                                  *transceiver is
-	                                                  *enabled. */
+	trx_bit_write(SR_AACK_SET_PD, SET_PD); /* ACKs for data requests,
+	                                        * indicate pending data */
+	trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /* Enable
+	                                                      * buffer
+	                                                      * protection
+	                                                      * mode */
+	trx_bit_write(SR_IRQ_MASK_MODE, IRQ_MASK_MODE_ON); /* Enable poll
+	                                                    * mode */
+	trx_reg_write(RG_IRQ_MASK, TRX_IRQ_DEFAULT); /* The TRX_END
+	                                              * interrupt of the
+	                                              * transceiver is
+	                                              * enabled. */
 
 #if (ANTENNA_DIVERSITY == 1)
-	pal_trx_bit_write(SR_ANT_EXT_SW_EN, ANT_EXT_SW_ENABLE); /* Enable
-	                                                         *antenna
-	                                                         *diversity. */
+	trx_bit_write(SR_ANT_EXT_SW_EN, ANT_EXT_SW_ENABLE); /* Enable
+	                                                     * antenna
+	                                                     * diversity. */
 #if (ANTENNA_DEFAULT != ANT_CTRL_1)
-	pal_trx_bit_write(SR_ANT_CTRL, ANTENNA_DEFAULT);
+	trx_bit_write(SR_ANT_CTRL, ANTENNA_DEFAULT);
 #endif  /* ANTENNA_DEFAULT */
 #endif
 #if ((defined BEACON_SUPPORT) || (defined ENABLE_TSTAMP)) && \
@@ -472,7 +477,7 @@ static void trx_config(void)
 	 * or if timestamping is explicitly enabled.
 	 */
 	/* Enable timestamping output signal - DIG2. */
-	pal_trx_bit_write(SR_IRQ_2_EXT_EN, RX_TIMESTAMPING_ENABLE);
+	trx_bit_write(SR_IRQ_2_EXT_EN, RX_TIMESTAMPING_ENABLE);
 #endif  /* #if (defined BEACON_SUPPORT) || (defined ENABLE_TSTAMP) */
 
 #ifdef CCA_ED_THRESHOLD
@@ -480,18 +485,18 @@ static void trx_config(void)
 	/*
 	 * Set CCA ED Threshold to other value than standard register due to
 	 * board specific loss (see pal_config.h). */
-	pal_trx_bit_write(SR_CCA_ED_THRES, CCA_ED_THRESHOLD);
+	trx_bit_write(SR_CCA_ED_THRES, CCA_ED_THRESHOLD);
 #endif
 
 #ifndef ENABLE_RX_OVERRIDE
-	pal_trx_bit_write(SR_RX_OVERRIDE, RXO_ENABLE);
+	trx_bit_write(SR_RX_OVERRIDE, RXO_ENABLE);
 #else
 
 	/*
 	 * Allow overriding of a 'weak' frame when another frame with stronger
 	 * signal power arrives during the reception of this 'weak' frame.
 	 */
-	pal_trx_bit_write(SR_RX_OVERRIDE, ENABLE_RX_OVERRIDE);
+	trx_bit_write(SR_RX_OVERRIDE, ENABLE_RX_OVERRIDE);
 #endif /* ENABLE_RX_OVERRIDE */
 }
 
@@ -505,30 +510,22 @@ static retval_t trx_reset(void)
 {
 	tal_trx_status_t trx_status;
 	uint8_t poll_counter = 0;
-#if (EXTERN_EEPROM_AVAILABLE == 1)
-	uint8_t xtal_trim_value;
-#endif
-
-	/* Get trim value for 16 MHz xtal; needs to be done before reset */
-#if (EXTERN_EEPROM_AVAILABLE == 1)
-	pal_ps_get(EXTERN_EEPROM, EE_XTAL_TRIM_ADDR, 1, &xtal_trim_value);
-#endif
 
 	/* trx might sleep, so wake it up */
-	PAL_SLP_TR_LOW();
+	TRX_SLP_TR_LOW();
 	pal_timer_delay(SLEEP_TO_TRX_OFF_TYP_US);
 
 	/* Apply reset pulse */
-	PAL_RST_LOW();
+	TRX_RST_LOW();
 	pal_timer_delay(RST_PULSE_WIDTH_US);
-	PAL_RST_HIGH();
+	TRX_RST_HIGH();
 
 	/* verify that trx has reached TRX_OFF */
 	do {
 		/* Wait a short time interval. */
 		pal_timer_delay(TRX_POLL_WAIT_TIME_US);
 
-		trx_status = (tal_trx_status_t)pal_trx_bit_read(SR_TRX_STATUS);
+		trx_status = (tal_trx_status_t)trx_bit_read(SR_TRX_STATUS);
 
 		/* Wait not more than max. value of TR2. */
 		if (poll_counter == SLEEP_TO_TRX_OFF_ATTEMPTS) {
@@ -544,15 +541,6 @@ static retval_t trx_reset(void)
 	} while (trx_status != TRX_OFF);
 
 	tal_trx_status = TRX_OFF;
-
-	/* Write 16MHz xtal trim value to trx. */
-	/* It's only necessary if it differs from the reset value. */
-#if (EXTERN_EEPROM_AVAILABLE == 1)
-	if (xtal_trim_value != 0x00) {
-		pal_trx_bit_write(SR_XTAL_TRIM, xtal_trim_value);
-	}
-
-#endif
 
 #ifdef STB_ON_SAL
 #if (SAL_TYPE == AT86RF2xx)
@@ -577,7 +565,7 @@ retval_t tal_reset(bool set_default_pib)
 	/*
 	 * Do the reset stuff.
 	 * Set the default PIBs depending on the given parameter
-	 *set_default_pib.
+	 * set_default_pib.
 	 * Do NOT generate random seed again.
 	 */
 	if (internal_tal_reset(set_default_pib) != MAC_SUCCESS) {
@@ -605,9 +593,10 @@ retval_t tal_reset(bool set_default_pib)
 	 * Configure interrupt handling.
 	 * Install a handler for the transceiver interrupt.
 	 */
-	pal_trx_irq_init((FUNC_PTR)trx_irq_handler_cb);
+	trx_irq_init((FUNC_PTR)trx_irq_handler_cb);
+
 	/* The pending transceiver interrupts on the microcontroller are
-	 *cleared. */
+	 * cleared. */
 	pal_trx_irq_flag_clr();
 	pal_trx_irq_en(); /* Enable transceiver main interrupt. */
 
@@ -617,7 +606,7 @@ retval_t tal_reset(bool set_default_pib)
 		retval_t timer_status;
 
 		/* Calibration timer has already been stopped within this
-		 *function. */
+		 * function. */
 
 		/* Start periodic calibration timer.*/
 		timer_status = pal_timer_start(TAL_CALIBRATION,
@@ -670,7 +659,7 @@ void tal_generate_rand_seed(void)
 	} while (trx_state != RX_ON);
 
 	/* Ensure that register bit RX_PDT_DIS is set to 0. */
-	pal_trx_bit_write(SR_RX_PDT_DIS, RX_ENABLE);
+	trx_bit_write(SR_RX_PDT_DIS, RX_ENABLE);
 
 	/*
 	 * We need to disable TRX IRQs while generating random values in RX_ON,
@@ -680,11 +669,11 @@ void tal_generate_rand_seed(void)
 
 	/*
 	 * The 16-bit random value is generated from various 2-bit random
-	 *values.
+	 * values.
 	 */
 	for (uint8_t i = 0; i < 8; i++) {
 		/* Now we can safely read the 2-bit random number. */
-		cur_random_val = pal_trx_bit_read(SR_RND_VALUE);
+		cur_random_val = trx_bit_read(SR_RND_VALUE);
 		seed = seed << 2;
 		seed |= cur_random_val;
 		PAL_WAIT_1_US(); /* wait that the random value gets updated */
@@ -696,7 +685,7 @@ void tal_generate_rand_seed(void)
 	 * Now we need to clear potential pending TRX IRQs and
 	 * enable the TRX IRQs again.
 	 */
-	pal_trx_reg_read(RG_IRQ_STATUS);
+	trx_reg_read(RG_IRQ_STATUS);
 	pal_trx_irq_flag_clr();
 	LEAVE_TRX_REGION();
 

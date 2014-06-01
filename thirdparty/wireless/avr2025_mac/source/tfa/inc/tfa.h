@@ -4,7 +4,7 @@
  * @brief This file is the interface for Transceiver Feature Access (TFA)
  * functionality.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -58,7 +58,7 @@
  * The Atmel transceivers provide a variety of additional hardware features
  * features that are not reflected in the IEEE 802.15.4 standard.
  * These features are for eg .Reading battery voltage, Continuous wave
- *transmission etc .
+ * transmission etc .
  * @{
  */
 

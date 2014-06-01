@@ -3,7 +3,7 @@
  *
  * \brief Matrix example for SAM.
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,14 +63,7 @@
  *
  * \section Usage
  *
- * -# Build the program and download it into the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a> application note or the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>, depending on the solutions that users choose.
+ * -# Build the program and download it into the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -81,15 +74,15 @@
  * -# Start the application.
  * -# In the terminal window, the following text should appear:
  *    \code
- *     -- MATRIX Example --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     Configure system tick to get 1ms tick period.
- *     -- Test1: configure Round-Robin arbitration without default master. --
- *         Led toggled xxx times in one second
- *     -- Test2: configure Round-Robin arbitration with last access master. --
- *         Led toggled xxx times in one second
- *    \endcode
+	-- MATRIX Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	Configure system tick to get 1ms tick period.
+	-- Test1: configure Round-Robin arbitration without default master. --
+	    Led toggled xxx times in one second
+	-- Test2: configure Round-Robin arbitration with last access master. --
+	    Led toggled xxx times in one second
+\endcode
  */
 
 #include "asf.h"
@@ -100,7 +93,7 @@
 /* Matrix slave number */
 #if (SAM3S || SAM4S)
 #define MATRIX_SLAVE_NUM    5
-#elif (SAM3N)
+#elif (SAM3N || SAM4N || SAMG)
 #define MATRIX_SLAVE_NUM    4
 #elif (SAM3XA)
 #define MATRIX_SLAVE_NUM    9
@@ -108,6 +101,8 @@
 #define MATRIX_SLAVE_NUM    10
 #elif (SAM4E)
 #define MATRIX_SLAVE_NUM    6
+#elif (SAM4C || SAM4CP || SAM4CM)
+#define MATRIX_SLAVE_NUM    8
 #else
 #warning "Not define matrix slave number, set 1 for default."
 #define MATRIX_SLAVE_NUM    1
@@ -151,10 +146,13 @@ static uint32_t toggle_led_test(uint32_t ul_dly_ticks)
 	ul_cur_ticks = g_ul_ms_ticks;
 	do {
 		ul_cnt++;
+	#if SAM4CM
+		ioport_toggle_pin_level(LED4_GPIO);
+	#else
 		ioport_toggle_pin_level(LED0_GPIO);
-                
+	#endif
 	} while ((g_ul_ms_ticks - ul_cur_ticks) < ul_dly_ticks);
-        
+
 	return ul_cnt;
 }
 
@@ -176,8 +174,7 @@ void SysTick_Handler(void)
  */
 int main(void)
 {
-	uint32_t ul_slave_id;
-	int32_t ul_cnt;
+	uint32_t ul_slave_id, ul_cnt;
 
 	/* Initialize the system */
 	sysclk_init();
@@ -200,10 +197,10 @@ int main(void)
 	/* First, test with Round-Robin arbitration without default master */
 	puts("-- Test1: configure Round-Robin arbitration without default master. --\r");
 	for (ul_slave_id = 0; ul_slave_id < MATRIX_SLAVE_NUM; ul_slave_id++) {
-		#if !SAM4E
+#if (!SAM4E) && (!SAM4C) && (!SAM4CP) && (!SAM4CM)
 		matrix_set_slave_arbitration_type(ul_slave_id,
 				MATRIX_ARBT_ROUND_ROBIN);
-		#endif
+#endif
 		matrix_set_slave_default_master_type(ul_slave_id,
 				MATRIX_DEFMSTR_NO_DEFAULT_MASTER);
 	}
@@ -213,10 +210,10 @@ int main(void)
 	/* Second, test with Round-Robin arbitration with last access master */
 	puts("-- Test2: configure Round-Robin arbitration with last access master. --\r");
 	for (ul_slave_id = 0; ul_slave_id < MATRIX_SLAVE_NUM; ul_slave_id++) {
-		#if !SAM4E
+#if (!SAM4E) && (!SAM4C) && (!SAM4CP) && (!SAM4CM)
 		matrix_set_slave_arbitration_type(ul_slave_id,
 				MATRIX_ARBT_ROUND_ROBIN);
-		#endif
+#endif
 		matrix_set_slave_default_master_type(ul_slave_id,
 				MATRIX_DEFMSTR_LAST_DEFAULT_MASTER);
 	}

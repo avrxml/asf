@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Advanced Encryption Standard (AES) driver
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -53,14 +53,14 @@ static aes_callback_t aes_callback = NULL;
  *
  * \param decrypt    encryption/decryption direction.
  * \param auto_start Auto Start Trigger.
- * \param xor        AES State XOR Load Enable.
+ * \param xor_mode   AES State XOR Load Enable.
  *
  */
 void aes_configure(enum aes_dec decrypt, enum aes_auto auto_start,
-	enum aes_xor xor)
+	enum aes_xor xor_mode)
 {
 	/* Initialize AES control register */
-	AES.CTRL = ((uint8_t)decrypt | (uint8_t)auto_start | (uint8_t)xor);
+	AES.CTRL = ((uint8_t)decrypt | (uint8_t)auto_start | (uint8_t)xor_mode);
 }
 
 /**

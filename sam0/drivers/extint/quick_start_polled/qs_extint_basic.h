@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 External Interrupt Driver Quick Start
+ * \brief SAM D20/D21/R21 External Interrupt Driver Quick Start
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \page asfdoc_samd20_extint_basic_use_case Quick Start Guide for EXTINT - Basic
+ * \page asfdoc_sam0_extint_basic_use_case Quick Start Guide for EXTINT - Basic
  *
  * In this use case, the EXTINT module is configured for:
  *  - External interrupt channel connected to the board LED is used
@@ -56,50 +56,50 @@
  * button is released, the LED will turn off.
  *
  *
- * \section asfdoc_samd20_extint_basic_use_case_setup Setup
+ * \section asfdoc_sam0_extint_basic_use_case_setup Setup
  *
- * \subsection asfdoc_samd20_extint_basic_use_case_setup_prereq Prerequisites
+ * \subsection asfdoc_sam0_extint_basic_use_case_setup_prereq Prerequisites
  * There are no special setup requirements for this use-case.
  *
- * \subsection asfdoc_samd20_extint_basic_use_case_setup_code Code
+ * \subsection asfdoc_sam0_extint_basic_use_case_setup_code Code
  * Copy-paste the following setup code to your user application:
  * \snippet qs_extint_basic.c setup
  *
  * Add to user application initialization (typically the start of \c main()):
  * \snippet qs_extint_basic.c setup_init
  *
- * \subsection asfdoc_samd20_extint_basic_use_case_setup_flow Workflow
+ * \subsection asfdoc_sam0_extint_basic_use_case_setup_flow Workflow
  * -# Create an EXTINT module channel configuration struct, which can be filled
  *    out to adjust the configuration of a single external interrupt channel.
- *  \snippet qs_extint_basic.c setup_1
+ *    \snippet qs_extint_basic.c setup_1
  * -# Initialize the channel configuration struct with the module's default
  *    values.
+ *    \snippet qs_extint_basic.c setup_2
  *    \note This should always be performed before using the configuration
  *          struct to ensure that all values are initialized to known default
  *          settings.
  *
- *  \snippet qs_extint_basic.c setup_2
  * -# Adjust the configuration struct to configure the pin MUX (to route the
  *    desired physical pin to the logical channel) to the board button, and to
  *    configure the channel to detect both rising and falling edges.
- *  \snippet qs_extint_basic.c setup_3
+ *    \snippet qs_extint_basic.c setup_3
  * -# Configure external interrupt channel with the desired channel settings.
- *  \snippet qs_extint_basic.c setup_4
+ *    \snippet qs_extint_basic.c setup_4
  *
  *
- * \section asfdoc_samd20_extint_basic_use_case_main Use Case
+ * \section asfdoc_sam0_extint_basic_use_case_main Use Case
  *
- * \subsection asfdoc_samd20_extint_basic_use_case_main_code Code
+ * \subsection asfdoc_sam0_extint_basic_use_case_main_code Code
  * Copy-paste the following code to your user application:
  * \snippet qs_extint_basic.c main
  *
- * \subsection asfdoc_samd20_extint_basic_use_case_main_flow Workflow
+ * \subsection asfdoc_sam0_extint_basic_use_case_main_flow Workflow
  * -# Read in the current external interrupt channel state to see if an edge
  *    has been detected.
- *  \snippet qs_extint_basic.c main_1
+ *    \snippet qs_extint_basic.c main_1
  * -# Read in the new physical button state and mirror it on the board LED.
- *  \snippet qs_extint_basic.c main_2
+ *    \snippet qs_extint_basic.c main_2
  * -# Clear the detection state of the external interrupt channel so that it
  *    is ready to detect a future falling edge.
- *  \snippet qs_extint_basic.c main_3
+ *    \snippet qs_extint_basic.c main_3
  */

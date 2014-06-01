@@ -93,9 +93,6 @@
 // From module: RTT - Real Time Timer
 #include <rtt.h>
 
-// From module: SAM4S startup code
-#include <exceptions.h>
-
 // From module: SAM4S-EK2 LED support enabled
 #include <led.h>
 

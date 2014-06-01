@@ -3,7 +3,7 @@
  *
  * \brief Static Memory Controller (SMC) driver for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -61,7 +61,7 @@ extern "C" {
  * @{
  */
 
-#if ((SAM3S) || (SAM3U) || (SAM3XA) || (SAM4S) || (SAM4E))
+#if ((SAM3S) || (SAM3U) || (SAM3XA) || (SAM4S) || (SAM4E) || (SAM4C) || (SAM4CM))
 #define SMC_WPKEY_VALUE (0x534D43)
 /**
  * \brief Configure the SMC Setup timing for the specified Chip Select.
@@ -135,19 +135,21 @@ uint32_t smc_get_mode(Smc *p_smc, uint32_t ul_cs)
  */
 void smc_enable_writeprotect(Smc *p_smc, uint32_t ul_enable)
 {
-#if (SAM3S || SAM4S || SAM4E)
-	if (ul_enable)
+#if (SAM3S || SAM4S || SAM4E || SAM4C || SAM4CM)
+	if (ul_enable) {
 		p_smc->SMC_WPMR =
 				SMC_WPMR_WPKEY(SMC_WPKEY_VALUE) | SMC_WPMR_WPEN;
-	else
-		p_smc->SMC_WPMR = SMC_WPMR_WPKEY(SMC_WPKEY_VALUE);
+	} else {
+ 		p_smc->SMC_WPMR = SMC_WPMR_WPKEY(SMC_WPKEY_VALUE);
+	}
 #else
-	if (ul_enable)
+	if (ul_enable) {
 		p_smc->SMC_WPCR =
 				SMC_WPCR_WP_KEY(SMC_WPKEY_VALUE) |
 				SMC_WPCR_WP_EN;
-	else
+	} else {
 		p_smc->SMC_WPCR = SMC_WPCR_WP_KEY(SMC_WPKEY_VALUE);
+	}
 #endif
 }
 
@@ -162,7 +164,7 @@ uint32_t smc_get_writeprotect_status(Smc *p_smc)
 {
 	return p_smc->SMC_WPSR;
 }
-#endif /* ((SAM3S) || (SAM3U) || (SAM3XA)) */
+#endif
 
 #if ((SAM3U) || (SAM3XA))
 /**

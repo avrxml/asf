@@ -68,7 +68,6 @@ CSRCS = \
        sam/drivers/spi/unit_tests/unit_tests.c            \
        sam/drivers/uart/uart.c                            \
        sam/drivers/usart/usart.c                          \
-       sam/utils/cmsis/sam4s/source/templates/exceptions.c \
        sam/utils/cmsis/sam4s/source/templates/gcc/startup_sam4s.c \
        sam/utils/cmsis/sam4s/source/templates/system_sam4s.c \
        sam/utils/syscalls/gcc/syscalls.c
@@ -156,7 +155,12 @@ CPPFLAGS = \
        -D TEST_SUITE_DEFINE_ASSERT_MACRO                  \
        -D _ASSERT_ENABLE_                                 \
        -D __SAM4SD32C__                                   \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

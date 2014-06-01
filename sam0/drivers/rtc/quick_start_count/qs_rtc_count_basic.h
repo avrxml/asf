@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 RTC Count Quick Start
+ * \brief SAM D20/D21/R21 RTC Count Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,63 +42,76 @@
  */
 
 /**
- * \page asfdoc_samd20_rtc_count_basic_use_case Quick Start Guide for RTC (COUNT) - Basic
+ * \page asfdoc_sam0_rtc_count_basic_use_case Quick Start Guide for RTC (COUNT) - Basic
  * In this use case, the RTC is set up in count mode. The example configures the
  * RTC in 16 bit mode, with continuous updates to the COUNT register, together
  * with a set compare register value. Every 1000ms a LED on the board is
  * toggled.
  *
- * \section asfdoc_samd20_rtc_count_basic_use_case_prereq Prerequisites
+ * \section asfdoc_sam0_rtc_count_basic_use_case_prereq Prerequisites
  * The Generic Clock Generator for the RTC should be configured and enabled; if
  * you are using the System Clock driver, this may be done via \c conf_clocks.h.
  *
- * \section asfdoc_samd20_rtc_count_basic_use_case_setup Setup
+ * \subsection asfdoc_sam0_rtc_count_basic_use_case_setup_clocks Clocks and Oscillators
+ * The \c conf_clock.h file needs to be changed with the following values to
+ * configure the clocks and oscillators for the module.
  *
- * \subsection asfdoc_samd20_rtc_count_basic_use_case_init_code Initialization Code
+ * The following oscillator settings are needed:
+ * \snippet conf_clocks.h oscillator_settings
+ * The following generic clock settings are needed:
+ * \snippet conf_clocks.h gclk_settings
+ *
+ * \section asfdoc_sam0_rtc_count_basic_use_case_setup Setup
+ *
+ * \subsection asfdoc_sam0_rtc_count_basic_use_case_init_code Initialization Code
+ * Create a rtc_module struct and add to the main application source file,
+ * outside of any functions:
+ * \snippet qs_rtc_count_basic.c rtc_module_instance
+ *
  * Copy-paste the following setup code to your applications \c main():
  * \snippet qs_rtc_count_basic.c initiate
  *
- * \subsection asfdoc_samd20_rtc_count_basic_use_case_main_code Add to Main
+ * \subsection asfdoc_sam0_rtc_count_basic_use_case_main_code Add to Main
  * Add the following to your \c main().
  * \snippet qs_rtc_count_basic.c add_main
  *
  * \subsection rtc_count_basic_use_workflow Workflow
  * -# Create a RTC configuration structure to hold the desired RTC driver
  *    settings.
- *  \snippet qs_rtc_count_basic.c set_conf
+ *    \snippet qs_rtc_count_basic.c set_conf
  * -# Fill the configuration structure with the default driver configuration.
- *  \note This should always be performed before using the configuration
- *        struct to ensure that all values are initialized to known default
- *        settings.
+ *    \snippet qs_rtc_count_basic.c get_default
+ *    \note This should always be performed before using the configuration
+ *          struct to ensure that all values are initialized to known default
+ *          settings.
  *
- *  \snippet qs_rtc_count_basic.c get_default
  * -# Alter the RTC driver configuration to run in 16-bit counting mode, with
  *    continuous counter register updates.
- *  \snippet qs_rtc_count_basic.c set_config
+ *    \snippet qs_rtc_count_basic.c set_config
  * -# Initialize the RTC module.
- *  \snippet qs_rtc_count_basic.c init_rtc
+ *    \snippet qs_rtc_count_basic.c init_rtc
  * -# Enable the RTC module, so that it may begin counting.
- *  \snippet qs_rtc_count_basic.c enable
+ *    \snippet qs_rtc_count_basic.c enable
  *
- * \section asfdoc_samd20_rtc_count_basic_use_case_implement Implementation
+ * \section asfdoc_sam0_rtc_count_basic_use_case_implement Implementation
  * Code used to implement the initialized module.
  *
- * \subsection asfdoc_samd20_rtc_count_basic_use_case_imp_code Code
+ * \subsection asfdoc_sam0_rtc_count_basic_use_case_imp_code Code
  * Add after initialization in main().
  * \snippet qs_rtc_count_basic.c implementation_code
  *
- * \subsection asfdoc_samd20_rtc_count_basic_use_case_imp_workflow Workflow
+ * \subsection asfdoc_sam0_rtc_count_basic_use_case_imp_workflow Workflow
  * -# Set RTC period to 2000ms (2 seconds) so that it will overflow and reset
  *    back to zero every two seconds.
- *  \snippet qs_rtc_count_basic.c period
+ *    \snippet qs_rtc_count_basic.c period
  * -# Enter an infinite loop to poll the RTC driver to check when a comparison
  *    match occurs.
- *  \snippet qs_rtc_count_basic.c main_loop
+ *    \snippet qs_rtc_count_basic.c main_loop
  * -# Check if the RTC driver has found a match on compare channel 0 against the
  *    current RTC count value.
- *  \snippet qs_rtc_count_basic.c check_match
+ *    \snippet qs_rtc_count_basic.c check_match
  * -# Once a compare match occurs, perform the desired user action.
- * \snippet qs_rtc_count_basic.c compare_match_action
+ *    \snippet qs_rtc_count_basic.c compare_match_action
  * -# Clear the compare match, so that future matches may occur.
- * \snippet qs_rtc_count_basic.c clear_compare_match
+ *    \snippet qs_rtc_count_basic.c clear_compare_match
  */

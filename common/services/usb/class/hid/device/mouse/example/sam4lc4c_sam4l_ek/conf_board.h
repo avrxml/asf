@@ -3,7 +3,7 @@
  *
  * \brief  Configuration File for SAM4L-EK Board.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,6 +46,9 @@
 
 // Auto-initialize USART GPIOs when board_init() is called
 //#define CONF_BOARD_COM_PORT
+
+// Enable EIC on button PB0
+#define CONF_BOARD_EIC
 
 // Enable USB interface (USB)
 #define CONF_BOARD_USB_PORT

@@ -3,7 +3,7 @@
  *
  * \brief PWM service for XMEGA.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -161,7 +161,7 @@ static inline void pwm_set_duty_cycle_percent(struct pwm_config *config,
 		uint8_t duty_cycle_scale)
 {
 	Assert( duty_cycle_scale <= 100 );
-	tc_write_cc_buffer(config->tc, config->channel,
+	tc_write_cc_buffer(config->tc, (enum tc_cc_channel_t)config->channel,
 			(uint16_t)(((uint32_t)config->period *
 			(uint32_t)duty_cycle_scale) / 100));
 }
@@ -245,11 +245,11 @@ static inline void pwm_overflow_int_callback(struct pwm_config *config,
  * \subsection pwm_basic_use_case_setup_code Example code
  * Add to application C-file:
  * \code
- *    struct pwm_config pwm_cfg;
- *
- *    sysclk_init();
- *    pwm_init(&pwm_cfg, PWM_TCE0, PWM_CH_A, 500);
- * \endcode
+	    struct pwm_config pwm_cfg;
+
+	    sysclk_init();
+	    pwm_init(&pwm_cfg, PWM_TCE0, PWM_CH_A, 500);
+\endcode
  *
  * \subsection pwm_basic_use_case_setup_flow Workflow
  * -# Ensure that \ref conf_clock.h is present for the driver.
@@ -291,24 +291,24 @@ static inline void pwm_overflow_int_callback(struct pwm_config *config,
  *
  * Add to application C-file:
  * \code
- * struct pwm_config pwm_cfg;
- *
- * void my_callback(void)
- * {
- *      do_something();
- * }
+	 * struct pwm_config pwm_cfg;
+	 *
+	 * void my_callback(void)
+	 * {
+	 *      do_something();
+	 * }
 
- * void pwm_init(void)
- * {
- *     pmic_init();
- *     sysclk_init();
- *
- *     cpu_irq_enable();
- *
- *     pwm_init(&pwm_cfg, PWM_TCE0, PWM_CH_A, 75);
- *     pwm_overflow_int_callback(&pwm_cfg, my_callback);
- * }
- * \endcode
+	 * void pwm_init(void)
+	 * {
+	 *     pmic_init();
+	 *     sysclk_init();
+	 *
+	 *     cpu_irq_enable();
+	 *
+	 *     pwm_init(&pwm_cfg, PWM_TCE0, PWM_CH_A, 75);
+	 *     pwm_overflow_int_callback(&pwm_cfg, my_callback);
+	 * }
+\endcode
  *
  * \subsection pwm_use_case_1_setup_flow Workflow
  * -# Define config struct for PWM module:
@@ -316,11 +316,11 @@ static inline void pwm_overflow_int_callback(struct pwm_config *config,
  * -# Define a callback function in the application which does whatever task
  * you want it to do:
  *   \code
- * void my_callback(void)
- * {
- *      do_something();
- * }
- *   \endcode
+	void my_callback(void)
+	{
+	     do_something();
+	}
+\endcode
  * -# Initialize interrupt controller module:
  *   \code pmic_init();\endcode
  * -# Initialize sysclock module:

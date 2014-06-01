@@ -60,23 +60,23 @@
     licensing and training services.
 */
 
-#include "gpio.h" // Have to include gpio.h before FreeRTOS.h as long as FreeRTOS
+#include <gpio.h> // Have to include gpio.h before FreeRTOS.h as long as FreeRTOS
                   // redefines the inline keyword to empty.
 
 /* Scheduler includes. */
-#include "FreeRTOS.h"
-#include "task.h"
+#include "../../../include/FreeRTOS.h"
+#include "../../../include/task.h"
 
 /* AVR32 UC3 includes. */
 #include <avr32/io.h>
 #include <intrinsics.h>
 
 #if configDBG
-	#include "usart.h"
+	#include <usart.h>
 #endif
 
 #if( configTICK_USE_TC==1 )
-	#include "tc.h"
+	#include <tc.h>
 #endif
 
 

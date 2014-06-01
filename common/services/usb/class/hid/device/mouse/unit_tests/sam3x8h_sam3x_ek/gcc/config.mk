@@ -168,7 +168,12 @@ CPPFLAGS = \
        -D UDD_ENABLE                                      \
        -D _ASSERT_ENABLE_                                 \
        -D __SAM3X8H__                                     \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

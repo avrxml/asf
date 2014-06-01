@@ -3,7 +3,7 @@
  *
  * \brief Two-Wire Interface (TWI) driver for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -82,6 +82,8 @@ extern "C" {
 
 #if SAM4E
 #define TWI_WP_KEY_VALUE TWI_WPROT_MODE_SECURITY_CODE((uint32_t)0x545749)
+#elif (SAM4C || SAM4CP || SAMG || SAM4CM)
+#define TWI_WP_KEY_VALUE TWI_WPMR_WPKEY_PASSWD
 #endif
 
 /**
@@ -252,8 +254,10 @@ static uint32_t twi_mk_addr(const uint8_t *addr, int len)
  */
 uint32_t twi_master_read(Twi *p_twi, twi_packet_t *p_packet)
 {
-	uint32_t status, cnt = p_packet->length;
+	uint32_t status;
+	uint32_t cnt = p_packet->length;
 	uint8_t *buffer = p_packet->buffer;
+	uint8_t stop_sent = 0;
 	
 	/* Check argument */
 	if (cnt == 0) {
@@ -270,8 +274,14 @@ uint32_t twi_master_read(Twi *p_twi, twi_packet_t *p_packet)
 	p_twi->TWI_IADR = 0;
 	p_twi->TWI_IADR = twi_mk_addr(p_packet->addr, p_packet->addr_length);
 
-	/* Send a START Condition */
-	p_twi->TWI_CR = TWI_CR_START;
+	/* Send a START condition */
+	if (cnt == 1) {
+		p_twi->TWI_CR = TWI_CR_START | TWI_CR_STOP;
+		stop_sent = 1;
+	} else {
+		p_twi->TWI_CR = TWI_CR_START;
+		stop_sent = 0;
+	}
 
 	while (cnt > 0) {
 		status = p_twi->TWI_SR;
@@ -280,8 +290,9 @@ uint32_t twi_master_read(Twi *p_twi, twi_packet_t *p_packet)
 		}
 
 		/* Last byte ? */
-		if (cnt == 1) {
+		if (cnt == 1  && !stop_sent) {
 			p_twi->TWI_CR = TWI_CR_STOP;
+			stop_sent = 1;
 		}
 
 		if (!(status & TWI_SR_RXRDY)) {
@@ -312,7 +323,8 @@ uint32_t twi_master_read(Twi *p_twi, twi_packet_t *p_packet)
  */
 uint32_t twi_master_write(Twi *p_twi, twi_packet_t *p_packet)
 {
-	uint32_t status, cnt = p_packet->length;
+	uint32_t status;
+	uint32_t cnt = p_packet->length;
 	uint8_t *buffer = p_packet->buffer;
 
 	/* Check argument */
@@ -343,14 +355,23 @@ uint32_t twi_master_write(Twi *p_twi, twi_packet_t *p_packet)
 		p_twi->TWI_THR = *buffer++;
 
 		cnt--;
-	};
+	}
+
+	while (1) {
+		status = p_twi->TWI_SR;
+		if (status & TWI_SR_NACK) {
+			return TWI_RECEIVE_NACK;
+		}
+
+		if (status & TWI_SR_TXRDY) {
+			break;
+		}
+	}
 
 	p_twi->TWI_CR = TWI_CR_STOP;
 
 	while (!(p_twi->TWI_SR & TWI_SR_TXCOMP)) {
 	}
-
-	p_twi->TWI_SR;
 
 	return TWI_SUCCESS;
 }
@@ -439,7 +460,7 @@ void twi_enable_slave_mode(Twi *p_twi)
 	p_twi->TWI_CR = TWI_CR_MSDIS;
 	p_twi->TWI_CR = TWI_CR_SVDIS;
 
-	/* Set Master Enable bit */
+	/* Set Slave Enable bit */
 	p_twi->TWI_CR = TWI_CR_SVEN;
 }
 
@@ -573,16 +594,21 @@ void twi_reset(Twi *p_twi)
 Pdc *twi_get_pdc_base(Twi *p_twi)
 {
 	Pdc *p_pdc_base = NULL;
-
+#if !SAMG
 	if (p_twi == TWI0) {
 		p_pdc_base = PDC_TWI0;
-	}
-#ifdef PDC_TWI1
-	else if (p_twi == TWI1) {
-		p_pdc_base = PDC_TWI1;
-	}
+	} else
 #endif
-	else
+#ifdef PDC_TWI1
+	 if (p_twi == TWI1) {
+		p_pdc_base = PDC_TWI1;
+	} else
+#endif
+#ifdef PDC_TWI2
+	if (p_twi == TWI2) {
+		p_pdc_base = PDC_TWI2;
+	} else
+#endif
 	{
 		Assert(false);
 	}
@@ -590,7 +616,7 @@ Pdc *twi_get_pdc_base(Twi *p_twi)
 	return p_pdc_base;
 }
 
-#if SAM4E
+#if (SAM4E || SAM4C || SAMG || SAM4CP || SAM4CM)
 /**
  * \brief Enables/Disables write protection mode.
  *
@@ -599,11 +625,12 @@ Pdc *twi_get_pdc_base(Twi *p_twi)
  */
 void twi_set_write_protection(Twi *p_twi, bool flag)
 {
-	if (flag) {
-		p_twi->TWI_WPROT_MODE = TWI_WP_KEY_VALUE | TWI_WPROT_MODE_WPROT;
-	} else {
-		p_twi->TWI_WPROT_MODE = TWI_WP_KEY_VALUE;
-	}
+#if (SAM4E)
+	p_twi->TWI_WPROT_MODE = TWI_WP_KEY_VALUE |
+		(flag ? TWI_WPROT_MODE_WPROT : 0);
+#else
+	p_twi->TWI_WPMR = (flag ? TWI_WPMR_WPEN : 0) | TWI_WP_KEY_VALUE;
+#endif
 }
 
 /**
@@ -614,7 +641,11 @@ void twi_set_write_protection(Twi *p_twi, bool flag)
  */
 void twi_read_write_protection_status(Twi *p_twi, uint32_t *p_status)
 {
+#if (SAM4E)
 	*p_status = p_twi->TWI_WPROT_STATUS;
+#else
+	*p_status = p_twi->TWI_WPSR;
+#endif
 }
 #endif
 

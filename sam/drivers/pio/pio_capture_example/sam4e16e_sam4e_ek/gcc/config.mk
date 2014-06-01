@@ -114,8 +114,8 @@ LIBS =  \
        m                                                 
 
 # Path relative to top level directory pointing to a linker script.
-LINKER_SCRIPT_FLASH = sam/utils/linker_scripts/sam4e/sam4e16e/gcc/flash.ld
-LINKER_SCRIPT_SRAM  = sam/utils/linker_scripts/sam4e/sam4e16e/gcc/sram.ld
+LINKER_SCRIPT_FLASH = sam/utils/linker_scripts/sam4e/sam4e16/gcc/flash.ld
+LINKER_SCRIPT_SRAM  = sam/utils/linker_scripts/sam4e/sam4e16/gcc/sram.ld
 
 # Path relative to top level directory pointing to a linker script.
 DEBUG_SCRIPT_FLASH = sam/boards/sam4e_ek/debug_scripts/gcc/sam4e_ek_flash.gdb
@@ -138,12 +138,12 @@ ARFLAGS =
 # Extra flags to use when assembling.
 ASFLAGS =  \
        -mfloat-abi=softfp                                 \
-       -mfpu=vfpv4                                       
+       -mfpu=fpv4-sp-d16                                 
 
 # Extra flags to use when compiling.
 CFLAGS =  \
        -mfloat-abi=softfp                                 \
-       -mfpu=vfpv4                                       
+       -mfpu=fpv4-sp-d16                                 
 
 # Extra flags to use when preprocessing.
 #
@@ -158,7 +158,12 @@ CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
        -D BOARD=SAM4E_EK                                  \
        -D __SAM4E16E__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

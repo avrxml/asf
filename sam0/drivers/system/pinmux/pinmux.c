@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Pin Multiplexer Driver
+ * \brief SAM D20/D21/R21 Pin Multiplexer Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -65,38 +65,38 @@ static void _system_pinmux_config(
 	/* Track the configuration bits into a temporary variable before writing */
 	uint32_t pin_cfg = 0;
 
-	/* Enable the pin peripheral mux flag if non-GPIO selected (pin mux will
-	 * be written later) and store the new mux mask */
-	if (config->mux_position != SYSTEM_PINMUX_GPIO) {
-		pin_cfg |= PORT_WRCONFIG_PMUXEN;
-		pin_cfg |= (config->mux_position << PORT_WRCONFIG_PMUX_Pos);
-	}
-
-	/* Check if the user has requested that the input buffer be enabled */
-	if ((config->direction == SYSTEM_PINMUX_PIN_DIR_INPUT) ||
-			(config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT_WITH_READBACK)) {
-		/* Enable input buffer flag */
-		pin_cfg |= PORT_WRCONFIG_INEN;
-
-		/* Enable pull-up/pull-down control flag if requested */
-		if (config->input_pull != SYSTEM_PINMUX_PIN_PULL_NONE) {
-			pin_cfg |= PORT_WRCONFIG_PULLEN;
+	/* Enabled powersave mode, don't create configuration */
+	if (!config->powersave) {
+		/* Enable the pin peripheral mux flag if non-GPIO selected (pin mux will
+		 * be written later) and store the new mux mask */
+		if (config->mux_position != SYSTEM_PINMUX_GPIO) {
+			pin_cfg |= PORT_WRCONFIG_PMUXEN;
+			pin_cfg |= (config->mux_position << PORT_WRCONFIG_PMUX_Pos);
 		}
 
-		/* Clear the port DIR bits to disable the output buffer */
-		port->DIRCLR.reg = pin_mask;
-	}
+		/* Check if the user has requested that the input buffer be enabled */
+		if ((config->direction == SYSTEM_PINMUX_PIN_DIR_INPUT) ||
+				(config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT_WITH_READBACK)) {
+			/* Enable input buffer flag */
+			pin_cfg |= PORT_WRCONFIG_INEN;
 
-	/* Check if the user has requested that the output buffer be enabled */
-	if ((config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT) ||
-			(config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT_WITH_READBACK)) {
-		/* Cannot use a pullup if the output driver is enabled,
-		 * if requested the input buffer can only sample the current
-		 * output state */
-		pin_cfg &= ~PORT_WRCONFIG_PULLEN;
+			/* Enable pull-up/pull-down control flag if requested */
+			if (config->input_pull != SYSTEM_PINMUX_PIN_PULL_NONE) {
+				pin_cfg |= PORT_WRCONFIG_PULLEN;
+			}
 
-		/* Set the port DIR bits to enable the output buffer */
-		port->DIRSET.reg = pin_mask;
+			/* Clear the port DIR bits to disable the output buffer */
+			port->DIRCLR.reg = pin_mask;
+		}
+
+		/* Check if the user has requested that the output buffer be enabled */
+		if ((config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT) ||
+				(config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT_WITH_READBACK)) {
+			/* Cannot use a pullup if the output driver is enabled,
+			 * if requested the input buffer can only sample the current
+			 * output state */
+			pin_cfg &= ~PORT_WRCONFIG_PULLEN;
+		}
 	}
 
 	/* The Write Configuration register (WRCONFIG) requires the
@@ -117,16 +117,25 @@ static void _system_pinmux_config(
 			pin_cfg | PORT_WRCONFIG_WRPMUX | PORT_WRCONFIG_WRPINCFG |
 			PORT_WRCONFIG_HWSEL;
 
-	/* Set the pull-up state once the port pins are configured if one was
-	 * requested and it does not violate the valid set of port
-	 * configurations */
-	if (pin_cfg & PORT_WRCONFIG_PULLEN) {
-		/* Set the OUT register bits to enable the pullup if requested,
-		 * clear to enable pull-down */
-		if (config->input_pull == SYSTEM_PINMUX_PIN_PULL_UP) {
-			port->OUTSET.reg = pin_mask;
-		} else {
-			port->OUTCLR.reg = pin_mask;
+	if(!config->powersave) {
+		/* Set the pull-up state once the port pins are configured if one was
+		 * requested and it does not violate the valid set of port
+		 * configurations */
+		if (pin_cfg & PORT_WRCONFIG_PULLEN) {
+			/* Set the OUT register bits to enable the pullup if requested,
+			 * clear to enable pull-down */
+			if (config->input_pull == SYSTEM_PINMUX_PIN_PULL_UP) {
+				port->OUTSET.reg = pin_mask;
+			} else {
+				port->OUTCLR.reg = pin_mask;
+			}
+		}
+
+		/* Check if the user has requested that the output buffer be enabled */
+		if ((config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT) ||
+				(config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT_WITH_READBACK)) {
+			/* Set the port DIR bits to enable the output buffer */
+			port->DIRSET.reg = pin_mask;
 		}
 	}
 }
@@ -171,6 +180,8 @@ void system_pinmux_group_set_config(
 		const uint32_t mask,
 		const struct system_pinmux_config *const config)
 {
+	Assert(port);
+
 	for (int i = 0; i < 32; i++) {
 		if (mask & (1UL << i)) {
 			_system_pinmux_config(port, (1UL << i), config);
@@ -194,98 +205,11 @@ void system_pinmux_group_set_input_sample_mode(
 		const uint32_t mask,
 		const enum system_pinmux_pin_sample mode)
 {
-	for (int i = 0; i < 32; i++) {
-		if (mask & (1UL << i)) {
-			uint32_t sample_quad_mask = (1UL << (i / 4));
+	Assert(port);
 
-			if (mode == SYSTEM_PINMUX_PIN_SAMPLE_ONDEMAND) {
-				port->CTRL.reg |=  sample_quad_mask;
-			}
-			else {
-				port->CTRL.reg &= ~sample_quad_mask;
-			}
-		}
-	}
-}
-
-/**
- * \brief Configures the output driver strength mode for a group of pins.
- *
- * Configures the output drive strength for a group of pins, to
- * control the amount of current the pad is able to sink/source.
- *
- * \param[in] port     Base of the PORT module to configure.
- * \param[in] mask     Mask of the port pin(s) to configure.
- * \param[in] mode     New output driver strength mode to configure.
- */
-void system_pinmux_group_set_output_strength(
-		PortGroup *const port,
-		const uint32_t mask,
-		const enum system_pinmux_pin_strength mode)
-{
-	for (int i = 0; i < 32; i++) {
-		if (mask & (1UL << i)) {
-			if (mode == SYSTEM_PINMUX_PIN_STRENGTH_HIGH) {
-				port->PINCFG[i].reg |=  PORT_PINCFG_DRVSTR;
-			}
-			else {
-				port->PINCFG[i].reg &= ~PORT_PINCFG_DRVSTR;
-			}
-		}
-	}
-}
-
-/**
- * \brief Configures the output slew rate mode for a group of pins.
- *
- * Configures the output slew rate mode for a group of pins, to
- * control the speed at which the physical output pin can react to
- * logical changes of the I/O pin value.
- *
- * \param[in] port     Base of the PORT module to configure.
- * \param[in] mask     Mask of the port pin(s) to configure.
- * \param[in] mode     New pin slew rate mode to configure.
- */
-void system_pinmux_group_set_output_slew_rate(
-		PortGroup *const port,
-		const uint32_t mask,
-		const enum system_pinmux_pin_slew_rate mode)
-{
-	for (int i = 0; i < 32; i++) {
-		if (mask & (1UL << i)) {
-			if (mode == SYSTEM_PINMUX_PIN_SLEW_RATE_LIMITED) {
-				port->PINCFG[i].reg |=  PORT_PINCFG_SLEWLIM;
-			}
-			else {
-				port->PINCFG[i].reg &= ~PORT_PINCFG_SLEWLIM;
-			}
-		}
-	}
-}
-
-/**
- * \brief Configures the output driver mode for a group of pins.
- *
- * Configures the output driver mode for a group of pins, to
- * control the pad behavior.
- *
- * \param[in] port     Base of the PORT module to configure.
- * \param[in] mask     Mask of the port pin(s) to configure.
- * \param[in] mode     New pad output driver mode to configure.
- */
-void system_pinmux_group_set_output_drive(
-		PortGroup *const port,
-		const uint32_t mask,
-		const enum system_pinmux_pin_drive mode)
-{
-	for (int i = 0; i < 32; i++) {
-		if (mask & (1UL << i)) {
-			if (mode == SYSTEM_PINMUX_PIN_DRIVE_OPEN_DRAIN) {
-				port->PINCFG[i].reg |=  PORT_PINCFG_ODRAIN;
-			}
-			else {
-				port->PINCFG[i].reg &= ~PORT_PINCFG_ODRAIN;
-			}
-		}
+	if (mode == SYSTEM_PINMUX_PIN_SAMPLE_ONDEMAND) {
+		port->CTRL.reg |= mask;
+	} else {
+		port->CTRL.reg &= ~mask;
 	}
 }

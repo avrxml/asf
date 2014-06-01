@@ -90,9 +90,6 @@
 // From module: SAM4S EK LED support enabled
 #include <led.h>
 
-// From module: SAM4S startup code
-#include <exceptions.h>
-
 // From module: System Clock Control - SAM4S implementation
 #include <sysclk.h>
 

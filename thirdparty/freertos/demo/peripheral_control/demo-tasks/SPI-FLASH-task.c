@@ -5,7 +5,7 @@
  * \brief FreeRTOS SPI Flash test task
  *
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -85,7 +85,7 @@
 
 /* Max number when the chip selects are directly connected to peripheral device.
  **/
-#define NONE_CHIP_SELECT_ID     0x0f
+#define NONE_CHIP_SELECT_VALUE     0x0f
 
 /* Instructions/commands that can be sent to the flash. */
 /** Write status register command code */
@@ -106,7 +106,7 @@
 #define BAUD_RATE               12000000
 
 /* Chip select. */
-#define CHIP_SELECT             3
+#define CHIP_SELECT             CONF_EXAMPLE_CS
 
 /* Clock polarity. */
 #define CLOCK_POLARITY          0
@@ -165,7 +165,7 @@ static void at25dfx_read(freertos_spi_if freertos_spi, uint32_t size,
 /*
  * Read number_of_bytes of data to data_buffer on the SPI bus. This function
  * selects either the blocking or asynchronous FreeRTOS functions, depending on
- * the value of use_asynchronous_api.
+ * the value of spi_use_asynchronous_api.
  */
 static void at25dfx_spi_read(freertos_spi_if freertos_spi, uint8_t *buffer,
 		uint32_t number_of_bytes);
@@ -181,7 +181,7 @@ static void at25dfx_write(freertos_spi_if freertos_spi, uint32_t size,
 /*
  * Writes number_of_bytes of data from data_buffer on the SPI bus. This function
  * selects either the blocking or asynchronous FreeRTOS functions, depending on
- * the value of use_asynchronous_api.
+ * the value of spi_use_asynchronous_api.
  */
 static void at25dfx_spi_write(freertos_spi_if freertos_spi, uint8_t *buffer,
 		uint32_t number_of_bytes);
@@ -200,14 +200,14 @@ being latched in error_detected.  This is used by other tasks to determine if
 the test was successful or not. */
 static uint32_t flash_test_passed = pdFALSE;
 
-/* If use_asynchronous_api is set to pdTRUE, then the example will use the
+/* If spi_use_asynchronous_api is set to pdTRUE, then the example will use the
 fully asynchronous FreeRTOS API.  Otherwise the example will use the blocking
 FreeRTOS API (other tasks will execute while the application task is blocked). */
-portBASE_TYPE use_asynchronous_api;
+portBASE_TYPE spi_use_asynchronous_api;
 
 /* The notification semaphore is only created and used when the fully
 asynchronous FreeRTOS API is used. */
-xSemaphoreHandle notification_semaphore = NULL;
+xSemaphoreHandle spi_notification_semaphore = NULL;
 
 /*-----------------------------------------------------------*/
 
@@ -237,11 +237,11 @@ void create_spi_flash_test_task(Spi *spi_base, uint16_t stack_depth_words,
 	};
 
 	/* Remember if the asynchronous or blocking API is being used. */
-	use_asynchronous_api = set_asynchronous_api;
+	spi_use_asynchronous_api = set_asynchronous_api;
 
 	/* The freertos_peripheral_options_t structure used to initialize the
-	FreeRTOS driver differs depending on the use_asynchronous_api setting. */
-	if (use_asynchronous_api == pdFALSE) {
+	FreeRTOS driver differs depending on the spi_use_asynchronous_api setting. */
+	if (spi_use_asynchronous_api == pdFALSE) {
 		/* Initialize the FreeRTOS driver for blocking operation.  The
 		 * peripheral clock is configured in this function call. */
 		freertos_spi = freertos_spi_master_init(spi_base,
@@ -254,13 +254,13 @@ void create_spi_flash_test_task(Spi *spi_base, uint16_t stack_depth_words,
 
 		/* Asynchronous operation requires a notification semaphore.  First,
 		create the semaphore. */
-		vSemaphoreCreateBinary(notification_semaphore);
+		vSemaphoreCreateBinary(spi_notification_semaphore);
 
 		/* Check the semaphore was created. */
-		configASSERT(notification_semaphore);
+		configASSERT(spi_notification_semaphore);
 
 		/* Then set the semaphore into the correct initial state. */
-		xSemaphoreTake(notification_semaphore, 0);
+		xSemaphoreTake(spi_notification_semaphore, 0);
 	}
 
 	/* Check the port was initialized successfully. */
@@ -276,7 +276,7 @@ void create_spi_flash_test_task(Spi *spi_base, uint16_t stack_depth_words,
 			DELAY_BETWEEN);
 	spi_configure_cs_behavior(spi_base, CHIP_SELECT, SPI_CS_KEEP_LOW);
 
-	spi_set_peripheral_chip_select_value(spi_base, CHIP_SELECT);
+	spi_set_peripheral_chip_select_value(spi_base, spi_get_pcs(CHIP_SELECT));
 
 	spi_enable(spi_base);
 
@@ -360,7 +360,7 @@ static void at25dfx_send_command(freertos_spi_if freertos_spi,
 {
 	/* Select the AT25 chip. */
 	spi_set_peripheral_chip_select_value(freertos_spi,
-			(~(1 << CHIP_SELECT)));
+			(~(1U << CHIP_SELECT)));
 
 	/* Send actual command. */
 	at25dfx_spi_write(freertos_spi, cmd_buffer, cmd_size);
@@ -375,7 +375,7 @@ static void at25dfx_send_command(freertos_spi_if freertos_spi,
 	}
 
 	/* Deselect the AT25 chip - assert all lines; no peripheral is selected. */
-	spi_set_peripheral_chip_select_value(freertos_spi, NONE_CHIP_SELECT_ID);
+	spi_set_peripheral_chip_select_value(freertos_spi, NONE_CHIP_SELECT_VALUE);
 	/* Last transfer, so de-assert the current NPCS if CSAAT is set. */
 	spi_set_lastxfer(freertos_spi);
 }
@@ -467,7 +467,7 @@ static void at25dfx_spi_read(freertos_spi_if freertos_spi, uint8_t *buffer,
 {
 	const portTickType max_block_time_ticks = 200UL / portTICK_RATE_MS;
 
-	if (use_asynchronous_api == pdFALSE) {
+	if (spi_use_asynchronous_api == pdFALSE) {
 		/* The blocking API is being used.  Other tasks will run while the SPI
 		read is in progress. */
 		if (freertos_spi_read_packet(freertos_spi, buffer,
@@ -480,7 +480,7 @@ static void at25dfx_spi_read(freertos_spi_if freertos_spi, uint8_t *buffer,
 		semaphore is used to indicate when the SPI read is complete. */
 		if (freertos_spi_read_packet_async(freertos_spi, buffer,
 				number_of_bytes, max_block_time_ticks,
-				notification_semaphore) != STATUS_OK) {
+				spi_notification_semaphore) != STATUS_OK) {
 			error_detected = pdTRUE;
 		}
 
@@ -490,7 +490,7 @@ static void at25dfx_spi_read(freertos_spi_if freertos_spi, uint8_t *buffer,
 		/* Ensure the transaction is complete before proceeding further.
 		Other tasks will execute if this call causes this task to enter the
 		Blocked state. */
-		if (xSemaphoreTake(notification_semaphore,
+		if (xSemaphoreTake(spi_notification_semaphore,
 				max_block_time_ticks) != pdPASS) {
 			error_detected = pdTRUE;
 		}
@@ -538,7 +538,7 @@ static void at25dfx_spi_write(freertos_spi_if freertos_spi, uint8_t *buffer,
 {
 	const portTickType max_block_time_ticks = 200UL / portTICK_RATE_MS;
 
-	if (use_asynchronous_api == pdFALSE) {
+	if (spi_use_asynchronous_api == pdFALSE) {
 		/* The blocking API is being used.  Other tasks will execute while the
 		SPI write is in progress. */
 		if (freertos_spi_write_packet(freertos_spi, buffer,
@@ -551,7 +551,7 @@ static void at25dfx_spi_write(freertos_spi_if freertos_spi, uint8_t *buffer,
 		semaphore is used to indicate when the SPI write is complete. */
 		if (freertos_spi_write_packet_async(freertos_spi, buffer,
 				number_of_bytes, max_block_time_ticks,
-				notification_semaphore) != STATUS_OK) {
+				spi_notification_semaphore) != STATUS_OK) {
 			error_detected = pdTRUE;
 		}
 
@@ -561,7 +561,7 @@ static void at25dfx_spi_write(freertos_spi_if freertos_spi, uint8_t *buffer,
 		/* Ensure the transaction is complete before proceeding further.  Other
 		tasks will execute if this call causes this task to enter the Blocked
 		state. */
-		if (xSemaphoreTake(notification_semaphore,
+		if (xSemaphoreTake(spi_notification_semaphore,
 				max_block_time_ticks) != pdPASS) {
 			error_detected = pdTRUE;
 		}

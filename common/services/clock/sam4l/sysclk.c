@@ -186,9 +186,9 @@ void sysclk_priv_disable_module(uint32_t bus_id, uint32_t module_index)
 
 /**
  * \brief Enable a module clock derived from the PBA clock
- * \param index Index of the module clock in the PBAMASK register
+ * \param module_index Index of the module clock in the PBAMASK register
  */
-void sysclk_enable_pba_module(uint32_t index)
+void sysclk_enable_pba_module(uint32_t module_index)
 {
 	irqflags_t flags;
 
@@ -202,19 +202,19 @@ void sysclk_enable_pba_module(uint32_t index)
 	cpu_irq_restore(flags);
 
 	/* Enable the module */
-	sysclk_priv_enable_module(PM_CLK_GRP_PBA, index);
+	sysclk_priv_enable_module(PM_CLK_GRP_PBA, module_index);
 }
 
 /**
  * \brief Disable a module clock derived from the PBA clock
- * \param index Index of the module clock in the PBAMASK register
+ * \param module_index Index of the module clock in the PBAMASK register
  */
-void sysclk_disable_pba_module(uint32_t index)
+void sysclk_disable_pba_module(uint32_t module_index)
 {
 	irqflags_t flags;
 
 	/* Disable the module */
-	sysclk_priv_disable_module(PM_CLK_GRP_PBA, index);
+	sysclk_priv_disable_module(PM_CLK_GRP_PBA, module_index);
 
 	/* Disable the bridge if possible */
 	flags = cpu_irq_save();
@@ -228,9 +228,9 @@ void sysclk_disable_pba_module(uint32_t index)
 
 /**
  * \brief Enable a module clock derived from the PBB clock
- * \param index Index of the module clock in the PBBMASK register
+ * \param module_index Index of the module clock in the PBBMASK register
  */
-void sysclk_enable_pbb_module(uint32_t index)
+void sysclk_enable_pbb_module(uint32_t module_index)
 {
 	irqflags_t flags;
 
@@ -244,19 +244,19 @@ void sysclk_enable_pbb_module(uint32_t index)
 	cpu_irq_restore(flags);
 
 	/* Enable the module */
-	sysclk_priv_enable_module(PM_CLK_GRP_PBB, index);
+	sysclk_priv_enable_module(PM_CLK_GRP_PBB, module_index);
 }
 
 /**
  * \brief Disable a module clock derived from the PBB clock
- * \param index Index of the module clock in the PBBMASK register
+ * \param module_index Index of the module clock in the PBBMASK register
  */
-void sysclk_disable_pbb_module(uint32_t index)
+void sysclk_disable_pbb_module(uint32_t module_index)
 {
 	irqflags_t flags;
 
 	/* Disable the module */
-	sysclk_priv_disable_module(PM_CLK_GRP_PBB, index);
+	sysclk_priv_disable_module(PM_CLK_GRP_PBB, module_index);
 
 	/* Disable the bridge if possible */
 	flags = cpu_irq_save();
@@ -302,7 +302,9 @@ uint32_t sysclk_get_peripheral_bus_hz(const volatile void *module)
 	case CATB_ADDR:
 	case TWIM2_ADDR:
 	case TWIM3_ADDR:
+	#if !SAM4LS
 	case LCDCA_ADDR:
+	#endif
 		return sysclk_get_pba_hz();
 
 	case HFLASHC_ADDR:
@@ -346,9 +348,12 @@ uint32_t sysclk_get_peripheral_bus_hz(const volatile void *module)
 void sysclk_enable_peripheral_clock(const volatile void *module)
 {
 	switch ((uintptr_t)module) {
+
+	#if !SAM4LS
 	case AESA_ADDR:
 		sysclk_enable_hsb_module(SYSCLK_AESA_HSB);
 		break;
+	#endif
 
 	case IISC_ADDR:
 		sysclk_enable_pba_module(SYSCLK_IISC);
@@ -452,9 +457,11 @@ void sysclk_enable_peripheral_clock(const volatile void *module)
 		sysclk_enable_pba_module(SYSCLK_TWIM3);
 		break;
 
+	#if !SAM4LS
 	case LCDCA_ADDR:
 		sysclk_enable_pba_module(SYSCLK_LCDCA);
 		break;
+	#endif
 
 	case HFLASHC_ADDR:
 		sysclk_enable_hsb_module(SYSCLK_HFLASHC_DATA);
@@ -550,9 +557,12 @@ void sysclk_enable_peripheral_clock(const volatile void *module)
 void sysclk_disable_peripheral_clock(const volatile void *module)
 {
 	switch ((uintptr_t)module) {
+
+	#if !SAM4LS
 	case AESA_ADDR:
 		sysclk_disable_hsb_module(SYSCLK_AESA_HSB);
 		break;
+	#endif
 
 	case IISC_ADDR:
 		sysclk_disable_pba_module(SYSCLK_IISC);
@@ -642,9 +652,11 @@ void sysclk_disable_peripheral_clock(const volatile void *module)
 		sysclk_disable_pba_module(SYSCLK_TWIM3);
 		break;
 
+	#if !SAM4LS
 	case LCDCA_ADDR:
 		sysclk_disable_pba_module(SYSCLK_LCDCA);
 		break;
+	#endif
 
 	case HFLASHC_ADDR:
 		sysclk_disable_pbb_module(SYSCLK_HFLASHC_REGS);

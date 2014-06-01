@@ -3,7 +3,7 @@
  *
  * \brief Serial Input & Output configuration
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,17 +42,12 @@
 
 #ifndef CONF_SIO2HOST_H_INCLUDED
 #define CONF_SIO2HOST_H_INCLUDED
+ #define SERIAL_RX_BUF_SIZE_HOST    156
 
 /*! \name Configuration
  */
 /* ! @{ */
-#define USART_HOST                &USARTE0
-#define USART_HOST_BAUDRATE       9600
-#define USART_HOST_CHAR_LENGTH    USART_CHSIZE_8BIT_gc
-#define USART_HOST_PARITY         USART_PMODE_DISABLED_gc
-#define USART_HOST_STOP_BIT       1
-/* ! @} */
 
-#define USART_HOST_ISR_VECT()     ISR(USARTE0_RXC_vect)
+/* ! @} */
 
 #endif /* CONF_SIO2HOST_H_INCLUDED */

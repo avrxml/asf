@@ -381,6 +381,10 @@ U8 mem_sector_size(U8 lun)
 bool mem_unload(U8 lun, bool unload)
 {
   bool unloaded;
+#if !MAX_LUN || !defined(Lun_usb_unload)
+  UNUSED(lun);
+#endif
+
   if (!Ctrl_access_lock()) return false;
 
   unloaded =

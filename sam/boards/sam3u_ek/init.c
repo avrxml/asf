@@ -44,6 +44,9 @@
 #include "compiler.h"
 #include "board.h"
 #include "conf_board.h"
+#ifdef CONF_BOARD_MMA7341L
+#include "conf_mma7341l.h"
+#endif
 #include "gpio.h"
 #include "ioport.h"
 

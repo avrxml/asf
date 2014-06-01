@@ -3,7 +3,7 @@
  *
  * \brief Watchdog Timer (WDT) example for SAM4L.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -67,17 +67,34 @@
  * \section deviceinfo Device Information
  * SAM4L device can be used.
  *
- * \section configinfo Configuration Information
- * This example has been tested with the following configuration:
- * - SAM4L_EK evaluation kit;
- * - CPU clock: 48 MHz;
- * - USART2 (on SAM4L_EK) abstracted with a USB CDC connection to a PC;
- * - PC terminal settings:
- *   - 115200 bps,
- *   - 8 data bits,
- *   - no parity bit,
- *   - 1 stop bit,
- *   - no flow control.
+ * \section Requirements
+ *
+ * This example can be used on:
+ *  - SAM4L evaluation kit
+ *  - SAM4L Xplained Pro kit
+ *  - SAM4L8 Xplained Pro kit
+ *
+ * \section Usage
+ *
+ * - Build the program and download it to the evaluation board.
+ * -# On the computer, open and configure a terminal application
+ *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
+ *   - 115200 bauds
+ *   - 8 bits of data
+ *   - No parity
+ *   - 1 stop bit
+ *   - No flow control
+ * -# In the terminal window, the following text should appear (values depend
+ *    on the board and chip used):
+ *    \code
+	-- Watchdog example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
+ * -# A LED keeps blinking and watchdog timer is cleared before
+ *  watchdog timeout.
+ * -# The example will enter a deadlock status if user presses the push button
+ *  and it will trigger an watchdog reset in about 5 seconds.
  *
  * \section contactinfo Contact Information
  * For further information, visit
@@ -85,6 +102,7 @@
  * Support and FAQ: http://support.atmel.com/
  */
 #include <asf.h>
+#include "conf_example.h"
 
 /** Watchdog period in millisecond */
 #define WDT_RESTART_PERIOD       2000
@@ -123,8 +141,8 @@ void SysTick_Handler(void)
 static void set_toggle_flag(void)
 {
 	/* Check if EIC push button line interrupt line is pending. */
-	if (eic_line_interrupt_is_pending(EIC, GPIO_PUSH_BUTTON_EIC_LINE)) {
-		eic_line_clear_interrupt(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
+	if (eic_line_interrupt_is_pending(EIC, EXAMPLE_BUTTON_EIC_LINE)) {
+		eic_line_clear_interrupt(EIC, EXAMPLE_BUTTON_EIC_LINE);
 		g_b_button_event = 1;
 	}
 }
@@ -181,11 +199,11 @@ int main(void)
 	eic_line_cfg.eic_async = EIC_ASYNCH_MODE;
 
 	eic_enable(EIC);
-	eic_line_set_config(EIC, GPIO_PUSH_BUTTON_EIC_LINE,
+	eic_line_set_config(EIC, EXAMPLE_BUTTON_EIC_LINE,
 			&eic_line_cfg);
-	eic_line_set_callback(EIC, GPIO_PUSH_BUTTON_EIC_LINE, set_toggle_flag,
-			EIC_5_IRQn, 1);
-	eic_line_enable(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
+	eic_line_set_callback(EIC, EXAMPLE_BUTTON_EIC_LINE, set_toggle_flag,
+			EXAMPLE_BUTTON_EIC_IRQN, 1);
+	eic_line_enable(EIC, EXAMPLE_BUTTON_EIC_LINE);
 
 	/*
 	 * Intialize and enable the watchdog.
@@ -197,7 +215,8 @@ int main(void)
 	wdt_init(&g_wdt_inst, WDT, &g_wdt_cfg);
 	wdt_enable(&g_wdt_inst);
 
-	puts("\r\nPlease press PB0 to simulate a deadlock.\r");
+	printf("\r\nPlease press %s to simulate a deadlock.\r\n",
+			EXAMPLE_BUTTON_NAME);
 
 	while (1) {
 		if (g_b_systick_event == true) {
@@ -205,7 +224,7 @@ int main(void)
 
 			/* Toggle LED at the given period. */
 			if ((g_ul_ms_ticks % BLINK_PERIOD) == 0) {
-				ioport_toggle_pin_level(LED0_GPIO);
+				ioport_toggle_pin_level(EXAMPLE_LED_GPIO);
 			}
 
 			/* Clear watchdog at the given period. */
@@ -217,7 +236,7 @@ int main(void)
 		/* Simulate deadlock when button is pressed. */
 		if (g_b_button_event == true) {
 			puts("The program enters an infinite loop, the WDT reset will " \
-					"trigger in about 5s.\r");
+					"be triggered in about 5s.\r");
 			wdt_clear(&g_wdt_inst);
 			while (1) {
 				if (g_b_systick_event == true) {

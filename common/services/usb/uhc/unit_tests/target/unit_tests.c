@@ -3,7 +3,7 @@
  *
  * \brief Main functions for USB host unit tests
  *
- * Copyright (C) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -72,7 +72,7 @@
  * Then, the test firmware starts.
  */
 
-//! \name Unit test configuration
+//! \name Unit test configuration for AVR and SAM3/SAM4
 //@{
 /**
  * \def CONF_TEST_USART
@@ -96,6 +96,17 @@
  */
 //@}
 
+#if (UC3C || SAM4L || SAM3XA || SAMD21)
+// USBC(UC3C and SAM4L) have no hardware limit about endpoint size
+// UOTGHS(SAM3XA) has no hardware limit about ep0
+// USB(SAMD21) have no hardware limit about endpoint size
+#  define TST_15_DIS
+#endif
+
+#if (UC3C) // USBC downstream fails (ERRATA)
+#  define TST_18_DIS
+#endif
+
 #define MAIN_EVENT_HOST_MODE                     (1u<<0)
 #define MAIN_EVENT_DEVICE_MODE                   (1u<<1)
 #define MAIN_EVENT_VBUS_PRESENT                  (1u<<2)
@@ -113,6 +124,11 @@
 #define MAIN_EVENT_WAKEUP                        (1u<<14)
 
 volatile uint32_t main_events = 0;
+
+#if SAMD21
+/* Structure for UART module connected to EDBG (used for unit test output) */
+struct usart_module cdc_uart_module;
+#endif
 
 #if 0 // To help the debug of unit tests
 #  define NB_EVENTS 250
@@ -274,15 +290,13 @@ static void run_test_enum_unsupported(const struct test_case *test)
 	CHECK_EVENT_ENUM_UNSUPPORTED();
 	CHECK_EVENT_DISCONNECTION();
 }
-#if !UC3C && !SAM4L // USBC have no hardware limit about endpoint size
-# if !SAM3XA // UOTGHS has no hardware limit about ep0
+#ifndef TST_15_DIS
 static void run_test_enum_hardwarelimit(const struct test_case *test)
 {
 	CHECK_EVENT_CONNECTION();
 	CHECK_EVENT_ENUM_HARDWARE_LIMIT();
 	CHECK_EVENT_DISCONNECTION();
 }
-# endif
 #endif
 static void run_test_enum_success_ls(const struct test_case *test)
 {
@@ -340,6 +354,31 @@ static void run_test_disconnection_in_suspend(const struct test_case *test)
 	CHECK_EVENT_DISCONNECTION();
 }
 
+#if SAMD21
+/**
+ * \brief Initialize the USART for unit test
+ *
+ * Initializes the SERCOM USART used for sending the unit test status to the
+ * computer via the EDBG CDC gateway.
+ */
+static void cdc_uart_init(void)
+{
+	struct usart_config usart_conf;
+
+	/* Configure USART for unit test output */
+	usart_get_config_defaults(&usart_conf);
+	usart_conf.mux_setting = CONF_STDIO_MUX_SETTING;
+	usart_conf.pinmux_pad0 = CONF_STDIO_PINMUX_PAD0;
+	usart_conf.pinmux_pad1 = CONF_STDIO_PINMUX_PAD1;
+	usart_conf.pinmux_pad2 = CONF_STDIO_PINMUX_PAD2;
+	usart_conf.pinmux_pad3 = CONF_STDIO_PINMUX_PAD3;
+	usart_conf.baudrate    = CONF_STDIO_BAUDRATE;
+
+	stdio_serial_init(&cdc_uart_module, CONF_STDIO_USART, &usart_conf);
+	usart_enable(&cdc_uart_module);
+}
+#endif
+
 /**
  * \brief Run usb host core unit tests
  *
@@ -348,6 +387,11 @@ static void run_test_disconnection_in_suspend(const struct test_case *test)
  */
 int main(void)
 {
+#if SAMD21
+	system_init();
+	delay_init();
+	cdc_uart_init();
+#else
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate   = CONF_TEST_BAUDRATE,
 		.charlength = CONF_TEST_CHARLENGTH,
@@ -356,14 +400,16 @@ int main(void)
 	};
 
 	sysclk_init();
+	board_init();
+	delay_init(sysclk_get_cpu_hz());
+	stdio_serial_init(CONF_TEST_USART, &usart_serial_options);
+#endif
+
 	irq_initialize_vectors();
 	cpu_irq_enable();
 
 	// Initialize the sleep manager
 	sleepmgr_init();
-	board_init();
-	delay_init(sysclk_get_cpu_hz());
-	stdio_serial_init(CONF_TEST_USART, &usart_serial_options);
 
 	// Define all the timestamp to date test cases
 
@@ -398,11 +444,9 @@ int main(void)
 		NULL, "13 - Too high power consumption in setup request get configuration 0");
 	DEFINE_TEST_CASE(usb_test_14, NULL, run_test_enum_unsupported,
 		NULL, "14 - No supported interface (interface subclass not possible)");
-#if !UC3C && !SAM4L // USBC have no hardware limit about endpoint size
-# if !SAM3XA // UOTGHS has no hardware limit about ep0
+#ifndef TST_15_DIS
 	DEFINE_TEST_CASE(usb_test_15, NULL, run_test_enum_hardwarelimit,
 		NULL, "15 - HID mouse with too large endpoint size (hardware limit)");
-# endif
 #endif
 	DEFINE_TEST_CASE(usb_test_16, NULL, run_test_enum_fail,
 		NULL, "16 - Stall SET CONFIGURATION (Note SELF/300mA is tested)");
@@ -443,14 +487,12 @@ int main(void)
 		&usb_test_12,
 		&usb_test_13,
 		&usb_test_14,
-#if !UC3C && !SAM4L // USBC have no hardware limit about endpoint size
-# if !SAM3XA // UOTGHS has no hardware limit about ep0
+#ifndef TST_15_DIS
 		&usb_test_15,
-# endif
 #endif
 		&usb_test_16,
 		&usb_test_17ls,
-#if !UC3C // USBC downstream fails (ERRATA)
+#ifndef TST_18_DIS
 		&usb_test_18,
 #endif
 		&usb_test_19,
@@ -471,14 +513,12 @@ int main(void)
 		&usb_test_12,
 		&usb_test_13,
 		&usb_test_14,
-#if !UC3C && !SAM4L // USBC have no hardware limit about endpoint size
-# if !SAM3XA // UOTGHS has no hardware limit about ep0
+#ifndef TST_15_DIS
 		&usb_test_15,
-# endif
 #endif
 		&usb_test_16,
 		&usb_test_17fs,
-#if !UC3C // USBC downstream fails (ERRATA)
+#ifndef TST_18_DIS
 		&usb_test_18,
 #endif
 		&usb_test_19,
@@ -499,10 +539,8 @@ int main(void)
 		&usb_test_12,
 		&usb_test_13,
 		&usb_test_14,
-#if !UC3C && !SAM4L // USBC have no hardware limit about endpoint size
-# if !SAM3XA // UOTGHS has no hardware limit about ep0
+#ifndef TST_15_DIS
 		&usb_test_15,
-# endif
 #endif
 		&usb_test_16,
 #ifndef USB_HOST_HS_SUPPORT
@@ -510,7 +548,7 @@ int main(void)
 #else
 		&usb_test_17hs,
 #endif
-#if !UC3C // USBC downstream fails (ERRATA)
+#ifndef TST_18_DIS
 		&usb_test_18,
 #endif
 		&usb_test_19,

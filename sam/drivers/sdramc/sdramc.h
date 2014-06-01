@@ -3,7 +3,7 @@
  *
  * \brief SDRAM controller (SDRAMC) driver for SAM.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -184,138 +184,138 @@ static inline void sdram_enter_deep_power_down(void)
  * \subsection sdramc_basic_use_case_setup_code Example code
  * The macro of CONF_BOARD_SDRAMC must be added to the project:
  * \code
- *   #define CONF_BOARD_SDRAMC
- * \endcode
+	#define CONF_BOARD_SDRAMC
+\endcode
  *
  * A speicific sdramc device must be defined.
  * \code
- *
- * const sdramc_memory_dev_t SDRAM_MICRON_MT48LC16M16A2 = {
- *   24,
- *   0,
- *   {
- *     SDRAMC_CR_NC_COL9      |
- *     SDRAMC_CR_NR_ROW13     |
- *     SDRAMC_CR_NB_BANK4     |
- *     SDRAMC_CR_CAS_LATENCY2 |
- *     SDRAMC_CR_DBW          |
- *     SDRAMC_CR_TWR(2)       |
- *     SDRAMC_CR_TRC_TRFC(9)  |
- *     SDRAMC_CR_TRP(3)       |
- *     SDRAMC_CR_TRCD(3)      |
- *     SDRAMC_CR_TRAS(6)      |
- *     SDRAMC_CR_TXSR(10)
- *   },
- * };
- * \endcode
+
+	 const sdramc_memory_dev_t SDRAM_MICRON_MT48LC16M16A2 = {
+	   24,
+	   0,
+	   {
+	     SDRAMC_CR_NC_COL9      |
+	     SDRAMC_CR_NR_ROW13     |
+	     SDRAMC_CR_NB_BANK4     |
+	     SDRAMC_CR_CAS_LATENCY2 |
+	     SDRAMC_CR_DBW          |
+	     SDRAMC_CR_TWR(2)       |
+	     SDRAMC_CR_TRC_TRFC(9)  |
+	     SDRAMC_CR_TRP(3)       |
+	     SDRAMC_CR_TRCD(3)      |
+	     SDRAMC_CR_TRAS(6)      |
+	     SDRAMC_CR_TXSR(10)
+	   },
+	 };
+\endcode
  *
  * Add to application C-file:
  * \code
- * sysclk_init();
- * board_init();
- * sdramc_init((sdramc_memory_dev_t *)&SDRAM_MICRON_MT48LC16M16A2,
- *            sysclk_get_cpu_hz());
- *
- * \endcode
+	 sysclk_init();
+	 board_init();
+	 sdramc_init((sdramc_memory_dev_t *)&SDRAM_MICRON_MT48LC16M16A2,
+	            sysclk_get_cpu_hz());
+
+\endcode
  *
  * \subsection sdramc_basic_use_case_setup_flow Workflow
  * -# Enable the PINs for SDRAMC:
  * \code
- *    #define CONF_BOARD_SDRAMC
- * \endcode
+	#define CONF_BOARD_SDRAMC
+\endcode
  * -# Initialize the SDRAM device:
  * - \code
- * const sdramc_memory_dev_t SDRAM_MICRON_MT48LC16M16A2 = {
- * \endcode
+	const sdramc_memory_dev_t SDRAM_MICRON_MT48LC16M16A2 = {
+\endcode
  *  -#  Block1 is at the bit 24, 1(M0)+9(Col)+13(Row)+1(BK1):
  *   - \code
- *   24,
- *    \endcode
+	24,
+\endcode
  *  -#  Set SDRAMC to normal mode 0:
  *   - \code
- *   0,
- *    \endcode
+	0,
+\endcode
  *  -#  MT48LC16M16A2 has 9 column bits:
  *   - \code
- *   SDRAMC_CR_NC_COL9      |
- *    \endcode
+	SDRAMC_CR_NC_COL9      |
+\endcode
  *  -#  MT48LC16M16A2 has 13 row bits:
  *   - \code
- *   SDRAMC_CR_NR_ROW13     |
- *    \endcode
+	SDRAMC_CR_NR_ROW13     |
+\endcode
   *  -#  MT48LC16M16A2 has 4 banks:
  *   - \code
- *   SDRAMC_CR_NB_BANK4     |
- *    \endcode
+	SDRAMC_CR_NB_BANK4     |
+\endcode
  *  -#  Set CAS latency to 2 cycles:
  *   - \code
- *   SDRAMC_CR_CAS_LATENCY2 |
- *    \endcode
+	SDRAMC_CR_CAS_LATENCY2 |
+\endcode
  *  -#  The data bus width of MT48LC16M16A2 is 16 bits:
  *   - \code
- *   SDRAMC_CR_DBW          |
- *    \endcode
+	SDRAMC_CR_DBW          |
+\endcode
  *  -#  Set Write Recovery Delay to 2 cycles:
  *   - \code
- *   SDRAMC_CR_TWR(2)       |
- *    \endcode
+	SDRAMC_CR_TWR(2)       |
+\endcode
  *  -#  Set Row Cycle Delay and Row Refresh Cycle to 9 cycles:
  *   - \code
- *   SDRAMC_CR_TRC_TRFC(9)  |
- *    \endcode
+	SDRAMC_CR_TRC_TRFC(9)  |
+\endcode
  *  -#  Set Row Precharge Delay to 3 cycles:
  *   - \code
- *   SDRAMC_CR_TRP(3)       |
- *    \endcode
+	SDRAMC_CR_TRP(3)       |
+\endcode
  *  -#  Set Row to Column Delay to 3 cycles:
  *   - \code
- *   SDRAMC_CR_TRCD(3)      |
- *    \endcode
+	SDRAMC_CR_TRCD(3)      |
+\endcode
  *  -#  Set Active to Precharge Delay to 6 cycles:
  *   - \code
- *   SDRAMC_CR_TRAS(6)      |
- *    \endcode
+	SDRAMC_CR_TRAS(6)      |
+\endcode
  *  -#  Set Exit from Self Refresh to Active Delay to 10 cycles:
  *   - \code
- *   SDRAMC_CR_TXSR(10)
- *    \endcode
+	SDRAMC_CR_TXSR(10)
+\endcode
  * -# Enable system clock:
  * - \code sysclk_init(); \endcode
  * -# Enable PIO configurations for SDRMAC:
  * - \code board_init(); \endcode
  * -# Initialize MT48LC16M16A2 device:
  * - \code
- *  sdramc_init((sdramc_memory_dev_t *)&SDRAM_MICRON_MT48LC16M16A2,
- *            sysclk_get_cpu_hz());
- * \endcode
+	sdramc_init((sdramc_memory_dev_t *)&SDRAM_MICRON_MT48LC16M16A2,
+	          sysclk_get_cpu_hz());
+\endcode
  *
  * \section sdramc_basic_use_case_usage Usage steps
  * \subsection sdramc_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    uint32_t *pul = (uint32_t *)BOARD_SDRAM_ADDR;
- *
- *    pul[0] = 0xdeadbeef;
- *    if (pul[0] == 0xdeadbeef) {
- *        LED_On(LED0_GPIO);
- *    }
- * \endcode
+	    uint32_t *pul = (uint32_t *)BOARD_SDRAM_ADDR;
+
+	    pul[0] = 0xdeadbeef;
+	    if (pul[0] == 0xdeadbeef) {
+	        LED_On(LED0_GPIO);
+	    }
+\endcode
  *
  * \subsection sdramc_basic_use_case_usage_flow Workflow
  * -#  Set the pointer to the SDRAMC address:
  *   - \code
- *  uint32_t *pul = (uint32_t *)BOARD_SDRAM_ADDR;
- *    \endcode
+	uint32_t *pul = (uint32_t *)BOARD_SDRAM_ADDR;
+\endcode
  * -#  Write the specific data to the SDRAMC space:
  *   - \code
- *  pul[0] = 0xdeadbeef;
- *    \endcode
+	pul[0] = 0xdeadbeef;
+\endcode
  * -#  Read the data, if matched the specific data, turn on the LED0:
  *   - \code
- *  if (pul[0] == 0xdeadbeef) {
- *      LED_On(LED0_GPIO);
- * 	}
- *    \endcode
+	 if (pul[0] == 0xdeadbeef) {
+	     LED_On(LED0_GPIO);
+		}
+\endcode
  */
 
 #endif /* SDRAMC_H_INCLUDED */

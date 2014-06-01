@@ -77,6 +77,9 @@
 // From module: PDCA - Peripheral DMA Controller
 #include <pdca.h>
 
+// From module: PEVC - Peripheral Event Controller Driver for SAM
+#include <events.h>
+
 // From module: Part identification macros
 #include <parts.h>
 
@@ -105,5 +108,8 @@
 
 // From module: USART - Univ. Syn Async Rec/Trans
 #include <usart.h>
+
+// From module: WDT - Watchdog Timer
+#include <wdt_sam4l.h>
 
 #endif // ASF_H

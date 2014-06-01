@@ -7,7 +7,7 @@
  * This file defines a useful set of functions for the SPI interface on AVR UC3
  * devices.
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -306,21 +306,21 @@ extern bool spi_is_rx_ready(volatile avr32_spi_t *spi);
  * \subsection spi_master_uc3_basic_setup_code Example code
  * Add to application C-file (e.g. main.c):  
  * \code
- * #define SPI_EXAMPLE             (&AVR32_SPI0)
- * struct spi_device spi_device_conf = {
- *     .id = 1
- * };
- * 
- * void spi_init_module(void)
- * {
- *   //Init SPI module as master
- *   spi_master_init(SPI_EXAMPLE);
- *   //Setup parameters for the slave device
- *   spi_master_setup_device(SPI_EXAMPLE, &spi_device_conf, SPI_MODE_0, 1000000, 0);
- *   //Allow the module to transfer data
- *   spi_enable(SPI_EXAMPLE);
- * }
- * \endcode 
+	#define SPI_EXAMPLE             (&AVR32_SPI0)
+	struct spi_device spi_device_conf = {
+	    .id = 1
+	};
+
+	void spi_init_module(void)
+	{
+	  //Init SPI module as master
+	  spi_master_init(SPI_EXAMPLE);
+	  //Setup parameters for the slave device
+	  spi_master_setup_device(SPI_EXAMPLE, &spi_device_conf, SPI_MODE_0, 1000000, 0);
+	  //Allow the module to transfer data
+	  spi_enable(SPI_EXAMPLE);
+	}
+\endcode 
  * \subsection spi_master_uc3_basic_setup Workflow
  * -# Ensure that board_init() has configured selected I/Os for SPI function.
  * -# Ensure that \ref conf_spi_master.h is present for the driver.
@@ -328,65 +328,65 @@ extern bool spi_is_rx_ready(volatile avr32_spi_t *spi);
  * user. In this example, the file can be left empty.
  * -# Define an alias for the SPI module you want to use :
  * \code
- *   #define SPI_EXAMPLE             (&AVR32_SPI0)
- * \endcode 
+	#define SPI_EXAMPLE             (&AVR32_SPI0)
+\endcode 
  * -# Create the structure for the device id (Chip select)
  * \code
- *   struct spi_device spi_device_conf = {
- *       .id = 1
- *   };
- * \endcode 
+	struct spi_device spi_device_conf = {
+	    .id = 1
+	};
+\endcode 
  *  - \note As this struct is the same for both the initializing part and the usage
  * part it could be a good idea to make the struct global, and hence accessible
  * for both the initializing part and usage part. 
  * -# Write the initialization function to setup the module :
  * \code 
- *   void spi_init_module(void)
- *   {
- *      //Init SPI module as master
- *      spi_master_init(SPI_EXAMPLE); 
- *      //Setup parameters for the slave device : id, mode, baudrate
- *      spi_master_setup_device(SPI_EXAMPLE, &spi_device_conf, SPI_MODE_0, 1000000, 0);
- *      //Allow the module to transfer data
- *      spi_enable(SPI_EXAMPLE);
- *   }
- * \endcode
+	void spi_init_module(void)
+	{
+	   //Init SPI module as master
+	   spi_master_init(SPI_EXAMPLE); 
+	   //Setup parameters for the slave device : id, mode, baudrate
+	   spi_master_setup_device(SPI_EXAMPLE, &spi_device_conf, SPI_MODE_0, 1000000, 0);
+	   //Allow the module to transfer data
+	   spi_enable(SPI_EXAMPLE);
+	}
+\endcode
  *  - \note The last argument of spi_master_setup_device, which is zero in this 
  *  case, can be ignored and is only included for compatibility purposes.
  *
  * -# Call the initialization routine from your application.
  *  - \code
- *      spi_init_module();
- *    \endcode
+	spi_init_module();
+\endcode
  *
  * \section spi_master_uc3_basic_usage Usage steps
  * \subsection spi_master_uc3_basic_usage_code Example code
  * Use in application C-file:
  * \code
- * //Buffer to send data to SPI slave
- * uint8_t txdata[1]={0xD7};
- * //Buffer to receive data from SPI slave
- * uint8_t rxdata[1];
- * ...
- *  	// Select the slave device with chip select
- *  	spi_select_device(SPI_EXAMPLE,&spi_device_conf);
- *  	// Send the data to slave
- *  	spi_write_packet(SPI_EXAMPLE, txdata, 1);
- *  	// Read data from slave
- *  	spi_read_packet(SPI_EXAMPLE, rxdata,1);
- *  	// Deselect the slave
- *  	spi_deselect_device(SPI_EXAMPLE,&spi_device_conf);
- * \endcode
+	//Buffer to send data to SPI slave
+	uint8_t txdata[1]={0xD7};
+	//Buffer to receive data from SPI slave
+	uint8_t rxdata[1];
+	...
+	 	// Select the slave device with chip select
+	 	spi_select_device(SPI_EXAMPLE,&spi_device_conf);
+	 	// Send the data to slave
+	 	spi_write_packet(SPI_EXAMPLE, txdata, 1);
+	 	// Read data from slave
+	 	spi_read_packet(SPI_EXAMPLE, rxdata,1);
+	 	// Deselect the slave
+	 	spi_deselect_device(SPI_EXAMPLE,&spi_device_conf);
+\endcode
  *
  * \subsection spi_master_uc3_basic_usage_flow Workflow
  * -# Create two buffers for data to be sent/received on the SPI bus, 
  * The buffer can be of arbitrary size as long as there is space left in SRAM:
  *  - \code
- * //Buffer to send data to SPI slave
- * uint8_t txdata[1]={0xD7};
- * //Buffer to receive data from SPI slave
- * uint8_t rxdata[1];
- *    \endcode
+	//Buffer to send data to SPI slave
+	uint8_t txdata[1]={0xD7};
+	//Buffer to receive data from SPI slave
+	uint8_t rxdata[1];
+\endcode
  *  - \note In this case, we have set a default value for the txdata which is 
  * a status read command to a spi memory chip.
  * -# Call the spi_select_device routine to enable the chip select line for 
@@ -394,18 +394,18 @@ extern bool spi_is_rx_ready(volatile avr32_spi_t *spi);
  * The chip select enabled is defined by the value of the id field in the 
  * spi_device_conf struct
  * \code
- *  	spi_select_device(SPI_EXAMPLE,&spi_device_conf);
- * \endcode
+	spi_select_device(SPI_EXAMPLE,&spi_device_conf);
+\endcode
  * -# Write data to the SPI slave device, in this case write one byte from the
  * data buffer txdata:
  *  - \code
- *   spi_write_packet(SPI_EXAMPLE, txdata, 1);
- * \endcode
+	spi_write_packet(SPI_EXAMPLE, txdata, 1);
+\endcode
  * -# Read data from the SPI slave device, in this case read one byte and put it
  * into the data buffer rxdata:
  *  - \code
- *   spi_read_packet(SPI_EXAMPLE, rxdata,1);
- * \endcode
+	spi_read_packet(SPI_EXAMPLE, rxdata,1);
+\endcode
  *  - \attention As the SPI works as a shift register so that data is shifted in at
  * the same time as data is shifted out a read operation will mean that a dummy
  * byte \ref CONFIG_SPI_MASTER_DUMMY is written to the SPI bus. \ref CONFIG_SPI_MASTER_DUMMY
@@ -413,14 +413,14 @@ extern bool spi_is_rx_ready(volatile avr32_spi_t *spi);
  * file.
  * -# When read and write operations is done, de-select the slave:
  *  - \code
- *   spi_deselect_device(SPI_EXAMPLE,&spi_device_conf);
- * \endcode
+	spi_deselect_device(SPI_EXAMPLE,&spi_device_conf);
+\endcode
  * -# Now you can use the data read from the slave which is in rxdata
  *  - \code
- *     //Check read content
- *     if(rxdata[0]<0x3C)
- *       do_something();
- * \endcode
+	//Check read content
+	if(rxdata[0]<0x3C)
+	  do_something();
+\endcode
  */
 
 #endif  // _SPI_MASTER_H_

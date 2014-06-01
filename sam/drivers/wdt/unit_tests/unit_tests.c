@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for WDT driver.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,7 +40,7 @@
  * \asf_license_stop
  *
  */
- 
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <board.h>
@@ -79,6 +79,12 @@
  * - sam3x8h_sam3x_ek
  * - sam4s16c_sam4s_ek
  * - sam4sd32c_sam4s_ek2
+ * - sam4sd32c_atpl230amb
+ * - sam4n16c_sam4n_xplained_pro
+ * - sam4c16c_sam4c_ek
+ * - sam4cmp16c_sam4cmp_db
+ * - sam4cms16c_sam4cms_db
+ * - sam4cp16b_sam4cp16bmb
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -109,8 +115,8 @@ static volatile uint32_t gs_ul_ms_ticks = 0U;
 void WDT_Handler(void)
 {
 	/* Clear IRQ */
-	WDT->WDT_SR; 
-	
+	WDT->WDT_SR;
+
 	/* Update state machine */
 	gs_wdt_triggered = 1;
 }
@@ -164,7 +170,7 @@ static void run_wdt_test(const struct test_case *test)
 	wdt_restart(WDT);
 	delay_ms(50);
 	test_assert_true(test, gs_wdt_triggered == 0, "Test2: unexpected watchdog interrupt!");
-	
+
 	/* Test 3: Trigger the watchdog interrupt (reset) */
 	delay_ms(200);
 	test_assert_true(test, gs_wdt_triggered == 1, "Test3: no watchdog interrupt received, expected one!");

@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Peripheral Control API For the SPI
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -267,54 +267,54 @@ status_code_t freertos_spi_read_packet_async(freertos_spi_if p_spi,
  *
  *
  * \code
- *
- * /////////////////////////////////////////////////////////////////////////////
- * // Declare the variables used as parameters to the
- * // freertos_spi_master_init() function.
- *
- * // Handle used to access the initialized port by other FreeRTOS ASF functions.
- * freertos_spi_if freertos_spi;
- *
- * // Configuration structure.
- * freertos_peripheral_options_t driver_options = {
- *
- *     // This peripheral is synchronous and so does not need a receive buffer.
- *     // The receive_buffer value is just set to NULL.
- *     NULL,
- *
- *     // There isn't a receive buffer, so the receive_buffer_size value can
- *     // take any value.
- *     0,
- *
- *     // The interrupt priority.  The FreeRTOS driver provides the interrupt
- *     // service routine, and handles all interrupt interactions.  The
- *     // application writer does not need to provide any interrupt handling
- *     // code, but does need to specify the priority of the DMA interrupt here.
- *     // IMPORTANT!!!  see <a href="http://www.freertos.org/RTOS-Cortex-M3-M4.html">how to set interrupt priorities to work with FreeRTOS</a>
- *     0x0e,
- *
- *     // The operation_mode value.
- *     SPI_MASTER,
- *
- *     // Flags set to allow access from multiple tasks, wait in the transmit
- *     // function until the transmit is complete, and wait in the receive
- *     // function until reception is complete.  Note that other FreeRTOS tasks
- *     // will execute during the wait period.
- *     (USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE | WAIT_RX_COMPLETE)
- *  };
- *
- *  /////////////////////////////////////////////////////////////////////////////
- *  // Call the SPI specific FreeRTOS ASF driver initialization function,
- *  // storing the return value as the driver handle.
- *  freertos_spi = freertos_spi_master_init(spi_base, &driver_options);
- *
- *  if (freertos_spi != NULL) {
- *      // Calling freertos_spi_master_init() will enable the peripheral clock,
- *      // and set the SPI into master mode.  Other ASF configuration functions,
- *      // such as spi_set_clock_polarity(), and spi_set_baudrate_div() can then
- *      // be called here.
- *  }
- * \endcode
+
+	 /////////////////////////////////////////////////////////////////////////////
+	 // Declare the variables used as parameters to the
+	 // freertos_spi_master_init() function.
+
+	 // Handle used to access the initialized port by other FreeRTOS ASF functions.
+	 freertos_spi_if freertos_spi;
+
+	 // Configuration structure.
+	 freertos_peripheral_options_t driver_options = {
+
+	     // This peripheral is synchronous and so does not need a receive buffer.
+	     // The receive_buffer value is just set to NULL.
+	     NULL,
+
+	     // There isn't a receive buffer, so the receive_buffer_size value can
+	     // take any value.
+	     0,
+
+	     // The interrupt priority.  The FreeRTOS driver provides the interrupt
+	     // service routine, and handles all interrupt interactions.  The
+	     // application writer does not need to provide any interrupt handling
+	     // code, but does need to specify the priority of the DMA interrupt here.
+	     // IMPORTANT!!!  see <a href="http://www.freertos.org/RTOS-Cortex-M3-M4.html">how to set interrupt priorities to work with FreeRTOS</a>
+	     0x0e,
+
+	     // The operation_mode value.
+	     SPI_MASTER,
+
+	     // Flags set to allow access from multiple tasks, wait in the transmit
+	     // function until the transmit is complete, and wait in the receive
+	     // function until reception is complete.  Note that other FreeRTOS tasks
+	     // will execute during the wait period.
+	     (USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE | WAIT_RX_COMPLETE)
+	  };
+
+	  /////////////////////////////////////////////////////////////////////////////
+	  // Call the SPI specific FreeRTOS ASF driver initialization function,
+	  // storing the return value as the driver handle.
+	  freertos_spi = freertos_spi_master_init(spi_base, &driver_options);
+
+	  if (freertos_spi != NULL) {
+	      // Calling freertos_spi_master_init() will enable the peripheral clock,
+	      // and set the SPI into master mode.  Other ASF configuration functions,
+	      // such as spi_set_clock_polarity(), and spi_set_baudrate_div() can then
+	      // be called here.
+	  }
+\endcode
  */
 
 /**
@@ -338,52 +338,52 @@ status_code_t freertos_spi_read_packet_async(freertos_spi_if p_spi,
  *
  *
  * \code
- *
- * /////////////////////////////////////////////////////////////////////////////
- * // Declare the variables used as parameters to the
- * // freertos_spi_master_init() function.
- *
- * // Handle used to access the initialized port by other FreeRTOS ASF functions.
- * freertos_spi_if freertos_spi;
- *
- * // Configuration structure.
- * freertos_peripheral_options_t driver_options = {
- *
- *     // This peripheral is synchronous and so does not need a receive buffer.
- *     // The receive_buffer value is just set to NULL.
- *     NULL,
- *
- *     // There isn't a receive buffer, so the receive_buffer_size value can
- *     // take any value.
- *     0,
- *
- *     // The interrupt priority.  The FreeRTOS driver provides the interrupt
- *     // service routine, and handles all interrupt interactions.  The
- *     // application writer does not need to provide any interrupt handling
- *     // code, but does need to specify the priority of the DMA interrupt here.
- *     // IMPORTANT!!!  see <a href="http://www.freertos.org/RTOS-Cortex-M3-M4.html">how to set interrupt priorities to work with FreeRTOS</a>
- *     0x0e,
- *
- *     // The operation_mode value.
- *     SPI_MASTER,
- *
- *     // Flags set to allow access from multiple tasks.  Note the
- *     // WAIT_TX_COMPLETE and WAIT_RX_COMPLETE bits are *not* set.
- *     (USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX)
- *  };
- *
- * /////////////////////////////////////////////////////////////////////////////
- * // Call the SPI specific FreeRTOS ASF driver initialization function,
- * // storing the return value as the driver handle.
- *  freertos_spi = freertos_spi_master_init(spi_base, &driver_options);
- *
- *  if (freertos_spi != NULL) {
- *      // Calling freertos_spi_master_init() will enable the peripheral clock,
- *      // and set the SPI into master mode.  Other ASF configuration functions,
- *      // such as spi_set_clock_polarity(), and spi_set_baudrate_div() can then
- *      // be called here.
- *  }
- * \endcode
+
+	 /////////////////////////////////////////////////////////////////////////////
+	 // Declare the variables used as parameters to the
+	 // freertos_spi_master_init() function.
+
+	 // Handle used to access the initialized port by other FreeRTOS ASF functions.
+	 freertos_spi_if freertos_spi;
+
+	 // Configuration structure.
+	 freertos_peripheral_options_t driver_options = {
+
+	     // This peripheral is synchronous and so does not need a receive buffer.
+	     // The receive_buffer value is just set to NULL.
+	     NULL,
+
+	     // There isn't a receive buffer, so the receive_buffer_size value can
+	     // take any value.
+	     0,
+
+	     // The interrupt priority.  The FreeRTOS driver provides the interrupt
+	     // service routine, and handles all interrupt interactions.  The
+	     // application writer does not need to provide any interrupt handling
+	     // code, but does need to specify the priority of the DMA interrupt here.
+	     // IMPORTANT!!!  see <a href="http://www.freertos.org/RTOS-Cortex-M3-M4.html">how to set interrupt priorities to work with FreeRTOS</a>
+	     0x0e,
+
+	     // The operation_mode value.
+	     SPI_MASTER,
+
+	     // Flags set to allow access from multiple tasks.  Note the
+	     // WAIT_TX_COMPLETE and WAIT_RX_COMPLETE bits are *not* set.
+	     (USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX)
+	  };
+
+	 /////////////////////////////////////////////////////////////////////////////
+	 // Call the SPI specific FreeRTOS ASF driver initialization function,
+	 // storing the return value as the driver handle.
+	  freertos_spi = freertos_spi_master_init(spi_base, &driver_options);
+
+	  if (freertos_spi != NULL) {
+	      // Calling freertos_spi_master_init() will enable the peripheral clock,
+	      // and set the SPI into master mode.  Other ASF configuration functions,
+	      // such as spi_set_clock_polarity(), and spi_set_baudrate_div() can then
+	      // be called here.
+	  }
+\endcode
  */
 
 /**
@@ -402,31 +402,31 @@ status_code_t freertos_spi_read_packet_async(freertos_spi_if p_spi,
  * information on getting started with FreeRTOS.
  *
  * \code
- *
- * // Write number_of_bytes from data_buffer to freertos_spi.
- * //
- * // This examples assumes freertos_spi has already been set by a successful
- * // call to freertos_spi_master_init(), and that freertos_spi_master_init()
- * // configured the FreeRTOS SPI driver to use the standard operation mode.
- *
- *  static void write_to_eeprom(freertos_spi_if freertos_spi,
- *                      uint8_t data_buffer size_t number_of_bytes)
- *  {
- *  const portTickType max_block_time_ticks = 200UL / portTICK_RATE_MS;
- *
- *      // Attempt to write number_of_bytes from data_buffer to the port
- *      // referenced by the freertos_spi handle.  Wait a maximum of 200ms to
- *      // get exclusive access to the port (other FreeRTOS tasks will execute
- *      // during any waiting time).
- *      if(freertos_spi_write_packet(freertos_spi, data_buffer,
- *                      number_of_bytes, max_block_time_ticks) != STATUS_OK)
- *      {
- *          // The data was not written successfully, either because there was
- *          // an error on the SPI bus, or because exclusive access to the SPI
- *          // port was not obtained within 200ms.
- *      }
- *  }
- * \endcode
+
+	 // Write number_of_bytes from data_buffer to freertos_spi.
+	 //
+	 // This examples assumes freertos_spi has already been set by a successful
+	 // call to freertos_spi_master_init(), and that freertos_spi_master_init()
+	 // configured the FreeRTOS SPI driver to use the standard operation mode.
+
+	  static void write_to_eeprom(freertos_spi_if freertos_spi,
+	                      uint8_t data_buffer size_t number_of_bytes)
+	  {
+	  const portTickType max_block_time_ticks = 200UL / portTICK_RATE_MS;
+
+	      // Attempt to write number_of_bytes from data_buffer to the port
+	      // referenced by the freertos_spi handle.  Wait a maximum of 200ms to
+	      // get exclusive access to the port (other FreeRTOS tasks will execute
+	      // during any waiting time).
+	      if(freertos_spi_write_packet(freertos_spi, data_buffer,
+	                      number_of_bytes, max_block_time_ticks) != STATUS_OK)
+	      {
+	          // The data was not written successfully, either because there was
+	          // an error on the SPI bus, or because exclusive access to the SPI
+	          // port was not obtained within 200ms.
+	      }
+	  }
+\endcode
  */
 
 /**
@@ -446,57 +446,57 @@ status_code_t freertos_spi_read_packet_async(freertos_spi_if p_spi,
  * information on getting started with FreeRTOS.
  *
  * \code
- *
- * // Write number_of_bytes from data_buffer to freertos_spi.
- * //
- * // This examples assumes freertos_spi has already been set by a successful
- * // call to freertos_spi_master_init(), and that freertos_spi_master_init()
- * // configured the FreeRTOS SPI driver to use the fully asynchronous operation
- * // mode.
- * //
- * // The example further assumes that notification_semaphore has already been
- * // initialised by a call to the vSemaphoreCreateBinary() FreeRTOS API
- * // function.
- *
- *  static void write_to_eeprom(freertos_spi_if freertos_spi,
- *                      uint8_t data_buffer size_t number_of_bytes,
- *                      xSemaphoreHandle notification_semaphore)
- *  {
- *  const portTickType max_block_time_ticks = 200UL / portTICK_RATE_MS;
- *
- *      // Attempt to initiate a DMA transfer of number_of_bytes bytes from
- *      // data_buffer to the port referenced by the freertos_spi handle.  Wait
- *      // a maximum of 200ms to get exclusive access to the port (other
- *      //  FreeRTOS tasks will execute during any waiting time).
- *      if(freertos_spi_write_packet_async(freertos_spi, data_buffer,
- *                                  number_of_bytes, max_block_time_ticks,
- *                                  notification_semaphore) != STATUS_OK)
- *      {
- *          // The DMA transfer was not started because exclusive access to the
- *          // port was not obtained within 200ms.
- *      }
- *      else
- *      {
- *          // The DMA transfer was started successfully, but has not
- *          // necessarily completed yet.  Other processing can be performed
- *          // here, but THE DATA IN data_buffer MUST NOT BE ALTERED UNTIL THE
- *          // TRANSMISSION HAS COMPLETED.
- *
- *          // ...
- *
- *          // Ensure the transaction is complete before proceeding further by
- *          // waiting for the notification_semaphore.  Don't wait longer than
- *          // 200ms.  Other FreeRTOS tasks will execute during any waiting
- *          // time.
- *          if(xSemaphoreTake(notification_semaphore,
- *                                            max_block_time_ticks) != pdPASS)
- *          {
- *              // The semaphore could not be obtained within 200ms.  Either the
- *              // data is still being transmitted, or an error occurred.
- *          }
- *      }
- *  }
- * \endcode
+
+	 // Write number_of_bytes from data_buffer to freertos_spi.
+	 //
+	 // This examples assumes freertos_spi has already been set by a successful
+	 // call to freertos_spi_master_init(), and that freertos_spi_master_init()
+	 // configured the FreeRTOS SPI driver to use the fully asynchronous operation
+	 // mode.
+	 //
+	 // The example further assumes that notification_semaphore has already been
+	 // initialised by a call to the vSemaphoreCreateBinary() FreeRTOS API
+	 // function.
+
+	  static void write_to_eeprom(freertos_spi_if freertos_spi,
+	                      uint8_t data_buffer size_t number_of_bytes,
+	                      xSemaphoreHandle notification_semaphore)
+	  {
+	  const portTickType max_block_time_ticks = 200UL / portTICK_RATE_MS;
+
+	      // Attempt to initiate a DMA transfer of number_of_bytes bytes from
+	      // data_buffer to the port referenced by the freertos_spi handle.  Wait
+	      // a maximum of 200ms to get exclusive access to the port (other
+	      //  FreeRTOS tasks will execute during any waiting time).
+	      if(freertos_spi_write_packet_async(freertos_spi, data_buffer,
+	                                  number_of_bytes, max_block_time_ticks,
+	                                  notification_semaphore) != STATUS_OK)
+	      {
+	          // The DMA transfer was not started because exclusive access to the
+	          // port was not obtained within 200ms.
+	      }
+	      else
+	      {
+	          // The DMA transfer was started successfully, but has not
+	          // necessarily completed yet.  Other processing can be performed
+	          // here, but THE DATA IN data_buffer MUST NOT BE ALTERED UNTIL THE
+	          // TRANSMISSION HAS COMPLETED.
+
+	          // ...
+
+	          // Ensure the transaction is complete before proceeding further by
+	          // waiting for the notification_semaphore.  Don't wait longer than
+	          // 200ms.  Other FreeRTOS tasks will execute during any waiting
+	          // time.
+	          if(xSemaphoreTake(notification_semaphore,
+	                                            max_block_time_ticks) != pdPASS)
+	          {
+	              // The semaphore could not be obtained within 200ms.  Either the
+	              // data is still being transmitted, or an error occurred.
+	          }
+	      }
+	  }
+\endcode
  */
 
 /**
@@ -515,44 +515,44 @@ status_code_t freertos_spi_read_packet_async(freertos_spi_if p_spi,
  * information on getting started with FreeRTOS.
  *
  * \code
- *
- * // This examples assumes freertos_spi has already been set by a successful
- * // call to freertos_spi_master_init(), and that freertos_spi_master_init()
- * // configured the FreeRTOS SPI driver to use the standard operation mode.
- *
- *  void a_function(freertos_spi_if freertos_spi)
- *  {
- *  // The receive buffer is declared static to ensure it does not overflow the
- *  // task stack.
- *  static uint8_t receive_buffer[50];
- *  const max_block_time_50ms = 50 / portTICK_RATE_MS;
- *
- *      // Loop around, reading and then processing 20 bytes from freertos_spi
- *      // on each iteration.
- *      for(;;)
- *      {
- *          // Receive 20 bytes from freertos_spi into receive_buffer.  Don't
- *          // wait any longer than 50ms to get exclusive access to the port
- *          // (other FreeRTOS tasks will execute during any wait time).
- *          if(freertos_spi_read_packet(freertos_spi, receive_buffer, 20,
- *                                          max_block_time_50ms) == STATUS_OK)
- *{
- *              // freertos_spi_read_packet() does not return until all the
- *              // requested bytes have been received, so it is known that the
- *              // data in receive_buffer is already complete, and can be
- *              // processed immediately.
- *
- *              // ... Process received data here ...
- *              do_something(receive_buffer);
- *          }
- *          else
- *          {
- *              // Either an error occurred on the bus or exclusive access
- *              // to the port was not obtained within 50ms.
- *          }
- *      }
- *  }
- * \endcode
+
+	 // This examples assumes freertos_spi has already been set by a successful
+	 // call to freertos_spi_master_init(), and that freertos_spi_master_init()
+	 // configured the FreeRTOS SPI driver to use the standard operation mode.
+
+	  void a_function(freertos_spi_if freertos_spi)
+	  {
+	  // The receive buffer is declared static to ensure it does not overflow the
+	  // task stack.
+	  static uint8_t receive_buffer[50];
+	  const max_block_time_50ms = 50 / portTICK_RATE_MS;
+
+	      // Loop around, reading and then processing 20 bytes from freertos_spi
+	      // on each iteration.
+	      for(;;)
+	      {
+	          // Receive 20 bytes from freertos_spi into receive_buffer.  Don't
+	          // wait any longer than 50ms to get exclusive access to the port
+	          // (other FreeRTOS tasks will execute during any wait time).
+	          if(freertos_spi_read_packet(freertos_spi, receive_buffer, 20,
+	                                          max_block_time_50ms) == STATUS_OK)
+	{
+	              // freertos_spi_read_packet() does not return until all the
+	              // requested bytes have been received, so it is known that the
+	              // data in receive_buffer is already complete, and can be
+	              // processed immediately.
+
+	              // ... Process received data here ...
+	              do_something(receive_buffer);
+	          }
+	          else
+	          {
+	              // Either an error occurred on the bus or exclusive access
+	              // to the port was not obtained within 50ms.
+	          }
+	      }
+	  }
+\endcode
  */
 
 /**
@@ -576,74 +576,74 @@ status_code_t freertos_spi_read_packet_async(freertos_spi_if p_spi,
  * information on getting started with FreeRTOS.
  *
  * \code
- *
- * // This examples assumes freertos_spi has already been set by a successful
- * // call to freertos_spi_master_init(), and that freertos_spi_master_init()
- * // configured the FreeRTOS SPI driver to use the fully asynchronous operation
- * // mode.
- *
- * // This example demonstrates how a single task can process data while
- * // additional data is being received on the SPI bus.  Error checking is
- * // omitted to simplify the example.
- *  void a_function(freertos_spi_if freertos_spi)
- *  {
- *  // The buffers into which the data is placed are too large to be declared on
- *  // the task stack, so are instead declared static (making this function
- *  // non-reentrant – meaning it can only be called by a single task at a time,
- *  // otherwise multiple tasks would use the same buffers).
- *  static uint8_t first_receive_buffer[BUFFER_SIZE], second_receive_buffer[BUFFER_SIZE];
- *  xSemaphoreHandle first_notification_semaphore = NULL, second_notification_semaphore = NULL;
- *  const max_block_time_500ms = 500 / portTICK_RATE_MS;
- *
- *      // Create the notification semaphores, one per buffer.
- *      // vSemaphoreCreateBinary() is a FreeRTOS API function.
- *      vSemaphoreCreateBinary(first_notification_semaphore);
- *      vSemaphoreCreateBinary(second_notification_semaphore);
- *
- *      // Nothing has been read over the SPI bus yet, so make sure both
- *      // semaphores are empty.
- *      xSemaphoreTake(first_notification_semaphore, 0);
- *      xSemaphoreTake(second_notification_semaphore, 0);
- *
- *      // Start an asynchronous read to fill the first buffer.  The function
- *      // will be able to access the port immediately because nothing else has
- *      // accessed it yet - allowing the block_time_ticks value to be set to 0.
- *      freertos_spi_read_packet_async(freertos_spi, first_receive_buffer,
- *                      BUFFER_SIZE, 0, first_notification_semaphore);
- *
- *      for(;;)
- *      {
- *          // Wait until the first buffer is full.  Other tasks will run during
- *          // the wait.  FreeRTOS will give first_notification_semaphore when
- *          // the receive is complete.
- *          xSemaphoreTake(first_notification_semaphore, max_block_time_500ms);
- *
- *          // Start an asynchronous read to fill the second buffer.  Again
- *          // block_time_ticks is set to zero as it is known that the read
- *          // operation that was filling the first buffer has completed -
- *          // leaving the SPI port available.
- *          freertos_spi_read_packet_async(freertos_spi, second_receive_buffer,
- *                          BUFFER_SIZE, 0,    second_notification_semaphore);
- *
- *          // Process the data in the first receive buffer while the second
- *          // receive buffer is being refreshed.
- *          process_received_data(first_receive_buffer);
- *
- *          // Wait until the second buffer is full.  Other tasks will run
- *          // during the wait.  FreeRTOS will give second_notification_semaphore
- *          // when the receive is complete.
- *          xSemaphoreTake(second_notification_semaphore, max_block_time_500ms);
- *
- *          // Start an asynchronous read to fill the first buffer again.
- *          freertos_spi_read_packet_async(freertos_spi, second_receive_buffer,
- *                          BUFFER_SIZE, 0,    second_notification_semaphore);
- *
- *          // Process the data in the second receive buffer while the first
- *          // receive buffer is being refreshed.
- *          process_received_data(second_receive_buffer);
- *      }
- *  }
- * \endcode
+
+	 // This examples assumes freertos_spi has already been set by a successful
+	 // call to freertos_spi_master_init(), and that freertos_spi_master_init()
+	 // configured the FreeRTOS SPI driver to use the fully asynchronous operation
+	 // mode.
+
+	 // This example demonstrates how a single task can process data while
+	 // additional data is being received on the SPI bus.  Error checking is
+	 // omitted to simplify the example.
+	  void a_function(freertos_spi_if freertos_spi)
+	  {
+	  // The buffers into which the data is placed are too large to be declared on
+	  // the task stack, so are instead declared static (making this function
+	  // non-reentrant – meaning it can only be called by a single task at a time,
+	  // otherwise multiple tasks would use the same buffers).
+	  static uint8_t first_receive_buffer[BUFFER_SIZE], second_receive_buffer[BUFFER_SIZE];
+	  xSemaphoreHandle first_notification_semaphore = NULL, second_notification_semaphore = NULL;
+	  const max_block_time_500ms = 500 / portTICK_RATE_MS;
+
+	      // Create the notification semaphores, one per buffer.
+	      // vSemaphoreCreateBinary() is a FreeRTOS API function.
+	      vSemaphoreCreateBinary(first_notification_semaphore);
+	      vSemaphoreCreateBinary(second_notification_semaphore);
+
+	      // Nothing has been read over the SPI bus yet, so make sure both
+	      // semaphores are empty.
+	      xSemaphoreTake(first_notification_semaphore, 0);
+	      xSemaphoreTake(second_notification_semaphore, 0);
+
+	      // Start an asynchronous read to fill the first buffer.  The function
+	      // will be able to access the port immediately because nothing else has
+	      // accessed it yet - allowing the block_time_ticks value to be set to 0.
+	      freertos_spi_read_packet_async(freertos_spi, first_receive_buffer,
+	                      BUFFER_SIZE, 0, first_notification_semaphore);
+
+	      for(;;)
+	      {
+	          // Wait until the first buffer is full.  Other tasks will run during
+	          // the wait.  FreeRTOS will give first_notification_semaphore when
+	          // the receive is complete.
+	          xSemaphoreTake(first_notification_semaphore, max_block_time_500ms);
+
+	          // Start an asynchronous read to fill the second buffer.  Again
+	          // block_time_ticks is set to zero as it is known that the read
+	          // operation that was filling the first buffer has completed -
+	          // leaving the SPI port available.
+	          freertos_spi_read_packet_async(freertos_spi, second_receive_buffer,
+	                          BUFFER_SIZE, 0,    second_notification_semaphore);
+
+	          // Process the data in the first receive buffer while the second
+	          // receive buffer is being refreshed.
+	          process_received_data(first_receive_buffer);
+
+	          // Wait until the second buffer is full.  Other tasks will run
+	          // during the wait.  FreeRTOS will give second_notification_semaphore
+	          // when the receive is complete.
+	          xSemaphoreTake(second_notification_semaphore, max_block_time_500ms);
+
+	          // Start an asynchronous read to fill the first buffer again.
+	          freertos_spi_read_packet_async(freertos_spi, second_receive_buffer,
+	                          BUFFER_SIZE, 0,    second_notification_semaphore);
+
+	          // Process the data in the second receive buffer while the first
+	          // receive buffer is being refreshed.
+	          process_received_data(second_receive_buffer);
+	      }
+	  }
+\endcode
  */
 
  #endif /* FREERTOS_SPI_MASTER_INCLUDED */

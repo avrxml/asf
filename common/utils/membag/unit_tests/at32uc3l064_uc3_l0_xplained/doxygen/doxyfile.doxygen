@@ -466,7 +466,7 @@ GENERATE_DEPRECATEDLIST= YES
 # The ENABLED_SECTIONS tag can be used to enable conditional
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       =
+ENABLED_SECTIONS       = 
 
 # The MAX_INITIALIZER_LINES tag determines the maximum number of lines
 # the initial value of a variable or define consists of for it to appear in
@@ -582,7 +582,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  =  ../../../../../../avr32/boards/uc3_l0_xplained/led.c ../../../../../../avr32/drivers/pm/power_clocks_lib.c ../../unit_tests.c ../../../../../../avr32/boards/uc3_l0_xplained/init.c ../../../../../services/clock/uc3l/dfll.c ../../../../../services/sleepmgr/uc3/sleepmgr.c ../../../../../services/clock/uc3l/sysclk.c ../../../../../services/serial/usart_serial.c ../../../../stdio/read.c ../../../../../../avr32/drivers/usart/usart.c ../../../../../../avr32/drivers/scif/scif_uc3l.c ../../../../../services/clock/uc3l/osc.c ../../../../../../avr32/drivers/flashcdw/flashcdw.c ../../../membag.c ../../../../stdio/write.c ../../../../../../avr32/drivers/pm/pm_uc3l.c ../../../../unit_test/suite.c ../../../../../../avr32/drivers/gpio/gpio.c  ../../../../../../avr32/utils/preprocessor/stringz.h ../../../../../services/serial/serial.h ../../../../../services/clock/uc3l/genclk.h ../../../../../../avr32/drivers/scif/scif_uc3l.h ../../../../parts.h ../../../../../../avr32/drivers/pm/power_clocks_lib.h ../../../../../services/serial/uc3_usart/usart_serial.h ../../../../../../avr32/utils/header_files/uc3l3_l4_defines_fix.h ../../../../stdio/stdio_serial/stdio_serial.h ../../../../../services/clock/uc3l/dfll.h ../../../../../../avr32/utils/preprocessor/preprocessor.h ../../../../../../avr32/drivers/pm/sleep.h ../../../../interrupt.h ../../../../../../avr32/boards/uc3_l0_xplained/led.h ../../../../../services/clock/osc.h ../../../../../../avr32/drivers/usart/usart.h ../../../../../services/sleepmgr/uc3/sleepmgr.h ../../../../../../avr32/drivers/gpio/gpio.h ../../../../../../avr32/utils/status_codes.h ../conf_clock.h ../../../../../services/clock/uc3l/osc.h ../../../../../services/clock/dfll.h ../conf_board.h ../../../../../../avr32/drivers/flashcdw/flashcdw.h ../../../../../../avr32/drivers/pm/pm_uc3l.h ../../../../../services/clock/sysclk.h ../../../../../boards/board.h ../../../../../services/clock/uc3l/sysclk.h ../../../../../../avr32/utils/preprocessor/tpaste.h ../../../../unit_test/suite.h ../../../membag.h ../../../../interrupt/interrupt_avr32.h ../../../../../../avr32/utils/compiler.h ../../../../../services/clock/genclk.h ../../../../../services/sleepmgr/sleepmgr.h ../conf_sleepmgr.h ../conf_usart_serial.h ../../../../../../avr32/boards/uc3_l0_xplained/uc3_l0_xplained.h ../../../../../../avr32/utils/startup/trampoline_uc3.h ../conf_test.h ../../../../../../avr32/utils/header_files/uc3d_defines_fix.h ../../../../../../avr32/utils/preprocessor/mrepeat.h ../conf_membag.h
+INPUT                  = ../../../membag.c ../../unit_tests.c ../../../../../services/sleepmgr/uc3/sleepmgr.c ../../../../../../avr32/drivers/pm/pm_uc3l.c ../../../../../../avr32/drivers/pm/power_clocks_lib.c ../../../../../../avr32/drivers/flashcdw/flashcdw.c ../../../../../../avr32/drivers/scif/scif_uc3l.c ../../../../unit_test/suite.c ../../../../stdio/read.c ../../../../stdio/write.c ../../../../../services/clock/uc3l/dfll.c ../../../../../services/clock/uc3l/osc.c ../../../../../services/clock/uc3l/sysclk.c ../../../../../services/serial/usart_serial.c ../../../../../../avr32/drivers/usart/usart.c ../../../../../../avr32/boards/uc3_l0_xplained/led.c ../../../../../../avr32/drivers/gpio/gpio.c ../../../../../../avr32/boards/uc3_l0_xplained/init.c ../conf_board.h ../conf_clock.h ../conf_membag.h ../conf_sleepmgr.h ../conf_test.h ../conf_usart_serial.h ../../../membag.h ../../../../../services/sleepmgr/sleepmgr.h ../../../../../services/sleepmgr/uc3/sleepmgr.h ../../../../../../avr32/drivers/pm/pm_uc3l.h ../../../../../../avr32/drivers/pm/power_clocks_lib.h ../../../../../../avr32/drivers/pm/sleep.h ../../../../../../avr32/drivers/flashcdw/flashcdw.h ../../../../../../avr32/utils/compiler.h ../../../../../../avr32/utils/header_files/uc3d_defines_fix.h ../../../../../../avr32/utils/header_files/uc3l3_l4_defines_fix.h ../../../../../../avr32/utils/preprocessor/mrepeat.h ../../../../../../avr32/utils/preprocessor/preprocessor.h ../../../../../../avr32/utils/preprocessor/stringz.h ../../../../../../avr32/utils/preprocessor/tpaste.h ../../../../../../avr32/utils/status_codes.h ../../../../../../avr32/utils/startup/trampoline_uc3.h ../../../../parts.h ../../../../interrupt.h ../../../../interrupt/interrupt_avr32.h ../../../../../../avr32/drivers/scif/scif_uc3l.h ../../../../unit_test/suite.h ../../../../stdio/stdio_serial/stdio_serial.h ../../../../../services/clock/dfll.h ../../../../../services/clock/genclk.h ../../../../../services/clock/osc.h ../../../../../services/clock/sysclk.h ../../../../../services/clock/uc3l/dfll.h ../../../../../services/clock/uc3l/genclk.h ../../../../../services/clock/uc3l/osc.h ../../../../../services/clock/uc3l/sysclk.h ../../../../../services/serial/serial.h ../../../../../services/serial/uc3_usart/usart_serial.h ../../../../../../avr32/drivers/usart/usart.h ../../../../../../avr32/boards/uc3_l0_xplained/led.h ../../../../../../avr32/boards/uc3_l0_xplained/uc3_l0_xplained.h ../../../../../boards/board.h ../../../../../../avr32/drivers/gpio/gpio.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -1062,6 +1062,17 @@ FORMULA_FONTSIZE       = 10
 
 FORMULA_TRANSPARENT    = YES
 
+# Enable the USE_MATHJAX option to render LaTeX formulas using MathJax (see
+# http://www.mathjax.org) which uses client side Javascript for the rendering
+# instead of using prerendered bitmaps. Use this if you do not have LaTeX
+# installed or if you want to formulas look prettier in the HTML output. When
+# enabled you may also need to install MathJax separately and configure the path
+# to it using the MATHJAX_RELPATH option.
+# The default value is: NO.
+# This tag requires that the tag GENERATE_HTML is set to YES.
+
+USE_MATHJAX            = NO
+
 # When the SEARCHENGINE tag is enabled doxygen will generate a search box
 # for the HTML output. The underlying search engine uses javascript
 # and DHTML and should work on any modern browser. Note that when using
@@ -1352,7 +1363,7 @@ SEARCH_INCLUDES        = YES
 # contain include files that are not input files but should be processed by
 # the preprocessor.
 
-INCLUDE_PATH           =  .. ../../../../../../avr32/drivers/gpio ../../../../../../avr32/boards/uc3_l0_xplained ../../../../../services/clock ../../../../../services/serial/uc3_usart ../../../../stdio/stdio_serial ../../../../../boards ../../../../../../avr32/boards ../../../../../../avr32/drivers/usart ../../../../../../avr32/drivers/scif ../../../../../../avr32/drivers/pm ../../../../../../avr32/utils ../../../../../../avr32/utils/preprocessor ../../../../../../avr32/drivers/flashcdw ../../../../../services/sleepmgr ../../../.. ../../.. ../../../../../services/serial
+INCLUDE_PATH           = .. ../../.. ../../../../../services/sleepmgr ../../../../../../avr32/drivers/pm ../../../../../../avr32/drivers/flashcdw ../../../../../../avr32/utils ../../../../../../avr32/utils/preprocessor ../../../.. ../../../../../../avr32/drivers/scif ../../../../stdio/stdio_serial ../../../../../services/clock ../../../../../services/serial ../../../../../services/serial/uc3_usart ../../../../../../avr32/drivers/usart ../../../../../../avr32/boards ../../../../../../avr32/boards/uc3_l0_xplained ../../../../../boards ../../../../../../avr32/drivers/gpio
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the
@@ -1369,7 +1380,7 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator
 # instead of the = operator.
 
-PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4  _ASSERT_ENABLE_= TEST_SUITE_DEFINE_ASSERT_MACRO= BOARD=UC3_L0_XPLAINED __AVR32_UC3L064__
+PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4 TEST_SUITE_DEFINE_ASSERT_MACRO _ASSERT_ENABLE_ BOARD=UC3_L0_XPLAINED __AVR32_UC3L064__
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.

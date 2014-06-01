@@ -3,7 +3,7 @@
  *
  * \brief Sleep manager example for SAM4L series
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,11 +43,10 @@
 
 #include <asf.h>
 #include <conf_example.h>
-#include "ast.h"
 
-void AST_PER_Handler(void)
+static void ast_per_interrupt_callback(void)
 {
-	ast_clear_periodic_status_flag(AST, 0);
+	ast_clear_interrupt_flag(AST, AST_INTERRUPT_PER);
 }
 
 int main(void)
@@ -77,31 +76,31 @@ int main(void)
 	osc_priv_enable_osc32();
 
 	/* Enable the AST clock. */
-	sysclk_enable_pba_module(SYSCLK_AST);
+	ast_enable(AST);
+
 	/* Initialize the AST in Counter mode. */
-	ast_init_counter(AST, AST_OSC_1KHZ, AST_PSEL_32KHZ_1HZ - 6,
-			ast_counter);
+	struct ast_config ast_conf;
+	ast_conf.mode = AST_COUNTER_MODE;
+	ast_conf.osc_type = AST_OSC_1KHZ;
+	ast_conf.psel = AST_PSEL_32KHZ_1HZ - 6;
+	ast_conf.counter = ast_counter;
+	ast_set_config(AST, &ast_conf);
 
 	/*
 	 * Configure the AST to wake up the CPU when the counter reaches the
 	 * selected periodic0 value.
 	 */
-	ast_set_periodic0_value(AST,AST_PSEL_32KHZ_1HZ - 3);
-	ast_enable_periodic_interrupt(AST,0);
-	ast_enable_periodic_async_wakeup(AST,0);
-	ast_enable_periodic0(AST);
-	ast_clear_periodic_status_flag(AST,0);
-
-	NVIC_ClearPendingIRQ(AST_PER_IRQn);
-	NVIC_EnableIRQ(AST_PER_IRQn);
-
-	/* Enable the AST. */
-	ast_enable(AST);
+	ast_write_periodic0_value(AST, AST_PSEL_32KHZ_1HZ - 3);
+	ast_enable_wakeup(AST, AST_WAKEUP_PER);
+	ast_enable_event(AST, AST_EVENT_PER);
+	ast_clear_interrupt_flag(AST, AST_INTERRUPT_PER);
+	ast_set_callback(AST, AST_INTERRUPT_PER, ast_per_interrupt_callback,
+			AST_PER_IRQn, 0);
 
 	/* AST can wakeup the device */
 	bpm_enable_wakeup_source(BPM, (1 << BPM_BKUPWEN_AST));
 
-	// Initialize the sleep manager, lock initial mode.
+	/* Initialize the sleep manager, lock initial mode.*/
 	sleepmgr_init();
 	sleepmgr_lock_mode(current_sleep_mode);
 
@@ -154,8 +153,11 @@ int main(void)
  * The sleep manager API can be found \ref sleepmgr_group "here".
  *
  * \section deviceinfo Device Info
- * All SAM4 L series devices can be used.
- * The example has been tested on the SAM4L-EK boards.
+ * All SAM4L series devices can be used.
+ * The example can be applied on:
+ * - SAM4L-EK
+ * - SAM4L-XPLAINEDPRO
+ * - SAM4L8-XPLAINEDPRO
  *
  * \section exampledescription Description of the example
  * The device is put to sleep in sleep modes with increasing "depth", and is
@@ -164,7 +166,7 @@ int main(void)
  * The device will remain in ACTIVE mode for approximately 3 seconds after wake-
  * up, before it goes to sleep in the next mode.
  *
- * The AST wakes the CPU every 3.5 seconds. If the device remains in sleep (LED
+ * The AST wakes the CPU every 4 seconds. If the device remains in sleep (LED
  * turned off), the device has gone into a too deep sleep mode for the AST to
  * operate (in the case of this example, the chosen source clock for the AST is
  * the RCOSC and the RCOSC is stopped in the WAIT/RET sleep mode). In that case,

@@ -186,10 +186,11 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>TFTP_USED=1</state>
+					<state>SMTP_USED=0</state>
 					<state>HTTP_USED=1</state>
 					<state>FREERTOS_USED</state>
-					<state>SMTP_USED=0</state>
+					<state>TFTP_USED=1</state>
+					<state>__FREERTOS__</state>
 					<state>BOARD=EVK1100</state>
 				</option>
 				<option>
@@ -467,10 +468,11 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>TFTP_USED=1</state>
+					<state>SMTP_USED=0</state>
 					<state>HTTP_USED=1</state>
 					<state>FREERTOS_USED</state>
-					<state>SMTP_USED=0</state>
+					<state>TFTP_USED=1</state>
+					<state>__FREERTOS__</state>
 					<state>BOARD=EVK1100</state>
 				</option>
 				<option>
@@ -1091,10 +1093,11 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>TFTP_USED=1</state>
+					<state>SMTP_USED=0</state>
 					<state>HTTP_USED=1</state>
 					<state>FREERTOS_USED</state>
-					<state>SMTP_USED=0</state>
+					<state>TFTP_USED=1</state>
+					<state>__FREERTOS__</state>
 					<state>BOARD=EVK1100</state>
 				</option>
 				<option>
@@ -1372,10 +1375,11 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>TFTP_USED=1</state>
+					<state>SMTP_USED=0</state>
 					<state>HTTP_USED=1</state>
 					<state>FREERTOS_USED</state>
-					<state>SMTP_USED=0</state>
+					<state>TFTP_USED=1</state>
+					<state>__FREERTOS__</state>
 					<state>BOARD=EVK1100</state>
 				</option>
 				<option>

@@ -82,12 +82,18 @@ extern "C" {
 #define AT24C_READ_FAIL         1
 
 void at24cxx_reset(void);
-uint32_t at24cxx_write_byte(uint16_t us_address, uint8_t uc_value);
-uint32_t at24cxx_write_continuous(uint16_t us_start_address,
-		uint16_t us_length, uint8_t const *p_wr_buffer);
-uint32_t at24cxx_read_byte(uint16_t us_address, uint8_t *p_rd_byte);
-uint32_t at24cxx_read_continuous(uint16_t us_start_address, uint16_t us_length,
-		uint8_t * p_rd_buffer);
+uint32_t at24cxx_write_byte(uint32_t u32_address, uint8_t uc_value);
+uint32_t at24cxx_write_continuous(uint32_t u32_start_address,
+		uint16_t u16_length, uint8_t const *p_wr_buffer);
+uint32_t at24cxx_read_byte(uint32_t u32_address, uint8_t *p_rd_byte);
+uint32_t at24cxx_read_continuous(uint32_t u32_start_address, uint16_t u16_length,
+		uint8_t *p_rd_buffer);
+uint32_t at24cxx_write_page(uint32_t u32_page_address,
+		uint32_t u32_page_size, uint8_t const *p_wr_buffer);
+uint32_t at24cxx_read_page(uint32_t u32_page_address,
+		uint32_t u32_page_size, uint8_t *p_rd_buffer);
+uint32_t at24cxx_fill_pattern(uint32_t u32_start_address,
+		uint32_t u32_end_address, uint8_t u8_pattern);
 
 /// @cond 0
 /**INDENT-OFF**/

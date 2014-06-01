@@ -162,6 +162,7 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3X_EK</state>
 					<state>__SAM3X8H__</state>
@@ -465,6 +466,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3X_EK</state>
 					<state>__SAM3X8H__</state>
@@ -1094,6 +1096,7 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3X_EK</state>
 					<state>__SAM3X8H__</state>
@@ -1397,6 +1400,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3X_EK</state>
 					<state>__SAM3X8H__</state>
@@ -2273,6 +2277,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_emac.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_chipid.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_pioe.h</name>
 							</file>
 							<file>
@@ -2313,9 +2320,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_tc1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_chipid.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_rtt.h</name>
@@ -2375,9 +2379,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_matrix.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_twi.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_adc.h</name>
 							</file>
 							<file>
@@ -2397,6 +2398,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_rtt.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_twi.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_trng.h</name>
@@ -2445,13 +2449,13 @@
 							</file>
 						</group>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/sam3x8h.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/sam3x8c.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/sam3a8c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/sam3x8h.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/sam3x8e.h</name>

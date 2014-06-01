@@ -3,7 +3,7 @@
  *
  * \brief QTouch component example with I2C interface.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,10 +71,10 @@
  *        - No flow control
  *  -# Start the application. The following traces shall appear on the terminal:
  *     \code
- *     -- QTouch component example (with I2C interface) --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     \endcode
+	-- QTouch component example (with I2C interface) --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
  *  -# Touch the QTouch key or slide on the EK board, key status will be
  *     outputted on terminal windows.
  *

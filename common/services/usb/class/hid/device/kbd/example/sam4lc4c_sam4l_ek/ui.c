@@ -3,7 +3,7 @@
  *
  * \brief User Interface
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,6 +46,9 @@
 
 //! Sequence process running each \c SEQUENCE_PERIOD ms
 #define SEQUENCE_PERIOD 150
+
+//! Wakeup, ignore button change until button is back to default state
+static bool btn_wakeup = false;
 
 static struct {
 	bool b_modifier;
@@ -141,6 +144,8 @@ static void UI_WAKEUP_HANDLER(void)
 		ui_disable_asynchronous_interrupt();
 		// It is a wakeup then send wakeup USB
 		udc_remotewakeup();
+		// Wakeup, ignore button change until button is back to default state
+		btn_wakeup = true;
 	}
 	sysclk_disable_peripheral_clock(EIC);
 }
@@ -165,11 +170,6 @@ static void ui_enable_asynchronous_interrupt(void)
 		UI_WAKEUP_IRQN, UI_WAKEUP_IRQ_LEVEL);
 	eic_line_enable(EIC, UI_WAKEUP_EIC_LINE);
 	eic_line_enable_interrupt(EIC, UI_WAKEUP_EIC_LINE);
-
-	/* EIC can wakeup the device */
-	bpm_enable_wakeup_source(BPM, (1 << UI_WAKEUP_BPM_SRC));
-	/* EIC can wake the device from backup mode */
-	bpm_enable_backup_pin(BPM, 1 << UI_WAKEUP_EIC_LINE);
 }
 
 /**
@@ -178,8 +178,6 @@ static void ui_enable_asynchronous_interrupt(void)
 static void ui_disable_asynchronous_interrupt(void)
 {
 	eic_line_disable_interrupt(EIC, UI_WAKEUP_EIC_LINE);
-	bpm_disable_wakeup_source(BPM, (1 << UI_WAKEUP_BPM_SRC));
-	bpm_disable_backup_pin(BPM, 1 << UI_WAKEUP_EIC_LINE);
 	sysclk_disable_peripheral_clock(EIC);
 }
 
@@ -233,11 +231,17 @@ void ui_process(uint16_t framenumber)
 		return;
 	}
 
-	// Scan buttons on switch 0 to send keys sequence
+	// Button down to send keys sequence
 	b_btn_state = (!ioport_get_pin_level(GPIO_PUSH_BUTTON_0));
 	if (b_btn_state != btn_last_state) {
 		btn_last_state = b_btn_state;
-		sequence_running = true;
+		if (btn_wakeup) {
+			if (!b_btn_state) {
+				btn_wakeup = false;
+			}
+		} else {
+			sequence_running = true;
+		}
 	}
 
 	// Sequence process running each period

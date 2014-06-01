@@ -149,11 +149,14 @@ void ssd1306_write_text(const char *string)
 	uint8_t i;
 
 	while (*string != 0) {
-		char_ptr = font_table[(*string - 32) & 0x7F];
-		for (i = 1; i <= char_ptr[0]; i++) {
-			ssd1306_write_data(char_ptr[i]);
+		if (*string < 0x7F) {
+			char_ptr = font_table[*string - 32];
+			for (i = 1; i <= char_ptr[0]; i++) {
+				ssd1306_write_data(char_ptr[i]);
+			}
+			ssd1306_write_data(0x00);
 		}
-		ssd1306_write_data(0x00);
-		string++;
+			string++;
 	}
 }
+

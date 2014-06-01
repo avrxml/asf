@@ -90,6 +90,8 @@ void re200b_motion_detect_handler(void)
 
 /**
  * \brief Initialize re200b sensor in order to detect motion
+ * \param ul_acc_minus ACC minus input, use ACC peripheral definition in header.
+ * \param ul_acc_plus ACC plus input, use ACC peripheral definition in header.
  */
 void re200b_motion_detect_init(uint32_t ul_acc_minus, uint32_t ul_acc_plus)
 {

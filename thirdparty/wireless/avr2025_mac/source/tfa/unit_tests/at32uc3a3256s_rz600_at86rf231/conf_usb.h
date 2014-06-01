@@ -3,7 +3,7 @@
  *
  * \brief USB configuration file for CDC application
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,7 +56,8 @@
 #define  USB_DEVICE_PRODUCT_ID            USB_PID_ATMEL_ASF_CDC
 #define  USB_DEVICE_MAJOR_VERSION         1
 #define  USB_DEVICE_MINOR_VERSION         0
-#define  USB_DEVICE_POWER                 100 /* Consumption on Vbus line (mA) */
+#define  USB_DEVICE_POWER                 100 /* Consumption on Vbus line (mA)
+	                                       **/
 #define  USB_DEVICE_ATTR \
 	(USB_CONFIG_ATTR_SELF_POWERED)
 /* (USB_CONFIG_ATTR_BUS_POWERED) */
@@ -88,7 +89,9 @@
 #define  UDC_SUSPEND_EVENT()
 #define  UDC_RESUME_EVENT()
 /* ! Mandatory when USB_DEVICE_ATTR authorizes remote wakeup feature */
-/* #define  UDC_REMOTEWAKEUP_ENABLE()        user_callback_remotewakeup_enable() */
+/* #define  UDC_REMOTEWAKEUP_ENABLE()        user_callback_remotewakeup_enable()
+ **/
+
 /* #define  UDC_REMOTEWAKEUP_DISABLE()
  *       user_callback_remotewakeup_disable() */
 /* ! When a extra string descriptor must be supported */

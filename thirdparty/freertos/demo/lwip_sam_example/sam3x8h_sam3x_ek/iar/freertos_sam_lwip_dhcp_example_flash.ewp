@@ -168,6 +168,7 @@
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3X_EK</state>
 					<state>__SAM3X8H__</state>
+					<state>__FREERTOS__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -486,6 +487,7 @@
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3X_EK</state>
 					<state>__SAM3X8H__</state>
+					<state>__FREERTOS__</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1130,6 +1132,7 @@
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3X_EK</state>
 					<state>__SAM3X8H__</state>
+					<state>__FREERTOS__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1448,6 +1451,7 @@
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3X_EK</state>
 					<state>__SAM3X8H__</state>
+					<state>__FREERTOS__</state>
 				</option>
 				<option>
 					<name>AList</name>

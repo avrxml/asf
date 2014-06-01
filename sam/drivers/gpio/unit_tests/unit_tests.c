@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for GPIO driver.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,6 +63,8 @@
  * SAM4L devices can be used.
  * This example has been tested with the following setup:
  * - sam4l4c_sam4l_ek (Need to connect PA06 and PB05 on the board)
+ * - sam4l4c_sam4l_xplained_pro (Need to connect EXT3/PIN9 and EXT4/PIN3 on the board)
+ * - sam4l4c_sam4l8_xplained_pro (Need to connect EXT3/PIN9 and EXT4/PIN3 on the board)
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers

@@ -3,7 +3,7 @@
  *
  * \brief ADC Sensor interface
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -169,7 +169,7 @@ void adc_sensors_init(void)
 	adc_set_conversion_parameters(&adc_conf, ADC_SIGN_ON, ADC_RES_12,
 			ADC_REF_VCC);
 	adc_set_clock_rate(&adc_conf, 125000UL);
-	adc_set_conversion_trigger(&adc_conf, ADC_TRIG_MANUAL, 0, 0);
+	adc_set_conversion_trigger(&adc_conf, ADC_TRIG_MANUAL, 1, 0);
 	adc_write_configuration(&ADCA, &adc_conf);
 	adc_set_callback(&ADCA, &adc_handler);
 

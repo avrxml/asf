@@ -1,0 +1,281 @@
+/**
+ * \file
+ *
+ * \brief ADC Enhanced Resolution example.
+ *
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ *
+ * \asf_license_start
+ *
+ * \page License
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. The name of Atmel may not be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * 4. This software may only be redistributed and used in connection with an
+ *    Atmel microcontroller product.
+ *
+ * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+ * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * \asf_license_stop
+ *
+ */
+
+/**
+ * \mainpage ADC Enhanced Resolution Example
+ *
+ * \section Purpose
+ *
+ * This example demonstrates how to use the enhanced resolution feature.
+ *
+ * \section Requirements
+ *
+ * This example can be used on boards:
+ * - sam4n16c_sam4n_xplained_pro
+ * - samg53n19_samg_xplained_pro
+ *
+ * \section Description
+ *
+ * The ADC on normally operates in 8-bit or 10-bit resolution mode. But
+ * obtained by interpolating multiple samples, the 11-bit and 12-bit resolution
+ * mode can be achieved, which is so called enhanced resolution mode.
+ * For 11-bit mode, 4 samples are used, which gives an effective sample rate
+ * of 1/4 of the actual sample frequency.
+ * For 12-bit mode, 16 samples are used, giving an effective sample rate of
+ * 1/16 of the actual sample frequency. This arrangement allows conversion
+ * speed to be traded for better accuracy.
+ *
+ * \section Usage
+ *
+ * -# Build the program and download it into the evaluation board.
+ * -# On the computer, open and configure a terminal application
+ *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
+ *   - 115200 bauds
+ *   - 8 bits of data
+ *   - No parity
+ *   - 1 stop bit
+ *   - No flow control
+ * -# In the terminal window, the
+ *    following text should appear (values depend on the board and the chip
+ *used):
+ *    \code
+	-- ADC Enhanced Resolution Example xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
+ *
+ */
+
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
+#include "asf.h"
+
+/** Reference voltage for ADC,in mv. */
+#define VOLT_REF        (3300)
+
+/** The maximal digital value */
+#define MAX_DIGITAL_8_Bit  (255UL)
+#define MAX_DIGITAL_10_BIT (1023UL)
+#define MAX_DIGITAL_11_BIT (2046UL)
+#define MAX_DIGITAL_12_BIT (4092UL)
+
+#define STRING_EOL    "\r"
+
+#define STRING_HEADER "\n-- ADC Enhanced Resolution Example --\r\n" \
+	"-- "BOARD_NAME " --\r\n" \
+	"-- Compiled: "__DATE__ " "__TIME__ " --"STRING_EOL
+
+/** The conversion data is done flag */
+volatile bool is_conversion_done = false;
+
+/** The conversion data value */
+volatile uint32_t g_ul_value = 0;
+
+/** The maximal digital value */
+static uint32_t g_max_digital;
+
+/**
+ * \brief Configure UART console.
+ */
+static void configure_console(void)
+{
+	const usart_serial_options_t uart_serial_options = {
+		.baudrate = CONF_UART_BAUDRATE,
+		.paritytype = CONF_UART_PARITY
+	};
+
+	/* Configure console UART. */
+	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
+	stdio_serial_init(CONF_UART, &uart_serial_options);
+}
+
+/**
+ * \brief Configure to trigger ADC by TIOA output of timer.
+ */
+static void configure_tc_trigger(void)
+{
+	uint32_t ul_div = 0;
+	uint32_t ul_tc_clks = 0;
+	uint32_t ul_sysclk = sysclk_get_cpu_hz();
+
+	/* Enable peripheral clock. */
+	pmc_enable_periph_clk(ID_TC0);
+
+	/* TIOA configuration */
+	ioport_set_pin_mode(PIN_TC0_TIOA0, PIN_TC0_TIOA0_MUX);
+	ioport_disable_pin(PIN_TC0_TIOA0);
+
+	/* Configure TC for a 1Hz frequency and trigger on RC compare. */
+	tc_find_mck_divisor(1, ul_sysclk, &ul_div, &ul_tc_clks, ul_sysclk);
+	tc_init(TC0, 0, ul_tc_clks | TC_CMR_CPCTRG | TC_CMR_WAVE |
+			TC_CMR_ACPA_CLEAR | TC_CMR_ACPC_SET);
+	TC0->TC_CHANNEL[0].TC_RA = (ul_sysclk / ul_div) / 2;
+	TC0->TC_CHANNEL[0].TC_RC = (ul_sysclk / ul_div) / 1;
+
+	/* Start the Timer. */
+	tc_start(TC0, 0);
+}
+
+/**
+ * \brief Display main menu.
+ */
+static void display_menu(void)
+{
+	printf("\n\r-- press a key to select the resolution mode--\n\r"
+	"-- a: Normal Resolution Mode, 8-bit --\n\r"
+	"-- b: Normal Resolution Mode, 10-bit --\n\r"
+	"-- c: Enhanced Resolution Mode, 11-bit --\n\r"
+	"-- d: Enhanced Resolution Mode, 12-bit --\n\r");
+}
+
+/**
+ * \brief Set ADC resolution mode.
+ */
+static void set_adc_resolution(void)
+{
+	uint8_t uc_key;
+	uint8_t uc_done = 0;
+
+	display_menu();
+
+	while (!uc_done) {
+		while (uart_read(CONF_UART, &uc_key)) {
+		}
+
+		switch (uc_key) {
+		case 'a':
+			g_max_digital = MAX_DIGITAL_8_Bit;
+			adc_set_resolution(ADC, ADC_8_BITS);
+			puts(" Set Resolution to Normal 8-bit \n\r");
+			uc_done = 1;
+			puts(" Quit Configuration \n\r");
+			break;
+		case 'b':
+			g_max_digital = MAX_DIGITAL_10_BIT;
+			adc_set_resolution(ADC, ADC_10_BITS);
+			puts(" Set Resolution to Normal 10-bit \n\r");
+			uc_done = 1;
+			puts(" Quit Configuration \n\r");
+			break;
+
+		case 'c':
+			g_max_digital = MAX_DIGITAL_11_BIT;
+			adc_set_resolution(ADC, ADC_11_BITS);
+			adc_average_on_single_trigger(ADC);
+			puts(" Set Resolution to Enhanced 11-bit \n\r");
+			uc_done = 1;
+			puts(" Quit Configuration \n\r");
+			break;
+
+		case 'd':
+			g_max_digital = MAX_DIGITAL_12_BIT;
+			adc_set_resolution(ADC, ADC_12_BITS);
+			adc_average_on_single_trigger(ADC);
+			puts(" Set Resolution to Enhanced 12-bit \n\r");
+			uc_done = 1;
+			puts(" Quit Configuration \n\r");
+			break;
+
+		default:
+			break;
+		}
+	}
+}
+
+/**
+ * \brief ADC interrupt callback function.
+ */
+static void adc_end_conversion(void)
+{
+	g_ul_value = adc_channel_get_value(ADC, ADC_CHANNEL_1);
+	is_conversion_done = true;
+}
+
+/**
+ * \brief Application entry point.
+ *
+ * \return Unused (ANSI-C compatibility).
+ */
+int main(void)
+{
+	int32_t ul_vol;
+
+	/* Initialize the SAM system. */
+	sysclk_init();
+	board_init();
+
+	configure_console();
+
+	/* Output example information. */
+	puts(STRING_HEADER);
+
+	adc_enable();
+
+	struct adc_config adc_cfg;
+
+	adc_get_config_defaults(&adc_cfg);
+
+	adc_init(ADC, &adc_cfg);
+	adc_channel_enable(ADC, ADC_CHANNEL_1);
+
+	adc_set_trigger(ADC, ADC_TRIG_TIO_CH_0);
+
+	adc_set_callback(ADC, ADC_INTERRUPT_EOC_1,
+			adc_end_conversion, 1);
+
+	set_adc_resolution();
+	adc_start_calibration(ADC);
+
+	/* Configure TC */
+	configure_tc_trigger();
+
+	while (1) {
+		/* Check if ADC sample is done. */
+		if (is_conversion_done == true) {
+			ul_vol = g_ul_value * VOLT_REF / g_max_digital;
+			printf("-- Voltage is: %4dmv\r\n", (int)ul_vol);
+			is_conversion_done = false;
+		}
+	}
+}

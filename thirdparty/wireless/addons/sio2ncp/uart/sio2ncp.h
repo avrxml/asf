@@ -3,7 +3,7 @@
  *
  * \brief Handles Serial I/O  Functionalities
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,19 +51,19 @@
 /**
  * \defgroup group_sio2ncp_uart SIO2NCP - UART
  * This module performs serial input/output functionalities via UART from and to
- *the HOST
+ * the HOST
  * @{
  */
 
 #define SERIAL_RX_BUF_SIZE_NCP    156
 
 /* === PROTOTYPES ============================================================
- **/
+**/
 
 /**
  * \brief Initializes the Serial IO Module of the NCP Device
  * \return STATUS_OK for successful initialization and FAILURE incase the IO is
- *not initialized
+ * not initialized
  */
 void sio2ncp_init(void);
 
@@ -89,7 +89,7 @@ uint8_t sio2ncp_rx(uint8_t *data, uint8_t max_length);
 /**
  * \brief This function performs a non-blocking character receive functionality
  * \return '-1' if no data is recieved or returns the data if a character is
- *received
+ * received
  */
 int sio2ncp_getchar_nowait(void);
 
@@ -98,5 +98,10 @@ int sio2ncp_getchar_nowait(void);
  * \return returns the data which is received
  */
 uint8_t sio2ncp_getchar(void);
+
+#if SAMD || SAMR21
+void USART_NCP_ISR_VECT(uint8_t instance);
+
+#endif
 
 #endif /* SIO2NCP_H */

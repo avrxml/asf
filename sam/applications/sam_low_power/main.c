@@ -3,7 +3,7 @@
  *
  * \brief Low Power Application.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -60,23 +60,15 @@
  * configuration and enter into a different power mode, and then measure the
  * power consumption.
  *
- * An amperemeter has to be plugged on the board instead of the VDDx jumper.
+ * For Eks, an amperemeter has to be plugged on the board instead of the
+ * VDDx jumper.
  *
  * Note that for better consumption measurement:
  * - Run program out of flash without ICE connected.
  *
  * \section Usage
  *
- * -# Build the program and download it into the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a>
- *    application note or the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>,
- *    depending on the solutions that users choose.
+ * -# Build the program and download it into the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -85,34 +77,6 @@
  *   - 1 stop bit
  *   - No flow control
  * -# Start the application.
- * -# In the terminal window, the following text should appear:
- *    \code
- *     -- Low Power Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *
- *     ===============================================
- *     Menu: press a key to continue.
- *     ===============================================
- *     Configure:
- *       F : 128-bit flash access
- *       G : 64-bit flash access
- *     Mode:
- *       A : Active Mode
- *       S : Sleep Mode
- *       W : Wait Mode
- *       B : Backup Mode(Entered 1 times).
- *     Quit:
- *       Q : Quit test.
- *
- *     -----------------------------------------------
- *     Current configuration:
- *       CPU Clock         : MCK=24000000 Hz
- *       Flash access mode : 128-bit
- *     -----------------------------------------------
- *    \endcode
- * -# Press one of the keys listed in the menu to perform the corresponding
- *    action.
  */
 
 #include "asf.h"
@@ -137,8 +101,40 @@
 	"-- "BOARD_NAME " --\r\n" \
 	"-- Compiled: "__DATE__ " "__TIME__ " --"STRING_EOL
 
-/** PLLA count */
-#define PLLA_COUNT    0x3Fu
+#ifndef PLL_DEFAULT_MUL
+#define PLL_DEFAULT_MUL  7
+#endif
+
+#ifndef PLL_DEFAULT_DIV
+#define PLL_DEFAULT_DIV  1
+#endif
+
+#ifndef MCK_DEFAULT_DIV
+#define MCK_DEFAULT_DIV  PMC_MCKR_PRES_CLK_4
+#endif
+
+#ifndef example_switch_clock
+#define example_switch_clock(a, b, c, d) \
+	do {                                 \
+		pmc_enable_pllack(a, b, c);      \
+		pmc_switch_mck_to_pllack(d);     \
+	} while (0)
+#endif
+
+#ifndef example_disable_pll
+#define example_disable_pll()  pmc_disable_pllack()
+#endif
+
+#ifndef example_set_wakeup_from_wait_mode
+#define example_set_wakeup_from_wait_mode() \
+	pmc_set_fast_startup_input(WAKEUP_WAIT_INPUT_ID)
+#endif
+
+#ifndef example_set_wakeup_from_backup_mode
+#define example_set_wakeup_from_backup_mode() \
+	supc_set_wakeup_inputs(SUPC, WAKEUP_BACKUP_INPUT_ID, \
+			WAKEUP_BACKUP_INPUT_ID)
+#endif
 
 /** Current MCK in Hz */
 uint32_t g_ul_current_mck;
@@ -151,6 +147,18 @@ volatile uint32_t g_ul_button_pressed = 0;
  */
 static void set_default_working_clock(void)
 {
+#if (SAMG)
+	/* Switch MCK to slow clock  */
+	pmc_switch_mck_to_sclk(PMC_MCKR_PRES_CLK_1);
+
+	/*
+	 * Configure PLL and switch clock.
+	 * MCK = XTAL * (PLL_DEFAULT_MUL+1) / PLL_DEFAULT_DIV / MCK_DEFAULT_DIV
+	 *     = 24 MHz
+	 */
+	example_switch_clock(PLL_DEFAULT_MUL, PLL_COUNT, PLL_DEFAULT_DIV,
+			MCK_DEFAULT_DIV);
+#else
 	/* Switch MCK to slow clock  */
 	pmc_switch_mck_to_sclk(PMC_MCKR_PRES_CLK_1);
 
@@ -158,14 +166,16 @@ static void set_default_working_clock(void)
 	pmc_switch_mainck_to_xtal(0, BOARD_OSC_STARTUP_US);
 
 	/*
-	 * Configure PLLA and switch clock.
-	 * MCK = 12000000 * (7+1) / 1 / 4 = 24 MHz
+	 * Configure PLL and switch clock.
+	 * MCK = XTAL * (PLL_DEFAULT_MUL+1) / PLL_DEFAULT_DIV / MCK_DEFAULT_DIV
+	 *     = 24 MHz
 	 */
-	pmc_enable_pllack(7, PLLA_COUNT, 1);
-	pmc_switch_mck_to_pllack(PMC_MCKR_PRES_CLK_4);
+	example_switch_clock(PLL_DEFAULT_MUL, PLL_COUNT, PLL_DEFAULT_DIV,
+			MCK_DEFAULT_DIV);
 
 	/* Disable unused clock to save power */
 	pmc_osc_disable_fastrc();
+#endif
 
 	/* Save current clock */
 	g_ul_current_mck = 24000000; /* 24MHz */
@@ -183,7 +193,8 @@ static void configure_console(void)
 
 	/* Configure console UART. */
 	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
-	pio_configure_pin_group(CONF_UART_PIO, CONF_PINS_UART, CONF_PINS_UART_FLAGS);
+	pio_configure_pin_group(CONF_UART_PIO, CONF_PINS_UART,
+			CONF_PINS_UART_FLAGS);
 	stdio_serial_init(CONF_UART, &uart_serial_options);
 }
 
@@ -199,7 +210,8 @@ static void reconfigure_console(uint32_t ul_mck, uint32_t ul_baudrate)
 	pmc_enable_periph_clk(CONSOLE_UART_ID);
 
 	/* Configure PIO */
-	pio_configure_pin_group(CONF_UART_PIO, CONF_PINS_UART, CONF_PINS_UART_FLAGS);
+	pio_configure_pin_group(CONF_UART_PIO, CONF_PINS_UART,
+			CONF_PINS_UART_FLAGS);
 
 	/* Configure UART */
 	uart_init(CONF_UART, &uart_console_settings);
@@ -258,7 +270,7 @@ static void user_change_clock(uint8_t *p_uc_str)
 		pmc_switch_mck_to_sclk(PMC_MCKR_PRES_CLK_1);
 
 		/* Switch mainck to fast RC */
-		pmc_osc_enable_fastrc(CKGR_MOR_MOSCRCF_4_MHz);
+		pmc_osc_enable_fastrc(CKGR_MOR_MOSCRCF_8_MHz);
 		pmc_switch_mainck_to_fastrc(g_fastrc_clock_list[ul_id][1]);
 
 		/* Switch MCK to mainck */
@@ -266,7 +278,8 @@ static void user_change_clock(uint8_t *p_uc_str)
 
 		/* Disable unused clock to save power */
 		pmc_osc_disable_xtal(0);
-		pmc_disable_pllack();
+		example_disable_pll();
+
 	} else if ((uc_key >= MIN_CLOCK_PLL_ITEM) &&
 			(uc_key <= MAX_CLOCK_PLL_ITEM)) {
 		ul_id = uc_key - MIN_CLOCK_PLL_ITEM;
@@ -274,18 +287,24 @@ static void user_change_clock(uint8_t *p_uc_str)
 		/* Save current clock */
 		g_ul_current_mck = g_pll_clock_list[ul_id][0];
 
+#if (SAMG)
+		/* Switch MCK to main clock  */
+		pmc_switch_mck_to_mainck(PMC_MCKR_PRES_CLK_1);
+#else
 		/* Switch MCK to slow clock  */
 		pmc_switch_mck_to_sclk(PMC_MCKR_PRES_CLK_1);
 
 		/* Switch mainck to external xtal */
 		pmc_switch_mainck_to_xtal(0, BOARD_OSC_STARTUP_US);
-		/* Configure PLLA and switch clock */
-		pmc_enable_pllack(g_pll_clock_list[ul_id][1], PLLA_COUNT,
-				g_pll_clock_list[ul_id][2]);
-		pmc_switch_mck_to_pllack(g_pll_clock_list[ul_id][3]);
+#endif
+		/* Configure PLL and switch clock */
+		example_switch_clock(g_pll_clock_list[ul_id][1], PLL_COUNT,
+				g_pll_clock_list[ul_id][2], g_pll_clock_list[ul_id][3]);
 
+#if (!SAMG)
 		/* Disable unused clock to save power */
 		pmc_osc_disable_fastrc();
+#endif
 	} else {
 		puts("Clock is not changed.\r");
 	}
@@ -370,6 +389,7 @@ static void test_active_mode(void)
 	puts("Exit from active mode.\r");
 }
 
+#if (!SAMG)
 /**
  * \brief Test sleep Mode.
  */
@@ -381,6 +401,9 @@ static void test_sleep_mode(void)
 	/* Select clock for sleep mode */
 	user_change_clock(STRING_SLEEP);
 
+	/* Disable UART */
+	pmc_disable_periph_clk(CONSOLE_UART_ID);
+
 	/* Enter into sleep Mode */
 	pmc_enable_sleepmode(0);
 
@@ -390,6 +413,7 @@ static void test_sleep_mode(void)
 
 	puts("Exit from sleep Mode.\r");
 }
+#endif
 
 /**
  * \brief Test wait mode.
@@ -402,19 +426,26 @@ static void test_wait_mode(void)
 	while (!uart_is_tx_empty(CONSOLE_UART)) {
 	}
 
-	/* Configure 4Mhz fast RC oscillator */
+	/* Configure fast RC oscillator */
 	pmc_switch_mck_to_sclk(PMC_MCKR_PRES_CLK_1);
+#if (SAMG)
+	pmc_switch_mainck_to_fastrc(CKGR_MOR_MOSCRCF_8_MHz);
+#else
 	pmc_switch_mainck_to_fastrc(CKGR_MOR_MOSCRCF_4_MHz);
-    pmc_switch_mck_to_mainck(PMC_PCK_PRES_CLK_1);
+#endif
+	pmc_switch_mck_to_mainck(PMC_PCK_PRES_CLK_1);
 
+#if (SAMG)
+	g_ul_current_mck = 8000000; /* 8MHz */
+#else
 	g_ul_current_mck = 4000000; /* 4MHz */
-
+#endif
 	/* Disable unused clock to save power */
 	pmc_osc_disable_xtal(0);
-	pmc_disable_pllack();
+	example_disable_pll();
 
 	/* Set wakeup input for fast startup */
-	pmc_set_fast_startup_input(WAKEUP_WAIT_INPUT_ID);
+	example_set_wakeup_from_wait_mode();
 
 	/* Enter into wait Mode */
 	pmc_enable_waitmode();
@@ -426,6 +457,7 @@ static void test_wait_mode(void)
 	puts("Exit from wait Mode.\r");
 }
 
+#if (!SAMG)
 /**
  * \brief Test backup mode.
  *
@@ -443,25 +475,21 @@ static void test_backup_mode(void)
 	gpbr_write(GPBR0, gpbr_read(GPBR0) + 1);
 
 	/* Enable the PIO for wake-up */
-#if (BOARD == SAM3U_EK)
-	supc_set_wakeup_mode(SUPC, SUPC_WUMR_FWUPEN_ENABLE);
-#else
-	supc_set_wakeup_inputs(SUPC, WAKEUP_BACKUP_INPUT_ID,
-			WAKEUP_BACKUP_INPUT_ID);
-#endif
+	example_set_wakeup_from_backup_mode();
 
 	/* Switch MCK to slow clock  */
 	pmc_switch_mck_to_sclk(PMC_MCKR_PRES_CLK_1);
 
 	/* Disable unused clock to save power */
 	pmc_osc_disable_xtal(0);
-	pmc_disable_pllack();
+	example_disable_pll();
 
 	/* Enter into backup mode */
 	pmc_enable_backupmode();
 
 	/* Note: The core will reset when exiting from backup mode. */
 }
+#endif
 
 /**
  * \brief Display test core menu.
@@ -477,9 +505,13 @@ static void display_menu_core(void)
 	printf("  G : 64-bit flash access\n\r");
 	printf("Mode:\n\r");
 	printf("  A : Active Mode\n\r");
+#if (!SAMG)
 	printf("  S : Sleep Mode\n\r");
+#endif
 	printf("  W : Wait Mode\n\r");
+#if (!SAMG)
 	printf("  B : Backup Mode(Entered %d times).\n\r", (int)gpbr_read(GPBR0));
+#endif
 	printf("Quit:\n\r");
 	printf("  Q : Quit test.\n\r");
 
@@ -530,20 +562,24 @@ static void test_core(void)
 			test_active_mode();
 			break;
 
+#if (!SAMG)
 		case 's':
 		case 'S':
 			test_sleep_mode();
 			break;
+#endif
 
 		case 'w':
 		case 'W':
 			test_wait_mode();
 			break;
 
+#if (!SAMG)
 		case 'b':
 		case 'B':
 			test_backup_mode();
 			break;
+#endif
 
 		/* Quit test */
 		case 'q':

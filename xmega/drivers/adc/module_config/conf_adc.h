@@ -3,7 +3,7 @@
  *
  * \brief Chip-specific ADC configuration
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,7 @@
 #define CONF_ADC_H
 
 /* Refer to the ADC driver for detailed documentation. */
-// #define CONFIG_ADC_CALLBACK_ENABLE
+#define CONFIG_ADC_CALLBACK_ENABLE
 
 // #define CONFIG_ADC_CALLBACK_TYPE uint16_t
 

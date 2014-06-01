@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of debugging functions for the DSP library
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -218,16 +218,16 @@ void dsp32_debug_print_complex(dsp32_complex_t *n);
  * \brief These function permits to print vectors.\n
  * All these functions print a vector the same way.
  * \code
- * 1  0.02556
- * 2  -0.60125
- * ...
- * \endcode
+	1  0.02556
+	2  -0.60125
+	...
+\endcode
  * For a real type vector.
  * \code
- * 1  0.02556 + -0.08965i
- * 2  -0.65064 + 0.i
- * ...
- * \endcode
+	1  0.02556 + -0.08965i
+	2  -0.65064 + 0.i
+	...
+\endcode
  * For a complex type vector.
  */
 //! \{

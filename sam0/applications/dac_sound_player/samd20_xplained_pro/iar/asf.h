@@ -60,8 +60,11 @@
 #include <dac.h>
 #include <dac_callback.h>
 
-// From module: EVSYS - Event System
+// From module: EVSYS - Event System Common
 #include <events.h>
+
+// From module: EVSYS - Event System with interupt hooks support
+#include <events_hooks.h>
 
 // From module: Generic board support
 #include <board.h>
@@ -75,7 +78,7 @@
 // From module: Part identification macros
 #include <parts.h>
 
-// From module: SYSTEM - Clock Management
+// From module: SYSTEM - Clock Management for SAMD20
 #include <clock.h>
 #include <gclk.h>
 
@@ -88,7 +91,7 @@
 // From module: SYSTEM - Interrupt Driver
 #include <system_interrupt.h>
 
-// From module: TC - Timer Counter
+// From module: TC - Timer Counter (Callback APIs)
 #include <tc.h>
 #include <tc_interrupt.h>
 

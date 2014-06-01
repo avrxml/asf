@@ -3,7 +3,7 @@
  *
  * @brief button controller application
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,29 +51,30 @@
  * - keyboard.h                  Keyboard Driver
  * \section intro Application Introduction
  *  Button Controller is the RF4CE demo application which can be used in the ZRC
- *target - controller setup
+ * target - controller setup
  *  This will support push button pairing procedure and zrc commands i.e Sending
- *the button events to the remote terminal target over the air.
+ * the button events to the remote terminal target over the air.
  *
  *	Application supports cold reset and warm reset. While powering on the
- *device, if the Select key is  pressed then it does cold reset.
+ * device, if the Select key is  pressed then it does cold reset.
  *  Otherwise it does warm reset i.e retreiving the network information base
- *from NVM.
+ * from NVM.
  *
  *  When ever the Select key along with Target-1 Key is pressed then the
- *application will start the push button pairing procedure.
+ * application will start the push button pairing procedure.
  *  When ever the Select key along with Target-2 Key pressed then the
- *application will start the push button pairing procedure. LED0 will indicate
- *the push button pairing status on the completion.
+ * application will start the push button pairing procedure. LED0 will indicate
+ * the push button pairing status on the completion.
  *
  *  When ever the Target-1 Key pressed and released followed by Select key
- *pressed and released, then application will set target-1 as active target.
+ * pressed and released, then application will set target-1 as active target.
  *  When ever the Target-2 Key pressed and released followed by Select key
- *pressed and released, then application will set target-2 as active target.
+ * pressed and released, then application will set target-2 as active target.
  *
  *  The Application will use the ZRC Commands to send the key press events to
- *paired devices. The Application will demonstrates the repeat key pressed event
- *and control key pressed event.
+ * paired devices. The Application will demonstrates the repeat key pressed
+ *event
+ * and control key pressed event.
  *
  * \section api_modules Application Dependent Modules
  * - \ref group_rf4control
@@ -85,7 +86,7 @@
  * \section references References
  * 1)  IEEE Std 802.15.4-2006 Part 15.4: Wireless Medium Access Control (MAC)
  *     and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal
- *Area
+ * Area
  *     Networks (WPANs).\n\n
  * 2)  AVR Wireless Support <A href="http://avr@atmel.com">avr@atmel.com</A>.\n
  *
@@ -470,7 +471,7 @@ static void app_task(void)
 			}
 
 			LED_On(LED0);
-			zrc_cmd_code_t user_cmd;
+			zrc_cmd_code_t user_cmd = USER_CONTROL_IDLE;
 			uint8_t cmd;
 
 			if (FUNCTION1_KEY == key_no) {
@@ -553,7 +554,7 @@ static void app_task(void)
 		}
 
 		/* wait for the SELECT_KEY Release or TARGET1_KEY/TARGET2_KEY
-		 *Press */
+		 * Press */
 	}
 
 	break;

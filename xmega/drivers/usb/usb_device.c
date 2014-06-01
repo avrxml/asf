@@ -947,7 +947,7 @@ static void udd_ep_init(udd_ep_id_t ep, uint8_t bmAttributes,
 		break;
 	default:
 		Assert(false); // Wrong value
-		break;
+		return;
 	}
 #else
 	type = USB_EP_TYPE_CONTROL_gc;

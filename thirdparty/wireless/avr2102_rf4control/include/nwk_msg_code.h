@@ -3,7 +3,7 @@
  *
  * @brief This file defines all message constants.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -129,6 +129,32 @@ typedef enum nwk_msg_code_tag {
 	VENDOR_DATA_INDICATION              = 0x52, /**< */
 	VENDOR_DATA_CONFIRM                 = 0x53, /**< */
 	VENDOR_DATA_RESPONSE                = 0x54 /**< */
+#endif
+#ifdef ZID_PROFILE
+	,
+	ZID_REC_CONNECT_REQUEST             = 0x55, /**< */
+	ZID_CONNECT_CONFIRM                 = 0x56, /**< */
+	ZID_ORG_CONNECT_REQUEST             = 0x57, /**< */
+	ZID_REPORT_DATA_REQUEST             = 0x58, /**< */
+	ZID_REPORT_DATA_INDICATION          = 0x59, /**< */
+	ZID_REPORT_DATA_CONFIRM             = 0x5A, /**< */
+	ZID_STANDBY_REQUEST                 = 0x5B, /**< */
+	ZID_STANDBY_CONFIRM                 = 0x5C, /**< */
+	ZID_STANDBY_LEAVE_INDICATION        = 0x5D, /**< */
+	ZID_SET_ATTRIBUTE_REQUEST           = 0x5E, /**< */
+	ZID_SET_ATTRIBUTE_CONFIRM           = 0x5F, /**< */
+	ZID_GET_ATTRIBUTE_REQUEST           = 0x60, /**< */
+	ZID_GET_ATTRIBUTE_CONFIRM           = 0x61, /**< */
+	ZID_HEARTBEAT_REQUEST               = 0x62, /**< */
+	ZID_HEARTBEAT_INDICATION            = 0x63, /**< */
+	ZID_HEARTBEAT_CONFIRM               = 0x64, /**< */
+	ZID_SET_NULL_REPORT_REQUEST         = 0x65, /**< */
+	ZID_SET_NULL_REPORT_CONFIRM         = 0x66, /**< */
+	ZID_SET_REPORT_REQUEST              = 0x67, /**< */
+	ZID_SET_REPORT_CONFIRM              = 0x68, /**< */
+	ZID_GET_REPORT_REQUEST              = 0x69, /**< */
+	ZID_GET_REPORT_CONFIRM              = 0x6a, /**< */
+	ZID_GET_REPORT_INDICATION           = 0x6b
 #endif
 } SHORTENUM nwk_msg_code_t;
 

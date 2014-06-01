@@ -162,9 +162,10 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>BOARD=SAM3N_EK</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>__SAM3N4C__</state>
+					<state>BOARD=SAM3N_EK</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -465,9 +466,10 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>BOARD=SAM3N_EK</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>__SAM3N4C__</state>
+					<state>BOARD=SAM3N_EK</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1094,9 +1096,10 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>BOARD=SAM3N_EK</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>__SAM3N4C__</state>
+					<state>BOARD=SAM3N_EK</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1397,9 +1400,10 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>BOARD=SAM3N_EK</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>__SAM3N4C__</state>
+					<state>BOARD=SAM3N_EK</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -2345,26 +2349,23 @@
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n1a.h</name>
 						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n1b.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n4b.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n1c.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n2a.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n2b.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n4a.h</name>
-						</file>
 						<group>
 							<name>pio</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n00b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n0a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n0b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n00a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n0c.h</name>
+							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n2a.h</name>
 							</file>
@@ -2393,6 +2394,39 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n4a.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n00b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n1b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n0b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n00a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n4b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n0a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n1c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n2a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n2b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n0c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n4a.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3n/include/sam3n4c.h</name>
 						</file>

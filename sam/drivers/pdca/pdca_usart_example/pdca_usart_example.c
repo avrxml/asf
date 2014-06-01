@@ -3,7 +3,7 @@
  *
  * \brief Peripheral DMA Controller Example for SAM4L.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,25 +51,16 @@
  *
  * \section Requirements
  *
- * This example can be used on SAM4L-EK boards.
+ * This example can be used on SAM4L series.
  *
  * \section Description
  *
- * The SAM4L controller send data in ascii_anim1.h and ascii_anim2.h from USART
+ * The SAM4L controller sends data in ascii_anim1.h and ascii_anim2.h from USART
  * to the terminal.
  *
  * \section Usage
  *
- * -# Build the program and download it into the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/6421B.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a>
- *    application note or the
- *    <a href="http://www.iar.com/website1/1.0.1.0/78/1/">
- *    IAR EWARM User and reference guides</a>,
- *    depending on the solutions that users choose.
+ * -# Build the program and download it into the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -80,10 +71,10 @@
  * -# In the terminal window, the following text should appear (values depend
  *    on the board and chip used):
  *    \code
- *     -- PDCA_USART Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *    \endcode
+	-- PDCA_USART Example xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
  * -# the sent text should appear.
  */
 
@@ -92,7 +83,6 @@
 #include "conf_board.h"
 
 #define PDCA_TX_CHANNEL  0
-#define PDCA_PID_USART2_TX    20
 
 #define STRING_EOL    "\r"
 #define STRING_HEADER "-- PDCA_USART Example --\r\n" \
@@ -116,13 +106,15 @@ const char ascii_anim2[] =
 ;
 
 /* PDCA channel options */
-static const pdca_channel_config_t PDCA_TX_CONFIGS = {
-	.addr = (void *)ascii_anim1,   /* memory address */
-	.pid = PDCA_PID_USART2_TX,     /* select peripheral */
-	.size = sizeof(ascii_anim1),   /* transfer counter */
-	.r_addr = 0,                   /* next memory address */
-	.r_size = 0,                   /* next transfer counter */
-	.ring = false,                 /* disable ring buffer mode */
+static const pdca_channel_config_t pdca_tx_configs = {
+	.addr   = (void *)ascii_anim1,      /* memory address              */
+	.pid    = PDCA_PID_USART_TX,        /* select peripheral           */
+	.size   = sizeof(ascii_anim1),      /* transfer counter            */
+	.r_addr = 0,                        /* next memory address         */
+	.r_size = 0,                        /* next transfer counter       */
+	.etrig  = false,                    /* disable the transfer upon event
+										 * trigger */
+	.ring   = false,                    /* disable ring buffer mode    */
 	.transfer_size = PDCA_MR_SIZE_BYTE  /* select size of the transfer */
 };
 
@@ -187,7 +179,7 @@ int main(void)
 	pdca_enable(PDCA);
 
 	/* Init PDCA channel with the pdca_options.*/
-	pdca_channel_set_config(PDCA_TX_CHANNEL, &PDCA_TX_CONFIGS);
+	pdca_channel_set_config(PDCA_TX_CHANNEL, &pdca_tx_configs);
 
 	/* Enable PDCA channel */
 	pdca_channel_enable(PDCA_TX_CHANNEL);

@@ -52,7 +52,7 @@
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
-// From module: ADC - Analog-to-Digital Converter (Polled Mode)
+// From module: ADC - Analog-to-Digital Converter (Polled APIs)
 #include <adc.h>
 
 // From module: Common SAM D20 compiler driver
@@ -71,7 +71,7 @@
 // From module: Part identification macros
 #include <parts.h>
 
-// From module: SYSTEM - Clock Management
+// From module: SYSTEM - Clock Management for SAMD20
 #include <clock.h>
 #include <gclk.h>
 

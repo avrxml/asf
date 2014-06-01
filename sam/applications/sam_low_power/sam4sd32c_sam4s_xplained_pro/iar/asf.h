@@ -87,8 +87,8 @@
 // From module: Part identification macros
 #include <parts.h>
 
-// From module: SAM4S startup code
-#include <exceptions.h>
+// From module: SAM4S Xplained Pro LED support enabled
+#include <led.h>
 
 // From module: SUPC - Supply Controller
 #include <supc.h>

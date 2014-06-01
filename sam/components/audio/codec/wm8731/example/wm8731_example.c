@@ -72,14 +72,7 @@
  *
  * \section Usage
  *
- * -# Build the program and download it into the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a> application note or to the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>, depending on your chosen solution.
+ * -# Build the program and download it into the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g. HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -90,16 +83,16 @@
  * -# Start the application.
  * -# In the terminal window, the following text should appear:
  *    \code
- *     -- WM8731 example xxx --
- *     -- SAMxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     Menu :
- *     ------
- *     W: Play the WAV file loaded
- *     I: Display the information of the WAV file
- *     R: Receive WAV file with XMODEM Protocol
- *     S: Stop playback
- *    \endcode
+	-- WM8731 example xxx --
+	-- SAMxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	Menu :
+	------
+	W: Play the WAV file loaded
+	I: Display the information of the WAV file
+	R: Receive WAV file with XMODEM Protocol
+	S: Stop playback
+\endcode
  */
 
 #include <asf.h>

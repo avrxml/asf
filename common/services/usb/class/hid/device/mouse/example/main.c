@@ -3,7 +3,7 @@
  *
  * \brief Main functions for Mouse example
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,22 +47,22 @@
 
 static volatile bool main_b_mouse_enable = false;
 
-
 /*! \brief Main function. Execution starts here.
  */
 int main(void)
 {
-	sysclk_init();
 	irq_initialize_vectors();
 	cpu_irq_enable();
-
+#if !SAMD21 && !SAMR21
+	sysclk_init();
+	board_init();
+#else
+	system_init();
+#endif
 	// Initialize the sleep manager
 	sleepmgr_init();
-
-	board_init();
 	ui_init();
 	ui_powerdown();
-
 
 	// Start USB stack to authorize VBus monitoring
 	udc_start();
@@ -70,7 +70,7 @@ int main(void)
 	// The main loop manages only the power mode
 	// because the USB management is done by interrupt
 	while (true) {
-#ifdef   USB_DEVICE_LOW_SPEED
+#ifdef USB_DEVICE_LOW_SPEED
 		// No USB "Keep a live" interrupt available in low speed
 		// to scan mouse interface then use main loop
 		if (main_b_mouse_enable) {
@@ -83,10 +83,9 @@ int main(void)
 				ui_process(virtual_sof++);
 			}
 		}
-#else
+#else /* #ifdef USB_DEVICE_LOW_SPEED */
 		sleepmgr_enter_sleep();
 #endif
-
 	}
 }
 
@@ -116,6 +115,23 @@ void main_remotewakeup_disable(void)
 {
 	ui_wakeup_disable();
 }
+
+#ifdef USB_DEVICE_LPM_SUPPORT
+void main_suspend_lpm_action(void)
+{
+	ui_powerdown();
+}
+
+void main_remotewakeup_lpm_disable(void)
+{
+	ui_wakeup_disable();
+}
+
+void main_remotewakeup_lpm_enable(void)
+{
+	ui_wakeup_enable();
+}
+#endif
 
 bool main_mouse_enable(void)
 {

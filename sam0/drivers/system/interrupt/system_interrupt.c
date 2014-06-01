@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 System Interrupt Driver
+ * \brief SAM D20/D21/R21 System Interrupt Driver
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -169,7 +169,10 @@ enum status_code system_interrupt_set_priority(
 		uint8_t register_num = vector / 4;
 		uint8_t priority_pos = ((vector % 4) * 8) + (8 - __NVIC_PRIO_BITS);
 
-		NVIC->IP[register_num] = (priority_level << priority_pos);
+		NVIC->IP[register_num] =
+				(NVIC->IP[register_num] & ~(0x3 << priority_pos)) |
+				(priority_level << priority_pos);
+
 	} else if (vector == SYSTEM_INTERRUPT_SYSTICK) {
 		SCB->SHP[1] = (priority_level << _SYSTEM_INTERRUPT_SYSTICK_PRI_POS);
 	} else {

@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Peripheral Control API For the TWI
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -270,55 +270,55 @@ status_code_t freertos_twi_read_packet_async(freertos_twi_if p_twi,
  *
  *
  * \code
- *
- * /////////////////////////////////////////////////////////////////////////////
- * // Declare the variables used as parameters to the
- * // freertos_twi_master_init() function.
- *
- * // Handle used to access the initialized port by other FreeRTOS ASF functions.
- * freertos_twi_if freertos_twi;
- *
- * // Configuration structure.
- * freertos_peripheral_options_t driver_options = {
- *
- *     // This peripheral is synchronous and so does not need a receive buffer.
- *     // The receive_buffer value is just set to NULL.
- *     NULL,
- *
- *     // There isn't a receive buffer, so the receive_buffer_size value can
- *     // take any value.
- *     0,
- *
- *     // The interrupt priority.  The FreeRTOS driver provides the interrupt
- *     // service routine, and handles all interrupt interactions.  The
- *     // application writer does not need to provide any interrupt handling
- *     // code, but does need to specify the priority of the DMA interrupt here.
- *     // IMPORTANT!!!  see <a href="http://www.freertos.org/RTOS-Cortex-M3-M4.html">how to set interrupt priorities to work with FreeRTOS</a>
- *     0x0e,
- *
- *     // The operation_mode value.
- *     TWI_I2C_MASTER,
- *
- *     // Flags set to allow access from multiple tasks, wait in the transmit
- *     // function until the transmit is complete, and wait in the receive
- *     // function until reception is complete.  Note that other FreeRTOS tasks
- *     // will execute during the wait period.
- *     (USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE | WAIT_RX_COMPLETE)
- *  };
- *
- *  /////////////////////////////////////////////////////////////////////////////
- *  // Call the TWI specific FreeRTOS ASF driver initialization function,
- *  // storing the return value as the driver handle.
- *  freertos_twi = freertos_twi_master_init(twi_base, &driver_options);
- *
- *  if (freertos_twi != NULL) {
- *     // Calling freertos_twi_master_init() will enable the peripheral
- *     // clock, and set the TWI into I2C master mode.  Other ASF
- *     // configuration functions, such as twi_set_speed(), can then be
- *     // called here.
- *  }
- *
- * \endcode
+
+	 /////////////////////////////////////////////////////////////////////////////
+	 // Declare the variables used as parameters to the
+	 // freertos_twi_master_init() function.
+
+	 // Handle used to access the initialized port by other FreeRTOS ASF functions.
+	 freertos_twi_if freertos_twi;
+
+	 // Configuration structure.
+	 freertos_peripheral_options_t driver_options = {
+
+	     // This peripheral is synchronous and so does not need a receive buffer.
+	     // The receive_buffer value is just set to NULL.
+	     NULL,
+
+	     // There isn't a receive buffer, so the receive_buffer_size value can
+	     // take any value.
+	     0,
+
+	     // The interrupt priority.  The FreeRTOS driver provides the interrupt
+	     // service routine, and handles all interrupt interactions.  The
+	     // application writer does not need to provide any interrupt handling
+	     // code, but does need to specify the priority of the DMA interrupt here.
+	     // IMPORTANT!!!  see <a href="http://www.freertos.org/RTOS-Cortex-M3-M4.html">how to set interrupt priorities to work with FreeRTOS</a>
+	     0x0e,
+
+	     // The operation_mode value.
+	     TWI_I2C_MASTER,
+
+	     // Flags set to allow access from multiple tasks, wait in the transmit
+	     // function until the transmit is complete, and wait in the receive
+	     // function until reception is complete.  Note that other FreeRTOS tasks
+	     // will execute during the wait period.
+	     (USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE | WAIT_RX_COMPLETE)
+	  };
+
+	  /////////////////////////////////////////////////////////////////////////////
+	  // Call the TWI specific FreeRTOS ASF driver initialization function,
+	  // storing the return value as the driver handle.
+	  freertos_twi = freertos_twi_master_init(twi_base, &driver_options);
+
+	  if (freertos_twi != NULL) {
+	     // Calling freertos_twi_master_init() will enable the peripheral
+	     // clock, and set the TWI into I2C master mode.  Other ASF
+	     // configuration functions, such as twi_set_speed(), can then be
+	     // called here.
+	  }
+
+\endcode
  */
 
 /**
@@ -342,53 +342,53 @@ status_code_t freertos_twi_read_packet_async(freertos_twi_if p_twi,
  *
  *
  * \code
- *
- * /////////////////////////////////////////////////////////////////////////////
- * // Declare the variables used as parameters to the
- * // freertos_twi_master_init() function.
- *
- * // Handle used to access the initialized port by other FreeRTOS ASF functions.
- * freertos_twi_if freertos_twi;
- *
- * // Configuration structure.
- * freertos_peripheral_options_t driver_options = {
- *
- *     // This peripheral is synchronous and so does not need a receive buffer.
- *     // The receive_buffer value is just set to NULL.
- *     NULL,
- *
- *     // There isn't a receive buffer, so the receive_buffer_size value can
- *     // take any value.
- *     0,
- *
- *     // The interrupt priority.  The FreeRTOS driver provides the interrupt
- *     // service routine, and handles all interrupt interactions.  The
- *     // application writer does not need to provide any interrupt handling
- *     // code, but does need to specify the priority of the DMA interrupt here.
- *     // IMPORTANT!!!  see <a href="http://www.freertos.org/RTOS-Cortex-M3-M4.html">how to set interrupt priorities to work with FreeRTOS</a>
- *     0x0e,
- *
- *     // The operation_mode value.
- *     TWI_I2C_MASTER,
- *
- *     // Flags set to allow access from multiple tasks.  Note the
- *     // WAIT_TX_COMPLETE and WAIT_RX_COMPLETE bits are *not* set.
- *     (USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX)
- *  };
- *
- * /////////////////////////////////////////////////////////////////////////////
- * // Call the TWI specific FreeRTOS ASF driver initialization function,
- * // storing the return value as the driver handle.
- *  freertos_twi = freertos_twi_master_init(twi_base, &driver_options);
- *
- *  if (freertos_twi != NULL) {
- *     // Calling freertos_twi_master_init() will enable the peripheral
- *     // clock, and set the TWI into I2C master mode.  Other ASF
- *     // configuration functions, such as twi_set_speed(), can then be
- *     // called here.
- *  }
- *
- * \endcode
+
+	 /////////////////////////////////////////////////////////////////////////////
+	 // Declare the variables used as parameters to the
+	 // freertos_twi_master_init() function.
+
+	 // Handle used to access the initialized port by other FreeRTOS ASF functions.
+	 freertos_twi_if freertos_twi;
+
+	 // Configuration structure.
+	 freertos_peripheral_options_t driver_options = {
+
+	     // This peripheral is synchronous and so does not need a receive buffer.
+	     // The receive_buffer value is just set to NULL.
+	     NULL,
+
+	     // There isn't a receive buffer, so the receive_buffer_size value can
+	     // take any value.
+	     0,
+
+	     // The interrupt priority.  The FreeRTOS driver provides the interrupt
+	     // service routine, and handles all interrupt interactions.  The
+	     // application writer does not need to provide any interrupt handling
+	     // code, but does need to specify the priority of the DMA interrupt here.
+	     // IMPORTANT!!!  see <a href="http://www.freertos.org/RTOS-Cortex-M3-M4.html">how to set interrupt priorities to work with FreeRTOS</a>
+	     0x0e,
+
+	     // The operation_mode value.
+	     TWI_I2C_MASTER,
+
+	     // Flags set to allow access from multiple tasks.  Note the
+	     // WAIT_TX_COMPLETE and WAIT_RX_COMPLETE bits are *not* set.
+	     (USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX)
+	  };
+
+	 /////////////////////////////////////////////////////////////////////////////
+	 // Call the TWI specific FreeRTOS ASF driver initialization function,
+	 // storing the return value as the driver handle.
+	  freertos_twi = freertos_twi_master_init(twi_base, &driver_options);
+
+	  if (freertos_twi != NULL) {
+	     // Calling freertos_twi_master_init() will enable the peripheral
+	     // clock, and set the TWI into I2C master mode.  Other ASF
+	     // configuration functions, such as twi_set_speed(), can then be
+	     // called here.
+	  }
+
+\endcode
  */
 
 /**
@@ -407,41 +407,41 @@ status_code_t freertos_twi_read_packet_async(freertos_twi_if p_twi,
  * information on getting started with FreeRTOS.
  *
  * \code
- *
- *  // Write number_of_bytes from data_buffer to freertos_twi.
- *  //
- *  // This examples assumes freertos_twi has already been set by a successful
- *  // call to freertos_twi_master_init(), and that freertos_twi_master_init()
- *  // configured the FreeRTOS TWI driver to use the standard operation mode.
- *
- *  static void write_page_to_eeprom(freertos_twi_if freertos_twi, uint16_t page)
- *  {
- *  twi_packet_t write_parameters;
- *  uint16_t calculated_address;
- *  const portTickType max_block_time_ticks = 200UL / portTICK_RATE_MS;
- *
- *      // Calculate the address being written to
- *      calculated_address = page * PAGE_SIZE;
- *
- *      // Configure the twi_packet_t structure to define the write operation
- *      write_parameters.chip = BOARD_AT24C_ADDRESS;
- *      write_parameters.buffer = data_buffer;
- *      write_parameters.length = PAGE_SIZE;
- *      write_parameters.addr[0] = (uint8_t) ((calculated_address >> 8) & 0xff);
- *      write_parameters.addr[1] = (uint8_t) (calculated_address & 0xff);
- *      write_parameters.addr_length = 2;
- *
- *      // Attempt to write the data to the port referenced by the freertos_twi
- *      // handle.  Wait a maximum of 200ms to get exclusive access to the port
- *      // (other FreeRTOS tasks will execute during any waiting time).
- *      if(freertos_twi_write_packet(freertos_twi, &write_parameters, max_block_time_ticks) != STATUS_OK)
- *      {
- *          // The data was not written successfully, either because there was
- *          // an error on the TWI bus, or because exclusive access to the TWI
- *          // port was not obtained within 200ms.
- *      }
- * }
- * \endcode
+
+	  // Write number_of_bytes from data_buffer to freertos_twi.
+	  //
+	  // This examples assumes freertos_twi has already been set by a successful
+	  // call to freertos_twi_master_init(), and that freertos_twi_master_init()
+	  // configured the FreeRTOS TWI driver to use the standard operation mode.
+
+	  static void write_page_to_eeprom(freertos_twi_if freertos_twi, uint16_t page)
+	  {
+	  twi_packet_t write_parameters;
+	  uint16_t calculated_address;
+	  const portTickType max_block_time_ticks = 200UL / portTICK_RATE_MS;
+
+	      // Calculate the address being written to
+	      calculated_address = page * PAGE_SIZE;
+
+	      // Configure the twi_packet_t structure to define the write operation
+	      write_parameters.chip = BOARD_AT24C_ADDRESS;
+	      write_parameters.buffer = data_buffer;
+	      write_parameters.length = PAGE_SIZE;
+	      write_parameters.addr[0] = (uint8_t) ((calculated_address >> 8) & 0xff);
+	      write_parameters.addr[1] = (uint8_t) (calculated_address & 0xff);
+	      write_parameters.addr_length = 2;
+
+	      // Attempt to write the data to the port referenced by the freertos_twi
+	      // handle.  Wait a maximum of 200ms to get exclusive access to the port
+	      // (other FreeRTOS tasks will execute during any waiting time).
+	      if(freertos_twi_write_packet(freertos_twi, &write_parameters, max_block_time_ticks) != STATUS_OK)
+	      {
+	          // The data was not written successfully, either because there was
+	          // an error on the TWI bus, or because exclusive access to the TWI
+	          // port was not obtained within 200ms.
+	      }
+	 }
+\endcode
  */
 
 /**
@@ -461,68 +461,68 @@ status_code_t freertos_twi_read_packet_async(freertos_twi_if p_twi,
  * information on getting started with FreeRTOS.
  *
  * \code
- *
- *  // Write number_of_bytes from data_buffer to freertos_twi.
- *  //
- *  // This examples assumes freertos_twi has already been set by a successful
- *  // call to freertos_twi_master_init(), and that freertos_twi_master_init()
- *  // configured the FreeRTOS TWI driver to use the fully asynchronous operation
- *  // mode.
- *  //
- *  // The example further assumes that notification_semaphore has already been
- *  // initialised by a call to the vSemaphoreCreateBinary() FreeRTOS API
- *  // function.
- *
- *  static void write_page_to_eeprom(freertos_twi_if freertos_twi,
- *                      uint16_t page, xSemaphoreHandle notification_semaphore)
- *  {
- *  twi_packet_t write_parameters;
- *  uint16_t calculated_address;
- *  const portTickType max_block_time_ticks = 200UL / portTICK_RATE_MS;
- *
- *      // Calculate the address being written to
- *      calculated_address = page * PAGE_SIZE;
- *
- *      // Configure the twi_packet_t structure to define the write operation
- *      write_parameters.chip = BOARD_AT24C_ADDRESS;
- *      write_parameters.buffer = data_buffer;
- *      write_parameters.length = PAGE_SIZE;
- *      write_parameters.addr[0] = (uint8_t) ((calculated_address >> 8) & 0xff);
- *      write_parameters.addr[1] = (uint8_t) (calculated_address & 0xff);
- *      write_parameters.addr_length = 2;
- *
- *      // Attempt to initiate a DMA transfer to write the data from data_buffer
- *      // to the port referenced by the freertos_twi handle.  Wait a maximum of
- *      // 200ms to get exclusive access to the port (other FreeRTOS tasks will
- *      // execute during any waiting time).
- *      if(freertos_twi_write_packet(freertos_twi, &write_parameters,
- *                 max_block_time_ticks, notification_semaphore) != STATUS_OK)
- *      {
- *          // The DMA transfer was not started because exclusive access to the
- *          // port was not obtained within 200ms.
- *      }
- *      else
- *      {
- *          // The DMA transfer was started successfully, but has not
- *          // necessarily completed yet.  Other processing can be performed
- *          // here, but THE DATA IN data_buffer MUST NOT BE ALTERED UNTIL THE
- *          // TRANSMISSION HAS COMPLETED.
- *
- *          // ...
- *
- *          // Ensure the transaction is complete before proceeding further by
- *          // waiting for the notification_semaphore.  Don't wait longer than
- *          // 200ms.  Other FreeRTOS tasks will execute during any waiting
- *          // time.
- *          if(xSemaphoreTake(notification_semaphore,
- *                                            max_block_time_ticks) != pdPASS)
- *          {
- *              // The semaphore could not be obtained within 200ms.  Either the
- *              // data is still being transmitted, or an error occurred.
- *          }
- *      }
- * }
- * \endcode
+
+	  // Write number_of_bytes from data_buffer to freertos_twi.
+	  //
+	  // This examples assumes freertos_twi has already been set by a successful
+	  // call to freertos_twi_master_init(), and that freertos_twi_master_init()
+	  // configured the FreeRTOS TWI driver to use the fully asynchronous operation
+	  // mode.
+	  //
+	  // The example further assumes that notification_semaphore has already been
+	  // initialised by a call to the vSemaphoreCreateBinary() FreeRTOS API
+	  // function.
+
+	  static void write_page_to_eeprom(freertos_twi_if freertos_twi,
+	                      uint16_t page, xSemaphoreHandle notification_semaphore)
+	  {
+	  twi_packet_t write_parameters;
+	  uint16_t calculated_address;
+	  const portTickType max_block_time_ticks = 200UL / portTICK_RATE_MS;
+
+	      // Calculate the address being written to
+	      calculated_address = page * PAGE_SIZE;
+
+	      // Configure the twi_packet_t structure to define the write operation
+	      write_parameters.chip = BOARD_AT24C_ADDRESS;
+	      write_parameters.buffer = data_buffer;
+	      write_parameters.length = PAGE_SIZE;
+	      write_parameters.addr[0] = (uint8_t) ((calculated_address >> 8) & 0xff);
+	      write_parameters.addr[1] = (uint8_t) (calculated_address & 0xff);
+	      write_parameters.addr_length = 2;
+
+	      // Attempt to initiate a DMA transfer to write the data from data_buffer
+	      // to the port referenced by the freertos_twi handle.  Wait a maximum of
+	      // 200ms to get exclusive access to the port (other FreeRTOS tasks will
+	      // execute during any waiting time).
+	      if(freertos_twi_write_packet(freertos_twi, &write_parameters,
+	                 max_block_time_ticks, notification_semaphore) != STATUS_OK)
+	      {
+	          // The DMA transfer was not started because exclusive access to the
+	          // port was not obtained within 200ms.
+	      }
+	      else
+	      {
+	          // The DMA transfer was started successfully, but has not
+	          // necessarily completed yet.  Other processing can be performed
+	          // here, but THE DATA IN data_buffer MUST NOT BE ALTERED UNTIL THE
+	          // TRANSMISSION HAS COMPLETED.
+
+	          // ...
+
+	          // Ensure the transaction is complete before proceeding further by
+	          // waiting for the notification_semaphore.  Don't wait longer than
+	          // 200ms.  Other FreeRTOS tasks will execute during any waiting
+	          // time.
+	          if(xSemaphoreTake(notification_semaphore,
+	                                            max_block_time_ticks) != pdPASS)
+	          {
+	              // The semaphore could not be obtained within 200ms.  Either the
+	              // data is still being transmitted, or an error occurred.
+	          }
+	      }
+	 }
+\endcode
  */
 
 /**
@@ -541,51 +541,51 @@ status_code_t freertos_twi_read_packet_async(freertos_twi_if p_twi,
  * information on getting started with FreeRTOS.
  *
  * \code
- *
- * // This examples assumes freertos_twi has already been set by a successful
- * // call to freertos_twi_master_init(), and that freertos_twi_master_init()
- * // configured the FreeRTOS TWI driver to use the standard operation mode.
- *
- *  static void read_page_from_eeprom(freertos_twi_if freertos_twi,
- *                                     uint16_t page, uint8_t receive_buffer)
- *  {
- *  twi_packet_t read_parameters;
- *  uint16_t calculated_address;
- *  const portTickType max_block_time_ticks = 200UL / portTICK_RATE_MS;
- *
- *      // Calculate the address being read from.
- *      calculated_address = page * PAGE_SIZE;
- *
- *      // Configure the read_parameters structure to define the read operation.
- *      read_parameters.chip = BOARD_AT24C_ADDRESS;
- *      read_parameters.buffer = receive_buffer;
- *      read_parameters.length = PAGE_SIZE;
- *      read_parameters.addr[0] = (uint8_t) ((calculated_address >> 8) & 0xff);
- *      read_parameters.addr[1] = (uint8_t) (calculated_address & 0xff);
- *      read_parameters.addr_length = 2;
- *
- *      // Receive the data into receive_buffer.  Don't wait any longer than 200ms
- *      // to get exclusive access to the port (other FreeRTOS tasks will
- *      // execute during any wait time.
- *      if(freertos_twi_read_packet(freertos_twi, &read_parameters,
- *                                      max_block_time_ticks) != STATUS_OK)
- *      {
- *          // Either an error occurred on the bus or exclusive access
- *          // to the port was not obtained within 200ms.
- *      }
- *      else
- *      {
- *          // freertos_twi_read_packet() does not return until all the
- *          // requested bytes have been received, so it is known that the
- *          // data in receive_buffer is already complete, and can be
- *          // processed immediately.
- *
- *          // ... Process received data here ...
- *          do_something(receive_buffer);
- *      }
- *  }
- *
- * \endcode
+
+	 // This examples assumes freertos_twi has already been set by a successful
+	 // call to freertos_twi_master_init(), and that freertos_twi_master_init()
+	 // configured the FreeRTOS TWI driver to use the standard operation mode.
+
+	  static void read_page_from_eeprom(freertos_twi_if freertos_twi,
+	                                     uint16_t page, uint8_t receive_buffer)
+	  {
+	  twi_packet_t read_parameters;
+	  uint16_t calculated_address;
+	  const portTickType max_block_time_ticks = 200UL / portTICK_RATE_MS;
+
+	      // Calculate the address being read from.
+	      calculated_address = page * PAGE_SIZE;
+
+	      // Configure the read_parameters structure to define the read operation.
+	      read_parameters.chip = BOARD_AT24C_ADDRESS;
+	      read_parameters.buffer = receive_buffer;
+	      read_parameters.length = PAGE_SIZE;
+	      read_parameters.addr[0] = (uint8_t) ((calculated_address >> 8) & 0xff);
+	      read_parameters.addr[1] = (uint8_t) (calculated_address & 0xff);
+	      read_parameters.addr_length = 2;
+
+	      // Receive the data into receive_buffer.  Don't wait any longer than 200ms
+	      // to get exclusive access to the port (other FreeRTOS tasks will
+	      // execute during any wait time.
+	      if(freertos_twi_read_packet(freertos_twi, &read_parameters,
+	                                      max_block_time_ticks) != STATUS_OK)
+	      {
+	          // Either an error occurred on the bus or exclusive access
+	          // to the port was not obtained within 200ms.
+	      }
+	      else
+	      {
+	          // freertos_twi_read_packet() does not return until all the
+	          // requested bytes have been received, so it is known that the
+	          // data in receive_buffer is already complete, and can be
+	          // processed immediately.
+
+	          // ... Process received data here ...
+	          do_something(receive_buffer);
+	      }
+	  }
+
+\endcode
  */
 
 /**
@@ -605,86 +605,86 @@ status_code_t freertos_twi_read_packet_async(freertos_twi_if p_twi,
  * information on getting started with FreeRTOS.
  *
  * \code
- *
- * // This examples assumes freertos_twi has already been set by a successful
- * // call to freertos_twi_master_init(), and that freertos_twi_master_init()
- * // configured the FreeRTOS TWI driver to use the fully asynchronous operation
- * // mode.
- *
- * // This example demonstrates how a single task can process data while
- * // additional data is being received on the TWI bus.  Error checking is
- * // omitted to simplify the example.
- *  void a_function(freertos_twi_if freertos_twi)
- *  {
- *  // The buffers into which the data is placed are too large to be declared on
- *  // the task stack, so are instead declared static (making this function
- *  // non-reentrant – meaning it can only be called by a single task at a time,
- *  // otherwise multiple tasks would use the same buffers).
- *  static uint8_t first_receive_buffer[BUFFER_SIZE], second_receive_buffer[BUFFER_SIZE];
- *  xSemaphoreHandle notification_semaphore = NULL;
- *  const max_block_time_500ms = 500 / portTICK_RATE_MS;
- *	twi_packet_t read_parameters;
- *	uint16_t calculated_address;
- *
- *      // Configure the read_parameters structure to define a read operation
- *      // that fills the first receive buffer.
- *      read_parameters.chip = BOARD_AT24C_ADDRESS;
- *      read_parameters.buffer = first_receive_buffer;
- *      read_parameters.length = BUFFER_SIZE;
- *      read_parameters.addr_length = 2;
- *
- *      // The first read is from address 0.
- *      calculated_address = 0;
- *      read_parameters.addr[0] = 0;
- *      read_parameters.addr[1] = 0;
- *
- *      // Create the notification semaphore that will be used by FreeRTOS to
- *      // notify the task that the receive operation is complete.
- *      vSemaphoreCreateBinary(notification_semaphore);
- *
- *      // Nothing has been read over the TWI bus yet, so make sure the
- *      // semaphore starts in the expected empty state.
- *      xSemaphoreTake(notification_semaphore, 0);
- *
- *      // Start an asynchronous read to fill the first buffer.  The function
- *      // will be able to access the port immediately because nothing else has
- *      // accessed it yet - allowing the block_time_ticks value to be set to 0.
- *      freertos_twi_read_packet_async(freertos_twi, &read_parameters, 0
- *                                                     notification_semaphore);
- *
- *      // Wait until the first buffer is full.  Other tasks will run during
- *      // the wait.  FreeRTOS will give notification_semaphore when
- *      // the receive is complete.
- *      xSemaphoreTake(notification_semaphore, max_block_time_500ms);
- *
- *      // Move the calculated address by the amount of bytes read so far.
- *      calculated_address += BUFFER_SIZE
- *      read_parameters.addr[0] = (uint8_t) ((calculated_address >> 8) & 0xff);
- *      read_parameters.addr[1] = (uint8_t) (calculated_address & 0xff);
- *
- *      // The first buffer is full.  The next read will fill the second buffer.
- *      read_parameters.buffer = second_receive_buffer;
- *
- *      // Start an asynchronous read to fill the second buffer.  Assuming no
- *      // other tasks are using the same TWI port, it is known that the port is
- *      // already available because the first read has completed.  This means
- *      // the block time can be 0.
- *      freertos_twi_read_packet_async(freertos_twi, &read_parameters, 0
- *                                                     notification_semaphore);
- *
- *      // Process the data in the first receive buffer while the second
- *      // receive buffer is being filled.
- *      process_received_data(first_receive_buffer);
- *
- *      // Wait until the second buffer is full.  Other tasks will run
- *      // during the wait.  FreeRTOS will give notification_semaphore when
- *      // the receive is complete.
- *      xSemaphoreTake(notification_semaphore, max_block_time_500ms);
- *
- *      // Process the data in the second receive buffer.
- *      process_received_data(second_receive_buffer);
- *  }
- * \endcode
+
+	 // This examples assumes freertos_twi has already been set by a successful
+	 // call to freertos_twi_master_init(), and that freertos_twi_master_init()
+	 // configured the FreeRTOS TWI driver to use the fully asynchronous operation
+	 // mode.
+
+	 // This example demonstrates how a single task can process data while
+	 // additional data is being received on the TWI bus.  Error checking is
+	 // omitted to simplify the example.
+	  void a_function(freertos_twi_if freertos_twi)
+	  {
+	  // The buffers into which the data is placed are too large to be declared on
+	  // the task stack, so are instead declared static (making this function
+	  // non-reentrant – meaning it can only be called by a single task at a time,
+	  // otherwise multiple tasks would use the same buffers).
+	  static uint8_t first_receive_buffer[BUFFER_SIZE], second_receive_buffer[BUFFER_SIZE];
+	  xSemaphoreHandle notification_semaphore = NULL;
+	  const max_block_time_500ms = 500 / portTICK_RATE_MS;
+		twi_packet_t read_parameters;
+		uint16_t calculated_address;
+
+	      // Configure the read_parameters structure to define a read operation
+	      // that fills the first receive buffer.
+	      read_parameters.chip = BOARD_AT24C_ADDRESS;
+	      read_parameters.buffer = first_receive_buffer;
+	      read_parameters.length = BUFFER_SIZE;
+	      read_parameters.addr_length = 2;
+
+	      // The first read is from address 0.
+	      calculated_address = 0;
+	      read_parameters.addr[0] = 0;
+	      read_parameters.addr[1] = 0;
+
+	      // Create the notification semaphore that will be used by FreeRTOS to
+	      // notify the task that the receive operation is complete.
+	      vSemaphoreCreateBinary(notification_semaphore);
+
+	      // Nothing has been read over the TWI bus yet, so make sure the
+	      // semaphore starts in the expected empty state.
+	      xSemaphoreTake(notification_semaphore, 0);
+
+	      // Start an asynchronous read to fill the first buffer.  The function
+	      // will be able to access the port immediately because nothing else has
+	      // accessed it yet - allowing the block_time_ticks value to be set to 0.
+	      freertos_twi_read_packet_async(freertos_twi, &read_parameters, 0
+	                                                     notification_semaphore);
+
+	      // Wait until the first buffer is full.  Other tasks will run during
+	      // the wait.  FreeRTOS will give notification_semaphore when
+	      // the receive is complete.
+	      xSemaphoreTake(notification_semaphore, max_block_time_500ms);
+
+	      // Move the calculated address by the amount of bytes read so far.
+	      calculated_address += BUFFER_SIZE
+	      read_parameters.addr[0] = (uint8_t) ((calculated_address >> 8) & 0xff);
+	      read_parameters.addr[1] = (uint8_t) (calculated_address & 0xff);
+
+	      // The first buffer is full.  The next read will fill the second buffer.
+	      read_parameters.buffer = second_receive_buffer;
+
+	      // Start an asynchronous read to fill the second buffer.  Assuming no
+	      // other tasks are using the same TWI port, it is known that the port is
+	      // already available because the first read has completed.  This means
+	      // the block time can be 0.
+	      freertos_twi_read_packet_async(freertos_twi, &read_parameters, 0
+	                                                     notification_semaphore);
+
+	      // Process the data in the first receive buffer while the second
+	      // receive buffer is being filled.
+	      process_received_data(first_receive_buffer);
+
+	      // Wait until the second buffer is full.  Other tasks will run
+	      // during the wait.  FreeRTOS will give notification_semaphore when
+	      // the receive is complete.
+	      xSemaphoreTake(notification_semaphore, max_block_time_500ms);
+
+	      // Process the data in the second receive buffer.
+	      process_received_data(second_receive_buffer);
+	  }
+\endcode
  */
 
 #endif /* FREERTOS_TWI_MASTER_INCLUDED */

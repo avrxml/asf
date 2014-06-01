@@ -71,6 +71,12 @@ void board_init(void)
 	ioport_configure_pin(IOPORT_CREATE_PIN(PORTE, 2), IOPORT_DIR_INPUT);
 #endif
 
+#ifdef CONF_BOARD_ENABLE_USARTD0
+ioport_configure_pin(IOPORT_CREATE_PIN(PORTD, 3), IOPORT_DIR_OUTPUT
+| IOPORT_INIT_HIGH);
+ioport_configure_pin(IOPORT_CREATE_PIN(PORTD, 2), IOPORT_DIR_INPUT);
+#endif
+
 #ifdef CONF_BOARD_AT86RFX
 	ioport_configure_pin(AT86RFX_SPI_SCK, IOPORT_DIR_OUTPUT
 			| IOPORT_INIT_HIGH);

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Serial Peripheral Interface Driver
+ * \brief SAM D20/D21/R21 Serial Peripheral Interface Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,6 +46,10 @@
 #include "sercom.h"
 #include <system_interrupt.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Look-up table for device instances. */
 extern void *_sercom_instances[SERCOM_INST_NUM];
 
@@ -60,5 +64,9 @@ enum system_interrupt_vector _sercom_get_interrupt_vector(
 void _sercom_set_handler(
 		const uint8_t instance,
 		const sercom_handler_t interrupt_handler);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SERCOM_INTERRUPT_H_INCLUDED */

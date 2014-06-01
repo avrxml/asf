@@ -172,3 +172,7 @@ CPPFLAGS = \
 LDFLAGS =  \
        -Wl,--section-start=.BOOT=0x40000                  \
        -Wl,-u,vfprintf -lprintf_flt                      
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4E16E	Atmel SAM4E16E</state>
+					<state>ATSAM4E16E	Atmel ATSAM4E16E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -162,11 +162,12 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>FREERTOS_USED</state>
-					<state>ACCESS_USB_ENABLED</state>
 					<state>UDD_ENABLE</state>
+					<state>ACCESS_USB_ENABLED</state>
+					<state>FREERTOS_USED</state>
 					<state>__SAM4E16E__</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
+					<state>__FREERTOS__</state>
 					<state>BOARD=SAM4E_EK</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
@@ -472,11 +473,12 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>FREERTOS_USED</state>
-					<state>ACCESS_USB_ENABLED</state>
 					<state>UDD_ENABLE</state>
+					<state>ACCESS_USB_ENABLED</state>
+					<state>FREERTOS_USED</state>
 					<state>__SAM4E16E__</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
+					<state>__FREERTOS__</state>
 					<state>BOARD=SAM4E_EK</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
@@ -748,7 +750,7 @@
 				</option>
 				<option>
 					<name>IlinkIcfFile</name>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/linker_scripts/sam4e/sam4e16e/iar/flash.icf</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/linker_scripts/sam4e/sam4e16/iar/flash.icf</state>
 				</option>
 				<option>
 					<name>IlinkIcfFileSlave</name>
@@ -1043,7 +1045,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4E16E	Atmel SAM4E16E</state>
+					<state>ATSAM4E16E	Atmel ATSAM4E16E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1108,11 +1110,12 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>FREERTOS_USED</state>
-					<state>ACCESS_USB_ENABLED</state>
 					<state>UDD_ENABLE</state>
+					<state>ACCESS_USB_ENABLED</state>
+					<state>FREERTOS_USED</state>
 					<state>__SAM4E16E__</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
+					<state>__FREERTOS__</state>
 					<state>BOARD=SAM4E_EK</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
@@ -1418,11 +1421,12 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>FREERTOS_USED</state>
-					<state>ACCESS_USB_ENABLED</state>
 					<state>UDD_ENABLE</state>
+					<state>ACCESS_USB_ENABLED</state>
+					<state>FREERTOS_USED</state>
 					<state>__SAM4E16E__</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
+					<state>__FREERTOS__</state>
 					<state>BOARD=SAM4E_EK</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
@@ -1694,7 +1698,7 @@
 				</option>
 				<option>
 					<name>IlinkIcfFile</name>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/linker_scripts/sam4e/sam4e16e/iar/flash.icf</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/linker_scripts/sam4e/sam4e16/iar/flash.icf</state>
 				</option>
 				<option>
 					<name>IlinkIcfFileSlave</name>

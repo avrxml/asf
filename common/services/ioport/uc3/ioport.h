@@ -3,7 +3,7 @@
  *
  * \brief UC3 architecture specific IOPORT service implementation header file.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -111,12 +111,14 @@ __always_inline static volatile avr32_gpio_port_t *arch_ioport_port_to_base(
 	       + port * sizeof(avr32_gpio_port_t));
 }
 
-__always_inline static volatile avr32_gpio_port_t *arch_ioport_pin_to_base(ioport_pin_t pin)
+__always_inline static volatile avr32_gpio_port_t *arch_ioport_pin_to_base(
+		ioport_pin_t pin)
 {
 	return arch_ioport_port_to_base(arch_ioport_pin_to_port_id(pin));
 }
 
-__always_inline static ioport_port_mask_t arch_ioport_pin_to_mask(ioport_pin_t pin)
+__always_inline static ioport_port_mask_t arch_ioport_pin_to_mask(
+		ioport_pin_t pin)
 {
 	return 1U << (pin & 0x1F);
 }
@@ -167,6 +169,7 @@ __always_inline static void arch_ioport_set_port_mode(ioport_port_t port,
 	} else {
 		base->pderc = mask;
 	}
+
 #endif
 
 #ifdef IOPORT_MODE_OPEN_DRAIN
@@ -175,6 +178,7 @@ __always_inline static void arch_ioport_set_port_mode(ioport_port_t port,
 	} else {
 		base->odmerc = mask;
 	}
+
 #endif
 
 	if (mode & IOPORT_MODE_GLITCH_FILTER) {
@@ -189,6 +193,7 @@ __always_inline static void arch_ioport_set_port_mode(ioport_port_t port,
 	} else {
 		base->odcr0c = mask;
 	}
+
 #endif
 
 	if (mode & IOPORT_MODE_MUX_BIT0) {
@@ -209,6 +214,7 @@ __always_inline static void arch_ioport_set_port_mode(ioport_port_t port,
 	} else {
 		base->pmr2c = mask;
 	}
+
 #endif
 }
 
@@ -233,9 +239,11 @@ __always_inline static void arch_ioport_set_pin_dir(ioport_pin_t pin,
 		enum ioport_direction dir)
 {
 	if (dir == IOPORT_DIR_OUTPUT) {
-		arch_ioport_pin_to_base(pin)->oders = arch_ioport_pin_to_mask(pin);
+		arch_ioport_pin_to_base(pin)->oders = arch_ioport_pin_to_mask(
+				pin);
 	} else if (dir == IOPORT_DIR_INPUT) {
-		arch_ioport_pin_to_base(pin)->oderc = arch_ioport_pin_to_mask(pin);
+		arch_ioport_pin_to_base(pin)->oderc = arch_ioport_pin_to_mask(
+				pin);
 	}
 }
 
@@ -243,9 +251,11 @@ __always_inline static void arch_ioport_set_pin_level(ioport_pin_t pin,
 		bool level)
 {
 	if (level) {
-		arch_ioport_pin_to_base(pin)->ovrs = arch_ioport_pin_to_mask(pin);
+		arch_ioport_pin_to_base(pin)->ovrs
+			= arch_ioport_pin_to_mask(pin);
 	} else {
-		arch_ioport_pin_to_base(pin)->ovrc = arch_ioport_pin_to_mask(pin);
+		arch_ioport_pin_to_base(pin)->ovrc
+			= arch_ioport_pin_to_mask(pin);
 	}
 }
 
@@ -253,9 +263,13 @@ __always_inline static void arch_ioport_set_port_level(ioport_port_t port,
 		ioport_port_mask_t mask, ioport_port_mask_t level)
 {
 	volatile avr32_gpio_port_t *base = arch_ioport_port_to_base(port);
-
-	base->ovrs = mask & level;
-	base->ovrc = mask & ~level;
+	if (level) {
+		base->ovrs |= mask;
+		base->ovrc &= ~mask;
+	} else {
+		base->ovrs &= ~mask;
+		base->ovrc |= mask;
+	}
 }
 
 __always_inline static bool arch_ioport_get_pin_level(ioport_pin_t pin)

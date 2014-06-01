@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Watchdog Driver
+ * \brief SAM D20/D21/R21 Watchdog Driver
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,7 +51,7 @@ extern "C" {
 #endif
 
 /**
- * \addtogroup asfdoc_samd20_wdt_group
+ * \addtogroup asfdoc_sam0_wdt_group
  *
  * @{
  */

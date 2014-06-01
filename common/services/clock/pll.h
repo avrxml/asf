@@ -3,7 +3,7 @@
  *
  * \brief PLL management
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -58,8 +58,18 @@
 # include "sam4s/pll.h"
 #elif SAM4E
 # include "sam4e/pll.h"
+#elif SAM4C
+# include "sam4c/pll.h"
+#elif SAM4CM
+# include "sam4cm/pll.h"
+#elif SAM4CP
+# include "sam4cp/pll.h"
 #elif SAM4L
 # include "sam4l/pll.h"
+#elif SAM4N
+# include "sam4n/pll.h"
+#elif SAMG
+# include "samg/pll.h"
 #elif (UC3A0 || UC3A1)
 # include "uc3a0_a1/pll.h"
 #elif UC3A3

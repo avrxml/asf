@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Advanced Encryption Standard (AES) driver
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -179,8 +179,8 @@ static inline void aes_clear_error_flag(void)
 	AES.STATUS |= AES_ERROR_bm;
 }
 
-void aes_configure(enum aes_dec decrypt, enum aes_auto _start,
-	enum aes_xor xor);
+void aes_configure(enum aes_dec decrypt, enum aes_auto auto_start,
+	enum aes_xor xor_mode);
 
 void aes_set_key(t_key k_in);
 
@@ -220,13 +220,13 @@ void aes_set_callback(aes_callback_t callback);
  * \section xmega_aes_quickstart_setup Setup
  * When the \ref sysclk_group module has been included, it must be initialized:
  * \code
- * sysclk_init();
- * \endcode
+	sysclk_init();
+\endcode
  *
  * Subsequently, the clock to the AES module must be started:
  * \code
- * sysclk_enable_module(SYSCLK_PORT_GEN, SYSCLK_AES);
- * \endcode
+	sysclk_enable_module(SYSCLK_PORT_GEN, SYSCLK_AES);
+\endcode
  * \note The example code below assumes that this setup has been done.
  *
  * \section xmega_aes_quickstart_use_case Use case
@@ -234,46 +234,46 @@ void aes_set_callback(aes_callback_t callback);
  * \subsection xmega_aes_quickstart_use_case_example_code Example code
  *
  * \code
- * t_key encryption_key = {
- *     0x30, 0x70, 0x97, 0x1A, 0xB7, 0xCE, 0x45, 0x06,
- *     0x3F, 0xD2, 0x57, 0x3F, 0x49, 0xF5, 0x42, 0x0D
- * };
- *
- * t_data encryption_data = {
- *     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
- *     0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F
- * };
- *
- * t_data encrypted_data;
- * t_data decrypted_data;
- *
- * void encrypt_decrypt() {
- *     aes_software_reset();
- *     aes_configure(AES_ENCRYPT, AES_MANUAL, AES_XOR_OFF);
- *
- *     aes_set_key(encryption_key);
- *     aes_write_inputdata(encryption_data);
- *
- *     aes_start();
- *
- *     do {
- *         // Wait until AES is finished or an error occurs.
- *     } while (aes_is_busy());
- *
- *     aes_read_outputdata(encrypted_data);
- *
- *     aes_configure(AES_DECRYPT, AES_MANUAL, AES_XOR_OFF);
- *     aes_write_inputdata(encrypted_data);
- *
- *     aes_start();
- *
- *     do {
- *         // Wait until AES is finished or an error occurs.
- *     } while (aes_is_busy());
- *
- *     aes_read_outputdata(decrypted_data);
- * }
- * \endcode
+	 t_key encryption_key = {
+	     0x30, 0x70, 0x97, 0x1A, 0xB7, 0xCE, 0x45, 0x06,
+	     0x3F, 0xD2, 0x57, 0x3F, 0x49, 0xF5, 0x42, 0x0D
+	 };
+
+	 t_data encryption_data = {
+	     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+	     0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F
+	 };
+
+	 t_data encrypted_data;
+	 t_data decrypted_data;
+
+	 void encrypt_decrypt() {
+	     aes_software_reset();
+	     aes_configure(AES_ENCRYPT, AES_MANUAL, AES_XOR_OFF);
+
+	     aes_set_key(encryption_key);
+	     aes_write_inputdata(encryption_data);
+
+	     aes_start();
+
+	     do {
+	         // Wait until AES is finished or an error occurs.
+	     } while (aes_is_busy());
+
+	     aes_read_outputdata(encrypted_data);
+
+	     aes_configure(AES_DECRYPT, AES_MANUAL, AES_XOR_OFF);
+	     aes_write_inputdata(encrypted_data);
+
+	     aes_start();
+
+	     do {
+	         // Wait until AES is finished or an error occurs.
+	     } while (aes_is_busy());
+
+	     aes_read_outputdata(decrypted_data);
+	 }
+\endcode
  *
  * \subsection xmega_aes_quickstart_use_case_workflow Workflow
  *
@@ -281,19 +281,19 @@ void aes_set_callback(aes_callback_t callback);
  * along with variables to hold encrypted and decrypted data.
  *
  * \code
- * t_key encryption_key = {
- *     0x30, 0x70, 0x97, 0x1A, 0xB7, 0xCE, 0x45, 0x06,
- *     0x3F, 0xD2, 0x57, 0x3F, 0x49, 0xF5, 0x42, 0x0D
- * };
- *
- * t_data encryption_data = {
- *     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
- *     0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F
- * };
- *
- * t_data encrypted_data;
- * t_data decrypted_data;
- * \endcode
+	 t_key encryption_key = {
+	     0x30, 0x70, 0x97, 0x1A, 0xB7, 0xCE, 0x45, 0x06,
+	     0x3F, 0xD2, 0x57, 0x3F, 0x49, 0xF5, 0x42, 0x0D
+	 };
+
+	 t_data encryption_data = {
+	     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+	     0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F
+	 };
+
+	 t_data encrypted_data;
+	 t_data decrypted_data;
+\endcode
  * \note These variables are of type \ref t_key and \ref t_data, which are
  *       defined as an \ref AES_KEY_SIZE and \ref AES_DATA_SIZE large block
  *       of unsigned 8 bit integers.
@@ -301,71 +301,71 @@ void aes_set_callback(aes_callback_t callback);
  * Inside our function, we first do a call to \ref aes_software_reset(),
  * to make sure that the AES driver is ready for use:
  * \code
- *     aes_software_reset();
- * \endcode
+	aes_software_reset();
+\endcode
  *
  * We configure the driver for manual encryption, with no XOR-ing:
  * \code
- *     aes_configure(AES_ENCRYPT, AES_MANUAL, AES_XOR_OFF);
- * \endcode
+	aes_configure(AES_ENCRYPT, AES_MANUAL, AES_XOR_OFF);
+\endcode
  *
  * We tell the driver where the key and the encryption data is located:
  * \code
- *     aes_set_key(encryption_key);
- *     aes_write_inputdata(encryption_data);
- * \endcode
+	aes_set_key(encryption_key);
+	aes_write_inputdata(encryption_data);
+\endcode
  *
  * We are now ready to start encryption, and since we have selected
  * manual triggering, we trigger the module to start by calling
  * \ref aes_start():
  * \code
- *     aes_start();
- * \endcode
+	aes_start();
+\endcode
  *
  * We then wait until the module is finished, by checking the status register:
  * \code
- *     do {
- *         // Wait until AES is finished or an error occurs.
- *     } while (aes_is_busy());
- * \endcode
+	do {
+	    // Wait until AES is finished or an error occurs.
+	} while (aes_is_busy());
+\endcode
  *
  * When it is done, we can read out our result using
  * \ref aes_read_outputdata():
  * \code
- *     aes_read_outputdata(encrypted_data);
- * \endcode
+	aes_read_outputdata(encrypted_data);
+\endcode
  *
  * Our encrypted data is now stored in the variable encrypted_data.
  *
  * We will now decrypt the data, and the procedure is very similar. We first
  * set up the driver to do decryption, manually triggered with no XOR-ing:
  * \code
- *     aes_configure(AES_DECRYPT, AES_MANUAL, AES_XOR_OFF);
- * \endcode
+	aes_configure(AES_DECRYPT, AES_MANUAL, AES_XOR_OFF);
+\endcode
  *
  * We tell it where our encrypted data is located:
  * \code
- *     aes_write_inputdata(encrypted_data);
- * \endcode
+	aes_write_inputdata(encrypted_data);
+\endcode
  * \note As we have not called a software reset, the key is still stored in the
  *       module, so we do not need to do it again.
  *
  * And tell it to start decryption:
  * \code
- *     aes_start();
- * \endcode
+	aes_start();
+\endcode
  *
  * And wait until it is finished:
  * \code
- *     do {
- *         // Wait until AES is finished or an error occurs.
- *     } while (aes_is_busy());
- * \endcode
+	do {
+	    // Wait until AES is finished or an error occurs.
+	} while (aes_is_busy());
+\endcode
  *
  * We read the output:
  * \code
- *     aes_read_outputdata(decrypted_data);
- * \endcode
+	aes_read_outputdata(decrypted_data);
+\endcode
  *
  * The decrypted data is now stored in the variable decrypted_data, and is
  * identical to that stored in the variable encryption_data.

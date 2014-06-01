@@ -3,7 +3,7 @@
  *
  * \brief External bus interface (EBI) functions
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -503,68 +503,68 @@ static inline void ebi_sdram_disable_self_refresh(void)
  * the hugemem module from ASF, and including the line
  *
  * \code
- * #define CONFIG_HAVE_HUGEMEM
- * \endcode
+	#define CONFIG_HAVE_HUGEMEM
+\endcode
  *
  * in your source code. We also need some information about our chip, such as
  * address start, size of usable memory, refresh rate and initialization delay.
  *
  * \code
- * #define BOARD_EBI_SDRAM_BASE 0x800000UL
- * #define BOARD_EBI_SDRAM_SIZE 0x800000UL
- * #define BOARD_EBI_SDRAM_REFRESH (16 * 2 * sysclk_get_per2_hz() / 1000000)
- * #define BOARD_EBI_SDRAM_INITDLY (100 * 2 * sysclk_get_per2_hz() / 1000000)
- * \endcode
+	#define BOARD_EBI_SDRAM_BASE 0x800000UL
+	#define BOARD_EBI_SDRAM_SIZE 0x800000UL
+	#define BOARD_EBI_SDRAM_REFRESH (16 * 2 * sysclk_get_per2_hz() / 1000000)
+	#define BOARD_EBI_SDRAM_INITDLY (100 * 2 * sysclk_get_per2_hz() / 1000000)
+\endcode
  *
  * Include string.h for memset() and strlen() functions:
  * \code
- * #include <string.h>
- * \endcode
+	#include <string.h>
+\endcode
  *
  * \section xmega_ebi_quickstart_sdram_case_setup_steps Setup steps
  *
  * \subsection xmega_ebi_quickstart_sdram_case_setup_steps_code Code
  * \code
- * void ebi_init() {
- *     struct ebi_cs_config cs_config;
- *     struct ebi_sdram_config sdram_config;
- *
- *     memset(&cs_config, 0, sizeof(struct ebi_cs_config));
- *     memset(&sdram_config, 0, sizeof(struct ebi_sdram_config));
- *
- *     ebi_setup_port(12, 0, 0, EBI_PORT_3PORT | EBI_PORT_SDRAM);
- *
- *     ebi_cs_set_mode(&cs_config, EBI_CS_MODE_SDRAM_gc);
- *     ebi_cs_set_address_size(&cs_config, EBI_CS_ASPACE_8MB_gc);
- *     ebi_cs_set_base_address(&cs_config, BOARD_EBI_SDRAM_BASE);
- *
- *     ebi_sdram_set_mode(&cs_config, EBI_CS_SDMODE_NORMAL_gc);
- *
- *     ebi_sdram_set_row_bits(&sdram_config, 12);
- *     ebi_sdram_set_col_bits(&sdram_config, 10);
- *
- *     ebi_sdram_set_cas_latency(&sdram_config, 3);
- *     ebi_sdram_set_mode_delay(&sdram_config, EBI_MRDLY_2CLK_gc);
- *     ebi_sdram_set_row_cycle_delay(&sdram_config, EBI_ROWCYCDLY_7CLK_gc);
- *     ebi_sdram_set_row_to_precharge_delay(&sdram_config, EBI_RPDLY_7CLK_gc);
- *     ebi_sdram_set_write_recovery_delay(&sdram_config, EBI_WRDLY_1CLK_gc);
- *     ebi_sdram_set_self_refresh_to_active_delay(&sdram_config,
- *             EBI_ESRDLY_7CLK_gc);
- *     ebi_sdram_set_row_to_col_delay(&sdram_config, EBI_ROWCOLDLY_7CLK_gc);
- *     ebi_sdram_set_refresh_period(&sdram_config, BOARD_EBI_SDRAM_REFRESH);
- *     ebi_sdram_set_initialization_delay(&sdram_config,
- *             BOARD_EBI_SDRAM_INITDLY);
- *
- *     ebi_sdram_write_config(&sdram_config);
- *     ebi_cs_write_config(EBI_SDRAM_CS, &cs_config);
- *
- *     ebi_enable_cs(EBI_SDRAM_CS, &cs_config);
- *
- *     while (!ebi_sdram_is_ready()) {
- *         // Wait
- *     }
- * }
- * \endcode
+	 void ebi_init() {
+	     struct ebi_cs_config cs_config;
+	     struct ebi_sdram_config sdram_config;
+
+	     memset(&cs_config, 0, sizeof(struct ebi_cs_config));
+	     memset(&sdram_config, 0, sizeof(struct ebi_sdram_config));
+
+	     ebi_setup_port(12, 0, 0, EBI_PORT_3PORT | EBI_PORT_SDRAM);
+
+	     ebi_cs_set_mode(&cs_config, EBI_CS_MODE_SDRAM_gc);
+	     ebi_cs_set_address_size(&cs_config, EBI_CS_ASPACE_8MB_gc);
+	     ebi_cs_set_base_address(&cs_config, BOARD_EBI_SDRAM_BASE);
+
+	     ebi_sdram_set_mode(&cs_config, EBI_CS_SDMODE_NORMAL_gc);
+
+	     ebi_sdram_set_row_bits(&sdram_config, 12);
+	     ebi_sdram_set_col_bits(&sdram_config, 10);
+
+	     ebi_sdram_set_cas_latency(&sdram_config, 3);
+	     ebi_sdram_set_mode_delay(&sdram_config, EBI_MRDLY_2CLK_gc);
+	     ebi_sdram_set_row_cycle_delay(&sdram_config, EBI_ROWCYCDLY_7CLK_gc);
+	     ebi_sdram_set_row_to_precharge_delay(&sdram_config, EBI_RPDLY_7CLK_gc);
+	     ebi_sdram_set_write_recovery_delay(&sdram_config, EBI_WRDLY_1CLK_gc);
+	     ebi_sdram_set_self_refresh_to_active_delay(&sdram_config,
+	             EBI_ESRDLY_7CLK_gc);
+	     ebi_sdram_set_row_to_col_delay(&sdram_config, EBI_ROWCOLDLY_7CLK_gc);
+	     ebi_sdram_set_refresh_period(&sdram_config, BOARD_EBI_SDRAM_REFRESH);
+	     ebi_sdram_set_initialization_delay(&sdram_config,
+	             BOARD_EBI_SDRAM_INITDLY);
+
+	     ebi_sdram_write_config(&sdram_config);
+	     ebi_cs_write_config(EBI_SDRAM_CS, &cs_config);
+
+	     ebi_enable_cs(EBI_SDRAM_CS, &cs_config);
+
+	     while (!ebi_sdram_is_ready()) {
+	         // Wait
+	     }
+	 }
+\endcode
  *
  * \subsection xmega_ebi_quickstart_sdram_case_setup_workflow Workflow
  *
@@ -572,38 +572,38 @@ static inline void ebi_sdram_disable_self_refresh(void)
  * We need two configuration structures to configure the driver:
  *
  * \code
- * struct ebi_cs_config cs_config;
- * struct ebi_sdram_config sdram_config;
- *
- * memset(&cs_config, 0, sizeof(struct ebi_cs_config));
- * memset(&sdram_config, 0, sizeof(struct ebi_sdram_config));
- * \endcode
+	 struct ebi_cs_config cs_config;
+	 struct ebi_sdram_config sdram_config;
+
+	 memset(&cs_config, 0, sizeof(struct ebi_cs_config));
+	 memset(&sdram_config, 0, sizeof(struct ebi_sdram_config));
+\endcode
  * \note It is important to zero out the config struct using memset, so that
  *       we do not produce any unwanted behavior.
  *
  * We set up the EBI driver for three-port, 12 address line SDRAM operation:
  * \code
- * ebi_setup_port(12, 0, 0, EBI_PORT_3PORT | EBI_PORT_SDRAM);
- * \endcode
+	ebi_setup_port(12, 0, 0, EBI_PORT_3PORT | EBI_PORT_SDRAM);
+\endcode
  *
  * We set the chip select mode to SDRAM, address space size to 8 MB, and the
  * base address:
  * \code
- * ebi_cs_set_mode(&cs_config, EBI_CS_MODE_SDRAM_gc);
- * ebi_cs_set_address_size(&cs_config, EBI_CS_ASPACE_8MB_gc);
- * ebi_cs_set_base_address(&cs_config, BOARD_EBI_SDRAM_BASE);
- * \endcode
+	ebi_cs_set_mode(&cs_config, EBI_CS_MODE_SDRAM_gc);
+	ebi_cs_set_address_size(&cs_config, EBI_CS_ASPACE_8MB_gc);
+	ebi_cs_set_base_address(&cs_config, BOARD_EBI_SDRAM_BASE);
+\endcode
  *
  * We want normal SDRAM operation:
  * \code
- * ebi_sdram_set_mode(&cs_config, EBI_CS_SDMODE_NORMAL_gc);
- * \endcode
+	ebi_sdram_set_mode(&cs_config, EBI_CS_SDMODE_NORMAL_gc);
+\endcode
  *
  * SDRAM is organized in rows and columns, and we want 12 rows and 10 columns:
  * \code
- * ebi_sdram_set_row_bits(&sdram_config, 12);
- * ebi_sdram_set_col_bits(&sdram_config, 10);
- * \endcode
+	ebi_sdram_set_row_bits(&sdram_config, 12);
+	ebi_sdram_set_col_bits(&sdram_config, 10);
+\endcode
  *
  * The timing information for our device is:
  * - CAS Latency - 3 clock cycles
@@ -620,36 +620,36 @@ static inline void ebi_sdram_disable_self_refresh(void)
  *
  * Set all timing information:
  * \code
- * ebi_sdram_set_cas_latency(&sdram_config, 3);
- * ebi_sdram_set_mode_delay(&sdram_config, EBI_MRDLY_2CLK_gc);
- * ebi_sdram_set_row_cycle_delay(&sdram_config, EBI_ROWCYCDLY_7CLK_gc);
- * ebi_sdram_set_row_to_precharge_delay(&sdram_config, EBI_RPDLY_7CLK_gc);
- * ebi_sdram_set_write_recovery_delay(&sdram_config, EBI_WRDLY_1CLK_gc);
- * ebi_sdram_set_self_refresh_to_active_delay(&sdram_config,
- *         EBI_ESRDLY_7CLK_gc);
- * ebi_sdram_set_row_to_col_delay(&sdram_config, EBI_ROWCOLDLY_7CLK_gc);
- * ebi_sdram_set_refresh_period(&sdram_config, BOARD_EBI_SDRAM_REFRESH);
- * ebi_sdram_set_initialization_delay(&sdram_config,
- *         BOARD_EBI_SDRAM_INITDLY);
- * \endcode
+	ebi_sdram_set_cas_latency(&sdram_config, 3);
+	ebi_sdram_set_mode_delay(&sdram_config, EBI_MRDLY_2CLK_gc);
+	ebi_sdram_set_row_cycle_delay(&sdram_config, EBI_ROWCYCDLY_7CLK_gc);
+	ebi_sdram_set_row_to_precharge_delay(&sdram_config, EBI_RPDLY_7CLK_gc);
+	ebi_sdram_set_write_recovery_delay(&sdram_config, EBI_WRDLY_1CLK_gc);
+	ebi_sdram_set_self_refresh_to_active_delay(&sdram_config,
+	        EBI_ESRDLY_7CLK_gc);
+	ebi_sdram_set_row_to_col_delay(&sdram_config, EBI_ROWCOLDLY_7CLK_gc);
+	ebi_sdram_set_refresh_period(&sdram_config, BOARD_EBI_SDRAM_REFRESH);
+	ebi_sdram_set_initialization_delay(&sdram_config,
+	        BOARD_EBI_SDRAM_INITDLY);
+\endcode
  *
  * Our configuration is complete, now we write it to the device:
  * \code
- * ebi_sdram_write_config(&sdram_config);
- * ebi_cs_write_config(EBI_SDRAM_CS, &cs_config);
- * \endcode
+	ebi_sdram_write_config(&sdram_config);
+	ebi_cs_write_config(EBI_SDRAM_CS, &cs_config);
+\endcode
  *
  * And enable the chip select for the device:
  * \code
- * ebi_enable_cs(EBI_SDRAM_CS, &cs_config);
- * \endcode
+	ebi_enable_cs(EBI_SDRAM_CS, &cs_config);
+\endcode
  *
  * Now we wait for the EBI driver to initialize and be ready for use:
  * \code
- * while (!ebi_sdram_is_ready()) {
- *     // Wait
- * }
- * \endcode
+	while (!ebi_sdram_is_ready()) {
+	    // Wait
+	}
+\endcode
  * \note Not waiting for the EBI to become ready will result in undefined
  *       behavior.
  * \section xmega_ebi_quickstart_sdram_case_example_code Example usage code
@@ -659,73 +659,73 @@ static inline void ebi_sdram_disable_self_refresh(void)
  * \subsection xmega_ebi_quickstart_sdram_usage_example_code Code
  *
  * \code
- * #define DATA_SIZE 32
- *
- * hugemem_ptr_t ptr;
- * uint8_t data[DATA_SIZE] = "This data written to SDRAM";
- * uint8_t read_data[DATA_SIZE];
- * uint8_t i;
- *
- * ptr = BOARD_EBI_SDRAM_BASE;
- *
- * memset(read_data, 0, DATA_SIZE);
- *
- * for(i = 0; i < strlen(data); i++) {
- *     hugemem_write8(ptr, data[i]);
- *     ptr = ptr + sizeof(uint8_t);
- * }
- *
- * ptr = BOARD_EBI_SDRAM_BASE;
- *
- * for(i = 0; i < strlen(data); i++) {
- *     read_data[i] = (uint8_t)hugemem_read8(ptr);
- *     ptr = ptr + sizeof(uint8_t);
- * }
- * \endcode
+	 #define DATA_SIZE 32
+
+	 hugemem_ptr_t ptr;
+	 uint8_t data[DATA_SIZE] = "This data written to SDRAM";
+	 uint8_t read_data[DATA_SIZE];
+	 uint8_t i;
+
+	 ptr = BOARD_EBI_SDRAM_BASE;
+
+	 memset(read_data, 0, DATA_SIZE);
+
+	 for(i = 0; i < strlen(data); i++) {
+	     hugemem_write8(ptr, data[i]);
+	     ptr = ptr + sizeof(uint8_t);
+	 }
+
+	 ptr = BOARD_EBI_SDRAM_BASE;
+
+	 for(i = 0; i < strlen(data); i++) {
+	     read_data[i] = (uint8_t)hugemem_read8(ptr);
+	     ptr = ptr + sizeof(uint8_t);
+	 }
+\endcode
  *
  * \subsection xmega_ebi_quickstart_sdram_case_workflow Workflow
  *
  * We declare the size of our data chucks, a hugemem-pointer which we will use
  * to point to SDRAM, a chuck of data, and a chuck to read into.
  * \code
- * #define DATA_SIZE 32
- *
- * hugemem_ptr_t ptr;
- * uint8_t data[DATA_SIZE] = "This data written to SDRAM";
- * uint8_t read_data[DATA_SIZE];
- * uint8_t i;
- * \endcode
+	 #define DATA_SIZE 32
+
+	 hugemem_ptr_t ptr;
+	 uint8_t data[DATA_SIZE] = "This data written to SDRAM";
+	 uint8_t read_data[DATA_SIZE];
+	 uint8_t i;
+\endcode
  *
  * We point the pointer to the beginning of SDRAM.
  * \code
- * ptr = BOARD_EBI_SDRAM_BASE;
- * \endcode
+	ptr = BOARD_EBI_SDRAM_BASE;
+\endcode
  *
  * We zero out the read_data variable to make sure its empty.
  * \code
- *  memset(read_data, 0, DATA_SIZE);
- * \endcode
+	memset(read_data, 0, DATA_SIZE);
+\endcode
  *
  * We now write the data to SDRAM.
  * \code
- * for(i = 0; i < strlen(data); i++) {
- *     hugemem_write8(ptr, data[i]);
- *     ptr = ptr + sizeof(uint8_t);
- * }
- * \endcode
+	for(i = 0; i < strlen(data); i++) {
+	    hugemem_write8(ptr, data[i]);
+	    ptr = ptr + sizeof(uint8_t);
+	}
+\endcode
  *
  * The ptr variable now points to the end of the string, so reset it.
  * \code
- * ptr = BOARD_EBI_SDRAM_BASE;
- * \endcode
+	ptr = BOARD_EBI_SDRAM_BASE;
+\endcode
  *
  * We now read the data back into the read_data chuck:
  * \code
- * for(i = 0; i < strlen(data); i++) {
- *     read_data[i] = (uint8_t)hugemem_read8(ptr);
- *     ptr = ptr + sizeof(uint8_t);
- * }
- * \endcode
+	for(i = 0; i < strlen(data); i++) {
+	    read_data[i] = (uint8_t)hugemem_read8(ptr);
+	    ptr = ptr + sizeof(uint8_t);
+	}
+\endcode
  *
  * The read_data variable now contains the same as the data variable.
  */

@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4S16C	Atmel SAM4S16C</state>
+					<state>ATSAM4S16C	Atmel SAM4S16C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -162,27 +162,28 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM4=true</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_QM=0</state>
-					<state>_SNS1_SNSK1_SAME_PORT_</state>
 					<state>__SAM4S16C__</state>
+					<state>__FREERTOS__</state>
+					<state>QT_NUM_CHANNELS=32</state>
+					<state>SNS2=A</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_AT=0</state>
 					<state>SNSK1=C</state>
 					<state>SNSK2=A</state>
-					<state>_SNS2_SNSK2_SAME_PORT_</state>
-					<state>ACCESS_USB_ENABLED</state>
-					<state>UDD_ENABLE</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_QTB=0</state>
 					<state>SNS1=C</state>
 					<state>QT_DELAY_CYCLES=5</state>
 					<state>BOARD=SAM4S_EK</state>
-					<state>CONF_GFX_ILI9325_FTM280C34D=1</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_AT=0</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_QTA=0</state>
-					<state>_QTOUCH_</state>
-					<state>QT_NUM_CHANNELS=32</state>
-					<state>SNS2=A</state>
-					<state>_DEBUG_INTERFACE_</state>
 					<state>QTOUCH_SLIDER_REVERSED</state>
+					<state>ARM_MATH_CM4=true</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_QTA=0</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_QM=0</state>
+					<state>_SNS2_SNSK2_SAME_PORT_</state>
+					<state>ACCESS_USB_ENABLED</state>
+					<state>_SNS1_SNSK1_SAME_PORT_</state>
+					<state>UDD_ENABLE</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_QTB=0</state>
+					<state>CONF_GFX_ILI93XX=1</state>
+					<state>_QTOUCH_</state>
+					<state>_DEBUG_INTERFACE_</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -363,11 +364,11 @@
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../services/resistive_touch</state>
-					<state>$PROJ_DIR$/../../../../components/display/ili9325</state>
 					<state>$PROJ_DIR$/../../../../../common/services/usb/class/msc</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../common/services/storage/ctrl_access</state>
 					<state>$PROJ_DIR$/.</state>
@@ -519,27 +520,28 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM4=true</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_QM=0</state>
-					<state>_SNS1_SNSK1_SAME_PORT_</state>
 					<state>__SAM4S16C__</state>
+					<state>__FREERTOS__</state>
+					<state>QT_NUM_CHANNELS=32</state>
+					<state>SNS2=A</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_AT=0</state>
 					<state>SNSK1=C</state>
 					<state>SNSK2=A</state>
-					<state>_SNS2_SNSK2_SAME_PORT_</state>
-					<state>ACCESS_USB_ENABLED</state>
-					<state>UDD_ENABLE</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_QTB=0</state>
 					<state>SNS1=C</state>
 					<state>QT_DELAY_CYCLES=5</state>
 					<state>BOARD=SAM4S_EK</state>
-					<state>CONF_GFX_ILI9325_FTM280C34D=1</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_AT=0</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_QTA=0</state>
-					<state>_QTOUCH_</state>
-					<state>QT_NUM_CHANNELS=32</state>
-					<state>SNS2=A</state>
-					<state>_DEBUG_INTERFACE_</state>
 					<state>QTOUCH_SLIDER_REVERSED</state>
+					<state>ARM_MATH_CM4=true</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_QTA=0</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_QM=0</state>
+					<state>_SNS2_SNSK2_SAME_PORT_</state>
+					<state>ACCESS_USB_ENABLED</state>
+					<state>_SNS1_SNSK1_SAME_PORT_</state>
+					<state>UDD_ENABLE</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_QTB=0</state>
+					<state>CONF_GFX_ILI93XX=1</state>
+					<state>_QTOUCH_</state>
+					<state>_DEBUG_INTERFACE_</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -687,11 +689,11 @@
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../services/resistive_touch</state>
-					<state>$PROJ_DIR$/../../../../components/display/ili9325</state>
 					<state>$PROJ_DIR$/../../../../../common/services/usb/class/msc</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../common/services/storage/ctrl_access</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1137,7 +1139,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4S16C	Atmel SAM4S16C</state>
+					<state>ATSAM4S16C	Atmel SAM4S16C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1202,27 +1204,28 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM4=true</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_QM=0</state>
-					<state>_SNS1_SNSK1_SAME_PORT_</state>
 					<state>__SAM4S16C__</state>
+					<state>__FREERTOS__</state>
+					<state>QT_NUM_CHANNELS=32</state>
+					<state>SNS2=A</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_AT=0</state>
 					<state>SNSK1=C</state>
 					<state>SNSK2=A</state>
-					<state>_SNS2_SNSK2_SAME_PORT_</state>
-					<state>ACCESS_USB_ENABLED</state>
-					<state>UDD_ENABLE</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_QTB=0</state>
 					<state>SNS1=C</state>
 					<state>QT_DELAY_CYCLES=5</state>
 					<state>BOARD=SAM4S_EK</state>
-					<state>CONF_GFX_ILI9325_FTM280C34D=1</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_AT=0</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_QTA=0</state>
-					<state>_QTOUCH_</state>
-					<state>QT_NUM_CHANNELS=32</state>
-					<state>SNS2=A</state>
-					<state>_DEBUG_INTERFACE_</state>
 					<state>QTOUCH_SLIDER_REVERSED</state>
+					<state>ARM_MATH_CM4=true</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_QTA=0</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_QM=0</state>
+					<state>_SNS2_SNSK2_SAME_PORT_</state>
+					<state>ACCESS_USB_ENABLED</state>
+					<state>_SNS1_SNSK1_SAME_PORT_</state>
+					<state>UDD_ENABLE</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_QTB=0</state>
+					<state>CONF_GFX_ILI93XX=1</state>
+					<state>_QTOUCH_</state>
+					<state>_DEBUG_INTERFACE_</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1403,11 +1406,11 @@
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../services/resistive_touch</state>
-					<state>$PROJ_DIR$/../../../../components/display/ili9325</state>
 					<state>$PROJ_DIR$/../../../../../common/services/usb/class/msc</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../common/services/storage/ctrl_access</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1559,27 +1562,28 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM4=true</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_QM=0</state>
-					<state>_SNS1_SNSK1_SAME_PORT_</state>
 					<state>__SAM4S16C__</state>
+					<state>__FREERTOS__</state>
+					<state>QT_NUM_CHANNELS=32</state>
+					<state>SNS2=A</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_AT=0</state>
 					<state>SNSK1=C</state>
 					<state>SNSK2=A</state>
-					<state>_SNS2_SNSK2_SAME_PORT_</state>
-					<state>ACCESS_USB_ENABLED</state>
-					<state>UDD_ENABLE</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_QTB=0</state>
 					<state>SNS1=C</state>
 					<state>QT_DELAY_CYCLES=5</state>
 					<state>BOARD=SAM4S_EK</state>
-					<state>CONF_GFX_ILI9325_FTM280C34D=1</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_AT=0</state>
-					<state>DEF_TOUCH_QDEBUG_ENABLE_QTA=0</state>
-					<state>_QTOUCH_</state>
-					<state>QT_NUM_CHANNELS=32</state>
-					<state>SNS2=A</state>
-					<state>_DEBUG_INTERFACE_</state>
 					<state>QTOUCH_SLIDER_REVERSED</state>
+					<state>ARM_MATH_CM4=true</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_QTA=0</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_QM=0</state>
+					<state>_SNS2_SNSK2_SAME_PORT_</state>
+					<state>ACCESS_USB_ENABLED</state>
+					<state>_SNS1_SNSK1_SAME_PORT_</state>
+					<state>UDD_ENABLE</state>
+					<state>DEF_TOUCH_QDEBUG_ENABLE_QTB=0</state>
+					<state>CONF_GFX_ILI93XX=1</state>
+					<state>_QTOUCH_</state>
+					<state>_DEBUG_INTERFACE_</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1727,11 +1731,11 @@
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../services/resistive_touch</state>
-					<state>$PROJ_DIR$/../../../../components/display/ili9325</state>
 					<state>$PROJ_DIR$/../../../../../common/services/usb/class/msc</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../common/services/storage/ctrl_access</state>
 					<state>$PROJ_DIR$/.</state>
@@ -2184,9 +2188,6 @@
 					<group>
 						<name>include</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/FreeRTOS.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/task.h</name>
 						</file>
 						<file>
@@ -2194,6 +2195,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/croutine.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/FreeRTOS.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/mpu_wrappers.h</name>
@@ -2348,10 +2352,10 @@
 					<name>$PROJ_DIR$/../../../../../common/services/gfx/gfx_text.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/gfx/gfx_ili9325_ftm280c34d.c</name>
+					<name>$PROJ_DIR$/../../../../../common/services/gfx/gfx_generic.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/gfx/gfx_generic.c</name>
+					<name>$PROJ_DIR$/../../../../../common/services/gfx/gfx_ili93xx.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/gfx/sysfont.c</name>
@@ -2360,13 +2364,13 @@
 					<name>$PROJ_DIR$/../../../../../common/services/gfx/gfx_text.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/gfx/gfx_ili9325_ftm280c34d.h</name>
-				</file>
-				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/gfx/gfx_generic.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/gfx/gfx.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/services/gfx/gfx_ili93xx.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/gfx/sysfont.h</name>
@@ -2393,9 +2397,6 @@
 					<name>$PROJ_DIR$/../../../../../common/services/wtk/wtk_button.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/wtk/wtk_basic_frame.c</name>
-				</file>
-				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/wtk/wtk_slider.c</name>
 				</file>
 				<file>
@@ -2405,10 +2406,16 @@
 					<name>$PROJ_DIR$/../../../../../common/services/wtk/wtk_plot.c</name>
 				</file>
 				<file>
+					<name>$PROJ_DIR$/../../../../../common/services/wtk/wtk_basic_frame.c</name>
+				</file>
+				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/wtk/wtk.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/wtk/wtk_frame.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/services/wtk/wtk_label.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/wtk/wtk_check_box.h</name>
@@ -2436,9 +2443,6 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/wtk/wtk_plot.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/wtk/wtk_label.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/wtk/wtk.h</name>
@@ -2770,9 +2774,6 @@
 						<name>$PROJ_DIR$/../demo_board.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../conf_ili9325.h</name>
-					</file>
-					<file>
 						<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
 					</file>
 					<file>
@@ -2786,6 +2787,9 @@
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../conf_nf.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../conf_ili93xx.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../conf_ads7843.h</name>
@@ -2849,12 +2853,18 @@
 					</file>
 				</group>
 				<group>
-					<name>ili9325</name>
+					<name>ili93xx</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../components/display/ili9325/ili9325.c</name>
+						<name>$PROJ_DIR$/../../../../components/display/ili93xx/ili93xx.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../components/display/ili9325/ili9325.h</name>
+						<name>$PROJ_DIR$/../../../../components/display/ili93xx/ili9341_regs.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../components/display/ili93xx/ili93xx.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../components/display/ili93xx/ili9325_regs.h</name>
 					</file>
 				</group>
 			</group>
@@ -2876,16 +2886,7 @@
 								</file>
 							</group>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/source/templates/exceptions.c</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/source/templates/system_sam4s.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/source/templates/exceptions.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/source/templates/system_sam4s.h</name>
 							</file>
 						</group>
 					</group>
@@ -2981,7 +2982,13 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4s8c.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4s2c.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4sa16c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4s4c.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4sd32b.h</name>
@@ -2990,16 +2997,28 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4s16b.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4sa16b.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4s2a.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4sd16b.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4sa16b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4s16c.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4sd16b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4s4a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4s2b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4s8b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4s4b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/pio/pio_sam4sd32c.h</name>
@@ -3065,9 +3084,6 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/instance/instance_pioa.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/instance/instance_tc0.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/instance/instance_supc.h</name>
 							</file>
 							<file>
@@ -3092,6 +3108,9 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/instance/instance_usart1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/instance/instance_tc0.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/instance/instance_gpbr.h</name>
 							</file>
 							<file>
@@ -3111,16 +3130,19 @@
 							</file>
 						</group>
 						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4s2a.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4sa16b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4s2c.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4s16b.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4sd32c.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4sd16c.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4sd16b.h</name>
@@ -3135,7 +3157,25 @@
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4sa16c.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4s4b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4s8b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/system_sam4s.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4sd16c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4s4c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4s4a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4s2b.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/sam4s16c.h</name>
@@ -3152,13 +3192,19 @@
 					<name>$PROJ_DIR$/../../../../utils/header_files/io.h</name>
 				</file>
 			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../utils/compiler.h</name>
+			</file>
+			<file>
+				<name>$PROJ_DIR$/../../../../utils/status_codes.h</name>
+			</file>
 			<group>
 				<name>preprocessor</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../utils/preprocessor/tpaste.h</name>
+					<name>$PROJ_DIR$/../../../../utils/preprocessor/mrepeat.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../utils/preprocessor/mrepeat.h</name>
+					<name>$PROJ_DIR$/../../../../utils/preprocessor/tpaste.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../utils/preprocessor/preprocessor.h</name>
@@ -3167,12 +3213,6 @@
 					<name>$PROJ_DIR$/../../../../utils/preprocessor/stringz.h</name>
 				</file>
 			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../utils/compiler.h</name>
-			</file>
-			<file>
-				<name>$PROJ_DIR$/../../../../utils/status_codes.h</name>
-			</file>
 		</group>
 		<group>
 			<name>drivers</name>
@@ -3185,10 +3225,10 @@
 					<name>$PROJ_DIR$/../../../../drivers/pio/pio_handler.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/pio/pio.h</name>
+					<name>$PROJ_DIR$/../../../../drivers/pio/pio_handler.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/pio/pio_handler.h</name>
+					<name>$PROJ_DIR$/../../../../drivers/pio/pio.h</name>
 				</file>
 			</group>
 			<group>

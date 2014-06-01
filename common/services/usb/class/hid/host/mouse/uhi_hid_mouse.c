@@ -3,7 +3,7 @@
  *
  * \brief USB host Human Interface Device (HID) mouse driver.
  *
- * Copyright (C) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -224,6 +224,11 @@ static void uhi_hid_mouse_report_reception(
 	uint8_t state_prev;
 	uint8_t state_new;
 	UNUSED(ep);
+
+	if ((status == UHD_TRANS_NOTRESPONDING) || (status == UHD_TRANS_TIMEOUT)) {
+		uhi_hid_mouse_start_trans_report(add);
+		return; // HID mouse transfer restart
+	}
 
 	if ((status != UHD_TRANS_NOERROR) || (nb_transfered < 4)) {
 		return; // HID mouse transfer aborted

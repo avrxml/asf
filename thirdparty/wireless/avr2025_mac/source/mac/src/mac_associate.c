@@ -5,7 +5,7 @@
  * @brief Implements the functionality required for Association.
  *
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -133,7 +133,7 @@ void mlme_associate_request(uint8_t *m)
 
 	/*
 	 * Store the buffer which was received from the NHLE as it will be
-	 *reused
+	 * reused
 	 * while sending MLME association confirmation to the NHLE.
 	 */
 	mac_conf_buf_ptr = m;
@@ -147,7 +147,6 @@ void mlme_associate_request(uint8_t *m)
 
 		return;
 	}
-
 #endif  /* REDUCED_PARAM_CHECK */
 
 	if (FCF_SHORT_ADDR == mar.CoordAddrMode) {
@@ -159,7 +158,7 @@ void mlme_associate_request(uint8_t *m)
 
 		/*
 		 * Since the coordinator used its extended address, we need to
-		 *mark
+		 * mark
 		 * this also in its short address.
 		 */
 		mac_pib.mac_CoordShortAddress = CCPU_ENDIAN_TO_LE16(
@@ -201,8 +200,8 @@ void mlme_associate_request(uint8_t *m)
 				= (uint8_t *)assoc_req_frame +
 					LARGE_BUFFER_SIZE -
 					ASSOC_REQ_PAYLOAD_LEN - 2; /* Add 2
-	                                                            *octets for
-	                                                            *FCS. */
+	                                                           * octets for
+	                                                           * FCS. */
 
 	/* Update the payload field. */
 	*frame_ptr++ = ASSOCIATIONREQUEST;
@@ -311,7 +310,7 @@ void mlme_associate_request(uint8_t *m)
 
 		/*
 		 * In Nonbeacon build the association request frame is
-		 *transmitted
+		 * transmitted
 		 * with unslotted CSMA-CA and frame retry.
 		 */
 		status = tal_tx_frame(assoc_req_frame, CSMA_UNSLOTTED, true);
@@ -348,7 +347,7 @@ void mlme_associate_request(uint8_t *m)
  * generates a MLME associate indication to the NHLE.
  *
  * @param assoc_req Specifies a pointer to the received association request
- *frame
+ * frame
  */
 void mac_process_associate_request(buffer_t *assoc_req)
 {
@@ -358,9 +357,9 @@ void mac_process_associate_request(buffer_t *assoc_req)
 
 	/*
 	 * If the coordinator has macAssociationPermit set to false, and
-	 *receives an
+	 * receives an
 	 * association request command from a device, the command shall be
-	 *ignored.
+	 * ignored.
 	 */
 	if (!mac_pib.mac_AssociationPermit) {
 		bmm_buffer_free(assoc_req);
@@ -424,8 +423,8 @@ void mlme_associate_response(uint8_t *m)
 				= (uint8_t *)assoc_resp_frame +
 					LARGE_BUFFER_SIZE -
 					ASSOC_RESP_PAYLOAD_LEN - 2; /* Add 2
-	                                                             *octets for
-	                                                             *FCS. */
+	                                                            * octets for
+	                                                            * FCS. */
 
 	/* Update the payload field. */
 	*frame_ptr++ = ASSOCIATIONRESPONSE;
@@ -492,7 +491,7 @@ void mlme_associate_response(uint8_t *m)
 		/*
 		 * Indirect queue reached the maximum size allowed.
 		 * Send the comm status indication with MAC transaction
-		 *overflow.
+		 * overflow.
 		 */
 		mac_mlme_comm_status(MAC_TRANSACTION_OVERFLOW,
 				(buffer_t *)m);
@@ -541,7 +540,7 @@ void mac_process_associate_response(buffer_t *assoc_resp)
 
 	if (ASSOCIATION_SUCCESSFUL == status) {
 		/* Set the short address received in association response frame.
-		 **/
+		**/
 #if (_DEBUG_ > 0)
 		set_status =
 #endif
@@ -581,7 +580,9 @@ void mac_process_associate_response(buffer_t *assoc_resp)
 		Assert(MAC_SUCCESS == set_status);
 #endif
 		mac_pib.mac_CoordShortAddress = macCoordShortAddress_def;
-		mac_pib.mac_CoordExtendedAddress = CLEAR_ADDR_64;
+		memset((uint8_t *)&mac_pib.mac_CoordExtendedAddress, 0,
+				sizeof(mac_pib.mac_CoordExtendedAddress));
+		/* mac_pib.mac_CoordExtendedAddress = CLEAR_ADDR_64; */
 
 		short_addr = INVALID_SHORT_ADDRESS;
 	}
@@ -622,9 +623,9 @@ void mac_t_response_wait_cb(void *callback_parameter)
 	 * IEEE 802.15.4-2006 page 154:
 	 *
 	 * If the data request command is being sent following the
-	 *acknowledgment
+	 * acknowledgment
 	 * to an association request command frame, the Destination Addressing
-	 *Mode
+	 * Mode
 	 * subfield of the Frame Control field shall be set according to the
 	 * coordinator to which the data request command is directed.
 	 * If macCoordShortAddress is equal to 0xfffe, extended addressing
@@ -642,7 +643,7 @@ void mac_t_response_wait_cb(void *callback_parameter)
 	if (!status) {
 		/*
 		 * Data request could not be transmitted, hence association
-		 *confirmation
+		 * confirmation
 		 * is generated using the buffer stored in mac_conf_buf_ptr.
 		 */
 		mac_gen_mlme_associate_conf((buffer_t *)mac_conf_buf_ptr,
@@ -674,7 +675,7 @@ void mac_t_response_wait_cb(void *callback_parameter)
 
 /*
  * @brief Handle T_Poll_Wait_Time while waiting for the association reponse
- *frame
+ * frame
  *
  * @param callback_parameter Callback parameter
  */
@@ -703,9 +704,12 @@ void mac_t_assocresponsetime_cb(void *callback_parameter)
 
 #if (_DEBUG_ > 0)
 	Assert(MAC_SUCCESS == set_status);
+	set_status = set_status;
 #endif
 	mac_pib.mac_CoordShortAddress = macCoordShortAddress_def;
-	mac_pib.mac_CoordExtendedAddress = CLEAR_ADDR_64;
+	memset((uint8_t *)&mac_pib.mac_CoordExtendedAddress, 0,
+			sizeof(mac_pib.mac_CoordExtendedAddress));
+	/* mac_pib.mac_CoordExtendedAddress = CLEAR_ADDR_64; */
 
 	/* Set radio to sleep if allowed */
 	mac_sleep_trans();

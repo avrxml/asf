@@ -3,7 +3,7 @@
  *
  * @brief Implements the coordinator realignment command. *
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -145,9 +145,9 @@ bool mac_tx_coord_realignment_command(frame_msgtype_t cmd_type,
 				= (uint8_t *)coord_realignment_frame +
 					LARGE_BUFFER_SIZE -
 					COORD_REALIGN_PAYLOAD_LEN - 2; /* Add 2
-	                                                                *octets
-	                                                                *for
-	                                                                *FCS. */
+	                                                               * octets
+	                                                               * for
+	                                                               * FCS. */
 
 	/* Update the payload field. */
 	*frame_ptr++ = COORDINATORREALIGNMENT;
@@ -243,11 +243,11 @@ bool mac_tx_coord_realignment_command(frame_msgtype_t cmd_type,
 
 		                /*
 		                 * Since the channel page is always added at the
-		                 *end of the
+		                 * end of the
 		                 * coordinator realignment command frame, the
-		                 *frame version subfield
+		                 * frame version subfield
 		                 * needs to indicate a 802.15.4-2006 compatible
-		                 *frame.
+		                 * frame.
 		                 */
 				FCF_FRAME_VERSION_2006;
 
@@ -278,14 +278,14 @@ bool mac_tx_coord_realignment_command(frame_msgtype_t cmd_type,
 #ifdef BEACON_SUPPORT
 	if (NON_BEACON_NWK == tal_pib.BeaconOrder) {
 		/* In Nonbeacon network the frame is sent with unslotted
-		 *CSMA-CA. */
+		 * CSMA-CA. */
 		tal_tx_status = tal_tx_frame(coord_realignment_frame,
 				CSMA_UNSLOTTED, true);
 	} else {
 		/* Beacon-enabled network */
 		if (ORPHANREALIGNMENT == cmd_type) {
 			/* In Beacon network the Orphan Realignment frame is
-			 *sent with slotted CSMA-CA. */
+			 * sent with slotted CSMA-CA. */
 			tal_tx_status = tal_tx_frame(coord_realignment_frame,
 					CSMA_SLOTTED, true);
 		} else {
@@ -293,9 +293,9 @@ bool mac_tx_coord_realignment_command(frame_msgtype_t cmd_type,
 
 			/*
 			 * Coordinator Realignment frame is sent to broadcast
-			 *address,
+			 * address,
 			 * so it needs to be appended at the end of the
-			 *broadcast queue.
+			 * broadcast queue.
 			 */
 			if (QUEUE_FULL ==
 					qmm_queue_append(&broadcast_q,
@@ -312,8 +312,9 @@ bool mac_tx_coord_realignment_command(frame_msgtype_t cmd_type,
 	}
 
 #else
+
 	/* In build without beacon support the frame is sent with unslotted
-	 *CSMA-CA. */
+	 * CSMA-CA. */
 	tal_tx_status = tal_tx_frame(coord_realignment_frame, CSMA_UNSLOTTED,
 			true);
 #endif  /* BEACON_SUPPORT */
@@ -321,7 +322,7 @@ bool mac_tx_coord_realignment_command(frame_msgtype_t cmd_type,
 	if (MAC_SUCCESS == tal_tx_status) {
 		/*
 		 * A positive confirmation is given since the TAL has
-		 *successfuly accepted
+		 * successfuly accepted
 		 * the frame for transmission.
 		 */
 		MAKE_MAC_BUSY();
@@ -329,7 +330,7 @@ bool mac_tx_coord_realignment_command(frame_msgtype_t cmd_type,
 	} else {
 		/*
 		 * TAL was unable to transmit the frame, hence a negative
-		 *confirmation
+		 * confirmation
 		 * is returned.
 		 */
 		return false;

@@ -3,7 +3,7 @@
  *
  * \brief Resistive touch calibration for SAM toolkit demo.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -69,27 +69,27 @@ const char string_calib_retry[] = "Please try again...";
 static rtouch_calibration_point_t gs_calibration_points[] = {
 	/* Top-left corner calibration point */
 	{
-		{ILI9325_LCD_WIDTH / 10, ILI9325_LCD_HEIGHT / 10},
+		{LCD_WIDTH / 10, LCD_HEIGHT / 10},
 		{0,0}
 	},
 	/* Top-right corner calibration point */
 	{
-		{ILI9325_LCD_WIDTH - ILI9325_LCD_WIDTH / 10, ILI9325_LCD_HEIGHT / 10},
+		{LCD_WIDTH - LCD_WIDTH / 10, LCD_HEIGHT / 10},
 		{0,0}
 	},
 	/* Bottom-right corner calibration point */
 	{
-		{ILI9325_LCD_WIDTH - ILI9325_LCD_WIDTH / 10, ILI9325_LCD_HEIGHT - ILI9325_LCD_HEIGHT / 10},
+		{LCD_WIDTH - LCD_WIDTH / 10, LCD_HEIGHT - LCD_HEIGHT / 10},
 		{0,0}
 	},
 	/* Bottom-left corner calibration point */
 	{
-		{ILI9325_LCD_WIDTH / 10, ILI9325_LCD_HEIGHT - ILI9325_LCD_HEIGHT / 10},
+		{LCD_WIDTH / 10, LCD_HEIGHT - LCD_HEIGHT / 10},
 		{0,0}
 	},
 	/* Test calibration point */
 	{
-		{ILI9325_LCD_WIDTH / 2, ILI9325_LCD_HEIGHT / 2},
+		{LCD_WIDTH / 2, LCD_HEIGHT / 2},
 		{0,0}
 	}
 };

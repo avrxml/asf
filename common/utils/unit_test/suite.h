@@ -3,7 +3,7 @@
  *
  * \brief Test suite core declarations
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -88,69 +88,69 @@
  *
  * Example code for definition of a test suite:
  * \code
- * void setup_1(const struct test_case *test);
- * void run_1(const struct test_case *test);
- * void cleanup_1(const struct test_case *test);
- *
- * void run_2(const struct test_case *test);
- *
- * ...
- * DEFINE_TEST_CASE(test_1,
- * 		setup_1,
- * 		run_1,
- * 		cleanup_1,
- * 		"First test");
- * DEFINE_TEST_CASE(test_2,
- * 		NULL,
- * 		run_2,
- * 		NULL,
- * 		"Second test");
- *
- * DEFINE_TEST_ARRAY(my_tests) = {
- * 	&test_1,
- * 	&test_2,
- * };
- *
- * DEFINE_TEST_SUITE(my_suite, my_tests, "Two-test suite");
- *
- * test_suite_run(&my_suite);
- * ...
- * \endcode
+	 void setup_1(const struct test_case *test);
+	 void run_1(const struct test_case *test);
+	 void cleanup_1(const struct test_case *test);
+
+	 void run_2(const struct test_case *test);
+
+	 ...
+	 DEFINE_TEST_CASE(test_1,
+	 		setup_1,
+	 		run_1,
+	 		cleanup_1,
+	 		"First test");
+	 DEFINE_TEST_CASE(test_2,
+	 		NULL,
+	 		run_2,
+	 		NULL,
+	 		"Second test");
+
+	 DEFINE_TEST_ARRAY(my_tests) = {
+	 	&test_1,
+	 	&test_2,
+	 };
+
+	 DEFINE_TEST_SUITE(my_suite, my_tests, "Two-test suite");
+
+	 test_suite_run(&my_suite);
+	 ...
+\endcode
  *
  * Example code for definition of a test case:
  * \code
- * void setup_1(const struct test_case *test)
- * {
- * 	void *resource = allocate_test_resource();
- *
- * 	if (resource == NULL) {
- * 		test_fail(test, TEST_ERROR,
- * 			"Could not allocate test resource");
- * 	}
- * 	test_set_data(resource);
- * }
- *
- * void run_1(const struct test_case *test)
- * {
- * 	void *resource = test_get_data();
- * 	int8_t test_result;
- *
- *      ...
- *	// TEST CODE
- *      ...
- * 	test_assert_true(test, test_result > 0,
- * 			"Test result is not larger than 0: %i", test_result);
- * 	test_assert_false(test, test_result > 2,
- * 			"Test result is larger than 2: %i", test_result);
- * }
- *
- * void cleanup_1(const struct test_case *test)
- * {
- * 	void *resource = test_get_data();
- *
- * 	free_test_resource(resource);
- * }
- * \endcode
+	 void setup_1(const struct test_case *test)
+	 {
+	 	void *resource = allocate_test_resource();
+
+	 	if (resource == NULL) {
+	 		test_fail(test, TEST_ERROR,
+	 			"Could not allocate test resource");
+	 	}
+	 	test_set_data(resource);
+	 }
+
+	 void run_1(const struct test_case *test)
+	 {
+	 	void *resource = test_get_data();
+	 	int8_t test_result;
+
+	      ...
+		// TEST CODE
+	      ...
+	 	test_assert_true(test, test_result > 0,
+	 			"Test result is not larger than 0: %i", test_result);
+	 	test_assert_false(test, test_result > 2,
+	 			"Test result is larger than 2: %i", test_result);
+	 }
+
+	 void cleanup_1(const struct test_case *test)
+	 {
+	 	void *resource = test_get_data();
+
+	 	free_test_resource(resource);
+	 }
+\endcode
  *
  * @{
  */

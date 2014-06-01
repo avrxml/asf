@@ -73,11 +73,11 @@ CSRCS = \
        sam/utils/syscalls/gcc/syscalls.c                  \
        thirdparty/wireless/addons/sio2host/uart/sio2host.c \
        thirdparty/wireless/addons/sio2ncp/uart/sio2ncp.c  \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/sam/hw_timer.c \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer/common_sw_timer.c \
        thirdparty/wireless/avr2102_rf4control/addons/api_parser/api_parser.c \
        thirdparty/wireless/avr2102_rf4control/addons/serial_interface/serial_interface.c \
-       thirdparty/wireless/avr2102_rf4control/apps/zrc/serial_if/main.c
+       thirdparty/wireless/avr2102_rf4control/apps/zrc/serial_if/main.c \
+       thirdparty/wireless/services/common_hw_timer/sam/hw_timer.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -110,21 +110,20 @@ INC_PATH = \
        thirdparty/wireless/addons/sio2ncp/uart            \
        thirdparty/wireless/avr2025_mac/include            \
        thirdparty/wireless/avr2025_mac/source/pal         \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/sam \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer \
        thirdparty/wireless/avr2102_rf4control/addons/api_parser \
        thirdparty/wireless/avr2102_rf4control/addons/serial_interface \
-       thirdparty/wireless/avr2102_rf4control/apps/zrc/serial_if \
        thirdparty/wireless/avr2102_rf4control/apps/zrc/serial_if/ctr/host \
        thirdparty/wireless/avr2102_rf4control/apps/zrc/serial_if/ctr/host/sam4lc4c_sam4l_xplained_pro \
-       thirdparty/wireless/avr2102_rf4control/include \
+       thirdparty/wireless/avr2102_rf4control/include     \
+       thirdparty/wireless/services/common_hw_timer       \
+       thirdparty/wireless/services/common_hw_timer/sam \
        thirdparty/wireless/avr2102_rf4control/apps/zrc/serial_if/ctr/host/sam4lc4c_sam4l_xplained_pro/gcc
 
 # Additional search paths for libraries.
 LIB_PATH =  \
        thirdparty/CMSIS/Lib/GCC                           \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/sam/lib
+       thirdparty/wireless/services/common_hw_timer/sam/lib
 
 # List of libraries to use during linking.
 LIBS =  \
@@ -175,7 +174,6 @@ CPPFLAGS = \
        -D CHANNEL_AGILITY                                 \
        -D ENABLE_STACK_NVM                                \
        -D ENABLE_TRX_SRAM                                 \
-       -D EXTERN_EEPROM_AVAILABLE=0                       \
        -D HIGHEST_STACK_LAYER=RF4CE                       \
        -D MAC_USER_BUILD_CONFIG                           \
        -D NLDE_HANDLE                                     \
@@ -193,7 +191,12 @@ CPPFLAGS = \
        -D ZRC_CMD_DISCOVERY                               \
        -D ZRC_PROFILE                                     \
        -D __SAM4LC4C__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for EIC driver.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,7 +71,6 @@
  * \section device_info Device Info
  * The SAM4L devices can be used.
  * This example has been tested with the following setup:
- * - sam4lc4c_sam4l_ek
  * - Connect Pin PA06 and PB05
  *
  * \section compinfo Compilation info
@@ -114,9 +113,13 @@ static void run_eic_test(const struct test_case *test)
 {
 	struct eic_line_config eic_line_conf;
 
+	ioport_set_pin_mode(GPIO_UNIT_TEST_EIC_PIN,
+				GPIO_UNIT_TEST_EIC_PIN_MUX);
+	ioport_disable_pin(GPIO_UNIT_TEST_EIC_PIN);
+
 	eic_line_conf.eic_mode = EIC_MODE_EDGE_TRIGGERED;
 	eic_line_conf.eic_edge = EIC_EDGE_FALLING_EDGE;
-	eic_line_conf.eic_level = EIC_LEVEL_HIGH_LEVEL;
+	eic_line_conf.eic_level = EIC_LEVEL_LOW_LEVEL;
 	eic_line_conf.eic_filter = EIC_FILTER_DISABLED;
 	eic_line_conf.eic_async = EIC_ASYNCH_MODE;
 
@@ -129,10 +132,10 @@ static void run_eic_test(const struct test_case *test)
 
 	ioport_set_pin_dir(GPIO_EIC_TRIG_PIN, IOPORT_DIR_OUTPUT);
 	ioport_set_pin_level(GPIO_EIC_TRIG_PIN, IOPORT_PIN_LEVEL_HIGH);
-	delay_ms(1000);
+	delay_ms(100);
 	ioport_set_pin_level(GPIO_EIC_TRIG_PIN, IOPORT_PIN_LEVEL_LOW);
 
-	delay_ms(1000);
+	delay_ms(100);
 
 	test_assert_true(test, intflag == 1, "EIC test failed");
 
@@ -140,7 +143,7 @@ static void run_eic_test(const struct test_case *test)
 }
 
 /**
- * \brief Run PDCA driver unit tests.
+ * \brief Run EIC driver unit tests.
  */
 int main(void)
 {

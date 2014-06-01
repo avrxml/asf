@@ -3,7 +3,7 @@
  *
  * \brief This file implements ED Scan
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -128,16 +128,16 @@ retval_t tal_ed_start(uint8_t scan_duration)
 	}
 
 	set_trx_state(CMD_FORCE_PLL_ON);
-	pal_trx_bit_write(SR_RX_PDT_DIS, RX_DISABLE);
+	trx_bit_write(SR_RX_PDT_DIS, RX_DISABLE);
 	pal_trx_irq_flag_clr_cca_ed();
 	pal_trx_irq_init_cca_ed((FUNC_PTR)trx_ed_irq_handler_cb);
-	pal_trx_reg_write(RG_IRQ_MASK, TRX_IRQ_CCA_ED_READY);
+	trx_reg_write(RG_IRQ_MASK, TRX_IRQ_CCA_ED_READY);
 
 	/* Make sure that receiver is switched on. */
 	if (set_trx_state(CMD_RX_ON) != RX_ON) {
 		/* Restore previous configuration */
-		pal_trx_bit_write(SR_RX_PDT_DIS, RX_ENABLE);
-		pal_trx_reg_write(RG_IRQ_MASK, TRX_IRQ_DEFAULT);
+		trx_bit_write(SR_RX_PDT_DIS, RX_ENABLE);
+		trx_reg_write(RG_IRQ_MASK, TRX_IRQ_DEFAULT);
 
 		return FAILURE;
 	}
@@ -151,7 +151,7 @@ retval_t tal_ed_start(uint8_t scan_duration)
 			ED_SAMPLE_DURATION_SYM;
 
 	/* write dummy value to start measurement */
-	pal_trx_reg_write(RG_PHY_ED_LEVEL, 0xFF);
+	trx_reg_write(RG_PHY_ED_LEVEL, 0xFF);
 
 	return MAC_SUCCESS;
 }
@@ -166,7 +166,7 @@ static void trx_ed_irq_handler_cb(void)
 	uint8_t ed_value;
 
 	/* Read the ED Value. */
-	ed_value = pal_trx_reg_read(RG_PHY_ED_LEVEL);
+	ed_value = trx_reg_read(RG_PHY_ED_LEVEL);
 
 	/*
 	 * Update the peak ED value received, if greater than the previously
@@ -180,7 +180,7 @@ static void trx_ed_irq_handler_cb(void)
 	sampler_counter--;
 	if (sampler_counter > 0) {
 		/* write dummy value to start measurement */
-		pal_trx_reg_write(RG_PHY_ED_LEVEL, 0xFF);
+		trx_reg_write(RG_PHY_ED_LEVEL, 0xFF);
 	} else {
 		tal_state = TAL_ED_DONE;
 	}
@@ -197,8 +197,8 @@ static void trx_ed_irq_handler_cb(void)
 void ed_scan_done(void)
 {
 	/* Restore previous configuration */
-	pal_trx_bit_write(SR_RX_PDT_DIS, RX_ENABLE);
-	pal_trx_reg_write(RG_IRQ_MASK, TRX_IRQ_DEFAULT);
+	trx_bit_write(SR_RX_PDT_DIS, RX_ENABLE);
+	trx_reg_write(RG_IRQ_MASK, TRX_IRQ_DEFAULT);
 
 	tal_state = TAL_IDLE; /* ed scan is done */
 	set_trx_state(CMD_RX_AACK_ON);
@@ -216,7 +216,6 @@ void ed_scan_done(void)
 			= (uint8_t)(((uint16_t)max_ed_level *
 				0xFF) / CLIP_VALUE_REG);
 	}
-
 #endif
 	tal_ed_end_cb(max_ed_level);
 }

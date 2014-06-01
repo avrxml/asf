@@ -3,7 +3,7 @@
  *
  * @brief
  *
- *  Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ *  Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -117,7 +117,7 @@ typedef struct timer_info_tag {
 	FUNC_PTR timer_cb;
 
 	/* Parameter to be passed to the callback function of the expired timer
-	 **/
+	**/
 	void *param_cb;
 
 	/* Next timer which was started or has expired */
@@ -188,6 +188,12 @@ void sw_timer_service(void);
  *
  */
 void sw_timer_init(void);
+
+uint32_t sw_timer_get_residual_time(uint8_t timer_id);
+
+void sw_timer_run_residual_time(uint32_t offset);
+
+uint32_t sw_timer_next_timer_expiry_duration(void);
 
 /* ! @} */
 #endif /* COMMON_SW_TIMER_H */

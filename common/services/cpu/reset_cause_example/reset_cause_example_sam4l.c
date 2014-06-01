@@ -3,7 +3,7 @@
  *
  * \brief CPU reset cause example for SAM4L
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,7 +50,7 @@
  *
  * \section Requirements
  *
- *  This example can be used with SAM4L evaluation kits.
+ *  This example can be used with SAM4L boards.
  *
  * \section Description
  *
@@ -62,9 +62,7 @@
  *
  * \section Usage
  *
- * - Build the program and download it to the evaluation board. Please
- *  refer to the SAM4L main page documentation
- *  http://www.atmel.com/tools/SAM4L-EK.aspx
+ * - Build the program and download it to the board.
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -75,19 +73,19 @@
  * -# Start the application.
  * -# In the terminal window, the following text should appear:
  *    \code
- *     -- Reset_Cause Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *    \endcode
+	-- Reset_Cause Example xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
  * -# Choose the item in the following menu to test.
  *    \code
- *     Menu :
- *     ------Please select reset cause way--------
- *       c: Generate core BOD reset
- *       i: Generate I/O BOD reset
- *       w: Generate watchdog reset
- *       s: Generate system reset
- *    \endcode
+	Menu :
+	------Please select reset cause way--------
+	  c: Generate core BOD reset
+	  i: Generate I/O BOD reset
+	  w: Generate watchdog reset
+	  s: Generate system reset
+\endcode
  */
 
 #include "asf.h"
@@ -133,51 +131,48 @@ int main(void)
 
 	/* Output example information. */
 	puts(STRING_HEADER);
-	puts("------ Please select which reset is to be generated ----------\n\r"
-			"  c:  Generate core BOD reset\n\r"
-			"  i:  Generate I/O BOD reset\n\r"
-			"  w:  Generate watchdog reset\n\r"
-			"  s:  Generate system reset \n\r");
+	puts("------ Please select which reset is to be generated ----------\r\n"
+			"  c:  Generate core BOD reset\r\n"
+			"  i:  Generate I/O BOD reset\r\n"
+			"  w:  Generate watchdog reset\r\n"
+			"  s:  Generate system reset \r");
 
 	if (reset_cause_is_power_on_reset()) {
-#ifdef LED0_GPIO
-		ioport_set_pin_level(LED0_GPIO, IOPORT_PIN_LEVEL_HIGH);
-#endif
+		LED_On(LED0);
 	}
 	if (reset_cause_is_cpu_brown_out_detected()) {
-		puts("-- Reset Cause is Core browm out reset --\r\n");
+		puts("-- Reset Cause is Core browm out reset --\r");
 	}
 	if (reset_cause_is_io_brown_out_detected()) {
-		puts("-- Reset Cause is I/O brown out reset --\r\n");
+		puts("-- Reset Cause is I/O brown out reset --\r");
 	}
 	if (reset_cause_is_ocd()) {
-		puts("-- Reset Cause is system reset request --\r\n");
+		puts("-- Reset Cause is system reset request --\r");
 	}
 	if (reset_cause_is_external_reset()) {
-		puts("-- Reset Cause is external reset --\r\n");
+		puts("-- Reset Cause is external reset --\r");
 	}
 	if (reset_cause_is_watchdog()) {
-		puts("-- Reset Cause is watchdog reset --\r\n");
+		puts("-- Reset Cause is watchdog reset --\r");
 	}
 
 	while(1) {
 		scanf("%c", (char *)&key);
 		switch (key) {
 		case 'c':
-			puts("-- Please press reset button --\r\n");
+			puts("-- Please press reset button --\r");
 			BSCIF->BSCIF_BOD18CTRL = BSCIF_BOD18CTRL_EN | BSCIF_BOD18CTRL_ACTION(1) |
 					BSCIF_BOD18CTRL_HYST | BSCIF_BOD18CTRL_FCD;
 			BSCIF->BSCIF_BOD18LEVEL |= BSCIF_BOD18LEVEL_VAL(0x3F);
 			break;
 		case 'i':
-			puts("-- Please press reset button --\r\n");
+			puts("-- Please press reset button --\r");
 			BSCIF->BSCIF_BOD33CTRL = BSCIF_BOD33CTRL_EN | BSCIF_BOD33CTRL_ACTION(1) |
 					BSCIF_BOD33CTRL_HYST | BSCIF_BOD33CTRL_FCD;
 			BSCIF->BSCIF_BOD33LEVEL = BSCIF_BOD33LEVEL_VAL(0x3F);
 			break;
 		case 'w':
-			WDT->WDT_CTRL |= WDT_CTRL_EN | WDT_CTRL_DAR | WDT_CTRL_KEY(0x55u);
-			WDT->WDT_CTRL |= WDT_CTRL_EN | WDT_CTRL_DAR | WDT_CTRL_KEY(0xAAu);
+			wdt_reset_mcu();
 			break;
 		case 's':
 			reset_do_soft_reset();

@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for SPI driver.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -81,6 +81,14 @@
  * - sam4s16c_sam4s_ek
  * - sam4sd32c_sam4s_ek2
  * - sam4e16e_sam4e_ek
+ * - sam4lc4c_sam4l_ek
+ * - sam4lc4c_sam4l_xplained_pro
+ * - sam4lc8c_sam4l8_xplained_pro
+ * - sam4n16c_sam4n_xplained_pro
+ * - sam4c16c_sam4c_ek
+ * - sam4cp16b_sam4cp16bmb
+ * - sam4cmp16c_sam4cmp_db
+ * - sam4cms16c_sam4cms_db
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers

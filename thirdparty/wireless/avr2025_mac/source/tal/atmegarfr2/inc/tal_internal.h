@@ -2,9 +2,9 @@
  * \file tal_internal.h
  *
  * \brief This header file contains types and variable definition that are used
- *within the TAL only.
+ * within the TAL only.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -56,6 +56,9 @@
 
 #include "bmm.h"
 #include "qmm.h"
+#if (defined MAC_SECURITY_ZIP || defined MAC_SECURITY_2006)
+#include "tal.h"
+#endif
 #ifdef BEACON_SUPPORT
 #include "tal_slotted_csma.h"
 #endif  /* BEACON_SUPPORT */
@@ -69,20 +72,20 @@
  * \defgroup group_tal_rfr2 ATMEGARFR2 Transceiver Abstraction Layer
  * The ATmega256RFR2 is a low-power CMOS 8-bit microcontroller based on the AVR
  * enhanced RISC architecture combined with a high data rate transceiver for the
- *2.4 GHz
+ * 2.4 GHz
  *  ISM band. It is derived from the ATmega1281 microcontroller and the
- *AT86RF231 radio transceiver.
+ * AT86RF231 radio transceiver.
  * The Transceiver Abstraction Layer (TAL) implements the transceiver specific
- *functionalities and
+ * functionalities and
  * provides interfaces to the upper layers (like IEEE 802.15.4 MAC )and  uses
- *the services of PAL.
+ * the services of PAL.
  */
 
 /**
  * \ingroup group_tal_rfr2
  * \defgroup group_tal_state_machine_rfr2  TAL State Machine
  * The different operating states of the Transceiver are controlled by the TAL
- *state machine.
+ * state machine.
  *
  */
 
@@ -111,7 +114,7 @@
  * \ingroup group_tal_rfr2
  * \defgroup group_tal_pib_rfr2   TAL PIB Storage
  * The PIB(Pan Information Base) attributes related to the TAL are Stored and
- *handled  by the TAL PIB storage.
+ * handled  by the TAL PIB storage.
  *
  */
 
@@ -127,7 +130,7 @@
  * \defgroup group_tal_tx_csma_rfr2   TAL CSMA/CA Module
  * Performs channel access mechanism for frame transmission
  * For Detailed information refer  CSMA-CA algorithm section of IEEE Std
- *802.15.4-2006
+ * 802.15.4-2006
  *
  */
 
@@ -390,7 +393,7 @@ void ed_scan_done(void);
  * \param data Data to be written to trx register
  * \ingroup group_pal_trx
  */
-#define pal_trx_reg_write(addr, data) \
+#define trx_reg_write(addr, data) \
 	(*(volatile uint8_t *)(addr)) = (data)
 
 /**
@@ -403,7 +406,7 @@ void ed_scan_done(void);
  * \ingroup group_pal_trx
  * \return value of the register read
  */
-#define pal_trx_reg_read(addr) \
+#define trx_reg_read(addr) \
 	(*(volatile uint8_t *)(addr))
 
 /**
@@ -416,7 +419,7 @@ void ed_scan_done(void);
  * buffer.
  * \ingroup group_pal_trx
  */
-#define pal_trx_frame_read(data, length) \
+#define trx_frame_read(data, length) \
 	memcpy((data), (void *)&TRXFBST, (length))
 
 /**
@@ -428,11 +431,11 @@ void ed_scan_done(void);
  * \param[in] length Number of bytes to be written into frame buffer
  * \ingroup group_pal_trx
  */
-#define pal_trx_frame_write(data, length) \
+#define trx_frame_write(data, length) \
 	memcpy((void *)&TRXFBST, (data), (length))
 
 #ifndef __DOXYGEN__
-#define _pal_trx_bit_read(addr, mask, pos) \
+#define _trx_bit_read(addr, mask, pos) \
 	(((*(volatile uint8_t *)(addr)) & (mask)) >> (pos))
 #endif
 
@@ -444,11 +447,11 @@ void ed_scan_done(void);
  * \return  Value of the read subregister
  * \ingroup group_pal_trx
  */
-#define pal_trx_bit_read(arg) \
-	_pal_trx_bit_read(arg)
+#define trx_bit_read(arg) \
+	_trx_bit_read(arg)
 
 #ifndef __DOXYGEN__
-#define _pal_trx_bit_write(addr, mask, pos, val) do { \
+#define _trx_bit_write(addr, mask, pos, val) do { \
 		(*(volatile uint8_t *)(addr)) \
 			= ((*(volatile uint8_t *)(addr)) & ~(mask)) | \
 				(((val) << (pos)) & (mask)); \
@@ -463,8 +466,8 @@ void ed_scan_done(void);
  * \param[out]  val  Data, which is muxed into the register
  * \ingroup group_pal_trx
  */
-#define pal_trx_bit_write(arg1, val) \
-	_pal_trx_bit_write(arg1, val)
+#define trx_bit_write(arg1, val) \
+	_trx_bit_write(arg1, val)
 
 /* ! @} */
 
@@ -476,18 +479,20 @@ void ed_scan_done(void);
 /*
  * Set TRX GPIO pins.
  */
-#define PAL_RST_HIGH()                      (TRXPR |= _BV(TRXRST))  /**< Set
-	                                                             *Reset Bit.
+#define TRX_RST_HIGH()                      (TRXPR |= _BV(TRXRST))  /**< Set
+	                                                             * Reset
+	                                                             *Bit.
 	                                                             **/
-#define PAL_RST_LOW()                       (TRXPR &= ~_BV(TRXRST)) /**< Clear
-	                                                             *Reset Bit.
+#define TRX_RST_LOW()                       (TRXPR &= ~_BV(TRXRST)) /**< Clear
+	                                                             * Reset
+	                                                             *Bit.
 	                                                             **/
-#define PAL_SLP_TR_HIGH()                   (TRXPR |= _BV(SLPTR))   /**< Set
-	                                                             *Sleep/TR
-	                                                             *Bit. */
-#define PAL_SLP_TR_LOW()                    (TRXPR &= ~_BV(SLPTR))  /**< Clear
-	                                                             *Sleep/TR
-	                                                             *Bit. */
+#define TRX_SLP_TR_HIGH()                   (TRXPR |= _BV(SLPTR))   /**< Set
+	                                                            * Sleep/TR
+	                                                            * Bit. */
+#define TRX_SLP_TR_LOW()                    (TRXPR &= ~_BV(SLPTR))  /**< Clear
+	                                                             * Sleep/TR
+	                                                             * Bit. */
 
 /* ! @} */
 

@@ -115,10 +115,10 @@
 #include <intrinsics.h>
 
 /* Scheduler includes. */
-#include "FreeRTOS.h"
-#include "task.h"
+#include "../../../include/FreeRTOS.h"
+#include "../../../include/task.h"
 
-#include "sysclk.h" /* ATMEL */
+#include <sysclk.h> /* ATMEL */
 
 #ifndef __ARMVFP__
 	#warning hardware floating point not enabled.

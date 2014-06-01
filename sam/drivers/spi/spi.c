@@ -3,7 +3,7 @@
  *
  * \brief Serial Peripheral Interface (SPI) driver for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -55,8 +55,9 @@
  *
  * @{
  */
-
-#define SPI_WPMR_WPKEY_VALUE SPI_WPMR_WPKEY((uint32_t) 0x535049)
+#ifndef SPI_WPMR_WPKEY_PASSWD
+#define SPI_WPMR_WPKEY_PASSWD SPI_WPMR_WPKEY((uint32_t) 0x535049)
+#endif
 
 /**
  * \brief Enable SPI clock.
@@ -65,10 +66,10 @@
  */
 void spi_enable_clock(Spi *p_spi)
 {
-#if (SAM4S || SAM3S || SAM3N || SAM3U || SAM4E)
+#if (SAM4S || SAM3S || SAM3N || SAM3U || SAM4E || SAM4N || SAMG)
 	UNUSED(p_spi);
 	sysclk_enable_peripheral_clock(ID_SPI);
-#elif (SAM3XA)
+#elif (SAM3XA || SAM4C || SAM4CP || SAM4CM)
 	if (p_spi == SPI0) {
 		sysclk_enable_peripheral_clock(ID_SPI0);
 	}
@@ -89,10 +90,10 @@ void spi_enable_clock(Spi *p_spi)
  */
 void spi_disable_clock(Spi *p_spi)
 {
-#if (SAM4S || SAM3S || SAM3N || SAM3U || SAM4E)
+#if (SAM4S || SAM3S || SAM3N || SAM3U || SAM4E || SAM4N || SAMG)
 	UNUSED(p_spi);
 	sysclk_disable_peripheral_clock(ID_SPI);
-#elif (SAM3XA)
+#elif (SAM3XA || SAM4C || SAM4CP || SAM4CM)
 	if (p_spi == SPI0) {
 		sysclk_disable_peripheral_clock(ID_SPI0);
 	}
@@ -111,6 +112,12 @@ void spi_disable_clock(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  * \param ul_value Peripheral Chip Select value.
+ *                 If PCS decode mode is not used, use \ref spi_get_pcs to build
+ *                 the value to use.
+ *                 On reset the decode mode is not enabled.
+ *                 The decode mode can be enabled/disabled by follow functions:
+ *                 \ref spi_enable_peripheral_select_decode,
+ *                 \ref spi_disable_peripheral_select_decode.
  */
 void spi_set_peripheral_chip_select_value(Spi *p_spi, uint32_t ul_value)
 {
@@ -261,7 +268,7 @@ void spi_configure_cs_behavior(Spi *p_spi, uint32_t ul_pcs_ch,
  *
  * \param p_spi Pointer to an SPI instance.
  * \param ul_pcs_ch Peripheral Chip Select channel (0~3).
- * \param ul_bits Number of bits (8~16), use the pattern defined 
+ * \param ul_bits Number of bits (8~16), use the pattern defined
  *        in the device header file.
  */
 void spi_set_bits_per_transfer(Spi *p_spi, uint32_t ul_pcs_ch,
@@ -340,9 +347,9 @@ void spi_set_writeprotect(Spi *p_spi, uint32_t ul_enable)
 	}
 #else
 	if (ul_enable) {
-		p_spi->SPI_WPMR = SPI_WPMR_WPKEY_VALUE | SPI_WPMR_WPEN;
+		p_spi->SPI_WPMR = SPI_WPMR_WPKEY_PASSWD | SPI_WPMR_WPEN;
 	} else {
-		p_spi->SPI_WPMR = SPI_WPMR_WPKEY_VALUE;
+		p_spi->SPI_WPMR = SPI_WPMR_WPKEY_PASSWD;
 	}
 #endif
 }

@@ -3,7 +3,7 @@
  *
  * \brief Configuration for PIO example.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,7 +63,7 @@
 #define PIN_PIO_MODE_MSK         CCFG_SYSIO_SYSIO12
 #define PIN_ERASE_MODE_MSK       0
 
-/** Last page start address. */
-#define LAST_PAGE_ADDRESS        (IFLASH_ADDR + IFLASH_SIZE - IFLASH_PAGE_SIZE)
+/** Test page start address. */
+#define TEST_PAGE_ADDRESS        (IFLASH_ADDR + IFLASH_SIZE - IFLASH_PAGE_SIZE)
 
 #endif /* CONF_PIO_EXAMPLE_H_INCLUDED */

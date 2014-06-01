@@ -200,3 +200,7 @@ LDFLAGS =  \
        -Wl,--section-start=.BOOT=0x40000                  \
        -Wl,--section-start=.classb_sram_buffer=0x802000   \
        -Wl,--section-start=.data=0x802500                
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

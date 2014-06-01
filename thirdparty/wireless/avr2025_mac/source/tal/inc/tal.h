@@ -3,7 +3,7 @@
  *
  * @brief This file contains TAL API function declarations
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -62,18 +62,19 @@
 #include "return_val.h"
 #include "tal_types.h"
 #include "mac_build_config.h"
+#include "qmm.h"
 
 /**
  * \defgroup group_tal  Transceiver Abstraction Layer
  * The Transceiver Abstraction Layer (TAL) implements the transceiver specific
- *functionalities and
+ * functionalities and
  * provides interfaces to the upper layers (like IEEE 802.15.4 MAC )and  uses
- *the services of PAL.
+ * the services of PAL.
  *
  */
 
 /* === EXTERNALS =========================================================== */
-
+__PACK__DATA__
 /* Structure implementing the PIB values stored in TAL */
 typedef struct tal_pib_tag {
 	/**
@@ -107,7 +108,7 @@ typedef struct tal_pib_tag {
 	/**
 	 * Maximum number of symbols in a frame:
 	 * = phySHRDuration + ceiling([aMaxPHYPacketSize + 1] x
-	 *phySymbolsPerOctet)
+	 * phySymbolsPerOctet)
 	 */
 	uint16_t MaxFrameDuration;
 
@@ -129,7 +130,7 @@ typedef struct tal_pib_tag {
 
 	/**
 	 * The minimum value of the backoff exponent BE in the CSMA-CA
-	 *algorithm.
+	 * algorithm.
 	 */
 	uint8_t MinBE;
 
@@ -169,7 +170,7 @@ typedef struct tal_pib_tag {
 
 	/**
 	 * Duration of the synchronization header (SHR) in symbols for the
-	 *current PHY.
+	 * current PHY.
 	 */
 	uint8_t SHRDuration;
 
@@ -180,7 +181,7 @@ typedef struct tal_pib_tag {
 
 	/**
 	 * The maximum value of the backoff exponent BE in the CSMA-CA
-	 *algorithm.
+	 * algorithm.
 	 */
 	uint8_t MaxBE;
 
@@ -231,6 +232,8 @@ typedef enum {
 	BEACONREQUEST,
 	/* Command Frame Identifier for Coordinator Realignment */
 	COORDINATORREALIGNMENT,
+
+	GTSREQUEST,
 
 	/*
 	 * These are not MAC command frames but listed here as they are needed
@@ -289,11 +292,19 @@ typedef struct
 	uint16_t persistence_time;
 	/** Indirect frame transmission ongoing */
 	bool indirect_in_transit;
+#ifdef MAC_SECURITY_ZIP
+	/** MAC Payload Pointer */
+	uint8_t *mac_payload;
+#endif
+
+#ifdef GTS_SUPPORT
+	queue_t *gts_queue;
+#endif /* GTS_SUPPORT */
 #if (defined BEACON_SUPPORT) || (defined ENABLE_TSTAMP)
 
 	/** Timestamp information of frame
-	 * The timestamping is only required for beaconing networks
-	 * or if timestamping is explicitly enabled.
+	 * The time stamping is only required for beaconing networks
+	 * or if time stamping is explicitly enabled.
 	 */
 	uint32_t time_stamp;
 #endif  /* #if (defined BEACON_SUPPORT) || (defined ENABLE_TSTAMP) */
@@ -321,7 +332,7 @@ typedef enum csma_mode_tag {
 	CSMA_UNSLOTTED,
 	CSMA_SLOTTED
 } csma_mode_t;
-
+__PACK__RST_DATA__
 /* === MACROS ============================================================== */
 
 /* RF bands: */
@@ -417,7 +428,7 @@ typedef enum csma_mode_tag {
 
 /**
  * Number of symbols forming the synchronization header (SHR) for the current
- *PHY.
+ * PHY.
  * This value is the base for the PHY PIB attribute phySHRDuration.
  */
 #define NO_OF_SYMBOLS_PREAMBLE_SFD          (NO_SYMBOLS_PREAMBLE + \
@@ -509,7 +520,7 @@ typedef enum csma_mode_tag {
  * is in one of the PLL states. See also datasheet, section "Register access".
  */
 #define CONF_REG_WRITE()   do {	\
-		pal_trx_reg_write(RG_PART_NUM, PART_NUM); \
+		trx_reg_write(RG_PART_NUM, PART_NUM); \
 } \
 	while (0)
 #endif /* TAL_TYPE == ATMEGA128RFA1 */
@@ -527,17 +538,6 @@ typedef enum csma_mode_tag {
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-/**
- * \brief TAL task handling
- *
- * This function
- * - Checks and allocates the receive buffer.
- * - Processes the TAL incoming frame queue.
- * - Implements the TAL state machine.
- * \ingroup group_tal_state_machine
- */
-void tal_task(void);
 
 /**
  * \brief Initializes the TAL
@@ -687,7 +687,7 @@ void tal_tx_beacon(frame_info_t *tx_frame);
  *                 to frame array to be transmitted
  * \param csma_mode Indicates mode of csma-ca to be performed for this frame
  * \param perform_frame_retry Indicates whether to retries are to be performed
- *for
+ * for
  *                            this frame
  *
  * \return MAC_SUCCESS  if the TAL has accepted the data from the MAC for frame
@@ -733,23 +733,6 @@ retval_t tal_trx_sleep(sleep_mode_t mode);
  * \ingroup group_tal_pm
  */
 retval_t tal_trx_wakeup(void);
-
-/**
- * \brief Generates a 16-bit random number used as initial seed for srand()
- *
- * This function generates a 16-bit random number by means of using the
- * Random Number Generator from the transceiver.
- * The Random Number Generator generates 2-bit random values. These 2-bit
- * random values are concatenated to the required 16-bit random seed.
- * The generated random 16-bit number is feed into function srand()
- * as initial seed.
- * The transceiver state is initally set to RX_ON.
- * After the completion of the random seed generation, the
- * trancseiver is set to TRX_OFF.
- *
- * \ingroup group_tal_init
- */
-void tal_generate_rand_seed(void);
 
 /**
  * \brief Adds two time values

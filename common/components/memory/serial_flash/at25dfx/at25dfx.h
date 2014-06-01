@@ -3,7 +3,7 @@
  *
  * \brief API driver for AT25DFx SerialFlash component.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -233,54 +233,54 @@ at25_status_t at25dfx_write(uint8_t *data, uint16_t size, uint32_t address);
  * \subsection at25dfx_basic_use_case_setup_code Example code
  * Content of conf_at25dfx.h
  * \code
- * #define AT25DFX_USES_SPI_MASTER_SERVICE
- * #define AT25DFX_SPI_MODULE          SPI0
- * #define AT25DFX_CS                  3
- * #define AT25DFX_MEM_CNT             1
- * #define AT25DFX_MEM_ID              1
- * #define AT25DFX_SPI_MASTER_SPEED    12000000
- * #define AT25DFX_SPI_BITS            8
- * #define AT25DFX_MEM_TYPE            AT25DFX_321
- * \endcode
+	#define AT25DFX_USES_SPI_MASTER_SERVICE
+	#define AT25DFX_SPI_MODULE          SPI0
+	#define AT25DFX_CS                  3
+	#define AT25DFX_MEM_CNT             1
+	#define AT25DFX_MEM_ID              1
+	#define AT25DFX_SPI_MASTER_SPEED    12000000
+	#define AT25DFX_SPI_BITS            8
+	#define AT25DFX_MEM_TYPE            AT25DFX_321
+\endcode
  *
  * A specific size of RAM buffer must be added; The access address and size in the SerialFlash must be defined:
  * \code
- * #define AT25DFX_TEST_BLOCK_ADDR  (0)
- * #define AT25DFX_TEST_DATA_SIZE   (1024)
- *
- *  static uint32_t ram_buff[1024];
- * \endcode
+	 #define AT25DFX_TEST_BLOCK_ADDR  (0)
+	 #define AT25DFX_TEST_DATA_SIZE   (1024)
+
+	  static uint32_t ram_buff[1024];
+\endcode
  *
  * Add to application C-file:
  * \code
- *   void at25dfx_init(void)
- *   {
- *       sysclk_init();
- *
- *       board_init();
- *
- *       at25dfx_initialize();
- *
- *       at25dfx_set_mem_active(AT25DFX_MEM_ID);
- *
- *       at25dfx_protect_chip(AT25_TYPE_UNPROTECT);
- *   }
- * \endcode
+	   void at25dfx_init(void)
+	   {
+	       sysclk_init();
+
+	       board_init();
+
+	       at25dfx_initialize();
+
+	       at25dfx_set_mem_active(AT25DFX_MEM_ID);
+
+	       at25dfx_protect_chip(AT25_TYPE_UNPROTECT);
+	   }
+\endcode
  *
  * \subsection at25dfx_basic_use_case_setup_flow Workflow
  * -# Ensure that conf_at25dfx.h is present and contains the
  * following configuration symbol. This configuration file is used
  * by the driver and should not be included by the user.
  *   - \code 
- *          #define AT25DFX_USES_SPI_MASTER_SERVICE 
- *          #define AT25DFX_SPI_MODULE          SPI0
- *          #define AT25DFX_CS                  3
- *          #define AT25DFX_MEM_CNT             1
- *          #define AT25DFX_MEM_ID              1
- *          #define AT25DFX_SPI_MASTER_SPEED    12000000
- *          #define AT25DFX_SPI_BITS            8
- *          #define AT25DFX_MEM_TYPE            AT25DFX_321
- *   \endcode
+	#define AT25DFX_USES_SPI_MASTER_SERVICE 
+	#define AT25DFX_SPI_MODULE          SPI0
+	#define AT25DFX_CS                  3
+	#define AT25DFX_MEM_CNT             1
+	#define AT25DFX_MEM_ID              1
+	#define AT25DFX_SPI_MASTER_SPEED    12000000
+	#define AT25DFX_SPI_BITS            8
+	#define AT25DFX_MEM_TYPE            AT25DFX_321
+\endcode
  * -# Enable the system clock:
  *   - \code sysclk_init(); \endcode
  * -# Enable PIO configurations for SPI master:
@@ -297,9 +297,9 @@ at25_status_t at25dfx_write(uint8_t *data, uint16_t size, uint32_t address);
  * \subsection at25dfx_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    at25dfx_write(ram_buff, AT25DFX_TEST_DATA_SIZE, AT25DFX_TEST_BLOCK_ADDR);
- *    at25dfx_read(ram_buff, AT25DFX_TEST_DATA_SIZE, AT25DFX_TEST_BLOCK_ADDR);
- * \endcode
+	at25dfx_write(ram_buff, AT25DFX_TEST_DATA_SIZE, AT25DFX_TEST_BLOCK_ADDR);
+	at25dfx_read(ram_buff, AT25DFX_TEST_DATA_SIZE, AT25DFX_TEST_BLOCK_ADDR);
+\endcode
  *
  * \subsection at25dfx_basic_use_case_usage_flow Workflow
  * -# Start writing the data to the AT25DFx321:

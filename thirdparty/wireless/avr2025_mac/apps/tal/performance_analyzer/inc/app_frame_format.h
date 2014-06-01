@@ -4,7 +4,7 @@
  * \brief Defines various structure definitions, used to communicate with
  * Peer node over the air - Performance Analyzer application
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,11 +56,7 @@
 /* === Macros =============================================================== */
 
 /* === Types ================================================================ */
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
+COMPILER_PACK_SET(1)
 
 /**
  * \brief Peer request frame structure used in Peer Search process
@@ -71,15 +67,6 @@ typedef struct {
 	uint16_t nwk_addr;
 	uint8_t config_mode : 1;
 } peer_req_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief Peer response frame structure used in Peer Search process
@@ -88,15 +75,6 @@ typedef struct {
 typedef struct {
 	uint16_t nwk_addr;
 } peer_rsp_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief Peer confirm frame structure used in Peer Search process
@@ -105,15 +83,6 @@ typedef struct {
 typedef struct {
 	uint16_t nwk_addr;
 } peer_conf_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief Data packet frame structure to send data in Range Measurement mode
@@ -122,15 +91,6 @@ typedef struct {
 typedef struct {
 	uint32_t pkt_count;
 } data_pkt_range_test_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief Set paramter Request frame structure to set the the parameters like
@@ -141,15 +101,6 @@ typedef struct {
 	uint8_t param_type;
 	uint8_t param_value;
 } set_parm_req_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief Result request frame structure to request the results of the PER test
@@ -158,15 +109,6 @@ typedef struct {
 typedef struct {
 	uint8_t cmd;
 } result_req_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief Result response frame structure to send the results of the PER test
@@ -178,15 +120,6 @@ typedef struct {
 	uint32_t rssi_avrg_rx;
 	uint32_t frames_with_wrong_crc;
 } result_rsp_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief Antenna Diversity status request frame structure to request the peer
@@ -196,15 +129,6 @@ typedef struct {
 typedef struct {
 	uint8_t status;
 } div_stat_req_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief Antenna Diversity status response frame structure to send the peer
@@ -215,19 +139,10 @@ typedef struct {
 	uint8_t status    : 1;
 	uint8_t ant_sel   : 2;
 } div_stat_rsp_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief Antenna Diversity set request frame structure to change the peer
- *node's
+ * node's
  * antenna diversity settings
  *
  */
@@ -235,15 +150,6 @@ typedef struct {
 	uint8_t status    : 1;
 	uint8_t ant_sel   : 2;
 } div_set_req_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief Antenna Diversity set response frame structure to send the status of
@@ -253,15 +159,6 @@ typedef struct {
 typedef struct {
 	uint8_t status;
 } div_set_rsp_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief CRC status request frame structure to request the peer
@@ -271,15 +168,6 @@ typedef struct {
 typedef struct {
 	uint8_t status;
 } crc_stat_req_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief CRC status response frame structure to send the peer
@@ -289,15 +177,6 @@ typedef struct {
 typedef struct {
 	uint8_t status;
 } crc_stat_rsp_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief CRC set request frame structure to change the peer node's
@@ -307,15 +186,6 @@ typedef struct {
 typedef struct {
 	uint8_t status;
 } crc_set_req_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief CRC set response frame structure to send the status of
@@ -325,15 +195,6 @@ typedef struct {
 typedef struct {
 	uint8_t status;
 } crc_set_rsp_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief Peer information response frame structure to send the peer details
@@ -347,15 +208,12 @@ typedef struct {
 	char board_name[25];
 	uint64_t mac_address;
 } peer_info_rsp_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
+typedef struct {
+	uint32_t frame_count;
+	int8_t ed;
+	uint8_t lqi;
+} range_tx_t;
 
 /**
  * \brief Union of all request and and response structures
@@ -373,18 +231,10 @@ typedef union {
 	crc_stat_rsp_t crc_stat_rsp_data;
 	crc_set_req_t crc_set_req_data;
 	peer_info_rsp_t peer_info_rsp_data;
+	range_tx_t range_tx_data;
 	result_req_t result_req_data;
 	crc_stat_req_t crc_stat_req_data;
 } general_pkt_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
-
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack(1)
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
 
 /**
  * \brief application payload frame stucture
@@ -395,10 +245,8 @@ typedef struct {
 	uint8_t seq_num;
 	general_pkt_t payload;
 } app_payload_t;
-#if ((defined __ICCARM__) || (defined __ICCAVR32__) || (defined __GNUARM__) || \
-	(defined __GNUAVR32__) || (defined __GNUC__))
-#pragma pack()
-#endif /* __ICCARM__, __ICCAVR32__, __GNUARM__ , __GNUAVR32__*/
+
+COMPILER_PACK_RESET()
 
 /* === Externals ============================================================ */
 

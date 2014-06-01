@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA TWI driver common definitions
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -142,215 +142,215 @@ typedef struct
  * \section xmega_twi_quickstart_setup Setup
  * When the \ref sysclk_group module has been included, it must be initialized:
  * \code
- * sysclk_init();
- * \endcode
+	sysclk_init();
+\endcode
  *
  * \section xmega_twi_quickstart_use_case Use case
  *
  * \subsection xmega_twi_quickstart_use_case_example_code Example code
  *
  * \code
- * #define TWI_MASTER       TWIC
- * #define TWI_MASTER_PORT  PORTC
- * #define TWI_SLAVE        TWIF
- * #define TWI_SPEED        50000
- * #define TWI_MASTER_ADDR  0x50
- * #define TWI_SLAVE_ADDR   0x60
- *
- * #define DATA_LENGTH     8
- *
- * TWI_Slave_t slave;
- *
- * uint8_t data[DATA_LENGTH] = {
- *     0x0f, 0x1f, 0x2f, 0x3f, 0x4f, 0x5f, 0x6f, 0x7f
- * };
- *
- * uint8_t recv_data[DATA_LENGTH] = {
- *     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
- * };
- *
- * twi_options_t m_options = {
- *     .speed     = TWI_SPEED,
- *     .chip      = TWI_MASTER_ADDR,
- *     .speed_reg = TWI_BAUD(sysclk_get_cpu_hz(), TWI_SPEED)
- * };
- *
- * static void slave_process(void) {
- *     int i;
- *
- *     for(i = 0; i < DATA_LENGTH; i++) {
- *         recv_data[i] = slave.receivedData[i];
- *     }
- * }
- *
- * ISR(TWIF_TWIS_vect) {
- *     TWI_SlaveInterruptHandler(&slave);
- * }
- *
- * void send_and_recv_twi()
- * {
- *     twi_package_t packet = {
- *         .addr_length = 0,
- *         .chip        = TWI_SLAVE_ADDR,
- *         .buffer      = (void *)data,
- *         .length      = DATA_LENGTH,
- *         .no_wait     = false
- *     };
- *
- *     uint8_t i;
- *
- *     TWI_MASTER_PORT.PIN0CTRL = PORT_OPC_WIREDANDPULL_gc;
- *     TWI_MASTER_PORT.PIN1CTRL = PORT_OPC_WIREDANDPULL_gc;
- *
- *     irq_initialize_vectors();
- *
- *     sysclk_enable_peripheral_clock(&TWI_MASTER);
- *     twi_master_init(&TWI_MASTER, &m_options);
- *     twi_master_enable(&TWI_MASTER);
- *
- *     sysclk_enable_peripheral_clock(&TWI_SLAVE);
- *     TWI_SlaveInitializeDriver(&slave, &TWI_SLAVE, *slave_process);
- *     TWI_SlaveInitializeModule(&slave, TWI_SLAVE_ADDR,
- *             TWI_SLAVE_INTLVL_MED_gc);
- *
- *     for (i = 0; i < TWIS_SEND_BUFFER_SIZE; i++) {
- *         slave.receivedData[i] = 0;
- *     }
- *
- *     cpu_irq_enable();
- *
- *     twi_master_write(&TWI_MASTER, &packet);
- *
- *     do {
- *         // Nothing
- *     } while(slave.result != TWIS_RESULT_OK);
- * }
- * \endcode
+	 #define TWI_MASTER       TWIC
+	 #define TWI_MASTER_PORT  PORTC
+	 #define TWI_SLAVE        TWIF
+	 #define TWI_SPEED        50000
+	 #define TWI_MASTER_ADDR  0x50
+	 #define TWI_SLAVE_ADDR   0x60
+
+	 #define DATA_LENGTH     8
+
+	 TWI_Slave_t slave;
+
+	 uint8_t data[DATA_LENGTH] = {
+	     0x0f, 0x1f, 0x2f, 0x3f, 0x4f, 0x5f, 0x6f, 0x7f
+	 };
+
+	 uint8_t recv_data[DATA_LENGTH] = {
+	     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	 };
+
+	 twi_options_t m_options = {
+	     .speed     = TWI_SPEED,
+	     .chip      = TWI_MASTER_ADDR,
+	     .speed_reg = TWI_BAUD(sysclk_get_cpu_hz(), TWI_SPEED)
+	 };
+
+	 static void slave_process(void) {
+	     int i;
+
+	     for(i = 0; i < DATA_LENGTH; i++) {
+	         recv_data[i] = slave.receivedData[i];
+	     }
+	 }
+
+	 ISR(TWIF_TWIS_vect) {
+	     TWI_SlaveInterruptHandler(&slave);
+	 }
+
+	 void send_and_recv_twi()
+	 {
+	     twi_package_t packet = {
+	         .addr_length = 0,
+	         .chip        = TWI_SLAVE_ADDR,
+	         .buffer      = (void *)data,
+	         .length      = DATA_LENGTH,
+	         .no_wait     = false
+	     };
+
+	     uint8_t i;
+
+	     TWI_MASTER_PORT.PIN0CTRL = PORT_OPC_WIREDANDPULL_gc;
+	     TWI_MASTER_PORT.PIN1CTRL = PORT_OPC_WIREDANDPULL_gc;
+
+	     irq_initialize_vectors();
+
+	     sysclk_enable_peripheral_clock(&TWI_MASTER);
+	     twi_master_init(&TWI_MASTER, &m_options);
+	     twi_master_enable(&TWI_MASTER);
+
+	     sysclk_enable_peripheral_clock(&TWI_SLAVE);
+	     TWI_SlaveInitializeDriver(&slave, &TWI_SLAVE, *slave_process);
+	     TWI_SlaveInitializeModule(&slave, TWI_SLAVE_ADDR,
+	             TWI_SLAVE_INTLVL_MED_gc);
+
+	     for (i = 0; i < TWIS_SEND_BUFFER_SIZE; i++) {
+	         slave.receivedData[i] = 0;
+	     }
+
+	     cpu_irq_enable();
+
+	     twi_master_write(&TWI_MASTER, &packet);
+
+	     do {
+	         // Nothing
+	     } while(slave.result != TWIS_RESULT_OK);
+	 }
+\endcode
  *
  * \subsection xmega_twi_quickstart_use_case_workflow Workflow
  * We first create some definitions. TWI master and slave, speed, and
  * addresses:
  * \code
- * #define TWI_MASTER       TWIC
- * #define TWI_MASTER_PORT  PORTC
- * #define TWI_SLAVE        TWIF
- * #define TWI_SPEED        50000
- * #define TWI_MASTER_ADDR  0x50
- * #define TWI_SLAVE_ADDR   0x60
- *
- * #define DATA_LENGTH     8
- * \endcode
+	 #define TWI_MASTER       TWIC
+	 #define TWI_MASTER_PORT  PORTC
+	 #define TWI_SLAVE        TWIF
+	 #define TWI_SPEED        50000
+	 #define TWI_MASTER_ADDR  0x50
+	 #define TWI_SLAVE_ADDR   0x60
+
+	 #define DATA_LENGTH     8
+\endcode
  *
  * We create a handle to contain information about the slave module:
  * \code
- * TWI_Slave_t slave;
- * \endcode
+	TWI_Slave_t slave;
+\endcode
  *
  * We create two variables, one which contains data that will be transmitted,
  * and one which will contain the received data:
  * \code
- * uint8_t data[DATA_LENGTH] = {
- *     0x0f, 0x1f, 0x2f, 0x3f, 0x4f, 0x5f, 0x6f, 0x7f
- * };
- *
- * uint8_t recv_data[DATA_LENGTH] = {
- *     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
- * };
- * \endcode
+	 uint8_t data[DATA_LENGTH] = {
+	     0x0f, 0x1f, 0x2f, 0x3f, 0x4f, 0x5f, 0x6f, 0x7f
+	 };
+
+	 uint8_t recv_data[DATA_LENGTH] = {
+	     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	 };
+\endcode
  *
  * Options for the TWI module initialization procedure are given below:
  * \code
- * twi_options_t m_options = {
- *     .speed     = TWI_SPEED,
- *     .chip      = TWI_MASTER_ADDR,
- *     .speed_reg = TWI_BAUD(sysclk_get_cpu_hz(), TWI_SPEED)
- * };
- * \endcode
+	twi_options_t m_options = {
+	    .speed     = TWI_SPEED,
+	    .chip      = TWI_MASTER_ADDR,
+	    .speed_reg = TWI_BAUD(sysclk_get_cpu_hz(), TWI_SPEED)
+	};
+\endcode
  *
  * The TWI slave will fire an interrupt when it has received data, and the
  * function below will be called, which will copy the data from the driver
  * to our recv_data buffer:
  * \code
- * static void slave_process(void) {
- *     int i;
- *
- *     for(i = 0; i < DATA_LENGTH; i++) {
- *         recv_data[i] = slave.receivedData[i];
- *     }
- * }
- * \endcode
+	 static void slave_process(void) {
+	     int i;
+
+	     for(i = 0; i < DATA_LENGTH; i++) {
+	         recv_data[i] = slave.receivedData[i];
+	     }
+	 }
+\endcode
  *
  * Set up the interrupt handler:
  * \code
- * ISR(TWIF_TWIS_vect) {
- *     TWI_SlaveInterruptHandler(&slave);
- * }
- * \endcode
+	ISR(TWIF_TWIS_vect) {
+	    TWI_SlaveInterruptHandler(&slave);
+	}
+\endcode
  *
  * We create a packet for the data that we will send to the slave TWI:
  * \code
- *     twi_package_t packet = {
- *         .addr_length = 0,
- *         .chip        = TWI_SLAVE_ADDR,
- *         .buffer      = (void *)data,
- *         .length      = DATA_LENGTH,
- *         .no_wait     = false
- *     };
- * \endcode
+	twi_package_t packet = {
+	    .addr_length = 0,
+	    .chip        = TWI_SLAVE_ADDR,
+	    .buffer      = (void *)data,
+	    .length      = DATA_LENGTH,
+	    .no_wait     = false
+	};
+\endcode
  *
  * We need to set SDA/SCL pins for the master TWI to be wired and
  * enable pull-up:
  * \code
- *     TWI_MASTER_PORT.PIN0CTRL = PORT_OPC_WIREDANDPULL_gc;
- *     TWI_MASTER_PORT.PIN1CTRL = PORT_OPC_WIREDANDPULL_gc;
- * \endcode
+	TWI_MASTER_PORT.PIN0CTRL = PORT_OPC_WIREDANDPULL_gc;
+	TWI_MASTER_PORT.PIN1CTRL = PORT_OPC_WIREDANDPULL_gc;
+\endcode
  *
  * We enable all interrupt levels:
  * \code
- *     irq_initialize_vectors();
- * \endcode
+	irq_initialize_vectors();
+\endcode
  *
  * We enable the clock to the master module, and initialize it with the
  * options we described before:
  * \code
- *     sysclk_enable_peripheral_clock(&TWI_MASTER);
- *     twi_master_init(&TWI_MASTER, &m_options);
- *     twi_master_enable(&TWI_MASTER);
- * \endcode
+	sysclk_enable_peripheral_clock(&TWI_MASTER);
+	twi_master_init(&TWI_MASTER, &m_options);
+	twi_master_enable(&TWI_MASTER);
+\endcode
  *
  * We do the same for the slave, using the slave portion of the driver,
  * passing through the slave_process function, its address, and set medium
  * interrupt level:
  * \code
- *     sysclk_enable_peripheral_clock(&TWI_SLAVE);
- *     TWI_SlaveInitializeDriver(&slave, &TWI_SLAVE, *slave_process);
- *     TWI_SlaveInitializeModule(&slave, TWI_SLAVE_ADDR,
- *             TWI_SLAVE_INTLVL_MED_gc);
- * \endcode
+	sysclk_enable_peripheral_clock(&TWI_SLAVE);
+	TWI_SlaveInitializeDriver(&slave, &TWI_SLAVE, *slave_process);
+	TWI_SlaveInitializeModule(&slave, TWI_SLAVE_ADDR,
+	        TWI_SLAVE_INTLVL_MED_gc);
+\endcode
  *
  * We zero out the receive buffer in the slave handle:
  * \code
- *     for (i = 0; i < TWIS_SEND_BUFFER_SIZE; i++) {
- *         slave.receivedData[i] = 0;
- *     }
- * \endcode
+	for (i = 0; i < TWIS_SEND_BUFFER_SIZE; i++) {
+	    slave.receivedData[i] = 0;
+	}
+\endcode
  *
  * And enable interrupts:
  * \code
- *     cpu_irq_enable();
- * \endcode
+	cpu_irq_enable();
+\endcode
  *
  * Finally, we write our packet through the master TWI module:
  * \code
- *     twi_master_write(&TWI_MASTER, &packet);
- * \endcode
+	twi_master_write(&TWI_MASTER, &packet);
+\endcode
  *
  * We wait for the slave to finish receiving:
  * \code
- *     do {
- *         // Waiting
- *     } while(slave.result != TWIS_RESULT_OK);
- * \endcode
+	do {
+	    // Waiting
+	} while(slave.result != TWIS_RESULT_OK);
+\endcode
  * \note When the slave has finished receiving, the slave_process()
  *       function will copy the received data into our recv_data buffer,
  *       which now contains what was sent through the master.
@@ -374,223 +374,223 @@ typedef struct
  * \subsection xmegae_twi_quickstart_use_case_example_code Example code
  *
  * \code
- * #define TWI_MASTER       TWIC
- * #define TWI_MASTER_PORT  PORTC
- * #define TWI_SLAVE        TWIC
- * #define TWI_SPEED        1000000
- * #define TWI_MASTER_ADDR  0x50
- * #define TWI_SLAVE_ADDR   0x50
- *
- * #define DATA_LENGTH     8
- *
- * TWI_Slave_t slave;
- *
- * uint8_t data[DATA_LENGTH] = {
- *     0x0f, 0x1f, 0x2f, 0x3f, 0x4f, 0x5f, 0x6f, 0x7f
- * };
- *
- * uint8_t recv_data[DATA_LENGTH] = {
- *     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
- * };
- *
- * twi_options_t m_options = {
- *     .speed     = TWI_SPEED,
- *     .chip      = TWI_MASTER_ADDR,
- *     .speed_reg = TWI_BAUD(sysclk_get_cpu_hz(), TWI_SPEED)
- * };
- *
- * static void slave_process(void) {
- *     int i;
- *
- *     for(i = 0; i < DATA_LENGTH; i++) {
- *         recv_data[i] = slave.receivedData[i];
- *     }
- * }
- *
- * ISR(TWIC_TWIS_vect) {
- *     TWI_SlaveInterruptHandler(&slave);
- * }
- *
- * void send_and_recv_twi()
- * {
- *     twi_package_t packet = {
- *         .addr_length = 0,
- *         .chip        = TWI_SLAVE_ADDR,
- *         .buffer      = (void *)data,
- *         .length      = DATA_LENGTH,
- *         .no_wait     = false
- *     };
- *
- *     uint8_t i;
- *
- *     TWI_MASTER_PORT.PIN0CTRL = PORT_OPC_WIREDANDPULL_gc;
- *     TWI_MASTER_PORT.PIN1CTRL = PORT_OPC_WIREDANDPULL_gc;
- *
- *     irq_initialize_vectors();
- *
- *     sysclk_enable_peripheral_clock(&TWI_MASTER);
- *
- *     twi_bridge_enable(&TWI_MASTER);
- *     twi_fast_mode_enable(&TWI_MASTER);
- *     twi_slave_fast_mode_enable(&TWI_SLAVE);
- *
- *     twi_master_init(&TWI_MASTER, &m_options);
- *     twi_master_enable(&TWI_MASTER);
- *
- *     sysclk_enable_peripheral_clock(&TWI_SLAVE);
- *     TWI_SlaveInitializeDriver(&slave, &TWI_SLAVE, *slave_process);
- *     TWI_SlaveInitializeModule(&slave, TWI_SLAVE_ADDR,
- *             TWI_SLAVE_INTLVL_MED_gc);
- *
- *     for (i = 0; i < TWIS_SEND_BUFFER_SIZE; i++) {
- *         slave.receivedData[i] = 0;
- *     }
- *
- *     cpu_irq_enable();
- *
- *     twi_master_write(&TWI_MASTER, &packet);
- *
- *     do {
- *         // Nothing
- *     } while(slave.result != TWIS_RESULT_OK);
- * }
- * \endcode
+	 #define TWI_MASTER       TWIC
+	 #define TWI_MASTER_PORT  PORTC
+	 #define TWI_SLAVE        TWIC
+	 #define TWI_SPEED        1000000
+	 #define TWI_MASTER_ADDR  0x50
+	 #define TWI_SLAVE_ADDR   0x50
+
+	 #define DATA_LENGTH     8
+
+	 TWI_Slave_t slave;
+
+	 uint8_t data[DATA_LENGTH] = {
+	     0x0f, 0x1f, 0x2f, 0x3f, 0x4f, 0x5f, 0x6f, 0x7f
+	 };
+
+	 uint8_t recv_data[DATA_LENGTH] = {
+	     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	 };
+
+	 twi_options_t m_options = {
+	     .speed     = TWI_SPEED,
+	     .chip      = TWI_MASTER_ADDR,
+	     .speed_reg = TWI_BAUD(sysclk_get_cpu_hz(), TWI_SPEED)
+	 };
+
+	 static void slave_process(void) {
+	     int i;
+
+	     for(i = 0; i < DATA_LENGTH; i++) {
+	         recv_data[i] = slave.receivedData[i];
+	     }
+	 }
+
+	 ISR(TWIC_TWIS_vect) {
+	     TWI_SlaveInterruptHandler(&slave);
+	 }
+
+	 void send_and_recv_twi()
+	 {
+	     twi_package_t packet = {
+	         .addr_length = 0,
+	         .chip        = TWI_SLAVE_ADDR,
+	         .buffer      = (void *)data,
+	         .length      = DATA_LENGTH,
+	         .no_wait     = false
+	     };
+
+	     uint8_t i;
+
+	     TWI_MASTER_PORT.PIN0CTRL = PORT_OPC_WIREDANDPULL_gc;
+	     TWI_MASTER_PORT.PIN1CTRL = PORT_OPC_WIREDANDPULL_gc;
+
+	     irq_initialize_vectors();
+
+	     sysclk_enable_peripheral_clock(&TWI_MASTER);
+
+	     twi_bridge_enable(&TWI_MASTER);
+	     twi_fast_mode_enable(&TWI_MASTER);
+	     twi_slave_fast_mode_enable(&TWI_SLAVE);
+
+	     twi_master_init(&TWI_MASTER, &m_options);
+	     twi_master_enable(&TWI_MASTER);
+
+	     sysclk_enable_peripheral_clock(&TWI_SLAVE);
+	     TWI_SlaveInitializeDriver(&slave, &TWI_SLAVE, *slave_process);
+	     TWI_SlaveInitializeModule(&slave, TWI_SLAVE_ADDR,
+	             TWI_SLAVE_INTLVL_MED_gc);
+
+	     for (i = 0; i < TWIS_SEND_BUFFER_SIZE; i++) {
+	         slave.receivedData[i] = 0;
+	     }
+
+	     cpu_irq_enable();
+
+	     twi_master_write(&TWI_MASTER, &packet);
+
+	     do {
+	         // Nothing
+	     } while(slave.result != TWIS_RESULT_OK);
+	 }
+\endcode
  *
  * \subsection xmegae_twi_quickstart_use_case_workflow Workflow
  * We first create some definitions. TWI master and slave, speed, and
  * addresses:
  * \code
- * #define TWI_MASTER       TWIC
- * #define TWI_MASTER_PORT  PORTC
- * #define TWI_SLAVE        TWIC
- * #define TWI_SPEED        1000000
- * #define TWI_MASTER_ADDR  0x50
- * #define TWI_SLAVE_ADDR   0x50
- *
- * #define DATA_LENGTH     8
- * \endcode
+	 #define TWI_MASTER       TWIC
+	 #define TWI_MASTER_PORT  PORTC
+	 #define TWI_SLAVE        TWIC
+	 #define TWI_SPEED        1000000
+	 #define TWI_MASTER_ADDR  0x50
+	 #define TWI_SLAVE_ADDR   0x50
+
+	 #define DATA_LENGTH     8
+\endcode
  *
  * We create a handle to contain information about the slave module:
  * \code
- * TWI_Slave_t slave;
- * \endcode
+	TWI_Slave_t slave;
+\endcode
  *
  * We create two variables, one which contains data that will be transmitted,
  * and one which will contain the received data:
  * \code
- * uint8_t data[DATA_LENGTH] = {
- *     0x0f, 0x1f, 0x2f, 0x3f, 0x4f, 0x5f, 0x6f, 0x7f
- * };
- *
- * uint8_t recv_data[DATA_LENGTH] = {
- *     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
- * };
- * \endcode
+	 uint8_t data[DATA_LENGTH] = {
+	     0x0f, 0x1f, 0x2f, 0x3f, 0x4f, 0x5f, 0x6f, 0x7f
+	 };
+
+	 uint8_t recv_data[DATA_LENGTH] = {
+	     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	 };
+\endcode
  *
  * Options for the TWI module initialization procedure are given below:
  * \code
- * twi_options_t m_options = {
- *     .speed     = TWI_SPEED,
- *     .chip      = TWI_MASTER_ADDR,
- *     .speed_reg = TWI_BAUD(sysclk_get_cpu_hz(), TWI_SPEED)
- * };
- * \endcode
+	twi_options_t m_options = {
+	    .speed     = TWI_SPEED,
+	    .chip      = TWI_MASTER_ADDR,
+	    .speed_reg = TWI_BAUD(sysclk_get_cpu_hz(), TWI_SPEED)
+	};
+\endcode
  *
  * The TWI slave will fire an interrupt when it has received data, and the
  * function below will be called, which will copy the data from the driver
  * to our recv_data buffer:
  * \code
- * static void slave_process(void) {
- *     int i;
- *
- *     for(i = 0; i < DATA_LENGTH; i++) {
- *         recv_data[i] = slave.receivedData[i];
- *     }
- * }
- * \endcode
+	 static void slave_process(void) {
+	     int i;
+
+	     for(i = 0; i < DATA_LENGTH; i++) {
+	         recv_data[i] = slave.receivedData[i];
+	     }
+	 }
+\endcode
  *
  * Set up the interrupt handler:
  * \code
- * ISR(TWIC_TWIS_vect) {
- *     TWI_SlaveInterruptHandler(&slave);
- * }
- * \endcode
+	ISR(TWIC_TWIS_vect) {
+	    TWI_SlaveInterruptHandler(&slave);
+	}
+\endcode
  *
  * We create a packet for the data that we will send to the slave TWI:
  * \code
- *     twi_package_t packet = {
- *         .addr_length = 0,
- *         .chip        = TWI_SLAVE_ADDR,
- *         .buffer      = (void *)data,
- *         .length      = DATA_LENGTH,
- *         .no_wait     = false
- *     };
- * \endcode
+	twi_package_t packet = {
+	    .addr_length = 0,
+	    .chip        = TWI_SLAVE_ADDR,
+	    .buffer      = (void *)data,
+	    .length      = DATA_LENGTH,
+	    .no_wait     = false
+	};
+\endcode
  *
  * We need to set SDA/SCL pins for the master TWI to be wired and
  * enable pull-up:
  * \code
- *     TWI_MASTER_PORT.PIN0CTRL = PORT_OPC_WIREDANDPULL_gc;
- *     TWI_MASTER_PORT.PIN1CTRL = PORT_OPC_WIREDANDPULL_gc;
- * \endcode
+	TWI_MASTER_PORT.PIN0CTRL = PORT_OPC_WIREDANDPULL_gc;
+	TWI_MASTER_PORT.PIN1CTRL = PORT_OPC_WIREDANDPULL_gc;
+\endcode
  *
  * We enable all interrupt levels:
  * \code
- *     irq_initialize_vectors();
- * \endcode
+	irq_initialize_vectors();
+\endcode
  *
  * We enable the clock to the master module:
  * \code
- *     sysclk_enable_peripheral_clock(&TWI_MASTER);
- * \endcode
+	sysclk_enable_peripheral_clock(&TWI_MASTER);
+\endcode
  * 
  * We enable the global TWI bridge mode as well as the Fast Mode Plus
  * communication speed for both master and slave:
  * \code
- *     twi_bridge_enable(&TWI_MASTER);
- *     twi_fast_mode_enable(&TWI_MASTER);
- *     twi_slave_fast_mode_enable(&TWI_SLAVE);
- * \endcode
+	twi_bridge_enable(&TWI_MASTER);
+	twi_fast_mode_enable(&TWI_MASTER);
+	twi_slave_fast_mode_enable(&TWI_SLAVE);
+\endcode
  *
  * Initialize the master module with the options we described before:
  * \code
- *     twi_master_init(&TWI_MASTER, &m_options);
- *     twi_master_enable(&TWI_MASTER);
- * \endcode
+	twi_master_init(&TWI_MASTER, &m_options);
+	twi_master_enable(&TWI_MASTER);
+\endcode
  *
  * We do the same for the slave, using the slave portion of the driver,
  * passing through the slave_process function, its address, and set medium
  * interrupt level:
  * \code
- *     sysclk_enable_peripheral_clock(&TWI_SLAVE);
- *     TWI_SlaveInitializeDriver(&slave, &TWI_SLAVE, *slave_process);
- *     TWI_SlaveInitializeModule(&slave, TWI_SLAVE_ADDR,
- *             TWI_SLAVE_INTLVL_MED_gc);
- * \endcode
+	sysclk_enable_peripheral_clock(&TWI_SLAVE);
+	TWI_SlaveInitializeDriver(&slave, &TWI_SLAVE, *slave_process);
+	TWI_SlaveInitializeModule(&slave, TWI_SLAVE_ADDR,
+	        TWI_SLAVE_INTLVL_MED_gc);
+\endcode
  *
  * We zero out the receive buffer in the slave handle:
  * \code
- *     for (i = 0; i < TWIS_SEND_BUFFER_SIZE; i++) {
- *         slave.receivedData[i] = 0;
- *     }
- * \endcode
+	for (i = 0; i < TWIS_SEND_BUFFER_SIZE; i++) {
+	    slave.receivedData[i] = 0;
+	}
+\endcode
  *
  * And enable interrupts:
  * \code
- *     cpu_irq_enable();
- * \endcode
+	cpu_irq_enable();
+\endcode
  *
  * Finally, we write our packet through the master TWI module:
  * \code
- *     twi_master_write(&TWI_MASTER, &packet);
- * \endcode
+	twi_master_write(&TWI_MASTER, &packet);
+\endcode
  *
  * We wait for the slave to finish receiving:
  * \code
- *     do {
- *         // Waiting
- *     } while(slave.result != TWIS_RESULT_OK);
- * \endcode
+	do {
+	    // Waiting
+	} while(slave.result != TWIS_RESULT_OK);
+\endcode
  * \note When the slave has finished receiving, the slave_process()
  *       function will copy the received data into our recv_data buffer,
  *       which now contains what was sent through the master.

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 USART Unit test
+ * \brief SAM D20/D21/R21 TC Unit test
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,24 +41,85 @@
  *
  */
 
-/*
- * This unit test requires pin PA16 and PB31 to be connected. On the
- * Xplained Pro this corresponds to pin EXT3_PIN_17 on the EXT3 header and
- * the pin EXT3_PIN_8 on the EXT3 header.
+/**
+ * \mainpage SAM D20/D21/R21 TC Unit Test
+ * See \ref appdoc_main "here" for project documentation.
+ * \copydetails appdoc_preface
+ *
+ *
+ * \page appdoc_preface Overview
+ * This unit test carries out tests for TC driver.
+ * It consists of test cases for the following functionalities:
+ *      - Test for driver initialization.
+ *      - Test for TC start/stop
+ *      - Test for TC callback generation
+ *      - Test for 32-bit (chained) TC operation
+ *      - Test for compare and capture TC operation
+ */
+
+/**
+ * \page appdoc_main SAM D20/D21/R21 TC Unit Test
+ *
+ * Overview:
+ * - \ref appdoc_sam0_tc_unit_test_intro
+ * - \ref appdoc_sam0_tc_unit_test_setup
+ * - \ref appdoc_sam0_tc_unit_test_usage
+ * - \ref appdoc_sam0_tc_unit_test_compinfo
+ * - \ref appdoc_sam0_tc_unit_test_contactinfo
+ *
+ * \section appdoc_sam0_tc_unit_test_intro Introduction
+ * \copydetails appdoc_preface
+ *
+ * The following kit is required for carrying out the test:
+ *      - SAM D20/D21/R21 Xplained Pro board
+ *
+ * \section appdoc_sam0_tc_unit_test_setup Setup
+ * The following connections has to be made using wires:
+ *  - \b SAM D20 Xplained Pro:EXTINT 0 (PA16, EXT2 pin 17) <-----> TC0 WO1 (PA05, EXT1 pin 15)
+ *  - \b SAM D21 Xplained Pro:EXTINT 0 (PA16, EXT2 pin 17) <-----> TC4 WO1 (PB09, EXT1 pin 13)
+ *  - \b SAM R21 Xplained Pro:EXTINT 0 (PA16, EXT1 pin 11) <-----> TC4 WO1 (PA23, EXT1 pin 10)
+ *
+ * To run the test:
+ *  - Connect the SAM D20/D21/R21 Xplained Pro board to the computer using a
+ *    micro USB cable.
+ *  - Open the virtual COM port in a terminal application.
+ *    \note The USB composite firmware running on the Embedded Debugger (EDBG)
+ *          will enumerate as debugger, virtual COM port and EDBG data
+ *          gateway.
+ *  - Build the project, program the target and run the application.
+ *    The terminal shows the results of the unit test.
+ *
+ * \section appdoc_sam0_tc_unit_test_usage Usage
+ *  - The unit tests are carried out using the several TC modules internally
+ *    for internal checks.
+ *  - The EXTINT module is connected to a TC module so that it can detect the
+ *    correct TC waveform output.
+ *
+ * \section appdoc_sam0_tc_unit_test_compinfo Compilation Info
+ * This software was written for the GNU GCC and IAR for ARM.
+ * Other compilers may or may not work.
+ *
+ * \section appdoc_sam0_tc_unit_test_contactinfo Contact Information
+ * For further information, visit
+ * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
 
 #include <asf.h>
 #include <stdio_serial.h>
+#include <string.h>
+#include "conf_test.h"
 
+/* Structure for UART module connected to EDBG (used for unit test output) */
+struct usart_module cdc_uart_module;
 
 /* TC modules used in tests */
-struct tc_module tc0_module;
-struct tc_module tc1_module;
-struct tc_module tc6_module;
+struct tc_module tc_test0_module;
+struct tc_module tc_test1_module;
+
 
 /* Config structs used in tests */
-struct tc_config tc0_config;
-struct tc_config tc1_config;
+struct tc_config tc_test0_config;
+struct tc_config tc_test1_config;
 
 bool tc_init_success = 0;
 
@@ -86,11 +147,11 @@ static void tc_callback_function(struct tc_module *const module_inst)
  */
 static void run_init_test(const struct test_case *test)
 {
-	tc_get_config_defaults(&tc0_config);
-	enum status_code test1 = tc_init(&tc0_module, TC0, &tc0_config);
+	tc_get_config_defaults(&tc_test0_config);
+	enum status_code test1 = tc_init(&tc_test0_module, CONF_TEST_TC0, &tc_test0_config);
 
-	tc_get_config_defaults(&tc1_config);
-	enum status_code test2 = tc_init(&tc1_module, TC1, &tc1_config);
+	tc_get_config_defaults(&tc_test1_config);
+	enum status_code test2 = tc_init(&tc_test1_module, CONF_TEST_TC1, &tc_test1_config);
 
 	if ((test1 == STATUS_OK) && (test2 == STATUS_OK)) {
 		tc_init_success = true;
@@ -118,56 +179,59 @@ static void run_reset_32bit_master_test(const struct test_case *test)
 			"TC initialization failed, skipping test");
 
 	/* Configure 32-bit TC module and run test*/
-	tc_reset(&tc0_module);
-	tc_get_config_defaults(&tc0_config);
-	tc0_config.counter_size = TC_COUNTER_SIZE_32BIT;
-	tc_init(&tc0_module, TC0, &tc0_config);
-	tc_enable(&tc0_module);
+	tc_reset(&tc_test0_module);
+	tc_get_config_defaults(&tc_test0_config);
+	tc_test0_config.counter_size = TC_COUNTER_SIZE_32BIT;
 
-	while (tc_is_syncing(&tc0_module)) {
+	tc_init(&tc_test0_module, CONF_TEST_TC0, &tc_test0_config);
+	tc_enable(&tc_test0_module);
+
+	while (tc_is_syncing(&tc_test0_module)) {
 		/* Synchronize enable */
 	}
 
 	test_assert_true(test,
-			tc0_module.hw->COUNT32.CTRLA.reg & TC_CTRLA_ENABLE,
+			tc_test0_module.hw->COUNT32.CTRLA.reg & TC_CTRLA_ENABLE,
 			"Failed first enable of 32-bit TC");
 
 	/* Reset and test if both TC modules are disabled after reset */
-	tc_reset(&tc0_module);
+	tc_reset(&tc_test0_module);
 
-	while (tc_is_syncing(&tc0_module)) {
+	while (tc_is_syncing(&tc_test0_module)) {
 		/* Synchronize reset */
 	}
 
 	test_assert_false(test,
-			tc0_module.hw->COUNT32.CTRLA.reg & TC_CTRLA_ENABLE,
-			"Failed reset of 32-bit master TC0");
+			tc_test0_module.hw->COUNT32.CTRLA.reg & TC_CTRLA_ENABLE,
+			"Failed reset of 32-bit master TC TEST0");
 	test_assert_false(test,
-			tc1_module.hw->COUNT32.CTRLA.reg & TC_CTRLA_ENABLE,
-			"Failed reset of 32-bit slave TC1");
+			tc_test1_module.hw->COUNT32.CTRLA.reg & TC_CTRLA_ENABLE,
+			"Failed reset of 32-bit slave TC TEST1");
 
 	/* Change to 16-bit counter on TC0  */
-	tc0_config.counter_size = TC_COUNTER_SIZE_16BIT;
-	tc_init(&tc0_module, TC0, &tc0_config);
-	tc_enable(&tc0_module);
+	tc_test0_config.counter_size = TC_COUNTER_SIZE_16BIT;
 
-	while (tc_is_syncing(&tc0_module)) {
+	tc_init(&tc_test0_module, CONF_TEST_TC0, &tc_test0_config);
+	tc_enable(&tc_test0_module);
+
+	while (tc_is_syncing(&tc_test0_module)) {
 		/* Synchronize enable */
 	}
 
-	tc_init(&tc1_module, TC1, &tc1_config);
-	tc_enable(&tc1_module);
 
-	while (tc_is_syncing(&tc1_module)) {
+	tc_init(&tc_test1_module, CONF_TEST_TC1, &tc_test1_config);
+	tc_enable(&tc_test1_module);
+
+	while (tc_is_syncing(&tc_test1_module)) {
 		/* Synchronize enable */
 	}
 
 	test_assert_true(test,
-			tc0_module.hw->COUNT16.CTRLA.reg & TC_CTRLA_ENABLE,
-			"Failed re-enable of TC0");
+			tc_test0_module.hw->COUNT16.CTRLA.reg & TC_CTRLA_ENABLE,
+			"Failed re-enable of TC TEST0");
 	test_assert_true(test,
-			tc1_module.hw->COUNT16.CTRLA.reg & TC_CTRLA_ENABLE,
-			"Failed re-enable TC1");
+			tc_test1_module.hw->COUNT16.CTRLA.reg & TC_CTRLA_ENABLE,
+			"Failed re-enable of TC TEST1");
 }
 
 /**
@@ -189,40 +253,41 @@ static void run_basic_functionality_test(const struct test_case *test)
 			"TC initialization failed, skipping test");
 
 	/* Setup TC0 */
-	tc_reset(&tc0_module);
-	tc_get_config_defaults(&tc0_config);
-	tc_init(&tc0_module, TC0, &tc0_config);
-	tc_enable(&tc0_module);
+	tc_reset(&tc_test0_module);
+	tc_get_config_defaults(&tc_test0_config);
+
+	tc_init(&tc_test0_module, CONF_TEST_TC0, &tc_test0_config);
+	tc_enable(&tc_test0_module);
 
 	/* Test tc_get_count_value() */
-	uint32_t test_val0 = tc_get_count_value(&tc0_module);
+	uint32_t test_val0 = tc_get_count_value(&tc_test0_module);
 
 	test_assert_true(test,
 			test_val0 > 0,
 			"The tc_get_count_value() returned 0 expected larger value");
 
 	/* Test tc_stop_counter() */
-	tc_stop_counter(&tc0_module);
+	tc_stop_counter(&tc_test0_module);
 
-	uint32_t test_val1 = tc_get_count_value(&tc0_module);
-	uint32_t test_val2 = tc_get_count_value(&tc0_module);
+	uint32_t test_val1 = tc_get_count_value(&tc_test0_module);
+	uint32_t test_val2 = tc_get_count_value(&tc_test0_module);
 
 	test_assert_true(test,
 			test_val1 == test_val2,
 			"The counter failed to stop");
 
 	/* Test tc_set_count_value() */
-	tc_set_count_value(&tc0_module, 0x00FF);
+	tc_set_count_value(&tc_test0_module, 0x00FF);
 
 	test_assert_true(test,
-			tc_get_count_value(&tc0_module) == 0x00FF,
+			tc_get_count_value(&tc_test0_module) == 0x00FF,
 			"tc_set_count_value() have failed");
 
 	/* Test tc_start_counter() */
-	tc_start_counter(&tc0_module);
+	tc_start_counter(&tc_test0_module);
 
 	test_assert_true(test,
-			tc_get_count_value(&tc0_module) > 0x00FF,
+			tc_get_count_value(&tc_test0_module) > 0x00FF,
 			"tc_get_count_value() have failed");
 
 	basic_functionality_test_passed = true;
@@ -247,27 +312,29 @@ static void run_callback_test(const struct test_case *test)
 			"Basic functionality test failed, skipping test");
 
 	/* Setup TC0 */
-	tc_reset(&tc0_module);
-	tc_get_config_defaults(&tc0_config);
-	tc0_config.wave_generation                            = TC_WAVE_GENERATION_MATCH_PWM;
-	tc0_config.size_specific.size_16_bit.compare_capture_channel\
+	tc_reset(&tc_test0_module);
+	tc_get_config_defaults(&tc_test0_config);
+	tc_test0_config.wave_generation                       = TC_WAVE_GENERATION_MATCH_PWM;
+	tc_test0_config.counter_16_bit.compare_capture_channel\
 		[TC_COMPARE_CAPTURE_CHANNEL_0]                    = 0x03FF;
-	tc0_config.size_specific.size_16_bit.compare_capture_channel\
+	tc_test0_config.counter_16_bit.compare_capture_channel\
 		[TC_COMPARE_CAPTURE_CHANNEL_1]                    = 0x03FA;
-	tc_init(&tc0_module, TC0, &tc0_config);
+
+
+	tc_init(&tc_test0_module, CONF_TEST_TC0, &tc_test0_config);
 
 	/* Setup callbacks */
-	tc_register_callback(&tc0_module, tc_callback_function, TC_CALLBACK_CC_CHANNEL1);
-	tc_enable_callback(&tc0_module, TC_CALLBACK_CC_CHANNEL1);
+	tc_register_callback(&tc_test0_module, tc_callback_function, TC_CALLBACK_CC_CHANNEL1);
+	tc_enable_callback(&tc_test0_module, TC_CALLBACK_CC_CHANNEL1);
 
-	tc_enable(&tc0_module);
+	tc_enable(&tc_test0_module);
 
-	while ((tc_get_status(&tc0_module) & TC_STATUS_COUNT_OVERFLOW) == 0) {
+	while ((tc_get_status(&tc_test0_module) & TC_STATUS_COUNT_OVERFLOW) == 0) {
 		/* Wait for overflow of TC1*/
 	}
 
-	tc_disable(&tc0_module);
-	tc_clear_status(&tc0_module, TC_STATUS_COUNT_OVERFLOW);
+	tc_disable(&tc_test0_module);
+	tc_clear_status(&tc_test0_module, TC_STATUS_COUNT_OVERFLOW);
 
 	test_assert_true(test,
 			callback_function_entered == 1,
@@ -275,17 +342,17 @@ static void run_callback_test(const struct test_case *test)
 			(int)callback_function_entered);
 
 	/* Test disable callback function */
-	tc_disable_callback(&tc0_module, TC_CALLBACK_CC_CHANNEL1);
-	tc_set_count_value(&tc0_module, 0x00000000);
+	tc_disable_callback(&tc_test0_module, TC_CALLBACK_CC_CHANNEL1);
+	tc_set_count_value(&tc_test0_module, 0x00000000);
 
-	tc_enable(&tc0_module);
+	tc_enable(&tc_test0_module);
 
-	while ((tc_get_status(&tc0_module) & TC_STATUS_COUNT_OVERFLOW) == 0) {
+	while ((tc_get_status(&tc_test0_module) & TC_STATUS_COUNT_OVERFLOW) == 0) {
 		/* Wait for overflow of TC1*/
 	}
 
 	/* Test tc_disable() */
-	tc_disable(&tc0_module);
+	tc_disable(&tc_test0_module);
 
 	test_assert_true(test,
 			callback_function_entered == 1,
@@ -296,8 +363,9 @@ static void run_callback_test(const struct test_case *test)
  * \internal
  * \brief Test capture and compare
  *
- * This test uses TC0 as a PWM generator (compare function). TC1 will be set to
- * capture the signal from TC0 to test the capture functionality.
+ * This test uses TC module 0 as a PWM generator (compare function).
+ * TC module 1 will be set to capture the signal from TC module 0 to test the capture
+ * functionality.
  *
  * \param test Current test case.
  */
@@ -312,119 +380,125 @@ static void run_16bit_capture_and_compare_test(const struct test_case *test)
 			"The callback test has failed, skipping test");
 
 	/* Configure 16-bit TC module for PWM generation */
-	tc_reset(&tc0_module);
-	tc_get_config_defaults(&tc0_config);
-	tc0_config.wave_generation                                       =
-			TC_WAVE_GENERATION_MATCH_PWM;
-	tc0_config.size_specific.size_16_bit.compare_capture_channel[0]  =
-			0x03FF;
-	tc0_config.size_specific.size_16_bit.compare_capture_channel[1]  =
-			0x01FF;
-	tc0_config.channel_pwm_out_enabled[TC_COMPARE_CAPTURE_CHANNEL_1] = true;
-	tc0_config.channel_pwm_out_pin[1]                                = PIN_PB31F_TC0_WO1;
-	tc0_config.channel_pwm_out_mux[1]                                = MUX_PB31F_TC0_WO1;
+	tc_reset(&tc_test0_module);
+	tc_get_config_defaults(&tc_test0_config);
+	tc_test0_config.wave_generation  = TC_WAVE_GENERATION_MATCH_PWM;
+	tc_test0_config.counter_16_bit.compare_capture_channel[TC_COMPARE_CAPTURE_CHANNEL_0]  = 0x03FF;
+	tc_test0_config.counter_16_bit.compare_capture_channel[TC_COMPARE_CAPTURE_CHANNEL_1]  = 0x01FF;
 
-	tc_init(&tc0_module, TC0, &tc0_config);
+	/* Calculate the theoretical PWM frequency & duty */
+	uint32_t frequency_output, duty_output;
+	frequency_output = system_clock_source_get_hz(SYSTEM_CLOCK_SOURCE_OSC8M)/ (0x03FF+1);
 
-	tc_register_callback(&tc0_module, tc_callback_function, TC_CALLBACK_CC_CHANNEL0);
-	tc_enable_callback(&tc0_module, TC_CALLBACK_CC_CHANNEL0);
+	/* This value is depend on the WaveGeneration Mode */
+	duty_output = (uint32_t)(tc_test0_config.counter_16_bit.compare_capture_channel[TC_COMPARE_CAPTURE_CHANNEL_1]) * 100 \
+					/ tc_test0_config.counter_16_bit.compare_capture_channel[TC_COMPARE_CAPTURE_CHANNEL_0];
+
+	tc_test0_config.pwm_channel[TC_COMPARE_CAPTURE_CHANNEL_1].enabled = true;
+	tc_test0_config.pwm_channel[TC_COMPARE_CAPTURE_CHANNEL_1].pin_out = CONF_TEST_PIN_OUT;
+	tc_test0_config.pwm_channel[TC_COMPARE_CAPTURE_CHANNEL_1].pin_mux = CONF_TEST_PIN_MUX;
+	tc_init(&tc_test0_module, CONF_TEST_TC0, &tc_test0_config);
+
+	tc_register_callback(&tc_test0_module, tc_callback_function, TC_CALLBACK_CC_CHANNEL0);
+	tc_enable_callback(&tc_test0_module, TC_CALLBACK_CC_CHANNEL0);
 
 	/* Configure 16-bit TC module for capture */
-	tc_reset(&tc1_module);
-	tc_get_config_defaults(&tc1_config);
-	tc1_config.clock_prescaler              = TC_CLOCK_PRESCALER_DIV1;
-	tc1_config.enable_capture_on_channel[0] = true;
-	tc1_config.enable_capture_on_channel[1] = true;
-	tc1_config.event_action                 = TC_EVENT_ACTION_PPW;
-	tc_init(&tc1_module, TC1, &tc1_config);
+	tc_reset(&tc_test1_module);
+	tc_get_config_defaults(&tc_test1_config);
+	tc_test1_config.clock_prescaler              = TC_CLOCK_PRESCALER_DIV1;
+	tc_test1_config.enable_capture_on_channel[CONF_CAPTURE_CHAN_0] = true;
+	tc_test1_config.enable_capture_on_channel[CONF_CAPTURE_CHAN_1] = true;
 
-	struct tc_events tc_events = { .on_event_perform_action = true };
-	tc_enable_events(&tc1_module, &tc_events);
+	tc_init(&tc_test1_module, CONF_TEST_TC1, &tc_test1_config);
+
+	struct tc_events tc_events = { .on_event_perform_action = true,
+								.event_action = TC_EVENT_ACTION_PPW,};
+
+	tc_enable_events(&tc_test1_module, &tc_events);
 
 	/* Configure external interrupt controller */
 	struct extint_chan_conf extint_chan_config;
-	extint_chan_config.gpio_pin            = PIN_PA16A_EIC_EXTINT0;
-	extint_chan_config.gpio_pin_mux        = MUX_PA16A_EIC_EXTINT0;
+	extint_chan_config.gpio_pin            = CONF_EIC_PIN;
+	extint_chan_config.gpio_pin_mux        = CONF_EIC_MUX;
 	extint_chan_config.gpio_pin_pull       = EXTINT_PULL_UP;
 	extint_chan_config.wake_if_sleeping    = false;
 	extint_chan_config.filter_input_signal = false;
 	extint_chan_config.detection_criteria  = EXTINT_DETECT_HIGH;
 	extint_chan_set_config(0, &extint_chan_config);
-	extint_enable();
+
 	/* Configure external interrupt module to be event generator */
 	struct extint_events extint_event_conf;
 	extint_event_conf.generate_event_on_detect[0] = true;
 	extint_enable_events(&extint_event_conf);
 
 	/* Configure event system */
-	events_init();
-	/* Configure user */
-	struct events_user_config event_user_conf;
-	events_user_get_config_defaults(&event_user_conf);
-	event_user_conf.event_channel_id = EVENT_CHANNEL_0;
-	events_user_set_config(EVSYS_ID_USER_TC1_EVU, &event_user_conf);
+	struct events_resource event_res;
+
 	/* Configure channel */
-	struct events_chan_config events_chan_conf;
-	events_chan_get_config_defaults(&events_chan_conf);
-	events_chan_conf.generator_id   = EVSYS_ID_GEN_EIC_EXTINT_0;
-	events_chan_conf.path           = EVENT_PATH_ASYNCHRONOUS;
-	events_chan_conf.edge_detection = EVENT_EDGE_NONE;
-	events_chan_set_config(EVENT_CHANNEL_0, &events_chan_conf);
+	struct events_config config;
+	events_get_config_defaults(&config);
+	config.generator      = CONF_EVENT_GENERATOR_ID;
+	config.edge_detect    = EVENTS_EDGE_DETECT_NONE;
+	config.path           = EVENTS_PATH_ASYNCHRONOUS;
+	events_allocate(&event_res, &config);
+
+	/* Configure user */
+	events_attach_user(&event_res, CONF_EVENT_USED_ID);
 
 	/* Enable TC modules */
-	tc_enable(&tc1_module);
-	tc_enable(&tc0_module);
+	tc_enable(&tc_test1_module);
+	tc_enable(&tc_test0_module);
 
 	uint16_t period_after_capture = 0;
 	uint16_t pulse_width_after_capture = 0;
+	uint32_t capture_frequency = 0;
+	uint32_t capture_duty = 0;
+
 
 	while (callback_function_entered < 4) {
-		period_after_capture = tc_get_capture_value(&tc1_module,
+		period_after_capture = tc_get_capture_value(&tc_test1_module,
 				TC_COMPARE_CAPTURE_CHANNEL_0);
-		pulse_width_after_capture = tc_get_capture_value(&tc1_module,
+		pulse_width_after_capture = tc_get_capture_value(&tc_test1_module,
 				TC_COMPARE_CAPTURE_CHANNEL_1);
 	}
 
+	if(period_after_capture != 0) {
+		capture_frequency = system_clock_source_get_hz(SYSTEM_CLOCK_SOURCE_OSC8M)/ period_after_capture;
+		capture_duty = (uint32_t)(pulse_width_after_capture) * 100 / period_after_capture;
+	}
+
 	test_assert_true(test,
-			(0 < pulse_width_after_capture) && (0 < period_after_capture),
-			"PWM has not been captured, pulse width: %d, period: %d",
-			pulse_width_after_capture,
-			period_after_capture);
+			(capture_frequency <= (frequency_output * (100 + CONF_TEST_TOLERANCE) / 100)) && \
+			(capture_frequency >= (frequency_output * (100 - CONF_TEST_TOLERANCE) / 100)) && \
+			(capture_duty <= (duty_output * (100 + CONF_TEST_TOLERANCE) / 100)) && \
+			(capture_duty >= (duty_output * (100 - CONF_TEST_TOLERANCE) / 100)) \
+			,"The result of Capture is wrong, captured frequency: %ldHz, captured duty: %ld%%",
+			capture_frequency,
+			capture_duty
+			);
 }
 
 /**
- * \brief Initialize USARTs for unit tests
+ * \brief Initialize the USART for unit test
  *
- * Initializes the USART used by the unit test for outputting the results (using
- * the embedded debugger).
- *
- * Communication setting:
- *  - Baud rate     38400
- *  - Data bits     8
- *  - Stop bits     1
- *  - Parity        None
- *  - Flow control  XON/XOFF
+ * Initializes the SERCOM USART used for sending the unit test status to the
+ * computer via the EDBG CDC gateway.
  */
-static void test_usart_comunication_init(void)
+static void cdc_uart_init(void)
 {
 	struct usart_config usart_conf;
-	struct usart_module unit_test_output;
 
 	/* Configure USART for unit test output */
 	usart_get_config_defaults(&usart_conf);
-	usart_conf.mux_setting = EDBG_CDC_SERCOM_MUX_SETTING;
-	usart_conf.pinmux_pad0 = EDBG_CDC_SERCOM_PINMUX_PAD0;
-	usart_conf.pinmux_pad1 = EDBG_CDC_SERCOM_PINMUX_PAD1;
-	usart_conf.pinmux_pad2 = EDBG_CDC_SERCOM_PINMUX_PAD2;
-	usart_conf.pinmux_pad3 = EDBG_CDC_SERCOM_PINMUX_PAD3;
-	usart_conf.baudrate    = 38400;
+	usart_conf.mux_setting = CONF_STDIO_MUX_SETTING;
+	usart_conf.pinmux_pad0 = CONF_STDIO_PINMUX_PAD0;
+	usart_conf.pinmux_pad1 = CONF_STDIO_PINMUX_PAD1;
+	usart_conf.pinmux_pad2 = CONF_STDIO_PINMUX_PAD2;
+	usart_conf.pinmux_pad3 = CONF_STDIO_PINMUX_PAD3;
+	usart_conf.baudrate    = CONF_STDIO_BAUDRATE;
 
-	stdio_serial_init(&unit_test_output, EDBG_CDC_MODULE, &usart_conf);
-	usart_enable(&unit_test_output);
-
-	/* Enable transceivers */
-	usart_enable_transceiver(&unit_test_output, USART_TRANSCEIVER_TX);
-	usart_enable_transceiver(&unit_test_output, USART_TRANSCEIVER_RX);
+	stdio_serial_init(&cdc_uart_module, CONF_STDIO_USART, &usart_conf);
+	usart_enable(&cdc_uart_module);
 }
 
 /**
@@ -436,9 +510,7 @@ static void test_usart_comunication_init(void)
 int main(void)
 {
 	system_init();
-	test_usart_comunication_init();
-
-		system_clock_source_write_calibration(SYSTEM_CLOCK_SOURCE_OSC8M, 18, 2);
+	cdc_uart_init();
 
 	/* Define Test Cases */
 	DEFINE_TEST_CASE(init_test, NULL,
@@ -473,13 +545,13 @@ int main(void)
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(tc_suite, tc_tests,
-			"SAM D20 TC driver test suite");
+			"SAM D20/D21/R21 TC driver test suite");
 
 	/* Run all tests in the suite*/
 	test_suite_run(&tc_suite);
 
-	tc_reset(&tc0_module);
-	tc_reset(&tc1_module);
+	tc_reset(&tc_test0_module);
+	tc_reset(&tc_test1_module);
 
 	while (true) {
 		/* Intentionally left empty */

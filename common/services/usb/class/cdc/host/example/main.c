@@ -3,7 +3,7 @@
  *
  * \brief Main functions for USB host mass storage example
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,10 +48,17 @@
  */
 int main(void)
 {
+#if SAMD21
+	system_init();
+#else
 	/* Initialize the synchronous clock system to the default configuration
 	   set in conf_clock.h.
 	   \note All non-essential peripheral clocks are initially disabled. */
 	sysclk_init();
+	/* Initialize the resources used by this example to the default
+	   configuration set in conf_board.h */
+	board_init();
+#endif
 
 	/* Initialize interrupts */
 	irq_initialize_vectors();
@@ -59,10 +66,6 @@ int main(void)
 
 	/* Initialize the sleep manager, lock initial mode. */
 	sleepmgr_init();
-
-	/* Initialize the resources used by this example to the default
-	   configuration set in conf_board.h */
-	board_init();
 
 	/* Initialize the user interface */
 	ui_init();

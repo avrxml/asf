@@ -4,7 +4,7 @@
  * @brief This file defines all message structures for the MAC.
  *
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -55,6 +55,7 @@
 /* === Includes ============================================================= */
 
 #include "mac_msg_const.h"
+#include "return_val.h"
 
 /* === Macros =============================================================== */
 
@@ -73,8 +74,9 @@
  * is packed, i.e.,for ARM(GCC & IAR) and AVR32(GCC)
  */
 #if ((defined __ICCARM__) || (defined __GNUARM__) || (defined __GNUAVR32__))
-#pragma pack(1)
+/* #pragma pack(1) */
 #endif /* __ICCARM__, __GNUARM__ , __GNUAVR32__*/
+__PACK__DATA__
 typedef struct mcps_data_ind_tag {
 	/**< This identifies the message as \ref MCPS_DATA_INDICATION */
 	enum msg_code cmdcode;
@@ -89,7 +91,7 @@ typedef struct mcps_data_ind_tag {
 
 	/**
 	 * The 16 bit PAN identifier of the entity from which the MSDU was
-	 *received.
+	 * received.
 	 */
 	uint16_t SrcPANId;
 
@@ -101,7 +103,7 @@ typedef struct mcps_data_ind_tag {
 
 	/**
 	 * The destination addressing mode for this primitive corresponding to
-	 *the
+	 * the
 	 * received MPDU. This value can take one of the following values:
 	 * 0 x 00 = no address (addressing fields omitted). 0 x 01 = reserved.
 	 * 0 x 02 = 16 bit short device address. 0 x 03 = 64 bit extended
@@ -140,11 +142,11 @@ typedef struct mcps_data_ind_tag {
 	 * in 7.4.1).
 	 * This is a 24-bit value, and the precision of this value shall be a
 	 * minimum of 20 bits, with the lowest 4 bits being the least
-	 *significant.
+	 * significant.
 	 */
 	uint32_t Timestamp;
 #endif  /* ENABLE_TSTAMP */
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
 
 	/**
 	 * The security level purportedly used by the received data frame.
@@ -162,7 +164,7 @@ typedef struct mcps_data_ind_tag {
 	 * of the received frame.
 	 */
 	uint8_t KeyIndex;
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006)) */
 
 	/**
 	 * The number of octets contained in the MSDU being indicated by the
@@ -176,9 +178,10 @@ typedef struct mcps_data_ind_tag {
 	 */
 	uint8_t *msdu;
 } mcps_data_ind_t;
+__PACK__RST_DATA__
 /*End packing for ARM(GCC & IAR) and AVR32(GCC) */
 #if ((defined __ICCARM__) || (defined __GNUARM__) || (defined __GNUAVR32__))
-#pragma pack()
+/* #pragma pack() */
 #endif /* __ICCARM__, __GNUARM__ , __GNUAVR32__*/
 /* ! @} */
 /* === Externals ============================================================ */

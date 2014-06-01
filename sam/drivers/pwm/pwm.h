@@ -3,7 +3,7 @@
  *
  * \brief Pulse Width Modulation (PWM) driver for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -418,25 +418,25 @@ void pwm_channel_update_polarity_mode(Pwm *p_pwm, pwm_channel_t *p_channel,
  * \subsection pwm_basic_use_case_setup_code Example code
  * Add this PWM initialization code at the beginning of the main function:
  * \code
- *    pwm_channel_t pwm_channel_instance;
- *
- *    pmc_enable_periph_clk(ID_PWM);
- *
- *    pwm_channel_disable(PWM, PWM_CHANNEL_0);
- *
- *    pwm_clock_t clock_setting = {
- *        .ul_clka = 1000 * 100,
- *        .ul_clkb = 0,
- *        .ul_mck = 48000000
- *    };
- *    pwm_init(PWM, &clock_setting);
- *
- *    pwm_channel_instance.ul_prescaler = PWM_CMR_CPRE_CLKA;
- *    pwm_channel_instance.ul_period = 100;
- *    pwm_channel_instance.ul_duty = 50;
- *    pwm_channel_instance.channel = PWM_CHANNEL_0;
- *    pwm_channel_init(PWM, &pwm_channel_instance);
- * \endcode
+	    pwm_channel_t pwm_channel_instance;
+
+	    pmc_enable_periph_clk(ID_PWM);
+
+	    pwm_channel_disable(PWM, PWM_CHANNEL_0);
+
+	    pwm_clock_t clock_setting = {
+	        .ul_clka = 1000 * 100,
+	        .ul_clkb = 0,
+	        .ul_mck = 48000000
+	    };
+	    pwm_init(PWM, &clock_setting);
+
+	    pwm_channel_instance.ul_prescaler = PWM_CMR_CPRE_CLKA;
+	    pwm_channel_instance.ul_period = 100;
+	    pwm_channel_instance.ul_duty = 50;
+	    pwm_channel_instance.channel = PWM_CHANNEL_0;
+	    pwm_channel_init(PWM, &pwm_channel_instance);
+\endcode
  *
  * \subsection pwm_basic_use_case_setup_flow Workflow
  * -# Define the PWM channel instance in order to configure channel 0:
@@ -447,24 +447,24 @@ void pwm_channel_update_polarity_mode(Pwm *p_pwm, pwm_channel_t *p_channel,
  *   - \code pwm_channel_disable(PWM, PWM_CHANNEL_0); \endcode
  * -# Setup clock for PWM module:
  *   - \code
- *    pwm_clock_t clock_setting = {
- *        .ul_clka = 1000 * 100,
- *        .ul_clkb = 0,
- *        .ul_mck = 48000000
- *    };
- *    pwm_init(PWM, &clock_setting);
- *   \endcode
+	pwm_clock_t clock_setting = {
+	    .ul_clka = 1000 * 100,
+	    .ul_clkb = 0,
+	    .ul_mck = 48000000
+	};
+	pwm_init(PWM, &clock_setting);
+\endcode
  *   - \note 1. Only Clock A is configured (clock B is not used).
  * 2. The expected frequency is 1KHz, system main clock is assumed to be 48MHz.
  * -# Initialize channel instance and configure PWM channel 0, selecting clock A
  * as its source clock and setting the duty cycle at 50%:
  *   - \code
- *    pwm_channel_instance.ul_prescaler = PWM_CMR_CPRE_CLKA;
- *    pwm_channel_instance.ul_period = 100;
- *    pwm_channel_instance.ul_duty = 50;
- *    pwm_channel_instance.channel = PWM_CHANNEL_0;
- *    pwm_channel_init(PWM, &pwm_channel_instance);
- *   \endcode
+	pwm_channel_instance.ul_prescaler = PWM_CMR_CPRE_CLKA;
+	pwm_channel_instance.ul_period = 100;
+	pwm_channel_instance.ul_duty = 50;
+	pwm_channel_instance.channel = PWM_CHANNEL_0;
+	pwm_channel_init(PWM, &pwm_channel_instance);
+\endcode
  *   - \note 1. Period is left-aligned and output waveform starts at a low level.
  * 2. The pwm_channel_instance can be re-used to configure other PWM channels
  * after setting the required parameters.
@@ -474,8 +474,8 @@ void pwm_channel_update_polarity_mode(Pwm *p_pwm, pwm_channel_t *p_channel,
  * \subsection pwm_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    pwm_channel_enable(PWM, PWM_CHANNEL_0);
- * \endcode
+	pwm_channel_enable(PWM, PWM_CHANNEL_0);
+\endcode
  *
  * \subsection pwm_basic_use_case_usage_flow Workflow
  * -# Enable PWM channel 0 and output square wave on this channel:
@@ -506,60 +506,60 @@ void pwm_channel_update_polarity_mode(Pwm *p_pwm, pwm_channel_t *p_channel,
  * \subsection pwm_use_case_1_setup_code Example code
  * Add to application C-file:
  * \code
- *    pwm_channel_t pwm_channel_instance;
- * \endcode
+	pwm_channel_t pwm_channel_instance;
+\endcode
  *
  * \code
- *    void PWM_Handler(void)
- *    {
- *        static uint32_t ul_duty = 0;
- *        uint32_t ul_status;
- *        static uint8_t uc_countn = 0;
- *        static uint8_t uc_flag = 1;
- *
- *        ul_status = pwm_channel_get_interrupt_status(PWM);
- *        if ((ul_status & PWM_CHANNEL_0) == PWM_CHANNEL_0) {
- *            uc_count++;
- *            if (uc_count == 10) {
- *                if (uc_flag) {
- *                    ul_duty++;
- *                    if (ul_duty == 100) {
- *                        uc_flag = 0;
- *                    }
- *                } else {
- *                    ul_duty--;
- *                    if (ul_duty == 0) {
- *                        uc_flag = 1;
- *                    }
- *                }
- *                uc_count = 0;
- *                pwm_channel_instance.channel = PWM_CHANNEL_0;
- *                pwm_channel_update_duty(PWM, &pwm_channel_instance, ul_duty);
- *            }
- *        }
- *    }
- * \endcode
+	    void PWM_Handler(void)
+	    {
+	        static uint32_t ul_duty = 0;
+	        uint32_t ul_status;
+	        static uint8_t uc_countn = 0;
+	        static uint8_t uc_flag = 1;
+
+	        ul_status = pwm_channel_get_interrupt_status(PWM);
+	        if ((ul_status & PWM_CHANNEL_0) == PWM_CHANNEL_0) {
+	            uc_count++;
+	            if (uc_count == 10) {
+	                if (uc_flag) {
+	                    ul_duty++;
+	                    if (ul_duty == 100) {
+	                        uc_flag = 0;
+	                    }
+	                } else {
+	                    ul_duty--;
+	                    if (ul_duty == 0) {
+	                        uc_flag = 1;
+	                    }
+	                }
+	                uc_count = 0;
+	                pwm_channel_instance.channel = PWM_CHANNEL_0;
+	                pwm_channel_update_duty(PWM, &pwm_channel_instance, ul_duty);
+	            }
+	        }
+	    }
+\endcode
  *
  * \code
- *    pmc_enable_periph_clk(ID_PWM);
- *
- *    pwm_channel_disable(PWM, PWM_CHANNEL_0);
- *
- *    pwm_clock_t clock_setting = {
- *        .ul_clka = 1000 * 100,
- *        .ul_clkb = 0,
- *        .ul_mck = 48000000
- *    };
- *    pwm_init(PWM, &clock_setting);
- *
- *    pwm_channel_instance.ul_prescaler = PWM_CMR_CPRE_CLKA;
- *    pwm_channel_instance.ul_period = 100;
- *    pwm_channel_instance.ul_duty = 0;
- *    pwm_channel_instance.channel = PWM_CHANNEL_0;
- *    pwm_channel_init(PWM, &pwm_channel_instance);
- *
- *    pwm_channel_enable_interrupt(PWM, PWM_CHANNEL_0, 0);
- * \endcode
+	    pmc_enable_periph_clk(ID_PWM);
+
+	    pwm_channel_disable(PWM, PWM_CHANNEL_0);
+
+	    pwm_clock_t clock_setting = {
+	        .ul_clka = 1000 * 100,
+	        .ul_clkb = 0,
+	        .ul_mck = 48000000
+	    };
+	    pwm_init(PWM, &clock_setting);
+
+	    pwm_channel_instance.ul_prescaler = PWM_CMR_CPRE_CLKA;
+	    pwm_channel_instance.ul_period = 100;
+	    pwm_channel_instance.ul_duty = 0;
+	    pwm_channel_instance.channel = PWM_CHANNEL_0;
+	    pwm_channel_init(PWM, &pwm_channel_instance);
+
+	    pwm_channel_enable_interrupt(PWM, PWM_CHANNEL_0, 0);
+\endcode
  *
  * \subsection pwm_use_case_1_setup_flow Workflow
  * -# Define the PWM channel instance in order to configure channel 0:
@@ -570,55 +570,55 @@ void pwm_channel_update_polarity_mode(Pwm *p_pwm, pwm_channel_t *p_channel,
  *   - \code ul_status = pwm_channel_get_interrupt_status(PWM); \endcode
  * -# In PWM_Handler(), check whether the PWM channel 0 interrupt has occurred:
  *   - \code
- *    if ((ul_status & PWM_CHANNEL_0) == PWM_CHANNEL_0) {
- *    }
- *   \endcode
+	if ((ul_status & PWM_CHANNEL_0) == PWM_CHANNEL_0) {
+	}
+\endcode
  * -# In PWM_Handler(), if the PWM channel 0 interrupt has occurred, update the ul_duty value:
  *   - \code
- *    uc_count++;
- *    if (uc_count == 10) {
- *        if (uc_flag) {
- *            ul_duty++;
- *            if (ul_duty >= 100) {
- *                uc_flag = 0;
- *            }
- *        } else {
- *            ul_duty--;
- *            if (ul_duty == 0) {
- *                uc_flag = 1;
- *            }
- *        }
- *    }
- *   \endcode
+	uc_count++;
+	if (uc_count == 10) {
+	    if (uc_flag) {
+	        ul_duty++;
+	        if (ul_duty >= 100) {
+	            uc_flag = 0;
+	        }
+	    } else {
+	        ul_duty--;
+	        if (ul_duty == 0) {
+	            uc_flag = 1;
+	        }
+	    }
+	}
+\endcode
  * -# In PWM_Handler(), if the ul_duty value has been updated, change the square wave duty:
  *   - \code
- *    pwm_channel_instance.channel = PWM_CHANNEL_0;
- *    pwm_channel_update_duty(PWM, &pwm_channel_instance, ul_duty);
- *   \endcode
+	pwm_channel_instance.channel = PWM_CHANNEL_0;
+	pwm_channel_update_duty(PWM, &pwm_channel_instance, ul_duty);
+\endcode
  * -# Enable the PWM clock:
  *   - \code pmc_enable_periph_clk(ID_PWM); \endcode
  * -# Disable PWM channel 0:
  *   - \code pwm_channel_disable(PWM, PWM_CHANNEL_0); \endcode
  * -# Setup clock for PWM module:
  *   - \code
- *    pwm_clock_t clock_setting = {
- *        .ul_clka = 1000 * 100,
- *        .ul_clkb = 0,
- *        .ul_mck = 48000000
- *    };
- *    pwm_init(PWM, &clock_setting);
- *   \endcode
+	pwm_clock_t clock_setting = {
+	    .ul_clka = 1000 * 100,
+	    .ul_clkb = 0,
+	    .ul_mck = 48000000
+	};
+	pwm_init(PWM, &clock_setting);
+\endcode
  *   - \note 1. Only Clock A is configured (clock B is not used).
  * 2. The expected frequency is 1KHz, system main clock is assumed to be 48Mhz.
  * -# Initialize channel instance and configure PWM channel 0, selecting clock A
  * as its source clock and setting the initial ducy as 0%:
  *   - \code
- *    pwm_channel_instance.ul_prescaler = PWM_CMR_CPRE_CLKA;
- *    pwm_channel_instance.ul_period = 100;
- *    pwm_channel_instance.ul_duty = 0;
- *    pwm_channel_instance.channel = PWM_CHANNEL_0;
- *    pwm_channel_init(PWM, &pwm_channel_instance);
- *   \endcode
+	pwm_channel_instance.ul_prescaler = PWM_CMR_CPRE_CLKA;
+	pwm_channel_instance.ul_period = 100;
+	pwm_channel_instance.ul_duty = 0;
+	pwm_channel_instance.channel = PWM_CHANNEL_0;
+	pwm_channel_init(PWM, &pwm_channel_instance);
+\endcode
  *   - \note 1. Period is left-aligned and output waveform starts at a low level.
  * 2. The pwm_channel_instance can be re-used to configure other PWM channels
  * after setting the required parameters.
@@ -632,8 +632,8 @@ void pwm_channel_update_polarity_mode(Pwm *p_pwm, pwm_channel_t *p_channel,
  *
  * \subsection pwm_use_case_1_usage_code Example code
  * \code
- *    pwm_channel_enable(PWM, PWM_CHANNEL_0);
- * \endcode
+	pwm_channel_enable(PWM, PWM_CHANNEL_0);
+\endcode
  *
  * \subsection pwn_use_case_1_usage_flow Workflow
  * -# Enable PWM channel 0 and output square wave on this channel:

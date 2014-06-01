@@ -2,9 +2,9 @@
  * @file tal_internal.h
  *
  * @brief This header file contains types and variable definition that are used
- *within the TAL only.
+ * within the TAL only.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -55,6 +55,9 @@
 
 #include "bmm.h"
 #include "qmm.h"
+#if (defined MAC_SECURITY_ZIP || defined MAC_SECURITY_2006)
+#include "tal.h"
+#endif
 #ifdef BEACON_SUPPORT
 #include "tal_slotted_csma.h"
 #endif  /* BEACON_SUPPORT */
@@ -67,20 +70,20 @@
  * \ingroup group_tal
  * \defgroup group_tal_212b AT86RF212B Transceiver Abstraction Layer
  * The AT86RF212B is a  low-power ,low voltage 700/800/900 MHz radio transceiver
- *designed for industrial
+ * designed for industrial
  * and consumer ZigBee/IEEE 802.15.4, 6LoWPAN, RF4CE and high data rate sub 1GHz
  * ISM band applications.
  * The Transceiver Abstraction Layer (TAL) implements the transceiver specific
- *functionalities and
+ * functionalities and
  * provides interfaces to the upper layers (like IEEE 802.15.4 MAC )and  uses
- *the services of PAL.
+ * the services of PAL.
  */
 
 /**
  * \ingroup group_tal_212b
  * \defgroup group_tal_state_machine_212b  TAL State Machine
  * The different operating states of the Transceiver are controlled by the TAL
- *state machine.
+ * state machine.
  *
  */
 
@@ -109,7 +112,7 @@
  * \ingroup group_tal_212b
  * \defgroup group_tal_pib_212b   TAL PIB Storage
  * The PIB(Pan Information Base) attributes related to the TAL are Stored and
- *handled  by the TAL PIB storage.
+ * handled  by the TAL PIB storage.
  *
  */
 
@@ -125,7 +128,7 @@
  * \defgroup group_tal_tx_csma_212b   TAL CSMA/CA Module
  * Performs channel access mechanism for frame transmission
  * For Detailed information refer  CSMA-CA algorithm section of IEEE Std
- *802.15.4-2006
+ * 802.15.4-2006
  *
  */
 
@@ -258,7 +261,7 @@ extern bool tal_beacon_transmission;
 					40 : (uint16_t)(octets) * 16) :	\
 					( \
                                                 /* tal_pib.CurrentPage == 17 ?
-                                                 **/ \
+                                                **/ \
 						(tal_pib.CurrentChannel == \
 						0 ? (uint16_t)(octets) * \
 						20 : (uint16_t)(octets) * 8) \

@@ -87,9 +87,6 @@
 // From module: SAM4S EK LED support enabled
 #include <led.h>
 
-// From module: SAM4S startup code
-#include <exceptions.h>
-
 // From module: SPI - Serial Peripheral Interface
 #include <spi.h>
 

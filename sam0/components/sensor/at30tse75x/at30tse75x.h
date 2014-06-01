@@ -3,7 +3,7 @@
  *
  * \brief AT30TSE75X driver
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,7 +40,7 @@
  * \asf_license_stop
  *
  */
- 
+
 #ifndef AT30TSE75X_H_INCLUDED
 #define AT30TSE75X_H_INCLUDED
 
@@ -52,18 +52,18 @@
 #include "conf_at30tse75x.h"
 
 /**
- * \defgroup asfdoc_samd20_at30tse75x_group AT30TSE75X Temperature Sensor
+ * \defgroup asfdoc_sam0_at30tse75x_group AT30TSE75X Temperature Sensor
  * This driver provides API for AT30TSE75X temperature sensor through
  * I2C interface.
  *
- * See \ref asfdoc_samd20_at30tse75x_qs.
+ * See \ref asfdoc_sam0_at30tse75x_qs.
  *
  *
- * \section asfdoc_samd20_at30tse75x_dependencies Dependencies
+ * \section asfdoc_sam0_at30tse75x_dependencies Dependencies
  * This driver depends on the following module:
- * - \ref asfdoc_samd20_i2c_group "SAM D20 I2C master"
+ * - \ref asfdoc_sam0_i2c_group "SAM D20/D21 I2C master"
  *
- * \section asfdoc_samd20_at30tse75x_api_overview API Overview
+ * \section asfdoc_sam0_at30tse75x_api_overview API Overview
  * @{
  */
 

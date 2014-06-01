@@ -3,7 +3,7 @@
  *
  * \brief DAC Sinewave Example.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -70,16 +70,7 @@
  *
  * \section Usage
  *
- * -# Build the program and download it into the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a>
- *    application note or the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>,
- *    depending on the solutions that users choose.
+ * -# Build the program and download it into the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -90,15 +81,15 @@
  * -# In the terminal window, the following text should appear (values depend
  *    on the board and chip used):
  *    \code
- *     -- DAC Sinewave Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     -- Menu Choices for this example--
- *     -- 0: Set frequency(200Hz-3kHz).--
- *     -- 1: Set amplitude(100-4095).--
- *     -- i: Display present frequency and amplitude.--
- *     -- m: Display this menu.--
- *    \endcode
+	-- DAC Sinewave Example xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	-- Menu Choices for this example--
+	-- 0: Set frequency(200Hz-3kHz).--
+	-- 1: Set amplitude(100-4095).--
+	-- i: Display present frequency and amplitude.--
+	-- m: Display this menu.--
+\endcode
  * -# Input command according to the menu.
  *
  */
@@ -109,16 +100,16 @@
 #include "conf_dacc_sinewave_example.h"
 
 
-//! Analog control value
+/** Analog control value */
 #define DACC_ANALOG_CONTROL (DACC_ACR_IBCTLCH0(0x02) \
-						  | DACC_ACR_IBCTLCH1(0x02) \
-						  | DACC_ACR_IBCTLDACCORE(0x01))
+		| DACC_ACR_IBCTLCH1(0x02) \
+		| DACC_ACR_IBCTLDACCORE(0x01))
 
-//! The maximal sine wave sample data (no sign)
+/** The maximal sine wave sample data (no sign) */
 #define MAX_DIGITAL   (0x7ff)
-//! The maximal (peak-peak) amplitude value
+/** The maximal (peak-peak) amplitude value */
 #define MAX_AMPLITUDE (DACC_MAX_DATA)
-//! The minimal (peak-peak) amplitude value
+/** The minimal (peak-peak) amplitude value */
 #define MIN_AMPLITUDE (100)
 
 /** SAMPLES per cycle */
@@ -147,7 +138,7 @@
  *  \param max_amplitude Maximal amplitude value
  */
 #define wave_to_dacc(wave, amplitude, max_digital, max_amplitude) \
-	(((int)(wave)*(amplitude)/(max_digital)) + (max_amplitude/2))
+	(((int)(wave) * (amplitude) / (max_digital)) + (max_amplitude / 2))
 
 /** Current g_ul_index_sample */
 uint32_t g_ul_index_sample = 0;
@@ -342,7 +333,7 @@ int main(void)
 	dacc_set_transfer_mode(DACC_BASE, 0);
 
 	/* Initialize timing, amplitude and frequency */
-#if (SAM3N) || (SAM4L)
+#if (SAM3N) || (SAM4L) || (SAM4N)
 	/* Timing:
 	 * startup                - 0x10 (17 clocks)
 	 * internal trigger clock - 0x60 (96 clocks)
@@ -387,9 +378,9 @@ int main(void)
 
 		switch (uc_key) {
 		case '0':
-			puts("Frequency:");
+			printf("Frequency:\t");
 			ul_freq = get_input_value(MIN_FREQUENCY, MAX_FREQUENCY);
-			puts("\r");
+			printf("\r\n");
 
 			if (ul_freq != VAL_INVALID) {
 				printf("Set frequency to : %luHz\n\r", (unsigned long)ul_freq);
@@ -399,9 +390,9 @@ int main(void)
 			break;
 
 		case '1':
-			puts("Amplitude:");
+			printf("Amplitude:\t");
 			ul_amp = get_input_value(MIN_AMPLITUDE, MAX_AMPLITUDE);
-			puts("\r");
+			printf("\r\n");
 			if (ul_amp != VAL_INVALID) {
 				printf("Set amplitude to : %lu\n\r", (unsigned long)ul_amp);
 				g_l_amplitude = ul_amp;

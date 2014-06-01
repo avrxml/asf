@@ -3,7 +3,7 @@
  *
  * \brief Mac Application - No beacon Sleep
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,23 +44,23 @@
  * \mainpage
  * \section preface Preface
  * This is the reference manual for the IEEE 802.15.4 MAC No beacon Sleep
- *Application
+ * Application
  * \section main_files Application Files
  *      - main.c                 Application main file.
  * \section intro Application Introduction
  * The basic MAC Example Nobeacon Sleep Application deploys a nonbeacon-enabled
- *network.
+ * network.
  * The first node searching for existing networks, and if no existing network is
- *found on the default channel,
+ * found on the default channel,
  * this nodes becomes the PAN Coodinator and creates a nonbeacon-enable network.
- *This node has its receiver always
+ * This node has its receiver always
  * enabled.
  * Other nodes that find an already existing network, associate with the PAN
- *Coordiantor and goes
+ * Coordiantor and goes
  * to sleep(both MCU and transceiver). For every 2 seconds the device wakes up
- *and sends a data to the coordinator before going to sleep again.
+ * and sends a data to the coordinator before going to sleep again.
  * For demonstration purposes the coordinator's configuration is limited to
- *associate two devices at maximum.
+ * associate two devices at maximum.
  * \section api_modules Application Dependent Modules
  * - \subpage api
  * \section compinfo Compilation Info
@@ -70,7 +70,7 @@
  * \section references References
  * 1)  IEEE Std 802.15.4-2006 Part 15.4: Wireless Medium Access Control (MAC)
  *     and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal
- *Area
+ * Area
  *     Networks (WPANs).\n\n
  * 2)  AVR Wireless Support <A href="http://avr@atmel.com">avr@atmel.com</A>.\n
  *
@@ -299,7 +299,7 @@ void usr_mcps_purge_conf(uint8_t msduHandle,
 }
 
 #endif  /* ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
-         **/
+        **/
 
 #if (MAC_ASSOCIATION_REQUEST_CONFIRM == 1)
 void usr_mlme_associate_conf(uint16_t AssocShortAddress,
@@ -339,7 +339,7 @@ void usr_mlme_associate_ind(uint64_t DeviceAddress,
 	 *                                    uint8_t status);
 	 *
 	 * This response leads to comm status indication ->
-	 *usr_mlme_comm_status_ind
+	 * usr_mlme_comm_status_ind
 	 * Get the next available short address for this device
 	 */
 	uint16_t associate_short_addr = macShortAddress_def;
@@ -443,7 +443,7 @@ void usr_mlme_get_conf(uint8_t status,
 		 *                              uint8_t ChannelPage);
 		 *
 		 * This request leads to a scan confirm message ->
-		 *usr_mlme_scan_conf
+		 * usr_mlme_scan_conf
 		 * Scan for about 50 ms on each channel -> ScanDuration = 1
 		 * Scan for about 1/2 second on each channel -> ScanDuration = 5
 		 * Scan for about 1 second on each channel -> ScanDuration = 6
@@ -515,13 +515,13 @@ void usr_mlme_scan_conf(uint8_t status,
 		/*
 		 * Analyze the ResultList.
 		 * Assume that the first entry of the result list is our
-		 *coodinator.
+		 * coodinator.
 		 */
 		coordinator = (wpan_pandescriptor_t *)ResultList;
 		for (i = 0; i < ResultListSize; i++) {
 			/*
 			 * Check if the PAN descriptor belongs to our
-			 *coordinator.
+			 * coordinator.
 			 * Check if coordinator allows association.
 			 */
 			if ((coordinator->LogicalChannel == current_channel) &&
@@ -554,20 +554,20 @@ void usr_mlme_scan_conf(uint8_t status,
 				/*
 				 * Associate to our coordinator
 				 * Use: bool wpan_mlme_associate_req(uint8_t
-				 *LogicalChannel,
+				 * LogicalChannel,
 				 *                                   uint8_t
-				 *ChannelPage,
+				 * ChannelPage,
 				 *
 				 *
 				 *
 				 *
 				 *
 				 *                              wpan_addr_spec_t
-				 **CoordAddrSpec,
+				 ****CoordAddrSpec,
 				 *                                   uint8_t
-				 *CapabilityInformation);
+				 * CapabilityInformation);
 				 * This request will cause a mlme associate
-				 *confirm message ->
+				 * confirm message ->
 				 * usr_mlme_associate_conf
 				 */
 				wpan_mlme_associate_req(
@@ -584,7 +584,7 @@ void usr_mlme_scan_conf(uint8_t status,
 
 		/*
 		 * If here, the result list does not contain our expected
-		 *coordinator.
+		 * coordinator.
 		 * Let's scan again.
 		 */
 		if (number_of_scans < MAX_NUMBER_OF_SCANS) {
@@ -602,14 +602,20 @@ void usr_mlme_scan_conf(uint8_t status,
 			 *                             void *PIBAttributeValue);
 			 *
 			 * This request leads to a set confirm message ->
-			 *usr_mlme_set_conf
+			 * usr_mlme_set_conf
 			 */
 			uint8_t short_addr[2];
 
-			short_addr[0] = (uint8_t)COORD_SHORT_ADDR; /* low byte */
+			short_addr[0] = (uint8_t)COORD_SHORT_ADDR; /* low byte
+			                                           **/
 			short_addr[1] = (uint8_t)(COORD_SHORT_ADDR >> 8); /*
-			                                                   * high
-			                                                   * byte */
+			                                                   *
+			                                                   *
+			                                                   *high
+			                                                   *
+			                                                   *
+			                                                   *byte
+			                                                   **/
 			wpan_mlme_set_req(macShortAddress, short_addr);
 		}
 	} else if (status == MAC_NO_BEACON) {
@@ -632,14 +638,20 @@ void usr_mlme_scan_conf(uint8_t status,
 			 *                             void *PIBAttributeValue);
 			 *
 			 * This request leads to a set confirm message ->
-			 *usr_mlme_set_conf
+			 * usr_mlme_set_conf
 			 */
 			uint8_t short_addr[2];
 
-			short_addr[0] = (uint8_t)COORD_SHORT_ADDR; /* low byte */
+			short_addr[0] = (uint8_t)COORD_SHORT_ADDR; /* low byte
+			                                           **/
 			short_addr[1] = (uint8_t)(COORD_SHORT_ADDR >> 8); /*
-			                                                   * high
-			                                                   * byte */
+			                                                   *
+			                                                   *
+			                                                   *high
+			                                                   *
+			                                                   *
+			                                                   *byte
+			                                                   **/
 			wpan_mlme_set_req(macShortAddress, short_addr);
 		}
 	} else {
@@ -665,7 +677,7 @@ void usr_mlme_set_conf(uint8_t status,
 		 *                             void *PIBAttributeValue);
 		 *
 		 * This request leads to a set confirm message ->
-		 *usr_mlme_set_conf
+		 * usr_mlme_set_conf
 		 */
 		uint8_t association_permit = true;
 
@@ -678,7 +690,7 @@ void usr_mlme_set_conf(uint8_t status,
 		 *                             void *PIBAttributeValue);
 		 *
 		 * This request leads to a set confirm message ->
-		 *usr_mlme_set_conf
+		 * usr_mlme_set_conf
 		 */
 		bool rx_on_when_idle = true;
 
@@ -697,7 +709,7 @@ void usr_mlme_set_conf(uint8_t status,
 		 *                               bool CoordRealignment)
 		 *
 		 * This request leads to a start confirm message ->
-		 *usr_mlme_start_conf
+		 * usr_mlme_start_conf
 		 */
 		wpan_mlme_start_req(DEFAULT_PAN_ID,
 				current_channel,
@@ -765,7 +777,10 @@ static bool assign_new_short_addr(uint64_t addr64, uint16_t *addr16)
 					i + 0x0001);                    /* get
 			                                                 * next
 			                                                 * short
-			                                                 * address */
+			                                                 *
+			                                                 *
+			                                                 *address
+			                                                 **/
 			device_list[i].ieee_addr = addr64; /* store extended
 			                                    * address */
 			return true;
@@ -850,7 +865,7 @@ static void app_task(void)
 			 * Send some data and put MCU to sleep again.
 			 * Use: bool wpan_mcps_data_req(uint8_t SrcAddrMode,
 			 *                              wpan_addr_spec_t
-			 **DstAddrSpec,
+			 ****DstAddrSpec,
 			 *                              uint8_t msduLength,
 			 *                              uint8_t *msdu,
 			 *                              uint8_t msduHandle,
@@ -874,7 +889,8 @@ static void app_task(void)
 					coord_addr.short_addr);
 
 			payload = (uint8_t)rand();          /* any dummy data */
-			msduHandle++;                       /* increment handle */
+			msduHandle++;                       /* increment handle
+				                            **/
 			wpan_mcps_data_req(src_addr_mode,
 					&dst_addr,
 					1,
@@ -884,9 +900,9 @@ static void app_task(void)
 		} else {
 			/*
 			 * The MCU will wake up again, once the buttons is
-			 *pressed
+			 * pressed
 			 * on the board.Since no button pressed now set system
-			 *to sleep.
+			 * to sleep.
 			 * Set MCU to sleep if stack is not busy
 			 */
 			if (mac_ready_to_sleep() && in_sleep_mode == false) {

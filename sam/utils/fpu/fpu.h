@@ -53,7 +53,7 @@
 #define REG_CPACR  (*((volatile uint32_t *)ADDR_CPACR))
 
 /**
- * Enable FPU
+ * \brief Enable FPU
  */
 __always_inline static void fpu_enable(void)
 {
@@ -66,7 +66,7 @@ __always_inline static void fpu_enable(void)
 }
 
 /**
- * Disable FPU
+ * \brief Disable FPU
  */
 __always_inline static void fpu_disable(void)
 {
@@ -79,7 +79,9 @@ __always_inline static void fpu_disable(void)
 }
 
 /**
- * Check if FPU is enabled
+ * \brief Check if FPU is enabled
+ *
+ * \return Return ture if FPU is enabled, otherwise return false.
  */
 __always_inline static bool fpu_is_enabled(void)
 {

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Serial Peripheral Interface Driver
+ * \brief SAM D20/D21/R21 Serial Peripheral Interface Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,6 +43,8 @@
 #include "sercom.h"
 
 #define SHIFT 32
+#define BAUD_INT_MAX   8192   
+#define BAUD_FP_MAX     8
 
 #if !defined(__DOXYGEN__)
 /**
@@ -94,26 +96,43 @@ enum status_code _sercom_get_sync_baud_val(
 enum status_code _sercom_get_async_baud_val(
 		const uint32_t baudrate,
 		const uint32_t peripheral_clock,
-		uint16_t *const baudval)
+		uint16_t *const baudval,
+		enum sercom_asynchronous_operation_mode mode,
+		enum sercom_asynchronous_sample_num sample_num)
 {
 	/* Temporary variables  */
 	uint64_t ratio = 0;
 	uint64_t scale = 0;
 	uint64_t baud_calculated = 0;
+	uint8_t baud_fp;
+	uint32_t baud_int;
 
 	/* Check if the baudrate is outside of valid range */
-	if ((baudrate * 16) >= peripheral_clock) {
+	if ((baudrate * sample_num) >= peripheral_clock) {
 		/* Return with error code */
 		return STATUS_ERR_BAUDRATE_UNAVAILABLE;
 	}
 
-	/* Calculate the BAUD value */
-	ratio = ((16 * (uint64_t)baudrate) << SHIFT) / peripheral_clock;
-	scale = ((uint64_t)1 << SHIFT) - ratio;
-	baud_calculated = (65536 * scale) >> SHIFT;
+	if(mode == SERCOM_ASYNC_OPERATION_MODE_ARITHMETIC) {
+		/* Calculate the BAUD value */
+		ratio = ((sample_num * (uint64_t)baudrate) << SHIFT) / peripheral_clock;
+		scale = ((uint64_t)1 << SHIFT) - ratio;
+		baud_calculated = (65536 * scale) >> SHIFT;
+	} else if(mode == SERCOM_ASYNC_OPERATION_MODE_FRACTIONAL) {
+		for(baud_fp = 0; baud_fp < BAUD_FP_MAX; baud_fp++) {
+			baud_int = BAUD_FP_MAX * (uint64_t)peripheral_clock / ((uint64_t)baudrate * sample_num)  - baud_fp;
+			baud_int = baud_int / BAUD_FP_MAX;
+			if(baud_int < BAUD_INT_MAX) {
+				break;
+			}
+		}
+		if(baud_fp == BAUD_FP_MAX) {
+			return STATUS_ERR_BAUDRATE_UNAVAILABLE;
+		}
+		baud_calculated = baud_int | (baud_fp << 13);
+	}
 
 	*baudval = baud_calculated;
-
 	return STATUS_OK;
 }
 #endif

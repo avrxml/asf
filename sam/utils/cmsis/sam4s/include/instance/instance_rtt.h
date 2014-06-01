@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,15 +44,15 @@
 
 /* ========== Register definition for RTT peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-#define REG_RTT_MR          (0x400E1430U) /**< \brief (RTT) Mode Register */
-#define REG_RTT_AR          (0x400E1434U) /**< \brief (RTT) Alarm Register */
-#define REG_RTT_VR          (0x400E1438U) /**< \brief (RTT) Value Register */
-#define REG_RTT_SR          (0x400E143CU) /**< \brief (RTT) Status Register */
+  #define REG_RTT_MR                  (0x400E1430U) /**< \brief (RTT) Mode Register */
+  #define REG_RTT_AR                  (0x400E1434U) /**< \brief (RTT) Alarm Register */
+  #define REG_RTT_VR                  (0x400E1438U) /**< \brief (RTT) Value Register */
+  #define REG_RTT_SR                  (0x400E143CU) /**< \brief (RTT) Status Register */
 #else
-#define REG_RTT_MR (*(RwReg*)0x400E1430U) /**< \brief (RTT) Mode Register */
-#define REG_RTT_AR (*(RwReg*)0x400E1434U) /**< \brief (RTT) Alarm Register */
-#define REG_RTT_VR (*(RoReg*)0x400E1438U) /**< \brief (RTT) Value Register */
-#define REG_RTT_SR (*(RoReg*)0x400E143CU) /**< \brief (RTT) Status Register */
+  #define REG_RTT_MR (*(__IO uint32_t*)0x400E1430U) /**< \brief (RTT) Mode Register */
+  #define REG_RTT_AR (*(__IO uint32_t*)0x400E1434U) /**< \brief (RTT) Alarm Register */
+  #define REG_RTT_VR (*(__I  uint32_t*)0x400E1438U) /**< \brief (RTT) Value Register */
+  #define REG_RTT_SR (*(__I  uint32_t*)0x400E143CU) /**< \brief (RTT) Status Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAM4S_RTT_INSTANCE_ */

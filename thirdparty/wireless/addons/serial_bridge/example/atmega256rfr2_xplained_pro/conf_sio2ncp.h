@@ -3,7 +3,7 @@
  *
  * \brief Serial Input & Output configuration
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,13 +45,13 @@
 
 /*! \name Configuration
  */
-//! @{
+/* ! @{ */
 #define USART_NCP                (&USARTA0)
 #define USART_NCP_BAUDRATE       9600
 #define USART_NCP_CHAR_LENGTH    USART_CHSIZE_8BIT_gc
 #define USART_NCP_PARITY         USART_PMODE_DISABLED_gc
 #define USART_NCP_STOP_BITS       1
-//! @}
+/* ! @} */
 
 #define USART_NCP_RX_ISR_ENABLE() usart_rx_complete_interrupt_enable(USART_NCP)
 #define USART_NCP_ISR_VECT()     ISR(USART0_RX_vect)

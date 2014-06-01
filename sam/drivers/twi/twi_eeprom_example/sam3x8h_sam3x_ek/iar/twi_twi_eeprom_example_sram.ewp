@@ -766,7 +766,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1694,7 +1693,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -2013,9 +2011,6 @@
 						<group>
 							<name>instance</name>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_rtc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_hsmci.h</name>
 							</file>
 							<file>
@@ -2086,6 +2081,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_efc0.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_tc2.h</name>
@@ -2376,10 +2374,10 @@
 			<group>
 				<name>pio</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../pio/pio.c</name>
+					<name>$PROJ_DIR$/../../../../pio/pio_handler.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../pio/pio_handler.c</name>
+					<name>$PROJ_DIR$/../../../../pio/pio.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../pio/pio_handler.h</name>

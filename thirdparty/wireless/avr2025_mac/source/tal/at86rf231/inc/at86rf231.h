@@ -3,7 +3,7 @@
  *
  * @brief File contains register and command defines specific for AT86RF231.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -55,7 +55,11 @@
 #include "tal_types.h"
 #if (TAL_TYPE == AT86RF231)
 
+#ifndef EXT_RF_FRONT_END_CTRL
 #define TRANSCEIVER_NAME    "AT86RF231"
+#else
+#define TRANSCEIVER_NAME    "AT86RF231+FEM"
+#endif
 /* === EXTERNALS =========================================================== */
 
 /* === TYPES =============================================================== */
@@ -79,13 +83,13 @@
  * fixed */
 #define RST_PULSE_WIDTH_US                  (10)
 #define P_ON_TO_CLKM_AVAILABLE_TYP_US       (330)  /* TRX Parameter: tTR1
-	                                            *typical value */
+	                                            * typical value */
 #define P_ON_TO_CLKM_AVAILABLE_MAX_US       (1000)  /* TRX Parameter: tTR1 max.
-	                                             *value */
+	                                             * value */
 #define SLEEP_TO_TRX_OFF_TYP_US             (380)  /* TRX Parameter: tTR2
-	                                            *typical value */
+	                                            * typical value */
 #define SLEEP_TO_TRX_OFF_MAX_US             (1000)  /* TRX Parameter: tTR2 max.
-	                                             *value */
+	                                             * value */
 #define TRX_OFF_TO_SLEEP_TIME_CLKM_CYCLES   (35)  /* TRX Parameter: tTR3 */
 #define TRX_OFF_TO_PLL_ON_TIME_US           (110) /* TRX Parameter: tTR4 */
 #define TRX_IRQ_DELAY_US                    (9) /* TRX Parameter: tIRQ */
@@ -250,34 +254,34 @@
 /** Subregister access */
 
 /** Access parameters for sub-register AACK_ACK_TIME in register RG_XAH_CTRL_1
- **/
+**/
 #define SR_AACK_ACK_TIME   0x17, 0x04, 2
 
 /** Access parameters for sub-register AACK_DIS_ACK in register RG_CSMA_SEED_1
- **/
+**/
 #define SR_AACK_DIS_ACK   0x2e, 0x10, 4
 
 /** Access parameters for sub-register AACK_FLTR_RES_FT in register
- *RG_XAH_CTRL_1 */
+ * RG_XAH_CTRL_1 */
 #define SR_AACK_FLTR_RES_FT   0x17, 0x20, 5
 
 /** Access parameters for sub-register AACK_FVN_MODE in register RG_CSMA_SEED_1
- **/
+**/
 #define SR_AACK_FVN_MODE   0x2e, 0xc0, 6
 
 /** Access parameters for sub-register AACK_I_AM_COORD in register
- *RG_CSMA_SEED_1 */
+ * RG_CSMA_SEED_1 */
 #define SR_AACK_I_AM_COORD   0x2e, 0x08, 3
 
 /** Access parameters for sub-register AACK_PROM_MODE in register RG_XAH_CTRL_1
- **/
+**/
 #define SR_AACK_PROM_MODE   0x17, 0x02, 1
 
 /** Access parameters for sub-register AACK_SET_PD in register RG_CSMA_SEED_1 */
 #define SR_AACK_SET_PD   0x2e, 0x20, 5
 
 /** Access parameters for sub-register AACK_UPLD_RES_FT in register
- *RG_XAH_CTRL_1 */
+ * RG_XAH_CTRL_1 */
 #define SR_AACK_UPLD_RES_FT   0x17, 0x10, 4
 
 /** Access parameters for sub-register ANT_CTRL in register RG_ANT_DIV */
@@ -374,26 +378,26 @@
 #define SR_IEEE_ADDR_7   0x2b, 0xff, 0
 
 /** Access parameters for sub-register IRQ_0_PLL_LOCK in register RG_IRQ_STATUS
- **/
+**/
 #define SR_IRQ_0_PLL_LOCK   0x0f, 0x01, 0
 
 /** Access parameters for sub-register IRQ_1_PLL_UNLOCK in register
- *RG_IRQ_STATUS */
+ * RG_IRQ_STATUS */
 #define SR_IRQ_1_PLL_UNLOCK   0x0f, 0x02, 1
 
 /** Access parameters for sub-register IRQ_2_EXT_EN in register RG_TRX_CTRL_1 */
 #define SR_IRQ_2_EXT_EN   0x04, 0x40, 6
 
 /** Access parameters for sub-register IRQ_2_RX_START in register RG_IRQ_STATUS
- **/
+**/
 #define SR_IRQ_2_RX_START   0x0f, 0x04, 2
 
 /** Access parameters for sub-register IRQ_3_TRX_END in register RG_IRQ_STATUS
- **/
+**/
 #define SR_IRQ_3_TRX_END   0x0f, 0x08, 3
 
 /** Access parameters for sub-register IRQ_4_CCA_ED_READY in register
- *RG_IRQ_STATUS */
+ * RG_IRQ_STATUS */
 #define SR_IRQ_4_CCA_ED_READY   0x0f, 0x10, 4
 
 /** Access parameters for sub-register IRQ_5_AMI in register RG_IRQ_STATUS */
@@ -403,14 +407,14 @@
 #define SR_IRQ_6_TRX_UR   0x0f, 0x40, 6
 
 /** Access parameters for sub-register IRQ_7_BAT_LOW in register RG_IRQ_STATUS
- **/
+**/
 #define SR_IRQ_7_BAT_LOW   0x0f, 0x80, 7
 
 /** Access parameters for sub-register IRQ_MASK in register RG_IRQ_MASK */
 #define SR_IRQ_MASK   0x0e, 0xff, 0
 
 /** Access parameters for sub-register IRQ_MASK_MODE in register RG_TRX_CTRL_1
- **/
+**/
 #define SR_IRQ_MASK_MODE   0x04, 0x02, 1
 
 /** Access parameters for sub-register IRQ_POLARITY in register RG_TRX_CTRL_1 */
@@ -426,22 +430,22 @@
 #define SR_MAX_BE   0x2f, 0xf0, 4
 
 /** Access parameters for sub-register MAX_CSMA_RETRIES in register
- *RG_XAH_CTRL_0 */
+ * RG_XAH_CTRL_0 */
 #define SR_MAX_CSMA_RETRIES   0x2c, 0x0e, 1
 
 /** Access parameters for sub-register MAX_FRAME_RETRIES in register
- *RG_XAH_CTRL_0 */
+ * RG_XAH_CTRL_0 */
 #define SR_MAX_FRAME_RETRIES   0x2c, 0xf0, 4
 
 /** Access parameters for sub-register MIN_BE in register RG_CSMA_BE */
 #define SR_MIN_BE   0x2f, 0x0f, 0
 
 /** Access parameters for sub-register OQPSK_DATA_RATE in register RG_TRX_CTRL_2
- **/
+**/
 #define SR_OQPSK_DATA_RATE   0x0c, 0x03, 0
 
 /** Access parameters for sub-register OQPSK_SCRAM_EN in register @ref
- *RG_TRX_CTRL_2 */
+ * RG_TRX_CTRL_2 */
 #define SR_OQPSK_SCRAM_EN   0x0C, 0x20, 5
 
 /** Access parameters for sub-register PA_BUF_LT in register RG_PHY_TX_PWR */
@@ -502,15 +506,15 @@
 #define SR_SFD_VALUE   0x0b, 0xff, 0
 
 /** Access parameters for sub-register SHORT_ADDR_0 in register RG_SHORT_ADDR_0
- **/
+**/
 #define SR_SHORT_ADDR_0   0x20, 0xff, 0
 
 /** Access parameters for sub-register SHORT_ADDR_1 in register RG_SHORT_ADDR_1
- **/
+**/
 #define SR_SHORT_ADDR_1   0x21, 0xff, 0
 
 /** Access parameters for sub-register SLOTTED_OPERATION in register
- *RG_XAH_CTRL_0 */
+ * RG_XAH_CTRL_0 */
 #define SR_SLOTTED_OPERATION   0x2c, 0x01, 0
 
 /** Access parameters for sub-register SPI_CMD_MODE in register RG_TRX_CTRL_1 */
@@ -526,7 +530,7 @@
 #define SR_TRX_STATUS   0x01, 0x1f, 0
 
 /** Access parameters for sub-register TX_AUTO_CRC_ON in register RG_TRX_CTRL_1
- **/
+**/
 #define SR_TX_AUTO_CRC_ON   0x04, 0x20, 5
 
 /** Access parameters for sub-register TX_PWR in register RG_PHY_TX_PWR */
@@ -616,11 +620,11 @@
 #define BATMON_ABOVE_THRES   (1)
 
 /** Constant BATMON_LOW_RANGE for sub-register BATMON_HR in register RG_BATMON
- **/
+**/
 #define BATMON_LOW_RANGE        (0)
 
 /** Constant BATMON_HIGH_RANGE for sub-register BATMON_HR in register RG_BATMON
- **/
+**/
 #define BATMON_HIGH_RANGE        (1)
 
 /** Constant CCA_calculation_done for sub-register SR_CCA_DONE */
@@ -756,7 +760,7 @@
 #define RG_AES_CTRL_MIRROR   (0x94)
 
 /** Minimum RSSI sensitivity value in dBm, which is equivalent to the value 0 in
- *sub register SR_RSSI. */
+ * sub register SR_RSSI. */
 #define RSSI_BASE_VAL_DBM   (-91)
 
 /** Constant SPI_CMD_MODE_default for sub-register SR_SPI_CMD_MODE */
@@ -784,91 +788,91 @@
 #define RX_DISABLE             (1)
 
 /** Constant TX_AUTO_CRC_ENABLE for sub-register TX_AUTO_CRC_ON in register
- *RG_TRX_CTRL_1 */
+ * RG_TRX_CTRL_1 */
 #define TX_AUTO_CRC_DISABLE   (0)
 
 /** Constant TX_AUTO_CRC_ENABLE for sub-register TX_AUTO_CRC_ON in register
- *RG_TRX_CTRL_1 */
+ * RG_TRX_CTRL_1 */
 #define TX_AUTO_CRC_ENABLE   (1)
 
 /** Constant TIMESTAMPING_DISABLE for sub-register SR_IRQ_2_EXT_EN in register
- *RG_TRX_CTRL_1 */
+ * RG_TRX_CTRL_1 */
 #define TIMESTAMPING_DISABLE   (0)
 
 /** Constant TIMESTAMPING_ENABLE for sub-register SR_IRQ_2_EXT_EN in register
- *RG_TRX_CTRL_1 */
+ * RG_TRX_CTRL_1 */
 #define TIMESTAMPING_ENABLE   (1)
 
 /** Constant UPLD_RES_FT_DISBALE for sub-register AACK_UPLD_RES_FT in register
- *RG_XAH_CTRL_1 */
+ * RG_XAH_CTRL_1 */
 #define UPLD_RES_FT_DISABLE     (0)
 
 /** Constant UPLD_RES_FT_DISBALE for sub-register AACK_UPLD_RES_FT in register
- *RG_XAH_CTRL_1 */
+ * RG_XAH_CTRL_1 */
 #define UPLD_RES_FT_ENABLE     (1)
 
 /** Constant PROM_MODE_DISABLE for sub-register AACK_PROM_MODE in register
- *RG_XAH_CTRL_1 */
+ * RG_XAH_CTRL_1 */
 #define PROM_MODE_DISABLE        (0)
 
 /** Constant PROM_MODE_ENABLE for sub-register AACK_PROM_MODE in register
- *RG_XAH_CTRL_1 */
+ * RG_XAH_CTRL_1 */
 #define PROM_MODE_ENABLE        (1)
 
 /** Constant RX_SAFE_MODE_DISABLE for sub-register RX_SAFE_MODE in register
- *RG_TRX_CTRL_2 */
+ * RG_TRX_CTRL_2 */
 #define RX_SAFE_MODE_DISABLE     (0)
 
 /** Constant RX_SAFE_MODE_ENABLE for sub-register RX_SAFE_MODE in register
- *RG_TRX_CTRL_2 */
+ * RG_TRX_CTRL_2 */
 #define RX_SAFE_MODE_ENABLE     (1)
 
 /** Constant OQPSK_SCRAM_DISABLE for sub-register OQPSK_SCRAM_EN in register
- *RG_TRX_CTRL_2 */
+ * RG_TRX_CTRL_2 */
 #define OQPSK_SCRAM_DISABLE     (0)
 
 /** Constant OQPSK_SCRAM_ENABLE for sub-register OQPSK_SCRAM_EN in register
- *RG_TRX_CTRL_2 */
+ * RG_TRX_CTRL_2 */
 #define OQPSK_SCRAM_ENABLE     (1)
 
 /** Constant ACK_DISABLE for sub-register AACK_DIS_ACK in register
- *RG_CSMA_SEED_1 */
+ * RG_CSMA_SEED_1 */
 #define ACK_DISABLE             (1)
 
 /** Constant ACK_ENABLE for sub-register AACK_DIS_ACK in register RG_CSMA_SEED_1
- **/
+**/
 #define ACK_ENABLE             (0)
 
 /** Constant PD_ACK_BIT_SET_DISABLE for sub-register AACK_SET_PD in register
- *RG_CSMA_SEED_1 */
+ * RG_CSMA_SEED_1 */
 #define PD_ACK_BIT_SET_DISABLE      (0)
 
 /** Constant PD_ACK_BIT_SET_ENABLE for sub-register AACK_SET_PD in register
- *RG_CSMA_SEED_1 */
+ * RG_CSMA_SEED_1 */
 #define PD_ACK_BIT_SET_ENABLE      (1)
 
 /** Constant FRAME_VERSION_0 for sub-register AACK_FVN_MODE in register
- *RG_CSMA_SEED_1 */
+ * RG_CSMA_SEED_1 */
 #define FRAME_VERSION_0         (0)
 
 /** Constant FRAME_VERSION_01 for sub-register AACK_FVN_MODE in register
- *RG_CSMA_SEED_1 */
+ * RG_CSMA_SEED_1 */
 #define FRAME_VERSION_01         (1)
 
 /** Constant FRAME_VERSION_012 for sub-register AACK_FVN_MODE in register
- *RG_CSMA_SEED_1 */
+ * RG_CSMA_SEED_1 */
 #define FRAME_VERSION_012         (2)
 
 /** Constant FRAME_VERSION_IGNORED for sub-register AACK_FVN_MODE in register
- *RG_CSMA_SEED_1 */
+ * RG_CSMA_SEED_1 */
 #define FRAME_VERSION_IGNORED         (3)
 
 /** Constant THRES_ANT_DIV_ENABLE for sub-register SR_PDT_THRES in register
- *RG_RX_CTRL */
+ * RG_RX_CTRL */
 #define THRES_ANT_DIV_ENABLE        (0x3)
 
 /** Constant THRES_ANT_DIV_DISABLED for sub-register SR_PDT_THRES in register
- *RG_RX_CTRL */
+ * RG_RX_CTRL */
 #define THRES_ANT_DIV_DISABLE       (0x7)
 
 /** Constant ANT_CTRL_0 for sub-register SR_ANT_CTRL in register RG_ANT_DIV */
@@ -893,7 +897,7 @@
 #define SR_AES_MODE   0x03, 0x70, 4
 
 /** Access parameters for sub-register AES_REQUEST in register @ref RG_AES_CTRL
- **/
+**/
 #define SR_AES_REQUEST   0x03, 0x80, 7
 
 /** Transceiver commands */
@@ -949,7 +953,7 @@ typedef enum trx_irq_reason_tag {
 	/**
 	 * Multi-functional interrupt:
 	 * AWAKE_END: Indicates that the radio transceiver reached TRX_OFF state
-	 *after P_ON, RESET, or SLEEP states.
+	 * after P_ON, RESET, or SLEEP states.
 	 * CCA_ED_READY: Signals the end of a CCA or ED measurement.
 	 */
 	TRX_IRQ_CCA_ED_READY            = (0x10),
@@ -1009,7 +1013,7 @@ typedef enum tal_trx_status_tag {
 	BUSY_RX_AACK_NOCLK              = (30),
 
 	/** Constant STATE_TRANSITION_IN_PROGRESS for sub-register SR_TRX_STATUS
-	 **/
+	**/
 	STATE_TRANSITION_IN_PROGRESS    = (31)
 } SHORTENUM tal_trx_status_t;
 

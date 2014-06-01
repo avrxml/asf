@@ -3,7 +3,7 @@
  *
  * @brief This file handles the TAL PIB attributes, set/get and initialization
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -73,78 +73,6 @@
  * @{
  */
 
-#ifndef CUSTOM_PWR_TABLE
-
-/**
- * Tx power table
- * Table maps tx power value to register value
- */
-#define TX_PWR_TABLE_NA	\
-        /* Tx power, dBm        11     10     9     8     7     6     5     4
-         *    3     2     1     0    -1    -2    -3    -4    -5    -6    -7
-         *   -8    -9   -10   -11   -12   -13   -14   -15   -16   -17   -18
-         *  -19   -20   -21   -22   -23   -24   -25 */ \
-        /* Register value */ 0xc0, 0xa0, 0x80, 0x82, 0x83, 0x84, 0x40, 0x86, \
-	0x00, 0x01, 0x02, 0x03, 0x04, 0x27, 0x05, 0x07, 0x08, \
-	0x91, 0x09, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, \
-	0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x19, 0x1a, 0x1b, \
-	0x1c, 0x1d
-
-#define TX_PWR_TABLE_EU	\
-        /* Tx power, dBm        11     10     9     8     7     6     5     4
-         *    3     2     1     0    -1    -2    -3    -4    -5    -6    -7
-         *   -8    -9   -10   -11   -12   -13   -14   -15   -16   -17   -18
-         *  -19   -20   -21   -22   -23   -24   -25 */ \
-        /* Register value */ 0xa0, 0x80, 0x81, 0x82, 0xe7, 0xe8, 0xe9, 0xea, \
-	0xcb, 0xcc, 0xcd, 0xad, 0x47, 0x48, 0x49, 0x29, 0x90, \
-	0x91, 0x93, 0x94, 0x2f, 0x30, 0x31, 0x0f, 0x10, 0x11, \
-	0x12, 0x13, 0x14, 0x15, 0x17, 0x18, 0x19, 0x1a, 0x1b, \
-	0x1c, 0x1d
-
-#define TX_PWR_TABLE_CHINA \
-        /* Tx power, dBm        11     10     9     8     7     6     5     4
-         *    3     2     1     0    -1    -2    -3    -4    -5    -6    -7
-         *   -8    -9   -10   -11   -12   -13   -14   -15   -16   -17   -18
-         *  -19   -20   -21   -22   -23   -24   -25 */ \
-        /* Register value */ 0xe1, 0xe3, 0x80, 0x81, 0x82, 0x83, 0x84, 0x85, \
-	0x86, 0x21, 0x22, 0x23, 0x24, 0x02, 0x03, 0x04, 0x05, \
-	0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, \
-	0x0f, 0x10, 0x11, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, \
-	0x19, 0x1a
-
-#define TX_PWR_TABLE_SIZE           (37)
-
-#define MAX_TX_PWR                  (11)
-#define MIN_TX_PWR                  (-25)
-#define MAX_TX_PWR_CHINA            (10)
-
-/* \todo use one max power for each band (EU, NA, China) */
-/* max power of standard compliant modes */
-#define MAX_TX_PWR_BPSK_40          MAX_TX_PWR  /* NA, band: 915MHz */
-#define MAX_TX_PWR_OQPSK_SIN_250    MAX_TX_PWR  /* NA, band: 915MHz */
-#define MAX_TX_PWR_BPSK_20          (6)         /* EU, band: 868MHz */
-#define MAX_TX_PWR_OQPSK_SIN_RC_100 (3)         /* EU, band: 868MHz */
-#define MAX_TX_PWR_OQPSK_RC_250     (10)        /* China, band: 780MHz */
-
-/* max power of proprietary modes */
-#ifdef HIGH_DATA_RATE_SUPPORT
-#define MAX_TX_PWR_OQPSK_SIN_500    MAX_TX_PWR  /* NA, band: 915MHz */
-#define MAX_TX_PWR_OQPSK_SIN_1000   MAX_TX_PWR  /* NA, band: 915MHz */
-#define MAX_TX_PWR_OQPSK_SIN_RC_200 (3)         /* EU, band: 868MHz */
-#define MAX_TX_PWR_OQPSK_SIN_RC_400 (3)         /* EU, band: 868MHz */
-#define MAX_TX_PWR_OQPSK_RC_500     (10)        /* China, band: 780MHz */
-#define MAX_TX_PWR_OQPSK_RC_1000    (10)        /* China, band: 780MHz */
-
-/* old stuff
- * #define MAX_TX_PWR_OQPSK_200        MAX_TX_PWR_OQPSK_100
- * #define MAX_TX_PWR_OQPSK_400        MAX_TX_PWR_OQPSK_100
- * #define MAX_TX_PWR_OQPSK_SIN_500    (7)
- * #define MAX_TX_PWR_OQPSK_SIN_1000   (4)
- */
-#endif /* #ifdef HIGH_DATA_RATE_SUPPORT */
-
-#endif  /* #ifndef CUSTOM_PWR_TABLE */
-
 #define GET_CHINA_FREQ(x)           (11 + (2 * x))
 
 /* === GLOBALS ============================================================= */
@@ -162,6 +90,7 @@ static FLASH_DECLARE( uint8_t tx_pwr_table_China[TX_PWR_TABLE_SIZE])
 /* === PROTOTYPES ========================================================== */
 
 static void limit_tx_pwr(void);
+static void set_default_tx_pwr(void);
 static uint8_t convert_phyTransmitPower_to_reg_value(
 		uint8_t phyTransmitPower_value);
 static bool apply_channel_page_configuration(uint8_t ch_page);
@@ -219,24 +148,24 @@ void write_all_tal_pib_to_trx(void)
 
 	ptr_to_reg = (uint8_t *)&tal_pib.PANId;
 	for (uint8_t i = 0; i < 2; i++) {
-		pal_trx_reg_write((RG_PAN_ID_0 + i), *ptr_to_reg);
+		trx_reg_write((RG_PAN_ID_0 + i), *ptr_to_reg);
 		ptr_to_reg++;
 	}
 
 	ptr_to_reg = (uint8_t *)&tal_pib.IeeeAddress;
 	for (uint8_t i = 0; i < 8; i++) {
-		pal_trx_reg_write((RG_IEEE_ADDR_0 + i), *ptr_to_reg);
+		trx_reg_write((RG_IEEE_ADDR_0 + i), *ptr_to_reg);
 		ptr_to_reg++;
 	}
 
 	ptr_to_reg = (uint8_t *)&tal_pib.ShortAddress;
 	for (uint8_t i = 0; i < 2; i++) {
-		pal_trx_reg_write((RG_SHORT_ADDR_0 + i), *ptr_to_reg);
+		trx_reg_write((RG_SHORT_ADDR_0 + i), *ptr_to_reg);
 		ptr_to_reg++;
 	}
 
 	/* Configure TX_ARET; CSMA and CCA */
-	pal_trx_bit_write(SR_CCA_MODE, tal_pib.CCAMode);
+	trx_bit_write(SR_CCA_MODE, tal_pib.CCAMode);
 
 #ifdef SW_CONTROLLED_CSMA
 
@@ -245,14 +174,14 @@ void write_all_tal_pib_to_trx(void)
 	 * CSMA and frame re-transmissions are handled by software.
 	 * Setup trx for immediate transmission.
 	 */
-	pal_trx_bit_write(SR_MAX_FRAME_RETRIES, 0);
-	pal_trx_bit_write(SR_MAX_CSMA_RETRIES, 7);
+	trx_bit_write(SR_MAX_FRAME_RETRIES, 0);
+	trx_bit_write(SR_MAX_CSMA_RETRIES, 7);
 #else
-	pal_trx_bit_write(SR_MIN_BE, tal_pib.MinBE);
-	pal_trx_bit_write(SR_MAX_BE, tal_pib.MaxBE);
+	trx_bit_write(SR_MIN_BE, tal_pib.MinBE);
+	trx_bit_write(SR_MAX_BE, tal_pib.MaxBE);
 #endif
 
-	pal_trx_bit_write(SR_AACK_I_AM_COORD, tal_pib.PrivatePanCoordinator);
+	trx_bit_write(SR_AACK_I_AM_COORD, tal_pib.PrivatePanCoordinator);
 
 	/* set phy parameter */
 
@@ -263,7 +192,7 @@ void write_all_tal_pib_to_trx(void)
 
 		reg_value = convert_phyTransmitPower_to_reg_value(
 				tal_pib.TransmitPower);
-		pal_trx_reg_write(RG_PHY_TX_PWR, reg_value);
+		trx_reg_write(RG_PHY_TX_PWR, reg_value);
 	}
 
 #ifdef PROMISCUOUS_MODE
@@ -477,7 +406,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 			tal_trx_wakeup();
 
 			/* Check if receive buffer is available or queue is not
-			 *full. */
+			 * full. */
 			if (NULL == tal_rx_buffer) {
 				set_trx_state(CMD_PLL_ON);
 				tal_rx_on_required = true;
@@ -500,7 +429,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 		if (tal_trx_status == TRX_SLEEP) {
 			/* While trx is in SLEEP, register cannot be accessed.
-			 **/
+			**/
 			return TAL_TRX_ASLEEP;
 		}
 
@@ -511,7 +440,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 			/*
 			 * macMinBE must not be larger than macMaxBE or
-			 *calculation
+			 * calculation
 			 * of macMaxFrameWaitTotalTime will fail.
 			 */
 			if (tal_pib.MinBE > tal_pib.MaxBE) {
@@ -520,7 +449,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 #endif  /* REDUCED_PARAM_CHECK */
 #ifndef SW_CONTROLLED_CSMA
-			pal_trx_bit_write(SR_MIN_BE, tal_pib.MinBE);
+			trx_bit_write(SR_MIN_BE, tal_pib.MinBE);
 #endif
 			break;
 
@@ -529,7 +458,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 			uint8_t *ptr_pan;
 			ptr_pan = (uint8_t *)&tal_pib.PANId;
 			for (uint8_t i = 0; i < 2; i++) {
-				pal_trx_reg_write((RG_PAN_ID_0 + i), *ptr_pan);
+				trx_reg_write((RG_PAN_ID_0 + i), *ptr_pan);
 				ptr_pan++;
 			}
 			break;
@@ -539,7 +468,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 			uint8_t *ptr_shrt;
 			ptr_shrt = (uint8_t *)&tal_pib.ShortAddress;
 			for (uint8_t i = 0; i < 2; i++) {
-				pal_trx_reg_write((RG_SHORT_ADDR_0 + i),
+				trx_reg_write((RG_SHORT_ADDR_0 + i),
 						*ptr_shrt);
 				ptr_shrt++;
 			}
@@ -579,6 +508,9 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 				previous_channel = tal_pib.CurrentChannel;
 				tal_pib.CurrentChannel = value->pib_value_8bit;
+				/*Set the default Power Values For the Changed
+				 *Channel according to values in datasheet*/
+				set_default_tx_pwr();
 
 				/*
 				 * Set trx to "soft" off avoiding that ongoing
@@ -586,9 +518,13 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				 */
 				if (tal_trx_status != TRX_OFF) {
 					previous_trx_status = RX_AACK_ON; /* any
+					                                   *
 					                                   *other
+					                                   *
 					                                   *than
+					                                   *
 					                                   *TRX_OFF
+					                                   *
 					                                   *state
 					                                   **/
 					do {
@@ -600,7 +536,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				}
 
 				/* Check if frequency band/modulation is
-				 *changed. */
+				 * changed. */
 #ifdef HIGH_DATA_RATE_SUPPORT
 				if ((tal_pib.CurrentPage == 5) ||
 						(tal_pib.CurrentPage == 18) ||
@@ -609,11 +545,11 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				if (tal_pib.CurrentPage == 5)
 #endif
 				{
-					pal_trx_bit_write(SR_CC_NUMBER, GET_CHINA_FREQ(
+					trx_bit_write(SR_CC_NUMBER, GET_CHINA_FREQ(
 							tal_pib.CurrentChannel));
 				} else if ((tal_pib.CurrentChannel > 0) &&
 						(previous_channel > 0)) {
-					pal_trx_bit_write(SR_CHANNEL,
+					trx_bit_write(SR_CHANNEL,
 							tal_pib.CurrentChannel);
 				} else {
 					uint8_t reg_value;
@@ -626,7 +562,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 						=
 							convert_phyTransmitPower_to_reg_value(
 							tal_pib.TransmitPower);
-					pal_trx_reg_write(RG_PHY_TX_PWR,
+					trx_reg_write(RG_PHY_TX_PWR,
 							reg_value);
 				}
 
@@ -645,21 +581,24 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				uint8_t page;
 				tal_trx_status_t previous_trx_status = TRX_OFF;
 				bool ret_val;
-				uint8_t reg_value;
 
 				/*
 				 * Changing the channel, channel page or
-				 *modulation
+				 * modulation
 				 * requires that TRX is in TRX_OFF.
 				 * Store current trx state and return to default
-				 *state
+				 * state
 				 * after channel page has been set.
 				 */
 				if (tal_trx_status != TRX_OFF) {
 					previous_trx_status = RX_AACK_ON; /* any
+					                                   *
 					                                   *other
+					                                   *
 					                                   *than
+					                                   *
 					                                   *TRX_OFF
+					                                   *
 					                                   *state
 					                                   **/
 					do {
@@ -686,11 +625,10 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 					return MAC_INVALID_PARAMETER;
 				}
 
-				limit_tx_pwr();
-				reg_value
-					= convert_phyTransmitPower_to_reg_value(
-						tal_pib.TransmitPower);
-				pal_trx_reg_write(RG_PHY_TX_PWR, reg_value);
+				/*Set the default Power Values For the Changed
+				 *Channel Page according to values in
+				 *datasheet*/
+				set_default_tx_pwr();
 			}
 
 			break;
@@ -701,7 +639,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 			/*
 			 * macMinBE must not be larger than macMaxBE or
-			 *calculation
+			 * calculation
 			 * of macMaxFrameWaitTotalTime will fail.
 			 */
 			if (tal_pib.MaxBE < tal_pib.MinBE) {
@@ -710,7 +648,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 #endif  /* REDUCED_PARAM_CHECK */
 #ifndef SW_CONTROLLED_CSMA
-			pal_trx_bit_write(SR_MAX_BE, tal_pib.MaxBE);
+			trx_bit_write(SR_MAX_BE, tal_pib.MaxBE);
 #endif
 			break;
 
@@ -724,13 +662,13 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 			limit_tx_pwr();
 			reg_value = convert_phyTransmitPower_to_reg_value(
 					tal_pib.TransmitPower);
-			pal_trx_reg_write(RG_PHY_TX_PWR, reg_value);
+			trx_reg_write(RG_PHY_TX_PWR, reg_value);
 		}
 		break;
 
 		case phyCCAMode:
 			tal_pib.CCAMode = value->pib_value_8bit;
-			pal_trx_bit_write(SR_CCA_MODE, tal_pib.CCAMode);
+			trx_bit_write(SR_CCA_MODE, tal_pib.CCAMode);
 			break;
 
 		case macIeeeAddress:
@@ -739,7 +677,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 			tal_pib.IeeeAddress = value->pib_value_64bit;
 			ptr = (uint8_t *)&tal_pib.IeeeAddress;
 			for (uint8_t i = 0; i < 8; i++) {
-				pal_trx_reg_write((RG_IEEE_ADDR_0 + i), *ptr);
+				trx_reg_write((RG_IEEE_ADDR_0 + i), *ptr);
 				ptr++;
 			}
 		}
@@ -747,7 +685,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 		case mac_i_pan_coordinator:
 			tal_pib.PrivatePanCoordinator = value->pib_value_bool;
-			pal_trx_bit_write(SR_AACK_I_AM_COORD,
+			trx_bit_write(SR_AACK_I_AM_COORD,
 					tal_pib.PrivatePanCoordinator);
 			break;
 
@@ -755,10 +693,10 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 			/*
 			 * AT86RF212B does not support changing this value
-			 *w.r.t.
+			 * w.r.t.
 			 * compliance operation.
 			 * The ACK timing can be reduced to 2 symbols using TFA
-			 *function.
+			 * function.
 			 */
 			return MAC_UNSUPPORTED_ATTRIBUTE;
 
@@ -770,6 +708,64 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 	}
 	return MAC_SUCCESS;
 } /* tal_pib_set() */
+
+/**
+ * \brief Set the default Power Values For Respective Pages and Channels
+ */
+static void set_default_tx_pwr(void)
+{
+	int8_t dbm_value;
+
+	dbm_value = CONV_phyTransmitPower_TO_DBM(tal_pib.TransmitPower);
+
+	if ((tal_pib.CurrentPage == 5) ||
+			(tal_pib.CurrentPage == 18) ||
+			(tal_pib.CurrentPage == 19)) {
+		if ((tal_pib.CurrentChannel == 0) ||
+				(tal_pib.CurrentChannel == 3)) {
+			if (dbm_value > DEFAULT_TX_PWR_CHINA_CH_0_3) {
+				dbm_value = DEFAULT_TX_PWR_CHINA_CH_0_3;
+			}
+		} else {
+			if ((tal_pib.CurrentPage == 5) ||
+					(tal_pib.CurrentPage == 18)) {
+				if (dbm_value >
+						DEFAULT_TX_PWR_OQPSK_RC_250_500)
+				{
+					dbm_value
+						=
+							DEFAULT_TX_PWR_OQPSK_RC_250_500;
+				}
+			}
+		}
+	} else if (tal_pib.CurrentPage == 0) {
+		if (tal_pib.CurrentChannel == 0) {
+			if (dbm_value > DEFAULT_TX_PWR_BPSK_20) {
+				dbm_value = DEFAULT_TX_PWR_BPSK_20;
+			}
+		}
+	} else {
+		if (tal_pib.CurrentChannel == 0) {
+			if (dbm_value >
+					DEFAULT_TX_PWR_OQPSK_SIN_RC_100_200_400)
+			{
+				dbm_value
+					=
+						DEFAULT_TX_PWR_OQPSK_SIN_RC_100_200_400;
+			}
+		}
+	}
+
+	tal_pib.TransmitPower = TX_PWR_TOLERANCE | CONV_DBM_TO_phyTransmitPower(
+			dbm_value);
+
+	/*Handle other Channel and page combinations here*/
+	limit_tx_pwr();
+
+	trx_reg_write(RG_PHY_TX_PWR,
+			convert_phyTransmitPower_to_reg_value(tal_pib.
+			TransmitPower));
+}
 
 /**
  * \brief Limit the phyTransmitPower to the trx limits
@@ -786,84 +782,8 @@ static void limit_tx_pwr(void)
 	/* Limit to the transceiver's absolute maximum/minimum. */
 	if (dbm_value <= MIN_TX_PWR) {
 		dbm_value = MIN_TX_PWR;
-	} else {
-		/* Upper Tx power limits depend on the currently used channel
-		 *and channel page */
-		switch (tal_pib.CurrentPage) {
-		case 0: /* BPSK */
-			if (tal_pib.CurrentChannel == 0) {
-				if (dbm_value > MAX_TX_PWR_BPSK_20) {
-					dbm_value = MAX_TX_PWR_BPSK_20;
-				}
-			} else { /* channels 1-10*/
-				if (dbm_value > MAX_TX_PWR_BPSK_40) {
-					dbm_value = MAX_TX_PWR_BPSK_40;
-				}
-			}
-
-			break;
-
-		case 2: /* O-QPSK */
-			if (tal_pib.CurrentChannel == 0) {
-				if (dbm_value > MAX_TX_PWR_OQPSK_SIN_RC_100) {
-					dbm_value = MAX_TX_PWR_OQPSK_SIN_RC_100;
-				}
-			} else { /* channels 1-10 */
-				if (dbm_value > MAX_TX_PWR_OQPSK_SIN_250) {
-					dbm_value = MAX_TX_PWR_OQPSK_SIN_250;
-				}
-			}
-
-			break;
-
-		case 5: /* China, O-QPSK: only channels 0 to 3 allowed */
-			if (dbm_value > MAX_TX_PWR_OQPSK_RC_250) {
-				dbm_value = MAX_TX_PWR_OQPSK_RC_250;
-			}
-
-			break;
-
-#ifdef HIGH_DATA_RATE_SUPPORT
-		case 18: /* Chinese O-QPSK 500 */
-			if (dbm_value > MAX_TX_PWR_OQPSK_RC_500) {
-				dbm_value = MAX_TX_PWR_OQPSK_RC_500;
-			}
-
-			break;
-
-		case 19: /* Chinese O-QPSK 1000 */
-			if (dbm_value > MAX_TX_PWR_OQPSK_RC_1000) {
-				dbm_value = MAX_TX_PWR_OQPSK_RC_1000;
-			}
-
-			break;
-
-		case 16: /* O-QPSK 200, 500 */
-			if (tal_pib.CurrentChannel == 0) {
-				if (dbm_value > MAX_TX_PWR_OQPSK_SIN_RC_200) {
-					dbm_value = MAX_TX_PWR_OQPSK_SIN_RC_200;
-				}
-			} else { /* channels 1-10 */
-				if (dbm_value > MAX_TX_PWR_OQPSK_SIN_500) {
-					dbm_value = MAX_TX_PWR_OQPSK_SIN_500;
-				}
-			}
-
-			break;
-
-		case 17: /* O-QPSK 400, 1000 */
-			if (tal_pib.CurrentChannel == 0) {
-				if (dbm_value > MAX_TX_PWR_OQPSK_SIN_RC_400) {
-					dbm_value = MAX_TX_PWR_OQPSK_SIN_RC_400;
-				}
-			} else { /* channels 1-10 */
-				if (dbm_value > MAX_TX_PWR_OQPSK_SIN_1000) {
-					dbm_value = MAX_TX_PWR_OQPSK_SIN_1000;
-				}
-			}
-			break;
-#endif  /* #ifdef HIGH_DATA_RATE_SUPPORT */
-		}
+	} else if (dbm_value > MAX_TX_PWR) {
+		dbm_value = MAX_TX_PWR;
 	}
 
 	tal_pib.TransmitPower = TX_PWR_TOLERANCE | CONV_DBM_TO_phyTransmitPower(
@@ -886,7 +806,7 @@ static uint8_t convert_phyTransmitPower_to_reg_value(
 	dbm_value = CONV_phyTransmitPower_TO_DBM(phyTransmitPower_value);
 
 	/* Select the corresponding tx_pwr_table, also valid for high data rates
-	 **/
+	**/
 #ifdef HIGH_DATA_RATE_SUPPORT
 	if ((tal_pib.CurrentPage == 5) || (tal_pib.CurrentPage == 18) ||
 			(tal_pib.CurrentPage == 19))
@@ -927,144 +847,146 @@ static bool apply_channel_page_configuration(uint8_t ch_page)
 	 * Before updating the transceiver a number of TAL PIB attributes need
 	 * to be updated depending on the channel page.
 	 */
-	/* \todo these configurations are not rate dependent here! But shall be! */
+	/* \todo these configurations are not rate dependent here! But shall be!
+	 **/
 	tal_pib.MaxFrameDuration = MAX_FRAME_DURATION;
 	tal_pib.SHRDuration = NO_OF_SYMBOLS_PREAMBLE_SFD;
 	tal_pib.SymbolsPerOctet = SYMBOLS_PER_OCTET;
 
 	switch (ch_page) {
 	case 0: /* BPSK */
-		pal_trx_bit_write(SR_BPSK_OQPSK, BPSK_MODE);
-		pal_trx_bit_write(SR_GC_TX_OFFS, BPSK_TX_OFFSET);
-		pal_trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_DISABLE);
+		trx_bit_write(SR_BPSK_OQPSK, BPSK_MODE);
+		trx_bit_write(SR_GC_TX_OFFS, BPSK_TX_OFFSET);
+		trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_DISABLE);
 		if (tal_pib.CurrentChannel == 0) { /* BPSK20, EU */
-			pal_trx_bit_write(SR_SUB_MODE, LOW_DATA_RATE);
+			trx_bit_write(SR_SUB_MODE, LOW_DATA_RATE);
 		} else { /* BPSK40, NA */
-			pal_trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
+			trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
 		}
 
 		/* Compliant ACK timing */
-		pal_trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_12_SYMBOLS);
+		trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_12_SYMBOLS);
 		tal_pib.SupportedChannels = TRX_SUPPORTED_CHANNELS;
-		pal_trx_bit_write(SR_CC_BAND, 0);
-		pal_trx_bit_write(SR_CHANNEL, tal_pib.CurrentChannel);
+		trx_bit_write(SR_CC_BAND, 0);
+		trx_bit_write(SR_CHANNEL, tal_pib.CurrentChannel);
 		break;
 
 	case 2: /* O-QPSK */
-		pal_trx_bit_write(SR_BPSK_OQPSK, OQPSK_MODE);
-		pal_trx_bit_write(SR_GC_TX_OFFS, OQPSK_TX_OFFSET);
-		pal_trx_bit_write(SR_OQPSK_DATA_RATE,
+		trx_bit_write(SR_BPSK_OQPSK, OQPSK_MODE);
+		trx_bit_write(SR_GC_TX_OFFS, OQPSK_TX_OFFSET);
+		trx_bit_write(SR_OQPSK_DATA_RATE,
 				ALTRATE_100_KBPS_OR_250_KBPS);
-		pal_trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_DISABLE);
+		trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_DISABLE);
 		if (tal_pib.CurrentChannel == 0) { /* OQPSK100, EU */
-			pal_trx_bit_write(SR_SUB_MODE, LOW_DATA_RATE);
+			trx_bit_write(SR_SUB_MODE, LOW_DATA_RATE);
 		} else { /* OQPSK250, NA */
-			pal_trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
+			trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
 		}
 
 		/* Compliant ACK timing */
-		pal_trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_12_SYMBOLS);
+		trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_12_SYMBOLS);
 		tal_pib.SupportedChannels = TRX_SUPPORTED_CHANNELS;
-		pal_trx_bit_write(SR_CC_BAND, 0);
-		pal_trx_bit_write(SR_CHANNEL, tal_pib.CurrentChannel);
+		trx_bit_write(SR_CC_BAND, 0);
+		trx_bit_write(SR_CHANNEL, tal_pib.CurrentChannel);
 		break;
 
 	case 5: /* CHINESE_BAND, O-QPSK */
-		pal_trx_bit_write(SR_BPSK_OQPSK, OQPSK_MODE);
-		pal_trx_bit_write(SR_GC_TX_OFFS, OQPSK_TX_OFFSET);
-		pal_trx_bit_write(SR_OQPSK_DATA_RATE,
+		trx_bit_write(SR_BPSK_OQPSK, OQPSK_MODE);
+		trx_bit_write(SR_GC_TX_OFFS, OQPSK_TX_OFFSET);
+		trx_bit_write(SR_OQPSK_DATA_RATE,
 				ALTRATE_100_KBPS_OR_250_KBPS);
-		pal_trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_ENABLE);
-		pal_trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
+		trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_ENABLE);
+		trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
 		/* Compliant ACK timing */
-		pal_trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_12_SYMBOLS);
+		trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_12_SYMBOLS);
 		tal_pib.SupportedChannels = TRX_SUPPORTED_CHANNELS_CHINA;
 		/* Channel Page 5 supports channels 0-3. */
 		if (tal_pib.CurrentChannel > 3) {
 			tal_pib.CurrentChannel = 0;
 		}
 
-		pal_trx_bit_write(SR_CC_BAND, 4);
-		pal_trx_bit_write(SR_CC_NUMBER,
+		trx_bit_write(SR_CC_BAND, 4);
+		trx_bit_write(SR_CC_NUMBER,
 				GET_CHINA_FREQ(tal_pib.CurrentChannel));
+
 		break;
 
 #ifdef HIGH_DATA_RATE_SUPPORT
 	case 16:    /* non-compliant OQPSK mode 1 */
-		pal_trx_bit_write(SR_BPSK_OQPSK, OQPSK_MODE);
-		pal_trx_bit_write(SR_GC_TX_OFFS, OQPSK_TX_OFFSET);
-		pal_trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_DISABLE);
-		pal_trx_bit_write(SR_OQPSK_DATA_RATE,
+		trx_bit_write(SR_BPSK_OQPSK, OQPSK_MODE);
+		trx_bit_write(SR_GC_TX_OFFS, OQPSK_TX_OFFSET);
+		trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_DISABLE);
+		trx_bit_write(SR_OQPSK_DATA_RATE,
 				ALTRATE_200_KBPS_OR_500_KBPS);
 		if (tal_pib.CurrentChannel == 0) { /* 200kbps, EU */
-			pal_trx_bit_write(SR_SUB_MODE, LOW_DATA_RATE);
+			trx_bit_write(SR_SUB_MODE, LOW_DATA_RATE);
 		} else { /* 500kbps, NA */
-			pal_trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
+			trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
 		}
 
 		/* Reduced ACK timing */
-		pal_trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
+		trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
 		tal_pib.SupportedChannels = TRX_SUPPORTED_CHANNELS;
-		pal_trx_bit_write(SR_CC_BAND, 0);
-		pal_trx_bit_write(SR_CHANNEL, tal_pib.CurrentChannel);
+		trx_bit_write(SR_CC_BAND, 0);
+		trx_bit_write(SR_CHANNEL, tal_pib.CurrentChannel);
 		break;
 
 	case 17:    /* non-compliant OQPSK mode 2 */
-		pal_trx_bit_write(SR_BPSK_OQPSK, OQPSK_MODE);
-		pal_trx_bit_write(SR_GC_TX_OFFS, OQPSK_TX_OFFSET);
-		pal_trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_DISABLE);
-		pal_trx_bit_write(SR_OQPSK_DATA_RATE,
+		trx_bit_write(SR_BPSK_OQPSK, OQPSK_MODE);
+		trx_bit_write(SR_GC_TX_OFFS, OQPSK_TX_OFFSET);
+		trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_DISABLE);
+		trx_bit_write(SR_OQPSK_DATA_RATE,
 				ALTRATE_400_KBPS_OR_1_MBPS);
 		if (tal_pib.CurrentChannel == 0) { /* 400kbps, EU */
-			pal_trx_bit_write(SR_SUB_MODE, LOW_DATA_RATE);
+			trx_bit_write(SR_SUB_MODE, LOW_DATA_RATE);
 		} else { /* 1000kbps, NA */
-			pal_trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
+			trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
 		}
 
 		/* Reduced ACK timing */
-		pal_trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
+		trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
 		tal_pib.SupportedChannels = TRX_SUPPORTED_CHANNELS;
-		pal_trx_bit_write(SR_CC_BAND, 0);
-		pal_trx_bit_write(SR_CHANNEL, tal_pib.CurrentChannel);
+		trx_bit_write(SR_CC_BAND, 0);
+		trx_bit_write(SR_CHANNEL, tal_pib.CurrentChannel);
 		break;
 
 	case 18:    /* Chinese band, non-compliant mode 1 using O-QPSK 500 */
-		pal_trx_bit_write(SR_BPSK_OQPSK, OQPSK_MODE);
-		pal_trx_bit_write(SR_GC_TX_OFFS, OQPSK_TX_OFFSET);
-		pal_trx_bit_write(SR_OQPSK_DATA_RATE,
+		trx_bit_write(SR_BPSK_OQPSK, OQPSK_MODE);
+		trx_bit_write(SR_GC_TX_OFFS, OQPSK_TX_OFFSET);
+		trx_bit_write(SR_OQPSK_DATA_RATE,
 				ALTRATE_200_KBPS_OR_500_KBPS);
-		pal_trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_ENABLE);
-		pal_trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
+		trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_ENABLE);
+		trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
 		/* Reduced ACK timing */
-		pal_trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
+		trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
 		tal_pib.SupportedChannels = TRX_SUPPORTED_CHANNELS_CHINA;
 		/* Channel Page 18 supports channels 0-3. */
 		if (tal_pib.CurrentChannel > 3) {
 			tal_pib.CurrentChannel = 0;
 		}
 
-		pal_trx_bit_write(SR_CC_BAND, 4);
-		pal_trx_bit_write(SR_CC_NUMBER,
+		trx_bit_write(SR_CC_BAND, 4);
+		trx_bit_write(SR_CC_NUMBER,
 				GET_CHINA_FREQ(tal_pib.CurrentChannel));
 		break;
 
 	case 19:    /* Chinese band, non-compliant mode 2 using O-QPSK 1000 */
-		pal_trx_bit_write(SR_BPSK_OQPSK, OQPSK_MODE);
-		pal_trx_bit_write(SR_GC_TX_OFFS, OQPSK_TX_OFFSET);
-		pal_trx_bit_write(SR_OQPSK_DATA_RATE,
+		trx_bit_write(SR_BPSK_OQPSK, OQPSK_MODE);
+		trx_bit_write(SR_GC_TX_OFFS, OQPSK_TX_OFFSET);
+		trx_bit_write(SR_OQPSK_DATA_RATE,
 				ALTRATE_400_KBPS_OR_1_MBPS);
-		pal_trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_ENABLE);
-		pal_trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
+		trx_bit_write(SR_ALT_SPECTRUM, ALT_SPECTRUM_ENABLE);
+		trx_bit_write(SR_SUB_MODE, HIGH_DATA_RATE);
 		/* Reduced ACK timing */
-		pal_trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
+		trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
 		tal_pib.SupportedChannels = TRX_SUPPORTED_CHANNELS_CHINA;
 		/* Channel Page 18 supports channels 0-3. */
 		if (tal_pib.CurrentChannel > 3) {
 			tal_pib.CurrentChannel = 0;
 		}
 
-		pal_trx_bit_write(SR_CC_BAND, 4);
-		pal_trx_bit_write(SR_CC_NUMBER,
+		trx_bit_write(SR_CC_BAND, 4);
+		trx_bit_write(SR_CC_NUMBER,
 				GET_CHINA_FREQ(tal_pib.CurrentChannel));
 		break;
 

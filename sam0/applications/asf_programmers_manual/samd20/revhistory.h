@@ -3,7 +3,7 @@
  *
  * \brief ASF Programmers Manual Revision History
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,6 +48,16 @@
  *    <th>Doc. Rev.</td>
  *    <th>Date</td>
  *    <th>Comments</td>
+ *  </tr>
+ *  <tr>
+ *    <td>C</td>
+ *    <td>01/2014</td>
+ *    <td>Updated SAM D20 drivers.</td>
+ *  </tr>
+ *  <tr>
+ *    <td>B</td>
+ *    <td>06/2013</td>
+ *    <td>Added SAM D20 EEPROM Emulator module. Corrected documentation typos.</td>
  *  </tr>
  *  <tr>
  *    <td>A</td>

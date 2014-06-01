@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\adptr_usb_hid.ewp</path>
+	</project>
+</workspace>

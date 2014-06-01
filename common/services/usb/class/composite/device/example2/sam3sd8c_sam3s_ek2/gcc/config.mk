@@ -175,7 +175,12 @@ CPPFLAGS = \
        -D UDD_ENABLE                                      \
        -D VIRTUAL_MEMORY_ENABLE                           \
        -D __SAM3SD8C__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

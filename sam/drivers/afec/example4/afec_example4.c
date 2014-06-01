@@ -3,7 +3,7 @@
  *
  * \brief AFEC feature test example for SAM.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -59,16 +59,7 @@
  *
  * \section Usage
  *
- * -# Build the program and download it into the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/6421B.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a>
- *    application note or the
- *    <a href="http://www.iar.com/website1/1.0.1.0/78/1/">
- *    IAR EWARM User and reference guides</a>,
- *    depending on the solutions that users choose.
+ * -# Build the program and download it into the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -79,18 +70,18 @@
  * -# In the terminal window, the
  *    following text should appear (values depend on the board and the chip used):
  *    \code
- *     -- AFEC Feature Test Examplexxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     =========================================================
- *     Menu: press a key to test feature.
- *     ---------------------------------------------------------
- *     -- 0: Gain Test --
- *     -- 1: Dual AFEC Conversion Test --
- *     -- 2: Differential Input Test --
- *     -- 3: User Sequence Test --
- *     -- 4: Typical Application Test--
- *    \endcode
+	-- AFEC Feature Test Examplexxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	=========================================================
+	Menu: press a key to test feature.
+	---------------------------------------------------------
+	-- 0: Gain Test --
+	-- 1: Dual AFEC Conversion Test --
+	-- 2: Differential Input Test --
+	-- 3: User Sequence Test --
+	-- 4: Typical Application Test--
+\endcode
  */
 
 #include <stdio.h>

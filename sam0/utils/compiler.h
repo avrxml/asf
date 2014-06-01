@@ -3,7 +3,7 @@
  *
  * \brief Commonly used includes, types and macros.
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,7 +45,7 @@
 /**
  * \defgroup group_sam0_utils Compiler abstraction layer and code utilities
  *
- * Compiler abstraction layer and code utilities for AT91SAMD20.
+ * Compiler abstraction layer and code utilities for Cortex-M0+ based Atmel SAM devices.
  * This module provides various abstraction layers and utilities to make code compatible between different compilers.
  *
  * @{
@@ -221,8 +221,8 @@ typedef union
 {
   int16_t  s16;
   uint16_t u16;
-  int8_t   int8_t[2];
-  uint8_t  uint8_t[2];
+  int8_t   s8[2];
+  uint8_t  u8[2];
 } Union16;
 
 /** 32-bit union. */
@@ -232,8 +232,8 @@ typedef union
   uint32_t u32;
   int16_t  s16[2];
   uint16_t u16[2];
-  int8_t   int8_t[4];
-  uint8_t  uint8_t[4];
+  int8_t   s8[4];
+  uint8_t  u8[4];
 } Union32;
 
 /** 64-bit union. */
@@ -245,8 +245,8 @@ typedef union
   uint32_t u32[2];
   int16_t  s16[4];
   uint16_t u16[4];
-  int8_t   int8_t[8];
-  uint8_t  uint8_t[8];
+  int8_t   s8[8];
+  uint8_t  u8[8];
 } Union64;
 
 /** Union of pointers to 64-, 32-, 16- and 8-bit unsigned integers. */
@@ -410,7 +410,7 @@ typedef struct
 /** \name Bit-Field Handling
  * @{ */
 
-/*! \brief Reads the bits of a value specified by a given bit-mask.
+/** \brief Reads the bits of a value specified by a given bit-mask.
  *
  * \param[in] value Value to read bits from.
  * \param[in] mask  Bit-mask indicating bits to read.
@@ -419,7 +419,7 @@ typedef struct
  */
 #define Rd_bits( value, mask)        ((value) & (mask))
 
-/*! \brief Writes the bits of a C lvalue specified by a given bit-mask.
+/** \brief Writes the bits of a C lvalue specified by a given bit-mask.
  *
  * \param[in] lvalue  C lvalue to write bits to.
  * \param[in] mask    Bit-mask indicating bits to write.
@@ -430,7 +430,7 @@ typedef struct
 #define Wr_bits(lvalue, mask, bits)  ((lvalue) = ((lvalue) & ~(mask)) |\
                                                  ((bits  ) &  (mask)))
 
-/*! \brief Tests the bits of a value specified by a given bit-mask.
+/** \brief Tests the bits of a value specified by a given bit-mask.
  *
  * \param[in] value Value of which to test bits.
  * \param[in] mask  Bit-mask indicating bits to test.
@@ -439,7 +439,7 @@ typedef struct
  */
 #define Tst_bits( value, mask)  (Rd_bits(value, mask) != 0)
 
-/*! \brief Clears the bits of a C lvalue specified by a given bit-mask.
+/** \brief Clears the bits of a C lvalue specified by a given bit-mask.
  *
  * \param[in] lvalue  C lvalue of which to clear bits.
  * \param[in] mask    Bit-mask indicating bits to clear.
@@ -448,7 +448,7 @@ typedef struct
  */
 #define Clr_bits(lvalue, mask)  ((lvalue) &= ~(mask))
 
-/*! \brief Sets the bits of a C lvalue specified by a given bit-mask.
+/** \brief Sets the bits of a C lvalue specified by a given bit-mask.
  *
  * \param[in] lvalue  C lvalue of which to set bits.
  * \param[in] mask    Bit-mask indicating bits to set.
@@ -457,7 +457,7 @@ typedef struct
  */
 #define Set_bits(lvalue, mask)  ((lvalue) |=  (mask))
 
-/*! \brief Toggles the bits of a C lvalue specified by a given bit-mask.
+/** \brief Toggles the bits of a C lvalue specified by a given bit-mask.
  *
  * \param[in] lvalue  C lvalue of which to toggle bits.
  * \param[in] mask    Bit-mask indicating bits to toggle.
@@ -466,7 +466,7 @@ typedef struct
  */
 #define Tgl_bits(lvalue, mask)  ((lvalue) ^=  (mask))
 
-/*! \brief Reads the bit-field of a value specified by a given bit-mask.
+/** \brief Reads the bit-field of a value specified by a given bit-mask.
  *
  * \param[in] value Value to read a bit-field from.
  * \param[in] mask  Bit-mask indicating the bit-field to read.
@@ -475,7 +475,7 @@ typedef struct
  */
 #define Rd_bitfield( value, mask)           (Rd_bits( value, mask) >> ctz(mask))
 
-/*! \brief Writes the bit-field of a C lvalue specified by a given bit-mask.
+/** \brief Writes the bit-field of a C lvalue specified by a given bit-mask.
  *
  * \param[in] lvalue    C lvalue to write a bit-field to.
  * \param[in] mask      Bit-mask indicating the bit-field to write.
@@ -510,8 +510,6 @@ typedef struct
  */
 #if (defined __GNUC__) || (defined __CC_ARM)
 #   define clz(u)              __builtin_clz(u)
-#elif (defined __ICCARM__)
-#   define clz(u)              __CLZ(u)
 #else
 #   define clz(u)              (((u) == 0)          ? 32 : \
                                 ((u) & (1ul << 31)) ?  0 : \
@@ -916,18 +914,21 @@ typedef struct
 
 #endif  /* #ifndef __ASSEMBLY__ */
 #ifdef __ICCARM__
-/*! \name Compiler Keywords
+/** \name Compiler Keywords
  *
  * Port of some keywords from GCC to IAR Embedded Workbench.
- */
-//! @{
+ *
+ * @{ */
+
 #define __asm__             asm
 #define __inline__          inline
 #define __volatile__
-//! @}
+
+/** @} */
 
 #endif
 
+#define FUNC_PTR                            void *
 /**
  * \def unused
  * \brief Marking \a v as a unused parameter or value.
@@ -1037,6 +1038,9 @@ typedef double                  F64;  //!< 64-bit floating-point number.
 #define MEMCPY_ENDIAN memcpy
 #define PGM_READ_BLOCK(dst, src, len) memcpy((dst), (src), (len))
 
+/*Defines the Flash Storage for the request and response of MAC*/
+#define CMD_ID_OCTET    (0)
+
 /* Converting of values from CPU endian to little endian. */
 #define CPU_ENDIAN_TO_LE16(x)   (x)
 #define CPU_ENDIAN_TO_LE32(x)   (x)
@@ -1116,6 +1120,22 @@ static inline void convert_16_bit_to_byte_address(uint16_t value, uint8_t *data)
 static inline uint16_t convert_byte_array_to_16_bit(uint8_t *data)
 {
     return (data[0] | ((uint16_t)data[1] << 8));
+}
+
+/* Converts a 4 Byte array into a 32-Bit value */
+static inline uint32_t convert_byte_array_to_32_bit(uint8_t *data)
+{
+	union
+	{
+		uint32_t u32;
+		uint8_t u8[4];
+	}long_addr;
+	uint8_t index;
+	for (index = 0; index < 4; index++)
+	{
+		long_addr.u8[index] = *data++;
+	}
+	return long_addr.u32;
 }
 
 /**

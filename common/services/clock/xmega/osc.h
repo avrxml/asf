@@ -3,7 +3,7 @@
  *
  * \brief Chip-specific oscillator management functions
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -244,7 +244,7 @@ static inline void osc_enable_external(uint8_t id)
 #ifndef CONFIG_XOSC_32KHZ_LPM
 #  if (XMEGA_E && (BOARD_XOSC_TYPE == XOSC_TYPE_EXTERNAL) && defined(CONFIG_XOSC_EXTERNAL_PC4))
 	OSC.XOSCCTRL = OSC_XOSCSEL4_bm;
-#  else 
+#  else
 	OSC.XOSCCTRL = BOARD_XOSC_TYPE | (CONFIG_XOSC_STARTUP << 2) |
 			CONFIG_XOSC_RANGE;
 #  endif
@@ -342,7 +342,10 @@ static inline void osc_enable_autocalibration(uint8_t id, uint8_t ref_id)
 #if XMEGA_AU || XMEGA_B || XMEGA_C || XMEGA_E
 		Assert((ref_id == OSC_ID_RC32KHZ)
 				|| (ref_id == OSC_ID_XOSC)
-				|| (ref_id == OSC_ID_USBSOF));
+# if !XMEGA_E
+				|| (ref_id == OSC_ID_USBSOF)
+#endif
+				);
 
 		OSC.DFLLCTRL &= ~(OSC_RC32MCREF_gm);
 
@@ -368,14 +371,27 @@ static inline void osc_enable_autocalibration(uint8_t id, uint8_t ref_id)
 		Assert((ref_id == OSC_ID_RC32KHZ) ||
 				(ref_id == OSC_ID_XOSC));
 
+# if defined(OSC_RC32MCREF_gm)
+		OSC.DFLLCTRL &= ~(OSC_RC32MCREF_gm);
+# endif
+
 		if (ref_id == OSC_ID_XOSC) {
 			osc_enable(OSC_ID_RC32KHZ);
+# if defined(OSC_RC32MCREF_gm)
+			OSC.DFLLCTRL |= OSC_RC32MCREF_XOSC32K_gc;
+# else
 			OSC.DFLLCTRL |= OSC_RC32MCREF_bm;
+# endif
 		}
 		else if (ref_id == OSC_ID_RC32KHZ) {
+# if defined(OSC_RC32MCREF_gm)
+			OSC.DFLLCTRL |= OSC_RC32MCREF_RC32K_gc;
+# else
 			OSC.DFLLCTRL &= ~(OSC_RC32MCREF_bm);
+# endif
 		}
 #endif
+
 		DFLLRC32M.CTRL |= DFLL_ENABLE_bm;
 		break;
 

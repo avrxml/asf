@@ -3,7 +3,7 @@
  *
  * \brief User Interface
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -116,7 +116,7 @@ static struct {
 // Note:
 // This interrupt is enable when the USB host enable remotewakeup feature
 // This interrupt wakeup the CPU if this one is in idle mode
-ISR(ui_wakeup_isr, AVR32_GPIO0_IRQ_GROUP, 0)
+ISR(ui_wakeup_isr, AVR32_GPIO_IRQ_GROUP, 0)
 {
 	// Clear GPIO interrupts.
 	gpio_clear_pin_interrupt_flag(GPIO_PUSH_BUTTON_0);

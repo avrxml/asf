@@ -3,7 +3,7 @@
  *
  * @brief This file handles the frame transmission within the TAL.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -79,6 +79,9 @@
 
 /* === GLOBALS ============================================================= */
 
+static uint8_t tal_sw_retry_count;
+static bool tal_sw_retry_no_csma_ca;
+
 static trx_trac_status_t trx_trac_status;
 
 /* === PROTOTYPES ========================================================== */
@@ -92,10 +95,10 @@ static trx_trac_status_t trx_trac_status;
  * to be transmitted by the transceiver.
  *
  * \param tx_frame Pointer to the frame_info_t structure updated by the MAC
- *layer
+ * layer
  * \param csma_mode Indicates mode of csma-ca to be performed for this frame
  * \param perform_frame_retry Indicates whether to retries are to be performed
- *for
+ * for
  *                            this frame
  *
  * \return MAC_SUCCESS  if the TAL has accepted the data from the MAC for frame
@@ -117,6 +120,7 @@ retval_t tal_tx_frame(frame_info_t *tx_frame, csma_mode_t csma_mode,
 
 	/* Set pointer to actual mpdu to be downloaded to the transceiver. */
 	tal_frame_to_tx = tx_frame->mpdu;
+	last_frame_length = tal_frame_to_tx[0] - 1;
 
 	/*
 	 * In case the frame is too large, return immediately indicating
@@ -137,16 +141,16 @@ retval_t tal_tx_frame(frame_info_t *tx_frame, csma_mode_t csma_mode,
 
 		/*
 		 * Check if frame is using indirect transmission, but do not use
-		 *the
+		 * the
 		 * indirect_in_transit flag. This flag is not set for null data
-		 *frames.
+		 * frames.
 		 */
 		if ((tal_pib.BeaconOrder < NON_BEACON_NWK) &&
 				(csma_mode == NO_CSMA_WITH_IFS) &&
 				(perform_frame_retry == false)) {
 			/*
 			 * Check if indirect transmission can be completed
-			 *before the next
+			 * before the next
 			 * beacon transmission.
 			 */
 			uint32_t time_between_beacons_sym;
@@ -157,12 +161,12 @@ retval_t tal_tx_frame(frame_info_t *tx_frame, csma_mode_t csma_mode,
 			/* Calculate the entire transaction duration. Re-use
 			 * function of slotted CSMA.
 			 * The additional two backoff periods used for CCA are
-			 *kept as a guard time.
+			 * kept as a guard time.
 			 */
 			calculate_transaction_duration();
 
 			/* Calculate the duration until the next beacon needs to
-			 *be transmitted. */
+			 * be transmitted. */
 			time_between_beacons_sym = TAL_GET_BEACON_INTERVAL_TIME(
 					tal_pib.BeaconOrder);
 			next_beacon_time_sym = tal_add_time_symbols(
@@ -174,14 +178,14 @@ retval_t tal_tx_frame(frame_info_t *tx_frame, csma_mode_t csma_mode,
 					next_beacon_time_sym, now_time_sym);
 
 			/* Check if transaction can be completed before next
-			 *beacon transmission. */
+			 * beacon transmission. */
 			if ((now_time_sym >= next_beacon_time_sym) ||
 					((transaction_duration_periods *
 					aUnitBackoffPeriod) >
 					duration_before_beacon_sym)) {
 				/*
 				 * Transaction will not be completed before next
-				 *beacon transmission.
+				 * beacon transmission.
 				 * Therefore the transmission is not executed.
 				 */
 				return MAC_CHANNEL_ACCESS_FAILURE;
@@ -223,7 +227,7 @@ void tx_done_handling(void)
 
 	/*
 	 * The entire timestamp calculation is only required for beaconing
-	 *networks
+	 * networks
 	 * or if timestamping is explicitly enabled.
 	 */
 
@@ -310,18 +314,22 @@ void send_frame(csma_mode_t csma_mode, bool tx_retries)
 
 	/* Configure tx according to tx_retries */
 	if (tx_retries) {
-		pal_trx_bit_write(SR_MAX_FRAME_RETRIES,
+		trx_bit_write(SR_MAX_FRAME_RETRIES,
 				tal_pib.MaxFrameRetries);
 	} else {
-		pal_trx_bit_write(SR_MAX_FRAME_RETRIES, 0);
+		trx_bit_write(SR_MAX_FRAME_RETRIES, 0);
 	}
 
 	/* Configure tx according to csma usage */
 	if ((csma_mode == NO_CSMA_NO_IFS) || (csma_mode == NO_CSMA_WITH_IFS)) {
-		pal_trx_bit_write(SR_MAX_CSMA_RETRIES, 7); /* immediate
-		                                            * transmission */
+		trx_bit_write(SR_MAX_CSMA_RETRIES, 7); /* immediate
+		                                        * transmission */
+		if (tx_retries) {
+			tal_sw_retry_count = tal_pib.MaxFrameRetries;
+			tal_sw_retry_no_csma_ca = true;
+		}
 	} else {
-		pal_trx_bit_write(SR_MAX_CSMA_RETRIES, tal_pib.MaxCSMABackoffs);
+		trx_bit_write(SR_MAX_CSMA_RETRIES, tal_pib.MaxCSMABackoffs);
 	}
 
 	do {
@@ -337,18 +345,20 @@ void send_frame(csma_mode_t csma_mode, bool tx_retries)
 					macMinLIFSPeriod_def)
 					- TRX_IRQ_DELAY_US -
 					PRE_TX_DURATION_US);
-		} else {
+			last_frame_length = 0;
+		} else if (last_frame_length > 0) {
 			pal_timer_delay(TAL_CONVERT_SYMBOLS_TO_US(
 					macMinSIFSPeriod_def)
 					- TRX_IRQ_DELAY_US -
 					PRE_TX_DURATION_US);
+			last_frame_length = 0;
 		}
 	}
 
 	/* Toggle the SLP_TR pin triggering transmission. */
-	PAL_SLP_TR_HIGH();
+	TRX_SLP_TR_HIGH();
 	PAL_WAIT_65_NS();
-	PAL_SLP_TR_LOW();
+	TRX_SLP_TR_LOW();
 
 	/*
 	 * Send the frame to the transceiver.
@@ -356,13 +366,13 @@ void send_frame(csma_mode_t csma_mode, bool tx_retries)
 	 * be sent to the transceiver and this contains the frame
 	 * length.
 	 * The actual length of the frame to be downloaded
-	 * (parameter two of pal_trx_frame_write)
+	 * (parameter two of trx_frame_write)
 	 * is
 	 * 1 octet frame length octet
 	 * + n octets frame (i.e. value of frame_tx[0])
 	 * - 2 octets FCS
 	 */
-	pal_trx_frame_write(tal_frame_to_tx, tal_frame_to_tx[0] - 1);
+	trx_frame_write(tal_frame_to_tx, tal_frame_to_tx[0] - 1);
 
 	tal_state = TAL_TX_AUTO;
 
@@ -405,7 +415,11 @@ void handle_tx_end_irq(bool underrun_occured)
 		 */
 		mac_frame_ptr->time_stamp = tal_timestamp;
 #else
-		pal_trx_read_timestamp(&mac_frame_ptr->time_stamp);
+		{
+			uint32_t time_stamp_temp = 0;
+			pal_trx_read_timestamp(&time_stamp_temp);
+			mac_frame_ptr->time_stamp = time_stamp_temp;
+		}
 #endif
 #endif  /* #if (defined BEACON_SUPPORT) || (defined ENABLE_TSTAMP) */
 
@@ -413,18 +427,19 @@ void handle_tx_end_irq(bool underrun_occured)
 		if (underrun_occured) {
 			trx_trac_status = TRAC_INVALID;
 		} else {
-			trx_trac_status = (trx_trac_status_t)pal_trx_bit_read(
+			trx_trac_status = /*(trx_trac_status_t)*/ trx_bit_read(
 					SR_TRAC_STATUS);
 		}
 
 #ifdef BEACON_SUPPORT
 		if (tal_csma_state == FRAME_SENDING) { /* Transmission was
-		                                        * issued by slotted CSMA */
+			                                * issued by slotted CSMA
+			                                **/
 			PIN_TX_END();
 			tal_state = TAL_SLOTTED_CSMA;
 
 			/* Map status message of transceiver to TAL constants.
-			 **/
+			**/
 			switch (trx_trac_status) {
 			case TRAC_SUCCESS_DATA_PENDING:
 				PIN_ACK_OK_START();
@@ -447,7 +462,7 @@ void handle_tx_end_irq(bool underrun_occured)
 				break;
 
 			case TRAC_INVALID: /* Handle this in the same way as
-				            *default. */
+				            * default. */
 			default:
 				Assert("not handled trac status" == 0);
 				tal_csma_state = CSMA_ACCESS_FAILURE;
@@ -459,8 +474,27 @@ void handle_tx_end_irq(bool underrun_occured)
 #endif  /* BEACON_SUPPORT */
 		/* Trx has handled the entire transmission incl. CSMA */
 		{
-			tal_state = TAL_TX_DONE; /* Further handling is done by
-			                          * tx_done_handling() */
+			if (tal_sw_retry_no_csma_ca && tal_sw_retry_count &&
+					TRAC_NO_ACK == trx_trac_status) {
+				tal_trx_status_t trx_status;
+				do {
+					trx_status = set_trx_state(
+							CMD_TX_ARET_ON);
+				} while (trx_status != TX_ARET_ON);
+				/* Toggle the SLP_TR pin triggering
+				 *transmission. */
+				TRX_SLP_TR_HIGH();
+				PAL_WAIT_65_NS();
+				TRX_SLP_TR_LOW();
+				if (--tal_sw_retry_count == 0) {
+					tal_sw_retry_no_csma_ca = false;
+				}
+			} else {
+				tal_state = TAL_TX_DONE; /* Further handling is
+				                          * done by
+				                          * tx_done_handling()
+				                          **/
+			}
 		}
 	}
 
@@ -488,7 +522,7 @@ void tal_tx_beacon(frame_info_t *tx_frame)
 	uint8_t *tal_beacon_to_tx = tx_frame->mpdu;
 
 	/* Avoid that the beacon is transmitted while other transmision is
-	 *on-going. */
+	 * on-going. */
 	if (tal_state == TAL_TX_AUTO) {
 		Assert(
 				"trying to transmit beacon while ongoing transmission" ==
@@ -512,9 +546,9 @@ void tal_tx_beacon(frame_info_t *tx_frame)
 	pal_trx_irq_dis();
 
 	/* Toggle the SLP_TR pin triggering transmission. */
-	PAL_SLP_TR_HIGH();
+	TRX_SLP_TR_HIGH();
 	PAL_WAIT_65_NS();
-	PAL_SLP_TR_LOW();
+	TRX_SLP_TR_LOW();
 
 	/*
 	 * Send the frame to the transceiver.
@@ -522,13 +556,13 @@ void tal_tx_beacon(frame_info_t *tx_frame)
 	 * be sent to the transceiver and this contains the frame
 	 * length.
 	 * The actual length of the frame to be downloaded
-	 * (parameter two of pal_trx_frame_write)
+	 * (parameter two of trx_frame_write)
 	 * is
 	 * 1 octet frame length octet
 	 * + n octets frame (i.e. value of frame_tx[0])
 	 * - 2 octets FCS
 	 */
-	pal_trx_frame_write(tal_beacon_to_tx, tal_beacon_to_tx[0] - 1);
+	trx_frame_write(tal_beacon_to_tx, tal_beacon_to_tx[0] - 1);
 
 	tal_beacon_transmission = true;
 

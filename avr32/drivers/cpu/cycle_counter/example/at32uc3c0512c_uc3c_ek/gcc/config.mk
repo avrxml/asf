@@ -63,11 +63,11 @@ CSRCS = \
        avr32/drivers/flashc/flashc.c                      \
        avr32/drivers/gpio/gpio.c                          \
        avr32/drivers/intc/intc.c                          \
-       avr32/drivers/pm/pm_uc3c.c                         \
-       avr32/drivers/pm/power_clocks_lib.c                \
-       avr32/drivers/scif/scif_uc3c.c                     \
        avr32/drivers/usart/usart.c                        \
-       avr32/utils/debug/print_funcs.c
+       avr32/utils/debug/print_funcs.c                    \
+       common/services/clock/uc3c/osc.c                   \
+       common/services/clock/uc3c/pll.c                   \
+       common/services/clock/uc3c/sysclk.c
 
 # List of assembler source files.
 ASSRCS = \
@@ -80,16 +80,16 @@ INC_PATH = \
        avr32/boards                                       \
        avr32/boards/uc3c_ek                               \
        avr32/drivers/cpu/cycle_counter                    \
+       avr32/drivers/cpu/cycle_counter/example/at32uc3c0512c_uc3c_ek \
        avr32/drivers/flashc                               \
        avr32/drivers/gpio                                 \
        avr32/drivers/intc                                 \
-       avr32/drivers/pm                                   \
-       avr32/drivers/scif                                 \
        avr32/drivers/usart                                \
        avr32/utils                                        \
        avr32/utils/debug                                  \
        avr32/utils/preprocessor                           \
        common/boards                                      \
+       common/services/clock                              \
        common/utils \
        avr32/drivers/cpu/cycle_counter/example/at32uc3c0512c_uc3c_ek/gcc
 
@@ -134,3 +134,7 @@ CPPFLAGS = \
 # Extra flags to use when linking
 LDFLAGS = \
        -nostartfiles -Wl,-e,_trampoline
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

@@ -3,7 +3,7 @@
  *
  * @brief This file contains the Queue Management Module definitions.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -69,6 +69,7 @@
 /**
  * @brief Structure to search for a buffer to be removed from a queue
  */
+__PACK__DATA__
 typedef struct
 #if !defined(__DOXYGEN__)
 		search_tag
@@ -101,7 +102,7 @@ typedef struct
 
 	/**
 	 * Maximum number of buffers that can be accomodated in the current
-	 *queue
+	 * queue
 	 * Note: This is only required if the queue capacity shall be different
 	 * from 255.
 	 */
@@ -113,7 +114,7 @@ typedef struct
 	 */
 	uint8_t size;
 } queue_t;
-
+__PACK__RST_DATA__
 /* === Externals =========================================================== */
 
 /* === Prototypes ========================================================== */

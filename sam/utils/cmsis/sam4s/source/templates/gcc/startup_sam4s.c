@@ -3,7 +3,7 @@
  *
  * \brief Startup file for SAM4S.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,6 @@
  *
  */
 
-#include "exceptions.h"
 #include "sam4s.h"
 #include "system_sam4s.h"
 
@@ -62,100 +61,162 @@ int main(void);
 
 void __libc_init_array(void);
 
+/* Default empty handler */
+void Dummy_Handler(void);
+
+/* Cortex-M4 core handlers */
+void NMI_Handler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void HardFault_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void MemManage_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void BusFault_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void UsageFault_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void SVC_Handler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void DebugMon_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void PendSV_Handler     ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void SysTick_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+
+/* Peripherals handlers */
+void SUPC_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void RSTC_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void RTC_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void RTT_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void WDT_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void PMC_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void EFC0_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#ifdef _SAM4S_EFC1_INSTANCE_
+void EFC1_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAM4S_EFC1_INSTANCE_ */
+void UART0_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void UART1_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void PIOA_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void PIOB_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#ifdef _SAM4S_PIOC_INSTANCE_
+void PIOC_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAM4S_PIOC_INSTANCE_ */
+void USART0_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#ifdef _SAM4S_USART1_INSTANCE_
+void USART1_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAM4S_USART1_INSTANCE_ */
+#ifdef _SAM4S_HSMCI_INSTANCE_
+void HSMCI_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAM4S_HSMCI_INSTANCE_ */
+void TWI0_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void TWI1_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void SPI_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void SSC_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void TC0_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void TC1_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void TC2_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#ifdef _SAM4S_TC1_INSTANCE_
+void TC3_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAM4S_TC1_INSTANCE_ */
+#ifdef _SAM4S_TC1_INSTANCE_
+void TC4_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAM4S_TC1_INSTANCE_ */
+#ifdef _SAM4S_TC1_INSTANCE_
+void TC5_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAM4S_TC1_INSTANCE_ */
+void ADC_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#ifdef _SAM4S_DACC_INSTANCE_
+void DACC_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAM4S_DACC_INSTANCE_ */
+void PWM_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void CRCCU_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void ACC_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void UDP_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+
 /* Exception Table */
 __attribute__ ((section(".vectors")))
-IntFunc exception_table[] = {
+const DeviceVectors exception_table = {
 
 	/* Configure Initial Stack Pointer, using linker-generated symbols */
-	(IntFunc) (&_estack),
-	Reset_Handler,
+	.pvStack = (void*) (&_estack),
 
-	NMI_Handler,
-	HardFault_Handler,
-	MemManage_Handler,
-	BusFault_Handler,
-	UsageFault_Handler,
-	0, 0, 0, 0,        /* Reserved */
-	SVC_Handler,
-	DebugMon_Handler,
-	0,                 /* Reserved  */
-	PendSV_Handler,
-	SysTick_Handler,
+	.pfnReset_Handler      = (void*) Reset_Handler,
+	.pfnNMI_Handler        = (void*) NMI_Handler,
+	.pfnHardFault_Handler  = (void*) HardFault_Handler,
+	.pfnMemManage_Handler  = (void*) MemManage_Handler,
+	.pfnBusFault_Handler   = (void*) BusFault_Handler,
+	.pfnUsageFault_Handler = (void*) UsageFault_Handler,
+	.pfnReserved1_Handler  = (void*) (0UL),          /* Reserved */
+	.pfnReserved2_Handler  = (void*) (0UL),          /* Reserved */
+	.pfnReserved3_Handler  = (void*) (0UL),          /* Reserved */
+	.pfnReserved4_Handler  = (void*) (0UL),          /* Reserved */
+	.pfnSVC_Handler        = (void*) SVC_Handler,
+	.pfnDebugMon_Handler   = (void*) DebugMon_Handler,
+	.pfnReserved5_Handler  = (void*) (0UL),          /* Reserved */
+	.pfnPendSV_Handler     = (void*) PendSV_Handler,
+	.pfnSysTick_Handler    = (void*) SysTick_Handler,
 
-	/* Configurable interrupts  */
-	SUPC_Handler,   /* 0  Supply Controller */
-	RSTC_Handler,   /* 1  Reset Controller */
-	RTC_Handler,    /* 2  Real Time Clock */
-	RTT_Handler,    /* 3  Real Time Timer */
-	WDT_Handler,    /* 4  Watchdog Timer */
-	PMC_Handler,    /* 5  PMC */
-	EFC0_Handler,   /* 6  EFC0 */
-#if defined(ID_EFC1)
-	EFC1_Handler,   /* 7  EFC1 */
+	/* Configurable interrupts */
+	.pfnSUPC_Handler   = (void*) SUPC_Handler,   /* 0  Supply Controller */
+	.pfnRSTC_Handler   = (void*) RSTC_Handler,   /* 1  Reset Controller */
+	.pfnRTC_Handler    = (void*) RTC_Handler,    /* 2  Real Time Clock */
+	.pfnRTT_Handler    = (void*) RTT_Handler,    /* 3  Real Time Timer */
+	.pfnWDT_Handler    = (void*) WDT_Handler,    /* 4  Watchdog Timer */
+	.pfnPMC_Handler    = (void*) PMC_Handler,    /* 5  Power Management Controller */
+	.pfnEFC0_Handler   = (void*) EFC0_Handler,   /* 6  Enhanced Embedded Flash Controller 0 */
+#ifdef _SAM4S_EFC1_INSTANCE_
+	.pfnEFC1_Handler   = (void*) EFC1_Handler,   /* 7  Enhanced Embedded Flash Controller 1 */
 #else
-	Dummy_Handler,  /* 7  Reserved */
-#endif
-	UART0_Handler,  /* 8  UART0 */
-	UART1_Handler,  /* 9  UART1 */
-#ifdef ID_SMC
-	SMC_Handler,    /* 10 SMC */
+	.pvReserved7       = (void*) (0UL),          /* 7  Reserved */
+#endif /* _SAM4S_EFC1_INSTANCE_ */
+	.pfnUART0_Handler  = (void*) UART0_Handler,  /* 8  UART 0 */
+	.pfnUART1_Handler  = (void*) UART1_Handler,  /* 9  UART 1 */
+	.pvReserved10      = (void*) (0UL),          /* 10 Reserved */
+	.pfnPIOA_Handler   = (void*) PIOA_Handler,   /* 11 Parallel I/O Controller A */
+	.pfnPIOB_Handler   = (void*) PIOB_Handler,   /* 12 Parallel I/O Controller B */
+#ifdef _SAM4S_PIOC_INSTANCE_
+	.pfnPIOC_Handler   = (void*) PIOC_Handler,   /* 13 Parallel I/O Controller C */
 #else
-	Dummy_Handler,
-#endif
-	PIOA_Handler,   /* 11 Parallel IO Controller A */
-	PIOB_Handler,   /* 12 Parallel IO Controller B */
-#ifdef ID_PIOC
-	PIOC_Handler,   /* 13 Parallel IO Controller C */
+	.pvReserved13      = (void*) (0UL),          /* 13 Reserved */
+#endif /* _SAM4S_PIOC_INSTANCE_ */
+	.pfnUSART0_Handler = (void*) USART0_Handler, /* 14 USART 0 */
+#ifdef _SAM4S_USART1_INSTANCE_
+	.pfnUSART1_Handler = (void*) USART1_Handler, /* 15 USART 1 */
 #else
-	Dummy_Handler,
-#endif
-	USART0_Handler, /* 14 USART 0 */
-#ifdef ID_USART1
-	USART1_Handler, /* 15 USART 1 */
+	.pvReserved15      = (void*) (0UL),          /* 15 Reserved */
+#endif /* _SAM4S_USART1_INSTANCE_ */
+	.pvReserved16      = (void*) (0UL),          /* 16 Reserved */
+	.pvReserved17      = (void*) (0UL),          /* 17 Reserved */
+#ifdef _SAM4S_HSMCI_INSTANCE_
+	.pfnHSMCI_Handler  = (void*) HSMCI_Handler,  /* 18 Multimedia Card Interface */
 #else
-	Dummy_Handler,
-#endif
-	Dummy_Handler,  /* 16 Reserved */
-	Dummy_Handler,  /* 17 Reserved */
-#ifdef ID_HSMCI
-	HSMCI_Handler,  /* 18 HSMCI */
+	.pvReserved18      = (void*) (0UL),          /* 18 Reserved */
+#endif /* _SAM4S_HSMCI_INSTANCE_ */
+	.pfnTWI0_Handler   = (void*) TWI0_Handler,   /* 19 Two Wire Interface 0 */
+	.pfnTWI1_Handler   = (void*) TWI1_Handler,   /* 20 Two Wire Interface 1 */
+	.pfnSPI_Handler    = (void*) SPI_Handler,    /* 21 Serial Peripheral Interface */
+	.pfnSSC_Handler    = (void*) SSC_Handler,    /* 22 Synchronous Serial Controller */
+	.pfnTC0_Handler    = (void*) TC0_Handler,    /* 23 Timer/Counter 0 */
+	.pfnTC1_Handler    = (void*) TC1_Handler,    /* 24 Timer/Counter 1 */
+	.pfnTC2_Handler    = (void*) TC2_Handler,    /* 25 Timer/Counter 2 */
+#ifdef _SAM4S_TC1_INSTANCE_
+	.pfnTC3_Handler    = (void*) TC3_Handler,    /* 26 Timer/Counter 3 */
 #else
-	Dummy_Handler,
-#endif
-	TWI0_Handler,   /* 19 TWI 0 */
-	TWI1_Handler,   /* 20 TWI 1 */
-	SPI_Handler,    /* 21 SPI */
-	SSC_Handler,    /* 22 SSC */
-	TC0_Handler,    /* 23 Timer Counter 0 */
-	TC1_Handler,    /* 24 Timer Counter 1 */
-	TC2_Handler,    /* 25 Timer Counter 2 */
-#ifdef ID_TC3
-	TC3_Handler,    /* 26 Timer Counter 3 */
+	.pvReserved26      = (void*) (0UL),          /* 26 Reserved */
+#endif /* _SAM4S_TC1_INSTANCE_ */
+#ifdef _SAM4S_TC1_INSTANCE_
+	.pfnTC4_Handler    = (void*) TC4_Handler,    /* 27 Timer/Counter 4 */
 #else
-	Dummy_Handler,
-#endif
-#ifdef ID_TC4
-	TC4_Handler,    /* 27 Timer Counter 4 */
+	.pvReserved27      = (void*) (0UL),          /* 27 Reserved */
+#endif /* _SAM4S_TC1_INSTANCE_ */
+#ifdef _SAM4S_TC1_INSTANCE_
+	.pfnTC5_Handler    = (void*) TC5_Handler,    /* 28 Timer/Counter 5 */
 #else
-	Dummy_Handler,
-#endif
-#ifdef ID_TC5
-	TC5_Handler,    /* 28 Timer Counter 5 */
+	.pvReserved28      = (void*) (0UL),          /* 28 Reserved */
+#endif /* _SAM4S_TC1_INSTANCE_ */
+	.pfnADC_Handler    = (void*) ADC_Handler,    /* 29 Analog To Digital Converter */
+#ifdef _SAM4S_DACC_INSTANCE_
+	.pfnDACC_Handler   = (void*) DACC_Handler,   /* 30 Digital To Analog Converter */
 #else
-	Dummy_Handler,
-#endif
-	ADC_Handler,    /* 29 ADC controller */
-	DACC_Handler,   /* 30 DACC controller */
-	PWM_Handler,    /* 31 PWM */
-	CRCCU_Handler,  /* 32 CRC Calculation Unit */
-	ACC_Handler,    /* 33 Analog Comparator */
-	UDP_Handler,    /* 34 USB Device Port */
-	Dummy_Handler   /* 35 not used */
+	.pvReserved30      = (void*) (0UL),          /* 30 Reserved */
+#endif /* _SAM4S_DACC_INSTANCE_ */
+	.pfnPWM_Handler    = (void*) PWM_Handler,    /* 31 Pulse Width Modulation */
+	.pfnCRCCU_Handler  = (void*) CRCCU_Handler,  /* 32 CRC Calculation Unit */
+	.pfnACC_Handler    = (void*) ACC_Handler,    /* 33 Analog Comparator */
+	.pfnUDP_Handler    = (void*) UDP_Handler     /* 34 USB Device Port */
 };
-
-/* TEMPORARY PATCH FOR SCB */
-#define SCB_VTOR_TBLBASE_Pos               29                            /*!< SCB VTOR: TBLBASE Position */
-#define SCB_VTOR_TBLBASE_Msk               (1UL << SCB_VTOR_TBLBASE_Pos) /*!< SCB VTOR: TBLBASE Mask */
 
 /**
  * \brief This is the code that gets called on processor reset.
@@ -169,11 +230,19 @@ void Reset_Handler(void)
 	pSrc = &_etext;
 	pDest = &_srelocate;
 
-	if (pSrc != pDest) {
+	if (pSrc > pDest) {
 		for (; pDest < &_erelocate;) {
 			*pDest++ = *pSrc++;
 		}
+	} else if (pSrc < pDest) {
+		uint32_t nb_bytes = (uint32_t)&_erelocate - (uint32_t)&_srelocate;
+		pSrc = (uint32_t*)((uint32_t)pSrc + nb_bytes) - 1;
+		pDest = (uint32_t*)((uint32_t)pDest + nb_bytes) - 1;
+		for (;nb_bytes;nb_bytes -= 4) {
+			*pDest-- = *pSrc--;
+		}
 	}
+	__NOP();
 
 	/* Clear the zero segment */
 	for (pDest = &_szero; pDest < &_ezero;) {
@@ -182,11 +251,7 @@ void Reset_Handler(void)
 
 	/* Set the vector table base address */
 	pSrc = (uint32_t *) & _sfixed;
-	SCB->VTOR = ((uint32_t) pSrc & SCB_VTOR_TBLOFF_Msk);
-
-	if (((uint32_t) pSrc >= IRAM_ADDR) && ((uint32_t) pSrc < IRAM_ADDR + IRAM_SIZE)) {
-		SCB->VTOR |= 1 << SCB_VTOR_TBLBASE_Pos;
-	}
+	SCB->VTOR = ((uint32_t) pSrc);
 
 	/* Initialize the C library */
 	__libc_init_array();
@@ -196,4 +261,13 @@ void Reset_Handler(void)
 
 	/* Infinite loop */
 	while (1);
+}
+
+/**
+ * \brief Default interrupt handler for unused IRQs.
+ */
+void Dummy_Handler(void)
+{
+	while (1) {
+	}
 }

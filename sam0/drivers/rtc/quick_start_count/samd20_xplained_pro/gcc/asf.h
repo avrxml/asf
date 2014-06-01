@@ -68,10 +68,10 @@
 // From module: Part identification macros
 #include <parts.h>
 
-// From module: RTC - Real Time Counter (Count Mode) Polled Driver
+// From module: RTC - Real Time Counter in Count Mode (Polled APIs)
 #include <rtc_count.h>
 
-// From module: SYSTEM - Clock Management
+// From module: SYSTEM - Clock Management for SAMD20
 #include <clock.h>
 #include <gclk.h>
 

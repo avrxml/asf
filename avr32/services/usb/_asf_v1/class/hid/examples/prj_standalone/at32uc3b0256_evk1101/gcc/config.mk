@@ -164,3 +164,7 @@ CPPFLAGS = \
 # Extra flags to use when linking
 LDFLAGS = \
         -Wl,-e,_trampoline
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

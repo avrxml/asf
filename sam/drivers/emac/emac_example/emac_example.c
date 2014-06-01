@@ -3,7 +3,7 @@
  *
  * \brief EMAC example for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -72,16 +72,7 @@
  *
  *  \section Usage
  *
- *  -# Build the program and download it into the evaluation board. Please
- *     refer to the
- *     <a href="http://www.atmel.com/dyn/resources/prod_documents/6421B.pdf">
- *     SAM-BA User Guide</a>, the
- *     <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *     GNU-Based Software Development</a>
- *     application note or the
- *     <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *     IAR EWARM User Guide</a>,
- *     depending on the solutions that users choose.
+ *  -# Build the program and download it into the evaluation board.
  *  -# On the computer, open and configure a terminal application
  *     (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *    - 115200 bauds
@@ -95,20 +86,20 @@
  *      with the evaluation kit.
  *  -# Start the application. It will display the following message on the terminal:
  *     \code
- *      -- EMAC Example --
- *      -- SAMxxxxxx-xx
- *      -- Compiled: xxx xx xxxx xx:xx:xx --
- *      MAC 00:45:56:78:9a:bc
- *      IP 192.168.0.2
- *     \endcode
+	-- EMAC Example --
+	-- SAMxxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	MAC 00:45:56:78:9a:bc
+	IP 192.168.0.2
+\endcode
  *  -# The program will then auto-negotiate the mode of operation and start
  *     receiving packets, displaying feedback on the terminal. To display additional
  *     information, press any key in the terminal application.
  *  -# To test if the board responds to ICMP ECHO requests, type the following
  *     command line in a shell:
  *      \code
- *       ping 192.168.0.2
- *      \endcode
+	ping 192.168.0.2
+\endcode
  *     Response to 'ping' cmd will appear in the shell.
  *
  *  \note

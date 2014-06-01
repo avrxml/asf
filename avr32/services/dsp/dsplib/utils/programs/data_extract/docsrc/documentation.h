@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,8 +42,8 @@
  * \ingroup group_dsplib_tools
  * \brief This program is used to extract data from a buffer and print them with the following format on the standard output.
  * \code 0.1545211
- * -0.5892455
- * ... \endcode
+	-0.5892455
+	... \endcode
  * It parses every line of the input buffer and check if it matches with the given pattern (gave in argument to this program).
  * If it does, it will extract the specified data from the buffer and print it, else it will ignore the line.
  *

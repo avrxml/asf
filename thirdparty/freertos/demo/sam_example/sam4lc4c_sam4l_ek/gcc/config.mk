@@ -66,6 +66,7 @@ CSRCS = \
        sam/drivers/bpm/bpm.c                              \
        sam/drivers/flashcalw/flashcalw.c                  \
        sam/drivers/usart/usart.c                          \
+       sam/drivers/wdt/wdt_sam4l.c                        \
        sam/utils/cmsis/sam4l/source/templates/exceptions.c \
        sam/utils/cmsis/sam4l/source/templates/gcc/startup_sam4l.c \
        sam/utils/cmsis/sam4l/source/templates/system_sam4l.c \
@@ -97,6 +98,7 @@ INC_PATH = \
        sam/drivers/bpm                                    \
        sam/drivers/flashcalw                              \
        sam/drivers/usart                                  \
+       sam/drivers/wdt                                    \
        sam/utils                                          \
        sam/utils/cmsis/sam4l/include                      \
        sam/utils/cmsis/sam4l/source/templates             \
@@ -159,8 +161,14 @@ CFLAGS =
 CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
        -D BOARD=SAM4L_EK                                  \
+       -D __FREERTOS__                                    \
        -D __SAM4LC4C__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

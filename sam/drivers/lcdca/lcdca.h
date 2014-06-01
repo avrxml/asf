@@ -3,7 +3,7 @@
  *
  * \brief SAM Liquid Crystal Display driver (LCDCA).
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -637,37 +637,37 @@ static inline void lcdca_disable_interrupt(void)
  *
  * Add this to the main loop or a setup function:
  * \code
- *   #define PORT_MASK  40
- *   #define LCD_DUTY   LCDCA_DUTY_1_4
- *   #define LCD_CONTRAST_LEVEL 30
- *
- *   struct lcdca_config lcdca_cfg;
- *
- *   // LCDCA Controller initialization
- *   // - Clock,
- *   // - Connect to C42364A glass LCD component,
- *   // - Timing:  64 Hz frame rate & low power waveform, FC0, FC1, FC2
- *   // - Interrupt: off
- *   lcdca_clk_init();
- *   lcdca_cfg.port_mask = PORT_MASK;
- *   lcdca_cfg.x_bias = false;
- *   lcdca_cfg.lp_wave = true;
- *   lcdca_cfg.duty_type = LCD_DUTY;
- *   lcdca_cfg.lcd_pres = false;
- *   lcdca_cfg.lcd_clkdiv = 3;
- *   lcdca_cfg.fc0 = 16;
- *   lcdca_cfg.fc1 = 2;
- *   lcdca_cfg.fc2 = 6;
- *   lcdca_cfg.contrast = LCD_CONTRAST_LEVEL;
- *   lcdca_set_config(&lcdca_cfg);
- *   lcdca_enable();
- *   lcdca_enable_timer(LCDCA_TIMER_FC0);
- *   lcdca_enable_timer(LCDCA_TIMER_FC1);
- *   lcdca_enable_timer(LCDCA_TIMER_FC2);
- *
- *   // Turn on LCD back light
- *   ioport_set_pin_level(LCD_BL_GPIO, IOPORT_PIN_LEVEL_HIGH);
- * \endcode
+	   #define PORT_MASK  40
+	   #define LCD_DUTY   LCDCA_DUTY_1_4
+	   #define LCD_CONTRAST_LEVEL 30
+
+	   struct lcdca_config lcdca_cfg;
+
+	   // LCDCA Controller initialization
+	   // - Clock,
+	   // - Connect to C42364A glass LCD component,
+	   // - Timing:  64 Hz frame rate & low power waveform, FC0, FC1, FC2
+	   // - Interrupt: off
+	   lcdca_clk_init();
+	   lcdca_cfg.port_mask = PORT_MASK;
+	   lcdca_cfg.x_bias = false;
+	   lcdca_cfg.lp_wave = true;
+	   lcdca_cfg.duty_type = LCD_DUTY;
+	   lcdca_cfg.lcd_pres = false;
+	   lcdca_cfg.lcd_clkdiv = 3;
+	   lcdca_cfg.fc0 = 16;
+	   lcdca_cfg.fc1 = 2;
+	   lcdca_cfg.fc2 = 6;
+	   lcdca_cfg.contrast = LCD_CONTRAST_LEVEL;
+	   lcdca_set_config(&lcdca_cfg);
+	   lcdca_enable();
+	   lcdca_enable_timer(LCDCA_TIMER_FC0);
+	   lcdca_enable_timer(LCDCA_TIMER_FC1);
+	   lcdca_enable_timer(LCDCA_TIMER_FC2);
+
+	   // Turn on LCD back light
+	   ioport_set_pin_level(LCD_BL_GPIO, IOPORT_PIN_LEVEL_HIGH);
+\endcode
  *
  * \subsection lcdca_basic_setup_workflow Basic Setup Workflow
  *
@@ -679,10 +679,10 @@ static inline void lcdca_disable_interrupt(void)
  *  - \code lcdca_enable(); \endcode
  * -# Enable frame counter timer according to your application
  *  - \code
- *    lcdca_enable_timer(LCDCA_TIMER_FC0);
- *    lcdca_enable_timer(LCDCA_TIMER_FC1);
- *    lcdca_enable_timer(LCDCA_TIMER_FC2);
- *    \endcode
+	lcdca_enable_timer(LCDCA_TIMER_FC0);
+	lcdca_enable_timer(LCDCA_TIMER_FC1);
+	lcdca_enable_timer(LCDCA_TIMER_FC2);
+\endcode
  * -# Turn on LCD back light
  *  - \code ioport_set_pin_level(LCD_BL_GPIO, IOPORT_PIN_LEVEL_HIGH); \endcode
  *
@@ -692,70 +692,70 @@ static inline void lcdca_disable_interrupt(void)
  *
  * We can use below functions for set/clear/toggle one pixel:
  * \code
- * lcdca_set_pixel(ICON_ARM);
- * lcdca_clear_pixel(ICON_ARM);
- * lcdca_toggle_pixel(ICON_ARM);
- * \endcode
+	lcdca_set_pixel(ICON_ARM);
+	lcdca_clear_pixel(ICON_ARM);
+	lcdca_toggle_pixel(ICON_ARM);
+\endcode
  *
  * We can use lcdca_write_packet() to display ASCII characters:
  * \code
- * // Display in alphanumeric field
- * lcdca_write_packet(LCDCA_TDG_14SEG4COM, FIRST_14SEG_4C, data, \
- *         WIDTH_14SEG_4C, DIR_14SEG_4C);
- *
- * // Display in numeric field
- * lcdca_write_packet(LCDCA_TDG_7SEG4COM, FIRST_7SEG_4C, data, \
- *         WIDTH_7SEG_4C, DIR_7SEG_4C);
- * \endcode
+	 // Display in alphanumeric field
+	 lcdca_write_packet(LCDCA_TDG_14SEG4COM, FIRST_14SEG_4C, data, \
+	         WIDTH_14SEG_4C, DIR_14SEG_4C);
+
+	 // Display in numeric field
+	 lcdca_write_packet(LCDCA_TDG_7SEG4COM, FIRST_7SEG_4C, data, \
+	         WIDTH_7SEG_4C, DIR_7SEG_4C);
+\endcode
  *
  * We can change LCD contrast:
  * \code
- * lcdca_set_contrast(contrast_value);
- * \endcode
+	lcdca_set_contrast(contrast_value);
+\endcode
  *
  * \subsection lcdca_basic_usage_blink Using Hardware Blinking
  * We can use hardware blinking:
  * \code
- * struct lcdca_blink_config blink_cfg;
- *
- * blink_cfg.lcd_blink_timer = LCDCA_TIMER_FC1;
- * blink_cfg.lcd_blink_mode = LCDCA_BLINK_SELECTED;
- * lcdca_blink_set_config(&blink_cfg);
- * lcdca_set_pixel(ICON_ERROR);
- * lcdca_set_blink_pixel(ICON_ERROR);
- * lcdca_blink_enable();
- * \endcode
+	 struct lcdca_blink_config blink_cfg;
+
+	 blink_cfg.lcd_blink_timer = LCDCA_TIMER_FC1;
+	 blink_cfg.lcd_blink_mode = LCDCA_BLINK_SELECTED;
+	 lcdca_blink_set_config(&blink_cfg);
+	 lcdca_set_pixel(ICON_ERROR);
+	 lcdca_set_blink_pixel(ICON_ERROR);
+	 lcdca_blink_enable();
+\endcode
  *
  * \subsection lcdca_basic_usage_autonomous Using Hardware Autonomous Animation
  * We can use hardware autonomous segment animation:
  * \code
- * struct lcdca_circular_shift_config cs_cfg;
- *
- * cs_cfg.lcd_csr_timer = LCDCA_TIMER_FC1;
- * cs_cfg.lcd_csr_dir = LCDCA_CSR_RIGHT;
- * cs_cfg.size = 7;    // Total 7-pixels
- * cs_cfg.data = 0x03; // Display 2 pixel at one time
- * lcdca_circular_shift_set_config(&cs_cfg);
- * lcdca_circular_shift_enable();
- * \endcode
+	 struct lcdca_circular_shift_config cs_cfg;
+
+	 cs_cfg.lcd_csr_timer = LCDCA_TIMER_FC1;
+	 cs_cfg.lcd_csr_dir = LCDCA_CSR_RIGHT;
+	 cs_cfg.size = 7;    // Total 7-pixels
+	 cs_cfg.data = 0x03; // Display 2 pixel at one time
+	 lcdca_circular_shift_set_config(&cs_cfg);
+	 lcdca_circular_shift_enable();
+\endcode
  *
  * \subsection lcdca_basic_usage_automated_char Using Hardware Automated Character
  * We can use hardware automated character (e.g., scrolling here):
  * \code
- * struct lcdca_automated_char_config automated_char_cfg;
- * uint8_t const scrolling_str[] = "Scrolling string display";
- *
- * automated_char_cfg.automated_mode = LCDCA_AUTOMATED_MODE_SCROLLING;
- * automated_char_cfg.automated_timer = LCDCA_TIMER_FC2;
- * automated_char_cfg.lcd_tdg = LCDCA_TDG_14SEG4COM;
- * automated_char_cfg.stseg = FIRST_14SEG_4C;
- * automated_char_cfg.dign = WIDTH_14SEG_4C;
- * // STEPS = string length - DIGN + 1
- * automated_char_cfg.steps = sizeof(scrolling_str) - WIDTH_14SEG_4C + 1;
- * automated_char_cfg.dir_reverse = LCDCA_AUTOMATED_DIR_REVERSE;
- * lcdca_automated_char_set_config(&automated_char_cfg);
- * lcdca_automated_char_start(scrolling_str, strlen((char const *)scrolling_str));
- * \endcode
+	 struct lcdca_automated_char_config automated_char_cfg;
+	 uint8_t const scrolling_str[] = "Scrolling string display";
+
+	 automated_char_cfg.automated_mode = LCDCA_AUTOMATED_MODE_SCROLLING;
+	 automated_char_cfg.automated_timer = LCDCA_TIMER_FC2;
+	 automated_char_cfg.lcd_tdg = LCDCA_TDG_14SEG4COM;
+	 automated_char_cfg.stseg = FIRST_14SEG_4C;
+	 automated_char_cfg.dign = WIDTH_14SEG_4C;
+	 // STEPS = string length - DIGN + 1
+	 automated_char_cfg.steps = sizeof(scrolling_str) - WIDTH_14SEG_4C + 1;
+	 automated_char_cfg.dir_reverse = LCDCA_AUTOMATED_DIR_REVERSE;
+	 lcdca_automated_char_set_config(&automated_char_cfg);
+	 lcdca_automated_char_start(scrolling_str, strlen((char const *)scrolling_str));
+\endcode
  *
  */
 

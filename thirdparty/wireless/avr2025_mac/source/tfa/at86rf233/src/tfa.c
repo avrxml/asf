@@ -3,7 +3,7 @@
  *
  * \brief Implementation of Transceiver Feature Access (TFA) functionality.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -157,7 +157,7 @@ retval_t tfa_pib_set(tfa_pib_t tfa_pib_attribute, void *value)
 					(RSSI_BASE_VAL_DBM)) / 3) + 1;
 		}
 
-		pal_trx_bit_write(SR_RX_PDT_LEVEL, reg_val);
+		trx_bit_write(SR_RX_PDT_LEVEL, reg_val);
 	}
 	break;
 
@@ -233,8 +233,8 @@ phy_enum_t tfa_cca_perform(void)
 	} while (trx_status != TRX_OFF);
 
 	/* no interest in receiving frames while doing CCA */
-	pal_trx_bit_write(SR_RX_PDT_DIS, RX_DISABLE); /* disable frame reception
-	                                               * indication */
+	trx_bit_write(SR_RX_PDT_DIS, RX_DISABLE); /* disable frame reception
+	                                           * indication */
 
 	/* Set trx to rx mode. */
 	do {
@@ -242,26 +242,26 @@ phy_enum_t tfa_cca_perform(void)
 	} while (trx_status != RX_ON);
 
 	/* Start CCA */
-	pal_trx_bit_write(SR_CCA_REQUEST, CCA_START);
+	trx_bit_write(SR_CCA_REQUEST, CCA_START);
 
 	/* wait until CCA is done */
 	pal_timer_delay(TAL_CONVERT_SYMBOLS_TO_US(CCA_DURATION_SYM));
 	do {
 		/* poll until CCA is really done */
-		cca_done = pal_trx_bit_read(SR_CCA_DONE);
+		cca_done = trx_bit_read(SR_CCA_DONE);
 	} while (cca_done != CCA_COMPLETED);
 
 	set_trx_state(CMD_TRX_OFF);
 
 	/* Check if channel was idle or busy. */
-	if (pal_trx_bit_read(SR_CCA_STATUS) == CCA_CH_IDLE) {
+	if (trx_bit_read(SR_CCA_STATUS) == CCA_CH_IDLE) {
 		cca_status = PHY_IDLE;
 	} else {
 		cca_status = PHY_BUSY;
 	}
 
 	/* Enable frame reception again. */
-	pal_trx_bit_write(SR_RX_PDT_DIS, RX_ENABLE);
+	trx_bit_write(SR_RX_PDT_DIS, RX_ENABLE);
 
 	return (phy_enum_t)cca_status;
 }
@@ -292,26 +292,26 @@ uint8_t tfa_ed_sample(void)
 	 * Disable the transceiver interrupts to prevent frame reception
 	 * while performing ED scan.
 	 */
-	pal_trx_bit_write(SR_RX_PDT_DIS, RX_DISABLE);
+	trx_bit_write(SR_RX_PDT_DIS, RX_DISABLE);
 
 	/* Write dummy value to start measurement. */
-	pal_trx_reg_write(RG_PHY_ED_LEVEL, 0xFF);
+	trx_reg_write(RG_PHY_ED_LEVEL, 0xFF);
 
 	/* Wait for ED measurement completion. */
 	pal_timer_delay(TAL_CONVERT_SYMBOLS_TO_US(ED_SAMPLE_DURATION_SYM));
 	do {
 		trx_irq_cause
-			= (trx_irq_reason_t)pal_trx_reg_read(RG_IRQ_STATUS);
+			= trx_reg_read(RG_IRQ_STATUS);
 	} while ((trx_irq_cause & TRX_IRQ_4_CCA_ED_DONE) !=
 			TRX_IRQ_4_CCA_ED_DONE);
 
 	/* Read the ED Value. */
-	ed_value = pal_trx_reg_read(RG_PHY_ED_LEVEL);
+	ed_value = trx_reg_read(RG_PHY_ED_LEVEL);
 
 	/* Clear IRQ register */
-	pal_trx_reg_read(RG_IRQ_STATUS);
+	trx_reg_read(RG_IRQ_STATUS);
 	/* Enable reception agian */
-	pal_trx_bit_write(SR_RX_PDT_DIS, RX_ENABLE);
+	trx_bit_write(SR_RX_PDT_DIS, RX_ENABLE);
 	/* Switch receiver off again */
 	set_trx_state(CMD_TRX_OFF);
 
@@ -328,7 +328,6 @@ uint8_t tfa_ed_sample(void)
 			= (uint8_t)(((uint16_t)ed_value *
 				0xFF) / CLIP_VALUE_REG);
 	}
-
 #endif
 
 	return ed_value;
@@ -362,16 +361,16 @@ uint16_t tfa_get_batmon_voltage(void)
 	pal_trx_irq_dis();
 
 	/* Check if supply voltage is within upper or lower range. */
-	pal_trx_bit_write(SR_BATMON_HR, BATMON_HR_HIGH);
-	pal_trx_bit_write(SR_BATMON_VTH, 0x00);
+	trx_bit_write(SR_BATMON_HR, BATMON_HR_HIGH);
+	trx_bit_write(SR_BATMON_VTH, 0x00);
 	pal_timer_delay(5); /* Wait until Batmon has been settled. */
 	/* Check if supply voltage is within lower range */
-	if (pal_trx_bit_read(SR_BATMON_OK) == BATMON_NOT_VALID) {
+	if (trx_bit_read(SR_BATMON_OK) == BATMON_NOT_VALID) {
 		/* Lower range */
 		/* Check if supply voltage is below lower limit */
-		pal_trx_bit_write(SR_BATMON_HR, BATMON_HR_LOW);
+		trx_bit_write(SR_BATMON_HR, BATMON_HR_LOW);
 		pal_timer_delay(2); /* Wait until Batmon has been settled. */
-		if (pal_trx_bit_read(SR_BATMON_OK) == BATMON_NOT_VALID) {
+		if (trx_bit_read(SR_BATMON_OK) == BATMON_NOT_VALID) {
 			/* below lower limit */
 			mv = SUPPLY_VOLTAGE_BELOW_LOWER_LIMIT;
 		}
@@ -380,9 +379,9 @@ uint16_t tfa_get_batmon_voltage(void)
 	} else {
 		/* Higher range */
 		/* Check if supply voltage is above upper limit */
-		pal_trx_bit_write(SR_BATMON_VTH, 0x0F);
+		trx_bit_write(SR_BATMON_VTH, 0x0F);
 		pal_timer_delay(5); /* Wait until Batmon has been settled. */
-		if (pal_trx_bit_read(SR_BATMON_OK) == BATMON_VALID) {
+		if (trx_bit_read(SR_BATMON_OK) == BATMON_VALID) {
 			/* above upper limit */
 			mv = SUPPLY_VOLTAGE_ABOVE_UPPER_LIMIT;
 		}
@@ -391,13 +390,14 @@ uint16_t tfa_get_batmon_voltage(void)
 	}
 
 	/* Scan through the current range for the matching threshold. */
-	if (mv == 1) { /* 1 = indicates that voltage is within supported range */
+	if (mv == 1) { /* 1 = indicates that voltage is within supported range
+		        **/
 		vth_val = 0x0F;
 		for (uint8_t i = 0; i < 16; i++) {
-			pal_trx_bit_write(SR_BATMON_VTH, vth_val);
+			trx_bit_write(SR_BATMON_VTH, vth_val);
 			pal_timer_delay(2); /* Wait until Batmon has been
-			                     *settled. */
-			if (pal_trx_bit_read(SR_BATMON_OK) == BATMON_VALID) {
+			                     * settled. */
+			if (trx_bit_read(SR_BATMON_OK) == BATMON_VALID) {
 				break;
 			}
 
@@ -412,7 +412,7 @@ uint16_t tfa_get_batmon_voltage(void)
 		}
 	}
 
-	pal_trx_reg_read(RG_IRQ_STATUS);
+	trx_reg_read(RG_IRQ_STATUS);
 
 	/*
 	 * Enable all trx interrupts.
@@ -473,21 +473,21 @@ void tfa_continuous_tx_start(continuous_tx_mode_t tx_mode, bool random_content)
 {
 	uint8_t txcwdata[128];
 
-	pal_trx_bit_write(SR_TX_AUTO_CRC_ON, TX_AUTO_CRC_DISABLE);
-	pal_trx_reg_write(RG_TRX_STATE, CMD_TRX_OFF);
-	pal_trx_bit_write(SR_TST_CTRL_DIG, TST_CONT_TX);
+	trx_bit_write(SR_TX_AUTO_CRC_ON, TX_AUTO_CRC_DISABLE);
+	trx_reg_write(RG_TRX_STATE, CMD_TRX_OFF);
+	trx_bit_write(SR_TST_CTRL_DIG, TST_CONT_TX);
 
 	/* Here: use 2MBPS mode for PSD measurements.
 	 * Omit the two following lines, if 250k mode is desired for PRBS mode.
 	 **/
-	pal_trx_reg_write(RG_TRX_CTRL_2, 0x03);
-	pal_trx_reg_write(RG_RX_CTRL, 0x37);
+	trx_reg_write(RG_TRX_CTRL_2, 0x03);
+	trx_reg_write(RG_RX_CTRL, 0x37);
 	if (tx_mode == CW_MODE) {
 		txcwdata[0] = 1; /* length */
 		/* Step 12 - frame buffer write access */
 		txcwdata[1] = 0x00; /* f=fch-0.5 MHz; set value to 0xFF for
 		                     * f=fch+0.5MHz */
-		pal_trx_frame_write(txcwdata, 2);
+		trx_frame_write(txcwdata, 2);
 	} else { /* PRBS mode */
 		txcwdata[0] = 127; /* = max length */
 		for (uint8_t i = 1; i < 128; i++) {
@@ -497,14 +497,14 @@ void tfa_continuous_tx_start(continuous_tx_mode_t tx_mode, bool random_content)
 				txcwdata[i] = 0;
 			}
 		}
-		pal_trx_frame_write(txcwdata, 128);
+		trx_frame_write(txcwdata, 128);
 	}
 
-	pal_trx_reg_write(RG_PART_NUM, 0x54);
-	pal_trx_reg_write(RG_PART_NUM, 0x46);
+	trx_reg_write(RG_PART_NUM, 0x54);
+	trx_reg_write(RG_PART_NUM, 0x46);
 	set_trx_state(CMD_PLL_ON);
-	PAL_SLP_TR_HIGH();
-	PAL_SLP_TR_LOW();
+	TRX_SLP_TR_HIGH();
+	TRX_SLP_TR_LOW();
 }
 
 #endif

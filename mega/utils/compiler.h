@@ -3,7 +3,7 @@
  *
  * \brief Commonly used includes, types and macros.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -304,6 +304,44 @@
 #endif
 
 
+typedef uint8_t                 U8 ;  //!< 8-bit unsigned integer.
+typedef uint16_t                U16;  //!< 16-bit unsigned integer.
+typedef uint32_t                U32;  //!< 32-bit unsigned integer.
+typedef unsigned long long int  U64;  //!< 64-bit unsigned integer.
+
+/*! \brief Toggles the endianism of \a u16 (by swapping its bytes).
+ *
+ * \param u16 U16 of which to toggle the endianism.
+ *
+ * \return Value resulting from \a u16 with toggled endianism.
+ *
+ * \note More optimized if only used with values known at compile time.
+ */
+#define Swap16(u16) ((U16)(((U16)(u16) >> 8) |\
+                           ((U16)(u16) << 8)))
+
+/*! \brief Toggles the endianism of \a u32 (by swapping its bytes).
+ *
+ * \param u32 U32 of which to toggle the endianism.
+ *
+ * \return Value resulting from \a u32 with toggled endianism.
+ *
+ * \note More optimized if only used with values known at compile time.
+ */
+#define Swap32(u32) ((U32)(((U32)Swap16((U32)(u32) >> 16)) |\
+                           ((U32)Swap16((U32)(u32)) << 16)))
+
+/*! \brief Toggles the endianism of \a u64 (by swapping its bytes).
+ *
+ * \param u64 U64 of which to toggle the endianism.
+ *
+ * \return Value resulting from \a u64 with toggled endianism.
+ *
+ * \note More optimized if only used with values known at compile time.
+ */
+#define Swap64(u64) ((U64)(((U64)Swap32((U64)(u64) >> 32)) |\
+                           ((U64)Swap32((U64)(u64)) << 32)))
+						   
 #if (defined __GNUC__)
   #define nop() do { __asm__ __volatile__ ("nop"); } while (0)
 #elif (defined __ICCAVR__)

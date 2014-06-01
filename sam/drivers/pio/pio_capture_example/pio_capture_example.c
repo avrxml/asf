@@ -3,7 +3,7 @@
  *
  * \brief PIO Capture Example.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -99,50 +99,50 @@
  *  -# In the terminal window, the
  *     following text should appear (values depend on the board and the chip used):
  *     \code
- *      -- PIO Parallel Capture example --
- *      -- xxxx-xx --
- *      -- Compiled: xxx xx xxxx xx:xx:xx --
- *      Frequency: xxx MHz.
- *      Press r to Receive data on PPIO Parallel Capture.
- *      Press s to Send data on PIO Parallel Capture.
- *      ** SEND mode **
- *      This is for debug purpose only !
- *      Frequency of PIO controller clock must be strictly superior to 2 times
- *      the frequency of the clock of the device which generates the parallel data.
- *
- *      Please, connect the second board, and put it in receive mode.
- *      Press y to indicate that receiver samples all data.
- *      Press n to indicate that receiver samples data with an even index.
- *      Receiver samples all data, or Receiver samples data with an even index.
- *      Press y to send data without enabling the data enable pins.
- *      Press n to send data with data enable pins enabled.
- *      Send data without enabling the data enable pins, or Send data with both data enable pins enabled.
- *      Send data without enabling the data enable pins.
- *      Press a key
- *      or
- *      Send data with both data enable pins enabled.
- *      Press a key
- *     \endcode
+	      -- PIO Parallel Capture example --
+	      -- xxxx-xx --
+	      -- Compiled: xxx xx xxxx xx:xx:xx --
+	      Frequency: xxx MHz.
+	      Press r to Receive data on PPIO Parallel Capture.
+	      Press s to Send data on PIO Parallel Capture.
+	      ** SEND mode **
+	      This is for debug purpose only !
+	      Frequency of PIO controller clock must be strictly superior to 2 times
+	      the frequency of the clock of the device which generates the parallel data.
+
+	      Please, connect the second board, and put it in receive mode.
+	      Press y to indicate that receiver samples all data.
+	      Press n to indicate that receiver samples data with an even index.
+	      Receiver samples all data, or Receiver samples data with an even index.
+	      Press y to send data without enabling the data enable pins.
+	      Press n to send data with data enable pins enabled.
+	      Send data without enabling the data enable pins, or Send data with both data enable pins enabled.
+	      Send data without enabling the data enable pins.
+	      Press a key
+	      or
+	      Send data with both data enable pins enabled.
+	      Press a key
+\endcode
  *  -# Start the application of the second board.
  *  -# Put the software in receive mode.
  *  -# In the terminal window, the
  *     following text should appear (values depend on the board and the chip used):
  *     \code
- *      -- PIO Parallel Capture example --
- *      -- xxxxxx-xx --
- *      -- Compiled: xxx xx xxxx xx:xx:xx --
- *      Frequency: xxx MHz
- *      Press r to Receive data on PIO Parallel Capture.
- *      Press s to Send data on PIO Parallel Capture.
- *      ** RECEIVE mode **
- *      Press y to sample the data when both data enable pins are enabled.
- *      Press n to sample the data, don't care the status of the data enable pins.
- *      Receive data, don't care the status of the data enable pins, or Receive data when both data enable pins are enabled.
- *      Press y to sample all the data.
- *      Press n to sample the data only one out of two.
- *      Only one out of two data is sampled, with an even index, or All data are sampled.
- *      Waiting...
- *     \endcode
+	-- PIO Parallel Capture example --
+	-- xxxxxx-xx --
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	Frequency: xxx MHz
+	Press r to Receive data on PIO Parallel Capture.
+	Press s to Send data on PIO Parallel Capture.
+	** RECEIVE mode **
+	Press y to sample the data when both data enable pins are enabled.
+	Press n to sample the data, don't care the status of the data enable pins.
+	Receive data, don't care the status of the data enable pins, or Receive data when both data enable pins are enabled.
+	Press y to sample all the data.
+	Press n to sample the data only one out of two.
+	Only one out of two data is sampled, with an even index, or All data are sampled.
+	Waiting...
+\endcode
  *
  */
 

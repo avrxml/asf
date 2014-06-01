@@ -3,7 +3,7 @@
  *
  * \brief Analog Comparator Controller (ACC) example for SAM.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -73,16 +73,7 @@
  *
  * \section Usage
  *
- * -# Build the program and download it inside the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/6421B.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a>
- *    application note or to the
- *    <a href="http://www.iar.com/website1/1.0.1.0/78/1/">
- *    IAR EWARM User and reference guides</a>,
- *    depending on your chosen solution.
+ * -# Build the program and download it inside the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g. HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -93,14 +84,14 @@
  * -# In the terminal window, the
  *    following text should appear (values depend on the board and chip used):
  *    \code
- *     -- ACC IRQ Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     -- Menu Choices for this example--
- *     -- s: Set new DAC0 output voltage.--
- *     -- v: Get voltage on potentiometer.--
- *     -- m: Display this menu again.--
- *     \endcode
+	-- ACC IRQ Example xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	-- Menu Choices for this example--
+	-- s: Set new DAC0 output voltage.--
+	-- v: Get voltage on potentiometer.--
+	-- m: Display this menu again.--
+\endcode
  * -# Input command according to the menu.
  * -# Change voltage on AD5 by adjusting VR1 to see what comparison event happen.
  *
@@ -136,12 +127,6 @@
 
 /** The ADC Start Up Time value */
 #define ADC_TRANSFER_SETTING 0x1u
-
-/** ACC configuration value */
-#define ACC_SELPLUS_AD5  0x5u
-#define ACC_SELMINUS_DAC0  0x2u
-#define ACC_EDGETYP_ANY  0x2u
-#define ACC_INVERT_NO 0x0u
 
 #define STRING_EOL    "\r"
 #define STRING_HEADER "-- ACC IRQ Example  --\r\n" \
@@ -347,8 +332,8 @@ int main(void)
 	/* Enable clock for ACC */
 	pmc_enable_periph_clk(ID_ACC);
 	/* Initialize ACC */
-	acc_init(ACC, ACC_SELPLUS_AD5, ACC_SELMINUS_DAC0,
-			ACC_EDGETYP_ANY, ACC_INVERT_NO);
+	acc_init(ACC, ACC_MR_SELPLUS_AD5, ACC_MR_SELMINUS_DAC0,
+			ACC_MR_EDGETYP_ANY, ACC_MR_INV_DIS);
 
 	/* Enable ACC interrupt */
 	NVIC_EnableIRQ(ACC_IRQn);

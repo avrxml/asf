@@ -3,7 +3,7 @@
  *
  * \brief API function protypes - Performance Analyzer application
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -78,14 +78,14 @@
  * \param param_type    Parameter type to be set
  * \param param_value   Pointer to the parameter value to be set
  */
-void perf_set_req(uint8_t param_type, param_value_t *param_value);
+void perf_set_req(uint8_t set_param_type, param_value_t *param_value);
 
 /**
  * \brief Function to get the various configuaration paramters for PER Test
  *
  * \param param_type    Parameter type to be read
  */
-void perf_get_req(uint8_t param_type);
+void perf_get_req(uint8_t param_type_data);
 
 /**
  * \brief Initiates the test procedure
@@ -93,12 +93,17 @@ void perf_get_req(uint8_t param_type);
 void initiate_per_test(void);
 
 /**
+ * \brief Initiates the Range test procedure
+ */
+void initiate_range_test(void);
+
+/**
  * \brief Function to start the ED scan
  *
  * \param scan_duration paramter which is used to calculate the scan time
  *        on each channel
  */
-void start_ed_scan(uint8_t scan_duration);
+void start_ed_scan(uint8_t scan_duration, uint32_t channel_sel_mask);
 
 /**
  * \brief Function to get the Sensor data like Battery volatge
@@ -109,6 +114,29 @@ void get_sensor_data(void);
  * \brief prints the hardware details
  */
 void get_board_details(void);
+
+/** Function to  Stop the  range Test in PER Mode */
+void stop_range_test(void);
+
+/**
+ * \brief Function to send  the Received Range Test Response frame to the Host
+ * application
+ * \param frame Pointer to the actual frame Received
+ * \param lqi_h LQI of the received response calculated at host
+ * \param ed_h ED value  of the received response calculated at host
+ * \param lqi_r LQI of the sent range test packet calculated at receptor
+ * \param ed_r ED value  of the sent range test packet calculated at receptor
+ */
+void usr_range_test_beacon_rsp(uint8_t *mpdu, uint8_t lqi_h, int8_t ed_h,
+		uint8_t lqi_r, int8_t ed_r);
+
+/**
+ * \brief Function to send  the Marker Indication frame to the Host application
+ * \param mpdu Pointer to the actual marker frame Received
+ * \param lqi LQI of the received marker packet
+ * \param ed_value ED value  of the received marker packet
+ */
+void usr_range_test_marker_ind(uint8_t *mpdu, uint8_t lqi, int8_t ed_value);
 
 /**
  * \brief Identifying peer node
@@ -136,7 +164,7 @@ void start_cw_transmission(uint8_t tx_mode);
 void stop_cw_transmission(uint8_t tx_mode);
 
 #endif /*#if ((TAL_TYPE != AT86RF230B) || ((TAL_TYPE == AT86RF230B) && (defined
-        *CW_SUPPORTED))) */
+        * CW_SUPPORTED))) */
 
 /**
  * \brief Read transceiver register
@@ -191,13 +219,13 @@ uint8_t check_error_conditions(void);
  *
  * \param param_type Paramter type
  */
-uint8_t get_param_length(uint8_t param_type);
+uint8_t get_param_length(uint8_t parameter_type);
 
 /* ! \} */
 
 /**
  * \name Functions for User Confirm/Indication  Messages generated in response
- *to the Request Primitives
+ * to the Request Primitives
  * \{
  */
 
@@ -229,7 +257,7 @@ void usr_perf_start_confirm(uint8_t status,
  * Function to generate Per Test Start confirmation frame that must be sent to
  * host application via serial interface.
  * Called by Performance application as confirmation for per_test_start_req
- *request
+ * request
  * \param status      Result for requested per_test_start_req
  *
  * \return void
@@ -237,11 +265,39 @@ void usr_perf_start_confirm(uint8_t status,
 void usr_per_test_start_confirm(uint8_t status);
 
 /**
+ * Function to generate Range Test Start confirmation frame that must be sent to
+ * host application via serial interface.
+ * Called by Performance application as confirmation for range_test_start_req
+ * request
+ * \param status      Result for requested range_test_start_req
+ *
+ * \return void
+ */
+void usr_range_test_start_confirm(uint8_t status);
+
+/**
+ * Function to generate Range Test Stop confirmation frame that must be sent to
+ * host application via serial interface.
+ * Called by Performance application as confirmation for range_test_start_req
+ * request
+ * \param status      Result for requested range_test_stop_req
+ *
+ * \return void
+ */
+void usr_range_test_stop_confirm(uint8_t status);
+
+/**
+ * \brief Function to send  the transmitted frame to the Host application
+ * \param frame Pointer to the actual frame transmitted
+ */
+void usr_range_test_beacon_tx(uint8_t *frame);
+
+/**
  * Function to generate Per test End Indication frame that must be sent to
  * host application via serial interface.
  * Called by Performance application as Indication afetr completion of PER test
  * \param status                Result for PER test intiated by
- *per_test_start_req
+ * per_test_start_req
  * \param avg_rssi              Average RSSI meausred for PER Test
  * \param avg_lqi               Average LQI meausred for PER Test
  * \param frames_transmitted    No.of transmitted pkts in the PER Test
@@ -268,14 +324,14 @@ void usr_per_test_end_indication(uint8_t status,
 
 /**
  * Function to generate ED scan confirm test End Indication frame that must be
- *sent to
+ * sent to
  * host application via serial interface.
  * Called by Performance application as Indication before starting the ED scan
  * \param status                Confirmation to the ED scan req
  * \param scan_time_min         Approx time to be taken for ed can if timme is
- *more than a minute
+ * more than a minute
  * \param scan_time_sec         Approx time to be taken for ed can if timme is
- *less than a minute
+ * less than a minute
  *
  * \return void
  */
@@ -286,7 +342,7 @@ void usr_ed_scan_start_confirm(uint8_t status, uint8_t scan_time_min,
  * Function to generate ED scan Indication frame that must be sent to
  * host application via serial interface.
  * Called by Performance application as Indication after completion of the ED
- *scan
+ * scan
  * \param no_of_channels  No. of channels scanned
  * \param ed_scan_result  List of Energy values along with the channel numbers
  *
@@ -299,7 +355,7 @@ void usr_ed_scan_end_indication(uint8_t no_of_channels,
  * Function to generate Sensor data confirm frame that must be sent to
  * host application via serial interface.
  * Called by Performance application as confirmation after getting the sensor
- *data
+ * data
  * \param status           Result for the Sensor data get req
  * \param bat_voltage      Battery voltage vlaue
  * \param temperature      temperature value
@@ -326,9 +382,9 @@ void usr_sensor_data_get_confirm(uint8_t status, float bat_voltage,
  * \return void
  */
 void usr_identify_board_confirm(uint8_t status, uint8_t ic_type,
-		char *mcu_soc_name, char *trx_name,
-		char *board_name, uint64_t mac_address,
-		float fw_version);
+		const char *mcu_soc_name, const char *trx_name,
+		const char *board_name, uint64_t mac_address,
+		float fw_version, uint32_t fw_feature_mask);
 
 /**
  * Function to generate Perf Set confirmation frame that must be sent to
@@ -427,7 +483,7 @@ void usr_register_dump_confirm(uint8_t status, uint16_t start_reg_addr,
  * Function to generate Disconnect Confirm frame that must be sent to
  * host application via serial interface.
  * Called by Performance application as confirmation after disconnecting from
- *the
+ * the
  * peer node, if exists
  * \param status           Result for the Peer Disconnect Req
  *
@@ -461,7 +517,7 @@ void usr_set_default_config_confirm(uint8_t status,
  * \return void
  */
 void usr_get_current_config_confirm(uint8_t status,
-		trx_config_params_t *curr_trx_config_params);
+		trx_config_params_t *curr_trx_conf_params);
 
 /* ! \} */
 /* ! \} */

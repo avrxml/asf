@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\nobcn_rfd_ncp.ewp</path>
+	</project>
+</workspace>

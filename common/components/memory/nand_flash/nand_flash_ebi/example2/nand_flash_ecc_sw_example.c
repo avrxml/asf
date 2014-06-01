@@ -3,7 +3,7 @@
  *
  * \brief NAND Flash Operation With Software ECC Example
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,16 +71,16 @@
  * -# Start the application.
  * -# In the terminal window, the following text should appear:
  *     \code
- *     -- NAND Flash With Software ECC Example --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     -I- NAND Flash driver initialized
- *     -I- Size of the whole device in bytes : 0xxxxxxxx
- *     -I- Size in bytes of one single block of a device : 0xxxxxx
- *     -I- Number of blocks in the entire device : 0xxxx
- *     -I- Size of the data area of a page in bytes : 0xxxx
- *     -I- Number of pages in the entire device : 0xxx
- *    \endcode
+	-- NAND Flash With Software ECC Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	-I- NAND Flash driver initialized
+	-I- Size of the whole device in bytes : 0xxxxxxxx
+	-I- Size in bytes of one single block of a device : 0xxxxxx
+	-I- Number of blocks in the entire device : 0xxxx
+	-I- Size of the data area of a page in bytes : 0xxxx
+	-I- Number of pages in the entire device : 0xxx
+\endcode
  *
  */
 

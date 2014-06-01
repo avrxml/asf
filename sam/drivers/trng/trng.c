@@ -3,7 +3,7 @@
  *
  * \brief TRNG driver for SAM.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -60,9 +60,6 @@ extern "C" {
 /**INDENT-ON**/
 /// @endcond
 
-/* TRNG Security Key Value */
-#define TRNG_KEY  0x524E47
-
 /**
  * \brief Enable TRNG.
  *
@@ -71,7 +68,7 @@ extern "C" {
  */
 void trng_enable(Trng *p_trng)
 {
-	p_trng->TRNG_CR = TRNG_CR_ENABLE | TRNG_CR_KEY(TRNG_KEY);
+	p_trng->TRNG_CR = TRNG_CR_ENABLE | TRNG_CR_KEY_PASSWD;
 }
 
 /**
@@ -82,7 +79,7 @@ void trng_enable(Trng *p_trng)
  */
 void trng_disable(Trng *p_trng)
 {
-	p_trng->TRNG_CR = TRNG_CR_KEY(TRNG_KEY);
+	p_trng->TRNG_CR = TRNG_CR_KEY_PASSWD;
 }
 
 /**

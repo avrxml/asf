@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for FreeRTOS SPI Interface Layer.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -82,7 +82,7 @@
 
 /* Max number when the chip selects are directly connected to peripheral device.
  **/
-#define NONE_CHIP_SELECT_ID     0x0f
+#define NONE_CHIP_SELECT_VALUE   0x0f
 
 /* Instructions/commands that can be sent to the flash. */
 #define STATUS  0x01 /* Write status register. */
@@ -102,7 +102,7 @@
 #define BAUD_RATE               12000000
 
 /* Chip select. */
-#define CHIP_SELECT             3
+#define CHIP_SELECT             CONF_TEST_CS
 
 /* Clock polarity. */
 #define CLOCK_POLARITY          0
@@ -138,6 +138,7 @@
  * All SAM devices can be used.
  * This example has been tested with the following setup:
  * - sam3n4c_sam3n_ek
+ * - sam4c16c_sam4c_ek
  *
  * Note: an AT25 serial flash needs to be connected to the MCU.
  *
@@ -197,7 +198,7 @@ void vApplicationStackOverflowHook(xTaskHandle pxTask,
 void vApplicationTickHook(void);
 
 /**
- * \brief Run WDT driver unit tests
+ * \brief Run SPI unit tests
  */
 int main(void)
 {
@@ -217,7 +218,6 @@ int main(void)
 	for more details. */
 	for (;;) {
 	}
-	return 0;
 }
 
 static void create_spi_task(Spi *spi_base, uint16_t stack_depth_words,
@@ -248,7 +248,7 @@ static void create_spi_task(Spi *spi_base, uint16_t stack_depth_words,
 	spi_set_transfer_delay(spi_base, CHIP_SELECT, DELAY_BEFORE,
 			DELAY_BETWEEN);
 	spi_configure_cs_behavior(spi_base, CHIP_SELECT, SPI_CS_KEEP_LOW);
-	spi_set_peripheral_chip_select_value(spi_base, CHIP_SELECT);
+	spi_set_peripheral_chip_select_value(spi_base, spi_get_pcs(CHIP_SELECT));
 	spi_enable(spi_base);
 
 	/* Create the task as described above. */
@@ -260,6 +260,7 @@ static void create_spi_task(Spi *spi_base, uint16_t stack_depth_words,
 
 static void spi_flash_task(void *pvParameters)
 {
+	UNUSED(pvParameters);
 	/* Define all the test cases */
 	DEFINE_TEST_CASE(spi_test, NULL, run_spi_test, NULL,
 			"FreeRTOS SPI init-read-write on AT25");
@@ -351,7 +352,7 @@ static void at25dfx_send_command(uint8_t *cmd_buffer, uint32_t cmd_size,
 	}
 
 	/* Deselect the AT25 chip - assert all lines; no peripheral is selected. */
-	spi_set_peripheral_chip_select_value(freertos_spi, NONE_CHIP_SELECT_ID);
+	spi_set_peripheral_chip_select_value(freertos_spi, NONE_CHIP_SELECT_VALUE);
 	/* Last transfer, so de-assert the current NPCS if CSAAT is set. */
 	spi_set_lastxfer(freertos_spi);
 }

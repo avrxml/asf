@@ -3,7 +3,7 @@
  *
  * \brief Haven Display C12832 A1Z display glue code for display controller
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,6 +48,10 @@
 
 #include "gfx_mono.h"
 #include "gfx_mono_framebuffer.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * \ingroup asfdoc_common2_gfx_mono
@@ -153,5 +157,9 @@ void gfx_mono_st7565r_mask_byte(gfx_coord_t page, gfx_coord_t column,
 		gfx_mono_color_t pixel_mask, gfx_mono_color_t color);
 
 /** @} */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GFX_MONO_C12832_A1Z_H */

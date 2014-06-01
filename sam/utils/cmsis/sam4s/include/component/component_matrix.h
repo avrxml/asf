@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,27 +51,27 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Matrix hardware registers */
 typedef struct {
-  RwReg MATRIX_MCFG[4]; /**< \brief (Matrix Offset: 0x0000) Master Configuration Register */
-  RoReg Reserved1[12];
-  RwReg MATRIX_SCFG[5]; /**< \brief (Matrix Offset: 0x0040) Slave Configuration Register */
-  RoReg Reserved2[11];
-  RwReg MATRIX_PRAS0;   /**< \brief (Matrix Offset: 0x0080) Priority Register A for Slave 0 */
-  RoReg Reserved3[1];
-  RwReg MATRIX_PRAS1;   /**< \brief (Matrix Offset: 0x0088) Priority Register A for Slave 1 */
-  RoReg Reserved4[1];
-  RwReg MATRIX_PRAS2;   /**< \brief (Matrix Offset: 0x0090) Priority Register A for Slave 2 */
-  RoReg Reserved5[1];
-  RwReg MATRIX_PRAS3;   /**< \brief (Matrix Offset: 0x0098) Priority Register A for Slave 3 */
-  RoReg Reserved6[1];
-  RwReg MATRIX_PRAS4;   /**< \brief (Matrix Offset: 0x00A0) Priority Register A for Slave 4 */
-  RoReg Reserved7[1];
-  RoReg Reserved8[27];
-  RwReg CCFG_SYSIO;     /**< \brief (Matrix Offset: 0x0114) System I/O Configuration register */
-  RoReg Reserved9[1];
-  RwReg CCFG_SMCNFCS;   /**< \brief (Matrix Offset: 0x011C) SMC Chip Select NAND Flash Assignment Register */
-  RoReg Reserved10[49];
-  RwReg MATRIX_WPMR;    /**< \brief (Matrix Offset: 0x1E4) Write Protect Mode Register */
-  RoReg MATRIX_WPSR;    /**< \brief (Matrix Offset: 0x1E8) Write Protect Status Register */
+  __IO uint32_t MATRIX_MCFG[4]; /**< \brief (Matrix Offset: 0x0000) Master Configuration Register */
+  __I  uint32_t Reserved1[12];
+  __IO uint32_t MATRIX_SCFG[5]; /**< \brief (Matrix Offset: 0x0040) Slave Configuration Register */
+  __I  uint32_t Reserved2[11];
+  __IO uint32_t MATRIX_PRAS0;   /**< \brief (Matrix Offset: 0x0080) Priority Register A for Slave 0 */
+  __I  uint32_t Reserved3[1];
+  __IO uint32_t MATRIX_PRAS1;   /**< \brief (Matrix Offset: 0x0088) Priority Register A for Slave 1 */
+  __I  uint32_t Reserved4[1];
+  __IO uint32_t MATRIX_PRAS2;   /**< \brief (Matrix Offset: 0x0090) Priority Register A for Slave 2 */
+  __I  uint32_t Reserved5[1];
+  __IO uint32_t MATRIX_PRAS3;   /**< \brief (Matrix Offset: 0x0098) Priority Register A for Slave 3 */
+  __I  uint32_t Reserved6[1];
+  __IO uint32_t MATRIX_PRAS4;   /**< \brief (Matrix Offset: 0x00A0) Priority Register A for Slave 4 */
+  __I  uint32_t Reserved7[1];
+  __I  uint32_t Reserved8[27];
+  __IO uint32_t CCFG_SYSIO;     /**< \brief (Matrix Offset: 0x0114) System I/O Configuration register */
+  __I  uint32_t Reserved9[1];
+  __IO uint32_t CCFG_SMCNFCS;   /**< \brief (Matrix Offset: 0x011C) SMC Chip Select NAND Flash Assignment Register */
+  __I  uint32_t Reserved10[49];
+  __IO uint32_t MATRIX_WPMR;    /**< \brief (Matrix Offset: 0x1E4) Write Protect Mode Register */
+  __I  uint32_t MATRIX_WPSR;    /**< \brief (Matrix Offset: 0x1E8) Write Protect Status Register */
 } Matrix;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- MATRIX_MCFG[4] : (MATRIX Offset: 0x0000) Master Configuration Register -------- */

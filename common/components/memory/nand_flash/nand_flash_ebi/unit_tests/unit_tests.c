@@ -188,7 +188,7 @@ static void run_test_raw_read_write(const struct test_case *test)
 	uint32_t i;
 
 	/* Erase block and use the first good block for read/write test */
-	for (block = (num_block - 1); block > 0; block--) {
+	for (block = (num_block / 2); block > 0; block--) {
 		error_code = nand_flash_raw_erase_block(&nf_raw, block);
 		if (!error_code) {
 			break;
@@ -248,7 +248,7 @@ static void run_test_software_ecc(const struct test_case *test)
 	uint32_t i;
 
 	/* Erase block and use the first good block for read/write test */
-	for (block = (num_block - 1); block > 0; block--) {
+	for (block = (num_block / 2); block > 0; block--) {
 		error_code = nand_flash_raw_erase_block(&nf_raw, block);
 		if (!error_code) {
 			break;

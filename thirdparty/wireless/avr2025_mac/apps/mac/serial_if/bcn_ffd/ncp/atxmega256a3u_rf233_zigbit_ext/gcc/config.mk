@@ -68,6 +68,7 @@ CSRCS = \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_data_req.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_disassociate.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_dispatcher.c \
+       thirdparty/wireless/avr2025_mac/source/mac/src/mac_gts.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_mcps_data.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_misc.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_orphan.c \
@@ -81,12 +82,13 @@ CSRCS = \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_start.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_sync.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_tx_coord_realignment_command.c \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/xmega/hw_timer.c \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer/common_sw_timer.c \
        thirdparty/wireless/avr2025_mac/source/pal/pal.c   \
-       thirdparty/wireless/avr2025_mac/source/pal/pal_ext_trx.c \
        thirdparty/wireless/avr2025_mac/source/resources/buffer/src/bmm.c \
        thirdparty/wireless/avr2025_mac/source/resources/queue/src/qmm.c \
+       thirdparty/wireless/avr2025_mac/source/stb/src/stb.c \
+       thirdparty/wireless/avr2025_mac/source/stb/src/stb_armcrypto.c \
+       thirdparty/wireless/avr2025_mac/source/stb/src/stb_help.c \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf233/src/tal.c \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf233/src/tal_ed.c \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf233/src/tal_init.c \
@@ -98,6 +100,9 @@ CSRCS = \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf233/src/tal_slotted_csma.c \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf233/src/tal_tx.c \
        thirdparty/wireless/avr2025_mac/source/tal/src/tal_helper.c \
+       thirdparty/wireless/services/common_hw_timer/xmega/hw_timer.c \
+       thirdparty/wireless/services/sal/atxmega_sal/src/sal.c \
+       thirdparty/wireless/services/trx_access/trx_access.c \
        xmega/boards/xmega_rf233_zigbit/init.c             \
        xmega/drivers/nvm/nvm.c                            \
        xmega/drivers/spi/spi.c                            \
@@ -131,13 +136,16 @@ INC_PATH = \
        thirdparty/wireless/avr2025_mac/include            \
        thirdparty/wireless/avr2025_mac/source/mac/inc     \
        thirdparty/wireless/avr2025_mac/source/pal         \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/xmega \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer \
        thirdparty/wireless/avr2025_mac/source/resources/buffer/inc \
        thirdparty/wireless/avr2025_mac/source/resources/queue/inc \
+       thirdparty/wireless/avr2025_mac/source/stb/inc     \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf233/inc \
        thirdparty/wireless/avr2025_mac/source/tal/inc     \
+       thirdparty/wireless/services/common_hw_timer       \
+       thirdparty/wireless/services/common_hw_timer/xmega \
+       thirdparty/wireless/services/sal/inc               \
+       thirdparty/wireless/services/trx_access            \
        xmega/boards                                       \
        xmega/boards/xmega_rf233_zigbit                    \
        xmega/drivers/cpu                                  \
@@ -153,7 +161,7 @@ INC_PATH = \
 
 # Library paths from the top-level source directory
 LIB_PATH =  \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/xmega/lib
+       thirdparty/wireless/services/common_hw_timer/xmega/lib
 
 # Libraries to link with the project
 LIBS =  \
@@ -200,12 +208,19 @@ CPPFLAGS = \
        -D DISABLE_TSTAMP_IRQ=1                            \
        -D ENABLE_TSTAMP                                   \
        -D FFD                                             \
+       -D GTS_SUPPORT                                     \
        -D HIGHEST_STACK_LAYER=MAC                         \
        -D IOPORT_XMEGA_COMPAT                             \
        -D PAL_USE_SPI_TRX=1                               \
+       -D SAL_TYPE=ATXMEGA_SAL                            \
+       -D STB_ON_SAL                                      \
        -D TAL_TYPE=AT86RF233                              \
        -D TEST_HARNESS
 
 # Extra flags to use when linking
 LDFLAGS =  \
        -Wl,--section-start=.BOOT=0x40000                 
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

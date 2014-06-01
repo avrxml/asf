@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 GPIO Port Driver
+ * \brief SAM D20/D21/R21 GPIO Port Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,9 +44,9 @@
 #define PORT_H_INCLUDED
 
 /**
- * \defgroup asfdoc_samd20_port_group SAM D20 Port Driver (PORT)
+ * \defgroup asfdoc_sam0_port_group SAM D20/D21/R21 Port Driver (PORT)
  *
- * This driver for SAM D20 devices provides an interface for the configuration
+ * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
  * and management of the device's General Purpose Input/Output (GPIO) pin
  * functionality, for manual pin state reading and writing.
  *
@@ -55,20 +55,20 @@
  *  - PORT (GPIO Management)
  *
  * The outline of this documentation is as follows:
- *  - \ref asfdoc_samd20_port_prerequisites
- *  - \ref asfdoc_samd20_port_module_overview
- *  - \ref asfdoc_samd20_port_special_considerations
- *  - \ref asfdoc_samd20_port_extra_info
- *  - \ref asfdoc_samd20_port_examples
- *  - \ref asfdoc_samd20_port_api_overview
+ *  - \ref asfdoc_sam0_port_prerequisites
+ *  - \ref asfdoc_sam0_port_module_overview
+ *  - \ref asfdoc_sam0_port_special_considerations
+ *  - \ref asfdoc_sam0_port_extra_info
+ *  - \ref asfdoc_sam0_port_examples
+ *  - \ref asfdoc_sam0_port_api_overview
  *
  *
- * \section asfdoc_samd20_port_prerequisites Prerequisites
+ * \section asfdoc_sam0_port_prerequisites Prerequisites
  *
  * There are no prerequisites for this module.
  *
  *
- * \section asfdoc_samd20_port_module_overview Module Overview
+ * \section asfdoc_sam0_port_module_overview Module Overview
  *
  * The device GPIO (PORT) module provides an interface between the user
  * application logic and external hardware peripherals, when general pin state
@@ -76,8 +76,8 @@
  * the physical pin input samplers and output drivers, so that pins can be read
  * from or written to for general purpose external hardware control.
  *
- * \subsection asfdoc_samd20_port_module_overview_pin_numbering Physical and Logical GPIO Pins
- * SAM D20 devices use two naming conventions for the I/O pins in the device; one
+ * \subsection asfdoc_sam0_port_module_overview_pin_numbering Physical and Logical GPIO Pins
+ * SAM D20/D21/R21 devices use two naming conventions for the I/O pins in the device; one
  * physical, and one logical. Each physical pin on a device package is assigned
  * both a physical port and pin identifier (e.g. "PORTA.0") as well as a
  * monotonically incrementing logical GPIO number (e.g. "GPIO0"). While the
@@ -85,12 +85,12 @@
  * counterparts, for simplicity the design of this driver uses the logical GPIO
  * numbers instead.
  *
- * \subsection asfdoc_samd20_port_module_overview_physical Physical Connection
+ * \subsection asfdoc_sam0_port_module_overview_physical Physical Connection
  *
- * \ref asfdoc_samd20_port_module_int_connections "The diagram below" shows how
+ * \ref asfdoc_sam0_port_module_int_connections "The diagram below" shows how
  * this module is interconnected within the device.
  *
- * \anchor asfdoc_samd20_port_module_int_connections
+ * \anchor asfdoc_sam0_port_module_int_connections
  * \dot
  * digraph overview {
  *   node [label="Port Pad" shape=square] pad;
@@ -108,28 +108,28 @@
  * \enddot
  *
  *
- * \section asfdoc_samd20_port_special_considerations Special Considerations
+ * \section asfdoc_sam0_port_special_considerations Special Considerations
  *
- * The SAM D20 port pin input sampler can be disabled when the pin is configured
+ * The SAM D20/D21/R21 port pin input sampler can be disabled when the pin is configured
  * in pure output mode to save power; reading the pin state of a pin configured
  * in output-only mode will read the logical output state that was last set.
  *
- * \section asfdoc_samd20_port_extra_info Extra Information for PORT
+ * \section asfdoc_sam0_port_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_samd20_port_extra. This includes:
- *  - \ref asfdoc_samd20_port_extra_acronyms
- *  - \ref asfdoc_samd20_port_extra_dependencies
- *  - \ref asfdoc_samd20_port_extra_errata
- *  - \ref asfdoc_samd20_port_extra_history
+ * For extra information see \ref asfdoc_sam0_port_extra. This includes:
+ *  - \ref asfdoc_sam0_port_extra_acronyms
+ *  - \ref asfdoc_sam0_port_extra_dependencies
+ *  - \ref asfdoc_sam0_port_extra_errata
+ *  - \ref asfdoc_sam0_port_extra_history
  *
  *
- * \section asfdoc_samd20_port_examples Examples
+ * \section asfdoc_sam0_port_examples Examples
  *
  * For a list of examples related to this driver, see
- * \ref asfdoc_samd20_port_exqsg.
+ * \ref asfdoc_sam0_port_exqsg.
  *
  *
- * \section asfdoc_samd20_port_api_overview API Overview
+ * \section asfdoc_sam0_port_api_overview API Overview
  * @{
  */
 
@@ -216,6 +216,12 @@ struct port_config {
 
 	/** Port pull-up/pull-down for input pins. */
 	enum port_pin_pull input_pull;
+
+	/** Enable lowest possible powerstate on the pin
+	 *
+	 *  \note All other configurations will be ignored, the pin will be disabled
+	 */
+	bool powersave;
 };
 
 /** \name State reading/writing (physical group orientated)
@@ -262,7 +268,7 @@ static inline uint32_t port_group_get_input_level(
 /**
  *  \brief Retrieves the state of a group of port pins that are configured as outputs.
  *
- *  Reads the current logicical output level of a port module's pins and returns
+ *  Reads the current logical output level of a port module's pins and returns
  *  the current levels as a bitmask.
  *
  *  \param[in] port  Base of the PORT module to read from.
@@ -346,8 +352,9 @@ static inline void port_get_config_defaults(
 	Assert(config);
 
 	/* Default configuration values */
-	config->direction = PORT_PIN_DIR_INPUT;
+	config->direction  = PORT_PIN_DIR_INPUT;
 	config->input_pull = PORT_PIN_PULL_UP;
+	config->powersave  = false;
 }
 
 void port_pin_set_config(
@@ -452,9 +459,9 @@ static inline void port_pin_toggle_output_level(
 /** @} */
 
 /**
- * \page asfdoc_samd20_port_extra Extra Information for PORT Driver
+ * \page asfdoc_sam0_port_extra Extra Information for PORT Driver
  *
- * \section asfdoc_samd20_port_extra_acronyms Acronyms
+ * \section asfdoc_sam0_port_extra_acronyms Acronyms
  * Below is a table listing the acronyms used in this module, along with their
  * intended meanings.
  *
@@ -474,17 +481,17 @@ static inline void port_pin_toggle_output_level(
  * </table>
  *
  *
- * \section asfdoc_samd20_port_extra_dependencies Dependencies
+ * \section asfdoc_sam0_port_extra_dependencies Dependencies
  * This driver has the following dependencies:
  *
- *  - \ref asfdoc_samd20_system_pinmux_group "System Pin Multiplexer Driver"
+ *  - \ref asfdoc_sam0_system_pinmux_group "System Pin Multiplexer Driver"
  *
  *
- * \section asfdoc_samd20_port_extra_errata Errata
+ * \section asfdoc_sam0_port_extra_errata Errata
  * There are no errata related to this driver.
  *
  *
- * \section asfdoc_samd20_port_extra_history Module History
+ * \section asfdoc_sam0_port_extra_history Module History
  * An overview of the module history is presented in the table below, with
  * details on the enhancements and fixes made to the module since its first
  * release. The current version of this corresponds to the newest version in
@@ -495,29 +502,47 @@ static inline void port_pin_toggle_output_level(
  *		<th>Changelog</th>
  *	</tr>
  *	<tr>
+ *		<td>Added support for SAMD21</td>
+ *	</tr>
+ *	<tr>
  *		<td>Initial Release</td>
  *	</tr>
  * </table>
  */
 
 /**
- * \page asfdoc_samd20_port_exqsg Examples for PORT Driver
+ * \page asfdoc_sam0_port_exqsg Examples for PORT Driver
  *
  * This is a list of the available Quick Start guides (QSGs) and example
- * applications for \ref asfdoc_samd20_port_group. QSGs are simple examples with
+ * applications for \ref asfdoc_sam0_port_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
  * use cases. Note that QSGs can be compiled as a standalone application or be
  * added to the user application.
  *
- *  - \subpage asfdoc_samd20_port_basic_use_case
+ *  - \subpage asfdoc_sam0_port_basic_use_case
  *
- * \page asfdoc_samd20_port_document_revision_history Document Revision History
+ * \page asfdoc_sam0_port_document_revision_history Document Revision History
  *
  * <table>
  *	<tr>
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>D</td>
+ *		<td>02/2014</td>
+ *		<td>Added support for SAMR21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>C</td>
+ *		<td>01/2014</td>
+ *		<td>Added support for SAMD21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>B</td>
+ *		<td>06/2013</td>
+ *		<td>Corrected documentation typos.</td>
  *	</tr>
  *	<tr>
  *		<td>A</td>

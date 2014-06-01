@@ -3,7 +3,7 @@
  *
  * \brief Analog-Front-End Controller driver for SAM.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -675,12 +675,12 @@ static inline enum status_code afec_start_calibration(Afec *const afec)
  * \subsection afec_basic_use_case_setup_code Example code
  * Add to application C-file:
  * \code
- *  afec_enable(AFEC0);
- *  afec_get_config_defaults(&afec_cfg);
- *  afec_init(AFEC0, &afec_cfg);
- *  afec_set_trigger(AFEC0, AFEC_TRIG_SW);
- *  afec_channel_enable(AFEC0, AFEC_CHANNEL_5);
- * \endcode
+	afec_enable(AFEC0);
+	afec_get_config_defaults(&afec_cfg);
+	afec_init(AFEC0, &afec_cfg);
+	afec_set_trigger(AFEC0, AFEC_TRIG_SW);
+	afec_channel_enable(AFEC0, AFEC_CHANNEL_5);
+\endcode
  *
  * \subsection afec_basic_use_case_setup_flow Workflow
  * -# Enable AFEC Module:
@@ -698,19 +698,19 @@ static inline enum status_code afec_start_calibration(Afec *const afec)
  * \subsection afec_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *  afec_start_software_conversion(AFEC0);
- *  while (afec_get_interrupt_status(AFEC0) & (1 << AFEC_CHANNEL_5));
- *  uint32_t result = afec_channel_get_value(AFEC0, AFEC_CHANNEL_5);
- * \endcode
+	afec_start_software_conversion(AFEC0);
+	while (afec_get_interrupt_status(AFEC0) & (1 << AFEC_CHANNEL_5));
+	uint32_t result = afec_channel_get_value(AFEC0, AFEC_CHANNEL_5);
+\endcode
  *
  * \subsection afec_basic_use_case_usage_flow Workflow
  * -# Start AFEC conversion on channel:
  *   - \code afec_start_software_conversion(AFEC0); \endcode
  * -# Wait for the conversion over:
  *   - \code while (afec_get_interrupt_status(AFEC0) & (1 << AFEC_CHANNEL_5));
- *     \endcode
+\endcode
  * -# Get the conversion result:
  *   - \code uint32_t result = afec_channel_get_value(AFEC0, AFEC_CHANNEL_5);
- *     \endcode
+\endcode
  */
 #endif /* AFEC_H_INCLUDED */

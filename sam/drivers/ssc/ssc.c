@@ -3,7 +3,7 @@
  *
  * \brief Synchronous Serial Controller (SSC) driver for SAM.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,7 +56,7 @@ extern "C" {
  * \defgroup sam_drivers_ssc_group Synchronous Serial Controller (SSC)
  *
  * The Synchronous Serial Controller (SSC) provides a synchronous communication
- * link with external devices. It supports many serial synchronous communication 
+ * link with external devices. It supports many serial synchronous communication
  * protocols generally used in audio and telecom applications such as I2S,
  * Short Frame Sync, Long Frame Sync, etc.
  * This is a driver for configuration and use of the SSC peripheral.
@@ -64,7 +64,19 @@ extern "C" {
  * @{
  */
 
-#define SSC_WPKEY SSC_WPMR_WPKEY(0x535343)
+#ifndef SSC_WPMR_WPKEY_PASSWD
+#  define SSC_WPMR_WPKEY_PASSWD SSC_WPMR_WPKEY(0x535343)
+#endif
+
+#ifndef SSC_TCMR_START_TF_RISING
+# define SSC_TCMR_START_TF_RISING SSC_TCMR_START_RF_RISING
+#endif
+#ifndef SSC_TCMR_START_TF_FALLING
+# define SSC_TCMR_START_TF_FALLING SSC_TCMR_START_RF_FALLING
+#endif
+#ifndef SSC_TCMR_START_TF_EDGE
+# define SSC_TCMR_START_TF_EDGE SSC_TCMR_START_RF_EDGE
+#endif
 
 /**
  * \brief Set up clock.
@@ -112,13 +124,13 @@ void ssc_i2s_set_transmitter(Ssc *p_ssc, uint32_t ul_mode,
 	/* Data start: MonoLeft-Falling, MonoRight-Rising, Stero-Edge. */
 	switch (ul_ch_mode) {
 	case SSC_AUDIO_MONO_RIGHT:
-		tx_clk_option.ul_start_sel = SSC_TCMR_START_RF_RISING;
+		tx_clk_option.ul_start_sel = SSC_TCMR_START_TF_RISING;
 		break;
 	case SSC_AUDIO_MONO_LEFT:
-		tx_clk_option.ul_start_sel = SSC_TCMR_START_RF_FALLING;
+		tx_clk_option.ul_start_sel = SSC_TCMR_START_TF_FALLING;
 		break;
 	case SSC_AUDIO_STERO:
-		tx_clk_option.ul_start_sel = SSC_TCMR_START_RF_EDGE;
+		tx_clk_option.ul_start_sel = SSC_TCMR_START_TF_EDGE;
 		break;
 	}
 	if (ul_mode & SSC_I2S_MASTER_OUT) {
@@ -133,7 +145,7 @@ void ssc_i2s_set_transmitter(Ssc *p_ssc, uint32_t ul_mode,
 		tx_clk_option.ul_cks = SSC_TCMR_CKS_MCK;
 		tx_clk_option.ul_cko = SSC_TCMR_CKO_CONTINUOUS;
 		tx_clk_option.ul_cki = 0;
-		tx_clk_option.ul_ckg = SSC_RCMR_CKG_NONE;
+		tx_clk_option.ul_ckg = 0;
 		/* The delay is defined by I2S protocol. */
 		tx_clk_option.ul_sttdly = 1;
 		tx_clk_option.ul_period = ul_datlen - 1;
@@ -149,7 +161,7 @@ void ssc_i2s_set_transmitter(Ssc *p_ssc, uint32_t ul_mode,
 		tx_clk_option.ul_cks = ul_cks;
 		tx_clk_option.ul_cko = SSC_TCMR_CKO_NONE;
 		tx_clk_option.ul_cki = 0;
-		tx_clk_option.ul_ckg = SSC_RCMR_CKG_NONE;
+		tx_clk_option.ul_ckg = 0;
 		tx_clk_option.ul_sttdly = 1;
 		tx_clk_option.ul_period = 0;
 
@@ -162,7 +174,7 @@ void ssc_i2s_set_transmitter(Ssc *p_ssc, uint32_t ul_mode,
 	}
 	/* Configure the default level on TD pin. */
 	ssc_set_td_default_level(p_ssc, 0);
-	
+
 	/* Configure the SSC transmitter. */
 	ssc_set_transmitter(p_ssc, &tx_clk_option, &tx_data_frame_option);
 }
@@ -213,7 +225,7 @@ void ssc_i2s_set_receiver(Ssc *p_ssc, uint32_t ul_mode,
 		rx_clk_option.ul_cks = SSC_TCMR_CKS_MCK;
 		rx_clk_option.ul_cko = SSC_TCMR_CKO_CONTINUOUS;
 		rx_clk_option.ul_cki = 0;
-		rx_clk_option.ul_ckg = SSC_RCMR_CKG_NONE;
+		rx_clk_option.ul_ckg = 0;
 		rx_clk_option.ul_sttdly = 1;
 		rx_clk_option.ul_period = ul_datlen - 1;
 
@@ -228,7 +240,7 @@ void ssc_i2s_set_receiver(Ssc *p_ssc, uint32_t ul_mode,
 		rx_clk_option.ul_cks = ul_cks;
 		rx_clk_option.ul_cko = SSC_TCMR_CKO_NONE;
 		rx_clk_option.ul_cki = 0;
-		rx_clk_option.ul_ckg = SSC_RCMR_CKG_NONE;
+		rx_clk_option.ul_ckg = 0;
 		rx_clk_option.ul_sttdly = 1;
 		rx_clk_option.ul_period = 0;
 
@@ -239,7 +251,7 @@ void ssc_i2s_set_receiver(Ssc *p_ssc, uint32_t ul_mode,
 		rx_data_frame_option.ul_fsos = SSC_TFMR_FSOS_NONE;
 		rx_data_frame_option.ul_fsedge = SSC_TFMR_FSEDGE_POSITIVE;
 	}
-	
+
 	/* Configure the SSC receiver. */
 	ssc_set_receiver(p_ssc, &rx_clk_option, &rx_data_frame_option);
 }
@@ -335,7 +347,7 @@ void ssc_set_rx_stop_selection(Ssc *p_ssc, uint32_t ul_sel)
 }
 
 /**
- * \brief Configure SSC default level driven on the TD pin while 
+ * \brief Configure SSC default level driven on the TD pin while
  * out of transmission.
  *
  * \param p_ssc Pointer to an SSC instance.
@@ -362,7 +374,7 @@ void ssc_enable_tx_frame_sync_data(Ssc *p_ssc)
 }
 
 /**
- * \brief The TD line is driven with the default value during the Transmit 
+ * \brief The TD line is driven with the default value during the Transmit
  * Frame Sync signal.
  *
  * \param p_ssc Pointer to an SSC instance.
@@ -376,7 +388,7 @@ void ssc_disable_tx_frame_sync_data(Ssc *p_ssc)
  * \brief Configure SSC receiver clock mode and date frame configuration.
  *
  * \param p_ssc Pointer to an SSC instance.
- * \param p_rx_clk_opt Pointer to the receiver clock configuration structure. 
+ * \param p_rx_clk_opt Pointer to the receiver clock configuration structure.
  * \param p_rx_data_frame Pointer to the receiver data frame configuration structure.
  */
 void ssc_set_receiver(Ssc *p_ssc, clock_opt_t *p_rx_clk_opt,
@@ -410,7 +422,7 @@ void ssc_set_receiver(Ssc *p_ssc, clock_opt_t *p_rx_clk_opt,
  * \brief Configure SSC transmitter clock mode and date frame configuration.
  *
  * \param p_ssc Pointer to an SSC instance.
- * \param p_tx_clk_opt Pointer to the transmitter clock configuration structure. 
+ * \param p_tx_clk_opt Pointer to the transmitter clock configuration structure.
  * \param p_tx_data_frame Pointer to the transmitter data frame configuration structure.
  */
 void ssc_set_transmitter(Ssc *p_ssc, clock_opt_t *p_tx_clk_opt,
@@ -426,7 +438,7 @@ void ssc_set_transmitter(Ssc *p_ssc, clock_opt_t *p_tx_clk_opt,
 				SSC_RCMR_PERIOD(p_tx_clk_opt->ul_period) |
 				SSC_RCMR_STTDLY(p_tx_clk_opt->ul_sttdly);
 	}
-					
+
 	if (p_tx_data_frame == NULL) {
 		p_ssc->SSC_TFMR = 0;
 	} else {
@@ -513,7 +525,7 @@ uint32_t ssc_get_interrupt_mask(Ssc *p_ssc)
 	return p_ssc->SSC_IMR;
 }
 
-/** 
+/**
  * \brief Read SSC status.
  *
  * \param p_ssc Pointer to an SSC instance.
@@ -614,7 +626,7 @@ uint32_t ssc_is_rx_enabled(Ssc *p_ssc)
  * \param p_ssc Pointer to an SSC instance.
  *
  * \retval SSC_RC_YES Receive Counter has reached zero.
- * \retval SSC_RC_NO Data is written on the Receive Counter Register or 
+ * \retval SSC_RC_NO Data is written on the Receive Counter Register or
  * Receive Next Counter Register.
  */
 uint32_t ssc_is_rx_buf_end(Ssc *p_ssc)
@@ -698,13 +710,13 @@ Pdc *ssc_get_pdc_base(Ssc *p_ssc)
  *
  */
 uint32_t ssc_write(Ssc *p_ssc, uint32_t ul_frame)
-{	
+{
 	uint32_t ul_timeout = SSC_DEFAULT_TIMEOUT;
 
 	while (!(p_ssc->SSC_SR & SSC_SR_TXEMPTY)) {
 		if (!ul_timeout--) {
 			return SSC_RC_ERROR;
-		} 
+		}
 	}
 
 	p_ssc->SSC_THR = ul_frame;
@@ -728,7 +740,7 @@ uint32_t ssc_read(Ssc *p_ssc, uint32_t *ul_data)
 	while (!(p_ssc->SSC_SR & SSC_SR_RXRDY)) {
 		if (!ul_timeout--) {
 			return SSC_RC_ERROR;
-		} 
+		}
 	}
 
 	*ul_data = p_ssc->SSC_RHR;
@@ -799,9 +811,9 @@ void *ssc_get_rx_access(Ssc *p_ssc)
 void ssc_set_writeprotect(Ssc *p_ssc, uint32_t ul_enable)
 {
 	if (ul_enable) {
-		p_ssc->SSC_WPMR = SSC_WPKEY | SSC_WPMR_WPEN;
+		p_ssc->SSC_WPMR = SSC_WPMR_WPKEY_PASSWD | SSC_WPMR_WPEN;
 	} else {
-		p_ssc->SSC_WPMR = SSC_WPKEY;
+		p_ssc->SSC_WPMR = SSC_WPMR_WPKEY_PASSWD;
 	}
 }
 
@@ -815,7 +827,7 @@ void ssc_set_writeprotect(Ssc *p_ssc, uint32_t ul_enable)
 uint32_t ssc_get_writeprotect_status(Ssc *p_ssc)
 {
 	uint32_t ul_reg_val;
-	
+
 	ul_reg_val = p_ssc->SSC_WPMR;
 	if (ul_reg_val & SSC_WPMR_WPEN) {
 		return (ul_reg_val & SSC_WPSR_WPVSRC_Msk) >> SSC_WPSR_WPVSRC_Pos;

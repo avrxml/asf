@@ -2454,6 +2454,12 @@
 					<file>
 						<name>$PROJ_DIR$/../conf_app_display.h</name>
 					</file>
+					<group>
+						<name>iar</name>
+						<file>
+							<name>$PROJ_DIR$/asf.h</name>
+						</file>
+					</group>
 					<file>
 						<name>$PROJ_DIR$/../conf_clock.h</name>
 					</file>
@@ -2472,12 +2478,6 @@
 					<file>
 						<name>$PROJ_DIR$/../conf_rtc.h</name>
 					</file>
-					<group>
-						<name>iar</name>
-						<file>
-							<name>$PROJ_DIR$/asf.h</name>
-						</file>
-					</group>
 					<file>
 						<name>$PROJ_DIR$/../conf_usart_serial.h</name>
 					</file>

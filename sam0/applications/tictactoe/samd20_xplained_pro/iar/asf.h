@@ -81,13 +81,13 @@
 #include <sercom.h>
 #include <sercom_interrupt.h>
 
-// From module: SERCOM SPI - Serial Peripheral Interface (Polled Mode)
+// From module: SERCOM SPI - Serial Peripheral Interface (Polled APIs)
 #include <spi.h>
 
 // From module: SSD1306 OLED controller
 #include <ssd1306.h>
 
-// From module: SYSTEM - Clock Management
+// From module: SYSTEM - Clock Management for SAMD20
 #include <clock.h>
 #include <gclk.h>
 

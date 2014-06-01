@@ -130,6 +130,20 @@ static inline void usart_serial_init(usart_if p_usart,
 		uart_init((Uart*)p_usart, &uart_settings);
 	}
 # endif
+# ifdef UART2
+	if (UART2 == (Uart*)p_usart) {
+		sysclk_enable_peripheral_clock(ID_UART2);
+		/* Configure UART */
+		uart_init((Uart*)p_usart, &uart_settings);
+	}
+# endif
+# ifdef UART3
+	if (UART3 == (Uart*)p_usart) {
+		sysclk_enable_peripheral_clock(ID_UART3);
+		/* Configure UART */
+		uart_init((Uart*)p_usart, &uart_settings);
+	}
+# endif
 #endif /* ifdef UART */
 
 
@@ -282,6 +296,18 @@ static inline int usart_serial_putchar(usart_if p_usart, const uint8_t c)
 		return 1;
 	}
 # endif
+# ifdef UART2
+	if (UART2 == (Uart*)p_usart) {
+		while (uart_write((Uart*)p_usart, c)!=0);
+		return 1;
+	}
+# endif
+# ifdef UART3
+	if (UART3 == (Uart*)p_usart) {
+		while (uart_write((Uart*)p_usart, c)!=0);
+		return 1;
+	}
+# endif
 #endif /* ifdef UART */
 
 
@@ -354,6 +380,16 @@ static inline void usart_serial_getchar(usart_if p_usart, uint8_t *data)
 		while (uart_read((Uart*)p_usart, data));
 	}
 # endif
+# ifdef UART2
+	if (UART2 == (Uart*)p_usart) {
+		while (uart_read((Uart*)p_usart, data));
+	}
+# endif
+# ifdef UART3
+	if (UART3 == (Uart*)p_usart) {
+		while (uart_read((Uart*)p_usart, data));
+	}
+# endif
 #endif /* ifdef UART */
 
 
@@ -419,6 +455,16 @@ static inline uint32_t usart_serial_is_rx_ready(usart_if p_usart)
 # endif
 # ifdef UART1
 	if (UART1 == (Uart*)p_usart) {
+		return uart_is_rx_ready((Uart*)p_usart);
+	}
+# endif
+# ifdef UART2
+	if (UART2 == (Uart*)p_usart) {
+		return uart_is_rx_ready((Uart*)p_usart);
+	}
+# endif
+# ifdef UART3
+	if (UART3 == (Uart*)p_usart) {
 		return uart_is_rx_ready((Uart*)p_usart);
 	}
 # endif

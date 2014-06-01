@@ -77,8 +77,8 @@
  *----------------------------------------------------------*/
 
 /* Scheduler includes. */
-#include "FreeRTOS.h"
-#include "task.h"
+#include "../../../include/FreeRTOS.h"
+#include "../../../include/task.h"
 
 /* Constants required to manipulate the NVIC. */
 #define portNVIC_SYSTICK_CTRL		( ( volatile unsigned long *) 0xe000e010 )
@@ -104,7 +104,7 @@ static unsigned portBASE_TYPE uxCriticalNesting = 0xaaaaaaaa;
 /*
  * Setup the timer to generate the tick interrupts.
  */
-static void prvSetupTimerInterrupt( void );
+void vPortSetupTimerInterrupt( void );
 
 /*
  * Exception handlers.
@@ -169,14 +169,25 @@ void vPortSVCHandler( void )
 
 void vPortStartFirstTask( void )
 {
+	/* The MSP stack is not reset as, unlike on M3/4 parts, there is no vector
+	table offset register that can be used to locate the initial stack value.
+	Not all M0 parts have the application vector table at address 0. */
 	__asm volatile(
-					" movs r0, #0x00 	\n" /* Locate the top of stack. */
-					" ldr r0, [r0] 		\n"
-					" msr msp, r0		\n" /* Set the msp back to the start of the stack. */
-					" cpsie i			\n" /* Globally enable interrupts. */
-					" svc 0				\n" /* System call to start first task. */
-					" nop				\n"
-				);
+	"	ldr	r2, pxCurrentTCBConst3	\n" /* Obtain location of pxCurrentTCB. */
+	"	ldr r3, [r2]				\n"
+	"	ldr r0, [r3]				\n" /* The first item in pxCurrentTCB is the task top of stack. */
+	"	add r0, #32					\n" /* Discard everything up to r0. */
+	"	msr psp, r0					\n" /* This is now the new top of stack to use in the task. */
+	"	movs r0, #2					\n" /* Switch to the psp stack. */
+	"	msr CONTROL, r0				\n"
+	"	pop {r0-r5}					\n" /* Pop the registers that are saved automatically. */
+	"	mov lr, r5					\n" /* lr is now in r5. */
+	"	cpsie i						\n" /* The first task has its context and interrupts can be enabled. */
+	"	pop {pc}					\n" /* Finally, pop the PC to jump to the user defined task code. */
+	"								\n"
+	"	.align 2					\n"
+	"pxCurrentTCBConst3: .word pxCurrentTCB	  "
+				  );
 }
 /*-----------------------------------------------------------*/
 
@@ -191,7 +202,7 @@ portBASE_TYPE xPortStartScheduler( void )
 
 	/* Start the timer that generates the tick ISR.  Interrupts are disabled
 	here already. */
-	prvSetupTimerInterrupt();
+	vPortSetupTimerInterrupt();
 
 	/* Initialise the critical nesting count ready for the first task. */
 	uxCriticalNesting = 0;
@@ -311,7 +322,7 @@ unsigned long ulDummy;
  * Setup the systick timer to generate the tick interrupts at the required
  * frequency.
  */
-void prvSetupTimerInterrupt( void )
+__attribute__(( weak )) void vPortSetupTimerInterrupt( void )
 {
 	/* Configure SysTick to interrupt at the requested rate. */
 	*(portNVIC_SYSTICK_VAL)  = 0; /* Load the SysTick Counter Value */

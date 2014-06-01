@@ -2,9 +2,9 @@
  * @file tal_internal.h
  *
  * @brief This header file contains types and variable definition that are used
- *within the TAL only.
+ * within the TAL only.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -55,6 +55,9 @@
 
 #include "bmm.h"
 #include "qmm.h"
+#if (defined MAC_SECURITY_ZIP || defined MAC_SECURITY_2006)
+#include "tal.h"
+#endif
 #ifdef BEACON_SUPPORT
 #include "tal_slotted_csma.h"
 #endif  /* BEACON_SUPPORT */
@@ -62,27 +65,30 @@
 #include "pal_config.h"
 #endif
 #include "mac_build_config.h"
+#if (defined MAC_SECURITY_ZIP || defined MAC_SECURITY_2006)
+#include "tal.h"
+#endif
 
 /**
  * \ingroup group_tal
  * \defgroup group_tal_233 AT86RF233 Transceiver Abstraction Layer
  * The AT86RF233 is a feature rich, low-power 2.4 GHz radio transceiver designed
- *for industrial
+ * for industrial
  *  and consumer ZigBee/IEEE 802.15.4, 6LoWPAN, RF4CE and high data rate sub
- *1GHz  ISM band applications
+ * 1GHz  ISM band applications
  * The Transceiver Abstraction Layer (TAL) implements the transceiver specific
- *functionalities and
+ * functionalities and
  * provides interfaces to the upper layers (like IEEE 802.15.4 MAC )and  uses
- *the services of PAL.
+ * the services of PAL.
  * \a Refer <A href="http://www.atmel.com/Images/doc8111.pdf">AT86RF233 Data
- *Sheet </A> \b for \b detailed \b information .
+ * Sheet </A> \b for \b detailed \b information .
  */
 
 /**
  * \ingroup group_tal_233
  * \defgroup group_tal_state_machine_233 TAL State Machine
  * The different operating states of the Transceiver are controlled by the TAL
- *state machine.
+ * state machine.
  *
  */
 
@@ -111,7 +117,7 @@
  * \ingroup group_tal_233
  * \defgroup group_tal_pib_233   TAL PIB Storage
  * The PIB(Pan Information Base) attributes related to the TAL are Stored and
- *handled  by the TAL PIB storage.
+ * handled  by the TAL PIB storage.
  *
  */
 
@@ -127,7 +133,7 @@
  * \defgroup group_tal_tx_csma_233   TAL CSMA/CA Module
  * Performs channel access mechanism for frame transmission
  * For Detailed information refer  CSMA-CA algorithm section of IEEE Std
- *802.15.4-2006
+ * 802.15.4-2006
  *
  */
 
@@ -215,11 +221,11 @@ extern bool tal_beacon_transmission;
 #ifdef HIGH_DATA_RATE_SUPPORT
 #define TAL_PSDU_US_PER_OCTET(octets) \
 	( \
-		tal_pib_CurrentPage == 0 ? ((uint16_t)(octets) * 32) : \
+		tal_pib.CurrentPage == 0 ? ((uint16_t)(octets) * 32) : \
 		( \
-			tal_pib_CurrentPage == 2 ? ((uint16_t)(octets) * 16) : \
+			tal_pib.CurrentPage == 2 ? ((uint16_t)(octets) * 16) : \
 			( \
-				tal_pib_CurrentPage == \
+				tal_pib.CurrentPage == \
 				16 ? ((uint16_t)(octets) * \
 				8) : ((uint16_t)(octets) * 4) \
 			) \

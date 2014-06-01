@@ -466,7 +466,7 @@ GENERATE_DEPRECATEDLIST= YES
 # The ENABLED_SECTIONS tag can be used to enable conditional
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       =
+ENABLED_SECTIONS       = 
 
 # The MAX_INITIALIZER_LINES tag determines the maximum number of lines
 # the initial value of a variable or define consists of for it to appear in
@@ -582,7 +582,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  =  ../../jcmarker.c ../../jerror.c ../../jidctred.c ../../jdapistd.c ../../jddctmgr.c ../../jquant2.c ../../jdmerge.c ../../jfdctflt.c ../../jfdctint.c ../../jcmaster.c ../../jchuff.c ../../jcprepct.c ../../jcdctmgr.c ../../jutils.c ../../jidctflt.c ../../jmemnobs.c ../../jidctint.c ../../jccolor.c ../../jdpostct.c ../../jcinit.c ../../jdmaster.c ../../jidctfst.c ../../jdcolor.c ../../jccoefct.c ../../jcomapi.c ../../jcparam.c ../../jctrans.c ../../jcmainct.c ../../jdsample.c ../../jdhuff.c ../../jdmarker.c ../../jcapistd.c ../../jcphuff.c ../../jdphuff.c ../../jquant1.c ../../jdtrans.c ../../jfdctfst.c ../../jdapimin.c ../../jcsample.c ../../jmemmgr.c ../../jdmainct.c ../../jdcoefct.c ../../jdinput.c  ../../jinclude.h ../../jdct.h ../../jdhuff.h ../../jmemsys.h ../../jmorecfg.h ../../jerror.h ../../jversion.h ../../cderror.h ../../jchuff.h ../../jconfig.h ../../cdjpeg.h ../../jpegint.h ../../transupp.h ../../docsrc/documentation.h ../../jpeglib.h doxygen_module_mainpage.h
+INPUT                  = doxygen_module_mainpage.h ../../jcapistd.c ../../jccoefct.c ../../jccolor.c ../../jcdctmgr.c ../../jchuff.c ../../jcinit.c ../../jcmainct.c ../../jcmarker.c ../../jcmaster.c ../../jcomapi.c ../../jcparam.c ../../jcphuff.c ../../jcprepct.c ../../jcsample.c ../../jctrans.c ../../jdapimin.c ../../jdapistd.c ../../jdcoefct.c ../../jdcolor.c ../../jddctmgr.c ../../jdhuff.c ../../jdinput.c ../../jdmainct.c ../../jdmarker.c ../../jdmaster.c ../../jdmerge.c ../../jdphuff.c ../../jdpostct.c ../../jdsample.c ../../jdtrans.c ../../jerror.c ../../jfdctflt.c ../../jfdctfst.c ../../jfdctint.c ../../jidctflt.c ../../jidctfst.c ../../jidctint.c ../../jidctred.c ../../jmemmgr.c ../../jmemnobs.c ../../jquant1.c ../../jquant2.c ../../jutils.c ../../cderror.h ../../cdjpeg.h ../../docsrc/documentation.h ../../jchuff.h ../../jconfig.h ../../jdct.h ../../jdhuff.h ../../jerror.h ../../jinclude.h ../../jmemsys.h ../../jmorecfg.h ../../jpegint.h ../../jpeglib.h ../../jversion.h ../../transupp.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -1062,6 +1062,17 @@ FORMULA_FONTSIZE       = 10
 
 FORMULA_TRANSPARENT    = YES
 
+# Enable the USE_MATHJAX option to render LaTeX formulas using MathJax (see
+# http://www.mathjax.org) which uses client side Javascript for the rendering
+# instead of using prerendered bitmaps. Use this if you do not have LaTeX
+# installed or if you want to formulas look prettier in the HTML output. When
+# enabled you may also need to install MathJax separately and configure the path
+# to it using the MATHJAX_RELPATH option.
+# The default value is: NO.
+# This tag requires that the tag GENERATE_HTML is set to YES.
+
+USE_MATHJAX            = NO
+
 # When the SEARCHENGINE tag is enabled doxygen will generate a search box
 # for the HTML output. The underlying search engine uses javascript
 # and DHTML and should work on any modern browser. Note that when using
@@ -1352,7 +1363,7 @@ SEARCH_INCLUDES        = YES
 # contain include files that are not input files but should be processed by
 # the preprocessor.
 
-INCLUDE_PATH           =  ../..
+INCLUDE_PATH           = ../..
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the

@@ -49,7 +49,7 @@
  *
  * \section intro Introduction
  * This is the unit test application for the BPM driver.
- * It contains only one test case for the BPM module:
+ * It contains below test cases for the BPM module:
  * - Enter backup mode & wakeup.
  * - Power Scaling mode switch
  * - Enter retention mode & wakeup.
@@ -72,6 +72,8 @@
  * Only SAM4L devices can be used.
  * This example has been tested with the following setup:
  * - sam4lc4c_sam4l_ek
+ * - sam4lc4c_sam4l_xplained_pro
+ * - sam4lc8c_sam4l8_xplained_pro
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -82,19 +84,19 @@
  * Support and FAQ: http://support.atmel.no/
  */
 
-//! \name Unit test configuration
+/** \name Unit test configuration */
 
-//! Wakeup event, logged in ISR that wakes up the device
+/** Wakeup event, logged in ISR that wakes up the device */
 #define EVENT_WAKEUP 1
-//! Run event, logged in main loop after wakeup
+/** Run event, logged in main loop after wakeup */
 #define EVENT_RUN    2
 
-//! Logs for events detected
+/** Logs for events detected */
 static uint8_t log_events[2];
-//! Current log index
+/** Current log index */
 static volatile uint8_t log_index = 0;
 
-//! 1ms Time Tick
+/** 1ms Time Tick */
 static volatile uint32_t tick_1ms = 0;
 
 /**
@@ -116,10 +118,10 @@ static inline void log_event(uint8_t event)
 	}
 	log_index ++;
 }
-//! Is OK if 2 events detected
+/** Is OK if 2 events detected */
 #define IS_NB_EVENTS_OK() \
 	(2 == log_index)
-//! Is OK if first event is wakeup and second one is run
+/** Is OK if first event is wakeup and second one is run */
 #define IS_EVENTS_OK() \
 	((log_events[0]==EVENT_WAKEUP) && (log_events[1]==EVENT_RUN))
 
@@ -329,7 +331,7 @@ static void run_sleep_0_test(const struct test_case *test)
 }
 
 /**
- * \brief Run RSTC driver unit tests.
+ * \brief Run BPM driver unit tests.
  */
 int main(void)
 {

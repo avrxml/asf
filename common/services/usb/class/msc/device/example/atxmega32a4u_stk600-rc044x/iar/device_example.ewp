@@ -402,7 +402,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/boards/stk600/rc044x</state>
 					<state>$PROJ_DIR$/../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../ioport</state>
+					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/nvm</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
@@ -416,7 +416,7 @@
 					<state>$PROJ_DIR$/../../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/spi</state>
-					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../ioport</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/sleep</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/cpu</state>
@@ -693,7 +693,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/boards/stk600/rc044x</state>
 					<state>$PROJ_DIR$/../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../ioport</state>
+					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/nvm</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
@@ -707,7 +707,7 @@
 					<state>$PROJ_DIR$/../../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/spi</state>
-					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../ioport</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/sleep</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/cpu</state>
@@ -1449,7 +1449,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/boards/stk600/rc044x</state>
 					<state>$PROJ_DIR$/../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../ioport</state>
+					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/nvm</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
@@ -1463,7 +1463,7 @@
 					<state>$PROJ_DIR$/../../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/spi</state>
-					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../ioport</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/sleep</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/cpu</state>
@@ -1740,7 +1740,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/boards/stk600/rc044x</state>
 					<state>$PROJ_DIR$/../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../ioport</state>
+					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/nvm</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
@@ -1754,7 +1754,7 @@
 					<state>$PROJ_DIR$/../../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/spi</state>
-					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../ioport</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/sleep</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/cpu</state>

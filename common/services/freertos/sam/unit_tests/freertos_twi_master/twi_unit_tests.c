@@ -95,6 +95,7 @@
  * All SAM devices can be used.
  * This example has been tested with the following setup:
  * - sam3x8h_sam3x_ek
+ * - sam4c16c_sam4c_ek
  *
  * Note: this unit test takes about 20 seconds to finish.
  *
@@ -145,7 +146,7 @@ void vApplicationStackOverflowHook(xTaskHandle pxTask,
 void vApplicationTickHook(void);
 
 /**
- * \brief Run WDT driver unit tests
+ * \brief Run TWI unit tests
  */
 int main(void)
 {
@@ -165,7 +166,6 @@ int main(void)
 	for more details. */
 	for (;;) {
 	}
-	return 0;
 }
 
 static void create_twi_task(Twi *twi_base, uint16_t stack_depth_words,
@@ -201,6 +201,7 @@ static void create_twi_task(Twi *twi_base, uint16_t stack_depth_words,
 
 static void twi_eeprom_task(void *pvParameters)
 {
+	UNUSED(pvParameters);
 	/* Define all the test cases */
 	DEFINE_TEST_CASE(twi_test, NULL, run_twi_test, NULL,
 			"FreeRTOS TWI init-read-write on EEPROM");

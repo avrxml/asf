@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for PMC driver.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -61,7 +61,7 @@
  * - Switch slow clock as MCK and enable PCK output
  * - Switch main clock as MCK and enable PCK output
  * - Switch PLLA clock as MCK and enable PCK output
- * - Switch PLLB clock as MCK and enable PCK output (for SAM3S and SAM4S)
+ * - Switch PLLB clock as MCK and enable PCK output (for SAM3S, SAM4S, SAM4C/SAM4CM and SAM4CP)
  * - Switch UPLL clock as MCK and enable PCK output (for SAM3XA and SAM3U)
  * - Test entering and exiting of sleep mode
  *
@@ -83,6 +83,11 @@
  * - sam4s16c_sam4s_ek
  * - sam4sd32c_sam4s_ek2
  * - sam4e16e_sam4e_ek
+ * - sam4n16c_sam4n_xplained_pro
+ * - sam4c16c_sam4c_ek
+ * - sam4cp16b_sam4cp16bmb
+ * - sam4cmp16c_sam4cmp_db
+ * - sam4cms16c_sam4cms_db
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -126,7 +131,7 @@ volatile uint32_t g_ul_sleep_wake_up = 0;
 static void run_periph_clk_cfg_test(const struct test_case *test)
 {
 /* Define start and end peripheral ID for test  */
-#if (SAM3N)
+#if (SAM3N || SAM4N)
 #  define PERIPH_ID_START     ID_UART0
 #  define PERIPH_ID_END       ID_PWM
 #elif (SAM3XA)
@@ -141,6 +146,9 @@ static void run_periph_clk_cfg_test(const struct test_case *test)
 #elif (SAM4E)
 #  define PERIPH_ID_START     ID_UART0
 #  define PERIPH_ID_END       ID_UART1
+#elif (SAM4C || SAM4CM || SAM4CP)
+#  define PERIPH_ID_START     ID_UART0
+#  define PERIPH_ID_END       ID_SMC1
 #else
 #  error No peripheral defined for test.
 #endif
@@ -152,7 +160,7 @@ static void run_periph_clk_cfg_test(const struct test_case *test)
 	for (i = PERIPH_ID_START; i <= PERIPH_ID_END; i++) {
 		rc = pmc_enable_periph_clk(i);
 		test_assert_true(test, rc == 0,
-				"pmc_enable_periph_clk() failed: %d", i);
+				"pmc_enable_periph_clk() failed: %d", (int)i);
 	}
 
 	/* Disable all peripheral clocks */
@@ -161,7 +169,7 @@ static void run_periph_clk_cfg_test(const struct test_case *test)
 		/* Re-enable UART clock for console */
 		pmc_enable_periph_clk(CONSOLE_UART_ID);
 		test_assert_true(test, rc == 0,
-				"pmc_disable_periph_clk() failed: %d!", i);
+				"pmc_disable_periph_clk() failed: %d!", (int)i);
 	}
 }
 
@@ -236,6 +244,8 @@ static void run_switch_mainck_as_mck_test(const struct test_case *test)
 	/*
 	 * Switch main clock as MCK and use 12M fast RC as clock input
 	 */
+	/* Switch slow clock as MCK */
+	pmc_switch_mck_to_sclk(PMC_MCKR_PRES_CLK_1);
 
 	/* Switch the mainck clock to the Fast RC */
 	pmc_switch_mainck_to_fastrc(CKGR_MOR_MOSCRCF_12_MHz);
@@ -249,12 +259,19 @@ static void run_switch_mainck_as_mck_test(const struct test_case *test)
 	pmc_enable_pck(PMC_PCK_0);
 
 	/*
-	 * Switch main clock as MCK and use 12M XTAL as clock input
+	 * Switch main clock as MCK and use 12M, 8M(In SAM4C/SAM4CM) or 10M(In SAM4CP)
+	 * XTAL as clock input (BYPASS as clock input in SAM4CP)
 	 */
 
+#if SAM4CP
+	/* Switch mainck to bypass mode */
+	pmc_switch_mainck_to_xtal(1, pmc_us_to_moscxtst(BOARD_OSC_STARTUP_US,
+			OSC_SLCK_32K_RC_HZ));
+#else
 	/* Switch mainck to external xtal */
 	pmc_switch_mainck_to_xtal(0, pmc_us_to_moscxtst(BOARD_OSC_STARTUP_US,
 			OSC_SLCK_32K_RC_HZ));
+#endif
 
 	/* Switch main clock as MCK */
 	rc2 = pmc_switch_mck_to_mainck(PMC_MCKR_PRES_CLK_1);
@@ -270,10 +287,17 @@ static void run_switch_mainck_as_mck_test(const struct test_case *test)
 			"Failed to switch MCK to Main Clock with fast RC");
 	test_assert_true(test, rc1 == 0,
 			"Failed to switch PCK to Main Clock with fast RC");
+#if SAM4CP
+	test_assert_true(test, rc2 == 0,
+			"Failed to switch PCK to Main Clock with BYPASS");
+	test_assert_true(test, rc3 == 0,
+			"Failed to switch PCK to Main Clock with BYPASS");
+#else
 	test_assert_true(test, rc2 == 0,
 			"Failed to switch PCK to Main Clock with XTAL");
 	test_assert_true(test, rc3 == 0,
 			"Failed to switch PCK to Main Clock with XTAL");
+#endif
 }
 
 /**
@@ -292,8 +316,13 @@ static void run_switch_pllack_as_mck_test(const struct test_case *test)
 	/* First, switch main clock as MCK */
 	rc0 = pmc_switch_mck_to_mainck(PMC_MCKR_PRES_CLK_1);
 
+#if (SAM4C || SAM4CM || SAM4CP)
+	/* Enable the PLLA clock, the mainck equals 32.768K * 250 = 8.192Mhz */
+	pmc_enable_pllack((250 - 1), 0x3f, 1);
+#else
 	/* Enable the PLLA clock, the mainck equals 12Mhz * (32-1+1) / 3 = 128Mhz */
 	pmc_enable_pllack((32 - 1), 0x3f, 3);
+#endif
 
 	/* Then, switch PLLA clock as MCK */
 	rc0 |= pmc_switch_mck_to_pllack(PMC_MCKR_PRES_CLK_4);
@@ -309,7 +338,7 @@ static void run_switch_pllack_as_mck_test(const struct test_case *test)
 	test_assert_true(test, rc1 == 0, "Failed to switch PCK to PLLA clock");
 }
 
-#if (SAM3S || SAM4S)
+#if (SAM3S || SAM4S || SAM4C || SAM4CM || SAM4CP)
 /**
  * \brief Switch PLLB clock as MCK and enable PCK output,
  * and check if it can be used.
@@ -326,10 +355,22 @@ static void run_switch_pllbck_as_mck_test(const struct test_case *test)
 	/* First, switch main clock as MCK */
 	rc0 = pmc_switch_mck_to_mainck(PMC_MCKR_PRES_CLK_1);
 
+#if (SAM4C || SAM4CM)
+	/* Enable the PLLB clock, the mainck equals (8Mhz * (11+1) / 1) = 96Mhz
+	 * with the initialize counter be 0x3f
+	 */
+	 pmc_enable_pllbck(11, 0x3f, 1);
+#elif SAM4CP
+	/* Enable the PLLB clock, the mainck equals (10Mhz * (9+1) / 1) = 100Mhz
+	 * with the initialize counter be 0x3f
+	 */
+	 pmc_enable_pllbck(9, 0x3f, 1);
+#else
 	/* Enable the PLLB clock, the mainck equals (12Mhz * (7+1) / 1) = 96Mhz
 	 * with the initialize counter be 0x3f
 	 */
 	pmc_enable_pllbck(7, 0x3f, 1);
+#endif
 
 	/* Then, switch PLLB clock as MCK */
 	rc0 |= pmc_switch_mck_to_mainck(PMC_MCKR_PRES_CLK_2);
@@ -457,7 +498,7 @@ int main(void)
 			"Switch to PLLA Clock");
 
 
-#if (SAM3S || SAM4S)
+#if (SAM3S || SAM4S || SAM4C || SAM4CM || SAM4CP)
 	DEFINE_TEST_CASE(switch_pllbck_as_mck, NULL,
 			run_switch_pllbck_as_mck_test, NULL,
 			"Switch to PLLB Clock");
@@ -477,7 +518,7 @@ int main(void)
 		&periph_clk_cfg_test,
 		&switch_slck_as_mck,
 		&switch_mainck_as_mck, &switch_pllack_as_mck,
-#if (SAM3S || SAM4S)
+#if (SAM3S || SAM4S || SAM4C || SAM4CM || SAM4CP)
 		&switch_pllbck_as_mck,
 #endif
 #if (SAM3XA || SAM3U)

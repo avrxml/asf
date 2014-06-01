@@ -103,6 +103,12 @@
 #warning "Duplicate define(s) to remove from the ASF"
 #endif // AVR32_PM_MCSEL_PLL0
 
+#ifndef AVR32_CORE_COMPARE_IRQ
+#define AVR32_CORE_COMPARE_IRQ 0
+#else
+#warning "Duplicate define(s) to remove from the ASF"
+#endif // AVR32_CORE_COMPARE_IRQ
+
 #endif // end UC3L3_L4
 
 #endif // _UCL3_L4_DEFINES_FIX

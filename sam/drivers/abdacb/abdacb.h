@@ -3,7 +3,7 @@
  *
  * \brief ABDAC driver for SAM.
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -374,16 +374,16 @@ void abdac_set_callback(struct abdac_dev_inst *const dev_inst,
  *
  * Add this to the main loop or a setup function:
  * \code
- * struct abdac_dev_inst g_abdac_inst;
- * struct abdac_config   g_abdac_cfg;
- * abdac_get_config_defaults(&g_abdac_cfg);
- * g_abdac_cfg.sample_rate_hz = ABDAC_SAMPLE_RATE_11025;
- * g_abdac_cfg.data_word_format = ABDAC_DATE_16BIT;
- * g_abdac_cfg.mono = false;
- * g_abdac_cfg.cmoc = false;
- * abdac_init(&g_abdac_inst, ABDACB, &g_abdac_cfg);
- * abdac_enable(&g_abdac_inst);
- * \endcode
+	struct abdac_dev_inst g_abdac_inst;
+	struct abdac_config   g_abdac_cfg;
+	abdac_get_config_defaults(&g_abdac_cfg);
+	g_abdac_cfg.sample_rate_hz = ABDAC_SAMPLE_RATE_11025;
+	g_abdac_cfg.data_word_format = ABDAC_DATE_16BIT;
+	g_abdac_cfg.mono = false;
+	g_abdac_cfg.cmoc = false;
+	abdac_init(&g_abdac_inst, ABDACB, &g_abdac_cfg);
+	abdac_enable(&g_abdac_inst);
+\endcode
  *
  * \subsection abdac_basic_setup_workflow
  *
@@ -399,25 +399,25 @@ void abdac_set_callback(struct abdac_dev_inst *const dev_inst,
  *
  * We can set the volume by
  * \code
- * abdac_set_volume0(&g_abdac_inst, false, 0x7FFF);
- * abdac_set_volume1(&g_abdac_inst, false, 0x7FFF);
- * \endcode
+	abdac_set_volume0(&g_abdac_inst, false, 0x7FFF);
+	abdac_set_volume1(&g_abdac_inst, false, 0x7FFF);
+\endcode
  * Or we can mute the volume by
  * \code
- * abdac_set_volume0(&g_abdac_inst, true, 0x7FFF);
- * abdac_set_volume1(&g_abdac_inst, true, 0x7FFF);
- * \endcode
+	abdac_set_volume0(&g_abdac_inst, true, 0x7FFF);
+	abdac_set_volume1(&g_abdac_inst, true, 0x7FFF);
+\endcode
  *
  * We can output the data without PDC by
  * \code
- * abdac_write_data0(&g_abdac_inst, data);
- * abdac_write_data0(&g_abdac_inst, data);
- * \endcode
+	abdac_write_data0(&g_abdac_inst, data);
+	abdac_write_data0(&g_abdac_inst, data);
+\endcode
  *
  * And we can set the interrupt by
  * \code
- * abdac_set_callback(&g_abdac_inst, ABDAC_INTERRUPT_TXRDY, callback, 3)
- * \endcode
+	abdac_set_callback(&g_abdac_inst, ABDAC_INTERRUPT_TXRDY, callback, 3)
+\endcode
  */
 
 #endif  /* _ABDAC_H_INCLUDED */

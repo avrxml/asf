@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Board configuration.
+ * \brief Example configuration.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,8 +41,8 @@
  *
  */
 
-#ifndef CONF_BOARD_H_INCLUDED
-#define CONF_BOARD_H_INCLUDED
+#ifndef CONF_EXAMPLE_H_INCLUDED
+#define CONF_EXAMPLE_H_INCLUDED
 
 #include "touch_api.h"
 
@@ -58,7 +58,6 @@
 /** Qtouch right key ID */
 #define BOARD_RIGHT_KEY_ID    2
 
-
 /** Qtouch left key channel */
 #define BOARD_LEFT_KEY_CHANNEL    CHANNEL_4
 
@@ -71,4 +70,4 @@
 /** Qtouch slider end channel */
 #define BOARD_SLIDER_END_CHANNEL    CHANNEL_2
 
-#endif /* CONF_BOARD_H_INCLUDED */
+#endif /* CONF_EXAMPLE_H_INCLUDED */

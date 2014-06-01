@@ -3,7 +3,7 @@
  *
  * \brief Analog-to-Digital Converter driver for SAM4L.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -513,6 +513,7 @@ void adc_disable(struct adc_dev_inst *const dev_inst);
 static inline void adc_configure_trigger(struct adc_dev_inst *const dev_inst,
 		const enum adc_trigger_t trigger)
 {
+	dev_inst->hw_dev->ADCIFE_SEQCFG &= ~ADCIFE_SEQCFG_TRGSEL_Msk;
 	dev_inst->hw_dev->ADCIFE_SEQCFG |= ADCIFE_SEQCFG_TRGSEL(trigger);
 }
 
@@ -526,6 +527,7 @@ static inline void adc_configure_trigger(struct adc_dev_inst *const dev_inst,
 static inline void adc_configure_gain(struct adc_dev_inst *const dev_inst,
 		const enum adc_gain_t gain)
 {
+	dev_inst->hw_dev->ADCIFE_SEQCFG &= ~ADCIFE_SEQCFG_GAIN_Msk;
 	dev_inst->hw_dev->ADCIFE_SEQCFG |= ADCIFE_SEQCFG_GAIN(gain);
 }
 
@@ -781,36 +783,67 @@ static inline adc_interrupt_source_t adc_get_interrupt_mask(struct adc_dev_inst 
  * \subsection adcife_basic_use_case_setup_code Example code
  * Add to application C-file:
  * \code
- *   void adcife_read_conv_result(void)
- *   {
- *       // Check the ADC conversion status
- *      if ((adc_get_status(&g_adc_inst) & ADCIFE_SR_SEOC) == ADCIFE_SR_SEOC){
- *           g_adc_sample_data[0] = adc_get_last_conv_value(&g_adc_inst);
- *           adc_clear_status(&g_adc_inst, ADCIFE_SCR_SEOC);
- *       }
- *   }
- *   void adc_setup(void)
- *   {
- *        adc_init(&g_adc_inst, ADCIFE, &adc_cfg);
- *        adc_enable(&g_adc_inst);
- *        adc_ch_set_config(&g_adc_inst, &adc_ch_cfg);
- *        adc_set_callback(&g_adc_inst, ADC_SEQ_SEOC, adcife_read_conv_result,
- *             ADCIFE_IRQn, 1);
- *   }
- * \endcode
+	   void adcife_read_conv_result(void)
+	   {
+	       // Check the ADC conversion status
+	      if ((adc_get_status(&g_adc_inst) & ADCIFE_SR_SEOC) == ADCIFE_SR_SEOC){
+	           g_adc_sample_data[0] = adc_get_last_conv_value(&g_adc_inst);
+	           adc_clear_status(&g_adc_inst, ADCIFE_SCR_SEOC);
+	       }
+	   }
+
+	  struct adc_config adc_cfg = {
+	    // System clock division factor is 16
+	    .prescal = ADC_PRESCAL_DIV16,
+	    // The APB clock is used
+	    .clksel = ADC_CLKSEL_APBCLK,
+	    // Max speed is 150K
+	    .speed = ADC_SPEED_150K,
+	    // ADC Reference voltage is 0.625*VCC
+	    .refsel = ADC_REFSEL_1,
+	    // Enables the Startup time
+	    .start_up = CONFIG_ADC_STARTUP
+	  };
+	  struct adc_seq_config adc_seq_cfg = {
+	    // Select Vref for shift cycle
+	    .zoomrange = ADC_ZOOMRANGE_0,
+	    // Pad Ground
+	    .muxneg = ADC_MUXNEG_1,
+	    // DAC internal
+	    .muxpos = ADC_MUXPOS_3,
+	    // Enables the internal voltage sources
+	    .internal = ADC_INTERNAL_3,
+	    // Disables the ADC gain error reduction
+	    .gcomp = ADC_GCOMP_DIS,
+	    // Disables the HWLA mode
+	    .hwla = ADC_HWLA_DIS,
+	    // 12-bits resolution
+	    .res = ADC_RES_12_BIT,
+	    // Enables the single-ended mode
+	    .bipolar = ADC_BIPOLAR_SINGLEENDED
+	  };
+	   void adc_setup(void)
+	   {
+	        adc_init(&g_adc_inst, ADCIFE, &adc_cfg);
+	        adc_enable(&g_adc_inst);
+	        adc_ch_set_config(&g_adc_inst, &adc_ch_cfg);
+	        adc_set_callback(&g_adc_inst, ADC_SEQ_SEOC, adcife_read_conv_result,
+	             ADCIFE_IRQn, 1);
+	   }
+\endcode
  *
  * \subsection adcife_basic_use_case_setup_flow Workflow
  * -# Define the interrupt service handler in the application:
  *   - \code
- *   void adcife_read_conv_result(void)
- *   {
- *       // Check the ADC conversion status
- *      if ((adc_get_status(&g_adc_inst) & ADCIFE_SR_SEOC) == ADCIFE_SR_SEOC){
- *           g_adc_sample_data[0] = adc_get_last_conv_value(&g_adc_inst);
- *           adc_clear_status(&g_adc_inst, ADCIFE_SCR_SEOC);
- *       }
- *   }
- * \endcode
+	void adcife_read_conv_result(void)
+	{
+	    // Check the ADC conversion status
+	   if ((adc_get_status(&g_adc_inst) & ADCIFE_SR_SEOC) == ADCIFE_SR_SEOC){
+	        g_adc_sample_data[0] = adc_get_last_conv_value(&g_adc_inst);
+	        adc_clear_status(&g_adc_inst, ADCIFE_SCR_SEOC);
+	    }
+	}
+\endcode
  *   - \note Get ADCIFE status and check if the conversion is finished. If done,
  *      read the last ADCIFE result data.
  * -# Initialize ADC Module:
@@ -821,14 +854,14 @@ static inline adc_interrupt_source_t adc_get_interrupt_mask(struct adc_dev_inst 
  *   - \code  adc_ch_set_config(&g_adc_inst, &adc_ch_cfg); \endcode
  * -# Set callback for ADC:
  *   - \code  adc_set_callback(&g_adc_inst, ADC_SEQ_SEOC, adcife_read_conv_result,
- *                  ADCIFE_IRQn, 1); \endcode
+	               ADCIFE_IRQn, 1); \endcode
  *
  * \section adcife_basic_use_case_usage Usage steps
  * \subsection adcife_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    adc_start_software_conversion(&g_adc_inst);;
- * \endcode
+	adc_start_software_conversion(&g_adc_inst);;
+\endcode
  *
  * \subsection adcife_basic_use_case_usage_flow Workflow
  * -# Start ADC conversion on channel:

@@ -88,7 +88,7 @@ enum status_code {
 	ERR_NO_TIMER            =  -12, //!< No timer available
 	ERR_TIMER_ALREADY_RUNNING   =  -13, //!< Timer already running
 	ERR_TIMER_NOT_RUNNING   =  -14, //!< Timer not running
-
+	ERR_ABORTED             =  -15, //!< Operation aborted by user
 	/**
 	 * \brief Operation in progress
 	 *

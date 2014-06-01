@@ -163,6 +163,8 @@ MSG_CLEAN_DOC           = "RMDIR   $(docdir)"
 MSG_MKDIR               = "MKDIR   $(dir $@)"
 
 MSG_INFO                = "INFO    "
+MSG_PREBUILD            = "PREBUILD  $(PREBUILD_CMD)"
+MSG_POSTBUILD           = "POSTBUILD $(POSTBUILD_CMD)"
 
 MSG_ARCHIVING           = "AR      $@"
 MSG_ASSEMBLING          = "AS      $@"
@@ -351,8 +353,20 @@ ifeq ($(target_type),lib)
 all: $(target) $(project).lss $(project).sym
 else
 ifeq ($(target_type),elf)
-all: $(target) $(project).lss $(project).sym $(project).hex $(project).bin
+all: prebuild $(target) $(project).lss $(project).sym $(project).hex $(project).bin postbuild
 endif
+endif
+
+prebuild:
+ifneq ($(strip $(PREBUILD_CMD)),)
+	@echo $(MSG_PREBUILD)
+	$(Q)$(PREBUILD_CMD)
+endif
+
+postbuild:
+ifneq ($(strip $(POSTBUILD_CMD)),)
+	@echo $(MSG_POSTBUILD)
+	$(Q)$(POSTBUILD_CMD)
 endif
 
 # Clean up the project.

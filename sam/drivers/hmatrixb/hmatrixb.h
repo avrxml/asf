@@ -3,7 +3,7 @@
  *
  * \brief HMATRIX driver for SAM.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -269,9 +269,9 @@ void hmatrix_get_slave_priority(enum hmatrix_slave_id slave_id,
  *  - \code hmatrix_enable(); \endcode
  * -# Get the default slave channel setting
  *  - \code
- * struct hmatrix_slave_ch_conf config;
- * hmatrix_slave_ch_get_config_defaults(&config);
- * \endcode
+	struct hmatrix_slave_ch_conf config;
+	hmatrix_slave_ch_get_config_defaults(&config);
+\endcode
  *
  * \section hmatrix_basic_usage Usage steps
  *
@@ -279,22 +279,22 @@ void hmatrix_get_slave_priority(enum hmatrix_slave_id slave_id,
  *
  * -# We can set slave with Round-Robin arbitration and without default master
  *  - \code
- * config.def_master_type = HMATRIX_DEFAULT_MASTER_NONE;
- * hmatrix_slave_ch_set_config(ul_slave_id, &config);
- * \endcode
+	config.def_master_type = HMATRIX_DEFAULT_MASTER_NONE;
+	hmatrix_slave_ch_set_config(ul_slave_id, &config);
+\endcode
  * -# Or Set slave with Round-Robin arbitration and with last access master
  *  - \code
- * config.def_master_type = HMATRIX_DEFAULT_MASTER_PREVIOUS;
- * hmatrix_slave_ch_set_config(ul_slave_id, &config);
- * \endcode
+	config.def_master_type = HMATRIX_DEFAULT_MASTER_PREVIOUS;
+	hmatrix_slave_ch_set_config(ul_slave_id, &config);
+\endcode
  *
  * We can set priority of each master for one slave by
  * \code
- * HmatrixbPrs prio;
- * prio.HMATRIXB_PRAS = 0x00111111;
- * prio.HMATRIXB_PRBS = 0x00000000;
- * hmatrix_set_slave_priority(ul_slave_id, &prio);
- * \endcode
+	HmatrixbPrs prio;
+	prio.HMATRIXB_PRAS = 0x00111111;
+	prio.HMATRIXB_PRBS = 0x00000000;
+	hmatrix_set_slave_priority(ul_slave_id, &prio);
+\endcode
  *
  */
 

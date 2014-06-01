@@ -79,10 +79,8 @@ CSRCS = \
        sam/drivers/pmc/sleep.c                            \
        sam/drivers/rtc/rtc.c                              \
        sam/drivers/spi/spi.c                              \
-       sam/drivers/tc/tc.c                                \
        sam/drivers/uart/uart.c                            \
        sam/drivers/usart/usart.c                          \
-       sam/utils/cmsis/sam4s/source/templates/exceptions.c \
        sam/utils/cmsis/sam4s/source/templates/gcc/startup_sam4s.c \
        sam/utils/cmsis/sam4s/source/templates/system_sam4s.c \
        sam/utils/syscalls/gcc/syscalls.c                  \
@@ -123,7 +121,6 @@ INC_PATH = \
        sam/drivers/pmc                                    \
        sam/drivers/rtc                                    \
        sam/drivers/spi                                    \
-       sam/drivers/tc                                     \
        sam/drivers/uart                                   \
        sam/drivers/usart                                  \
        sam/utils                                          \
@@ -193,7 +190,12 @@ CPPFLAGS = \
        -D BOARD=SAM4S_EK                                  \
        -D VIRTUAL_MEMORY_ENABLE                           \
        -D __SAM4S16C__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

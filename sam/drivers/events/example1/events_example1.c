@@ -64,9 +64,6 @@
  *
  * \section configinfo Configuration Information
  * This example has been tested with the following configuration:
- * - SAM4L_EK evaluation kit;
- * - CPU clock: 12 MHz;
- * - USART2 (on SAM4L_EK) abstracted with a USB CDC connection to a PC;
  * - PC terminal settings:
  *   - 115200 bps,
  *   - 8 data bits,
@@ -80,9 +77,7 @@
  * Support and FAQ: http://support.atmel.com/
  */
 #include <asf.h>
-
-/** PDCA ID for USART2 TX */
-#define PDCA_PID_USART2_TX      20
+#include "conf_example.h"
 
 uint8_t event_string[] = "AST event triggered PDCA!";
 
@@ -154,7 +149,7 @@ static void init_events(void)
 	events_ch_get_config_defaults(&ch_config);
 	ch_config.channel_id = PEVC_ID_USER_PDCA_0;
 	ch_config.generator_id = PEVC_ID_GEN_AST_2;
-	ch_config.sharper_enable = true;
+	ch_config.shaper_enable = true;
 	ch_config.igf_edge = EVENT_IGF_EDGE_NONE;
 	events_ch_configure(&ch_config);
 
@@ -170,7 +165,7 @@ static void init_pdca(void)
 	/* PDCA channel options */
 	static const pdca_channel_config_t pdca_tx_configs = {
 		.addr = (void *)event_string,
-		.pid = PDCA_PID_USART2_TX,
+		.pid = CONF_PDCA_PID_USART_TX,
 		.size = sizeof(event_string),
 		.r_addr = 0,
 		.r_size = 0,

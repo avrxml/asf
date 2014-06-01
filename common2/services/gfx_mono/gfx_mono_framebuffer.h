@@ -3,7 +3,7 @@
  *
  * \brief Monochrome graphic library framebuffer device
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,6 +45,10 @@
 
 #include "gfx_mono.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * \ingroup asfdoc_common2_gfx_mono
  * \defgroup asfdoc_common2_gfx_mono_framebuffer_group Framebuffer
@@ -81,4 +85,9 @@ void gfx_mono_framebuffer_mask_byte(gfx_coord_t page, gfx_coord_t column,
 		gfx_mono_color_t pixel_mask, gfx_mono_color_t color);
 
 /** @} */
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* GFX_MONO_FRAMEBUFFER */

@@ -3,7 +3,7 @@
  *
  * \brief PICOUART driver for SAM.
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -203,27 +203,27 @@ status_code_t picouart_read(struct picouart_dev_inst *const dev_inst,
  *
  * Add this to the main loop or a setup function:
  * \code
- * if (!osc_is_ready(OSC_ID_OSC32)) {
- *	 osc_enable(OSC_ID_OSC32);
- *	 osc_wait_ready(OSC_ID_OSC32);
- * }
- * \endcode
+	 if (!osc_is_ready(OSC_ID_OSC32)) {
+		 osc_enable(OSC_ID_OSC32);
+		 osc_wait_ready(OSC_ID_OSC32);
+	 }
+\endcode
  *
  * Or
  * \code
- * if (!osc_is_ready(OSC_ID_RC32K)) {
- *	 osc_enable(OSC_ID_RC32K);
- *	 osc_wait_ready(OSC_ID_RC32K);
- * }
- * \endcode
+	 if (!osc_is_ready(OSC_ID_RC32K)) {
+		 osc_enable(OSC_ID_RC32K);
+		 osc_wait_ready(OSC_ID_RC32K);
+	 }
+\endcode
  * \subsection picouart_basic_setup_workflow
  * -# Init the PICOUART module
  * \code
- * struct picouart_dev_inst dev_inst;
- * struct picouart_config config;
- * picouart_get_config_defaults(&config);
- * picouart_init(&dev_inst, PICOUART, &config);
- * \endcode
+	struct picouart_dev_inst dev_inst;
+	struct picouart_config config;
+	picouart_get_config_defaults(&config);
+	picouart_init(&dev_inst, PICOUART, &config);
+\endcode
  *
  * -# Enable the PICOUART module
  *  - \code picouart_enable(PICOUART); \endcode
@@ -233,54 +233,54 @@ status_code_t picouart_read(struct picouart_dev_inst *const dev_inst,
  * \subsection picouart_basic_usage_code
  * -# configurate the PICOUART to wakeup system
  *  - \code
- * case '0':
- *     printf("Enter backup mode with start bit wakeup.\r\n");
- *	 config.action = PICOUART_ACTION_WAKEUP_ON_STARTBIT;
- *     picouart_set_config(&dev_inst, &config);
- *     bpm_sleep(BPM, BPM_SM_BACKUP);
- *     break;
- * 
- * case '1':
- *     printf("Enter backup mode with full frame wakeup.\r\n");
- *     config.action = PICOUART_ACTION_WAKEUP_ON_FULLFRAME;
- *     picouart_set_config(&dev_inst, &config);
- *     bpm_sleep(BPM, BPM_SM_BACKUP);
- *     break;
- * 
- * case '2':
- *     printf("Enter backup mode with character match wakeup.\r\n");
- *     config.action = PICOUART_ACTION_WAKEUP_ON_MATCH;
- *     config.match = 'L';
- *     picouart_set_config(&dev_inst, &config);
- *     bpm_sleep(BPM, BPM_SM_BACKUP);
- *     break;
- * \endcode
+	 case '0':
+	     printf("Enter backup mode with start bit wakeup.\r\n");
+		 config.action = PICOUART_ACTION_WAKEUP_ON_STARTBIT;
+	     picouart_set_config(&dev_inst, &config);
+	     bpm_sleep(BPM, BPM_SM_BACKUP);
+	     break;
+ 
+	 case '1':
+	     printf("Enter backup mode with full frame wakeup.\r\n");
+	     config.action = PICOUART_ACTION_WAKEUP_ON_FULLFRAME;
+	     picouart_set_config(&dev_inst, &config);
+	     bpm_sleep(BPM, BPM_SM_BACKUP);
+	     break;
+ 
+	 case '2':
+	     printf("Enter backup mode with character match wakeup.\r\n");
+	     config.action = PICOUART_ACTION_WAKEUP_ON_MATCH;
+	     config.match = 'L';
+	     picouart_set_config(&dev_inst, &config);
+	     bpm_sleep(BPM, BPM_SM_BACKUP);
+	     break;
+\endcode
  *
  * -# Or configurate the PICOUART to generate event
  *  - \code
- * case '0':
- *     config.action = PICOUART_ACTION_EVENT_ON_STARTBIT;
- *     picouart_set_config(&dev_inst, &config);
- *	 break;
- * 
- * case '1':
- *     config.action = PICOUART_ACTION_EVENT_ON_FULLFRAME;
- *     picouart_set_config(&dev_inst, &config);
- *	 break;
- * 
- * case '2':
- *     config.action = PICOUART_ACTION_EVENT_ON_MATCH;
- *     config.match = 'L';
- *     picouart_set_config(&dev_inst, &config);
- *	 break;
- * \endcode
+	 case '0':
+	     config.action = PICOUART_ACTION_EVENT_ON_STARTBIT;
+	     picouart_set_config(&dev_inst, &config);
+		 break;
+ 
+	 case '1':
+	     config.action = PICOUART_ACTION_EVENT_ON_FULLFRAME;
+	     picouart_set_config(&dev_inst, &config);
+		 break;
+ 
+	 case '2':
+	     config.action = PICOUART_ACTION_EVENT_ON_MATCH;
+	     config.match = 'L';
+	     picouart_set_config(&dev_inst, &config);
+		 break;
+\endcode
  *
  * We can get the received value by
  * \code
- * while(!picouart_is_data_ready(&dev_inst)) {
- *     }
- * picouart_read(&dev_inst, &data);
- * \endcode
+	while(!picouart_is_data_ready(&dev_inst)) {
+	    }
+	picouart_read(&dev_inst, &data);
+\endcode
  *
  */
 

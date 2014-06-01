@@ -3,7 +3,7 @@
  *
  * \brief Programmable Multilevel Interrupt Controller driver
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -251,18 +251,18 @@ static inline void pmic_set_vector_location(enum pmic_vector vector)
  *    defined, where the interrupt vectors available are defined by toolchain and 
  *    listed in the subsection 'Interrupt Vector Summary' in the data sheet.
  * \code
- *     ISR(interrupt_vector){
- *         //Interrupt Service Routine
- *     }
- * \endcode
+	ISR(interrupt_vector){
+	    //Interrupt Service Routine
+	}
+\endcode
  *
  * \subsection pmic_basic_use_case_setup_code Example code
  * Add to the initialization code:
  * \code
- *     pmic_init();
- *     pmic_set_scheduling(PMIC_SCH_ROUND_ROBIN);
- *     cpu_irq_enable();
- * \endcode
+	pmic_init();
+	pmic_set_scheduling(PMIC_SCH_ROUND_ROBIN);
+	cpu_irq_enable();
+\endcode
  *
  * \subsection pmic_basic_use_case_setup_flow Workflow
  * -# call the PMIC driver's own init function to enable all interrupt levels:
@@ -302,17 +302,17 @@ static inline void pmic_set_vector_location(enum pmic_vector vector)
  *    defined, where the interrupt vectors available are defined by toolchain and 
  *    listed in the subsection 'Interrupt Vector Summary' in the data sheet.
  * \code
- *     ISR(interrupt_vector){
- *         //Interrupt Service Routine
- *     }
- * \endcode
+	ISR(interrupt_vector){
+	    //Interrupt Service Routine
+	}
+\endcode
  *
  * \subsection pmic_use_case_1_setup_code Example code
  * Add to application initialization:
  * \code
- *     pmic_init();
- *     cpu_irq_enable();
- * \endcode
+	pmic_init();
+	cpu_irq_enable();
+\endcode
  *
  * \subsection pmic_use_case_1_setup_flow Workflow
  * -# call the PMIC driver's own init function to enable all interrupt levels:
@@ -324,18 +324,18 @@ static inline void pmic_set_vector_location(enum pmic_vector vector)
  *
  * \subsection pmic_use_case_1_usage_code Example code
  * \code
- * Add to application:
- * void atomic_operation(void)
- * {
- *     irqflags_t flags;
- *
- *     flags = cpu_irq_save();
- *
- *     // Uninterruptible block of code
- *
- *     cpu_irq_restore(flags);
- * }
- * \endcode
+	 Add to application:
+	 void atomic_operation(void)
+	 {
+	     irqflags_t flags;
+
+	     flags = cpu_irq_save();
+
+	     // Uninterruptible block of code
+
+	     cpu_irq_restore(flags);
+	 }
+\endcode
  *
  * \subsection pmic_use_case_1_usage_flow Workflow
  * -# allocate temporary storage for interrupt enable:

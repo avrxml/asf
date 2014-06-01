@@ -78,7 +78,7 @@
 
 /* Library includes. */
 #include <board.h>
-#include <gpio.h>
+#include <ioport.h>
 
 /* The number of LEDs available to the user on the evaluation kit. */
 #ifndef partestNUM_LEDS
@@ -103,7 +103,8 @@ void vParTestInitialise(void)
 	for (ul = 0; ul < partestNUM_LEDS; ul++) {
 		/* Configure the LED, before ensuring it starts in the off
 		state. */
-		gpio_configure_pin(ulLED[ ul ], (PIO_OUTPUT_1 | PIO_DEFAULT));
+		ioport_set_pin_dir(ulLED[ ul ], IOPORT_DIR_OUTPUT);
+        ioport_set_pin_level(ulLED[ ul ], IOPORT_PIN_LEVEL_HIGH);
 		vParTestSetLED(ul, xActiveStates[ ul ]);
 	}
 }
@@ -118,9 +119,9 @@ void vParTestSetLED(unsigned portBASE_TYPE uxLED, signed portBASE_TYPE xValue)
 			taskENTER_CRITICAL();
 			{
 				if (xActiveStates[ uxLED ] == 0) {
-					gpio_set_pin_low(ulLED[ uxLED ]);
+					ioport_set_pin_level(ulLED[ uxLED ], IOPORT_PIN_LEVEL_LOW);
 				} else {
-					gpio_set_pin_high(ulLED[ uxLED ]);
+					ioport_set_pin_level(ulLED[ uxLED ], IOPORT_PIN_LEVEL_HIGH);
 				}
 			}
 			taskEXIT_CRITICAL();
@@ -129,9 +130,9 @@ void vParTestSetLED(unsigned portBASE_TYPE uxLED, signed portBASE_TYPE xValue)
 			taskENTER_CRITICAL();
 			{
 				if (xActiveStates[ uxLED ] == 0) {
-					gpio_set_pin_high(ulLED[ uxLED ]);
+					ioport_set_pin_level(ulLED[ uxLED ], IOPORT_PIN_LEVEL_HIGH);
 				} else {
-					gpio_set_pin_low(ulLED[ uxLED ]);
+					ioport_set_pin_level(ulLED[ uxLED ], IOPORT_PIN_LEVEL_LOW);
 				}
 			}
 			taskEXIT_CRITICAL();
@@ -146,7 +147,7 @@ void vParTestToggleLED(unsigned portBASE_TYPE uxLED)
 	if (uxLED < partestNUM_LEDS) {
 		taskENTER_CRITICAL();
 		{
-			gpio_toggle_pin(ulLED[ uxLED ]);
+			ioport_toggle_pin_level(ulLED[ uxLED ]);
 		}
 		taskEXIT_CRITICAL();
 	}

@@ -3,7 +3,7 @@
  *
  * \brief Main functions
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,14 +52,17 @@ static volatile bool main_b_phdc_enable = false;
  */
 int main(void)
 {
-	sysclk_init();
 	irq_initialize_vectors();
 	cpu_irq_enable();
 
 	/* Initialize the sleep manager */
 	sleepmgr_init();
-
+#if !SAMD21 && !SAMR21
+	sysclk_init();
 	board_init();
+#else
+	system_init();
+#endif
 	ui_init();
 	ui_powerdown();
 

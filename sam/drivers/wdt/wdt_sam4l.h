@@ -3,7 +3,7 @@
  *
  * \brief Watchdog Timer (WDT) driver for SAM4L.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -75,11 +75,7 @@ extern "C" {
  */
 enum wdt_period {
 	WDT_PERIOD_NONE           = 0,
-	WDT_PERIOD_MIN_CLK        = 3,
-	WDT_PERIOD_16_CLK         = 3,   /* PSEL = TBAN = 3 */
-	WDT_PERIOD_32_CLK         = 4,   /* PSEL = TBAN = 4 */
-	WDT_PERIOD_64_CLK         = 5,   /* PSEL = TBAN = 5 */
-	WDT_PERIOD_128_CLK        = 6,   /* PSEL = TBAN = 6 */
+	WDT_PERIOD_MIN_CLK        = 7,
 	WDT_PERIOD_256_CLK        = 7,   /* PSEL = TBAN = 7 */
 	WDT_PERIOD_512_CLK        = 8,   /* PSEL = TBAN = 8 */
 	WDT_PERIOD_1024_CLK       = 9,   /* PSEL = TBAN = 9 */
@@ -225,76 +221,76 @@ bool wdt_reset_mcu(void);
  * source is system RC oscillator(RCSYS). If you want to use 32KHz oscillator
  * as watchdog clock, please make sure it is enabled first:
  * \code
- * // Enable WDT clock source if need
- * if (BPM->BPM_PMCON & BPM_PMCON_CK32S) {
- *     // Enable 32K RC oscillator
- *     if (!osc_is_ready(OSC_ID_RC32K)) {
- *         osc_enable(OSC_ID_RC32K);
- *         osc_wait_ready(OSC_ID_RC32K);
- *     }
- * } else {
- *     // Enable external OSC32 oscillator
- *     if (!osc_is_ready(OSC_ID_OSC32)) {
- *         osc_enable(OSC_ID_OSC32);
- *         osc_wait_ready(OSC_ID_OSC32);
- *     }
- * }
- * \endcode
+	// Enable WDT clock source if need
+	if (BPM->BPM_PMCON & BPM_PMCON_CK32S) {
+	    // Enable 32K RC oscillator
+	    if (!osc_is_ready(OSC_ID_RC32K)) {
+	        osc_enable(OSC_ID_RC32K);
+	        osc_wait_ready(OSC_ID_RC32K);
+	    }
+	} else {
+	    // Enable external OSC32 oscillator
+	    if (!osc_is_ready(OSC_ID_OSC32)) {
+	        osc_enable(OSC_ID_OSC32);
+	        osc_wait_ready(OSC_ID_OSC32);
+	    }
+	}
+\endcode
  *
  * \subsection wdt_sam4l_basic_use_case_setup_code Setup Example Code
  * Add the following code in the application C-file to setup watchdog:
  * \code
- *    // WDT instance
- *    struct wdt_dev_inst g_wdt_inst;
- *
- *    // WDT configuration
- *    struct wdt_config   g_wdt_cfg;
- *
- *    // Intialize and enable the watchdog
- *    wdt_get_config_defaults(&g_wdt_cfg);
- *    g_wdt_cfg.timeout_period = WDT_PERIOD_65536_CLK;
- *    wdt_init(&g_wdt_inst, WDT, &g_wdt_cfg);
- * \endcode
+	    // WDT instance
+	    struct wdt_dev_inst g_wdt_inst;
+
+	    // WDT configuration
+	    struct wdt_config   g_wdt_cfg;
+
+	    // Intialize and enable the watchdog
+	    wdt_get_config_defaults(&g_wdt_cfg);
+	    g_wdt_cfg.timeout_period = WDT_PERIOD_65536_CLK;
+	    wdt_init(&g_wdt_inst, WDT, &g_wdt_cfg);
+\endcode
  *
  * \subsection wdt_sam4l_basic_use_case_setup_workflow Setup Workflow
  * -# Create variables to store the watchdog instance and configuration:
  *   \code
- *     struct wdt_dev_inst g_wdt_inst;
- *     struct wdt_config   g_wdt_cfg;
- *   \endcode
+	struct wdt_dev_inst g_wdt_inst;
+	struct wdt_config   g_wdt_cfg;
+\endcode
  * -# Get default configuration but change timeout period to 0.57s
  *  (Ttimeout = 2pow(PSEL+1) / Fclk_cnt = 65535 / 115000).
  *  \code
- *    wdt_get_config_defaults(&g_wdt_cfg);
- *    g_wdt_cfg.timeout_period = WDT_PERIOD_65536_CLK;
- *  \endcode
+	wdt_get_config_defaults(&g_wdt_cfg);
+	g_wdt_cfg.timeout_period = WDT_PERIOD_65536_CLK;
+\endcode
  * -# Initialize the watchdog:
  *  \code
- *    wdt_init(&g_wdt_inst, WDT, &g_wdt_cfg);
- *  \endcode
+	wdt_init(&g_wdt_inst, WDT, &g_wdt_cfg);
+\endcode
  *
  * \section wdt_sam4l_basic_use_case_usage Usage Steps
  * \subsection wdt_sam4l_basic_use_example_code Usage Example Code
  * Add to, e.g., main loop in application C-file:
  * \code
- *   wdt_enable(&g_wdt_inst);
- *
- *   while (1) {
- *        wdt_clear(&g_wdt_inst);
- *        // delay 100ms
- *   }
- * \endcode
+	   wdt_enable(&g_wdt_inst);
+
+	   while (1) {
+	        wdt_clear(&g_wdt_inst);
+	        // delay 100ms
+	   }
+\endcode
  *
  * \subsection wdt_sam4l_basic_use_workflow Usage Workflow
  * -# Enable the watchdog:
  *  \code wdt_enable(&g_wdt_inst); \endcode
  * -# Kick the watchdog in every 100ms:
  *  \code
- *   while (1) {
- *        wdt_clear(&g_wdt_inst);
- *        // delay 100ms
- *   }
- *  \endcode
+	while (1) {
+	     wdt_clear(&g_wdt_inst);
+	     // delay 100ms
+	}
+\endcode
  * -# A daemon program is created now. The MCU tasks can be added after
  * the code of wdt_clear() then the tasks are under the monitor of watchdog.
  * If the tasks lasted more than 0.57 second, the options of the watchdog
@@ -303,10 +299,10 @@ bool wdt_reset_mcu(void);
  * \section wdt_sam4l_reset_mcu Reset MCU by the WDT
  * We can reset MCU by generating a WDT reset as soon as possible.
  * \code
- * bool ret;
- *
- * ret = wdt_reset_mcu();
- * \endcode
+	 bool ret;
+
+	 ret = wdt_reset_mcu();
+\endcode
  */
 
 #endif /* WDT_SAM4L_H_INCLUDED */

@@ -44,6 +44,4 @@
 
 #define CONF_BOARD_AT86RFX
 
-/* #define BOARD_NAME "AT32UC3A3256S RF212" */
-
 #endif /* CONF_BOARD_H_INCLUDED */

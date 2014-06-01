@@ -3,7 +3,7 @@
  *
  * \brief AT30TSE75X driver
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,7 +46,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
- 
+
 struct i2c_master_module dev_inst_at30tse75x;
 uint8_t resolution = AT30TSE_CONFIG_RES_9_bit;
 
@@ -54,7 +54,7 @@ uint8_t resolution = AT30TSE_CONFIG_RES_9_bit;
  * \brief Configures the SERCOM I2C master to be used with the AT30TSE75X device.
  */
 void at30tse_init(void)
-{  
+{
     /* Initialize config structure and device instance. */
 	struct i2c_master_config conf;
 	i2c_master_get_config_defaults(&conf);
@@ -79,24 +79,27 @@ void at30tse_init(void)
  * \param[in]  page Page number of the EEPROM.
  */
 void at30tse_eeprom_write(uint8_t *data, uint8_t length, uint8_t word_addr, uint8_t page)
-{	
+{
 	/* ACK polling for consecutive writing not implemented! */
 	uint8_t buffer[17];
 	/* Byte addr in page (0-15) */
-	buffer[0] = word_addr & 0x0F;	
+	buffer[0] = word_addr & 0x0F;
 	/* 4 lower bits of page addr in EEPROM	 */
-	buffer[0] |= (0x0F & page) << 4; 
-	
+	buffer[0] |= (0x0F & page) << 4;
+
 	/* Copy data to be sent */
 	for (uint8_t i=1; i<17; i++){
 		buffer[i] = data[i-1];
 	}
 
 	/* Set up TWI transfer */
-    struct i2c_packet packet = {
+    struct i2c_master_packet packet = {
 		.address     = AT30TSE758_EEPROM_TWI_ADDR | ((0x30 & page)>>4),
 		.data_length = length+1,
 		.data        = buffer,
+		.ten_bit_address = false,
+		.high_speed      = false,
+		.hs_master_code  = 0x0,
 	};
 	/* Do the transfer */
     i2c_master_write_packet_wait(&dev_inst_at30tse75x, &packet);
@@ -115,23 +118,29 @@ void at30tse_eeprom_read(uint8_t *data, uint8_t length, uint8_t word_addr, uint8
 	/* ACK polling for consecutive reading not implemented! */
 	uint8_t buffer[1];
 	/* Byte addr in page (0-15) */
-	buffer[0] = word_addr & 0x0F;	
+	buffer[0] = word_addr & 0x0F;
 	/* 4 lower bits of page addr in EEPROM */
-	buffer[0] |= (0x0F & page) << 4; 
+	buffer[0] |= (0x0F & page) << 4;
 
 	/* Set up internal EEPROM addr write */
-    struct i2c_packet addr_transfer = {
+    struct i2c_master_packet addr_transfer = {
 		.address     = AT30TSE758_EEPROM_TWI_ADDR | ( (0x30 & page) >> 4 ),
 		.data_length = 1,
 		.data        = buffer,
+		.ten_bit_address = false,
+		.high_speed      = false,
+		.hs_master_code  = 0x0,
 	};
 	/* Reading sequence */
-    struct i2c_packet read_transfer = {
+    struct i2c_master_packet read_transfer = {
 		.address     = AT30TSE758_EEPROM_TWI_ADDR | ( (0x30 & page) >> 4 ),
 		.data_length = length,
 		.data        = data,
+		.ten_bit_address = false,
+		.high_speed      = false,
+		.hs_master_code  = 0x0,
 	};
-	
+
 	/* Do the transfer */
     i2c_master_write_packet_wait_no_stop(&dev_inst_at30tse75x, &addr_transfer);
     i2c_master_read_packet_wait(&dev_inst_at30tse75x, &read_transfer);
@@ -144,12 +153,15 @@ void at30tse_eeprom_read(uint8_t *data, uint8_t length, uint8_t word_addr, uint8
  * \param[in] reg_type Register type being pointed by pointer register.
  */
 void at30tse_set_register_pointer(uint8_t reg, uint8_t reg_type)
-{        
+{
 	uint8_t buffer[] = {reg | reg_type};
-    struct i2c_packet transfer = {
+    struct i2c_master_packet transfer = {
 		.address     = AT30TSE_TEMPERATURE_TWI_ADDR,
 		.data_length = 1,
 		.data        = buffer,
+		.ten_bit_address = false,
+		.high_speed      = false,
+		.hs_master_code  = 0x0,
 	};
 	/* Do the transfer */
     i2c_master_write_packet_wait(&dev_inst_at30tse75x, &transfer);
@@ -169,23 +181,29 @@ uint16_t at30tse_read_register(uint8_t reg, uint8_t reg_type, uint8_t reg_size)
 	uint8_t buffer[2];
 	buffer[0] = reg | reg_type;
 	buffer[1] = 0;
-	
+
 	/* Internal register pointer in AT30TSE */
-    struct i2c_packet write_transfer = {
+    struct i2c_master_packet write_transfer = {
 		.address     = AT30TSE_TEMPERATURE_TWI_ADDR,
 		.data_length = 1,
 		.data        = buffer,
+		.ten_bit_address = false,
+		.high_speed      = false,
+		.hs_master_code  = 0x0,
 	};
 	/* Read data */
-    struct i2c_packet read_transfer = {
+    struct i2c_master_packet read_transfer = {
 		.address     = AT30TSE_TEMPERATURE_TWI_ADDR,
 		.data_length = reg_size,
 		.data        = buffer,
+		.ten_bit_address = false,
+		.high_speed      = false,
+		.hs_master_code  = 0x0,
 	};
 	/* Do the transfer */
 	i2c_master_write_packet_wait_no_stop(&dev_inst_at30tse75x, &write_transfer);
     i2c_master_read_packet_wait(&dev_inst_at30tse75x, &read_transfer);
-	
+
 	return (buffer[0] << 8) | buffer[1];
 }
 
@@ -203,12 +221,15 @@ void at30tse_write_register(uint8_t reg, uint8_t reg_type, uint8_t reg_size, uin
 	data[0] = reg | reg_type;
 	data[1] = 0x00FF & (reg_value >> 8);
 	data[2] = 0x00FF & reg_value;
-	
+
 	/* Internal register pointer in AT30TSE */
-    struct i2c_packet transfer = {
+    struct i2c_master_packet transfer = {
 		.address     = AT30TSE_TEMPERATURE_TWI_ADDR,
 		.data_length = 1 + reg_size,
 		.data        = data,
+		.ten_bit_address = false,
+		.high_speed      = false,
+		.hs_master_code  = 0x0,
 	};
 	/* Do the transfer */
 	i2c_master_write_packet_wait(&dev_inst_at30tse75x, &transfer);
@@ -221,13 +242,13 @@ void at30tse_write_register(uint8_t reg, uint8_t reg_type, uint8_t reg_size, uin
  */
 void at30tse_write_config_register(uint16_t value)
 {
-	at30tse_write_register(AT30TSE_CONFIG_REG, 
-							AT30TSE_NON_VOLATILE_REG, 
-							AT30TSE_CONFIG_REG_SIZE-1, 
+	at30tse_write_register(AT30TSE_CONFIG_REG,
+							AT30TSE_NON_VOLATILE_REG,
+							AT30TSE_CONFIG_REG_SIZE-1,
 							value);
 
 	resolution = ( value >> AT30TSE_CONFIG_RES_Pos ) & ( AT30TSE_CONFIG_RES_Msk >> AT30TSE_CONFIG_RES_Pos);
-	
+
 }
 
 /**
@@ -238,19 +259,19 @@ void at30tse_write_config_register(uint16_t value)
 double at30tse_read_temperature()
 {
 	/* Read the 16-bit temperature register. */
-	uint16_t data = at30tse_read_register(AT30TSE_TEMPERATURE_REG, 
-											AT30TSE_NON_VOLATILE_REG, 
+	uint16_t data = at30tse_read_register(AT30TSE_TEMPERATURE_REG,
+											AT30TSE_NON_VOLATILE_REG,
 											AT30TSE_TEMPERATURE_REG_SIZE);
-	
+
 	double temperature = 0;
-	int8_t sign = 1; 
-	
+	int8_t sign = 1;
+
 	/*Check if negative and clear sign bit. */
 	if (data & (1 << 15)){
 		sign *= -1;
 		data &= ~(1 << 15);
 	}
-	
+
 	/* Convert to temperature  */
 	switch (resolution){
 		case AT30TSE_CONFIG_RES_9_bit:
@@ -265,7 +286,7 @@ double at30tse_read_temperature()
 			data = (data >> 5);
 			temperature = data * sign * 0.125;
 			break;
-		case AT30TSE_CONFIG_RES_12_bit: 
+		case AT30TSE_CONFIG_RES_12_bit:
 			data = (data >> 4);
 			temperature = data * sign * 0.0625;
 			break;

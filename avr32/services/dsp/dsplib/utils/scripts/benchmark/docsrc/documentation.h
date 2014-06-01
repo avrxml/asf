@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -104,43 +104,43 @@
  * program pattern to design your benchmark. This pattern works perfectly with the
  * EVK1100 board.
  * \code #include <avr32/io.h>
- * #include "compiler.h"
- * #include "board.h"
- *
- * #include "dsp.h"
- * #include "pm.h"
- * #include "count.h"
- *
- * #include "bench_config.h"
- *
- * //! The main function
- * int main(int argc, char *argv[])
- * {
- *   unsigned int cycle_count;
- *
- *   // Switch to external Oscillator 0.
- *   pm_switch_to_osc0(&AVR32_PM, FOSC0, OSC0_STARTUP);
- *
- *   // Initialize the DSP debug module
- *   dsp_debug_initialization(FOSC0);
- *
- *   // Get the actual cycle count
- *   cycle_count = Get_sys_count();
- *
- *   // <<< Type here the code you need to workbench >>>
- *
- *   // Calculate the number of cycles
- *   cycle_count = Get_sys_count() - cycle_count;
- *
- *   // Print the number of cycles
- *   dsp16_debug_printf("Cycle count: %d\n", cycle_count);
- *
- *   // Print the output
- *   // <<< use the functions dsp16_debug_print_vect, dsp32_debug_print_vect, dsp16_debug_print_complex_vect or
- *   dsp32_debug_print_complex_vect >>>
- *
- *   while(1);
- * } \endcode
+	 #include "compiler.h"
+	 #include "board.h"
+
+	 #include "dsp.h"
+	 #include "pm.h"
+	 #include "count.h"
+
+	 #include "bench_config.h"
+
+	 //! The main function
+	 int main(int argc, char *argv[])
+	 {
+	   unsigned int cycle_count;
+
+	   // Switch to external Oscillator 0.
+	   pm_switch_to_osc0(&AVR32_PM, FOSC0, OSC0_STARTUP);
+
+	   // Initialize the DSP debug module
+	   dsp_debug_initialization(FOSC0);
+
+	   // Get the actual cycle count
+	   cycle_count = Get_sys_count();
+
+	   // <<< Type here the code you need to workbench >>>
+
+	   // Calculate the number of cycles
+	   cycle_count = Get_sys_count() - cycle_count;
+
+	   // Print the number of cycles
+	   dsp16_debug_printf("Cycle count: %d\n", cycle_count);
+
+	   // Print the output
+	   // <<< use the functions dsp16_debug_print_vect, dsp32_debug_print_vect, dsp16_debug_print_complex_vect or
+	   dsp32_debug_print_complex_vect >>>
+
+	   while(1);
+	 } \endcode
  *
  * In this program you will have access to the constants you defined in the script file as
  * parameters. Those constants are accessible by including the file “bench_config.h”.
@@ -157,10 +157,10 @@
  * imaginary vector.\n
  * Here is an example for the FFT:\n
  * \code y_size = 2^NLOG;
- * t = 0:(y_size-1);
- * vect2_input = sin(2*%pi*4000*t/40000);
- *
- * y = fft(vect2_input)/y_size; \endcode
+	 t = 0:(y_size-1);
+	 vect2_input = sin(2*%pi*4000*t/40000);
+
+	 y = fft(vect2_input)/y_size; \endcode
  *
  * \section output The output
  * The resulting file of this benchmark is a text file containing all the workbench results.

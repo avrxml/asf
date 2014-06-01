@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for FatFS service.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -58,6 +58,17 @@
  * - Read the data from the file and compare
  *
  * \section files Main Files
+ * \subsection SAM D/R Xplained Pro
+ * - \ref unit_tests.c
+ * - \ref conf_access.h
+ * - \ref conf_fatfs.h
+ * - \ref conf_test.h
+ * - \ref conf_board.h
+ * - \ref conf_clocks.h
+ * - \ref conf_sd_mmc.h
+ * - \ref conf_spi.h
+ *
+ * \subsection Other boards
  * - \ref unit_tests.c
  * - \ref conf_access.h
  * - \ref conf_fatfs.h
@@ -75,6 +86,26 @@
  * - sam4s16c_sam4s_xplained
  * - XMEGA-A1 Xplained
  * - sam4e16e_sam4e_ek
+ * - sam4n16c_sam4n_xplained_pro
+ * - samr21g18a_samr21_xplained_pro
+ * - 4cmp16c-sam4cmp-db
+ * - 4cms16c-sam4cms-db
+ *
+ * \section connection_note Connection
+ * \subsection SAM4N Xplained Pro extra connection
+ * Because for SAM4N Xplained Pro the file system is created in the external
+ * AT45DBX, extra connection is required.
+ * - <b> SAM4N Xplained Pro -- AT45DBX component </b>
+ * - 3V3 -- VCC
+ * - PC4(EXT2/PIN15) -- NCS
+ * - PA14(EXT2/PIN18) -- CLK
+ * - PA12(EXT2/PIN17) -- MISO
+ * - PA13(EXT2/PIN16) -- MOSI
+ * - GND -- GND
+ *
+ * \subsection SAM D/R Xplained Pro extra connection
+ * Because for SAM D/R Xplained Pro the file system is created in the external
+ * Micro SD/MMC, IO1 Extension board must be connected to EXT1.
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -111,6 +142,11 @@ static uint8_t data_buffer[DATA_SIZE];
 
 /* File name to be validated */
 const char *file_name = STR_ROOT_DIRECTORY "Basic.bin";
+
+#if SAMD20 || SAMD21 || SAMR21
+/* Structure for UART module connected to EDBG (used for unit test output) */
+struct usart_module cdc_uart_module;
+#endif
 
 /**
  * \brief Do FatFS tests.
@@ -227,13 +263,26 @@ static void run_fatfs_test(const struct test_case *test)
  */
 int main(void)
 {
+#if SAMD20 || SAMD21 || SAMR21
+	system_init();
+	struct usart_config usart_conf;
+	usart_get_config_defaults(&usart_conf);
+	usart_conf.mux_setting = CONF_STDIO_MUX_SETTING;
+	usart_conf.pinmux_pad0 = CONF_STDIO_PINMUX_PAD0;
+	usart_conf.pinmux_pad1 = CONF_STDIO_PINMUX_PAD1;
+	usart_conf.pinmux_pad2 = CONF_STDIO_PINMUX_PAD2;
+	usart_conf.pinmux_pad3 = CONF_STDIO_PINMUX_PAD3;
+	usart_conf.baudrate    = CONF_STDIO_BAUDRATE;
+	stdio_serial_init(&cdc_uart_module, CONF_STDIO_USART, &usart_conf);
+	usart_enable(&cdc_uart_module);
+#else
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate   = CONF_TEST_BAUDRATE,
 		.paritytype = CONF_TEST_PARITY,
-#if !SAM
+#  if !SAM
 		.charlength = CONF_TEST_CHARLENGTH,
 		.stopbits   = CONF_TEST_STOPBITS,
-#endif
+#  endif
 	};
 
 	/* Initialize the system clock and board */
@@ -241,10 +290,11 @@ int main(void)
 	board_init();
 
 	/* Enable the debug uart */
-#if SAM
+#  if SAM
 	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
-#endif
+#  endif
 	stdio_serial_init(CONF_TEST_USART, &usart_serial_options);
+#endif
 
 	/* Intialize the memory device */
 	memories_initialization();

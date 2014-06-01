@@ -125,4 +125,7 @@
 // From module: USB MSC Protocol
 #include <usb_protocol_msc.h>
 
+// From module: WDT - Watchdog Timer
+#include <wdt_sam4l.h>
+
 #endif // ASF_H

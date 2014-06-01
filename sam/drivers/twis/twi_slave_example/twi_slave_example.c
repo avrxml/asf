@@ -3,7 +3,7 @@
  *
  * \brief TWI SLAVE Example for SAM.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,15 +50,15 @@
  *
  * \section Requirements
  *
- * This package can be used with SAM4L-EK.
+ * This package can be used with SAM4L boards.
  *
  * In addition, another device will be needed to act as the TWI master. The
  * twim_example can be used for that, in which case a second kit
  * supported by that project is needed.
- * -# Connect TWD1 (SDA) for the 2 boards.
- * -# Connect TWCK1 (SCL) for the 2 boards.
+ * -# Connect TWD (SDA) for the 2 boards.
+ * -# Connect TWCK (SCL) for the 2 boards.
  * -# Connect GND for the 2 boards.
- * -# Add a pull up of 2.2KOhms on TWD and TWCK
+ * -# Add a pull up resistor on TWD and TWCK
  *
  * \section files Main files:
  *  - twis.c SAM Two-Wire Slave Interface driver implementation.
@@ -207,7 +207,7 @@ static uint8_t twis_slave_tx(void)
  *
  * \remarks User defined operations on Stop condition
 */
-static void twis_slave_stop()
+static void twis_slave_stop(void)
 {
 	status_cmd = TWI_MEM_IDLE;
 }
@@ -217,7 +217,7 @@ static void twis_slave_stop()
  *
  * \remarks User defined operations on Error condition
 */
-static void twis_slave_error()
+static void twis_slave_error(void)
 {
 	puts("I2C bus error\r\n");
 }

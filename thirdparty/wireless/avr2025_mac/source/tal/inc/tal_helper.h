@@ -3,7 +3,7 @@
  *
  * @brief This file contains TAL helper function declarations
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -51,7 +51,6 @@
 #define TAL_HELPER_H
 
 /* === INCLUDES ============================================================ */
-
 /* === EXTERNALS =========================================================== */
 
 /* === TYPES =============================================================== */
@@ -148,6 +147,20 @@ typedef enum param_tag {
 #endif
 	TX_PWR            = 0x06
 } SHORTENUM param_type;
+
+#ifdef EXT_RF_FRONT_END_CTRL /*For External PA for 231FEM-EK*/
+
+/**
+ * RSSI BASE VAL based on External LNA Gain.
+ */
+#define RSSI_BASE_VAL_EXT      (RSSI_BASE_VAL_DBM - EXT_LNA_HIGH_GAIN)
+
+/*
+ * Default tx power for Ch26 to meet FCC compliance
+ */
+#define DEFAULT_TX_POWER_CH26             (0x80 | 0x0d)
+
+#endif
 /* === PROTOTYPES ========================================================== */
 
 #ifdef __cplusplus
@@ -218,7 +231,7 @@ retval_t  tal_ant_div_config(bool div_ctrl, uint8_t ant_ctrl);
  * \param frequency  frequency value to be set
  * \return MAC_SUCCESS if frequency is configured correctly
  *                 MAC_INVALID_PARAMETER if out of range or incorrect values are
- *given
+ * given
  *                 FAILURE if frequency registers are not configured properly
  */
 retval_t tal_set_frequency(float frequency);
@@ -230,7 +243,7 @@ retval_t tal_set_frequency(float frequency);
  * \param cc_number offset frequency to be selected in cc_number register bits
  * \return MAC_SUCCESS if frequency is configured correctly
  *                 MAC_INVALID_PARAMETER if out of range or incorrect values are
- *given
+ * given
  *                 FAILURE if frequency registers are not configured properly
  */
 
@@ -307,7 +320,7 @@ retval_t  tal_trx_reg_write(uint16_t reg_addr, uint8_t value);
  * \brief to read a current setting particular transceiver parameter
  * \param parameter type of the parameter to be read
  * \param *param_value pointer to the location where the current parameter value
- *need to be
+ * need to be
  *              stored
  * \return MAC_INVALID_PARAMETER if the parameter is invalid
  *         MAC_SUCCESS otherwise
@@ -336,14 +349,14 @@ retval_t tal_dump_registers(uint16_t start_addr, uint16_t end_addr,
  * \return MAC_SUCCESS if the register is written correctly
  *         FAILURE otherwise
  */
-#if (TAL_TYPE == AT86RF233)
+#if ((TAL_TYPE == AT86RF233) || (TAL_TYPE == ATMEGARFR2))
 retval_t tal_rpc_mode_config(uint8_t rpc_mode_sel);
 
-#endif /* End of TAL_TYPE = AT86RF233 */
+#endif /* End of ((TAL_TYPE == AT86RF233) || (TAL_TYPE == ATMEGARFR2))*/
 
 /*
  * \brief This function is called to get the base RSSI value for repective
- *radios
+ * radios
  *
  * \return value of the base RSSI value
  */

@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,8 +42,8 @@
  * \ingroup group_dsplib_tools
  * \brief This script is used to visualize a data stream from the serial port formatted as follow:
  * \code 0.265445
- * -0.025633
- * ... \endcode
+	-0.025633
+	... \endcode
  * \image html scope.gif
  * This script is a combination of two main programs (\ref group_dsplib_dataget and \ref group_dsplib_dataprint)
  *

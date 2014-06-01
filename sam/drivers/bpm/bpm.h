@@ -3,7 +3,7 @@
  *
  * \brief BPM driver.
  *
- * Copyright (C) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -378,34 +378,34 @@ uint32_t bpm_get_version(Bpm *bpm);
  * \subsection bpm_use_case_1_setup_prereq_code Code
  *
  * \code
- * #define EIC_INT5_ENABLE
- * \endcode
+	#define EIC_INT5_ENABLE
+\endcode
  *
  * The following code needs to be added to the user application, to wakeup
  * system and switch to next power mode.
  * \code
- * static void push_button_eic_handler()
- * {
- *    eic_line_clear_interrupt(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
- * }
- * \endcode
+	static void push_button_eic_handler()
+	{
+	   eic_line_clear_interrupt(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
+	}
+\endcode
  * \code
- * my_eic_init()
- * {
- *   struct eic_line_config eic_opt={
- *     EIC_MODE_EDGE_TRIGGERED,
- *     EIC_EDGE_FALLING_EDGE,
- *     EIC_LEVEL_LOW_LEVEL,
- *     EIC_FILTER_DISABLED,
- *     EIC_ASYNCH_MODE
- *   };
- *   eic_enable(EIC);
- *   eic_line_set_config(EIC, GPIO_PUSH_BUTTON_EIC_LINE, &eic_opt);
- *   eic_line_set_callback(EIC, GPIO_PUSH_BUTTON_EIC_LINE,
- *     push_button_eic_handler, EIC_5_IRQn, 1);
- *   eic_line_enable(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
- * }
- * \endcode
+	my_eic_init()
+	{
+	  struct eic_line_config eic_opt={
+	    EIC_MODE_EDGE_TRIGGERED,
+	    EIC_EDGE_FALLING_EDGE,
+	    EIC_LEVEL_LOW_LEVEL,
+	    EIC_FILTER_DISABLED,
+	    EIC_ASYNCH_MODE
+	  };
+	  eic_enable(EIC);
+	  eic_line_set_config(EIC, GPIO_PUSH_BUTTON_EIC_LINE, &eic_opt);
+	  eic_line_set_callback(EIC, GPIO_PUSH_BUTTON_EIC_LINE,
+	    push_button_eic_handler, EIC_5_IRQn, 1);
+	  eic_line_enable(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
+	}
+\endcode
  *
  * \subsection bpm_use_case_1_setup_prereq_flow Workflow
  * -# Ensure that ioport and eic driver is available.
@@ -420,43 +420,43 @@ uint32_t bpm_get_version(Bpm *bpm);
  * \subsection bpm_use_case_1_usage_code Example code
  * Add to application C-file:
  * \code
- *    // Enable wakeup by EIC
- *    bpm_enable_wakeup_source(BPM, 1 << BPM_BKUPWEN_EIC);
- *    // Enable backup wakeup by Push button EIC line
- *    bpm_enable_backup_pin(BPM, 1 << GPIO_PUSH_BUTTON_EIC_LINE);
- *    // Retain I/O lines after wakeup from backup mode
- *    bpm_enable_io_retention(BPM);
- *    // Enable fast wakeup
- *    bpm_enable_fast_wakeup(BPM);
- *    // Enter wait mode
- *    // critical section when going to sleep
- *    cpu_irq_disable();
- *    bpm_sleep(BPM, BPM_SM_WAIT);
- *    // Enter retention mode
- *    cpu_irq_disable();
- *    bpm_sleep(BPM, BPM_SM_RET);
- *    // Enter backup mode
- *    cpu_irq_disable();
- *    bpm_sleep(BPM, BPM_SM_BACKUP);
- *    while(1);
- * \endcode
+	// Enable wakeup by EIC
+	bpm_enable_wakeup_source(BPM, 1 << BPM_BKUPWEN_EIC);
+	// Enable backup wakeup by Push button EIC line
+	bpm_enable_backup_pin(BPM, 1 << GPIO_PUSH_BUTTON_EIC_LINE);
+	// Retain I/O lines after wakeup from backup mode
+	bpm_enable_io_retention(BPM);
+	// Enable fast wakeup
+	bpm_enable_fast_wakeup(BPM);
+	// Enter wait mode
+	// critical section when going to sleep
+	cpu_irq_disable();
+	bpm_sleep(BPM, BPM_SM_WAIT);
+	// Enter retention mode
+	cpu_irq_disable();
+	bpm_sleep(BPM, BPM_SM_RET);
+	// Enter backup mode
+	cpu_irq_disable();
+	bpm_sleep(BPM, BPM_SM_BACKUP);
+	while(1);
+\endcode
  *
  * \subsection bpm_use_case_1_usage_flow Workflow
  * -# Enable wakeup by EIC:
  *    \code
- *      bpm_enable_wakeup_source(BPM, 1 << BPM_BKUPWEN_EIC);
- *      bpm_enable_backup_pin(BPM, 1 << GPIO_PUSH_BUTTON_EIC_LINE);
- *    \endcode
+	bpm_enable_wakeup_source(BPM, 1 << BPM_BKUPWEN_EIC);
+	bpm_enable_backup_pin(BPM, 1 << GPIO_PUSH_BUTTON_EIC_LINE);
+\endcode
  * -# Setup IO retention:
  *    \code bpm_enable_io_retention(BPM); \endcode
  * -# Setup fast wakeup:
  *    \code bpm_enable_fast_wakeup(BPM); \endcode
  * -# Enter sleep/wait/backup mode:
  *    \code
- *      // critical section when going to sleep
- *      cpu_irq_disable();
- *      bpm_sleep(BPM, BPM_SM_WAIT);
- *    \endcode
+	// critical section when going to sleep
+	cpu_irq_disable();
+	bpm_sleep(BPM, BPM_SM_WAIT);
+\endcode
  */
 
 /**
@@ -475,17 +475,17 @@ uint32_t bpm_get_version(Bpm *bpm);
  * \subsection bpm_use_case_2_setup_code Code
  * Content of conf_clock.h
  * \code
- * #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_RCFAST // Uses Fast RC
- * #define CONFIG_RCFAST_FRANGE        2                 // Fast RC is 12MHz
- * \endcode
+	#define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_RCFAST // Uses Fast RC
+	#define CONFIG_RCFAST_FRANGE        2                 // Fast RC is 12MHz
+\endcode
  *
  * \subsection bpm_use_case_2_setup_workflow Workflow
  * -# Ensure that conf_clock.h is available and contains the following
  * parameters which configure system clock to 12MHz fast RC:
  * \code
- *   #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_RCFAST // Uses Fast RC
- *   #define CONFIG_RCFAST_FRANGE        2                 // Fast RC is 12MHz
- * \endcode
+	#define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_RCFAST // Uses Fast RC
+	#define CONFIG_RCFAST_FRANGE        2                 // Fast RC is 12MHz
+\endcode
  * -# Initialize system clock with \c sysclk_init().
  *
  * \section bpm_use_case_2_usage Use case
@@ -493,15 +493,15 @@ uint32_t bpm_get_version(Bpm *bpm);
  * \subsection bpm_use_case_2_usage_code Example code
  * Add to application C-file:
  * \code
- * bpm_power_scaling_cpu(BPM, BPM_PMCON_PS(BPM_PS_1));
- * while((bpm_get_status(BPM) & BPM_SR_PSOK) == 0);
- * while(1);
- * \endcode
+	bpm_power_scaling_cpu(BPM, BPM_PMCON_PS(BPM_PS_1));
+	while((bpm_get_status(BPM) & BPM_SR_PSOK) == 0);
+	while(1);
+\endcode
  *
  * \subsection bpm_use_case_2_usage_workflow Workflow
  * -# Switch the power scaling mode:
  *    \code bpm_power_scaling_cpu(BPM, BPM_PMCON_PS(BPM_PS_1));
- *    \endcode
+\endcode
  * -# Wait power scaling done:
  *    \code while((bpm_get_status(BPM) & BPM_SR_PSOK) == 0); \endcode
  */

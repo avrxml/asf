@@ -3,7 +3,7 @@
  *
  * @brief Decodes comman byte stream into respective api's
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,7 +56,7 @@
  * \ingroup group_mac_api_parser
  * \defgroup group_mac_api_decoder MAC API Decoder
  * The API Encoder Module Decodes the incoming command byte stream to
- *corresponding MAC Api's
+ * corresponding MAC Api's
  * @{
  */
 
@@ -113,7 +113,7 @@ void handle_rx_frame(void)
 #if ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
 		usr_mcps_purge_conf(*(rcv_frame_ptr + 2), *(rcv_frame_ptr + 3));
 #endif  /* ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
-		 **/
+		**/
 		break;
 
 	case MLME_ASSOCIATE_INDICATION:
@@ -255,6 +255,20 @@ void handle_rx_frame(void)
 #endif  /* (MAC_INDIRECT_DATA_BASIC == 1) */
 		break;
 
+#ifdef GTS_SUPPORT
+	case MLME_GTS_CONFIRM:
+#if (MAC_GTS_REQUEST == 1)
+		usr_mlme_gts_conf(*((gts_char_t *)(rcv_frame_ptr + 2)),
+				*(rcv_frame_ptr + 3));
+#endif /* (MAC_GTS_REQUEST == 1) */
+	case MLME_GTS_INDICATION:
+#if (MAC_GTS_REQUEST == 1)
+		usr_mlme_gts_ind(*((uint16_t *)(rcv_frame_ptr + 2)),
+				*((gts_char_t *)(rcv_frame_ptr + 4)));
+#endif /* (MAC_GTS_REQUEST == 1) */
+#endif /* GTS_SUPPORT */
+		break;
+
 	default:
 
 		break;
@@ -303,7 +317,7 @@ void process_rf_serial_byte(uint8_t byte)
 		}
 
 		/* Make rx buffer ready for next reception before handling
-		 *received data. */
+		 * received data. */
 		rcv_buff_ptr = rcv_buffer;
 		rcv_state = UART_RX_STATE_SOT;
 		break;
@@ -327,7 +341,7 @@ bool wpan_task(void)
 		                                                  * USB and UART
 		                                                  * ? */
 	} else { /* Data has been received, process the data */
-		/* Process each single byte */
+		 /* Process each single byte */
 		api_process_incoming_sio_data();
 		data_length--;
 		rx_index++;
@@ -383,7 +397,7 @@ static void api_process_incoming_sio_data(void)
 		}
 
 		/* Make rx buffer ready for next reception before handling
-		 *received data. */
+		 * received data. */
 		rcv_buff_ptr = rcv_buffer;
 		rcv_state = UART_RX_STATE_SOT;
 		break;

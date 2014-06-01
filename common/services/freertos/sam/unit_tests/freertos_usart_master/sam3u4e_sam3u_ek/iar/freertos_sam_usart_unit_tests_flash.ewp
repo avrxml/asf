@@ -300,6 +300,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/include</state>
@@ -312,7 +313,6 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam3u_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
-					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm3</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
@@ -574,6 +574,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/include</state>
@@ -586,7 +587,6 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam3u_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
-					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm3</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
@@ -1240,6 +1240,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/include</state>
@@ -1252,7 +1253,6 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam3u_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
-					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm3</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
@@ -1514,6 +1514,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/include</state>
@@ -1526,7 +1527,6 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam3u_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
-					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm3</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
@@ -1902,15 +1902,15 @@
 						<group>
 							<name>iar</name>
 							<group>
-								<name>arm_cm3</name>
+								<name>sam</name>
 								<file>
-									<name>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm3/port.c</name>
+									<name>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam/port.c</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm3/portasm.s</name>
+									<name>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam/portasm.s</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm3/portmacro.h</name>
+									<name>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam/portmacro.h</name>
 								</file>
 							</group>
 						</group>
@@ -2021,10 +2021,10 @@
 						<name>$PROJ_DIR$/../../../../freertos_peripheral_control.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../freertos_peripheral_control_private.h</name>
+						<name>$PROJ_DIR$/../../../../freertos_usart_serial.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../freertos_uart_serial.h</name>
+						<name>$PROJ_DIR$/../../../../freertos_peripheral_control_private.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../freertos_peripheral_control.h</name>
@@ -2430,6 +2430,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_smc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_spi.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_ssc.h</name>
 							</file>
 							<file>
@@ -2446,9 +2449,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_adc12b.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_spi.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_hsmci.h</name>

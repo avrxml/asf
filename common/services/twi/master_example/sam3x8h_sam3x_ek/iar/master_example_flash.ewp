@@ -293,10 +293,9 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
@@ -306,8 +305,8 @@
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3x_ek</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../gpio</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/source/templates</state>
@@ -559,10 +558,9 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
@@ -572,8 +570,8 @@
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3x_ek</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../gpio</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/source/templates</state>
@@ -762,7 +760,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1217,10 +1214,9 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
@@ -1230,8 +1226,8 @@
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3x_ek</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../gpio</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/source/templates</state>
@@ -1483,10 +1479,9 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
@@ -1496,8 +1491,8 @@
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3x_ek</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../gpio</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/source/templates</state>
@@ -1686,7 +1681,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1891,13 +1885,22 @@
 					<name>$PROJ_DIR$/../../../../../../sam/drivers/pio/pio_handler.h</name>
 				</file>
 			</group>
+		</group>
+		<group>
+			<name>boards</name>
 			<group>
-				<name>uart</name>
+				<name>sam3x_ek</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../sam/drivers/uart/uart.c</name>
+					<name>$PROJ_DIR$/../../../../../../sam/boards/sam3x_ek/init.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../sam/drivers/uart/uart.h</name>
+					<name>$PROJ_DIR$/../../../../../../sam/boards/sam3x_ek/led.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../sam/boards/sam3x_ek/led.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../sam/boards/sam3x_ek/sam3x_ek.h</name>
 				</file>
 			</group>
 		</group>
@@ -1911,15 +1914,15 @@
 						<name>source</name>
 						<group>
 							<name>templates</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/source/templates/exceptions.c</name>
-							</file>
 							<group>
 								<name>iar</name>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/source/templates/iar/startup_sam3x.c</name>
 								</file>
 							</group>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/source/templates/exceptions.c</name>
+							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/source/templates/system_sam3x.c</name>
 							</file>
@@ -2002,6 +2005,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_emac.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_chipid.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_pioe.h</name>
 							</file>
 							<file>
@@ -2042,9 +2048,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_tc1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_chipid.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_rtt.h</name>
@@ -2107,9 +2110,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_matrix.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_twi.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_pio.h</name>
 							</file>
 							<file>
@@ -2129,6 +2129,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_rtt.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_twi.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_trng.h</name>
@@ -2228,24 +2231,6 @@
 				<name>header_files</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../sam/utils/header_files/io.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
-			<name>boards</name>
-			<group>
-				<name>sam3x_ek</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../sam/boards/sam3x_ek/led.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../sam/boards/sam3x_ek/init.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../sam/boards/sam3x_ek/led.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../sam/boards/sam3x_ek/sam3x_ek.h</name>
 				</file>
 			</group>
 		</group>

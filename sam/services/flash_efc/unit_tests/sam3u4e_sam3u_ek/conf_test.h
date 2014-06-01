@@ -3,7 +3,7 @@
  *
  * \brief Unit test configuration.
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -57,8 +57,8 @@
 /* Default region count number */
 #define DEFAULT_REGION_COUNT 1
 
-/* Last page start address. */
-#define LAST_PAGE_ADDRESS (IFLASH0_ADDR + IFLASH0_SIZE - IFLASH0_PAGE_SIZE)
+/* Test page start address. */
+#define TEST_PAGE_ADDRESS (IFLASH0_ADDR + IFLASH0_SIZE - IFLASH0_PAGE_SIZE)
 
 /* Flash start address */
 #define IFLASH_ADDR IFLASH0_ADDR

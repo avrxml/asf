@@ -3,7 +3,7 @@
  *
  * \brief Cyclic Redundancy Check Calculation Unit (CRCCU) example for SAM.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,12 +48,12 @@
  * \par Purpose
  *
  * This example demonstrates the Cyclic Redundancy Check Calculation Unit (CRCCU)
- * provided on SAM serials' microcontrollers. It shows how to use CRCCU
+ * provided on SAM series microcontrollers. It shows how to use CRCCU
  * to compute CRC on a memory area.
  *
  * \par Requirements
  *
- * This package can be used with SAM4L evaluation kits
+ * This package can be used with SAM4L series.
  *
  * \par Description
  *
@@ -74,16 +74,7 @@
  *
  * \par Usage
  *
- * -# Build the program and download it inside the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a>
- *    application note or to the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>,
- *    depending on your chosen solution.
+ * -# Build the program and download it inside the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g. HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -95,11 +86,11 @@
  * -# In the terminal window, the following text should appear
  *    (values depend on the board and chip used):
  *    \code
- *     -- CRCCU Example --
- *     -- SAMXX-EK
- *     -- Compiled: XXXXXXXX --
- *     ...
- *    \endcode
+	-- CRCCU Example --
+	-- SAMXX-EK
+	-- Compiled: XXXXXXXX --
+	...
+\endcode
  *
  */
 
@@ -108,7 +99,7 @@
 #include "conf_crccu_example.h"
 
 /** Flash buffer address */
-#define FLASH_BUFFER_ADDRESS   (FLASH_ADDR + FLASH_SIZE/2 - FLASH_BUFFER_SIZE)
+#define FLASH_BUFFER_ADDRESS   (FLASH_ADDR + FLASH_SIZE / 2 - FLASH_BUFFER_SIZE)
 
 /** CRC data buffer size (in byte) */
 #define BUFFER_LENGTH   64
@@ -191,10 +182,10 @@ static uint32_t compute_crc(uint8_t *p_buffer, uint32_t ul_length,
 /**
  * \brief Compute CRC of a buffer and compare it with the reference CRC.
  *
- * \param p_Buffer         The buffer holding the data.
- * \param ul_length          The buffer length.
+ * \param p_Buffer  The buffer holding the data.
+ * \param ul_length  The buffer length.
  * \param ul_type  The polynomial type(CRCCU_MR_PTYPE_XXX).
- * \param ul_ref_crc          Reference CRC for the buffer.
+ * \param ul_ref_crc  Reference CRC for the buffer.
  *
  * \return CRC of the buffer.
  */

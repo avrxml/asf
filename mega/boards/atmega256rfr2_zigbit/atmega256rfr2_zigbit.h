@@ -57,8 +57,8 @@
 #ifdef ZIGBIT_EXT
 
 #define LED0_GPIO                       IOPORT_CREATE_PIN(PORTD, 6)
-#define LED1_GPIO                       IOPORT_CREATE_PIN(PORTE, 3)
-#define LED2_GPIO                       IOPORT_CREATE_PIN(PORTE, 2)
+#define LED1_GPIO                       IOPORT_CREATE_PIN(PORTE, 2)
+#define LED2_GPIO                       IOPORT_CREATE_PIN(PORTG, 2)
 
 #define LED0                            LED0_GPIO
 #define LED1                            LED1_GPIO

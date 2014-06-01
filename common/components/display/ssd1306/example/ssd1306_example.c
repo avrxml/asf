@@ -3,7 +3,7 @@
  *
  * \brief SSD1306 display controller driver example.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -70,7 +70,7 @@
  * hardware scrolling function available in the LCD controller.
  *
  * \section compinfo Compilation Info
- * This software was written for the GNU GCC and IAR for AVR.
+ * This software was written for the GNU GCC and IAR.
  * Other compilers may or may not work.
  *
  * \section contactinfo Contact Information
@@ -89,8 +89,6 @@ int main(void)
 	uint8_t column_address;
 	//! store the LCD controller start draw line
 	uint8_t start_line_address = 0;
-	//! value used for delay, needs to be volatile due to compiler optimization
-	volatile uint16_t delay = 10000;
 
 	board_init();
 	sysclk_init();
@@ -103,7 +101,7 @@ int main(void)
 	ssd1306_set_column_address(0);
 
 	// fill display with lines
-	for (page_address = 0; page_address <= 4; page_address++) {
+	for (page_address = 0; page_address <= 7; page_address++) {
 		ssd1306_set_page_address(page_address);
 		for (column_address = 0; column_address < 128; column_address++) {
 			ssd1306_set_column_address(column_address);

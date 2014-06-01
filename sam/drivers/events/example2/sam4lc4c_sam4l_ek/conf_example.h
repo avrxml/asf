@@ -44,12 +44,15 @@
 #ifndef CONF_EXAMPLE_H_INCLUDED
 #define CONF_EXAMPLE_H_INCLUDED
 
-/** Using PC08 on SAM4L-EK to trigger an event */
+/** PDCA ID for USART2 TX */
+#define CONF_PDCA_PID_USART_TX      20
+
+/** Using PC08(J104.2) on SAM4L-EK to trigger an event */
 #define CONF_EXAMPLE_PIN_EVENT     PIN_PC08
 
 /** Hint message on terminal */
 #define CONF_EXAMPLE_EVENT_MSG    \
-	"Connect PC08 on SAM4L_EK to GND to trigger one PAD_EVT event every time.\r\n"
+	"Connect PC08(J104.2) to GND to trigger one PAD_EVT event every time.\r\n"
 
 #endif  /* CONF_EXAMPLE_H_INCLUDED */
 

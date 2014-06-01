@@ -3,7 +3,7 @@
  *
  * \brief Connection of the AT45DBX DataFlash to SPI interface driver.
  *
- * This file manages the connection of the AT45dbx DataFlash driver to 
+ * This file manages the connection of the AT45dbx DataFlash driver to
  * SPI driver. The SPI module selection on hardware depends on AT45DBX_SPI
  * in conf_at45dbx.h
  *
@@ -102,7 +102,7 @@ inline void at45dbx_spi_init(void)
 	config.pinmux_pad1 = AT45DBX_SPI_PINMUX_PAD1;
 	config.pinmux_pad2 = AT45DBX_SPI_PINMUX_PAD2;
 	config.pinmux_pad3 = AT45DBX_SPI_PINMUX_PAD3;
-	config.master.baudrate = AT45DBX_CLOCK_SPEED;
+	config.mode_specific.master.baudrate = AT45DBX_CLOCK_SPEED;
 
 	spi_init(&at45dbx_master, AT45DBX_SPI, &config);
 	spi_enable(&at45dbx_master);
@@ -191,7 +191,7 @@ void at45dbx_spi_read_byte(uint8_t *data)
  */
 inline void at45dbx_spi_read_packet(void const *data, size_t len)
 {
-	spi_read_buffer_wait(&at45dbx_master, (uint8_t *)data, len, 
+	spi_read_buffer_wait(&at45dbx_master, (uint8_t *)data, len,
 		(uint16_t)DUMMY);
 }
 

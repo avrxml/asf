@@ -3,7 +3,7 @@
  *
  * \brief Real-time Timer (RTT) driver for SAM.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,31 +54,106 @@ extern "C" {
 /**
  * \defgroup sam_drivers_rtt_group Real-time Timer (RTT)
  *
- * The Real-time Timer is built around a 32-bit counter used to count 
- * roll-over events of the programmable 16-bit prescaler, which enables 
- * counting elapsed seconds from a 32 kHz slow clock source. 
+ * The Real-time Timer is built around a 32-bit counter used to count
+ * roll-over events of the programmable 16-bit prescaler, which enables
+ * counting elapsed seconds from a 32 kHz slow clock source.
  * This is a driver for configuration and use of the RTT peripheral.
  *
  * @{
  */
 
+/*
+ * In follow series chip, the bit RTC1HZ and RTTDIS in RTT_MR are write only.
+ * So we use a variable to record status of these bits.
+ */
+#if (SAM4N || SAM4S || SAM4E || SAM4C || SAMG51 || SAM4CP || SAM4CM)
+static uint32_t g_wobits_in_rtt_mr = 0;
+#endif
+
 /**
  * \brief Initialize the given RTT.
  *
- * \note This function restarts the real-time timer. If w_prescaler is equal 
- *  to zero, the prescaler period is equal to 2^16 * SCLK period. If not, 
- *  the prescaler period is equal to w_prescaler * SCLK period.
+ * \note This function restarts the real-time timer. If w_prescaler is equal to zero,
+ *  the prescaler period is equal to 2^16 * SCLK period. If not, the prescaler period
+ *  is equal to us_prescaler * SCLK period.
  *
  * \param p_rtt Pointer to an RTT instance.
- * \param w_prescaler Prescaler value for the RTT.
+ * \param us_prescaler Prescaler value for the RTT.
  *
  * \return 0 if successful.
  */
 uint32_t rtt_init(Rtt *p_rtt, uint16_t us_prescaler)
 {
+#if (SAM4N || SAM4S || SAM4E || SAM4C || SAMG51 || SAM4CP || SAM4CM)
+	p_rtt->RTT_MR = (us_prescaler | RTT_MR_RTTRST | g_wobits_in_rtt_mr);
+#else
 	p_rtt->RTT_MR = (us_prescaler | RTT_MR_RTTRST);
+#endif
 	return 0;
 }
+
+#if (SAM4N || SAM4S || SAM4E || SAM4C || SAMG51 || SAM4CP || SAM4CM)
+/**
+ * \brief Select RTT counter source.
+ *
+ * \param p_rtt Pointer to an RTT instance.
+ * \param is_rtc_sel RTC 1Hz Clock Selection.
+ */
+void rtt_sel_source(Rtt *p_rtt, bool is_rtc_sel)
+{
+	if(is_rtc_sel) {
+		g_wobits_in_rtt_mr |= RTT_MR_RTC1HZ;
+		p_rtt->RTT_MR |= g_wobits_in_rtt_mr;
+	} else {
+		g_wobits_in_rtt_mr &= ~RTT_MR_RTC1HZ;
+		p_rtt->RTT_MR |= g_wobits_in_rtt_mr;
+	}
+}
+
+/**
+ * \brief Enable RTT.
+ *
+ * \param p_rtt Pointer to an RTT instance.
+ */
+void rtt_enable(Rtt *p_rtt)
+{
+	g_wobits_in_rtt_mr &= ~RTT_MR_RTTDIS;
+	p_rtt->RTT_MR |= g_wobits_in_rtt_mr;
+}
+/**
+ * \brief Disable RTT.
+ *
+ * \param p_rtt Pointer to an RTT instance.
+ */
+void rtt_disable(Rtt *p_rtt)
+{
+	g_wobits_in_rtt_mr |= RTT_MR_RTTDIS;
+	p_rtt->RTT_MR |= g_wobits_in_rtt_mr;
+}
+#elif (SAMG53 || SAMG54)
+void rtt_sel_source(Rtt *p_rtt, bool is_rtc_sel)
+{
+	if(is_rtc_sel) {
+		p_rtt->RTT_MR |= RTT_MR_RTC1HZ;
+	} else {
+		p_rtt->RTT_MR &= ~RTT_MR_RTC1HZ;
+	}
+}
+
+void rtt_enable(Rtt *p_rtt)
+{
+	p_rtt->RTT_MR &= ~RTT_MR_RTTDIS;
+}
+/**
+ * \brief Disable RTT.
+ *
+ * \param p_rtt Pointer to an RTT instance.
+ */
+void rtt_disable(Rtt *p_rtt)
+{
+	p_rtt->RTT_MR |= RTT_MR_RTTDIS;
+}
+#endif
 
 /**
  * \brief Enable RTT interrupts.
@@ -88,7 +163,14 @@ uint32_t rtt_init(Rtt *p_rtt, uint16_t us_prescaler)
  */
 void rtt_enable_interrupt(Rtt *p_rtt, uint32_t ul_sources)
 {
-	p_rtt->RTT_MR |= ul_sources;
+	uint32_t temp;
+
+	temp = p_rtt->RTT_MR;
+	temp |= ul_sources;
+#if (SAM4N || SAM4S || SAM4E || SAM4C || SAMG51 || SAM4CP || SAM4CM)
+	temp |= g_wobits_in_rtt_mr;
+#endif
+	p_rtt->RTT_MR = temp;
 }
 
 /**
@@ -99,7 +181,14 @@ void rtt_enable_interrupt(Rtt *p_rtt, uint32_t ul_sources)
  */
 void rtt_disable_interrupt(Rtt *p_rtt, uint32_t ul_sources)
 {
-	p_rtt->RTT_MR &= (~ul_sources);
+	uint32_t temp = 0;
+
+	temp = p_rtt->RTT_MR;
+	temp &= (~ul_sources);
+#if (SAM4N || SAM4S || SAM4E || SAM4C || SAMG51 || SAM4CP || SAM4CM)
+	temp |= g_wobits_in_rtt_mr;
+#endif
+	p_rtt->RTT_MR = temp;
 }
 
 /**
@@ -137,12 +226,23 @@ uint32_t rtt_get_status(Rtt *p_rtt)
  */
 uint32_t rtt_write_alarm_time(Rtt *p_rtt, uint32_t ul_alarm_time)
 {
+	uint32_t flag;
+
 	if (ul_alarm_time == 0) {
 		return 1;
 	}
 
+	flag = p_rtt->RTT_MR & RTT_MR_ALMIEN;
+
+	rtt_disable_interrupt(RTT, RTT_MR_ALMIEN);
+
 	/* Alarm time = ALMV + 1 */
 	p_rtt->RTT_AR = ul_alarm_time - 1;
+
+	if (flag) {
+		rtt_enable_interrupt(RTT, RTT_MR_ALMIEN);
+	}
+
 	return 0;
 }
 

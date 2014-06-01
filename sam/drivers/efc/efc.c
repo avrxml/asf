@@ -3,7 +3,7 @@
  *
  * \brief Enhanced Embedded Flash Controller (EEFC) driver for SAM.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -64,8 +64,15 @@ extern "C" {
 #if (SAM3XA || SAM3U4 || SAM4SD16 || SAM4SD32)
 # define READ_BUFF_ADDR0    IFLASH0_ADDR
 # define READ_BUFF_ADDR1    IFLASH1_ADDR
-#elif (SAM3S || SAM3N || SAM4E)
+#elif (SAM3S || SAM3N || SAM4E || SAM4N || SAMG)
 # define READ_BUFF_ADDR     IFLASH_ADDR
+#elif (SAM4C || SAM4CP || SAM4CM)
+#if SAM4C32
+# define READ_BUFF_ADDR0    IFLASH0_CNC_ADDR
+# define READ_BUFF_ADDR1    IFLASH1_CNC_ADDR
+#else
+# define READ_BUFF_ADDR     IFLASH_CNC_ADDR
+#endif
 #elif (SAM3U || SAM4S)
 # define READ_BUFF_ADDR     IFLASH0_ADDR
 #else
@@ -75,7 +82,7 @@ extern "C" {
 /* Flash Writing Protection Key */
 #define FWP_KEY    0x5Au
 
-#if (SAM4S || SAM4E)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
 #define EEFC_FCR_FCMD(value) \
 	((EEFC_FCR_FCMD_Msk & ((value) << EEFC_FCR_FCMD_Pos)))
 #define EEFC_ERROR_FLAGS  (EEFC_FSR_FLOCKE | EEFC_FSR_FCMDE | EEFC_FSR_FLERR)
@@ -83,6 +90,9 @@ extern "C" {
 #define EEFC_ERROR_FLAGS  (EEFC_FSR_FLOCKE | EEFC_FSR_FCMDE)
 #endif
 
+#ifndef EEFC_FCR_FKEY_PASSWD
+#define EEFC_FCR_FKEY_PASSWD EEFC_FCR_FKEY(FWP_KEY)
+#endif
 
 
 /*
@@ -102,9 +112,39 @@ extern uint32_t efc_perform_fcr(Efc *p_efc, uint32_t ul_fcr);
  */
 uint32_t efc_init(Efc *p_efc, uint32_t ul_access_mode, uint32_t ul_fws)
 {
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+	efc_write_fmr(p_efc, ul_access_mode | EEFC_FMR_FWS(ul_fws) | EEFC_FMR_CLOE);
+#else
 	efc_write_fmr(p_efc, ul_access_mode | EEFC_FMR_FWS(ul_fws));
+#endif	
 	return EFC_RC_OK;
 }
+
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+/**
+ * \brief Enable code loop optimization.
+ *
+ * \param p_efc Pointer to an EFC instance.
+ */
+void efc_enable_cloe(Efc *p_efc)
+{
+	uint32_t ul_fmr = p_efc->EEFC_FMR;
+	efc_write_fmr(p_efc, ul_fmr | EEFC_FMR_CLOE);
+}
+
+/**
+ * \brief Disable code loop optimization.
+ *
+ * \param p_efc Pointer to an EFC instance.
+ */
+void efc_disable_cloe(Efc *p_efc)
+{
+	uint32_t ul_fmr = p_efc->EEFC_FMR;
+	efc_write_fmr(p_efc, ul_fmr & (~EEFC_FMR_CLOE));
+}
+#endif
+
+
 
 /**
  * \brief Enable the flash ready interrupt.
@@ -183,7 +223,7 @@ uint32_t efc_get_wait_state(Efc *p_efc)
 /**
  * \brief Perform the given command and wait until its completion (or an error).
  *
- * \note Unique ID commands are not supported, use efc_read_unique_id.
+ * \note Unique ID commands are not supported, use efc_perform_read_sequence.
  *
  * \param p_efc Pointer to an EFC instance.
  * \param ul_command Command to perform.
@@ -201,48 +241,10 @@ uint32_t efc_perform_command(Efc *p_efc, uint32_t ul_command,
 		return EFC_RC_NOT_SUPPORT;
 	}
 
-#if (SAM3XA || SAM3U4)
-	/* Use IAP function with 2 parameters in ROM. */
-	static uint32_t(*iap_perform_command) (uint32_t, uint32_t);
-	uint32_t ul_efc_nb = (p_efc == EFC0) ? 0 : 1;
-
-	iap_perform_command =
-			(uint32_t(*)(uint32_t, uint32_t))
-			*((uint32_t *) CHIP_FLASH_IAP_ADDRESS);
-	iap_perform_command(ul_efc_nb,
-			EEFC_FCR_FKEY(FWP_KEY) | EEFC_FCR_FARG(ul_argument) |
-			EEFC_FCR_FCMD(ul_command));
-	return (p_efc->EEFC_FSR & EEFC_ERROR_FLAGS);
-
-#elif (SAM3N || SAM3S || SAM4S || SAM3U || SAM4E)
-	/* Use IAP function with 2 parameter in ROM. */
-	static uint32_t(*iap_perform_command) (uint32_t, uint32_t);
-
-	iap_perform_command =
-			(uint32_t(*)(uint32_t, uint32_t))
-			*((uint32_t *) CHIP_FLASH_IAP_ADDRESS);
-#if SAM4S
-	uint32_t ul_efc_nb = (p_efc == EFC0) ? 0 : 1;
-	iap_perform_command(ul_efc_nb,
-			EEFC_FCR_FKEY_PASSWD | EEFC_FCR_FARG(ul_argument) |
-			EEFC_FCR_FCMD(ul_command));
-#elif SAM4E
-	iap_perform_command(0,
-			EEFC_FCR_FKEY_PASSWD | EEFC_FCR_FARG(ul_argument) |
-			EEFC_FCR_FCMD(ul_command));
-#else
-	iap_perform_command(0,
-			EEFC_FCR_FKEY(FWP_KEY) | EEFC_FCR_FARG(ul_argument) |
-			EEFC_FCR_FCMD(ul_command));
-#endif
-	return (p_efc->EEFC_FSR & EEFC_ERROR_FLAGS);
-#else
 	/* Use RAM Function. */
 	return efc_perform_fcr(p_efc,
-			EEFC_FCR_FKEY(FWP_KEY) | EEFC_FCR_FARG(ul_argument) |
+			EEFC_FCR_FKEY_PASSWD | EEFC_FCR_FARG(ul_argument) |
 			EEFC_FCR_FCMD(ul_command));
-
-#endif
 }
 
 /**
@@ -283,6 +285,7 @@ uint32_t efc_get_result(Efc *p_efc)
  *
  * \return 0 if successful, otherwise returns an error code.
  */
+__no_inline
 RAMFUNC
 uint32_t efc_perform_read_sequence(Efc *p_efc,
 		uint32_t ul_cmd_st, uint32_t ul_cmd_sp,
@@ -291,11 +294,11 @@ uint32_t efc_perform_read_sequence(Efc *p_efc,
 	volatile uint32_t ul_status;
 	uint32_t ul_cnt;
 
-#if (SAM3U4 || SAM3XA || SAM4SD16 || SAM4SD32)
+#if (SAM3U4 || SAM3XA || SAM4SD16 || SAM4SD32 || SAM4C32)
 	uint32_t *p_ul_data =
 			(uint32_t *) ((p_efc == EFC0) ?
 			READ_BUFF_ADDR0 : READ_BUFF_ADDR1);
-#elif (SAM3S || SAM4S || SAM3N || SAM3U || SAM4E)
+#elif (SAM3S || SAM4S || SAM3N || SAM3U || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
 	uint32_t *p_ul_data = (uint32_t *) READ_BUFF_ADDR;
 #else
 	return EFC_RC_NOT_SUPPORT;
@@ -308,7 +311,7 @@ uint32_t efc_perform_read_sequence(Efc *p_efc,
 	p_efc->EEFC_FMR |= (0x1u << 16);
 
 	/* Send the Start Read command */
-#if (SAM4S || SAM4E)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
 	p_efc->EEFC_FCR = EEFC_FCR_FKEY_PASSWD | EEFC_FCR_FARG(0)
 			| EEFC_FCR_FCMD(ul_cmd_st);
 #else
@@ -331,7 +334,7 @@ uint32_t efc_perform_read_sequence(Efc *p_efc,
 
 	/* To stop the read mode */
 	p_efc->EEFC_FCR =
-#if (SAM4S || SAM4E)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
 			EEFC_FCR_FKEY_PASSWD | EEFC_FCR_FARG(0) |
 			EEFC_FCR_FCMD(ul_cmd_sp);
 #else
@@ -356,6 +359,7 @@ uint32_t efc_perform_read_sequence(Efc *p_efc,
  * \param p_efc Pointer to an EFC instance.
  * \param ul_fmr Value of mode register
  */
+__no_inline
 RAMFUNC
 void efc_write_fmr(Efc *p_efc, uint32_t ul_fmr)
 {
@@ -370,6 +374,7 @@ void efc_write_fmr(Efc *p_efc, uint32_t ul_fmr)
  *
  * \return The current status.
  */
+__no_inline
 RAMFUNC
 uint32_t efc_perform_fcr(Efc *p_efc, uint32_t ul_fcr)
 {

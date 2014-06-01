@@ -466,7 +466,7 @@ GENERATE_DEPRECATEDLIST= YES
 # The ENABLED_SECTIONS tag can be used to enable conditional
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       =
+ENABLED_SECTIONS       = 
 
 # The MAX_INITIALIZER_LINES tag determines the maximum number of lines
 # the initial value of a variable or define consists of for it to appear in
@@ -582,7 +582,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  =  ../../../../services/ioport/xmega/ioport_compat.c ../../../../components/touch/mxt/mxt_device.c ../../../../services/gfx/sysfont.c ../../../../../xmega/drivers/twi/twim.c ../../../../components/display/ili9341/ili9341.c ../../../../services/gfx/gfx_ili9341_sdt028atft.c ../../../../../xmega/drivers/usart/usart.c ../../../../services/gfx/gfx_text.c ../../../../services/spi/xmega_usart_spi/usart_spi.c ../../../../services/clock/xmega/sysclk.c ../../../../../xmega/drivers/twi/twis.c ../../../../services/gfx/gfx_generic.c ../../../../../xmega/boards/xmega_a1_xplained/init.c ../../paint_demo.c  ../../../../services/ioport/xmega/ioport.h ../../../../services/spi/usart_spi.h ../../../../../xmega/boards/xmega_a1_xplained/xmega_a1_xplained.h ../../../../boards/board.h ../conf_twim.h ../../../../../xmega/boards/xmega_a1_xplained/led.h ../../../../utils/parts.h ../../../../components/touch/mxt/mxt_device.h ../../../../../xmega/utils/status_codes.h ../../conf_sysfont.h ../../../../services/twi/twi_master.h ../../../../utils/interrupt.h ../../../../services/gfx/gfx_text.h ../../../../../xmega/drivers/usart/usart.h ../../../../../xmega/utils/compiler.h ../../../../services/delay/delay.h ../../../../../xmega/drivers/cpu/xmega_reset_cause.h ../../../../services/gfx/gfx.h ../../../../services/clock/osc.h ../../../../services/clock/xmega/sysclk.h ../../../../../xmega/drivers/twi/twim.h ../../../../../xmega/utils/bit_handling/clz_ctz.h ../../../../../xmega/utils/progmem.h ../conf_mxt.h ../../../../../xmega/drivers/twi/twis.h ../../../../services/clock/xmega/pll.h ../../../../services/clock/xmega/osc.h ../../../../../xmega/utils/preprocessor/mrepeat.h ../../../../../xmega/utils/preprocessor/preprocessor.h ../../../../services/gfx/gfx_generic.h ../conf_usart_spi.h ../../../../components/display/ili9341/ili9341_regs.h ../../../../services/gfx/gfx_ili9341_sdt028atft.h ../../../../services/gfx/sysfont.h ../../../../../xmega/drivers/pmic/pmic.h ../../../../services/ioport/xmega/ioport_compat.h ../../../../services/twi/twi_slave.h ../../../../components/display/ili9341/ili9341.h ../conf_board.h ../../../../../xmega/utils/assembler.h ../conf_clock.h ../../../../utils/interrupt/interrupt_avr8.h ../../../../services/clock/sysclk.h ../../../../services/twi/xmega_twi/twi_slave.h ../../../../services/clock/genclk.h ../../../../../xmega/utils/preprocessor/tpaste.h ../../../../services/delay/xmega/cycle_counter.h ../../../../services/gpio/xmega_gpio/xmega_gpio.h ../../../../../xmega/drivers/cpu/ccp.h ../../../../services/twi/xmega_twi/twi_master.h ../../../../../xmega/utils/preprocessor/stringz.h ../conf_ili9341.h ../../../../services/ioport/ioport.h ../../../../services/clock/pll.h ../../../../../xmega/drivers/twi/twi_common.h ../../../../services/gpio/gpio.h ../../../../services/spi/xmega_usart_spi/usart_spi.h
+INPUT                  = ../../paint_demo.c ../../../../components/touch/mxt/mxt_device.c ../../../../services/ioport/xmega/ioport_compat.c ../../../../services/clock/xmega/sysclk.c ../../../../../xmega/drivers/twi/twim.c ../../../../../xmega/drivers/twi/twis.c ../../../../services/gfx/gfx_ili9341_sdt028atft.c ../../../../components/display/ili9341/ili9341.c ../../../../services/spi/xmega_usart_spi/usart_spi.c ../../../../../xmega/drivers/usart/usart.c ../../../../services/gfx/gfx_generic.c ../../../../services/gfx/gfx_text.c ../../../../services/gfx/sysfont.c ../../../../../xmega/boards/xmega_a1_xplained/init.c ../conf_board.h ../conf_clock.h ../conf_ili9341.h ../conf_mxt.h ../conf_twim.h ../conf_usart_spi.h ../../conf_sysfont.h ../../../../boards/board.h ../../../../../xmega/utils/assembler.h ../../../../../xmega/utils/bit_handling/clz_ctz.h ../../../../../xmega/utils/compiler.h ../../../../../xmega/utils/preprocessor/mrepeat.h ../../../../../xmega/utils/preprocessor/preprocessor.h ../../../../../xmega/utils/preprocessor/stringz.h ../../../../../xmega/utils/preprocessor/tpaste.h ../../../../../xmega/utils/progmem.h ../../../../../xmega/utils/status_codes.h ../../../../utils/interrupt.h ../../../../utils/interrupt/interrupt_avr8.h ../../../../utils/parts.h ../../../../components/touch/mxt/mxt_device.h ../../../../services/ioport/ioport.h ../../../../services/ioport/xmega/ioport.h ../../../../services/ioport/xmega/ioport_compat.h ../../../../services/twi/twi_master.h ../../../../services/twi/twi_slave.h ../../../../services/twi/xmega_twi/twi_master.h ../../../../services/twi/xmega_twi/twi_slave.h ../../../../services/clock/genclk.h ../../../../services/clock/osc.h ../../../../services/clock/pll.h ../../../../services/clock/sysclk.h ../../../../services/clock/xmega/osc.h ../../../../services/clock/xmega/pll.h ../../../../services/clock/xmega/sysclk.h ../../../../../xmega/drivers/cpu/ccp.h ../../../../../xmega/drivers/cpu/xmega_reset_cause.h ../../../../../xmega/drivers/twi/twi_common.h ../../../../../xmega/drivers/twi/twim.h ../../../../../xmega/drivers/twi/twis.h ../../../../services/gfx/gfx.h ../../../../services/gfx/gfx_ili9341_sdt028atft.h ../../../../components/display/ili9341/ili9341.h ../../../../components/display/ili9341/ili9341_regs.h ../../../../services/spi/usart_spi.h ../../../../services/spi/xmega_usart_spi/usart_spi.h ../../../../../xmega/drivers/usart/usart.h ../../../../../xmega/drivers/pmic/pmic.h ../../../../services/delay/delay.h ../../../../services/delay/xmega/cycle_counter.h ../../../../services/gfx/gfx_generic.h ../../../../services/gfx/gfx_text.h ../../../../services/gfx/sysfont.h ../../../../../xmega/boards/xmega_a1_xplained/xmega_a1_xplained.h ../../../../../xmega/boards/xmega_a1_xplained/led.h ../../../../services/gpio/gpio.h ../../../../services/gpio/xmega_gpio/xmega_gpio.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -1062,6 +1062,17 @@ FORMULA_FONTSIZE       = 10
 
 FORMULA_TRANSPARENT    = YES
 
+# Enable the USE_MATHJAX option to render LaTeX formulas using MathJax (see
+# http://www.mathjax.org) which uses client side Javascript for the rendering
+# instead of using prerendered bitmaps. Use this if you do not have LaTeX
+# installed or if you want to formulas look prettier in the HTML output. When
+# enabled you may also need to install MathJax separately and configure the path
+# to it using the MATHJAX_RELPATH option.
+# The default value is: NO.
+# This tag requires that the tag GENERATE_HTML is set to YES.
+
+USE_MATHJAX            = NO
+
 # When the SEARCHENGINE tag is enabled doxygen will generate a search box
 # for the HTML output. The underlying search engine uses javascript
 # and DHTML and should work on any modern browser. Note that when using
@@ -1352,7 +1363,7 @@ SEARCH_INCLUDES        = YES
 # contain include files that are not input files but should be processed by
 # the preprocessor.
 
-INCLUDE_PATH           =  ../../../../services/delay ../../../../components/display/ili9341 ../../../../../xmega/drivers/pmic ../.. ../../../../services/gfx ../../../../services/clock ../../../../services/twi ../../../../services/spi ../../../../boards ../../../../services/ioport ../../../../../xmega/utils ../../../../../xmega/boards/xmega_a1_xplained .. ../../../../../xmega/drivers/usart ../../../../../xmega/boards ../../../../../xmega/utils/preprocessor ../../../../utils ../../../../services/gpio ../../../../../xmega/drivers/cpu ../../../../components/touch/mxt ../../../../../xmega/drivers/twi
+INCLUDE_PATH           = .. ../.. ../../../../boards ../../../../../xmega/utils ../../../../../xmega/utils/preprocessor ../../../../utils ../../../../components/touch/mxt ../../../../services/ioport ../../../../services/twi ../../../../services/clock ../../../../../xmega/drivers/cpu ../../../../../xmega/drivers/twi ../../../../services/gfx ../../../../components/display/ili9341 ../../../../services/spi ../../../../../xmega/drivers/usart ../../../../../xmega/drivers/pmic ../../../../services/delay ../../../../../xmega/boards ../../../../../xmega/boards/xmega_a1_xplained ../../../../services/gpio
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the
@@ -1369,7 +1380,7 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator
 # instead of the = operator.
 
-PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4  BOARD=XMEGA_A1_XPLAINED CONF_GFX_ILI9341_SDT028ATFT=1 IOPORT_XMEGA_COMPAT= __AVR_ATxmega128A1__
+PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4 CONF_GFX_ILI9341_SDT028ATFT=1 BOARD=XMEGA_A1_XPLAINED IOPORT_XMEGA_COMPAT __AVR_ATxmega128A1__
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.

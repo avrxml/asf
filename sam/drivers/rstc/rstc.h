@@ -3,7 +3,7 @@
  *
  * \brief Reset Controller (RSTC) driver for SAM.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -74,6 +74,41 @@ void rstc_start_software_reset(Rstc* p_rstc);
 void rstc_reset_extern(Rstc *p_rstc);
 uint32_t rstc_get_status(Rstc* p_rstc);
 uint32_t rstc_get_reset_cause(Rstc* p_rstc);
+
+#if SAM4C || SAM4CP
+#ifndef RSTC_CPMR_KEY_PASSWD
+#define RSTC_CPMR_KEY_PASSWD  RSTC_CPMR_CPKEY(0x5AU)
+#endif
+/**
+ * \brief Deassert the reset of the coprocessor.
+ *
+ * \param p_rstc Pointer to an RSTC instance.
+ * \param reset  The reset to be deasserted, which could be RSTC_CPMR_CPEREN
+ * (peripheral reset) and RSTC_CPMR_CPROCEN (core reset).
+ */
+static inline void rstc_deassert_reset_of_coprocessor(Rstc* p_rstc,
+		const uint32_t reset)
+{
+	p_rstc->RSTC_CPMR |= reset | RSTC_CPMR_KEY_PASSWD;
+}
+
+/**
+ * \brief Assert the reset of the coprocessor.
+ *
+ * \param p_rstc Pointer to an RSTC instance.
+ * \param reset  The reset to be asserted, which could be RSTC_CPMR_CPEREN
+ * (peripheral reset) and RSTC_CPMR_CPROCEN (core reset).
+ */
+static inline void rstc_assert_reset_of_coprocessor(Rstc* p_rstc,
+		const uint32_t reset)
+{
+	uint32_t tmp = p_rstc->RSTC_CPMR;
+	tmp &= ~(RSTC_CPMR_CPKEY_Msk | (reset & (RSTC_CPMR_CPEREN |
+			RSTC_CPMR_CPROCEN)));
+	tmp |= RSTC_CPMR_KEY_PASSWD;
+	p_rstc->RSTC_CPMR = tmp;
+}
+#endif
 
 /// @cond 0
 /**INDENT-OFF**/

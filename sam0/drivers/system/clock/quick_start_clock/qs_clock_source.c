@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 GPIO Port Driver Quick Start
+ * \brief SAM D20/D21/R21 System Clock Driver Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,7 +50,7 @@ void configure_extosc32k(void)
 	struct system_clock_source_xosc32k_config config_ext32k;
 //! [config_extosc32k_config]
 //! [config_extosc32k_get_defaults]
-	system_clock_source_xosc32k_get_default_config(&config_ext32k);
+	system_clock_source_xosc32k_get_config_defaults(&config_ext32k);
 //! [config_extosc32k_get_defaults]
 
 //! [config_extosc32k_change_defaults]
@@ -70,8 +70,9 @@ void configure_dfll_open_loop(void)
 	struct system_clock_source_dfll_config config_dfll;
 //! [config_dfll_config]
 //! [config_dfll_get_defaults]
-	system_clock_source_dfll_get_default_config(&config_dfll);
+	system_clock_source_dfll_get_config_defaults(&config_dfll);
 //! [config_dfll_get_defaults]
+
 //! [config_dfll_set_config]
 	system_clock_source_dfll_set_config(&config_dfll);
 //! [config_dfll_set_config]
@@ -112,6 +113,11 @@ int main(void)
 	}
 //! [enable_dfll_main]
 
+	/* Configure flash wait states before switching to high frequency clock */
+//! [set_sys_wait_states]
+	system_flash_set_waitstates(2);
+//! [set_sys_wait_states]
+
 	/* Change system clock to DFLL */
 //! [set_sys_clk_src]
 	struct system_gclk_gen_config config_gclock_gen;
@@ -125,5 +131,4 @@ int main(void)
 	while (true) {
 
 	}
-
 }

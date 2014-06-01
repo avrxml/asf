@@ -87,9 +87,6 @@
 // From module: RSTC - Reset Controller
 #include <rstc.h>
 
-// From module: SAM4S startup code
-#include <exceptions.h>
-
 // From module: SAM4S-WPIR-RD LED support enabled
 #include <led.h>
 

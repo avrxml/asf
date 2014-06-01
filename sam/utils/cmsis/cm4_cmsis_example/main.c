@@ -3,7 +3,7 @@
  *
  * \brief CMSIS Example.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -62,14 +62,7 @@
  *
  * \section Usage
  *
- * -# Build the program and download it into the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a> application note or the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>, depending on the solutions that users choose.
+ * -# Build the program and download it into the evaluation board.
  *
  */
 
@@ -111,25 +104,6 @@ __INLINE static void delay_ms(uint32_t ul_dly_ticks)
 }
 
 /**
- * \brief Stop watch dog timer.
- */
-__INLINE static void stop_wdt(void)
-{
-	/* Disable WDT. */
-#if SAM4L
-	uint32_t wdt_reg = WDT->WDT_CTRL;
-	wdt_reg &= ~(WDT_CTRL_EN | WDT_CTRL_KEY_Msk);
-	wdt_reg |= WDT_CTRL_KEY(0x55u);
-	WDT->WDT_CTRL = wdt_reg;
-	wdt_reg &= ~WDT_CTRL_KEY_Msk;
-	wdt_reg |= WDT_CTRL_KEY(0xAAu);
-	WDT->WDT_CTRL = wdt_reg;
-#else
-	WDT->WDT_MR = WDT_MR_WDDIS;
-#endif
-}
-
-/**
  * \brief Application entry point.
  *
  * \return Unused (ANSI-C compatibility).
@@ -137,7 +111,6 @@ __INLINE static void stop_wdt(void)
 int main(void)
 {
 	/* Initialize the SAM4 system */
-	stop_wdt();
 	sysclk_init();
 	board_init();
 

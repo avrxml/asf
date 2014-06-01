@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 External Interrupt Driver
+ * \brief SAM D20/D21/R21 External Interrupt Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,34 +44,20 @@
 #define EXTINT_CALLBACK_H_INCLUDED
 
 #include <compiler.h>
-#include "extint.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
- * \addtogroup asfdoc_samd20_extint_group
+ * \addtogroup asfdoc_sam0_extint_group
  *
  * @{
  */
 
-#if !defined(EXTINT_CALLBACKS_MAX) || defined(__DOXYGEN__)
-#  warning  EXTINT_CALLBACKS_MAX is not defined, assuming a default value.
-
-/** Configuration option, setting the maximum number of callbacks which can be
- *  registered with the driver. This option may be overridden in the module
- *  configuration header file \c conf_extint.h.
- */
-#  define EXTINT_CALLBACKS_MAX 10
-#endif
-
 /** \name Callback configuration and initialization
  * @{
  */
-
-/** Type definition for an EXTINT module callback function. */
-typedef void (*extint_callback_t)(uint32_t channel);
 
 /** Enum for the possible callback types for the EXTINT module. */
 enum extint_callback_type
@@ -84,11 +70,15 @@ enum extint_callback_type
 
 enum status_code extint_register_callback(
 	const extint_callback_t callback,
+	const uint8_t channel,
 	const enum extint_callback_type type);
 
 enum status_code extint_unregister_callback(
 	const extint_callback_t callback,
+	const uint8_t channel,
 	const enum extint_callback_type type);
+
+uint8_t extint_get_current_channel(void);
 
 /** @} */
 
@@ -97,11 +87,11 @@ enum status_code extint_unregister_callback(
  */
 
 enum status_code extint_chan_enable_callback(
-	const uint32_t channel,
+	const uint8_t channel,
 	const enum extint_callback_type type);
 
 enum status_code extint_chan_disable_callback(
-	const uint32_t channel,
+	const uint8_t channel,
 	const enum extint_callback_type type);
 
 /** @} */

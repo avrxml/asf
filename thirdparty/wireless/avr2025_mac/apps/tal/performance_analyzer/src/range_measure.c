@@ -2,7 +2,7 @@
  * \file range_measure.c
  *
  * \brief Range Measurement mode functionaities - Performance Anallyzer
- *application
+ * application
  *
  * This implements the range measurement mode functionality
  *
@@ -256,7 +256,7 @@ static int range_test_frame_tx(void)
 	       (uint8_t *)(&node_info.peer_short_addr),
 	       FCF_SHORT_ADDR,
 	       seq_num,                          /* seq_num used as msdu handle
-	                                          **/
+	                                         **/
 	       (uint8_t *)&msg,
 	       payload_length,
 	       1));

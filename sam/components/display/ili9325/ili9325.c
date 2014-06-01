@@ -3,7 +3,7 @@
  *
  * \brief API driver for ILI9325 TFT display component.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -1235,10 +1235,10 @@ void ili9325_set_limits(ili9325_coord_t start_x, ili9325_coord_t start_y,
  *
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * ili9325_set_top_left_limit(0, 0);
- * ili9325_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	ili9325_set_top_left_limit(0, 0);
+	ili9325_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \retval ili9325_color_t The read color pixel
  */
@@ -1271,10 +1271,10 @@ ili9325_color_t ili9325_read_gram(void)
  *
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * ili9325_set_top_left_limit(0, 0);
- * ili9325_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	ili9325_set_top_left_limit(0, 0);
+	ili9325_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param color The color pixel to write to the screen
  */
@@ -1298,10 +1298,10 @@ void ili9325_write_gram(ili9325_color_t color)
  *
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * ili9325_set_top_left_limit(0, 0);
- * ili9325_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	ili9325_set_top_left_limit(0, 0);
+	ili9325_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param pixels Pointer to the pixel data
  * \param count Number of pixels to copy to the screen
@@ -1330,10 +1330,10 @@ void ili9325_copy_pixels_to_screen(const ili9325_color_t *pixels, uint32_t count
  *
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * ili9325_set_top_left_limit(0, 0);
- * ili9325_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	ili9325_set_top_left_limit(0, 0);
+	ili9325_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param pixels Pointer to the pixel data
  * \param count Number of pixels to copy to the screen
@@ -1367,10 +1367,10 @@ void ili9325_copy_raw_pixel_24bits_to_screen(const uint8_t *raw_pixels, uint32_t
  *
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * ili9325_set_top_left_limit(0, 0);
- * ili9325_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	ili9325_set_top_left_limit(0, 0);
+	ili9325_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param color The color to write to the display
  * \param count The number of pixels to write with this color
@@ -1398,10 +1398,10 @@ void ili9325_duplicate_pixel(const ili9325_color_t color, uint32_t count)
  *
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * ili9325_set_top_left_limit(0, 0);
- * ili9325_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	ili9325_set_top_left_limit(0, 0);
+	ili9325_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param pixels Pointer to the pixel buffer to read to
  * \param count Number of pixels to read

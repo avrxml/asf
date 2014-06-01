@@ -3,7 +3,7 @@
  *
  * \brief ILI9341 Display Controller Component Driver
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -81,14 +81,14 @@ extern "C" {
  *
  * An example conf_ili9341.h file for the XMEGA could look like:
  * \code
- * #define CONF_ILI9341_USART_SPI     &USARTC0
- * #define CONF_ILI9341_CLOCK_SPEED   8000000UL
- *
- * #define CONF_ILI9341_CS_PIN        IOPORT_CREATE_PIN(PORTC, 5)
- * #define CONF_ILI9341_DC_PIN        IOPORT_CREATE_PIN(PORTC, 4)
- * #define CONF_ILI9341_BACKLIGHT_PIN IOPORT_CREATE_PIN(PORTA, 5)
- * #define CONF_ILI9341_RESET_PIN     IOPORT_CREATE_PIN(PORTA, 7)
- * \endcode
+	 #define CONF_ILI9341_USART_SPI     &USARTC0
+	 #define CONF_ILI9341_CLOCK_SPEED   8000000UL
+
+	 #define CONF_ILI9341_CS_PIN        IOPORT_CREATE_PIN(PORTC, 5)
+	 #define CONF_ILI9341_DC_PIN        IOPORT_CREATE_PIN(PORTC, 4)
+	 #define CONF_ILI9341_BACKLIGHT_PIN IOPORT_CREATE_PIN(PORTA, 5)
+	 #define CONF_ILI9341_RESET_PIN     IOPORT_CREATE_PIN(PORTA, 7)
+\endcode
  *
  * \section dependencies Dependencies
  * This component driver depends on the following modules:
@@ -238,53 +238,53 @@ static inline void ili9341_backlight_off(void)
  * backlight pins as appropriate. If you are using the mXT143E Xplained kit,
  * this can be achieved by defining:
  * \code
- * #define CONF_BOARD_MXT143E_XPLAINED
- * \endcode
+	#define CONF_BOARD_MXT143E_XPLAINED
+\endcode
  * in your conf_board.h header file.
  *
  * \section common_ili9341_qs_basic_case_setup Setup
  *
  * \subsection common_ili9341_qs_basic_case_setup_steps Code
  * \code
- * ili9341_init();
- * ili9341_backlight_on();
- * \endcode
+	ili9341_init();
+	ili9341_backlight_on();
+\endcode
  *
  * \subsection common_ili9341_qs_basic_case_setup_workflow Workflow
  * -# First, we must initialize the display so that it is correctly configured
  *    and ready to receive commands:
  *    \code
- *    ili9341_init();
- *    \endcode
+	ili9341_init();
+\endcode
  * -# Next, the display backlight is enabled, turning it on:
  *    \code
- *    ili9341_backlight_on();
- *    \endcode
+	ili9341_backlight_on();
+\endcode
  *
  * \section common_ili9341_qs_basic_case_example_code Example code
  *
  * \code
- * ili9341_set_top_left_limit(0, 0);
- * ili9341_set_bottom_right_limit(240, 320);
- *
- * ili9341_duplicate_pixel(ILI9341_COLOR(255, 0, 0), 240UL * 320UL);
- * \endcode
+	 ili9341_set_top_left_limit(0, 0);
+	 ili9341_set_bottom_right_limit(240, 320);
+
+	 ili9341_duplicate_pixel(ILI9341_COLOR(255, 0, 0), 240UL * 320UL);
+\endcode
  *
  * \subsection common_ili9341_qs_basic_case_workflow Workflow
  *
  * -# First the screen drawing limits are set to start from the upper-left
  *    pixel coordinate, and end at the lower right screen boundary:
  *     - \code
- *       ili9341_set_top_left_limit(0, 0);
- *       ili9341_set_bottom_right_limit(240, 320);
- *       \endcode
+	ili9341_set_top_left_limit(0, 0);
+	ili9341_set_bottom_right_limit(240, 320);
+\endcode
  *    \note If both the top-left and bottom-right limits are to be set at the
  *          same time, it is faster to call \ref  ili9341_set_limits() instead.
  * -# Next, the display is filled with 240*320 (the screen's pixel dimensions)
  *    pixels of the same RGB color of (255, 0, 0), a bright red.
  *     - \code
- *       ili9341_duplicate_pixel(ILI9341_COLOR(255, 0, 0), 240UL * 320UL);
- *       \endcode
+	ili9341_duplicate_pixel(ILI9341_COLOR(255, 0, 0), 240UL * 320UL);
+\endcode
  *    \note You must encode the RGB color value to use in the display's native
  *          pixel color format using the \ref ILI9341_COLOR() macro.
  */

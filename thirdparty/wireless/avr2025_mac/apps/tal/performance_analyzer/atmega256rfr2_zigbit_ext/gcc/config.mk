@@ -55,20 +55,19 @@ CSRCS = \
        mega/boards/atmega256rfr2_zigbit/init.c            \
        mega/drivers/usart/usart_megarf.c                  \
        thirdparty/wireless/addons/sio2host/uart/sio2host.c \
+       thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/main.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/init_state.c \
-       thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/main.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/peer_search_initiator.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/peer_search_receptor.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/per_mode_common_utils.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/per_mode_initiator.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/per_mode_receptor.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/perf_api_serial_handler.c \
+       thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/performance_main.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/range_measure.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/user_interface.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/wait_for_event.c \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/mega/hw_timer.c \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer/common_sw_timer.c \
-       thirdparty/wireless/avr2025_mac/source/pal/mega/drivers/tc/tc_megarf.c \
        thirdparty/wireless/avr2025_mac/source/pal/pal.c   \
        thirdparty/wireless/avr2025_mac/source/resources/buffer/src/bmm.c \
        thirdparty/wireless/avr2025_mac/source/resources/queue/src/qmm.c \
@@ -83,7 +82,9 @@ CSRCS = \
        thirdparty/wireless/avr2025_mac/source/tal/atmegarfr2/src/tal_slotted_csma.c \
        thirdparty/wireless/avr2025_mac/source/tal/atmegarfr2/src/tal_tx.c \
        thirdparty/wireless/avr2025_mac/source/tal/src/tal_helper.c \
-       thirdparty/wireless/avr2025_mac/source/tfa/atmegarfr2/src/tfa.c
+       thirdparty/wireless/avr2025_mac/source/tfa/atmegarfr2/src/tfa.c \
+       thirdparty/wireless/services/common_hw_timer/mega/hw_timer.c \
+       thirdparty/wireless/services/mega/drivers/tc/tc_megarf.c
 
 # Assembler source files located from the top-level source directory
 ASSRCS = 
@@ -112,24 +113,24 @@ INC_PATH = \
        thirdparty/wireless/avr2025_mac/include            \
        thirdparty/wireless/avr2025_mac/source/mac/inc     \
        thirdparty/wireless/avr2025_mac/source/pal         \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/mega \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer \
-       thirdparty/wireless/avr2025_mac/source/pal/mega/drivers/tc \
        thirdparty/wireless/avr2025_mac/source/resources/buffer/inc \
        thirdparty/wireless/avr2025_mac/source/resources/queue/inc \
        thirdparty/wireless/avr2025_mac/source/tal/atmegarfr2/inc \
        thirdparty/wireless/avr2025_mac/source/tal/inc     \
-       thirdparty/wireless/avr2025_mac/source/tfa/inc \
+       thirdparty/wireless/avr2025_mac/source/tfa/inc     \
+       thirdparty/wireless/services/common_hw_timer       \
+       thirdparty/wireless/services/common_hw_timer/mega  \
+       thirdparty/wireless/services/mega/drivers/tc \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/atmega256rfr2_zigbit_ext/gcc
 
 # Library paths from the top-level source directory
 LIB_PATH =  \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/mega/lib
+       thirdparty/wireless/services/common_hw_timer/mega/lib
 
 # Libraries to link with the project
 LIBS =  \
-       mega_lib_hw_timer                                 
+       megarfr2_lib_hw_timer                             
 
 # Additional options for debugging. By default the common Makefile.in will
 # add -gdwarf-2.
@@ -176,3 +177,7 @@ CPPFLAGS = \
 
 # Extra flags to use when linking
 LDFLAGS = 
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

@@ -5,7 +5,7 @@
  *        in the example application of the coordinator in addition to the
  *        underlaying stack.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -60,8 +60,48 @@
 #define NUMBER_OF_APP_TIMERS        (3)
 
 /** Defines the total number of timers used by the application and the layers
- *below. */
+ * below. */
 #define TOTAL_NUMBER_OF_TIMERS      (NUMBER_OF_APP_TIMERS)
+
+#ifdef MAC_SECURITY_ZIP
+
+/**
+ * The maximum number of entries supported in the macKeyTable.
+ * This value is implementation specific.
+ */
+#define MAC_ZIP_MAX_KEY_TABLE_ENTRIES           (4)
+
+/**
+ * The maximum number of entries supported in the macDeviceTable.
+ * This value is implementation specific.
+ */
+#if (MAC_START_REQUEST_CONFIRM == 1)    /* FFD like device */
+#define MAC_ZIP_MAX_DEV_TABLE_ENTRIES           (10)
+#else
+#define MAC_ZIP_MAX_DEV_TABLE_ENTRIES           (3)
+#endif  /* (MAC_START_REQUEST_CONFIRM == 1) */
+
+/**
+ * The maximum number of entries supported in the macSecurityLevelTable.
+ * This value is implementation specific.
+ */
+#define MAC_ZIP_MAX_SEC_LVL_TABLE_ENTRIES       (2)
+
+/**
+ * The maximum number of entries supported in the KeyIdLookupList
+ */
+#define MAC_ZIP_MAX_KEY_ID_LOOKUP_LIST_ENTRIES  (1)
+
+/**
+ * The maximum number of entries supported in the KeyDeviceList
+ */
+#define MAC_ZIP_MAX_KEY_DEV_LIST_ENTRIES        (4)
+
+/**
+ * The maximum number of entries supported in the KeyUsageList
+ */
+#define MAC_ZIP_MAX_KEY_USAGE_LIST_ENTRIES      (1)
+#endif /* MAC_SECURITY_ZIP */
 
 /* === Externals ============================================================ */
 

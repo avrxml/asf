@@ -3,7 +3,7 @@
  *
  * \brief USART Serial example for SAM.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,7 +49,10 @@
  * peripherals.
  *
  * \par Requirements
- *  This package can be used with SAM4L EK with USART and PDCA.
+ * This package can be used with SAM4L with USART and PDCA.
+ * - SAM4L-EK
+ * - SAM4L Xplained Pro
+ * - SAM4L8 Xplained Pro
  *
  * \par Description
  *
@@ -73,11 +76,11 @@
  *   - No flow control
  * -# In the terminal window, the following text should appear:
  *    \code
- *     -- USART Serial Example --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     -- Start to echo serial inputs with PDCA --
- *    \endcode
+	-- USART Serial Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	-- Start to echo serial inputs with PDCA --
+\endcode
  * -# Send a file in text format from the HyperTerminal connected with USART
  *    port to the device. On HyperTerminal, this is done by selecting
  *    "Transfer -> Send Text File"(this does not prevent you from sending
@@ -111,8 +114,6 @@
 
 #define PDCA_RX_CHANNEL  0
 #define PDCA_TX_CHANNEL  1
-#define PDCA_PID_USART2_RX    2
-#define PDCA_PID_USART2_TX    20
 
 /** Receive buffer. */
 static uint8_t gs_puc_buffer[2][BUFFER_SIZE];
@@ -133,28 +134,32 @@ static uint8_t gs_uc_buf_num = 0;
 static uint8_t g_uc_transend_flag = 0;
 
 /** PDCA channel options. */
-pdca_channel_config_t PDCA_RX_OPTIONS = {
+pdca_channel_config_t pdca_rx_options = {
 	.addr = (void *)gs_puc_buffer, /* memory address */
-	.pid = PDCA_PID_USART2_RX, /* select peripheral - USART0 RX line.*/
+	.pid = PDCA_PID_USART_RX, /* select peripheral - USART0 RX line.*/
 	.size = BUFFER_SIZE, /* transfer counter */
 	.r_addr = (void *)gs_puc_nextbuffer, /* next memory address */
 	.r_size = BUFFER_SIZE, /* next transfer counter */
-	.transfer_size = PDCA_MR_SIZE_BYTE /* select size of the transfer */
+	.transfer_size = PDCA_MR_SIZE_BYTE, /* select size of the transfer */
+	.etrig = false, /* disable event trigger*/
+	.ring = false /* not use ring buffer*/
 };
-pdca_channel_config_t PDCA_TX_OPTIONS = {
+pdca_channel_config_t pdca_tx_options = {
 	.addr = (void *)gs_puc_buffer, /* memory address */
-	.pid = PDCA_PID_USART2_TX, /* select peripheral - USART0 TX line.*/
+	.pid = PDCA_PID_USART_TX, /* select peripheral - USART0 TX line.*/
 	.size = 0, /* transfer counter */
 	.r_addr = (void *)gs_puc_nextbuffer, /* next memory address */
 	.r_size = 0, /* next transfer counter */
-	.transfer_size = PDCA_MR_SIZE_BYTE /* select size of the transfer */
+	.transfer_size = PDCA_MR_SIZE_BYTE, /* select size of the transfer */
+	.etrig = false, /* disable event trigger*/
+	.ring = false /* not use ring buffer*/
 };
 
 /**
  * \brief Interrupt handler for USART. Echo the bytes received and start the
  * next receive.
  */
-void USART2_Handler(void)
+void USART_Handler(void)
 {
 	uint32_t ul_status;
 
@@ -301,8 +306,8 @@ int main(void)
 	/* Enable PDCA module clock */
 	pdca_enable(PDCA);
 	/* Init PDCA channel with the pdca_options.*/
-	pdca_channel_set_config(PDCA_RX_CHANNEL, &PDCA_RX_OPTIONS);
-	pdca_channel_set_config(PDCA_TX_CHANNEL, &PDCA_TX_OPTIONS);
+	pdca_channel_set_config(PDCA_RX_CHANNEL, &pdca_rx_options);
+	pdca_channel_set_config(PDCA_TX_CHANNEL, &pdca_tx_options);
 	/* Enable PDCA channel, start receiving data. */
 	pdca_channel_enable(PDCA_RX_CHANNEL);
 	pdca_channel_enable(PDCA_TX_CHANNEL);

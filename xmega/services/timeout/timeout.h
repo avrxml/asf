@@ -3,7 +3,7 @@
  *
  * \brief Timeout service for XMEGA
  *
- * Copyright (C) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -121,10 +121,10 @@ extern "C" {
  * For simple usage starting a singleshot timeout for timeout id 0 and a timeout
  * value of 100 ticks:
  * \code
- * tc_timeout_start_singleshot(0, 100);
- * while (!timeout_test_and_clear_expired(0));
- * // do whats needed after timeout has expired
- * \endcode
+	tc_timeout_start_singleshot(0, 100);
+	while (!timeout_test_and_clear_expired(0));
+	// do whats needed after timeout has expired
+\endcode
  *
  * \section tc_timeout_accuracy Accuracy
  * Since this is a timeout layer on top of a system tick; the trigger time of a
@@ -215,32 +215,32 @@ void timeout_stop(timeout_id_t id);
  * -# Configuration info for the timeout service must be added to the
  *    conf_timeout.h file (located in the config folder):
  * \code
- * #define TIMEOUT_CLOCK_SOURCE_HZ     1024
- * #define TIMEOUT_COUNT               8
- * #define TIMEOUT_TICK_HZ             4
- * \endcode
+	#define TIMEOUT_CLOCK_SOURCE_HZ     1024
+	#define TIMEOUT_COUNT               8
+	#define TIMEOUT_TICK_HZ             4
+\endcode
  * -# Configuration info for the RTC driver must be added to the
  *    conf_rtc.h file (located in the config folder):
  * \code
- * #define CONFIG_RTC_PRESCALER          RTC_PRESCALER_DIV1_gc
- * #define CONFIG_RTC_CLOCK_SOURCE       CLK_RTCSRC_ULP_gc
- * \endcode
+	#define CONFIG_RTC_PRESCALER          RTC_PRESCALER_DIV1_gc
+	#define CONFIG_RTC_CLOCK_SOURCE       CLK_RTCSRC_ULP_gc
+\endcode
  *
  * \subsection timeout_basic_use_case_setup_code Example code
  * The following must be added to the project:
  * \code
- * #define TIMEOUT_0   0
- * #define TIMEOUT_1   1
- * \endcode
+	#define TIMEOUT_0   0
+	#define TIMEOUT_1   1
+\endcode
  *
  * Add to application initialization:
  * \code
- * sysclk_init();
- * pmic_init();
- * timeout_init();
- * timeout_start_periodic(TIMEOUT_0, 1);
- * timeout_start_periodic(TIMEOUT_1, 2);
- * \endcode
+	sysclk_init();
+	pmic_init();
+	timeout_init();
+	timeout_start_periodic(TIMEOUT_0, 1);
+	timeout_start_periodic(TIMEOUT_1, 2);
+\endcode
  *
  * \subsection timeout_basic_use_case_setup_flow Workflow
  * -# Initialize system clock:
@@ -259,29 +259,29 @@ void timeout_stop(timeout_id_t id);
  * \subsection timeout_basic_use_case_usage_code Example code
  * Add to application C-file:
  * \code
- * while (1) {
- *    if (timeout_test_and_clear_expired(TIMEOUT_0)) {
- *       gpio_toggle_pin(LED0_GPIO);
- *    }
- *    if (timeout_test_and_clear_expired(TIMEOUT_1)) {
- *       gpio_toggle_pin(LED1_GPIO);
- *    }
- * }
- * \endcode
+	while (1) {
+	   if (timeout_test_and_clear_expired(TIMEOUT_0)) {
+	      gpio_toggle_pin(LED0_GPIO);
+	   }
+	   if (timeout_test_and_clear_expired(TIMEOUT_1)) {
+	      gpio_toggle_pin(LED1_GPIO);
+	   }
+	}
+\endcode
  *
  * \subsection timeout_basic_use_case_usage_flow Workflow
  * -# Check if timeout on channel 0 has expired, and toggle led if it has:
  *   - \code
- * if (timeout_test_and_clear_expired(TIMEOUT_0)) {
- *    gpio_toggle_pin(LED0_GPIO);
- * }
- *   \endcode
+	if (timeout_test_and_clear_expired(TIMEOUT_0)) {
+	   gpio_toggle_pin(LED0_GPIO);
+	}
+\endcode
  * -# Check if timeout on channel 1 has expired, and toggle led if it has:
  *   - \code
- * if (timeout_test_and_clear_expired(TIMEOUT_1)) {
- *    gpio_toggle_pin(LED1_GPIO);
- * }
- *   \endcode
+	if (timeout_test_and_clear_expired(TIMEOUT_1)) {
+	   gpio_toggle_pin(LED1_GPIO);
+	}
+\endcode
  */
 
 /**
@@ -301,30 +301,30 @@ void timeout_stop(timeout_id_t id);
  * -# Configuration info for the timeout service must be added to the
  *    conf_timeout.h file (located in the config folder):
  * \code
- * #define TIMEOUT_CLOCK_SOURCE_HZ     1024
- * #define TIMEOUT_COUNT               1
- * #define TIMEOUT_TICK_HZ             100
- * \endcode
+	#define TIMEOUT_CLOCK_SOURCE_HZ     1024
+	#define TIMEOUT_COUNT               1
+	#define TIMEOUT_TICK_HZ             100
+\endcode
  * -# Configuration info for the RTC driver must be added to the
  *    conf_rtc.h file (located in the config folder):
  * \code
- * #define CONFIG_RTC_PRESCALER          RTC_PRESCALER_DIV1_gc
- * #define CONFIG_RTC_CLOCK_SOURCE       CLK_RTCSRC_ULP_gc
- * \endcode
+	#define CONFIG_RTC_PRESCALER          RTC_PRESCALER_DIV1_gc
+	#define CONFIG_RTC_CLOCK_SOURCE       CLK_RTCSRC_ULP_gc
+\endcode
  *
  * \subsection timeout_use_case_1_setup_code Example code
  * The following must be added to the project:
  * \code
- * #define DEBOUNCE_TIMEOUT    0
- * #define DEBOUNCE_TICKS      (50 * TIMEOUT_TICK_HZ / 1000)
- * \endcode
+	#define DEBOUNCE_TIMEOUT    0
+	#define DEBOUNCE_TICKS      (50 * TIMEOUT_TICK_HZ / 1000)
+\endcode
  *
  * Add to application initialization:
  * \code
- * sysclk_init();
- * pmic_init();
- * timeout_init();
- * \endcode
+	sysclk_init();
+	pmic_init();
+	timeout_init();
+\endcode
  *
  * \subsection timeout_use_case_1_setup_flow Workflow
  * -# Initialize system clock:
@@ -337,22 +337,22 @@ void timeout_stop(timeout_id_t id);
  * \subsection timeout_use_case_1_usage_code Example code
  * Add to application C-file:
  * \code
- * bool button_pressed;
- * bool button_previous_state_pressed = false;
- * while (1) {
- *    button_pressed = gpio_pin_is_low(GPIO_PUSH_BUTTON_0);
- *    if (button_previous_state_pressed != button_pressed) {
- *       timeout_start_singleshot(DEBOUNCE_TIMEOUT, DEBOUNCE_TICKS);
- *       button_previous_state_pressed = button_pressed;
- *    }
- *
- *    if (timeout_test_and_clear_expired(DEBOUNCE_TIMEOUT)) {
- *       if (button_pressed) {
- *          gpio_toggle_pin(LED0_GPIO);
- *       }
- *    }
- * }
- * \endcode
+	 bool button_pressed;
+	 bool button_previous_state_pressed = false;
+	 while (1) {
+	    button_pressed = gpio_pin_is_low(GPIO_PUSH_BUTTON_0);
+	    if (button_previous_state_pressed != button_pressed) {
+	       timeout_start_singleshot(DEBOUNCE_TIMEOUT, DEBOUNCE_TICKS);
+	       button_previous_state_pressed = button_pressed;
+	    }
+
+	    if (timeout_test_and_clear_expired(DEBOUNCE_TIMEOUT)) {
+	       if (button_pressed) {
+	          gpio_toggle_pin(LED0_GPIO);
+	       }
+	    }
+	 }
+\endcode
  *
  * \subsection timeout_use_case_1_usage_flow Workflow
  * -# Create a variable to hold state of push button:
@@ -365,8 +365,8 @@ void timeout_stop(timeout_id_t id);
  *   - \code if (button_previous_state_pressed != button_pressed) \endcode
  * -# Start debounce timeout:
  *   - \code
- * timeout_start_singleshot(DEBOUNCE_TIMEOUT, DEBOUNCE_TICKS);
- *   \endcode
+	timeout_start_singleshot(DEBOUNCE_TIMEOUT, DEBOUNCE_TICKS);
+\endcode
  * -# Set previous state of button:
  *   - \code button_previous_state_pressed = button_pressed; \endcode
  * -# Check if debounce timeout has expired:

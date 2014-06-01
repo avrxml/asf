@@ -108,11 +108,11 @@
 				</option>
 				<option>
 					<name>GUnhandledInterrupts</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GUnhandledExceptions</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GTraceBufferSize</name>
@@ -324,18 +324,18 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../boards/evk1105</state>
-					<state>$PROJ_DIR$/../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../utils/debug</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../usart</state>
 					<state>$PROJ_DIR$/../../../../../flashc</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../pm</state>
-					<state>$PROJ_DIR$/../../../../../intc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -454,18 +454,18 @@
 				<option>
 					<name>AIncludePaths</name>
 					<state>$PROJ_DIR$/../../../../../../boards/evk1105</state>
-					<state>$PROJ_DIR$/../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../utils/debug</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../usart</state>
 					<state>$PROJ_DIR$/../../../../../flashc</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../pm</state>
-					<state>$PROJ_DIR$/../../../../../intc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -977,11 +977,11 @@
 				</option>
 				<option>
 					<name>GUnhandledInterrupts</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GUnhandledExceptions</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GTraceBufferSize</name>
@@ -1193,18 +1193,18 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../boards/evk1105</state>
-					<state>$PROJ_DIR$/../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../utils/debug</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../usart</state>
 					<state>$PROJ_DIR$/../../../../../flashc</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../pm</state>
-					<state>$PROJ_DIR$/../../../../../intc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1323,18 +1323,18 @@
 				<option>
 					<name>AIncludePaths</name>
 					<state>$PROJ_DIR$/../../../../../../boards/evk1105</state>
-					<state>$PROJ_DIR$/../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../utils/debug</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../usart</state>
 					<state>$PROJ_DIR$/../../../../../flashc</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../pm</state>
-					<state>$PROJ_DIR$/../../../../../intc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1739,51 +1739,69 @@
 		</settings>
 	</configuration>
 	<group>
+		<name>common</name>
+		<group>
+			<name>services</name>
+			<group>
+				<name>clock</name>
+				<group>
+					<name>uc3a0_a1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/uc3a0_a1/sysclk.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/uc3a0_a1/sysclk.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/uc3a0_a1/pll.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/uc3a0_a1/genclk.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/uc3a0_a1/osc.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../common/services/clock/sysclk.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../common/services/clock/genclk.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../common/services/clock/pll.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../common/services/clock/osc.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
+			<name>utils</name>
+			<group>
+				<name>interrupt</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../common/utils/interrupt/interrupt_avr32.h</name>
+				</file>
+			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../../common/utils/parts.h</name>
+			</file>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../../common/utils/interrupt.h</name>
+			</file>
+		</group>
+		<group>
+			<name>boards</name>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../../common/boards/board.h</name>
+			</file>
+		</group>
+	</group>
+	<group>
 		<name>avr32</name>
 		<group>
 			<name>drivers</name>
-			<group>
-				<name>pm</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../pm/pm_conf_clocks.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../pm/power_clocks_lib.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../pm/pm.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../pm/sleep.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../pm/power_clocks_lib.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../pm/pm.h</name>
-				</file>
-			</group>
-			<group>
-				<name>gpio</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../gpio/gpio.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../gpio/gpio.h</name>
-				</file>
-			</group>
-			<group>
-				<name>intc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../intc/intc.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../intc/exception.s82</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../intc/intc.h</name>
-				</file>
-			</group>
 			<group>
 				<name>cpu</name>
 				<group>
@@ -1795,6 +1813,12 @@
 						</file>
 						<group>
 							<name>at32uc3a0512_evk1105</name>
+							<file>
+								<name>$PROJ_DIR$/../conf_clock.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../conf_board.h</name>
+							</file>
 							<group>
 								<name>iar</name>
 								<file>
@@ -1807,6 +1831,15 @@
 						<name>$PROJ_DIR$/../../../cycle_counter.h</name>
 					</file>
 				</group>
+			</group>
+			<group>
+				<name>gpio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../gpio/gpio.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../gpio/gpio.h</name>
+				</file>
 			</group>
 			<group>
 				<name>flashc</name>
@@ -1850,9 +1883,15 @@
 			<file>
 				<name>$PROJ_DIR$/../../../../../../utils/status_codes.h</name>
 			</file>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../utils/compiler.h</name>
-			</file>
+			<group>
+				<name>header_files</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../utils/header_files/uc3l3_l4_defines_fix.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../utils/header_files/uc3d_defines_fix.h</name>
+				</file>
+			</group>
 			<group>
 				<name>preprocessor</name>
 				<file>
@@ -1868,15 +1907,9 @@
 					<name>$PROJ_DIR$/../../../../../../utils/preprocessor/preprocessor.h</name>
 				</file>
 			</group>
-			<group>
-				<name>header_files</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../utils/header_files/uc3d_defines_fix.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../utils/header_files/uc3l3_l4_defines_fix.h</name>
-				</file>
-			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../utils/compiler.h</name>
+			</file>
 		</group>
 		<group>
 			<name>boards</name>
@@ -1892,30 +1925,6 @@
 					<name>$PROJ_DIR$/../../../../../../boards/evk1105/led.h</name>
 				</file>
 			</group>
-		</group>
-	</group>
-	<group>
-		<name>common</name>
-		<group>
-			<name>utils</name>
-			<group>
-				<name>interrupt</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../common/utils/interrupt/interrupt_avr32.h</name>
-				</file>
-			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../../common/utils/parts.h</name>
-			</file>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../../common/utils/interrupt.h</name>
-			</file>
-		</group>
-		<group>
-			<name>boards</name>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../../common/boards/board.h</name>
-			</file>
 		</group>
 	</group>
 </project>

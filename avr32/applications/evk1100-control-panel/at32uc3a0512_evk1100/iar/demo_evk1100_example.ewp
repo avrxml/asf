@@ -195,6 +195,7 @@
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
 					<state>TFTP_USED=0</state>
 					<state>MMILCD_ENABLE=1</state>
+					<state>__FREERTOS__</state>
 					<state>DISPLAY_MMI_SECOND=1</state>
 					<state>SD_MMC_SPI_ENABLE</state>
 					<state>AT45DBX_ENABLE</state>
@@ -515,6 +516,7 @@
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
 					<state>TFTP_USED=0</state>
 					<state>MMILCD_ENABLE=1</state>
+					<state>__FREERTOS__</state>
 					<state>DISPLAY_MMI_SECOND=1</state>
 					<state>SD_MMC_SPI_ENABLE</state>
 					<state>AT45DBX_ENABLE</state>
@@ -1178,6 +1180,7 @@
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
 					<state>TFTP_USED=0</state>
 					<state>MMILCD_ENABLE=1</state>
+					<state>__FREERTOS__</state>
 					<state>DISPLAY_MMI_SECOND=1</state>
 					<state>SD_MMC_SPI_ENABLE</state>
 					<state>AT45DBX_ENABLE</state>
@@ -1498,6 +1501,7 @@
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
 					<state>TFTP_USED=0</state>
 					<state>MMILCD_ENABLE=1</state>
+					<state>__FREERTOS__</state>
 					<state>DISPLAY_MMI_SECOND=1</state>
 					<state>SD_MMC_SPI_ENABLE</state>
 					<state>AT45DBX_ENABLE</state>

@@ -7,7 +7,7 @@
  * checks whether the coordinator does have pending data and initiates the
  * transmission of a data request frame if required.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -90,6 +90,10 @@
  */
 #define GET_FINAL_CAP(spec)             (((spec) & 0x0F00) >> 8)
 
+/*
+ * Extract the GTS permit from GTS Spec.
+ */
+#define GET_GTS_PERMIT(spec)            (((spec) & 0x80) >> 7)
 /* === Globals ============================================================= */
 
 /* === Prototypes ========================================================== */
@@ -150,7 +154,7 @@ void mac_process_beacon_frame(buffer_t *beacon)
 
 			/*
 			 * For a device, the parameters obtained from the
-			 *beacons are used to
+			 * beacons are used to
 			 * update the PIBs at TAL
 			 */
 			beacon_order
@@ -184,10 +188,10 @@ void mac_process_beacon_frame(buffer_t *beacon)
 					mac_parse_data.mac_payload_data.beacon_data.superframe_spec);
 
 			/*
-			 * In a beacon-enabled network with the batterylife
-			 *extension
+			 * In a beacon-enabled network with the battery life
+			 * extension
 			 * enabled, the first backoff slot boundary is computed
-			 *after the
+			 * after the
 			 * end of the beacon's IFS
 			 */
 			if ((tal_pib.BeaconOrder < NON_BEACON_NWK) &&
@@ -216,14 +220,70 @@ void mac_process_beacon_frame(buffer_t *beacon)
 
 				/*
 				 * Slotted CSMA-CA with macBattLifeExt must
-				 *start within
+				 * start within
 				 * the first macBattLifeExtPeriods backoff slots
-				 *of the CAP
+				 * of the CAP
 				 */
 				beacon_length
 					+= mac_pib.mac_BattLifeExtPeriods *
 						aUnitBackoffPeriod;
 			}
+
+#ifdef GTS_SUPPORT
+			mac_pib.mac_GTSPermit = GET_GTS_PERMIT(
+					mac_parse_data.mac_payload_data.beacon_data.gts_spec);
+
+			if (mac_parse_data.mac_payload_data.beacon_data.gts_spec
+					& 0x07) {
+				mac_parse_bcn_gts_info(
+						mac_parse_data.mac_payload_data.beacon_data.gts_spec & 0x07,
+						mac_parse_data.mac_payload_data.beacon_data.gts_direction,
+						mac_parse_data.mac_payload_data.beacon_data.gts_list);
+			}
+
+			{
+				uint8_t table_index;
+				gts_char_t gts_char;
+				for (table_index = 0;
+						table_index < MAX_GTS_ON_DEV;
+						table_index++) {
+					if (GTS_STATE_REQ_SENT ==
+							mac_dev_gts_table[
+								table_index].
+							GtsState &&
+							0 <
+							mac_dev_gts_table[
+								table_index
+							].GtsPersistCount &&
+							0 ==
+							--mac_dev_gts_table[
+								table_index].
+							GtsPersistCount) {
+						gts_char.GtsCharType
+							= GTS_ALLOCATE;
+						gts_char.GtsDirection
+							= table_index &
+								0x01;
+						gts_char.GtsLength
+							= mac_dev_gts_table
+								[table_index].
+								GtsLength;
+						gts_char.Reserved = 0;
+						mac_dev_gts_table[table_index].
+						GtsState
+							= GTS_STATE_IDLE;
+						mac_dev_gts_table[table_index].
+						GtsLength = 0;
+						mac_gen_mlme_gts_conf((buffer_t
+								*)mac_dev_gts_table[
+									table_index].
+								GtsReq_ptr,
+								MAC_NO_DATA,
+								gts_char);
+					}
+				}
+			}
+#endif /* GTS_SUPPORT */
 		} /* (MAC_PAN_COORD_STARTED != mac_state) */
 	} /* (MAC_SCAN_IDLE == mac_scan_state) */
 
@@ -244,9 +304,9 @@ void mac_process_beacon_frame(buffer_t *beacon)
 		 *
 		 * According to 802.15.4-2006 this is only done in case the PIB
 		 * attribute macAutoRequest is true. Otherwise the PAN
-		 *descriptor will
+		 * descriptor will
 		 * NOT be put into the PAN descriptor list of the Scan confirm
-		 *message.
+		 * message.
 		 */
 		if (
 			((MAC_SCAN_ACTIVE == mac_scan_state) ||
@@ -255,7 +315,7 @@ void mac_process_beacon_frame(buffer_t *beacon)
 			) {
 			/*
 			 * mac_conf_buf_ptr points to the buffer allocated for
-			 *scan
+			 * scan
 			 * confirmation.
 			 */
 			msc =  (mlme_scan_conf_t *)BMM_BUFFER_POINTER(
@@ -263,7 +323,7 @@ void mac_process_beacon_frame(buffer_t *beacon)
 
 			/*
 			 * The PAN descriptor list is updated with the
-			 *PANDescriptor of the
+			 * PANDescriptor of the
 			 * received beacon
 			 */
 			pand_long_start_p
@@ -309,9 +369,9 @@ void mac_process_beacon_frame(buffer_t *beacon)
 		 *
 		 * According to 802.15.4-2006 this is only done in case the PIB
 		 * attribute macAutoRequest is true. Otherwise the PAN
-		 *descriptor will
+		 * descriptor will
 		 * NOT be put into the PAN descriptor list of the Scan confirm
-		 *message.
+		 * message.
 		 */
 		if (
 			((MAC_SCAN_ACTIVE == mac_scan_state) ||
@@ -322,20 +382,20 @@ void mac_process_beacon_frame(buffer_t *beacon)
 			 * This flag is used to indicate a match of the current
 			 *(received) PAN
 			 * descriptor with one of those present already in the
-			 *list.
+			 * list.
 			 */
 			matchflag = false;
 
 			/*
 			 * The beacon frame PAN descriptor is compared with the
-			 *PAN descriptors
+			 * PAN descriptors
 			 * present in the list and determine if the current PAN
 			 * descriptor is to be taken as a valid one. A PAN is
-			 *considered to be
+			 * considered to be
 			 * the same as an existing one, if all, the PAN Id, the
-			 *coordinator address
+			 * coordinator address
 			 * mode, the coordinator address, and the Logical
-			 *Channel are same.
+			 * Channel are same.
 			 */
 			for (index = 0; index < msc->ResultListSize;
 					index++, pand_long_start_p++) {
@@ -362,8 +422,8 @@ void mac_process_beacon_frame(buffer_t *beacon)
 								Addr.
 								short_address) {
 							/* Beacon with same
-							 *parameters already
-							 *received */
+							 * parameters already
+							 * received */
 							matchflag = true;
 							break;
 						}
@@ -375,8 +435,8 @@ void mac_process_beacon_frame(buffer_t *beacon)
 								Addr.
 								long_address) {
 							/* Beacon with same
-							 *parameters already
-							 *received */
+							 * parameters already
+							 * received */
 							matchflag = true;
 							break;
 						}
@@ -386,7 +446,7 @@ void mac_process_beacon_frame(buffer_t *beacon)
 
 			/*
 			 * If the PAN descriptor is not in the current list, and
-			 *there is space
+			 * there is space
 			 * left, it is put into the list
 			 */
 			if ((!matchflag) &&
@@ -402,8 +462,9 @@ void mac_process_beacon_frame(buffer_t *beacon)
 #if ((MAC_BEACON_NOTIFY_INDICATION == 1) || \
 	((MAC_INDIRECT_DATA_BASIC == 1) && (MAC_SYNC_REQUEST == 1)) \
 	)
+
 	/* The short and extended pending addresses are extracted from the
-	 *beacon */
+	 * beacon */
 	numaddrshort
 		= NUM_SHORT_PEND_ADDR(
 			mac_parse_data.mac_payload_data.beacon_data.pending_addr_spec);
@@ -451,7 +512,7 @@ void mac_process_beacon_frame(buffer_t *beacon)
 
 		/*
 		 * The beacon notify indication is given to the NHLE and then
-		 *the buffer
+		 * the buffer
 		 * is freed up.
 		 */
 		qmm_queue_append(&mac_nhle_q, (buffer_t *)beacon);
@@ -467,11 +528,11 @@ void mac_process_beacon_frame(buffer_t *beacon)
 	if (MAC_SCAN_IDLE == mac_scan_state) {
 		/*
 		 * In case this is a beaconing network, and this node is not
-		 *scanning,
+		 * scanning,
 		 * and the FCF indicates pending data thus indicating broadcast
-		 *data at
+		 * data at
 		 * parent, the node needs to be awake until the received
-		 *broadcast
+		 * broadcast
 		 * data has been received.
 		 */
 		if (mac_parse_data.fcf & FCF_FRAME_PENDING) {
@@ -479,18 +540,18 @@ void mac_process_beacon_frame(buffer_t *beacon)
 
 			/*
 			 * Start timer since the broadcast frame is expected
-			 *within
+			 * within
 			 * macMaxFrameTotalWaitTime symbols.
 			 */
 			if (MAC_POLL_IDLE == mac_poll_state) {
 				/*
 				 * If the poll state is not idle, there is
-				 *already an
+				 * already an
 				 * indirect transaction ongoing.
 				 * Since the T_Poll_Wait_Time is going to be
-				 *re-used,
+				 * re-used,
 				 * this timer can only be started, if we are not
-				 *in
+				 * in
 				 * a polling state other than idle.
 				 */
 				uint32_t response_timer
@@ -510,10 +571,10 @@ void mac_process_beacon_frame(buffer_t *beacon)
 			} else {
 				/*
 				 * Any indirect poll operation is ongoing, so
-				 *the timer will
+				 * the timer will
 				 * not be started, i.e. nothing to be done here.
 				 * Once this ongoing indirect transaction has
-				 *finished, this
+				 * finished, this
 				 * node will go back to sleep anyway.
 				 */
 			}
@@ -525,14 +586,14 @@ void mac_process_beacon_frame(buffer_t *beacon)
 #endif /* BEACON_SUPPORT */
 
 	/* Handling of presented indirect traffic by the parent for this node.
-	 **/
+	**/
 #if ((MAC_INDIRECT_DATA_BASIC == 1) && (MAC_SYNC_REQUEST == 1))
 	if (MAC_SCAN_IDLE == mac_scan_state) {
 		/*
 		 * If this node is NOT scanning, and is doing a
-		 *mlme_sync_request,
+		 * mlme_sync_request,
 		 * then the pending address list of the beacon is examined to
-		 *see
+		 * see
 		 * if the node's parent has data for this node.
 		 */
 		if (mac_pib.mac_AutoRequest) {
@@ -544,25 +605,25 @@ void mac_process_beacon_frame(buffer_t *beacon)
 
 				/*
 				 * Short address of the device is compared with
-				 *the
+				 * the
 				 * pending short address in the beacon frame
 				 */
 
 				/*
 				 * PAN-ID and CoordAddress does not have to be
-				 *checked here,
+				 * checked here,
 				 * since the device is already synced with the
-				 *coordinator, and
+				 * coordinator, and
 				 * only beacon frames passed from data_ind.c
 				 *(where the first level
 				 * filtering is already done) are received. The
-				 *pending addresses
+				 * pending addresses
 				 * in the beacon frame are compared with the
-				 *device address. If a
+				 * device address. If a
 				 * match is found, it indicates that a data
-				 *belonging to this
+				 * belonging to this
 				 * deivce is present with the coordinator and
-				 *hence a data request
+				 * hence a data request
 				 * is sent to the coordinator.
 				 */
 				uint16_t cur_short_addr;
@@ -582,11 +643,11 @@ void mac_process_beacon_frame(buffer_t *beacon)
 							tal_pib.ShortAddress) {
 						/*
 						 * Device short address matches
-						 *with one of the address
+						 * with one of the address
 						 * in the beacon address list.
-						 *Implicit poll (using the
+						 * Implicit poll (using the
 						 * device short address) is done
-						 *to get the pending data
+						 * to get the pending data
 						 */
 #if (_DEBUG_ > 0)
 						status =
@@ -606,9 +667,9 @@ void mac_process_beacon_frame(buffer_t *beacon)
 
 				/*
 				 * Extended address of the device is compared
-				 *with
+				 * with
 				 * the pending extended address in the beacon
-				 *frame
+				 * frame
 				 */
 				uint64_t cur_long_addr;
 
@@ -631,11 +692,11 @@ void mac_process_beacon_frame(buffer_t *beacon)
 							tal_pib.IeeeAddress) {
 						/*
 						 * Device extended address
-						 *matches with one of the
+						 * matches with one of the
 						 * address in the beacon address
-						 *list. Implicit poll
+						 * list. Implicit poll
 						 * (using the device extended
-						 *address) is done to get
+						 * address) is done to get
 						 * the pending data
 						 */
 #if (_DEBUG_ > 0)
@@ -680,7 +741,7 @@ static void mac_t_wait_for_bc_time_cb(void *callback_parameter)
 
 		/*
 		 * No expected broadcast frame has been received, so the node is
-		 *sent
+		 * sent
 		 * back to sleep.
 		 */
 		mac_sleep_trans();

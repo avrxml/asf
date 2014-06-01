@@ -3,7 +3,7 @@
  *
  * \brief CAN example for SAM.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -82,10 +82,10 @@
  *  -# Upon startup, the application will output the following lines
  *     on the terminal window.
  *      \code
- *      -- CAN Example --
- *      -- SAMxx-EK --
- *      -- Compiled: xxx xx xxxx xx:xx:xx --
- *      \endcode
+	-- CAN Example --
+	-- SAMxx-EK --
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
  *  -# Press a key in the terminal window to run the tests. CAN messages
  *     will be displayed on the terminal window and LED0 or LED1 will toggle
  *     according to the messages.

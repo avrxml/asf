@@ -3,7 +3,7 @@
  *
  * \brief USB Device Communication Device Class (CDC) interface definitions.
  *
- * Copyright (c) 2009 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -596,41 +596,41 @@ iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void* buf, iram_size_t s
  * \subsection udi_cdc_basic_use_case_usage_code Example code
  * Content of conf_usb.h:
  * \code
- * #define UDI_CDC_ENABLE_EXT(port) my_callback_cdc_enable()
- * extern bool my_callback_cdc_enable(void);
- * #define UDI_CDC_DISABLE_EXT(port) my_callback_cdc_disable()
- * extern void my_callback_cdc_disable(void);
- * #define  UDI_CDC_LOW_RATE
- *
- * #define  UDI_CDC_DEFAULT_RATE             115200
- * #define  UDI_CDC_DEFAULT_STOPBITS         CDC_STOP_BITS_1
- * #define  UDI_CDC_DEFAULT_PARITY           CDC_PAR_NONE
- * #define  UDI_CDC_DEFAULT_DATABITS         8
- *
- * #include "udi_cdc_conf.h" // At the end of conf_usb.h file
- * \endcode
+	 #define UDI_CDC_ENABLE_EXT(port) my_callback_cdc_enable()
+	 extern bool my_callback_cdc_enable(void);
+	 #define UDI_CDC_DISABLE_EXT(port) my_callback_cdc_disable()
+	 extern void my_callback_cdc_disable(void);
+	 #define  UDI_CDC_LOW_RATE
+
+	 #define  UDI_CDC_DEFAULT_RATE             115200
+	 #define  UDI_CDC_DEFAULT_STOPBITS         CDC_STOP_BITS_1
+	 #define  UDI_CDC_DEFAULT_PARITY           CDC_PAR_NONE
+	 #define  UDI_CDC_DEFAULT_DATABITS         8
+
+	 #include "udi_cdc_conf.h" // At the end of conf_usb.h file
+\endcode
  *
  * Add to application C-file:
  * \code
- * static bool my_flag_autorize_cdc_transfert = false;
- * bool my_callback_cdc_enable(void)
- * {
- *    my_flag_autorize_cdc_transfert = true;
- *    return true;
- * }
- * void my_callback_cdc_disable(void)
- * {
- *    my_flag_autorize_cdc_transfert = false;
- * }
- *
- * void task(void)
- * {
- *    if (my_flag_autorize_cdc_transfert) {
- *        udi_cdc_putc('A');
- *        udi_cdc_getc();
- *    }
- * }
- * \endcode
+	 static bool my_flag_autorize_cdc_transfert = false;
+	 bool my_callback_cdc_enable(void)
+	 {
+	    my_flag_autorize_cdc_transfert = true;
+	    return true;
+	 }
+	 void my_callback_cdc_disable(void)
+	 {
+	    my_flag_autorize_cdc_transfert = false;
+	 }
+
+	 void task(void)
+	 {
+	    if (my_flag_autorize_cdc_transfert) {
+	        udi_cdc_putc('A');
+	        udi_cdc_getc();
+	    }
+	 }
+\endcode
  *
  * \subsection udi_cdc_basic_use_case_setup_flow Workflow
  * -# Ensure that conf_usb.h is available and contains the following configuration
@@ -638,14 +638,14 @@ iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void* buf, iram_size_t s
  *   - \code #define USB_DEVICE_SERIAL_NAME  "12...EF" // Disk SN for CDC \endcode
  *     \note The USB serial number is mandatory when a CDC interface is used.
  *   - \code #define UDI_CDC_ENABLE_EXT(port) my_callback_cdc_enable()
- * extern bool my_callback_cdc_enable(void); \endcode
+	 extern bool my_callback_cdc_enable(void); \endcode
  *     \note After the device enumeration (detecting and identifying USB devices),
  *     the USB host starts the device configuration. When the USB CDC interface
  *     from the device is accepted by the host, the USB host enables this interface and the
  *     UDI_CDC_ENABLE_EXT() callback function is called and return true.
  *     Thus, when this event is received, the data transfer on CDC interface are authorized.
  *   - \code #define UDI_CDC_DISABLE_EXT(port) my_callback_cdc_disable()
- * extern void my_callback_cdc_disable(void); \endcode
+	 extern void my_callback_cdc_disable(void); \endcode
  *     \note When the USB device is unplugged or is reset by the USB host, the USB
  *     interface is disabled and the UDI_CDC_DISABLE_EXT() callback function
  *     is called. Thus, the data transfer must be stopped on CDC interface.
@@ -653,19 +653,19 @@ iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void* buf, iram_size_t s
  *     \note  Define it when the transfer CDC Device to Host is a low rate
  *     (<512000 bauds) to reduce CDC buffers size.
  *   - \code #define  UDI_CDC_DEFAULT_RATE             115200
- * #define  UDI_CDC_DEFAULT_STOPBITS         CDC_STOP_BITS_1
- * #define  UDI_CDC_DEFAULT_PARITY           CDC_PAR_NONE
- * #define  UDI_CDC_DEFAULT_DATABITS         8 \endcode
+	#define  UDI_CDC_DEFAULT_STOPBITS         CDC_STOP_BITS_1
+	#define  UDI_CDC_DEFAULT_PARITY           CDC_PAR_NONE
+	#define  UDI_CDC_DEFAULT_DATABITS         8 \endcode
  *     \note Default configuration of communication port at startup.
  * -# Send or wait data on CDC line:
  *   - \code // Waits and gets a value on CDC line
- * int udi_cdc_getc(void);
- * // Reads a RAM buffer on CDC line
- * iram_size_t udi_cdc_read_buf(int* buf, iram_size_t size);
- * // Puts a byte on CDC line
- * int udi_cdc_putc(int value);
- * // Writes a RAM buffer on CDC line
- * iram_size_t udi_cdc_write_buf(const int* buf, iram_size_t size); \endcode
+	int udi_cdc_getc(void);
+	// Reads a RAM buffer on CDC line
+	iram_size_t udi_cdc_read_buf(int* buf, iram_size_t size);
+	// Puts a byte on CDC line
+	int udi_cdc_putc(int value);
+	// Writes a RAM buffer on CDC line
+	iram_size_t udi_cdc_write_buf(const int* buf, iram_size_t size); \endcode
  *
  * \section udi_cdc_use_cases Advanced use cases
  * For more advanced use of the UDI CDC module, see the following use cases:
@@ -699,90 +699,90 @@ iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void* buf, iram_size_t s
  * \subsection udi_cdc_use_case_composite_usage_code Example code
  * Content of conf_usb.h:
  * \code
- * #define USB_DEVICE_EP_CTRL_SIZE  64
- * #define USB_DEVICE_NB_INTERFACE (X+2)
- * #define USB_DEVICE_MAX_EP (X+3)
- *
- * #define  UDI_CDC_DATA_EP_IN_0          (1 | USB_EP_DIR_IN)  // TX
- * #define  UDI_CDC_DATA_EP_OUT_0         (2 | USB_EP_DIR_OUT) // RX
- * #define  UDI_CDC_COMM_EP_0             (3 | USB_EP_DIR_IN)  // Notify endpoint
- * #define  UDI_CDC_COMM_IFACE_NUMBER_0   X+0
- * #define  UDI_CDC_DATA_IFACE_NUMBER_0   X+1
- *
- * #define UDI_COMPOSITE_DESC_T \
- *    usb_iad_desc_t udi_cdc_iad; \
- *    udi_cdc_comm_desc_t udi_cdc_comm; \
- *    udi_cdc_data_desc_t udi_cdc_data; \
- *    ...
- * #define UDI_COMPOSITE_DESC_FS \
- *    .udi_cdc_iad               = UDI_CDC_IAD_DESC_0, \
- *    .udi_cdc_comm              = UDI_CDC_COMM_DESC_0, \
- *    .udi_cdc_data              = UDI_CDC_DATA_DESC_0_FS, \
- *    ...
- * #define UDI_COMPOSITE_DESC_HS \
- *    .udi_cdc_iad               = UDI_CDC_IAD_DESC_0, \
- *    .udi_cdc_comm              = UDI_CDC_COMM_DESC_0, \
- *    .udi_cdc_data              = UDI_CDC_DATA_DESC_0_HS, \
- *    ...
- * #define UDI_COMPOSITE_API \
- *    &udi_api_cdc_comm,       \
- *    &udi_api_cdc_data,       \
- *    ...
- * \endcode
+	 #define USB_DEVICE_EP_CTRL_SIZE  64
+	 #define USB_DEVICE_NB_INTERFACE (X+2)
+	 #define USB_DEVICE_MAX_EP (X+3)
+
+	 #define  UDI_CDC_DATA_EP_IN_0          (1 | USB_EP_DIR_IN)  // TX
+	 #define  UDI_CDC_DATA_EP_OUT_0         (2 | USB_EP_DIR_OUT) // RX
+	 #define  UDI_CDC_COMM_EP_0             (3 | USB_EP_DIR_IN)  // Notify endpoint
+	 #define  UDI_CDC_COMM_IFACE_NUMBER_0   X+0
+	 #define  UDI_CDC_DATA_IFACE_NUMBER_0   X+1
+
+	 #define UDI_COMPOSITE_DESC_T \
+	    usb_iad_desc_t udi_cdc_iad; \
+	    udi_cdc_comm_desc_t udi_cdc_comm; \
+	    udi_cdc_data_desc_t udi_cdc_data; \
+	    ...
+	 #define UDI_COMPOSITE_DESC_FS \
+	    .udi_cdc_iad               = UDI_CDC_IAD_DESC_0, \
+	    .udi_cdc_comm              = UDI_CDC_COMM_DESC_0, \
+	    .udi_cdc_data              = UDI_CDC_DATA_DESC_0_FS, \
+	    ...
+	 #define UDI_COMPOSITE_DESC_HS \
+	    .udi_cdc_iad               = UDI_CDC_IAD_DESC_0, \
+	    .udi_cdc_comm              = UDI_CDC_COMM_DESC_0, \
+	    .udi_cdc_data              = UDI_CDC_DATA_DESC_0_HS, \
+	    ...
+	 #define UDI_COMPOSITE_API \
+	    &udi_api_cdc_comm,       \
+	    &udi_api_cdc_data,       \
+	    ...
+\endcode
  *
  * \subsection udi_cdc_use_case_composite_usage_flow Workflow
  * -# Ensure that conf_usb.h is available and contains the following parameters
  * required for a USB composite device configuration:
  *   - \code // Endpoint control size, This must be:
- * // - 8, 16, 32 or 64 for full speed device (8 is recommended to save RAM)
- * // - 64 for a high speed device
- * #define USB_DEVICE_EP_CTRL_SIZE  64
- * // Total Number of interfaces on this USB device.
- * // Add 2 for CDC.
- * #define USB_DEVICE_NB_INTERFACE (X+2)
- * // Total number of endpoints on this USB device.
- * // This must include each endpoint for each interface.
- * // Add 3 for CDC.
- * #define USB_DEVICE_MAX_EP (X+3) \endcode
+	// - 8, 16, 32 or 64 for full speed device (8 is recommended to save RAM)
+	// - 64 for a high speed device
+	#define USB_DEVICE_EP_CTRL_SIZE  64
+	// Total Number of interfaces on this USB device.
+	// Add 2 for CDC.
+	#define USB_DEVICE_NB_INTERFACE (X+2)
+	// Total number of endpoints on this USB device.
+	// This must include each endpoint for each interface.
+	// Add 3 for CDC.
+	#define USB_DEVICE_MAX_EP (X+3) \endcode
  * -# Ensure that conf_usb.h contains the description of
  * composite device:
  *   - \code // The endpoint numbers chosen by you for the CDC.
- * // The endpoint numbers starting from 1.
- * #define  UDI_CDC_DATA_EP_IN_0            (1 | USB_EP_DIR_IN)  // TX
- * #define  UDI_CDC_DATA_EP_OUT_0           (2 | USB_EP_DIR_OUT) // RX
- * #define  UDI_CDC_COMM_EP_0               (3 | USB_EP_DIR_IN)  // Notify endpoint
- * // The interface index of an interface starting from 0
- * #define  UDI_CDC_COMM_IFACE_NUMBER_0     X+0
- * #define  UDI_CDC_DATA_IFACE_NUMBER_0     X+1 \endcode
+	// The endpoint numbers starting from 1.
+	#define  UDI_CDC_DATA_EP_IN_0            (1 | USB_EP_DIR_IN)  // TX
+	#define  UDI_CDC_DATA_EP_OUT_0           (2 | USB_EP_DIR_OUT) // RX
+	#define  UDI_CDC_COMM_EP_0               (3 | USB_EP_DIR_IN)  // Notify endpoint
+	// The interface index of an interface starting from 0
+	#define  UDI_CDC_COMM_IFACE_NUMBER_0     X+0
+	#define  UDI_CDC_DATA_IFACE_NUMBER_0     X+1 \endcode
  * -# Ensure that conf_usb.h contains the following parameters
  * required for a USB composite device configuration:
  *   - \code // USB Interfaces descriptor structure
- * #define UDI_COMPOSITE_DESC_T \
- *    ...
- *    usb_iad_desc_t udi_cdc_iad; \
- *    udi_cdc_comm_desc_t udi_cdc_comm; \
- *    udi_cdc_data_desc_t udi_cdc_data; \
- *    ...
- * // USB Interfaces descriptor value for Full Speed
- * #define UDI_COMPOSITE_DESC_FS \
- *    ...
- *    .udi_cdc_iad               = UDI_CDC_IAD_DESC_0, \
- *    .udi_cdc_comm              = UDI_CDC_COMM_DESC_0, \
- *    .udi_cdc_data              = UDI_CDC_DATA_DESC_0_FS, \
- *    ...
- * // USB Interfaces descriptor value for High Speed
- * #define UDI_COMPOSITE_DESC_HS \
- *    ...
- *    .udi_cdc_iad               = UDI_CDC_IAD_DESC_0, \
- *    .udi_cdc_comm              = UDI_CDC_COMM_DESC_0, \
- *    .udi_cdc_data              = UDI_CDC_DATA_DESC_0_HS, \
- *    ...
- * // USB Interface APIs
- * #define UDI_COMPOSITE_API \
- *    ...
- *    &udi_api_cdc_comm,       \
- *    &udi_api_cdc_data,       \
- *    ... \endcode
+	#define UDI_COMPOSITE_DESC_T \
+	   ...
+	   usb_iad_desc_t udi_cdc_iad; \
+	   udi_cdc_comm_desc_t udi_cdc_comm; \
+	   udi_cdc_data_desc_t udi_cdc_data; \
+	   ...
+	// USB Interfaces descriptor value for Full Speed
+	#define UDI_COMPOSITE_DESC_FS \
+	   ...
+	   .udi_cdc_iad               = UDI_CDC_IAD_DESC_0, \
+	   .udi_cdc_comm              = UDI_CDC_COMM_DESC_0, \
+	   .udi_cdc_data              = UDI_CDC_DATA_DESC_0_FS, \
+	   ...
+	// USB Interfaces descriptor value for High Speed
+	#define UDI_COMPOSITE_DESC_HS \
+	   ...
+	   .udi_cdc_iad               = UDI_CDC_IAD_DESC_0, \
+	   .udi_cdc_comm              = UDI_CDC_COMM_DESC_0, \
+	   .udi_cdc_data              = UDI_CDC_DATA_DESC_0_HS, \
+	   ...
+	// USB Interface APIs
+	#define UDI_COMPOSITE_API \
+	   ...
+	   &udi_api_cdc_comm,       \
+	   &udi_api_cdc_data,       \
+	   ... \endcode
  *   - \note The descriptors order given in the four lists above must be the
  *     same as the order defined by all interface indexes. The interface index
  *     orders are defined through UDI_X_IFACE_NUMBER defines.\n

@@ -3,7 +3,7 @@
  *
  * @brief High-level security tool box for ARM7 with crypto engine (SAM7XC)
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -251,7 +251,7 @@ stb_ccm_t stb_ccm_secure(uint8_t *buffer,
 	if (firstcall) {
 		if (key == NULL) {
 			return (STB_CCM_KEYMISS); /* Initial call, but no key
-			                           *given. */
+			                           * given. */
 		}
 
 		/* Key must be non-NULL because of test above */

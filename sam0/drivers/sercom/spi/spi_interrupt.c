@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Serial Peripheral Interface Driver
+ * \brief SAM D20/D21/R21 Serial Peripheral Interface Driver
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,13 +83,15 @@ static void _spi_transceive_buffer(
 	/* Enable the Data Register Empty and RX Complete Interrupt */
 	hw->INTENSET.reg = (SPI_INTERRUPT_FLAG_DATA_REGISTER_EMPTY |
 			SPI_INTERRUPT_FLAG_RX_COMPLETE);
-			
+
+#  if CONF_SPI_SLAVE_ENABLE == true
 	if (module->mode == SPI_MODE_SLAVE) {
 		/* Clear TXC flag if set */
 		hw->INTFLAG.reg = SPI_INTERRUPT_FLAG_TX_COMPLETE;
 		/* Enable transmit complete interrupt for slave */
 		hw->INTENSET.reg = SPI_INTERRUPT_FLAG_TX_COMPLETE;
 	}
+#  endif
 }
 
 /**
@@ -120,12 +122,14 @@ static void _spi_write_buffer(
 	/* Get a pointer to the hardware module instance */
 	SercomSpi *const hw = &(module->hw->SPI);
 
+#  if CONF_SPI_SLAVE_ENABLE == true
 	if (module->mode == SPI_MODE_SLAVE) {
 		/* Clear TXC flag if set */
 		hw->INTFLAG.reg = SPI_INTERRUPT_FLAG_TX_COMPLETE;
 		/* Enable transmit complete interrupt for slave */
 		hw->INTENSET.reg = SPI_INTERRUPT_FLAG_TX_COMPLETE;
 	}
+#  endif
 
 	if (module->receiver_enabled) {
 		/* Enable the Data Register Empty and RX Complete interrupt */
@@ -171,17 +175,21 @@ static void _spi_read_buffer(
 	/* Enable the RX Complete Interrupt */
 	tmp_intenset = SPI_INTERRUPT_FLAG_RX_COMPLETE;
 
+#  if CONF_SPI_MASTER_ENABLE == true
 	if (module->mode == SPI_MODE_MASTER && module->dir == SPI_DIRECTION_READ) {
 		/* Enable Data Register Empty interrupt for master */
 		tmp_intenset |= SPI_INTERRUPT_FLAG_DATA_REGISTER_EMPTY;
 	}
+#  endif
+#  if CONF_SPI_SLAVE_ENABLE == true
 	if (module->mode == SPI_MODE_SLAVE) {
 		/* Clear TXC flag if set */
 		hw->INTFLAG.reg = SPI_INTERRUPT_FLAG_TX_COMPLETE;
 		/* Enable transmit complete interrupt for slave */
 		tmp_intenset |= SPI_INTERRUPT_FLAG_TX_COMPLETE;
 	}
-	
+#  endif
+
 	/* Enable all interrupts simultaneously */
 	hw->INTENSET.reg = tmp_intenset;
 }
@@ -321,7 +329,7 @@ enum status_code spi_read_buffer_job(
 	if (module->status == STATUS_BUSY) {
 		return STATUS_BUSY;
 	}
-	
+
 	dummy_write = dummy;
 	/* Issue internal read */
 	_spi_read_buffer(module, rx_data, length);
@@ -332,7 +340,7 @@ enum status_code spi_read_buffer_job(
  * \brief Asynchronous buffer write and read
  *
  * Sets up the driver to write and read to and from given buffers. If registered
- * and enabled, a callback function will be called when the tranfer is finished.
+ * and enabled, a callback function will be called when the transfer is finished.
  *
  * \note If address matching is enabled for the slave, the first character
  *       received and placed in the RX buffer will be the address.
@@ -371,7 +379,7 @@ enum status_code spi_transceive_buffer_job(
 	if (module->status == STATUS_BUSY) {
 		return STATUS_BUSY;
 	}
-	
+
 	/* Issue internal transceive */
 	_spi_transceive_buffer(module, tx_data, rx_data, length);
 
@@ -383,20 +391,18 @@ enum status_code spi_transceive_buffer_job(
  * This function will abort the specified job type.
  *
  * \param[in]  module    Pointer to SPI software instance struct
- * \param[in]  job_type  Type of job to abort
  */
 void spi_abort_job(
-		struct spi_module *const module,
-		enum spi_job_type job_type)
+		struct spi_module *const module)
 {
 	/* Pointer to the hardware module instance */
 	SercomSpi *const spi_hw
 		= &(module->hw->SPI);
 
 	/* Abort ongoing job */
-	
+
 	/* Disable interrupts */
-	spi_hw->INTENCLR.reg = SPI_INTERRUPT_FLAG_RX_COMPLETE | 
+	spi_hw->INTENCLR.reg = SPI_INTERRUPT_FLAG_RX_COMPLETE |
 			SPI_INTERRUPT_FLAG_DATA_REGISTER_EMPTY |
 			SPI_INTERRUPT_FLAG_TX_COMPLETE;
 
@@ -408,24 +414,7 @@ void spi_abort_job(
 	module->dir = SPI_DIRECTION_IDLE;
 }
 
-/**
- * \brief Retrieves the current status of a job.
- *
- * Retrieves the current statue of a job that was previously issued.
- *
- * \param[in]  module    Pointer to SPI software instance struct
- * \param[in]  job_type  Type of job to check
- *
- * \return Current job status
- */
-enum status_code spi_get_job_status(
-		const struct spi_module *const module,
-		enum spi_job_type job_type)
-{
-	return module->status;
-
-}
-
+#  if CONF_SPI_SLAVE_ENABLE == true || CONF_SPI_MASTER_ENABLE == true
 /**
  * \internal
  * Writes a character from the TX buffer to the Data register.
@@ -455,7 +444,9 @@ static void _spi_write(
 	/* Decrement remaining buffer length */
 	(module->remaining_tx_buffer_length)--;
 }
+#  endif
 
+#  if CONF_SPI_MASTER_ENABLE == true
 /**
  * \internal
  * Writes a dummy character to the Data register.
@@ -474,6 +465,7 @@ static void _spi_write_dummy(
 	/* Decrement remaining dummy buffer length */
 	module->remaining_dummy_buffer_length--;
 }
+#  endif
 
 /**
  * \internal
@@ -487,7 +479,7 @@ static void _spi_read_dummy(
 	/* Pointer to the hardware module instance */
 	SercomSpi *const spi_hw = &(module->hw->SPI);
 	uint16_t flush = 0;
-	
+
 	/* Read dummy byte */
 	flush = spi_hw->DATA.reg;
 	UNUSED(flush);
@@ -553,13 +545,14 @@ void _spi_interrupt_handler(
 			module->enabled_callback & module->registered_callback;
 
 	/* Read and mask interrupt flag register */
-	uint16_t interrupt_status = (spi_hw->INTFLAG.reg & spi_hw->INTENSET.reg);
+	uint16_t interrupt_status = spi_hw->INTFLAG.reg;
+	interrupt_status &= spi_hw->INTENSET.reg;
 
 	/* Data register empty interrupt */
 	if (interrupt_status & SPI_INTERRUPT_FLAG_DATA_REGISTER_EMPTY) {
-
-		if (module->mode == SPI_MODE_MASTER &&
-			module->dir == SPI_DIRECTION_READ) {
+#  if CONF_SPI_MASTER_ENABLE == true
+		if ((module->mode == SPI_MODE_MASTER) &&
+			(module->dir == SPI_DIRECTION_READ)) {
 			/* Send dummy byte when reading in master mode */
 			_spi_write_dummy(module);
 			if (module->remaining_dummy_buffer_length == 0) {
@@ -567,15 +560,26 @@ void _spi_interrupt_handler(
 				spi_hw->INTENCLR.reg
 						= SPI_INTERRUPT_FLAG_DATA_REGISTER_EMPTY;
 			}
+		}
+#  endif
 
-		} else if (module->dir != SPI_DIRECTION_READ) {
+		if (0
+#  if CONF_SPI_MASTER_ENABLE == true
+		|| ((module->mode == SPI_MODE_MASTER) &&
+			(module->dir != SPI_DIRECTION_READ))
+#  endif
+#  if CONF_SPI_SLAVE_ENABLE == true
+		|| ((module->mode == SPI_MODE_SLAVE) &&
+			(module->dir != SPI_DIRECTION_READ))
+#  endif
+		) {
 			/* Write next byte from buffer */
 			_spi_write(module);
 			if (module->remaining_tx_buffer_length == 0) {
 				/* Disable the Data Register Empty Interrupt */
 				spi_hw->INTENCLR.reg
 						= SPI_INTERRUPT_FLAG_DATA_REGISTER_EMPTY;
-				
+
 				if (module->dir == SPI_DIRECTION_WRITE &&
 						!(module->receiver_enabled)) {
 					/* Buffer sent with receiver disabled */
@@ -653,6 +657,7 @@ void _spi_interrupt_handler(
 
 	/* Transmit complete */
 	if (interrupt_status & SPI_INTERRUPT_FLAG_TX_COMPLETE) {
+#  if CONF_SPI_SLAVE_ENABLE == true
 		if (module->mode == SPI_MODE_SLAVE) {
 			/* Transaction ended by master */
 
@@ -678,5 +683,38 @@ void _spi_interrupt_handler(
 			}
 
 		}
+#  endif
 	}
+
+#  ifdef FEATURE_SPI_SLAVE_SELECT_LOW_DETECT
+#  if CONF_SPI_SLAVE_ENABLE == true
+		/* When a high to low transition is detected on the _SS pin in slave mode */
+		if (interrupt_status & SPI_INTERRUPT_FLAG_SLAVE_SELECT_LOW) {
+			if (module->mode == SPI_MODE_SLAVE) {
+				/* Disable interrupts */
+				spi_hw->INTENCLR.reg = SPI_INTERRUPT_FLAG_SLAVE_SELECT_LOW;
+				/* Clear interrupt flag */
+				spi_hw->INTFLAG.reg = SPI_INTERRUPT_FLAG_SLAVE_SELECT_LOW;
+
+				if (callback_mask & (1 << SPI_CALLBACK_SLAVE_SELECT_LOW)) {
+					(module->callback[SPI_CALLBACK_SLAVE_SELECT_LOW])(module);
+				}
+			}
+		}
+#  endif
+#  endif
+
+#  ifdef FEATURE_SPI_ERROR_INTERRUPT
+	/* When combined error happen */
+	if (interrupt_status & SPI_INTERRUPT_FLAG_COMBINED_ERROR) {
+		/* Disable interrupts */
+		spi_hw->INTENCLR.reg = SPI_INTERRUPT_FLAG_COMBINED_ERROR;
+		/* Clear interrupt flag */
+		spi_hw->INTFLAG.reg = SPI_INTERRUPT_FLAG_COMBINED_ERROR;
+
+		if (callback_mask & (1 << SPI_CALLBACK_COMBINED_ERROR)) {
+			(module->callback[SPI_CALLBACK_COMBINED_ERROR])(module);
+		}
+	}
+#  endif
 }

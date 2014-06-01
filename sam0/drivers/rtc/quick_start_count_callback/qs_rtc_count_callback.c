@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 RTC Count Callback Quick Start
+ * \brief SAM D20/D21/R21 RTC Count Callback Quick Start
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,6 +46,10 @@ void rtc_overflow_callback(void);
 void configure_rtc_count(void);
 void configure_rtc_callbacks(void);
 
+//! [rtc_module_instance]
+struct rtc_module rtc_instance;
+//! [rtc_module_instance]
+
 //! [callback]
 void rtc_overflow_callback(void)
 {
@@ -70,11 +74,11 @@ void configure_rtc_count(void)
 	config_rtc_count.continuously_update = true;
 //! [set_config]
 //! [init_rtc]
-	rtc_count_init(&config_rtc_count);
+	rtc_count_init(&rtc_instance, RTC, &config_rtc_count);
 //! [init_rtc]
 
 //! [enable]
-	rtc_count_enable();
+	rtc_count_enable(&rtc_instance);
 //! [enable]
 }
 //! [initialize_rtc]
@@ -84,10 +88,10 @@ void configure_rtc_callbacks(void)
 {
 	//! [reg_callback]
 	rtc_count_register_callback(
-			rtc_overflow_callback, RTC_COUNT_CALLBACK_OVERFLOW);
+			&rtc_instance, rtc_overflow_callback, RTC_COUNT_CALLBACK_OVERFLOW);
 	//! [reg_callback]
 	//! [en_callback]
-	rtc_count_enable_callback(RTC_COUNT_CALLBACK_OVERFLOW);
+	rtc_count_enable_callback(&rtc_instance, RTC_COUNT_CALLBACK_OVERFLOW);
 	//! [en_callback]
 }
 //! [setup_callback]
@@ -112,7 +116,7 @@ int main(void)
 
 	/* Set period */
 //! [period]
-	rtc_count_set_period(2000);
+	rtc_count_set_period(&rtc_instance, 2000);
 //! [period]
 //! [run_initialize_rtc]
 

@@ -59,8 +59,8 @@ CSRCS = \
        sam0/drivers/sercom/sercom_interrupt.c             \
        sam0/drivers/sercom/usart/quick_start/qs_usart_basic_use.c \
        sam0/drivers/sercom/usart/usart.c                  \
-       sam0/drivers/system/clock/clock.c                  \
-       sam0/drivers/system/clock/gclk.c                   \
+       sam0/drivers/system/clock/clock_samd20/clock.c     \
+       sam0/drivers/system/clock/clock_samd20/gclk.c      \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
@@ -84,7 +84,9 @@ INC_PATH = \
        sam0/drivers/sercom/usart/quick_start/samd20_xplained_pro \
        sam0/drivers/system                                \
        sam0/drivers/system/clock                          \
+       sam0/drivers/system/clock/clock_samd20             \
        sam0/drivers/system/interrupt                      \
+       sam0/drivers/system/interrupt/system_interrupt_samd20 \
        sam0/drivers/system/pinmux                         \
        sam0/utils                                         \
        sam0/utils/cmsis/samd20/include                    \
@@ -151,3 +153,7 @@ CPPFLAGS = \
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

@@ -3,7 +3,7 @@
  *
  * \brief Global interrupt management for 32-bit AVR
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,12 +83,12 @@ typedef void (__interrupt *__int_handler)(void);
  *
  * Usage:
  * \code
- * ISR(foo_irq_handler, AVR32_xxx_IRQ_GROUP, n)
- * {
- *      // Function definition
- *      ...
- * }
- * \endcode
+	ISR(foo_irq_handler, AVR32_xxx_IRQ_GROUP, n)
+	{
+	     // Function definition
+	     ...
+	}
+\endcode
  *
  * \param func Name for the function, needed by \ref irq_register_handler.
  * \param int_grp Interrupt group to define service routine for.
@@ -151,9 +151,9 @@ typedef void (__interrupt *__int_handler)(void);
  *
  * Usage:
  * \code
- * irq_initialize_vectors();
- * irq_register_handler(foo_irq_handler, AVR32_xxx_IRQ, n);
- * \endcode
+	irq_initialize_vectors();
+	irq_register_handler(foo_irq_handler, AVR32_xxx_IRQ, n);
+\endcode
  *
  * \note The function \a func must be defined with the \ref ISR macro.
  * \note The interrupt line number can be found in the device header files for

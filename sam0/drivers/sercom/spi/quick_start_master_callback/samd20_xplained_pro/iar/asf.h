@@ -72,11 +72,11 @@
 #include <sercom.h>
 #include <sercom_interrupt.h>
 
-// From module: SERCOM SPI - Serial Peripheral Interface (Callback Mode)
+// From module: SERCOM SPI - Serial Peripheral Interface (Callback APIs)
 #include <spi.h>
 #include <spi_interrupt.h>
 
-// From module: SYSTEM - Clock Management
+// From module: SYSTEM - Clock Management for SAMD20
 #include <clock.h>
 #include <gclk.h>
 

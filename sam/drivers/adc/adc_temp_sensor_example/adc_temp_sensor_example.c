@@ -3,7 +3,7 @@
  *
  * \brief ADC temperature sensor example for SAM.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -53,9 +53,13 @@
  *
  * This example can be used on any SAM3/4 boards.
  *
- * Temperature sensor output range is from 0 to 3300 mv, hence ADVREF must be 
- * set to 3300 mv in order to provide reliable temperature information. Please 
+ * Temperature sensor output range is from 0 to 3300 mv, hence ADVREF must be
+ * set to 3300 mv in order to provide reliable temperature information. Please
  * refer to the board schematics for ADVREF jumper configuration.
+ *
+ * \note For SAM4CMP-DB and SAM4CMS-DB (Rev B), the ADVREF is not connected to
+ * 3300mv by default, so need to solder DNP component to get this example
+ * work correctly.
  *
  * \section Description
  *
@@ -72,16 +76,7 @@
  *
  * \section Usage
  *
- * -# Build the program and download it into the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/6421B.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a>
- *    application note or the
- *    <a href="http://www.iar.com/website1/1.0.1.0/78/1/">
- *    IAR EWARM User and reference guides</a>,
- *    depending on the solutions that users choose.
+ * -# Build the program and download it into the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -92,10 +87,10 @@
  * -# In the terminal window, the
  *    following text should appear (values depend on the board and the chip used):
  *    \code
- *     -- ADC Temperature Sensor xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *    \endcode
+	-- ADC Temperature Sensor xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
  * -# The application will output current Celsius temperature on the terminal, and
  *    users can set temperature offset by a menu.
  *
@@ -113,11 +108,37 @@
 /** Reference voltage for ADC,in mv. */
 #define VOLT_REF        (3300)
 
+#if SAM3S || SAM4S || SAM3XA || SAM3N || SAM4C || SAM4CM
+/* Tracking Time*/
+#define TRACKING_TIME    1
+/* Transfer Period */
+#define TRANSFER_PERIOD  1
+/* Startup Time*/
+#if SAM4C || SAM4CM
+#define STARTUP_TIME ADC_STARTUP_TIME_10
+#else
+#define STARTUP_TIME ADC_STARTUP_TIME_4
+#endif
+#endif
+
+#if SAM3U
+#ifdef ADC_12B
+/* Start Up Time */
+#define STARTUP_TIME               7
+/* Off Mode Startup Time */
+#define OFF_MODE_STARTUP_TIME      7
+#else
+#define STARTUP_TIME               3
+#endif
+/* Sample & Hold Time */
+#define SAMPLE_HOLD_TIME           6
+#endif
+
 /** The maximal digital value */
 #if SAM3S || SAM3XA || SAM4S
 /** The maximal digital value */
 #define MAX_DIGITAL     (4095)
-#elif SAM3N
+#elif SAM3N || SAM4C || SAM4CM
 #define MAX_DIGITAL     (1023)
 #elif SAM3U
 #ifdef ADC_12B
@@ -135,7 +156,7 @@
 /** adc buffer */
 static int16_t gs_s_adc_values[BUFFER_SIZE] = { 0 };
 
-/** 
+/**
  * \brief Simple function to replace printf with float formatting.
  * One decimal with rounding support.
  */
@@ -212,7 +233,7 @@ static void configure_console(void)
 		.baudrate = CONF_UART_BAUDRATE,
 		.paritytype = CONF_UART_PARITY
 	};
-	
+
 	/* Configure console UART. */
 	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
 	stdio_serial_init(CONF_UART, &uart_serial_options);
@@ -223,7 +244,7 @@ static void configure_console(void)
  */
 void SysTick_Handler(void)
 {
-	if ((adc_get_status(ADC) & ADC_ISR_EOC15) == ADC_ISR_EOC15) {
+	if (adc_get_status(ADC) & (1 << ADC_TEMPERATURE_SENSOR)) {
 		adc_start(ADC);
 	}
 }
@@ -255,13 +276,13 @@ void ADC_Handler(void)
 		}
 
 		l_vol = ul_value * VOLT_REF / MAX_DIGITAL;
-	#if SAM3S | SAM3XA	
+#if SAM3S || SAM3XA
 		/* Using multiplication (*0.37736) instead of division (/2.65). */
 		f_temp = (float)(l_vol - 800) * 0.37736 + 27.0;
-	#else
+#else
 		/* Using multiplication (*0.21186) instead of division (/4.72). */
 		f_temp = (float)(l_vol - 1440) * 0.21186 + 27.0;
-	#endif
+#endif
 		print_temp(f_temp);
 		/* Clear the buffer. */
 		memset(gs_s_adc_values, 0x0, sizeof(gs_s_adc_values));
@@ -286,10 +307,8 @@ int main(void)
 	sysclk_init();
 	board_init();
 
-	/* Disable watchdog. */
-	WDT->WDT_MR = WDT_MR_WDDIS;
-
 	configure_console();
+
 	/* Output example information. */
 	puts(STRING_HEADER);
 
@@ -302,14 +321,30 @@ int main(void)
 	/* Enable peripheral clock. */
 	pmc_enable_periph_clk(ID_ADC);
 	/* Initialize ADC. */
-	/*  startup = 8:    512 periods of ADCClock
-	 * for prescale = 4
-	 *     prescale: ADCClock = MCK / ( (PRESCAL+1) * 2 ) => 64MHz / ((4+1)*2) = 6.4MHz
-	 *     ADC clock = 6.4 MHz
+	/*
+	 * Formula: ADCClock = MCK / ( (PRESCAL+1) * 2 )
+	 * For example, MCK = 64MHZ, PRESCAL = 4, then:
+	 * ADCClock = 64 / ((4+1) * 2) = 6.4MHz;
 	 */
-	adc_init(ADC, sysclk_get_cpu_hz(), 6400000, 8);
-
-	adc_configure_timing(ADC, 0, ADC_SETTLING_TIME_3, 1);
+	/* Formula:
+	 *     Startup  Time = startup value / ADCClock
+	 *     Startup time = 64 / 6.4MHz = 10 us
+	 */
+	adc_init(ADC, sysclk_get_cpu_hz(), 6400000, STARTUP_TIME);
+	/* Formula:
+	 *     Transfer Time = (TRANSFER * 2 + 3) / ADCClock
+	 *     Tracking Time = (TRACKTIM + 1) / ADCClock
+	 *     Settling Time = settling value / ADCClock
+	 *
+	 *     Transfer Time = (1 * 2 + 3) / 6.4MHz = 781 ns
+	 *     Tracking Time = (1 + 1) / 6.4MHz = 312 ns
+	 *     Settling Time = 3 / 6.4MHz = 469 ns
+	 */
+	adc_configure_timing(ADC, TRACKING_TIME
+#if !SAM4C && !SAM4CM
+			, ADC_SETTLING_TIME_3, TRANSFER_PERIOD
+#endif
+	);
 
 	adc_configure_trigger(ADC, ADC_TRIG_SW, 0);
 
@@ -323,12 +358,12 @@ int main(void)
 
 	/* Enable ADC interrupt. */
 	NVIC_EnableIRQ(ADC_IRQn);
-	
+
 	/* Start conversion. */
 	adc_start(ADC);
 
 	adc_read_buffer(ADC, gs_s_adc_values, BUFFER_SIZE);
-	
+
 	/* Enable PDC channel interrupt. */
 	adc_enable_interrupt(ADC, ADC_ISR_RXBUFF);
 

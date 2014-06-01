@@ -780,7 +780,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1722,7 +1721,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1948,6 +1946,9 @@
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n4a.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n0c.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n1b.h</name>
 							</file>
 							<file>
@@ -1957,7 +1958,13 @@
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n2b.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n0b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n1a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n0a.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n1c.h</name>
@@ -1965,7 +1972,16 @@
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n4b.h</name>
 							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n00a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n00b.h</name>
+							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/sam3n00b.h</name>
+						</file>
 						<group>
 							<name>instance</name>
 							<file>
@@ -2114,6 +2130,9 @@
 							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/sam3n1a.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/sam3n0b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/sam3n2c.h</name>
 						</file>
 						<file>
@@ -2129,7 +2148,16 @@
 							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/sam3n2b.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/sam3n0a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/sam3n0c.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/sam3n4c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/sam3n00a.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3n/include/sam3n4a.h</name>
@@ -2143,12 +2171,6 @@
 			<file>
 				<name>$PROJ_DIR$/../../../../../../../sam/utils/compiler.h</name>
 			</file>
-			<group>
-				<name>header_files</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam/utils/header_files/io.h</name>
-				</file>
-			</group>
 			<group>
 				<name>preprocessor</name>
 				<file>
@@ -2167,6 +2189,12 @@
 			<file>
 				<name>$PROJ_DIR$/../../../../../../../sam/utils/status_codes.h</name>
 			</file>
+			<group>
+				<name>header_files</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sam/utils/header_files/io.h</name>
+				</file>
+			</group>
 		</group>
 		<group>
 			<name>drivers</name>
@@ -2194,10 +2222,10 @@
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/pmc/sleep.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam/drivers/pmc/sleep.h</name>
+					<name>$PROJ_DIR$/../../../../../../../sam/drivers/pmc/pmc.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam/drivers/pmc/pmc.h</name>
+					<name>$PROJ_DIR$/../../../../../../../sam/drivers/pmc/sleep.h</name>
 				</file>
 			</group>
 			<group>

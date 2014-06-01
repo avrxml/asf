@@ -3,7 +3,7 @@
  *
  * \brief ADC Sensor interface
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -162,7 +162,7 @@ static void adc_handler(ADC_t *adc, uint8_t channel, adc_result_t result)
 		adc_enable(&BOARD_SENSOR_ADC_MODULE);
 		adcch_set_input(&adcch_conf, adc_conv[adc_mux_index],
 		ADCCH_NEG_NONE, 1);
-		adcch_write_configuration(&BOARD_SENSOR_ADC_MODULE, 0,
+		adcch_write_configuration(&BOARD_SENSOR_ADC_MODULE, ADC_CH0,
 		&adcch_conf);
 		adc_start_conversion(&BOARD_SENSOR_ADC_MODULE, ADC_CH0);
 	}
@@ -187,7 +187,7 @@ void adc_sensors_init(void)
 	adc_set_conversion_parameters(&adc_conf, ADC_SIGN_OFF, ADC_RES_12,
 			ADC_REF_BANDGAP);
 	adc_set_clock_rate(&adc_conf, ADC_CLOCK_HZ);
-	adc_set_conversion_trigger(&adc_conf, ADC_TRIG_MANUAL, 0, 0);
+	adc_set_conversion_trigger(&adc_conf, ADC_TRIG_MANUAL, 1, 0);
 	adc_enable_internal_input(&adc_conf, ADC_INT_TEMPSENSE);
 	adc_write_configuration(&BOARD_SENSOR_ADC_MODULE, &adc_conf);
 	adc_set_callback(&BOARD_SENSOR_ADC_MODULE, &adc_handler);
@@ -196,7 +196,7 @@ void adc_sensors_init(void)
 	adcch_set_input(&adcch_conf, LIGHT_SENSOR_ADC_INPUT, ADCCH_NEG_NONE, 1);
 	adcch_set_interrupt_mode(&adcch_conf, ADCCH_MODE_COMPLETE);
 	adcch_enable_interrupt(&adcch_conf);
-	adcch_write_configuration(&BOARD_SENSOR_ADC_MODULE, 0, &adcch_conf);
+	adcch_write_configuration(&BOARD_SENSOR_ADC_MODULE, ADC_CH0, &adcch_conf);
 }
 
 
@@ -218,7 +218,7 @@ void adc_sensors_start_conversions(void)
 	adc_write_configuration(&BOARD_SENSOR_ADC_MODULE, &adc_conf);
 	adc_enable(&BOARD_SENSOR_ADC_MODULE);
 	adcch_set_input(&adcch_conf, adc_conv[adc_mux_index],ADCCH_NEG_NONE, 1);
-	adcch_write_configuration(&BOARD_SENSOR_ADC_MODULE, 0, &adcch_conf);
+	adcch_write_configuration(&BOARD_SENSOR_ADC_MODULE, ADC_CH0, &adcch_conf);
 	adc_start_conversion(&BOARD_SENSOR_ADC_MODULE, ADC_CH0);
 }
 

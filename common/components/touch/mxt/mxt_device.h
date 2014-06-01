@@ -3,7 +3,7 @@
  *
  * \brief maXTouch component.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -304,24 +304,24 @@ status_code_t mxt_process_messages(struct mxt_device *device);
  * \subsection mxt_device_use_case_setup_code Example code
  * Add to the initialization code:
  * \code
- *    struct mxt_device device
- *
- *    if(mxt_probe_device(&TWIF, 0x4a) != STATUS_OK)
- *      Assert(false);
- *
- *    if(mxt_init_device(&device, &TWIF, 0x4a, IOPORT_CREATE_PIN(PORTF, 2))
- *        != STATUS_OK)
- *      Assert(false);
- *
- *    mxt_write_config_reg(&device, mxt_get_object_address(&device,-
- *        MXT_GEN_COMMANDPROCESSOR_T6, 0) + MXT_GEN_COMMANDPROCESSOR_RESET, 1);
- *
- *    delay_ms(MXT_RESET_TIME);
- *
- *    mxt_write_config_reg(&device, mxt_get_object_address(&device,
- *        MXT_SPT_COMMSCONFIG_T18, 0),
- *        MXT_COMMSCONFIG_T18_CHG_MODE_bp << 1);
- * \endcode
+	    struct mxt_device device
+
+	    if(mxt_probe_device(&TWIF, 0x4a) != STATUS_OK)
+	      Assert(false);
+
+	    if(mxt_init_device(&device, &TWIF, 0x4a, IOPORT_CREATE_PIN(PORTF, 2))
+	        != STATUS_OK)
+	      Assert(false);
+
+	    mxt_write_config_reg(&device, mxt_get_object_address(&device,-
+	        MXT_GEN_COMMANDPROCESSOR_T6, 0) + MXT_GEN_COMMANDPROCESSOR_RESET, 1);
+
+	    delay_ms(MXT_RESET_TIME);
+
+	    mxt_write_config_reg(&device, mxt_get_object_address(&device,
+	        MXT_SPT_COMMSCONFIG_T18, 0),
+	        MXT_COMMSCONFIG_T18_CHG_MODE_bp << 1);
+\endcode
  *
  * \subsection mxt_device_use_case_setup_flow Workflow
  * -# define a variable of type struct mxt_device, a pointer to this struct must
@@ -334,12 +334,12 @@ status_code_t mxt_process_messages(struct mxt_device *device);
  *    XMEGA-A1 Xplained you have use the TWIF module for data communication and
  *    pin 2 on port F as CHG pin interface:
  *   - \code mxt_init_device(&device, &TWIF, 0x4a, IOPORT_CREATE_PIN(PORTF,
- *     2)); \endcode
+	     2)); \endcode
  * -# then we have to do a softreset of the maXTouch device to get it into a
  *    known state:
  *   -  \code mxt_write_config_reg(&device, mxt_get_object_address(&device,-
- *        MXT_GEN_COMMANDPROCESSOR_T6, 0) + MXT_GEN_COMMANDPROCESSOR_RESET, 1);
- *      \endcode
+	MXT_GEN_COMMANDPROCESSOR_T6, 0) + MXT_GEN_COMMANDPROCESSOR_RESET, 1);
+\endcode
  * -# We have to wait for the reset to complete:
  *   - \code delay_ms(MXT_RESET_TIME); \endcode
  * -# The last ting we have to do before the device is ready for use is to set
@@ -348,26 +348,26 @@ status_code_t mxt_process_messages(struct mxt_device *device);
  *    received. To achieve that we write 1 to the CHG_MODE bit position in the
  *    T18 objects control register:
  *   - \code
- *      mxt_write_config_reg(&device, mxt_get_object_address(&device,
- *          MXT_SPT_COMMSCONFIG_T18, 0),
- *          MXT_COMMSCONFIG_T18_CHG_MODE_bp << 1);
- *     \endcode
+	mxt_write_config_reg(&device, mxt_get_object_address(&device,
+	    MXT_SPT_COMMSCONFIG_T18, 0),
+	    MXT_COMMSCONFIG_T18_CHG_MODE_bp << 1);
+\endcode
  *
  * \subsection mxt_device_use_case_example_code Example code
  * \code
- * // Add to application:
- *
- * #define LED_PORT  PORTE
- *
- * int function read_touch(struct mxt_device &device,
- *     struct mxt_touch_event *touch_event)
- * {
- *   if(mxt_is_message_pending(device)
- *     return mxt_read_touch_event(device, touch_event);
- *
- *   return ERR_TIMEOUT;
- * }
- * \endcode
+	 // Add to application:
+
+	 #define LED_PORT  PORTE
+
+	 int function read_touch(struct mxt_device &device,
+	     struct mxt_touch_event *touch_event)
+	 {
+	   if(mxt_is_message_pending(device)
+	     return mxt_read_touch_event(device, touch_event);
+
+	   return ERR_TIMEOUT;
+	 }
+\endcode
  *
  * \subsection mxt_device_use_case_example_code_flow Workflow
  * -# check if there is any messages waiting in the queue:

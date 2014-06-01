@@ -69,10 +69,12 @@
  * All SAM devices with an AES module can be used. This example has been
  * tested with the following setup:<BR>
  * - SAM4L evaluation kit.
+ * - SAM4L Xplained Pro
+ * - SAM4L8 Xplained Pro
  *
  * \section setupinfo Setup Information
  * <BR>CPU speed: <i> 12 MHz </i>
- * - Connect the SAM4L USB virtual port com to a PC
+ * - Connect the on-board virtual port com to a PC
  * - PC terminal settings:
  *     - 115200 bps,
  *     - 8 data bits,

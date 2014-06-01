@@ -186,6 +186,7 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>__FREERTOS__</state>
 					<state>BOARD=UC3L_EK</state>
 				</option>
 				<option>
@@ -454,6 +455,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>__FREERTOS__</state>
 					<state>BOARD=UC3L_EK</state>
 				</option>
 				<option>
@@ -1065,6 +1067,7 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>__FREERTOS__</state>
 					<state>BOARD=UC3L_EK</state>
 				</option>
 				<option>
@@ -1333,6 +1336,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>__FREERTOS__</state>
 					<state>BOARD=UC3L_EK</state>
 				</option>
 				<option>

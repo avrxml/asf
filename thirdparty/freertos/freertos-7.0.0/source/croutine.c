@@ -57,9 +57,9 @@
     licensing and training services.
 */
 
-#include "FreeRTOS.h"
-#include "task.h"
-#include "croutine.h"
+#include "include/FreeRTOS.h"
+#include "include/task.h"
+#include "include/croutine.h"
 
 /*
  * Some kernel aware debuggers require data to be viewed to be global, rather

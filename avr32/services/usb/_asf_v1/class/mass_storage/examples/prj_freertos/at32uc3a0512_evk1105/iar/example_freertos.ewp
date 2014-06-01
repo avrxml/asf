@@ -186,9 +186,10 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>BOARD=EVK1105</state>
 					<state>FREERTOS_USED</state>
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
+					<state>BOARD=EVK1105</state>
+					<state>__FREERTOS__</state>
 					<state>SD_MMC_SPI_ENABLE</state>
 					<state>AT45DBX_ENABLE</state>
 				</option>
@@ -476,9 +477,10 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>BOARD=EVK1105</state>
 					<state>FREERTOS_USED</state>
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
+					<state>BOARD=EVK1105</state>
+					<state>__FREERTOS__</state>
 					<state>SD_MMC_SPI_ENABLE</state>
 					<state>AT45DBX_ENABLE</state>
 				</option>
@@ -1109,9 +1111,10 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>BOARD=EVK1105</state>
 					<state>FREERTOS_USED</state>
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
+					<state>BOARD=EVK1105</state>
+					<state>__FREERTOS__</state>
 					<state>SD_MMC_SPI_ENABLE</state>
 					<state>AT45DBX_ENABLE</state>
 				</option>
@@ -1399,9 +1402,10 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>BOARD=EVK1105</state>
 					<state>FREERTOS_USED</state>
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
+					<state>BOARD=EVK1105</state>
+					<state>__FREERTOS__</state>
 					<state>SD_MMC_SPI_ENABLE</state>
 					<state>AT45DBX_ENABLE</state>
 				</option>

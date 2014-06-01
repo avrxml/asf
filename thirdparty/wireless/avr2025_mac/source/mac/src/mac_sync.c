@@ -3,7 +3,7 @@
  *
  * @brief Implements the MLME-SYNC.request.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -140,7 +140,6 @@ void mlme_sync_request(uint8_t *m)
 	if (pal_is_timer_running(T_Beacon_Tracking_Period)) {
 		Assert("BCN tmr running" == 0);
 	}
-
 #endif
 
 	/* Set MAC Sync state properly. */
@@ -148,29 +147,29 @@ void mlme_sync_request(uint8_t *m)
 		/*
 		 * We try to sync before association.
 		 * This is a special sync state that checks beacon frames
-		 *similar to
+		 * similar to
 		 * MAC_SYNC_TRACKING_BEACON while being associated.
 		 *
 		 * Before this state can be entered successfully a number of PIB
 		 * attributes have to be set properly:
 		 * 1) PAN-Id (macPANId)
 		 * 2) Coordinator Short or Long address (depending upon which
-		 *type
+		 * type
 		 *    of addressing the coordinator is using)
 		 *    (macCoordShortAddress or mac macCoordExtendedAddress)
 		 *
 		 * Furthermore it is strongly recommended to set the Beacon
-		 *order and
+		 * order and
 		 * Superframe order (macBeaconOrder, macSuperframeOrder).
 		 * If these parameters are not set and the node tries to sync
-		 *with a
+		 * with a
 		 * network, where it never receives a beacon from, the missed
-		 *beacon
+		 * beacon
 		 * timer (required for reporting a sync loss condition) will
-		 *start
+		 * start
 		 * with a huge time value (based on a beacon order = 15).
 		 * If finally a beacon is received from the desired network, the
-		 *timer
+		 * timer
 		 * will be updated.
 		 * Nevertheless setting the PIB attributes before sync is safer.
 		 */
@@ -228,6 +227,7 @@ void mac_t_tracking_beacons_cb(void *callback_parameter)
 
 	/* Turn the radio on */
 	tal_rx_enable(PHY_RX_ON);
+	mac_superframe_state = MAC_ACTIVE_CAP;
 
 	callback_parameter = callback_parameter; /* Keep compiler happy. */
 }
@@ -236,7 +236,7 @@ void mac_t_tracking_beacons_cb(void *callback_parameter)
  * @brief Timer function at start of the inactive portion at an end device.
  *
  * This function is a callback from the superframe beacon timer for an
- * end deviceand implements the functionality required for entering the
+ * end device and implements the functionality required for entering the
  * inactive portion for an end device.
  *
  * @param callback_parameter Callback parameter of the superframe timer
@@ -249,7 +249,10 @@ void mac_t_start_inactive_device_cb(void *callback_parameter)
 	 * Note: Do not use mac_sleep_trans() here, because this would check
 	 * macRxOnWhenIdle first.
 	 */
-	mac_trx_init_sleep();
+	/* mac_trx_init_sleep(); */
+
+	mac_superframe_state = MAC_INACTIVE;
+	mac_sleep_trans();
 
 	callback_parameter = callback_parameter; /* Keep compiler happy. */
 }
@@ -267,7 +270,7 @@ static void mac_t_missed_beacons_cb(void *callback_parameter)
 {
 	if (MAC_SYNC_NEVER != mac_sync_state) {
 		/* Since the node lost sync with it's parent, it reports sync
-		 *loss. */
+		 * loss. */
 		mac_sync_loss(MAC_BEACON_LOSS);
 	}
 
@@ -289,7 +292,6 @@ void mac_start_missed_beacon_timer(void)
 	if (pal_is_timer_running(T_Missed_Beacon)) {
 		Assert("Missed BCN tmr running" == 0);
 	}
-
 #endif
 
 	/* Calculate the time allowed for missed beacons. */
@@ -304,16 +306,16 @@ void mac_start_missed_beacon_timer(void)
 	} else {
 		/*
 		 * This the "pathological" case where we don NOT have a Beacon
-		 *Order.
+		 * Order.
 		 * This happens regularly in case of synchronization before
-		 *association
+		 * association
 		 * if the Beacon Order was not set be the network layer or
-		 *application.
+		 * application.
 		 *
 		 * In this case the Sync Loss time is based on the highest
-		 *possible
+		 * possible
 		 * Beacon Order, which is 15 - 1, since 15 means no Beacon
-		 *network.
+		 * network.
 		 */
 		sync_loss_time
 			= TAL_GET_BEACON_INTERVAL_TIME(NON_BEACON_NWK -
@@ -354,17 +356,18 @@ void mac_sync_loss(uint8_t loss_reason)
 {
 	/*
 	 * Static buffer used to give sync loss indication. This buffer is used
-	 *in two
+	 * in two
 	 * instances
 	 * 1) when the device looses sync with the parents beacons
 	 * 2) when the device receives a coordinator realignment command from
-	 *his
+	 * his
 	 *    parent
 	 * The buffer pointer is stored into the begin of the same static
-	 *buffer.
+	 * buffer.
 	 */
 	static uint8_t mac_sync_loss_buffer[sizeof(buffer_t) +
 	sizeof(mlme_sync_loss_ind_t)];
+
 	mlme_sync_loss_ind_t *sync_loss_ind;
 	buffer_t *msg_ptr;
 
@@ -399,8 +402,12 @@ void mac_sync_loss(uint8_t loss_reason)
 	/* Append the associate confirm message to MAC-NHLE queue. */
 	qmm_queue_append(&mac_nhle_q, msg_ptr);
 
+#ifdef GTS_SUPPORT
+	handle_gts_sync_loss();
+#endif /* GTS_SUPPORT */
+
 	/* A device that is neither scanning nor polling shall go to sleep now.
-	 **/
+	**/
 	if ((MAC_IDLE == mac_state) || (MAC_ASSOCIATED == mac_state)) {
 		if ((MAC_SCAN_IDLE == mac_scan_state) &&
 				(MAC_POLL_IDLE == mac_poll_state)) {

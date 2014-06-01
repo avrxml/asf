@@ -152,3 +152,7 @@ CPPFLAGS = \
 # Extra flags to use when linking
 LDFLAGS =  \
        -Wl,--section-start=.bootloader=0x1f000           
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

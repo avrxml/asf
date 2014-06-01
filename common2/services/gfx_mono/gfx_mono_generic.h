@@ -3,7 +3,7 @@
  *
  * \brief Generic monochrome LCD graphic primitives
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,6 +43,10 @@
 #ifndef GFX_MONO_GENERIC
 #define GFX_MONO_GENERIC
 #include "gfx_mono.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * \ingroup asfdoc_common2_gfx_mono
@@ -116,5 +120,9 @@ void gfx_mono_generic_put_bitmap(struct gfx_mono_bitmap *bitmap, gfx_coord_t x,
 		gfx_coord_t y);
 
 /** @} */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GFX_MONO_GENERIC */

@@ -12,7 +12,7 @@
  * - Support email:      touch@atmel.com
  *
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -74,7 +74,27 @@ extern "C"
 
 #ifdef _DEBUG_INTERFACE_
 
-#define MESSAGE_START	0x1B
+#define MESSAGE_START    0x1B
+
+#ifndef DEF_TOUCH_QDEBUG_ENABLE_QM
+#define DEF_TOUCH_QDEBUG_ENABLE_QM 0
+#endif
+
+#ifndef DEF_TOUCH_QDEBUG_ENABLE_QTA
+#define DEF_TOUCH_QDEBUG_ENABLE_QTA 0
+#endif
+
+#ifndef DEF_TOUCH_QDEBUG_ENABLE_QTB
+#define DEF_TOUCH_QDEBUG_ENABLE_QTB 0
+#endif
+
+#ifndef DEF_TOUCH_QDEBUG_ENABLE_AT
+#define DEF_TOUCH_QDEBUG_ENABLE_AT 0
+#endif
+
+#ifndef DEF_TOUCH_QDEBUG_ENABLE
+#define DEF_TOUCH_QDEBUG_ENABLE 0
+#endif
 
 #if DEF_TOUCH_QDEBUG_ENABLE_QM == 1
 #define TX_BUFFER_SIZE (QM_NUM_CHANNELS*4)+10

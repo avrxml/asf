@@ -3,7 +3,7 @@
  *
  * @brief This file implements slotted CSMA-CA functions.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -82,7 +82,8 @@
  * Conversion of octets to microseconds (1 octet = 32 us = 2 symbols)
  */
 #define CONVERT_OCTETS_TO_SYM(octets)   (2 * octets)
-#define CCA_GUARD_DURATION_US           (1000)  /* used for calculation overhead */
+#define CCA_GUARD_DURATION_US           (1000)  /* used for calculation overhead
+	                                         **/
 #define CSMA_BEACON_LOSS_GUARD_TIME_US  (2000)
 #define PRE_BEACON_GUARD_TIME_US        (1000)
 
@@ -147,7 +148,7 @@ bool slotted_csma_start(bool perform_frame_retry)
 			number_of_tx_retries = 0;
 		} else {
 			/* Use the max value to indicate that no retries are
-			 *required. */
+			 * required. */
 			number_of_tx_retries = tal_pib.MaxFrameRetries;
 		}
 
@@ -185,7 +186,7 @@ static bool check_beacon_reception(void)
 	now_time = TAL_CONVERT_US_TO_SYMBOLS(now_time);
 
 	/* If the last beacon was not received, calculate/estimate the next
-	 *beacon time */
+	 * beacon time */
 	while (next_beacon_time_sym < now_time) {
 		tal_pib.BeaconTxTime = next_beacon_time_sym;
 		next_beacon_time_sym = tal_add_time_symbols(
@@ -232,7 +233,6 @@ static void calculate_transaction_duration(void)
 
 	/* number of octets */
 	transaction_duration_octets = (*tal_frame_to_tx) + PHY_OVERHEAD;
-
 	/* Add interframe spacing - independend on ACK transmission. */
 	if (*tal_frame_to_tx > aMaxSIFSFrameSize) {
 		transaction_duration_sym = macMinLIFSPeriod_def; /* symbols */
@@ -244,12 +244,16 @@ static void calculate_transaction_duration(void)
 	if (mac_frame_ptr->mpdu[PL_POS_FCF_1] & FCF_ACK_REQUEST) {
 		/* Ensure there is room for the ACK. */
 		transaction_duration_octets += ACK_FRAME_LEN + PHY_OVERHEAD; /*
-		                                                              * octets */
+		                                                              *
+		                                                              *octets
+		                                                              **/
 
 		/* Space is needed until the ACK is sent. */
 		transaction_duration_sym += aTurnaroundTime +
 				aUnitBackoffPeriod;                       /*
-		                                                           * symbols */
+		                                                           *
+		                                                           *symbols
+		                                                           **/
 	}
 
 	transaction_duration_sym += CONVERT_OCTETS_TO_SYM(
@@ -266,6 +270,49 @@ static void calculate_transaction_duration(void)
 	/* Add 2 backoff periods that are used for CCA. */
 	transaction_duration_periods += 2;
 }
+
+/**
+ * \brief Calculates the entire transaction duration
+ */
+#ifdef BEACON_SUPPORT
+uint16_t calc_frame_transmit_duration(uint8_t *phy_frame)
+{
+	uint8_t transaction_duration_octets;
+	uint16_t transaction_duration_sym;
+
+	/* number of octets */
+	transaction_duration_octets = (*phy_frame) + PHY_OVERHEAD;
+	/* Add interframe spacing - independent on ACK transmission. */
+	if (*phy_frame > aMaxSIFSFrameSize) {
+		transaction_duration_sym = macMinLIFSPeriod_def; /* symbols */
+	} else {
+		transaction_duration_sym = macMinSIFSPeriod_def; /* symbols */
+	}
+
+	/* If the frame requested an ACK, add ACK handling time. */
+	if (phy_frame[PL_POS_FCF_1] & FCF_ACK_REQUEST) {
+		/* Ensure there is room for the ACK. */
+		transaction_duration_octets += ACK_FRAME_LEN + PHY_OVERHEAD; /**
+		                                                              *octets
+		                                                              **/
+
+		/* Space is needed until the ACK is sent. */
+		transaction_duration_sym += aTurnaroundTime +
+				aUnitBackoffPeriod;                       /**
+		                                                           *symbols
+		                                                           **/
+	}
+
+	transaction_duration_sym += CONVERT_OCTETS_TO_SYM(
+			transaction_duration_octets);
+
+	transaction_duration_sym = TAL_PSDU_US_PER_OCTET(
+			transaction_duration_sym);
+
+	return transaction_duration_sym;
+}
+
+#endif /* BEACON_SUPPORT */
 
 /**
  * \brief Calculates backoff duration and handles the start of the CCA
@@ -286,7 +333,7 @@ static void csma_backoff_calculation(void)
 
 	/*
 	 * Add some guard time to ensure that the transaction is completed
-	 *before
+	 * before
 	 * the timer fires that is going to track the next beacon.
 	 */
 	guard_time_before_next_beacon = TAL_RADIO_WAKEUP_TIME_SYM <<
@@ -331,7 +378,7 @@ static void csma_backoff_calculation(void)
 		                                    * size can be reduced */
 
 		/* Check if the remaining backoff time will expire in current
-		 *CAP. */
+		 * CAP. */
 		remaining_periods_in_CAP = tal_sub_time_symbols(
 				current_CAP_end_sym, now_time_sym) /
 				aUnitBackoffPeriod;
@@ -339,7 +386,7 @@ static void csma_backoff_calculation(void)
 		if (remaining_backoff_periods > remaining_periods_in_CAP) {
 			/*
 			 * Reduce the backoff peridos by the remaining duration
-			 *in
+			 * in
 			 * the current CAP and continue in next CAP.
 			 */
 			remaining_backoff_periods -= remaining_periods_in_CAP;
@@ -349,7 +396,8 @@ static void csma_backoff_calculation(void)
 		} else { /* there are enough backoff periods in current CAP */
 			uint32_t time_after_transaction_sym; /* \TODO check if
 			                                      * variable size
-			                                      * can be reduced */
+			                                      * can be reduced
+			                                      **/
 			uint32_t transaction_duration_sym; /* \TODO check if
 			                                    * variable size can
 			                                    * be reduced */
@@ -368,7 +416,7 @@ static void csma_backoff_calculation(void)
 					transaction_duration_sym);
 
 			/* Check if the entire transaction fits into the current
-			 *CAP. */
+			 * CAP. */
 			if (time_after_transaction_sym < current_CAP_end_sym) {
 				retval_t timer_status;
 				uint32_t callback_start_time;
@@ -383,17 +431,17 @@ static void csma_backoff_calculation(void)
 
 				/*
 				 * Ensure that wakeup time is available before
-				 *CCA.
+				 * CCA.
 				 * The required duration depends on the current
-				 *trx status.
+				 * trx status.
 				 * Assume here the worst case: trx is in SLEEP.
 				 */
 
 				/*
 				 * \TODO depending on the duration that we need
-				 *to backoff,
+				 * to backoff,
 				 * set trx to SLEEP, TRX_OFF or PLL_ON
-				 *meanwhile.
+				 * meanwhile.
 				 */
 				while (pal_sub_time_us(cca_starttime_us,
 						TAL_CONVERT_SYMBOLS_TO_US(
@@ -410,7 +458,7 @@ static void csma_backoff_calculation(void)
 				/*
 				 * Start the CCA timer.
 				 * Add some time to locate the next backoff
-				 *boundary
+				 * boundary
 				 * once CCA timer fires.
 				 */
 				callback_start_time
@@ -437,7 +485,7 @@ static void csma_backoff_calculation(void)
 				}
 
 				/* debug pin to switch on: define
-				 *ENABLE_DEBUG_PINS, pal_config.h */
+				 * ENABLE_DEBUG_PINS, pal_config.h */
 				PIN_BACKOFF_START();
 			} else {
 				/* Restart again after next beacon. */
@@ -467,14 +515,15 @@ void slotted_csma_state_handling(void)
 		/*
 		 * Do not perform any operation and wait until the next beacon
 		 * reception. If several beacons are not received, the beacon
-		 *loss
+		 * loss
 		 * timer expires and stops the entire transaction.
 		 */
 		break;
 
 	case CSMA_HANDLE_BEACON:
+
 		/* debug pin to switch on: define ENABLE_DEBUG_PINS,
-		 *pal_config.h */
+		 * pal_config.h */
 		PIN_WAITING_FOR_BEACON_END();
 		PIN_BEACON_LOSS_TIMER_END();
 
@@ -611,15 +660,15 @@ static uint8_t perform_cca_twice(void)
 	/*
 	 * Set trx to PLL_ON.
 	 * If trx is busy and trx cannot be set to PLL_ON, assess channel as
-	 *busy.
+	 * busy.
 	 */
 	if (set_trx_state(CMD_PLL_ON) != PLL_ON) {
 		return PHY_BUSY;
 	}
 
 	/* no interest in receiving frames while doing CCA */
-	pal_trx_bit_write(SR_RX_PDT_DIS, RX_DISABLE); /* disable frame reception
-	                                               * indication */
+	trx_bit_write(SR_RX_PDT_DIS, RX_DISABLE); /* disable frame reception
+	                                           * indication */
 
 	/* do CCA twice */
 	do {
@@ -634,30 +683,30 @@ static uint8_t perform_cca_twice(void)
 		set_trx_state(CMD_RX_ON);
 
 		/* debug pin to switch on: define ENABLE_DEBUG_PINS,
-		 *pal_config.h */
+		 * pal_config.h */
 		PIN_CCA_START();
 
 		/* Start CCA */
-		pal_trx_bit_write(SR_CCA_REQUEST, CCA_START);
+		trx_bit_write(SR_CCA_REQUEST, CCA_START);
 
 		/* wait until CCA is done and get status */
 		pal_timer_delay(TAL_CONVERT_SYMBOLS_TO_US(CCA_DURATION_SYM));
 
 		do {
 			/* poll until CCA is really done; */
-			cca_done = pal_trx_bit_read(SR_CCA_DONE);
+			cca_done = trx_bit_read(SR_CCA_DONE);
 		} while (cca_done != CCA_COMPLETED);
 
 		/* between both CCA switch trx to PLL_ON to reduce power
-		 *consumption */
+		 * consumption */
 		set_trx_state(CMD_PLL_ON);
 
 		/* debug pin to switch on: define ENABLE_DEBUG_PINS,
-		 *pal_config.h */
+		 * pal_config.h */
 		PIN_CCA_END();
 
 		/* check if channel was idle or busy */
-		if (pal_trx_bit_read(SR_CCA_STATUS) == CCA_CH_IDLE) {
+		if (trx_bit_read(SR_CCA_STATUS) == CCA_CH_IDLE) {
 			/* do next CCA at next backoff boundary */
 			cca_starttime_us = pal_add_time_us(cca_starttime_us,
 					TAL_CONVERT_SYMBOLS_TO_US(
@@ -676,7 +725,7 @@ static uint8_t perform_cca_twice(void)
 	 * Keep trx ready for transmission if channel is idle.
 	 * The transceiver is still in PLL_ON.
 	 * If the channel is not idle, the trx handling is done in
-	 *csma_backoff().
+	 * csma_backoff().
 	 */
 
 	/*
@@ -685,7 +734,7 @@ static uint8_t perform_cca_twice(void)
 	 * interrupt that are not handled cause an assert in the ISR.
 	 */
 #if (_DEBUG_ > 0)
-	pal_trx_reg_read(RG_IRQ_STATUS);
+	trx_reg_read(RG_IRQ_STATUS);
 #endif
 
 	/*
@@ -693,8 +742,8 @@ static uint8_t perform_cca_twice(void)
 	 * during CCA, reject any information that indicates a previous frame
 	 * reception.
 	 */
-	pal_trx_bit_write(SR_RX_PDT_DIS, RX_ENABLE); /* enable frame reception
-	                                              * indication */
+	trx_bit_write(SR_RX_PDT_DIS, RX_ENABLE); /* enable frame reception
+	                                          * indication */
 
 	return cca_status;
 }

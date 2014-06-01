@@ -43,7 +43,7 @@
 				</option>
 				<option>
 					<name>MemFile</name>
-					<state>$TOOLKIT_DIR$\CONFIG\debugger\Atmel\SAM4E16E.svd</state>
+					<state>$TOOLKIT_DIR$\CONFIG\debugger\Atmel\atsam4e16e.svd</state>
 				</option>
 				<option>
 					<name>RunToEnable</name>
@@ -115,7 +115,7 @@
 				</option>
 				<option>
 					<name>FlashLoadersV3</name>
-					<state>$TOOLKIT_DIR$\config\flashloader\Atmel\SAM4E16\sam4e16-flash.board</state>
+					<state>$TOOLKIT_DIR$\config\flashloader\Atmel\sam4e16e\sam4e16e-flash.board</state>
 				</option>
 				<option>
 					<name>OCImagesSuppressCheck1</name>
@@ -869,7 +869,7 @@
 				</option>
 				<option>
 					<name>MemFile</name>
-					<state>$TOOLKIT_DIR$\CONFIG\debugger\Atmel\SAM4E16E.svd</state>
+					<state>$TOOLKIT_DIR$\CONFIG\debugger\Atmel\atsam4e16e.svd</state>
 				</option>
 				<option>
 					<name>RunToEnable</name>
@@ -941,7 +941,7 @@
 				</option>
 				<option>
 					<name>FlashLoadersV3</name>
-					<state>$TOOLKIT_DIR$\config\flashloader\Atmel\SAM4E16\sam4e16-flash.board</state>
+					<state>$TOOLKIT_DIR$\config\flashloader\Atmel\sam4e16e\sam4e16e-flash.board</state>
 				</option>
 				<option>
 					<name>OCImagesSuppressCheck1</name>

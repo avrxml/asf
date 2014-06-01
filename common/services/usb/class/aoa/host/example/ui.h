@@ -92,6 +92,8 @@ void ui_usb_sof_event(void);
  */
 void ui_usb_enum_event(uhc_device_t *dev, uhc_enum_status_t status);
 
+void ui_uhi_aoa_change(uhc_device_t * dev, bool b_plug);
+
 /** \brief Processing of a Message from the Android device */
 void ui_usb_message_reception(void);
 

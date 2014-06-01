@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for FreeRTOS USART Interface Layer.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,7 +54,7 @@
 #include <conf_example.h>
 #include "FreeRTOS.h"
 #include "task.h"
-#include "freertos_uart_serial.h"
+#include "freertos_usart_serial.h"
 
 /**
  * \mainpage
@@ -82,6 +82,7 @@
  * - sam3u4e_sam3u_ek
  * - sam3x8h_sam3x_ek
  * - sam4s16c_sam4s_ek
+ * - sam4c16c_sam4c_ek
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -261,7 +262,7 @@ void vApplicationStackOverflowHook(xTaskHandle pxTask,
 void vApplicationTickHook(void);
 
 /**
- * \brief Run WDT driver unit tests
+ * \brief Run USART unit tests
  */
 int main(void)
 {
@@ -281,7 +282,6 @@ int main(void)
 	for more details. */
 	for (;;) {
 	}
-	return 0;
 }
 
 static void create_usart_tasks(Usart *usart_base, uint16_t stack_depth_words,
@@ -328,6 +328,7 @@ static void create_usart_tasks(Usart *usart_base, uint16_t stack_depth_words,
 
 static void usart_task(void *pvParameters)
 {
+	UNUSED(pvParameters);
 	/* Define all the test cases */
 	DEFINE_TEST_CASE(usart_test, NULL, run_usart_test, NULL,
 			"FreeRTOS USART with 2 threads read/write in loopback mode");
@@ -386,6 +387,7 @@ static void run_usart_test(const struct test_case *test)
 
 static void usart_echo_tx_task(void *pvParameters)
 {
+	UNUSED(pvParameters);
 	static uint8_t local_buffer[RX_BUFFER_SIZE];
 	const portTickType time_out_definition = (100UL / portTICK_RATE_MS),
 			short_delay = (10UL / portTICK_RATE_MS);

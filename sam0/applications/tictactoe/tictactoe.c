@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Tic Tac Toe application for SAM D20 Xplained Pro with OLED1 Xplained Pro
+ * \brief Tic Tac Toe application for SAM D20/D21/R21 Xplained Pro with OLED1 Xplained Pro
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,43 +45,48 @@
 #include <stdio.h>
 
 /**
- * \mainpage SAM D20 Tic-Tac-Toe Example
- * See \ref appdoc_samd20_tictactoe_main "here" for project documentation.
- * \copydetails preface
+ * \mainpage SAM D20/D21/R21 Tic-Tac-Toe Example
+ * See \ref appdoc_sam0_tictactoe_main "here" for project documentation.
+ * \copydetails appdoc_preface
  *
  * \page appdoc_preface Overview
  * This application demonstrates the use of the OLED1 Xplained Pro extension
- * board for the SAM D20 Xplained Pro with a Tic-tac-toe game.
+ * board for the SAM D20/D21/R21 Xplained Pro with a Tic-tac-toe game.
  */
 
  /**
- * \page appdoc_samd20_tictactoe_main SAM D20 Tic-Tac-Toe Example
+ * \page appdoc_sam0_tictactoe_main SAM D20/D21/R21 Tic-Tac-Toe Example
  * Overview:
- * - \ref appdoc_samd20_tictactoe_intro
- * - \ref appdoc_samd20_tictactoe_setup
- * - \ref appdoc_samd20_tictactoe_compinfo
- * - \ref appdoc_samd20_tictactoe_contactinfo
+ * - \ref appdoc_sam0_tictactoe_intro
+ * - \ref appdoc_sam0_tictactoe_setup
+ * - \ref appdoc_sam0_tictactoe_compinfo
+ * - \ref appdoc_sam0_tictactoe_contactinfo
  *
- * \section  appdoc_samd20_tictactoe_intro Introduction
+ * \section  appdoc_sam0_tictactoe_intro Introduction
  * This application demonstrates the use of the OLED1 Xplained Pro extension
- * board for the SAM D20 Xplained Pro with a tic-tac-toe game.
+ * board for the SAM D20/D21/R21 Xplained Pro with a tic-tac-toe game.
  *
  * The game is controlled with the three mechanical buttons on the OLED1
  * Xplained Pro. The goal is to get three circles in a horizontal, diagonal or
- * vertical row, before the opponent (SAM D20) gets three crosses in a row.
+ * vertical row, before the opponent (SAM D20/D21/R21) gets three crosses
+ * in a row.
  *
- * \section appdoc_samd20_tictactoe_setup Hardware Setup
+ * \section appdoc_sam0_tictactoe_setup Hardware Setup
  * The OLED1 Xplained Pro extension board must be connected to extension
- * header 3 on the SAM D20 Xplained Pro.
+ * header 3 on the SAM D20/D21 Xplained Pro, and extension header 1 on the SAM
+ * R21 Xplained Pro.
  * To use another extension header, edit the configuration in:
  * - \ref conf_board.h
  * - \ref conf_ssd1306.h
+ * On the board of SAM D21 Xplained Pro, the PA03 Select jumper should be
+ * connected to EXT3 to make the Button 3 of the OLED1 extension board
+ * taking effect.
  *
- * \section appdoc_samd20_tictactoe_compinfo Compilation Info
+ * \section appdoc_sam0_tictactoe_compinfo Compilation Info
  * This software was written for the GNU GCC and IAR for ARM.
  * Other compilers may or may not work.
  *
- * \section appdoc_samd20_tictactoe_contactinfo Contact Information
+ * \section appdoc_sam0_tictactoe_contactinfo Contact Information
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
@@ -120,7 +125,7 @@
 /* X coordinate of strings */
 #define STRING_X (SQUARE2_X + SQUARE_SIZE*2)
 
-/* Lenght of strings */
+/* Length of strings */
 #define STRING_LENGTH 20
 
 /* X and Y coordinates for squares */
@@ -228,7 +233,7 @@ static enum button get_button(void)
 }
 
 /**
- * \brief Initalizes the display with explanatory text for the buttons
+ * \brief Initializes the display with explanatory text for the buttons
  */
 static void init_display(void)
 {

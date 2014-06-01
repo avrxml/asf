@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief  Configuration File for SAM4L-EK Board.
+ * \brief  Configuration File for SAM4L Xpro Board.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,5 +47,5 @@
 /** Enable Com Port. */
 #define CONF_BOARD_COM_PORT
 #define CONF_BOARD_AT86RFX
-
+#define AT86RFX_SPI_BAUDRATE             4000000UL
 #endif  /* CONF_BOARD_H_INCLUDED */

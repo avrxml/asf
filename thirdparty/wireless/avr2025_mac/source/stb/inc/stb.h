@@ -3,7 +3,7 @@
  *
  * @brief Declarations for security tool box
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -70,11 +70,11 @@
 /**
  * \defgroup group_stb  Security toolbox
  * The STB (Security Toolbox) is a high level security abstraction layer
- *providing an easy-
+ * providing an easy-
  * to-use  crypto  API for direct application access.It is placed on top of the
- *SAL and abstracts and implements
+ * SAL and abstracts and implements
  * transceiver or MCU dependent functionality that encrypts or decrypts frames
- *usimg CCM according to 802.15.4/Zigbee.
+ * usimg CCM according to 802.15.4/Zigbee.
  */
 
 /**
@@ -82,7 +82,7 @@
  * \defgroup group_sal
  * SAL Security abstraction layer
  * The SAL (Security Abstraction Layer) provides an API that allows access to
- *low level
+ * low level
  * AES engine functions abstraction to encrypt and  decrypt frames.
  *
  */
@@ -167,7 +167,7 @@
 
 /**
  * Key Identifier Sub-field of Security Control Field indicates Key-transport
- *key.
+ * key.
  */
 #define KEY_ID_KEY_TRANSPORT_KEY        (0x02)
 
@@ -189,7 +189,16 @@
  */
 #define AUX_HDR_LEN                     (MSDU_POS_KEY_SEQ_NO)
 
-/* === Types ============================================================== */
+/* Set radio to SLEEP, if it has been in SLEEP before sal_aes_restart()
+**/
+#define TRX_SLEEP() \
+	{ \
+		if (prev_trx_status == TRX_SLEEP) { \
+			tal_trx_sleep(SLEEP_MODE_1); \
+		} \
+	} \
+        /* === Types
+         *============================================================== */
 
 /* === Externals ========================================================== */
 

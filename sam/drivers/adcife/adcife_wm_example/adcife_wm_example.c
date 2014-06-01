@@ -3,7 +3,7 @@
  *
  * \brief ADCIFE Window Monitor example for SAM4L.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -59,14 +59,14 @@
  * This example shows a menu as below upon running:
  *
  * \code
- * -- Menu Choices for this example--
- *  -- 0: Modify DAC output voltage.--
- *  -- 1: Modify low threshold.--
- *  -- 2: Modify high threshold.--
- *  -- 3: Choose comparison mode.--
- *  -- i: Display ADCIFE information.--
- *  -- m: Display this main menu.--
- * \endcode
+	-- Menu Choices for this example--
+	 -- 0: Modify DAC output voltage.--
+	 -- 1: Modify low threshold.--
+	 -- 2: Modify high threshold.--
+	 -- 3: Choose comparison mode.--
+	 -- i: Display ADCIFE information.--
+	 -- m: Display this main menu.--
+\endcode
  *
  * With the user interface, DAC output voltage, window threshold and mode could be set.
  * After setting, it will start a conversion and enable window monitor interrupt.
@@ -85,17 +85,17 @@
  * -# In the terminal window, the
  *    following text should appear (values depend on the board and the chip used):
  *    \code
- *     -- ADCIFE Window Monitor Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     -- Menu Choices for this example--
- *     -- 0: Modify DAC output voltage.--
- *     -- 1: Modify low threshold.--
- *     -- 2: Modify high threshold.--
- *     -- 3: Choose comparison mode.--
- *     -- i: Display ADCIFE information.--
- *     -- m: Display this main menu.--
- *    \endcode
+	-- ADCIFE Window Monitor Example xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	-- Menu Choices for this example--
+	-- 0: Modify DAC output voltage.--
+	-- 1: Modify low threshold.--
+	-- 2: Modify high threshold.--
+	-- 3: Choose comparison mode.--
+	-- i: Display ADCIFE information.--
+	-- m: Display this main menu.--
+\endcode
  * -# Input the command according to the menu.
  *
  */
@@ -104,12 +104,11 @@
 #include "stdio_serial.h"
 #include "conf_board.h"
 
-#define VDDANA             3.3
-#define VOLTS_TO_MV        1000
-#define REFSEL1_VCCRATIO   0.625
+#define VDDANA             3300
+#define REFSEL1_VCCRATIO   625
 
 /* Reference voltage in mv */
-#define VOLT_REF   (uint32_t)(VDDANA * VOLTS_TO_MV * REFSEL1_VCCRATIO)
+#define VOLT_REF   ((uint32_t)(VDDANA * REFSEL1_VCCRATIO / 1000))
 
 /** The maximal digital value*/
 #define MAX_DIGITAL     (4095)
@@ -152,26 +151,26 @@ static void adcife_wm_handler(void)
 
 		switch (ul_mode) {
 		case 1:
-			printf("-ISR-:DAC output voltage %d mv is above the low " "threshold:%d mv!\n\r",
+			printf("-ISR-:DAC output voltage %d mv is above the low threshold:%d mv!\n\r",
 					(int)(us_adc * VOLT_REF / MAX_DIGITAL),
 					(int)(gs_us_low_threshold * VOLT_REF / MAX_DIGITAL));
 			break;
 
 		case 2:
-			printf("-ISR-:DAC output voltage %d mv is below the high " "threshold:%d mv!\n\r",
+			printf("-ISR-:DAC output voltage %d mv is below the high threshold:%d mv!\n\r",
 					(int)(us_adc * VOLT_REF / MAX_DIGITAL),
 					(int)(gs_us_high_threshold * VOLT_REF / MAX_DIGITAL));
 			break;
 
 		case 3:
-			printf("-ISR-:DAC output voltage %d mv is in the comparison " "window:%d-%d mv!\n\r",
+			printf("-ISR-:DAC output voltage %d mv is in the comparison window:%d-%d mv!\n\r",
 					(int)(us_adc * VOLT_REF / MAX_DIGITAL),
 					(int)(gs_us_low_threshold * VOLT_REF / MAX_DIGITAL),
 					(int)(gs_us_high_threshold * VOLT_REF / MAX_DIGITAL));
 			break;
 
 		case 4:
-			printf("-ISR-:DAC output voltage %d mv is out of the comparison" " window:%d-%d mv!\n\r",
+			printf("-ISR-:DAC output voltage %d mv is out of the comparison window:%d-%d mv!\n\r",
 					(int)(us_adc * VOLT_REF / MAX_DIGITAL),
 					(int)(gs_us_low_threshold * VOLT_REF / MAX_DIGITAL),
 					(int)(gs_us_high_threshold * VOLT_REF / MAX_DIGITAL));
@@ -471,10 +470,11 @@ int main(void)
 		switch (c_choice) {
 		case '0':
 			adc_disable_interrupt(&g_adc_inst, ADC_WINDOW_MONITOR);
-			printf("DAC output is set to(mv) from 0mv to %dmv", (int32_t)VOLT_REF);
+			printf("DAC output is set to(mv) from 0mv to %dmv: ",
+					(int32_t)VOLT_REF);
 			s_dac_value = get_voltage();
 			puts("\r");
-			f_dac_data = (float)s_dac_value * DACC_MAX_DATA / (VDDANA * VOLTS_TO_MV);
+			f_dac_data = (float)s_dac_value * DACC_MAX_DATA / VDDANA;
 			ul_dac_data = f_to_int(f_dac_data);
 			if (s_dac_value >= 0) {
 				dacc_write_conversion_data(DACC, ul_dac_data);
@@ -486,7 +486,8 @@ int main(void)
 
 		case '1':
 			adc_disable_interrupt(&g_adc_inst, ADC_WINDOW_MONITOR);
-			printf("Low threshold is set to(mv) from 0mv to %dmv:", (int32_t)VOLT_REF);
+			printf("Low threshold is set to(mv) from 0mv to %dmv: ",
+					(int32_t)VOLT_REF);
 			s_threshold = get_voltage();
 			puts("\r");
 			if (s_threshold >= 0) {
@@ -512,7 +513,8 @@ int main(void)
 
 		case '2':
 			adc_disable_interrupt(&g_adc_inst, ADC_WINDOW_MONITOR);
-			printf("High threshold is set to(mv)from 0mv to %dmv:", (int32_t)VOLT_REF);
+			printf("High threshold is set to(mv)from 0mv to %dmv:",
+					(int32_t)VOLT_REF);
 			s_threshold = get_voltage();
 			puts("\r");
 			if (s_threshold >= 0) {

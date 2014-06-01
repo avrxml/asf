@@ -141,7 +141,12 @@ CPPFLAGS = \
        -D ARM_MATH_CM3=true                               \
        -D BOARD=ARDUINO_DUE_X                             \
        -D __SAM3X8E__                                     \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

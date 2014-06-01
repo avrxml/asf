@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 LED Toggle Example
+ * \brief SAM D20/D21/R21 LED Toggle Example
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,9 +42,9 @@
  */
 
 /**
- * \mainpage SAM D20 LED Toggle Example
+ * \mainpage SAM D20/D21/R21 LED Toggle Example
  * See \ref appdoc_main "here" for project documentation.
- * \copydetails preface
+ * \copydetails appdoc_preface
  *
  *
  * \page appdoc_preface Overview
@@ -53,29 +53,29 @@
  */
 
 /**
- * \page appdoc_main SAM D20 LED Toggle Example
+ * \page appdoc_main SAM D20/D21/R21 LED Toggle Example
  *
  * Overview:
- * - \ref appdoc_samd20_led_toggle_app_intro
- * - \ref appdoc_samd20_led_toggle_app_usage
- * - \ref appdoc_samd20_led_toggle_app_config
- * - \ref appdoc_samd20_led_toggle_app_compinfo
- * - \ref appdoc_samd20_led_toggle_app_contactinfo
+ * - \ref appdoc_sam0_led_toggle_app_intro
+ * - \ref appdoc_sam0_led_toggle_app_usage
+ * - \ref appdoc_sam0_led_toggle_app_config
+ * - \ref appdoc_sam0_led_toggle_app_compinfo
+ * - \ref appdoc_sam0_led_toggle_app_contactinfo
  *
- * \section appdoc_samd20_led_toggle_app_intro Introduction
+ * \section appdoc_sam0_led_toggle_app_intro Introduction
  * This application demonstrates a simple example to turn on the board LED when
  * a button is pressed, using a variety of methods and modules within the device.
  *
- * \section appdoc_samd20_led_toggle_app_usage Usage
+ * \section appdoc_sam0_led_toggle_app_usage Usage
  * When run, press the board button to turn on the board LED, release to turn
  * the LED off. If the application settings are altered, the application must be
  * recompiled and re-run on the device.
  *
- * \section appdoc_samd20_led_toggle_app_config Configuration
- * The table \ref appdoc_samd20_led_toggle_app_conftable "below" shows the
+ * \section appdoc_sam0_led_toggle_app_config Configuration
+ * The table \ref appdoc_sam0_led_toggle_app_conftable "below" shows the
  * possible configurations of this example.
  *
- * \anchor appdoc_samd20_led_toggle_app_conftable
+ * \anchor appdoc_sam0_led_toggle_app_conftable
  * <table>
  *  <caption>Example Configurations</caption>
  * 	<tr>
@@ -105,11 +105,11 @@
  * 	</tr>
  * </table>
  *
- * \section appdoc_samd20_led_toggle_app_compinfo Compilation Info
+ * \section appdoc_sam0_led_toggle_app_compinfo Compilation Info
  * This software was written for the GNU GCC and IAR for ARM.
  * Other compilers may or may not work.
  *
- * \section appdoc_samd20_led_toggle_app_contactinfo Contact Information
+ * \section appdoc_sam0_led_toggle_app_contactinfo Contact Information
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
@@ -138,10 +138,8 @@ static void update_led_state(void)
 #  if USE_EIC == true
 /** Callback function for the EXTINT driver, called when an external interrupt
  *  detection occurs.
- *
- *  \param[in] channel  External Interrupt channel that has changed state
  */
-static void extint_callback(uint32_t channel)
+static void extint_callback(void)
 {
 	update_led_state();
 }
@@ -152,6 +150,7 @@ static void extint_callback(uint32_t channel)
 static void configure_eic_callback(void)
 {
 	extint_register_callback(extint_callback,
+			BUTTON_0_EIC_LINE,
 			EXTINT_CALLBACK_TYPE_DETECT);
 	extint_chan_enable_callback(BUTTON_0_EIC_LINE,
 			EXTINT_CALLBACK_TYPE_DETECT);
@@ -194,9 +193,8 @@ static void configure_extint(void)
 	eint_chan_conf.gpio_pin           = BUTTON_0_EIC_PIN;
 	eint_chan_conf.gpio_pin_mux       = BUTTON_0_EIC_MUX;
 	eint_chan_conf.detection_criteria = EXTINT_DETECT_BOTH;
+	eint_chan_conf.filter_input_signal = true;
 	extint_chan_set_config(BUTTON_0_EIC_LINE, &eint_chan_conf);
-
-	extint_enable();
 }
 #endif
 

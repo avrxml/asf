@@ -3,7 +3,7 @@
  *
  * \brief Haven Display UG 2832HSWEG04 display glue code for display controller
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -114,16 +114,16 @@ void gfx_mono_ssd1306_put_framebuffer(void)
  *
  * The following will set the pixel at x=10,y=10:
  * \code
- * gfx_mono_ssd1306_draw_pixel(10, 10, GFX_PIXEL_SET);
- * \endcode
+	gfx_mono_ssd1306_draw_pixel(10, 10, GFX_PIXEL_SET);
+\endcode
  * The following example will clear the pixel at x=10,y=10:
  * \code
- * gfx_mono_ssd1306_draw_pixel(10, 10, GFX_PIXEL_CLR);
- * \endcode
+	gfx_mono_ssd1306_draw_pixel(10, 10, GFX_PIXEL_CLR);
+\endcode
  * And the following will toggle the pixel at x=10,y=10:
  * \code
- * gfx_mono_ssd1306_draw_pixel(10, 10, GFX_PIXEL_XOR);
- * \endcode
+	gfx_mono_ssd1306_draw_pixel(10, 10, GFX_PIXEL_XOR);
+\endcode
  */
 void gfx_mono_ssd1306_draw_pixel(gfx_coord_t x, gfx_coord_t y,
 		gfx_coord_t color)
@@ -176,8 +176,8 @@ void gfx_mono_ssd1306_draw_pixel(gfx_coord_t x, gfx_coord_t y,
  *
  * The following example will read the pixel value from x=10,y=10:
  * \code
- * pixelval = gfx_mono_ssd1306_get_pixel(10,10);
- * \endcode
+	pixelval = gfx_mono_ssd1306_get_pixel(10,10);
+\endcode
  */
 uint8_t gfx_mono_ssd1306_get_pixel(gfx_coord_t x, gfx_coord_t y)
 {
@@ -211,8 +211,8 @@ uint8_t gfx_mono_ssd1306_get_pixel(gfx_coord_t x, gfx_coord_t y)
  * column 10. This will place data_buf in the rectangle x1=10,y1=0,x2=42,y2=8
  * (10 pixels from the upper left corner of the screen):
  * \code
- * gfx_mono_ssd1306_put_page(data_buf, 0, 10, 32);
- * \endcode
+	gfx_mono_ssd1306_put_page(data_buf, 0, 10, 32);
+\endcode
  */
 void gfx_mono_ssd1306_put_page(gfx_mono_color_t *data, gfx_coord_t page,
 		gfx_coord_t column, gfx_coord_t width)
@@ -243,8 +243,8 @@ void gfx_mono_ssd1306_put_page(gfx_mono_color_t *data, gfx_coord_t page,
  * The following example will read back the first 128 bytes (first page) from
  * the display memory:
  * \code
- * gfx_mono_ssd1306_get_page(read_buffer, 0, 0, 128);
- * \endcode
+	gfx_mono_ssd1306_get_page(read_buffer, 0, 0, 128);
+\endcode
  */
 void gfx_mono_ssd1306_get_page(gfx_mono_color_t *data, gfx_coord_t page,
 		gfx_coord_t column, gfx_coord_t width)
@@ -275,8 +275,8 @@ void gfx_mono_ssd1306_get_page(gfx_mono_color_t *data, gfx_coord_t page,
  * setting a 8 pixel high column of pixels in the upper left corner of the
  * display.
  * \code
- * gfx_mono_ssd1306_put_byte(0, 0, 0xFF, false);
- * \endcode
+	gfx_mono_ssd1306_put_byte(0, 0, 0xFF, false);
+\endcode
  */
 void gfx_mono_ssd1306_put_byte(gfx_coord_t page, gfx_coord_t column,
 		uint8_t data, bool force)
@@ -308,8 +308,8 @@ void gfx_mono_ssd1306_put_byte(gfx_coord_t page, gfx_coord_t column,
  * local framebuffer if direct read is not possible. The data represents the
  * pixels from x = 0 and y = 0 to y = 7.
  * \code
- * data = gfx_mono_ssd1306_get_byte(0, 0);
- * \endcode
+	data = gfx_mono_ssd1306_get_byte(0, 0);
+\endcode
  */
 uint8_t gfx_mono_ssd1306_get_byte(gfx_coord_t page, gfx_coord_t column)
 {
@@ -340,8 +340,8 @@ uint8_t gfx_mono_ssd1306_get_byte(gfx_coord_t page, gfx_coord_t column)
  *
  * A small example that will XOR the first byte of display memory with 0xAA
  * \code
- * gfx_mono_ssd1306_mask_byte(0,0,0xAA,GFX_PIXEL_XOR);
- * \endcode
+	gfx_mono_ssd1306_mask_byte(0,0,0xAA,GFX_PIXEL_XOR);
+\endcode
  */
 void gfx_mono_ssd1306_mask_byte(gfx_coord_t page, gfx_coord_t column,
 		gfx_mono_color_t pixel_mask, gfx_mono_color_t color)

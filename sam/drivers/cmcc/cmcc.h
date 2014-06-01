@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of functions for the CMCC on SAM devices.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -101,6 +101,7 @@ static inline void cmcc_set_config(Cmcc *const p_cmcc,
 	p_cmcc->CMCC_MCFG = cfg->cmcc_mcfg_mode;
 }
 
+#if SAM4E
 /**
  * \brief Enable Clock gating.
  *
@@ -122,6 +123,7 @@ static inline void cmcc_disable_clock_gating(Cmcc *const p_cmcc)
 {
 	p_cmcc->CMCC_CFG |= CMCC_CFG_GCLKDIS;
 }
+#endif
 
 /**
  * \brief Enable Cache Controller monitor.
@@ -233,25 +235,25 @@ static inline void cmcc_invalidate_all(Cmcc *const p_cmcc)
  *
  * Add this to the main loop or a setup function:
  * \code
- *  struct cmcc_config   g_cmcc_cfg;
- *  cmcc_get_config_defaults(&g_cmcc_cfg);
- *  cmcc_init(CMCC, &g_cmcc_cfg);
- *  cmcc_enable(CMCC);
- * \endcode
+	struct cmcc_config   g_cmcc_cfg;
+	cmcc_get_config_defaults(&g_cmcc_cfg);
+	cmcc_init(CMCC, &g_cmcc_cfg);
+	cmcc_enable(CMCC);
+\endcode
  *
  * \subsection cmcc_basic_setup_workflow
  *
  * -# Enable the CMCC module
  * \code 
- *  cmcc_enable(CMCC); 
- * \endcode
+	cmcc_enable(CMCC); 
+\endcode
  *
  * -# Initialize the CMCC to Data hit counter mode
  * \code
- *  g_cmcc_cfg->cmcc_mcfg_mode = CMCC_DHIT_COUNT_MODE;
- *  cmcc_set_config(CMCC,&g_cmcc_cfg);
- *  cmcc_enable_monitor(CMCC);
- * \endcode
+	g_cmcc_cfg->cmcc_mcfg_mode = CMCC_DHIT_COUNT_MODE;
+	cmcc_set_config(CMCC,&g_cmcc_cfg);
+	cmcc_enable_monitor(CMCC);
+\endcode
  *
  * \section cmcc_basic_usage Usage steps
  *
@@ -259,8 +261,8 @@ static inline void cmcc_invalidate_all(Cmcc *const p_cmcc)
  *
  * We can then get the count of Cache Monitor Event by
  * \code
- *  cmcc_get_monitor_cnt(CMCC);
- * \endcode
+	cmcc_get_monitor_cnt(CMCC);
+\endcode
  */
 
 #endif  /* CMCC_H_INCLUDED */

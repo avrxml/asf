@@ -3,7 +3,7 @@
  *
  * \brief SAM4L Xplained Pro board definition
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,7 +54,7 @@
  */
 
 /**
- * \defgroup sam4s_xplained_pro_config_group Configuration
+ * \defgroup sam4l_xplained_pro_config_group Configuration
  *
  * Symbols to use for configuring the board and its initialization.
  *
@@ -90,35 +90,36 @@
  */
 
 //! Name string macro
-#define BOARD_NAME "SAM4L Xplained Pro"
+#define BOARD_NAME          "SAM4L Xplained Pro"
 #define MCU_SOC_NAME        "ATSAM4LC4C"
 
 //! \name Board oscillator definitions
 //@{
 //! Osc frequency (Hz.) and startup time (RCOsc periods)
-#define FOSC0                     (12000000)
+#define FOSC0                     (12000000UL)
 //! Osc32 frequency (Hz.) and startup time (RCOsc periods)
-#define FOSC32                    (32768)
+#define FOSC32                    (32768UL)
 #define BOARD_OSC32_IS_XTAL       true
 #define BOARD_OSC32_HZ            FOSC32
-#define BOARD_OSC32_STARTUP_US    (750000)
+#define BOARD_OSC32_STARTUP_US    (750000UL)
 #define BOARD_OSC32_SELCURR       BSCIF_OSCCTRL32_SELCURR(10)
 #define BOARD_OSC0_IS_XTAL        true
 #define BOARD_OSC0_HZ             FOSC0
-#define BOARD_OSC0_STARTUP_US     (6100)
+#define BOARD_OSC0_STARTUP_US     (6100UL)
 //@}
 
 //! \name LED0 definitions
 //@{
 #define LED0                      PIN_PC07
-#define LED0_PIN                  PIN_PC07
+#define LED0_PIN                  PIN_PC07 /* Wrapper definition */
+#define LED0_GPIO                 PIN_PC07 /* Wrapper definition */
 #define LED0_ACTIVE               false
 #define LED0_INACTIVE             !LED0_ACTIVE
 //@}
 
 //! \name SW0 definitions
 //@{
-#define GPIO_PUSH_BUTTON_0        PIN_PC24
+#define GPIO_PUSH_BUTTON_0        PIN_PC24 /* Wrapper definition */
 #define SW0_PIN                   PIN_PC24
 #define SW0_ACTIVE                false
 #define SW0_INACTIVE              !SW0_ACTIVE
@@ -129,11 +130,11 @@
 
 //! \name TOUCH QTouch button definitions
 //@{
-#define TOUCH_DISCHARGE_PIN       PIN_PC14
-#define TOUCH_DISCHARGE_MUX       MUX_PC14G_CATB_DIS
-#define TOUCH_SENSE_PIN           PIN_PC13
-#define TOUCH_SENSE_MUX           MUX_PC13G_CATB_SENSE15
-#define TOUCH_PINSEL_BUTTON       15
+#define QTOUCH_DISCHARGE_PIN       PIN_PC14
+#define QTOUCH_DISCHARGE_MUX       MUX_PC14G_CATB_DIS
+#define QTOUCH_SENSE_PIN           PIN_PC13
+#define QTOUCH_SENSE_MUX           MUX_PC13G_CATB_SENSE15
+#define QTOUCH_PINSEL_BUTTON       15
 //@}
 
 /**
@@ -148,15 +149,13 @@
 #define USB_VBUS_PIN              PIN_PC11
 #define USB_VBUS_FLAGS            IOPORT_MODE_GLITCH_FILTER
 #define USB_VBOF_PIN              PIN_PC12
-#define USB_VBOF_ACTIVE           true
-#define USB_VBOF_INACTIVE         !USB_VBOF_ACTIVE
-#define USB_VBOF_ACTIVE_LEVEL     USB_VBOF_ACTIVE
-#define USB_VBOF_INACTIVE_LEVEL   USB_VBOF_INACTIVE
+#define USB_VBOF_ACTIVE_LEVEL     1
+#define USB_VBOF_INACTIVE_LEVEL   0
 //@}
 
 //! \name USART connections to GPIO for Virtual Com Port
 // @{
-#define COM_PORT_USART				    USART1
+#define COM_PORT_USART            USART1
 #define COM_PORT_USART_ID         ID_USART1
 #define COM_PORT_RX_PIN           PIN_PC26A_USART1_RXD
 #define COM_PORT_RX_GPIO          GPIO_PC26A_USART1_RXD
@@ -177,6 +176,15 @@
 #define EDBG_UART_CLK_MUX         MUX_PC31A_USART3_CLK
 //@}
 
+//! \name DACC pins
+// @{
+#define DACC_EXT_TRIG0_PIN             PIN_PB04E_DACC_EXT_TRIG0
+#define DACC_EXT_TRIG0_GPIO            GPIO_PB04E_DACC_EXT_TRIG0
+#define DACC_EXT_TRIG0_MUX             MUX_PB04E_DACC_EXT_TRIG0
+#define DACC_VOUT_PIN                  PIN_PA06A_DACC_VOUT
+#define DACC_VOUT_GPIO                 GPIO_PA06A_DACC_VOUT
+#define DACC_VOUT_MUX                  MUX_PA06A_DACC_VOUT
+// @}
 
 /**
  * \name LED #0 definitions
@@ -185,7 +193,7 @@
  * boards.
  */
 //@{
-#define LED_0_NAME                "LED0 (yellow)"
+#define LED_0_NAME                "LED0"
 #define LED_0_PIN                 LED0_PIN
 #define LED_0_ACTIVE              LED0_ACTIVE
 #define LED_0_INACTIVE            LED0_INACTIVE
@@ -193,6 +201,18 @@
 
 //! Number of on-board LEDs
 #define LED_COUNT                 1
+
+/**
+ * \name LCD Backlight
+ */
+//@{
+#define LCD_BL                        PC05
+#define LCD_BL_GPIO                   PIN_PC05
+#define LCD_BL_GPIO_MASK              GPIO_PC05
+
+#define LCD_BL_ACTIVE_LEVEL             IOPORT_PIN_LEVEL_HIGH
+#define LCD_BL_INACTIVE_LEVEL           IOPORT_PIN_LEVEL_LOW
+//@}
 
 /**
  * \name Button #0 definitions
@@ -208,10 +228,17 @@
 #define BUTTON_0_EIC_PIN          SW0_EIC_PIN
 #define BUTTON_0_EIC_PIN_MUX      SW0_EIC_PIN_MUX
 #define BUTTON_0_EIC_LINE         SW0_EIC_LINE
+
+/* Definitions for SW0 when using it as EIC pin */
+#define GPIO_PUSH_BUTTON_EIC_PIN        PIN_PC24B_EIC_EXTINT1
+#define GPIO_PUSH_BUTTON_EIC_PIN_MASK   GPIO_PC24B_EIC_EXTINT1
+#define GPIO_PUSH_BUTTON_EIC_PIN_MUX    MUX_PC24B_EIC_EXTINT1
+#define GPIO_PUSH_BUTTON_EIC_LINE       1
+#define GPIO_PUSH_BUTTON_EIC_IRQ        EIC_1_IRQn
 //@}
 
 //! Number of on-board buttons
-#define BUTTON_COUNT 1
+#define BUTTON_COUNT              1
 
 //! \name Extension header #1 pin definitions
 //@{
@@ -596,9 +623,16 @@
 #define AT86RFX_IRQ_PIN              EXT1_PIN_9
 #define AT86RFX_SLP_PIN              EXT1_PIN_10
 #define AT86RFX_SPI_CS               0
+#define AT86RFX_SPI_CS_PIN           EXT1_PIN_15
+#define AT86RFX_SPI_CS_FLAGS         MUX_PC03A_SPI_NPCS0
 #define AT86RFX_SPI_MOSI             EXT1_PIN_16
 #define AT86RFX_SPI_MISO             EXT1_PIN_17
 #define AT86RFX_SPI_SCK              EXT1_PIN_18
+#define AT86RFX_SPI_MOSI_FLAGS       MUX_PA22A_SPI_MOSI
+#define AT86RFX_SPI_MISO_FLAGS       MUX_PA21A_SPI_MISO
+#define AT86RFX_SPI_SCK_FLAGS        MUX_PC30B_SPI_SCK
+#define AT86RFX_CSD     		     EXT1_PIN_5
+#define AT86RFX_CPS 	             EXT1_PIN_8
 
 #define AT86RFX_INTC_INIT()         ioport_set_pin_dir(AT86RFX_IRQ_PIN, IOPORT_DIR_INPUT);\
                                     ioport_set_pin_sense_mode(AT86RFX_IRQ_PIN, IOPORT_SENSE_RISING);\
@@ -626,6 +660,24 @@
  *  This macro restores the transceiver interrupt status
  */
 #define LEAVE_TRX_REGION()         NVIC_EnableIRQ(GPIO_11_IRQn)
+
+/** Defines required by SD MMC Stack */
+#define SD_MMC_SPI_MEM_CNT          1
+#define SD_MMC_0_CD_GPIO            (PIN_PB13)
+#define SD_MMC_0_CD_DIR             (IOPORT_DIR_INPUT)
+#define SD_MMC_0_CD_MODE            (IOPORT_MODE_PULLUP)
+#define SD_MMC_0_CD_DETECT_VALUE    0
+#define SD_MMC_SPI                  SPI
+#define SD_MMC_SPI_0_CS             0
+
+#define SPI_NPCS0_GPIO              (PIN_PC03A_SPI_NPCS0)
+#define SPI_NPCS0_FLAGS             (MUX_PC03A_SPI_NPCS0)
+#define SPI_MISO_GPIO               (PIN_PA21A_SPI_MISO)
+#define SPI_MISO_FLAGS              (MUX_PA21A_SPI_MISO)
+#define SPI_MOSI_GPIO               (PIN_PA22A_SPI_MOSI)
+#define SPI_MOSI_FLAGS              (MUX_PA22A_SPI_MOSI)
+#define SPI_SPCK_GPIO               (PIN_PC30B_SPI_SCK)
+#define SPI_SPCK_FLAGS              (MUX_PC30B_SPI_SCK)
 
 //! @}
 

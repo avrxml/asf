@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 I2C Slave Quick Start Guide with Callbacks
+ * \brief SAM SERCOM I2C Slave Quick Start Guide with Callbacks
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \page asfdoc_samd20_sercom_i2c_slave_basic_use_case Quick Start Guide for SERCOM I2C Slave - Basic
+ * \page asfdoc_sam0_sercom_i2c_slave_basic_use_case Quick Start Guide for SERCOM I2C Slave - Basic
  *
  * In this use case, the I<SUP>2</SUP>C will used and set up as follows:
  *  - Slave mode
@@ -50,12 +50,12 @@
  *  - Not operational in standby
  *  - 10000 packet timeout value
  *
- * \section asfdoc_samd20_sercom_i2c_slave_basic_use_case_prereq Prerequisites
+ * \section asfdoc_sam0_sercom_i2c_slave_basic_use_case_prereq Prerequisites
  * The device must be connected to an I<SUP>2</SUP>C master.
  *
- * \section asfdoc_samd20_sercom_i2c_slave_basic_use_case_setup_code Setup
+ * \section asfdoc_sam0_sercom_i2c_slave_basic_use_case_setup_code Setup
  *
- * \subsection asfdoc_samd20_sercom_i2c_slave_basic_use_setup_code Code
+ * \subsection asfdoc_sam0_sercom_i2c_slave_basic_use_setup_code Code
  * The following must be added to the user application:
  *
  * A sample buffer to write from, a sample buffer to read to and length of buffers:
@@ -73,34 +73,32 @@
  * Add to user application main():
  * \snippet qs_i2c_slave_basic_use.c run_initialize_i2c
  *
- * \subsection asfdoc_samd20_sercom_i2c_slave_basic_use_setup_workflow Workflow
- * -# Initialize system.
- *  \snippet qs_i2c_slave_basic_use.c system_init
+ * \subsection asfdoc_sam0_sercom_i2c_slave_basic_use_setup_workflow Workflow
  * -# Configure and enable module:
- *  \snippet qs_i2c_slave_basic_use.c config
+ *    \snippet qs_i2c_slave_basic_use.c config
  *   -# Create and initialize configuration structure.
- *    \snippet qs_i2c_slave_basic_use.c init_conf
+ *      \snippet qs_i2c_slave_basic_use.c init_conf
  *   -# Change address and address mode settings in the configuration.
- *    \snippet qs_i2c_slave_basic_use.c conf_changes
+ *      \snippet qs_i2c_slave_basic_use.c conf_changes
  *   -# Initialize the module with the set configurations.
- *     \snippet qs_i2c_slave_basic_use.c init_module
+ *      \snippet qs_i2c_slave_basic_use.c init_module
  *   -# Enable the module.
- *    \snippet qs_i2c_slave_basic_use.c enable_module
+ *      \snippet qs_i2c_slave_basic_use.c enable_module
  * -# Create variable to hold transfer direction
- *  \snippet qs_i2c_slave_basic_use.c dir
+ *    \snippet qs_i2c_slave_basic_use.c dir
  * -# Create packet variable to transfer
- *  \snippet qs_i2c_slave_basic_use.c pack
+ *    \snippet qs_i2c_slave_basic_use.c pack
  *
- * \section asfdoc_samd20_sercom_i2c_slave_basic_use_implementation Implementation
- * \subsection asfdoc_samd20_sercom_i2c_slave_basic_use_implementation_code Code
+ * \section asfdoc_sam0_sercom_i2c_slave_basic_use_implementation Implementation
+ * \subsection asfdoc_sam0_sercom_i2c_slave_basic_use_implementation_code Code
  * Add to user application main:
  * \snippet qs_i2c_slave_basic_use.c while
  * \subsection i2c_slave_basic_use_implementation_workflow Workflow
  * -# Wait for start condition from master and get transfer direction.
- *  \snippet qs_i2c_slave_basic_use.c get_dir
+ *    \snippet qs_i2c_slave_basic_use.c get_dir
  * -# Depending on transfer direction, set up buffer to read to or write from,
- * and write or read from master.
- *  \snippet qs_i2c_slave_basic_use.c transfer
+ *    and write or read from master.
+ *    \snippet qs_i2c_slave_basic_use.c transfer
  */
 
 #include <asf.h>

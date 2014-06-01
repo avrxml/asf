@@ -406,6 +406,9 @@ void ast_write_counter_value(Ast *ast,
 /**
  * \brief This function returns the AST current calendar value.
  *
+ * \note There maybe has a compiling warning about return a structure type
+ * value, however it is safe because ast_calendar is actually uint32_t type.
+ *
  * \param ast Base address of the AST.
  *
  * \return The AST current calendar value.
@@ -599,45 +602,13 @@ void ast_set_callback(Ast *ast, ast_interrupt_source_t source,
 }
 
 /**
- * \brief Interrupt handler for AST.
- */
-static void ast_interrupt_handler(void)
-{
-	uint32_t status, mask;
-
-	status = ast_read_status(AST);
-	mask = ast_read_interrupt_mask(AST);
-
-	if ((status & AST_SR_ALARM0) && (mask & AST_IMR_ALARM0)) {
-		ast_callback_pointer[AST_INTERRUPT_ALARM]();
-	}
-
-	if ((status & AST_SR_PER0) && (mask & AST_IMR_PER0)) {
-		ast_callback_pointer[AST_INTERRUPT_PER]();
-	}
-
-	if ((status & AST_SR_OVF) && (mask & AST_IMR_OVF_1)) {
-		ast_callback_pointer[AST_INTERRUPT_OVF]();
-	}
-
-	if ((status & AST_SR_READY) && (mask & AST_IMR_READY_1)) {
-		ast_callback_pointer[AST_INTERRUPT_READY]();
-	}
-
-	if ((status & AST_SR_CLKRDY) && (mask & AST_IMR_CLKRDY_1)) {
-		ast_callback_pointer[AST_INTERRUPT_CLKREADY]();
-	}
-}
-
-/**
  * \brief Interrupt handler for AST periodic.
  */
 #ifdef AST_PER_ENABLE
 void AST_PER_Handler(void)
 {
-	ast_interrupt_handler();
+	ast_callback_pointer[AST_INTERRUPT_PER]();
 }
-
 #endif
 
 /**
@@ -646,9 +617,8 @@ void AST_PER_Handler(void)
 #ifdef AST_ALARM_ENABLE
 void AST_ALARM_Handler(void)
 {
-	ast_interrupt_handler();
+	ast_callback_pointer[AST_INTERRUPT_ALARM]();
 }
-
 #endif
 
 /**
@@ -657,9 +627,8 @@ void AST_ALARM_Handler(void)
 #ifdef AST_OVF_ENABLE
 void AST_OVF_Handler(void)
 {
-	ast_interrupt_handler();
+	ast_callback_pointer[AST_INTERRUPT_OVF]();
 }
-
 #endif
 
 /**
@@ -668,9 +637,8 @@ void AST_OVF_Handler(void)
 #ifdef AST_READY_ENABLE
 void AST_READY_Handler(void)
 {
-	ast_interrupt_handler();
+	ast_callback_pointer[AST_INTERRUPT_READY]();
 }
-
 #endif
 
 /**
@@ -679,9 +647,8 @@ void AST_READY_Handler(void)
 #ifdef AST_CLKREADY_ENABLE
 void AST_CLKREADY_Handler(void)
 {
-	ast_interrupt_handler();
+	ast_callback_pointer[AST_INTERRUPT_CLKREADY]();
 }
-
 #endif
 
 /**

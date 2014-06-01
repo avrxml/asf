@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,19 +44,19 @@
 
 /* ========== Register definition for SUPC peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-#define REG_SUPC_CR            (0x400E1410U) /**< \brief (SUPC) Supply Controller Control Register */
-#define REG_SUPC_SMMR          (0x400E1414U) /**< \brief (SUPC) Supply Controller Supply Monitor Mode Register */
-#define REG_SUPC_MR            (0x400E1418U) /**< \brief (SUPC) Supply Controller Mode Register */
-#define REG_SUPC_WUMR          (0x400E141CU) /**< \brief (SUPC) Supply Controller Wake Up Mode Register */
-#define REG_SUPC_WUIR          (0x400E1420U) /**< \brief (SUPC) Supply Controller Wake Up Inputs Register */
-#define REG_SUPC_SR            (0x400E1424U) /**< \brief (SUPC) Supply Controller Status Register */
+  #define REG_SUPC_CR                    (0x400E1410U) /**< \brief (SUPC) Supply Controller Control Register */
+  #define REG_SUPC_SMMR                  (0x400E1414U) /**< \brief (SUPC) Supply Controller Supply Monitor Mode Register */
+  #define REG_SUPC_MR                    (0x400E1418U) /**< \brief (SUPC) Supply Controller Mode Register */
+  #define REG_SUPC_WUMR                  (0x400E141CU) /**< \brief (SUPC) Supply Controller Wake-up Mode Register */
+  #define REG_SUPC_WUIR                  (0x400E1420U) /**< \brief (SUPC) Supply Controller Wake-up Inputs Register */
+  #define REG_SUPC_SR                    (0x400E1424U) /**< \brief (SUPC) Supply Controller Status Register */
 #else
-#define REG_SUPC_CR   (*(WoReg*)0x400E1410U) /**< \brief (SUPC) Supply Controller Control Register */
-#define REG_SUPC_SMMR (*(RwReg*)0x400E1414U) /**< \brief (SUPC) Supply Controller Supply Monitor Mode Register */
-#define REG_SUPC_MR   (*(RwReg*)0x400E1418U) /**< \brief (SUPC) Supply Controller Mode Register */
-#define REG_SUPC_WUMR (*(RwReg*)0x400E141CU) /**< \brief (SUPC) Supply Controller Wake Up Mode Register */
-#define REG_SUPC_WUIR (*(RwReg*)0x400E1420U) /**< \brief (SUPC) Supply Controller Wake Up Inputs Register */
-#define REG_SUPC_SR   (*(RoReg*)0x400E1424U) /**< \brief (SUPC) Supply Controller Status Register */
+  #define REG_SUPC_CR   (*(__O  uint32_t*)0x400E1410U) /**< \brief (SUPC) Supply Controller Control Register */
+  #define REG_SUPC_SMMR (*(__IO uint32_t*)0x400E1414U) /**< \brief (SUPC) Supply Controller Supply Monitor Mode Register */
+  #define REG_SUPC_MR   (*(__IO uint32_t*)0x400E1418U) /**< \brief (SUPC) Supply Controller Mode Register */
+  #define REG_SUPC_WUMR (*(__IO uint32_t*)0x400E141CU) /**< \brief (SUPC) Supply Controller Wake-up Mode Register */
+  #define REG_SUPC_WUIR (*(__IO uint32_t*)0x400E1420U) /**< \brief (SUPC) Supply Controller Wake-up Inputs Register */
+  #define REG_SUPC_SR   (*(__I  uint32_t*)0x400E1424U) /**< \brief (SUPC) Supply Controller Status Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAM4S_SUPC_INSTANCE_ */

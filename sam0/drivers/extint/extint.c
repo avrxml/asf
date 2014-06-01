@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 External Interrupt Driver
+ * \brief SAM D20/D21/R21 External Interrupt Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,6 +44,7 @@
 #include <system.h>
 #include <system_interrupt.h>
 
+
 /**
  * \internal
  * Internal driver device instance struct.
@@ -51,17 +52,54 @@
 struct _extint_module _extint_dev;
 
 /**
- * \brief Resets and disables the External Interrupt driver.
+ * \brief Determin if the general clock is required
  *
- * Resets and disables the External Interrupt driver, resetting all hardware
- * module registers to their power-on defaults.
+ * \param[in] filter_input_signal Filter the raw input signal to prevent noise
+ * \param[in] detection_criteria  Edge detection mode to use (\ref extint_detect)
  */
-void extint_reset(void)
+#define _extint_is_gclk_required(filter_input_signal, detection_criteria) \
+		((filter_input_signal) ? true : (\
+			(EXTINT_DETECT_RISING == (detection_criteria)) ? true : (\
+			(EXTINT_DETECT_FALLING == (detection_criteria)) ? true : (\
+			(EXTINT_DETECT_BOTH == (detection_criteria)) ? true : false))))
+
+static void _extint_enable(void);
+static void _extint_disable(void);
+
+/**
+ * \internal
+ * \brief Initializes and enables the External Interrupt driver.
+ *
+ * Enable the clocks used by External Interrupt driver.
+ *
+ * Resets the External Interrupt driver, resetting all hardware
+ * module registers to their power-on defaults, then enable it for further use.
+ *
+ * Reset the callback list if callback mode is used.
+ *
+ * This function must be called before attempting to use any NMI or standard
+ * external interrupt channel functions.
+ *
+ * \note When SYSTEM module is used, this function will be invoked by
+ * \ref system_init() automatically if the module is included.
+ */
+void _system_extint_init(void);
+void _system_extint_init(void)
 {
 	Eic *const eics[EIC_INST_NUM] = EIC_INSTS;
 
-	/* Disable all EIC modules before resetting them. */
-	extint_disable();
+	/* Turn on the digital interface clock */
+	system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBA, PM_APBAMASK_EIC);
+
+	/* Configure the generic clock for the module and enable it */
+	struct system_gclk_chan_config gclk_chan_conf;
+	system_gclk_chan_get_config_defaults(&gclk_chan_conf);
+	gclk_chan_conf.source_generator = EXTINT_CLOCK_SOURCE;
+	system_gclk_chan_set_config(EIC_GCLK_ID, &gclk_chan_conf);
+
+	/* Enable the clock anyway, since when needed it will be requested
+	 * by External Interrupt driver */
+	system_gclk_chan_enable(EIC_GCLK_ID);
 
 	/* Reset all EIC hardware modules. */
 	for (uint32_t i = 0; i < EIC_INST_NUM; i++) {
@@ -71,24 +109,30 @@ void extint_reset(void)
 	while (extint_is_syncing()) {
 		/* Wait for all hardware modules to complete synchronization */
 	}
+
+	/* Reset the software module */
+#if EXTINT_CALLBACK_MODE == true
+	/* Clear callback registration table */
+	for (uint8_t j = 0; j < EIC_NUMBER_OF_INTERRUPTS; j++) {
+		_extint_dev.callbacks[j] = NULL;
+	}
+	system_interrupt_enable(SYSTEM_INTERRUPT_MODULE_EIC);
+#endif
+
+	/* Enables the driver for further use */
+	_extint_enable();
 }
 
 /**
+ * \internal
  * \brief Enables the External Interrupt driver.
  *
- * Enables EIC modules ready for use. This function must be called before
- * attempting to use any NMI or standard external interrupt channel functions.
+ * Enables EIC modules.
+ * Registered callback list will not be affected if callback mode is used.
  */
-void extint_enable(void)
+void _extint_enable(void)
 {
 	Eic *const eics[EIC_INST_NUM] = EIC_INSTS;
-
-	/* Configure the generic clock for the module */
-	struct system_gclk_chan_config gclk_chan_conf;
-	system_gclk_chan_get_config_defaults(&gclk_chan_conf);
-	gclk_chan_conf.source_generator = GCLK_GENERATOR_0;
-	system_gclk_chan_set_config(EIC_GCLK_ID, &gclk_chan_conf);
-	system_gclk_chan_enable(EIC_GCLK_ID);
 
 	/* Enable all EIC hardware modules. */
 	for (uint32_t i = 0; i < EIC_INST_NUM; i++) {
@@ -98,24 +142,17 @@ void extint_enable(void)
 	while (extint_is_syncing()) {
 		/* Wait for all hardware modules to complete synchronization */
 	}
-
-#if EXTINT_CALLBACK_MODE == true
-	/* Clear callback registration table */
-	for (uint8_t j = 0; j < EXTINT_CALLBACKS_MAX; j++) {
-		_extint_dev.callbacks[j] = NULL;
-	}
-
-	system_interrupt_enable(SYSTEM_INTERRUPT_MODULE_EIC);
-#endif
 }
 
 /**
+ * \internal
  * \brief Disables the External Interrupt driver.
  *
  * Disables EIC modules that were previously started via a call to
- * \ref extint_enable().
+ * \ref _extint_enable().
+ * Registered callback list will not be affected if callback mode is used.
  */
-void extint_disable(void)
+void _extint_disable(void)
 {
 	Eic *const eics[EIC_INST_NUM] = EIC_INSTS;
 
@@ -146,6 +183,10 @@ void extint_chan_set_config(
 {
 	/* Sanity check arguments */
 	Assert(config);
+	/* Sanity check clock requirements */
+	Assert(!(!system_gclk_gen_is_enabled(EXTINT_CLOCK_SOURCE) &&
+		_extint_is_gclk_required(config->filter_input_signal,
+			config->detection_criteria)));
 
 	struct system_pinmux_config pinmux_config;
 	system_pinmux_get_config_defaults(&pinmux_config);
@@ -204,11 +245,10 @@ enum status_code extint_nmi_set_config(
 {
 	/* Sanity check arguments */
 	Assert(config);
-
-	if ((EIC_NMI_NO_DETECT_ALLOWED == 0) &&
-			(config->detection_criteria == EXTINT_DETECT_NONE)) {
-		return STATUS_ERR_BAD_FORMAT;
-	}
+	/* Sanity check clock requirements */
+	Assert(!(!system_gclk_gen_is_enabled(EXTINT_CLOCK_SOURCE) &&
+		_extint_is_gclk_required(config->filter_input_signal,
+			config->detection_criteria)));
 
 	struct system_pinmux_config pinmux_config;
 	system_pinmux_get_config_defaults(&pinmux_config);
@@ -232,7 +272,15 @@ enum status_code extint_nmi_set_config(
 		new_config |= EIC_NMICTRL_NMIFILTEN;
 	}
 
+	/* Disable EIC and general clock to configure NMI */
+	_extint_disable();
+	system_gclk_chan_disable(EIC_GCLK_ID);
+
 	EIC_module->NMICTRL.reg = new_config;
+
+	/* Enable the general clock and EIC after configure NMI */
+	system_gclk_chan_enable(EIC_GCLK_ID);
+	_extint_enable();
 
 	return STATUS_OK;
 }

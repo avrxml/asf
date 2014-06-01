@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,31 +51,31 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Dacc hardware registers */
 typedef struct {
-  WoReg DACC_CR;       /**< \brief (Dacc Offset: 0x00) Control Register */
-  RwReg DACC_MR;       /**< \brief (Dacc Offset: 0x04) Mode Register */
-  RoReg Reserved1[2];
-  WoReg DACC_CHER;     /**< \brief (Dacc Offset: 0x10) Channel Enable Register */
-  WoReg DACC_CHDR;     /**< \brief (Dacc Offset: 0x14) Channel Disable Register */
-  RoReg DACC_CHSR;     /**< \brief (Dacc Offset: 0x18) Channel Status Register */
-  RoReg Reserved2[1];
-  WoReg DACC_CDR;      /**< \brief (Dacc Offset: 0x20) Conversion Data Register */
-  WoReg DACC_IER;      /**< \brief (Dacc Offset: 0x24) Interrupt Enable Register */
-  WoReg DACC_IDR;      /**< \brief (Dacc Offset: 0x28) Interrupt Disable Register */
-  RoReg DACC_IMR;      /**< \brief (Dacc Offset: 0x2C) Interrupt Mask Register */
-  RoReg DACC_ISR;      /**< \brief (Dacc Offset: 0x30) Interrupt Status Register */
-  RoReg Reserved3[24];
-  RwReg DACC_ACR;      /**< \brief (Dacc Offset: 0x94) Analog Current Register */
-  RoReg Reserved4[19];
-  RwReg DACC_WPMR;     /**< \brief (Dacc Offset: 0xE4) Write Protect Mode register */
-  RoReg DACC_WPSR;     /**< \brief (Dacc Offset: 0xE8) Write Protect Status register */
-  RoReg Reserved5[7];
-  RwReg DACC_TPR;      /**< \brief (Dacc Offset: 0x108) Transmit Pointer Register */
-  RwReg DACC_TCR;      /**< \brief (Dacc Offset: 0x10C) Transmit Counter Register */
-  RoReg Reserved6[2];
-  RwReg DACC_TNPR;     /**< \brief (Dacc Offset: 0x118) Transmit Next Pointer Register */
-  RwReg DACC_TNCR;     /**< \brief (Dacc Offset: 0x11C) Transmit Next Counter Register */
-  WoReg DACC_PTCR;     /**< \brief (Dacc Offset: 0x120) Transfer Control Register */
-  RoReg DACC_PTSR;     /**< \brief (Dacc Offset: 0x124) Transfer Status Register */
+  __O  uint32_t DACC_CR;       /**< \brief (Dacc Offset: 0x00) Control Register */
+  __IO uint32_t DACC_MR;       /**< \brief (Dacc Offset: 0x04) Mode Register */
+  __I  uint32_t Reserved1[2];
+  __O  uint32_t DACC_CHER;     /**< \brief (Dacc Offset: 0x10) Channel Enable Register */
+  __O  uint32_t DACC_CHDR;     /**< \brief (Dacc Offset: 0x14) Channel Disable Register */
+  __I  uint32_t DACC_CHSR;     /**< \brief (Dacc Offset: 0x18) Channel Status Register */
+  __I  uint32_t Reserved2[1];
+  __O  uint32_t DACC_CDR;      /**< \brief (Dacc Offset: 0x20) Conversion Data Register */
+  __O  uint32_t DACC_IER;      /**< \brief (Dacc Offset: 0x24) Interrupt Enable Register */
+  __O  uint32_t DACC_IDR;      /**< \brief (Dacc Offset: 0x28) Interrupt Disable Register */
+  __I  uint32_t DACC_IMR;      /**< \brief (Dacc Offset: 0x2C) Interrupt Mask Register */
+  __I  uint32_t DACC_ISR;      /**< \brief (Dacc Offset: 0x30) Interrupt Status Register */
+  __I  uint32_t Reserved3[24];
+  __IO uint32_t DACC_ACR;      /**< \brief (Dacc Offset: 0x94) Analog Current Register */
+  __I  uint32_t Reserved4[19];
+  __IO uint32_t DACC_WPMR;     /**< \brief (Dacc Offset: 0xE4) Write Protect Mode register */
+  __I  uint32_t DACC_WPSR;     /**< \brief (Dacc Offset: 0xE8) Write Protect Status register */
+  __I  uint32_t Reserved5[7];
+  __IO uint32_t DACC_TPR;      /**< \brief (Dacc Offset: 0x108) Transmit Pointer Register */
+  __IO uint32_t DACC_TCR;      /**< \brief (Dacc Offset: 0x10C) Transmit Counter Register */
+  __I  uint32_t Reserved6[2];
+  __IO uint32_t DACC_TNPR;     /**< \brief (Dacc Offset: 0x118) Transmit Next Pointer Register */
+  __IO uint32_t DACC_TNCR;     /**< \brief (Dacc Offset: 0x11C) Transmit Next Counter Register */
+  __O  uint32_t DACC_PTCR;     /**< \brief (Dacc Offset: 0x120) Transfer Control Register */
+  __I  uint32_t DACC_PTSR;     /**< \brief (Dacc Offset: 0x124) Transfer Status Register */
 } Dacc;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- DACC_CR : (DACC Offset: 0x00) Control Register -------- */
@@ -103,6 +103,8 @@ typedef struct {
 #define   DACC_MR_TAG_DIS (0x0u << 20) /**< \brief (DACC_MR) Tag selection mode disabled. Using USER_SEL to select the channel for the conversion. */
 #define   DACC_MR_TAG_EN (0x1u << 20) /**< \brief (DACC_MR) Tag selection mode enabled */
 #define DACC_MR_MAXS (0x1u << 21) /**< \brief (DACC_MR) Max Speed Mode */
+#define   DACC_MR_MAXS_NORMAL (0x0u << 21) /**< \brief (DACC_MR) Normal Mode */
+#define   DACC_MR_MAXS_MAXIMUM (0x1u << 21) /**< \brief (DACC_MR) Max Speed Mode enabled */
 #define DACC_MR_STARTUP_Pos 24
 #define DACC_MR_STARTUP_Msk (0x3fu << DACC_MR_STARTUP_Pos) /**< \brief (DACC_MR) Startup Time Selection */
 #define   DACC_MR_STARTUP_0 (0x0u << 24) /**< \brief (DACC_MR) 0 periods of DACClock */

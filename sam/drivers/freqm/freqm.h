@@ -3,7 +3,7 @@
  *
  * \brief Frequency Meter driver for SAM4L.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -277,16 +277,16 @@ static inline uint32_t freqm_get_interrupt_mask(
  * \subsection freqm_basic_use_case_setup_code Example code
  * Add to application C-file:
  * \code
- *    freqm_get_config_defaults(&g_freqm_cfg);
- *
- *    freqm_init(&g_freqm_inst, FREQM, &g_freqm_cfg);
- *
- *    freqm_enable(&g_freqm_inst);
- *
- *    freqm_start_measure(&g_freqm_inst);
- *
- *    freqm_get_result_blocking(&g_freqm_inst, &result);
- * \endcode
+	    freqm_get_config_defaults(&g_freqm_cfg);
+
+	    freqm_init(&g_freqm_inst, FREQM, &g_freqm_cfg);
+
+	    freqm_enable(&g_freqm_inst);
+
+	    freqm_start_measure(&g_freqm_inst);
+
+	    freqm_get_result_blocking(&g_freqm_inst, &result);
+\endcode
  *
  * \subsection freqm_basic_use_case_setup_flow Workflow
  * -# Initializes Frequency Meter configuration structure to defaults:
@@ -297,7 +297,7 @@ static inline uint32_t freqm_get_interrupt_mask(
  *   - \code freqm_start_measure(FREQM); \endcode
  * -# Get mesurement result:
  * \code
- * 	cpu_clk = (freqm_get_result_blocking(FREQM) / 128) * 32768;
- * \endcode
+	cpu_clk = (freqm_get_result_blocking(FREQM) / 128) * 32768;
+\endcode
  */
 #endif /* FREQM_H_INCLUDED */

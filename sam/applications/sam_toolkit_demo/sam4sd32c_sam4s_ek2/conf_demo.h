@@ -4,7 +4,7 @@
  *
  * \brief SAM4SD32C toolkit demo configurations.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,13 +47,13 @@
 #define CONF_DEMO_H
 
 #include "board.h"
-#include "ili9325.h"
+#include "ili93xx.h"
 
 /** Demo board */
 #define DEMO_BOARD_NAME   "SAM4S-EK2"
 
 /** Demo version */
-#define DEMO_VERSION "1.0"
+#define DEMO_VERSION "2.1"
 
 /** Switch to enable/disable QTouch library use */
 #define DEMO_USE_QTOUCH
@@ -61,8 +61,8 @@
 /** Switch to enable/disable USB library use */
 #define DEMO_USE_USB
 
-#define LCD_WIDTH ILI9325_LCD_WIDTH
-#define LCD_HEIGHT ILI9325_LCD_HEIGHT
+#define LCD_WIDTH ILI93XX_LCD_WIDTH
+#define LCD_HEIGHT ILI93XX_LCD_HEIGHT
 
 /** Wakeup pin for low power mode: Touchscreen controller IRQ pin */
 #define LPM_WAKEUP_INPUT_ID  (1u << 15)

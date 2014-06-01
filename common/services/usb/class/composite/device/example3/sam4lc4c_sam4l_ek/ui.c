@@ -47,6 +47,9 @@
 //! Sequence process running each \c SEQUENCE_PERIOD ms
 #define SEQUENCE_PERIOD 150
 
+//! Wakeup, ignore button change until button is back to default state
+static bool btn_wakeup = false;
+
 static struct {
 	bool b_modifier;
 	bool b_down;
@@ -112,7 +115,6 @@ static struct {
 	{false,false,HID_CAPS_LOCK},
 };
 
-
 // Wakeup pin is PB0 (PC3, EIC5)
 #define UI_WAKEUP_IRQN         EIC_5_IRQn
 #define UI_WAKEUP_IRQ_LEVEL    5
@@ -142,6 +144,8 @@ static void UI_WAKEUP_HANDLER(void)
 		ui_disable_asynchronous_interrupt();
 		// It is a wakeup then send wakeup USB
 		udc_remotewakeup();
+		// Wakeup, ignore button change until button is back to default state
+		btn_wakeup = true;
 	}
 	sysclk_disable_peripheral_clock(EIC);
 }
@@ -166,11 +170,6 @@ static void ui_enable_asynchronous_interrupt(void)
 		UI_WAKEUP_IRQN, UI_WAKEUP_IRQ_LEVEL);
 	eic_line_enable(EIC, UI_WAKEUP_EIC_LINE);
 	eic_line_enable_interrupt(EIC, UI_WAKEUP_EIC_LINE);
-
-	/* EIC can wakeup the device */
-	bpm_enable_wakeup_source(BPM, (1 << UI_WAKEUP_BPM_SRC));
-	/* EIC can wake the device from backup mode */
-	bpm_enable_backup_pin(BPM, 1 << UI_WAKEUP_EIC_LINE);
 }
 
 /**
@@ -179,8 +178,6 @@ static void ui_enable_asynchronous_interrupt(void)
 static void ui_disable_asynchronous_interrupt(void)
 {
 	eic_line_disable_interrupt(EIC, UI_WAKEUP_EIC_LINE);
-	bpm_disable_wakeup_source(BPM, (1 << UI_WAKEUP_BPM_SRC));
-	bpm_disable_backup_pin(BPM, 1 << UI_WAKEUP_EIC_LINE);
 	sysclk_disable_peripheral_clock(EIC);
 }
 
@@ -231,7 +228,7 @@ void ui_stop_write(void)
 
 void ui_process(uint16_t framenumber)
 {
-	bool b_btn_state, sucess;
+	bool b_btn_state, success;
 	static bool btn_last_state = false;
 	static bool sequence_running = false;
 	static uint8_t u8_sequence_pos = 0;
@@ -254,7 +251,13 @@ void ui_process(uint16_t framenumber)
 	b_btn_state = (!ioport_get_pin_level(GPIO_PUSH_BUTTON_0));
 	if (b_btn_state != btn_last_state) {
 		btn_last_state = b_btn_state;
-		sequence_running = true;
+		if (btn_wakeup) {
+			if (!b_btn_state) {
+				btn_wakeup = false;
+			}
+		} else {
+			sequence_running = true;
+		}
 	}
 
 	// Sequence process running each period
@@ -269,18 +272,18 @@ void ui_process(uint16_t framenumber)
 		if (u8_value!=0) {
 			if (ui_sequence[u8_sequence_pos].b_modifier) {
 				if (ui_sequence[u8_sequence_pos].b_down) {
-					sucess = udi_hid_kbd_modifier_down(u8_value);
+					success = udi_hid_kbd_modifier_down(u8_value);
 				} else {
-					sucess = udi_hid_kbd_modifier_up(u8_value);
+					success = udi_hid_kbd_modifier_up(u8_value);
 				}
 			} else {
 				if (ui_sequence[u8_sequence_pos].b_down) {
-					sucess = udi_hid_kbd_down(u8_value);
+					success = udi_hid_kbd_down(u8_value);
 				} else {
-					sucess = udi_hid_kbd_up(u8_value);
+					success = udi_hid_kbd_up(u8_value);
 				}
 			}
-			if (!sucess) {
+			if (!success) {
 				return; // Retry it on next schedule
 			}
 		}

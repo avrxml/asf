@@ -4,7 +4,7 @@
  * \brief megaAVR ADC driver for ATmegaxx4, ATmegaxx4/A/P/PA, ATmegaxx0/xx1,
  * ATmegaxx8 ATmegaxxxRF and ATmegaxx8A/P/PA.
  *
- * Copyright (C) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -89,10 +89,10 @@
  * \note None of the functions are interrupt safe to avoid overhead. If you need
  * interrupt protection you can use the following in your application code:
  * \code
- * irqflags_t flags = cpu_irq_save();
- * adc_set_mux(ADC_MUX_ADC0);
- * cpu_irq_restore(flags);
- * \endcode
+	irqflags_t flags = cpu_irq_save();
+	adc_set_mux(ADC_MUX_ADC0);
+	cpu_irq_restore(flags);
+\endcode
  *
  * @{
  */
@@ -306,8 +306,8 @@ static inline void adc_disable_autotrigger(void)
  *
  * An example demonstrating the usage:
  * \code
- * adc_set_voltage_reference(ADC_VREF_1V1);
- * \endcode
+	adc_set_voltage_reference(ADC_VREF_1V1);
+\endcode
  *
  * \param vref ADC voltage reference
  *
@@ -330,8 +330,8 @@ static inline void adc_set_voltage_reference(enum adc_voltage_reference vref)
  *
  * A small example demonstrating the usage:
  * \code
- * adc_set_prescaler(ADC_PRESCALER_DIV64)
- * \endcode
+	adc_set_prescaler(ADC_PRESCALER_DIV64)
+\endcode
  *
  * \param prescaler ADC clock prescaler
  */
@@ -349,8 +349,8 @@ static inline void adc_set_prescaler(enum adc_prescaler prescaler)
  *
  * A small example demonstrating the usage:
  * \code
- * adc_set_mux(ADC_MUX_ADC0);
- * \endcode
+	adc_set_mux(ADC_MUX_ADC0);
+\endcode
  *
  * \param input ADC channel
  */
@@ -383,11 +383,11 @@ static inline void adc_set_mux(enum adc_mux_setting input)
  * a conversion:
  *
  * \code
- * // Initialize ADC
- * adc_init(ADC_PRESCALER_DIV32);
- *
- * analog_val = adc_read_8bit(ADC_MUX_ADC0, ADC_VREF_1V1);
- * \endcode
+	 // Initialize ADC
+	 adc_init(ADC_PRESCALER_DIV32);
+
+	 analog_val = adc_read_8bit(ADC_MUX_ADC0, ADC_VREF_1V1);
+\endcode
  *
  * \param input   ADC input mux selection.
  *
@@ -432,11 +432,11 @@ static inline uint8_t adc_read_8bit(enum adc_mux_setting input,	\
  * a conversion:
  *
  * \code
- * // Initialize and enable ADC
- * adc_init(ADC_PRESCALER_DIV64);
- *
- * analog_val = adc_read_10bit(ADC_MUX_ADC0, ADC_VREF_1V1);
- * \endcode
+	 // Initialize and enable ADC
+	 adc_init(ADC_PRESCALER_DIV64);
+
+	 analog_val = adc_read_10bit(ADC_MUX_ADC0, ADC_VREF_1V1);
+\endcode
  *
  * \param input   ADC input mux selection and voltage reference
  *
@@ -488,8 +488,8 @@ static inline uint16_t adc_read_10bit(enum adc_mux_setting input, \
  * Example usage:
  *
  * \code
- * adc_write_admux(ADC_MUX_ADC0 | ADC_VREF_1V1 | ADC_ADJUSTMENT_LEFT);
- * \endcode
+	adc_write_admux(ADC_MUX_ADC0 | ADC_VREF_1V1 | ADC_ADJUSTMENT_LEFT);
+\endcode
  *
  * \param regval   ADC input mux selection and voltage reference
  */
@@ -508,9 +508,9 @@ static inline void adc_set_admux(uint8_t regval)
  * digital IO.
  *
  * \code
- * // disable ADC pins 0-7.
- * adc_disable_digital_inputs(0xFF)
- * \endcode
+	// disable ADC pins 0-7.
+	adc_disable_digital_inputs(0xFF)
+\endcode
  *
  * \param pinmask   ADC pin bitmask
  */
@@ -533,9 +533,9 @@ static inline void adc_disable_digital_inputs(uint8_t pinmask)
  * digital IO.
  *
  * \code
- * // disable ADC pins 8-15.
- * adc_disable_digital_inputs_high(0xFF)
- * \endcode
+	// disable ADC pins 8-15.
+	adc_disable_digital_inputs_high(0xFF)
+\endcode
  *
  * \param pinmask   ADC pin bitmask
  */

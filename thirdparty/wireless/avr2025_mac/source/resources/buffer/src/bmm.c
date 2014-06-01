@@ -4,7 +4,7 @@
  * @brief This file implements the functions for initializing buffer module,
  *  allocating and freeing up buffers.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -89,10 +89,10 @@
  * Common Buffer pool holding the buffer user area
  */
 #if (TOTAL_NUMBER_OF_SMALL_BUFS > 0)
-static uint8_t buf_pool[(TOTAL_NUMBER_OF_LARGE_BUFS * LARGE_BUFFER_SIZE) +
-(TOTAL_NUMBER_OF_SMALL_BUFS * SMALL_BUFFER_SIZE)];
+static uint8_t buf_pool[(((TOTAL_NUMBER_OF_LARGE_BUFS * LARGE_BUFFER_SIZE) +
+(TOTAL_NUMBER_OF_SMALL_BUFS * SMALL_BUFFER_SIZE)))];
 #else
-static uint8_t buf_pool[(TOTAL_NUMBER_OF_LARGE_BUFS * LARGE_BUFFER_SIZE)];
+static uint8_t buf_pool[((TOTAL_NUMBER_OF_LARGE_BUFS * LARGE_BUFFER_SIZE))];
 #endif
 
 /*
@@ -206,7 +206,7 @@ buffer_t *bmm_buffer_alloc(uint8_t size)
 	if (size <= LARGE_BUFFER_SIZE) {
 		/*
 		 * Allocate small buffer if size is less than small buffer size
-		 *and if
+		 * and if
 		 * small buffer is available allocate from small buffer pool.
 		 */
 		if ((size <= SMALL_BUFFER_SIZE)) {
@@ -217,9 +217,9 @@ buffer_t *bmm_buffer_alloc(uint8_t size)
 
 		/*
 		 * If size is greater than small buffer size or no free small
-		 *buffer is
+		 * buffer is
 		 * available, allocate a buffer from large buffer pool if
-		 *avialable
+		 * avialable
 		 */
 		if (NULL == pfree_buffer) {
 			/* Allocate buffer from free large buffer queue */

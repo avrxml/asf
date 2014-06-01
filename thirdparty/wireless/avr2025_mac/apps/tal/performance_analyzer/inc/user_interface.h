@@ -3,7 +3,7 @@
  *
  * \brief LED,Button,Terminal print event prototypes and defines
  * - Performance Analyzer application.
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -53,7 +53,7 @@
  * \ingroup group_perf_analyzer
  * \defgroup group_user_interface  User Interface
  * Handles all User interface related functions such as Button, Print,LED
- *events.
+ * events.
  *  \{
  */
 
@@ -114,7 +114,7 @@ typedef enum {
  *
  */
 typedef struct {
-	char *item_desc;
+	const char *item_desc;
 	void (*additional_print_func)(void);
 } print_event_msg_t;
 

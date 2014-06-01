@@ -65,19 +65,19 @@
 #include <malloc.h>
 
 /* Scheduler includes. */
-#include "FreeRTOS.h"
-#include "task.h"
+#include "../../../include/FreeRTOS.h"
+#include "../../../include/task.h"
 
 /* AVR32 UC3 includes. */
 #include <avr32/io.h>
-#include "gpio.h"
+#include <gpio.h>
 
 #if configDBG
-	#include "usart.h"
+	#include <usart.h>
 #endif
 
 #if( configTICK_USE_TC==1 )
-	#include "tc.h"
+	#include <tc.h>
 #endif
 
 

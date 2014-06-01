@@ -3,7 +3,7 @@
  *
  * \brief Chip Identifier (CHIPID) example for SAM.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -62,16 +62,7 @@
  *
  * \par Usage
  *
- * -# Build the program and download it inside the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a>
- *    application note or to the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>,
- *    depending on your chosen solution.
+ * -# Build the program and download it inside the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g. HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -83,18 +74,18 @@
  * -# In the terminal window, the following text should appear
  *    (values depend on the board and chip used):
  *    \code
- *     -- CHIPID Example --
- *     -- xxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     Version                                   0x0.
- *     Embedded Processor                        Cortex-xx.
- *     Nonvolatile program memory size           xxx bytes.
- *     Second nonvolatile program memory size    None.
- *     Internal SRAM size                        xxx bytes.
- *     Architecture identifier                   xxxxxxxx Series.
- *     Nonvolatile program memory type           Embedded Flash Memory.
- *     ...
- *    \endcode
+	-- CHIPID Example --
+	-- xxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	Version                                   0x0.
+	Embedded Processor                        Cortex-xx.
+	Nonvolatile program memory size           xxx bytes.
+	Second nonvolatile program memory size    None.
+	Internal SRAM size                        xxx bytes.
+	Architecture identifier                   xxxxxxxx Series.
+	Nonvolatile program memory type           Embedded Flash Memory.
+	...
+\endcode
  *
  */
 
@@ -213,7 +204,7 @@ const chipidtype_t chipid_sramsize[CHIPID_SRAMSIZE_SIZE] = {
 };
 
 //! Number of architectures Supported
-#define CHIPID_ARCH_SIZE    37
+#define CHIPID_ARCH_SIZE    40
 //! Architectures support list
 const chipidtype_t chipid_archsize[CHIPID_ARCH_SIZE] = {
 
@@ -227,10 +218,13 @@ const chipidtype_t chipid_archsize[CHIPID_ARCH_SIZE] = {
 	{0x3C,              "SAM4E Series"},
 	{0x40,              "AT91x40 Series"},
 	{0x42,              "AT91x42 Series"},
+	{0x43,              "AT91SAMG51 Series"},
+	{0x47,              "AT91SAMG53/SAMG54 Series"},
 	{0x55,              "AT91x55 Series"},
 	{0x60,              "AT91SAM7Axx Series"},
 	{0x61,              "AT91SAM7AQxx Series"},
 	{0x63,              "AT91x63 Series"},
+	{0x64,              "SAM4CxC Series"},
 	{0x70,              "AT91SAM7Sxx Series"},
 	{0x71,              "AT91SAM7XCxx Series"},
 	{0x72,              "AT91SAM7SExx Series"},
@@ -247,9 +241,9 @@ const chipidtype_t chipid_archsize[CHIPID_ARCH_SIZE] = {
 	{0x89,              "ATSAM3S/SAM4S xB Series"},
 	{0x8A,              "ATSAM3S/SAM4S xC Series"},
 	{0x92,              "AT91x92 Series"},
-	{0x93,              "ATSAM3NxA Series"},
-	{0x94,              "ATSAM3NxB Series"},
-	{0x95,              "ATSAM3NxC Series"},
+	{0x93,              "ATSAM3NxA/SAM4NxA Series"},
+	{0x94,              "ATSAM3NxB/SAM4NxB Series"},
+	{0x95,              "ATSAM3NxC/SAM4NxC Series"},
 	{0x98,              "ATSAM3SDxA Series"},
 	{0x99,              "ATSAM3SDxB Series"},
 	{0x9A,              "ATSAM3SDxC Series"},

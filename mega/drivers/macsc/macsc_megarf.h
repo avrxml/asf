@@ -56,7 +56,7 @@ extern "C" {
  *
  * See \ref megarf_macsc_quickstart
  *
- * This is a driver for the AVR MEGARF MAC Symbol Counter Driver(MACSC). 
+ * This is a driver for the AVR MEGARF MAC Symbol Counter Driver(MACSC).
  * It provides functions for enabling, disabling and configuring the module.
  *
  * \section dependencies Dependencies
@@ -202,7 +202,7 @@ void macsc_disable(void);
 bool is_macsc_backoff_enable(void);
 
 /**
- * \brief Enables compare interrupts of the MACSC 
+ * \brief Enables compare interrupts of the MACSC
  *
  * \param channel Compare channel
  */
@@ -443,7 +443,7 @@ static inline void macsc_enable_manual_bts(void)
 /**
  * \brief Read the MACSC status register
  * This bit is set if a write operation to the symbol counter register is
- * pending. This bit is set after writing the counter low byte (SCCNTLL) 
+ * pending. This bit is set after writing the counter low byte (SCCNTLL)
  * until the symbol counter is updated with the new value.
  * This update process can take up to 16 ìs and during this time,
  * no read or write access to the 32 bit counter register should occur.
@@ -572,7 +572,7 @@ static inline void macsc_clear_cmp_interrupt_flag(enum macsc_cc_channel channel)
 #endif
 
 /**
- * \page megaRF_macsc_quickstart Quick Start Guide for the MEGARF MACSC Driver
+ * \page megarf_macsc_quickstart Quick Start Guide for the MEGARF MACSC Driver
  *
  * This is the quick start guide for the \ref macscc_group , with step-by-step
  * instructions on how to configure and use the driver for a specific use case.
@@ -622,7 +622,7 @@ static inline void macsc_clear_cmp_interrupt_flag(enum macsc_cc_channel channel)
  * is provided \ref RTC_CLK_SRC in conf_example.h
  * - Sleep and Automatic timestamping can be enabled as per application
  * requirement
- * - Compare match 1 interrupt triggers after quarter of a second 
+ * - Compare match 1 interrupt triggers after quarter of a second
  * - Compare match 2 interrupt trigger after half a second
  * - Compare match 3 interrupt triggers after one second
  * \ref CONFIG_MACSC_TIMEOUT_TICK_HZ in conf_example.h
@@ -660,7 +660,7 @@ static inline void macsc_clear_cmp_interrupt_flag(enum macsc_cc_channel channel)
  * - Use the system clock as clock source;provision to use the 32.768KHz clock
  * is provided during sleep
  * - Sleep and Automatic/Manual timestamping can be enabled as per application
- * requirement \ref ENABLE_SLEEP and \ref ENABLE_AUTO_TIMESTAMP in conf_example.h 
+ * requirement \ref ENABLE_SLEEP and \ref ENABLE_AUTO_TIMESTAMP in conf_example.h
  * - Set Beacon Interval and Superframe Interval as per application requirement.
  * - In real networks,Superframe order and Beacon order are to be retrieved from
  * incoming frame's header.

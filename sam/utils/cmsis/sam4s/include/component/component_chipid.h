@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,8 +51,8 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Chipid hardware registers */
 typedef struct {
-  RoReg CHIPID_CIDR; /**< \brief (Chipid Offset: 0x0) Chip ID Register */
-  RoReg CHIPID_EXID; /**< \brief (Chipid Offset: 0x4) Chip ID Extension Register */
+  __I uint32_t CHIPID_CIDR; /**< \brief (Chipid Offset: 0x0) Chip ID Register */
+  __I uint32_t CHIPID_EXID; /**< \brief (Chipid Offset: 0x4) Chip ID Extension Register */
 } Chipid;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- CHIPID_CIDR : (CHIPID Offset: 0x0) Chip ID Register -------- */
@@ -70,45 +70,45 @@ typedef struct {
 #define CHIPID_CIDR_NVPSIZ_Pos 8
 #define CHIPID_CIDR_NVPSIZ_Msk (0xfu << CHIPID_CIDR_NVPSIZ_Pos) /**< \brief (CHIPID_CIDR) Nonvolatile Program Memory Size */
 #define   CHIPID_CIDR_NVPSIZ_NONE (0x0u << 8) /**< \brief (CHIPID_CIDR) None */
-#define   CHIPID_CIDR_NVPSIZ_8K (0x1u << 8) /**< \brief (CHIPID_CIDR) 8K bytes */
-#define   CHIPID_CIDR_NVPSIZ_16K (0x2u << 8) /**< \brief (CHIPID_CIDR) 16K bytes */
-#define   CHIPID_CIDR_NVPSIZ_32K (0x3u << 8) /**< \brief (CHIPID_CIDR) 32K bytes */
-#define   CHIPID_CIDR_NVPSIZ_64K (0x5u << 8) /**< \brief (CHIPID_CIDR) 64K bytes */
-#define   CHIPID_CIDR_NVPSIZ_128K (0x7u << 8) /**< \brief (CHIPID_CIDR) 128K bytes */
-#define   CHIPID_CIDR_NVPSIZ_256K (0x9u << 8) /**< \brief (CHIPID_CIDR) 256K bytes */
-#define   CHIPID_CIDR_NVPSIZ_512K (0xAu << 8) /**< \brief (CHIPID_CIDR) 512K bytes */
-#define   CHIPID_CIDR_NVPSIZ_1024K (0xCu << 8) /**< \brief (CHIPID_CIDR) 1024K bytes */
-#define   CHIPID_CIDR_NVPSIZ_2048K (0xEu << 8) /**< \brief (CHIPID_CIDR) 2048K bytes */
+#define   CHIPID_CIDR_NVPSIZ_8K (0x1u << 8) /**< \brief (CHIPID_CIDR) 8 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ_16K (0x2u << 8) /**< \brief (CHIPID_CIDR) 16 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ_32K (0x3u << 8) /**< \brief (CHIPID_CIDR) 32 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ_64K (0x5u << 8) /**< \brief (CHIPID_CIDR) 64 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ_128K (0x7u << 8) /**< \brief (CHIPID_CIDR) 128 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ_256K (0x9u << 8) /**< \brief (CHIPID_CIDR) 256 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ_512K (0xAu << 8) /**< \brief (CHIPID_CIDR) 512 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ_1024K (0xCu << 8) /**< \brief (CHIPID_CIDR) 1024 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ_2048K (0xEu << 8) /**< \brief (CHIPID_CIDR) 2048 Kbytes */
 #define CHIPID_CIDR_NVPSIZ2_Pos 12
-#define CHIPID_CIDR_NVPSIZ2_Msk (0xfu << CHIPID_CIDR_NVPSIZ2_Pos) /**< \brief (CHIPID_CIDR)  */
+#define CHIPID_CIDR_NVPSIZ2_Msk (0xfu << CHIPID_CIDR_NVPSIZ2_Pos) /**< \brief (CHIPID_CIDR) Second Nonvolatile Program Memory Size */
 #define   CHIPID_CIDR_NVPSIZ2_NONE (0x0u << 12) /**< \brief (CHIPID_CIDR) None */
-#define   CHIPID_CIDR_NVPSIZ2_8K (0x1u << 12) /**< \brief (CHIPID_CIDR) 8K bytes */
-#define   CHIPID_CIDR_NVPSIZ2_16K (0x2u << 12) /**< \brief (CHIPID_CIDR) 16K bytes */
-#define   CHIPID_CIDR_NVPSIZ2_32K (0x3u << 12) /**< \brief (CHIPID_CIDR) 32K bytes */
-#define   CHIPID_CIDR_NVPSIZ2_64K (0x5u << 12) /**< \brief (CHIPID_CIDR) 64K bytes */
-#define   CHIPID_CIDR_NVPSIZ2_128K (0x7u << 12) /**< \brief (CHIPID_CIDR) 128K bytes */
-#define   CHIPID_CIDR_NVPSIZ2_256K (0x9u << 12) /**< \brief (CHIPID_CIDR) 256K bytes */
-#define   CHIPID_CIDR_NVPSIZ2_512K (0xAu << 12) /**< \brief (CHIPID_CIDR) 512K bytes */
-#define   CHIPID_CIDR_NVPSIZ2_1024K (0xCu << 12) /**< \brief (CHIPID_CIDR) 1024K bytes */
-#define   CHIPID_CIDR_NVPSIZ2_2048K (0xEu << 12) /**< \brief (CHIPID_CIDR) 2048K bytes */
+#define   CHIPID_CIDR_NVPSIZ2_8K (0x1u << 12) /**< \brief (CHIPID_CIDR) 8 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ2_16K (0x2u << 12) /**< \brief (CHIPID_CIDR) 16 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ2_32K (0x3u << 12) /**< \brief (CHIPID_CIDR) 32 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ2_64K (0x5u << 12) /**< \brief (CHIPID_CIDR) 64 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ2_128K (0x7u << 12) /**< \brief (CHIPID_CIDR) 128 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ2_256K (0x9u << 12) /**< \brief (CHIPID_CIDR) 256 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ2_512K (0xAu << 12) /**< \brief (CHIPID_CIDR) 512 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ2_1024K (0xCu << 12) /**< \brief (CHIPID_CIDR) 1024 Kbytes */
+#define   CHIPID_CIDR_NVPSIZ2_2048K (0xEu << 12) /**< \brief (CHIPID_CIDR) 2048 Kbytes */
 #define CHIPID_CIDR_SRAMSIZ_Pos 16
 #define CHIPID_CIDR_SRAMSIZ_Msk (0xfu << CHIPID_CIDR_SRAMSIZ_Pos) /**< \brief (CHIPID_CIDR) Internal SRAM Size */
-#define   CHIPID_CIDR_SRAMSIZ_48K (0x0u << 16) /**< \brief (CHIPID_CIDR) 48K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_1K (0x1u << 16) /**< \brief (CHIPID_CIDR) 1K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_2K (0x2u << 16) /**< \brief (CHIPID_CIDR) 2K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_6K (0x3u << 16) /**< \brief (CHIPID_CIDR) 6K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_24K (0x4u << 16) /**< \brief (CHIPID_CIDR) 24K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_4K (0x5u << 16) /**< \brief (CHIPID_CIDR) 4K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_80K (0x6u << 16) /**< \brief (CHIPID_CIDR) 80K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_160K (0x7u << 16) /**< \brief (CHIPID_CIDR) 160K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_8K (0x8u << 16) /**< \brief (CHIPID_CIDR) 8K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_16K (0x9u << 16) /**< \brief (CHIPID_CIDR) 16K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_32K (0xAu << 16) /**< \brief (CHIPID_CIDR) 32K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_64K (0xBu << 16) /**< \brief (CHIPID_CIDR) 64K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_128K (0xCu << 16) /**< \brief (CHIPID_CIDR) 128K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_256K (0xDu << 16) /**< \brief (CHIPID_CIDR) 256K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_96K (0xEu << 16) /**< \brief (CHIPID_CIDR) 96K bytes */
-#define   CHIPID_CIDR_SRAMSIZ_512K (0xFu << 16) /**< \brief (CHIPID_CIDR) 512K bytes */
+#define   CHIPID_CIDR_SRAMSIZ_48K (0x0u << 16) /**< \brief (CHIPID_CIDR) 48 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_192K (0x1u << 16) /**< \brief (CHIPID_CIDR) 192 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_2K (0x2u << 16) /**< \brief (CHIPID_CIDR) 2 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_6K (0x3u << 16) /**< \brief (CHIPID_CIDR) 6 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_24K (0x4u << 16) /**< \brief (CHIPID_CIDR) 24 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_4K (0x5u << 16) /**< \brief (CHIPID_CIDR) 4 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_80K (0x6u << 16) /**< \brief (CHIPID_CIDR) 80 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_160K (0x7u << 16) /**< \brief (CHIPID_CIDR) 160 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_8K (0x8u << 16) /**< \brief (CHIPID_CIDR) 8 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_16K (0x9u << 16) /**< \brief (CHIPID_CIDR) 16 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_32K (0xAu << 16) /**< \brief (CHIPID_CIDR) 32 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_64K (0xBu << 16) /**< \brief (CHIPID_CIDR) 64 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_128K (0xCu << 16) /**< \brief (CHIPID_CIDR) 128 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_256K (0xDu << 16) /**< \brief (CHIPID_CIDR) 256 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_96K (0xEu << 16) /**< \brief (CHIPID_CIDR) 96 Kbytes */
+#define   CHIPID_CIDR_SRAMSIZ_512K (0xFu << 16) /**< \brief (CHIPID_CIDR) 512 Kbytes */
 #define CHIPID_CIDR_ARCH_Pos 20
 #define CHIPID_CIDR_ARCH_Msk (0xffu << CHIPID_CIDR_ARCH_Pos) /**< \brief (CHIPID_CIDR) Architecture Identifier */
 #define   CHIPID_CIDR_ARCH_AT91SAM9xx (0x19u << 20) /**< \brief (CHIPID_CIDR) AT91SAM9xx Series */
@@ -131,27 +131,27 @@ typedef struct {
 #define   CHIPID_CIDR_ARCH_AT91SAM7SLxx (0x76u << 20) /**< \brief (CHIPID_CIDR) AT91SAM7SLxx Series */
 #define   CHIPID_CIDR_ARCH_SAM3UxC (0x80u << 20) /**< \brief (CHIPID_CIDR) SAM3UxC Series (100-pin version) */
 #define   CHIPID_CIDR_ARCH_SAM3UxE (0x81u << 20) /**< \brief (CHIPID_CIDR) SAM3UxE Series (144-pin version) */
-#define   CHIPID_CIDR_ARCH_SAM3ASAM4AxC (0x83u << 20) /**< \brief (CHIPID_CIDR) SAM3AxC or SAM4AxC Series (100-pin version) */
-#define   CHIPID_CIDR_ARCH_SAM3XSAM4XxC (0x84u << 20) /**< \brief (CHIPID_CIDR) SAM3XxCor SAM4XxC Series (100-pin version) */
-#define   CHIPID_CIDR_ARCH_SAM3XSAM4XxE (0x85u << 20) /**< \brief (CHIPID_CIDR) SAM3XxEor SAM4XxE Series (144-pin version) */
-#define   CHIPID_CIDR_ARCH_SAM3XSAM4XxG (0x86u << 20) /**< \brief (CHIPID_CIDR) SAM3XxGor or SAM4XxG Series  (208/217-pin version) */
-#define   CHIPID_CIDR_ARCH_SAM3SSAM4SxA (0x88u << 20) /**< \brief (CHIPID_CIDR) SAM3SxA or SAM4SxA Series (48-pin version) */
-#define   CHIPID_CIDR_ARCH_SAM3SSAM4SxB (0x89u << 20) /**< \brief (CHIPID_CIDR) SAM3SxBor SAM4SxB Series (64-pin version) */
-#define   CHIPID_CIDR_ARCH_SAM3SSAM4SxC (0x8Au << 20) /**< \brief (CHIPID_CIDR) SAM3SxCor SAM4SxC Series (100-pin version) */
+#define   CHIPID_CIDR_ARCH_SAM3AxC (0x83u << 20) /**< \brief (CHIPID_CIDR) SAM3AxC Series (100-pin version) */
+#define   CHIPID_CIDR_ARCH_SAM3XxC (0x84u << 20) /**< \brief (CHIPID_CIDR) SAM3XxC Series (100-pin version) */
+#define   CHIPID_CIDR_ARCH_SAM3XxE (0x85u << 20) /**< \brief (CHIPID_CIDR) SAM3XxE Series (144-pin version) */
+#define   CHIPID_CIDR_ARCH_SAM3XxG (0x86u << 20) /**< \brief (CHIPID_CIDR) SAM3XxG Series (208/217-pin version) */
+#define   CHIPID_CIDR_ARCH_SAM4SxA (0x88u << 20) /**< \brief (CHIPID_CIDR) SAM4SxA Series (48-pin version) */
+#define   CHIPID_CIDR_ARCH_SAM4SxB (0x89u << 20) /**< \brief (CHIPID_CIDR) SAM4SxB Series (64-pin version) */
+#define   CHIPID_CIDR_ARCH_SAM4SxC (0x8Au << 20) /**< \brief (CHIPID_CIDR) SAM4SxC Series (100-pin version) */
 #define   CHIPID_CIDR_ARCH_AT91x92 (0x92u << 20) /**< \brief (CHIPID_CIDR) AT91x92 Series */
-#define   CHIPID_CIDR_ARCH_SAM3NxA (0x93u << 20) /**< \brief (CHIPID_CIDR) SAM3NxA Series (48-pin version) */
-#define   CHIPID_CIDR_ARCH_SAM3NxB (0x94u << 20) /**< \brief (CHIPID_CIDR) SAM3NxB Series (64-pin version) */
-#define   CHIPID_CIDR_ARCH_SAM3NxC (0x95u << 20) /**< \brief (CHIPID_CIDR) SAM3NxC Series (100-pin version) */
 #define   CHIPID_CIDR_ARCH_SAM3SDxB (0x99u << 20) /**< \brief (CHIPID_CIDR) SAM3SDxB Series (64-pin version) */
 #define   CHIPID_CIDR_ARCH_SAM3SDxC (0x9Au << 20) /**< \brief (CHIPID_CIDR) SAM3SDxC Series (100-pin version) */
 #define   CHIPID_CIDR_ARCH_SAM5A (0xA5u << 20) /**< \brief (CHIPID_CIDR) SAM5A */
+#define   CHIPID_CIDR_ARCH_SAM4LxA (0xB0u << 20) /**< \brief (CHIPID_CIDR) SAM4LxA Series (48-pin version) */
+#define   CHIPID_CIDR_ARCH_SAM4LxB (0xB1u << 20) /**< \brief (CHIPID_CIDR) SAM4LxB Series (64-pin version) */
+#define   CHIPID_CIDR_ARCH_SAM4LxC (0xB2u << 20) /**< \brief (CHIPID_CIDR) SAM4LxC Series (100-pin version) */
 #define   CHIPID_CIDR_ARCH_AT75Cxx (0xF0u << 20) /**< \brief (CHIPID_CIDR) AT75Cxx Series */
 #define CHIPID_CIDR_NVPTYP_Pos 28
 #define CHIPID_CIDR_NVPTYP_Msk (0x7u << CHIPID_CIDR_NVPTYP_Pos) /**< \brief (CHIPID_CIDR) Nonvolatile Program Memory Type */
 #define   CHIPID_CIDR_NVPTYP_ROM (0x0u << 28) /**< \brief (CHIPID_CIDR) ROM */
 #define   CHIPID_CIDR_NVPTYP_ROMLESS (0x1u << 28) /**< \brief (CHIPID_CIDR) ROMless or on-chip Flash */
 #define   CHIPID_CIDR_NVPTYP_FLASH (0x2u << 28) /**< \brief (CHIPID_CIDR) Embedded Flash Memory */
-#define   CHIPID_CIDR_NVPTYP_ROM_FLASH (0x3u << 28) /**< \brief (CHIPID_CIDR) ROM and Embedded Flash MemoryNVPSIZ is ROM size      NVPSIZ2 is Flash size */
+#define   CHIPID_CIDR_NVPTYP_ROM_FLASH (0x3u << 28) /**< \brief (CHIPID_CIDR) ROM and Embedded Flash Memory- NVPSIZ is ROM size- NVPSIZ2 is Flash size */
 #define   CHIPID_CIDR_NVPTYP_SRAM (0x4u << 28) /**< \brief (CHIPID_CIDR) SRAM emulating ROM */
 #define CHIPID_CIDR_EXT (0x1u << 31) /**< \brief (CHIPID_CIDR) Extension Flag */
 /* -------- CHIPID_EXID : (CHIPID Offset: 0x4) Chip ID Extension Register -------- */

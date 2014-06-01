@@ -3,7 +3,7 @@
  *
  * \brief Example of usage of the SPI Master Mode Basic Services.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,13 +42,13 @@
  */
 
 /**
- * \mainpage spi_master_example_sam3
+ * \mainpage spi_master_example_sam
  *
  * \par intro Introduction
  * This example demonstrates how to use the SPI Master Mode Basic Services.
  *
  * \par files Main Files
- * - spi_master_example_sam3.c: port drivers example application.
+ * - spi_master_example_sam.c: port drivers example application.
  * - conf_board.h: board initialization process configuration.
  * - conf_spi_master_example.h: board-specific mapping of resources used by this example.
  * - spi_master.c: Part Specific SPI Master Mode Implementation.
@@ -57,10 +57,8 @@
  * The spi API can be found \ref spi_master.h "here".
  *
  * \par deviceinfo Device Info
- * SAM3N EK can be used because this EK has on-board SPI dataflash.
  * This example has been tested with the following setup:
- *   - Evaluation kits with a dataflash connected through an SPI interface.
- *   (This example works on SAM3N-EK.)
+ *   - Evaluation kits with a serialflash (AT25 series) connected through an SPI interface.
  *
  * \par exampledescription Description of the example
  *   - Send "Read Status" command to the dataflash.
@@ -68,9 +66,8 @@
  *   - If status is "ok", both \ref SPI_EXAMPLE_LED_PIN_EXAMPLE_1 and \ref SPI_EXAMPLE_LED_PIN_EXAMPLE_2 are 'on',
  *     else \ref SPI_EXAMPLE_LED_PIN_EXAMPLE_1 is 'on' and \ref SPI_EXAMPLE_LED_PIN_EXAMPLE_2 is 'off'.
  *
- *
  * \par compinfo Compilation Info
- * This software was written for the GNU GCC and IAR for ARM and SAM3.
+ * This software was written for the GNU GCC and IAR for AVR and SAM.
  * Other compilers may or may not work.
  *
  * \par contactinfo Contact Information
@@ -143,10 +140,14 @@ int main(void)
 	spi_enable(SPI_EXAMPLE);
 
 	if (spi_at25df_mem_check() == false) {
+	#if !SAM4CM
 		ioport_set_pin_level(SPI_EXAMPLE_LED_PIN_EXAMPLE_1, IOPORT_PIN_LEVEL_LOW);
+	#endif
 		ioport_set_pin_level(SPI_EXAMPLE_LED_PIN_EXAMPLE_2, IOPORT_PIN_LEVEL_HIGH);
 	} else {
+	#if !SAM4CM
 		ioport_set_pin_level(SPI_EXAMPLE_LED_PIN_EXAMPLE_1, IOPORT_PIN_LEVEL_LOW);
+	#endif
 		ioport_set_pin_level(SPI_EXAMPLE_LED_PIN_EXAMPLE_2, IOPORT_PIN_LEVEL_LOW);
 	}
 	while (1) {

@@ -7,7 +7,7 @@
  * CSMA-CA after reception of a beacon request frame in a nonbeacon-enabled PAN.
  *
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -77,6 +77,9 @@
  * Time in (advance) symbols before beacon interval when beacon is prepared
  */
 #define ADVNC_BCN_PREP_TIME                 (50)
+/* Minimum Wakeup time for beacon synchronization when handling Wakeup from
+ *application sleep*/
+#define MAC_MIN_WAKEUP_US                   (200)
 
 /*
  * (Minimal) Beacon payload length
@@ -94,13 +97,17 @@
 
 /* === Globals ============================================================== */
 
+#ifdef MAC_SECURITY_BEACON
+extern mlme_start_req_t msr_params;    /* Intermediate start parameters */
+#endif
+
 #if (MAC_START_REQUEST_CONFIRM == 1)
 
 #ifdef BEACON_SUPPORT
 
 /*
  * Static buffer used for beacon transmission in a BEACON build.
- * In a build without beacon suppport, in order to save the static buffer,
+ * In a build without beacon support, in order to save the static buffer,
  * a new buffer will be allocated to transmit the beacon frame.
  */
 static uint8_t beacon_buffer[LARGE_BUFFER_SIZE];
@@ -112,6 +119,7 @@ static uint8_t *beacon_ptr;
 
 /* Variable to hold number the pending addresses. */
 static uint8_t pending_address_count;
+
 #endif  /* (MAC_INDIRECT_DATA_FFD == 1) */
 
 #ifdef TEST_HARNESS
@@ -133,9 +141,8 @@ static void mac_t_prepare_beacon_cb(void *callback_parameter);
 
 /* TODO */
 
-/*
- * static void mac_t_superframe_cb(void *callback_parameter);
- */
+static void mac_t_superframe_cb(void *callback_parameter);
+
 #endif  /* BEACON_SUPPORT */
 
 /* === Implementation ======================================================= */
@@ -191,7 +198,7 @@ static uint8_t mac_buffer_add_pending(uint8_t *buf_ptr)
 
 	/*
 	 * The count of extended addresses added in the beacon frame is backed
-	 *up
+	 * up
 	 * (as the same variable will be used to count the number of added
 	 * short addresses).
 	 */
@@ -217,7 +224,7 @@ static uint8_t mac_buffer_add_pending(uint8_t *buf_ptr)
 	 * Update buf_ptr to current position of beginning of
 	 * pending address specifications filled above.
 	 * Fill in Pending Address Specification (see IEEE 802.15.4-2006 Table
-	 *46).
+	 * 46).
 	 * In order to this buf_ptr needs to be decremented.
 	 */
 	buf_ptr = beacon_ptr - 1;
@@ -226,7 +233,7 @@ static uint8_t mac_buffer_add_pending(uint8_t *buf_ptr)
 	/*
 	 * Total number of bytes used for pending address in beacon frame.
 	 * Note: The length of the one octet for the Pending Address
-	 *Specification
+	 * Specification
 	 * is already included in the default beacon frame length
 	 * (see BEACON_PAYLOAD_LEN).
 	 */
@@ -261,6 +268,11 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 	uint16_t fcf;
 	uint8_t frame_len;
 	uint8_t *frame_ptr;
+#if ((defined MAC_SECURITY_BEACON)  || (defined MAC_SECURITY_2006_BEACON))
+	uint8_t *frame_ptr_mhr_gts = NULL;
+	uint8_t *mac_payload_ptr = NULL;
+	mcps_data_req_t beacon_sec_buf;
+#endif
 
 #ifdef BEACON_SUPPORT
 
@@ -273,7 +285,8 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 	/* Buffer header not required in BEACON build. */
 	transmit_frame->buffer_header = NULL;
 #else   /* No BEACON_SUPPORT */
-	uint8_t *beacon_buffer = BMM_BUFFER_POINTER(beacon_buffer_header);
+	uint8_t *beacon_buffer = (uint8_t *)BMM_BUFFER_POINTER(
+			beacon_buffer_header);
 
 	/*
 	 * The frame is given to the TAL in the 'frame_info_t' format,
@@ -285,6 +298,7 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 	transmit_frame->buffer_header = beacon_buffer_header;
 #endif  /* BEACON_SUPPORT / No BEACON_SUPPORT */
 
+	/* MAC transmit frame type */
 	transmit_frame->msg_type = BEACON_MESSAGE;
 
 	/* Update the payload length. */
@@ -305,6 +319,9 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 
 		memcpy(frame_ptr, mac_beacon_payload,
 				mac_pib.mac_BeaconPayloadLength);
+#if ((defined MAC_SECURITY_BEACON)  || (defined MAC_SECURITY_2006_BEACON))
+		mac_payload_ptr = frame_ptr;
+#endif
 	}
 
 	/* Build the Pending address field. */
@@ -312,7 +329,7 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 	{
 		/*
 		 * Check if the indirect queue has entries, otherwise there is
-		 *nothing
+		 * nothing
 		 * to add as far as pending addresses is concerned.
 		 */
 		if (indirect_data_q.size > 0) {
@@ -336,12 +353,22 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 	*frame_ptr = 0;
 #endif
 
-	/* frame_ptr now points to the Pending Address Specification (Octet 1).
-	 **/
+	/* frame_ptr now points to the GTS Specification .
+	**/
+#ifdef GTS_SUPPORT
+	mac_gts_table_update();
+	uint8_t gts_octets = mac_add_gts_info(frame_ptr);
+	if (gts_octets > 0) {
+		frame_len += gts_octets;
+		frame_ptr -= gts_octets + 1;
+	} else {
+		frame_ptr--;
+	}
 
-	/* Build the (empty) GTS fields. */
+#else
 	frame_ptr--;
 	*frame_ptr = 0;
+#endif /* GTS_SUPPORT */
 
 	/* The superframe specification field is updated. */
 #ifdef BEACON_SUPPORT
@@ -374,20 +401,67 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 	frame_ptr -= 2;
 	convert_spec_16_bit_to_byte_array(superframe_spec, frame_ptr);
 
+#if ((defined MAC_SECURITY_BEACON)  || (defined MAC_SECURITY_2006_BEACON))
+	frame_ptr_mhr_gts = frame_ptr;
+
+	/* Copy the security info into the beacon security structure buffer */
+	beacon_sec_buf.SecurityLevel = msr_params.BeaconSecurityLevel;
+	beacon_sec_buf.KeyIdMode = msr_params.BeaconKeyIdMode;
+	beacon_sec_buf.KeySource = msr_params.BeaconKeySource;
+	beacon_sec_buf.KeyIndex = msr_params.BeaconKeyIndex;
+	beacon_sec_buf.msduLength = mac_pib.mac_BeaconPayloadLength;
+
+	/*
+	 * Note: The value of the payload_length parameter will be updated
+	 *       if security needs to be applied.
+	 */
+	if (beacon_sec_buf.SecurityLevel > 0) {
+		if (MAC_SUCCESS !=
+				mac_build_aux_sec_header(&frame_ptr,
+				&beacon_sec_buf, &frame_len)) {
+			/* Todo MAC Security Issue */
+			return;
+		}
+
+		/* place the GTS  and Super frame specification fields into the
+		 *before the MIC - Data */
+		if ((beacon_sec_buf.SecurityLevel == 1) ||
+				(beacon_sec_buf.SecurityLevel == 5)) {
+			memmove((frame_ptr_mhr_gts - 0x04), frame_ptr_mhr_gts, \
+					(mac_payload_ptr - frame_ptr_mhr_gts));
+		} else if ((beacon_sec_buf.SecurityLevel == 2) ||
+				(beacon_sec_buf.SecurityLevel == 6)) {
+			memmove((frame_ptr_mhr_gts - 0x08), frame_ptr_mhr_gts, \
+					(mac_payload_ptr - frame_ptr_mhr_gts));
+		} else if ((beacon_sec_buf.SecurityLevel == 3) ||
+				(beacon_sec_buf.SecurityLevel == 7)) {
+			memmove((frame_ptr_mhr_gts - 0x10), frame_ptr_mhr_gts, \
+					(mac_payload_ptr - frame_ptr_mhr_gts));
+		}
+	}
+
+#endif  /* (MAC_SECURITY_BEACON || MAC_SECURITY_2006_BEACON) */
+
 	/*
 	 * Source address.
 	 */
 	if (CCPU_ENDIAN_TO_LE16(MAC_NO_SHORT_ADDR_VALUE) ==
 			tal_pib.ShortAddress) {
 		frame_ptr -= 8;
-		frame_len += 6; /* Add further 6 octets for long Source Address */
+		frame_len += 6; /* Add further 6 octets for long Source Address
+		                 **/
 		convert_64_bit_to_byte_array(tal_pib.IeeeAddress, frame_ptr);
+#if ((defined MAC_SECURITY_BEACON)  || (defined MAC_SECURITY_2006_BEACON))
+		beacon_sec_buf.SrcAddrMode = FCF_LONG_ADDR;
+#endif
 
 		fcf = FCF_SET_SOURCE_ADDR_MODE((uint16_t)FCF_LONG_ADDR);
 	} else {
 		frame_ptr -= 2;
 		convert_16_bit_to_byte_array(tal_pib.ShortAddress, frame_ptr);
-
+#if ((defined MAC_SECURITY_BEACON)  || (defined MAC_SECURITY_2006_BEACON))
+		beacon_sec_buf.SrcAddrMode = FCF_SHORT_ADDR;
+#endif
 		fcf = FCF_SET_SOURCE_ADDR_MODE((uint16_t)FCF_SHORT_ADDR);
 	}
 
@@ -395,13 +469,17 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 	frame_ptr -= 2;
 	convert_16_bit_to_byte_array(tal_pib.PANId, frame_ptr);
 
+#if ((defined MAC_SECURITY_BEACON)  || (defined MAC_SECURITY_2006_BEACON))
+	beacon_sec_buf.DstPANId = tal_pib.PANId;
+#endif
+
 #ifdef TEST_HARNESS
 	if (mac_pib.privateVirtualPANs > 0) {
 		uint16_t temp = CCPU_ENDIAN_TO_LE16(tal_pib.PANId);
 
 		/*
 		 * This changes the PAN-ID of subsequent beacon frames to
-		 *simulate
+		 * simulate
 		 * virtual PANs for testing purposes.
 		 */
 		temp += vpan_no;
@@ -419,6 +497,13 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 
 	fcf = fcf | FCF_SET_FRAMETYPE(FCF_FRAMETYPE_BEACON);
 
+#if ((defined MAC_SECURITY_BEACON)  || (defined MAC_SECURITY_2006_BEACON))
+	if (beacon_sec_buf.SecurityLevel > 0) {
+		fcf |= FCF_SECURITY_ENABLED | FCF_FRAME_VERSION_2006;
+	}
+
+#endif
+
 #if (MAC_START_REQUEST_CONFIRM == 1)
 #ifdef BEACON_SUPPORT
 
@@ -431,12 +516,11 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 	 * to be transmitted needs to be set in order to indicate this to all
 	 * listening children nodes.
 	 */
-	if (
-		((MAC_PAN_COORD_STARTED == mac_state) ||
-		(MAC_COORDINATOR == mac_state)) &&
-		(tal_pib.BeaconOrder < NON_BEACON_NWK) &&
-		(broadcast_q.size > 0)
-		) {
+	if (((MAC_PAN_COORD_STARTED == mac_state) ||
+			(MAC_COORDINATOR == mac_state)) &&
+			(tal_pib.BeaconOrder < NON_BEACON_NWK) &&
+			(broadcast_q.size > 0)
+			) {
 		fcf |= FCF_FRAME_PENDING;
 	}
 #endif  /* BEACON_SUPPORT */
@@ -454,6 +538,16 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 	transmit_frame->mpdu = frame_ptr;
 
 #ifdef BEACON_SUPPORT
+#if ((defined MAC_SECURITY_BEACON)  || (defined MAC_SECURITY_2006_BEACON))
+	if (beacon_sec_buf.SecurityLevel > 0) {
+		retval_t build_sec = mac_secure(transmit_frame, mac_payload_ptr,
+				&beacon_sec_buf);
+		if (MAC_SUCCESS != build_sec) {
+			return;
+		}
+	}
+
+#endif
 	if (!beacon_enabled) {
 		/* Buffer header not required in BEACON build. */
 		transmit_frame->buffer_header = NULL;
@@ -508,9 +602,9 @@ static uint8_t add_pending_short_address_cb(void *buf_ptr, void *handle)
 	if (pending_address_count < BEACON_MAX_PEND_ADDR_CNT) {
 		/*
 		 * Only if the destination addressing mode is short address mode
-		 *then the
+		 * then the
 		 * indirect data is used to populate the beacon buffer with
-		 *short
+		 * short
 		 * destination address.
 		 */
 		if (FCF_SHORT_ADDR ==
@@ -552,9 +646,9 @@ static uint8_t add_pending_extended_address_cb(void *buf_ptr, void *handle)
 	if (pending_address_count < BEACON_MAX_PEND_ADDR_CNT) {
 		/*
 		 * Only if the destination addressing mode is extended address
-		 *mode then the
+		 * mode then the
 		 * indirect data is used to populate the beacon buffer with
-		 *extended
+		 * extended
 		 * destination address.
 		 */
 		if (FCF_LONG_ADDR ==
@@ -597,7 +691,7 @@ void mac_process_beacon_request(buffer_t *msg)
 
 	/*
 	 * If the network is a beacon enabled network then the beacons will not
-	 *be
+	 * be
 	 * transmitted.
 	 */
 	if (tal_pib.BeaconOrder == NON_BEACON_NWK) {
@@ -655,7 +749,7 @@ void mac_start_beacon_timer(void)
 
 	/*
 	 * Timer gives the time in microseconds, but the PIB value at the TAL is
-	 *in
+	 * in
 	 * symbols. Hence a coversion is done before setting the PIB at the TAL.
 	 */
 	beacon_tx_time = TAL_CONVERT_US_TO_SYMBOLS(beacon_tx_time);
@@ -664,9 +758,9 @@ void mac_start_beacon_timer(void)
 	 * Since teh PIB attribute macBeaconTxTime is supposed to hold the time
 	 * of the last transmitted beacon frame, but we are going to transmit
 	 * our first beacon frame just now (in teh subsequentially called
-	 *function
+	 * function
 	 * mac_t_beacon_cb(), we need to actually substract the time of one
-	 *entire
+	 * entire
 	 * beacon period from this time.
 	 * Otherwise we would leave out the second beacon in function
 	 * mac_t_beacon_cb().
@@ -683,14 +777,14 @@ void mac_start_beacon_timer(void)
 	 * Now start the handling of all relevant beacon timers:
 	 * 1) T_Beacon: The regular beacon timer
 	 * 2) T_Beacon_Preparation: The Pre-beacon timer is used to give the
-	 *node
+	 * node
 	 *    sufficient time prior to the actual beacon timer in order to
-	 *prepare
+	 * prepare
 	 *    the next beacon frame or wake-up before the next beacon reception.
 	 * 3) T_Superframe: The timer when the inactive portion of the
-	 *superframe
+	 * superframe
 	 *    starts; if there is not inactive portion, this timer is NOT
-	 *running.
+	 * running.
 	 *
 	 * This is simply done by calling the same function that will later be
 	 * called upon expiration of the main beacon timer and will handle alle
@@ -719,10 +813,9 @@ void mac_start_beacon_timer(void)
  */
 static void mac_t_prepare_beacon_cb(void *callback_parameter)
 {
-	/* Wake up radio first */
 	mac_trx_wakeup();
-
 	/* For a beacon enabled network, the beacon is stored at the TAL. */
+
 	mac_build_and_tx_beacon(true);
 
 	callback_parameter = callback_parameter; /* Keep compiler happy. */
@@ -748,15 +841,17 @@ static void mac_t_beacon_cb(void *callback_parameter)
 	 * the network has transitioned from a beacon-enabled network to
 	 * nonbeacon-enabled network.
 	 */
+	/* Wake up radio first */
+
 	if (tal_pib.BeaconOrder < NON_BEACON_NWK) {
 		/*
 		 * In case the node is currently scanning, no beacon will be
-		 *transmitted.
+		 * transmitted.
 		 */
 		if (MAC_SCAN_IDLE == mac_scan_state) {
 			/*
 			 * The frame is given to the TAL in the 'frame_info_t'
-			 *format,
+			 * format,
 			 * hence an instance of the frame_info_t is created.
 			 */
 			frame_info_t *transmit_frame
@@ -779,13 +874,13 @@ static void mac_t_beacon_cb(void *callback_parameter)
 				tal_pib.BeaconOrder));
 
 		/* This was the time when when transmitted the previous beacon
-		 *frame. */
+		 * frame. */
 		beacon_tx_time_us = TAL_CONVERT_SYMBOLS_TO_US(
 				tal_pib.BeaconTxTime);
 
 		/*
 		 * This is supposed to be the time when we just had transmitted
-		 *this
+		 * this
 		 * beacon frame (see calling of tal_tx_beacon() above).
 		 */
 		next_beacon_tx_time = pal_add_time_us(beacon_tx_time_us,
@@ -793,10 +888,10 @@ static void mac_t_beacon_cb(void *callback_parameter)
 
 		/*
 		 * In order to get the proper timeout value for the next beacon
-		 *timer,
+		 * timer,
 		 * we have to add one more beacon interval time.
 		 * If the timer cannot be started, then we add more beacon
-		 *intervals,
+		 * intervals,
 		 * until we finally succeed.
 		 */
 		while (MAC_SUCCESS != status) {
@@ -810,14 +905,27 @@ static void mac_t_beacon_cb(void *callback_parameter)
 					NULL);
 		}
 
+		mac_superframe_state = MAC_ACTIVE_CAP;
+
+		#ifdef GTS_SUPPORT
+		pal_timer_stop(T_CAP);
+		#ifdef GTS_DEBUG
+		port_pin_toggle_output_level(DEBUG_PIN1);
+		port_pin_set_output_level(DEBUG_PIN4, 0);
+		port_pin_set_output_level(DEBUG_PIN5, 0);
+		port_pin_set_output_level(DEBUG_PIN6, 0);
+		port_pin_set_output_level(DEBUG_PIN7, 0);
+		#endif
+		#endif /* GTS_SUPPORT */
+
 		/*
 		 * Even if this may look odd, since we already had added a
-		 *beacon
+		 * beacon
 		 * interval time to this variable before the while loop above,
 		 * we need to manually substract one beacon interval time,
 		 * in order to keep pace with the new value of macBeaconTxTime
 		 * just in case several calls of pal_add_time_us() had to be
-		 *done
+		 * done
 		 * in the while loop before the timer could be started.
 		 */
 		beacon_tx_time_us = pal_sub_time_us(next_beacon_tx_time,
@@ -832,19 +940,19 @@ static void mac_t_beacon_cb(void *callback_parameter)
 
 		{
 			/* 2) Beacon preparation timer for building the new
-			 *beacon frame. */
+			 * beacon frame. */
 			uint32_t next_beacon_prep_time;
 
 			/*
 			 * A regular but absolute timer is started which will
-			 *expire
+			 * expire
 			 * ADVNC_BCN_PREP_TIME symbols prior to beacon interval.
-			 *On its expiry
+			 * On its expiry
 			 * the beacon frame is created and given to TAL.
 			 * The absolute time at which the beacon is to be
-			 *prepared is calculated by
+			 * prepared is calculated by
 			 * subtracting the beacon preparation time from the
-			 *absolute time value of
+			 * absolute time value of
 			 * the beacon transmission.
 			 */
 			next_beacon_prep_time = pal_sub_time_us(
@@ -853,7 +961,7 @@ static void mac_t_beacon_cb(void *callback_parameter)
 					ADVNC_BCN_PREP_TIME));
 
 			/* This is the timer started for preparing the beacon.
-			 **/
+			**/
 			status = FAILURE;
 
 			while (MAC_SUCCESS != status) {
@@ -870,33 +978,49 @@ static void mac_t_beacon_cb(void *callback_parameter)
 		}
 
 		/* 3) Superframe timer for determining end of active portion. */
-		/* TODO */
+		if (tal_pib.SuperFrameOrder < tal_pib.BeaconOrder) {
+			pal_timer_start(T_Superframe,
+					TAL_CONVERT_SYMBOLS_TO_US(
+					TAL_GET_SUPERFRAME_DURATION_TIME(
+					tal_pib.SuperFrameOrder)),
+					TIMEOUT_RELATIVE,
+					(FUNC_PTR)mac_t_superframe_cb,
+					NULL);
+		    #ifdef GTS_DEBUG
+			port_pin_set_output_level(DEBUG_PIN2, 1);
+			#endif
+		}
 
-		/*
-		 * if (tal_pib.SuperFrameOrder < tal_pib.BeaconOrder)
-		 * {
-		 *      pal_timer_start(T_Superframe,
-		 *                      TAL_CONVERT_SYMBOLS_TO_US(
-		 *                          TAL_GET_SUPERFRAME_DURATION_TIME(
-		 *                              tal_pib.SuperFrameOrder)),
-		 *                      TIMEOUT_RELATIVE,
-		 *                      (FUNC_PTR)mac_t_superframe_cb,
-		 *                      NULL);
-		 * }
-		 */
+#ifdef GTS_SUPPORT
+		if (mac_final_cap_slot < FINAL_CAP_SLOT_DEFAULT) {
+			uint32_t cap_end_duration = (TAL_CONVERT_SYMBOLS_TO_US(
+					TAL_GET_SUPERFRAME_DURATION_TIME(tal_pib
+					.SuperFrameOrder)) >>
+					4) * (mac_final_cap_slot + 1);
+
+			pal_timer_start(T_CAP, cap_end_duration,
+					TIMEOUT_RELATIVE,
+					(FUNC_PTR)mac_t_gts_cb,
+					NULL);
+			#ifdef GTS_DEBUG
+			port_pin_set_output_level(DEBUG_PIN3, 1);
+			#endif
+		}
+
+#endif /* GTS_SUPPORT */
 
 		/*
 		 * Once the timing calculation for the next beacon has been
-		 *finished,
+		 * finished,
 		 * a pending broadcast frame will be transmitted.
 		 * Of course this is only done if the node is not scanning.
 		 */
 		if (MAC_SCAN_IDLE == mac_scan_state) {
 			/*
 			 * Check for pending broadcast data frames in the
-			 *broadcast queue
+			 * broadcast queue
 			 * and transmit exactly one broadcast data frame in case
-			 *there
+			 * there
 			 * are pending broadcast frames.
 			 */
 			if (broadcast_q.size > 0) {
@@ -922,18 +1046,33 @@ static void mac_t_beacon_cb(void *callback_parameter)
  * @param callback_parameter Callback parameter
  */
 /* TODO */
-/* static void mac_t_superframe_cb(void *callback_parameter) */
-/* { */
-/*    / * */
-/*     * Go to sleep (independent of the value of macRxOnWhenIdle) */
-/*     * because we enter the incative portion now. */
-/*     * Note: Do not use mac_sleep_trans() here, because this would check */
-/*     * macRxOnWhenIdle first. */
-/*     * / */
-/*    mac_trx_init_sleep(); */
-/*  */
-/*    callback_parameter = callback_parameter;  / * Keep compiler happy. * / */
-/* } */
+static void mac_t_superframe_cb(void *callback_parameter)
+{
+	/*     * Go to sleep (independent of the value of macRxOnWhenIdle) */
+	/*     * because we enter the inactive portion now. */
+	/*     * Note: Do not use mac_sleep_trans() here, because this would
+	 *check */
+	/*     * macRxOnWhenIdle first. */
+	/*     * / */
+	/*    */
+	/*  */
+	mac_sleep_trans();
+
+	/*    callback_parameter = callback_parameter;  / * Keep compiler happy.
+	 ** / */
+    #ifdef GTS_DEBUG
+	port_pin_set_output_level(DEBUG_PIN2, 0);
+	port_pin_set_output_level(DEBUG_PIN4, 0);
+	port_pin_set_output_level(DEBUG_PIN5, 0);
+	port_pin_set_output_level(DEBUG_PIN6, 0);
+	port_pin_set_output_level(DEBUG_PIN7, 0);
+	port_pin_set_output_level(DEBUG_PIN8, 0);
+	port_pin_set_output_level(DEBUG_PIN9, 0);
+	port_pin_set_output_level(DEBUG_PIN10, 0);
+	#endif
+
+	mac_superframe_state = MAC_INACTIVE;
+}
 
 #endif /* BEACON_SUPPORT */
 
@@ -989,5 +1128,53 @@ void mac_tx_pending_bc_data(void)
 #endif /* BEACON_SUPPORT */
 
 #endif /* MAC_START_REQUEST_CONFIRM */
+#if  (defined ENABLE_SLEEP || defined RTC_SLEEP)
 
+/*
+ * @brief MAC Wakeup Callback Function from application for Synchronizing beacon
+ *timing after Wakeup
+ *
+ * This function Handles the residual time for Beacon Synchronization after
+ *Wakeup
+ * @param res_time remaining time to be synchronized with next beacon timing.
+ */
+void mac_wakeup(uint32_t res_time)
+{
+  #ifdef FFD
+	if ((MAC_PAN_COORD_STARTED == mac_state) ||
+			(MAC_COORDINATOR == mac_state)) {
+		sw_timer_stop(T_Beacon_Preparation);
+		if (res_time >= MAC_MIN_WAKEUP_US) {
+			pal_timer_start(
+					T_Beacon_Preparation,
+					res_time,
+					TIMEOUT_RELATIVE,
+					(
+						FUNC_PTR)mac_t_prepare_beacon_cb,
+					NULL);
+		} else {
+			mac_t_prepare_beacon_cb(NULL);
+		}
+	}
+
+  #endif
+	if (MAC_ASSOCIATED == mac_state) {
+		sw_timer_stop(T_Beacon_Tracking_Period);
+		if (pal_is_timer_running(T_Missed_Beacon)) {
+			sw_timer_stop(T_Missed_Beacon);
+		}
+
+		if (res_time >= MAC_MIN_WAKEUP_US) {
+			pal_timer_start(T_Beacon_Tracking_Period,
+					res_time,
+					TIMEOUT_RELATIVE,
+					(FUNC_PTR)mac_t_tracking_beacons_cb,
+					NULL);
+		} else {
+			mac_t_tracking_beacons_cb(NULL);
+		}
+	}
+}
+
+#endif
 /* EOF */

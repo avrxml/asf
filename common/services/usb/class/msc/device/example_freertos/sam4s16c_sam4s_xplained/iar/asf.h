@@ -97,9 +97,6 @@
 // From module: SAM4S Xplained LED support enabled
 #include <led.h>
 
-// From module: SAM4S startup code
-#include <exceptions.h>
-
 // From module: SMC - Static Memory Controller
 #include <smc.h>
 

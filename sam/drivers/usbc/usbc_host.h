@@ -527,7 +527,7 @@ struct sam_usbc_ctr_sta_t {
 };
 
 typedef struct {
-	uint32_t *pipe_add_bank0;
+	uint8_t *pipe_add_bank0;
 	union {
 		uint32_t pcksize_bk0;
 		struct sam_usbc_pcksize_bk_t PCKSIZE_BK0;
@@ -540,7 +540,7 @@ typedef struct {
 		uint32_t ctr_sta;
 		struct sam_usbc_ctr_sta_t CTR_STA;
 	};
-	uint32_t *pipe_add_bank1;
+	uint8_t *pipe_add_bank1;
 	union {
 		uint32_t pcksize_bk1;
 		struct sam_usbc_pcksize_bk_t PCKSIZE_BK1;

@@ -1388,7 +1388,7 @@ static inline uint32_t convert_byte_array_to_32_bit(uint8_t *data)
         uint8_t u8[8];
     }long_addr;
     uint8_t index;
-    for (index = 0; index <= 4; index++)
+    for (index = 0; index < 4; index++)
     {
         long_addr.u8[index] = *data++;
     }

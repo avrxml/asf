@@ -3,7 +3,7 @@
  *
  * \brief Main functions for Mouse unit test
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -88,7 +88,10 @@ static bool main_b_resume_event = false;
 static bool main_b_suspend_event = false;
 static bool main_b_sof_event = false;
 static bool main_b_mouse_enumerated = false;
-
+#if SAMD21 || SAMR21
+/* Structure for UART module connected to EDBG (used for unit test output) */
+static struct usart_module cdc_uart_module;
+#endif
 
 static void run_usb_mouse_test(const struct test_case *test)
 {
@@ -141,23 +144,44 @@ static void run_usb_sof_test(const struct test_case *test)
  */
 int main(void)
 {
+#if !SAMD21 && !SAMR21
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate   = CONF_TEST_BAUDRATE,
 		.charlength = CONF_TEST_CHARLENGTH,
 		.paritytype = CONF_TEST_PARITY,
 		.stopbits   = CONF_TEST_STOPBITS,
 	};
+#else
+	struct usart_config usart_conf;
+#endif
 
-	sysclk_init();
 	irq_initialize_vectors();
 	cpu_irq_enable();
 
+#if !SAMD21 && !SAMR21
+	sysclk_init();
+	board_init();
+#else
+	system_init();
+#endif
 	// Initialize the sleep manager
 	sleepmgr_init();
 
-	board_init();
+#if !SAMD21 && !SAMR21
 	stdio_serial_init(CONF_TEST_USART, &usart_serial_options);
+#else
+	/* Configure USART for unit test output */
+	usart_get_config_defaults(&usart_conf);
+	usart_conf.mux_setting = CONF_STDIO_MUX_SETTING;
+	usart_conf.pinmux_pad0 = CONF_STDIO_PINMUX_PAD0;
+	usart_conf.pinmux_pad1 = CONF_STDIO_PINMUX_PAD1;
+	usart_conf.pinmux_pad2 = CONF_STDIO_PINMUX_PAD2;
+	usart_conf.pinmux_pad3 = CONF_STDIO_PINMUX_PAD3;
+	usart_conf.baudrate    = CONF_STDIO_BAUDRATE;
 
+	stdio_serial_init(&cdc_uart_module, CONF_STDIO_USART, &usart_conf);
+	usart_enable(&cdc_uart_module);
+#endif
 	// Define all the timestamp to date test cases
 	DEFINE_TEST_CASE(usb_mouse_test, NULL,
 			run_usb_mouse_test, NULL,

@@ -75,7 +75,7 @@
 #include <freertos_peripheral_control_private.h>
 
 // From module: FreeRTOS - USART Interface Layer
-#include <freertos_uart_serial.h>
+#include <freertos_usart_serial.h>
 
 // From module: GPIO - General purpose Input/Output
 #include <gpio.h>
@@ -107,9 +107,6 @@
 
 // From module: SAM4S Xplained LED support enabled
 #include <led.h>
-
-// From module: SAM4S startup code
-#include <exceptions.h>
 
 // From module: Standard serial I/O (stdio) - SAM implementation
 #include <stdio_serial.h>

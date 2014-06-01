@@ -3,7 +3,7 @@
  *
  * @brief RF4CE Serial API
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,7 +63,7 @@
 /**
  * \defgroup group_sif_rf4ce Serial Interface Module
  * This module is responsible for encoding and decoding the serial bytes to/from
- *Host into corresponding RF4Control APIs .
+ * Host into corresponding RF4Control APIs .
  * @{
  */
 

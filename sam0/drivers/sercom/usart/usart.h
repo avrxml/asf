@@ -2,9 +2,9 @@
  *
  * \file
  *
- * \brief SAM D20 SERCOM USART Driver
+ * \brief SAM D20/D21/R21 SERCOM USART Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,9 +45,9 @@
 #define USART_H_INCLUDED
 
 /**
- * \defgroup asfdoc_samd20_sercom_usart_group SAM D20 Serial USART Driver (SERCOM USART)
+ * \defgroup asfdoc_sam0_sercom_usart_group SAM D20/D21/R21 Serial USART Driver (SERCOM USART)
  *
- * This driver for SAM D20 devices provides an interface for the configuration
+ * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
  * and management of the SERCOM module in its USART mode to transfer or receive
  * USART data frames. The following driver API modes are covered by this
  * manual:
@@ -62,36 +62,78 @@
  * - SERCOM (Serial Communication Interface)
  *
  * The outline of this documentation is as follows:
- * - \ref asfdoc_samd20_sercom_usart_prerequisites
- * - \ref asfdoc_samd20_sercom_usart_overview
- * - \ref asfdoc_samd20_sercom_usart_special_considerations
- * - \ref asfdoc_samd20_sercom_usart_extra_info
- * - \ref asfdoc_samd20_sercom_usart_examples
- * - \ref asfdoc_samd20_sercom_usart_api_overview
+ * - \ref asfdoc_sam0_sercom_usart_prerequisites
+ * - \ref asfdoc_sam0_sercom_usart_overview
+ * - \ref asfdoc_sam0_sercom_usart_special_considerations
+ * - \ref asfdoc_sam0_sercom_usart_extra_info
+ * - \ref asfdoc_sam0_sercom_usart_examples
+ * - \ref asfdoc_sam0_sercom_usart_api_overview
  *
- * \section asfdoc_samd20_sercom_usart_prerequisites Prerequisites
+ * \section asfdoc_sam0_sercom_usart_prerequisites Prerequisites
  *
  * To use the USART you need to have a GCLK generator enabled and running
  * that can be used as the SERCOM clock source. This can either be configured
  * in conf_clocks.h or by using the system clock driver.
  *
- * \section asfdoc_samd20_sercom_usart_overview Module Overview
+ * \section asfdoc_sam0_sercom_usart_overview Module Overview
  *
  * This driver will use one (or more) SERCOM interfaces on the system
  * and configure it to run as a USART interface in either synchronous
  * or asynchronous mode.
  *
- * \subsection asfdoc_samd20_sercom_usart_overview_frame_format Frame Format
+ * \subsection asfdoc_sam0_sercom_usart_features Driver Feature Macro Definition
+ * <table>
+ *  <tr>
+ *    <th>Driver Feature Macro</th>
+ *    <th>Supported devices</th>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_USART_SYNC_SCHEME_V2</td>
+ *    <td>SAM D21/R21</td>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_USART_OVER_SAMPLE</td>
+ *    <td>SAM D21/R21</td>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_USART_HARDWARE_FLOW_CONTROL</td>
+ *    <td>SAM D21/R21</td>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_USART_IRDA</td>
+ *    <td>SAM D21/R21</td>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_USART_LIN_SLAVE</td>
+ *    <td>SAM D21/R21</td>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_USART_COLLISION_DECTION</td>
+ *    <td>SAM D21/R21</td>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_USART_START_FRAME_DECTION</td>
+ *    <td>SAM D21/R21</td>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_USART_IMMEDIATE_BUFFER_OVERFLOW_NOTIFICATION</td>
+ *    <td>SAM D21/R21</td>
+ *  </tr>
+ * </table>
+ * \note The specific features are only available in the driver when the
+ * selected device supports those features.
+ *
+ * \subsection asfdoc_sam0_sercom_usart_overview_frame_format Frame Format
  *
  * Communication is based on frames, where the frame format can be customized
  * to accommodate a wide range of standards. A frame consists of a start bit,
  * a number of data bits, an optional parity bit for error detection as well
  * as a configurable length stop bit(s) - see
- * \ref asfdoc_samd20_sercom_usart_frame_diagram "the figure below".
- * \ref asfdoc_samd20_sercom_usart_frame_params "The table below" shows the
+ * \ref asfdoc_sam0_sercom_usart_frame_diagram "the figure below".
+ * \ref asfdoc_sam0_sercom_usart_frame_params "The table below" shows the
  * available parameters you can change in a frame.
  *
- * \anchor asfdoc_samd20_sercom_usart_frame_params
+ * \anchor asfdoc_sam0_sercom_usart_frame_params
  * <table>
  *  <caption>USART Frame Parameters</caption>
  *  <tr>
@@ -99,27 +141,27 @@
  *      <th>Options</th>
  *  </tr>
  *  <tr>
- *      <th>Start bit</th>
+ *      <td>Start bit</td>
  *      <td>1</td>
  *  </tr>
  *  <tr>
- *      <th>Data bits</th>
+ *      <td>Data bits</td>
  *      <td>5, 6, 7, 8, 9</td>
  *  </tr>
  *  <tr>
- *      <th>Parity bit</th>
+ *      <td>Parity bit</td>
  *      <td>None, Even, Odd</td>
  *  </tr>
  *  <tr>
- *      <th>Stop bits</th>
+ *      <td>Stop bits</td>
  *      <td>1, 2</td>
  *  </tr>
  * </table>
  *
- * \anchor asfdoc_samd20_sercom_usart_frame_diagram
+ * \anchor asfdoc_sam0_sercom_usart_frame_diagram
  * \image html usart_frame.svg "USART Frame overview" width=100%
  *
- * \subsection asfdoc_samd20_sercom_usart_overview_sync Synchronous mode
+ * \subsection asfdoc_sam0_sercom_usart_overview_sync Synchronous mode
  *
  * In synchronous mode a dedicated clock line is provided; either by the USART
  * itself if in master mode, or by an external master if in slave mode.
@@ -131,12 +173,12 @@
  * - RX (Receive pin)
  * - XCK (Clock pin)
  *
- * \subsubsection asfdoc_samd20_sercom_usart_overview_sync_sampling Data sampling
+ * \subsubsection asfdoc_sam0_sercom_usart_overview_sync_sampling Data sampling
  * In synchronous mode the data is sampled on either the rising or falling edge
  * of the clock signal. This is configured by setting the clock polarity in the
  * configuration struct.
  *
- * \subsection asfdoc_samd20_sercom_usart_overview_async Asynchronous mode
+ * \subsection asfdoc_sam0_sercom_usart_overview_async Asynchronous mode
  *
  * In asynchronous mode no dedicated clock line is used, and the communication
  * is based on matching the clock speed on the transmitter and receiver. The
@@ -147,7 +189,7 @@
  * - TX (Transmit pin)
  * - RX (Receive pin)
  *
- * \subsubsection asfdoc_samd20_sercom_usart_overview_async_clock_matching Transmitter/receiver clock matching
+ * \subsubsection asfdoc_sam0_sercom_usart_overview_async_clock_matching Transmitter/receiver clock matching
  *
  * For successful transmit and receive using the asynchronous mode the receiver
  * and transmitter clocks needs to be closely matched. When receiving a frame
@@ -155,55 +197,54 @@
  * be unable to synchronize the frame(s), and garbage transmissions will
  * result.
  *
- * \subsection asfdoc_samd20_sercom_usart_parity Parity
- * Parity can be enabled to detect if a transmission was in error. This is done by
- * counting the number of "1" bits in the frame. When using Even parity the
+ * \subsection asfdoc_sam0_sercom_usart_parity Parity
+ * Parity can be enabled to detect if a transmission was in error. This is done
+ * by counting the number of "1" bits in the frame. When using Even parity the
  * parity bit will be set if the total number of "1"s in the frame are an even
  * number. If using Odd parity the parity bit will be set if the total number
  * of "1"s are Odd.
+ *
  * When receiving a character the receiver will count the number of "1"s in the
  * frame and give an error if the received frame and parity bit disagree.
  *
- * \subsection asfdoc_samd20_sercom_usart_overview_pin_configuration GPIO configuration
+ * \subsection asfdoc_sam0_sercom_usart_overview_pin_configuration GPIO configuration
  *
- * the SERCOM module have four internal PADS where the RX pin can be placed at all
- * the PADS, and the TX and XCK pins have two predefined positions that can be changed.
- * The PADS can then be routed to an external GPIO pin using the normal pin
- * multiplexing scheme on the SAM D20.
+ * The SERCOM module has four internal pads; the RX pin can be placed freely on
+ * any one of the four pads, and the TX and XCK pins have two predefined
+ * positions that can be selected as a pair. The pads can then be routed to an
+ * external GPIO pin using the normal pin multiplexing scheme on the SAM D20/D21/R21.
  *
- * For SERCOM pad multiplexer position documentation, see
- * \ref asfdoc_samd20_sercom_usart_mux_settings.
- *
- * \section asfdoc_samd20_sercom_usart_special_considerations Special considerations
+ * \section asfdoc_sam0_sercom_usart_special_considerations Special Considerations
  *
  * \if USART_CALLBACK_MODE
  * Never execute large portions of code in the callbacks. These
  * are run from the interrupt routine, and thus having long callbacks will
  * keep the processor in the interrupt handler for an equally long time.
- * A common way to handle this is to use global flags signalling the
+ * A common way to handle this is to use global flags signaling the
  * main application that an interrupt event has happened, and only do the
  * minimal needed processing in the callback.
  * \else
  * No special considerations.
  * \endif
  *
- * \section asfdoc_samd20_sercom_usart_extra_info Extra Information
+ * \section asfdoc_sam0_sercom_usart_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_samd20_sercom_usart_extra. This includes:
- * - \ref asfdoc_samd20_sercom_usart_extra_acronyms
- * - \ref asfdoc_samd20_sercom_usart_extra_dependencies
- * - \ref asfdoc_samd20_sercom_usart_extra_errata
- * - \ref asfdoc_samd20_sercom_usart_extra_history
+ * For extra information see \ref asfdoc_sam0_sercom_usart_extra. This includes:
+ * - \ref asfdoc_sam0_sercom_usart_extra_acronyms
+ * - \ref asfdoc_sam0_sercom_usart_extra_dependencies
+ * - \ref asfdoc_sam0_sercom_usart_extra_errata
+ * - \ref asfdoc_sam0_sercom_usart_extra_history
  *
- * \section asfdoc_samd20_sercom_usart_examples Examples
+ * \section asfdoc_sam0_sercom_usart_examples Examples
  *
  * For a list of examples related to this driver, see
- * \ref asfdoc_samd20_sercom_usart_exqsg.
+ * \ref asfdoc_sam0_sercom_usart_exqsg.
  *
- * \section asfdoc_samd20_sercom_usart_api_overview API Overview
+ * \section asfdoc_sam0_sercom_usart_api_overview API Overview
  * @{
  */
 
+#include <compiler.h>
 #include <sercom.h>
 #include <pinmux.h>
 
@@ -215,15 +256,43 @@
 extern "C" {
 #endif
 
+/**
+ * \name Driver feature definition
+ * Define SERCOM USART features set according to different device family.
+ * @{
+ */
+#if (SAMD21) || (SAMR21) || defined(__DOXYGEN__)
+/** Usart sync scheme version 2. */
+#  define FEATURE_USART_SYNC_SCHEME_V2
+/** Usart over sampling. */
+#  define FEATURE_USART_OVER_SAMPLE
+/** Usart hardware control flow. */
+#  define FEATURE_USART_HARDWARE_FLOW_CONTROL
+/** IrDA mode. */
+#  define FEATURE_USART_IRDA
+/** LIN slave mode. */
+#  define FEATURE_USART_LIN_SLAVE
+/** Usart collision detection. */
+#  define FEATURE_USART_COLLISION_DECTION
+/** Usart start frame detection. */
+#  define FEATURE_USART_START_FRAME_DECTION
+/** Usart start buffer overflow notification. */
+#  define FEATURE_USART_IMMEDIATE_BUFFER_OVERFLOW_NOTIFICATION
+#endif
+/*@}*/
+
 #ifndef PINMUX_DEFAULT
+/** Default pin mux. */
 #  define PINMUX_DEFAULT 0
 #endif
 
 #ifndef PINMUX_UNUSED
+/** Unused PIN mux. */
 #  define PINMUX_UNUSED 0xFFFFFFFF
 #endif
 
 #ifndef USART_TIMEOUT
+/** USART timeout value. */
 #  define USART_TIMEOUT 0xFFFF
 #endif
 
@@ -233,7 +302,6 @@ extern "C" {
  *
  * Callbacks for the Asynchronous USART driver
  */
-/* TODO: Add support for RX started interrupt. */
 enum usart_callback {
 	/** Callback for buffer transmitted */
 	USART_CALLBACK_BUFFER_TRANSMITTED,
@@ -241,6 +309,18 @@ enum usart_callback {
 	USART_CALLBACK_BUFFER_RECEIVED,
 	/** Callback for error */
 	USART_CALLBACK_ERROR,
+#ifdef FEATURE_USART_LIN_SLAVE
+	/** Callback for break character is received. */
+	USART_CALLBACK_BREAK_RECEIVED,
+#endif
+#ifdef FEATURE_USART_HARDWARE_FLOW_CONTROL
+	/** Callback for a change is detected on the CTS pin. */
+	USART_CALLBACK_CTS_INPUT_CHANGE,
+#endif
+#ifdef FEATURE_USART_START_FRAME_DECTION
+	/** Callback for a start condition is detected on the RxD line. */
+	USART_CALLBACK_START_RECEIVED,
+#endif
 #  if !defined(__DOXYGEN__)
 	/** Number of available callbacks. */
 	USART_CALLBACK_N,
@@ -298,24 +378,54 @@ enum usart_parity {
  * \brief USART signal mux settings
  *
  * Set the functionality of the SERCOM pins.
+ *
+ * See \ref asfdoc_sam0_sercom_usart_mux_settings for a description of the
+ * various MUX setting options.
  */
 enum usart_signal_mux_settings {
-	/** See \ref asfdoc_samd20_sercom_usart_mux_setting_a */
+#ifdef FEATURE_USART_HARDWARE_FLOW_CONTROL
+	/** MUX setting RX_0_TX_0_XCK_1 */
+	USART_RX_0_TX_0_XCK_1 = (SERCOM_USART_CTRLA_RXPO(0) | SERCOM_USART_CTRLA_TXPO(0)),
+	/** MUX setting RX_0_TX_2_XCK_3 */
+	USART_RX_0_TX_2_XCK_3 = (SERCOM_USART_CTRLA_RXPO(0) | SERCOM_USART_CTRLA_TXPO(1)),
+	/** MUX setting USART_RX_0_TX_0_RTS_2_CTS_3 */
+	USART_RX_0_TX_0_RTS_2_CTS_3 = (SERCOM_USART_CTRLA_RXPO(0) | SERCOM_USART_CTRLA_TXPO(2)),
+	/** MUX setting RX_1_TX_0_XCK_1 */
+	USART_RX_1_TX_0_XCK_1 = (SERCOM_USART_CTRLA_RXPO(1) | SERCOM_USART_CTRLA_TXPO(0)),
+	/** MUX setting RX_1_TX_2_XCK_3 */
+	USART_RX_1_TX_2_XCK_3 = (SERCOM_USART_CTRLA_RXPO(1) | SERCOM_USART_CTRLA_TXPO(1)),
+	/** MUX setting USART_RX_1_TX_0_RTS_2_CTS_3 */
+	USART_RX_1_TX_0_RTS_2_CTS_3 = (SERCOM_USART_CTRLA_RXPO(1) | SERCOM_USART_CTRLA_TXPO(2)),
+	/** MUX setting RX_2_TX_0_XCK_1 */
+	USART_RX_2_TX_0_XCK_1 = (SERCOM_USART_CTRLA_RXPO(2) | SERCOM_USART_CTRLA_TXPO(0)),
+	/** MUX setting RX_2_TX_2_XCK_3 */
+	USART_RX_2_TX_2_XCK_3 = (SERCOM_USART_CTRLA_RXPO(2) | SERCOM_USART_CTRLA_TXPO(1)),
+	/** MUX setting USART_RX_2_TX_0_RTS_2_CTS_3 */
+	USART_RX_2_TX_0_RTS_2_CTS_3 = (SERCOM_USART_CTRLA_RXPO(2) | SERCOM_USART_CTRLA_TXPO(2)),
+	/** MUX setting RX_3_TX_0_XCK_1 */
+	USART_RX_3_TX_0_XCK_1 = (SERCOM_USART_CTRLA_RXPO(3) | SERCOM_USART_CTRLA_TXPO(0)),
+	/** MUX setting RX_3_TX_2_XCK_3 */
+	USART_RX_3_TX_2_XCK_3 = (SERCOM_USART_CTRLA_RXPO(3) | SERCOM_USART_CTRLA_TXPO(1)),
+	/** MUX setting USART_RX_3_TX_0_RTS_2_CTS_3 */
+	USART_RX_3_TX_0_RTS_2_CTS_3 = (SERCOM_USART_CTRLA_RXPO(3) | SERCOM_USART_CTRLA_TXPO(2)),
+#else
+	/** MUX setting RX_0_TX_0_XCK_1 */
 	USART_RX_0_TX_0_XCK_1 = (SERCOM_USART_CTRLA_RXPO(0)),
-	/** See \ref asfdoc_samd20_sercom_usart_mux_setting_b */
+	/** MUX setting RX_0_TX_2_XCK_3 */
 	USART_RX_0_TX_2_XCK_3 = (SERCOM_USART_CTRLA_RXPO(0) | SERCOM_USART_CTRLA_TXPO),
-	/** See \ref asfdoc_samd20_sercom_usart_mux_setting_c */
+	/** MUX setting RX_1_TX_0_XCK_1 */
 	USART_RX_1_TX_0_XCK_1 = (SERCOM_USART_CTRLA_RXPO(1)),
-	/** See \ref asfdoc_samd20_sercom_usart_mux_setting_d */
+	/** MUX setting RX_1_TX_2_XCK_3 */
 	USART_RX_1_TX_2_XCK_3 = (SERCOM_USART_CTRLA_RXPO(1) | SERCOM_USART_CTRLA_TXPO),
-	/** See \ref asfdoc_samd20_sercom_usart_mux_setting_e */
+	/** MUX setting RX_2_TX_0_XCK_1 */
 	USART_RX_2_TX_0_XCK_1 = (SERCOM_USART_CTRLA_RXPO(2)),
-	/** See \ref asfdoc_samd20_sercom_usart_mux_setting_f */
+	/** MUX setting RX_2_TX_2_XCK_3 */
 	USART_RX_2_TX_2_XCK_3 = (SERCOM_USART_CTRLA_RXPO(2) | SERCOM_USART_CTRLA_TXPO),
-	/** See \ref asfdoc_samd20_sercom_usart_mux_setting_g */
+	/** MUX setting RX_3_TX_0_XCK_1 */
 	USART_RX_3_TX_0_XCK_1 = (SERCOM_USART_CTRLA_RXPO(3)),
-	/** See \ref asfdoc_samd20_sercom_usart_mux_setting_h */
+	/** MUX setting RX_3_TX_2_XCK_3 */
 	USART_RX_3_TX_2_XCK_3 = (SERCOM_USART_CTRLA_RXPO(3) | SERCOM_USART_CTRLA_TXPO),
+#endif
 };
 
 /**
@@ -348,6 +458,41 @@ enum usart_character_size {
 	USART_CHARACTER_SIZE_9BIT = SERCOM_USART_CTRLB_CHSIZE(1),
 };
 
+#ifdef FEATURE_USART_OVER_SAMPLE
+/**
+ * \brief USART Sample Rate
+ *
+ * The value of sample rate and baud rate generation mode.
+ */
+enum usart_sample_rate {
+	/** 16x over-sampling using arithmetic baud rate generation */
+	USART_SAMPLE_RATE_16X_ARITHMETIC = SERCOM_USART_CTRLA_SAMPR(0),
+	/** 16x over-sampling using fractional baud rate generation */
+	USART_SAMPLE_RATE_16X_FRACTIONAL = SERCOM_USART_CTRLA_SAMPR(1),
+	/** 8x over-sampling using arithmetic baud rate generation */
+	USART_SAMPLE_RATE_8X_ARITHMETIC = SERCOM_USART_CTRLA_SAMPR(2),
+	/** 8x over-sampling using fractional baud rate generation */
+	USART_SAMPLE_RATE_8X_FRACTIONAL = SERCOM_USART_CTRLA_SAMPR(3),
+	/** 3x over-sampling using arithmetic baud rate generation */
+	USART_SAMPLE_RATE_3X_ARITHMETIC = SERCOM_USART_CTRLA_SAMPR(4),
+};
+
+/**
+ * \brief USART Sample Adjustment
+ *
+ * The value of sample number used for majority voting
+ */
+enum usart_sample_adjustment {
+	/** The first, middle and last sample number used for majority voting is 7-8-9 */
+	USART_SAMPLE_ADJUSTMENT_7_8_9 = SERCOM_USART_CTRLA_SAMPA(0),
+	/** The first, middle and last sample number used for majority voting is 9-10-11 */
+	USART_SAMPLE_ADJUSTMENT_9_10_11 = SERCOM_USART_CTRLA_SAMPA(1),
+	/** The first, middle and last sample number used for majority voting is 11-12-13 */
+	USART_SAMPLE_ADJUSTMENT_11_12_13 = SERCOM_USART_CTRLA_SAMPA(2),
+	/** The first, middle and last sample number used for majority voting is 13-14-15 */
+	USART_SAMPLE_ADJUSTMENT_13_14_15 = SERCOM_USART_CTRLA_SAMPA(3),
+};
+#endif
 
 /**
  * \brief USART Transceiver
@@ -379,8 +524,40 @@ struct usart_config {
 	enum usart_character_size character_size;
 	/** USART pin out */
 	enum usart_signal_mux_settings mux_setting;
+#ifdef FEATURE_USART_OVER_SAMPLE
+	/** USART sample rate */
+	enum usart_sample_rate sample_rate;
+	/** USART sample adjustment */
+	enum usart_sample_adjustment sample_adjustment;
+#endif
+#ifdef FEATURE_USART_IMMEDIATE_BUFFER_OVERFLOW_NOTIFICATION
+	/** Controls when the buffer overflow status bit is asserted when a buffer overflow occurs.*/
+	bool immediate_buffer_overflow_notification;
+#endif
+#ifdef FEATURE_USART_IRDA
+	/** Enable IrDA encoding format */
+	bool encoding_format_enable;
+	/** The minimum pulse length that is required for a pulse to be accepted by the IrDA receiver */
+	uint8_t receive_pulse_length;
+#endif
+#ifdef FEATURE_USART_LIN_SLAVE
+	/** Enable LIN Slave Support */
+	bool lin_slave_enable;
+#endif
+#ifdef FEATURE_USART_START_FRAME_DECTION
+	/** Enable start of frame dection */
+	bool start_frame_detection_enable;
+#endif
+#ifdef FEATURE_USART_COLLISION_DECTION
+	/** Enable collision dection */
+	bool collision_detection_enable;
+#endif
 	/** USART baud rate */
 	uint32_t baudrate;
+	/** Enable receiver */
+	bool receiver_enable;
+	/** Enable transmitter */
+	bool transmitter_enable;
 
 	/** USART Clock Polarity.
 	 * If true, data changes on falling XCK edge and
@@ -413,10 +590,18 @@ struct usart_config {
 };
 
 #if USART_CALLBACK_MODE == true
-/* Forward Declaration for the device instance */
+/**
+ * \brief USART module instance
+ *
+ * Forward Declaration for the device instance
+ */
 struct usart_module;
 
-/* Type of the callback functions */
+/**
+ * \brief USART callback type
+ *
+ * Type of the callback functions
+ */
 typedef void (*usart_callback_t)(const struct usart_module *const module);
 #endif
 
@@ -433,8 +618,22 @@ struct usart_module {
 #if !defined(__DOXYGEN__)
 	/** Pointer to the hardware instance */
 	Sercom *hw;
+	/** Module lock */
+	volatile bool locked;
 	/** Character size of the data being transferred */
 	enum usart_character_size character_size;
+	/** Receiver enabled */
+	bool receiver_enabled;
+	/** Transmitter enabled */
+	bool transmitter_enabled;
+#ifdef FEATURE_USART_LIN_SLAVE
+	/** LIN Slave Support enabled */
+	bool lin_slave_enabled;
+#endif
+#ifdef FEATURE_USART_START_FRAME_DECTION
+	/** Start of frame dection enabled */
+	bool start_frame_detection_enabled;
+#endif
 #  if USART_CALLBACK_MODE == true
 	/** Array to store callback function pointers in */
 	usart_callback_t callback[USART_CALLBACK_N];
@@ -460,22 +659,60 @@ struct usart_module {
 #endif
 };
 
-#if !defined (__DOXYGEN__)
-/**
- * \internal
- * Waits until synchronization is complete
+ /**
+ * \name Lock/Unlock
+ * @{
  */
-static inline void _usart_wait_for_sync(
-		const struct usart_module *const module)
-{
-	/* Get a pointer to the hardware module instance */
-	SercomUsart *const usart_hw = &(module->hw->USART);
 
-	while (usart_hw->STATUS.reg & SERCOM_USART_STATUS_SYNCBUSY) {
-		/* Wait until the synchronization is complete */
+/**
+ * \brief Attempt to get lock on driver instance
+ *
+ * This function checks the instance's lock, which indicates whether or not it
+ * is currently in use, and sets the lock if it was not already set.
+ *
+ * The purpose of this is to enable exclusive access to driver instances, so
+ * that, e.g., transactions by different services will not interfere with each
+ * other.
+ *
+ * \param[in,out] module Pointer to the driver instance to lock.
+ *
+ * \retval STATUS_OK if the module was locked.
+ * \retval STATUS_BUSY if the module was already locked.
+ */
+static inline enum status_code usart_lock(
+		struct usart_module *const module)
+{
+	enum status_code status;
+
+	system_interrupt_enter_critical_section();
+
+	if (module->locked) {
+		status = STATUS_BUSY;
+	} else {
+		module->locked = true;
+		status = STATUS_OK;
 	}
+
+	system_interrupt_leave_critical_section();
+
+	return status;
 }
-#endif
+
+/**
+ * \brief Unlock driver instance
+ *
+ * This function clears the instance lock, indicating that it is available for
+ * use.
+ *
+ * \param[in,out] module Pointer to the driver instance to lock.
+ *
+ */
+static inline void usart_unlock(struct usart_module *const module)
+{
+	module->locked = false;
+}
+
+/** @} */
 
 /**
  * \brief Check if peripheral is busy syncing registers across clock domains
@@ -502,12 +739,29 @@ static inline bool usart_is_syncing(
 
 	SercomUsart *const usart_hw = &(module->hw->USART);
 
-	if(usart_hw->STATUS.reg & SERCOM_USART_STATUS_SYNCBUSY) {
-		return true;
-	} else {
-		return false;
+#ifdef FEATURE_USART_SYNC_SCHEME_V2
+	return (usart_hw->SYNCBUSY.reg);
+#else
+	return (usart_hw->STATUS.reg & SERCOM_USART_STATUS_SYNCBUSY);
+#endif
+}
+
+#if !defined (__DOXYGEN__)
+/**
+ * \internal
+ * Waits until synchronization is complete
+ */
+static inline void _usart_wait_for_sync(
+		const struct usart_module *const module)
+{
+	/* Sanity check. */
+	Assert(module);
+
+	while (usart_is_syncing(module)) {
+		/* Wait until the synchronization is complete */
 	}
 }
+#endif
 
 /**
  * \brief Initializes the device to predefined defaults
@@ -517,6 +771,8 @@ static inline bool usart_is_syncing(
  * - No parity
  * - 1 stop bit
  * - 9600 baud
+ * - Transmitter enabled
+ * - Receiver enabled
  * - GCLK generator 0 as clock source
  * - Default pin configuration
  *
@@ -538,6 +794,8 @@ static inline void usart_get_config_defaults(
 	config->stopbits         = USART_STOPBITS_1;
 	config->character_size   = USART_CHARACTER_SIZE_8BIT;
 	config->baudrate         = 9600;
+	config->receiver_enable  = true;
+	config->transmitter_enable = true;
 	config->clock_polarity_inverted = false;
 	config->use_external_clock = false;
 	config->ext_clock_freq   = 0;
@@ -548,6 +806,26 @@ static inline void usart_get_config_defaults(
 	config->pinmux_pad1      = PINMUX_DEFAULT;
 	config->pinmux_pad2      = PINMUX_DEFAULT;
 	config->pinmux_pad3      = PINMUX_DEFAULT;
+#ifdef FEATURE_USART_OVER_SAMPLE
+	config->sample_adjustment     = USART_SAMPLE_ADJUSTMENT_7_8_9;
+	config->sample_rate           = USART_SAMPLE_RATE_16X_ARITHMETIC;
+#endif
+#ifdef FEATURE_USART_LIN_SLAVE
+	config->lin_slave_enable      = false;
+#endif
+#ifdef FEATURE_USART_IMMEDIATE_BUFFER_OVERFLOW_NOTIFICATION
+	config->immediate_buffer_overflow_notification      = false;
+#endif
+#ifdef FEATURE_USART_START_FRAME_DECTION
+	config->start_frame_detection_enable                = false;
+#endif
+#ifdef FEATURE_USART_IRDA
+	config->encoding_format_enable                      = false;
+	config->receive_pulse_length                        = 19;
+#endif
+#ifdef FEATURE_USART_COLLISION_DECTION
+	config->collision_detection_enable                  = false;
+#endif
 }
 
 enum status_code usart_init(
@@ -674,7 +952,7 @@ enum status_code usart_read_buffer_wait(
  * \param[in]  transceiver_type  Transceiver type.
  */
 static inline void usart_enable_transceiver(
-		const struct usart_module *const module,
+		struct usart_module *const module,
 		enum usart_transceiver_type transceiver_type)
 {
 	/* Sanity check arguments */
@@ -691,11 +969,13 @@ static inline void usart_enable_transceiver(
 		case USART_TRANSCEIVER_RX:
 			/* Enable RX */
 			usart_hw->CTRLB.reg |= SERCOM_USART_CTRLB_RXEN;
+			module->receiver_enabled = true;
 			break;
 
 		case USART_TRANSCEIVER_TX:
 			/* Enable TX */
 			usart_hw->CTRLB.reg |= SERCOM_USART_CTRLB_TXEN;
+			module->transmitter_enabled = true;
 			break;
 	}
 }
@@ -709,7 +989,7 @@ static inline void usart_enable_transceiver(
  * \param[in]  transceiver_type  Transceiver type.
  */
 static inline void usart_disable_transceiver(
-		const struct usart_module *const module,
+		struct usart_module *const module,
 		enum usart_transceiver_type transceiver_type)
 {
 	/* Sanity check arguments */
@@ -726,11 +1006,13 @@ static inline void usart_disable_transceiver(
 		case USART_TRANSCEIVER_RX:
 			/* Disable RX */
 			usart_hw->CTRLB.reg &= ~SERCOM_USART_CTRLB_RXEN;
+			module->receiver_enabled = false;
 			break;
 
 		case USART_TRANSCEIVER_TX:
 			/* Disable TX */
 			usart_hw->CTRLB.reg &= ~SERCOM_USART_CTRLB_TXEN;
+			module->transmitter_enabled = false;
 			break;
 	}
 }
@@ -744,9 +1026,9 @@ static inline void usart_disable_transceiver(
 /** @} */
 
 /**
-* \page asfdoc_samd20_sercom_usart_extra Extra Information for SERCOM USART Driver
+* \page asfdoc_sam0_sercom_usart_extra Extra Information for SERCOM USART Driver
 *
-* \section asfdoc_samd20_sercom_usart_extra_acronyms Acronyms
+* \section asfdoc_sam0_sercom_usart_extra_acronyms Acronyms
 *
 * Below is a table listing the acronyms used in this module, along with their
 * intended meanings.
@@ -772,359 +1054,186 @@ static inline void usart_disable_transceiver(
 * <td>MSB</td>
 * <td>Most Significant Bit</td>
 * </tr>
+* <tr>
+* <td>DMA</td>
+* <td>Direct Memory Access</td>
+* </tr>
 * </table>
 *
 *
-* \section asfdoc_samd20_sercom_usart_extra_dependencies Dependencies
+* \section asfdoc_sam0_sercom_usart_extra_dependencies Dependencies
 * This driver has the following dependencies:
 *
-* - \ref asfdoc_samd20_system_pinmux_group "System Pin Multiplexer Driver"
-* - \ref asfdoc_samd20_system_clock_group "System clock configuration"
+* - \ref asfdoc_sam0_system_pinmux_group "System Pin Multiplexer Driver"
+* - \ref asfdoc_sam0_system_clock_group "System clock configuration"
 *
 *
-* \section asfdoc_samd20_sercom_usart_extra_errata Errata
+* \section asfdoc_sam0_sercom_usart_extra_errata Errata
 * There are no errata related to this driver.
 *
 *
-* \section asfdoc_samd20_sercom_usart_extra_history Module History
+* \section asfdoc_sam0_sercom_usart_extra_history Module History
 * An overview of the module history is presented in the table below, with
 * details on the enhancements and fixes made to the module since its first
 * release. The current version of this corresponds to the newest version in
 * the table.
 *
-* <table>
-* <tr>
-* <th>Changelog</th>
-* </tr>
-* <tr>
-* <td>Initial Release</td>
-* </tr>
-* </table>
+ * <table>
+ *	<tr>
+ *		<th>Changelog</th>
+ *	</tr>
+ *  <tr>
+ *		<td>Add support for SAMR21 (same features as SAMD21).</td>
+ *  </tr>
+ *	<tr>
+ *		<td>Add support for SAMD21 and added new feature as below:
+                \li Oversample
+                \li Buffer overflow notification
+                \li Irda
+                \li Lin slave
+                \li Start frame detection
+                \li Hardware flow control
+                \li Collision detection
+                \li DMA support </td>
+ *	</tr>
+ *	<tr>
+ *		<td>\li Added new \c transmitter_enable and \c receiver_enable boolean
+ *              values to \c struct usart_config.
+ *          \li Altered \c usart_write_* and usart_read_* functions to abort with
+ *              an error code if the relevant transceiver is not enabled.
+ *          \li Fixed \c usart_write_buffer_wait() and \c usart_read_buffer_wait()
+ *              not aborting correctly when a timeout condition occurs.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>Initial Release</td>
+ *	</tr>
+ * </table>
 */
 
 /**
- * \page asfdoc_samd20_sercom_usart_exqsg Examples for SERCOM USART Driver
+ * \page asfdoc_sam0_sercom_usart_exqsg Examples for SERCOM USART Driver
  *
  * This is a list of the available Quick Start guides (QSGs) and example
- * applications for \ref asfdoc_samd20_sercom_usart_group. QSGs are simple examples with
+ * applications for \ref asfdoc_sam0_sercom_usart_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
  * use cases. Note that QSGs can be compiled as a standalone application or be
  * added to the user application.
  *
- * - \subpage asfdoc_samd20_sercom_usart_basic_use_case
+ * - \subpage asfdoc_sam0_sercom_usart_basic_use_case
  * \if USART_CALLBACK_MODE
- * - \subpage asfdoc_samd20_sercom_usart_callback_use_case
+ * - \subpage asfdoc_sam0_sercom_usart_callback_use_case
  * \endif
+ * - \subpage asfdoc_sam0_sercom_usart_dma_use_case
  */
 
 /**
- * \page asfdoc_samd20_sercom_usart_mux_settings SERCOM USART MUX Settings
+ * \page asfdoc_sam0_sercom_usart_mux_settings SERCOM USART MUX Settings
  *
- * The different options for functionality of the SERCOM pads.
+ * The following lists the possible internal SERCOM module pad function
+ * assignments, for the four SERCOM pads when in USART mode. Note that this is
+ * in addition to the physical GPIO pin MUX of the device, and can be used in
+ * conjunction to optimize the serial data pin-out.
  *
- * \section asfdoc_samd20_sercom_usart_mux_setting_a MUX Setting A
+ * When TX and RX are connected to the same pin, the USART will operate in
+ * half-duplex mode if both the transmitter and receivers are enabled.
  *
- * Enum: \ref USART_RX_0_TX_0_XCK_1
+ * \note When RX and XCK are connected to the same pin, the receiver must not
+ *       be enabled if the USART is configured to use an external clock.
  *
- * <table>
- *   <tr>
- *      <th> Function </th>
- *      <th> RX </th>
- *      <th> TX </th>
- *      <th> XCK </th>
- *   </tr>
- *   <tr>
- *      <th> PAD0 </th>
- *      <td> x </td>
- *      <td> x </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD1 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td> x </td>
- *   </tr>
- *   <tr>
- *      <th> PAD2 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD3 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- * </table>
- *
- * \section asfdoc_samd20_sercom_usart_mux_setting_b MUX Setting B
- *
- * Enum: \ref USART_RX_0_TX_2_XCK_3
  *
  * <table>
- *   <tr>
- *      <th> Function </th>
- *      <th> RX </th>
- *      <th> TX </th>
- *      <th> XCK </th>
- *   </tr>
- *   <tr>
- *      <th> PAD0 </th>
- *      <td> x </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD1 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD2 </th>
- *      <td>  </td>
- *      <td> x </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD3 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td> x </td>
- *   </tr>
+ *		<tr>
+ *			<th>Mux/Pad</th>
+ *			<th>PAD 0</th>
+ *			<th>PAD 1</th>
+ *			<th>PAD 2</th>
+ *			<th>PAD 3</th>
+ *		</tr>
+ *		<tr>
+ *			<td>RX_0_TX_0_XCK_1</td>
+ *			<td>TX / RX</td>
+ *			<td>XCK</td>
+ *			<td>-</td>
+ *			<td>-</td>
+ *		</tr>
+ *		<tr>
+ *			<td>RX_0_TX_2_XCK_3</td>
+ *			<td>RX</td>
+ *			<td>-</td>
+ *			<td>TX</td>
+ *			<td>XCK</td>
+ *		</tr>
+ *		<tr>
+ *			<td>RX_1_TX_0_XCK_1</td>
+ *			<td>TX</td>
+ *			<td>RX / XCK</td>
+ *			<td>-</td>
+ *			<td>-</td>
+ *		</tr>
+ *		<tr>
+ *			<td>RX_1_TX_2_XCK_3</td>
+ *			<td>-</td>
+ *			<td>RX</td>
+ *			<td>TX</td>
+ *			<td>XCK</td>
+ *		</tr>
+ *		<tr>
+ *			<td>RX_2_TX_0_XCK_1</td>
+ *			<td>TX</td>
+ *			<td>XCK</td>
+ *			<td>RX</td>
+ *			<td>-</td>
+ *		</tr>
+ *		<tr>
+ *			<td>RX_2_TX_2_XCK_3</td>
+ *			<td>-</td>
+ *			<td>-</td>
+ *			<td>TX / RX</td>
+ *			<td>XCK</td>
+ *		</tr>
+ *		<tr>
+ *			<td>RX_3_TX_0_XCK_1</td>
+ *			<td>TX</td>
+ *			<td>XCK</td>
+ *			<td>-</td>
+ *			<td>RX</td>
+ *		</tr>
+ *		<tr>
+ *			<td>RX_3_TX_2_XCK_3</td>
+ *			<td>-</td>
+ *			<td>-</td>
+ *			<td>TX</td>
+ *			<td>RX / XCK</td>
+ *		</tr>
  * </table>
  *
- * \section asfdoc_samd20_sercom_usart_mux_setting_c MUX Setting C
- *
- * Enum: \ref USART_RX_1_TX_0_XCK_1
- *
- * <table>
- *   <tr>
- *      <th> Function </th>
- *      <th> RX </th>
- *      <th> TX </th>
- *      <th> XCK </th>
- *   </tr>
- *   <tr>
- *      <th> PAD0 </th>
- *      <td>  </td>
- *      <td> x </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD1 </th>
- *      <td> x </td>
- *      <td>  </td>
- *      <td> x </td>
- *   </tr>
- *   <tr>
- *      <th> PAD2 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD3 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- * </table>
- *
- * \section asfdoc_samd20_sercom_usart_mux_setting_d MUX Setting D
- *
- * Enum: \ref USART_RX_1_TX_2_XCK_3
- *
- * <table>
- *   <tr>
- *      <th> Function </th>
- *      <th> RX </th>
- *      <th> TX </th>
- *      <th> XCK </th>
- *   </tr>
- *   <tr>
- *      <th> PAD0 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD1 </th>
- *      <td> x </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD2 </th>
- *      <td>  </td>
- *      <td> x </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD3 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td> x </td>
- *   </tr>
- * </table>
- *
- * \section asfdoc_samd20_sercom_usart_mux_setting_e MUX Setting E
- *
- * Enum: \ref USART_RX_2_TX_0_XCK_1
- *
- * <table>
- *   <tr>
- *      <th> Function </th>
- *      <th> RX </th>
- *      <th> TX </th>
- *      <th> XCK </th>
- *   </tr>
- *   <tr>
- *      <th> PAD0 </th>
- *      <td>  </td>
- *      <td> x </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD1 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td> x </td>
- *   </tr>
- *   <tr>
- *      <th> PAD2 </th>
- *      <td> x </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD3 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- * </table>
- *
- * \section asfdoc_samd20_sercom_usart_mux_setting_f MUX Setting F
- *
- * Enum: \ref USART_RX_2_TX_2_XCK_3
- *
- * <table>
- *   <tr>
- *      <th> Function </th>
- *      <th> RX </th>
- *      <th> TX </th>
- *      <th> XCK </th>
- *   </tr>
- *   <tr>
- *      <th> PAD0 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD1 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD2 </th>
- *      <td> x </td>
- *      <td> x </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD3 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td> x </td>
- *   </tr>
- * </table>
- *
- * \section asfdoc_samd20_sercom_usart_mux_setting_g MUX Setting G
- *
- * Enum: \ref USART_RX_3_TX_0_XCK_1
- *
- * <table>
- *   <tr>
- *      <th> Function </th>
- *      <th> RX </th>
- *      <th> TX </th>
- *      <th> XCK </th>
- *   </tr>
- *   <tr>
- *      <th> PAD0 </th>
- *      <td>  </td>
- *      <td> x </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD1 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td> x </td>
- *   </tr>
- *   <tr>
- *      <th> PAD2 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD3 </th>
- *      <td> x </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- * </table>
- *
- * \section asfdoc_samd20_sercom_usart_mux_setting_h MUX Setting H
- *
- * Enum: \ref USART_RX_3_TX_2_XCK_3
- *
- * <table>
- *   <tr>
- *      <th> Function </th>
- *      <th> RX </th>
- *      <th> TX </th>
- *      <th> XCK </th>
- *   </tr>
- *   <tr>
- *      <th> PAD0 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD1 </th>
- *      <td>  </td>
- *      <td>  </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD2 </th>
- *      <td>  </td>
- *      <td> x </td>
- *      <td>  </td>
- *   </tr>
- *   <tr>
- *      <th> PAD3 </th>
- *      <td> x </td>
- *      <td>  </td>
- *      <td> x </td>
- *   </tr>
- * </table>
- *
- * \page asfdoc_samd20_sercom_usart_document_revision_history Document Revision History
+ * \page asfdoc_sam0_sercom_usart_document_revision_history Document Revision History
  *
  * <table>
  *	<tr>
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>E</td>
+ *		<td>03/2014</td>
+ *		<td>Add support for SAMR21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>D</td>
+ *		<td>01/2014</td>
+ *		<td>Add support for SAMD21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>C</td>
+ *		<td>10/2013</td>
+ *		<td>Replaced the pad multiplexing documentation with a condensed table.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>B</td>
+ *		<td>06/2013</td>
+ *		<td>Corrected documentation typos.</td>
  *	</tr>
  *	<tr>
  *		<td>A</td>

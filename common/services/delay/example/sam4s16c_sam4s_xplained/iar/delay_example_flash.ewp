@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4S16C	Atmel SAM4S16C</state>
+					<state>ATSAM4S16C	Atmel SAM4S16C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -756,7 +756,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1015,7 +1014,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4S16C	Atmel SAM4S16C</state>
+					<state>ATSAM4S16C	Atmel SAM4S16C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1674,7 +1673,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1841,21 +1839,6 @@
 		<group>
 			<name>drivers</name>
 			<group>
-				<name>pio</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../sam/drivers/pio/pio.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../sam/drivers/pio/pio_handler.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../sam/drivers/pio/pio.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../sam/drivers/pio/pio_handler.h</name>
-				</file>
-			</group>
-			<group>
 				<name>pmc</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../sam/drivers/pmc/sleep.c</name>
@@ -1868,6 +1851,21 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../sam/drivers/pmc/pmc.h</name>
+				</file>
+			</group>
+			<group>
+				<name>pio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../sam/drivers/pio/pio_handler.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../sam/drivers/pio/pio.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../sam/drivers/pio/pio.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../sam/drivers/pio/pio_handler.h</name>
 				</file>
 			</group>
 		</group>
@@ -1890,15 +1888,6 @@
 									<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/source/templates/iar/startup_sam4s.c</name>
 								</file>
 							</group>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/source/templates/exceptions.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/source/templates/exceptions.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/source/templates/system_sam4s.h</name>
-							</file>
 						</group>
 					</group>
 					<group>
@@ -1907,6 +1896,15 @@
 							<name>pio</name>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s8b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s4b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s2c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s2a.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4sd32b.h</name>
@@ -1918,6 +1916,12 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s8c.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s4c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s4a.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4sd16b.h</name>
 							</file>
 							<file>
@@ -1925,6 +1929,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s16c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s2b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4sa16c.h</name>
@@ -1960,13 +1967,7 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_twi0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_usart0.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_crccu.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_piob.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_efc0.h</name>
@@ -1978,6 +1979,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_gpbr.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_usart0.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_hsmci.h</name>
 							</file>
 							<file>
@@ -1985,6 +1989,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_twi1.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_piob.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_pioc.h</name>
@@ -2059,6 +2066,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_usart.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_spi.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_smc.h</name>
 							</file>
 							<file>
@@ -2107,9 +2117,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_uart.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_spi.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_matrix.h</name>
 							</file>
 							<file>
@@ -2127,6 +2134,27 @@
 						</group>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s2a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s4b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/system_sam4s.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s2b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s4a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s2c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s4c.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4sd16c.h</name>
@@ -2219,10 +2247,10 @@
 					<group>
 						<name>sam4s16c_sam4s_xplained</name>
 						<file>
-							<name>$PROJ_DIR$/../conf_board.h</name>
+							<name>$PROJ_DIR$/../conf_clock.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../conf_clock.h</name>
+							<name>$PROJ_DIR$/../conf_board.h</name>
 						</file>
 						<group>
 							<name>iar</name>

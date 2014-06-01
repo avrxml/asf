@@ -3,7 +3,7 @@
  *
  * \brief AT86RFx Wireless Module Unit Test.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -147,7 +147,6 @@ static void run_nlme_reset_test(const struct test_case *test)
 			, (FUNC_PTR)nlme_reset_confirm
 #endif
 			);
-	printf("reset");
 	while (!nlme_reset_conf_rcvd) {
 		nwk_task();
 	}
@@ -170,7 +169,6 @@ static void run_nlme_auto_discovery_test(const struct test_case *test)
 			(FUNC_PTR)nlme_auto_discovery_confirm
 #endif
 			);
-	printf("start");
 	while (!nlme_auto_discovery_conf_rcvd) {
 		nwk_task();
 	}

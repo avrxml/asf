@@ -5,7 +5,7 @@
  * @brief Implements incoming frame handling in the MAC
  *
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -135,7 +135,7 @@ void mac_process_tal_data_ind(uint8_t *msg)
 	mac_parse_data.mpdu_length = frameptr->mpdu[0];
 
 	/* First extract LQI since this is already needed in Promiscuous Mode.
-	 **/
+	**/
 	mac_parse_data.ppdu_link_quality
 		= frameptr->mpdu[mac_parse_data.mpdu_length + LQI_LEN];
 
@@ -162,11 +162,11 @@ void mac_process_tal_data_ind(uint8_t *msg)
 	if (mac_busy) {
 		/*
 		 * If MAC has to process an incoming frame that requires a
-		 *response
+		 * response
 		 * (i.e. beacon request and data request) then process this
-		 *operation
+		 * operation
 		 * once the MAC has become free. Put the request received back
-		 *into the
+		 * into the
 		 * MAC internal event queue.
 		 */
 		if (FCF_FRAMETYPE_MAC_CMD == mac_parse_data.frame_type) {
@@ -189,7 +189,7 @@ void mac_process_tal_data_ind(uint8_t *msg)
 		if (MAC_SCAN_IDLE == mac_scan_state) {
 			/*
 			 * Continue with handling the "real" non-transient MAC
-			 *states now.
+			 * states now.
 			 */
 			processed_tal_data_indication
 				= process_data_ind_not_transient(
@@ -277,7 +277,7 @@ void mac_process_tal_data_ind(uint8_t *msg)
 					 * AND answer beacon request frames.
 					 * PAN Coordinators do not poll;
 					 * End devices do not answer beacon
-					 *requests.
+					 * requests.
 					 */
 					mac_process_beacon_request(buf_ptr);
 					processed_tal_data_indication = true;
@@ -382,7 +382,7 @@ static bool process_data_ind_scanning(buffer_t *b_ptr)
 
 	/*
 	 * We are in a scanning process now (mac_scan_state is not
-	 *MAC_SCAN_IDLE),
+	 * MAC_SCAN_IDLE),
 	 * so continue with the specific scanning states.
 	 */
 	switch (mac_scan_state) {
@@ -436,7 +436,7 @@ static bool process_data_ind_scanning(buffer_t *b_ptr)
 				mac_parse_data.mac_command) {
 			/*
 			 * Received coordinator realignment frame in the middle
-			 *of
+			 * of
 			 * an orphan scan.
 			 */
 			pal_timer_stop(T_Scan_Duration);
@@ -530,7 +530,13 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 			case PANIDCONFLICTNOTIFICAION:
 				mac_sync_loss(MAC_PAN_ID_CONFLICT);
 				break;
+
 #endif  /* (MAC_PAN_ID_CONFLICT_AS_PC == 1) */
+#ifdef GTS_SUPPORT
+			case GTSREQUEST:
+				mac_process_gts_request(b_ptr);
+				processed_in_not_transient = true;
+#endif /* GTS_SUPPORT */
 
 			default:
 				break;
@@ -575,7 +581,7 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 				uint32_t beacon_tx_time_symb;
 
 				/* Check for PAN-Id conflict being NOT a PAN
-				 *Corodinator. */
+				 * Corodinator. */
 #if (MAC_PAN_ID_CONFLICT_NON_PC == 1)
 				if (mac_pib.mac_AssociatedPANCoord &&
 						(MAC_IDLE !=
@@ -586,7 +592,7 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 #endif  /* (MAC_PAN_ID_CONFLICT_NON_PC == 1) */
 
 				/* Check if the beacon is received from my
-				 *parent. */
+				 * parent. */
 				if ((mac_parse_data.src_panid ==
 						tal_pib.PANId) &&
 						(((mac_parse_data.src_addr_mode
@@ -627,7 +633,7 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 						mac_process_beacon_frame(b_ptr);
 
 						/* Initialize beacon tracking
-						 *timer. */
+						 * timer. */
 						{
 							retval_t tmr_start_res
 								= FAILURE;
@@ -667,8 +673,8 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 							do {
 								/*
 								 * Calculate the
-								 *time for next
-								 *beacon
+								 * time for next
+								 * beacon
 								 * transmission
 								 */
 								beacon_tx_time_symb
@@ -679,11 +685,11 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 
 								/*
 								 * Take into
-								 *account the
-								 *time taken by
+								 * account the
+								 * time taken by
 								 * the radio to
-								 *wakeup from
-								 *sleep state
+								 * wakeup from
+								 * sleep state
 								 */
 								nxt_bcn_tm
 									=
@@ -709,43 +715,108 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 										NULL);
 							} while (MAC_SUCCESS !=
 									tmr_start_res);
+							#ifdef GTS_DEBUG
+							port_pin_toggle_output_level(
+									DEBUG_PIN1);
+							port_pin_set_output_level(
+									DEBUG_PIN2,
+									0);
+							#endif
 						}
 
 						/*
 						 * Initialize superframe timer
-						 *if required only
+						 * if required only
 						 * for devices because
-						 *Superframe timer is already
-						 *running for
+						 * Superframe timer is already
+						 * running for
 						 * coordinator.
 						 */
 						/* TODO */
 
-						/*
-						 * if (MAC_COORDINATOR !=
-						 * mac_state)
-						 * {
-						 *  if (tal_pib.SuperFrameOrder
-						 * < tal_pib.BeaconOrder)
-						 *  {
-						 *          pal_timer_start(T_Superframe,
-						 *                          TAL_CONVERT_SYMBOLS_TO_US(
-						 *                              TAL_GET_SUPERFRAME_DURATION_TIME(
-						 *                                  tal_pib.SuperFrameOrder)),
-						 *                          TIMEOUT_RELATIVE,
-						 *                          (FUNC_PTR)mac_t_start_inactive_device_cb,
-						 *                          NULL);
-						 *  }
-						 * }
-						 */
+						if (MAC_ASSOCIATED ==
+								mac_state) {
+							mac_superframe_state
+								= MAC_ACTIVE_CAP;
+
+							/* Check whether the
+							 *radio needs to be
+							 *woken up. */
+							mac_trx_wakeup();
+
+							/* Set transceiver in rx
+							 * mode, otherwise it
+							 * may stay in
+							 * TRX_OFF). */
+							tal_rx_enable(PHY_RX_ON);
+
+							if (tal_pib.
+									SuperFrameOrder
+									<
+									tal_pib
+									.
+									BeaconOrder)
+							{
+								pal_timer_start(
+										T_Superframe,
+										TAL_CONVERT_SYMBOLS_TO_US(
+										TAL_GET_SUPERFRAME_DURATION_TIME(
+										tal_pib
+										.
+										SuperFrameOrder)),
+										TIMEOUT_RELATIVE,
+										(
+											FUNC_PTR)mac_t_start_inactive_device_cb,
+										NULL);
+								#ifdef GTS_DEBUG
+								port_pin_set_output_level(
+										DEBUG_PIN2,
+										1);
+								#endif
+							}
+
+#ifdef GTS_SUPPORT
+							if (mac_final_cap_slot <
+									FINAL_CAP_SLOT_DEFAULT)
+							{
+								uint32_t
+										gts_tx_time
+									= (
+									TAL_CONVERT_SYMBOLS_TO_US(
+									TAL_GET_SUPERFRAME_DURATION_TIME(
+									tal_pib
+									.
+									SuperFrameOrder))
+									>>
+									4)
+										* (
+									mac_final_cap_slot
+									+
+									1);
+
+								pal_timer_start(
+										T_CAP, gts_tx_time,
+										TIMEOUT_RELATIVE,
+										(
+											FUNC_PTR)mac_t_gts_cb,
+										NULL);
+							#ifdef GTS_DEBUG
+								port_pin_set_output_level(
+										DEBUG_PIN3,
+										1);
+							#endif
+							}
+
+#endif /* GTS_SUPPORT */
+						}
 
 						/* Initialize missed beacon
-						 *timer. */
+						 * timer. */
 						mac_start_missed_beacon_timer();
 
 						/* A device that is neither
-						 *scanning nor polling shall go
-						 *to sleep now. */
+						 * scanning nor polling shall go
+						 * to sleep now. */
 						if (
 							(MAC_COORDINATOR !=
 							mac_state)
@@ -758,21 +829,21 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 							) {
 							/*
 							 * If the last received
-							 *beacon frame from our
-							 *parent
+							 * beacon frame from our
+							 * parent
 							 * has indicated pending
-							 *broadbast data, we
-							 *need to
+							 * broadbast data, we
+							 * need to
 							 * stay awake, until the
-							 *broadcast data has
-							 *been received.
+							 * broadcast data has
+							 * been received.
 							 */
 							if (!
 									mac_bc_data_indicated)
 							{
 								/* Set radio to
-								 *sleep if
-								 *allowed */
+								 * sleep if
+								 * allowed */
 								mac_sleep_trans();
 							}
 						}
@@ -781,12 +852,12 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 						mac_process_beacon_frame(b_ptr);
 
 						/* Do this after processing the
-						 *beacon. */
+						 * beacon. */
 						mac_sync_state = MAC_SYNC_NEVER;
 
 						/* A device that is neither
-						 *scanning nor polling shall go
-						 *to sleep now. */
+						 * scanning nor polling shall go
+						 * to sleep now. */
 						if (
 							(MAC_COORDINATOR !=
 							mac_state)
@@ -799,21 +870,21 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 							) {
 							/*
 							 * If the last received
-							 *beacon frame from our
-							 *parent
+							 * beacon frame from our
+							 * parent
 							 * has indicated pending
-							 *broadbast data, we
-							 *need to
+							 * broadbast data, we
+							 * need to
 							 * stay awake, until the
-							 *broadcast data has
-							 *been received.
+							 * broadcast data has
+							 * been received.
 							 */
 							if (!
 									mac_bc_data_indicated)
 							{
 								/* Set radio to
-								 *sleep if
-								 *allowed */
+								 * sleep if
+								 * allowed */
 								mac_sleep_trans();
 							}
 						}
@@ -825,7 +896,7 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 					processed_in_not_transient = true;
 				} else {
 					/* No action taken, buffer will be
-					 *freed. */
+					 * freed. */
 				}
 			}
 			break;
@@ -834,7 +905,7 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 			case FCF_FRAMETYPE_BEACON:
 			{
 				/* Check for PAN-Id conflict being NOT a PAN
-				 *Corodinator. */
+				 * Corodinator. */
 #if ((MAC_PAN_ID_CONFLICT_NON_PC == 1) && (MAC_ASSOCIATION_REQUEST_CONFIRM == \
 				1))
 				if (mac_pib.mac_AssociatedPANCoord &&
@@ -845,7 +916,7 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 
 #endif  /* ((MAC_PAN_ID_CONFLICT_NON_PC == 1) &&
 					 *(MAC_ASSOCIATION_REQUEST_CONFIRM ==
-					 *1)) */
+					 * 1)) */
 			}
 			break;
 #endif /* (MAC_SYNC_REQUEST == 0/1) */
@@ -861,9 +932,9 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 					if (MAC_ASSOCIATED == mac_state) {
 						/*
 						 * Device needs to scan for
-						 *networks again,
+						 * networks again,
 						 * go into idle mode and reset
-						 *variables
+						 * variables
 						 */
 						mac_idle_trans();
 					}
@@ -875,9 +946,9 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 
 					/*
 					 * Received coordinator realignment
-					 *frame from
+					 * frame from
 					 * coordinator while NOT performing
-					 *orphan scan.
+					 * orphan scan.
 					 */
 					mac_process_coord_realign(b_ptr);
 					processed_in_not_transient = true;
@@ -889,7 +960,7 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 					if (MAC_COORDINATOR == mac_state) {
 						/*
 						 * Only Coordinators (no End
-						 *devices) answer
+						 * devices) answer
 						 * Beacon requests.
 						 */
 						mac_process_beacon_request(b_ptr);
@@ -968,7 +1039,10 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
  */
 static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 {
-	uint8_t payload_index;
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
+	uint8_t payload_index[4] = {0};
+#endif
+	uint8_t payload_loc = 0;
 	uint8_t temp_byte;
 	uint16_t fcf;
 	uint8_t *temp_frame_ptr = &(rx_frame_ptr->mpdu[1]);
@@ -991,7 +1065,7 @@ static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 	 * if available.
 	 */
 
-#ifndef MAC_SECURITY_ZIP
+#if (!defined MAC_SECURITY_ZIP && !defined MAC_SECURITY_2006)
 	if (fcf & FCF_SECURITY_ENABLED) {
 		return false;
 	}
@@ -1004,29 +1078,29 @@ static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 		mac_parse_data.mac_command = *temp_frame_ptr;
 	}
 
-	payload_index = 0;
-
 #ifdef BEACON_SUPPORT
-	/* The timestamping is only required for beaconing networks. */
+	/* The time stamping is only required for beaconing networks. */
 	mac_parse_data.time_stamp = rx_frame_ptr->time_stamp;
 #endif  /* BEACON_SUPPORT */
 
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
 	if (fcf & FCF_SECURITY_ENABLED) {
 		retval_t status;
 		status = mac_unsecure(&mac_parse_data, &rx_frame_ptr->mpdu[1],
-				temp_frame_ptr, &payload_index);
+				temp_frame_ptr, payload_index);
+
+		payload_loc = payload_index[0];
 
 		if (status != MAC_SUCCESS) {
 			/* Generate MLME-COMM-STATUS.indication. */
 
 			/*
 			 * In order to not interfere with the regular flow of
-			 *parsing the
+			 * parsing the
 			 * frame and buffer handling, a fresh buffer is seized
-			 *for the
+			 * for the
 			 * MLME-COMM-STATUS.indication, which will be release at
-			 *the API
+			 * the API
 			 * level.
 			 */
 			buffer_t *buffer_header = bmm_buffer_alloc(
@@ -1058,7 +1132,7 @@ static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 
 			/*
 			 * Return false - this will lead to the release of the
-			 *original buffer.
+			 * original buffer.
 			 */
 			return false;
 		}
@@ -1066,24 +1140,24 @@ static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 		mac_parse_data.sec_ctrl.sec_level = 0;
 	}
 
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 
 	/* temp_frame_ptr still points to the first octet of the MAC payload. */
 	switch (mac_parse_data.frame_type) {
 	case FCF_FRAMETYPE_BEACON:
-		/* Get the Superframe specification */
+		/* Get the Super frame specification */
 		memcpy(
 				&mac_parse_data.mac_payload_data.beacon_data.superframe_spec,
-				&temp_frame_ptr[payload_index],
+				&temp_frame_ptr[payload_loc],
 				sizeof(uint16_t));
 		mac_parse_data.mac_payload_data.beacon_data.superframe_spec
 			= CLE16_TO_CPU_ENDIAN(
 				mac_parse_data.mac_payload_data.beacon_data.superframe_spec);
-		payload_index += sizeof(uint16_t);
+		payload_loc += sizeof(uint16_t);
 
 		/* Get the GTS specification */
 		mac_parse_data.mac_payload_data.beacon_data.gts_spec
-			= temp_frame_ptr[payload_index++];
+			= temp_frame_ptr[payload_loc++];
 
 		/*
 		 * If the GTS specification descriptor count is > 0, then
@@ -1095,20 +1169,31 @@ static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 				&
 				GTS_DESCRIPTOR_COUNTER_MASK);
 		if (temp_byte > 0) {
-			/* 1 octet GTS diresctions + GTS address list */
-			payload_index += 1 + temp_byte;
+			/* 1 octet GTS direction */
+#ifdef GTS_SUPPORT
+			mac_parse_data.mac_payload_data.beacon_data.
+			gts_direction
+				= temp_frame_ptr[payload_loc++];
+
+			/* GTS address list */
+			mac_parse_data.mac_payload_data.beacon_data.gts_list
+				= (mac_gts_list_t *)&temp_frame_ptr[payload_loc];
+			payload_loc += (temp_byte * 3);
+#else
+			payload_loc += 1 + temp_byte;
+#endif  /* GTS_SUPPORT */
 		}
 
 		/* Get the Pending address specification */
 
 		mac_parse_data.mac_payload_data.beacon_data.pending_addr_spec
-			= temp_frame_ptr[payload_index++];
+			= temp_frame_ptr[payload_loc++];
 		{
 			/*
 			 * If the Pending address specification indicates that
-			 *the number of
+			 * the number of
 			 * short or long addresses is > 0, then get the short
-			 *and/or
+			 * and/or
 			 * long addresses
 			 */
 			uint8_t number_bytes_short_addr = NUM_SHORT_PEND_ADDR(
@@ -1120,33 +1205,32 @@ static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 					(number_bytes_long_addr)) {
 				mac_parse_data.mac_payload_data.beacon_data.
 				pending_addr_list
-					= &temp_frame_ptr[payload_index];
+					= &temp_frame_ptr[payload_loc];
 			}
 
 			if (number_bytes_short_addr) {
-				payload_index
+				payload_loc
 					+= (number_bytes_short_addr *
 						sizeof(uint16_t));
 			}
 
 			if (number_bytes_long_addr) {
-				payload_index
+				payload_loc
 					+= (number_bytes_long_addr *
 						sizeof(uint64_t));
 			}
 		}
 
 		/* Is there a beacon payload ? */
-		if (mac_parse_data.mac_payload_length > payload_index) {
+		if (mac_parse_data.mac_payload_length > payload_loc) {
 			mac_parse_data.mac_payload_data.beacon_data.
 			beacon_payload_len
 				= mac_parse_data.mac_payload_length -
-					payload_index;
-
+					payload_loc;
 			/* Store pointer to received beacon payload. */
 			mac_parse_data.mac_payload_data.beacon_data.
 			beacon_payload
-				= &temp_frame_ptr[payload_index];
+				= &temp_frame_ptr[payload_loc];
 		} else {
 			mac_parse_data.mac_payload_data.beacon_data.
 			beacon_payload_len = 0;
@@ -1158,7 +1242,7 @@ static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 		if (mac_parse_data.mac_payload_length) {
 			/*
 			 * In case the device got a frame with a corrupted
-			 *payload
+			 * payload
 			 * length
 			 */
 			if (mac_parse_data.mac_payload_length >=
@@ -1172,7 +1256,7 @@ static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 			 * further processing later.
 			 */
 			mac_parse_data.mac_payload_data.data.payload
-				= &temp_frame_ptr[payload_index];
+				= &temp_frame_ptr[payload_loc];
 		} else {
 			mac_parse_data.mac_payload_length = 0;
 		}
@@ -1196,14 +1280,14 @@ static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 		 * without taking care to await all the response message
 		 * ping-pong first.
 		 */
-		payload_index = 1;
+		payload_loc = 1;
 
 		switch (mac_parse_data.mac_command) {
 #if (MAC_ASSOCIATION_INDICATION_RESPONSE == 1)
 		case ASSOCIATIONREQUEST:
 			mac_parse_data.mac_payload_data.assoc_req_data.
 			capability_info
-				= temp_frame_ptr[payload_index++];
+				= temp_frame_ptr[payload_loc++];
 			break;
 #endif /* (MAC_ASSOCIATION_INDICATION_RESPONSE == 1) */
 
@@ -1211,12 +1295,12 @@ static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 		case ASSOCIATIONRESPONSE:
 			memcpy(
 					&mac_parse_data.mac_payload_data.assoc_response_data.short_addr,
-					&temp_frame_ptr[payload_index],
+					&temp_frame_ptr[payload_loc],
 					sizeof(uint16_t));
-			payload_index += sizeof(uint16_t);
+			payload_loc += sizeof(uint16_t);
 			mac_parse_data.mac_payload_data.assoc_response_data.
 			assoc_status
-				= temp_frame_ptr[payload_index];
+				= temp_frame_ptr[payload_loc];
 			break;
 #endif /* (MAC_ASSOCIATION_REQUEST_CONFIRM == 1) */
 
@@ -1224,42 +1308,42 @@ static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 		case DISASSOCIATIONNOTIFICATION:
 			mac_parse_data.mac_payload_data.disassoc_req_data.
 			disassoc_reason
-				= temp_frame_ptr[payload_index++];
+				= temp_frame_ptr[payload_loc++];
 			break;
 #endif /* (MAC_DISASSOCIATION_BASIC_SUPPORT == 1) */
 
 		case COORDINATORREALIGNMENT:
 			memcpy(
 					&mac_parse_data.mac_payload_data.coord_realign_data.pan_id,
-					&temp_frame_ptr[payload_index],
+					&temp_frame_ptr[payload_loc],
 					sizeof(uint16_t));
-			payload_index += sizeof(uint16_t);
+			payload_loc += sizeof(uint16_t);
 			memcpy(
 					&mac_parse_data.mac_payload_data.coord_realign_data.coord_short_addr,
-					&temp_frame_ptr[payload_index],
+					&temp_frame_ptr[payload_loc],
 					sizeof(uint16_t));
-			payload_index += sizeof(uint16_t);
+			payload_loc += sizeof(uint16_t);
 
 			mac_parse_data.mac_payload_data.coord_realign_data.
 			logical_channel
-				= temp_frame_ptr[payload_index++];
+				= temp_frame_ptr[payload_loc++];
 
 			memcpy(
 					&mac_parse_data.mac_payload_data.coord_realign_data.short_addr,
-					&temp_frame_ptr[payload_index],
+					&temp_frame_ptr[payload_loc],
 					sizeof(uint16_t));
-			payload_index += sizeof(uint16_t);
+			payload_loc += sizeof(uint16_t);
 
 			/*
 			 * If frame version subfield indicates a 802.15.4-2006
-			 *compatible frame,
+			 * compatible frame,
 			 * the channel page is appended as additional
-			 *information element.
+			 * information element.
 			 */
 			if (fcf & FCF_FRAME_VERSION_2006) {
 				mac_parse_data.mac_payload_data.
 				coord_realign_data.channel_page
-					= temp_frame_ptr[payload_index++];
+					= temp_frame_ptr[payload_loc++];
 			}
 
 			break;
@@ -1273,6 +1357,13 @@ static bool parse_mpdu(frame_info_t *rx_frame_ptr)
 		case PANIDCONFLICTNOTIFICAION:
 #endif  /* (MAC_PAN_ID_CONFLICT_AS_PC == 1) */
 			break;
+
+#ifdef GTS_SUPPORT
+		case GTSREQUEST:
+			mac_parse_data.mac_payload_data.gts_req_data
+				= *((gts_char_t *)&temp_frame_ptr[payload_loc]);
+			break;
+#endif /* GTS_SUPPORT */
 
 		default:
 #if (_DEBUG_ > 0)
@@ -1433,7 +1524,7 @@ static void check_for_pan_id_conflict_non_pc(bool in_scan)
 			) {
 			/* This beacon frame has our own PAN-Id.
 			 * If the address of the source is different from our
-			 *own
+			 * own
 			 * parent, a PAN-Id conflict has been detected.
 			 */
 			if (
@@ -1481,7 +1572,7 @@ static bool tx_pan_id_conf_notif(void)
 
 	/*
 	 * The buffer header is stored as a part of frame_info_t structure
-	 *before the
+	 * before the
 	 * frame is given to the TAL. After the transmission of the frame, reuse
 	 * the buffer using this pointer.
 	 */
@@ -1499,7 +1590,7 @@ static bool tx_pan_id_conf_notif(void)
 	frame_ptr = (uint8_t *)pan_id_conf_frame +
 			LARGE_BUFFER_SIZE -
 			PAN_ID_CONFLICT_PAYLOAD_LEN - 2; /* Add 2 octets for
-	                                                  *FCS. */
+	                                                  * FCS. */
 
 	/*
 	 * Build the command frame id.
@@ -1574,7 +1665,7 @@ static bool tx_pan_id_conf_notif(void)
 		}
 	} else {
 		/* In Nonbeacon network the frame is sent with unslotted
-		 *CSMA-CA. */
+		 * CSMA-CA. */
 		cur_csma_mode = CSMA_UNSLOTTED;
 	}
 
@@ -1589,7 +1680,7 @@ static bool tx_pan_id_conf_notif(void)
 		return true;
 	} else {
 		/* TAL is busy, hence the data request could not be transmitted
-		 **/
+		**/
 		bmm_buffer_free(pan_id_conf_buffer);
 
 		return false;

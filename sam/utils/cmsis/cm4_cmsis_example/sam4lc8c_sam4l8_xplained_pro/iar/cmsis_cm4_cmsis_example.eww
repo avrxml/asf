@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\cmsis_cm4_cmsis_example_flash.ewp</path>
+	</project>
+</workspace>

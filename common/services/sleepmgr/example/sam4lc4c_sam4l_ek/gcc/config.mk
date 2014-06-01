@@ -57,15 +57,16 @@ CSRCS = \
        common/services/clock/sam4l/pll.c                  \
        common/services/clock/sam4l/sysclk.c               \
        common/services/delay/sam/cycle_counter.c          \
-       common/services/sleepmgr/example/sam4lc4c_sam4l_ek/ast.c \
        common/services/sleepmgr/example/sleepmgr_example_sam4l_ast.c \
        common/services/sleepmgr/sam4l/sleepmgr.c          \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        sam/boards/sam4l_ek/board_monitor.c                \
        sam/boards/sam4l_ek/init.c                         \
+       sam/drivers/ast/ast.c                              \
        sam/drivers/bpm/bpm.c                              \
        sam/drivers/flashcalw/flashcalw.c                  \
        sam/drivers/usart/usart.c                          \
+       sam/drivers/wdt/wdt_sam4l.c                        \
        sam/utils/cmsis/sam4l/source/templates/exceptions.c \
        sam/utils/cmsis/sam4l/source/templates/gcc/startup_sam4l.c \
        sam/utils/cmsis/sam4l/source/templates/system_sam4l.c \
@@ -85,9 +86,11 @@ INC_PATH = \
        common/utils                                       \
        sam/boards                                         \
        sam/boards/sam4l_ek                                \
+       sam/drivers/ast                                    \
        sam/drivers/bpm                                    \
        sam/drivers/flashcalw                              \
        sam/drivers/usart                                  \
+       sam/drivers/wdt                                    \
        sam/utils                                          \
        sam/utils/cmsis/sam4l/include                      \
        sam/utils/cmsis/sam4l/source/templates             \
@@ -147,7 +150,12 @@ CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
        -D BOARD=SAM4L_EK                                  \
        -D __SAM4LC4C__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

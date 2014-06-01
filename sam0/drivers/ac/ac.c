@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Analog Comparator Driver
+ * \brief SAM D20/D21/R21 Analog Comparator Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -84,8 +84,8 @@ static enum status_code _ac_set_config(
 
 /** \brief Resets and disables the Analog Comparator driver.
  *
- *  Resets and disables the Analog Comparator driver, resetting the hardware
- *  module registers to their power-on defaults.
+ *  Resets and disables the Analog Comparator driver, resets the internal
+ *  states and registers of the hardware module to their power-on defaults.
  *
  * \param[out] module_inst  Pointer to the AC software instance struct
  */
@@ -217,7 +217,7 @@ enum status_code ac_chan_set_config(
 	ac_module->COMPCTRL[(uint8_t)channel].reg = compctrl_temp;
 
 	/* Configure VCC voltage scaling for the comparator */
-	ac_module->SCALER[(uint8_t)channel].reg   = config->vcc_scale_factor;
+	ac_module->SCALER[(uint8_t)channel].reg   = config->vcc_scale_factor - 1;
 
 	return STATUS_OK;
 }
@@ -383,7 +383,7 @@ void ac_win_disable(
  *  \param[in] module_inst  Software instance for the Analog Comparator peripheral
  *  \param[in] win_channel  Comparator Window channel to test
  *
- *  \return Bit mask of window channel status flags
+ *  \return Bit mask of Analog Comparator window channel status flags
  */
 uint8_t ac_win_get_status(
 		struct ac_module *const module_inst,

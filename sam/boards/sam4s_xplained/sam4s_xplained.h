@@ -3,7 +3,7 @@
  *
  * \brief SAM4S-XPLAINED Board Definition.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,13 +46,11 @@
 
 #include "compiler.h"
 #include "system_sam4s.h"
-#include "exceptions.h"
 
 
-#define BOARD_REV_A
-/*
+//#define BOARD_REV_A
 #define BOARD_REV_B
-*/
+
 /*----------------------------------------------------------------------------*/
 /**
  *  \page sam4s_xplained_opfreq "SAM4S-XPLAINED - Operating frequencies"
@@ -72,7 +70,7 @@
 /** Master clock frequency */
 #define BOARD_MCK                   CHIP_FREQ_CPU_MAX
 
-/** board main clock xtal statup time */
+/** board main clock xtal startup time */
 #define BOARD_OSC_STARTUP_US        15625
 
 /*----------------------------------------------------------------------------*/
@@ -159,7 +157,12 @@
 #define PIN_EBI_NCS0_ATTR  PIO_PULLUP
 
 /** EBI NLB pin */
+#ifdef BOARD_REV_A
 #define PIN_EBI_NLB           PIO_PC16_IDX
+#endif
+#ifdef BOARD_REV_B
+#define PIN_EBI_NLB           PIO_PC15_IDX
+#endif
 #define PIN_EBI_NLB_FLAGS     PIO_OUTPUT_0
 
 /** EBI address bus pins  */
@@ -186,7 +189,12 @@
 #define PIN_EBI_ADDR_BUS_FLAG2 PIO_PERIPH_C | PIO_PULLUP
 
 /** LED #0 pin definition. */
+#ifdef BOARD_REV_A
 #define LED_0_NAME     "LED D9"
+#endif
+#ifdef BOARD_REV_B
+#define LED_0_NAME     "LED1"
+#endif
 #define PIN_LED_0      {PIO_PC10, PIOC, ID_PIOC, PIO_OUTPUT_1, PIO_DEFAULT}
 #define PIN_LED_0_MASK PIO_PC10
 #define PIN_LED_0_PIO  PIOC
@@ -199,7 +207,12 @@
 #define LED0_ACTIVE_LEVEL 0
 
 /** LED #1 pin definition. */
+#ifdef BOARD_REV_A
 #define LED_1_NAME     "LED D10"
+#endif
+#ifdef BOARD_REV_B
+#define LED_1_NAME     "LED2"
+#endif
 #define PIN_LED_1      {PIO_PC17, PIOC, ID_PIOC, PIO_OUTPUT_1, PIO_DEFAULT}
 #define PIN_LED_1_MASK PIO_PC17
 #define PIN_LED_1_PIO  PIOC
@@ -399,22 +412,6 @@
 #define PIN_USART1_SCK_IDX   (PIO_PA23_IDX)
 #define PIN_USART1_SCK_FLAGS (PIO_PERIPH_A | PIO_DEFAULT)
 
-/** Definition of MMA7341L x,y,z axis channel number */
-#define MMA7341L_ADC_CHANNEL_X  2
-#define MMA7341L_ADC_CHANNEL_Y  6
-#define MMA7341L_ADC_CHANNEL_Z  7
-
-/** MMA7341L mode set pin definition. */
-#define PIN_MMA7341L_MODE      PIO_PC13_IDX
-#define PIN_MMA7341L_MODE_FLAG PIO_OUTPUT_1 | PIO_DEFAULT
-
-/** MMA7341L X,Y,Z axis pin definition. */
-#define PIN_MMA7341L_X_AXIS      PIO_PB3_IDX
-#define PIN_MMA7341L_X_AXIS_FLAG PIO_INPUT | PIO_DEFAULT
-#define PIN_MMA7341L_Y_AXIS      PIO_PC17_IDX
-#define PIN_MMA7341L_Y_AXIS_FLAG PIO_INPUT | PIO_DEFAULT
-#define PIN_MMA7341L_Z_AXIS      PIO_PC18_IDX
-#define PIN_MMA7341L_Z_AXIS_FLAG PIO_INPUT | PIO_DEFAULT
 /*----------------------------------------------------------------------------*/
 #define CONSOLE_UART               UART0
 #define CONSOLE_UART_ID            ID_UART0
@@ -431,5 +428,11 @@
 #define PIN_USART_TXD_IDX          PIN_USART1_TXD_IDX
 #define PIN_USART_TXD_FLAGS        (PIO_PERIPH_A | PIO_DEFAULT)
 #define PIN_USART_TXD_IO_FLAGS     (PIO_OUTPUT_0 | PIO_DEFAULT)
+
+/* SRAM base address */
+#define SRAM_BASE_ADDRESS          EBI_CS0_ADDR
+
+/* SRAM chip select */
+#define SRAM_CHIP_SELECT           0
 
 #endif  /* SAM4S_XPLAINED_H_INCLUDED */

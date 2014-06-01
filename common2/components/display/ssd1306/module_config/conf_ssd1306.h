@@ -3,7 +3,7 @@
  *
  * \brief SSD1306 display controller driver configuration file.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,7 +45,7 @@
 
 #include <board.h>
 
-// Interface configuration for SAM D20 Xplained Pro
+// Interface configuration for SAM D20/D21 Xplained Pro
 #  define SSD1306_SPI                 EXT3_SPI_MODULE
 #  define CONFIG_SSD1306_FRAMEBUFFER
 

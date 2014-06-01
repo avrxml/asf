@@ -3,7 +3,7 @@
  *
  * \brief Embedded Flash Controller (EFC) driver for SAM.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -77,7 +77,7 @@ typedef enum efc_rc {
 #if (SAM3SD8)
 #define EFC_FCMD_EPL     0x06  //!< Erase plane
 #endif
-#if (SAM4S || SAM4E)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
 #define EFC_FCMD_EPA     0x07  //!< Erase pages
 #endif
 #define EFC_FCMD_SLB     0x08  //!< Set Lock Bit
@@ -91,7 +91,7 @@ typedef enum efc_rc {
 #if (!SAM3U && !SAM3SD8 && !SAM3S8)
 #define EFC_FCMD_GCALB   0x10  //!< Get CALIB Bit
 #endif
-#if (SAM4S || SAM4E)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
 #define EFC_FCMD_ES      0x11  //!< Erase sector
 #define EFC_FCMD_WUS     0x12  //!< Write user signature
 #define EFC_FCMD_EUS     0x13  //!< Erase user signature
@@ -110,6 +110,10 @@ typedef enum efc_rc {
 //! @}
 
 uint32_t efc_init(Efc *p_efc, uint32_t ul_access_mode, uint32_t ul_fws);
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+void efc_enable_cloe(Efc *p_efc);
+void efc_disable_cloe(Efc *p_efc);
+#endif
 void efc_enable_frdy_interrupt(Efc *p_efc);
 void efc_disable_frdy_interrupt(Efc *p_efc);
 void efc_set_flash_access_mode(Efc *p_efc, uint32_t ul_mode);

@@ -3,7 +3,7 @@
  *
  * \brief SAM4S Xplained Pro board initialization
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -79,6 +79,11 @@ void board_init(void)
 	ioport_set_pin_level(IO1_LED3_PIN, !IO1_LED3_ACTIVE);
 	ioport_set_pin_dir(IO1_LED3_PIN, IOPORT_DIR_OUTPUT);
 
+#ifdef CONF_BOARD_UART_CONSOLE
+	/* Configure UART pins */
+	gpio_configure_group(PINS_UART1_PIO, PINS_UART1, PINS_UART1_FLAGS);
+#endif
+
 #ifdef CONF_BOARD_TWI0
 	gpio_configure_pin(TWI0_DATA_GPIO, TWI0_DATA_FLAGS);
 	gpio_configure_pin(TWI0_CLK_GPIO, TWI0_CLK_FLAGS);
@@ -140,6 +145,24 @@ void board_init(void)
   else {
 		ioport_set_pin_mode(BUTTON_0_PIN, IOPORT_MODE_PULLUP);
   }
+  
+#ifdef CONF_BOARD_AT86RFX
+
+	gpio_configure_pin(AT86RFX_SPI_MISO, SPI_MISO_FLAGS);
+	gpio_configure_pin(AT86RFX_SPI_MOSI, SPI_MOSI_FLAGS);
+	gpio_configure_pin(AT86RFX_SPI_SCK,  SPI_SPCK_FLAGS);
+    gpio_configure_pin(AT86RFX_SPI_CS_PIN, AT86RFX_SPI_CS_FLAGS);
+
+/* Initialize TRX_RST and SLP_TR as GPIO. */
+	ioport_set_pin_dir(AT86RFX_RST_PIN, IOPORT_DIR_OUTPUT);
+	ioport_set_pin_level(AT86RFX_RST_PIN, IOPORT_PIN_LEVEL_HIGH);
+	ioport_set_pin_dir(AT86RFX_SLP_PIN, IOPORT_DIR_OUTPUT);
+	ioport_set_pin_level(AT86RFX_SLP_PIN, IOPORT_PIN_LEVEL_HIGH);
+
+#endif  
+
+
+
 }
 
 /** @} */

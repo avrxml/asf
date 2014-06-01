@@ -3,7 +3,7 @@
  *
  * \brief User Interface.
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -142,7 +142,7 @@ void ui_bm_send_mcu_status(void)
 void ui_lcd_init(void)
 {
 	uint8_t const scrolling_str[] = "SAM4L-EK DEMO";
-
+	
 	/*
 	 * LCDCA Controller Initialization and display SAM4L-EK DEMO texts on 
 	 * segment LCD
@@ -150,6 +150,7 @@ void ui_lcd_init(void)
 
 	// Initialize the C42364A LCD glass component.
 	c42364a_init();
+
 	// Start autonomous animation.
 	c42364a_circular_animation_start(C42364A_CSR_RIGHT, 7, 0x03);
 	// Show ARM Icon.
@@ -176,7 +177,7 @@ void ui_lcd_refresh_alphanum(bool ui_lcd_refresh,
 {
 	char  string_info[8];
 	if (ui_lcd_refresh == true ) {
-		sprintf(string_info, "%d", event_qtouch_slider_position);
+		sprintf(string_info, "%d", (int)event_qtouch_slider_position);
 		if (event_qtouch_slider_position < 100) {
 			string_info[2] = ' ';
 			string_info[3] = ' ';

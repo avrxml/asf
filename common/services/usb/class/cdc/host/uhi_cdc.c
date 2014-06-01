@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief USB host Mass Storage Class interface.
+ * \brief USB host Communication Device Class interface.
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -253,7 +253,7 @@ uhc_enum_status_t uhi_cdc_install(uhc_device_t* dev)
 		if ((ptr_iface->bDescriptorType == USB_DT_INTERFACE)
 				&& (ptr_iface->bInterfaceClass == CDC_CLASS_COMM)
 				&& (ptr_iface->bInterfaceSubClass == CDC_SUBCLASS_ACM)
-				&& (ptr_iface->bInterfaceProtocol == CDC_PROTOCOL_V25TER)) {
+				&& (ptr_iface->bInterfaceProtocol <= CDC_PROTOCOL_V25TER)) {
 			// New COM port has been found
 			uhi_cdc_dev.nb_port++;
 		}
@@ -295,7 +295,7 @@ uhc_enum_status_t uhi_cdc_install(uhc_device_t* dev)
 		case USB_DT_INTERFACE:
 			if ((ptr_iface->bInterfaceClass == CDC_CLASS_COMM)
 					&& (ptr_iface->bInterfaceSubClass == CDC_SUBCLASS_ACM)
-					&& (ptr_iface->bInterfaceProtocol == CDC_PROTOCOL_V25TER) ) {
+					&& (ptr_iface->bInterfaceProtocol <= CDC_PROTOCOL_V25TER) ) {
 				// New Communication Class COM port has been found
 				b_iface_comm = true;
 				ptr_port = &uhi_cdc_dev.port[port_num++];
@@ -309,7 +309,11 @@ uhc_enum_status_t uhi_cdc_install(uhc_device_t* dev)
 					&& (ptr_iface->bInterfaceProtocol == 0) ) {
 				for (i = 0; i<uhi_cdc_dev.nb_port; i++) {
 					ptr_port = &uhi_cdc_dev.port[i];
-					if (ptr_port->iface_data == ptr_iface->bInterfaceNumber) {
+					if (ptr_port->iface_data == 0xFF) {
+						b_iface_data = true;
+						break;
+					}
+					else if (ptr_port->iface_data == ptr_iface->bInterfaceNumber) {
 						// New CDC DATA Class has been found
 						// and correspond at a CDC COMM Class
 						b_iface_data = true;
@@ -326,7 +330,9 @@ uhc_enum_status_t uhi_cdc_install(uhc_device_t* dev)
 			if (!b_iface_comm) {
 				break;
 			}
-			ptr_port->iface_data = ((usb_cdc_call_mgmt_desc_t*)ptr_iface)->bDataInterface;
+			if (((usb_cdc_call_mgmt_desc_t*)ptr_iface)->bDescriptorSubtype == CDC_SCS_CALL_MGMT) {
+				ptr_port->iface_data = ((usb_cdc_call_mgmt_desc_t*)ptr_iface)->bDataInterface;
+			}
 			break;
 
 		case USB_DT_ENDPOINT:
@@ -602,7 +608,7 @@ static bool uhi_cdc_rx_update(uhi_cdc_line_t *line)
 		true,
 		buf_nosel->ptr,
 		line->buffer_size,
-		100,
+		10,
 		uhi_cdc_rx_received);
 }
 
@@ -618,11 +624,6 @@ static void uhi_cdc_rx_received(
 	uhi_cdc_buf_t *buf;
 	UNUSED(add);
 
-	if (UHD_TRANS_NOERROR != status) {
-		// Abort transfer
-		return;
-	}
-
 	// Search port corresponding at endpoint
 	while (1) {
 		ptr_port = uhi_cdc_get_port(port++);
@@ -633,6 +634,15 @@ static void uhi_cdc_rx_received(
 		if (ep == line->ep_data) {
 			break; // Port found
 		}
+	}
+
+	if ((UHD_TRANS_TIMEOUT == status) && nb_transferred) {
+		// Save transfered
+	}
+	else if (UHD_TRANS_NOERROR != status) {
+		// Abort transfer
+		line->b_trans_ongoing  = false;
+		return;
 	}
 
 	// Update SOF tag, if it is a short packet
@@ -699,7 +709,7 @@ static bool uhi_cdc_tx_update(uhi_cdc_line_t *line)
 		true,
 		buf->ptr,
 		buf->nb,
-		100,
+		1000,
 		uhi_cdc_tx_send);
 }
 
@@ -714,23 +724,29 @@ static void uhi_cdc_tx_send(
 	uhi_cdc_port_t *ptr_port;
 	uhi_cdc_line_t *line;
 	uhi_cdc_buf_t *buf;
+	irqflags_t flags;
 	UNUSED(add);
 
-	if (UHD_TRANS_NOERROR != status) {
-		// Abort transfer
-		return;
-	}
+	flags = cpu_irq_save();
 
 	// Search port corresponding at endpoint
 	while (1) {
 		ptr_port = uhi_cdc_get_port(port++);
 		if (ptr_port == NULL) {
+			cpu_irq_restore(flags);
 			return;
 		}
 		line = &ptr_port->line_tx;
 		if (ep == line->ep_data) {
 			break; // Port found
 		}
+	}
+
+	if (UHD_TRANS_NOERROR != status) {
+		// Abort transfer
+		line->b_trans_ongoing  = false;
+		cpu_irq_restore(flags);
+		return;
 	}
 
 	// Update SOF tag, if it is a short packet
@@ -746,6 +762,7 @@ static void uhi_cdc_tx_send(
 	buf = &line->buffer[(line->buf_sel == 0) ? 1 : 0 ];
 	buf->nb = 0;
 	line->b_trans_ongoing  = false;
+	cpu_irq_restore(flags);
 
 	// Manage new transfer
 	uhi_cdc_tx_update(line);

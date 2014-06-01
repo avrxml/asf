@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4E16E	Atmel SAM4E16E</state>
+					<state>ATSAM4E16E	Atmel ATSAM4E16E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -163,11 +163,10 @@
 				<option>
 					<name>CCDefines</name>
 					<state>HTTP_USED=1</state>
-					<state>FREERTOS_USED</state>
-					<state>__SAM4E16E__</state>
-					<state>TFTP_USED=1</state>
 					<state>BOARD=SAM4E_EK</state>
+					<state>FREERTOS_USED</state>
 					<state>ARM_MATH_CM4=true</state>
+					<state>__SAM4E16E__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -296,41 +295,43 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../components/ethernet_phy/ksz8051mnl</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.0/sam/include</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm4f</state>
 					<state>$PROJ_DIR$/../../../../drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../network</state>
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/ebi/smc</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.1/sam/include/netif</state>
 					<state>$PROJ_DIR$/../../../../utils/fpu</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include</state>
+					<state>$PROJ_DIR$/../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../network/httpserver_raw</state>
 					<state>$PROJ_DIR$/../../../../drivers/spi</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4e/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../drivers/gmac</state>
 					<state>$PROJ_DIR$/../../../../components/resistive_touch/ads7843</state>
-					<state>$PROJ_DIR$/../../network/httpserver_raw</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../components/display/aat31xx</state>
 					<state>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include</state>
-					<state>$PROJ_DIR$/../../../../../common/services/twi</state>
+					<state>$PROJ_DIR$/../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../drivers/uart</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/dacc</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
@@ -341,8 +342,8 @@
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c/device_specific</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.1/sam/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/afec</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../boards/sam4e_ek</state>
 					<state>$PROJ_DIR$/../../../../drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../drivers/twi</state>
@@ -496,11 +497,10 @@
 				<option>
 					<name>ADefines</name>
 					<state>HTTP_USED=1</state>
-					<state>FREERTOS_USED</state>
-					<state>__SAM4E16E__</state>
-					<state>TFTP_USED=1</state>
 					<state>BOARD=SAM4E_EK</state>
+					<state>FREERTOS_USED</state>
 					<state>ARM_MATH_CM4=true</state>
+					<state>__SAM4E16E__</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -596,41 +596,43 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../components/ethernet_phy/ksz8051mnl</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.0/sam/include</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm4f</state>
 					<state>$PROJ_DIR$/../../../../drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../network</state>
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/ebi/smc</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.1/sam/include/netif</state>
 					<state>$PROJ_DIR$/../../../../utils/fpu</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include</state>
+					<state>$PROJ_DIR$/../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../network/httpserver_raw</state>
 					<state>$PROJ_DIR$/../../../../drivers/spi</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4e/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../drivers/gmac</state>
 					<state>$PROJ_DIR$/../../../../components/resistive_touch/ads7843</state>
-					<state>$PROJ_DIR$/../../network/httpserver_raw</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../components/display/aat31xx</state>
 					<state>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include</state>
-					<state>$PROJ_DIR$/../../../../../common/services/twi</state>
+					<state>$PROJ_DIR$/../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../drivers/uart</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/dacc</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
@@ -641,8 +643,8 @@
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c/device_specific</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.1/sam/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/afec</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../boards/sam4e_ek</state>
 					<state>$PROJ_DIR$/../../../../drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../drivers/twi</state>
@@ -794,7 +796,7 @@
 				</option>
 				<option>
 					<name>IlinkIcfFile</name>
-					<state>$PROJ_DIR$/../../../../utils/linker_scripts/sam4e/sam4e16e/iar/flash.icf</state>
+					<state>$PROJ_DIR$/../../../../utils/linker_scripts/sam4e/sam4e16/iar/flash.icf</state>
 				</option>
 				<option>
 					<name>IlinkIcfFileSlave</name>
@@ -830,7 +832,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state>--config_def __ICFEDIT_size_heap__=0x8000</state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1089,7 +1090,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4E16E	Atmel SAM4E16E</state>
+					<state>ATSAM4E16E	Atmel ATSAM4E16E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1155,11 +1156,10 @@
 				<option>
 					<name>CCDefines</name>
 					<state>HTTP_USED=1</state>
-					<state>FREERTOS_USED</state>
-					<state>__SAM4E16E__</state>
-					<state>TFTP_USED=1</state>
 					<state>BOARD=SAM4E_EK</state>
+					<state>FREERTOS_USED</state>
 					<state>ARM_MATH_CM4=true</state>
+					<state>__SAM4E16E__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1288,41 +1288,43 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../components/ethernet_phy/ksz8051mnl</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.0/sam/include</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm4f</state>
 					<state>$PROJ_DIR$/../../../../drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../network</state>
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/ebi/smc</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.1/sam/include/netif</state>
 					<state>$PROJ_DIR$/../../../../utils/fpu</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include</state>
+					<state>$PROJ_DIR$/../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../network/httpserver_raw</state>
 					<state>$PROJ_DIR$/../../../../drivers/spi</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4e/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../drivers/gmac</state>
 					<state>$PROJ_DIR$/../../../../components/resistive_touch/ads7843</state>
-					<state>$PROJ_DIR$/../../network/httpserver_raw</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../components/display/aat31xx</state>
 					<state>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include</state>
-					<state>$PROJ_DIR$/../../../../../common/services/twi</state>
+					<state>$PROJ_DIR$/../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../drivers/uart</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/dacc</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
@@ -1333,8 +1335,8 @@
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c/device_specific</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.1/sam/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/afec</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../boards/sam4e_ek</state>
 					<state>$PROJ_DIR$/../../../../drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../drivers/twi</state>
@@ -1488,11 +1490,10 @@
 				<option>
 					<name>ADefines</name>
 					<state>HTTP_USED=1</state>
-					<state>FREERTOS_USED</state>
-					<state>__SAM4E16E__</state>
-					<state>TFTP_USED=1</state>
 					<state>BOARD=SAM4E_EK</state>
+					<state>FREERTOS_USED</state>
 					<state>ARM_MATH_CM4=true</state>
+					<state>__SAM4E16E__</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1588,41 +1589,43 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../components/ethernet_phy/ksz8051mnl</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.0/sam/include</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm4f</state>
 					<state>$PROJ_DIR$/../../../../drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../network</state>
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/ebi/smc</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.1/sam/include/netif</state>
 					<state>$PROJ_DIR$/../../../../utils/fpu</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include</state>
+					<state>$PROJ_DIR$/../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../network/httpserver_raw</state>
 					<state>$PROJ_DIR$/../../../../drivers/spi</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4e/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../drivers/gmac</state>
 					<state>$PROJ_DIR$/../../../../components/resistive_touch/ads7843</state>
-					<state>$PROJ_DIR$/../../network/httpserver_raw</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../components/display/aat31xx</state>
 					<state>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include</state>
-					<state>$PROJ_DIR$/../../../../../common/services/twi</state>
+					<state>$PROJ_DIR$/../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../drivers/uart</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/dacc</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
@@ -1633,8 +1636,8 @@
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c/device_specific</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.1/sam/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/afec</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../boards/sam4e_ek</state>
 					<state>$PROJ_DIR$/../../../../drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../drivers/twi</state>
@@ -1786,7 +1789,7 @@
 				</option>
 				<option>
 					<name>IlinkIcfFile</name>
-					<state>$PROJ_DIR$/../../../../utils/linker_scripts/sam4e/sam4e16e/iar/flash.icf</state>
+					<state>$PROJ_DIR$/../../../../utils/linker_scripts/sam4e/sam4e16/iar/flash.icf</state>
 				</option>
 				<option>
 					<name>IlinkIcfFileSlave</name>
@@ -1822,7 +1825,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state>--config_def __ICFEDIT_size_heap__=0x8000</state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1985,390 +1987,6 @@
 		</settings>
 	</configuration>
 	<group>
-		<name>thirdparty</name>
-		<group>
-			<name>lwip</name>
-			<group>
-				<name>lwip-1.4.0</name>
-				<group>
-					<name>src</name>
-					<group>
-						<name>api</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/api/tcpip.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/api/err.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/api/api_lib.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/api/netbuf.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/api/api_msg.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/api/netdb.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/api/sockets.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/api/netifapi.c</name>
-						</file>
-					</group>
-					<group>
-						<name>core</name>
-						<group>
-							<name>ipv4</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/ipv4/ip.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/ipv4/inet_chksum.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/ipv4/icmp.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/ipv4/ip_frag.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/ipv4/igmp.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/ipv4/ip_addr.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/ipv4/autoip.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/ipv4/inet.c</name>
-							</file>
-						</group>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/init.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/tcp_in.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/sys.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/raw.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/stats.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/tcp_out.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/lwip_timers_140.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/dhcp.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/netif.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/udp.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/mem.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/dns.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/pbuf.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/def.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/memp.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/core/tcp.c</name>
-						</file>
-					</group>
-					<group>
-						<name>netif</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/netif/etharp.c</name>
-						</file>
-					</group>
-					<group>
-						<name>include</name>
-						<group>
-							<name>lwip</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/snmp_asn1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/sys.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/netif.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/tcp_impl.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/snmp_msg.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/timers.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/dhcp.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/memp.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/sio.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/debug.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/def.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/raw.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/netbuf.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/snmp_structs.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/netdb.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/arch.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/err.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/udp.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/pbuf.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/tcp.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/stats.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/api_msg.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/memp_std.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/netifapi.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/dns.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/tcpip.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/opt.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/api.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/sockets.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/init.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/mem.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/lwip/snmp.h</name>
-							</file>
-						</group>
-						<group>
-							<name>ipv4</name>
-							<group>
-								<name>lwip</name>
-								<file>
-									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/ipv4/lwip/autoip.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/ipv4/lwip/icmp.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/ipv4/lwip/igmp.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/ipv4/lwip/inet_chksum.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/ipv4/lwip/inet.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/ipv4/lwip/ip_frag.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/ipv4/lwip/ip_addr.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/ipv4/lwip/ip.h</name>
-								</file>
-							</group>
-						</group>
-						<group>
-							<name>netif</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/netif/ppp_oe.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.0/src/include/netif/etharp.h</name>
-							</file>
-						</group>
-					</group>
-				</group>
-			</group>
-			<group>
-				<name>lwip-port-1.4.0</name>
-				<group>
-					<name>sam</name>
-					<group>
-						<name>netif</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.0/sam/netif/ethernetif_sam4.c</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.0/sam/sys_arch.c</name>
-					</file>
-					<group>
-						<name>include</name>
-						<group>
-							<name>arch</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.0/sam/include/arch/cc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.0/sam/include/arch/perf.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.0/sam/include/arch/sys_arch.h</name>
-							</file>
-						</group>
-						<group>
-							<name>netif</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.0/sam/include/netif/ethernetif.h</name>
-							</file>
-						</group>
-					</group>
-				</group>
-			</group>
-		</group>
-		<group>
-			<name>freertos</name>
-			<group>
-				<name>freertos-7.0.0</name>
-				<group>
-					<name>source</name>
-					<group>
-						<name>portable</name>
-						<group>
-							<name>iar</name>
-							<group>
-								<name>sam_cm4f</name>
-								<file>
-									<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/portable/iar/sam_cm4f/port.c</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/portable/iar/sam_cm4f/portasm.s</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/portable/iar/sam_cm4f/portmacro.h</name>
-								</file>
-							</group>
-						</group>
-						<group>
-							<name>memmang</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/portable/memmang/heap_3.c</name>
-							</file>
-						</group>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/timers.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/list.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/tasks.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/queue.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/croutine.c</name>
-					</file>
-					<group>
-						<name>include</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/FreeRTOS.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/queue.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/croutine.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/projdefs.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/mpu_wrappers.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/StackMacros.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/list.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/timers.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/task.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/portable.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.0.0/source/include/semphr.h</name>
-						</file>
-					</group>
-				</group>
-			</group>
-		</group>
-	</group>
-	<group>
 		<name>sam</name>
 		<group>
 			<name>applications</name>
@@ -2377,18 +1995,21 @@
 				<file>
 					<name>$PROJ_DIR$/../../task_webserver.c</name>
 				</file>
+				<file>
+					<name>$PROJ_DIR$/../../task_gfx.c</name>
+				</file>
 				<group>
 					<name>network</name>
 					<group>
 						<name>httpserver_raw</name>
 						<file>
+							<name>$PROJ_DIR$/../../network/httpserver_raw/cgi.c</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../network/httpserver_raw/fsdata.c</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../network/httpserver_raw/fs.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../network/httpserver_raw/cgi.c</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../network/httpserver_raw/httpd.c</name>
@@ -2400,9 +2021,6 @@
 							<name>$PROJ_DIR$/../../network/httpserver_raw/fs.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../network/httpserver_raw/jqflot.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../network/httpserver_raw/index.h</name>
 						</file>
 						<file>
@@ -2412,19 +2030,22 @@
 							<name>$PROJ_DIR$/../../network/httpserver_raw/favicon.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../network/httpserver_raw/jqflot.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../network/httpserver_raw/cgi.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../network/httpserver_raw/atmel.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../network/httpserver_raw/excan.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../network/httpserver_raw/jquery.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../network/httpserver_raw/httpd.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../network/httpserver_raw/excan.h</name>
 						</file>
 					</group>
 					<file>
@@ -2447,24 +2068,18 @@
 					<name>$PROJ_DIR$/../../task_dsp.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../task_gfx.c</name>
-				</file>
-				<file>
 					<name>$PROJ_DIR$/../../main.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../FreeRTOSConfig.h</name>
 				</file>
 				<group>
 					<name>sam4e16e_sam4e_ek</name>
+					<file>
+						<name>$PROJ_DIR$/../conf_ili93xx.h</name>
+					</file>
 					<file>
 						<name>$PROJ_DIR$/../conf_uart_serial.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../conf_qt_i2c.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../conf_lwip_threads.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../conf_board.h</name>
@@ -2479,24 +2094,24 @@
 						<name>$PROJ_DIR$/../conf_eth.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../conf_clock.h</name>
-					</file>
-					<file>
 						<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../conf_aat31xx.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../conf_spi_master.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../conf_ili93xx.h</name>
+						<name>$PROJ_DIR$/../conf_clock.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../conf_ads7843.h</name>
 					</file>
+					<file>
+						<name>$PROJ_DIR$/../conf_spi_master.h</name>
+					</file>
 				</group>
+				<file>
+					<name>$PROJ_DIR$/../../FreeRTOSConfig.h</name>
+				</file>
 				<file>
 					<name>$PROJ_DIR$/../../task_demo.h</name>
 				</file>
@@ -2512,75 +2127,15 @@
 			</group>
 		</group>
 		<group>
-			<name>components</name>
-			<group>
-				<name>resistive_touch</name>
-				<group>
-					<name>ads7843</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../components/resistive_touch/ads7843/ads7843.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../components/resistive_touch/ads7843/ads7843.h</name>
-					</file>
-				</group>
-			</group>
-			<group>
-				<name>display</name>
-				<group>
-					<name>ili93xx</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../components/display/ili93xx/ili93xx.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../components/display/ili93xx/ili9341_regs.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../components/display/ili93xx/ili9325_regs.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../components/display/ili93xx/ili93xx.h</name>
-					</file>
-				</group>
-				<group>
-					<name>aat31xx</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../components/display/aat31xx/aat31xx.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../components/display/aat31xx/aat31xx.h</name>
-					</file>
-				</group>
-			</group>
-			<group>
-				<name>ethernet_phy</name>
-				<group>
-					<name>ksz8051mnl</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../components/ethernet_phy/ksz8051mnl/ethernet_phy.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../components/ethernet_phy/ksz8051mnl/ethernet_phy.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../components/ethernet_phy/documentation.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
 			<name>drivers</name>
 			<group>
-				<name>ebi</name>
-				<group>
-					<name>smc</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/ebi/smc/smc.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/ebi/smc/smc.h</name>
-					</file>
-				</group>
+				<name>uart</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/uart/uart.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/uart/uart.h</name>
+				</file>
 			</group>
 			<group>
 				<name>afec</name>
@@ -2594,10 +2149,10 @@
 			<group>
 				<name>pio</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/pio/pio.c</name>
+					<name>$PROJ_DIR$/../../../../drivers/pio/pio_handler.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/pio/pio_handler.c</name>
+					<name>$PROJ_DIR$/../../../../drivers/pio/pio.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/pio/pio.h</name>
@@ -2607,12 +2162,12 @@
 				</file>
 			</group>
 			<group>
-				<name>uart</name>
+				<name>tc</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/uart/uart.c</name>
+					<name>$PROJ_DIR$/../../../../drivers/tc/tc.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/uart/uart.h</name>
+					<name>$PROJ_DIR$/../../../../drivers/tc/tc.h</name>
 				</file>
 			</group>
 			<group>
@@ -2634,13 +2189,16 @@
 				</file>
 			</group>
 			<group>
-				<name>gmac</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/gmac/gmac.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/gmac/gmac.h</name>
-				</file>
+				<name>ebi</name>
+				<group>
+					<name>smc</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/ebi/smc/smc.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/ebi/smc/smc.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>dacc</name>
@@ -2676,15 +2234,6 @@
 				</file>
 			</group>
 			<group>
-				<name>tc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/tc/tc.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/tc/tc.h</name>
-				</file>
-			</group>
-			<group>
 				<name>pdc</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/pdc/pdc.c</name>
@@ -2694,12 +2243,93 @@
 				</file>
 			</group>
 			<group>
+				<name>gmac</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/gmac/gmac_phy.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/gmac/gmac.h</name>
+				</file>
+			</group>
+			<group>
 				<name>spi</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/spi/spi.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/spi/spi.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
+			<name>components</name>
+			<group>
+				<name>display</name>
+				<group>
+					<name>ili93xx</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../components/display/ili93xx/ili93xx.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../components/display/ili93xx/ili9341_regs.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../components/display/ili93xx/ili9325_regs.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../components/display/ili93xx/ili93xx.h</name>
+					</file>
+				</group>
+				<group>
+					<name>aat31xx</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../components/display/aat31xx/aat31xx.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../components/display/aat31xx/aat31xx.h</name>
+					</file>
+				</group>
+			</group>
+			<group>
+				<name>resistive_touch</name>
+				<group>
+					<name>ads7843</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../components/resistive_touch/ads7843/ads7843.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../components/resistive_touch/ads7843/ads7843.h</name>
+					</file>
+				</group>
+			</group>
+			<group>
+				<name>ethernet_phy</name>
+				<group>
+					<name>ksz8051mnl</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../components/ethernet_phy/ksz8051mnl/ethernet_phy.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../components/ethernet_phy/ksz8051mnl/ethernet_phy.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../components/ethernet_phy/documentation.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
+			<name>boards</name>
+			<group>
+				<name>sam4e_ek</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../boards/sam4e_ek/init.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../boards/sam4e_ek/sam4e_ek.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../boards/sam4e_ek/led.h</name>
 				</file>
 			</group>
 		</group>
@@ -2726,10 +2356,10 @@
 								</file>
 							</group>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/source/templates/exceptions.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/source/templates/system_sam4e.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/source/templates/system_sam4e.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/source/templates/exceptions.h</name>
 							</file>
 						</group>
 					</group>
@@ -2742,9 +2372,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/matrix.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/spi.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/smc.h</name>
@@ -2777,19 +2404,22 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/tc1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/spi.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/twi0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/can0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/rtt.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/gmac.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/uart0.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/piod.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/rswdt.h</name>
@@ -2858,7 +2488,7 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/gpbr.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/piod.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/rtt.h</name>
 							</file>
 						</group>
 						<file>
@@ -2870,10 +2500,10 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e16e.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e16c.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e8e.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e8e.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e16c.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e8c.h</name>
@@ -2886,9 +2516,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/rtc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/afec.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/matrix.h</name>
@@ -2907,9 +2534,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/pdc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/smc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/wdt.h</name>
@@ -2933,9 +2557,6 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/gpbr.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/cmcc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/uart.h</name>
 							</file>
 							<file>
@@ -2951,6 +2572,9 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/rtt.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/smc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/rstc.h</name>
 							</file>
 							<file>
@@ -2960,10 +2584,16 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/pwm.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/cmcc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/aes.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/chipid.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/afec.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/acc.h</name>
@@ -2996,16 +2626,13 @@
 					<name>$PROJ_DIR$/../../../../utils/header_files/io.h</name>
 				</file>
 			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../utils/status_codes.h</name>
-			</file>
 			<group>
 				<name>preprocessor</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../utils/preprocessor/mrepeat.h</name>
+					<name>$PROJ_DIR$/../../../../utils/preprocessor/tpaste.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../utils/preprocessor/tpaste.h</name>
+					<name>$PROJ_DIR$/../../../../utils/preprocessor/mrepeat.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../utils/preprocessor/preprocessor.h</name>
@@ -3014,6 +2641,9 @@
 					<name>$PROJ_DIR$/../../../../utils/preprocessor/stringz.h</name>
 				</file>
 			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../utils/status_codes.h</name>
+			</file>
 			<group>
 				<name>fpu</name>
 				<file>
@@ -3039,54 +2669,390 @@
 				</file>
 			</group>
 		</group>
+	</group>
+	<group>
+		<name>thirdparty</name>
 		<group>
-			<name>boards</name>
+			<name>lwip</name>
 			<group>
-				<name>sam4e_ek</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../boards/sam4e_ek/sam4e_ek.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../boards/sam4e_ek/led.h</name>
-				</file>
+				<name>lwip-1.4.1</name>
+				<group>
+					<name>src</name>
+					<group>
+						<name>core</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/pbuf.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/dns.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/lwip_timers_141.c</name>
+						</file>
+						<group>
+							<name>ipv4</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/ipv4/ip_frag.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/ipv4/igmp.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/ipv4/icmp.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/ipv4/autoip.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/ipv4/ip_addr.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/ipv4/inet.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/ipv4/ip.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/ipv4/inet_chksum.c</name>
+							</file>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/tcp.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/netif.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/sys.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/def.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/udp.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/dhcp.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/memp.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/tcp_in.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/raw.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/tcp_out.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/mem.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/stats.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/core/lwip_init.c</name>
+						</file>
+					</group>
+					<group>
+						<name>api</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/api/netdb.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/api/api_lib.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/api/netbuf.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/api/api_msg.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/api/tcpip.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/api/sockets.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/api/netifapi.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/api/err.c</name>
+						</file>
+					</group>
+					<group>
+						<name>netif</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/netif/etharp.c</name>
+						</file>
+					</group>
+					<group>
+						<name>include</name>
+						<group>
+							<name>lwip</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/snmp_asn1.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/raw.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/pbuf.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/netbuf.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/stats.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/snmp_structs.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/netdb.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/def.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/arch.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/api.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/snmp.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/opt.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/debug.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/tcpip.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/sockets.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/netifapi.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/dhcp.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/memp_std.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/udp.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/memp.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/snmp_msg.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/api_msg.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/sys.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/tcp_impl.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/mem.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/netif.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/sio.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/tcp.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/err.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/dns.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/init.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/lwip/timers.h</name>
+							</file>
+						</group>
+						<group>
+							<name>ipv4</name>
+							<group>
+								<name>lwip</name>
+								<file>
+									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4/lwip/icmp.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4/lwip/inet.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4/lwip/ip.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4/lwip/ip_addr.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4/lwip/inet_chksum.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4/lwip/ip_frag.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4/lwip/autoip.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4/lwip/igmp.h</name>
+								</file>
+							</group>
+						</group>
+						<group>
+							<name>netif</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/netif/etharp.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/netif/ppp_oe.h</name>
+							</file>
+						</group>
+					</group>
+				</group>
+			</group>
+			<group>
+				<name>lwip-port-1.4.1</name>
+				<group>
+					<name>sam</name>
+					<group>
+						<name>netif</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.1/sam/netif/sam4e_gmac.c</name>
+						</file>
+					</group>
+					<group>
+						<name>include</name>
+						<group>
+							<name>arch</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.1/sam/include/arch/cc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.1/sam/include/arch/perf.h</name>
+							</file>
+						</group>
+						<group>
+							<name>netif</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-port-1.4.1/sam/include/netif/sam4e_gmac.h</name>
+							</file>
+						</group>
+					</group>
+				</group>
+			</group>
+		</group>
+		<group>
+			<name>freertos</name>
+			<group>
+				<name>freertos-7.3.0</name>
+				<group>
+					<name>source</name>
+					<group>
+						<name>portable</name>
+						<group>
+							<name>memmang</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/memmang/heap_4.c</name>
+							</file>
+						</group>
+						<group>
+							<name>iar</name>
+							<group>
+								<name>arm_cm4f</name>
+								<file>
+									<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm4f/port.c</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm4f/portasm.s</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/arm_cm4f/portmacro.h</name>
+								</file>
+							</group>
+						</group>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/tasks.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/FreeRTOS_CLI.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/timers.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/list.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/queue.c</name>
+					</file>
+					<group>
+						<name>include</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include/semphr.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include/projdefs.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include/mpu_wrappers.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include/list.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include/task.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include/timers.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include/portable.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include/StackMacros.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS_CLI.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include/queue.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/include/croutine.h</name>
+						</file>
+					</group>
+				</group>
 			</group>
 		</group>
 	</group>
 	<group>
 		<name>common</name>
-		<group>
-			<name>utils</name>
-			<group>
-				<name>stdio</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../common/utils/stdio/write.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../common/utils/stdio/read.c</name>
-				</file>
-				<group>
-					<name>stdio_serial</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial/stdio_serial.h</name>
-					</file>
-				</group>
-			</group>
-			<group>
-				<name>interrupt</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../common/utils/interrupt/interrupt_sam_nvic.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../common/utils/interrupt/interrupt_sam_nvic.h</name>
-				</file>
-			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../common/utils/parts.h</name>
-			</file>
-			<file>
-				<name>$PROJ_DIR$/../../../../../common/utils/interrupt.h</name>
-			</file>
-		</group>
 		<group>
 			<name>services</name>
 			<group>
@@ -3158,10 +3124,10 @@
 					<name>$PROJ_DIR$/../../../../../common/services/clock/sysclk.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/clock/osc.h</name>
+					<name>$PROJ_DIR$/../../../../../common/services/clock/pll.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/clock/pll.h</name>
+					<name>$PROJ_DIR$/../../../../../common/services/clock/osc.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/clock/genclk.h</name>
@@ -3172,15 +3138,15 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/serial/usart_serial.c</name>
 				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/services/serial/serial.h</name>
+				</file>
 				<group>
 					<name>sam_uart</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../common/services/serial/sam_uart/uart_serial.h</name>
 					</file>
 				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/serial/serial.h</name>
-				</file>
 			</group>
 			<group>
 				<name>ioport</name>
@@ -3212,6 +3178,51 @@
 					<name>$PROJ_DIR$/../../../../../common/services/twi/twi_slave.h</name>
 				</file>
 			</group>
+			<group>
+				<name>gpio</name>
+				<group>
+					<name>sam_gpio</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../common/services/gpio/sam_gpio/sam_gpio.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/services/gpio/gpio.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
+			<name>utils</name>
+			<group>
+				<name>stdio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/utils/stdio/write.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/utils/stdio/read.c</name>
+				</file>
+				<group>
+					<name>stdio_serial</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial/stdio_serial.h</name>
+					</file>
+				</group>
+			</group>
+			<group>
+				<name>interrupt</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/utils/interrupt/interrupt_sam_nvic.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/utils/interrupt/interrupt_sam_nvic.h</name>
+				</file>
+			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../common/utils/parts.h</name>
+			</file>
+			<file>
+				<name>$PROJ_DIR$/../../../../../common/utils/interrupt.h</name>
+			</file>
 		</group>
 		<group>
 			<name>components</name>

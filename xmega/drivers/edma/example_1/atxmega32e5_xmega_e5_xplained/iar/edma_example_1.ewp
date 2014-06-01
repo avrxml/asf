@@ -399,7 +399,7 @@
 					<state>$PROJ_DIR$/../../../../pmic</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
-					<state>$PROJ_DIR$/../../../../cpu</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
@@ -413,7 +413,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../sleep</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../cpu</state>
 					<state>$PROJ_DIR$/../../../../../boards/xmega_e5_xplained</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -684,7 +684,7 @@
 					<state>$PROJ_DIR$/../../../../pmic</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
-					<state>$PROJ_DIR$/../../../../cpu</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
@@ -698,7 +698,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../sleep</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../cpu</state>
 					<state>$PROJ_DIR$/../../../../../boards/xmega_e5_xplained</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1434,7 +1434,7 @@
 					<state>$PROJ_DIR$/../../../../pmic</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
-					<state>$PROJ_DIR$/../../../../cpu</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
@@ -1448,7 +1448,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../sleep</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../cpu</state>
 					<state>$PROJ_DIR$/../../../../../boards/xmega_e5_xplained</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1719,7 +1719,7 @@
 					<state>$PROJ_DIR$/../../../../pmic</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
-					<state>$PROJ_DIR$/../../../../cpu</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
@@ -1733,7 +1733,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../sleep</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../cpu</state>
 					<state>$PROJ_DIR$/../../../../../boards/xmega_e5_xplained</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>

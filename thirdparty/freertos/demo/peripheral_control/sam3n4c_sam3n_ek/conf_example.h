@@ -3,7 +3,7 @@
  *
  * \brief Task configurations.
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,6 +47,8 @@
 #define BOARD_USART	USART0
 
 #define BOARD_SPI	SPI
+
+#define CONF_EXAMPLE_CS  3
 
 /* Comment/Uncomment the following definitions to enable/disable to corresponding tasks. */
 /* Note: only the listed tasks have hardware support. */

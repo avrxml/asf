@@ -3,7 +3,7 @@
  *
  * \brief SSD1306 OLED display controller driver.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,13 +45,7 @@
 
 #include <compiler.h>
 #include <sysclk.h>
-#ifdef SAM
-#include <gpio.h>
-#define ioport_set_pin_low gpio_set_pin_low
-#define ioport_set_pin_high gpio_set_pin_high
-#else
 #include <ioport.h>
-#endif
 #include <status_codes.h>
 #include <delay.h>
 
@@ -84,16 +78,16 @@ extern "C" {
  *
  * An example \ref conf_ssd1306.h file could look like
  * \code
- * // interface selection
- * #define SSD1306_USART_SPI_INTERFACE
- * #define SSD1306_USART_SPI            &USARTD0
- *
- * #define SSD1306_CLOCK_SPEED          1000000
- *
- * #define SSD1306_DC_PIN               UG_2832HSWEG04_DATA_CMD
- * #define SSD1306_CS_PIN               UG_2832HSWEG04_RESET
- * #define SSD1306_RES_PIN              UG_2832HSWEG04_SS
- * \endcode
+	 // interface selection
+	 #define SSD1306_USART_SPI_INTERFACE
+	 #define SSD1306_USART_SPI            &USARTD0
+
+	 #define SSD1306_CLOCK_SPEED          1000000
+
+	 #define SSD1306_DC_PIN               UG_2832HSWEG04_DATA_CMD
+	 #define SSD1306_CS_PIN               UG_2832HSWEG04_RESET
+	 #define SSD1306_RES_PIN              UG_2832HSWEG04_SS
+\endcode
  *
  * \section dependencies Dependencies
  * This driver depends on the following modules:
@@ -144,19 +138,19 @@ extern "C" {
 #define SSD1306_CMD_SET_VERTICAL_SCROLL_AREA        0xA3
 //@}
 
-#define ssd1306_reset_clear()    ioport_set_pin_low(SSD1306_RES_PIN)
-#define ssd1306_reset_set()      ioport_set_pin_high(SSD1306_RES_PIN)
+#define ssd1306_reset_clear()    arch_ioport_set_pin_level(SSD1306_RES_PIN, false)
+#define ssd1306_reset_set()      arch_ioport_set_pin_level(SSD1306_RES_PIN, true)
 
 // Data/CMD select, PC21Could not add reference to assembly IronPython.wpf
-#define ssd1306_sel_data()       ioport_set_pin_high(SSD1306_DC_PIN)
-#define ssd1306_sel_cmd()        ioport_set_pin_low(SSD1306_DC_PIN)
+#define ssd1306_sel_data()       arch_ioport_set_pin_level(SSD1306_DC_PIN, true)
+#define ssd1306_sel_cmd()        arch_ioport_set_pin_level(SSD1306_DC_PIN, false)
 
 /**
  * \name Interface selection
  *
  * The OLED controller support both serial and parallel mode, that means there
  * is a number of possible ways of interfacing the controller using different
- * AVR peripherals. The different interfaces can be selected using different
+ * peripherals. The different interfaces can be selected using different
  * defines. This driver supports the serial communication mode using an
  * USART in Master SPI mode by defining \ref SSD1306_USART_SPI_INTERFACE, and a
  * normal SPI in Master Mode by defining \ref SSD1306_SPI_INTERFACE.
@@ -197,7 +191,7 @@ extern "C" {
  *
  * \param command the command to write
  */
-static inline void ssd1306_write_command(uint8_t command)
+static void ssd1306_write_command(uint8_t command)
 {
 #if defined(SSD1306_USART_SPI_INTERFACE)
 	struct usart_spi_device device = {.id = SSD1306_CS_PIN};
@@ -210,7 +204,7 @@ static inline void ssd1306_write_command(uint8_t command)
 	spi_select_device(SSD1306_SPI, &device);
 	ssd1306_sel_cmd();
 	spi_write_single(SSD1306_SPI, command);
-	delay_us(SSD1306_LATENCY); // At lest 3탎
+	delay_us(SSD1306_LATENCY); // At least 3us
 	spi_deselect_device(SSD1306_SPI, &device);
 #endif
 }
@@ -228,7 +222,7 @@ static inline void ssd1306_write_data(uint8_t data)
 #if defined(SSD1306_USART_SPI_INTERFACE)
 	struct usart_spi_device device = {.id = SSD1306_CS_PIN};
 	usart_spi_select_device(SSD1306_USART_SPI, &device);
-	ioport_set_pin_high(SSD1306_DC_PIN);
+	arch_ioport_set_pin_level(SSD1306_DC_PIN, true);
 	usart_spi_transmit(SSD1306_USART_SPI, data);
 	ssd1306_sel_cmd();
 	usart_spi_deselect_device(SSD1306_USART_SPI, &device);
@@ -237,7 +231,7 @@ static inline void ssd1306_write_data(uint8_t data)
 	spi_select_device(SSD1306_SPI, &device);
 	ssd1306_sel_data();
 	spi_write_single(SSD1306_SPI, data);
-	delay_us(SSD1306_LATENCY); // At lest 3탎
+	delay_us(SSD1306_LATENCY); // At least 3us
 	spi_deselect_device(SSD1306_SPI, &device);
 #endif
 }
@@ -279,10 +273,10 @@ static inline uint8_t ssd1306_get_status(void)
  */
 static inline void ssd1306_hard_reset(void)
 {
-	ioport_set_pin_low(SSD1306_RES_PIN);
-	delay_us(SSD1306_LATENCY); // At lest 3탎
-	ioport_set_pin_high(SSD1306_RES_PIN);
-	delay_us(SSD1306_LATENCY); // At lest 3탎
+	arch_ioport_set_pin_level(SSD1306_RES_PIN, false);
+	delay_us(SSD1306_LATENCY); // At least 3us
+	arch_ioport_set_pin_level(SSD1306_RES_PIN, true);
+	delay_us(SSD1306_LATENCY); // At least 3us
 }
 //@}
 

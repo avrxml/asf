@@ -567,22 +567,32 @@ uint32_t can_mailbox_get_status(Can *p_can, uint8_t uc_index)
  * \brief Send single mailbox transfer request.
  *
  * \param p_can   Pointer to a CAN peripheral instance.
- * \param uc_index Indicate which mailbox is to be configured.
+ * \param p_mailbox Pointer to a CAN mailbox instance.
  */
-void can_mailbox_send_transfer_cmd(Can *p_can, uint8_t uc_index)
+void can_mailbox_send_transfer_cmd(Can *p_can, can_mb_conf_t *p_mailbox)
 {
-	p_can->CAN_MB[uc_index].CAN_MCR |= CAN_MCR_MTCR;
+	uint8_t uc_index;
+
+	uc_index = (uint8_t)p_mailbox->ul_mb_idx;
+
+	p_can->CAN_MB[uc_index].CAN_MCR = CAN_MCR_MTCR |
+			CAN_MCR_MDLC(p_mailbox->uc_length);;
 }
 
 /**
  * \brief Send single mailbox abort request.
  *
  * \param p_can    Pointer to a CAN peripheral instance.
- * \param uc_index Indicate which mailbox is to be configured.
+ * \param p_mailbox Pointer to a CAN mailbox instance.
  */
-void can_mailbox_send_abort_cmd(Can *p_can, uint8_t uc_index)
+void can_mailbox_send_abort_cmd(Can *p_can, can_mb_conf_t *p_mailbox)
 {
-	p_can->CAN_MB[uc_index].CAN_MCR |= CAN_MCR_MACR;
+	uint8_t uc_index;
+
+	uc_index = (uint8_t)p_mailbox->ul_mb_idx;
+
+	p_can->CAN_MB[uc_index].CAN_MCR = CAN_MCR_MACR |
+			CAN_MCR_MDLC(p_mailbox->uc_length);;
 }
 
 /**
@@ -684,7 +694,7 @@ uint32_t can_mailbox_read(Can *p_can, can_mb_conf_t *p_mailbox)
 	}
 
 	/* Enable next receive process. */
-	can_mailbox_send_transfer_cmd(p_can, uc_index);
+	can_mailbox_send_transfer_cmd(p_can, p_mailbox);
 
 	return ul_retval;
 }
@@ -731,8 +741,7 @@ uint32_t can_mailbox_write(Can *p_can, can_mb_conf_t *p_mailbox)
 	}
 
 	/* Write transmit data length into mailbox control register. */
-	p_can->CAN_MB[uc_index].CAN_MCR = (p_can->CAN_MB[uc_index].CAN_MCR &
-			~CAN_MCR_MDLC_Msk) | CAN_MCR_MDLC(p_mailbox->uc_length);
+	p_can->CAN_MB[uc_index].CAN_MCR = CAN_MCR_MDLC(p_mailbox->uc_length);
 
 	return CAN_MAILBOX_TRANSFER_OK;
 }
@@ -770,7 +779,8 @@ uint32_t can_mailbox_tx_remote_frame(Can *p_can, can_mb_conf_t *p_mailbox)
 	}
 
 	/* Set the RTR bit in the sent frame. */
-	p_can->CAN_MB[uc_index].CAN_MCR |= CAN_MCR_MRTR;
+	p_can->CAN_MB[uc_index].CAN_MCR = CAN_MCR_MRTR |
+			CAN_MCR_MDLC(p_mailbox->uc_length);
 
 	/* Set the MBx bit in the Transfer Command Register to send out the
 	 *remote frame. */

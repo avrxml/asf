@@ -76,9 +76,16 @@
  */
 //! To authorize the High speed
 #if (UC3A3||UC3A4)
-#define  USB_DEVICE_HS_SUPPORT
-#elif (SAM3XA)
-#define  USB_DEVICE_HS_SUPPORT
+#  define  USB_DEVICE_HS_SUPPORT
+#elif (SAM3XA||SAM3U)
+#  define  USB_DEVICE_HS_SUPPORT
+   // In HS mode, size of bulk endpoints are 512 by default.
+   // If CDC endpoints all uses 2 banks, DPRAM is not enough: 4 bulk
+   // endpoints requires 4K bytes. So reduce the number of banks of CDC bulk
+   // endpoints to use less DPRAM.
+#  if defined(USB_DEVICE_HS_SUPPORT)
+#    define  UDD_BULK_NB_BANK(ep) (1)
+#  endif
 #endif
 //@}
 

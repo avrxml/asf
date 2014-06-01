@@ -3,7 +3,7 @@
  *
  * @brief Implements the MLME-RX-ENABLE functionality.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -89,6 +89,7 @@ static void mac_t_rx_on_cb(void *req_buffer);
 #endif  /* BEACON_SUPPORT */
 static uint8_t mac_rx_enable(void);
 static void gen_rx_enable_conf(buffer_t *buf, uint8_t status);
+
 static void handle_rx_on(uint32_t rx_on_duration_symbols, uint8_t *m);
 
 /* === Implementation ====================================================== */
@@ -151,15 +152,15 @@ void mlme_rx_enable_request(uint8_t *m)
 
 		/*
 		 * Determine if (RxOnTime + RxOnDuration) is less than the
-		 *beacon
+		 * beacon
 		 * interval.
 		 * According to 7.1.10.1.3:
 		 * On a beacon-enabled PAN, the MLME first determines whether
 		 * (RxOnTime + RxOnDuration) is less than the beacon interval,
-		 *defined
+		 * defined
 		 * by macBeaconOrder. If it is not less, the MLME issues the
 		 * MLME-RX-ENABLE.confirm primitive with a status of
-		 *MAC_INVALID_PARAMETER.
+		 * MAC_INVALID_PARAMETER.
 		 */
 
 		rx_off_time_symbols = rxe->RxOnTime + rxe->RxOnDuration;
@@ -195,7 +196,7 @@ void mlme_rx_enable_request(uint8_t *m)
 				rxe->RxOnTime);
 
 		/* Check whether RxOnTime can still be handled in current CAP.
-		 **/
+		**/
 		pal_get_current_time(&now_time_symbols);
 		now_time_symbols = TAL_CONVERT_US_TO_SYMBOLS(now_time_symbols);
 
@@ -212,7 +213,7 @@ void mlme_rx_enable_request(uint8_t *m)
 			} else {
 				/*
 				 * The MAC defers until the next superframe and
-				 *attempts to enable
+				 * attempts to enable
 				 * the receiver in that superframe.
 				 */
 				rx_on_time_symbols = tal_add_time_symbols(
@@ -233,7 +234,7 @@ void mlme_rx_enable_request(uint8_t *m)
 			 *"rxe->RxOnTime" from the start
 			 * of the next superframe.
 			 * Return value to be checked, because Rx on time could
-			 *be too short
+			 * be too short
 			 * or in the past already.
 			 */
 			timer_status
@@ -256,7 +257,7 @@ void mlme_rx_enable_request(uint8_t *m)
 				rxe->RxOnDuration);
 
 		/* The remaining stuff will be done once the Rx On Timer
-		 *expires. */
+		 * expires. */
 	}
 
 #else   /* No BEACON_SUPPORT */
@@ -327,7 +328,7 @@ static void mac_t_rx_off_cb(void *callback_parameter)
 	/*
 	 * In case macRxOnWhenIdle is not set, the radio is put to PHY_TRX_OFF
 	 * state, until the return status does not match the desired radio
-	 *state,
+	 * state,
 	 * i.e. PHY_TRX_OFF
 	 */
 	if (!mac_pib.mac_RxOnWhenIdle) {
@@ -340,17 +341,17 @@ static void mac_t_rx_off_cb(void *callback_parameter)
 			if (status != PHY_TRX_OFF) {
 				/*
 				 * The TAL is still busy and cannot set the TRX
-				 *to OFF.
+				 * to OFF.
 				 * In order to get progress this requires
-				 *another
+				 * another
 				 * round of the TAL task being processed.
 				 * Therefore the MAC task needs to stopp here
-				 *and pass
+				 * and pass
 				 * controll back to the TAL.
 				 * This is reached by starting the Rx-Enable
-				 *timer again
+				 * timer again
 				 * for a very short time with the same callback
-				 *returning
+				 * returning
 				 * here very soon.
 				 */
 				pal_timer_start(T_Rx_Enable,
@@ -361,7 +362,7 @@ static void mac_t_rx_off_cb(void *callback_parameter)
 
 				/*
 				 * Return now, since the TAL is still busy, so
-				 *radio cannot go
+				 * radio cannot go
 				 * to sleep for now.
 				 */
 				return;
@@ -398,7 +399,7 @@ static void handle_rx_on(uint32_t rx_on_duration_symbols, uint8_t *m)
 	if (pal_is_timer_running(T_Rx_Enable)) {
 		/*
 		 * Rx-Enable timer is already running, so we need to stopp it
-		 *first
+		 * first
 		 * before it will be started.
 		 */
 		pal_timer_stop(T_Rx_Enable);

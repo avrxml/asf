@@ -59,8 +59,11 @@
 // From module: Delay routines
 #include <delay.h>
 
-// From module: EVSYS - Event System
+// From module: EVSYS - Event System Common
 #include <events.h>
+
+// From module: EVSYS - Event System with interupt hooks support
+#include <events_hooks.h>
 
 // From module: Generic board support
 #include <board.h>
@@ -82,7 +85,7 @@
 #include <usart.h>
 #include <usart_interrupt.h>
 
-// From module: SYSTEM - Clock Management
+// From module: SYSTEM - Clock Management for SAMD20
 #include <clock.h>
 #include <gclk.h>
 
@@ -98,7 +101,7 @@
 // From module: Standard serial I/O (stdio)
 #include <stdio_serial.h>
 
-// From module: TC - Timer Counter
+// From module: TC - Timer Counter (Callback APIs)
 #include <tc.h>
 #include <tc_interrupt.h>
 

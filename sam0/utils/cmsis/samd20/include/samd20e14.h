@@ -52,7 +52,7 @@
  *   - peripheral base address
  *   - peripheral ID
  *   - PIO definitions
- */
+*/
 /*@{*/
 
 #ifdef __cplusplus
@@ -119,8 +119,9 @@ typedef enum IRQn
   ADC_IRQn                 = 21, /**< 21 SAMD20E14 Analog Digital Converter (ADC) */
   AC_IRQn                  = 22, /**< 22 SAMD20E14 Analog Comparators (AC) */
   DAC_IRQn                 = 23, /**< 23 SAMD20E14 Digital Analog Converter (DAC) */
+  PTC_IRQn                 = 24, /**< 24 SAMD20E14 Peripheral Touch Controller (PTC) */
 
-  PERIPH_COUNT_IRQn        = 24  /**< Number of peripheral IDs */
+  PERIPH_COUNT_IRQn        = 25  /**< Number of peripheral IDs */
 } IRQn_Type;
 
 typedef struct _DeviceVectors
@@ -170,6 +171,7 @@ typedef struct _DeviceVectors
   void* pfnADC_Handler;                   /* 21 Analog Digital Converter */
   void* pfnAC_Handler;                    /* 22 Analog Comparators */
   void* pfnDAC_Handler;                   /* 23 Digital Analog Converter */
+  void* pfnPTC_Handler;                   /* 24 Peripheral Touch Controller */
 } DeviceVectors;
 
 /* Cortex-M0+ processor handlers */
@@ -201,12 +203,13 @@ void TC5_Handler                 ( void );
 void ADC_Handler                 ( void );
 void AC_Handler                  ( void );
 void DAC_Handler                 ( void );
+void PTC_Handler                 ( void );
 
 /*
  * \brief Configuration of the Cortex-M0+ Processor and Core Peripherals
  */
 
-#define LITTLE_ENDIAN          1
+#define LITTLE_ENDIAN          1        
 #define __CM0PLUS_REV          1         /*!< Core revision r0p1 */
 #define __MPU_PRESENT          0         /*!< MPU present or not */
 #define __NVIC_PRIO_BITS       2         /*!< Number of bits used for Priority Levels */
@@ -465,7 +468,7 @@ void DAC_Handler                 ( void );
 #define FLASH_PAGE_SIZE       64
 #define FLASH_NB_OF_PAGES     256
 #define FLASH_USER_PAGE_SIZE  64
-#define HRAMC0_SIZE           0x8000 /* 32 kB */
+#define HRAMC0_SIZE           0x800 /* 2 kB */
 #define FLASH_ADDR            (0x00000000U) /**< FLASH base address */
 #define FLASH_USER_PAGE_ADDR  (0x00800000U) /**< FLASH_USER_PAGE base address */
 #define HRAMC0_ADDR           (0x20000000U) /**< HRAMC0 base address */

@@ -3,7 +3,7 @@
  *
  * @brief This file contains the Buffer Management Module definitions.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -65,7 +65,7 @@
 /**
  * \defgroup group_bmm  Buffer Management
  * Buffer Management (large and small buffers): provides services for
- *dynamically
+ * dynamically
  * allocating and freeing memory buffers.
  *  @{
  */
@@ -74,9 +74,10 @@
 
 /**
  * This macro provides the pointer to the corresponding body of the supplied
- *buffer header.
+ * buffer header.
  */
-#define BMM_BUFFER_POINTER(buf) ((buf)->body)
+
+#define BMM_BUFFER_POINTER(buf)  ((buf)->body)
 
 /* === Types =============================================================== */
 
@@ -84,6 +85,7 @@
  * @brief Buffer structure holding information of each buffer.
  *
  */
+__PACK__DATA__
 typedef struct
 #if !defined(__DOXYGEN__)
 		buffer_tag
@@ -91,10 +93,11 @@ typedef struct
 {
 	/** Pointer to the buffer body */
 	uint8_t *body;
+
 	/** Pointer to next free buffer */
 	struct buffer_tag *next;
 } buffer_t;
-
+__PACK__RST_DATA__
 /* === Externals =========================================================== */
 
 /* === Prototypes ========================================================== */

@@ -5,7 +5,7 @@
  * \brief System-specific implementation of the \ref __write function used by
           the standard library.
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,7 +46,7 @@
 
 #include <yfuns.h>
 #include <avr32/io.h>
-#include "usart.h"
+#include <usart.h>
 
 
 _STD_BEGIN

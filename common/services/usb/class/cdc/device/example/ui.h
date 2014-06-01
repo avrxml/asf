@@ -3,7 +3,7 @@
  *
  * \brief Common User Interface for CDC application
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,8 +50,15 @@ void ui_init(void);
 //! \brief Enters the user interface in power down mode
 void ui_powerdown(void);
 
-/*! \brief Called when CPU exit of powerdown mode
- */
+#ifdef USB_DEVICE_LPM_SUPPORT
+//! \brief Enables the asynchronous interrupts of the user interface
+void ui_wakeup_enable(void);
+
+//! \brief Disables the asynchronous interrupts of the user interface
+void ui_wakeup_disable(void);
+#endif
+
+//! \brief Exits the user interface of power down mode
 void ui_wakeup(void);
 
 /*! \brief Called when communication port is opened

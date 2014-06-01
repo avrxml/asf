@@ -10,9 +10,9 @@ The Atmel® Software Framework (ASF) is a collection of embedded software for Atm
 ASF online documentation can be found here: http://asf.atmel.com
 
 Supported devices:
-» AVR UC3(Trade Mark) (http://www.atmel.com/products/AVR/uc3.asp?family_id=607)
-» AVR XMEGA(Trade Mark) (http://www.atmel.com/dyn/products/devices.asp?category_id=163&family_id=607&subfamily_id=1965) 
-» megaAVR(Trade Mark) (http://www.atmel.com/dyn/products/devices.asp?category_id=163&family_id=607&subfamily_id=760) 
+» AVR UC3(Trade Mark) (http://www.atmel.com/products/microcontrollers/avr/32-bitavruc3.aspx)
+» AVR XMEGA(Trade Mark) (http://www.atmel.com/products/microcontrollers/avr/avr_xmega.aspx) 
+» megaAVR(Trade Mark) (http://www.atmel.com/products/microcontrollers/avr/megaavr.aspx) 
 » SAM (http://www.atmel.com/products/microcontrollers/arm/default.aspx)
 
 Each software module is provided with full source code, example of usage and
@@ -26,7 +26,7 @@ The top folder organization is as follow:
 - the mega/ folder contains software modules(source code and projects) dedicated to megaAVR devices,
 - the xmega/ folder contains software modules(source code and projects) dedicated to AVR XMEGA devices,
 - the sam/ folder contains software modules(source code and projects) dedicated to SAM devices,
-- the common/ folder contains software modules(source code and projects) shared by all AVR devices,
+- the common/ folder contains software modules(source code and projects) shared by all AVR and SAM devices,
 - the thirdparty/ folder contains software modules(source code and projects) from thirdparty providers for all Atmel devices.
 
 The thirdparty/ folder is organized by thirdparty software module (i.e. one folder per thirdparty software module).

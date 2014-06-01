@@ -90,9 +90,6 @@
 // From module: SAM4S EK LED support enabled
 #include <led.h>
 
-// From module: SAM4S startup code
-#include <exceptions.h>
-
 // From module: SD/MMC stack on Multimedia Card interface
 #include <sd_mmc.h>
 

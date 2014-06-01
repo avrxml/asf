@@ -52,7 +52,7 @@
 
 #define REV_SYSCTRL                 0x200
 
-/* -------- SYSCTRL_INTENCLR : (SYSCTRL Offset: 0x00) (R/W 32) Interrupt Enable Clear Register -------- */
+/* -------- SYSCTRL_INTENCLR : (SYSCTRL Offset: 0x00) (R/W 32) Interrupt Enable Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -77,8 +77,8 @@ typedef union {
 } SYSCTRL_INTENCLR_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_INTENCLR_OFFSET     0x00         /**< \brief (SYSCTRL_INTENCLR offset) Interrupt Enable Clear Register */
-#define SYSCTRL_INTENCLR_RESETVALUE 0x00000000   /**< \brief (SYSCTRL_INTENCLR reset_value) Interrupt Enable Clear Register */
+#define SYSCTRL_INTENCLR_OFFSET     0x00         /**< \brief (SYSCTRL_INTENCLR offset) Interrupt Enable Clear */
+#define SYSCTRL_INTENCLR_RESETVALUE 0x00000000   /**< \brief (SYSCTRL_INTENCLR reset_value) Interrupt Enable Clear */
 
 #define SYSCTRL_INTENCLR_XOSCRDY_Pos 0            /**< \brief (SYSCTRL_INTENCLR) XOSC Ready */
 #define SYSCTRL_INTENCLR_XOSCRDY    (0x1u << SYSCTRL_INTENCLR_XOSCRDY_Pos)
@@ -112,7 +112,7 @@ typedef union {
 #define SYSCTRL_INTENCLR_B12SRDY    (0x1u << SYSCTRL_INTENCLR_B12SRDY_Pos)
 #define SYSCTRL_INTENCLR_MASK       0x00007FFFu  /**< \brief (SYSCTRL_INTENCLR) MASK Register */
 
-/* -------- SYSCTRL_INTENSET : (SYSCTRL Offset: 0x04) (R/W 32) Interrupt Enable Set Register -------- */
+/* -------- SYSCTRL_INTENSET : (SYSCTRL Offset: 0x04) (R/W 32) Interrupt Enable Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -137,8 +137,8 @@ typedef union {
 } SYSCTRL_INTENSET_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_INTENSET_OFFSET     0x04         /**< \brief (SYSCTRL_INTENSET offset) Interrupt Enable Set Register */
-#define SYSCTRL_INTENSET_RESETVALUE 0x00000000   /**< \brief (SYSCTRL_INTENSET reset_value) Interrupt Enable Set Register */
+#define SYSCTRL_INTENSET_OFFSET     0x04         /**< \brief (SYSCTRL_INTENSET offset) Interrupt Enable Set */
+#define SYSCTRL_INTENSET_RESETVALUE 0x00000000   /**< \brief (SYSCTRL_INTENSET reset_value) Interrupt Enable Set */
 
 #define SYSCTRL_INTENSET_XOSCRDY_Pos 0            /**< \brief (SYSCTRL_INTENSET) XOSC Ready */
 #define SYSCTRL_INTENSET_XOSCRDY    (0x1u << SYSCTRL_INTENSET_XOSCRDY_Pos)
@@ -172,7 +172,7 @@ typedef union {
 #define SYSCTRL_INTENSET_B12SRDY    (0x1u << SYSCTRL_INTENSET_B12SRDY_Pos)
 #define SYSCTRL_INTENSET_MASK       0x00007FFFu  /**< \brief (SYSCTRL_INTENSET) MASK Register */
 
-/* -------- SYSCTRL_INTFLAG : (SYSCTRL Offset: 0x08) (R/W 32) Interrupt Flag Status and Clear Register -------- */
+/* -------- SYSCTRL_INTFLAG : (SYSCTRL Offset: 0x08) (R/W 32) Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -197,8 +197,8 @@ typedef union {
 } SYSCTRL_INTFLAG_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_INTFLAG_OFFSET      0x08         /**< \brief (SYSCTRL_INTFLAG offset) Interrupt Flag Status and Clear Register */
-#define SYSCTRL_INTFLAG_RESETVALUE  0x00000000   /**< \brief (SYSCTRL_INTFLAG reset_value) Interrupt Flag Status and Clear Register */
+#define SYSCTRL_INTFLAG_OFFSET      0x08         /**< \brief (SYSCTRL_INTFLAG offset) Interrupt Flag Status and Clear */
+#define SYSCTRL_INTFLAG_RESETVALUE  0x00000000   /**< \brief (SYSCTRL_INTFLAG reset_value) Interrupt Flag Status and Clear */
 
 #define SYSCTRL_INTFLAG_XOSCRDY_Pos 0            /**< \brief (SYSCTRL_INTFLAG) XOSC Ready */
 #define SYSCTRL_INTFLAG_XOSCRDY     (0x1u << SYSCTRL_INTFLAG_XOSCRDY_Pos)
@@ -232,7 +232,7 @@ typedef union {
 #define SYSCTRL_INTFLAG_B12SRDY     (0x1u << SYSCTRL_INTFLAG_B12SRDY_Pos)
 #define SYSCTRL_INTFLAG_MASK        0x00007FFFu  /**< \brief (SYSCTRL_INTFLAG) MASK Register */
 
-/* -------- SYSCTRL_PCLKSR : (SYSCTRL Offset: 0x0C) (R/  32) Power and Clocks Status Register -------- */
+/* -------- SYSCTRL_PCLKSR : (SYSCTRL Offset: 0x0C) (R/  32) Power and Clocks Status -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -257,8 +257,8 @@ typedef union {
 } SYSCTRL_PCLKSR_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_PCLKSR_OFFSET       0x0C         /**< \brief (SYSCTRL_PCLKSR offset) Power and Clocks Status Register */
-#define SYSCTRL_PCLKSR_RESETVALUE   0x00000000   /**< \brief (SYSCTRL_PCLKSR reset_value) Power and Clocks Status Register */
+#define SYSCTRL_PCLKSR_OFFSET       0x0C         /**< \brief (SYSCTRL_PCLKSR offset) Power and Clocks Status */
+#define SYSCTRL_PCLKSR_RESETVALUE   0x00000000   /**< \brief (SYSCTRL_PCLKSR reset_value) Power and Clocks Status */
 
 #define SYSCTRL_PCLKSR_XOSCRDY_Pos  0            /**< \brief (SYSCTRL_PCLKSR) XOSC Ready */
 #define SYSCTRL_PCLKSR_XOSCRDY      (0x1u << SYSCTRL_PCLKSR_XOSCRDY_Pos)
@@ -292,7 +292,7 @@ typedef union {
 #define SYSCTRL_PCLKSR_B12SRDY      (0x1u << SYSCTRL_PCLKSR_B12SRDY_Pos)
 #define SYSCTRL_PCLKSR_MASK         0x00007FFFu  /**< \brief (SYSCTRL_PCLKSR) MASK Register */
 
-/* -------- SYSCTRL_XOSC : (SYSCTRL Offset: 0x10) (R/W 16) XOSC Control Register -------- */
+/* -------- SYSCTRL_XOSC : (SYSCTRL Offset: 0x10) (R/W 16) XOSC Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -310,8 +310,8 @@ typedef union {
 } SYSCTRL_XOSC_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_XOSC_OFFSET         0x10         /**< \brief (SYSCTRL_XOSC offset) XOSC Control Register */
-#define SYSCTRL_XOSC_RESETVALUE     0x0080       /**< \brief (SYSCTRL_XOSC reset_value) XOSC Control Register */
+#define SYSCTRL_XOSC_OFFSET         0x10         /**< \brief (SYSCTRL_XOSC offset) XOSC Control */
+#define SYSCTRL_XOSC_RESETVALUE     0x0080       /**< \brief (SYSCTRL_XOSC reset_value) XOSC Control */
 
 #define SYSCTRL_XOSC_ENABLE_Pos     1            /**< \brief (SYSCTRL_XOSC) Enable */
 #define SYSCTRL_XOSC_ENABLE         (0x1u << SYSCTRL_XOSC_ENABLE_Pos)
@@ -331,7 +331,7 @@ typedef union {
 #define SYSCTRL_XOSC_STARTUP(value) ((SYSCTRL_XOSC_STARTUP_Msk & ((value) << SYSCTRL_XOSC_STARTUP_Pos)))
 #define SYSCTRL_XOSC_MASK           0xFFC6u      /**< \brief (SYSCTRL_XOSC) MASK Register */
 
-/* -------- SYSCTRL_XOSC32K : (SYSCTRL Offset: 0x14) (R/W 16) XOSC32K Control Register -------- */
+/* -------- SYSCTRL_XOSC32K : (SYSCTRL Offset: 0x14) (R/W 16) XOSC32K Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -352,8 +352,8 @@ typedef union {
 } SYSCTRL_XOSC32K_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_XOSC32K_OFFSET      0x14         /**< \brief (SYSCTRL_XOSC32K offset) XOSC32K Control Register */
-#define SYSCTRL_XOSC32K_RESETVALUE  0x0080       /**< \brief (SYSCTRL_XOSC32K reset_value) XOSC32K Control Register */
+#define SYSCTRL_XOSC32K_OFFSET      0x14         /**< \brief (SYSCTRL_XOSC32K offset) XOSC32K Control */
+#define SYSCTRL_XOSC32K_RESETVALUE  0x0080       /**< \brief (SYSCTRL_XOSC32K reset_value) XOSC32K Control */
 
 #define SYSCTRL_XOSC32K_ENABLE_Pos  1            /**< \brief (SYSCTRL_XOSC32K) Enable */
 #define SYSCTRL_XOSC32K_ENABLE      (0x1u << SYSCTRL_XOSC32K_ENABLE_Pos)
@@ -376,7 +376,7 @@ typedef union {
 #define SYSCTRL_XOSC32K_WRTLOCK     (0x1u << SYSCTRL_XOSC32K_WRTLOCK_Pos)
 #define SYSCTRL_XOSC32K_MASK        0x17FEu      /**< \brief (SYSCTRL_XOSC32K) MASK Register */
 
-/* -------- SYSCTRL_OSC32K : (SYSCTRL Offset: 0x18) (R/W 32) OSC32K Control Register -------- */
+/* -------- SYSCTRL_OSC32K : (SYSCTRL Offset: 0x18) (R/W 32) OSC32K Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -398,8 +398,8 @@ typedef union {
 } SYSCTRL_OSC32K_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_OSC32K_OFFSET       0x18         /**< \brief (SYSCTRL_OSC32K offset) OSC32K Control Register */
-#define SYSCTRL_OSC32K_RESETVALUE   0x003F0080   /**< \brief (SYSCTRL_OSC32K reset_value) OSC32K Control Register */
+#define SYSCTRL_OSC32K_OFFSET       0x18         /**< \brief (SYSCTRL_OSC32K offset) OSC32K Control */
+#define SYSCTRL_OSC32K_RESETVALUE   0x003F0080   /**< \brief (SYSCTRL_OSC32K reset_value) OSC32K Control */
 
 #define SYSCTRL_OSC32K_ENABLE_Pos   1            /**< \brief (SYSCTRL_OSC32K) Enable */
 #define SYSCTRL_OSC32K_ENABLE       (0x1u << SYSCTRL_OSC32K_ENABLE_Pos)
@@ -421,7 +421,7 @@ typedef union {
 #define SYSCTRL_OSC32K_CALIB(value) ((SYSCTRL_OSC32K_CALIB_Msk & ((value) << SYSCTRL_OSC32K_CALIB_Pos)))
 #define SYSCTRL_OSC32K_MASK         0x007F17CEu  /**< \brief (SYSCTRL_OSC32K) MASK Register */
 
-/* -------- SYSCTRL_OSCULP32K : (SYSCTRL Offset: 0x1C) (R/W  8) OSCULP32K Control Register -------- */
+/* -------- SYSCTRL_OSCULP32K : (SYSCTRL Offset: 0x1C) (R/W  8) OSCULP32K Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -433,8 +433,8 @@ typedef union {
 } SYSCTRL_OSCULP32K_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_OSCULP32K_OFFSET    0x1C         /**< \brief (SYSCTRL_OSCULP32K offset) OSCULP32K Control Register */
-#define SYSCTRL_OSCULP32K_RESETVALUE 0x0F         /**< \brief (SYSCTRL_OSCULP32K reset_value) OSCULP32K Control Register */
+#define SYSCTRL_OSCULP32K_OFFSET    0x1C         /**< \brief (SYSCTRL_OSCULP32K offset) OSCULP32K Control */
+#define SYSCTRL_OSCULP32K_RESETVALUE 0x0F         /**< \brief (SYSCTRL_OSCULP32K reset_value) OSCULP32K Control */
 
 #define SYSCTRL_OSCULP32K_CALIB_Pos 0            /**< \brief (SYSCTRL_OSCULP32K) Calibration Value */
 #define SYSCTRL_OSCULP32K_CALIB_Msk (0x1Fu << SYSCTRL_OSCULP32K_CALIB_Pos)
@@ -443,7 +443,7 @@ typedef union {
 #define SYSCTRL_OSCULP32K_WRTLOCK   (0x1u << SYSCTRL_OSCULP32K_WRTLOCK_Pos)
 #define SYSCTRL_OSCULP32K_MASK      0x9Fu        /**< \brief (SYSCTRL_OSCULP32K) MASK Register */
 
-/* -------- SYSCTRL_OSC8M : (SYSCTRL Offset: 0x20) (R/W 32) OSC8M Control Register A -------- */
+/* -------- SYSCTRL_OSC8M : (SYSCTRL Offset: 0x20) (R/W 32) OSC8M Control A -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -462,8 +462,8 @@ typedef union {
 } SYSCTRL_OSC8M_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_OSC8M_OFFSET        0x20         /**< \brief (SYSCTRL_OSC8M offset) OSC8M Control Register A */
-#define SYSCTRL_OSC8M_RESETVALUE    0x00000080   /**< \brief (SYSCTRL_OSC8M reset_value) OSC8M Control Register A */
+#define SYSCTRL_OSC8M_OFFSET        0x20         /**< \brief (SYSCTRL_OSC8M offset) OSC8M Control A */
+#define SYSCTRL_OSC8M_RESETVALUE    0x00000080   /**< \brief (SYSCTRL_OSC8M reset_value) OSC8M Control A */
 
 #define SYSCTRL_OSC8M_ENABLE_Pos    1            /**< \brief (SYSCTRL_OSC8M) Enable */
 #define SYSCTRL_OSC8M_ENABLE        (0x1u << SYSCTRL_OSC8M_ENABLE_Pos)
@@ -482,7 +482,7 @@ typedef union {
 #define SYSCTRL_OSC8M_FRANGE(value) ((SYSCTRL_OSC8M_FRANGE_Msk & ((value) << SYSCTRL_OSC8M_FRANGE_Pos)))
 #define SYSCTRL_OSC8M_MASK          0xCFFF03C2u  /**< \brief (SYSCTRL_OSC8M) MASK Register */
 
-/* -------- SYSCTRL_DFLLCTRL : (SYSCTRL Offset: 0x24) (R/W 16) DFLL Config Register -------- */
+/* -------- SYSCTRL_DFLLCTRL : (SYSCTRL Offset: 0x24) (R/W 16) DFLL Config -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -502,8 +502,8 @@ typedef union {
 } SYSCTRL_DFLLCTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_DFLLCTRL_OFFSET     0x24         /**< \brief (SYSCTRL_DFLLCTRL offset) DFLL Config Register */
-#define SYSCTRL_DFLLCTRL_RESETVALUE 0x0080       /**< \brief (SYSCTRL_DFLLCTRL reset_value) DFLL Config Register */
+#define SYSCTRL_DFLLCTRL_OFFSET     0x24         /**< \brief (SYSCTRL_DFLLCTRL offset) DFLL Config */
+#define SYSCTRL_DFLLCTRL_RESETVALUE 0x0080       /**< \brief (SYSCTRL_DFLLCTRL reset_value) DFLL Config */
 
 #define SYSCTRL_DFLLCTRL_ENABLE_Pos 1            /**< \brief (SYSCTRL_DFLLCTRL) Enable */
 #define SYSCTRL_DFLLCTRL_ENABLE     (0x1u << SYSCTRL_DFLLCTRL_ENABLE_Pos)
@@ -525,7 +525,7 @@ typedef union {
 #define SYSCTRL_DFLLCTRL_QLDIS      (0x1u << SYSCTRL_DFLLCTRL_QLDIS_Pos)
 #define SYSCTRL_DFLLCTRL_MASK       0x03FEu      /**< \brief (SYSCTRL_DFLLCTRL) MASK Register */
 
-/* -------- SYSCTRL_DFLLVAL : (SYSCTRL Offset: 0x28) (R/W 32) DFLL Calibration Value Register -------- */
+/* -------- SYSCTRL_DFLLVAL : (SYSCTRL Offset: 0x28) (R/W 32) DFLL Calibration Value -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -538,8 +538,8 @@ typedef union {
 } SYSCTRL_DFLLVAL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_DFLLVAL_OFFSET      0x28         /**< \brief (SYSCTRL_DFLLVAL offset) DFLL Calibration Value Register */
-#define SYSCTRL_DFLLVAL_RESETVALUE  0x00000000   /**< \brief (SYSCTRL_DFLLVAL reset_value) DFLL Calibration Value Register */
+#define SYSCTRL_DFLLVAL_OFFSET      0x28         /**< \brief (SYSCTRL_DFLLVAL offset) DFLL Calibration Value */
+#define SYSCTRL_DFLLVAL_RESETVALUE  0x00000000   /**< \brief (SYSCTRL_DFLLVAL reset_value) DFLL Calibration Value */
 
 #define SYSCTRL_DFLLVAL_FINE_Pos    0            /**< \brief (SYSCTRL_DFLLVAL) Fine Calibration Value */
 #define SYSCTRL_DFLLVAL_FINE_Msk    (0xFFu << SYSCTRL_DFLLVAL_FINE_Pos)
@@ -552,7 +552,7 @@ typedef union {
 #define SYSCTRL_DFLLVAL_DIFF(value) ((SYSCTRL_DFLLVAL_DIFF_Msk & ((value) << SYSCTRL_DFLLVAL_DIFF_Pos)))
 #define SYSCTRL_DFLLVAL_MASK        0xFFFF1FFFu  /**< \brief (SYSCTRL_DFLLVAL) MASK Register */
 
-/* -------- SYSCTRL_DFLLMUL : (SYSCTRL Offset: 0x2C) (R/W 32) DFLL Multiplier Register -------- */
+/* -------- SYSCTRL_DFLLMUL : (SYSCTRL Offset: 0x2C) (R/W 32) DFLL Multiplier -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -565,8 +565,8 @@ typedef union {
 } SYSCTRL_DFLLMUL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_DFLLMUL_OFFSET      0x2C         /**< \brief (SYSCTRL_DFLLMUL offset) DFLL Multiplier Register */
-#define SYSCTRL_DFLLMUL_RESETVALUE  0x00000000   /**< \brief (SYSCTRL_DFLLMUL reset_value) DFLL Multiplier Register */
+#define SYSCTRL_DFLLMUL_OFFSET      0x2C         /**< \brief (SYSCTRL_DFLLMUL offset) DFLL Multiplier */
+#define SYSCTRL_DFLLMUL_RESETVALUE  0x00000000   /**< \brief (SYSCTRL_DFLLMUL reset_value) DFLL Multiplier */
 
 #define SYSCTRL_DFLLMUL_MUL_Pos     0            /**< \brief (SYSCTRL_DFLLMUL) Multiplication Value */
 #define SYSCTRL_DFLLMUL_MUL_Msk     (0xFFFFu << SYSCTRL_DFLLMUL_MUL_Pos)
@@ -579,7 +579,7 @@ typedef union {
 #define SYSCTRL_DFLLMUL_CSTEP(value) ((SYSCTRL_DFLLMUL_CSTEP_Msk & ((value) << SYSCTRL_DFLLMUL_CSTEP_Pos)))
 #define SYSCTRL_DFLLMUL_MASK        0x1FFFFFFFu  /**< \brief (SYSCTRL_DFLLMUL) MASK Register */
 
-/* -------- SYSCTRL_DFLLSYNC : (SYSCTRL Offset: 0x30) (R/W  8) DFLL Synchronization Register -------- */
+/* -------- SYSCTRL_DFLLSYNC : (SYSCTRL Offset: 0x30) (R/W  8) DFLL Synchronization -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -590,14 +590,14 @@ typedef union {
 } SYSCTRL_DFLLSYNC_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_DFLLSYNC_OFFSET     0x30         /**< \brief (SYSCTRL_DFLLSYNC offset) DFLL Synchronization Register */
-#define SYSCTRL_DFLLSYNC_RESETVALUE 0x00         /**< \brief (SYSCTRL_DFLLSYNC reset_value) DFLL Synchronization Register */
+#define SYSCTRL_DFLLSYNC_OFFSET     0x30         /**< \brief (SYSCTRL_DFLLSYNC offset) DFLL Synchronization */
+#define SYSCTRL_DFLLSYNC_RESETVALUE 0x00         /**< \brief (SYSCTRL_DFLLSYNC reset_value) DFLL Synchronization */
 
 #define SYSCTRL_DFLLSYNC_READREQ_Pos 7            /**< \brief (SYSCTRL_DFLLSYNC) Read Request Synchronization */
 #define SYSCTRL_DFLLSYNC_READREQ    (0x1u << SYSCTRL_DFLLSYNC_READREQ_Pos)
 #define SYSCTRL_DFLLSYNC_MASK       0x80u        /**< \brief (SYSCTRL_DFLLSYNC) MASK Register */
 
-/* -------- SYSCTRL_BOD33 : (SYSCTRL Offset: 0x34) (R/W 32) BOD33 Control Register -------- */
+/* -------- SYSCTRL_BOD33 : (SYSCTRL Offset: 0x34) (R/W 32) BOD33 Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -619,7 +619,7 @@ typedef union {
 } SYSCTRL_BOD33_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_BOD33_OFFSET        0x34         /**< \brief (SYSCTRL_BOD33 offset) BOD33 Control Register */
+#define SYSCTRL_BOD33_OFFSET        0x34         /**< \brief (SYSCTRL_BOD33 offset) BOD33 Control */
 
 #define SYSCTRL_BOD33_ENABLE_Pos    1            /**< \brief (SYSCTRL_BOD33) Enable */
 #define SYSCTRL_BOD33_ENABLE        (0x1u << SYSCTRL_BOD33_ENABLE_Pos)
@@ -642,7 +642,7 @@ typedef union {
 #define SYSCTRL_BOD33_LEVEL(value)  ((SYSCTRL_BOD33_LEVEL_Msk & ((value) << SYSCTRL_BOD33_LEVEL_Pos)))
 #define SYSCTRL_BOD33_MASK          0x003FF35Eu  /**< \brief (SYSCTRL_BOD33) MASK Register */
 
-/* -------- SYSCTRL_BOD12 : (SYSCTRL Offset: 0x38) (R/W 32) BOD12 Control Register -------- */
+/* -------- SYSCTRL_BOD12 : (SYSCTRL Offset: 0x38) (R/W 32) BOD12 Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -664,7 +664,7 @@ typedef union {
 } SYSCTRL_BOD12_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_BOD12_OFFSET        0x38         /**< \brief (SYSCTRL_BOD12 offset) BOD12 Control Register */
+#define SYSCTRL_BOD12_OFFSET        0x38         /**< \brief (SYSCTRL_BOD12 offset) BOD12 Control */
 
 #define SYSCTRL_BOD12_ENABLE_Pos    1            /**< \brief (SYSCTRL_BOD12) Enable */
 #define SYSCTRL_BOD12_ENABLE        (0x1u << SYSCTRL_BOD12_ENABLE_Pos)
@@ -687,7 +687,7 @@ typedef union {
 #define SYSCTRL_BOD12_LEVEL(value)  ((SYSCTRL_BOD12_LEVEL_Msk & ((value) << SYSCTRL_BOD12_LEVEL_Pos)))
 #define SYSCTRL_BOD12_MASK          0x001FF35Eu  /**< \brief (SYSCTRL_BOD12) MASK Register */
 
-/* -------- SYSCTRL_VREG : (SYSCTRL Offset: 0x3C) (R/W 16) VREG Control Register -------- */
+/* -------- SYSCTRL_VREG : (SYSCTRL Offset: 0x3C) (R/W 16) VREG Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -706,8 +706,8 @@ typedef union {
 } SYSCTRL_VREG_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_VREG_OFFSET         0x3C         /**< \brief (SYSCTRL_VREG offset) VREG Control Register */
-#define SYSCTRL_VREG_RESETVALUE     0x0000       /**< \brief (SYSCTRL_VREG reset_value) VREG Control Register */
+#define SYSCTRL_VREG_OFFSET         0x3C         /**< \brief (SYSCTRL_VREG offset) VREG Control */
+#define SYSCTRL_VREG_RESETVALUE     0x0000       /**< \brief (SYSCTRL_VREG reset_value) VREG Control */
 
 #define SYSCTRL_VREG_ENABLE_Pos     1            /**< \brief (SYSCTRL_VREG) Enable */
 #define SYSCTRL_VREG_ENABLE         (0x1u << SYSCTRL_VREG_ENABLE_Pos)
@@ -724,7 +724,7 @@ typedef union {
 #define SYSCTRL_VREG_CALIB(value)   ((SYSCTRL_VREG_CALIB_Msk & ((value) << SYSCTRL_VREG_CALIB_Pos)))
 #define SYSCTRL_VREG_MASK           0x7772u      /**< \brief (SYSCTRL_VREG) MASK Register */
 
-/* -------- SYSCTRL_VREF : (SYSCTRL Offset: 0x40) (R/W 32) VREF Control Register A -------- */
+/* -------- SYSCTRL_VREF : (SYSCTRL Offset: 0x40) (R/W 32) VREF Control A -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -739,8 +739,8 @@ typedef union {
 } SYSCTRL_VREF_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define SYSCTRL_VREF_OFFSET         0x40         /**< \brief (SYSCTRL_VREF offset) VREF Control Register A */
-#define SYSCTRL_VREF_RESETVALUE     0x00000000   /**< \brief (SYSCTRL_VREF reset_value) VREF Control Register A */
+#define SYSCTRL_VREF_OFFSET         0x40         /**< \brief (SYSCTRL_VREF offset) VREF Control A */
+#define SYSCTRL_VREF_RESETVALUE     0x00000000   /**< \brief (SYSCTRL_VREF reset_value) VREF Control A */
 
 #define SYSCTRL_VREF_TSEN_Pos       1            /**< \brief (SYSCTRL_VREF) Temperature Sensor Output Enable */
 #define SYSCTRL_VREF_TSEN           (0x1u << SYSCTRL_VREF_TSEN_Pos)
@@ -754,29 +754,29 @@ typedef union {
 /** \brief SYSCTRL hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef struct {
-  __IO SYSCTRL_INTENCLR_Type     INTENCLR;    /**< \brief Offset: 0x00 (R/W 32) Interrupt Enable Clear Register */
-  __IO SYSCTRL_INTENSET_Type     INTENSET;    /**< \brief Offset: 0x04 (R/W 32) Interrupt Enable Set Register */
-  __IO SYSCTRL_INTFLAG_Type      INTFLAG;     /**< \brief Offset: 0x08 (R/W 32) Interrupt Flag Status and Clear Register */
-  __I  SYSCTRL_PCLKSR_Type       PCLKSR;      /**< \brief Offset: 0x0C (R/  32) Power and Clocks Status Register */
-  __IO SYSCTRL_XOSC_Type         XOSC;        /**< \brief Offset: 0x10 (R/W 16) XOSC Control Register */
+  __IO SYSCTRL_INTENCLR_Type     INTENCLR;    /**< \brief Offset: 0x00 (R/W 32) Interrupt Enable Clear */
+  __IO SYSCTRL_INTENSET_Type     INTENSET;    /**< \brief Offset: 0x04 (R/W 32) Interrupt Enable Set */
+  __IO SYSCTRL_INTFLAG_Type      INTFLAG;     /**< \brief Offset: 0x08 (R/W 32) Interrupt Flag Status and Clear */
+  __I  SYSCTRL_PCLKSR_Type       PCLKSR;      /**< \brief Offset: 0x0C (R/  32) Power and Clocks Status */
+  __IO SYSCTRL_XOSC_Type         XOSC;        /**< \brief Offset: 0x10 (R/W 16) XOSC Control */
        RoReg8                    Reserved1[0x2];
-  __IO SYSCTRL_XOSC32K_Type      XOSC32K;     /**< \brief Offset: 0x14 (R/W 16) XOSC32K Control Register */
+  __IO SYSCTRL_XOSC32K_Type      XOSC32K;     /**< \brief Offset: 0x14 (R/W 16) XOSC32K Control */
        RoReg8                    Reserved2[0x2];
-  __IO SYSCTRL_OSC32K_Type       OSC32K;      /**< \brief Offset: 0x18 (R/W 32) OSC32K Control Register */
-  __IO SYSCTRL_OSCULP32K_Type    OSCULP32K;   /**< \brief Offset: 0x1C (R/W  8) OSCULP32K Control Register */
+  __IO SYSCTRL_OSC32K_Type       OSC32K;      /**< \brief Offset: 0x18 (R/W 32) OSC32K Control */
+  __IO SYSCTRL_OSCULP32K_Type    OSCULP32K;   /**< \brief Offset: 0x1C (R/W  8) OSCULP32K Control */
        RoReg8                    Reserved3[0x3];
-  __IO SYSCTRL_OSC8M_Type        OSC8M;       /**< \brief Offset: 0x20 (R/W 32) OSC8M Control Register A */
-  __IO SYSCTRL_DFLLCTRL_Type     DFLLCTRL;    /**< \brief Offset: 0x24 (R/W 16) DFLL Config Register */
+  __IO SYSCTRL_OSC8M_Type        OSC8M;       /**< \brief Offset: 0x20 (R/W 32) OSC8M Control A */
+  __IO SYSCTRL_DFLLCTRL_Type     DFLLCTRL;    /**< \brief Offset: 0x24 (R/W 16) DFLL Config */
        RoReg8                    Reserved4[0x2];
-  __IO SYSCTRL_DFLLVAL_Type      DFLLVAL;     /**< \brief Offset: 0x28 (R/W 32) DFLL Calibration Value Register */
-  __IO SYSCTRL_DFLLMUL_Type      DFLLMUL;     /**< \brief Offset: 0x2C (R/W 32) DFLL Multiplier Register */
-  __IO SYSCTRL_DFLLSYNC_Type     DFLLSYNC;    /**< \brief Offset: 0x30 (R/W  8) DFLL Synchronization Register */
+  __IO SYSCTRL_DFLLVAL_Type      DFLLVAL;     /**< \brief Offset: 0x28 (R/W 32) DFLL Calibration Value */
+  __IO SYSCTRL_DFLLMUL_Type      DFLLMUL;     /**< \brief Offset: 0x2C (R/W 32) DFLL Multiplier */
+  __IO SYSCTRL_DFLLSYNC_Type     DFLLSYNC;    /**< \brief Offset: 0x30 (R/W  8) DFLL Synchronization */
        RoReg8                    Reserved5[0x3];
-  __IO SYSCTRL_BOD33_Type        BOD33;       /**< \brief Offset: 0x34 (R/W 32) BOD33 Control Register */
-  __IO SYSCTRL_BOD12_Type        BOD12;       /**< \brief Offset: 0x38 (R/W 32) BOD12 Control Register */
-  __IO SYSCTRL_VREG_Type         VREG;        /**< \brief Offset: 0x3C (R/W 16) VREG Control Register */
+  __IO SYSCTRL_BOD33_Type        BOD33;       /**< \brief Offset: 0x34 (R/W 32) BOD33 Control */
+  __IO SYSCTRL_BOD12_Type        BOD12;       /**< \brief Offset: 0x38 (R/W 32) BOD12 Control */
+  __IO SYSCTRL_VREG_Type         VREG;        /**< \brief Offset: 0x3C (R/W 16) VREG Control */
        RoReg8                    Reserved6[0x2];
-  __IO SYSCTRL_VREF_Type         VREF;        /**< \brief Offset: 0x40 (R/W 32) VREF Control Register A */
+  __IO SYSCTRL_VREF_Type         VREF;        /**< \brief Offset: 0x40 (R/W 32) VREF Control A */
 } Sysctrl;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 

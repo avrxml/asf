@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Direct Memory Access Controller driver definitions
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -911,45 +911,45 @@ static inline void dma_channel_set_source_hugemem(
  * \subsection dma_basic_use_case_setup_setup_code Example code
  * Add to application C-file:
  * \code
- *    #define DMA_CHANNEL     0
- *    #define DMA_BUFFER_SIZE 1024
- *
- *    static uint8_t source[DMA_BUFFER_SIZE];
- *    static uint8_t destination[DMA_BUFFER_SIZE];
- *
- *    static void dma_init(void)
- *    {
- *        struct dma_channel_config dmach_conf;
- *        memset(&dmach_conf, 0, sizeof(dmach_conf));
- *
- *        dma_channel_set_burst_length(&dmach_conf, DMA_CH_BURSTLEN_1BYTE_gc);
- *        dma_channel_set_transfer_count(&dmach_conf, DMA_BUFFER_SIZE);
- *
- *        dma_channel_set_src_reload_mode(&dmach_conf,
- *               DMA_CH_SRCRELOAD_TRANSACTION_gc);
- *        dma_channel_set_dest_reload_mode(&dmach_conf,
- *               DMA_CH_DESTRELOAD_TRANSACTION_gc);
- *
- *        dma_channel_set_src_dir_mode(&dmach_conf, DMA_CH_SRCDIR_INC_gc);
- *        dma_channel_set_source_address(&dmach_conf,
- *                (uint16_t)(uintptr_t)source);
- *
- *        dma_channel_set_dest_dir_mode(&dmach_conf, DMA_CH_DESTDIR_INC_gc);
- *        dma_channel_set_destination_address(&dmach_conf,
- *                (uint16_t)(uintptr_t)destination);
- *
- *        dma_enable();
- *
- *        dma_channel_write_config(DMA_CHANNEL, &dmach_conf);
- *        dma_channel_enable(DMA_CHANNEL);
- *    }
- * \endcode
+	    #define DMA_CHANNEL     0
+	    #define DMA_BUFFER_SIZE 1024
+
+	    static uint8_t source[DMA_BUFFER_SIZE];
+	    static uint8_t destination[DMA_BUFFER_SIZE];
+
+	    static void dma_init(void)
+	    {
+	        struct dma_channel_config dmach_conf;
+	        memset(&dmach_conf, 0, sizeof(dmach_conf));
+
+	        dma_channel_set_burst_length(&dmach_conf, DMA_CH_BURSTLEN_1BYTE_gc);
+	        dma_channel_set_transfer_count(&dmach_conf, DMA_BUFFER_SIZE);
+
+	        dma_channel_set_src_reload_mode(&dmach_conf,
+	               DMA_CH_SRCRELOAD_TRANSACTION_gc);
+	        dma_channel_set_dest_reload_mode(&dmach_conf,
+	               DMA_CH_DESTRELOAD_TRANSACTION_gc);
+
+	        dma_channel_set_src_dir_mode(&dmach_conf, DMA_CH_SRCDIR_INC_gc);
+	        dma_channel_set_source_address(&dmach_conf,
+	                (uint16_t)(uintptr_t)source);
+
+	        dma_channel_set_dest_dir_mode(&dmach_conf, DMA_CH_DESTDIR_INC_gc);
+	        dma_channel_set_destination_address(&dmach_conf,
+	                (uint16_t)(uintptr_t)destination);
+
+	        dma_enable();
+
+	        dma_channel_write_config(DMA_CHANNEL, &dmach_conf);
+	        dma_channel_enable(DMA_CHANNEL);
+	    }
+\endcode
  *
  * Add to \c main():
  * \code
- * sysclk_init();
- * dma_init();
- * \endcode
+	sysclk_init();
+	dma_init();
+\endcode
  *
  * \subsection dma_basic_use_case_setup_flow Workflow
  * -# Define the DMA channel that will be used for the transfer for convenience:
@@ -960,16 +960,16 @@ static inline void dma_channel_set_source_hugemem(
  * -# Create a pair of global arrays that will hold the source and destination
  *    data copied by the DMA controller channel when it is triggered:
  *   - \code
- * static uint8_t source[DMA_BUFFER_SIZE];
- * static uint8_t destination[DMA_BUFFER_SIZE];
- *     \endcode
+	static uint8_t source[DMA_BUFFER_SIZE];
+	static uint8_t destination[DMA_BUFFER_SIZE];
+\endcode
  * -# Create a function \c dma_init() to intialize the DMA:
  *     - \code
- * static void dma_init(void)
- * {
- *     // ...
- * }
- *       \endcode
+	static void dma_init(void)
+	{
+	    // ...
+	}
+\endcode
  * -# Create config struct for DMA channel:
  *   - \code struct dma_channel_config       dmach_conf; \endcode
  * -# Make sure the configuration structure is zeroed out to ensure that all
@@ -978,27 +978,27 @@ static inline void dma_channel_set_source_hugemem(
  * -# Configure the DMA channel for single byte bursts, with a transfer length
  *    equal to the size of the source and destination buffers:
  *   - \code
- * dma_channel_set_burst_length(&dmach_conf, DMA_CH_BURSTLEN_1BYTE_gc);
- * dma_channel_set_transfer_count(&dmach_conf, DMA_BUFFER_SIZE);
- *     \endcode
+	dma_channel_set_burst_length(&dmach_conf, DMA_CH_BURSTLEN_1BYTE_gc);
+	dma_channel_set_transfer_count(&dmach_conf, DMA_BUFFER_SIZE);
+\endcode
  * -# Configure the DMA channel to reset the source and destination addresses at
  *    the end of the complete transaction (i.e. after \c DMA_BUFFER_SIZE bytes
  *    copied):
  *   - \code
- * dma_channel_set_src_reload_mode(&dmach_conf, DMA_CH_SRCRELOAD_TRANSACTION_gc);
- * dma_channel_set_dest_reload_mode(&dmach_conf, DMA_CH_DESTRELOAD_TRANSACTION_gc);
- *     \endcode
+	dma_channel_set_src_reload_mode(&dmach_conf, DMA_CH_SRCRELOAD_TRANSACTION_gc);
+	dma_channel_set_dest_reload_mode(&dmach_conf, DMA_CH_DESTRELOAD_TRANSACTION_gc);
+\endcode
  * -# Configure the DMA channel to increment the source and destination
  *    addresses after each byte transferred:
  *   - \code
- * dma_channel_set_src_dir_mode(&dmach_conf, DMA_CH_SRCDIR_INC_gc);
- * dma_channel_set_dest_dir_mode(&dmach_conf, DMA_CH_DESTDIR_INC_gc);
- *     \endcode
+	dma_channel_set_src_dir_mode(&dmach_conf, DMA_CH_SRCDIR_INC_gc);
+	dma_channel_set_dest_dir_mode(&dmach_conf, DMA_CH_DESTDIR_INC_gc);
+\endcode
  * -# Configure the DMA channel source and destination addresses:
  *   - \code
- * dma_channel_set_source_address(&dmach_conf, (uint16_t)(uintptr_t)source);
- * dma_channel_set_destination_address(&dmach_conf, (uint16_t)(uintptr_t)destination);
- *     \endcode
+	dma_channel_set_source_address(&dmach_conf, (uint16_t)(uintptr_t)source);
+	dma_channel_set_destination_address(&dmach_conf, (uint16_t)(uintptr_t)destination);
+\endcode
  * -# Enable the DMA module so that channels can be configured in it:
  *      - \code dma_enable(); \endcode
  *  \attention Calling dma_enable() will result in a soft-reset of the entire
@@ -1008,9 +1008,9 @@ static inline void dma_channel_set_source_hugemem(
  * -# Write the DMA channel configuration to the DMA and enable it so that
  *    it can be triggered to start the transfer:
  *   - \code
- * dma_channel_write_config(DMA_CHANNEL, &dmach_conf);
- * dma_channel_enable(DMA_CHANNEL);
- *     \endcode
+	dma_channel_write_config(DMA_CHANNEL, &dmach_conf);
+	dma_channel_enable(DMA_CHANNEL);
+\endcode
  * -# Initialize the clock system:
  *      - \code sysclk_init(); \endcode
  * -# Call our DMA init function:
@@ -1021,16 +1021,16 @@ static inline void dma_channel_set_source_hugemem(
  * \subsection dma_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    dma_channel_trigger_block_transfer(DMA_CHANNEL);
- *    do {} while (dma_get_channel_status(DMA_CHANNEL) != DMA_CH_TRANSFER_COMPLETED);
- * \endcode
+	dma_channel_trigger_block_transfer(DMA_CHANNEL);
+	do {} while (dma_get_channel_status(DMA_CHANNEL) != DMA_CH_TRANSFER_COMPLETED);
+\endcode
  *
  * \subsection dma_basic_use_case_usage_flow Workflow
  * -# Start the DMA transfer:
  *   - \code dma_channel_trigger_block_transfer(DMA_CHANNEL); \endcode
  * -# Wait for the transfer to complete:
  *   - \code do {} while (dma_get_channel_status(DMA_CHANNEL) != DMA_CH_TRANSFER_COMPLETED);
- *     \endcode
+\endcode
  */
 
 /**
@@ -1068,60 +1068,60 @@ static inline void dma_channel_set_source_hugemem(
  * A \ref dma_callback_t "callback" function, called \c dma_transfer_done, must
  * also be provided by the user application:
  * \code
- *   static void dma_transfer_done(enum dma_channel_status status)
- *   {
- *       // ...
- *   }
- * \endcode
+	static void dma_transfer_done(enum dma_channel_status status)
+	{
+	    // ...
+	}
+\endcode
  *
  * \subsection dma_use_case_1_setup_code Example code
  * Add to application C-file:
  * \code
- *    #define DMA_CHANNEL     0
- *    #define DMA_BUFFER_SIZE 1024
- *
- *    static uint8_t source[DMA_BUFFER_SIZE];
- *    static uint8_t destination[DMA_BUFFER_SIZE];
- *
- *    static void dma_init(void)
- *    {
- *        struct dma_channel_config dmach_conf;
- *        memset(&dmach_conf, 0, sizeof(dmach_conf));
- *
- *        dma_channel_set_burst_length(&dmach_conf, DMA_CH_BURSTLEN_1BYTE_gc);
- *        dma_channel_set_transfer_count(&dmach_conf, DMA_BUFFER_SIZE);
- *
- *        dma_channel_set_src_reload_mode(&dmach_conf,
- *               DMA_CH_SRCRELOAD_TRANSACTION_gc);
- *        dma_channel_set_dest_reload_mode(&dmach_conf,
- *               DMA_CH_DESTRELOAD_TRANSACTION_gc);
- *
- *        dma_channel_set_src_dir_mode(&dmach_conf, DMA_CH_SRCDIR_INC_gc);
- *        dma_channel_set_source_address(&dmach_conf,
- *                (uint16_t)(uintptr_t)source);
- *
- *        dma_channel_set_dest_dir_mode(&dmach_conf, DMA_CH_DESTDIR_INC_gc);
- *        dma_channel_set_destination_address(&dmach_conf,
- *                (uint16_t)(uintptr_t)destination);
- *
- *        dma_enable();
- *
- *        dma_set_callback(DMA_CHANNEL, dma_transfer_done);
- *        dma_channel_set_interrupt_level(&dmach_conf, DMA_INT_LVL_LO);
- *
- *        dma_channel_write_config(DMA_CHANNEL, &dmach_conf);
- *        dma_channel_enable(DMA_CHANNEL);
- *    }
- * \endcode
+	    #define DMA_CHANNEL     0
+	    #define DMA_BUFFER_SIZE 1024
+
+	    static uint8_t source[DMA_BUFFER_SIZE];
+	    static uint8_t destination[DMA_BUFFER_SIZE];
+
+	    static void dma_init(void)
+	    {
+	        struct dma_channel_config dmach_conf;
+	        memset(&dmach_conf, 0, sizeof(dmach_conf));
+
+	        dma_channel_set_burst_length(&dmach_conf, DMA_CH_BURSTLEN_1BYTE_gc);
+	        dma_channel_set_transfer_count(&dmach_conf, DMA_BUFFER_SIZE);
+
+	        dma_channel_set_src_reload_mode(&dmach_conf,
+	               DMA_CH_SRCRELOAD_TRANSACTION_gc);
+	        dma_channel_set_dest_reload_mode(&dmach_conf,
+	               DMA_CH_DESTRELOAD_TRANSACTION_gc);
+
+	        dma_channel_set_src_dir_mode(&dmach_conf, DMA_CH_SRCDIR_INC_gc);
+	        dma_channel_set_source_address(&dmach_conf,
+	                (uint16_t)(uintptr_t)source);
+
+	        dma_channel_set_dest_dir_mode(&dmach_conf, DMA_CH_DESTDIR_INC_gc);
+	        dma_channel_set_destination_address(&dmach_conf,
+	                (uint16_t)(uintptr_t)destination);
+
+	        dma_enable();
+
+	        dma_set_callback(DMA_CHANNEL, dma_transfer_done);
+	        dma_channel_set_interrupt_level(&dmach_conf, DMA_INT_LVL_LO);
+
+	        dma_channel_write_config(DMA_CHANNEL, &dmach_conf);
+	        dma_channel_enable(DMA_CHANNEL);
+	    }
+\endcode
  *
  * Add to \c main():
  * \code
- * sysclk_init();
- * pmic_init();
- * sleepmgr_init();
- * dma_init();
- * cpu_irq_enable();
- * \endcode
+	sysclk_init();
+	pmic_init();
+	sleepmgr_init();
+	dma_init();
+	cpu_irq_enable();
+\endcode
  *
  * \subsection dma_use_case_1_setup_flow Workflow
  * -# Define the DMA channel that will be used for the transfer for convenience:
@@ -1132,16 +1132,16 @@ static inline void dma_channel_set_source_hugemem(
  * -# Create a pair of global arrays that will hold the source and destination
  *    data copied by the DMA controller channel when it is triggered:
  *   - \code
- * static uint8_t source[DMA_BUFFER_SIZE];
- * static uint8_t destination[DMA_BUFFER_SIZE];
- *     \endcode
+	static uint8_t source[DMA_BUFFER_SIZE];
+	static uint8_t destination[DMA_BUFFER_SIZE];
+\endcode
  * -# Create a function \c dma_init() to intialize the DMA:
  *     - \code
- * static void dma_init(void)
- * {
- *     // ...
- * }
- *       \endcode
+	static void dma_init(void)
+	{
+	    // ...
+	}
+\endcode
  * -# Create config struct for DMA channel:
  *   - \code struct dma_channel_config       dmach_conf; \endcode
  * -# Make sure the configuration structure is zeroed out to ensure that all
@@ -1150,28 +1150,28 @@ static inline void dma_channel_set_source_hugemem(
  * -# Configure the DMA channel for single byte bursts, with a transfer length
  *    equal to the size of the source and destination buffers:
  *   - \code
- * dma_channel_set_burst_length(&dmach_conf, DMA_CH_BURSTLEN_1BYTE_gc);
- * dma_channel_set_transfer_count(&dmach_conf, DMA_BUFFER_SIZE);
- *     \endcode
+	dma_channel_set_burst_length(&dmach_conf, DMA_CH_BURSTLEN_1BYTE_gc);
+	dma_channel_set_transfer_count(&dmach_conf, DMA_BUFFER_SIZE);
+\endcode
  * -# Configure the DMA channel to reset the source and destination addresses at
  *    the end of the complete transaction (i.e. after \c DMA_BUFFER_SIZE bytes
  *    copied):
  *   - \code
- * dma_channel_set_src_reload_mode(&dmach_conf, DMA_CH_SRCRELOAD_TRANSACTION_gc);
- * dma_channel_set_dest_reload_mode(&dmach_conf, DMA_CH_DESTRELOAD_TRANSACTION_gc);
- *     \endcode
+	dma_channel_set_src_reload_mode(&dmach_conf, DMA_CH_SRCRELOAD_TRANSACTION_gc);
+	dma_channel_set_dest_reload_mode(&dmach_conf, DMA_CH_DESTRELOAD_TRANSACTION_gc);
+\endcode
  * -# Configure the DMA channel to increment the source and destination
  *    addresses after each byte transferred:
  *   - \code
- * dma_channel_set_src_dir_mode(&dmach_conf, DMA_CH_SRCDIR_INC_gc);
- * dma_channel_set_dest_dir_mode(&dmach_conf, DMA_CH_DESTDIR_INC_gc);
- *     \endcode
+	dma_channel_set_src_dir_mode(&dmach_conf, DMA_CH_SRCDIR_INC_gc);
+	dma_channel_set_dest_dir_mode(&dmach_conf, DMA_CH_DESTDIR_INC_gc);
+\endcode
  * -# Configure the DMA channel source and destination addresses:
  *   - \code
- * dma_channel_set_source_address(&dmach_conf, (uint16_t)(uintptr_t)source);
- * dma_channel_set_destination_address(&dmach_conf,
- *         (uint16_t)(uintptr_t)destination);
- *     \endcode
+	dma_channel_set_source_address(&dmach_conf, (uint16_t)(uintptr_t)source);
+	dma_channel_set_destination_address(&dmach_conf,
+	        (uint16_t)(uintptr_t)destination);
+\endcode
  * -# Enable the DMA module so that channels can be configured in it:
  *      - \code dma_enable(); \endcode
  *  \attention Calling dma_enable() will result in a soft-reset of the entire
@@ -1181,21 +1181,21 @@ static inline void dma_channel_set_source_hugemem(
  * -# Set up the DMA channel interrupt to run at low interrupt priority, and
  *    link it to the user created \c dma_transfer_done() function:
  *      - \code
- * dma_set_callback(DMA_CHANNEL, dma_transfer_done);
- * dma_channel_set_interrupt_level(&dmach_conf, DMA_INT_LVL_LO);
- *        \endcode
+	dma_set_callback(DMA_CHANNEL, dma_transfer_done);
+	dma_channel_set_interrupt_level(&dmach_conf, DMA_INT_LVL_LO);
+\endcode
  * -# Write the DMA channel configuration to the DMA and enable it so that
  *    it can be triggered to start the transfer:
  *   - \code
- * dma_channel_write_config(DMA_CHANNEL, &dmach_conf);
- * dma_channel_enable(DMA_CHANNEL);
- *     \endcode
+	dma_channel_write_config(DMA_CHANNEL, &dmach_conf);
+	dma_channel_enable(DMA_CHANNEL);
+\endcode
  * -# Initialize the clock system, PMIC driver and Sleep Manager service:
  *      - \code
- * sysclk_init();
- * pmic_init();
- * sleepmgr_init();
- *        \endcode
+	sysclk_init();
+	pmic_init();
+	sleepmgr_init();
+\endcode
  * -# Call our DMA init function:
  *      - \code dma_init(); \endcode
  * -# Enable global processing of interrupts:
@@ -1206,9 +1206,9 @@ static inline void dma_channel_set_source_hugemem(
  * \subsection dma_use_case_1_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    dma_channel_trigger_block_transfer(DMA_CHANNEL);
- *    sleepmgr_enter_sleep();
- * \endcode
+	dma_channel_trigger_block_transfer(DMA_CHANNEL);
+	sleepmgr_enter_sleep();
+\endcode
  *
  * \subsection dma_use_case_1_usage_flow Workflow
  * -# Start the DMA transfer:
@@ -1249,50 +1249,50 @@ static inline void dma_channel_set_source_hugemem(
  * \subsection dma_use_case_2_setup_code Example code
  * Add to application C-file:
  * \code
- *    #define DMA_CHANNEL     0
- *    #define DMA_BUFFER_SIZE 1024
- *
- *    static uint16_t adc_samples[DMA_BUFFER_SIZE / 2];
- *
- *    static void dma_init(void)
- *    {
- *        struct dma_channel_config dmach_conf;
- *        memset(&dmach_conf, 0, sizeof(dmach_conf));
- *
- *        dma_channel_set_burst_length(&dmach_conf, DMA_CH_BURSTLEN_2BYTE_gc);
- *        dma_channel_set_transfer_count(&dmach_conf, DMA_BUFFER_SIZE);
- *
- *        dma_channel_set_src_reload_mode(&dmach_conf,
- *              DMA_CH_SRCRELOAD_BURST_gc);
- *        dma_channel_set_dest_reload_mode(&dmach_conf,
- *              DMA_CH_DESTRELOAD_TRANSACTION_gc);
- *
- *        dma_channel_set_src_dir_mode(&dmach_conf, DMA_CH_SRCDIR_INC_gc);
- *        dma_channel_set_dest_dir_mode(&dmach_conf, DMA_CH_DESTDIR_INC_gc);
- *
- *        dma_channel_set_source_address(&dmach_conf,
- *              (uint16_t)(uintptr_t)&ADCA.CH0RES);
- *        dma_channel_set_destination_address(&dmach_conf,
- *              (uint16_t)(uintptr_t)adc_samples);
- *
- *        dma_channel_set_trigger_source(&dmach_conf, DMA_CH_TRIGSRC_ADCA_CH0_gc);
- *        dma_channel_set_single_shot(&dmach_conf);
- *
- *        dma_enable();
- *
- *        dma_set_callback(DMA_CHANNEL, dma_transfer_done);
- *        dma_channel_set_interrupt_level(&dmach_conf, DMA_INT_LVL_LO);
- *
- *        dma_channel_write_config(DMA_CHANNEL, &dmach_conf);
- *        dma_channel_enable(DMA_CHANNEL);
- *    }
- * \endcode
+	    #define DMA_CHANNEL     0
+	    #define DMA_BUFFER_SIZE 1024
+
+	    static uint16_t adc_samples[DMA_BUFFER_SIZE / 2];
+
+	    static void dma_init(void)
+	    {
+	        struct dma_channel_config dmach_conf;
+	        memset(&dmach_conf, 0, sizeof(dmach_conf));
+
+	        dma_channel_set_burst_length(&dmach_conf, DMA_CH_BURSTLEN_2BYTE_gc);
+	        dma_channel_set_transfer_count(&dmach_conf, DMA_BUFFER_SIZE);
+
+	        dma_channel_set_src_reload_mode(&dmach_conf,
+	              DMA_CH_SRCRELOAD_BURST_gc);
+	        dma_channel_set_dest_reload_mode(&dmach_conf,
+	              DMA_CH_DESTRELOAD_TRANSACTION_gc);
+
+	        dma_channel_set_src_dir_mode(&dmach_conf, DMA_CH_SRCDIR_INC_gc);
+	        dma_channel_set_dest_dir_mode(&dmach_conf, DMA_CH_DESTDIR_INC_gc);
+
+	        dma_channel_set_source_address(&dmach_conf,
+	              (uint16_t)(uintptr_t)&ADCA.CH0RES);
+	        dma_channel_set_destination_address(&dmach_conf,
+	              (uint16_t)(uintptr_t)adc_samples);
+
+	        dma_channel_set_trigger_source(&dmach_conf, DMA_CH_TRIGSRC_ADCA_CH0_gc);
+	        dma_channel_set_single_shot(&dmach_conf);
+
+	        dma_enable();
+
+	        dma_set_callback(DMA_CHANNEL, dma_transfer_done);
+	        dma_channel_set_interrupt_level(&dmach_conf, DMA_INT_LVL_LO);
+
+	        dma_channel_write_config(DMA_CHANNEL, &dmach_conf);
+	        dma_channel_enable(DMA_CHANNEL);
+	    }
+\endcode
  *
  * Add to \c main():
  * \code
- * sysclk_init();
- * dma_init();
- * \endcode
+	sysclk_init();
+	dma_init();
+\endcode
  *
  * \subsection dma_use_case_2_setup_flow Workflow
  * -# Define the DMA channel that will be used for the transfer for convenience:
@@ -1306,11 +1306,11 @@ static inline void dma_channel_set_source_hugemem(
  *   - \code static uint16_t adc_samples[DMA_BUFFER_SIZE / 2]; \endcode
  * -# Create a function \c dma_init() to intialize the DMA:
  *     - \code
- * static void dma_init(void)
- * {
- *     // ...
- * }
- *       \endcode
+	static void dma_init(void)
+	{
+	    // ...
+	}
+\endcode
  * -# Create config struct for DMA channel:
  *   - \code struct dma_channel_config       dmach_conf; \endcode
  * -# Make sure the configuration structure is zeroed out to ensure that all
@@ -1320,30 +1320,30 @@ static inline void dma_channel_set_source_hugemem(
  *    conversion) with a transfer length equal to the size of the destination
  *    buffer:
  *   - \code
- * dma_channel_set_burst_length(&dmach_conf, DMA_CH_BURSTLEN_2BYTE_gc);
- * dma_channel_set_transfer_count(&dmach_conf, DMA_BUFFER_SIZE);
- *     \endcode
+	dma_channel_set_burst_length(&dmach_conf, DMA_CH_BURSTLEN_2BYTE_gc);
+	dma_channel_set_transfer_count(&dmach_conf, DMA_BUFFER_SIZE);
+\endcode
  * -# Configure the DMA channel to reset the source address at the end of each
  *    burst transfer, and the destination addresses at the end of the complete
  *    transaction (i.e. after \c DMA_BUFFER_SIZE bytes copied):
  *   - \code
- * dma_channel_set_src_reload_mode(&dmach_conf, DMA_CH_SRCRELOAD_BURST_gc);
- * dma_channel_set_dest_reload_mode(&dmach_conf, DMA_CH_DESTRELOAD_TRANSACTION_gc);
- *     \endcode
+	dma_channel_set_src_reload_mode(&dmach_conf, DMA_CH_SRCRELOAD_BURST_gc);
+	dma_channel_set_dest_reload_mode(&dmach_conf, DMA_CH_DESTRELOAD_TRANSACTION_gc);
+\endcode
  * -# Configure the DMA channel to increment the source and destination
  *    addresses after each byte transferred:
  *   - \code
- * dma_channel_set_src_dir_mode(&dmach_conf, DMA_CH_SRCDIR_INC_gc);
- * dma_channel_set_dest_dir_mode(&dmach_conf, DMA_CH_DESTDIR_INC_gc);
- *     \endcode
+	dma_channel_set_src_dir_mode(&dmach_conf, DMA_CH_SRCDIR_INC_gc);
+	dma_channel_set_dest_dir_mode(&dmach_conf, DMA_CH_DESTDIR_INC_gc);
+\endcode
  * -# Configure the DMA channel source and destination addresses to the ADC
  *    module channel 0 result registers and RAM buffer respectively:
  *   - \code
- * dma_channel_set_source_address(&dmach_conf,
- *         (uint16_t)(uintptr_t)&ADCA.CH0RES);
- * dma_channel_set_destination_address(&dmach_conf,
- *         (uint16_t)(uintptr_t)adc_samples);
- *     \endcode
+	dma_channel_set_source_address(&dmach_conf,
+	        (uint16_t)(uintptr_t)&ADCA.CH0RES);
+	dma_channel_set_destination_address(&dmach_conf,
+	        (uint16_t)(uintptr_t)adc_samples);
+\endcode
  * -# Set the DMA channel trigger source to the ADC module channel 0 complete
  *    event:
  *   - \code dma_channel_set_trigger_source(&dmach_conf, DMA_CH_TRIGSRC_ADCA_CH0_gc); \endcode
@@ -1359,15 +1359,15 @@ static inline void dma_channel_set_source_hugemem(
  * -# Set up the DMA channel interrupt to run at low interrupt priority, and
  *    link it to the user created \c dma_transfer_done() function:
  *      - \code
- * dma_set_callback(DMA_CHANNEL, dma_transfer_done);
- * dma_channel_set_interrupt_level(&dmach_conf, DMA_INT_LVL_LO);
- *        \endcode
+	dma_set_callback(DMA_CHANNEL, dma_transfer_done);
+	dma_channel_set_interrupt_level(&dmach_conf, DMA_INT_LVL_LO);
+\endcode
  * -# Write the DMA channel configuration to the DMA and enable it so that
  *    it can be triggered to start the transfer:
  *   - \code
- * dma_channel_write_config(DMA_CHANNEL, &dmach_conf);
- * dma_channel_enable(DMA_CHANNEL);
- *     \endcode
+	dma_channel_write_config(DMA_CHANNEL, &dmach_conf);
+	dma_channel_enable(DMA_CHANNEL);
+\endcode
  * -# Initialize the clock system:
  *      - \code sysclk_init(); \endcode
  * -# Call our DMA init function:
@@ -1378,9 +1378,9 @@ static inline void dma_channel_set_source_hugemem(
  * \subsection dma_use_case_2_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  *     \code
- * adc_start_conversion(&ADCA, ADC_CH0);
- * adc_wait_for_interrupt_flag(&ADCA, ADC_CH0);
- *     \endcode
+	adc_start_conversion(&ADCA, ADC_CH0);
+	adc_wait_for_interrupt_flag(&ADCA, ADC_CH0);
+\endcode
  *
  * \subsection dma_use_case_2_usage_flow Workflow
  * -# Start an ADC conversion, result will be automatically copied to the

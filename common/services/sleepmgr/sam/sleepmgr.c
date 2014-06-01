@@ -3,7 +3,7 @@
  *
  * \brief SAM3/SAM4 Sleep manager implementation.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

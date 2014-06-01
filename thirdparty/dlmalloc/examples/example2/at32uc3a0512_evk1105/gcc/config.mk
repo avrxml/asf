@@ -144,3 +144,7 @@ CPPFLAGS = \
 LDFLAGS = \
        -nostartfiles -Wl,-e,_trampoline                   \
        -Wl,--defsym,__stack_size__=4K
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

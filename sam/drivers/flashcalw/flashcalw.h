@@ -3,7 +3,7 @@
  *
  * \brief FlashCALW driver for SAM4L.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -350,14 +350,14 @@ uint32_t flashcalw_picocache_get_version( void );
  * \subsection flashcalw_basic_use_case_setup_code Example code
  * Enable the following macro in the conf_clock.h:
  * \code
- *  #define CONFIG_SYSCLK_SOURCE   SYSCLK_SRC_RCFAST
- *  #define CONFIG_RCFAST_FRANGE    2
- * \endcode
+	#define CONFIG_SYSCLK_SOURCE   SYSCLK_SRC_RCFAST
+	#define CONFIG_RCFAST_FRANGE    2
+\endcode
  *
  * Add the following code in the application C-file:
  * \code
- *  sysclk_init();
- * \endcode
+	sysclk_init();
+\endcode
  *
  * \subsection flashcalw_basic_use_case_setup_flow Workflow
  * -# Set system clock source as fast RC oscillator:
@@ -371,20 +371,20 @@ uint32_t flashcalw_picocache_get_version( void );
  * \subsection flashcalw_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    #define MAGIC_NUM 0x4c4d5441
- *    #define PAGE_ADDRESS (FLASH_ADDR + FLASH_SIZE - FLASH_PAGE_SIZE)
- *    #define USER_PAGE_ADDRESS (FLASH_USER_PAGE_ADDR + 8)
- *    static const uint32_t write_data = MAGIC_NUM;
- *
- *    flashcalw_memcpy((void *)PAGE_ADDRESS, &write_data, 4, true);
- *    flashcalw_memcpy((void *)USER_PAGE_ADDRESS, &write_data, 4, true);
- * \endcode
+	    #define MAGIC_NUM 0x4c4d5441
+	    #define PAGE_ADDRESS (FLASH_ADDR + FLASH_SIZE - FLASH_PAGE_SIZE)
+	    #define USER_PAGE_ADDRESS (FLASH_USER_PAGE_ADDR + 8)
+	    static const uint32_t write_data = MAGIC_NUM;
+
+	    flashcalw_memcpy((void *)PAGE_ADDRESS, &write_data, 4, true);
+	    flashcalw_memcpy((void *)USER_PAGE_ADDRESS, &write_data, 4, true);
+\endcode
  *
  * \subsection flashcalw_basic_use_case_usage_flow Workflow
  * -# Define the written locations and magic number:
  *   - \code #define MAGIC_NUM 0x4c4d5441 \endcode
  *   - \code #define PAGE_ADDRESS (FLASH_ADDR + FLASH_SIZE - FLASH_PAGE_SIZE)
- * \endcode
+\endcode
  *   - \code USER_PAGE_ADDRESS (FLASH_USER_PAGE_ADDR + 8) \endcode
  *   - \note The storage location must not at the beginning of the user page as the first 2
  * words of the user page is reserved.
@@ -393,7 +393,7 @@ uint32_t flashcalw_picocache_get_version( void );
  *   - \code flashcalw_memcpy((void *)PAGE_ADDRESS, &write_data, 4, true); \endcode
  * -# Write the magic number to the user page:
  *   - \code flashcalw_memcpy((void *)USER_PAGE_ADDRESS, &write_data, 4, true);
- * \endcode
+\endcode
  *
  */
 #endif  /* FLASHCALW_H_INCLUDED */

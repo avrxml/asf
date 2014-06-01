@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Timer Counter type 4 or 5 (TC4/5) driver
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,40 +49,41 @@
 extern "C" {
 #endif
 
-/*
- * Fix XMEGA IAR header files
- */
-#if defined(__IAR_SYSTEMS_ICC__)
+// Fix for IAR header files (missing/wrong enums)
+
 /* Fault A Halt Action Selection */
-typedef enum FAULT_HALTA_enum {
-	FAULT_HALTA_DISABLE_gc = (0x00 << 5),  /* Halt Action Disabled */
-	FAULT_HALTA_HW_gc = (0x01 << 5),       /* Hardware Halt Action */
-	FAULT_HALTA_SW_gc = (0x02 << 5),       /* Software Halt Action */
-} FAULT_HALTA_t;
+/* Halt Action Disabled */
+#define tmpfix_FAULT_HALTA_DISABLE_gc  (0x00 << 5)
+/* Hardware Halt Action */
+#define tmpfix_FAULT_HALTA_HW_gc  (0x01 << 5)
+/* Software Halt Action */
+#define tmpfix_FAULT_HALTA_SW_gc  (0x02 << 5)
 
 /* Fault B Halt Action Selection */
-typedef enum FAULT_HALTB_enum {
-	FAULT_HALTB_DISABLE_gc = (0x00 << 5),  /* Halt Action Disabled */
-	FAULT_HALTB_HW_gc = (0x01 << 5),       /* Hardware Halt Action */
-	FAULT_HALTB_SW_gc = (0x02 << 5),       /* Software Halt Action */
-} FAULT_HALTB_t;
+/* Halt Action Disabled */
+#define tmpfix_FAULT_HALTB_DISABLE_gc  (0x00 << 5)
+/* Hardware Halt Action */
+#define tmpfix_FAULT_HALTB_HW_gc  (0x01 << 5)
+/* Software Halt Action */
+#define tmpfix_FAULT_HALTB_SW_gc  (0x02 << 5)
 
 /* Channel index Command */
-typedef enum FAULT_IDXCMD_enum {
-	FAULT_IDXCMD_DISABLE_gc = (0x00 << 3), /* Command Disabled */
-	FAULT_IDXCMD_SET_gc = (0x01 << 3),     /* Force Cycle B in Next Cycle */
-	FAULT_IDXCMD_CLEAR_gc = (0x02 << 3),   /* Force Cycle A in Next Cycle */
-	FAULT_IDXCMD_HOLD_gc = (0x03 << 3),    /* Hold Current Cycle Index in
-	                                        * Next Cycle  */
-} FAULT_IDXCMD_t;
+/* Command Disabled */
+#define tmpfix_FAULT_IDXCMD_DISABLE_gc  (0x00 << 3)
+/* Force Cycle B in Next Cycle */
+#define tmpfix_FAULT_IDXCMD_SET_gc  (0x01 << 3)
+/* Force Cycle A in Next Cycle */
+#define tmpfix_FAULT_IDXCMD_CLEAR_gc  (0x02 << 3)
+/* Hold Current Cycle Index in Next Cycle */
+#define tmpfix_FAULT_IDXCMD_HOLD_gc  (0x03 << 3)
 
 /* Fix IAREW V6.12 which contains wrong values */
-#undef TC45_WGMODE_SINGLESLOPE_gc
-#undef TC45_WGMODE_DSTOP_gc
-#define TC45_WGMODE_SINGLESLOPE_gc (0x03<<0) /* Single Slope */
-#define TC45_WGMODE_DSTOP_gc       (0x05<<0) /* Dual Slope, Update on TOP */
+/* Single Slope */
+#define tmpfix_TC45_WGMODE_SINGLESLOPE_gc (0x03<<0)
+/* Dual Slope, Update on TOP */
+#define tmpfix_TC45_WGMODE_DSTOP_gc       (0x05<<0)
 
-#endif
+// End of fix
 
 /**
  * \defgroup tc45_group Timer Counter type 4/5(TC4/5)
@@ -154,9 +155,9 @@ enum tc45_wg_mode_t {
 	/* ! TC45 in Frequency Generator mode */
 	TC45_WG_FRQ = TC45_WGMODE_FRQ_gc,
 	/* ! TC45 in single slope PWM mode */
-	TC45_WG_SS = TC45_WGMODE_SINGLESLOPE_gc,
+	TC45_WG_SS = tmpfix_TC45_WGMODE_SINGLESLOPE_gc,
 	/* ! TC45 in dual slope Top PWM mode */
-	TC45_WG_DS_T = TC45_WGMODE_DSTOP_gc,
+	TC45_WG_DS_T = tmpfix_TC45_WGMODE_DSTOP_gc,
 	/* ! TC45 in dual slope Top Bottom PWM mode */
 	TC45_WG_DS_TB = TC45_WGMODE_DSBOTH_gc,
 	/* ! TC45 in dual slope Bottom PWM mode */
@@ -202,21 +203,21 @@ enum fault_sourceE_mode_t {
 /* ! Fault Halt A selection */
 enum fault_haltA_mode_t {
 	/* ! OTMX in normal Mode */
-	FAULT_HALTA_DEFAULT = FAULT_HALTA_DISABLE_gc,
+	FAULT_HALTA_DEFAULT = tmpfix_FAULT_HALTA_DISABLE_gc,
 	/* ! OTMX in normal Mode */
-	FAULT_HALTA_HW = FAULT_HALTA_HW_gc,
+	FAULT_HALTA_HW = tmpfix_FAULT_HALTA_HW_gc,
 	/* ! OTMX in normal Mode */
-	FAULT_HALTA_SW = FAULT_HALTA_SW_gc,
+	FAULT_HALTA_SW = tmpfix_FAULT_HALTA_SW_gc,
 };
 
 /* ! Fault Halt B selection */
 enum fault_haltB_mode_t {
 	/* ! OTMX in normal Mode */
-	FAULT_HALTB_DEFAULT = FAULT_HALTB_DISABLE_gc,
+	FAULT_HALTB_DEFAULT = tmpfix_FAULT_HALTB_DISABLE_gc,
 	/* ! OTMX in normal Mode */
-	FAULT_HALTB_HW = FAULT_HALTB_HW_gc,
+	FAULT_HALTB_HW = tmpfix_FAULT_HALTB_HW_gc,
 	/* ! OTMX in normal Mode */
-	FAULT_HALTB_SW = FAULT_HALTB_SW_gc,
+	FAULT_HALTB_SW = tmpfix_FAULT_HALTB_SW_gc,
 };
 
 /* ! Wex Output Matrix mode */
@@ -286,7 +287,11 @@ void tc45_disable(volatile void *tc);
  * function. Without setting a callback function the interrupt handler in the
  * driver will only clear the interrupt flags.
  *
- * \param tc Pointer to the Timer Counter (TC45) base address
+ * \note Once a callback function is set, the interrupt priority must be set
+ *       via \ref tc45_set_overflow_interrupt_level() for interrupts to be generated
+ *       each time the timer overflow event occurs.
+ *
+ * \param tc Pointer to the Timer Counter (TC) base address
  * \param callback Reference to a callback function
  */
 void tc45_set_overflow_interrupt_callback(volatile void *tc,
@@ -299,7 +304,11 @@ void tc45_set_overflow_interrupt_callback(volatile void *tc,
  * function. Without setting a callback function the interrupt handler in the
  * driver will only clear the interrupt flags.
  *
- * \param tc Pointer to the Timer Counter (TC45) base address
+ * \note Once a callback function is set, the interrupt priority must be set
+ *       via \ref tc45_set_error_interrupt_level() for interrupts to be
+ *       generated each time a timer error occurs.
+ *
+ * \param tc Pointer to the Timer Counter (TC) base address
  * \param callback Reference to a callback function
  */
 void tc45_set_error_interrupt_callback(volatile void *tc,
@@ -312,7 +321,11 @@ void tc45_set_error_interrupt_callback(volatile void *tc,
  * function. Without setting a callback function the interrupt handler in the
  * driver will only clear the interrupt flags.
  *
- * \param tc Pointer to the Timer Counter (TC45) base address
+ * \note Once a callback function is set, the interrupt priority must be set
+ *       via \ref tc45_set_cca_interrupt_level() for interrupts to be generated
+ *       each time the timer channel A compare matches the current timer count.
+ *
+ * \param tc Pointer to the Timer Counter (TC) base address
  * \param callback Reference to a callback function
  */
 void tc45_set_cca_interrupt_callback(volatile void *tc,
@@ -325,7 +338,11 @@ void tc45_set_cca_interrupt_callback(volatile void *tc,
  * function. Without setting a callback function the interrupt handler in the
  * driver will only clear the interrupt flags.
  *
- * \param tc Pointer to the Timer Counter (TC45) base address
+ * \note Once a callback function is set, the interrupt priority must be set
+ *       via \ref tc45_set_ccb_interrupt_level() for interrupts to be generated
+ *       each time the timer channel B compare matches the current timer count.
+ *
+ * \param tc Pointer to the Timer Counter (TC) base address
  * \param callback Reference to a callback function
  */
 void tc45_set_ccb_interrupt_callback(volatile void *tc,
@@ -338,7 +355,11 @@ void tc45_set_ccb_interrupt_callback(volatile void *tc,
  * function. Without setting a callback function the interrupt handler in the
  * driver will only clear the interrupt flags.
  *
- * \param tc Pointer to the Timer Counter (TC45) base address
+ * \note Once a callback function is set, the interrupt priority must be set
+ *       via \ref tc45_set_ccc_interrupt_level() for interrupts to be generated
+ *       each time the timer channel C compare matches the current timer count.
+ *
+ * \param tc Pointer to the Timer Counter (TC) base address
  * \param callback Reference to a callback function
  */
 void tc45_set_ccc_interrupt_callback(volatile void *tc,
@@ -351,7 +372,11 @@ void tc45_set_ccc_interrupt_callback(volatile void *tc,
  * function. Without setting a callback function the interrupt handler in the
  * driver will only clear the interrupt flags.
  *
- * \param tc Pointer to the Timer Counter (TC45) base address
+ * \note Once a callback function is set, the interrupt priority must be set
+ *       via \ref tc45_set_ccd_interrupt_level() for interrupts to be generated
+ *       each time the timer channel D compare matches the current timer count.
+ *
+ * \param tc Pointer to the Timer Counter (TC) base address
  * \param callback Reference to a callback function
  */
 void tc45_set_ccd_interrupt_callback(volatile void *tc,
@@ -1962,7 +1987,7 @@ static inline void tc45_fault_set_idx(FAULT_t *FAULT)
 {
 	((FAULT_t *)FAULT)->CTRLGSET
 		= (((FAULT_t *)FAULT)->CTRLGSET &
-			~FAULT_IDXCMD_gm) | FAULT_IDXCMD_SET_gc;
+			~FAULT_IDXCMD_gm) | tmpfix_FAULT_IDXCMD_SET_gc;
 }
 
 /**
@@ -1975,7 +2000,7 @@ static inline void tc45_fault_clear_idx(FAULT_t *FAULT)
 {
 	((FAULT_t *)FAULT)->CTRLGSET
 		= (((FAULT_t *)FAULT)->CTRLGSET &
-			~FAULT_IDXCMD_gm) | FAULT_IDXCMD_CLEAR_gc;
+			~FAULT_IDXCMD_gm) | tmpfix_FAULT_IDXCMD_CLEAR_gc;
 }
 
 /**
@@ -1988,7 +2013,7 @@ static inline void tc45_fault_hold_idx(FAULT_t *FAULT)
 {
 	((FAULT_t *)FAULT)->CTRLGSET
 		= (((FAULT_t *)FAULT)->CTRLGSET &
-			~FAULT_IDXCMD_gm) | FAULT_IDXCMD_HOLD_gc;
+			~FAULT_IDXCMD_gm) | tmpfix_FAULT_IDXCMD_HOLD_gc;
 }
 
 /**
@@ -2469,23 +2494,23 @@ static inline void tc45_hires_set_mode(HIRES_t *hires, HIRES_HREN_t hi_res_mode)
  * Add a callback function that will be executed when the overflow interrupt
  * trigger.
  * \code
- * static void my_callback(void)
- * {
- *     // User code to execute when the overflow occurs here
- * }
- * \endcode
+	static void my_callback(void)
+	{
+	    // User code to execute when the overflow occurs here
+	}
+\endcode
  * Add to, e.g., the main loop in the application C-file:
  * \code
- * sysclk_init();
- * tc45_enable(&TCC4);
- * tc45_set_overflow_interrupt_callback(&TCC4, my_callback);
- * tc45_set_wgm(&TCC4, TC45_WG_NORMAL);
- * tc45_write_period(&TCC4, 1000);
- * tc45_set_overflow_interrupt_level(&TCC4, TC45_INT_LVL_LO);
- * irq_initialize_vectors();
- * cpu_irq_enable();
- * tc45_write_clock_source(&TCC4, TC45_CLKSEL_DIV1_gc);
- * \endcode
+	sysclk_init();
+	tc45_enable(&TCC4);
+	tc45_set_overflow_interrupt_callback(&TCC4, my_callback);
+	tc45_set_wgm(&TCC4, TC45_WG_NORMAL);
+	tc45_write_period(&TCC4, 1000);
+	tc45_set_overflow_interrupt_level(&TCC4, TC45_INT_LVL_LO);
+	irq_initialize_vectors();
+	cpu_irq_enable();
+	tc45_write_clock_source(&TCC4, TC45_CLKSEL_DIV1_gc);
+\endcode
  *
  * \subsection xmega_tc45_qs_ovf_setup_code_workflow Workflow
  *
@@ -2553,32 +2578,32 @@ static inline void tc45_hires_set_mode(HIRES_t *hires, HIRES_HREN_t hi_res_mode)
  * Add two callback functions that will be executed when compare match A and 
  * compare match B occurs
  * \code
- * static void my_cca_callback(void)
- * {
- *    // User code here to execute when a channel A compare match occurs
- * }
- * static void my_ccb_callback(void)
- * {
- *    // User code here to execute when a channel B compare match occurs
- * }
- * \endcode
+	static void my_cca_callback(void)
+	{
+	   // User code here to execute when a channel A compare match occurs
+	}
+	static void my_ccb_callback(void)
+	{
+	   // User code here to execute when a channel B compare match occurs
+	}
+\endcode
  * Add to, e.g., the main loop in the application C-file:
  * \code
- * sysclk_init();
- * irq_initialize_vectors();
- * cpu_irq_enable();
- * tc45_enable(&TCC4);
- * tc45_set_cca_interrupt_callback(&TCC4, my_cca_callback);
- * tc45_set_ccb_interrupt_callback(&TCC4, my_ccb_callback);
- * tc45_set_wgm(&TCC4, TC45_WG_NORMAL);
- * tc45_write_period(&TCC4, 10000);
- * tc45_write_cc(&TCC4, TC45_CCA, 100);
- * tc45_write_cc(&TCC4, TC45_CCB, 1000);
- * tc45_enable_cc_channels(&TCC4,(TC45_CCAEN | TC45_CCBEN));
- * tc45_set_cca_interrupt_level(&TCC4, TC45_INT_LVL_LO);
- * tc45_set_ccb_interrupt_level(&TCC4, TC45_INT_LVL_MED);
- * tc45_write_clock_source(&TCC4, TC45_CLKSEL_DIV1_gc);
- * \endcode
+	sysclk_init();
+	irq_initialize_vectors();
+	cpu_irq_enable();
+	tc45_enable(&TCC4);
+	tc45_set_cca_interrupt_callback(&TCC4, my_cca_callback);
+	tc45_set_ccb_interrupt_callback(&TCC4, my_ccb_callback);
+	tc45_set_wgm(&TCC4, TC45_WG_NORMAL);
+	tc45_write_period(&TCC4, 10000);
+	tc45_write_cc(&TCC4, TC45_CCA, 100);
+	tc45_write_cc(&TCC4, TC45_CCB, 1000);
+	tc45_enable_cc_channels(&TCC4,(TC45_CCAEN | TC45_CCBEN));
+	tc45_set_cca_interrupt_level(&TCC4, TC45_INT_LVL_LO);
+	tc45_set_ccb_interrupt_level(&TCC4, TC45_INT_LVL_MED);
+	tc45_write_clock_source(&TCC4, TC45_CLKSEL_DIV1_gc);
+\endcode
  *
  * \subsection xmega_tc45_qs_cc_setup_code_workflow Workflow
  *
@@ -2649,15 +2674,15 @@ static inline void tc45_hires_set_mode(HIRES_t *hires, HIRES_HREN_t hi_res_mode)
  *
  * Add to, e.g., the main loop in the application C-file:
  * \code
- * board_init();
- * sysclk_init();
- * tc45_enable(&TCC4);
- * tc45_set_wgm(&TCC4, TC45_WG_SS);
- * tc45_write_period(&TCC4, 1950);
- * tc45_write_cc(&TCC4, TC45_CCA, 195);
- * tc45_enable_cc_channels(&TCC4,TC45_CCAEN);
- * tc45_write_clock_source(&TCC4, TC45_CLKSEL_DIV1024_gc);
- * \endcode
+	board_init();
+	sysclk_init();
+	tc45_enable(&TCC4);
+	tc45_set_wgm(&TCC4, TC45_WG_SS);
+	tc45_write_period(&TCC4, 1950);
+	tc45_write_cc(&TCC4, TC45_CCA, 195);
+	tc45_enable_cc_channels(&TCC4,TC45_CCAEN);
+	tc45_write_clock_source(&TCC4, TC45_CLKSEL_DIV1024_gc);
+\endcode
  *
  * \subsection xmega_tc45_qs_pwm_setup_code_workflow Workflow
  *

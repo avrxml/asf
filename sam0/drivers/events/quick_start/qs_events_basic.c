@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Event System Driver Quick Start
+ * \brief SAM D20/D21/R21 Event System Driver Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,73 +42,70 @@
  */
 #include <asf.h>
 
-void configure_event_channel(void);
-void configure_event_user(void);
-
 //! [setup]
-#define EXAMPLE_EVENT_GENERATOR    0
-#define EXAMPLE_EVENT_CHANNEL      EVENT_CHANNEL_0
-#define EXAMPLE_EVENT_USER         0
 
-void configure_event_channel(void)
+#define EXAMPLE_EVENT_GENERATOR    EVSYS_ID_GEN_TC4_MCX_0
+#define EXAMPLE_EVENT_USER         EVSYS_ID_USER_TC3_EVU
+
+static void configure_event_channel(struct events_resource *resource)
 {
 //! [setup_1]
-	struct events_chan_config config_events_chan;
+	struct events_config config;
 //! [setup_1]
+
 //! [setup_2]
-	events_chan_get_config_defaults(&config_events_chan);
+	events_get_config_defaults(&config);
 //! [setup_2]
 
 //! [setup_3]
-	config_events_chan.generator_id   = EXAMPLE_EVENT_GENERATOR;
-	config_events_chan.edge_detection = EVENT_EDGE_RISING;
-	config_events_chan.path           = EVENT_PATH_SYNCHRONOUS;
+	config.generator      = EXAMPLE_EVENT_GENERATOR;
+	config.edge_detect    = EVENTS_EDGE_DETECT_RISING;
+	config.path           = EVENTS_PATH_SYNCHRONOUS;
+	config.clock_source   = GCLK_GENERATOR_0;
 //! [setup_3]
+
 //! [setup_4]
-	events_chan_set_config(EXAMPLE_EVENT_CHANNEL, &config_events_chan);
+	events_allocate(resource, &config);
 //! [setup_4]
 }
 
-void configure_event_user(void)
+static void configure_event_user(struct events_resource *resource)
 {
 //! [setup_5]
-	struct events_user_config config_events_user;
+	events_attach_user(resource, EXAMPLE_EVENT_USER);
 //! [setup_5]
-//! [setup_6]
-	events_user_get_config_defaults(&config_events_user);
-//! [setup_6]
-
-//! [setup_7]
-	config_events_user.event_channel_id = EXAMPLE_EVENT_CHANNEL;
-//! [setup_7]
-//! [setup_8]
-	events_user_set_config(EXAMPLE_EVENT_USER, &config_events_user);
-//! [setup_8]
 }
+
 //! [setup]
 
 int main(void)
 {
-	//! [setup_init]
-	events_init();
+//! [events_resource_struct]
+	struct events_resource example_event;
+//! [events_resource_struct]
 
-	configure_event_user();
-	configure_event_channel();
-	//! [setup_init]
+	system_init();
+
+//! [setup_init]
+	configure_event_channel(&example_event);
+	configure_event_user(&example_event);
+//! [setup_init]
 
 	//! [main]
+
 	//! [main_1]
-	while (events_chan_is_ready(EXAMPLE_EVENT_CHANNEL) == false) {
+	while (events_is_busy(&example_event)) {
 		/* Wait for channel */
 	};
 	//! [main_1]
 
 	//! [main_2]
-	events_chan_software_trigger(EXAMPLE_EVENT_CHANNEL);
+	events_trigger(&example_event);
 	//! [main_2]
 
 	while (true) {
 		/* Nothing to do */
 	}
+
 	//! [main]
 }

@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,9 +44,9 @@
 
 /* ========== Register definition for GPBR peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-#define REG_GPBR_GPBR            (0x400E1490U) /**< \brief (GPBR) General Purpose Backup Register */
+  #define REG_GPBR_GPBR                  (0x400E1490U) /**< \brief (GPBR) General Purpose Backup Register */
 #else
-#define REG_GPBR_GPBR   (*(RwReg*)0x400E1490U) /**< \brief (GPBR) General Purpose Backup Register */
+  #define REG_GPBR_GPBR (*(__IO uint32_t*)0x400E1490U) /**< \brief (GPBR) General Purpose Backup Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAM4S_GPBR_INSTANCE_ */

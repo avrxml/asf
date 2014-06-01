@@ -3,7 +3,7 @@
  *
  * \brief USART ISO7816 example for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,8 +52,9 @@
  *  This example can be used on SAM evaluation kit. Please connect the
  *  smartcard contacts with following pins which could be easily wired from
  *  the board. 
- *  On SAM3N-EK, SAM3U-EK, and SAM3X-EK use USART0 TXD0 and SCK0, 
- *  On SAM3S-EK, SAM3S-EK2, SAM4S-EK and SAM4E-EK use USART1 TXD1 and SCK1.
+ *  SAM3N-EK, SAM3U-EK, SAM3X-EK and SAM4N-Xplained-Pro use USART0 TXD0 and SCK0, 
+ *  SAM3S-EK, SAM3S-EK2, SAM4S-EK and SAM4E-EK use USART1 TXD1 and SCK1.
+ *  SAM4C-EK uses USART2 TXD2 and SCK2.
  *  - <b>SAM-EK -- SMARTCARD</b>
  *   - PA15     --    RST
  *   - TXD*     --    I/O
@@ -82,10 +83,10 @@
  *  -# Connect the card reader to SAM EK board as described before:
  *  -# Start the application. The following traces shall appear on the terminal:
  *     \code
- *      -- USART ISO7816 Example --
- *      -- xxxxxx-xx
- *      -- Compiled: xxx xx xxxx xx:xx:xx --
- *     \endcode
+	-- USART ISO7816 Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
  *
  */
 

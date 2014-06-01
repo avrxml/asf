@@ -3,7 +3,7 @@
  *
  * \brief USB configuration file for CDC application
  *
- * Copyright (c) 2009-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -82,7 +82,7 @@
 //! To authorize the High speed
 #if (UC3A3||UC3A4)
 #define  USB_DEVICE_HS_SUPPORT
-#elif (SAM3XA)
+#elif (SAM3XA||SAM3U)
 #define  USB_DEVICE_HS_SUPPORT
 #endif
 //@}
@@ -101,6 +101,11 @@
 // extern void user_callback_remotewakeup_enable(void);
 // #define  UDC_REMOTEWAKEUP_DISABLE()       user_callback_remotewakeup_disable()
 // extern void user_callback_remotewakeup_disable(void);
+#ifdef USB_DEVICE_LPM_SUPPORT
+#define  UDC_SUSPEND_LPM_EVENT()          main_suspend_lpm_action()
+#define  UDC_REMOTEWAKEUP_LPM_ENABLE()    main_remotewakeup_lpm_enable()
+#define  UDC_REMOTEWAKEUP_LPM_DISABLE()   main_remotewakeup_lpm_disable()
+#endif
 //! When a extra string descriptor must be supported
 //! other than manufacturer, product and serial string
 // #define  UDC_GET_EXTRA_STRING()

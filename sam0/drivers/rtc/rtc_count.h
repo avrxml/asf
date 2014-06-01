@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 RTC Driver (Count Mode)
+ * \brief SAM D20/D21/R21 RTC Driver (Count Mode)
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,9 +45,9 @@
 #define RTC_COUNT_H_INCLUDED
 
 /**
- * \defgroup asfdoc_samd20_rtc_count_group SAM D20 RTC Count Driver (RTC COUNT)
+ * \defgroup asfdoc_sam0_rtc_count_group SAM D20/D21/R21 RTC Count Driver (RTC COUNT)
  *
- * This driver for SAM D20 devices provides an interface for the configuration
+ * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
  * and management of the device's Real Time Clock functionality in Count
  * operating mode, for the configuration and retrieval of the current RTC
  * counter value. The following driver API modes are covered by this
@@ -63,22 +63,22 @@
  *  - RTC (Real Time Clock)
  *
  * The outline of this documentation is as follows:
- *  - \ref asfdoc_samd20_rtc_count_prerequisites
- *  - \ref asfdoc_samd20_rtc_count_module_overview
- *  - \ref asfdoc_samd20_rtc_count_special_considerations
- *  - \ref asfdoc_samd20_rtc_count_extra_info
- *  - \ref asfdoc_samd20_rtc_count_examples
- *  - \ref asfdoc_samd20_rtc_count_api_overview
+ *  - \ref asfdoc_sam0_rtc_count_prerequisites
+ *  - \ref asfdoc_sam0_rtc_count_module_overview
+ *  - \ref asfdoc_sam0_rtc_count_special_considerations
+ *  - \ref asfdoc_sam0_rtc_count_extra_info
+ *  - \ref asfdoc_sam0_rtc_count_examples
+ *  - \ref asfdoc_sam0_rtc_count_api_overview
  *
  *
- * \section asfdoc_samd20_rtc_count_prerequisites Prerequisites
+ * \section asfdoc_sam0_rtc_count_prerequisites Prerequisites
  *
  * There are no prerequisites for this module.
  *
  *
- * \section asfdoc_samd20_rtc_count_module_overview Module Overview
+ * \section asfdoc_sam0_rtc_count_module_overview Module Overview
  *
- * The RTC module in the SAM D20 devices is a 32-bit counter, with a 10-bit
+ * The RTC module in the SAM D20/D21/R21 devices is a 32-bit counter, with a 10-bit
  * programmable prescaler. Typically, the RTC clock is run continuously,
  * including in the device's low-power sleep modes, to track the current time
  * and date information. The RTC can be used as a source to wake up the system
@@ -97,7 +97,7 @@
  *   - Up to 4 configurable compare values
  *
  *
- * \section asfdoc_samd20_rtc_count_module_overview_compares Compare and Overflow
+ * \section asfdoc_sam0_rtc_count_module_overview_compares Compare and Overflow
  * The RTC can be used with up to 4/6 compare values (depending on selected
  * operation mode). These compare values will trigger on match with the current
  * RTC counter value, and can be set up to trigger an interrupt, event, or both.
@@ -115,7 +115,7 @@
  * value. The counter overflow will then occur when the counter value reaches
  * the specified period value.
  *
- * \subsection asfdoc_samd20_rtc_count_module_overview_periodic Periodic Events
+ * \subsection asfdoc_sam0_rtc_count_module_overview_periodic Periodic Events
  * The RTC can generate events at periodic intervals, allowing for direct
  * peripheral actions without CPU intervention. The periodic events can be
  * generated on the upper 8 bits of the RTC prescaler, and will be generated on
@@ -128,9 +128,9 @@
  * module configuration. The \b n parameter is the event source generator index
  * of the RTC module. If the asynchronous clock is operated at the recommended
  * frequency of 1 KHz, the formula results in the values shown in
- * \ref asfdoc_samd20_rtc_count_module_rtc_hz "the table below".
+ * \ref asfdoc_sam0_rtc_count_module_rtc_hz "the table below".
  *
- * \anchor asfdoc_samd20_rtc_count_module_rtc_hz
+ * \anchor asfdoc_sam0_rtc_count_module_rtc_hz
  * <table>
  *   <caption>RTC event frequencies for each prescaler bit using a 1KHz clock</caption>
  *   <tr>
@@ -162,7 +162,13 @@
  *   </tr>
  * </table>
  *
- * \subsection asfdoc_samd20_rtc_count_module_overview_correction Digital Frequency Correction
+ * \note The connection of events between modules requires the use of the
+ *       \ref asfdoc_sam0_events_group "SAM D20/D21/R21 Event System Driver (EVENTS)"
+ *       to route output event of one module to the the input event of another.
+ *       For more information on event routing, refer to the event driver
+ *       documentation.
+ *
+ * \subsection asfdoc_sam0_rtc_count_module_overview_correction Digital Frequency Correction
  * The RTC module contains Digital Frequency Correction logic to compensate for
  * inaccurate source clock frequencies which would otherwise result in skewed
  * time measurements. The correction scheme requires that at least two bits
@@ -181,9 +187,9 @@
  * and slower when given a negative correction value.
  *
  *
- * \section asfdoc_samd20_rtc_count_special_considerations Special Considerations
+ * \section asfdoc_sam0_rtc_count_special_considerations Special Considerations
  *
- * \subsection asfdoc_samd20_rtc_count_special_considerations_clock Clock Setup
+ * \subsection asfdoc_sam0_rtc_count_special_considerations_clock Clock Setup
  * The RTC is typically clocked by a specialized GCLK generator that has a
  * smaller prescaler than the others. By default the RTC clock is on, selected
  * to use the internal 32 KHz RC-oscillator with a prescaler of 32, giving a
@@ -191,11 +197,11 @@
  * prescaler is set to 1024, this yields an end-frequency of 1 Hz.
  *
  * The implementer also has the option to set other end-frequencies.
- * \ref asfdoc_samd20_rtc_count_rtc_out_freq "The table below" lists the
+ * \ref asfdoc_sam0_rtc_count_rtc_out_freq "The table below" lists the
  * available RTC frequencies for each possible GCLK and RTC input prescaler
  * options.
  *
- * \anchor asfdoc_samd20_rtc_count_rtc_out_freq
+ * \anchor asfdoc_sam0_rtc_count_rtc_out_freq
  * <table>
  *   <caption>RTC output frequencies from allowable input clocks</caption>
  *   <tr>
@@ -221,9 +227,9 @@
  * </table>
  *
  * The overall RTC module clocking scheme is shown in
- * \ref asfdoc_samd20_rtc_count_rtc_clock_fig "the figure below".
+ * \ref asfdoc_sam0_rtc_count_rtc_clock_fig "the figure below".
  *
- * \anchor asfdoc_samd20_rtc_count_rtc_clock_fig
+ * \anchor asfdoc_sam0_rtc_count_rtc_clock_fig
  * \dot
  * digraph clocking_scheme {
  *     rankdir=LR;
@@ -238,22 +244,22 @@
  * \enddot
  *
  *
- * \section asfdoc_samd20_rtc_count_extra_info Extra Information for RTC COUNT
+ * \section asfdoc_sam0_rtc_count_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_samd20_rtc_count_extra. This includes:
- *  - \ref asfdoc_samd20_rtc_count_extra_acronyms
- *  - \ref asfdoc_samd20_rtc_count_extra_dependencies
- *  - \ref asfdoc_samd20_rtc_count_extra_errata
- *  - \ref asfdoc_samd20_rtc_count_extra_history
+ * For extra information see \ref asfdoc_sam0_rtc_count_extra. This includes:
+ *  - \ref asfdoc_sam0_rtc_count_extra_acronyms
+ *  - \ref asfdoc_sam0_rtc_count_extra_dependencies
+ *  - \ref asfdoc_sam0_rtc_count_extra_errata
+ *  - \ref asfdoc_sam0_rtc_count_extra_history
  *
  *
- * \section asfdoc_samd20_rtc_count_examples Examples
+ * \section asfdoc_sam0_rtc_count_examples Examples
  *
  * For a list of examples related to this driver, see
- * \ref asfdoc_samd20_rtc_count_exqsg.
+ * \ref asfdoc_sam0_rtc_count_exqsg.
  *
  *
- * \section asfdoc_samd20_rtc_count_api_overview API Overview
+ * \section asfdoc_sam0_rtc_count_api_overview API Overview
  * @{
  */
 
@@ -397,16 +403,18 @@ struct rtc_count_events {
 	bool generate_event_on_compare[RTC_NUM_OF_COMP16];
 	/** Generate an output event periodically at a binary division of the RTC
 	 *  counter frequency (see
-	 *  \ref asfdoc_samd20_rtc_count_module_overview_periodic).
+	 *  \ref asfdoc_sam0_rtc_count_module_overview_periodic).
 	 */
 	bool generate_event_on_periodic[8];
 };
 
 #if !defined(__DOXYGEN__)
 /**
- * \internal Internal device structure.
+ * \brief Device structure.
  */
-struct _rtc_device {
+struct rtc_module {
+	/** RTC hardware module */
+	Rtc *hw;
 	/** Operation mode of count. */
 	enum rtc_count_mode mode;
 	/** Set if counter value should be continuously updated. */
@@ -420,8 +428,6 @@ struct _rtc_device {
 	volatile uint8_t enabled_callback;
 #  endif
 };
-
-extern volatile struct _rtc_device _rtc_dev;
 #endif
 
 /**
@@ -462,14 +468,20 @@ struct rtc_count_config {
  * that it is ready, to prevent blocking delays for synchronization in the
  * user application.
  *
+ * \param[in]  module  RTC hardware module
+ *
  * \return Synchronization status of the underlying hardware module(s).
  *
  * \retval true  if the module has completed synchronization
  * \retval false if the module synchronization is ongoing
  */
-static inline bool rtc_count_is_syncing(void)
+static inline bool rtc_count_is_syncing(struct rtc_module *const module)
 {
-        Rtc *const rtc_module = RTC;
+ 	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
         if (rtc_module->MODE0.STATUS.reg & RTC_STATUS_SYNCBUSY) {
                 return true;
@@ -511,24 +523,29 @@ static inline void rtc_count_get_config_defaults(
 	}
 }
 
-void rtc_count_reset(void);
+void rtc_count_reset(struct rtc_module *const module);
 
 /**
  * \brief Enables the RTC module.
  *
  * Enables the RTC module once it has been configured, ready for use. Most
  * module configuration parameters cannot be altered while the module is enabled.
+ *
+ * \param[in,out]  module  RTC hardware module
  */
-static inline void rtc_count_enable(void)
+static inline void rtc_count_enable(struct rtc_module *const module)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 #if RTC_COUNT_ASYNC == true
 	system_interrupt_enable(SYSTEM_INTERRUPT_MODULE_RTC);
 #endif
 
-	while (rtc_count_is_syncing()) {
+	while (rtc_count_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 
@@ -540,17 +557,22 @@ static inline void rtc_count_enable(void)
  * \brief Disables the RTC module.
  *
  * Disables the RTC module.
+ *
+ * \param[in,out]  module  RTC hardware module
  */
-static inline void rtc_count_disable(void)
+static inline void rtc_count_disable(struct rtc_module *const module)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 #if RTC_COUNT_ASYNC == true
 	system_interrupt_disable(SYSTEM_INTERRUPT_MODULE_RTC);
 #endif
 
-	while (rtc_count_is_syncing()) {
+	while (rtc_count_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 
@@ -558,10 +580,40 @@ static inline void rtc_count_disable(void)
 	rtc_module->MODE0.CTRL.reg &= ~RTC_MODE0_CTRL_ENABLE;
 }
 
+#if (RTC_INST_NUM > 1) && !defined(__DOXYGEN__)
+/**
+ * \internal Find the index of given RTC module instance.
+ *
+ * \param[in] RTC module instance pointer.
+ *
+ * \return Index of the given AC module instance.
+ */
+uint8_t _rtc_get_inst_index(
+		Rtc *const hw)
+{
+	/* List of available RTC modules. */
+	static Rtc *const rtc_modules[RTC_INST_NUM] = RTC_INSTS;
+
+	/* Find index for RTC instance. */
+	for (uint32_t i = 0; i < RTC_INST_NUM; i++) {
+		if (hw == rtc_modules[i]) {
+			return i;
+		}
+	}
+
+	/* Invalid data given. */
+	Assert(false);
+	return 0;
+}
+#endif /* (RTC_INST_NUM > 1) && !defined(__DOXYGEN__) */
+
 enum status_code rtc_count_init(
+		struct rtc_module *const module,
+		Rtc *const hw,
 		const struct rtc_count_config *const config);
 
 enum status_code rtc_count_frequency_correction(
+		struct rtc_module *const module,
 		const int8_t value);
 
 /** @} */
@@ -570,22 +622,27 @@ enum status_code rtc_count_frequency_correction(
  * @{
  */
 enum status_code rtc_count_set_count(
+		struct rtc_module *const module,
 		const uint32_t count_value);
 
-uint32_t rtc_count_get_count(void);
+uint32_t rtc_count_get_count(struct rtc_module *const module);
 
 enum status_code rtc_count_set_compare(
+		struct rtc_module *const module,
 		const uint32_t comp_value,
 		const enum rtc_count_compare comp_index);
 
 enum status_code rtc_count_get_compare(
+		struct rtc_module *const module,
 		uint32_t *const comp_value,
 		const enum rtc_count_compare comp_index);
 
 enum status_code rtc_count_set_period(
+		struct rtc_module *const module,
 		uint16_t period_value);
 
 enum status_code rtc_count_get_period(
+		struct rtc_module *const module,
 		uint16_t *const period_value);
 
 /** @} */
@@ -601,16 +658,21 @@ enum status_code rtc_count_get_period(
  * Checks the overflow flag in the RTC. The flag is set when there
  * is an overflow in the clock.
  *
+ * \param[in,out]  module  RTC hardware module
+ *
  * \return Overflow state of the RTC module.
  *
  * \retval true   If the RTC count value has overflowed
  * \retval false  If the RTC count value has not overflowed
  */
 
-static inline bool rtc_count_is_overflow(void)
+static inline bool rtc_count_is_overflow(struct rtc_module *const module)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Return status of flag */
 	return (rtc_module->MODE0.INTFLAG.reg & RTC_MODE0_INTFLAG_OVF);
@@ -621,20 +683,27 @@ static inline bool rtc_count_is_overflow(void)
  *
  * Clears the RTC module counter overflow flag, so that new overflow conditions
  * can be detected.
+ *
+ * \param[in,out]  module  RTC hardware module
  */
-static inline void rtc_count_clear_overflow(void)
+static inline void rtc_count_clear_overflow(struct rtc_module *const module)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Clear OVF flag */
 	rtc_module->MODE0.INTFLAG.reg = RTC_MODE0_INTFLAG_OVF;
 }
 
 bool rtc_count_is_compare_match(
+		struct rtc_module *const module,
 		const enum rtc_count_compare comp_index);
 
 enum status_code rtc_count_clear_compare_match(
+		struct rtc_module *const module,
 		const enum rtc_count_compare comp_index);
 
 /** @} */
@@ -653,13 +722,18 @@ enum status_code rtc_count_clear_compare_match(
  *
  *  \note Events cannot be altered while the module is enabled.
  *
+ *  \param[in,out]  module  RTC hardware module
  *  \param[in] events    Struct containing flags of events to enable
  */
 static inline void rtc_count_enable_events(
+		struct rtc_module *const module,
 		struct rtc_count_events *const events)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	uint32_t event_mask = 0;
 
@@ -694,13 +768,18 @@ static inline void rtc_count_enable_events(
  *
  *  \note Events cannot be altered while the module is enabled.
  *
+ *  \param[in,out]  module  RTC hardware module
  *  \param[in] events    Struct containing flags of events to disable
  */
 static inline void rtc_count_disable_events(
+		struct rtc_module *const module,
 		struct rtc_count_events *const events)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	uint32_t event_mask = 0;
 
@@ -736,9 +815,9 @@ static inline void rtc_count_disable_events(
 #endif
 
 /**
- * \page asfdoc_samd20_rtc_count_extra Extra Information for RTC (COUNT) Driver
+ * \page asfdoc_sam0_rtc_count_extra Extra Information for RTC COUNT Driver
  *
- * \section asfdoc_samd20_rtc_count_extra_acronyms Acronyms
+ * \section asfdoc_sam0_rtc_count_extra_acronyms Acronyms
  * Below is a table listing the acronyms used in this module, along with their
  * intended meanings.
  *
@@ -762,17 +841,17 @@ static inline void rtc_count_disable_events(
  * </table>
  *
  *
- * \section asfdoc_samd20_rtc_count_extra_dependencies Dependencies
+ * \section asfdoc_sam0_rtc_count_extra_dependencies Dependencies
  * This driver has the following dependencies:
  *
  *  - None
  *
  *
- * \section asfdoc_samd20_rtc_count_extra_errata Errata
+ * \section asfdoc_sam0_rtc_count_extra_errata Errata
  * There are no errata related to this driver.
  *
  *
- * \section asfdoc_samd20_rtc_count_extra_history Module History
+ * \section asfdoc_sam0_rtc_count_extra_history Module History
  * An overview of the module history is presented in the table below, with
  * details on the enhancements and fixes made to the module since its first
  * release. The current version of this corresponds to the newest version in
@@ -783,32 +862,58 @@ static inline void rtc_count_disable_events(
  *		<th>Changelog</th>
  *	</tr>
  *	<tr>
+ *		<td>
+ *                     Added support for SAMD21 and added driver instance parameter to all 
+ *                     API function calls, except get_config_defaults.
+ *             </td>
+ *	</tr>
+ *	<tr>
+ *		<td>Updated initialization function to also enable the digital interface
+ *          clock to the module if it is disabled.</td>
+ *	</tr>
+ *	<tr>
  *		<td>Initial Release</td>
  *	</tr>
  * </table>
  */
 
 /**
- * \page asfdoc_samd20_rtc_count_exqsg Examples for RTC (COUNT) Driver
+ * \page asfdoc_sam0_rtc_count_exqsg Examples for RTC (COUNT) Driver
  *
  * This is a list of the available Quick Start guides (QSGs) and example
- * applications for \ref asfdoc_samd20_rtc_count_group. QSGs are simple
+ * applications for \ref asfdoc_sam0_rtc_count_group. QSGs are simple
  * examples with step-by-step instructions to configure and use this driver in a
  * selection of use cases. Note that QSGs can be compiled as a standalone
  * application or be added to the user application.
  *
- *  - \subpage asfdoc_samd20_rtc_count_basic_use_case
+ *  - \subpage asfdoc_sam0_rtc_count_basic_use_case
  * \if RTC_COUNT_CALLBACK_MODE
- *  - \subpage asfdoc_samd20_rtc_count_callback_use_case
+ *  - \subpage asfdoc_sam0_rtc_count_callback_use_case
  * \endif
  *
- * \page asfdoc_samd20_rtc_count_document_revision_history Document Revision History
+ * \page asfdoc_sam0_rtc_count_document_revision_history Document Revision History
  *
  * <table>
  *	<tr>
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>D</td>
+ *		<td>03/2014</td>
+ *		<td>Added support for SAMR21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>C</td>
+ *		<td>01/2014</td>
+ *		<td>Added support for SAMD21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>B</td>
+ *		<td>06/2013</td>
+ *		<td>Added additional documentation on the event system. Corrected
+ *          documentation typos.</td>
  *	</tr>
  *	<tr>
  *		<td>A</td>

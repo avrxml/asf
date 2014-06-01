@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 System related functionality
+ * \brief SAM D20/D21/R21 USART Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -59,7 +59,7 @@ void configure_usart(void)
 //! [setup_config_defaults]
 
 //! [setup_change_config]
-	config_usart.baudrate    = 57600;
+	config_usart.baudrate    = 9600;
 	config_usart.mux_setting = EDBG_CDC_SERCOM_MUX_SETTING;
 	config_usart.pinmux_pad0 = EDBG_CDC_SERCOM_PINMUX_PAD0;
 	config_usart.pinmux_pad1 = EDBG_CDC_SERCOM_PINMUX_PAD1;
@@ -76,11 +76,6 @@ void configure_usart(void)
 //! [setup_enable]
 	usart_enable(&usart_instance);
 //! [setup_enable]
-
-//! [setup_enable_txrx]
-	usart_enable_transceiver(&usart_instance, USART_TRANSCEIVER_TX);
-	usart_enable_transceiver(&usart_instance, USART_TRANSCEIVER_RX);
-//! [setup_enable_txrx]
 }
 //! [setup]
 

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 RTC Calendar Callback Quick Start
+ * \brief SAM D20/D21/R21 RTC Calendar Callback Quick Start
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,19 +42,32 @@
  */
 
 /**
- * \page asfdoc_samd20_rtc_calendar_callback_use_case Quick Start Guide for RTC (CAL) - Callback
+ * \page asfdoc_sam0_rtc_calendar_callback_use_case Quick Start Guide for RTC (CAL) - Callback
  * In this use case, the RTC is set up in calendar mode. The time is set and an
  * alarm is enabled, as well as a callback for when the alarm time is hit. Each
  * time the callback fires, the alarm time is reset to 5 seconds in the future
  * and the board LED toggled.
  *
- * \section asfdoc_samd20_rtc_calendar_callback_use_case_prereq Prerequisites
+ * \section asfdoc_sam0_rtc_calendar_callback_use_case_prereq Prerequisites
  * The Generic Clock Generator for the RTC should be configured and enabled; if
  * you are using the System Clock driver, this may be done via \c conf_clocks.h.
  *
- * \section asfdoc_samd20_rtc_calendar_callback_use_case_setup Setup
+ * \subsection asfdoc_sam0_rtc_calendar_callback_use_case_setup_clocks Clocks and Oscillators
+ * The \c conf_clock.h file needs to be changed with the following values to
+ * configure the clocks and oscillators for the module.
  *
- * \subsection asfdoc_samd20_rtc_calendar_callback_use_case_setup_code Code
+ * The following oscillator settings are needed:
+ * \snippet conf_clocks.h oscillator_settings
+ * The following generic clock settings are needed:
+ * \snippet conf_clocks.h gclk_settings
+ *
+ * \section asfdoc_sam0_rtc_calendar_callback_use_case_setup Setup
+ *
+ * \subsection asfdoc_sam0_rtc_calendar_callback_use_case_setup_code Code
+ * Create a rtc_module struct and add to the main application source file,
+ * outside of any functions:
+ * \snippet qs_rtc_calendar_callback.c rtc_module_instance
+ *
  * The following must be added to the user application:
  *
  * Function for setting up the module:
@@ -69,54 +82,54 @@
  * Add to user application \c main():
  * \snippet qs_rtc_calendar_callback.c run_initialize_rtc
  *
- * \subsection asfdoc_samd20_rtc_calendar_callback_use_case_setup_workflow Workflow
+ * \subsection asfdoc_sam0_rtc_calendar_callback_use_case_setup_workflow Workflow
  * -# Initialize system.
- *  \snippet qs_rtc_calendar_callback.c system_init
+ *    \snippet qs_rtc_calendar_callback.c system_init
  * -# Create and initialize a time structure.
- *  \snippet qs_rtc_calendar_callback.c time
+ *    \snippet qs_rtc_calendar_callback.c time
  * -# Configure and enable module.
- *  \snippet qs_rtc_calendar_callback.c run_conf
+ *    \snippet qs_rtc_calendar_callback.c run_conf
  *  -# Create a RTC configuration structure to hold the desired RTC driver
  *     settings and fill it with the default driver configuration values.
- *   \note This should always be performed before using the configuration
- *         struct to ensure that all values are initialized to known default
- *         settings.
+ *     \snippet qs_rtc_calendar_callback.c init_conf
+ *     \note This should always be performed before using the configuration
+ *           struct to ensure that all values are initialized to known default
+ *           settings.
  *
- *   \snippet qs_rtc_calendar_callback.c init_conf
  *  -# Create and initialize an alarm.
- *   \snippet qs_rtc_calendar_callback.c time_struct
+ *     \snippet qs_rtc_calendar_callback.c time_struct
  *  -# Change settings in the configuration and set alarm.
- *   \snippet qs_rtc_calendar_callback.c set_config
+ *     \snippet qs_rtc_calendar_callback.c set_config
  *  -# Initialize the module with the set configurations.
- *   \snippet qs_rtc_calendar_callback.c init_rtc
+ *     \snippet qs_rtc_calendar_callback.c init_rtc
  *  -# Enable the module.
- *   \snippet qs_rtc_calendar_callback.c enable
+ *     \snippet qs_rtc_calendar_callback.c enable
  * -# Configure callback functionality.
- *  \snippet qs_rtc_calendar_callback.c run_callback
+ *    \snippet qs_rtc_calendar_callback.c run_callback
  *  -# Register overflow callback.
- *   \snippet qs_rtc_calendar_callback.c reg_callback
+ *     \snippet qs_rtc_calendar_callback.c reg_callback
  *  -# Enable overflow callback.
- *   \snippet qs_rtc_calendar_callback.c en_callback
+ *     \snippet qs_rtc_calendar_callback.c en_callback
  * -# Set time of the RTC calendar.
- *  \snippet qs_rtc_calendar_callback.c set_time
+ *    \snippet qs_rtc_calendar_callback.c set_time
  *
- * \section asfdoc_samd20_rtc_calendar_callback_use_case_implementation Implementation
- * \subsection asfdoc_samd20_rtc_calendar_callback_use_case_implementation_code Code
+ * \section asfdoc_sam0_rtc_calendar_callback_use_case_implementation Implementation
+ * \subsection asfdoc_sam0_rtc_calendar_callback_use_case_implementation_code Code
  * Add to user application main:
  * \snippet qs_rtc_calendar_callback.c while
- * \subsection asfdoc_samd20_rtc_calendar_callback_use_case_implementation_workflow Workflow
+ * \subsection asfdoc_sam0_rtc_calendar_callback_use_case_implementation_workflow Workflow
  * -# Infinite while loop while waiting for callbacks.
- *  \snippet qs_rtc_calendar_callback.c main_loop
+ *    \snippet qs_rtc_calendar_callback.c main_loop
  *
- * \section asfdoc_samd20_rtc_calendar_callback_use_case_callback Callback
+ * \section asfdoc_sam0_rtc_calendar_callback_use_case_callback Callback
  * Each time the RTC time matches the configured alarm, the callback function
  * will be called.
- * \subsection asfdoc_samd20_rtc_calendar_callback_use_case_callback_workflow Workflow
+ * \subsection asfdoc_sam0_rtc_calendar_callback_use_case_callback_workflow Workflow
  * -# Create alarm struct and initialize the time with current time.
- *  \snippet qs_rtc_calendar_callback.c alarm_struct
+ *    \snippet qs_rtc_calendar_callback.c alarm_struct
  * -# Set alarm to trigger on seconds only.
- *  \snippet qs_rtc_calendar_callback.c alarm_mask
+ *    \snippet qs_rtc_calendar_callback.c alarm_mask
  * -# Add one second to the current time and set new alarm.
- *  \snippet qs_rtc_calendar_callback.c set_alarm
+ *    \snippet qs_rtc_calendar_callback.c set_alarm
  */
 

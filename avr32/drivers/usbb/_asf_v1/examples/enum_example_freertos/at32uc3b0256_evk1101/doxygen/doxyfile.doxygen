@@ -466,7 +466,7 @@ GENERATE_DEPRECATEDLIST= YES
 # The ENABLED_SECTIONS tag can be used to enable conditional
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       =
+ENABLED_SECTIONS       = 
 
 # The MAX_INITIALIZER_LINES tag determines the maximum number of lines
 # the initial value of a variable or define consists of for it to appear in
@@ -582,7 +582,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  =  ../../../../../../pm/power_clocks_lib.c ../../../enum_example.c ../../../../../../usart/usart.c ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/portable/memmang/heap_3.c ../../../enum/device/usb_descriptors.c ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/timers.c ../../../../enum/device/usb_standard_request.c ../../../../enum/usb_task.c ../../../host_template_task.c ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/tasks.c ../../../../../../intc/intc.c ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/croutine.c ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/list.c ../../../../../../gpio/gpio.c ../../../../../../pm/pm.c ../../../../../../tc/tc.c ../../../../enum/host/usb_host_enum.c ../../../enum/device/usb_specific_request.c ../../../../../../flashc/flashc.c ../../../../../../pm/pm_conf_clocks.c ../../../../usb_drv.c ../../../device_template_task.c ../../../../../../../boards/evk1101/led.c ../../../../enum/device/usb_device_task.c ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/queue.c ../../../../../../../utils/debug/print_funcs.c ../../../../enum/host/usb_host_task.c  ../../../../../../../utils/preprocessor/stringz.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/list.h ../../../../../../../../common/boards/board.h ../../../../../../../../common/utils/parts.h ../../../../../../pm/power_clocks_lib.h ../../../enum/device/usb_descriptors.h ../../../../../../../utils/header_files/uc3l3_l4_defines_fix.h ../../../../../../../utils/preprocessor/preprocessor.h ../../../../../../pm/sleep.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/portable.h ../../../../../../../../common/utils/interrupt.h ../../freertos/FreeRTOSConfig.h ../../../../enum/usb_task.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/timers.h ../../../../../../cpu/cycle_counter/cycle_counter.h ../../../../../../usart/usart.h ../../../../../../../boards/evk1101/evk1101.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/FreeRTOS.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/croutine.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/semphr.h ../../../../../../gpio/gpio.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/task.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/projdefs.h ../../../../../../pm/pm.h ../../../../../../../utils/status_codes.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/StackMacros.h ../../../../../../intc/intc.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/queue.h ../../../../../../flashc/flashc.h ../../../enum/conf_usb.h ../../../../usbb.h ../../../../../../../boards/evk1101/led.h ../../../../../../../utils/header_files/uc3d_defines_fix.h ../../../../../../tc/tc.h ../../../enum/device/usb_specific_request.h ../../../../../../../utils/preprocessor/tpaste.h ../../../../../../../services/usb/_asf_v1/usb_ids.h ../../../../../../../../common/utils/interrupt/interrupt_avr32.h ../../../../usb_drv.h ../../../../enum/device/usb_device_task.h ../../../../../../../utils/compiler.h ../../../host_template_task.h ../../../device_template_task.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/mpu_wrappers.h ../../../../../../../utils/debug/print_funcs.h ../../../../enum/device/usb_standard_request.h ../../../../enum/host/usb_host_task.h ../../../../../../../utils/startup/trampoline_uc3.h ../../../../enum/host/usb_host_enum.h ../../../../../../../utils/preprocessor/mrepeat.h
+INPUT                  = ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/croutine.c ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/list.c ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/portable/memmang/heap_3.c ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/queue.c ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/tasks.c ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/timers.c ../../../../../../gpio/gpio.c ../../../../../../intc/intc.c ../../../../../../tc/tc.c ../../../../../../usart/usart.c ../../../device_template_task.c ../../../enum/device/usb_descriptors.c ../../../enum/device/usb_specific_request.c ../../../enum_example.c ../../../host_template_task.c ../../../../../../pm/pm.c ../../../../../../pm/pm_conf_clocks.c ../../../../../../pm/power_clocks_lib.c ../../../../../../flashc/flashc.c ../../../../enum/device/usb_device_task.c ../../../../enum/device/usb_standard_request.c ../../../../enum/usb_task.c ../../../../usb_drv.c ../../../../enum/host/usb_host_enum.c ../../../../enum/host/usb_host_task.c ../../../../../../../utils/debug/print_funcs.c ../../../../../../../boards/evk1101/led.c ../../freertos/FreeRTOSConfig.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/FreeRTOS.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/StackMacros.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/croutine.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/list.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/mpu_wrappers.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/portable.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/projdefs.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/queue.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/semphr.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/task.h ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/timers.h ../../../../../../gpio/gpio.h ../../../../../../../utils/compiler.h ../../../../../../../utils/header_files/uc3d_defines_fix.h ../../../../../../../utils/header_files/uc3l3_l4_defines_fix.h ../../../../../../../utils/preprocessor/mrepeat.h ../../../../../../../utils/preprocessor/preprocessor.h ../../../../../../../utils/preprocessor/stringz.h ../../../../../../../utils/preprocessor/tpaste.h ../../../../../../../utils/status_codes.h ../../../../../../../utils/startup/trampoline_uc3.h ../../../../../../../../common/utils/parts.h ../../../../../../../../common/utils/interrupt.h ../../../../../../../../common/utils/interrupt/interrupt_avr32.h ../../../../../../intc/intc.h ../../../../../../tc/tc.h ../../../../../../usart/usart.h ../../../device_template_task.h ../../../enum/conf_usb.h ../../../enum/device/usb_descriptors.h ../../../enum/device/usb_specific_request.h ../../../host_template_task.h ../../../../../../cpu/cycle_counter/cycle_counter.h ../../../../../../pm/pm.h ../../../../../../pm/power_clocks_lib.h ../../../../../../pm/sleep.h ../../../../../../flashc/flashc.h ../../../../enum/device/usb_device_task.h ../../../../enum/device/usb_standard_request.h ../../../../enum/usb_task.h ../../../../../../../services/usb/_asf_v1/usb_ids.h ../../../../usb_drv.h ../../../../usbb.h ../../../../enum/host/usb_host_enum.h ../../../../enum/host/usb_host_task.h ../../../../../../../utils/debug/print_funcs.h ../../../../../../../boards/evk1101/evk1101.h ../../../../../../../boards/evk1101/led.h ../../../../../../../../common/boards/board.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -662,7 +662,7 @@ EXAMPLE_RECURSIVE      = NO
 # directories that contain image that are included in the documentation (see
 # the \image command).
 
-IMAGE_PATH             =  ../../../../docsrc
+IMAGE_PATH             = ../../../../docsrc
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program
@@ -1062,6 +1062,17 @@ FORMULA_FONTSIZE       = 10
 
 FORMULA_TRANSPARENT    = YES
 
+# Enable the USE_MATHJAX option to render LaTeX formulas using MathJax (see
+# http://www.mathjax.org) which uses client side Javascript for the rendering
+# instead of using prerendered bitmaps. Use this if you do not have LaTeX
+# installed or if you want to formulas look prettier in the HTML output. When
+# enabled you may also need to install MathJax separately and configure the path
+# to it using the MATHJAX_RELPATH option.
+# The default value is: NO.
+# This tag requires that the tag GENERATE_HTML is set to YES.
+
+USE_MATHJAX            = NO
+
 # When the SEARCHENGINE tag is enabled doxygen will generate a search box
 # for the HTML output. The underlying search engine uses javascript
 # and DHTML and should work on any modern browser. Note that when using
@@ -1352,7 +1363,7 @@ SEARCH_INCLUDES        = YES
 # contain include files that are not input files but should be processed by
 # the preprocessor.
 
-INCLUDE_PATH           =  ../../../../enum/device ../../../../../../../boards ../../../../../../pm ../../../../../../../services/usb/_asf_v1 ../../../.. ../../../../../../../utils/debug ../../../../../../tc ../../../../../../../utils ../../../../../../../boards/evk1101 ../../../../../../gpio ../../../enum/device ../../../../../../../../common/utils ../../../enum ../../freertos ../../../../../../cpu/cycle_counter ../../../../enum ../../../../enum/host ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include ../../.. ../../../../../../../../common/boards ../../../../../../usart ../../../../../../flashc ../../../../../../../utils/preprocessor ../../../../../../intc
+INCLUDE_PATH           = ../../freertos ../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include ../../../../../../gpio ../../../../../../../utils ../../../../../../../utils/preprocessor ../../../../../../../../common/utils ../../../../../../intc ../../../../../../tc ../../../../../../usart ../../.. ../../../enum ../../../enum/device ../../../../../../cpu/cycle_counter ../../../../../../pm ../../../../../../flashc ../../../../enum/device ../../../../enum ../../../../../../../services/usb/_asf_v1 ../../../.. ../../../../enum/host ../../../../../../../utils/debug ../../../../../../../boards ../../../../../../../boards/evk1101 ../../../../../../../../common/boards
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the
@@ -1369,7 +1380,7 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator
 # instead of the = operator.
 
-PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4  BOARD=EVK1101 FREERTOS_USED= __AVR32_UC3B0256__
+PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4 FREERTOS_USED __FREERTOS__ BOARD=EVK1101 __AVR32_UC3B0256__
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.

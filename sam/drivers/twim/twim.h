@@ -5,7 +5,7 @@
  *
  * This file defines a useful set of functions for the TWIM on SAM4L devices.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,9 +63,12 @@
 #include "status_codes.h"
 
 /** Enable TWIM Low Power Transfer in default */
-#define TWIM_LOW_POWER_ENABLE 1
+#define TWIM_LOW_POWER_ENABLE    1
 
-/* @{ */
+/**
+ * \name TWI transfer speed definitions
+ *  @{
+ */
 /** TWI Standard Mode */
 #define TWI_STD_MODE_SPEED         ( 100000 /* kbit/s */)
 /** TWI Fast Mode */
@@ -212,6 +215,8 @@ uint32_t twim_get_status(Twim *twim);
 void twim_clear_status(Twim *twim, uint32_t clear_status);
 void twim_set_callback(Twim *twim, uint32_t interrupt_source,
 	twim_callback_t callback, uint8_t irq_level);
+void twim_pdca_transfer_prepare(Twim *twim, twi_package_t *package,
+		bool read);
 
 /**
  * \}
@@ -248,23 +253,23 @@ void twim_set_callback(Twim *twim, uint32_t interrupt_source,
  * not.
  *
  * - \code
- * struct twim_config twim_conf;
- * twim_conf.twim_clk = sysclk_get_cpu_hz();
- * twim_conf.speed = DESIRED_TWI_BUS_SPEED;
- * twim_conf.smbus = false;
- * twim_conf.hsmode_speed = 0;
- * twim_conf.data_setup_cycles = 0;
- * twim_conf.hsmode_data_setup_cycles = 0;
- * twim_set_config(TWIM0, &twim_conf);
- * \endcode
+	struct twim_config twim_conf;
+	twim_conf.twim_clk = sysclk_get_cpu_hz();
+	twim_conf.speed = DESIRED_TWI_BUS_SPEED;
+	twim_conf.smbus = false;
+	twim_conf.hsmode_speed = 0;
+	twim_conf.data_setup_cycles = 0;
+	twim_conf.hsmode_data_setup_cycles = 0;
+	twim_set_config(TWIM0, &twim_conf);
+\endcode
  *  - \note The TWIM driver supports I2C standard speed, fast speed, fast speed
  * plus and high speed.
  *
  * -# The default callback function must be set before calling read/write
  * functions.
  *  - \code
- * twim_set_callback(TWIM0, 0, twim_default_callback, 1);
- * \endcode
+	twim_set_callback(TWIM0, 0, twim_default_callback, 1);
+\endcode
  *  - \note The read/write functions will enable and disable the corresponding
  * interrupt sources.
  *
@@ -279,21 +284,21 @@ void twim_set_callback(Twim *twim, uint32_t interrupt_source,
  * internal address (if needed), the data buffer to be written and the length
  * of the data buffer.
  * \code
- * twi_package_t packet_tx;
- * packet_tx.chip = TARGET_SLAVE_ADDRESS;
- * packet_tx.addr[0] = (INTERNAL_ADDRESS >> 16) & 0xFF;
- * packet_tx.addr[1] = (INTERNAL_ADDRESS >> 8) & 0xFF;
- * packet_tx.addr_length = INTERNAL_ADDRESS_LENGTH;
- * packet_tx.buffer = (void *) data_buf_tx;
- * packet_tx.length = DATA_BUF_TX_LENGTH;
- * \endcode
+	twi_package_t packet_tx;
+	packet_tx.chip = TARGET_SLAVE_ADDRESS;
+	packet_tx.addr[0] = (INTERNAL_ADDRESS >> 16) & 0xFF;
+	packet_tx.addr[1] = (INTERNAL_ADDRESS >> 8) & 0xFF;
+	packet_tx.addr_length = INTERNAL_ADDRESS_LENGTH;
+	packet_tx.buffer = (void *) data_buf_tx;
+	packet_tx.length = DATA_BUF_TX_LENGTH;
+\endcode
  *  - \note The TWIM driver supports 1-3 bytes of internal address.
  *
  * After the data package is ready, we can call twi_master_write() to send the
  * package to the slave address. The callback set before will be handled in ISR.
  * \code
- * twi_master_write(TWIM1, &packet_tx);
- * \endcode
+	twi_master_write(TWIM1, &packet_tx);
+\endcode
  *  - \note If the function returns STATUS_OK, the package has been sent to the
  * target slave device successfully. Otherwise, the transmission fails.
  *
@@ -304,22 +309,22 @@ void twim_set_callback(Twim *twim, uint32_t interrupt_source,
  * internal address (if needed), the data buffer used to store received data
  * and the length of the data to be received.
  * \code
- * twi_package_t packet_rx;
- * packet_rx.chip = TARGET_SLAVE_ADDRESS;
- * packet_rx.addr[0] = (INTERNAL_ADDRESS >> 16) & 0xFF;
- * packet_rx.addr[1] = (INTERNAL_ADDRESS >> 8) & 0xFF;
- * packet_rx.addr_length = INTERNAL_ADDRESS_LENGTH;
- * packet_rx.buffer = (void *) data_buf_rx;
- * packet_rx.length = DATA_BUF_RX_LENGTH;
- * \endcode
+	twi_package_t packet_rx;
+	packet_rx.chip = TARGET_SLAVE_ADDRESS;
+	packet_rx.addr[0] = (INTERNAL_ADDRESS >> 16) & 0xFF;
+	packet_rx.addr[1] = (INTERNAL_ADDRESS >> 8) & 0xFF;
+	packet_rx.addr_length = INTERNAL_ADDRESS_LENGTH;
+	packet_rx.buffer = (void *) data_buf_rx;
+	packet_rx.length = DATA_BUF_RX_LENGTH;
+\endcode
  *  - \note The TWIM driver supports 1-3 bytes of internal address.
  *
  * After the data package is ready, we can call twi_master_read() to receive
  * the data package from the slave device. The callback set before will be
  * handled in ISR.
  * \code
- * twi_master_read(TWIM1, &packet_rx);
- * \endcode
+	twi_master_read(TWIM1, &packet_rx);
+\endcode
  *  - \note If the function returns STATUS_OK, the package has been received
  * from the target slave device and the data has been stored in the data buffer
  * successfully. Otherwise, the transmission failed.

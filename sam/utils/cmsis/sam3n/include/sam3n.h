@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,17 @@
 #ifndef _SAM3N_
 #define _SAM3N_
 
-#if defined __SAM3N1A__
+#if defined __SAM3N00A__
+  #include "sam3n00a.h"
+#elif defined __SAM3N00B__
+  #include "sam3n00b.h"
+#elif defined __SAM3N0A__
+  #include "sam3n0a.h"
+#elif defined __SAM3N0B__
+  #include "sam3n0b.h"
+#elif defined __SAM3N0C__
+  #include "sam3n0c.h"
+#elif defined __SAM3N1A__
   #include "sam3n1a.h"
 #elif defined __SAM3N1B__
   #include "sam3n1b.h"

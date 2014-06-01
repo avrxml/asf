@@ -3,7 +3,7 @@
  *
  * \brief Cyclic Redundancy Check module driver
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -151,8 +151,8 @@ uint32_t crc_dma_checksum_stop(void);
  * \subsection crc_basic_use_case_setup_code Example code
  * Add to application initialization:
  * \code
- *    sysclk_init();
- * \endcode
+	sysclk_init();
+\endcode
  *
  * \subsection crc_basic_use_case_setup_flow Workflow
  * -# Initialize system clock:
@@ -163,9 +163,9 @@ uint32_t crc_dma_checksum_stop(void);
  * \subsection crc_basic_use_case_usage_code Example code
  * Add to application C-file:
  * \code
- *    uint32_t checksum;
- *    checksum = crc_io_checksum((void*)data, 5, CRC_32BIT);
- * \endcode
+	uint32_t checksum;
+	checksum = crc_io_checksum((void*)data, 5, CRC_32BIT);
+\endcode
  *
  * \subsection crc_basic_use_case_usage_flow Workflow
  * -# Calculate the checksum of the data array and store it in the checksum
@@ -193,12 +193,12 @@ uint32_t crc_dma_checksum_stop(void);
  * \subsection crc_use_case_1_setup_code Example code
  * An address in flash must be defined:
  * \code
- *    #define FLASHADDR      0x0300
- * \endcode
+	#define FLASHADDR      0x0300
+\endcode
  * Add to application initialization:
  * \code
- *    sysclk_init();
- * \endcode
+	sysclk_init();
+\endcode
  *
  * \subsection crc_use_case_1_setup_flow Workflow
  * -# Initialize system clock:
@@ -208,15 +208,15 @@ uint32_t crc_dma_checksum_stop(void);
  *
  * \subsection crc_use_case_1_usage_code Example code
  * \code
- *    uint32_t checksum;
- *    checksum = crc_flash_checksum(CRC_FLASH_RANGE, FLASHADDR, 4);
- * \endcode
+	uint32_t checksum;
+	checksum = crc_flash_checksum(CRC_FLASH_RANGE, FLASHADDR, 4);
+\endcode
  *
  * \subsection crc_use_case_1_usage_flow Workflow
  * -# Calculate the checksum of 4 bytes in flash from FLASHADDR
  *   - \code
- *        checksum = crc_flash_checksum(CRC_FLASH_RANGE, FLASHADDR, 4);
- * \endcode
+	checksum = crc_flash_checksum(CRC_FLASH_RANGE, FLASHADDR, 4);
+\endcode
  */
 
  /**
@@ -240,31 +240,31 @@ uint32_t crc_dma_checksum_stop(void);
  * -# A callback function for DMA transfer complete must be provided by the
  * user:
  * \code
- *   static void callback_dma_transfer_done(enum dma_channel_status status)
- *   {
- *       uint32_t checksum;
- *       checksum = crc_dma_checksum_stop();
- *   }
- * \endcode
+	static void callback_dma_transfer_done(enum dma_channel_status status)
+	{
+	    uint32_t checksum;
+	    checksum = crc_dma_checksum_stop();
+	}
+\endcode
  * -# A static uint8_t array of data with at least DMA_BUFFER_SIZE entries to
  * perform CRC on.
  *
  * \subsection crc_use_case_2_setup_code Example code
  * Some defines and data buffers must be set up:
  * \code
- *    //! DMA channel to use
- *    #define DMA_CHANNEL 0
- *    //! Size of data buffer to transfer
- *    #define DMA_BUFFER_SIZE 8
- *    //! Source buffer to use for DMA transfer
- *    static uint8_t          source[DMA_BUFFER_SIZE];
- *    //! Destination buffer to use for DMA transfer
- *    static uint8_t          destination[DMA_BUFFER_SIZE];
- * \endcode
+	//! DMA channel to use
+	#define DMA_CHANNEL 0
+	//! Size of data buffer to transfer
+	#define DMA_BUFFER_SIZE 8
+	//! Source buffer to use for DMA transfer
+	static uint8_t          source[DMA_BUFFER_SIZE];
+	//! Destination buffer to use for DMA transfer
+	static uint8_t          destination[DMA_BUFFER_SIZE];
+\endcode
  * Add to application initialization:
  * \code
- *    sysclk_init();
- * \endcode
+	sysclk_init();
+\endcode
  *
  * \subsection crc_use_case_1_setup_flow Workflow
  * -# Initialize system clock:
@@ -274,49 +274,49 @@ uint32_t crc_dma_checksum_stop(void);
  *
  * \subsection crc_use_case_1_usage_code Example code
  * \code
- *    struct dma_channel_config config;
- *    uint32_t                  checksum;
- *    crc_dma_checksum_start(DMA_CHANNEL, CRC_16BIT);
- *    dma_enable();
- *    dma_set_callback(DMA_CHANNEL, callback_dma_transfer_done);
- *    memset(&config, 0, sizeof(config));
- *    dma_channel_set_interrupt_level(&config, PMIC_LVL_LOW);
- *    dma_channel_set_burst_length(&config, DMA_CH_BURSTLEN_1BYTE_gc);
- *    dma_channel_set_transfer_count(&config, DMA_BUFFER_SIZE);
- *    dma_channel_set_src_reload_mode(&config,
- *            DMA_CH_SRCRELOAD_TRANSACTION_gc);
- *    dma_channel_set_dest_reload_mode(&config,
- *            DMA_CH_DESTRELOAD_TRANSACTION_gc);
- *    dma_channel_set_src_dir_mode(&config, DMA_CH_SRCDIR_INC_gc);
- *    dma_channel_set_dest_dir_mode(&config, DMA_CH_DESTDIR_INC_gc);
- *    dma_channel_set_source_address(&config, (uint16_t)(uintptr_t)source);
- *    dma_channel_set_destination_address(&config,
- *            (uint16_t)(uintptr_t)destination);
- *    dma_channel_write_config(DMA_CHANNEL, &config);
- *    dma_channel_enable(DMA_CHANNEL);
- *    cpu_irq_enable();
- *    dma_channel_trigger_block_transfer(DMA_CHANNEL);
- *    while (true) {
- *    }
- * \endcode
+	struct dma_channel_config config;
+	uint32_t                  checksum;
+	crc_dma_checksum_start(DMA_CHANNEL, CRC_16BIT);
+	dma_enable();
+	dma_set_callback(DMA_CHANNEL, callback_dma_transfer_done);
+	memset(&config, 0, sizeof(config));
+	dma_channel_set_interrupt_level(&config, PMIC_LVL_LOW);
+	dma_channel_set_burst_length(&config, DMA_CH_BURSTLEN_1BYTE_gc);
+	dma_channel_set_transfer_count(&config, DMA_BUFFER_SIZE);
+	dma_channel_set_src_reload_mode(&config,
+	        DMA_CH_SRCRELOAD_TRANSACTION_gc);
+	dma_channel_set_dest_reload_mode(&config,
+	        DMA_CH_DESTRELOAD_TRANSACTION_gc);
+	dma_channel_set_src_dir_mode(&config, DMA_CH_SRCDIR_INC_gc);
+	dma_channel_set_dest_dir_mode(&config, DMA_CH_DESTDIR_INC_gc);
+	dma_channel_set_source_address(&config, (uint16_t)(uintptr_t)source);
+	dma_channel_set_destination_address(&config,
+	        (uint16_t)(uintptr_t)destination);
+	dma_channel_write_config(DMA_CHANNEL, &config);
+	dma_channel_enable(DMA_CHANNEL);
+	cpu_irq_enable();
+	dma_channel_trigger_block_transfer(DMA_CHANNEL);
+	while (true) {
+	}
+\endcode
  *
  * \subsection crc_use_case_1_usage_flow Workflow
  * -# Enable the CRC module for DMA
  *   - \code
- *        crc_dma_checksum_start(DMA_CHANNEL, CRC_16BIT);
- * \endcode
+	crc_dma_checksum_start(DMA_CHANNEL, CRC_16BIT);
+\endcode
  * -# Enable DMA
  *   - \code
- *        dma_enable();
- * \endcode
+	dma_enable();
+\endcode
  * -# Set callback function for DMA completion
  *   - \code
- *        dma_set_callback(DMA_CHANNEL, callback_dma_transfer_done);
- * \endcode
+	dma_set_callback(DMA_CHANNEL, callback_dma_transfer_done);
+\endcode
  * -# Make sure config is all zeroed out so we don't get any stray bits
  *   - \code
- *        memset(&config, 0, sizeof(config));
- * \endcode
+	memset(&config, 0, sizeof(config));
+\endcode
  * -# Configure the DMA channel with the following
  * settings:
  *  - Low interrupt priority
@@ -327,37 +327,37 @@ uint32_t crc_dma_checksum_stop(void);
  *  - Source address is set to source buffer
  *  - Destination address is set to destination buffer
  *   - \code
- *        dma_channel_set_interrupt_level(&config, PMIC_LVL_LOW);
- *        dma_channel_set_burst_length(&config, DMA_CH_BURSTLEN_1BYTE_gc);
- *        dma_channel_set_transfer_count(&config, DMA_BUFFER_SIZE);
- *        dma_channel_set_src_reload_mode(&config,
- *                DMA_CH_SRCRELOAD_TRANSACTION_gc);
- *        dma_channel_set_dest_reload_mode(&config,
- *                DMA_CH_DESTRELOAD_TRANSACTION_gc);
- *        dma_channel_set_src_dir_mode(&config, DMA_CH_SRCDIR_INC_gc);
- *        dma_channel_set_dest_dir_mode(&config, DMA_CH_DESTDIR_INC_gc);
- *        dma_channel_set_source_address(&config, (uint16_t)(uintptr_t)source);
- *        dma_channel_set_destination_address(&config,
- *                (uint16_t)(uintptr_t)destination);
- *        dma_channel_write_config(DMA_CHANNEL, &config);
- * \endcode
+	dma_channel_set_interrupt_level(&config, PMIC_LVL_LOW);
+	dma_channel_set_burst_length(&config, DMA_CH_BURSTLEN_1BYTE_gc);
+	dma_channel_set_transfer_count(&config, DMA_BUFFER_SIZE);
+	dma_channel_set_src_reload_mode(&config,
+	        DMA_CH_SRCRELOAD_TRANSACTION_gc);
+	dma_channel_set_dest_reload_mode(&config,
+	        DMA_CH_DESTRELOAD_TRANSACTION_gc);
+	dma_channel_set_src_dir_mode(&config, DMA_CH_SRCDIR_INC_gc);
+	dma_channel_set_dest_dir_mode(&config, DMA_CH_DESTDIR_INC_gc);
+	dma_channel_set_source_address(&config, (uint16_t)(uintptr_t)source);
+	dma_channel_set_destination_address(&config,
+	        (uint16_t)(uintptr_t)destination);
+	dma_channel_write_config(DMA_CHANNEL, &config);
+\endcode
  * -# Use the configuration above by enabling the DMA channel in use.
  *   - \code
- *        dma_channel_enable(DMA_CHANNEL);
- * \endcode
+	dma_channel_enable(DMA_CHANNEL);
+\endcode
  * -# Enable interrupts
  *   - \code
- *        cpu_irq_enable();
- * \endcode
+	cpu_irq_enable();
+\endcode
  * -# Trigger the DMA transfer
  *   - \code
- *        dma_channel_trigger_block_transfer(DMA_CHANNEL);
- * \endcode
+	dma_channel_trigger_block_transfer(DMA_CHANNEL);
+\endcode
  * -# Do nothing while waiting for DMA transfer to complete
  *   - \code
- *        while (true) {
-          }
- * \endcode
+	while (true) {
+	}
+\endcode
  */
 
 #endif /* CRC_H_INCLUDED */

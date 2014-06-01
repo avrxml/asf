@@ -4,7 +4,7 @@
  *
  * \brief Example of usage of the TWI Master Mode Basic Services.
  *
- * Copyright (c) 2009-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -57,8 +57,11 @@
  * The TWI API can be found \ref twi_master.h "here".
  *
  * \section deviceinfo Device Info
- * All AVR or SAM devices can be used. This example has been tested
- * with the following setup:
+ * All AVR or SAM devices can be used. When use the example in Xplained Pro
+ * Kits, we need connect an IO1 Xplained Pro board to the proper EXT port. For
+ * information of the IO1Xplained Pro board, visit
+ * <A href="http://www.atmel.com/tools/ATIO1-XPRO.aspx">IO1 web link.</A>
+ * This example has been tested with the following setup:
  *   - access to the TWI signals.
  *
  * \section exampledescription Description of the example
@@ -87,10 +90,16 @@
 
 #include "conf_board.h"
 
+#if SAM
+#include "conf_twi_master.h"
+#include <string.h>
+#endif
+
 //! \name Local Configuration Constants
 //@{
-
+#ifndef EEPROM_BUS_ADDR
 #define EEPROM_BUS_ADDR       0x50        //!< TWI slave bus address
+#endif
 #define EEPROM_MEM_ADDR       0xaa        //!< TWI slave memory address
 #define TWI_SPEED             50000       //!< TWI data transfer rate
 
@@ -139,21 +148,34 @@ int main(void)
 
   // TWI master initialization options.
 
-  twi_master_options_t opt = {
-    .speed = TWI_SPEED,
-    .chip  = EEPROM_BUS_ADDR
-  };
+  twi_master_options_t opt;
+#if SAM
+  memset((void *)&opt, 0, sizeof(opt));
+#endif
+  opt.speed = TWI_SPEED;
+#if (!SAM4L)
+  opt.chip  = EEPROM_BUS_ADDR;
+#endif
 
   // Initialize the TWI master driver.
 
   twi_master_setup(TWI_EXAMPLE, &opt);
 
   // Initialize the platform LED's.
-
+#if defined(sam4cek)
+  LED_Off(LED0);
+#elif defined(sam4cmpdb) || defined(sam4cmsdb)
+  LED_Off(LED4);
+#else
   LED_Off(LED0_GPIO);
+#endif
 
   twi_package_t packet = {
-#if SAM
+/**
+ * The SAM3X_EK, SAM3X Arduino board and SAM4C_EK use two bytes length internal
+ * address EEPROM.
+ */
+#if defined(sam3xek) || defined(arduinoduex) || defined(sam4cek) || defined(sam4cmpdb) || defined(sam4cmsdb)
     .addr[0]      = EEPROM_MEM_ADDR >> 8, // TWI slave memory address data MSB
     .addr[1]      = EEPROM_MEM_ADDR,      // TWI slave memory address data LSB
     .addr_length  = sizeof (uint16_t),    // TWI slave memory address data size
@@ -172,7 +194,7 @@ int main(void)
   uint8_t data_received[PATTERN_TEST_LENGTH] = {0};
 
   twi_package_t packet_received = {
-#if SAM
+#if defined(sam3xek) || defined(arduinoduex) || defined(sam4cek) || defined(sam4cmpdb) || defined(sam4cmsdb)
     .addr[0]      = EEPROM_MEM_ADDR >> 8, // TWI slave memory address data MSB
     .addr[1]      = EEPROM_MEM_ADDR,      // TWI slave memory address data LSB
     .addr_length  = sizeof (uint16_t),    // TWI slave memory address data size
@@ -198,7 +220,13 @@ int main(void)
   }
 
   //test PASS
+#if SAM4C
+  LED_On(LED0);
+#elif defined(sam4cmpdb) || defined(sam4cmsdb)
+  LED_On(LED4);
+#else
   LED_On(LED0_GPIO);
+#endif
 
   while(1);
 }

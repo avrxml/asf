@@ -3,7 +3,7 @@
  *
  * \brief Embedded Flash service for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -62,7 +62,7 @@ extern "C" {
  * @{
  */
 
-#if SAM4E
+#if (SAM4E || SAM4N || SAM4S || SAM4C || SAMG || SAM4CP || SAM4CM)
 /* User signature size */
 # define FLASH_USER_SIG_SIZE   (512)
 #endif
@@ -70,17 +70,20 @@ extern "C" {
 #if SAM4S
 /* Internal Flash Controller 0. */
 # define EFC     EFC0
-/* User signature size */
-# define FLASH_USER_SIG_SIZE   (512)
+#if (SAM4SD16 || SAM4SD32)
+/* The max GPNVM number. */
+# define GPNVM_NUM_MAX        3
+#else
+/* The max GPNVM number. */
+# define GPNVM_NUM_MAX        2
+#endif
 /* Internal Flash 0 base address. */
 # define IFLASH_ADDR     IFLASH0_ADDR
 /* Internal flash page size. */
 # define IFLASH_PAGE_SIZE     IFLASH0_PAGE_SIZE
 /* Internal flash lock region size. */
 # define IFLASH_LOCK_REGION_SIZE     IFLASH0_LOCK_REGION_SIZE
-#endif
-
-#if (SAM3XA || SAM3U4 || SAM4SD16 || SAM4SD32)
+#elif (SAM3XA || SAM3U4)
 /* Internal Flash Controller 0. */
 # define EFC     EFC0
 /* The max GPNVM number. */
@@ -111,11 +114,29 @@ extern "C" {
 # define IFLASH_PAGE_SIZE     IFLASH0_PAGE_SIZE
 /* Internal flash lock region size. */
 # define IFLASH_LOCK_REGION_SIZE     IFLASH0_LOCK_REGION_SIZE
+#elif (SAM4C32)
+/* The max GPNVM number SAM4C32. */
+# define GPNVM_NUM_MAX        3
 #else
 /* The max GPNVM number. */
 # define GPNVM_NUM_MAX        2
 #endif
 
+#if (SAM4C || SAM4CP || SAM4CM)
+#if SAM4C32
+# define EFC     EFC0
+/* Internal Flash 0 base address. */
+# define IFLASH0_ADDR    IFLASH0_CNC_ADDR
+# define IFLASH1_ADDR    IFLASH1_CNC_ADDR
+# define IFLASH_ADDR     IFLASH0_ADDR
+/* Internal flash page size. */
+# define IFLASH_PAGE_SIZE     IFLASH0_PAGE_SIZE
+/* Internal flash lock region size. */
+# define IFLASH_LOCK_REGION_SIZE     IFLASH0_LOCK_REGION_SIZE
+#else
+#define IFLASH_ADDR  IFLASH_CNC_ADDR
+#endif
+#endif
 
 /* Flash page buffer for alignment */
 static uint32_t gs_ul_page_buffer[IFLASH_PAGE_SIZE / sizeof(uint32_t)];
@@ -147,7 +168,7 @@ static void translate_address(Efc **pp_efc, uint32_t ul_addr,
 		us_page = (ul_addr - IFLASH0_ADDR) / IFLASH0_PAGE_SIZE;
 		us_offset = (ul_addr - IFLASH0_ADDR) % IFLASH0_PAGE_SIZE;
 	}
-#elif (SAM4SD16 || SAM4SD32)
+#elif (SAM4SD16 || SAM4SD32 || SAM4C32)
 	uint32_t uc_gpnvm2;
 	uc_gpnvm2 = flash_is_gpnvm_set(2);
 	if (ul_addr >= IFLASH1_ADDR) {
@@ -210,7 +231,7 @@ static void compute_address(Efc *p_efc, uint16_t us_page, uint16_t us_offset,
 /* Dual bank flash */
 #ifdef EFC1
 	/* Compute address */
-#if (SAM4SD16 || SAM4SD32)
+#if (SAM4SD16 || SAM4SD32 || SAM4C32)
 	uint32_t uc_gpnvm2;
 	uc_gpnvm2 = flash_is_gpnvm_set(2);
 	if (p_efc == EFC0) {
@@ -336,7 +357,7 @@ uint32_t flash_set_wait_state_adaptively(uint32_t ul_address)
 	} else {
 		efc_set_wait_state(p_efc, 4);
 	}
-#elif (SAM4S || SAM4E)
+#elif (SAM4S || SAM4E || SAM4N || SAM4C || SAM4CP || SAM4CM)
 	} else if (clock < CHIP_FREQ_FWS_3) {
 		efc_set_wait_state(p_efc, 3);
 	} else if (clock < CHIP_FREQ_FWS_4) {
@@ -499,7 +520,7 @@ uint32_t flash_erase_plane(uint32_t ul_address)
 }
 #endif
 
-#if (SAM4S || SAM4E)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
 /**
  * \brief Erase the specified pages of flash.
  *
@@ -766,12 +787,12 @@ uint32_t flash_is_locked(uint32_t ul_start, uint32_t ul_end)
 	Assert(ul_end >= ul_start);
 
 #ifdef EFC1
-	Assert(((ul_start >= IFLASH0_ADDR) 
+	Assert(((ul_start >= IFLASH0_ADDR)
 				&& (ul_end <= IFLASH0_ADDR + IFLASH0_SIZE))
 				|| ((ul_start >= IFLASH1_ADDR)
 					&& (ul_end <= IFLASH1_ADDR + IFLASH1_SIZE)));
 #else
-	Assert((ul_start >= IFLASH_ADDR) 
+	Assert((ul_start >= IFLASH_ADDR)
 				&& (ul_end <= IFLASH_ADDR + IFLASH_SIZE));
 #endif
 
@@ -786,7 +807,10 @@ uint32_t flash_is_locked(uint32_t ul_start, uint32_t ul_end)
 
 	/* Retrieve lock status */
 	ul_error = efc_perform_command(p_efc, EFC_FCMD_GLB, 0);
-	Assert(!ul_error);
+	if (ul_error) {
+		return ul_error;
+	}
+    UNUSED(ul_error);
 
 	/* Skip unrequested regions (if necessary) */
 	ul_status = efc_get_result(p_efc);
@@ -947,20 +971,20 @@ uint32_t flash_read_unique_id(uint32_t *pul_data, uint32_t ul_size)
 	return FLASH_RC_OK;
 }
 
-#if (SAM4S || SAM4E)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
 /**
  * \brief Read the flash user signature.
  *
  * \param p_data Pointer to a data buffer to store 512 bytes of user signature.
- * \param ul_size Data buffer size.
+ * \param ul_size Data buffer size in 32 bit words.
  *
  * \return 0 if successful; otherwise returns an error code.
  */
 uint32_t flash_read_user_signature(uint32_t *p_data, uint32_t ul_size)
 {
-	if (ul_size > FLASH_USER_SIG_SIZE) {
-		/* Only 512 byte to store unique ID */
-		ul_size = FLASH_USER_SIG_SIZE;
+	if (ul_size > (FLASH_USER_SIG_SIZE / sizeof(uint32_t))) {
+		/* Only 512 byte to store user signature */
+		ul_size = FLASH_USER_SIG_SIZE / sizeof(uint32_t);
 	}
 
 	/* Send the read user signature commands */
@@ -975,22 +999,34 @@ uint32_t flash_read_user_signature(uint32_t *p_data, uint32_t ul_size)
 /**
  * \brief Write the flash user signature.
  *
- * \param ul_address Write address.
- * \param p_data Pointer to a data buffer to store 512 bytes of user signature.
- * \param ul_size Data buffer size.
+ * \param p_data Pointer to a data buffer to store info for the user signature.
+ * \param ul_size Data buffer size in 32 bit words.
  *
  * \return 0 if successful; otherwise returns an error code.
  */
-uint32_t flash_write_user_signature(uint32_t ul_address, const void *p_buffer,
-		uint32_t ul_size)
+uint32_t flash_write_user_signature(const void *p_buffer, uint32_t ul_size)
 {
+	uint32_t ul_idx;
+	uint32_t *p_dest;
+
 	/* The user signature should be no longer than 512 bytes */
-	if (ul_size > FLASH_USER_SIG_SIZE) {
+	if (ul_size > (IFLASH_PAGE_SIZE / sizeof(uint32_t))) {
 		return FLASH_RC_INVALID;
 	}
 
-	/* Write the full page */
-	flash_write(ul_address,  p_buffer, ul_size, 0);
+	/* Copy Buffer data */
+	memcpy((uint8_t *) gs_ul_page_buffer, p_buffer, 
+			ul_size * sizeof(uint32_t));
+
+	/* Write page buffer.
+	* Writing 8-bit and 16-bit data is not allowed and may lead to
+	* unpredictable data corruption.
+	*/
+	p_dest = (uint32_t *)IFLASH_ADDR;
+	for (ul_idx = 0; ul_idx < (IFLASH_PAGE_SIZE / sizeof(uint32_t)); 
+			ul_idx++) {
+		*p_dest++ = gs_ul_page_buffer[ul_idx];
+	}
 
 	/* Send the write signature command */
 	if (FLASH_RC_OK != efc_perform_command(EFC, EFC_FCMD_WUS, 0)) {

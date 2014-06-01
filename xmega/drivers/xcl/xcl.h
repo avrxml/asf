@@ -4,7 +4,7 @@
  * \brief AVR XMEGA XCL (XMEGA Custom Logic) driver.
  *
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -228,14 +228,14 @@ static inline void xcl_port(enum xcl_port_sel_t port)
  *
  * Add to the initialization code:
  * \code
- *     sysclk_init();
- *     board_init();
- *     sleepmgr_init(); // Optional
- * \endcode
+	sysclk_init();
+	board_init();
+	sleepmgr_init(); // Optional
+\endcode
  * Add to the main IDLE loop:
  * \code
- *     sleepmgr_enter_sleep(); // Optional
- * \endcode
+	sleepmgr_enter_sleep(); // Optional
+\endcode
  *
  * \subsection xmega_xcl_qs_lut_setup_code Example code
  *
@@ -247,22 +247,22 @@ static inline void xcl_port(enum xcl_port_sel_t port)
  * XMEGA port.
  *
  * \code
- * xcl_enable(XCL_ASYNCHRONOUS);
- * xcl_port(PD);
- * \endcode
+	xcl_enable(XCL_ASYNCHRONOUS);
+	xcl_port(PD);
+\endcode
  * Then the XCL glue logic can be configured:
  * \code
- * xcl_lut_type(LUT_2LUT2IN);
- * xcl_lut_in0(LUT_IN_PINL);
- * xcl_lut_in1(LUT_IN_PINL);
- * xcl_lut0_output(LUT0_OUT_PIN4);
- * xcl_lut_config_delay(DLY11, LUT_DLY_DISABLE, LUT_DLY_DISABLE);
- * xcl_lut0_truth(XOR);
- * // Here the Glue Logic is ready
- * while(1) {
- *     sleepmgr_enter_sleep(); // Optional
- * }
- * \endcode
+	xcl_lut_type(LUT_2LUT2IN);
+	xcl_lut_in0(LUT_IN_PINL);
+	xcl_lut_in1(LUT_IN_PINL);
+	xcl_lut0_output(LUT0_OUT_PIN4);
+	xcl_lut_config_delay(DLY11, LUT_DLY_DISABLE, LUT_DLY_DISABLE);
+	xcl_lut0_truth(XOR);
+	// Here the Glue Logic is ready
+	while(1) {
+	    sleepmgr_enter_sleep(); // Optional
+	}
+\endcode
  *
  * \subsection xmega_xcl_qs_lut_setup_code_workflow Workflow
  *
@@ -287,9 +287,11 @@ static inline void xcl_port(enum xcl_port_sel_t port)
  * -# Configure XCL LUT0 to perfom XOR operation.
  *  - \code  xcl_lut0_truth(XOR); \endcode
  * -# The XCL glue logic will run in the background without any CPU and clock usage.
- *  - \code  while(1) {
- *     sleepmgr_enter_sleep(); // Optional
- * } \endcode
+ *  - \code
+	while(1) {
+	    sleepmgr_enter_sleep(); // Optional
+	}
+\endcode
  */
 
 /**
@@ -321,58 +323,58 @@ static inline void xcl_port(enum xcl_port_sel_t port)
  *
  * Add to the initialization code:
  * \code
- *     sysclk_init();
- *     board_init();
- *     irq_initialize_vectors();
- *     cpu_irq_enable();
- *     sleepmgr_init(); // Optional
- * \endcode
+	sysclk_init();
+	board_init();
+	irq_initialize_vectors();
+	cpu_irq_enable();
+	sleepmgr_init(); // Optional
+\endcode
  * Add to the main IDLE loop:
  * \code
- *     sleepmgr_enter_sleep(); // Optional
- * \endcode
+	sleepmgr_enter_sleep(); // Optional
+\endcode
 
  *
  * \subsection xmega_xcl_qs_tc_setup_code Example code
  *
  * Content of conf_xcl.h:
  * \code
- * #define CONFIG_XCL_CALLBACK_ENABLE
- * \endcode
+	#define CONFIG_XCL_CALLBACK_ENABLE
+\endcode
  *
  * Add a callback functions:
  * \code
- * static void my_xcl_tc16_interrupt_callback(void)
- * {
- *   // Add your code here.
- *   // This code will be executed when an underflow interrupt occurs
- *   // on XCL BTC16 timer.
- * }
- * \endcode
+	static void my_xcl_tc16_interrupt_callback(void)
+	{
+	    // Add your code here.
+	    // This code will be executed when an underflow interrupt occurs
+	    // on XCL BTC16 timer.
+	}
+\endcode
  *
  * Add to, e.g., the main loop in the application C-file:
  * \code
- * void main(void)
- * {
- *   sysclk_init();
- *   board_init();
- *   irq_initialize_vectors();
- *   cpu_irq_enable();
- *
- *   xcl_enable(XCL_SYNCHRONOUS);
- *   xcl_port(PD);
- *   xcl_tc_type(TC16);
- *   xcl_set_unf_interrupt_callback(my_xcl_tc16_interrupt_callback);
- *   xcl_tc_set_underflow_interrupt_level(XCL_INT_LVL_LO);
- *   xcl_tc_set_resolution(7800);
- *   xcl_tc16_set_period(0x7FFF);
- *   xcl_tc16_set_count(0x7FFF);
- *   xcl_tc16_enable_underflow_interrupt();
- *
- *   while(1) {
- *   }
- * }
- * \endcode
+	void main(void)
+	{
+	    sysclk_init();
+	    board_init();
+	    irq_initialize_vectors();
+	    cpu_irq_enable();
+
+	    xcl_enable(XCL_SYNCHRONOUS);
+	    xcl_port(PD);
+	    xcl_tc_type(TC16);
+	    xcl_set_unf_interrupt_callback(my_xcl_tc16_interrupt_callback);
+	    xcl_tc_set_underflow_interrupt_level(XCL_INT_LVL_LO);
+	    xcl_tc_set_resolution(7800);
+	    xcl_tc16_set_period(0x7FFF);
+	    xcl_tc16_set_count(0x7FFF);
+	    xcl_tc16_enable_underflow_interrupt();
+
+	    while(1) {
+	    }
+	}
+\endcode
  *
  * \subsection xmega_xcl_qs_tc_code_workflow Workflow
  *

@@ -52,7 +52,7 @@
 
 #define REV_AC                      0x110
 
-/* -------- AC_CTRLA : (AC Offset: 0x00) (R/W  8) Control A Register -------- */
+/* -------- AC_CTRLA : (AC Offset: 0x00) (R/W  8) Control A -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -65,8 +65,8 @@ typedef union {
 } AC_CTRLA_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define AC_CTRLA_OFFSET             0x00         /**< \brief (AC_CTRLA offset) Control A Register */
-#define AC_CTRLA_RESETVALUE         0x00         /**< \brief (AC_CTRLA reset_value) Control A Register */
+#define AC_CTRLA_OFFSET             0x00         /**< \brief (AC_CTRLA offset) Control A */
+#define AC_CTRLA_RESETVALUE         0x00         /**< \brief (AC_CTRLA reset_value) Control A */
 
 #define AC_CTRLA_SWRST_Pos          0            /**< \brief (AC_CTRLA) Software Reset */
 #define AC_CTRLA_SWRST              (0x1u << AC_CTRLA_SWRST_Pos)
@@ -77,7 +77,7 @@ typedef union {
 #define AC_CTRLA_RUNSTDBY(value)    ((AC_CTRLA_RUNSTDBY_Msk & ((value) << AC_CTRLA_RUNSTDBY_Pos)))
 #define AC_CTRLA_MASK               0x07u        /**< \brief (AC_CTRLA) MASK Register */
 
-/* -------- AC_CTRLB : (AC Offset: 0x01) ( /W  8) Control B Register -------- */
+/* -------- AC_CTRLB : (AC Offset: 0x01) ( /W  8) Control B -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -91,8 +91,8 @@ typedef union {
 } AC_CTRLB_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define AC_CTRLB_OFFSET             0x01         /**< \brief (AC_CTRLB offset) Control B Register */
-#define AC_CTRLB_RESETVALUE         0x00         /**< \brief (AC_CTRLB reset_value) Control B Register */
+#define AC_CTRLB_OFFSET             0x01         /**< \brief (AC_CTRLB offset) Control B */
+#define AC_CTRLB_RESETVALUE         0x00         /**< \brief (AC_CTRLB reset_value) Control B */
 
 #define AC_CTRLB_START0_Pos         0            /**< \brief (AC_CTRLB) Comparator 0 Start Comparison */
 #define AC_CTRLB_START0             (0x1u << AC_CTRLB_START0_Pos)
@@ -104,7 +104,7 @@ typedef union {
 #define AC_CTRLB_START3             (0x1u << AC_CTRLB_START3_Pos)
 #define AC_CTRLB_MASK               0x0Fu        /**< \brief (AC_CTRLB) MASK Register */
 
-/* -------- AC_EVCTRL : (AC Offset: 0x02) (R/W 16) Event Control Register -------- */
+/* -------- AC_EVCTRL : (AC Offset: 0x02) (R/W 16) Event Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -125,8 +125,8 @@ typedef union {
 } AC_EVCTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define AC_EVCTRL_OFFSET            0x02         /**< \brief (AC_EVCTRL offset) Event Control Register */
-#define AC_EVCTRL_RESETVALUE        0x0000       /**< \brief (AC_EVCTRL reset_value) Event Control Register */
+#define AC_EVCTRL_OFFSET            0x02         /**< \brief (AC_EVCTRL offset) Event Control */
+#define AC_EVCTRL_RESETVALUE        0x0000       /**< \brief (AC_EVCTRL reset_value) Event Control */
 
 #define AC_EVCTRL_COMPEO0_Pos       0            /**< \brief (AC_EVCTRL) Comparator 0 Event Output Enable */
 #define AC_EVCTRL_COMPEO0           (0x1u << AC_EVCTRL_COMPEO0_Pos)
@@ -150,7 +150,7 @@ typedef union {
 #define AC_EVCTRL_COMPEI3           (0x1u << AC_EVCTRL_COMPEI3_Pos)
 #define AC_EVCTRL_MASK              0x0F3Fu      /**< \brief (AC_EVCTRL) MASK Register */
 
-/* -------- AC_INTENCLR : (AC Offset: 0x04) (R/W  8) Interrupt Enable Clear Register -------- */
+/* -------- AC_INTENCLR : (AC Offset: 0x04) (R/W  8) Interrupt Enable Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -166,8 +166,8 @@ typedef union {
 } AC_INTENCLR_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define AC_INTENCLR_OFFSET          0x04         /**< \brief (AC_INTENCLR offset) Interrupt Enable Clear Register */
-#define AC_INTENCLR_RESETVALUE      0x00         /**< \brief (AC_INTENCLR reset_value) Interrupt Enable Clear Register */
+#define AC_INTENCLR_OFFSET          0x04         /**< \brief (AC_INTENCLR offset) Interrupt Enable Clear */
+#define AC_INTENCLR_RESETVALUE      0x00         /**< \brief (AC_INTENCLR reset_value) Interrupt Enable Clear */
 
 #define AC_INTENCLR_COMP0_Pos       0            /**< \brief (AC_INTENCLR) Comparator 0 Interrupt Disable */
 #define AC_INTENCLR_COMP0           (0x1u << AC_INTENCLR_COMP0_Pos)
@@ -183,7 +183,7 @@ typedef union {
 #define AC_INTENCLR_WIN1            (0x1u << AC_INTENCLR_WIN1_Pos)
 #define AC_INTENCLR_MASK            0x3Fu        /**< \brief (AC_INTENCLR) MASK Register */
 
-/* -------- AC_INTENSET : (AC Offset: 0x05) (R/W  8) Interrupt Enable Set Register -------- */
+/* -------- AC_INTENSET : (AC Offset: 0x05) (R/W  8) Interrupt Enable Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -199,8 +199,8 @@ typedef union {
 } AC_INTENSET_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define AC_INTENSET_OFFSET          0x05         /**< \brief (AC_INTENSET offset) Interrupt Enable Set Register */
-#define AC_INTENSET_RESETVALUE      0x00         /**< \brief (AC_INTENSET reset_value) Interrupt Enable Set Register */
+#define AC_INTENSET_OFFSET          0x05         /**< \brief (AC_INTENSET offset) Interrupt Enable Set */
+#define AC_INTENSET_RESETVALUE      0x00         /**< \brief (AC_INTENSET reset_value) Interrupt Enable Set */
 
 #define AC_INTENSET_COMP0_Pos       0            /**< \brief (AC_INTENSET) Comparator 0 Interrupt Enable */
 #define AC_INTENSET_COMP0           (0x1u << AC_INTENSET_COMP0_Pos)
@@ -216,7 +216,7 @@ typedef union {
 #define AC_INTENSET_WIN1            (0x1u << AC_INTENSET_WIN1_Pos)
 #define AC_INTENSET_MASK            0x3Fu        /**< \brief (AC_INTENSET) MASK Register */
 
-/* -------- AC_INTFLAG : (AC Offset: 0x06) (R/W  8) Interrupt Flag Status and Clear Register -------- */
+/* -------- AC_INTFLAG : (AC Offset: 0x06) (R/W  8) Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -232,8 +232,8 @@ typedef union {
 } AC_INTFLAG_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define AC_INTFLAG_OFFSET           0x06         /**< \brief (AC_INTFLAG offset) Interrupt Flag Status and Clear Register */
-#define AC_INTFLAG_RESETVALUE       0x00         /**< \brief (AC_INTFLAG reset_value) Interrupt Flag Status and Clear Register */
+#define AC_INTFLAG_OFFSET           0x06         /**< \brief (AC_INTFLAG offset) Interrupt Flag Status and Clear */
+#define AC_INTFLAG_RESETVALUE       0x00         /**< \brief (AC_INTFLAG reset_value) Interrupt Flag Status and Clear */
 
 #define AC_INTFLAG_COMP0_Pos        0            /**< \brief (AC_INTFLAG) Comparator 0 Interrupt Flag */
 #define AC_INTFLAG_COMP0            (0x1u << AC_INTFLAG_COMP0_Pos)
@@ -249,7 +249,7 @@ typedef union {
 #define AC_INTFLAG_WIN1             (0x1u << AC_INTFLAG_WIN1_Pos)
 #define AC_INTFLAG_MASK             0x3Fu        /**< \brief (AC_INTFLAG) MASK Register */
 
-/* -------- AC_STATUSA : (AC Offset: 0x08) (R/   8) Status A Register -------- */
+/* -------- AC_STATUSA : (AC Offset: 0x08) (R/   8) Status A -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -264,8 +264,8 @@ typedef union {
 } AC_STATUSA_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define AC_STATUSA_OFFSET           0x08         /**< \brief (AC_STATUSA offset) Status A Register */
-#define AC_STATUSA_RESETVALUE       0x00         /**< \brief (AC_STATUSA reset_value) Status A Register */
+#define AC_STATUSA_OFFSET           0x08         /**< \brief (AC_STATUSA offset) Status A */
+#define AC_STATUSA_RESETVALUE       0x00         /**< \brief (AC_STATUSA reset_value) Status A */
 
 #define AC_STATUSA_STATE0_Pos       0            /**< \brief (AC_STATUSA) Comparator 0 Current State */
 #define AC_STATUSA_STATE0           (0x1u << AC_STATUSA_STATE0_Pos)
@@ -278,18 +278,24 @@ typedef union {
 #define AC_STATUSA_WSTATE0_Pos      4            /**< \brief (AC_STATUSA) Window 0 Current State */
 #define AC_STATUSA_WSTATE0_Msk      (0x3u << AC_STATUSA_WSTATE0_Pos)
 #define AC_STATUSA_WSTATE0(value)   ((AC_STATUSA_WSTATE0_Msk & ((value) << AC_STATUSA_WSTATE0_Pos)))
-#define   AC_STATUSA_WSTATE0_ABOVE  (0x0u <<  4) /**< \brief (AC_STATUSA)  */
-#define   AC_STATUSA_WSTATE0_INSIDE (0x1u <<  4) /**< \brief (AC_STATUSA)  */
-#define   AC_STATUSA_WSTATE0_BELOW  (0x2u <<  4) /**< \brief (AC_STATUSA)  */
+#define   AC_STATUSA_WSTATE0_ABOVE_Val    0x0u   /**< \brief (AC_STATUSA)  */
+#define   AC_STATUSA_WSTATE0_INSIDE_Val   0x1u   /**< \brief (AC_STATUSA)  */
+#define   AC_STATUSA_WSTATE0_BELOW_Val    0x2u   /**< \brief (AC_STATUSA)  */
+#define AC_STATUSA_WSTATE0_ABOVE    (AC_STATUSA_WSTATE0_ABOVE_Val  << AC_STATUSA_WSTATE0_Pos)
+#define AC_STATUSA_WSTATE0_INSIDE   (AC_STATUSA_WSTATE0_INSIDE_Val << AC_STATUSA_WSTATE0_Pos)
+#define AC_STATUSA_WSTATE0_BELOW    (AC_STATUSA_WSTATE0_BELOW_Val  << AC_STATUSA_WSTATE0_Pos)
 #define AC_STATUSA_WSTATE1_Pos      6            /**< \brief (AC_STATUSA) Window 1 Current State */
 #define AC_STATUSA_WSTATE1_Msk      (0x3u << AC_STATUSA_WSTATE1_Pos)
 #define AC_STATUSA_WSTATE1(value)   ((AC_STATUSA_WSTATE1_Msk & ((value) << AC_STATUSA_WSTATE1_Pos)))
-#define   AC_STATUSA_WSTATE1_ABOVE  (0x0u <<  6) /**< \brief (AC_STATUSA)  */
-#define   AC_STATUSA_WSTATE1_INSIDE (0x1u <<  6) /**< \brief (AC_STATUSA)  */
-#define   AC_STATUSA_WSTATE1_BELOW  (0x2u <<  6) /**< \brief (AC_STATUSA)  */
+#define   AC_STATUSA_WSTATE1_ABOVE_Val    0x0u   /**< \brief (AC_STATUSA)  */
+#define   AC_STATUSA_WSTATE1_INSIDE_Val   0x1u   /**< \brief (AC_STATUSA)  */
+#define   AC_STATUSA_WSTATE1_BELOW_Val    0x2u   /**< \brief (AC_STATUSA)  */
+#define AC_STATUSA_WSTATE1_ABOVE    (AC_STATUSA_WSTATE1_ABOVE_Val  << AC_STATUSA_WSTATE1_Pos)
+#define AC_STATUSA_WSTATE1_INSIDE   (AC_STATUSA_WSTATE1_INSIDE_Val << AC_STATUSA_WSTATE1_Pos)
+#define AC_STATUSA_WSTATE1_BELOW    (AC_STATUSA_WSTATE1_BELOW_Val  << AC_STATUSA_WSTATE1_Pos)
 #define AC_STATUSA_MASK             0xFFu        /**< \brief (AC_STATUSA) MASK Register */
 
-/* -------- AC_STATUSB : (AC Offset: 0x09) (R/   8) Status B Register -------- */
+/* -------- AC_STATUSB : (AC Offset: 0x09) (R/   8) Status B -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -304,8 +310,8 @@ typedef union {
 } AC_STATUSB_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define AC_STATUSB_OFFSET           0x09         /**< \brief (AC_STATUSB offset) Status B Register */
-#define AC_STATUSB_RESETVALUE       0x00         /**< \brief (AC_STATUSB reset_value) Status B Register */
+#define AC_STATUSB_OFFSET           0x09         /**< \brief (AC_STATUSB offset) Status B */
+#define AC_STATUSB_RESETVALUE       0x00         /**< \brief (AC_STATUSB reset_value) Status B */
 
 #define AC_STATUSB_READY0_Pos       0            /**< \brief (AC_STATUSB) Comparator 0 Ready */
 #define AC_STATUSB_READY0           (0x1u << AC_STATUSB_READY0_Pos)
@@ -319,7 +325,7 @@ typedef union {
 #define AC_STATUSB_SYNCBUSY         (0x1u << AC_STATUSB_SYNCBUSY_Pos)
 #define AC_STATUSB_MASK             0x8Fu        /**< \brief (AC_STATUSB) MASK Register */
 
-/* -------- AC_STATUSC : (AC Offset: 0x0A) (R/   8) Status C Register -------- */
+/* -------- AC_STATUSC : (AC Offset: 0x0A) (R/   8) Status C -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -334,8 +340,8 @@ typedef union {
 } AC_STATUSC_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define AC_STATUSC_OFFSET           0x0A         /**< \brief (AC_STATUSC offset) Status C Register */
-#define AC_STATUSC_RESETVALUE       0x00         /**< \brief (AC_STATUSC reset_value) Status C Register */
+#define AC_STATUSC_OFFSET           0x0A         /**< \brief (AC_STATUSC offset) Status C */
+#define AC_STATUSC_RESETVALUE       0x00         /**< \brief (AC_STATUSC reset_value) Status C */
 
 #define AC_STATUSC_STATE0_Pos       0            /**< \brief (AC_STATUSC) Comparator 0 Current State */
 #define AC_STATUSC_STATE0           (0x1u << AC_STATUSC_STATE0_Pos)
@@ -348,18 +354,24 @@ typedef union {
 #define AC_STATUSC_WSTATE0_Pos      4            /**< \brief (AC_STATUSC) Window 0 Current State */
 #define AC_STATUSC_WSTATE0_Msk      (0x3u << AC_STATUSC_WSTATE0_Pos)
 #define AC_STATUSC_WSTATE0(value)   ((AC_STATUSC_WSTATE0_Msk & ((value) << AC_STATUSC_WSTATE0_Pos)))
-#define   AC_STATUSC_WSTATE0_ABOVE  (0x0u <<  4) /**< \brief (AC_STATUSC)  */
-#define   AC_STATUSC_WSTATE0_INSIDE (0x1u <<  4) /**< \brief (AC_STATUSC)  */
-#define   AC_STATUSC_WSTATE0_BELOW  (0x2u <<  4) /**< \brief (AC_STATUSC)  */
+#define   AC_STATUSC_WSTATE0_ABOVE_Val    0x0u   /**< \brief (AC_STATUSC)  */
+#define   AC_STATUSC_WSTATE0_INSIDE_Val   0x1u   /**< \brief (AC_STATUSC)  */
+#define   AC_STATUSC_WSTATE0_BELOW_Val    0x2u   /**< \brief (AC_STATUSC)  */
+#define AC_STATUSC_WSTATE0_ABOVE    (AC_STATUSC_WSTATE0_ABOVE_Val  << AC_STATUSC_WSTATE0_Pos)
+#define AC_STATUSC_WSTATE0_INSIDE   (AC_STATUSC_WSTATE0_INSIDE_Val << AC_STATUSC_WSTATE0_Pos)
+#define AC_STATUSC_WSTATE0_BELOW    (AC_STATUSC_WSTATE0_BELOW_Val  << AC_STATUSC_WSTATE0_Pos)
 #define AC_STATUSC_WSTATE1_Pos      6            /**< \brief (AC_STATUSC) Window 1 Current State */
 #define AC_STATUSC_WSTATE1_Msk      (0x3u << AC_STATUSC_WSTATE1_Pos)
 #define AC_STATUSC_WSTATE1(value)   ((AC_STATUSC_WSTATE1_Msk & ((value) << AC_STATUSC_WSTATE1_Pos)))
-#define   AC_STATUSC_WSTATE1_ABOVE  (0x0u <<  6) /**< \brief (AC_STATUSC)  */
-#define   AC_STATUSC_WSTATE1_INSIDE (0x1u <<  6) /**< \brief (AC_STATUSC)  */
-#define   AC_STATUSC_WSTATE1_BELOW  (0x2u <<  6) /**< \brief (AC_STATUSC)  */
+#define   AC_STATUSC_WSTATE1_ABOVE_Val    0x0u   /**< \brief (AC_STATUSC)  */
+#define   AC_STATUSC_WSTATE1_INSIDE_Val   0x1u   /**< \brief (AC_STATUSC)  */
+#define   AC_STATUSC_WSTATE1_BELOW_Val    0x2u   /**< \brief (AC_STATUSC)  */
+#define AC_STATUSC_WSTATE1_ABOVE    (AC_STATUSC_WSTATE1_ABOVE_Val  << AC_STATUSC_WSTATE1_Pos)
+#define AC_STATUSC_WSTATE1_INSIDE   (AC_STATUSC_WSTATE1_INSIDE_Val << AC_STATUSC_WSTATE1_Pos)
+#define AC_STATUSC_WSTATE1_BELOW    (AC_STATUSC_WSTATE1_BELOW_Val  << AC_STATUSC_WSTATE1_Pos)
 #define AC_STATUSC_MASK             0xFFu        /**< \brief (AC_STATUSC) MASK Register */
 
-/* -------- AC_WINCTRL : (AC Offset: 0x0C) (R/W  8) Window Control Register -------- */
+/* -------- AC_WINCTRL : (AC Offset: 0x0C) (R/W  8) Window Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -374,30 +386,38 @@ typedef union {
 } AC_WINCTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define AC_WINCTRL_OFFSET           0x0C         /**< \brief (AC_WINCTRL offset) Window Control Register */
-#define AC_WINCTRL_RESETVALUE       0x00         /**< \brief (AC_WINCTRL reset_value) Window Control Register */
+#define AC_WINCTRL_OFFSET           0x0C         /**< \brief (AC_WINCTRL offset) Window Control */
+#define AC_WINCTRL_RESETVALUE       0x00         /**< \brief (AC_WINCTRL reset_value) Window Control */
 
 #define AC_WINCTRL_WEN0_Pos         0            /**< \brief (AC_WINCTRL) Window 0 Mode Enable */
 #define AC_WINCTRL_WEN0             (0x1u << AC_WINCTRL_WEN0_Pos)
 #define AC_WINCTRL_WINTSEL0_Pos     1            /**< \brief (AC_WINCTRL) Window 0 Interrupt Selection */
 #define AC_WINCTRL_WINTSEL0_Msk     (0x3u << AC_WINCTRL_WINTSEL0_Pos)
 #define AC_WINCTRL_WINTSEL0(value)  ((AC_WINCTRL_WINTSEL0_Msk & ((value) << AC_WINCTRL_WINTSEL0_Pos)))
-#define   AC_WINCTRL_WINTSEL0_ABOVE (0x0u <<  1) /**< \brief (AC_WINCTRL)  */
-#define   AC_WINCTRL_WINTSEL0_INSIDE (0x1u <<  1) /**< \brief (AC_WINCTRL)  */
-#define   AC_WINCTRL_WINTSEL0_BELOW (0x2u <<  1) /**< \brief (AC_WINCTRL)  */
-#define   AC_WINCTRL_WINTSEL0_OUTSIDE (0x3u <<  1) /**< \brief (AC_WINCTRL)  */
+#define   AC_WINCTRL_WINTSEL0_ABOVE_Val   0x0u   /**< \brief (AC_WINCTRL)  */
+#define   AC_WINCTRL_WINTSEL0_INSIDE_Val  0x1u   /**< \brief (AC_WINCTRL)  */
+#define   AC_WINCTRL_WINTSEL0_BELOW_Val   0x2u   /**< \brief (AC_WINCTRL)  */
+#define   AC_WINCTRL_WINTSEL0_OUTSIDE_Val 0x3u   /**< \brief (AC_WINCTRL)  */
+#define AC_WINCTRL_WINTSEL0_ABOVE   (AC_WINCTRL_WINTSEL0_ABOVE_Val << AC_WINCTRL_WINTSEL0_Pos)
+#define AC_WINCTRL_WINTSEL0_INSIDE  (AC_WINCTRL_WINTSEL0_INSIDE_Val << AC_WINCTRL_WINTSEL0_Pos)
+#define AC_WINCTRL_WINTSEL0_BELOW   (AC_WINCTRL_WINTSEL0_BELOW_Val << AC_WINCTRL_WINTSEL0_Pos)
+#define AC_WINCTRL_WINTSEL0_OUTSIDE (AC_WINCTRL_WINTSEL0_OUTSIDE_Val << AC_WINCTRL_WINTSEL0_Pos)
 #define AC_WINCTRL_WEN1_Pos         4            /**< \brief (AC_WINCTRL) Window 1 Mode Enable */
 #define AC_WINCTRL_WEN1             (0x1u << AC_WINCTRL_WEN1_Pos)
 #define AC_WINCTRL_WINTSEL1_Pos     5            /**< \brief (AC_WINCTRL) Window 1 Interrupt Selection */
 #define AC_WINCTRL_WINTSEL1_Msk     (0x3u << AC_WINCTRL_WINTSEL1_Pos)
 #define AC_WINCTRL_WINTSEL1(value)  ((AC_WINCTRL_WINTSEL1_Msk & ((value) << AC_WINCTRL_WINTSEL1_Pos)))
-#define   AC_WINCTRL_WINTSEL1_ABOVE (0x0u <<  5) /**< \brief (AC_WINCTRL)  */
-#define   AC_WINCTRL_WINTSEL1_INSIDE (0x1u <<  5) /**< \brief (AC_WINCTRL)  */
-#define   AC_WINCTRL_WINTSEL1_BELOW (0x2u <<  5) /**< \brief (AC_WINCTRL)  */
-#define   AC_WINCTRL_WINTSEL1_OUTSIDE (0x3u <<  5) /**< \brief (AC_WINCTRL)  */
+#define   AC_WINCTRL_WINTSEL1_ABOVE_Val   0x0u   /**< \brief (AC_WINCTRL)  */
+#define   AC_WINCTRL_WINTSEL1_INSIDE_Val  0x1u   /**< \brief (AC_WINCTRL)  */
+#define   AC_WINCTRL_WINTSEL1_BELOW_Val   0x2u   /**< \brief (AC_WINCTRL)  */
+#define   AC_WINCTRL_WINTSEL1_OUTSIDE_Val 0x3u   /**< \brief (AC_WINCTRL)  */
+#define AC_WINCTRL_WINTSEL1_ABOVE   (AC_WINCTRL_WINTSEL1_ABOVE_Val << AC_WINCTRL_WINTSEL1_Pos)
+#define AC_WINCTRL_WINTSEL1_INSIDE  (AC_WINCTRL_WINTSEL1_INSIDE_Val << AC_WINCTRL_WINTSEL1_Pos)
+#define AC_WINCTRL_WINTSEL1_BELOW   (AC_WINCTRL_WINTSEL1_BELOW_Val << AC_WINCTRL_WINTSEL1_Pos)
+#define AC_WINCTRL_WINTSEL1_OUTSIDE (AC_WINCTRL_WINTSEL1_OUTSIDE_Val << AC_WINCTRL_WINTSEL1_Pos)
 #define AC_WINCTRL_MASK             0x77u        /**< \brief (AC_WINCTRL) MASK Register */
 
-/* -------- AC_COMPCTRL : (AC Offset: 0x10) (R/W 32) Comparator Control Register -------- */
+/* -------- AC_COMPCTRL : (AC Offset: 0x10) (R/W 32) Comparator Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -423,8 +443,8 @@ typedef union {
 } AC_COMPCTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define AC_COMPCTRL_OFFSET          0x10         /**< \brief (AC_COMPCTRL offset) Comparator Control Register */
-#define AC_COMPCTRL_RESETVALUE      0x00000000   /**< \brief (AC_COMPCTRL reset_value) Comparator Control Register */
+#define AC_COMPCTRL_OFFSET          0x10         /**< \brief (AC_COMPCTRL offset) Comparator Control */
+#define AC_COMPCTRL_RESETVALUE      0x00000000   /**< \brief (AC_COMPCTRL reset_value) Comparator Control */
 
 #define AC_COMPCTRL_ENABLE_Pos      0            /**< \brief (AC_COMPCTRL) Enable */
 #define AC_COMPCTRL_ENABLE          (0x1u << AC_COMPCTRL_ENABLE_Pos)
@@ -433,52 +453,76 @@ typedef union {
 #define AC_COMPCTRL_SPEED_Pos       2            /**< \brief (AC_COMPCTRL) Speed Selection */
 #define AC_COMPCTRL_SPEED_Msk       (0x3u << AC_COMPCTRL_SPEED_Pos)
 #define AC_COMPCTRL_SPEED(value)    ((AC_COMPCTRL_SPEED_Msk & ((value) << AC_COMPCTRL_SPEED_Pos)))
-#define   AC_COMPCTRL_SPEED_LOWPOWER (0x0u <<  2) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_SPEED_FAST    (0x1u <<  2) /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_SPEED_LOWPOWER_Val  0x0u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_SPEED_FAST_Val      0x1u   /**< \brief (AC_COMPCTRL)  */
+#define AC_COMPCTRL_SPEED_LOWPOWER  (AC_COMPCTRL_SPEED_LOWPOWER_Val << AC_COMPCTRL_SPEED_Pos)
+#define AC_COMPCTRL_SPEED_FAST      (AC_COMPCTRL_SPEED_FAST_Val    << AC_COMPCTRL_SPEED_Pos)
 #define AC_COMPCTRL_INTSEL_Pos      5            /**< \brief (AC_COMPCTRL) Interrupt Selection */
 #define AC_COMPCTRL_INTSEL_Msk      (0x3u << AC_COMPCTRL_INTSEL_Pos)
 #define AC_COMPCTRL_INTSEL(value)   ((AC_COMPCTRL_INTSEL_Msk & ((value) << AC_COMPCTRL_INTSEL_Pos)))
-#define   AC_COMPCTRL_INTSEL_TOGGLE (0x0u <<  5) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_INTSEL_RISING (0x1u <<  5) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_INTSEL_FALLING (0x2u <<  5) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_INTSEL_EOC    (0x3u <<  5) /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_INTSEL_TOGGLE_Val   0x0u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_INTSEL_RISING_Val   0x1u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_INTSEL_FALLING_Val  0x2u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_INTSEL_EOC_Val      0x3u   /**< \brief (AC_COMPCTRL)  */
+#define AC_COMPCTRL_INTSEL_TOGGLE   (AC_COMPCTRL_INTSEL_TOGGLE_Val << AC_COMPCTRL_INTSEL_Pos)
+#define AC_COMPCTRL_INTSEL_RISING   (AC_COMPCTRL_INTSEL_RISING_Val << AC_COMPCTRL_INTSEL_Pos)
+#define AC_COMPCTRL_INTSEL_FALLING  (AC_COMPCTRL_INTSEL_FALLING_Val << AC_COMPCTRL_INTSEL_Pos)
+#define AC_COMPCTRL_INTSEL_EOC      (AC_COMPCTRL_INTSEL_EOC_Val    << AC_COMPCTRL_INTSEL_Pos)
 #define AC_COMPCTRL_MUXNEG_Pos      8            /**< \brief (AC_COMPCTRL) Negative Input Mux Selection */
 #define AC_COMPCTRL_MUXNEG_Msk      (0x7u << AC_COMPCTRL_MUXNEG_Pos)
 #define AC_COMPCTRL_MUXNEG(value)   ((AC_COMPCTRL_MUXNEG_Msk & ((value) << AC_COMPCTRL_MUXNEG_Pos)))
-#define   AC_COMPCTRL_MUXNEG_PIN0   (0x0u <<  8) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_MUXNEG_PIN1   (0x1u <<  8) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_MUXNEG_PIN2   (0x2u <<  8) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_MUXNEG_PIN3   (0x3u <<  8) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_MUXNEG_GND    (0x4u <<  8) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_MUXNEG_VSCALE (0x5u <<  8) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_MUXNEG_BANDGAP (0x6u <<  8) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_MUXNEG_DAC    (0x7u <<  8) /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_MUXNEG_PIN0_Val     0x0u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_MUXNEG_PIN1_Val     0x1u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_MUXNEG_PIN2_Val     0x2u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_MUXNEG_PIN3_Val     0x3u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_MUXNEG_GND_Val      0x4u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_MUXNEG_VSCALE_Val   0x5u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_MUXNEG_BANDGAP_Val  0x6u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_MUXNEG_DAC_Val      0x7u   /**< \brief (AC_COMPCTRL)  */
+#define AC_COMPCTRL_MUXNEG_PIN0     (AC_COMPCTRL_MUXNEG_PIN0_Val   << AC_COMPCTRL_MUXNEG_Pos)
+#define AC_COMPCTRL_MUXNEG_PIN1     (AC_COMPCTRL_MUXNEG_PIN1_Val   << AC_COMPCTRL_MUXNEG_Pos)
+#define AC_COMPCTRL_MUXNEG_PIN2     (AC_COMPCTRL_MUXNEG_PIN2_Val   << AC_COMPCTRL_MUXNEG_Pos)
+#define AC_COMPCTRL_MUXNEG_PIN3     (AC_COMPCTRL_MUXNEG_PIN3_Val   << AC_COMPCTRL_MUXNEG_Pos)
+#define AC_COMPCTRL_MUXNEG_GND      (AC_COMPCTRL_MUXNEG_GND_Val    << AC_COMPCTRL_MUXNEG_Pos)
+#define AC_COMPCTRL_MUXNEG_VSCALE   (AC_COMPCTRL_MUXNEG_VSCALE_Val << AC_COMPCTRL_MUXNEG_Pos)
+#define AC_COMPCTRL_MUXNEG_BANDGAP  (AC_COMPCTRL_MUXNEG_BANDGAP_Val << AC_COMPCTRL_MUXNEG_Pos)
+#define AC_COMPCTRL_MUXNEG_DAC      (AC_COMPCTRL_MUXNEG_DAC_Val    << AC_COMPCTRL_MUXNEG_Pos)
 #define AC_COMPCTRL_MUXPOS_Pos      12           /**< \brief (AC_COMPCTRL) Positive Input Mux Selection */
 #define AC_COMPCTRL_MUXPOS_Msk      (0x3u << AC_COMPCTRL_MUXPOS_Pos)
 #define AC_COMPCTRL_MUXPOS(value)   ((AC_COMPCTRL_MUXPOS_Msk & ((value) << AC_COMPCTRL_MUXPOS_Pos)))
-#define   AC_COMPCTRL_MUXPOS_PIN0   (0x0u << 12) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_MUXPOS_PIN1   (0x1u << 12) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_MUXPOS_PIN2   (0x2u << 12) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_MUXPOS_PIN3   (0x3u << 12) /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_MUXPOS_PIN0_Val     0x0u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_MUXPOS_PIN1_Val     0x1u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_MUXPOS_PIN2_Val     0x2u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_MUXPOS_PIN3_Val     0x3u   /**< \brief (AC_COMPCTRL)  */
+#define AC_COMPCTRL_MUXPOS_PIN0     (AC_COMPCTRL_MUXPOS_PIN0_Val   << AC_COMPCTRL_MUXPOS_Pos)
+#define AC_COMPCTRL_MUXPOS_PIN1     (AC_COMPCTRL_MUXPOS_PIN1_Val   << AC_COMPCTRL_MUXPOS_Pos)
+#define AC_COMPCTRL_MUXPOS_PIN2     (AC_COMPCTRL_MUXPOS_PIN2_Val   << AC_COMPCTRL_MUXPOS_Pos)
+#define AC_COMPCTRL_MUXPOS_PIN3     (AC_COMPCTRL_MUXPOS_PIN3_Val   << AC_COMPCTRL_MUXPOS_Pos)
 #define AC_COMPCTRL_SWAP_Pos        15           /**< \brief (AC_COMPCTRL) Swap Inputs and Invert */
 #define AC_COMPCTRL_SWAP            (0x1u << AC_COMPCTRL_SWAP_Pos)
 #define AC_COMPCTRL_OUT_Pos         16           /**< \brief (AC_COMPCTRL) Output Mode */
 #define AC_COMPCTRL_OUT_Msk         (0x3u << AC_COMPCTRL_OUT_Pos)
 #define AC_COMPCTRL_OUT(value)      ((AC_COMPCTRL_OUT_Msk & ((value) << AC_COMPCTRL_OUT_Pos)))
-#define   AC_COMPCTRL_OUT_OFF       (0x0u << 16) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_OUT_ASYNC     (0x1u << 16) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_OUT_SYNC      (0x2u << 16) /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_OUT_OFF_Val         0x0u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_OUT_ASYNC_Val       0x1u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_OUT_SYNC_Val        0x2u   /**< \brief (AC_COMPCTRL)  */
+#define AC_COMPCTRL_OUT_OFF         (AC_COMPCTRL_OUT_OFF_Val       << AC_COMPCTRL_OUT_Pos)
+#define AC_COMPCTRL_OUT_ASYNC       (AC_COMPCTRL_OUT_ASYNC_Val     << AC_COMPCTRL_OUT_Pos)
+#define AC_COMPCTRL_OUT_SYNC        (AC_COMPCTRL_OUT_SYNC_Val      << AC_COMPCTRL_OUT_Pos)
 #define AC_COMPCTRL_HYST_Pos        19           /**< \brief (AC_COMPCTRL) Hysteresis Enable */
 #define AC_COMPCTRL_HYST            (0x1u << AC_COMPCTRL_HYST_Pos)
 #define AC_COMPCTRL_FLEN_Pos        24           /**< \brief (AC_COMPCTRL) Filter Length */
 #define AC_COMPCTRL_FLEN_Msk        (0x7u << AC_COMPCTRL_FLEN_Pos)
 #define AC_COMPCTRL_FLEN(value)     ((AC_COMPCTRL_FLEN_Msk & ((value) << AC_COMPCTRL_FLEN_Pos)))
-#define   AC_COMPCTRL_FLEN_OFF      (0x0u << 24) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_FLEN_MAJ3     (0x1u << 24) /**< \brief (AC_COMPCTRL)  */
-#define   AC_COMPCTRL_FLEN_MAJ5     (0x2u << 24) /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_FLEN_OFF_Val        0x0u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_FLEN_MAJ3_Val       0x1u   /**< \brief (AC_COMPCTRL)  */
+#define   AC_COMPCTRL_FLEN_MAJ5_Val       0x2u   /**< \brief (AC_COMPCTRL)  */
+#define AC_COMPCTRL_FLEN_OFF        (AC_COMPCTRL_FLEN_OFF_Val      << AC_COMPCTRL_FLEN_Pos)
+#define AC_COMPCTRL_FLEN_MAJ3       (AC_COMPCTRL_FLEN_MAJ3_Val     << AC_COMPCTRL_FLEN_Pos)
+#define AC_COMPCTRL_FLEN_MAJ5       (AC_COMPCTRL_FLEN_MAJ5_Val     << AC_COMPCTRL_FLEN_Pos)
 #define AC_COMPCTRL_MASK            0x070BB76Fu  /**< \brief (AC_COMPCTRL) MASK Register */
 
-/* -------- AC_SCALER : (AC Offset: 0x20) (R/W  8) Scaler Register -------- */
+/* -------- AC_SCALER : (AC Offset: 0x20) (R/W  8) Scaler -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -489,8 +533,8 @@ typedef union {
 } AC_SCALER_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define AC_SCALER_OFFSET            0x20         /**< \brief (AC_SCALER offset) Scaler Register */
-#define AC_SCALER_RESETVALUE        0x00         /**< \brief (AC_SCALER reset_value) Scaler Register */
+#define AC_SCALER_OFFSET            0x20         /**< \brief (AC_SCALER offset) Scaler */
+#define AC_SCALER_RESETVALUE        0x00         /**< \brief (AC_SCALER reset_value) Scaler */
 
 #define AC_SCALER_VALUE_Pos         0            /**< \brief (AC_SCALER) Scaler Value */
 #define AC_SCALER_VALUE_Msk         (0x3Fu << AC_SCALER_VALUE_Pos)
@@ -500,22 +544,22 @@ typedef union {
 /** \brief AC hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef struct {
-  __IO AC_CTRLA_Type             CTRLA;       /**< \brief Offset: 0x00 (R/W  8) Control A Register */
-  __O  AC_CTRLB_Type             CTRLB;       /**< \brief Offset: 0x01 ( /W  8) Control B Register */
-  __IO AC_EVCTRL_Type            EVCTRL;      /**< \brief Offset: 0x02 (R/W 16) Event Control Register */
-  __IO AC_INTENCLR_Type          INTENCLR;    /**< \brief Offset: 0x04 (R/W  8) Interrupt Enable Clear Register */
-  __IO AC_INTENSET_Type          INTENSET;    /**< \brief Offset: 0x05 (R/W  8) Interrupt Enable Set Register */
-  __IO AC_INTFLAG_Type           INTFLAG;     /**< \brief Offset: 0x06 (R/W  8) Interrupt Flag Status and Clear Register */
+  __IO AC_CTRLA_Type             CTRLA;       /**< \brief Offset: 0x00 (R/W  8) Control A */
+  __O  AC_CTRLB_Type             CTRLB;       /**< \brief Offset: 0x01 ( /W  8) Control B */
+  __IO AC_EVCTRL_Type            EVCTRL;      /**< \brief Offset: 0x02 (R/W 16) Event Control */
+  __IO AC_INTENCLR_Type          INTENCLR;    /**< \brief Offset: 0x04 (R/W  8) Interrupt Enable Clear */
+  __IO AC_INTENSET_Type          INTENSET;    /**< \brief Offset: 0x05 (R/W  8) Interrupt Enable Set */
+  __IO AC_INTFLAG_Type           INTFLAG;     /**< \brief Offset: 0x06 (R/W  8) Interrupt Flag Status and Clear */
        RoReg8                    Reserved1[0x1];
-  __I  AC_STATUSA_Type           STATUSA;     /**< \brief Offset: 0x08 (R/   8) Status A Register */
-  __I  AC_STATUSB_Type           STATUSB;     /**< \brief Offset: 0x09 (R/   8) Status B Register */
-  __I  AC_STATUSC_Type           STATUSC;     /**< \brief Offset: 0x0A (R/   8) Status C Register */
+  __I  AC_STATUSA_Type           STATUSA;     /**< \brief Offset: 0x08 (R/   8) Status A */
+  __I  AC_STATUSB_Type           STATUSB;     /**< \brief Offset: 0x09 (R/   8) Status B */
+  __I  AC_STATUSC_Type           STATUSC;     /**< \brief Offset: 0x0A (R/   8) Status C */
        RoReg8                    Reserved2[0x1];
-  __IO AC_WINCTRL_Type           WINCTRL;     /**< \brief Offset: 0x0C (R/W  8) Window Control Register */
+  __IO AC_WINCTRL_Type           WINCTRL;     /**< \brief Offset: 0x0C (R/W  8) Window Control */
        RoReg8                    Reserved3[0x3];
-  __IO AC_COMPCTRL_Type          COMPCTRL[2]; /**< \brief Offset: 0x10 (R/W 32) Comparator Control Register [NUM_CMP] */
+  __IO AC_COMPCTRL_Type          COMPCTRL[2]; /**< \brief Offset: 0x10 (R/W 32) Comparator Control [NUM_CMP] */
        RoReg8                    Reserved4[0x8];
-  __IO AC_SCALER_Type            SCALER[2];   /**< \brief Offset: 0x20 (R/W  8) Scaler Register [NUM_CMP] */
+  __IO AC_SCALER_Type            SCALER[2];   /**< \brief Offset: 0x20 (R/W  8) Scaler [NUM_CMP] */
 } Ac;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 

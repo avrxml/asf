@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,8 +42,8 @@
  * \ingroup group_dsplib_tools
  * \brief This script is used to visualize a fixed-length data buffer from the serial port formatted as follow:
  * \code 1.	0.265445	+ 0.586624i
- * 2.	-0.025633	+ -0.i
- * ... \endcode
+	2.	-0.025633	+ -0.i
+	... \endcode
  * All others pattern lines will be avoided and not included in the visualization.
  * This script is useful to visualize example's results. In a nutshell, it permits to visualize data printed with
  * the dsp16_debug_print_complex_vect and dsp32_debug_print_complex_vect functions.\n

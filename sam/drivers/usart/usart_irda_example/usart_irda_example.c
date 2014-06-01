@@ -3,7 +3,7 @@
  *
  * \brief USART IrDA example for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -84,11 +84,11 @@
  * -# Start the application.
  * -# The following traces shall appear on the terminal:
  *    \code
- *     -- USART IrDA Example --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     -I- Press t to transmit, press r to receive...
- *    \endcode
+	-- USART IrDA Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	-I- Press t to transmit, press r to receive...
+\endcode
  * -# Enable one board as transmitter and another as receiver to start the
  *    communication. If succeed, the side of receiver would output the received
  *    data.

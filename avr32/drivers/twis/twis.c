@@ -3,7 +3,7 @@
  *
  * \brief TWIS driver for AVR32 UC3.
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,12 +83,14 @@ ISR(twis_slave_interrupt_handler,CONF_TWIS_IRQ_GROUP,CONF_TWIS_IRQ_LEVEL)
 	// Check if the slave address match flag is raised
 	if (pending & AVR32_TWIS_IER_SAM_MASK) {
 		// Ignore repeated start and transmission complete flags
-		if (pending & AVR32_TWIS_SR_REP_MASK) {
-			twis_inst_slave->scr = AVR32_TWIS_SCR_REP_MASK;
+		if (pending & (AVR32_TWIS_SR_REP_MASK | AVR32_TWIS_SR_TCOMP_MASK)) {
+			twis_inst_slave->scr = (AVR32_TWIS_SCR_REP_MASK |
+					AVR32_TWIS_SCR_TCOMP_MASK);
+			twis_inst_slave->idr = (AVR32_TWIS_IDR_REP_MASK |
+					AVR32_TWIS_IDR_TCOMP_MASK);
 		}
-		if (pending & AVR32_TWIS_SR_TCOMP_MASK) {
-			twis_inst_slave->scr = AVR32_TWIS_SCR_TCOMP_MASK;
-		}
+		pending &= ~(AVR32_TWIS_SR_REP_MASK | AVR32_TWIS_SR_TCOMP_MASK);
+
 		// Enable error handling
 		twis_inst_slave->ier = AVR32_TWIS_SR_ERROR_MASK;
 
@@ -128,10 +130,10 @@ ISR(twis_slave_interrupt_handler,CONF_TWIS_IRQ_GROUP,CONF_TWIS_IRQ_LEVEL)
 	}
 
 	// Check if the transmission complete or repeated start flags raised
-	if (pending & (AVR32_TWIS_IER_TCOMP_MASK | AVR32_TWIS_IER_REP_MASK)) {
+	if (pending & (AVR32_TWIS_SR_TCOMP_MASK | AVR32_TWIS_SR_REP_MASK)) {
 		// Clear transmit complete and repeated start flags
 		twis_inst_slave->scr = AVR32_TWIS_SCR_TCOMP_MASK
-			| AVR32_TWIS_SCR_REP_MASK | AVR32_TWIS_SCR_NAK_MASK;
+			| AVR32_TWIS_SCR_REP_MASK;
 		// Disable transmission ready interrupt
 		twis_inst_slave->idr = AVR32_TWIS_IDR_BTF_MASK
 			| AVR32_TWIS_IDR_RXRDY_MASK
@@ -142,7 +144,21 @@ ISR(twis_slave_interrupt_handler,CONF_TWIS_IRQ_GROUP,CONF_TWIS_IRQ_LEVEL)
 		// Call user specific stop function
 		twis_slave_fct.stop();
 	}
-	twis_inst_slave->scr = pending;
+	/* Never clear the NAK mask without first receiving the appropriate
+	 * BTF bit too.
+	 *
+	 * L4U  Errata 38.1.3.2:
+	 * Clearing the NAK bit before the BTF bit is set locks up the TWI bus
+	 * When the TWIS is in transmit mode, clearing the NAK Received (NAK)
+	 * bit of the Status Register (SR) before the end of the
+	 * Acknowledge/Not Acknowledge cycle will cause the TWIS to
+	 * attempt to continue transmitting data, thus locking up the bus.
+	 *
+	 * Fix/Workaround
+	 * Clear SR.NAK only after the Byte Transfer Finished (BTF) bit of the same register has been
+	 * set.
+	 */
+	twis_inst_slave->scr = pending & (~AVR32_TWIS_SCR_NAK_MASK);
 	return;
 }
 
@@ -182,8 +198,6 @@ status_code_t twis_slave_init(volatile avr32_twis_t *twis, const twis_options_t 
 	cpu_irq_restore(flags);
 
 	twis_inst_slave = twis;
-
-	cpu_irq_enable();
 
 	// Enable the TWI Slave Module and allow for clock stretching
 	twis->cr = AVR32_TWIS_CR_SEN_MASK | AVR32_TWIS_CR_SMATCH_MASK
@@ -233,11 +247,11 @@ void twis_send_data_nack(volatile avr32_twis_t *twis, bool stop_callback) {
 	// Send NACK
 	twis->cr |= AVR32_TWIS_CR_ACK_MASK;
 	// Disable all interrupts
-	twis_inst_slave->idr = ~0UL;
+	twis->idr = ~0UL;
 	// Clear all status
-	twis_inst_slave->scr = ~0UL;
+	twis->scr = ~0UL;
 	// Enable Slave Address Match Interrupt
-	twis_inst_slave->ier = AVR32_TWIS_IER_SAM_MASK;
+	twis->ier = AVR32_TWIS_IER_SAM_MASK;
 	// If callback is desired, go to the stop condition callback function
 	if (stop_callback) {
 		twis_slave_fct.stop();

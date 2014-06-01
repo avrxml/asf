@@ -35,7 +35,7 @@
 				</option>
 				<option>
 					<name>MacOverride</name>
-					<state>1</state>
+					<state>0</state>
 				</option>
 				<option>
 					<name>MacFile</name>
@@ -87,7 +87,7 @@
 				</option>
 				<option>
 					<name>OCDynDriverList</name>
-					<state>JLINK_ID</state>
+					<state>CMSISDAP_ID</state>
 				</option>
 				<option>
 					<name>OCLastSavedByProductVersion</name>
@@ -1154,6 +1154,153 @@
 				<loadFlag>1</loadFlag>
 			</plugin>
 		</debuggerPlugins>
+		<settings>
+			<name>CMSISDAP_ID</name>
+			<archiveVersion>2</archiveVersion>
+			<data>
+				<version>0</version>
+				<wantNonLocal>1</wantNonLocal>
+				<debug></debug>
+				<option>
+					<name>CatchSTATERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPBreakpointRadio</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>RDICatchIRQ</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPInterfaceCmdLine</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OCIarProbeScriptFile</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>CatchMMERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPHWResetDuration</name>
+					<state>300</state>
+				</option>
+				<option>
+					<name>CatchCHKERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPRestoreBreakpointsCheck</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CatchCORERESET</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPMultiTargetEnable</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>RDICatchPrefetch</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPMultiTarget</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPDoLogfile</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>RDICatchReset</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPLogFile</name>
+					<state>$PROJ_DIR$\cspycomm.log</state>
+				</option>
+				<option>
+					<name>RDICatchUndef</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPMultiCPUNumber</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPResetList</name>
+					<version>1</version>
+					<state>4</state>
+				</option>
+				<option>
+					<name>CMSISDAPHWResetDelay</name>
+					<state>200</state>
+				</option>
+				<option>
+					<name>OCDriverInfo</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>CMSISDAPMultiCPUEnable</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CatchINTERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>RDICatchData</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CatchHARDERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPInterfaceRadio</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>CatchDummy</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CatchNOCPERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPJtagSpeedList</name>
+					<version>0</version>
+					<state>1</state>
+				</option>
+				<option>
+					<name>RDICatchFIQ</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>RDICatchSWI</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPUpdateBreakpointsEdit</name>
+					<state>_call_main</state>
+				</option>
+				<option>
+					<name>CatchBUSERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPAttachSlave</name>
+					<state>1</state>
+				</option>
+			</data>
+		</settings>
 	</configuration>
 	<configuration>
 		<name>Release</name>
@@ -1190,7 +1337,7 @@
 				</option>
 				<option>
 					<name>MacOverride</name>
-					<state>1</state>
+					<state>0</state>
 				</option>
 				<option>
 					<name>MacFile</name>
@@ -1242,7 +1389,7 @@
 				</option>
 				<option>
 					<name>OCDynDriverList</name>
-					<state>JLINK_ID</state>
+					<state>CMSISDAP_ID</state>
 				</option>
 				<option>
 					<name>OCLastSavedByProductVersion</name>
@@ -2309,5 +2456,152 @@
 				<loadFlag>1</loadFlag>
 			</plugin>
 		</debuggerPlugins>
+		<settings>
+			<name>CMSISDAP_ID</name>
+			<archiveVersion>2</archiveVersion>
+			<data>
+				<version>0</version>
+				<wantNonLocal>1</wantNonLocal>
+				<debug></debug>
+				<option>
+					<name>CatchSTATERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPBreakpointRadio</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>RDICatchIRQ</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPInterfaceCmdLine</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OCIarProbeScriptFile</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>CatchMMERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPHWResetDuration</name>
+					<state>300</state>
+				</option>
+				<option>
+					<name>CatchCHKERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPRestoreBreakpointsCheck</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CatchCORERESET</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPMultiTargetEnable</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>RDICatchPrefetch</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPMultiTarget</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPDoLogfile</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>RDICatchReset</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPLogFile</name>
+					<state>$PROJ_DIR$\cspycomm.log</state>
+				</option>
+				<option>
+					<name>RDICatchUndef</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPMultiCPUNumber</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPResetList</name>
+					<version>1</version>
+					<state>4</state>
+				</option>
+				<option>
+					<name>CMSISDAPHWResetDelay</name>
+					<state>200</state>
+				</option>
+				<option>
+					<name>OCDriverInfo</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>CMSISDAPMultiCPUEnable</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CatchINTERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>RDICatchData</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CatchHARDERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPInterfaceRadio</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>CatchDummy</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CatchNOCPERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPJtagSpeedList</name>
+					<version>0</version>
+					<state>1</state>
+				</option>
+				<option>
+					<name>RDICatchFIQ</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>RDICatchSWI</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPUpdateBreakpointsEdit</name>
+					<state>_call_main</state>
+				</option>
+				<option>
+					<name>CatchBUSERR</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>CMSISDAPAttachSlave</name>
+					<state>1</state>
+				</option>
+			</data>
+		</settings>
 	</configuration>
 </project>

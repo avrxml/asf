@@ -310,11 +310,13 @@
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/instance</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../clock_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd20_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/source</state>
 					<state>$PROJ_DIR$/../../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/component</state>
+					<state>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -576,11 +578,13 @@
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/instance</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../clock_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd20_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/source</state>
 					<state>$PROJ_DIR$/../../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/component</state>
+					<state>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -762,11 +766,10 @@
 				</option>
 				<option>
 					<name>IlinkUseExtraOptions</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1268,11 +1271,13 @@
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/instance</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../clock_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd20_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/source</state>
 					<state>$PROJ_DIR$/../../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/component</state>
+					<state>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1534,11 +1539,13 @@
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/instance</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../clock_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd20_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/source</state>
 					<state>$PROJ_DIR$/../../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/component</state>
+					<state>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1720,11 +1727,10 @@
 				</option>
 				<option>
 					<name>IlinkUseExtraOptions</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1919,18 +1925,6 @@
 	<group>
 		<name>sam0</name>
 		<group>
-			<name>boards</name>
-			<group>
-				<name>samd20_xplained_pro</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../boards/samd20_xplained_pro/board_init.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../boards/samd20_xplained_pro/samd20_xplained_pro.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
 			<name>drivers</name>
 			<group>
 				<name>system</name>
@@ -1951,6 +1945,18 @@
 				</group>
 				<group>
 					<name>clock</name>
+					<group>
+						<name>clock_samd20</name>
+						<file>
+							<name>$PROJ_DIR$/../../../clock_samd20/clock.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../clock_samd20/gclk.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../clock_samd20/clock_config_check.h</name>
+						</file>
+					</group>
 					<group>
 						<name>quick_start_clock</name>
 						<file>
@@ -1975,12 +1981,6 @@
 							</file>
 						</group>
 					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../gclk.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../clock.c</name>
-					</file>
 					<group>
 						<name>quick_start_gclk</name>
 						<file>
@@ -1989,9 +1989,6 @@
 					</group>
 					<file>
 						<name>$PROJ_DIR$/../../../gclk.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../clock_config_check.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../clock.h</name>
@@ -2011,6 +2008,12 @@
 							<name>$PROJ_DIR$/../../../../interrupt/quick_start/qs_system_interrupt.h</name>
 						</file>
 					</group>
+					<group>
+						<name>system_interrupt_samd20</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd20/system_interrupt_features.h</name>
+						</file>
+					</group>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../system.c</name>
@@ -2024,15 +2027,15 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../port/port.c</name>
 				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../port/port.h</name>
-				</file>
 				<group>
 					<name>quick_start</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../port/quick_start/qs_port_basic.h</name>
 					</file>
 				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../port/port.h</name>
+				</file>
 			</group>
 		</group>
 		<group>
@@ -2115,6 +2118,9 @@
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/pio/pio_samd20g16.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/pio/pio_samd20e1f.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/pio/pio_samd20j18.h</name>
 							</file>
 							<file>
@@ -2131,9 +2137,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/pio/pio_samd20g15.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/pio/pio_samd20e18.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/pio/pio_samd20e16.h</name>
@@ -2260,9 +2263,6 @@
 							<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/samd20g15.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/samd20e18.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd20/include/samd20e17.h</name>
 						</file>
 						<file>
@@ -2307,6 +2307,9 @@
 					<name>$PROJ_DIR$/../../../../../../utils/preprocessor/stringz.h</name>
 				</file>
 				<file>
+					<name>$PROJ_DIR$/../../../../../../utils/preprocessor/mrecursion.h</name>
+				</file>
+				<file>
 					<name>$PROJ_DIR$/../../../../../../utils/preprocessor/preprocessor.h</name>
 				</file>
 				<file>
@@ -2328,6 +2331,18 @@
 			<file>
 				<name>$PROJ_DIR$/../../../../../../utils/status_codes.h</name>
 			</file>
+		</group>
+		<group>
+			<name>boards</name>
+			<group>
+				<name>samd20_xplained_pro</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../boards/samd20_xplained_pro/board_init.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../boards/samd20_xplained_pro/samd20_xplained_pro.h</name>
+				</file>
+			</group>
 		</group>
 	</group>
 	<group>

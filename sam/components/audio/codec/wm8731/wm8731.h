@@ -3,7 +3,7 @@
  *
  * \brief WM8731 driver for SAM
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -250,16 +250,16 @@ void wm8731_reset(void);
  * configurate the TWI interface.
  * 
  * \code
- * static void init_twi_wm8731(void)
- * {
- *      twi_options_t opt;
- * 
- *     opt.master_clk = sysclk_get_peripheral_hz();
- *     opt.speed		= TWI_WM8731_CLK;
- *     opt.chip		= WM8731_SLAVE_ADDRESS;
- *     twi_master_setup(TWI_WM8731, &opt);
- * }
- * \endcode
+	static void init_twi_wm8731(void)
+	{
+	     twi_options_t opt;
+
+	    opt.master_clk = sysclk_get_peripheral_hz();
+	    opt.speed		= TWI_WM8731_CLK;
+	    opt.chip		= WM8731_SLAVE_ADDRESS;
+	    twi_master_setup(TWI_WM8731, &opt);
+	}
+\endcode
  *
  * \section wm8731_basic_use_case_setup_flow Workflow
  *
@@ -271,11 +271,11 @@ void wm8731_reset(void);
  *    - \code wm8731_set_sampling_control(1,0,0); \endcode
  * -# Set the WM8731 audio interface to I2S mode:
  *    - \code ul_value = WM8731_REG_DIGITAL_AUDIO_INTERFACE_FORMAT_I2S;
- * \endcode
+\endcode
  *    - \code wm8731_set_digital_audio_data_bit_length(ul_value); \endcode
  * -# Set the WM8731 audio data bit length to 16bit:
  *    - \code ul_value = WM8731_REG_DIGITAL_AUDIO_INTERFACE_FORMAT_IWL_16_BIT;
- * \endcode
+\endcode
  *    - \code wm8731_set_digital_audio_data_bit_length(ul_value); \endcode
  * -# Disable the WM8731 DAC soft mute:
  *    - \code wm8731_set_dac_soft_mute(0); \endcode

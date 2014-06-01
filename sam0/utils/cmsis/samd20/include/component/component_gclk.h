@@ -52,7 +52,7 @@
 
 #define REV_GCLK                    0x200
 
-/* -------- GCLK_CTRL : (GCLK Offset: 0x0) (R/W  8) Control Register -------- */
+/* -------- GCLK_CTRL : (GCLK Offset: 0x0) (R/W  8) Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -63,14 +63,14 @@ typedef union {
 } GCLK_CTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define GCLK_CTRL_OFFSET            0x0          /**< \brief (GCLK_CTRL offset) Control Register */
-#define GCLK_CTRL_RESETVALUE        0x00         /**< \brief (GCLK_CTRL reset_value) Control Register */
+#define GCLK_CTRL_OFFSET            0x0          /**< \brief (GCLK_CTRL offset) Control */
+#define GCLK_CTRL_RESETVALUE        0x00         /**< \brief (GCLK_CTRL reset_value) Control */
 
 #define GCLK_CTRL_SWRST_Pos         0            /**< \brief (GCLK_CTRL) Software Reset */
 #define GCLK_CTRL_SWRST             (0x1u << GCLK_CTRL_SWRST_Pos)
 #define GCLK_CTRL_MASK              0x01u        /**< \brief (GCLK_CTRL) MASK Register */
 
-/* -------- GCLK_STATUS : (GCLK Offset: 0x1) (R/   8) Status Register -------- */
+/* -------- GCLK_STATUS : (GCLK Offset: 0x1) (R/   8) Status -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -81,14 +81,14 @@ typedef union {
 } GCLK_STATUS_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define GCLK_STATUS_OFFSET          0x1          /**< \brief (GCLK_STATUS offset) Status Register */
-#define GCLK_STATUS_RESETVALUE      0x00         /**< \brief (GCLK_STATUS reset_value) Status Register */
+#define GCLK_STATUS_OFFSET          0x1          /**< \brief (GCLK_STATUS offset) Status */
+#define GCLK_STATUS_RESETVALUE      0x00         /**< \brief (GCLK_STATUS reset_value) Status */
 
 #define GCLK_STATUS_SYNCBUSY_Pos    7            /**< \brief (GCLK_STATUS) Synchronization Busy */
 #define GCLK_STATUS_SYNCBUSY        (0x1u << GCLK_STATUS_SYNCBUSY_Pos)
 #define GCLK_STATUS_MASK            0x80u        /**< \brief (GCLK_STATUS) MASK Register */
 
-/* -------- GCLK_CLKCTRL : (GCLK Offset: 0x2) (R/W 16) Generic Clock Control Register -------- */
+/* -------- GCLK_CLKCTRL : (GCLK Offset: 0x2) (R/W 16) Generic Clock Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -103,8 +103,8 @@ typedef union {
 } GCLK_CLKCTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define GCLK_CLKCTRL_OFFSET         0x2          /**< \brief (GCLK_CLKCTRL offset) Generic Clock Control Register */
-#define GCLK_CLKCTRL_RESETVALUE     0x0000       /**< \brief (GCLK_CLKCTRL reset_value) Generic Clock Control Register */
+#define GCLK_CLKCTRL_OFFSET         0x2          /**< \brief (GCLK_CLKCTRL offset) Generic Clock Control */
+#define GCLK_CLKCTRL_RESETVALUE     0x0000       /**< \brief (GCLK_CLKCTRL reset_value) Generic Clock Control */
 
 #define GCLK_CLKCTRL_ID_Pos         0            /**< \brief (GCLK_CLKCTRL) Generic Clock Selection */
 #define GCLK_CLKCTRL_ID_Msk         (0x3Fu << GCLK_CLKCTRL_ID_Pos)
@@ -118,7 +118,7 @@ typedef union {
 #define GCLK_CLKCTRL_WRTLOCK        (0x1u << GCLK_CLKCTRL_WRTLOCK_Pos)
 #define GCLK_CLKCTRL_MASK           0xCF3Fu      /**< \brief (GCLK_CLKCTRL) MASK Register */
 
-/* -------- GCLK_GENCTRL : (GCLK Offset: 0x4) (R/W 32) Generic Clock Generator Control Register -------- */
+/* -------- GCLK_GENCTRL : (GCLK Offset: 0x4) (R/W 32) Generic Clock Generator Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -138,8 +138,8 @@ typedef union {
 } GCLK_GENCTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define GCLK_GENCTRL_OFFSET         0x4          /**< \brief (GCLK_GENCTRL offset) Generic Clock Generator Control Register */
-#define GCLK_GENCTRL_RESETVALUE     0x00000000   /**< \brief (GCLK_GENCTRL reset_value) Generic Clock Generator Control Register */
+#define GCLK_GENCTRL_OFFSET         0x4          /**< \brief (GCLK_GENCTRL offset) Generic Clock Generator Control */
+#define GCLK_GENCTRL_RESETVALUE     0x00000000   /**< \brief (GCLK_GENCTRL reset_value) Generic Clock Generator Control */
 
 #define GCLK_GENCTRL_ID_Pos         0            /**< \brief (GCLK_GENCTRL) Generic Clock Generator Selection */
 #define GCLK_GENCTRL_ID_Msk         (0xFu << GCLK_GENCTRL_ID_Pos)
@@ -161,7 +161,7 @@ typedef union {
 #define GCLK_GENCTRL_RUNSTDBY       (0x1u << GCLK_GENCTRL_RUNSTDBY_Pos)
 #define GCLK_GENCTRL_MASK           0x003F1F0Fu  /**< \brief (GCLK_GENCTRL) MASK Register */
 
-/* -------- GCLK_GENDIV : (GCLK Offset: 0x8) (R/W 32) Generic Clock Generator Division Register -------- */
+/* -------- GCLK_GENDIV : (GCLK Offset: 0x8) (R/W 32) Generic Clock Generator Division -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -174,8 +174,8 @@ typedef union {
 } GCLK_GENDIV_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define GCLK_GENDIV_OFFSET          0x8          /**< \brief (GCLK_GENDIV offset) Generic Clock Generator Division Register */
-#define GCLK_GENDIV_RESETVALUE      0x00000000   /**< \brief (GCLK_GENDIV reset_value) Generic Clock Generator Division Register */
+#define GCLK_GENDIV_OFFSET          0x8          /**< \brief (GCLK_GENDIV offset) Generic Clock Generator Division */
+#define GCLK_GENDIV_RESETVALUE      0x00000000   /**< \brief (GCLK_GENDIV reset_value) Generic Clock Generator Division */
 
 #define GCLK_GENDIV_ID_Pos          0            /**< \brief (GCLK_GENDIV) Generic Clock Generator Selection */
 #define GCLK_GENDIV_ID_Msk          (0xFu << GCLK_GENDIV_ID_Pos)
@@ -188,11 +188,11 @@ typedef union {
 /** \brief GCLK hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef struct {
-  __IO GCLK_CTRL_Type            CTRL;        /**< \brief Offset: 0x0 (R/W  8) Control Register */
-  __I  GCLK_STATUS_Type          STATUS;      /**< \brief Offset: 0x1 (R/   8) Status Register */
-  __IO GCLK_CLKCTRL_Type         CLKCTRL;     /**< \brief Offset: 0x2 (R/W 16) Generic Clock Control Register */
-  __IO GCLK_GENCTRL_Type         GENCTRL;     /**< \brief Offset: 0x4 (R/W 32) Generic Clock Generator Control Register */
-  __IO GCLK_GENDIV_Type          GENDIV;      /**< \brief Offset: 0x8 (R/W 32) Generic Clock Generator Division Register */
+  __IO GCLK_CTRL_Type            CTRL;        /**< \brief Offset: 0x0 (R/W  8) Control */
+  __I  GCLK_STATUS_Type          STATUS;      /**< \brief Offset: 0x1 (R/   8) Status */
+  __IO GCLK_CLKCTRL_Type         CLKCTRL;     /**< \brief Offset: 0x2 (R/W 16) Generic Clock Control */
+  __IO GCLK_GENCTRL_Type         GENCTRL;     /**< \brief Offset: 0x4 (R/W 32) Generic Clock Generator Control */
+  __IO GCLK_GENDIV_Type          GENDIV;      /**< \brief Offset: 0x8 (R/W 32) Generic Clock Generator Division */
 } Gclk;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 

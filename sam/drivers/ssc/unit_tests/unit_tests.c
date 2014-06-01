@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for SSC driver.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,7 +40,7 @@
  * \asf_license_stop
  *
  */
- 
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <board.h>
@@ -106,7 +106,7 @@
 #define SSC_IRQ_PRIO           4
 
 /** Transmit buffer content. */
-uint8_t g_uc_tx_buff[BUFFER_SIZE] = 
+uint8_t g_uc_tx_buff[BUFFER_SIZE] =
 	{ 0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89 };
 
 /** Receiver buffer content. */
@@ -153,7 +153,7 @@ static void run_ssc_test(const struct test_case *test)
 	clock_opt_t rx_clk_option;
 	data_frame_opt_t rx_data_frame_option;
 	data_frame_opt_t tx_data_frame_option;
-	
+
 	/* Initialize the local variable. */
 	ul_mck = 0;
 	memset((uint8_t *)&rx_clk_option, 0, sizeof(clock_opt_t));
@@ -171,7 +171,7 @@ static void run_ssc_test(const struct test_case *test)
 	tx_clk_option.ul_cks = SSC_TCMR_CKS_MCK;
 	tx_clk_option.ul_cko = SSC_TCMR_CKO_CONTINUOUS;
 	tx_clk_option.ul_cki = 0;
-	tx_clk_option.ul_ckg = SSC_TCMR_CKG_NONE;
+	tx_clk_option.ul_ckg = 0;
 	tx_clk_option.ul_start_sel = SSC_TCMR_START_CONTINUOUS;
 	tx_clk_option.ul_sttdly = 0;
 	tx_clk_option.ul_period = 0;
@@ -185,12 +185,12 @@ static void run_ssc_test(const struct test_case *test)
 	tx_data_frame_option.ul_fsedge = SSC_TFMR_FSEDGE_POSITIVE;
 	/* Configure the SSC transmitter. */
 	ssc_set_transmitter(SSC, &tx_clk_option, &tx_data_frame_option);
-	
+
 	/* Receiver clock mode configuration. */
 	rx_clk_option.ul_cks = SSC_RCMR_CKS_TK;
 	rx_clk_option.ul_cko = SSC_RCMR_CKO_NONE;
 	rx_clk_option.ul_cki = 0;
-	rx_clk_option.ul_ckg = SSC_TCMR_CKG_NONE;
+	rx_clk_option.ul_ckg = 0;
 	rx_clk_option.ul_start_sel = SSC_RCMR_START_RF_EDGE;
 	rx_clk_option.ul_sttdly = 0;
 	rx_clk_option.ul_period = 0;
@@ -214,7 +214,7 @@ static void run_ssc_test(const struct test_case *test)
 
 	/* Configure the RX interrupt. */
 	ssc_enable_interrupt(SSC, SSC_IER_RXRDY);
-	
+
 	/* Enable SSC interrupt line from the core */
 	NVIC_DisableIRQ(SSC_IRQn);
 	NVIC_ClearPendingIRQ(SSC_IRQn);
@@ -224,11 +224,11 @@ static void run_ssc_test(const struct test_case *test)
 	for (g_uc_tx_index = 0; g_uc_tx_index < BUFFER_SIZE; g_uc_tx_index++) {
 		ssc_write(SSC, g_uc_tx_buff[g_uc_tx_index]);
 	}
-	
+
 	while (!g_uc_rx_done) {
 	}
 
-	test_assert_true(test, (memcmp(g_uc_rx_buff, g_uc_tx_buff, BUFFER_SIZE) == 0), 
+	test_assert_true(test, (memcmp(g_uc_rx_buff, g_uc_tx_buff, BUFFER_SIZE) == 0),
 			"Test: SSC received data is not the same as the transmit data!");
 }
 

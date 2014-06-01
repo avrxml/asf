@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of functions for the AES on SAM devices.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -379,7 +379,7 @@ static inline void aes_write_drng_seed(struct aes_dev_inst *const dev_inst,
  */
 
 /**
- * \page sam_aes_quick_start Quick Start Guide for the AES driver
+ * \page sam_aesa_quick_start Quick Start Guide for the AES driver
  *
  * This is the quick start guide for the \ref group_sam_drivers_aes, with
  * step-by-step instructions on how to configure and use the driver for
@@ -407,12 +407,12 @@ static inline void aes_write_drng_seed(struct aes_dev_inst *const dev_inst,
  *
  * Add this to the main loop or a setup function:
  * \code
- * struct aes_dev_inst g_aes_inst;
- * struct aes_config   g_aes_cfg;
- * aes_get_config_defaults(&g_aes_cfg);
- * aes_init(&g_aes_inst, AESA, &g_aes_cfg);
- * aes_enable(&g_aes_inst);
- * \endcode
+	struct aes_dev_inst g_aes_inst;
+	struct aes_config   g_aes_cfg;
+	aes_get_config_defaults(&g_aes_cfg);
+	aes_init(&g_aes_inst, AESA, &g_aes_cfg);
+	aes_enable(&g_aes_inst);
+\endcode
  *
  * \subsection aes_basic_setup_workflow
  *
@@ -421,20 +421,20 @@ static inline void aes_write_drng_seed(struct aes_dev_inst *const dev_inst,
  *
  * -# Set the AES interrupt and callback
  * \code
- * aes_set_callback(&g_aes_inst, AES_INTERRUPT_INPUT_BUFFER_READY,
- *		aes_callback, 1);
- * \endcode
+	 aes_set_callback(&g_aes_inst, AES_INTERRUPT_INPUT_BUFFER_READY,
+			aes_callback, 1);
+\endcode
  *
  * -# Initialize the AES to ECB cipher mode
  * \code
- * g_aes_inst.aes_cfg->encrypt_mode = AES_ENCRYPTION;
- * g_aes_inst.aes_cfg->key_size = AES_KEY_SIZE_128;
- * g_aes_inst.aes_cfg->dma_mode = AES_MANUAL_MODE;
- * g_aes_inst.aes_cfg->opmode = AES_ECB_MODE;
- * g_aes_inst.aes_cfg->cfb_size = AES_CFB_SIZE_128;
- * g_aes_inst.aes_cfg->countermeasure_mask = 0xF;
- * aes_set_config(&g_aes_inst);
- * \endcode
+	g_aes_inst.aes_cfg->encrypt_mode = AES_ENCRYPTION;
+	g_aes_inst.aes_cfg->key_size = AES_KEY_SIZE_128;
+	g_aes_inst.aes_cfg->dma_mode = AES_MANUAL_MODE;
+	g_aes_inst.aes_cfg->opmode = AES_ECB_MODE;
+	g_aes_inst.aes_cfg->cfb_size = AES_CFB_SIZE_128;
+	g_aes_inst.aes_cfg->countermeasure_mask = 0xF;
+	aes_set_config(&g_aes_inst);
+\endcode
  *
  * \section aes_basic_usage Usage steps
  *
@@ -442,21 +442,21 @@ static inline void aes_write_drng_seed(struct aes_dev_inst *const dev_inst,
  *
  * We can then encrypte the plain text by
  * \code
- * aes_set_new_message(&g_aes_inst);
- * aes_write_key(&g_aes_inst, key128);
- * aes_write_input_data(&g_aes_inst, ref_plain_text[0]);
- * aes_write_input_data(&g_aes_inst, ref_plain_text[1]);
- * aes_write_input_data(&g_aes_inst, ref_plain_text[2]);
- * aes_write_input_data(&g_aes_inst, ref_plain_text[3]);
- * \endcode
+	aes_set_new_message(&g_aes_inst);
+	aes_write_key(&g_aes_inst, key128);
+	aes_write_input_data(&g_aes_inst, ref_plain_text[0]);
+	aes_write_input_data(&g_aes_inst, ref_plain_text[1]);
+	aes_write_input_data(&g_aes_inst, ref_plain_text[2]);
+	aes_write_input_data(&g_aes_inst, ref_plain_text[3]);
+\endcode
  *
  * We can get the cipher text after it's ready by
  * \code
- * output_data[0] = aes_read_output_data(&g_aes_inst);
- * output_data[1] = aes_read_output_data(&g_aes_inst);
- * output_data[2] = aes_read_output_data(&g_aes_inst);
- * output_data[3] = aes_read_output_data(&g_aes_inst);
- * \endcode
+	output_data[0] = aes_read_output_data(&g_aes_inst);
+	output_data[1] = aes_read_output_data(&g_aes_inst);
+	output_data[2] = aes_read_output_data(&g_aes_inst);
+	output_data[3] = aes_read_output_data(&g_aes_inst);
+\endcode
  */
 
 #endif  /* AES_H_INCLUDED */

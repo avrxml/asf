@@ -82,10 +82,13 @@
  * All SAM devices with a FLASHCALW module can be used.
  *
  * \section configinfo Configuration Information
+ * This example has been tested with the following kits:
+ * - SAM4L-EK evaluation kit;
+ * - SAM4L Xplained Pro
+ * - SAM4L8 Xplained Pro
  * This example has been tested with the following configuration:
- * - SAM4L_EK evaluation kit;
  * - CPU clock: 12 MHz;
- * - USART2 (on SAM4L_EK) abstracted with a USB CDC connection to a PC;
+ * - USARTx abstracted with a USB CDC connection to a PC;
  * - PC terminal settings:
  *   - 115200 bps,
  *   - 8 data bits,
@@ -201,7 +204,7 @@ static void flash_protect_example( void )
 
 	/* Set the lock */
 	flashcalw_lock_page_region(NVRAM_PAGE_NUMBER, true);
-	
+
 	/* Try to access the locked area */
 	flashcalw_memset((void *)NVRAM_PAGE_ADDRESS, 0x0, 8, FLASH_PAGE_SIZE,
 			true);

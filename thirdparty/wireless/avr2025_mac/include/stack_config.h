@@ -3,7 +3,7 @@
  *
  * @brief Stack configuration parameters
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,6 +51,8 @@
 #ifndef STACK_CONFIG_H
 #define STACK_CONFIG_H
 
+#include "compiler.h"
+
 /**
  * \ingroup group_inc
  * \defgroup group_stack Common Stack Definitions
@@ -92,7 +94,7 @@
  +          +
  +   PAL    +
  +          +
- ++----------+
+ +++----------+
  */
 /* Reduce the header file dependency by using hard-coded values */
 #define LARGE_BUFFER_SIZE               (160)
@@ -105,11 +107,11 @@
  +          +
  +   TAL    +
  +          +
- ++----------+
+ +++----------+
  +          +
  +   PAL    +
  +          +
- ++----------+
+ +++----------+
  */
 
 /**
@@ -166,15 +168,15 @@
  +          +    +          +
  +   MAC    +    +   RTB    +
  +          +    +          +
- ++----------+    +----------+
+ +++----------+    +----------+
  +          +    +          +
  +   TAL    + or +   TAL    +
  +          +    +          +
- ++----------+    +----------+
+ +++----------+    +----------+
  +          +    +          +
  +   PAL    +    +   PAL    +
  +          +    +          +
- ++----------+    +----------+
+ +++----------+    +----------+
  */
 
 /**
@@ -277,11 +279,19 @@
 #include "mac_config.h"
 #define NUMBER_OF_TOTAL_STACK_TIMERS        (NUMBER_OF_TAL_TIMERS + \
 	NUMBER_OF_RTB_TIMERS + NUMBER_OF_MAC_TIMERS)
+#ifdef GTS_SUPPORT
+#if (MAC_INDIRECT_DATA_FFD == 1)
+#define NUMBER_OF_LARGE_STACK_BUFS      (6 + 7 + EXTRA_RTB_BUFFER)
+#else
+#define NUMBER_OF_LARGE_STACK_BUFS      (4 + 2 + EXTRA_RTB_BUFFER)
+#endif  /* (MAC_INDIRECT_DATA_FFD == 1) */
+#else /* GTS_SUPPORT */
 #if (MAC_INDIRECT_DATA_FFD == 1)
 #define NUMBER_OF_LARGE_STACK_BUFS      (6 + EXTRA_RTB_BUFFER)
 #else
 #define NUMBER_OF_LARGE_STACK_BUFS      (4 + EXTRA_RTB_BUFFER)
 #endif  /* (MAC_INDIRECT_DATA_FFD == 1) */
+#endif  /* GTS_SUPPORT */
 #define NUMBER_OF_SMALL_STACK_BUFS          (0)
 #endif  /* (HIGHEST_STACK_LAYER == MAC) */
 

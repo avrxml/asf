@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,15 +43,15 @@
 #define _SAM4S_GPBR_COMPONENT_
 
 /* ============================================================================= */
-/**  SOFTWARE API DEFINITION FOR General Purpose Backup Register */
+/**  SOFTWARE API DEFINITION FOR General Purpose Backup Registers */
 /* ============================================================================= */
-/** \addtogroup SAM4S_GPBR General Purpose Backup Register */
+/** \addtogroup SAM4S_GPBR General Purpose Backup Registers */
 /*@{*/
 
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Gpbr hardware registers */
 typedef struct {
-  RwReg SYS_GPBR[8]; /**< \brief (Gpbr Offset: 0x0) General Purpose Backup Register */
+  __IO uint32_t SYS_GPBR[8]; /**< \brief (Gpbr Offset: 0x0) General Purpose Backup Register */
 } Gpbr;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- SYS_GPBR[8] : (GPBR Offset: 0x0) General Purpose Backup Register -------- */

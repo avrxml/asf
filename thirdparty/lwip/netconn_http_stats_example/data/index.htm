@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>ATMEL SAM HTTP netconn example</title>
+		<link rel="stylesheet" type="text/css" media="screen" href="etc/style.css" />
+		<script type="text/javascript" src="etc/js/jquery.js"></script>
+		<script type="text/javascript" src="etc/js/excan.js"></script>
+		<script type="text/javascript" src="etc/js/jqflot.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$.ajax({
+					  url: "get_chipinfo",
+					  dataType :'json',
+					  async: false,
+					  cache: false,
+					  success: function(data){
+					    	$.each(data,function(k,v){
+					    		$('#'+k).text(v);
+					    	});
+   					  }
+					});
+
+   				var options = {
+			        series: { shadowSize: 0 },
+			        yaxis:  { min: 0},
+			        xaxis:  { min: 0}
+			    };
+
+				var dl_rate_data = [];
+				var ul_rate_data = [];
+				var data_rate_graph = $.plot($("#data-rate-plot"), [{label: "Download (B/s)", data:dl_rate_data}, {label: "Upload (B/s)", data:ul_rate_data}], options);
+
+			    function updateStatus() {
+					$.ajax({
+						url: "status",
+						async: false,
+						cache: false,
+						dataType :'json',
+						success: function(data) {
+							$('#board_ip').text(data['board_ip']);
+							$('#remote_ip').text(data['remote_ip']);
+							$('#tot_req').text(data['tot_req']);
+
+							var html = '';
+							$.each(data['rtos'], function (thread, usage) {
+								html += '<tr><td class="label">' + thread.substring(2) + '</td><td>' + usage + '</td></tr>';
+							});
+							$('#rtostab tr').not(':first').remove();
+							$('#rtostab tr').first().after(html);
+
+							var html = '';
+							var cur = 0;
+							var size = 0;
+							$.each(data['lwip'], function (name, data) {
+								html += '<tr><td class="label">' + name + '</td>';
+								$.each(data, function (k, v) {
+									html += '<td class="label3">' + k + ':' + v + '</td>';
+									if(k == "Cur")
+										cur = v;
+									if(k == "Size")
+										size = v;
+								});
+								html += '<td class="label3">Usage:' + Math.round(cur * 100 / size) + '%</td></tr>';
+							});
+							$('#lwiptab tr').not(':first').remove();
+							$('#lwiptab tr').first().after(html);
+
+							dl_rate_data.push([data['up_time'],data['download']]);
+							ul_rate_data.push([data['up_time'],data['upload']]);
+							var x = data_rate_graph.getAxes().xaxis.options;
+							var y = data_rate_graph.getAxes().yaxis.options;
+							x.max = Math.max(25,data['up_time']);
+							x.min = Math.max(0,(x.max - 25));
+							data_rate_graph.setData([{label: "Download (B/s)", data:dl_rate_data}, {label: "Upload (B/s)", data:ul_rate_data}]);
+							data_rate_graph.setupGrid();
+							data_rate_graph.draw();
+							setTimeout(updateStatus, 1000);
+						}
+					});
+			    }
+				updateStatus();
+			});
+		</script>
+	</head>
+	<body>
+
+		<div id="wrapper">
+			<div id="conteiner">
+				<div id="header">
+					<img src="etc/img/atmel.png" alt="ATMEL Logo" />
+					<div>
+						<h1>LwIP HTTP netconn example</h1><br>
+						<h3>System and network monitor</h3>
+					</div>
+				</div>
+				<div class="content">
+					<div class="control">
+						<b>Hardware Info:</b><br>
+						<b>CPU Core: </b><span id="core_name">--</span><br>
+						<b>Chip name: </b><span id="arch_name">--</span><br>
+						<b>SRAM size: </b><span id="sram_size">--</span><br>
+						<b>Flash size: </b><span id="flash_size">--</span><br><br>
+
+						<b>Connections Info:</b><br>
+						<b>Board IP: </b><span id="board_ip">--</span><br>
+						<b>Your IP: </b><span id="remote_ip">--</span><br>
+						<b>Total status requests: </b><span id="tot_req">--</span><br><br>
+					</div>
+					<div class="control">
+						<b>FreeRTOS thread usage:</b><br>
+						<table id="rtostab">
+							<tr>
+							</tr>
+						</table>
+						<br><br>
+					</div>
+				</div>
+				<div class="content">
+					<div class="control">
+						<b>LwIP stats:</b><br>
+						<table id="lwiptab">
+							<tr>
+							</tr>
+						</table>
+						<br>
+					</div>
+				</div>
+				<div class="content">
+						<b>Transfer rate on ethernet MAC:</b><br/>
+						<div id="data-rate-plot" class="data-rate-plot"></div>
+				</div>
+				<div  class="content footer">
+						Please visit <a href="http://www.atmel.com">www.atmel.com</a> for more info
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>

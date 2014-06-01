@@ -466,7 +466,7 @@ GENERATE_DEPRECATEDLIST= YES
 # The ENABLED_SECTIONS tag can be used to enable conditional
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       =
+ENABLED_SECTIONS       = 
 
 # The MAX_INITIALIZER_LINES tag determines the maximum number of lines
 # the initial value of a variable or define consists of for it to appear in
@@ -582,7 +582,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  =  ../../md2.c ../../rsa.c ../../dhm.c ../../timing.c ../../bignum.c ../../md5.c ../../md4.c ../../xtea.c ../../base64.c ../../sha2.c ../../sha1.c ../../arc4.c ../../sha4.c ../../debug.c ../../havege.c ../../x509parse.c ../../ssl_cli.c ../../des.c ../../certs.c ../../aes.c ../../padlock.c ../../ssl_srv.c ../../camellia.c  ../../include/polarssl/des.h ../../include/polarssl/arc4.h ../../include/polarssl/md5.h ../../include/polarssl/x509.h ../../include/polarssl/md4.h ../../include/polarssl/md2.h ../../include/polarssl/havege.h ../../include/polarssl/ssl.h ../../include/polarssl/sha1.h ../../include/polarssl/bn_mul.h ../../include/polarssl/bignum.h ../../docsrc/documentation.h ../../include/polarssl/net.h ../../include/polarssl/timing.h ../../include/polarssl/openssl.h ../../include/polarssl/camellia.h ../../include/polarssl/rsa.h ../../include/polarssl/sha4.h ../../include/polarssl/certs.h ../../include/polarssl/aes.h ../../include/polarssl/config.h ../../include/polarssl/dhm.h ../../include/polarssl/sha2.h ../../include/polarssl/padlock.h ../../include/polarssl/xtea.h ../../include/polarssl/base64.h ../../include/polarssl/debug.h doxygen_module_mainpage.h
+INPUT                  = doxygen_module_mainpage.h ../../aes.c ../../arc4.c ../../base64.c ../../bignum.c ../../camellia.c ../../certs.c ../../debug.c ../../des.c ../../dhm.c ../../havege.c ../../md2.c ../../md4.c ../../md5.c ../../padlock.c ../../rsa.c ../../sha1.c ../../sha2.c ../../sha4.c ../../ssl_cli.c ../../ssl_srv.c ../../timing.c ../../x509parse.c ../../xtea.c ../../docsrc/documentation.h ../../include/polarssl/aes.h ../../include/polarssl/arc4.h ../../include/polarssl/base64.h ../../include/polarssl/bignum.h ../../include/polarssl/bn_mul.h ../../include/polarssl/camellia.h ../../include/polarssl/certs.h ../../include/polarssl/config.h ../../include/polarssl/debug.h ../../include/polarssl/des.h ../../include/polarssl/dhm.h ../../include/polarssl/havege.h ../../include/polarssl/md2.h ../../include/polarssl/md4.h ../../include/polarssl/md5.h ../../include/polarssl/net.h ../../include/polarssl/openssl.h ../../include/polarssl/padlock.h ../../include/polarssl/rsa.h ../../include/polarssl/sha1.h ../../include/polarssl/sha2.h ../../include/polarssl/sha4.h ../../include/polarssl/ssl.h ../../include/polarssl/timing.h ../../include/polarssl/x509.h ../../include/polarssl/xtea.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -1062,6 +1062,17 @@ FORMULA_FONTSIZE       = 10
 
 FORMULA_TRANSPARENT    = YES
 
+# Enable the USE_MATHJAX option to render LaTeX formulas using MathJax (see
+# http://www.mathjax.org) which uses client side Javascript for the rendering
+# instead of using prerendered bitmaps. Use this if you do not have LaTeX
+# installed or if you want to formulas look prettier in the HTML output. When
+# enabled you may also need to install MathJax separately and configure the path
+# to it using the MATHJAX_RELPATH option.
+# The default value is: NO.
+# This tag requires that the tag GENERATE_HTML is set to YES.
+
+USE_MATHJAX            = NO
+
 # When the SEARCHENGINE tag is enabled doxygen will generate a search box
 # for the HTML output. The underlying search engine uses javascript
 # and DHTML and should work on any modern browser. Note that when using
@@ -1352,7 +1363,7 @@ SEARCH_INCLUDES        = YES
 # contain include files that are not input files but should be processed by
 # the preprocessor.
 
-INCLUDE_PATH           =  ../../include ../..
+INCLUDE_PATH           = ../.. ../../include
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the

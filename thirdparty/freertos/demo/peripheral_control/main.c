@@ -2,11 +2,10 @@
  *
  * \file
  *
- * \brief Example that demonstrates FreeRTOS USART peripheral control functions
+ * \brief Example that demonstrates FreeRTOS peripheral control functions
  * and FreeRTOS+CLI
  *
- *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,11 +44,14 @@
  */
 
 /**
- * \mainpage FreeRTOS USART peripheral control functions and FreeRTOS+CLI Example
+ * \mainpage FreeRTOS peripheral control functions and FreeRTOS+CLI Example
  * \section intro Introduction
  * ************* Introduction **************************************************
  *
  * The examples defined in this project demonstrate:
+ *
+ *	+ The blocking FreeRTOS UART API being used with FreeRTOS+CLI to create a
+ *	  command console.
  *
  *	+ The fully asynchronous FreeRTOS USART API being used to send a string to
  *	  an RS232 echo server, and receive the reply.  A loopback connector can be
@@ -170,6 +172,29 @@
  * By default, the RS232 communication is configured to use 115200 baud, 8 data
  * bits, no parity, one stop bit, and no flow control.
  *
+ * \section uart_cli UART Command Console using FreeRTOS+CLI
+ * ************* UART Command Console using FreeRTOS+CLI **********************
+ *
+ * - Functionality -
+ *
+ * The functionality is exactly as that described for the USART command console
+ * above.  Only the communication interface is different.  The UART peripheral
+ * is used as a com port.
+ *
+ * - Software Configuration -
+ *
+ * The UART command console example is created if the confINCLUDE_UART_CLI
+ * constant is define.  confINCLUDE_UART_CLI can be defined in conf_example.h.
+ *
+ * - Hardware Setup -
+ *
+ * The RS232 UART port needs to be connected to a dumb terminal, such as
+ * TeraTerm.  For the cleanest output, the terminal should be set not to echo
+ * characters, transmit line feeds (LF), and receive carriage returns (CR).
+ *
+ * By default, the RS232 communication is configured to use 115200 baud, 8 data
+ * bits, no parity, one stop bit, and no flow control.
+ *
  * \section usb_cdc_cli USB/CDC Command Console using FreeRTOS+CLI
  * ************* USB/CDC Command Console using FreeRTOS+CLI ********************
  *
@@ -275,7 +300,7 @@
 /* Defines the LED toggled to provide visual feedback that the system is
  * running.  The rate is defined in milliseconds, then converted to RTOS ticks
  * by the portTICK_RATE_MS constant. */
-#define mainSOFTWARE_TIMER_LED                  (2)
+#define mainSOFTWARE_TIMER_LED                  (0)
 #define mainSOFTWARE_TIMER_RATE                 (200 / portTICK_RATE_MS)
 
 /* Defines the LED that is turned on if an error is detected. */
@@ -285,6 +310,7 @@
 #define mainDONT_BLOCK                          (0)
 
 /* The priorities at which various tasks will get created. */
+#define mainUART_CLI_TASK_PRIORITY              (tskIDLE_PRIORITY + 1)
 #define mainUSART_CLI_TASK_PRIORITY             (tskIDLE_PRIORITY + 1)
 #define mainCDC_CLI_TASK_PRIORITY               (tskIDLE_PRIORITY + 1)
 #define mainUSART_ECHO_TASK_PRIORITY            (tskIDLE_PRIORITY)
@@ -292,6 +318,7 @@
 #define mainTWI_EEPROM_TASK_PRIORITY            (tskIDLE_PRIORITY)
 
 /* The stack sizes allocated to the various tasks. */
+#define mainUART_CLI_TASK_STACK_SIZE    (configMINIMAL_STACK_SIZE * 2)
 #define mainUSART_CLI_TASK_STACK_SIZE   (configMINIMAL_STACK_SIZE * 2)
 #define mainCDC_CLI_TASK_STACK_SIZE     (configMINIMAL_STACK_SIZE * 2)
 #define mainUSART_ECHO_TASK_STACK_SIZE  (configMINIMAL_STACK_SIZE)
@@ -358,6 +385,14 @@ int main(void)
 
 	/* Create the example tasks as per the configuration settings.
 	See the comments at the top of this file. */
+	#if (defined confINCLUDE_UART_CLI)
+	{
+		create_uart_cli_task(BOARD_UART,
+				mainUART_CLI_TASK_STACK_SIZE,
+				mainUART_CLI_TASK_PRIORITY);
+	}
+	#endif /* confINCLUDE_USART_CLI */
+
 	#if (defined confINCLUDE_USART_ECHO_TASKS)
 	{
 		create_usart_echo_test_tasks(BOARD_USART,
@@ -409,7 +444,6 @@ int main(void)
 	for more details. */
 	for (;;) {
 	}
-	return 0;
 }
 
 /*-----------------------------------------------------------*/

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 DAC Sound Player Application
+ * \brief SAM D20/D21 DAC Sound Player Application
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \license
  * \asf_license_start
@@ -41,9 +41,9 @@
  */
 
 /**
- * \mainpage SAM D20 DAC Sound Player Application
+ * \mainpage SAM D20/D21 DAC Sound Player Application
  * See \ref appdoc_main "here" for project documentation.
- * \copydetails preface
+ * \copydetails appdoc_preface
  *
  *
  * \page appdoc_preface Overview
@@ -53,16 +53,16 @@
  */
 
 /**
- * \page appdoc_main SAM D20 DAC Sound Player Application
+ * \page appdoc_main SAM D20/D21 DAC Sound Player Application
  *
  * Overview:
- * - \ref appdoc_samd20_dac_sound_player_intro
- * - \ref appdoc_samd20_dac_sound_player_setup
- * - \ref appdoc_samd20_dac_sound_player_usage
- * - \ref appdoc_samd20_dac_sound_player_compinfo
- * - \ref appdoc_samd20_dac_sound_player_contactinfo
+ * - \ref appdoc_sam0_dac_sound_player_intro
+ * - \ref appdoc_sam0_dac_sound_player_setup
+ * - \ref appdoc_sam0_dac_sound_player_usage
+ * - \ref appdoc_sam0_dac_sound_player_compinfo
+ * - \ref appdoc_sam0_dac_sound_player_contactinfo
  *
- * \section appdoc_samd20_dac_sound_player_intro Introduction
+ * \section appdoc_sam0_dac_sound_player_intro Introduction
  * This application demonstrates a simple sound player, sourcing a waveform
  * from the device's Non-Volatile Memory and streaming it out of the DAC as
  * an analog waveform.
@@ -71,21 +71,21 @@
  * sample rate, using the Event System module of the device to link the periodic
  * timer output events to the DAC module to trigger new sample conversions.
  *
- * \section appdoc_samd20_dac_sound_player_setup Hardware Setup
+ * \section appdoc_sam0_dac_sound_player_setup Hardware Setup
  * The device's DAC channel 0 output should be connected to an audio amplifier,
  * speaker, oscilloscope or other similar monitoring equipment so that the
  * generated waveform can be monitored.
  *
- * \section appdoc_samd20_dac_sound_player_usage Usage
+ * \section appdoc_sam0_dac_sound_player_usage Usage
  * On startup the device hardware will be configured, and the example will enter
  * an infinite loop. Each time the board button is pressed, the embedded
  * waveform will be output through the DAC and the board LED will be toggled
  *
- * \section appdoc_samd20_dac_sound_player_compinfo Compilation Info
+ * \section appdoc_sam0_dac_sound_player_compinfo Compilation Info
  * This software was written for the GNU GCC and IAR for ARM.
  * Other compilers may or may not work.
  *
- * \section appdoc_samd20_dac_sound_player_contactinfo Contact Information
+ * \section appdoc_sam0_dac_sound_player_contactinfo Contact Information
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
@@ -156,7 +156,7 @@ static void configure_tc(struct tc_module *tc_module)
 	config.clock_source    = GCLK_GENERATOR_0;
 	config.wave_generation = TC_WAVE_GENERATION_MATCH_FREQ;
 
-	tc_init(tc_module, TC0, &config);
+	tc_init(tc_module, TC3, &config);
 
 	/* Enable periodic event output generation */
 	struct tc_events events = { .generate_event_on_overflow = true };
@@ -177,26 +177,17 @@ static void configure_tc(struct tc_module *tc_module)
  * rate timing to the DAC, so that a new conversion is triggered each time the
  * DAC receives an event from the timer.
  */
-static void configure_events(void)
+static void configure_events(struct events_resource *event)
 {
-	events_init();
+	struct events_config config;
 
+	events_get_config_defaults(&config);
 
-	struct events_user_config events_user_config;
-	events_user_get_config_defaults(&events_user_config);
+	config.generator    = EVSYS_ID_GEN_TC3_OVF;
+	config.path         = EVENTS_PATH_ASYNCHRONOUS;
 
-	events_user_config.event_channel_id = EVENT_CHANNEL_0;
-
-	events_user_set_config(EVSYS_ID_USER_DAC_START, &events_user_config);
-
-
-	struct events_chan_config events_chan_config;
-	events_chan_get_config_defaults(&events_chan_config);
-
-	events_chan_config.generator_id = EVSYS_ID_GEN_TC0_OVF;
-	events_chan_config.path         = EVENT_PATH_ASYNCHRONOUS;
-
-	events_chan_set_config(EVENT_CHANNEL_0, &events_chan_config);
+	events_allocate(event, &config);
+	events_attach_user(event, EVSYS_ID_USER_DAC_START);
 }
 
 /**
@@ -206,6 +197,7 @@ int main(void)
 {
 	struct dac_module dac_module;
 	struct tc_module tc_module;
+	struct events_resource event;
 
 	/* Initialize all the system clocks, pm, gclk... */
 	system_init();
@@ -216,7 +208,7 @@ int main(void)
 	/* Module configuration */
 	configure_tc(&tc_module);
 	configure_dac(&dac_module);
-	configure_events();
+	configure_events(&event);
 
 	/* Start the sample trigger timer */
 	tc_start_counter(&tc_module);

@@ -95,7 +95,7 @@ extern "C" {
  */
 
 //! Max channel number
-#if (SAM3N) || (SAM4L)
+#if (SAM3N) || (SAM4L) || (SAM4N)
 # define MAX_CH_NB        0
 #else
 # define MAX_CH_NB        1
@@ -125,7 +125,7 @@ void dacc_reset(Dacc *p_dacc)
 uint32_t dacc_set_trigger(Dacc *p_dacc, uint32_t ul_trigger)
 {
 	uint32_t mr = p_dacc->DACC_MR & (~(DACC_MR_TRGSEL_Msk));
-#if (SAM3N) || (SAM4L)
+#if (SAM3N) || (SAM4L) || (SAM4N)
 	p_dacc->DACC_MR = mr
 		| DACC_MR_TRGEN
 		| ((ul_trigger << DACC_MR_TRGSEL_Pos) & DACC_MR_TRGSEL_Msk);
@@ -156,13 +156,13 @@ void dacc_disable_trigger(Dacc *p_dacc)
 uint32_t dacc_set_transfer_mode(Dacc *p_dacc, uint32_t ul_mode)
 {
 	if (ul_mode) {
-#if (SAM3N) || (SAM4L)
+#if (SAM3N) || (SAM4L) || (SAM4N)
 		p_dacc->DACC_MR |= DACC_MR_WORD;
 #else
 		p_dacc->DACC_MR |= DACC_MR_WORD_WORD;
 #endif
 	} else {
-#if (SAM3N) || (SAM4L)
+#if (SAM3N) || (SAM4L) || (SAM4N)
 		p_dacc->DACC_MR &= (~DACC_MR_WORD);
 #else
 		p_dacc->DACC_MR &= (~DACC_MR_WORD_WORD);
@@ -283,7 +283,7 @@ Pdc *dacc_get_pdc_base(Dacc *p_dacc)
 }
 #endif
 
-#if (SAM3N) || (SAM4L) || defined(__DOXYGEN__)
+#if (SAM3N) || (SAM4L) || (SAM4N) || defined(__DOXYGEN__)
 /**
  * \brief Enable DACC.
  *
@@ -324,7 +324,7 @@ uint32_t dacc_set_timing(Dacc *p_dacc, uint32_t ul_startup,
 		| DACC_MR_CLKDIV(ul_clock_divider);
 	return DACC_RC_OK;
 }
-#endif /* #if (SAM3N) || (SAM4L) */
+#endif /* #if (SAM3N) || (SAM4L) || (SAM4N) */
 
 #if (SAM3S) || (SAM3XA) || (SAM4S) || (SAM4E) || defined(__DOXYGEN__)
 /**

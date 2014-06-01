@@ -3,7 +3,7 @@
  *
  * @brief Implementation of vendor-specific data handling
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -203,7 +203,6 @@ void vendor_data_confirm(nwk_enum_t Status, uint8_t PairingRef,
 		 * so initiate flash swap for activiting the new image */
 		flash_swap(IMAGE_START_ADDR, IMAGE_SIZE);
 	}
-
 #endif
 	Status = Status;
 	PairingRef = PairingRef;
@@ -216,7 +215,12 @@ static uint16_t get_batmon_voltage(void)
 {
 	uint16_t voltage;
 	/* GET_BATTERY_VOLTAGE - will be board specific */
+	/* #if (!defined SAMD20) || (!defined SAMD21) || (!defined SAMR21) */
 	voltage = GET_BATTERY_VOLTAGE();
+
+	/*#else
+	 * voltage = 0;
+	 #endif*/
 
 	return voltage;
 }

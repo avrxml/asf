@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4E16E	Atmel SAM4E16E</state>
+					<state>ATSAM4E16E	Atmel ATSAM4E16E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -295,11 +295,11 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../common/components/memory/data_flash/at45dbx</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../fatfs-r0.09/src</state>
 					<state>$PROJ_DIR$/../../../fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -324,12 +324,11 @@
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rtc</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards/sam4e_ek</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../common/services/storage/ctrl_access</state>
@@ -582,11 +581,11 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../common/components/memory/data_flash/at45dbx</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../fatfs-r0.09/src</state>
 					<state>$PROJ_DIR$/../../../fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -611,12 +610,11 @@
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rtc</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards/sam4e_ek</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../common/services/storage/ctrl_access</state>
@@ -768,7 +766,7 @@
 				</option>
 				<option>
 					<name>IlinkIcfFile</name>
-					<state>$PROJ_DIR$/../../../../../sam/utils/linker_scripts/sam4e/sam4e16e/iar/flash.icf</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/linker_scripts/sam4e/sam4e16/iar/flash.icf</state>
 				</option>
 				<option>
 					<name>IlinkIcfFileSlave</name>
@@ -804,7 +802,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1063,7 +1060,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4E16E	Atmel SAM4E16E</state>
+					<state>ATSAM4E16E	Atmel ATSAM4E16E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1261,11 +1258,11 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../common/components/memory/data_flash/at45dbx</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../fatfs-r0.09/src</state>
 					<state>$PROJ_DIR$/../../../fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -1290,12 +1287,11 @@
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rtc</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards/sam4e_ek</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../common/services/storage/ctrl_access</state>
@@ -1548,11 +1544,11 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../common/components/memory/data_flash/at45dbx</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../fatfs-r0.09/src</state>
 					<state>$PROJ_DIR$/../../../fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -1577,12 +1573,11 @@
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rtc</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards/sam4e_ek</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../common/services/storage/ctrl_access</state>
@@ -1734,7 +1729,7 @@
 				</option>
 				<option>
 					<name>IlinkIcfFile</name>
-					<state>$PROJ_DIR$/../../../../../sam/utils/linker_scripts/sam4e/sam4e16e/iar/flash.icf</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/linker_scripts/sam4e/sam4e16/iar/flash.icf</state>
 				</option>
 				<option>
 					<name>IlinkIcfFileSlave</name>
@@ -1770,7 +1765,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -2139,15 +2133,15 @@
 			</group>
 			<group>
 				<name>gpio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/services/gpio/gpio.h</name>
+				</file>
 				<group>
 					<name>sam_gpio</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../common/services/gpio/sam_gpio/sam_gpio.h</name>
 					</file>
 				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/gpio/gpio.h</name>
-				</file>
 			</group>
 		</group>
 		<group>
@@ -2279,15 +2273,6 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam/drivers/rtc/rtc.h</name>
-				</file>
-			</group>
-			<group>
-				<name>tc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../sam/drivers/tc/tc.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../sam/drivers/tc/tc.h</name>
 				</file>
 			</group>
 		</group>

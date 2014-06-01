@@ -3,7 +3,7 @@
  *
  * \brief USB Device Human Interface Device (HID) generic interface.
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -115,13 +115,13 @@ typedef struct {
    .ep_in.bEndpointAddress    = UDI_HID_GENERIC_EP_IN,\
    .ep_in.bmAttributes        = USB_EP_TYPE_INTERRUPT,\
    .ep_in.wMaxPacketSize      = LE16(UDI_HID_GENERIC_EP_SIZE),\
-   .ep_in.bInterval           = 20,\
+   .ep_in.bInterval           = 4,\
    .ep_out.bLength            = sizeof(usb_ep_desc_t),\
    .ep_out.bDescriptorType    = USB_DT_ENDPOINT,\
    .ep_out.bEndpointAddress   = UDI_HID_GENERIC_EP_OUT,\
    .ep_out.bmAttributes       = USB_EP_TYPE_INTERRUPT,\
    .ep_out.wMaxPacketSize     = LE16(UDI_HID_GENERIC_EP_SIZE),\
-   .ep_out.bInterval          = 20,\
+   .ep_out.bInterval          = 4,\
    }
 //@}
 
@@ -186,94 +186,94 @@ bool udi_hid_generic_send_report_in(uint8_t *data);
  * \subsection udi_hid_generic_basic_use_case_usage_code Example code
  * Content of conf_usb.h:
  * \code
- * #define UDI_HID_GENERIC_ENABLE_EXT() my_callback_generic_enable()
- * extern bool my_callback_generic_enable(void);
- * #define UDI_HID_GENERIC_DISABLE_EXT() my_callback_generic_disable()
- * extern void my_callback_generic_disable(void);
- * #define  UDI_HID_GENERIC_REPORT_OUT(ptr) my_callback_generic_report_out(ptr)
- * extern void my_callback_generic_report_out(uint8_t *report);
- * #define  UDI_HID_GENERIC_SET_FEATURE(f) my_callback_generic_set_feature(f)
- * extern void my_callback_generic_set_feature(uint8_t *report_feature);
- *
- * #define  UDI_HID_REPORT_IN_SIZE             64
- * #define  UDI_HID_REPORT_OUT_SIZE            64
- * #define  UDI_HID_REPORT_FEATURE_SIZE        4
- * #define  UDI_HID_GENERIC_EP_SIZE            64
- *
- * #include "udi_hid_generic_conf.h" // At the end of conf_usb.h file
- * \endcode
+	 #define UDI_HID_GENERIC_ENABLE_EXT() my_callback_generic_enable()
+	 extern bool my_callback_generic_enable(void);
+	 #define UDI_HID_GENERIC_DISABLE_EXT() my_callback_generic_disable()
+	 extern void my_callback_generic_disable(void);
+	 #define  UDI_HID_GENERIC_REPORT_OUT(ptr) my_callback_generic_report_out(ptr)
+	 extern void my_callback_generic_report_out(uint8_t *report);
+	 #define  UDI_HID_GENERIC_SET_FEATURE(f) my_callback_generic_set_feature(f)
+	 extern void my_callback_generic_set_feature(uint8_t *report_feature);
+
+	 #define  UDI_HID_REPORT_IN_SIZE             64
+	 #define  UDI_HID_REPORT_OUT_SIZE            64
+	 #define  UDI_HID_REPORT_FEATURE_SIZE        4
+	 #define  UDI_HID_GENERIC_EP_SIZE            64
+
+	 #include "udi_hid_generic_conf.h" // At the end of conf_usb.h file
+\endcode
  *
  * Add to application C-file:
  * \code
- * static bool my_flag_autorize_generic_events = false;
- * bool my_callback_generic_enable(void)
- * {
- *    my_flag_autorize_generic_events = true;
- *    return true;
- * }
- * void my_callback_generic_disable(void)
- * {
- *    my_flag_autorize_generic_events = false;
- * }
- *
- * void my_button_press_event(void)
- * {
- *    if (!my_flag_autorize_generic_events) {
- *       return;
- *    }
- *    uint8_t report[] = {0x00,0x01,0x02...};
- *    udi_hid_generic_send_report_in(report);
- * }
- *
- * void my_callback_generic_report_out(uint8_t *report)
- * {
- *    if ((report[0] == MY_VALUE_0)
- *        (report[1] == MY_VALUE_1)) {
- *       // The report is correct
- *    }
- * }
- *
- * void my_callback_generic_set_feature(uint8_t *report_feature)
- * {
- *    if ((report_feature[0] == MY_VALUE_0)
- *        (report_feature[1] == MY_VALUE_1)) {
- *       // The report feature is correct
- *    }
- * }
- * \endcode
+	 static bool my_flag_autorize_generic_events = false;
+	 bool my_callback_generic_enable(void)
+	 {
+	    my_flag_autorize_generic_events = true;
+	    return true;
+	 }
+	 void my_callback_generic_disable(void)
+	 {
+	    my_flag_autorize_generic_events = false;
+	 }
+
+	 void my_button_press_event(void)
+	 {
+	    if (!my_flag_autorize_generic_events) {
+	       return;
+	    }
+	    uint8_t report[] = {0x00,0x01,0x02...};
+	    udi_hid_generic_send_report_in(report);
+	 }
+
+	 void my_callback_generic_report_out(uint8_t *report)
+	 {
+	    if ((report[0] == MY_VALUE_0)
+	        (report[1] == MY_VALUE_1)) {
+	       // The report is correct
+	    }
+	 }
+
+	 void my_callback_generic_set_feature(uint8_t *report_feature)
+	 {
+	    if ((report_feature[0] == MY_VALUE_0)
+	        (report_feature[1] == MY_VALUE_1)) {
+	       // The report feature is correct
+	    }
+	 }
+\endcode
  *
  * \subsection udi_hid_generic_basic_use_case_setup_flow Workflow
  * -# Ensure that conf_usb.h is available and contains the following configuration
  * which is the USB device generic configuration:
  *   - \code #define UDI_HID_GENERIC_ENABLE_EXT() my_callback_generic_enable()
- * extern bool my_callback_generic_enable(void); \endcode
+	 extern bool my_callback_generic_enable(void); \endcode
  *     \note After the device enumeration (detecting and identifying USB devices),
  *     the USB host starts the device configuration. When the USB generic interface 
  *     from the device is accepted by the host, the USB host enables this interface and the
  *     UDI_HID_GENERIC_ENABLE_EXT() callback function is called and return true.
  *     Thus, it is recommended to enable sensors used by the generic in this function.
  *   - \code #define UDI_HID_GENERIC_DISABLE_EXT() my_callback_generic_disable()
- * extern void my_callback_generic_disable(void); \endcode
+	 extern void my_callback_generic_disable(void); \endcode
  *     \note When the USB device is unplugged or is reset by the USB host, the USB
  *     interface is disabled and the UDI_HID_GENERIC_DISABLE_EXT() callback function
  *     is called. Thus, it is recommended to disable sensors used by the HID generic
  *     interface in this function.
  *   - \code #define  UDI_HID_GENERIC_REPORT_OUT(ptr) my_callback_generic_report_out(ptr)
- * extern void my_callback_generic_report_out(uint8_t *report); \endcode
+	 extern void my_callback_generic_report_out(uint8_t *report); \endcode
  *     \note Callback used to receive the OUT report.
  *   - \code #define  UDI_HID_GENERIC_SET_FEATURE(f) my_callback_generic_set_feature(f)
- * extern void my_callback_generic_set_feature(uint8_t *report_feature); \endcode
+	 extern void my_callback_generic_set_feature(uint8_t *report_feature); \endcode
  *     \note Callback used to receive the SET FEATURE report.
  *   - \code #define  UDI_HID_REPORT_IN_SIZE             64
- * #define  UDI_HID_REPORT_OUT_SIZE            64
- * #define  UDI_HID_REPORT_FEATURE_SIZE        4 \endcode
+	#define  UDI_HID_REPORT_OUT_SIZE            64
+	#define  UDI_HID_REPORT_FEATURE_SIZE        4 \endcode
  *     \note The report size are defined by the final application.
  *   - \code #define  UDI_HID_GENERIC_EP_SIZE 64 \endcode
  *     \note The interrupt endpoint size is defined by the final application.
 
  * -# Send a IN report:
  *   - \code uint8_t report[] = {0x00,0x01,0x02...};
- *    udi_hid_generic_send_report_in(report); \endcode
+	   udi_hid_generic_send_report_in(report); \endcode
  *
  * \section udi_hid_generic_use_cases Advanced use cases
  * For more advanced use of the UDI HID generic module, see the following use cases:
@@ -306,73 +306,73 @@ bool udi_hid_generic_send_report_in(uint8_t *data);
  * \subsection udi_hid_generic_use_case_composite_usage_code Example code
  * Content of conf_usb.h:
  * \code
- * #define USB_DEVICE_EP_CTRL_SIZE  64
- * #define USB_DEVICE_NB_INTERFACE (X+1)
- * #define USB_DEVICE_MAX_EP (X+2)
- *
- * #define UDI_HID_GENERIC_EP_IN    (1 | USB_EP_DIR_IN)
- * #define UDI_HID_GENERIC_EP_OUT   (2 | USB_EP_DIR_OUT)
- * #define UDI_HID_GENERIC_IFACE_NUMBER  X
- *
- * #define UDI_COMPOSITE_DESC_T \
- *    udi_hid_generic_desc_t udi_hid_generic; \
- *    ...
- * #define UDI_COMPOSITE_DESC_FS \
- *    .udi_hid_generic = UDI_HID_GENERIC_DESC, \
- *    ...
- * #define UDI_COMPOSITE_DESC_HS \
- *    .udi_hid_generic = UDI_HID_GENERIC_DESC, \
- *    ...
- * #define UDI_COMPOSITE_API \
- *    &udi_api_hid_generic, \
- *    ...
- * \endcode
+	 #define USB_DEVICE_EP_CTRL_SIZE  64
+	 #define USB_DEVICE_NB_INTERFACE (X+1)
+	 #define USB_DEVICE_MAX_EP (X+2)
+
+	 #define UDI_HID_GENERIC_EP_IN    (1 | USB_EP_DIR_IN)
+	 #define UDI_HID_GENERIC_EP_OUT   (2 | USB_EP_DIR_OUT)
+	 #define UDI_HID_GENERIC_IFACE_NUMBER  X
+
+	 #define UDI_COMPOSITE_DESC_T \
+	    udi_hid_generic_desc_t udi_hid_generic; \
+	    ...
+	 #define UDI_COMPOSITE_DESC_FS \
+	    .udi_hid_generic = UDI_HID_GENERIC_DESC, \
+	    ...
+	 #define UDI_COMPOSITE_DESC_HS \
+	    .udi_hid_generic = UDI_HID_GENERIC_DESC, \
+	    ...
+	 #define UDI_COMPOSITE_API \
+	    &udi_api_hid_generic, \
+	    ...
+\endcode
  *
  * \subsection udi_hid_generic_use_case_composite_usage_flow Workflow
  * -# Ensure that conf_usb.h is available and contains the following parameters
  * required for a USB composite device configuration:
  *   - \code // Endpoint control size, This must be:
- * // - 8 for low speed
- * // - 8, 16, 32 or 64 for full speed device (8 is recommended to save RAM)
- * // - 64 for a high speed device
- * #define USB_DEVICE_EP_CTRL_SIZE  64
- * // Total Number of interfaces on this USB device.
- * // Add 1 for HID generic.
- * #define USB_DEVICE_NB_INTERFACE (X+1)
- * // Total number of endpoints on this USB device.
- * // This must include each endpoint for each interface.
- * // Add 1 for HID generic.
- * #define USB_DEVICE_MAX_EP (X+2) \endcode
+	// - 8 for low speed
+	// - 8, 16, 32 or 64 for full speed device (8 is recommended to save RAM)
+	// - 64 for a high speed device
+	#define USB_DEVICE_EP_CTRL_SIZE  64
+	// Total Number of interfaces on this USB device.
+	// Add 1 for HID generic.
+	#define USB_DEVICE_NB_INTERFACE (X+1)
+	// Total number of endpoints on this USB device.
+	// This must include each endpoint for each interface.
+	// Add 1 for HID generic.
+	#define USB_DEVICE_MAX_EP (X+2) \endcode
  * -# Ensure that conf_usb.h contains the description of
  * composite device:
  *   - \code // The endpoint number chosen by you for the generic.
- * // The endpoint number starting from 1.
- * #define UDI_HID_GENERIC_EP_IN    (1 | USB_EP_DIR_IN)
- * #define UDI_HID_GENERIC_EP_OUT   (2 | USB_EP_DIR_OUT)
- * // The interface index of an interface starting from 0
- * #define UDI_HID_GENERIC_IFACE_NUMBER  X \endcode
+	// The endpoint number starting from 1.
+	#define UDI_HID_GENERIC_EP_IN    (1 | USB_EP_DIR_IN)
+	#define UDI_HID_GENERIC_EP_OUT   (2 | USB_EP_DIR_OUT)
+	// The interface index of an interface starting from 0
+	#define UDI_HID_GENERIC_IFACE_NUMBER  X \endcode
  * -# Ensure that conf_usb.h contains the following parameters
  * required for a USB composite device configuration:
  *   - \code // USB Interfaces descriptor structure
- * #define UDI_COMPOSITE_DESC_T \
- *    ...
- *    udi_hid_generic_desc_t udi_hid_generic; \
- *    ...
- * // USB Interfaces descriptor value for Full Speed
- * #define UDI_COMPOSITE_DESC_FS \
- *    ...
- *    .udi_hid_generic = UDI_HID_GENERIC_DESC, \
- *    ...
- * // USB Interfaces descriptor value for High Speed
- * #define UDI_COMPOSITE_DESC_HS \
- *    ...
- *    .udi_hid_generic = UDI_HID_GENERIC_DESC, \
- *    ...
- * // USB Interface APIs
- * #define UDI_COMPOSITE_API \
- *    ...
- *    &udi_api_hid_generic, \
- *    ... \endcode
+	#define UDI_COMPOSITE_DESC_T \
+	   ...
+	   udi_hid_generic_desc_t udi_hid_generic; \
+	   ...
+	// USB Interfaces descriptor value for Full Speed
+	#define UDI_COMPOSITE_DESC_FS \
+	   ...
+	   .udi_hid_generic = UDI_HID_GENERIC_DESC, \
+	   ...
+	// USB Interfaces descriptor value for High Speed
+	#define UDI_COMPOSITE_DESC_HS \
+	   ...
+	   .udi_hid_generic = UDI_HID_GENERIC_DESC, \
+	   ...
+	// USB Interface APIs
+	#define UDI_COMPOSITE_API \
+	   ...
+	   &udi_api_hid_generic, \
+	   ... \endcode
  *   - \note The descriptors order given in the four lists above must be the
  *     same as the order defined by all interface indexes. The interface index
  *     orders are defined through UDI_X_IFACE_NUMBER defines.

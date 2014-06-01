@@ -466,7 +466,7 @@ GENERATE_DEPRECATEDLIST= YES
 # The ENABLED_SECTIONS tag can be used to enable conditional
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       =
+ENABLED_SECTIONS       = 
 
 # The MAX_INITIALIZER_LINES tag determines the maximum number of lines
 # the initial value of a variable or define consists of for it to appear in
@@ -582,7 +582,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  =  ../../../../../../../../../common/services/clock/xmega/sysclk.c ../../../../../../../qdebug/eeprom_access.c ../../../../../../../../../xmega/boards/xmega_c3_xplained/init.c ../../../../../../../../../common/services/ioport/xmega/ioport_compat.c ../../../../../../../../../common/services/sleepmgr/xmega/sleepmgr.c ../main.c ../../../../../../../../../xmega/drivers/tc/tc.c ../../../../../../../qdebug/QDebug.c ../app_touch.c ../../../../../../../../../xmega/drivers/nvm/nvm.c ../../BitBangSPI_Master.c ../../../../../../../qdebug/QDebugTransport.c  ../../conf_sleepmgr.h ../../../../../../../../../common/services/ioport/xmega/ioport.h ../../../../../../../../../common/boards/board.h ../../QDebugSettings.h ../../../../../../../../../xmega/drivers/cpu/xmega_reset_cause.h ../../../../../../../../../common/utils/parts.h ../../../../../../../qdebug/eeprom_access.h ../../../../../../../qdebug/QDebugTransport.h ../../../../../../../../../xmega/utils/status_codes.h ../../../../../../../../../common/services/clock/xmega/osc.h ../../../../../../../../../common/utils/interrupt.h ../../../../../../../../../xmega/boards/xmega_c3_xplained/led.h ../../../../../../../../../xmega/utils/compiler.h ../app_touch.h ../../../../../../../../../common/services/sleepmgr/xmega/sleepmgr.h ../../../../../../../../../xmega/boards/xmega_c3_xplained/xmega_c3_xplained.h ../../../../../../../../../common/services/clock/osc.h ../../conf_board.h ../../../../../../../../../xmega/drivers/sleep/sleep.h ../../../../../../../../../xmega/utils/bit_handling/clz_ctz.h ../../../../../../../../../xmega/utils/progmem.h ../../../../../../include/touch_api.h ../../../../../../../../../common/services/clock/xmega/pll.h ../../../../../../../../../xmega/utils/preprocessor/tpaste.h ../../../../../../../../../xmega/utils/preprocessor/preprocessor.h ../../../../common/touch_qt_config.h ../../../../../../../../../xmega/drivers/nvm/nvm.h ../../../../../../../../../common/services/clock/sysclk.h ../../conf_clock.h ../../../../../../../../../xmega/drivers/pmic/pmic.h ../../../../../../../../../common/services/ioport/xmega/ioport_compat.h ../../../../../../../../../common/utils/interrupt/interrupt_avr8.h ../../BitBangSPI_Master.h ../../../../../../../../../xmega/utils/assembler.h ../../../../../../../../../common/services/clock/genclk.h ../../../../../../../../../common/services/sleepmgr/sleepmgr.h ../../../../../../../../../xmega/drivers/tc/tc.h ../../../../../../../../../common/services/gpio/xmega_gpio/xmega_gpio.h ../../../../../../../../../xmega/drivers/cpu/ccp.h ../../../../../../../../../xmega/utils/preprocessor/mrepeat.h ../../avr_compiler.h ../../../../../../../../../xmega/utils/preprocessor/stringz.h ../../../../../../../../../common/services/ioport/ioport.h ../../../../../../../../../common/services/clock/pll.h ../../../../../../../../../common/services/gpio/gpio.h ../../../../../../../../../common/services/clock/xmega/sysclk.h ../../../../../../../qdebug/QDebug.h
+INPUT                  = ../app_touch.c ../main.c ../../BitBangSPI_Master.c ../../../../../../../../../common/services/clock/xmega/sysclk.c ../../../../../../../../../xmega/drivers/nvm/nvm.c ../../../../../../../../../xmega/drivers/tc/tc.c ../../../../../../../../../common/services/sleepmgr/xmega/sleepmgr.c ../../../../../../../qdebug/QDebug.c ../../../../../../../qdebug/QDebugTransport.c ../../../../../../../qdebug/eeprom_access.c ../../../../../../../../../common/services/ioport/xmega/ioport_compat.c ../../../../../../../../../xmega/boards/xmega_c3_xplained/init.c ../app_touch.h ../../BitBangSPI_Master.h ../../QDebugSettings.h ../../avr_compiler.h ../../conf_board.h ../../conf_clock.h ../../conf_sleepmgr.h ../../../../../../../../../common/services/clock/genclk.h ../../../../../../../../../common/services/clock/osc.h ../../../../../../../../../common/services/clock/pll.h ../../../../../../../../../common/services/clock/sysclk.h ../../../../../../../../../common/services/clock/xmega/osc.h ../../../../../../../../../common/services/clock/xmega/pll.h ../../../../../../../../../common/services/clock/xmega/sysclk.h ../../../../../../../../../xmega/drivers/cpu/ccp.h ../../../../../../../../../xmega/drivers/cpu/xmega_reset_cause.h ../../../../../../../../../xmega/utils/assembler.h ../../../../../../../../../xmega/utils/bit_handling/clz_ctz.h ../../../../../../../../../xmega/utils/compiler.h ../../../../../../../../../xmega/utils/preprocessor/mrepeat.h ../../../../../../../../../xmega/utils/preprocessor/preprocessor.h ../../../../../../../../../xmega/utils/preprocessor/stringz.h ../../../../../../../../../xmega/utils/preprocessor/tpaste.h ../../../../../../../../../xmega/utils/progmem.h ../../../../../../../../../xmega/utils/status_codes.h ../../../../../../../../../common/utils/interrupt.h ../../../../../../../../../common/utils/interrupt/interrupt_avr8.h ../../../../../../../../../common/utils/parts.h ../../../../../../../../../xmega/drivers/nvm/nvm.h ../../../../../../../../../xmega/drivers/tc/tc.h ../../../../../../../../../common/services/sleepmgr/sleepmgr.h ../../../../../../../../../common/services/sleepmgr/xmega/sleepmgr.h ../../../../../../../../../xmega/drivers/sleep/sleep.h ../../../../../../../../../xmega/drivers/pmic/pmic.h ../../../../../../../qdebug/QDebug.h ../../../../../../../qdebug/QDebugTransport.h ../../../../../../../qdebug/eeprom_access.h ../../../../common/touch_qt_config.h ../../../../../../include/touch_api.h ../../../../../../../../../xmega/boards/xmega_c3_xplained/xmega_c3_xplained.h ../../../../../../../../../common/boards/board.h ../../../../../../../../../xmega/boards/xmega_c3_xplained/led.h ../../../../../../../../../common/services/gpio/gpio.h ../../../../../../../../../common/services/gpio/xmega_gpio/xmega_gpio.h ../../../../../../../../../common/services/ioport/ioport.h ../../../../../../../../../common/services/ioport/xmega/ioport.h ../../../../../../../../../common/services/ioport/xmega/ioport_compat.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -1062,6 +1062,17 @@ FORMULA_FONTSIZE       = 10
 
 FORMULA_TRANSPARENT    = YES
 
+# Enable the USE_MATHJAX option to render LaTeX formulas using MathJax (see
+# http://www.mathjax.org) which uses client side Javascript for the rendering
+# instead of using prerendered bitmaps. Use this if you do not have LaTeX
+# installed or if you want to formulas look prettier in the HTML output. When
+# enabled you may also need to install MathJax separately and configure the path
+# to it using the MATHJAX_RELPATH option.
+# The default value is: NO.
+# This tag requires that the tag GENERATE_HTML is set to YES.
+
+USE_MATHJAX            = NO
+
 # When the SEARCHENGINE tag is enabled doxygen will generate a search box
 # for the HTML output. The underlying search engine uses javascript
 # and DHTML and should work on any modern browser. Note that when using
@@ -1352,7 +1363,7 @@ SEARCH_INCLUDES        = YES
 # contain include files that are not input files but should be processed by
 # the preprocessor.
 
-INCLUDE_PATH           =  ../../../../../../../../../xmega/drivers/pmic ../.. ../../../../../../../../../common/services/clock ../../../../../../../../../common/services/gpio ../../../../../../../../../xmega/drivers/nvm ../../../../../../../../../common/boards ../../../../../../../../../common/services/ioport ../../../../../../../../../xmega/drivers/tc ../../../../../../../../../xmega/utils ../../../../common ../../../../../../include ../../../../../../../../../xmega/utils/preprocessor ../../../../../../../qdebug ../../../../../../../../../common/utils ../../../../../../../../../xmega/boards ../../../../../../../../../xmega/drivers/sleep ../../../../../../../../../common/services/sleepmgr .. ../../../../../../../../../xmega/boards/xmega_c3_xplained ../../../../../../../../../xmega/drivers/cpu
+INCLUDE_PATH           = .. ../.. ../../../../../../../../../common/services/clock ../../../../../../../../../xmega/drivers/cpu ../../../../../../../../../xmega/utils ../../../../../../../../../xmega/utils/preprocessor ../../../../../../../../../common/utils ../../../../../../../../../xmega/drivers/nvm ../../../../../../../../../xmega/drivers/tc ../../../../../../../../../common/services/sleepmgr ../../../../../../../../../xmega/drivers/sleep ../../../../../../../../../xmega/drivers/pmic ../../../../../../../qdebug ../../../../common ../../../../../../include ../../../../../../../../../xmega/boards ../../../../../../../../../xmega/boards/xmega_c3_xplained ../../../../../../../../../common/boards ../../../../../../../../../common/services/gpio ../../../../../../../../../common/services/ioport
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the
@@ -1369,7 +1380,7 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator
 # instead of the = operator.
 
-PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4  _SNS1_SNSK1_SAME_PORT_= QTOUCH_STUDIO_MASKS=1 IOPORT_XMEGA_COMPAT= BOARD=XMEGA_C3_XPLAINED SNS1=F SNSK1=F QT_NUM_CHANNELS=4 _QTOUCH_= QT_DELAY_CYCLES=1 _DEBUG_INTERFACE_= __AVR_ATxmega384C3__
+PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4 _DEBUG_INTERFACE_ QTOUCH_STUDIO_MASKS=1 QT_DELAY_CYCLES=1 QT_NUM_CHANNELS=4 SNS1=F SNSK1=F _QTOUCH_ _SNS1_SNSK1_SAME_PORT_ BOARD=XMEGA_C3_XPLAINED IOPORT_XMEGA_COMPAT __AVR_ATxmega384C3__
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.

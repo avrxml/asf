@@ -52,7 +52,7 @@
 
 #define REV_EVSYS                   0x100
 
-/* -------- EVSYS_CTRL : (EVSYS Offset: 0x00) ( /W  8) Control Register -------- */
+/* -------- EVSYS_CTRL : (EVSYS Offset: 0x00) ( /W  8) Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -65,8 +65,8 @@ typedef union {
 } EVSYS_CTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define EVSYS_CTRL_OFFSET           0x00         /**< \brief (EVSYS_CTRL offset) Control Register */
-#define EVSYS_CTRL_RESETVALUE       0x00         /**< \brief (EVSYS_CTRL reset_value) Control Register */
+#define EVSYS_CTRL_OFFSET           0x00         /**< \brief (EVSYS_CTRL offset) Control */
+#define EVSYS_CTRL_RESETVALUE       0x00         /**< \brief (EVSYS_CTRL reset_value) Control */
 
 #define EVSYS_CTRL_SWRST_Pos        0            /**< \brief (EVSYS_CTRL) Software Reset */
 #define EVSYS_CTRL_SWRST            (0x1u << EVSYS_CTRL_SWRST_Pos)
@@ -74,7 +74,7 @@ typedef union {
 #define EVSYS_CTRL_GCLKREQ          (0x1u << EVSYS_CTRL_GCLKREQ_Pos)
 #define EVSYS_CTRL_MASK             0x11u        /**< \brief (EVSYS_CTRL) MASK Register */
 
-/* -------- EVSYS_CHANNEL : (EVSYS Offset: 0x04) (R/W 32) Channel Register -------- */
+/* -------- EVSYS_CHANNEL : (EVSYS Offset: 0x04) (R/W 32) Channel -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -90,8 +90,8 @@ typedef union {
 } EVSYS_CHANNEL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define EVSYS_CHANNEL_OFFSET        0x04         /**< \brief (EVSYS_CHANNEL offset) Channel Register */
-#define EVSYS_CHANNEL_RESETVALUE    0x00000000   /**< \brief (EVSYS_CHANNEL reset_value) Channel Register */
+#define EVSYS_CHANNEL_OFFSET        0x04         /**< \brief (EVSYS_CHANNEL offset) Channel */
+#define EVSYS_CHANNEL_RESETVALUE    0x00000000   /**< \brief (EVSYS_CHANNEL reset_value) Channel */
 
 #define EVSYS_CHANNEL_CHANNEL_Pos   0            /**< \brief (EVSYS_CHANNEL) Channel Selection */
 #define EVSYS_CHANNEL_CHANNEL_Msk   (0xFFu << EVSYS_CHANNEL_CHANNEL_Pos)
@@ -104,19 +104,26 @@ typedef union {
 #define EVSYS_CHANNEL_PATH_Pos      24           /**< \brief (EVSYS_CHANNEL) Path Selection */
 #define EVSYS_CHANNEL_PATH_Msk      (0x3u << EVSYS_CHANNEL_PATH_Pos)
 #define EVSYS_CHANNEL_PATH(value)   ((EVSYS_CHANNEL_PATH_Msk & ((value) << EVSYS_CHANNEL_PATH_Pos)))
-#define   EVSYS_CHANNEL_PATH_SYNCHRONOUS (0x0u << 24) /**< \brief (EVSYS_CHANNEL) Synchronous path */
-#define   EVSYS_CHANNEL_PATH_RESYNCHRONIZED (0x1u << 24) /**< \brief (EVSYS_CHANNEL) Resynchronized path */
-#define   EVSYS_CHANNEL_PATH_ASYNCHRONOUS (0x2u << 24) /**< \brief (EVSYS_CHANNEL) Asynchronous path */
+#define   EVSYS_CHANNEL_PATH_SYNCHRONOUS_Val 0x0u   /**< \brief (EVSYS_CHANNEL) Synchronous path */
+#define   EVSYS_CHANNEL_PATH_RESYNCHRONIZED_Val 0x1u   /**< \brief (EVSYS_CHANNEL) Resynchronized path */
+#define   EVSYS_CHANNEL_PATH_ASYNCHRONOUS_Val 0x2u   /**< \brief (EVSYS_CHANNEL) Asynchronous path */
+#define EVSYS_CHANNEL_PATH_SYNCHRONOUS (EVSYS_CHANNEL_PATH_SYNCHRONOUS_Val << EVSYS_CHANNEL_PATH_Pos)
+#define EVSYS_CHANNEL_PATH_RESYNCHRONIZED (EVSYS_CHANNEL_PATH_RESYNCHRONIZED_Val << EVSYS_CHANNEL_PATH_Pos)
+#define EVSYS_CHANNEL_PATH_ASYNCHRONOUS (EVSYS_CHANNEL_PATH_ASYNCHRONOUS_Val << EVSYS_CHANNEL_PATH_Pos)
 #define EVSYS_CHANNEL_EDGSEL_Pos    26           /**< \brief (EVSYS_CHANNEL) Edge Selection */
 #define EVSYS_CHANNEL_EDGSEL_Msk    (0x3u << EVSYS_CHANNEL_EDGSEL_Pos)
 #define EVSYS_CHANNEL_EDGSEL(value) ((EVSYS_CHANNEL_EDGSEL_Msk & ((value) << EVSYS_CHANNEL_EDGSEL_Pos)))
-#define   EVSYS_CHANNEL_EDGSEL_NO_EVT_OUTPUT (0x0u << 26) /**< \brief (EVSYS_CHANNEL) No Event Output */
-#define   EVSYS_CHANNEL_EDGSEL_RISING_EDGE (0x1u << 26) /**< \brief (EVSYS_CHANNEL) Event detection on the rising edge */
-#define   EVSYS_CHANNEL_EDGSEL_FALLING_EDGE (0x2u << 26) /**< \brief (EVSYS_CHANNEL) Event detection on the falling edge */
-#define   EVSYS_CHANNEL_EDGSEL_BOTH_EDGE (0x3u << 26) /**< \brief (EVSYS_CHANNEL) Event detection on both rising/falling edge */
+#define   EVSYS_CHANNEL_EDGSEL_NO_EVT_OUTPUT_Val 0x0u   /**< \brief (EVSYS_CHANNEL) No Event Output */
+#define   EVSYS_CHANNEL_EDGSEL_RISING_EDGE_Val 0x1u   /**< \brief (EVSYS_CHANNEL) Event detection on the rising edge */
+#define   EVSYS_CHANNEL_EDGSEL_FALLING_EDGE_Val 0x2u   /**< \brief (EVSYS_CHANNEL) Event detection on the falling edge */
+#define   EVSYS_CHANNEL_EDGSEL_BOTH_EDGE_Val 0x3u   /**< \brief (EVSYS_CHANNEL) Event detection on both rising/falling edge */
+#define EVSYS_CHANNEL_EDGSEL_NO_EVT_OUTPUT (EVSYS_CHANNEL_EDGSEL_NO_EVT_OUTPUT_Val << EVSYS_CHANNEL_EDGSEL_Pos)
+#define EVSYS_CHANNEL_EDGSEL_RISING_EDGE (EVSYS_CHANNEL_EDGSEL_RISING_EDGE_Val << EVSYS_CHANNEL_EDGSEL_Pos)
+#define EVSYS_CHANNEL_EDGSEL_FALLING_EDGE (EVSYS_CHANNEL_EDGSEL_FALLING_EDGE_Val << EVSYS_CHANNEL_EDGSEL_Pos)
+#define EVSYS_CHANNEL_EDGSEL_BOTH_EDGE (EVSYS_CHANNEL_EDGSEL_BOTH_EDGE_Val << EVSYS_CHANNEL_EDGSEL_Pos)
 #define EVSYS_CHANNEL_MASK          0x0FFF01FFu  /**< \brief (EVSYS_CHANNEL) MASK Register */
 
-/* -------- EVSYS_USER : (EVSYS Offset: 0x08) (R/W 16) User Mux Register -------- */
+/* -------- EVSYS_USER : (EVSYS Offset: 0x08) (R/W 16) User Mux -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -127,8 +134,8 @@ typedef union {
 } EVSYS_USER_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define EVSYS_USER_OFFSET           0x08         /**< \brief (EVSYS_USER offset) User Mux Register */
-#define EVSYS_USER_RESETVALUE       0x0000       /**< \brief (EVSYS_USER reset_value) User Mux Register */
+#define EVSYS_USER_OFFSET           0x08         /**< \brief (EVSYS_USER offset) User Mux */
+#define EVSYS_USER_RESETVALUE       0x0000       /**< \brief (EVSYS_USER reset_value) User Mux */
 
 #define EVSYS_USER_USER_Pos         0            /**< \brief (EVSYS_USER) User Mux Selection */
 #define EVSYS_USER_USER_Msk         (0xFFu << EVSYS_USER_USER_Pos)
@@ -138,7 +145,7 @@ typedef union {
 #define EVSYS_USER_CHANNEL(value)   ((EVSYS_USER_CHANNEL_Msk & ((value) << EVSYS_USER_CHANNEL_Pos)))
 #define EVSYS_USER_MASK             0xFFFFu      /**< \brief (EVSYS_USER) MASK Register */
 
-/* -------- EVSYS_CHSTATUS : (EVSYS Offset: 0x0C) (R/  32) Channel Status Register -------- */
+/* -------- EVSYS_CHSTATUS : (EVSYS Offset: 0x0C) (R/  32) Channel Status -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -151,56 +158,88 @@ typedef union {
 } EVSYS_CHSTATUS_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define EVSYS_CHSTATUS_OFFSET       0x0C         /**< \brief (EVSYS_CHSTATUS offset) Channel Status Register */
-#define EVSYS_CHSTATUS_RESETVALUE   0x00000000   /**< \brief (EVSYS_CHSTATUS reset_value) Channel Status Register */
+#define EVSYS_CHSTATUS_OFFSET       0x0C         /**< \brief (EVSYS_CHSTATUS offset) Channel Status */
+#define EVSYS_CHSTATUS_RESETVALUE   0x00000000   /**< \brief (EVSYS_CHSTATUS reset_value) Channel Status */
 
 #define EVSYS_CHSTATUS_USRRDY0_Pos  0            /**< \brief (EVSYS_CHSTATUS) User Ready for Channels 0 to 7 (modulo 16) */
 #define EVSYS_CHSTATUS_USRRDY0_Msk  (0xFFu << EVSYS_CHSTATUS_USRRDY0_Pos)
 #define EVSYS_CHSTATUS_USRRDY0(value) ((EVSYS_CHSTATUS_USRRDY0_Msk & ((value) << EVSYS_CHSTATUS_USRRDY0_Pos)))
-#define   EVSYS_CHSTATUS_USRRDY0_USRRDY0 (0x0u <<  0) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 0 */
-#define   EVSYS_CHSTATUS_USRRDY0_USRRDY1 (0x1u <<  0) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 1 */
-#define   EVSYS_CHSTATUS_USRRDY0_USRRDY2 (0x2u <<  0) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 2 */
-#define   EVSYS_CHSTATUS_USRRDY0_USRRDY3 (0x3u <<  0) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 3 */
-#define   EVSYS_CHSTATUS_USRRDY0_USRRDY4 (0x4u <<  0) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 4 */
-#define   EVSYS_CHSTATUS_USRRDY0_USRRDY5 (0x5u <<  0) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 5 */
-#define   EVSYS_CHSTATUS_USRRDY0_USRRDY6 (0x6u <<  0) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 6 */
-#define   EVSYS_CHSTATUS_USRRDY0_USRRDY7 (0x7u <<  0) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 7 */
+#define   EVSYS_CHSTATUS_USRRDY0_USRRDY0_Val 0x1u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 0 */
+#define   EVSYS_CHSTATUS_USRRDY0_USRRDY1_Val 0x2u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 1 */
+#define   EVSYS_CHSTATUS_USRRDY0_USRRDY2_Val 0x4u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 2 */
+#define   EVSYS_CHSTATUS_USRRDY0_USRRDY3_Val 0x8u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 3 */
+#define   EVSYS_CHSTATUS_USRRDY0_USRRDY4_Val 0x10u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 4 */
+#define   EVSYS_CHSTATUS_USRRDY0_USRRDY5_Val 0x20u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 5 */
+#define   EVSYS_CHSTATUS_USRRDY0_USRRDY6_Val 0x40u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 6 */
+#define   EVSYS_CHSTATUS_USRRDY0_USRRDY7_Val 0x80u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 7 */
+#define EVSYS_CHSTATUS_USRRDY0_USRRDY0 (EVSYS_CHSTATUS_USRRDY0_USRRDY0_Val << EVSYS_CHSTATUS_USRRDY0_Pos)
+#define EVSYS_CHSTATUS_USRRDY0_USRRDY1 (EVSYS_CHSTATUS_USRRDY0_USRRDY1_Val << EVSYS_CHSTATUS_USRRDY0_Pos)
+#define EVSYS_CHSTATUS_USRRDY0_USRRDY2 (EVSYS_CHSTATUS_USRRDY0_USRRDY2_Val << EVSYS_CHSTATUS_USRRDY0_Pos)
+#define EVSYS_CHSTATUS_USRRDY0_USRRDY3 (EVSYS_CHSTATUS_USRRDY0_USRRDY3_Val << EVSYS_CHSTATUS_USRRDY0_Pos)
+#define EVSYS_CHSTATUS_USRRDY0_USRRDY4 (EVSYS_CHSTATUS_USRRDY0_USRRDY4_Val << EVSYS_CHSTATUS_USRRDY0_Pos)
+#define EVSYS_CHSTATUS_USRRDY0_USRRDY5 (EVSYS_CHSTATUS_USRRDY0_USRRDY5_Val << EVSYS_CHSTATUS_USRRDY0_Pos)
+#define EVSYS_CHSTATUS_USRRDY0_USRRDY6 (EVSYS_CHSTATUS_USRRDY0_USRRDY6_Val << EVSYS_CHSTATUS_USRRDY0_Pos)
+#define EVSYS_CHSTATUS_USRRDY0_USRRDY7 (EVSYS_CHSTATUS_USRRDY0_USRRDY7_Val << EVSYS_CHSTATUS_USRRDY0_Pos)
 #define EVSYS_CHSTATUS_CHBUSY0_Pos  8            /**< \brief (EVSYS_CHSTATUS) Channels Busy 0 to 7 (modulo 16) */
 #define EVSYS_CHSTATUS_CHBUSY0_Msk  (0xFFu << EVSYS_CHSTATUS_CHBUSY0_Pos)
 #define EVSYS_CHSTATUS_CHBUSY0(value) ((EVSYS_CHSTATUS_CHBUSY0_Msk & ((value) << EVSYS_CHSTATUS_CHBUSY0_Pos)))
-#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY0 (0x0u <<  8) /**< \brief (EVSYS_CHSTATUS) Channel 0 busy */
-#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY1 (0x1u <<  8) /**< \brief (EVSYS_CHSTATUS) Channel 1 busy */
-#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY2 (0x2u <<  8) /**< \brief (EVSYS_CHSTATUS) Channel 2 busy */
-#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY3 (0x3u <<  8) /**< \brief (EVSYS_CHSTATUS) Channel 3 busy */
-#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY4 (0x4u <<  8) /**< \brief (EVSYS_CHSTATUS) Channel 4 busy */
-#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY5 (0x5u <<  8) /**< \brief (EVSYS_CHSTATUS) Channel 5 busy */
-#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY6 (0x6u <<  8) /**< \brief (EVSYS_CHSTATUS) Channel 6 busy */
-#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY7 (0x7u <<  8) /**< \brief (EVSYS_CHSTATUS) Channel 7 busy */
+#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY0_Val 0x1u   /**< \brief (EVSYS_CHSTATUS) Channel 0 busy */
+#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY1_Val 0x2u   /**< \brief (EVSYS_CHSTATUS) Channel 1 busy */
+#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY2_Val 0x4u   /**< \brief (EVSYS_CHSTATUS) Channel 2 busy */
+#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY3_Val 0x8u   /**< \brief (EVSYS_CHSTATUS) Channel 3 busy */
+#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY4_Val 0x10u   /**< \brief (EVSYS_CHSTATUS) Channel 4 busy */
+#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY5_Val 0x20u   /**< \brief (EVSYS_CHSTATUS) Channel 5 busy */
+#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY6_Val 0x40u   /**< \brief (EVSYS_CHSTATUS) Channel 6 busy */
+#define   EVSYS_CHSTATUS_CHBUSY0_CHBUSY7_Val 0x80u   /**< \brief (EVSYS_CHSTATUS) Channel 7 busy */
+#define EVSYS_CHSTATUS_CHBUSY0_CHBUSY0 (EVSYS_CHSTATUS_CHBUSY0_CHBUSY0_Val << EVSYS_CHSTATUS_CHBUSY0_Pos)
+#define EVSYS_CHSTATUS_CHBUSY0_CHBUSY1 (EVSYS_CHSTATUS_CHBUSY0_CHBUSY1_Val << EVSYS_CHSTATUS_CHBUSY0_Pos)
+#define EVSYS_CHSTATUS_CHBUSY0_CHBUSY2 (EVSYS_CHSTATUS_CHBUSY0_CHBUSY2_Val << EVSYS_CHSTATUS_CHBUSY0_Pos)
+#define EVSYS_CHSTATUS_CHBUSY0_CHBUSY3 (EVSYS_CHSTATUS_CHBUSY0_CHBUSY3_Val << EVSYS_CHSTATUS_CHBUSY0_Pos)
+#define EVSYS_CHSTATUS_CHBUSY0_CHBUSY4 (EVSYS_CHSTATUS_CHBUSY0_CHBUSY4_Val << EVSYS_CHSTATUS_CHBUSY0_Pos)
+#define EVSYS_CHSTATUS_CHBUSY0_CHBUSY5 (EVSYS_CHSTATUS_CHBUSY0_CHBUSY5_Val << EVSYS_CHSTATUS_CHBUSY0_Pos)
+#define EVSYS_CHSTATUS_CHBUSY0_CHBUSY6 (EVSYS_CHSTATUS_CHBUSY0_CHBUSY6_Val << EVSYS_CHSTATUS_CHBUSY0_Pos)
+#define EVSYS_CHSTATUS_CHBUSY0_CHBUSY7 (EVSYS_CHSTATUS_CHBUSY0_CHBUSY7_Val << EVSYS_CHSTATUS_CHBUSY0_Pos)
 #define EVSYS_CHSTATUS_USRRDY1_Pos  16           /**< \brief (EVSYS_CHSTATUS) User Ready for Channels 8 to 15 (modulo 16) */
 #define EVSYS_CHSTATUS_USRRDY1_Msk  (0xFFu << EVSYS_CHSTATUS_USRRDY1_Pos)
 #define EVSYS_CHSTATUS_USRRDY1(value) ((EVSYS_CHSTATUS_USRRDY1_Msk & ((value) << EVSYS_CHSTATUS_USRRDY1_Pos)))
-#define   EVSYS_CHSTATUS_USRRDY1_USRRDY8 (0x0u << 16) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 8 */
-#define   EVSYS_CHSTATUS_USRRDY1_USRRDY9 (0x1u << 16) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 9 */
-#define   EVSYS_CHSTATUS_USRRDY1_USRRDY10 (0x2u << 16) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 10 */
-#define   EVSYS_CHSTATUS_USRRDY1_USRRDY11 (0x3u << 16) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 11 */
-#define   EVSYS_CHSTATUS_USRRDY1_USRRDY12 (0x4u << 16) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 12 */
-#define   EVSYS_CHSTATUS_USRRDY1_USRRDY13 (0x5u << 16) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 13 */
-#define   EVSYS_CHSTATUS_USRRDY1_USRRDY14 (0x6u << 16) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 14 */
-#define   EVSYS_CHSTATUS_USRRDY1_USRRDY15 (0x7u << 16) /**< \brief (EVSYS_CHSTATUS) User ready for Channel 15 */
+#define   EVSYS_CHSTATUS_USRRDY1_USRRDY8_Val 0x1u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 8 */
+#define   EVSYS_CHSTATUS_USRRDY1_USRRDY9_Val 0x2u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 9 */
+#define   EVSYS_CHSTATUS_USRRDY1_USRRDY10_Val 0x4u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 10 */
+#define   EVSYS_CHSTATUS_USRRDY1_USRRDY11_Val 0x8u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 11 */
+#define   EVSYS_CHSTATUS_USRRDY1_USRRDY12_Val 0x10u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 12 */
+#define   EVSYS_CHSTATUS_USRRDY1_USRRDY13_Val 0x20u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 13 */
+#define   EVSYS_CHSTATUS_USRRDY1_USRRDY14_Val 0x40u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 14 */
+#define   EVSYS_CHSTATUS_USRRDY1_USRRDY15_Val 0x80u   /**< \brief (EVSYS_CHSTATUS) User ready for Channel 15 */
+#define EVSYS_CHSTATUS_USRRDY1_USRRDY8 (EVSYS_CHSTATUS_USRRDY1_USRRDY8_Val << EVSYS_CHSTATUS_USRRDY1_Pos)
+#define EVSYS_CHSTATUS_USRRDY1_USRRDY9 (EVSYS_CHSTATUS_USRRDY1_USRRDY9_Val << EVSYS_CHSTATUS_USRRDY1_Pos)
+#define EVSYS_CHSTATUS_USRRDY1_USRRDY10 (EVSYS_CHSTATUS_USRRDY1_USRRDY10_Val << EVSYS_CHSTATUS_USRRDY1_Pos)
+#define EVSYS_CHSTATUS_USRRDY1_USRRDY11 (EVSYS_CHSTATUS_USRRDY1_USRRDY11_Val << EVSYS_CHSTATUS_USRRDY1_Pos)
+#define EVSYS_CHSTATUS_USRRDY1_USRRDY12 (EVSYS_CHSTATUS_USRRDY1_USRRDY12_Val << EVSYS_CHSTATUS_USRRDY1_Pos)
+#define EVSYS_CHSTATUS_USRRDY1_USRRDY13 (EVSYS_CHSTATUS_USRRDY1_USRRDY13_Val << EVSYS_CHSTATUS_USRRDY1_Pos)
+#define EVSYS_CHSTATUS_USRRDY1_USRRDY14 (EVSYS_CHSTATUS_USRRDY1_USRRDY14_Val << EVSYS_CHSTATUS_USRRDY1_Pos)
+#define EVSYS_CHSTATUS_USRRDY1_USRRDY15 (EVSYS_CHSTATUS_USRRDY1_USRRDY15_Val << EVSYS_CHSTATUS_USRRDY1_Pos)
 #define EVSYS_CHSTATUS_CHBUSY1_Pos  24           /**< \brief (EVSYS_CHSTATUS) Channels Busy 8 to 15 (modulo 16) */
 #define EVSYS_CHSTATUS_CHBUSY1_Msk  (0xFFu << EVSYS_CHSTATUS_CHBUSY1_Pos)
 #define EVSYS_CHSTATUS_CHBUSY1(value) ((EVSYS_CHSTATUS_CHBUSY1_Msk & ((value) << EVSYS_CHSTATUS_CHBUSY1_Pos)))
-#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY8 (0x0u << 24) /**< \brief (EVSYS_CHSTATUS) Channel 8 busy */
-#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY9 (0x1u << 24) /**< \brief (EVSYS_CHSTATUS) Channel 9 busy */
-#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY10 (0x2u << 24) /**< \brief (EVSYS_CHSTATUS) Channel 10 busy */
-#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY11 (0x3u << 24) /**< \brief (EVSYS_CHSTATUS) Channel 11 busy */
-#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY12 (0x4u << 24) /**< \brief (EVSYS_CHSTATUS) Channel 12 busy */
-#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY13 (0x5u << 24) /**< \brief (EVSYS_CHSTATUS) Channel 13 busy */
-#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY14 (0x6u << 24) /**< \brief (EVSYS_CHSTATUS) Channel 14 busy */
-#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY15 (0x7u << 24) /**< \brief (EVSYS_CHSTATUS) Channel 15 busy */
+#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY8_Val 0x1u   /**< \brief (EVSYS_CHSTATUS) Channel 8 busy */
+#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY9_Val 0x2u   /**< \brief (EVSYS_CHSTATUS) Channel 9 busy */
+#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY10_Val 0x4u   /**< \brief (EVSYS_CHSTATUS) Channel 10 busy */
+#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY11_Val 0x8u   /**< \brief (EVSYS_CHSTATUS) Channel 11 busy */
+#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY12_Val 0x10u   /**< \brief (EVSYS_CHSTATUS) Channel 12 busy */
+#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY13_Val 0x20u   /**< \brief (EVSYS_CHSTATUS) Channel 13 busy */
+#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY14_Val 0x40u   /**< \brief (EVSYS_CHSTATUS) Channel 14 busy */
+#define   EVSYS_CHSTATUS_CHBUSY1_CHBUSY15_Val 0x80u   /**< \brief (EVSYS_CHSTATUS) Channel 15 busy */
+#define EVSYS_CHSTATUS_CHBUSY1_CHBUSY8 (EVSYS_CHSTATUS_CHBUSY1_CHBUSY8_Val << EVSYS_CHSTATUS_CHBUSY1_Pos)
+#define EVSYS_CHSTATUS_CHBUSY1_CHBUSY9 (EVSYS_CHSTATUS_CHBUSY1_CHBUSY9_Val << EVSYS_CHSTATUS_CHBUSY1_Pos)
+#define EVSYS_CHSTATUS_CHBUSY1_CHBUSY10 (EVSYS_CHSTATUS_CHBUSY1_CHBUSY10_Val << EVSYS_CHSTATUS_CHBUSY1_Pos)
+#define EVSYS_CHSTATUS_CHBUSY1_CHBUSY11 (EVSYS_CHSTATUS_CHBUSY1_CHBUSY11_Val << EVSYS_CHSTATUS_CHBUSY1_Pos)
+#define EVSYS_CHSTATUS_CHBUSY1_CHBUSY12 (EVSYS_CHSTATUS_CHBUSY1_CHBUSY12_Val << EVSYS_CHSTATUS_CHBUSY1_Pos)
+#define EVSYS_CHSTATUS_CHBUSY1_CHBUSY13 (EVSYS_CHSTATUS_CHBUSY1_CHBUSY13_Val << EVSYS_CHSTATUS_CHBUSY1_Pos)
+#define EVSYS_CHSTATUS_CHBUSY1_CHBUSY14 (EVSYS_CHSTATUS_CHBUSY1_CHBUSY14_Val << EVSYS_CHSTATUS_CHBUSY1_Pos)
+#define EVSYS_CHSTATUS_CHBUSY1_CHBUSY15 (EVSYS_CHSTATUS_CHBUSY1_CHBUSY15_Val << EVSYS_CHSTATUS_CHBUSY1_Pos)
 #define EVSYS_CHSTATUS_MASK         0xFFFFFFFFu  /**< \brief (EVSYS_CHSTATUS) MASK Register */
 
-/* -------- EVSYS_INTENCLR : (EVSYS Offset: 0x10) (R/W 32) Interrupt Enable Clear Register -------- */
+/* -------- EVSYS_INTENCLR : (EVSYS Offset: 0x10) (R/W 32) Interrupt Enable Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -213,56 +252,88 @@ typedef union {
 } EVSYS_INTENCLR_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define EVSYS_INTENCLR_OFFSET       0x10         /**< \brief (EVSYS_INTENCLR offset) Interrupt Enable Clear Register */
-#define EVSYS_INTENCLR_RESETVALUE   0x00000000   /**< \brief (EVSYS_INTENCLR reset_value) Interrupt Enable Clear Register */
+#define EVSYS_INTENCLR_OFFSET       0x10         /**< \brief (EVSYS_INTENCLR offset) Interrupt Enable Clear */
+#define EVSYS_INTENCLR_RESETVALUE   0x00000000   /**< \brief (EVSYS_INTENCLR reset_value) Interrupt Enable Clear */
 
 #define EVSYS_INTENCLR_OVR0_Pos     0            /**< \brief (EVSYS_INTENCLR) Overrun Interrupt Disable for Channels 0 to 7 (modulo 16) */
 #define EVSYS_INTENCLR_OVR0_Msk     (0xFFu << EVSYS_INTENCLR_OVR0_Pos)
 #define EVSYS_INTENCLR_OVR0(value)  ((EVSYS_INTENCLR_OVR0_Msk & ((value) << EVSYS_INTENCLR_OVR0_Pos)))
-#define   EVSYS_INTENCLR_OVR0_OVR0  (0x0u <<  0) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 0 */
-#define   EVSYS_INTENCLR_OVR0_OVR1  (0x1u <<  0) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 1 */
-#define   EVSYS_INTENCLR_OVR0_OVR2  (0x2u <<  0) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 2 */
-#define   EVSYS_INTENCLR_OVR0_OVR3  (0x3u <<  0) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 3 */
-#define   EVSYS_INTENCLR_OVR0_OVR4  (0x4u <<  0) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 4 */
-#define   EVSYS_INTENCLR_OVR0_OVR5  (0x5u <<  0) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 5 */
-#define   EVSYS_INTENCLR_OVR0_OVR6  (0x6u <<  0) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 6 */
-#define   EVSYS_INTENCLR_OVR0_OVR7  (0x7u <<  0) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 7 */
+#define   EVSYS_INTENCLR_OVR0_OVR0_Val    0x1u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 0 */
+#define   EVSYS_INTENCLR_OVR0_OVR1_Val    0x2u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 1 */
+#define   EVSYS_INTENCLR_OVR0_OVR2_Val    0x4u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 2 */
+#define   EVSYS_INTENCLR_OVR0_OVR3_Val    0x8u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 3 */
+#define   EVSYS_INTENCLR_OVR0_OVR4_Val    0x10u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 4 */
+#define   EVSYS_INTENCLR_OVR0_OVR5_Val    0x20u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 5 */
+#define   EVSYS_INTENCLR_OVR0_OVR6_Val    0x40u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 6 */
+#define   EVSYS_INTENCLR_OVR0_OVR7_Val    0x80u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 7 */
+#define EVSYS_INTENCLR_OVR0_OVR0    (EVSYS_INTENCLR_OVR0_OVR0_Val  << EVSYS_INTENCLR_OVR0_Pos)
+#define EVSYS_INTENCLR_OVR0_OVR1    (EVSYS_INTENCLR_OVR0_OVR1_Val  << EVSYS_INTENCLR_OVR0_Pos)
+#define EVSYS_INTENCLR_OVR0_OVR2    (EVSYS_INTENCLR_OVR0_OVR2_Val  << EVSYS_INTENCLR_OVR0_Pos)
+#define EVSYS_INTENCLR_OVR0_OVR3    (EVSYS_INTENCLR_OVR0_OVR3_Val  << EVSYS_INTENCLR_OVR0_Pos)
+#define EVSYS_INTENCLR_OVR0_OVR4    (EVSYS_INTENCLR_OVR0_OVR4_Val  << EVSYS_INTENCLR_OVR0_Pos)
+#define EVSYS_INTENCLR_OVR0_OVR5    (EVSYS_INTENCLR_OVR0_OVR5_Val  << EVSYS_INTENCLR_OVR0_Pos)
+#define EVSYS_INTENCLR_OVR0_OVR6    (EVSYS_INTENCLR_OVR0_OVR6_Val  << EVSYS_INTENCLR_OVR0_Pos)
+#define EVSYS_INTENCLR_OVR0_OVR7    (EVSYS_INTENCLR_OVR0_OVR7_Val  << EVSYS_INTENCLR_OVR0_Pos)
 #define EVSYS_INTENCLR_EVD0_Pos     8            /**< \brief (EVSYS_INTENCLR) Event Detection Interrupt Disable for Channels 0 to 7 (modulo 16) */
 #define EVSYS_INTENCLR_EVD0_Msk     (0xFFu << EVSYS_INTENCLR_EVD0_Pos)
 #define EVSYS_INTENCLR_EVD0(value)  ((EVSYS_INTENCLR_EVD0_Msk & ((value) << EVSYS_INTENCLR_EVD0_Pos)))
-#define   EVSYS_INTENCLR_EVD0_EVD0  (0x0u <<  8) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 0 */
-#define   EVSYS_INTENCLR_EVD0_EVD1  (0x1u <<  8) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 1 */
-#define   EVSYS_INTENCLR_EVD0_EVD2  (0x2u <<  8) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 2 */
-#define   EVSYS_INTENCLR_EVD0_EVD3  (0x3u <<  8) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 3 */
-#define   EVSYS_INTENCLR_EVD0_EVD4  (0x4u <<  8) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 4 */
-#define   EVSYS_INTENCLR_EVD0_EVD5  (0x5u <<  8) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 5 */
-#define   EVSYS_INTENCLR_EVD0_EVD6  (0x6u <<  8) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 6 */
-#define   EVSYS_INTENCLR_EVD0_EVD7  (0x7u <<  8) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 7 */
+#define   EVSYS_INTENCLR_EVD0_EVD0_Val    0x1u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 0 */
+#define   EVSYS_INTENCLR_EVD0_EVD1_Val    0x2u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 1 */
+#define   EVSYS_INTENCLR_EVD0_EVD2_Val    0x4u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 2 */
+#define   EVSYS_INTENCLR_EVD0_EVD3_Val    0x8u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 3 */
+#define   EVSYS_INTENCLR_EVD0_EVD4_Val    0x10u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 4 */
+#define   EVSYS_INTENCLR_EVD0_EVD5_Val    0x20u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 5 */
+#define   EVSYS_INTENCLR_EVD0_EVD6_Val    0x40u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 6 */
+#define   EVSYS_INTENCLR_EVD0_EVD7_Val    0x80u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 7 */
+#define EVSYS_INTENCLR_EVD0_EVD0    (EVSYS_INTENCLR_EVD0_EVD0_Val  << EVSYS_INTENCLR_EVD0_Pos)
+#define EVSYS_INTENCLR_EVD0_EVD1    (EVSYS_INTENCLR_EVD0_EVD1_Val  << EVSYS_INTENCLR_EVD0_Pos)
+#define EVSYS_INTENCLR_EVD0_EVD2    (EVSYS_INTENCLR_EVD0_EVD2_Val  << EVSYS_INTENCLR_EVD0_Pos)
+#define EVSYS_INTENCLR_EVD0_EVD3    (EVSYS_INTENCLR_EVD0_EVD3_Val  << EVSYS_INTENCLR_EVD0_Pos)
+#define EVSYS_INTENCLR_EVD0_EVD4    (EVSYS_INTENCLR_EVD0_EVD4_Val  << EVSYS_INTENCLR_EVD0_Pos)
+#define EVSYS_INTENCLR_EVD0_EVD5    (EVSYS_INTENCLR_EVD0_EVD5_Val  << EVSYS_INTENCLR_EVD0_Pos)
+#define EVSYS_INTENCLR_EVD0_EVD6    (EVSYS_INTENCLR_EVD0_EVD6_Val  << EVSYS_INTENCLR_EVD0_Pos)
+#define EVSYS_INTENCLR_EVD0_EVD7    (EVSYS_INTENCLR_EVD0_EVD7_Val  << EVSYS_INTENCLR_EVD0_Pos)
 #define EVSYS_INTENCLR_OVR1_Pos     16           /**< \brief (EVSYS_INTENCLR) Overrun Interrupt Disable for Channels 8 to 15 (modulo 16) */
 #define EVSYS_INTENCLR_OVR1_Msk     (0xFFu << EVSYS_INTENCLR_OVR1_Pos)
 #define EVSYS_INTENCLR_OVR1(value)  ((EVSYS_INTENCLR_OVR1_Msk & ((value) << EVSYS_INTENCLR_OVR1_Pos)))
-#define   EVSYS_INTENCLR_OVR1_OVR8  (0x0u << 16) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 8 */
-#define   EVSYS_INTENCLR_OVR1_OVR9  (0x1u << 16) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 9 */
-#define   EVSYS_INTENCLR_OVR1_OVR10 (0x2u << 16) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 10 */
-#define   EVSYS_INTENCLR_OVR1_OVR11 (0x3u << 16) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 11 */
-#define   EVSYS_INTENCLR_OVR1_OVR12 (0x4u << 16) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 12 */
-#define   EVSYS_INTENCLR_OVR1_OVR13 (0x5u << 16) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 13 */
-#define   EVSYS_INTENCLR_OVR1_OVR14 (0x6u << 16) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 14 */
-#define   EVSYS_INTENCLR_OVR1_OVR15 (0x7u << 16) /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 15 */
+#define   EVSYS_INTENCLR_OVR1_OVR8_Val    0x1u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 8 */
+#define   EVSYS_INTENCLR_OVR1_OVR9_Val    0x2u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 9 */
+#define   EVSYS_INTENCLR_OVR1_OVR10_Val   0x4u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 10 */
+#define   EVSYS_INTENCLR_OVR1_OVR11_Val   0x8u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 11 */
+#define   EVSYS_INTENCLR_OVR1_OVR12_Val   0x10u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 12 */
+#define   EVSYS_INTENCLR_OVR1_OVR13_Val   0x20u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 13 */
+#define   EVSYS_INTENCLR_OVR1_OVR14_Val   0x40u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 14 */
+#define   EVSYS_INTENCLR_OVR1_OVR15_Val   0x80u   /**< \brief (EVSYS_INTENCLR) Overrun detected on Channel 15 */
+#define EVSYS_INTENCLR_OVR1_OVR8    (EVSYS_INTENCLR_OVR1_OVR8_Val  << EVSYS_INTENCLR_OVR1_Pos)
+#define EVSYS_INTENCLR_OVR1_OVR9    (EVSYS_INTENCLR_OVR1_OVR9_Val  << EVSYS_INTENCLR_OVR1_Pos)
+#define EVSYS_INTENCLR_OVR1_OVR10   (EVSYS_INTENCLR_OVR1_OVR10_Val << EVSYS_INTENCLR_OVR1_Pos)
+#define EVSYS_INTENCLR_OVR1_OVR11   (EVSYS_INTENCLR_OVR1_OVR11_Val << EVSYS_INTENCLR_OVR1_Pos)
+#define EVSYS_INTENCLR_OVR1_OVR12   (EVSYS_INTENCLR_OVR1_OVR12_Val << EVSYS_INTENCLR_OVR1_Pos)
+#define EVSYS_INTENCLR_OVR1_OVR13   (EVSYS_INTENCLR_OVR1_OVR13_Val << EVSYS_INTENCLR_OVR1_Pos)
+#define EVSYS_INTENCLR_OVR1_OVR14   (EVSYS_INTENCLR_OVR1_OVR14_Val << EVSYS_INTENCLR_OVR1_Pos)
+#define EVSYS_INTENCLR_OVR1_OVR15   (EVSYS_INTENCLR_OVR1_OVR15_Val << EVSYS_INTENCLR_OVR1_Pos)
 #define EVSYS_INTENCLR_EVD1_Pos     24           /**< \brief (EVSYS_INTENCLR) Event Detection Interrupt Disable for Channels 8 to 15 (modulo 16) */
 #define EVSYS_INTENCLR_EVD1_Msk     (0xFFu << EVSYS_INTENCLR_EVD1_Pos)
 #define EVSYS_INTENCLR_EVD1(value)  ((EVSYS_INTENCLR_EVD1_Msk & ((value) << EVSYS_INTENCLR_EVD1_Pos)))
-#define   EVSYS_INTENCLR_EVD1_EVD8  (0x0u << 24) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 8 */
-#define   EVSYS_INTENCLR_EVD1_EVD9  (0x1u << 24) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 9 */
-#define   EVSYS_INTENCLR_EVD1_EVD10 (0x2u << 24) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 10 */
-#define   EVSYS_INTENCLR_EVD1_EVD11 (0x3u << 24) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 11 */
-#define   EVSYS_INTENCLR_EVD1_EVD12 (0x4u << 24) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 12 */
-#define   EVSYS_INTENCLR_EVD1_EVD13 (0x5u << 24) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 13 */
-#define   EVSYS_INTENCLR_EVD1_EVD14 (0x6u << 24) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 14 */
-#define   EVSYS_INTENCLR_EVD1_EVD15 (0x7u << 24) /**< \brief (EVSYS_INTENCLR) Event detected on Channel 15 */
+#define   EVSYS_INTENCLR_EVD1_EVD8_Val    0x1u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 8 */
+#define   EVSYS_INTENCLR_EVD1_EVD9_Val    0x2u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 9 */
+#define   EVSYS_INTENCLR_EVD1_EVD10_Val   0x4u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 10 */
+#define   EVSYS_INTENCLR_EVD1_EVD11_Val   0x8u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 11 */
+#define   EVSYS_INTENCLR_EVD1_EVD12_Val   0x10u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 12 */
+#define   EVSYS_INTENCLR_EVD1_EVD13_Val   0x20u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 13 */
+#define   EVSYS_INTENCLR_EVD1_EVD14_Val   0x40u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 14 */
+#define   EVSYS_INTENCLR_EVD1_EVD15_Val   0x80u   /**< \brief (EVSYS_INTENCLR) Event detected on Channel 15 */
+#define EVSYS_INTENCLR_EVD1_EVD8    (EVSYS_INTENCLR_EVD1_EVD8_Val  << EVSYS_INTENCLR_EVD1_Pos)
+#define EVSYS_INTENCLR_EVD1_EVD9    (EVSYS_INTENCLR_EVD1_EVD9_Val  << EVSYS_INTENCLR_EVD1_Pos)
+#define EVSYS_INTENCLR_EVD1_EVD10   (EVSYS_INTENCLR_EVD1_EVD10_Val << EVSYS_INTENCLR_EVD1_Pos)
+#define EVSYS_INTENCLR_EVD1_EVD11   (EVSYS_INTENCLR_EVD1_EVD11_Val << EVSYS_INTENCLR_EVD1_Pos)
+#define EVSYS_INTENCLR_EVD1_EVD12   (EVSYS_INTENCLR_EVD1_EVD12_Val << EVSYS_INTENCLR_EVD1_Pos)
+#define EVSYS_INTENCLR_EVD1_EVD13   (EVSYS_INTENCLR_EVD1_EVD13_Val << EVSYS_INTENCLR_EVD1_Pos)
+#define EVSYS_INTENCLR_EVD1_EVD14   (EVSYS_INTENCLR_EVD1_EVD14_Val << EVSYS_INTENCLR_EVD1_Pos)
+#define EVSYS_INTENCLR_EVD1_EVD15   (EVSYS_INTENCLR_EVD1_EVD15_Val << EVSYS_INTENCLR_EVD1_Pos)
 #define EVSYS_INTENCLR_MASK         0xFFFFFFFFu  /**< \brief (EVSYS_INTENCLR) MASK Register */
 
-/* -------- EVSYS_INTENSET : (EVSYS Offset: 0x14) (R/W 32) Interrupt Enable Set Register -------- */
+/* -------- EVSYS_INTENSET : (EVSYS Offset: 0x14) (R/W 32) Interrupt Enable Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -275,56 +346,88 @@ typedef union {
 } EVSYS_INTENSET_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define EVSYS_INTENSET_OFFSET       0x14         /**< \brief (EVSYS_INTENSET offset) Interrupt Enable Set Register */
-#define EVSYS_INTENSET_RESETVALUE   0x00000000   /**< \brief (EVSYS_INTENSET reset_value) Interrupt Enable Set Register */
+#define EVSYS_INTENSET_OFFSET       0x14         /**< \brief (EVSYS_INTENSET offset) Interrupt Enable Set */
+#define EVSYS_INTENSET_RESETVALUE   0x00000000   /**< \brief (EVSYS_INTENSET reset_value) Interrupt Enable Set */
 
 #define EVSYS_INTENSET_OVR0_Pos     0            /**< \brief (EVSYS_INTENSET) Overrun Interrupt Enable for Channels 0 to 7 (modulo 16) */
 #define EVSYS_INTENSET_OVR0_Msk     (0xFFu << EVSYS_INTENSET_OVR0_Pos)
 #define EVSYS_INTENSET_OVR0(value)  ((EVSYS_INTENSET_OVR0_Msk & ((value) << EVSYS_INTENSET_OVR0_Pos)))
-#define   EVSYS_INTENSET_OVR0_OVR0  (0x0u <<  0) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 0 */
-#define   EVSYS_INTENSET_OVR0_OVR1  (0x1u <<  0) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 1 */
-#define   EVSYS_INTENSET_OVR0_OVR2  (0x2u <<  0) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 2 */
-#define   EVSYS_INTENSET_OVR0_OVR3  (0x3u <<  0) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 3 */
-#define   EVSYS_INTENSET_OVR0_OVR4  (0x4u <<  0) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 4 */
-#define   EVSYS_INTENSET_OVR0_OVR5  (0x5u <<  0) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 5 */
-#define   EVSYS_INTENSET_OVR0_OVR6  (0x6u <<  0) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 6 */
-#define   EVSYS_INTENSET_OVR0_OVR7  (0x7u <<  0) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 7 */
+#define   EVSYS_INTENSET_OVR0_OVR0_Val    0x1u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 0 */
+#define   EVSYS_INTENSET_OVR0_OVR1_Val    0x2u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 1 */
+#define   EVSYS_INTENSET_OVR0_OVR2_Val    0x4u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 2 */
+#define   EVSYS_INTENSET_OVR0_OVR3_Val    0x8u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 3 */
+#define   EVSYS_INTENSET_OVR0_OVR4_Val    0x10u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 4 */
+#define   EVSYS_INTENSET_OVR0_OVR5_Val    0x20u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 5 */
+#define   EVSYS_INTENSET_OVR0_OVR6_Val    0x40u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 6 */
+#define   EVSYS_INTENSET_OVR0_OVR7_Val    0x80u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 7 */
+#define EVSYS_INTENSET_OVR0_OVR0    (EVSYS_INTENSET_OVR0_OVR0_Val  << EVSYS_INTENSET_OVR0_Pos)
+#define EVSYS_INTENSET_OVR0_OVR1    (EVSYS_INTENSET_OVR0_OVR1_Val  << EVSYS_INTENSET_OVR0_Pos)
+#define EVSYS_INTENSET_OVR0_OVR2    (EVSYS_INTENSET_OVR0_OVR2_Val  << EVSYS_INTENSET_OVR0_Pos)
+#define EVSYS_INTENSET_OVR0_OVR3    (EVSYS_INTENSET_OVR0_OVR3_Val  << EVSYS_INTENSET_OVR0_Pos)
+#define EVSYS_INTENSET_OVR0_OVR4    (EVSYS_INTENSET_OVR0_OVR4_Val  << EVSYS_INTENSET_OVR0_Pos)
+#define EVSYS_INTENSET_OVR0_OVR5    (EVSYS_INTENSET_OVR0_OVR5_Val  << EVSYS_INTENSET_OVR0_Pos)
+#define EVSYS_INTENSET_OVR0_OVR6    (EVSYS_INTENSET_OVR0_OVR6_Val  << EVSYS_INTENSET_OVR0_Pos)
+#define EVSYS_INTENSET_OVR0_OVR7    (EVSYS_INTENSET_OVR0_OVR7_Val  << EVSYS_INTENSET_OVR0_Pos)
 #define EVSYS_INTENSET_EVD0_Pos     8            /**< \brief (EVSYS_INTENSET) Event Detection Interrupt Enable for Channels 0 to 7 (modulo 16) */
 #define EVSYS_INTENSET_EVD0_Msk     (0xFFu << EVSYS_INTENSET_EVD0_Pos)
 #define EVSYS_INTENSET_EVD0(value)  ((EVSYS_INTENSET_EVD0_Msk & ((value) << EVSYS_INTENSET_EVD0_Pos)))
-#define   EVSYS_INTENSET_EVD0_EVD0  (0x0u <<  8) /**< \brief (EVSYS_INTENSET) Event detected on Channel 0 */
-#define   EVSYS_INTENSET_EVD0_EVD1  (0x1u <<  8) /**< \brief (EVSYS_INTENSET) Event detected on Channel 1 */
-#define   EVSYS_INTENSET_EVD0_EVD2  (0x2u <<  8) /**< \brief (EVSYS_INTENSET) Event detected on Channel 2 */
-#define   EVSYS_INTENSET_EVD0_EVD3  (0x3u <<  8) /**< \brief (EVSYS_INTENSET) Event detected on Channel 3 */
-#define   EVSYS_INTENSET_EVD0_EVD4  (0x4u <<  8) /**< \brief (EVSYS_INTENSET) Event detected on Channel 4 */
-#define   EVSYS_INTENSET_EVD0_EVD5  (0x5u <<  8) /**< \brief (EVSYS_INTENSET) Event detected on Channel 5 */
-#define   EVSYS_INTENSET_EVD0_EVD6  (0x6u <<  8) /**< \brief (EVSYS_INTENSET) Event detected on Channel 6 */
-#define   EVSYS_INTENSET_EVD0_EVD7  (0x7u <<  8) /**< \brief (EVSYS_INTENSET) Event detected on Channel 7 */
+#define   EVSYS_INTENSET_EVD0_EVD0_Val    0x1u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 0 */
+#define   EVSYS_INTENSET_EVD0_EVD1_Val    0x2u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 1 */
+#define   EVSYS_INTENSET_EVD0_EVD2_Val    0x4u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 2 */
+#define   EVSYS_INTENSET_EVD0_EVD3_Val    0x8u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 3 */
+#define   EVSYS_INTENSET_EVD0_EVD4_Val    0x10u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 4 */
+#define   EVSYS_INTENSET_EVD0_EVD5_Val    0x20u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 5 */
+#define   EVSYS_INTENSET_EVD0_EVD6_Val    0x40u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 6 */
+#define   EVSYS_INTENSET_EVD0_EVD7_Val    0x80u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 7 */
+#define EVSYS_INTENSET_EVD0_EVD0    (EVSYS_INTENSET_EVD0_EVD0_Val  << EVSYS_INTENSET_EVD0_Pos)
+#define EVSYS_INTENSET_EVD0_EVD1    (EVSYS_INTENSET_EVD0_EVD1_Val  << EVSYS_INTENSET_EVD0_Pos)
+#define EVSYS_INTENSET_EVD0_EVD2    (EVSYS_INTENSET_EVD0_EVD2_Val  << EVSYS_INTENSET_EVD0_Pos)
+#define EVSYS_INTENSET_EVD0_EVD3    (EVSYS_INTENSET_EVD0_EVD3_Val  << EVSYS_INTENSET_EVD0_Pos)
+#define EVSYS_INTENSET_EVD0_EVD4    (EVSYS_INTENSET_EVD0_EVD4_Val  << EVSYS_INTENSET_EVD0_Pos)
+#define EVSYS_INTENSET_EVD0_EVD5    (EVSYS_INTENSET_EVD0_EVD5_Val  << EVSYS_INTENSET_EVD0_Pos)
+#define EVSYS_INTENSET_EVD0_EVD6    (EVSYS_INTENSET_EVD0_EVD6_Val  << EVSYS_INTENSET_EVD0_Pos)
+#define EVSYS_INTENSET_EVD0_EVD7    (EVSYS_INTENSET_EVD0_EVD7_Val  << EVSYS_INTENSET_EVD0_Pos)
 #define EVSYS_INTENSET_OVR1_Pos     16           /**< \brief (EVSYS_INTENSET) Overrun Interrupt Enable for Channels 8 to 15 (modulo 16) */
 #define EVSYS_INTENSET_OVR1_Msk     (0xFFu << EVSYS_INTENSET_OVR1_Pos)
 #define EVSYS_INTENSET_OVR1(value)  ((EVSYS_INTENSET_OVR1_Msk & ((value) << EVSYS_INTENSET_OVR1_Pos)))
-#define   EVSYS_INTENSET_OVR1_OVR8  (0x0u << 16) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 8 */
-#define   EVSYS_INTENSET_OVR1_OVR9  (0x1u << 16) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 9 */
-#define   EVSYS_INTENSET_OVR1_OVR10 (0x2u << 16) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 10 */
-#define   EVSYS_INTENSET_OVR1_OVR11 (0x3u << 16) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 11 */
-#define   EVSYS_INTENSET_OVR1_OVR12 (0x4u << 16) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 12 */
-#define   EVSYS_INTENSET_OVR1_OVR13 (0x5u << 16) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 13 */
-#define   EVSYS_INTENSET_OVR1_OVR14 (0x6u << 16) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 14 */
-#define   EVSYS_INTENSET_OVR1_OVR15 (0x7u << 16) /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 15 */
+#define   EVSYS_INTENSET_OVR1_OVR8_Val    0x1u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 8 */
+#define   EVSYS_INTENSET_OVR1_OVR9_Val    0x2u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 9 */
+#define   EVSYS_INTENSET_OVR1_OVR10_Val   0x4u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 10 */
+#define   EVSYS_INTENSET_OVR1_OVR11_Val   0x8u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 11 */
+#define   EVSYS_INTENSET_OVR1_OVR12_Val   0x10u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 12 */
+#define   EVSYS_INTENSET_OVR1_OVR13_Val   0x20u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 13 */
+#define   EVSYS_INTENSET_OVR1_OVR14_Val   0x40u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 14 */
+#define   EVSYS_INTENSET_OVR1_OVR15_Val   0x80u   /**< \brief (EVSYS_INTENSET) Overrun detected on Channel 15 */
+#define EVSYS_INTENSET_OVR1_OVR8    (EVSYS_INTENSET_OVR1_OVR8_Val  << EVSYS_INTENSET_OVR1_Pos)
+#define EVSYS_INTENSET_OVR1_OVR9    (EVSYS_INTENSET_OVR1_OVR9_Val  << EVSYS_INTENSET_OVR1_Pos)
+#define EVSYS_INTENSET_OVR1_OVR10   (EVSYS_INTENSET_OVR1_OVR10_Val << EVSYS_INTENSET_OVR1_Pos)
+#define EVSYS_INTENSET_OVR1_OVR11   (EVSYS_INTENSET_OVR1_OVR11_Val << EVSYS_INTENSET_OVR1_Pos)
+#define EVSYS_INTENSET_OVR1_OVR12   (EVSYS_INTENSET_OVR1_OVR12_Val << EVSYS_INTENSET_OVR1_Pos)
+#define EVSYS_INTENSET_OVR1_OVR13   (EVSYS_INTENSET_OVR1_OVR13_Val << EVSYS_INTENSET_OVR1_Pos)
+#define EVSYS_INTENSET_OVR1_OVR14   (EVSYS_INTENSET_OVR1_OVR14_Val << EVSYS_INTENSET_OVR1_Pos)
+#define EVSYS_INTENSET_OVR1_OVR15   (EVSYS_INTENSET_OVR1_OVR15_Val << EVSYS_INTENSET_OVR1_Pos)
 #define EVSYS_INTENSET_EVD1_Pos     24           /**< \brief (EVSYS_INTENSET) Event Detection Interrupt Enable for Channels 8 to 15 (modulo 16) */
 #define EVSYS_INTENSET_EVD1_Msk     (0xFFu << EVSYS_INTENSET_EVD1_Pos)
 #define EVSYS_INTENSET_EVD1(value)  ((EVSYS_INTENSET_EVD1_Msk & ((value) << EVSYS_INTENSET_EVD1_Pos)))
-#define   EVSYS_INTENSET_EVD1_EVD8  (0x0u << 24) /**< \brief (EVSYS_INTENSET) Event detected on Channel 8 */
-#define   EVSYS_INTENSET_EVD1_EVD9  (0x1u << 24) /**< \brief (EVSYS_INTENSET) Event detected on Channel 9 */
-#define   EVSYS_INTENSET_EVD1_EVD10 (0x2u << 24) /**< \brief (EVSYS_INTENSET) Event detected on Channel 10 */
-#define   EVSYS_INTENSET_EVD1_EVD11 (0x3u << 24) /**< \brief (EVSYS_INTENSET) Event detected on Channel 11 */
-#define   EVSYS_INTENSET_EVD1_EVD12 (0x4u << 24) /**< \brief (EVSYS_INTENSET) Event detected on Channel 12 */
-#define   EVSYS_INTENSET_EVD1_EVD13 (0x5u << 24) /**< \brief (EVSYS_INTENSET) Event detected on Channel 13 */
-#define   EVSYS_INTENSET_EVD1_EVD14 (0x6u << 24) /**< \brief (EVSYS_INTENSET) Event detected on Channel 14 */
-#define   EVSYS_INTENSET_EVD1_EVD15 (0x7u << 24) /**< \brief (EVSYS_INTENSET) Event detected on Channel 15 */
+#define   EVSYS_INTENSET_EVD1_EVD8_Val    0x1u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 8 */
+#define   EVSYS_INTENSET_EVD1_EVD9_Val    0x2u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 9 */
+#define   EVSYS_INTENSET_EVD1_EVD10_Val   0x4u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 10 */
+#define   EVSYS_INTENSET_EVD1_EVD11_Val   0x8u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 11 */
+#define   EVSYS_INTENSET_EVD1_EVD12_Val   0x10u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 12 */
+#define   EVSYS_INTENSET_EVD1_EVD13_Val   0x20u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 13 */
+#define   EVSYS_INTENSET_EVD1_EVD14_Val   0x40u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 14 */
+#define   EVSYS_INTENSET_EVD1_EVD15_Val   0x80u   /**< \brief (EVSYS_INTENSET) Event detected on Channel 15 */
+#define EVSYS_INTENSET_EVD1_EVD8    (EVSYS_INTENSET_EVD1_EVD8_Val  << EVSYS_INTENSET_EVD1_Pos)
+#define EVSYS_INTENSET_EVD1_EVD9    (EVSYS_INTENSET_EVD1_EVD9_Val  << EVSYS_INTENSET_EVD1_Pos)
+#define EVSYS_INTENSET_EVD1_EVD10   (EVSYS_INTENSET_EVD1_EVD10_Val << EVSYS_INTENSET_EVD1_Pos)
+#define EVSYS_INTENSET_EVD1_EVD11   (EVSYS_INTENSET_EVD1_EVD11_Val << EVSYS_INTENSET_EVD1_Pos)
+#define EVSYS_INTENSET_EVD1_EVD12   (EVSYS_INTENSET_EVD1_EVD12_Val << EVSYS_INTENSET_EVD1_Pos)
+#define EVSYS_INTENSET_EVD1_EVD13   (EVSYS_INTENSET_EVD1_EVD13_Val << EVSYS_INTENSET_EVD1_Pos)
+#define EVSYS_INTENSET_EVD1_EVD14   (EVSYS_INTENSET_EVD1_EVD14_Val << EVSYS_INTENSET_EVD1_Pos)
+#define EVSYS_INTENSET_EVD1_EVD15   (EVSYS_INTENSET_EVD1_EVD15_Val << EVSYS_INTENSET_EVD1_Pos)
 #define EVSYS_INTENSET_MASK         0xFFFFFFFFu  /**< \brief (EVSYS_INTENSET) MASK Register */
 
-/* -------- EVSYS_INTFLAG : (EVSYS Offset: 0x18) (R/W 32) Interrupt Flag Status and Clear Register -------- */
+/* -------- EVSYS_INTFLAG : (EVSYS Offset: 0x18) (R/W 32) Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -337,67 +440,99 @@ typedef union {
 } EVSYS_INTFLAG_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define EVSYS_INTFLAG_OFFSET        0x18         /**< \brief (EVSYS_INTFLAG offset) Interrupt Flag Status and Clear Register */
-#define EVSYS_INTFLAG_RESETVALUE    0x00000000   /**< \brief (EVSYS_INTFLAG reset_value) Interrupt Flag Status and Clear Register */
+#define EVSYS_INTFLAG_OFFSET        0x18         /**< \brief (EVSYS_INTFLAG offset) Interrupt Flag Status and Clear */
+#define EVSYS_INTFLAG_RESETVALUE    0x00000000   /**< \brief (EVSYS_INTFLAG reset_value) Interrupt Flag Status and Clear */
 
 #define EVSYS_INTFLAG_OVR0_Pos      0            /**< \brief (EVSYS_INTFLAG) Overrun Interrupt Flag for Channels 0 to 7 (modulo 16) */
 #define EVSYS_INTFLAG_OVR0_Msk      (0xFFu << EVSYS_INTFLAG_OVR0_Pos)
 #define EVSYS_INTFLAG_OVR0(value)   ((EVSYS_INTFLAG_OVR0_Msk & ((value) << EVSYS_INTFLAG_OVR0_Pos)))
-#define   EVSYS_INTFLAG_OVR0_OVR0   (0x0u <<  0) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 0 */
-#define   EVSYS_INTFLAG_OVR0_OVR1   (0x1u <<  0) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 1 */
-#define   EVSYS_INTFLAG_OVR0_OVR2   (0x2u <<  0) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 2 */
-#define   EVSYS_INTFLAG_OVR0_OVR3   (0x3u <<  0) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 3 */
-#define   EVSYS_INTFLAG_OVR0_OVR4   (0x4u <<  0) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 4 */
-#define   EVSYS_INTFLAG_OVR0_OVR5   (0x5u <<  0) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 5 */
-#define   EVSYS_INTFLAG_OVR0_OVR6   (0x6u <<  0) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 6 */
-#define   EVSYS_INTFLAG_OVR0_OVR7   (0x7u <<  0) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 7 */
+#define   EVSYS_INTFLAG_OVR0_OVR0_Val     0x1u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 0 */
+#define   EVSYS_INTFLAG_OVR0_OVR1_Val     0x2u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 1 */
+#define   EVSYS_INTFLAG_OVR0_OVR2_Val     0x4u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 2 */
+#define   EVSYS_INTFLAG_OVR0_OVR3_Val     0x8u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 3 */
+#define   EVSYS_INTFLAG_OVR0_OVR4_Val     0x10u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 4 */
+#define   EVSYS_INTFLAG_OVR0_OVR5_Val     0x20u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 5 */
+#define   EVSYS_INTFLAG_OVR0_OVR6_Val     0x40u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 6 */
+#define   EVSYS_INTFLAG_OVR0_OVR7_Val     0x80u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 7 */
+#define EVSYS_INTFLAG_OVR0_OVR0     (EVSYS_INTFLAG_OVR0_OVR0_Val   << EVSYS_INTFLAG_OVR0_Pos)
+#define EVSYS_INTFLAG_OVR0_OVR1     (EVSYS_INTFLAG_OVR0_OVR1_Val   << EVSYS_INTFLAG_OVR0_Pos)
+#define EVSYS_INTFLAG_OVR0_OVR2     (EVSYS_INTFLAG_OVR0_OVR2_Val   << EVSYS_INTFLAG_OVR0_Pos)
+#define EVSYS_INTFLAG_OVR0_OVR3     (EVSYS_INTFLAG_OVR0_OVR3_Val   << EVSYS_INTFLAG_OVR0_Pos)
+#define EVSYS_INTFLAG_OVR0_OVR4     (EVSYS_INTFLAG_OVR0_OVR4_Val   << EVSYS_INTFLAG_OVR0_Pos)
+#define EVSYS_INTFLAG_OVR0_OVR5     (EVSYS_INTFLAG_OVR0_OVR5_Val   << EVSYS_INTFLAG_OVR0_Pos)
+#define EVSYS_INTFLAG_OVR0_OVR6     (EVSYS_INTFLAG_OVR0_OVR6_Val   << EVSYS_INTFLAG_OVR0_Pos)
+#define EVSYS_INTFLAG_OVR0_OVR7     (EVSYS_INTFLAG_OVR0_OVR7_Val   << EVSYS_INTFLAG_OVR0_Pos)
 #define EVSYS_INTFLAG_EVD0_Pos      8            /**< \brief (EVSYS_INTFLAG) Event Detection Interrupt Flag for Channels 0 to 7 (modulo 16) */
 #define EVSYS_INTFLAG_EVD0_Msk      (0xFFu << EVSYS_INTFLAG_EVD0_Pos)
 #define EVSYS_INTFLAG_EVD0(value)   ((EVSYS_INTFLAG_EVD0_Msk & ((value) << EVSYS_INTFLAG_EVD0_Pos)))
-#define   EVSYS_INTFLAG_EVD0_EVD0   (0x0u <<  8) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 0 */
-#define   EVSYS_INTFLAG_EVD0_EVD1   (0x1u <<  8) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 1 */
-#define   EVSYS_INTFLAG_EVD0_EVD2   (0x2u <<  8) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 2 */
-#define   EVSYS_INTFLAG_EVD0_EVD3   (0x3u <<  8) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 3 */
-#define   EVSYS_INTFLAG_EVD0_EVD4   (0x4u <<  8) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 4 */
-#define   EVSYS_INTFLAG_EVD0_EVD5   (0x5u <<  8) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 5 */
-#define   EVSYS_INTFLAG_EVD0_EVD6   (0x6u <<  8) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 6 */
-#define   EVSYS_INTFLAG_EVD0_EVD7   (0x7u <<  8) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 7 */
+#define   EVSYS_INTFLAG_EVD0_EVD0_Val     0x1u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 0 */
+#define   EVSYS_INTFLAG_EVD0_EVD1_Val     0x2u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 1 */
+#define   EVSYS_INTFLAG_EVD0_EVD2_Val     0x4u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 2 */
+#define   EVSYS_INTFLAG_EVD0_EVD3_Val     0x8u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 3 */
+#define   EVSYS_INTFLAG_EVD0_EVD4_Val     0x10u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 4 */
+#define   EVSYS_INTFLAG_EVD0_EVD5_Val     0x20u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 5 */
+#define   EVSYS_INTFLAG_EVD0_EVD6_Val     0x40u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 6 */
+#define   EVSYS_INTFLAG_EVD0_EVD7_Val     0x80u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 7 */
+#define EVSYS_INTFLAG_EVD0_EVD0     (EVSYS_INTFLAG_EVD0_EVD0_Val   << EVSYS_INTFLAG_EVD0_Pos)
+#define EVSYS_INTFLAG_EVD0_EVD1     (EVSYS_INTFLAG_EVD0_EVD1_Val   << EVSYS_INTFLAG_EVD0_Pos)
+#define EVSYS_INTFLAG_EVD0_EVD2     (EVSYS_INTFLAG_EVD0_EVD2_Val   << EVSYS_INTFLAG_EVD0_Pos)
+#define EVSYS_INTFLAG_EVD0_EVD3     (EVSYS_INTFLAG_EVD0_EVD3_Val   << EVSYS_INTFLAG_EVD0_Pos)
+#define EVSYS_INTFLAG_EVD0_EVD4     (EVSYS_INTFLAG_EVD0_EVD4_Val   << EVSYS_INTFLAG_EVD0_Pos)
+#define EVSYS_INTFLAG_EVD0_EVD5     (EVSYS_INTFLAG_EVD0_EVD5_Val   << EVSYS_INTFLAG_EVD0_Pos)
+#define EVSYS_INTFLAG_EVD0_EVD6     (EVSYS_INTFLAG_EVD0_EVD6_Val   << EVSYS_INTFLAG_EVD0_Pos)
+#define EVSYS_INTFLAG_EVD0_EVD7     (EVSYS_INTFLAG_EVD0_EVD7_Val   << EVSYS_INTFLAG_EVD0_Pos)
 #define EVSYS_INTFLAG_OVR1_Pos      16           /**< \brief (EVSYS_INTFLAG) Overrun Interrupt Flag for Channels 8 to 15 (modulo 16) */
 #define EVSYS_INTFLAG_OVR1_Msk      (0xFFu << EVSYS_INTFLAG_OVR1_Pos)
 #define EVSYS_INTFLAG_OVR1(value)   ((EVSYS_INTFLAG_OVR1_Msk & ((value) << EVSYS_INTFLAG_OVR1_Pos)))
-#define   EVSYS_INTFLAG_OVR1_OVR8   (0x0u << 16) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 8 */
-#define   EVSYS_INTFLAG_OVR1_OVR9   (0x1u << 16) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 9 */
-#define   EVSYS_INTFLAG_OVR1_OVR10  (0x2u << 16) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 10 */
-#define   EVSYS_INTFLAG_OVR1_OVR11  (0x3u << 16) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 11 */
-#define   EVSYS_INTFLAG_OVR1_OVR12  (0x4u << 16) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 12 */
-#define   EVSYS_INTFLAG_OVR1_OVR13  (0x5u << 16) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 13 */
-#define   EVSYS_INTFLAG_OVR1_OVR14  (0x6u << 16) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 14 */
-#define   EVSYS_INTFLAG_OVR1_OVR15  (0x7u << 16) /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 15 */
+#define   EVSYS_INTFLAG_OVR1_OVR8_Val     0x1u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 8 */
+#define   EVSYS_INTFLAG_OVR1_OVR9_Val     0x2u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 9 */
+#define   EVSYS_INTFLAG_OVR1_OVR10_Val    0x4u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 10 */
+#define   EVSYS_INTFLAG_OVR1_OVR11_Val    0x8u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 11 */
+#define   EVSYS_INTFLAG_OVR1_OVR12_Val    0x10u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 12 */
+#define   EVSYS_INTFLAG_OVR1_OVR13_Val    0x20u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 13 */
+#define   EVSYS_INTFLAG_OVR1_OVR14_Val    0x40u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 14 */
+#define   EVSYS_INTFLAG_OVR1_OVR15_Val    0x80u   /**< \brief (EVSYS_INTFLAG) Overrun detected on Channel 15 */
+#define EVSYS_INTFLAG_OVR1_OVR8     (EVSYS_INTFLAG_OVR1_OVR8_Val   << EVSYS_INTFLAG_OVR1_Pos)
+#define EVSYS_INTFLAG_OVR1_OVR9     (EVSYS_INTFLAG_OVR1_OVR9_Val   << EVSYS_INTFLAG_OVR1_Pos)
+#define EVSYS_INTFLAG_OVR1_OVR10    (EVSYS_INTFLAG_OVR1_OVR10_Val  << EVSYS_INTFLAG_OVR1_Pos)
+#define EVSYS_INTFLAG_OVR1_OVR11    (EVSYS_INTFLAG_OVR1_OVR11_Val  << EVSYS_INTFLAG_OVR1_Pos)
+#define EVSYS_INTFLAG_OVR1_OVR12    (EVSYS_INTFLAG_OVR1_OVR12_Val  << EVSYS_INTFLAG_OVR1_Pos)
+#define EVSYS_INTFLAG_OVR1_OVR13    (EVSYS_INTFLAG_OVR1_OVR13_Val  << EVSYS_INTFLAG_OVR1_Pos)
+#define EVSYS_INTFLAG_OVR1_OVR14    (EVSYS_INTFLAG_OVR1_OVR14_Val  << EVSYS_INTFLAG_OVR1_Pos)
+#define EVSYS_INTFLAG_OVR1_OVR15    (EVSYS_INTFLAG_OVR1_OVR15_Val  << EVSYS_INTFLAG_OVR1_Pos)
 #define EVSYS_INTFLAG_EVD1_Pos      24           /**< \brief (EVSYS_INTFLAG) Event Detection Interrupt Flag for Channels 8 to 15 (modulo 16) */
 #define EVSYS_INTFLAG_EVD1_Msk      (0xFFu << EVSYS_INTFLAG_EVD1_Pos)
 #define EVSYS_INTFLAG_EVD1(value)   ((EVSYS_INTFLAG_EVD1_Msk & ((value) << EVSYS_INTFLAG_EVD1_Pos)))
-#define   EVSYS_INTFLAG_EVD1_EVD8   (0x0u << 24) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 8 */
-#define   EVSYS_INTFLAG_EVD1_EVD9   (0x1u << 24) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 9 */
-#define   EVSYS_INTFLAG_EVD1_EVD10  (0x2u << 24) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 10 */
-#define   EVSYS_INTFLAG_EVD1_EVD11  (0x3u << 24) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 11 */
-#define   EVSYS_INTFLAG_EVD1_EVD12  (0x4u << 24) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 12 */
-#define   EVSYS_INTFLAG_EVD1_EVD13  (0x5u << 24) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 13 */
-#define   EVSYS_INTFLAG_EVD1_EVD14  (0x6u << 24) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 14 */
-#define   EVSYS_INTFLAG_EVD1_EVD15  (0x7u << 24) /**< \brief (EVSYS_INTFLAG) Event detected on Channel 15 */
+#define   EVSYS_INTFLAG_EVD1_EVD8_Val     0x1u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 8 */
+#define   EVSYS_INTFLAG_EVD1_EVD9_Val     0x2u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 9 */
+#define   EVSYS_INTFLAG_EVD1_EVD10_Val    0x4u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 10 */
+#define   EVSYS_INTFLAG_EVD1_EVD11_Val    0x8u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 11 */
+#define   EVSYS_INTFLAG_EVD1_EVD12_Val    0x10u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 12 */
+#define   EVSYS_INTFLAG_EVD1_EVD13_Val    0x20u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 13 */
+#define   EVSYS_INTFLAG_EVD1_EVD14_Val    0x40u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 14 */
+#define   EVSYS_INTFLAG_EVD1_EVD15_Val    0x80u   /**< \brief (EVSYS_INTFLAG) Event detected on Channel 15 */
+#define EVSYS_INTFLAG_EVD1_EVD8     (EVSYS_INTFLAG_EVD1_EVD8_Val   << EVSYS_INTFLAG_EVD1_Pos)
+#define EVSYS_INTFLAG_EVD1_EVD9     (EVSYS_INTFLAG_EVD1_EVD9_Val   << EVSYS_INTFLAG_EVD1_Pos)
+#define EVSYS_INTFLAG_EVD1_EVD10    (EVSYS_INTFLAG_EVD1_EVD10_Val  << EVSYS_INTFLAG_EVD1_Pos)
+#define EVSYS_INTFLAG_EVD1_EVD11    (EVSYS_INTFLAG_EVD1_EVD11_Val  << EVSYS_INTFLAG_EVD1_Pos)
+#define EVSYS_INTFLAG_EVD1_EVD12    (EVSYS_INTFLAG_EVD1_EVD12_Val  << EVSYS_INTFLAG_EVD1_Pos)
+#define EVSYS_INTFLAG_EVD1_EVD13    (EVSYS_INTFLAG_EVD1_EVD13_Val  << EVSYS_INTFLAG_EVD1_Pos)
+#define EVSYS_INTFLAG_EVD1_EVD14    (EVSYS_INTFLAG_EVD1_EVD14_Val  << EVSYS_INTFLAG_EVD1_Pos)
+#define EVSYS_INTFLAG_EVD1_EVD15    (EVSYS_INTFLAG_EVD1_EVD15_Val  << EVSYS_INTFLAG_EVD1_Pos)
 #define EVSYS_INTFLAG_MASK          0xFFFFFFFFu  /**< \brief (EVSYS_INTFLAG) MASK Register */
 
 /** \brief EVSYS hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef struct {
-  __O  EVSYS_CTRL_Type           CTRL;        /**< \brief Offset: 0x00 ( /W  8) Control Register */
+  __O  EVSYS_CTRL_Type           CTRL;        /**< \brief Offset: 0x00 ( /W  8) Control */
        RoReg8                    Reserved1[0x3];
-  __IO EVSYS_CHANNEL_Type        CHANNEL;     /**< \brief Offset: 0x04 (R/W 32) Channel Register */
-  __IO EVSYS_USER_Type           USER;        /**< \brief Offset: 0x08 (R/W 16) User Mux Register */
+  __IO EVSYS_CHANNEL_Type        CHANNEL;     /**< \brief Offset: 0x04 (R/W 32) Channel */
+  __IO EVSYS_USER_Type           USER;        /**< \brief Offset: 0x08 (R/W 16) User Mux */
        RoReg8                    Reserved2[0x2];
-  __I  EVSYS_CHSTATUS_Type       CHSTATUS;    /**< \brief Offset: 0x0C (R/  32) Channel Status Register */
-  __IO EVSYS_INTENCLR_Type       INTENCLR;    /**< \brief Offset: 0x10 (R/W 32) Interrupt Enable Clear Register */
-  __IO EVSYS_INTENSET_Type       INTENSET;    /**< \brief Offset: 0x14 (R/W 32) Interrupt Enable Set Register */
-  __IO EVSYS_INTFLAG_Type        INTFLAG;     /**< \brief Offset: 0x18 (R/W 32) Interrupt Flag Status and Clear Register */
+  __I  EVSYS_CHSTATUS_Type       CHSTATUS;    /**< \brief Offset: 0x0C (R/  32) Channel Status */
+  __IO EVSYS_INTENCLR_Type       INTENCLR;    /**< \brief Offset: 0x10 (R/W 32) Interrupt Enable Clear */
+  __IO EVSYS_INTENSET_Type       INTENSET;    /**< \brief Offset: 0x14 (R/W 32) Interrupt Enable Set */
+  __IO EVSYS_INTFLAG_Type        INTFLAG;     /**< \brief Offset: 0x18 (R/W 32) Interrupt Flag Status and Clear */
 } Evsys;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 

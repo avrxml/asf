@@ -3,7 +3,7 @@
  *
  * \brief ASF Programmers Manual Preface
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
 
 /**
  * \mainpage
- * \copydetails preface
+ * \copydetails appdoc_preface
  */
 
 /**
@@ -59,7 +59,7 @@
  * This document describes the API interfaces to the low level ASF module
  * drivers of the device.
  *
- * \anchor samd20_asfdoc_preface_asf_structure
+ * \anchor sam0_asfdoc_preface_asf_structure
  * \image html asf_structure.jpg ""
  *
  * For more information on ASF please refer to the online documentation at

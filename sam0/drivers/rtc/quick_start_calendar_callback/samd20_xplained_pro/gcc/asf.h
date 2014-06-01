@@ -68,11 +68,11 @@
 // From module: Part identification macros
 #include <parts.h>
 
-// From module: RTC - Real Time Counter (Calendar Mode) Interrupt Driver
+// From module: RTC - Real Time Counter in Calendar Mode (Callback APIs)
 #include <rtc_calendar.h>
 #include <rtc_calendar_interrupt.h>
 
-// From module: SYSTEM - Clock Management
+// From module: SYSTEM - Clock Management for SAMD20
 #include <clock.h>
 #include <gclk.h>
 

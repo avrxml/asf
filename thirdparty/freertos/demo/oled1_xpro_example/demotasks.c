@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS demo task implementations.
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -639,8 +639,13 @@ static void cdc_rx_handler(uint8_t instance)
 	uint8_t error_code;
 
 	// Wait for synch to complete
+#if defined(FEATURE_SERCOM_SYNCBUSY_SCHEME_VERSION_1)
 	while (usart_hw->STATUS.reg & SERCOM_USART_STATUS_SYNCBUSY) {
 	}
+#elif defined(FEATURE_SERCOM_SYNCBUSY_SCHEME_VERSION_2)
+	while (usart_hw->SYNCBUSY.reg) {
+	}
+#endif
 
 	// Read and mask interrupt flag register
 	interrupt_status = usart_hw->INTFLAG.reg;

@@ -3,7 +3,7 @@
  *
  * \brief GPIO driver.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -175,7 +175,7 @@ void GPIO_2_Handler(void)
  */
 void GPIO_3_Handler(void)
 {
-	gpio_common_handler(IOPORT_GPIOA, (GPIO_INT_GROUP_MASK << 23));
+	gpio_common_handler(IOPORT_GPIOA, (GPIO_INT_GROUP_MASK << 24));
 }
 
 /**

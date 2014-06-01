@@ -3,7 +3,7 @@
  *
  * \brief SAM4E-EK board init.
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -217,7 +217,7 @@ void board_init(void)
 #  endif
 #endif
 
-#ifdef CONF_BOARD_ILI93XX
+#if defined(CONF_BOARD_ILI9325) || defined(CONF_BOARD_ILI93XX)
 	/* Configure LCD EBI pins */
 	ioport_set_pin_peripheral_mode(PIN_EBI_DATA_BUS_D0,PIN_EBI_DATA_BUS_FLAGS);
 	ioport_set_pin_peripheral_mode(PIN_EBI_DATA_BUS_D1,PIN_EBI_DATA_BUS_FLAGS);
@@ -227,7 +227,7 @@ void board_init(void)
 	ioport_set_pin_peripheral_mode(PIN_EBI_DATA_BUS_D5,PIN_EBI_DATA_BUS_FLAGS);
 	ioport_set_pin_peripheral_mode(PIN_EBI_DATA_BUS_D6,PIN_EBI_DATA_BUS_FLAGS);
 	ioport_set_pin_peripheral_mode(PIN_EBI_DATA_BUS_D7,PIN_EBI_DATA_BUS_FLAGS);
-	
+
 	ioport_set_pin_peripheral_mode(PIN_EBI_NRD,PIN_EBI_NRD_FLAGS);
 	ioport_set_pin_peripheral_mode(PIN_EBI_NWE,PIN_EBI_NWE_FLAGS);
 	ioport_set_pin_peripheral_mode(PIN_EBI_NCS1,PIN_EBI_NCS1_FLAGS);

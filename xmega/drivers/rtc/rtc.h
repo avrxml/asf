@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Real Time Counter driver definitions
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -186,17 +186,17 @@ extern void rtc_init(void);
  * \subsection rtc_basic_use_case_setup_code Example code
  * Content of conf_rtc.h:
  * \code
- *    #define CONFIG_RTC_PRESCALER       RTC_PRESCALER_DIV1024_gc
- * \endcode
+	#define CONFIG_RTC_PRESCALER       RTC_PRESCALER_DIV1024_gc
+\endcode
  * Needed in conf_clock.h:
  * \code
- *    #define CONFIG_RTC_SOURCE          SYSCLK_RTCSRC_ULP
- * \endcode
+	#define CONFIG_RTC_SOURCE          SYSCLK_RTCSRC_ULP
+\endcode
  * Add to the initialization code:
  * \code
- *    sysclk_init();
- *    rtc_init();
- * \endcode
+	sysclk_init();
+	rtc_init();
+\endcode
  *
  * \subsection rtc_basic_use_case_setup_flow Workflow
  * -# Ensure that conf_rtc.h is present for the driver.
@@ -214,8 +214,8 @@ extern void rtc_init(void);
  * \subsection rtc_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    rtc_get_time();
- * \endcode
+	rtc_get_time();
+\endcode
  *
  * \subsection rtc_basic_use_case_usage_flow Workflow
  * -# Get current time of the RTC:
@@ -245,30 +245,30 @@ extern void rtc_init(void);
  * -# A \ref rtc_callback_t "callback" function, called alarm, that
  * reschedules the alarm must be provided by the user:
  * \code
- *   static void alarm(uint32_t time)
- *   {
- *       rtc_set_alarm(time);
- *   }
- * \endcode
+	static void alarm(uint32_t time)
+	{
+	    rtc_set_alarm(time);
+	}
+\endcode
  *
  * \subsection rtc_use_case_1_setup_code Example code
  * Content of conf_rtc.h:
  * \code
- *    #define CONFIG_RTC_PRESCALER       RTC_PRESCALER_DIV1024_gc
- * \endcode
+	#define CONFIG_RTC_PRESCALER       RTC_PRESCALER_DIV1024_gc
+\endcode
  * Needed in conf_clock.h:
  * \code
- *    #define CONFIG_RTC_SOURCE          SYSCLK_RTCSRC_ULP
- * \endcode
+	#define CONFIG_RTC_SOURCE          SYSCLK_RTCSRC_ULP
+\endcode
  * Add to application initialization:
  * \code
- *    pmic_init();
- *    sysclk_init();
- *    sleepmgr_init();
- *    rtc_init();
- *    rtc_set_callback(alarm);
- *    cpu_irq_enable();
- * \endcode
+	pmic_init();
+	sysclk_init();
+	sleepmgr_init();
+	rtc_init();
+	rtc_set_callback(alarm);
+	cpu_irq_enable();
+\endcode
  *
  * \subsection rtc_use_case_1_setup_flow Workflow
  * -# Ensure that conf_rtc.h is present for the driver.
@@ -295,21 +295,21 @@ extern void rtc_init(void);
  *
  * \subsection rtc_use_case_1_usage_code Example code
  * \code
- *    rtc_set_alarm_relative(0);
- *    while (true) {
- *        sleepmgr_enter_sleep();
- *    }
- * \endcode
+	rtc_set_alarm_relative(0);
+	while (true) {
+	    sleepmgr_enter_sleep();
+	}
+\endcode
  *
  * \subsection rtc_use_case_1_usage_flow Workflow
  * -# Set the alarm to trigger on next time unit roll over:
  *   - \code rtc_set_alarm_relative(0); \endcode
  * -# Sleep between each triggered alarm:
  *   - \code
- *      while (true) {
- *          sleepmgr_enter_sleep();
- *      }
- * \endcode
+	while (true) {
+	    sleepmgr_enter_sleep();
+	}
+\endcode
  */
 
 #endif /* RTC_H */

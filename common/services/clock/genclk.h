@@ -3,7 +3,7 @@
  *
  * \brief Generic clock management
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -59,6 +59,16 @@
 # include "sam4l/genclk.h"
 #elif SAM4E
 # include "sam4e/genclk.h"
+#elif SAM4N
+# include "sam4n/genclk.h"
+#elif SAM4C
+# include "sam4c/genclk.h"
+#elif SAM4CM
+# include "sam4cm/genclk.h"
+#elif SAM4CP
+# include "sam4cp/genclk.h"
+#elif SAMG
+# include "samg/genclk.h"
 #elif (UC3A0 || UC3A1)
 # include "uc3a0_a1/genclk.h"
 #elif UC3A3

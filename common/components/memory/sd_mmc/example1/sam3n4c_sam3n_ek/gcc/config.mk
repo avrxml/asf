@@ -162,9 +162,15 @@ CPPFLAGS = \
        -D ARM_MATH_CM3=true                               \
        -D BOARD=SAM3N_EK                                  \
        -D __SAM3N4C__                                     \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
                                                           \
+       -Wl,--defsym,STACK_SIZE=0x2000                     \
        -Wl,--defsym,__stack_size__=0x2000
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Peripheral Digital-to-Analog Converter Driver
+ * \brief SAM D20/D21 Peripheral Digital-to-Analog Converter Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -68,23 +68,42 @@ static void _dac_set_config(
 	module_inst->output = config->output;
 	module_inst->start_on_event = false;
 
-	uint32_t new_config = 0;
-
-	/* Set reference voltage */
-	new_config     |= config->reference;
-
-	/* Left adjust data if configured */
-	if (config->left_adjust) {
-		new_config |= DAC_CTRLB_LEFTADJ;
-	}
+	uint32_t new_ctrla = 0;
+	uint32_t new_ctrlb = 0;
 
 	/* Enable DAC in standby sleep mode if configured */
 	if (config->run_in_standby) {
-		new_config |= DAC_CTRLA_RUNSTDBY;
+		new_ctrla |= DAC_CTRLA_RUNSTDBY;
+	}
+
+	/* Set reference voltage */
+	new_ctrlb |= config->reference;
+
+	/* Left adjust data if configured */
+	if (config->left_adjust) {
+		new_ctrlb |= DAC_CTRLB_LEFTADJ;
+	}
+
+#ifdef FEATURE_DAC_DATABUF_WRITE_PROTECTION
+	/* Bypass DATABUF write protection if configured */
+	if (config->databuf_protection_bypass) {
+		new_ctrlb |= DAC_CTRLB_BDWP;
+	}
+#endif
+
+	/* Voltage pump disable if configured */
+	if (config->voltage_pump_disable) {
+		new_ctrlb |= DAC_CTRLB_VPD;
 	}
 
 	/* Apply the new configuration to the hardware module */
-	dac_module->CTRLA.reg = new_config;
+	dac_module->CTRLA.reg = new_ctrla;
+
+	while (dac_is_syncing(module_inst)) {
+		/* Wait until the synchronization is complete */
+	}
+
+	dac_module->CTRLB.reg = new_ctrlb;
 }
 
 /**
@@ -121,13 +140,6 @@ enum status_code dac_init(
 	/* Turn on the digital interface clock */
 	system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBC, PM_APBCMASK_DAC);
 
-	/* Configure GCLK channel and enable clock */
-	struct system_gclk_chan_config gclk_chan_conf;
-	system_gclk_chan_get_config_defaults(&gclk_chan_conf);
-	gclk_chan_conf.source_generator = config->clock_source;
-	system_gclk_chan_set_config(DAC_GCLK_ID, &gclk_chan_conf);
-	system_gclk_chan_enable(DAC_GCLK_ID);
-
 	/* Check if module is enabled. */
 	if (module->CTRLA.reg & DAC_CTRLA_ENABLE) {
 		return STATUS_ERR_DENIED;
@@ -137,6 +149,13 @@ enum status_code dac_init(
 	if (module->CTRLA.reg & DAC_CTRLA_SWRST) {
 		return STATUS_BUSY;
 	}
+
+	/* Configure GCLK channel and enable clock */
+	struct system_gclk_chan_config gclk_chan_conf;
+	system_gclk_chan_get_config_defaults(&gclk_chan_conf);
+	gclk_chan_conf.source_generator = config->clock_source;
+	system_gclk_chan_set_config(DAC_GCLK_ID, &gclk_chan_conf);
+	system_gclk_chan_enable(DAC_GCLK_ID);
 
 	/* MUX the DAC VOUT pin */
 	struct system_pinmux_config pin_conf;
@@ -150,6 +169,9 @@ enum status_code dac_init(
 
 	/* Write configuration to module */
 	_dac_set_config(module_inst, config);
+
+	/* Store reference selection for later use */
+	module_inst->reference = config->reference;
 
 #if DAC_CALLBACK_MODE == true
 	for (uint8_t i = 0; i < DAC_CALLBACK_N; i++) {
@@ -190,7 +212,8 @@ void dac_reset(
 /**
  * \brief Enable the DAC module.
  *
- * Enables the DAC interface and the selected output.
+ * Enables the DAC interface and the selected output. If any internal reference
+ * is selected it will be enabled.
  *
  * \param[in] module_inst  Pointer to the DAC software instance struct
  *
@@ -214,9 +237,10 @@ void dac_enable(
 	/* Enable selected output */
 	dac_module->CTRLB.reg |= module_inst->output;
 
-#if DAC_CALLBACK_MODE == true
-	system_interrupt_enable(SYSTEM_INTERRUPT_MODULE_DAC);
-#endif
+	/* Enable internal bandgap reference if selected in the configuration */
+	if (module_inst->reference == DAC_REFERENCE_INT1V) {
+		system_voltage_reference_enable(SYSTEM_VOLTAGE_REFERENCE_BANDGAP);
+	}
 }
 
 /**
@@ -237,7 +261,8 @@ void dac_disable(
 	Dac *const dac_module = module_inst->hw;
 
 	/* Wait until the synchronization is complete */
-	while (dac_module->STATUS.reg & DAC_STATUS_SYNCBUSY);
+	while (dac_module->STATUS.reg & DAC_STATUS_SYNCBUSY) {
+	};
 
 	/* Disable DAC */
 	dac_module->CTRLA.reg &= ~DAC_CTRLA_ENABLE;
@@ -311,7 +336,7 @@ void dac_chan_enable_output_buffer(
 		struct dac_module *const module_inst,
 		enum dac_channel channel)
 {
-	/*Sanity check arguments*/
+	/* Sanity check arguments */
 	Assert(module_inst);
 	Assert(module_inst->hw);
 
@@ -389,7 +414,8 @@ enum status_code dac_chan_write(
 	Dac *const dac_module = module_inst->hw;
 
 	/* Wait until the synchronization is complete */
-	while (dac_module->STATUS.reg & DAC_STATUS_SYNCBUSY);
+	while (dac_module->STATUS.reg & DAC_STATUS_SYNCBUSY) {
+	};
 
 	if (module_inst->start_on_event) {
 		/* Write the new value to the buffered DAC data register */
@@ -397,6 +423,84 @@ enum status_code dac_chan_write(
 	} else {
 		/* Write the new value to the DAC data register */
 		dac_module->DATA.reg = data;
+	}
+
+	return STATUS_OK;
+}
+
+/**
+ * \brief Write to the DAC.
+ *
+ * This function converts a specific number of digital data.
+ * The conversion should be event-triggered, the data will be written to DATABUF
+ * and transferred to the DATA register and converted when a Start Conversion
+ * Event is issued.
+ * Conversion data must be right or left adjusted according to configuration
+ * settings.
+ * \note To be event triggered, the enable_start_on_event must be
+ * enabled in the configuration.
+ *
+ * \param[in] module_inst      Pointer to the DAC software device struct
+ * \param[in] channel          DAC channel to write to
+ * \param[in] buffer             Pointer to the digital data write buffer to be converted
+ * \param[in] length             Length of the write buffer
+ *
+ * \return Status of the operation
+ * \retval STATUS_OK           If the data was written or no data conversion required
+ * \retval STATUS_ERR_UNSUPPORTED_DEV  The DAC is not configured as using 
+ *                                         event trigger.
+ * \retval STATUS_BUSY      The DAC is busy to convert.
+ */
+enum status_code dac_chan_write_buffer_wait(
+		struct dac_module *const module_inst,
+		enum dac_channel channel,
+		uint16_t *buffer,
+		uint32_t length)
+{
+	/* Sanity check arguments */
+	Assert(module_inst);
+	Assert(module_inst->hw);
+
+	/* No channel support yet */
+	UNUSED(channel);
+
+	Dac *const dac_module = module_inst->hw;
+
+	/* Wait until the synchronization is complete */
+	while (dac_module->STATUS.reg & DAC_STATUS_SYNCBUSY) {
+	};
+
+	/* Zero length request */
+	if (length == 0) {
+		/* No data to be converted */
+		return STATUS_OK;
+	}
+
+#if DAC_CALLBACK_MODE == true
+	/* Check if busy */
+	if (module_inst->job_status == STATUS_BUSY) {
+		return STATUS_BUSY;
+	}
+#endif
+
+	/* Only support event triggered conversion */
+	if (module_inst->start_on_event == false) {
+		return STATUS_ERR_UNSUPPORTED_DEV;
+	}
+
+	/* Blocks while buffer is being transferred */
+	while (length--) {
+		/* Convert one data */
+		dac_chan_write(module_inst, channel, buffer[length]);
+		
+		/* Wait until Transmit is complete or timeout */
+		for (uint32_t i = 0; i <= DAC_TIMEOUT; i++) {
+			if (dac_module->INTFLAG.reg & DAC_INTFLAG_EMPTY) {
+				break;
+			} else if (i == DAC_TIMEOUT) {
+				return STATUS_ERR_TIMEOUT;
+			}
+		}
 	}
 
 	return STATUS_OK;
@@ -422,7 +526,7 @@ enum status_code dac_chan_write(
 uint32_t dac_get_status(
 		struct dac_module *const module_inst)
 {
-	 /* Sanity check arguments */
+	/* Sanity check arguments */
 	Assert(module_inst);
 	Assert(module_inst->hw);
 
@@ -455,7 +559,7 @@ void dac_clear_status(
 		struct dac_module *const module_inst,
 		uint32_t status_flags)
 {
-	 /* Sanity check arguments */
+	/* Sanity check arguments */
 	Assert(module_inst);
 	Assert(module_inst->hw);
 

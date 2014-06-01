@@ -3,7 +3,7 @@
  *
  * \brief XMEGA A3BU Class B demonstration
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -321,7 +321,7 @@ void main_init_adc_dac(void)
 	adc_set_conversion_parameters(&adc_conf, ADC_SIGN_ON, ADC_RES_12,
 			ADC_REF_BANDGAP);
 	adc_set_clock_rate(&adc_conf, 20000UL);
-	adc_set_conversion_trigger(&adc_conf, ADC_TRIG_MANUAL, 0, 0);
+	adc_set_conversion_trigger(&adc_conf, ADC_TRIG_MANUAL, 1, 0);
 	adc_write_configuration(&ADCA, &adc_conf);
 	adcch_set_input(&adcch_conf, ADCCH_POS_PIN4, ADCCH_NEG_NONE, 1);
 	adcch_write_configuration(&ADCA, ADC_CH0, &adcch_conf);

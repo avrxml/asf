@@ -65,11 +65,13 @@ CSRCS = \
        sam/boards/sam4l_ek/board_monitor.c                \
        sam/boards/sam4l_ek/init.c                         \
        sam/drivers/bpm/bpm.c                              \
+       sam/drivers/events/events.c                        \
        sam/drivers/flashcalw/flashcalw.c                  \
        sam/drivers/gpio/example/gpio_example.c            \
        sam/drivers/gpio/gpio.c                            \
        sam/drivers/pdca/pdca.c                            \
        sam/drivers/usart/usart.c                          \
+       sam/drivers/wdt/wdt_sam4l.c                        \
        sam/utils/cmsis/sam4l/source/templates/exceptions.c \
        sam/utils/cmsis/sam4l/source/templates/gcc/startup_sam4l.c \
        sam/utils/cmsis/sam4l/source/templates/system_sam4l.c \
@@ -92,12 +94,14 @@ INC_PATH = \
        sam/boards                                         \
        sam/boards/sam4l_ek                                \
        sam/drivers/bpm                                    \
+       sam/drivers/events                                 \
        sam/drivers/flashcalw                              \
        sam/drivers/gpio                                   \
        sam/drivers/gpio/example                           \
        sam/drivers/gpio/example/sam4lc4c_sam4l_ek         \
        sam/drivers/pdca                                   \
        sam/drivers/usart                                  \
+       sam/drivers/wdt                                    \
        sam/utils                                          \
        sam/utils/cmsis/sam4l/include                      \
        sam/utils/cmsis/sam4l/source/templates             \
@@ -157,7 +161,12 @@ CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
        -D BOARD=SAM4L_EK                                  \
        -D __SAM4LC4C__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

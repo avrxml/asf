@@ -3,7 +3,7 @@
  *
  * \brief Controller Area Network (CAN) driver module for SAM.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -159,8 +159,8 @@ void can_global_send_transfer_cmd(Can *p_can, uint8_t uc_mask);
 void can_global_send_abort_cmd(Can *p_can, uint8_t uc_mask);
 void can_mailbox_set_timemark(Can *p_can, uint8_t uc_index, uint16_t us_cnt);
 uint32_t can_mailbox_get_status(Can *p_can, uint8_t uc_index);
-void can_mailbox_send_transfer_cmd(Can *p_can, uint8_t uc_index);
-void can_mailbox_send_abort_cmd(Can *p_can, uint8_t uc_index);
+void can_mailbox_send_transfer_cmd(Can *p_can, can_mb_conf_t *p_mailbox);
+void can_mailbox_send_abort_cmd(Can *p_can, can_mb_conf_t *p_mailbox);
 void can_mailbox_init(Can *p_can, can_mb_conf_t *p_mailbox);
 uint32_t can_mailbox_read(Can *p_can, can_mb_conf_t *p_mailbox);
 uint32_t can_mailbox_write(Can *p_can, can_mb_conf_t *p_mailbox);
@@ -203,108 +203,108 @@ void can_reset_all_mailbox(Can *p_can);
  * \subsection can_basic_use_case_setup_code Example code
  * Add to application initialization:
  * \code
- *    can_mb_conf_t can0_mailbox;
- *    can_mb_conf_t can1_mailbox;
- *
- *    pmc_enable_periph_clk(ID_CAN0);
- *    pmc_enable_periph_clk(ID_CAN1);
- *
- *    can_init(CAN0, ul_sysclk, CAN_BPS_1000K);
- *    can_init(CAN1, ul_sysclk, CAN_BPS_1000K);
- *
- *    can_reset_all_mailbox(CAN0);
- *    can_reset_all_mailbox(CAN1);
- *
- *    can1_mailbox.ul_mb_idx = 0;
- *    can1_mailbox.uc_obj_type = CAN_MB_RX_MODE;
- *    can1_mailbox.ul_id_msk = CAN_MAM_MIDvA_Msk | CAN_MAM_MIDvB_Msk;
- *    can1_mailbox.ul_id = CAN_MID_MIDvA(0x07);
- *    can_mailbox_init(CAN1, &can1_mailbox);
- *
- *    can0_mailbox.ul_mb_idx = 0;
- *    can0_mailbox.uc_obj_type = CAN_MB_TX_MODE;
- *    can0_mailbox.uc_tx_prio = 15;
- *    can0_mailbox.uc_id_ver = 0;
- *    can0_mailbox.ul_id_msk = 0;
- *    can_mailbox_init(CAN0, &can0_mailbox);
- *
- *    can0_mailbox.ul_id = CAN_MID_MIDvA(0x07);
- *    can0_mailbox.ul_datal = 0x12345678;
- *    can0_mailbox.ul_datah = 0x87654321;
- *    can0_mailbox.uc_length = 8;
- *    can_mailbox_write(CAN0, &can0_mailbox);
- * \endcode
+	    can_mb_conf_t can0_mailbox;
+	    can_mb_conf_t can1_mailbox;
+
+	    pmc_enable_periph_clk(ID_CAN0);
+	    pmc_enable_periph_clk(ID_CAN1);
+
+	    can_init(CAN0, ul_sysclk, CAN_BPS_1000K);
+	    can_init(CAN1, ul_sysclk, CAN_BPS_1000K);
+
+	    can_reset_all_mailbox(CAN0);
+	    can_reset_all_mailbox(CAN1);
+
+	    can1_mailbox.ul_mb_idx = 0;
+	    can1_mailbox.uc_obj_type = CAN_MB_RX_MODE;
+	    can1_mailbox.ul_id_msk = CAN_MAM_MIDvA_Msk | CAN_MAM_MIDvB_Msk;
+	    can1_mailbox.ul_id = CAN_MID_MIDvA(0x07);
+	    can_mailbox_init(CAN1, &can1_mailbox);
+
+	    can0_mailbox.ul_mb_idx = 0;
+	    can0_mailbox.uc_obj_type = CAN_MB_TX_MODE;
+	    can0_mailbox.uc_tx_prio = 15;
+	    can0_mailbox.uc_id_ver = 0;
+	    can0_mailbox.ul_id_msk = 0;
+	    can_mailbox_init(CAN0, &can0_mailbox);
+
+	    can0_mailbox.ul_id = CAN_MID_MIDvA(0x07);
+	    can0_mailbox.ul_datal = 0x12345678;
+	    can0_mailbox.ul_datah = 0x87654321;
+	    can0_mailbox.uc_length = 8;
+	    can_mailbox_write(CAN0, &can0_mailbox);
+\endcode
  *
  * \subsection can_basic_use_case_setup_flow Workflow
  * -# Define the CAN0 and CAN1 Transfer mailbox structure:
  *   - \code
- *    can_mb_conf_t can0_mailbox;
- *    can_mb_conf_t can1_mailbox;
- *   \endcode
+	can_mb_conf_t can0_mailbox;
+	can_mb_conf_t can1_mailbox;
+\endcode
  * -# Enable the module clock for CAN0 and CAN1:
  *   - \code
- *    pmc_enable_periph_clk(ID_CAN0);
- *    pmc_enable_periph_clk(ID_CAN1);
- *   \endcode
+	pmc_enable_periph_clk(ID_CAN0);
+	pmc_enable_periph_clk(ID_CAN1);
+\endcode
  * -# Initialize CAN0 and CAN1, baudrate is 1Mb/s:
  *   - \code
- *    can_init(CAN0, ul_sysclk, CAN_BPS_1000K);
- *    can_init(CAN1, ul_sysclk, CAN_BPS_1000K);
- *   \endcode
+	can_init(CAN0, ul_sysclk, CAN_BPS_1000K);
+	can_init(CAN1, ul_sysclk, CAN_BPS_1000K);
+\endcode
  *   - \note The CAN transceiver should be configured before initializing the
  *           CAN module.
  * -# Reset all CAN0 and CAN1 mailboxes:
  *   - \code
- *    can_reset_all_mailbox(CAN0);
- *    can_reset_all_mailbox(CAN1);
- *   \endcode
+	can_reset_all_mailbox(CAN0);
+	can_reset_all_mailbox(CAN1);
+\endcode
  * -# Initialize CAN1 mailbox 0 as receiver, frame ID is 0x07:
  *   - \code
- *    can1_mailbox.ul_mb_idx = 0;
- *    can1_mailbox.uc_obj_type = CAN_MB_RX_MODE;
- *    can1_mailbox.ul_id_msk = CAN_MAM_MIDvA_Msk | CAN_MAM_MIDvB_Msk;
- *    can1_mailbox.ul_id = CAN_MID_MIDvA(0x07);
- *    can_mailbox_init(CAN1, &can1_mailbox);
- *   \endcode
+	can1_mailbox.ul_mb_idx = 0;
+	can1_mailbox.uc_obj_type = CAN_MB_RX_MODE;
+	can1_mailbox.ul_id_msk = CAN_MAM_MIDvA_Msk | CAN_MAM_MIDvB_Msk;
+	can1_mailbox.ul_id = CAN_MID_MIDvA(0x07);
+	can_mailbox_init(CAN1, &can1_mailbox);
+\endcode
  * -# Initialize CAN0 mailbox 0 as transmitter, transmit priority is 15:
  *   - \code
- *    can0_mailbox.ul_mb_idx = 0;
- *    can0_mailbox.uc_obj_type = CAN_MB_TX_MODE;
- *    can0_mailbox.uc_tx_prio = 15;
- *    can0_mailbox.uc_id_ver = 0;
- *    can0_mailbox.ul_id_msk = 0;
- *    can_mailbox_init(CAN0, &can0_mailbox);
- *   \endcode
+	can0_mailbox.ul_mb_idx = 0;
+	can0_mailbox.uc_obj_type = CAN_MB_TX_MODE;
+	can0_mailbox.uc_tx_prio = 15;
+	can0_mailbox.uc_id_ver = 0;
+	can0_mailbox.ul_id_msk = 0;
+	can_mailbox_init(CAN0, &can0_mailbox);
+\endcode
  * -# Prepare transmit ID, data and data length in CAN0 mailbox 0:
  *   - \code
- *    can0_mailbox.ul_id = CAN_MID_MIDvA(0x07);
- *    can0_mailbox.ul_datal = 0x12345678;
- *    can0_mailbox.ul_datah = 0x87654321;
- *    can0_mailbox.uc_length = 8;
- *    can_mailbox_write(CAN0, &can0_mailbox);
- *   \endcode
+	can0_mailbox.ul_id = CAN_MID_MIDvA(0x07);
+	can0_mailbox.ul_datal = 0x12345678;
+	can0_mailbox.ul_datah = 0x87654321;
+	can0_mailbox.uc_length = 8;
+	can_mailbox_write(CAN0, &can0_mailbox);
+\endcode
  *
  * \section can_basic_use_case_usage Usage steps
  *
  * \subsection can_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    can_global_send_transfer_cmd(CAN0, CAN_TCR_MB0);
- *
- *    while (!(can_mailbox_get_status(CAN1, 0) & CAN_MSR_MRDY)) {
- *    }
- *
- *    can_mailbox_read(CAN1, &can1_mailbox);
- * \endcode
+	    can_global_send_transfer_cmd(CAN0, CAN_TCR_MB0);
+
+	    while (!(can_mailbox_get_status(CAN1, 0) & CAN_MSR_MRDY)) {
+	    }
+
+	    can_mailbox_read(CAN1, &can1_mailbox);
+\endcode
  *
  * \subsection can_basic_use_case_usage_flow Workflow
  * -# Send out data in CAN0 mailbox 0:
  *   - \code can_global_send_transfer_cmd(CAN0, CAN_TCR_MB0); \endcode
  * -# Wait for CAN1 mailbox 0 to receive the data:
  *   - \code
- *    while (!(can_mailbox_get_status(CAN1, 0) & CAN_MSR_MRDY)) {
- *    }
- *   \endcode
+	while (!(can_mailbox_get_status(CAN1, 0) & CAN_MSR_MRDY)) {
+	}
+\endcode
  * -# Read the received data from CAN1 mailbox 0:
  *   - \code can_mailbox_read(CAN1, &can1_mailbox); \endcode
  *
@@ -332,64 +332,64 @@ void can_reset_all_mailbox(Can *p_can);
  * \subsection can_use_case_1_setup_code Example code
  * Add to application C-file:
  * \code
- *    can_mb_conf_t can0_mailbox;
- *    can_mb_conf_t can1_mailbox;
- *    volatile uint32_t g_ul_recv_status = 0;
- * \endcode
+	can_mb_conf_t can0_mailbox;
+	can_mb_conf_t can1_mailbox;
+	volatile uint32_t g_ul_recv_status = 0;
+\endcode
  *
  * \code
- *    void CAN1_Handler(void)
- *    {
- *        uint32_t ul_status;
- *
- *        ul_status = can_mailbox_get_status(CAN1, 0);
- *        if ((ul_status & CAN_MSR_MRDY) == CAN_MSR_MRDY) {
- *            can1_mailbox.ul_mb_idx = 0;
- *            can1_mailbox.ul_status = ul_status;
- *            can_mailbox_read(CAN1, &can1_mailbox);
- *            g_ul_recv_status = 1;
- *        }
- *    }
- * \endcode
+	    void CAN1_Handler(void)
+	    {
+	        uint32_t ul_status;
+
+	        ul_status = can_mailbox_get_status(CAN1, 0);
+	        if ((ul_status & CAN_MSR_MRDY) == CAN_MSR_MRDY) {
+	            can1_mailbox.ul_mb_idx = 0;
+	            can1_mailbox.ul_status = ul_status;
+	            can_mailbox_read(CAN1, &can1_mailbox);
+	            g_ul_recv_status = 1;
+	        }
+	    }
+\endcode
  *
  * \code
- *    pmc_enable_periph_clk(ID_CAN0);
- *    pmc_enable_periph_clk(ID_CAN1);
- *
- *    can_init(CAN0, ul_sysclk, CAN_BPS_1000K);
- *    can_init(CAN1, ul_sysclk, CAN_BPS_1000K);
- *
- *    can_reset_all_mailbox(CAN0);
- *    can_reset_all_mailbox(CAN1);
- *
- *    can0_mailbox.ul_mb_idx = 0;
- *    can0_mailbox.uc_obj_type = CAN_MB_PRODUCER_MODE;
- *    can0_mailbox.ul_id_msk = 0;
- *    can0_mailbox.ul_id = CAN_MID_MIDvA(0x0b);
- *    can_mailbox_init(CAN0, &can0_mailbox);
- *
- *    can0_mailbox.ul_datal = 0x11223344;
- *    can0_mailbox.ul_datah = 0x44332211;
- *    can0_mailbox.uc_length = 8;
- *    can_mailbox_write(CAN0, &can0_mailbox);
- *
- *    can1_mailbox.ul_mb_idx = 0;
- *    can1_mailbox.uc_obj_type = CAN_MB_CONSUMER_MODE;
- *    can1_mailbox.uc_tx_prio = 15;
- *    can1_mailbox.ul_id_msk = CAN_MID_MIDvA_Msk | CAN_MID_MIDvB_Msk;
- *    can1_mailbox.ul_id = CAN_MID_MIDvA(0x0b);
- *    can_mailbox_init(CAN1, &can1_mailbox);
- *
- *    can_enable_interrupt(CAN1, CAN_IER_MB0);
- *    NVIC_EnableIRQ(CAN1_IRQn);
- * \endcode
+	    pmc_enable_periph_clk(ID_CAN0);
+	    pmc_enable_periph_clk(ID_CAN1);
+
+	    can_init(CAN0, ul_sysclk, CAN_BPS_1000K);
+	    can_init(CAN1, ul_sysclk, CAN_BPS_1000K);
+
+	    can_reset_all_mailbox(CAN0);
+	    can_reset_all_mailbox(CAN1);
+
+	    can0_mailbox.ul_mb_idx = 0;
+	    can0_mailbox.uc_obj_type = CAN_MB_PRODUCER_MODE;
+	    can0_mailbox.ul_id_msk = 0;
+	    can0_mailbox.ul_id = CAN_MID_MIDvA(0x0b);
+	    can_mailbox_init(CAN0, &can0_mailbox);
+
+	    can0_mailbox.ul_datal = 0x11223344;
+	    can0_mailbox.ul_datah = 0x44332211;
+	    can0_mailbox.uc_length = 8;
+	    can_mailbox_write(CAN0, &can0_mailbox);
+
+	    can1_mailbox.ul_mb_idx = 0;
+	    can1_mailbox.uc_obj_type = CAN_MB_CONSUMER_MODE;
+	    can1_mailbox.uc_tx_prio = 15;
+	    can1_mailbox.ul_id_msk = CAN_MID_MIDvA_Msk | CAN_MID_MIDvB_Msk;
+	    can1_mailbox.ul_id = CAN_MID_MIDvA(0x0b);
+	    can_mailbox_init(CAN1, &can1_mailbox);
+
+	    can_enable_interrupt(CAN1, CAN_IER_MB0);
+	    NVIC_EnableIRQ(CAN1_IRQn);
+\endcode
  *
  * \subsection can_use_case_1_setup_flow Workflow
  * -# Define the CAN0 and CAN1 Transfer mailbox structure:
  *   - \code
- *    can_mb_conf_t can0_mailbox;
- *    can_mb_conf_t can1_mailbox;
- *   \endcode
+	can_mb_conf_t can0_mailbox;
+	can_mb_conf_t can1_mailbox;
+\endcode
  * -# Define the receive flag that is changed in CAN1 ISR handler:
  *   - \code volatile uint32_t g_ul_recv_status = 0; \endcode
  * -# Define the CAN1 ISR handler in the application:
@@ -398,79 +398,79 @@ void can_reset_all_mailbox(Can *p_can);
  *   - \code ul_status = can_mailbox_get_status(CAN1, 0); \endcode
  * -# In CAN1_Handler(), check whether the mailbox 0 has received a data frame:
  *   - \code
- *    if ((ul_status & CAN_MSR_MRDY) == CAN_MSR_MRDY) {
- *        can1_mailbox.ul_mb_idx = 0;
- *        can1_mailbox.ul_status = ul_status;
- *        can_mailbox_read(CAN1, &can1_mailbox);
- *        g_ul_recv_status = 1;
- *    }
- *   \endcode
+	if ((ul_status & CAN_MSR_MRDY) == CAN_MSR_MRDY) {
+	    can1_mailbox.ul_mb_idx = 0;
+	    can1_mailbox.ul_status = ul_status;
+	    can_mailbox_read(CAN1, &can1_mailbox);
+	    g_ul_recv_status = 1;
+	}
+\endcode
  * -# In CAN1_Handler(), if mailbox 0 is ready, read the received data from CAN1
  *    mailbox 0:
  *   - \code
- *    can1_mailbox.ul_mb_idx = 0;
- *    can1_mailbox.ul_status = ul_status;
- *    can_mailbox_read(CAN1, &can1_mailbox);
- *   \endcode
+	can1_mailbox.ul_mb_idx = 0;
+	can1_mailbox.ul_status = ul_status;
+	can_mailbox_read(CAN1, &can1_mailbox);
+\endcode
  * -# In CAN1_Handler(), if mailbox 0 is ready, set up the receive flag:
  *   - \code g_ul_recv_status = 1; \endcode
  * -# Enable the module clock for CAN0 and CAN1:
  *   - \code
- *    pmc_enable_periph_clk(ID_CAN0);
- *    pmc_enable_periph_clk(ID_CAN1);
- *   \endcode
+	pmc_enable_periph_clk(ID_CAN0);
+	pmc_enable_periph_clk(ID_CAN1);
+\endcode
  * -# Initialize CAN0 and CAN1, baudrate is 1Mb/s:
  *   - \code
- *    can_init(CAN0, ul_sysclk, CAN_BPS_1000K);
- *    can_init(CAN1, ul_sysclk, CAN_BPS_1000K);
- *   \endcode
+	can_init(CAN0, ul_sysclk, CAN_BPS_1000K);
+	can_init(CAN1, ul_sysclk, CAN_BPS_1000K);
+\endcode
  *   - \note The CAN transceiver should be configured before initializing the
  *           CAN module.
  * -# Reset all CAN0 and CAN1 mailboxes:
  *   - \code
- *    can_reset_all_mailbox(CAN0);
- *    can_reset_all_mailbox(CAN1);
- *   \endcode
+	can_reset_all_mailbox(CAN0);
+	can_reset_all_mailbox(CAN1);
+\endcode
  * -# Initialize CAN0 mailbox 0 as PRODUCER:
  *   - \code
- *    can0_mailbox.ul_mb_idx = 0;
- *    can0_mailbox.uc_obj_type = CAN_MB_PRODUCER_MODE;
- *    can0_mailbox.ul_id_msk = 0;
- *    can0_mailbox.ul_id = CAN_MID_MIDvA(0x0b);
- *    can_mailbox_init(CAN0, &can0_mailbox);
- *   \endcode
+	can0_mailbox.ul_mb_idx = 0;
+	can0_mailbox.uc_obj_type = CAN_MB_PRODUCER_MODE;
+	can0_mailbox.ul_id_msk = 0;
+	can0_mailbox.ul_id = CAN_MID_MIDvA(0x0b);
+	can_mailbox_init(CAN0, &can0_mailbox);
+\endcode
  * -# Prepare the response information when it receives a remote frame:
  *   - \code
- *    can0_mailbox.ul_datal = 0x11223344;
- *    can0_mailbox.ul_datah = 0x44332211;
- *    can0_mailbox.uc_length = 8;
- *    can_mailbox_write(CAN0, &can0_mailbox);
- *   \endcode
+	can0_mailbox.ul_datal = 0x11223344;
+	can0_mailbox.ul_datah = 0x44332211;
+	can0_mailbox.uc_length = 8;
+	can_mailbox_write(CAN0, &can0_mailbox);
+\endcode
  * -# Initialize CAN1 mailbox 0 as CONSUMER:
  *   - \code
- *    can1_mailbox.ul_mb_idx = 0;
- *    can1_mailbox.uc_obj_type = CAN_MB_CONSUMER_MODE;
- *    can1_mailbox.uc_tx_prio = 15;
- *    can1_mailbox.ul_id_msk = CAN_MID_MIDvA_Msk | CAN_MID_MIDvB_Msk;
- *    can1_mailbox.ul_id = CAN_MID_MIDvA(0x0b);
- *    can_mailbox_init(CAN1, &can1_mailbox);
- *   \endcode
+	can1_mailbox.ul_mb_idx = 0;
+	can1_mailbox.uc_obj_type = CAN_MB_CONSUMER_MODE;
+	can1_mailbox.uc_tx_prio = 15;
+	can1_mailbox.ul_id_msk = CAN_MID_MIDvA_Msk | CAN_MID_MIDvB_Msk;
+	can1_mailbox.ul_id = CAN_MID_MIDvA(0x0b);
+	can_mailbox_init(CAN1, &can1_mailbox);
+\endcode
  * -# Enable the CAN1 mailbox 0 interrupt:
  *   - \code
- *    can_enable_interrupt(CAN1, CAN_IER_MB0);
- *    NVIC_EnableIRQ(CAN1_IRQn);
- *   \endcode
+	can_enable_interrupt(CAN1, CAN_IER_MB0);
+	NVIC_EnableIRQ(CAN1_IRQn);
+\endcode
  *
  * \section can_use_case_1_usage Usage steps
  *
  * \subsection can_use_case_1_usage_code Example code
  * \code
- *    can_global_send_transfer_cmd(CAN0, CAN_TCR_MB0);
- *    can_global_send_transfer_cmd(CAN1, CAN_TCR_MB0);
- *
- *    while (!g_ul_recv_status) {
- *    }
- * \endcode
+	    can_global_send_transfer_cmd(CAN0, CAN_TCR_MB0);
+	    can_global_send_transfer_cmd(CAN1, CAN_TCR_MB0);
+
+	    while (!g_ul_recv_status) {
+	    }
+\endcode
  *
  * \subsection can_use_case_1_usage_flow Workflow
  * -# Enable CAN0 mailbox 0 to receive remote frame and respond it:
@@ -480,9 +480,9 @@ void can_reset_all_mailbox(Can *p_can);
  *   - \code can_global_send_transfer_cmd(CAN1, CAN_TCR_MB0); \endcode
  * -# Wait for the communication to be completed.
  *   - \code
- *    while (!g_ul_recv_status) {
- *    }
- *   \endcode
+	while (!g_ul_recv_status) {
+	}
+\endcode
  */
 
 #endif /* CAN_H_INCLUDED */

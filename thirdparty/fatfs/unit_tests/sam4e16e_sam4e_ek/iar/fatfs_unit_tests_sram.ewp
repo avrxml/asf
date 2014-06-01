@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4E16E	Atmel SAM4E16E</state>
+					<state>ATSAM4E16E	Atmel ATSAM4E16E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -298,7 +298,7 @@
 					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../fatfs-r0.09/src</state>
 					<state>$PROJ_DIR$/../../../fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -324,7 +324,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rtc</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards/sam4e_ek</state>
 					<state>$PROJ_DIR$/../../../../../common/services/storage/ctrl_access</state>
 					<state>$PROJ_DIR$/.</state>
@@ -579,7 +579,7 @@
 					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../fatfs-r0.09/src</state>
 					<state>$PROJ_DIR$/../../../fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -605,7 +605,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rtc</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards/sam4e_ek</state>
 					<state>$PROJ_DIR$/../../../../../common/services/storage/ctrl_access</state>
 					<state>$PROJ_DIR$/.</state>
@@ -756,7 +756,7 @@
 				</option>
 				<option>
 					<name>IlinkIcfFile</name>
-					<state>$PROJ_DIR$/../../../../../sam/utils/linker_scripts/sam4e/sam4e16e/iar/sram.icf</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/linker_scripts/sam4e/sam4e16/iar/sram.icf</state>
 				</option>
 				<option>
 					<name>IlinkIcfFileSlave</name>
@@ -792,7 +792,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1051,7 +1050,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4E16E	Atmel SAM4E16E</state>
+					<state>ATSAM4E16E	Atmel ATSAM4E16E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1252,7 +1251,7 @@
 					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../fatfs-r0.09/src</state>
 					<state>$PROJ_DIR$/../../../fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -1278,7 +1277,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rtc</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards/sam4e_ek</state>
 					<state>$PROJ_DIR$/../../../../../common/services/storage/ctrl_access</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1533,7 +1532,7 @@
 					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../fatfs-r0.09/src</state>
 					<state>$PROJ_DIR$/../../../fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -1559,7 +1558,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rtc</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards/sam4e_ek</state>
 					<state>$PROJ_DIR$/../../../../../common/services/storage/ctrl_access</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1710,7 +1709,7 @@
 				</option>
 				<option>
 					<name>IlinkIcfFile</name>
-					<state>$PROJ_DIR$/../../../../../sam/utils/linker_scripts/sam4e/sam4e16e/iar/sram.icf</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/linker_scripts/sam4e/sam4e16/iar/sram.icf</state>
 				</option>
 				<option>
 					<name>IlinkIcfFileSlave</name>
@@ -1746,7 +1745,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>

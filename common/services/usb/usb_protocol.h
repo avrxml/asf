@@ -6,7 +6,7 @@
  * This file contains the USB definitions and data structures provided by the
  * USB 2.0 specification.
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -61,6 +61,7 @@
 
 //! Value for field bcdUSB
 #define  USB_V2_0    0x0200 //!< USB Specification version 2.00
+#define  USB_V2_1    0x0201 //!< USB Specification version 2.01
 
 /*! \name Generic definitions (Class, subclass and protocol)
  */
@@ -203,7 +204,57 @@ enum usb_descriptor_type {
 	USB_DT_INTERFACE_POWER = 8,
 	USB_DT_OTG = 9,
 	USB_DT_IAD = 0x0B,
+	USB_DT_BOS = 0x0F,
+	USB_DT_DEVICE_CAPABILITY = 0x10,
 };
+
+/**
+ * \brief USB Device Capability types
+ */
+enum usb_capability_type {
+	USB_DC_USB20_EXTENSION = 0x02,
+};
+
+/**
+ * \brief USB Device Capability - USB 2.0 Extension
+ * To fill bmAttributes field of usb_capa_ext_desc_t structure.
+ */
+enum usb_capability_extension_attr {
+	USB_DC_EXT_LPM  = 0x00000002,
+	USB_DC_EXT_BESL = 0x00000004,
+	USB_DC_EXT_BESL_BASELINE_VALID = 0x00000008,
+	USB_DC_EXT_BESL_DEEP_VALID = 0x00000010,
+};
+#define USB_DC_EXT_BESL_DEEP_OFFSET       8
+#define USB_DC_EXT_BESL_DEEP(besl)        ((besl & 0xF) << USB_DC_EXT_BESL_DEEP_OFFSET)
+#define USB_DC_EXT_BESL_BASELINE_OFFSET   12
+#define USB_DC_EXT_BESL_BASELINE(besl)    ((besl & 0xF) << USB_DC_EXT_BESL_BASELINE_OFFSET)
+
+#define BESL_125_US   0
+#define BESL_150_US   1
+#define BESL_200_US   2
+#define BESL_300_US   3
+#define BESL_400_US   4
+#define BESL_500_US   5
+#define BESL_1000_US  6
+#define BESL_2000_US  7
+#define BESL_3000_US  8
+#define BESL_4000_US  9
+#define BESL_5000_US  10
+#define BESL_6000_US  11
+#define BESL_7000_US  12
+#define BESL_8000_US  13
+#define BESL_9000_US  14
+#define BESL_10000_US 15
+
+/** Fields definition from a LPM TOKEN  */
+#define  USB_LPM_ATTRIBUT_BLINKSTATE_MASK      (0xF << 0)
+#define  USB_LPM_ATTRIBUT_BESL_MASK            (0xF << 4)
+#define  USB_LPM_ATTRIBUT_REMOTEWAKE_MASK      (1 << 8)
+#define  USB_LPM_ATTRIBUT_BLINKSTATE(value)    ((value & 0xF) << 0)
+#define  USB_LPM_ATTRIBUT_BESL(value)          ((value & 0xF) << 4)
+#define  USB_LPM_ATTRIBUT_REMOTEWAKE(value)    ((value & 1) << 8)
+#define  USB_LPM_ATTRIBUT_BLINKSTATE_L1        USB_LPM_ATTRIBUT_BLINKSTATE(1)
 
 /**
  * \brief Standard USB endpoint transfer types
@@ -310,6 +361,47 @@ typedef struct {
 	uint8_t bReserved;
 } usb_dev_qual_desc_t;
 
+/**
+ * \brief USB Device BOS descriptor structure
+ *
+ * The BOS descriptor (Binary device Object Store) defines a root
+ * descriptor that is similar to the configuration descriptor, and is
+ * the base descriptor for accessing a family of related descriptors.
+ * A host can read a BOS descriptor and learn from the wTotalLength field
+ * the entire size of the device-level descriptor set, or it can read in
+ * the entire BOS descriptor set of device capabilities.
+ * The host accesses this descriptor using the GetDescriptor() request.
+ * The descriptor type in the GetDescriptor() request is set to BOS.
+ */
+typedef struct {
+	uint8_t bLength;
+	uint8_t bDescriptorType;
+	le16_t  wTotalLength;
+	uint8_t bNumDeviceCaps;
+} usb_dev_bos_desc_t;
+
+
+/**
+ * \brief USB Device Capabilities - USB 2.0 Extension Descriptor structure
+ *
+ * Defines the set of USB 1.1-specific device level capabilities.
+ */
+typedef struct {
+	uint8_t bLength;
+	uint8_t bDescriptorType;
+	uint8_t bDevCapabilityType;
+	le32_t  bmAttributes;
+} usb_dev_capa_ext_desc_t;
+
+/**
+ * \brief USB Device LPM Descriptor structure
+ *
+ * The BOS descriptor and capabilities descriptors for LPM.
+ */
+typedef struct {
+	usb_dev_bos_desc_t bos;
+	usb_dev_capa_ext_desc_t capa_ext;
+} usb_dev_lpm_desc_t;
 
 /**
  * \brief Standard USB Interface Association Descriptor structure

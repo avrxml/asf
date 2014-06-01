@@ -6,7 +6,7 @@
  * This file contains basic functions for the AVR MEGA USART, with support for
  * all modes, settings and clock speeds.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -591,24 +591,24 @@ void usart_spi_set_baudrate(USART_t *usart, uint32_t baud, uint32_t cpu_hz);
  * The following configuration must be added to the project (typically to a
  * conf_usart_example.h file, but it can also be added to your main application file.)
  * \code
- *    #define USART_SERIAL                     &USARTA1
- *    #define USART_SERIAL_BAUDRATE            9600
- *    #define USART_SERIAL_CHAR_LENGTH         USART_CHSIZE_8BIT_gc
- *    #define USART_SERIAL_PARITY              USART_PMODE_DISABLED_gc
- *    #define USART_SERIAL_STOP_BIT            false
- * \endcode
+	#define USART_SERIAL                     &USARTA1
+	#define USART_SERIAL_BAUDRATE            9600
+	#define USART_SERIAL_CHAR_LENGTH         USART_CHSIZE_8BIT_gc
+	#define USART_SERIAL_PARITY              USART_PMODE_DISABLED_gc
+	#define USART_SERIAL_STOP_BIT            false
+\endcode
  *
  * Add to application initialization:
  * \code
- *    sysclk_init();
- *    static usart_rs232_options_t USART_SERIAL_OPTIONS = {
- *       .baudrate = USART_SERIAL_BAUDRATE,
- *       .charlength = USART_SERIAL_CHAR_LENGTH,
- *       .paritytype = USART_SERIAL_PARITY,
- *       .stopbits = USART_SERIAL_STOP_BIT
- *    };
- *   usart_init_rs232(USART_SERIAL, &USART_SERIAL_OPTIONS);
- * \endcode
+	 sysclk_init();
+	 static usart_rs232_options_t USART_SERIAL_OPTIONS = {
+	    .baudrate = USART_SERIAL_BAUDRATE,
+	    .charlength = USART_SERIAL_CHAR_LENGTH,
+	    .paritytype = USART_SERIAL_PARITY,
+	    .stopbits = USART_SERIAL_STOP_BIT
+	 };
+	usart_init_rs232(USART_SERIAL, &USART_SERIAL_OPTIONS);
+\endcode
  *
  * \subsection megarf_usart_basic_use_case_setup_flow Workflow
  * -# Initialize system clock:
@@ -618,24 +618,24 @@ void usart_spi_set_baudrate(USART_t *usart, uint32_t baud, uint32_t cpu_hz);
  *           this module.
  * -# Create USART options struct:
  *   - \code
- *       static usart_rs232_options_t USART_SERIAL_OPTIONS = {
- *          .baudrate = USART_SERIAL_BAUDRATE,
- *          .charlength = USART_SERIAL_CHAR_LENGTH,
- *          .paritytype = USART_SERIAL_PARITY,
- *          .stopbits = USART_SERIAL_STOP_BIT
- *       };
- *     \endcode
+	static usart_rs232_options_t USART_SERIAL_OPTIONS = {
+	   .baudrate = USART_SERIAL_BAUDRATE,
+	   .charlength = USART_SERIAL_CHAR_LENGTH,
+	   .paritytype = USART_SERIAL_PARITY,
+	   .stopbits = USART_SERIAL_STOP_BIT
+	};
+\endcode
  * -# Initialize in RS232 mode:
  *   - \code usart_init_rs232(USART_SERIAL, &USART_SERIAL_OPTIONS);
- *     \endcode
+\endcode
  *
  * \section megarf_usart_basic_use_case_usage Usage steps
  *
  * \subsection megarf_usart_basic_use_case_usage_code Example code
  * Add to application C-file:
  * \code
- *    usart_putchar(USART_SERIAL, 'a');
- * \endcode
+	usart_putchar(USART_SERIAL, 'a');
+\endcode
  *
  * \subsection megarf_usart_basic_use_case_usage_flow Workflow
  * -# Send an 'a' character via USART
@@ -665,27 +665,27 @@ void usart_spi_set_baudrate(USART_t *usart, uint32_t baud, uint32_t cpu_hz);
  * -# The following configuration must be added to the project (typically to a
  * conf_usart.h file, but it can also be added to your main application file.):
  * \code
- *    #define USART_SERIAL                     &USARTA1
- *    #define USART_SERIAL_BAUDRATE            9600
- *    #define USART_SERIAL_CHAR_LENGTH         USART_CHSIZE_8BIT_gc
- *    #define USART_SERIAL_PARITY              USART_PMODE_DISABLED_gc
- *    #define USART_SERIAL_STOP_BIT            false
- * \endcode
+	#define USART_SERIAL                     &USARTA1
+	#define USART_SERIAL_BAUDRATE            9600
+	#define USART_SERIAL_CHAR_LENGTH         USART_CHSIZE_8BIT_gc
+	#define USART_SERIAL_PARITY              USART_PMODE_DISABLED_gc
+	#define USART_SERIAL_STOP_BIT            false
+\endcode
  *
  * A variable for the received byte must be added:
  * \code uint8_t received_byte; \endcode
  *
  * Add to application initialization:
  * \code
- *    sysclk_init();
- *    static usart_rs232_options_t USART_SERIAL_OPTIONS = {
- *       .baudrate = USART_SERIAL_BAUDRATE,
- *       .charlength = USART_SERIAL_CHAR_LENGTH,
- *       .paritytype = USART_SERIAL_PARITY,
- *       .stopbits = USART_SERIAL_STOP_BIT
- *    };
- *   usart_init_rs232(USART_SERIAL, &USART_SERIAL_OPTIONS);
- * \endcode
+	 sysclk_init();
+	 static usart_rs232_options_t USART_SERIAL_OPTIONS = {
+	    .baudrate = USART_SERIAL_BAUDRATE,
+	    .charlength = USART_SERIAL_CHAR_LENGTH,
+	    .paritytype = USART_SERIAL_PARITY,
+	    .stopbits = USART_SERIAL_STOP_BIT
+	 };
+	usart_init_rs232(USART_SERIAL, &USART_SERIAL_OPTIONS);
+\endcode
  *
  * \subsection megarf_usart_use_case_1_setup_flow Workflow
  * -# Initialize system clock:
@@ -695,25 +695,25 @@ void usart_spi_set_baudrate(USART_t *usart, uint32_t baud, uint32_t cpu_hz);
  *           this module.
  * -# Create USART options struct:
  *   - \code
- *       static usart_rs232_options_t USART_SERIAL_OPTIONS = {
- *          .baudrate = USART_SERIAL_BAUDRATE,
- *          .charlength = USART_SERIAL_CHAR_LENGTH,
- *          .paritytype = USART_SERIAL_PARITY,
- *          .stopbits = USART_SERIAL_STOP_BIT
- *       };
- *     \endcode
+	static usart_rs232_options_t USART_SERIAL_OPTIONS = {
+	   .baudrate = USART_SERIAL_BAUDRATE,
+	   .charlength = USART_SERIAL_CHAR_LENGTH,
+	   .paritytype = USART_SERIAL_PARITY,
+	   .stopbits = USART_SERIAL_STOP_BIT
+	};
+\endcode
  * -# Initialize in RS232 mode:
  *   - \code megarf_usart_init_rs232(USART_SERIAL, &USART_SERIAL_OPTIONS);
- *     \endcode
+\endcode
  *
  * \section megarf_usart_use_case_1_usage Usage steps
  *
  * \subsection megarf_usart_use_case_1_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *       received_byte = usart_getchar(USART_SERIAL);
- *       usart_putchar(USART_SERIAL, received_byte);
- * \endcode
+	received_byte = usart_getchar(USART_SERIAL);
+	usart_putchar(USART_SERIAL, received_byte);
+\endcode
  *
  * \subsection megarf_usart_use_case_1_usage_flow Workflow
  * -# Wait for reception of a character:

@@ -3,7 +3,7 @@
  *
  * \brief ST7565R display controller driver.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -82,20 +82,20 @@ extern "C" {
  *
  * An example \ref conf_st7565r.h file could look like
  * \code
- * // interface selection
- * #define ST7565R_USART_SPI_INTERFACE
- * #define ST7565R_USART_SPI            &USARTD0
- *
- * // minimum clock period is 50ns@3.3V -> max frequency is 20MHz
- * #define ST7565R_CLOCK_SPEED          1000000
- *
- * #define ST7565R_DISPLAY_CONTRAST_MAX 40
- * #define ST7565R_DISPLAY_CONTRAST_MIN 30
- *
- * #define ST7565R_A0_PIN               NHD_C12832A1Z_REGISTER_SELECT
- * #define ST7565R_CS_PIN               NHD_C12832A1Z_CSN
- * #define ST7565R_RESET_PIN            NHD_C12832A1Z_RESETN
- * \endcode
+	 // interface selection
+	 #define ST7565R_USART_SPI_INTERFACE
+	 #define ST7565R_USART_SPI            &USARTD0
+
+	 // minimum clock period is 50ns@3.3V -> max frequency is 20MHz
+	 #define ST7565R_CLOCK_SPEED          1000000
+
+	 #define ST7565R_DISPLAY_CONTRAST_MAX 40
+	 #define ST7565R_DISPLAY_CONTRAST_MIN 30
+
+	 #define ST7565R_A0_PIN               NHD_C12832A1Z_REGISTER_SELECT
+	 #define ST7565R_CS_PIN               NHD_C12832A1Z_CSN
+	 #define ST7565R_RESET_PIN            NHD_C12832A1Z_RESETN
+\endcode
  *
  * \section dependencies Dependencies
  * This driver depends on the following modules:

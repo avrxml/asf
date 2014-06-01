@@ -3,7 +3,7 @@
  *
  * @brief Declarations for security tool box
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -75,6 +75,37 @@ typedef enum {
 	STB_CCM_MICERR
 } SHORTENUM stb_ccm_t;
 
+typedef enum {
+	/** Security Level 0 */
+	SECURITY_00_LEVEL = 0x00,
+	/** Security Level 1 */
+	SECURITY_01_LEVEL,
+	/** Security Level 2 */
+	SECURITY_02_LEVEL,
+	/** Security Level 3 */
+	SECURITY_03_LEVEL,
+	/** Security Level 4 */
+	SECURITY_04_LEVEL,
+	/** Security Level 5 */
+	SECURITY_05_LEVEL,
+	/** Security Level 6 */
+	SECURITY_06_LEVEL,
+	/** Security Level 7 */
+	SECURITY_07_LEVEL
+} SHORTENUM security_level_t;
+
+/** Macros for MIC Calculation and Security */
+#define ENCRYPTION_NOT_REQD     (0x00)
+#define ENCRYPTION_REQD         (0x01)
+#define PLAINTEXT_FLAG          (0x01)
+#define LEN_FIELD                       (0x01)
+#define ADATA                           (0x40)
+
+#define LEN_MIC_00                      (0x00)
+#define LEN_MIC_32                      (0x04)
+#define LEN_MIC_64                      (0x08)
+#define LEN_MIC_128                     (0x10)
+
 /* === Externals ========================================================== */
 
 /* === Prototypes ========================================================= */
@@ -133,7 +164,7 @@ uint8_t aes_dir);
 #endif
 
 #endif /* #if defined(STB_ON_SAL) || defined(STB_ARMCRYPTO) ||
-        *defined(__DOXYGEN__) */
+        * defined(__DOXYGEN__) */
 
 #endif /* STB_GENERIC_H */
 /* EOF */

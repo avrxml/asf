@@ -55,6 +55,11 @@
 Supported NCP boards: 
     atxmega256a3u_zigbit_ext
     atmega256rfr2_zigbit_ext
+	
+Other Supported Boards:	
+	atmega256a3_reb_cbb
+	atmegarfa1_stb
+	atmegarfr2_stb
 
 Steps to use this bootloader:
 1. Flash the corresponding bootloader .hex file. Example: For atxmega256a3u device, flash atxmega256a3u_zigbit_ext.hex 
@@ -65,7 +70,7 @@ Steps to use this bootloader:
    Install Bootloader_PC_Tool_Setup_1.2.2.235.exe from th location "\thirdparty\wireless\avr2025_mac\addons\bootloader"
 4. Open the installed Bootloader PC tool, select the corresponding com port of the host board. 
 5. Keep the serial port settings as
-    Bit rate       9600
+    Bit rate       9600(atxmega256a3u_zigbit_ext,atmega256rfr2_zigbit_ext) ,38400 (atmega256a3_reb_cbb)
 	Data bits      8
 	Stop bits      1
 	Parity         None
@@ -75,5 +80,6 @@ Steps to use this bootloader:
    he will be prompted as "please restart the device".Reset button can be released at this time and the upload will start.
 8. Wait till the upload gets completed.  
 9. After this completion, flash the desired application in the host board. For example, choose "thirdparty\wireless\avr2025_mac\apps\mac\beacon\coord\host" for operating it as beacon coordinator host.
+10.For other boards(atmega256a3_reb_cbb,atmegarfa1_stb,atmegarfr2_stb) follow steps 1,4 - 9 .
 
 		 

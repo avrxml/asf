@@ -8,9 +8,9 @@
 		<debug>1</debug>
 		<settings>
 			<name>C-SPY</name>
-			<archiveVersion>5</archiveVersion>
+			<archiveVersion>6</archiveVersion>
 			<data>
-				<version>14</version>
+				<version>16</version>
 				<wantNonLocal>1</wantNonLocal>
 				<debug>1</debug>
 				<option>
@@ -27,7 +27,7 @@
 				</option>
 				<option>
 					<name>DDFile</name>
-					<state></state>
+					<!--state>$TOOLKIT_DIR$\Config\iom2564rfr2.ddf</state-->
 				</option>
 				<option>
 					<name>CInput</name>
@@ -101,13 +101,37 @@
 					<name>OCImagesPath3</name>
 					<state></state>
 				</option>
+				<option>
+					<name>OCImagesOffset1</name>
+					<state></state>
+				</option>
+				<option>
+					<name>OCImagesOffset2</name>
+					<state></state>
+				</option>
+				<option>
+					<name>OCImagesOffset3</name>
+					<state></state>
+				</option>
+				<option>
+					<name>OCImagesUse1</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OCImagesUse2</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OCImagesUse3</name>
+					<state>0</state>
+				</option>
 			</data>
 		</settings>
 		<settings>
 			<name>AVRONE</name>
-			<archiveVersion>3</archiveVersion>
+			<archiveVersion>4</archiveVersion>
 			<data>
-				<version>3</version>
+				<version>4</version>
 				<wantNonLocal>1</wantNonLocal>
 				<debug>1</debug>
 				<option>
@@ -128,7 +152,7 @@
 				</option>
 				<option>
 					<name>OAVRONELogFile</name>
-					<state>cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 				<option>
 					<name>OAVRONEJtagIceSuppLoad</name>
@@ -223,6 +247,10 @@
 					<name>OAVRONEDebugWireDebugPort</name>
 					<state>1</state>
 				</option>
+				<option>
+					<name>OAVRONEAVRJtagIcePreserveFlash</name>
+					<state>0</state>
+				</option>
 			</data>
 		</settings>
 		<settings>
@@ -284,7 +312,7 @@
 				</option>
 				<option>
 					<name>OCCRAVRLogFile</name>
-					<state>cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 				<option>
 					<name>OCCRAVRSuppressLoad</name>
@@ -363,7 +391,7 @@
 				</option>
 				<option>
 					<name>OICE200AVRLogFile</name>
-					<state>cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 				<option>
 					<name>OICE200AVRHighSpeed</name>
@@ -460,7 +488,7 @@
 				</option>
 				<option>
 					<name>OJTAGICEAVRLogFile</name>
-					<state>cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 				<option>
 					<name>OJTAGICEAVRJtagIceDefaultCom</name>
@@ -547,10 +575,136 @@
 			</data>
 		</settings>
 		<settings>
-			<name>JTAGICEMKIIAVR</name>
-			<archiveVersion>4</archiveVersion>
+			<name>JTAGICE3AVR</name>
+			<archiveVersion>5</archiveVersion>
 			<data>
 				<version>6</version>
+				<wantNonLocal>1</wantNonLocal>
+				<debug>1</debug>
+				<option>
+					<name>OJTAGICE3Driver</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>OJTAGICE3ExtraOptions</name>
+					<state></state>
+				</option>
+				<option>
+					<name>OJTAGICE3ExtraOptionsCheck</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3DoLogfile</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3LogFile</name>
+					<state>$PROJ_DIR$\cspycomm.log</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceSuppLoad</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceConsCheck</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagFreqRadio</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagFreqManually</name>
+					<state>100</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagFreq</name>
+					<version>0</version>
+					<state>8</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagDeviceBefore</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagDeviceAfter</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagInstrBitsBefore</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagInstrBitsAfter</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceDaisyChain</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagDebugTimers</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagDebugEeprom</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagDebugFuses</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIcedownloadToData</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagSoftwareBreak</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>ExitBreakpointP7</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>PutcharBreakpointP7</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>GetcharBreakpointP7</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>OJTAGICE3Communication</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3CommunicationUsbEditId</name>
+					<state></state>
+				</option>
+				<option>
+					<name>OJTAGICE3DebugPort</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3DebugWireDebugPort</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>OJTAGICE3AVRJtagIcePreserveFlash</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3DebuggerAttachToRunningTarget</name>
+					<state>0</state>
+				</option>
+			</data>
+		</settings>
+		<settings>
+			<name>JTAGICEMKIIAVR</name>
+			<archiveVersion>5</archiveVersion>
+			<data>
+				<version>7</version>
 				<wantNonLocal>1</wantNonLocal>
 				<debug>1</debug>
 				<option>
@@ -605,7 +759,7 @@
 				</option>
 				<option>
 					<name>OJTAGICEMKIIAVRLogFile</name>
-					<state>cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 				<option>
 					<name>OJTAGICEMKIIAVRJtagIceDefaultCom</name>
@@ -709,13 +863,17 @@
 					<name>OJTAGICEMKIIOnlyPDI</name>
 					<state>1</state>
 				</option>
+				<option>
+					<name>OJTAGICEMKIIAVRJtagIcePreserveFlash</name>
+					<state>0</state>
+				</option>
 			</data>
 		</settings>
 		<settings>
 			<name>DRAGONAVR</name>
-			<archiveVersion>2</archiveVersion>
+			<archiveVersion>3</archiveVersion>
 			<data>
-				<version>2</version>
+				<version>3</version>
 				<wantNonLocal>1</wantNonLocal>
 				<debug>1</debug>
 				<option>
@@ -736,7 +894,7 @@
 				</option>
 				<option>
 					<name>ODRAGONAVRLogFile</name>
-					<state>cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 				<option>
 					<name>ODRAGONAVRJtagIceSuppLoad</name>
@@ -831,6 +989,10 @@
 					<name>ODRAGONOnlyPDI</name>
 					<state>1</state>
 				</option>
+				<option>
+					<name>ODRAGONAVRJtagIcePreserveFlash</name>
+					<state>0</state>
+				</option>
 			</data>
 		</settings>
 		<settings>
@@ -891,14 +1053,26 @@
 				</option>
 				<option>
 					<name>OTHIRDPARTYAVRLogFileEditB</name>
-					<state>$TOOLKIT_DIR$\cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 			</data>
 		</settings>
 		<debuggerPlugins>
 			<plugin>
+				<file>$TOOLKIT_DIR$\plugins\rtos\uCOS-II\uCOS-II-286-KA-CSpy.ewplugin</file>
+				<loadFlag>0</loadFlag>
+			</plugin>
+			<plugin>
 				<file>$TOOLKIT_DIR$\plugins\rtos\uCOS-II\uCOS-II-KA-CSpy.ewplugin</file>
 				<loadFlag>0</loadFlag>
+			</plugin>
+			<plugin>
+				<file>$TOOLKIT_DIR$\plugins\rtos\uCOS-III\uCOS-III-KA-CSpy.ewplugin</file>
+				<loadFlag>0</loadFlag>
+			</plugin>
+			<plugin>
+				<file>$TOOLKIT_DIR$\plugins\Stk600Plugin\Stk600Plugin.ewplugin</file>
+				<loadFlag>1</loadFlag>
 			</plugin>
 			<plugin>
 				<file>$EW_DIR$\common\plugins\CodeCoverage\CodeCoverage.ENU.ewplugin</file>
@@ -909,16 +1083,12 @@
 				<loadFlag>0</loadFlag>
 			</plugin>
 			<plugin>
-				<file>$EW_DIR$\common\plugins\Profiling\Profiling.ENU.ewplugin</file>
-				<loadFlag>1</loadFlag>
-			</plugin>
-			<plugin>
-				<file>$EW_DIR$\common\plugins\Stack\Stack.ENU.ewplugin</file>
-				<loadFlag>1</loadFlag>
-			</plugin>
-			<plugin>
 				<file>$EW_DIR$\common\plugins\SymList\SymList.ENU.ewplugin</file>
 				<loadFlag>1</loadFlag>
+			</plugin>
+			<plugin>
+				<file>$EW_DIR$\common\plugins\uCProbe\uCProbePlugin.ENU.ewplugin</file>
+				<loadFlag>0</loadFlag>
 			</plugin>
 		</debuggerPlugins>
 	</configuration>
@@ -930,9 +1100,9 @@
 		<debug>0</debug>
 		<settings>
 			<name>C-SPY</name>
-			<archiveVersion>5</archiveVersion>
+			<archiveVersion>6</archiveVersion>
 			<data>
-				<version>14</version>
+				<version>16</version>
 				<wantNonLocal>1</wantNonLocal>
 				<debug>0</debug>
 				<option>
@@ -993,7 +1163,7 @@
 				</option>
 				<option>
 					<name>CDynDriver</name>
-					<state>JTAGICEMKIIAVR</state>
+					<state>SIMAVR</state>
 				</option>
 				<option>
 					<name>DebuggerUseUbrofResetVector</name>
@@ -1023,13 +1193,37 @@
 					<name>OCImagesPath3</name>
 					<state></state>
 				</option>
+				<option>
+					<name>OCImagesOffset1</name>
+					<state></state>
+				</option>
+				<option>
+					<name>OCImagesOffset2</name>
+					<state></state>
+				</option>
+				<option>
+					<name>OCImagesOffset3</name>
+					<state></state>
+				</option>
+				<option>
+					<name>OCImagesUse1</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OCImagesUse2</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OCImagesUse3</name>
+					<state>0</state>
+				</option>
 			</data>
 		</settings>
 		<settings>
 			<name>AVRONE</name>
-			<archiveVersion>3</archiveVersion>
+			<archiveVersion>4</archiveVersion>
 			<data>
-				<version>3</version>
+				<version>4</version>
 				<wantNonLocal>1</wantNonLocal>
 				<debug>0</debug>
 				<option>
@@ -1050,7 +1244,7 @@
 				</option>
 				<option>
 					<name>OAVRONELogFile</name>
-					<state>cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 				<option>
 					<name>OAVRONEJtagIceSuppLoad</name>
@@ -1145,6 +1339,10 @@
 					<name>OAVRONEDebugWireDebugPort</name>
 					<state>1</state>
 				</option>
+				<option>
+					<name>OAVRONEAVRJtagIcePreserveFlash</name>
+					<state>0</state>
+				</option>
 			</data>
 		</settings>
 		<settings>
@@ -1206,7 +1404,7 @@
 				</option>
 				<option>
 					<name>OCCRAVRLogFile</name>
-					<state>cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 				<option>
 					<name>OCCRAVRSuppressLoad</name>
@@ -1285,7 +1483,7 @@
 				</option>
 				<option>
 					<name>OICE200AVRLogFile</name>
-					<state>cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 				<option>
 					<name>OICE200AVRHighSpeed</name>
@@ -1382,7 +1580,7 @@
 				</option>
 				<option>
 					<name>OJTAGICEAVRLogFile</name>
-					<state>cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 				<option>
 					<name>OJTAGICEAVRJtagIceDefaultCom</name>
@@ -1469,10 +1667,136 @@
 			</data>
 		</settings>
 		<settings>
-			<name>JTAGICEMKIIAVR</name>
-			<archiveVersion>4</archiveVersion>
+			<name>JTAGICE3AVR</name>
+			<archiveVersion>5</archiveVersion>
 			<data>
 				<version>6</version>
+				<wantNonLocal>1</wantNonLocal>
+				<debug>0</debug>
+				<option>
+					<name>OJTAGICE3Driver</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>OJTAGICE3ExtraOptions</name>
+					<state></state>
+				</option>
+				<option>
+					<name>OJTAGICE3ExtraOptionsCheck</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3DoLogfile</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3LogFile</name>
+					<state>$PROJ_DIR$\cspycomm.log</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceSuppLoad</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceConsCheck</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagFreqRadio</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagFreqManually</name>
+					<state>100</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagFreq</name>
+					<version>0</version>
+					<state>8</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagDeviceBefore</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagDeviceAfter</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagInstrBitsBefore</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceJtagInstrBitsAfter</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIceDaisyChain</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagDebugTimers</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagDebugEeprom</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagDebugFuses</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagIcedownloadToData</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3JtagSoftwareBreak</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>ExitBreakpointP7</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>PutcharBreakpointP7</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>GetcharBreakpointP7</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>OJTAGICE3Communication</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3CommunicationUsbEditId</name>
+					<state></state>
+				</option>
+				<option>
+					<name>OJTAGICE3DebugPort</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3DebugWireDebugPort</name>
+					<state>1</state>
+				</option>
+				<option>
+					<name>OJTAGICE3AVRJtagIcePreserveFlash</name>
+					<state>0</state>
+				</option>
+				<option>
+					<name>OJTAGICE3DebuggerAttachToRunningTarget</name>
+					<state>0</state>
+				</option>
+			</data>
+		</settings>
+		<settings>
+			<name>JTAGICEMKIIAVR</name>
+			<archiveVersion>5</archiveVersion>
+			<data>
+				<version>7</version>
 				<wantNonLocal>1</wantNonLocal>
 				<debug>0</debug>
 				<option>
@@ -1527,7 +1851,7 @@
 				</option>
 				<option>
 					<name>OJTAGICEMKIIAVRLogFile</name>
-					<state>cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 				<option>
 					<name>OJTAGICEMKIIAVRJtagIceDefaultCom</name>
@@ -1631,13 +1955,17 @@
 					<name>OJTAGICEMKIIOnlyPDI</name>
 					<state>1</state>
 				</option>
+				<option>
+					<name>OJTAGICEMKIIAVRJtagIcePreserveFlash</name>
+					<state>0</state>
+				</option>
 			</data>
 		</settings>
 		<settings>
 			<name>DRAGONAVR</name>
-			<archiveVersion>2</archiveVersion>
+			<archiveVersion>3</archiveVersion>
 			<data>
-				<version>2</version>
+				<version>3</version>
 				<wantNonLocal>1</wantNonLocal>
 				<debug>0</debug>
 				<option>
@@ -1658,7 +1986,7 @@
 				</option>
 				<option>
 					<name>ODRAGONAVRLogFile</name>
-					<state>cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 				<option>
 					<name>ODRAGONAVRJtagIceSuppLoad</name>
@@ -1753,6 +2081,10 @@
 					<name>ODRAGONOnlyPDI</name>
 					<state>1</state>
 				</option>
+				<option>
+					<name>ODRAGONAVRJtagIcePreserveFlash</name>
+					<state>0</state>
+				</option>
 			</data>
 		</settings>
 		<settings>
@@ -1813,14 +2145,26 @@
 				</option>
 				<option>
 					<name>OTHIRDPARTYAVRLogFileEditB</name>
-					<state>$TOOLKIT_DIR$\cspycomm.log</state>
+					<state>$PROJ_DIR$\cspycomm.log</state>
 				</option>
 			</data>
 		</settings>
 		<debuggerPlugins>
 			<plugin>
+				<file>$TOOLKIT_DIR$\plugins\rtos\uCOS-II\uCOS-II-286-KA-CSpy.ewplugin</file>
+				<loadFlag>0</loadFlag>
+			</plugin>
+			<plugin>
 				<file>$TOOLKIT_DIR$\plugins\rtos\uCOS-II\uCOS-II-KA-CSpy.ewplugin</file>
 				<loadFlag>0</loadFlag>
+			</plugin>
+			<plugin>
+				<file>$TOOLKIT_DIR$\plugins\rtos\uCOS-III\uCOS-III-KA-CSpy.ewplugin</file>
+				<loadFlag>0</loadFlag>
+			</plugin>
+			<plugin>
+				<file>$TOOLKIT_DIR$\plugins\Stk600Plugin\Stk600Plugin.ewplugin</file>
+				<loadFlag>1</loadFlag>
 			</plugin>
 			<plugin>
 				<file>$EW_DIR$\common\plugins\CodeCoverage\CodeCoverage.ENU.ewplugin</file>
@@ -1831,16 +2175,12 @@
 				<loadFlag>0</loadFlag>
 			</plugin>
 			<plugin>
-				<file>$EW_DIR$\common\plugins\Profiling\Profiling.ENU.ewplugin</file>
-				<loadFlag>1</loadFlag>
-			</plugin>
-			<plugin>
-				<file>$EW_DIR$\common\plugins\Stack\Stack.ENU.ewplugin</file>
-				<loadFlag>1</loadFlag>
-			</plugin>
-			<plugin>
 				<file>$EW_DIR$\common\plugins\SymList\SymList.ENU.ewplugin</file>
 				<loadFlag>1</loadFlag>
+			</plugin>
+			<plugin>
+				<file>$EW_DIR$\common\plugins\uCProbe\uCProbePlugin.ENU.ewplugin</file>
+				<loadFlag>0</loadFlag>
 			</plugin>
 		</debuggerPlugins>
 	</configuration>

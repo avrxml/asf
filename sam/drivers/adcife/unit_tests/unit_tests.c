@@ -76,6 +76,8 @@
  * The SAM4L devices can be used.
  * This example has been tested with the following setup:
  * - sam4lc4c_sam4l_ek
+ * - sam4lc4c_sam4l_xplained_pro
+ * - sam4lc8c_sam4l8_xplained_pro
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -105,58 +107,61 @@ uint16_t g_adc_sample_data[2];
 
 /** ADC CDMA config value */
 struct adc_cdma_first_config g_adc_cdma_first_cfg[2] = {
-			{
-			/* Select Vref for shift cycle */
-			.zoomrange = ADC_ZOOMRANGE_0,
-			/* Pad Ground */
-			.muxneg = ADC_MUXNEG_1,
-			/* Scaled Vcc, Vcc/10 */
-			.muxpos = ADC_MUXPOS_2,
-			/* Enables the internal voltage sources */
-			.internal = ADC_INTERNAL_3,
-			/* Disables the ADC gain error reduction */
-			.gcomp = ADC_GCOMP_DIS,
-			/* Disables the HWLA mode */
-			.hwla = ADC_HWLA_DIS,
-			/* 12-bits resolution */
-			.res = ADC_RES_12_BIT,
-			/* Enables the single-ended mode */
-			.bipolar = ADC_BIPOLAR_SINGLEENDED,
-			/* Gain factor is 1x */
-			.gain = ADC_GAIN_1X,
-			.strig = 1,
-			.tss = 1,
-			.enstup = 1,
-			.dw = 0},
-			{.zoomrange = ADC_ZOOMRANGE_0,
-			.muxneg = ADC_MUXNEG_1,
-			/* DAC internal */
-			.muxpos = ADC_MUXPOS_3,
-			.internal = ADC_INTERNAL_3,
-			.gcomp = ADC_GCOMP_DIS,
-			.hwla = ADC_HWLA_DIS,
-			.res = ADC_RES_12_BIT,
-			.bipolar = ADC_BIPOLAR_SINGLEENDED,
-			.gain = ADC_GAIN_1X,
-			.strig = 1,
-			.tss = 1,
-			.enstup = 1,
-			.dw = 0}
-		};
+	{
+		/* Select Vref for shift cycle */
+		.zoomrange = ADC_ZOOMRANGE_0,
+		/* Pad Ground */
+		.muxneg = ADC_MUXNEG_1,
+		/* Scaled Vcc, Vcc/10 */
+		.muxpos = ADC_MUXPOS_2,
+		/* Enables the internal voltage sources */
+		.internal = ADC_INTERNAL_3,
+		/* Disables the ADC gain error reduction */
+		.gcomp = ADC_GCOMP_DIS,
+		/* Disables the HWLA mode */
+		.hwla = ADC_HWLA_DIS,
+		/* 12-bits resolution */
+		.res = ADC_RES_12_BIT,
+		/* Enables the single-ended mode */
+		.bipolar = ADC_BIPOLAR_SINGLEENDED,
+		/* Gain factor is 1x */
+		.gain = ADC_GAIN_1X,
+		.strig = 1,
+		.tss = 1,
+		.enstup = 1,
+		.dw = 0
+	},
+	{
+		.zoomrange = ADC_ZOOMRANGE_0,
+		.muxneg = ADC_MUXNEG_1,
+		/* DAC internal */
+		.muxpos = ADC_MUXPOS_3,
+		.internal = ADC_INTERNAL_3,
+		.gcomp = ADC_GCOMP_DIS,
+		.hwla = ADC_HWLA_DIS,
+		.res = ADC_RES_12_BIT,
+		.bipolar = ADC_BIPOLAR_SINGLEENDED,
+		.gain = ADC_GAIN_1X,
+		.strig = 1,
+		.tss = 1,
+		.enstup = 1,
+		.dw = 0
+	}
+};
 
 struct adc_pdca_config g_adc_pdca_cfg = {
-			/* ADC Window Mode */
-			.wm = false,
-			/* ADC Nb channel */
-			.nb_channels = 2,
-			/* ADC Buffer */
-			.buffer = g_adc_sample_data,
-			/* ADC PDC Rx Channel */
-			.pdc_rx_channel = CONFIG_ADC_PDCA_RX_CHANNEL,
-			/* ADC PDC Tx Channel */
-			.pdc_tx_channel = CONFIG_ADC_PDCA_TX_CHANNEL,
-			/* ADC CDMA Configuration Structure */
-			.cdma_cfg = (void *)&g_adc_cdma_first_cfg[0]
+	/* ADC Window Mode */
+	.wm = false,
+	/* ADC Nb channel */
+	.nb_channels = 2,
+	/* ADC Buffer */
+	.buffer = g_adc_sample_data,
+	/* ADC PDC Rx Channel */
+	.pdc_rx_channel = CONFIG_ADC_PDCA_RX_CHANNEL,
+	/* ADC PDC Tx Channel */
+	.pdc_tx_channel = CONFIG_ADC_PDCA_TX_CHANNEL,
+	/* ADC CDMA Configuration Structure */
+	.cdma_cfg = (void *)&g_adc_cdma_first_cfg[0]
 };
 
 /** ADCIFE startup time value */
@@ -186,8 +191,10 @@ static void adcife_set_conv_flag(void)
 static void pdca_transfer_done(enum pdca_channel_status status)
 {
 	if (status == PDCA_CH_TRANSFER_COMPLETED) {
-		pdca_channel_write_load(CONFIG_ADC_PDCA_RX_CHANNEL, g_adc_sample_data, 2);
-		pdca_channel_write_load(CONFIG_ADC_PDCA_TX_CHANNEL, g_adc_cdma_first_cfg, 2);
+		pdca_channel_write_load(CONFIG_ADC_PDCA_RX_CHANNEL,
+				g_adc_sample_data, 2);
+		pdca_channel_write_load(CONFIG_ADC_PDCA_TX_CHANNEL,
+				g_adc_cdma_first_cfg, 2);
 		pdca_channel_disable_interrupt(CONFIG_ADC_PDCA_RX_CHANNEL,
 				PDCA_IER_TRC);
 		pdca_channel_disable_interrupt(CONFIG_ADC_PDCA_TX_CHANNEL,
@@ -254,8 +261,10 @@ static void run_adcife_init_test(const struct test_case *test)
 		.start_up = CONFIG_ADC_STARTUP
 	};
 
-	test_assert_true(test, (adc_init(&g_adc_inst, ADCIFE, &adc_cfg) == STATUS_OK) &&
-			(adc_enable(&g_adc_inst) == STATUS_OK), "ADCIFE initialize test failed");
+	test_assert_true(test,
+			(adc_init(&g_adc_inst, ADCIFE, &adc_cfg) == STATUS_OK) &&
+			(adc_enable(&g_adc_inst) == STATUS_OK),
+			"ADCIFE initialize test failed");
 }
 
 /**
@@ -299,7 +308,8 @@ static void run_adcife_diff_test(const struct test_case *test)
 	adc_ch_set_config(&g_adc_inst, &adc_ch_cfg);
 	adc_configure_trigger(&g_adc_inst, ADC_TRIG_CON);
 	adc_configure_gain(&g_adc_inst, ADC_GAIN_1X);
-	while (!((adc_get_status(&g_adc_inst) & ADCIFE_SR_SEOC) == ADCIFE_SR_SEOC)) {
+	while (!((adc_get_status(&g_adc_inst) & ADCIFE_SR_SEOC) ==
+			ADCIFE_SR_SEOC)) {
 		if (!timeout--) {
 			conversion_timeout = true;
 		}
@@ -355,7 +365,8 @@ static void run_adcife_itimer_trig_test(const struct test_case *test)
 			ADCIFE_IRQn, 1);
 	adc_configure_trigger(&g_adc_inst, ADC_TRIG_INTL_TIMER);
 	adc_configure_gain(&g_adc_inst, ADC_GAIN_1X);
-	adc_configure_itimer_period(&g_adc_inst, adc_ch_cfg.internal_timer_max_count);
+	adc_configure_itimer_period(&g_adc_inst,
+			adc_ch_cfg.internal_timer_max_count);
 	adc_start_itimer(&g_adc_inst);
 	delay_ms(100);
 

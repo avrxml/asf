@@ -3,7 +3,7 @@
  *
  * \brief Board configuration
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,5 @@
 #define CONF_BOARD_H_INCLUDED
 
 #define CONF_BOARD_AT86RFX
-#define IC_TYPE             (0x00)
-
 # include "conf_usb.h"
 #endif /* CONF_BOARD_H_INCLUDED */

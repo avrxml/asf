@@ -3,7 +3,7 @@
  *
  * @brief This file contains user call back function for MCPS-PURGE.confirm.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -75,6 +75,6 @@ void usr_mcps_purge_conf(uint8_t msduHandle, uint8_t status)
 }
 
 #endif /* ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
-        **/
+       **/
 
 /* EOF */

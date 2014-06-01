@@ -75,6 +75,10 @@ static uint8_t nand_flash_usb_buffer[NAND_COMMON_MAX_PAGE_SIZE];
 /* NAND Flash status. */
 static uint32_t nand_flash_status = NAND_FLASH_NOT_INIT;
 
+/* Buffer needed in FTL */
+static uint8_t page_write_buffer[NAND_COMMON_MAX_PAGE_SIZE];
+static uint8_t page_read_buffer[NAND_COMMON_MAX_PAGE_SIZE];
+
 /**
  * \brief This function tests memory state, and starts memory initialization
  *
@@ -86,7 +90,7 @@ Ctrl_status nand_flash_test_unit_ready(void)
 	case NAND_FLASH_NOT_INIT:
 		if (nand_flash_translation_initialize(&nf_translation, 0,
 				cmd_address, addr_address, data_address, 0,
-				0)) {
+				0, page_write_buffer, page_read_buffer)) {
 			return CTRL_NO_PRESENT;
 		}
 
@@ -124,7 +128,7 @@ Ctrl_status nand_flash_read_capacity(uint32_t *nb_sector)
 	if (nand_flash_status == NAND_FLASH_NOT_INIT) {
 		if (nand_flash_translation_initialize(&nf_translation, 0,
 				cmd_address, addr_address, data_address, 0,
-				0)) {
+				0, page_write_buffer, page_read_buffer)) {
 			return CTRL_NO_PRESENT;
 		}
 

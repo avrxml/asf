@@ -112,10 +112,10 @@
  *----------------------------------------------------------*/
 
 /* Scheduler includes. */
-#include "FreeRTOS.h"
-#include "task.h"
+#include "../../../include/FreeRTOS.h"
+#include "../../../include/task.h"
 
-#include "sysclk.h" /* ATMEL */
+#include <sysclk.h> /* ATMEL */
 #ifndef __VFP_FP__
 	#warning hardware floating point not enabled.
 #endif

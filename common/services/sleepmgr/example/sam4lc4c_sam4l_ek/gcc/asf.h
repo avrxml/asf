@@ -52,6 +52,9 @@
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
+// From module: AST - Asynchronous Timer
+#include <ast.h>
+
 // From module: Common SAM compiler driver
 #include <compiler.h>
 #include <status_codes.h>
@@ -93,5 +96,8 @@
 
 // From module: USART - Univ. Syn Async Rec/Trans
 #include <usart.h>
+
+// From module: WDT - Watchdog Timer
+#include <wdt_sam4l.h>
 
 #endif // ASF_H

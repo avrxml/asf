@@ -3,7 +3,7 @@
  *
  * \brief XMEGA architecture specific IOPORT service implementation header file.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -61,7 +61,7 @@
 #  define IOPORT_PORTE  4
 #endif
 
-#if XMEGA_A1 || XMEGA_A1U || XMEGA_A3 || XMEGA_A3U || XMEGA_A3B || XMEGA_A3BU ||\
+#if XMEGA_A1 || XMEGA_A1U || XMEGA_A3 || XMEGA_A3U || XMEGA_A3B || XMEGA_A3BU || \
 	XMEGA_C3 || XMEGA_D3
 #  define IOPORT_PORTF  5
 #endif
@@ -133,19 +133,20 @@ __always_inline static PORT_t *arch_ioport_pin_to_base(ioport_pin_t pin)
 	return arch_ioport_port_to_base(arch_ioport_pin_to_port_id(pin));
 }
 
-__always_inline static ioport_port_mask_t arch_ioport_pin_to_mask(ioport_pin_t pin)
+__always_inline static ioport_port_mask_t arch_ioport_pin_to_mask(
+		ioport_pin_t pin)
 {
 	return 1U << (pin & 0x07);
 }
 
-__always_inline static ioport_port_mask_t arch_ioport_pin_to_index(ioport_pin_t pin)
+__always_inline static ioport_port_mask_t arch_ioport_pin_to_index(
+		ioport_pin_t pin)
 {
 	return (pin & 0x07);
 }
 
 __always_inline static void arch_ioport_init(void)
 {
-	
 }
 
 __always_inline static void arch_ioport_enable_port(ioport_port_t port,
@@ -161,20 +162,20 @@ __always_inline static void arch_ioport_enable_port(ioport_port_t port,
 			pin_ctrl[i] &= ~PORT_ISC_gm;
 		}
 	}
-	
-	cpu_irq_restore(flags);	
+
+	cpu_irq_restore(flags);
 }
 
 __always_inline static void arch_ioport_enable_pin(ioport_pin_t pin)
 {
 	PORT_t *base = arch_ioport_pin_to_base(pin);
-	volatile uint8_t *pin_ctrl =
-			(&base->PIN0CTRL + arch_ioport_pin_to_index(pin));
+	volatile uint8_t *pin_ctrl
+		= (&base->PIN0CTRL + arch_ioport_pin_to_index(pin));
 
 	uint8_t flags = cpu_irq_save();
-	
+
 	*pin_ctrl &= ~PORT_ISC_gm;
-	
+
 	cpu_irq_restore(flags);
 }
 
@@ -191,20 +192,20 @@ __always_inline static void arch_ioport_disable_port(ioport_port_t port,
 			pin_ctrl[i] |= PORT_ISC_INPUT_DISABLE_gc;
 		}
 	}
-	
+
 	cpu_irq_restore(flags);
 }
 
 __always_inline static void arch_ioport_disable_pin(ioport_pin_t pin)
 {
 	PORT_t *base = arch_ioport_pin_to_base(pin);
-	volatile uint8_t *pin_ctrl =
-			(&base->PIN0CTRL + arch_ioport_pin_to_index(pin));
+	volatile uint8_t *pin_ctrl
+		= (&base->PIN0CTRL + arch_ioport_pin_to_index(pin));
 
 	uint8_t flags = cpu_irq_save();
-	
+
 	*pin_ctrl |= PORT_ISC_INPUT_DISABLE_gc;
-	
+
 	cpu_irq_restore(flags);
 }
 
@@ -212,18 +213,35 @@ __always_inline static void arch_ioport_set_port_mode(ioport_port_t port,
 		ioport_port_mask_t mask, ioport_mode_t mode)
 {
 	PORT_t *base = arch_ioport_port_to_base(port);
+	volatile uint8_t *pin_ctrl = &base->PIN0CTRL;
+	uint8_t new_mode_bits = (mode & ~PORT_ISC_gm);
 
-	PORTCFG.MPCMASK = mask;
-	base->PIN0CTRL = mode;
+	uint8_t flags = cpu_irq_save();
+
+	for (uint8_t i = 0; i < 8; i++) {
+		if (mask & arch_ioport_pin_to_mask(i)) {
+			pin_ctrl[i]
+				= (pin_ctrl[i] &
+					PORT_ISC_gm) | new_mode_bits;
+		}
+	}
+
+	cpu_irq_restore(flags);
 }
 
 __always_inline static void arch_ioport_set_pin_mode(ioport_pin_t pin,
 		ioport_mode_t mode)
 {
 	PORT_t *base = arch_ioport_pin_to_base(pin);
+	volatile uint8_t *pin_ctrl
+		= (&base->PIN0CTRL + arch_ioport_pin_to_index(pin));
 
-	PORTCFG.MPCMASK = arch_ioport_pin_to_mask(pin);
-	base->PIN0CTRL = mode;
+	uint8_t flags = cpu_irq_save();
+
+	*pin_ctrl &= PORT_ISC_gm;
+	*pin_ctrl |= mode;
+
+	cpu_irq_restore(flags);
 }
 
 __always_inline static void arch_ioport_set_port_dir(ioport_port_t port,
@@ -266,9 +284,13 @@ __always_inline static void arch_ioport_set_port_level(ioport_port_t port,
 		ioport_port_mask_t mask, ioport_port_mask_t level)
 {
 	PORT_t *base = arch_ioport_port_to_base(port);
-
-	base->OUTSET = mask & level;
-	base->OUTCLR = mask & ~level;
+	if (level) {
+		base->OUTSET |= mask;
+		base->OUTCLR &= ~mask;
+	} else {
+		base->OUTSET &= ~mask;
+		base->OUTCLR |= mask;
+	}
 }
 
 __always_inline static bool arch_ioport_get_pin_level(ioport_pin_t pin)
@@ -305,14 +327,14 @@ __always_inline static void arch_ioport_set_pin_sense_mode(ioport_pin_t pin,
 		enum ioport_sense pin_sense)
 {
 	PORT_t *base = arch_ioport_pin_to_base(pin);
-	volatile uint8_t *pin_ctrl =
-			(&base->PIN0CTRL + arch_ioport_pin_to_index(pin));
+	volatile uint8_t *pin_ctrl
+		= (&base->PIN0CTRL + arch_ioport_pin_to_index(pin));
 
 	uint8_t flags = cpu_irq_save();
-	
+
 	*pin_ctrl &= ~PORT_ISC_gm;
 	*pin_ctrl |= (pin_sense & PORT_ISC_gm);
-	
+
 	cpu_irq_restore(flags);
 }
 
@@ -327,7 +349,9 @@ __always_inline static void arch_ioport_set_port_sense_mode(ioport_port_t port,
 
 	for (uint8_t i = 0; i < 8; i++) {
 		if (mask & arch_ioport_pin_to_mask(i)) {
-			pin_ctrl[i] = (pin_ctrl[i] & ~PORT_ISC_gm) | new_sense_bits;
+			pin_ctrl[i]
+				= (pin_ctrl[i] &
+					~PORT_ISC_gm) | new_sense_bits;
 		}
 	}
 

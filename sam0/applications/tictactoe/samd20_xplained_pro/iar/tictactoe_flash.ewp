@@ -168,9 +168,10 @@
 					<name>CCDefines</name>
 					<state>ARM_MATH_CM0=true</state>
 					<state>GFX_MONO_UG_2832HSWEG04=1</state>
-					<state>__SAMD20J18__</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
+					<state>SYSTICK_MODE</state>
 					<state>SPI_CALLBACK_MODE=false</state>
+					<state>__SAMD20J18__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -299,6 +300,7 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
+					<state>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd20</state>
 					<state>$PROJ_DIR$/../../../../drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../common2/services/gfx_mono</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
@@ -313,6 +315,7 @@
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../common2/components/display/ssd1306</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component</state>
 					<state>$PROJ_DIR$/../../../../../common2/services/delay/sam0</state>
@@ -475,9 +478,10 @@
 					<name>ADefines</name>
 					<state>ARM_MATH_CM0=true</state>
 					<state>GFX_MONO_UG_2832HSWEG04=1</state>
-					<state>__SAMD20J18__</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
+					<state>SYSTICK_MODE</state>
 					<state>SPI_CALLBACK_MODE=false</state>
+					<state>__SAMD20J18__</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -573,6 +577,7 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
+					<state>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd20</state>
 					<state>$PROJ_DIR$/../../../../drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../common2/services/gfx_mono</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
@@ -587,6 +592,7 @@
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../common2/components/display/ssd1306</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component</state>
 					<state>$PROJ_DIR$/../../../../../common2/services/delay/sam0</state>
@@ -778,11 +784,10 @@
 				</option>
 				<option>
 					<name>IlinkUseExtraOptions</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1142,9 +1147,10 @@
 					<name>CCDefines</name>
 					<state>ARM_MATH_CM0=true</state>
 					<state>GFX_MONO_UG_2832HSWEG04=1</state>
-					<state>__SAMD20J18__</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
+					<state>SYSTICK_MODE</state>
 					<state>SPI_CALLBACK_MODE=false</state>
+					<state>__SAMD20J18__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1273,6 +1279,7 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
+					<state>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd20</state>
 					<state>$PROJ_DIR$/../../../../drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../common2/services/gfx_mono</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
@@ -1287,6 +1294,7 @@
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../common2/components/display/ssd1306</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component</state>
 					<state>$PROJ_DIR$/../../../../../common2/services/delay/sam0</state>
@@ -1449,9 +1457,10 @@
 					<name>ADefines</name>
 					<state>ARM_MATH_CM0=true</state>
 					<state>GFX_MONO_UG_2832HSWEG04=1</state>
-					<state>__SAMD20J18__</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
+					<state>SYSTICK_MODE</state>
 					<state>SPI_CALLBACK_MODE=false</state>
+					<state>__SAMD20J18__</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1547,6 +1556,7 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
+					<state>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd20</state>
 					<state>$PROJ_DIR$/../../../../drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../common2/services/gfx_mono</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
@@ -1561,6 +1571,7 @@
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../common2/components/display/ssd1306</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component</state>
 					<state>$PROJ_DIR$/../../../../../common2/services/delay/sam0</state>
@@ -1752,11 +1763,10 @@
 				</option>
 				<option>
 					<name>IlinkUseExtraOptions</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1997,13 +2007,16 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/pio_samd20g14.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/pio_samd20e1f.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/pio_samd20g16.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/pio_samd20g15.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/pio_samd20e16.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/pio_samd20e16.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/pio_samd20g15.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/pio_samd20g17.h</name>
@@ -2031,9 +2044,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/pio_samd20j16.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/pio_samd20e18.h</name>
 							</file>
 						</group>
 						<group>
@@ -2075,7 +2085,7 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/instance_sercom2.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/instance_rtc.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/instance_pac0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/instance_sercom3.h</name>
@@ -2120,7 +2130,7 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/instance_evsys.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/instance_pac0.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/instance_rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/instance_sercom5.h</name>
@@ -2153,13 +2163,10 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component/component_pm.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component/component_rtc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component/component_evsys.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component/component_sercom.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component/component_rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component/component_dsu.h</name>
@@ -2180,6 +2187,9 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component/component_ac.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component/component_sercom.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/component/component_wdt.h</name>
 							</file>
 							<file>
@@ -2194,9 +2204,6 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20e18.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20e16.h</name>
@@ -2243,6 +2250,9 @@
 			<group>
 				<name>preprocessor</name>
 				<file>
+					<name>$PROJ_DIR$/../../../../utils/preprocessor/mrecursion.h</name>
+				</file>
+				<file>
 					<name>$PROJ_DIR$/../../../../utils/preprocessor/stringz.h</name>
 				</file>
 				<file>
@@ -2259,22 +2269,61 @@
 		<group>
 			<name>drivers</name>
 			<group>
-				<name>port</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/port/port.c</name>
-				</file>
+				<name>system</name>
 				<group>
-					<name>quick_start</name>
+					<name>clock</name>
+					<group>
+						<name>clock_samd20</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd20/clock.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd20/gclk.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd20/clock_config_check.h</name>
+						</file>
+					</group>
+					<group>
+						<name>quick_start_gclk</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/clock/quick_start_gclk/qs_gclk_basic.h</name>
+						</file>
+					</group>
+					<group>
+						<name>quick_start_clock</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/clock/quick_start_clock/qs_clock_source.h</name>
+						</file>
+					</group>
 					<file>
-						<name>$PROJ_DIR$/../../../../drivers/port/quick_start/qs_port_basic.h</name>
+						<name>$PROJ_DIR$/../../../../drivers/system/clock/clock.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/system/clock/gclk.h</name>
 					</file>
 				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/port/port.h</name>
-				</file>
-			</group>
-			<group>
-				<name>system</name>
+				<group>
+					<name>interrupt</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt.c</name>
+					</file>
+					<group>
+						<name>system_interrupt_samd20</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd20/system_interrupt_features.h</name>
+						</file>
+					</group>
+					<group>
+						<name>quick_start</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/interrupt/quick_start/qs_system_interrupt.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt.h</name>
+					</file>
+				</group>
 				<group>
 					<name>pinmux</name>
 					<file>
@@ -2290,56 +2339,26 @@
 						<name>$PROJ_DIR$/../../../../drivers/system/pinmux/pinmux.h</name>
 					</file>
 				</group>
-				<group>
-					<name>interrupt</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt.c</name>
-					</file>
-					<group>
-						<name>quick_start</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/interrupt/quick_start/qs_system_interrupt.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt.h</name>
-					</file>
-				</group>
-				<group>
-					<name>clock</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/clock/clock.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/clock/gclk.c</name>
-					</file>
-					<group>
-						<name>quick_start_gclk</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/clock/quick_start_gclk/qs_gclk_basic.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_config_check.h</name>
-					</file>
-					<group>
-						<name>quick_start_clock</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/clock/quick_start_clock/qs_clock_source.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/clock/clock.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/clock/gclk.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/system/system.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/system/system.h</name>
+				</file>
+			</group>
+			<group>
+				<name>port</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/port/port.c</name>
+				</file>
+				<group>
+					<name>quick_start</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/port/quick_start/qs_port_basic.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/port/port.h</name>
 				</file>
 			</group>
 			<group>
@@ -2362,6 +2381,12 @@
 						<name>quick_start_master</name>
 						<file>
 							<name>$PROJ_DIR$/../../../../drivers/sercom/spi/quick_start_master/qs_spi_master_basic.h</name>
+						</file>
+					</group>
+					<group>
+						<name>quick_start_dma</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/sercom/spi/quick_start_dma/qs_spi_dma_use.h</name>
 						</file>
 					</group>
 					<file>
@@ -2402,6 +2427,9 @@
 					</group>
 					<file>
 						<name>$PROJ_DIR$/../conf_ssd1306.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../conf_spi.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../conf_clocks.h</name>
@@ -2458,10 +2486,10 @@
 				<group>
 					<name>sam0</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../../common2/services/delay/sam0/cycle_counter.c</name>
+						<name>$PROJ_DIR$/../../../../../common2/services/delay/sam0/systick_counter.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../common2/services/delay/sam0/cycle_counter.h</name>
+						<name>$PROJ_DIR$/../../../../../common2/services/delay/sam0/systick_counter.h</name>
 					</file>
 				</group>
 				<file>

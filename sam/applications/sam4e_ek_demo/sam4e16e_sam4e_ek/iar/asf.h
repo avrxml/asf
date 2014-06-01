@@ -80,14 +80,12 @@
 #include <ili9341_regs.h>
 #include <ili93xx.h>
 
-// From module: Ethernet MAC (GMAC)
-#include <gmac.h>
-
 // From module: Ethernet Physical Transceiver (ksz8051mnl)
 #include <ethernet_phy.h>
 
-// From module: FreeRTOS mini Real-Time Kernel
+// From module: FreeRTOS - Kernel 7.3.0
 #include <FreeRTOS.h>
+#include <FreeRTOS_CLI.h>
 #include <StackMacros.h>
 #include <croutine.h>
 #include <list.h>
@@ -99,13 +97,16 @@
 #include <task.h>
 #include <timers.h>
 
+// From module: GPIO - General purpose Input/Output
+#include <gpio.h>
+
 // From module: Generic board support
 #include <board.h>
 
 // From module: IOPORT - General purpose I/O service
 #include <ioport.h>
 
-// From module: IPv4 support in lwIP v140
+// From module: IPv4 support in lwIP v141
 #include <lwip/autoip.h>
 #include <lwip/icmp.h>
 #include <lwip/igmp.h>
@@ -120,6 +121,9 @@
 
 // From module: PDC - Peripheral DMA Controller Example
 #include <pdc.h>
+
+// From module: PHY Ethernet MAC (GMAC)
+#include <gmac.h>
 
 // From module: PIO - Parallel Input/Output Controller
 #include <pio.h>
@@ -161,6 +165,11 @@
 #include <sam/sleepmgr.h>
 #include <sleepmgr.h>
 
+// From module: Stand-alone port(no OS) of the lwIP v141 stack on SAM hardware module.
+#include <arch/cc.h>
+#include <arch/perf.h>
+#include <sam4e_gmac.h>
+
 // From module: Standard serial I/O (stdio) - SAM implementation
 #include <stdio_serial.h>
 
@@ -188,45 +197,9 @@
 // From module: USART - Univ. Syn Async Rec/Trans
 #include <usart.h>
 
-// From module: lwIP TCP/IP Stack v140
-#include <api.h>
-#include <api_msg.h>
-#include <arch.h>
-#include <debug.h>
-#include <def.h>
-#include <dhcp.h>
-#include <dns.h>
-#include <err.h>
-#include <init.h>
-#include <mem.h>
-#include <memp.h>
-#include <memp_std.h>
-#include <netbuf.h>
-#include <netdb.h>
-#include <netif.h>
-#include <netifapi.h>
-#include <opt.h>
-#include <pbuf.h>
-#include <raw.h>
+// From module: lwIP TCP/IP Stack v141
 #include <sio.h>
-#include <snmp.h>
-#include <snmp_asn1.h>
-#include <snmp_msg.h>
-#include <snmp_structs.h>
-#include <sockets.h>
-#include <stats.h>
-#include <sys.h>
-#include <tcp.h>
-#include <tcp_impl.h>
 #include <tcpip.h>
-#include <timers.h>
-#include <udp.h>
-
-// From module: lwIP v140 port to FreeRTOS on SAM hardware module.
-#include <arch/cc.h>
-#include <arch/perf.h>
-#include <arch/sys_arch.h>
-#include <netif/ethernetif.h>
 
 // From module: pio_handler support enabled
 #include <pio_handler.h>

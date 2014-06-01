@@ -52,7 +52,7 @@
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
-// From module: AC - Analog Comparator
+// From module: AC - Analog Comparator (Callback APIs)
 #include <ac.h>
 #include <ac_callback.h>
 
@@ -72,7 +72,7 @@
 // From module: Part identification macros
 #include <parts.h>
 
-// From module: SYSTEM - Clock Management
+// From module: SYSTEM - Clock Management for SAMD20
 #include <clock.h>
 #include <gclk.h>
 

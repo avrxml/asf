@@ -3,7 +3,7 @@
  *
  * \brief Analog comparator (AC) functions
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -136,17 +136,17 @@ enum ac_interrupt_mode_t {
  *
  * Example:
  * \code
- * void my_ac_callback(AC_t *ac, uint8_t channel, enum ac_status_t status) {
- *      // Add desired functionality.
- * }
- * \endcode
+	void my_ac_callback(AC_t *ac, uint8_t channel, enum ac_status_t status) {
+	     // Add desired functionality.
+	}
+\endcode
  *
  * Then add this callback function to the analog comparator interrupt routine
  * by setting it in the driver.
  *
  * \code
- * ac_set_interrupt_callback(ACA, 0, my_ac_callback);
- * \endcode
+	ac_set_interrupt_callback(ACA, 0, my_ac_callback);
+\endcode
  */
 typedef void (*ac_callback_t) (AC_t *ac, uint8_t channel,
 		enum ac_status_t status);
@@ -389,115 +389,115 @@ static inline void ac_set_low_power_mode(struct ac_config *config)
  *
  * You must also enable the AC pins, this is done by defining:
  * \code
- * #define CONF_BOARD_ENABLE_AC_PINS
- * \endcode
+	#define CONF_BOARD_ENABLE_AC_PINS
+\endcode
  * in your source code.
  *
  * The memset() function used to zero out our configuration structure is
  * located in string.h, so we must include it:
  * \code
- * #include <string.h>
- * \endcode
+	#include <string.h>
+\endcode
  *
  * \section xmega_ac_quickstart_setup Setup
  *
  * \subsection xmega_ac_quickstart_setup_code Code
  *
  * \code
- * #define VOLTAGE_SCALED_VALUE 32
- *
- * void ac_init()
- * {
- *     struct ac_config aca_config;
- *
- *     memset(&aca_config, 0, sizeof(struct ac_config));
- *
- *     ac_set_mode(&aca_config, AC_MODE_SINGLE);
- *     ac_set_voltage_scaler(&aca_config, VOLTAGE_SCALED_VALUE);
- *     ac_set_hysteresis(&aca_config, AC_HYSMODE_LARGE_gc);
- *     ac_set_negative_reference(&aca_config, AC_MUXNEG_SCALER_gc);
- *     ac_set_positive_reference(&aca_config, AC_MUXPOS_PIN1_gc);
- *
- *     ac_set_interrupt_mode(&aca_config, AC_INT_MODE_BOTH_EDGES);
- *     ac_set_interrupt_level(&aca_config, AC_INT_LVL_MED);
- *     ac_set_interrupt_callback(&ACA, example_ac_window_interrupt);
- *
- *     ac_write_config(&ACA, 0, &aca_config);
- *
- *     ac_enable(&ACA, 0);
- *
- *     cpu_irq_enable();
- * }
- * \endcode
+	 #define VOLTAGE_SCALED_VALUE 32
+
+	 void ac_init()
+	 {
+	     struct ac_config aca_config;
+
+	     memset(&aca_config, 0, sizeof(struct ac_config));
+
+	     ac_set_mode(&aca_config, AC_MODE_SINGLE);
+	     ac_set_voltage_scaler(&aca_config, VOLTAGE_SCALED_VALUE);
+	     ac_set_hysteresis(&aca_config, AC_HYSMODE_LARGE_gc);
+	     ac_set_negative_reference(&aca_config, AC_MUXNEG_SCALER_gc);
+	     ac_set_positive_reference(&aca_config, AC_MUXPOS_PIN1_gc);
+
+	     ac_set_interrupt_mode(&aca_config, AC_INT_MODE_BOTH_EDGES);
+	     ac_set_interrupt_level(&aca_config, AC_INT_LVL_MED);
+	     ac_set_interrupt_callback(&ACA, example_ac_window_interrupt);
+
+	     ac_write_config(&ACA, 0, &aca_config);
+
+	     ac_enable(&ACA, 0);
+
+	     cpu_irq_enable();
+	 }
+\endcode
  *
  * Add to \c main():
  * \code
- * ac_init();
- * \endcode
+	ac_init();
+\endcode
  *
  * \subsection xmega_ac_quickstart_setup_workflow Workflow
  *
  * We define how much we wish to scale the voltage:
  * \code
- * #define VOLTAGE_SCALED_VALUE 32
- * \endcode
+	#define VOLTAGE_SCALED_VALUE 32
+\endcode
  *
  * We create a structure to store the configuration data for the AC:
  * \code
- * struct ac_config aca_config;
- * \endcode
+	struct ac_config aca_config;
+\endcode
  *
  * We zero out the aca_config struct:
  * \code
- * memset(&aca_config, 0, sizeof(struct ac_config));
- * \endcode
+	memset(&aca_config, 0, sizeof(struct ac_config));
+\endcode
  * \attention This step is important, as uninitialized values in the struct
  *            may cause strange and unwanted behavior.
  *
  * First, we set the AC mode for the ACA comparator to single operation.
  * \code
- * ac_set_mode(&aca_config, AC_MODE_SINGLE);
- * \endcode
+	ac_set_mode(&aca_config, AC_MODE_SINGLE);
+\endcode
  *
  * We set the reference voltage to VCC/2 (scaler 32/64):
  * \code
- * ac_set_voltage_scaler(&aca_config, VOLTAGE_SCALED_VALUE-1);
- * \endcode
+	ac_set_voltage_scaler(&aca_config, VOLTAGE_SCALED_VALUE-1);
+\endcode
  *
  * We enable hysteresis, to avoid flickering due to disturbances:
  * \code
- * ac_set_hysteresis(&aca_config, AC_HYSMODE_LARGE_gc);
- * \endcode
+	ac_set_hysteresis(&aca_config, AC_HYSMODE_LARGE_gc);
+\endcode
  *
  * We set the negative reference to be our scaled voltage, and the
  * positive reference to be the positive reference:
  * \code
- * ac_set_negative_reference(&aca_config, AC_MUXNEG_SCALER_gc);
- * ac_set_positive_reference(&aca_config, AC_MUXPOS_PIN1_gc);
- * \endcode
+	ac_set_negative_reference(&aca_config, AC_MUXNEG_SCALER_gc);
+	ac_set_positive_reference(&aca_config, AC_MUXPOS_PIN1_gc);
+\endcode
  *
  * We set the interrupt mode to call the interrupt function on
  * both edges, the interrupt level to medium, and set the callback
  * function:
  *
  * \code
- * ac_set_interrupt_mode(&aca_config, AC_INT_MODE_BOTH_EDGES);
- * ac_set_interrupt_level(&aca_config, AC_INT_LVL_MED);
- * ac_set_interrupt_callback(&ACA, example_ac_window_interrupt);
- * \endcode
+	ac_set_interrupt_mode(&aca_config, AC_INT_MODE_BOTH_EDGES);
+	ac_set_interrupt_level(&aca_config, AC_INT_LVL_MED);
+	ac_set_interrupt_callback(&ACA, example_ac_window_interrupt);
+\endcode
  *
  * We write the configuration to the AC A channel 0, and enable it:
  *
  * \code
- * ac_write_config(&ACA, 0, &aca_config);
- *
- * ac_enable(&ACA, 0);
- * \endcode
+	 ac_write_config(&ACA, 0, &aca_config);
+
+	 ac_enable(&ACA, 0);
+\endcode
  *
  * Finally, we must enable interrupts:
  * \code
- * cpu_irq_enable();
- * \endcode
+	cpu_irq_enable();
+\endcode
  *
  * \section xmega_ac_quickstart_example_code Use case
  *
@@ -507,45 +507,45 @@ static inline void ac_set_low_power_mode(struct ac_config *config)
  * \subsection xmega_ac_quickstart_use_case_code Example code
  *
  * \code
- * static void example_ac_window_interrupt(AC_t *ac, uint8_t channel,
- *         enum ac_status_t status)
- * {
- *     gpio_set_pin_high(LED0_GPIO);
- *     gpio_set_pin_high(LED1_GPIO);
+	 * static void example_ac_window_interrupt(AC_t *ac, uint8_t channel,
+	 *         enum ac_status_t status)
+	 * {
+	 *     gpio_set_pin_high(LED0_GPIO);
+	 *     gpio_set_pin_high(LED1_GPIO);
 
- *     switch (status) {
- *         case AC_STATUS_BELOW:
- *             gpio_set_pin_low(LED0_GPIO);
- *             break;
- *         case AC_STATUS_ABOVE:
- *             gpio_set_pin_low(LED1_GPIO);
- *             break;
- *         default: break;
- *     }
- * }
- * \endcode
+	 *     switch (status) {
+	 *         case AC_STATUS_BELOW:
+	 *             gpio_set_pin_low(LED0_GPIO);
+	 *             break;
+	 *         case AC_STATUS_ABOVE:
+	 *             gpio_set_pin_low(LED1_GPIO);
+	 *             break;
+	 *         default: break;
+	 *     }
+	 * }
+\endcode
  *
  * \subsection xmega_ac_quickstart_use_case_workflow Workflow
  *
  * We switch the LEDS off:
  * \code
- * gpio_set_pin_high(LED0_GPIO);
- * gpio_set_pin_high(LED1_GPIO);
- * \endcode
+	gpio_set_pin_high(LED0_GPIO);
+	gpio_set_pin_high(LED1_GPIO);
+\endcode
  *
  * We turn on LEDS according to where the AC reads our PIN to be
  * in relation to the reference.
  * \code
- * switch (status) {
- *     case AC_STATUS_BELOW:
- *         gpio_set_pin_low(LED0_GPIO);
- *         break;
- *     case AC_STATUS_ABOVE:
- *         gpio_set_pin_low(LED1_GPIO);
- *         break;
- *     default: break;
- * }
- * \endcode
+	switch (status) {
+	    case AC_STATUS_BELOW:
+	        gpio_set_pin_low(LED0_GPIO);
+	        break;
+	    case AC_STATUS_ABOVE:
+	        gpio_set_pin_low(LED1_GPIO);
+	        break;
+	    default: break;
+	}
+\endcode
  * \note This interrupt function is called every time the AC sees a change
  *       on the AC output (rising or falling).
  *

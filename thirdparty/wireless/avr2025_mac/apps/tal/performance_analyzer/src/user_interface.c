@@ -4,7 +4,7 @@
  * \brief LED, Button and terminal print functions - Perfoamnce Analyzer
  * application
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,8 +48,14 @@
  */
 /* === INCLUDES ============================================================ */
 #include "tal.h"
-# include "asf.h"
 # include "app_init.h"
+#if (LED_COUNT > 0)
+#if !(SAMD ||  SAMR21)
+# include "led.h"
+#endif
+#endif
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
  * \addtogroup group_user_interface
@@ -70,14 +76,17 @@
 #define LED_ON_DURAION_MICRO_SEC        (100000)
 
 /* === PROTOTYPES ========================================================== */
+#if (LED_COUNT > 0)
 static void app_switch_off_tx_led_cb(void *parameter);
 static void app_switch_off_rx_led_cb(void *parameter);
+
+#endif
 
 /* === GLOBALS ============================================================= */
 
 /**
  * This table holds the Messages to be printed on the UART Terminal at each
- *event
+ * event
  */
 print_event_msg_t print_event_table[NUM_MAX_PRINT_EVENTS] = {
 	{ /* PRINT_KEY_PRESS_WHILE_POWER_ON_CONFIG_MODE */
@@ -177,8 +186,13 @@ bool app_debounce_button(void)
 			key_cnt++;
 		}
 	} else if (!(button_pressed()) &&
-			(key_cnt == COUNT_FOR_VALID_KEY_PRESS)) {           /* Button
-	                                                                     * released */
+			(key_cnt == COUNT_FOR_VALID_KEY_PRESS)) {           /*
+		                                                             *
+		                                                             *Button
+		                                                             *
+		                                                             *
+		                                                             *released
+		                                                             **/
 		ret = 1;
 		key_cnt = 0;
 	} else {
@@ -195,18 +209,30 @@ bool app_debounce_button(void)
  */
 bool button_pressed(void)
 {
-#if defined GPIO_PUSH_BUTTON_0
-	/*Read the current state of the button*/
+#if SAMD || SAMR21
+	if (port_pin_get_input_level(SW0_PIN)) {
+		return false;
+	} else {
+		return true;
+	}
+#endif
+
+#ifdef SENSOR_TERMINAL_BOARD
+	if (stb_button_read()) {
+		return true;
+	} else {
+		return false;
+	}
+
+#elif defined GPIO_PUSH_BUTTON_0        /*Read the current state of the button*/
 	if (ioport_get_pin_level(GPIO_PUSH_BUTTON_0)) {
 		return false;
 	} else {
 		return true;
 	}
-
-#else
-	return false;
-
 #endif
+
+	return false;
 }
 
 /* LED related functions */
@@ -219,6 +245,7 @@ bool button_pressed(void)
  */
 void app_led_event(led_event_t ev)
 {
+#if (LED_COUNT > 0)
 	switch (ev) {
 	case LED_EVENT_TX_FRAME:
 		LED_On(TX_LED);
@@ -240,8 +267,8 @@ void app_led_event(led_event_t ev)
 
 	case LED_EVENT_POWER_ON:
 		LED_Off(STATUS_LED);
-		LED_On(TX_LED);
 		LED_Off(RX_LED);
+		LED_On(TX_LED);
 		break;
 
 	case LED_EVENT_START_PEER_SEARCH:
@@ -253,8 +280,8 @@ void app_led_event(led_event_t ev)
 	case LED_EVENT_PEER_SEARCH_DONE:
 
 		LED_Off(TX_LED);
-		LED_On(STATUS_LED);
 		LED_Off(RX_LED);
+		LED_On(STATUS_LED);
 		break;
 
 	case LED_EVENT_ALL_ON:
@@ -270,7 +297,10 @@ void app_led_event(led_event_t ev)
 		LED_Off(RX_LED);
 		break;
 	}
+#endif
 }
+
+#if (LED_COUNT > 0)
 
 /**
  * \brief Callback function switching off the TX_LED
@@ -282,7 +312,6 @@ static void app_switch_off_tx_led_cb(void *parameter)
 {
 	/* switch off the LED */
 	LED_Off(TX_LED);
-
 	/* keep the compiler happy */
 	parameter = parameter;
 }
@@ -302,6 +331,7 @@ static void app_switch_off_rx_led_cb(void *parameter)
 	parameter = parameter;
 }
 
+#endif
 /* Print related functions */
 
 /*

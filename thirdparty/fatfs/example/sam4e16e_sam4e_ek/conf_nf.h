@@ -51,6 +51,12 @@
 /* Number of tries for copying a block */
 #define CONF_NF_COPY_NUM_TRY            2
 
+/* Maximum number of blocks in a device. */
+#define NAND_COMMON_MAX_BLOCK_NUMBER       2048
+
+/* Maximum number of pages in one block. */
+#define NAND_COMMON_MAX_PAGES_PER_BLOCK    256
+
 /* Maximum size of the data area of one page, in bytes. */
 #define NAND_COMMON_MAX_PAGE_SIZE          2048
 

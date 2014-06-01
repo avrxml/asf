@@ -5,7 +5,7 @@
  *
  * This file defines a useful set of functions for the TWIS on SAM4L devices.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -200,7 +200,7 @@ enum status_code twis_init(struct twis_dev_inst *const dev_inst,
 		return STATUS_ERR_DENIED;
 	}
 
-	if (twis->TWIS_SR & (TWIS_SR_RXRDY | TWIS_SR_TXRDY) == 0) {
+	if ((twis->TWIS_SR & (TWIS_SR_RXRDY | TWIS_SR_TXRDY)) == 0) {
 		return STATUS_ERR_BUSY;
 	}
 
@@ -289,6 +289,8 @@ static void twis_interrupt_handler(uint32_t ch)
 	uint32_t enabled = twis_get_interrupt_mask(dev_inst);
 	uint32_t pending = status & enabled;
 
+	twis_clear_status(dev_inst, pending);
+
 	/* An error has occurred, set only address match active and return */
 	if (status & TWIS_SR_ERROR) {
 		twis_disable_interrupt(dev_inst, TWIS_INTERRUPT_ALL);
@@ -349,8 +351,7 @@ static void twis_interrupt_handler(uint32_t ch)
 	/* Check if the transmission complete or repeated start flags raised */
 	if (pending & (TWIS_IER_TCOMP | TWIS_IER_REP)) {
 		/* Clear transmit complete and repeated start flags */
-		twis_clear_status(dev_inst,
-				TWIS_SCR_TCOMP | TWIS_SCR_REP | TWIS_SCR_NAK);
+		twis_clear_status(dev_inst, TWIS_SCR_NAK);
 		/* Disable transmission ready interrupt */
 		twis_disable_interrupt(dev_inst, TWIS_INTERRUPT_BYTE_TRANS_FINISHED);
 		twis_disable_interrupt(dev_inst, TWIS_INTERRUPT_RX_BUFFER_READY);
@@ -361,7 +362,6 @@ static void twis_interrupt_handler(uint32_t ch)
 		/* Call user specific stop function */
 		twis_callback_pointer[ch].stop();
 	}
-	twis_clear_status(dev_inst, pending);
 }
 
 /**

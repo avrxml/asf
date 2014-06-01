@@ -112,7 +112,7 @@ extern "C" {
  * Configuration of AOA Interface
  * @{
  */
-#define UHI_AOA_CHANGE(dev, b_plug)               main_event_aoa(dev, b_plug)
+#define UHI_AOA_CHANGE(dev, b_plug)               ui_uhi_aoa_change(dev, b_plug)
 
 /** @} */
 /** @} */

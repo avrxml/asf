@@ -3,7 +3,7 @@
  *
  * \brief Frequency Meter Example for SAM4L.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,7 +50,7 @@
  *
  * \section Requirements
  *
- * This example can be used on SAM4L-EK boards.
+ * This example can be used on SAM4L devices.
  *
  * \section Description
  *
@@ -61,7 +61,7 @@
  *
  * - Build the program and download it to the evaluation board. Please
  *  refer to the SAM4L main page documentation
- *  http://www.atmel.com/tools/SAM4L-EK.aspx
+ *  http://www.atmel.com/products/microcontrollers/ARM/SAM4L.aspx
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -72,11 +72,11 @@
  * -# In the terminal window, the following text should appear (values depend
  *    on the board and chip used):
  *    \code
- *     -- Freqm Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *    \endcode
- * -# the sent text should appear.
+	-- Freqm Example xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
+ * -# The sent text should appear.
  */
 
 #include "asf.h"
@@ -143,7 +143,7 @@ int main(void)
 	freqm_enable(&g_freqm_inst);
 	freqm_start_measure(&g_freqm_inst);
 
-	if(freqm_get_result_blocking(&g_freqm_inst, &result) == STATUS_OK) {
+	if (freqm_get_result_blocking(&g_freqm_inst, &result) == STATUS_OK) {
 		clk = (result / FREQM_DURATION_DEFAULT) * OSC_RC32K_NOMINAL_HZ;
 		printf(" Current CPU clock mesurement result is %d Hz. \n\r",
 				(int)clk);
@@ -158,7 +158,7 @@ int main(void)
 	freqm_init(&g_freqm_inst, FREQM, &g_freqm_cfg);
 	freqm_start_measure(&g_freqm_inst);
 
-	if(freqm_get_result_blocking(&g_freqm_inst, &result) == STATUS_OK) {
+	if (freqm_get_result_blocking(&g_freqm_inst, &result) == STATUS_OK) {
 		clk = (result / FREQM_DURATION_DEFAULT) * OSC_RC32K_NOMINAL_HZ;
 		printf(" Current OSC0 output clock mesurement result is %d Hz. \n\r",
 				(int)clk);
@@ -168,14 +168,14 @@ int main(void)
 
 	/* Measure clock from PLL0. */
 	pll_config_init(&pcfg, PLL_SRC_OSC0, 1, 96000000 /
-				BOARD_OSC0_HZ);
+			BOARD_OSC0_HZ);
 	pll_enable(&pcfg, 0);
 	pll_wait_for_lock(0);
 	g_freqm_cfg.msr_clk = FREQM_PLL0;
 	freqm_init(&g_freqm_inst, FREQM, &g_freqm_cfg);
 	freqm_start_measure(&g_freqm_inst);
 
-	if(freqm_get_result_blocking(&g_freqm_inst, &result) == STATUS_OK) {
+	if (freqm_get_result_blocking(&g_freqm_inst, &result) == STATUS_OK) {
 		clk = (result / FREQM_DURATION_DEFAULT) * OSC_RC32K_NOMINAL_HZ;
 		printf(" Current PLL0 output clock mesurement result is %d Hz. \n\r",
 				(int)clk);
@@ -194,7 +194,7 @@ int main(void)
 	freqm_init(&g_freqm_inst, FREQM, &g_freqm_cfg);
 	freqm_start_measure(&g_freqm_inst);
 
-	if(freqm_get_result_blocking(&g_freqm_inst, &result) == STATUS_OK) {
+	if (freqm_get_result_blocking(&g_freqm_inst, &result) == STATUS_OK) {
 		clk = (result / FREQM_DURATION_DEFAULT) * OSC_RCSYS_NOMINAL_HZ;
 		printf(" Current GENCLK0 output clock mesurement result is %d Hz. \n\r",
 				(int)clk);

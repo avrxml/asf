@@ -1,0 +1,32 @@
+// ---------------------------------------------------------
+//   ATMEL Microcontroller Software Support  -  ROUSSET  -
+// ---------------------------------------------------------
+// The software is delivered "AS IS" without warranty or
+// condition of any  kind, either express, implied or
+// statutory. This includes without limitation any warranty
+// or condition with respect to merchantability or fitness
+// for any particular purpose, or against the infringements of
+// intellectual property rights of others.
+// ---------------------------------------------------------
+//  User setup file for CSPY debugger.
+// ---------------------------------------------------------
+
+/*********************************************************************
+*
+*       execUserReset()
+*/
+execUserReset()
+{
+    __message "------------------------------ execUserReset ---------------------------------";
+    // Intentional empty here
+}
+
+/*********************************************************************
+*
+*       execUserPreload()
+*/
+execUserPreload()
+{
+    __message "------------------------------ execUserPreload ---------------------------------";
+    // Intentional empty here
+}

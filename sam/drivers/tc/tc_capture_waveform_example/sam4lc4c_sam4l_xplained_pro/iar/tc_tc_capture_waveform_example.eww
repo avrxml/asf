@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\tc_tc_capture_waveform_example_flash.ewp</path>
+	</project>
+</workspace>

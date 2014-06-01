@@ -93,9 +93,6 @@
 // From module: SAM4S Xplained LED support enabled
 #include <led.h>
 
-// From module: SAM4S startup code
-#include <exceptions.h>
-
 // From module: Standard serial I/O (stdio) - SAM implementation
 #include <stdio_serial.h>
 
@@ -104,9 +101,6 @@
 
 // From module: System Clock Control - SAM4S implementation
 #include <sysclk.h>
-
-// From module: TC - Timer Counter
-#include <tc.h>
 
 // From module: UART - Univ. Async Rec/Trans
 #include <uart.h>

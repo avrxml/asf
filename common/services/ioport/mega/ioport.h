@@ -4,7 +4,7 @@
  * \brief MEGA and MEGA_RF architecture specific IOPORT service implementation
  * header file.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -302,7 +302,11 @@ __always_inline static void arch_ioport_set_port_level(ioport_port_t port,
 {
 	PORT_t *base = arch_ioport_port_to_base(port);
 
-	base->PORTDATA = (mask & level);
+	if (level) {
+		base->PORTDATA |= mask;
+	} else {
+		base->PORTDATA &= ~mask;
+	}
 }
 
 /**

@@ -163,6 +163,7 @@
 				<option>
 					<name>CCDefines</name>
 					<state>__SAM3S4C__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3S_EK</state>
 				</option>
@@ -466,6 +467,7 @@
 				<option>
 					<name>ADefines</name>
 					<state>__SAM3S4C__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3S_EK</state>
 				</option>
@@ -1095,6 +1097,7 @@
 				<option>
 					<name>CCDefines</name>
 					<state>__SAM3S4C__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3S_EK</state>
 				</option>
@@ -1398,6 +1401,7 @@
 				<option>
 					<name>ADefines</name>
 					<state>__SAM3S4C__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3S_EK</state>
 				</option>
@@ -1951,15 +1955,15 @@
 			</group>
 			<group>
 				<name>gpio</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../common/services/gpio/gpio.h</name>
-				</file>
 				<group>
 					<name>sam_gpio</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/gpio/sam_gpio/sam_gpio.h</name>
 					</file>
 				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../common/services/gpio/gpio.h</name>
+				</file>
 			</group>
 			<group>
 				<name>ioport</name>
@@ -2210,9 +2214,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_pmc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_spi.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_piob.h</name>
 							</file>
 							<file>
@@ -2234,13 +2235,16 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_tc0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_chipid.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_pwm.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_crccu.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_pwm.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_spi.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_chipid.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_rtt.h</name>
@@ -2298,10 +2302,40 @@
 							</file>
 						</group>
 						<group>
-							<name>component</name>
+							<name>pio</name>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/component/component_matrix.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s4c.h</name>
 							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s2c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s1b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s4a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s2a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s4b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s2b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s1a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s1c.h</name>
+							</file>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/sam3s4b.h</name>
+						</file>
+						<group>
+							<name>component</name>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/component/component_smc.h</name>
 							</file>
@@ -2351,6 +2385,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/component/component_usart.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/component/component_matrix.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/component/component_wdt.h</name>
 							</file>
 							<file>
@@ -2376,39 +2413,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/component/component_supc.h</name>
-							</file>
-						</group>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/sam3s4b.h</name>
-						</file>
-						<group>
-							<name>pio</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s2c.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s1b.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s4a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s4c.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s2a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s4b.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s2b.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s1a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include/pio/pio_sam3s1c.h</name>
 							</file>
 						</group>
 						<file>

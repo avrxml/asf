@@ -3,7 +3,7 @@
  *
  * \brief Haven Display UG 2832HSWEG04 display glue code for display controller
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,6 +48,10 @@
 
 #include "gfx_mono.h"
 #include "gfx_mono_framebuffer.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * \ingroup asfdoc_common2_gfx_mono
@@ -153,5 +157,9 @@ void gfx_mono_ssd1306_mask_byte(gfx_coord_t page, gfx_coord_t column,
 		gfx_mono_color_t pixel_mask, gfx_mono_color_t color);
 
 /** @} */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GFX_MONO_2832HSWEG04_H */

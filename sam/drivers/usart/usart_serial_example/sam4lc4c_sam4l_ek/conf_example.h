@@ -3,7 +3,7 @@
  *
  * \brief USART serial example configuration.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,5 +56,8 @@
 #define USART_Handler              USART2_Handler
 
 #define USART_IRQn                 USART2_IRQn
+
+#define PDCA_PID_USART_RX          2
+#define PDCA_PID_USART_TX          20
 
 #endif /* CONF_EXAMPLE_H_INCLUDED */

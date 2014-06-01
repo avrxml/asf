@@ -68,9 +68,6 @@
  *
  * \section configinfo Configuration Information
  * This example has been tested with the following configuration:
- * - SAM4L_EK evaluation kit;
- * - CPU clock: 48 MHz;
- * - USART2 (on SAM4L_EK) abstracted with a USB CDC connection to a PC;
  * - PC terminal settings:
  *   - 115200 bps,
  *   - 8 data bits,
@@ -206,7 +203,7 @@ int main(void)
 	printf("Use alarm0 to wakeup from low power mode.\r\n");
 	config_ast();
 
-	/* AST and EIC can wakeup the device. */
+	/* AST can wakeup the device. */
 	config_wakeup();
 
 	while (1) {
@@ -227,6 +224,13 @@ int main(void)
 
 		ast_enable_interrupt(AST, AST_INTERRUPT_ALARM);
 
+		printf("\r\n--Enter low power mode.\r\n");
+		/* 
+		 * Wait for the printf operation to finish before setting the
+		 * device in a power save mode.
+		 */
+		delay_ms(30);
+
 		/* Go into selected low power mode. */
 		bpm_sleep(BPM, key);
 		while (flag == false);
@@ -234,6 +238,8 @@ int main(void)
 
 		/* After wake up, clear the Alarm0. */
 		ast_clear_interrupt_flag(AST, AST_INTERRUPT_ALARM);
+
+		printf("\r\n--Exit low power mode.\r\n");
 
 		/* Output the counter value. */
 		ast_counter = ast_read_counter_value(AST);

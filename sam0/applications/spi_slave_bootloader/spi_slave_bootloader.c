@@ -44,7 +44,7 @@
 /**
  * \mainpage SAM D20 SPI Slave Bootloader
  * See \ref appdoc_main "here" for project documentation.
- * \copydetails preface
+ * \copydetails appdoc_preface
  *
  *
  * \page appdoc_preface Features
@@ -132,7 +132,7 @@
  *   - Bootloader acknowledges length by sending byte 's'
  *   - Read a block from SPI Master of size NVMCTRL_PAGE_SIZE
  *   - Program the data to program memory starting at APP_START_ADDRESS
- *   - Send an acknowledgment byte 's' to SPI Master to indicate it has
+ *   - Send an acknowledgement byte 's' to SPI Master to indicate it has
  *     received the data and finished programming
  *   - Repeat until the entire length of data has been programmed to the device
  *
@@ -324,8 +324,8 @@ static void configure_spi(void)
 	/* Change SPI settings to slave */
 	config_spi.mode = SPI_MODE_SLAVE;
 	config_spi.mux_setting = BOOT_SPI_MUX;
-	config_spi.slave.preload_enable = true;
-	config_spi.slave.frame_format = SPI_FRAME_FORMAT_SPI_FRAME;
+	config_spi.mode_specific.slave.preload_enable = true;
+	config_spi.mode_specific.slave.frame_format = SPI_FRAME_FORMAT_SPI_FRAME;
 	config_spi.pinmux_pad0 = BOOT_SPI_PAD0;
 	config_spi.pinmux_pad1 = BOOT_SPI_PAD1;
 	config_spi.pinmux_pad2 = BOOT_SPI_PAD2;
@@ -338,16 +338,15 @@ static void configure_spi(void)
 }
 
 /**
- * \brief Function for sending acknowledgment to SPI Master
+ * \brief Function for sending acknowledgement to SPI Master
  *
- * This function will send an acknowledgment byte 's' to the master to
+ * This function will send an acknowledgement byte 's' to the master to
  * indicate the master that it has received and programmed the data.
  */
 static void send_ack(void)
 {
-	uint16_t ack = (uint16_t)'s';
-	while(!spi_is_ready_to_write(&slave));
-	spi_write(&slave, ack);
+	uint8_t ack = 's';
+	spi_write_buffer_wait(&slave, &ack, 1);
 }
 
 /**

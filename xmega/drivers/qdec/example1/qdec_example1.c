@@ -3,7 +3,7 @@
  *
  * \brief XMEGA E Quadrature decoder driver example 1 application
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -55,9 +55,9 @@
  * When the QDec position changes, the QDec position, direction and frequency
  * is sent on serial COM, as bellow:
  * \code
- * 04 ++   317mHz
- * 05 ++  1436mHz
- * \endcode
+	04 ++   317mHz
+	05 ++  1436mHz
+\endcode
  *
  * \note
  * All AVR XMEGA devices can be used.

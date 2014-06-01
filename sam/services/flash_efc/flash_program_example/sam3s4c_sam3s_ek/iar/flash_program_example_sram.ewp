@@ -768,7 +768,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1698,7 +1697,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -2183,12 +2181,27 @@
 		<group>
 			<name>drivers</name>
 			<group>
-				<name>pio</name>
+				<name>pmc</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../../drivers/pio/pio.c</name>
+					<name>$PROJ_DIR$/../../../../../drivers/pmc/pmc.c</name>
 				</file>
 				<file>
+					<name>$PROJ_DIR$/../../../../../drivers/pmc/sleep.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../drivers/pmc/pmc.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../drivers/pmc/sleep.h</name>
+				</file>
+			</group>
+			<group>
+				<name>pio</name>
+				<file>
 					<name>$PROJ_DIR$/../../../../../drivers/pio/pio_handler.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../drivers/pio/pio.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../drivers/pio/pio_handler.h</name>
@@ -2204,21 +2217,6 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../drivers/uart/uart.h</name>
-				</file>
-			</group>
-			<group>
-				<name>pmc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../drivers/pmc/pmc.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../drivers/pmc/sleep.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../drivers/pmc/pmc.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../drivers/pmc/sleep.h</name>
 				</file>
 			</group>
 			<group>

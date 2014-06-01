@@ -3,7 +3,7 @@
  *
  * \brief Unit test configuration.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,8 +54,8 @@
 #define IFLASH_PAGE_SIZE  IFLASH0_PAGE_SIZE
 #define IFLASH_NB_OF_PAGES  IFLASH0_NB_OF_PAGES
 
-/* Last page start address. */
-#define LAST_PAGE_ADDRESS (IFLASH_ADDR + IFLASH_SIZE/4 - IFLASH_PAGE_SIZE)
+/* Test page start address. */
+#define TEST_PAGE_ADDRESS (IFLASH_ADDR + IFLASH_SIZE/4 - IFLASH_PAGE_SIZE)
 
 /* Flash start address */
 #define IFLASH_ADDR IFLASH0_ADDR

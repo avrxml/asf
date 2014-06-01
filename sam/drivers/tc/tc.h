@@ -86,7 +86,7 @@ void tc_disable_interrupt(Tc *p_tc, uint32_t ul_channel,
 		uint32_t ul_sources);
 uint32_t tc_get_interrupt_mask(Tc *p_tc, uint32_t ul_channel);
 uint32_t tc_get_status(Tc *p_tc, uint32_t ul_channel);
-#if (!SAM4L)
+#if (!SAM4L && !SAMG)
 void tc_enable_qdec_interrupt(Tc *p_tc, uint32_t ul_sources);
 void tc_disable_qdec_interrupt(Tc *p_tc, uint32_t ul_sources);
 uint32_t tc_get_qdec_interrupt_mask(Tc *p_tc);

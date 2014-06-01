@@ -76,11 +76,19 @@
 
 /* Number of timers required for beacon support */
 #ifdef BEACON_SUPPORT
+#ifdef GTS_SUPPORT
+    #if (MAC_START_REQUEST_CONFIRM == 1)
+    #define NUMBER_OF_MAC_BEACON_SUPPORT_TIMERS         (6)
+    #else   /* RFD */
+    #define NUMBER_OF_MAC_BEACON_SUPPORT_TIMERS         (4)
+    #endif /* MAC_START_REQUEST_CONFIRM */
+#else /* GTS_SUPPORT */
     #if (MAC_START_REQUEST_CONFIRM == 1)
 	#define NUMBER_OF_MAC_BEACON_SUPPORT_TIMERS         (5)
     #else   /* RFD */
 	#define NUMBER_OF_MAC_BEACON_SUPPORT_TIMERS         (3)
     #endif /* MAC_START_REQUEST_CONFIRM */
+#endif /* GTS_SUPPORT */
 #else   /* No BEACON_SUPPORT */
 	#define NUMBER_OF_MAC_BEACON_SUPPORT_TIMERS         (0)
 #endif  /* BEACON_SUPPORT / No BEACON_SUPPORT */
@@ -137,6 +145,10 @@ extern uint8_t T_Beacon;
 /* Beacon preperation timer */
 extern uint8_t T_Beacon_Preparation;
     #endif /* (MAC_START_REQUEST_CONFIRM == 1) */
+#ifdef GTS_SUPPORT
+/* GTS timer */
+extern uint8_t T_CAP;
+#endif  /* GTS_SUPPORT */
 #endif  /* BEACON_SUPPORT / No BEACON_SUPPORT */
 
 #if (MAC_INDIRECT_DATA_BASIC == 1)
@@ -168,6 +180,7 @@ extern uint8_t T_Rx_Enable;
 #define NHLE_MAC_QUEUE_CAPACITY             (255)
 #define INDIRECT_DATA_QUEUE_CAPACITY        (255)
 #define BROADCAST_QUEUE_CAPACITY            (255)
+#define GTS_QUEUE_CAPACITY                  (255)
 #endif /* ENABLE_QUEUE_CAPACITY */
 
 /* ! @} */

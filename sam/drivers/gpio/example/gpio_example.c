@@ -3,7 +3,7 @@
  *
  * \brief GPIO interrupt example.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -68,9 +68,9 @@
  *
  * \section configinfo Configuration Information
  * This example has been tested with the following configuration:
- * - SAM4L_EK evaluation kit;
- * - CPU clock: 12 MHz;
- * - USART2 (on SAM4L_EK) abstracted with a USB CDC connection to a PC;
+ * - SAM4L evaluation kit;
+ * - SAM4L Xplained Pro;
+ * - SAM4L8 Xplained Pro;
  * - PC terminal settings:
  *   - 115200 bps,
  *   - 8 data bits,
@@ -111,21 +111,25 @@ static void configure_console(void)
  */
 static void init_pevc(void)
 {
-	/* Enable PEVC clock */
-	sysclk_enable_peripheral_clock(PEVC);
+	/* Set input glitch filter divider to 0x0A (2^10) */
+	struct events_conf config;
+	events_get_config_defaults(&config);
+	events_init(&config);
 
 	/*
 	 * Setup and enable PEVC channel:
 	 * - Generator: PAD_EVT 1
 	 * - User: PDCA - channel 0 transfer one word
-	 * - Set input glitch filter divider to 0x0A (2^10)
 	 * - Enable falling edge detection for EVS
 	 */
-	PEVC->PEVC_CHMX[PEVC_ID_USER_PDCA_0].PEVC_CHMX = PEVC_ID_GEN_PAD_1;
-	PEVC->PEVC_IGFDR = 0x0A;
-	PEVC->PEVC_EVS[PEVC_ID_GEN_PAD_1].PEVC_EVS = PEVC_EVS_EN_1 |
-		PEVC_EVS_IGFF_1;
-	PEVC->PEVC_CHER = (1u << PEVC_ID_USER_PDCA_0);
+	struct events_ch_conf ch_config;
+	events_ch_get_config_defaults(&ch_config);
+	ch_config.channel_id = PEVC_ID_USER_PDCA_0;
+	ch_config.generator_id = PEVC_ID_GEN_PAD_1;
+	ch_config.shaper_enable = true;
+	ch_config.igf_edge = EVENT_IGF_EDGE_FALLING;
+	events_ch_configure(&ch_config);
+	events_ch_enable(PEVC_ID_USER_PDCA_0);
 }
 
 uint8_t event_string[] = "gpio event triggered!";
@@ -152,7 +156,7 @@ static void init_pdca(void)
 	/* PDCA channel options */
 	static const pdca_channel_config_t pdca_tx_configs = {
 		.addr = (void *)event_string,
-		.pid = PDCA_PID_USART2_TX,
+		.pid = PDCA_PID_USART_TX,
 		.size = sizeof(event_string),
 		.r_addr = 0,
 		.r_size = 0,
@@ -180,7 +184,7 @@ static void init_pdca(void)
  */
 static void pb0_callback(void)
 {
-	/* Toggle LED0 when an interrupt happen on PB0 */
+	/* Toggle LED when an interrupt happen on push button */
 	LED_Toggle(LED0);
 }
 
@@ -212,7 +216,7 @@ int main(void)
 		}
 	}
 	gpio_enable_pin_interrupt(EXAMPLE_BUTTON_INT);
-	printf("Press PB0 to trigger an interrupt.\r\n");
+	printf("Press %s to trigger LED.\r\n", BUTTON_0_NAME);
 
 	/* Configure pin to trigger an enent on falling edge */
 	ioport_set_pin_mode(EXAMPLE_PIN_EVENT, IOPORT_MODE_PULLUP |
@@ -220,7 +224,8 @@ int main(void)
 	ioport_disable_pin(EXAMPLE_PIN_EVENT);
 	ioport_set_pin_sense_mode(EXAMPLE_PIN_EVENT, IOPORT_SENSE_FALLING);
 	gpio_enable_pin_periph_event(EXAMPLE_PIN_EVENT);
-	printf("Connect PC08 to GND to trigger an event.\r\n");
+	printf("Connect %s to %s to trigger an event.\r\n", EXAMPLE_PIN_NAME,
+			EXAMPLE_GND_NAME);
 
 	init_pevc();
 	init_pdca();

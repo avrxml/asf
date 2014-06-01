@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SSD1306 display controller driver.
+ * \brief SSD1306 OLED display controller driver.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -68,7 +68,7 @@ static void ssd1306_interface_init(void)
 	config.pinmux_pad1 = SSD1306_SPI_PINMUX_PAD1;
 	config.pinmux_pad2 = SSD1306_SPI_PINMUX_PAD2;
 	config.pinmux_pad3 = SSD1306_SPI_PINMUX_PAD3;
-	config.master.baudrate = SSD1306_CLOCK_SPEED;
+	config.mode_specific.master.baudrate = SSD1306_CLOCK_SPEED;
 
 	spi_init(&ssd1306_master, SSD1306_SPI, &config);
 	spi_enable(&ssd1306_master);

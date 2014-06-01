@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,18 +51,18 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Rtc hardware registers */
 typedef struct {
-  RwReg RTC_CR;     /**< \brief (Rtc Offset: 0x00) Control Register */
-  RwReg RTC_MR;     /**< \brief (Rtc Offset: 0x04) Mode Register */
-  RwReg RTC_TIMR;   /**< \brief (Rtc Offset: 0x08) Time Register */
-  RwReg RTC_CALR;   /**< \brief (Rtc Offset: 0x0C) Calendar Register */
-  RwReg RTC_TIMALR; /**< \brief (Rtc Offset: 0x10) Time Alarm Register */
-  RwReg RTC_CALALR; /**< \brief (Rtc Offset: 0x14) Calendar Alarm Register */
-  RoReg RTC_SR;     /**< \brief (Rtc Offset: 0x18) Status Register */
-  WoReg RTC_SCCR;   /**< \brief (Rtc Offset: 0x1C) Status Clear Command Register */
-  WoReg RTC_IER;    /**< \brief (Rtc Offset: 0x20) Interrupt Enable Register */
-  WoReg RTC_IDR;    /**< \brief (Rtc Offset: 0x24) Interrupt Disable Register */
-  RoReg RTC_IMR;    /**< \brief (Rtc Offset: 0x28) Interrupt Mask Register */
-  RoReg RTC_VER;    /**< \brief (Rtc Offset: 0x2C) Valid Entry Register */
+  __IO uint32_t RTC_CR;     /**< \brief (Rtc Offset: 0x00) Control Register */
+  __IO uint32_t RTC_MR;     /**< \brief (Rtc Offset: 0x04) Mode Register */
+  __IO uint32_t RTC_TIMR;   /**< \brief (Rtc Offset: 0x08) Time Register */
+  __IO uint32_t RTC_CALR;   /**< \brief (Rtc Offset: 0x0C) Calendar Register */
+  __IO uint32_t RTC_TIMALR; /**< \brief (Rtc Offset: 0x10) Time Alarm Register */
+  __IO uint32_t RTC_CALALR; /**< \brief (Rtc Offset: 0x14) Calendar Alarm Register */
+  __I  uint32_t RTC_SR;     /**< \brief (Rtc Offset: 0x18) Status Register */
+  __O  uint32_t RTC_SCCR;   /**< \brief (Rtc Offset: 0x1C) Status Clear Command Register */
+  __O  uint32_t RTC_IER;    /**< \brief (Rtc Offset: 0x20) Interrupt Enable Register */
+  __O  uint32_t RTC_IDR;    /**< \brief (Rtc Offset: 0x24) Interrupt Disable Register */
+  __I  uint32_t RTC_IMR;    /**< \brief (Rtc Offset: 0x28) Interrupt Mask Register */
+  __I  uint32_t RTC_VER;    /**< \brief (Rtc Offset: 0x2C) Valid Entry Register */
 } Rtc;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- RTC_CR : (RTC Offset: 0x00) Control Register -------- */
@@ -84,11 +84,11 @@ typedef struct {
 #define RTC_MR_PERSIAN (0x1u << 1) /**< \brief (RTC_MR) PERSIAN Calendar */
 #define RTC_MR_NEGPPM (0x1u << 4) /**< \brief (RTC_MR) NEGative PPM Correction */
 #define RTC_MR_CORRECTION_Pos 8
-#define RTC_MR_CORRECTION_Msk (0x7fu << RTC_MR_CORRECTION_Pos) /**< \brief (RTC_MR)  */
+#define RTC_MR_CORRECTION_Msk (0x7fu << RTC_MR_CORRECTION_Pos) /**< \brief (RTC_MR) Slow Clock Correction */
 #define RTC_MR_CORRECTION(value) ((RTC_MR_CORRECTION_Msk & ((value) << RTC_MR_CORRECTION_Pos)))
 #define RTC_MR_HIGHPPM (0x1u << 15) /**< \brief (RTC_MR) HIGH PPM Correction */
 #define RTC_MR_OUT0_Pos 16
-#define RTC_MR_OUT0_Msk (0x7u << RTC_MR_OUT0_Pos) /**< \brief (RTC_MR) RTCOUT0 Output Source Selection */
+#define RTC_MR_OUT0_Msk (0x7u << RTC_MR_OUT0_Pos) /**< \brief (RTC_MR) RTCOUT0 OutputSource Selection */
 #define   RTC_MR_OUT0_NO_WAVE (0x0u << 16) /**< \brief (RTC_MR) no waveform, stuck at '0' */
 #define   RTC_MR_OUT0_FREQ1HZ (0x1u << 16) /**< \brief (RTC_MR) 1 Hz square wave */
 #define   RTC_MR_OUT0_FREQ32HZ (0x2u << 16) /**< \brief (RTC_MR) 32 Hz square wave */
@@ -111,7 +111,7 @@ typedef struct {
 #define RTC_MR_THIGH_Msk (0x7u << RTC_MR_THIGH_Pos) /**< \brief (RTC_MR) High Duration of the Output Pulse */
 #define   RTC_MR_THIGH_H_31MS (0x0u << 24) /**< \brief (RTC_MR) 31.2 ms */
 #define   RTC_MR_THIGH_H_16MS (0x1u << 24) /**< \brief (RTC_MR) 15.6 ms */
-#define   RTC_MR_THIGH_H_4MS (0x2u << 24) /**< \brief (RTC_MR) 3.91 ms */
+#define   RTC_MR_THIGH_H_4MS (0x2u << 24) /**< \brief (RTC_MR) 3.91 Oms */
 #define   RTC_MR_THIGH_H_976US (0x3u << 24) /**< \brief (RTC_MR) 976 us */
 #define   RTC_MR_THIGH_H_488US (0x4u << 24) /**< \brief (RTC_MR) 488 us */
 #define   RTC_MR_THIGH_H_122US (0x5u << 24) /**< \brief (RTC_MR) 122 us */

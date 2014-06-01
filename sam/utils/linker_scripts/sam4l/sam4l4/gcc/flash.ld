@@ -3,26 +3,28 @@
  *
  * \brief Flash Linker script for SAM.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
+ * \page License
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- * 1. Redistributions of source code must retain the above copyright notice, 
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
  *    this list of conditions and the following disclaimer.
- * 
+ *
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- * 
+ *
  * 3. The name of Atmel may not be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- * 
- * 4. This software may only be redistributed and used in connection with an 
+ *
+ * 4. This software may only be redistributed and used in connection with an
  *    Atmel microcontroller product.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
@@ -52,6 +54,7 @@ MEMORY
 
 /* The stack size used by the application. NOTE: you need to adjust according to your application. */
 __stack_size__ = DEFINED(__stack_size__) ? __stack_size__ : 0x1000;
+__ram_end__ = ORIGIN(ram) + LENGTH(ram) - 4;
 
 /* Section Definitions */
 SECTIONS

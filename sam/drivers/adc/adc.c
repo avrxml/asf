@@ -3,7 +3,7 @@
  *
  * \brief Analog-to-Digital Converter (ADC/ADC12B) driver for SAM.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 #include "adc.h"
-
+#include <status_codes.h>
 /// @cond 0
 /**INDENT-OFF**/
 #ifdef __cplusplus
@@ -56,26 +56,26 @@ extern "C" {
  *
  * See \ref sam_adc_quickstart.
  *
- * Driver for the Analog-to-digital Converter. This driver provides access to the main 
+ * Driver for the Analog-to-digital Converter. This driver provides access to the main
  * features of the ADC controller.
  *
  * @{
  */
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
+#if SAM3S || SAM4S || SAM3N || SAM3XA || SAM4C || SAM4CP || SAM4CM
 /**
  * \brief Initialize the given ADC with the specified ADC clock and startup time.
  *
  * \param p_adc Pointer to an ADC instance.
  * \param ul_mck Main clock of the device (value in Hz).
  * \param ul_adc_clock Analog-to-Digital conversion clock (value in Hz).
- * \param uc_startup ADC start up time. Please refer to the product datasheet 
+ * \param uc_startup ADC start up time. Please refer to the product datasheet
  * for details.
  *
  * \return 0 on success.
  */
 uint32_t adc_init(Adc *p_adc, const uint32_t ul_mck,
-		const uint32_t ul_adc_clock, const uint8_t uc_startup)
+		const uint32_t ul_adc_clock, const enum adc_startup_time startup)
 {
 	uint32_t ul_prescal;
 
@@ -91,9 +91,7 @@ uint32_t adc_init(Adc *p_adc, const uint32_t ul_mck,
 	p_adc->ADC_RNCR = 0;
 
 	ul_prescal = ul_mck / (2 * ul_adc_clock) - 1;
-	p_adc->ADC_MR |= ADC_MR_PRESCAL(ul_prescal) |
-			((uc_startup << ADC_MR_STARTUP_Pos) &
-			ADC_MR_STARTUP_Msk);
+	p_adc->ADC_MR |= ADC_MR_PRESCAL(ul_prescal) | startup;
 	return 0;
 }
 #elif SAM3U
@@ -103,11 +101,11 @@ uint32_t adc_init(Adc *p_adc, const uint32_t ul_mck,
  * \param p_adc Pointer to an ADC instance.
  * \param ul_mck Main clock of the device (value in Hz).
  * \param ul_adc_clock Analog-to-Digital conversion clock (in Hz).
- * \param ul_startuptime ADC startup time value (value in us). 
+ * \param ul_startuptime ADC startup time value (value in us).
  * Please refer to the product datasheet for details.
- * \param ul_offmode_startuptime  ADC off mode startup time value (in us). 
+ * \param ul_offmode_startuptime  ADC off mode startup time value (in us).
  * Please refer to the product datasheet for details.
- *   
+ *
  * \return 0 on success.
  */
 uint32_t adc_init(Adc *p_adc, const uint32_t ul_mck, const uint32_t ul_adc_clock,
@@ -140,19 +138,36 @@ uint32_t adc_init(Adc *p_adc, const uint32_t ul_mck, const uint32_t ul_adc_clock
  * \param resolution ADC resolution.
  *
  */
-void adc_set_resolution(Adc *p_adc,const enum adc_resolution_t resolution)
+void adc_set_resolution(Adc *p_adc, const enum adc_resolution_t resolution)
 {
+#if SAM4C || SAM4CP || SAM4CM
+	p_adc->ADC_EMR &= ~ADC_EMR_OSR_Msk;
+	switch (resolution) {
+	case ADC_8_BITS:
+		p_adc->ADC_MR |= ADC_MR_LOWRES;
+		break;
+	case ADC_10_BITS:
+		p_adc->ADC_MR &= ~ADC_MR_LOWRES;
+		break;
+	case ADC_11_BITS:
+	case ADC_12_BITS:
+		p_adc->ADC_MR &= ~ADC_MR_LOWRES;
+		p_adc->ADC_EMR |= resolution;
+		break;
+	}
+#else
 	p_adc->ADC_MR |= (resolution << 4) & ADC_MR_LOWRES;
+#endif
 }
 
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
+#if SAM3S || SAM4S || SAM3N || SAM3XA || SAM4C || SAM4CP || SAM4CM
 /**
  * \brief Configure conversion trigger and free run mode.
  *
  * \param p_adc Pointer to an ADC instance.
  * \param trigger Conversion trigger.
- * \param uc_freerun ADC_MR_FREERUN_ON enables freerun mode, 
+ * \param uc_freerun ADC_MR_FREERUN_ON enables freerun mode,
  * ADC_MR_FREERUN_OFF disables freerun mode.
  *
  */
@@ -174,16 +189,16 @@ void adc_configure_trigger(Adc *p_adc, const enum adc_trigger_t trigger)
 }
 #endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
+#if SAM3S8 || SAM4S || SAM3N || SAM3SD8
 /**
  * \brief Configures ADC power saving mode.
  *
  * \param p_adc Pointer to an ADC instance.
- * \param uc_sleep ADC_MR_SLEEP_NORMAL keeps the ADC Core and reference voltage 
+ * \param uc_sleep ADC_MR_SLEEP_NORMAL keeps the ADC Core and reference voltage
  * circuitry ON between conversions.
- * ADC_MR_SLEEP_SLEEP keeps the ADC Core and reference voltage circuitry OFF 
+ * ADC_MR_SLEEP_SLEEP keeps the ADC Core and reference voltage circuitry OFF
  * between conversions.
- * \param uc_fwup ADC_MR_FWUP_OFF configures sleep mode as uc_sleep setting, 
+ * \param uc_fwup ADC_MR_FWUP_OFF configures sleep mode as uc_sleep setting,
  * ADC_MR_FWUP_ON keeps voltage reference ON and ADC Core OFF between conversions.
  */
 void adc_configure_power_save(Adc *p_adc, const uint8_t uc_sleep, const uint8_t uc_fwup)
@@ -191,14 +206,14 @@ void adc_configure_power_save(Adc *p_adc, const uint8_t uc_sleep, const uint8_t 
 	p_adc->ADC_MR |= (((uc_sleep << 5) & ADC_MR_SLEEP) |
 			((uc_fwup << 6) & ADC_MR_FWUP));
 }
-#elif SAM3U
+#elif SAM3U || SAM4C || SAM4CP || SAM4CM
 /**
  * \brief Configure ADC power saving mode.
  *
  * \param p_adc Pointer to an ADC instance.
- * \param uc_sleep ADC_MR_SLEEP_NORMAL keeps the ADC Core and reference 
+ * \param uc_sleep ADC_MR_SLEEP_NORMAL keeps the ADC Core and reference
  * voltage circuitry ON between conversions.
- * ADC_MR_SLEEP_SLEEP keeps the ADC Core and reference voltage circuitry 
+ * ADC_MR_SLEEP_SLEEP keeps the ADC Core and reference voltage circuitry
  * OFF between conversions.
  * \param uc_offmode 0 for Standby Mode (if Sleep Bit = 1), 1 for Off Mode.
  */
@@ -208,7 +223,7 @@ void adc_configure_power_save(Adc *p_adc, const uint8_t uc_sleep)
 }
 #endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
+#if SAM3S || SAM4S || SAM3N || SAM3XA || SAM4C || SAM4CP || SAM4CM
 /**
  * \brief Configure conversion sequence.
  *
@@ -220,18 +235,23 @@ void adc_configure_sequence(Adc *p_adc, const enum adc_channel_num_t ch_list[],
 		uint8_t uc_num)
 {
 	uint8_t uc_counter;
+#if SAM4S
+	volatile uint32_t *adc_seqr = &p_adc->ADC_SEQR[0];
+#else
+	volatile uint32_t *adc_seqr = &p_adc->ADC_SEQR1;
+#endif
 	if (uc_num < 8) {
 		for (uc_counter = 0; uc_counter < uc_num; uc_counter++) {
-			p_adc->ADC_SEQR1 |=
+			adc_seqr[0] |=
 					ch_list[uc_counter] << (4 * uc_counter);
 		}
 	} else {
 		for (uc_counter = 0; uc_counter < 8; uc_counter++) {
-			p_adc->ADC_SEQR1 |=
+			adc_seqr[0] |=
 					ch_list[uc_counter] << (4 * uc_counter);
 		}
 		for (uc_counter = 0; uc_counter < uc_num - 8; uc_counter++) {
-			p_adc->ADC_SEQR2 |=
+			adc_seqr[1] |=
 					ch_list[uc_counter] << (4 * uc_counter);
 		}
 	}
@@ -253,7 +273,7 @@ void adc_configure_timing(Adc *p_adc, const uint8_t uc_tracking,
 	p_adc->ADC_MR |= ADC_MR_TRANSFER(uc_transfer)
 			| settling | ADC_MR_TRACKTIM(uc_tracking);
 }
-#elif SAM3N
+#elif SAM3N || SAM4C || SAM4CP || SAM4CM
 /**
  * \brief Configure ADC timing.
  *
@@ -289,12 +309,10 @@ void adc_enable_anch(Adc *p_adc)
 {
 	p_adc->ADC_MR |= ADC_MR_ANACH;
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3XA
 /**
  * \brief Disable analog change.
- * 
+ *
  * \note DIFF0, GAIN0 and OFF0 are used for all channels.
  *
  * \param p_Adc Pointer to an ADC instance.
@@ -308,7 +326,7 @@ void adc_disable_anch(Adc *p_adc)
 /**
  * \brief Start analog-to-digital conversion.
  *
- * \note If one of the hardware event is selected as ADC trigger, 
+ * \note If one of the hardware event is selected as ADC trigger,
  * this function can NOT start analog to digital conversion.
  *
  * \param p_adc Pointer to an ADC instance.
@@ -349,7 +367,7 @@ void adc_enable_all_channel(Adc *p_adc)
 {
 #if SAM3S || SAM4S || SAM3N || SAM3XA
 	p_adc->ADC_CHER = 0xFFFF;
-#elif SAM3U
+#elif SAM3U || SAM4C || SAM4CP || SAM4CM
 	p_adc->ADC_CHER = 0xFF;
 #endif
 }
@@ -374,7 +392,7 @@ void adc_disable_all_channel(Adc *p_adc)
 {
 #if SAM3S || SAM4S || SAM3N || SAM3XA
 	p_adc->ADC_CHDR = 0xFFFF;
-#elif SAM3U
+#elif SAM3U || SAM4C || SAM4CP || SAM4CM
 	p_adc->ADC_CHDR = 0xFF;
 #endif
 }
@@ -424,9 +442,9 @@ uint32_t adc_get_latest_value(const Adc *p_adc)
 	return p_adc->ADC_LCDR;
 }
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
+#if SAM3S || SAM4S || SAM3N || SAM3XA || SAM4C || SAM4CP || SAM4CM
 /**
- * \brief Enable TAG option so that the number of the last converted channel 
+ * \brief Enable TAG option so that the number of the last converted channel
  * can be indicated.
  *
  * \param p_adc Pointer to an ADC instance.
@@ -435,9 +453,7 @@ void adc_enable_tag(Adc *p_adc)
 {
 	p_adc->ADC_EMR |= ADC_EMR_TAG;
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
 /**
  * \brief Disable TAG option.
  *
@@ -447,13 +463,11 @@ void adc_disable_tag(Adc *p_adc)
 {
 	p_adc->ADC_EMR &= ~ADC_EMR_TAG;
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
 /**
  * \brief Indicate the last converted channel.
  *
- * \note If TAG option is NOT enabled before, an incorrect channel 
+ * \note If TAG option is NOT enabled before, an incorrect channel
  * number is returned.
  *
  * \param p_adc Pointer to an ADC instance.
@@ -465,9 +479,7 @@ enum adc_channel_num_t adc_get_tag(const Adc *p_adc)
 	return (enum adc_channel_num_t)
 			((p_adc->ADC_LCDR & ADC_LCDR_CHNB_Msk) >> ADC_LCDR_CHNB_Pos);
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
 /**
  * \brief Enable conversion sequencer.
  *
@@ -477,9 +489,7 @@ void adc_start_sequencer(Adc *p_adc)
 {
 	p_adc->ADC_MR |= ADC_MR_USEQ;
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
 /**
  * \brief Disable conversion sequencer.
  *
@@ -489,9 +499,7 @@ void adc_stop_sequencer(Adc *p_adc)
 {
 	p_adc->ADC_MR &= ~ADC_MR_USEQ;
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
 /**
  * \brief Configure comparison mode.
  *
@@ -503,9 +511,7 @@ void adc_set_comparison_mode(Adc *p_adc, const uint8_t uc_mode)
 	p_adc->ADC_EMR &= (uint32_t) ~ (ADC_EMR_CMPMODE_Msk);
 	p_adc->ADC_EMR |= (uc_mode & ADC_EMR_CMPMODE_Msk);
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
 /**
  * \brief Get comparison mode.
  *
@@ -517,9 +523,7 @@ uint32_t adc_get_comparison_mode(const Adc *p_adc)
 {
 	return p_adc->ADC_EMR & ADC_EMR_CMPMODE_Msk;
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
 /**
  * \brief Configure ADC compare window.
  *
@@ -533,9 +537,7 @@ void adc_set_comparison_window(Adc *p_adc, const uint16_t us_low_threshold,
 	p_adc->ADC_CWR = ADC_CWR_LOWTHRES(us_low_threshold) |
 			ADC_CWR_HIGHTHRES(us_high_threshold);
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
 /**
  * \brief Configure comparison selected channel.
  *
@@ -565,9 +567,7 @@ void adc_enable_channel_differential_input(Adc *p_adc, const enum adc_channel_nu
 {
 	p_adc->ADC_COR |= 0x01u << (16 + channel);
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3XA
 /**
  * \brief Disable differential input for the specified channel.
  *
@@ -581,9 +581,7 @@ void adc_disable_channel_differential_input(Adc *p_adc, const enum adc_channel_n
 	p_adc->ADC_COR &= 0xfffeffffu << channel;
 	p_adc->ADC_COR |= ul_temp;
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3XA
 /**
  * \brief Enable analog signal offset for the specified channel.
  *
@@ -594,9 +592,7 @@ void adc_enable_channel_input_offset(Adc *p_adc, const enum adc_channel_num_t ch
 {
 	p_adc->ADC_COR |= 0x01u << channel;
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3XA
 /**
  * \brief Disable analog signal offset for the specified channel.
  *
@@ -610,9 +606,7 @@ void adc_disable_channel_input_offset(Adc *p_adc, const enum adc_channel_num_t c
 	p_adc->ADC_COR &= (0xfffffffeu << channel);
 	p_adc->ADC_COR |= ul_temp;
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3XA
 /**
  * \brief Configure input gain for the specified channel.
  *
@@ -680,7 +674,7 @@ void adc_disable_interrupt(Adc *p_adc, const uint32_t ul_source)
 	p_adc->ADC_IDR = ul_source;
 }
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
+#if SAM3S || SAM4S || SAM3N || SAM3XA || SAM4C || SAM4CP || SAM4CM
 /**
  * \brief Get ADC interrupt and overrun error status.
  *
@@ -734,7 +728,7 @@ uint32_t adc_get_interrupt_mask(const Adc *p_adc)
 /**
  * \brief Adapt performance versus power consumption.
  *
- * \note Please refer to ADC Characteristics in the product datasheet 
+ * \note Please refer to ADC Characteristics in the product datasheet
  * for more details.
  *
  * \param p_adc Pointer to an ADC instance.
@@ -744,9 +738,7 @@ void adc_set_bias_current(Adc *p_adc, const uint8_t uc_ibctl)
 {
 	p_adc->ADC_ACR |= ADC_ACR_IBCTL(uc_ibctl);
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3XA
 /**
  * \brief Turn on temperature sensor.
  *
@@ -756,9 +748,7 @@ void adc_enable_ts(Adc *p_adc)
 {
 	p_adc->ADC_ACR |= ADC_ACR_TSON;
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3XA
 /**
  * \brief Turn off temperature sensor.
  *
@@ -770,7 +760,10 @@ void adc_disable_ts(Adc *p_adc)
 }
 #endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
+#if SAM3S || SAM4S || SAM3N || SAM3XA || SAM4C || SAM4CP || SAM4CM
+#ifndef ADC_WPMR_WPKEY_PASSWD
+#define ADC_WPMR_WPKEY_PASSWD ADC_WPMR_WPKEY(0x414443u)
+#endif
 /**
  * \brief Enable or disable write protection of ADC registers.
  *
@@ -779,26 +772,22 @@ void adc_disable_ts(Adc *p_adc)
  */
 void adc_set_writeprotect(Adc *p_adc, const uint32_t ul_enable)
 {
-	p_adc->ADC_WPMR |= ADC_WPMR_WPKEY(ul_enable);
+	p_adc->ADC_WPMR = ADC_WPMR_WPKEY_PASSWD | (ul_enable & ADC_WPMR_WPEN);
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
 /**
  * \brief Indicate write protect status.
  *
  * \param p_adc Pointer to an ADC instance.
  *
- * \return 0 if the peripheral is not protected, or 16-bit write protect 
+ * \return 0 if the peripheral is not protected, or 16-bit write protect
  * violation Status.
  */
 uint32_t adc_get_writeprotect_status(const Adc *p_adc)
 {
 	return p_adc->ADC_WPSR & ADC_WPSR_WPVS;
 }
-#endif
 
-#if SAM3S || SAM4S || SAM3N || SAM3XA
 /**
  * \brief calcul_startup
  */
@@ -861,11 +850,11 @@ void adc_check(Adc *p_adc, const uint32_t ul_mck)
 	printf("ADC clock frequency = %d Hz\r\n", (int)ul_adcfreq);
 
 	if (ul_adcfreq < ADC_FREQ_MIN) {
-		printf("adc frequency too low (out of specification: %d Hz)\r\n", 
+		printf("adc frequency too low (out of specification: %d Hz)\r\n",
 			(int)ADC_FREQ_MIN);
 	}
 	if (ul_adcfreq > ADC_FREQ_MAX) {
-		printf("adc frequency too high (out of specification: %d Hz)\r\n", 
+		printf("adc frequency too high (out of specification: %d Hz)\r\n",
 			(int)ADC_FREQ_MAX);
 	}
 
@@ -884,12 +873,13 @@ void adc_check(Adc *p_adc, const uint32_t ul_mck)
 		if (p_adc->ADC_MR & ADC_MR_FREERUN_ON) {
 			puts("FreeRun forbidden in sleep mode\r");
 		}
+#if !SAM4C && !SAM4CP && !SAM4CM
 		if (!(p_adc->ADC_MR & ADC_MR_FWUP_ON)) {
 			/* Sleep 40ms */
 			if (ADC_STARTUP_NORM * ul_adcfreq / 1000000 >
 					calcul_startup(ul_startup)) {
-				printf("Startup time too small: %d, programmed: %d\r\n", 
-					(int)(ADC_STARTUP_NORM * ul_adcfreq / 1000000), 
+				printf("Startup time too small: %d, programmed: %d\r\n",
+					(int)(ADC_STARTUP_NORM * ul_adcfreq / 1000000),
 					(int)(calcul_startup(ul_startup)));
 			}
 		} else {
@@ -897,12 +887,13 @@ void adc_check(Adc *p_adc, const uint32_t ul_mck)
 				/* Fast Wake Up Sleep Mode: 12ms */
 				if (ADC_STARTUP_FAST * ul_adcfreq / 1000000 >
 						calcul_startup(ul_startup)) {
-					printf("Startup time too small: %d, programmed: %d\r\n", 
-						(int)(ADC_STARTUP_NORM * ul_adcfreq / 1000000), 
+					printf("Startup time too small: %d, programmed: %d\r\n",
+						(int)(ADC_STARTUP_NORM * ul_adcfreq / 1000000),
 						(int)(calcul_startup(ul_startup)));
 				}
 			}
 		}
+#endif
 	}
 }
 #endif
@@ -919,6 +910,101 @@ Pdc *adc_get_pdc_base(const Adc *p_adc)
 	UNUSED(p_adc);
 	return PDC_ADC;
 }
+
+#if SAM4C || SAM4CP || SAM4CM
+/**
+ * \brief Set digital averaging trigger.
+ *
+ * \param p_adc Pointer to an ADC instance.
+ * \param multi The average requests several trigger events if true. The
+ * average requests only one trigger event.
+ */
+void adc_set_averaging_trigger(Adc *p_adc, bool multi)
+{
+	if (multi) {
+		p_adc->ADC_EMR &= ~ADC_EMR_ASTE;
+	} else {
+		p_adc->ADC_EMR |= ADC_EMR_ASTE;
+	}
+}
+
+/**
+ * \brief Set comparison filter.
+ *
+ * \param p_adc Pointer to an ADC instance.
+ * \param filter Number of consecutive compare events necessary to raise the
+ * flag = filter + 1.
+ */
+void adc_set_comparison_filter(Adc *p_adc, uint8_t filter)
+{
+	p_adc->ADC_EMR &= ~ADC_EMR_CMPFILTER_Msk;
+	p_adc->ADC_EMR |= ADC_EMR_CMPFILTER(filter);
+}
+
+/**
+ * \brief Turn on temperature sensor.
+ *
+ * \param p_adc Pointer to an ADC instance.
+ */
+void adc_enable_ts(Adc *p_adc)
+{
+	p_adc->ADC_TEMPMR |= ADC_TEMPMR_TEMPON;
+}
+
+/**
+ * \brief Turn off temperature sensor.
+ *
+ * \param p_adc Pointer to an ADC instance.
+ */
+void adc_disable_ts(Adc *p_adc)
+{
+	p_adc->ADC_TEMPMR &= ~ADC_TEMPMR_TEMPON;
+}
+
+/**
+ * \brief Configure temperature sensor comparison.
+ *
+ * \param p_adc Pointer to an ADC instance.
+ * \param mode  Temperature comparison mode.
+ * \param low_threshold Temperature low threshold.
+ * \param high_threshold Temperature high threshold.
+ */
+void adc_configure_ts_comparison(Adc *p_adc, enum adc_temp_cmp_mode mode,
+		uint16_t low_threshold, uint16_t high_threshold)
+{
+	uint32_t tmp = p_adc->ADC_TEMPMR;
+	tmp &= ~ADC_TEMPMR_TEMPCMPMOD_Msk;
+	tmp |= mode;
+
+	p_adc->ADC_TEMPCWR = ADC_TEMPCWR_TLOWTHRES(low_threshold) |
+			ADC_TEMPCWR_THIGHTHRES(high_threshold);
+	p_adc->ADC_TEMPMR = tmp;
+}
+
+/**
+ * \brief Set ADC analog control(internal reference voltage).
+ *
+ * \param p_adc Pointer to an ADC instance.
+ * \param ref  Pointer to an ADC internal reference voltage setup.
+ *
+ * \return ERR_INVALID_ARG if the argument is invalid, STATUS_OK otherwise.
+ */
+enum status_code adc_set_internal_reference_voltage(Adc *p_adc,
+		struct adc_internal_ref *ref)
+{
+	uint32_t tmp = 0;
+
+	if (ref->adc_force_internal_ref && ref->adc_internal_ref_on) {
+		return ERR_INVALID_ARG;
+	}
+	tmp = (ref->adc_internal_ref_change_enable ? ADC_ACR_IRVCE_SELECTION : 0) |
+			ADC_ACR_IRVS(ref->volt) |
+			(ref->adc_force_internal_ref ? ADC_ACR_FORCEREF : 0) |
+			(ref->adc_internal_ref_on ? ADC_ACR_ONREF : 0);
+	p_adc->ADC_ACR = tmp;
+	return STATUS_OK;
+}
+#endif
 
 //@}
 

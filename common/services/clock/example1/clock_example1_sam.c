@@ -3,7 +3,7 @@
  *
  * \brief Clock system example 1.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,16 +83,14 @@
 
 #include "asf.h"
 
+#if ((BOARD == SAM4CMP_DB) || (BOARD == SAM4CMS_DB))
+#  define EXAMPLE_LED_GPIO    LED4_GPIO
+#else
+#  define EXAMPLE_LED_GPIO    LED0_GPIO
+#endif
+
 /* Global ul_ms_ticks in milliseconds since start of application */
 volatile uint32_t ul_ms_ticks = 0;
-
-/// @cond 0
-/**INDENT-OFF**/
-#ifdef __cplusplus
-extern "C" {
-#endif
-/**INDENT-ON**/
-/// @endcond
 
 /**
  * \brief Wait for the given number of milliseconds (using the ul_ms_ticks generated
@@ -136,15 +134,8 @@ int main(void)
 	}
 
 	while (1) {
-		ioport_toggle_pin_level(LED0_GPIO);
+		ioport_toggle_pin_level(EXAMPLE_LED_GPIO);
 		mdelay(500);
 	}
 }
 
-/// @cond 0
-/**INDENT-OFF**/
-#ifdef __cplusplus
-}
-#endif
-/**INDENT-ON**/
-/// @endcond

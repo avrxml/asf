@@ -60,7 +60,7 @@ CSRCS = \
        common/services/clock/sam4s/sysclk.c               \
        common/services/delay/sam/cycle_counter.c          \
        common/services/gfx/gfx_generic.c                  \
-       common/services/gfx/gfx_ili9325_ftm280c34d.c       \
+       common/services/gfx/gfx_ili93xx.c                  \
        common/services/gfx/gfx_text.c                     \
        common/services/gfx/sysfont.c                      \
        common/services/serial/usart_serial.c              \
@@ -108,7 +108,7 @@ CSRCS = \
        sam/applications/sam_toolkit_demo/widget_scr_settings_time.c \
        sam/boards/sam4s_ek2/led.c                         \
        sam/components/display/aat31xx/aat31xx.c           \
-       sam/components/display/ili9325/ili9325.c           \
+       sam/components/display/ili93xx/ili93xx.c           \
        sam/components/resistive_touch/ads7843/ads7843.c   \
        sam/drivers/adc/adc.c                              \
        sam/drivers/adc/adc_sam3u.c                        \
@@ -130,7 +130,6 @@ CSRCS = \
        sam/drivers/wdt/wdt.c                              \
        sam/services/flash_efc/flash_efc.c                 \
        sam/services/resistive_touch/rtouch.c              \
-       sam/utils/cmsis/sam4s/source/templates/exceptions.c \
        sam/utils/cmsis/sam4s/source/templates/gcc/startup_sam4s.c \
        sam/utils/cmsis/sam4s/source/templates/system_sam4s.c \
        sam/utils/syscalls/gcc/syscalls.c                  \
@@ -182,7 +181,7 @@ INC_PATH = \
        sam/boards                                         \
        sam/boards/sam4s_ek2                               \
        sam/components/display/aat31xx                     \
-       sam/components/display/ili9325                     \
+       sam/components/display/ili93xx                     \
        sam/components/resistive_touch/ads7843             \
        sam/drivers/adc                                    \
        sam/drivers/ebi/smc                                \
@@ -271,7 +270,7 @@ CPPFLAGS = \
        -D ACCESS_USB_ENABLED                              \
        -D ARM_MATH_CM4=true                               \
        -D BOARD=SAM4S_EK2                                 \
-       -D CONF_GFX_ILI9325_FTM280C34D=1                   \
+       -D CONF_GFX_ILI93XX=1                              \
        -D DEF_TOUCH_QDEBUG_ENABLE_AT=0                    \
        -D DEF_TOUCH_QDEBUG_ENABLE_QM=0                    \
        -D DEF_TOUCH_QDEBUG_ENABLE_QTA=0                   \
@@ -288,8 +287,14 @@ CPPFLAGS = \
        -D _QTOUCH_                                        \
        -D _SNS1_SNSK1_SAME_PORT_                          \
        -D _SNS2_SNSK2_SAME_PORT_                          \
+       -D __FREERTOS__                                    \
        -D __SAM4SD32C__                                   \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

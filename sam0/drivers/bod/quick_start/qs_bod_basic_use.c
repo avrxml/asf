@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 BOD Driver Quick Start
+ * \brief SAM D20/D21/R21 BOD Driver Quick Start
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,7 +71,7 @@ int main(void)
 //! [main]
 //! [main_loop]
 	while (true) {
-
+		/* Infinite loop */
 	}
 //! [main_loop]
 //! [main]

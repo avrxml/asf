@@ -129,3 +129,7 @@ CPPFLAGS = \
 
 # Extra flags to use when linking
 LDFLAGS = 
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

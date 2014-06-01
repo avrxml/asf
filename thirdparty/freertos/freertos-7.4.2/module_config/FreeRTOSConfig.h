@@ -6,6 +6,8 @@
  */
 
 #if defined (__GNUC__) || defined (__ICCARM__)
+/* Important: put #includes here unless they are also meant for the assembler.
+ */
 #include <stdint.h>
 void assert_triggered( const char * file, uint32_t line );
 #endif

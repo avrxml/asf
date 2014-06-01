@@ -7,7 +7,7 @@
  * libraries for sensor devices on systems built around UC3, XMEGA, and SAM
  * microcontrollers.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -847,15 +847,15 @@ extern bool sensor_device_enum(sensor_type_t type, sensor_enum_callback func,
  *  rate might be obtained from the device as follows:
  *
  *  \code
- *
- *  sensor_t      gyroscope;
- *  sensor_data_t omega;
- *  ...
- *
- *  sensor_read(&gyroscope, SENSOR_READ_ROTATION, &omega);
- *  ...
- *
- *  \endcode
+
+	  sensor_t      gyroscope;
+	  sensor_data_t omega;
+	  ...
+
+	  sensor_read(&gyroscope, SENSOR_READ_ROTATION, &omega);
+	  ...
+
+\endcode
  *
  * In the event of a false return from this routine, the contents stored
  * at the location specified by "data" are undefined.

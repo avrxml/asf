@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Analog to Digital Converter (ADC) Unit test
+ * \brief SAM D20/D21 Analog to Digital Converter (ADC) Unit test
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,9 +42,12 @@
  */
 
 /**
- * \mainpage ADC UNIT TEST
+ * \mainpage SAM D20/D21 ADC Unit Test
+ * See \ref appdoc_main "here" for project documentation.
+ * \copydetails appdoc_preface
  *
- * \section intro Introduction
+ *
+ * \page appdoc_preface Overview
  * This unit test carries out tests for the ADC driver.
  * It consists of test cases for the following functionalities:
  *      - Test for ADC initialization.
@@ -52,53 +55,72 @@
  *      - Test for ADC callback mode conversion.
  *      - Test for ADC averaging mode.
  *      - Test for ADC window mode.
+ */
+
+/**
+ * \page appdoc_main SAM D20/D21 ADC Unit Test
+ *
+ * Overview:
+ * - \ref asfdoc_sam0_adc_unit_test_intro
+ * - \ref asfdoc_sam0_adc_unit_test_setup
+ * - \ref asfdoc_sam0_adc_unit_test_usage
+ * - \ref asfdoc_sam0_adc_unit_test_compinfo
+ * - \ref asfdoc_sam0_adc_unit_test_contactinfo
+ *
+ * \section asfdoc_sam0_adc_unit_test_intro Introduction
+ * \copydetails appdoc_preface
+ *
  * Input to the ADC is provided with the DAC module.
  *
  * The following kit is required for carrying out the test:
  *      - SAM D20 Xplained Pro board
+ *      - SAM D21 Xplained Pro board
  *
- * \section Setup
+ * \section asfdoc_sam0_adc_unit_test_setup Setup
+ * The following connections has to be made using wires:
+ *  - \b DAC VOUT (PA02) <-----> ADC2 (PB08)
  *
- * The following connection is already available on the board.
+ * To run the test:
+ *  - Connect the supported Xplained Pro board to the computer using a
+ *    micro USB cable.
+ *  - Open the virtual COM port in a terminal application.
+ *    \note The USB composite firmware running on the Embedded Debugger (EDBG)
+ *          will enumerate as debugger, virtual COM port and EDBG data
+ *          gateway.
+ *  - Build the project, program the target and run the application.
+ *    The terminal shows the results of the unit test.
  *
- *      - DAC VOUT (PA00) <-----> ADC2 (PA02)
+ * \section asfdoc_sam0_adc_unit_test_usage Usage
+ *  - The unit test configures DAC module to provide voltage to the ADC input.
+ *  - DAC output is adjusted to generate various voltages which are measured by
+ *    the ADC.
+ *  - Different modes of the ADC are tested.
  *
- * The following steps has to be done:
- *      - Connect the SAM D20 Xplained Pro board to the computer using
- *        a micro USB cable.
- *      - Open the virtual COM port in a terminal application.
- * \note  The USB composite firmware running on the Embedded Debugger (EDBG)
- *        will enumerate as debugger, virtual COM port and EDBG data
- *        gateway.
- *      - Build the project, program the target and run the application.
- *        The terminal shows the results of the unit test.
+ * \section asfdoc_sam0_adc_unit_test_compinfo Compilation Info
+ * This software was written for the GNU GCC and IAR for ARM.
+ * Other compilers may or may not work.
  *
- * \section Description
- *
- *      - The unit test configures DAC module to provide
- *        voltage to the ADC input.
- *      - DAC output is adjusted to generate various voltages
- *        which are measured by the ADC.
- *      - Different modes of the ADC are tested.
- *
- * \section contactinfo Contact Information
- * For further information, visit <a href="http://www.atmel.com/">Atmel</a>.\n
- * Support and FAQ: http://support.atmel.no/
+ * \section asfdoc_sam0_adc_unit_test_contactinfo Contact Information
+ * For further information, visit
+ * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
 
 #include <asf.h>
 #include <stdio_serial.h>
 #include <string.h>
+#include "conf_test.h"
 
 /* Number of ADC samples used in the test */
 #define ADC_SAMPLES 128
-/* Theoretical ADC results for DAC outputs */
+/* Theoretical ADC result for DAC half-swing output */
 #define ADC_VAL_DAC_HALF_OUTPUT 2047
+/* Theoretical ADC result for DAC full-swing output */
 #define ADC_VAL_DAC_FULL_OUTPUT 4095
 /* Offset due to ADC & DAC errors */
-#define ADC_OFFSET              50
-/* Theoretical DAC values for 0.5V & 1V output*/
+#define ADC_OFFSET              100
+/* Theoretical DAC value for 0.5V output*/
 #define DAC_VAL_HALF_VOLT       512
+/* Theoretical DAC value for 1.0V output*/
 #define DAC_VAL_ONE_VOLT        1023
 
 /* Structure for UART module connected to EDBG (used for unit test output) */
@@ -136,22 +158,19 @@ static void adc_user_callback(const struct adc_module *const module)
  */
 static void cdc_uart_init(void)
 {
-	struct usart_config cdc_uart_config;
+	struct usart_config usart_conf;
 
 	/* Configure USART for unit test output */
-	usart_get_config_defaults(&cdc_uart_config);
-	cdc_uart_config.mux_setting = EDBG_CDC_SERCOM_MUX_SETTING;
-	cdc_uart_config.pinmux_pad0 = EDBG_CDC_SERCOM_PINMUX_PAD0;
-	cdc_uart_config.pinmux_pad1 = EDBG_CDC_SERCOM_PINMUX_PAD1;
-	cdc_uart_config.pinmux_pad2 = EDBG_CDC_SERCOM_PINMUX_PAD2;
-	cdc_uart_config.pinmux_pad3 = EDBG_CDC_SERCOM_PINMUX_PAD3;
-	cdc_uart_config.baudrate    = 115200;
-	stdio_serial_init(&cdc_uart_module, EDBG_CDC_MODULE, &cdc_uart_config);
-	usart_enable(&cdc_uart_module);
+	usart_get_config_defaults(&usart_conf);
+	usart_conf.mux_setting = CONF_STDIO_MUX_SETTING;
+	usart_conf.pinmux_pad0 = CONF_STDIO_PINMUX_PAD0;
+	usart_conf.pinmux_pad1 = CONF_STDIO_PINMUX_PAD1;
+	usart_conf.pinmux_pad2 = CONF_STDIO_PINMUX_PAD2;
+	usart_conf.pinmux_pad3 = CONF_STDIO_PINMUX_PAD3;
+	usart_conf.baudrate    = CONF_STDIO_BAUDRATE;
 
-	/* Enable transceivers */
-	usart_enable_transceiver(&cdc_uart_module, USART_TRANSCEIVER_TX);
-	usart_enable_transceiver(&cdc_uart_module, USART_TRANSCEIVER_RX);
+	stdio_serial_init(&cdc_uart_module, CONF_STDIO_USART, &usart_conf);
+	usart_enable(&cdc_uart_module);
 }
 
 /**
@@ -198,6 +217,7 @@ static void run_adc_init_test(const struct test_case *test)
 	struct adc_config config;
 	adc_get_config_defaults(&config);
 	config.positive_input = ADC_POSITIVE_INPUT_PIN2;
+	config.negative_input = ADC_NEGATIVE_INPUT_GND;
 	config.reference      = ADC_REFERENCE_INT1V;
 	config.clock_source   = GCLK_GENERATOR_3;
 	config.gain_factor    = ADC_GAIN_FACTOR_1X;
@@ -234,6 +254,7 @@ static void run_adc_init_test(const struct test_case *test)
 static void run_adc_polled_mode_test(const struct test_case *test)
 {
 	uint16_t adc_result = 0;
+
 	/* Skip test if ADC initialization failed */
 	test_assert_true(test, adc_init_success,
 			"Skipping test due to failed initialization");
@@ -241,27 +262,56 @@ static void run_adc_polled_mode_test(const struct test_case *test)
 	/* Set 0.5V on DAC output */
 	dac_chan_write(&dac_inst, DAC_CHANNEL_0, DAC_VAL_HALF_VOLT);
 	delay_ms(1);
+
 	/* Start an ADC conversion */
 	adc_start_conversion(&adc_inst);
 	while (adc_read(&adc_inst, &adc_result) != STATUS_OK) {
 	}
+
 	/* Test result */
 	test_assert_true(test,
-			adc_result > (ADC_VAL_DAC_HALF_OUTPUT - ADC_OFFSET),
-			"Error in ADC conversion at 0.5V input");
+			(adc_result > (ADC_VAL_DAC_HALF_OUTPUT - ADC_OFFSET)) &&
+			(adc_result < (ADC_VAL_DAC_HALF_OUTPUT + ADC_OFFSET)),
+			"Error in ADC conversion at 0.5V input (Expected: ~%d, Result: %d)", ADC_VAL_DAC_HALF_OUTPUT, adc_result);
 
 	adc_flush(&adc_inst);
+
 	/* Set 1V on DAC output */
 	dac_chan_write(&dac_inst, DAC_CHANNEL_0, DAC_VAL_ONE_VOLT);
 	delay_ms(1);
+
 	/* Start an ADC conversion */
 	adc_start_conversion(&adc_inst);
 	while (adc_read(&adc_inst, &adc_result) != STATUS_OK) {
 	}
+
 	/* Test result */
 	test_assert_true(test,
 			adc_result > (ADC_VAL_DAC_FULL_OUTPUT - ADC_OFFSET),
-			"Error in ADC conversion at 1V input");
+			"Error in ADC conversion at 1V input (Expected: ~%d, Result: %d)", ADC_VAL_DAC_FULL_OUTPUT, adc_result);
+
+	uint16_t adc_prev_result = 0;
+
+	/* Ensure ADC gives linearly increasing conversions for linearly increasing inputs */
+	for (uint16_t i = 0; i < DAC_VAL_ONE_VOLT; i++) {
+		adc_flush(&adc_inst);
+
+		/* Write the next highest DAC output voltage */
+		dac_chan_write(&dac_inst, DAC_CHANNEL_0, i);
+		delay_ms(1);
+
+		/* Start an ADC conversion */
+		adc_start_conversion(&adc_inst);
+		while (adc_read(&adc_inst, &adc_result) != STATUS_OK) {
+		}
+
+		/* Test result */
+		test_assert_true(test,
+				(adc_result + ADC_OFFSET) >= adc_prev_result,
+				"Error in ADC conversion at a variable input (Expected: >=%d, Result: %d)", adc_prev_result, adc_result);
+
+		adc_prev_result = adc_result;
+	}
 }
 
 /**
@@ -304,7 +354,8 @@ static void setup_adc_callback_mode_test(const struct test_case *test)
  */
 static void run_adc_callback_mode_test(const struct test_case *test)
 {
-	uint16_t timeout_cycles = 10000;
+	uint16_t timeout_cycles = 0xFFFF;
+
 	/* Set 0.5V DAC output */
 	dac_chan_write(&dac_inst, DAC_CHANNEL_0, DAC_VAL_HALF_VOLT);
 	delay_ms(1);
@@ -325,8 +376,9 @@ static void run_adc_callback_mode_test(const struct test_case *test)
 	/* Test result */
 	for (uint8_t i = 0; i < ADC_SAMPLES; i++) {
 		test_assert_true(test,
-				adc_buf[i] > (ADC_VAL_DAC_HALF_OUTPUT - ADC_OFFSET),
-				"Error in ADC conversion for 0.5V at index %d", i);
+				(adc_buf[i] > (ADC_VAL_DAC_HALF_OUTPUT - ADC_OFFSET)) &&
+				(adc_buf[i] < (ADC_VAL_DAC_HALF_OUTPUT + ADC_OFFSET)),
+				"Error in ADC conversion for 0.5V at index %d, Result: %d", i, adc_buf[i]);
 	}
 }
 
@@ -372,11 +424,10 @@ static void setup_adc_average_mode_test(const struct test_case *test)
 	struct adc_config config;
 	adc_get_config_defaults(&config);
 	config.positive_input     = ADC_POSITIVE_INPUT_PIN2;
+	config.negative_input     = ADC_NEGATIVE_INPUT_GND;
 	config.reference          = ADC_REFERENCE_INT1V;
 	config.clock_source       = GCLK_GENERATOR_3;
 	config.gain_factor        = ADC_GAIN_FACTOR_1X;
-	config.resolution         = ADC_RESOLUTION_16BIT;
-	config.accumulate_samples = ADC_ACCUMULATE_SAMPLES_16;
 
 	/* Re-initialize & enable ADC */
 	status = adc_init(&adc_inst, ADC, &config);
@@ -400,6 +451,7 @@ static void setup_adc_average_mode_test(const struct test_case *test)
 static void run_adc_average_mode_test(const struct test_case *test)
 {
 	uint16_t adc_result = 0;
+
 	/* Set 0.5V DAC output */
 	dac_chan_write(&dac_inst, DAC_CHANNEL_0, DAC_VAL_HALF_VOLT);
 	delay_ms(1);
@@ -408,11 +460,11 @@ static void run_adc_average_mode_test(const struct test_case *test)
 	adc_start_conversion(&adc_inst);
 	while (adc_read(&adc_inst, &adc_result) != STATUS_OK) {
 	}
-	adc_result = adc_result >> 4;
 
 	/* Test result */
 	test_assert_true(test,
-			adc_result > (ADC_VAL_DAC_HALF_OUTPUT - ADC_OFFSET),
+			(adc_result > (ADC_VAL_DAC_HALF_OUTPUT - ADC_OFFSET)) &&
+			(adc_result < (ADC_VAL_DAC_HALF_OUTPUT + ADC_OFFSET)),
 			"Error in ADC average mode conversion at 0.5V input");
 }
 
@@ -444,12 +496,13 @@ static void setup_adc_window_mode_test(const struct test_case *test)
 	adc_disable(&adc_inst);
 	struct adc_config config;
 	adc_get_config_defaults(&config);
-	config.positive_input  = ADC_POSITIVE_INPUT_PIN2;
-	config.reference       = ADC_REFERENCE_INT1V;
-	config.clock_source    = GCLK_GENERATOR_3;
-	config.gain_factor     = ADC_GAIN_FACTOR_1X;
-	config.resolution      = ADC_RESOLUTION_12BIT;
-	config.freerunning     = true;
+	config.positive_input = ADC_POSITIVE_INPUT_PIN2;
+	config.negative_input = ADC_NEGATIVE_INPUT_GND;
+	config.reference      = ADC_REFERENCE_INT1V;
+	config.clock_source   = GCLK_GENERATOR_3;
+	config.gain_factor    = ADC_GAIN_FACTOR_1X;
+	config.resolution     = ADC_RESOLUTION_12BIT;
+	config.freerunning    = true;
 	config.window.window_mode = ADC_WINDOW_MODE_BETWEEN_INVERTED;
 	config.window.window_lower_value = (ADC_VAL_DAC_HALF_OUTPUT - ADC_OFFSET);
 	config.window.window_upper_value = (ADC_VAL_DAC_HALF_OUTPUT + ADC_OFFSET);
@@ -482,7 +535,7 @@ static void setup_adc_window_mode_test(const struct test_case *test)
  */
 static void run_adc_window_mode_test(const struct test_case *test)
 {
-	uint16_t timeout_cycles = 10000;
+	uint16_t timeout_cycles = 0xFFFF;
 
 	/* Set 1V DAC output */
 	dac_chan_write(&dac_inst, DAC_CHANNEL_0, DAC_VAL_ONE_VOLT);
@@ -527,12 +580,16 @@ int main(void)
 	test_dac_init();
 
 	/* Define Test Cases */
-	DEFINE_TEST_CASE(adc_init_test, NULL,
-			run_adc_init_test, NULL,
+	DEFINE_TEST_CASE(adc_init_test,
+			NULL,
+			run_adc_init_test,
+			NULL,
 			"Testing ADC Initialization");
 
-	DEFINE_TEST_CASE(adc_polled_mode_test, NULL,
-			run_adc_polled_mode_test, NULL,
+	DEFINE_TEST_CASE(adc_polled_mode_test,
+			NULL,
+			run_adc_polled_mode_test,
+			NULL,
 			"Testing ADC single ended mode by polling");
 
 	DEFINE_TEST_CASE(adc_callback_mode_test,
@@ -543,7 +600,8 @@ int main(void)
 
 	DEFINE_TEST_CASE(adc_average_mode_test,
 			setup_adc_average_mode_test,
-			run_adc_average_mode_test, NULL,
+			run_adc_average_mode_test,
+			NULL,
 			"Testing ADC average mode");
 
 	DEFINE_TEST_CASE(adc_window_mode_test,
@@ -563,7 +621,7 @@ int main(void)
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(adc_test_suite, adc_tests,
-			"SAM0 ADC driver test suite");
+			"SAM D20/D21 ADC driver test suite");
 
 	/* Run all tests in the suite*/
 	test_suite_run(&adc_test_suite);

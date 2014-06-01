@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of functions for the IIS on SAM devices.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -338,14 +338,14 @@ enum status_code iis_read(struct iis_dev_inst *dev_inst, uint32_t *data);
  * \subsection iisc_basic_use_case_setup_code Example code
  * Enable the following macro in the conf_clock.h:
  * \code
- *  #define CONFIG_SYSCLK_SOURCE       SYSCLK_SRC_DFLL
- *  #define CONFIG_DFLL0_SOURCE        GENCLK_SRC_OSC32K
- * \endcode
+	#define CONFIG_SYSCLK_SOURCE       SYSCLK_SRC_DFLL
+	#define CONFIG_DFLL0_SOURCE        GENCLK_SRC_OSC32K
+\endcode
  *
  * Add the following code in the application C-file:
  * \code
- *  sysclk_init();
- * \endcode
+	sysclk_init();
+\endcode
  *
  * \subsection iisc_basic_use_case_setup_flow Workflow
  * -# Set system clock source as DFLL:
@@ -359,45 +359,45 @@ enum status_code iis_read(struct iis_dev_inst *dev_inst, uint32_t *data);
  * \subsection iisc_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *  struct iis_config config;
- *  struct iis_dev_inst dev_inst;
- *  config.data_format = IIS_DATE_16BIT_COMPACT;
- *  config.slot_length = IIS_SLOT_LENGTH_16BIT;
- *  config.fs_ratio = IIS_FS_RATE_256;
- *  config.num_tx_channels = IIS_CHANNEL_STEREO;
- *  config.num_rx_channels = IIS_CHANNEL_STEREO;
- *  config.loopback = true;
- *  config.master = true;
- *  iis_init(&dev_inst, IISC, &config);
- *  iis_enable(&dev_inst);
- * \endcode
+	struct iis_config config;
+	struct iis_dev_inst dev_inst;
+	config.data_format = IIS_DATE_16BIT_COMPACT;
+	config.slot_length = IIS_SLOT_LENGTH_16BIT;
+	config.fs_ratio = IIS_FS_RATE_256;
+	config.num_tx_channels = IIS_CHANNEL_STEREO;
+	config.num_rx_channels = IIS_CHANNEL_STEREO;
+	config.loopback = true;
+	config.master = true;
+	iis_init(&dev_inst, IISC, &config);
+	iis_enable(&dev_inst);
+\endcode
  *
  * \subsection iisc_basic_use_case_usage_flow Workflow
  * -# Initialize the module with given configuration
  * \code
- *  struct iis_config config;
- *  struct iis_dev_inst dev_inst;
- *  config.data_format = IIS_DATE_16BIT_COMPACT;
- *  config.slot_length = IIS_SLOT_LENGTH_16BIT;
- *  config.fs_ratio = IIS_FS_RATE_256;
- *  config.num_tx_channels = IIS_CHANNEL_STEREO;
- *  config.num_rx_channels = IIS_CHANNEL_STEREO;
- *  config.loopback = true;
- *  config.master = true;
- *  iis_init(&dev_inst, IISC, &config);
- * \endcode
+	struct iis_config config;
+	struct iis_dev_inst dev_inst;
+	config.data_format = IIS_DATE_16BIT_COMPACT;
+	config.slot_length = IIS_SLOT_LENGTH_16BIT;
+	config.fs_ratio = IIS_FS_RATE_256;
+	config.num_tx_channels = IIS_CHANNEL_STEREO;
+	config.num_rx_channels = IIS_CHANNEL_STEREO;
+	config.loopback = true;
+	config.master = true;
+	iis_init(&dev_inst, IISC, &config);
+\endcode
  * -# Enable the module
  * \code  iis_enable(&dev_inst); \endcode
  * -# Enable transmission, reception and clocks
  * \code
- *  iis_enable_transmission(&dev_inst);
- *  iis_enable_clocks(&dev_inst);
- *  iis_enable_reception(&dev_inst);
- * \endcode
+	iis_enable_transmission(&dev_inst);
+	iis_enable_clocks(&dev_inst);
+	iis_enable_reception(&dev_inst);
+\endcode
  * -# Use write/read function to access the data
  * \code
- *  iis_write(&dev_inst, data);
- *  iis_read(&dev_inst, &data);
- * \endcode
+	iis_write(&dev_inst, data);
+	iis_read(&dev_inst, &data);
+\endcode
  */
 #endif  /* IIS_H_INCLUDED */

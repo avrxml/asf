@@ -3,7 +3,7 @@
  *
  * \brief Main functions to generate USB patterns
  *
- * Copyright (C) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -72,6 +72,7 @@
  * - #define  AVR32_USBC_TST     // AVR32 MCU with USBC interface
  * - #define  SAMX_UOTGHS_TST    // SAM MCU with UOTGHS interface
  * - #define  SAM4L_USBC_TST     // SAM4L MCU with USBC interface
+ * - #define  SAMD21_USB_TST     // SAMD21 MCU with USB interface
  *
  * Please, read "USB host core tests" project documentation for more information.
  */
@@ -79,6 +80,7 @@
 //#define  AVR32_USBC_TST     // AVR32 MCU with USBC interface
 //#define  SAMX_UOTGHS_TST    // SAM MCU with UOTGHS interface
 //#define  SAM4L_USBC_TST     // SAM4L MCU with USBC interface
+//#define  SAMD21_USB_TST     // SAMD21 MCU with USB interface
 
 #ifdef AVR32_USBC_TST
 #  define TST_15_DIS
@@ -87,10 +89,15 @@
 #ifdef SAMX_UOTGHS_TST
 #  define TST_15_DIS
 #endif
-#ifdef SAM4L_USBC_TST
+#if defined(SAM4L_USBC_TST) || defined(SAMD21_USB_TST)
 #  define TST_15_DIS
 #endif
 
+#if defined(SAM4L_USBC_TST) || defined(SAMD21_USB_TST)
+#  define TST_DETACH_DELAY 800 // Delay more since clock slow
+#else
+#  define TST_DETACH_DELAY 200
+#endif
 
 #define  USB_DEVICE_VENDOR_ID             USB_VID_ATMEL
 #define  USB_DEVICE_PRODUCT_ID            USB_PID_ATMEL_ASF_HIDMOUSE
@@ -278,7 +285,7 @@ static void main_usb_wait_sof(void)
 static void main_detach(void)
 {
 	udd_detach_device();
-	delay_ms(200);
+	delay_ms(TST_DETACH_DELAY);
 }
 
 /**
@@ -582,6 +589,7 @@ static void main_test4(void)
 //! \brief Test 5  - Detach after IN data phase of first setup request
 static void main_test5(void)
 {
+	main_otg_init();
 	udd_attach_device();
 	main_usb_enum_step1();
 	main_usb_enum_step2();
@@ -600,6 +608,7 @@ static void main_test6(void)
 {
 	uint8_t nb_fail;
 
+	main_otg_init();
 	udd_attach_device();
 	nb_fail = 4;
 	while (nb_fail--) {
@@ -633,6 +642,7 @@ static void main_test7(void)
 //! \brief Test 8  - Detach during reset after first setup request get descriptor
 static void main_test8(void)
 {
+	main_otg_init();
 	udd_attach_device();
 	main_usb_enum_step1();
 	main_usb_enum_step2();
@@ -651,6 +661,7 @@ static void main_test8(void)
 //! \brief Test 9  - Detach after reset after first setup request get descriptor
 static void main_test9(void)
 {
+	main_otg_init();
 	udd_attach_device();
 	main_usb_enum_step1();
 	main_usb_enum_step2();
@@ -666,6 +677,7 @@ static void main_test9(void)
 //! \brief Test 10 - No send ZLP (NAK IN) after second setup packet (set address)
 static void main_test10(void)
 {
+	main_otg_init();
 	udd_attach_device();
 	main_usb_enum_step1();
 	main_usb_enum_step2();
@@ -686,6 +698,7 @@ static void main_test11(void)
 {
 	uint8_t nb_fail;
 
+	main_otg_init();
 	udd_attach_device();
 	nb_fail = 4;
 	while (nb_fail--) {
@@ -907,6 +920,7 @@ static void main_test19(void)
 //! \brief Test 20 - Test upstream resume (from USB device)
 static void main_test20(void)
 {
+	main_otg_init();
 	udd_attach_device();
 	main_usb_enum_step1();
 	main_usb_enum_step2();

@@ -4,7 +4,7 @@
  *
  * \brief FreeRTOS Configuration header file template for AVR32 UC3.
  *
- * Copyright (c) 2009-2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,7 +46,11 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
+#if defined (__GNUC__) || defined (__ICCARM__)
+/* Important: put #includes here unless they are also meant for the assembler.
+ */
 #include "board.h"
+#endif
 
 
 /*-----------------------------------------------------------

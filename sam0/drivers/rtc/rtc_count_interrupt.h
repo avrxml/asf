@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 RTC Driver (Count Interrupt Mode)
+ * \brief SAM D20/D21/R21 RTC Driver (Count Interrupt Mode)
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,7 +51,7 @@ extern "C" {
 #endif
 
 /**
- * \addtogroup asfdoc_samd20_rtc_count_group
+ * \addtogroup asfdoc_sam0_rtc_count_group
  * @{
  */
 
@@ -60,16 +60,20 @@ extern "C" {
  * @{
  */
 enum status_code rtc_count_register_callback(
+		struct rtc_module *const module,
 		rtc_count_callback_t callback,
 		enum rtc_count_callback callback_type);
 
 enum status_code rtc_count_unregister_callback(
+		struct rtc_module *const module,
 		enum rtc_count_callback callback_type);
 
 void rtc_count_enable_callback(
+		struct rtc_module *const module,
 		enum rtc_count_callback callback_type);
 
 void rtc_count_disable_callback(
+		struct rtc_module *const module,
 		enum rtc_count_callback callback_type);
 
 /** @} */

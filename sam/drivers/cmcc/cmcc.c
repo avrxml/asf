@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of functions for the CMCC on SAM devices.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -116,7 +116,7 @@ void cmcc_invalidate_line(Cmcc *const p_cmcc, uint32_t cmcc_way,
 		uint32_t cmcc_index)
 {
 	cmcc_disable(p_cmcc);
-	while (cmcc_get_status(p_cmcc)) {
+	while (cmcc_get_status(p_cmcc) & CMCC_SR_CSTS) {
 	}
 	p_cmcc->CMCC_MAINT1 = (cmcc_way << CMCC_MAINT1_WAY_Pos) |
 			(cmcc_index << CMCC_MAINT1_INDEX_Pos);

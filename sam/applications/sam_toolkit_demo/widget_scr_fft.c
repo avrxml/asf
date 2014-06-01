@@ -3,7 +3,7 @@
  *
  * \brief FFT example for SAM toolkit demo application.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -481,7 +481,7 @@ static void adc_input_init(void)
 	Pdc* adc_pdc;
 	pmc_enable_periph_clk(ID_ADC);
 	/* Init ADC */
-	adc_init(ADC, sysclk_get_cpu_hz(), AUDIO_SAMPLE_RATE * 40, 8);
+	adc_init(ADC, sysclk_get_cpu_hz(), AUDIO_SAMPLE_RATE * 40, ADC_STARTUP_TIME_8);
 	/* Set timing */
 	adc_configure_timing(ADC, 0, ADC_SETTLING_TIME_3, 1);
 	/* Set trigger */

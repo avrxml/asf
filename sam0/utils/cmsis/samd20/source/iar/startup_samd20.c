@@ -88,6 +88,7 @@ void TC7_Handler              ( void );
 void ADC_Handler              ( void );
 void AC_Handler               ( void );
 void DAC_Handler              ( void );
+void PTC_Handler              ( void );
 
 /* Cortex-M0+ core handlers */
 #pragma weak NMI_Handler              = Dummy_Handler
@@ -121,6 +122,7 @@ void DAC_Handler              ( void );
 #pragma weak ADC_Handler              = Dummy_Handler
 #pragma weak AC_Handler               = Dummy_Handler
 #pragma weak DAC_Handler              = Dummy_Handler
+#pragma weak PTC_Handler              = Dummy_Handler
 
 /* Exception Table */
 #pragma language=extended
@@ -174,7 +176,8 @@ const DeviceVectors __vector_table[] = {
         (void*) TC7_Handler,            /* 20 Basic Timer Counter 7 */
         (void*) ADC_Handler,            /* 21 Analog Digital Converter */
         (void*) AC_Handler,             /* 22 Analog Comparators */
-        (void*) DAC_Handler             /* 23 Digital Analog Converter */
+        (void*) DAC_Handler,            /* 23 Digital Analog Converter */
+        (void*) PTC_Handler             /* 24 Peripheral Touch Controller */
 };
 
 /**------------------------------------------------------------------------------

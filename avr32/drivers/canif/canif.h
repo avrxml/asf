@@ -7,7 +7,7 @@
  * This file contains basic functions for the AVR32 CAN, with support for all
  * modes, settings and clock speeds.
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -202,9 +202,9 @@ typedef struct
                                              CANIF_set_phs1(ch,BAUDRATE##_PHS1); }
 
 //! CANIFFC Register Access
-#define CANIF_get_error_mode(ch)             { ((AVR32_CANIF.channel[ch].canfc & AVR32_CANIF_CANFC_EMODE_MASK)>> AVR32_CANIF_CANFC_EMODE_OFFSET) }
-#define CANIF_get_tec(ch)                    { ((AVR32_CANIF.channel[ch].canfc & AVR32_CANIF_CANFC_TEC_MASK)>> AVR32_CANIF_CANFC_TEC_OFFSET) }
-#define CANIF_get_rec(ch)                    { ((AVR32_CANIF.channel[ch].canfc & AVR32_CANIF_CANFC_REC_MASK)>> AVR32_CANIF_CANFC_REC_OFFSET) }
+#define CANIF_get_error_mode(ch)             ( ((AVR32_CANIF.channel[ch].canfc & AVR32_CANIF_CANFC_EMODE_MASK) >> AVR32_CANIF_CANFC_EMODE_OFFSET) )
+#define CANIF_get_tec(ch)                    ( ((AVR32_CANIF.channel[ch].canfc & AVR32_CANIF_CANFC_TEC_MASK) >> AVR32_CANIF_CANFC_TEC_OFFSET) )
+#define CANIF_get_rec(ch)                    ( ((AVR32_CANIF.channel[ch].canfc & AVR32_CANIF_CANFC_REC_MASK) >> AVR32_CANIF_CANFC_REC_OFFSET) )
 
 //! CANIFIER Register Access
 #define CANIF_enable_wakeup_interrupt(ch)    { AVR32_CANIF.channel[ch].canier = AVR32_CANIF_CANIER_WKUPIM_MASK; }

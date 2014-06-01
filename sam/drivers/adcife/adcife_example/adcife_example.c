@@ -3,7 +3,7 @@
  *
  * \brief Analog-to-Digital Converter Interface Example for SAM4L.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,7 +50,10 @@
  *
  * \section Requirements
  *
- * This example can be used on SAM4L-EK boards.
+ * This example can be used on the following boards:
+ * - SAM4L-EK
+ * - SAM4L Xplained Pro
+ * - SAM4L8 Xplained Pro
  *
  * We select the internal DAC = 826mv and scaled VCC(VCC/10 = 330mv) as positive
  * input to ADCIFE.
@@ -75,32 +78,31 @@
  * -# In the terminal window, the following text should appear (values depend
  *    on the board and chip used):
  *    \code
- *     -- ADCIFE Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     =========================================================
- *     Menu: press a key to change the configuration.
- *     ---------------------------------------------------------
- *     [X] 0: Set ADCIFE trigger mode: Software.
- *     [ ] 1: Set ADCIFE trigger mode: Internal Timer.
- *     [ ] 2: Set ADCIFE trigger mode: Continuous.
- *     [D] T: Enable/Disable to transfer with PDCA in multichannel mode.
- *     [D] G: Enable/Disable to set gain=2 for channel.
- *         Q: Quit configuration and start ADCIFE.
- *     =========================================================
- *    \endcode
+	-- ADCIFE Example xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	=========================================================
+	Menu: press a key to change the configuration.
+	---------------------------------------------------------
+	[X] 0: Set ADCIFE trigger mode: Software.
+	[ ] 1: Set ADCIFE trigger mode: Internal Timer.
+	[ ] 2: Set ADCIFE trigger mode: Continuous.
+	[D] T: Enable/Disable to transfer with PDCA in multichannel mode.
+	[D] G: Enable/Disable to set gain=2 for channel.
+	    Q: Quit configuration and start ADCIFE.
+	=========================================================
+\endcode
  * -# The application will output converted value to HyperTerminal and display
  *    a menu for users to set different modes..
  */
 
 #include "asf.h"
 
-#define VDDANA             3.3
-#define VOLTS_TO_MV        1000
-#define REFSEL1_VCCRATIO   0.625
+#define VDDANA             3300
+#define REFSEL1_VCCRATIO   625
 
-/* Reference voltage in uv */
-#define VOLT_REF   (uint32_t)(VDDANA * VOLTS_TO_MV * REFSEL1_VCCRATIO)
+/* Reference voltage in mV */
+#define VOLT_REF   ((uint32_t)(VDDANA * REFSEL1_VCCRATIO / 1000))
 
 /** The maximal digital value*/
 #define MAX_DIGITAL        4095
@@ -126,57 +128,60 @@ struct adc_dev_inst g_adc_inst;
 
 /** ADC CDMA config value */
 struct adc_cdma_first_config g_adc_cdma_first_cfg[2] = {
-			{
-			/* Select Vref for shift cycle */
-			.zoomrange = ADC_ZOOMRANGE_0,
-			/* Pad Ground */
-			.muxneg = ADC_MUXNEG_1,
-			/* Scaled Vcc, Vcc/10 */
-			.muxpos = ADC_MUXPOS_2,
-			/* Enables the internal voltage sources */
-			.internal = ADC_INTERNAL_3,
-			/* Disables the ADC gain error reduction */
-			.gcomp = ADC_GCOMP_DIS,
-			/* Disables the HWLA mode */
-			.hwla = ADC_HWLA_DIS,
-			/* 12-bits resolution */
-			.res = ADC_RES_12_BIT,
-			/* Enables the single-ended mode */
-			.bipolar = ADC_BIPOLAR_SINGLEENDED,
-			/* Gain factor is 1x */
-			.gain = ADC_GAIN_1X,
-			.strig = 1,
-			.tss = 1,
-			.enstup = 1,
-			.dw = 0},
-			{.zoomrange = ADC_ZOOMRANGE_0,
-			.muxneg = ADC_MUXNEG_1,
-			/* DAC internal */
-			.muxpos = ADC_MUXPOS_3,
-			.internal = ADC_INTERNAL_3,
-			.gcomp = ADC_GCOMP_DIS,
-			.hwla = ADC_HWLA_DIS,
-			.res = ADC_RES_12_BIT,
-			.bipolar = ADC_BIPOLAR_SINGLEENDED,
-			.gain = ADC_GAIN_1X,
-			.strig = 1,
-			.tss = 1,
-			.enstup = 1,
-			.dw = 0}
-		};
+	{
+		/* Select Vref for shift cycle */
+		.zoomrange = ADC_ZOOMRANGE_0,
+		/* Pad Ground */
+		.muxneg = ADC_MUXNEG_1,
+		/* Scaled Vcc, Vcc/10 */
+		.muxpos = ADC_MUXPOS_2,
+		/* Enables the internal voltage sources */
+		.internal = ADC_INTERNAL_3,
+		/* Disables the ADC gain error reduction */
+		.gcomp = ADC_GCOMP_DIS,
+		/* Disables the HWLA mode */
+		.hwla = ADC_HWLA_DIS,
+		/* 12-bits resolution */
+		.res = ADC_RES_12_BIT,
+		/* Enables the single-ended mode */
+		.bipolar = ADC_BIPOLAR_SINGLEENDED,
+		/* Gain factor is 1x */
+		.gain = ADC_GAIN_1X,
+		.strig = 1,
+		.tss = 1,
+		.enstup = 1,
+		.dw = 0
+	},
+	{
+		.zoomrange = ADC_ZOOMRANGE_0,
+		.muxneg = ADC_MUXNEG_1,
+		/* DAC internal */
+		.muxpos = ADC_MUXPOS_3,
+		.internal = ADC_INTERNAL_3,
+		.gcomp = ADC_GCOMP_DIS,
+		.hwla = ADC_HWLA_DIS,
+		.res = ADC_RES_12_BIT,
+		.bipolar = ADC_BIPOLAR_SINGLEENDED,
+		.gain = ADC_GAIN_1X,
+		.strig = 1,
+		.tss = 1,
+		.enstup = 1,
+		.dw = 0
+	}
+};
 struct adc_pdca_config g_adc_pdca_cfg = {
-			/* ADC Window Mode */
-			.wm = false,
-			/* ADC Nb channel */
-			.nb_channels = 2,
-			/* ADC Buffer */
-			.buffer = g_adc_sample_data,
-			/* ADC PDC Rx Channel */
-			.pdc_rx_channel = CONFIG_ADC_PDCA_RX_CHANNEL,
-			/* ADC PDC Tx Channel */
-			.pdc_tx_channel = CONFIG_ADC_PDCA_TX_CHANNEL,
-			/* ADC CDMA Configuration Structure */
-			.cdma_cfg = (void *)&g_adc_cdma_first_cfg[0]
+	/* ADC Window Mode */
+	.wm = false,
+	/* ADC Nb channel */
+	.nb_channels = 2,
+	/* ADC Buffer */
+	.buffer = g_adc_sample_data,
+	/* ADC PDC Rx Channel */
+	.pdc_rx_channel = CONFIG_ADC_PDCA_RX_CHANNEL,
+	/* ADC PDC Tx Channel */
+	.pdc_tx_channel = CONFIG_ADC_PDCA_TX_CHANNEL,
+	/* ADC CDMA Configuration Structure */
+	.cdma_cfg = (void *)&g_adc_cdma_first_cfg[0]
 };
 
 /** ADCIFE test mode structure */
@@ -485,9 +490,8 @@ int main(void)
 		delay_ms(1000);
 		if (g_uc_condone_flag == 1) {
 			if(g_adc_test_mode.uc_pdc_en == 0) {
-			printf("Internal DAC Voltage = %4d mv  \r\n",
-					(int)(g_adc_sample_data[0] * VOLT_REF /
-							MAX_DIGITAL));
+				printf("Internal DAC Voltage = %4d mv  \r\n",
+						(int)(g_adc_sample_data[0] * VOLT_REF / MAX_DIGITAL));
 			} else {
 				printf("Internal DAC Voltage = %4d mv  \r\n",
 						(int)(g_adc_sample_data[0] * VOLT_REF /

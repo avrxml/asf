@@ -3,7 +3,7 @@
  *
  * \brief This file implements the frame reception functions.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -119,23 +119,25 @@ void handle_received_frame_irq(void)
 
 		/*
 		 * Although the buffer protection mode is enabled and the
-		 *receiver has
+		 * receiver has
 		 * been switched to PLL_ON, the next incoming frame was faster.
 		 * It cannot be handled and is discarded.
 		 */
-		pal_trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_DISABLE); /*
-		                                                           *Disable
-		                                                           *buffer
-		                                                           *protection
-		                                                           *mode
-		                                                           **/
+		trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_DISABLE); /*
+		                                                       * Disable
+		                                                       * buffer
+		                                                       *
+		                                                       *protection
+		                                                       * mode
+		                                                       **/
 		pal_timer_delay(2); /* Allow pin change to get effective */
-		pal_trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /*
-		                                                          *Enable
-		                                                          *buffer
-		                                                          *protection
-		                                                          *mode
-		                                                          **/
+		trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /*
+		                                                      * Enable
+		                                                      * buffer
+		                                                      *
+		                                                      *protection
+		                                                      * mode
+		                                                      **/
 		return;
 	}
 
@@ -144,18 +146,17 @@ void handle_received_frame_irq(void)
 #ifdef PROMISCUOUS_MODE
 	if (tal_pib.PromiscuousMode) {
 		/* Check for valid FCS */
-		if (pal_trx_bit_read(SR_RX_CRC_VALID) == CRC16_NOT_VALID) {
+		if (trx_bit_read(SR_RX_CRC_VALID) == CRC16_NOT_VALID) {
 			return;
 		}
 	}
-
 #endif
 
 	/* Get ED value; needed to normalize LQI. */
-	ed_value = pal_trx_reg_read(RG_PHY_ED_LEVEL);
+	ed_value = trx_reg_read(RG_PHY_ED_LEVEL);
 
 	/* Get frame length from transceiver. */
-	phy_frame_len = ext_frame_length = pal_trx_reg_read(RG_TST_RX_LENGTH);
+	phy_frame_len = ext_frame_length = trx_reg_read(RG_TST_RX_LENGTH);
 
 	/* Check for valid frame length. */
 	if (phy_frame_len > 127) {
@@ -164,7 +165,7 @@ void handle_received_frame_irq(void)
 
 	/*
 	 * The PHY header is also included in the frame (length field), hence
-	 *the frame length
+	 * the frame length
 	 * is incremented.
 	 * In addition to that, the LQI and ED value are uploaded, too.
 	 */
@@ -177,10 +178,10 @@ void handle_received_frame_irq(void)
 	/*
 	 * Note: The following code is different from other non-single chip
 	 * transceivers, where reading the frame via SPI contains the length
-	 *field
+	 * field
 	 * in the first octet.
 	 */
-	pal_trx_frame_read(frame_ptr, phy_frame_len + LQI_LEN);
+	trx_frame_read(frame_ptr, phy_frame_len + LQI_LEN);
 	frame_ptr--;
 	*frame_ptr = phy_frame_len;
 	receive_frame->mpdu = frame_ptr;
@@ -198,11 +199,11 @@ void handle_received_frame_irq(void)
 #endif  /* #if (defined BEACON_SUPPORT) || (defined ENABLE_TSTAMP) */
 
 	/* Append received frame to incoming_frame_queue and get new rx buffer.
-	 **/
+	**/
 	qmm_queue_append(&tal_incoming_frame_queue, tal_rx_buffer);
 
 	/* The previous buffer is eaten up and a new buffer is not assigned yet.
-	 **/
+	**/
 	tal_rx_buffer = bmm_buffer_alloc(LARGE_BUFFER_SIZE);
 
 	/* Check if receive buffer is available */
@@ -211,50 +212,52 @@ void handle_received_frame_irq(void)
 		 * Turn off the receiver until a buffer is available again.
 		 * tal_task() will take care of eventually reactivating it.
 		 * Due to ongoing ACK transmission do not force to switch it
-		 *off.
+		 * off.
 		 */
 
 		/* Do not change the state since buffer protection mode is not
 		 * re-enabled yet.
 		 * Buffer protection will be re-enabled after buffer becomes
-		 *available
+		 * available
 		 */
 		/* set_trx_state(CMD_PLL_ON); */
 		tal_rx_on_required = true;
 	} else {
 		/*
 		 * Trx returns to RX_AACK_ON automatically, if this was its
-		 *previous state.
+		 * previous state.
 		 * Keep the following as a reminder, if receiver is used with
-		 *RX_ON instead.
+		 * RX_ON instead.
 		 */
-		/* pal_trx_reg_write(RG_TRX_STATE, CMD_RX_AACK_ON); */
+		/* trx_reg_write(RG_TRX_STATE, CMD_RX_AACK_ON); */
 
 		/*
 		 * Release the protected buffer and set it again for further
-		 *protection since
+		 * protection since
 		 * the buffer is available
 		 */
-		pal_trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_DISABLE); /*
-		                                                           *Disable
-		                                                           *buffer
-		                                                           *protection
-		                                                           *mode
-		                                                           **/
+		trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_DISABLE); /*
+		                                                       * Disable
+		                                                       * buffer
+		                                                       *
+		                                                       *protection
+		                                                       * mode
+		                                                       **/
 		pal_timer_delay(2); /* Allow pin change to get effective */
-		pal_trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /*
-		                                                          *Enable
-		                                                          *buffer
-		                                                          *protection
-		                                                          *mode
-		                                                          **/
+		trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /*
+		                                                      * Enable
+		                                                      * buffer
+		                                                      *
+		                                                      *protection
+		                                                      * mode
+		                                                      **/
 	}
 
 	/*
 	 * Clear pending TX_END IRQ: The TX_END IRQ is envoked for the
-	 *transmission
+	 * transmission
 	 * end of an automatically sent ACK frame. This implementation does not
-	 *use
+	 * use
 	 * this feature.
 	 */
 	pal_trx_irq_flag_clr_tx_end();
@@ -307,7 +310,7 @@ void process_incoming_frame(buffer_t *buf_ptr)
 
 		/*
 		 * The LQI normalization is done using the ED level measured
-		 *during
+		 * during
 		 * the frame reception.
 		 */
 #ifdef RSSI_TO_LQI_MAPPING
@@ -328,7 +331,6 @@ void process_incoming_frame(buffer_t *buf_ptr)
 
 		return;
 	}
-
 #endif   /* #ifdef PROMISCUOUS_MODE */
 
 #ifdef BEACON_SUPPORT
@@ -340,12 +342,12 @@ void process_incoming_frame(buffer_t *buf_ptr)
 	if ((receive_frame->mpdu[PL_POS_FCF_1] & FCF_FRAMETYPE_MASK) ==
 			FCF_FRAMETYPE_BEACON) {
 		/* Debug pin to switch on: define ENABLE_DEBUG_PINS,
-		 *pal_config.h */
+		 * pal_config.h */
 		PIN_BEACON_START();
 
 		if (tal_csma_state == BACKOFF_WAITING_FOR_BEACON) {
 			/* Debug pin to switch on: define ENABLE_DEBUG_PINS,
-			 *pal_config.h */
+			 * pal_config.h */
 			PIN_WAITING_FOR_BEACON_END();
 			tal_pib.BeaconTxTime = TAL_CONVERT_US_TO_SYMBOLS(
 					receive_frame->time_stamp);
@@ -353,10 +355,9 @@ void process_incoming_frame(buffer_t *buf_ptr)
 		}
 
 		/* Debug pin to switch on: define ENABLE_DEBUG_PINS,
-		 *pal_config.h */
+		 * pal_config.h */
 		PIN_BEACON_END();
 	}
-
 #endif  /* BEACON_SUPPORT */
 
 #ifndef TRX_REG_RAW_VALUE

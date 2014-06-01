@@ -3,7 +3,7 @@
  *
  * \brief Qtouch example for SAM.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -79,13 +79,13 @@
  *  -# In the terminal window, the
  *     following text should appear (values depend on the board and the chip used):
  *     \code
- *      -- QTouch Project--
- *      -- xxxxxx-xx
- *      -- Compiled: xxx xx xxxx xx:xx:xx --
- *      supports xxxxxxx
- *      Maximum number of Rotors/Sliders xxxxx
- *      Version xxxx
- *     \endcode
+	-- QTouch Project--
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	supports xxxxxxx
+	Maximum number of Rotors/Sliders xxxxx
+	Version xxxx
+\endcode
  *  -# The application will output the Qtouch value when touching the slider or the key
  * on the EK boards.
  *
@@ -129,12 +129,6 @@
 		"-- "BOARD_NAME" --\r\n" \
 		"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
 
-/* This configuration data structure parameters if needs to be changed will be
-   changed in the qt_set_parameters function */
-extern qt_touch_lib_config_data_t qt_config_data;
-/* Measurement data */
-extern qt_touch_lib_measure_data_t qt_measure_data;
-
 /* Flag set by timer ISR when it's time to measure touch */
 static volatile uint8_t time_to_measure_touch = 0u;
 
@@ -143,9 +137,6 @@ static volatile uint16_t current_time_ms_touch = 0u;
 
 /* Timer period in msec */
 uint16_t qt_measurement_period_msec = 25u;
-
-/* Get sensor delta values */
-extern int16_t qt_get_sensor_delta(uint8_t sensor);
 
 /**
  * \brief Handler for Sytem Tick interrupt.
@@ -211,7 +202,7 @@ static void init_system(void)
 static void init_timer_isr(void)
 {
 	printf("Configure sys tick to get %u ms tick period.\n\r",
-			(uint32_t) qt_measurement_period_msec);
+			qt_measurement_period_msec);
 	if (SysTick_Config((sysclk_get_cpu_hz() / 1000) *
 					qt_measurement_period_msec)) {
 		printf("-F- Systick configuration error\n\r");

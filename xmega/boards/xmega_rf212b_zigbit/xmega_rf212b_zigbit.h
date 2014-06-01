@@ -8,7 +8,7 @@
  *
  * To use this board define BOARD=XMEGA_RF212B_ZIGBIT
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,17 +49,18 @@
 #define _XMEGA_RF212B_ZIGBIT_H_
 
 #include <compiler.h>
+# include "conf_board.h"
 
 #define MCU_SOC_NAME        "ATxmega256A3U"
 
 
 /**
- * \defgroup xmega_a3bu_xplained_group XMEGA-A3BU Xplained board
+ * \defgroup xmega_rf212b_zigbit_group XMEGA-A3BU Xplained board
  * @{
  */
 
 /**
- * \defgroup xmega_a3bu_xplained_feature_group Feature definitions
+ * \defgroup xmega_rf212b_zigbit_feature_group Feature definitions
  * @{
  */
 
@@ -100,7 +101,7 @@
 
 #define BOARD_NAME          "ATZB-X-212B-XPRO"
 #define LED0_GPIO                       IOPORT_CREATE_PIN(PORTA, 6)
-#define LED1_GPIO                       IOPORT_CREATE_PIN(PORTA, 4)
+#define LED1_GPIO                       IOPORT_CREATE_PIN(PORTA, 7)
 #define LED2_GPIO                       IOPORT_CREATE_PIN(PORTA, 5)
 
 #define LED0                            LED0_GPIO
@@ -175,7 +176,7 @@
  */
 
 /**
- * \defgroup xmega_a3bu_xplained_config_group Configuration options
+ * \defgroup xmega_rf212b_zigbit_config_group Configuration options
  * @{
  */
 
@@ -193,8 +194,8 @@
  * \def CONF_BOARD_ENABLE_USARTD0
  * \brief Initialize IO pins for USART 0 on port D
  */
-#  if !defined(CONF_BOARD_ENABLE_USARTE0)
-#    define CONF_BOARD_ENABLE_USARTE0
+#  if !defined(CONF_BOARD_ENABLE_USARTD0)
+#    define CONF_BOARD_ENABLE_USARTD0
 #  endif
 
 

@@ -3,7 +3,7 @@
  *
  * \brief File provides functionality supporting RX-Enable feature.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -105,10 +105,10 @@ uint8_t tal_rx_enable(uint8_t state)
 	if (state == PHY_TRX_OFF) {
 		/*
 		 * If the rx needs to be switched off, we are not interested in
-		 *a frame
+		 * a frame
 		 * that is currently being received.
 		 * This must not be a Forced TRX_OFF (CMD_FORCED_TRX_OFF) since
-		 *this could
+		 * this could
 		 * corrupt an already outoing ACK frame.
 		 */
 		set_trx_state(CMD_TRX_OFF);
@@ -133,14 +133,14 @@ uint8_t tal_rx_enable(uint8_t state)
 			/*
 			 * If no rx buffer is available, the corresponding
 			 * information is stored and will be used by tal_task()
-			 *to
+			 * to
 			 * switch on the receiver later.
 			 *
 			 * Even if a receive buffer is not available,
 			 * the TAL returns MAC_SUCCESS. The TAL will try to
-			 *allocate a receive
+			 * allocate a receive
 			 * buffer as soon as possible and will switch on the
-			 *receiver.
+			 * receiver.
 			 */
 			tal_rx_on_required = true;
 		}

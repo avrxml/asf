@@ -58,6 +58,9 @@
 // From module: Delay routines
 #include <delay.h>
 
+// From module: External Interrupt for megaRF
+#include <ext_int_megarf.h>
+
 // From module: Flash driver
 #include <flash.h>
 
@@ -73,6 +76,9 @@
 // From module: Interrupt management - megaAVR and tinyAVR implementation
 #include <interrupt.h>
 
+// From module: MAC Symbol Counter
+#include <macsc_megarf.h>
+
 // From module: MEGA compiler driver
 #include <compiler.h>
 #include <status_codes.h>
@@ -82,6 +88,14 @@
 
 // From module: Part identification macros
 #include <parts.h>
+
+// From module: Sleep Controller driver
+#include <sleep.h>
+#include <sleep_megarf.h>
+
+// From module: Sleep manager - MEGARF implementation
+#include <mega/sleepmgr.h>
+#include <sleepmgr.h>
 
 // From module: Standard serial I/O (stdio) - MEGARF implementation
 #include <stdio_serial.h>

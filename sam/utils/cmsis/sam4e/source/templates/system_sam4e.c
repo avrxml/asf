@@ -4,7 +4,7 @@
  * \brief Provides the low-level initialization functions that called
  * on chip startup.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,7 +71,7 @@ uint32_t SystemCoreClock = CHIP_FREQ_MAINCK_RC_4MHZ;
 void SystemInit( void )
 {
 	/* Set FWS according to SYS_BOARD_MCKR configuration */
-	EFC->EEFC_FMR = EEFC_FMR_FWS(5);
+	EFC->EEFC_FMR = EEFC_FMR_FWS(5)|EEFC_FMR_CLOE;
 
 	/* Initialize main oscillator */
 	if ( !(PMC->CKGR_MOR & CKGR_MOR_MOSCSEL) ) {
@@ -200,21 +200,21 @@ void system_init_flash( uint32_t ul_clk )
 {
 	/* Set FWS for embedded Flash access according to operating frequency */
 	if ( ul_clk < CHIP_FREQ_FWS_0 ) {
-		EFC->EEFC_FMR = EEFC_FMR_FWS(0);
+		EFC->EEFC_FMR = EEFC_FMR_FWS(0)|EEFC_FMR_CLOE;
 	} else {
 		if (ul_clk < CHIP_FREQ_FWS_1) {
-			EFC->EEFC_FMR = EEFC_FMR_FWS(1);
+			EFC->EEFC_FMR = EEFC_FMR_FWS(1)|EEFC_FMR_CLOE;
 		} else {
 			if (ul_clk < CHIP_FREQ_FWS_2) {
-				EFC->EEFC_FMR = EEFC_FMR_FWS(2);
+				EFC->EEFC_FMR = EEFC_FMR_FWS(2)|EEFC_FMR_CLOE;
 			} else {
 				if ( ul_clk < CHIP_FREQ_FWS_3 ) {
-					EFC->EEFC_FMR = EEFC_FMR_FWS(3);
+					EFC->EEFC_FMR = EEFC_FMR_FWS(3)|EEFC_FMR_CLOE;
 				} else {
 					if ( ul_clk < CHIP_FREQ_FWS_4 ) {
-						EFC->EEFC_FMR = EEFC_FMR_FWS(4);
+						EFC->EEFC_FMR = EEFC_FMR_FWS(4)|EEFC_FMR_CLOE;
 					} else {
-						EFC->EEFC_FMR = EEFC_FMR_FWS(5);
+						EFC->EEFC_FMR = EEFC_FMR_FWS(5)|EEFC_FMR_CLOE;
 					}
 				}
 			}

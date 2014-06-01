@@ -3,7 +3,7 @@
  *
  * @brief Implements the MLME-POLL.request handling
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -135,9 +135,9 @@ void mlme_poll_request(uint8_t *m)
 
 		/*
 		 * Extract the Coordinator address information from the Poll
-		 *request.
+		 * request.
 		 * This is required later for building the proper destination
-		 *address
+		 * address
 		 * information in the data request frame.
 		 */
 		mlme_poll_req_t *msg
@@ -158,7 +158,7 @@ void mlme_poll_request(uint8_t *m)
 			}
 
 			/* Build and transmit data request frame due to explicit
-			 *poll request */
+			 * poll request */
 			status = mac_build_and_tx_data_req(true,
 					false,
 					data_req_addr_mode,
@@ -191,9 +191,9 @@ void mac_t_poll_wait_time_cb(void *callback_parameter)
 	if (MAC_POLL_EXPLICIT == mac_poll_state) {
 		/*
 		 * Data is not received on time for the poll request, hence
-		 *generate
+		 * generate
 		 * the poll confirm using the poll request buffer which was
-		 *stored in
+		 * stored in
 		 * mac_conf_buf_ptr.
 		 */
 		gen_mlme_poll_conf((buffer_t *)mac_conf_buf_ptr, MAC_NO_DATA);
@@ -222,7 +222,7 @@ void mac_process_data_response(void)
 	if (FCF_FRAMETYPE_BEACON == mac_parse_data.frame_type) {
 		/*
 		 * Node is currently in polling state, so only command or data
-		 *frames
+		 * frames
 		 * are of interest.
 		 * This is an unexpected frame type, do nothing.
 		 * Note. Ack frames are not uploaded to this point.
@@ -238,14 +238,13 @@ void mac_process_data_response(void)
 		if (pal_is_timer_running(T_Poll_Wait_Time)) {
 			Assert("Frame resp tmr running" == 0);
 		}
-
 #endif
 
 		/*
 		 * For received command frames (Association response or
 		 * disassociation notification) and for data frames with zero
 		 * payload length the potential status for the poll.confirm
-		 *message
+		 * message
 		 * is supposed to be "No data".
 		 */
 		status = MAC_NO_DATA;
@@ -265,7 +264,7 @@ void mac_process_data_response(void)
 	if (MAC_POLL_EXPLICIT == mac_poll_state) {
 		/*
 		 * Data is received on explicit poll request, hence generate the
-		 *poll confirm using
+		 * poll confirm using
 		 * the buffer which was stored in mac_conf_buf_ptr.
 		 */
 		gen_mlme_poll_conf((buffer_t *)mac_conf_buf_ptr, status);

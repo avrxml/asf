@@ -4,7 +4,7 @@
  * @brief RF4CE API parser.
  *
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -359,7 +359,7 @@ bool nwk_task(void)
 		rx_index = 0;
 		data_length = sio2ncp_rx(data, SIO_RX2NCP_BUF_SIZE);
 	} else { /* Data has been received, process the data */
-		/* Process each single byte */
+		 /* Process each single byte */
 		process_incoming_data();
 		data_length--;
 		rx_index++;
@@ -436,7 +436,7 @@ static inline void process_incoming_data(void)
 		}
 
 		/* Make rx buffer ready for next reception before handling
-		 *received data. */
+		 * received data. */
 		sio_rx_ptr = sio_rx_buf;
 		sio_rx_state = UART_RX_STATE_SOT;
 		break;
@@ -507,29 +507,42 @@ static inline void handle_incoming_msg(void)
 			MEMCPY_ENDIAN(&NodeDescList[i].IEEEAddr,
 					&sio_rx_buf[index], 8);
 			index += 8;
-			NodeDescList[i].NodeCapabilities = sio_rx_buf[index++]; /* 17 */
+			NodeDescList[i].NodeCapabilities = sio_rx_buf[index++]; /*
+				                                                 *17
+				                                                 **/
 			NodeDescList[i].VendorId = sio_rx_buf[index++];
 			NodeDescList[i].VendorId |= (sio_rx_buf[index++] << 8);
 			for (k = 0; k < 7; k++) {
 				NodeDescList[i].VendorString[k]
-					= sio_rx_buf[index++];                 /* 20 */
+					= sio_rx_buf[index++];                 /*
+					                                        *20
+					                                        **/
 			}
-			NodeDescList[i].AppCapabilities = sio_rx_buf[index++]; /* 27 */
+			NodeDescList[i].AppCapabilities = sio_rx_buf[index++]; /*
+				                                                *27
+				                                                **/
 			for (k = 0; k < 15; k++) {
 				NodeDescList[i].UserString[k]
-					= sio_rx_buf[index++];               /* 28 */
+					= sio_rx_buf[index++];               /*
+					                                      *28
+					                                      **/
 			}
 			for (k = 0; k < DEVICE_TYPE_LIST_SIZE; k++) {
 				NodeDescList[i].DevTypeList[k]
 					= (dev_type_t)sio_rx_buf
-						[index++];                                 /* 43 */
+						[index++];                                 /*
+					                                                    *43
+					                                                    **/
 			}
 			for (k = 0; k < PROFILE_ID_LIST_SIZE; k++) {
 				NodeDescList[i].ProfileIdList[k]
 					= (profile_id_t)
-						sio_rx_buf[index++];                          /* 46 */
+						sio_rx_buf[index++];                          /*
+					                                                       *46
+					                                                       **/
 			}
-			NodeDescList[i].DiscReqLQI = sio_rx_buf[index++]; /* 53 */
+			NodeDescList[i].DiscReqLQI = sio_rx_buf[index++]; /* 53
+				                                           **/
 		}
 
 		nlme_discovery_confirm_cb((nwk_enum_t)sio_rx_buf[2],
@@ -569,7 +582,8 @@ static inline void handle_incoming_msg(void)
 				((uint16_t)sio_rx_buf[4] |
 				((uint16_t)sio_rx_buf[5] << 8)),   /* Rec Vendor
 			                                            * Id// */
-				RecVendorString, /* uint8_t RecVendorString[7], */
+				RecVendorString, /* uint8_t RecVendorString[7],
+			                          **/
 				sio_rx_buf[6 + 7], /* RecAppCapabilities */
 				RecUserString,
 				RecDevTypeList,
@@ -656,7 +670,7 @@ static inline void handle_incoming_msg(void)
 				sio_rx_buf[2], (profile_id_t)sio_rx_buf[3],
 				((uint16_t)sio_rx_buf[4] |
 				((uint16_t)sio_rx_buf[5] << 8)),   /* Vendor
-			                                            * Id// */
+			                                           * Id// */
 				sio_rx_buf[8], /* nsdu length */
 				&sio_rx_buf[9],
 				sio_rx_buf[6], /* rx link quality */
@@ -676,7 +690,9 @@ static inline void handle_incoming_msg(void)
 		nwk_ind_callback.nlme_comm_status_indication_cb(
 				(nwk_enum_t)sio_rx_buf[2], sio_rx_buf[3],
 				((uint16_t)sio_rx_buf[4] |
-				((uint16_t)sio_rx_buf[5] << 8)),       /* DstPANId// */
+				((uint16_t)sio_rx_buf[5] << 8)),       /*
+			                                                *DstPANId//
+			                                                **/
 				sio_rx_buf[6],
 				SrcIEEEAddr);
 	}
@@ -691,7 +707,9 @@ static inline void handle_incoming_msg(void)
 		uint64_t DstIEEEAddr;
 		MEMCPY_ENDIAN(&DstIEEEAddr, &sio_rx_buf[3], 8);
 		nwk_ind_callback.nlme_discovery_indication_cb(
-				(nwk_enum_t)sio_rx_buf[2], DstIEEEAddr, /* DstIEEEaddr */
+				(nwk_enum_t)sio_rx_buf[2], DstIEEEAddr, /*
+			                                                 *DstIEEEaddr
+			                                                 **/
 				sio_rx_buf[11],
 				((uint16_t)sio_rx_buf[12] |
 				((uint16_t)sio_rx_buf[13] << 8)),
@@ -802,7 +820,8 @@ static inline void handle_incoming_msg(void)
 
 				sio_rx_buf[2], /* pairing ref */
 				((uint16_t)sio_rx_buf[4] |
-				((uint16_t)sio_rx_buf[5] << 8)),   /* vendor id */
+				((uint16_t)sio_rx_buf[5] << 8)),   /* vendor id
+			                                            **/
 				sio_rx_buf[8], /* nsdu length */
 				&sio_rx_buf[9],
 				sio_rx_buf[6], /* rx link quality */
@@ -883,7 +902,7 @@ bool nlde_data_request(uint8_t PairingRef, profile_id_t ProfileId,
 
 /* The NLME-AUTO-DISCOVERY.request primitive allows the application to request
  * the NLME automatically handles the receipt of discovery request command
- *frames. */
+ * frames. */
 
 bool nlme_auto_discovery_request(uint8_t RecAppCapabilities,
 		dev_type_t RecDevTypeList[DEVICE_TYPE_LIST_SIZE],
@@ -1013,7 +1032,7 @@ bool nlme_discovery_response(nwk_enum_t Status, uint64_t DstIEEEAddr,
 /* The NLME-PAIR.request primitive allows the application to request the NLME
  * pair
  * with another device. This primitive would normally be issued following a
- *discovery
+ * discovery
  * operation via the NLME-DISCOVERY.request primitive. */
 
 bool nlme_pair_request(uint8_t LogicalChannel, uint16_t DstPANId,
@@ -1130,7 +1149,7 @@ bool nlme_get_request(nib_attribute_t NIBAttribute, uint8_t NIBAttributeIndex,
 /* The NLME-RX-ENABLE.request primitive allows the application to request that
  * the
  * receiver is either enabled (for a finite period or until further notice) or
- *disabled. */
+ * disabled. */
 bool nlme_rx_enable_request(uint32_t RxOnDuration,
 		FUNC_PTR confirm_cb
 		)
@@ -1222,7 +1241,7 @@ bool nlme_start_request(FUNC_PTR confirm_cb)
 
 /* The NLME-UNPAIR.request primitive allows the application to request the NLME
  * removes a pairing link with another device both in the local and remote
- *pairing tables. */
+ * pairing tables. */
 
 bool nlme_unpair_request(uint8_t PairingRef,
 		FUNC_PTR confirm_cb
@@ -1252,7 +1271,7 @@ bool nlme_unpair_request(uint8_t PairingRef,
 
 /* The NLME-UNPAIR.response primitive allows the application to notify the NLME
  * that the pairing link indicated via the NLME-UNPAIR.indication primitive can
- *be
+ * be
  * removed from the pairing table. */
 bool nlme_unpair_response(uint8_t PairingRef)
 {
@@ -1508,7 +1527,7 @@ bool zrc_cmd_disc_request(uint8_t PairingRef,
  *
  * @param PairingRef    pairing ref of the originator device.
  * @param SupportedCmd  Address of provided 32 byte array containing supported
- *command codes
+ * command codes
  *
  * @return true         if cmd discovery response is sent using nlde_data_req.
  */
@@ -1541,21 +1560,18 @@ void register_nwk_indication_callback(nwk_indication_callback_t *nwk_ind_cb)
 		nwk_ind_callback.nwk_ch_agility_indication_cb
 			= nwk_ind_cb->nwk_ch_agility_indication_cb;
 	}
-
 #endif
 #if (defined RF4CE_TARGET) || (defined RF4CE_PLATFORM)
 	if (nwk_ind_cb->nlme_pair_indication_cb != NULL) {
 		nwk_ind_callback.nlme_pair_indication_cb
 			= nwk_ind_cb->nlme_pair_indication_cb;
 	}
-
 #endif
 #if (NWK_UNPAIR_IND_RESP == 1) || (defined RF4CE_PLATFORM)
 	if (nwk_ind_cb->nlme_unpair_indication_cb != NULL) {
 		nwk_ind_callback.nlme_unpair_indication_cb
 			= nwk_ind_cb->nlme_unpair_indication_cb;
 	}
-
 #endif
 #if (((defined RF4CE_TARGET) && (NWK_DISCOVERY_IND_RESP == 1)) || \
 	(defined RF4CE_PLATFORM))
@@ -1563,21 +1579,18 @@ void register_nwk_indication_callback(nwk_indication_callback_t *nwk_ind_cb)
 		nwk_ind_callback.nlme_discovery_indication_cb
 			= nwk_ind_cb->nlme_discovery_indication_cb;
 	}
-
 #endif
 #if (defined RF4CE_TARGET) || (defined RF4CE_PLATFORM)
 	if (nwk_ind_cb->nlme_comm_status_indication_cb != NULL) {
 		nwk_ind_callback.nlme_comm_status_indication_cb
 			= nwk_ind_cb->nlme_comm_status_indication_cb;
 	}
-
 #endif
 #ifdef ZRC_PROFILE
 	if (nwk_ind_cb->zrc_data_indication_cb != NULL) {
 		nwk_ind_callback.zrc_data_indication_cb
 			= nwk_ind_cb->zrc_data_indication_cb;
 	}
-
 #endif
 	if (nwk_ind_cb->nlde_data_indication_cb != NULL) {
 		nwk_ind_callback.nlde_data_indication_cb
@@ -1593,21 +1606,18 @@ void register_zrc_indication_callback(
 		zrc_ind_cb.zrc_cmd_indication_cb
 			= zrc_ind_callback->zrc_cmd_indication_cb;
 	}
-
 #endif
 #if (defined ZRC_CMD_DISCOVERY)
 	if (zrc_ind_callback->zrc_cmd_disc_indication_cb != NULL) {
 		zrc_ind_cb.zrc_cmd_disc_indication_cb
 			= zrc_ind_callback->zrc_cmd_disc_indication_cb;
 	}
-
 #endif
 #ifdef VENDOR_DATA
 	if (zrc_ind_callback->vendor_data_ind_cb != NULL) {
 		zrc_ind_cb.vendor_data_ind_cb
 			= zrc_ind_callback->vendor_data_ind_cb;
 	}
-
 #endif
 }
 

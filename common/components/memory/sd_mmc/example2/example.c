@@ -3,7 +3,7 @@
  *
  * \brief SD/MMC card example with FatFs
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -53,6 +53,9 @@
  * To know the output used on the board, look in the conf_example.h file
  * and connect a terminal to the correct port.
  *
+ * While using Xplained Pro evaluation kits, please attach I/O1 Xplained Pro
+ * extension board to EXT1.
+ *
  * \section Usage
  *
  * -# Build the program and download it into the board.
@@ -61,10 +64,10 @@
  * -# Start the application.
  * -# In the terminal window, the following text should appear:
  *    \code
- *     -- SD/MMC/SDIO Card Example on FatFs --
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     Please plug an SD, MMC or SDIO card in slot.
- *    \endcode
+	-- SD/MMC/SDIO Card Example on FatFs --
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	Please plug an SD, MMC or SDIO card in slot.
+\endcode
  */
 
 #include <asf.h>
@@ -145,7 +148,7 @@ int main(void)
 		}
 		printf("[OK]\r\n");
 		f_close(&file_object);
-		printf("Test successfull.\n\r");
+		printf("Test is successful.\n\r");
 
 main_end_of_test:
 		printf("Please unplug the card.\n\r");

@@ -3,7 +3,7 @@
  *
  * \brief Chip-specific system clock management functions
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,8 +71,8 @@ extern "C" {
  * \subsection sysclk_quickstart_use_case_1_setup_steps Initialization code
  * Add to the application initialization code:
  * \code
- *    sysclk_init();
- * \endcode
+	sysclk_init();
+\endcode
  *
  * \subsection sysclk_quickstart_use_case_1_setup_steps_workflow Workflow
  * -# Configure the system clocks according to the settings in conf_clock.h:
@@ -82,21 +82,21 @@ extern "C" {
  *   Add or uncomment the following in your conf_clock.h header file, commenting out all other
  *   definitions of the same symbol(s):
  *   \code
- *   #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_DFLL0
- *
- *   // Fdfll = (Fclk * DFLL_mul) / DFLL_div
- *   #define CONFIG_DFLL0_SOURCE         GENCLK_SRC_OSC32K
- *   #define CONFIG_DFLL0_FREQ           48000000UL
- *   #define CONFIG_DFLL0_MUL            (CONFIG_DFLL0_FREQ / BOARD_OSC32_HZ)
- *   #define CONFIG_DFLL0_DIV            1
- *
- *   // Fbus = Fsys / (2 ^ BUS_div)
- *   #define CONFIG_SYSCLK_CPU_DIV       0
- *   #define CONFIG_SYSCLK_PBA_DIV       1
- *   #define CONFIG_SYSCLK_PBB_DIV       1
- *   #define CONFIG_SYSCLK_PBC_DIV       1
- *   #define CONFIG_SYSCLK_PBD_DIV       1
- *   \endcode
+	   #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_DFLL0
+
+	   // Fdfll = (Fclk * DFLL_mul) / DFLL_div
+	   #define CONFIG_DFLL0_SOURCE         GENCLK_SRC_OSC32K
+	   #define CONFIG_DFLL0_FREQ           48000000UL
+	   #define CONFIG_DFLL0_MUL            (CONFIG_DFLL0_FREQ / BOARD_OSC32_HZ)
+	   #define CONFIG_DFLL0_DIV            1
+
+	   // Fbus = Fsys / (2 ^ BUS_div)
+	   #define CONFIG_SYSCLK_CPU_DIV       0
+	   #define CONFIG_SYSCLK_PBA_DIV       1
+	   #define CONFIG_SYSCLK_PBB_DIV       1
+	   #define CONFIG_SYSCLK_PBC_DIV       1
+	   #define CONFIG_SYSCLK_PBD_DIV       1
+\endcode
  *
  * \subsection sysclk_quickstart_use_case_1_example_workflow Workflow
  *  -# Configure the main system clock to use the output of the DFLL0 module as its source:
@@ -105,21 +105,21 @@ extern "C" {
  *   \code #define CONFIG_DFLL0_SOURCE       GENCLK_SRC_OSC32K \endcode
  *  -# Configure the DFLL0 module to multiply the external oscillator OSC0 frequency up to 48MHz:
  *   \code
- *   #define CONFIG_DFLL0_FREQ           48000000UL
- *   #define CONFIG_DFLL0_MUL            (CONFIG_DFLL0_FREQ / BOARD_OSC32_HZ)
- *   #define CONFIG_DFLL0_DIV            1
- *   \endcode
+	#define CONFIG_DFLL0_FREQ           48000000UL
+	#define CONFIG_DFLL0_MUL            (CONFIG_DFLL0_FREQ / BOARD_OSC32_HZ)
+	#define CONFIG_DFLL0_DIV            1
+\endcode
  *   \note For user boards, \c BOARD_OSC0_HZ should be defined in the board \c conf_board.h configuration
  *         file as the frequency of the crystal attached to OSC0.
  *  -# Configure the main clock to run at the full 48MHz, scale the peripheral busses to run at one
  *     half (2 to the power of 1) of the system clock speed:
  *    \code
- *    #define CONFIG_SYSCLK_CPU_DIV       0
- *    #define CONFIG_SYSCLK_PBA_DIV       1
- *    #define CONFIG_SYSCLK_PBB_DIV       1
- *    #define CONFIG_SYSCLK_PBC_DIV       1
- *    #define CONFIG_SYSCLK_PBD_DIV       1
- *    \endcode
+	#define CONFIG_SYSCLK_CPU_DIV       0
+	#define CONFIG_SYSCLK_PBA_DIV       1
+	#define CONFIG_SYSCLK_PBB_DIV       1
+	#define CONFIG_SYSCLK_PBC_DIV       1
+	#define CONFIG_SYSCLK_PBD_DIV       1
+\endcode
  *    \note Some dividers are powers of two, while others are integer division factors. Refer to the
  *          formulas in the conf_clock.h template commented above each division define.
  */
@@ -666,79 +666,79 @@ extern void sysclk_priv_disable_module(uint32_t bus_id, uint32_t module_index);
 
 /**
  * \brief Enable a module clock derived from the CPU clock
- * \param index Index of the module clock in the CPUMASK register
+ * \param module_index Index of the module clock in the CPUMASK register
  */
-static inline void sysclk_enable_cpu_module(uint32_t index)
+static inline void sysclk_enable_cpu_module(uint32_t module_index)
 {
-	sysclk_priv_enable_module(PM_CLK_GRP_CPU, index);
+	sysclk_priv_enable_module(PM_CLK_GRP_CPU, module_index);
 }
 
 /**
  * \brief Disable a module clock derived from the CPU clock
- * \param index Index of the module clock in the CPUMASK register
+ * \param module_index Index of the module clock in the CPUMASK register
  */
-static inline void sysclk_disable_cpu_module(uint32_t index)
+static inline void sysclk_disable_cpu_module(uint32_t module_index)
 {
-	sysclk_priv_disable_module(PM_CLK_GRP_CPU, index);
+	sysclk_priv_disable_module(PM_CLK_GRP_CPU, module_index);
 }
 
 /**
  * \brief Enable a module clock derived from the HSB clock
- * \param index Index of the module clock in the HSBMASK register
+ * \param module_index Index of the module clock in the HSBMASK register
  */
-static inline void sysclk_enable_hsb_module(uint32_t index)
+static inline void sysclk_enable_hsb_module(uint32_t module_index)
 {
-	sysclk_priv_enable_module(PM_CLK_GRP_HSB, index);
+	sysclk_priv_enable_module(PM_CLK_GRP_HSB, module_index);
 }
 
 /**
  * \brief Disable a module clock derived from the HSB clock
- * \param index Index of the module clock in the HSBMASK register
+ * \param module_index Index of the module clock in the HSBMASK register
  */
-static inline void sysclk_disable_hsb_module(uint32_t index)
+static inline void sysclk_disable_hsb_module(uint32_t module_index)
 {
-	sysclk_priv_disable_module(PM_CLK_GRP_HSB, index);
+	sysclk_priv_disable_module(PM_CLK_GRP_HSB, module_index);
 }
 
-extern void sysclk_enable_pba_module(uint32_t index);
-extern void sysclk_disable_pba_module(uint32_t index);
-extern void sysclk_enable_pbb_module(uint32_t index);
-extern void sysclk_disable_pbb_module(uint32_t index);
+extern void sysclk_enable_pba_module(uint32_t module_index);
+extern void sysclk_disable_pba_module(uint32_t module_index);
+extern void sysclk_enable_pbb_module(uint32_t module_index);
+extern void sysclk_disable_pbb_module(uint32_t module_index);
 
 /**
  * \brief Enable a module clock derived from the PBC clock
- * \param index Index of the module clock in the PBAMASK register
+ * \param module_index Index of the module clock in the PBAMASK register
  */
-static inline void sysclk_enable_pbc_module(uint32_t index)
+static inline void sysclk_enable_pbc_module(uint32_t module_index)
 {
-	sysclk_priv_enable_module(PM_CLK_GRP_PBC, index);
+	sysclk_priv_enable_module(PM_CLK_GRP_PBC, module_index);
 }
 
 /**
  * \brief Disable a module clock derived from the PBC clock
- * \param index Index of the module clock in the PBAMASK register
+ * \param module_index Index of the module clock in the PBAMASK register
  */
-static inline void sysclk_disable_pbc_module(uint32_t index)
+static inline void sysclk_disable_pbc_module(uint32_t module_index)
 {
-	sysclk_priv_disable_module(PM_CLK_GRP_PBC, index);
+	sysclk_priv_disable_module(PM_CLK_GRP_PBC, module_index);
 }
 
 /**
  * \brief Enable a module clock derived from the PBD clock
- * \param index Index of the module clock in the PBAMASK register
+ * \param module_index Index of the module clock in the PBAMASK register
  */
-static inline void sysclk_enable_pbd_module(uint32_t index)
+static inline void sysclk_enable_pbd_module(uint32_t module_index)
 {
-	sysclk_priv_enable_module(PM_CLK_GRP_PBD, index);
+	sysclk_priv_enable_module(PM_CLK_GRP_PBD, module_index);
 }
 
 /**
  * \brief Disable a module clock derived from the PBD clock
- * \param index Index of the module clock in the PBAMASK register
+ * \param module_index Index of the module clock in the PBAMASK register
  */
-static inline void sysclk_disable_pbd_module(uint32_t index)
+static inline void sysclk_disable_pbd_module(uint32_t module_index)
 {
-	sysclk_priv_disable_module(PM_CLK_GRP_PBD, index);
+	sysclk_priv_disable_module(PM_CLK_GRP_PBD, module_index);
 }
 
 /**

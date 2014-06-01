@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,15 +44,15 @@
 
 /* ========== Register definition for EFC0 peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-#define REG_EFC0_FMR           (0x400E0A00U) /**< \brief (EFC0) EEFC Flash Mode Register */
-#define REG_EFC0_FCR           (0x400E0A04U) /**< \brief (EFC0) EEFC Flash Command Register */
-#define REG_EFC0_FSR           (0x400E0A08U) /**< \brief (EFC0) EEFC Flash Status Register */
-#define REG_EFC0_FRR           (0x400E0A0CU) /**< \brief (EFC0) EEFC Flash Result Register */
+  #define REG_EFC0_FMR                  (0x400E0A00U) /**< \brief (EFC0) EEFC Flash Mode Register */
+  #define REG_EFC0_FCR                  (0x400E0A04U) /**< \brief (EFC0) EEFC Flash Command Register */
+  #define REG_EFC0_FSR                  (0x400E0A08U) /**< \brief (EFC0) EEFC Flash Status Register */
+  #define REG_EFC0_FRR                  (0x400E0A0CU) /**< \brief (EFC0) EEFC Flash Result Register */
 #else
-#define REG_EFC0_FMR  (*(RwReg*)0x400E0A00U) /**< \brief (EFC0) EEFC Flash Mode Register */
-#define REG_EFC0_FCR  (*(WoReg*)0x400E0A04U) /**< \brief (EFC0) EEFC Flash Command Register */
-#define REG_EFC0_FSR  (*(RoReg*)0x400E0A08U) /**< \brief (EFC0) EEFC Flash Status Register */
-#define REG_EFC0_FRR  (*(RoReg*)0x400E0A0CU) /**< \brief (EFC0) EEFC Flash Result Register */
+  #define REG_EFC0_FMR (*(__IO uint32_t*)0x400E0A00U) /**< \brief (EFC0) EEFC Flash Mode Register */
+  #define REG_EFC0_FCR (*(__O  uint32_t*)0x400E0A04U) /**< \brief (EFC0) EEFC Flash Command Register */
+  #define REG_EFC0_FSR (*(__I  uint32_t*)0x400E0A08U) /**< \brief (EFC0) EEFC Flash Status Register */
+  #define REG_EFC0_FRR (*(__I  uint32_t*)0x400E0A0CU) /**< \brief (EFC0) EEFC Flash Result Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAM4S_EFC0_INSTANCE_ */

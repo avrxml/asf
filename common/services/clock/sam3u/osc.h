@@ -55,6 +55,35 @@ extern "C" {
 /**INDENT-ON**/
 /// @endcond
 
+/*
+ * Below BOARD_XXX macros are related to the specific board, and
+ * should be defined by the board code, otherwise default value are used.
+ */
+#if !defined(BOARD_FREQ_SLCK_XTAL)
+#  warning The board slow clock xtal frequency has not been defined.
+#  define BOARD_FREQ_SLCK_XTAL      (32768UL)
+#endif
+
+#if !defined(BOARD_FREQ_SLCK_BYPASS)
+#  warning The board slow clock bypass frequency has not been defined.
+#  define BOARD_FREQ_SLCK_BYPASS    (32768UL)
+#endif
+
+#if !defined(BOARD_FREQ_MAINCK_XTAL)
+#  warning The board main clock xtal frequency has not been defined.
+#  define BOARD_FREQ_MAINCK_XTAL    (12000000UL)
+#endif
+
+#if !defined(BOARD_FREQ_MAINCK_BYPASS)
+#  warning The board main clock bypass frequency has not been defined.
+#  define BOARD_FREQ_MAINCK_BYPASS  (12000000UL)
+#endif
+
+#if !defined(BOARD_OSC_STARTUP_US)
+#  warning The board main clock xtal startup time has not been defined.
+#  define BOARD_OSC_STARTUP_US      (15625UL)
+#endif
+
 /**
  * \weakgroup osc_group
  * @{
@@ -176,15 +205,11 @@ static inline uint32_t osc_get_rate(uint32_t ul_id)
 	case OSC_SLCK_32K_RC:
 		return OSC_SLCK_32K_RC_HZ;
 
-#ifdef BOARD_FREQ_SLCK_XTAL
 	case OSC_SLCK_32K_XTAL:
 		return BOARD_FREQ_SLCK_XTAL;
-#endif
 
-#ifdef BOARD_FREQ_SLCK_BYPASS
 	case OSC_SLCK_32K_BYPASS:
 		return BOARD_FREQ_SLCK_BYPASS;
-#endif
 
 	case OSC_MAINCK_4M_RC:
 		return OSC_MAINCK_4M_RC_HZ;
@@ -195,15 +220,11 @@ static inline uint32_t osc_get_rate(uint32_t ul_id)
 	case OSC_MAINCK_12M_RC:
 		return OSC_MAINCK_12M_RC_HZ;
 
-#ifdef BOARD_FREQ_MAINCK_XTAL
 	case OSC_MAINCK_XTAL:
 		return BOARD_FREQ_MAINCK_XTAL;
-#endif
 
-#ifdef BOARD_FREQ_MAINCK_BYPASS
 	case OSC_MAINCK_BYPASS:
 		return BOARD_FREQ_MAINCK_BYPASS;
-#endif
 	}
 
 	return 0;

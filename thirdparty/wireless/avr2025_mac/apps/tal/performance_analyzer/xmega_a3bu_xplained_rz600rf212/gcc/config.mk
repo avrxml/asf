@@ -59,21 +59,20 @@ CSRCS = \
        common/utils/stdio/stdio_usb/stdio_usb.c           \
        common/utils/stdio/write.c                         \
        thirdparty/wireless/addons/sio2host/usb/sio2host.c \
+       thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/main.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/init_state.c \
-       thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/main.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/peer_search_initiator.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/peer_search_receptor.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/per_mode_common_utils.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/per_mode_initiator.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/per_mode_receptor.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/perf_api_serial_handler.c \
+       thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/performance_main.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/range_measure.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/user_interface.c \
        thirdparty/wireless/avr2025_mac/apps/tal/performance_analyzer/src/wait_for_event.c \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/xmega/hw_timer.c \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer/common_sw_timer.c \
        thirdparty/wireless/avr2025_mac/source/pal/pal.c   \
-       thirdparty/wireless/avr2025_mac/source/pal/pal_ext_trx.c \
        thirdparty/wireless/avr2025_mac/source/resources/buffer/src/bmm.c \
        thirdparty/wireless/avr2025_mac/source/resources/queue/src/qmm.c \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf212/src/tal.c \
@@ -88,6 +87,8 @@ CSRCS = \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf212/src/tal_tx.c \
        thirdparty/wireless/avr2025_mac/source/tal/src/tal_helper.c \
        thirdparty/wireless/avr2025_mac/source/tfa/at86rf212/src/tfa.c \
+       thirdparty/wireless/services/common_hw_timer/xmega/hw_timer.c \
+       thirdparty/wireless/services/trx_access/trx_access.c \
        xmega/boards/xmega_a3bu_xplained/init.c            \
        xmega/drivers/nvm/nvm.c                            \
        xmega/drivers/spi/spi.c                            \
@@ -122,14 +123,15 @@ INC_PATH = \
        thirdparty/wireless/avr2025_mac/include            \
        thirdparty/wireless/avr2025_mac/source/mac/inc     \
        thirdparty/wireless/avr2025_mac/source/pal         \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/xmega \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer \
        thirdparty/wireless/avr2025_mac/source/resources/buffer/inc \
        thirdparty/wireless/avr2025_mac/source/resources/queue/inc \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf212/inc \
        thirdparty/wireless/avr2025_mac/source/tal/inc     \
        thirdparty/wireless/avr2025_mac/source/tfa/inc     \
+       thirdparty/wireless/services/common_hw_timer       \
+       thirdparty/wireless/services/common_hw_timer/xmega \
+       thirdparty/wireless/services/trx_access            \
        xmega/boards                                       \
        xmega/boards/xmega_a3bu_xplained                   \
        xmega/drivers/cpu                                  \
@@ -145,7 +147,7 @@ INC_PATH = \
 
 # Library paths from the top-level source directory
 LIB_PATH =  \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/xmega/lib
+       thirdparty/wireless/services/common_hw_timer/xmega/lib
 
 # Libraries to link with the project
 LIBS =  \
@@ -201,3 +203,7 @@ CPPFLAGS = \
 # Extra flags to use when linking
 LDFLAGS =  \
        -Wl,--section-start=.BOOT=0x40000                 
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

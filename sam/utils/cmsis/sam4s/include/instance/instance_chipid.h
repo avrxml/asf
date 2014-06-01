@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,11 +44,11 @@
 
 /* ========== Register definition for CHIPID peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-#define REG_CHIPID_CIDR          (0x400E0740U) /**< \brief (CHIPID) Chip ID Register */
-#define REG_CHIPID_EXID          (0x400E0744U) /**< \brief (CHIPID) Chip ID Extension Register */
+  #define REG_CHIPID_CIDR                 (0x400E0740U) /**< \brief (CHIPID) Chip ID Register */
+  #define REG_CHIPID_EXID                 (0x400E0744U) /**< \brief (CHIPID) Chip ID Extension Register */
 #else
-#define REG_CHIPID_CIDR (*(RoReg*)0x400E0740U) /**< \brief (CHIPID) Chip ID Register */
-#define REG_CHIPID_EXID (*(RoReg*)0x400E0744U) /**< \brief (CHIPID) Chip ID Extension Register */
+  #define REG_CHIPID_CIDR (*(__I uint32_t*)0x400E0740U) /**< \brief (CHIPID) Chip ID Register */
+  #define REG_CHIPID_EXID (*(__I uint32_t*)0x400E0744U) /**< \brief (CHIPID) Chip ID Extension Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAM4S_CHIPID_INSTANCE_ */

@@ -6,7 +6,7 @@
  * This file defines a useful set of functions for the PDCA interface on SAM4L
  * devices.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -165,52 +165,52 @@ pdca_channel_interrupt_mask_t
  * \subsection pdca_basic_use_case_setup_code Example code
  * Add to application C-file:
  * \code
- *   void pdca_callback(void)
- *   {
- *       //Get PDCA RX channel status and check if PDCA transfer complete
- *       if (status == PDCA_CH_TRANSFER_COMPLETED) {
- *           pdca_channel_write_load(PDCA_RX_CHANNEL, g_uc_pdc_buffer, BUFFER_SIZE);
- *           pdca_channel_write_load(PDCA_TX_CHANNEL, g_uc_pdc_buffer, BUFFER_SIZE);
- *       }
- *   }
- *   void pdca_setup(void)
- *   {
- *       pdca_enable(PDCA);
- *
- *       pdca_channel_write_config(PDCA_RX_CHANNEL, &PDCA_RX_CONFIGS);
- *       pdca_channel_write_config(PDCA_TX_CHANNEL, &PDCA_TX_CONFIGS);
- *
- *       pdca_channel_set_callback(PDCA_RX_CHANNEL, pdca_tranfer_done, PDCA_0_IRQn, 1, PDCA_IER_TRC);
- *
- *       pdca_channel_enable(PDCA_RX_CHANNEL);
- *       pdca_channel_enable(PDCA_TX_CHANNEL);
- *   }
- * \endcode
+	   void pdca_callback(void)
+	   {
+	       //Get PDCA RX channel status and check if PDCA transfer complete
+	       if (status == PDCA_CH_TRANSFER_COMPLETED) {
+	           pdca_channel_write_load(PDCA_RX_CHANNEL, g_uc_pdc_buffer, BUFFER_SIZE);
+	           pdca_channel_write_load(PDCA_TX_CHANNEL, g_uc_pdc_buffer, BUFFER_SIZE);
+	       }
+	   }
+	   void pdca_setup(void)
+	   {
+	       pdca_enable(PDCA);
+
+	       pdca_channel_write_config(PDCA_RX_CHANNEL, &PDCA_RX_CONFIGS);
+	       pdca_channel_write_config(PDCA_TX_CHANNEL, &PDCA_TX_CONFIGS);
+
+	       pdca_channel_set_callback(PDCA_RX_CHANNEL, pdca_tranfer_done, PDCA_0_IRQn, 1, PDCA_IER_TRC);
+
+	       pdca_channel_enable(PDCA_RX_CHANNEL);
+	       pdca_channel_enable(PDCA_TX_CHANNEL);
+	   }
+\endcode
  *
  * \subsection pdca_basic_use_case_setup_flow Workflow
  * -# Define the interrupt callback function in the application:
  *   - \code
- *   void pdca_callback(void)
- *   {
- *       //Get PDCA RX channel status and check if PDCA transfer complete
- *       if (status == PDCA_CH_TRANSFER_COMPLETED) {
- *           pdca_channel_write_load(PDCA_RX_CHANNEL, g_uc_pdc_buffer, BUFFER_SIZE);
- *           pdca_channel_write_load(PDCA_TX_CHANNEL, g_uc_pdc_buffer, BUFFER_SIZE);
- *       }
- *   }
- * \endcode
+	void pdca_callback(void)
+	{
+	    //Get PDCA RX channel status and check if PDCA transfer complete
+	    if (status == PDCA_CH_TRANSFER_COMPLETED) {
+	        pdca_channel_write_load(PDCA_RX_CHANNEL, g_uc_pdc_buffer, BUFFER_SIZE);
+	        pdca_channel_write_load(PDCA_TX_CHANNEL, g_uc_pdc_buffer, BUFFER_SIZE);
+	    }
+	}
+\endcode
  * -# Enable PDCA module:
  *   - \code pdca_enable(PDCA); \endcode
  *   - \note Including enable module clock and lock sleep mode.
  * -# Configure PDCA channel with specified mode:
  *   - \code pdca_channel_write_config(PDCA_RX_CHANNEL, &PDCA_RX_CONFIGS);
- *                pdca_channel_write_config(PDCA_TX_CHANNEL, &PDCA_TX_CONFIGS);
- *  \endcode
+	pdca_channel_write_config(PDCA_TX_CHANNEL, &PDCA_TX_CONFIGS);
+\endcode
  * -# Set the PDCA callback function and enable PDCA interrupt.
  *   - \code pdca_channel_set_callback(PDCA_RX_CHANNEL, pdca_tranfer_done, PDCA_0_IRQn, 1, PDCA_IER_TRC); \endcode
  * -# Enable PDCA channel:
  *   - \code pdca_channel_enable(PDCA_RX_CHANNEL);
- *                pdca_channel_enable(PDCA_TX_CHANNEL);
- * \endcode
+	pdca_channel_enable(PDCA_TX_CHANNEL);
+\endcode
  */
 #endif /* PDCA_H_INCLUDED */

@@ -96,9 +96,6 @@
 // From module: TWI - Two-wire Interface
 #include <twi.h>
 
-// From module: UART - Univ. Async Rec/Trans
-#include <uart.h>
-
 // From module: pio_handler support enabled
 #include <pio_handler.h>
 

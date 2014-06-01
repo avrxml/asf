@@ -3,7 +3,7 @@
  *
  * @brief RF4CE Serial API
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -67,8 +67,8 @@
 /**
  * \defgroup group_api_parser_rf4ce RF4Control API Parser Module
  * This module is responsible for encoding and decoding the serial bytes to/from
- *NCP into NWK or ZRC APIs to provide seamless working for application similar
- *to stack running in same processor or on
+ * NCP into NWK or ZRC APIs to provide seamless working for application similar
+ * to stack running in same processor or on
  * NCP.
  * @{
  */

@@ -47,6 +47,9 @@
 /** Sequence process running each \c SEQUENCE_PERIOD ms */
 #define SEQUENCE_PERIOD 150
 
+/** Wakeup, ignore button change until button is back to default state */
+static bool btn_wakeup = false;
+
 static struct {
 	bool b_modifier;
 	bool b_down;
@@ -131,6 +134,8 @@ static void ui_wakeup_handler(uint32_t id, uint32_t mask)
 	if (WAKEUP_PIO_ID == id && WAKEUP_PIO_MASK == mask) {
 		/* It is a wakeup then send wakeup USB */
 		udc_remotewakeup();
+		/* Wakeup, ignore button change until button is back to default state */
+		btn_wakeup = true;
 		LED_On(LED0);
 	}
 }
@@ -202,7 +207,13 @@ void ui_process(uint16_t framenumber)
 	b_btn_state = !ioport_get_pin_level(GPIO_PUSH_BUTTON_2);
 	if (b_btn_state != btn_last_state) {
 		btn_last_state = b_btn_state;
-		sequence_running = true;
+		if (btn_wakeup) {
+			if (!b_btn_state) {
+				btn_wakeup = false;
+			}
+		} else {
+			sequence_running = true;
+		}
 	}
 
 	/* Sequence process running each period */

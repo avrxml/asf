@@ -212,7 +212,7 @@ int32_t main(void)
 	arm_cfft_radix4_f32(cfft_instance_ptr, AxB); 
  
 	/* SNR Calculation */ 
-	snr = arm_snr_f32((float32_t *)testRefOutput_f32, AxB, srcALen + srcBLen - 1); 
+	snr = arm_snr_f32((float32_t *)testRefOutput_f32, AxB, sizeof(testRefOutput_f32) / sizeof(float32_t)); 
 	 
 	/* Compare the SNR with threshold to test whether the  
 	   computed output is matched with the reference output values. */ 

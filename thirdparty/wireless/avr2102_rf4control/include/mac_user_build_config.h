@@ -3,7 +3,7 @@
  *
  * @brief This header file declares macros for various build configurations
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,6 +83,7 @@
 #define MAC_START_REQUEST_CONFIRM               (1)
 #define MAC_SYNC_LOSS_INDICATION                (0)
 #define MAC_SYNC_REQUEST                        (0)
+#define MAC_GTS_REQUEST                         (0)
 
 #else   /* controller */
 
@@ -106,6 +107,7 @@
 #define MAC_START_REQUEST_CONFIRM               (0)
 #define MAC_SYNC_LOSS_INDICATION                (0)
 #define MAC_SYNC_REQUEST                        (0)
+#define MAC_GTS_REQUEST                         (0)
 
 #endif
 

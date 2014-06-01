@@ -162,9 +162,10 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>__SAM3SD8C__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3S_EK2</state>
+					<state>__SAM3SD8C__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -297,11 +298,11 @@
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../freertos-7.0.0/source/portable/iar/sam</state>
-					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3s_ek2</state>
@@ -465,9 +466,10 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>__SAM3SD8C__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3S_EK2</state>
+					<state>__SAM3SD8C__</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -567,11 +569,11 @@
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../freertos-7.0.0/source/portable/iar/sam</state>
-					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3s_ek2</state>
@@ -1094,9 +1096,10 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>__SAM3SD8C__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3S_EK2</state>
+					<state>__SAM3SD8C__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1229,11 +1232,11 @@
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../freertos-7.0.0/source/portable/iar/sam</state>
-					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3s_ek2</state>
@@ -1397,9 +1400,10 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>__SAM3SD8C__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3S_EK2</state>
+					<state>__SAM3SD8C__</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1499,11 +1503,11 @@
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../freertos-7.0.0/source/portable/iar/sam</state>
-					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3s_ek2</state>
@@ -2219,9 +2223,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_pwm.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_gpbr.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_supc.h</name>
 							</file>
 							<file>
@@ -2238,6 +2239,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_hsmci.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_gpbr.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_uart1.h</name>
@@ -2309,6 +2313,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/component/component_rtt.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/component/component_adc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/component/component_twi.h</name>
 							</file>
 							<file>
@@ -2316,9 +2323,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/component/component_chipid.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/component/component_adc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/component/component_smc.h</name>

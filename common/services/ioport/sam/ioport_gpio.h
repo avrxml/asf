@@ -247,9 +247,14 @@ __always_inline static void arch_ioport_set_port_level(ioport_port_t port,
 		ioport_port_mask_t mask, ioport_port_mask_t level)
 {
 	volatile GpioPort *base = arch_ioport_port_to_base(port);
-
-	base->GPIO_OVRS = mask & level;
-	base->GPIO_OVRC = mask & ~level;
+	if (level){
+		base->GPIO_OVRS |= mask;
+		base->GPIO_OVRC &= ~mask;		
+	}
+	else{
+		base->GPIO_OVRS &= ~mask;
+		base->GPIO_OVRC |= mask;
+	}
 }
 
 __always_inline static bool arch_ioport_get_pin_level(ioport_pin_t pin)

@@ -3,7 +3,7 @@
  *
  * \brief Watchdog Timer (WDT) example for SAM.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -57,12 +57,12 @@
  *
  * At first, the example configures the pins of LED and Console UART, enables
  * the watchdog timer, and then prints some information via UART. Before user
- * presses the push button that the information mentions, the LED keeps blinking and
- * the counter of the watchdog timer is restarted before any fault of the
- * watchdog timer occurs (the interrupt in this case). The example enters a
- * deadlock status after user presses the push button and it causes that the counter
- * will not be restarted until a fault occurs (the interrupt). In the interrupt
- * handler, the counter is restarted.
+ * presses the push button that the information mentions, the LED keeps
+ * blinking and the counter of the watchdog timer is restarted before any
+ * fault of the watchdog timer occurs (the interrupt in this case).
+ * The example enters a deadlock status after user presses the push button
+ * and it causes that the counter will not be restarted until a fault
+ * occurs (the interrupt). In the interrupt handler, the counter is restarted.
  *
  *
  * \section Usage
@@ -71,23 +71,17 @@
  * -# Connect the UART port of the evaluation board to the computer and open
  * it in a terminal.
  *    - Settings: 115200 bauds, 8 bits, 1 stop bit, no parity, no flow control.
- * -# Download the program into the evaluation board and run it. Please refer to
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a> application note or the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>, depending on the solutions that users choose.
+ * -# Download the program into the evaluation board and run it.
  * -# Upon startup, the application will output the following lines on the UART:
  *    \code
- *     -- Watchdog with IRQ Interrupt Example --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *    \endcode
+	-- Watchdog with IRQ Interrupt Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
  * -# Press the push button on board.
  *    \code
- *     Press xxx to simulate a deadlock loop.
- *    \endcode
+	Press xxx to simulate a deadlock loop.
+\endcode
  */
 
 #include "asf.h"
@@ -103,8 +97,6 @@ extern "C" {
 /**INDENT-ON**/
 /// @endcond
 
-/** Baud rate of console UART */
-#define CONSOLE_BAUD_RATE                 115200
 /** Watchdog period 3000ms */
 #define WDT_PERIOD                        3000
 /** LED blink time 300ms */
@@ -208,7 +200,7 @@ static void configure_led(void)
 }
 
 /**
- * \brief Application entry point for wdt_irq example.
+ * \brief Application entry point for WDT example.
  *
  * \return Unused (ANSI-C compatibility).
  */
@@ -230,7 +222,7 @@ int main(void)
 
 	/* Systick configuration. */
 	puts("Configure systick to get 1ms tick period.\r");
-	if (SysTick_Config(SystemCoreClock / 1000)) {
+	if (SysTick_Config(sysclk_get_cpu_hz() / 1000)) {
 		puts("-F- Systick configuration error\r");
 	}
 
@@ -243,10 +235,10 @@ int main(void)
 		}
 	}
 	/* Configure WDT to trigger an interrupt (or reset). */
-	wdt_mode = WDT_MR_WDFIEN |	/* Enable WDT fault interrupt. */
-			WDT_MR_WDRPROC |	/* WDT fault resets processor only. */
-			WDT_MR_WDDBGHLT |	/* WDT stops in debug state. */
-			WDT_MR_WDIDLEHLT;	/* WDT stops in idle state. */
+	wdt_mode = WDT_MR_WDFIEN |  /* Enable WDT fault interrupt. */
+			WDT_MR_WDRPROC   |  /* WDT fault resets processor only. */
+			WDT_MR_WDDBGHLT  |  /* WDT stops in debug state. */
+			WDT_MR_WDIDLEHLT;   /* WDT stops in idle state. */
 	/* Initialize WDT with the given parameters. */
 	wdt_init(WDT, wdt_mode, timeout_value, timeout_value);
 	printf("Enable watchdog with %d microseconds period\n\r",
@@ -271,7 +263,7 @@ int main(void)
 
 			/* Toggle LED at the given period. */
 			if ((g_ul_ms_ticks % BLINK_PERIOD) == 0) {
-#if SAM4E
+#if (SAM4E || SAM4N || SAM4C || SAMG)
 				LED_Toggle(LED0);
 #else
 				LED_Toggle(LED0_GPIO);

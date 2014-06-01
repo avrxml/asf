@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of functions for the CMCC on SAM devices.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,10 +63,12 @@
  * All SAM devices with an CMCC module can be used. This example has been
  * tested with the following setup:<BR>
  * - SAM4E evaluation kit.
+ * - SAM4C evaluation kit.
+ * - SAM4CMP and SAM4CMS demo board
  *
  * \section setupinfo Setup Information
  * <BR>CPU speed: <i> 120 MHz </i>
- * - Connect the SAM4E DBGU port com to a PC
+ * - Please connect the DBGU port com to a PC
  * - PC terminal settings:
  *     - 115200 bps,
  *     - 8 data bits,
@@ -80,6 +82,13 @@
  */
 
 #include <asf.h>
+
+/** Define CMCC Base */
+#if SAM4C || SAM4CM
+#define CMCC_BASE    CMCC0
+#else
+#define CMCC_BASE    CMCC
+#endif
 
 /** Fibonacci number */
 #define FIBONACCI_NUM    30
@@ -142,14 +151,13 @@ int main(void)
 
 	/* Enable the CMCC module. */
 	cmcc_get_config_defaults(&g_cmcc_cfg);
-	cmcc_init(CMCC, &g_cmcc_cfg);
-	cmcc_enable(CMCC);
+	cmcc_init(CMCC_BASE, &g_cmcc_cfg);
+	cmcc_enable(CMCC_BASE);
 
 	/* Do the Fibonacci calculation. */
 	recfibo(FIBONACCI_NUM);
-
 	printf("Fibonacci calculation completed \r\n");
-	printf("Cache Data hit: %ul \r\n", cmcc_get_monitor_cnt(CMCC));
+	printf("Cache Data hit: %ld \r\n", cmcc_get_monitor_cnt(CMCC_BASE));
 
 	while (true) {
 	}

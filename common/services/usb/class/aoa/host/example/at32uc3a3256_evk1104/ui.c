@@ -63,6 +63,9 @@ uint8_t ui_msg[54];
 /** Indicates the status of a read from the Android device */
 uint8_t read_complete_flag;
 
+/* Notify the presence of a USB Android device */
+static bool ui_aoa_plug = false;
+
 /** Read ongoing */
 #define AOA_READ_ONGOING    0x00
 /** Read completed successfully */
@@ -248,6 +251,11 @@ void ui_usb_enum_event(uhc_device_t *dev, uhc_enum_status_t status)
 
 	ui_display_disable_rtc();
 	ui_button_rtc_init();
+}
+
+void ui_uhi_aoa_change(uhc_device_t * dev, bool b_plug)
+{
+	ui_aoa_plug = b_plug;
 }
 
 void ui_usb_wakeup_event(void)

@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,10 +51,10 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Rtt hardware registers */
 typedef struct {
-  RwReg RTT_MR; /**< \brief (Rtt Offset: 0x00) Mode Register */
-  RwReg RTT_AR; /**< \brief (Rtt Offset: 0x04) Alarm Register */
-  RoReg RTT_VR; /**< \brief (Rtt Offset: 0x08) Value Register */
-  RoReg RTT_SR; /**< \brief (Rtt Offset: 0x0C) Status Register */
+  __IO uint32_t RTT_MR; /**< \brief (Rtt Offset: 0x00) Mode Register */
+  __IO uint32_t RTT_AR; /**< \brief (Rtt Offset: 0x04) Alarm Register */
+  __I  uint32_t RTT_VR; /**< \brief (Rtt Offset: 0x08) Value Register */
+  __I  uint32_t RTT_SR; /**< \brief (Rtt Offset: 0x0C) Status Register */
 } Rtt;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- RTT_MR : (RTT Offset: 0x00) Mode Register -------- */
@@ -64,6 +64,8 @@ typedef struct {
 #define RTT_MR_ALMIEN (0x1u << 16) /**< \brief (RTT_MR) Alarm Interrupt Enable */
 #define RTT_MR_RTTINCIEN (0x1u << 17) /**< \brief (RTT_MR) Real-time Timer Increment Interrupt Enable */
 #define RTT_MR_RTTRST (0x1u << 18) /**< \brief (RTT_MR) Real-time Timer Restart */
+#define RTT_MR_RTTDIS (0x1u << 20) /**< \brief (RTT_MR) Real-time Timer Disable */
+#define RTT_MR_RTC1HZ (0x1u << 24) /**< \brief (RTT_MR) Real-Time Clock 1Hz Clock Selection */
 /* -------- RTT_AR : (RTT Offset: 0x04) Alarm Register -------- */
 #define RTT_AR_ALMV_Pos 0
 #define RTT_AR_ALMV_Msk (0xffffffffu << RTT_AR_ALMV_Pos) /**< \brief (RTT_AR) Alarm Value */

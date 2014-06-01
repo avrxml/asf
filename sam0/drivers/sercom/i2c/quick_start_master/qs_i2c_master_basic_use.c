@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 I2C Master Quick Start Guide
+ * \brief SAM SERCOM I2C Master Quick Start Guide
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,12 +45,16 @@
 
 //! [packet_data]
 #define DATA_LENGTH 10
-static uint8_t buffer[DATA_LENGTH] = {
+static uint8_t write_buffer[DATA_LENGTH] = {
 		0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
 };
 
-#define SLAVE_ADDRESS 0x12
+static uint8_t read_buffer[DATA_LENGTH];
 //! [packet_data]
+
+//! [address]
+#define SLAVE_ADDRESS 0x12
+//! [address]
 
 /* Number of times to try to send packet if failed. */
 //! [timeout]
@@ -91,11 +95,9 @@ void configure_i2c_master(void)
 
 int main(void)
 {
-	//! [init]
-	//! [system_init]
 	system_init();
-	//! [system_init]
 
+	//! [init]
 	/* Configure device and enable. */
 	//! [config]
 	configure_i2c_master();
@@ -108,10 +110,13 @@ int main(void)
 
 	/* Init i2c packet. */
 	//! [packet]
-	struct i2c_packet packet = {
+	struct i2c_master_packet packet = {
 		.address     = SLAVE_ADDRESS,
 		.data_length = DATA_LENGTH,
-		.data        = buffer,
+		.data        = write_buffer,
+		.ten_bit_address = false,
+		.high_speed      = false,
+		.hs_master_code  = 0x0,
 	};
 	//! [packet]
 	//! [init]
@@ -127,6 +132,19 @@ int main(void)
 		}
 	}
 	//! [write_packet]
+
+	/* Read from slave until success. */
+	//! [read_packet]
+	packet.data = read_buffer;
+	while (i2c_master_read_packet_wait(&i2c_master_instance, &packet) !=
+			STATUS_OK) {
+		/* Increment timeout counter and check if timed out. */
+		if (timeout++ == TIMEOUT) {
+			break;
+		}
+	}
+	//! [read_packet]
+
 	//! [main]
 
 	while (true) {

@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,8 +42,8 @@
  * \ingroup group_dsplib_tools
  * \brief This program is used to print a vector on a graph. The data to be printed have to be formatted as follow to be parsed by the application:
  * \code 0.1545211
- * -0.5892455
- * ... \endcode
+	-0.5892455
+	... \endcode
  *
  * \section usage Usage
  * \code DataPrinter filename \endcode

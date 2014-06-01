@@ -3,7 +3,7 @@
  *
  * \brief AST driver for SAM.
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -236,6 +236,32 @@ static inline uint32_t ast_read_interrupt_mask(Ast *ast)
 	return ast->AST_IMR;
 }
 
+/**
+ * \brief Start AST counter.
+ *
+ * \param ast  Base address of the AST.
+ */
+static inline void ast_start(Ast *ast)
+{
+	/* Wait until the ast CTRL register is up-to-date */
+	while (ast_is_busy(ast)) {
+	}
+	ast->AST_CR |= AST_CR_EN;
+}
+
+/**
+ * \brief Stop AST counter.
+ *
+ * \param ast  Base address of the AST.
+ */
+static inline void ast_stop(Ast *ast)
+{
+	/* Wait until the ast CTRL register is up-to-date */
+	while (ast_is_busy(ast)) {
+	}
+	ast->AST_CR &= ~(AST_CR_EN);
+}
+
 void ast_write_alarm0_value(Ast *ast, uint32_t alarm_value);
 void ast_write_periodic0_value(Ast *ast, uint32_t pir);
 
@@ -290,8 +316,8 @@ void ast_disable_event(Ast *ast, ast_event_source_t source);
  *
  * Add this to the main loop or a setup function:
  * \code
- * osc_priv_enable_osc32();
- * \endcode
+	osc_priv_enable_osc32();
+\endcode
  *
  * \subsection ast_basic_setup_workflow
  *
@@ -299,30 +325,30 @@ void ast_disable_event(Ast *ast, ast_event_source_t source);
  *  - \code ast_enable(AST); \endcode
  * -# Initialize the AST to counter mode
  *  - \code
- * struct ast_config ast_conf;
- * ast_conf.mode = AST_COUNTER_MODE;
- * ast_conf.osc_type = AST_OSC_32KHZ;
- * ast_conf.psel = AST_PSEL_32KHZ_1HZ;
- * ast_conf.counter = 0;
- * ast_set_config(AST, &ast_conf)
- * \endcode
+	struct ast_config ast_conf;
+	ast_conf.mode = AST_COUNTER_MODE;
+	ast_conf.osc_type = AST_OSC_32KHZ;
+	ast_conf.psel = AST_PSEL_32KHZ_1HZ;
+	ast_conf.counter = 0;
+	ast_set_config(AST, &ast_conf);
+\endcode
  * -# Or initialize the AST to calendar mode
  *  - \code
- * struct ast_calendar calendar;
- * struct ast_config ast_conf;
- * calendar.FIELD.sec = 0;
- * calendar.FIELD.min = 15;
- * calendar.FIELD.hour = 12;
- * calendar.FIELD.day = 20;
- * calendar.FIELD.month = 9;
- * calendar.FIELD.year = 12;
- * struct ast_config ast_conf;
- * ast_conf.mode = AST_CALENDAR_MODE;
- * ast_conf.osc_type = AST_OSC_32KHZ;
- * ast_conf.psel = AST_PSEL_32KHZ_1HZ;
- * ast_conf.calendar = calendar;
- * ast_set_config(AST, &ast_conf)
- * \endcode
+	struct ast_calendar calendar;
+	struct ast_config ast_conf;
+	calendar.FIELD.sec = 0;
+	calendar.FIELD.min = 15;
+	calendar.FIELD.hour = 12;
+	calendar.FIELD.day = 20;
+	calendar.FIELD.month = 9;
+	calendar.FIELD.year = 12;
+	struct ast_config ast_conf;
+	ast_conf.mode = AST_CALENDAR_MODE;
+	ast_conf.osc_type = AST_OSC_32KHZ;
+	ast_conf.psel = AST_PSEL_32KHZ_1HZ;
+	ast_conf.calendar = calendar;
+	ast_set_config(AST, &ast_conf)
+\endcode
  *  - \note We need to set the clock after prescaler to 1HZ.
  *
  *
@@ -332,25 +358,25 @@ void ast_disable_event(Ast *ast, ast_event_source_t source);
  *
  * We can get the calendar value by
  * \code
- * calendar = ast_read_calendar_value(AST);
- * \endcode
+	calendar = ast_read_calendar_value(AST);
+\endcode
  * Or we can get the counter value by
  * \code
- * ast_counter = ast_read_counter_value(AST);
- * \endcode
+	ast_counter = ast_read_counter_value(AST);
+\endcode
  *
  * We can set the alarm interrupt by
  * \code
- * ast_write_alarm0_value(AST, calendar.field + 1);
- * ast_set_callback(AST, ast_interrupt_alarm, ast_alarm_callback,
- *    AST_ALARM_IRQn, 1);
- * \endcode
+	ast_write_alarm0_value(AST, calendar.field + 1);
+	ast_set_callback(AST, ast_interrupt_alarm, ast_alarm_callback,
+	   AST_ALARM_IRQn, 1);
+\endcode
  * And we can set the periodic interrupt by
  * \code
- * ast_write_periodic0_value(AST, AST_PSEL_32KHZ_1HZ - 4);
- * ast_set_callback(AST, ast_interrupt_per, ast_per_callback,
- *    AST_PER_IRQn, 1);
- * \endcode
+	ast_write_periodic0_value(AST, AST_PSEL_32KHZ_1HZ - 4);
+	ast_set_callback(AST, ast_interrupt_per, ast_per_callback,
+	   AST_PER_IRQn, 1);
+\endcode
  */
 
 #endif  /* AST_H_INCLUDED */

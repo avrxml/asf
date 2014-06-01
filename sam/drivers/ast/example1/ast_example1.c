@@ -3,7 +3,7 @@
  *
  * \brief AST example 1 for SAM.
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,8 +45,8 @@
  * \mainpage
  * \section intro Introduction
  * This is the documentation for the data structures, functions, variables,
- * defines, enums, and typedefs for the real time counter driver. It also comes
- * bundled with an application-example of usage.
+ * defines, enums, and typedefs for the Asynchronous Timer driver. It also
+ * comes bundled with an application-example of usage.
  *
  * This example demonstrates how to use the AST driver with the 32 KHz
  * oscillator crystal.
@@ -68,9 +68,6 @@
  *
  * \section configinfo Configuration Information
  * This example has been tested with the following configuration:
- * - SAM4L_EK evaluation kit;
- * - CPU clock: 48 MHz;
- * - USART2 (on SAM4L_EK) abstracted with a USB CDC connection to a PC;
  * - PC terminal settings:
  *   - 115200 bps,
  *   - 8 data bits,

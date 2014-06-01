@@ -15,7 +15,7 @@
  * \author               Atmel Corporation: http://www.atmel.com \n
  *                       Support and FAQ: http://support.atmel.no/
  * 
- * Copyright (c) 2010, Atmel Corporation All rights reserved.
+ * Copyright (c) 2010 - 2013, Atmel Corporation All rights reserved.
  * 
  * \asf_license_start
  *
@@ -92,10 +92,6 @@
 #define QT_DELTAS                      0x26
 #define QT_STATES                      0x27
 //! @}
-/*======================== EXTERN VARIABLES ==================================*/
-extern qt_touch_lib_config_data_t qt_config_data;
-extern qt_touch_lib_measure_data_t qt_measure_data;
-extern int16_t qt_get_sensor_delta (uint8_t);
 
 /*============================ PROTOTYPES ====================================*/
 /*! \name Public functions.

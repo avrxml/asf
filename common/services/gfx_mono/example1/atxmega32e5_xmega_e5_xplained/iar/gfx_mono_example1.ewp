@@ -398,7 +398,7 @@
 					<state>$PROJ_DIR$/../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/drivers/pmic</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../../../xmega/drivers/cpu</state>
+					<state>$PROJ_DIR$/../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/utils/preprocessor</state>
@@ -410,7 +410,7 @@
 					<state>$PROJ_DIR$/../../../../../components/display/ssd1306</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
-					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../xmega/drivers/cpu</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards/xmega_e5_xplained</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -680,7 +680,7 @@
 					<state>$PROJ_DIR$/../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/drivers/pmic</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../../../xmega/drivers/cpu</state>
+					<state>$PROJ_DIR$/../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/utils/preprocessor</state>
@@ -692,7 +692,7 @@
 					<state>$PROJ_DIR$/../../../../../components/display/ssd1306</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
-					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../xmega/drivers/cpu</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards/xmega_e5_xplained</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1427,7 +1427,7 @@
 					<state>$PROJ_DIR$/../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/drivers/pmic</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../../../xmega/drivers/cpu</state>
+					<state>$PROJ_DIR$/../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/utils/preprocessor</state>
@@ -1439,7 +1439,7 @@
 					<state>$PROJ_DIR$/../../../../../components/display/ssd1306</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
-					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../xmega/drivers/cpu</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards/xmega_e5_xplained</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1709,7 +1709,7 @@
 					<state>$PROJ_DIR$/../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/drivers/pmic</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../../../xmega/drivers/cpu</state>
+					<state>$PROJ_DIR$/../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/utils/preprocessor</state>
@@ -1721,7 +1721,7 @@
 					<state>$PROJ_DIR$/../../../../../components/display/ssd1306</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
-					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../xmega/drivers/cpu</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards/xmega_e5_xplained</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>

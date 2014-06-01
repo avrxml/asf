@@ -3,7 +3,7 @@
  *
  * \brief  Serial Bridge Application
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -55,11 +55,11 @@
  * - main.c      Application main file.
  * \section intro Application Introduction
  * The serial Bridge Application is used in the host which acts as a bridge
- *between the Pc and the NCP device.
+ * between the Pc and the NCP device.
  * The serial Bridge application is used by Performance Analyzer application in
- *2p approach
+ * 2p approach
  * and for flashing image using Bootloader application,where it transfers data
- *from the Pc to the NCP and vice-versa.
+ * from the Pc to the NCP and vice-versa.
  */
 
 /* === INCLUDES ============================================================ */
@@ -67,6 +67,9 @@
 #include <stdlib.h>
 #include "serial_bridge.h"
 #include "asf.h"
+#if SAMD || SAMR21
+#include "system.h"
+#endif
 
 /* === PROTOTYPES
  *=============================================================== */
@@ -84,12 +87,18 @@ int main(void)
 {
 	irq_initialize_vectors();
 
+#if SAMD || SAMR21
+	system_init();
+	delay_init();
+#else
+	sysclk_init();
+
 	/* Initialize the board.
 	 * The board-specific conf_board.h file contains the configuration of
 	 * the board initialization.
 	 */
-	sysclk_init();
 	board_init();
+#endif
 
 	cpu_irq_enable();
 

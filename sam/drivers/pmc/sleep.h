@@ -3,7 +3,7 @@
  *
  * \brief Sleep mode access
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -72,13 +72,22 @@ extern "C" {
  */
 #endif
 /* SAM3 and SAM4 series */
-#if (SAM3S || SAM3N || SAM3XA || SAM3U || SAM4S || SAM4E)
+#if (SAM3S || SAM3N || SAM3XA || SAM3U || SAM4S || SAM4E || SAM4N || SAM4C || \
+		SAM4CM || SAM4CP || SAMG)
 
+#if (SAM3S || SAM3N || SAM3XA || SAM3U || SAM4S || SAM4E || SAM4N || SAM4C || \
+		SAM4CM || SAM4CP)
 # define  SAM_PM_SMODE_ACTIVE     0 /**< Active */
 # define  SAM_PM_SMODE_SLEEP_WFE  1 /**< Wait for Events */
 # define  SAM_PM_SMODE_SLEEP_WFI  2 /**< Wait for Interrupts */
-# define  SAM_PM_SMODE_WAIT       3 /**< Wait Mode */
-# define  SAM_PM_SMODE_BACKUP     4 /**< Backup Mode */
+# define  SAM_PM_SMODE_WAIT_FAST  3 /**< Wait Mode, startup fast (in 3ms) */
+# define  SAM_PM_SMODE_WAIT       4 /**< Wait Mode */
+# define  SAM_PM_SMODE_BACKUP     5 /**< Backup Mode */
+#else
+# define  SAM_PM_SMODE_ACTIVE     0 /**< Active */
+# define  SAM_PM_SMODE_WAIT_FAST  1 /**< Wait Mode, startup fast (in 3ms) */
+# define  SAM_PM_SMODE_WAIT       2 /**< Wait Mode */
+#endif
 
 /** (SCR) Sleep deep bit */
 #define SCR_SLEEPDEEP   (0x1 <<  2)
@@ -105,7 +114,6 @@ void pmc_sleep(int sleep_mode);
 bool pmc_is_wakeup_clocks_restored(void);
 
 /**
- * 
  * \return true if start waiting
  */
 void pmc_wait_wakeup_clocks_restore(

@@ -3,7 +3,7 @@
  *
  * \brief megaAVR STK600 AVR libc setbaud Example
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -66,27 +66,27 @@
  *
  * A common way of using the setbaud tool is:
  * \code
- * // Define the CPU clock frequency, e.g. 1MHz
- * #define F_CPU 1000000UL
- * // Define the target baudrate, e.g. 9600bps
- * #define BAUD 9600
- * // Set the accepted tolerance, e.g. 2%
- * #define BAUD_TOL 2
- *
- * // Load the calculated values into the correct registers
- * UBRR0H = UBRRH_VALUE;
- * UBRR0L = UBRRL_VALUE;
- *
- * //Then we need to take into account that we may need to set the 2X bit in
- * //the UART control register to achieve the correct baudrate.
- * #ifdef USE_2X
- * UCSR0A |= (1 << U2X0);
- * #endif
- *
- * // The last thing that needs to be done is to enable output on the TX pin,
- * // input on the RX pin and enable the RX and TX in the UART itself. In
- * // addition to setting the correct mode and bit length, parity and stop-bits.
- * \endcode
+	 // Define the CPU clock frequency, e.g. 1MHz
+	 #define F_CPU 1000000UL
+	 // Define the target baudrate, e.g. 9600bps
+	 #define BAUD 9600
+	 // Set the accepted tolerance, e.g. 2%
+	 #define BAUD_TOL 2
+
+	 // Load the calculated values into the correct registers
+	 UBRR0H = UBRRH_VALUE;
+	 UBRR0L = UBRRL_VALUE;
+
+	 //Then we need to take into account that we may need to set the 2X bit in
+	 //the UART control register to achieve the correct baudrate.
+	 #ifdef USE_2X
+	 UCSR0A |= (1 << U2X0);
+	 #endif
+
+	 // The last thing that needs to be done is to enable output on the TX pin,
+	 // input on the RX pin and enable the RX and TX in the UART itself. In
+	 // addition to setting the correct mode and bit length, parity and stop-bits.
+\endcode
  *
  * \section compinfo Compilation Info
  * This software was written for the <A href="http://gcc.gnu.org/">GNU GCC</A>

@@ -3,7 +3,7 @@
  *
  * \brief Common API for USB Host Drivers (UHD)
  *
- * Copyright (C) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -214,9 +214,22 @@ bool uhd_is_suspend(void);
 /**
  * \brief Enables the IDLE state on the USB line.
  * The IDLE state is enable when SOF are present on USB line.
- * A “Downstream Resume” signal can be sent.
+ * A Downstream Resume signal can be sent.
  */
 void uhd_resume(void);
+
+#ifdef USB_HOST_LPM_SUPPORT
+/**
+ * \brief Enables the suspend L1 state on the USB line.
+ * The SUSPEND LPM state is enable when a LPM transaction is done.
+ *
+ * \param b_remotewakeup Authorize the remote wakeup features, if true
+ * \param besl Best effort service latency value
+ *
+ * \return USB line in SUSPEND state, if true
+ */
+bool uhd_suspend_lpm(bool b_remotewakeup, uint8_t besl);
+#endif // USB_HOST_LPM_SUPPORT
 
 /**
  * \brief Add a setup request in the control endpoint setup queue.
@@ -301,9 +314,17 @@ void uhd_ep_free(usb_add_t add, usb_ep_t endp);
  *
  * \warning About \a b_shortpacket, for OUT endpoint it means that
  * a short packet or a Zero Length Packet must be sent to the USB line
- * to properly close the usb transfer at the end of the data transfer.
+ * to properly close the USB transfer at the end of the data transfer.
  * For Bulk and Interrupt IN endpoint, it will automatically stop the transfer
  * at the end of the data transfer (received short packet).
+ *
+ * \warning About \a timeout, for BULK endpoint with \a timeout set to zero,
+ * it means that the transfer will never be stopped before transfer done. Since
+ * most of USB embedded peripherals do not manage the transfer bandwidth by
+ * peripheral hardware, such a BULK transfer will occupy all USB non-periodic
+ * transfer bandwidth. In this case, other BULK transfers started later will be
+ * pending until this transfer is done and bandwidth released. So it is better
+ * to use BULK transfers with none zero \a timeout.
  *
  * \return \c 1 if function was successfully done, otherwise \c 0.
  */
@@ -384,6 +405,14 @@ extern void uhc_notify_sof(bool b_micro);
  * A resume can occur after a downstream or an upstream resume.
  */
 extern void uhc_notify_resume(void);
+
+#ifdef USB_HOST_LPM_SUPPORT
+/**
+ * \brief Notify that a resume bus occurs after a L1 state
+ * A resume can occur after a downstream or an upstream resume.
+ */
+extern void uhc_notify_resume_lpm(void);
+#endif
 
 //@}
 

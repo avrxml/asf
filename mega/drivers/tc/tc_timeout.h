@@ -3,7 +3,7 @@
  *
  * \brief megaAVR Timer/Counter (TC) Timeout Driver defines
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -122,10 +122,10 @@
  * For simple usage starting a singleshot timeout for timeout id 0 and a timeout
  * value of 100 ticks:
  * \code
- * tc_timeout_start_singleshot(0, 100);
- * while (!tc_timeout_test_and_clear_expired(0));
- * // do whats needed after timeout has expired
- * \endcode
+	tc_timeout_start_singleshot(0, 100);
+	while (!tc_timeout_test_and_clear_expired(0));
+	// do whats needed after timeout has expired
+\endcode
  *
  * \section tc_timeout_accuracy Accuracy
  * Since this is a timeout layer on top of a system tick; the trigger time of a

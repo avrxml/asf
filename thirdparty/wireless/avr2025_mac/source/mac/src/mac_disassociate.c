@@ -3,7 +3,7 @@
  *
  * @brief Implements the MLME-DISASSOCIATION functionality
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -169,7 +169,6 @@ void mlme_disassociate_request(uint8_t *m)
 				(address_field_t *)&disassoc_req.DeviceAddress);
 		return;
 	}
-
 #endif  /* REDUCED_PARAM_CHECK */
 
 	/* Now build the actual disassociation command frame. */
@@ -187,9 +186,11 @@ void mlme_disassociate_request(uint8_t *m)
 					= (uint8_t *)transmit_frame +
 						LARGE_BUFFER_SIZE -
 						DISASSOC_PAYLOAD_LEN - 2; /* Add
-		                                                           *2
+		                                                           * 2
+		                                                           *
 		                                                           *octets
-		                                                           *for
+		                                                           * for
+		                                                           *
 		                                                           *FCS.
 		                                                           **/
 
@@ -282,11 +283,11 @@ void mlme_disassociate_request(uint8_t *m)
 					(buffer_t *)m)) {
 				/*
 				 * If there is no capacity to store the
-				 *transaction, the MLME
+				 * transaction, the MLME
 				 * will discard the MSDU and issue the
-				 *MLME-DISASSOCIATE.
+				 * MLME-DISASSOCIATE.
 				 * confirm primitive with a status of
-				 *TRANSACTION_OVERFLOW.
+				 * TRANSACTION_OVERFLOW.
 				 */
 				mac_gen_mlme_disassociate_conf((buffer_t *)m,
 						MAC_TRANSACTION_OVERFLOW,
@@ -331,7 +332,7 @@ void mlme_disassociate_request(uint8_t *m)
 
 		if (!transmission_status) {
 			/* Create the MLME DISASSOCIATION confirmation message
-			 **/
+			**/
 			mac_gen_mlme_disassociate_conf((buffer_t *)m,
 					MAC_CHANNEL_ACCESS_FAILURE,
 					disassoc_req.DeviceAddrMode,
@@ -371,7 +372,7 @@ static bool mac_awake_disassociate(buffer_t *buf_ptr)
 
 	if (NON_BEACON_NWK == tal_pib.BeaconOrder) {
 		/* In Nonbeacon network the frame is sent with unslotted
-		 *CSMA-CA. */
+		 * CSMA-CA. */
 		cur_csma_mode = CSMA_UNSLOTTED;
 	} else {
 		/* In Beacon network the frame is sent with slotted CSMA-CA. */
@@ -431,7 +432,9 @@ void mac_process_disassociate_notification(buffer_t *msg)
 	 * Once a device is disassociated from a coordinator, the coordinator's
 	 * address info should be cleared.
 	 */
-	mac_pib.mac_CoordExtendedAddress = CLEAR_ADDR_64;
+	memset((uint8_t *)&mac_pib.mac_CoordExtendedAddress, 0,
+			sizeof(mac_pib.mac_CoordExtendedAddress));
+	/* mac_pib.mac_CoordExtendedAddress = (uint64_t)CLEAR_ADDR_64; */
 
 	/* The default short address is 0xFFFF. */
 	mac_pib.mac_CoordShortAddress = INVALID_SHORT_ADDRESS;
@@ -439,7 +442,7 @@ void mac_process_disassociate_notification(buffer_t *msg)
 
 /**
  * @brief Prepares a disassociation confirm message with device address
- *information
+ * information
  *
  * This functions prepares a disassociation confirm message in case the device
  * address information needs to be extracted.
@@ -474,9 +477,9 @@ void mac_prep_disassoc_conf(buffer_t *buf,
 		 * we requested to disassociate into the disassociation confirm
 		 * message.
 		 * Since we have transmitted the disassociation notification
-		 *frame
+		 * frame
 		 * ourvelves, the destination address information is to be used
-		 *here.
+		 * here.
 		 */
 		if (FCF_SHORT_ADDR == dis_dest_addr_mode) {
 			mac_gen_mlme_disassociate_conf((buffer_t *)buf,
@@ -497,9 +500,9 @@ void mac_prep_disassoc_conf(buffer_t *buf,
 		/*
 		 * There are 2 potential choices for a coordinator to get here:
 		 * 1) We have requested ourselves to disassociate with our own
-		 *parent.
+		 * parent.
 		 * 2) We have requested one of our children (other coordinators
-		 *or
+		 * or
 		 *    end devices) to leave the network.
 		 */
 
@@ -512,7 +515,7 @@ void mac_prep_disassoc_conf(buffer_t *buf,
 
 		        /*
 		         * We had requested to disassociate from our parent
-		         *using the
+		         * using the
 		         * short address of the parent.
 		         */
 			(
@@ -524,7 +527,7 @@ void mac_prep_disassoc_conf(buffer_t *buf,
 
 		        /*
 		         * We had requested to disassociate from our parent
-		         *using the
+		         * using the
 		         * extended address of the parent.
 		         */
 			(
@@ -536,9 +539,9 @@ void mac_prep_disassoc_conf(buffer_t *buf,
 			) {
 			/*
 			 * We are acting as a child here, so we need to fill in
-			 *our
+			 * our
 			 * own device parameter into the disassociation confirm
-			 *message.
+			 * message.
 			 */
 			if ((BROADCAST == tal_pib.ShortAddress) ||
 					(CCPU_ENDIAN_TO_LE16(
@@ -562,16 +565,16 @@ void mac_prep_disassoc_conf(buffer_t *buf,
 		} else {
 			/*
 			 * We are acting as a parent here and have requested one
-			 *of our
+			 * of our
 			 * children to leave the network.
 			 * For coordinators that are disassociating their
-			 *children.
+			 * children.
 			 * fill parameters of device/child that we requested to
 			 * disassociate into the disassociation confirm message.
 			 * Since we have transmitted the disassociation
-			 *notification frame
+			 * notification frame
 			 * ourvelves, the destination address information is to
-			 *be used here.
+			 * be used here.
 			 */
 			mac_gen_mlme_disassociate_conf((buffer_t *)buf,
 					status,

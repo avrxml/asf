@@ -88,6 +88,7 @@ CSRCS = \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_data_req.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_disassociate.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_dispatcher.c \
+       thirdparty/wireless/avr2025_mac/source/mac/src/mac_gts.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_mcps_data.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_misc.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_orphan.c \
@@ -101,13 +102,10 @@ CSRCS = \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_start.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_sync.c \
        thirdparty/wireless/avr2025_mac/source/mac/src/mac_tx_coord_realignment_command.c \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/uc3/hw_timer.c \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer/common_sw_timer.c \
        thirdparty/wireless/avr2025_mac/source/pal/pal.c   \
-       thirdparty/wireless/avr2025_mac/source/pal/pal_ext_trx.c \
        thirdparty/wireless/avr2025_mac/source/resources/buffer/src/bmm.c \
        thirdparty/wireless/avr2025_mac/source/resources/queue/src/qmm.c \
-       thirdparty/wireless/avr2025_mac/source/sal/at86rf2xx/src/sal.c \
        thirdparty/wireless/avr2025_mac/source/stb/src/stb.c \
        thirdparty/wireless/avr2025_mac/source/stb/src/stb_armcrypto.c \
        thirdparty/wireless/avr2025_mac/source/stb/src/stb_help.c \
@@ -123,7 +121,10 @@ CSRCS = \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf212/src/tal_tx.c \
        thirdparty/wireless/avr2025_mac/source/tal/src/tal_helper.c \
        thirdparty/wireless/avr2102_rf4control/addons/serial_interface/serial_interface.c \
-       thirdparty/wireless/avr2102_rf4control/apps/zrc/serial_if/main.c
+       thirdparty/wireless/avr2102_rf4control/apps/zrc/serial_if/main.c \
+       thirdparty/wireless/services/common_hw_timer/uc3/hw_timer.c \
+       thirdparty/wireless/services/sal/at86rf2xx/src/sal.c \
+       thirdparty/wireless/services/trx_access/trx_access.c
 
 # List of assembler source files.
 ASSRCS = \
@@ -163,32 +164,32 @@ INC_PATH = \
        thirdparty/wireless/avr2025_mac/include            \
        thirdparty/wireless/avr2025_mac/source/mac/inc     \
        thirdparty/wireless/avr2025_mac/source/pal         \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/uc3 \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer \
        thirdparty/wireless/avr2025_mac/source/resources/buffer/inc \
        thirdparty/wireless/avr2025_mac/source/resources/queue/inc \
-       thirdparty/wireless/avr2025_mac/source/sal/inc     \
        thirdparty/wireless/avr2025_mac/source/stb/inc     \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf212/inc \
        thirdparty/wireless/avr2025_mac/source/tal/inc     \
        thirdparty/wireless/avr2102_rf4control/addons/serial_interface \
-       thirdparty/wireless/avr2102_rf4control/apps/zrc/serial_if \
        thirdparty/wireless/avr2102_rf4control/apps/zrc/serial_if/tgt/ncp \
        thirdparty/wireless/avr2102_rf4control/apps/zrc/serial_if/tgt/ncp/at32uc3a3256s_rz600_at86rf212 \
        thirdparty/wireless/avr2102_rf4control/include     \
        thirdparty/wireless/avr2102_rf4control/lib/zrc/tgt/config \
+       thirdparty/wireless/services/common_hw_timer       \
+       thirdparty/wireless/services/common_hw_timer/uc3   \
+       thirdparty/wireless/services/sal/inc               \
+       thirdparty/wireless/services/trx_access \
        thirdparty/wireless/avr2102_rf4control/apps/zrc/serial_if/tgt/ncp/at32uc3a3256s_rz600_at86rf212/gcc
 
 # Additional search paths for libraries.
 LIB_PATH =  \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/uc3/lib \
-       thirdparty/wireless/avr2102_rf4control/lib/zrc/tgt/at32uc3a3256s/gcc
+       thirdparty/wireless/avr2102_rf4control/lib/zrc/tgt/at32uc3a3256s/gcc \
+       thirdparty/wireless/services/common_hw_timer/uc3/lib
 
 # List of libraries to use during linking.
 LIBS =  \
-       uc3_lib_hw_timer                                   \
-       rf4ce-zrc-target                                  
+       rf4ce-zrc-target                                   \
+       uc3_lib_hw_timer                                  
 
 # Path relative to top level directory pointing to a linker script.
 LINKER_SCRIPT = avr32/utils/linker_scripts/at32uc3a3/256s/gcc/link_uc3a3256s.lds
@@ -225,7 +226,6 @@ CPPFLAGS = \
        -D DISABLE_TSTAMP_IRQ=1                            \
        -D ENABLE_STACK_NVM                                \
        -D ENABLE_TRX_SRAM                                 \
-       -D EXTERN_EEPROM_AVAILABLE=0                       \
        -D HIGHEST_STACK_LAYER=RF4CE                       \
        -D MAC_USER_BUILD_CONFIG                           \
        -D NLDE_HANDLE                                     \
@@ -249,3 +249,7 @@ CPPFLAGS = \
 # Extra flags to use when linking
 LDFLAGS = \
        -nostartfiles -Wl,-e,_trampoline
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

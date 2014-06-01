@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 TC - Timer Counter Driver
+ * \brief SAM D20/D21/R21 TC - Timer Counter Driver
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,9 +45,9 @@
 #define TC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_samd20_tc_group SAM D20 Timer/Counter Driver (TC)
+ * \defgroup asfdoc_sam0_tc_group SAM D20/D21/R21 Timer/Counter Driver (TC)
  *
- * This driver for SAM D20 devices provides an interface for the configuration
+ * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
  * and management of the timer modules within the device, for waveform
  * generation and timing operations. The following driver API modes are covered
  * by this manual:
@@ -63,20 +63,20 @@
  *  - TC (Timer/Counter)
  *
  * The outline of this documentation is as follows:
- *  - \ref asfdoc_samd20_tc_prerequisites
- *  - \ref asfdoc_samd20_tc_module_overview
- *  - \ref asfdoc_samd20_tc_special_considerations
- *  - \ref asfdoc_samd20_tc_extra_info
- *  - \ref asfdoc_samd20_tc_examples
- *  - \ref asfdoc_samd20_tc_api_overview
+ *  - \ref asfdoc_sam0_tc_prerequisites
+ *  - \ref asfdoc_sam0_tc_module_overview
+ *  - \ref asfdoc_sam0_tc_special_considerations
+ *  - \ref asfdoc_sam0_tc_extra_info
+ *  - \ref asfdoc_sam0_tc_examples
+ *  - \ref asfdoc_sam0_tc_api_overview
  *
  *
- * \section asfdoc_samd20_tc_prerequisites Prerequisites
+ * \section asfdoc_sam0_tc_prerequisites Prerequisites
  *
  * There are no prerequisites for this module.
  *
  *
- * \section asfdoc_samd20_tc_module_overview Module Overview
+ * \section asfdoc_sam0_tc_module_overview Module Overview
  *
  * The Timer/Counter (TC) module provides a set of timing and counting related
  * functionality, such as the generation of periodic waveforms, the capturing
@@ -84,7 +84,7 @@
  * periodic operations. TC modules can be configured to use an 8-, 16-, or
  * 32-bit counter size.
  *
- * This TC module for the SAM D20 is capable of the following functions:
+ * This TC module for the SAM D20/D21/R21 is capable of the following functions:
  *
  * - Generation of PWM signals
  * - Generation of timestamps for events
@@ -92,14 +92,14 @@
  * - Waveform period capture
  * - Waveform frequency capture
  *
- * \ref asfdoc_samd20_tc_block_diagram "The diagram below" shows the overview
+ * \ref asfdoc_sam0_tc_block_diagram "The diagram below" shows the overview
  * of the TC module design.
  *
- * \anchor asfdoc_samd20_tc_block_diagram
+ * \anchor asfdoc_sam0_tc_block_diagram
  * \image html overview.svg "Basic overview of the TC module"
  *
  *
- * \subsection asfdoc_samd20_tc_module_overview_func_desc Functional Description
+ * \subsection asfdoc_sam0_tc_module_overview_func_desc Functional Description
  * Independent of the configured counter size, each TC module can be set up
  * in one of two different modes; capture and compare.
  *
@@ -114,14 +114,20 @@
  * generating an output event or toggling a pin when used for frequency or PWM
  * signal generation.
  *
- * \subsection asfdoc_samd20_tc_module_overview_tc_size Timer/Counter Size
+ * \note The connection of events between modules requires the use of the
+ *       \ref asfdoc_sam0_events_group "SAM D20/D21/R21 Event System Driver (EVENTS)"
+ *       to route output event of one module to the the input event of another.
+ *       For more information on event routing, refer to the event driver
+ *       documentation.
+ *
+ * \subsection asfdoc_sam0_tc_module_overview_tc_size Timer/Counter Size
  * Each timer module can be configured in one of three different counter
  * sizes; 8-, 16-, and 32-bits. The size of the counter determines the maximum
  * value it can count to before an overflow occurs and the count is reset back
- * to zero. \ref asfdoc_samd20_tc_count_size_vs_top "The table below" shows the
+ * to zero. \ref asfdoc_sam0_tc_count_size_vs_top "The table below" shows the
  * maximum values for each of the possible counter sizes.
  *
- * \anchor asfdoc_samd20_tc_count_size_vs_top
+ * \anchor asfdoc_sam0_tc_count_size_vs_top
  * <table>
  *  <caption>Timer counter sizes and their maximum count values</caption>
  *  <tr>
@@ -130,17 +136,17 @@
  *    <th>Max (Decimal)</th>
  *  </tr>
  *  <tr>
- *    <th>8-bit</th>
+ *    <td>8-bit</td>
  *    <td>0xFF</td>
  *    <td>255</td>
  *  </tr>
  *  <tr>
- *    <th>16-bit</th>
+ *    <td>16-bit</td>
  *    <td>0xFFFF</td>
  *    <td>65,535</td>
  *  </tr>
  *  <tr>
- *    <th>32-bit</th>
+ *    <td>32-bit</td>
  *    <td>0xFFFFFFFF</td>
  *    <td>4,294,967,295</td>
  *  </tr>
@@ -155,9 +161,9 @@
  * configured as 32-bit counters. The odd numbered counters will act as slaves
  * to the even numbered masters, and will not be reconfigurable until the
  * master timer is disabled. The pairing of timer modules for 32-bit mode is
- * shown in \ref asfdoc_samd20_tc_module_ms_pairs "the table below".
+ * shown in \ref asfdoc_sam0_tc_module_ms_pairs "the table below".
  *
- * \anchor asfdoc_samd20_tc_module_ms_pairs
+ * \anchor asfdoc_sam0_tc_module_ms_pairs
  * <table>
  *   <caption>TC master and slave module pairings</caption>
  *   <tr>
@@ -182,19 +188,19 @@
  *   </tr>
  * </table>
  *
- * \subsection asfdoc_samd20_tc_module_overview_clock Clock Settings
+ * \subsection asfdoc_sam0_tc_module_overview_clock Clock Settings
  *
- * \subsubsection asfdoc_samd20_tc_module_overview_clock_selection Clock Selection
+ * \subsubsection asfdoc_sam0_tc_module_overview_clock_selection Clock Selection
  * Each TC peripheral is clocked asynchronously to the system clock by a GCLK
  * (Generic Clock) channel. The GCLK channel connects to any of the GCLK
  * generators. The GCLK generators are configured to use one of the available
  * clock sources on the system such as internal oscillator, external crystals
- * etc. - see the \ref asfdoc_samd20_system_clock_group "Generic Clock driver"
+ * etc. - see the \ref asfdoc_sam0_system_clock_group "Generic Clock driver"
  *for
  * more information.
  *
- * \subsubsection asfdoc_samd20_tc_module_overview_clock_prescaler Prescaler
- * Each TC module in the SAM D20 has its own individual clock prescaler, which
+ * \subsubsection asfdoc_sam0_tc_module_overview_clock_prescaler Prescaler
+ * Each TC module in the SAM D20/D21/R21 has its own individual clock prescaler, which
  * can be used to divide the input clock frequency used in the counter. This
  * prescaler only scales the clock used to provide clock pulses for the counter
  * to count, and does not affect the digital register interface portion of
@@ -209,7 +215,7 @@
  * as the input to the timer and prescale this down as much as possible to
  * obtain a suitable counter frequency in latency-sensitive applications.
  *
- * \subsubsection asfdoc_samd20_tc_module_overview_clock_reloading Reloading
+ * \subsubsection asfdoc_sam0_tc_module_overview_clock_reloading Reloading
  * Timer modules also contain a configurable reload action, used when a
  * re-trigger event occurs. Examples of a re-trigger event are the counter
  * reaching the max value when counting up, or when an event from the event
@@ -217,9 +223,9 @@
  * prescaler should be reset, and when this should happen. The counter will
  * always be reloaded with the value it is set to start counting from. The user
  * can choose between three different reload actions, described in
- * \ref asfdoc_samd20_tc_module_reload_act "the table below".
+ * \ref asfdoc_sam0_tc_module_reload_act "the table below".
  *
- * \anchor asfdoc_samd20_tc_module_reload_act
+ * \anchor asfdoc_sam0_tc_module_reload_act
  * <table>
  *   <caption>TC module reload actions</caption>
  *   <tr>
@@ -253,12 +259,12 @@
  * left unaltered when the re-trigger happens, letting the counter reset on the
  * next GCLK cycle.
  *
- * \subsection asfdoc_samd20_tc_module_overview_compare_match Compare Match Operations
+ * \subsection asfdoc_sam0_tc_module_overview_compare_match Compare Match Operations
  * In compare match operation, Compare/Capture registers are used in comparison
  * with the counter value. When the timer's count value matches the value of a
  * compare channel, a user defined action can be taken.
  *
- * \subsubsection asfdoc_samd20_tc_module_overview_compare_match_timer Basic Timer
+ * \subsubsection asfdoc_sam0_tc_module_overview_compare_match_timer Basic Timer
  *
  * A Basic Timer is a simple application where compare match operations is used
  * to determine when a specific period has elapsed. In Basic Timer operations,
@@ -266,17 +272,16 @@
  * specify the time (as a number of prescaled GCLK cycles) when an action should
  * be taken by the microcontroller. This can be an Interrupt Service Routine
  * (ISR), event generator via the event system, or a software flag that is
- *polled
- * via the user application.
+ * polled via the user application.
  *
- * \subsubsection asfdoc_samd20_tc_module_overview_compare_match_wg Waveform Generation
+ * \subsubsection asfdoc_sam0_tc_module_overview_compare_match_wg Waveform Generation
  *
  * Waveform generation enables the TC module to generate square waves, or if
  * combined with an external passive low-pass filter, analog waveforms.
  *
- * \subsubsection asfdoc_samd20_tc_module_overview_compare_match_wg_pwm Waveform Generation - PWM
+ * \subsubsection asfdoc_sam0_tc_module_overview_compare_match_wg_pwm Waveform Generation - PWM
  *
- * Pulse width modulation is a form of waveform generation and a signaling
+ * Pulse width modulation is a form of waveform generation and a signalling
  * technique that can be useful in many situations. When PWM mode is used,
  * a digital pulse train with a configurable frequency and duty cycle can be
  * generated by the TC module and output to a GPIO pin of the device.
@@ -287,28 +292,28 @@
  * using an analog voltage value, as noise will not generally affect the
  * signal's integrity to a meaningful extent.
  *
- * \ref asfdoc_samd20_tc_module_pwm_normal_diag "The figure below" illustrates
+ * \ref asfdoc_sam0_tc_module_pwm_normal_diag "The figure below" illustrates
  * operations and different states of the counter and its output when running
  * the counter in PWM normal mode. As can be seen, the TOP value is unchanged
  * and is set to MAX. The compare match value is changed at several points to
  * illustrate the resulting waveform output changes. The PWM output is set to
  * normal (i.e. non-inverted) output mode.
  *
- * \anchor asfdoc_samd20_tc_module_pwm_normal_diag
+ * \anchor asfdoc_sam0_tc_module_pwm_normal_diag
  * \image html pwm_normal_ex.svg "Example of PWM in normal mode, and different counter operations"
  *
  *
- * In \ref asfdoc_samd20_tc_module_pwm_match_diag "the figure below", the
+ * In \ref asfdoc_sam0_tc_module_pwm_match_diag "the figure below", the
  * counter is set to generate PWM in Match mode. The PWM output is inverted via
  * the appropriate configuration option in the TC driver configuration
  * structure. In this example, the counter value is changed once, but the
  * compare match value is kept unchanged. As can be seen, it is possible to
  * change the TOP value when running in PWM match mode.
  *
- * \anchor asfdoc_samd20_tc_module_pwm_match_diag
+ * \anchor asfdoc_sam0_tc_module_pwm_match_diag
  * \image html pwm_match_ex.svg "Example of PWM in match mode, and different counter operations"
  *
- * \subsubsection asfdoc_samd20_tc_module_overview_compare_match_wg_freq Waveform Generation - Frequency
+ * \subsubsection asfdoc_sam0_tc_module_overview_compare_match_wg_freq Waveform Generation - Frequency
  *
  * Frequency Generation mode is in many ways identical to PWM
  * generation. However, in Frequency Generation a toggle only occurs
@@ -316,14 +321,14 @@
  * match is made, the timer value is reset, resulting in a variable
  * frequency square wave with a fixed 50% duty cycle.
  *
- * \subsubsection asfdoc_samd20_tc_module_overview_compare_match_capt Capture Operations
+ * \subsubsection asfdoc_sam0_tc_module_overview_compare_match_capt Capture Operations
  *
  * In capture operations, any event from the event system or a pin change can
  * trigger a capture of the counter value. This captured counter value can be
  * used as a timestamp for the event, or it can be used in frequency and pulse
  * width capture.
  *
- * \subsubsection asfdoc_samd20_tc_module_overview_compare_match_capt_event_capture Capture Operations - Event
+ * \subsubsection asfdoc_sam0_tc_module_overview_compare_match_capt_event_capture Capture Operations - Event
  *
  * Event capture is a simple use of the capture functionality,
  * designed to create timestamps for specific events. When the TC
@@ -344,7 +349,7 @@
  * application, however it may be necessary to clear both the capture overflow
  * flag and the capture flag upon each capture reading.
  *
- * \subsubsection asfdoc_samd20_tc_module_overview_compare_match_capt_pwc Capture Operations - Pulse Width
+ * \subsubsection asfdoc_sam0_tc_module_overview_compare_match_capt_pwc Capture Operations - Pulse Width
  *
  * Pulse Width Capture mode makes it possible to measure the pulse width and
  * period of PWM signals. This mode uses two capture channels of the counter.
@@ -359,7 +364,7 @@
  * if a new capture has happened and check that a capture overflow error has
  * not occurred.
  *
- * \subsection asfdoc_samd20_tc_module_overview_oneshot One-shot Mode
+ * \subsection asfdoc_sam0_tc_module_overview_oneshot One-shot Mode
  *
  * TC modules can be configured into a one-shot mode. When configured in this
  * manner, starting the timer will cause it to count until the next overflow
@@ -367,37 +372,37 @@
  * triggered by the user application software or an event signal from the event
  * system.
  *
- * \subsubsection asfdoc_samd20_tc_module_overview_inversion Wave Generation Output Inversion
+ * \subsubsection asfdoc_sam0_tc_module_overview_inversion Wave Generation Output Inversion
  *
  * The output of the wave generation can be inverted by hardware if desired,
  * resulting in the logically inverted value being output to the configured
  * device GPIO pin.
  *
  *
- * \section asfdoc_samd20_tc_special_considerations Special Considerations
+ * \section asfdoc_sam0_tc_special_considerations Special Considerations
  *
  * The number of capture compare registers in each TC module is dependent on
- * the specific SAM D20 device being used, and in some cases the counter size.
+ * the specific SAM D20/D21/R21 device being used, and in some cases the counter size.
  *
- * The maximum amount of capture compare registers available in any SAMD20
+ * The maximum amount of capture compare registers available in any SAM D20/D21/R21
  * device is two when running in 32-bit mode and four in 8-, and 16-bit modes.
  *
  *
- * \section asfdoc_samd20_tc_extra_info Extra Information for TC
+ * \section asfdoc_sam0_tc_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_samd20_tc_extra. This includes:
- *  - \ref asfdoc_samd20_tc_extra_acronyms
- *  - \ref asfdoc_samd20_tc_extra_dependencies
- *  - \ref asfdoc_samd20_tc_extra_errata
- *  - \ref asfdoc_samd20_tc_extra_history
+ * For extra information see \ref asfdoc_sam0_tc_extra. This includes:
+ *  - \ref asfdoc_sam0_tc_extra_acronyms
+ *  - \ref asfdoc_sam0_tc_extra_dependencies
+ *  - \ref asfdoc_sam0_tc_extra_errata
+ *  - \ref asfdoc_sam0_tc_extra_history
  *
  *
- * \section asfdoc_samd20_tc_examples Examples
+ * \section asfdoc_sam0_tc_examples Examples
  *
  * For a list of examples related to this driver, see
- * \ref asfdoc_samd20_tc_exqsg.
+ * \ref asfdoc_sam0_tc_exqsg.
  *
- * \section asfdoc_samd20_tc_api_overview API Overview
+ * \section asfdoc_sam0_tc_api_overview API Overview
  * @{
  */
 
@@ -407,8 +412,27 @@
 #include <pinmux.h>
 
 #if !defined(__DOXYGEN__)
+#if SAMD20
+#  define TC_INSTANCE_OFFSET 0
+#endif
+#if SAMD21 || SAMR21
+#  define TC_INSTANCE_OFFSET 3
+#endif
+
+#if SAMD20
 #  define NUMBER_OF_COMPARE_CAPTURE_CHANNELS TC0_CC8_NUM
+#else
+#  define NUMBER_OF_COMPARE_CAPTURE_CHANNELS TC3_CC8_NUM
    /* Same number for 8-, 16- and 32-bit TC and all TC instances */
+#endif
+
+/** TC Instance MAX ID Number */
+#if SAMD20E || SAMD21G || SAMD21E || SAMR21
+#define TC_INST_MAX_ID  5
+#else
+#define TC_INST_MAX_ID  7
+#endif
+
 #endif
 
 #if TC_ASYNC == true
@@ -653,8 +677,14 @@ struct tc_events {
 			[NUMBER_OF_COMPARE_CAPTURE_CHANNELS];
 	/** Generate an output event on counter overflow. */
 	bool generate_event_on_overflow;
-	/** Perform the configured event action when an incoming event is signaled. */
+	/** Perform the configured event action when an incoming event is signalled. */
 	bool on_event_perform_action;
+	/** Specifies if the input event source is inverted, when used in PWP or
+	 *  PPW event action modes.
+	 */
+	bool invert_event_input;
+	/** Specifies which event to trigger if an event is triggered. */
+	enum tc_event_action event_action;
 };
 
 /**
@@ -662,7 +692,7 @@ struct tc_events {
  */
 struct tc_8bit_config {
 	/** Initial timer count value. */
-	uint8_t count;
+	uint8_t value;
 	/** Where to count to or from depending on the direction on the counter. */
 	uint8_t period;
 	/** Value to be used for compare match on each channel. */
@@ -674,7 +704,7 @@ struct tc_8bit_config {
  */
 struct tc_16bit_config {
 	/** Initial timer count value. */
-	uint16_t count;
+	uint16_t value;
 	/** Value to be used for compare match on each channel. */
 	uint16_t compare_capture_channel[NUMBER_OF_COMPARE_CAPTURE_CHANNELS];
 };
@@ -684,9 +714,21 @@ struct tc_16bit_config {
  */
 struct tc_32bit_config {
 	/** Initial timer count value. */
-	uint32_t count;
+	uint32_t value;
 	/** Value to be used for compare match on each channel. */
 	uint32_t compare_capture_channel[NUMBER_OF_COMPARE_CAPTURE_CHANNELS];
+};
+
+/**
+ * \brief Configuration struct for TC module in 32-bit size counter mode.
+ */
+struct tc_pwm_channel {
+	/** When \c true, PWM output for the given channel is enabled. */
+	bool enabled;
+	/** Specifies pin output for each channel. */
+	uint32_t pin_out;
+	/** Specifies MUX setting for each output channel pin. */
+	uint32_t pin_mux;
 };
 
 /**
@@ -722,7 +764,6 @@ struct tc_config {
 	 */
 	bool enable_capture_on_channel[NUMBER_OF_COMPARE_CAPTURE_CHANNELS];
 
-
 	/** When \c true, one-shot will stop the TC on next hardware or software
 	 *  re-trigger event or overflow/underflow.
 	 */
@@ -731,31 +772,18 @@ struct tc_config {
 	/** Specifies the direction for the TC to count. */
 	enum tc_count_direction count_direction;
 
-	/** Specifies if the input event source is inverted, when used in PWP or
-	 *  PPW event action modes.
-	 */
-	bool invert_event_input;
+	/** Specifies the PWM channel for TC. */
+	struct tc_pwm_channel pwm_channel[NUMBER_OF_COMPARE_CAPTURE_CHANNELS];
 
-	/** Specifies which event to trigger if an event is triggered. */
-	enum tc_event_action event_action;
-
-	/** When \c true, PWM output for the given channel is enabled. */
-	bool channel_pwm_out_enabled[NUMBER_OF_COMPARE_CAPTURE_CHANNELS];
-	/** Specifies pin output for each channel. */
-	uint32_t channel_pwm_out_pin[NUMBER_OF_COMPARE_CAPTURE_CHANNELS];
-	/** Specifies MUX setting for each output channel pin. */
-	uint32_t channel_pwm_out_mux[NUMBER_OF_COMPARE_CAPTURE_CHANNELS];
-
-	/** This setting determines what size counter is used. */
+	/** Access the different counter size settings though this configuration member. */
 	union {
 		/** Struct for 8-bit specific timer configuration. */
-		struct tc_8bit_config size_8_bit;
+		struct tc_8bit_config counter_8_bit;
 		/** Struct for 16-bit specific timer configuration. */
-		struct tc_16bit_config size_16_bit;
+		struct tc_16bit_config counter_16_bit;
 		/** Struct for 32-bit specific timer configuration. */
-		struct tc_32bit_config size_32_bit;
-	}
-	size_specific;
+		struct tc_32bit_config counter_32_bit;
+	};
 };
 
 #if TC_ASYNC == true
@@ -885,21 +913,18 @@ static inline void tc_get_config_defaults(
 	config->count_direction            = TC_COUNT_DIRECTION_UP;
 	config->oneshot                    = false;
 
-	config->invert_event_input         = false;
-	config->event_action               = TC_EVENT_ACTION_OFF;
+	config->pwm_channel[TC_COMPARE_CAPTURE_CHANNEL_0].enabled = false;
+	config->pwm_channel[TC_COMPARE_CAPTURE_CHANNEL_0].pin_out = 0;
+	config->pwm_channel[TC_COMPARE_CAPTURE_CHANNEL_0].pin_mux = 0;
 
-	config->channel_pwm_out_enabled[0]                        = false;
-	config->channel_pwm_out_pin[TC_COMPARE_CAPTURE_CHANNEL_0] = 0;
-	config->channel_pwm_out_mux[TC_COMPARE_CAPTURE_CHANNEL_0] = 0;
+	config->pwm_channel[TC_COMPARE_CAPTURE_CHANNEL_1].enabled = false;
+	config->pwm_channel[TC_COMPARE_CAPTURE_CHANNEL_1].pin_out = 0;
+	config->pwm_channel[TC_COMPARE_CAPTURE_CHANNEL_1].pin_mux = 0;
 
-	config->channel_pwm_out_enabled[1]                        = false;
-	config->channel_pwm_out_pin[TC_COMPARE_CAPTURE_CHANNEL_1] = 0;
-	config->channel_pwm_out_mux[TC_COMPARE_CAPTURE_CHANNEL_1] = 0;
-
-	config->size_specific.size_16_bit.count                   = 0x0000;
-	config->size_specific.size_16_bit.compare_capture_channel\
+	config->counter_16_bit.value                   = 0x0000;
+	config->counter_16_bit.compare_capture_channel\
 		[TC_COMPARE_CAPTURE_CHANNEL_0]                        = 0x0000;
-	config->size_specific.size_16_bit.compare_capture_channel\
+	config->counter_16_bit.compare_capture_channel\
 		[TC_COMPARE_CAPTURE_CHANNEL_1]                        = 0x0000;
 }
 
@@ -939,6 +964,10 @@ static inline void tc_enable_events(
 
 	uint32_t event_mask = 0;
 
+	if (events->invert_event_input == true) {
+		event_mask |= TC_EVCTRL_TCINV;
+	}
+
 	if (events->on_event_perform_action == true) {
 		event_mask |= TC_EVCTRL_TCEI;
 	}
@@ -953,7 +982,7 @@ static inline void tc_enable_events(
 		}
 	}
 
-	tc_module->COUNT8.EVCTRL.reg |= event_mask;
+	tc_module->COUNT8.EVCTRL.reg |= event_mask | events->event_action;
 }
 
 /**
@@ -979,6 +1008,10 @@ static inline void tc_disable_events(
 	Tc *const tc_module = module_inst->hw;
 
 	uint32_t event_mask = 0;
+
+	if (events->invert_event_input == true) {
+		event_mask |= TC_EVCTRL_TCINV;
+	}
 
 	if (events->on_event_perform_action == true) {
 		event_mask |= TC_EVCTRL_TCEI;
@@ -1292,15 +1325,19 @@ static inline void tc_clear_status(
 #endif
 
 /**
- * \page asfdoc_samd20_tc_extra Extra Information for TC Driver
+ * \page asfdoc_sam0_tc_extra Extra Information for TC Driver
  *
- * \section asfdoc_samd20_tc_extra_acronyms Acronyms
+ * \section asfdoc_sam0_tc_extra_acronyms Acronyms
  * The table below presents the acronyms used in this module:
  *
  * <table>
  *	<tr>
  *		<th>Acronym</th>
  *		<th>Description</th>
+ *	</tr>
+  *	<tr>
+ *		<td>DMA</td>
+ *		<td>Direct Memory Access</td>
  *	</tr>
  *	<tr>
  *		<td>TC</td>
@@ -1321,17 +1358,17 @@ static inline void tc_clear_status(
  * </table>
  *
  *
- * \section asfdoc_samd20_tc_extra_dependencies Dependencies
+ * \section asfdoc_sam0_tc_extra_dependencies Dependencies
  * This driver has the following dependencies:
  *
- *  - \ref asfdoc_samd20_system_pinmux_group "System Pin Multiplexer Driver"
+ *  - \ref asfdoc_sam0_system_pinmux_group "System Pin Multiplexer Driver"
  *
  *
- * \section asfdoc_samd20_tc_extra_errata Errata
+ * \section asfdoc_sam0_tc_extra_errata Errata
  * There are no errata related to this driver.
  *
  *
- * \section asfdoc_samd20_tc_extra_history Module History
+ * \section asfdoc_sam0_tc_extra_history Module History
  * An overview of the module history is presented in the table below, with
  * details on the enhancements and fixes made to the module since its first
  * release. The current version of this corresponds to the newest version in
@@ -1341,6 +1378,20 @@ static inline void tc_clear_status(
  *	<tr>
  *		<th>Changelog</th>
  *	</tr>
+ *  <tr>
+ *    <td>Added support for SAMR21.</td>
+ *  </tr>
+ *	<tr>
+ *    <td>Added support for SAMD21 and do some modifications as below:
+ *          \li Clean up in the configuration structure, the counter size
+ *              setting specific registers is accessed through the counter_8_bit,
+ *              counter_16_bit and counter_32_bit structures.
+ *          \li All event related settings moved into the tc_event structure </td>
+ *	</tr>
+ *	<tr>
+ *		<td>Added automatic digital clock interface enable for the slave TC
+ *          module when a timer is initialized in 32-bit mode.</td>
+ *	</tr>
  *	<tr>
  *		<td>Initial Release</td>
  *	</tr>
@@ -1348,26 +1399,48 @@ static inline void tc_clear_status(
  */
 
 /**
- * \page asfdoc_samd20_tc_exqsg Examples for TC Driver
+ * \page asfdoc_sam0_tc_exqsg Examples for TC Driver
  *
  * This is a list of the available Quick Start guides (QSGs) and example
- * applications for \ref asfdoc_samd20_tc_group. QSGs are simple examples with
+ * applications for \ref asfdoc_sam0_tc_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
  * use cases. Note that QSGs can be compiled as a standalone application or be
  * added to the user application.
  *
- *  - \subpage asfdoc_samd20_tc_basic_use_case
+ *  - \subpage asfdoc_sam0_tc_basic_use_case
  * \if TC_CALLBACK_MODE
- *  - \subpage asfdoc_samd20_tc_callback_use_case
+ *  - \subpage asfdoc_sam0_tc_timer_use_case
+ *  - \subpage asfdoc_sam0_tc_callback_use_case
  * \endif
+ *  - \subpage asfdoc_sam0_tc_dma_use_case
  *
- * \page asfdoc_samd20_tc_document_revision_history Document Revision History
+ * \page asfdoc_sam0_tc_document_revision_history Document Revision History
  *
  * <table>
  *	<tr>
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>E</td>
+ *		<td>03/2014</td>
+ *		<td>Added support for SAMR21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>D</td>
+ *		<td>03/2014</td>
+ *		<td>Added timer use case.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>C</td>
+ *		<td>01/2014</td>
+ *		<td>Added support for SAMD21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>B</td>
+ *		<td>06/2013</td>
+ *		<td>Corrected documentation typos.</td>
  *	</tr>
  *	<tr>
  *		<td>A</td>

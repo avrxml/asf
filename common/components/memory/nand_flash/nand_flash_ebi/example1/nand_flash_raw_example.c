@@ -3,7 +3,7 @@
  *
  * \brief NAND Flash Raw Operation Example
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,16 +71,16 @@
  * -# Start the application.
  * -# In the terminal window, the following text should appear:
  *     \code
- *     -- NAND Flash Raw Example --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     -I- NAND Flash driver initialized
- *     -I- Size of the whole device in bytes : 0x10000000
- *     -I- Size in bytes of one single block of a device : 0x20000
- *     -I- Number of blocks in the entire device : 0x800
- *     -I- Size of the data area of a page in bytes : 0x800
- *     -I- Number of pages in the entire device : 0x40
- *    \endcode
+	-- NAND Flash Raw Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	-I- NAND Flash driver initialized
+	-I- Size of the whole device in bytes : 0x10000000
+	-I- Size in bytes of one single block of a device : 0x20000
+	-I- Number of blocks in the entire device : 0x800
+	-I- Size of the data area of a page in bytes : 0x800
+	-I- Number of pages in the entire device : 0x40
+\endcode
  *
  */
 

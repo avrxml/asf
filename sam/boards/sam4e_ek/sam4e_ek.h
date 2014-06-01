@@ -67,7 +67,7 @@
 /** Master clock frequency */
 #define BOARD_MCK                       CHIP_FREQ_CPU_MAX
 
-/** board main clock xtal statup time */
+/** board main clock xtal startup time */
 #define BOARD_OSC_STARTUP_US            15625
 
 /*----------------------------------------------------------------------------*/

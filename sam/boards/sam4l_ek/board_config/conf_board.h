@@ -43,6 +43,9 @@
 #ifndef CONF_BOARD_H_INCLUDED
 #define CONF_BOARD_H_INCLUDED
 
+/* Keep watchdog at board initialization */
+//#define CONF_BOARD_KEEP_WATCHDOG_AT_INIT
+
 /* Initialize the USART pins for the RS485 interface */
 #define CONF_BOARD_RS485
 

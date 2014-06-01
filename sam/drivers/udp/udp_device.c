@@ -137,7 +137,7 @@
 #ifndef UDD_NO_SLEEP_MGR
 
 //! Definition of sleep levels
-#define UDP_SLEEP_MODE_USB_SUSPEND  SLEEPMGR_WAIT
+#define UDP_SLEEP_MODE_USB_SUSPEND  SLEEPMGR_WAIT_FAST
 #define UDP_SLEEP_MODE_USB_IDLE     SLEEPMGR_SLEEP_WFI
 
 //! State of USB line

@@ -74,6 +74,10 @@ struct nand_flash_translation {
  * \param data_address  Address at which data is sent.
  * \param base_block Basic physical block address of mapped area.
  * \param size_in_block Number of blocks that is mapped.
+ * \param p_page_write_buffer  Pointer to buffer for page write, must be
+ *  allocated with the same size of the NAND Flash page size used.
+ * \param p_page_read_buffer  Pointer to buffer for page read, must be
+ *  allocated with the same size of the NAND Flash page size used.
  *
  * \return 0 if successful; otherwise return the error code.
  */
@@ -81,7 +85,8 @@ uint32_t nand_flash_translation_initialize(
 		struct nand_flash_translation *translated,
 		const struct nand_flash_model *model, uint32_t command_address,
 		uint32_t address_address, uint32_t data_address,
-		uint16_t base_block, uint16_t size_in_block);
+		uint16_t base_block, uint16_t size_in_block,
+		uint8_t *p_page_write_buffer, uint8_t *p_page_read_buffer);
 /**
  * \brief  Read the data and/or the spare area of a page on a translated
  * NAND Flash. If the block is not currently mapped but could be (i.e. there

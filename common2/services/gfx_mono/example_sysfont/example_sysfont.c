@@ -3,7 +3,7 @@
  *
  * \brief Example application for GFX Monochrome System Font (sysfont)
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -58,6 +58,8 @@
  * \section asfdoc_common2_sysfont_example_device_info Device Info
  * This example has been tested with the following setup:
  * - SAM D20 Xplained Pro
+ * - SAM D21 Xplained Pro
+ * - SAM R21 Xplained Pro
  *
  * \section asfdoc_common2_sysfont_example_description Description of the example application
  * The example application will upon power up display two text strings on the

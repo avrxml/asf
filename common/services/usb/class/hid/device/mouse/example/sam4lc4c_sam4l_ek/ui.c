@@ -3,7 +3,7 @@
  *
  * \brief User Interface
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -108,11 +108,6 @@ static void ui_enable_asynchronous_interrupt(void)
 		UI_WAKEUP_IRQN, UI_WAKEUP_IRQ_LEVEL);
 	eic_line_enable(EIC, UI_WAKEUP_EIC_LINE);
 	eic_line_enable_interrupt(EIC, UI_WAKEUP_EIC_LINE);
-
-	/* EIC can wakeup the device */
-	bpm_enable_wakeup_source(BPM, (1 << UI_WAKEUP_BPM_SRC));
-	/* EIC can wake the device from backup mode */
-	bpm_enable_backup_pin(BPM, 1 << UI_WAKEUP_EIC_LINE);
 }
 
 /**
@@ -121,8 +116,6 @@ static void ui_enable_asynchronous_interrupt(void)
 static void ui_disable_asynchronous_interrupt(void)
 {
 	eic_line_disable_interrupt(EIC, UI_WAKEUP_EIC_LINE);
-	bpm_disable_wakeup_source(BPM, (1 << UI_WAKEUP_BPM_SRC));
-	bpm_disable_backup_pin(BPM, 1 << UI_WAKEUP_EIC_LINE);
 	sysclk_disable_peripheral_clock(EIC);
 }
 

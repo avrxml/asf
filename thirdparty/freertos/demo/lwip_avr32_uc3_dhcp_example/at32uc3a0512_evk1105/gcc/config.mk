@@ -210,8 +210,13 @@ CPPFLAGS = \
        -D FREERTOS_USED                                   \
        -D HTTP_USED=1                                     \
        -D SMTP_USED=0                                     \
-       -D TFTP_USED=1
+       -D TFTP_USED=1                                     \
+       -D __FREERTOS__
 
 # Extra flags to use when linking
 LDFLAGS = \
         -Wl,-e,_trampoline
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

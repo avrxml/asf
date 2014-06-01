@@ -3,7 +3,7 @@
  *
  * \brief Example specific clock configuration file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -55,8 +55,10 @@
 /* ===== PLL1 Options */
 /* #define CONFIG_PLL1_SOURCE          PLL_SRC_OSC0 */
 /* #define CONFIG_PLL1_SOURCE          PLL_SRC_OSC1 */
+
 /* #define CONFIG_PLL1_MUL             8 / * Fpll = (Fclk * PLL_mul) / PLL_div
  * * / */
+
 /* #define CONFIG_PLL1_DIV             2 / * Fpll = (Fclk * PLL_mul) / PLL_div
  * * / */
 
@@ -66,6 +68,7 @@
 /* #define CONFIG_SYSCLK_PBB_DIV         0 / * Fpbb = Fsys/(2 ^ PBB_div) * / */
 
 /* ===== Peripheral Clock Management Options */
+
 /* #define CONFIG_SYSCLK_INIT_CPUMASK  ((1 << SYSCLK_SYSTIMER) | (1 <<
  * SYSCLK_OCD)) */
 /* #define CONFIG_SYSCLK_INIT_PBAMASK  (1 << SYSCLK_USART0) */

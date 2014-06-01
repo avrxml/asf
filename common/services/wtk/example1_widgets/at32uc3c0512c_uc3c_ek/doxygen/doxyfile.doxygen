@@ -466,7 +466,7 @@ GENERATE_DEPRECATEDLIST= YES
 # The ENABLED_SECTIONS tag can be used to enable conditional
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       =
+ENABLED_SECTIONS       = 
 
 # The MAX_INITIALIZER_LINES tag determines the maximum number of lines
 # the initial value of a variable or define consists of for it to appear in
@@ -582,7 +582,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  =  ../../../../clock/uc3c/osc.c ../../../wtk_slider.c ../../../../../../avr32/boards/uc3c_ek/init.c ../../example1.c ../../../../gfx/gfx_hx8347a_et024006dhu_ebi.c ../../../wtk_frame.c ../../../wtk_label.c ../../../win.c ../../../../../../avr32/components/display/et024006dhu/et024006dhu.c ../../../wtk_radio_button.c ../../../wtk_basic_frame.c ../../../wtk_progress_bar.c ../../../../../../avr32/boards/uc3c_ek/led.c ../../../../../../avr32/drivers/intc/intc.c ../../../../clock/uc3c/sysclk.c ../../../../gfx/gfx_generic.c ../../../wtk_icon.c ../../../../../../avr32/drivers/gpio/gpio.c ../../../wtk_check_box.c ../touch_interface.c ../../../../gfx/sysfont.c ../../../../../../avr32/drivers/flashc/flashc.c ../../../../../../avr32/drivers/adcifa/adcifa.c ../../../../../../avr32/components/touch/resistive_touch/rtouch.c ../../../../../utils/membag/membag.c ../../../wtk.c ../../../../../../avr32/drivers/ebi/smc/smc.c ../../../../clock/uc3c/pll.c ../../widget_gui.c ../../../wtk_plot.c ../../../wtk_button.c ../../../../gfx/gfx_text.c  ../../../../../../avr32/utils/preprocessor/stringz.h ../conf_board.h ../../../wtk_frame.h ../../../../gfx/gfx_hx8347a_et024006dhu_ebi.h ../../../../../utils/parts.h ../conf_et024006dhu.h ../../../../../../avr32/utils/header_files/uc3l3_l4_defines_fix.h ../../../../../../avr32/utils/preprocessor/preprocessor.h ../../touch_interface.h ../../../../../../avr32/components/display/et024006dhu/et024006dhu.h ../../../../../utils/interrupt.h ../../../wtk_label.h ../../../../delay/delay.h ../../../win.h ../../../wtk_basic_frame.h ../../../../gfx/gfx.h ../../../../../../avr32/drivers/cpu/cycle_counter/cycle_counter.h ../../../wtk_progress_bar.h ../../../../clock/uc3c/pll.h ../../../wtk_radio_button.h ../../../../ioport/uc3/ioport.h ../../../../../../avr32/drivers/gpio/gpio.h ../../../wtk_icon.h ../../../wtk_check_box.h ../../../../../../avr32/utils/status_codes.h ../../../../../../avr32/components/touch/resistive_touch/rtouch.h ../atmel_logo_small.h ../../../../../../avr32/drivers/intc/intc.h ../../../../clock/uc3c/genclk.h ../../../../../../avr32/utils/preprocessor/mrepeat.h ../../conf_wtk.h ../../../wtk_plot.h ../../../../clock/sysclk.h ../../conf_win.h ../../../../../../avr32/drivers/adcifa/adcifa.h ../../../../gfx/sysfont.h ../../../wtk_slider.h ../conf_clock.h ../../../../../../avr32/components/display/et024006dhu/smc_et024006dhu.h ../conf_rtouch.h ../../../../../../avr32/utils/preprocessor/tpaste.h ../../../../../../avr32/drivers/ebi/smc/smc.h ../../../wtk.h ../../../../../../avr32/boards/uc3c_ek/led.h ../../../../../utils/membag/membag.h ../../../../../utils/interrupt/interrupt_avr32.h ../../../../clock/uc3c/sysclk.h ../../../../clock/osc.h ../../../../clock/uc3c/osc.h ../../../../../../avr32/utils/compiler.h ../../../../clock/genclk.h ../../../wtk_button.h ../../conf_membag.h ../../../../../boards/board.h ../../widget_gui.h ../../../../../../avr32/drivers/flashc/flashc.h ../conf_ebi.h ../../../../../../avr32/boards/uc3c_ek/uc3c_ek.h ../../../../ioport/ioport.h ../../../../../../avr32/utils/startup/trampoline_uc3.h ../../../../clock/pll.h ../../../../../../avr32/utils/header_files/uc3d_defines_fix.h ../../../../gfx/gfx_generic.h ../../conf_sysfont.h ../../../../gfx/gfx_text.h
+INPUT                  = ../touch_interface.c ../../../../../../avr32/components/touch/resistive_touch/rtouch.c ../../../../../../avr32/drivers/gpio/gpio.c ../../../../../../avr32/drivers/adcifa/adcifa.c ../../../../../../avr32/drivers/intc/intc.c ../../example1.c ../../widget_gui.c ../../../win.c ../../../wtk.c ../../../wtk_basic_frame.c ../../../wtk_button.c ../../../wtk_check_box.c ../../../wtk_frame.c ../../../wtk_icon.c ../../../wtk_label.c ../../../wtk_plot.c ../../../wtk_progress_bar.c ../../../wtk_radio_button.c ../../../wtk_slider.c ../../../../gfx/gfx_hx8347a_et024006dhu_ebi.c ../../../../../../avr32/components/display/et024006dhu/et024006dhu.c ../../../../../../avr32/drivers/ebi/smc/smc.c ../../../../gfx/gfx_generic.c ../../../../clock/uc3c/osc.c ../../../../clock/uc3c/pll.c ../../../../clock/uc3c/sysclk.c ../../../../../../avr32/drivers/flashc/flashc.c ../../../../gfx/gfx_text.c ../../../../gfx/sysfont.c ../../../../../utils/membag/membag.c ../../../../../../avr32/boards/uc3c_ek/led.c ../../../../../../avr32/boards/uc3c_ek/init.c ../atmel_logo_small.h ../conf_board.h ../conf_clock.h ../conf_ebi.h ../conf_et024006dhu.h ../conf_rtouch.h ../../../../../../avr32/components/touch/resistive_touch/rtouch.h ../../../../../../avr32/drivers/gpio/gpio.h ../../../../../../avr32/utils/compiler.h ../../../../../../avr32/utils/header_files/uc3d_defines_fix.h ../../../../../../avr32/utils/header_files/uc3l3_l4_defines_fix.h ../../../../../../avr32/utils/preprocessor/mrepeat.h ../../../../../../avr32/utils/preprocessor/preprocessor.h ../../../../../../avr32/utils/preprocessor/stringz.h ../../../../../../avr32/utils/preprocessor/tpaste.h ../../../../../../avr32/utils/status_codes.h ../../../../../../avr32/utils/startup/trampoline_uc3.h ../../../../../utils/parts.h ../../../../../utils/interrupt.h ../../../../../utils/interrupt/interrupt_avr32.h ../../../../../../avr32/drivers/adcifa/adcifa.h ../../../../../../avr32/drivers/intc/intc.h ../../conf_membag.h ../../conf_sysfont.h ../../conf_win.h ../../conf_wtk.h ../../touch_interface.h ../../widget_gui.h ../../../../../boards/board.h ../../../win.h ../../../wtk.h ../../../wtk_basic_frame.h ../../../wtk_button.h ../../../wtk_check_box.h ../../../wtk_frame.h ../../../wtk_icon.h ../../../wtk_label.h ../../../wtk_plot.h ../../../wtk_progress_bar.h ../../../wtk_radio_button.h ../../../wtk_slider.h ../../../../gfx/gfx.h ../../../../gfx/gfx_hx8347a_et024006dhu_ebi.h ../../../../../../avr32/components/display/et024006dhu/et024006dhu.h ../../../../../../avr32/components/display/et024006dhu/smc_et024006dhu.h ../../../../../../avr32/drivers/cpu/cycle_counter/cycle_counter.h ../../../../../../avr32/drivers/ebi/smc/smc.h ../../../../gfx/gfx_generic.h ../../../../clock/genclk.h ../../../../clock/osc.h ../../../../clock/pll.h ../../../../clock/sysclk.h ../../../../clock/uc3c/genclk.h ../../../../clock/uc3c/osc.h ../../../../clock/uc3c/pll.h ../../../../clock/uc3c/sysclk.h ../../../../../../avr32/drivers/flashc/flashc.h ../../../../ioport/ioport.h ../../../../ioport/uc3/ioport.h ../../../../gfx/gfx_text.h ../../../../gfx/sysfont.h ../../../../../utils/membag/membag.h ../../../../delay/delay.h ../../../../../../avr32/boards/uc3c_ek/led.h ../../../../../../avr32/boards/uc3c_ek/uc3c_ek.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -662,7 +662,7 @@ EXAMPLE_RECURSIVE      = NO
 # directories that contain image that are included in the documentation (see
 # the \image command).
 
-IMAGE_PATH             =  ../../../docsrc
+IMAGE_PATH             = ../../../docsrc
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program
@@ -1062,6 +1062,17 @@ FORMULA_FONTSIZE       = 10
 
 FORMULA_TRANSPARENT    = YES
 
+# Enable the USE_MATHJAX option to render LaTeX formulas using MathJax (see
+# http://www.mathjax.org) which uses client side Javascript for the rendering
+# instead of using prerendered bitmaps. Use this if you do not have LaTeX
+# installed or if you want to formulas look prettier in the HTML output. When
+# enabled you may also need to install MathJax separately and configure the path
+# to it using the MATHJAX_RELPATH option.
+# The default value is: NO.
+# This tag requires that the tag GENERATE_HTML is set to YES.
+
+USE_MATHJAX            = NO
+
 # When the SEARCHENGINE tag is enabled doxygen will generate a search box
 # for the HTML output. The underlying search engine uses javascript
 # and DHTML and should work on any modern browser. Note that when using
@@ -1352,7 +1363,7 @@ SEARCH_INCLUDES        = YES
 # contain include files that are not input files but should be processed by
 # the preprocessor.
 
-INCLUDE_PATH           =  .. ../../../../../../avr32/boards ../.. ../../../../../../avr32/components/display/et024006dhu ../../../../gfx ../../../../../../avr32/boards/uc3c_ek ../../../../../../avr32/components/touch/resistive_touch ../../../../../../avr32/utils ../../../../../../avr32/drivers/gpio ../../../../../utils ../../../../clock ../../.. ../../../../../../avr32/drivers/cpu/cycle_counter ../../../../../utils/membag ../../../../../../avr32/drivers/adcifa ../../../../delay ../../../../../../avr32/drivers/ebi/smc ../../../../../boards ../../../../../../avr32/drivers/flashc ../../../../ioport ../../../../../../avr32/utils/preprocessor ../../../../../../avr32/drivers/intc
+INCLUDE_PATH           = .. ../../../../../../avr32/components/touch/resistive_touch ../../../../../../avr32/drivers/gpio ../../../../../../avr32/utils ../../../../../../avr32/utils/preprocessor ../../../../../utils ../../../../../../avr32/drivers/adcifa ../../../../../../avr32/drivers/intc ../.. ../../../../../boards ../../.. ../../../../gfx ../../../../../../avr32/components/display/et024006dhu ../../../../../../avr32/drivers/cpu/cycle_counter ../../../../../../avr32/drivers/ebi/smc ../../../../clock ../../../../../../avr32/drivers/flashc ../../../../ioport ../../../../../utils/membag ../../../../delay ../../../../../../avr32/boards ../../../../../../avr32/boards/uc3c_ek
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the
@@ -1369,7 +1380,7 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator
 # instead of the = operator.
 
-PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4  GFX_INITIALIZED=1 CONF_GFX_HX8347A_ET024006DHU_EBI=1 BOARD=UC3C_EK __AVR32_UC3C0512C__
+PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4 CONF_GFX_HX8347A_ET024006DHU_EBI=1 GFX_INITIALIZED=1 BOARD=UC3C_EK __AVR32_UC3C0512C__
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.

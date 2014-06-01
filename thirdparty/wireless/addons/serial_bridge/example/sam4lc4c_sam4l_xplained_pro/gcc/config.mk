@@ -157,7 +157,12 @@ CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
        -D BOARD=SAM4L_XPLAINED_PRO                        \
        -D __SAM4LC4C__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

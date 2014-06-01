@@ -3,7 +3,7 @@
  *
  * \brief Default descriptors for a USB Device with a single interface CDC
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -61,12 +61,18 @@
 //! Two interfaces for a CDC device
 #define  USB_DEVICE_NB_INTERFACE       (2*UDI_CDC_PORT_NB)
 
+#ifdef USB_DEVICE_LPM_SUPPORT
+# define USB_VERSION   USB_V2_1
+#else
+# define USB_VERSION   USB_V2_0
+#endif
+
 //! USB Device Descriptor
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE usb_dev_desc_t udc_device_desc = {
 	.bLength                   = sizeof(usb_dev_desc_t),
 	.bDescriptorType           = USB_DT_DEVICE,
-	.bcdUSB                    = LE16(USB_V2_0),
+	.bcdUSB                    = LE16(USB_VERSION),
 #if UDI_CDC_PORT_NB > 1
 	.bDeviceClass              = 0,
 #else
@@ -104,7 +110,7 @@ COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE usb_dev_qual_desc_t udc_device_qual = {
 	.bLength                   = sizeof(usb_dev_qual_desc_t),
 	.bDescriptorType           = USB_DT_DEVICE_QUALIFIER,
-	.bcdUSB                    = LE16(USB_V2_0),
+	.bcdUSB                    = LE16(USB_VERSION),
 #if UDI_CDC_PORT_NB > 1
 	.bDeviceClass              = 0,
 #else
@@ -114,6 +120,23 @@ UDC_DESC_STORAGE usb_dev_qual_desc_t udc_device_qual = {
 	.bDeviceProtocol           = 0,
 	.bMaxPacketSize0           = USB_DEVICE_EP_CTRL_SIZE,
 	.bNumConfigurations        = 1
+};
+#endif
+
+#ifdef USB_DEVICE_LPM_SUPPORT
+//! USB Device Qualifier Descriptor
+COMPILER_WORD_ALIGNED
+UDC_DESC_STORAGE usb_dev_lpm_desc_t udc_device_lpm = {
+	.bos.bLength               = sizeof(usb_dev_bos_desc_t),
+	.bos.bDescriptorType       = USB_DT_BOS,
+	.bos.wTotalLength          = LE16(sizeof(usb_dev_bos_desc_t) + sizeof(usb_dev_capa_ext_desc_t)),
+	.bos.bNumDeviceCaps        = 1,
+	.capa_ext.bLength          = sizeof(usb_dev_capa_ext_desc_t),
+	.capa_ext.bDescriptorType  = USB_DT_DEVICE_CAPABILITY,
+	.capa_ext.bDevCapabilityType = USB_DC_USB20_EXTENSION,
+	.capa_ext.bmAttributes     = ((USB_DC_EXT_LPM | USB_DC_EXT_BESL \
+	  | USB_DC_EXT_BESL_BASELINE_VALID | USB_DC_EXT_BESL_DEEP_VALID \
+	  | USB_DC_EXT_BESL_DEEP(BESL_4000_US) | USB_DC_EXT_BESL_BASELINE(BESL_125_US))),
 };
 #endif
 
@@ -218,6 +241,11 @@ UDC_DESC_STORAGE udc_config_t udc_config = {
 	.confdev_hs = &udc_device_desc,
 	.qualifier = &udc_device_qual,
 	.conf_hs = udc_config_hs,
+#endif
+#ifdef USB_DEVICE_LPM_SUPPORT
+	.conf_bos = &udc_device_lpm.bos,
+#else
+	.conf_bos = NULL,
 #endif
 };
 

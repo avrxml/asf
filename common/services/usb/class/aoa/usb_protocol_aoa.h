@@ -61,6 +61,27 @@
 /** Start the Android Device in acc mode */
 #define USB_REQ_AOA_STARTUP           0x35
 
+/** Google Vendor ID */
+#define GOOGLE_VID              0x18D1
+/** Google Product ID which indicates it supports Android Accessory Device */
+#define AOA_PID                 0x2D00
+/** Google Product ID which indicates it supports
+ * Android Accessory Device which supports ADB */
+#define AOA_ADB_PID             0x2D01
+
+/** Index of manufacturer */
+#define AOA_STRING_INDEX_MANUFACTURER  0
+/** Index of model */
+#define AOA_STRING_INDEX_MODEL         1
+/** Index of description */
+#define AOA_STRING_INDEX_DESCRIPTION   2
+/** Index of version */
+#define AOA_STRING_INDEX_VERSION       3
+/** Index of URL */
+#define AOA_STRING_INDEX_URL           4
+/** Index of serialnumber */
+#define AOA_STRING_INDEX_SERIAL        5
+
 /** @} */
 
 #endif /* _USB_PROTOCOL_AOA_H_ */

@@ -3,7 +3,7 @@
  *
  * \brief Event handling Serial I/O  Functionalities
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -109,7 +109,7 @@ uint8_t sio2host_rx(uint8_t *data, uint8_t max_length)
 
 		/*
 		 * This is a buffer overflow case.But still only the number of
-		 *bytes equivalent to
+		 * bytes equivalent to
 		 * full buffer size are useful.
 		 */
 		serial_rx_count = SERIAL_RX_BUF_SIZE_HOST;
@@ -118,7 +118,7 @@ uint8_t sio2host_rx(uint8_t *data, uint8_t max_length)
 		if (SERIAL_RX_BUF_SIZE_HOST <= max_length) {
 			/*
 			 * Requested receive length (max_length) is more than
-			 *the
+			 * the
 			 * max size of receive buffer, but at max the full
 			 * buffer can be read.
 			 */
@@ -129,9 +129,9 @@ uint8_t sio2host_rx(uint8_t *data, uint8_t max_length)
 		if (max_length > serial_rx_count) {
 			/*
 			 * Requested receive length (max_length) is more than
-			 *the data
+			 * the data
 			 * present in receive buffer. Hence only the number of
-			 *bytes
+			 * bytes
 			 * present in receive buffer are read.
 			 */
 			max_length = serial_rx_count;
@@ -159,6 +159,11 @@ uint8_t sio2host_getchar(void)
 	while (0 == sio2host_rx(&c, 1)) {
 	}
 	return c;
+}
+
+void sio2host_putchar(uint8_t ch)
+{
+	sio2host_tx(&ch, 1);
 }
 
 int sio2host_getchar_nowait(void)
@@ -208,19 +213,20 @@ void usb_rx_notify(void)
 		while (udi_cdc_is_rx_ready()) {
 			uint8_t temp;
 			temp = udi_cdc_getc();
+
 			/* Introducing critical section to avoid buffer
-			 *corruption. */
+			 * corruption. */
 			cpu_irq_disable();
 
 			/* The count of characters present in receive buffer is
-			 *incremented. */
+			 * incremented. */
 			serial_rx_count++;
 			serial_rx_buf[serial_rx_buf_tail] = temp;
 
 			if ((SERIAL_RX_BUF_SIZE_HOST - 1) ==
 					serial_rx_buf_tail) {
 				/* Reached the end of buffer, revert back to
-				 *beginning of buffer. */
+				 * beginning of buffer. */
 				serial_rx_buf_tail = 0x00;
 			} else {
 				serial_rx_buf_tail++;

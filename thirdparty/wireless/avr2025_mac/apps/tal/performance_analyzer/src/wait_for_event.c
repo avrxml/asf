@@ -57,12 +57,15 @@
 
 /* === MACROS ============================================================== */
 /* ED threshold to accept a frame in the configuaration mode  */
-
+#ifdef EXT_RF_FRONT_END_CTRL
+#define CONFIG_ED_THRESHOLD             (0x10)
+#else
 #if ((TAL_TYPE == AT86RF212) || (TAL_TYPE == AT86RF212B))
 #define CONFIG_ED_THRESHOLD             (0x3a)
 #else
 #define CONFIG_ED_THRESHOLD             (0x1f)
 #endif /* End of ((TAL_TYPE == AT86RF212) || (TAL_TYPE == AT86RF212B)) */
+#endif /* End of EXT_RF_FRONT_END_CTRL */
 
 /* === PROTOTYPES ========================================================== */
 static void configure_pibs(void);
@@ -107,8 +110,9 @@ void wait_for_event_task(void)
 
 	if (key_press != 0) {
 		print_event(PRINT_KEY_PRESS_PEER_SEARCH_INITIATOR);
+
 		/* key press detected - so change to state PEER_SEARCH_RANGE_TX
-		 **/
+		**/
 		set_main_state(PEER_SEARCH_RANGE_TX, NULL);
 	}
 }
@@ -143,7 +147,7 @@ void wait_for_event_rx_cb(frame_info_t *mac_frame_info)
 					LQI_LEN + ED_VAL_LEN];
 
 			/* Check the threshold if the configuarion mode is
-			 *enabled, not otherwise */
+			 * enabled, not otherwise */
 			if (((msg->payload.peer_req_data.config_mode == true) &&
 					(ed_val > CONFIG_ED_THRESHOLD)) ||
 					(msg->payload.peer_req_data.config_mode
@@ -162,9 +166,9 @@ void wait_for_event_rx_cb(frame_info_t *mac_frame_info)
 
 					/*
 					 * Frame found to be peer search for
-					 *range test
+					 * range test
 					 * so change to state
-					 *PEER_SEARCH_RANGE_RX
+					 * PEER_SEARCH_RANGE_RX
 					 */
 					set_main_state(PEER_SEARCH_RANGE_RX,
 							&peer_info);
@@ -176,7 +180,7 @@ void wait_for_event_rx_cb(frame_info_t *mac_frame_info)
 
 					/*
 					 * Frame found to be peer search for
-					 *range test
+					 * range test
 					 * so change to state PEER_SEARCH_PER_RX
 					 */
 					set_main_state(PEER_SEARCH_PER_RX,
@@ -186,8 +190,9 @@ void wait_for_event_rx_cb(frame_info_t *mac_frame_info)
 					break;
 
 				default:
+
 					/* The node has got a wrong frame: No
-					 *change of mode */
+					 * change of mode */
 					print_event(
 							PRINT_PEER_SEARCH_RECEPTOR_BAD_FRAME);
 					break;
@@ -199,27 +204,31 @@ void wait_for_event_rx_cb(frame_info_t *mac_frame_info)
 
 /**
  * \brief Configure the TAL PIB's relevant to the Performance analyzer
- *application
+ * application
  * \ingroup group_app_init
  */
 static void configure_pibs(void)
 {
 	uint16_t temp_word;
+	pib_value_t pib_value;
 	uint8_t temp_byte;
 
 	/* Set Default address. */
 	temp_word = CCPU_ENDIAN_TO_LE16(DEFAULT_ADDR);
-	tal_pib_set(macShortAddress, (pib_value_t *)&temp_word);
+	pib_value.pib_value_16bit = temp_word;
+	tal_pib_set(macShortAddress, &pib_value);
 
 	/* Set PAN ID. */
 	temp_word = CCPU_ENDIAN_TO_LE16(SRC_PAN_ID);
-	tal_pib_set(macPANId, (pib_value_t *)&temp_word);
+	pib_value.pib_value_16bit = temp_word;
+	tal_pib_set(macPANId, &pib_value);
 
 	/* Set channel. */
 	temp_byte = (uint8_t)DEFAULT_CHANNEL;
-	tal_pib_set(phyCurrentChannel, (pib_value_t *)&temp_byte);
+	pib_value.pib_value_8bit = temp_byte;
+	tal_pib_set(phyCurrentChannel, &pib_value);
 
 	/* Set IEEE address - To make sure that trx registers written properly
-	 **/
+	**/
 	tal_pib_set(macIeeeAddress, (pib_value_t *)&tal_pib.IeeeAddress);
 }

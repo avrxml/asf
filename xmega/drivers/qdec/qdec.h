@@ -4,7 +4,7 @@
  * \brief AVR XMEGA Quadrature Decoder driver header file
  *        This file contains the function prototypes and Macros.
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -297,23 +297,23 @@ uint16_t qdec_get_frequency(qdec_config_t *config);
  *
  * Add to application C-file:
  * \code
- *
- * static void qdec_init(void)
- * {
- *     qdec_config_t config;
- *
- *     qdec_get_config_defaults(&config);
- *     qdec_config_phase_pins(&config, &PORTA, 6, false, 500);
- *     qdec_config_revolution(&config, 20);
- *     qdec_enabled(&config);
- * }
- * \endcode
+
+	 static void qdec_init(void)
+	 {
+	     qdec_config_t config;
+
+	     qdec_get_config_defaults(&config);
+	     qdec_config_phase_pins(&config, &PORTA, 6, false, 500);
+	     qdec_config_revolution(&config, 20);
+	     qdec_enabled(&config);
+	 }
+\endcode
  *
  * Add to \c main():
  * \code
- * sysclk_init();
- * qdec_init();
- * \endcode
+	sysclk_init();
+	qdec_init();
+\endcode
  *
  * \subsection qdec_basic_use_case_setup_flow Workflow
  *
@@ -323,35 +323,35 @@ uint16_t qdec_get_frequency(qdec_config_t *config);
  * initialized in order to compute the correct QDEC filters.
  * -# Create a function \c qdec_init() to intialize the QDEC:
  *     - \code
- * static void qdec_init(void)
- * {
- *     // ...
- * }
- *       \endcode
+	static void qdec_init(void)
+	{
+	    // ...
+	}
+\endcode
  * -# Allocate configuration structs for the QDEC:
  *     - \code
- * qdec_config_t config;
- *       \endcode
+	qdec_config_t config;
+\endcode
  * -# Initialize the configuration structure with the identified as commonly
  * hardware ressources and parameters:
  *     - \code
- * qdec_get_config_defaults(&config);
- *       \endcode
+	qdec_get_config_defaults(&config);
+\endcode
  * -# Define the PORT and pins used by QDec. These must be contiguous on PORT
  * and only the first pin phase is request. A filter timing must be given
  * to filter the rebounces:
  *     - \code
- * qdec_config_phase_pins(&config, &PORTA, 6, false, 500);
- *       \endcode
+	qdec_config_phase_pins(&config, &PORTA, 6, false, 500);
+\endcode
  * -# Define the QDec revolution. It is the number of position for one
  * revolution:
  *     - \code
- * qdec_config_revolution(&config, 20);
- *       \endcode
+	qdec_config_revolution(&config, 20);
+\endcode
  * -# Load and enable the QDec configuration:
  *     - \code
- * qdec_enabled(&config);
- *       \endcode
+	qdec_enabled(&config);
+\endcode
  *
  * \section qdec_basic_use_case_usage Usage steps
  *
@@ -359,9 +359,9 @@ uint16_t qdec_get_frequency(qdec_config_t *config);
  *
  * Add to, e.g., main-loop in application C-file:
  * \code
- * uint16_t qdec_position = qdec_get_position(&config);
- * bool qdec_dir = qdec_get_direction(&config);
- * \endcode
+	uint16_t qdec_position = qdec_get_position(&config);
+	bool qdec_dir = qdec_get_direction(&config);
+\endcode
  *
  * \subsection qdec_basic_use_case_usage_flow Workflow
  *

@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for AT25DFx driver.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -72,11 +72,13 @@
  * - \ref conf_at25dfx.h
  *
  * \section device_info Device Info
- * SAM3N, SAM4L and SAM4E devices can be used.
  * This example has been tested with the following setup:
  * - sam3n4c_sam3n_ek
  * - sam4lc4c_sam4l_ek
  * - sam4e16e_sam4e_ek
+ * - sam4c16c_sam4c_ek
+ * - sam4cmp16c_sam4cmp_db
+ * - sam4cms16c_sam4cms_db
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers

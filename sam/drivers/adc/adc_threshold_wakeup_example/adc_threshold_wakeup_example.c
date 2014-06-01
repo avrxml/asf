@@ -3,7 +3,7 @@
  *
  * \brief ADC threshold wakeup example for SAM.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -64,16 +64,16 @@
  * channel which is connected to the potentiometer. This example shows a menu as
  * below upon running:
  * \code
- * -- Menu Choices for this example--
- * -- 0: Display voltage on potentiometer.--
- *  -- 1: Modify low threshold.--
- *  -- 2: Modify high threshold.--
- *  -- 3: Choose comparison mode.--
- * -- i: Display ADC information.--
- * -- m: Display this main menu.--
- * -- c: Set Auto Calibration Mode. --
- * -- s: Enter sleep mode.--
- * \endcode
+	-- Menu Choices for this example--
+	-- 0: Display voltage on potentiometer.--
+	 -- 1: Modify low threshold.--
+	 -- 2: Modify high threshold.--
+	 -- 3: Choose comparison mode.--
+	-- i: Display ADC information.--
+	-- m: Display this main menu.--
+	-- c: Set Auto Calibration Mode. --
+	-- s: Enter sleep mode.--
+\endcode
  * With the user interface, comparison window and mode could be set. The ADC
  * supports 4 kinds of comparison events as follows:
  *
@@ -89,16 +89,7 @@
  *
  * \section Usage
  *
- * -# Build the program and download it into the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/6421B.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a>
- *    application note or the
- *    <a href="http://www.iar.com/website1/1.0.1.0/78/1/">
- *    IAR EWARM User and reference guides</a>,
- *    depending on the solutions that users choose.
+ * -# Build the program and download it into the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -109,19 +100,19 @@
  * -# In the terminal window, the
  *    following text should appear (values depend on the board and the chip used):
  *    \code
- *     -- ADC Threshold Wakeup Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     -- Menu Choices for this example--
- *     -- 0: Display voltage on potentiometer.--
- *      -- 1: Modify low threshold.--
- *      -- 2: Modify high threshold.--
- *      -- 3: Choose comparison mode.--
- *     -- i: Display ADC information.--
- *     -- m: Display this main menu.--
- *     -- c: Set Auto Calibration Mode. --
- *     -- s: Enter sleep mode.--
- *    \endcode
+	-- ADC Threshold Wakeup Example xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	-- Menu Choices for this example--
+	-- 0: Display voltage on potentiometer.--
+	 -- 1: Modify low threshold.--
+	 -- 2: Modify high threshold.--
+	 -- 3: Choose comparison mode.--
+	-- i: Display ADC information.--
+	-- m: Display this main menu.--
+	-- c: Set Auto Calibration Mode. --
+	-- s: Enter sleep mode.--
+\endcode
  * -# Input the command according to the menu.
  *
  */
@@ -133,21 +124,47 @@
 /** ADC channel for potentiometer */
 #if SAM3S || SAM3N || SAM4S
 #define ADC_CHANNEL_POTENTIOMETER  ADC_CHANNEL_5
-#elif SAM3XA
-#define ADC_CHANNEL_POTENTIOMETER    ADC_CHANNEL_1
+#elif SAM3XA || SAM4C
+#define ADC_CHANNEL_POTENTIOMETER  ADC_CHANNEL_1
 #endif
 /** ADC clock */
 #define BOARD_ADC_FREQ (6000000)
 
-/** Reference voltage for ADC,in mv.*/
+/** Reference voltage for ADC, in mv.*/
 #define VOLT_REF   (3300)
 
 /** The maximal digital value*/
 #if SAM3S || SAM3XA || SAM4S
 /** The maximal digital value */
 #define MAX_DIGITAL     (4095)
-#elif SAM3N
+#elif SAM3N || SAM4C
 #define MAX_DIGITAL     (1023)
+#endif
+
+#if SAM3S || SAM4S || SAM3XA || SAM3N || SAM4C
+/* Tracking Time*/
+#define TRACKING_TIME    1
+/* Transfer Period */
+#define TRANSFER_PERIOD  1
+/* Startup Time*/
+#if SAM4C
+#define STARTUP_TIME ADC_STARTUP_TIME_10
+#else
+#define STARTUP_TIME ADC_STARTUP_TIME_4
+#endif
+#endif
+
+#if SAM3U
+#ifdef ADC_12B
+/* Start Up Time */
+#define STARTUP_TIME               7
+/* Off Mode Startup Time */
+#define OFF_MODE_STARTUP_TIME      7
+#else
+#define STARTUP_TIME               3
+#endif
+/* Sample & Hold Time */
+#define SAMPLE_HOLD_TIME   6
 #endif
 
 #define STRING_EOL    "\r"
@@ -196,13 +213,15 @@ void ADC_Handler(void)
 		case 2:
 			printf("-ISR-:Potentiometer voltage %d mv is in the comparison "
 				"window:%d-%d mv!\n\r", us_adc * VOLT_REF / MAX_DIGITAL,
-				gs_us_low_threshold * VOLT_REF / MAX_DIGITAL, gs_us_high_threshold * VOLT_REF / MAX_DIGITAL);
+				gs_us_low_threshold * VOLT_REF / MAX_DIGITAL,
+				gs_us_high_threshold * VOLT_REF / MAX_DIGITAL);
 			break;
 
 		case 3:
 			printf("-ISR-:Potentiometer voltage %d mv is out of the comparison"
 				" window:%d-%d mv!\n\r", us_adc * VOLT_REF / MAX_DIGITAL,
-				gs_us_low_threshold * VOLT_REF / MAX_DIGITAL, gs_us_high_threshold * VOLT_REF / MAX_DIGITAL);
+				gs_us_low_threshold * VOLT_REF / MAX_DIGITAL,
+				gs_us_high_threshold * VOLT_REF / MAX_DIGITAL);
 			break;
 		}
 	}
@@ -254,13 +273,17 @@ static uint32_t  f_to_int(float x)
  */
 static void display_info(void)
 {
-	uint32_t ul_adc_value = adc_get_channel_value(ADC, ADC_CHANNEL_POTENTIOMETER);
-	float f_low_threshold = (float)gs_us_low_threshold * VOLT_REF / MAX_DIGITAL;
-	float f_high_threshold = (float)gs_us_high_threshold * VOLT_REF / MAX_DIGITAL;
+	uint32_t ul_adc_value = adc_get_channel_value(ADC,
+			ADC_CHANNEL_POTENTIOMETER);
+	float f_low_threshold = (float)gs_us_low_threshold *
+			VOLT_REF / MAX_DIGITAL;
+	float f_high_threshold = (float)gs_us_high_threshold *
+			VOLT_REF / MAX_DIGITAL;
 	uint32_t ul_low_threshold = f_to_int(f_low_threshold);
 	uint32_t ul_high_threshold = f_to_int(f_high_threshold);
 
-	printf("-I- Thresholds: %u mv - %u mv.\n\r", ul_low_threshold, ul_high_threshold);
+	printf("-I- Thresholds: %u mv - %u mv.\n\r", (unsigned int)ul_low_threshold,
+			(unsigned int)ul_high_threshold);
 	printf("-I- Voltage on potentiometer: %u mv.\n\r",
 			(unsigned int)(ul_adc_value * VOLT_REF / MAX_DIGITAL));
 	printf("-I- Comparison mode is %u\n\r.",
@@ -424,7 +447,6 @@ int main(void)
 	sysclk_init();
 	board_init();
 
-
 	configure_console();
 
 	/* Output example information. */
@@ -436,17 +458,33 @@ int main(void)
 
 	/* Enable peripheral clock. */
 	pmc_enable_periph_clk(ID_ADC);
+	
 	/* Initialize ADC. */
-	/* startup = 10:    640 periods of ADCClock
-	 * for prescale = 4
-	 *     prescale: ADCClock = MCK / ( (PRESCAL+1) * 2 ) => 64MHz / ((4+1)*2) = 6.4MHz
-	 *     ADC clock = 6.4 MHz
+	/*
+	 * Formula: ADCClock = MCK / ( (PRESCAL+1) * 2 )
+	 * For example, MCK = 64MHZ, PRESCAL = 4, then:
+	 * ADCClock = 64 / ((4+1) * 2) = 6.4MHz;
 	 */
-	adc_init(ADC, sysclk_get_cpu_hz(), 6400000, 10);
+	/* Formula:
+	 *     Startup  Time = startup value / ADCClock
+	 *     Startup time = 64 / 6.4MHz = 10 us
+	 */
+	adc_init(ADC, sysclk_get_cpu_hz(), 6400000, STARTUP_TIME);
+
+	/* Formula:
+	 *     Transfer Time = (TRANSFER * 2 + 3) / ADCClock
+	 *     Tracking Time = (TRACKTIM + 1) / ADCClock
+	 *     Settling Time = settling value / ADCClock
+	 *
+	 *     Transfer Time = (1 * 2 + 3) / 6.4MHz = 781 ns
+	 *     Tracking Time = (1 + 1) / 6.4MHz = 312 ns
+	 *     Settling Time = 3 / 6.4MHz = 469 ns
+	 */
 #if SAM3S ||  SAM3XA || SAM4S
-	adc_configure_timing(ADC, 0, ADC_SETTLING_TIME_3, 1);
-#elif SAM3N
-	adc_configure_timing(ADC, 0);
+	adc_configure_timing(ADC, TRACKING_TIME, ADC_SETTLING_TIME_3,
+			TRANSFER_PERIOD);
+#elif SAM3N || SAM4C
+	adc_configure_timing(ADC, TRACKING_TIME);
 #endif
 	adc_check(ADC, sysclk_get_cpu_hz());
 
@@ -464,7 +502,7 @@ int main(void)
 	adc_set_comparison_mode(ADC, ADC_EMR_CMPMODE_IN);
 
 	/* Set up Threshold. */
-	adc_set_comparison_window(ADC, gs_us_high_threshold, gs_us_low_threshold);
+	adc_set_comparison_window(ADC, gs_us_low_threshold, gs_us_high_threshold);
 
 	/* Enable ADC interrupt. */
 	NVIC_EnableIRQ(ADC_IRQn);
@@ -485,7 +523,8 @@ int main(void)
 			s_adc_value = adc_get_channel_value(ADC,
 					ADC_CHANNEL_POTENTIOMETER);
 			printf("-I- Current voltage is %d mv, %d%% of ADVREF\n\r",
-			(s_adc_value * VOLT_REF / MAX_DIGITAL), (s_adc_value * 100 / MAX_DIGITAL));
+					(s_adc_value * VOLT_REF / MAX_DIGITAL),
+					(s_adc_value * 100 / MAX_DIGITAL));
 			break;
 
 		case '1':
@@ -500,10 +539,11 @@ int main(void)
 						gs_us_high_threshold);
 				/* Renew low threshold. */
 				gs_us_low_threshold = s_adc_value;
-				float f_low_threshold = (float)gs_us_low_threshold * VOLT_REF / MAX_DIGITAL;
+				float f_low_threshold = (float)gs_us_low_threshold *
+						VOLT_REF / MAX_DIGITAL;
 				uint32_t ul_low_threshold = f_to_int(f_low_threshold);
 				printf("Setting low threshold to %u mv (reg value to 0x%x ~%d%%)\n\r",
-						ul_low_threshold,
+						(unsigned int)ul_low_threshold,
 						gs_us_low_threshold,
 						gs_us_low_threshold * 100 / MAX_DIGITAL);
 			}
@@ -521,10 +561,11 @@ int main(void)
 						s_adc_value);
 				/* Renew high threshold. */
 				gs_us_high_threshold = s_adc_value;
-				float f_high_threshold = (float)gs_us_high_threshold * VOLT_REF / MAX_DIGITAL;
+				float f_high_threshold = (float)gs_us_high_threshold *
+						VOLT_REF / MAX_DIGITAL;
 				uint32_t ul_high_threshold = f_to_int(f_high_threshold);
 				printf("Setting high threshold to %u mv (reg value to 0x%x ~%d%%)\n\r",
-						ul_high_threshold,
+						(unsigned int)ul_high_threshold,
 						gs_us_high_threshold,
 						gs_us_high_threshold * 100 / MAX_DIGITAL);
 			}

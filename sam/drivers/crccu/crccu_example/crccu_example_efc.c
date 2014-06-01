@@ -3,7 +3,7 @@
  *
  * \brief Cyclic Redundancy Check Calculation Unit (CRCCU) example for SAM.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -74,16 +74,7 @@
  *
  * \par Usage
  *
- * -# Build the program and download it inside the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a>
- *    application note or to the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>,
- *    depending on your chosen solution.
+ * -# Build the program and download it inside the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g. HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -95,11 +86,11 @@
  * -# In the terminal window, the following text should appear
  *    (values depend on the board and chip used):
  *    \code
- *     -- CRCCU Example --
- *     -- SAMXX-EK
- *     -- Compiled: Oct 27 2011 13:33:38 --
- *     ...
- *    \endcode
+	-- CRCCU Example --
+	-- SAMXX-EK
+	-- Compiled: Oct 27 2011 13:33:38 --
+	...
+\endcode
  *
  */
 

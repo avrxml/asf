@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Brown Out Detector Driver
+ * \brief SAM D20/D21/R21 Brown Out Detector Driver
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,10 +45,14 @@
 
 #include <compiler.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
- * \defgroup asfdoc_samd20_bod_group SAM D20 Brown Out Detector Driver (BOD)
+ * \defgroup asfdoc_sam0_bod_group SAM D20/D21/R21 Brown Out Detector Driver (BOD)
  *
- * This driver for SAM D20 devices provides an interface for the configuration
+ * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
  * and management of the device's Brown Out Detector (BOD) modules, to detect
  * and respond to under-voltage events and take an appropriate action.
  *
@@ -57,52 +61,51 @@
  * - SYSCTRL (System Control)
  *
  * The outline of this documentation is as follows:
- *  - \ref asfdoc_samd20_bod_prerequisites
- *  - \ref asfdoc_samd20_bod_module_overview
- *  - \ref asfdoc_samd20_bod_special_considerations
- *  - \ref asfdoc_samd20_bod_extra_info
- *  - \ref asfdoc_samd20_bod_examples
- *  - \ref asfdoc_samd20_bod_api_overview
+ *  - \ref asfdoc_sam0_bod_prerequisites
+ *  - \ref asfdoc_sam0_bod_module_overview
+ *  - \ref asfdoc_sam0_bod_special_considerations
+ *  - \ref asfdoc_sam0_bod_extra_info
+ *  - \ref asfdoc_sam0_bod_examples
+ *  - \ref asfdoc_sam0_bod_api_overview
  *
  *
- * \section asfdoc_samd20_bod_prerequisites Prerequisites
+ * \section asfdoc_sam0_bod_prerequisites Prerequisites
  *
  * There are no prerequisites for this module.
  *
  *
- * \section asfdoc_samd20_bod_module_overview Module Overview
+ * \section asfdoc_sam0_bod_module_overview Module Overview
  *
- * The SAM D20 devices contain a number of Brown Out Detector (BOD) modules. Each
- * BOD monitors the supply voltage for any dips that go below the set threshold
- * for the module. In case of a BOD detection the BOD will either reset the
- * system or raise a hardware interrupt so that a safe power-down sequence can
+ * The SAM D20/D21/R21 devices contain a number of Brown Out Detector (BOD) modules.
+ * Each BOD monitors the supply voltage for any dips that go below the set
+ * threshold for the module. In case of a BOD detection the BOD will either reset
+ * the system or raise a hardware interrupt so that a safe power-down sequence can
  * be attempted.
  *
  *
- * \section asfdoc_samd20_bod_special_considerations Special Considerations
+ * \section asfdoc_sam0_bod_special_considerations Special Considerations
  *
  * The time between a BOD interrupt being raised and a failure of the processor
  * to continue executing (in the case of a core power failure) is system
  * specific; care must be taken that all critical BOD detection events can
  * complete within the amount of time available.
  *
+ * \section asfdoc_sam0_bod_extra_info Extra Information
  *
- * \section asfdoc_samd20_bod_extra_info Extra Information for BOD
- *
- * For extra information see \ref asfdoc_samd20_bod_extra. This includes:
- *  - \ref asfdoc_samd20_bod_extra_acronyms
- *  - \ref asfdoc_samd20_bod_extra_dependencies
- *  - \ref asfdoc_samd20_bod_extra_errata
- *  - \ref asfdoc_samd20_bod_extra_history
+ * For extra information see \ref asfdoc_sam0_bod_extra. This includes:
+ *  - \ref asfdoc_sam0_bod_extra_acronyms
+ *  - \ref asfdoc_sam0_bod_extra_dependencies
+ *  - \ref asfdoc_sam0_bod_extra_errata
+ *  - \ref asfdoc_sam0_bod_extra_history
  *
  *
- * \section asfdoc_samd20_bod_examples Examples
+ * \section asfdoc_sam0_bod_examples Examples
  *
  * For a list of examples related to this driver, see
- * \ref asfdoc_samd20_bod_exqsg.
+ * \ref asfdoc_sam0_bod_exqsg.
  *
  *
- * \section asfdoc_samd20_bod_api_overview API Overview
+ * \section asfdoc_sam0_bod_api_overview API Overview
  * @{
  */
 
@@ -112,8 +115,6 @@
  * List of possible BOD controllers within the device.
  */
 enum bod {
-	/** BOD12 Internal core voltage. */
-	BOD_BOD12,
 	/** BOD33 External I/O voltage, */
 	BOD_BOD33,
 };
@@ -229,7 +230,7 @@ static inline void bod_get_config_defaults(
 	conf->prescaler      = BOD_PRESCALE_DIV_2;
 	conf->mode           = BOD_MODE_CONTINUOUS;
 	conf->action         = BOD_ACTION_RESET;
-	conf->level          = 0x12;
+	conf->level          = 0x27;
 	conf->hysteresis     = true;
 	conf->run_in_standby = true;
 }
@@ -257,11 +258,6 @@ static inline enum status_code bod_enable(
 		case BOD_BOD33:
 			SYSCTRL->BOD33.reg |= SYSCTRL_BOD33_ENABLE;
 			break;
-
-		case BOD_BOD12:
-			SYSCTRL->BOD12.reg |= SYSCTRL_BOD12_ENABLE;
-			break;
-
 		default:
 			Assert(false);
 			return STATUS_ERR_INVALID_ARG;
@@ -289,11 +285,6 @@ static inline enum status_code bod_disable(
 		case BOD_BOD33:
 			SYSCTRL->BOD33.reg &= ~SYSCTRL_BOD33_ENABLE;
 			break;
-
-		case BOD_BOD12:
-			SYSCTRL->BOD12.reg &= ~SYSCTRL_BOD12_ENABLE;
-			break;
-
 		default:
 			Assert(false);
 			return STATUS_ERR_INVALID_ARG;
@@ -321,10 +312,6 @@ static inline bool bod_is_detected(
 	switch (bod_id) {
 		case BOD_BOD33:
 			return SYSCTRL->INTFLAG.bit.BOD33DET;
-
-		case BOD_BOD12:
-			return SYSCTRL->INTFLAG.bit.BOD12DET;
-
 		default:
 			Assert(false);
 			return false;
@@ -346,11 +333,6 @@ static inline void bod_clear_detected(
 		case BOD_BOD33:
 			SYSCTRL->INTFLAG.bit.BOD33DET = true;
 			return;
-
-		case BOD_BOD12:
-			SYSCTRL->INTFLAG.bit.BOD12DET = true;
-			return;
-
 		default:
 			Assert(false);
 			return;
@@ -365,9 +347,9 @@ static inline void bod_clear_detected(
 
 
 /**
- * \page asfdoc_samd20_bod_extra Extra Information for BOD Driver
+ * \page asfdoc_sam0_bod_extra Extra Information for BOD Driver
  *
- * \section asfdoc_samd20_bod_extra_acronyms Acronyms
+ * \section asfdoc_sam0_bod_extra_acronyms Acronyms
  * Below is a table listing the acronyms used in this module, along with their
  * intended meanings.
  *
@@ -383,17 +365,17 @@ static inline void bod_clear_detected(
  * </table>
  *
  *
- * \section asfdoc_samd20_bod_extra_dependencies Dependencies
+ * \section asfdoc_sam0_bod_extra_dependencies Dependencies
  * This driver has the following dependencies:
  *
  *  - None
  *
  *
- * \section asfdoc_samd20_bod_extra_errata Errata
+ * \section asfdoc_sam0_bod_extra_errata Errata
  * There are no errata related to this driver.
  *
  *
- * \section asfdoc_samd20_bod_extra_history Module History
+ * \section asfdoc_sam0_bod_extra_history Module History
  * An overview of the module history is presented in the table below, with
  * details on the enhancements and fixes made to the module since its first
  * release. The current version of this corresponds to the newest version in
@@ -404,23 +386,38 @@ static inline void bod_clear_detected(
  *		<th>Changelog</th>
  *	</tr>
  *	<tr>
+ *		<td>Added support for SAMD21 and removed BOD12 reference</td>
+ *	</tr>
+ *	<tr>
  *		<td>Initial Release</td>
  *	</tr>
  * </table>
  */
 
 /**
- * \page asfdoc_samd20_bod_exqsg Examples for BOD Driver
+ * \page asfdoc_sam0_bod_exqsg Examples for BOD Driver
  *
  * This is a list of the available Quick Start guides (QSGs) and example
- * applications for \ref asfdoc_samd20_bod_group. QSGs are simple examples with
+ * applications for \ref asfdoc_sam0_bod_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
  * use cases. Note that QSGs can be compiled as a standalone application or be
  * added to the user application.
  *
- *  - \subpage asfdoc_samd20_bod_basic_use_case
+ *  - \subpage asfdoc_sam0_bod_basic_use_case
  *
- * \page asfdoc_samd20_bod_document_revision_history Document Revision History
+ *  - \subpage asfdoc_sam0_bod_application_use_case
+ *
+ * \page asfdoc_sam0_bod_application_use_case Application Use Case for BOD - Application
+ * The preferred method of setting BOD33 levels and settings is trough the fuses.
+ * when it is desirable to set it in software, please see the below use case.
+ *
+ * In this use case, a new BOD33 level might be set in SW if the clock settings
+ * are adjusted up after a battery has charged to a higher level. When the battery
+ * discharges, the chip will reset when the battery level is below SW BOD33 level.
+ * Now the chip will run at a lower clock rate and the BOD33 level from fuse.
+ * The chip should always measure the voltage before adjusting the frequency up.
+ *
+ * \page asfdoc_sam0_bod_document_revision_history Document Revision History
  *
  * <table>
  *	<tr>
@@ -429,11 +426,30 @@ static inline void bod_clear_detected(
  *		<th>Comments</td>
  *	</tr>
  *	<tr>
+ *		<td>D</td>
+ *		<td>03/2014</td>
+ *		<td>Added support for SAMR21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>C</td>
+ *		<td>01/2014</td>
+ *		<td>Added support for SAMD21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>B</td>
+ *		<td>06/2013</td>
+ *		<td>Corrected documentation typos.</td>
+ *	</tr>
+ *	<tr>
  *		<td>A</td>
  *		<td>06/2013</td>
  *		<td>Initial release</td>
  *	</tr>
  * </table>
  */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* BOD_H_INCLUDED */

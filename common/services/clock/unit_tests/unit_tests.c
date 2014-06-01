@@ -68,7 +68,7 @@
  * - \ref conf_usart_serial.h
  *
  * \section device_info Device Info
- * All AVR devices can be used.
+ * All AVR and SAM4L devices can be used.
  * This example has been tested with the following setup:
  * - EVK1100
  * - EVK1101
@@ -78,6 +78,8 @@
  * - UC3L_EK
  * - STK600+RCUC3D
  * - SAM4L-EK
+ * - SAM4L Xplained Pro Board.
+ * - SAM4L8 Xplained Pro Board.
  *
  * \section description Description of the unit tests
  * See the documentation for the individual unit test functions \ref unit_tests.c

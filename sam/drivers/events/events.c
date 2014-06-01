@@ -109,7 +109,7 @@ void events_ch_get_config_defaults(struct events_ch_conf *const config)
 	/* Default configuration values */
 	config->channel_id = EVENT_CHANNEL_N;
 	config->generator_id = EVENT_GENERATOR_N;
-	config->sharper_enable = false;
+	config->shaper_enable = false;
 	config->igf_edge = EVENT_IGF_EDGE_NONE;
 }
 
@@ -133,7 +133,7 @@ void events_ch_configure(struct events_ch_conf *const config)
 	/* Configure the event channel */
 	PEVC->PEVC_CHMX[config->channel_id].PEVC_CHMX =
 		PEVC_CHMX_EVMX(config->generator_id);
-	if (config->sharper_enable) {
+	if (config->shaper_enable) {
 		evs_val |= PEVC_EVS_EN;
 	} else {
 		evs_val &= (~PEVC_EVS_EN);

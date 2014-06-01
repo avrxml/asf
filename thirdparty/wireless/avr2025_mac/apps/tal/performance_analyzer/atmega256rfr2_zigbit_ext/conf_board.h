@@ -3,7 +3,7 @@
  *
  * \brief Example specific board configuration file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,8 +43,6 @@
 #ifndef CONF_BOARD_H
 #define CONF_BOARD_H
 #define ZIGBIT_EXT
-
-#define IC_TYPE             (0x01)
 
 #define CONF_BOARD_ENABLE_USARTA1
 

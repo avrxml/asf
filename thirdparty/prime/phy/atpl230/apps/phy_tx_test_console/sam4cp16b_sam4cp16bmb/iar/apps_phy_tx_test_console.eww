@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\apps_phy_tx_test_console_flash.ewp</path>
+	</project>
+</workspace>

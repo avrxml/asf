@@ -3,7 +3,7 @@
  *
  * \brief MMA7341L configuration.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,6 +45,23 @@
 
 #ifndef CONF_MMA7341L_H_INCLUDED
 #define CONF_MMA7341L_H_INCLUDED
+
+// Definition of MMA7341L x,y,z axis channel number
+#define MMA7341L_ADC_CHANNEL_X    2
+#define MMA7341L_ADC_CHANNEL_Y    6
+#define MMA7341L_ADC_CHANNEL_Z    7
+
+// MMA7341L mode set pin definitions
+#define PIN_MMA7341L_MODE         PIO_PC13_IDX
+#define PIN_MMA7341L_MODE_FLAG    (PIO_OUTPUT_1 | PIO_DEFAULT)
+
+// MMA7341L X,Y,Z axis pin definitions
+#define PIN_MMA7341L_X_AXIS       PIO_PB3_IDX
+#define PIN_MMA7341L_X_AXIS_FLAG  (PIO_INPUT | PIO_DEFAULT)
+#define PIN_MMA7341L_Y_AXIS       PIO_PC17_IDX
+#define PIN_MMA7341L_Y_AXIS_FLAG  (PIO_INPUT | PIO_DEFAULT)
+#define PIN_MMA7341L_Z_AXIS       PIO_PC18_IDX
+#define PIN_MMA7341L_Z_AXIS_FLAG  (PIO_INPUT | PIO_DEFAULT)
 
 #define MMA7341L_ADC_CLK   100000
 

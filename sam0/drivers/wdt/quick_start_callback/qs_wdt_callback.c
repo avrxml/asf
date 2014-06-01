@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Watchdog Driver Callback Quick Start
+ * \brief SAM Watchdog Driver Callback Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -73,23 +73,20 @@ void configure_wdt(void)
 
 	/* Initialize and enable the Watchdog with the user settings */
 	//! [setup_4]
-	wdt_init(&config_wdt);
+	wdt_set_config(&config_wdt);
 	//! [setup_4]
-	//! [setup_5]
-	wdt_enable();
-	//! [setup_5]
 }
 
 void configure_wdt_callbacks(void)
 {
-	//! [setup_6]
+	//! [setup_5]
 	wdt_register_callback(watchdog_early_warning_callback,
 		WDT_CALLBACK_EARLY_WARNING);
-	//! [setup_6]
+	//! [setup_5]
 
-	//! [setup_7]
+	//! [setup_6]
 	wdt_enable_callback(WDT_CALLBACK_EARLY_WARNING);
-	//! [setup_7]
+	//! [setup_6]
 }
 //! [setup]
 

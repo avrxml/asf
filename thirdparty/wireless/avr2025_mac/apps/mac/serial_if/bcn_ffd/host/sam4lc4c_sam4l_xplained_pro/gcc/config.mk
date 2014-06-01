@@ -77,8 +77,8 @@ CSRCS = \
        thirdparty/wireless/avr2025_mac/addons/api_parser/src/api_encoder.c \
        thirdparty/wireless/avr2025_mac/addons/serial_if/src/serial_interface.c \
        thirdparty/wireless/avr2025_mac/apps/mac/serial_if/main.c \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/sam/hw_timer.c \
-       thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer/common_sw_timer.c
+       thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer/common_sw_timer.c \
+       thirdparty/wireless/services/common_hw_timer/sam/hw_timer.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -116,15 +116,15 @@ INC_PATH = \
        thirdparty/wireless/avr2025_mac/apps/mac/serial_if/bcn_ffd/host/sam4lc4c_sam4l_xplained_pro \
        thirdparty/wireless/avr2025_mac/include            \
        thirdparty/wireless/avr2025_mac/source/mac/inc     \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/sam \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer \
+       thirdparty/wireless/services/common_hw_timer       \
+       thirdparty/wireless/services/common_hw_timer/sam \
        thirdparty/wireless/avr2025_mac/apps/mac/serial_if/bcn_ffd/host/sam4lc4c_sam4l_xplained_pro/gcc
 
 # Additional search paths for libraries.
 LIB_PATH =  \
        thirdparty/CMSIS/Lib/GCC                           \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/sam/lib
+       thirdparty/wireless/services/common_hw_timer/sam/lib
 
 # List of libraries to use during linking.
 LIBS =  \
@@ -175,10 +175,16 @@ CPPFLAGS = \
        -D BOARD=SAM4L_XPLAINED_PRO                        \
        -D ENABLE_TSTAMP                                   \
        -D FFD                                             \
+       -D GTS_SUPPORT                                     \
        -D HIGHEST_STACK_LAYER=MAC                         \
        -D TEST_HARNESS                                    \
        -D __SAM4LC4C__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

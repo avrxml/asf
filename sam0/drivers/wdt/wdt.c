@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Watchdog Driver
+ * \brief SAM D20/D21/R21 Watchdog Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,25 +42,22 @@
  */
 #include "wdt.h"
 #include <system.h>
-#include <system_interrupt.h>
 
 /**
- * \internal
+ * \brief Sets up the WDT hardware module based on the configuration.
  *
- * Internal Watchdog device state, used to track instance specific information
- * for the Watchdog peripheral within the device.
- */
-struct _wdt_module _wdt_instance;
-
-
-/**
- * \internal Writes a WDT configuration to the hardware module.
- *
- * Writes out a given configuration to the hardware module.
+ * Writes a given configuration of a WDT configuration to the
+ * hardware module, and initializes the internal device struct
  *
  * \param[in]  config  Pointer to the configuration struct
+ *
+ * \return Status of the configuration procedure.
+ *
+ * \retval STATUS_OK     If the module was configured correctly
+ * \retval STATUS_ERR_INVALID_ARG   If invalid argument(s) were supplied
+ * \retval STATUS_ERR_IO  If the Watchdog module is locked to be always on
  */
-static enum status_code _wdt_set_config(
+enum status_code wdt_set_config(
 		const struct wdt_conf *const config)
 {
 	/* Sanity check arguments */
@@ -68,8 +65,8 @@ static enum status_code _wdt_set_config(
 
 	Wdt *const WDT_module = WDT;
 
-	/* Sanity check arguments */
-	Assert(config);
+	/* Turn on the digital interface clock */
+	system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBA, PM_APBAMASK_WDT);
 
 	/* Check of the Watchdog has been locked to be always on, if so, abort */
 	if (wdt_is_locked()) {
@@ -86,6 +83,22 @@ static enum status_code _wdt_set_config(
 	if ((config->timeout_period < config->window_period) ||
 			(config->timeout_period < config->early_warning_period)) {
 		return STATUS_ERR_INVALID_ARG;
+	}
+
+	/* Disable the Watchdog module */
+	WDT_module->CTRL.reg &= ~WDT_CTRL_ENABLE;
+
+	if(config->enable == false) {
+		return STATUS_OK;
+	}
+
+	/* Configure GCLK channel and enable clock */
+	struct system_gclk_chan_config gclk_chan_conf;
+	gclk_chan_conf.source_generator = config->clock_source;
+	system_gclk_chan_set_config(WDT_GCLK_ID, &gclk_chan_conf);
+	system_gclk_chan_enable(WDT_GCLK_ID);
+	if (config->always_on) {
+		system_gclk_chan_lock(WDT_GCLK_ID);
 	}
 
 	while (wdt_is_syncing()) {
@@ -126,114 +139,17 @@ static enum status_code _wdt_set_config(
 			= (config->early_warning_period - 1) << WDT_EWCTRL_EWOFFSET_Pos;
 	}
 
-	return STATUS_OK;
-}
-
-/** \brief Initializes and configures the Watchdog driver.
- *
- * Initializes the Watchdog driver, resetting the hardware module and
- * configuring it to the user supplied configuration parameters, ready for
- * use. This function should be called before enabling the Watchdog.
- *
- * \note Once called the Watchdog will not be running; to start the Watchdog,
- *       call \ref wdt_enable() after configuring the module.
- *
- * \param[in] config  Configuration settings for the Watchdog
- *
- * \return Status of the configuration procedure.
- * \retval STATUS_OK     If the module was configured correctly
- * \retval STATUS_ERR_INVALID_ARG   If invalid argument(s) were supplied
- * \retval STATUS_ERR_IO  If the Watchdog module is locked to be always on
- */
-enum status_code wdt_init(
-		const struct wdt_conf *const config)
-{
-	/* Configure GCLK channel and enable clock */
-	struct system_gclk_chan_config gclk_chan_conf;
-	gclk_chan_conf.source_generator = config->clock_source;
-	gclk_chan_conf.write_lock       = config->always_on;
-	system_gclk_chan_set_config(WDT_GCLK_ID, &gclk_chan_conf);
-	system_gclk_chan_enable(WDT_GCLK_ID);
-
-	/* Turn on the digital interface clock */
-	system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBA, PM_APBAMASK_WDT);
-
-	/* Save the requested Watchdog lock state for when the WDT is enabled */
-	_wdt_instance.always_on = config->always_on;
-
-#if WDT_CALLBACK_MODE == true
-	_wdt_instance.early_warning_callback = NULL;
-#endif
-
-	/* Write configuration to module */
-	return _wdt_set_config(config);
-}
-
-/**
- * \brief Enables the Watchdog Timer that was previously configured.
- *
- * Enables and starts the Watchdog Timer that was previously configured via a
- * call to \ref wdt_init().
- *
- * \return Status of the enable procedure.
- *
- * \retval STATUS_OK      If the module was enabled correctly
- * \retval STATUS_ERR_IO  If the Watchdog module is locked to be always on
- */
-enum status_code wdt_enable(void)
-{
-	Wdt *const WDT_module = WDT;
-
-	/* Check of the Watchdog has been locked to be always on, if so, abort */
-	if (wdt_is_locked()) {
-		return STATUS_ERR_IO;
-	}
-
 	while (wdt_is_syncing()) {
 		/* Wait for all hardware modules to complete synchronization */
 	}
 
 	/* Either enable or lock-enable the Watchdog timer depending on the user
 	 * settings */
-	if (_wdt_instance.always_on) {
+	if (config->always_on) {
 		WDT_module->CTRL.reg |= WDT_CTRL_ALWAYSON;
 	} else {
 		WDT_module->CTRL.reg |= WDT_CTRL_ENABLE;
 	}
-
-#if WDT_CALLBACK_MODE == true
-	system_interrupt_enable(SYSTEM_INTERRUPT_MODULE_WDT);
-#endif
-
-	return STATUS_OK;
-}
-
-/**
- * \brief Disables the Watchdog Timer that was previously enabled.
- *
- * Stops the Watchdog Timer that was previously started via a call to
- * \ref wdt_enable().
- *
- * \return Status of the disable procedure.
- *
- * \retval STATUS_OK      If the module was disabled correctly
- * \retval STATUS_ERR_IO  If the Watchdog module is locked to be always on
- */
-enum status_code wdt_disable(void)
-{
-	Wdt *const WDT_module = WDT;
-
-	/* Check of the Watchdog has been locked to be always on, if so, abort */
-	if (wdt_is_locked()) {
-		return STATUS_ERR_IO;
-	}
-
-	while (wdt_is_syncing()) {
-		/* Wait for all hardware modules to complete synchronization */
-	}
-
-	/* Disable the Watchdog module */
-	WDT_module->CTRL.reg &= ~WDT_CTRL_ENABLE;
 
 	return STATUS_OK;
 }

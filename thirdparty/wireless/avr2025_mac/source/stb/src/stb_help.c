@@ -127,7 +127,7 @@ void encrypt_with_padding(uint8_t *start, uint8_t buflen)
  * @param[in]  nonce   The nonce: Initialization Vector (IV) as used in
  *                     cryptography; the ZigBee nonce are the bytes 2...14
  *                     of this nonce
- * @param[in]  hdr_len  Size of plaintext header in bytes (may be 0)
+ * @param[in]  hdr_len  Size of plain text header in bytes (may be 0)
  * @param[in]  pld_len Length of payload in bytes (may be 0)
  */
 void compute_mic(uint8_t *buffer,
@@ -136,8 +136,6 @@ void compute_mic(uint8_t *buffer,
 		uint8_t hdr_len,
 		uint8_t pld_len)
 {
-	nonce[AES_BLOCKSIZE - 1] = pld_len;
-
 	sal_aes_setup(NULL, AES_MODE_ECB, AES_DIR_ENCRYPT);
 #if (SAL_TYPE == AT86RF2xx)
 	sal_aes_wrrd(nonce, NULL);

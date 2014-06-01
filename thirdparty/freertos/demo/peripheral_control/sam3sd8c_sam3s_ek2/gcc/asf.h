@@ -74,8 +74,11 @@
 #include <freertos_peripheral_control.h>
 #include <freertos_peripheral_control_private.h>
 
-// From module: FreeRTOS - USART Interface Layer
+// From module: FreeRTOS - UART Interface Layer
 #include <freertos_uart_serial.h>
+
+// From module: FreeRTOS - USART Interface Layer
+#include <freertos_usart_serial.h>
 
 // From module: GPIO - General purpose Input/Output
 #include <gpio.h>

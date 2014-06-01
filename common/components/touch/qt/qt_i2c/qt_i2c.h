@@ -3,7 +3,7 @@
  *
  * \brief QTouch component driver with I2C interface.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -138,88 +138,88 @@ enum status_code qt_write_regs(uint8_t reg_addr, uint8_t *write_buffer,
  *
  * Add this to the main loop or a setup function:
  * \code
- *   struct qt_status status;
- *   struct qt_setup_block setup_block;
- *   enum status_code ret;
- *   twi_master_options_t twi_opt;
- *
- *   // Initialize I2C communication interface
- *   memset((void *)&twi_opt, 0, sizeof(twi_master_options_t));
- *   twi_opt.speed = 50000;    // 50K for I2C speed
- *   twi_master_setup(BOARD_QT_TWI_INSTANCE, &twi_opt);
- *
- *   // Reset QT device
- *   qt_hardware_reset();
- *
- *   // Check communication is ready and able to read Chip ID
- *   ret = qt_get_comm_ready();
- *   if (ret != STATUS_OK) {
- *       while (1) {
- *           // Infinite loop here
- *       }
- *   }
- *
- *   // Read setup block
- *   qt_read_setup_block(&setup_block);
- *
- *   // TODO:Modify setup block parameters according to application
- *
- *   // Write setup block
- *   qt_write_setup_block(&setup_block);
- *
- * \endcode
+	   struct qt_status status;
+	   struct qt_setup_block setup_block;
+	   enum status_code ret;
+	   twi_master_options_t twi_opt;
+
+	   // Initialize I2C communication interface
+	   memset((void *)&twi_opt, 0, sizeof(twi_master_options_t));
+	   twi_opt.speed = 50000;    // 50K for I2C speed
+	   twi_master_setup(BOARD_QT_TWI_INSTANCE, &twi_opt);
+
+	   // Reset QT device
+	   qt_hardware_reset();
+
+	   // Check communication is ready and able to read Chip ID
+	   ret = qt_get_comm_ready();
+	   if (ret != STATUS_OK) {
+	       while (1) {
+	           // Infinite loop here
+	       }
+	   }
+
+	   // Read setup block
+	   qt_read_setup_block(&setup_block);
+
+	   // TODO:Modify setup block parameters according to application
+
+	   // Write setup block
+	   qt_write_setup_block(&setup_block);
+
+\endcode
  *
  * \subsection qt_i2c_basic_setup_workflow Setup Workflow
  *
  * -# Initialize I2C communication interface
  *  \code
- *   twi_master_options_t twi_opt;
- *
- *   memset((void *)&twi_opt, 0, sizeof(twi_master_options_t));
- *   twi_opt.speed = 50000;    // 50K for I2C speed
- *   twi_master_setup(BOARD_QT_TWI_INSTANCE, &twi_opt);
- *  \endcode
+	   twi_master_options_t twi_opt;
+
+	   memset((void *)&twi_opt, 0, sizeof(twi_master_options_t));
+	   twi_opt.speed = 50000;    // 50K for I2C speed
+	   twi_master_setup(BOARD_QT_TWI_INSTANCE, &twi_opt);
+\endcode
  * -# Reset QT device (optional)
  *  \code
- *   qt_hardware_reset();
- *  \endcode
+	qt_hardware_reset();
+\endcode
  * -# Check communication is ready and able to read Chip ID
  *  \code
- *   ret = qt_get_comm_ready();
- *   if (ret != STATUS_OK) {
- *       while (1) {
- *           // Infinite loop here
- *       }
- *   }
- *  \endcode
+	ret = qt_get_comm_ready();
+	if (ret != STATUS_OK) {
+	    while (1) {
+	        // Infinite loop here
+	    }
+	}
+\endcode
  * -# Read setup block from QT device
  *  \code
- *   qt_read_setup_block(&setup_block);
- *  \endcode
+	qt_read_setup_block(&setup_block);
+\endcode
  * -# Modify parameters in setup block if desired
  *  \code
- *   // For example, to set Detect Integrator to 5.
- *   setup_block.detect_integrator = 5;
- *  \endcode
+	// For example, to set Detect Integrator to 5.
+	setup_block.detect_integrator = 5;
+\endcode
  * -# Wrtie setup block to QT device
  *  \code
- *   qt_write_setup_block(&setup_block);
- *  \endcode
+	qt_write_setup_block(&setup_block);
+\endcode
  *
  * \section qt_i2c_basic_usage Basic Usage Steps
  * \subsection qt_i2c_basic_usage_sample_code Basic Usage Example
  * \code
- *  while (1) {
- *       // Read Qtouch status if CHANGE pin is asserted
- *       if (qt_is_change_line_low()) {
- *           // Read all status bytes
- *           qt_get_status(&status);
- *
- *           // TODO: process the received data by application
- *           // Add application code here
- *       }
- *   }
- * \endcode
+	  while (1) {
+	       // Read Qtouch status if CHANGE pin is asserted
+	       if (qt_is_change_line_low()) {
+	           // Read all status bytes
+	           qt_get_status(&status);
+
+	           // TODO: process the received data by application
+	           // Add application code here
+	       }
+	   }
+\endcode
  */
 
 #endif /* QT_I2C_H_INCLUDED */

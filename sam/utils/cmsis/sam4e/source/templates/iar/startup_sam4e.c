@@ -3,7 +3,7 @@
  *
  * \brief Startup file for SAM4E.
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -131,7 +131,7 @@ const intvec_elem __vector_table[] = {
 	{Dummy_Handler},
 	{Dummy_Handler},
 #ifdef _SAM4E_GMAC_INSTANCE_
-	{GMAC_Handler},   /* 44 EMAC */
+	{GMAC_Handler},   /* 44 GMAC */
 #else
 	{Dummy_Handler},
 #endif

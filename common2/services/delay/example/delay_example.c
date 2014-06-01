@@ -8,7 +8,7 @@
  * \section file File(s)
  * - \ref delay_example.c
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,22 +56,22 @@ int main(void)
 	port_get_config_defaults(&pin);
 	pin.direction = PORT_PIN_DIR_OUTPUT;
 
-	port_pin_set_config(PIN_PA13, &pin);
-	port_pin_set_output_level(PIN_PA13, true);
+	port_pin_set_config(LED0_PIN, &pin);
+	port_pin_set_output_level(LED0_PIN, LED0_INACTIVE);
 
 	while (true) {
 		for (int i = 0; i < 5; i++) {
-			port_pin_toggle_output_level(PIN_PA13);
+			port_pin_toggle_output_level(LED0_PIN);
 			delay_s(1);
 		}
 
 		for (int i = 0; i < 50; i++) {
-			port_pin_toggle_output_level(PIN_PA13);
+			port_pin_toggle_output_level(LED0_PIN);
 			delay_ms(100);
 		}
 
 		for (int i = 0; i < 5000; i++) {
-			port_pin_toggle_output_level(PIN_PA13);
+			port_pin_toggle_output_level(LED0_PIN);
 			delay_cycles(100);
 		}
 	}

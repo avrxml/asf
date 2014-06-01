@@ -3,7 +3,7 @@
  *
  * \brief Board configuration.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,5 +46,7 @@
 
 /** Enable Com Port. */
 #define CONF_BOARD_COM_PORT
+
+#define PDCA_PID_USART_TX    20
 
 #endif /* CONF_BOARD_H_INCLUDED */

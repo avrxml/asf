@@ -6,7 +6,7 @@
  * \par Application note:
  *      AVR1610: Guide to IEC60730 Class B compliance with XMEGA
  *
- * Copyright (C) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -103,7 +103,7 @@
  * with the standard, this should be no greater than than 50% of the total
  * period.
  */
-#define CLASSB_WDT_PER  WDT_PER_500CLK_gc
+#define CLASSB_WDT_PER  WDT_PER_512CLK_gc
 
 /**
  * \brief Closed period, during which WDT cannot be reset.

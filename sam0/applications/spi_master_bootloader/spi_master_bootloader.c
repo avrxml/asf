@@ -3,7 +3,7 @@
  *
  * \brief SAM D20 Master SPI Bootloader
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,7 @@
 /**
  * \mainpage SAM D20 SPI Master Bootloader
  * See \ref appdoc_main "here" for project documentation.
- * \copydetails preface
+ * \copydetails appdoc_preface
  *
  *
  * \page appdoc_preface Features
@@ -143,7 +143,7 @@
  *
  * \subsection appdoc_samd20_spi_master_bootloader_start_app Start Application
  * Once the programming is completed, enable Watchdog Timer with a timeout
- * period of 256 clock cyles and wait in a loop for Watchdog to reset
+ * period of 256 clock cycles and wait in a loop for Watchdog to reset
  * the device.
  *
  * \section appdoc_samd20_spi_master_bootloader_compinfo Compilation Info
@@ -278,10 +278,8 @@ static void start_application(void)
 	wdt_config.clock_source = GCLK_GENERATOR_4;
 	wdt_config.timeout_period = WDT_PERIOD_256CLK;
 
-	/* Initialize WDT */
-	wdt_init(&wdt_config);
-
-	wdt_enable();
+	/* Initialize and enable the Watchdog with the user settings */
+	wdt_set_config(&wdt_config);
 
 	while (1) {
 		port_pin_toggle_output_level(BOOT_LED);

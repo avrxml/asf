@@ -5,7 +5,7 @@
  *
  * This file defines a useful set of functions for the TWIS on SAM4L devices.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -423,14 +423,14 @@ static inline void twis_clear_status(struct twis_dev_inst *const dev_inst,
  * \subsection twis_basic_use_case_setup_code Example code
  * Enable the following macro in the conf_clock.h:
  * \code
- *  #define CONFIG_SYSCLK_SOURCE   SYSCLK_SRC_DFLL
- *  #define CONFIG_DFLL0_SOURCE    GENCLK_SRC_OSC0
- * \endcode
+	#define CONFIG_SYSCLK_SOURCE   SYSCLK_SRC_DFLL
+	#define CONFIG_DFLL0_SOURCE    GENCLK_SRC_OSC0
+\endcode
  *
  * Add the following code in the application C-file:
  * \code
- *  sysclk_init();
- * \endcode
+	sysclk_init();
+\endcode
  *
  * \subsection twis_basic_use_case_setup_flow Workflow
  * -# Set system clock source as DFLL:
@@ -444,44 +444,44 @@ static inline void twis_clear_status(struct twis_dev_inst *const dev_inst,
  * \subsection twis_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *  struct twis_dev_inst twis_device;
- *  struct twis_config config;
- *  twis_get_config_defaults(&config);
- *  config.chip = SLAVE_ADDRESS;
- *  twis_init(&twis_device, BOARD_BASE_TWI_SLAVE, &config);
- *
- *  twis_callback_t slave_callbacks;
- *  slave_callbacks.rx = TWIS_RX_HANDLER_POINTER;
- *  slave_callbacks.tx = TWIS_TX_HANDLER_POINTER;
- *  slave_callbacks.stop = TWIS_STOP_HANDLER_POINTER;
- *  slave_callbacks.error = TWIS_ERROR_HANDLER_POINTER;
- *  twis_set_callback(&twis_device, TWIS_INTERRUPT_SLAVEADR_MATCH, slave_callbacks, 1);
- *
- *  twis_enable(&twis_device);
- * \endcode
+	  struct twis_dev_inst twis_device;
+	  struct twis_config config;
+	  twis_get_config_defaults(&config);
+	  config.chip = SLAVE_ADDRESS;
+	  twis_init(&twis_device, BOARD_BASE_TWI_SLAVE, &config);
+
+	  twis_callback_t slave_callbacks;
+	  slave_callbacks.rx = TWIS_RX_HANDLER_POINTER;
+	  slave_callbacks.tx = TWIS_TX_HANDLER_POINTER;
+	  slave_callbacks.stop = TWIS_STOP_HANDLER_POINTER;
+	  slave_callbacks.error = TWIS_ERROR_HANDLER_POINTER;
+	  twis_set_callback(&twis_device, TWIS_INTERRUPT_SLAVEADR_MATCH, slave_callbacks, 1);
+
+	  twis_enable(&twis_device);
+\endcode
  *
  * \subsection twis_basic_use_case_usage_flow Workflow
  * -# Initialize the TWIS module with the given self slave address SLAVE_ADDRESS:
  * \code
- *  struct twis_dev_inst twis_device;
- *  struct twis_config config;
- *  twis_get_config_defaults(&config);
- *  config.chip = SLAVE_ADDRESS;
- *  twis_init(&twis_device, BOARD_BASE_TWI_SLAVE, &config);
- * \endcode
+	struct twis_dev_inst twis_device;
+	struct twis_config config;
+	twis_get_config_defaults(&config);
+	config.chip = SLAVE_ADDRESS;
+	twis_init(&twis_device, BOARD_BASE_TWI_SLAVE, &config);
+\endcode
  * -# Set up the callback functions to handle reception, transmission, STOP
  * condition and errors. In the end, enable the slave address match interrupt:
  * \code
- *  twis_callback_t slave_callbacks;
- *  slave_callbacks.rx = TWIS_RX_HANDLER_POINTER;
- *  slave_callbacks.tx = TWIS_TX_HANDLER_POINTER;
- *  slave_callbacks.stop = TWIS_STOP_HANDLER_POINTER;
- *  slave_callbacks.error = TWIS_ERROR_HANDLER_POINTER;
- *  twis_set_callback(&twis_device, TWIS_INTERRUPT_SLAVEADR_MATCH, slave_callbacks, 1);
- * \endcode
+	twis_callback_t slave_callbacks;
+	slave_callbacks.rx = TWIS_RX_HANDLER_POINTER;
+	slave_callbacks.tx = TWIS_TX_HANDLER_POINTER;
+	slave_callbacks.stop = TWIS_STOP_HANDLER_POINTER;
+	slave_callbacks.error = TWIS_ERROR_HANDLER_POINTER;
+	twis_set_callback(&twis_device, TWIS_INTERRUPT_SLAVEADR_MATCH, slave_callbacks, 1);
+\endcode
  * -# Enable TWIS module:
  * \code
- *  twis_enable(&twis_device);
- * \endcode
+	twis_enable(&twis_device);
+\endcode
  */
 #endif /* TWIS_H_INCLUDED */

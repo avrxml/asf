@@ -4,7 +4,7 @@
  * \brief Provides the low-level initialization functions that called 
  * on chip startup.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -204,9 +204,12 @@ void system_init_flash(uint32_t ul_clk)
 	} else if (ul_clk < CHIP_FREQ_FWS_3) {
 		EFC0->EEFC_FMR = EEFC_FMR_FWS(3);
 		EFC1->EEFC_FMR = EEFC_FMR_FWS(3);
-	} else {
+	} else if (ul_clk < CHIP_FREQ_FWS_4) {
 		EFC0->EEFC_FMR = EEFC_FMR_FWS(4);
-		EFC1->EEFC_FMR = EEFC_FMR_FWS(4);
+		EFC1->EEFC_FMR = EEFC_FMR_FWS(4);	
+	} else {
+		EFC0->EEFC_FMR = EEFC_FMR_FWS(5);
+		EFC1->EEFC_FMR = EEFC_FMR_FWS(5);
 	}
 }
 

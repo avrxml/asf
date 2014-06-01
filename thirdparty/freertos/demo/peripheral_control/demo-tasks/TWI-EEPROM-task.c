@@ -2,10 +2,10 @@
  *
  * \file
  *
- * \brief FreeRTOS USART driver echo test tasks
+ * \brief FreeRTOS TWI EEPROM test tasks
  *
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -106,14 +106,14 @@ being latched in error_detected.  This is used by other tasks to determine if
 the test was successful or not. */
 static uint32_t eeprom_test_passed = pdFALSE;
 
-/* If use_asynchronous_api is set to pdTRUE, then the example will use the
+/* If twi_use_asynchronous_api is set to pdTRUE, then the example will use the
 fully asynchronous FreeRTOS API.  Otherwise the example will use the blocking
 FreeRTOS API (other tasks will execute while the application task is blocked). */
-portBASE_TYPE use_asynchronous_api;
+portBASE_TYPE twi_use_asynchronous_api;
 
 /* The notification semaphore is only created and used when the fully
 asynchronous FreeRTOS API is used. */
-xSemaphoreHandle notification_semaphore = NULL;
+xSemaphoreHandle twi_notification_semaphore = NULL;
 
 /*-----------------------------------------------------------*/
 
@@ -144,11 +144,11 @@ void create_twi_eeprom_test_task(Twi *twi_base, uint16_t stack_depth_words,
 	};
 
 	/* Remember if the asynchronous or blocking API is being used. */
-	use_asynchronous_api = set_asynchronous_api;
+	twi_use_asynchronous_api = set_asynchronous_api;
 
 	/* The freertos_peripheral_options_t structure used to initialize the
-	FreeRTOS driver differs depending on the use_asynchronous_api setting. */
-	if (use_asynchronous_api == pdFALSE) {
+	FreeRTOS driver differs depending on the twi_use_asynchronous_api setting. */
+	if (twi_use_asynchronous_api == pdFALSE) {
 		/* Initialize the FreeRTOS driver for blocking operation.  The
 		peripheral clock is configured in this function call. */
 		freertos_twi = freertos_twi_master_init(twi_base,
@@ -161,13 +161,13 @@ void create_twi_eeprom_test_task(Twi *twi_base, uint16_t stack_depth_words,
 
 		/* Asynchronous operation requires a notification semaphore.  First,
 		create the semaphore. */
-		vSemaphoreCreateBinary(notification_semaphore);
+		vSemaphoreCreateBinary(twi_notification_semaphore);
 
 		/* Check the semaphore was created. */
-		configASSERT(notification_semaphore);
+		configASSERT(twi_notification_semaphore);
 
 		/* Then set the semaphore into the correct initial state. */
-		xSemaphoreTake(notification_semaphore, 0);
+		xSemaphoreTake(twi_notification_semaphore, 0);
 	}
 
 	/* Check the port was initialized successfully. */
@@ -301,7 +301,7 @@ static void write_page_to_eeprom(freertos_twi_if freertos_twi, uint16_t page)
 	write_parameters.addr[1] = (uint8_t) (calculated_address & 0xff);
 	write_parameters.addr_length = 2;
 
-	if (use_asynchronous_api == pdFALSE) {
+	if (twi_use_asynchronous_api == pdFALSE) {
 		/* The blocking API is being used.  Other tasks will execute while the
 		write operation is in progress. */
 		if (freertos_twi_write_packet(freertos_twi, &write_parameters,
@@ -313,7 +313,7 @@ static void write_page_to_eeprom(freertos_twi_if freertos_twi, uint16_t page)
 		is used to indicate when the TWI transfer is complete. */
 		if (freertos_twi_write_packet_async(freertos_twi,
 				&write_parameters, max_block_time_ticks,
-				notification_semaphore) != STATUS_OK) {
+				twi_notification_semaphore) != STATUS_OK) {
 			error_detected = pdTRUE;
 		}
 
@@ -323,7 +323,7 @@ static void write_page_to_eeprom(freertos_twi_if freertos_twi, uint16_t page)
 		/* Ensure the transaction is complete before proceeding further.  Other
 		tasks will execute if this call causes this task to enter the Blocked
 		state. */
-		if (xSemaphoreTake(notification_semaphore,
+		if (xSemaphoreTake(twi_notification_semaphore,
 				max_block_time_ticks) != pdPASS) {
 			error_detected = pdTRUE;
 		}
@@ -354,7 +354,7 @@ static void read_page_from_eeprom(freertos_twi_if freertos_twi, uint16_t page)
 	read_parameters.addr[1] = (uint8_t)(calculated_address & 0xff);
 	read_parameters.addr_length = 2;
 
-	if (use_asynchronous_api == pdFALSE) {
+	if (twi_use_asynchronous_api == pdFALSE) {
 		/* The blocking API is being used.  Other tasks will execute while the
 		read operation is in progress. */
 		if (freertos_twi_read_packet(freertos_twi, &read_parameters,
@@ -366,7 +366,7 @@ static void read_page_from_eeprom(freertos_twi_if freertos_twi, uint16_t page)
 		is used to indicate when the TWI transfer is complete. */
 		if (freertos_twi_read_packet_async(freertos_twi,
 				&read_parameters, max_block_time_ticks,
-				notification_semaphore) != STATUS_OK) {
+				twi_notification_semaphore) != STATUS_OK) {
 			error_detected = pdTRUE;
 		}
 
@@ -376,7 +376,7 @@ static void read_page_from_eeprom(freertos_twi_if freertos_twi, uint16_t page)
 		/* Ensure the transaction is complete before proceeding further.  Other
 		tasks will execute if this call causes this task to enter the Blocked
 		state. */
-		if (xSemaphoreTake(notification_semaphore,
+		if (xSemaphoreTake(twi_notification_semaphore,
 				max_block_time_ticks) != pdPASS) {
 			error_detected = pdTRUE;
 		}

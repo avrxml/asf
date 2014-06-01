@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Serial Peripheral Interface Driver
+ * \brief SAM D20/D21/R21 Serial Peripheral Interface Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,9 +45,9 @@
 #define SPI_H_INCLUDED
 
 /**
- * \defgroup asfdoc_samd20_sercom_spi_group SAM D20 Serial Peripheral Interface Driver (SERCOM SPI)
+ * \defgroup asfdoc_sam0_sercom_spi_group SAM D20/D21/R21 Serial Peripheral Interface Driver (SERCOM SPI)
  *
- * This driver for SAM D20 devices provides an interface for the configuration
+ * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
  * and management of the SERCOM module in its SPI mode to transfer SPI  data
  * frames. The following driver API modes are covered by this manual:
  *
@@ -61,18 +61,18 @@
  * - SERCOM (Serial Communication Interface)
  *
  * The outline of this documentation is as follows:
- * - \ref asfdoc_samd20_sercom_spi_prerequisites
- * - \ref asfdoc_samd20_sercom_spi_module_overview
- * - \ref asfdoc_samd20_sercom_spi_special_considerations
- * - \ref asfdoc_samd20_sercom_spi_extra_info
- * - \ref asfdoc_samd20_sercom_spi_examples
- * - \ref asfdoc_samd20_sercom_spi_api_overview
+ * - \ref asfdoc_sam0_sercom_spi_prerequisites
+ * - \ref asfdoc_sam0_sercom_spi_module_overview
+ * - \ref asfdoc_sam0_sercom_spi_special_considerations
+ * - \ref asfdoc_sam0_sercom_spi_extra_info
+ * - \ref asfdoc_sam0_sercom_spi_examples
+ * - \ref asfdoc_sam0_sercom_spi_api_overview
  *
- * \section asfdoc_samd20_sercom_spi_prerequisites Prerequisites
+ * \section asfdoc_sam0_sercom_spi_prerequisites Prerequisites
  * There are no prerequisites.
  *
  *
- * \section asfdoc_samd20_sercom_spi_module_overview Module Overview
+ * \section asfdoc_sam0_sercom_spi_module_overview Module Overview
  * The Serial Peripheral Interface (SPI) is a high-speed synchronous data
  * transfer interface using three or four pins. It allows fast communication
  * between a master device and one or more peripheral devices.
@@ -88,11 +88,37 @@
  * Master In - Slave Out (MISO) line. After each data transfer, the master can
  * synchronize to the slave by pulling the SS line high.
  *
- * \subsection asfdoc_samd20_sercom_spi_bus SPI Bus Connection
- * In \ref asfdoc_samd20_spi_connection_example "the figure below", the
+ * \subsection asfdoc_sam0_sercom_spi_module_features Driver Feature Macro Definition
+ * <table>
+ *  <tr>
+ *    <th>Driver Feature Macro</th>
+ *    <th>Supported devices</th>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_SPI_SLAVE_SELECT_LOW_DETECT</td>
+ *    <td>SAM D21/R21</td>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_SPI_HARDWARE_SLAVE_SELECT</td>
+ *    <td>SAM D21/R21</td>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_SPI_ERROR_INTERRUPT</td>
+ *    <td>SAM D21/R21</td>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_SPI_SYNC_SCHEME_VERSION_2</td>
+ *    <td>SAM D21/R21</td>
+ *  </tr>
+ * </table>
+ * \note The specific features are only available in the driver when the
+ * selected device supports those features.
+ *
+ * \subsection asfdoc_sam0_sercom_spi_bus SPI Bus Connection
+ * In \ref asfdoc_sam0_spi_connection_example "the figure below", the
  * connection between one master and one slave is shown.
  *
- * \anchor asfdoc_samd20_spi_connection_example
+ * \anchor asfdoc_sam0_spi_connection_example
  * \dot
  * digraph spi_slaves_par {
  *   subgraph cluster_spi_master {
@@ -127,7 +153,7 @@
  * \enddot
  *
  * The different lines are as follows:
- * - \b MOSI Master Input, Slave Output. The line where the data is shifted
+ * - \b MOSI Master Input Slave Output. The line where the data is shifted
  *   out from the master and in to the slave.
  * - \b MISO Master Output Slave Input. The line where the data is shifted
  *   out from the slave and in to the master.
@@ -145,13 +171,13 @@
  * \c Nth slave connects its MISO back to the master. For a
  * complete transaction, the master must shift \c N+1 characters.
  *
- * \subsection asfdoc_samd20_sercom_spi_chsize SPI Character Size
+ * \subsection asfdoc_sam0_sercom_spi_chsize SPI Character Size
  * The SPI character size is configurable to 8 or 9 bits.
  *
- * \subsection asfdoc_samd20_sercom_spi_master_mode Master Mode
+ * \subsection asfdoc_sam0_sercom_spi_master_mode Master Mode
  * When configured as a master, the SS pin will be configured as an output.
  *
- * \subsubsection asfdoc_samd20_sercom_spi_master_mode_data_transfer Data Transfer
+ * \subsubsection asfdoc_sam0_sercom_spi_master_mode_data_transfer Data Transfer
  * Writing a character will start the SPI clock generator, and
  * the character is transferred to the shift register when the shift
  * register is empty.
@@ -160,11 +186,11 @@
  * from the slave. If the receiver is enabled, the data is moved to the receive
  * buffer at the completion of the frame and can be read.
  *
- * \subsection asfdoc_samd20_sercom_spi_slave_mode Slave Mode
+ * \subsection asfdoc_sam0_sercom_spi_slave_mode Slave Mode
  * When configured as a slave, the SPI interface will remain inactive with MISO
  * tri-stated as long as the SS pin is driven high.
  *
- * \subsubsection asfdoc_samd20_sercom_spi_slave_mode_data_transfer_slave Data Transfer
+ * \subsubsection asfdoc_sam0_sercom_spi_slave_mode_data_transfer_slave Data Transfer
  * The data register can be updated at any time.
  * As the SPI slave shift register is clocked by SCK, a minimum of three SCK
  * cycles are needed from the time new data is written, until the character is
@@ -176,7 +202,7 @@
  * If the receiver is enabled, the received character can be read from the.
  * When SS line is driven high, the slave will not receive any additional data.
  *
- * \subsubsection asfdoc_samd20_sercom_spi_slave_mode_addr_recognition Address Recognition
+ * \subsubsection asfdoc_sam0_sercom_spi_slave_mode_addr_recognition Address Recognition
  * When the SPI slave is configured with address recognition, the first
  * character in a transaction is checked for an address match. If there is a
  * match, the MISO output is enabled and the transaction is processed.
@@ -189,14 +215,14 @@
  *       \ref spi_select_slave function if the address_enabled configuration is
  *       set in the \ref spi_slave_inst_config struct.
  *
- * \subsection asfdoc_samd20_sercom_spi_data_modes Data Modes
+ * \subsection asfdoc_sam0_sercom_spi_data_modes Data Modes
  * There are four combinations of SCK phase and polarity with respect to
- * serial data. \ref asfdoc_samd20_spi_mode_table "The table below" shows the
+ * serial data. \ref asfdoc_sam0_spi_mode_table "The table below" shows the
  * clock polarity (CPOL) and clock phase (CPHA) in the different modes.
  * <i>Leading edge</i> is the first clock edge in a clock cycle and
  * <i>trailing edge</i> is the last clock edge in a clock cycle.
  *
- * \anchor asfdoc_samd20_spi_mode_table
+ * \anchor asfdoc_sam0_spi_mode_table
  * <table>
  *   <caption>SPI Data Modes</caption>
  *   <tr>
@@ -207,28 +233,28 @@
  *      <th>Trailing Edge</th>
  *   </tr>
  *   <tr>
- *      <th> 0 </th>
+ *      <td> 0 </td>
  *      <td> 0 </td>
  *      <td> 0 </td>
  *      <td> Rising, Sample </td>
  *      <td> Falling, Setup </td>
  *   </tr>
  *   <tr>
- *      <th> 1 </th>
+ *      <td> 1 </td>
  *      <td> 0 </td>
  *      <td> 1 </td>
  *      <td> Rising, Setup </td>
  *      <td> Falling, Sample </td>
  *   </tr>
  *   <tr>
- *      <th> 2 </th>
+ *      <td> 2 </td>
  *      <td> 1 </td>
  *      <td> 0 </td>
  *      <td> Falling, Sample </td>
  *      <td> Rising, Setup </td>
  *   </tr>
  *   <tr>
- *      <th> 3 </th>
+ *      <td> 3 </td>
  *      <td> 1 </td>
  *      <td> 1 </td>
  *      <td> Falling, Setup </td>
@@ -237,16 +263,16 @@
  * </table>
  *
  *
- * \subsection asfdoc_samd20_sercom_spi_pads SERCOM Pads
+ * \subsection asfdoc_sam0_sercom_spi_pads SERCOM Pads
  * The SERCOM pads are automatically configured as seen in
- * \ref asfdoc_samd20_spi_sercom_pad_table "the table below". If the receiver
+ * \ref asfdoc_sam0_spi_sercom_pad_table "the table below". If the receiver
  * is disabled, the data input (MISO for master, MOSI for slave) can be used
  * for other purposes.
  *
  * In master mode, the SS pin(s) must be configured using the \ref spi_slave_inst
  * struct.
  *
- * \anchor asfdoc_samd20_spi_sercom_pad_table
+ * \anchor asfdoc_sam0_spi_sercom_pad_table
  * <table>
  *   <caption>SERCOM SPI Pad Usages</caption>
  *   <tr>
@@ -255,31 +281,28 @@
  *      <th> Slave SPI </th>
  *   </tr>
  *   <tr>
- *      <th> MOSI </th>
+ *      <td> MOSI </td>
  *      <td> Output </td>
  *      <td> Input </td>
  *   </tr>
  *   <tr>
- *      <th> MISO </th>
+ *      <td> MISO </td>
  *      <td> Input </td>
  *      <td> Output </td>
  *   </tr>
  *   <tr>
- *      <th> SCK </th>
+ *      <td> SCK </td>
  *      <td> Output </td>
  *      <td> Input </td>
  *   </tr>
  *   <tr>
- *      <th> SS </th>
+ *      <td> SS </td>
  *      <td> User defined output enable </td>
  *      <td> Input </td>
  *   </tr>
  * </table>
  *
- * For SERCOM pad multiplexer position documentation, see
- * \ref asfdoc_samd20_sercom_spi_mux_settings.
- *
- * \subsection asfdoc_samd20_sercom_spi_sleep_modes Operation in Sleep Modes
+ * \subsection asfdoc_sam0_sercom_spi_sleep_modes Operation in Sleep Modes
  * The SPI module can operate in all sleep modes by setting the run_in_standby
  * option in the \ref spi_config struct. The operation in slave and master mode
  * is shown in the table below.
@@ -290,70 +313,97 @@
  *      <th> Master </th>
  *   </tr>
  *   <tr>
- *      <th> false </th>
+ *      <td> false </td>
  *      <td> Disabled, all reception is dropped </td>
  *      <td> GCLK disabled when master is idle, wake on transmit complete </td>
  *   </tr>
  *   <tr>
- *      <th> true </th>
+ *      <td> true </td>
  *      <td> Wake on reception </td>
  *      <td> GCLK is enabled while in sleep modes, wake on all interrupts </td>
  *   </tr>
  * </table>
  *
- * \subsection asfdoc_samd20_sercom_spi_clock_generation Clock Generation
+ * \subsection asfdoc_sam0_sercom_spi_clock_generation Clock Generation
  * In SPI master mode, the clock (SCK) is generated internally using the
  * SERCOM baud rate generator. In SPI slave mode, the clock is provided by
  * an external master on the SCK pin. This clock is used to directly clock
  * the SPI shift register.
  *
- * \section asfdoc_samd20_sercom_spi_special_considerations Special Considerations
+ * \section asfdoc_sam0_sercom_spi_special_considerations Special Considerations
  * \subsection pin_mux Pin MUX Settings
  * The pin MUX settings must be configured properly, as not all settings
  * can be used in different modes of operation.
  *
- * \section asfdoc_samd20_sercom_spi_extra_info Extra Information
- * For extra information see \ref asfdoc_samd20_sercom_spi_extra. This includes:
- * - \ref asfdoc_samd20_sercom_spi_extra_acronyms
- * - \ref asfdoc_samd20_sercom_spi_extra_dependencies
- * - \ref asfdoc_samd20_sercom_spi_extra_workarounds
- * - \ref asfdoc_samd20_sercom_spi_extra_history
+ * \section asfdoc_sam0_sercom_spi_extra_info Extra Information
+ * For extra information see \ref asfdoc_sam0_sercom_spi_extra. This includes:
+ * - \ref asfdoc_sam0_sercom_spi_extra_acronyms
+ * - \ref asfdoc_sam0_sercom_spi_extra_dependencies
+ * - \ref asfdoc_sam0_sercom_spi_extra_workarounds
+ * - \ref asfdoc_sam0_sercom_spi_extra_history
  *
- * \section asfdoc_samd20_sercom_spi_examples Examples
+ * \section asfdoc_sam0_sercom_spi_examples Examples
  *
  * For a list of examples related to this driver, see
- * \ref asfdoc_samd20_sercom_spi_exqsg.
+ * \ref asfdoc_sam0_sercom_spi_exqsg.
  *
- * \section asfdoc_samd20_sercom_spi_api_overview API Overview
+ * \section asfdoc_sam0_sercom_spi_api_overview API Overview
  * @{
  */
 
+#include <compiler.h>
 #include <port.h>
 #include <sercom.h>
 #include <pinmux.h>
 #include <string.h>
+#include <conf_spi.h>
 
-#if SPI_CALLBACK_MODE == true
+#  if SPI_CALLBACK_MODE == true
 #  include <sercom_interrupt.h>
-#endif
+#  endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#ifndef PINMUX_DEFAULT
+#if (CONF_SPI_MASTER_ENABLE == false) && (CONF_SPI_SLAVE_ENABLE == false)
+#error "Not possible compile SPI driver, invalid driver configuration.        \
+Make sure that either/both CONF_SPI_MASTER_ENABLE/CONF_SPI_SLAVE_ENABLE is set to true"
+#endif
+
+/**
+ * \name Driver feature definition
+ * Define SERCOM SPI features set according to different device family.
+ * @{
+ */
+#  if (SAMD21) || (SAMR21)  || defined(__DOXYGEN__)
+/** SPI slave select low detection */
+#  define FEATURE_SPI_SLAVE_SELECT_LOW_DETECT
+/** Slave select can be controlled by hardware */
+#  define FEATURE_SPI_HARDWARE_SLAVE_SELECT
+/** SPI with error detect feature */
+#  define FEATURE_SPI_ERROR_INTERRUPT
+/** SPI sync scheme version 2 */
+#  define FEATURE_SPI_SYNC_SCHEME_VERSION_2
+#  endif
+/*@}*/
+
+#  ifndef PINMUX_DEFAULT
+/** Default pin mux */
 #  define PINMUX_DEFAULT 0
-#endif
+#  endif
 
-#ifndef PINMUX_UNUSED
+#  ifndef PINMUX_UNUSED
+/** Unused PIN mux */
 #  define PINMUX_UNUSED 0xFFFFFFFF
-#endif
+#  endif
 
-#ifndef SPI_TIMEOUT
+#  ifndef SPI_TIMEOUT
+/** SPI timeout value */
 #  define SPI_TIMEOUT 10000
-#endif
+#  endif
 
-#if SPI_CALLBACK_MODE == true
+#  if SPI_CALLBACK_MODE == true
 /**
  * \brief SPI Callback enum
  *
@@ -377,12 +427,20 @@ enum spi_callback {
 	* read or written from slave
 	*/
 	SPI_CALLBACK_SLAVE_TRANSMISSION_COMPLETE,
+#  ifdef FEATURE_SPI_SLAVE_SELECT_LOW_DETECT
+	/** Callback for  slave select low */
+	SPI_CALLBACK_SLAVE_SELECT_LOW,
+#  endif
+#  ifdef FEATURE_SPI_ERROR_INTERRUPT
+	/** Callback for combined error happen */
+	SPI_CALLBACK_COMBINED_ERROR,
+#  endif
 #  if !defined(__DOXYGEN__)
 	/** Number of available callbacks. */
 	SPI_CALLBACK_N,
 #  endif
 };
-#endif
+#  endif
 
 #if SPI_CALLBACK_MODE == true
 #  if !defined(__DOXYGEN__)
@@ -401,7 +459,7 @@ enum _spi_direction {
 /**
  * \brief SPI Interrupt Flags
  *
- * Interrupt flags for the SPI module
+ * Interrupt flags for the SPI module.
  *
  */
 enum spi_interrupt_flag {
@@ -417,6 +475,14 @@ enum spi_interrupt_flag {
 	SPI_INTERRUPT_FLAG_TX_COMPLETE         = SERCOM_SPI_INTFLAG_TXC,
 	/** This flag is set when data has been shifted into the data register */
 	SPI_INTERRUPT_FLAG_RX_COMPLETE         = SERCOM_SPI_INTFLAG_RXC,
+#  ifdef FEATURE_SPI_SLAVE_SELECT_LOW_DETECT
+	/** This flag is set when slave select low  */
+	SPI_INTERRUPT_FLAG_SLAVE_SELECT_LOW         = SERCOM_SPI_INTFLAG_SSL,
+#  endif
+#  ifdef FEATURE_SPI_ERROR_INTERRUPT
+	/** This flag is set when combined error happen */
+	SPI_INTERRUPT_FLAG_COMBINED_ERROR         = SERCOM_SPI_INTFLAG_ERROR,
+#  endif
 };
 
 /**
@@ -454,55 +520,73 @@ enum spi_frame_format {
  * As not all settings can be used in different modes of operation, proper
  * settings must be chosen according to the rest of the configuration.
  *
+ * See \ref asfdoc_sam0_sercom_spi_mux_settings for a description of the
+ * various MUX setting options.
  */
 enum spi_signal_mux_setting {
-	/**
-	 * See \ref asfdoc_samd20_sercom_spi_mux_setting_a
-	 */
+	/** SPI MUX setting A */
 	SPI_SIGNAL_MUX_SETTING_A =
 			(0x0 << SERCOM_SPI_CTRLA_DOPO_Pos) |
 			(0x0 << SERCOM_SPI_CTRLA_DIPO_Pos),
-	/**
-	 * See \ref asfdoc_samd20_sercom_spi_mux_setting_b
-	 */
+	/** SPI MUX setting B */
 	SPI_SIGNAL_MUX_SETTING_B =
 			(0x0 << SERCOM_SPI_CTRLA_DOPO_Pos) |
 			(0x1 << SERCOM_SPI_CTRLA_DIPO_Pos),
-	/**
-	 * See \ref asfdoc_samd20_sercom_spi_mux_setting_c
-	 */
+	/** SPI MUX setting C */
 	SPI_SIGNAL_MUX_SETTING_C =
 			(0x0 << SERCOM_SPI_CTRLA_DOPO_Pos) |
 			(0x2 << SERCOM_SPI_CTRLA_DIPO_Pos),
-	/**
-	 * See \ref asfdoc_samd20_sercom_spi_mux_setting_d
-	 */
+	/** SPI MUX setting D */
 	SPI_SIGNAL_MUX_SETTING_D =
 			(0x0 << SERCOM_SPI_CTRLA_DOPO_Pos) |
 			(0x3 << SERCOM_SPI_CTRLA_DIPO_Pos),
-	/**
-	 * See \ref asfdoc_samd20_sercom_spi_mux_setting_e
-	 */
+	/** SPI MUX setting E */
 	SPI_SIGNAL_MUX_SETTING_E =
 			(0x1 << SERCOM_SPI_CTRLA_DOPO_Pos) |
 			(0x0 << SERCOM_SPI_CTRLA_DIPO_Pos),
-	/**
-	 * See \ref asfdoc_samd20_sercom_spi_mux_setting_f
-	 */
+	/** SPI MUX setting F */
 	SPI_SIGNAL_MUX_SETTING_F =
 			(0x1 << SERCOM_SPI_CTRLA_DOPO_Pos) |
 			(0x1 << SERCOM_SPI_CTRLA_DIPO_Pos),
-	/**
-	 * See \ref asfdoc_samd20_sercom_spi_mux_setting_g
-	 */
+	/** SPI MUX setting G */
 	SPI_SIGNAL_MUX_SETTING_G =
 			(0x1 << SERCOM_SPI_CTRLA_DOPO_Pos) |
 			(0x2 << SERCOM_SPI_CTRLA_DIPO_Pos),
-	/**
-	 * See \ref asfdoc_samd20_sercom_spi_mux_setting_h
-	 */
+	/** SPI MUX setting H */
 	SPI_SIGNAL_MUX_SETTING_H =
 			(0x1 << SERCOM_SPI_CTRLA_DOPO_Pos) |
+			(0x3 << SERCOM_SPI_CTRLA_DIPO_Pos),
+	/** SPI MUX setting I */
+	SPI_SIGNAL_MUX_SETTING_I =
+			(0x2 << SERCOM_SPI_CTRLA_DOPO_Pos) |
+			(0x0 << SERCOM_SPI_CTRLA_DIPO_Pos),
+	/** SPI MUX setting J */
+	SPI_SIGNAL_MUX_SETTING_J =
+			(0x2 << SERCOM_SPI_CTRLA_DOPO_Pos) |
+			(0x1 << SERCOM_SPI_CTRLA_DIPO_Pos),
+	/** SPI MUX setting K */
+	SPI_SIGNAL_MUX_SETTING_K =
+			(0x2 << SERCOM_SPI_CTRLA_DOPO_Pos) |
+			(0x2 << SERCOM_SPI_CTRLA_DIPO_Pos),
+	/** SPI MUX setting L */
+	SPI_SIGNAL_MUX_SETTING_L =
+			(0x2 << SERCOM_SPI_CTRLA_DOPO_Pos) |
+			(0x3 << SERCOM_SPI_CTRLA_DIPO_Pos),
+	/** SPI MUX setting M */
+	SPI_SIGNAL_MUX_SETTING_M =
+			(0x3 << SERCOM_SPI_CTRLA_DOPO_Pos) |
+			(0x0 << SERCOM_SPI_CTRLA_DIPO_Pos),
+	/** SPI MUX setting N */
+	SPI_SIGNAL_MUX_SETTING_N =
+			(0x3 << SERCOM_SPI_CTRLA_DOPO_Pos) |
+			(0x1 << SERCOM_SPI_CTRLA_DIPO_Pos),
+	/** SPI MUX setting O */
+	SPI_SIGNAL_MUX_SETTING_O =
+			(0x3 << SERCOM_SPI_CTRLA_DOPO_Pos) |
+			(0x2 << SERCOM_SPI_CTRLA_DIPO_Pos),
+	/** SPI MUX setting P */
+	SPI_SIGNAL_MUX_SETTING_P =
+			(0x3 << SERCOM_SPI_CTRLA_DOPO_Pos) |
 			(0x3 << SERCOM_SPI_CTRLA_DIPO_Pos),
 };
 
@@ -531,6 +615,8 @@ enum spi_addr_mode {
 
 /**
  * \brief SPI modes enum
+ *
+ * SPI mode selection.
  */
 enum spi_mode {
 	/** Master mode */
@@ -541,6 +627,9 @@ enum spi_mode {
 
 /**
  * \brief SPI data order enum
+ *
+ * SPI data order.
+ *
  */
 enum spi_data_order {
 	/** The LSB of the data is transmitted first */
@@ -551,6 +640,9 @@ enum spi_data_order {
 
 /**
  * \brief SPI character size enum
+ *
+ * SPI character size.
+ *
  */
 enum spi_character_size {
 	/** 8 bit character */
@@ -559,7 +651,7 @@ enum spi_character_size {
 	SPI_CHARACTER_SIZE_9BIT = SERCOM_SPI_CTRLB_CHSIZE(1),
 };
 
-#if SPI_CALLBACK_MODE == true
+#  if SPI_CALLBACK_MODE == true
 /** Prototype for the device instance */
 struct spi_module;
 
@@ -570,7 +662,7 @@ typedef void (*spi_callback_t)(const struct spi_module *const module);
 /** Prototype for the interrupt handler */
 extern void _spi_interrupt_handler(uint8_t instance);
 #  endif
-#endif
+#  endif
 
 /**
  * \brief SERCOM SPI driver software device instance structure.
@@ -582,15 +674,21 @@ extern void _spi_interrupt_handler(uint8_t instance);
  *       application; they are reserved for module-internal use only.
  */
 struct spi_module {
-#if !defined(__DOXYGEN__)
+#  if !defined(__DOXYGEN__)
 	/** SERCOM hardware module */
 	Sercom *hw;
+	/** Module lock */
+	volatile bool locked;
 	/** SPI mode */
 	enum spi_mode mode;
 	/** SPI character size */
 	enum spi_character_size character_size;
 	/** Receiver enabled */
 	bool receiver_enabled;
+#  ifdef FEATURE_SPI_HARDWARE_SLAVE_SELECT
+	/** Enable Hardware Slave Select */
+	bool master_slave_select_enable;
+#  endif
 #  if SPI_CALLBACK_MODE == true
 	/** Direction of transaction */
 	volatile enum _spi_direction dir;
@@ -614,7 +712,7 @@ struct spi_module {
 	/** Holds the status of the ongoing or last operation */
 	volatile enum status_code status;
 #  endif
-#endif
+#  endif
 };
 
 /**
@@ -697,13 +795,21 @@ struct spi_config {
 	bool run_in_standby;
 	/** Enable receiver */
 	bool receiver_enable;
+#  ifdef FEATURE_SPI_SLAVE_SELECT_LOW_DETECT
+	/** Enable Slave Select Low Detect */
+	bool select_slave_low_detect_enable;
+#  endif
+#  ifdef FEATURE_SPI_HARDWARE_SLAVE_SELECT
+	/** Enable Master Slave Select */
+	bool master_slave_select_enable;
+#  endif
 	/** Union for slave or master specific configuration */
 	union {
 		/** Slave specific configuration */
 		struct spi_slave_config slave;
 		/** Master specific configuration */
 		struct spi_master_config master;
-	}; /**< Union for slave or master specific configuration */
+	} mode_specific;
 	/** GCLK generator to use as clock source. */
 	enum gclk_generator generator_source;
 	/** PAD0 pinmux */
@@ -715,20 +821,6 @@ struct spi_config {
 	/** PAD3 pinmux */
 	uint32_t pinmux_pad3;
 };
-
-#if !defined (__DOXYGEN__)
-/**
- * \internal Wait until the synchronization is complete
- */
-static inline void _spi_wait_for_sync(
-		struct spi_module *const module)
-{
-	SercomSpi *const spi_module = &(module->hw->SPI);
-
-	/* Wait until the synchronization is complete */
-	while (spi_module->STATUS.reg & SERCOM_SPI_STATUS_SYNCBUSY);
-}
-#endif
 
 /**
  * \brief Determines if the SPI module is currently synchronizing to the bus.
@@ -754,8 +846,13 @@ static inline bool spi_is_syncing(
 
 	SercomSpi *const spi_module = &(module->hw->SPI);
 
+#  ifdef FEATURE_SPI_SYNC_SCHEME_VERSION_2
+	/* Return synchronization status */
+	return (spi_module->SYNCBUSY.reg);
+#  else
 	/* Return synchronization status */
 	return (spi_module->STATUS.reg & SERCOM_SPI_STATUS_SYNCBUSY);
+#  endif
 }
 
 /**
@@ -775,7 +872,7 @@ static inline bool spi_is_syncing(
  *  \li Master mode enabled
  *  \li MSB of the data is transmitted first
  *  \li Transfer mode 0
- *  \li \ref asfdoc_samd20_sercom_spi_mux_setting_d
+ *  \li MUX Setting D
  *  \li Character size 8 bit
  *  \li Not enabled in sleep mode
  *  \li Receiver enabled
@@ -799,13 +896,19 @@ static inline void spi_get_config_defaults(
 	config->character_size   = SPI_CHARACTER_SIZE_8BIT;
 	config->run_in_standby   = false;
 	config->receiver_enable  = true;
+#  ifdef FEATURE_SPI_SLAVE_SELECT_LOW_DETECT
+	config->select_slave_low_detect_enable= true;
+#  endif
+#  ifdef FEATURE_SPI_HARDWARE_SLAVE_SELECT
+	config->master_slave_select_enable= false;
+#  endif
 	config->generator_source = GCLK_GENERATOR_0;
 
-	/* Clear slave config */
-	memset(&(config->slave), 0, sizeof(struct spi_slave_config));
+	/* Clear mode specific config */
+	memset(&(config->mode_specific), 0, sizeof(config->mode_specific));
 
 	/* Master config defaults */
-	config->master.baudrate = 100000;
+	config->mode_specific.master.baudrate = 100000;
 
 	/* pinmux config defaults */
 	config->pinmux_pad0 = PINMUX_DEFAULT;
@@ -901,9 +1004,9 @@ static inline void spi_enable(
 
 	SercomSpi *const spi_module = &(module->hw->SPI);
 
-#if SPI_CALLBACK_MODE == true
+#  if SPI_CALLBACK_MODE == true
 	system_interrupt_enable(_sercom_get_interrupt_vector(module->hw));
-#endif
+#  endif
 
 	while (spi_is_syncing(module)) {
 		/* Wait until the synchronization is complete */
@@ -929,9 +1032,9 @@ static inline void spi_disable(
 
 	SercomSpi *const spi_module = &(module->hw->SPI);
 
-#if SPI_CALLBACK_MODE == true
+#  if SPI_CALLBACK_MODE == true
 	system_interrupt_disable(_sercom_get_interrupt_vector(module->hw));
-#endif
+#  endif
 
 	while (spi_is_syncing(module)) {
 		/* Wait until the synchronization is complete */
@@ -943,6 +1046,66 @@ static inline void spi_disable(
 
 void spi_reset(
 		struct spi_module *const module);
+
+/** @} */
+
+enum status_code spi_set_baudrate(
+		struct spi_module *const module,
+		uint32_t baudrate);
+
+/**
+ * \name Lock/Unlock
+ * @{
+ */
+
+/**
+ * \brief Attempt to get lock on driver instance
+ *
+ * This function checks the instance's lock, which indicates whether or not it
+ * is currently in use, and sets the lock if it was not already set.
+ *
+ * The purpose of this is to enable exclusive access to driver instances, so
+ * that, e.g., transactions by different services will not interfere with each
+ * other.
+ *
+ * \param[in,out] module Pointer to the driver instance to lock.
+ *
+ * \retval STATUS_OK if the module was locked.
+ * \retval STATUS_BUSY if the module was already locked.
+ */
+static inline enum status_code spi_lock(struct spi_module *const module)
+{
+	enum status_code status;
+
+	system_interrupt_enter_critical_section();
+
+	if (module->locked) {
+		status = STATUS_BUSY;
+	} else {
+		module->locked = true;
+		status = STATUS_OK;
+	}
+
+	system_interrupt_leave_critical_section();
+
+	return status;
+}
+
+/**
+ * \brief Unlock driver instance
+ *
+ * This function clears the instance lock, indicating that it is available for
+ * use.
+ *
+ * \param[in,out] module Pointer to the driver instance to lock.
+ *
+ * \retval STATUS_OK if the module was locked.
+ * \retval STATUS_BUSY if the module was already locked.
+ */
+static inline void spi_unlock(struct spi_module *const module)
+{
+	module->locked = false;
+}
 
 /** @} */
 
@@ -1110,18 +1273,22 @@ static inline enum status_code spi_read(
 
 	SercomSpi *const spi_module = &(module->hw->SPI);
 
-	/* Return value */
-	enum status_code retval = STATUS_OK;
 	/* Check if data is ready to be read */
 	if (!spi_is_ready_to_read(module)) {
 		/* No data has been received, return */
 		return STATUS_ERR_IO;
 	}
 
+	/* Return value */
+	enum status_code retval = STATUS_OK;
+
 	/* Check if data is overflown */
 	if (spi_module->STATUS.reg & SERCOM_SPI_STATUS_BUFOVF) {
 		retval = STATUS_ERR_OVERFLOW;
+		/* Clear overflow flag */
+		spi_module->STATUS.reg |= SERCOM_SPI_STATUS_BUFOVF;
 	}
+
 	/* Read the character from the DATA register */
 	if (module->character_size == SPI_CHARACTER_SIZE_9BIT) {
 		*rx_data = (spi_module->DATA.reg & SERCOM_SPI_DATA_MASK);
@@ -1138,98 +1305,10 @@ enum status_code spi_read_buffer_wait(
 		uint16_t length,
 		uint16_t dummy);
 
-/**
- * \brief Sends and reads a single SPI character
- *
- * This function will transfer a single SPI character via SPI and return the
- * SPI character that is shifted into the shift register.
- *
- * In master mode the SPI character will be sent immediately and the received
- * SPI character will be read as soon as the shifting of the data is
- * complete.
- *
- * In slave mode this function will place the data to be sent into the transmit
- * buffer. It will then block until an SPI master has shifted a complete
- * SPI character, and the received data is available.
- *
- * \note The data to be sent might not be sent before the next transfer, as
- *       loading of the shift register is dependent on SCK.
- * \note If address matching is enabled for the slave, the first character
- *       received and placed in the buffer will be the address.
- *
- * \param[in]  module   Pointer to the software instance struct
- * \param[in]  tx_data  SPI character to transmit
- * \param[out] rx_data  Pointer to store the received SPI character
- *
- * \return Status of the operation.
- * \retval STATUS_OK            If the operation was completed
- * \retval STATUS_ERR_TIMEOUT   If the operation was not completed within the
- *                              timeout in slave mode
- * \retval STATUS_ERR_DENIED    If the receiver is not enabled
- * \retval STATUS_ERR_OVERFLOW  If the incoming data is overflown
- */
-static inline enum status_code spi_transceive_wait(
+enum status_code spi_transceive_wait(
 		struct spi_module *const module,
 		uint16_t tx_data,
-		uint16_t *rx_data)
-{
-	/* Sanity check arguments */
-	Assert(module);
-
-	if (!(module->receiver_enabled)) {
-		return STATUS_ERR_DENIED;
-	}
-
-#  if SPI_CALLBACK_MODE == true
-	if (module->status == STATUS_BUSY) {
-		/* Check if the SPI module is busy with a job */
-		return STATUS_BUSY;
-	}
-#  endif
-
-	uint16_t j;
-	enum status_code retval = STATUS_OK;
-
-	/* Start timeout period for slave */
-	if (module->mode == SPI_MODE_SLAVE) {
-		for (j = 0; j <= SPI_TIMEOUT; j++) {
-			if (spi_is_ready_to_write(module)) {
-				break;
-			} else if (j == SPI_TIMEOUT) {
-				/* Not ready to write data within timeout period */
-				return STATUS_ERR_TIMEOUT;
-			}
-		}
-	}
-
-	/* Wait until the module is ready to write the character */
-	while (!spi_is_ready_to_write(module)) {
-	}
-
-	/* Write data */
-	spi_write(module, tx_data);
-
-	/* Start timeout period for slave */
-	if (module->mode == SPI_MODE_SLAVE) {
-		for (j = 0; j <= SPI_TIMEOUT; j++) {
-			if (spi_is_ready_to_read(module)) {
-				break;
-			} else if (j == SPI_TIMEOUT) {
-				/* Not ready to read data within timeout period */
-				return STATUS_ERR_TIMEOUT;
-			}
-		}
-	}
-
-	/* Wait until the module is ready to read the character */
-	while (!spi_is_ready_to_read(module)) {
-	}
-
-	/* Read data */
-	retval = spi_read(module, rx_data);
-
-	return retval;
-}
+		uint16_t *rx_data);
 
 enum status_code spi_transceive_buffer_wait(
 		struct spi_module *const module,
@@ -1252,9 +1331,9 @@ enum status_code spi_select_slave(
 
 
 /**
- * \page asfdoc_samd20_sercom_spi_extra Extra Information for SERCOM SPI Driver
+ * \page asfdoc_sam0_sercom_spi_extra Extra Information for SERCOM SPI Driver
  *
- * \section asfdoc_samd20_sercom_spi_extra_acronyms Acronyms
+ * \section asfdoc_sam0_sercom_spi_extra_acronyms Acronyms
  * Below is a table listing the acronyms used in this module, along with their
  * intended meanings.
  *
@@ -1262,6 +1341,10 @@ enum status_code spi_select_slave(
  *	<tr>
  *		<th>Acronym</th>
  *		<th>Description</th>
+ *	</tr>
+ *	<tr>
+ *		<td>SERCOM</td>
+ *		<td>Serial Communication Interface</td>
  *	</tr>
  *	<tr>
  *		<td>SPI</td>
@@ -1295,17 +1378,21 @@ enum status_code spi_select_slave(
  *		<td>DI</td>
  *		<td>Data Input</td>
  *	</tr>
+ *	<tr>
+ *		<td>DMA</td>
+ *		<td>Direct Memory Access</td>
+ *	</tr>
  * </table>
  *
- * \section asfdoc_samd20_sercom_spi_extra_dependencies Dependencies
+ * \section asfdoc_sam0_sercom_spi_extra_dependencies Dependencies
  * The SPI driver has the following dependencies:
- * \li \ref asfdoc_samd20_system_pinmux_group "System Pin Multiplexer Driver"
+ * \li \ref asfdoc_sam0_system_pinmux_group "System Pin Multiplexer Driver"
  *
  *
- * \section asfdoc_samd20_sercom_spi_extra_workarounds Workarounds Implemented by Driver
+ * \section asfdoc_sam0_sercom_spi_extra_workarounds Workarounds Implemented by Driver
  * No workarounds in driver.
  *
- * \section asfdoc_samd20_sercom_spi_extra_history Module History
+ * \section asfdoc_sam0_sercom_spi_extra_history Module History
  * An overview of the module history is presented in the table below, with
  * details on the enhancements and fixes made to the module since its first
  * release. The current version of this corresponds to the newest version in the table.
@@ -1314,6 +1401,20 @@ enum status_code spi_select_slave(
  *	<tr>
  *		<th>Changelog</th>
  *	</tr>
+ *	 <tr>
+ *		<td>Add SAMD21 support and added new features as below:
+ *             \li Slave select low detect
+ *             \li Hardware slave select
+ *             \li DMA support </td>
+ *	</tr>
+ *	 <tr>
+ *		<td>Edited slave part of write and transceive buffer functions to ensure
+ *		that second character is sent at the right time.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>Renamed the anonymous union in \c struct spi_config to
+ *          \c mode_specific.</td>
+ *	</tr>
  *	<tr>
  *		<td>Initial Release</td>
  *	</tr>
@@ -1321,416 +1422,316 @@ enum status_code spi_select_slave(
  */
 
 /**
- * \page asfdoc_samd20_sercom_spi_exqsg Examples for SERCOM SPI Driver
+ * \page asfdoc_sam0_sercom_spi_exqsg Examples for SERCOM SPI Driver
  *
  * This is a list of the available Quick Start guides (QSGs) and example
- * applications for \ref asfdoc_samd20_sercom_spi_group. QSGs are simple examples with
+ * applications for \ref asfdoc_sam0_sercom_spi_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
  * use cases. Note that QSGs can be compiled as a standalone application or be
  * added to the user application.
  *
- * - \subpage asfdoc_samd20_sercom_spi_master_basic_use
- * - \subpage asfdoc_samd20_sercom_spi_slave_basic_use
+ * - \subpage asfdoc_sam0_sercom_spi_master_basic_use
+ * - \subpage asfdoc_sam0_sercom_spi_slave_basic_use
  * \if SPI_CALLBACK_MODE
- * - \subpage asfdoc_samd20_sercom_spi_master_callback_use
- * - \subpage asfdoc_samd20_sercom_spi_slave_callback_use
+ * - \subpage asfdoc_sam0_sercom_spi_master_callback_use
+ * - \subpage asfdoc_sam0_sercom_spi_slave_callback_use
  * \endif
+ * - \subpage asfdoc_sam0_sercom_spi_dma_use_case
  */
 
  /**
-  * \page asfdoc_samd20_sercom_spi_mux_settings Mux Settings
-  * The different options for functionality of the SERCOM pads.
-  * As not all settings can be used in different modes of operation, proper
-  * settings must be chosen according to the rest of the configuration.
+  * \page asfdoc_sam0_sercom_spi_mux_settings Mux Settings
+  *
+  * The following lists the possible internal SERCOM module pad function
+  * assignments, for the four SERCOM pads in both SPI Master, and SPI Slave
+  * modes. Note that this is in addition to the physical GPIO pin MUX of the
+  * device, and can be used in conjunction to optimize the serial data pin-out.
+  *
+  * \section asfdoc_sam0_sercom_spi_mux_settings_master Master Mode Settings
+  * The following table describes the SERCOM pin functionalities for the various
+  * MUX settings, whilst in SPI Master mode.
+  *
+  * \note If MISO is unlisted, the SPI receiver must not be enabled for the
+  *       given MUX setting.
   *
   * <table>
-  *   <tr>
-  *      <th> Pin </th>
-  *      <th> Master Description </th>
-  *      <th> Slave Description </th>
-  *   </tr>
-  *   <tr>
-  *      <td> DO </td>
-  *      <td> MOSI </td>
-  *      <td> MISO </td>
-  *   </tr>
-  *   <tr>
-  *      <td> DI </td>
-  *      <td> MISO </td>
-  *      <td> MOSI </td>
-  *   </tr>
-  *   <tr>
-  *      <td> SLAVE_SS </td>
-  *      <td> None </td>
-  *      <td> Slave Select </td>
-  *   </tr>
-  *   <tr>
-  *      <td> SCK </td>
-  *      <td> Serial Clock </td>
-  *      <td> Serial Clock </td>
-  *   </tr>
+  *		<tr>
+  *			<th>Mux/Pad</th>
+  *			<th>PAD 0</th>
+  *			<th>PAD 1</th>
+  *			<th>PAD 2</th>
+  *			<th>PAD 3</th>
+  *		</tr>
+  *		<tr>
+  *			<td>A</td>
+  *			<td>MOSI</td>
+  *			<td>SCK</td>
+  *			<td>-</td>
+  *			<td>-</td>
+  *		</tr>
+  *		<tr>
+  *			<td>B</td>
+  *			<td>MOSI</td>
+  *			<td>SCK</td>
+  *			<td>-</td>
+  *			<td>-</td>
+  *		</tr>
+  *		<tr>
+  *			<td>C</td>
+  *			<td>MOSI</td>
+  *			<td>SCK</td>
+  *			<td>MISO</td>
+  *			<td>-</td>
+  *		</tr>
+  *		<tr>
+  *			<td>D</td>
+  *			<td>MOSI</td>
+  *			<td>SCK</td>
+  *			<td>-</td>
+  *			<td>MISO</td>
+  *		</tr>
+  *		<tr>
+  *			<td>E</td>
+  *			<td>MISO</td>
+  *			<td>-</td>
+  *			<td>MOSI</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>F</td>
+  *			<td>-</td>
+  *			<td>MISO</td>
+  *			<td>MOSI</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>G</td>
+  *			<td>-</td>
+  *			<td>-</td>
+  *			<td>MOSI</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>H</td>
+  *			<td>-</td>
+  *			<td>-</td>
+  *			<td>MOSI</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>I <sup>(1)</sup></td>
+  *			<td>MISO</td>
+  *			<td>SCK</td>
+  *			<td>-</td>
+  *			<td>MOSI</td>
+  *		</tr>
+  *		<tr>
+  *			<td>J <sup>(1)</sup></td>
+  *			<td>-</td>
+  *			<td>SCK</td>
+  *			<td>-</td>
+  *			<td>MOSI</td>
+  *		</tr>
+  *		<tr>
+  *			<td>K <sup>(1)</sup></td>
+  *			<td>-</td>
+  *			<td>SCK</td>
+  *			<td>MISO</td>
+  *			<td>MOSI</td>
+  *		</tr>
+  *		<tr>
+  *			<td>L <sup>(1)</sup></td>
+  *			<td>-</td>
+  *			<td>SCK</td>
+  *			<td>-</td>
+  *			<td>MOSI</td>
+  *		</tr>
+  *		<tr>
+  *			<td>M <sup>(1)</sup></td>
+  *			<td>MOSI</td>
+  *			<td>-</td>
+  *			<td>-</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>N <sup>(1)</sup></td>
+  *			<td>MOSI</td>
+  *			<td>MISO</td>
+  *			<td>-</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>O <sup>(1)</sup></td>
+  *			<td>MOSI</td>
+  *			<td>-</td>
+  *			<td>MISO</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>P <sup>(1)</sup></td>
+  *			<td>MOSI</td>
+  *			<td>-</td>
+  *			<td>-</td>
+  *			<td>SCK</td>
+  *		</tr>
   * </table>
   *
-  * \section asfdoc_samd20_sercom_spi_mux_setting_a Mux Setting A
+  * <i>(1) Not available in all silicon revisions.</i>
   *
-  * \li Master mode: Receiver turned off
-  * \li Slave mode: Receiver turned off
-  * \li Enum: SPI_SIGNAL_MUX_SETTING_A
+  * \section asfdoc_sam0_sercom_spi_mux_settings_slave Slave Mode Settings
+  * The following table describes the SERCOM pin functionalities for the various
+  * MUX settings, whilst in SPI Slave mode.
+  *
+  * \note If MISO is unlisted, the SPI receiver must not be enabled for the
+  *       given MUX setting.
   *
   * <table>
-  *   <tr>
-  *      <th> Function </th>
-  *      <th> Pad0 </th>
-  *      <th> Pad1 </th>
-  *      <th> Pad2 </th>
-  *      <th> Pad3 </th>
-  *   </tr>
-  *   <tr>
-  *      <th> SCK </th>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> SLAVE_SS </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DO </th>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DI </th>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
+  *		<tr>
+  *			<th>Mux/Pad</th>
+  *			<th>PAD 0</th>
+  *			<th>PAD 1</th>
+  *			<th>PAD 2</th>
+  *			<th>PAD 3</th>
+  *		</tr>
+  *		<tr>
+  *			<td>A</td>
+  *			<td>MISO</td>
+  *			<td>SCK</td>
+  *			<td>/SS</td>
+  *			<td>-</td>
+  *		</tr>
+  *		<tr>
+  *			<td>B</td>
+  *			<td>MISO</td>
+  *			<td>SCK</td>
+  *			<td>/SS</td>
+  *			<td>-</td>
+  *		</tr>
+  *		<tr>
+  *			<td>C</td>
+  *			<td>MISO</td>
+  *			<td>SCK</td>
+  *			<td>/SS</td>
+  *			<td>-</td>
+  *		</tr>
+  *		<tr>
+  *			<td>D</td>
+  *			<td>MISO</td>
+  *			<td>SCK</td>
+  *			<td>/SS</td>
+  *			<td>MOSI</td>
+  *		</tr>
+  *		<tr>
+  *			<td>E</td>
+  *			<td>MOSI</td>
+  *			<td>/SS</td>
+  *			<td>MISO</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>F</td>
+  *			<td>-</td>
+  *			<td>/SS</td>
+  *			<td>MISO</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>G</td>
+  *			<td>-</td>
+  *			<td>/SS</td>
+  *			<td>MISO</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>H</td>
+  *			<td>-</td>
+  *			<td>/SS</td>
+  *			<td>MISO</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>I <sup>(1)</sup></td>
+  *			<td>MOSI</td>
+  *			<td>SCK</td>
+  *			<td>/SS</td>
+  *			<td>MISO</td>
+  *		</tr>
+  *		<tr>
+  *			<td>J <sup>(1)</sup></td>
+  *			<td>-</td>
+  *			<td>SCK</td>
+  *			<td>/SS</td>
+  *			<td>MISO</td>
+  *		</tr>
+  *		<tr>
+  *			<td>K <sup>(1)</sup></td>
+  *			<td>-</td>
+  *			<td>SCK</td>
+  *			<td>/SS</td>
+  *			<td>MISO</td>
+  *		</tr>
+  *		<tr>
+  *			<td>L <sup>(1)</sup></td>
+  *			<td>-</td>
+  *			<td>SCK</td>
+  *			<td>/SS</td>
+  *			<td>MISO</td>
+  *		</tr>
+  *		<tr>
+  *			<td>M <sup>(1)</sup></td>
+  *			<td>MISO</td>
+  *			<td>/SS</td>
+  *			<td>-</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>N <sup>(1)</sup></td>
+  *			<td>MISO</td>
+  *			<td>/SS</td>
+  *			<td>-</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>O <sup>(1)</sup></td>
+  *			<td>MISO</td>
+  *			<td>/SS</td>
+  *			<td>MOSI</td>
+  *			<td>SCK</td>
+  *		</tr>
+  *		<tr>
+  *			<td>P <sup>(1)</sup></td>
+  *			<td>MISO</td>
+  *			<td>/SS</td>
+  *			<td>-</td>
+  *			<td>SCK</td>
+  *		</tr>
   * </table>
   *
-  * \section asfdoc_samd20_sercom_spi_mux_setting_b Mux Setting B
+  * <i>(1) Not available in all silicon revisions.</i>
   *
-  * \li Master mode: Receiver turned off
-  * \li Slave mode: Not applicable
-  * \li Enum: SPI_SIGNAL_MUX_SETTING_B
   *
-  * <table>
-  *   <tr>
-  *      <th> Function </th>
-  *      <th> Pad0 </th>
-  *      <th> Pad1 </th>
-  *      <th> Pad2 </th>
-  *      <th> Pad3 </th>
-  *   </tr>
-  *   <tr>
-  *      <th> SCK </th>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> SLAVE_SS </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DO </th>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DI </th>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  * </table>
-  *
-  * \section asfdoc_samd20_sercom_spi_mux_setting_c Mux Setting C
-  *
-  * \li Master mode: No restrictions
-  * \li Slave mode: Not applicable
-  * \li Enum: SPI_SIGNAL_MUX_SETTING_C
-  *
-  * <table>
-  *   <tr>
-  *      <th> Function </th>
-  *      <th> Pad0 </th>
-  *      <th> Pad1 </th>
-  *      <th> Pad2 </th>
-  *      <th> Pad3 </th>
-  *   </tr>
-  *   <tr>
-  *      <th> SCK </th>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> SLAVE_SS </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DO </th>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DI </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *   </tr>
-  * </table>
-  *
-  * \section asfdoc_samd20_sercom_spi_mux_setting_d Mux Setting D
-  *
-  * \li Master mode: No restrictions
-  * \li Slave mode: No restrictions
-  * \li Enum: SPI_SIGNAL_MUX_SETTING_D
-  *
-  * <table>
-  *   <tr>
-  *      <th> Function </th>
-  *      <th> Pad0 </th>
-  *      <th> Pad1 </th>
-  *      <th> Pad2 </th>
-  *      <th> Pad3 </th>
-  *   </tr>
-  *   <tr>
-  *      <th> SCK </th>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-
-  *   </tr>
-  *   <tr>
-  *      <th> SLAVE_SS </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DO </th>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DI </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *   </tr>
-  * </table>
-  *
-  * \section asfdoc_samd20_sercom_spi_mux_setting_e Mux Setting E
-  *
-  * \li Master mode: No restrictions
-  * \li Slave mode: No restrictions
-  * \li Enum: SPI_SIGNAL_MUX_SETTING_E
-  *
-  * <table>
-  *   <tr>
-  *      <th> Function </th>
-  *      <th> Pad0 </th>
-  *      <th> Pad1 </th>
-  *      <th> Pad2 </th>
-  *      <th> Pad3 </th>
-  *   </tr>
-  *   <tr>
-  *      <th> SCK </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *   </tr>
-  *   <tr>
-  *      <th> SLAVE_SS </th>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DO </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DI </th>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  * </table>
-  *
-  * \section asfdoc_samd20_sercom_spi_mux_setting_f Mux Setting F
-  *
-  * \li Master mode: No restrictions
-  * \li Slave mode: Not applicable
-  * \li Enum: SPI_SIGNAL_MUX_SETTING_F
-  *
-  * <table>
-  *   <tr>
-  *      <th> Function </th>
-  *      <th> Pad0 </th>
-  *      <th> Pad1 </th>
-  *      <th> Pad2 </th>
-  *      <th> Pad3 </th>
-  *   </tr>
-  *   <tr>
-  *      <th> SCK </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *   </tr>
-  *   <tr>
-  *      <th> SLAVE_SS </th>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DO </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DI </th>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  * </table>
-  *
-  * \section asfdoc_samd20_sercom_spi_mux_setting_g Mux Setting G
-  *
-  * \li Master mode: Receiver turned off
-  * \li Slave mode: Receiver turned off
-  * \li Enum: SPI_SIGNAL_MUX_SETTING_G
-  *
-  * <table>
-  *   <tr>
-  *      <th> Function </th>
-  *      <th> Pad0 </th>
-  *      <th> Pad1 </th>
-  *      <th> Pad2 </th>
-  *      <th> Pad3 </th>
-  *   </tr>
-  *   <tr>
-  *      <th> SCK </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *   </tr>
-  *   <tr>
-  *      <th> SLAVE_SS </th>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DO </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DI </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *   </tr>
-  * </table>
-  *
-  * \section asfdoc_samd20_sercom_spi_mux_setting_h Mux Setting H
-  *
-  * \li Master mode: Receiver turned off
-  * \li Slave mode: Not applicable
-  * \li Enum: SPI_SIGNAL_MUX_SETTING_H
-  *
-  * <table>
-  *   <tr>
-  *      <th> Function </th>
-  *      <th> Pad0 </th>
-  *      <th> Pad1 </th>
-  *      <th> Pad2 </th>
-  *      <th> Pad3 </th>
-  *   </tr>
-  *   <tr>
-  *      <th> SCK </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *   </tr>
-  *   <tr>
-  *      <th> SLAVE_SS </th>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DO </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *      <td>  </td>
-  *   </tr>
-  *   <tr>
-  *      <th> DI </th>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td>  </td>
-  *      <td> x </td>
-  *   </tr>
-  * </table>
-  *
-  * \page asfdoc_samd20_sercom_spi_document_revision_history Document Revision History
+  * \page asfdoc_sam0_sercom_spi_document_revision_history Document Revision History
   *
   * <table>
   *	<tr>
   *		<th>Doc. Rev.</td>
   *		<th>Date</td>
   *		<th>Comments</td>
+  *	</tr>
+  *	<tr>
+  *		<td>D</td>
+  *		<td>03/2014</td>
+  *		<td>Add SAMR21 support.</td>
+  *	</tr>
+  *	<tr>
+  *		<td>C</td>
+  *		<td>01/2014</td>
+  *		<td>Add SAMD21 support.</td>
+  *	</tr>
+  *	<tr>
+  *		<td>B</td>
+  *		<td>11/2013</td>
+  *		<td>Replaced the pad multiplexing documentation with a condensed table.</td>
   *	</tr>
   *	<tr>
   *		<td>A</td>

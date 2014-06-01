@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,38 +51,38 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Ssc hardware registers */
 typedef struct {
-  WoReg SSC_CR;        /**< \brief (Ssc Offset: 0x0) Control Register */
-  RwReg SSC_CMR;       /**< \brief (Ssc Offset: 0x4) Clock Mode Register */
-  RoReg Reserved1[2];
-  RwReg SSC_RCMR;      /**< \brief (Ssc Offset: 0x10) Receive Clock Mode Register */
-  RwReg SSC_RFMR;      /**< \brief (Ssc Offset: 0x14) Receive Frame Mode Register */
-  RwReg SSC_TCMR;      /**< \brief (Ssc Offset: 0x18) Transmit Clock Mode Register */
-  RwReg SSC_TFMR;      /**< \brief (Ssc Offset: 0x1C) Transmit Frame Mode Register */
-  RoReg SSC_RHR;       /**< \brief (Ssc Offset: 0x20) Receive Holding Register */
-  WoReg SSC_THR;       /**< \brief (Ssc Offset: 0x24) Transmit Holding Register */
-  RoReg Reserved2[2];
-  RoReg SSC_RSHR;      /**< \brief (Ssc Offset: 0x30) Receive Sync. Holding Register */
-  RwReg SSC_TSHR;      /**< \brief (Ssc Offset: 0x34) Transmit Sync. Holding Register */
-  RwReg SSC_RC0R;      /**< \brief (Ssc Offset: 0x38) Receive Compare 0 Register */
-  RwReg SSC_RC1R;      /**< \brief (Ssc Offset: 0x3C) Receive Compare 1 Register */
-  RoReg SSC_SR;        /**< \brief (Ssc Offset: 0x40) Status Register */
-  WoReg SSC_IER;       /**< \brief (Ssc Offset: 0x44) Interrupt Enable Register */
-  WoReg SSC_IDR;       /**< \brief (Ssc Offset: 0x48) Interrupt Disable Register */
-  RoReg SSC_IMR;       /**< \brief (Ssc Offset: 0x4C) Interrupt Mask Register */
-  RoReg Reserved3[37];
-  RwReg SSC_WPMR;      /**< \brief (Ssc Offset: 0xE4) Write Protect Mode Register */
-  RoReg SSC_WPSR;      /**< \brief (Ssc Offset: 0xE8) Write Protect Status Register */
-  RoReg Reserved4[5];
-  RwReg SSC_RPR;       /**< \brief (Ssc Offset: 0x100) Receive Pointer Register */
-  RwReg SSC_RCR;       /**< \brief (Ssc Offset: 0x104) Receive Counter Register */
-  RwReg SSC_TPR;       /**< \brief (Ssc Offset: 0x108) Transmit Pointer Register */
-  RwReg SSC_TCR;       /**< \brief (Ssc Offset: 0x10C) Transmit Counter Register */
-  RwReg SSC_RNPR;      /**< \brief (Ssc Offset: 0x110) Receive Next Pointer Register */
-  RwReg SSC_RNCR;      /**< \brief (Ssc Offset: 0x114) Receive Next Counter Register */
-  RwReg SSC_TNPR;      /**< \brief (Ssc Offset: 0x118) Transmit Next Pointer Register */
-  RwReg SSC_TNCR;      /**< \brief (Ssc Offset: 0x11C) Transmit Next Counter Register */
-  WoReg SSC_PTCR;      /**< \brief (Ssc Offset: 0x120) Transfer Control Register */
-  RoReg SSC_PTSR;      /**< \brief (Ssc Offset: 0x124) Transfer Status Register */
+  __O  uint32_t SSC_CR;        /**< \brief (Ssc Offset: 0x0) Control Register */
+  __IO uint32_t SSC_CMR;       /**< \brief (Ssc Offset: 0x4) Clock Mode Register */
+  __I  uint32_t Reserved1[2];
+  __IO uint32_t SSC_RCMR;      /**< \brief (Ssc Offset: 0x10) Receive Clock Mode Register */
+  __IO uint32_t SSC_RFMR;      /**< \brief (Ssc Offset: 0x14) Receive Frame Mode Register */
+  __IO uint32_t SSC_TCMR;      /**< \brief (Ssc Offset: 0x18) Transmit Clock Mode Register */
+  __IO uint32_t SSC_TFMR;      /**< \brief (Ssc Offset: 0x1C) Transmit Frame Mode Register */
+  __I  uint32_t SSC_RHR;       /**< \brief (Ssc Offset: 0x20) Receive Holding Register */
+  __O  uint32_t SSC_THR;       /**< \brief (Ssc Offset: 0x24) Transmit Holding Register */
+  __I  uint32_t Reserved2[2];
+  __I  uint32_t SSC_RSHR;      /**< \brief (Ssc Offset: 0x30) Receive Sync. Holding Register */
+  __IO uint32_t SSC_TSHR;      /**< \brief (Ssc Offset: 0x34) Transmit Sync. Holding Register */
+  __IO uint32_t SSC_RC0R;      /**< \brief (Ssc Offset: 0x38) Receive Compare 0 Register */
+  __IO uint32_t SSC_RC1R;      /**< \brief (Ssc Offset: 0x3C) Receive Compare 1 Register */
+  __I  uint32_t SSC_SR;        /**< \brief (Ssc Offset: 0x40) Status Register */
+  __O  uint32_t SSC_IER;       /**< \brief (Ssc Offset: 0x44) Interrupt Enable Register */
+  __O  uint32_t SSC_IDR;       /**< \brief (Ssc Offset: 0x48) Interrupt Disable Register */
+  __I  uint32_t SSC_IMR;       /**< \brief (Ssc Offset: 0x4C) Interrupt Mask Register */
+  __I  uint32_t Reserved3[37];
+  __IO uint32_t SSC_WPMR;      /**< \brief (Ssc Offset: 0xE4) Write Protect Mode Register */
+  __I  uint32_t SSC_WPSR;      /**< \brief (Ssc Offset: 0xE8) Write Protect Status Register */
+  __I  uint32_t Reserved4[5];
+  __IO uint32_t SSC_RPR;       /**< \brief (Ssc Offset: 0x100) Receive Pointer Register */
+  __IO uint32_t SSC_RCR;       /**< \brief (Ssc Offset: 0x104) Receive Counter Register */
+  __IO uint32_t SSC_TPR;       /**< \brief (Ssc Offset: 0x108) Transmit Pointer Register */
+  __IO uint32_t SSC_TCR;       /**< \brief (Ssc Offset: 0x10C) Transmit Counter Register */
+  __IO uint32_t SSC_RNPR;      /**< \brief (Ssc Offset: 0x110) Receive Next Pointer Register */
+  __IO uint32_t SSC_RNCR;      /**< \brief (Ssc Offset: 0x114) Receive Next Counter Register */
+  __IO uint32_t SSC_TNPR;      /**< \brief (Ssc Offset: 0x118) Transmit Next Pointer Register */
+  __IO uint32_t SSC_TNCR;      /**< \brief (Ssc Offset: 0x11C) Transmit Next Counter Register */
+  __O  uint32_t SSC_PTCR;      /**< \brief (Ssc Offset: 0x120) Transfer Control Register */
+  __I  uint32_t SSC_PTSR;      /**< \brief (Ssc Offset: 0x124) Transfer Status Register */
 } Ssc;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- SSC_CR : (SSC Offset: 0x0) Control Register -------- */
@@ -103,15 +103,15 @@ typedef struct {
 #define   SSC_RCMR_CKS_RK (0x2u << 0) /**< \brief (SSC_RCMR) RK pin */
 #define SSC_RCMR_CKO_Pos 2
 #define SSC_RCMR_CKO_Msk (0x7u << SSC_RCMR_CKO_Pos) /**< \brief (SSC_RCMR) Receive Clock Output Mode Selection */
-#define   SSC_RCMR_CKO_NONE (0x0u << 2) /**< \brief (SSC_RCMR) None */
-#define   SSC_RCMR_CKO_CONTINUOUS (0x1u << 2) /**< \brief (SSC_RCMR) Continuous Receive Clock */
-#define   SSC_RCMR_CKO_TRANSFER (0x2u << 2) /**< \brief (SSC_RCMR) Receive Clock only during data transfers */
+#define   SSC_RCMR_CKO_NONE (0x0u << 2) /**< \brief (SSC_RCMR) None, RK pin is an input */
+#define   SSC_RCMR_CKO_CONTINUOUS (0x1u << 2) /**< \brief (SSC_RCMR) Continuous Receive Clock, RK pin is an output */
+#define   SSC_RCMR_CKO_TRANSFER (0x2u << 2) /**< \brief (SSC_RCMR) Receive Clock only during data transfers, RK pin is an output */
 #define SSC_RCMR_CKI (0x1u << 5) /**< \brief (SSC_RCMR) Receive Clock Inversion */
 #define SSC_RCMR_CKG_Pos 6
 #define SSC_RCMR_CKG_Msk (0x3u << SSC_RCMR_CKG_Pos) /**< \brief (SSC_RCMR) Receive Clock Gating Selection */
-#define   SSC_RCMR_CKG_NONE (0x0u << 6) /**< \brief (SSC_RCMR) None */
-#define   SSC_RCMR_CKG_CONTINUOUS (0x1u << 6) /**< \brief (SSC_RCMR) Continuous Receive Clock */
-#define   SSC_RCMR_CKG_TRANSFER (0x2u << 6) /**< \brief (SSC_RCMR) Receive Clock only during data transfers */
+#define   SSC_RCMR_CKG_CONTINUOUS (0x0u << 6) /**< \brief (SSC_RCMR) None */
+#define   SSC_RCMR_CKG_EN_RF_LOW (0x1u << 6) /**< \brief (SSC_RCMR) Receive Clock enabled only if RF Low */
+#define   SSC_RCMR_CKG_EN_RF_HIGH (0x2u << 6) /**< \brief (SSC_RCMR) Receive Clock enabled only if RF High */
 #define SSC_RCMR_START_Pos 8
 #define SSC_RCMR_START_Msk (0xfu << SSC_RCMR_START_Pos) /**< \brief (SSC_RCMR) Receive Start Selection */
 #define   SSC_RCMR_START_CONTINUOUS (0x0u << 8) /**< \brief (SSC_RCMR) Continuous, as soon as the receiver is enabled, and immediately after the end of transfer of the previous data. */
@@ -144,12 +144,12 @@ typedef struct {
 #define SSC_RFMR_FSLEN(value) ((SSC_RFMR_FSLEN_Msk & ((value) << SSC_RFMR_FSLEN_Pos)))
 #define SSC_RFMR_FSOS_Pos 20
 #define SSC_RFMR_FSOS_Msk (0x7u << SSC_RFMR_FSOS_Pos) /**< \brief (SSC_RFMR) Receive Frame Sync Output Selection */
-#define   SSC_RFMR_FSOS_NONE (0x0u << 20) /**< \brief (SSC_RFMR) None */
-#define   SSC_RFMR_FSOS_NEGATIVE (0x1u << 20) /**< \brief (SSC_RFMR) Negative Pulse */
-#define   SSC_RFMR_FSOS_POSITIVE (0x2u << 20) /**< \brief (SSC_RFMR) Positive Pulse */
-#define   SSC_RFMR_FSOS_LOW (0x3u << 20) /**< \brief (SSC_RFMR) Driven Low during data transfer */
-#define   SSC_RFMR_FSOS_HIGH (0x4u << 20) /**< \brief (SSC_RFMR) Driven High during data transfer */
-#define   SSC_RFMR_FSOS_TOGGLING (0x5u << 20) /**< \brief (SSC_RFMR) Toggling at each start of data transfer */
+#define   SSC_RFMR_FSOS_NONE (0x0u << 20) /**< \brief (SSC_RFMR) None, RF pin is an input */
+#define   SSC_RFMR_FSOS_NEGATIVE (0x1u << 20) /**< \brief (SSC_RFMR) Negative Pulse, RF pin is an output */
+#define   SSC_RFMR_FSOS_POSITIVE (0x2u << 20) /**< \brief (SSC_RFMR) Positive Pulse, RF pin is an output */
+#define   SSC_RFMR_FSOS_LOW (0x3u << 20) /**< \brief (SSC_RFMR) Driven Low during data transfer, RF pin is an output */
+#define   SSC_RFMR_FSOS_HIGH (0x4u << 20) /**< \brief (SSC_RFMR) Driven High during data transfer, RF pin is an output */
+#define   SSC_RFMR_FSOS_TOGGLING (0x5u << 20) /**< \brief (SSC_RFMR) Toggling at each start of data transfer, RF pin is an output */
 #define SSC_RFMR_FSEDGE (0x1u << 24) /**< \brief (SSC_RFMR) Frame Sync Edge Detection */
 #define   SSC_RFMR_FSEDGE_POSITIVE (0x0u << 24) /**< \brief (SSC_RFMR) Positive Edge Detection */
 #define   SSC_RFMR_FSEDGE_NEGATIVE (0x1u << 24) /**< \brief (SSC_RFMR) Negative Edge Detection */
@@ -160,30 +160,29 @@ typedef struct {
 #define SSC_TCMR_CKS_Pos 0
 #define SSC_TCMR_CKS_Msk (0x3u << SSC_TCMR_CKS_Pos) /**< \brief (SSC_TCMR) Transmit Clock Selection */
 #define   SSC_TCMR_CKS_MCK (0x0u << 0) /**< \brief (SSC_TCMR) Divided Clock */
-#define   SSC_TCMR_CKS_TK (0x1u << 0) /**< \brief (SSC_TCMR) TK Clock signal */
-#define   SSC_TCMR_CKS_RK (0x2u << 0) /**< \brief (SSC_TCMR) RK pin */
+#define   SSC_TCMR_CKS_RK (0x1u << 0) /**< \brief (SSC_TCMR) RK Clock signal */
+#define   SSC_TCMR_CKS_TK (0x2u << 0) /**< \brief (SSC_TCMR) TK pin */
 #define SSC_TCMR_CKO_Pos 2
 #define SSC_TCMR_CKO_Msk (0x7u << SSC_TCMR_CKO_Pos) /**< \brief (SSC_TCMR) Transmit Clock Output Mode Selection */
-#define   SSC_TCMR_CKO_NONE (0x0u << 2) /**< \brief (SSC_TCMR) None */
-#define   SSC_TCMR_CKO_CONTINUOUS (0x1u << 2) /**< \brief (SSC_TCMR) Continuous Receive Clock */
-#define   SSC_TCMR_CKO_TRANSFER (0x2u << 2) /**< \brief (SSC_TCMR) Transmit Clock only during data transfers */
+#define   SSC_TCMR_CKO_NONE (0x0u << 2) /**< \brief (SSC_TCMR) None, TK pin is an input */
+#define   SSC_TCMR_CKO_CONTINUOUS (0x1u << 2) /**< \brief (SSC_TCMR) Continuous Transmit Clock, TK pin is an output */
+#define   SSC_TCMR_CKO_TRANSFER (0x2u << 2) /**< \brief (SSC_TCMR) Transmit Clock only during data transfers, TK pin is an output */
 #define SSC_TCMR_CKI (0x1u << 5) /**< \brief (SSC_TCMR) Transmit Clock Inversion */
 #define SSC_TCMR_CKG_Pos 6
 #define SSC_TCMR_CKG_Msk (0x3u << SSC_TCMR_CKG_Pos) /**< \brief (SSC_TCMR) Transmit Clock Gating Selection */
-#define   SSC_TCMR_CKG_NONE (0x0u << 6) /**< \brief (SSC_TCMR) None */
-#define   SSC_TCMR_CKG_CONTINUOUS (0x1u << 6) /**< \brief (SSC_TCMR) Transmit Clock enabled only if TF Low */
-#define   SSC_TCMR_CKG_TRANSFER (0x2u << 6) /**< \brief (SSC_TCMR) Transmit Clock enabled only if TF High */
+#define   SSC_TCMR_CKG_CONTINUOUS (0x0u << 6) /**< \brief (SSC_TCMR) None */
+#define   SSC_TCMR_CKG_EN_TF_LOW (0x1u << 6) /**< \brief (SSC_TCMR) Transmit Clock enabled only if TF Low */
+#define   SSC_TCMR_CKG_EN_TF_HIGH (0x2u << 6) /**< \brief (SSC_TCMR) Transmit Clock enabled only if TF High */
 #define SSC_TCMR_START_Pos 8
 #define SSC_TCMR_START_Msk (0xfu << SSC_TCMR_START_Pos) /**< \brief (SSC_TCMR) Transmit Start Selection */
-#define   SSC_TCMR_START_CONTINUOUS (0x0u << 8) /**< \brief (SSC_TCMR) Continuous, as soon as a word is written in the SSC_THR Register (if Transmit is enabled), and immediately after the end of transfer of the previous data. */
+#define   SSC_TCMR_START_CONTINUOUS (0x0u << 8) /**< \brief (SSC_TCMR) Continuous, as soon as a word is written in the SSC_THR Register (if Transmit is enabled), and immediately after the end of transfer of the previous data */
 #define   SSC_TCMR_START_RECEIVE (0x1u << 8) /**< \brief (SSC_TCMR) Receive start */
-#define   SSC_TCMR_START_RF_LOW (0x2u << 8) /**< \brief (SSC_TCMR) Detection of a low level on TF signal */
-#define   SSC_TCMR_START_RF_HIGH (0x3u << 8) /**< \brief (SSC_TCMR) Detection of a high level on TF signal */
-#define   SSC_TCMR_START_RF_FALLING (0x4u << 8) /**< \brief (SSC_TCMR) Detection of a falling edge on TF signal */
-#define   SSC_TCMR_START_RF_RISING (0x5u << 8) /**< \brief (SSC_TCMR) Detection of a rising edge on TF signal */
-#define   SSC_TCMR_START_RF_LEVEL (0x6u << 8) /**< \brief (SSC_TCMR) Detection of any level change on TF signal */
-#define   SSC_TCMR_START_RF_EDGE (0x7u << 8) /**< \brief (SSC_TCMR) Detection of any edge on TF signal */
-#define   SSC_TCMR_START_CMP_0 (0x8u << 8) /**< \brief (SSC_TCMR) Compare 0 */
+#define   SSC_TCMR_START_TF_LOW (0x2u << 8) /**< \brief (SSC_TCMR) Detection of a low level on TF signal */
+#define   SSC_TCMR_START_TF_HIGH (0x3u << 8) /**< \brief (SSC_TCMR) Detection of a high level on TF signal */
+#define   SSC_TCMR_START_TF_FALLING (0x4u << 8) /**< \brief (SSC_TCMR) Detection of a falling edge on TF signal */
+#define   SSC_TCMR_START_TF_RISING (0x5u << 8) /**< \brief (SSC_TCMR) Detection of a rising edge on TF signal */
+#define   SSC_TCMR_START_TF_LEVEL (0x6u << 8) /**< \brief (SSC_TCMR) Detection of any level change on TF signal */
+#define   SSC_TCMR_START_TF_EDGE (0x7u << 8) /**< \brief (SSC_TCMR) Detection of any edge on TF signal */
 #define SSC_TCMR_STTDLY_Pos 16
 #define SSC_TCMR_STTDLY_Msk (0xffu << SSC_TCMR_STTDLY_Pos) /**< \brief (SSC_TCMR) Transmit Start Delay */
 #define SSC_TCMR_STTDLY(value) ((SSC_TCMR_STTDLY_Msk & ((value) << SSC_TCMR_STTDLY_Pos)))
@@ -204,9 +203,9 @@ typedef struct {
 #define SSC_TFMR_FSLEN(value) ((SSC_TFMR_FSLEN_Msk & ((value) << SSC_TFMR_FSLEN_Pos)))
 #define SSC_TFMR_FSOS_Pos 20
 #define SSC_TFMR_FSOS_Msk (0x7u << SSC_TFMR_FSOS_Pos) /**< \brief (SSC_TFMR) Transmit Frame Sync Output Selection */
-#define   SSC_TFMR_FSOS_NONE (0x0u << 20) /**< \brief (SSC_TFMR) None */
-#define   SSC_TFMR_FSOS_NEGATIVE (0x1u << 20) /**< \brief (SSC_TFMR) Negative Pulse */
-#define   SSC_TFMR_FSOS_POSITIVE (0x2u << 20) /**< \brief (SSC_TFMR) Positive Pulse */
+#define   SSC_TFMR_FSOS_NONE (0x0u << 20) /**< \brief (SSC_TFMR) None, RF pin is an input */
+#define   SSC_TFMR_FSOS_NEGATIVE (0x1u << 20) /**< \brief (SSC_TFMR) Negative Pulse, RF pin is an output */
+#define   SSC_TFMR_FSOS_POSITIVE (0x2u << 20) /**< \brief (SSC_TFMR) Positive Pulse, RF pin is an output */
 #define   SSC_TFMR_FSOS_LOW (0x3u << 20) /**< \brief (SSC_TFMR) Driven Low during data transfer */
 #define   SSC_TFMR_FSOS_HIGH (0x4u << 20) /**< \brief (SSC_TFMR) Driven High during data transfer */
 #define   SSC_TFMR_FSOS_TOGGLING (0x5u << 20) /**< \brief (SSC_TFMR) Toggling at each start of data transfer */
@@ -243,11 +242,11 @@ typedef struct {
 #define SSC_SR_TXRDY (0x1u << 0) /**< \brief (SSC_SR) Transmit Ready */
 #define SSC_SR_TXEMPTY (0x1u << 1) /**< \brief (SSC_SR) Transmit Empty */
 #define SSC_SR_ENDTX (0x1u << 2) /**< \brief (SSC_SR) End of Transmission */
-#define SSC_SR_TXBUFE (0x1u << 3) /**< \brief (SSC_SR) Transmit Buffer Empty */
+#define SSC_SR_TXBUFE (0x1u << 3) /**< \brief (SSC_SR)  */
 #define SSC_SR_RXRDY (0x1u << 4) /**< \brief (SSC_SR) Receive Ready */
 #define SSC_SR_OVRUN (0x1u << 5) /**< \brief (SSC_SR) Receive Overrun */
 #define SSC_SR_ENDRX (0x1u << 6) /**< \brief (SSC_SR) End of Reception */
-#define SSC_SR_RXBUFF (0x1u << 7) /**< \brief (SSC_SR) Receive Buffer Full */
+#define SSC_SR_RXBUFF (0x1u << 7) /**< \brief (SSC_SR)  */
 #define SSC_SR_CP0 (0x1u << 8) /**< \brief (SSC_SR) Compare 0 */
 #define SSC_SR_CP1 (0x1u << 9) /**< \brief (SSC_SR) Compare 1 */
 #define SSC_SR_TXSYN (0x1u << 10) /**< \brief (SSC_SR) Transmit Sync */
@@ -258,11 +257,11 @@ typedef struct {
 #define SSC_IER_TXRDY (0x1u << 0) /**< \brief (SSC_IER) Transmit Ready Interrupt Enable */
 #define SSC_IER_TXEMPTY (0x1u << 1) /**< \brief (SSC_IER) Transmit Empty Interrupt Enable */
 #define SSC_IER_ENDTX (0x1u << 2) /**< \brief (SSC_IER) End of Transmission Interrupt Enable */
-#define SSC_IER_TXBUFE (0x1u << 3) /**< \brief (SSC_IER) Transmit Buffer Empty Interrupt Enable */
+#define SSC_IER_TXBUFE (0x1u << 3) /**< \brief (SSC_IER)  */
 #define SSC_IER_RXRDY (0x1u << 4) /**< \brief (SSC_IER) Receive Ready Interrupt Enable */
 #define SSC_IER_OVRUN (0x1u << 5) /**< \brief (SSC_IER) Receive Overrun Interrupt Enable */
 #define SSC_IER_ENDRX (0x1u << 6) /**< \brief (SSC_IER) End of Reception Interrupt Enable */
-#define SSC_IER_RXBUFF (0x1u << 7) /**< \brief (SSC_IER) Receive Buffer Full Interrupt Enable */
+#define SSC_IER_RXBUFF (0x1u << 7) /**< \brief (SSC_IER)  */
 #define SSC_IER_CP0 (0x1u << 8) /**< \brief (SSC_IER) Compare 0 Interrupt Enable */
 #define SSC_IER_CP1 (0x1u << 9) /**< \brief (SSC_IER) Compare 1 Interrupt Enable */
 #define SSC_IER_TXSYN (0x1u << 10) /**< \brief (SSC_IER) Tx Sync Interrupt Enable */
@@ -271,11 +270,11 @@ typedef struct {
 #define SSC_IDR_TXRDY (0x1u << 0) /**< \brief (SSC_IDR) Transmit Ready Interrupt Disable */
 #define SSC_IDR_TXEMPTY (0x1u << 1) /**< \brief (SSC_IDR) Transmit Empty Interrupt Disable */
 #define SSC_IDR_ENDTX (0x1u << 2) /**< \brief (SSC_IDR) End of Transmission Interrupt Disable */
-#define SSC_IDR_TXBUFE (0x1u << 3) /**< \brief (SSC_IDR) Transmit Buffer Empty Interrupt Disable */
+#define SSC_IDR_TXBUFE (0x1u << 3) /**< \brief (SSC_IDR)  */
 #define SSC_IDR_RXRDY (0x1u << 4) /**< \brief (SSC_IDR) Receive Ready Interrupt Disable */
 #define SSC_IDR_OVRUN (0x1u << 5) /**< \brief (SSC_IDR) Receive Overrun Interrupt Disable */
 #define SSC_IDR_ENDRX (0x1u << 6) /**< \brief (SSC_IDR) End of Reception Interrupt Disable */
-#define SSC_IDR_RXBUFF (0x1u << 7) /**< \brief (SSC_IDR) Receive Buffer Full Interrupt Disable */
+#define SSC_IDR_RXBUFF (0x1u << 7) /**< \brief (SSC_IDR)  */
 #define SSC_IDR_CP0 (0x1u << 8) /**< \brief (SSC_IDR) Compare 0 Interrupt Disable */
 #define SSC_IDR_CP1 (0x1u << 9) /**< \brief (SSC_IDR) Compare 1 Interrupt Disable */
 #define SSC_IDR_TXSYN (0x1u << 10) /**< \brief (SSC_IDR) Tx Sync Interrupt Enable */
@@ -284,11 +283,11 @@ typedef struct {
 #define SSC_IMR_TXRDY (0x1u << 0) /**< \brief (SSC_IMR) Transmit Ready Interrupt Mask */
 #define SSC_IMR_TXEMPTY (0x1u << 1) /**< \brief (SSC_IMR) Transmit Empty Interrupt Mask */
 #define SSC_IMR_ENDTX (0x1u << 2) /**< \brief (SSC_IMR) End of Transmission Interrupt Mask */
-#define SSC_IMR_TXBUFE (0x1u << 3) /**< \brief (SSC_IMR) Transmit Buffer Empty Interrupt Mask */
+#define SSC_IMR_TXBUFE (0x1u << 3) /**< \brief (SSC_IMR)  */
 #define SSC_IMR_RXRDY (0x1u << 4) /**< \brief (SSC_IMR) Receive Ready Interrupt Mask */
 #define SSC_IMR_OVRUN (0x1u << 5) /**< \brief (SSC_IMR) Receive Overrun Interrupt Mask */
 #define SSC_IMR_ENDRX (0x1u << 6) /**< \brief (SSC_IMR) End of Reception Interrupt Mask */
-#define SSC_IMR_RXBUFF (0x1u << 7) /**< \brief (SSC_IMR) Receive Buffer Full Interrupt Mask */
+#define SSC_IMR_RXBUFF (0x1u << 7) /**< \brief (SSC_IMR)  */
 #define SSC_IMR_CP0 (0x1u << 8) /**< \brief (SSC_IMR) Compare 0 Interrupt Mask */
 #define SSC_IMR_CP1 (0x1u << 9) /**< \brief (SSC_IMR) Compare 1 Interrupt Mask */
 #define SSC_IMR_TXSYN (0x1u << 10) /**< \brief (SSC_IMR) Tx Sync Interrupt Mask */
@@ -297,7 +296,7 @@ typedef struct {
 #define SSC_WPMR_WPEN (0x1u << 0) /**< \brief (SSC_WPMR) Write Protect Enable */
 #define SSC_WPMR_WPKEY_Pos 8
 #define SSC_WPMR_WPKEY_Msk (0xffffffu << SSC_WPMR_WPKEY_Pos) /**< \brief (SSC_WPMR) Write Protect KEY */
-#define SSC_WPMR_WPKEY(value) ((SSC_WPMR_WPKEY_Msk & ((value) << SSC_WPMR_WPKEY_Pos)))
+#define   SSC_WPMR_WPKEY_PASSWD (0x535343u << 8) /**< \brief (SSC_WPMR) Writing any other value in this field aborts the write operation of the WPEN bit.Always reads as 0. */
 /* -------- SSC_WPSR : (SSC Offset: 0xE8) Write Protect Status Register -------- */
 #define SSC_WPSR_WPVS (0x1u << 0) /**< \brief (SSC_WPSR) Write Protect Violation Status */
 #define SSC_WPSR_WPVSRC_Pos 8

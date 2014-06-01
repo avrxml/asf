@@ -72,6 +72,7 @@ CSRCS = \
        sam/drivers/gpio/gpio.c                            \
        sam/drivers/usart/usart.c                          \
        sam/drivers/usbc/usbc_device.c                     \
+       sam/drivers/wdt/wdt_sam4l.c                        \
        sam/utils/cmsis/sam4l/source/templates/exceptions.c \
        sam/utils/cmsis/sam4l/source/templates/gcc/startup_sam4l.c \
        sam/utils/cmsis/sam4l/source/templates/system_sam4l.c \
@@ -102,6 +103,7 @@ INC_PATH = \
        sam/drivers/gpio                                   \
        sam/drivers/usart                                  \
        sam/drivers/usbc                                   \
+       sam/drivers/wdt                                    \
        sam/utils                                          \
        sam/utils/cmsis/sam4l/include                      \
        sam/utils/cmsis/sam4l/source/templates             \
@@ -162,7 +164,12 @@ CPPFLAGS = \
        -D BOARD=SAM4L_EK                                  \
        -D UDD_ENABLE                                      \
        -D __SAM4LC4C__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

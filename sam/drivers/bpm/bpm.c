@@ -276,10 +276,12 @@ void bpm_sleep(Bpm *bpm, uint32_t sleep_mode)
 		pmcon |= BPM_PMCON_RET;
 		bpm->BPM_PMCON = pmcon;
 		SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-	} else { /* if (sleep_mode == BPM_SM_BACKUP) */
+	} else if (sleep_mode == BPM_SM_BACKUP) { 
 		pmcon |= BPM_PMCON_BKUP;
 		bpm->BPM_PMCON = pmcon;
 		SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+	} else {
+		return;
 	}
 
 	/* Wait until vreg is ok. */

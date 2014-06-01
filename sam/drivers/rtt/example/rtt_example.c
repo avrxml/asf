@@ -3,7 +3,7 @@
  *
  * \brief Real-time Timer (RTT) example for SAM.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,19 +56,12 @@
  *
  * \section Description
  *
- * When launched, this program displays a timer count and a menu on the terminal,
- * enabling the user to choose between several options.
+ * When launched, this program displays a timer count and a menu on the
+ * terminal, enabling the user to choose between several options.
  *
  * \section Usage
  *
- * -# Build the program and download it into the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a> application note or the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>, depending on the solutions that users choose.
+ * -# Build the program and download it into the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -79,15 +72,15 @@
  * -# Start the application.
  * -# In the terminal window, the following text should appear:
  *    \code
- *     -- RTT Example --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     Time: 1
- *     Menu:
- *     r - Reset timer
- *     s - Set alarm
- *     Choice?
- *    \endcode
+	-- RTT Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	Time: 1
+	Menu:
+	r - Reset timer
+	s - Set alarm
+	Choice?
+\endcode
  */
 
 #include "asf.h"
@@ -165,7 +158,11 @@ static void configure_rtt(void)
 	uint32_t ul_previous_time;
 
 	/* Configure RTT for a 1 second tick interrupt */
+#if SAM4N || SAM4S || SAM4E || SAM4C || SAM4CP || SAM4CM
+	rtt_sel_source(RTT, false);
+#endif
 	rtt_init(RTT, 32768);
+
 	ul_previous_time = rtt_read_timer_value(RTT);
 	while (ul_previous_time == rtt_read_timer_value(RTT));
 
@@ -186,7 +183,7 @@ static void configure_console(void)
 		.baudrate = CONF_UART_BAUDRATE,
 		.paritytype = CONF_UART_PARITY
 	};
-	
+
 	/* Configure console UART. */
 	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
 	stdio_serial_init(CONF_UART, &uart_serial_options);

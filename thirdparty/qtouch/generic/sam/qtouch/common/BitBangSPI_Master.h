@@ -5,7 +5,7 @@
  *
  * \brief  This file contains the BitBangSPI Configuration settings.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -58,14 +58,6 @@
 #endif
 
 #define SPI_BB      A
-
-#if (defined __GNUC__)
-#define nop() __asm__ __volatile__ ( "nop" )
-#endif
-
-#if (defined __ICCARM__)
-#define nop() (__no_operation())
-#endif
 
 #define DELAY50US() do{   \
     nop(); nop(); nop(); nop(); nop(); nop(); nop(); nop(); nop(); nop();  \

@@ -74,8 +74,8 @@
  *-----------------------------------------------------------
  */
 #include <avr32/io.h>
-#include "intc.h"
-#include "compiler.h"
+#include <intc.h>
+#include <compiler.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -532,12 +532,12 @@ extern void *pvPortRealloc( void *pv, size_t xSize );
  *
  * Usage:
  * \code
- * ISR_FREERTOS(foo_irq_handler, AVR32_xxx_IRQ_GROUP, n)
- * {
- *      // Function definition
- *      ...
- * }
- * \endcode
+	ISR_FREERTOS(foo_irq_handler, AVR32_xxx_IRQ_GROUP, n)
+	{
+	     // Function definition
+	     ...
+	}
+\endcode
  *
  * \param func Name for the function, needed by \ref irq_register_handler.
  * \param int_grp Interrupt group to define service routine for.

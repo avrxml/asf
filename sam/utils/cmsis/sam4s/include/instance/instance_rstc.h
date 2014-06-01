@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,13 +44,13 @@
 
 /* ========== Register definition for RSTC peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-#define REG_RSTC_CR          (0x400E1400U) /**< \brief (RSTC) Control Register */
-#define REG_RSTC_SR          (0x400E1404U) /**< \brief (RSTC) Status Register */
-#define REG_RSTC_MR          (0x400E1408U) /**< \brief (RSTC) Mode Register */
+  #define REG_RSTC_CR                  (0x400E1400U) /**< \brief (RSTC) Control Register */
+  #define REG_RSTC_SR                  (0x400E1404U) /**< \brief (RSTC) Status Register */
+  #define REG_RSTC_MR                  (0x400E1408U) /**< \brief (RSTC) Mode Register */
 #else
-#define REG_RSTC_CR (*(WoReg*)0x400E1400U) /**< \brief (RSTC) Control Register */
-#define REG_RSTC_SR (*(RoReg*)0x400E1404U) /**< \brief (RSTC) Status Register */
-#define REG_RSTC_MR (*(RwReg*)0x400E1408U) /**< \brief (RSTC) Mode Register */
+  #define REG_RSTC_CR (*(__O  uint32_t*)0x400E1400U) /**< \brief (RSTC) Control Register */
+  #define REG_RSTC_SR (*(__I  uint32_t*)0x400E1404U) /**< \brief (RSTC) Status Register */
+  #define REG_RSTC_MR (*(__IO uint32_t*)0x400E1408U) /**< \brief (RSTC) Mode Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAM4S_RSTC_INSTANCE_ */

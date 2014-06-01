@@ -3,7 +3,7 @@
  *
  * \brief Function prototypes for Peera Search process -
  * Performance Analyzer application
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -207,7 +207,7 @@ void peer_search_initiator_task(void);
 
 /**
  * \brief Callback that is called once tx is done in peer search initiator
- *state.
+ * state.
  *
  * \param status    Status of the transmission procedure
  * \param frame     Pointer to the transmitted frame structure

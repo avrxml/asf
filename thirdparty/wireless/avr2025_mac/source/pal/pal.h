@@ -3,7 +3,7 @@
  *
  * @brief PAL related APIs
  *
- *  Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ *  Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,7 +54,7 @@
  */
 
 /**
- * \defgroup group_pal Platform Abstraction Layer
+ * \defgroup group_pal PAL
  * This module acts as a wrapper layer between the Wireless stack and the ASF
  *drivers
  * All hardwar level acess to the ASF drivers from the stack happens through
@@ -68,11 +68,10 @@
 #include "return_val.h"
 #include "common_sw_timer.h"
 #include "board.h"
-#include "delay.h"
-#include "conf_pal.h"
+#include "asf.h"
 
 #if (PAL_USE_SPI_TRX == 1)
-#include "pal_ext_trx.h"
+#include "trx_access.h"
 #else
 #include "sysclk.h"
 #endif /* #if (PAL_USE_SPI_TRX = 1) */
@@ -165,11 +164,6 @@ typedef enum ps_id_tag {
 typedef enum pwr_mode_tag {
 	SYSTEM_SLEEP
 } pwr_mode_t;
-
-/**
- * @brief Transceiver ISR handler
- */
-typedef void (*irq_handler_t)(void);
 
 #ifdef TEST_HARNESS
 #if (_DEBUG_ > 0)
@@ -290,16 +284,6 @@ static inline void pal_global_irq_disable(void)
 {
 	DISABLE_GLOBAL_IRQ();
 }
-
-/**
- * \brief Initializes the transceiver main interrupt
- *
- * This function sets the microcontroller specific registers
- * responsible for handling the transceiver main interrupt
- *
- * \param trx_irq_cb Callback function for the transceiver main interrupt
- */
-void pal_trx_irq_init(FUNC_PTR trx_irq_cb);
 
 /**
  * @brief Provides timestamp of the last received frame

@@ -6,7 +6,7 @@
  * This header file declares prototypes of PAL APIs, enumerations
  * used by TAL and MAC.
  *
- *  Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ *  Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -228,56 +228,6 @@ retval_t pal_ps_get(ps_type_t ps_type, uint16_t start_addr, uint16_t length,
 retval_t pal_ps_set(uint16_t start_addr, uint16_t length, void *value);
 
 retval_t pal_timer_get_id(uint8_t *timer_id);
-
-/**
- * \brief Start regular timer
- *
- * This function starts a regular timer and installs the corresponding
- * callback function handle the timeout event.
- *
- * \param timer_id Timer identifier
- * \param timer_count Timeout in microseconds
- * \param timeout_type \ref TIMEOUT_RELATIVE or \ref TIMEOUT_ABSOLUTE
- * \param timer_cb Callback handler invoked upon timer expiry
- * \param param_cb Argument for the callback handler
- *
- * \return
- *          - \ref PAL_TMR_INVALID_ID  if the timer identifier is undefined,
- *          - \ref MAC_INVALID_PARAMETER if the callback function for this timer
- *                 is NULL,
- *          - \ref PAL_TMR_ALREADY_RUNNING if the timer is already running.
- *          - \ref MAC_SUCCESS if timer is started or
- *          - \ref PAL_TMR_INVALID_TIMEOUT if timeout is not within timeout
- *range.
- */
-retval_t pal_timer_start(uint8_t timer_id,
-		uint32_t timer_count,
-		timeout_type_t timeout_type,
-		FUNC_PTR timer_cb,
-		void *param_cb);
-
-/**
- * \brief Stops a running timer
- *
- * This function stops a running timer with specified timer_id
- *
- * \param timer_id Timer identifier
- *
- * \return
- *          - \ref MAC_SUCCESS if timer stopped successfully,
- *          - \ref PAL_TMR_NOT_RUNNING if specified timer is not running,
- *          - \ref PAL_TMR_INVALID_ID if the specifed timer id is undefined.
- */
-retval_t pal_timer_stop(uint8_t timer_id);
-
-/**
- * \brief Gets current time
- *
- * This function returns the current time.
- *
- * \param[out] current_time Returns current system time
- */
-void pal_get_current_time(uint32_t *current_time);
 
 /**
  * @brief Checks if the timer of requested timer identifier is running

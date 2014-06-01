@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,18 +51,18 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Acc hardware registers */
 typedef struct {
-  WoReg ACC_CR;        /**< \brief (Acc Offset: 0x00) Control Register */
-  RwReg ACC_MR;        /**< \brief (Acc Offset: 0x04) Mode Register */
-  RoReg Reserved1[7];
-  WoReg ACC_IER;       /**< \brief (Acc Offset: 0x24) Interrupt Enable Register */
-  WoReg ACC_IDR;       /**< \brief (Acc Offset: 0x28) Interrupt Disable Register */
-  RoReg ACC_IMR;       /**< \brief (Acc Offset: 0x2C) Interrupt Mask Register */
-  RoReg ACC_ISR;       /**< \brief (Acc Offset: 0x30) Interrupt Status Register */
-  RoReg Reserved2[24];
-  RwReg ACC_ACR;       /**< \brief (Acc Offset: 0x94) Analog Control Register */
-  RoReg Reserved3[19];
-  RwReg ACC_WPMR;      /**< \brief (Acc Offset: 0xE4) Write Protect Mode Register */
-  RoReg ACC_WPSR;      /**< \brief (Acc Offset: 0xE8) Write Protect Status Register */
+  __O  uint32_t ACC_CR;        /**< \brief (Acc Offset: 0x00) Control Register */
+  __IO uint32_t ACC_MR;        /**< \brief (Acc Offset: 0x04) Mode Register */
+  __I  uint32_t Reserved1[7];
+  __O  uint32_t ACC_IER;       /**< \brief (Acc Offset: 0x24) Interrupt Enable Register */
+  __O  uint32_t ACC_IDR;       /**< \brief (Acc Offset: 0x28) Interrupt Disable Register */
+  __I  uint32_t ACC_IMR;       /**< \brief (Acc Offset: 0x2C) Interrupt Mask Register */
+  __I  uint32_t ACC_ISR;       /**< \brief (Acc Offset: 0x30) Interrupt Status Register */
+  __I  uint32_t Reserved2[24];
+  __IO uint32_t ACC_ACR;       /**< \brief (Acc Offset: 0x94) Analog Control Register */
+  __I  uint32_t Reserved3[19];
+  __IO uint32_t ACC_WPMR;      /**< \brief (Acc Offset: 0xE4) Write Protect Mode Register */
+  __I  uint32_t ACC_WPSR;      /**< \brief (Acc Offset: 0xE8) Write Protect Status Register */
 } Acc;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- ACC_CR : (ACC Offset: 0x00) Control Register -------- */
@@ -114,7 +114,7 @@ typedef struct {
 /* -------- ACC_ISR : (ACC Offset: 0x30) Interrupt Status Register -------- */
 #define ACC_ISR_CE (0x1u << 0) /**< \brief (ACC_ISR) Comparison Edge */
 #define ACC_ISR_SCO (0x1u << 1) /**< \brief (ACC_ISR) Synchronized Comparator Output */
-#define ACC_ISR_MASK (0x1u << 31) /**< \brief (ACC_ISR)  */
+#define ACC_ISR_MASK (0x1u << 31) /**< \brief (ACC_ISR) Flag Mask */
 /* -------- ACC_ACR : (ACC Offset: 0x94) Analog Control Register -------- */
 #define ACC_ACR_ISEL (0x1u << 0) /**< \brief (ACC_ACR) Current SELection */
 #define   ACC_ACR_ISEL_LOPW (0x0u << 0) /**< \brief (ACC_ACR) low power option. */
@@ -126,7 +126,7 @@ typedef struct {
 #define ACC_WPMR_WPEN (0x1u << 0) /**< \brief (ACC_WPMR) Write Protect Enable */
 #define ACC_WPMR_WPKEY_Pos 8
 #define ACC_WPMR_WPKEY_Msk (0xffffffu << ACC_WPMR_WPKEY_Pos) /**< \brief (ACC_WPMR) Write Protect KEY */
-#define ACC_WPMR_WPKEY(value) ((ACC_WPMR_WPKEY_Msk & ((value) << ACC_WPMR_WPKEY_Pos)))
+#define   ACC_WPMR_WPKEY_PASSWD (0x414343u << 8) /**< \brief (ACC_WPMR) Writing any other value in this field aborts the write operation of the WPEN bit.Always reads as 0. */
 /* -------- ACC_WPSR : (ACC Offset: 0xE8) Write Protect Status Register -------- */
 #define ACC_WPSR_WPROTERR (0x1u << 0) /**< \brief (ACC_WPSR) Write PROTection ERRor */
 

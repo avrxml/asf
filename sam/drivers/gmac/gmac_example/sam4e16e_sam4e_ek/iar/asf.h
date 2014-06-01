@@ -56,9 +56,6 @@
 #include <compiler.h>
 #include <status_codes.h>
 
-// From module: Ethernet MAC (GMAC)
-#include <gmac.h>
-
 // From module: Ethernet Physical Transceiver (ksz8051mnl)
 #include <ethernet_phy.h>
 
@@ -71,12 +68,19 @@
 // From module: Interrupt management - SAM implementation
 #include <interrupt.h>
 
+// From module: PHY Ethernet MAC (GMAC)
+#include <gmac.h>
+
 // From module: PMC - Power Management Controller
 #include <pmc.h>
 #include <sleep.h>
 
 // From module: Part identification macros
 #include <parts.h>
+
+// From module: Raw Ethernet MAC (GMAC)
+#include <gmac.h>
+#include <gmac_raw.h>
 
 // From module: SAM FPU driver
 #include <fpu.h>

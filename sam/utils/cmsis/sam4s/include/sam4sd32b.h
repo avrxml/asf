@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -57,13 +57,6 @@
 
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 #include <stdint.h>
-#ifndef __cplusplus
-typedef volatile const uint32_t RoReg; /**< Read only 32-bit register (volatile const unsigned int) */
-#else
-typedef volatile       uint32_t RoReg; /**< Read only 32-bit register (volatile const unsigned int) */
-#endif
-typedef volatile       uint32_t WoReg; /**< Write only 32-bit register (volatile unsigned int) */
-typedef volatile       uint32_t RwReg; /**< Read-Write 32-bit register (volatile unsigned int) */
 #endif
 
 /* ************************************************************************** */
@@ -98,7 +91,6 @@ typedef enum IRQn
   UART1_IRQn           =  9, /**<  9 SAM4SD32B UART 1 (UART1) */
   PIOA_IRQn            = 11, /**< 11 SAM4SD32B Parallel I/O Controller A (PIOA) */
   PIOB_IRQn            = 12, /**< 12 SAM4SD32B Parallel I/O Controller B (PIOB) */
-  PIOC_IRQn            = 13, /**< 13 SAM4SD32B Parallel I/O Controller C (PIOC) */
   USART0_IRQn          = 14, /**< 14 SAM4SD32B USART 0 (USART0) */
   USART1_IRQn          = 15, /**< 15 SAM4SD32B USART 1 (USART1) */
   HSMCI_IRQn           = 18, /**< 18 SAM4SD32B Multimedia Card Interface (HSMCI) */
@@ -109,9 +101,6 @@ typedef enum IRQn
   TC0_IRQn             = 23, /**< 23 SAM4SD32B Timer/Counter 0 (TC0) */
   TC1_IRQn             = 24, /**< 24 SAM4SD32B Timer/Counter 1 (TC1) */
   TC2_IRQn             = 25, /**< 25 SAM4SD32B Timer/Counter 2 (TC2) */
-  TC3_IRQn             = 26, /**< 26 SAM4SD32B Timer/Counter 3 (TC3) */
-  TC4_IRQn             = 27, /**< 27 SAM4SD32B Timer/Counter 4 (TC4) */
-  TC5_IRQn             = 28, /**< 28 SAM4SD32B Timer/Counter 5 (TC5) */
   ADC_IRQn             = 29, /**< 29 SAM4SD32B Analog To Digital Converter (ADC) */
   DACC_IRQn            = 30, /**< 30 SAM4SD32B Digital To Analog Converter (DACC) */
   PWM_IRQn             = 31, /**< 31 SAM4SD32B Pulse Width Modulation (PWM) */
@@ -158,7 +147,7 @@ typedef struct _DeviceVectors
   void* pvReserved10;
   void* pfnPIOA_Handler;   /* 11 Parallel I/O Controller A */
   void* pfnPIOB_Handler;   /* 12 Parallel I/O Controller B */
-  void* pfnPIOC_Handler;   /* 13 Parallel I/O Controller C */
+  void* pvReserved13;
   void* pfnUSART0_Handler; /* 14 USART 0 */
   void* pfnUSART1_Handler; /* 15 USART 1 */
   void* pvReserved16;
@@ -171,9 +160,9 @@ typedef struct _DeviceVectors
   void* pfnTC0_Handler;    /* 23 Timer/Counter 0 */
   void* pfnTC1_Handler;    /* 24 Timer/Counter 1 */
   void* pfnTC2_Handler;    /* 25 Timer/Counter 2 */
-  void* pfnTC3_Handler;    /* 26 Timer/Counter 3 */
-  void* pfnTC4_Handler;    /* 27 Timer/Counter 4 */
-  void* pfnTC5_Handler;    /* 28 Timer/Counter 5 */
+  void* pvReserved26;
+  void* pvReserved27;
+  void* pvReserved28;
   void* pfnADC_Handler;    /* 29 Analog To Digital Converter */
   void* pfnDACC_Handler;   /* 30 Digital To Analog Converter */
   void* pfnPWM_Handler;    /* 31 Pulse Width Modulation */
@@ -204,7 +193,6 @@ void EFC1_Handler       ( void );
 void HSMCI_Handler      ( void );
 void PIOA_Handler       ( void );
 void PIOB_Handler       ( void );
-void PIOC_Handler       ( void );
 void PMC_Handler        ( void );
 void PWM_Handler        ( void );
 void RSTC_Handler       ( void );
@@ -216,9 +204,6 @@ void SUPC_Handler       ( void );
 void TC0_Handler        ( void );
 void TC1_Handler        ( void );
 void TC2_Handler        ( void );
-void TC3_Handler        ( void );
-void TC4_Handler        ( void );
-void TC5_Handler        ( void );
 void TWI0_Handler       ( void );
 void TWI1_Handler       ( void );
 void UART0_Handler      ( void );
@@ -232,7 +217,7 @@ void WDT_Handler        ( void );
  * \brief Configuration of the Cortex-M4 Processor and Core Peripherals
  */
 
-#define __CM4_REV              0x0000 /**< SAM4SD32B core revision number ([15:8] revision number, [7:0] patch number) */
+#define __CM4_REV              0x0001 /**< SAM4SD32B core revision number ([15:8] revision number, [7:0] patch number) */
 #define __MPU_PRESENT          1      /**< SAM4SD32B does provide a MPU */
 #define __FPU_PRESENT          0      /**< SAM4SD32B does not provide a FPU */
 #define __NVIC_PRIO_BITS       4      /**< SAM4SD32B uses 4 Bits for the Priority Levels */
@@ -293,7 +278,6 @@ void WDT_Handler        ( void );
 #include "instance/instance_ssc.h"
 #include "instance/instance_spi.h"
 #include "instance/instance_tc0.h"
-#include "instance/instance_tc1.h"
 #include "instance/instance_twi0.h"
 #include "instance/instance_twi1.h"
 #include "instance/instance_pwm.h"
@@ -314,7 +298,6 @@ void WDT_Handler        ( void );
 #include "instance/instance_efc1.h"
 #include "instance/instance_pioa.h"
 #include "instance/instance_piob.h"
-#include "instance/instance_pioc.h"
 #include "instance/instance_rstc.h"
 #include "instance/instance_supc.h"
 #include "instance/instance_rtt.h"
@@ -341,7 +324,6 @@ void WDT_Handler        ( void );
 #define ID_UART1  ( 9) /**< \brief UART 1 (UART1) */
 #define ID_PIOA   (11) /**< \brief Parallel I/O Controller A (PIOA) */
 #define ID_PIOB   (12) /**< \brief Parallel I/O Controller B (PIOB) */
-#define ID_PIOC   (13) /**< \brief Parallel I/O Controller C (PIOC) */
 #define ID_USART0 (14) /**< \brief USART 0 (USART0) */
 #define ID_USART1 (15) /**< \brief USART 1 (USART1) */
 #define ID_HSMCI  (18) /**< \brief Multimedia Card Interface (HSMCI) */
@@ -352,9 +334,6 @@ void WDT_Handler        ( void );
 #define ID_TC0    (23) /**< \brief Timer/Counter 0 (TC0) */
 #define ID_TC1    (24) /**< \brief Timer/Counter 1 (TC1) */
 #define ID_TC2    (25) /**< \brief Timer/Counter 2 (TC2) */
-#define ID_TC3    (26) /**< \brief Timer/Counter 3 (TC3) */
-#define ID_TC4    (27) /**< \brief Timer/Counter 4 (TC4) */
-#define ID_TC5    (28) /**< \brief Timer/Counter 5 (TC5) */
 #define ID_ADC    (29) /**< \brief Analog To Digital Converter (ADC) */
 #define ID_DACC   (30) /**< \brief Digital To Analog Converter (DACC) */
 #define ID_PWM    (31) /**< \brief Pulse Width Modulation (PWM) */
@@ -379,7 +358,6 @@ void WDT_Handler        ( void );
 #define SPI        (0x40008000U) /**< \brief (SPI       ) Base Address */
 #define PDC_SPI    (0x40008100U) /**< \brief (PDC_SPI   ) Base Address */
 #define TC0        (0x40010000U) /**< \brief (TC0       ) Base Address */
-#define TC1        (0x40014000U) /**< \brief (TC1       ) Base Address */
 #define TWI0       (0x40018000U) /**< \brief (TWI0      ) Base Address */
 #define PDC_TWI0   (0x40018100U) /**< \brief (PDC_TWI0  ) Base Address */
 #define TWI1       (0x4001C000U) /**< \brief (TWI1      ) Base Address */
@@ -410,7 +388,6 @@ void WDT_Handler        ( void );
 #define PIOA       (0x400E0E00U) /**< \brief (PIOA      ) Base Address */
 #define PDC_PIOA   (0x400E0F68U) /**< \brief (PDC_PIOA  ) Base Address */
 #define PIOB       (0x400E1000U) /**< \brief (PIOB      ) Base Address */
-#define PIOC       (0x400E1200U) /**< \brief (PIOC      ) Base Address */
 #define RSTC       (0x400E1400U) /**< \brief (RSTC      ) Base Address */
 #define SUPC       (0x400E1410U) /**< \brief (SUPC      ) Base Address */
 #define RTT        (0x400E1430U) /**< \brief (RTT       ) Base Address */
@@ -425,7 +402,6 @@ void WDT_Handler        ( void );
 #define SPI        ((Spi    *)0x40008000U) /**< \brief (SPI       ) Base Address */
 #define PDC_SPI    ((Pdc    *)0x40008100U) /**< \brief (PDC_SPI   ) Base Address */
 #define TC0        ((Tc     *)0x40010000U) /**< \brief (TC0       ) Base Address */
-#define TC1        ((Tc     *)0x40014000U) /**< \brief (TC1       ) Base Address */
 #define TWI0       ((Twi    *)0x40018000U) /**< \brief (TWI0      ) Base Address */
 #define PDC_TWI0   ((Pdc    *)0x40018100U) /**< \brief (PDC_TWI0  ) Base Address */
 #define TWI1       ((Twi    *)0x4001C000U) /**< \brief (TWI1      ) Base Address */
@@ -456,7 +432,6 @@ void WDT_Handler        ( void );
 #define PIOA       ((Pio    *)0x400E0E00U) /**< \brief (PIOA      ) Base Address */
 #define PDC_PIOA   ((Pdc    *)0x400E0F68U) /**< \brief (PDC_PIOA  ) Base Address */
 #define PIOB       ((Pio    *)0x400E1000U) /**< \brief (PIOB      ) Base Address */
-#define PIOC       ((Pio    *)0x400E1200U) /**< \brief (PIOC      ) Base Address */
 #define RSTC       ((Rstc   *)0x400E1400U) /**< \brief (RSTC      ) Base Address */
 #define SUPC       ((Supc   *)0x400E1410U) /**< \brief (SUPC      ) Base Address */
 #define RTT        ((Rtt    *)0x400E1430U) /**< \brief (RTT       ) Base Address */
@@ -507,8 +482,11 @@ void WDT_Handler        ( void );
 /*   MISCELLANEOUS DEFINITIONS FOR SAM4SD32B */
 /* ************************************************************************** */
 
-#define CHIP_JTAGID (0x05B3203FUL)
-#define CHIP_CIDR (0x29970EE0UL)
+#define CHIP_JTAGID       (0x05B3203FUL)
+#define CHIP_CIDR         (0x29970EE0UL)
+#define NB_CH_ADC         (10UL)
+#define NB_CH_DAC         (2UL)
+#define USB_DEVICE_MAX_EP (8UL)
 
 /* ************************************************************************** */
 /*   ELECTRICAL DEFINITIONS FOR SAM4SD32B */
@@ -523,17 +501,35 @@ void WDT_Handler        ( void );
 #define CHIP_FREQ_MAINCK_RC_12MHZ       (12000000UL)
 #define CHIP_FREQ_CPU_MAX               (120000000UL)
 #define CHIP_FREQ_XTAL_32K              (32768UL)
-#define CHIP_FREQ_XTAL_12M              (12000000UL)
 
 /* Embedded Flash Write Wait State */
 #define CHIP_FLASH_WRITE_WAIT_STATE     (6U)
 
-/* Embedded Flash Read Wait State (VDDCORE set at 1.20V) */
-#define CHIP_FREQ_FWS_0                 (20000000UL) /**< \brief Maximum operating frequency when FWS is 0 */
-#define CHIP_FREQ_FWS_1                 (40000000UL) /**< \brief Maximum operating frequency when FWS is 1 */
-#define CHIP_FREQ_FWS_2                 (60000000UL) /**< \brief Maximum operating frequency when FWS is 2 */
-#define CHIP_FREQ_FWS_3                 (80000000UL) /**< \brief Maximum operating frequency when FWS is 3 */
+#if defined __SAM4S2A__ || defined __SAM4S2B__ || defined __SAM4S2C__ || \
+    defined __SAM4S4A__ || defined __SAM4S4B__ || defined __SAM4S4C__
+
+/* Embedded Flash Read Wait State (VDDCORE set at 1.20V and VDDIO 3.3V) */
+#define CHIP_FREQ_FWS_0                 (29000000UL)  /**< \brief Maximum operating frequency when FWS is 0 */
+#define CHIP_FREQ_FWS_1                 (58000000UL)  /**< \brief Maximum operating frequency when FWS is 1 */
+#define CHIP_FREQ_FWS_2                 (88000000UL)  /**< \brief Maximum operating frequency when FWS is 2 */
+#define CHIP_FREQ_FWS_3                 (10800000UL)  /**< \brief Maximum operating frequency when FWS is 3 */
+#define CHIP_FREQ_FWS_4                 (120000000UL) /**< \brief Maximum operating frequency when FWS is 4 */
+
+#else  /* SAM4S8/S16/SA16/SD16/SD32 */
+
+/* Embedded Flash Read Wait State (VDDCORE set at 1.20V and VDDIO 3.3V) */
+#define CHIP_FREQ_FWS_0                 (20000000UL)  /**< \brief Maximum operating frequency when FWS is 0 */
+#define CHIP_FREQ_FWS_1                 (40000000UL)  /**< \brief Maximum operating frequency when FWS is 1 */
+#define CHIP_FREQ_FWS_2                 (60000000UL)  /**< \brief Maximum operating frequency when FWS is 2 */
+#define CHIP_FREQ_FWS_3                 (80000000UL)  /**< \brief Maximum operating frequency when FWS is 3 */
 #define CHIP_FREQ_FWS_4                 (100000000UL) /**< \brief Maximum operating frequency when FWS is 4 */
+#define CHIP_FREQ_FWS_5                 (123000000UL) /**< \brief Maximum operating frequency when FWS is 5 */
+
+#endif
+
+/* HYSTeresis levels: please refer to Electrical Characteristics */
+#define ACC_ACR_HYST_50MV_MAX	        (0x01UL)
+#define ACC_ACR_HYST_90MV_MAX           (0x11UL)
 
 #ifdef __cplusplus
 }

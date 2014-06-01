@@ -49,7 +49,7 @@ extern "C" {
 #endif
 
 /**
- * \defgroup ov7740_CMOS_image_sensor_group
+ * \defgroup ov7740_CMOS_image_sensor_registers_group
  *
  * This file defines several arrays. Each of them contain adress of ov7740
  * register and corresponding value for a specific configuration.

@@ -3,7 +3,7 @@
  *
  * \brief Virtual file system management.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,6 +49,6 @@ struct fs_file {
 	int len;
 };
 
-extern int fs_open(char *name, struct fs_file *file);
+int fs_open(char *name, struct fs_file *file);
 
 #endif /* __FS_H__ */

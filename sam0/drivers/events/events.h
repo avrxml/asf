@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Event System Driver
+ * \brief SAM D20/D21/R21 Event System Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,80 +43,89 @@
 #ifndef EVENTS_H_INCLUDED
 #define EVENTS_H_INCLUDED
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
- * \defgroup asfdoc_samd20_events_group SAM D20 Event System Driver
+ * \defgroup asfdoc_sam0_events_group SAM D20/D21/R21 Event System Driver (EVENTS)
  *
- * This driver for SAM D20 devices provides an interface for the configuration
- * and management of the device's peripheral event channels and users within
- * the device, including the enabling and disabling of peripheral source selection
- * and synchronization of clock domains between various modules.
+ * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
+ * and management of the device's peripheral event resources and users within
+ * the device, including enabling and disabling of peripheral source selection
+ * and synchronization of clock domains between various modules. The following API
+ * modes is covered by this manual:
+ *  - Polled API
+ * \if EVENTS_INTERRUPT_HOOK_MODE
+ *  - Interrupt hook API
+ * \endif
  *
  * The following peripherals are used by this module:
  *
- *  - EVSYS (Event System Management)
+ * - EVSYS (Event System Management)
  *
  * The outline of this documentation is as follows:
- *  - \ref asfdoc_samd20_events_prerequisites
- *  - \ref asfdoc_samd20_events_module_overview
- *  - \ref asfdoc_samd20_events_special_considerations
- *  - \ref asfdoc_samd20_events_extra_info
- *  - \ref asfdoc_samd20_events_examples
- *  - \ref asfdoc_samd20_events_api_overview
+ * - \ref asfdoc_sam0_events_prerequisites
+ * - \ref asfdoc_sam0_events_module_overview
+ * - \ref asfdoc_sam0_events_special_considerations
+ * - \ref asfdoc_sam0_events_extra_info
+ * - \ref asfdoc_sam0_events_examples
+ * - \ref asfdoc_sam0_events_api_overview
  *
  *
- * \section asfdoc_samd20_events_prerequisites Prerequisites
+ * \section asfdoc_sam0_events_prerequisites Prerequisites
  *
  * There are no prerequisites for this module.
  *
  *
- * \section asfdoc_samd20_events_module_overview Module Overview
+ * \section asfdoc_sam0_events_module_overview Module Overview
  *
- * Peripherals within the SAM D20 devices are capable of generating two types of
- * actions in response to given stimulus; they can set a register flag for later
- * intervention by the CPU (using interrupt or polling methods), or they can
- * generate event signals which can be internally routed directly to other
+ * Peripherals within the SAM D20/D21/R21 devices are capable of generating two types of
+ * actions in response to given stimulus: set a register flag for later
+ * intervention by the CPU (using interrupt or polling methods), or generate
+ * event signals which can be internally routed directly to other
  * peripherals within the device. The use of events allows for direct actions
  * to be performed in one peripheral in response to a stimulus in another
  * without CPU intervention. This can lower the overall power consumption of the
- * system if the CPU is able to remain in sleep modes for longer periods, and
+ * system if the CPU is able to remain in sleep modes for longer periods (SleepWalking&trade;), and
  * lowers the latency of the system response.
  *
  * The event system is comprised of a number of freely configurable Event
- * Channels, plus a number of fixed Event Users. Each Event Channel can be
- * configured to select the input peripheral that will generate the events on
- * the channel, as well as the synchronization path and edge detection mode.
+ * resources, plus a number of fixed Event Users. Each Event resource can be
+ * configured to select the input peripheral that will generate the events
+ * signal, as well as the synchronization path and edge detection mode.
  * The fixed-function Event Users, connected to peripherals within the device,
- * can then subscribe to an Event Channel in a one-to-many relationship in order
+ * can then subscribe to an Event resource in a one-to-many relationship in order
  * to receive events as they are generated. An overview of the event system
  * chain is shown in
- * \ref asfdoc_samd20_events_module_overview_fig "the figure below".
+ * \ref asfdoc_sam0_events_module_overview_fig "the figure below".
  *
- * \anchor asfdoc_samd20_events_module_overview_fig
+ * \anchor asfdoc_sam0_events_module_overview_fig
  * \dot
  * digraph overview {
- *   rankdir=LR;
- *   node [label="Source\nPeripheral" shape=ellipse style=filled fillcolor=lightgray] src_peripheral;
- *   node [label="Event\nChannel a" shape=square style=""] event_gen0;
- *   node [label="Event\nUser x" shape=square style=""] event_user0;
- *   node [label="Event\nUser y" shape=square style=""] event_user1;
- *   node [label="Destination\nPeripheral" shape=ellipse style=filled fillcolor=lightgray] dst_peripheral0;
- *   node [label="Destination\nPeripheral" shape=ellipse style=filled fillcolor=lightgray] dst_peripheral1;
+ * rankdir=LR;
+ * node [label="Source\nPeripheral\n(Generator)" shape=ellipse style=filled fillcolor=lightgray] src_peripheral;
+ * node [label="Event\nResource A" shape=square style=""] event_gen0;
+ * node [label="Event\nUser X" shape=square style=""] event_user0;
+ * node [label="Event\nUser Y" shape=square style=""] event_user1;
+ * node [label="Destination\nPeripheral\n(User)" shape=ellipse style=filled fillcolor=lightgray] dst_peripheral0;
+ * node [label="Destination\nPeripheral\n(User)" shape=ellipse style=filled fillcolor=lightgray] dst_peripheral1;
  *
- *   src_peripheral -> event_gen0;
- *   event_gen0     -> event_user0;
- *   event_gen0     -> event_user1;
- *   event_user0    -> dst_peripheral0;
- *   event_user1    -> dst_peripheral1;
+ * src_peripheral -> event_gen0;
+ * event_gen0 -> event_user0;
+ * event_gen0 -> event_user1;
+ * event_user0 -> dst_peripheral0;
+ * event_user1 -> dst_peripheral1;
  * }
  * \enddot
  *
  * There are many different events that can be routed in the device, which can
  * then trigger many different actions. For example, an Analog Comparator module
  * could be configured to generate an event when the input signal rises above
- * the compare threshold, which then triggers a Timer module to capture the
- * current count value for later use.
+ * the compare threshold, which then triggers a Timer Counter module to capture
+ * the current count value for later use.
  *
- * \subsection asfdoc_samd20_events_module_overview_event_channels Event Channels
+ * \subsection asfdoc_sam0_events_module_overview_event_channels Event Channels
  * The Event module in each device consists of several channels, which can be
  * freely linked to an event generator (i.e. a peripheral within the device
  * that is capable of generating events). Each channel can be individually
@@ -128,13 +137,13 @@
  * automatically handshake with all attached users to ensure that all modules
  * correctly receive and acknowledge the event.
  *
- * \subsection asfdoc_samd20_events_module_overview_event_users Event Users
+ * \subsection asfdoc_sam0_events_module_overview_event_users Event Users
  * Event Users are able to subscribe to an Event Channel, once it has been
  * configured. Each Event User consists of a fixed connection to one of the
  * peripherals within the device (for example, an ADC module or Timer module)
  * and is capable of being connected to a single Event Channel.
  *
- * \subsection asfdoc_samd20_events_module_overview_edge_detection Edge Detection
+ * \subsection asfdoc_sam0_events_module_overview_edge_detection Edge Detection
  * For asynchronous events, edge detection on the event input is not possible,
  * and the event signal must be passed directly between the event generator and
  * event user. For synchronous and re-synchronous events, the input signal from
@@ -142,21 +151,21 @@
  * the rising, falling or both edges of the event signal triggers an action in
  * the event user.
  *
- * \subsection asfdoc_samd20_events_module_overview_path_selection Path Selection
- * The event system in the SAM0 devices supports three signal path types from
+ * \subsection asfdoc_sam0_events_module_overview_path_selection Path Selection
+ * The event system in the SAM D20/D21/R21 devices supports three signal path types from
  * the event generator to event users: asynchronous, synchronous and
  * re-synchronous events.
  *
- * \subsubsection asfdoc_samd20_events_module_overview_path_selection_async Asynchronous Paths
+ * \subsubsection asfdoc_sam0_events_module_overview_path_selection_async Asynchronous Paths
  * Asynchronous event paths allow for an asynchronous connection between the
  * event generator and event user(s), when the source and destination
- * peripherals share the same \ref asfdoc_samd20_system_clock_group "Generic Clock"
+ * peripherals share the same \ref asfdoc_sam0_system_clock_group "Generic Clock"
  * channel. In this mode the event is propagated between the source and
  * destination directly to reduce the event latency, thus no edge detection is
  * possible. The asynchronous event chain is shown in
- * \ref asfdoc_samd20_events_module_async_path_fig "the figure below".
+ * \ref asfdoc_sam0_events_module_async_path_fig "the figure below".
  *
- * \anchor asfdoc_samd20_events_module_async_path_fig
+ * \anchor asfdoc_sam0_events_module_async_path_fig
  * \dot
  * digraph overview {
  *   rankdir=LR;
@@ -169,47 +178,49 @@
  *
  * }
  * \enddot
- * \note Identically shaped borders in the diagram indicate a shared generic clock channel
+ * \note Identically shaped borders in the diagram indicate a shared generic clock channel.
  *
- * \subsubsection asfdoc_samd20_events_module_overview_path_selection_sync Synchronous Paths
- * Synchronous event paths can be used when the source and destination
- * peripherals, as well as the generic clock to the event system itself, use
- * different generic clock channels. This case introduces additional latency in
- * the event propagation due to the addition of a synchronizer and edge detector
- * on the input event signal, however this allows modules of different clocks to
- * communicate events to one-another. The synchronous event chain is shown in
- * \ref asfdoc_samd20_events_module_sync_path_fig "the figure below".
+ * \subsubsection asfdoc_sam0_events_module_overview_path_selection_sync Synchronous Paths
+ * The Synchronous event path should be used when edge detection or interrupts
+ * from the event channel are required, and the source event generator and the
+ * event channel shares the same Generic Clock channel. The synchronous event
+ * chain is shown in
+ * \ref asfdoc_sam0_events_module_sync_path_fig "the figure below".
  *
- * \anchor asfdoc_samd20_events_module_sync_path_fig
+ * Not all peripherals support Synchronous event paths; refer to the device datasheet.
+ *
+ * \anchor asfdoc_sam0_events_module_sync_path_fig
  * \dot
  * digraph overview {
  *   rankdir=LR;
  *   node [label="Source\nPeripheral" shape=ellipse style="filled, dashed" fillcolor=lightgray] src_peripheral;
- *   node [label="<f0> EVSYS | <f1> Event\nChannel/User" fillcolor=white shape=record] events_chan;
- *   node [label="Destination\nPeripheral" shape=ellipse style="filled, dotted" fillcolor=lightgray] dst_peripheral;
+ *   node [label="<f0> EVSYS | <f1> Event\nChannel/User" fillcolor=white shape=record style="dashed"] events_chan;
+ *   node [label="Destination\nPeripheral" shape=ellipse style="filled, solid" fillcolor=lightgray] dst_peripheral;
  *
  *   src_peripheral -> events_chan;
  *   events_chan    -> dst_peripheral;
  *
  * }
  * \enddot
- * \note Identically shaped borders in the diagram indicate a shared generic clock channel
+ * \note Identically shaped borders in the diagram indicate a shared generic clock channel.
  *
- * \subsubsection asfdoc_samd20_events_module_overview_path_selection_resync Re-synchronous Paths
+ * \subsubsection asfdoc_sam0_events_module_overview_path_selection_resync Re-synchronous Paths
  * Re-synchronous event paths are a special form of synchronous events, where
- * the event users share the same generic clock channel as the event system
- * module itself, but the event generator does not. This reduces latency by
- * performing the synchronization across the event source and event user clock
- * domains once within the event channel itself, rather than in each event user.
- * The re-synchronous event chain is shown in
- * \ref asfdoc_samd20_events_module_resync_path_fig "the figure below".
+ * when edge detection or interrupts from the event channel are required, but
+ * the event generator and the event channel use different Generic Clock
+ * channels. The re-synchronous path allows the Event System to synchronize the
+ * incoming event signal from the Event Generator to the clock of the Event
+ * System module to avoid missed events, at the cost of a higher latency due to
+ * the re-synchronization process. The re-synchronous event chain is shown in
+ * \ref asfdoc_sam0_events_module_resync_path_fig "the figure below".
  *
- * \anchor asfdoc_samd20_events_module_resync_path_fig
+ * Not all peripherals support Re-synchronous event paths; refer to the device datasheet.
+ * \anchor asfdoc_sam0_events_module_resync_path_fig
  * \dot
  * digraph overview {
  *   rankdir=LR;
- *   node [label="Source\nPeripheral" shape=ellipse style="filled, dashed" fillcolor=lightgray] src_peripheral;
- *   node [label="<f0> EVSYS | <f1> Event\nChannel/User" fillcolor=white shape=record] events_chan;
+ *   node [label="Source\nPeripheral" shape=ellipse style="filled, dotted" fillcolor=lightgray] src_peripheral;
+ *   node [label="<f0> EVSYS | <f1> Event\nChannel/User" fillcolor=white shape=record style="dashed"] events_chan;
  *   node [label="Destination\nPeripheral" shape=ellipse style=filled fillcolor=lightgray] dst_peripheral;
  *
  *   src_peripheral -> events_chan;
@@ -217,14 +228,14 @@
  *
  * }
  * \enddot
- * \note Identically shaped borders in the diagram indicate a shared generic clock channel
+ * \note Identically shaped borders in the diagram indicate a shared generic clock channel.
  *
- * \subsection asfdoc_samd20_events_module_overview_physical Physical Connection
+ * \subsection asfdoc_sam0_events_module_overview_physical Physical Connection
  *
- * \ref asfdoc_samd20_events_module_int_connections_fig "The diagram below"
+ * \ref asfdoc_sam0_events_module_int_connections_fig "The diagram below"
  * shows how this module is interconnected within the device.
  *
- * \anchor asfdoc_samd20_events_module_int_connections_fig
+ * \anchor asfdoc_sam0_events_module_int_connections_fig
  * \dot
  * digraph overview {
  *   rankdir=LR;
@@ -243,426 +254,421 @@
  * }
  * \enddot
  *
+ * \subsection asfdoc_sam0_events_module_overview_config Configuring Events
+ * For SAM D20/D21/R21 devices, several steps are required to properly configure an
+ * event chain, so that hardware peripherals can respond to events generated by
+ * each other, listed below.
  *
- * \section asfdoc_samd20_events_special_considerations Special Considerations
+ * \subsubsection asfdoc_sam0_events_module_overview_config_src Source Peripheral
+ *  -# The source peripheral (that will generate events) must be configured and
+ *     enabled.
+ *  -# The source peripheral (that will generate events) must have an output
+ *     event enabled.
+
+ * \subsubsection asfdoc_sam0_events_module_overview_config_evsys Event System
+ *  -# An event system channel must be allocated and configured with the
+ *     correct source peripheral selected as the channel's event generator.
+ *  -# The event system user must be configured and enabled, and attached to
+ #     event channel previously allocated.
+
+ * \subsubsection asfdoc_sam0_events_module_overview_config_dst Destination Peripheral
+ *  -# The destination peripheral (that will receive events) must be configured
+ *     and enabled.
+ *  -# The destination peripheral (that will receive events) must have an input
+ *     event enabled.
+ *
+ *
+ * \section asfdoc_sam0_events_special_considerations Special Considerations
  *
  * There are no special considerations for this module.
  *
  *
- * \section asfdoc_samd20_events_extra_info Extra Information for EVENTS
+ * \section asfdoc_sam0_events_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_samd20_events_extra. This includes:
- *  - \ref asfdoc_samd20_events_extra_acronyms
- *  - \ref asfdoc_samd20_events_extra_dependencies
- *  - \ref asfdoc_samd20_events_extra_errata
- *  - \ref asfdoc_samd20_events_extra_history
+ * For extra information see \ref asfdoc_sam0_events_extra. This includes:
+ * - \ref asfdoc_sam0_events_extra_acronyms
+ * - \ref asfdoc_sam0_events_extra_dependencies
+ * - \ref asfdoc_sam0_events_extra_errata
+ * - \ref asfdoc_sam0_events_extra_history
  *
  *
- * \section asfdoc_samd20_events_examples Examples
+ * \section asfdoc_sam0_events_examples Examples
  *
  * For a list of examples related to this driver, see
- * \ref asfdoc_samd20_events_exqsg.
+ * \ref asfdoc_sam0_events_exqsg.
  *
  *
- * \section asfdoc_samd20_events_api_overview API Overview
+ * \section asfdoc_sam0_events_api_overview API Overview
  * @{
  */
 
 #include <compiler.h>
-#include <system.h>
+#include "events_common.h"
 
-#ifdef __cplusplus
-extern "C" {
+
+/**
+ * \brief Edge detect enum
+ *
+ * Event channel edge detect setting
+ *
+ */
+enum events_edge_detect {
+	/** No event output */
+	EVENTS_EDGE_DETECT_NONE,
+	/** Event on rising edge */
+	EVENTS_EDGE_DETECT_RISING,
+	/** Event on falling edge */
+	EVENTS_EDGE_DETECT_FALLING,
+	/** Event on both edges */
+	EVENTS_EDGE_DETECT_BOTH,
+};
+
+/**
+ * \brief Path selection enum
+ *
+ * Event channel path selection
+ *
+ */
+enum events_path_selection {
+	/** Select the synchronous path for this event channel */
+	EVENTS_PATH_SYNCHRONOUS,
+	/** Select the resynchronizer path for this event channel */
+	EVENTS_PATH_RESYNCHRONIZED,
+	/** Select the asynchronous path for this event channel */
+	EVENTS_PATH_ASYNCHRONOUS,
+};
+
+/**
+ * \brief Events configuration struct
+ *
+ * This events configuration struct is used to configure each of the channels
+ *
+ */
+struct events_config {
+	/** Select edge detection mode */
+	enum events_edge_detect    edge_detect;
+	/** Select events channel path */
+	enum events_path_selection path;
+	/** Set event generator for the channel */
+	uint8_t                    generator;
+	/** Clock source for the event channel */
+	uint8_t                    clock_source;
+};
+
+/**
+ * \brief No event generator definition
+ *
+ * Use this to disable any peripheral event input to a channel. This can be usefull
+ * if you only want to use a channel for software generated events.
+ *
+ */
+
+///@cond INTERNAL
+/**
+ * \internal
+ * Status bit offsets in the status register/interrupt register
+ *
+ * @{
+ */
+#define _EVENTS_START_OFFSET_BUSY_BITS           8
+#define _EVENTS_START_OFFSET_USER_READY_BIT      0
+#define _EVENTS_START_OFFSET_DETECTION_BIT       8
+#define _EVENTS_START_OFFSET_OVERRUN_BIT         0
+/** @} */
+///@endcond
+
+/** Definition for no generator selection */
+#define EVSYS_ID_GEN_NONE   0
+/** Definition for no user selection */
+#define EVSYS_ID_USER_NONE  0
+/**
+ * \brief Event channel resource
+ *
+ * Event resource structure.
+ *
+ * \note The fields in this structure should not be altered by the user application;
+ *       they are reserved for driver internals only.
+ */
+struct events_resource {
+#if !defined(__DOXYGEN__)
+	/* Channel allocated for the event resource */
+	uint8_t channel;
+#endif
+};
+
+#if EVENTS_INTERRUPT_HOOKS_MODE == true
+typedef void (*events_interrupt_hook)(struct events_resource *resource);
+
+//struct events_hook;
+
+struct events_hook {
+	struct events_resource *resource;
+	events_interrupt_hook hook_func;
+	struct events_hook *next;
+};
 #endif
 
 /**
- * \brief Event System channel selection
+ * \brief Initializes an event configurations struct to defaults
  *
- * Enum containing the possible event channel selections.
+ * Initailizes an event configuration struct to predefined safe default settings.
+ *
+ * \param[in] config Pointer to an instance of \ref struct events_config
+ *
  */
-enum events_channel {
-	/** Event channel 0 */
-	EVENT_CHANNEL_0 = 0,
-	/** Event channel 1 */
-	EVENT_CHANNEL_1 = 1,
-	/** Event channel 2 */
-	EVENT_CHANNEL_2 = 2,
-	/** Event channel 3 */
-	EVENT_CHANNEL_3 = 3,
-	/** Event channel 4 */
-	EVENT_CHANNEL_4 = 4,
-	/** Event channel 5 */
-	EVENT_CHANNEL_5 = 5,
-	/** Event channel 6 */
-	EVENT_CHANNEL_6 = 6,
-	/** Event channel 7 */
-	EVENT_CHANNEL_7 = 7,
-};
+void events_get_config_defaults(struct events_config *config);
 
 /**
- * \brief Event System synchronous channel edge detection configurations.
+ * \brief Allocate an event channel and set configuration
  *
- * Enum containing the possible event channel edge detection configurations,
- * to select when the synchronous event triggers according to a particular
- * trigger edge.
+ * Allocates an event channel from the event channel pool and sets
+ * the channel configuration.
  *
- * \note For asynchronous events, edge detection is not possible and selection
- *       of any value other than \ref EVENT_EDGE_NONE will have no effect. For
- *       synchronous events, a valid edge detection mode other than
- *       \ref EVENT_EDGE_NONE must be set for events to be generated.
+ * \param[out] resource Pointer to a \ref events_resource struct instance
+ * \param[in]  config   Pointer to a \ref events_config struct
+ *
+ * \return Status of the configuration procedure
+ * \retval STATUS_OK            Allocation and configuration went successful
+ * \retval STATUS_ERR_NOT_FOUND No free event channel found
+ *
  */
-enum events_edge {
-	/** Event channel disabled (or direct pass-through for asynchronous
-	 *  events). */
-	EVENT_EDGE_NONE    = 0,
-	/** Event channel triggers on rising edges. */
-	EVENT_EDGE_RISING  = 1,
-	/** Event channel triggers on falling edges. */
-	EVENT_EDGE_FALLING = 2,
-	/** Event channel triggers on both edges. */
-	EVENT_EDGE_BOTH    = 3,
-};
+enum status_code events_allocate(struct events_resource *resource, struct events_config *config);
 
 /**
- * \brief Event System channel path type configurations.
+ * \brief Attach user to the event channel
  *
- * Enum containing the possible event channel paths, to select between
- * digital clock synchronization settings for each channel.
+ * Attach a user peripheral to the event channel to receive events.
+ *
+ * \param[in] resource Pointer to an \ref events_resource struct instance
+ * \param[in] user_id  A number identifying the user peripheral found in the device header file.
+ *
+ * \return Status of the user attach procedure
+ * \retval STATUS_OK No errors detected when attaching the event user
  */
-enum events_path {
-	/** Event is synchronized to the digital clock. */
-	EVENT_PATH_SYNCHRONOUS   = 0,
-	/** Event is re-synchronized between the source and destination digital
-	 *  clock domains. */
-	EVENT_PATH_RESYNCHRONOUS = 1,
-	/** Event is asynchronous to the digital clock. */
-	EVENT_PATH_ASYNCHRONOUS  = 2,
-};
+enum status_code events_attach_user(struct events_resource *resource, uint8_t user_id);
 
 /**
- * \brief Event System Channel configuration structure.
+ * \brief Detach an user peripheral from the event channel
  *
- * Configuration structure for an Event System channel. This structure
- * should be initialized by the \ref events_chan_get_config_defaults() function
- * before being modified by the user application.
+ * Deattach an user peripheral from the event channels so it does not receive any more events.
  *
- * \note Selecting a GLCK will only make take effect when
- * \ref EVENT_PATH_SYNCHRONOUS and \ref EVENT_PATH_RESYNCHRONOUS paths are used.
+ * \param[in] resource Pointer to an \ref event_resource struct instance
+ * \param[in] user_id  A number identifying the user peripheral found in the device header file.
+ *
+ * \return Status of the user detach procedure
+ * \retval STATUS_OK No errors detected when detaching the event user
  */
-struct events_chan_config {
-	/** Edge detection for synchronous event channels, from \ref events_edge. */
-	enum events_edge edge_detection;
-	/** Path of the event system, from \ref events_path. */
-	enum events_path path;
-	/** Event generator module that should be attached to the event channel,
-	 *  an \c EVSYS_ID_GEN_* constant from the device header files. */
-	uint8_t generator_id;
-	/** GCLK generator used to clock the specific event channel */
-	enum gclk_generator clock_source;
-};
+enum status_code events_detach_user(struct events_resource *resource, uint8_t user_id);
 
 /**
- * \brief Event System user MUX configuration structure.
+ * \brief Check if a channel is busy
  *
- * Configuration structure for an Event System subscriber multiplexer
- * channel. This structure should be initialized by the
- * \ref events_user_get_config_defaults() function before being modified by the
- * user application.
+ * Check if a channel is busy, a channels stays busy until all users connected to the channel
+ * has handled an event
+ *
+ * \param[in] resource Pointer to a \ref events_resource struct instance
+ *
+ * \return Status of the channels busy state
+ * \retval true   One or more users connected to the channel has not handled the last event
+ * \retval false  All users are ready handle new events
  */
-struct events_user_config {
-	/** Event channel ID that should be attached to the user MUX. */
-	enum events_channel event_channel_id;
-};
-
+bool events_is_busy(struct events_resource *resource);
 
 /**
- * \name Configuration and initialization
+ * \brief Trigger software event
+ *
+ * Trigger an event by software
+ *
+ * \param[in] resource Pointer to an \ref events_resource struct
+ *
+ * \return Status of the event software procedure
+ * \retval STATUS_OK No error was detected when software tigger signal was issued
+ * \retval STATUS_ERR_UNSUPPORTED_DEV If the channel path is asynchronous and/or the
+ *                                    edge detection is not set to RISING
+ */
+enum status_code events_trigger(struct events_resource *resource);
+
+/**
+ * \brief Check if all users connected to the channel is ready
+ *
+ * Check if all users connected to the channel is ready to handle incomming events
+ *
+ * \param[in] resource Pointer to an \ref events_resource struct
+ *
+ * \return The ready status of users connected to an event channel
+ * \retval true  All users connect to event channel is ready handle incomming events
+ * \retval false One or more users connect to event channel is not ready to handle incomming events
+ */
+bool events_is_users_ready(struct events_resource *resource);
+
+/**
+ * \brief Check if event is detected on event channel
+ *
+ * Check if an event has been detected on the channel
+ *
+ * \note This function will clear the event detected interrupt flag
+ *
+ * \param[in] resource Pointer to an \ref events_resource struct
+ *
+ * \return Status of the event detection interrupt flag
+ * \retval true  Event has been detected
+ * \retval false Event has not been detected
+ */
+bool events_is_detected(struct events_resource *resource);
+
+/**
+ * \brief Check if there has been an overrun situation on this channel
+ *
+ * Check if there has been an overrun situation on this channel
+ *
+ * \note This function will clear the event overrun detected interrupt flag
+ *
+ * \param[in] resource Pointer to an \ref events_resource struct
+ *
+ * \return Status of the event overrun interrupt flag
+ * \retval true  Event overrun has been detected
+ * \retval false Event overrun has not been detected
+ */
+bool events_is_overrun(struct events_resource *resource);
+
+/**
+ * \brief Release allocated channel back the the resource pool
+ *
+ * Release an allocated channel back to the resource pool to make it available for other purposes.
+ *
+ * \param[in] resource Pointer to an \ref events_resource struct
+ *
+ * \return Status of channel release procedure
+ * \retval STATUS_OK                  No error was detected when channel was released
+ * \retval STATUS_BUSY                One or more event users have not processed the last event
+ * \retval STATUS_ERR_NOT_INITIALIZED Channel not allocated, and can derfor not be released
+ */
+enum status_code events_release(struct events_resource *resource);
+
+/**
+ * \brief Get number of free channels
+ *
+ * Get number of allocatable channels in the events system resource pool
+ *
+ * \return The number of free channels in the event system
+ *
+ */
+uint8_t events_get_free_channels(void);
+
+
+///@cond INTERNAL
+/**
+ * \internal
+ * Function to find bit positons in the CHSTATUS and INTFLAG register
+ *
  * @{
  */
-
-void events_init(void);
-
+uint32_t _events_find_bit_position(uint8_t channel, uint8_t start_ofset);
 /** @} */
+///@endcond
 
-
-/**
- * \name Configuration and initialization (Event Channel)
- * @{
- */
-
-/**
- * \brief Determines if the hardware module(s) are currently synchronizing to the bus.
- *
- * Checks to see if the underlying hardware peripheral module(s) are currently
- * synchronizing across multiple clock domains to the hardware bus, This
- * function can be used to delay further operations on a module until such time
- * that it is ready, to prevent blocking delays for synchronization in the
- * user application.
- *
- * \return Synchronization status of the underlying hardware module(s).
- *
- * \retval true  if the module has completed synchronization
- * \retval false if the module synchronization is ongoing
- */
-static inline bool events_is_syncing(void)
-{
-	/* No synchronization on this architecture */
-	return false;
-}
-
-/**
- * \brief Initializes an Event System configuration structure to defaults.
- *
- * Initializes a given Event System channel configuration structure to a
- * set of known default values. This function should be called on all new
- * instances of these configuration structures before being modified by the
- * user application.
- *
- * The default configuration is as follows:
- *  \li Event channel uses asynchronous path between the source and destination
- *  \li Event channel is set not to use edge detection as the path is
- *      asynchronous and no intervention in the event system can take place
- *  \li Event channel is not connected to an Event Generator
- *  \li Event channel generic clock source is GLCK_GENERATOR_0
- *  \li Event channel generic clock does not run in standby mode
- *
- * \param[out] config    Configuration structure to initialize to default values
- */
-static inline void events_chan_get_config_defaults(
-		struct events_chan_config *const config)
-{
-	/* Sanity check arguments */
-	Assert(config);
-
-	/* Default configuration values */
-	config->edge_detection = EVENT_EDGE_NONE;
-	config->path           = EVENT_PATH_ASYNCHRONOUS;
-	config->generator_id   = 0;
-	config->clock_source   = GCLK_GENERATOR_0;
-}
-
-void events_chan_set_config(
-		const enum events_channel event_channel,
-		struct events_chan_config *const config);
-
-/** @} */
-
-
-/**
- * \name Configuration and initialization (Event User)
- * @{
- */
-
-/**
- * \brief Initializes an Event System user MUX configuration structure to defaults.
- *
- * Initializes a given Event System user MUX configuration structure to a
- * set of known default values. This function should be called on all new
- * instances of these configuration structures before being modified by the
- * user application.
- *
- * The default configuration is as follows:
- *  \li User MUX input event is connected to source channel 0
- *
- * \param[out] config  Configuration structure to initialize to default values
- */
-static inline void events_user_get_config_defaults(
-		struct events_user_config *const config)
-{
-	/* Sanity check arguments */
-	Assert(config);
-
-	/* Default configuration values */
-	config->event_channel_id = EVENT_CHANNEL_0;
-}
-
-void events_user_set_config(
-		const uint8_t user,
-		struct events_user_config *const config);
-
-/** @} */
-
-
-/**
- * \name Channel Control and Management
- * @{
- */
-
-/**
- * \brief Retrieves the busy status of an Event channel.
- *
- * Reads the status of the requested Event channel, to determine if the
- * channel is currently busy.
- *
- * \pre The specified event channel must be configured and enabled.
- *
- * \param[in] event_channel  Event channel to check
- *
- * \return Status of the specified event channel.
- *
- * \retval true  If the channel is ready to be used
- * \retval false If the channel is currently busy
- */
-static inline bool events_chan_is_ready(
-		const enum events_channel event_channel)
-{
-	/* Get the channel number from the enum selector */
-	uint8_t channel = (uint8_t)event_channel;
-
-	/* Event channel busy/user busy flags are interleaved, 8 channels to a
-	 * 16-bit word */
-	uint8_t status_halfword = channel / 8;
-	uint8_t status_bitindex = channel % 8;
-
-	/* Make it a 16-bit array to be able to work on the upper and lower
-	 * 16-bits */
-	uint16_t *channel_status_ptr = (uint16_t*)(&EVSYS->CHSTATUS.reg);
-
-	/* Determine if the specified channel is currently busy */
-	if (channel_status_ptr[status_halfword] &
-			EVSYS_CHSTATUS_CHBUSY0(1 << status_bitindex)) {
-		return false;
-	}
-
-	return true;
-}
-
-/**
- * \brief Retrieves the channel status of the users subscribed to an Event channel.
- *
- * Reads the status of the requested Event channel users, to determine if the
- * users of the event channel are currently busy.
- *
- * \pre The specified event channel must be configured and enabled.
- *
- * \param[in] event_channel  Event channel to check
- *
- * \return Status of the specified event channel subscribers.
- *
- * \retval true  If all channel subscribers are ready
- * \retval false If one or more channel subscribers are currently busy
- */
-static inline bool events_user_is_ready(
-		const enum events_channel event_channel)
-{
-	/* Get the channel number from the enum selector */
-	uint8_t channel = (uint8_t)event_channel;
-
-	/* Event channel busy/user busy flags are interleaved, 8 channels to a
-	 * 16-bit word */
-	uint8_t status_halfword = channel / 8;
-	uint8_t status_bitindex = channel % 8;
-
-	/* Make it a 16-bit array to be able to work on the upper and lower
-	 * 16-bits */
-	uint16_t *channel_status_ptr = (uint16_t*)(&EVSYS->CHSTATUS.reg);
-
-	/* Determine if the specified channel users(s) are currently ready */
-	if (channel_status_ptr[status_halfword] &
-			EVSYS_CHSTATUS_USRRDY0(1 << status_bitindex)) {
-		return true;
-	}
-
-	return false;
-}
-
-/**
- * \brief Software triggers an event channel.
- *
- * Triggers an event channel via software, setting an event notification to
- * the channel subscriber module(s) of the channel.
- *
- * \pre The specified event channel must be configured and enabled.
- *
- * \param[in] event_channel  Event channel to trigger
- */
-static inline void events_chan_software_trigger(
-		const enum events_channel event_channel)
-{
-	/* Get the channel number from the enum selector */
-	uint8_t channel = (uint8_t)event_channel;
-
-	/* Trigger the appropriate event channel - must be performed as a single
-	 * 8-bit write as mandated in the datasheet for the event system module */
-	EVSYS->CHANNEL.reg = (channel << EVSYS_CHANNEL_CHANNEL_Pos) |
-			EVSYS_CHANNEL_SWEVT;
-}
-
-/** @} */
-
-#ifdef __cplusplus
-}
-#endif
 
 /** @} */
 
 /**
- * \page asfdoc_samd20_events_extra  Extra Information for EVENTS Driver
+ * \page asfdoc_sam0_events_extra Extra Information for EVENTS Driver
  *
- * \section asfdoc_samd20_events_extra_acronyms Acronyms
+ * \section asfdoc_sam0_events_extra_acronyms Acronyms
  * Below is a table listing the acronyms used in this module, along with their
  * intended meanings.
  *
  * <table>
- *	<tr>
- *		<th>Acronym</th>
- *		<th>Description</th>
- *	</tr>
- *	<tr>
- *		<td>CPU</td>
- *		<td>Central Processing Unit</td>
- *	</tr>
- *	<tr>
- *		<td>MUX</td>
- *		<td>Multiplexer</td>
- *	</tr>
+ *   <tr>
+ *     <th>Acronym</th>
+ *     <th>Description</th>
+ *   </tr>
+ *   <tr>
+ *     <td>CPU</td>
+ *     <td>Central Processing Unit</td>
+ *   </tr>
+ *   <tr>
+ *     <td>MUX</td>
+ *     <td>Multiplexer</td>
+ *   </tr>
  * </table>
  *
  *
- * \section asfdoc_samd20_events_extra_dependencies Dependencies
+ * \section asfdoc_sam0_events_extra_dependencies Dependencies
  * This driver has the following dependencies:
  *
- *  - \ref asfdoc_samd20_system_clock_group "System Clock Driver"
+ * - \ref asfdoc_sam0_system_clock_group "System Clock Driver"
  *
  *
- * \section asfdoc_samd20_events_extra_errata Errata
+ * \section asfdoc_sam0_events_extra_errata Errata
  * There are no errata related to this driver.
  *
  *
- * \section asfdoc_samd20_events_extra_history Module History
+ * \section asfdoc_sam0_events_extra_history Module History
  * An overview of the module history is presented in the table below, with
  * details on the enhancements and fixes made to the module since its first
  * release. The current version of this corresponds to the newest version in
  * the table.
  *
  * <table>
- *	<tr>
- *		<th>Changelog</th>
- *	</tr>
- *	<tr>
- *		<td>Initial Release</td>
- *	</tr>
+ *   <tr>
+ *     <th>Changelog</th>
+ *   </tr>
+ *   <tr>
+ *     <td>Rewrite of events driver.</td>
+ *   </tr>
+ *   <tr>
+ *     <td>Initial Release</td>
+ *   </tr>
  * </table>
  */
 
-/**
- * \page asfdoc_samd20_events_exqsg Examples for EVENTS Driver
+ /**
+ * \page asfdoc_sam0_events_exqsg Examples for EVENTS Driver
  *
  * This is a list of the available Quick Start guides (QSGs) and example
- * applications for \ref asfdoc_samd20_events_group. QSGs are simple examples with
+ * applications for \ref asfdoc_sam0_events_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
  * use cases. Note that QSGs can be compiled as a standalone application or be
  * added to the user application.
  *
- *  - \subpage asfdoc_samd20_events_basic_use_case
+ * - \subpage asfdoc_sam0_events_basic_use_case
+ * \if EVENTS_INTERRUPT_HOOK_MODE
+ * - \subpage asfdoc_sam0_events_interrupt_hook_use_case
+ * \endif
  *
- * \page asfdoc_samd20_events_document_revision_history Document Revision History
+ * \page asfdoc_sam0_events_document_revision_history Document Revision History
  *
  * <table>
  *	<tr>
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *  <tr>
+ *		<td>F</td>
+ *		<td>03/2014</td>
+ *		<td>Added support for SAMR21</td>
+ *  </tr>
+ *  <tr>
+ *		<td>E</td>
+ *		<td>02/2014</td>
+ *		<td>Added support for interrupt hook mode</td>
+ *  </tr>
+ *	<tr>
+ *		<td>D</td>
+ *		<td>01/2014</td>
+ *		<td>Update to support SAMD21 and corrected documentation typos.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>C</td>
+ *		<td>11/2013</td>
+ *		<td>Fixed incorrect documentation for the event signal paths. Added
+ *          configuration steps overview to the documentation.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>B</td>
+ *		<td>06/2013</td>
+ *		<td>Corrected documentation typos.</td>
  *	</tr>
  *	<tr>
  *		<td>A</td>
@@ -671,5 +677,9 @@ static inline void events_chan_software_trigger(
  *	</tr>
  * </table>
  */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* EVENTS_H_INCLUDED */

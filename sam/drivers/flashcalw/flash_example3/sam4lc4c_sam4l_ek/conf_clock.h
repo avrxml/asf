@@ -3,7 +3,7 @@
  *
  * \brief Chip-specific system clock manager configuration
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -61,7 +61,7 @@
 /* RCFAST frequency selection: 0 for 4MHz, 1 for 8MHz and 2 for 12MHz */
 //#define CONFIG_RCFAST_FRANGE    0
 //#define CONFIG_RCFAST_FRANGE    1
-#define CONFIG_RCFAST_FRANGE    2
+//#define CONFIG_RCFAST_FRANGE    2
 
 /* Fbus = Fsys / (2 ^ BUS_div) */
 #define CONFIG_SYSCLK_CPU_DIV         0

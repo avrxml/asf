@@ -79,10 +79,8 @@ CSRCS = \
        common/utils/stdio/stdio_usb/stdio_usb.c           \
        common/utils/stdio/write.c                         \
        common/utils/unit_test/suite.c                     \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/uc3/hw_timer.c \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer/common_sw_timer.c \
        thirdparty/wireless/avr2025_mac/source/pal/pal.c   \
-       thirdparty/wireless/avr2025_mac/source/pal/pal_ext_trx.c \
        thirdparty/wireless/avr2025_mac/source/resources/buffer/src/bmm.c \
        thirdparty/wireless/avr2025_mac/source/resources/queue/src/qmm.c \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf231/src/tal.c \
@@ -97,7 +95,9 @@ CSRCS = \
        thirdparty/wireless/avr2025_mac/source/tal/at86rf231/src/tal_tx.c \
        thirdparty/wireless/avr2025_mac/source/tal/src/tal_helper.c \
        thirdparty/wireless/avr2025_mac/source/tfa/at86rf231/src/tfa.c \
-       thirdparty/wireless/avr2025_mac/source/tfa/unit_tests/unit_tests.c
+       thirdparty/wireless/avr2025_mac/source/tfa/unit_tests/unit_tests.c \
+       thirdparty/wireless/services/common_hw_timer/uc3/hw_timer.c \
+       thirdparty/wireless/services/trx_access/trx_access.c
 
 # List of assembler source files.
 ASSRCS = \
@@ -135,8 +135,6 @@ INC_PATH = \
        thirdparty/wireless/avr2025_mac/include            \
        thirdparty/wireless/avr2025_mac/source/mac/inc     \
        thirdparty/wireless/avr2025_mac/source/pal         \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/uc3 \
        thirdparty/wireless/avr2025_mac/source/pal/common_sw_timer \
        thirdparty/wireless/avr2025_mac/source/resources/buffer/inc \
        thirdparty/wireless/avr2025_mac/source/resources/queue/inc \
@@ -145,11 +143,14 @@ INC_PATH = \
        thirdparty/wireless/avr2025_mac/source/tfa/inc     \
        thirdparty/wireless/avr2025_mac/source/tfa/unit_tests \
        thirdparty/wireless/avr2025_mac/source/tfa/unit_tests/at32uc3a3256s_rz600_at86rf231 \
+       thirdparty/wireless/services/common_hw_timer       \
+       thirdparty/wireless/services/common_hw_timer/uc3   \
+       thirdparty/wireless/services/trx_access \
        thirdparty/wireless/avr2025_mac/source/tfa/unit_tests/at32uc3a3256s_rz600_at86rf231/gcc
 
 # Additional search paths for libraries.
 LIB_PATH =  \
-       thirdparty/wireless/avr2025_mac/source/pal/common_hw_timer/uc3/lib
+       thirdparty/wireless/services/common_hw_timer/uc3/lib
 
 # List of libraries to use during linking.
 LIBS =  \
@@ -199,3 +200,7 @@ CPPFLAGS = \
 # Extra flags to use when linking
 LDFLAGS = \
        -nostartfiles -Wl,-e,_trampoline
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

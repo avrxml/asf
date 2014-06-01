@@ -786,7 +786,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1734,7 +1733,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1938,7 +1936,7 @@
 									<name>$PROJ_DIR$/../conf_uart_serial.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../QDebugSettings.h</name>
+									<name>$PROJ_DIR$/../conf_clock.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../conf_board.h</name>
@@ -1953,7 +1951,7 @@
 									<name>$PROJ_DIR$/../conf_example.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../conf_clock.h</name>
+									<name>$PROJ_DIR$/../QDebugSettings.h</name>
 								</file>
 							</group>
 						</group>
@@ -2158,10 +2156,10 @@
 					<name>$PROJ_DIR$/../../../../../../../../sam/boards/sam3n_ek/led.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../sam/boards/sam3n_ek/sam3n_ek.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../sam/boards/sam3n_ek/led.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../sam/boards/sam3n_ek/led.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../sam/boards/sam3n_ek/sam3n_ek.h</name>
 				</file>
 			</group>
 		</group>
@@ -2282,6 +2280,9 @@
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n1a.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n0b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n2c.h</name>
 						</file>
 						<file>
@@ -2353,19 +2354,25 @@
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n.h</name>
 						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n4a.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n4c.h</name>
-						</file>
 						<group>
 							<name>pio</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n0a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n0c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n0b.h</name>
+							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n1c.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n4b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n00b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n2b.h</name>
@@ -2386,9 +2393,30 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n2a.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n00a.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/pio/pio_sam3n2c.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n0c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n4a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n4c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n00b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n0a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n00a.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3n/include/sam3n1b.h</name>
 						</file>

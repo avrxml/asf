@@ -3,7 +3,7 @@
  *
  * \brief Spi Master configuration
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,8 +44,6 @@
 #define CONF_SPI_MASTER_H_INCLUDED
 
 /* Possibility to change low-level configurations here */
-
-#define AT86RFX_SPI_BAUDRATE 3000000
 
 /* ! Default Config Spi Master Delay BCS */
 /* #define CONFIG_SPI_MASTER_DELAY_BCS            0 */

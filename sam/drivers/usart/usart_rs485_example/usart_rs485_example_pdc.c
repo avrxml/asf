@@ -3,7 +3,7 @@
  *
  * \brief USART RS485 example with PDC for SAM.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -92,33 +92,33 @@
  *
  *  -# In the terminal window, the following text should appear:
  *     \code
- *      -- USART RS485 Example --
- *      -- xxxxxx-xx
- *      -- Compiled: xxx xx xxxx xx:xx:xx --
- *     \endcode
+	-- USART RS485 Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
  *  -# The consequent messages will indicate the boards' behavior.
  *
  *     -  The earlier started board will output the message below to indicate it
  *     is waiting for a synchronization character:
  *     \code
- *     -I- Receiving sync character.
- *     \endcode
+	-I- Receiving sync character.
+\endcode
  *     -  If it receives a sync character and prepare to receive a frame, it
  *     will print out the message below:
  *     \code
- *     -I- Start receiving!
- *     \endcode
+	-I- Start receiving!
+\endcode
  *     -  After successfully receives a frame, the board will output the
  *     following message to indicate that the whole process succeeds.
  *     \code
- *     -I- Received successfully!
- *     \endcode
+	-I- Received successfully!
+\endcode
  *     -  The later started one will act as transmitter, and if it receives an
  *     acknowledgement character successfully, it will output the following
  *     message and start transmitting:
  *     \code
- *     -I- Start transmitting!
- *     \endcode
+	-I- Start transmitting!
+\endcode
  *
  */
 

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Event System Driver Quick Start
+ * \brief SAM D20/D21/R21 Event System Driver Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,80 +42,71 @@
  */
 
 /**
- * \page asfdoc_samd20_events_basic_use_case Quick Start Guide for EVENTS - Basic
+ * \page asfdoc_sam0_events_basic_use_case Quick Start Guide for EVENTS - Basic
  *
  * In this use case, the EVENT module is configured for:
- *  \li One generator attached to event channel 0
  *  \li Synchronous event path with rising edge detection on the input
  *  \li One user attached to the configured event channel
+ *  \li No hardware event generator attached to the channel
  *
- * This use case configures an event channel within the device, attaching it to
- * a peripheral's event generator, and attaching a second peripheral's event
- * user to the configured channel. The event channel is then software triggered.
+ * This use case allocates an event channel, this channel is not connected to any
+ * hardware event generator, events are software triggered. One user is connected
+ * to the allocated and configured event channel.
  *
- * \section asfdoc_samd20_events_basic_use_case_setup Setup
+ * \section asfdoc_sam0_events_basic_use_case_setup Setup
  *
- * \subsection asfdoc_samd20_events_basic_use_casesetup_prereq Prerequisites
+ * \subsection asfdoc_sam0_events_basic_use_casesetup_prereq Prerequisites
  * There are no special setup requirements for this use-case.
  *
- * \subsection asfdoc_samd20_events_basic_use_casesetup_code Code
+ * \subsection asfdoc_sam0_events_basic_use_casesetup_code Code
  * Copy-paste the following setup code to your user application:
  * \snippet qs_events_basic.c setup
+ *
+ *
+ * Create an event resource struct and add to user application (typically the start of \c main()):
+ * \snippet qs_events_basic.c events_resource_struct
  *
  * Add to user application initialization (typically the start of \c main()):
  * \snippet qs_events_basic.c setup_init
  *
- * \subsection asfdoc_samd20_events_basic_use_casesetup_flow Workflow
+ * \subsection asfdoc_sam0_events_basic_use_casesetup_flow Workflow
  * -# Create an event channel configuration struct, which can be filled out to
  *    adjust the configuration of a single event channel.
- *  \snippet qs_events_basic.c setup_1
+ *    \snippet qs_events_basic.c setup_1
+ *    \br
+ *
  * -# Initialize the event channel configuration struct with the module's
  *    default values.
+ *    \snippet qs_events_basic.c setup_2
  *    \note This should always be performed before using the configuration
  *          struct to ensure that all values are initialized to known default
  *          settings.
  *
- *  \snippet qs_events_basic.c setup_2
  * -# Adjust the configuration struct to request that the channel be attached
  *    to the specified event generator, that rising edges of the event signal
  *    be detected on the channel and that the synchronous event path be used.
- *  \snippet qs_events_basic.c setup_3
- * -# Configure the channel using the configuration structure.
+ *    \snippet qs_events_basic.c setup_3
+ *    \br
+ *
+ * -# Allocate and configure the channel using the configuration structure.
+ *    \snippet qs_events_basic.c setup_4
  *    \note The existing configuration struct may be re-used, as long as any
  *          values that have been altered from the default settings are taken
  *          into account by the user application.
  *
- *  \snippet qs_events_basic.c setup_4
+ * -# Attach an user to the channel
+ *    \snippet qs_events_basic.c setup_5
+ *    \br
  *
- * -# Create an event user configuration struct, which can be filled out to
- *    adjust the configuration of a single event user.
- *  \snippet qs_events_basic.c setup_5
- * -# Initialize the event user configuration struct with the module's default
- *    values.
- *    \note This should always be performed before using the configuration
- *          struct to ensure that all values are initialized to known default
- *          settings.
+ * \section asfdoc_sam0_events_basic_use_case_main Use Case
  *
- *  \snippet qs_events_basic.c setup_6
- * -# Adjust the configuration struct to request that the previously configured
- *    event channel be used as the event source for the user.
- *  \snippet qs_events_basic.c setup_7
- * -# Configure the event user using the configuration structure.
- *    \note The existing configuration struct may be re-used, as long as any
- *          values that have been altered from the default settings are taken
- *          into account by the user application.
- *
- *  \snippet qs_events_basic.c setup_8
- *
- * \section asfdoc_samd20_events_basic_use_case_main Use Case
- *
- * \subsection asfdoc_samd20_events_basic_use_casecode_code Code
+ * \subsection asfdoc_sam0_events_basic_use_casecode_code Code
  * Copy-paste the following code to your user application:
  * \snippet qs_events_basic.c main
  *
  * \subsection events_basic_use_case_code_flow Workflow
  * -# Wait for the even channel to become ready to accept a new event trigger.
- *  \snippet qs_events_basic.c main_1
+ *    \snippet qs_events_basic.c main_1
  * -# Perform a software event trigger on the configured event channel.
- *  \snippet qs_events_basic.c main_2
+ *    \snippet qs_events_basic.c main_2
  */

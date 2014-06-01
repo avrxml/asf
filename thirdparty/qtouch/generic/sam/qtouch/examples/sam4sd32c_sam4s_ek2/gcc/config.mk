@@ -65,7 +65,6 @@ CSRCS = \
        sam/drivers/uart/uart.c                            \
        sam/drivers/usart/usart.c                          \
        sam/drivers/wdt/wdt.c                              \
-       sam/utils/cmsis/sam4s/source/templates/exceptions.c \
        sam/utils/cmsis/sam4s/source/templates/gcc/startup_sam4s.c \
        sam/utils/cmsis/sam4s/source/templates/system_sam4s.c \
        sam/utils/syscalls/gcc/syscalls.c                  \
@@ -169,7 +168,12 @@ CPPFLAGS = \
        -D _SNS1_SNSK1_SAME_PORT_                          \
        -D _SNS2_SNSK2_SAME_PORT_                          \
        -D __SAM4SD32C__                                   \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

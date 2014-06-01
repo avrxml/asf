@@ -62,7 +62,6 @@ CSRCS = \
        sam/drivers/pmc/pmc.c                              \
        sam/drivers/pmc/sleep.c                            \
        sam/drivers/twi/twi.c                              \
-       sam/drivers/uart/uart.c                            \
        sam/utils/cmsis/sam3x/source/templates/exceptions.c \
        sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.c \
        sam/utils/cmsis/sam3x/source/templates/system_sam3x.c \
@@ -86,7 +85,6 @@ INC_PATH = \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
        sam/drivers/twi                                    \
-       sam/drivers/uart                                   \
        sam/utils                                          \
        sam/utils/cmsis/sam3x/include                      \
        sam/utils/cmsis/sam3x/source/templates             \
@@ -146,7 +144,12 @@ CPPFLAGS = \
        -D ARM_MATH_CM3=true                               \
        -D BOARD=ARDUINO_DUE_X                             \
        -D __SAM3X8E__                                     \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

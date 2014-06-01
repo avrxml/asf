@@ -3,7 +3,7 @@
  *
  * \brief Common GPIO API.
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,7 +45,7 @@
 
 #include <parts.h>
 
-#if (SAM3S || SAM3U || SAM3N || SAM3XA || SAM4S || SAM4E)
+#if (SAM3S || SAM3U || SAM3N || SAM3XA || SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
 # include "sam_gpio/sam_gpio.h"
 #elif XMEGA
 # include "xmega_gpio/xmega_gpio.h"

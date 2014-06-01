@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 System Interrupt Driver
+ * \brief SAM D20/D21/R21 System Interrupt Driver
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,10 +43,14 @@
 #ifndef SYSTEM_INTERRUPT_H_INCLUDED
 #define SYSTEM_INTERRUPT_H_INCLUDED
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
- * \defgroup asfdoc_samd20_system_interrupt_group SAM D20 System Interrupt Driver
+ * \defgroup asfdoc_sam0_system_interrupt_group SAM D20/D21/R21 System Interrupt Driver (SYSTEM INTERRUPT)
  *
- * This driver for SAM D20 devices provides an interface for the configuration
+ * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
  * and management of internal software and hardware interrupts/exceptions.
  *
  * The following peripherals are used by this module:
@@ -54,22 +58,22 @@
  *  - NVIC (Nested Vector Interrupt Controller)
  *
  * The outline of this documentation is as follows:
- *  - \ref asfdoc_samd20_system_interrupt_prerequisites
- *  - \ref asfdoc_samd20_system_interrupt_module_overview
- *  - \ref asfdoc_samd20_system_interrupt_special_considerations
- *  - \ref asfdoc_samd20_system_interrupt_extra_info
- *  - \ref asfdoc_samd20_system_interrupt_examples
- *  - \ref asfdoc_samd20_system_interrupt_api_overview
+ *  - \ref asfdoc_sam0_system_interrupt_prerequisites
+ *  - \ref asfdoc_sam0_system_interrupt_module_overview
+ *  - \ref asfdoc_sam0_system_interrupt_special_considerations
+ *  - \ref asfdoc_sam0_system_interrupt_extra_info
+ *  - \ref asfdoc_sam0_system_interrupt_examples
+ *  - \ref asfdoc_sam0_system_interrupt_api_overview
  *
  *
- * \section asfdoc_samd20_system_interrupt_prerequisites Prerequisites
+ * \section asfdoc_sam0_system_interrupt_prerequisites Prerequisites
  *
  * There are no prerequisites for this module.
  *
  *
- * \section asfdoc_samd20_system_interrupt_module_overview Module Overview
+ * \section asfdoc_sam0_system_interrupt_module_overview Module Overview
  *
- * The Cortex M0+ core contains an interrupt an exception vector table, which
+ * The ARM&reg; Cortex&reg; M0+ core contains an interrupt an exception vector table, which
  * can be used to configure the device's interrupt handlers; individual
  * interrupts and exceptions can be enabled and disabled, as well as configured
  * with a variable priority.
@@ -78,7 +82,7 @@
  * to expose a simple API for the management of global and individual interrupts
  * within the device.
  *
- * \subsection asfdoc_samd20_system_interrupt_module_overview_criticalsec Critical Sections
+ * \subsection asfdoc_sam0_system_interrupt_module_overview_criticalsec Critical Sections
  * In some applications it is important to ensure that no interrupts may be
  * executed by the system whilst a critical portion of code is being run; for
  * example, a buffer may be copied from one context to another - during which
@@ -87,120 +91,40 @@
  * exit nested critical sections, so that global interrupts can be kept disabled
  * for as long as necessary to complete a critical application code section.
  *
- * \subsection asfdoc_samd20_system_interrupt_module_overview_softints Software Interrupts
+ * \subsection asfdoc_sam0_system_interrupt_module_overview_softints Software Interrupts
  * For some applications, it may be desirable to raise a module or core
  * interrupt via software. For this reason, a set of APIs to set an interrupt or
  * exception as pending are provided to the user application.
  *
- * \section asfdoc_samd20_system_interrupt_special_considerations Special Considerations
+ * \section asfdoc_sam0_system_interrupt_special_considerations Special Considerations
  *
- * Interrupts from peripherals in the SAM D20 devices are on a per-module basis;
+ * Interrupts from peripherals in the SAM D20/D21/R21 devices are on a per-module basis;
  * an interrupt raised from any source within a module will cause a single,
  * module-common handler to execute. It is the user application or driver's
  * responsibility to de-multiplex the module-common interrupt to determine the
  * exact interrupt cause.
  *
- * \section asfdoc_samd20_system_interrupt_extra_info Extra Information for System Interrupt
+ * \section asfdoc_sam0_system_interrupt_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_samd20_system_interrupt_extra. This includes:
- *  - \ref asfdoc_samd20_system_interrupt_extra_acronyms
- *  - \ref asfdoc_samd20_system_interrupt_extra_dependencies
- *  - \ref asfdoc_samd20_system_interrupt_extra_errata
- *  - \ref asfdoc_samd20_system_interrupt_extra_history
+ * For extra information see \ref asfdoc_sam0_system_interrupt_extra. This includes:
+ *  - \ref asfdoc_sam0_system_interrupt_extra_acronyms
+ *  - \ref asfdoc_sam0_system_interrupt_extra_dependencies
+ *  - \ref asfdoc_sam0_system_interrupt_extra_errata
+ *  - \ref asfdoc_sam0_system_interrupt_extra_history
  *
  *
- * \section asfdoc_samd20_system_interrupt_examples Examples
+ * \section asfdoc_sam0_system_interrupt_examples Examples
  *
  * For a list of examples related to this driver, see
- * \ref asfdoc_samd20_system_interrupt_exqsg.
+ * \ref asfdoc_sam0_system_interrupt_exqsg.
  *
- * \section asfdoc_samd20_system_interrupt_api_overview API Overview
+ * \section asfdoc_sam0_system_interrupt_api_overview API Overview
  * @{
  */
 
 #include <compiler.h>
 #include <core_cm0plus.h>
-
-#if !defined(__DOXYGEN__)
-/* Generates a interrupt vector table enum list entry for a given module type
-   and index (e.g. "SYSTEM_INTERRUPT_MODULE_TC0 = TC0_IRQn,"). */
-#  define _MODULE_IRQn(n, module) \
-		SYSTEM_INTERRUPT_MODULE_##module##n = module##n##_IRQn,
-
-/* Generates interrupt vector table enum list entries for all instances of a
-   given module type on the selected device. */
-#  define _SYSTEM_INTERRUPT_MODULES(name) \
-		MREPEAT(name##_INST_NUM, _MODULE_IRQn, name)
-
-
-#  define _SYSTEM_INTERRUPT_IPSR_MASK              0x0000003f
-#  define _SYSTEM_INTERRUPT_PRIORITY_MASK          0x00000007
-
-#  define _SYSTEM_INTERRUPT_EXTERNAL_VECTOR_START  0
-
-#  define _SYSTEM_INTERRUPT_SYSTICK_PRI_POS        29
-#endif
-
-/**
- * \brief Table of possible system interrupt/exception vector numbers.
- *
- * Table of all possible interrupt and exception vector indexes within the
- * device.
- */
-enum system_interrupt_vector {
-	/** Interrupt vector index for a NMI interrupt. */
-	SYSTEM_INTERRUPT_NON_MASKABLE      = NonMaskableInt_IRQn,
-	/** Interrupt vector index for a Hard Fault memory access exception. */
-	SYSTEM_INTERRUPT_HARD_FAULT        = HardFault_IRQn,
-	/** Interrupt vector index for a Supervisor Call exception. */
-	SYSTEM_INTERRUPT_SV_CALL           = SVCall_IRQn,
-	/** Interrupt vector index for a Pending Supervisor interrupt. */
-	SYSTEM_INTERRUPT_PENDING_SV        = PendSV_IRQn,
-	/** Interrupt vector index for a System Tick interrupt. */
-	SYSTEM_INTERRUPT_SYSTICK           = SysTick_IRQn,
-
-	/** Interrupt vector index for a Power Manager peripheral interrupt. */
-	SYSTEM_INTERRUPT_MODULE_PM         = PM_IRQn,
-	/** Interrupt vector index for a System Control peripheral interrupt. */
-	SYSTEM_INTERRUPT_MODULE_SYSCTRL    = SYSCTRL_IRQn,
-	/** Interrupt vector index for a Watch Dog peripheral interrupt. */
-	SYSTEM_INTERRUPT_MODULE_WDT        = WDT_IRQn,
-	/** Interrupt vector index for a Real Time Clock peripheral interrupt. */
-	SYSTEM_INTERRUPT_MODULE_RTC        = RTC_IRQn,
-	/** Interrupt vector index for an External Interrupt peripheral interrupt. */
-	SYSTEM_INTERRUPT_MODULE_EIC        = EIC_IRQn,
-	/** Interrupt vector index for a Non Volatile Memory Controller interrupt. */
-	SYSTEM_INTERRUPT_MODULE_NVMCTRL    = NVMCTRL_IRQn,
-	/** Interrupt vector index for an Event System interrupt. */
-	SYSTEM_INTERRUPT_MODULE_EVSYS      = EVSYS_IRQn,
-#if defined(__DOXYGEN__)
-	/** Interrupt vector index for a SERCOM peripheral interrupt.
-	 *
-	 *  Each specific device may contain several SERCOM peripherals; each module
-	 *  instance will have its own entry in the table, with the instance number
-	 *  substituted for "n" in the entry name (e.g.
-	 *  \c SYSTEM_INTERRUPT_MODULE_SERCOM0).
-	 */
-	SYSTEM_INTERRUPT_MODULE_SERCOMn    = SERCOMn_IRQn,
-	/** Interrupt vector index for a Timer/Counter peripheral interrupt.
-	 *
-	 *  Each specific device may contain several TC peripherals; each module
-	 *  instance will have its own entry in the table, with the instance number
-	 *  substituted for "n" in the entry name (e.g.
-	 *  \c SYSTEM_INTERRUPT_MODULE_TC0).
-	 */
-	SYSTEM_INTERRUPT_MODULE_TCn        = TCn_IRQn,
-#else
-	_SYSTEM_INTERRUPT_MODULES(SERCOM)
-	_SYSTEM_INTERRUPT_MODULES(TC)
-#endif
-	/** Interrupt vector index for an Analog Comparator peripheral interrupt. */
-	SYSTEM_INTERRUPT_MODULE_AC         = AC_IRQn,
-	/** Interrupt vector index for an Analog-to-Digital peripheral interrupt. */
-	SYSTEM_INTERRUPT_MODULE_ADC        = ADC_IRQn,
-	/** Interrupt vector index for a Digital-to-Analog peripheral interrupt. */
-	SYSTEM_INTERRUPT_MODULE_DAC        = DAC_IRQn,
-};
+#include "system_interrupt_features.h"
 
 /**
  * \brief Table of possible system interrupt/exception vector priorities.
@@ -388,9 +312,9 @@ enum system_interrupt_priority_level system_interrupt_get_priority(
 /** @} */
 
 /**
- * \page asfdoc_samd20_system_interrupt_extra Extra Information for SYSTEM INTERRUPT Driver
+ * \page asfdoc_sam0_system_interrupt_extra Extra Information for SYSTEM INTERRUPT Driver
  *
- * \section asfdoc_samd20_system_interrupt_extra_acronyms Acronyms
+ * \section asfdoc_sam0_system_interrupt_extra_acronyms Acronyms
  * The table below presents the acronyms used in this module:
  *
  * <table>
@@ -402,20 +326,28 @@ enum system_interrupt_priority_level system_interrupt_get_priority(
  *		<td>ISR</td>
  *		<td>Interrupt Service Routine</td>
  *	</tr>
+ *	<tr>
+ *		<td>NMI</td>
+ *		<td>Non-maskable interrupt</td>
+ *	</tr>
+ *	<tr>
+ *		<td>SERCOM</td>
+ *		<td>Serial Communication Interface</td>
+ *	</tr>
  * </table>
  *
  *
- * \section asfdoc_samd20_system_interrupt_extra_dependencies Dependencies
+ * \section asfdoc_sam0_system_interrupt_extra_dependencies Dependencies
  * This driver has the following dependencies:
  *
  *  - None
  *
  *
- * \section asfdoc_samd20_system_interrupt_extra_errata Errata
+ * \section asfdoc_sam0_system_interrupt_extra_errata Errata
  * There are no errata related to this driver.
  *
  *
- * \section asfdoc_samd20_system_interrupt_extra_history Module History
+ * \section asfdoc_sam0_system_interrupt_extra_history Module History
  * An overview of the module history is presented in the table below, with
  * details on the enhancements and fixes made to the module since its first
  * release. The current version of this corresponds to the newest version in
@@ -426,30 +358,51 @@ enum system_interrupt_priority_level system_interrupt_get_priority(
  *		<th>Changelog</th>
  *	</tr>
  *	<tr>
+ *		<td>Added support for SAMR21</td>
+ *	</tr>
+ *	<tr>
+ *		<td>Added support for SAMD21</td>
+ *	</tr>
+ *	<tr>
  *		<td>Initial Release</td>
  *	</tr>
  * </table>
  */
 
 /**
- * \page asfdoc_samd20_system_interrupt_exqsg Examples for SYSTEM INTERRUPT Driver
+ * \page asfdoc_sam0_system_interrupt_exqsg Examples for SYSTEM INTERRUPT Driver
  *
  * This is a list of the available Quick Start guides (QSGs) and example
- * applications for \ref asfdoc_samd20_system_interrupt_group. QSGs are simple examples with
+ * applications for \ref asfdoc_sam0_system_interrupt_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
  * use cases. Note that QSGs can be compiled as a standalone application or be
  * added to the user application.
  *
- *  - \subpage asfdoc_samd20_system_interrupt_critsec_use_case
- *  - \subpage asfdoc_samd20_system_interrupt_enablemodint_use_case
+ *  - \subpage asfdoc_sam0_system_interrupt_critsec_use_case
+ *  - \subpage asfdoc_sam0_system_interrupt_enablemodint_use_case
  *
- * \page asfdoc_samd20_system_interrupt_document_revision_history Document Revision History
+ * \page asfdoc_sam0_system_interrupt_document_revision_history Document Revision History
  *
  * <table>
  *	<tr>
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>D</td>
+ *		<td>02/2014</td>
+ *		<td>Add support for SAMR21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>C</td>
+ *		<td>01/2014</td>
+ *		<td>Add support for SAMD21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>B</td>
+ *		<td>06/2013</td>
+ *		<td>Corrected documentation typos.</td>
  *	</tr>
  *	<tr>
  *		<td>A</td>
@@ -459,4 +412,8 @@ enum system_interrupt_priority_level system_interrupt_get_priority(
  * </table>
  */
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif // #ifndef SYSTEM_INTERRUPT_H_INCLUDED

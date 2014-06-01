@@ -3,7 +3,7 @@
  *
  * \brief Low Power Application.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,13 +46,13 @@
  *
  * \section Purpose
  *
- * This example shows all the different low power modes with several types
+ * This example shows the different low power modes with several types
  * of wake-up sources. And the consumption of the core in different power
  * modes can be measured.
  *
  * \section Requirements
  *
- * This package can be used with SAM evaluation kits.
+ * This package can be used with SAM4L boards.
  *
  * \section Description
  *
@@ -68,7 +68,7 @@
  * \section Usage
  *
  *
- * - Build the program and download it to the evaluation board.
+ * - Build the program and download it to the board.
  * - Start the application.
  *
  * -# On the computer, open and configure a terminal application
@@ -81,30 +81,25 @@
  * -# Start the application.
  * -# In the terminal window, the following text should appear:
  *    \code
- *     -- Low Power Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *
- *     ===============================================
- *     Menu: press a key to continue.
- *     ===============================================
- *     Configure:
- *       0 : Power Saving Mode 0
- *       1 : Power Saving Mode 1
- *     Mode:
- *       A : Active Mode
- *       R : Retention Mode
- *       W : Wait Mode
- *       B : Backup Mode
- *     Quit:
- *       Q : Quit test.
- *
- *     -----------------------------------------------
- *     Current configuration:
- *       CPU Clock         : MCK=24000000 Hz
- *       Flash access mode : 128-bit
- *     -----------------------------------------------
- *    \endcode
+	     -- Low Power Example xxx --
+	     -- xxxxxx-xx
+	     -- Compiled: xxx xx xxxx xx:xx:xx --
+
+	     ===============================================
+	     Menu: press a key to continue.
+	     ===============================================
+	     Configure:
+	       0 : Power Saving Mode 0
+	       1 : Power Saving Mode 1
+	     Mode:
+	       A : Active Mode
+	       R : Retention Mode
+	       W : Wait Mode
+	       B : Backup Mode
+	     Quit:
+	       Q : Quit test.
+
+\endcode
  * -# Press one of the keys listed in the menu to perform the corresponding
  *    action.
  */
@@ -150,8 +145,8 @@ static void display_menu_core(void)
 	printf("  1 : Power Saving Mode 1\n\r");
 	printf("Mode:\n\r");
 	printf("  A : Active Mode\n\r");
-	printf("  R : Retention Mode\n\r");
 	printf("  W : Wait Mode\n\r");
+	printf("  R : Retention Mode\n\r");
 	printf("  B : Backup Mode\n\r");
 	printf("Quit:\n\r");
 	printf("  Q : Quit test.\n\r");
@@ -167,6 +162,9 @@ static void button_handler(void)
 	if (eic_line_interrupt_is_pending(EIC, BUTTON_0_EIC_LINE)) {
 		eic_line_clear_interrupt(EIC, BUTTON_0_EIC_LINE);
 		g_ul_button_pressed = 1;
+		/* Stop AST and reset the counter */
+		ast_write_counter_value(AST, 0);
+		ast_stop(AST);
 	}
 }
 
@@ -183,20 +181,79 @@ static void configure_button(void)
 
 	eic_enable(EIC);
 	eic_line_set_config(EIC, BUTTON_0_EIC_LINE,
-	&eic_line_conf);
+			&eic_line_conf);
 	eic_line_set_callback(EIC, BUTTON_0_EIC_LINE, button_handler,
-	EIC_1_IRQn, 1);
+			EIC_1_IRQn, 1);
 	eic_line_enable(EIC, BUTTON_0_EIC_LINE);
+}
+
+/**
+ * AST interrupt handler
+ */
+static void ast_per_callback(void)
+{
+	ast_stop(AST);
+	ast_clear_interrupt_flag(AST, AST_INTERRUPT_PER);
+}
+
+/**
+ * Initialize AST to generate 1Hz counter
+ */
+static void config_ast(void)
+{
+	struct ast_config ast_conf;
+
+	/* Enable osc32 oscillator */
+	if (!osc_is_ready(OSC_ID_OSC32)) {
+		osc_enable(OSC_ID_OSC32);
+		osc_wait_ready(OSC_ID_OSC32);
+	}
+
+	/* Enable the AST. */
+	ast_enable(AST);
+
+	ast_conf.mode = AST_COUNTER_MODE;
+	ast_conf.osc_type = AST_OSC_1KHZ;
+	ast_conf.psel = AST_PSEL_32KHZ_1HZ;
+	ast_conf.counter = 0;
+	ast_set_config(AST, &ast_conf);
+	ast_stop(AST);
+
+	/* Set periodic 0 to interrupt after 8 second in counter mode. */
+	ast_clear_interrupt_flag(AST, AST_INTERRUPT_PER);
+	ast_write_periodic0_value(AST, AST_PSEL_32KHZ_1HZ - 2);
+	ast_enable_wakeup(AST, AST_WAKEUP_PER);
+	/* Set callback for periodic0. */
+	ast_set_callback(AST, AST_INTERRUPT_PER, ast_per_callback,
+			AST_PER_IRQn, 1);
+}
+
+/* configurations for backup mode wakeup */
+static void config_backup_wakeup(void)
+{
+	/* Take care the table 11-5 in datasheet, not all pin can been set */
+
+	/* Only AST can wakeup the device */
+	bpm_enable_wakeup_source(BPM, (1 << BPM_BKUPWEN_AST));
+
+	/**
+	 * Retain I/O lines after wakeup from backup.
+	 * Disable to undo the previous retention state then enable.
+	 */
+	bpm_disable_io_retention(BPM);
+	bpm_enable_io_retention(BPM);
+	/* Enable fast wakeup */
+	bpm_enable_fast_wakeup(BPM);
 }
 
 static void app_prime_number_run(void)
 {
-	#define PRIM_NUMS 8
+#define PRIM_NUMS 8
 	uint32_t i, d, n;
 	uint32_t primes[PRIM_NUMS];
 
 
-	// Find prime numbers forever
+	/* Find prime numbers forever */
 	primes[0] = 1;
 	for (i = 1; i < PRIM_NUMS;) {
 		for (n = primes[i - 1] + 1; ;n++) {
@@ -208,7 +265,7 @@ static void app_prime_number_run(void)
 				if (n%d == 0) break;
 			}
 		}
-		nexti:
+nexti:
 		i++;
 	}
 }
@@ -218,10 +275,7 @@ static void app_prime_number_run(void)
  */
 static void test_active_mode(void)
 {
-	puts("Press SW0 to exit Active Mode\r");
-
-	/* Configure button for exiting from active mode */
-	configure_button();
+	printf("Press %s to exit Active Mode\r\n", BUTTON_0_NAME);
 
 	g_ul_button_pressed = 0;
 
@@ -236,11 +290,14 @@ static void test_active_mode(void)
 
 static void test_wait_mode(void)
 {
-	puts("Press SW0 to exit Wait Mode\r");
+	printf("Press %s or wait AST to exit Wait Mode\r\n", BUTTON_0_NAME);
+	/*
+	 * Wait for the printf operation to finish before setting the device in
+	 * a power save mode.
+	 */
+	delay_ms(30);
 
-	/* Configure button for exiting from wait mode */
-	configure_button();
-
+	ast_start(AST);
 	sleepmgr_sleep(SLEEPMGR_WAIT);
 
 	puts("Exit from Wait Mode.\r");
@@ -248,11 +305,14 @@ static void test_wait_mode(void)
 
 static void test_retention_mode(void)
 {
-	puts("Press SW0 to exit Retention Mode\r");
+	printf("Press %s or wait AST to exit Retention Mode\r\n", BUTTON_0_NAME);
+	/*
+	 * Wait for the printf operation to finish before setting the device in
+	 * a power save mode.
+	 */
+	delay_ms(30);
 
-	/* Configure button for exiting from retention mode */
-	configure_button();
-
+	ast_start(AST);
 	sleepmgr_sleep(SLEEPMGR_RET);
 
 	puts("Exit from Retention Mode.\r");
@@ -261,21 +321,14 @@ static void test_retention_mode(void)
 
 static void test_backup_mode(void)
 {
-	puts("Press SW0 to exit Backup Mode\r");
+	puts("Wait AST to exit Backup Mode\r");
+	/*
+	 * Wait for the puts operation to finish before setting the device in
+	 * a power save mode.
+	 */
+	delay_ms(30);
 
-	/* Configure button for exiting from backup mode */
-	configure_button();
-
-	// EIC can wake the device from backup mode
-	bpm_enable_wakeup_source(BPM, BPM_BKUP_WAKEUP_SRC_EIC);
-	// EIC can wake the device from backup mode
-	bpm_enable_backup_pin(BPM, BPM_BKUP_WAKEUP_SRC_EIC);
-	// Retain I/O lines after wakeup from backup
-	bpm_disable_io_retention(BPM);
-	bpm_enable_io_retention(BPM);
-	bpm_enable_fast_wakeup(BPM);
-	sysclk_disable_peripheral_clock(EIC);
-
+	ast_start(AST);
 	sleepmgr_sleep(SLEEPMGR_BACKUP);
 
 	/* Note: The core will reset when exiting from backup mode. */
@@ -289,9 +342,18 @@ static void test_core(void)
 {
 	uint32_t uc_key = 0;
 
-	bpm_configure_power_scaling(BPM,BPM_PMCON_PS(BPM_PS_1),true);
-  while((bpm_get_status(BPM) & BPM_SR_PSOK) == 0);
+	/* Configure button */
+	configure_button();
+
+	/* Configurate the AST */
+	config_ast();
+
+	/* Configurate the backup wakeup source */
+	config_backup_wakeup();
+
 	puts("Power Scaling Mode 1 selected !\r");
+	bpm_configure_power_scaling(BPM,BPM_PMCON_PS(BPM_PS_1),true);
+	while((bpm_get_status(BPM) & BPM_SR_PSOK) == 0);
 
 	while (1) {
 		/* Display menu */
@@ -344,7 +406,7 @@ static void test_core(void)
 		default:
 			puts("This menu does not exist !\r");
 			break;
-		} /* Switch */
+		}
 	}
 
 test_core_end:
@@ -358,16 +420,10 @@ test_core_end:
  */
 int main(void)
 {
-	/*
-	 * At startup the application run in full demo mode (all features on,
-	 * includes QTouch and segment LCD). Initialize the board IO configuration,
-	 * clocks, QTouch library, External interrupts, NVIC and UI SAM4L is running
-	 * at 12 MHz from internal RCFAST (configured at 12MHz).
-	 */
-	// Initialize clock
+	/* Initialize clock */
 	sysclk_init();
 
-	// Initialize board features
+	/* Initialize board features */
 	board_init();
 
 	/* Configure the console uart */
@@ -379,7 +435,7 @@ int main(void)
 	/* Test core consumption */
 	test_core();
 
-	while(1u){
+	while (1) {
 	}
 
-}// end main function
+}

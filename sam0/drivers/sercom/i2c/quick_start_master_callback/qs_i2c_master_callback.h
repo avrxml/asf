@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Serial Peripheral Interface Driver
+ * \brief SAM SERCOM I2C Master Interface Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,7 +40,7 @@
  */
 
 /**
- * \page asfdoc_samd20_sercom_i2c_master_callback_use_case Quick Start Guide for SERCOM I2C Master - Callback
+ * \page asfdoc_sam0_sercom_i2c_master_callback_use_case Quick Start Guide for SERCOM I2C Master - Callback
  *
  * In this use case, the I<SUP>2</SUP>C will used and set up as follows:
  *  - Master mode
@@ -48,12 +48,12 @@
  *  - Not operational in standby
  *  - 65535 unknown bus state timeout value
  *
- * \section asfdoc_samd20_sercom_i2c_master_callback_use_case_prereq Prerequisites
+ * \section asfdoc_sam0_sercom_i2c_master_callback_use_case_prereq Prerequisites
  * The device must be connected to an I<SUP>2</SUP>C slave.
  *
- * \section asfdoc_samd20_sercom_i2c_master_callback_use_case_setup Setup
+ * \section asfdoc_sam0_sercom_i2c_master_callback_use_case_setup Setup
  *
- * \subsection asfdoc_samd20_sercom_i2c_master_callback_use_case_setup_code Code
+ * \subsection asfdoc_sam0_sercom_i2c_master_callback_use_case_setup_code Code
  * The following must be added to the user application:
  *
  * A sample buffer to write from, a reversed buffer to write from and length of
@@ -81,47 +81,45 @@
  * Add to user application main():
  * \snippet qs_i2c_master_callback.c run_initialize_i2c
  *
- * \subsection asfdoc_samd20_sercom_i2c_master_callback_use_case_setup_workflow Workflow
- * -# Initialize system.
- *  \snippet qs_i2c_master_callback.c system_init
+ * \subsection asfdoc_sam0_sercom_i2c_master_callback_use_case_setup_workflow Workflow
  * -# Configure and enable module.
- *  \snippet qs_i2c_master_callback.c init_conf
+ *    \snippet qs_i2c_master_callback.c config
  *  -# Create and initialize configuration structure.
- *   \snippet qs_i2c_master_callback.c init_conf
+ *     \snippet qs_i2c_master_callback.c init_conf
  *  -# Change settings in the configuration.
- *   \snippet qs_i2c_master_callback.c conf_change
+ *     \snippet qs_i2c_master_callback.c conf_change
  *  -# Initialize the module with the set configurations.
- *   \snippet qs_i2c_master_callback.c init_module
+ *     \snippet qs_i2c_master_callback.c init_module
  *  -# Enable the module.
- *   \snippet qs_i2c_master_callback.c enable_module
- * -# Configure callback funtionality.
- *  \snippet qs_i2c_master_callback.c config_callback
+ *     \snippet qs_i2c_master_callback.c enable_module
+ * -# Configure callback functionality.
+ *    \snippet qs_i2c_master_callback.c config_callback
  *  -# Register write complete callback.
- *   \snippet qs_i2c_master_callback.c callback_reg
+ *     \snippet qs_i2c_master_callback.c callback_reg
  *  -# Enable write complete callback.
- *   \snippet qs_i2c_master_callback.c callback_en
+ *     \snippet qs_i2c_master_callback.c callback_en
  * -# Create a packet to send to slave.
- *  \snippet qs_i2c_master_callback.c packet
+ *    \snippet qs_i2c_master_callback.c packet
  *
- * \section asfdoc_samd20_sercom_i2c_master_callback_use_case_implementation Implementation
- * \subsection asfdoc_samd20_sercom_i2c_master_callback_use_case_code Code
+ * \section asfdoc_sam0_sercom_i2c_master_callback_use_case_implementation Implementation
+ * \subsection asfdoc_sam0_sercom_i2c_master_callback_use_case_code Code
  * Add to user application main:
  * \snippet qs_i2c_master_callback.c while
- * \subsection asfdoc_samd20_sercom_i2c_master_callback_use_case_implementation_workflow Workflow
+ * \subsection asfdoc_sam0_sercom_i2c_master_callback_use_case_implementation_workflow Workflow
  * -# Write packet to slave.
- *  \snippet qs_i2c_master_callback.c write_packet
+ *    \snippet qs_i2c_master_callback.c write_packet
  * -# Infinite while loop, while waiting for interaction with slave.
- *  \snippet qs_i2c_master_callback.c while
+ *    \snippet qs_i2c_master_callback.c while
  *
- * \section asfdoc_samd20_sercom_i2c_master_callback_use_case_callback Callback
+ * \section asfdoc_sam0_sercom_i2c_master_callback_use_case_callback Callback
  * Each time a packet is sent, the callback function will be called.
  *
- * \subsection asfdoc_samd20_sercom_i2c_master_callback_use_case_callback_workflow Workflow
+ * \subsection asfdoc_sam0_sercom_i2c_master_callback_use_case_callback_workflow Workflow
  * - Write complete callback:
- *  -# Send every other packet in reversed orded.
- *   \snippet qs_i2c_master_callback.c revert_order
+ *  -# Send every other packet in reversed order.
+ *     \snippet qs_i2c_master_callback.c revert_order
  *  -# Write new packet to slave.
- *   \snippet qs_i2c_master_callback.c write_next
+ *     \snippet qs_i2c_master_callback.c write_next
  *
  */
 

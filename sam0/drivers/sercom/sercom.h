@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Serial Peripheral Interface Driver
+ * \brief SAM D20/D21/R21 Serial Peripheral Interface Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -62,6 +62,35 @@ extern "C" {
 #  error "SERCOM modules must share the same slow GCLK channel ID."
 #endif
 
+#if (0x1ff >= REV_SERCOM)
+#  define FEATURE_SERCOM_SYNCBUSY_SCHEME_VERSION_1
+#elif (0x2ff >= REV_SERCOM)
+#  define FEATURE_SERCOM_SYNCBUSY_SCHEME_VERSION_2
+#else
+#  error "Unknown SYNCBUSY scheme for this SERCOM revision"
+#endif
+
+/**
+ * \brief sercom asynchronous operation mode
+ *
+ * Select sercom asynchronous operation mode
+ */
+enum sercom_asynchronous_operation_mode {
+	SERCOM_ASYNC_OPERATION_MODE_ARITHMETIC = 0,
+	SERCOM_ASYNC_OPERATION_MODE_FRACTIONAL,
+};
+
+/**
+ * \brief sercom asynchronous samples per bit
+ *
+ * Select number of samples per bit
+ */
+enum sercom_asynchronous_sample_num {
+	SERCOM_ASYNC_SAMPLE_NUM_3 = 3,
+	SERCOM_ASYNC_SAMPLE_NUM_8 = 8,
+	SERCOM_ASYNC_SAMPLE_NUM_16 = 16,
+};
+
 enum status_code sercom_set_gclk_generator(
 		const enum gclk_generator generator_source,
 		const bool force_change);
@@ -74,7 +103,9 @@ enum status_code _sercom_get_sync_baud_val(
 enum status_code _sercom_get_async_baud_val(
 		const uint32_t baudrate,
 		const uint32_t peripheral_clock,
-		uint16_t *const baudval);
+		uint16_t *const baudval,
+		enum sercom_asynchronous_operation_mode mode,
+		enum sercom_asynchronous_sample_num sample_num);
 
 uint32_t _sercom_get_default_pad(
 		Sercom *const sercom_module,

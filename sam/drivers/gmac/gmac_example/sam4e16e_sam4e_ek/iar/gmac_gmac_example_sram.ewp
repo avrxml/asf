@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4E16E	Atmel SAM4E16E</state>
+					<state>ATSAM4E16E	Atmel ATSAM4E16E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -732,7 +732,7 @@
 				</option>
 				<option>
 					<name>IlinkIcfFile</name>
-					<state>$PROJ_DIR$/../../../../../utils/linker_scripts/sam4e/sam4e16e/iar/sram.icf</state>
+					<state>$PROJ_DIR$/../../../../../utils/linker_scripts/sam4e/sam4e16/iar/sram.icf</state>
 				</option>
 				<option>
 					<name>IlinkIcfFileSlave</name>
@@ -768,7 +768,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1027,7 +1026,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4E16E	Atmel SAM4E16E</state>
+					<state>ATSAM4E16E	Atmel ATSAM4E16E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1662,7 +1661,7 @@
 				</option>
 				<option>
 					<name>IlinkIcfFile</name>
-					<state>$PROJ_DIR$/../../../../../utils/linker_scripts/sam4e/sam4e16e/iar/sram.icf</state>
+					<state>$PROJ_DIR$/../../../../../utils/linker_scripts/sam4e/sam4e16/iar/sram.icf</state>
 				</option>
 				<option>
 					<name>IlinkIcfFileSlave</name>
@@ -1698,7 +1697,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -2184,9 +2182,54 @@
 			</group>
 		</group>
 		<group>
+			<name>boards</name>
+			<group>
+				<name>sam4e_ek</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../boards/sam4e_ek/init.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../boards/sam4e_ek/sam4e_ek.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../boards/sam4e_ek/led.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
 			<name>drivers</name>
 			<group>
+				<name>uart</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../uart/uart.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../uart/uart.h</name>
+				</file>
+			</group>
+			<group>
+				<name>pmc</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../pmc/sleep.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../pmc/pmc.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../pmc/pmc.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../pmc/sleep.h</name>
+				</file>
+			</group>
+			<group>
 				<name>gmac</name>
+				<file>
+					<name>$PROJ_DIR$/../../../gmac_raw.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../gmac_phy.c</name>
+				</file>
 				<group>
 					<name>gmac_example</name>
 					<file>
@@ -2218,34 +2261,10 @@
 					</file>
 				</group>
 				<file>
-					<name>$PROJ_DIR$/../../../gmac.c</name>
-				</file>
-				<file>
 					<name>$PROJ_DIR$/../../../gmac.h</name>
 				</file>
-			</group>
-			<group>
-				<name>uart</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../uart/uart.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../uart/uart.h</name>
-				</file>
-			</group>
-			<group>
-				<name>pmc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../pmc/sleep.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pmc/pmc.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pmc/pmc.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pmc/sleep.h</name>
+					<name>$PROJ_DIR$/../../../gmac_raw.h</name>
 				</file>
 			</group>
 			<group>
@@ -2273,21 +2292,6 @@
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../components/ethernet_phy/documentation.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
-			<name>boards</name>
-			<group>
-				<name>sam4e_ek</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../boards/sam4e_ek/init.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../boards/sam4e_ek/sam4e_ek.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../boards/sam4e_ek/led.h</name>
 				</file>
 			</group>
 		</group>

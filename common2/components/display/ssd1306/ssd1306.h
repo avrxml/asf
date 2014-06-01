@@ -3,7 +3,7 @@
  *
  * \brief SSD1306 OLED display controller driver.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -77,21 +77,22 @@ extern "C" {
  *
  * An example \ref conf_ssd1306.h file could look like
  * \code
- * // interface selection
- * #define SSD1306_SPI           SERCOM2
- *
- * #define SSD1306_CLOCK_SPEED          1000000
- *
- * #define SSD1306_DC_PIN               PIN_PB24
- * #define SSD1306_CS_PIN               PIN_PB27
- * #define SSD1306_RES_PIN              PIN_PA17
- * \endcode
+	 // interface selection
+	 #define SSD1306_SPI           SERCOM2
+
+	 #define SSD1306_CLOCK_SPEED          1000000
+
+	 #define SSD1306_DC_PIN               PIN_PB24
+	 #define SSD1306_CS_PIN               PIN_PB27
+	 #define SSD1306_RES_PIN              PIN_PA17
+\endcode
  *
  * \section dependencies Dependencies
  * This driver depends on the following modules:
- * - \ref asfdoc_samd20_port_group for IO port control.
- * - \ref asfdoc_samd20_system_group for getting system clock speeds for init functions.
- * - \ref asfdoc_samd20_sercom_spi_group for communication with the OLED controller
+ * - \ref asfdoc_sam0_port_group for IO port control.
+ * - \ref asfdoc_sam0_system_group for getting system clock speeds for init functions.
+ * - \ref asfdoc_sam0_sercom_spi_group for communication with the OLED controller
+ * - \ref asfdoc_sam0_sercom_spi_group for communication with the OLED controller
  * @{
  */
 
@@ -194,9 +195,9 @@ static inline void ssd1306_hard_reset(void)
 {
 	uint32_t delay_10us = 10 * (system_gclk_gen_get_hz(0)/1000000);
 	port_pin_set_output_level(SSD1306_RES_PIN, false);
-	delay_cycles(delay_10us); // At lest 3µs
+	delay_cycles(delay_10us); // At lest 10us
 	port_pin_set_output_level(SSD1306_RES_PIN, true);
-	delay_cycles(delay_10us); // At lest 3µs
+	delay_cycles(delay_10us); // At lest 10us
 }
 //@}
 

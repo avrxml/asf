@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4E16E	Atmel SAM4E16E</state>
+					<state>ATSAM4E16E	Atmel ATSAM4E16E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -293,28 +293,26 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../pio</state>
-					<state>$PROJ_DIR$/../../../../../utils/fpu</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
-					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../utils/fpu</state>
+					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4e_ek</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -562,28 +560,26 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../pio</state>
-					<state>$PROJ_DIR$/../../../../../utils/fpu</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
-					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../utils/fpu</state>
+					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4e_ek</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -732,7 +728,7 @@
 				</option>
 				<option>
 					<name>IlinkIcfFile</name>
-					<state>$PROJ_DIR$/../../../../../utils/linker_scripts/sam4e/sam4e16e/iar/sram.icf</state>
+					<state>$PROJ_DIR$/../../../../../utils/linker_scripts/sam4e/sam4e16/iar/sram.icf</state>
 				</option>
 				<option>
 					<name>IlinkIcfFileSlave</name>
@@ -768,7 +764,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1027,7 +1022,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4E16E	Atmel SAM4E16E</state>
+					<state>ATSAM4E16E	Atmel ATSAM4E16E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1223,28 +1218,26 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../pio</state>
-					<state>$PROJ_DIR$/../../../../../utils/fpu</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
-					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../utils/fpu</state>
+					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4e_ek</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1492,28 +1485,26 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../pio</state>
-					<state>$PROJ_DIR$/../../../../../utils/fpu</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
-					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../utils/fpu</state>
+					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4e_ek</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1662,7 +1653,7 @@
 				</option>
 				<option>
 					<name>IlinkIcfFile</name>
-					<state>$PROJ_DIR$/../../../../../utils/linker_scripts/sam4e/sam4e16e/iar/sram.icf</state>
+					<state>$PROJ_DIR$/../../../../../utils/linker_scripts/sam4e/sam4e16/iar/sram.icf</state>
 				</option>
 				<option>
 					<name>IlinkIcfFileSlave</name>
@@ -1698,7 +1689,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1875,15 +1865,15 @@
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates/system_sam4e.c</name>
 							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates/exceptions.c</name>
+							</file>
 							<group>
 								<name>iar</name>
 								<file>
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates/iar/startup_sam4e.c</name>
 								</file>
 							</group>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates/exceptions.c</name>
-							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/source/templates/exceptions.h</name>
 							</file>
@@ -2184,16 +2174,22 @@
 			</group>
 		</group>
 		<group>
-			<name>drivers</name>
+			<name>boards</name>
 			<group>
-				<name>usart</name>
+				<name>sam4e_ek</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../usart/usart.c</name>
+					<name>$PROJ_DIR$/../../../../../boards/sam4e_ek/init.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../usart/usart.h</name>
+					<name>$PROJ_DIR$/../../../../../boards/sam4e_ek/sam4e_ek.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../boards/sam4e_ek/led.h</name>
 				</file>
 			</group>
+		</group>
+		<group>
+			<name>drivers</name>
 			<group>
 				<name>rtc</name>
 				<file>
@@ -2252,33 +2248,12 @@
 				</file>
 			</group>
 			<group>
-				<name>pio</name>
+				<name>usart</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../pio/pio_handler.c</name>
+					<name>$PROJ_DIR$/../../../../usart/usart.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../pio/pio.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pio/pio_handler.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pio/pio.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
-			<name>boards</name>
-			<group>
-				<name>sam4e_ek</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../boards/sam4e_ek/init.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../boards/sam4e_ek/sam4e_ek.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../boards/sam4e_ek/led.h</name>
+					<name>$PROJ_DIR$/../../../../usart/usart.h</name>
 				</file>
 			</group>
 		</group>
@@ -2321,21 +2296,6 @@
 		<group>
 			<name>services</name>
 			<group>
-				<name>serial</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../common/services/serial/usart_serial.c</name>
-				</file>
-				<group>
-					<name>sam_uart</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart/uart_serial.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../common/services/serial/serial.h</name>
-				</file>
-			</group>
-			<group>
 				<name>clock</name>
 				<group>
 					<name>sam4e</name>
@@ -2369,16 +2329,19 @@
 				</file>
 			</group>
 			<group>
-				<name>gpio</name>
+				<name>serial</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../common/services/gpio/gpio.h</name>
+					<name>$PROJ_DIR$/../../../../../../common/services/serial/usart_serial.c</name>
 				</file>
 				<group>
-					<name>sam_gpio</name>
+					<name>sam_uart</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/gpio/sam_gpio/sam_gpio.h</name>
+						<name>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart/uart_serial.h</name>
 					</file>
 				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../common/services/serial/serial.h</name>
+				</file>
 			</group>
 			<group>
 				<name>ioport</name>

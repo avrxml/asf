@@ -192,6 +192,7 @@
 					<state>SD_MMC_ENABLE</state>
 					<state>FREERTOS_USED</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
+					<state>__FREERTOS__</state>
 					<state>CONFIG_INTERRUPT_FORCE_INTC</state>
 					<state>AT45DBX_ENABLE</state>
 				</option>
@@ -482,6 +483,7 @@
 					<state>SD_MMC_ENABLE</state>
 					<state>FREERTOS_USED</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
+					<state>__FREERTOS__</state>
 					<state>CONFIG_INTERRUPT_FORCE_INTC</state>
 					<state>AT45DBX_ENABLE</state>
 				</option>
@@ -1115,6 +1117,7 @@
 					<state>SD_MMC_ENABLE</state>
 					<state>FREERTOS_USED</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
+					<state>__FREERTOS__</state>
 					<state>CONFIG_INTERRUPT_FORCE_INTC</state>
 					<state>AT45DBX_ENABLE</state>
 				</option>
@@ -1405,6 +1408,7 @@
 					<state>SD_MMC_ENABLE</state>
 					<state>FREERTOS_USED</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
+					<state>__FREERTOS__</state>
 					<state>CONFIG_INTERRUPT_FORCE_INTC</state>
 					<state>AT45DBX_ENABLE</state>
 				</option>

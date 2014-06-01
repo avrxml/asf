@@ -56,9 +56,6 @@
 #include <compiler.h>
 #include <status_codes.h>
 
-// From module: GPIO - General purpose Input/Output
-#include <gpio.h>
-
 // From module: Generic board support
 #include <board.h>
 

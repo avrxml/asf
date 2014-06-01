@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 I2C Slave Quick Start Guide with Callbacks
+ * \brief SAM SERCOM I2C Slave Quick Start Guide with Callbacks
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -80,7 +80,7 @@ void configure_i2c_slave(void)
 
 	/* Initialize and enable device with config_i2c_slave */
 	//! [init_module]
-	i2c_slave_init(&i2c_slave_instance, SERCOM1, &config_i2c_slave);
+	i2c_slave_init(&i2c_slave_instance, SERCOM2, &config_i2c_slave);
 	//! [init_module]
 
 	//! [enable_module]
@@ -91,11 +91,9 @@ void configure_i2c_slave(void)
 
 int main(void)
 {
-	//! [run_initialize_i2c]
-	//! [system_init]
 	system_init();
-	//! [system_init]
 
+	//! [run_initialize_i2c]
 	//! [config]
 	configure_i2c_slave();
 	//! [config]
@@ -104,8 +102,7 @@ int main(void)
 	enum i2c_slave_direction dir;
 	//! [dir]
 	//! [pack]
-	struct i2c_packet packet = {
-		.address     = SLAVE_ADDRESS,
+	struct i2c_slave_packet packet = {
 		.data_length = DATA_LENGTH,
 		.data        = write_buffer,
 	};

@@ -3,7 +3,7 @@
  *
  * \brief USB Standard I/O (stdio) Example
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -67,15 +67,22 @@
  * <A href="http://www.atmel.com/avr">Atmel AVR</A>.\n
  */
 
-#include <board.h>
-#include <sysclk.h>
-#include <stdio_usb.h>
+#include <asf.h>
 
 /**
  * \brief main function
  */
 int main (void)
 {
+#if SAMD21 || SAMR21
+	/* Initialize basic board support features.
+	 * - Initialize system clock sources according to device-specific
+	 *   configuration parameters supplied in a conf_clocks.h file.
+	 * - Set up GPIO and board-specific features using additional configuration
+	 *   parameters, if any, specified in a conf_board.h file.
+	 */
+	system_init();
+#else
 	/* Initialize basic board support features.
 	 * - Initialize system clock sources according to device-specific
 	 *   configuration parameters supplied in a conf_clock.h file.
@@ -84,6 +91,7 @@ int main (void)
 	 */
 	sysclk_init();
 	board_init();
+#endif
 
 	// Initialize interrupt vector table support.
 	irq_initialize_vectors();

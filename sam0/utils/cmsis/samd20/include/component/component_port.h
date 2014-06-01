@@ -52,7 +52,7 @@
 
 #define REV_PORT                    0x100
 
-/* -------- PORT_DIR : (PORT Offset: 0x00) (R/W 32) GROUP Data Direction Register -------- */
+/* -------- PORT_DIR : (PORT Offset: 0x00) (R/W 32) GROUP Data Direction -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -62,15 +62,15 @@ typedef union {
 } PORT_DIR_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_DIR_OFFSET             0x00         /**< \brief (PORT_DIR offset) Data Direction Register */
-#define PORT_DIR_RESETVALUE         0x00000000   /**< \brief (PORT_DIR reset_value) Data Direction Register */
+#define PORT_DIR_OFFSET             0x00         /**< \brief (PORT_DIR offset) Data Direction */
+#define PORT_DIR_RESETVALUE         0x00000000   /**< \brief (PORT_DIR reset_value) Data Direction */
 
 #define PORT_DIR_DIR_Pos            0            /**< \brief (PORT_DIR) Port Data Direction */
 #define PORT_DIR_DIR_Msk            (0xFFFFFFFFu << PORT_DIR_DIR_Pos)
 #define PORT_DIR_DIR(value)         ((PORT_DIR_DIR_Msk & ((value) << PORT_DIR_DIR_Pos)))
 #define PORT_DIR_MASK               0xFFFFFFFFu  /**< \brief (PORT_DIR) MASK Register */
 
-/* -------- PORT_DIRCLR : (PORT Offset: 0x04) (R/W 32) GROUP Data Direction Clear Register -------- */
+/* -------- PORT_DIRCLR : (PORT Offset: 0x04) (R/W 32) GROUP Data Direction Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -80,15 +80,15 @@ typedef union {
 } PORT_DIRCLR_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_DIRCLR_OFFSET          0x04         /**< \brief (PORT_DIRCLR offset) Data Direction Clear Register */
-#define PORT_DIRCLR_RESETVALUE      0x00000000   /**< \brief (PORT_DIRCLR reset_value) Data Direction Clear Register */
+#define PORT_DIRCLR_OFFSET          0x04         /**< \brief (PORT_DIRCLR offset) Data Direction Clear */
+#define PORT_DIRCLR_RESETVALUE      0x00000000   /**< \brief (PORT_DIRCLR reset_value) Data Direction Clear */
 
 #define PORT_DIRCLR_DIRCLR_Pos      0            /**< \brief (PORT_DIRCLR) Port Data Direction Clear */
 #define PORT_DIRCLR_DIRCLR_Msk      (0xFFFFFFFFu << PORT_DIRCLR_DIRCLR_Pos)
 #define PORT_DIRCLR_DIRCLR(value)   ((PORT_DIRCLR_DIRCLR_Msk & ((value) << PORT_DIRCLR_DIRCLR_Pos)))
 #define PORT_DIRCLR_MASK            0xFFFFFFFFu  /**< \brief (PORT_DIRCLR) MASK Register */
 
-/* -------- PORT_DIRSET : (PORT Offset: 0x08) (R/W 32) GROUP Data Direction Set Register -------- */
+/* -------- PORT_DIRSET : (PORT Offset: 0x08) (R/W 32) GROUP Data Direction Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -98,15 +98,15 @@ typedef union {
 } PORT_DIRSET_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_DIRSET_OFFSET          0x08         /**< \brief (PORT_DIRSET offset) Data Direction Set Register */
-#define PORT_DIRSET_RESETVALUE      0x00000000   /**< \brief (PORT_DIRSET reset_value) Data Direction Set Register */
+#define PORT_DIRSET_OFFSET          0x08         /**< \brief (PORT_DIRSET offset) Data Direction Set */
+#define PORT_DIRSET_RESETVALUE      0x00000000   /**< \brief (PORT_DIRSET reset_value) Data Direction Set */
 
 #define PORT_DIRSET_DIRSET_Pos      0            /**< \brief (PORT_DIRSET) Port Data Direction Set */
 #define PORT_DIRSET_DIRSET_Msk      (0xFFFFFFFFu << PORT_DIRSET_DIRSET_Pos)
 #define PORT_DIRSET_DIRSET(value)   ((PORT_DIRSET_DIRSET_Msk & ((value) << PORT_DIRSET_DIRSET_Pos)))
 #define PORT_DIRSET_MASK            0xFFFFFFFFu  /**< \brief (PORT_DIRSET) MASK Register */
 
-/* -------- PORT_DIRTGL : (PORT Offset: 0x0C) (R/W 32) GROUP Data Direction Toggle Register -------- */
+/* -------- PORT_DIRTGL : (PORT Offset: 0x0C) (R/W 32) GROUP Data Direction Toggle -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -116,15 +116,15 @@ typedef union {
 } PORT_DIRTGL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_DIRTGL_OFFSET          0x0C         /**< \brief (PORT_DIRTGL offset) Data Direction Toggle Register */
-#define PORT_DIRTGL_RESETVALUE      0x00000000   /**< \brief (PORT_DIRTGL reset_value) Data Direction Toggle Register */
+#define PORT_DIRTGL_OFFSET          0x0C         /**< \brief (PORT_DIRTGL offset) Data Direction Toggle */
+#define PORT_DIRTGL_RESETVALUE      0x00000000   /**< \brief (PORT_DIRTGL reset_value) Data Direction Toggle */
 
 #define PORT_DIRTGL_DIRTGL_Pos      0            /**< \brief (PORT_DIRTGL) Port Data Direction Toggle */
 #define PORT_DIRTGL_DIRTGL_Msk      (0xFFFFFFFFu << PORT_DIRTGL_DIRTGL_Pos)
 #define PORT_DIRTGL_DIRTGL(value)   ((PORT_DIRTGL_DIRTGL_Msk & ((value) << PORT_DIRTGL_DIRTGL_Pos)))
 #define PORT_DIRTGL_MASK            0xFFFFFFFFu  /**< \brief (PORT_DIRTGL) MASK Register */
 
-/* -------- PORT_OUT : (PORT Offset: 0x10) (R/W 32) GROUP Data Output Value Register -------- */
+/* -------- PORT_OUT : (PORT Offset: 0x10) (R/W 32) GROUP Data Output Value -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -134,15 +134,15 @@ typedef union {
 } PORT_OUT_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_OUT_OFFSET             0x10         /**< \brief (PORT_OUT offset) Data Output Value Register */
-#define PORT_OUT_RESETVALUE         0x00000000   /**< \brief (PORT_OUT reset_value) Data Output Value Register */
+#define PORT_OUT_OFFSET             0x10         /**< \brief (PORT_OUT offset) Data Output Value */
+#define PORT_OUT_RESETVALUE         0x00000000   /**< \brief (PORT_OUT reset_value) Data Output Value */
 
 #define PORT_OUT_OUT_Pos            0            /**< \brief (PORT_OUT) Port Data Output Value */
 #define PORT_OUT_OUT_Msk            (0xFFFFFFFFu << PORT_OUT_OUT_Pos)
 #define PORT_OUT_OUT(value)         ((PORT_OUT_OUT_Msk & ((value) << PORT_OUT_OUT_Pos)))
 #define PORT_OUT_MASK               0xFFFFFFFFu  /**< \brief (PORT_OUT) MASK Register */
 
-/* -------- PORT_OUTCLR : (PORT Offset: 0x14) (R/W 32) GROUP Data Output Value Clear Register -------- */
+/* -------- PORT_OUTCLR : (PORT Offset: 0x14) (R/W 32) GROUP Data Output Value Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -152,15 +152,15 @@ typedef union {
 } PORT_OUTCLR_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_OUTCLR_OFFSET          0x14         /**< \brief (PORT_OUTCLR offset) Data Output Value Clear Register */
-#define PORT_OUTCLR_RESETVALUE      0x00000000   /**< \brief (PORT_OUTCLR reset_value) Data Output Value Clear Register */
+#define PORT_OUTCLR_OFFSET          0x14         /**< \brief (PORT_OUTCLR offset) Data Output Value Clear */
+#define PORT_OUTCLR_RESETVALUE      0x00000000   /**< \brief (PORT_OUTCLR reset_value) Data Output Value Clear */
 
 #define PORT_OUTCLR_OUTCLR_Pos      0            /**< \brief (PORT_OUTCLR) Port Data Output Value Clear */
 #define PORT_OUTCLR_OUTCLR_Msk      (0xFFFFFFFFu << PORT_OUTCLR_OUTCLR_Pos)
 #define PORT_OUTCLR_OUTCLR(value)   ((PORT_OUTCLR_OUTCLR_Msk & ((value) << PORT_OUTCLR_OUTCLR_Pos)))
 #define PORT_OUTCLR_MASK            0xFFFFFFFFu  /**< \brief (PORT_OUTCLR) MASK Register */
 
-/* -------- PORT_OUTSET : (PORT Offset: 0x18) (R/W 32) GROUP Data Output Value Set Register -------- */
+/* -------- PORT_OUTSET : (PORT Offset: 0x18) (R/W 32) GROUP Data Output Value Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -170,15 +170,15 @@ typedef union {
 } PORT_OUTSET_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_OUTSET_OFFSET          0x18         /**< \brief (PORT_OUTSET offset) Data Output Value Set Register */
-#define PORT_OUTSET_RESETVALUE      0x00000000   /**< \brief (PORT_OUTSET reset_value) Data Output Value Set Register */
+#define PORT_OUTSET_OFFSET          0x18         /**< \brief (PORT_OUTSET offset) Data Output Value Set */
+#define PORT_OUTSET_RESETVALUE      0x00000000   /**< \brief (PORT_OUTSET reset_value) Data Output Value Set */
 
 #define PORT_OUTSET_OUTSET_Pos      0            /**< \brief (PORT_OUTSET) Port Data Output Value Set */
 #define PORT_OUTSET_OUTSET_Msk      (0xFFFFFFFFu << PORT_OUTSET_OUTSET_Pos)
 #define PORT_OUTSET_OUTSET(value)   ((PORT_OUTSET_OUTSET_Msk & ((value) << PORT_OUTSET_OUTSET_Pos)))
 #define PORT_OUTSET_MASK            0xFFFFFFFFu  /**< \brief (PORT_OUTSET) MASK Register */
 
-/* -------- PORT_OUTTGL : (PORT Offset: 0x1C) (R/W 32) GROUP Data Output Value Toggle Register -------- */
+/* -------- PORT_OUTTGL : (PORT Offset: 0x1C) (R/W 32) GROUP Data Output Value Toggle -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -188,15 +188,15 @@ typedef union {
 } PORT_OUTTGL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_OUTTGL_OFFSET          0x1C         /**< \brief (PORT_OUTTGL offset) Data Output Value Toggle Register */
-#define PORT_OUTTGL_RESETVALUE      0x00000000   /**< \brief (PORT_OUTTGL reset_value) Data Output Value Toggle Register */
+#define PORT_OUTTGL_OFFSET          0x1C         /**< \brief (PORT_OUTTGL offset) Data Output Value Toggle */
+#define PORT_OUTTGL_RESETVALUE      0x00000000   /**< \brief (PORT_OUTTGL reset_value) Data Output Value Toggle */
 
 #define PORT_OUTTGL_OUTTGL_Pos      0            /**< \brief (PORT_OUTTGL) Port Data Output Value Toggle */
 #define PORT_OUTTGL_OUTTGL_Msk      (0xFFFFFFFFu << PORT_OUTTGL_OUTTGL_Pos)
 #define PORT_OUTTGL_OUTTGL(value)   ((PORT_OUTTGL_OUTTGL_Msk & ((value) << PORT_OUTTGL_OUTTGL_Pos)))
 #define PORT_OUTTGL_MASK            0xFFFFFFFFu  /**< \brief (PORT_OUTTGL) MASK Register */
 
-/* -------- PORT_IN : (PORT Offset: 0x20) (R/  32) GROUP Data Input Value Register -------- */
+/* -------- PORT_IN : (PORT Offset: 0x20) (R/  32) GROUP Data Input Value -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -206,15 +206,15 @@ typedef union {
 } PORT_IN_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_IN_OFFSET              0x20         /**< \brief (PORT_IN offset) Data Input Value Register */
-#define PORT_IN_RESETVALUE          0x00000000   /**< \brief (PORT_IN reset_value) Data Input Value Register */
+#define PORT_IN_OFFSET              0x20         /**< \brief (PORT_IN offset) Data Input Value */
+#define PORT_IN_RESETVALUE          0x00000000   /**< \brief (PORT_IN reset_value) Data Input Value */
 
 #define PORT_IN_IN_Pos              0            /**< \brief (PORT_IN) Port Data Input Value */
 #define PORT_IN_IN_Msk              (0xFFFFFFFFu << PORT_IN_IN_Pos)
 #define PORT_IN_IN(value)           ((PORT_IN_IN_Msk & ((value) << PORT_IN_IN_Pos)))
 #define PORT_IN_MASK                0xFFFFFFFFu  /**< \brief (PORT_IN) MASK Register */
 
-/* -------- PORT_CTRL : (PORT Offset: 0x24) (R/W 32) GROUP Control Register -------- */
+/* -------- PORT_CTRL : (PORT Offset: 0x24) (R/W 32) GROUP Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -224,15 +224,15 @@ typedef union {
 } PORT_CTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_CTRL_OFFSET            0x24         /**< \brief (PORT_CTRL offset) Control Register */
-#define PORT_CTRL_RESETVALUE        0x00000000   /**< \brief (PORT_CTRL reset_value) Control Register */
+#define PORT_CTRL_OFFSET            0x24         /**< \brief (PORT_CTRL offset) Control */
+#define PORT_CTRL_RESETVALUE        0x00000000   /**< \brief (PORT_CTRL reset_value) Control */
 
 #define PORT_CTRL_SAMPLING_Pos      0            /**< \brief (PORT_CTRL) Input Sampling Mode */
 #define PORT_CTRL_SAMPLING_Msk      (0xFFFFFFFFu << PORT_CTRL_SAMPLING_Pos)
 #define PORT_CTRL_SAMPLING(value)   ((PORT_CTRL_SAMPLING_Msk & ((value) << PORT_CTRL_SAMPLING_Pos)))
 #define PORT_CTRL_MASK              0xFFFFFFFFu  /**< \brief (PORT_CTRL) MASK Register */
 
-/* -------- PORT_WRCONFIG : (PORT Offset: 0x28) ( /W 32) GROUP Write Configuration Register -------- */
+/* -------- PORT_WRCONFIG : (PORT Offset: 0x28) ( /W 32) GROUP Write Configuration -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -255,8 +255,8 @@ typedef union {
 } PORT_WRCONFIG_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_WRCONFIG_OFFSET        0x28         /**< \brief (PORT_WRCONFIG offset) Write Configuration Register */
-#define PORT_WRCONFIG_RESETVALUE    0x00000000   /**< \brief (PORT_WRCONFIG reset_value) Write Configuration Register */
+#define PORT_WRCONFIG_OFFSET        0x28         /**< \brief (PORT_WRCONFIG offset) Write Configuration */
+#define PORT_WRCONFIG_RESETVALUE    0x00000000   /**< \brief (PORT_WRCONFIG reset_value) Write Configuration */
 
 #define PORT_WRCONFIG_PINMASK_Pos   0            /**< \brief (PORT_WRCONFIG) Pin Mask for Multiple Pin Configuration */
 #define PORT_WRCONFIG_PINMASK_Msk   (0xFFFFu << PORT_WRCONFIG_PINMASK_Pos)
@@ -284,7 +284,7 @@ typedef union {
 #define PORT_WRCONFIG_HWSEL         (0x1u << PORT_WRCONFIG_HWSEL_Pos)
 #define PORT_WRCONFIG_MASK          0xDF5FFFFFu  /**< \brief (PORT_WRCONFIG) MASK Register */
 
-/* -------- PORT_PMUX : (PORT Offset: 0x30) (R/W  8) GROUP Peripheral Multiplexing Register -------- */
+/* -------- PORT_PMUX : (PORT Offset: 0x30) (R/W  8) GROUP Peripheral Multiplexing -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -295,8 +295,8 @@ typedef union {
 } PORT_PMUX_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_PMUX_OFFSET            0x30         /**< \brief (PORT_PMUX offset) Peripheral Multiplexing Register */
-#define PORT_PMUX_RESETVALUE        0x00         /**< \brief (PORT_PMUX reset_value) Peripheral Multiplexing Register */
+#define PORT_PMUX_OFFSET            0x30         /**< \brief (PORT_PMUX offset) Peripheral Multiplexing */
+#define PORT_PMUX_RESETVALUE        0x00         /**< \brief (PORT_PMUX reset_value) Peripheral Multiplexing */
 
 #define PORT_PMUX_PMUXE_Pos         0            /**< \brief (PORT_PMUX) Peripheral Multiplexing for Even-Numbered Pin */
 #define PORT_PMUX_PMUXE_Msk         (0xFu << PORT_PMUX_PMUXE_Pos)
@@ -306,7 +306,7 @@ typedef union {
 #define PORT_PMUX_PMUXO(value)      ((PORT_PMUX_PMUXO_Msk & ((value) << PORT_PMUX_PMUXO_Pos)))
 #define PORT_PMUX_MASK              0xFFu        /**< \brief (PORT_PMUX) MASK Register */
 
-/* -------- PORT_PINCFG : (PORT Offset: 0x40) (R/W  8) GROUP Pin Configuration Register -------- */
+/* -------- PORT_PINCFG : (PORT Offset: 0x40) (R/W  8) GROUP Pin Configuration -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -323,8 +323,8 @@ typedef union {
 } PORT_PINCFG_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PORT_PINCFG_OFFSET          0x40         /**< \brief (PORT_PINCFG offset) Pin Configuration Register */
-#define PORT_PINCFG_RESETVALUE      0x00         /**< \brief (PORT_PINCFG reset_value) Pin Configuration Register */
+#define PORT_PINCFG_OFFSET          0x40         /**< \brief (PORT_PINCFG offset) Pin Configuration */
+#define PORT_PINCFG_RESETVALUE      0x00         /**< \brief (PORT_PINCFG reset_value) Pin Configuration */
 
 #define PORT_PINCFG_PMUXEN_Pos      0            /**< \brief (PORT_PINCFG) Select Peripheral Multiplexer */
 #define PORT_PINCFG_PMUXEN          (0x1u << PORT_PINCFG_PMUXEN_Pos)
@@ -343,25 +343,25 @@ typedef union {
 /** \brief PortGroup hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef struct {
-  __IO PORT_DIR_Type             DIR;         /**< \brief Offset: 0x00 (R/W 32) Data Direction Register */
-  __IO PORT_DIRCLR_Type          DIRCLR;      /**< \brief Offset: 0x04 (R/W 32) Data Direction Clear Register */
-  __IO PORT_DIRSET_Type          DIRSET;      /**< \brief Offset: 0x08 (R/W 32) Data Direction Set Register */
-  __IO PORT_DIRTGL_Type          DIRTGL;      /**< \brief Offset: 0x0C (R/W 32) Data Direction Toggle Register */
-  __IO PORT_OUT_Type             OUT;         /**< \brief Offset: 0x10 (R/W 32) Data Output Value Register */
-  __IO PORT_OUTCLR_Type          OUTCLR;      /**< \brief Offset: 0x14 (R/W 32) Data Output Value Clear Register */
-  __IO PORT_OUTSET_Type          OUTSET;      /**< \brief Offset: 0x18 (R/W 32) Data Output Value Set Register */
-  __IO PORT_OUTTGL_Type          OUTTGL;      /**< \brief Offset: 0x1C (R/W 32) Data Output Value Toggle Register */
-  __I  PORT_IN_Type              IN;          /**< \brief Offset: 0x20 (R/  32) Data Input Value Register */
-  __IO PORT_CTRL_Type            CTRL;        /**< \brief Offset: 0x24 (R/W 32) Control Register */
-  __O  PORT_WRCONFIG_Type        WRCONFIG;    /**< \brief Offset: 0x28 ( /W 32) Write Configuration Register */
+  __IO PORT_DIR_Type             DIR;         /**< \brief Offset: 0x00 (R/W 32) Data Direction */
+  __IO PORT_DIRCLR_Type          DIRCLR;      /**< \brief Offset: 0x04 (R/W 32) Data Direction Clear */
+  __IO PORT_DIRSET_Type          DIRSET;      /**< \brief Offset: 0x08 (R/W 32) Data Direction Set */
+  __IO PORT_DIRTGL_Type          DIRTGL;      /**< \brief Offset: 0x0C (R/W 32) Data Direction Toggle */
+  __IO PORT_OUT_Type             OUT;         /**< \brief Offset: 0x10 (R/W 32) Data Output Value */
+  __IO PORT_OUTCLR_Type          OUTCLR;      /**< \brief Offset: 0x14 (R/W 32) Data Output Value Clear */
+  __IO PORT_OUTSET_Type          OUTSET;      /**< \brief Offset: 0x18 (R/W 32) Data Output Value Set */
+  __IO PORT_OUTTGL_Type          OUTTGL;      /**< \brief Offset: 0x1C (R/W 32) Data Output Value Toggle */
+  __I  PORT_IN_Type              IN;          /**< \brief Offset: 0x20 (R/  32) Data Input Value */
+  __IO PORT_CTRL_Type            CTRL;        /**< \brief Offset: 0x24 (R/W 32) Control */
+  __O  PORT_WRCONFIG_Type        WRCONFIG;    /**< \brief Offset: 0x28 ( /W 32) Write Configuration */
        RoReg8                    Reserved1[0x4];
-  __IO PORT_PMUX_Type            PMUX[16];    /**< \brief Offset: 0x30 (R/W  8) Peripheral Multiplexing Register */
-  __IO PORT_PINCFG_Type          PINCFG[32];  /**< \brief Offset: 0x40 (R/W  8) Pin Configuration Register */
+  __IO PORT_PMUX_Type            PMUX[16];    /**< \brief Offset: 0x30 (R/W  8) Peripheral Multiplexing */
+  __IO PORT_PINCFG_Type          PINCFG[32];  /**< \brief Offset: 0x40 (R/W  8) Pin Configuration */
        RoReg8                    Reserved2[0x20];
 } PortGroup;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-/** \brief PORT hardware registers */
+/** \brief PORT APB hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef struct {
        PortGroup                 Group[2];    /**< \brief Offset: 0x00 PortGroup groups [GROUPS] */

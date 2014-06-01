@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of functions for the AES on SAM devices.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -81,10 +81,11 @@ void aes_get_config_defaults(struct aes_config *const p_cfg)
 	/* Default configuration values */
 	p_cfg->encrypt_mode = AES_ENCRYPTION;
 	p_cfg->key_size = AES_KEY_SIZE_128;
-	p_cfg->start_mode = AES_MANUAL_MODE;
+	p_cfg->start_mode = AES_MANUAL_START;
 	p_cfg->opmode = AES_ECB_MODE;
 	p_cfg->cfb_size = AES_CFB_SIZE_128;
 	p_cfg->lod = false;
+	p_cfg->gtag_en = false;
 	p_cfg->processing_delay = 0;
 }
 
@@ -151,7 +152,7 @@ void aes_set_config(Aes *const p_aes, struct aes_config *const p_cfg)
 	}
 
 	/* Active dual buffer in DMA mode */
-	if (p_cfg->start_mode == AES_DMA_MODE) {
+	if (p_cfg->start_mode == AES_IDATAR0_START) {
 		ul_mode |= AES_MR_DUALBUFF_ACTIVE;
 	}
 
@@ -171,9 +172,19 @@ void aes_set_config(Aes *const p_aes, struct aes_config *const p_cfg)
 		ul_mode |= AES_MR_LOD;
 	}
 
+	#if SAM4C || SAM4CP || SAM4CM
+	if ((p_cfg->opmode == AES_GCM_MODE) && (p_cfg->gtag_en == true)) {
+		ul_mode |= AES_MR_GTAGEN;
+	}
+	#endif
+
 	ul_mode |= AES_MR_PROCDLY(p_cfg->processing_delay);
 
+	#if SAM4C || SAM4CP || SAM4CM
+	ul_mode |= AES_MR_CKEY_PASSWD;
+	#else
 	ul_mode |= AES_MR_CKEY(0xE);
+	#endif
 
 	p_aes->AES_MR = ul_mode;
 }
@@ -216,7 +227,7 @@ void aes_write_key(Aes *const p_aes, const uint32_t *p_key)
 }
 
 /**
- * \brief Write the initialization vector (for the CBC, CFB, OFB & CTR
+ * \brief Write the initialization vector (for the CBC, CFB, OFB, CTR & GCM
  * cipher modes)
  *
  * \param  p_aes Base address of the AES instance.
@@ -269,6 +280,29 @@ void aes_read_output_data(Aes *const p_aes,
 	}
 }
 
+#if SAM4C || SAM4CP || SAM4CM
+
+/**
+ * \brief Get AES PDC base address.
+ *
+ * \param p_aes Pointer to a AES instance.
+ *
+ * \return AES PDC registers base for PDC driver to access.
+ */
+Pdc *aes_get_pdc_base(Aes *p_aes)
+{
+	Pdc *p_pdc_base;
+	if (p_aes == AES) {
+		p_pdc_base = PDC_AES;
+	} else {
+		p_pdc_base = NULL;
+	}
+
+	return p_pdc_base;
+}
+
+#endif
+
 /**
  * \brief Set callback for AES
  *
@@ -286,6 +320,18 @@ void aes_set_callback(Aes *const p_aes,
 	} else if (source == AES_INTERRUPT_UNSPECIFIED_REGISTER_ACCESS) {
 		aes_callback_pointer[1] = callback;
 	}
+
+#if SAM4C || SAM4CP || SAM4CM
+	else if (source == AES_INTERRUPT_END_OF_RECEIVE_BUFFER) {
+		aes_callback_pointer[2] = callback;
+	} else if (source == AES_INTERRUPT_END_OF_TRANSMIT_BUFFER) {
+		aes_callback_pointer[3] = callback;
+	} else if (source == AES_INTERRUPT_RECEIVE_BUFFER_FULL) {
+		aes_callback_pointer[4] = callback;
+	} else if (source == AES_INTERRUPT_TRANSMIT_BUFFER_FULL) {
+		aes_callback_pointer[5] = callback;
+	}
+#endif
 	irq_register_handler((IRQn_Type)AES_IRQn, irq_level);
 	aes_enable_interrupt(p_aes, source);
 }
@@ -299,15 +345,40 @@ void AES_Handler(void)
 	uint32_t mask = aes_read_interrupt_mask(AES);
 
 	if ((status & AES_ISR_DATRDY) && (mask & AES_IMR_DATRDY)) {
-		if(aes_callback_pointer[0]) {
+		if (aes_callback_pointer[0]) {
 			aes_callback_pointer[0]();
 		}
 	}
 
 	if ((status & AES_ISR_URAD) && (mask & AES_IMR_URAD)) {
-		if(aes_callback_pointer[1]) {
+		if (aes_callback_pointer[1]) {
 			aes_callback_pointer[1]();
 		}
 	}
-}
 
+#if SAM4C || SAM4CP || SAM4CM
+	if ((status & AES_ISR_ENDRX) && (mask & AES_IMR_ENDRX)) {
+		if (aes_callback_pointer[2]) {
+			aes_callback_pointer[2]();
+		}
+	}
+
+	if ((status & AES_ISR_ENDTX) && (mask & AES_IMR_ENDTX)) {
+		if (aes_callback_pointer[3]) {
+			aes_callback_pointer[3]();
+		}
+	}
+
+	if ((status & AES_ISR_RXBUFF) && (mask & AES_IMR_RXBUFF)) {
+		if (aes_callback_pointer[4]) {
+			aes_callback_pointer[4]();
+		}
+	}
+
+	if ((status & AES_ISR_TXBUFE) && (mask & AES_IMR_TXBUFE)) {
+		if (aes_callback_pointer[5]) {
+			aes_callback_pointer[5]();
+		}
+	}
+#endif
+}

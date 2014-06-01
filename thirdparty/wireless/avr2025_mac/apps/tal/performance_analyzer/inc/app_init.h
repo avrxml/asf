@@ -4,7 +4,7 @@
  * \brief Initialization prototypes and enumerations - Performance Analyzer
  * application
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -57,7 +57,7 @@
 /**
  * \defgroup group_perf_analyzer Performance Analyzer Application
  * This  application Performance Analyzer  is a Serial interface based
- *application,
+ * application,
  * which communicates with Wireless Analyzer to demonstrate various features and
  * capabilities of Atmel Transceivers
  *
@@ -72,7 +72,81 @@
 /* === Includes ============================================================= */
 
 /* === Macros =============================================================== */
+/* Version of the software */
+#define FIRMWARE_VERSION    2.3f
 
+#if ((TAL_TYPE == AT86RF212) || (TAL_TYPE == AT86RF212B))
+#define DEFAULT_CHANNEL         (1)
+#else
+#define DEFAULT_CHANNEL         (21)
+#endif
+#define DEFAULT_PAN_ID          (0xCAFE)
+#define DST_PAN_ID              (DEFAULT_PAN_ID)
+#define SRC_PAN_ID              (DEFAULT_PAN_ID)
+#define DEFAULT_ADDR            (0xFFFF)
+#define DST_SHORT_ADDR          (0xFFFF)
+
+/* Frame overhead due to selected address scheme incl. FCS */
+#if (DST_PAN_ID == SRC_PAN_ID)
+#define FRAME_OVERHEAD          (11)
+#else
+#define FRAME_OVERHEAD          (13)
+#endif
+
+#define FRAME_OVERHEAD_SRC_IEEE_ADDR (FRAME_OVERHEAD + 6)
+#define FRAME_OVERHEAD_DST_IEEE_ADDR (FRAME_OVERHEAD + 6)
+
+#define OFFSET_FOR_SRC_IEEE_ADDR    (7)
+
+#ifndef LED_COUNT
+#define LED_COUNT 0
+#endif
+
+#if (LED_COUNT >= 3)
+#define STATUS_LED              LED0_GPIO
+#define TX_LED                  LED1_GPIO
+#define RX_LED                  LED2_GPIO
+#elif (LED_COUNT >= 2)
+#define STATUS_LED              LED0_GPIO
+#define TX_LED                  LED0_GPIO
+#define RX_LED                  LED1_GPIO
+#elif (LED_COUNT == 1)
+#define STATUS_LED              LED0_GPIO
+#define TX_LED                  LED0_GPIO
+#define RX_LED                  LED0_GPIO
+#endif
+
+#ifdef LED0_ACTIVE_LEVEL
+#define STATUS_LED_GPIO       LED0_GPIO
+#define TX_LED_GPIO          LED0_GPIO
+#define RX_LED_GPIO         LED0_GPIO
+#define STATUS_LED_ACTIVE_LEVEL  LED0_ACTIVE_LEVEL
+#define STATUS_LED_INACTIVE_LEVEL  LED0_INACTIVE_LEVEL
+#define TX_LED_ACTIVE_LEVEL  LED0_ACTIVE_LEVEL
+#define TX_LED_INACTIVE_LEVEL  LED0_INACTIVE_LEVEL
+#define RX_LED_ACTIVE_LEVEL  LED0_ACTIVE_LEVEL
+#define RX_LED_INACTIVE_LEVEL  LED0_INACTIVE_LEVEL
+#endif
+
+/* Macro to enable the feature of counting wrong CRC packets */
+#if ((TAL_TYPE == ATMEGARFR2) || \
+	(TAL_TYPE == AT86RF212) || (TAL_TYPE == AT86RF212B) || \
+	(TAL_TYPE == AT86RF231) || (TAL_TYPE == AT86RF233))
+#define CRC_SETTING_ON_REMOTE_NODE
+#endif
+
+#if ((TAL_TYPE == ATMEGARFA1) || (TAL_TYPE == ATMEGARFR2))
+#define IC_TYPE 0X01
+#else
+#define IC_TYPE 0X00
+#endif
+
+#ifndef BOARD_NAME
+#define BOARD_NAME "USER_BOARD"
+#endif
+#ifndef MCU_SOC_NAME
+#define MCU_SOC_NAME "USER_MCU"
+#endif
 /* === Types ================================================================ */
 /* Main states */
 typedef enum {
@@ -89,6 +163,8 @@ typedef enum {
 	PER_TEST_RECEPTOR,
 	NUM_MAIN_STATES
 } main_state_t;
+
+#define DUMMY_PAYLOAD                           (0xAA)
 
 /**
  * \brief Structure to holds the information base for the node
@@ -163,6 +239,7 @@ void wait_for_event_task(void);
 void wait_for_event_rx_cb(frame_info_t *frame);
 
 extern uint8_t T_APP_TIMER;
+extern uint8_t T_APP_TIMER_RANGE;
 extern uint8_t APP_TIMER_TO_TX;
 extern uint8_t APP_TIMER_TO_TX_LED_OFF;
 extern uint8_t APP_TIMER_TO_RX_LED_OFF;
@@ -183,7 +260,7 @@ extern volatile node_ib_t node_info;
  * \param ack_req           specifies ack requested for frame if set to 1
  *
  * \return MAC_SUCCESS      if the TAL has accepted the data for frame
- *transmission
+ * transmission
  *         TAL_BUSY         if the TAL is busy servicing the previous tx request
  */
 extern retval_t transmit_frame( uint8_t dst_addr_mode,

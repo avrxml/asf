@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\tests_targets_flash.ewp</path>
+	</project>
+</workspace>

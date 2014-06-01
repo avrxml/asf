@@ -5,7 +5,7 @@
  * \brief Generic FreeRTOS peripheral control functions
  *
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -60,6 +60,8 @@
  *----------------------------------------------------------*/
 
 #if defined (__GNUC__) || defined (__ICCARM__)
+/* Important: put #includes here unless they are also meant for the assembler.
+ */
 #include <stdint.h>
 #endif
 

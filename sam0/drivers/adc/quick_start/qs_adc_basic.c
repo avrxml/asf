@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 ADC Quick Start
+ * \brief SAM D20/D21/R21 ADC Quick Start
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

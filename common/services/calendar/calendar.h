@@ -3,7 +3,7 @@
  *
  * \brief Calendar.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -129,15 +129,15 @@ void calendar_add_second_to_date(struct calendar_date *date);
  * be added to the project:
  * -# A date struct with a date:
  * \code
- * struct calendar_date date = {
- *     .second = 12,
- *     .minute = 1,
- *     .hour = 22,
- *     .date = 8,
- *     .month = 2,
- *     .year = 1985
- * };
- * \endcode
+	struct calendar_date date = {
+	    .second = 12,
+	    .minute = 1,
+	    .hour = 22,
+	    .date = 8,
+	    .month = 2,
+	    .year = 1985
+	};
+\endcode
  *
  * \subsection calendar_basic_use_case_setup_code Example code
  * No setup code is needed, the service is ready for use as-is.
@@ -166,15 +166,15 @@ void calendar_add_second_to_date(struct calendar_date *date);
  * be added to the project:
  * -# Three date structs:
  * \code
- * struct calendar_date result;
- * struct calendar_date end_date;
- * struct calendar_date start_date;
- * \endcode
+	struct calendar_date result;
+	struct calendar_date end_date;
+	struct calendar_date start_date;
+\endcode
  * -# Two timestamps:
  * \code
- * uint32_t end_timestamp = 1309174659;
- * uint32_t start_timestamp = 123456789;
- * \endcode
+	uint32_t end_timestamp = 1309174659;
+	uint32_t start_timestamp = 123456789;
+\endcode
  *
  * \subsection calendar_use_case_1_setup_code Example code
  * No setup code is needed, the service is ready for use as-is.
@@ -184,10 +184,10 @@ void calendar_add_second_to_date(struct calendar_date *date);
  * \subsection calendar_use_case_1_usage_code Example code
  * Add to, e.g. the main loop in the application C-file:
  * \code
- * calendar_timestamp_to_date(end_timestamp, &end_date);
- * calendar_timestamp_to_date(start_timestamp, &start_date);
- * calendar_time_between_dates(&end_date, &start_date, &result);
- * \endcode
+	calendar_timestamp_to_date(end_timestamp, &end_date);
+	calendar_timestamp_to_date(start_timestamp, &start_date);
+	calendar_time_between_dates(&end_date, &start_date, &result);
+\endcode
  *
  * \subsection calendar_use_case_1_usage_flow Workflow
  * -# Convert the end timestamp to date:
@@ -196,7 +196,7 @@ void calendar_add_second_to_date(struct calendar_date *date);
  *   - \code calendar_timestamp_to_date(start_timestamp, &start_date); \endcode
  * -# Calculate the time between the two dates:
  *   - \code calendar_time_between_dates(&end_date, &start_date, &result);
- *     \endcode
+\endcode
  */
 
 #endif /* _CALENDAR_H_INCLUDED_ */

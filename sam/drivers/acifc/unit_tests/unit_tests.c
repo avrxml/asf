@@ -71,6 +71,8 @@
  * The SAM4L devices can be used.
  * This example has been tested with the following setup:
  * - sam4lc4c_sam4l_ek
+ * - sam4lc4c_sam4l_xplained_pro
+ * - sam4lc8c_sam4l8_xplained_pro
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -132,7 +134,7 @@ static void run_ac_test(const struct test_case *test)
 	/* Start the comparison */
 	ac_user_trigger_single_comparison(&ac_device);
 
-	delay_ms(1000);
+	delay_ms(100);
 
 	test_assert_true(test, intflag == true, "AC test failed");
 }

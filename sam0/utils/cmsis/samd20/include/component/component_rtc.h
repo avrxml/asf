@@ -52,7 +52,7 @@
 
 #define REV_RTC                     0x101
 
-/* -------- RTC_MODE0_CTRL : (RTC Offset: 0x00) (R/W 16) MODE0 MODE0 Control Register -------- */
+/* -------- RTC_MODE0_CTRL : (RTC Offset: 0x00) (R/W 16) MODE0 MODE0 Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -68,8 +68,8 @@ typedef union {
 } RTC_MODE0_CTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE0_CTRL_OFFSET       0x00         /**< \brief (RTC_MODE0_CTRL offset) MODE0 Control Register */
-#define RTC_MODE0_CTRL_RESETVALUE   0x0000       /**< \brief (RTC_MODE0_CTRL reset_value) MODE0 Control Register */
+#define RTC_MODE0_CTRL_OFFSET       0x00         /**< \brief (RTC_MODE0_CTRL offset) MODE0 Control */
+#define RTC_MODE0_CTRL_RESETVALUE   0x0000       /**< \brief (RTC_MODE0_CTRL reset_value) MODE0 Control */
 
 #define RTC_MODE0_CTRL_SWRST_Pos    0            /**< \brief (RTC_MODE0_CTRL) Software Reset */
 #define RTC_MODE0_CTRL_SWRST        (0x1u << RTC_MODE0_CTRL_SWRST_Pos)
@@ -78,28 +78,42 @@ typedef union {
 #define RTC_MODE0_CTRL_MODE_Pos     2            /**< \brief (RTC_MODE0_CTRL) Mode */
 #define RTC_MODE0_CTRL_MODE_Msk     (0x3u << RTC_MODE0_CTRL_MODE_Pos)
 #define RTC_MODE0_CTRL_MODE(value)  ((RTC_MODE0_CTRL_MODE_Msk & ((value) << RTC_MODE0_CTRL_MODE_Pos)))
-#define   RTC_MODE0_CTRL_MODE_COUNT32 (0x0u <<  2) /**< \brief (RTC_MODE0_CTRL) Mode 0 */
-#define   RTC_MODE0_CTRL_MODE_COUNT16 (0x1u <<  2) /**< \brief (RTC_MODE0_CTRL) Mode 1 */
-#define   RTC_MODE0_CTRL_MODE_CLOCK (0x2u <<  2) /**< \brief (RTC_MODE0_CTRL) Mode 2 */
+#define   RTC_MODE0_CTRL_MODE_COUNT32_Val 0x0u   /**< \brief (RTC_MODE0_CTRL) Mode 0 */
+#define   RTC_MODE0_CTRL_MODE_COUNT16_Val 0x1u   /**< \brief (RTC_MODE0_CTRL) Mode 1 */
+#define   RTC_MODE0_CTRL_MODE_CLOCK_Val   0x2u   /**< \brief (RTC_MODE0_CTRL) Mode 2 */
+#define RTC_MODE0_CTRL_MODE_COUNT32 (RTC_MODE0_CTRL_MODE_COUNT32_Val << RTC_MODE0_CTRL_MODE_Pos)
+#define RTC_MODE0_CTRL_MODE_COUNT16 (RTC_MODE0_CTRL_MODE_COUNT16_Val << RTC_MODE0_CTRL_MODE_Pos)
+#define RTC_MODE0_CTRL_MODE_CLOCK   (RTC_MODE0_CTRL_MODE_CLOCK_Val << RTC_MODE0_CTRL_MODE_Pos)
 #define RTC_MODE0_CTRL_MATCHCLR_Pos 7            /**< \brief (RTC_MODE0_CTRL) Match Clears Counter */
 #define RTC_MODE0_CTRL_MATCHCLR     (0x1u << RTC_MODE0_CTRL_MATCHCLR_Pos)
 #define RTC_MODE0_CTRL_PRESCALER_Pos 8            /**< \brief (RTC_MODE0_CTRL) Prescaler */
 #define RTC_MODE0_CTRL_PRESCALER_Msk (0xFu << RTC_MODE0_CTRL_PRESCALER_Pos)
 #define RTC_MODE0_CTRL_PRESCALER(value) ((RTC_MODE0_CTRL_PRESCALER_Msk & ((value) << RTC_MODE0_CTRL_PRESCALER_Pos)))
-#define   RTC_MODE0_CTRL_PRESCALER_DIV1 (0x0u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE0_CTRL_PRESCALER_DIV2 (0x1u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE0_CTRL_PRESCALER_DIV4 (0x2u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE0_CTRL_PRESCALER_DIV8 (0x3u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE0_CTRL_PRESCALER_DIV16 (0x4u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE0_CTRL_PRESCALER_DIV32 (0x5u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE0_CTRL_PRESCALER_DIV64 (0x6u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE0_CTRL_PRESCALER_DIV128 (0x7u <<  8) /**< TODO: Manually added */
-#define   RTC_MODE0_CTRL_PRESCALER_DIV256 (0x8u <<  8) /**< TODO: Manually added */
-#define   RTC_MODE0_CTRL_PRESCALER_DIV512 (0x9u <<  8) /**< TODO: Manually added */
-#define   RTC_MODE0_CTRL_PRESCALER_DIV1024 (0xAu <<  8) /**< TODO: Manually added  */
+#define   RTC_MODE0_CTRL_PRESCALER_DIV1_Val 0x0u   /**< \brief (RTC_MODE0_CTRL)  */
+#define   RTC_MODE0_CTRL_PRESCALER_DIV2_Val 0x1u   /**< \brief (RTC_MODE0_CTRL)  */
+#define   RTC_MODE0_CTRL_PRESCALER_DIV4_Val 0x2u   /**< \brief (RTC_MODE0_CTRL)  */
+#define   RTC_MODE0_CTRL_PRESCALER_DIV8_Val 0x3u   /**< \brief (RTC_MODE0_CTRL)  */
+#define   RTC_MODE0_CTRL_PRESCALER_DIV16_Val 0x4u   /**< \brief (RTC_MODE0_CTRL)  */
+#define   RTC_MODE0_CTRL_PRESCALER_DIV32_Val 0x5u   /**< \brief (RTC_MODE0_CTRL)  */
+#define   RTC_MODE0_CTRL_PRESCALER_DIV64_Val 0x6u   /**< \brief (RTC_MODE0_CTRL)  */
+#define   RTC_MODE0_CTRL_PRESCALER_DIV128_Val 0x7u   /**< \brief (RTC_MODE0_CTRL)  */
+#define   RTC_MODE0_CTRL_PRESCALER_DIV256_Val 0x8u   /**< \brief (RTC_MODE0_CTRL)  */
+#define   RTC_MODE0_CTRL_PRESCALER_DIV512_Val 0x9u   /**< \brief (RTC_MODE0_CTRL)  */
+#define   RTC_MODE0_CTRL_PRESCALER_DIV1024_Val 0xAu   /**< \brief (RTC_MODE0_CTRL)  */
+#define RTC_MODE0_CTRL_PRESCALER_DIV1 (RTC_MODE0_CTRL_PRESCALER_DIV1_Val << RTC_MODE0_CTRL_PRESCALER_Pos)
+#define RTC_MODE0_CTRL_PRESCALER_DIV2 (RTC_MODE0_CTRL_PRESCALER_DIV2_Val << RTC_MODE0_CTRL_PRESCALER_Pos)
+#define RTC_MODE0_CTRL_PRESCALER_DIV4 (RTC_MODE0_CTRL_PRESCALER_DIV4_Val << RTC_MODE0_CTRL_PRESCALER_Pos)
+#define RTC_MODE0_CTRL_PRESCALER_DIV8 (RTC_MODE0_CTRL_PRESCALER_DIV8_Val << RTC_MODE0_CTRL_PRESCALER_Pos)
+#define RTC_MODE0_CTRL_PRESCALER_DIV16 (RTC_MODE0_CTRL_PRESCALER_DIV16_Val << RTC_MODE0_CTRL_PRESCALER_Pos)
+#define RTC_MODE0_CTRL_PRESCALER_DIV32 (RTC_MODE0_CTRL_PRESCALER_DIV32_Val << RTC_MODE0_CTRL_PRESCALER_Pos)
+#define RTC_MODE0_CTRL_PRESCALER_DIV64 (RTC_MODE0_CTRL_PRESCALER_DIV64_Val << RTC_MODE0_CTRL_PRESCALER_Pos)
+#define RTC_MODE0_CTRL_PRESCALER_DIV128 (RTC_MODE0_CTRL_PRESCALER_DIV128_Val << RTC_MODE0_CTRL_PRESCALER_Pos)
+#define RTC_MODE0_CTRL_PRESCALER_DIV256 (RTC_MODE0_CTRL_PRESCALER_DIV256_Val << RTC_MODE0_CTRL_PRESCALER_Pos)
+#define RTC_MODE0_CTRL_PRESCALER_DIV512 (RTC_MODE0_CTRL_PRESCALER_DIV512_Val << RTC_MODE0_CTRL_PRESCALER_Pos)
+#define RTC_MODE0_CTRL_PRESCALER_DIV1024 (RTC_MODE0_CTRL_PRESCALER_DIV1024_Val << RTC_MODE0_CTRL_PRESCALER_Pos)
 #define RTC_MODE0_CTRL_MASK         0x0F8Fu      /**< \brief (RTC_MODE0_CTRL) MASK Register */
 
-/* -------- RTC_MODE1_CTRL : (RTC Offset: 0x00) (R/W 16) MODE1 MODE1 Control Register -------- */
+/* -------- RTC_MODE1_CTRL : (RTC Offset: 0x00) (R/W 16) MODE1 MODE1 Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -114,8 +128,8 @@ typedef union {
 } RTC_MODE1_CTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE1_CTRL_OFFSET       0x00         /**< \brief (RTC_MODE1_CTRL offset) MODE1 Control Register */
-#define RTC_MODE1_CTRL_RESETVALUE   0x0000       /**< \brief (RTC_MODE1_CTRL reset_value) MODE1 Control Register */
+#define RTC_MODE1_CTRL_OFFSET       0x00         /**< \brief (RTC_MODE1_CTRL offset) MODE1 Control */
+#define RTC_MODE1_CTRL_RESETVALUE   0x0000       /**< \brief (RTC_MODE1_CTRL reset_value) MODE1 Control */
 
 #define RTC_MODE1_CTRL_SWRST_Pos    0            /**< \brief (RTC_MODE1_CTRL) Software Reset */
 #define RTC_MODE1_CTRL_SWRST        (0x1u << RTC_MODE1_CTRL_SWRST_Pos)
@@ -124,26 +138,40 @@ typedef union {
 #define RTC_MODE1_CTRL_MODE_Pos     2            /**< \brief (RTC_MODE1_CTRL) Mode */
 #define RTC_MODE1_CTRL_MODE_Msk     (0x3u << RTC_MODE1_CTRL_MODE_Pos)
 #define RTC_MODE1_CTRL_MODE(value)  ((RTC_MODE1_CTRL_MODE_Msk & ((value) << RTC_MODE1_CTRL_MODE_Pos)))
-#define   RTC_MODE1_CTRL_MODE_COUNT32 (0x0u <<  2) /**< \brief (RTC_MODE1_CTRL) Mode 0 */
-#define   RTC_MODE1_CTRL_MODE_COUNT16 (0x1u <<  2) /**< \brief (RTC_MODE1_CTRL) Mode 1 */
-#define   RTC_MODE1_CTRL_MODE_CLOCK (0x2u <<  2) /**< \brief (RTC_MODE1_CTRL) Mode 2 */
+#define   RTC_MODE1_CTRL_MODE_COUNT32_Val 0x0u   /**< \brief (RTC_MODE1_CTRL) Mode 0 */
+#define   RTC_MODE1_CTRL_MODE_COUNT16_Val 0x1u   /**< \brief (RTC_MODE1_CTRL) Mode 1 */
+#define   RTC_MODE1_CTRL_MODE_CLOCK_Val   0x2u   /**< \brief (RTC_MODE1_CTRL) Mode 2 */
+#define RTC_MODE1_CTRL_MODE_COUNT32 (RTC_MODE1_CTRL_MODE_COUNT32_Val << RTC_MODE1_CTRL_MODE_Pos)
+#define RTC_MODE1_CTRL_MODE_COUNT16 (RTC_MODE1_CTRL_MODE_COUNT16_Val << RTC_MODE1_CTRL_MODE_Pos)
+#define RTC_MODE1_CTRL_MODE_CLOCK   (RTC_MODE1_CTRL_MODE_CLOCK_Val << RTC_MODE1_CTRL_MODE_Pos)
 #define RTC_MODE1_CTRL_PRESCALER_Pos 8            /**< \brief (RTC_MODE1_CTRL) Prescaler */
 #define RTC_MODE1_CTRL_PRESCALER_Msk (0xFu << RTC_MODE1_CTRL_PRESCALER_Pos)
 #define RTC_MODE1_CTRL_PRESCALER(value) ((RTC_MODE1_CTRL_PRESCALER_Msk & ((value) << RTC_MODE1_CTRL_PRESCALER_Pos)))
-#define   RTC_MODE1_CTRL_PRESCALER_DIV1 (0x0u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE1_CTRL_PRESCALER_DIV2 (0x1u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE1_CTRL_PRESCALER_DIV4 (0x2u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE1_CTRL_PRESCALER_DIV8 (0x3u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE1_CTRL_PRESCALER_DIV16 (0x4u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE1_CTRL_PRESCALER_DIV32 (0x5u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE1_CTRL_PRESCALER_DIV64 (0x6u <<  8) /**< TODO: Manually added  */
-#define   RTC_MODE1_CTRL_PRESCALER_DIV128 (0x7u <<  8) /**< TODO: Manually added */
-#define   RTC_MODE1_CTRL_PRESCALER_DIV256 (0x8u <<  8) /**< TODO: Manually added */
-#define   RTC_MODE1_CTRL_PRESCALER_DIV512 (0x9u <<  8) /**< TODO: Manually added */
-#define   RTC_MODE1_CTRL_PRESCALER_DIV1024 (0xAu <<  8) /**< TODO: Manually added  */
+#define   RTC_MODE1_CTRL_PRESCALER_DIV1_Val 0x0u   /**< \brief (RTC_MODE1_CTRL)  */
+#define   RTC_MODE1_CTRL_PRESCALER_DIV2_Val 0x1u   /**< \brief (RTC_MODE1_CTRL)  */
+#define   RTC_MODE1_CTRL_PRESCALER_DIV4_Val 0x2u   /**< \brief (RTC_MODE1_CTRL)  */
+#define   RTC_MODE1_CTRL_PRESCALER_DIV8_Val 0x3u   /**< \brief (RTC_MODE1_CTRL)  */
+#define   RTC_MODE1_CTRL_PRESCALER_DIV16_Val 0x4u   /**< \brief (RTC_MODE1_CTRL)  */
+#define   RTC_MODE1_CTRL_PRESCALER_DIV32_Val 0x5u   /**< \brief (RTC_MODE1_CTRL)  */
+#define   RTC_MODE1_CTRL_PRESCALER_DIV64_Val 0x6u   /**< \brief (RTC_MODE1_CTRL)  */
+#define   RTC_MODE1_CTRL_PRESCALER_DIV128_Val 0x7u   /**< \brief (RTC_MODE1_CTRL)  */
+#define   RTC_MODE1_CTRL_PRESCALER_DIV256_Val 0x8u   /**< \brief (RTC_MODE1_CTRL)  */
+#define   RTC_MODE1_CTRL_PRESCALER_DIV512_Val 0x9u   /**< \brief (RTC_MODE1_CTRL)  */
+#define   RTC_MODE1_CTRL_PRESCALER_DIV1024_Val 0xAu   /**< \brief (RTC_MODE1_CTRL)  */
+#define RTC_MODE1_CTRL_PRESCALER_DIV1 (RTC_MODE1_CTRL_PRESCALER_DIV1_Val << RTC_MODE1_CTRL_PRESCALER_Pos)
+#define RTC_MODE1_CTRL_PRESCALER_DIV2 (RTC_MODE1_CTRL_PRESCALER_DIV2_Val << RTC_MODE1_CTRL_PRESCALER_Pos)
+#define RTC_MODE1_CTRL_PRESCALER_DIV4 (RTC_MODE1_CTRL_PRESCALER_DIV4_Val << RTC_MODE1_CTRL_PRESCALER_Pos)
+#define RTC_MODE1_CTRL_PRESCALER_DIV8 (RTC_MODE1_CTRL_PRESCALER_DIV8_Val << RTC_MODE1_CTRL_PRESCALER_Pos)
+#define RTC_MODE1_CTRL_PRESCALER_DIV16 (RTC_MODE1_CTRL_PRESCALER_DIV16_Val << RTC_MODE1_CTRL_PRESCALER_Pos)
+#define RTC_MODE1_CTRL_PRESCALER_DIV32 (RTC_MODE1_CTRL_PRESCALER_DIV32_Val << RTC_MODE1_CTRL_PRESCALER_Pos)
+#define RTC_MODE1_CTRL_PRESCALER_DIV64 (RTC_MODE1_CTRL_PRESCALER_DIV64_Val << RTC_MODE1_CTRL_PRESCALER_Pos)
+#define RTC_MODE1_CTRL_PRESCALER_DIV128 (RTC_MODE1_CTRL_PRESCALER_DIV128_Val << RTC_MODE1_CTRL_PRESCALER_Pos)
+#define RTC_MODE1_CTRL_PRESCALER_DIV256 (RTC_MODE1_CTRL_PRESCALER_DIV256_Val << RTC_MODE1_CTRL_PRESCALER_Pos)
+#define RTC_MODE1_CTRL_PRESCALER_DIV512 (RTC_MODE1_CTRL_PRESCALER_DIV512_Val << RTC_MODE1_CTRL_PRESCALER_Pos)
+#define RTC_MODE1_CTRL_PRESCALER_DIV1024 (RTC_MODE1_CTRL_PRESCALER_DIV1024_Val << RTC_MODE1_CTRL_PRESCALER_Pos)
 #define RTC_MODE1_CTRL_MASK         0x0F0Fu      /**< \brief (RTC_MODE1_CTRL) MASK Register */
 
-/* -------- RTC_MODE2_CTRL : (RTC Offset: 0x00) (R/W 16) MODE2 MODE2 Control Register -------- */
+/* -------- RTC_MODE2_CTRL : (RTC Offset: 0x00) (R/W 16) MODE2 MODE2 Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -160,8 +188,8 @@ typedef union {
 } RTC_MODE2_CTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE2_CTRL_OFFSET       0x00         /**< \brief (RTC_MODE2_CTRL offset) MODE2 Control Register */
-#define RTC_MODE2_CTRL_RESETVALUE   0x0000       /**< \brief (RTC_MODE2_CTRL reset_value) MODE2 Control Register */
+#define RTC_MODE2_CTRL_OFFSET       0x00         /**< \brief (RTC_MODE2_CTRL offset) MODE2 Control */
+#define RTC_MODE2_CTRL_RESETVALUE   0x0000       /**< \brief (RTC_MODE2_CTRL reset_value) MODE2 Control */
 
 #define RTC_MODE2_CTRL_SWRST_Pos    0            /**< \brief (RTC_MODE2_CTRL) Software Reset */
 #define RTC_MODE2_CTRL_SWRST        (0x1u << RTC_MODE2_CTRL_SWRST_Pos)
@@ -170,9 +198,12 @@ typedef union {
 #define RTC_MODE2_CTRL_MODE_Pos     2            /**< \brief (RTC_MODE2_CTRL) Mode */
 #define RTC_MODE2_CTRL_MODE_Msk     (0x3u << RTC_MODE2_CTRL_MODE_Pos)
 #define RTC_MODE2_CTRL_MODE(value)  ((RTC_MODE2_CTRL_MODE_Msk & ((value) << RTC_MODE2_CTRL_MODE_Pos)))
-#define   RTC_MODE2_CTRL_MODE_COUNT32 (0x0u <<  2) /**< \brief (RTC_MODE2_CTRL) Mode 0 */
-#define   RTC_MODE2_CTRL_MODE_COUNT16 (0x1u <<  2) /**< \brief (RTC_MODE2_CTRL) Mode 1 */
-#define   RTC_MODE2_CTRL_MODE_CLOCK (0x2u <<  2) /**< \brief (RTC_MODE2_CTRL) Mode 2 */
+#define   RTC_MODE2_CTRL_MODE_COUNT32_Val 0x0u   /**< \brief (RTC_MODE2_CTRL) Mode 0 */
+#define   RTC_MODE2_CTRL_MODE_COUNT16_Val 0x1u   /**< \brief (RTC_MODE2_CTRL) Mode 1 */
+#define   RTC_MODE2_CTRL_MODE_CLOCK_Val   0x2u   /**< \brief (RTC_MODE2_CTRL) Mode 2 */
+#define RTC_MODE2_CTRL_MODE_COUNT32 (RTC_MODE2_CTRL_MODE_COUNT32_Val << RTC_MODE2_CTRL_MODE_Pos)
+#define RTC_MODE2_CTRL_MODE_COUNT16 (RTC_MODE2_CTRL_MODE_COUNT16_Val << RTC_MODE2_CTRL_MODE_Pos)
+#define RTC_MODE2_CTRL_MODE_CLOCK   (RTC_MODE2_CTRL_MODE_CLOCK_Val << RTC_MODE2_CTRL_MODE_Pos)
 #define RTC_MODE2_CTRL_CLKREP_Pos   6            /**< \brief (RTC_MODE2_CTRL) Clock Representation */
 #define RTC_MODE2_CTRL_CLKREP       (0x1u << RTC_MODE2_CTRL_CLKREP_Pos)
 #define RTC_MODE2_CTRL_MATCHCLR_Pos 7            /**< \brief (RTC_MODE2_CTRL) Match Clears Counter */
@@ -180,20 +211,31 @@ typedef union {
 #define RTC_MODE2_CTRL_PRESCALER_Pos 8            /**< \brief (RTC_MODE2_CTRL) Prescaler */
 #define RTC_MODE2_CTRL_PRESCALER_Msk (0xFu << RTC_MODE2_CTRL_PRESCALER_Pos)
 #define RTC_MODE2_CTRL_PRESCALER(value) ((RTC_MODE2_CTRL_PRESCALER_Msk & ((value) << RTC_MODE2_CTRL_PRESCALER_Pos)))
-#define   RTC_MODE2_CTRL_PRESCALER_DIV1 (0x0u <<  8) /**< \brief (RTC_MODE2_CTRL)  */
-#define   RTC_MODE2_CTRL_PRESCALER_DIV2 (0x1u <<  8) /**< \brief (RTC_MODE2_CTRL)  */
-#define   RTC_MODE2_CTRL_PRESCALER_DIV4 (0x2u <<  8) /**< \brief (RTC_MODE2_CTRL)  */
-#define   RTC_MODE2_CTRL_PRESCALER_DIV8 (0x3u <<  8) /**< \brief (RTC_MODE2_CTRL)  */
-#define   RTC_MODE2_CTRL_PRESCALER_DIV16 (0x4u <<  8) /**< \brief (RTC_MODE2_CTRL)  */
-#define   RTC_MODE2_CTRL_PRESCALER_DIV32 (0x5u <<  8) /**< \brief (RTC_MODE2_CTRL)  */
-#define   RTC_MODE2_CTRL_PRESCALER_DIV64 (0x6u <<  8) /**< \brief (RTC_MODE2_CTRL)  */
-#define   RTC_MODE2_CTRL_PRESCALER_DIV128 (0x7u <<  8) /**< \brief (RTC_MODE2_CTRL)  */
-#define   RTC_MODE2_CTRL_PRESCALER_DIV256 (0x8u <<  8) /**< \brief (RTC_MODE2_CTRL)  */
-#define   RTC_MODE2_CTRL_PRESCALER_DIV512 (0x9u <<  8) /**< \brief (RTC_MODE2_CTRL)  */
-#define   RTC_MODE2_CTRL_PRESCALER_DIV1024 (0xAu <<  8) /**< \brief (RTC_MODE2_CTRL)  */
+#define   RTC_MODE2_CTRL_PRESCALER_DIV1_Val 0x0u   /**< \brief (RTC_MODE2_CTRL)  */
+#define   RTC_MODE2_CTRL_PRESCALER_DIV2_Val 0x1u   /**< \brief (RTC_MODE2_CTRL)  */
+#define   RTC_MODE2_CTRL_PRESCALER_DIV4_Val 0x2u   /**< \brief (RTC_MODE2_CTRL)  */
+#define   RTC_MODE2_CTRL_PRESCALER_DIV8_Val 0x3u   /**< \brief (RTC_MODE2_CTRL)  */
+#define   RTC_MODE2_CTRL_PRESCALER_DIV16_Val 0x4u   /**< \brief (RTC_MODE2_CTRL)  */
+#define   RTC_MODE2_CTRL_PRESCALER_DIV32_Val 0x5u   /**< \brief (RTC_MODE2_CTRL)  */
+#define   RTC_MODE2_CTRL_PRESCALER_DIV64_Val 0x6u   /**< \brief (RTC_MODE2_CTRL)  */
+#define   RTC_MODE2_CTRL_PRESCALER_DIV128_Val 0x7u   /**< \brief (RTC_MODE2_CTRL)  */
+#define   RTC_MODE2_CTRL_PRESCALER_DIV256_Val 0x8u   /**< \brief (RTC_MODE2_CTRL)  */
+#define   RTC_MODE2_CTRL_PRESCALER_DIV512_Val 0x9u   /**< \brief (RTC_MODE2_CTRL)  */
+#define   RTC_MODE2_CTRL_PRESCALER_DIV1024_Val 0xAu   /**< \brief (RTC_MODE2_CTRL)  */
+#define RTC_MODE2_CTRL_PRESCALER_DIV1 (RTC_MODE2_CTRL_PRESCALER_DIV1_Val << RTC_MODE2_CTRL_PRESCALER_Pos)
+#define RTC_MODE2_CTRL_PRESCALER_DIV2 (RTC_MODE2_CTRL_PRESCALER_DIV2_Val << RTC_MODE2_CTRL_PRESCALER_Pos)
+#define RTC_MODE2_CTRL_PRESCALER_DIV4 (RTC_MODE2_CTRL_PRESCALER_DIV4_Val << RTC_MODE2_CTRL_PRESCALER_Pos)
+#define RTC_MODE2_CTRL_PRESCALER_DIV8 (RTC_MODE2_CTRL_PRESCALER_DIV8_Val << RTC_MODE2_CTRL_PRESCALER_Pos)
+#define RTC_MODE2_CTRL_PRESCALER_DIV16 (RTC_MODE2_CTRL_PRESCALER_DIV16_Val << RTC_MODE2_CTRL_PRESCALER_Pos)
+#define RTC_MODE2_CTRL_PRESCALER_DIV32 (RTC_MODE2_CTRL_PRESCALER_DIV32_Val << RTC_MODE2_CTRL_PRESCALER_Pos)
+#define RTC_MODE2_CTRL_PRESCALER_DIV64 (RTC_MODE2_CTRL_PRESCALER_DIV64_Val << RTC_MODE2_CTRL_PRESCALER_Pos)
+#define RTC_MODE2_CTRL_PRESCALER_DIV128 (RTC_MODE2_CTRL_PRESCALER_DIV128_Val << RTC_MODE2_CTRL_PRESCALER_Pos)
+#define RTC_MODE2_CTRL_PRESCALER_DIV256 (RTC_MODE2_CTRL_PRESCALER_DIV256_Val << RTC_MODE2_CTRL_PRESCALER_Pos)
+#define RTC_MODE2_CTRL_PRESCALER_DIV512 (RTC_MODE2_CTRL_PRESCALER_DIV512_Val << RTC_MODE2_CTRL_PRESCALER_Pos)
+#define RTC_MODE2_CTRL_PRESCALER_DIV1024 (RTC_MODE2_CTRL_PRESCALER_DIV1024_Val << RTC_MODE2_CTRL_PRESCALER_Pos)
 #define RTC_MODE2_CTRL_MASK         0x0FCFu      /**< \brief (RTC_MODE2_CTRL) MASK Register */
 
-/* -------- RTC_READREQ : (RTC Offset: 0x02) (R/W 16) Read Request Register -------- */
+/* -------- RTC_READREQ : (RTC Offset: 0x02) (R/W 16) Read Request -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -206,8 +248,8 @@ typedef union {
 } RTC_READREQ_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_READREQ_OFFSET          0x02         /**< \brief (RTC_READREQ offset) Read Request Register */
-#define RTC_READREQ_RESETVALUE      0x0010       /**< \brief (RTC_READREQ reset_value) Read Request Register */
+#define RTC_READREQ_OFFSET          0x02         /**< \brief (RTC_READREQ offset) Read Request */
+#define RTC_READREQ_RESETVALUE      0x0010       /**< \brief (RTC_READREQ reset_value) Read Request */
 
 #define RTC_READREQ_ADDR_Pos        0            /**< \brief (RTC_READREQ) Read Address */
 #define RTC_READREQ_ADDR_Msk        (0x3Fu << RTC_READREQ_ADDR_Pos)
@@ -218,7 +260,7 @@ typedef union {
 #define RTC_READREQ_RREQ            (0x1u << RTC_READREQ_RREQ_Pos)
 #define RTC_READREQ_MASK            0xC03Fu      /**< \brief (RTC_READREQ) MASK Register */
 
-/* -------- RTC_MODE0_EVCTRL : (RTC Offset: 0x04) (R/W 16) MODE0 MODE0 Event Control Register -------- */
+/* -------- RTC_MODE0_EVCTRL : (RTC Offset: 0x04) (R/W 16) MODE0 MODE0 Event Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -231,8 +273,8 @@ typedef union {
 } RTC_MODE0_EVCTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE0_EVCTRL_OFFSET     0x04         /**< \brief (RTC_MODE0_EVCTRL offset) MODE0 Event Control Register */
-#define RTC_MODE0_EVCTRL_RESETVALUE 0x0000       /**< \brief (RTC_MODE0_EVCTRL reset_value) MODE0 Event Control Register */
+#define RTC_MODE0_EVCTRL_OFFSET     0x04         /**< \brief (RTC_MODE0_EVCTRL offset) MODE0 Event Control */
+#define RTC_MODE0_EVCTRL_RESETVALUE 0x0000       /**< \brief (RTC_MODE0_EVCTRL reset_value) MODE0 Event Control */
 
 #define RTC_MODE0_EVCTRL_PEREO_Pos  0            /**< \brief (RTC_MODE0_EVCTRL) Periodic Interval Event Output Enables */
 #define RTC_MODE0_EVCTRL_PEREO_Msk  (0xFFu << RTC_MODE0_EVCTRL_PEREO_Pos)
@@ -244,7 +286,7 @@ typedef union {
 #define RTC_MODE0_EVCTRL_OVFEO      (0x1u << RTC_MODE0_EVCTRL_OVFEO_Pos)
 #define RTC_MODE0_EVCTRL_MASK       0x81FFu      /**< \brief (RTC_MODE0_EVCTRL) MASK Register */
 
-/* -------- RTC_MODE1_EVCTRL : (RTC Offset: 0x04) (R/W 16) MODE1 MODE1 Event Control Register -------- */
+/* -------- RTC_MODE1_EVCTRL : (RTC Offset: 0x04) (R/W 16) MODE1 MODE1 Event Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -257,8 +299,8 @@ typedef union {
 } RTC_MODE1_EVCTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE1_EVCTRL_OFFSET     0x04         /**< \brief (RTC_MODE1_EVCTRL offset) MODE1 Event Control Register */
-#define RTC_MODE1_EVCTRL_RESETVALUE 0x0000       /**< \brief (RTC_MODE1_EVCTRL reset_value) MODE1 Event Control Register */
+#define RTC_MODE1_EVCTRL_OFFSET     0x04         /**< \brief (RTC_MODE1_EVCTRL offset) MODE1 Event Control */
+#define RTC_MODE1_EVCTRL_RESETVALUE 0x0000       /**< \brief (RTC_MODE1_EVCTRL reset_value) MODE1 Event Control */
 
 #define RTC_MODE1_EVCTRL_PEREO_Pos  0            /**< \brief (RTC_MODE1_EVCTRL) Periodic Interval Event Output Enables */
 #define RTC_MODE1_EVCTRL_PEREO_Msk  (0xFFu << RTC_MODE1_EVCTRL_PEREO_Pos)
@@ -270,7 +312,7 @@ typedef union {
 #define RTC_MODE1_EVCTRL_OVFEO      (0x1u << RTC_MODE1_EVCTRL_OVFEO_Pos)
 #define RTC_MODE1_EVCTRL_MASK       0x83FFu      /**< \brief (RTC_MODE1_EVCTRL) MASK Register */
 
-/* -------- RTC_MODE2_EVCTRL : (RTC Offset: 0x04) (R/W 16) MODE2 MODE2 Event Control Register -------- */
+/* -------- RTC_MODE2_EVCTRL : (RTC Offset: 0x04) (R/W 16) MODE2 MODE2 Event Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -283,8 +325,8 @@ typedef union {
 } RTC_MODE2_EVCTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE2_EVCTRL_OFFSET     0x04         /**< \brief (RTC_MODE2_EVCTRL offset) MODE2 Event Control Register */
-#define RTC_MODE2_EVCTRL_RESETVALUE 0x0000       /**< \brief (RTC_MODE2_EVCTRL reset_value) MODE2 Event Control Register */
+#define RTC_MODE2_EVCTRL_OFFSET     0x04         /**< \brief (RTC_MODE2_EVCTRL offset) MODE2 Event Control */
+#define RTC_MODE2_EVCTRL_RESETVALUE 0x0000       /**< \brief (RTC_MODE2_EVCTRL reset_value) MODE2 Event Control */
 
 #define RTC_MODE2_EVCTRL_PEREO_Pos  0            /**< \brief (RTC_MODE2_EVCTRL) Periodic Interval Event Output Enables */
 #define RTC_MODE2_EVCTRL_PEREO_Msk  (0xFFu << RTC_MODE2_EVCTRL_PEREO_Pos)
@@ -296,7 +338,7 @@ typedef union {
 #define RTC_MODE2_EVCTRL_OVFEO      (0x1u << RTC_MODE2_EVCTRL_OVFEO_Pos)
 #define RTC_MODE2_EVCTRL_MASK       0x81FFu      /**< \brief (RTC_MODE2_EVCTRL) MASK Register */
 
-/* -------- RTC_MODE0_INTENCLR : (RTC Offset: 0x06) (R/W  8) MODE0 MODE0 Interrupt Enable Clear Register -------- */
+/* -------- RTC_MODE0_INTENCLR : (RTC Offset: 0x06) (R/W  8) MODE0 MODE0 Interrupt Enable Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -309,8 +351,8 @@ typedef union {
 } RTC_MODE0_INTENCLR_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE0_INTENCLR_OFFSET   0x06         /**< \brief (RTC_MODE0_INTENCLR offset) MODE0 Interrupt Enable Clear Register */
-#define RTC_MODE0_INTENCLR_RESETVALUE 0x00         /**< \brief (RTC_MODE0_INTENCLR reset_value) MODE0 Interrupt Enable Clear Register */
+#define RTC_MODE0_INTENCLR_OFFSET   0x06         /**< \brief (RTC_MODE0_INTENCLR offset) MODE0 Interrupt Enable Clear */
+#define RTC_MODE0_INTENCLR_RESETVALUE 0x00         /**< \brief (RTC_MODE0_INTENCLR reset_value) MODE0 Interrupt Enable Clear */
 
 #define RTC_MODE0_INTENCLR_CMP_Pos  0            /**< \brief (RTC_MODE0_INTENCLR) Comparator Interrupt Disables */
 #define RTC_MODE0_INTENCLR_CMP_Msk  (0x1u << RTC_MODE0_INTENCLR_CMP_Pos)
@@ -321,7 +363,7 @@ typedef union {
 #define RTC_MODE0_INTENCLR_OVF      (0x1u << RTC_MODE0_INTENCLR_OVF_Pos)
 #define RTC_MODE0_INTENCLR_MASK     0xC1u        /**< \brief (RTC_MODE0_INTENCLR) MASK Register */
 
-/* -------- RTC_MODE1_INTENCLR : (RTC Offset: 0x06) (R/W  8) MODE1 MODE1 Interrupt Enable Clear Register -------- */
+/* -------- RTC_MODE1_INTENCLR : (RTC Offset: 0x06) (R/W  8) MODE1 MODE1 Interrupt Enable Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -334,8 +376,8 @@ typedef union {
 } RTC_MODE1_INTENCLR_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE1_INTENCLR_OFFSET   0x06         /**< \brief (RTC_MODE1_INTENCLR offset) MODE1 Interrupt Enable Clear Register */
-#define RTC_MODE1_INTENCLR_RESETVALUE 0x00         /**< \brief (RTC_MODE1_INTENCLR reset_value) MODE1 Interrupt Enable Clear Register */
+#define RTC_MODE1_INTENCLR_OFFSET   0x06         /**< \brief (RTC_MODE1_INTENCLR offset) MODE1 Interrupt Enable Clear */
+#define RTC_MODE1_INTENCLR_RESETVALUE 0x00         /**< \brief (RTC_MODE1_INTENCLR reset_value) MODE1 Interrupt Enable Clear */
 
 #define RTC_MODE1_INTENCLR_CMP_Pos  0            /**< \brief (RTC_MODE1_INTENCLR) Comparator Interrupt Disables */
 #define RTC_MODE1_INTENCLR_CMP_Msk  (0x3u << RTC_MODE1_INTENCLR_CMP_Pos)
@@ -346,7 +388,7 @@ typedef union {
 #define RTC_MODE1_INTENCLR_OVF      (0x1u << RTC_MODE1_INTENCLR_OVF_Pos)
 #define RTC_MODE1_INTENCLR_MASK     0xC3u        /**< \brief (RTC_MODE1_INTENCLR) MASK Register */
 
-/* -------- RTC_MODE2_INTENCLR : (RTC Offset: 0x06) (R/W  8) MODE2 MODE2 Interrupt Enable Clear Register -------- */
+/* -------- RTC_MODE2_INTENCLR : (RTC Offset: 0x06) (R/W  8) MODE2 MODE2 Interrupt Enable Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -359,8 +401,8 @@ typedef union {
 } RTC_MODE2_INTENCLR_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE2_INTENCLR_OFFSET   0x06         /**< \brief (RTC_MODE2_INTENCLR offset) MODE2 Interrupt Enable Clear Register */
-#define RTC_MODE2_INTENCLR_RESETVALUE 0x00         /**< \brief (RTC_MODE2_INTENCLR reset_value) MODE2 Interrupt Enable Clear Register */
+#define RTC_MODE2_INTENCLR_OFFSET   0x06         /**< \brief (RTC_MODE2_INTENCLR offset) MODE2 Interrupt Enable Clear */
+#define RTC_MODE2_INTENCLR_RESETVALUE 0x00         /**< \brief (RTC_MODE2_INTENCLR reset_value) MODE2 Interrupt Enable Clear */
 
 #define RTC_MODE2_INTENCLR_ALARM_Pos 0            /**< \brief (RTC_MODE2_INTENCLR) Alarm Interrupt Disables */
 #define RTC_MODE2_INTENCLR_ALARM_Msk (0x1u << RTC_MODE2_INTENCLR_ALARM_Pos)
@@ -371,7 +413,7 @@ typedef union {
 #define RTC_MODE2_INTENCLR_OVF      (0x1u << RTC_MODE2_INTENCLR_OVF_Pos)
 #define RTC_MODE2_INTENCLR_MASK     0xC1u        /**< \brief (RTC_MODE2_INTENCLR) MASK Register */
 
-/* -------- RTC_MODE0_INTENSET : (RTC Offset: 0x07) (R/W  8) MODE0 MODE0 Interrupt Enable Set Register -------- */
+/* -------- RTC_MODE0_INTENSET : (RTC Offset: 0x07) (R/W  8) MODE0 MODE0 Interrupt Enable Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -384,8 +426,8 @@ typedef union {
 } RTC_MODE0_INTENSET_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE0_INTENSET_OFFSET   0x07         /**< \brief (RTC_MODE0_INTENSET offset) MODE0 Interrupt Enable Set Register */
-#define RTC_MODE0_INTENSET_RESETVALUE 0x00         /**< \brief (RTC_MODE0_INTENSET reset_value) MODE0 Interrupt Enable Set Register */
+#define RTC_MODE0_INTENSET_OFFSET   0x07         /**< \brief (RTC_MODE0_INTENSET offset) MODE0 Interrupt Enable Set */
+#define RTC_MODE0_INTENSET_RESETVALUE 0x00         /**< \brief (RTC_MODE0_INTENSET reset_value) MODE0 Interrupt Enable Set */
 
 #define RTC_MODE0_INTENSET_CMP_Pos  0            /**< \brief (RTC_MODE0_INTENSET) Comparator Interrupt Enables */
 #define RTC_MODE0_INTENSET_CMP_Msk  (0x1u << RTC_MODE0_INTENSET_CMP_Pos)
@@ -396,7 +438,7 @@ typedef union {
 #define RTC_MODE0_INTENSET_OVF      (0x1u << RTC_MODE0_INTENSET_OVF_Pos)
 #define RTC_MODE0_INTENSET_MASK     0xC1u        /**< \brief (RTC_MODE0_INTENSET) MASK Register */
 
-/* -------- RTC_MODE1_INTENSET : (RTC Offset: 0x07) (R/W  8) MODE1 MODE1 Interrupt Enable Set Register -------- */
+/* -------- RTC_MODE1_INTENSET : (RTC Offset: 0x07) (R/W  8) MODE1 MODE1 Interrupt Enable Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -409,8 +451,8 @@ typedef union {
 } RTC_MODE1_INTENSET_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE1_INTENSET_OFFSET   0x07         /**< \brief (RTC_MODE1_INTENSET offset) MODE1 Interrupt Enable Set Register */
-#define RTC_MODE1_INTENSET_RESETVALUE 0x00         /**< \brief (RTC_MODE1_INTENSET reset_value) MODE1 Interrupt Enable Set Register */
+#define RTC_MODE1_INTENSET_OFFSET   0x07         /**< \brief (RTC_MODE1_INTENSET offset) MODE1 Interrupt Enable Set */
+#define RTC_MODE1_INTENSET_RESETVALUE 0x00         /**< \brief (RTC_MODE1_INTENSET reset_value) MODE1 Interrupt Enable Set */
 
 #define RTC_MODE1_INTENSET_CMP_Pos  0            /**< \brief (RTC_MODE1_INTENSET) Comparator Interrupt Enables */
 #define RTC_MODE1_INTENSET_CMP_Msk  (0x3u << RTC_MODE1_INTENSET_CMP_Pos)
@@ -421,7 +463,7 @@ typedef union {
 #define RTC_MODE1_INTENSET_OVF      (0x1u << RTC_MODE1_INTENSET_OVF_Pos)
 #define RTC_MODE1_INTENSET_MASK     0xC3u        /**< \brief (RTC_MODE1_INTENSET) MASK Register */
 
-/* -------- RTC_MODE2_INTENSET : (RTC Offset: 0x07) (R/W  8) MODE2 MODE2 Interrupt Enable Set Register -------- */
+/* -------- RTC_MODE2_INTENSET : (RTC Offset: 0x07) (R/W  8) MODE2 MODE2 Interrupt Enable Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -434,8 +476,8 @@ typedef union {
 } RTC_MODE2_INTENSET_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE2_INTENSET_OFFSET   0x07         /**< \brief (RTC_MODE2_INTENSET offset) MODE2 Interrupt Enable Set Register */
-#define RTC_MODE2_INTENSET_RESETVALUE 0x00         /**< \brief (RTC_MODE2_INTENSET reset_value) MODE2 Interrupt Enable Set Register */
+#define RTC_MODE2_INTENSET_OFFSET   0x07         /**< \brief (RTC_MODE2_INTENSET offset) MODE2 Interrupt Enable Set */
+#define RTC_MODE2_INTENSET_RESETVALUE 0x00         /**< \brief (RTC_MODE2_INTENSET reset_value) MODE2 Interrupt Enable Set */
 
 #define RTC_MODE2_INTENSET_ALARM_Pos 0            /**< \brief (RTC_MODE2_INTENSET) Alarm Interrupt Enables */
 #define RTC_MODE2_INTENSET_ALARM_Msk (0x1u << RTC_MODE2_INTENSET_ALARM_Pos)
@@ -446,7 +488,7 @@ typedef union {
 #define RTC_MODE2_INTENSET_OVF      (0x1u << RTC_MODE2_INTENSET_OVF_Pos)
 #define RTC_MODE2_INTENSET_MASK     0xC1u        /**< \brief (RTC_MODE2_INTENSET) MASK Register */
 
-/* -------- RTC_MODE0_INTFLAG : (RTC Offset: 0x08) (R/W  8) MODE0 MODE0 Interrupt Flag Status and Clear Register -------- */
+/* -------- RTC_MODE0_INTFLAG : (RTC Offset: 0x08) (R/W  8) MODE0 MODE0 Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -459,8 +501,8 @@ typedef union {
 } RTC_MODE0_INTFLAG_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE0_INTFLAG_OFFSET    0x08         /**< \brief (RTC_MODE0_INTFLAG offset) MODE0 Interrupt Flag Status and Clear Register */
-#define RTC_MODE0_INTFLAG_RESETVALUE 0x00         /**< \brief (RTC_MODE0_INTFLAG reset_value) MODE0 Interrupt Flag Status and Clear Register */
+#define RTC_MODE0_INTFLAG_OFFSET    0x08         /**< \brief (RTC_MODE0_INTFLAG offset) MODE0 Interrupt Flag Status and Clear */
+#define RTC_MODE0_INTFLAG_RESETVALUE 0x00         /**< \brief (RTC_MODE0_INTFLAG reset_value) MODE0 Interrupt Flag Status and Clear */
 
 #define RTC_MODE0_INTFLAG_CMP_Pos   0            /**< \brief (RTC_MODE0_INTFLAG) Comparator Interrupt Flags */
 #define RTC_MODE0_INTFLAG_CMP_Msk   (0x1u << RTC_MODE0_INTFLAG_CMP_Pos)
@@ -471,7 +513,7 @@ typedef union {
 #define RTC_MODE0_INTFLAG_OVF       (0x1u << RTC_MODE0_INTFLAG_OVF_Pos)
 #define RTC_MODE0_INTFLAG_MASK      0xC1u        /**< \brief (RTC_MODE0_INTFLAG) MASK Register */
 
-/* -------- RTC_MODE1_INTFLAG : (RTC Offset: 0x08) (R/W  8) MODE1 MODE1 Interrupt Flag Status and Clear Register -------- */
+/* -------- RTC_MODE1_INTFLAG : (RTC Offset: 0x08) (R/W  8) MODE1 MODE1 Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -484,8 +526,8 @@ typedef union {
 } RTC_MODE1_INTFLAG_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE1_INTFLAG_OFFSET    0x08         /**< \brief (RTC_MODE1_INTFLAG offset) MODE1 Interrupt Flag Status and Clear Register */
-#define RTC_MODE1_INTFLAG_RESETVALUE 0x00         /**< \brief (RTC_MODE1_INTFLAG reset_value) MODE1 Interrupt Flag Status and Clear Register */
+#define RTC_MODE1_INTFLAG_OFFSET    0x08         /**< \brief (RTC_MODE1_INTFLAG offset) MODE1 Interrupt Flag Status and Clear */
+#define RTC_MODE1_INTFLAG_RESETVALUE 0x00         /**< \brief (RTC_MODE1_INTFLAG reset_value) MODE1 Interrupt Flag Status and Clear */
 
 #define RTC_MODE1_INTFLAG_CMP_Pos   0            /**< \brief (RTC_MODE1_INTFLAG) Comparator Interrupt Flags */
 #define RTC_MODE1_INTFLAG_CMP_Msk   (0x3u << RTC_MODE1_INTFLAG_CMP_Pos)
@@ -496,7 +538,7 @@ typedef union {
 #define RTC_MODE1_INTFLAG_OVF       (0x1u << RTC_MODE1_INTFLAG_OVF_Pos)
 #define RTC_MODE1_INTFLAG_MASK      0xC3u        /**< \brief (RTC_MODE1_INTFLAG) MASK Register */
 
-/* -------- RTC_MODE2_INTFLAG : (RTC Offset: 0x08) (R/W  8) MODE2 MODE2 Interrupt Flag Status and Clear Register -------- */
+/* -------- RTC_MODE2_INTFLAG : (RTC Offset: 0x08) (R/W  8) MODE2 MODE2 Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -509,8 +551,8 @@ typedef union {
 } RTC_MODE2_INTFLAG_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE2_INTFLAG_OFFSET    0x08         /**< \brief (RTC_MODE2_INTFLAG offset) MODE2 Interrupt Flag Status and Clear Register */
-#define RTC_MODE2_INTFLAG_RESETVALUE 0x00         /**< \brief (RTC_MODE2_INTFLAG reset_value) MODE2 Interrupt Flag Status and Clear Register */
+#define RTC_MODE2_INTFLAG_OFFSET    0x08         /**< \brief (RTC_MODE2_INTFLAG offset) MODE2 Interrupt Flag Status and Clear */
+#define RTC_MODE2_INTFLAG_RESETVALUE 0x00         /**< \brief (RTC_MODE2_INTFLAG reset_value) MODE2 Interrupt Flag Status and Clear */
 
 #define RTC_MODE2_INTFLAG_ALARM_Pos 0            /**< \brief (RTC_MODE2_INTFLAG) Alarm Interrupt Flags */
 #define RTC_MODE2_INTFLAG_ALARM_Msk (0x1u << RTC_MODE2_INTFLAG_ALARM_Pos)
@@ -521,7 +563,7 @@ typedef union {
 #define RTC_MODE2_INTFLAG_OVF       (0x1u << RTC_MODE2_INTFLAG_OVF_Pos)
 #define RTC_MODE2_INTFLAG_MASK      0xC1u        /**< \brief (RTC_MODE2_INTFLAG) MASK Register */
 
-/* -------- RTC_STATUS : (RTC Offset: 0x0A) (R/W  8) Status Register -------- */
+/* -------- RTC_STATUS : (RTC Offset: 0x0A) (R/W  8) Status -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -532,14 +574,14 @@ typedef union {
 } RTC_STATUS_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_STATUS_OFFSET           0x0A         /**< \brief (RTC_STATUS offset) Status Register */
-#define RTC_STATUS_RESETVALUE       0x00         /**< \brief (RTC_STATUS reset_value) Status Register */
+#define RTC_STATUS_OFFSET           0x0A         /**< \brief (RTC_STATUS offset) Status */
+#define RTC_STATUS_RESETVALUE       0x00         /**< \brief (RTC_STATUS reset_value) Status */
 
 #define RTC_STATUS_SYNCBUSY_Pos     7            /**< \brief (RTC_STATUS) Synchronization Busy Status */
 #define RTC_STATUS_SYNCBUSY         (0x1u << RTC_STATUS_SYNCBUSY_Pos)
 #define RTC_STATUS_MASK             0x80u        /**< \brief (RTC_STATUS) MASK Register */
 
-/* -------- RTC_DBGCTRL : (RTC Offset: 0x0B) (R/W  8) Debug Register -------- */
+/* -------- RTC_DBGCTRL : (RTC Offset: 0x0B) (R/W  8) Debug Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -550,14 +592,14 @@ typedef union {
 } RTC_DBGCTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_DBGCTRL_OFFSET          0x0B         /**< \brief (RTC_DBGCTRL offset) Debug Register */
-#define RTC_DBGCTRL_RESETVALUE      0x00         /**< \brief (RTC_DBGCTRL reset_value) Debug Register */
+#define RTC_DBGCTRL_OFFSET          0x0B         /**< \brief (RTC_DBGCTRL offset) Debug Control */
+#define RTC_DBGCTRL_RESETVALUE      0x00         /**< \brief (RTC_DBGCTRL reset_value) Debug Control */
 
 #define RTC_DBGCTRL_DBGRUN_Pos      0            /**< \brief (RTC_DBGCTRL) Run During Debug */
 #define RTC_DBGCTRL_DBGRUN          (0x1u << RTC_DBGCTRL_DBGRUN_Pos)
 #define RTC_DBGCTRL_MASK            0x01u        /**< \brief (RTC_DBGCTRL) MASK Register */
 
-/* -------- RTC_FREQCORR : (RTC Offset: 0x0C) (R/W  8) Frequency Correction Register -------- */
+/* -------- RTC_FREQCORR : (RTC Offset: 0x0C) (R/W  8) Frequency Correction -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -568,8 +610,8 @@ typedef union {
 } RTC_FREQCORR_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_FREQCORR_OFFSET         0x0C         /**< \brief (RTC_FREQCORR offset) Frequency Correction Register */
-#define RTC_FREQCORR_RESETVALUE     0x00         /**< \brief (RTC_FREQCORR reset_value) Frequency Correction Register */
+#define RTC_FREQCORR_OFFSET         0x0C         /**< \brief (RTC_FREQCORR offset) Frequency Correction */
+#define RTC_FREQCORR_RESETVALUE     0x00         /**< \brief (RTC_FREQCORR reset_value) Frequency Correction */
 
 #define RTC_FREQCORR_VALUE_Pos      0            /**< \brief (RTC_FREQCORR) Correction Value */
 #define RTC_FREQCORR_VALUE_Msk      (0x7Fu << RTC_FREQCORR_VALUE_Pos)
@@ -578,7 +620,7 @@ typedef union {
 #define RTC_FREQCORR_SIGN           (0x1u << RTC_FREQCORR_SIGN_Pos)
 #define RTC_FREQCORR_MASK           0xFFu        /**< \brief (RTC_FREQCORR) MASK Register */
 
-/* -------- RTC_MODE0_COUNT : (RTC Offset: 0x10) (R/W 32) MODE0 MODE0 Count Register -------- */
+/* -------- RTC_MODE0_COUNT : (RTC Offset: 0x10) (R/W 32) MODE0 MODE0 Count -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -588,15 +630,15 @@ typedef union {
 } RTC_MODE0_COUNT_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE0_COUNT_OFFSET      0x10         /**< \brief (RTC_MODE0_COUNT offset) MODE0 Count Register */
-#define RTC_MODE0_COUNT_RESETVALUE  0x00000000   /**< \brief (RTC_MODE0_COUNT reset_value) MODE0 Count Register */
+#define RTC_MODE0_COUNT_OFFSET      0x10         /**< \brief (RTC_MODE0_COUNT offset) MODE0 Count */
+#define RTC_MODE0_COUNT_RESETVALUE  0x00000000   /**< \brief (RTC_MODE0_COUNT reset_value) MODE0 Count */
 
 #define RTC_MODE0_COUNT_COUNT_Pos   0            /**< \brief (RTC_MODE0_COUNT) Counter Value */
 #define RTC_MODE0_COUNT_COUNT_Msk   (0xFFFFFFFFu << RTC_MODE0_COUNT_COUNT_Pos)
 #define RTC_MODE0_COUNT_COUNT(value) ((RTC_MODE0_COUNT_COUNT_Msk & ((value) << RTC_MODE0_COUNT_COUNT_Pos)))
 #define RTC_MODE0_COUNT_MASK        0xFFFFFFFFu  /**< \brief (RTC_MODE0_COUNT) MASK Register */
 
-/* -------- RTC_MODE1_COUNT : (RTC Offset: 0x10) (R/W 16) MODE1 MODE1 Count Register -------- */
+/* -------- RTC_MODE1_COUNT : (RTC Offset: 0x10) (R/W 16) MODE1 MODE1 Count -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -606,15 +648,15 @@ typedef union {
 } RTC_MODE1_COUNT_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE1_COUNT_OFFSET      0x10         /**< \brief (RTC_MODE1_COUNT offset) MODE1 Count Register */
-#define RTC_MODE1_COUNT_RESETVALUE  0x0000       /**< \brief (RTC_MODE1_COUNT reset_value) MODE1 Count Register */
+#define RTC_MODE1_COUNT_OFFSET      0x10         /**< \brief (RTC_MODE1_COUNT offset) MODE1 Count */
+#define RTC_MODE1_COUNT_RESETVALUE  0x0000       /**< \brief (RTC_MODE1_COUNT reset_value) MODE1 Count */
 
 #define RTC_MODE1_COUNT_COUNT_Pos   0            /**< \brief (RTC_MODE1_COUNT) Counter Value */
 #define RTC_MODE1_COUNT_COUNT_Msk   (0xFFFFu << RTC_MODE1_COUNT_COUNT_Pos)
 #define RTC_MODE1_COUNT_COUNT(value) ((RTC_MODE1_COUNT_COUNT_Msk & ((value) << RTC_MODE1_COUNT_COUNT_Pos)))
 #define RTC_MODE1_COUNT_MASK        0xFFFFu      /**< \brief (RTC_MODE1_COUNT) MASK Register */
 
-/* -------- RTC_MODE2_CLOCK : (RTC Offset: 0x10) (R/W 32) MODE2 MODE2 Clock Register -------- */
+/* -------- RTC_MODE2_CLOCK : (RTC Offset: 0x10) (R/W 32) MODE2 MODE2 Clock -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -629,8 +671,8 @@ typedef union {
 } RTC_MODE2_CLOCK_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE2_CLOCK_OFFSET      0x10         /**< \brief (RTC_MODE2_CLOCK offset) MODE2 Clock Register */
-#define RTC_MODE2_CLOCK_RESETVALUE  0x00000000   /**< \brief (RTC_MODE2_CLOCK reset_value) MODE2 Clock Register */
+#define RTC_MODE2_CLOCK_OFFSET      0x10         /**< \brief (RTC_MODE2_CLOCK offset) MODE2 Clock */
+#define RTC_MODE2_CLOCK_RESETVALUE  0x00000000   /**< \brief (RTC_MODE2_CLOCK reset_value) MODE2 Clock */
 
 #define RTC_MODE2_CLOCK_SECOND_Pos  0            /**< \brief (RTC_MODE2_CLOCK) Current Second */
 #define RTC_MODE2_CLOCK_SECOND_Msk  (0x3Fu << RTC_MODE2_CLOCK_SECOND_Pos)
@@ -641,7 +683,8 @@ typedef union {
 #define RTC_MODE2_CLOCK_HOUR_Pos    12           /**< \brief (RTC_MODE2_CLOCK) Current Hour */
 #define RTC_MODE2_CLOCK_HOUR_Msk    (0x1Fu << RTC_MODE2_CLOCK_HOUR_Pos)
 #define RTC_MODE2_CLOCK_HOUR(value) ((RTC_MODE2_CLOCK_HOUR_Msk & ((value) << RTC_MODE2_CLOCK_HOUR_Pos)))
-#define   RTC_MODE2_CLOCK_HOUR_PM   (0x10u << 12) /**< \brief (RTC_MODE2_CLOCK) PM when CLKREP in 12-hour */
+#define   RTC_MODE2_CLOCK_HOUR_PM_Val     0x10u   /**< \brief (RTC_MODE2_CLOCK)  */
+#define RTC_MODE2_CLOCK_HOUR_PM     (RTC_MODE2_CLOCK_HOUR_PM_Val   << RTC_MODE2_CLOCK_HOUR_Pos)
 #define RTC_MODE2_CLOCK_DAY_Pos     17           /**< \brief (RTC_MODE2_CLOCK) Current Day */
 #define RTC_MODE2_CLOCK_DAY_Msk     (0x1Fu << RTC_MODE2_CLOCK_DAY_Pos)
 #define RTC_MODE2_CLOCK_DAY(value)  ((RTC_MODE2_CLOCK_DAY_Msk & ((value) << RTC_MODE2_CLOCK_DAY_Pos)))
@@ -653,7 +696,7 @@ typedef union {
 #define RTC_MODE2_CLOCK_YEAR(value) ((RTC_MODE2_CLOCK_YEAR_Msk & ((value) << RTC_MODE2_CLOCK_YEAR_Pos)))
 #define RTC_MODE2_CLOCK_MASK        0xFFFFFFFFu  /**< \brief (RTC_MODE2_CLOCK) MASK Register */
 
-/* -------- RTC_MODE1_PER : (RTC Offset: 0x14) (R/W 16) MODE1 MODE1 Period Register -------- */
+/* -------- RTC_MODE1_PER : (RTC Offset: 0x14) (R/W 16) MODE1 MODE1 Period -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -663,15 +706,15 @@ typedef union {
 } RTC_MODE1_PER_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE1_PER_OFFSET        0x14         /**< \brief (RTC_MODE1_PER offset) MODE1 Period Register */
-#define RTC_MODE1_PER_RESETVALUE    0x0000       /**< \brief (RTC_MODE1_PER reset_value) MODE1 Period Register */
+#define RTC_MODE1_PER_OFFSET        0x14         /**< \brief (RTC_MODE1_PER offset) MODE1 Period */
+#define RTC_MODE1_PER_RESETVALUE    0x0000       /**< \brief (RTC_MODE1_PER reset_value) MODE1 Period */
 
 #define RTC_MODE1_PER_PER_Pos       0            /**< \brief (RTC_MODE1_PER) Counter Period */
 #define RTC_MODE1_PER_PER_Msk       (0xFFFFu << RTC_MODE1_PER_PER_Pos)
 #define RTC_MODE1_PER_PER(value)    ((RTC_MODE1_PER_PER_Msk & ((value) << RTC_MODE1_PER_PER_Pos)))
 #define RTC_MODE1_PER_MASK          0xFFFFu      /**< \brief (RTC_MODE1_PER) MASK Register */
 
-/* -------- RTC_MODE0_COMP : (RTC Offset: 0x18) (R/W 32) MODE0 MODE0 Compare Register -------- */
+/* -------- RTC_MODE0_COMP : (RTC Offset: 0x18) (R/W 32) MODE0 MODE0 Compare -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -681,15 +724,15 @@ typedef union {
 } RTC_MODE0_COMP_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE0_COMP_OFFSET       0x18         /**< \brief (RTC_MODE0_COMP offset) MODE0 Compare Register */
-#define RTC_MODE0_COMP_RESETVALUE   0x00000000   /**< \brief (RTC_MODE0_COMP reset_value) MODE0 Compare Register */
+#define RTC_MODE0_COMP_OFFSET       0x18         /**< \brief (RTC_MODE0_COMP offset) MODE0 Compare */
+#define RTC_MODE0_COMP_RESETVALUE   0x00000000   /**< \brief (RTC_MODE0_COMP reset_value) MODE0 Compare */
 
 #define RTC_MODE0_COMP_COMP_Pos     0            /**< \brief (RTC_MODE0_COMP) Compare Value */
 #define RTC_MODE0_COMP_COMP_Msk     (0xFFFFFFFFu << RTC_MODE0_COMP_COMP_Pos)
 #define RTC_MODE0_COMP_COMP(value)  ((RTC_MODE0_COMP_COMP_Msk & ((value) << RTC_MODE0_COMP_COMP_Pos)))
 #define RTC_MODE0_COMP_MASK         0xFFFFFFFFu  /**< \brief (RTC_MODE0_COMP) MASK Register */
 
-/* -------- RTC_MODE1_COMP : (RTC Offset: 0x18) (R/W 16) MODE1 MODE1 Compare Register -------- */
+/* -------- RTC_MODE1_COMP : (RTC Offset: 0x18) (R/W 16) MODE1 MODE1 Compare -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -699,15 +742,15 @@ typedef union {
 } RTC_MODE1_COMP_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE1_COMP_OFFSET       0x18         /**< \brief (RTC_MODE1_COMP offset) MODE1 Compare Register */
-#define RTC_MODE1_COMP_RESETVALUE   0x0000       /**< \brief (RTC_MODE1_COMP reset_value) MODE1 Compare Register */
+#define RTC_MODE1_COMP_OFFSET       0x18         /**< \brief (RTC_MODE1_COMP offset) MODE1 Compare */
+#define RTC_MODE1_COMP_RESETVALUE   0x0000       /**< \brief (RTC_MODE1_COMP reset_value) MODE1 Compare */
 
 #define RTC_MODE1_COMP_COMP_Pos     0            /**< \brief (RTC_MODE1_COMP) Compare Value */
 #define RTC_MODE1_COMP_COMP_Msk     (0xFFFFu << RTC_MODE1_COMP_COMP_Pos)
 #define RTC_MODE1_COMP_COMP(value)  ((RTC_MODE1_COMP_COMP_Msk & ((value) << RTC_MODE1_COMP_COMP_Pos)))
 #define RTC_MODE1_COMP_MASK         0xFFFFu      /**< \brief (RTC_MODE1_COMP) MASK Register */
 
-/* -------- RTC_MODE2_ALARM : (RTC Offset: 0x18) (R/W 32) MODE2 MODE2_ALARM Alarm Register -------- */
+/* -------- RTC_MODE2_ALARM : (RTC Offset: 0x18) (R/W 32) MODE2 MODE2_ALARM Alarm -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -722,8 +765,8 @@ typedef union {
 } RTC_MODE2_ALARM_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE2_ALARM_OFFSET      0x18         /**< \brief (RTC_MODE2_ALARM offset) MODE2_ALARM Alarm Register */
-#define RTC_MODE2_ALARM_RESETVALUE  0x00000000   /**< \brief (RTC_MODE2_ALARM reset_value) MODE2_ALARM Alarm Register */
+#define RTC_MODE2_ALARM_OFFSET      0x18         /**< \brief (RTC_MODE2_ALARM offset) MODE2_ALARM Alarm */
+#define RTC_MODE2_ALARM_RESETVALUE  0x00000000   /**< \brief (RTC_MODE2_ALARM reset_value) MODE2_ALARM Alarm */
 
 #define RTC_MODE2_ALARM_SECOND_Pos  0            /**< \brief (RTC_MODE2_ALARM) Alarm Second */
 #define RTC_MODE2_ALARM_SECOND_Msk  (0x3Fu << RTC_MODE2_ALARM_SECOND_Pos)
@@ -745,7 +788,7 @@ typedef union {
 #define RTC_MODE2_ALARM_YEAR(value) ((RTC_MODE2_ALARM_YEAR_Msk & ((value) << RTC_MODE2_ALARM_YEAR_Pos)))
 #define RTC_MODE2_ALARM_MASK        0xFFFFFFFFu  /**< \brief (RTC_MODE2_ALARM) MASK Register */
 
-/* -------- RTC_MODE2_MASK : (RTC Offset: 0x1C) (R/W  8) MODE2 MODE2_ALARM Alarm Mask Register -------- */
+/* -------- RTC_MODE2_MASK : (RTC Offset: 0x1C) (R/W  8) MODE2 MODE2_ALARM Alarm Mask -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -756,26 +799,33 @@ typedef union {
 } RTC_MODE2_MASK_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define RTC_MODE2_MASK_OFFSET       0x1C         /**< \brief (RTC_MODE2_MASK offset) MODE2_ALARM Alarm Mask Register */
-#define RTC_MODE2_MASK_RESETVALUE   0x00         /**< \brief (RTC_MODE2_MASK reset_value) MODE2_ALARM Alarm Mask Register */
+#define RTC_MODE2_MASK_OFFSET       0x1C         /**< \brief (RTC_MODE2_MASK offset) MODE2_ALARM Alarm Mask */
+#define RTC_MODE2_MASK_RESETVALUE   0x00         /**< \brief (RTC_MODE2_MASK reset_value) MODE2_ALARM Alarm Mask */
 
 #define RTC_MODE2_MASK_SEL_Pos      0            /**< \brief (RTC_MODE2_MASK) Alarm Mask Selection */
 #define RTC_MODE2_MASK_SEL_Msk      (0x7u << RTC_MODE2_MASK_SEL_Pos)
 #define RTC_MODE2_MASK_SEL(value)   ((RTC_MODE2_MASK_SEL_Msk & ((value) << RTC_MODE2_MASK_SEL_Pos)))
-#define   RTC_MODE2_MASK_SEL_OFF    (0x0u <<  0) /**< \brief (RTC_MODE2_MASK)  */
-#define   RTC_MODE2_MASK_SEL_SS     (0x1u <<  0) /**< \brief (RTC_MODE2_MASK)  */
-#define   RTC_MODE2_MASK_SEL_MMSS   (0x2u <<  0) /**< \brief (RTC_MODE2_MASK)  */
-#define   RTC_MODE2_MASK_SEL_HHMMSS (0x3u <<  0) /**< \brief (RTC_MODE2_MASK)  */
-#define   RTC_MODE2_MASK_SEL_DDHHMMSS (0x4u <<  0) /**< \brief (RTC_MODE2_MASK)  */
-#define   RTC_MODE2_MASK_SEL_MMDDHHMMSS (0x5u <<  0) /**< \brief (RTC_MODE2_MASK)  */
-#define   RTC_MODE2_MASK_SEL_YYMMDDHHMMSS (0x6u <<  0) /**< \brief (RTC_MODE2_MASK)  */
+#define   RTC_MODE2_MASK_SEL_OFF_Val      0x0u   /**< \brief (RTC_MODE2_MASK)  */
+#define   RTC_MODE2_MASK_SEL_SS_Val       0x1u   /**< \brief (RTC_MODE2_MASK)  */
+#define   RTC_MODE2_MASK_SEL_MMSS_Val     0x2u   /**< \brief (RTC_MODE2_MASK)  */
+#define   RTC_MODE2_MASK_SEL_HHMMSS_Val   0x3u   /**< \brief (RTC_MODE2_MASK)  */
+#define   RTC_MODE2_MASK_SEL_DDHHMMSS_Val 0x4u   /**< \brief (RTC_MODE2_MASK)  */
+#define   RTC_MODE2_MASK_SEL_MMDDHHMMSS_Val 0x5u   /**< \brief (RTC_MODE2_MASK)  */
+#define   RTC_MODE2_MASK_SEL_YYMMDDHHMMSS_Val 0x6u   /**< \brief (RTC_MODE2_MASK)  */
+#define RTC_MODE2_MASK_SEL_OFF      (RTC_MODE2_MASK_SEL_OFF_Val    << RTC_MODE2_MASK_SEL_Pos)
+#define RTC_MODE2_MASK_SEL_SS       (RTC_MODE2_MASK_SEL_SS_Val     << RTC_MODE2_MASK_SEL_Pos)
+#define RTC_MODE2_MASK_SEL_MMSS     (RTC_MODE2_MASK_SEL_MMSS_Val   << RTC_MODE2_MASK_SEL_Pos)
+#define RTC_MODE2_MASK_SEL_HHMMSS   (RTC_MODE2_MASK_SEL_HHMMSS_Val << RTC_MODE2_MASK_SEL_Pos)
+#define RTC_MODE2_MASK_SEL_DDHHMMSS (RTC_MODE2_MASK_SEL_DDHHMMSS_Val << RTC_MODE2_MASK_SEL_Pos)
+#define RTC_MODE2_MASK_SEL_MMDDHHMMSS (RTC_MODE2_MASK_SEL_MMDDHHMMSS_Val << RTC_MODE2_MASK_SEL_Pos)
+#define RTC_MODE2_MASK_SEL_YYMMDDHHMMSS (RTC_MODE2_MASK_SEL_YYMMDDHHMMSS_Val << RTC_MODE2_MASK_SEL_Pos)
 #define RTC_MODE2_MASK_MASK         0x07u        /**< \brief (RTC_MODE2_MASK) MASK Register */
 
 /** \brief RtcMode2Alarm hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef struct {
-  __IO RTC_MODE2_ALARM_Type      ALARM;       /**< \brief Offset: 0x00 (R/W 32) MODE2_ALARM Alarm Register */
-  __IO RTC_MODE2_MASK_Type       MASK;        /**< \brief Offset: 0x04 (R/W  8) MODE2_ALARM Alarm Mask Register */
+  __IO RTC_MODE2_ALARM_Type      ALARM;       /**< \brief Offset: 0x00 (R/W 32) MODE2_ALARM Alarm */
+  __IO RTC_MODE2_MASK_Type       MASK;        /**< \brief Offset: 0x04 (R/W  8) MODE2_ALARM Alarm Mask */
        RoReg8                    Reserved1[0x3];
 } RtcMode2Alarm;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
@@ -783,60 +833,60 @@ typedef struct {
 /** \brief RTC_MODE0 hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef struct { /* 32-bit Counter with Single 32-bit Compare */
-  __IO RTC_MODE0_CTRL_Type       CTRL;        /**< \brief Offset: 0x00 (R/W 16) MODE0 Control Register */
-  __IO RTC_READREQ_Type          READREQ;     /**< \brief Offset: 0x02 (R/W 16) Read Request Register */
-  __IO RTC_MODE0_EVCTRL_Type     EVCTRL;      /**< \brief Offset: 0x04 (R/W 16) MODE0 Event Control Register */
-  __IO RTC_MODE0_INTENCLR_Type   INTENCLR;    /**< \brief Offset: 0x06 (R/W  8) MODE0 Interrupt Enable Clear Register */
-  __IO RTC_MODE0_INTENSET_Type   INTENSET;    /**< \brief Offset: 0x07 (R/W  8) MODE0 Interrupt Enable Set Register */
-  __IO RTC_MODE0_INTFLAG_Type    INTFLAG;     /**< \brief Offset: 0x08 (R/W  8) MODE0 Interrupt Flag Status and Clear Register */
+  __IO RTC_MODE0_CTRL_Type       CTRL;        /**< \brief Offset: 0x00 (R/W 16) MODE0 Control */
+  __IO RTC_READREQ_Type          READREQ;     /**< \brief Offset: 0x02 (R/W 16) Read Request */
+  __IO RTC_MODE0_EVCTRL_Type     EVCTRL;      /**< \brief Offset: 0x04 (R/W 16) MODE0 Event Control */
+  __IO RTC_MODE0_INTENCLR_Type   INTENCLR;    /**< \brief Offset: 0x06 (R/W  8) MODE0 Interrupt Enable Clear */
+  __IO RTC_MODE0_INTENSET_Type   INTENSET;    /**< \brief Offset: 0x07 (R/W  8) MODE0 Interrupt Enable Set */
+  __IO RTC_MODE0_INTFLAG_Type    INTFLAG;     /**< \brief Offset: 0x08 (R/W  8) MODE0 Interrupt Flag Status and Clear */
        RoReg8                    Reserved1[0x1];
-  __IO RTC_STATUS_Type           STATUS;      /**< \brief Offset: 0x0A (R/W  8) Status Register */
-  __IO RTC_DBGCTRL_Type          DBGCTRL;     /**< \brief Offset: 0x0B (R/W  8) Debug Register */
-  __IO RTC_FREQCORR_Type         FREQCORR;    /**< \brief Offset: 0x0C (R/W  8) Frequency Correction Register */
+  __IO RTC_STATUS_Type           STATUS;      /**< \brief Offset: 0x0A (R/W  8) Status */
+  __IO RTC_DBGCTRL_Type          DBGCTRL;     /**< \brief Offset: 0x0B (R/W  8) Debug Control */
+  __IO RTC_FREQCORR_Type         FREQCORR;    /**< \brief Offset: 0x0C (R/W  8) Frequency Correction */
        RoReg8                    Reserved2[0x3];
-  __IO RTC_MODE0_COUNT_Type      COUNT;       /**< \brief Offset: 0x10 (R/W 32) MODE0 Count Register */
+  __IO RTC_MODE0_COUNT_Type      COUNT;       /**< \brief Offset: 0x10 (R/W 32) MODE0 Count */
        RoReg8                    Reserved3[0x4];
-  __IO RTC_MODE0_COMP_Type       COMP[1];     /**< \brief Offset: 0x18 (R/W 32) MODE0 Compare Register [NUM_OF_COMP32] */
+  __IO RTC_MODE0_COMP_Type       COMP[1];     /**< \brief Offset: 0x18 (R/W 32) MODE0 Compare [NUM_OF_COMP32] */
 } RtcMode0;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /** \brief RTC_MODE1 hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef struct { /* 16-bit Counter with Two 16-bit Compares */
-  __IO RTC_MODE1_CTRL_Type       CTRL;        /**< \brief Offset: 0x00 (R/W 16) MODE1 Control Register */
-  __IO RTC_READREQ_Type          READREQ;     /**< \brief Offset: 0x02 (R/W 16) Read Request Register */
-  __IO RTC_MODE1_EVCTRL_Type     EVCTRL;      /**< \brief Offset: 0x04 (R/W 16) MODE1 Event Control Register */
-  __IO RTC_MODE1_INTENCLR_Type   INTENCLR;    /**< \brief Offset: 0x06 (R/W  8) MODE1 Interrupt Enable Clear Register */
-  __IO RTC_MODE1_INTENSET_Type   INTENSET;    /**< \brief Offset: 0x07 (R/W  8) MODE1 Interrupt Enable Set Register */
-  __IO RTC_MODE1_INTFLAG_Type    INTFLAG;     /**< \brief Offset: 0x08 (R/W  8) MODE1 Interrupt Flag Status and Clear Register */
+  __IO RTC_MODE1_CTRL_Type       CTRL;        /**< \brief Offset: 0x00 (R/W 16) MODE1 Control */
+  __IO RTC_READREQ_Type          READREQ;     /**< \brief Offset: 0x02 (R/W 16) Read Request */
+  __IO RTC_MODE1_EVCTRL_Type     EVCTRL;      /**< \brief Offset: 0x04 (R/W 16) MODE1 Event Control */
+  __IO RTC_MODE1_INTENCLR_Type   INTENCLR;    /**< \brief Offset: 0x06 (R/W  8) MODE1 Interrupt Enable Clear */
+  __IO RTC_MODE1_INTENSET_Type   INTENSET;    /**< \brief Offset: 0x07 (R/W  8) MODE1 Interrupt Enable Set */
+  __IO RTC_MODE1_INTFLAG_Type    INTFLAG;     /**< \brief Offset: 0x08 (R/W  8) MODE1 Interrupt Flag Status and Clear */
        RoReg8                    Reserved1[0x1];
-  __IO RTC_STATUS_Type           STATUS;      /**< \brief Offset: 0x0A (R/W  8) Status Register */
-  __IO RTC_DBGCTRL_Type          DBGCTRL;     /**< \brief Offset: 0x0B (R/W  8) Debug Register */
-  __IO RTC_FREQCORR_Type         FREQCORR;    /**< \brief Offset: 0x0C (R/W  8) Frequency Correction Register */
+  __IO RTC_STATUS_Type           STATUS;      /**< \brief Offset: 0x0A (R/W  8) Status */
+  __IO RTC_DBGCTRL_Type          DBGCTRL;     /**< \brief Offset: 0x0B (R/W  8) Debug Control */
+  __IO RTC_FREQCORR_Type         FREQCORR;    /**< \brief Offset: 0x0C (R/W  8) Frequency Correction */
        RoReg8                    Reserved2[0x3];
-  __IO RTC_MODE1_COUNT_Type      COUNT;       /**< \brief Offset: 0x10 (R/W 16) MODE1 Count Register */
+  __IO RTC_MODE1_COUNT_Type      COUNT;       /**< \brief Offset: 0x10 (R/W 16) MODE1 Count */
        RoReg8                    Reserved3[0x2];
-  __IO RTC_MODE1_PER_Type        PER;         /**< \brief Offset: 0x14 (R/W 16) MODE1 Period Register */
+  __IO RTC_MODE1_PER_Type        PER;         /**< \brief Offset: 0x14 (R/W 16) MODE1 Period */
        RoReg8                    Reserved4[0x2];
-  __IO RTC_MODE1_COMP_Type       COMP[2];     /**< \brief Offset: 0x18 (R/W 16) MODE1 Compare Register [NUM_OF_COMP16] */
+  __IO RTC_MODE1_COMP_Type       COMP[2];     /**< \brief Offset: 0x18 (R/W 16) MODE1 Compare [NUM_OF_COMP16] */
 } RtcMode1;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /** \brief RTC_MODE2 hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef struct { /* Clock/Calendar with Alarm */
-  __IO RTC_MODE2_CTRL_Type       CTRL;        /**< \brief Offset: 0x00 (R/W 16) MODE2 Control Register */
-  __IO RTC_READREQ_Type          READREQ;     /**< \brief Offset: 0x02 (R/W 16) Read Request Register */
-  __IO RTC_MODE2_EVCTRL_Type     EVCTRL;      /**< \brief Offset: 0x04 (R/W 16) MODE2 Event Control Register */
-  __IO RTC_MODE2_INTENCLR_Type   INTENCLR;    /**< \brief Offset: 0x06 (R/W  8) MODE2 Interrupt Enable Clear Register */
-  __IO RTC_MODE2_INTENSET_Type   INTENSET;    /**< \brief Offset: 0x07 (R/W  8) MODE2 Interrupt Enable Set Register */
-  __IO RTC_MODE2_INTFLAG_Type    INTFLAG;     /**< \brief Offset: 0x08 (R/W  8) MODE2 Interrupt Flag Status and Clear Register */
+  __IO RTC_MODE2_CTRL_Type       CTRL;        /**< \brief Offset: 0x00 (R/W 16) MODE2 Control */
+  __IO RTC_READREQ_Type          READREQ;     /**< \brief Offset: 0x02 (R/W 16) Read Request */
+  __IO RTC_MODE2_EVCTRL_Type     EVCTRL;      /**< \brief Offset: 0x04 (R/W 16) MODE2 Event Control */
+  __IO RTC_MODE2_INTENCLR_Type   INTENCLR;    /**< \brief Offset: 0x06 (R/W  8) MODE2 Interrupt Enable Clear */
+  __IO RTC_MODE2_INTENSET_Type   INTENSET;    /**< \brief Offset: 0x07 (R/W  8) MODE2 Interrupt Enable Set */
+  __IO RTC_MODE2_INTFLAG_Type    INTFLAG;     /**< \brief Offset: 0x08 (R/W  8) MODE2 Interrupt Flag Status and Clear */
        RoReg8                    Reserved1[0x1];
-  __IO RTC_STATUS_Type           STATUS;      /**< \brief Offset: 0x0A (R/W  8) Status Register */
-  __IO RTC_DBGCTRL_Type          DBGCTRL;     /**< \brief Offset: 0x0B (R/W  8) Debug Register */
-  __IO RTC_FREQCORR_Type         FREQCORR;    /**< \brief Offset: 0x0C (R/W  8) Frequency Correction Register */
+  __IO RTC_STATUS_Type           STATUS;      /**< \brief Offset: 0x0A (R/W  8) Status */
+  __IO RTC_DBGCTRL_Type          DBGCTRL;     /**< \brief Offset: 0x0B (R/W  8) Debug Control */
+  __IO RTC_FREQCORR_Type         FREQCORR;    /**< \brief Offset: 0x0C (R/W  8) Frequency Correction */
        RoReg8                    Reserved2[0x3];
-  __IO RTC_MODE2_CLOCK_Type      CLOCK;       /**< \brief Offset: 0x10 (R/W 32) MODE2 Clock Register */
+  __IO RTC_MODE2_CLOCK_Type      CLOCK;       /**< \brief Offset: 0x10 (R/W 32) MODE2 Clock */
        RoReg8                    Reserved3[0x4];
        RtcMode2Alarm             Mode2Alarm[1]; /**< \brief Offset: 0x18 RtcMode2Alarm groups [NUM_OF_ALARMS] */
 } RtcMode2;

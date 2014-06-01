@@ -295,6 +295,7 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../pio</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
@@ -304,7 +305,6 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../pio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -564,6 +564,7 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../pio</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
@@ -573,7 +574,6 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../pio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -764,11 +764,10 @@
 				</option>
 				<option>
 					<name>IlinkUseExtraOptions</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1225,6 +1224,7 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../pio</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
@@ -1234,7 +1234,6 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../pio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -1494,6 +1493,7 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../pio</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
@@ -1503,7 +1503,6 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../pio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -1694,11 +1693,10 @@
 				</option>
 				<option>
 					<name>IlinkUseExtraOptions</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -2017,9 +2015,6 @@
 						<group>
 							<name>instance</name>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_rtc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_hsmci.h</name>
 							</file>
 							<file>
@@ -2090,6 +2085,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_efc0.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_tc2.h</name>

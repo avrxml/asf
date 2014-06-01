@@ -3,7 +3,7 @@
  *
  * \brief Flash program example for SAM.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -57,12 +57,12 @@
  * \section Description
  *
  * The program performs the following set of commands:
- * - Unlock the last page.
- * - Program the last page of the embedded flash with walking bit pattern (0x1,
+ * - Unlock the test page.
+ * - Program the test page of the embedded flash with walking bit pattern (0x1,
  * 0x2, 0x4, ...).
  * - Check if the flash is correctly programmed by reading all the values
  * programmed.
- * - Lock the last page and check if it has been locked correctly.
+ * - Lock the test page and check if it has been locked correctly.
  * - Set the security bit.
  *
  * The SAM MCU features a security bit, based on a specific General Purpose
@@ -78,15 +78,7 @@
  *
  * \section Usage
  *
- * -# Build the program and download it into the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/6421B.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a> application note or the
- *    <a href="http://www.iar.com/website1/1.0.1.0/78/1/">
- *    IAR EWARM User and reference guides</a>, depending on the solutions that
- *    users choose.
+ * -# Build the program and download it into the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -97,23 +89,23 @@
  * -# Start the application.
  * -# In the terminal window, the following text should appear:
  *    \code
- *     -- Flash Program Example --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     -I- Unlocking last page
- *     -I- Writing last page with walking bit pattern
- *     -I- Checking page contents  ......................................... ok
- *     -I- Locking last page
- *     -I- Try to program the locked page...
- *     -I- Please open Segger's JMem program
- *     -I- Read memory at address 0xxxxxxxxx to check contents
- *     -I- Press any key to continue...
- *     -I- Good job!
- *     -I- Now set the security bit
- *     -I- Press any key to continue to see what happened...
- *     -I- Setting security bit
- *     -I- All tests done
- * \endcode
+	-- Flash Program Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	-I- Unlocking test page
+	-I- Writing test page with walking bit pattern
+	-I- Checking page contents  ......................................... ok
+	-I- Locking test page
+	-I- Try to program the locked page...
+	-I- Please open Segger's JMem program
+	-I- Read memory at address 0xxxxxxxxx to check contents
+	-I- Press any key to continue...
+	-I- Good job!
+	-I- Now set the security bit
+	-I- Press any key to continue to see what happened...
+	-I- Setting security bit
+	-I- All tests done
+\endcode
  *
  */
 
@@ -150,8 +142,8 @@ typedef unsigned long UL;
  */
 int main(void)
 {
-	uint32_t ul_last_page_addr = LAST_PAGE_ADDRESS;
-	uint32_t *pul_last_page = (uint32_t *) ul_last_page_addr;
+	uint32_t ul_test_page_addr = TEST_PAGE_ADDRESS;
+	uint32_t *pul_test_page = (uint32_t *) ul_test_page_addr;
 	uint32_t ul_rc;
 	uint32_t ul_idx;
 	uint8_t uc_key;
@@ -175,34 +167,34 @@ int main(void)
 	}
 
 	/* Unlock page */
-	printf("-I- Unlocking last page: 0x%08x\r\n", ul_last_page_addr);
-	ul_rc = flash_unlock(ul_last_page_addr,
-			ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
+	printf("-I- Unlocking test page: 0x%08x\r\n", ul_test_page_addr);
+	ul_rc = flash_unlock(ul_test_page_addr,
+			ul_test_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
 	if (ul_rc != FLASH_RC_OK) {
 		printf("-F- Unlock error %lu\n\r", (UL)ul_rc);
 		return 0;
 	}
 
 	/* Write page */
-	printf("-I- Writing last page with walking bit pattern\n\r");
+	printf("-I- Writing test page with walking bit pattern\n\r");
 	for (ul_idx = 0; ul_idx < (IFLASH_PAGE_SIZE / 4); ul_idx++) {
 		ul_page_buffer[ul_idx] = 1 << (ul_idx % 32);
 	}
 
-#if (SAM4S || SAM4E)
-	/* The EWP command is not supported by SAM4S and SAM4E, so an erase
-	 * command is requried before any write operation.
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAM4CP || SAMG || SAM4CM)
+	/* The EWP command is not supported for non-8KByte sectors in all devices
+	 *  SAM4 series, so an erase command is requried before the write operation.
 	 */
-	ul_rc = flash_erase_sector(ul_last_page_addr);
+	ul_rc = flash_erase_sector(ul_test_page_addr);
 	if (ul_rc != FLASH_RC_OK) {
 		printf("-F- Flash programming error %lu\n\r", (UL)ul_rc);
 		return 0;
 	}
 
-	ul_rc = flash_write(ul_last_page_addr, ul_page_buffer,
+	ul_rc = flash_write(ul_test_page_addr, ul_page_buffer,
 			IFLASH_PAGE_SIZE, 0);
 #else
-	ul_rc = flash_write(ul_last_page_addr, ul_page_buffer,
+	ul_rc = flash_write(ul_test_page_addr, ul_page_buffer,
 			IFLASH_PAGE_SIZE, 1);
 #endif
 	if (ul_rc != FLASH_RC_OK) {
@@ -214,17 +206,28 @@ int main(void)
 	printf("-I- Checking page contents ");
 	for (ul_idx = 0; ul_idx < (IFLASH_PAGE_SIZE / 4); ul_idx++) {
 		printf(".");
-		if (pul_last_page[ul_idx] != ul_page_buffer[ul_idx]) {
+		if (pul_test_page[ul_idx] != ul_page_buffer[ul_idx]) {
 			printf("\n\r-F- data error\n\r");
 			return 0;
 		}
 	}
 	printf("OK\n\r");
 
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAM4CP || SAMG || SAM4CM)
+	/* The EWP command is not supported for non-8KByte sectors in some SAM4
+	 * series, so an erase command is requried before the write operation.
+	 */
+	ul_rc = flash_erase_sector(ul_test_page_addr);
+	if (ul_rc != FLASH_RC_OK) {
+		printf("-F- Flash programming error %lu\n\r", (UL)ul_rc);
+		return 0;
+	}
+#endif
+
 	/* Lock page */
-	printf("-I- Locking last page\n\r");
-	ul_rc = flash_lock(ul_last_page_addr,
-			ul_last_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
+	printf("-I- Locking test page\n\r");
+	ul_rc = flash_lock(ul_test_page_addr,
+			ul_test_page_addr + IFLASH_PAGE_SIZE - 1, 0, 0);
 	if (ul_rc != FLASH_RC_OK) {
 		printf("-F- Flash locking error %lu\n\r", (UL)ul_rc);
 		return 0;
@@ -232,8 +235,13 @@ int main(void)
 
 	/* Check if the associated region is locked. */
 	printf("-I- Try to program the locked page ...\n\r");
-	ul_rc = flash_write(ul_last_page_addr, ul_page_buffer,
-			IFLASH_PAGE_SIZE, 1);
+	ul_rc = flash_write(ul_test_page_addr, ul_page_buffer,
+			IFLASH_PAGE_SIZE,
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+			0);
+#else
+			1);
+#endif
 	if (ul_rc != FLASH_RC_OK) {
 		printf("-I- The page to be programmed belongs to locked region. Error %lu\n\r",
 				(UL)ul_rc);
@@ -241,7 +249,7 @@ int main(void)
 
 	printf("-I- Please open Segger's JMem program \n\r");
 	printf("-I- Read memory at address 0x%08lx to check contents\n\r",
-			(UL)ul_last_page_addr);
+			(UL)ul_test_page_addr);
 	printf("-I- Press any key to continue...\n\r");
 	while (0 != uart_read(CONSOLE_UART, &uc_key));
 

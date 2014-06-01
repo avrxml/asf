@@ -3,7 +3,7 @@
  *
  * \brief TWI driver for megarf.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -433,179 +433,179 @@ void twi_slave_status_reset(void);
  * \section megarf_twi_quickstart_setup Setup
  * When the \ref sysclk_group module has been included, it must be initialized:
  * \code
- * sysclk_init();
- * \endcode
+	sysclk_init();
+\endcode
  *
  * \section megarf_twi_quickstart_use_case Use case
  *
  * \subsection megarf_twi_quickstart_use_case_example_code Example code
  *
  * \code
- * #define TWI_SPEED_HZ     125000
- * #define SLAVE_BUS_ADDR   0xB0
- *
- * #define PATTERN_TEST_LENGTH     sizeof(test_pattern)
- *
- * const uint8_t test_pattern[] = {
- *	0x05,
- *	0x15,
- *	0x25,
- *	0x35,
- *	0x45,
- *	0x55,
- *	0x65,
- *	0x75,
- *  };
- *
- * int main(void)
- * {
- *
- *	sysclk_init();
- *
- *	board_init();
- *
- *	twi_master_options_t opt = {
- *		.speed      = TWI_SPEED_HZ,
- *		.chip  = SLAVE_BUS_ADDR,		
- *	};
- *       
- *  opt .baud_reg = TWI_CLOCK_RATE(sysclk_get_cpu_hz(), opt.speed);
- *
- *  sysclk_enable_peripheral_clock(TWI_EXAMPLE);
- *	
- *	twi_master_init(TWI_EXAMPLE,&opt);
- *
- *	twi_package_t packet = {
- *		.addr[0]         =  slave_mem_addr[0], 
- *		.addr_length  = (uint8_t)SLAVE_MEM_ADDR_LENGTH, 
- *		.chip         = SLAVE_BUS_ADDR, 
- *		.buffer       = (void *)test_pattern, 
- *		.length       = PATTERN_TEST_LENGTH 
- *	};
- *
- *	while (twi_master_write(TWI_EXAMPLE,&packet) != TWI_SUCCESS) {
- *	}
- *
- *	uint8_t data_received[PATTERN_TEST_LENGTH] = {0};
- *
- *	twi_package_t packet_received = {
- *		.addr[0]         = slave_mem_addr[0], 
- *		.addr_length  = (uint8_t)SLAVE_MEM_ADDR_LENGTH, 
- *		.chip         = SLAVE_BUS_ADDR, 
- *		.buffer       = data_received, 
- *		.length       = PATTERN_TEST_LENGTH 
- *	};
- *	while (twi_master_read(TWI_EXAMPLE,&packet_received) != TWI_SUCCESS) {
- *	}
- *
- *	for (int i = 0; i < PATTERN_TEST_LENGTH; i++) {
- *		if (data_received[i] != test_pattern[i]) {
- *
- *			while (1) {
- *			}
- *		}
- *	}
- *
- *	LED_On(LED_GREEN_GPIO);
- *
- *	while (1) {
- *	  } 
- *  }
- * \endcode
+	 #define TWI_SPEED_HZ     125000
+	 #define SLAVE_BUS_ADDR   0xB0
+
+	 #define PATTERN_TEST_LENGTH     sizeof(test_pattern)
+
+	 const uint8_t test_pattern[] = {
+		0x05,
+		0x15,
+		0x25,
+		0x35,
+		0x45,
+		0x55,
+		0x65,
+		0x75,
+	  };
+
+	 int main(void)
+	 {
+
+		sysclk_init();
+
+		board_init();
+
+		twi_master_options_t opt = {
+			.speed      = TWI_SPEED_HZ,
+			.chip  = SLAVE_BUS_ADDR,		
+		};
+       
+	  opt .baud_reg = TWI_CLOCK_RATE(sysclk_get_cpu_hz(), opt.speed);
+
+	  sysclk_enable_peripheral_clock(TWI_EXAMPLE);
+	
+		twi_master_init(TWI_EXAMPLE,&opt);
+
+		twi_package_t packet = {
+			.addr[0]         =  slave_mem_addr[0], 
+			.addr_length  = (uint8_t)SLAVE_MEM_ADDR_LENGTH, 
+			.chip         = SLAVE_BUS_ADDR, 
+			.buffer       = (void *)test_pattern, 
+			.length       = PATTERN_TEST_LENGTH 
+		};
+
+		while (twi_master_write(TWI_EXAMPLE,&packet) != TWI_SUCCESS) {
+		}
+
+		uint8_t data_received[PATTERN_TEST_LENGTH] = {0};
+
+		twi_package_t packet_received = {
+			.addr[0]         = slave_mem_addr[0], 
+			.addr_length  = (uint8_t)SLAVE_MEM_ADDR_LENGTH, 
+			.chip         = SLAVE_BUS_ADDR, 
+			.buffer       = data_received, 
+			.length       = PATTERN_TEST_LENGTH 
+		};
+		while (twi_master_read(TWI_EXAMPLE,&packet_received) != TWI_SUCCESS) {
+		}
+
+		for (int i = 0; i < PATTERN_TEST_LENGTH; i++) {
+			if (data_received[i] != test_pattern[i]) {
+
+				while (1) {
+				}
+			}
+		}
+
+		LED_On(LED_GREEN_GPIO);
+
+		while (1) {
+		  } 
+	  }
+\endcode
  *
  * \subsection megarf_twi_quickstart_use_case_workflow Workflow
  * We first create some definitions. TWI slave, speed, and
  * addresses:
  * \code
- * #define TWI_SPEED_HZ     125000
- * #define SLAVE_BUS_ADDR   0xB0
- *
- * #define PATTERN_TEST_LENGTH     sizeof(test_pattern)
- * \endcode
+	 #define TWI_SPEED_HZ     125000
+	 #define SLAVE_BUS_ADDR   0xB0
+
+	 #define PATTERN_TEST_LENGTH     sizeof(test_pattern)
+\endcode
  *
  *
  * We create two variables, one which contains data that will be transmitted,
  * and one which will contain the received data:
  * \code
- * const uint8_t test_pattern[] = {
- *	0x05,
- *	0x15,
- *	0x25,
- *	0x35,
- *	0x45,
- *	0x55,
- *	0x65,
- *	0x75,
- *  };
- *
- *	uint8_t data_received[PATTERN_TEST_LENGTH] = {0};
- *
- * \endcode
+	 const uint8_t test_pattern[] = {
+		0x05,
+		0x15,
+		0x25,
+		0x35,
+		0x45,
+		0x55,
+		0x65,
+		0x75,
+	  };
+
+		uint8_t data_received[PATTERN_TEST_LENGTH] = {0};
+
+\endcode
  *
  * Options for the TWI module initialization procedure are given below:
  * \code
- *	twi_master_options_t opt = {
- *		.speed      = TWI_SPEED_HZ,
- *		.chip  = SLAVE_BUS_ADDR,		
- *	};
- * \endcode
+	twi_master_options_t opt = {
+		.speed      = TWI_SPEED_HZ,
+		.chip  = SLAVE_BUS_ADDR,		
+	};
+\endcode
  *
  * Set up the interrupt handler:
  * \code
- * ISR(TWI_vect)
- * {
- *	twi_interrupt_handler();
- * }
- * \endcode
+	 ISR(TWI_vect)
+	 {
+		twi_interrupt_handler();
+	 }
+\endcode
  *
  * We create a packet for the data that we will be sent to the slave TWI:
  * \code
- *	twi_package_t packet = {
- *		.addr[0]         =  slave_mem_addr[0], 
- *		.addr_length  = (uint8_t)SLAVE_MEM_ADDR_LENGTH, 
- *		.chip         = SLAVE_BUS_ADDR, 
- *		.buffer       = (void *)test_pattern, 
- *		.length       = PATTERN_TEST_LENGTH 
- *	};
- * \endcode
+	twi_package_t packet = {
+		.addr[0]         =  slave_mem_addr[0], 
+		.addr_length  = (uint8_t)SLAVE_MEM_ADDR_LENGTH, 
+		.chip         = SLAVE_BUS_ADDR, 
+		.buffer       = (void *)test_pattern, 
+		.length       = PATTERN_TEST_LENGTH 
+	};
+\endcode
  *
  * We enable the clock to the master module, and initialize it with the
  * options we described before:
  * \code
- *  sysclk_enable_peripheral_clock(TWI_EXAMPLE);	
- *	twi_master_init(TWI_EXAMPLE,&opt);
- * \endcode
+	  sysclk_enable_peripheral_clock(TWI_EXAMPLE);	
+		twi_master_init(TWI_EXAMPLE,&opt);
+\endcode
  *
  * We do the same for the slave on another board, using the slave portion of 
  * the driver, passing through the twi_slave_init function, its address, 
  * \code
- * sysclk_enable_peripheral_clock(&TWBR);
- *
- * twi_slave_init(SLAVE_BUS_ADDR | TWI_GCE);
- *
- * \endcode
+	 sysclk_enable_peripheral_clock(&TWBR);
+
+	 twi_slave_init(SLAVE_BUS_ADDR | TWI_GCE);
+
+\endcode
  *
  * And enable interrupts:
  * \code
- * cpu_irq_enable();
- * \endcode
+	cpu_irq_enable();
+\endcode
  *
  * Finally, we write our packet through the master TWI module:
  * \code
- * twi_master_write(TWI_EXAMPLE,&packet);
- * \endcode
+	twi_master_write(TWI_EXAMPLE,&packet);
+\endcode
  *
  * We wait for the slave to finish receiving:
  * \code
- *	while (twi_master_write(TWI_EXAMPLE,&packet) != TWI_SUCCESS) {
- *	}
- * \endcode
+	while (twi_master_write(TWI_EXAMPLE,&packet) != TWI_SUCCESS) {
+	}
+\endcode
  *
  * We read back the sent data and check whether slave received properly
  * \code
- *	while (twi_master_read(TWI_EXAMPLE,&packet_received) != TWI_SUCCESS) {
- *	}
- * \endcode
+	while (twi_master_read(TWI_EXAMPLE,&packet_received) != TWI_SUCCESS) {
+	}
+\endcode
  * \note When the master has finished receiving, the 
  *       twi_master_interrupt_handler()
  *       function will copy the received data into our data_received

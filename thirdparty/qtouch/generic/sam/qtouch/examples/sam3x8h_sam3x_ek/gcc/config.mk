@@ -166,7 +166,12 @@ CPPFLAGS = \
        -D _SNS1_SNSK1_SAME_PORT_                          \
        -D _SNS2_SNSK2_SAME_PORT_                          \
        -D __SAM3X8H__                                     \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

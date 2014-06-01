@@ -3,7 +3,7 @@
  *
  * \brief USB host Mass Storage interface for control access module.
  *
- * Copyright (C) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -176,45 +176,45 @@ Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram);
  * \subsection uhi_msc_mem_basic_use_case_usage_code Example code
  * Content of conf_usb_host.h:
  * \code
- * #define USB_HOST_UHI        UHI_MSC
- * #define UHI_MSC_CHANGE(dev, b_plug) my_callback_msc_change(dev, b_plug)
- * extern bool my_callback_msc_change(uhc_device_t* dev, bool b_plug);
- * #include "uhi_msc_mem.h" // At the end of conf_usb_host.h file
- * \endcode
+	#define USB_HOST_UHI        UHI_MSC
+	#define UHI_MSC_CHANGE(dev, b_plug) my_callback_msc_change(dev, b_plug)
+	extern bool my_callback_msc_change(uhc_device_t* dev, bool b_plug);
+	#include "uhi_msc_mem.h" // At the end of conf_usb_host.h file
+\endcode
  *
  * Add to application C-file:
  * \code
- * static bool my_flag_autorize_msc_check = false;
- * bool my_callback_msc_change(uhc_device_t* dev, bool b_plug)
- * {
- *    if (b_plug) {
- *       my_flag_autorize_msc_check = true;
- *    } else {
- *       my_flag_autorize_msc_check = false;
- *    }
- * }
- *
- * void my_task(void)
- * {
- *    if (!my_flag_autorize_msc_check) {
- *       return;
- *    }
- *    my_flag_autorize_msc_check = false;
- *
- *    // Check all new USB disks plugged
- *    for (uint8_t lun=0; lun < uhi_msc_mem_get_lun(); lun++) {
- *       // Wait the end of USB disk install
- *       while (CTRL_BUSY == uhi_msc_mem_test_unit_ready(lun));
- *       if (CTRL_GOOD != uhi_msc_mem_test_unit_ready(lun)) {
- *          // Removal disk not present or fail
- *          continue;
- *       }
- *       // Read capacity
- *       uint32_t max_lba;
- *       uhi_msc_mem_read_capacity(lun, &max_lba);
- *    }
- * }
- * \endcode
+	 static bool my_flag_autorize_msc_check = false;
+	 bool my_callback_msc_change(uhc_device_t* dev, bool b_plug)
+	 {
+	    if (b_plug) {
+	       my_flag_autorize_msc_check = true;
+	    } else {
+	       my_flag_autorize_msc_check = false;
+	    }
+	 }
+
+	 void my_task(void)
+	 {
+	    if (!my_flag_autorize_msc_check) {
+	       return;
+	    }
+	    my_flag_autorize_msc_check = false;
+
+	    // Check all new USB disks plugged
+	    for (uint8_t lun=0; lun < uhi_msc_mem_get_lun(); lun++) {
+	       // Wait the end of USB disk install
+	       while (CTRL_BUSY == uhi_msc_mem_test_unit_ready(lun));
+	       if (CTRL_GOOD != uhi_msc_mem_test_unit_ready(lun)) {
+	          // Removal disk not present or fail
+	          continue;
+	       }
+	       // Read capacity
+	       uint32_t max_lba;
+	       uhi_msc_mem_read_capacity(lun, &max_lba);
+	    }
+	 }
+\endcode
  *
  * \subsection uhi_msc_mem_basic_use_case_setup_flow Workflow
  * -# Ensure that conf_usb_host.h is available and contains the following configuration
@@ -222,7 +222,7 @@ Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram);
  *   - \code #define USB_HOST_UHI   UHI_MSC \endcode
  *     \note It defines the list of UHI supported by USB host.
  *   - \code #define UHI_MSC_CHANGE(dev, b_plug) my_callback_msc_change(dev, b_plug)
- * extern bool my_callback_msc_change(uhc_device_t* dev, bool b_plug); \endcode
+	 extern bool my_callback_msc_change(uhc_device_t* dev, bool b_plug); \endcode
  *     \note This callback is called when a USB device MSC is plugged or unplugged.
  * -# The access of the USB memories is allowed through functions described in \ref uhi_msc_mem_group.
  *

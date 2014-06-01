@@ -239,3 +239,7 @@ CPPFLAGS = \
 LDFLAGS = \
         -Wl,-e,_trampoline                                \
        -Wl,--defsym,__stack_size__=5K
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

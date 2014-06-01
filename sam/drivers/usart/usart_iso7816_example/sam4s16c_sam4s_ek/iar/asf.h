@@ -81,9 +81,6 @@
 // From module: SAM4S EK LED support enabled
 #include <led.h>
 
-// From module: SAM4S startup code
-#include <exceptions.h>
-
 // From module: Smart Card - ISO7816 smart card using GPIO
 #include <iso7816.h>
 

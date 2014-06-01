@@ -8,7 +8,7 @@
  * \section file File(s)
  * - \ref delay_example.c
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

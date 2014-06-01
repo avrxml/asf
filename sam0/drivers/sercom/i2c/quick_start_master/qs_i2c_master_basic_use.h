@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAMD 20 I2C Master Quick Start Guide
+ * \brief SAM SERCOM I2C Master Quick Start Guide
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \page asfdoc_samd20_sercom_i2c_master_basic_use_case Quick Start Guide for SERCOM I2C Master - Basic
+ * \page asfdoc_sam0_sercom_i2c_master_basic_use_case Quick Start Guide for SERCOM I2C Master - Basic
  *
  * In this use case, the I<SUP>2</SUP>C will used and set up as follows:
  *  - Master mode
@@ -52,18 +52,21 @@
  *  - 65535 unknown bus state timeout value
  *
  *
- * \section asfdoc_samd20_sercom_i2c_master_basic_use_case_prereq Prerequisites
+ * \section asfdoc_sam0_sercom_i2c_master_basic_use_case_prereq Prerequisites
  * The device must be connected to an I<SUP>2</SUP>C slave.
  *
- * \section asfdoc_samd20_sercom_i2c_master_basic_use_setup Setup
+ * \section asfdoc_sam0_sercom_i2c_master_basic_use_setup Setup
  *
- * \subsection asfdoc_samd20_sercom_i2c_master_basic_use_setup_code Code
+ * \subsection asfdoc_sam0_sercom_i2c_master_basic_use_setup_code Code
  * The following must be added to the user application:
  *
- * - A sample buffer to send, number of entries to send and address of slave:
+ * - A sample buffer to send, a sample buffer to read:
  * \snippet qs_i2c_master_basic_use.c packet_data
  *
- * Number of times to try to send packet if it fails:
+ * - Slave address to access:
+ * \snippet qs_i2c_master_basic_use.c address
+ *
+ * - Number of times to try to send packet if it fails:
  * \snippet qs_i2c_master_basic_use.c timeout
  *
  * - Globally accessible module structure:
@@ -75,35 +78,36 @@
  * - Add to user application \c main():
  * \snippet qs_i2c_master_basic_use.c init
  *
- * \subsection asfdoc_samd20_sercom_i2c_master_basic_use_setup_workflow Workflow
- * -# Initialize system.
- *  \snippet qs_i2c_master_basic_use.c system_init
+ * \subsection asfdoc_sam0_sercom_i2c_master_basic_use_setup_workflow Workflow
  * -# Configure and enable module:
- *  \snippet qs_i2c_master_basic_use.c initialize_i2c
+ *    \snippet qs_i2c_master_basic_use.c initialize_i2c
  *   -# Create and initialize configuration structure.
- *    \snippet qs_i2c_master_basic_use.c init_conf
+ *      \snippet qs_i2c_master_basic_use.c init_conf
  *   -# Change settings in the configuration.
- *    \snippet qs_i2c_master_basic_use.c conf_change
+ *      \snippet qs_i2c_master_basic_use.c conf_change
  *   -# Initialize the module with the set configurations.
- *    \snippet qs_i2c_master_basic_use.c init_module
+ *      \snippet qs_i2c_master_basic_use.c init_module
  *   -# Enable the module.
- *    \snippet qs_i2c_master_basic_use.c enable_module
+ *      \snippet qs_i2c_master_basic_use.c enable_module
  * -# Create a variable to see when we should stop trying to send packet.
- *  \snippet qs_i2c_master_basic_use.c timeout_counter
+ *    \snippet qs_i2c_master_basic_use.c timeout_counter
  * -# Create a packet to send:
- *  \snippet qs_i2c_master_basic_use.c packet
+ *    \snippet qs_i2c_master_basic_use.c packet
  *
- * \section asfdoc_samd20_sercom_i2c_master_basic_use_implemenation Implementation
- * \subsection asfdoc_samd20_sercom_i2c_master_basic_use_implemenation_code Code
+ * \section asfdoc_sam0_sercom_i2c_master_basic_use_implemenation Implementation
+ * \subsection asfdoc_sam0_sercom_i2c_master_basic_use_implemenation_code Code
  * Add to user application \c main():
  * \snippet qs_i2c_master_basic_use.c main
  *
- * \subsection asfdoc_samd20_sercom_i2c_master_basic_use_implemenation_workflow Workflow
+ * \subsection asfdoc_sam0_sercom_i2c_master_basic_use_implemenation_workflow Workflow
  * -# Write packet to slave.
- *  \snippet qs_i2c_master_basic_use.c write_packet
+ *    \snippet qs_i2c_master_basic_use.c write_packet
  * The module will try to send the packet TIMEOUT number of times or until it is
  * successfully sent.
- *
+ * -# Read packet from slave.
+ *    \snippet qs_i2c_master_basic_use.c read_packet
+ * The module will try to read the packet TIMEOUT number of times or until it is
+ * successfully read.
  */
 
 #include <asf.h>

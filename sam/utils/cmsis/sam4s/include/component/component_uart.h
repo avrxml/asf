@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,26 +51,26 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Uart hardware registers */
 typedef struct {
-  WoReg UART_CR;       /**< \brief (Uart Offset: 0x0000) Control Register */
-  RwReg UART_MR;       /**< \brief (Uart Offset: 0x0004) Mode Register */
-  WoReg UART_IER;      /**< \brief (Uart Offset: 0x0008) Interrupt Enable Register */
-  WoReg UART_IDR;      /**< \brief (Uart Offset: 0x000C) Interrupt Disable Register */
-  RoReg UART_IMR;      /**< \brief (Uart Offset: 0x0010) Interrupt Mask Register */
-  RoReg UART_SR;       /**< \brief (Uart Offset: 0x0014) Status Register */
-  RoReg UART_RHR;      /**< \brief (Uart Offset: 0x0018) Receive Holding Register */
-  WoReg UART_THR;      /**< \brief (Uart Offset: 0x001C) Transmit Holding Register */
-  RwReg UART_BRGR;     /**< \brief (Uart Offset: 0x0020) Baud Rate Generator Register */
-  RoReg Reserved1[55];
-  RwReg UART_RPR;      /**< \brief (Uart Offset: 0x100) Receive Pointer Register */
-  RwReg UART_RCR;      /**< \brief (Uart Offset: 0x104) Receive Counter Register */
-  RwReg UART_TPR;      /**< \brief (Uart Offset: 0x108) Transmit Pointer Register */
-  RwReg UART_TCR;      /**< \brief (Uart Offset: 0x10C) Transmit Counter Register */
-  RwReg UART_RNPR;     /**< \brief (Uart Offset: 0x110) Receive Next Pointer Register */
-  RwReg UART_RNCR;     /**< \brief (Uart Offset: 0x114) Receive Next Counter Register */
-  RwReg UART_TNPR;     /**< \brief (Uart Offset: 0x118) Transmit Next Pointer Register */
-  RwReg UART_TNCR;     /**< \brief (Uart Offset: 0x11C) Transmit Next Counter Register */
-  WoReg UART_PTCR;     /**< \brief (Uart Offset: 0x120) Transfer Control Register */
-  RoReg UART_PTSR;     /**< \brief (Uart Offset: 0x124) Transfer Status Register */
+  __O  uint32_t UART_CR;       /**< \brief (Uart Offset: 0x0000) Control Register */
+  __IO uint32_t UART_MR;       /**< \brief (Uart Offset: 0x0004) Mode Register */
+  __O  uint32_t UART_IER;      /**< \brief (Uart Offset: 0x0008) Interrupt Enable Register */
+  __O  uint32_t UART_IDR;      /**< \brief (Uart Offset: 0x000C) Interrupt Disable Register */
+  __I  uint32_t UART_IMR;      /**< \brief (Uart Offset: 0x0010) Interrupt Mask Register */
+  __I  uint32_t UART_SR;       /**< \brief (Uart Offset: 0x0014) Status Register */
+  __I  uint32_t UART_RHR;      /**< \brief (Uart Offset: 0x0018) Receive Holding Register */
+  __O  uint32_t UART_THR;      /**< \brief (Uart Offset: 0x001C) Transmit Holding Register */
+  __IO uint32_t UART_BRGR;     /**< \brief (Uart Offset: 0x0020) Baud Rate Generator Register */
+  __I  uint32_t Reserved1[55];
+  __IO uint32_t UART_RPR;      /**< \brief (Uart Offset: 0x100) Receive Pointer Register */
+  __IO uint32_t UART_RCR;      /**< \brief (Uart Offset: 0x104) Receive Counter Register */
+  __IO uint32_t UART_TPR;      /**< \brief (Uart Offset: 0x108) Transmit Pointer Register */
+  __IO uint32_t UART_TCR;      /**< \brief (Uart Offset: 0x10C) Transmit Counter Register */
+  __IO uint32_t UART_RNPR;     /**< \brief (Uart Offset: 0x110) Receive Next Pointer Register */
+  __IO uint32_t UART_RNCR;     /**< \brief (Uart Offset: 0x114) Receive Next Counter Register */
+  __IO uint32_t UART_TNPR;     /**< \brief (Uart Offset: 0x118) Transmit Next Pointer Register */
+  __IO uint32_t UART_TNCR;     /**< \brief (Uart Offset: 0x11C) Transmit Next Counter Register */
+  __O  uint32_t UART_PTCR;     /**< \brief (Uart Offset: 0x120) Transfer Control Register */
+  __I  uint32_t UART_PTSR;     /**< \brief (Uart Offset: 0x124) Transfer Status Register */
 } Uart;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- UART_CR : (UART Offset: 0x0000) Control Register -------- */
@@ -84,11 +84,11 @@ typedef struct {
 /* -------- UART_MR : (UART Offset: 0x0004) Mode Register -------- */
 #define UART_MR_PAR_Pos 9
 #define UART_MR_PAR_Msk (0x7u << UART_MR_PAR_Pos) /**< \brief (UART_MR) Parity Type */
-#define   UART_MR_PAR_EVEN (0x0u << 9) /**< \brief (UART_MR) Even parity */
-#define   UART_MR_PAR_ODD (0x1u << 9) /**< \brief (UART_MR) Odd parity */
+#define   UART_MR_PAR_EVEN (0x0u << 9) /**< \brief (UART_MR) Even Parity */
+#define   UART_MR_PAR_ODD (0x1u << 9) /**< \brief (UART_MR) Odd Parity */
 #define   UART_MR_PAR_SPACE (0x2u << 9) /**< \brief (UART_MR) Space: parity forced to 0 */
 #define   UART_MR_PAR_MARK (0x3u << 9) /**< \brief (UART_MR) Mark: parity forced to 1 */
-#define   UART_MR_PAR_NO (0x4u << 9) /**< \brief (UART_MR) No parity */
+#define   UART_MR_PAR_NO (0x4u << 9) /**< \brief (UART_MR) No Parity */
 #define UART_MR_CHMODE_Pos 14
 #define UART_MR_CHMODE_Msk (0x3u << UART_MR_CHMODE_Pos) /**< \brief (UART_MR) Channel Mode */
 #define   UART_MR_CHMODE_NORMAL (0x0u << 14) /**< \brief (UART_MR) Normal Mode */

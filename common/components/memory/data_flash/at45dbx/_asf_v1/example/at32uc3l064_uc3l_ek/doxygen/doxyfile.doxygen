@@ -466,7 +466,7 @@ GENERATE_DEPRECATEDLIST= YES
 # The ENABLED_SECTIONS tag can be used to enable conditional
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       =
+ENABLED_SECTIONS       = 
 
 # The MAX_INITIALIZER_LINES tag determines the maximum number of lines
 # the initial value of a variable or define consists of for it to appear in
@@ -582,7 +582,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  =  ../../../../../../../../../avr32/drivers/pm/power_clocks_lib.c ../../../at45dbx.c ../../../../../../../../../avr32/boards/uc3l_ek/led.c ../../at45dbx_example.c ../../../../../../../../../avr32/drivers/usart/usart.c ../../../../../../../../../avr32/drivers/scif/scif_uc3l.c ../../../../../../../../../avr32/drivers/intc/intc.c ../../../../../../../../services/storage/ctrl_access/ctrl_access.c ../../../../../../../../../avr32/utils/debug/print_funcs.c ../../../../../../../../../avr32/drivers/spi/spi.c ../../../../../../../../../avr32/drivers/flashcdw/flashcdw.c ../../../../../../../../../avr32/drivers/gpio/gpio.c ../../../../../../../../../avr32/drivers/pm/pm_uc3l.c ../../../at45dbx_mem.c  ../../../../../../../../../avr32/utils/preprocessor/stringz.h ../../../../../../../../../avr32/drivers/scif/scif_uc3l.h ../../../../../../../../utils/parts.h ../../../../../../../../../avr32/drivers/pm/power_clocks_lib.h ../../../../../../../../../avr32/utils/header_files/uc3l3_l4_defines_fix.h ../../../../../../../../../avr32/boards/uc3l_ek/uc3l_ek.h ../../../../../../../../../avr32/utils/preprocessor/preprocessor.h ../../../../../../../../../avr32/drivers/pm/sleep.h ../../../../../../../../utils/interrupt.h ../../../../../../../../../avr32/boards/uc3l_ek/led.h ../../../../../../../../../avr32/drivers/spi/spi.h ../../../../../../../../../avr32/drivers/usart/usart.h ../../../at45dbx.h ../../../../../../../../../avr32/drivers/gpio/gpio.h ../../conf_access.h ../../../../../../../../../avr32/utils/status_codes.h ../../../../../../../../../avr32/drivers/intc/intc.h ../../../../../../../../../avr32/drivers/flashcdw/flashcdw.h ../../../../../../../../../avr32/drivers/pm/pm_uc3l.h ../../../../../../../../../avr32/utils/preprocessor/tpaste.h ../../../at45dbx_mem.h ../../../../../../../../utils/interrupt/interrupt_avr32.h ../../../../../../../../services/storage/ctrl_access/ctrl_access.h ../../../../../../../../../avr32/utils/compiler.h ../../../../../../../../boards/board.h ../../conf_at45dbx.h ../../../../../../../../../avr32/utils/debug/print_funcs.h ../../../../../../../../../avr32/utils/startup/trampoline_uc3.h ../../../../../../../../../avr32/utils/header_files/uc3d_defines_fix.h ../../../../../../../../../avr32/utils/preprocessor/mrepeat.h
+INPUT                  = ../../at45dbx_example.c ../../../../../../../../../avr32/drivers/gpio/gpio.c ../../../../../../../../../avr32/drivers/intc/intc.c ../../../../../../../../../avr32/drivers/pm/pm_uc3l.c ../../../../../../../../../avr32/drivers/pm/power_clocks_lib.c ../../../../../../../../../avr32/drivers/flashcdw/flashcdw.c ../../../../../../../../../avr32/drivers/scif/scif_uc3l.c ../../../../../../../../../avr32/drivers/spi/spi.c ../../../../../../../../../avr32/drivers/usart/usart.c ../../../../../../../../../avr32/utils/debug/print_funcs.c ../../../at45dbx.c ../../../at45dbx_mem.c ../../../../../../../../services/storage/ctrl_access/ctrl_access.c ../../../../../../../../../avr32/boards/uc3l_ek/led.c ../../conf_access.h ../../conf_at45dbx.h ../../../../../../../../../avr32/drivers/gpio/gpio.h ../../../../../../../../../avr32/utils/compiler.h ../../../../../../../../../avr32/utils/header_files/uc3d_defines_fix.h ../../../../../../../../../avr32/utils/header_files/uc3l3_l4_defines_fix.h ../../../../../../../../../avr32/utils/preprocessor/mrepeat.h ../../../../../../../../../avr32/utils/preprocessor/preprocessor.h ../../../../../../../../../avr32/utils/preprocessor/stringz.h ../../../../../../../../../avr32/utils/preprocessor/tpaste.h ../../../../../../../../../avr32/utils/status_codes.h ../../../../../../../../../avr32/utils/startup/trampoline_uc3.h ../../../../../../../../utils/parts.h ../../../../../../../../utils/interrupt.h ../../../../../../../../utils/interrupt/interrupt_avr32.h ../../../../../../../../../avr32/drivers/intc/intc.h ../../../../../../../../../avr32/drivers/pm/pm_uc3l.h ../../../../../../../../../avr32/drivers/pm/power_clocks_lib.h ../../../../../../../../../avr32/drivers/pm/sleep.h ../../../../../../../../../avr32/drivers/flashcdw/flashcdw.h ../../../../../../../../../avr32/drivers/scif/scif_uc3l.h ../../../../../../../../../avr32/drivers/spi/spi.h ../../../../../../../../../avr32/drivers/usart/usart.h ../../../../../../../../../avr32/utils/debug/print_funcs.h ../../../at45dbx.h ../../../at45dbx_mem.h ../../../../../../../../services/storage/ctrl_access/ctrl_access.h ../../../../../../../../../avr32/boards/uc3l_ek/led.h ../../../../../../../../../avr32/boards/uc3l_ek/uc3l_ek.h ../../../../../../../../boards/board.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -1062,6 +1062,17 @@ FORMULA_FONTSIZE       = 10
 
 FORMULA_TRANSPARENT    = YES
 
+# Enable the USE_MATHJAX option to render LaTeX formulas using MathJax (see
+# http://www.mathjax.org) which uses client side Javascript for the rendering
+# instead of using prerendered bitmaps. Use this if you do not have LaTeX
+# installed or if you want to formulas look prettier in the HTML output. When
+# enabled you may also need to install MathJax separately and configure the path
+# to it using the MATHJAX_RELPATH option.
+# The default value is: NO.
+# This tag requires that the tag GENERATE_HTML is set to YES.
+
+USE_MATHJAX            = NO
+
 # When the SEARCHENGINE tag is enabled doxygen will generate a search box
 # for the HTML output. The underlying search engine uses javascript
 # and DHTML and should work on any modern browser. Note that when using
@@ -1352,7 +1363,7 @@ SEARCH_INCLUDES        = YES
 # contain include files that are not input files but should be processed by
 # the preprocessor.
 
-INCLUDE_PATH           =  ../../../../../../../../../avr32/drivers/gpio ../../../../../../../../../avr32/drivers/scif ../../../../../../../../../avr32/utils/debug ../../../../../../../../../avr32/boards/uc3l_ek ../../../../../../../../boards ../../.. ../../../../../../../../../avr32/drivers/usart ../../../../../../../../../avr32/boards ../../../../../../../../../avr32/utils ../../../../../../../../utils ../../../../../../../../../avr32/utils/preprocessor ../.. ../../../../../../../../../avr32/drivers/pm ../../../../../../../../../avr32/drivers/flashcdw ../../../../../../../../../avr32/drivers/intc ../../../../../../../../../avr32/drivers/spi ../../../../../../../../services/storage/ctrl_access
+INCLUDE_PATH           = ../.. ../../../../../../../../../avr32/drivers/gpio ../../../../../../../../../avr32/utils ../../../../../../../../../avr32/utils/preprocessor ../../../../../../../../utils ../../../../../../../../../avr32/drivers/intc ../../../../../../../../../avr32/drivers/pm ../../../../../../../../../avr32/drivers/flashcdw ../../../../../../../../../avr32/drivers/scif ../../../../../../../../../avr32/drivers/spi ../../../../../../../../../avr32/drivers/usart ../../../../../../../../../avr32/utils/debug ../../.. ../../../../../../../../services/storage/ctrl_access ../../../../../../../../../avr32/boards ../../../../../../../../../avr32/boards/uc3l_ek ../../../../../../../../boards
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the
@@ -1369,7 +1380,7 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator
 # instead of the = operator.
 
-PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4  BOARD=UC3L_EK AT45DBX_ENABLE= __AVR32_UC3L064__
+PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4 AT45DBX_ENABLE BOARD=UC3L_EK __AVR32_UC3L064__
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.

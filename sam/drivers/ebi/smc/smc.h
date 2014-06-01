@@ -3,7 +3,7 @@
  *
  * \brief Static Memory Controller (SMC) driver for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,7 +54,7 @@ extern "C" {
 /**INDENT-ON**/
 /// @endcond
 
-#if ((SAM3S) || (SAM3U) || (SAM3XA) || (SAM4S) || (SAM4E))
+#if ((SAM3S) || (SAM3U) || (SAM3XA) || (SAM4S) || (SAM4E) || (SAM4C) || (SAM4CM))
 void smc_set_setup_timing(Smc *p_smc, uint32_t ul_cs, uint32_t ul_setup_timing);
 void smc_set_pulse_timing(Smc *p_smc, uint32_t ul_cs, uint32_t ul_pulse_timing);
 void smc_set_cycle_timing(Smc *p_smc, uint32_t ul_cs, uint32_t ul_cycle_timing);

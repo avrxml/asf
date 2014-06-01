@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 TC - Timer Counter Callback Driver Quick Start
+ * \brief SAM D20/D21/R21 TC - Timer Counter Callback Driver Quick Start
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \page asfdoc_samd20_tc_callback_use_case Quick Start Guide for TC - Callback
+ * \page asfdoc_sam0_tc_callback_use_case Quick Start Guide for TC - Callback
  *
  * In this use case, the TC will be used to generate a PWM signal, with a
  * varying duty cycle. Here the pulse width is increased each time the timer
@@ -63,12 +63,15 @@
  * - No event generation enabled
  * - Counter starts on 0
  *
- * \section asfdoc_samd20_tc_callback_use_case_setup Quick Start
+ * \section asfdoc_sam0_tc_callback_use_case_setup Quick Start
  *
- * \subsection asfdoc_samd20_tc_callback_use_case_prereq Prerequisites
+ * \subsection asfdoc_sam0_tc_callback_use_case_prereq Prerequisites
  * There are no prerequisites for this use case.
  *
- * \subsection asfdoc_samd20_tc_callback_use_case_setup_code Code
+ * \subsection asfdoc_sam0_tc_callback_use_case_setup_code Code
+ * Add to the main application source file, before any functions:
+ * \snippet conf_quick_start_callback.h definition_pwm
+ *
  * Add to the main application source file, outside of any functions:
  * \snippet qs_tc_callback.c module_inst
  *
@@ -81,23 +84,23 @@
  * Add to user application initialization (typically the start of \c main()):
  * \snippet qs_tc_callback.c setup_init
  *
- * \subsection asfdoc_samd20_tc_callback_use_case_setup_flow Workflow
+ * \subsection asfdoc_sam0_tc_callback_use_case_setup_flow Workflow
  * -# Create a module software instance structure for the TC module to store
  *    the TC driver state while it is in use.
+ *    \snippet qs_tc_callback.c module_inst
  *    \note This should never go out of scope as long as the module is in use.
  *          In most cases, this should be global.
  *
- *    \snippet qs_tc_callback.c module_inst
  * -# Configure the TC module.
  *  -# Create a TC module configuration struct, which can be filled out to
  *     adjust the configuration of a physical TC peripheral.
  *     \snippet qs_tc_callback.c setup_config
  *  -# Initialize the TC configuration struct with the module's default values.
+ *     \snippet qs_tc_callback.c setup_config_defaults
  *     \note This should always be performed before using the configuration
  *           struct to ensure that all values are initialized to known default
  *           settings.
  *
- *     \snippet qs_tc_callback.c setup_config_defaults
  *  -# Alter the TC settings to configure the counter width, wave generation
  *     mode and the compare channel 0 value.
  *     \snippet qs_tc_callback.c setup_change_config
@@ -116,15 +119,15 @@
  *     \snippet qs_tc_callback.c setup_enable_callback
  *
  *
- * \section asfdoc_samd20_tc_callback_use_case_main Use Case
+ * \section asfdoc_sam0_tc_callback_use_case_main Use Case
  *
- * \subsection asfdoc_samd20_tc_callback_use_case_main_code Code
+ * \subsection asfdoc_sam0_tc_callback_use_case_main_code Code
  * Copy-paste the following code to your user application:
  * \snippet qs_tc_callback.c main
  *
- * \subsection asfdoc_samd20_tc_callback_use_case_main_flow Workflow
+ * \subsection asfdoc_sam0_tc_callback_use_case_main_flow Workflow
  * -# Enter an infinite loop while the PWM wave is generated via the TC module.
- *  \snippet qs_tc_callback.c main_loop
+ *    \snippet qs_tc_callback.c main_loop
  */
 
 

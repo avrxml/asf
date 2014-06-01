@@ -3,7 +3,7 @@
  *
  * \brief Glue Logic driver for SAM.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -131,17 +131,17 @@ void gloc_lut_set_config(struct gloc_dev_inst *const dev_inst,
  *
  * Add this to the main loop or a setup function:
  * \code
- * #define XOR_TRUTH_TABLE_FOUR_INPUT     0x6996u
- *
- * struct gloc_dev_inst dev_inst;
- * struct gloc_lut_config lut_config;
- *
- * gloc_init(&dev_inst, GLOC);
- * gloc_enable(&dev_inst);
- * gloc_lut_get_config_defaults(&lut_config);
- * lut_config.truth_table_value = XOR_TRUTH_TABLE_FOUR_INPUT;
- * gloc_lut_set_config(&dev_inst, 0, &lut_config);
- * \endcode
+	 #define XOR_TRUTH_TABLE_FOUR_INPUT     0x6996u
+
+	 struct gloc_dev_inst dev_inst;
+	 struct gloc_lut_config lut_config;
+
+	 gloc_init(&dev_inst, GLOC);
+	 gloc_enable(&dev_inst);
+	 gloc_lut_get_config_defaults(&lut_config);
+	 lut_config.truth_table_value = XOR_TRUTH_TABLE_FOUR_INPUT;
+	 gloc_lut_set_config(&dev_inst, 0, &lut_config);
+\endcode
  *
  * \subsection gloc_basic_setup_workflow
  *
@@ -151,10 +151,10 @@ void gloc_lut_set_config(struct gloc_dev_inst *const dev_inst,
  *  - \code gloc_enable(&dev_inst); \endcode
  * -# Configure 4 inputs XOR truth table value in LUT0
  *    \code
- *    gloc_lut_get_config_defaults(&lut_config);
- *    lut_config.truth_table_value = XOR_TRUTH_TABLE_FOUR_INPUT;
- *    gloc_lut_set_config(&dev_inst, 0, &lut_config);
- *    \endcode
+	gloc_lut_get_config_defaults(&lut_config);
+	lut_config.truth_table_value = XOR_TRUTH_TABLE_FOUR_INPUT;
+	gloc_lut_set_config(&dev_inst, 0, &lut_config);
+\endcode
  *
  * \section gloc_basic_usage Usage steps
  *

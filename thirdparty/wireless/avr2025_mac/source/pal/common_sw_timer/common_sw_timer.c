@@ -3,7 +3,7 @@
  *
  * @brief
  *
- *  Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ *  Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,6 +42,9 @@
 #include "conf_common_sw_timer.h"
 #include "common_hw_timer.h"
 #include "common_sw_timer.h"
+#if SAMD || SAMR21
+#include "system.h"
+#endif /* SAMD || SAMR21 */
 #include "board.h"
 
 #if (TOTAL_NUMBER_OF_SW_TIMERS > 0)
@@ -52,6 +55,9 @@
  * to know about this value as well.
  */
 volatile uint16_t sys_time;
+extern void wakeup_cb(void *parameter);
+
+extern bool sys_sleep;
 
 /*
  * This is the timer array.
@@ -87,12 +93,10 @@ static void start_absolute_timer(uint8_t timer_id,
 		FUNC_PTR handler_cb,
 		void *parameter);
 static inline uint32_t gettime(void);
+
 static void internal_timer_handler(void);
 static inline bool compare_time(uint32_t t1, uint32_t t2);
 static void load_hw_timer(uint8_t timer_id);
-
-void hw_overflow_cb(void);
-void hw_expiry_cb(void);
 
 status_code_t sw_timer_get_id(uint8_t *timer_id)
 {
@@ -161,6 +165,20 @@ status_code_t sw_timer_start(uint8_t timer_id,
 	return STATUS_OK;
 }
 
+uint32_t sw_timer_get_residual_time(uint8_t timer_id)
+{
+	uint32_t res_time;
+	uint32_t current_time;
+	current_time = gettime();
+	if (current_time < timer_array[timer_id].abs_exp_timer) {
+		res_time = timer_array[timer_id].abs_exp_timer - current_time;
+	} else {
+		res_time = 0;
+	}
+
+	return res_time;
+}
+
 static void start_absolute_timer(uint8_t timer_id,
 		uint32_t point_in_time,
 		FUNC_PTR handler_cb,
@@ -194,9 +212,9 @@ static void start_absolute_timer(uint8_t timer_id,
 						point_in_time)) {
 					/*
 					 * Requested absolute time value is
-					 *greater than the time
+					 * greater than the time
 					 * value pointed by the curr_index in
-					 *the timer array
+					 * the timer array
 					 */
 					prev_index = curr_index;
 					curr_index
@@ -210,7 +228,7 @@ static void start_absolute_timer(uint8_t timer_id,
 					if (running_timer_queue_head ==
 							curr_index) {
 						/* Insertion at the head of the
-						 *timer queue. */
+						 * timer queue. */
 						running_timer_queue_head
 							= timer_id;
 
@@ -302,11 +320,11 @@ status_code_t sw_timer_stop(uint8_t timer_id)
 
 					/*
 					 * The value in OCR corresponds to the
-					 *timeout pointed
+					 * timeout pointed
 					 * by the 'running_timer_queue_head'. As
-					 *the head has
+					 * the head has
 					 * changed here, OCR needs to be loaded
-					 *by the new
+					 * by the new
 					 * timeout value, if any.
 					 */
 					load_hw_timer(running_timer_queue_head);
@@ -320,7 +338,7 @@ status_code_t sw_timer_stop(uint8_t timer_id)
 
 				/*
 				 * The next timer element of the stopped timer
-				 *is updated
+				 * is updated
 				 * to its default value.
 				 */
 				timer_array[timer_id].next_timer_in_queue
@@ -351,14 +369,14 @@ status_code_t sw_timer_stop(uint8_t timer_id)
 				if (timer_id == expired_timer_queue_head) {
 					/*
 					 * The requested timer is the head of
-					 *the expired timer
+					 * the expired timer
 					 * queue
 					 */
 					if (expired_timer_queue_head ==
 							expired_timer_queue_tail)
 					{
 						/* Only one timer in expired
-						 *timer queue */
+						 * timer queue */
 						expired_timer_queue_head
 							=
 								expired_timer_queue_tail
@@ -367,9 +385,9 @@ status_code_t sw_timer_stop(uint8_t timer_id)
 					} else {
 						/*
 						 * The head of the expired timer
-						 *queue is moved to next
+						 * queue is moved to next
 						 * timer in the expired timer
-						 *queue.
+						 * queue.
 						 */
 						expired_timer_queue_head
 							= timer_array[
@@ -380,7 +398,7 @@ status_code_t sw_timer_stop(uint8_t timer_id)
 				} else {
 					/*
 					 * The requested timer is present in the
-					 *middle or at the
+					 * middle or at the
 					 * end of the expired timer queue.
 					 */
 					timer_array[prev_index].
@@ -390,9 +408,9 @@ status_code_t sw_timer_stop(uint8_t timer_id)
 
 					/*
 					 * If the stopped timer is the one which
-					 *is at the tail of
+					 * is at the tail of
 					 * the expired timer queue, then the
-					 *tail is updated.
+					 * tail is updated.
 					 */
 					if (timer_id ==
 							expired_timer_queue_tail)
@@ -416,7 +434,7 @@ status_code_t sw_timer_stop(uint8_t timer_id)
 	if (timer_stop_request_status) {
 		/*
 		 * The requested timer is stopped, hence the structure elements
-		 *of the
+		 * of the
 		 * timer are updated.
 		 */
 		timer_array[timer_id].timer_cb = NULL;
@@ -456,9 +474,9 @@ static inline uint32_t gettime(void)
 
 		/*
 		 * This calculation is valid only if the timer has not rolled
-		 *over.
+		 * over.
 		 * The sys_time variable may have changed in the timer overflow
-		 *ISR.
+		 * ISR.
 		 */
 	} while (current_sys_time != sys_time);
 
@@ -498,7 +516,7 @@ static void internal_timer_handler(void)
 		timer_trigger = false;
 
 		if (running_timers > 0) { /* Holds the number of running timers
-		                           **/
+			                  **/
 			if ((expired_timer_queue_head == NO_TIMER) &&
 					(expired_timer_queue_tail ==
 					NO_TIMER)) {
@@ -530,17 +548,56 @@ static void internal_timer_handler(void)
 	}
 }
 
+void sw_timer_run_residual_time(uint32_t offset)
+{
+	/* Run the software timer call back now */
+	FUNC_PTR timer_cb = timer_array[running_timer_queue_head].timer_cb;
+	void *param_cb = timer_array[running_timer_queue_head].param_cb;
+	uint8_t timer_id = running_timer_queue_head;
+	if (sw_timer_stop(running_timer_queue_head) == STATUS_OK) {
+		sw_timer_start(timer_id,
+				offset,
+				SW_TIMEOUT_RELATIVE,
+				timer_cb,
+				param_cb);
+	}
+}
+
+uint32_t sw_timer_next_timer_expiry_duration(void)
+{
+	return ((NO_TIMER ==
+	       running_timer_queue_head) ? false : (sw_timer_get_residual_time(
+	       running_timer_queue_head)));
+}
+
 void hw_overflow_cb(void)
 {
 	/*	ioport_toggle_pin(J2_PIN3); */
 	sys_time++;
 	prog_ocr();
+	#ifdef ENABLE_SLEEP
+	if (sys_sleep == true) {
+		sys_sleep = true;
+		system_set_sleepmode(SYSTEM_SLEEPMODE_IDLE_2);
+
+		/* Enter into sleep*/
+		system_sleep();
+	}
+
+	#endif
 }
 
 void hw_expiry_cb(void)
 {
 	if (running_timers > 0) {
 		timer_trigger = true;
+	#ifdef ENABLE_SLEEP
+		if (sys_sleep == true) {
+			sys_sleep = false;
+			sw_timer_service();
+		}
+
+	#endif
 	}
 }
 
@@ -586,7 +643,7 @@ void sw_timer_service(void)
 	/*
 	 * Process expired timers.
 	 * Call the callback functions of the expired timers in the order of
-	 *their
+	 * their
 	 * expiry.
 	 */
 	{
@@ -596,7 +653,7 @@ void sw_timer_service(void)
 
 		/* Expired timer if any will be processed here */
 		while (NO_TIMER != expired_timer_queue_head) {
-			uint8_t flags = cpu_irq_save();
+			flags = cpu_irq_save();
 
 			next_expired_timer
 				= timer_array[expired_timer_queue_head].
@@ -614,7 +671,7 @@ void sw_timer_service(void)
 
 			/*
 			 * The expired timer's structure elements are updated
-			 *and the timer
+			 * and the timer
 			 * is taken out of expired timer queue
 			 */
 			timer_array[expired_timer_queue_head].
@@ -625,7 +682,7 @@ void sw_timer_service(void)
 
 			/*
 			 * The expired timer queue head is updated with the next
-			 *timer in the
+			 * timer in the
 			 * expired timer queue.
 			 */
 			expired_timer_queue_head = next_expired_timer;

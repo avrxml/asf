@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA WatchDog Timer driver.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -339,9 +339,9 @@ void wdt_reset_mcu(void);
  * \subsection wdt_basic_use_case_setup_code Example code
  * Add to application initialization:
  * \code
- *    wdt_set_timeout_period(WDT_TIMEOUT_PERIOD_8CLK);
- *    wdt_enable();
- * \endcode
+	wdt_set_timeout_period(WDT_TIMEOUT_PERIOD_8CLK);
+	wdt_enable();
+\endcode
  *
  * \subsection wdt_basic_use_case_setup_flow Workflow
  * -# Set timeout period to 8 cycles or 8 ms:
@@ -353,9 +353,9 @@ void wdt_reset_mcu(void);
  * \subsection wdt_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    delay_ms(5);
- *    wdt_reset();
- * \endcode
+	delay_ms(5);
+	wdt_reset();
+\endcode
  *
  * \subsection wdt_basic_use_case_usage_flow Workflow
  * -# Wait for 5 ms:
@@ -385,11 +385,11 @@ void wdt_reset_mcu(void);
  * \subsection wdt_use_case_1_setup_code Example code
  * Add to application initialization:
  * \code
- *    wdt_set_timeout_period(WDT_TIMEOUT_PERIOD_16CLK);
- *    wdt_enable();
- *    wdt_set_window_period(WDT_TIMEOUT_PERIOD_8CLK);
- *    wdt_enable_window_mode();
- * \endcode
+	wdt_set_timeout_period(WDT_TIMEOUT_PERIOD_16CLK);
+	wdt_enable();
+	wdt_set_window_period(WDT_TIMEOUT_PERIOD_8CLK);
+	wdt_enable_window_mode();
+\endcode
  *
  * \subsection wdt_use_case_1_setup_flow Workflow
  * -# Set timeout period to 16 cycles or 16 ms:
@@ -406,9 +406,9 @@ void wdt_reset_mcu(void);
  * \subsection wdt_use_case_1_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    delay_ms(10);
- *    wdt_reset();
- * \endcode
+	delay_ms(10);
+	wdt_reset();
+\endcode
  *
  * \subsection wdt_use_case_1_usage_flow Workflow
  * -# Wait for 10 ms to not reset the WDT before window timeout:

@@ -166,7 +166,7 @@ void ui_test_finish(bool b_success)
  *
  * Human interface on SAM4L_EK :
  * - Led 0 is on when it's host and there is no device connected
- * - Led 0 blinks when a device is enumerated and HID or MSC interface enabled
+ * - Led 0 blinks when a device is enumerated and Vendor interface enabled
  *   - The blink is slow (1s) with low speed device
  *   - The blink is normal (0.5s) with full speed device
  *   - The blink is fast (0.25s) with high speed device

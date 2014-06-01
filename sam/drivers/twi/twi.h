@@ -3,7 +3,7 @@
  *
  * \brief Two-Wire Interface (TWI) driver for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -122,7 +122,7 @@ uint32_t twi_slave_read(Twi *p_twi, uint8_t *p_data);
 uint32_t twi_slave_write(Twi *p_twi, uint8_t *p_data);
 void twi_reset(Twi *p_twi);
 Pdc *twi_get_pdc_base(Twi *p_twi);
-#if SAM4E
+#if (SAM4E || SAM4C || SAMG || SAM4CP || SAM4CM)
 void twi_set_write_protection(Twi *p_twi, bool flag);
 void twi_read_write_protection_status(Twi *p_twi, uint32_t *p_status);
 #endif

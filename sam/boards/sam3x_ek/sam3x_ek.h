@@ -3,7 +3,7 @@
  *
  * \brief SAM3X-EK Board Definition.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,7 +71,7 @@
 /*! Master clock frequency */
 #define BOARD_MCK                       CHIP_FREQ_CPU_MAX
 
-/** board main clock xtal statup time */
+/** board main clock xtal startup time */
 #define BOARD_OSC_STARTUP_US   15625
 
 /* ------------------------------------------------------------------------ */
@@ -153,8 +153,8 @@
 #define PIN_EBI_NRD            PIO_PA29_IDX
 #define PIN_EBI_NRD_FLAGS      (PIO_PERIPH_B | PIO_PULLUP)
 #define PIN_EBI_NRD_MASK       (1 << 29)
-#define PIN_EBI_NRD_PIO        PIOB
-#define PIN_EBI_NRD_ID         ID_PIOB
+#define PIN_EBI_NRD_PIO        PIOA
+#define PIN_EBI_NRD_ID         ID_PIOA
 #define PIN_EBI_NRD_TYPE       PIO_PERIPH_B
 #define PIN_EBI_NRD_ATTR       PIO_PULLUP
 /*! EBI NWE pin */
@@ -933,23 +933,6 @@
 /*! Backlight pin definition. */
 #define BOARD_AAT31XX_SET_GPIO        PIO_PB27_IDX
 #define BOARD_AAT31XX_SET_FLAGS       PIO_OUTPUT_0 | PIO_DEFAULT
-
-/** Definition of MMA7341L x,y,z axis channel number */
-#define MMA7341L_ADC_CHANNEL_X  2
-#define MMA7341L_ADC_CHANNEL_Y  6
-#define MMA7341L_ADC_CHANNEL_Z  7
-
-/** MMA7341L mode set pin definition. */
-#define PIN_MMA7341L_MODE                PIO_PC13_IDX
-#define PIN_MMA7341L_MODE_FLAG       PIO_OUTPUT_1 | PIO_DEFAULT
-
-/** MMA7341L X,Y,Z axis pin definition. */
-#define PIN_MMA7341L_X_AXIS                PIO_PB3_IDX
-#define PIN_MMA7341L_X_AXIS_FLAG       PIO_INPUT | PIO_DEFAULT
-#define PIN_MMA7341L_Y_AXIS                PIO_PC17_IDX
-#define PIN_MMA7341L_Y_AXIS_FLAG       PIO_INPUT | PIO_DEFAULT
-#define PIN_MMA7341L_Z_AXIS                PIO_PC18_IDX
-#define PIN_MMA7341L_Z_AXIS_FLAG       PIO_INPUT | PIO_DEFAULT
 
 /**
  * \file

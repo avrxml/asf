@@ -47,6 +47,9 @@
 /* Auto-initialize USART GPIOs when board_init() is called */
 //#define CONF_BOARD_COM_PORT
 
+/* Enable EIC for PB0 */
+#define CONF_BOARD_EIC
+
 /* Enable USB interface (USB) */
 #define CONF_BOARD_USB_PORT
 /* ID detect enabled,  uncomment it if jumper PB05/USB set */

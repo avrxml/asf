@@ -3,7 +3,7 @@
  *
  * \brief USB host driver for Communication Device Class interface.
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -214,70 +214,70 @@ iram_size_t uhi_cdc_write_buf(uint8_t port, const void* buf, iram_size_t size);
  * \subsection uhi_cdc_basic_use_case_usage_code Example code
  * Content of conf_usb_host.h:
  * \code
- * #define USB_HOST_UHI        UHI_CDC
- * #define UHI_CDC_CHANGE(dev, b_plug) my_callback_cdc_change(dev, b_plug)
- * extern bool my_callback_cdc_change(uhc_device_t* dev, bool b_plug);
- * #define UHI_CDC_RX_NOTIFY() my_callback_cdc_rx_notify()
- * extern void my_callback_cdc_rx_notify(void);
- * #include "uhi_cdc.h" // At the end of conf_usb_host.h file
- * \endcode
+	#define USB_HOST_UHI        UHI_CDC
+	#define UHI_CDC_CHANGE(dev, b_plug) my_callback_cdc_change(dev, b_plug)
+	extern bool my_callback_cdc_change(uhc_device_t* dev, bool b_plug);
+	#define UHI_CDC_RX_NOTIFY() my_callback_cdc_rx_notify()
+	extern void my_callback_cdc_rx_notify(void);
+	#include "uhi_cdc.h" // At the end of conf_usb_host.h file
+\endcode
  *
  * Add to application C-file:
  * \code
- * static bool my_flag_cdc_available = false;
- * bool my_callback_cdc_change(uhc_device_t* dev, bool b_plug)
- * {
- *    if (b_plug) {
- *
- *       // USB Device CDC connected
- *       my_flag_cdc_available = true;
- *       // Open and configure USB CDC ports
- *       usb_cdc_line_coding_t cfg = {
- *          .dwDTERate   = CPU_TO_LE32(115200),
- *          .bCharFormat = CDC_STOP_BITS_1,
- *          .bParityType = CDC_PAR_NONE,
- *          .bDataBits   = 8,
- *       };
- *       uhi_cdc_open(0, &cfg);
- *
- *    } else {
- *
- *       my_flag_cdc_available = false;
- *
- *    }
- * }
- *
- * void my_callback_cdc_rx_notify(void)
- * {
- *    // Wakeup my_task_rx() task
- * }
- *
- * #define MESSAGE "Hello"
- * void my_task(void)
- * {
- *    static bool startup = true;
- *
- *    if (!my_flag_cdc_available) {
- *       startup = true;
- *       return;
- *    }
- *
- *    if (startup) {
- *       startup = false;
- *       // Send data on CDC communication port
- *       uhi_cdc_write_buf(0, MESSAGE, sizeof(MESSAGE)-1);
- *       uhi_cdc_putc(0,'\n');
- *       return;
- *    }
- * }
- *
- * void my_task_rx(void)
- * {
- *    while (uhi_cdc_is_rx_ready(0)) {
- *       int value = uhi_cdc_getc(0);
- *    }
- * }
- * \endcode
+	 static bool my_flag_cdc_available = false;
+	 bool my_callback_cdc_change(uhc_device_t* dev, bool b_plug)
+	 {
+	    if (b_plug) {
+
+	       // USB Device CDC connected
+	       my_flag_cdc_available = true;
+	       // Open and configure USB CDC ports
+	       usb_cdc_line_coding_t cfg = {
+	          .dwDTERate   = CPU_TO_LE32(115200),
+	          .bCharFormat = CDC_STOP_BITS_1,
+	          .bParityType = CDC_PAR_NONE,
+	          .bDataBits   = 8,
+	       };
+	       uhi_cdc_open(0, &cfg);
+
+	    } else {
+
+	       my_flag_cdc_available = false;
+
+	    }
+	 }
+
+	 void my_callback_cdc_rx_notify(void)
+	 {
+	    // Wakeup my_task_rx() task
+	 }
+
+	 #define MESSAGE "Hello"
+	 void my_task(void)
+	 {
+	    static bool startup = true;
+
+	    if (!my_flag_cdc_available) {
+	       startup = true;
+	       return;
+	    }
+
+	    if (startup) {
+	       startup = false;
+	       // Send data on CDC communication port
+	       uhi_cdc_write_buf(0, MESSAGE, sizeof(MESSAGE)-1);
+	       uhi_cdc_putc(0,'\n');
+	       return;
+	    }
+	 }
+
+	 void my_task_rx(void)
+	 {
+	    while (uhi_cdc_is_rx_ready(0)) {
+	       int value = uhi_cdc_getc(0);
+	    }
+	 }
+\endcode
  *
  * \subsection uhi_cdc_basic_use_case_setup_flow Workflow
  * -# Ensure that conf_usb_host.h is available and contains the following configuration
@@ -285,11 +285,11 @@ iram_size_t uhi_cdc_write_buf(uint8_t port, const void* buf, iram_size_t size);
  *   - \code #define USB_HOST_UHI   UHI_CDC \endcode
  *     \note It defines the list of UHI supported by USB host.
  *   - \code #define UHI_CDC_CHANGE(dev, b_plug) my_callback_cdc_change(dev, b_plug)
- * extern bool my_callback_cdc_change(uhc_device_t* dev, bool b_plug); \endcode
+	 extern bool my_callback_cdc_change(uhc_device_t* dev, bool b_plug); \endcode
  *     \note This callback is called when a USB device CDC is plugged or unplugged.
  *     The communication port can be opened and configured here.
  *   - \code #define UHI_CDC_RX_NOTIFY() my_callback_cdc_rx_notify()
- * extern void my_callback_cdc_rx_notify(void); \endcode
+	 extern void my_callback_cdc_rx_notify(void); \endcode
  *     \note This callback is called when a new data are received.
  *     This can be used to manage data reception through interrupt and avoid pooling.
  * -# The CDC data access functions are described in \ref uhi_cdc_group.

@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for GMAC driver.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,6 +44,7 @@
 #include "board.h"
 #include <sysclk.h>
 #include "gmac.h"
+#include "gmac_raw.h"
 #include <string.h>
 #include <unit_test/suite.h>
 #include <stdio_serial.h>
@@ -193,7 +194,7 @@ static void run_gmac_read_write_test(const struct test_case *test)
 		if (GMAC_OK != gmac_dev_read(&gs_gmac_dev, (uint8_t *) gs_uc_eth_buffer,
 						sizeof(gs_uc_eth_buffer), &ul_frm_size)) {
 			continue;
-		}	
+		}
 
 		/* Is arp frame sent? */
 		if (strncmp((const char *)gs_uc_eth_buffer, (const char *)gs_uc_mac_address, sizeof(gs_uc_mac_address))) {

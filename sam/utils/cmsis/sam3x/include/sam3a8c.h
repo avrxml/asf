@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -528,12 +528,12 @@ void WDT_Handler        ( void );
 /* Embedded Flash Write Wait State */
 #define CHIP_FLASH_WRITE_WAIT_STATE     (6U)
 
-/* Embedded Flash Read Wait State (VDDCORE set at 1.65V) */
-#define CHIP_FREQ_FWS_0                 (22500000UL) /**< \brief Maximum operating frequency when FWS is 0 */
-#define CHIP_FREQ_FWS_1                 (34000000UL) /**< \brief Maximum operating frequency when FWS is 1 */
-#define CHIP_FREQ_FWS_2                 (53000000UL) /**< \brief Maximum operating frequency when FWS is 2 */
-#define CHIP_FREQ_FWS_3                 (78000000UL) /**< \brief Maximum operating frequency when FWS is 3 */
-
+/* Embedded Flash Read Wait State (VDDCORE set at 1.8V) */
+#define CHIP_FREQ_FWS_0                 (19000000UL) /**< \brief Maximum operating frequency when FWS is 0 */
+#define CHIP_FREQ_FWS_1                 (50000000UL) /**< \brief Maximum operating frequency when FWS is 1 */
+#define CHIP_FREQ_FWS_2                 (64000000UL) /**< \brief Maximum operating frequency when FWS is 2 */
+#define CHIP_FREQ_FWS_3                 (80000000UL) /**< \brief Maximum operating frequency when FWS is 3 */
+#define CHIP_FREQ_FWS_4                 (90000000UL) /**< \brief Maximum operating frequency when FWS is 4 */
 
 #ifdef __cplusplus
 }

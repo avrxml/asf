@@ -78,7 +78,6 @@ CSRCS = \
        sam/drivers/pmc/sleep.c                            \
        sam/drivers/rtc/rtc.c                              \
        sam/drivers/spi/spi.c                              \
-       sam/drivers/tc/tc.c                                \
        sam/drivers/uart/uart.c                            \
        sam/drivers/usart/usart.c                          \
        sam/utils/cmsis/sam4e/source/templates/exceptions.c \
@@ -122,7 +121,6 @@ INC_PATH = \
        sam/drivers/pmc                                    \
        sam/drivers/rtc                                    \
        sam/drivers/spi                                    \
-       sam/drivers/tc                                     \
        sam/drivers/uart                                   \
        sam/drivers/usart                                  \
        sam/utils                                          \
@@ -151,8 +149,8 @@ LIBS =  \
        m                                                 
 
 # Path relative to top level directory pointing to a linker script.
-LINKER_SCRIPT_FLASH = sam/utils/linker_scripts/sam4e/sam4e16e/gcc/flash.ld
-LINKER_SCRIPT_SRAM  = sam/utils/linker_scripts/sam4e/sam4e16e/gcc/sram.ld
+LINKER_SCRIPT_FLASH = sam/utils/linker_scripts/sam4e/sam4e16/gcc/flash.ld
+LINKER_SCRIPT_SRAM  = sam/utils/linker_scripts/sam4e/sam4e16/gcc/sram.ld
 
 # Path relative to top level directory pointing to a linker script.
 DEBUG_SCRIPT_FLASH = sam/boards/sam4e_ek/debug_scripts/gcc/sam4e_ek_flash.gdb
@@ -175,12 +173,12 @@ ARFLAGS =
 # Extra flags to use when assembling.
 ASFLAGS =  \
        -mfloat-abi=softfp                                 \
-       -mfpu=vfpv4                                       
+       -mfpu=fpv4-sp-d16                                 
 
 # Extra flags to use when compiling.
 CFLAGS =  \
        -mfloat-abi=softfp                                 \
-       -mfpu=vfpv4                                       
+       -mfpu=fpv4-sp-d16                                 
 
 # Extra flags to use when preprocessing.
 #
@@ -197,7 +195,12 @@ CPPFLAGS = \
        -D BOARD=SAM4E_EK                                  \
        -D VIRTUAL_MEMORY_ENABLE                           \
        -D __SAM4E16E__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

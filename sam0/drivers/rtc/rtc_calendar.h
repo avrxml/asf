@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 RTC Driver (Calendar Mode)
+ * \brief SAM D20/D21/R21 RTC Driver (Calendar Mode)
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,9 +44,9 @@
 #define RTC_CALENDAR_H_INCLUDED
 
 /**
- * \defgroup asfdoc_samd20_rtc_calendar_group SAM D20 RTC Calendar Driver (RTC CAL)
+ * \defgroup asfdoc_sam0_rtc_calendar_group SAM D20/D21/R21 RTC Calendar Driver (RTC CAL)
  *
- * This driver for SAM D20 devices provides an interface for the configuration
+ * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
  * and management of the device's Real Time Clock functionality in Calendar
  * operating mode, for the configuration and retrieval of the current time and
  * date as maintained by the RTC module. The following driver API modes are
@@ -62,22 +62,22 @@
  *  - RTC (Real Time Clock)
  *
  * The outline of this documentation is as follows:
- *  - \ref asfdoc_samd20_rtc_calendar_prerequisites
- *  - \ref asfdoc_samd20_rtc_calendar_module_overview
- *  - \ref asfdoc_samd20_rtc_calendar_special_considerations
- *  - \ref asfdoc_samd20_rtc_calendar_extra_info
- *  - \ref asfdoc_samd20_rtc_calendar_examples
- *  - \ref asfdoc_samd20_rtc_calendar_api_overview
+ *  - \ref asfdoc_sam0_rtc_calendar_prerequisites
+ *  - \ref asfdoc_sam0_rtc_calendar_module_overview
+ *  - \ref asfdoc_sam0_rtc_calendar_special_considerations
+ *  - \ref asfdoc_sam0_rtc_calendar_extra_info
+ *  - \ref asfdoc_sam0_rtc_calendar_examples
+ *  - \ref asfdoc_sam0_rtc_calendar_api_overview
  *
  *
- * \section asfdoc_samd20_rtc_calendar_prerequisites Prerequisites
+ * \section asfdoc_sam0_rtc_calendar_prerequisites Prerequisites
  *
  * There are no prerequisites for this module.
  *
  *
- * \section asfdoc_samd20_rtc_calendar_module_overview Module Overview
+ * \section asfdoc_sam0_rtc_calendar_module_overview Module Overview
  *
- * The RTC module in the SAM D20 devices is a 32-bit counter, with a 10-bit
+ * The RTC module in the SAM D20/D21/R21 devices is a 32-bit counter, with a 10-bit
  * programmable prescaler. Typically, the RTC clock is run continuously,
  * including in the device's low-power sleep modes, to track the current time
  * and date information. The RTC can be used as a source to wake up the system
@@ -85,7 +85,7 @@
  *
  * In this driver, the RTC is operated in Calendar mode. This allows for an
  * easy integration of a real time clock and calendar into a user application
- * to track the passing or time and/or perform scheduled tasks.
+ * to track the passing of time and/or perform scheduled tasks.
  *
  * Whilst operating in Calendar mode, the RTC features:
  *  - Time tracking in seconds, minutes and hours
@@ -93,9 +93,9 @@
  *  - Date tracking in day, month and year
  *   - Automatic leap year correction
  *
- * \subsection asfdoc_samd20_rtc_calendar_module_overview_alarms Alarms and Overflow
+ * \subsection asfdoc_sam0_rtc_calendar_module_overview_alarms Alarms and Overflow
  * The RTC has 4 independent hardware alarms that can be configured by the user
- * application. These alarms will be will trigger on match with the current
+ * application. These alarms will be will triggered on match with the current
  * clock value, and can be set up to trigger an interrupt, event, or both. The
  * RTC can also be configured to clear the clock value on alarm match, resetting
  * the clock to the original start time.
@@ -109,7 +109,7 @@
  * When the RTC is operated with the calendar enabled and run using a nominal
  * 1 Hz input clock frequency, a register overflow will occur after 64 years.
  *
- * \subsection asfdoc_samd20_rtc_calendar_module_overview_periodic Periodic Events
+ * \subsection asfdoc_sam0_rtc_calendar_module_overview_periodic Periodic Events
  * The RTC can generate events at periodic intervals, allowing for direct
  * peripheral actions without CPU intervention. The periodic events can be
  * generated on the upper 8 bits of the RTC prescaler, and will be generated on
@@ -124,9 +124,9 @@
  * divide by 1024. The \b n parameter is the event source generator index of the
  * RTC module. If the asynchronous clock is operated at the recommended 1KHz,
  * the formula results in the values shown in
- * \ref asfdoc_samd20_rtc_calendar_module_rtc_hz "the table below".
+ * \ref asfdoc_sam0_rtc_calendar_module_rtc_hz "the table below".
  *
- * \anchor asfdoc_samd20_rtc_calendar_module_rtc_hz
+ * \anchor asfdoc_sam0_rtc_calendar_module_rtc_hz
  * <table>
  *   <caption>RTC event frequencies for each prescaler bit using a 1KHz clock</caption>
  *   <tr>
@@ -158,7 +158,13 @@
  *   </tr>
  * </table>
  *
- * \subsection asfdoc_samd20_rtc_calendar_module_overview_correction Digital Frequency Correction
+ * \note The connection of events between modules requires the use of the
+ *       \ref asfdoc_sam0_events_group "SAM D20/D21/R21 Event System Driver (EVENTS)"
+ *       to route output event of one module to the the input event of another.
+ *       For more information on event routing, refer to the event driver
+ *       documentation.
+ *
+ * \subsection asfdoc_sam0_rtc_calendar_module_overview_correction Digital Frequency Correction
  * The RTC module contains Digital Frequency Correction logic to compensate for
  * inaccurate source clock frequencies which would otherwise result in skewed
  * time measurements. The correction scheme requires that at least two bits
@@ -177,16 +183,16 @@
  * and slower when given a negative correction value.
  *
  *
- * \section asfdoc_samd20_rtc_calendar_special_considerations Special Considerations
+ * \section asfdoc_sam0_rtc_calendar_special_considerations Special Considerations
  *
- * \subsection asfdoc_samd20_rtc_calendar_special_considerations_year Year limit
+ * \subsection asfdoc_sam0_rtc_calendar_special_considerations_year Year limit
  * The RTC module has a year range of 63 years from the starting year configured
  * when the module is initialized. Dates outside the start to end year range
  * described below will need software adjustment:
  *
  * \f[ [YEAR_{START}, YEAR_{START}+64) \f]
  *
- * \subsection asfdoc_samd20_rtc_calendar_special_considerations_clock Clock Setup
+ * \subsection asfdoc_sam0_rtc_calendar_special_considerations_clock Clock Setup
  * The RTC is typically clocked by a specialized GCLK generator that has a
  * smaller prescaler than the others. By default the RTC clock is on, selected
  * to use the internal 32 kHz RC-oscillator with a prescaler of 32, giving a
@@ -195,11 +201,11 @@
  * time keeping operations.
  *
  * The implementer also has the option to set other end-frequencies.
- * \ref asfdoc_samd20_rtc_calendar_rtc_out_freq "The table below" lists the
+ * \ref asfdoc_sam0_rtc_calendar_rtc_out_freq "The table below" lists the
  * available RTC frequencies for each possible GCLK and RTC input prescaler
  * options.
  *
- * \anchor asfdoc_samd20_rtc_calendar_rtc_out_freq
+ * \anchor asfdoc_sam0_rtc_calendar_rtc_out_freq
  * <table>
  *   <caption>RTC output frequencies from allowable input clocks</caption>
  *   <tr>
@@ -225,9 +231,9 @@
  * </table>
  *
  * The overall RTC module clocking scheme is shown in
- * \ref asfdoc_samd20_rtc_calendar_rtc_clock_fig "the figure below".
+ * \ref asfdoc_sam0_rtc_calendar_rtc_clock_fig "the figure below".
  *
- * \anchor asfdoc_samd20_rtc_calendar_rtc_clock_fig
+ * \anchor asfdoc_sam0_rtc_calendar_rtc_clock_fig
  * \dot
  * digraph clocking_scheme {
  *     rankdir=LR;
@@ -245,22 +251,22 @@
  *       should be used.
  *
  *
- * \section asfdoc_samd20_rtc_calendar_extra_info Extra Information for RTC CAL
+ * \section asfdoc_sam0_rtc_calendar_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_samd20_rtc_calendar_extra. This includes:
- *  - \ref asfdoc_samd20_rtc_calendar_extra_acronyms
- *  - \ref asfdoc_samd20_rtc_calendar_extra_dependencies
- *  - \ref asfdoc_samd20_rtc_calendar_extra_errata
- *  - \ref asfdoc_samd20_rtc_calendar_extra_history
+ * For extra information see \ref asfdoc_sam0_rtc_calendar_extra. This includes:
+ *  - \ref asfdoc_sam0_rtc_calendar_extra_acronyms
+ *  - \ref asfdoc_sam0_rtc_calendar_extra_dependencies
+ *  - \ref asfdoc_sam0_rtc_calendar_extra_errata
+ *  - \ref asfdoc_sam0_rtc_calendar_extra_history
  *
  *
- * \section asfdoc_samd20_rtc_calendar_examples Examples
+ * \section asfdoc_sam0_rtc_calendar_examples Examples
  *
  * For a list of examples related to this driver, see
- * \ref asfdoc_samd20_rtc_calendar_exqsg.
+ * \ref asfdoc_sam0_rtc_calendar_exqsg.
  *
  *
- * \section asfdoc_samd20_rtc_calendar_api_overview API Overview
+ * \section asfdoc_sam0_rtc_calendar_api_overview API Overview
  * @{
  */
 
@@ -284,15 +290,15 @@ extern "C" {
 enum rtc_calendar_alarm {
 	/** Alarm channel 0. */
 	RTC_CALENDAR_ALARM_0 = 0,
-#if (RTC_NUM_OF_COMP16 > 1) || defined(__DOXYGEN__)
+#if (RTC_NUM_OF_ALARMS > 1) || defined(__DOXYGEN__)
 	/** Alarm channel 1. */
 	RTC_CALENDAR_ALARM_1 = 1,
 #endif
-#if (RTC_NUM_OF_COMP16 > 2) || defined(__DOXYGEN__)
+#if (RTC_NUM_OF_ALARMS > 2) || defined(__DOXYGEN__)
 	/** Alarm channel 2. */
 	RTC_CALENDAR_ALARM_2 = 2,
 #endif
-#if (RTC_NUM_OF_COMP16 > 3) || defined(__DOXYGEN__)
+#if (RTC_NUM_OF_ALARMS > 3) || defined(__DOXYGEN__)
 	/** Alarm channel 3. */
 	RTC_CALENDAR_ALARM_3 = 3,
 #endif
@@ -364,9 +370,11 @@ enum rtc_calendar_prescaler {
 
 #if !defined(__DOXYGEN__)
 /**
- * \internal Device structure
+ * \brief Device structure
  */
-struct _rtc_device {
+struct rtc_module {
+	/** RTC hardware module */
+	Rtc *hw;
 	/** If clock mode 24h. */
 	bool clock_24h;
 	/** If continuously update clock register. */
@@ -382,8 +390,6 @@ struct _rtc_device {
 	volatile uint8_t enabled_callback;
 #  endif
 };
-
-extern volatile struct _rtc_device _rtc_dev;
 #endif
 
 /**
@@ -419,10 +425,10 @@ struct rtc_calendar_events {
 	bool generate_event_on_overflow;
 	/** Generate an output event on a alarm channel match against the RTC
 	 *  count. */
-	bool generate_event_on_alarm[RTC_NUM_OF_COMP16];
+	bool generate_event_on_alarm[RTC_NUM_OF_ALARMS];
 	/** Generate an output event periodically at a binary division of the RTC
 	 *  counter frequency (see
-	 *  \ref asfdoc_samd20_rtc_calendar_module_overview_periodic).
+	 *  \ref asfdoc_sam0_rtc_calendar_module_overview_periodic).
 	 */
 	bool generate_event_on_periodic[8];
 };
@@ -504,16 +510,22 @@ struct rtc_calendar_config {
  * that it is ready, to prevent blocking delays for synchronization in the
  * user application.
  *
+ * \param[in]  module  RTC hardware module
+ *
  * \return Synchronization status of the underlying hardware module(s).
  *
  * \retval true  if the module has completed synchronization
  * \retval false if the module synchronization is ongoing
  */
-static inline bool rtc_calendar_is_syncing(void)
+static inline bool rtc_calendar_is_syncing(struct rtc_module *const module)
 {
-        Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
 
-        if (rtc_module->MODE0.STATUS.reg & RTC_STATUS_SYNCBUSY) {
+	Rtc *const rtc_module = module->hw;
+
+        if (rtc_module->MODE2.STATUS.reg & RTC_STATUS_SYNCBUSY) {
                 return true;
         }
 
@@ -581,24 +593,29 @@ static inline void rtc_calendar_get_config_defaults(
 	}
 }
 
-void rtc_calendar_reset(void);
+void rtc_calendar_reset(struct rtc_module *const module);
 
 /**
  * \brief Enables the RTC module.
  *
  * Enables the RTC module once it has been configured, ready for use. Most
  * module configuration parameters cannot be altered while the module is enabled.
+ *
+ * \param[in,out] module  Pointer to the software instance struct
  */
-static inline void rtc_calendar_enable(void)
+static inline void rtc_calendar_enable(struct rtc_module *const module)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 #if RTC_CALENDAR_ASYNC == true
 	system_interrupt_enable(SYSTEM_INTERRUPT_MODULE_RTC);
 #endif
 
-	while (rtc_calendar_is_syncing()) {
+	while (rtc_calendar_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 
@@ -610,17 +627,22 @@ static inline void rtc_calendar_enable(void)
  * \brief Disables the RTC module.
  *
  * Disables the RTC module.
+ *
+ * \param[in,out] module  Pointer to the software instance struct
  */
-static inline void rtc_calendar_disable(void)
+static inline void rtc_calendar_disable(struct rtc_module *const module)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 #if RTC_CALENDAR_ASYNC == true
 	system_interrupt_disable(SYSTEM_INTERRUPT_MODULE_RTC);
 #endif
 
-	while (rtc_calendar_is_syncing()) {
+	while (rtc_calendar_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 
@@ -628,12 +650,42 @@ static inline void rtc_calendar_disable(void)
 	rtc_module->MODE2.CTRL.reg &= ~RTC_MODE2_CTRL_ENABLE;
 }
 
+#if (RTC_INST_NUM > 1) && !defined(__DOXYGEN__)
+/**
+ * \internal Find the index of given RTC module instance.
+ *
+ * \param[in] hw  RTC module instance pointer.
+ *
+ * \return Index of the given RTC module instance.
+ */
+uint8_t _rtc_get_inst_index(
+		Rtc *const hw)
+{
+	/* List of available RTC modules. */
+	static Rtc *const rtc_modules[RTC_INST_NUM] = RTC_INSTS;
+
+	/* Find index for RTC instance. */
+	for (uint32_t i = 0; i < RTC_INST_NUM; i++) {
+		if (hw == rtc_modules[i]) {
+			return i;
+		}
+	}
+
+	/* Invalid data given. */
+	Assert(false);
+	return 0;
+}
+#endif /* (RTC_INST_NUM > 1) && !defined(__DOXYGEN__) */
+
 void rtc_calendar_init(
+		struct rtc_module *const module,
+		Rtc *const hw,
 		const struct rtc_calendar_config *const config);
 
-void rtc_calendar_swap_time_mode(void);
+void rtc_calendar_swap_time_mode(struct rtc_module *const module);
 
 enum status_code rtc_calendar_frequency_correction(
+		struct rtc_module *const module,
 		const int8_t value);
 
 /** @} */
@@ -644,16 +696,20 @@ enum status_code rtc_calendar_frequency_correction(
  */
 
 void rtc_calendar_set_time(
+		struct rtc_module *const module,
 		const struct rtc_calendar_time *const time);
 
 void rtc_calendar_get_time(
+		struct rtc_module *const module,
 		struct rtc_calendar_time *const time);
 
 enum status_code rtc_calendar_set_alarm(
+		struct rtc_module *const module,
 		const struct rtc_calendar_alarm_time *const alarm,
 		const enum rtc_calendar_alarm alarm_index);
 
 enum status_code rtc_calendar_get_alarm(
+		struct rtc_module *const module,
 		struct rtc_calendar_alarm_time *const alarm,
 		const enum rtc_calendar_alarm alarm_index);
 
@@ -670,15 +726,20 @@ enum status_code rtc_calendar_get_alarm(
  * Checks the overflow flag in the RTC. The flag is set when there
  * is an overflow in the clock.
  *
+ * \param[in,out] module  Pointer to the software instance struct
+ *
  * \return Overflow state of the RTC module.
  *
  * \retval true   If the RTC count value has overflowed
  * \retval false  If the RTC count value has not overflowed
  */
-static inline bool rtc_calendar_is_overflow(void)
+static inline bool rtc_calendar_is_overflow(struct rtc_module *const module)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Return status of flag. */
 	return (rtc_module->MODE2.INTFLAG.reg & RTC_MODE2_INTFLAG_OVF);
@@ -687,13 +748,18 @@ static inline bool rtc_calendar_is_overflow(void)
 /**
  * \brief Clears the RTC overflow flag.
  *
+ * \param[in,out] module  Pointer to the software instance struct
+ *
  * Clears the RTC module counter overflow flag, so that new overflow conditions
  * can be detected.
  */
-static inline void rtc_calendar_clear_overflow(void)
+static inline void rtc_calendar_clear_overflow(struct rtc_module *const module)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Clear flag. */
 	rtc_module->MODE2.INTFLAG.reg = RTC_MODE2_INTFLAG_OVF;
@@ -705,6 +771,7 @@ static inline void rtc_calendar_clear_overflow(void)
  * Check if the specified alarm flag is set. The flag is set when there
  * is an compare match between the alarm value and the clock.
  *
+ * \param[in,out] module  Pointer to the software instance struct
  * \param[in] alarm_index  Index of the alarm to check.
  *
  * \returns Match status of the specified alarm.
@@ -713,10 +780,14 @@ static inline void rtc_calendar_clear_overflow(void)
  * \retval false  If the specified alarm has not matched the current time
  */
 static inline bool rtc_calendar_is_alarm_match(
+		struct rtc_module *const module,
 		const enum rtc_calendar_alarm alarm_index)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Sanity check. */
 	if ((uint32_t)alarm_index > RTC_NUM_OF_ALARMS) {
@@ -734,6 +805,7 @@ static inline bool rtc_calendar_is_alarm_match(
  * Clear the requested alarm match flag, so that future alarm matches can be
  * determined.
  *
+ * \param[in,out] module  Pointer to the software instance struct
  * \param[in] alarm_index  The index of the alarm match to clear.
  *
  * \return Status of the alarm match clear operation.
@@ -742,10 +814,14 @@ static inline bool rtc_calendar_is_alarm_match(
  * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided.
  */
 static inline enum status_code rtc_calendar_clear_alarm_match(
+		struct rtc_module *const module,
 		const enum rtc_calendar_alarm alarm_index)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Sanity check. */
 	if ((uint32_t)alarm_index > RTC_NUM_OF_ALARMS) {
@@ -775,13 +851,18 @@ static inline enum status_code rtc_calendar_clear_alarm_match(
  *
  *  \note Events cannot be altered while the module is enabled.
  *
+ *  \param[in,out] module  Pointer to the software instance struct
  *  \param[in] events    Struct containing flags of events to enable
  */
 static inline void rtc_calendar_enable_events(
+		struct rtc_module *const module,
 		struct rtc_calendar_events *const events)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	uint32_t event_mask = 0;
 
@@ -791,7 +872,7 @@ static inline void rtc_calendar_enable_events(
 	}
 
 	/* Check if the user has requested any alarm events. */
-	for (uint8_t i = 0; i < RTC_NUM_OF_COMP16; i++) {
+	for (uint8_t i = 0; i < RTC_NUM_OF_ALARMS; i++) {
 		if (events->generate_event_on_alarm[i]) {
 			event_mask |= RTC_MODE2_EVCTRL_ALARMEO(1 << i);
 		}
@@ -816,13 +897,18 @@ static inline void rtc_calendar_enable_events(
  *
  *  \note Events cannot be altered while the module is enabled.
  *
+ *  \param[in,out] module  Pointer to the software instance struct
  *  \param[in] events    Struct containing flags of events to disable
  */
 static inline void rtc_calendar_disable_events(
+		struct rtc_module *const module,
 		struct rtc_calendar_events *const events)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	uint32_t event_mask = 0;
 
@@ -832,7 +918,7 @@ static inline void rtc_calendar_disable_events(
 	}
 
 	/* Check if the user has requested any alarm events. */
-	for (uint8_t i = 0; i < RTC_NUM_OF_COMP16; i++) {
+	for (uint8_t i = 0; i < RTC_NUM_OF_ALARMS; i++) {
 		if (events->generate_event_on_alarm[i]) {
 			event_mask |= RTC_MODE2_EVCTRL_ALARMEO(1 << i);
 		}
@@ -859,9 +945,9 @@ static inline void rtc_calendar_disable_events(
 
 
 /**
- * \page asfdoc_samd20_rtc_calendar_extra Extra Information for RTC (CAL) Driver
+ * \page asfdoc_sam0_rtc_calendar_extra Extra Information for RTC (CAL) Driver
  *
- * \section asfdoc_samd20_rtc_calendar_extra_acronyms Acronyms
+ * \section asfdoc_sam0_rtc_calendar_extra_acronyms Acronyms
  * Below is a table listing the acronyms used in this module, along with their
  * intended meanings.
  *
@@ -885,17 +971,17 @@ static inline void rtc_calendar_disable_events(
  * </table>
  *
  *
- * \section asfdoc_samd20_rtc_calendar_extra_dependencies Dependencies
+ * \section asfdoc_sam0_rtc_calendar_extra_dependencies Dependencies
  * This driver has the following dependencies:
  *
  *  - None
  *
  *
- * \section asfdoc_samd20_rtc_calendar_extra_errata Errata
+ * \section asfdoc_sam0_rtc_calendar_extra_errata Errata
  * There are no errata related to this driver.
  *
  *
- * \section asfdoc_samd20_rtc_calendar_extra_history Module History
+ * \section asfdoc_sam0_rtc_calendar_extra_history Module History
  * An overview of the module history is presented in the table below, with
  * details on the enhancements and fixes made to the module since its first
  * release. The current version of this corresponds to the newest version in
@@ -906,32 +992,58 @@ static inline void rtc_calendar_disable_events(
  *		<th>Changelog</th>
  *	</tr>
  *	<tr>
+ *		<td>
+ *             Added support for SAMD21 and added driver instance parameter to all
+ *             API function calls, except get_config_defaults.
+ *             </td>
+ *	</tr>
+ *	<tr>
+ *		<td>Updated initialization function to also enable the digital interface
+ *          clock to the module if it is disabled.</td>
+ *	</tr>
+ *	<tr>
  *		<td>Initial Release</td>
  *	</tr>
  * </table>
  */
 
 /**
- * \page asfdoc_samd20_rtc_calendar_exqsg Examples for RTC (CAL) Driver
+ * \page asfdoc_sam0_rtc_calendar_exqsg Examples for RTC CAL Driver
  *
  * This is a list of the available Quick Start guides (QSGs) and example
- * applications for \ref asfdoc_samd20_rtc_calendar_group. QSGs are simple
+ * applications for \ref asfdoc_sam0_rtc_calendar_group. QSGs are simple
  * examples with step-by-step instructions to configure and use this driver in a
  * selection of use cases. Note that QSGs can be compiled as a standalone
  * application or be added to the user application.
  *
- *  - \subpage asfdoc_samd20_rtc_calendar_basic_use_case
+ *  - \subpage asfdoc_sam0_rtc_calendar_basic_use_case
  * \if RTC_CALENDAR_CALLBACK_MODE
- *  - \subpage asfdoc_samd20_rtc_calendar_callback_use_case
+ *  - \subpage asfdoc_sam0_rtc_calendar_callback_use_case
  * \endif
  *
- * \page asfdoc_samd20_rtc_calendar_document_revision_history Document Revision History
+ * \page asfdoc_sam0_rtc_calendar_document_revision_history Document Revision History
  *
  * <table>
  *	<tr>
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>D</td>
+ *		<td>03/2014</td>
+ *		<td>Added support for SAMR21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>C</td>
+ *		<td>01/2014</td>
+ *		<td>Added support for SAMD21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>B</td>
+ *		<td>06/2013</td>
+ *		<td>Added additional documentation on the event system. Corrected
+ *          documentation typos.</td>
  *	</tr>
  *	<tr>
  *		<td>A</td>

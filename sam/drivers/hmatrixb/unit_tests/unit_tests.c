@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for HMATRIX driver.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,6 +63,8 @@
  * SAM4L devices can be used.
  * This example has been tested with the following setup:
  * - sam4lc4c_sam4l_ek
+ * - sam4lc4c_sam4l_xplained_pro
+ * - sam4lc8c_sam4l8_xplained_pro
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -96,7 +98,7 @@ void SysTick_Handler(void)
  */
 static uint32_t toggle_led_test(uint32_t ul_dly_ticks)
 {
-	int32_t ul_cnt = 0;
+	uint32_t ul_cnt = 0;
 	uint32_t ul_cur_ticks;
 
 	ul_cur_ticks = g_ul_ms_ticks;

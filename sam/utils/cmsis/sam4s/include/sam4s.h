@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,6 +54,18 @@
   #include "sam4sd32b.h"
 #elif defined __SAM4SD32C__
   #include "sam4sd32c.h"
+#elif defined __SAM4S2A__
+  #include "sam4s2a.h"
+#elif defined __SAM4S2B__
+  #include "sam4s2b.h"
+#elif defined __SAM4S2C__
+  #include "sam4s2c.h"
+#elif defined __SAM4S4A__
+  #include "sam4s4a.h"
+#elif defined __SAM4S4B__
+  #include "sam4s4b.h"
+#elif defined __SAM4S4C__
+  #include "sam4s4c.h"
 #elif defined __SAM4S8B__
   #include "sam4s8b.h"
 #elif defined __SAM4S8C__

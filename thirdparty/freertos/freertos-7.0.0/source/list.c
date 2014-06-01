@@ -59,8 +59,8 @@
 
 
 #include <stdlib.h>
-#include "FreeRTOS.h"
-#include "list.h"
+#include "include/FreeRTOS.h"
+#include "include/list.h"
 
 /*-----------------------------------------------------------
  * PUBLIC LIST API documented in list.h

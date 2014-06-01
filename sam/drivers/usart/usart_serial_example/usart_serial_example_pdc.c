@@ -3,7 +3,7 @@
  *
  * \brief USART Serial example for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -74,13 +74,13 @@
  *   - No flow control
  * -# In the terminal window, the following text should appear:
  *    \code
- *     -- USART Serial Example --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     -- Start to echo serial inputs --
- *     -- -I- Default Transfer with PDC --
- *     -- -I- Press 's' to switch transfer mode
- *    \endcode
+	-- USART Serial Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+	-- Start to echo serial inputs --
+	-- -I- Default Transfer with PDC --
+	-- -I- Press 's' to switch transfer mode
+\endcode
  * -# Send a file in text format from the HyperTerminal connected with USART
  *    port to the device. On HyperTerminal, this is done by selecting
  *    "Transfer -> Send Text File"(this does not prevent you from sending

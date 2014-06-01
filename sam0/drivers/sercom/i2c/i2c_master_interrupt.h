@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 I2C Master Interrupt Driver
+ * \brief SAM SERCOM I2C Master Interrupt Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,7 +51,7 @@ extern "C" {
 #endif
 
 /**
- * \addtogroup asfdoc_samd20_sercom_i2c_group
+ * \addtogroup asfdoc_sam0_sercom_i2c_group
  * @{
  *
  */
@@ -123,19 +123,19 @@ static inline void i2c_master_disable_callback(
 
 enum status_code i2c_master_read_packet_job(
 		struct i2c_master_module *const module,
-		struct i2c_packet *const packet);
+		struct i2c_master_packet *const packet);
 
 enum status_code i2c_master_read_packet_job_no_stop(
 		struct i2c_master_module *const module,
-		struct i2c_packet *const packet);
+		struct i2c_master_packet *const packet);
 
 enum status_code i2c_master_write_packet_job(
 		struct i2c_master_module *const module,
-		struct i2c_packet *const packet);
+		struct i2c_master_packet *const packet);
 
 enum status_code i2c_master_write_packet_job_no_stop(
 		struct i2c_master_module *const module,
-		struct i2c_packet *const packet);
+		struct i2c_master_packet *const packet);
 
 /**
  * \brief Cancel any currently ongoing operation

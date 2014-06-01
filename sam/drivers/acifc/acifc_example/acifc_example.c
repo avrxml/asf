@@ -3,7 +3,7 @@
  *
  * \brief Analog Comparator Interfacer (ACIFC) example for SAM4L.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,7 +47,7 @@
  * \section Purpose
  *
  * The Analog Comparator Interfacer example demonstrates how to use the ACIFC
- * peripheral to detect comparison event on the input pair.
+ * peripheral to get comparison result of the input pair.
  *
  * \section Requirements
  *
@@ -56,14 +56,10 @@
  *
  * \section Description
  *
- * The acifc_irq is aimed to demonstrate the usage of ACIFC peripheral with
- * interrupt support. The PA06 and PA07 are selected as two inputs. Connect
- * PA06 (J101.2) on ADC_SENSOR (J101.3) output voltage, PA07(J4.4) on GND(J4.9)
- * or 3.3V(J4.10).
- *
- * The comparison event would be generated if the voltage of one input is
- * changed across the voltage of the other input. Both bigger and less events
- * could be triggered by default.
+ * This example is aimed to demonstrate the usage of ACIFC peripheral with
+ * interrupt support. The PA06 and PA07 are selected as two inputs. The
+ * connection can be:
+ * \copydoc acifc_example_pins_def
  *
  * \section Usage
  *
@@ -77,14 +73,14 @@
  * -# In the terminal window, the following text should appear (values depend
  *    on the board and chip used):
  *    \code
- *     -- ACIFC IRQ Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *    \endcode
- * -# The application will output then a different message if PA06 lower or
+	-- ACIFC IRQ Example xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
+ * -# The application will then output a different message if PA06 lower or
  * higher than PA07.
- *      -ISR- Voltage Comparison Result: ACAP0 > ACAN0
- *      -ISR- Voltage Comparison Result: ACAP0 < ACAN0
+ *   - -ISR- Voltage Comparison Result: ACAP0 > ACAN0
+ *   - -ISR- Voltage Comparison Result: ACAP0 < ACAN0
  */
 #include "asf.h"
 #include "stdio_serial.h"

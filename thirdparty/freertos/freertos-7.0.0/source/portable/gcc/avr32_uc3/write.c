@@ -5,7 +5,7 @@
  * \brief System-specific implementation of the \ref __write function used by
           the standard library.
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,7 +45,7 @@
 
 
 #include <avr32/io.h>
-#include "usart.h"
+#include <usart.h>
 
 //! Pointer to the base of the USART module instance to use for stdio.
 volatile avr32_usart_t *volatile stdio_usart_base;

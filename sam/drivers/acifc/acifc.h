@@ -3,7 +3,7 @@
  *
  * \brief Analog Comparator Interface Driver for SAM4L.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -361,7 +361,7 @@ static inline void ac_user_trigger_single_comparison(
  */
 static inline bool ac_is_comparison_done(struct ac_dev_inst *const dev_inst)
 {
-	return (dev_inst->hw_dev->ACIFC_CTRL & ACIFC_CTRL_USTART !=
+	return ((dev_inst->hw_dev->ACIFC_CTRL & ACIFC_CTRL_USTART) !=
 			ACIFC_CTRL_USTART);
 }
 
@@ -408,14 +408,14 @@ static inline uint32_t ac_get_status(struct ac_dev_inst *const dev_inst)
  * \subsection acifc_basic_use_case_setup_code Example code
  * Enable the following macro in the conf_clock.h:
  * \code
- *  #define CONFIG_SYSCLK_SOURCE       SYSCLK_SRC_DFLL
- *  #define CONFIG_DFLL0_SOURCE        GENCLK_SRC_OSC32K
- * \endcode
+	#define CONFIG_SYSCLK_SOURCE       SYSCLK_SRC_DFLL
+	#define CONFIG_DFLL0_SOURCE        GENCLK_SRC_OSC32K
+\endcode
  *
  * Add the following code in the application C-file:
  * \code
- *  sysclk_init();
- * \endcode
+	sysclk_init();
+\endcode
  *
  * \subsection acifc_basic_use_case_setup_flow Workflow
  * -# Set system clock source as DFLL:
@@ -429,37 +429,37 @@ static inline uint32_t ac_get_status(struct ac_dev_inst *const dev_inst)
  * \subsection acifc_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *  struct ac_dev_inst ac_device;
- *  struct ac_config module_cfg;
- *  ac_get_config_defaults(&module_cfg);
- *  ac_init(&ac_device, ACIFC, &module_cfg);
- *  ac_enable(&ac_device);
- *  struct ac_ch_config ch_cfg;
- *  ac_ch_get_config_defaults(&ch_cfg);
- *  ch_cfg.always_on = true;
- *  ch_cfg.fast_mode = true;
- *  ac_ch_set_config(&ac_device, 0, &ch_cfg);
- *  while (!ac_is_comparison_done(&ac_device));
- * \endcode
+	struct ac_dev_inst ac_device;
+	struct ac_config module_cfg;
+	ac_get_config_defaults(&module_cfg);
+	ac_init(&ac_device, ACIFC, &module_cfg);
+	ac_enable(&ac_device);
+	struct ac_ch_config ch_cfg;
+	ac_ch_get_config_defaults(&ch_cfg);
+	ch_cfg.always_on = true;
+	ch_cfg.fast_mode = true;
+	ac_ch_set_config(&ac_device, 0, &ch_cfg);
+	while (!ac_is_comparison_done(&ac_device));
+\endcode
  *
  * \subsection acifc_basic_use_case_usage_flow Workflow
  * -# Get the default confguration to initialize the module:
  * \code
- *  ac_configure(ACIFC, &acifc_opt);
- *  struct ac_config module_cfg;
- *  ac_get_config_defaults(&module_cfg);
- *  ac_init(&ac_device, ACIFC, &module_cfg);
- * \endcode
+	ac_configure(ACIFC, &acifc_opt);
+	struct ac_config module_cfg;
+	ac_get_config_defaults(&module_cfg);
+	ac_init(&ac_device, ACIFC, &module_cfg);
+\endcode
  * -# Enable the module:
  * \code  ac_enable(&ac_device); \endcode
  * -# Get the default confguration to initialize the channel 0:
  * \code
- *  struct ac_ch_config ch_cfg;
- *  ac_ch_get_config_defaults(&ch_cfg);
- *  ch_cfg.always_on = true;
- *  ch_cfg.fast_mode = true;
- *  ac_ch_set_config(&ac_device, 0, &ch_cfg);
- * \endcode
+	struct ac_ch_config ch_cfg;
+	ac_ch_get_config_defaults(&ch_cfg);
+	ch_cfg.always_on = true;
+	ch_cfg.fast_mode = true;
+	ac_ch_set_config(&ac_device, 0, &ch_cfg);
+\endcode
  * -# User starts a single comparison:
  * \code  ac_user_trigger_single_comparison(&ac_device); \endcode
  * -# Check if the comparison is done:

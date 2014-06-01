@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 AT30TSE75X Temperature Sensor driver Quick Start
+ * \brief AT30TSE75X Temperature Sensor driver Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,41 +42,41 @@
  */
 
 /**
- * \page asfdoc_samd20_at30tse75x_qs Quick Start Guide for the SAM D20 AT30TSE75X Temperature Sensor Driver
+ * \page asfdoc_sam0_at30tse75x_qs Quick Start Guide for the SAM AT30TSE75X Temperature Sensor Driver
  * In this use case we will interface the temperature sensor, set a resolution and read
  * the temperature.
  *
- * \section asfdoc_samd20_at30tse75x_qs_prereq Prerequisites
+ * \section asfdoc_sam0_at30tse75x_qs_prereq Prerequisites
  * The temperature sensor must be connected to the device.
  *
- * \section asfdoc_samd20_at30tse75x_qs_setup Setup
+ * \section asfdoc_sam0_at30tse75x_qs_setup Setup
  *
- * \subsection asfdoc_samd20_at30tse75x_qs_init_code Initialization Code
+ * \subsection asfdoc_sam0_at30tse75x_qs_init_code Initialization Code
  * Add a global variable to store the temperature:
  * \snippet qs_at30tse75x.c temp_res
  * Copy-paste the following setup code to your application main function:
  * \snippet qs_at30tse75x.c init
  *
- * \subsection asfdoc_samd20_at30tse75x_qs_workflow Workflow
- * -# Initalize system
+ * \subsection asfdoc_sam0_at30tse75x_qs_workflow Workflow
+ * -# Initialize system
  *  \snippet qs_at30tse75x.c system_init
  * -# Initialize I2C interface
  *  \snippet qs_at30tse75x.c temp_init
  *
- * \section asfdoc_samd20_at30tse75x_qs_implement Implementation
+ * \section asfdoc_sam0_at30tse75x_qs_implement Implementation
  *
- * \subsection asfdoc_samd20_at30tse75x_qs_imp_code Code
+ * \subsection asfdoc_sam0_at30tse75x_qs_imp_code Code
  * Add after initialization in main.
  * \snippet qs_at30tse75x.c impl
  *
- * \subsection asfdoc_samd20_at30tse75x_qs_imp_workflow Workflow
+ * \subsection asfdoc_sam0_at30tse75x_qs_imp_workflow Workflow
  * -# Read THIGH register from temperature sensor:
  *  \snippet qs_at30tse75x.c read_thigh
  * -# Read TLOW register from temperature sensor:
  *  \snippet qs_at30tse75x.c read_tlow
  * -# Set temperature sensor resolution to 12-bit:
  *  \snippet qs_at30tse75x.c write_conf
- * -# Continously read the temperature:
+ * -# Continuously read the temperature:
  *  \snippet qs_at30tse75x.c read_temp
  *
  */

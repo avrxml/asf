@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Generic Clock Driver Quick Start
+ * \brief SAM D20/D21/R21 Generic Clock Driver Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -81,11 +81,11 @@ void configure_gclock_channel(void)
 	gclk_chan_conf.source_generator = GCLK_GENERATOR_1;
 //! [setup_8]
 //! [setup_9]
-	system_gclk_chan_set_config(TC0_GCLK_ID, &gclk_chan_conf);
+	system_gclk_chan_set_config(TC3_GCLK_ID, &gclk_chan_conf);
 //! [setup_9]
 
 //! [setup_10]
-	system_gclk_chan_enable(TC0_GCLK_ID);
+	system_gclk_chan_enable(TC3_GCLK_ID);
 //! [setup_10]
 }
 //! [setup]

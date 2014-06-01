@@ -5,7 +5,7 @@
  *
  * This file contains some common definition for NAND Flash module.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -100,11 +100,17 @@
  * - NAND_COMMON_MAX_SPARE_EXTRA_BYTES
  */
 
+#ifndef NAND_COMMON_MAX_BLOCK_NUMBER
+#warning Use the common setting for NAND_COMMON_MAX_BLOCK_NUMBER
 /* Maximum number of blocks in a device. */
 #define NAND_COMMON_MAX_BLOCK_NUMBER       2048
+#endif
 
+#ifndef NAND_COMMON_MAX_PAGES_PER_BLOCK
+#warning Use the common setting for NAND_COMMON_MAX_PAGES_PER_BLOCK
 /* Maximum number of pages in one block. */
 #define NAND_COMMON_MAX_PAGES_PER_BLOCK    256
+#endif
 
 #ifndef NAND_COMMON_MAX_PAGE_SIZE
 #warning Use the common setting for NAND_COMMON_MAX_PAGE_SIZE
@@ -227,13 +233,13 @@
  * initialize the NAND Flash.
  *
  * \code
- * if (nand_flash_raw_initialize(&nf_raw, 0, cmd_address,
- *         addr_address, data_address)) {
- *     printf("-E- Device Unknown\n\r");
- *     return 0;
- * }
- *
- * \endcode
+	 if (nand_flash_raw_initialize(&nf_raw, 0, cmd_address,
+	         addr_address, data_address)) {
+	     printf("-E- Device Unknown\n\r");
+	     return 0;
+	 }
+
+\endcode
  *
  * \section common_components_nand_flash_basic_use_case_workflow Workflow
  *
@@ -241,11 +247,11 @@
  *    - \code error = nand_flash_raw_erase_block(&nf_raw, num_block);; \endcode
  * -# Write the data buffer to the defined page of block:
  *    - \code error = nand_flash_raw_write_page(&nf_raw, block, page,
- *                       write_buffer, 0);
- *       \endcode
+	write_buffer, 0);
+\endcode
  * -# Read the data to the buffer from the defined page of block:
  *    - \code nand_flash_raw_read_page(&nf_raw, block, page, read_buffer, 0);
- *       \endcode
+\endcode
  */
 
 #endif /*NAND_FLASH_COMMON_H_INCLUDED */

@@ -64,6 +64,8 @@
  * Only SAM4L devices can be used.
  * This example has been tested with the following setup:
  * - sam4lc4c_sam4l_ek
+ * - sam4lc4c_sam4l_xplained_pro
+ * - sam4lc8c_sam4l8_xplained_pro
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers

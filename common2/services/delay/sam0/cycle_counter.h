@@ -3,7 +3,7 @@
  *
  * \brief ARM functions for busy-wait delay loops
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,57 +51,67 @@ extern "C" {
 #endif
 
 /**
- * \name Convenience functions for busy-wait delay loops
+ * @def F_CPU
+ * @brief MCU Clock Frequency (Hertz)
+ */
+#ifndef F_CPU
+#       define F_CPU system_gclk_gen_get_hz(0)
+#endif
+
+/**
+ * @name Convenience functions for busy-wait delay loops
+ *
+ * @def delay_cycles
+ * @brief Delay program execution for a specified number of CPU cycles.
+ * @param n number of CPU cycles to wait
+ *
+ * @def cpu_delay_ms
+ * @brief Delay program execution for a specified number of milliseconds.
+ * @param delay number of milliseconds to wait
+ * @param f_cpu CPU frequency in Hertz
+ *
+ * @def cpu_delay_us
+ * @brief Delay program execution for a specified number of microseconds.
+ * @param delay number of microseconds to wait
+ * @param f_cpu CPU frequency in Hertz
+ *
+ * @def cpu_ms_2_cy
+ * @brief Convert milli-seconds into CPU cycles.
+ * @param ms number of milliseconds
+ * @param f_cpu CPU frequency in Hertz
+ * @return the converted number of CPU cycles
+ *
+ * @def cpu_us_2_cy
+ * @brief Convert micro-seconds into CPU cycles.
+ * @param ms number of microseconds
+ * @param f_cpu CPU frequency in Hertz
+ * @return the converted number of CPU cycles
  *
  * @{
  */
 
 /**
  * \brief Delay loop to delay n number of cycles
- * Delay program execution for at least the specified number of CPU cycles.
  *
- * \param n  Number of cycles to delay
- */
-static inline void delay_cycles(
-		const uint32_t n)
-{
-	SysTick->LOAD = n;
-	SysTick->VAL = 0;
-
-	while (!(SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk)) {
-	};
-}
-
-void delay_cycles_us(uint32_t n);
-
-void delay_cycles_ms(uint32_t n);
-
-void delay_init(void);
-
-/**
- * \brief Delay program execution for at least the specified number of microseconds.
+ * \note The function runs in internal RAM so that flash wait states
+ *       will not affect the delay time.
  *
- * \param delay  number of microseconds to wait
+ * \param n Number of cycles
  */
-#define cpu_delay_us(delay)      delay_cycles_us(delay)
+void portable_delay_cycles(unsigned long n);
 
-/**
- * \brief Delay program execution for at least the specified number of milliseconds.
- *
- * \param delay  number of milliseconds to wait
- */
-#define cpu_delay_ms(delay)      delay_cycles_ms(delay)
+#define cpu_ms_2_cy(ms, f_cpu)  \
+	(((uint64_t)(ms) * (f_cpu) + (uint64_t)(7e3-1ul)) / (uint64_t)7e3)
+#define cpu_us_2_cy(us, f_cpu)  \
+	(((uint64_t)(us) * (f_cpu) + (uint64_t)(7e6-1ul)) / (uint64_t)7e6)
 
-/**
- * \brief Delay program execution for at least the specified number of seconds.
- *
- * \param delay  number of seconds to wait
- */
-#define cpu_delay_s(delay)       delay_cycles_ms(1000 * delay)
+#define delay_cycles               portable_delay_cycles
 
-/**
- * @}
- */
+#define cpu_delay_s(delay) delay_cycles(cpu_ms_2_cy(1000 * delay, F_CPU))
+#define cpu_delay_ms(delay) delay_cycles(cpu_ms_2_cy(delay, F_CPU))
+#define cpu_delay_us(delay) delay_cycles(cpu_us_2_cy(delay, F_CPU))
+//! @}
+
 
 #ifdef __cplusplus
 }

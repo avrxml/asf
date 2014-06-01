@@ -3,7 +3,7 @@
  *
  * @brief This file defines all message structures for the RF4control stack.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,10 +50,14 @@
 #include <stdint.h>
 #include "nwk_msg_code.h"
 #include "rf4ce.h"
+#include "nwk_config.h"
 
 /* === Macros =============================================================== */
 
 /* === Types ================================================================ */
+
+/* Start pack the data  types, which is unaligned in some of ARM architecture */
+__PACK__DATA__
 
 /**
  * \addtogroup group_rf4control_ds
@@ -479,5 +483,8 @@ typedef struct nwk_ch_agility_conf_tag {
 	bool ChannelChanged ALIGN8BIT;
 	uint8_t LogicalChannel ALIGN8BIT;
 } nwk_ch_agility_conf_t;
+
+__PACK__RST_DATA__
+/* Packing  of the data types ends here */
 
 #endif /* NWK_MSG_TYPES_H */

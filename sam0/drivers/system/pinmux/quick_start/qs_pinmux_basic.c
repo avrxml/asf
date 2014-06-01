@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 GPIO PINMUX Driver Quick Start
+ * \brief SAM D20/D21/R21 GPIO PINMUX Driver Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,31 +46,33 @@ int main(void)
 {
 	system_init();
 
-//! [main]
-//! [pinmux_config]
+	//! [setup]
+	//! [pinmux_config]
 	struct system_pinmux_config config_pinmux;
-//! [pinmux_config]
-//! [pinmux_config_defaults]
+	//! [pinmux_config]
+	//! [pinmux_config_defaults]
 	system_pinmux_get_config_defaults(&config_pinmux);
-//! [pinmux_config_defaults]
+	//! [pinmux_config_defaults]
 
-//! [pinmux_update_config_values]
+	//! [pinmux_update_config_values]
 	config_pinmux.mux_position = SYSTEM_PINMUX_GPIO;
 	config_pinmux.direction    = SYSTEM_PINMUX_PIN_DIR_INPUT;
 	config_pinmux.input_pull   = SYSTEM_PINMUX_PIN_PULL_UP;
-//! [pinmux_update_config_values]
+	//! [pinmux_update_config_values]
 
-//! [pinmux_set_config]
+	//! [pinmux_set_config]
 	system_pinmux_pin_set_config(10, &config_pinmux);
-//! [pinmux_set_config]
+	//! [pinmux_set_config]
+	//! [setup]
 
-//! [pinmux_change_input_sampling]
+	//! [main]
+	//! [pinmux_change_input_sampling]
 	system_pinmux_pin_set_input_sample_mode(10,
 			SYSTEM_PINMUX_PIN_SAMPLE_ONDEMAND);
-//! [pinmux_change_input_sampling]
+	//! [pinmux_change_input_sampling]
 
 	while (true) {
 		/* Infinite loop */
 	}
-//! [main]
+	//! [main]
 }

@@ -3,7 +3,7 @@
  *
  * \brief GCC Startup file for SAM4L.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -104,7 +104,11 @@ IntFunc exception_table[] = {
 	USBC_Handler,         // 18
 	PEVC_TR_Handler,      // 19
 	PEVC_OV_Handler,      // 20
+	#ifdef AESA
 	AESA_Handler,         // 21
+	#else
+	Dummy_Handler,
+	#endif
 	PM_Handler,           // 22
 	SCIF_Handler,         // 23
 	FREQM_Handler,        // 24
@@ -162,8 +166,11 @@ IntFunc exception_table[] = {
 	Dummy_Handler,        // one not used
 	TWIM2_Handler,        // 77
 	TWIM3_Handler,        // 78
+	#ifdef LCDCA
 	LCDCA_Handler         // 79
-
+	#else
+	Dummy_Handler
+	#endif
 };
 
 

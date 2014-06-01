@@ -3,7 +3,7 @@
  *
  * \brief External Interrupt Controller Example for SAM4L.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,22 +46,20 @@
  *
  * \section Purpose
  *
- * The eic_example demonstrates how to use EIC driver toggle LED0.
+ * The eic_example demonstrates how to use EIC driver toggle LED.
  *
  * \section Requirements
  *
- * This example can be used on SAM4L-EK boards.
+ * This example can be used on SAM4L boards.
  *
  * \section Description
  *
  * The SAM4L controller waits for button press to generate external interrupt 
- * and will toggle LED0.
+ * and will toggle LED.
  *
  * \section Usage
  *
- * - Build the program and download it to the evaluation board. Please
- *  refer to the SAM4L main page documentation 
- *  http://www.atmel.com/tools/SAM4L-EK.aspx
+ * - Build the program and download it to the board.
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -72,10 +70,10 @@
  * -# In the terminal window, the following text should appear (values depend
  *    on the board and chip used):
  *    \code
- *     -- EIC Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *    \endcode
+	-- EIC Example xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
  * -# the sent text should appear.
  */
 
@@ -150,11 +148,14 @@ int main(void)
 	eic_line_set_config(EIC, GPIO_PUSH_BUTTON_EIC_LINE, 
 		&eic_line_conf);
 	eic_line_set_callback(EIC, GPIO_PUSH_BUTTON_EIC_LINE, set_toggle_flag, 
-		EIC_5_IRQn, 1);
+		GPIO_PUSH_BUTTON_EIC_IRQ, 1);
 	eic_line_enable(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
+
+	puts("--Push the button to toggle the LED--\r\n\r");
 
 	while (1) {
 		if (bToggle == 1) {
+			puts("--Toggle the LED--\r");
 			ioport_toggle_port_level(EXAMPLE_LED_PORT,
 					EXAMPLE_LED_MASK);
 			bToggle = 0;

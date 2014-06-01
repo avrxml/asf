@@ -41,7 +41,6 @@
  *
  */
 
-#include "exceptions.h"
 #include "pio.h"
 #include "pio_handler.h"
 

@@ -120,7 +120,7 @@ DEBUG_SCRIPT_FLASH = sam/boards/sam3s_ek/debug_scripts/gcc/sam3s_ek_flash.gdb
 DEBUG_SCRIPT_SRAM  = sam/boards/sam3s_ek/debug_scripts/gcc/sam3s_ek_sram.gdb
 
 # Project type parameter: all, sram or flash
-PROJECT_TYPE        = all
+PROJECT_TYPE        = flash
 
 # Additional options for debugging. By default the common Makefile.in will
 # add -g3.
@@ -152,7 +152,12 @@ CPPFLAGS = \
        -D ARM_MATH_CM3=true                               \
        -D BOARD=SAM3S_EK                                  \
        -D __SAM3S4C__                                     \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

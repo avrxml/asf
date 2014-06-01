@@ -54,6 +54,7 @@ TARGET_SRAM = freertos_peripheral_control_sram.elf
 CSRCS = \
        common/services/clock/sam4s/sysclk.c               \
        common/services/freertos/sam/freertos_peripheral_control.c \
+       common/services/freertos/sam/freertos_uart_serial.c \
        common/services/freertos/sam/freertos_usart_serial.c \
        common/services/serial/usart_serial.c              \
        common/services/sleepmgr/sam/sleepmgr.c            \
@@ -73,11 +74,11 @@ CSRCS = \
        sam/drivers/uart/uart.c                            \
        sam/drivers/udp/udp_device.c                       \
        sam/drivers/usart/usart.c                          \
-       sam/utils/cmsis/sam4s/source/templates/exceptions.c \
        sam/utils/cmsis/sam4s/source/templates/gcc/startup_sam4s.c \
        sam/utils/cmsis/sam4s/source/templates/system_sam4s.c \
        sam/utils/syscalls/gcc/syscalls.c                  \
        thirdparty/freertos/demo/peripheral_control/demo-tasks/CLI-commands.c \
+       thirdparty/freertos/demo/peripheral_control/demo-tasks/UART-CLI-task.c \
        thirdparty/freertos/demo/peripheral_control/demo-tasks/USART-CLI-task.c \
        thirdparty/freertos/demo/peripheral_control/demo-tasks/USART-echo-tasks.c \
        thirdparty/freertos/demo/peripheral_control/demo-tasks/USB-CDC-CLI-task.c \
@@ -86,7 +87,7 @@ CSRCS = \
        thirdparty/freertos/demo/peripheral_control/run-time-stats-utils.c \
        thirdparty/freertos/freertos-7.3.0/source/FreeRTOS_CLI.c \
        thirdparty/freertos/freertos-7.3.0/source/list.c   \
-       thirdparty/freertos/freertos-7.3.0/source/portable/gcc/arm_cm3/port.c \
+       thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/port.c \
        thirdparty/freertos/freertos-7.3.0/source/portable/memmang/heap_4.c \
        thirdparty/freertos/freertos-7.3.0/source/queue.c  \
        thirdparty/freertos/freertos-7.3.0/source/tasks.c  \
@@ -130,7 +131,7 @@ INC_PATH = \
        thirdparty/freertos/demo/peripheral_control/demo-tasks \
        thirdparty/freertos/demo/peripheral_control/sam4s16c_sam4s_ek \
        thirdparty/freertos/freertos-7.3.0/source/include  \
-       thirdparty/freertos/freertos-7.3.0/source/portable/gcc/arm_cm3 \
+       thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam \
        thirdparty/freertos/demo/peripheral_control/sam4s16c_sam4s_ek/gcc
 
 # Additional search paths for libraries.
@@ -184,7 +185,12 @@ CPPFLAGS = \
        -D BOARD=SAM4S_EK                                  \
        -D UDD_ENABLE                                      \
        -D __SAM4S16C__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

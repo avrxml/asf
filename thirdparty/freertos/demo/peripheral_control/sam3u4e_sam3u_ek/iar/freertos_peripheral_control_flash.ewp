@@ -299,6 +299,8 @@
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
@@ -313,11 +315,9 @@
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3u_ek</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/include</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
-					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../demo-tasks</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm3</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/udc</state>
@@ -325,7 +325,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
-					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -579,6 +579,8 @@
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
@@ -593,11 +595,9 @@
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3u_ek</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/include</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
-					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../demo-tasks</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm3</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/udc</state>
@@ -605,7 +605,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
-					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1251,6 +1251,8 @@
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
@@ -1265,11 +1267,9 @@
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3u_ek</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/include</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
-					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../demo-tasks</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm3</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/udc</state>
@@ -1277,7 +1277,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
-					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1531,6 +1531,8 @@
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
@@ -1545,11 +1547,9 @@
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3u_ek</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/include</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
-					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../demo-tasks</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm3</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/udc</state>
@@ -1557,7 +1557,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
-					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -2048,6 +2048,9 @@
 						<name>$PROJ_DIR$/../../../../../../common/services/freertos/sam/freertos_peripheral_control.c</name>
 					</file>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../common/services/freertos/sam/freertos_uart_serial.c</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/freertos/sam/freertos_usart_serial.c</name>
 					</file>
 					<file>
@@ -2058,6 +2061,9 @@
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/freertos/sam/freertos_uart_serial.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../common/services/freertos/sam/freertos_usart_serial.h</name>
 					</file>
 				</group>
 			</group>
@@ -2119,6 +2125,9 @@
 					<file>
 						<name>$PROJ_DIR$/../../partest.c</name>
 					</file>
+					<file>
+						<name>$PROJ_DIR$/../../run-time-stats-utils.c</name>
+					</file>
 					<group>
 						<name>demo-tasks</name>
 						<file>
@@ -2128,15 +2137,15 @@
 							<name>$PROJ_DIR$/../../demo-tasks/USB-CDC-CLI-task.c</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../demo-tasks/UART-CLI-task.c</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../demo-tasks/CLI-commands.c</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../demo-tasks/USART-CLI-task.c</name>
 						</file>
 					</group>
-					<file>
-						<name>$PROJ_DIR$/../../run-time-stats-utils.c</name>
-					</file>
 					<file>
 						<name>$PROJ_DIR$/../../main.c</name>
 					</file>
@@ -2182,6 +2191,15 @@
 				<name>freertos-7.3.0</name>
 				<group>
 					<name>source</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/queue.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/timers.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/tasks.c</name>
+					</file>
 					<group>
 						<name>portable</name>
 						<group>
@@ -2193,28 +2211,19 @@
 						<group>
 							<name>iar</name>
 							<group>
-								<name>arm_cm3</name>
+								<name>sam</name>
 								<file>
-									<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm3/port.c</name>
+									<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam/port.c</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm3/portasm.s</name>
+									<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam/portasm.s</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm3/portmacro.h</name>
+									<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam/portmacro.h</name>
 								</file>
 							</group>
 						</group>
 					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/queue.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/timers.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/tasks.c</name>
-					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/list.c</name>
 					</file>

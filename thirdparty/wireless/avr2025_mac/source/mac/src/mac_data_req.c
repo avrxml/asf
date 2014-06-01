@@ -3,7 +3,7 @@
  *
  * @brief Implements data request related functions
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -67,6 +67,10 @@
 #include "mac.h"
 #include "mac_build_config.h"
 
+#ifdef MAC_SECURITY_ZIP
+#include "mac_security.h"
+#endif  /* MAC_SECURITY_ZIP */
+
 #if (MAC_INDIRECT_DATA_BASIC == 1)
 
 /* === Macros =============================================================== */
@@ -92,7 +96,7 @@ static uint8_t find_short_buffer(void *buf, void *short_addr);
 /**
  * @brief Build and transmits data request command frame
  *
- * This function builds and tranmits a data request command frame.
+ * This function builds and transmits a data request command frame.
  *
  *
  * @param expl_poll Data request due to explicit MLME poll request
@@ -145,7 +149,7 @@ bool mac_build_and_tx_data_req(bool expl_poll,
 
 	/*
 	 * If this data request cmd frame was initiated by a device due to
-	 *implicit
+	 * implicit
 	 * poll, set msgtype to DATAREQUEST_IMPL_POLL.
 	 * If this data request cmd frame was initiated by a MLME poll request,
 	 * set msgtype to DATAREQUEST.
@@ -158,7 +162,7 @@ bool mac_build_and_tx_data_req(bool expl_poll,
 
 	/*
 	 * The buffer header is stored as a part of frame_info_t structure
-	 *before the
+	 * before the
 	 * frame is given to the TAL. After the transmission of the frame, reuse
 	 * the buffer using this pointer.
 	 */
@@ -201,7 +205,8 @@ bool mac_build_and_tx_data_req(bool expl_poll,
 			tal_pib.ShortAddress) ||
 			force_own_long_addr) {
 		frame_ptr -= 8;
-		frame_len += 6; /* Add further 6 octets for long Source Address */
+		frame_len += 6; /* Add further 6 octets for long Source Address
+		                 **/
 
 		/* Build the Source address. */
 		convert_64_bit_to_byte_array(tal_pib.IeeeAddress, frame_ptr);
@@ -229,19 +234,20 @@ bool mac_build_and_tx_data_req(bool expl_poll,
 	 * the Destination Addressing Mode subfield of the Frame Control field
 	 * may be set to zero ..."
 	 * In order to keep the implementation simple the address info is also
-	 *in
+	 * in
 	 * this case 2 or 3, i.e. the destination address info is present.
 	 * This in return means that the PAN ID Compression bit is always set
-	 *for
+	 * for
 	 * data request frames, except the expl_dest_pan_id parameter is
-	 *different from
+	 * different from
 	 * our own PAN-Id PIB attribute.
 	 */
 	if ((expl_dest_addr_mode != FCF_NO_ADDR) &&
 			(expl_dest_pan_id != tal_pib.PANId)
 			) {
 		frame_ptr -= 2;
-		frame_len += 2; /* Add further 6 octets for long Source Pan-Id */
+		frame_len += 2; /* Add further 6 octets for long Source Pan-Id
+		                 **/
 
 		convert_16_bit_to_byte_array(tal_pib.PANId, frame_ptr);
 	} else {
@@ -277,9 +283,9 @@ bool mac_build_and_tx_data_req(bool expl_poll,
 				mac_pib.mac_CoordShortAddress) {
 			/*
 			 * If current value of short address for coordinator PIB
-			 *is
+			 * is
 			 * NOT 0xFFFE, the current value of the short address
-			 *for
+			 * for
 			 * coordinator shall be used as desination address.
 			 */
 			fcf |= FCF_SET_DEST_ADDR_MODE(FCF_SHORT_ADDR);
@@ -291,9 +297,9 @@ bool mac_build_and_tx_data_req(bool expl_poll,
 		} else {
 			/*
 			 * If current value of short address for coordinator PIB
-			 *is 0xFFFE,
+			 * is 0xFFFE,
 			 * the current value of the extended address for
-			 *coordinator
+			 * coordinator
 			 * shall be used as desination address.
 			 */
 			fcf |= FCF_SET_DEST_ADDR_MODE(FCF_LONG_ADDR);
@@ -369,7 +375,7 @@ bool mac_build_and_tx_data_req(bool expl_poll,
 		}
 	} else {
 		/* In Nonbeacon network the frame is sent with unslotted
-		 *CSMA-CA. */
+		 * CSMA-CA. */
 		cur_csma_mode = CSMA_UNSLOTTED;
 	}
 
@@ -384,7 +390,7 @@ bool mac_build_and_tx_data_req(bool expl_poll,
 		return true;
 	} else {
 		/* TAL is busy, hence the data request could not be transmitted
-		 **/
+		**/
 		bmm_buffer_free(buf_ptr);
 
 		return false;
@@ -429,9 +435,9 @@ static buffer_t *build_null_data_frame(void)
 
 	/* Get the payload pointer. */
 	frame_ptr = (uint8_t *)transmit_frame + LARGE_BUFFER_SIZE - 2; /* Add 2
-	                                                                *octets
-	                                                                *for
-	                                                                *FCS. */
+	                                                               * octets
+	                                                               * for
+	                                                               * FCS. */
 
 	/*
 	 * Set Source Address.
@@ -581,8 +587,9 @@ void mac_process_data_request(buffer_t *msg)
 	 * will be done after successful transmission of the frame.
 	 */
 	buf_ptr_next_data = qmm_queue_read(&indirect_data_q, &find_buf);
+
 	/* Note: The find_buf structure is reused below, so do not change this.
-	 **/
+	**/
 
 	if (NULL == buf_ptr_next_data) {
 		mac_handle_tx_null_data_frame();
@@ -595,9 +602,9 @@ void mac_process_data_request(buffer_t *msg)
 		/*
 		 * We need to check whether the source PAN-Id of the previously
 		 * received data request frame is identical to the destination
-		 *PAN-Id
+		 * PAN-Id
 		 * of the pending frame. If not the frame shall not be
-		 *transmitted,
+		 * transmitted,
 		 * but a Null Data frame instead.
 		 */
 		if (mac_parse_data.src_panid !=
@@ -610,9 +617,9 @@ void mac_process_data_request(buffer_t *msg)
 			/*
 			 * The frame to be transmitted next is marked.
 			 * This is necessary since the queue needs to be
-			 *traversed again
+			 * traversed again
 			 * to find other pending indirect data frames for this
-			 *particular
+			 * particular
 			 * recipient.
 			 */
 			transmit_frame->indirect_in_transit = true;
@@ -620,20 +627,20 @@ void mac_process_data_request(buffer_t *msg)
 
 			/*
 			 * Go through the indirect data queue to find out the
-			 *frame pending for
+			 * frame pending for
 			 * the device which has requested for the data.
 			 */
 
 			/*
 			 * Since the buffer header has already been stored in
 			 * transmit_frame->buffer_header, it can be reused here
-			 *for
+			 * for
 			 * other purpose.
 			 */
 
 			/*
 			 * It is assumed that the find_buf struct does still
-			 *have
+			 * have
 			 * the original values from above.
 			 */
 			buf_ptr_next_data = qmm_queue_read(&indirect_data_q,
@@ -641,7 +648,7 @@ void mac_process_data_request(buffer_t *msg)
 
 			/*
 			 * Check whether there is another indirect data
-			 *available
+			 * available
 			 * for the same recipient.
 			 */
 			if (NULL != buf_ptr_next_data) {
@@ -649,6 +656,30 @@ void mac_process_data_request(buffer_t *msg)
 					|= FCF_FRAME_PENDING;
 			}
 		}
+
+#ifdef MAC_SECURITY_ZIP
+		if (transmit_frame->mpdu[1] & FCF_SECURITY_ENABLED) {
+			mcps_data_req_t pmdr;
+
+			build_sec_mcps_data_frame(&pmdr, transmit_frame);
+
+			if (pmdr.SecurityLevel > 0) {
+				/* Secure the Frame */
+				retval_t build_sec = mac_secure(transmit_frame,	\
+						transmit_frame->mac_payload,
+						&pmdr);
+
+				if (MAC_SUCCESS != build_sec) {
+					/* The MAC Data Payload is encrypted
+					 *based on the security level. */
+					transmit_frame->indirect_in_transit
+						= false;
+					return;
+				}
+			}
+		}
+
+#endif
 
 		/*
 		 * Transmission should be done with CSMA-CA or
@@ -663,9 +694,9 @@ void mac_process_data_request(buffer_t *msg)
 		} else {
 			/*
 			 * TAL rejects frame transmission, since it's too close
-			 *to the next
+			 * to the next
 			 * beacon transmission. The frame is kept in the
-			 *indirect queue.
+			 * indirect queue.
 			 */
 			transmit_frame->indirect_in_transit = false;
 		}
@@ -705,7 +736,7 @@ void mac_handle_tx_null_data_frame(void)
 		} else {
 			/*
 			 * Transmission to TAL failed, free up the buffer used
-			 *to create
+			 * to create
 			 * Null Data frame.
 			 */
 			bmm_buffer_free(buf_ptr);
@@ -728,6 +759,9 @@ void mac_handle_tx_null_data_frame(void)
 static uint8_t find_short_buffer(void *buf, void *short_addr)
 {
 	frame_info_t *data = (frame_info_t *)buf;
+	uint16_t short_addr_temp = 0;
+	memcpy((uint8_t *)&short_addr_temp, (uint8_t *)short_addr, \
+			sizeof(short_addr_temp));
 
 	if (!data->indirect_in_transit) {
 		/*
@@ -743,7 +777,7 @@ static uint8_t find_short_buffer(void *buf, void *short_addr)
 		 * with short address passed.
 		 */
 		if ((dst_addr_mode == FCF_SHORT_ADDR) &&
-				(*(uint16_t *)short_addr ==
+				(short_addr_temp ==
 				convert_byte_array_to_16_bit(&data->mpdu[
 					PL_POS_DST_ADDR_START]))
 				) {
@@ -769,6 +803,9 @@ static uint8_t find_short_buffer(void *buf, void *short_addr)
 static uint8_t find_long_buffer(void *buf, void *long_addr)
 {
 	frame_info_t *data = (frame_info_t *)buf;
+	uint64_t long_addr_temp = 0;
+	memcpy((uint8_t *)&long_addr_temp, (uint8_t *)long_addr, \
+			sizeof(long_addr_temp));
 
 	if (!data->indirect_in_transit) {
 		/*
@@ -784,7 +821,7 @@ static uint8_t find_long_buffer(void *buf, void *long_addr)
 		 * with the exended address passed.
 		 */
 		if ((dst_addr_mode == FCF_LONG_ADDR) &&
-				(*(uint64_t *)long_addr ==
+				(long_addr_temp ==
 				convert_byte_array_to_64_bit(&data->mpdu[
 					PL_POS_DST_ADDR_START]))
 				) {

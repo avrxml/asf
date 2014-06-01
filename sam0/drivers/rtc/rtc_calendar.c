@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 RTC Driver (Calendar Mode)
+ * \brief SAM D20/D21/R21 RTC Driver (Calendar Mode)
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,27 +44,32 @@
 #include <gclk.h>
 
 #if !defined(__DOXYGEN__)
-volatile struct _rtc_device _rtc_dev;
+struct rtc_module *_rtc_instance[RTC_INST_NUM];
 #endif
 
 /**
  * \brief Resets the RTC module
  * Resets the RTC module to hardware defaults.
+ *
+ * \param[in,out] module  Pointer to the software instance struct
  */
-void rtc_calendar_reset(void)
+void rtc_calendar_reset(struct rtc_module *const module)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Disable module before reset. */
-	rtc_calendar_disable();
+	rtc_calendar_disable(module);
 
 #if RTC_CALENDAR_ASYNC == true
-	_rtc_dev.registered_callback = 0;
-	_rtc_dev.enabled_callback    = 0;
+	module->registered_callback = 0;
+	module->enabled_callback    = 0;
 #endif
 
-	while (rtc_calendar_is_syncing()) {
+	while (rtc_calendar_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 
@@ -76,13 +81,14 @@ void rtc_calendar_reset(void)
  * \internal Convert time structure to register_value.
  */
 static uint32_t _rtc_calendar_time_to_register_value(
+		struct rtc_module *const module,
 		const struct rtc_calendar_time *const time)
 {
 	/* Initialize return value. */
 	uint32_t register_value;
 
 	/* Set year value into register_value minus initial year. */
-	register_value = (time->year - _rtc_dev.year_init_value) <<
+	register_value = (time->year - module->year_init_value) <<
 			RTC_MODE2_CLOCK_YEAR_Pos;
 
 	/* Set month value into register_value. */
@@ -95,7 +101,7 @@ static uint32_t _rtc_calendar_time_to_register_value(
 	register_value |= (time->hour << RTC_MODE2_CLOCK_HOUR_Pos);
 
 	/* Check if 24 h clock and set pm flag. */
-	if (!(_rtc_dev.clock_24h) && (time->pm)) {
+	if (!(module->clock_24h) && (time->pm)) {
 		/* Set pm flag. */
 		register_value |= RTC_MODE2_CLOCK_HOUR_PM;
 	}
@@ -113,12 +119,13 @@ static uint32_t _rtc_calendar_time_to_register_value(
  * \internal Convert register_value to time structure.
  */
 static void _rtc_calendar_register_value_to_time(
+		struct rtc_module *const module,
 		const uint32_t register_value,
 		struct rtc_calendar_time *const time)
 {
 	/* Set year plus value of initial year. */
 	time->year = ((register_value & RTC_MODE2_CLOCK_YEAR_Msk) >>
-			RTC_MODE2_CLOCK_YEAR_Pos) + _rtc_dev.year_init_value;
+			RTC_MODE2_CLOCK_YEAR_Pos) + module->year_init_value;
 
 	/* Set month value into time struct. */
 	time->month = ((register_value & RTC_MODE2_CLOCK_MONTH_Msk) >>
@@ -128,7 +135,7 @@ static void _rtc_calendar_register_value_to_time(
 	time->day = ((register_value & RTC_MODE2_CLOCK_DAY_Msk) >>
 			RTC_MODE2_CLOCK_DAY_Pos);
 
-	if (_rtc_dev.clock_24h) {
+	if (module->clock_24h) {
 		/* Set hour in 24h mode. */
 		time->hour = ((register_value & RTC_MODE2_CLOCK_HOUR_Msk) >>
 				RTC_MODE2_CLOCK_HOUR_Pos);
@@ -157,13 +164,18 @@ static void _rtc_calendar_register_value_to_time(
  * Set the configurations given from the configuration structure to the
  * hardware module.
  *
+ * \param[in,out] module  Pointer to the software instance struct
  * \param[in] config  Pointer to the configuration structure.
  */
 static void _rtc_calendar_set_config(
+		struct rtc_module *const module,
 		const struct rtc_calendar_config *const config)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Set up temporary register value. */
 	uint16_t tmp_reg;
@@ -194,7 +206,7 @@ static void _rtc_calendar_set_config(
 
 	/* Set alarm time registers. */
 	for (uint8_t i = 0; i < RTC_NUM_OF_ALARMS; i++) {
-		rtc_calendar_set_alarm(&(config->alarm[i]), (enum rtc_calendar_alarm)i);
+		rtc_calendar_set_alarm(module, &(config->alarm[i]), (enum rtc_calendar_alarm)i);
 	}
 }
 
@@ -204,13 +216,25 @@ static void _rtc_calendar_set_config(
  * Initializes the module, setting up all given configurations to provide
  * the desired functionality of the RTC.
  *
+ * \param[out] module  Pointer to the software instance struct
+ * \param[in]   hw      Pointer to hardware instance
  * \param[in] config  Pointer to the configuration structure.
  */
 void rtc_calendar_init(
+		struct rtc_module *const module,
+		Rtc *const hw,
 		const struct rtc_calendar_config *const config)
 {
-	/* Sanity check. */
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(hw);
 	Assert(config);
+
+	/* Initialize device instance */
+	module->hw = hw;
+
+	/* Turn on the digital interface clock */
+	system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBA, PM_APBAMASK_RTC);
 
 	/* Set up GCLK */
 	struct system_gclk_chan_config gclk_chan_conf;
@@ -220,15 +244,22 @@ void rtc_calendar_init(
 	system_gclk_chan_enable(RTC_GCLK_ID);
 
 	/* Reset module to hardware defaults. */
-	rtc_calendar_reset();
+	rtc_calendar_reset(module);
 
 	/* Save conf_struct internally for continued use. */
-	_rtc_dev.clock_24h           = config->clock_24h;
-	_rtc_dev.continuously_update = config->continuously_update;
-	_rtc_dev.year_init_value     = config->year_init_value;
+	module->clock_24h           = config->clock_24h;
+	module->continuously_update = config->continuously_update;
+	module->year_init_value     = config->year_init_value;
+
+#if (RTC_INST_NUM == 1)
+	_rtc_instance[0] = module;
+#else
+	/* Register this instance for callbacks*/
+	_rtc_instance[_rtc_get_inst_index(hw)] = module;
+#endif
 
 	/* Set config. */
-	_rtc_calendar_set_config(config);
+	_rtc_calendar_set_config(module, config);
 }
 
 /**
@@ -239,21 +270,26 @@ void rtc_calendar_init(
  * - If currently in 24h mode, it will swap to 12h.
  *
  * \note This will not change setting in user's configuration structure.
+ *
+ * \param[in, out] module  Pointer to the software instance struct
  */
-void rtc_calendar_swap_time_mode(void)
+void rtc_calendar_swap_time_mode(struct rtc_module *const module)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Initialize time structure. */
 	struct rtc_calendar_time time;
 	struct rtc_calendar_alarm_time alarm;
 
 	/* Get current time. */
-	rtc_calendar_get_time(&time);
+	rtc_calendar_get_time(module, &time);
 
 	/* Check current mode. */
-	if (_rtc_dev.clock_24h) {
+	if (module->clock_24h) {
 		/* Set pm flag. */
 		time.pm = (uint8_t)(time.hour / 12);
 
@@ -265,19 +301,19 @@ void rtc_calendar_swap_time_mode(void)
 
 		/* Update alarms */
 		for (uint8_t i = 0; i < RTC_NUM_OF_ALARMS; i++) {
-			rtc_calendar_get_alarm(&alarm, (enum rtc_calendar_alarm)i);
+			rtc_calendar_get_alarm(module, &alarm, (enum rtc_calendar_alarm)i);
 			alarm.time.pm = (uint8_t)(alarm.time.hour / 12);
 			alarm.time.hour = alarm.time.hour % 12;
 			if (alarm.time.hour == 0) {
 				alarm.time.hour = 12;
 			}
-			_rtc_dev.clock_24h = false;
-			rtc_calendar_set_alarm(&alarm, (enum rtc_calendar_alarm)i);
-			_rtc_dev.clock_24h = true;
+			module->clock_24h = false;
+			rtc_calendar_set_alarm(module, &alarm, (enum rtc_calendar_alarm)i);
+			module->clock_24h = true;
 		}
 
 		/* Change value in configuration structure. */
-		_rtc_dev.clock_24h = false;
+		module->clock_24h = false;
 	} else {
 		/* Set hour value based on pm flag. */
 		if (time.pm == 1) {
@@ -290,33 +326,33 @@ void rtc_calendar_swap_time_mode(void)
 
 		/* Update alarms */
 		for (uint8_t i = 0; i < RTC_NUM_OF_ALARMS; i++) {
-			rtc_calendar_get_alarm(&alarm, (enum rtc_calendar_alarm)i);
+			rtc_calendar_get_alarm(module, &alarm, (enum rtc_calendar_alarm)i);
 			if (alarm.time.pm == 1) {
 				alarm.time.hour = alarm.time.hour + 12;
 				alarm.time.pm = 0;
-				_rtc_dev.clock_24h = true;
-				rtc_calendar_set_alarm(&alarm, (enum rtc_calendar_alarm)i);
-				_rtc_dev.clock_24h = false;
+				module->clock_24h = true;
+				rtc_calendar_set_alarm(module, &alarm, (enum rtc_calendar_alarm)i);
+				module->clock_24h = false;
 			} else if (alarm.time.hour == 12) {
 				alarm.time.hour = 0;
 			}
 		}
 
 		/* Change value in configuration structure. */
-		_rtc_dev.clock_24h = true;
+		module->clock_24h = true;
 	}
 
 	/* Disable RTC so new configuration can be set. */
-	rtc_calendar_disable();
+	rtc_calendar_disable(module);
 
 	/* Toggle mode. */
 	rtc_module->MODE2.CTRL.reg ^= RTC_MODE2_CTRL_CLKREP;
 
 	/* Enable RTC. */
-	rtc_calendar_enable();
+	rtc_calendar_enable(module);
 
 	/* Set new time format in CLOCK register. */
-	rtc_calendar_set_time(&time);
+	rtc_calendar_set_time(module, &time);
 }
 
 /**
@@ -324,17 +360,22 @@ void rtc_calendar_swap_time_mode(void)
  *
  * Sets the time provided to the calendar.
  *
+ * \param[in, out] module  Pointer to the software instance struct
  * \param[in] time  The time to set in the calendar.
  */
 void rtc_calendar_set_time(
+		struct rtc_module *const module,
 		const struct rtc_calendar_time *const time)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
 
-	uint32_t register_value = _rtc_calendar_time_to_register_value(time);
+	Rtc *const rtc_module = module->hw;
 
-	while (rtc_calendar_is_syncing()) {
+	uint32_t register_value = _rtc_calendar_time_to_register_value(module, time);
+
+	while (rtc_calendar_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 
@@ -347,21 +388,26 @@ void rtc_calendar_set_time(
  *
  * Retrieves the current time of the calendar.
  *
+ * \param[in, out] module  Pointer to the software instance struct
  * \param[out] time  Pointer to value that will be filled with current time.
  */
 void rtc_calendar_get_time(
+		struct rtc_module *const module,
 		struct rtc_calendar_time *const time)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Change of read method based on value of continuously_update value in
 	 * the configuration structure. */
-	if (!(_rtc_dev.continuously_update)) {
+	if (!(module->continuously_update)) {
 		/* Request read on CLOCK register. */
 		rtc_module->MODE2.READREQ.reg = RTC_READREQ_RREQ;
 
-		while (rtc_calendar_is_syncing()) {
+		while (rtc_calendar_is_syncing(module)) {
 			/* Wait for synchronization */
 		}
 	}
@@ -370,7 +416,7 @@ void rtc_calendar_get_time(
 	uint32_t register_value = rtc_module->MODE2.CLOCK.reg;
 
 	/* Convert value to time structure. */
-	_rtc_calendar_register_value_to_time(register_value, time);
+	_rtc_calendar_register_value_to_time(module, register_value, time);
 }
 
 /**
@@ -378,6 +424,7 @@ void rtc_calendar_get_time(
  *
  * Sets the time and mask specified to the requested alarm.
  *
+ * \param[in, out] module  Pointer to the software instance struct
  * \param[in] alarm        The alarm struct to set the alarm with.
  * \param[in] alarm_index  The index of the alarm to set.
  *
@@ -386,11 +433,15 @@ void rtc_calendar_get_time(
  * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided.
  */
 enum status_code rtc_calendar_set_alarm(
+		struct rtc_module *const module,
 		const struct rtc_calendar_alarm_time *const alarm,
 		const enum rtc_calendar_alarm alarm_index)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Sanity check. */
 	if ((uint32_t)alarm_index > RTC_NUM_OF_ALARMS) {
@@ -398,9 +449,9 @@ enum status_code rtc_calendar_set_alarm(
 	}
 
 	/* Get register_value from time. */
-	uint32_t register_value = _rtc_calendar_time_to_register_value(&(alarm->time));
+	uint32_t register_value = _rtc_calendar_time_to_register_value(module, &(alarm->time));
 
-	while (rtc_calendar_is_syncing()) {
+	while (rtc_calendar_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 
@@ -418,6 +469,7 @@ enum status_code rtc_calendar_set_alarm(
  *
  * Retrieves the current alarm time for the alarm specified.
  *
+ * \param[in, out] module  Pointer to the software instance struct
  * \param[out] alarm  Pointer to the struct that will be filled with alarm
  *                    time and mask of the specified alarm.
  * \param[in] alarm_index  Index of alarm to get alarm time from.
@@ -427,11 +479,15 @@ enum status_code rtc_calendar_set_alarm(
  * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided.
  */
 enum status_code rtc_calendar_get_alarm(
+		struct rtc_module *const module,
 		struct rtc_calendar_alarm_time *const alarm,
 		const enum rtc_calendar_alarm alarm_index)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Sanity check. */
 	if ((uint32_t)alarm_index > RTC_NUM_OF_ALARMS) {
@@ -443,7 +499,7 @@ enum status_code rtc_calendar_get_alarm(
 			rtc_module->MODE2.Mode2Alarm[alarm_index].ALARM.reg;
 
 	/* Convert to time structure. */
-	_rtc_calendar_register_value_to_time(register_value, &(alarm->time));
+	_rtc_calendar_register_value_to_time(module, register_value, &(alarm->time));
 
 	/* Read alarm mask */
 	alarm->mask = (enum rtc_calendar_alarm_mask)rtc_module->MODE2.Mode2Alarm[alarm_index].MASK.reg;
@@ -464,6 +520,7 @@ enum status_code rtc_calendar_get_alarm(
  *
  * \note Can only be used when the RTC is operated at 1Hz.
  *
+ * \param[in, out] module  Pointer to the software instance struct
  * \param[in] value Between -127 and 127 used for the correction.
  *
  * \return Status of the calibration procedure.
@@ -471,10 +528,14 @@ enum status_code rtc_calendar_get_alarm(
  * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided.
  */
 enum status_code rtc_calendar_frequency_correction(
+		struct rtc_module *const module,
 		const int8_t value)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Check if valid argument. */
 	if (abs(value) > 0x7F) {
@@ -492,7 +553,7 @@ enum status_code rtc_calendar_frequency_correction(
 		new_correction_value |= RTC_FREQCORR_SIGN;
 	}
 
-	while (rtc_calendar_is_syncing()) {
+	while (rtc_calendar_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 

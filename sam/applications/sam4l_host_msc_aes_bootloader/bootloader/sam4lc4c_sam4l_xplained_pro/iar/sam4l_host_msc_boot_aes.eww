@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\sam4l_host_msc_boot_aes_flash.ewp</path>
+	</project>
+</workspace>

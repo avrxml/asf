@@ -3,7 +3,7 @@
  *
  * \brief CDC Application Main functions
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,14 +52,19 @@ static volatile bool main_b_cdc_enable = false;
  */
 int main(void)
 {
+
 	irq_initialize_vectors();
 	cpu_irq_enable();
 
 	// Initialize the sleep manager
 	sleepmgr_init();
 
+#if !SAMD21 && !SAMR21
 	sysclk_init();
 	board_init();
+#else
+	system_init();
+#endif
 	ui_init();
 	ui_powerdown();
 
@@ -89,6 +94,23 @@ void main_sof_action(void)
 		return;
 	ui_process(udd_get_frame_number());
 }
+
+#ifdef USB_DEVICE_LPM_SUPPORT
+void main_suspend_lpm_action(void)
+{
+	ui_powerdown();
+}
+
+void main_remotewakeup_lpm_disable(void)
+{
+	ui_wakeup_disable();
+}
+
+void main_remotewakeup_lpm_enable(void)
+{
+	ui_wakeup_enable();
+}
+#endif
 
 bool main_cdc_enable(uint8_t port)
 {

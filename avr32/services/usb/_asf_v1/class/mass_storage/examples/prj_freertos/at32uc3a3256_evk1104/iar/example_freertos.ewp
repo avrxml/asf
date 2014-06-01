@@ -186,11 +186,12 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>BOARD=EVK1104</state>
-					<state>SD_MMC_MCI_ENABLE</state>
 					<state>FREERTOS_USED</state>
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
+					<state>BOARD=EVK1104</state>
+					<state>__FREERTOS__</state>
 					<state>AT45DBX_ENABLE</state>
+					<state>SD_MMC_MCI_ENABLE</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -477,11 +478,12 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>BOARD=EVK1104</state>
-					<state>SD_MMC_MCI_ENABLE</state>
 					<state>FREERTOS_USED</state>
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
+					<state>BOARD=EVK1104</state>
+					<state>__FREERTOS__</state>
 					<state>AT45DBX_ENABLE</state>
+					<state>SD_MMC_MCI_ENABLE</state>
 				</option>
 				<option>
 					<name>AIncludePaths</name>
@@ -1111,11 +1113,12 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>BOARD=EVK1104</state>
-					<state>SD_MMC_MCI_ENABLE</state>
 					<state>FREERTOS_USED</state>
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
+					<state>BOARD=EVK1104</state>
+					<state>__FREERTOS__</state>
 					<state>AT45DBX_ENABLE</state>
+					<state>SD_MMC_MCI_ENABLE</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1402,11 +1405,12 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>BOARD=EVK1104</state>
-					<state>SD_MMC_MCI_ENABLE</state>
 					<state>FREERTOS_USED</state>
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
+					<state>BOARD=EVK1104</state>
+					<state>__FREERTOS__</state>
 					<state>AT45DBX_ENABLE</state>
+					<state>SD_MMC_MCI_ENABLE</state>
 				</option>
 				<option>
 					<name>AIncludePaths</name>

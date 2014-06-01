@@ -40,9 +40,9 @@
  * \asf_license_stop
  */
 
-#ifndef CONF_BOARD_H
-#define CONF_BOARD_H
+#ifndef CONF_BOARD_H_INCLUDED
+#define CONF_BOARD_H_INCLUDED
 
 //#define CONF_BOARD_KEEP_WATCHDOG_AT_INIT
 
-#endif /* CONF_BOARD_H */
+#endif /* CONF_BOARD_H_INCLUDED */

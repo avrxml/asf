@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 External Interrupt Driver Quick Start
+ * \brief SAM D20/D21/R21 System Interrupt Driver Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,62 +42,61 @@
  */
 
 /**
- * \page asfdoc_samd20_system_interrupt_critsec_use_case Quick Start Guide for SYSTEM INTERRUPT - Critical Section Use Case
+ * \page asfdoc_sam0_system_interrupt_critsec_use_case Quick Start Guide for SYSTEM INTERRUPT - Critical Section Use Case
  *
  * In this case we perform a critical piece of code, disabling all interrupts
  * while a global shared flag is read. During the critical section, no interrupts
  * may occur.
  *
- * \section asfdoc_samd20_system_interrupt_critsec_use_case_setup Setup
+ * \section asfdoc_sam0_system_interrupt_critsec_use_case_setup Setup
  *
- * \subsection asfdoc_samd20_system_interrupt_critsec_use_case_setup_prereq Prerequisites
+ * \subsection asfdoc_sam0_system_interrupt_critsec_use_case_setup_prereq Prerequisites
  * There are no special setup requirements for this use-case.
  *
- * \section asfdoc_samd20_system_interrupt_critsec_use_case_use_main Use Case
+ * \section asfdoc_sam0_system_interrupt_critsec_use_case_use_main Use Case
  *
- * \subsection asfdoc_samd20_system_interrupt_critsec_use_case_code Code
+ * \subsection asfdoc_sam0_system_interrupt_critsec_use_case_code Code
  * Copy-paste the following code to your user application:
  * \snippet qs_system_interrupt.c main_1
  *
- * \subsection asfdoc_samd20_system_interrupt_critsec_use_case_flow Workflow
+ * \subsection asfdoc_sam0_system_interrupt_critsec_use_case_flow Workflow
  * -# Enter a critical section to disable global interrupts.
- *  \note Critical sections <i>may</i> be nested if desired; if nested, global
- *        interrupts will only be re-enabled once the outer-most critical
- *        section has completed.
- *
- *  \snippet qs_system_interrupt.c critical_section_start
+ *    \snippet qs_system_interrupt.c critical_section_start
+ *    \note Critical sections <i>may</i> be nested if desired; if nested, global
+ *          interrupts will only be re-enabled once the outer-most critical
+ *          section has completed.
  *
  * -# Check a global shared flag and perform a response. This code may be any
  *    critical code that requires exclusive access to all resources without the
  *    possibility of interruption.
- *  \snippet qs_system_interrupt.c do_critical_code
+ *    \snippet qs_system_interrupt.c do_critical_code
  *
  * -# Exit the critical section to re-enable global interrupts.
- *  \snippet qs_system_interrupt.c critical_section_end
+ *    \snippet qs_system_interrupt.c critical_section_end
  */
 
 /**
- * \page asfdoc_samd20_system_interrupt_enablemodint_use_case Quick Start Guide for SYSTEM INTERRUPT - Enable Module Interrupt Use Case
+ * \page asfdoc_sam0_system_interrupt_enablemodint_use_case Quick Start Guide for SYSTEM INTERRUPT - Enable Module Interrupt Use Case
  *
  * In this case we enable interrupt handling for a specific module, as well as
  * enable interrupts globally for the device.
  *
- * \section asfdoc_samd20_system_interrupt_enablemodint_use_case_setup Setup
+ * \section asfdoc_sam0_system_interrupt_enablemodint_use_case_setup Setup
  *
- * \subsection asfdoc_samd20_system_interrupt_enablemodint_use_case_setup_prereq Prerequisites
+ * \subsection asfdoc_sam0_system_interrupt_enablemodint_use_case_setup_prereq Prerequisites
  * There are no special setup requirements for this use-case.
  *
- * \section asfdoc_samd20_system_interrupt_enablemodint_use_case_use_main Use Case
+ * \section asfdoc_sam0_system_interrupt_enablemodint_use_case_use_main Use Case
  *
- * \subsection asfdoc_samd20_system_interrupt_enablemodint_use_case_code Code
+ * \subsection asfdoc_sam0_system_interrupt_enablemodint_use_case_code Code
  * Copy-paste the following code to your user application:
  * \snippet qs_system_interrupt.c main_2
  *
- * \subsection asfdoc_samd20_system_interrupt_enablemodint_use_case_flow Workflow
+ * \subsection asfdoc_sam0_system_interrupt_enablemodint_use_case_flow Workflow
  * -# Enable interrupt handling for the device's RTC peripheral.
- *  \snippet qs_system_interrupt.c module_int_enable
+ *    \snippet qs_system_interrupt.c module_int_enable
  *
  * -# Enable global interrupts, so that any enabled and active interrupt sources
  *    can trigger their respective handler functions.
- *  \snippet qs_system_interrupt.c global_int_enable
+ *    \snippet qs_system_interrupt.c global_int_enable
  */

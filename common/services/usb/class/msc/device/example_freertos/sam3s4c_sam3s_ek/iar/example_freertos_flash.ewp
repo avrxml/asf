@@ -163,12 +163,13 @@
 				<option>
 					<name>CCDefines</name>
 					<state>__SAM3S4C__</state>
-					<state>FREERTOS_USED</state>
+					<state>UDD_ENABLE</state>
 					<state>ACCESS_USB_ENABLED</state>
 					<state>SD_MMC_ENABLE</state>
-					<state>UDD_ENABLE</state>
+					<state>FREERTOS_USED</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
+					<state>__FREERTOS__</state>
 					<state>BOARD=SAM3S_EK</state>
 				</option>
 				<option>
@@ -478,12 +479,13 @@
 				<option>
 					<name>ADefines</name>
 					<state>__SAM3S4C__</state>
-					<state>FREERTOS_USED</state>
+					<state>UDD_ENABLE</state>
 					<state>ACCESS_USB_ENABLED</state>
 					<state>SD_MMC_ENABLE</state>
-					<state>UDD_ENABLE</state>
+					<state>FREERTOS_USED</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
+					<state>__FREERTOS__</state>
 					<state>BOARD=SAM3S_EK</state>
 				</option>
 				<option>
@@ -1119,12 +1121,13 @@
 				<option>
 					<name>CCDefines</name>
 					<state>__SAM3S4C__</state>
-					<state>FREERTOS_USED</state>
+					<state>UDD_ENABLE</state>
 					<state>ACCESS_USB_ENABLED</state>
 					<state>SD_MMC_ENABLE</state>
-					<state>UDD_ENABLE</state>
+					<state>FREERTOS_USED</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
+					<state>__FREERTOS__</state>
 					<state>BOARD=SAM3S_EK</state>
 				</option>
 				<option>
@@ -1434,12 +1437,13 @@
 				<option>
 					<name>ADefines</name>
 					<state>__SAM3S4C__</state>
-					<state>FREERTOS_USED</state>
+					<state>UDD_ENABLE</state>
 					<state>ACCESS_USB_ENABLED</state>
 					<state>SD_MMC_ENABLE</state>
-					<state>UDD_ENABLE</state>
+					<state>FREERTOS_USED</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
+					<state>__FREERTOS__</state>
 					<state>BOARD=SAM3S_EK</state>
 				</option>
 				<option>

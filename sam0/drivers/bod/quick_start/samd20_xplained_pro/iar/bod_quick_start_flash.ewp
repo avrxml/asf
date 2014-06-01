@@ -758,11 +758,10 @@
 				</option>
 				<option>
 					<name>IlinkUseExtraOptions</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1712,11 +1711,10 @@
 				</option>
 				<option>
 					<name>IlinkUseExtraOptions</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1969,13 +1967,13 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/pio_samd20j15.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/pio_samd20e18.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/pio_samd20j17.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/pio_samd20g15.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/pio_samd20e1f.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/pio_samd20g17.h</name>
@@ -2165,9 +2163,6 @@
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/samd20g16.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/samd20e18.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/samd20j15.h</name>
 						</file>
 						<file>
@@ -2178,6 +2173,9 @@
 			</group>
 			<group>
 				<name>preprocessor</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../utils/preprocessor/mrecursion.h</name>
+				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../utils/preprocessor/preprocessor.h</name>
 				</file>

@@ -145,3 +145,7 @@ CPPFLAGS = \
 LDFLAGS =  \
        -Wl,-section-start=.hsb_ram_loc=0xA0000000        \
        -nostartfiles -Wl,-e,_trampoline
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

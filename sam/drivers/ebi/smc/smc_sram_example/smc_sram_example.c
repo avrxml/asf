@@ -3,7 +3,7 @@
  *
  * \brief SMC SRAM Example for SAM.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -69,14 +69,7 @@
  *
  * \section Usage
  *
- * -# Build the program and download it inside the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a> application note or to the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>, depending on your chosen solution.
+ * -# Build the program and download it inside the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g. HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -87,43 +80,36 @@
  * -# Start the application.
  * -# In the terminal window, the following text should appear:
  *    \code
- *     -- SMC SRAM Example --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
+	-- SMC SRAM Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
  *
- *     -I- Configure EBI I/O for SRAM connection.
- *     -I- Configure PMC to enable the SMC clock.
- *     -I- Configure SMC timing and mode.
- *     -I- SMC Setup Register 0xxxxxxxxx.
- *     -I- SMC Pulse Register 0xxxxxxxxx.
- *     -I- SMC Cycle Register 0xxxxxxxxx.
- *     -I- SMC MODE  Register 0xxxxxxxxx.
- *     -I- CTest external SRAM access.
- *    \endcode
- * 
  */
 
 #include "asf.h"
 #include "stdio_serial.h"
 #include "conf_board.h"
 
-/** Base address of chip select */
-#define SRAM_BASE_ADDRESS		(EBI_CS0_ADDR)
-
 /** SRAM test size */
-#define SRAM_TEST_SIZE		(10*1024)
+#define SRAM_TEST_SIZE  (10*1024)
 
 /**
  * \brief Go/No-Go test of the first 10K-Bytes of external SRAM access.
-   \return 0 if test is failed else 1.
+ *
+ * \param base_addr  Base address of the SRAM.
+ *
+ * \return 0 if test is failed else 1.
  */
-static uint8_t access_sram_test(void)
+static uint8_t access_sram_test(uint32_t base_addr)
 {
 	uint32_t i;
-	uint8_t *ptr = (uint8_t *) (SRAM_BASE_ADDRESS);
+	uint8_t *ptr = (uint8_t *) (base_addr);
 
+#ifdef PIN_EBI_NLB
 	/* Pull down LB, enable sram access */
 	pio_set_pin_low(PIN_EBI_NLB);
+#endif
 
 	/* Clear test data area */
 	for (i = 0; i < SRAM_TEST_SIZE; ++i) {
@@ -150,8 +136,10 @@ static uint8_t access_sram_test(void)
 		}
 	}
 
+#ifdef PIN_EBI_NLB
 	/* Pull up LB, SRAM standby */
 	pio_set_pin_high(PIN_EBI_NLB);
+#endif
 
 	return 1;
 }
@@ -165,10 +153,30 @@ static void configure_console(void)
 		.baudrate = CONF_UART_BAUDRATE,
 		.paritytype = CONF_UART_PARITY
 	};
-	
+
 	/* Configure console UART. */
 	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
 	stdio_serial_init(CONF_UART, &uart_serial_options);
+}
+
+/**
+ * \brief Configure the SMC for SRAM access.
+ *
+ * \param cs  Chip select.
+ */
+static void configure_sram(uint32_t cs)
+{
+	smc_set_setup_timing(SMC, cs, SMC_SETUP_NWE_SETUP(1)
+			| SMC_SETUP_NCS_WR_SETUP(1)
+			| SMC_SETUP_NRD_SETUP(1)
+			| SMC_SETUP_NCS_RD_SETUP(1));
+	smc_set_pulse_timing(SMC, cs, SMC_PULSE_NWE_PULSE(6)
+			| SMC_PULSE_NCS_WR_PULSE(6)
+			| SMC_PULSE_NRD_PULSE(6)
+			| SMC_PULSE_NCS_RD_PULSE(6));
+	smc_set_cycle_timing(SMC, cs, SMC_CYCLE_NWE_CYCLE(7)
+			| SMC_CYCLE_NRD_CYCLE(7));
+	smc_set_mode(SMC, cs, SMC_MODE_READ_MODE | SMC_MODE_WRITE_MODE);
 }
 
 /**
@@ -196,28 +204,29 @@ int main(void)
 	/* Enable PMC clock for SMC */
 	pmc_enable_periph_clk(ID_SMC);
 
-	/* complete SMC configuration between SRAM and SMC waveforms. */
-	smc_set_setup_timing(SMC, 0, SMC_SETUP_NWE_SETUP(1)
-			| SMC_SETUP_NCS_WR_SETUP(1)
-			| SMC_SETUP_NRD_SETUP(1)
-			| SMC_SETUP_NCS_RD_SETUP(1));
-	smc_set_pulse_timing(SMC, 0, SMC_PULSE_NWE_PULSE(6)
-			| SMC_PULSE_NCS_WR_PULSE(6)
-			| SMC_PULSE_NRD_PULSE(6)
-			| SMC_PULSE_NCS_RD_PULSE(6));
-	smc_set_cycle_timing(SMC, 0, SMC_CYCLE_NWE_CYCLE(7)
-			| SMC_CYCLE_NRD_CYCLE(7));
-	smc_set_mode(SMC, 0,
-			SMC_MODE_READ_MODE | SMC_MODE_WRITE_MODE);
+	/* SMC configuration between SRAM and SMC waveforms. */
+	configure_sram(SRAM_CHIP_SELECT);
+#ifdef SRAM_CHIP_SELECT_2ND
+	configure_sram(SRAM_CHIP_SELECT_2ND);
+#endif
 
+#ifdef PIN_EBI_NLB
 	/* Configure LB, enable SRAM access */
 	pio_configure_pin(PIN_EBI_NLB, PIN_EBI_NLB_FLAGS);
+#endif
 
 	/* Test external SRAM access */
 	printf("Test external SRAM access. \n\r");
-	if (access_sram_test()) {
+	if (access_sram_test(SRAM_BASE_ADDRESS)) {
 		printf("SRAM access successful.\n\r");
 	} else {
 		printf("SRAM access failed.\n\r");
 	}
+#ifdef SRAM_CHIP_SELECT_2ND
+	if (access_sram_test(SRAM_BASE_ADDRESS_2ND)) {
+		printf("2nd SRAM access successful.\n\r");
+	} else {
+		printf("2nd SRAM access failed.\n\r");
+	}
+#endif
 }

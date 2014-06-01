@@ -3,7 +3,7 @@
  *
  * @brief This file contains defines for TAL types.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -61,6 +61,7 @@
 /**
  * PIB attribute value type
  */
+__PACK__DATA__
 typedef union {
 	/** PIB Attribute Bool */
 	bool pib_value_bool;
@@ -73,7 +74,7 @@ typedef union {
 	/** PIB Attribute 64-bit */
 	uint64_t pib_value_64bit;
 } pib_value_t;
-
+__PACK__RST_DATA__
 /* === MACROS ============================================================== */
 
 /* RF bands: */

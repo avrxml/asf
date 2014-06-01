@@ -362,6 +362,7 @@ void udi_cdc_comm_disable(void)
 void udi_cdc_data_disable(void)
 {
 	uint8_t port;
+	UNUSED(port);
 
 	Assert(udi_cdc_nb_data_enabled != 0);
 	udi_cdc_nb_data_enabled--;
@@ -475,6 +476,8 @@ static uint8_t udi_cdc_setup_to_port(void)
 static void udi_cdc_line_coding_received(void)
 {
 	uint8_t port = udi_cdc_setup_to_port();
+	UNUSED(port);
+
 	UDI_CDC_SET_CODING_EXT(port, (&udi_cdc_line_coding[port]));
 }
 
@@ -721,7 +724,7 @@ static void udi_cdc_tx_send(uint8_t port)
 	buf_sel_trans = udi_cdc_tx_buf_sel[port];
 	if (udi_cdc_tx_buf_nb[port][buf_sel_trans] == 0) {
 		sof_zlp_counter++;
-		if (((!udd_is_high_speed()) && (sof_zlp_counter < 100)) 
+		if (((!udd_is_high_speed()) && (sof_zlp_counter < 100))
 				|| (udd_is_high_speed() && (sof_zlp_counter < 800))) {
 			cpu_irq_restore(flags);
 			return;
@@ -740,7 +743,7 @@ static void udi_cdc_tx_send(uint8_t port)
 	}
 	udi_cdc_tx_trans_ongoing[port] = true;
 	cpu_irq_restore(flags);
-	
+
 	b_short_packet = (udi_cdc_tx_buf_nb[port][buf_sel_trans] != UDI_CDC_TX_BUFFERS);
 	if (b_short_packet) {
 		if (udd_is_high_speed()) {

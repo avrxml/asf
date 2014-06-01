@@ -3,7 +3,7 @@
  *
  * \brief API driver for ILI93XX TFT display component.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -540,7 +540,7 @@ uint8_t ili93xx_device_type_identify(void)
  */
 uint32_t ili93xx_init(struct ili93xx_opt_t *p_opt)
 {
-	uint8_t paratable[15];
+	uint8_t paratable[6];
 
 	/** Identify the LCD driver device*/
 	if (ili93xx_device_type_identify() != 0) {
@@ -785,51 +785,7 @@ uint32_t ili93xx_init(struct ili93xx_opt_t *p_opt)
 		paratable[1] = 0x82;
 		paratable[2] = 0x27;
 		paratable[3] = 0x00;
-		ili93xx_write_register(ILI9341_CMD_DISPLAY_FUNCTION_CTL,
-				      paratable, 4);
-				
-		paratable[0] = 0x00;
-		ili93xx_write_register(ILI9341_CMD_ENABLE_3_GAMMA_CONTROL,
-				      paratable,1);
-		
-		paratable[0] = 0x01;
-		ili93xx_write_register(ILI9341_CMD_GAMMA_SET, paratable,1);
-		
-		/** set gamma curve parameters*/
-		paratable[0]=0x0F;
-		paratable[1]=0x31;
-		paratable[2]=0x2B;
-		paratable[3]=0x0C;
-		paratable[4]=0x0E;
-		paratable[5]=0x08;
-		paratable[6]=0x4E;
-		paratable[7]=0xF1;
-		paratable[8]=0x37;
-		paratable[9]=0x07;
-		paratable[10]=0x10;
-		paratable[11]=0x03;
-		paratable[12]=0x0E;
-		paratable[13]=0x09;
-		paratable[14]=0x00;
-		ili93xx_write_register(ILI9341_CMD_POSITIVE_GAMMA_CORRECTION,
-				      paratable, 15);
-		paratable[0]=0x00;
-		paratable[1]=0x0E;
-		paratable[2]=0x14;
-		paratable[3]=0x03;
-		paratable[4]=0x11;
-		paratable[5]=0x07;
-		paratable[6]=0x31;
-		paratable[7]=0xC1;
-		paratable[8]=0x48;
-		paratable[9]=0x08;
-		paratable[10]=0x0F;
-		paratable[11]=0x0C;
-		paratable[12]=0x31;
-		paratable[13]=0x36;
-		paratable[14]=0x0F;
-		ili93xx_write_register(ILI9341_CMD_NEGATIVE_GAMMA_CORRECTION,
-				      paratable, 15);
+		ili93xx_write_register(ILI9341_CMD_DISPLAY_FUNCTION_CTL, paratable, 4);
 		
 		/** set window area*/
 		ili93xx_set_window(0, 0, p_opt->ul_width, p_opt->ul_height);
@@ -1578,30 +1534,36 @@ static inline void ili93xx_send_draw_limits(const bool send_end_limits)
 				limit_start_y);
 
 	} else if (g_uc_device_type == DEVICE_TYPE_ILI9341) {
+
+		if (send_end_limits) {
+			uint8_t paratable[4];
+			
+			/** Set Column Address Position */
+			paratable[0] = (limit_start_x >> 8) & 0xFF;
+			paratable[1] = limit_start_x & 0xFF;
+			paratable[2] = (limit_end_x >> 8) & 0xFF;
+			paratable[3] = limit_end_x & 0xFF;
+			ili93xx_write_register(ILI9341_CMD_COLUMN_ADDRESS_SET,
+					paratable, 4);
+			
+			/** Set Page Address Position */
+			paratable[0] = (limit_start_y >> 8) & 0xFF;
+			paratable[1] = limit_start_y & 0xFF;
+			paratable[2] = (limit_end_y >> 8) & 0xFF;
+			paratable[3] = limit_end_y & 0xFF;
+			ili93xx_write_register(ILI9341_CMD_PAGE_ADDRESS_SET,
+						   paratable, 4);
+
+		} else {
 		/** Set Horizontal Address Start Position */
 		ili93xx_write_register_word(ILI9341_CMD_COLUMN_ADDRESS_SET,
 				(uint16_t)limit_start_x);
 
-		if (send_end_limits) {
-			/** Set Horizontal Address End Position */
-			ili93xx_write_register_word(
-					ILI9341_CMD_COLUMN_ADDRESS_SET,
-					(uint16_t)(limit_end_x));
-		}
-
-		ili93xx_write_register(0, NULL, 0);
-
 		/** Set Vertical Address Start Position */
 		ili93xx_write_register_word(ILI9341_CMD_PAGE_ADDRESS_SET,
 				(uint16_t)limit_start_y);
-		if (send_end_limits) {
-			/** Set Vertical Address End Position */
-			ili93xx_write_register_word(
-					ILI9341_CMD_PAGE_ADDRESS_SET,
-					(uint16_t)(limit_end_y));
-		}
 
-		ili93xx_write_register(0, NULL, 0);
+		}
 	}
 }
 
@@ -1794,6 +1756,7 @@ void ili93xx_copy_raw_pixel_24bits_to_screen(const uint8_t *raw_pixels,
 		LCD_WD(pixels & 0xFF);
 		raw_pixels += 3;
 	}
+
 }
 
 /**
@@ -1842,6 +1805,51 @@ void ili93xx_copy_pixels_from_screen(ili93xx_color_t *pixels, uint32_t count)
 	UNUSED(count);
 }
 
+/**
+ * \brief Sets the orientation of the display data
+ *
+ * Configures the display for a given orientation, including mirroring and/or
+ * screen rotation.
+ *
+ * \param flags Orientation flags to use, see \ref ILI93XX_FLIP_X, \ref ILI93XX_FLIP_Y
+ *        and \ref ILI93XX_SWITCH_XY.
+ */
+void ili93xx_set_orientation(uint8_t flags)
+{
+	uint16_t setting = ILI9325_ENTRY_MODE_TRI | ILI9325_ENTRY_MODE_DFM | ILI9325_ENTRY_MODE_BGR ;
+
+	if (g_uc_device_type == DEVICE_TYPE_ILI9325) {
+		setting |= (flags & ILI93XX_FLIP_X ? ILI9325_ENTRY_MODE_ID(0x01) : 0);
+		setting |= (flags & ILI93XX_FLIP_Y ? ILI9325_ENTRY_MODE_ID(0x10) : 0);
+		setting |= (flags & ILI93XX_SWITCH_XY ? ILI9325_ENTRY_MODE_AM : 0);
+
+		ili93xx_write_register_word(ILI9325_ENTRY_MODE, setting);
+	} else {
+
+		uint8_t madctl = 0x48;
+		
+		if (flags & ILI93XX_FLIP_X) {
+			madctl &= ~(1 << 6);
+		}
+		
+		if (flags & ILI93XX_FLIP_Y) {
+			madctl |= 1 << 7;
+		}
+		
+		if (flags & ILI93XX_SWITCH_XY) {
+			madctl |= 1 << 5;
+		}
+		
+		ili93xx_write_register(ILI9341_CMD_MEMORY_ACCESS_CONTROL, &madctl,1);
+	}
+}
+
+
+uint32_t ili93xx_get_lcd_type(void)
+{
+	return g_uc_device_type;
+
+}
 /**
  * \}
  */

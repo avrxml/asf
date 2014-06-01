@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 RTC Basic Usage Example
+ * \brief SAM D20/D21/R21 RTC Basic Usage Example
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,6 +44,10 @@
 
 void configure_rtc_calendar(void);
 
+//! [rtc_module_instance]
+struct rtc_module rtc_instance;
+//! [rtc_module_instance]
+
 //! [initiate]
 void configure_rtc_calendar(void)
 {
@@ -73,11 +77,11 @@ void configure_rtc_calendar(void)
 //! [set_config]
 
 //! [init_rtc]
-	rtc_calendar_init(&config_rtc_calendar);
+	rtc_calendar_init(&rtc_instance, RTC, &config_rtc_calendar);
 //! [init_rtc]
 
 //! [enable]
-	rtc_calendar_enable();
+	rtc_calendar_enable(&rtc_instance);
 //! [enable]
 }
 //! [initiate]
@@ -98,9 +102,9 @@ int main(void)
 	configure_rtc_calendar();
 
 	/* Set current time. */
-	rtc_calendar_set_time(&time);
+	rtc_calendar_set_time(&rtc_instance, &time);
 
-	rtc_calendar_swap_time_mode();
+	rtc_calendar_swap_time_mode(&rtc_instance);
 //! [add_main]
 
 //! [main_imp]
@@ -108,7 +112,7 @@ int main(void)
 	while (true) {
 //! [main_loop]
 //! [check_alarm_match]
-		if (rtc_calendar_is_alarm_match(RTC_CALENDAR_ALARM_0)) {
+		if (rtc_calendar_is_alarm_match(&rtc_instance, RTC_CALENDAR_ALARM_0)) {
 //! [check_alarm_match]
 //! [alarm_match_action]
 			/* Do something on RTC alarm match here */
@@ -116,7 +120,7 @@ int main(void)
 //! [alarm_match_action]
 
 //! [clear_alarm_match]
-			rtc_calendar_clear_alarm_match(RTC_CALENDAR_ALARM_0);
+			rtc_calendar_clear_alarm_match(&rtc_instance, RTC_CALENDAR_ALARM_0);
 //! [clear_alarm_match]
 		}
 	}

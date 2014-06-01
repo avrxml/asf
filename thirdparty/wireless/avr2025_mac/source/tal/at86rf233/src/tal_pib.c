@@ -3,7 +3,7 @@
  *
  * @brief This file handles the TAL PIB attributes, set/get and initialization
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -70,12 +70,32 @@
 /* === MACROS ============================================================== */
 
 #ifdef CUSTOM_PWR_TABLE
+#ifdef EXT_PA_SE2431L
 
 /*
- * If a customized powr table is used, the power table gets defined within the
- * pal_board.c file.
+ * Mapping table for FEM TX Pout (dBm).
+ *     based on board characterization
  */
-FLASH_EXTERN(int8_t tx_pwr_table[16]);
+FLASH_DECLARE(int8_t tx_pwr_table[16]) = {
+	/*PA*/ /* RF233 */  /* TX_PWR */ /* EVDD 3V0 */
+	21, /*  4.0  */  /*  0x00  */
+	21, /*  3.7  */  /*  0x01  */
+	21, /*  3.4  */  /*  0x02  */
+	21, /*  3.0  */  /*  0x03  */
+	21, /*  2.5  */  /*  0x04  */
+	21, /*  2.0  */  /*  0x05  */
+	21, /*  1.0  */  /*  0x06  */
+	21, /*  0   */  /*  0x07  */
+	20, /*  -1   */  /*  0x08  */
+	20, /*  -2   */  /*  0x09  */
+	19, /*  -3   */  /*  0x0A  */
+	18, /*  -4   */  /*  0x0B  */
+	16, /*  -6   */  /*  0x0C  */
+	13, /*  -8   */  /*  0x0D  */
+	9, /*  -12  */  /*  0x0E  */
+	3, /*  -17  */  /*  0x0F  */
+};
+#endif
 #else
 
 /*
@@ -173,49 +193,48 @@ void write_all_tal_pib_to_trx(void)
 
 	ptr_to_reg = (uint8_t *)&tal_pib.PANId;
 	for (uint8_t i = 0; i < 2; i++) {
-		pal_trx_reg_write((RG_PAN_ID_0 + i), *ptr_to_reg);
+		trx_reg_write((RG_PAN_ID_0 + i), *ptr_to_reg);
 		ptr_to_reg++;
 	}
 
 	ptr_to_reg = (uint8_t *)&tal_pib.IeeeAddress;
 	for (uint8_t i = 0; i < 8; i++) {
-		pal_trx_reg_write((RG_IEEE_ADDR_0 + i), *ptr_to_reg);
+		trx_reg_write((RG_IEEE_ADDR_0 + i), *ptr_to_reg);
 		ptr_to_reg++;
 	}
 
 	ptr_to_reg = (uint8_t *)&tal_pib.ShortAddress;
 	for (uint8_t i = 0; i < 2; i++) {
-		pal_trx_reg_write((RG_SHORT_ADDR_0 + i), *ptr_to_reg);
+		trx_reg_write((RG_SHORT_ADDR_0 + i), *ptr_to_reg);
 		ptr_to_reg++;
 	}
 
 	/* configure TX_ARET; CSMA and CCA */
-	pal_trx_bit_write(SR_CCA_MODE, tal_pib.CCAMode);
-	pal_trx_bit_write(SR_MIN_BE, tal_pib.MinBE);
+	trx_bit_write(SR_CCA_MODE, tal_pib.CCAMode);
+	trx_bit_write(SR_MIN_BE, tal_pib.MinBE);
 
-	pal_trx_bit_write(SR_AACK_I_AM_COORD, tal_pib.PrivatePanCoordinator);
+	trx_bit_write(SR_AACK_I_AM_COORD, tal_pib.PrivatePanCoordinator);
 
 	/* set phy parameter */
-	pal_trx_bit_write(SR_MAX_BE, tal_pib.MaxBE);
+	trx_bit_write(SR_MAX_BE, tal_pib.MaxBE);
 
 #ifdef HIGH_DATA_RATE_SUPPORT
 	apply_channel_page_configuration(tal_pib.CurrentPage);
 #endif
 
-	pal_trx_bit_write(SR_CHANNEL, tal_pib.CurrentChannel);
+	trx_bit_write(SR_CHANNEL, tal_pib.CurrentChannel);
 	{
 		uint8_t reg_value;
 
 		reg_value = convert_phyTransmitPower_to_reg_value(
 				tal_pib.TransmitPower);
-		pal_trx_bit_write(SR_TX_PWR, reg_value);
+		trx_bit_write(SR_TX_PWR, reg_value);
 	}
 
 #ifdef PROMISCUOUS_MODE
 	if (tal_pib.PromiscuousMode) {
 		set_trx_state(CMD_RX_ON);
 	}
-
 #endif
 }
 
@@ -251,7 +270,6 @@ retval_t tal_pib_get(uint8_t attribute, uint8_t *value)
 	case macPromiscuousMode:
 		*(uint16_t *)value = tal_pib.PromiscuousMode;
 		break;
-
 #endif
 	case macShortAddress:
 		*(uint16_t *)value = tal_pib.ShortAddress;
@@ -298,7 +316,8 @@ retval_t tal_pib_get(uint8_t attribute, uint8_t *value)
 		break;
 
 	case macIeeeAddress:
-		*(uint64_t *)value = tal_pib.IeeeAddress;
+		memcpy((uint8_t *)value, (uint8_t *)&tal_pib.IeeeAddress,
+				sizeof(tal_pib.IeeeAddress));
 		break;
 
 #ifdef BEACON_SUPPORT
@@ -317,7 +336,6 @@ retval_t tal_pib_get(uint8_t attribute, uint8_t *value)
 	case macBeaconTxTime:
 		*(uint32_t *)value = tal_pib.BeaconTxTime;
 		break;
-
 #endif  /* BEACON_SUPPORT */
 	case mac_i_pan_coordinator:
 		*(bool *)value = tal_pib.PrivatePanCoordinator;
@@ -368,7 +386,6 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 		Assert("TAL is busy" == 0);
 		return TAL_BUSY;
 	}
-
 #endif /* (MAC_SCAN_ED_REQUEST_CONFIRM == 1) */
 
 	/*
@@ -413,7 +430,6 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 	case macBeaconTxTime:
 		tal_pib.BeaconTxTime = value->pib_value_32bit;
 		break;
-
 #endif  /* BEACON_SUPPORT */
 #ifdef PROMISCUOUS_MODE
 	case macPromiscuousMode:
@@ -422,7 +438,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 			tal_trx_wakeup();
 
 			/* Check if receive buffer is available or queue is not
-			 *full. */
+			 * full. */
 			if (NULL == tal_rx_buffer) {
 				set_trx_state(CMD_PLL_ON);
 				tal_rx_on_required = true;
@@ -445,7 +461,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 		if (tal_trx_status == TRX_SLEEP) {
 			/* While trx is in SLEEP, register cannot be accessed.
-			 **/
+			**/
 			return TAL_TRX_ASLEEP;
 		}
 
@@ -457,16 +473,15 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 			/*
 			 * macMinBE must not be larger than macMaxBE or
-			 *calculation
+			 * calculation
 			 * of macMaxFrameWaitTotalTime will fail.
 			 */
 			if (tal_pib.MinBE > tal_pib.MaxBE) {
 				tal_pib.MinBE = tal_pib.MaxBE;
 			}
-
 #endif  /* REDUCED_PARAM_CHECK */
 
-			pal_trx_bit_write(SR_MIN_BE, tal_pib.MinBE);
+			trx_bit_write(SR_MIN_BE, tal_pib.MinBE);
 			break;
 
 		case macPANId:
@@ -475,7 +490,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				uint8_t *ptr_pan;
 				ptr_pan = (uint8_t *)&tal_pib.PANId;
 				for (uint8_t i = 0; i < 2; i++) {
-					pal_trx_reg_write((RG_PAN_ID_0 + i),
+					trx_reg_write((RG_PAN_ID_0 + i),
 							*ptr_pan);
 					ptr_pan++;
 				}
@@ -488,7 +503,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				uint8_t *ptr_shrt;
 				ptr_shrt = (uint8_t *)&tal_pib.ShortAddress;
 				for (uint8_t i = 0; i < 2; i++) {
-					pal_trx_reg_write((RG_SHORT_ADDR_0 + i),
+					trx_reg_write((RG_SHORT_ADDR_0 + i),
 							*ptr_shrt);
 					ptr_shrt++;
 				}
@@ -511,9 +526,13 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				 */
 				if (tal_trx_status != TRX_OFF) {
 					previous_trx_status = RX_AACK_ON; /* any
+					                                   *
 					                                   *other
+					                                   *
 					                                   *than
+					                                   *
 					                                   *TRX_OFF
+					                                   *
 					                                   *state
 					                                   **/
 					do {
@@ -525,7 +544,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				}
 
 				tal_pib.CurrentChannel = value->pib_value_8bit;
-				pal_trx_bit_write(SR_CHANNEL,
+				trx_bit_write(SR_CHANNEL,
 						tal_pib.CurrentChannel);
 				/* Re-store previous trx state */
 				if (previous_trx_status != TRX_OFF) {
@@ -549,17 +568,21 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 				/*
 				 * Changing the channel, channel page or
-				 *modulation
+				 * modulation
 				 * requires that TRX is in TRX_OFF.
 				 * Store current trx state and return to default
-				 *state
+				 * state
 				 * after channel page has been set.
 				 */
 				if (tal_trx_status != TRX_OFF) {
 					previous_trx_status = RX_AACK_ON; /* any
+					                                   *
 					                                   *other
+					                                   *
 					                                   *than
+					                                   *
 					                                   *TRX_OFF
+					                                   *
 					                                   *state
 					                                   **/
 					do {
@@ -598,7 +621,6 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 					return MAC_INVALID_PARAMETER;
 				}
 			}
-
 #endif  /* #ifdef HIGH_DATA_RATE_SUPPORT */
 			break;
 
@@ -608,34 +630,33 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 			/*
 			 * macMinBE must not be larger than macMaxBE or
-			 *calculation
+			 * calculation
 			 * of macMaxFrameWaitTotalTime will fail.
 			 */
 			if (tal_pib.MaxBE < tal_pib.MinBE) {
 				tal_pib.MinBE = tal_pib.MaxBE;
 			}
-
 #endif  /* REDUCED_PARAM_CHECK */
-			pal_trx_bit_write(SR_MAX_BE, tal_pib.MaxBE);
+			trx_bit_write(SR_MAX_BE, tal_pib.MaxBE);
 			break;
 
 		case phyTransmitPower:
 			tal_pib.TransmitPower = value->pib_value_8bit;
 			{
 				/* Limit tal_pib.TransmitPower to max/min trx
-				 *values */
+				 * values */
 				tal_pib.TransmitPower = limit_tx_pwr(
 						tal_pib.TransmitPower);
 				uint8_t reg_value
 					= convert_phyTransmitPower_to_reg_value(
 						tal_pib.TransmitPower);
-				pal_trx_bit_write(SR_TX_PWR, reg_value);
+				trx_bit_write(SR_TX_PWR, reg_value);
 			}
 			break;
 
 		case phyCCAMode:
 			tal_pib.CCAMode = value->pib_value_8bit;
-			pal_trx_bit_write(SR_CCA_MODE, tal_pib.CCAMode);
+			trx_bit_write(SR_CCA_MODE, tal_pib.CCAMode);
 			break;
 
 		case macIeeeAddress:
@@ -644,7 +665,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				uint8_t *ptr;
 				ptr = (uint8_t *)&tal_pib.IeeeAddress;
 				for (uint8_t i = 0; i < 8; i++) {
-					pal_trx_reg_write((RG_IEEE_ADDR_0 + i),
+					trx_reg_write((RG_IEEE_ADDR_0 + i),
 							*ptr);
 					ptr++;
 				}
@@ -653,7 +674,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 		case mac_i_pan_coordinator:
 			tal_pib.PrivatePanCoordinator = value->pib_value_bool;
-			pal_trx_bit_write(SR_AACK_I_AM_COORD,
+			trx_bit_write(SR_AACK_I_AM_COORD,
 					tal_pib.PrivatePanCoordinator);
 			break;
 
@@ -663,7 +684,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 			 * AT86RF233 does not support changing this value w.r.t.
 			 * compliance operation.
 			 * The ACK timing can be reduced to 2 symbols using TFA
-			 *function.
+			 * function.
 			 */
 			return MAC_UNSUPPORTED_ATTRIBUTE;
 
@@ -761,27 +782,27 @@ static bool apply_channel_page_configuration(uint8_t ch_page)
 
 	switch (ch_page) {
 	case 0: /* compliant O-QPSK */
-		pal_trx_bit_write(SR_OQPSK_DATA_RATE, ALTRATE_250_KBPS);
+		trx_bit_write(SR_OQPSK_DATA_RATE, ALTRATE_250_KBPS);
 		/* Apply compliant ACK timing */
-		pal_trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_12_SYMBOLS);
+		trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_12_SYMBOLS);
 		break;
 
 	case 2: /* non-compliant OQPSK mode 1 */
-		pal_trx_bit_write(SR_OQPSK_DATA_RATE, ALTRATE_500_KBPS);
+		trx_bit_write(SR_OQPSK_DATA_RATE, ALTRATE_500_KBPS);
 		/* Apply reduced ACK timing */
-		pal_trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
+		trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
 		break;
 
 	case 16:    /* non-compliant OQPSK mode 2 */
-		pal_trx_bit_write(SR_OQPSK_DATA_RATE, ALTRATE_1_MBPS);
+		trx_bit_write(SR_OQPSK_DATA_RATE, ALTRATE_1_MBPS);
 		/* Apply reduced ACK timing */
-		pal_trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
+		trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
 		break;
 
 	case 17:    /* non-compliant OQPSK mode 3 */
-		pal_trx_bit_write(SR_OQPSK_DATA_RATE, ALTRATE_2_MBPS);
+		trx_bit_write(SR_OQPSK_DATA_RATE, ALTRATE_2_MBPS);
 		/* Apply reduced ACK timing */
-		pal_trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
+		trx_bit_write(SR_AACK_ACK_TIME, ACK_TIME_2_SYMBOLS);
 		break;
 
 	default:

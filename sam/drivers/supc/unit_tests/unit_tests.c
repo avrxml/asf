@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for SUPC driver.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -77,6 +77,12 @@
  * - sam3x8h_sam3x_ek
  * - sam4s16c_sam4s_ek
  * - sam4sd32c_sam4s_ek2
+ * - sam4sd32c_atpl230amb
+ * - sam4n16c_sam4n_xplained_pro
+ * - sam4c16c_sam4c_ek
+ * - sam4cp16b_sam4cp16bmb
+ * - sam4cmp16c_sam4cmp_db
+ * - sam4cms16c_sam4cms_db
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers

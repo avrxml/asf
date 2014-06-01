@@ -3,7 +3,7 @@
  *
  * \brief HX8347A display controller driver
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,14 +71,14 @@ extern "C" {
  *
  * An example \ref conf_hx8347a.h file for the XMEGA could look like:
  * \code
- * #define CONF_HX8347A_USART_SPI     &USARTD1
- * #define CONF_HX8347A_CLOCK_SPEED   500000UL
- *
- * #define CONF_HX8347A_CS_PIN        IOPORT_CREATE_PIN(PORTD, 4)
- * #define CONF_HX8347A_TE_PIN        IOPORT_CREATE_PIN(PORTD, 2)
- * #define CONF_HX8347A_BACKLIGHT_PIN IOPORT_CREATE_PIN(PORTD, 0)
- * #define CONF_HX8347A_RESET_PIN     IOPORT_CREATE_PIN(PORTD, 1)
- * \endcode
+	 #define CONF_HX8347A_USART_SPI     &USARTD1
+	 #define CONF_HX8347A_CLOCK_SPEED   500000UL
+
+	 #define CONF_HX8347A_CS_PIN        IOPORT_CREATE_PIN(PORTD, 4)
+	 #define CONF_HX8347A_TE_PIN        IOPORT_CREATE_PIN(PORTD, 2)
+	 #define CONF_HX8347A_BACKLIGHT_PIN IOPORT_CREATE_PIN(PORTD, 0)
+	 #define CONF_HX8347A_RESET_PIN     IOPORT_CREATE_PIN(PORTD, 1)
+\endcode
  *
  * \section dependencies Dependencies
  * This driver depends on the following modules:

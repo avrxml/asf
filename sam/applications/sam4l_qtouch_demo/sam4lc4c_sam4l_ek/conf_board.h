@@ -3,7 +3,7 @@
  *
  * \brief  Configuration File for SAM4L-EK Board.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,5 +54,8 @@
 
 // Force usage of external EIC
 #define CONF_BOARD_EIC
+
+// Disable Watchdog init
+#define CONF_BOARD_KEEP_WATCHDOG_AT_INIT
 
 #endif /* CONF_BOARD_H_INCLUDED */

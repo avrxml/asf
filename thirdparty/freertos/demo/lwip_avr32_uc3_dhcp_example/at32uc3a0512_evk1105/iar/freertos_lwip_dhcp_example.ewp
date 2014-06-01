@@ -191,6 +191,7 @@
 					<state>FREERTOS_USED</state>
 					<state>TFTP_USED=1</state>
 					<state>BOARD=EVK1105</state>
+					<state>__FREERTOS__</state>
 					<state>CONFIG_INTERRUPT_FORCE_INTC</state>
 				</option>
 				<option>
@@ -479,6 +480,7 @@
 					<state>FREERTOS_USED</state>
 					<state>TFTP_USED=1</state>
 					<state>BOARD=EVK1105</state>
+					<state>__FREERTOS__</state>
 					<state>CONFIG_INTERRUPT_FORCE_INTC</state>
 				</option>
 				<option>
@@ -1110,6 +1112,7 @@
 					<state>FREERTOS_USED</state>
 					<state>TFTP_USED=1</state>
 					<state>BOARD=EVK1105</state>
+					<state>__FREERTOS__</state>
 					<state>CONFIG_INTERRUPT_FORCE_INTC</state>
 				</option>
 				<option>
@@ -1398,6 +1401,7 @@
 					<state>FREERTOS_USED</state>
 					<state>TFTP_USED=1</state>
 					<state>BOARD=EVK1105</state>
+					<state>__FREERTOS__</state>
 					<state>CONFIG_INTERRUPT_FORCE_INTC</state>
 				</option>
 				<option>

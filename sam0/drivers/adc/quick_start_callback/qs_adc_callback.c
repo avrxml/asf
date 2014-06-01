@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 ADC Quick Start
+ * \brief SAM D20/D21/R21 ADC Quick Start
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -79,8 +79,8 @@ void configure_adc(void)
 //! [setup_modify_conf]
 	config_adc.gain_factor     = ADC_GAIN_FACTOR_DIV2;
 	config_adc.clock_prescaler = ADC_CLOCK_PRESCALER_DIV8;
-	config_adc.reference       = ADC_REFERENCE_INTVCC1;
-	config_adc.positive_input  = ADC_POSITIVE_INPUT_PIN4;
+	config_adc.reference       = ADC_REFERENCE_INTVCC1;	
+	config_adc.positive_input  = ADC_POSITIVE_INPUT_PIN6;
 	config_adc.resolution      = ADC_RESOLUTION_12BIT;
 //! [setup_modify_conf]
 

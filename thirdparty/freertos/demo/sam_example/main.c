@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Real Time Kernel example.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,17 +46,18 @@
  *
  * \section Purpose
  *
- * The FreeRTOS example will help users how to use FreeRTOS in SAM-EK board.
- * This basic application shows hwo to create task and get information of created task.
+ * The FreeRTOS example will help users how to use FreeRTOS in SAM boards.
+ * This basic application shows hwo to create task and get information of
+ * created task.
  *
  * \section Requirements
  *
- * This package can be used with SAM evaluation kits.
+ * This package can be used with SAM boards.
  *
  * \section Description
  *
- * The demonstration program create two task, one is make LED on the board blink at a fixed rate
- * and another is monitor status of task.
+ * The demonstration program create two task, one is make LED on the board
+ * blink at a fixed rate, and another is monitor status of task.
  *
  * \section Usage
  *
@@ -81,10 +82,10 @@
  * -# LED should start blinking on the board. In the terminal window, the
  *    following text should appear (values depend on the board and chip used):
  *    \code
- *     -- Freertos Example xxx --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *    \endcode
+	-- Freertos Example xxx --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
  *
  */
 
@@ -157,13 +158,17 @@ static void task_monitor(void *pvParameters)
 }
 
 /**
- * \brief This task, when activated, send every ten seconds on debug UART the whole report of free heap and total tasks status
+ * \brief This task, when activated, make LED blink at a fixed rate
  */
 static void task_led(void *pvParameters)
 {
 	UNUSED(pvParameters);
 	for (;;) {
+	#if SAM4CM
+		LED_Toggle(LED4);
+	#else
 		LED_Toggle(LED0);
+	#endif
 		vTaskDelay(1000);
 	}
 }
@@ -198,7 +203,7 @@ static void configure_console(void)
 }
 
 /**
- *  \brief getting-started Application entry point.
+ *  \brief FreeRTOS Real Time Kernel example entry point.
  *
  *  \return Unused (ANSI-C compatibility).
  */

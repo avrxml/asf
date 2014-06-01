@@ -70,6 +70,7 @@ CSRCS = \
        sam/drivers/bpm/unit_tests/unit_tests.c            \
        sam/drivers/flashcalw/flashcalw.c                  \
        sam/drivers/usart/usart.c                          \
+       sam/drivers/wdt/wdt_sam4l.c                        \
        sam/utils/cmsis/sam4l/source/templates/exceptions.c \
        sam/utils/cmsis/sam4l/source/templates/gcc/startup_sam4l.c \
        sam/utils/cmsis/sam4l/source/templates/system_sam4l.c \
@@ -97,6 +98,7 @@ INC_PATH = \
        sam/drivers/bpm/unit_tests/sam4lc4c_sam4l_ek       \
        sam/drivers/flashcalw                              \
        sam/drivers/usart                                  \
+       sam/drivers/wdt                                    \
        sam/utils                                          \
        sam/utils/cmsis/sam4l/include                      \
        sam/utils/cmsis/sam4l/source/templates             \
@@ -158,7 +160,12 @@ CPPFLAGS = \
        -D TEST_SUITE_DEFINE_ASSERT_MACRO                  \
        -D _ASSERT_ENABLE_                                 \
        -D __SAM4LC4C__                                    \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

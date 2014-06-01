@@ -3,7 +3,7 @@
  *
  * @brief RF4CE Serial Interface Implementation
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -91,7 +91,7 @@
 
 /**
  * A UART state that expects the protocol id  to be received as the next
- *character.
+ * character.
  */
 #define UART_RX_PROTOCOL_ID             (3)
 
@@ -370,7 +370,7 @@ void serial_data_handler(void)
 		rx_index = 0;
 		data_length = sio2host_rx(data, SIO_RX_BUF_SIZE);
 	} else { /* Data has been received, process the data */
-		/* Process each single byte */
+		 /* Process each single byte */
 		process_incoming_sio_data();
 		data_length--;
 		rx_index++;
@@ -445,7 +445,7 @@ static inline void process_incoming_sio_data(void)
 		}
 
 		/* Make rx buffer ready for next reception before handling
-		 *received data. */
+		 * received data. */
 		sio_rx_ptr = sio_rx_buf;
 		sio_rx_state = UART_RX_STATE_SOT;
 		break;
@@ -480,12 +480,14 @@ static inline void handle_incoming_msg(void)
 
 	switch (sio_rx_buf[1]) { /* message type */
 	case NLDE_DATA_REQUEST:
+
 		/* Attention: The TxOption field is moved before the nsduLength
-		 *field! */
+		 * field! */
 		ret_val = nlde_data_request(sio_rx_buf[2],
 				(profile_id_t)sio_rx_buf[3],
 				((uint16_t)sio_rx_buf[4] |
 				((uint16_t)sio_rx_buf[5] << 8)),                                       /*
+		                                                                                        *
 		                                                                                        *VendorId
 		                                                                                        **/
 				sio_rx_buf[7],             /* nsduLength */
@@ -513,21 +515,30 @@ static inline void handle_incoming_msg(void)
 				sizeof(uint32_t));
 
 		ret_val = nlme_auto_discovery_request(sio_rx_buf[2], /*
-			                                              * RecAppCapabilities */
-				RecDevTypeList,                      /* (dev_type_t
-			                                              * *)&sio_rx_buf[3], */
-				RecProfileIdList,                      /* (profile_id_t
-			                                                * *)&sio_rx_buf[3
-			                                                * + 3], */
-				AutoDiscDuration,                     /* *(uint32_t
-			                                               * *)&sio_rx_buf[3
+			                                              *
+			                                              *RecAppCapabilities
+			                                              **/
+				RecDevTypeList,                      /*
+			                                              * (dev_type_t
+			                                              *
+			                                              **)&sio_rx_buf[3],
+			                                              **/
+				RecProfileIdList,                      /*
+			                                                * (profile_id_t
+			                                                *
+			                                                **)&sio_rx_buf[3
+			                                                * + 3],
+			                                                **/
+				AutoDiscDuration,                     /*
+			                                               * *(uint32_t
+			                                               *
+			                                               **)&sio_rx_buf[3
 			                                               * + 3 +
 			                                               * 7]); */
 				(FUNC_PTR)nlme_auto_discovery_confirm
 				);
 	}
 	break;
-
 #endif
 	case NLME_DISCOVERY_REQUEST:
 
@@ -567,20 +578,38 @@ static inline void handle_incoming_msg(void)
 
 		ret_val = nlme_discovery_request(PANId, NwkAddr,
 				sio_rx_buf[6],                    /* uint8_t
-			                                           * OrgAppCapabilities, */
+			                                           *
+			                                           *OrgAppCapabilities,
+			                                           **/
 				dev_type_list,                   /* uint8_t
-			                                          * OrgDevTypeList[DEVICE_TYPE_LIST_SIZE], */
-				org_profile_id_list,                   /* uint8_t
-			                                                * OrgProfileIdList[DEVICE_TYPE_LIST_SIZE], */
+			                                          *
+			                                          *OrgDevTypeList[DEVICE_TYPE_LIST_SIZE],
+			                                          **/
+				org_profile_id_list,                   /*
+			                                                * uint8_t
+			                                                *
+			                                                *OrgProfileIdList[DEVICE_TYPE_LIST_SIZE],
+			                                                **/
 				(dev_type_t)sio_rx_buf[7 + 3 /*num_dev_types*/ +
-				7 /*num_profiles*/],                                                                    /* uint8_t
-			                                                                                                 * SearchDevType, */
-				sio_rx_buf[8 + 3 + 7],                     /* uint8_t
-			                                                    * DiscProfileIdListSize, */
-				disc_profile_id_list,                    /* uint8_t
-			                                                  * DiscProfileIdList[PROFILE_ID_LIST_SIZE], */
+				7 /*num_profiles*/],                                                                    /*
+			                                                                                                 * uint8_t
+			                                                                                                 *
+			                                                                                                 *SearchDevType,
+			                                                                                                 **/
+				sio_rx_buf[8 + 3 + 7],                     /*
+			                                                    * uint8_t
+			                                                    *
+			                                                    *DiscProfileIdListSize,
+			                                                    **/
+				disc_profile_id_list,                    /*
+			                                                  * uint8_t
+			                                                  *
+			                                                  *DiscProfileIdList[PROFILE_ID_LIST_SIZE],
+			                                                  **/
 				disc_duration,                       /* uint32_t
-			                                              * DiscDuration); */
+			                                              *
+			                                              *DiscDuration);
+			                                              **/
 				(FUNC_PTR)nlme_discovery_confirm
 				);
 	}
@@ -604,19 +633,29 @@ static inline void handle_incoming_msg(void)
 		ret_val = nlme_discovery_response(Status,    /* nwk_enum_t
 			                                      * Status, */
 				DstIEEEAddr,                    /* uint64_t
-			                                         * DstIEEEAddr, */
-				sio_rx_buf[11],                         /* uint8_t
-			                                                 * RecAppCapabilities, */
+			                                         * DstIEEEAddr,
+			                                         **/
+				sio_rx_buf[11],                         /*
+			                                                 * uint8_t
+			                                                 *
+			                                                 *RecAppCapabilities,
+			                                                 **/
 				dev_type_list,                    /* uint8_t
-			                                           * RecDevTypeList[DEVICE_TYPE_LIST_SIZE], */
+			                                           *
+			                                           *RecDevTypeList[DEVICE_TYPE_LIST_SIZE],
+			                                           **/
 				profile_id_list,                    /* uint8_t
-			                                             * RecProfileIdList[PROFILE_ID_LIST_SIZE], */
-				sio_rx_buf[12 + 3 + 7]);                         /* uint8_t
-			                                                          * DiscReqLQI); */
+			                                             *
+			                                             *RecProfileIdList[PROFILE_ID_LIST_SIZE],
+			                                             **/
+				sio_rx_buf[12 + 3 + 7]);                         /*
+			                                                          * uint8_t
+			                                                          *
+			                                                          *DiscReqLQI);
+			                                                          **/
 	}
 
 	break;
-
 #endif
 #if (defined RF4CE_TARGET) || (defined RF4CE_PLATFORM)
 	case NLME_PAIR_RESPONSE:
@@ -641,17 +680,28 @@ static inline void handle_incoming_msg(void)
 			profile_id_list[i] = (profile_id_t)sio_rx_buf[17 + i];
 		}
 		ret_val = nlme_pair_response(Status, /* nwk_enum_t Status, */
-				DstPANId,                /* uint16_t DstPANId, */
+				DstPANId,                /* uint16_t DstPANId,
+			                                  **/
 				DstIEEEAddr,                /* uint64_t
 			                                     * DstIEEEAddr, */
-				sio_rx_buf[13],                         /* uint8_t
-			                                                 * RecAppCapabilities, */
+				sio_rx_buf[13],                         /*
+			                                                 * uint8_t
+			                                                 *
+			                                                 *RecAppCapabilities,
+			                                                 **/
 				dev_type_list,                /* uint8_t
-			                                       * RecDevTypeList[DEVICE_TYPE_LIST_SIZE], */
+			                                       *
+			                                       *RecDevTypeList[DEVICE_TYPE_LIST_SIZE],
+			                                       **/
 				profile_id_list,                /* uint8_t
-			                                         * RecProfileIdList[PROFILE_ID_LIST_SIZE], */
-				sio_rx_buf[14 + 3 + 7]);                 /* uint8_t
-			                                                  * ProvPairingRef); */
+			                                         *
+			                                         *RecProfileIdList[PROFILE_ID_LIST_SIZE],
+			                                         **/
+				sio_rx_buf[14 + 3 + 7]);                 /*
+			                                                  * uint8_t
+			                                                  *
+			                                                  *ProvPairingRef);
+			                                                  **/
 	}
 	break;
 #endif
@@ -683,18 +733,28 @@ static inline void handle_incoming_msg(void)
 			profile_id_list[i] = (profile_id_t)sio_rx_buf[17 + i];
 		}
 		ret_val = nlme_pair_request(sio_rx_buf[2],  /* uint8_t
-			                                     * LogicalChannel, */
-				DstPANId,                /* uint16_t DstPANId, */
+			                                     * LogicalChannel,
+			                                     **/
+				DstPANId,                /* uint16_t DstPANId,
+			                                  **/
 				DstIEEEAddr,                /* uint64_t
 			                                     * DstIEEEAddr, */
 				sio_rx_buf[13],             /* uint8_t
-			                                     * OrgAppCapabilities, */
+			                                     *
+			                                     *OrgAppCapabilities,
+			                                     **/
 				dev_type_list,                /* uint8_t
-			                                       * OrgDevTypeList[DEVICE_TYPE_LIST_SIZE], */
+			                                       *
+			                                       *OrgDevTypeList[DEVICE_TYPE_LIST_SIZE],
+			                                       **/
 				profile_id_list,                /* uint8_t
-			                                         * OrgProfileIdList[PROFILE_ID_LIST_SIZE], */
+			                                         *
+			                                         *OrgProfileIdList[PROFILE_ID_LIST_SIZE],
+			                                         **/
 				sio_rx_buf[14 + 3 + 7],            /* uint8_t
-			                                            * KeyExTransferCount); */
+			                                            *
+			                                            *KeyExTransferCount);
+			                                            **/
 				(FUNC_PTR)nlme_pair_confirm
 				);
 	}
@@ -728,7 +788,6 @@ static inline void handle_incoming_msg(void)
 				(FUNC_PTR)nlme_set_confirm
 				);
 		break;
-
 #endif
 	case NLME_START_REQUEST:
 		ret_val = nlme_start_request(
@@ -742,13 +801,11 @@ static inline void handle_incoming_msg(void)
 				(FUNC_PTR)nlme_unpair_confirm
 				);
 		break;
-
 #endif
 #if (NWK_UNPAIR_IND_RESP == 1)
 	case NLME_UNPAIR_RESPONSE:
 		ret_val = nlme_unpair_response(sio_rx_buf[2]);
 		break;
-
 #endif
 #if ((NWK_UPDATE_KEY == 1) && (defined RF4CE_SECURITY)) || \
 		(defined RF4CE_PLATFORM)
@@ -757,7 +814,6 @@ static inline void handle_incoming_msg(void)
 				(FUNC_PTR)nlme_update_key_confirm
 				);
 		break;
-
 #endif
 #if (defined CHANNEL_AGILITY) || (defined RF4CE_PLATFORM)
 	case NWK_CH_AGILITY_REQUEST:
@@ -789,13 +845,25 @@ static inline void handle_incoming_msg(void)
 		}
 
 		ret_val = pbp_org_pair_request(sio_rx_buf[2], /*
-			                                       * OrgAppCapabilities */
-				OrgDevTypeList,                    /* OrgDevTypeList */
-				OrgProfileIdList,                  /* OrgProfileIdList */
+			                                       *
+			                                       *OrgAppCapabilities
+			                                       **/
+				OrgDevTypeList,                    /*
+			                                            *OrgDevTypeList
+			                                            **/
+				OrgProfileIdList,                  /*
+			                                            *OrgProfileIdList
+			                                            **/
 				(dev_type_t)sio_rx_buf[13],                    /*
-			                                                        * SearchDevType */
-				sio_rx_buf[14],                    /* DiscProfileIdListSize */
-				DiscProfileIdList,              /* DiscProfileIdList, */
+			                                                        *
+			                                                        *SearchDevType
+			                                                        **/
+				sio_rx_buf[14],                    /*
+			                                            *DiscProfileIdListSize
+			                                            **/
+				DiscProfileIdList,              /*
+			                                         *DiscProfileIdList,
+			                                         **/
 				(FUNC_PTR)pbp_org_pair_confirm
 				);
 	}
@@ -815,11 +883,16 @@ static inline void handle_incoming_msg(void)
 			RecProfileIdList[i] = (profile_id_t)sio_rx_buf[6 + i];
 		}
 		ret_val = pbp_rec_pair_request(sio_rx_buf[2], /*
-			                                       * RecAppCapabilities */
+			                                       *
+			                                       *RecAppCapabilities
+			                                       **/
 				RecDevTypeList,               /* (dev_type_t
-			                                       * *)&sio_rx_buf[3], */
+			                                       *
+			                                       **)&sio_rx_buf[3],
+			                                       **/
 				RecProfileIdList,              /* (profile_id_t
-			                                        * *)&sio_rx_buf[3
+			                                        *
+			                                        **)&sio_rx_buf[3
 			                                        * + 3], */
 				(FUNC_PTR)pbp_rec_pair_confirm
 				);
@@ -833,9 +906,12 @@ static inline void handle_incoming_msg(void)
 		ret_val = zrc_cmd_request(sio_rx_buf[2], /* pair_ref */
 				(uint16_t)sio_rx_buf[3] |
 				((uint16_t)sio_rx_buf[4] << 8),                                 /*uint16_t
+		                                                                                 *
 		                                                                                 *VendorId,*/
 				(zrc_cmd_code_t)sio_rx_buf[5],        /*
+		                                                       *
 		                                                       *zrc_cmd_code_t
+		                                                       *
 		                                                       *cerc_cmd_code,
 		                                                       **/
 				sio_rx_buf[7],       /* uint8_t cmd_length,*/
@@ -864,10 +940,11 @@ static inline void handle_incoming_msg(void)
 #ifdef VENDOR_DATA
 	case VENDOR_DATA_REQUEST:
 		ret_val = nlde_data_request(sio_rx_buf[2], /*uint8_t
-		                                            *PairingRef,*/
+		                                            * PairingRef,*/
 				PROFILE_ID_ZRC,
 				(uint16_t)sio_rx_buf[4] |
 				((uint16_t)sio_rx_buf[5] << 8),                                   /*uint16_t
+		                                                                                   *
 		                                                                                   *VendorId,*/
 				sio_rx_buf[7],         /*uint8_t nsduLength,*/
 				&sio_rx_buf[8],         /*uint8_t *nsdu,*/
@@ -876,7 +953,6 @@ static inline void handle_incoming_msg(void)
 				(FUNC_PTR)vendor_data_confirm
 				);
 		break;
-
 #endif
 	default:
 	{

@@ -47,6 +47,8 @@
 #include "conf_board.h"
 #include "ioport.h"
 #include "board.h"
+#include "wdt_sam4l.h"
+
 /**
  * \addtogroup  sam4l_ek_group
  * @{
@@ -66,6 +68,15 @@
 
 void board_init(void)
 {
+#ifndef CONF_BOARD_KEEP_WATCHDOG_AT_INIT
+	struct wdt_dev_inst wdt_inst;
+	struct wdt_config   wdt_cfg;
+
+	wdt_get_config_defaults(&wdt_cfg);
+	wdt_init(&wdt_inst, WDT, &wdt_cfg);
+	wdt_disable(&wdt_inst);
+#endif
+
 	// Initialize IOPORTs
 	ioport_init();
 

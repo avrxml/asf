@@ -3,7 +3,7 @@
  *
  * \brief MCP980X driver
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -136,44 +136,44 @@ uint32_t mcp980x_one_shot_mode(void);
  * \subsection mcp980x_basic_use_case_setup_code Example code
  * Add this MCP980X initialization code at the beginning of the main function:
  * \code
- *    mcp980x_init();
- *
- *    mcp980x_set_configuration(
- *			MCP980X_CONFIG_RESOLUTION_12_BIT          |
- *			MCP980X_CONFIG_FAULT_QUEUE_2              |
- *			MCP980X_CONFIG_ALERT_POLARITY_ACTIVE_HIGH |
- *			MCP980X_CONFIG_INTERRUPT_MODE);
- *
- *    mcp980x_set_temperature_limit(TEMP_LIMIT_MAX, TEMP_LIMIT_DEC);
- *
- *    mcp980x_set_temperature_hysteresis(TEMP_LIMIT_MIN, TEMP_LIMIT_DEC);
- *
- * \endcode
+	    mcp980x_init();
+
+	    mcp980x_set_configuration(
+				MCP980X_CONFIG_RESOLUTION_12_BIT          |
+				MCP980X_CONFIG_FAULT_QUEUE_2              |
+				MCP980X_CONFIG_ALERT_POLARITY_ACTIVE_HIGH |
+				MCP980X_CONFIG_INTERRUPT_MODE);
+
+	    mcp980x_set_temperature_limit(TEMP_LIMIT_MAX, TEMP_LIMIT_DEC);
+
+	    mcp980x_set_temperature_hysteresis(TEMP_LIMIT_MIN, TEMP_LIMIT_DEC);
+
+\endcode
  *
  * \subsection pwm_basic_use_case_setup_flow Workflow
  * -# Initialize MCP980X driver:
  *   - \code mcp980x_init(); \endcode
  * -# Set MCP980X configuration:
  *   - \code mcp980x_set_configuration(
- *			MCP980X_CONFIG_RESOLUTION_12_BIT          |
- *			MCP980X_CONFIG_FAULT_QUEUE_2              |
- *			MCP980X_CONFIG_ALERT_POLARITY_ACTIVE_HIGH |
- *			MCP980X_CONFIG_INTERRUPT_MODE); \endcode
+	MCP980X_CONFIG_RESOLUTION_12_BIT          |
+	MCP980X_CONFIG_FAULT_QUEUE_2              |
+	MCP980X_CONFIG_ALERT_POLARITY_ACTIVE_HIGH |
+	MCP980X_CONFIG_INTERRUPT_MODE); \endcode
  * -# Set temperature limit:
  *   - \code mcp980x_set_temperature_limit(TEMP_LIMIT_MAX, TEMP_LIMIT_DEC); \endcode
  * -# Set temperature hysteresis:
  *   - \code 
- *    mcp980x_set_temperature_hysteresis(TEMP_LIMIT_MIN, TEMP_LIMIT_DEC);
- *   \endcode
+	mcp980x_set_temperature_hysteresis(TEMP_LIMIT_MIN, TEMP_LIMIT_DEC);
+\endcode
  *
  * \section mcp980x_basic_use_case_usage Usage steps
  *
  * \subsection mcp980x_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    mcp980x_one_shot_mode();
- *    mcp980x_get_temperature(&temperature_int, &temperature_dec);
- * \endcode
+	mcp980x_one_shot_mode();
+	mcp980x_get_temperature(&temperature_int, &temperature_dec);
+\endcode
  *
  * \subsection mcp980x_basic_use_case_usage_flow Workflow
  * -# Enable One-Shot mode to perform a single temperature measurement:

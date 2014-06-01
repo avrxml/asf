@@ -6,7 +6,7 @@
  * scan. All required timers and frames (beacon request and orphan
  * notification frames) are assembled and their transmission is initiated.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -122,7 +122,7 @@ static void mac_t_scan_duration_cb(void *callback_parameter);
 static void mac_awake_scan(buffer_t *buff_ptr);
 static void scan_set_complete(retval_t set_status);
 static void scan_clean_up(buffer_t *buf);
-static void scan_proceed(uint8_t scan_type, buffer_t *buf);
+static void scan_proceed(uint8_t scanning_type, buffer_t *buf);
 static bool send_scan_cmd(bool beacon_req);
 
 /* === Implementation ====================================================== */
@@ -135,10 +135,10 @@ static bool send_scan_cmd(bool beacon_req);
  * list of channels to scan. If so, start scanning. If all channels done,
  * send out the MLME_SCAN.confirm message.
  *
- * @param scan_type The type of the scan operation to proceed with.
+ * @param scanning_type The type of the scan operation to proceed with.
  * @param buf Buffer to send mlme scan confirm to NHLE.
  */
-static void scan_proceed(uint8_t scan_type, buffer_t *buf)
+static void scan_proceed(uint8_t scanning_type, buffer_t *buf)
 {
 	retval_t set_status;
 	mlme_scan_conf_t *msc = (mlme_scan_conf_t *)BMM_BUFFER_POINTER(buf);
@@ -159,13 +159,13 @@ static void scan_proceed(uint8_t scan_type, buffer_t *buf)
 			/*
 			 * For active or passive scans, bail out if we
 			 * reached our maximum number of PANDescriptors that
-			 *could
+			 * could
 			 * be stored. That way, the upper layer will get the
 			 * correct set of unscanned channels returned, so it can
 			 * continue scanning if desired.
 			 *
 			 * According to 802.15.4-2006 PAN descriptor are only
-			 *present
+			 * present
 			 * in the scan confirm message in case the PIB attribute
 			 * macAutoRequest is true.
 			 */
@@ -173,11 +173,10 @@ static void scan_proceed(uint8_t scan_type, buffer_t *buf)
 				break;
 			}
 		}
-
 #endif /* ((MAC_SCAN_PASSIVE_REQUEST_CONFIRM == 1) ||
 		 *(MAC_SCAN_ACTIVE_REQUEST_CONFIRM == 1)) */
 #if (MAC_SCAN_ORPHAN_REQUEST_CONFIRM == 1)
-		if (MLME_SCAN_TYPE_ORPHAN == scan_type) {
+		if (MLME_SCAN_TYPE_ORPHAN == scanning_type) {
 			/*
 			 * In an orphan scan, terminate if any coordinator
 			 * realignment packet has been received.
@@ -186,24 +185,21 @@ static void scan_proceed(uint8_t scan_type, buffer_t *buf)
 				break;
 			}
 		}
-
 #endif /* (MAC_SCAN_ORPHAN_REQUEST_CONFIRM == 1) */
 
 		if ((msc->UnscannedChannels & (1UL << scan_curr_channel)) !=
 				0) {
 #if (MAC_SCAN_ACTIVE_REQUEST_CONFIRM == 1)
-			if (MLME_SCAN_TYPE_ACTIVE == scan_type) {
+			if (MLME_SCAN_TYPE_ACTIVE == scanning_type) {
 				mac_scan_state = MAC_SCAN_ACTIVE;
 			}
-
 #endif /* (MAC_SCAN_ACTIVE_REQUEST_CONFIRM == 1) */
 #if (MAC_SCAN_PASSIVE_REQUEST_CONFIRM == 1)
-			if (MLME_SCAN_TYPE_PASSIVE == scan_type) {
+			if (MLME_SCAN_TYPE_PASSIVE == scanning_type) {
 				mac_scan_state = MAC_SCAN_PASSIVE;
 			}
-
 #endif /* (MAC_SCAN_PASSIVE_REQUEST_CONFIRM == 1) */
-			if (MLME_SCAN_TYPE_ORPHAN == scan_type) {
+			if (MLME_SCAN_TYPE_ORPHAN == scanning_type) {
 				mac_scan_state = MAC_SCAN_ORPHAN;
 			}
 
@@ -214,7 +210,7 @@ static void scan_proceed(uint8_t scan_type, buffer_t *buf)
 			if (MAC_SUCCESS != set_status) {
 				/*
 				 * Free the buffer used for sending orphan
-				 *notification command
+				 * notification command
 				 */
 				bmm_buffer_free((buffer_t *)mac_scan_cmd_buf_ptr);
 
@@ -229,7 +225,7 @@ static void scan_proceed(uint8_t scan_type, buffer_t *buf)
 				msc->ResultListSize = 0;
 
 				/* Append the scan confirm message to the
-				 *MAC-NHLE queue */
+				 * MAC-NHLE queue */
 				qmm_queue_append(&mac_nhle_q, buf);
 
 				mac_scan_state = MAC_SCAN_IDLE;
@@ -245,7 +241,7 @@ static void scan_proceed(uint8_t scan_type, buffer_t *buf)
 	}
 
 	/* All channels were scanned. The confirm needs to be prepared */
-	switch (scan_type) {
+	switch (scanning_type) {
 #if (MAC_SCAN_ED_REQUEST_CONFIRM == 1)
 	case MLME_SCAN_TYPE_ED:
 		msc->status = MAC_SUCCESS;
@@ -258,7 +254,7 @@ static void scan_proceed(uint8_t scan_type, buffer_t *buf)
 	{
 		/*
 		 * Free the buffer which was received from scan request and
-		 *reused
+		 * reused
 		 * for beacon request frame transmission.
 		 */
 		bmm_buffer_free((buffer_t *)mac_scan_cmd_buf_ptr);
@@ -317,8 +313,9 @@ static void scan_proceed(uint8_t scan_type, buffer_t *buf)
 
 #if (MAC_SCAN_ORPHAN_REQUEST_CONFIRM == 1)
 	case MLME_SCAN_TYPE_ORPHAN:
+
 		/* Free the buffer used for sending orphan notification command
-		 **/
+		**/
 		bmm_buffer_free((buffer_t *)mac_scan_cmd_buf_ptr);
 
 		mac_scan_cmd_buf_ptr = NULL;
@@ -358,8 +355,8 @@ static void mac_awake_scan(buffer_t *scan_buf)
 #if (MAC_SCAN_ED_REQUEST_CONFIRM == 1)
 	case MLME_SCAN_TYPE_ED:
 		msc->scan_result_list[0].ed_value[1] = 0; /* First channel's
-		                                           *accumulated energy
-		                                           *level */
+		                                           * accumulated energy
+		                                           * level */
 		mac_scan_state = MAC_SCAN_ED;
 		scan_proceed(MLME_SCAN_TYPE_ED, (buffer_t *)scan_buf);
 		break;
@@ -373,7 +370,7 @@ static void mac_awake_scan(buffer_t *scan_buf)
 		/*
 		 * Before commencing an active or passive scan, the MAC sublayer
 		 * shall store the value of macPANId and then set it to 0cFFFF
-		 *for
+		 * for
 		 * the duration of the scan. This enables the receive filter to
 		 * accept all beacons rather than just the beacons from its
 		 * current PAN (see 7.5.6.2). On completion of the scan, the
@@ -391,6 +388,7 @@ static void mac_awake_scan(buffer_t *scan_buf)
 
 #if (_DEBUG_ > 0)
 		Assert(MAC_SUCCESS == set_status);
+		set_status = set_status;
 #endif
 		if (MLME_SCAN_TYPE_ACTIVE == scan_type) {
 			/*
@@ -407,9 +405,9 @@ static void mac_awake_scan(buffer_t *scan_buf)
 		if (NULL == mac_conf_buf_ptr) {
 			/*
 			 * Large buffer is not available for sending scan
-			 *confirmation,
+			 * confirmation,
 			 * hence the scan request buffer (small buffer) is used
-			 *to send
+			 * to send
 			 * the scan confirmation.
 			 */
 			msc->status = MAC_INVALID_PARAMETER;
@@ -503,9 +501,9 @@ static bool send_scan_cmd(bool beacon_req)
 	/*
 	 * mac_scan_cmd_buf_ptr holds the buffer allocated for sending beacon
 	 * request or orphan notification command. In active scan the scan
-	 *request
+	 * request
 	 * buffer is used to send a beacon request and in orphan scan new buffer
-	 *is
+	 * is
 	 * allocated to send an orphan notification.
 	 */
 	frame_info_t *transmit_frame
@@ -516,7 +514,7 @@ static bool send_scan_cmd(bool beacon_req)
 	frame_ptr = (uint8_t *)transmit_frame +
 			LARGE_BUFFER_SIZE -
 			BEAC_REQ_ORPH_NOT_PAYLOAD_LEN - 2; /* Add 2 octets for
-	                                                    *FCS. */
+	                                                    * FCS. */
 
 	transmit_frame->buffer_header = (buffer_t *)mac_scan_cmd_buf_ptr;
 
@@ -629,7 +627,7 @@ void scan_set_complete(retval_t set_status)
 			/*
 			 * The TAL switches ON the transmitter while sending a
 			 * beacon request, hence the MAC can call
-			 *send_scan_cmd() to send
+			 * send_scan_cmd() to send
 			 * the beacon directly
 			 */
 
@@ -640,11 +638,11 @@ void scan_set_complete(retval_t set_status)
 				/*
 				 * Beacon request could not be transmitted
 				 * since there is no buffer available stop
-				 *scanning
+				 * scanning
 				 * we call the function usually called by the
-				 *scan
+				 * scan
 				 * duration timer to pretend scanning has
-				 *finished
+				 * finished
 				 */
 				mac_t_scan_duration_cb((uint8_t *)&timer_id);
 			}
@@ -681,11 +679,11 @@ void scan_set_complete(retval_t set_status)
 
 					/*
 					 * Scan duration timer could not be
-					 *started so we
+					 * started so we
 					 * call the timer callback function
-					 *directly this
+					 * directly this
 					 * will basically shorten scanning
-					 *without having
+					 * without having
 					 * really scanned.
 					 */
 					mac_t_scan_duration_cb((void *)&timer_id);
@@ -713,10 +711,10 @@ void scan_set_complete(retval_t set_status)
 
 				/*
 				 * Orphan notification could not be transmitted
-				 *since there
+				 * since there
 				 * is no buffer available stop scanning
 				 * we call the function usually called by the
-				 *scan duration
+				 * scan duration
 				 * timer to pretend scanning has finished
 				 */
 				mac_t_scan_duration_cb((uint8_t *)&timer_id);
@@ -759,7 +757,7 @@ void mac_scan_send_complete(retval_t status)
 		} else {
 			/*
 			 * Since this function is only called in active or
-			 *orphan scan state,
+			 * orphan scan state,
 			 * this case is handling the orphan scan state.
 			 */
 			tmr = mac_pib.mac_ResponseWaitTime;
@@ -779,7 +777,7 @@ void mac_scan_send_complete(retval_t status)
 			/*
 			 * Scan duration timer could not be started, so we call
 			 * the timer callback function directly. This will
-			 *basically
+			 * basically
 			 * shorten scanning without having really scanned.
 			 */
 			mac_t_scan_duration_cb((void *)&timer_id);
@@ -931,7 +929,7 @@ static void mac_t_scan_duration_cb(void *callback_parameter)
  * The results of an orphan scan are reported to the next higher layer through
  * the MLME-SCAN.confirm primitive. If successful, the MLME-SCAN.confirm
  * primitive will contain a status of MAC_SUCCESS. If the device did not receive
- *a
+ * a
  * coordinator realignment command, MLME-SCAN.confirm primitive will contain
  * a status of NO_BEACON. In either case, the PANDescriptorList and
  * EnergyDetectList parameters of the MLMESCAN.confirm primitive are null.
@@ -978,7 +976,7 @@ void mlme_scan_request(uint8_t *m)
 			(MAC_SCAN_IDLE != mac_scan_state)
 			) {
 		/* Ignore scan request while being in a polling state or
-		 *scanning. */
+		 * scanning. */
 		msc->status = MAC_INVALID_PARAMETER;
 
 		/* Append the scan confirmation message to the MAC-NHLE queue */
@@ -1011,7 +1009,6 @@ void mlme_scan_request(uint8_t *m)
 
 		return;
 	}
-
 #endif  /* REDUCED_PARAM_CHECK */
 
 #if (MAC_SCAN_ED_REQUEST_CONFIRM == 0)
@@ -1028,7 +1025,6 @@ void mlme_scan_request(uint8_t *m)
 
 		return;
 	}
-
 #endif /*  (MAC_SCAN_ED_REQUEST_CONFIRM == 0) */
 
 	/* wake up radio first */
@@ -1055,7 +1051,7 @@ void tal_ed_end_cb(uint8_t energy_level)
 
 	/*
 	 * Scan request buffer is used to generate a scan confirm for the ED
-	 *scan
+	 * scan
 	 * which is stored in mac_conf_buf_ptr.
 	 */
 	msc = (mlme_scan_conf_t *)BMM_BUFFER_POINTER(
@@ -1102,6 +1098,7 @@ static void scan_clean_up(buffer_t *buffer)
 	set_tal_pib_internal(phyCurrentPage, (void *)&scan_curr_page);
 #if (_DEBUG_ > 0)
 	Assert(MAC_SUCCESS == set_status);
+	set_status = set_status;
 #endif
 
 	scan_curr_channel = mac_scan_orig_channel;

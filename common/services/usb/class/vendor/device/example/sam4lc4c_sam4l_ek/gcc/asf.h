@@ -110,4 +110,7 @@
 // From module: USB Vendor Protocol
 #include <usb_protocol_vendor.h>
 
+// From module: WDT - Watchdog Timer
+#include <wdt_sam4l.h>
+
 #endif // ASF_H

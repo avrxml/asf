@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 PAC Quick Start
+ * \brief SAM D20/D21/R21 PAC Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,6 +48,7 @@ void config_port_pins(void);
 void config_port_pins(void)
 {
 	struct port_config pin_conf;
+	
 	port_get_config_defaults(&pin_conf);
 
 	pin_conf.direction  = PORT_PIN_DIR_INPUT;
@@ -63,6 +64,7 @@ int main (void)
 {
 //! [main]
 	system_init();
+
 //! [init]
 	config_port_pins();
 //! [init]

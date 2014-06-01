@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Enhanced Direct Memory Access Controller driver definitions
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -1041,50 +1041,49 @@ static inline void edma_channel_set_search_data(
  * \subsection edma_basic_use_case_setup_setup_code Example code
  * Add to application C-file:
  * \code
- *    #define EDMA_CHMODE      EDMA_CHMODE_STD02_gc
- *    #define EDMA_CHANNEL     EDMA_CH_0
- *    #define EDMA_BUFFER_SIZE 100
- *
- *    static uint8_t source[EDMA_BUFFER_SIZE];
- *    static uint8_t destination[EDMA_BUFFER_SIZE];
- *
- *    static void edma_init(void) {
- *
- *        struct edma_channel_config my_ch_conf;
- *        memset(&my_ch_conf, 0, sizeof(my_ch_conf));
- *
- *        edma_channel_set_burst_length(&my_ch_conf, EDMA_CH_BURSTLEN_1BYTE_gc);
- *        edma_channel_set_transfer_count16(&my_ch_conf, EDMA_BUFFER_SIZE);
- *
- *        edma_channel_set_src_reload_mode(&my_ch_conf,
- *                  EDMA_CH_RELOAD_TRANSACTION_gc);
- *        edma_channel_set_dest_reload_mode(&my_ch_conf,
- *                  EDMA_CH_RELOAD_TRANSACTION_gc);
- *
- *        edma_channel_set_src_dir_mode(&my_ch_conf, EDMA_CH_DIR_INC_gc);
- *        edma_channel_set_dest_dir_mode(&my_ch_conf, EDMA_CH_DESTDIR_INC_gc);
- *
- *        edma_channel_set_source_address(&my_ch_conf,
- *                  (uint16_t)source);
- *        edma_channel_set_destination_address(&my_ch_conf,
- *                  (uint16_t)destination);
- *
- *        edma_channel_set_trigger_source(&my_usart_ch_conf,
- *                  EDMA_CH_TRIGSRC_OFF_gc);
- *
- *        edma_enable(EDMA_CHMODE);
- *
- *        edma_channel_write_config(EDMA_CHANNEL, &my_ch_conf);
- *        edma_channel_enable(EDMA_CHANNEL);
- *
- *    }
- * \endcode
+	#define EDMA_CHMODE      EDMA_CHMODE_STD02_gc
+	#define EDMA_CHANNEL     EDMA_CH_0
+	#define EDMA_BUFFER_SIZE 100
+
+	static uint8_t source[EDMA_BUFFER_SIZE];
+	static uint8_t destination[EDMA_BUFFER_SIZE];
+
+	static void edma_init(void) {
+
+	    struct edma_channel_config my_ch_conf;
+	    memset(&my_ch_conf, 0, sizeof(my_ch_conf));
+
+	    edma_channel_set_burst_length(&my_ch_conf, EDMA_CH_BURSTLEN_1BYTE_gc);
+	    edma_channel_set_transfer_count16(&my_ch_conf, EDMA_BUFFER_SIZE);
+
+	    edma_channel_set_src_reload_mode(&my_ch_conf,
+	              EDMA_CH_RELOAD_TRANSACTION_gc);
+	    edma_channel_set_dest_reload_mode(&my_ch_conf,
+	              EDMA_CH_RELOAD_TRANSACTION_gc);
+
+	    edma_channel_set_src_dir_mode(&my_ch_conf, EDMA_CH_DIR_INC_gc);
+	    edma_channel_set_dest_dir_mode(&my_ch_conf, EDMA_CH_DESTDIR_INC_gc);
+
+	    edma_channel_set_source_address(&my_ch_conf,
+	              (uint16_t)source);
+	    edma_channel_set_destination_address(&my_ch_conf,
+	              (uint16_t)destination);
+
+	    edma_channel_set_trigger_source(&my_usart_ch_conf,
+	              EDMA_CH_TRIGSRC_OFF_gc);
+
+	    edma_enable(EDMA_CHMODE);
+
+	    edma_channel_write_config(EDMA_CHANNEL, &my_ch_conf);
+	    edma_channel_enable(EDMA_CHANNEL);
+	}
+\endcode
  *
  * Add to \c main():
  * \code
- * sysclk_init();
- * edma_init();
- * \endcode
+	sysclk_init();
+	edma_init();
+\endcode
  *
  * \subsection edma_basic_use_case_setup_flow Workflow
  * -# Define the EDMA channel mode that will be set:
@@ -1097,15 +1096,15 @@ static inline void edma_channel_set_search_data(
  * -# Create a pair of global arrays that will hold the source and destination
  *    data copied by the EDMA controller channel when it is triggered:
  *   - \code
- * static uint8_t source[EDMA_BUFFER_SIZE];
- * static uint8_t destination[EDMA_BUFFER_SIZE];
- *     \endcode
+	static uint8_t source[EDMA_BUFFER_SIZE];
+	static uint8_t destination[EDMA_BUFFER_SIZE];
+\endcode
  * -# Create a function \c edma_init() to intialize the EDMA:
  *     - \code
- * static void edma_init(void) {
- *     // ...
- * }
- *       \endcode
+	static void edma_init(void) {
+	    // ...
+	}
+\endcode
  * -# Create config struct for DEMA channel:
  *   - \code struct edma_channel_config my_ch_conf; \endcode
  * -# Make sure the configuration structure is zeroed out to ensure that all
@@ -1114,32 +1113,32 @@ static inline void edma_channel_set_search_data(
  * -# Configure the EDMA channel for single byte bursts, with a transfer length
  *    equal to the size of the source and destination buffers:
  *   - \code
- * edma_channel_set_burst_length(&my_ch_conf, EDMA_CH_BURSTLEN_1BYTE_gc);
- * edma_channel_set_transfer_count16(&my_ch_conf, EDMA_BUFFER_SIZE);
- *     \endcode
+	edma_channel_set_burst_length(&my_ch_conf, EDMA_CH_BURSTLEN_1BYTE_gc);
+	edma_channel_set_transfer_count16(&my_ch_conf, EDMA_BUFFER_SIZE);
+\endcode
  * -# Configure the EDMA channel to reset the source and destination addresses
  *    at the end of the complete transaction (i.e. after \c EDMA_BUFFER_SIZE
  *    bytes copied):
  *   - \code
- * edma_channel_set_src_reload_mode(&my_ch_conf, EDMA_CH_RELOAD_TRANSACTION_gc);
- * edma_channel_set_dest_reload_mode(&my_ch_conf,
- *         EDMA_CH_RELOAD_TRANSACTION_gc);
- *     \endcode
+	edma_channel_set_src_reload_mode(&my_ch_conf, EDMA_CH_RELOAD_TRANSACTION_gc);
+	edma_channel_set_dest_reload_mode(&my_ch_conf,
+	        EDMA_CH_RELOAD_TRANSACTION_gc);
+\endcode
  * -# Configure the EDMA channel to increment the source and destination
  *    addresses after each byte transferred:
  *   - \code
- * edma_channel_set_src_dir_mode(&my_ch_conf, EDMA_CH_DIR_INC_gc);
- * edma_channel_set_dest_dir_mode(&my_ch_conf, EDMA_CH_DESTDIR_INC_gc);
- *     \endcode
+	edma_channel_set_src_dir_mode(&my_ch_conf, EDMA_CH_DIR_INC_gc);
+	edma_channel_set_dest_dir_mode(&my_ch_conf, EDMA_CH_DESTDIR_INC_gc);
+\endcode
  * -# Configure the EDMA channel source and destination addresses:
  *   - \code
- * edma_channel_set_source_address(&my_ch_conf, (uint16_t)source);
- * edma_channel_set_destination_address(&my_ch_conf, (uint16_t)destination);
- *     \endcode
+	edma_channel_set_source_address(&my_ch_conf, (uint16_t)source);
+	edma_channel_set_destination_address(&my_ch_conf, (uint16_t)destination);
+\endcode
  * -# Set software command as trigger for the EDMA channel:
  *   - \code
- * edma_channel_set_trigger_source(&my_usart_ch_conf, EDMA_CH_TRIGSRC_OFF_gc);
- *     \endcode
+	edma_channel_set_trigger_source(&my_usart_ch_conf, EDMA_CH_TRIGSRC_OFF_gc);
+\endcode
  * -# Enable the EDMA module configuring all channels in it. In this case, the
  *    EDMA will be set having standard channels, EDMA_CH_0 and EDMA_CH_2. This
  *    corresponds to <code>EDMA_CHMODE_STD02_gc</code> configuration:
@@ -1152,9 +1151,9 @@ static inline void edma_channel_set_search_data(
  * -# Write the EDMA channel configuration to the EDMA hardware and enable it so
  *    that it can be triggered to start the transfer:
  *   - \code
- * edma_channel_write_config(EDMA_CHANNEL, &my_ch_conf);
- * edma_channel_enable(EDMA_CHANNEL);
- *     \endcode
+	edma_channel_write_config(EDMA_CHANNEL, &my_ch_conf);
+	edma_channel_enable(EDMA_CHANNEL);
+\endcode
  * -# Initialize the clock system:
  *      - \code sysclk_init(); \endcode
  * -# Call our EDMA init function:
@@ -1165,18 +1164,19 @@ static inline void edma_channel_set_search_data(
  * \subsection edma_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    edma_channel_trigger_block_transfer(EDMA_CHANNEL);
- *    do {} while (edma_get_channel_status(EDMA_CHANNEL) !=
- *                EDMA_CH_TRANSFER_COMPLETED);
- * \endcode
+	edma_channel_trigger_block_transfer(EDMA_CHANNEL);
+	do {} while (edma_get_channel_status(EDMA_CHANNEL) !=
+	        EDMA_CH_TRANSFER_COMPLETED);
+\endcode
  *
  * \subsection edma_basic_use_case_usage_flow Workflow
  * -# Software command to start the EDMA transfer:
  *   - \code edma_channel_trigger_block_transfer(EDMA_CHANNEL); \endcode
  * -# Wait for the transfer to complete:
- *   - \code do {} while (edma_get_channel_status(EDMA_CHANNEL) !=
- *                       EDMA_CH_TRANSFER_COMPLETED);
- *     \endcode
+ *   - \code
+	do {} while (edma_get_channel_status(EDMA_CHANNEL) !=
+	        EDMA_CH_TRANSFER_COMPLETED);
+\endcode
  */
 
 /**
@@ -1214,53 +1214,53 @@ static inline void edma_channel_set_search_data(
  * \subsection edma_use_case_1_setup_code Example code
  * Add to application C-file:
  * \code
- *    #define EDMA_CHMODE      EDMA_CHMODE_STD0_gc
- *    #define EDMA_CHANNEL     3
- *
- *    static uint8_t usart_string[] = "XMEGAE5 EDMA-USART print test.\r\n";
- *
- *    static void edma_init(void)
- *    {
- *        struct edma_channel_config my_ch_conf;
- *        memset(&my_ch_conf, 0, sizeof(my_ch_conf));
- *        uint8_t string_size = sizeof(usart_string);
- *
- *        edma_channel_set_burst_length(&my_ch_conf, EDMA_CH_BURSTLEN_1BYTE_gc);
- *        edma_channel_set_transfer_count8(&my_ch_conf, string_size);
- *
- *        edma_channel_set_memory_reload_mode(&my_ch_conf,
- *                  EDMA_CH_RELOAD_TRANSACTION_gc);
- *
- *        edma_channel_set_memory_dir_mode(&my_ch_conf, EDMA_CH_DIR_INC_gc);
- *
- *        edma_channel_set_memory_address(&my_ch_conf,
- *              (uint16_t)usart_string);
- *
- *        edma_channel_set_trigger_source(&my_ch_conf,
- *                  EDMA_CH_TRIGSRC_USARTC0_DRE_gc);
- *
- *        edma_channel_set_single_shot(&my_ch_conf);
- *
- *        edma_enable(EDMA_CHMODE);
- *
- *        edma_channel_write_config(EDMA_CHANNEL, &my_ch_conf);
- *        edma_channel_enable(EDMA_CHANNEL);
- *    }
- * \endcode
+	#define EDMA_CHMODE      EDMA_CHMODE_STD0_gc
+	#define EDMA_CHANNEL     3
+
+	static uint8_t usart_string[] = "XMEGAE5 EDMA-USART print test.\r\n";
+
+	static void edma_init(void)
+	{
+	    struct edma_channel_config my_ch_conf;
+	    memset(&my_ch_conf, 0, sizeof(my_ch_conf));
+	    uint8_t string_size = sizeof(usart_string);
+
+	    edma_channel_set_burst_length(&my_ch_conf, EDMA_CH_BURSTLEN_1BYTE_gc);
+	    edma_channel_set_transfer_count8(&my_ch_conf, string_size);
+
+	    edma_channel_set_memory_reload_mode(&my_ch_conf,
+	              EDMA_CH_RELOAD_TRANSACTION_gc);
+
+	    edma_channel_set_memory_dir_mode(&my_ch_conf, EDMA_CH_DIR_INC_gc);
+
+	    edma_channel_set_memory_address(&my_ch_conf,
+	          (uint16_t)usart_string);
+
+	    edma_channel_set_trigger_source(&my_ch_conf,
+	              EDMA_CH_TRIGSRC_USARTC0_DRE_gc);
+
+	    edma_channel_set_single_shot(&my_ch_conf);
+
+	    edma_enable(EDMA_CHMODE);
+
+	    edma_channel_write_config(EDMA_CHANNEL, &my_ch_conf);
+	    edma_channel_enable(EDMA_CHANNEL);
+	}
+\endcode
  *
  * Add to \c main():
  * \code
- * #define USART    &USARTC0
- * static usart_rs232_options_t USART_OPTIONS = {
- *      .baudrate   = 19200,
- *      .charlength = USART_CHSIZE_8BIT_gc,
- *      .paritytype = USART_PMODE_DISABLED_gc,
- *      .stopbits   = false
- * };
- * sysclk_init();
- * usart_init_rs232(USART, &USART_OPTIONS);
- * edma_init();
- * \endcode
+	#define USART    &USARTC0
+	static usart_rs232_options_t USART_OPTIONS = {
+	     .baudrate   = 19200,
+	     .charlength = USART_CHSIZE_8BIT_gc,
+	     .paritytype = USART_PMODE_DISABLED_gc,
+	     .stopbits   = false
+	};
+	sysclk_init();
+	usart_init_rs232(USART, &USART_OPTIONS);
+	edma_init();
+\endcode
  *
  *
  * \subsection edma_use_case_1_setup_flow Workflow
@@ -1273,15 +1273,15 @@ static inline void edma_channel_set_search_data(
  *   - \code #define EDMA_CHANNEL 3 \endcode
  * -# Create a global array that will hold the text to print:
  *   - \code
- * static uint8_t usart_string[] = "XMEGAE5 EDMA-USART print test.\r\n";
- *     \endcode
+	static uint8_t usart_string[] = "XMEGAE5 EDMA-USART print test.\r\n";
+\endcode
  * -# Create a function \c edma_init() to intialize the EDMA:
  *     - \code
- * static void edma_init(void)
- * {
- *     // ...
- * }
- *       \endcode
+	static void edma_init(void)
+	{
+	    // ...
+	}
+\endcode
  * -# Create config struct for EDMA channel:
  *   - \code struct edma_channel_config my_ch_conf; \endcode
  * -# Make sure the configuration structure is zeroed out to ensure that all
@@ -1293,28 +1293,28 @@ static inline void edma_channel_set_search_data(
  * -# Configure the EDMA channel for single byte bursts with a transfer length
  *    equal to the size of the memory buffer <code>usart_string[]</code>.
  *   - \code
- * edma_channel_set_burst_length(&my_ch_conf, EDMA_CH_BURSTLEN_1BYTE_gc);
- * edma_channel_set_transfer_count8(&my_ch_conf, string_size);
- *     \endcode
+	edma_channel_set_burst_length(&my_ch_conf, EDMA_CH_BURSTLEN_1BYTE_gc);
+	edma_channel_set_transfer_count8(&my_ch_conf, string_size);
+\endcode
  * -# Configure the EDMA channel to reset the memory address at the end of the
  *    complete transaction (i.e. after \c string_size bytes copied):
  *   - \code
- * edma_channel_set_memory_reload_mode(&my_ch_conf,
- *         EDMA_CH_RELOAD_TRANSACTION_gc);
- *     \endcode
+	edma_channel_set_memory_reload_mode(&my_ch_conf,
+	        EDMA_CH_RELOAD_TRANSACTION_gc);
+\endcode
  * -# Configure the EDMA channel to increment the memory address after each byte
  *    transferred:
  *   - \code
- * edma_channel_set_memory_dir_mode(&my_ch_conf, EDMA_CH_DIR_INC_gc);
- *     \endcode
+	edma_channel_set_memory_dir_mode(&my_ch_conf, EDMA_CH_DIR_INC_gc);
+\endcode
  * -# Configure the EDMA channel memory address:
  *   - \code
- * edma_channel_set_memory_address(&my_ch_conf, (uint16_t)usart_string);
- *     \endcode
+	edma_channel_set_memory_address(&my_ch_conf, (uint16_t)usart_string);
+\endcode
  * -# Set USART C0 data register empty as trigger for the EDMA channel:
  *   - \code
- * edma_channel_set_trigger_source(&my_ch_conf, EDMA_CH_TRIGSRC_USARTC0_DRE_gc);
- *     \endcode
+	edma_channel_set_trigger_source(&my_ch_conf, EDMA_CH_TRIGSRC_USARTC0_DRE_gc);
+\endcode
  * -# Configure the EDMA channel in single shot mode, so that each time it is
  *    triggered it will perform one bust transfer only:
  *   - \code edma_channel_set_single_shot(&my_ch_conf); \endcode
@@ -1331,20 +1331,20 @@ static inline void edma_channel_set_search_data(
  * -# Write the EDMA channel configuration to the EDMA hardware and enable it so
  *    that it can be triggered to start the transfer:
  *   - \code
- * edma_channel_write_config(EDMA_CHANNEL, &my_ch_conf);
- * edma_channel_enable(EDMA_CHANNEL);
- *     \endcode
+	edma_channel_write_config(EDMA_CHANNEL, &my_ch_conf);
+	edma_channel_enable(EDMA_CHANNEL);
+\endcode
  * -# Define what USART will be used:
  *   - \code #define USART &USARTC0 \endcode
  * -# Define and fill the USART structure:
  *   - \code
- * static usart_rs232_options_t USART_OPTIONS = {
- *      .baudrate   = 19200,
- *      .charlength = USART_CHSIZE_8BIT_gc,
- *      .paritytype = USART_PMODE_DISABLED_gc,
- *      .stopbits   = false
- * };
- *     \endcode
+	static usart_rs232_options_t USART_OPTIONS = {
+	     .baudrate   = 19200,
+	     .charlength = USART_CHSIZE_8BIT_gc,
+	     .paritytype = USART_PMODE_DISABLED_gc,
+	     .stopbits   = false
+	};
+\endcode
  * -# Initialize the clock system:
  *      - \code sysclk_init(); \endcode
  * -# Initialize the USART:
@@ -1357,16 +1357,16 @@ static inline void edma_channel_set_search_data(
  * \subsection edma_use_case_1_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    do {} while (edma_get_channel_status(EDMA_CHANNEL) !=
- *                EDMA_CH_TRANSFER_COMPLETED);
- * \endcode
+	do {} while (edma_get_channel_status(EDMA_CHANNEL) !=
+	        EDMA_CH_TRANSFER_COMPLETED);
+\endcode
  *
  * \subsection edma_use_case_1_usage_flow Workflow
  * -# Wait for the transfer to complete:
  *   - \code
- * do {} while (edma_get_channel_status(EDMA_CHANNEL) !=
- *             EDMA_CH_TRANSFER_COMPLETED);
- *     \endcode
+	do {} while (edma_get_channel_status(EDMA_CHANNEL) !=
+	        EDMA_CH_TRANSFER_COMPLETED);
+\endcode
  */
 
 /**
@@ -1408,92 +1408,92 @@ static inline void edma_channel_set_search_data(
  * \subsection edma_use_case_2_setup_code Example code
  * Add to application C-file:
  * \code
- *    #define EDMA_CHMODE            EDMA_CHMODE_STD0_gc
- *    #define EDMA_USART_CHANNEL     2
- *    #define EDMA_SEARCH_CHANNEL    0
- *    #define EDMA_SEARCH_PATTERN    0x00
- *
- *    static uint8_t usart_string[] = "XMEGAE5 EDMA-USART print test.\r\n";
- *
- *    static uint8_t edma_search_data(void)
- *    {
- *        struct edma_channel_config my_search_ch_conf;
- *        memset(&my_search_ch_conf, 0, sizeof(my_search_ch_conf));
- *
- *        edma_channel_set_burst_length(&my_search_ch_conf,
- *                  EDMA_CH_BURSTLEN_1BYTE_gc);
- *        edma_channel_set_transfer_count16(&my_search_ch_conf, 255);
- *
- *        edma_channel_set_src_reload_mode(&my_search_ch_conf,
- *                  EDMA_CH_RELOAD_NONE_gc);
- *
- *        edma_channel_set_src_dir_mode(&my_search_ch_conf, EDMA_CH_DIR_INC_gc);
- *        edma_channel_set_search_mode(&my_search_ch_conf, EDMA_CH_DIR_MP1_gc);
- *
- *        edma_channel_set_source_address(&my_search_ch_conf,
- *                  (uint16_t)usart_string);
- *        edma_channel_set_search_data(&my_search_ch_conf,
- *                  EDMA_SEARCH_PATTERN, 0xFF);
- *
- *        edma_channel_set_trigger_source(&my_search_ch_conf,
- *                  EDMA_CH_TRIGSRC_OFF_gc);
- *
- *        edma_channel_write_config(EDMA_SEARCH_CHANNEL, &my_search_ch_conf);
- *        edma_channel_enable(EDMA_SEARCH_CHANNEL);
- *        edma_channel_trigger_block_transfer(EDMA_SEARCH_CHANNEL);
- *
- *        do {} while (edma_get_channel_status(EDMA_SEARCH_CHANNEL) !=
- *                  EDMA_CH_TRANSFER_COMPLETED);
- *
- *        edma_channel_read_config(EDMA_SEARCH_CHANNEL, &my_search_ch_conf);
- *
- *        return ((uint8_t)(my_search_ch_conf.addr -
- *                         (uint16_t)usart_string)
- *                         - 1);
- *    }
- *
- *    static void edma_usart_init(uint8_t string_size)
- *    {
- *        struct edma_channel_config my_usart_ch_conf;
- *        memset(&my_usart_ch_conf, 0, sizeof(my_usart_ch_conf));
- *
- *        edma_channel_set_burst_length(&my_usart_ch_conf,
- *                  EDMA_CH_BURSTLEN_1BYTE_gc);
- *        edma_channel_set_transfer_count8(&my_usart_ch_conf, string_size);
- *
- *        edma_channel_set_memory_reload_mode(&my_usart_ch_conf,
- *                  EDMA_CH_RELOAD_TRANSACTION_gc);
- *
- *        edma_channel_set_memory_dir_mode(&my_usart_ch_conf,
- *                  EDMA_CH_DIR_INC_gc);
- *
- *        edma_channel_set_memory_address(&my_usart_ch_conf,
- *                  (uint16_t)usart_string);
- *
- *        edma_channel_set_trigger_source(&my_usart_ch_conf,
- *                  EDMA_CH_TRIGSRC_USARTC0_DRE_gc);
- *
- *        edma_channel_set_single_shot(&my_usart_ch_conf);
- *
- *        edma_channel_write_config(EDMA_USART_CHANNEL, &my_usart_ch_conf);
- *        edma_channel_enable(EDMA_USART_CHANNEL);
- *    }
- * \endcode
+	#define EDMA_CHMODE            EDMA_CHMODE_STD0_gc
+	#define EDMA_USART_CHANNEL     2
+	#define EDMA_SEARCH_CHANNEL    0
+	#define EDMA_SEARCH_PATTERN    0x00
+
+	static uint8_t usart_string[] = "XMEGAE5 EDMA-USART print test.\r\n";
+
+	static uint8_t edma_search_data(void)
+	{
+	    struct edma_channel_config my_search_ch_conf;
+	    memset(&my_search_ch_conf, 0, sizeof(my_search_ch_conf));
+
+	    edma_channel_set_burst_length(&my_search_ch_conf,
+	              EDMA_CH_BURSTLEN_1BYTE_gc);
+	    edma_channel_set_transfer_count16(&my_search_ch_conf, 255);
+
+	    edma_channel_set_src_reload_mode(&my_search_ch_conf,
+	              EDMA_CH_RELOAD_NONE_gc);
+
+	    edma_channel_set_src_dir_mode(&my_search_ch_conf, EDMA_CH_DIR_INC_gc);
+	    edma_channel_set_search_mode(&my_search_ch_conf, EDMA_CH_DIR_MP1_gc);
+
+	    edma_channel_set_source_address(&my_search_ch_conf,
+	              (uint16_t)usart_string);
+	    edma_channel_set_search_data(&my_search_ch_conf,
+	              EDMA_SEARCH_PATTERN, 0xFF);
+
+	    edma_channel_set_trigger_source(&my_search_ch_conf,
+	              EDMA_CH_TRIGSRC_OFF_gc);
+
+	    edma_channel_write_config(EDMA_SEARCH_CHANNEL, &my_search_ch_conf);
+	    edma_channel_enable(EDMA_SEARCH_CHANNEL);
+	    edma_channel_trigger_block_transfer(EDMA_SEARCH_CHANNEL);
+
+	    do {} while (edma_get_channel_status(EDMA_SEARCH_CHANNEL) !=
+	              EDMA_CH_TRANSFER_COMPLETED);
+
+	    edma_channel_read_config(EDMA_SEARCH_CHANNEL, &my_search_ch_conf);
+
+	    return ((uint8_t)(my_search_ch_conf.addr -
+	                     (uint16_t)usart_string)
+	                     - 1);
+	}
+
+	static void edma_usart_init(uint8_t string_size)
+	{
+	    struct edma_channel_config my_usart_ch_conf;
+	    memset(&my_usart_ch_conf, 0, sizeof(my_usart_ch_conf));
+
+	    edma_channel_set_burst_length(&my_usart_ch_conf,
+	              EDMA_CH_BURSTLEN_1BYTE_gc);
+	    edma_channel_set_transfer_count8(&my_usart_ch_conf, string_size);
+
+	    edma_channel_set_memory_reload_mode(&my_usart_ch_conf,
+	              EDMA_CH_RELOAD_TRANSACTION_gc);
+
+	    edma_channel_set_memory_dir_mode(&my_usart_ch_conf,
+	              EDMA_CH_DIR_INC_gc);
+
+	    edma_channel_set_memory_address(&my_usart_ch_conf,
+	              (uint16_t)usart_string);
+
+	    edma_channel_set_trigger_source(&my_usart_ch_conf,
+	              EDMA_CH_TRIGSRC_USARTC0_DRE_gc);
+
+	    edma_channel_set_single_shot(&my_usart_ch_conf);
+
+	    edma_channel_write_config(EDMA_USART_CHANNEL, &my_usart_ch_conf);
+	    edma_channel_enable(EDMA_USART_CHANNEL);
+	}
+\endcode
  *
  * Add to \c main():
  * \code
- * #define USART    &USARTC0
- * static usart_rs232_options_t USART_OPTIONS = {
- *      .baudrate   = 19200,
- *      .charlength = USART_CHSIZE_8BIT_gc,
- *      .paritytype = USART_PMODE_DISABLED_gc,
- *      .stopbits   = false
- * };
- * sysclk_init();
- * usart_init_rs232(USART, &USART_OPTIONS);
- * edma_enable(EDMA_CHMODE);
- * edma_usart_init(edma_search_data());
- * \endcode
+	#define USART    &USARTC0
+	static usart_rs232_options_t USART_OPTIONS = {
+	     .baudrate   = 19200,
+	     .charlength = USART_CHSIZE_8BIT_gc,
+	     .paritytype = USART_PMODE_DISABLED_gc,
+	     .stopbits   = false
+	};
+	sysclk_init();
+	usart_init_rs232(USART, &USART_OPTIONS);
+	edma_enable(EDMA_CHMODE);
+	edma_usart_init(edma_search_data());
+\endcode
  *
  * \subsection edma_use_case_2_setup_flow Workflow
  * -# Define the EDMA channel mode that will be set. In this case, the EDMA will
@@ -1510,16 +1510,16 @@ static inline void edma_channel_set_search_data(
  *   - \code #define EDMA_SEARCH_PATTERN 0x00 \endcode
  * -# Create a global array that will hold the text to print:
  *   - \code
- * static uint8_t usart_string[] = "XMEGAE5 EDMA-USART print test.\r\n";
- *     \endcode
+	static uint8_t usart_string[] = "XMEGAE5 EDMA-USART print test.\r\n";
+\endcode
  * -# Create a function \c edma_search_data() to search the end of string. This
  *    function will return the string size (end of string character excluded):
  *     - \code
- * static uint8_t edma_search_data(void)
- * {
- *     // ...
- * }
- *       \endcode
+	static uint8_t edma_search_data(void)
+	{
+	    // ...
+	}
+\endcode
  * -# Create config struct for EDMA channel using for search:
  *   - \code struct edma_channel_config my_search_ch_conf; \endcode
  * -# Make sure the configuration structure is zeroed out to ensure that all
@@ -1530,69 +1530,69 @@ static inline void edma_channel_set_search_data(
  *    the USART transfer) can handle. Zero, as no search limit, could be an
  *    alternative value:
  *   - \code
- * edma_channel_set_burst_length(&my_search_ch_conf, EDMA_CH_BURSTLEN_1BYTE_gc);
- * edma_channel_set_transfer_count16(&my_search_ch_conf, 255);
- *     \endcode
+	edma_channel_set_burst_length(&my_search_ch_conf, EDMA_CH_BURSTLEN_1BYTE_gc);
+	edma_channel_set_transfer_count16(&my_search_ch_conf, 255);
+\endcode
  * -# Configure the EDMA channel to not reset the source address at the end of
  *    the complete searching. This is necessary to get the end of string
  *    character pointer. Destination reload mode setting is not required:
  *   - \code
- * edma_channel_set_src_reload_mode(&my_search_ch_conf, EDMA_CH_RELOAD_NONE_gc);
- *     \endcode
+	edma_channel_set_src_reload_mode(&my_search_ch_conf, EDMA_CH_RELOAD_NONE_gc);
+\endcode
  * -# Configure the EDMA channel to increment the memory address after each
  *     computed byte:
  *   - \code
- * edma_channel_set_src_dir_mode(&my_search_ch_conf, EDMA_CH_DIR_INC_gc);
- *     \endcode
+	edma_channel_set_src_dir_mode(&my_search_ch_conf, EDMA_CH_DIR_INC_gc);
+\endcode
  * -# Configure the search mode performed by the EDMA channel. In this case it
  *    is the "Mask-Search" mode defined by <code>EDMA_CH_DIR_MP1_gc<\code>:
  *   - \code
- * edma_channel_set_search_mode(&my_search_ch_conf, EDMA_CH_DIR_MP1_gc);
- *     \endcode
+	edma_channel_set_search_mode(&my_search_ch_conf, EDMA_CH_DIR_MP1_gc);
+\endcode
  * -# Configure the EDMA channel source address:
  *   - \code
- * edma_channel_set_source_address(&my_search_ch_conf, (uint16_t)usart_string);
- *     \endcode
+	edma_channel_set_source_address(&my_search_ch_conf, (uint16_t)usart_string);
+\endcode
  * -# Set the search data and mask (full mask = 0xFF):
  *   - \code
- * edma_channel_set_search_data(&my_search_ch_conf, EDMA_SEARCH_PATTERN, 0xFF);
- *     \endcode
+	edma_channel_set_search_data(&my_search_ch_conf, EDMA_SEARCH_PATTERN, 0xFF);
+\endcode
  * -# Set software command as trigger for the EDMA channel:
  *   - \code
- * edma_channel_set_trigger_source(&my_search_ch_conf, EDMA_CH_TRIGSRC_OFF_gc);
- *     \endcode
+	edma_channel_set_trigger_source(&my_search_ch_conf, EDMA_CH_TRIGSRC_OFF_gc);
+\endcode
  * -# Write the EDMA channel configuration to the EDMA hardware and enable it so
  *    that it can be triggered to start the search:
  *   - \code
- * edma_channel_write_config(EDMA_SEARCH_CHANNEL, &my_search_ch_conf);
- * edma_channel_enable(EDMA_SEARCH_CHANNEL);
- *     \endcode
+	edma_channel_write_config(EDMA_SEARCH_CHANNEL, &my_search_ch_conf);
+	edma_channel_enable(EDMA_SEARCH_CHANNEL);
+\endcode
  * -# Software command to start the EDMA search:
  *   - \code edma_channel_trigger_block_transfer(EDMA_CHANNEL); \endcode
  * -# Wait for end of search:
  *   - \code
- * do {} while (edma_get_channel_status(EDMA_SEARCH_CHANNEL) !=
- *                  EDMA_CH_TRANSFER_COMPLETED);
- *     \endcode
+	do {} while (edma_get_channel_status(EDMA_SEARCH_CHANNEL) !=
+	        EDMA_CH_TRANSFER_COMPLETED);
+\endcode
  * -# Read the EDMA hardware to the EDMA channel configuration after search is
  *    performed:
  *   - \code
- * edma_channel_read_config(EDMA_SEARCH_CHANNEL, &my_search_ch_conf);
- *     \endcode
+	edma_channel_read_config(EDMA_SEARCH_CHANNEL, &my_search_ch_conf);
+\endcode
  * -# Compute and return the string size without taking into account the last
  *    character (end of string):
  *   - \code
- * return ((uint8_t)(my_search_ch_conf.addr - (uint16_t)usart_string) - 1);
- *     \endcode
+	return ((uint8_t)(my_search_ch_conf.addr - (uint16_t)usart_string) - 1);
+\endcode
  *
  * -# Create a function \c edma_usart_init() to intialize the USART transfer via
  *    EDMA. The string size is passed as parameter:
  *     - \code
- * static void edma_usart_init(uint8_t string_size)
- * {
- *     // ...
- * }
- *       \endcode
+	static void edma_usart_init(uint8_t string_size)
+	{
+	    // ...
+	}
+\endcode
  * -# Create config struct for EDMA channel using for USART transfer:
  *   - \code struct edma_channel_config my_usart_ch_conf; \endcode
  * -# Make sure the configuration structure is zeroed out to ensure that all
@@ -1604,49 +1604,49 @@ static inline void edma_channel_set_search_data(
  * -# Configure the EDMA channel for single byte bursts with a transfer length
  *    equal to the string size passed as parameter.
  *   - \code
- * edma_channel_set_burst_length(&my_usart_ch_conf, EDMA_CH_BURSTLEN_1BYTE_gc);
- * edma_channel_set_transfer_count8(&my_usart_ch_conf, string_size);
- *     \endcode
+	edma_channel_set_burst_length(&my_usart_ch_conf, EDMA_CH_BURSTLEN_1BYTE_gc);
+	edma_channel_set_transfer_count8(&my_usart_ch_conf, string_size);
+\endcode
  * -# Configure the EDMA channel to reset the memory address at the end of the
  *    complete transaction (i.e. after \c string_size bytes copied):
  *   - \code
- * edma_channel_set_memory_reload_mode(&my_usart_ch_conf,
- *                  EDMA_CH_RELOAD_TRANSACTION_gc);
- *     \endcode
+	edma_channel_set_memory_reload_mode(&my_usart_ch_conf,
+	        EDMA_CH_RELOAD_TRANSACTION_gc);
+\endcode
  * -# Configure the EDMA channel to increment the memory address after each byte
  *    transferred:
  *   - \code
- * edma_channel_set_memory_dir_mode(&my_usart_ch_conf, EDMA_CH_DIR_INC_gc);
- *     \endcode
+	edma_channel_set_memory_dir_mode(&my_usart_ch_conf, EDMA_CH_DIR_INC_gc);
+\endcode
  * -# Configure the EDMA channel memory address:
  *   - \code
- * edma_channel_set_memory_address(&my_usart_ch_conf, (uint16_t)usart_string);
- *     \endcode
+	edma_channel_set_memory_address(&my_usart_ch_conf, (uint16_t)usart_string);
+\endcode
  * -# Set USART C0 data register empty as trigger for the EDMA channel:
  *   - \code
- * edma_channel_set_trigger_source(&my_usart_ch_conf,
- *                  EDMA_CH_TRIGSRC_USARTC0_DRE_gc);
- *     \endcode
+	edma_channel_set_trigger_source(&my_usart_ch_conf,
+	        EDMA_CH_TRIGSRC_USARTC0_DRE_gc);
+\endcode
  * -# Configure the EDMA channel in single shot mode, so that each time it is
  *    triggered it will perform one bust transfer only:
  *   - \code edma_channel_set_single_shot(&my_usart_ch_conf); \endcode
  * -# Write the EDMA channel configuration to the EDMA hardware and enable it so
  *    that it can be triggered to start the transfer:
  *   - \code
- * edma_channel_write_config(EDMA_USART_CHANNEL, &my_usart_ch_conf);
- * edma_channel_enable(EDMA_USART_CHANNEL);
- *     \endcode
+	edma_channel_write_config(EDMA_USART_CHANNEL, &my_usart_ch_conf);
+	edma_channel_enable(EDMA_USART_CHANNEL);
+\endcode
  * -# Define what USART will be used:
  *   - \code #define USART &USARTC0 \endcode
  * -# Define and fill the USART structure:
  *   - \code
- * static usart_rs232_options_t USART_OPTIONS = {
- *      .baudrate   = 19200,
- *      .charlength = USART_CHSIZE_8BIT_gc,
- *      .paritytype = USART_PMODE_DISABLED_gc,
- *      .stopbits   = false
- * };
- *     \endcode
+	static usart_rs232_options_t USART_OPTIONS = {
+	    .baudrate   = 19200,
+	    .charlength = USART_CHSIZE_8BIT_gc,
+	    .paritytype = USART_PMODE_DISABLED_gc,
+	    .stopbits   = false
+	};
+\endcode
  * -# Initialize the clock system:
  *      - \code sysclk_init(); \endcode
  * -# Initialize the USART:
@@ -1670,16 +1670,16 @@ static inline void edma_channel_set_search_data(
  * \subsection edma_use_case_2_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    do {} while (edma_get_channel_status(EDMA_USART_CHANNEL) !=
- *                  EDMA_CH_TRANSFER_COMPLETED);
- * \endcode
+	do {} while (edma_get_channel_status(EDMA_USART_CHANNEL) !=
+	        EDMA_CH_TRANSFER_COMPLETED);
+\endcode
  *
  * \subsection edma_use_case_2_usage_flow Workflow
  * -# Wait for the transfer to complete:
  *   - \code
- * do {} while (edma_get_channel_status(EDMA_USART_CHANNEL) !=
- *                  EDMA_CH_TRANSFER_COMPLETED);
- *     \endcode
+	do {} while (edma_get_channel_status(EDMA_USART_CHANNEL) !=
+	        EDMA_CH_TRANSFER_COMPLETED);
+\endcode
  */
 
 #endif /* EDMA_H */

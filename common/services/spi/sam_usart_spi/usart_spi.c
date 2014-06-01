@@ -3,7 +3,7 @@
  *
  * \brief SAM USART in SPI mode driver functions.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -84,8 +84,12 @@ void usart_spi_init(Usart *p_usart)
 		uc_id = ID_USART3;
 	}
 #endif
-	
+
+#if SAM4L
+	sysclk_enable_peripheral_clock(p_usart);
+#else
 	sysclk_enable_peripheral_clock(uc_id);
+#endif
 }
 
 /**

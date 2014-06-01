@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,22 +51,22 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief SmcCs_number hardware registers */
 typedef struct {
-  RwReg         SMC_SETUP;        /**< \brief (SmcCs_number Offset: 0x0) SMC Setup Register */
-  RwReg         SMC_PULSE;        /**< \brief (SmcCs_number Offset: 0x4) SMC Pulse Register */
-  RwReg         SMC_CYCLE;        /**< \brief (SmcCs_number Offset: 0x8) SMC Cycle Register */
-  RwReg         SMC_MODE;         /**< \brief (SmcCs_number Offset: 0xC) SMC Mode Register */
+  __IO uint32_t SMC_SETUP; /**< \brief (SmcCs_number Offset: 0x0) SMC Setup Register */
+  __IO uint32_t SMC_PULSE; /**< \brief (SmcCs_number Offset: 0x4) SMC Pulse Register */
+  __IO uint32_t SMC_CYCLE; /**< \brief (SmcCs_number Offset: 0x8) SMC Cycle Register */
+  __IO uint32_t SMC_MODE;  /**< \brief (SmcCs_number Offset: 0xC) SMC Mode Register */
 } SmcCs_number;
 /** \brief Smc hardware registers */
 #define SMCCS_NUMBER_NUMBER 4
 typedef struct {
-  SmcCs_number  SMC_CS_NUMBER[SMCCS_NUMBER_NUMBER]; /**< \brief (Smc Offset: 0x0) CS_number = 0 .. 3 */
-  RoReg         Reserved1[16];
-  RwReg         SMC_OCMS;         /**< \brief (Smc Offset: 0x80) SMC OCMS MODE Register */
-  WoReg         SMC_KEY1;         /**< \brief (Smc Offset: 0x84) SMC OCMS KEY1 Register */
-  WoReg         SMC_KEY2;         /**< \brief (Smc Offset: 0x88) SMC OCMS KEY2 Register */
-  RoReg         Reserved2[22];
-  RwReg         SMC_WPMR;         /**< \brief (Smc Offset: 0xE4) SMC Write Protect Mode Register */
-  RoReg         SMC_WPSR;         /**< \brief (Smc Offset: 0xE8) SMC Write Protect Status Register */
+       SmcCs_number SMC_CS_NUMBER[SMCCS_NUMBER_NUMBER]; /**< \brief (Smc Offset: 0x0) CS_number = 0 .. 3 */
+  __I  uint32_t     Reserved1[16];
+  __IO uint32_t     SMC_OCMS;                           /**< \brief (Smc Offset: 0x80) SMC OCMS MODE Register */
+  __O  uint32_t     SMC_KEY1;                           /**< \brief (Smc Offset: 0x84) SMC OCMS KEY1 Register */
+  __O  uint32_t     SMC_KEY2;                           /**< \brief (Smc Offset: 0x88) SMC OCMS KEY2 Register */
+  __I  uint32_t     Reserved2[22];
+  __IO uint32_t     SMC_WPMR;                           /**< \brief (Smc Offset: 0xE4) SMC Write Protect Mode Register */
+  __I  uint32_t     SMC_WPSR;                           /**< \brief (Smc Offset: 0xE8) SMC Write Protect Status Register */
 } Smc;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- SMC_SETUP : (SMC Offset: N/A) SMC Setup Register -------- */

@@ -52,7 +52,7 @@
 
 #define REV_PM                      0x200
 
-/* -------- PM_CTRL : (PM Offset: 0x00) (R/W  8) Control Register -------- */
+/* -------- PM_CTRL : (PM Offset: 0x00) (R/W  8) Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -66,8 +66,8 @@ typedef union {
 } PM_CTRL_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PM_CTRL_OFFSET              0x00         /**< \brief (PM_CTRL offset) Control Register */
-#define PM_CTRL_RESETVALUE          0x00         /**< \brief (PM_CTRL reset_value) Control Register */
+#define PM_CTRL_OFFSET              0x00         /**< \brief (PM_CTRL offset) Control */
+#define PM_CTRL_RESETVALUE          0x00         /**< \brief (PM_CTRL reset_value) Control */
 
 #define PM_CTRL_CFDEN_Pos           2            /**< \brief (PM_CTRL) Clock Failure Detector Enable */
 #define PM_CTRL_CFDEN               (0x1u << PM_CTRL_CFDEN_Pos)
@@ -75,7 +75,7 @@ typedef union {
 #define PM_CTRL_BKUPCLK             (0x1u << PM_CTRL_BKUPCLK_Pos)
 #define PM_CTRL_MASK                0x14u        /**< \brief (PM_CTRL) MASK Register */
 
-/* -------- PM_SLEEP : (PM Offset: 0x01) (R/W  8) Sleep Register -------- */
+/* -------- PM_SLEEP : (PM Offset: 0x01) (R/W  8) Sleep -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -86,8 +86,8 @@ typedef union {
 } PM_SLEEP_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PM_SLEEP_OFFSET             0x01         /**< \brief (PM_SLEEP offset) Sleep Register */
-#define PM_SLEEP_RESETVALUE         0x00         /**< \brief (PM_SLEEP reset_value) Sleep Register */
+#define PM_SLEEP_OFFSET             0x01         /**< \brief (PM_SLEEP offset) Sleep */
+#define PM_SLEEP_RESETVALUE         0x00         /**< \brief (PM_SLEEP reset_value) Sleep */
 
 #define PM_SLEEP_IDLE_Pos           0            /**< \brief (PM_SLEEP) Idle Level */
 #define PM_SLEEP_IDLE_Msk           (0x3u << PM_SLEEP_IDLE_Pos)
@@ -335,7 +335,7 @@ typedef union {
 #define PM_APBCMASK_DAC             (0x1u << PM_APBCMASK_DAC_Pos)
 #define PM_APBCMASK_MASK            0x0007FFFFu  /**< \brief (PM_APBCMASK) MASK Register */
 
-/* -------- PM_INTENCLR : (PM Offset: 0x34) (R/W  8) Interrupt Enable Clear Register -------- */
+/* -------- PM_INTENCLR : (PM Offset: 0x34) (R/W  8) Interrupt Enable Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -347,8 +347,8 @@ typedef union {
 } PM_INTENCLR_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PM_INTENCLR_OFFSET          0x34         /**< \brief (PM_INTENCLR offset) Interrupt Enable Clear Register */
-#define PM_INTENCLR_RESETVALUE      0x00         /**< \brief (PM_INTENCLR reset_value) Interrupt Enable Clear Register */
+#define PM_INTENCLR_OFFSET          0x34         /**< \brief (PM_INTENCLR offset) Interrupt Enable Clear */
+#define PM_INTENCLR_RESETVALUE      0x00         /**< \brief (PM_INTENCLR reset_value) Interrupt Enable Clear */
 
 #define PM_INTENCLR_CKRDY_Pos       0            /**< \brief (PM_INTENCLR) Clock Ready Interrupt Enable Clear */
 #define PM_INTENCLR_CKRDY           (0x1u << PM_INTENCLR_CKRDY_Pos)
@@ -356,7 +356,7 @@ typedef union {
 #define PM_INTENCLR_CFD             (0x1u << PM_INTENCLR_CFD_Pos)
 #define PM_INTENCLR_MASK            0x03u        /**< \brief (PM_INTENCLR) MASK Register */
 
-/* -------- PM_INTENSET : (PM Offset: 0x35) (R/W  8) Interrupt Enable Set Register -------- */
+/* -------- PM_INTENSET : (PM Offset: 0x35) (R/W  8) Interrupt Enable Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -368,8 +368,8 @@ typedef union {
 } PM_INTENSET_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PM_INTENSET_OFFSET          0x35         /**< \brief (PM_INTENSET offset) Interrupt Enable Set Register */
-#define PM_INTENSET_RESETVALUE      0x00         /**< \brief (PM_INTENSET reset_value) Interrupt Enable Set Register */
+#define PM_INTENSET_OFFSET          0x35         /**< \brief (PM_INTENSET offset) Interrupt Enable Set */
+#define PM_INTENSET_RESETVALUE      0x00         /**< \brief (PM_INTENSET reset_value) Interrupt Enable Set */
 
 #define PM_INTENSET_CKRDY_Pos       0            /**< \brief (PM_INTENSET) Clock Ready Interrupt Enable Set */
 #define PM_INTENSET_CKRDY           (0x1u << PM_INTENSET_CKRDY_Pos)
@@ -377,7 +377,7 @@ typedef union {
 #define PM_INTENSET_CFD             (0x1u << PM_INTENSET_CFD_Pos)
 #define PM_INTENSET_MASK            0x03u        /**< \brief (PM_INTENSET) MASK Register */
 
-/* -------- PM_INTFLAG : (PM Offset: 0x36) (R/W  8) Interrupt Flag Status and Clear Register -------- */
+/* -------- PM_INTFLAG : (PM Offset: 0x36) (R/W  8) Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -389,8 +389,8 @@ typedef union {
 } PM_INTFLAG_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PM_INTFLAG_OFFSET           0x36         /**< \brief (PM_INTFLAG offset) Interrupt Flag Status and Clear Register */
-#define PM_INTFLAG_RESETVALUE       0x00         /**< \brief (PM_INTFLAG reset_value) Interrupt Flag Status and Clear Register */
+#define PM_INTFLAG_OFFSET           0x36         /**< \brief (PM_INTFLAG offset) Interrupt Flag Status and Clear */
+#define PM_INTFLAG_RESETVALUE       0x00         /**< \brief (PM_INTFLAG reset_value) Interrupt Flag Status and Clear */
 
 #define PM_INTFLAG_CKRDY_Pos        0            /**< \brief (PM_INTFLAG) Clock Ready Interrupt */
 #define PM_INTFLAG_CKRDY            (0x1u << PM_INTFLAG_CKRDY_Pos)
@@ -398,7 +398,7 @@ typedef union {
 #define PM_INTFLAG_CFD              (0x1u << PM_INTFLAG_CFD_Pos)
 #define PM_INTFLAG_MASK             0x03u        /**< \brief (PM_INTFLAG) MASK Register */
 
-/* -------- PM_RCAUSE : (PM Offset: 0x38) (R/   8) Reset Cause Register -------- */
+/* -------- PM_RCAUSE : (PM Offset: 0x38) (R/   8) Reset Cause -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -415,8 +415,8 @@ typedef union {
 } PM_RCAUSE_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define PM_RCAUSE_OFFSET            0x38         /**< \brief (PM_RCAUSE offset) Reset Cause Register */
-#define PM_RCAUSE_RESETVALUE        0x01         /**< \brief (PM_RCAUSE reset_value) Reset Cause Register */
+#define PM_RCAUSE_OFFSET            0x38         /**< \brief (PM_RCAUSE offset) Reset Cause */
+#define PM_RCAUSE_RESETVALUE        0x01         /**< \brief (PM_RCAUSE reset_value) Reset Cause */
 
 #define PM_RCAUSE_POR_Pos           0            /**< \brief (PM_RCAUSE) Power-on Reset */
 #define PM_RCAUSE_POR               (0x1u << PM_RCAUSE_POR_Pos)
@@ -435,8 +435,8 @@ typedef union {
 /** \brief PM hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef struct {
-  __IO PM_CTRL_Type              CTRL;        /**< \brief Offset: 0x00 (R/W  8) Control Register */
-  __IO PM_SLEEP_Type             SLEEP;       /**< \brief Offset: 0x01 (R/W  8) Sleep Register */
+  __IO PM_CTRL_Type              CTRL;        /**< \brief Offset: 0x00 (R/W  8) Control */
+  __IO PM_SLEEP_Type             SLEEP;       /**< \brief Offset: 0x01 (R/W  8) Sleep */
        RoReg8                    Reserved1[0x6];
   __IO PM_CPUSEL_Type            CPUSEL;      /**< \brief Offset: 0x08 (R/W  8) CPU Clock Select */
   __IO PM_APBASEL_Type           APBASEL;     /**< \brief Offset: 0x09 (R/W  8) APBA Clock Select */
@@ -448,11 +448,11 @@ typedef struct {
   __IO PM_APBBMASK_Type          APBBMASK;    /**< \brief Offset: 0x1C (R/W 32) APBB Mask */
   __IO PM_APBCMASK_Type          APBCMASK;    /**< \brief Offset: 0x20 (R/W 32) APBC Mask */
        RoReg8                    Reserved3[0x10];
-  __IO PM_INTENCLR_Type          INTENCLR;    /**< \brief Offset: 0x34 (R/W  8) Interrupt Enable Clear Register */
-  __IO PM_INTENSET_Type          INTENSET;    /**< \brief Offset: 0x35 (R/W  8) Interrupt Enable Set Register */
-  __IO PM_INTFLAG_Type           INTFLAG;     /**< \brief Offset: 0x36 (R/W  8) Interrupt Flag Status and Clear Register */
+  __IO PM_INTENCLR_Type          INTENCLR;    /**< \brief Offset: 0x34 (R/W  8) Interrupt Enable Clear */
+  __IO PM_INTENSET_Type          INTENSET;    /**< \brief Offset: 0x35 (R/W  8) Interrupt Enable Set */
+  __IO PM_INTFLAG_Type           INTFLAG;     /**< \brief Offset: 0x36 (R/W  8) Interrupt Flag Status and Clear */
        RoReg8                    Reserved4[0x1];
-  __I  PM_RCAUSE_Type            RCAUSE;      /**< \brief Offset: 0x38 (R/   8) Reset Cause Register */
+  __I  PM_RCAUSE_Type            RCAUSE;      /**< \brief Offset: 0x38 (R/   8) Reset Cause */
 } Pm;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 

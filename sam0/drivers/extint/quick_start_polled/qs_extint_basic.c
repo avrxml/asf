@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 External Interrupt Driver Quick Start
+ * \brief SAM D20/D21/R21 External Interrupt Driver Quick Start
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,7 +71,6 @@ int main(void)
 	system_init();
 
 	//! [setup_init]
-	extint_enable();
 	configure_extint_channel();
 	//! [setup_init]
 

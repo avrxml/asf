@@ -3,7 +3,7 @@
  *
  * \brief SAM4S-EK2 Board Definition.
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,7 +46,6 @@
 
 #include "compiler.h"
 #include "system_sam4s.h"
-#include "exceptions.h"
 
 /*
 #define BOARD_REV_A
@@ -72,7 +71,7 @@
 /** Master clock frequency */
 #define BOARD_MCK                   CHIP_FREQ_CPU_MAX
 
-/** board main clock xtal statup time */
+/** board main clock xtal startup time */
 #define BOARD_OSC_STARTUP_US        15625
 
 /*-----------------------------------------------------------------------*/
@@ -649,27 +648,14 @@
 #define BOARD_ILI9325_ADDR          0x61000000
 /** Define ILI9325 register select signal. */
 #define BOARD_ILI9325_RS            (1 << 1)
+/** Define ILI93xx base address. */
+#define BOARD_ILI93XX_ADDR          0x61000000
+/** Define ILI93xx register select signal. */
+#define BOARD_ILI93XX_RS            (1 << 1)
 /** Display width in pixels. */
 #define BOARD_LCD_WIDTH             240
 /** Display height in pixels. */
 #define BOARD_LCD_HEIGHT            320
-
-/** Definition of MMA7341L x,y,z axis channel number */
-#define MMA7341L_ADC_CHANNEL_X  2
-#define MMA7341L_ADC_CHANNEL_Y  6
-#define MMA7341L_ADC_CHANNEL_Z  7
-
-/** MMA7341L mode set pin definition. */
-#define PIN_MMA7341L_MODE                PIO_PC13_IDX
-#define PIN_MMA7341L_MODE_FLAG       PIO_OUTPUT_1 | PIO_DEFAULT
-
-/** MMA7341L X,Y,Z axis pin definition. */
-#define PIN_MMA7341L_X_AXIS                PIO_PB3_IDX
-#define PIN_MMA7341L_X_AXIS_FLAG       PIO_INPUT | PIO_DEFAULT
-#define PIN_MMA7341L_Y_AXIS                PIO_PC17_IDX
-#define PIN_MMA7341L_Y_AXIS_FLAG       PIO_INPUT | PIO_DEFAULT
-#define PIN_MMA7341L_Z_AXIS                PIO_PC18_IDX
-#define PIN_MMA7341L_Z_AXIS_FLAG       PIO_INPUT | PIO_DEFAULT
 
 /** Touchscreen controller IRQ & Busy pin definition. */
 #define BOARD_ADS7843_IRQ_GPIO      PIO_PA16_IDX

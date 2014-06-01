@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Digital to Analog Converter driver
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -581,70 +581,70 @@ __always_inline static void dac_set_conversion_trigger(struct dac_config *conf,
  * The following configuration must be added to the project (typically to a
  * conf_dac.h file, but it can also be added to your main application file):
  * \code
- * #define SPEAKER_DAC              DACB
- * #define SPEAKER_DAC_CHANNEL      DAC_CH0
- * #define RATE_OF_CONVERSION       22050
- * #define NR_OF_SAMPLES            32
- * \endcode
+	#define SPEAKER_DAC              DACB
+	#define SPEAKER_DAC_CHANNEL      DAC_CH0
+	#define RATE_OF_CONVERSION       22050
+	#define NR_OF_SAMPLES            32
+\endcode
  *
  * A static const sample buffer with one period of a sine wave must be added:
  * \code static const uint16_t sine[NR_OF_SAMPLES] = {
- *     32768, 35325, 37784, 40050, 42036, 43666, 44877, 45623,
- *     45875, 45623, 44877, 43666, 42036, 40050, 37784, 35325,
- *     32768, 30211, 27752, 25486, 23500, 21870, 20659, 19913,
- *     19661, 19913, 20659, 21870, 23500, 25486, 27752, 30211,
- * };
- * \endcode
+	    32768, 35325, 37784, 40050, 42036, 43666, 44877, 45623,
+	    45875, 45623, 44877, 43666, 42036, 40050, 37784, 35325,
+	    32768, 30211, 27752, 25486, 23500, 21870, 20659, 19913,
+	    19661, 19913, 20659, 21870, 23500, 25486, 27752, 30211,
+	};
+\endcode
  *
  * Add to application initialization:
  * \code
- * static void evsys_init(void)
- * {
- *     sysclk_enable_module(SYSCLK_PORT_GEN, SYSCLK_EVSYS);
- *     EVSYS.CH3MUX = EVSYS_CHMUX_TCC0_OVF_gc;
- * }
- *
- * void tc_init(void)
- * {
- *     tc_enable(&TCC0);
- *     tc_set_wgm(&TCC0, TC_WG_NORMAL);
- *     tc_write_period(&TCC0, (sysclk_get_per_hz() / RATE_OF_CONVERSION) - 1);
- *     tc_write_clock_source(&TCC0, TC_CLKSEL_DIV1_gc);	
- * }
- *
- * void dac_init(void)
- * {
- *     struct dac_config conf;
- *
- *     dac_read_configuration(&SPEAKER_DAC, &conf);
- *     dac_set_conversion_parameters(&conf, DAC_REF_BANDGAP, DAC_ADJ_LEFT);
- *     dac_set_active_channel(&conf, SPEAKER_DAC_CHANNEL, 0);
- *     dac_set_conversion_trigger(&conf, SPEAKER_DAC_CHANNEL, 3);
- *     #ifdef XMEGA_DAC_VERSION_1
- *     dac_set_conversion_interval(&conf, 1);
- *     #endif
- *     dac_write_configuration(&SPEAKER_DAC, &conf);
- *     dac_enable(&SPEAKER_DAC);
- * }
- * \endcode
+	 static void evsys_init(void)
+	 {
+	     sysclk_enable_module(SYSCLK_PORT_GEN, SYSCLK_EVSYS);
+	     EVSYS.CH3MUX = EVSYS_CHMUX_TCC0_OVF_gc;
+	 }
+
+	 void tc_init(void)
+	 {
+	     tc_enable(&TCC0);
+	     tc_set_wgm(&TCC0, TC_WG_NORMAL);
+	     tc_write_period(&TCC0, (sysclk_get_per_hz() / RATE_OF_CONVERSION) - 1);
+	     tc_write_clock_source(&TCC0, TC_CLKSEL_DIV1_gc);	
+	 }
+
+	 void dac_init(void)
+	 {
+	     struct dac_config conf;
+
+	     dac_read_configuration(&SPEAKER_DAC, &conf);
+	     dac_set_conversion_parameters(&conf, DAC_REF_BANDGAP, DAC_ADJ_LEFT);
+	     dac_set_active_channel(&conf, SPEAKER_DAC_CHANNEL, 0);
+	     dac_set_conversion_trigger(&conf, SPEAKER_DAC_CHANNEL, 3);
+	     #ifdef XMEGA_DAC_VERSION_1
+	     dac_set_conversion_interval(&conf, 1);
+	     #endif
+	     dac_write_configuration(&SPEAKER_DAC, &conf);
+	     dac_enable(&SPEAKER_DAC);
+	 }
+\endcode
  *
  * Add to \c main():
  * \code
- * sysclk_init();
- * evsys_init();
- * tc_init();
- * dac_init();
- * \endcode
+	sysclk_init();
+	evsys_init();
+	tc_init();
+	dac_init();
+\endcode
  *
  * \subsection dac_basic_use_case_setup_flow Workflow
  * -# Create a function \c evsys_init() to intialize the event system clocks and
  *    to link the conversion timer to the correct event channel:
  *     - \code
- * static void evsys_init(void)
- * {
- *     // ...
- * }
- *       \endcode
+	static void evsys_init(void)
+	{
+	    // ...
+	}
+\endcode
  * -# Use the sysclk service to enable the clock to the event system:
  *     - \code sysclk_enable_module(SYSCLK_PORT_GEN, SYSCLK_EVSYS); \endcode
  * -# Connect the TCC0 overflow event to event channel 3:
@@ -653,11 +653,11 @@ __always_inline static void dac_set_conversion_trigger(struct dac_config *conf,
  *          mask here will also need to be altered.
  * -# Create a function \c tc_init() to intialize the DAC trigger timer:
  *     - \code
- * static void tc_init(void)
- * {
- *     // ...
- * }
- *       \endcode
+	static void tc_init(void)
+	{
+	    // ...
+	}
+\endcode
  * -# Enable the clock to the DAC trigger timer:
  *     - \code tc_enable(&TCC0); \endcode
  * -# Configure the DAC trigger timer in normal Waveform Generation mode:
@@ -670,25 +670,25 @@ __always_inline static void dac_set_conversion_trigger(struct dac_config *conf,
  *     - \code tc_write_clock_source(&TCC0, TC_CLKSEL_DIV1_gc); \endcode
  * -# Create a function \c dac_init() to intialize the DAC:
  *     - \code
- * static void dac_init(void)
- * {
- *     // ...
- * }
- *       \endcode
+	static void dac_init(void)
+	{
+	    // ...
+	}
+\endcode
  * -# Config struct for the DAC:
  *   - \code struct dac_config conf; \endcode
  * -# Initialize the dac configuration by reading back the configuration from the peripheral:
  *   - \code dac_read_configuration(&SPEAKER_DAC, &conf); \endcode
  * -# Create and set configuration:
  *   - \code
- * dac_set_conversion_parameters(&conf, DAC_REF_BANDGAP, DAC_ADJ_LEFT);
- * dac_set_active_channel(&conf, SPEAKER_DAC_CHANNEL, 0);
- * dac_set_conversion_trigger(&conf, SPEAKER_DAC_CHANNEL, 3);
- * #ifdef XMEGA_DAC_VERSION_1
- * dac_set_conversion_interval(&conf, 1);
- * #endif
- * dac_write_configuration(&SPEAKER_DAC, &conf);
- *     \endcode
+	dac_set_conversion_parameters(&conf, DAC_REF_BANDGAP, DAC_ADJ_LEFT);
+	dac_set_active_channel(&conf, SPEAKER_DAC_CHANNEL, 0);
+	dac_set_conversion_trigger(&conf, SPEAKER_DAC_CHANNEL, 3);
+	#ifdef XMEGA_DAC_VERSION_1
+	dac_set_conversion_interval(&conf, 1);
+	#endif
+	dac_write_configuration(&SPEAKER_DAC, &conf);
+\endcode
  *    \note If the DAC trigger event channel is changed from channel 3, the
  *          parameter to dac_set_conversion_trigger() here will also need to be
  *          altered.
@@ -696,43 +696,43 @@ __always_inline static void dac_set_conversion_trigger(struct dac_config *conf,
  *   - \code dac_enable(&SPEAKER_DAC); \endcode
  * -# Initialize the clock system, event system, DAC trigger timer, and the DAC:
  *     - \code
- * sysclk_init();
- * evsys_init();
- * tc_init();
- * dac_init();
- *       \endcode
+	sysclk_init();
+	evsys_init();
+	tc_init();
+	dac_init();
+\endcode
  *
  * \section dac_basic_use_case_usage Usage steps
  *
  * \subsection dac_basic_use_case_usage_code Example code
  * Add to application C-file:
  * \code
- * uint8_t i = 0;
- * while (1) {
- *     dac_wait_for_channel_ready(&SPEAKER_DAC, SPEAKER_DAC_CHANNEL);
- *     dac_set_channel_value(&SPEAKER_DAC, SPEAKER_DAC_CHANNEL, sine[i]);
- *     i++;
- *     i %= NR_OF_SAMPLES;
- * }
- * \endcode
+	uint8_t i = 0;
+	while (1) {
+	    dac_wait_for_channel_ready(&SPEAKER_DAC, SPEAKER_DAC_CHANNEL);
+	    dac_set_channel_value(&SPEAKER_DAC, SPEAKER_DAC_CHANNEL, sine[i]);
+	    i++;
+	    i %= NR_OF_SAMPLES;
+	}
+\endcode
  *
  * \subsection dac_basic_use_case_usage_flow Workflow
  * -# Create a local variable to hold the current sine wave lookup table index:
  *   - \code uint8_t i = 0; \endcode
  * -# Wait for DAC channel to be ready for new data:
  *   - \code
- * dac_wait_for_channel_ready(&SPEAKER_DAC, SPEAKER_DAC_CHANNEL);
- *     \endcode
+	dac_wait_for_channel_ready(&SPEAKER_DAC, SPEAKER_DAC_CHANNEL);
+\endcode
  * -# Set the current sine wave table element as new channel value:
  *   - \code
- * dac_set_channel_value(&SPEAKER_DAC, SPEAKER_DAC_CHANNEL, sine[i]);
- *     \endcode
+	dac_set_channel_value(&SPEAKER_DAC, SPEAKER_DAC_CHANNEL, sine[i]);
+\endcode
  * \note Conversion is triggered by the timer/counter
  * -# Get next index in sine wave array to convert, wrapping around at NR_OF_SAMPLES:
  *   - \code
- * i++;
- * i %= NR_OF_SAMPLES;
- *     \endcode
+	i++;
+	i %= NR_OF_SAMPLES;
+\endcode
  */
 
 /**
@@ -758,51 +758,51 @@ __always_inline static void dac_set_conversion_trigger(struct dac_config *conf,
  * -# The following configuration must be added to the project (typically to a
  * conf_dac.h file, but it can also be added to your main application file.):
  * \code
- * #define RATE_OF_CONVERSION       500
- * #define OUTPUT_DAC               DACA
- * \endcode
+	#define RATE_OF_CONVERSION       500
+	#define OUTPUT_DAC               DACA
+\endcode
  *
  * -# Add to application initialization:
  * \code
- * void tc_init(void)
- * {
- *     tc_enable(&TCC0);
- *     tc_set_wgm(&TCC0, TC_WG_NORMAL);
- *     tc_write_period(&TCC0, (sysclk_get_per_hz() / RATE_OF_CONVERSION) - 1);
- *     tc_write_clock_source(&TCC0, TC_CLKSEL_DIV1_gc);	
- * }
- *
- * void dac_init(void)
- * {
- *     struct dac_config conf;
- *
- *     dac_read_configuration(&OUTPUT_DAC, &conf);
- *     dac_set_conversion_parameters(&conf, DAC_REF_AVCC, DAC_ADJ_RIGHT);
- *     dac_set_active_channel(&conf, DAC_CH0 | DAC_CH1, 0);
- *     #ifdef XMEGA_DAC_VERSION_1
- *     dac_set_conversion_interval(&conf, 10);
- *     dac_set_refresh_interval(&conf, 20);
- *     #endif
- *     dac_write_configuration(&OUTPUT_DAC, &conf);
- *     dac_enable(&OUTPUT_DAC);
- * }
- * \endcode
+	 void tc_init(void)
+	 {
+	     tc_enable(&TCC0);
+	     tc_set_wgm(&TCC0, TC_WG_NORMAL);
+	     tc_write_period(&TCC0, (sysclk_get_per_hz() / RATE_OF_CONVERSION) - 1);
+	     tc_write_clock_source(&TCC0, TC_CLKSEL_DIV1_gc);	
+	 }
+
+	 void dac_init(void)
+	 {
+	     struct dac_config conf;
+
+	     dac_read_configuration(&OUTPUT_DAC, &conf);
+	     dac_set_conversion_parameters(&conf, DAC_REF_AVCC, DAC_ADJ_RIGHT);
+	     dac_set_active_channel(&conf, DAC_CH0 | DAC_CH1, 0);
+	     #ifdef XMEGA_DAC_VERSION_1
+	     dac_set_conversion_interval(&conf, 10);
+	     dac_set_refresh_interval(&conf, 20);
+	     #endif
+	     dac_write_configuration(&OUTPUT_DAC, &conf);
+	     dac_enable(&OUTPUT_DAC);
+	 }
+\endcode
  *
  * Add to \c main():
  * \code
- * sysclk_init();
- * tc_init();
- * dac_init();
- * \endcode
+	sysclk_init();
+	tc_init();
+	dac_init();
+\endcode
  *
  * \subsection dac_use_case_1_setup_flow Workflow
  * -# Create a function \c tc_init() to intialize the DAC trigger timer:
  *     - \code
- * static void tc_init(void)
- * {
- *     // ...
- * }
- *       \endcode
+	static void tc_init(void)
+	{
+	    // ...
+	}
+\endcode
  * -# Enable the clock to the DAC trigger timer:
  *     - \code tc_enable(&TCC0); \endcode
  * -# Configure the DAC trigger timer in normal Waveform Generation mode:
@@ -815,11 +815,11 @@ __always_inline static void dac_set_conversion_trigger(struct dac_config *conf,
  *     - \code tc_write_clock_source(&TCC0, TC_CLKSEL_DIV1_gc); \endcode
  * -# Create a function \c dac_init() to intialize the DAC:
  *     - \code
- * static void dac_init(void)
- * {
- *     // ...
- * }
- *       \endcode
+	static void dac_init(void)
+	{
+	    // ...
+	}
+\endcode
  * -# Config struct for the DAC:
  *   - \code struct dac_config conf; \endcode
  * -# Initialize system clock:
@@ -828,66 +828,66 @@ __always_inline static void dac_set_conversion_trigger(struct dac_config *conf,
  *   - \code dac_read_configuration(&SPEAKER_DAC, &conf); \endcode
  * -# Create and set configuration:
  *   - \code
- *     dac_read_configuration(&OUTPUT_DAC, &conf);
- *     dac_set_conversion_parameters(&conf, DAC_REF_AVCC, DAC_ADJ_RIGHT);
- *     dac_set_active_channel(&conf, DAC_CH0 | DAC_CH1, 0);
- *     #ifdef XMEGA_DAC_VERSION_1
- *     dac_set_conversion_interval(&conf, 10);
- *     dac_set_refresh_interval(&conf, 20);
- *     #endif
- *     dac_write_configuration(&OUTPUT_DAC, &conf);
- *     dac_enable(&OUTPUT_DAC);
- *     \endcode
+	dac_read_configuration(&OUTPUT_DAC, &conf);
+	dac_set_conversion_parameters(&conf, DAC_REF_AVCC, DAC_ADJ_RIGHT);
+	dac_set_active_channel(&conf, DAC_CH0 | DAC_CH1, 0);
+	#ifdef XMEGA_DAC_VERSION_1
+	dac_set_conversion_interval(&conf, 10);
+	dac_set_refresh_interval(&conf, 20);
+	#endif
+	dac_write_configuration(&OUTPUT_DAC, &conf);
+	dac_enable(&OUTPUT_DAC);
+\endcode
  * -# Enable DAC:
  *   - \code dac_enable(&SPEAKER_DAC); \endcode
  * -# Initialize the clock system, event system, DAC trigger timer, and the DAC:
  *     - \code
- * sysclk_init();
- * tc_init();
- * dac_init();
- *       \endcode
+	sysclk_init();
+	tc_init();
+	dac_init();
+\endcode
  *
  * \section dac_use_case_1_usage Usage steps
  *
  * \subsection dac_use_case_1_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- * while (!(tc_is_overflow(&TCC0))) {};
- * tc_clear_overflow(&TCC0);
- *
- * dac_set_channel_value(&OUTPUT_DAC, DAC_CH0, 410);
- * dac_set_channel_value(&OUTPUT_DAC, DAC_CH1, 3686);
- *
- * while (!(tc_is_overflow(&TCC0))) {};
- * tc_clear_overflow(&TCC0);
- *
- * dac_set_channel_value(&OUTPUT_DAC, DAC_CH0, 3686);
- * dac_set_channel_value(&OUTPUT_DAC, DAC_CH1, 410);
- * \endcode
+	 while (!(tc_is_overflow(&TCC0))) {};
+	 tc_clear_overflow(&TCC0);
+
+	 dac_set_channel_value(&OUTPUT_DAC, DAC_CH0, 410);
+	 dac_set_channel_value(&OUTPUT_DAC, DAC_CH1, 3686);
+
+	 while (!(tc_is_overflow(&TCC0))) {};
+	 tc_clear_overflow(&TCC0);
+
+	 dac_set_channel_value(&OUTPUT_DAC, DAC_CH0, 3686);
+	 dac_set_channel_value(&OUTPUT_DAC, DAC_CH1, 410);
+\endcode
  *
  * \subsection dac_use_case_1_usage_flow Workflow
  * -# Wait for channels to get ready for new values, by waiting for the sample
  *    timer to overflow and then clearing the flag:
  *   - \code
- * while (!(tc_is_overflow(&TCC0))) {};
- * tc_clear_overflow(&TCC0);
- *     \endcode
+	while (!(tc_is_overflow(&TCC0))) {};
+	tc_clear_overflow(&TCC0);
+\endcode
  * -# Set the value of channel 0 to 10% and the other to 90% of maximum:
  *   - \code
- * dac_set_channel_value(&OUTPUT_DAC, DAC_CH0, 410);
- * dac_set_channel_value(&OUTPUT_DAC, DAC_CH1, 3686);
- *     \endcode
+	dac_set_channel_value(&OUTPUT_DAC, DAC_CH0, 410);
+	dac_set_channel_value(&OUTPUT_DAC, DAC_CH1, 3686);
+\endcode
  * -# Wait for channels to get ready for new values, by waiting for the sample
  *    timer to overflow and then clearing the flag:
  *   - \code
- * while (!(tc_is_overflow(&TCC0))) {};
- * tc_clear_overflow(&TCC0);
- *     \endcode
+	while (!(tc_is_overflow(&TCC0))) {};
+	tc_clear_overflow(&TCC0);
+\endcode
  * -# Set the value of channel 0 to 90% and the other to 10% of maximum:
  *   - \code
- * dac_set_channel_value(&OUTPUT_DAC, DAC_CH0, 3686);
- * dac_set_channel_value(&OUTPUT_DAC, DAC_CH1, 410);
- *     \endcode
+	dac_set_channel_value(&OUTPUT_DAC, DAC_CH0, 3686);
+	dac_set_channel_value(&OUTPUT_DAC, DAC_CH1, 410);
+\endcode
  * \note Conversions are triggered by the timer/counter
  */
 

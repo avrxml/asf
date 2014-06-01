@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -220,6 +220,8 @@
 #define PIO_PB3B_PCK2      (1u << 3)  /**< \brief Pmc signal: PCK2 */
 /* ========== Pio definition for PWM peripheral ========== */
 #define PIO_PA9C_PWMFI0    (1u << 9)  /**< \brief Pwm signal: PWMFI0 */
+#define PIO_PA10C_PWMFI1   (1u << 10) /**< \brief Pwm signal: PWMFI1 */
+#define PIO_PA18D_PWMFI2   (1u << 18) /**< \brief Pwm signal: PWMFI2 */
 #define PIO_PA0A_PWMH0     (1u << 0)  /**< \brief Pwm signal: PWMH0 */
 #define PIO_PA11B_PWMH0    (1u << 11) /**< \brief Pwm signal: PWMH0 */
 #define PIO_PA23B_PWMH0    (1u << 23) /**< \brief Pwm signal: PWMH0 */

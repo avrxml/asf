@@ -3,7 +3,7 @@
  *
  * @brief API for ZRC profile includes cmd discovery and RC commands.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -69,11 +69,11 @@
 #define DISCOVERY_REPETITION_INTERVAL       0x00F424
 
 /** Default value for maximum number of times the discovery request command is
- *sent */
+ * sent */
 #define MAX_DISCOVERY_REPETITIONS           0x1E
 
 /** Default value for Number of reported node descriptor received during
- *discovery process */
+ * discovery process */
 #define MAX_REPORTED_NODE_DESCRIPTORS       1
 
 /** The maximum time between consecutive user control repeated command frame
@@ -134,7 +134,7 @@
 typedef enum zrc_cmd_code_tag {
 	/* Reserved 0x00 */
 	USER_CONTROL_IDLE          = 0x00, /* Internal use; state machine
-	                                    *handling */
+	                                    * handling */
 	USER_CONTROL_PRESSED       = 0x01,
 	USER_CONTROL_REPEATED      = 0x02,
 	USER_CONTROL_RELEASED      = 0x03,
@@ -263,7 +263,7 @@ typedef struct zrc_cmd_frm_tag {
  * @param Status        Status of the sent command discovery request
  * @param PairingRef    Pairing reference used for the command discovery request
  * @param SupportedCmd  Pointer to 32 byte array containing the supported
- *commands
+ * commands
  *
  * @ingroup group_RF4Control_ZRC_API
  */
@@ -399,7 +399,7 @@ bool zrc_cmd_request(uint8_t PairingRef, uint16_t VendorId,
  * @param confirm_cb Call back pointer for the confirmation.
  *
  * @return true if request has been added to NHLE-NWK queue successfully; else
- *false
+ * false
  *
  * @ingroup group_RF4Control_ZRC_CMD_DISC_API
  */
@@ -418,10 +418,10 @@ bool zrc_cmd_disc_request(uint8_t PairingRef,
  *
  * @param PairingRef    Pairing reference used for the command discovery request
  * @param SupportedCmd  Pointer to 32 byte array containing supported CEC
- *commands
+ * commands
  *
  * @return true if request has been added to NHLE-NWK queue successfully; else
- *false
+ * false
  *
  * @ingroup group_RF4Control_ZRC_CMD_DISC_API
  */

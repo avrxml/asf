@@ -15,6 +15,7 @@
  * \par Content
  *
  * -# Include the ASF header files (through asf.h)
+ * -# "Insert system clock initialization code here" comment
  * -# Minimal main function that starts with a call to board_init()
  * -# "Insert application code here" comment
  *
@@ -28,6 +29,8 @@
 
 int main (void)
 {
+	// Insert system clock initialization code here (sysclk_init()).
+
 	board_init();
 
 	// Insert application code here, after the board has been initialized.

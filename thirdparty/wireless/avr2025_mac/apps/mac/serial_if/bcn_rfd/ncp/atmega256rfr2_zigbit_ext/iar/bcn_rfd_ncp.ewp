@@ -15,6 +15,7 @@
 				<debug>1</debug>
 				<option>
 					<name>GGEnhancedCore</name>
+					<state>1</state>
 				</option>
 				<option>
 					<name>Variant Memory</name>
@@ -60,7 +61,7 @@
 				</option>
 				<option>
 					<name>SCCStackSize</name>
-					<state>0x100</state>
+					<state>0x20</state>
 				</option>
 				<option>
 					<name>SCExtCStack</name>
@@ -68,7 +69,7 @@
 				</option>
 				<option>
 					<name>SCRStackSize</name>
-					<state>0x100</state>
+					<state>16</state>
 				</option>
 				<option>
 					<name>SCExtRStack</name>
@@ -120,6 +121,7 @@
 				</option>
 				<option>
 					<name>GGEepromUtilSize</name>
+					<!--state>8192</state-->
 				</option>
 				<option>
 					<name>GRuntimeLibSelect</name>
@@ -128,12 +130,19 @@
 				</option>
 				<option>
 					<name>RTDescription</name>
+					<!--state>Use the normal configuration of the C/EC++</state>
+          <state>runtime library. No locale interface,</state>
+          <state>C locale, no file descriptor support,</state>
+          <state>no multibytes in printf and scanf, and</state>
+          <state>no hex floats in strtod.</state-->
 				</option>
 				<option>
 					<name>RTConfigPath</name>
+					<!--state>$TOOLKIT_DIR$\LIB\DLIB\dlAVR-3s-ec_mul-n.h</state-->
 				</option>
 				<option>
 					<name>RTLibraryPath</name>
+					<!--state>$TOOLKIT_DIR$\LIB\DLIB\dlAVR-3s-ec_mul-n.r90</state-->
 				</option>
 				<option>
 					<name>Input variant</name>
@@ -147,11 +156,11 @@
 				<option>
 					<name>Output variant</name>
 					<version>36</version>
-					<state>0</state>
+					<state>6</state>
 				</option>
 				<option>
 					<name>Output description</name>
-					<state>Automatic choice of formatter.</state>
+					<state>No specifier a, A, no specifier n, no float nor long long.</state>
 				</option>
 				<option>
 					<name>GRuntimeLibSelectSlave</name>
@@ -206,6 +215,7 @@
 				</option>
 				<option>
 					<name>GenDeviceSelectMenu</name>
+					<!--state>m2564rfr2	ATmega2564RFR2 (ATmega256RFR2)</state-->
 					<state>m256rfr2	ATmega256RFR2</state>
 				</option>
 			</data>
@@ -236,9 +246,12 @@
 				<option>
 					<name>CCDefines</name>
 					<state></state>
+					<state>SAL_TYPE=ATMEGARF_SAL</state>
 					<state>TEST_HARNESS</state>
+					<state>STB_ON_SAL</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
+					<state>GTS_SUPPORT</state>
 					<state>BEACON_SUPPORT</state>
 					<state>TAL_TYPE=ATMEGARFR2</state>
 					<state>BOARD=ATMEGA256RFR2_ZIGBIT</state>
@@ -396,38 +409,39 @@
 				</option>
 				<option>
 					<name>newCCIncludePaths</name>
-					<state>$TOOLKIT_DIR$\INC\</state>
-					<state>$TOOLKIT_DIR$\INC\DLIB\</state>
+					<state></state>
 					<state>$PROJ_DIR$/../../../../../../../source/mac/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../source/pal/common_sw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/sal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../source/resources/queue/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../mega/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../../source/tal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../addons/sio2host/uart</state>
+					<state>$PROJ_DIR$/../../../../../../../source/stb/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../source/resources/buffer/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/drivers/cpu</state>
 					<state>$PROJ_DIR$/../../../../../../../addons/serial_if/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../source/pal/mega/drivers/tc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/boards</state>
-					<state>$PROJ_DIR$/../../../../../../../source/pal/common_hw_timer/mega</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer/mega</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/serial/megarf_usart</state>
-					<state>$PROJ_DIR$/../../../../../../../source/tal/inc</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../mega/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../source/pal</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/boards/atmega256rfr2_zigbit</state>
-					<state>$PROJ_DIR$/../../../../../../../source/pal/common_hw_timer</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/mega/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -573,9 +587,12 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>SAL_TYPE=ATMEGARF_SAL</state>
 					<state>TEST_HARNESS</state>
+					<state>STB_ON_SAL</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
+					<state>GTS_SUPPORT</state>
 					<state>BEACON_SUPPORT</state>
 					<state>TAL_TYPE=ATMEGARFR2</state>
 					<state>BOARD=ATMEGA256RFR2_ZIGBIT</state>
@@ -695,38 +712,39 @@
 				</option>
 				<option>
 					<name>ANewIncludes</name>
-					<state>$TOOLKIT_DIR$\INC\</state>
-					<state>$TOOLKIT_DIR$\INC\DLIB\</state>
+					<state>###Uninitialized###</state>
 					<state>$PROJ_DIR$/../../../../../../../source/mac/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../source/pal/common_sw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/sal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../source/resources/queue/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../mega/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../../source/tal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../addons/sio2host/uart</state>
+					<state>$PROJ_DIR$/../../../../../../../source/stb/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../source/resources/buffer/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/drivers/cpu</state>
 					<state>$PROJ_DIR$/../../../../../../../addons/serial_if/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../source/pal/mega/drivers/tc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/boards</state>
-					<state>$PROJ_DIR$/../../../../../../../source/pal/common_hw_timer/mega</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer/mega</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/serial/megarf_usart</state>
-					<state>$PROJ_DIR$/../../../../../../../source/tal/inc</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../mega/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../source/pal</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/boards/atmega256rfr2_zigbit</state>
-					<state>$PROJ_DIR$/../../../../../../../source/pal/common_hw_timer</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/mega/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -744,7 +762,7 @@
 				</option>
 				<option>
 					<name>AsmOutputFile</name>
-					<state>$FILE_BNAME$.r90</state>
+					<state></state>
 				</option>
 				<option>
 					<name>AStdIncCheck</name>
@@ -777,7 +795,7 @@
 			<name>XLINK</name>
 			<archiveVersion>2</archiveVersion>
 			<data>
-				<version>13</version>
+				<version>14</version>
 				<wantNonLocal>1</wantNonLocal>
 				<debug>1</debug>
 				<option>
@@ -786,7 +804,7 @@
 				</option>
 				<option>
 					<name>OutputFile</name>
-					<state>$FILE_BNAME$.dbg</state>
+					<state>iarew_v621_.dbg</state>
 				</option>
 				<option>
 					<name>OutputFormat</name>
@@ -820,7 +838,7 @@
 				</option>
 				<option>
 					<name>XList</name>
-					<state>1</state>
+					<state>0</state>
 				</option>
 				<option>
 					<name>SegmentMap</name>
@@ -852,9 +870,11 @@
 				</option>
 				<option>
 					<name>XclFile</name>
+					<!--state>$TOOLKIT_DIR$\src\template\lnk0t.xcl</state-->
 				</option>
 				<option>
 					<name>XclFileSlave</name>
+					<state></state>
 				</option>
 				<option>
 					<name>DoFill</name>
@@ -934,7 +954,7 @@
 				</option>
 				<option>
 					<name>ModuleSummary</name>
-					<state>1</state>
+					<state>0</state>
 				</option>
 				<option>
 					<name>xcProgramEntryLabel</name>
@@ -966,7 +986,7 @@
 				</option>
 				<option>
 					<name>ExtraOutputFile</name>
-					<state>$FILE_BNAME$.hex</state>
+					<state>$PROJ_FNAME$.hex</state>
 				</option>
 				<option>
 					<name>ExtraOutputFormat</name>
@@ -1034,6 +1054,11 @@
 					<name>CrcInitialValue</name>
 					<state>0x00</state>
 				</option>
+				<option>
+					<name>CrcUnitSize</name>
+					<version>0</version>
+					<state>0</state>
+				</option>
 			</data>
 		</settings>
 		<settings>
@@ -1075,9 +1100,10 @@
 			<data>
 				<version>9</version>
 				<wantNonLocal>1</wantNonLocal>
-				<debug>0</debug>
+				<debug>1</debug>
 				<option>
 					<name>GGEnhancedCore</name>
+					<state>1</state>
 				</option>
 				<option>
 					<name>Variant Memory</name>
@@ -1123,7 +1149,7 @@
 				</option>
 				<option>
 					<name>SCCStackSize</name>
-					<state>0x100</state>
+					<state>0x20</state>
 				</option>
 				<option>
 					<name>SCExtCStack</name>
@@ -1131,7 +1157,7 @@
 				</option>
 				<option>
 					<name>SCRStackSize</name>
-					<state>0x100</state>
+					<state>16</state>
 				</option>
 				<option>
 					<name>SCExtRStack</name>
@@ -1183,6 +1209,7 @@
 				</option>
 				<option>
 					<name>GGEepromUtilSize</name>
+					<!--state>8192</state-->
 				</option>
 				<option>
 					<name>GRuntimeLibSelect</name>
@@ -1191,12 +1218,19 @@
 				</option>
 				<option>
 					<name>RTDescription</name>
+					<!--state>Use the normal configuration of the C/EC++</state>
+          <state>runtime library. No locale interface,</state>
+          <state>C locale, no file descriptor support,</state>
+          <state>no multibytes in printf and scanf, and</state>
+          <state>no hex floats in strtod.</state-->
 				</option>
 				<option>
 					<name>RTConfigPath</name>
+					<!--state>$TOOLKIT_DIR$\LIB\DLIB\dlAVR-3s-ec_mul-n.h</state-->
 				</option>
 				<option>
 					<name>RTLibraryPath</name>
+					<!--state>$TOOLKIT_DIR$\LIB\DLIB\dlAVR-3s-ec_mul-n.r90</state-->
 				</option>
 				<option>
 					<name>Input variant</name>
@@ -1210,11 +1244,11 @@
 				<option>
 					<name>Output variant</name>
 					<version>36</version>
-					<state>0</state>
+					<state>6</state>
 				</option>
 				<option>
 					<name>Output description</name>
-					<state>Automatic choice of formatter.</state>
+					<state>No specifier a, A, no specifier n, no float nor long long.</state>
 				</option>
 				<option>
 					<name>GRuntimeLibSelectSlave</name>
@@ -1269,6 +1303,7 @@
 				</option>
 				<option>
 					<name>GenDeviceSelectMenu</name>
+					<!--state>m2564rfr2  ATmega2564RFR2 (ATmega256RFR2)</state-->
 					<state>m256rfr2	ATmega256RFR2</state>
 				</option>
 			</data>
@@ -1279,7 +1314,7 @@
 			<data>
 				<version>17</version>
 				<wantNonLocal>1</wantNonLocal>
-				<debug>0</debug>
+				<debug>1</debug>
 				<option>
 					<name>CCVariantProcessor</name>
 					<state>0</state>
@@ -1299,9 +1334,12 @@
 				<option>
 					<name>CCDefines</name>
 					<state>NDEBUG</state>
+					<state>SAL_TYPE=ATMEGARF_SAL</state>
 					<state>TEST_HARNESS</state>
+					<state>STB_ON_SAL</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
+					<state>GTS_SUPPORT</state>
 					<state>BEACON_SUPPORT</state>
 					<state>TAL_TYPE=ATMEGARFR2</state>
 					<state>BOARD=ATMEGA256RFR2_ZIGBIT</state>
@@ -1459,38 +1497,39 @@
 				</option>
 				<option>
 					<name>newCCIncludePaths</name>
-					<state>$TOOLKIT_DIR$\INC\</state>
-					<state>$TOOLKIT_DIR$\INC\DLIB\</state>
+					<state></state>
 					<state>$PROJ_DIR$/../../../../../../../source/mac/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../source/pal/common_sw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/sal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../source/resources/queue/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../mega/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../../source/tal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../addons/sio2host/uart</state>
+					<state>$PROJ_DIR$/../../../../../../../source/stb/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../source/resources/buffer/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/drivers/cpu</state>
 					<state>$PROJ_DIR$/../../../../../../../addons/serial_if/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../source/pal/mega/drivers/tc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/boards</state>
-					<state>$PROJ_DIR$/../../../../../../../source/pal/common_hw_timer/mega</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer/mega</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/serial/megarf_usart</state>
-					<state>$PROJ_DIR$/../../../../../../../source/tal/inc</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../mega/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../source/pal</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/boards/atmega256rfr2_zigbit</state>
-					<state>$PROJ_DIR$/../../../../../../../source/pal/common_hw_timer</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/mega/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1636,9 +1675,12 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>SAL_TYPE=ATMEGARF_SAL</state>
 					<state>TEST_HARNESS</state>
+					<state>STB_ON_SAL</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
+					<state>GTS_SUPPORT</state>
 					<state>BEACON_SUPPORT</state>
 					<state>TAL_TYPE=ATMEGARFR2</state>
 					<state>BOARD=ATMEGA256RFR2_ZIGBIT</state>
@@ -1758,38 +1800,39 @@
 				</option>
 				<option>
 					<name>ANewIncludes</name>
-					<state>$TOOLKIT_DIR$\INC\</state>
-					<state>$TOOLKIT_DIR$\INC\DLIB\</state>
+					<state>###Uninitialized###</state>
 					<state>$PROJ_DIR$/../../../../../../../source/mac/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../source/pal/common_sw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/sal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../source/resources/queue/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../mega/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../../source/tal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../addons/sio2host/uart</state>
+					<state>$PROJ_DIR$/../../../../../../../source/stb/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../source/resources/buffer/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/drivers/cpu</state>
 					<state>$PROJ_DIR$/../../../../../../../addons/serial_if/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../source/pal/mega/drivers/tc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/boards</state>
-					<state>$PROJ_DIR$/../../../../../../../source/pal/common_hw_timer/mega</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer/mega</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/serial/megarf_usart</state>
-					<state>$PROJ_DIR$/../../../../../../../source/tal/inc</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../mega/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../source/pal</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../mega/boards/atmega256rfr2_zigbit</state>
-					<state>$PROJ_DIR$/../../../../../../../source/pal/common_hw_timer</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../../../../services/mega/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1840,7 +1883,7 @@
 			<name>XLINK</name>
 			<archiveVersion>2</archiveVersion>
 			<data>
-				<version>13</version>
+				<version>14</version>
 				<wantNonLocal>1</wantNonLocal>
 				<debug>0</debug>
 				<option>
@@ -1849,7 +1892,7 @@
 				</option>
 				<option>
 					<name>OutputFile</name>
-					<state></state>
+					<state>iarew_v621_.dbg</state>
 				</option>
 				<option>
 					<name>OutputFormat</name>
@@ -1863,7 +1906,7 @@
 				</option>
 				<option>
 					<name>SecondaryOutputFile</name>
-					<state></state>
+					<state>(None for the selected format)</state>
 				</option>
 				<option>
 					<name>XDefines</name>
@@ -1883,7 +1926,7 @@
 				</option>
 				<option>
 					<name>XList</name>
-					<state>1</state>
+					<state>0</state>
 				</option>
 				<option>
 					<name>SegmentMap</name>
@@ -1915,9 +1958,11 @@
 				</option>
 				<option>
 					<name>XclFile</name>
+					<!--state>$TOOLKIT_DIR$\src\template\lnk0t.xcl</state-->
 				</option>
 				<option>
 					<name>XclFileSlave</name>
+					<state></state>
 				</option>
 				<option>
 					<name>DoFill</name>
@@ -1997,7 +2042,7 @@
 				</option>
 				<option>
 					<name>ModuleSummary</name>
-					<state>1</state>
+					<state>0</state>
 				</option>
 				<option>
 					<name>xcProgramEntryLabel</name>
@@ -2021,20 +2066,20 @@
 				</option>
 				<option>
 					<name>GenerateExtraOutput</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>XExtraOutOverride</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>ExtraOutputFile</name>
-					<state></state>
+					<state>$PROJ_FNAME$.hex</state>
 				</option>
 				<option>
 					<name>ExtraOutputFormat</name>
 					<version>11</version>
-					<state>25</state>
+					<state>23</state>
 				</option>
 				<option>
 					<name>ExtraFormatVariant</name>
@@ -2097,6 +2142,11 @@
 					<name>CrcInitialValue</name>
 					<state>0x00</state>
 				</option>
+				<option>
+					<name>CrcUnitSize</name>
+					<version>0</version>
+					<state>0</state>
+				</option>
 			</data>
 		</settings>
 		<settings>
@@ -2131,70 +2181,79 @@
 		<group>
 			<name>wireless</name>
 			<group>
+				<name>services</name>
+				<group>
+					<name>common_hw_timer</name>
+					<group>
+						<name>mega</name>
+						<group>
+							<name>lib</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../services/common_hw_timer/mega/lib/megarfr2_lib_hw_timer.r90</name>
+							</file>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../services/common_hw_timer/mega/hw_timer.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../services/common_hw_timer/mega/hw_timer.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../services/common_hw_timer/common_hw_timer.h</name>
+					</file>
+				</group>
+				<group>
+					<name>mega</name>
+					<group>
+						<name>drivers</name>
+						<group>
+							<name>tc</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../services/mega/drivers/tc/tc_megarf.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../services/mega/drivers/tc/tc_megarf.h</name>
+							</file>
+						</group>
+					</group>
+				</group>
+				<group>
+					<name>sal</name>
+					<group>
+						<name>atmegarf_sal</name>
+						<group>
+							<name>src</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../services/sal/atmegarf_sal/src/sal.c</name>
+							</file>
+						</group>
+					</group>
+					<group>
+						<name>inc</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_types.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_generic.h</name>
+						</file>
+					</group>
+				</group>
+			</group>
+			<group>
 				<name>avr2025_mac</name>
 				<group>
 					<name>source</name>
 					<group>
-						<name>pal</name>
-						<group>
-							<name>common_hw_timer</name>
-							<group>
-								<name>mega</name>
-								<group>
-									<name>lib</name>
-									<file>
-										<name>$PROJ_DIR$/../../../../../../../source/pal/common_hw_timer/mega/lib/mega_lib_hw_timer.r90</name>
-									</file>
-								</group>
-								<file>
-									<name>$PROJ_DIR$/../../../../../../../source/pal/common_hw_timer/mega/hw_timer.c</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../../../source/pal/common_hw_timer/mega/hw_timer.h</name>
-								</file>
-							</group>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/pal/common_hw_timer/common_hw_timer.h</name>
-							</file>
-						</group>
-						<group>
-							<name>mega</name>
-							<group>
-								<name>drivers</name>
-								<group>
-									<name>tc</name>
-									<file>
-										<name>$PROJ_DIR$/../../../../../../../source/pal/mega/drivers/tc/tc_megarf.c</name>
-									</file>
-									<file>
-										<name>$PROJ_DIR$/../../../../../../../source/pal/mega/drivers/tc/tc_megarf.h</name>
-									</file>
-								</group>
-							</group>
-						</group>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../source/pal/pal.c</name>
-						</file>
-						<group>
-							<name>common_sw_timer</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/pal/common_sw_timer/common_sw_timer.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/pal/common_sw_timer/common_sw_timer.h</name>
-							</file>
-						</group>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../source/pal/pal.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../source/pal/pal_generic.h</name>
-						</file>
-					</group>
-					<group>
 						<name>mac</name>
 						<group>
 							<name>src</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_pib.c</name>
+							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_beacon.c</name>
 							</file>
@@ -2205,13 +2264,13 @@
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_associate.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_pib.c</name>
+								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_poll.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_rx_enable.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_data_ind.c</name>
+								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_process_tal_tx_frame_status.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_orphan.c</name>
@@ -2223,13 +2282,13 @@
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_start.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_poll.c</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_scan.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_sync.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_gts.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_misc.c</name>
@@ -2241,28 +2300,28 @@
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_callback_wrapper.c</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_data_ind.c</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_data_extract_mhr.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_disassociate.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_data_req.c</name>
+								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_api.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_process_tal_tx_frame_status.c</name>
+								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_data_req.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_tx_coord_realignment_command.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_api.c</name>
+								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_mcps_data.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_process_beacon_frame.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_mcps_data.c</name>
 							</file>
 						</group>
 						<group>
@@ -2274,10 +2333,10 @@
 								<name>$PROJ_DIR$/../../../../../../../source/mac/inc/mac_security.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/mac/inc/mac_internal.h</name>
+								<name>$PROJ_DIR$/../../../../../../../source/mac/inc/mac_api.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/mac/inc/mac_api.h</name>
+								<name>$PROJ_DIR$/../../../../../../../source/mac/inc/mac_internal.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/inc/mac_data_structures.h</name>
@@ -2309,22 +2368,22 @@
 							<group>
 								<name>src</name>
 								<file>
-									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_ed.c</name>
+									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_slotted_csma.c</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_init.c</name>
+									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_ed.c</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_rx_enable.c</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_slotted_csma.c</name>
+									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_init.c</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_pwr_mgmt.c</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_pib.c</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_tx.c</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_rx.c</name>
@@ -2333,16 +2392,19 @@
 									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal.c</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_pwr_mgmt.c</name>
+									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_irq_handler.c</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_irq_handler.c</name>
+									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/src/tal_tx.c</name>
 								</file>
 							</group>
 							<group>
 								<name>inc</name>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc/tal_pib.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc/tal_internal.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc/atmega256rfr2.h</name>
@@ -2363,9 +2425,6 @@
 									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc/tal_slotted_csma.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc/tal_internal.h</name>
-								</file>
-								<file>
 									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc/tal_irq_handler.h</name>
 								</file>
 							</group>
@@ -2379,15 +2438,36 @@
 								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_generic.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_timer_config.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_helper.h</name>
 							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_generic.h</name>
+							</file>
 						</group>
+					</group>
+					<group>
+						<name>pal</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../source/pal/pal.c</name>
+						</file>
+						<group>
+							<name>common_sw_timer</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/pal/common_sw_timer/common_sw_timer.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/pal/common_sw_timer/common_sw_timer.h</name>
+							</file>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../source/pal/pal.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../source/pal/pal_generic.h</name>
+						</file>
 					</group>
 					<group>
 						<name>resources</name>
@@ -2420,6 +2500,36 @@
 									<name>$PROJ_DIR$/../../../../../../../source/resources/buffer/inc/bmm.h</name>
 								</file>
 							</group>
+						</group>
+					</group>
+					<group>
+						<name>stb</name>
+						<group>
+							<name>src</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/stb/src/stb_help.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/stb/src/stb.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/stb/src/stb_armcrypto.c</name>
+							</file>
+						</group>
+						<group>
+							<name>inc</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/stb/inc/stb_internal.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/stb/inc/stb_generic.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/stb/inc/stb_armcrypto.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/stb/inc/stb.h</name>
+							</file>
 						</group>
 					</group>
 				</group>
@@ -2463,6 +2573,9 @@
 											<name>$PROJ_DIR$/../conf_sio2host.h</name>
 										</file>
 										<file>
+											<name>$PROJ_DIR$/../conf_clock.h</name>
+										</file>
+										<file>
 											<name>$PROJ_DIR$/../conf_hw_timer.h</name>
 										</file>
 										<file>
@@ -2477,15 +2590,12 @@
 										<file>
 											<name>$PROJ_DIR$/../conf_usart_serial.h</name>
 										</file>
-										<file>
-											<name>$PROJ_DIR$/../conf_clock.h</name>
-										</file>
 									</group>
 									<file>
-										<name>$PROJ_DIR$/../../app_config.h</name>
+										<name>$PROJ_DIR$/../../conf_trx_access.h</name>
 									</file>
 									<file>
-										<name>$PROJ_DIR$/../../conf_pal.h</name>
+										<name>$PROJ_DIR$/../../app_config.h</name>
 									</file>
 								</group>
 							</group>
@@ -2507,10 +2617,10 @@
 						<name>$PROJ_DIR$/../../../../../../../include/mac_build_config.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../include/return_val.h</name>
+						<name>$PROJ_DIR$/../../../../../../../include/stack_config.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../include/stack_config.h</name>
+						<name>$PROJ_DIR$/../../../../../../../include/return_val.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../include/tal_build_config.h</name>
@@ -2531,6 +2641,78 @@
 						</file>
 					</group>
 				</group>
+			</group>
+		</group>
+	</group>
+	<group>
+		<name>mega</name>
+		<group>
+			<name>boards</name>
+			<group>
+				<name>atmega256rfr2_zigbit</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../mega/boards/atmega256rfr2_zigbit/init.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../mega/boards/atmega256rfr2_zigbit/led.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../mega/boards/atmega256rfr2_zigbit/atmega256rfr2_zigbit.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
+			<name>drivers</name>
+			<group>
+				<name>usart</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../mega/drivers/usart/usart_megarf.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../mega/drivers/usart/usart_megarf.h</name>
+				</file>
+			</group>
+			<group>
+				<name>cpu</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../mega/drivers/cpu/mega_reset_cause.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
+			<name>utils</name>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/compiler.h</name>
+			</file>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/status_codes.h</name>
+			</file>
+			<group>
+				<name>preprocessor</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/preprocessor/mrepeat.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/preprocessor/stringz.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/preprocessor/preprocessor.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/preprocessor/tpaste.h</name>
+				</file>
+			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/progmem.h</name>
+			</file>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/assembler.h</name>
+			</file>
+			<group>
+				<name>assembler</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/assembler/iar.h</name>
+				</file>
 			</group>
 		</group>
 	</group>
@@ -2622,15 +2804,15 @@
 					</file>
 				</group>
 			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../../../../../common/utils/interrupt.h</name>
+			</file>
 			<group>
 				<name>interrupt</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../../common/utils/interrupt/interrupt_avr8.h</name>
 				</file>
 			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../../../../../common/utils/interrupt.h</name>
-			</file>
 			<file>
 				<name>$PROJ_DIR$/../../../../../../../../../../common/utils/parts.h</name>
 			</file>
@@ -2640,78 +2822,6 @@
 			<file>
 				<name>$PROJ_DIR$/../../../../../../../../../../common/boards/board.h</name>
 			</file>
-		</group>
-	</group>
-	<group>
-		<name>mega</name>
-		<group>
-			<name>boards</name>
-			<group>
-				<name>atmega256rfr2_zigbit</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../mega/boards/atmega256rfr2_zigbit/init.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../mega/boards/atmega256rfr2_zigbit/atmega256rfr2_zigbit.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../mega/boards/atmega256rfr2_zigbit/led.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
-			<name>drivers</name>
-			<group>
-				<name>usart</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../mega/drivers/usart/usart_megarf.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../mega/drivers/usart/usart_megarf.h</name>
-				</file>
-			</group>
-			<group>
-				<name>cpu</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../mega/drivers/cpu/mega_reset_cause.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
-			<name>utils</name>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/compiler.h</name>
-			</file>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/status_codes.h</name>
-			</file>
-			<group>
-				<name>preprocessor</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/preprocessor/mrepeat.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/preprocessor/stringz.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/preprocessor/preprocessor.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/preprocessor/tpaste.h</name>
-				</file>
-			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/progmem.h</name>
-			</file>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/assembler.h</name>
-			</file>
-			<group>
-				<name>assembler</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../mega/utils/assembler/iar.h</name>
-				</file>
-			</group>
 		</group>
 	</group>
 </project>

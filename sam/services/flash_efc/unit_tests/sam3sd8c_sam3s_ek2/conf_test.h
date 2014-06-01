@@ -3,7 +3,7 @@
  *
  * \brief Unit test configuration.
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,8 +51,8 @@
 /** Parity setting */
 #define CONF_TEST_PARITY     UART_MR_PAR_NO
 
-/* Last page address */
-#define LAST_PAGE_ADDRESS (IFLASH0_ADDR + IFLASH0_SIZE - IFLASH0_PAGE_SIZE)
+/* Test page address */
+#define TEST_PAGE_ADDRESS (IFLASH0_ADDR + IFLASH0_SIZE - IFLASH0_PAGE_SIZE)
 
 /* Default page count */
 #define DEFAULT_PAGE_COUNT   (IFLASH_SIZE/IFLASH0_PAGE_SIZE)

@@ -5,7 +5,7 @@
  *        in the example application of the coordinator in addition to the
  *        underlaying stack.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -87,6 +87,7 @@
 
 #define NWKC_MAX_PAIRING_TABLE_ENTRIES    (5)
 /* #define NWKC_VENDOR_IDENTIFIER           (0x1014) */
+
 /* #define NWKC_VENDOR_STRING               "ATMEL  "          / * 7 characters
  * ! * / */
 

@@ -3,7 +3,7 @@
  *
  * \brief  Configuration File for SAM4L-EK Board.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

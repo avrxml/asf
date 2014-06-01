@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 PAC Quick Start
+ * \brief SAM D20/D21/R21 PAC Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \page asfdoc_samd20_pac_basic_use_case Quick Start Guide for PAC - Basic
+ * \page asfdoc_sam0_pac_basic_use_case Quick Start Guide for PAC - Basic
  *
  * In this use case, the peripheral-lock will be used to lock and unlock the
  * PORT peripheral access, and show how to implement the PAC module when the
@@ -50,49 +50,49 @@
  * - One pin in input mode, with pull-up and falling edge-detect.
  * - One pin in output mode.
  *
- * \section asfdoc_samd20_pac_basic_use_case_setup Setup
+ * \section asfdoc_sam0_pac_basic_use_case_setup Setup
  *
- * \subsection asfdoc_samd20_pac_basic_use_case_setup_prereq Prerequisites
+ * \subsection asfdoc_sam0_pac_basic_use_case_setup_prereq Prerequisites
  * There are no special setup requirements for this use-case.
  *
- * \subsection asfdoc_samd20_pac_basic_use_case_setup_code Code
+ * \subsection asfdoc_sam0_pac_basic_use_case_setup_code Code
  * Copy-paste the following setup code to your user application:
  * \snippet qs_pac_basic.c pin_setup
  *
  * Add to user application initialization (typically the start of \c main()):
  * \snippet qs_pac_basic.c init
  *
- * \section asfdoc_samd20_pac_basic_use_case_use_main Use Case
+ * \section asfdoc_sam0_pac_basic_use_case_use_main Use Case
  *
- * \subsection asfdoc_samd20_pac_basic_use_case_code Code
+ * \subsection asfdoc_sam0_pac_basic_use_case_code Code
  * Copy-paste the following code to your user application:
  * \snippet qs_pac_basic.c main
  *
- * \subsection asfdoc_samd20_pac_basic_use_case_flow Workflow
+ * \subsection asfdoc_sam0_pac_basic_use_case_flow Workflow
  * -# Configure some GPIO port pins for input and output.
- *  \snippet qs_pac_basic.c init
+ *    \snippet qs_pac_basic.c init
  * -# Lock peripheral access for the PORT module; attempting to update the
  *    module while it is in a protected state will cause a Hard Fault exception.
- *  \snippet qs_pac_basic.c init_lock
+ *    \snippet qs_pac_basic.c init_lock
  * -# Enable global interrupts.
- *  \snippet qs_pac_basic.c enable_interrupts
+ *    \snippet qs_pac_basic.c enable_interrupts
  * -# Loop to wait for a button press before continuing.
- *  \snippet qs_pac_basic.c button_press
+ *    \snippet qs_pac_basic.c button_press
  * -# Enter a critical section, so that the PAC module can be unlocked safely
  *    and the peripheral manipulated without the possibility of an interrupt
  *    modifying the protected module's state.
- *  \snippet qs_pac_basic.c disable_interrupts
+ *    \snippet qs_pac_basic.c disable_interrupts
  * -# Unlock the PORT peripheral registers.
- *  \snippet qs_pac_basic.c unlock_perph
+ *    \snippet qs_pac_basic.c unlock_perph
  * -# Toggle pin 11, and clear edge detect flag.
- *  \snippet qs_pac_basic.c alter_config
+ *    \snippet qs_pac_basic.c alter_config
  * -# Lock the PORT peripheral registers.
- *  \snippet qs_pac_basic.c lock_perph
+ *    \snippet qs_pac_basic.c lock_perph
  * -# Exit the critical section to allow interrupts to function normally again.
- *  \snippet qs_pac_basic.c enable_interrupts_2
+ *    \snippet qs_pac_basic.c enable_interrupts_2
  * -# Enter an infinite while loop once the module state has been modified
  *    successfully.
- *  \snippet qs_pac_basic.c inf_loop
+ *    \snippet qs_pac_basic.c inf_loop
  */
 
 

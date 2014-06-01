@@ -120,4 +120,7 @@
 #include <uhc.h>
 #include <uhd.h>
 
+// From module: WDT - Watchdog Timer
+#include <wdt_sam4l.h>
+
 #endif // ASF_H

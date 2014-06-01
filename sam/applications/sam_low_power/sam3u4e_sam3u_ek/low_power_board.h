@@ -3,7 +3,7 @@
  *
  * \brief Board specific definition for low power example.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -103,6 +103,9 @@
 #define MAX_CLOCK_FAST_RC_ITEM '8'
 #define MIN_CLOCK_PLL_ITEM     'a'
 #define MAX_CLOCK_PLL_ITEM     'g'
+
+#define example_set_wakeup_from_backup_mode() \
+	supc_set_wakeup_mode(SUPC, SUPC_WUMR_FWUPEN_ENABLE)
 
 extern uint32_t g_fastrc_clock_list[][3];
 extern uint32_t g_pll_clock_list[][4];

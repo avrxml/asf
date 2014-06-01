@@ -6,7 +6,7 @@
  *
  * This file define the twiddle factors table
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -65,11 +65,11 @@
 //! \{
 /*! \brief This table has been generated using the following algorithm:
  * \code
- * for i=0:4:DSP16_N_TWIDDLE_FACTORS,
- * k = i/(DSP16_N_TWIDDLE_FACTORS*4);
- * w = exp(-2*PI*%i*k);
- * end;
- * \endcode
+	for i=0:4:DSP16_N_TWIDDLE_FACTORS,
+	k = i/(DSP16_N_TWIDDLE_FACTORS*4);
+	w = exp(-2*PI*%i*k);
+	end;
+\endcode
  * It is a one dimensional array containing the real parts (even parts) and imaginary parts (odd parts) of the \b w value.
  */
   A_ALIGNED TWIDDLE_FACTORS_PREFIX_TAB dsp16_t dsp16_twiddle_factors[DSP16_N_TWIDDLE_FACTORS/2+2] = {
@@ -97,12 +97,12 @@
 #  if !(DSP_OPTIMIZATION & DSP_OPTI_SIZE)
 /*! \brief This table has been generated using the following algorithm:
  * \code
- * for i=0:4:DSP16_N_TWIDDLE_FACTORS-4,
- * k = i/(DSP16_N_TWIDDLE_FACTORS*4);
- * w2 = exp(-2*PI*%i*k*2);
- * w3 = exp(-2*PI*%i*k*3);
- * end;
- * \endcode
+	for i=0:4:DSP16_N_TWIDDLE_FACTORS-4,
+	k = i/(DSP16_N_TWIDDLE_FACTORS*4);
+	w2 = exp(-2*PI*%i*k*2);
+	w3 = exp(-2*PI*%i*k*3);
+	end;
+\endcode
  * It is a one dimensional array containing the real parts (4*i parts) and imaginary parts (4*i+1 parts) of the \b w2 value
  * and the real parts (4*i+2 parts) and imaginary parts (4*i+3 parts) of the \b w3 value.
  */
@@ -141,11 +141,11 @@
 //! \{
 /*! \brief This table has been generated using the following algorithm:
  * \code
- * for i=0:4:DSP16_N_TWIDDLE_FACTORS,
- * k = i/(DSP16_N_TWIDDLE_FACTORS*4);
- * w = exp(-2*PI*%i*k);
- * end;
- * \endcode
+	for i=0:4:DSP16_N_TWIDDLE_FACTORS,
+	k = i/(DSP16_N_TWIDDLE_FACTORS*4);
+	w = exp(-2*PI*%i*k);
+	end;
+\endcode
  * It is a one dimensional array containing the real parts (even parts) and imaginary parts (odd parts) of the \b w value.
  */
   A_ALIGNED TWIDDLE_FACTORS_PREFIX_TAB dsp16_t dsp16_twiddle_factors[DSP16_N_TWIDDLE_FACTORS/2+2] = {
@@ -222,12 +222,12 @@
 
 /*! \brief This table has been generated using the following algorithm:
  * \code
- * for i=0:4:DSP16_N_TWIDDLE_FACTORS-4,
- * k = i/(DSP16_N_TWIDDLE_FACTORS*4);
- * w2 = exp(-2*PI*%i*k*2);
- * w3 = exp(-2*PI*%i*k*3);
- * end;
- * \endcode
+	for i=0:4:DSP16_N_TWIDDLE_FACTORS-4,
+	k = i/(DSP16_N_TWIDDLE_FACTORS*4);
+	w2 = exp(-2*PI*%i*k*2);
+	w3 = exp(-2*PI*%i*k*3);
+	end;
+\endcode
  * It is a one dimensional array containing the real parts (4*i parts) and imaginary parts (4*i+1 parts) of the \b w2 value
  * and the real parts (4*i+2 parts) and imaginary parts (4*i+3 parts) of the \b w3 value.
  */
@@ -314,11 +314,11 @@
 //! \{
 /*! \brief This table has been generated using the following algorithm:
  * \code
- * for i=0:4:DSP16_N_TWIDDLE_FACTORS,
- * k = i/(DSP16_N_TWIDDLE_FACTORS*4);
- * w = exp(-2*PI*%i*k);
- * end;
- * \endcode
+	for i=0:4:DSP16_N_TWIDDLE_FACTORS,
+	k = i/(DSP16_N_TWIDDLE_FACTORS*4);
+	w = exp(-2*PI*%i*k);
+	end;
+\endcode
  * It is a one dimensional array containing the real parts (even parts) and imaginary parts (odd parts) of the \b w value.
  */
   A_ALIGNED TWIDDLE_FACTORS_PREFIX_TAB dsp16_t dsp16_twiddle_factors[DSP16_N_TWIDDLE_FACTORS/2+2] = {
@@ -586,12 +586,12 @@
 #  if !(DSP_OPTIMIZATION & DSP_OPTI_SIZE)
 /*! \brief This table has been generated using the following algorithm:
  * \code
- * for i=0:4:DSP16_N_TWIDDLE_FACTORS-4,
- * k = i/(DSP16_N_TWIDDLE_FACTORS*4);
- * w2 = exp(-2*PI*%i*k*2);
- * w3 = exp(-2*PI*%i*k*3);
- * end;
- * \endcode
+	for i=0:4:DSP16_N_TWIDDLE_FACTORS-4,
+	k = i/(DSP16_N_TWIDDLE_FACTORS*4);
+	w2 = exp(-2*PI*%i*k*2);
+	w3 = exp(-2*PI*%i*k*3);
+	end;
+\endcode
  * It is a one dimensional array containing the real parts (4*i parts) and imaginary parts (4*i+1 parts) of the \b w2 value
  * and the real parts (4*i+2 parts) and imaginary parts (4*i+3 parts) of the \b w3 value.
  */
@@ -870,11 +870,11 @@
 //! \{
 /*! \brief This table has been generated using the following algorithm:
  * \code
- * for i=0:4:DSP16_N_TWIDDLE_FACTORS,
- * k = i/(DSP16_N_TWIDDLE_FACTORS*4);
- * w = exp(-2*PI*%i*k);
- * end;
- * \endcode
+	for i=0:4:DSP16_N_TWIDDLE_FACTORS,
+	k = i/(DSP16_N_TWIDDLE_FACTORS*4);
+	w = exp(-2*PI*%i*k);
+	end;
+\endcode
  * It is a one dimensional array containing the real parts (even parts) and imaginary parts (odd parts) of the \b w value.
  */
   A_ALIGNED TWIDDLE_FACTORS_PREFIX_TAB dsp16_t dsp16_twiddle_factors[DSP16_N_TWIDDLE_FACTORS/2+2] = {
@@ -1910,12 +1910,12 @@
 #  if !(DSP_OPTIMIZATION & DSP_OPTI_SIZE)
 /*! \brief This table has been generated using the following algorithm:
  * \code
- * for i=0:4:DSP16_N_TWIDDLE_FACTORS-4,
- * k = i/(DSP16_N_TWIDDLE_FACTORS*4);
- * w2 = exp(-2*PI*%i*k*2);
- * w3 = exp(-2*PI*%i*k*3);
- * end;
- * \endcode
+	for i=0:4:DSP16_N_TWIDDLE_FACTORS-4,
+	k = i/(DSP16_N_TWIDDLE_FACTORS*4);
+	w2 = exp(-2*PI*%i*k*2);
+	w3 = exp(-2*PI*%i*k*3);
+	end;
+\endcode
  * It is a one dimensional array containing the real parts (4*i parts) and imaginary parts (4*i+1 parts) of the \b w2 value
  * and the real parts (4*i+2 parts) and imaginary parts (4*i+3 parts) of the \b w3 value.
  */

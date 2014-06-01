@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -57,13 +57,6 @@
 
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 #include <stdint.h>
-#ifndef __cplusplus
-typedef volatile const uint32_t RoReg; /**< Read only 32-bit register (volatile const unsigned int) */
-#else
-typedef volatile       uint32_t RoReg; /**< Read only 32-bit register (volatile const unsigned int) */
-#endif
-typedef volatile       uint32_t WoReg; /**< Write only 32-bit register (volatile unsigned int) */
-typedef volatile       uint32_t RwReg; /**< Read-Write 32-bit register (volatile unsigned int) */
 #endif
 
 /* ************************************************************************** */
@@ -96,7 +89,6 @@ typedef enum IRQn
   EFC1_IRQn            =  7, /**<  7 SAM4SD16C Enhanced Embedded Flash Controller 1 (EFC1) */
   UART0_IRQn           =  8, /**<  8 SAM4SD16C UART 0 (UART0) */
   UART1_IRQn           =  9, /**<  9 SAM4SD16C UART 1 (UART1) */
-  SMC_IRQn             = 10, /**< 10 SAM4SD16C Static Memory Controller (SMC) */
   PIOA_IRQn            = 11, /**< 11 SAM4SD16C Parallel I/O Controller A (PIOA) */
   PIOB_IRQn            = 12, /**< 12 SAM4SD16C Parallel I/O Controller B (PIOB) */
   PIOC_IRQn            = 13, /**< 13 SAM4SD16C Parallel I/O Controller C (PIOC) */
@@ -156,7 +148,7 @@ typedef struct _DeviceVectors
   void* pfnEFC1_Handler;   /*  7 Enhanced Embedded Flash Controller 1 */
   void* pfnUART0_Handler;  /*  8 UART 0 */
   void* pfnUART1_Handler;  /*  9 UART 1 */
-  void* pfnSMC_Handler;    /* 10 Static Memory Controller */
+  void* pvReserved10;
   void* pfnPIOA_Handler;   /* 11 Parallel I/O Controller A */
   void* pfnPIOB_Handler;   /* 12 Parallel I/O Controller B */
   void* pfnPIOC_Handler;   /* 13 Parallel I/O Controller C */
@@ -211,7 +203,6 @@ void PWM_Handler        ( void );
 void RSTC_Handler       ( void );
 void RTC_Handler        ( void );
 void RTT_Handler        ( void );
-void SMC_Handler        ( void );
 void SPI_Handler        ( void );
 void SSC_Handler        ( void );
 void SUPC_Handler       ( void );
@@ -234,7 +225,7 @@ void WDT_Handler        ( void );
  * \brief Configuration of the Cortex-M4 Processor and Core Peripherals
  */
 
-#define __CM4_REV              0x0000 /**< SAM4SD16C core revision number ([15:8] revision number, [7:0] patch number) */
+#define __CM4_REV              0x0001 /**< SAM4SD16C core revision number ([15:8] revision number, [7:0] patch number) */
 #define __MPU_PRESENT          1      /**< SAM4SD16C does provide a MPU */
 #define __FPU_PRESENT          0      /**< SAM4SD16C does not provide a FPU */
 #define __NVIC_PRIO_BITS       4      /**< SAM4SD16C uses 4 Bits for the Priority Levels */
@@ -514,8 +505,11 @@ void WDT_Handler        ( void );
 /*   MISCELLANEOUS DEFINITIONS FOR SAM4SD16C */
 /* ************************************************************************** */
 
-#define CHIP_JTAGID (0x05B3203FUL)
-#define CHIP_CIDR (0x29A70CE0UL)
+#define CHIP_JTAGID       (0x05B3203FUL)
+#define CHIP_CIDR         (0x29A70CE0UL)
+#define NB_CH_ADC         (15UL)
+#define NB_CH_DAC         (2UL)
+#define USB_DEVICE_MAX_EP (8UL)
 
 /* ************************************************************************** */
 /*   ELECTRICAL DEFINITIONS FOR SAM4SD16C */
@@ -530,17 +524,35 @@ void WDT_Handler        ( void );
 #define CHIP_FREQ_MAINCK_RC_12MHZ       (12000000UL)
 #define CHIP_FREQ_CPU_MAX               (120000000UL)
 #define CHIP_FREQ_XTAL_32K              (32768UL)
-#define CHIP_FREQ_XTAL_12M              (12000000UL)
 
 /* Embedded Flash Write Wait State */
 #define CHIP_FLASH_WRITE_WAIT_STATE     (6U)
 
-/* Embedded Flash Read Wait State (VDDCORE set at 1.20V) */
-#define CHIP_FREQ_FWS_0                 (20000000UL) /**< \brief Maximum operating frequency when FWS is 0 */
-#define CHIP_FREQ_FWS_1                 (40000000UL) /**< \brief Maximum operating frequency when FWS is 1 */
-#define CHIP_FREQ_FWS_2                 (60000000UL) /**< \brief Maximum operating frequency when FWS is 2 */
-#define CHIP_FREQ_FWS_3                 (80000000UL) /**< \brief Maximum operating frequency when FWS is 3 */
+#if defined __SAM4S2A__ || defined __SAM4S2B__ || defined __SAM4S2C__ || \
+    defined __SAM4S4A__ || defined __SAM4S4B__ || defined __SAM4S4C__
+
+/* Embedded Flash Read Wait State (VDDCORE set at 1.20V and VDDIO 3.3V) */
+#define CHIP_FREQ_FWS_0                 (29000000UL)  /**< \brief Maximum operating frequency when FWS is 0 */
+#define CHIP_FREQ_FWS_1                 (58000000UL)  /**< \brief Maximum operating frequency when FWS is 1 */
+#define CHIP_FREQ_FWS_2                 (88000000UL)  /**< \brief Maximum operating frequency when FWS is 2 */
+#define CHIP_FREQ_FWS_3                 (10800000UL)  /**< \brief Maximum operating frequency when FWS is 3 */
+#define CHIP_FREQ_FWS_4                 (120000000UL) /**< \brief Maximum operating frequency when FWS is 4 */
+
+#else  /* SAM4S8/S16/SA16/SD16/SD32 */
+
+/* Embedded Flash Read Wait State (VDDCORE set at 1.20V and VDDIO 3.3V) */
+#define CHIP_FREQ_FWS_0                 (20000000UL)  /**< \brief Maximum operating frequency when FWS is 0 */
+#define CHIP_FREQ_FWS_1                 (40000000UL)  /**< \brief Maximum operating frequency when FWS is 1 */
+#define CHIP_FREQ_FWS_2                 (60000000UL)  /**< \brief Maximum operating frequency when FWS is 2 */
+#define CHIP_FREQ_FWS_3                 (80000000UL)  /**< \brief Maximum operating frequency when FWS is 3 */
 #define CHIP_FREQ_FWS_4                 (100000000UL) /**< \brief Maximum operating frequency when FWS is 4 */
+#define CHIP_FREQ_FWS_5                 (123000000UL) /**< \brief Maximum operating frequency when FWS is 5 */
+
+#endif
+
+/* HYSTeresis levels: please refer to Electrical Characteristics */
+#define ACC_ACR_HYST_50MV_MAX	        (0x01UL)
+#define ACC_ACR_HYST_90MV_MAX           (0x11UL)
 
 #ifdef __cplusplus
 }

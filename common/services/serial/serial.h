@@ -3,7 +3,7 @@
  *
  * \brief Serial Mode management
  *
- * Copyright (c) 2010 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -60,7 +60,7 @@
 # include "megarf_usart/usart_serial.h"
 #elif UC3
 # include "uc3_usart/usart_serial.h"
-#elif SAMD20
+#elif (SAMD20) || (SAMD21) || (SAMR21)
 #include "sam0_usart/usart_serial.h"
 #elif SAM
 # include "sam_uart/uart_serial.h"
@@ -137,42 +137,42 @@
  * The following configuration must be added to the project (typically to a 
  * conf_serial.h file, but it can also be added to your main application file.)
  * \code
- *    #define USART_SERIAL                     &USARTD0
- *    #define USART_SERIAL_BAUDRATE            9600
- *    #define USART_SERIAL_CHAR_LENGTH         USART_CHSIZE_8BIT_gc
- *    #define USART_SERIAL_PARITY              USART_PMODE_DISABLED_gc
- *    #define USART_SERIAL_STOP_BIT            false
- * \endcode
+	#define USART_SERIAL                     &USARTD0
+	#define USART_SERIAL_BAUDRATE            9600
+	#define USART_SERIAL_CHAR_LENGTH         USART_CHSIZE_8BIT_gc
+	#define USART_SERIAL_PARITY              USART_PMODE_DISABLED_gc
+	#define USART_SERIAL_STOP_BIT            false
+\endcode
  *
  * A variable for the received byte must be added:
  * \code uint8_t received_byte; \endcode
  *
  * Add to application initialization:
  * \code
- *    sysclk_init();
- *
- *    static usart_serial_options_t usart_options = {
- *       .baudrate = USART_SERIAL_BAUDRATE,
- *       .charlength = USART_SERIAL_CHAR_LENGTH,
- *       .paritytype = USART_SERIAL_PARITY,
- *       .stopbits = USART_SERIAL_STOP_BIT
- *    };
- *
- *    usart_serial_init(USART_SERIAL, &usart_options);
- * \endcode
+	    sysclk_init();
+
+	    static usart_serial_options_t usart_options = {
+	       .baudrate = USART_SERIAL_BAUDRATE,
+	       .charlength = USART_SERIAL_CHAR_LENGTH,
+	       .paritytype = USART_SERIAL_PARITY,
+	       .stopbits = USART_SERIAL_STOP_BIT
+	    };
+
+	    usart_serial_init(USART_SERIAL, &usart_options);
+\endcode
  *
  * \subsection serial_basic_use_case_setup_flow Workflow
  * -# Initialize system clock:
  *   - \code sysclk_init(); \endcode
  * -# Create serial USART options struct:
  *   - \code
- *        static usart_serial_options_t usart_options = {
- *           .baudrate = USART_SERIAL_BAUDRATE,
- *           .charlength = USART_SERIAL_CHAR_LENGTH,
- *           .paritytype = USART_SERIAL_PARITY,
- *           .stopbits = USART_SERIAL_STOP_BIT
- *        };
- *     \endcode
+	static usart_serial_options_t usart_options = {
+	   .baudrate = USART_SERIAL_BAUDRATE,
+	   .charlength = USART_SERIAL_CHAR_LENGTH,
+	   .paritytype = USART_SERIAL_PARITY,
+	   .stopbits = USART_SERIAL_STOP_BIT
+	};
+\endcode
  * -# Initialize the serial service:
  *   - \code usart_serial_init(USART_SERIAL, &usart_options);\endcode
  *
@@ -181,9 +181,9 @@
  * \subsection serial_basic_use_case_usage_code Example code
  * Add to application C-file:
  * \code
- *    usart_serial_getchar(USART_SERIAL, &received_byte);
- *    usart_serial_putchar(USART_SERIAL, received_byte);
- * \endcode
+	usart_serial_getchar(USART_SERIAL, &received_byte);
+	usart_serial_putchar(USART_SERIAL, received_byte);
+\endcode
  *
  * \subsection serial_basic_use_case_usage_flow Workflow
  * -# Wait for reception of a character:
@@ -214,39 +214,39 @@
  * The following configuration must be added to the project (typically to a 
  * conf_serial.h file, but it can also be added to your main application file.):
  * \code
- *    #define USART_SERIAL                     &USARTD0
- *    #define USART_SERIAL_BAUDRATE            9600
- *    #define USART_SERIAL_CHAR_LENGTH         USART_CHSIZE_8BIT_gc
- *    #define USART_SERIAL_PARITY              USART_PMODE_DISABLED_gc
- *    #define USART_SERIAL_STOP_BIT            false
- * \endcode
+	#define USART_SERIAL                     &USARTD0
+	#define USART_SERIAL_BAUDRATE            9600
+	#define USART_SERIAL_CHAR_LENGTH         USART_CHSIZE_8BIT_gc
+	#define USART_SERIAL_PARITY              USART_PMODE_DISABLED_gc
+	#define USART_SERIAL_STOP_BIT            false
+\endcode
  *
  * Add to application initialization:
  * \code
- *    sysclk_init();
- *
- *    static usart_serial_options_t usart_options = {
- *       .baudrate = USART_SERIAL_BAUDRATE,
- *       .charlength = USART_SERIAL_CHAR_LENGTH,
- *       .paritytype = USART_SERIAL_PARITY,
- *       .stopbits = USART_SERIAL_STOP_BIT
- *    };
- *
- *    usart_serial_init(USART_SERIAL, &usart_options);
- * \endcode
+	    sysclk_init();
+
+	    static usart_serial_options_t usart_options = {
+	       .baudrate = USART_SERIAL_BAUDRATE,
+	       .charlength = USART_SERIAL_CHAR_LENGTH,
+	       .paritytype = USART_SERIAL_PARITY,
+	       .stopbits = USART_SERIAL_STOP_BIT
+	    };
+
+	    usart_serial_init(USART_SERIAL, &usart_options);
+\endcode
  *
  * \subsection serial_use_case_1_setup_flow Workflow
  * -# Initialize system clock:
  *   - \code sysclk_init(); \endcode
  * -# Create USART options struct:
  *   - \code
- *        static usart_serial_options_t usart_options = {
- *           .baudrate = USART_SERIAL_BAUDRATE,
- *           .charlength = USART_SERIAL_CHAR_LENGTH,
- *           .paritytype = USART_SERIAL_PARITY,
- *           .stopbits = USART_SERIAL_STOP_BIT
- *        };
- *     \endcode
+	static usart_serial_options_t usart_options = {
+	   .baudrate = USART_SERIAL_BAUDRATE,
+	   .charlength = USART_SERIAL_CHAR_LENGTH,
+	   .paritytype = USART_SERIAL_PARITY,
+	   .stopbits = USART_SERIAL_STOP_BIT
+	};
+\endcode
  * -# Initialize in RS232 mode:
  *   - \code usart_serial_init(USART_SERIAL_EXAMPLE, &usart_options); \endcode
  *
@@ -255,8 +255,8 @@
  * \subsection serial_use_case_1_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *       usart_serial_write_packet(USART_SERIAL, "Test String", strlen("Test String"));
- * \endcode
+	usart_serial_write_packet(USART_SERIAL, "Test String", strlen("Test String"));
+\endcode
  *
  * \subsection serial_use_case_1_usage_flow Workflow
  * -# Write a string of text to the USART:

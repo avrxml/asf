@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief GCC start-up implementation for the SAM D20
+ * \brief gcc starttup file for SAMD20
  *
  * Copyright (c) 2013 Atmel Corporation. All rights reserved.
  *
@@ -95,6 +95,7 @@ void TC7_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler
 void ADC_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void AC_Handler              ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void DAC_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void PTC_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 
 /* Exception Table */
 __attribute__ ((section(".vectors")))
@@ -143,7 +144,8 @@ const DeviceVectors exception_table = {
         (void*) TC7_Handler,            /* 20 Basic Timer Counter 7 */
         (void*) ADC_Handler,            /* 21 Analog Digital Converter */
         (void*) AC_Handler,             /* 22 Analog Comparators */
-        (void*) DAC_Handler             /* 23 Digital Analog Converter */
+        (void*) DAC_Handler,            /* 23 Digital Analog Converter */
+        (void*) PTC_Handler             /* 24 Peripheral Touch Controller */
 };
 
 /**

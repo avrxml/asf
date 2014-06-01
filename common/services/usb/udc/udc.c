@@ -3,7 +3,7 @@
  *
  * \brief USB Device Controller (UDC)
  *
- * Copyright (c) 2009 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -744,6 +744,15 @@ static bool udc_req_std_dev_get_descriptor(void)
 				USB_DT_OTHER_SPEED_CONFIGURATION;
 		break;
 #endif
+
+	case USB_DT_BOS:
+		// Device BOS descriptor requested
+		if (udc_config.conf_bos == NULL) {
+			return false;
+		}
+		udd_set_setup_payload( (uint8_t *) udc_config.conf_bos,
+				udc_config.conf_bos->wTotalLength);
+		break;
 
 	case USB_DT_STRING:
 		// String descriptor requested

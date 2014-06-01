@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for WDT-SAM4L driver.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -64,7 +64,9 @@
  * \section device_info Device Info
  * SAM4L devices can be used.
  * This example has been tested with the following setup:
- * - sam4l4c_sam4l_ek
+ *  - SAM4L evaluation kit
+ *  - SAM4L Xplained Pro kit
+ *  - SAM4L8 Xplained Pro kit
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -233,6 +235,9 @@ static void run_wdt_test_all(const struct test_case *test)
 			break;
 
 		default:
+			/* Clear flash content */
+			wdt_ut_stage = 0xFFFFFFFFu;
+			flashcalw_memcpy((void *)WDT_UT_TAG_ADDR, &wdt_ut_stage, 4, true);
 			test_assert_true(test, 0,
 					"Unexpected watchdog reset!");
 			break;

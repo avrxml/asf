@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Peripheral Control API Functions
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -80,6 +80,14 @@
  *
  * See \ref freertos_usart_peripheral_control_quick_start
  *
+ * The following functions are provided for the UART peripheral
+ *
+ * - freertos_uart_serial_init()
+ * - freertos_uart_write_packet()
+ * - freertos_uart_write_packet_async()
+ * - freertos_uart_serial_read_packet()
+ *
+ * See \ref freertos_uart_peripheral_control_quick_start
  *
  * The following functions are provided for the TWI peripheral
  *
@@ -90,6 +98,16 @@
  * - freertos_twi_read_packet_async()
  *
  * See \ref freertos_twi_peripheral_control_quick_start
+ *
+ * The following functions are provided for the TWIHS peripheral
+ *
+ * - freertos_twihs_master_init()
+ * - freertos_twihs_write_packet()
+ * - freertos_twihs_write_packet_async()
+ * - freertos_twihs_read_packet()
+ * - freertos_twihs_read_packet_async()
+ *
+ * See \ref freertos_twihs_peripheral_control_quick_start
  *
  * The following functions are provided for the SPI peripheral
  *
@@ -187,13 +205,19 @@
 enum peripheral_operation_mode {
 	//! Valid only for USART peripheral.
 	USART_RS232 = 0,
-	
+
+	//! Valid only for UART peripheral.
+	UART_RS232,
+
 	//! Valid only for the SPI peripheral.
 	SPI_MASTER,			
-	
+
 	//! Valid only for the TWI peripheral.
 	TWI_I2C_MASTER,
-	
+
+	//! Valid only for the TWIHS peripheral.
+	TWIHS_I2C_MASTER,
+
 	//! No other values can be used.
 	NOT_SUPPORTED
 };
@@ -206,7 +230,7 @@ enum peripheral_operation_mode {
 typedef struct freertos_peripheral_options {
 	/**
 	 * A pointer to a buffer into which the PDC will write received data.  This 
-	 * parameter is, at the time of writing, only required by the USART driver, 
+	 * parameter is, at the time of writing, only required by the USART/UART driver,
 	 * and is ignored by other drivers.
 	 */
 	uint8_t *receive_buffer; 
@@ -214,7 +238,7 @@ typedef struct freertos_peripheral_options {
 	/**
 	 * The size, in bytes, of the buffer pointed to by the receive_buffer 
 	 * member.  This parameter is, at the time of writing, only required by the 
-	 * USART driver, and is ignored by other drivers.
+	 * USART/UART driver, and is ignored by other drivers.
 	 */
 	uint32_t receive_buffer_size; 
 

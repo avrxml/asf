@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4SD32C	Atmel SAM4SD32C</state>
+					<state>ATSAM4SD32C	Atmel SAM4SD32C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -754,7 +754,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1013,7 +1012,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4SD32C	Atmel SAM4SD32C</state>
+					<state>ATSAM4SD32C	Atmel SAM4SD32C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1670,7 +1669,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1896,9 +1894,6 @@
 						<group>
 							<name>templates</name>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4s/source/templates/exceptions.c</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../sam4s/source/templates/system_sam4s.c</name>
 							</file>
 							<group>
@@ -1907,16 +1902,13 @@
 									<name>$PROJ_DIR$/../../../sam4s/source/templates/iar/startup_sam4s.c</name>
 								</file>
 							</group>
-							<file>
-								<name>$PROJ_DIR$/../../../sam4s/source/templates/exceptions.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../sam4s/source/templates/system_sam4s.h</name>
-							</file>
 						</group>
 					</group>
 					<group>
 						<name>include</name>
+						<file>
+							<name>$PROJ_DIR$/../../../sam4s/include/sam4s4a.h</name>
+						</file>
 						<group>
 							<name>component</name>
 							<file>
@@ -1930,6 +1922,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/component/component_rtc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../sam4s/include/component/component_pmc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/component/component_tc.h</name>
@@ -1956,9 +1951,6 @@
 								<name>$PROJ_DIR$/../../../sam4s/include/component/component_uart.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4s/include/component/component_smc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/component/component_rtt.h</name>
 							</file>
 							<file>
@@ -1974,13 +1966,13 @@
 								<name>$PROJ_DIR$/../../../sam4s/include/component/component_hsmci.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4s/include/component/component_pmc.h</name>
+								<name>$PROJ_DIR$/../../../sam4s/include/component/component_pio.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/component/component_ssc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4s/include/component/component_pio.h</name>
+								<name>$PROJ_DIR$/../../../sam4s/include/component/component_smc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/component/component_pwm.h</name>
@@ -2019,9 +2011,6 @@
 								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_pwm.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_supc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_spi.h</name>
 							</file>
 							<file>
@@ -2052,6 +2041,9 @@
 								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_pioc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_tc0.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_chipid.h</name>
 							</file>
 							<file>
@@ -2064,13 +2056,16 @@
 								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_usart0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_pmc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_piob.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_pmc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_efc1.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_supc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_rtt.h</name>
@@ -2079,10 +2074,10 @@
 								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_matrix.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_tc0.h</name>
+								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_cmcc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_cmcc.h</name>
+								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_wdt.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_smc.h</name>
@@ -2101,9 +2096,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_usart1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_wdt.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/instance/instance_tc1.h</name>
@@ -2130,7 +2122,19 @@
 								<name>$PROJ_DIR$/../../../sam4s/include/pio/pio_sam4s8c.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../sam4s/include/pio/pio_sam4s4a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../sam4s/include/pio/pio_sam4s2c.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/pio/pio_sam4s8b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../sam4s/include/pio/pio_sam4s4c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../sam4s/include/pio/pio_sam4s2a.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/pio/pio_sam4s16c.h</name>
@@ -2139,9 +2143,21 @@
 								<name>$PROJ_DIR$/../../../sam4s/include/pio/pio_sam4sd32b.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../sam4s/include/pio/pio_sam4s4b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../sam4s/include/pio/pio_sam4s2b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../sam4s/include/pio/pio_sam4sd32c.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../sam4s/include/sam4s4c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../sam4s/include/sam4s2b.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../sam4s/include/sam4s8b.h</name>
 						</file>
@@ -2158,6 +2174,9 @@
 							<name>$PROJ_DIR$/../../../sam4s/include/sam4sa16b.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../sam4s/include/system_sam4s.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../sam4s/include/sam4sd16c.h</name>
 						</file>
 						<file>
@@ -2167,7 +2186,16 @@
 							<name>$PROJ_DIR$/../../../sam4s/include/sam4s16b.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../sam4s/include/sam4s4b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../sam4s/include/sam4sd32b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../sam4s/include/sam4s2a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../sam4s/include/sam4s2c.h</name>
 						</file>
 					</group>
 				</group>

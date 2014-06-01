@@ -67,6 +67,8 @@
  * SAM4L devices can be used.
  * This example has been tested with the following setup:
  * - sam4l4c_sam4l_ek
+ * - sam4lc4c_sam4l_xplained_pro
+ * - sam4lc8c_sam4l8_xplained_pro
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -190,7 +192,7 @@ static void run_events_ast_test(const struct test_case *test)
 	events_ch_get_config_defaults(&ch_config);
 	ch_config.channel_id = CONF_TEST_USER_ID;
 	ch_config.generator_id = CONF_TEST_GEN_ID;
-	ch_config.sharper_enable = true;
+	ch_config.shaper_enable = true;
 	ch_config.igf_edge = EVENT_IGF_EDGE_NONE;
 	events_ch_configure(&ch_config);
 

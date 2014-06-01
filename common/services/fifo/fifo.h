@@ -10,7 +10,7 @@
  * This is particularly well suited for any kind of application needing a lot of
  * small FIFO.
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -545,21 +545,21 @@ static inline void fifo_flush(fifo_desc_t *fifo_desc)
  * \subsection fifo_basic_use_case_setup_code Example code
  * The following must be added to the project:
  * \code
- *    #define FIFO_BUFFER_LENGTH  4
- *    #define PUSH_VALUE          0x12345678
- *    union buffer_element {
- *       uint8_t  byte;
- *       uint16_t halfword;
- *       uint32_t word;
- *    };
- * \endcode
+	#define FIFO_BUFFER_LENGTH  4
+	#define PUSH_VALUE          0x12345678
+	union buffer_element {
+	   uint8_t  byte;
+	   uint16_t halfword;
+	   uint32_t word;
+	};
+\endcode
  *
  * Add to application initialization:
  * \code
- *    union buffer_element fifo_buffer[FIFO_BUFFER_LENGTH];
- *    fifo_desc_t fifo_desc;
- *    fifo_init(&fifo_desc, fifo_buffer, FIFO_BUFFER_LENGTH); 
- * \endcode
+	union buffer_element fifo_buffer[FIFO_BUFFER_LENGTH];
+	fifo_desc_t fifo_desc;
+	fifo_init(&fifo_desc, fifo_buffer, FIFO_BUFFER_LENGTH); 
+\endcode
  *
  * \subsection fifo_basic_use_case_setup_flow Workflow
  * -# Create a FIFO buffer of FIFO_BUFFER_LENGTH elements, capable
@@ -577,11 +577,11 @@ static inline void fifo_flush(fifo_desc_t *fifo_desc)
  * \subsection fifo_basic_use_case_usage_code Example code
  * Add to application C-file:
  * \code
- *    uint8_t status;
- *    uint8_t pull_value;
- *    status = fifo_push_uint8(&fifo_desc, PUSH_VALUE & 0xff);
- *    status = fifo_pull_uint8(&fifo_desc, &pull_value);
- * \endcode
+	uint8_t status;
+	uint8_t pull_value;
+	status = fifo_push_uint8(&fifo_desc, PUSH_VALUE & 0xff);
+	status = fifo_pull_uint8(&fifo_desc, &pull_value);
+\endcode
  *
  * \subsection fifo_basic_use_case_usage_flow Workflow
  * -# Create a variable to hold the return status from the FIFO:
@@ -607,21 +607,21 @@ static inline void fifo_flush(fifo_desc_t *fifo_desc)
  * \subsection fifo_use_case_1_setup_code Example code
  * The following must be added to the project:
  * \code
- *    #define FIFO_BUFFER_LENGTH  4
- *    #define PUSH_VALUE          0x12345678
- *    union buffer_element {
- *       uint8_t  byte;
- *       uint16_t halfword;
- *       uint32_t word;
- *    };
- * \endcode
+	#define FIFO_BUFFER_LENGTH  4
+	#define PUSH_VALUE          0x12345678
+	union buffer_element {
+	   uint8_t  byte;
+	   uint16_t halfword;
+	   uint32_t word;
+	};
+\endcode
  *
  * Add to application initialization:
  * \code
- *    union buffer_element fifo_buffer[FIFO_BUFFER_LENGTH];
- *    fifo_desc_t fifo_desc;
- *    fifo_init(&fifo_desc, fifo_buffer, FIFO_BUFFER_LENGTH); 
- * \endcode
+	union buffer_element fifo_buffer[FIFO_BUFFER_LENGTH];
+	fifo_desc_t fifo_desc;
+	fifo_init(&fifo_desc, fifo_buffer, FIFO_BUFFER_LENGTH); 
+\endcode
  *
  * \subsection fifo_use_case_1_setup_flow Workflow
  * -# Create a FIFO buffer of FIFO_BUFFER_LENGTH elements, capable
@@ -638,13 +638,13 @@ static inline void fifo_flush(fifo_desc_t *fifo_desc)
  * \subsection fifo_use_case_1_usage_code Example code
  * Add to application C-file:
  * \code
- *    uint8_t status;
- *    bool fifo_empty;
- *    status = fifo_push_uint16(&fifo_desc, PUSH_VALUE & 0xffff);
- *    status = fifo_push_uint16(&fifo_desc, PUSH_VALUE & 0xffff);
- *    fifo_flush(&fifo_desc);
- *    fifo_empty = fifo_is_empty(&fifo_desc);
- * \endcode
+	uint8_t status;
+	bool fifo_empty;
+	status = fifo_push_uint16(&fifo_desc, PUSH_VALUE & 0xffff);
+	status = fifo_push_uint16(&fifo_desc, PUSH_VALUE & 0xffff);
+	fifo_flush(&fifo_desc);
+	fifo_empty = fifo_is_empty(&fifo_desc);
+\endcode
  *
  * \subsection fifo_use_case_1_usage_flow Workflow
  * -# Create a variable to hold the return status from the FIFO:

@@ -3,7 +3,7 @@
  *
  * @brief Dispatches the events by decoding the message type
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -127,7 +127,7 @@ static FLASH_DECLARE(handler_t dispatch_table[LAST_MESSAGE + 1]) = {
 #if ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
 	[MCPS_PURGE_REQUEST]                  = mcps_purge_request,
 #endif /* ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
-	 **/
+	**/
 
 	[TAL_DATA_INDICATION]                 = mac_process_tal_data_ind,
 	[MCPS_DATA_CONFIRM]                   = mcps_data_conf,
@@ -136,7 +136,7 @@ static FLASH_DECLARE(handler_t dispatch_table[LAST_MESSAGE + 1]) = {
 #if ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
 	[MCPS_PURGE_CONFIRM]                  = mcps_purge_conf,
 #endif /* ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
-	 **/
+	**/
 
 #if (MAC_ASSOCIATION_INDICATION_RESPONSE == 1)
 	[MLME_ASSOCIATE_INDICATION]           = mlme_associate_ind,
@@ -189,6 +189,12 @@ static FLASH_DECLARE(handler_t dispatch_table[LAST_MESSAGE + 1]) = {
 #if (MAC_INDIRECT_DATA_BASIC == 1)
 	[MLME_POLL_CONFIRM]                   = mlme_poll_conf,
 #endif /* (MAC_INDIRECT_DATA_BASIC == 1) */
+
+#ifdef GTS_SUPPORT
+	[MLME_GTS_REQUEST]                    = mlme_gts_request,
+	[MLME_GTS_CONFIRM]                    = mlme_gts_conf,
+	[MLME_GTS_INDICATION]                 = mlme_gts_ind,
+#endif /* GTS_SUPPORT */
 };
 #else
 static FLASH_DECLARE(handler_t dispatch_table[LAST_MESSAGE + 1]) = {
@@ -240,7 +246,13 @@ static FLASH_DECLARE(handler_t dispatch_table[LAST_MESSAGE + 1]) = {
 #if ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
 	[MCPS_PURGE_REQUEST]                  = mcps_purge_request,
 #endif /* ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
-	 **/
+	**/
+
+#ifdef GTS_SUPPORT
+	[MLME_GTS_REQUEST]                    = mlme_gts_request,
+	[MLME_GTS_CONFIRM]                    = mlme_gts_conf,
+	[MLME_GTS_INDICATION]                 = mlme_gts_ind,
+#endif /* GTS_SUPPORT */
 
 	[TAL_DATA_INDICATION]                 = mac_process_tal_data_ind,
 };
@@ -252,7 +264,7 @@ static FLASH_DECLARE(handler_t dispatch_table[LAST_MESSAGE + 1]) = {
 
 /**
  * @brief Obtains the message type from the buffer and calls the respective
- *handler
+ * handler
  *
  * This function decodes all events/messages and calls the appropriate handler.
  *
@@ -263,10 +275,10 @@ void dispatch_event(uint8_t *event)
 {
 	/*
 	 * A pointer to the body of the buffer is obtained from the pointer to
-	 *the
+	 * the
 	 * received header.
 	 */
-	uint8_t *buffer_body = BMM_BUFFER_POINTER((buffer_t *)event);
+	uint8_t *buffer_body = (uint8_t *)BMM_BUFFER_POINTER((buffer_t *)event);
 
 	/* Check is done to see if the message type is valid */
 
@@ -292,7 +304,7 @@ void dispatch_event(uint8_t *event)
 	if (buffer_body[CMD_ID_OCTET] <= LAST_MESSAGE) {
 		/*
 		 * The following statement reads the address from the dispatch
-		 *table
+		 * table
 		 * of the function to be called by utilizing function pointers.
 		 */
 		handler_t handler

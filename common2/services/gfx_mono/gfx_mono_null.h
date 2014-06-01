@@ -3,7 +3,7 @@
  *
  * \brief Monochrome graphic library NULL display device with framebuffer
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,6 +46,10 @@
 
 #include "gfx_mono.h"
 #include "gfx_mono_framebuffer.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * \ingroup asfdoc_common2_gfx_mono
@@ -123,5 +127,9 @@
 void gfx_mono_null_init(void);
 
 /** @} */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GFX_MONO_NULL_H */

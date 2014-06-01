@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 TC - Timer Counter Driver
+ * \brief SAM D20/D21/R21 TC - Timer Counter Driver
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -55,11 +55,12 @@
 #endif
 
 #if !defined(__DOXYGEN__)
-#  define _TC_GCLK_ID(n, unused)       TC##n##_GCLK_ID   ,
-#  define _TC_PM_APBCMASK(n, unused)   PM_APBCMASK_TC##n ,
+#  define _TC_GCLK_ID(n,unused)           TPASTE3(TC,n,_GCLK_ID)   ,
+#  define _TC_PM_APBCMASK(n,unused)       TPASTE2(PM_APBCMASK_TC,n) ,
 
-#  define TC_INST_GCLK_ID          { MREPEAT(TC_INST_NUM, _TC_GCLK_ID    , ~) }
-#  define TC_INST_PM_APBCMASK      { MREPEAT(TC_INST_NUM, _TC_PM_APBCMASK, ~) }
+#  define TC_INST_GCLK_ID          { MRECURSION(TC_INST_NUM, _TC_GCLK_ID, TC_INST_MAX_ID) }
+#  define TC_INST_PM_APBCMASK      { MRECURSION(TC_INST_NUM, _TC_PM_APBCMASK, TC_INST_MAX_ID) }
+
 #endif
 
 /**
@@ -125,9 +126,6 @@ enum status_code tc_init(
 	/* Temporary variable to hold all updates to the CTRLBSET
 	 * register before they are written to it */
 	uint8_t ctrlbset_tmp = 0;
-	/* Temporary variable to hold all updates to the EVCTRL
-	 * register before they are written to it */
-	uint8_t evctrl_tmp = 0;
 	/* Temporary variable to hold all updates to the CTRLC
 	 * register before they are written to it */
 	uint8_t ctrlc_tmp = 0;
@@ -162,7 +160,7 @@ enum status_code tc_init(
 	 * configured in 32-bit counter size.
 	 */
 	if ((config->counter_size == TC_COUNTER_SIZE_32BIT) &&
-			(instance & 0x01)) {
+			((instance + TC_INSTANCE_OFFSET) & 0x01)) {
 		Assert(false);
 		return STATUS_ERR_INVALID_ARG;
 	}
@@ -187,28 +185,35 @@ enum status_code tc_init(
 		return STATUS_ERR_DENIED;
 	}
 
-
 	/* Set up the TC PWM out pin for channel 0 */
-	if (config->channel_pwm_out_enabled[0]) {
+	if (config->pwm_channel[0].enabled) {
 		system_pinmux_get_config_defaults(&pin_config);
-		pin_config.mux_position = config->channel_pwm_out_mux[0];
+		pin_config.mux_position = config->pwm_channel[0].pin_mux;
 		pin_config.direction = SYSTEM_PINMUX_PIN_DIR_OUTPUT;
 		system_pinmux_pin_set_config(
-				config->channel_pwm_out_pin[0], &pin_config);
+				config->pwm_channel[0].pin_out, &pin_config);
 	}
 
 	/* Set up the TC PWM out pin for channel 1 */
-	if (config->channel_pwm_out_enabled[1]) {
+	if (config->pwm_channel[1].enabled) {
 		system_pinmux_get_config_defaults(&pin_config);
-		pin_config.mux_position = config->channel_pwm_out_mux[1];
+		pin_config.mux_position = config->pwm_channel[1].pin_mux;
 		pin_config.direction = SYSTEM_PINMUX_PIN_DIR_OUTPUT;
 		system_pinmux_pin_set_config(
-				config->channel_pwm_out_pin[1], &pin_config);
+				config->pwm_channel[1].pin_out, &pin_config);
 	}
 
 	/* Enable the user interface clock in the PM */
 	system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBC,
 			inst_pm_apbmask[instance]);
+
+	/* Enable the slave counter if counter_size is 32 bit */
+	if ((config->counter_size == TC_COUNTER_SIZE_32BIT))
+	{
+		/* Enable the user interface clock in the PM */
+		system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBC,
+				inst_pm_apbmask[instance + 1]);
+	}
 
 	/* Setup clock for module */
 	system_gclk_chan_get_config_defaults(&gclk_chan_config);
@@ -271,16 +276,10 @@ enum status_code tc_init(
 	}
 	hw->COUNT8.CTRLC.reg = ctrlc_tmp;
 
-	/* Set evctrl register */
-	if (config->invert_event_input) {
-		evctrl_tmp |= TC_EVCTRL_TCINV;
-	}
-
 	/* Write configuration to register */
 	while (tc_is_syncing(module_inst)) {
 		/* Wait for sync */
 	}
-	hw->COUNT8.EVCTRL.reg = evctrl_tmp | config->event_action;
 
 	/* Switch for TC counter size  */
 	switch (module_inst->counter_size) {
@@ -290,7 +289,7 @@ enum status_code tc_init(
 			}
 
 			hw->COUNT8.COUNT.reg =
-					config->size_specific.size_8_bit.count;
+					config->counter_8_bit.value;
 
 
 			while (tc_is_syncing(module_inst)) {
@@ -298,21 +297,21 @@ enum status_code tc_init(
 			}
 
 			hw->COUNT8.PER.reg =
-					config->size_specific.size_8_bit.period;
+					config->counter_8_bit.period;
 
 			while (tc_is_syncing(module_inst)) {
 				/* Wait for sync */
 			}
 
-			hw->COUNT8.CC[0].reg = config->size_specific.\
-					size_8_bit.compare_capture_channel[0];
+			hw->COUNT8.CC[0].reg =
+					config->counter_8_bit.compare_capture_channel[0];
 
 			while (tc_is_syncing(module_inst)) {
 				/* Wait for sync */
 			}
 
-			hw->COUNT8.CC[1].reg = config->size_specific.\
-					size_8_bit.compare_capture_channel[1];
+			hw->COUNT8.CC[1].reg =
+					config->counter_8_bit.compare_capture_channel[1];
 
 			return STATUS_OK;
 
@@ -322,21 +321,21 @@ enum status_code tc_init(
 			}
 
 			hw->COUNT16.COUNT.reg
-				= config->size_specific.size_16_bit.count;
+				= config->counter_16_bit.value;
 
 			while (tc_is_syncing(module_inst)) {
 				/* Wait for sync */
 			}
 
-			hw->COUNT16.CC[0].reg = config->size_specific.\
-					size_16_bit.compare_capture_channel[0];
+			hw->COUNT16.CC[0].reg =
+					config->counter_16_bit.compare_capture_channel[0];
 
 			while (tc_is_syncing(module_inst)) {
 				/* Wait for sync */
 			}
 
-			hw->COUNT16.CC[1].reg = config->size_specific.\
-					size_16_bit.compare_capture_channel[1];
+			hw->COUNT16.CC[1].reg =
+					config->counter_16_bit.compare_capture_channel[1];
 
 			return STATUS_OK;
 
@@ -346,21 +345,21 @@ enum status_code tc_init(
 			}
 
 			hw->COUNT32.COUNT.reg
-				= config->size_specific.size_32_bit.count;
+				= config->counter_32_bit.value;
 
 			while (tc_is_syncing(module_inst)) {
 				/* Wait for sync */
 			}
 
-			hw->COUNT32.CC[0].reg = config->size_specific.\
-					size_32_bit.compare_capture_channel[0];
+			hw->COUNT32.CC[0].reg =
+					config->counter_32_bit.compare_capture_channel[0];
 
 			while (tc_is_syncing(module_inst)) {
 				/* Wait for sync */
 			}
 
-			hw->COUNT32.CC[1].reg = config->size_specific.\
-					size_32_bit.compare_capture_channel[1];
+			hw->COUNT32.CC[1].reg =
+					config->counter_32_bit.compare_capture_channel[1];
 
 			return STATUS_OK;
 	}
@@ -559,7 +558,7 @@ enum status_code tc_set_compare_value(
 		case TC_COUNTER_SIZE_32BIT:
 			if (channel_index <
 					NUMBER_OF_COMPARE_CAPTURE_CHANNELS) {
-				tc_module->COUNT16.CC[channel_index].reg =
+				tc_module->COUNT32.CC[channel_index].reg =
 						(uint32_t)compare;
 				return STATUS_OK;
 			}

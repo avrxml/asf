@@ -3,7 +3,7 @@
  *
  * \brief Unit test configuration.
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,5 +50,7 @@
 #define CONF_TEST_BAUDRATE   115200
 /** Parity setting */
 #define CONF_TEST_PARITY     UART_MR_PAR_NO
+
+#define CONF_TEST_CS         3
 
 #endif /* CONF_TEST_H_INCLUDED */

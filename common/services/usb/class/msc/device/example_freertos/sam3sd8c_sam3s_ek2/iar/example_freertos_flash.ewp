@@ -163,13 +163,14 @@
 				<option>
 					<name>CCDefines</name>
 					<state>BOARD=SAM3S_EK2</state>
-					<state>FREERTOS_USED</state>
+					<state>UDD_ENABLE</state>
 					<state>ACCESS_USB_ENABLED</state>
 					<state>SD_MMC_ENABLE</state>
-					<state>UDD_ENABLE</state>
+					<state>FREERTOS_USED</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
 					<state>__SAM3SD8C__</state>
+					<state>__FREERTOS__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -478,13 +479,14 @@
 				<option>
 					<name>ADefines</name>
 					<state>BOARD=SAM3S_EK2</state>
-					<state>FREERTOS_USED</state>
+					<state>UDD_ENABLE</state>
 					<state>ACCESS_USB_ENABLED</state>
 					<state>SD_MMC_ENABLE</state>
-					<state>UDD_ENABLE</state>
+					<state>FREERTOS_USED</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
 					<state>__SAM3SD8C__</state>
+					<state>__FREERTOS__</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1119,13 +1121,14 @@
 				<option>
 					<name>CCDefines</name>
 					<state>BOARD=SAM3S_EK2</state>
-					<state>FREERTOS_USED</state>
+					<state>UDD_ENABLE</state>
 					<state>ACCESS_USB_ENABLED</state>
 					<state>SD_MMC_ENABLE</state>
-					<state>UDD_ENABLE</state>
+					<state>FREERTOS_USED</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
 					<state>__SAM3SD8C__</state>
+					<state>__FREERTOS__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1434,13 +1437,14 @@
 				<option>
 					<name>ADefines</name>
 					<state>BOARD=SAM3S_EK2</state>
-					<state>FREERTOS_USED</state>
+					<state>UDD_ENABLE</state>
 					<state>ACCESS_USB_ENABLED</state>
 					<state>SD_MMC_ENABLE</state>
-					<state>UDD_ENABLE</state>
+					<state>FREERTOS_USED</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>VIRTUAL_MEMORY_ENABLE</state>
 					<state>__SAM3SD8C__</state>
+					<state>__FREERTOS__</state>
 				</option>
 				<option>
 					<name>AList</name>

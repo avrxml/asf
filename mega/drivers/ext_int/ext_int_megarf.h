@@ -3,7 +3,7 @@
  *
  * \brief External Interrupt for megaRF.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -253,18 +253,18 @@ void ext_int_set_interrupt_callback(ioport_pin_t ext_int, ext_int_callback_t cal
  * Add a callback function that will be executed when the interrupt
  * trigger.
  * \code
- * static void ext_int_callback(void)
- * {
- *     // User code to execute when the interrupt occurs here
- * }
- * \endcode
+	static void ext_int_callback(void)
+	{
+	    // User code to execute when the interrupt occurs here
+	}
+\endcode
  * Add to, e.g., the main loop in the application C-file:
  * \code
- * sysclk_init();
- * ext_int_init(EXT_INT0, IOPORT_SENSE_FALLING);
- * ext_int_set_interrupt_callback(EXT_INT0, ext_int_callback);
- * cpu_irq_enable();
- * \endcode
+	sysclk_init();
+	ext_int_init(EXT_INT0, IOPORT_SENSE_FALLING);
+	ext_int_set_interrupt_callback(EXT_INT0, ext_int_callback);
+	cpu_irq_enable();
+\endcode
  *
  * \subsection megarf_interrupt_qs_extint_setup_code_workflow Workflow
  *
@@ -309,18 +309,18 @@ void ext_int_set_interrupt_callback(ioport_pin_t ext_int, ext_int_callback_t cal
  * Add a callback function that will be executed when the interrupt
  * trigger.
  * \code
- * static void ext_pcint_callback(void)
- * {
- *     // User code to execute when the interrupt occurs here
- * }
- * \endcode
+	static void ext_pcint_callback(void)
+	{
+	    // User code to execute when the interrupt occurs here
+	}
+\endcode
  * Add to, e.g., the main loop in the application C-file:
  * \code
- * sysclk_init();
- * ext_int_pcint_init(PC_INT8);
- * ext_int_set_interrupt_callback(PC_INT8, ext_pcint_callback);
- * cpu_irq_enable();
- * \endcode
+	sysclk_init();
+	ext_int_pcint_init(PC_INT8);
+	ext_int_set_interrupt_callback(PC_INT8, ext_pcint_callback);
+	cpu_irq_enable();
+\endcode
  *
  * \subsection megarf_interrupt_qs_pcint_setup_code_workflow Workflow
  *

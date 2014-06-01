@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Board configuration.
+ * \brief Example configuration.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,8 +41,8 @@
  *
  */
 
-#ifndef CONF_BOARD_H_INCLUDED
-#define CONF_BOARD_H_INCLUDED
+#ifndef CONF_EXAMPLE_H_INCLUDED
+#define CONF_EXAMPLE_H_INCLUDED
 
 /** Qtouch key number */
 #define BOARD_KEY_NUM_5
@@ -86,4 +86,4 @@
 /** Qtouch slider end channel */
 #define BOARD_SLIDER_END_CHANNEL    CHANNEL_2
 
-#endif /* CONF_BOARD_H_INCLUDED */
+#endif /* CONF_EXAMPLE_H_INCLUDED */

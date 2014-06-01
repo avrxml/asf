@@ -3,7 +3,7 @@
  *
  * @brief Implements common functionality for MAC
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -64,7 +64,7 @@
  *        of the received frame
  *
  * @param frame_ptr Pointer to first octet of Addressing fields of received
- *frame
+ * frame
  *        (See IEEE 802.15.4-2006 Figure 41)
  *
  * @return bool Length of Addressing fields
@@ -86,7 +86,7 @@ uint8_t mac_extract_mhr_addr_info(uint8_t *frame_ptr)
 		if (FCF_SHORT_ADDR == dst_addr_mode) {
 			/*
 			 * First initialize the complete long address with zero,
-			 *since
+			 * since
 			 * later only 16 bit are actually written.
 			 */
 			mac_parse_data.dest_addr.long_address = 0;
@@ -106,7 +106,7 @@ uint8_t mac_extract_mhr_addr_info(uint8_t *frame_ptr)
 		if (!intra_pan) {
 			/*
 			 * Source PAN ID is present in the frame only if the
-			 *intra-PAN bit
+			 * intra-PAN bit
 			 * is zero and src_addr_mode is non zero.
 			 */
 			mac_parse_data.src_panid = convert_byte_array_to_16_bit(
@@ -116,7 +116,7 @@ uint8_t mac_extract_mhr_addr_info(uint8_t *frame_ptr)
 		} else {
 			/*
 			 * The received frame does not contain a source PAN ID,
-			 *hence
+			 * hence
 			 * source PAN ID is updated with the destination PAN ID.
 			 */
 			mac_parse_data.src_panid = mac_parse_data.dest_panid;
@@ -126,7 +126,7 @@ uint8_t mac_extract_mhr_addr_info(uint8_t *frame_ptr)
 		if (FCF_SHORT_ADDR == src_addr_mode) {
 			/*
 			 * First initialize the complete long address with zero,
-			 *since
+			 * since
 			 * later only 16 bit are actually written.
 			 */
 			mac_parse_data.src_addr.long_address = 0;

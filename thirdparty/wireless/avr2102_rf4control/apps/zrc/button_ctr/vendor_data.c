@@ -3,7 +3,7 @@
  *
  * @brief Implementation of vendor-specific data handling
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -218,7 +218,6 @@ static void vendor_data_confirm(nwk_enum_t Status, uint8_t PairingRef,
 		 * so initiate flash swap for activiting the new image */
 		flash_swap(IMAGE_START_ADDR, IMAGE_SIZE);
 	}
-
 #endif
 	Status = Status;
 	PairingRef = PairingRef;

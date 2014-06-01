@@ -52,7 +52,7 @@
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
-// From module: ADC - Analog-to-Digital Converter (Callback Mode)
+// From module: ADC - Analog-to-Digital Converter (Callback APIs)
 #include <adc.h>
 #include <adc_callback.h>
 
@@ -63,8 +63,11 @@
 // From module: Delay routines
 #include <delay.h>
 
-// From module: EVSYS - Event System
+// From module: EVSYS - Event System Common
 #include <events.h>
+
+// From module: EVSYS - Event System with interupt hooks support
+#include <events_hooks.h>
 
 // From module: Generic board support
 #include <board.h>
@@ -78,10 +81,10 @@
 // From module: Part identification macros
 #include <parts.h>
 
-// From module: RTC - Real Time Counter (Count Mode) Polled Driver
+// From module: RTC - Real Time Counter in Count Mode (Polled APIs)
 #include <rtc_count.h>
 
-// From module: SYSTEM - Clock Management
+// From module: SYSTEM - Clock Management for SAMD20
 #include <clock.h>
 #include <gclk.h>
 

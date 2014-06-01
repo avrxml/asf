@@ -189,6 +189,7 @@
 					<state>BOARD=EVK1100</state>
 					<state>FREERTOS_USED</state>
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
+					<state>__FREERTOS__</state>
 					<state>SD_MMC_SPI_ENABLE</state>
 					<state>AT45DBX_ENABLE</state>
 				</option>
@@ -479,6 +480,7 @@
 					<state>BOARD=EVK1100</state>
 					<state>FREERTOS_USED</state>
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
+					<state>__FREERTOS__</state>
 					<state>SD_MMC_SPI_ENABLE</state>
 					<state>AT45DBX_ENABLE</state>
 				</option>
@@ -1112,6 +1114,7 @@
 					<state>BOARD=EVK1100</state>
 					<state>FREERTOS_USED</state>
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
+					<state>__FREERTOS__</state>
 					<state>SD_MMC_SPI_ENABLE</state>
 					<state>AT45DBX_ENABLE</state>
 				</option>
@@ -1402,6 +1405,7 @@
 					<state>BOARD=EVK1100</state>
 					<state>FREERTOS_USED</state>
 					<state>ACCESS_MEM_TO_RAM_ENABLED</state>
+					<state>__FREERTOS__</state>
 					<state>SD_MMC_SPI_ENABLE</state>
 					<state>AT45DBX_ENABLE</state>
 				</option>

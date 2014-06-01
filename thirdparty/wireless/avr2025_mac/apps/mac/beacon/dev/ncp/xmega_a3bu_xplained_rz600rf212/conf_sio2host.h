@@ -3,7 +3,7 @@
  *
  * \brief Serial Input & Output configuration
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,5 +42,6 @@
 
 #ifndef CONF_SIO2HOST_H_INCLUDED
 #define CONF_SIO2HOST_H_INCLUDED
+ #define SERIAL_RX_BUF_SIZE_HOST    156
 
 #endif /* CONF_SIO2HOST_H_INCLUDED */

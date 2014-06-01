@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Peripheral Access Controller Driver
+ * \brief SAM D20/D21/R21 Peripheral Access Controller Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,7 +56,7 @@
  *                           \ref SYSTEM_PERIPHERAL_ID macro.
  * \param[in] key  Bitwise inverse of peripheral ID, used as key to
  *                 reduce the chance of accidental locking. See
- *                 \ref asfdoc_samd20_pac_bitwise_code.
+ *                 \ref asfdoc_sam0_pac_bitwise_code.
  *
  * \return Status of the peripheral lock procedure.
  * \retval STATUS_OK                If the peripheral was successfully locked.
@@ -92,6 +92,8 @@ __no_inline enum status_code system_peripheral_lock(
 #endif
 #ifdef PAC2
 		case 2:
+			/* Turn on the digital interface clock */
+			system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBC, PM_APBCMASK_PAC2);
 			PAC2->WPSET.reg = (1 << register_bit_pos);
 			break;
 #endif
@@ -116,7 +118,7 @@ __no_inline enum status_code system_peripheral_lock(
  *                          \ref SYSTEM_PERIPHERAL_ID macro.
  * \param[in] key  Bitwise inverse of peripheral ID, used as key to
  *                 reduce the chance of accidental unlocking. See
- *                 \ref asfdoc_samd20_pac_bitwise_code.
+ *                 \ref asfdoc_sam0_pac_bitwise_code.
  *
  * \return Status of the peripheral unlock procedure.
  * \retval STATUS_OK                If the peripheral was successfully locked.
@@ -152,6 +154,8 @@ __no_inline enum status_code system_peripheral_unlock(
 #endif
 #ifdef PAC2
 		case 2:
+			/* Turn on the digital interface clock */
+			system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBC, PM_APBCMASK_PAC2);
 			PAC2->WPCLR.reg = (1 << register_bit_pos);
 			break;
 #endif

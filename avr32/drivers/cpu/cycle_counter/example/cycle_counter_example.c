@@ -1,14 +1,9 @@
-/*****************************************************************************
- *
+/**
  * \file
  *
- * \brief COUNT & COMPARE usage example.
+ * \brief CPU Cycle Counter Example application for AVR UC3.
  *
- * Example of COUNT & COMPARE registers usage, using the USART software driver
- * (for printing ASCII msgs), the GPIO software driver (to map the USART on I/O pins),
- * the INTC software driver (for interrupt management).
- *
- * Copyright (c) 2009 - 2011 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,56 +38,49 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * \asf_license_stop
- *
- *****************************************************************************/
+ */
 
-/*! \mainpage
+/**
+ * \mainpage
  * \section intro Introduction
  *
- * This documents gives an example of the usage of the CPU Cycle counter. The cycle counter is a COUNT register,
- * that increments once every clock. The count register can be used together with
- * the COMPARE register to create a timer with interrupt functionality.
- * The COMPARE register holds a value that the COUNT register is compared against.
- * When the COMPARE and COUNT registers match, a compare interrupt request is
- * generated and COUNT is reset to 0.
+ * This document gives an example of the usage of the CPU Cycle Counter. The
+ * cycle counter is a COUNT register, that increments once every clock. The
+ * COUNT register can be used together with the COMPARE register to create a
+ * timer with interrupt functionality. The COMPARE register holds a value that
+ * the COUNT register is compared against. When the COMPARE and COUNT registers
+ * match, a compare interrupt request is generated and COUNT is reset to 0.
  *
- * \section example-description Example's Operating Mode
- * This example shows how to use the COUNT register together with the COMPARE register
- * to generate an interrupt periodically. Here is the operating mode of the example:
- * - At the beginning of the code, we check that initial default values of the COUNT
- * and COMPARE registers are correct.
- * - Then, the COUNT & COMPARE interrupt mechanism is tested with a short delay. Messages
- * are displayed on USART1. This delay is equal to (1/fCPU)*NB_CLOCK_CYCLE_DELAY_SHORT
- * in case NB_CLOCK_CYCLE_DELAY_SHORT value is reloaded (83.3ms) or (1/fCPU)*NB_CLOCK_CYCLE_DELAY_LONG
- * in case NB_CLOCK_CYCLE_DELAY_LONG value is reloaded (1.67s)
- * - Then the program infinitely loops, using the COUNT & COMPARE interrupt mechanism
- * with a longer delay. Messages are displayed on USART1 and one of Led 1 through Led4
- * is on upon each COUNT & COMPARE match (Led1 -> Led2 -> Led3 -> Led4 -> Led1 ...and so on).
+ * \section example-description Example Description
+ * This example shows how to use the COUNT register together with the COMPARE
+ * register to generate an interrupt periodically.
+ * Here is the operating mode of the example:
+ * - At the beginning of the code, we check that initial default values of the
+ *   COUNT and COMPARE registers are correct.
+ * - Then, COMPARE register is loaded with a delay specified by
+ *   delay_clock_cycles. This delay is (1 / fCPU) * delay_clock_cycles.
+ * - Then the program infinitely loops, using the COUNT and COMPARE interrupt
+ *   with the above delay. Messages are displayed on USART and one of Led0
+ *   through Led3 will be ON upon each COUNT and COMPARE match
+ *   (Led0 -> Led1 -> Led2 -> Led3 -> Led0 ...and so on).
  *
-  \section files Main Files
- * - cycle_count_example.c : cycle counter example
+ * \section files Main Files
+ * - cycle_counter_example.c : cycle counter example
  * - cycle_counter.h: cycle counter driver interface
+ * - conf_board.h: Simulator configuration for example
+ * - conf_clock.h: Clock configuration for example
  *
  * \section compinfo Compilation Info
- * This software was written for the GNU GCC for AVR32 and IAR Systems compiler
+ * This software was written for GCC for AVR32 and IAR Embedded Workbench
  * for AVR32. Other compilers may or may not work.
  *
- * \section configinfo Configuration Information
+ * \section Configuration Information
  * This example has been tested with the following configuration:
- * - EVK1100, EVK1101, EVK1104, EVK1105, AT32UC3C-EK or AT32UC3L-EK evaluation kits; STK600+RCUC3L routing card;
- *    STK600+RCUCD routing card;
- * - CPU clock:
- *             -- EVK1100, EVK1101, EVK1104, EVK1105, AT32UC3L-EK, STK600+RCUC3L :  12 MHz;
- *             -- AT32UC3C-EK : 16 MHz
- * - Serial Link :
- *      -- USART1 (on EVK1100 or EVK1101) connected to a PC serial port via a standard
- *         RS232 DB9 cable, or USART0 (on EVK1105) or USART1 (on EVK1104)
- *      -- USART2 (on AT32UC3C-EK) abstracted with a USB CDC connection to a PC
- *      -- USART3 (on AT32UC3L-EK) abstracted with a USB CDC connection to a PC;
- *      -- STK600 usart port for the STK600+RCUC3L setup (connect STK600.PE2 to
- *         STK600.RS232 SPARE.TXD and STK600.PE3 to STK600.RS232 SPARE.RXD)
- *      -- STK600 usart port for the STK600+RCUC3D setup (connect STK600.PC7 to
- *         STK600.RS232 SPARE.TXD and STK600.PD0 to STK600.RS232 SPARE.RXD)
+ * - EVK1100, EVK1101, EVK1104, EVK1105, AT32UC3C-EK or AT32UC3L-EK
+ *   evaluation kits; STK600+RCUC3L routing card, STK600+RCUCD routing card;
+ * - CPU clock: 16MHz in UC3C_EK and 12 MHz in all other boards.
+ *   -- EVK1100, EVK1101, EVK1104, EVK1105, AT32UC3L-EK, STK600+RCUC3L : 12 MHz
+ *   -- AT32UC3C-EK : 16 MHz
  * - PC terminal settings:
  *   - 57600 bps,
  *   - 8 data bits,
@@ -102,190 +90,170 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit
- * <A href="http://www.atmel.com/products/AVR32/">Atmel AVR32</A>.\n
- */
+ * <A href="http://www.atmel.com/AVR32">Atmel AVR32</A>.\n
+ * <A href="http://www.asf.atmel.com">Atmel ASF</A>.\n
+ * Support and FAQ: http://support.atmel.no/
+*/
 
-
-#if defined (__GNUC__)
-#  include "intc.h"
-#endif
+#include <stdint.h>
+#include <stdbool.h>
+#include <asf.h>
 
 #define _ASSERT_ENABLE_
 
-#include "compiler.h"
-#include "print_funcs.h"
-#include "board.h"
-#include "cycle_counter.h"
-#include "power_clocks_lib.h"
+/** \name Example configuration
+ * @{
+ */
 
-#if BOARD == UC3L_EK
-#  define EXAMPLE_TARGET_DFLL_FREQ_HZ   96000000  // DFLL target frequency, in Hz
-#  define EXAMPLE_TARGET_MCUCLK_FREQ_HZ 12000000  // MCU clock target frequency, in Hz
-#  define EXAMPLE_TARGET_PBACLK_FREQ_HZ 12000000  // PBA clock target frequency, in Hz
-#endif
+/**
+ * \def CONFIG_SYSCLK_SOURCE
+ * \brief Clock source to use
+ */
+/**
+ * \def EXAMPLE_DELAY_MS
+ * \brief Delay period between COMPARE interrupts given in milliseconds.
+ */
 
-#define NB_CLOCK_CYCLE_DELAY_SHORT    1000000   // 83.3 ms if fCPU==12MHz
-#define NB_CLOCK_CYCLE_DELAY_LONG    20000000   // 1.67 s if fCPU==12MHz
+/** @} */
 
-// Counter of COUNT/COMPARE matches.
-static volatile uint32_t total_compare_irqs = 0;
+/** \note Example delay -> 100 ms in this example. */
+#define EXAMPLE_DELAY_MS        100
 
-// COUNT/COMPARE match interrupt handler and main function synchronizer.
-static volatile bool compare_isr_fired = true;
+/** Counter to store the number for COMPARE interrupts. */
+static volatile uint32_t        number_of_compares = 0;
+/** Number of clock cycles representing the \ref EXAMPLE_DELAY_MS. */
+static volatile uint32_t        delay_clock_cycles;
+/** Flag to indicate that the ISR has fired. */
+static volatile bool            compare_isr_fired = true;
 
-// COUNT/COMPARE match interrupt handler
-#if defined(__GNUC__)
-// GCC-specific syntax to declare an interrupt handler. The interrupt handler
-// registration is done in the main function using the INTC software driver module.
-__attribute__((__interrupt__))
-#elif defined(__ICCAVR32__)
-// IAR-specific syntax to declare and register an interrupt handler.
-// Register to the interrupt group 0(cf Section "Interrupt Request Signal Map"
-// in the datasheet) with interrupt level 0.
-#if ((defined(__AT32UC3L016__)  \
+/**
+ * \brief COUNT/COMPARE match interrupt handler
+ *
+ * Interrupt handler to set a flag on COUNT COMPARE match and reloads
+ * the COMPARE register.
+ */
+#if ((defined(__AT32UC3L016__) \
     || defined(__AT32UC3L032__) \
     || defined(__AT32UC3L064__) \
-    || UC3D                     \
     || UC3C ))
-#pragma handler = AVR32_CORE_IRQ_GROUP0, 0
+ISR(compare_irq_handler, AVR32_CORE_IRQ_GROUP0, 0)
 #else
-#pragma handler = AVR32_CORE_IRQ_GROUP, 0
+ISR(compare_irq_handler, AVR32_CORE_IRQ_GROUP, 0)
 #endif
-__interrupt
-#endif
-static void compare_irq_handler(void)
 {
-	// Count the number of times this IRQ handler is called.
-	total_compare_irqs++;
+	/* Count the number of times this IRQ handler is called */
+	number_of_compares++;
 
-	// Inform the main program that it may display a msg saying
-	// that the COUNT&COMPARE interrupt occurred.
+	/*
+	 * Inform the main program that it may display a message saying
+	 * that the COUNT&COMPARE interrupt occurred.
+	 */
 	compare_isr_fired = true;
 
-	// Clear the pending interrupt(writing a value to the COMPARE register clears
-	// any pending compare interrupt requests). Schedule the COUNT&COMPARE match
-	// interrupt to happen every NB_CLOCK_CYCLE_DELAY_LONG cycles.
-	Set_sys_compare(NB_CLOCK_CYCLE_DELAY_LONG);
+	/*
+	 * Clear any pending interrupt by writing to the COMPARE register, in
+	 * the same go also schedule the next COUNT and COMPARE match
+	 * interrupt.
+	 */
+	Set_sys_compare(Get_sys_count() + delay_clock_cycles);
 }
 
-
-#if BOARD == UC3L_EK
-/*! \name Parameters to pcl_configure_clocks().
+/**
+ * \brief Application main loop.
+ *
+ * Main function sets the COMPARE register and enables the interrupt for
+ * COMPARE match. On every COMPARE match interrupt, a message is displayed and
+ * LEDS are switched ON alternatively.
  */
-//! @{
-static scif_gclk_opt_t gc_dfllif_ref_opt = { SCIF_GCCTRL_SLOWCLOCK, 0, false};
-static pcl_freq_param_t pcl_dfll_freq_param = {
-	.main_clk_src  = PCL_MC_DFLL0,
-	.cpu_f         = EXAMPLE_TARGET_MCUCLK_FREQ_HZ,
-	.pba_f         = EXAMPLE_TARGET_PBACLK_FREQ_HZ,
-	.pbb_f         = EXAMPLE_TARGET_PBACLK_FREQ_HZ,
-	.dfll_f        = EXAMPLE_TARGET_DFLL_FREQ_HZ,
-	.pextra_params = &gc_dfllif_ref_opt
-};
-//! @}
-#endif
-
-
-/* Main function */
 int main(void)
 {
-	uint32_t target_compare_val;
-	uint32_t current_compare_val;
-	uint32_t current_sys_clock_count;
+	uint32_t compare_value;
+	uint32_t temp;
+#if BOARD != STK600_RCUC3L4
 	uint8_t  active_led_map = 0x01;
-
-#if BOARD == UC3L_EK
-	// Note: on the AT32UC3L-EK board, there is no crystal/external clock connected
-	// to the OSC0 pinout XIN0/XOUT0. We shall then program the DFLL and switch the
-	// main clock source to the DFLL.
-	pcl_configure_clocks(&pcl_dfll_freq_param);
-	// Note: since it is dynamically computing the appropriate field values of the
-	// configuration registers from the parameters structure, this function is not
-	// optimal in terms of code size. For a code size optimal solution, it is better
-	// to create a new function from pcl_configure_clocks_dfll0() and modify it
-	// to use preprocessor computation from pre-defined target frequencies.
-
-	// Init DEBUG module
-	init_dbg_rs232(EXAMPLE_TARGET_PBACLK_FREQ_HZ);
-#else
-	// Configure Osc0 in crystal mode (i.e. use of an external crystal source, with
-	// frequency FOSC0) with an appropriate startup time then switch the main clock
-	// source to Osc0.
-	pcl_switch_to_osc(PCL_OSC0, FOSC0, OSC0_STARTUP);
-	// Init DEBUG module
-	init_dbg_rs232(FOSC0);
 #endif
 
-	print_dbg("---------------------------------------------\r\n");
+	/*
+	 * The call to sysclk_init() will disable all non-vital
+	 * peripheral clocks, except for the peripheral clocks explicitly
+	 * enabled in conf_clock.h.
+	 */
+	sysclk_init();
 
-	// Read COMPARE register.
-	// NOTE: it should be equal to 0 (default value upon reset) => The compare
-	// and exception generation feature is thus currently disabled.
-	current_compare_val = Get_sys_compare();
-	Assert(!current_compare_val);
+	/* Initialize the USART module to print trace messages */
+	init_dbg_rs232(sysclk_get_pba_hz());
 
-	// Read COUNT register.
-	// NOTE: the COUNT register increments since reset => it should be != 0.
-	current_sys_clock_count = Get_sys_count();
-	Assert(current_sys_clock_count);
+	/*
+	 * The COMPARE register should initially be equal to 0 (default
+	 * value upon reset), indicating that the compare and exception
+	 * generation feature is currently disabled.
+	 */
+	temp = Get_sys_compare();
+	Assert(temp == 0);
 
-#if defined (__GNUC__)
-	// Disable all interrupts.
-	Disable_global_interrupt();
+	/*
+	 * The COUNT register increments since reset, hence it should not
+	 * be zero.
+	 */
+	temp = Get_sys_count();
+	Assert(temp);
 
-	INTC_init_interrupts();
+	/*
+	 * Disable all interrupts while configuring the interrupt controller to
+	 * avoid potential spurious interrupts and undefined behavior.
+	 */
+	cpu_irq_disable();
 
-	// Register the compare interrupt handler to the interrupt controller.
-	// compare_irq_handler is the interrupt handler to register.
-	// AVR32_CORE_COMPARE_IRQ is the IRQ of the interrupt handler to register.
-	// AVR32_INTC_INT0 is the interrupt priority level to assign to the group of this IRQ.
-	// void INTC_register_interrupt(__int_handler handler, unsigned int irq, unsigned int int_level);
-	INTC_register_interrupt(&compare_irq_handler, AVR32_CORE_COMPARE_IRQ, AVR32_INTC_INT0);
-#endif
-	// Enable all interrupts.
-	Enable_global_interrupt();
+	/* Intialize the CPU IRQ vector table */
+	irq_initialize_vectors();
 
-	// Schedule the COUNT&COMPARE match interrupt in NB_CLOCK_CYCLE_DELAY_SHORT
-	// clock cycles from now.
-	current_sys_clock_count = Get_sys_count();
-	target_compare_val = current_sys_clock_count + NB_CLOCK_CYCLE_DELAY_SHORT; // WARNING: MUST FIT IN 32bits.
+	/* Register the compare interrupt handler to the interrupt controller.*/
+	irq_register_handler(&compare_irq_handler, AVR32_CORE_COMPARE_IRQ, 0);
 
-	// Start compare interrupt. If target_compare_val ends up to be 0, make it 1 so that the COMPARE
-	// and exception generation feature does not get disabled.
-	Set_sys_compare(!target_compare_val ? 1 : target_compare_val);
+	/*
+	 * Calculate the number of clock cycles required for the
+	 * EXAMPLE_DELAY_MS ms delay (CPU frequency * delay_required).
+	 */
+	delay_clock_cycles = cpu_ms_2_cy(EXAMPLE_DELAY_MS, sysclk_get_cpu_hz());
 
-	// Check if the previous write in the COMPARE register succeeded.
-	current_compare_val = Get_sys_compare();
-	Assert(target_compare_val == current_compare_val);
+	/* Enable all interrupts */
+	cpu_irq_enable();
 
-	//  The previous COMPARE write succeeded.
-	// Loop until the COUNT&COMPARE match triggers.
-	while (!total_compare_irqs) {
-		current_sys_clock_count = Get_sys_count();
+	/*
+	 * Schedule the COUNT and COMPARE match interrupt in delay_clock_cycles
+	 * clock cycles from current COUNT value.
+	 */
+	temp = Get_sys_count();
+	compare_value = temp + delay_clock_cycles;
 
-		if (current_sys_clock_count < target_compare_val)
-			print_dbg("Count has not net reached compare value\r\n");
-		else if (current_sys_clock_count > target_compare_val)
-			// This should never happen if COMPARE is not zero.
-			print_dbg("Count is greater than compare value\r\n");
-		else
-			print_dbg("Count is equal to compare value\r\n");
-		// NOTE: since the COUNT register is reset to zero upon COUNT/COMPARE match,
-		// the printed messages here are not "accurate".
+	/*
+	 * If the next COMPARE value is set to 0 the COUNT and COMPARE match
+	 * interrupt will be disabled, therefor set the next COMPARE to 1 in
+	 * this specific case.
+	 */
+	if (!compare_value) {
+		 compare_value = 1;
 	}
+
+	/* Write the compare value into COMPARE register */
+	Set_sys_compare(compare_value);
 
 	while (true) {
 		if (compare_isr_fired) {
-			// Indicate that the ISR trigger flag has been read
+			/* Reset the ISR trigger flag */
 			compare_isr_fired = false;
-
-			// Turn the current LED on only and move to next LED.
+#if BOARD == STK600_RCUC3L4
+			LED_Toggle(LED0);
+#else
+			/* Turn the current LED on only and move to next LED. */
 			LED_Display_Field(LED0 | LED1 | LED2 | LED3, active_led_map);
 			active_led_map = max((active_led_map << 1) & 0x0F, 0x01);
-
-			// Print some info on the debug port.
-			print_dbg("\r\nCompare interrupt triggered: #");
-			print_dbg_ulong(total_compare_irqs);
+#endif
+			/* Set cursor to the position (1; 5) */
+			print_dbg("\x1B[5;1H");
+			print_dbg("ATMEL AVR UC3 - CPU-Cycle Counter Example 1\n\r");
+			print_dbg("Compare interrupt: #");
+			print_dbg_ulong(number_of_compares);
 		}
 	}
 }

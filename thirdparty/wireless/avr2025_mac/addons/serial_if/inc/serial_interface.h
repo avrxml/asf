@@ -1,10 +1,10 @@
 /**
  * @file serial_interface.h
  *
- * @brief This header defines protoypes and definitions for serial interface
- *functionalities
+ * @brief This header defines prototypes and definitions for serial interface
+ * functionalities
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,7 +52,7 @@
 /**
  * \defgroup group_mac_serial_if Serial Interface Module
  * This module is responsible for encoding and decoding the serial bytes to/from
- *Host into corresponding MAC APIs .
+ * Host into corresponding MAC APIs .
  * @{
  */
 
@@ -97,7 +97,7 @@
 
 /**
  * \brief This function does the initialization of the Serial handler state
- *Machine.
+ * Machine.
  */
 void serial_interface_init(void);
 

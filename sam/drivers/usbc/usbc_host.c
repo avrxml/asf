@@ -59,6 +59,12 @@
 //#define dbg_print printf
 #define dbg_print(...)
 
+//#define dbgp_ctrl printf
+#define dbgp_ctrl(...)
+
+//#define dbgp_ep printf
+#define dbgp_ep(...)
+
 #ifndef UHD_USB_INT_FUN
 # define UHD_USB_INT_FUN USBC_Handler
 #endif
@@ -307,7 +313,7 @@ static uhd_callback_reset_t uhd_reset_callback = NULL;
  * is smaller than control endpoint size.
  * Also used when payload buffer is not word aligned.
  */
-COMPILER_ALIGNED(4) uint8_t uhd_ctrl_buffer[64];
+uint32_t uhd_ctrl_buffer[64/4];
 
 /**
  * \brief Structure to store the high level setup request
@@ -330,6 +336,9 @@ struct uhd_ctrl_request_t{
 	//! USB address of control endpoint
 	usb_add_t add;
 };
+
+//! Flag to delay a ZLP OUT on control endpoint
+static bool uhd_b_zlp_out_delayed = false;
 
 //! Entry points of setup request list
 struct uhd_ctrl_request_t *uhd_ctrl_request_first;
@@ -755,7 +764,7 @@ bool uhd_ep0_alloc(
 			USBC_UECFG0_EPBK_SINGLE >> USBC_UPCFG0_PBK_Pos);
 
 	uhd_udesc_set_uhaddr(0, add);
-	uhd_udesc_set_buf0_addr(0, (uint32_t *) uhd_ctrl_buffer);
+	uhd_udesc_set_buf0_addr(0, (uint8_t*)uhd_ctrl_buffer);
 
 	// Always enable stall and error interrupts of control endpoint
 	uhd_enable_stall_interrupt(0);
@@ -836,7 +845,8 @@ void uhd_ep_free(usb_add_t add, usb_ep_t endp)
 			}
 #else
 			uhd_disable_pipe(pipe);
-			if (uhd_ctrl_request_timeout) {
+			if (uhd_ctrl_request_timeout ||
+				(uhd_pipes_error & 1)) {
 				uhd_ctrl_request_end(UHD_TRANS_DISCONNECT);
 			}
 #endif
@@ -1016,6 +1026,7 @@ static void uhd_interrupt(void)
 		/* Enable connection detection through asynchrone
 		 * wakeup interrupt
 		 */
+		uhd_ack_connection();
 		uhd_enable_connection_int();
 		uhd_ack_wakeup();
 		uhd_enable_wakeup_interrupt();
@@ -1030,6 +1041,7 @@ static void uhd_interrupt(void)
 		uhd_ack_connection();
 		uhd_disable_connection_int();
 		dbg_print("conn ");
+		uhd_ack_disconnection();
 		uhd_enable_disconnection_int();
 		uhd_enable_sof();
 		uhd_sleep_mode(UHD_STATE_IDLE);
@@ -1096,27 +1108,31 @@ uhd_interrupt_exit_sof:
  */
 static void uhd_sof_interrupt(void)
 {
+	uint8_t pipe;
 	// Manage a delay to enter in suspend
 	if (uhd_suspend_start) {
 		if (--uhd_suspend_start == 0) {
+			uint8_t pos;
 			// In case of high CPU frequency,
 			// the current Keep-Alive/SOF can be always on-going
 			// then wait end of SOF generation
 			// to be sure that disable SOF has been accepted
-			if (Is_uhd_low_speed_mode()) {
-				while (21<uhd_get_frame_position()) {
-					if (Is_uhd_disconnection()) {
-						break;
-					}
-				}
-			} else {
-				while (185<uhd_get_frame_position()) {
-					if (Is_uhd_disconnection()) {
-						break;
-					}
+			pos = Is_uhd_low_speed_mode() ? 21 : 185;
+			while (pos<uhd_get_frame_position()) {
+				if (Is_uhd_disconnection()) {
+					break;
 				}
 			}
+			// Disable SOF
 			uhd_disable_sof();
+
+			// Check that the hardware state machine has left the IDLE mode
+			// before freeze USB clock
+			while (3==otg_get_fsm_drd_state()) {
+				if (Is_uhd_sof_enabled()) {
+					uhd_disable_sof();
+				}
+			}
 
 			// Ack previous wakeup and resumes interrupts
 			USBC->USBC_UHINTCLR = USBC_UHINTCLR_HWUPIC
@@ -1128,9 +1144,7 @@ static void uhd_sof_interrupt(void)
 					| USBC_UHINTESET_RSMEDIES
 					| USBC_UHINTESET_RXRSMIES;
 
-			// Check that the hardware state machine has left the IDLE mode
-			// before freeze USB clock
-			while (3==otg_get_fsm_drd_state());
+			// Freeze USB clock
 			otg_freeze_clock();
 			uhd_sleep_mode(UHD_STATE_SUSPEND);
 		}
@@ -1140,7 +1154,7 @@ static void uhd_sof_interrupt(void)
 	if (uhd_resume_start) {
 		if (--uhd_resume_start == 0) {
 			// Restore pipes unfreezed
-			for (uint8_t pipe = 1; pipe < UHD_PEP_NB; pipe++) {
+			for (pipe = 1; pipe < UHD_PEP_NB; pipe++) {
 				if ((uhd_pipes_unfreeze >> pipe) & 0x01) {
 					uhd_unfreeze_pipe(pipe);
 				}
@@ -1153,6 +1167,7 @@ static void uhd_sof_interrupt(void)
 	if (uhd_ctrl_request_timeout) {
 		// Setup request on-going
 		if (--uhd_ctrl_request_timeout == 0) {
+			dbgp_ctrl(" TO0 ");
 			// Stop request
 			uhd_freeze_pipe(0);
 			uhd_ctrl_request_end(UHD_TRANS_TIMEOUT);
@@ -1160,22 +1175,31 @@ static void uhd_sof_interrupt(void)
 	}
 	// Manage the timeouts on endpoint transfer
 	uhd_pipe_job_t *ptr_job;
-	for (uint8_t pipe = 1; pipe < USBC_EPT_NBR; pipe++) {
+	for (pipe = 1; pipe < USBC_EPT_NBR; pipe++) {
 		ptr_job = &uhd_pipe_job[pipe - 1];
 		if (ptr_job->busy == true) {
 			if (ptr_job->timeout) {
 				// Timeout enabled on this job
 				if (--ptr_job->timeout == 0) {
+					dbgp_ep(" TO%d ", pipe);
 					// Abort job
 					uhd_ep_abort_pipe(pipe,UHD_TRANS_TIMEOUT);
 				}
 			}
 		}
 	}
+	// Manage a delayed control endpoint action
+	if (uhd_b_zlp_out_delayed) {
+		uhd_b_zlp_out_delayed = false;
+		uhd_unfreeze_pipe(0);
+		uhd_enable_out_ready_interrupt(0);
+	}
 	// Manage error on pipe
 	if (uhd_pipes_error != 0) {
+		pipe = ctz(uhd_pipes_error);
+		dbg_print("rERRp%d ", pipe);
 		// Force error pipe event
-		uhd_raise_pipe_error(ctz(uhd_pipes_error));
+		uhd_raise_pipe_error(pipe);
 	}
 
 	// Notify the UHC
@@ -1196,6 +1220,7 @@ static void uhd_ctrl_interrupt(void)
 
 	// After pipe error, the pipe is frozen by software
 	if (Is_uhd_pipe_error(0)) {
+		dbgp_ctrl("err ");
 		if (!Is_uhd_pipe_frozen(0)) {
 			// Stop the NEW transfer
 			uhd_freeze_pipe(0);
@@ -1219,6 +1244,7 @@ static void uhd_ctrl_interrupt(void)
 		uhd_freeze_pipe(0);
 		uhd_ack_setup_ready(0);
 		Assert(uhd_ctrl_request_phase == UHD_CTRL_REQ_PHASE_SETUP);
+		dbgp_ctrl("stup ");
 
 		// Start DATA phase
 		if ((uhd_ctrl_request_first->req.bmRequestType & USB_REQ_DIR_MASK)
@@ -1241,6 +1267,7 @@ static void uhd_ctrl_interrupt(void)
 		while (!Is_uhd_pipe_frozen(0));
 		// IN packet received
 		uhd_ack_in_received(0);
+		dbgp_ctrl("in ");
 		switch(uhd_ctrl_request_phase) {
 		case UHD_CTRL_REQ_PHASE_DATA_IN:
 			uhd_ctrl_phase_data_in();
@@ -1258,6 +1285,7 @@ static void uhd_ctrl_interrupt(void)
 		// OUT packet sent
 		uhd_freeze_pipe(0);
 		uhd_ack_out_ready(0);
+		dbgp_ctrl("out ");
 		switch(uhd_ctrl_request_phase) {
 		case UHD_CTRL_REQ_PHASE_DATA_OUT:
 			uhd_ctrl_phase_data_out();
@@ -1274,10 +1302,12 @@ static void uhd_ctrl_interrupt(void)
 	if (Is_uhd_stall(0)) {
 		// Stall Handshake received
 		uhd_ack_stall(0);
+		dbgp_ctrl("st ");
 		uhd_ctrl_request_end(UHD_TRANS_STALL);
 		return;
 	}
 	if (Is_uhd_pipe_error(0)) {
+		dbgp_ctrl("pe ");
 		// Get and ack error
 		uhd_ctrl_request_end(uhd_pipe_get_error(0));
 		return;
@@ -1370,7 +1400,7 @@ static void uhd_ctrl_phase_data_in(void)
 	//! thus the short packet flag must be computed
 	b_short_packet = (nb_byte_received != uhd_get_pipe_size(0));
 
-	ptr_ep_data = uhd_ctrl_buffer;
+	ptr_ep_data = (uint8_t*)uhd_ctrl_buffer;
 uhd_ctrl_receiv_in_read_data:
 	// Copy data from pipe to payload buffer
 	while (uhd_ctrl_request_first->payload_size && nb_byte_received) {
@@ -1502,8 +1532,9 @@ static void uhd_ctrl_phase_zlp_out(void)
 	// No need to link a user buffer directly on USB hardware DMA
 	// Start transfer
 	uhd_ack_fifocon(0);
-	uhd_unfreeze_pipe(0);
-	uhd_enable_out_ready_interrupt(0);
+
+	// Wait next SOF to start ZLP OUT
+	uhd_b_zlp_out_delayed = true;
 }
 
 /**
@@ -1520,6 +1551,10 @@ static void uhd_ctrl_request_end(uhd_trans_status_t status)
 
 	Assert (uhd_ctrl_request_first != NULL);
 
+	dbgp_ctrl("reqE%d", status);
+	dbgp_ctrl("\r\n");
+
+	uhd_pipes_error &= ~(1 << 0);
 	uhd_ctrl_request_timeout = 0;
 
 	// Remove request from the control request list
@@ -1662,7 +1697,7 @@ static void uhd_pipe_trans_complet(uint8_t pipe)
 			uhd_udesc_set_buf0_ctn(pipe, next_trans);
 			uhd_udesc_rst_buf0_size(pipe);
 			// Link the user buffer directly on USB hardware DMA
-			uhd_udesc_set_buf0_addr(pipe, (uint32_t *)&ptr_job->buf[ptr_job->nb_trans]);
+			uhd_udesc_set_buf0_addr(pipe, &ptr_job->buf[ptr_job->nb_trans]);
 			// Start transfer
 			uhd_ack_fifocon(pipe);
 			uhd_unfreeze_pipe(pipe);
@@ -1722,7 +1757,7 @@ static void uhd_pipe_trans_complet(uint8_t pipe)
 					Assert(ptr_job->buf_internal != NULL);
 					goto uhd_pipe_trans_complet_end;
 				}
-				uhd_udesc_set_buf0_addr(pipe, (uint32_t *)ptr_job->buf_internal);
+				uhd_udesc_set_buf0_addr(pipe, ptr_job->buf_internal);
 				uhd_udesc_set_buf0_size(pipe, pipe_size);
 			} else {
 				next_trans -= next_trans % pipe_size;
@@ -1732,7 +1767,7 @@ static void uhd_pipe_trans_complet(uint8_t pipe)
 				} else {
 					uhd_in_request_number(pipe, (next_trans+pipe_size-1)/pipe_size);
 				}
-				uhd_udesc_set_buf0_addr(pipe, (uint32_t *)&ptr_job->buf[ptr_job->nb_trans]);
+				uhd_udesc_set_buf0_addr(pipe, &ptr_job->buf[ptr_job->nb_trans]);
 				uhd_udesc_set_buf0_size(pipe, next_trans);
 			}
 			// Start transfer
@@ -1771,6 +1806,7 @@ static void uhd_pipe_interrupt(uint8_t pipe)
 {
 	// After pipe error, the pipe is frozen by software
 	if (Is_uhd_pipe_error(pipe)) {
+		dbgp_ep("ERR ");
 		if (!Is_uhd_pipe_frozen(pipe)) {
 			// Stop the NEW transfer
 			uhd_freeze_pipe(pipe);
@@ -1789,22 +1825,26 @@ static void uhd_pipe_interrupt(uint8_t pipe)
 	if (Is_uhd_in_received(pipe)) {
 		// IN packet received
 		uhd_ack_in_received(pipe);
+		dbgp_ep("IN ");
 		uhd_pipe_trans_complet(pipe);
 		return;
 	}
 	if (Is_uhd_out_ready(pipe)) {
 		uhd_freeze_pipe(pipe);
 		uhd_ack_out_ready(pipe);
+		dbgp_ep("OUT ");
 		uhd_pipe_trans_complet(pipe);
 		return;
 	}
 	if (Is_uhd_stall(pipe)) {
 		uhd_ack_stall(pipe);
 		uhd_reset_data_toggle(pipe);
+		dbgp_ep("STALL ");
 		uhd_ep_abort_pipe(pipe, UHD_TRANS_STALL);
 		return;
 	}
 	if (Is_uhd_pipe_error(pipe)) {
+		dbgp_ep("ERRP ");
 		// Get and ack error
 		uhd_ep_abort_pipe(pipe, uhd_pipe_get_error(pipe));
 		return;
@@ -1821,6 +1861,7 @@ static void uhd_pipe_interrupt(uint8_t pipe)
  */
 static void uhd_ep_abort_pipe(uint8_t pipe, uhd_trans_status_t status)
 {
+	bool old_toggle = uhd_data_toggle(pipe);
 	uint32_t config;
 
 	// Reset pipe but keep configuration
@@ -1828,6 +1869,16 @@ static void uhd_ep_abort_pipe(uint8_t pipe, uhd_trans_status_t status)
 	uhd_disable_pipe(pipe);
 	uhd_enable_pipe(pipe);
 	USBC_ARRAY(USBC_UPCFG0,pipe) = config;
+	// Setup the data toggle
+	switch(status) {
+	// Restore data toggle
+	case UHD_TRANS_TIMEOUT:
+		if (old_toggle) {
+			uhd_set_data_toggle(pipe);
+		}
+		break;
+	// Reverse data toggle
+	}
 
 	// Interrupts has been reseted, then renable it
 	uhd_enable_stall_interrupt(pipe);
@@ -1852,6 +1903,9 @@ static void uhd_pipe_finish_job(uint8_t pipe, uhd_trans_status_t status)
 	if (ptr_job->busy == false) {
 		return; // No job running
 	}
+	dbgp_ep("jobE%d ", pipe);
+	// Clear pipe error
+	uhd_pipes_error &= ~(1 << pipe);
 	// In case of abort, free the internal buffer
 	if (ptr_job->buf_internal != NULL) {
 		free(ptr_job->buf_internal);

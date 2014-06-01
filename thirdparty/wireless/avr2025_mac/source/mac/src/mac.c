@@ -3,7 +3,7 @@
  *
  * @brief This module runs the MAC scheduler.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -74,13 +74,15 @@
 #include "mac_internal.h"
 #include "mac.h"
 #include "mac_build_config.h"
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
 #include "mac_security.h"
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 
 /* === Macros =============================================================== */
 
 /* === Globals ============================================================== */
+#define MAC_GUARD_TIME_US 1000
+#define READY_TO_SLEEP    1
 
 /**
  * Current state of the MAC state machine
@@ -121,6 +123,8 @@ uint8_t mac_final_cap_slot;
  * indicated pending broadcast data to be received.
  */
 bool mac_bc_data_indicated;
+
+mac_superframe_state_t mac_superframe_state = MAC_NOBEACON;
 #endif  /* BEACON_SUPPORT */
 
 /**
@@ -149,13 +153,13 @@ uint64_t mac_last_src_addr;
 uint8_t mac_beacon_payload[aMaxBeaconPayloadLength];
 #endif  /* (MAC_START_REQUEST_CONFIRM == 1) */
 
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
 
 /**
  * Holds the values of all security related PIB attributes.
  */
 mac_sec_pib_t mac_sec_pib;
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 
 /**
  * Holds the mlme request buffer pointer, used to give the respective
@@ -284,12 +288,47 @@ bool mac_task(void)
 }
 
 /**
- * @brief Checks if the mac stack is idle
+ * @brief Checks if the mac stack is ready to sleep
+ *
+ * Checks if the mac stack is in inactive state for beacon support
+ *
+ * or idle in case of no beacon support.
+ *
+ * @return  32bit time duration in microseconds for which the mac is ready to
+ *sleep
+ *
+ * For No beacon support 1 if stack is idle,0 if it is busy
  */
-bool mac_ready_to_sleep(void)
-{
-	bool idle;
 
+uint32_t mac_ready_to_sleep(void)
+{
+	uint32_t sleep_time = 0;
+#ifdef BEACON_SUPPORT
+	uint32_t rem_time = 0;
+	if (MAC_INACTIVE == mac_superframe_state) {
+		#ifdef FFD
+		if ((MAC_PAN_COORD_STARTED == mac_state) ||
+				(MAC_COORDINATOR == mac_state)) {
+			rem_time = sw_timer_get_residual_time(
+					T_Beacon_Preparation);
+			if (rem_time >= MAC_GUARD_TIME_US) {
+				sleep_time = rem_time - MAC_GUARD_TIME_US;
+				return sleep_time;
+			}
+		}
+
+		#endif
+		if (MAC_ASSOCIATED == mac_state) {
+			rem_time = sw_timer_get_residual_time(
+					T_Beacon_Tracking_Period);
+			if (rem_time >= MAC_GUARD_TIME_US) {
+				sleep_time = rem_time - MAC_GUARD_TIME_US;
+				return sleep_time;
+			}
+		}
+	}
+
+#else
 	if (mac_busy ||
 			(mac_nhle_q.size != 0) ||
 			(nhle_mac_q.size != 0) ||
@@ -304,12 +343,13 @@ bool mac_ready_to_sleep(void)
 			|| (tal_trx_status != TRX_SLEEP)
 #endif
 			) {
-		idle = false;
+		sleep_time = 0;
 	} else {
-		idle = true;
+		sleep_time = READY_TO_SLEEP;
 	}
 
-	return idle;
+#endif
+	return sleep_time;
 }
 
 /* EOF */

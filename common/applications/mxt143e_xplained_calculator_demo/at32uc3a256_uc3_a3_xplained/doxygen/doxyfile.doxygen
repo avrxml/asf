@@ -466,7 +466,7 @@ GENERATE_DEPRECATEDLIST= YES
 # The ENABLED_SECTIONS tag can be used to enable conditional
 # documentation sections, marked by \if sectionname ... \endif.
 
-ENABLED_SECTIONS       =
+ENABLED_SECTIONS       = 
 
 # The MAX_INITIALIZER_LINES tag determines the maximum number of lines
 # the initial value of a variable or define consists of for it to appear in
@@ -582,7 +582,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  =  ../../../../components/touch/mxt/mxt_device.c ../../../../services/wtk/wtk_slider.c ../../../../services/wtk/wtk_frame.c ../../../../services/gfx/gfx_text.c ../../../../services/wtk/win.c ../../../../services/wtk/wtk_radio_button.c ../../../../services/wtk/wtk_basic_frame.c ../../../../services/wtk/wtk_progress_bar.c ../../../../services/gfx/gfx_generic.c ../../../../services/wtk/wtk_icon.c ../../../../../avr32/drivers/gpio/gpio.c ../../../../services/clock/uc3a3_a4/sysclk.c ../../widget_gui.c ../../../../services/wtk/wtk_check_box.c ../../../../services/gfx/sysfont.c ../../../../components/display/ili9341/ili9341.c ../../../../../avr32/drivers/flashc/flashc.c ../../calculator.c ../../../../services/gfx/gfx_ili9341_sdt028atft.c ../../../../utils/membag/membag.c ../../../../services/wtk/wtk.c ../../../../../avr32/drivers/twim/twim.c ../../../../../avr32/boards/uc3_a3_xplained/led.c ../../../../services/wtk/wtk_plot.c ../../../../services/wtk/wtk_button.c ../../../../../avr32/drivers/pdca/pdca.c ../../../../services/wtk/wtk_label.c ../../../../../avr32/boards/uc3_a3_xplained/init.c ../../../../../avr32/drivers/spi/spi.c ../../../../services/spi/uc3_spi/spi_master.c  ../../../../../avr32/utils/preprocessor/stringz.h ../../../../services/wtk/wtk_frame.h ../../widget_gui.h ../../conf_membag.h ../../../../components/touch/mxt/mxt_device.h ../../../../../avr32/utils/header_files/uc3l3_l4_defines_fix.h ../conf_clock.h ../../../../../avr32/utils/preprocessor/preprocessor.h ../../../../services/twi/twi_master.h ../../../../../avr32/drivers/cpu/cycle_counter/cycle_counter.h ../../../../utils/interrupt.h ../../../../services/wtk/wtk_label.h ../../../../services/delay/delay.h ../../../../services/wtk/win.h ../../../../services/wtk/wtk_basic_frame.h ../conf_spi_master.h ../../../../services/clock/osc.h ../../../../services/wtk/wtk_progress_bar.h ../../../../../avr32/drivers/gpio/gpio.h ../../../../services/wtk/wtk_radio_button.h ../../../../services/clock/uc3a3_a4/pll.h ../../conf_win.h ../conf_board.h ../../../../services/clock/uc3a3_a4/sysclk.h ../../../../utils/parts.h ../../../../services/wtk/wtk_icon.h ../../../../services/wtk/wtk_check_box.h ../../../../../avr32/utils/status_codes.h ../conf_twim.h ../../../../../avr32/drivers/spi/spi.h ../../../../../avr32/utils/compiler.h ../../../../../avr32/utils/preprocessor/mrepeat.h ../../../../../avr32/drivers/flashc/flashc.h ../../../../components/display/ili9341/ili9341_regs.h ../../../../services/gfx/gfx_ili9341_sdt028atft.h ../../../../services/gfx/gfx.h ../../../../services/gfx/sysfont.h ../../../../services/wtk/wtk_slider.h ../../../../services/clock/uc3a3_a4/genclk.h ../../../../components/display/ili9341/ili9341.h ../../../../services/clock/genclk.h ../../../../../avr32/utils/preprocessor/tpaste.h ../../../../services/wtk/wtk.h ../../../../services/spi/spi_master.h ../../../../utils/membag/membag.h ../../../../utils/interrupt/interrupt_avr32.h ../../../../../avr32/drivers/twim/twim.h ../../../../services/clock/sysclk.h ../../../../services/clock/uc3a3_a4/osc.h ../../../../services/ioport/uc3/ioport.h ../../../../../avr32/utils/header_files/uc3d_defines_fix.h ../../../../services/wtk/wtk_plot.h ../conf_mxt.h ../../conf_sysfont.h ../../../../services/wtk/wtk_button.h ../../../../../avr32/boards/uc3_a3_xplained/uc3_a3_xplained.h ../../../../boards/board.h ../../conf_wtk.h ../../../../services/twi/uc3_twim/twi_master.h ../../../../../avr32/boards/uc3_a3_xplained/led.h ../../atmel_logo_small.h ../../../../services/spi/uc3_spi/spi_master.h ../../../../services/ioport/ioport.h ../../../../../avr32/utils/startup/trampoline_uc3.h ../../../../services/clock/pll.h ../conf_ili9341.h ../../../../../avr32/drivers/pdca/pdca.h ../../../../services/gfx/gfx_generic.h ../../../../services/gfx/gfx_text.h
+INPUT                  = ../../calculator.c ../../widget_gui.c ../../../../services/wtk/win.c ../../../../services/wtk/wtk.c ../../../../services/wtk/wtk_basic_frame.c ../../../../services/wtk/wtk_button.c ../../../../services/wtk/wtk_check_box.c ../../../../services/wtk/wtk_frame.c ../../../../services/wtk/wtk_icon.c ../../../../services/wtk/wtk_label.c ../../../../services/wtk/wtk_plot.c ../../../../services/wtk/wtk_progress_bar.c ../../../../services/wtk/wtk_radio_button.c ../../../../services/wtk/wtk_slider.c ../../../../services/gfx/gfx_ili9341_sdt028atft.c ../../../../components/display/ili9341/ili9341.c ../../../../services/spi/uc3_spi/spi_master.c ../../../../../avr32/drivers/spi/spi.c ../../../../services/clock/uc3a3_a4/sysclk.c ../../../../../avr32/drivers/flashc/flashc.c ../../../../../avr32/drivers/pdca/pdca.c ../../../../services/gfx/gfx_generic.c ../../../../services/gfx/gfx_text.c ../../../../services/gfx/sysfont.c ../../../../utils/membag/membag.c ../../../../components/touch/mxt/mxt_device.c ../../../../../avr32/drivers/twim/twim.c ../../../../../avr32/boards/uc3_a3_xplained/led.c ../../../../../avr32/drivers/gpio/gpio.c ../../../../../avr32/boards/uc3_a3_xplained/init.c ../conf_board.h ../conf_clock.h ../conf_ili9341.h ../conf_mxt.h ../conf_spi_master.h ../conf_twim.h ../../atmel_logo_small.h ../../conf_membag.h ../../conf_sysfont.h ../../conf_win.h ../../conf_wtk.h ../../widget_gui.h ../../../../boards/board.h ../../../../../avr32/utils/compiler.h ../../../../../avr32/utils/header_files/uc3d_defines_fix.h ../../../../../avr32/utils/header_files/uc3l3_l4_defines_fix.h ../../../../../avr32/utils/preprocessor/mrepeat.h ../../../../../avr32/utils/preprocessor/preprocessor.h ../../../../../avr32/utils/preprocessor/stringz.h ../../../../../avr32/utils/preprocessor/tpaste.h ../../../../../avr32/utils/status_codes.h ../../../../../avr32/utils/startup/trampoline_uc3.h ../../../../utils/parts.h ../../../../utils/interrupt.h ../../../../utils/interrupt/interrupt_avr32.h ../../../../services/wtk/win.h ../../../../services/wtk/wtk.h ../../../../services/wtk/wtk_basic_frame.h ../../../../services/wtk/wtk_button.h ../../../../services/wtk/wtk_check_box.h ../../../../services/wtk/wtk_frame.h ../../../../services/wtk/wtk_icon.h ../../../../services/wtk/wtk_label.h ../../../../services/wtk/wtk_plot.h ../../../../services/wtk/wtk_progress_bar.h ../../../../services/wtk/wtk_radio_button.h ../../../../services/wtk/wtk_slider.h ../../../../services/gfx/gfx.h ../../../../services/gfx/gfx_ili9341_sdt028atft.h ../../../../components/display/ili9341/ili9341.h ../../../../components/display/ili9341/ili9341_regs.h ../../../../services/spi/spi_master.h ../../../../services/spi/uc3_spi/spi_master.h ../../../../../avr32/drivers/spi/spi.h ../../../../services/clock/genclk.h ../../../../services/clock/osc.h ../../../../services/clock/pll.h ../../../../services/clock/sysclk.h ../../../../services/clock/uc3a3_a4/genclk.h ../../../../services/clock/uc3a3_a4/osc.h ../../../../services/clock/uc3a3_a4/pll.h ../../../../services/clock/uc3a3_a4/sysclk.h ../../../../../avr32/drivers/flashc/flashc.h ../../../../services/ioport/ioport.h ../../../../services/ioport/uc3/ioport.h ../../../../services/delay/delay.h ../../../../../avr32/drivers/cpu/cycle_counter/cycle_counter.h ../../../../../avr32/drivers/pdca/pdca.h ../../../../services/gfx/gfx_generic.h ../../../../services/gfx/gfx_text.h ../../../../services/gfx/sysfont.h ../../../../utils/membag/membag.h ../../../../components/touch/mxt/mxt_device.h ../../../../services/twi/twi_master.h ../../../../services/twi/uc3_twim/twi_master.h ../../../../../avr32/drivers/twim/twim.h ../../../../../avr32/boards/uc3_a3_xplained/led.h ../../../../../avr32/boards/uc3_a3_xplained/uc3_a3_xplained.h ../../../../../avr32/drivers/gpio/gpio.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is
@@ -662,7 +662,7 @@ EXAMPLE_RECURSIVE      = NO
 # directories that contain image that are included in the documentation (see
 # the \image command).
 
-IMAGE_PATH             =  ../../../../services/wtk/docsrc
+IMAGE_PATH             = ../../../../services/wtk/docsrc
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program
@@ -1062,6 +1062,17 @@ FORMULA_FONTSIZE       = 10
 
 FORMULA_TRANSPARENT    = YES
 
+# Enable the USE_MATHJAX option to render LaTeX formulas using MathJax (see
+# http://www.mathjax.org) which uses client side Javascript for the rendering
+# instead of using prerendered bitmaps. Use this if you do not have LaTeX
+# installed or if you want to formulas look prettier in the HTML output. When
+# enabled you may also need to install MathJax separately and configure the path
+# to it using the MATHJAX_RELPATH option.
+# The default value is: NO.
+# This tag requires that the tag GENERATE_HTML is set to YES.
+
+USE_MATHJAX            = NO
+
 # When the SEARCHENGINE tag is enabled doxygen will generate a search box
 # for the HTML output. The underlying search engine uses javascript
 # and DHTML and should work on any modern browser. Note that when using
@@ -1352,7 +1363,7 @@ SEARCH_INCLUDES        = YES
 # contain include files that are not input files but should be processed by
 # the preprocessor.
 
-INCLUDE_PATH           =  .. ../../../../../avr32/drivers/pdca ../../../../../avr32/drivers/twim ../../../../services/gfx ../.. ../../../../services/twi ../../../../../avr32/utils ../../../../../avr32/drivers/gpio ../../../../utils ../../../../../avr32/drivers/spi ../../../../components/touch/mxt ../../../../services/clock ../../../../services/wtk ../../../../../avr32/drivers/cpu/cycle_counter ../../../../utils/membag ../../../../../avr32/boards/uc3_a3_xplained ../../../../services/delay ../../../../components/display/ili9341 ../../../../services/spi ../../../../boards ../../../../../avr32/boards ../../../../../avr32/drivers/flashc ../../../../services/ioport ../../../../services/spi/uc3_spi ../../../../../avr32/utils/preprocessor
+INCLUDE_PATH           = .. ../.. ../../../../boards ../../../../../avr32/utils ../../../../../avr32/utils/preprocessor ../../../../utils ../../../../services/wtk ../../../../services/gfx ../../../../components/display/ili9341 ../../../../services/spi ../../../../services/spi/uc3_spi ../../../../../avr32/drivers/spi ../../../../services/clock ../../../../../avr32/drivers/flashc ../../../../services/ioport ../../../../services/delay ../../../../../avr32/drivers/cpu/cycle_counter ../../../../../avr32/drivers/pdca ../../../../utils/membag ../../../../components/touch/mxt ../../../../services/twi ../../../../../avr32/drivers/twim ../../../../../avr32/boards ../../../../../avr32/boards/uc3_a3_xplained ../../../../../avr32/drivers/gpio
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the
@@ -1369,7 +1380,7 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator
 # instead of the = operator.
 
-PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4  CONF_GFX_ILI9341_SDT028ATFT=1 BOARD=UC3_A3_XPLAINED __AVR32_UC3A3256__
+PREDEFINED             = __DOXYGEN__ __AVR32_ABI_COMPILER__ __attribute__()= __GNUC__=4 CONF_GFX_ILI9341_SDT028ATFT=1 BOARD=UC3_A3_XPLAINED __AVR32_UC3A3256__
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.

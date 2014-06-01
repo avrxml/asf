@@ -3,7 +3,7 @@
  *
  * \brief SIO service implementation - Performance Analyzer application
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,6 +47,7 @@
  */
 
 /* === INCLUDES ============================================================ */
+#include "compiler.h"
 #include "tal.h"
 #include "return_val.h"
 #include "ieee_const.h"
@@ -173,7 +174,7 @@ static uint8_t curr_tx_buffer_index = 0;
 
 /*
  * \brief This function does the initialization of the Serial handler state
- *Machine.
+ * Machine.
  */
 void init_sio(void)
 {
@@ -197,7 +198,7 @@ void serial_data_handler(void)
 		rx_index = 0;
 		data_length = sio2host_rx(data, SIO_RX_BUF_SIZE);
 	} else { /* Data has been received, process the data */
-		/* Process each single byte */
+		 /* Process each single byte */
 		process_incoming_sio_data();
 		data_length--;
 		rx_index++;
@@ -220,7 +221,7 @@ void serial_data_handler(void)
 			buf_count--;
 			curr_tx_buffer_index = 0;
 		} else { /* If none or some of the bytes in tx buffer is not
-		          *transmitted */
+			  * transmitted */
 			curr_tx_buffer_index += no_of_bytes_transmitted;
 		}
 	}
@@ -234,8 +235,9 @@ static inline void process_incoming_sio_data(void)
 	switch (sio_rx_state) {
 	case UART_RX_STATE_SOT:
 		sio_rx_ptr = sio_rx_buf;
+
 		/* A valid SOT is received when the sio rx state is in Idle
-		 *state  */
+		 * state  */
 		if (SOT == data[rx_index]) {
 			sio_rx_state = UART_RX_STATE_LENGTH;
 		}
@@ -273,15 +275,16 @@ static inline void process_incoming_sio_data(void)
 		break;
 
 	case UART_RX_STATE_EOT:
+
 		/* Valid EOT is received after reception of 'length' no of bytes
-		 **/
+		**/
 		if (EOT == data[rx_index]) {
 			/* Message received successfully */
 			handle_incoming_msg();
 		}
 
 		/* Make rx buffer ready for next reception before handling
-		 *received data. */
+		 * received data. */
 		sio_rx_ptr = sio_rx_buf;
 		sio_rx_state = UART_RX_STATE_SOT;
 		break;
@@ -297,7 +300,7 @@ static inline void process_incoming_sio_data(void)
 /**
  * \brief get the new buffer for next transmission through serial
  *
- **\return unsigned integer pointer to buf
+ ****\return unsigned integer pointer to buf
  */
 static uint8_t *get_next_tx_buffer(void)
 {
@@ -318,11 +321,12 @@ static uint8_t *get_next_tx_buffer(void)
 
 /**
  * \brief Parses the Received Data in the Buffer and Process the Commands
- *accordingly.
+ * accordingly.
  */
 static inline void handle_incoming_msg(void)
 {
 	uint8_t error_code = MAC_SUCCESS;
+	param_value_t param_value_temp;
 
 	/* Check for protocol id is Perofomance Analyzer */
 	if (PROTOCOL_ID != sio_rx_buf[1]) { /* protocol id */
@@ -330,7 +334,7 @@ static inline void handle_incoming_msg(void)
 	}
 
 	/* If the node is in any of these state dont respond to any serial
-	 *commands */
+	 * commands */
 	if ((PEER_SEARCH_PER_RX == node_info.main_state) ||
 			(PEER_SEARCH_RANGE_RX == node_info.main_state) ||
 			(PEER_SEARCH_RANGE_TX == node_info.main_state) ||
@@ -365,28 +369,39 @@ static inline void handle_incoming_msg(void)
 		 * start_mode;
 		 */
 		trx_config_params_t dummy_param_values = {0};
+
 		/* Make sure that the node is in WAIT_FOR_EVENT state to process
-		 *this command */
+		 * this command */
 		if (WAIT_FOR_EVENT == node_info.main_state) {
 			if (START_MODE_PER == sio_rx_buf[START_MODE_POS]) { /*
-				                                             *PER
-				                                             *mode
-				                                             **/
+					                                     *
+					                                     *
+					                                     *PER
+					                                     *
+					                                     *
+					                                     *mode
+					                                     **/
 				/* start_req received on UART - so change to
-				 *state PEER_SEARCH_PER_TX */
+				 * state PEER_SEARCH_PER_TX */
 				set_main_state(PEER_SEARCH_PER_TX, NULL);
 			} else if (START_MODE_SINGLE_NODE ==
 					sio_rx_buf[START_MODE_POS]) {               /*
-				                                                     *Single
-				                                                     *Node
-				                                                     *tests
-				                                                     **/
+					                                             *
+					                                             *
+					                                             *Single
+					                                             *
+					                                             *
+					                                             *Node
+					                                             *
+					                                             *
+					                                             *tests
+					                                             **/
 				/* start_req received on UART - so change to
-				 *single node tests state directly */
+				 * single node tests state directly */
 				set_main_state(SINGLE_NODE_TESTS, NULL);
 			} else {
 				/* Send the confirmation with status as
-				 *INVALID_ARGUMENT */
+				 * INVALID_ARGUMENT */
 				usr_perf_start_confirm(INVALID_ARGUMENT,
 						sio_rx_buf[START_MODE_POS],
 						&dummy_param_values,
@@ -446,10 +461,11 @@ static inline void handle_incoming_msg(void)
 			/* Send the confirmation with status as Failure
 			 * with error code as the reason for failure
 			 */
+			param_value_temp.param_value_8bit
+				= sio_rx_buf[PARAM_VALUE_POS];
 			usr_perf_set_confirm(error_code,
 					sio_rx_buf[PARAM_TYPE_POS],
-					(param_value_t *)&sio_rx_buf[
-						PARAM_VALUE_POS]);
+					&param_value_temp);
 			return;
 		}
 
@@ -459,24 +475,35 @@ static inline void handle_incoming_msg(void)
 		if ((PER_TEST_INITIATOR == node_info.main_state) ||
 				(SINGLE_NODE_TESTS == node_info.main_state)
 				) {
+			MEMCPY_ENDIAN(&param_value_temp,
+					&sio_rx_buf[PARAM_VALUE_POS],
+					get_param_length(sio_rx_buf[
+						PARAM_TYPE_POS]));
+
 			perf_set_req(sio_rx_buf[PARAM_TYPE_POS],
-					(param_value_t *)&sio_rx_buf[
-						PARAM_VALUE_POS]);                /*
-				                                                   *parameter
-				                                                   *type
-				                                                   *followed
-				                                                   *by
-				                                                   *parameter
-				                                                   *value
-				                                                   **/
+					&param_value_temp
+					);                        /*
+				                                   * parameter
+				                                   *
+				                                   * type
+				                                   *
+				                                   * followed
+				                                   *
+				                                   * by
+				                                   *
+				                                   * parameter
+				                                   *
+				                                   * value
+				                                   **/
 		} else {
 			/* Send the confirmation with status as INVALID_CMD as
 			 * this command is not allowed in this state
 			 */
+			param_value_temp.param_value_8bit
+				= sio_rx_buf[PARAM_VALUE_POS];
 			usr_perf_set_confirm(INVALID_CMD,
 					sio_rx_buf[PARAM_TYPE_POS],
-					(param_value_t *)&sio_rx_buf[
-						PARAM_VALUE_POS]);
+					&param_value_temp);
 		}
 	}
 	break;
@@ -511,7 +538,7 @@ static inline void handle_incoming_msg(void)
 				(SINGLE_NODE_TESTS == node_info.main_state)
 				) {
 			perf_get_req(sio_rx_buf[PARAM_TYPE_POS]); /* parameter
-				                                   *type */
+				                                   * type */
 		} else {
 			/* Send the confirmation with status as INVALID_CMD as
 			 * this command is not allowed in this state
@@ -543,7 +570,7 @@ static inline void handle_incoming_msg(void)
 		}
 
 		/* The node should be in the PER_TEST_INITIATOR state to allow
-		 *this req */
+		 * this req */
 		if (PER_TEST_INITIATOR == node_info.main_state) {
 			identify_peer_node();
 		} else {
@@ -642,36 +669,60 @@ static inline void handle_incoming_msg(void)
 				(SINGLE_NODE_TESTS == node_info.main_state)
 				) {
 			if (START_CWT == sio_rx_buf[START_STOP_POS]) { /*
-				                                        *Start_Stop
-				                                        *mode,
-				                                        *Start =
-				                                        *0x01,
-				                                        *Stop =
-				                                        *0x00 */
+					                                *
+					                                *
+					                                *Start_Stop
+					                                * mode,
+					                                * Start
+					                                *=
+					                                * 0x01,
+					                                * Stop =
+					                                * 0x00
+					                                **/
 				start_cw_transmission(sio_rx_buf[TX_MODE_POS]); /*
+					                                         *
+					                                         *
 					                                         *tx_mode,
+					                                         *
+					                                         *
 					                                         *CW
 					                                         *=
+					                                         *
+					                                         *
 					                                         *0x00
+					                                         *
+					                                         *
 					                                         *PRBS
 					                                         *=
+					                                         *
+					                                         *
 					                                         *0x01
 					                                         **/
 			} else if (STOP_CWT == sio_rx_buf[START_STOP_POS]) {
 				stop_cw_transmission(sio_rx_buf[TX_MODE_POS]); /*
+					                                        *
+					                                        *
 					                                        *tx_mode,
+					                                        *
+					                                        *
 					                                        *CW
 					                                        *=
+					                                        *
+					                                        *
 					                                        *0x00
+					                                        *
+					                                        *
 					                                        *PRBS
 					                                        *=
+					                                        *
+					                                        *
 					                                        *0x01
 					                                        **/
 			} else {
 				/* Send the confirmation with status as
 				 * INVALID_ARGUMENT
 				 * as the start stop mode argument is not a
-				 *valid one
+				 * valid one
 				 */
 				usr_cont_wave_tx_confirm(INVALID_ARGUMENT,
 						sio_rx_buf[START_STOP_POS],
@@ -679,7 +730,7 @@ static inline void handle_incoming_msg(void)
 			}
 
 			/* Update currently running Continuous wave transmission
-			 *mode */
+			 * mode */
 			cont_tx_mode = sio_rx_buf[TX_MODE_POS];
 		} else {
 			/* Send the confirmation with status as INVALID_CMD
@@ -870,6 +921,11 @@ static inline void handle_incoming_msg(void)
 		 * scan_duration;
 		 */
 
+		/* This variable is to save the selected channels mask,
+		 * which is a 4byte value received through serial interface
+		 */
+		uint32_t rcvd_channel_mask = 0; /* Clear for every ED SCAN REQ
+			                         * MSG */
 		/* Check any ongoing transaction in place */
 		if (error_code) {
 			/* Send the confirmation with status as Failure
@@ -885,9 +941,39 @@ static inline void handle_incoming_msg(void)
 		if ((PER_TEST_INITIATOR == node_info.main_state) ||
 				(SINGLE_NODE_TESTS == node_info.main_state)
 				) {
-			start_ed_scan(sio_rx_buf[SCAN_DURATION_POS]); /*
-				                                       *scan_duration
-				                                       **/
+			if (sio_rx_buf[MSG_LEN_ED_SCAN_POS] ==
+					MSG_LEN_ED_SCAN_REQ) {
+				/* Extract the 4bytes of selected channel mask
+				 * from the sio_rx_buf */
+				rcvd_channel_mask
+					|= (((uint32_t)sio_rx_buf[
+							CHANNELS_SELECT_POS
+						]) & 0x000000FF);
+				rcvd_channel_mask
+					|= (((uint32_t)sio_rx_buf[
+							CHANNELS_SELECT_POS
+							+ 1] <<
+						8) & 0x0000FF00);
+				rcvd_channel_mask
+					|= (((uint32_t)sio_rx_buf[
+							CHANNELS_SELECT_POS
+							+ 2] <<
+						16) & 0x00FF0000);
+				rcvd_channel_mask
+					|= (((uint32_t)sio_rx_buf[
+							CHANNELS_SELECT_POS
+							+ 3] <<
+						24) & 0xFF000000);
+			} else {
+				rcvd_channel_mask = TRX_SUPPORTED_CHANNELS;
+			}
+
+			start_ed_scan(sio_rx_buf[SCAN_DURATION_POS],
+					rcvd_channel_mask);                         /*
+				                                                     *
+				                                                     *
+				                                                     *scan_duration
+				                                                     **/
 		} else {
 			/* Send the confirmation with status as INVALID_CMD
 			 * as this command is not allowed in this state
@@ -947,7 +1033,7 @@ static inline void handle_incoming_msg(void)
 		}
 
 		/* The node should be in the PER_TEST_INITIATOR state to start
-		 *PER TEST */
+		 * PER TEST */
 		if (PER_TEST_INITIATOR == node_info.main_state) {
 			initiate_per_test();
 		} else {
@@ -956,6 +1042,38 @@ static inline void handle_incoming_msg(void)
 			 */
 			usr_per_test_start_confirm(INVALID_CMD);
 		}
+	}
+	break;
+
+	/* Process Range Test start command */
+	case RANGE_TEST_START_REQ: /* 0x50 */
+	{
+		if (error_code) {
+			/* Send the confirmation with status as Failure
+			 * with error code as the reason for failure
+			 */
+			usr_range_test_start_confirm(error_code);
+			return;
+		}
+
+		/* The node should be in the PER_TEST_INITIATOR state to start
+		 * the GUI based RANGE TEST */
+		if (PER_TEST_INITIATOR == node_info.main_state) {
+			initiate_range_test();
+		} else {
+			/* Send the confirmation with status as INVALID_CMD
+			 * as this command is not allowed in this state
+			 */
+			usr_range_test_start_confirm(INVALID_CMD);
+		}
+	}
+	break;
+
+	case RANGE_TEST_STOP_REQ: /* 0x52 */
+	{
+		/* Change the mode of initiator and send stop cmd to receptor
+		 * once the range test stop command is received */
+		stop_range_test();
 	}
 	break;
 
@@ -1119,7 +1237,7 @@ void usr_perf_start_confirm(uint8_t status,
 	*msg_buf++ = trx_config_params->tx_power_reg;
 #else
 	*msg_buf++ = FIELD_DOES_NOT_EXIST; /* Tx Power in reg support is given
-	                                    *for RF212 and 212B transceivers */
+	                                    * for RF212 and 212B transceivers */
 #endif
 	*msg_buf++ = (uint8_t)trx_config_params->csma_enabled;
 	*msg_buf++ = (uint8_t)trx_config_params->retry_enabled;
@@ -1128,16 +1246,18 @@ void usr_perf_start_confirm(uint8_t status,
 	*msg_buf++ = (uint8_t)trx_config_params->rx_desensitize;
 #else
 	*msg_buf++ = FIELD_DOES_NOT_EXIST; /*Filled with 0xff to indicate this
-	                                    *parameter is not available for this
-	                                    *transceiver */
+	                                    * parameter is not available for
+	                                    * this
+	                                    * transceiver */
 #endif
 
-#if (TAL_TYPE == AT86RF233)
+#if ((TAL_TYPE == AT86RF233) || (TAL_TYPE == ATMEGARFR2))
 	*msg_buf++ = (uint8_t)trx_config_params->rpc_enable;
 #else
 	*msg_buf++ = FIELD_DOES_NOT_EXIST; /*Filled with 0xff to indicate this
-	                                    *parameter is not available for this
-	                                    *transceiver */
+	                                    * parameter is not available for
+	                                    * this
+	                                    * transceiver */
 #endif
 
 #if (ANTENNA_DIVERSITY == 1)
@@ -1214,7 +1334,7 @@ void usr_perf_start_confirm(uint8_t status,
  * Function to generate Per Test Start confirmation frame that must be sent to
  * host application via serial interface.
  * Called by Performance application as confirmation for per_test_start_req
- *request
+ * request
  * \param status      Result for requested per_test_start_req
  *
  * \return void
@@ -1234,6 +1354,170 @@ void usr_per_test_start_confirm(uint8_t status)
 	*msg_buf++ = PROTOCOL_ID_LEN + PER_TEST_START_CONFIRM_LEN;
 	*msg_buf++ = PROTOCOL_ID;
 	*msg_buf++ = PER_TEST_START_CONFIRM;
+
+	/* Copy confirmation payload */
+	*msg_buf++ = status;
+
+	*msg_buf = EOT;
+}
+
+/**
+ * \brief Function to send  the transmitted frame to the Host application
+ * \param frame Pointer to the actual frame transmitted
+ */
+void usr_range_test_beacon_tx(uint8_t *frame)
+{
+	uint8_t *msg_buf;
+
+	msg_buf = get_next_tx_buffer();
+
+	/* Check if buffer could not be allocated */
+	if (NULL == msg_buf) {
+		return;
+	}
+
+	/* Copy Len, Protocol Id, Msg Id parameters */
+	*msg_buf++ = PROTOCOL_ID_LEN + RANGE_TEST_PKT_LEN;
+	*msg_buf++ = PROTOCOL_ID;
+	*msg_buf++ = RANGE_TEST_BEACON;
+
+	/* Copy OTA payload */
+	for (uint8_t i = 0; i < (RANGE_TEST_PKT_LEN - 1); i++) {
+		*msg_buf++ = *frame++;
+	}
+	*msg_buf = EOT;
+}
+
+/**
+ * \brief Function to send  the Received Range Test Response frame to the Host
+ * application
+ * \param frame Pointer to the actual frame Received
+ * \param lqi_h LQI of the received response calculated at host
+ * \param ed_h ED value  of the received response calculated at host
+ * \param lqi_r LQI of the sent range test packet calculated at receptor
+ * \param ed_r ED value  of the sent range test packet calculated at receptor
+ */
+void usr_range_test_beacon_rsp(uint8_t *mpdu, uint8_t lqi_h, int8_t ed_h,
+		uint8_t lqi_r, int8_t ed_r)
+{
+	uint8_t *msg_buf;
+	uint8_t phy_frame_len = *mpdu; /* First byte of mpdu is the frame length
+	                               **/
+
+	msg_buf = get_next_tx_buffer();
+
+	/* Check if buffer could not be allocated */
+	if (NULL == msg_buf) {
+		return;
+	}
+
+	/* Copy Len, Protocol Id, Msg Id parameters */
+	*msg_buf++ = PROTOCOL_ID_LEN + RANGE_TEST_RSP_PKT_LEN +
+			(phy_frame_len - FCS_LEN + LENGTH_FIELD_LEN);
+	*msg_buf++ = PROTOCOL_ID;
+	*msg_buf++ = RANGE_TEST_BEACON_RESPONSE;
+	/* send ota frame */
+	for (uint8_t i = 0; i < phy_frame_len - 1; i++) {
+		*msg_buf++ = *mpdu++;
+	}
+
+	*msg_buf++ = lqi_r;
+	*msg_buf++ = ed_r;
+	*msg_buf++ = lqi_h;
+	*msg_buf++ = ed_h;
+
+	*msg_buf = EOT;
+}
+
+/**
+ * \brief Function to send  the Marker Indication frame to the Host application
+ * \param mpdu Pointer to the actual marker frame Received
+ * \param lqi LQI of the received marker packet
+ * \param ed_value ED value  of the received marker packet
+ */
+void usr_range_test_marker_ind(uint8_t *mpdu, uint8_t lqi, int8_t ed_value)
+{
+	uint8_t *msg_buf;
+	uint8_t phy_frame_len = *mpdu; /* First byte of mpdu is the frame length
+	                               **/
+
+	msg_buf = get_next_tx_buffer();
+
+	/* Check if buffer could not be allocated */
+	if (NULL == msg_buf) {
+		return;
+	}
+
+	/* Copy Len, Protocol Id, Msg Id parameters */
+	*msg_buf++ = PROTOCOL_ID_LEN + RANGE_TEST_MARKER_IND_LEN +
+			(phy_frame_len - FCS_LEN + LENGTH_FIELD_LEN);
+	*msg_buf++ = PROTOCOL_ID;
+	*msg_buf++ = RANGE_TEST_MARKER_INDICATION;
+	/* send marker ota frame */
+	for (uint8_t i = 0; i < phy_frame_len - 1; i++) {
+		*msg_buf++ = *mpdu++;
+	}
+	*msg_buf++ = lqi;
+	*msg_buf++ = ed_value;
+
+	*msg_buf = EOT;
+}
+
+/*
+ * Function to generate Range Test Start confirmation  that must be sent to
+ * host application via serial interface.
+ * Called by Performance application as confirmation for range_test_start_req
+ * request
+ * \param status      Result for requested range_test_start_req
+ *
+ * \return void
+ */
+void usr_range_test_start_confirm(uint8_t status)
+{
+	uint8_t *msg_buf;
+
+	msg_buf = get_next_tx_buffer();
+
+	/* Check if buffer could not be allocated */
+	if (NULL == msg_buf) {
+		return;
+	}
+
+	/* Copy Len, Protocol Id, Msg Id parameters */
+	*msg_buf++ = PROTOCOL_ID_LEN + RANGE_TEST_START_CONFIRM_LEN;
+	*msg_buf++ = PROTOCOL_ID;
+	*msg_buf++ = RANGE_TEST_START_CONFIRM;
+
+	/* Copy confirmation payload */
+	*msg_buf++ = status;
+
+	*msg_buf = EOT;
+}
+
+/*
+ * Function to  Range Test stop confirmation frame that must be sent to
+ * host application via serial interface.
+ * Called by Performance application as confirmation for range_test_stop_req
+ * request
+ * \param status      Result for requested range_test_stop_req
+ *
+ * \return void
+ */
+void usr_range_test_stop_confirm(uint8_t status)
+{
+	uint8_t *msg_buf;
+
+	msg_buf = get_next_tx_buffer();
+
+	/* Check if buffer could not be allocated */
+	if (NULL == msg_buf) {
+		return;
+	}
+
+	/* Copy Len, Protocol Id, Msg Id parameters */
+	*msg_buf++ = PROTOCOL_ID_LEN + RANGE_TEST_START_CONFIRM_LEN;
+	*msg_buf++ = PROTOCOL_ID;
+	*msg_buf++ = RANGE_TEST_STOP_CONFIRM;
 
 	/* Copy confirmation payload */
 	*msg_buf++ = status;
@@ -1543,8 +1827,9 @@ void usr_register_dump_confirm(uint8_t status, uint16_t start_reg_addr,
 	*msg_buf++ = (uint8_t)(end_reg_addr >> BYTE_LEN);
 	if (reg_val != NULL) {
 		*msg_buf++ = reg_val[0];
+
 		/* Update the length field with length field of the octet string
-		 **/
+		**/
 		*ptr_to_msg_size += 1;
 
 		for (index = 0; index < reg_val[0]; index++) {
@@ -1564,7 +1849,7 @@ void usr_register_dump_confirm(uint8_t status, uint16_t start_reg_addr,
  * host application via serial interface.
  * Called by Performance application as Indication after completion of PER test
  * \param status                Result for PER test initiated by
- *per_test_start_req
+ * per_test_start_req
  * \param avg_rssi              Average RSSI measured for PER Test
  * \param avg_lqi               Average LQI measured for PER Test
  * \param frames_transmitted    No.of transmitted pkts in the PER Test
@@ -1637,14 +1922,14 @@ void usr_per_test_end_indication(uint8_t status,
 
 /*
  * Function to generate ED scan confirm test End Indication frame that must be
- *sent to
+ * sent to
  * host application via serial interface.
  * Called by Performance application as Indication before starting the ED scan
  * \param status                Confirmation to the ED scan req
  * \param scan_time_min         Approx time to be taken for ed can if time is
- *more than a minute
+ * more than a minute
  * \param scan_time_sec         Approx time to be taken for ed can if time is
- *less than a minute
+ * less than a minute
  *
  * \return void
  */
@@ -1678,7 +1963,7 @@ void usr_ed_scan_start_confirm(uint8_t status, uint8_t scan_time_min,
  * Function to generate ED scan Indication frame that must be sent to
  * host application via serial interface.
  * Called by Performance application as Indication after completion of the ED
- *scan
+ * scan
  * \param no_of_channels  No. of channels scanned
  * \param ed_scan_result  List of Energy values along with the channel numbers
  *
@@ -1724,7 +2009,7 @@ void usr_ed_scan_end_indication(uint8_t no_of_channels,
  * Function to generate Sensor data confirm frame that must be sent to
  * host application via serial interface.
  * Called by Performance application as confirmation after getting the sensor
- *data
+ * data
  * \param status           Result for the Sensor data get req
  * \param bat_voltage      Battery voltage value
  * \param temperature      Temperature value
@@ -1763,7 +2048,7 @@ void usr_sensor_data_get_confirm(uint8_t status, float bat_voltage,
  * Function to generate Disconnect Confirm frame that must be sent to
  * host application via serial interface.
  * Called by Performance application as confirmation after disconnecting from
- *the
+ * the
  * peer node, if exists
  * \param status           Result for the Peer Disconnect Req
  *
@@ -1828,7 +2113,7 @@ void usr_set_default_config_confirm(uint8_t status,
 	*msg_buf++ = default_trx_config_params->tx_power_reg;
 #else
 	*msg_buf++ = FIELD_DOES_NOT_EXIST; /* Tx Power in reg support is given
-	                                    *for RF212 and 212B transceivers */
+	                                    * for RF212 and 212B transceivers */
 #endif
 	*msg_buf++ = (uint8_t)default_trx_config_params->csma_enabled;
 	*msg_buf++ = (uint8_t)default_trx_config_params->retry_enabled;
@@ -1837,16 +2122,18 @@ void usr_set_default_config_confirm(uint8_t status,
 	*msg_buf++ = (uint8_t)default_trx_config_params->rx_desensitize;
 #else
 	*msg_buf++ = FIELD_DOES_NOT_EXIST; /*Filled with 0xff to indicate this
-	                                    *parameter is not available for this
-	                                    *transceiver */
+	                                    * parameter is not available for
+	                                    * this
+	                                    * transceiver */
 #endif
 
-#if (TAL_TYPE == AT86RF233)
+#if ((TAL_TYPE == AT86RF233) || (TAL_TYPE == ATMEGARFR2))
 	*msg_buf++ = (uint8_t)default_trx_config_params->rpc_enable;
 #else
 	*msg_buf++ = FIELD_DOES_NOT_EXIST; /*Filled with 0xff to indicate this
-	                                    *parameter is not available for this
-	                                    *transceiver */
+	                                    * parameter is not available for
+	                                    * this
+	                                    * transceiver */
 #endif
 
 #if (ANTENNA_DIVERSITY == 1)
@@ -1900,11 +2187,12 @@ void usr_set_default_config_confirm(uint8_t status,
  */
 void usr_identify_board_confirm(uint8_t status,
 		uint8_t ic_type,
-		char *mcu_soc_name,
-		char *trx_name,
-		char *board_name,
+		const char *mcu_soc_name,
+		const char *trx_name,
+		const char *board_name,
 		uint64_t mac_address,
-		float fw_version)
+		float fw_version,
+		uint32_t fw_feature_mask)
 {
 	uint8_t *msg_buf;
 	/* Pointer to size element - the content is written later. */
@@ -1973,6 +2261,11 @@ void usr_identify_board_confirm(uint8_t status,
 	memcpy(msg_buf, &fw_version, sizeof(fw_version));
 	msg_buf += sizeof(fw_version);
 
+	/* copy fw_feature_mask value */
+	fw_feature_mask = CCPU_ENDIAN_TO_LE32(fw_feature_mask);
+	memcpy(msg_buf, &fw_feature_mask, sizeof(fw_feature_mask));
+	msg_buf += sizeof(fw_feature_mask);
+
 	*msg_buf = EOT;
 }
 
@@ -1988,7 +2281,7 @@ void usr_identify_board_confirm(uint8_t status,
  * \return void
  */
 void usr_get_current_config_confirm(uint8_t status,
-		trx_config_params_t *curr_trx_config_params)
+		trx_config_params_t *curr_trx_conf_params)
 {
 	uint8_t *msg_buf;
 
@@ -2007,64 +2300,66 @@ void usr_get_current_config_confirm(uint8_t status,
 	/* Copy confirmation payload */
 	*msg_buf++ = status;
 	/* configuration parameters */
-	*msg_buf++ = curr_trx_config_params->channel;
-	*msg_buf++ = curr_trx_config_params->channel_page;
-	*msg_buf++ = curr_trx_config_params->tx_power_dbm;
+	*msg_buf++ = curr_trx_conf_params->channel;
+	*msg_buf++ = curr_trx_conf_params->channel_page;
+	*msg_buf++ = curr_trx_conf_params->tx_power_dbm;
 #if ((TAL_TYPE != AT86RF212) && (TAL_TYPE != AT86RF212B))
-	*msg_buf++ = curr_trx_config_params->tx_power_reg;
+	*msg_buf++ = curr_trx_conf_params->tx_power_reg;
 #else
 	*msg_buf++ = FIELD_DOES_NOT_EXIST; /* Tx Power in reg support is given
-	                                    *for RF212 and 212B transceivers */
+	                                    * for RF212 and 212B transceivers */
 #endif
-	*msg_buf++ = (uint8_t)curr_trx_config_params->csma_enabled;
-	*msg_buf++ = (uint8_t)curr_trx_config_params->retry_enabled;
-	*msg_buf++ = (uint8_t)curr_trx_config_params->ack_request;
+	*msg_buf++ = (uint8_t)curr_trx_conf_params->csma_enabled;
+	*msg_buf++ = (uint8_t)curr_trx_conf_params->retry_enabled;
+	*msg_buf++ = (uint8_t)curr_trx_conf_params->ack_request;
 #if (TAL_TYPE != AT86RF230B)
-	*msg_buf++ = (uint8_t)curr_trx_config_params->rx_desensitize;
+	*msg_buf++ = (uint8_t)curr_trx_conf_params->rx_desensitize;
 #else
 	*msg_buf++ = FIELD_DOES_NOT_EXIST; /*Filled with 0xff to indicate this
-	                                    *parameter is not available for this
-	                                    *transceiver */
+	                                    * parameter is not available for
+	                                    * this
+	                                    * transceiver */
 #endif
 
-#if (TAL_TYPE == AT86RF233)
-	*msg_buf++ = (uint8_t)curr_trx_config_params->rpc_enable;
+#if ((TAL_TYPE == AT86RF233) || (TAL_TYPE == ATMEGARFR2))
+	*msg_buf++ = (uint8_t)curr_trx_conf_params->rpc_enable;
 #else
 	*msg_buf++ = FIELD_DOES_NOT_EXIST; /*Filled with 0xff to indicate this
-	                                    *parameter is not available for this
-	                                    *transceiver */
+	                                    * parameter is not available for
+	                                    * this
+	                                    * transceiver */
 #endif
 
 #if (ANTENNA_DIVERSITY == 1)
-	*msg_buf++ = curr_trx_config_params->antenna_selected;
+	*msg_buf++ = curr_trx_conf_params->antenna_selected;
 #else
 	*msg_buf++ = FIELD_DOES_NOT_EXIST;
 #endif
 
-	*msg_buf++ = curr_trx_config_params->trx_state;
-	*msg_buf++ = (uint8_t)curr_trx_config_params->number_test_frames;
-	*msg_buf++ = (uint8_t)(curr_trx_config_params->number_test_frames >> 8);
+	*msg_buf++ = curr_trx_conf_params->trx_state;
+	*msg_buf++ = (uint8_t)curr_trx_conf_params->number_test_frames;
+	*msg_buf++ = (uint8_t)(curr_trx_conf_params->number_test_frames >> 8);
 	*msg_buf++
-		= (uint8_t)(curr_trx_config_params->number_test_frames >> 16);
+		= (uint8_t)(curr_trx_conf_params->number_test_frames >> 16);
 	*msg_buf++
-		= (uint8_t)(curr_trx_config_params->number_test_frames >> 24);
-	*msg_buf++ = curr_trx_config_params->phy_frame_length;
+		= (uint8_t)(curr_trx_conf_params->number_test_frames >> 24);
+	*msg_buf++ = curr_trx_conf_params->phy_frame_length;
 
 	/*peer node settings need to be added */
 	/*Peer settings for parameters like CRC and ant diversity */
 #if (ANTENNA_DIVERSITY == 1)
-	*msg_buf++ = curr_trx_config_params->antenna_selected_on_peer;
+	*msg_buf++ = curr_trx_conf_params->antenna_selected_on_peer;
 #else
 	*msg_buf++ = FIELD_DOES_NOT_EXIST;
 #endif
 #ifdef CRC_SETTING_ON_REMOTE_NODE
-	*msg_buf++ = curr_trx_config_params->crc_settings_on_peer;
+	*msg_buf++ = curr_trx_conf_params->crc_settings_on_peer;
 #else
 	*msg_buf++ = FIELD_DOES_NOT_EXIST;
 #endif
 
 #if (TAL_TYPE == AT86RF233)
-	memcpy(msg_buf, &curr_trx_config_params->ism_frequency, sizeof(float));
+	memcpy(msg_buf, &curr_trx_conf_params->ism_frequency, sizeof(float));
 #else
 	float temp = 0.0;
 	memcpy(msg_buf, &temp, sizeof(float));

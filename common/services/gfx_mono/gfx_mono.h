@@ -3,7 +3,7 @@
  *
  * \brief Monochrome graphic library API header file
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -279,11 +279,11 @@ enum gfx_mono_bitmap_type {
  * \subsection gfx_mono_basic_usage_code Example code
  * Add to, e.g., the main function in the application C-file:
  * \code
- * board_init();
- * sysclk_init();
- * gfx_mono_init();
- * gfx_mono_draw_line(10, 10, 20, 20, GFX_PIXEL_SET);
- * \endcode
+	board_init();
+	sysclk_init();
+	gfx_mono_init();
+	gfx_mono_draw_line(10, 10, 20, 20, GFX_PIXEL_SET);
+\endcode
  *
  * \subsection gfx_mono_basic_usage Workflow
  * -# Initialize board IO:

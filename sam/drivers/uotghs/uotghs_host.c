@@ -229,10 +229,10 @@ static void uhd_sleep_mode(enum uhd_uotghs_state_enum new_state)
 {
 	enum sleepmgr_mode sleep_mode[] = {
 		SLEEPMGR_BACKUP,    // UHD_STATE_OFF (not used)
-		SLEEPMGR_WAIT,      // UHD_STATE_WAIT_ID_HOST
+		SLEEPMGR_WAIT_FAST, // UHD_STATE_WAIT_ID_HOST
 		SLEEPMGR_SLEEP_WFI, // UHD_STATE_NO_VBUS
 		SLEEPMGR_SLEEP_WFI, // UHD_STATE_DISCONNECT
-		SLEEPMGR_WAIT,      // UHD_STATE_SUSPEND
+		SLEEPMGR_WAIT_FAST, // UHD_STATE_SUSPEND
 		SLEEPMGR_SLEEP_WFI, // UHD_STATE_IDLE
 	};
 

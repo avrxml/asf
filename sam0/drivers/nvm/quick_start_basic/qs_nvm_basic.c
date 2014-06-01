@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Non Volatile Memory Driver Quick Start
+ * \brief SAM D20/D21/R21 Non Volatile Memory Driver Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -107,6 +107,7 @@ int main(void)
 				page_buffer, NVMCTRL_PAGE_SIZE);
 	} while (error_code == STATUS_BUSY);
 	//! [main_6]
+
 //! [main]
 
 	while (true) {

@@ -3,7 +3,7 @@
  *
  * @brief Handles MCPS related primitives and frames
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -66,12 +66,30 @@
 #include "mac_internal.h"
 #include "mac.h"
 #include "mac_build_config.h"
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
 #include "mac_security.h"
 #endif
 
 /* === Macros =============================================================== */
+/* Length of the MAC Aux Header Frame Counter */
+#define FRAME_COUNTER_LEN               (0x04)
 
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
+/* Security Control Field: Security Level mask */
+#define SEC_CTRL_SEC_LVL_MASK           (0x07)
+
+/* Security Control Field: Key Identifier mask */
+#define SEC_CTRL_KEY_ID_MASK            (0x03)
+
+/* Security Control Field: Key Identifier Field position */
+#define SEC_CTRL_KEY_ID_FIELD_POS       (3)
+
+#define KEY_ID_MODE_0                   (0x00)
+#define KEY_ID_MODE_1                   (0x01)
+#define KEY_ID_MODE_2                   (0x02)
+#define KEY_ID_MODE_3                   (0x03)
+
+#endif
 /* === Globals ============================================================= */
 
 /* === Prototypes ========================================================== */
@@ -146,11 +164,15 @@ void mcps_data_request(uint8_t *msg)
 	memcpy(&mdr, BMM_BUFFER_POINTER(
 			(buffer_t *)msg), sizeof(mcps_data_req_t));
 
-	if ((mdr.TxOptions & WPAN_TXOPT_INDIRECT) == 0) {
+	if ((mdr.TxOptions & WPAN_TXOPT_INDIRECT) == 0
+#ifdef GTS_SUPPORT
+			|| (mdr.TxOptions & WPAN_TXOPT_GTS) == 0
+#endif /* GTS_SUPPORT */
+			) {
 		/*
 		 * Data Requests for a coordinator using direct transmission are
 		 * accepted in all non-transient states (no polling and no
-		 *scanning
+		 * scanning
 		 * is ongoing).
 		 */
 		if ((MAC_POLL_IDLE != mac_poll_state) ||
@@ -186,6 +208,26 @@ void mcps_data_request(uint8_t *msg)
 #endif  /* ENABLE_TSTAMP */
 		return;
 	}
+
+#ifdef GTS_SUPPORT
+	/* Check whether somebody requests an ACK of broadcast frames */
+	if ((mdr.TxOptions & WPAN_TXOPT_GTS) &&
+			((FCF_SHORT_ADDR != mdr.DstAddrMode) ||
+			(FCF_SHORT_ADDR != mdr.SrcAddrMode) ||
+			(MAC_ASSOCIATED == mac_state && mdr.DstAddr !=
+			mac_pib.mac_CoordShortAddress))) {
+		mac_gen_mcps_data_conf((buffer_t *)msg,
+				(uint8_t)MAC_INVALID_PARAMETER,
+#ifdef ENABLE_TSTAMP
+				mdr.msduHandle,
+				0);
+#else
+				mdr.msduHandle);
+#endif  /* ENABLE_TSTAMP */
+		return;
+	}
+
+#endif /* GTS_SUPPORT */
 
 	/* Check whether both Src and Dst Address are not present */
 	if ((FCF_NO_ADDR == mdr.SrcAddrMode) &&
@@ -230,6 +272,10 @@ void mcps_data_request(uint8_t *msg)
 	transmit_frame->indirect_in_transit = false;
 #endif  /* (MAC_INDIRECT_DATA_FFD == 1) */
 
+#ifdef GTS_SUPPORT
+	transmit_frame->gts_queue = NULL;
+#endif /* GTS_SUPPORT */
+
 	status = build_data_frame(&mdr, transmit_frame);
 
 	if (MAC_SUCCESS != status) {
@@ -251,7 +297,7 @@ void mcps_data_request(uint8_t *msg)
 	 */
 #if (MAC_START_REQUEST_CONFIRM == 1)
 #ifdef BEACON_SUPPORT
-	/*To check the broadcst address*/
+	/*To check the broadcast address*/
 	uint16_t broadcast;
 	ADDR_COPY_DST_SRC_16(broadcast, mdr.DstAddr);
 	if (
@@ -324,6 +370,12 @@ void mcps_data_request(uint8_t *msg)
 	} else
 #endif /* (MAC_INDIRECT_DATA_FFD == 1) */
 
+#ifdef GTS_SUPPORT
+	if (mdr.TxOptions & WPAN_TXOPT_GTS) {
+		handle_gts_data_req(&mdr, msg);
+	} else
+#endif /* GTS_SUPPORT */
+
 	/*
 	 * We are NOT indirect, so we need to transmit using
 	 * CSMA_CA in the CAP (for beacon enabled) or immediately (for
@@ -335,24 +387,58 @@ void mcps_data_request(uint8_t *msg)
 		transmit_frame->buffer_header = (buffer_t *)msg;
 
 		/* Transmission should be done with CSMA-CA and with frame
-		 *retries. */
+		 * retries. */
+
+#ifdef MAC_SECURITY_ZIP
+		if (transmit_frame->mpdu[1] & FCF_SECURITY_ENABLED) {
+			mcps_data_req_t pmdr;
+
+			build_sec_mcps_data_frame(&pmdr, transmit_frame);
+
+			if (pmdr.SecurityLevel > 0) {
+				/* Secure the Frame */
+				retval_t build_sec = mac_secure(transmit_frame,	\
+						transmit_frame->mac_payload,
+						&pmdr);
+
+				if (MAC_SUCCESS != build_sec) {
+					/* The MAC Data Payload is encrypted
+					 *based on the security level. */
+					mac_gen_mcps_data_conf((buffer_t *)msg,
+							(uint8_t)build_sec,
+			#ifdef ENABLE_TSTAMP
+							mdr.msduHandle,
+							0);
+			#else
+							mdr.msduHandle);
+			#endif  /* ENABLE_TSTAMP */
+
+					return;
+				}
+			}
+		}
+
+#endif
+
 #ifdef BEACON_SUPPORT
 		csma_mode_t cur_csma_mode;
 
 		if (NON_BEACON_NWK == tal_pib.BeaconOrder) {
 			/* In Nonbeacon network the frame is sent with unslotted
-			 *CSMA-CA. */
+			 * CSMA-CA. */
 			cur_csma_mode = CSMA_UNSLOTTED;
 		} else {
 			/* In Beacon network the frame is sent with slotted
-			 *CSMA-CA. */
+			 * CSMA-CA. */
 			cur_csma_mode = CSMA_SLOTTED;
 		}
 
 		status = tal_tx_frame(transmit_frame, cur_csma_mode, true);
+
 #else   /* No BEACON_SUPPORT */
-		/* In Nonbeacon build the frame is sent with unslotted CSMA-CA.
-		 **/
+
+		/* In Non beacon build the frame is sent with unslotted CSMA-CA.
+		**/
 		status = tal_tx_frame(transmit_frame, CSMA_UNSLOTTED, true);
 #endif  /* BEACON_SUPPORT / No BEACON_SUPPORT */
 
@@ -360,7 +446,7 @@ void mcps_data_request(uint8_t *msg)
 			MAKE_MAC_BUSY();
 		} else {
 			/* Transmission to TAL failed, generate confirmation
-			 *message. */
+			 * message. */
 			mac_gen_mcps_data_conf((buffer_t *)msg,
 					(uint8_t)MAC_CHANNEL_ACCESS_FAILURE,
 #ifdef ENABLE_TSTAMP
@@ -395,8 +481,9 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 		 * nor checked for for frame pending bit set, since
 		 * null data frames with frame pending bit set are nonsense.
 		 */
+
 		/* Since no indication is generated, the frame buffer is
-		 *released. */
+		 * released. */
 		bmm_buffer_free(buf_ptr);
 
 		/* Set radio to sleep if allowed */
@@ -425,9 +512,9 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 		} else {
 			/*
 			 * Even if the Source address mode is zero, and the
-			 *source address
+			 * source address
 			 * informationis ís not present, the values are cleared
-			 *to prevent
+			 * to prevent
 			 * the providing of trash information.
 			 */
 			mdi->SrcPANId = 0;
@@ -444,8 +531,9 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 			 * but nevetheless the frame pending bit needs to be
 			 * checked and acted upon.
 			 */
+
 			/* Since no indication is generated, the frame buffer is
-			 *released. */
+			 * released. */
 			bmm_buffer_free(buf_ptr);
 		} else {
 			/* Generate data indication to next higher layer. */
@@ -461,20 +549,20 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 
 			/*
 			 * Setting the address to zero is required for a short
-			 *address
+			 * address
 			 * and in case no address is included. Therefore the
-			 *address
+			 * address
 			 * is first always set to zero to reduce code size.
 			 */
 			mdi->DstAddr = 0;
 
 			/*
 			 * Setting the PAN-Id to the Destiantion PAN-Id is
-			 *required
+			 * required
 			 * for a both short and long address, but not in case no
-			 *address
+			 * address
 			 * is included. Therefore the PAN-ID is first always set
-			 *to
+			 * to
 			 * the Destination PAN-IDto reduce code size.
 			 */
 			mdi->DstPANId = mac_parse_data.dest_panid;
@@ -487,23 +575,23 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 			} else {
 				/*
 				 * Even if the Destination address mode is zero,
-				 *and the destination
+				 * and the destination
 				 * address information is ís not present, the
-				 *values are cleared to
+				 * values are cleared to
 				 * prevent the providing of trash information.
 				 * The Desintation address was already cleared
-				 *above.
+				 * above.
 				 */
 				mdi->DstPANId = 0;
 			}
 
 			mdi->mpduLinkQuality = mac_parse_data.ppdu_link_quality;
 
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
 			mdi->SecurityLevel = mac_parse_data.sec_ctrl.sec_level;
 			mdi->KeyIdMode = mac_parse_data.sec_ctrl.key_id_mode;
 			mdi->KeyIndex = mac_parse_data.key_id[0];
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006)  */
 
 			mdi->msduLength = mac_parse_data.mac_payload_length;
 
@@ -515,6 +603,41 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 
 			/* Append MCPS data indication to MAC-NHLE queue */
 			qmm_queue_append(&mac_nhle_q, buf_ptr);
+#ifdef GTS_SUPPORT
+#ifdef FFD
+			{
+				uint8_t loop_index;
+				for (loop_index =
+						0;
+						loop_index <
+						mac_pan_gts_table_len;
+						loop_index++) {
+					if (FCF_SHORT_ADDR ==
+							mdi->SrcAddrMode &&
+							(uint16_t)(mdi->SrcAddr)
+							== mac_pan_gts_table[
+								loop_index].
+							DevShortAddr
+							&&
+							GTS_TX_SLOT ==
+							mac_pan_gts_table[
+								loop_index].
+							GtsDesc.
+							GtsDirection) {
+						#ifdef GTS_DEBUG
+						port_pin_toggle_output_level(
+								DEBUG_PIN11);             /* coord
+						                                           * rx */
+						#endif
+						reset_gts_expiry(
+								&mac_pan_gts_table[
+									loop_index]);
+						break;
+					}
+				}
+			}
+#endif /* FFD */
+#endif /* GTS_SUPPORT */
 		} /* End of duplicate detection. */
 
 		/* Continue with checking the frame pending bit in the received
@@ -523,38 +646,39 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 #if (MAC_INDIRECT_DATA_BASIC == 1)
 		if (mac_parse_data.fcf & FCF_FRAME_PENDING) {
 #if (MAC_START_REQUEST_CONFIRM == 1)
+
 			/* An node that is not PAN coordinator may poll for
-			 *pending data. */
+			 * pending data. */
 			if (MAC_PAN_COORD_STARTED != mac_state)
 #endif  /* (MAC_START_REQUEST_CONFIRM == 1) */
 			{
 				address_field_t src_addr;
 
 				/* Build command frame due to implicit poll
-				 *request */
+				 * request */
 
 				/*
 				 * No explicit destination address attached, so
-				 *use current
+				 * use current
 				 * values of PIB attributes macCoordShortAddress
-				 *or
+				 * or
 				 * macCoordExtendedAddress.
 				 */
 
 				/*
 				 * This implicit poll (i.e. corresponding data
-				 *request
+				 * request
 				 * frame) is to be sent to the same node that we
-				 *have received
+				 * have received
 				 * this data frame. Therefore the source address
-				 *information
+				 * information
 				 * from this data frame needs to be extracted,
-				 *and used for the
+				 * and used for the
 				 * data request frame appropriately.
-				 * Use this as destination address expclitily
-				 *and
+				 * Use this as destination address explicitly
+				 * and
 				 * feed this to the function
-				 *mac_build_and_tx_data_req
+				 * mac_build_and_tx_data_req
 				 */
 				if (FCF_SHORT_ADDR ==
 						mac_parse_data.src_addr_mode) {
@@ -589,7 +713,7 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 #endif /* (MAC_INDIRECT_DATA_BASIC == 1) */
 		{
 			/* Frame pending but was not set, so no further action
-			 *required. */
+			 * required. */
 			/* Set radio to sleep if allowed */
 			mac_sleep_trans();
 		} /* if (mac_parse_data.fcf & FCF_FRAME_PENDING) */
@@ -626,7 +750,7 @@ static retval_t build_data_frame(mcps_data_req_t *pmdr,
 			LARGE_BUFFER_SIZE -
 			pmdr->msduLength - 2; /* Add 2 octets for FCS. */
 
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
 	uint8_t *mac_payload_ptr = frame_ptr;
 
 	/*
@@ -636,12 +760,13 @@ static retval_t build_data_frame(mcps_data_req_t *pmdr,
 	if (pmdr->SecurityLevel > 0) {
 		retval_t build_sec = mac_build_aux_sec_header(&frame_ptr, pmdr,
 				&frame_len);
+
 		if (MAC_SUCCESS != build_sec) {
 			return (build_sec);
 		}
 	}
 
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 
 	/*
 	 * Set Source Address.
@@ -712,7 +837,7 @@ static retval_t build_data_frame(mcps_data_req_t *pmdr,
 		fcf |= FCF_SET_FRAMETYPE(FCF_FRAMETYPE_DATA);
 	}
 
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
 	if (pmdr->SecurityLevel > 0) {
 		fcf |= FCF_SECURITY_ENABLED | FCF_FRAME_VERSION_2006;
 	}
@@ -755,15 +880,9 @@ static retval_t build_data_frame(mcps_data_req_t *pmdr,
 	/* Finished building of frame. */
 	frame->mpdu = frame_ptr;
 
-#ifdef MAC_SECURITY_ZIP
-	if (pmdr->SecurityLevel > 0) {
-		retval_t build_sec = mac_secure(frame, mac_payload_ptr, pmdr);
-		if (MAC_SUCCESS != build_sec) {
-			return (build_sec);
-		}
-	}
-
-#endif  /* MAC_SECURITY_ZIP */
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
+	frame->mac_payload = mac_payload_ptr;
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 
 	return MAC_SUCCESS;
 } /* build_data_frame() */
@@ -792,15 +911,15 @@ void mac_start_persistence_timer(void)
 	if (tal_pib.BeaconOrder == NON_BEACON_NWK) {
 		/*
 		 * The timeout interval for the indirect data persistence timer
-		 *is
+		 * is
 		 * based on the define below and is the same as for a nonbeacon
-		 *build.
+		 * build.
 		 */
 		bo_for_persistence_tmr = BO_USED_FOR_MAC_PERS_TIME;
 	} else {
 		/*
 		 * The timeout interval for the indirect data persistence timer
-		 *is
+		 * is
 		 * based on the current beacon order.
 		 */
 		bo_for_persistence_tmr = tal_pib.BeaconOrder;
@@ -830,7 +949,7 @@ void mac_start_persistence_timer(void)
 
 	if (MAC_SUCCESS != status) {
 		/* Got to the persistence timer callback function immediately.
-		 **/
+		**/
 		mac_t_persistence_cb(NULL);
 #if (_DEBUG_ > 0)
 		Assert("Indirect data persistence timer start failed" == 0);
@@ -895,7 +1014,7 @@ static void handle_persistence_time_decrement(void)
 
 	/*
 	 * Once we have updated the persistence timer, any frame with a
-	 *persistence
+	 * persistence
 	 * time of zero needs to be removed from the indirect queue.
 	 */
 	buffer_t *buffer_persistent_zero = NULL;
@@ -943,7 +1062,7 @@ static uint8_t decrement_persistence_time(void *buf_ptr, void *handle)
 	 */
 	if (!frame->indirect_in_transit) {
 		/* Decrement the persistence time for this indirect data frame.
-		 **/
+		**/
 		frame->persistence_time--;
 	}
 
@@ -1066,7 +1185,7 @@ static void handle_exp_persistence_timer(buffer_t *buf_ptr)
  */
 static bool mac_buffer_purge(uint8_t msdu_handle)
 {
-	uint8_t *buf_ptr;
+	buffer_t *buf_ptr;
 	search_t find_buf;
 	uint8_t handle = msdu_handle;
 
@@ -1080,7 +1199,7 @@ static bool mac_buffer_purge(uint8_t msdu_handle)
 	find_buf.handle = &handle;
 
 	/* Remove from indirect queue if the short address matches */
-	buf_ptr = (uint8_t *)qmm_queue_remove(&indirect_data_q, &find_buf);
+	buf_ptr = qmm_queue_remove(&indirect_data_q, &find_buf);
 
 	if (NULL != buf_ptr) {
 		/* Free the buffer allocated, after purging */

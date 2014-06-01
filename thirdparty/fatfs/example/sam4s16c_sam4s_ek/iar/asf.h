@@ -109,9 +109,6 @@
 // From module: SAM4S EK LED support enabled
 #include <led.h>
 
-// From module: SAM4S startup code
-#include <exceptions.h>
-
 // From module: SMC - Static Memory Controller
 #include <smc.h>
 
@@ -130,9 +127,6 @@
 
 // From module: System Clock Control - SAM4S implementation
 #include <sysclk.h>
-
-// From module: TC - Timer Counter
-#include <tc.h>
 
 // From module: UART - Univ. Async Rec/Trans
 #include <uart.h>

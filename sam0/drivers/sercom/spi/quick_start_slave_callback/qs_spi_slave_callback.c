@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 SPI Quick Start
+ * \brief SAM D20/D21/R21 SPI Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -101,10 +101,10 @@ void configure_spi_slave(void)
 	config_spi_slave.mode = SPI_MODE_SLAVE;
 //! [conf_spi_slave_instance]
 //! [conf_preload]
-	config_spi_slave.slave.preload_enable = true;
+	config_spi_slave.mode_specific.slave.preload_enable = true;
 //! [conf_preload]
 //! [conf_format]
-	config_spi_slave.slave.frame_format = SPI_FRAME_FORMAT_SPI_FRAME;
+	config_spi_slave.mode_specific.slave.frame_format = SPI_FRAME_FORMAT_SPI_FRAME;
 //! [conf_format]
 //! [mux_setting]
 	config_spi_slave.mux_setting = EXT1_SPI_SERCOM_MUX_SETTING;

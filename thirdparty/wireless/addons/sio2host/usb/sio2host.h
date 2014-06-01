@@ -3,7 +3,7 @@
  *
  * \brief Event handling Serial I/O  Functionalities
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,15 +54,13 @@
 #include "status_codes.h"
 #include "stdio_usb.h"
 
-#define SERIAL_RX_BUF_SIZE_HOST    156
-
 /* === PROTOTYPES ============================================================
- **/
+**/
 
 /**
  * \brief Initializes the Serial IO Module of the Host Device
  * \return STATUS_OK for successful initialization and FAILURE incase the IO is
- *not initialized
+ * not initialized
  */
 void sio2host_init(void);
 
@@ -88,17 +86,19 @@ uint8_t sio2host_rx(uint8_t *data, uint8_t max_length);
 
 /**
  * \brief This function is callled with the value set as true whenever a device
- *is connected to the terminal
+ * is connected to the terminal
  */
 void dtr_cb(bool);
 
 /**
  * \brief This function performs a non-blocking character receive functionality
  * \return '-1' if no data is recieved or returns the data if a character is
- *received
+ * received
  */
 
 int sio2host_getchar_nowait(void);
+
+void sio2host_putchar(uint8_t );
 
 /**
  * \brief This function performs a blocking character receive functionality

@@ -3,7 +3,7 @@
  *
  * \brief SD/MMC card unit tests
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,6 +52,9 @@
  * The SD/MMC stack supports all MCI/SPI interfaces from AVR and SAM devices.
  *
  * \note Please connect a SD/MMC card on the board before running the test.
+ * While using SAM4L Xplained Pro or SAM4L8 Xplained Pro, the IO1 Xplained Pro
+ * extension board should be attached to EXT1.
+ *
  * \section Description
  *
  * The unit tests executes the following sequences:

@@ -3,7 +3,7 @@
  *
  * \brief Spin control widget
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,6 +45,10 @@
 
 #include "gfx_mono.h"
 #include "conf_spinctrl.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * \ingroup asfdoc_common2_gfx_mono
@@ -236,5 +240,9 @@ gfx_mono_spinctrl_spincollection *spinners, uint8_t keycode,
 int16_t results[]);
 
 /** @} */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GFX_MONO_SPINCTRL_H */

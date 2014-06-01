@@ -3,7 +3,7 @@
  *
  * \brief User Interface
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,6 +46,9 @@
 
 //! Sequence process running each \c SEQUENCE_PERIOD ms
 #define SEQUENCE_PERIOD 150
+
+//! Wakeup, ignore button change until button is back to default state
+static bool btn_wakeup = false;
 
 static struct {
 	bool b_modifier;
@@ -129,6 +132,8 @@ static void ui_wakeup_handler(uint32_t id, uint32_t mask)
 	if (WAKEUP_PIO_ID == id && WAKEUP_PIO_MASK == mask) {
 		// It is a wakeup then send wakeup USB
 		udc_remotewakeup();
+		// Wakeup, ignore button change until button is back to default state
+		btn_wakeup = true;
 	}
 }
 
@@ -200,7 +205,13 @@ void ui_process(uint16_t framenumber)
 	b_btn_state = (!gpio_pin_is_high(GPIO_PUSH_BUTTON_1)) ? true : false;
 	if (b_btn_state != btn_last_state) {
 		btn_last_state = b_btn_state;
-		sequence_running = true;
+		if (btn_wakeup) {
+			if (!b_btn_state) {
+				btn_wakeup = false;
+			}
+		} else {
+			sequence_running = true;
+		}
 	}
 
 	// Sequence process running each period

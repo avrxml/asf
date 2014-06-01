@@ -400,7 +400,7 @@
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
-					<state>$PROJ_DIR$/../../../../cpu</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
@@ -415,7 +415,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../xcl</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../cpu</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -686,7 +686,7 @@
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
-					<state>$PROJ_DIR$/../../../../cpu</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
@@ -701,7 +701,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../xcl</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../cpu</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1437,7 +1437,7 @@
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
-					<state>$PROJ_DIR$/../../../../cpu</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
@@ -1452,7 +1452,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../xcl</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../cpu</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1723,7 +1723,7 @@
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
-					<state>$PROJ_DIR$/../../../../cpu</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/spi</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
@@ -1738,7 +1738,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../xcl</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../cpu</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>

@@ -68,24 +68,17 @@
 // From module: Generic board support
 #include <board.h>
 
-// From module: INTC - Interrupt Controller
-#include <intc.h>
-
 // From module: Interrupt management - UC3 implementation
 #include <interrupt.h>
-
-// From module: PM Power Manager - UC3 L0 implementation
-#include <power_clocks_lib.h>
-#include <sleep.h>
 
 // From module: Part identification macros
 #include <parts.h>
 
-// From module: SCIF System Control Interface - UC3L implementation
-#include <scif_uc3l.h>
-
 // From module: STK600
 #include <led.h>
+
+// From module: System Clock Control - UC3 L0 implementation
+#include <sysclk.h>
 
 // From module: USART - Universal Synchronous/Asynchronous Receiver/Transmitter
 #include <usart.h>

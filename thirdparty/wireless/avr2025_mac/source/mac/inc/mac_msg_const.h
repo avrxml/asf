@@ -3,7 +3,7 @@
  *
  * @brief This file defines all message constants.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,13 +52,18 @@
 #define MAC_MSG_CONST_H
 
 /* === Includes ============================================================= */
+#include <stdint.h>
+#include <stdbool.h>
 
+/* #include "stack_config.h" */
 /* === Macros =============================================================== */
 
 /**
  * \addtogroup group_mac_def
  * @{
  */
+
+#define MAC                                 (4)
 
 /**
  * This type contains the service primitives of the PHY-, MAC- and Network-layer
@@ -82,6 +87,7 @@ enum msg_code {
 	MLME_RESET_REQUEST                  = (0x09),
 	MLME_RX_ENABLE_REQUEST              = (0x0A),
 	MLME_SCAN_REQUEST                   = (0x0B),
+	MLME_GTS_REQUEST                    = (0x0C),
 	MLME_START_REQUEST                  = (0x0D),
 	MLME_POLL_REQUEST                   = (0x0E),
 	MLME_SYNC_REQUEST                   = (0x0F),
@@ -95,6 +101,8 @@ enum msg_code {
 	MLME_DISASSOCIATE_INDICATION        = (0x15),
 	MLME_DISASSOCIATE_CONFIRM           = (0x16),
 	MLME_BEACON_NOTIFY_INDICATION       = (0x17),
+	MLME_GTS_CONFIRM                    = (0x18),
+	MLME_GTS_INDICATION                 = (0x19),
 	MLME_ORPHAN_INDICATION              = (0x1A),
 	MLME_SCAN_CONFIRM                   = (0x1B),
 	MLME_COMM_STATUS_INDICATION         = (0x1C),
@@ -106,7 +114,8 @@ enum msg_code {
 	MLME_RESET_CONFIRM                  = (0x20),
 	MLME_RX_ENABLE_CONFIRM              = (0x21),
 	MLME_START_CONFIRM                  = (0x22),
-	MLME_POLL_CONFIRM                   = (0x23)
+	MLME_POLL_CONFIRM                   = (0x23),
+	MAC_INC_FRAME                       = (0x24)
 }
 SHORTENUM;
 
@@ -131,23 +140,25 @@ SHORTENUM;
 #define MLME_COMM_STATUS_IND_LEN        (22)
 #define MLME_DISASSOCIATE_CONF_LEN      (13)
 #define MLME_DISASSOCIATE_IND_LEN       (10)
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
 #define MLME_GET_CONF_LEN               (5)
 #else
 #define MLME_GET_CONF_LEN               (4)
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 #define MLME_ORPHAN_IND_LEN             (9)
 #define MLME_POLL_CONF_LEN              (2)
 #define MLME_RESET_CONF_LEN             (2)
 #define MLME_RX_ENABLE_CONF_LEN         (2)
 #define MLME_SCAN_CONF_LEN              (10)
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP) || (defined MAC_SECURITY_2006))
 #define MLME_SET_CONF_LEN               (4)
 #else
 #define MLME_SET_CONF_LEN               (3)
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 #define MLME_START_CONF_LEN             (2)
 #define MLME_SYNC_LOSS_IND_LEN          (6)
+#define MLME_GTS_CONF_LEN               (3)
+#define MLME_GTS_IND_LEN                (4)
 
 #ifdef ENABLE_TSTAMP
 #define WPAN_DESCRIPTOR_LEN             (21)

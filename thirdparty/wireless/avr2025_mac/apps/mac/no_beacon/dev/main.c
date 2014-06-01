@@ -3,7 +3,7 @@
  *
  * @brief MAC Example Nobeacon Application - Device
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,28 +49,28 @@
  *      - main.c                 Application main file.
  * \section intro Application Introduction
  * The basic MAC Example Nobeacon Application deploys a nonbeacon-enabled
- *network.
+ * network.
  * The coordinator starts a PAN at channel DEFAULT_CHANNEL with the PAN ID
- *DEFAULT_PAN_ID.
+ * DEFAULT_PAN_ID.
  * The device scans for this network and associates to the coordinator.
  * Once the device is associated, it uses a timer that fires every 5 seconds to
- *poll for pending data at the coordinator by means of transmitting a data
- *request frame to the coordinator.
+ * poll for pending data at the coordinator by means of transmitting a data
+ * request frame to the coordinator.
  * On the other hand every 5 seconds the coordinator queues a dummy data frame
- *for each associated device into its indirect frame queue.
+ * for each associated device into its indirect frame queue.
  * If the coordinator receives a data request frame from a particular device, it
- *transmits the pending data frame to the device.
+ * transmits the pending data frame to the device.
  * Device after receiving the data from the Coordinator sends back the same data
- *to the Coordinator itself by direct data transmission
+ * to the Coordinator itself by direct data transmission
  * The results of the proper data transmission/reception are printed to a
- *terminal program via Serial I/O (UART or USB).
+ * terminal program via Serial I/O (UART or USB).
  * \note For Two Processor Approach the Application needs to be flashed in the
- *Host board(eg.SAM4L-Xplained Pro) and the Serial-if application(NoBeacon FFD)
+ * Host board(eg.SAM4L-Xplained Pro) and the Serial-if application(NoBeacon FFD)
  *(MAC Stack)
  * needs to be flashed in the NCP(Network CoProcessor) board.
  *
  * For demonstration purposes the coordinator's configuration is limited to
- *associate two devices at maximum.
+ * associate two devices at maximum.
  * \section api_modules Application Dependent Modules
  * - \subpage api
  * \section compinfo Compilation Info
@@ -80,7 +80,7 @@
  * \section references References
  * 1)  IEEE Std 802.15.4-2006 Part 15.4: Wireless Medium Access Control (MAC)
  *     and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal
- *Area
+ * Area
  *     Networks (WPANs).\n\n
  * 2)  AVR Wireless Support <A href="http://avr@atmel.com">avr@atmel.com</A>.\n
  *
@@ -95,40 +95,45 @@
 #include <stdio.h>
 #include "conf_board.h"
 #include "avr2025_mac.h"
-#include "led.h"
 #include "delay.h"
 #include "common_sw_timer.h"
 #include "sio2host.h"
+#include "common_hw_timer.h"
+#include "beacon_app.h"
 #include <asf.h>
 
-/* === TYPES =============================================================== */
-
 /* === MACROS ============================================================== */
-
-/** Defines the PAN ID of the network. */
-#define DEFAULT_PAN_ID                  CCPU_ENDIAN_TO_LE16(0xBABE)
-
-/** This is a device which will communicate with a single coordinator.
- *  Therefore, the maximum number of devices this code needs to
- *  handle is one.
- */
-#define MAX_NUMBER_OF_DEVICES           (1)
-
-/** This is the time period in micro seconds for polling transmissions. */
-#define APP_POLL_PERIOD_MS              (5000)
-
-/** Define the LED on duration time. */
-#define LED_ON_DURATION                 (500000)
-
-#define CHANNEL_OFFSET                  (0)
-
-#define SCAN_CHANNEL                    (1ul << current_channel)
+/** Channel Offset will give us the channel number as (CHANNEL_OFFSET + 11) */
+#define CHANNEL_OFFSET                  (2)
 
 /** Defines the short scan duration time. */
 #define SCAN_DURATION_SHORT             (5)
 /** Defines the long scan duration time. */
 #define SCAN_DURATION_LONG              (6)
 
+#ifndef BEACON_SUPPORT
+/** This is the time period in micro seconds for polling transmissions. */
+#define APP_POLL_PERIOD_MS              (5000)
+
+#endif /* BEACON_SUPPORT */
+/** Define the LED on duration time. */
+#define LED_ON_DURATION                 (500000)
+
+/*
+ * This is the timeout in ms once the node tries to synchronize with the
+ * coordinator. This timeout is set so that the node should be able to receive
+ * at least a beacon frame from its parent.
+ * In case the Beacon Order is increased to a high value, this timeout might
+ * need to be increased as well.
+ */
+#define TIMER_SYNC_BEFORE_ASSOC_MS      (3000)
+#define APP_GUARD_TIME_US               (10000)
+#define MCU_WAKEUP_TIME                 (150)
+#define PAYLOAD_LEN                     (104)
+
+#ifdef GTS_SUPPORT
+#define GTS_PAYLOAD_LEN                 (18)
+#endif
 #if (LED_COUNT >= 3)
 #define LED_START                       (LED0)
 #define LED_NWK_SETUP                   (LED1)
@@ -141,24 +146,114 @@
 #define LED_START                       (LED0)
 #define LED_NWK_SETUP                   (LED0)
 #define LED_DATA                        (LED0)
+#define LED_DATA                        (LED0)
 #endif
 
 /* === GLOBALS ============================================================= */
+extern uint8_t default_key_source[8];
+/* This structure stores the short and extended address of the coordinator. */
+wpan_addr_spec_t coord_addr_spec;
 
+/* This variable counts the number of received broadcast data frames. */
+static uint32_t bc_rx_cnt;
+
+/* This variable counts the number of received indirect data frames. */
+static uint32_t indirect_rx_cnt;
+/** This variable stores the current state of the node. */
+app_state_t app_state = APP_IDLE;
+static uint8_t APP_TIMER;
+/* RTC Configuration and Callback functions */
+
+/** This function shows the stack and application
+ *  capabilities on terminal if SIO_HUB switch
+ *  is enabled.
+ */
+static void print_stack_app_build_features(void);
+
+#ifdef RTC_SLEEP
+
+/**
+ * @brief Configuring RTC Callback Funtion on Overflow
+ *
+ * @param void
+ */
+void configure_rtc_callbacks(void);
+
+/**
+ * @brief Configures and enables RTC count value
+ *
+ * @param void
+ */
+void configure_rtc_count(void);
+
+/**
+ * @brief Callback Function indicating RTC Overflow
+ *
+ * @param void
+ */
+void rtc_overflow_callback(void);
+
+#endif
+
+/** This array stores the current msdu payload. */
+static uint8_t msdu_payload[PAYLOAD_LEN];
+
+uint8_t current_channel;
+uint8_t current_channel_page;
+static uint32_t channels_supported;
+
+#if (defined ENABLE_SLEEP || defined RTC_SLEEP)
+
+/**
+ * @brief API called to put the controller Power save mode with 4MHz timer
+ *
+ * @param timeout Time duration in microseconds for which controller can sleep
+ */
+static void  enter_sleep(uint32_t timeout);
+
+/**
+ * @brief Callback function to wakeup and switching to the default clock source
+ * for starting MAC timers
+ *
+ * @param parameter Pointer to callback parameter
+ *                  (not used in this application, but could be if desired).
+ */
+void wakeup_cb(void *parameter);
+
+/* Residual time returned to MAC for Synchronization after wakeup,When Switched
+ * to Low precision clock during sleep*/
+static uint32_t res;
+/* This variable denotes the sleep duration returned from MAC*/
+uint32_t sleep_time = 0;
+/* Sleep State of the Application and MAC*/
+bool sys_sleep = false;
+#endif
+
+#ifdef ENABLE_SLEEP
+/* Timer for Handling Application Sleep*/
+static uint8_t APP_TIMER_SLEEP;
+extern void hw_overflow_cb();
+extern void hw_expiry_cb();
+
+#endif
+
+#ifndef BEACON_SUPPORT
+static uint8_t APP_TIMER_POLL_DATA;
 /** This structure stores the short address of the coordinator. */
 static uint16_t coord_addr;
 
-/*Stores total receive count*/
-static uint32_t rx_cnt;
+#endif /* BEACON_SUPPORT */
+#if (defined ENABLE_SLEEP || defined RTC_SLEEP)
+#undef SIO_HUB
+#endif
 
-static uint8_t current_channel;
-static uint8_t current_channel_page;
-static uint32_t channels_supported;
-
-static uint8_t APP_TIMER_LED_OFF;
-static uint8_t APP_TIMER_POLL_DATA;
+#ifdef MAC_SECURITY_ZIP
+uint8_t deviceShortAddress = 0xFF;
+#endif
 
 /* === PROTOTYPES ========================================================== */
+
+#ifndef BEACON_SUPPORT
 
 /**
  * @brief Callback function for the application timer
@@ -168,6 +263,8 @@ static uint8_t APP_TIMER_POLL_DATA;
  *                  (not used in this application, but could be if desired).
  */
 static void app_initiate_polling(void *parameter);
+
+#endif
 
 /**
  * @brief Callback function indicating network search
@@ -181,9 +278,11 @@ static void network_search_indication_cb(void *parameter);
  * @brief Callback function for switching off the LED after data reception
  *
  * @param parameter Pointer to callback parameter
- *
+ *                  (not used in this application, but could be if desired).
  */
 static void rx_data_led_off_cb(void *parameter);
+
+#ifndef BEACON_SUPPORT
 
 /**
  * @brief function for the sending received data back to coordinator
@@ -193,6 +292,7 @@ static void rx_data_led_off_cb(void *parameter);
  */
 static void send_data(uint8_t *data);
 
+#endif
 /** Alert to indicate something has gone wrong in the application */
 static void app_alert(void);
 
@@ -204,6 +304,10 @@ static void app_alert(void);
 int main(void)
 {
 	irq_initialize_vectors();
+	#if SAMD || SAMR21
+	system_init();
+	delay_init();
+	#else
 	sysclk_init();
 
 	/* Initialize the board.
@@ -211,7 +315,10 @@ int main(void)
 	 * the board initialization.
 	 */
 	board_init();
-
+	#endif
+#ifdef SIO_HUB
+	sio2host_init();
+#endif
 	sw_timer_init();
 
 	if (MAC_SUCCESS != wpan_init()) {
@@ -220,30 +327,46 @@ int main(void)
 
 	/* Initialize LEDs. */
 	LED_On(LED_START);     /* indicating application is started */
-	LED_Off(LED_NWK_SETUP); /* indicating node is associated */
-	LED_Off(LED_DATA);     /* indicating successfull data transmission */
-
+	LED_Off(LED_NWK_SETUP); /* indicating network is started */
+	LED_Off(LED_DATA);     /* indicating data transmission */
 	cpu_irq_enable();
-
 #ifdef SIO_HUB
+
 	/* Initialize the serial interface used for communication with terminal
-	 *program. */
-	sio2host_init();
+	 * program. */
 
-	/* To make sure the hyper terminal gets connected to the system */
+	/* To Make sure the Hyper Terminal to the System */
 	sio2host_getchar();
-
-	printf("\nNobeacon_Application\r\n\n");
+#ifdef BEACON_SUPPORT
+	printf("\nBeacon_Application\r\n\n");
+#else
+	printf("\nNO Beacon_Application\r\n\n");
+#endif
 	printf("\nDevice\r\n\n");
-#endif /* SIO_HUB */
+	print_stack_app_build_features();
+#endif
 
-	sw_timer_get_id(&APP_TIMER_LED_OFF);
+	sw_timer_get_id(&APP_TIMER);
+#ifndef BEACON_SUPPORT
 	sw_timer_get_id(&APP_TIMER_POLL_DATA);
+#endif /* BEACON_SUPPORT */
 
 	wpan_mlme_reset_req(true);
-
+    #ifdef ENABLE_SLEEP
+	sw_timer_get_id(&APP_TIMER_SLEEP);
+    #endif
+	LED_Off(LED_NWK_SETUP);
 	while (true) {
 		wpan_task();
+		#if (defined ENABLE_SLEEP || defined RTC_SLEEP)
+		/* Requesting MAC for Sleep Duration*/
+		sleep_time = mac_ready_to_sleep();
+		if ((sleep_time > (uint32_t)APP_GUARD_TIME_US)) {
+			/*Entering Power save Mode when the sleep duration is
+			 * above the guard time*/
+			enter_sleep(sleep_time);
+		}
+		#endif
 	}
 }
 
@@ -255,7 +378,7 @@ int main(void)
  * @param msduHandle  Handle of MSDU handed over to MAC earlier
  * @param status      Result for requested data transmission request
  * @param Timestamp   The time, in symbols, at which the data were transmitted
- *                    (only if timestamping is enabled).
+ *                    (only if time stamping is enabled).
  *
  */
 void usr_mcps_data_conf(uint8_t msduHandle,
@@ -268,6 +391,24 @@ void usr_mcps_data_conf(uint8_t msduHandle,
 {
 }
 
+#ifdef GTS_SUPPORT
+void usr_mlme_gts_ind(uint16_t DeviceAddr, gts_char_t GtsChar)
+{
+	DeviceAddr = DeviceAddr;
+	GtsChar = GtsChar;
+}
+
+#endif
+
+#ifdef GTS_SUPPORT
+void usr_mlme_gts_conf(gts_char_t GtsChar, uint8_t status)
+{
+	GtsChar = GtsChar;
+	status = status;
+}
+
+#endif
+
 /*
  * @brief Callback function usr_mcps_data_ind
  *
@@ -277,9 +418,25 @@ void usr_mcps_data_conf(uint8_t msduHandle,
  * @param msdu             Pointer to MSDU
  * @param mpduLinkQuality  LQI measured during reception of the MPDU
  * @param DSN              DSN of the received data frame.
- * @param Timestamp        The time, in symbols, at which the data were received
+ * @param Timestamp        The time, in symbols, at which the data were
+ * received.
  *                         (only if timestamping is enabled).
  */
+#ifdef MAC_SECURITY_ZIP
+void usr_mcps_data_ind(wpan_addr_spec_t *SrcAddrSpec,
+		wpan_addr_spec_t *DstAddrSpec,
+		uint8_t msduLength,
+		uint8_t *msdu,
+		uint8_t mpduLinkQuality,
+		uint8_t DSN,
+#ifdef ENABLE_TSTAMP
+		uint32_t Timestamp,
+				#endif  /* ENABLE_TSTAMP */
+		uint8_t SecurityLevel,
+		uint8_t KeyIdMode,
+		uint8_t KeyIndex)
+#else /* No MAC_SECURITY */
+
 void usr_mcps_data_ind(wpan_addr_spec_t *SrcAddrSpec,
 		wpan_addr_spec_t *DstAddrSpec,
 		uint8_t msduLength,
@@ -291,33 +448,43 @@ void usr_mcps_data_ind(wpan_addr_spec_t *SrcAddrSpec,
 #else
 		uint8_t DSN)
 #endif  /* ENABLE_TSTAMP */
+#endif
 {
 #ifdef SIO_HUB
-	char sio_array[255];
-#endif
-
-	/*increments the receive count*/
-	rx_cnt++;
-
+	/* char sio_array[255]; */
 #ifdef SIO_HUB
-	sprintf(sio_array, "Frame received: %" PRIu32 ",data: %" PRIu8 "\r\n",
-			rx_cnt, *msdu);
-	printf(sio_array);
+	const char Display_Received_Frame[] = "Frame received: %lu\r\n";
 #endif
+#endif
+
+	if (DstAddrSpec->Addr.short_address == BROADCAST) {
+		bc_rx_cnt++;
+#ifdef SIO_HUB
+		printf("Broadcast ");
+		printf(Display_Received_Frame, bc_rx_cnt);
+#endif
+	} else {
+		indirect_rx_cnt++;
+#ifdef SIO_HUB
+		printf("Frame received: ");
+		for (uint8_t i = 0; i < msduLength; i++) {
+			printf("%c", msdu[i]);
+		}
+		printf("\n\r");
+#endif
+	}
 
 	/*
 	 * Dummy data has been received successfully.
+	 * Application code could be added here ...
 	 */
 	LED_On(LED_DATA);
-
-	/*
-	 * Device re-sending the data received from the coordinator
-	 */
+#ifndef BEACON_SUPPORT
 	send_data(msdu);
+#endif  /* BEACON_SUPPORT */
 
-	printf("Frame Transmitted\r\n");
 	/* Start a timer switching off the LED. */
-	sw_timer_start(APP_TIMER_LED_OFF,
+	sw_timer_start(APP_TIMER,
 			LED_ON_DURATION,
 			SW_TIMEOUT_RELATIVE,
 			(FUNC_PTR)rx_data_led_off_cb,
@@ -338,14 +505,13 @@ void usr_mcps_data_ind(wpan_addr_spec_t *SrcAddrSpec,
 #if ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
 
 /*
- * Callback function that must be implemented by application (NHLE) for MAC
- *service
- * MCPS-PURGE.confirm.
+ * Callback function usr_mcps_purge_conf
  *
  * @param msduHandle           Handle (id) of MSDU to be purged.
  * @param status               Result of requested purge operation.
  *
  * @return void
+ *
  */
 void usr_mcps_purge_conf(uint8_t msduHandle,
 		uint8_t status)
@@ -353,46 +519,70 @@ void usr_mcps_purge_conf(uint8_t msduHandle,
 }
 
 #endif  /* ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
-         **/
+        **/
 
 #if (MAC_ASSOCIATION_REQUEST_CONFIRM == 1)
 
 /*
- * Callback function usr_mlme_associate_conf.
+ * @brief Callback function usr_mlme_associate_conf
  *
- * @param AssocShortAddress    Short address allocated by the coordinator.
- * @param status               Result of requested association operation.
- *
- * @return void
- *
+ * @param AssocShortAddress    Short address allocated by the coordinator
+ * @param status               Result of requested association operation
  */
 void usr_mlme_associate_conf(uint16_t AssocShortAddress,
 		uint8_t status)
 {
 	if (status == MAC_SUCCESS) {
 #ifdef SIO_HUB
-		printf("Connected to nonbeacon-enabled network\r\n");
+		printf("Connected to no beacon network\r\n");
 #endif
+		/* Set proper state of application. */
+		app_state = APP_DEVICE_RUNNING;
 
-		/* Stop timer used for search indication (same as used for data
-		 *transmission). */
-		sw_timer_stop(APP_TIMER_LED_OFF);
+		/* Stop timer used for search indication */
+		sw_timer_stop(APP_TIMER);
+
 		LED_On(LED_NWK_SETUP);
+#ifndef BEACON_SUPPORT
 
 		/* Start a timer that polls for pending data at the coordinator.
-		 **/
+		**/
 		sw_timer_start(APP_TIMER_POLL_DATA,
 				((uint32_t)APP_POLL_PERIOD_MS * 1000),
 				SW_TIMEOUT_RELATIVE,
 				(FUNC_PTR)app_initiate_polling,
 				NULL);
+#endif /* end of BEACON_SUPPORT */
+
+#ifdef MAC_SECURITY_ZIP
+		uint16_t mac_dev_table_entries = 3;
+
+		wpan_mlme_set_req(macDeviceTableEntries,
+				NO_PIB_INDEX,
+				&mac_dev_table_entries);
+#endif
+	#ifdef GTS_SUPPORT
+		gts_char_t gts_spec;
+		gts_spec.GtsLength = 2;
+		gts_spec.GtsDirection = GTS_RX_SLOT;
+		gts_spec.GtsCharType = GTS_ALLOCATE;
+		wpan_mlme_gts_req(AssocShortAddress, gts_spec);
+	#endif
 	} else {
+		LED_Off(LED_NWK_SETUP);
+
+		/* Set proper state of application. */
+		app_state = APP_IDLE;
+
 		/* Something went wrong; restart. */
 		wpan_mlme_reset_req(true);
 	}
 
 	/* Keep compiler happy. */
 	AssocShortAddress = AssocShortAddress;
+#ifdef MAC_SECURITY_ZIP
+	deviceShortAddress = AssocShortAddress;
+#endif
 }
 
 #endif  /* (MAC_ASSOCIATION_REQUEST_CONFIRM == 1) */
@@ -403,7 +593,7 @@ void usr_mlme_associate_conf(uint16_t AssocShortAddress,
  * @brief Callback function usr_mlme_associate_ind
  *
  * @param DeviceAddress         Extended address of device requesting
- *association
+ * association
  * @param CapabilityInformation Capabilities of device requesting association
  */
 void usr_mlme_associate_ind(uint64_t DeviceAddress,
@@ -425,12 +615,9 @@ void usr_mlme_associate_ind(uint64_t DeviceAddress,
  * @param PANDescriptor  Pointer to PAN descriptor for received beacon.
  * @param PendAddrSpec   Pending address specification in received beacon.
  * @param AddrList       List of addresses of devices the coordinator has
- *pending data.
+ * pending data.
  * @param sduLength      Length of beacon payload.
  * @param sdu            Pointer to beacon payload.
- *
- * @return void
- *
  */
 void usr_mlme_beacon_notify_ind(uint8_t BSN,
 		wpan_pandescriptor_t *PANDescriptor,
@@ -439,6 +626,113 @@ void usr_mlme_beacon_notify_ind(uint8_t BSN,
 		uint8_t sduLength,
 		uint8_t *sdu)
 {
+#ifdef BEACON_SUPPORT
+	if (APP_SCAN_DONE == app_state) {
+		/* Set proper state of application. */
+		app_state = APP_ASSOC_IN_PROGRESS;
+
+		/*
+		 * Associate to our coordinator.
+		 * Use: bool wpan_mlme_associate_req(uint8_t LogicalChannel,
+		 *                                   uint8_t ChannelPage,
+		 *                                   wpan_addr_spec_t
+		 ****CoordAddrSpec,
+		 *                                   uint8_t
+		 * CapabilityInformation);
+		 * This request will cause a mlme associate confirm message ->
+		 * usr_mlme_associate_conf.
+		 */
+		wpan_mlme_associate_req(current_channel,
+				current_channel_page,
+				&coord_addr_spec,
+				WPAN_CAP_ALLOCADDRESS);
+	} else if (APP_DEVICE_RUNNING == app_state) {
+#else
+	if (APP_DEVICE_RUNNING == app_state) {
+#endif /* BEACON_SUPPORT */
+
+		/* This is the standard portion once the node is associated
+		 * with the application.
+		 */
+
+		/*
+		 * Extract the beacon payload from our coordinator and feed it
+		 * back
+		 * to the coordinator via a data frame.
+		 */
+
+		/* Use: bool wpan_mcps_data_req(uint8_t SrcAddrMode,
+		 *                              wpan_addr_spec_t *DstAddrSpec,
+		 *                              uint8_t msduLength,
+		 *                              uint8_t *msdu,
+		 *                              uint8_t msduHandle,
+		 *                              uint8_t TxOptions);
+		 *
+		 * This request will cause a mcps data confirm message ->
+		 * usr_mcps_data_conf
+		 */
+		if (sduLength > PAYLOAD_LEN) {
+			sduLength = PAYLOAD_LEN;
+		}
+
+		/* Copy payload from beacon frame. */
+		memcpy(&msdu_payload, sdu, sduLength);
+
+		uint8_t src_addr_mode = WPAN_ADDRMODE_SHORT;
+		static uint8_t msdu_handle = 0;
+
+		msdu_handle++;      /* Increment handle */
+
+#ifdef MAC_SECURITY_ZIP
+		wpan_mcps_data_req(src_addr_mode,
+				&coord_addr_spec,
+				sduLength,  /* msduLength */
+				&msdu_payload[0],
+				msdu_handle,
+				WPAN_TXOPT_ACK,
+				ZIP_SEC_MIN,     /* SecurityLevel */
+				NULL,
+				ZIP_KEY_ID_MODE, /* KeyIdMode */
+				deviceShortAddress);  /* KeyIndex */
+#else
+		wpan_mcps_data_req(src_addr_mode,
+				&coord_addr_spec,
+				sduLength,
+				&msdu_payload[0],
+				msdu_handle,
+				WPAN_TXOPT_ACK);
+#endif
+
+#ifdef SIO_HUB
+		{
+			static uint32_t rx_cnt;
+			const char Rx_Beacon_Payload[]
+				= "Rx beacon payload (%lu): ";
+
+			/* Print received payload. */
+			rx_cnt++;
+			printf(Rx_Beacon_Payload, rx_cnt);
+
+			/* Set last element to 0. */
+			if (sduLength == PAYLOAD_LEN) {
+				msdu_payload[PAYLOAD_LEN - 1] = '\0';
+			} else {
+				msdu_payload[sduLength] = '\0';
+			}
+
+			for (uint8_t i = 0; i < sduLength; i++) {
+				printf("%c", msdu_payload[i]);
+			}
+			printf("\r\n");
+		}
+#endif  /* SIO_HUB */
+	}
+
+	/* Keep compiler happy. */
+	BSN = BSN;
+	PANDescriptor = PANDescriptor;
+	PendAddrSpec = PendAddrSpec;
+	AddrList = AddrList;
 }
 
 #endif  /* (MAC_BEACON_NOTIFY_INDICATION == 1) */
@@ -528,16 +822,31 @@ void usr_mlme_disassociate_ind(uint64_t DeviceAddress,
  */
 void usr_mlme_get_conf(uint8_t status,
 		uint8_t PIBAttribute,
+#ifdef MAC_SECURITY_ZIP
+		uint8_t PIBAttributeIndex,
+#endif  /* MAC_SECURITY_ZIP */
 		void *PIBAttributeValue)
 {
+#ifdef MAC_SECURITY_ZIP
+	mac_key_table_t *key_table = (mac_key_table_t *)PIBAttributeValue;
+#endif
 	if ((status == MAC_SUCCESS) && (PIBAttribute == phyCurrentPage)) {
+	#ifdef HIGH_DATA_RATE_SUPPORT
+		current_channel_page = 17;
+	#else
 		current_channel_page = *(uint8_t *)PIBAttributeValue;
+	#endif
+#ifdef MAC_SECURITY_ZIP
+		wpan_mlme_get_req(phyChannelsSupported, NO_PIB_INDEX);
+#else
 		wpan_mlme_get_req(phyChannelsSupported);
+#endif
 	} else if ((status == MAC_SUCCESS) &&
 			(PIBAttribute == phyChannelsSupported)) {
 		uint8_t index;
 
-		channels_supported = *(uint32_t *)PIBAttributeValue;
+		channels_supported = convert_byte_array_to_32_bit(
+				PIBAttributeValue);
 
 		for (index = 0; index < 32; index++) {
 			if (channels_supported & (1 << index)) {
@@ -545,9 +854,8 @@ void usr_mlme_get_conf(uint8_t status,
 				break;
 			}
 		}
-
 #ifdef SIO_HUB
-		printf("Searching network in Channel - %d\r\n",
+		printf("\r\nSearching network in Channel - %d\r\n",
 				current_channel);
 #endif
 
@@ -560,23 +868,42 @@ void usr_mlme_get_conf(uint8_t status,
 		 *                              uint8_t ChannelPage);
 		 *
 		 * This request leads to a scan confirm message ->
-		 *usr_mlme_scan_conf
+		 * usr_mlme_scan_conf
 		 * Scan for about 50 ms on each channel -> ScanDuration = 1
 		 * Scan for about 1/2 second on each channel -> ScanDuration = 5
 		 * Scan for about 1 second on each channel -> ScanDuration = 6
 		 */
 		wpan_mlme_scan_req(MLME_SCAN_TYPE_ACTIVE,
-				SCAN_CHANNEL,
-				SCAN_DURATION_SHORT,
+				SCAN_CHANNEL(current_channel),
+				SCAN_DURATION_LONG,
 				current_channel_page);
 
 		/* Indicate network scanning by a LED flashing. */
-		sw_timer_start(APP_TIMER_LED_OFF,
+		sw_timer_start(APP_TIMER,
 				LED_ON_DURATION,
 				SW_TIMEOUT_RELATIVE,
 				(FUNC_PTR)network_search_indication_cb,
 				NULL);
 	}
+
+#ifdef MAC_SECURITY_ZIP
+	else if ((status == MAC_SUCCESS) &&
+			(PIBAttribute == macKeyTable)) {
+		for (uint8_t i = 0; i < key_table->KeyDeviceListEntries; i++) {
+			if (EMPTY_DEV_HANDLE ==
+					(key_table->KeyDeviceList[i].
+					DeviceDescriptorHandle)) {
+				key_table->KeyDeviceList[i].
+				DeviceDescriptorHandle = 0x00;
+				key_table->KeyDeviceList[i].UniqueDevice = true;
+				break;
+			}
+		}
+		wpan_mlme_set_req(macKeyTable,
+				deviceShortAddress - 1,
+				(uint8_t *)PIBAttributeValue);
+	}
+#endif
 }
 
 #endif  /* (MAC_GET_SUPPORT == 1) */
@@ -601,7 +928,7 @@ void usr_mlme_orphan_ind(uint64_t OrphanAddress)
 
 /*
  * Callback function that must be implemented by application (NHLE) for MAC
- *service
+ * service
  * MLME-POLL.confirm.
  *
  * @param status           Result of requested poll operation.
@@ -611,6 +938,7 @@ void usr_mlme_orphan_ind(uint64_t OrphanAddress)
  */
 void usr_mlme_poll_conf(uint8_t status)
 {
+#ifndef BEACON_SUPPORT
 	/* Start a timer that polls for pending data at the coordinator. */
 	sw_timer_start(APP_TIMER_POLL_DATA,
 			((uint32_t)APP_POLL_PERIOD_MS * 1000),
@@ -618,7 +946,8 @@ void usr_mlme_poll_conf(uint8_t status)
 			(FUNC_PTR)app_initiate_polling,
 			NULL);
 
-	status = status; /* Keep compiler happy. */
+	status = status;    /* Keep compiler happy. */
+#endif
 }
 
 #endif  /* (MAC_INDIRECT_DATA_BASIC == 1) */
@@ -631,8 +960,18 @@ void usr_mlme_poll_conf(uint8_t status)
 void usr_mlme_reset_conf(uint8_t status)
 {
 	if (status == MAC_SUCCESS) {
+#ifdef MAC_SECURITY_ZIP
+		/*	wpan_mlme_get_req(phyCurrentPage,NO_PIB_INDEX);*/
+		wpan_mlme_set_req(macDefaultKeySource,
+				NO_PIB_INDEX,
+				&default_key_source);
+#else
 		wpan_mlme_get_req(phyCurrentPage);
+#endif
 	} else {
+		/* Set proper state of application. */
+		app_state = APP_IDLE;
+
 		/* Something went wrong; restart. */
 		wpan_mlme_reset_req(true);
 	}
@@ -682,14 +1021,14 @@ void usr_mlme_scan_conf(uint8_t status,
 		/*
 		 * Analyze the ResultList.
 		 * Assume that the first entry of the result list is our
-		 *coodinator.
+		 * coodinator.
 		 */
 		coordinator = (wpan_pandescriptor_t *)ResultList;
 
 		for (i = 0; i < ResultListSize; i++) {
 			/*
 			 * Check if the PAN descriptor belongs to our
-			 *coordinator.
+			 * coordinator.
 			 * Check if coordinator allows association.
 			 */
 			if ((coordinator->LogicalChannel == current_channel) &&
@@ -703,40 +1042,62 @@ void usr_mlme_scan_conf(uint8_t status,
 					((uint16_t)1 << ASSOC_PERMIT_BIT_POS))
 					) {
 				/* Store the coordinator's address information.
-				 **/
-				if (coordinator->CoordAddrSpec.AddrMode ==
-						WPAN_ADDRMODE_SHORT) {
-					coord_addr
-						= coordinator->CoordAddrSpec.
-							Addr
-							.short_address;
-				} else {
-					/* Something went wrong; restart. */
-					wpan_mlme_reset_req(true);
-					return;
-				}
-
+				**/
+				coord_addr_spec.AddrMode = WPAN_ADDRMODE_SHORT;
+				coord_addr_spec.PANId = DEFAULT_PAN_ID;
+				ADDR_COPY_DST_SRC_16(
+						coord_addr_spec.Addr.short_address,
+						coordinator->CoordAddrSpec.Addr.short_address);
 #ifdef SIO_HUB
 				printf("Found network\r\n");
 #endif
 
+#ifdef BEACON_SUPPORT
+				/* Set proper state of application. */
+				app_state = APP_SCAN_DONE;
+#endif
+
+				/*
+				 * Set the PAN-Id of the scanned network.
+				 * This is required in order to perform a proper
+				 * sync
+				 * before assocation.
+				 * Use: bool wpan_mlme_set_req(uint8_t
+				 * PIBAttribute,
+				 *                             void
+				 ****PIBAttributeValue);
+				 *
+				 * This request leads to a set confirm message
+				 *-> usr_mlme_set_conf
+				 */
+				uint16_t pan_id;
+				pan_id = DEFAULT_PAN_ID;
+				wpan_mlme_set_req(macPANId,
+#ifdef MAC_SECURITY_ZIP
+						NO_PIB_INDEX,
+#endif
+						&pan_id);
+#ifndef BEACON_SUPPORT
+				/* Set proper state of application. */
+				app_state = APP_ASSOC_IN_PROGRESS;
+
 				/*
 				 * Associate to our coordinator.
 				 * Use: bool wpan_mlme_associate_req(uint8_t
-				 *LogicalChannel,
+				 * LogicalChannel,
 				 *                                   uint8_t
-				 *ChannelPage,
+				 * ChannelPage,
 				 *
 				 *
 				 *
 				 *
 				 *
 				 *                              wpan_addr_spec_t
-				 **CoordAddrSpec,
+				 ***CoordAddrSpec,
 				 *                                   uint8_t
-				 *CapabilityInformation);
+				 * CapabilityInformation);
 				 * This request will cause a mlme associate
-				 *confirm message ->
+				 * confirm message ->
 				 * usr_mlme_associate_conf.
 				 */
 				wpan_mlme_associate_req(
@@ -744,6 +1105,7 @@ void usr_mlme_scan_conf(uint8_t status,
 						coordinator->ChannelPage,
 						&(coordinator->CoordAddrSpec),
 						WPAN_CAP_ALLOCADDRESS);
+#endif /* BEACON_SUPPORT */
 				return;
 			}
 
@@ -753,11 +1115,11 @@ void usr_mlme_scan_conf(uint8_t status,
 
 		/*
 		 * If here, the result list does not contain our expected
-		 *coordinator.
+		 * coordinator.
 		 * Let's scan again.
 		 */
 		wpan_mlme_scan_req(MLME_SCAN_TYPE_ACTIVE,
-				SCAN_CHANNEL,
+				SCAN_CHANNEL(current_channel),
 				SCAN_DURATION_SHORT,
 				current_channel_page);
 	} else if (status == MAC_NO_BEACON) {
@@ -766,10 +1128,13 @@ void usr_mlme_scan_conf(uint8_t status,
 		 * Scan again, but used longer scan duration.
 		 */
 		wpan_mlme_scan_req(MLME_SCAN_TYPE_ACTIVE,
-				SCAN_CHANNEL,
+				SCAN_CHANNEL(current_channel),
 				SCAN_DURATION_LONG,
 				current_channel_page);
 	} else {
+		/* Set proper state of application. */
+		app_state = APP_IDLE;
+
 		/* Something went wrong; restart. */
 		wpan_mlme_reset_req(true);
 	}
@@ -788,18 +1153,61 @@ void usr_mlme_scan_conf(uint8_t status,
  * @param status        Result of requested PIB attribute set operation
  * @param PIBAttribute  Updated PIB attribute
  */
+#ifndef MAC_SECURITY_ZIP
+
+/*
+ * @brief Callback function usr_mlme_set_conf
+ *
+ * @param status        Result of requested PIB attribute set operation
+ * @param PIBAttribute  Updated PIB attribute
+ */
 void usr_mlme_set_conf(uint8_t status,
 		uint8_t PIBAttribute)
 {
+	if ((status == MAC_SUCCESS) && (PIBAttribute == macPANId)) {
+		/*
+		 * Set the Coordinator Short Address of the scanned network.
+		 * This is required in order to perform a proper sync
+		 * before assocation.
+		 */
+		wpan_mlme_set_req(macCoordShortAddress, &coord_addr_spec.Addr);
+	} else if ((status == MAC_SUCCESS) &&
+			(PIBAttribute == macCoordShortAddress)) {
+		/*
+		 * Sync with beacon frames from our coordinator.
+		 * Use: bool wpan_mlme_sync_req(uint8_t LogicalChannel,
+		 *                              uint8_t ChannelPage,
+		 *                              bool TrackBeacon);
+		 *
+		 * This does not lead to an immediate reaction.
+		 *
+		 * In case we receive beacon frames from our coordinator
+		 * including
+		 * a beacon payload, this is indicated in the callback function
+		 * usr_mlme_beacon_notify_ind().
+		 *
+		 * In case the device cannot find its coordinator or later
+		 * looses
+		 * synchronization with its parent, this is indicated in the
+		 * callback function usr_mlme_sync_loss_ind().
+		 */
+#ifdef BEACON_SUPPORT
+		wpan_mlme_sync_req(current_channel,
+				current_channel_page,
+				1);
+#endif /* BEACON_SUPPORT */
+	} else {
+		/* Set proper state of application. */
+		app_state = APP_IDLE;
+
+		/* Something went wrong; restart. */
+		wpan_mlme_reset_req(true);
+	}
 }
 
-#if (MAC_START_REQUEST_CONFIRM == 1)
+#endif
 
-/*
- * @brief Callback function usr_mlme_start_conf
- *
- * @param status        Result of requested start operation
- */
+#if (MAC_START_REQUEST_CONFIRM == 1)
 void usr_mlme_start_conf(uint8_t status)
 {
 }
@@ -816,15 +1224,26 @@ void usr_mlme_start_conf(uint8_t status)
  *                       synchronization or to which it was realigned.
  * @param ChannelPage    The channel page on which the device lost
  *                       synchronization or to which it was realigned.
- *
- * @return void
- *
  */
 void usr_mlme_sync_loss_ind(uint8_t LossReason,
 		uint16_t PANId,
 		uint8_t LogicalChannel,
 		uint8_t ChannelPage)
 {
+	/*
+	 * Once we lost sync this the coordinator we need to re-sync.
+	 * Since we the network parameter are not supposed ot change,
+	 * use the already known parameters form our coordinator.
+	 */
+#ifdef BEACON_SUPPORT
+	wpan_mlme_sync_req(LogicalChannel,
+			ChannelPage,
+			1);
+#endif /* BEACON_SUPPORT */
+
+	/* Keep compiler happy. */
+	LossReason = LossReason;
+	PANId = PANId;
 }
 
 /* Alert to indicate something has gone wrong in the application */
@@ -866,6 +1285,8 @@ static void app_alert(void)
 	}
 }
 
+#ifndef BEACON_SUPPORT
+
 /*
  * @brief Callback function for the application timer
  *        initiating polling of coordinator
@@ -877,13 +1298,13 @@ static void app_initiate_polling(void *parameter)
 {
 	/*
 	 * Initiate MLME-POLL.request service and have it placed in the MLME-SAP
-	 *queue.
+	 * queue.
 	 *
 	 * @param CoordAddrSpec   Pointer to wpan_addr_spec_t structure for the
-	 *coordinator.
+	 * coordinator.
 	 *
 	 * @return true - success; false - buffer not availability or queue
-	 *full.
+	 * full.
 	 */
 	wpan_addr_spec_t coord_addr_spec;
 
@@ -898,6 +1319,8 @@ static void app_initiate_polling(void *parameter)
 	parameter = parameter;
 }
 
+#endif /* BEACON_SUPPORT */
+
 /*
  * @brief Callback function indicating network search
  *
@@ -908,13 +1331,22 @@ static void network_search_indication_cb(void *parameter)
 {
 	LED_Toggle(LED_NWK_SETUP);
 
+	/* Re-start timer again. */
+
+	/*sw_timer_start(APP_TIMER,
+	 *              500000,
+	 *              SW_TIMEOUT_RELATIVE,
+	 *              (FUNC_PTR)network_search_indication_cb,
+	 *              NULL);*/
+
+#ifndef BEACON_SUPPORT
 	/* Re-start led timer again. */
-	sw_timer_start(APP_TIMER_LED_OFF,
+	sw_timer_start(APP_TIMER,
 			LED_ON_DURATION,
 			SW_TIMEOUT_RELATIVE,
 			(FUNC_PTR)network_search_indication_cb,
 			NULL);
-
+#endif /* BEACON_SUPPORT */
 	parameter = parameter; /* Keep compiler happy. */
 }
 
@@ -922,7 +1354,7 @@ static void network_search_indication_cb(void *parameter)
  * @brief Callback function for switching off the LED after data reception
  *
  * @param parameter Pointer to callback parameter
- *
+ *                  (not used in this application, but could be if desired).
  */
 static void rx_data_led_off_cb(void *parameter)
 {
@@ -930,6 +1362,8 @@ static void rx_data_led_off_cb(void *parameter)
 
 	parameter = parameter; /* Keep compiler happy. */
 }
+
+#ifndef BEACON_SUPPORT
 
 /*
  * @brief function for the sending received data back to coordinator
@@ -963,10 +1397,168 @@ static void send_data(uint8_t *data)
 	ADDR_COPY_DST_SRC_16(dst_addr.Addr.short_address, coord_addr);
 
 	msduHandle++;
+#ifdef MAC_SECURITY_ZIP
+	wpan_mcps_data_req(src_addr_mode,
+			&dst_addr,
+			1,                                  /* msduLength */
+			data,
+			msduHandle,
+			WPAN_TXOPT_ACK,
+			ZIP_SEC_MIN,                                     /*
+	                                                                  *
+	                                                                  *SecurityLevel
+	                                                                  **/
+			NULL,
+			ZIP_KEY_ID_MODE,                                 /*
+	                                                                  *
+	                                                                  *KeyIdMode
+	                                                                  **/
+			deviceShortAddress);                                  /*
+	                                                                       *
+	                                                                       *KeyIndex
+	                                                                       **/
+#else
 	wpan_mcps_data_req(src_addr_mode,
 			&dst_addr,
 			1,
 			data,
 			msduHandle,
 			WPAN_TXOPT_ACK);
+#endif /* MAC_SECURITY_ZIP */
+}
+
+#endif /* BEACON_SUPPORT */
+#if (defined ENABLE_SLEEP || defined RTC_SLEEP)
+static void enter_sleep(uint32_t timeout)
+{
+	/*Entering Power save after configuring Timer running at 4MHz as Wakeup
+	 * source*/
+	sys_sleep = true;
+	#ifdef ENABLE_SLEEP
+	ENTER_CRITICAL_REGION();
+
+	/* Stop the Software timer running at CPU clock and initialize the
+	 * software timer to run at 4MHz clock*/
+	common_tc_stop();
+	common_tc_init();
+	set_common_tc_overflow_callback(hw_overflow_cb);
+	set_common_tc_expiry_callback(hw_expiry_cb);
+	timeout = timeout - MCU_WAKEUP_TIME;
+	/*Start Wakeup timer*/
+	sw_timer_start(APP_TIMER_SLEEP, timeout,
+			SW_TIMEOUT_RELATIVE,
+			(FUNC_PTR)wakeup_cb,
+			NULL);
+	LEAVE_CRITICAL_REGION();
+	/* put the MCU in idle mode with timer as wakeup source*/
+	system_set_sleepmode(SYSTEM_SLEEPMODE_IDLE_2);
+	system_sleep();
+    #endif
+    #ifdef RTC_SLEEP
+	/*Configure the rtc module and callback*/
+	configure_rtc_count();
+	/* Configure and enable callback */
+	configure_rtc_callbacks();
+	/* Set timeout period for rtc*/
+	res = timeout % 1000;
+	timeout = timeout / 1000;
+	rtc_count_set_period(timeout);
+	/*put the MCU in standby mode with RTC as wakeup source*/
+	system_set_sleepmode(SYSTEM_SLEEPMODE_STANDBY);
+	system_sleep();
+	#endif
+}
+
+#ifdef RTC_SLEEP
+void configure_rtc_count(void) /* Configuring rtc clock prescaler and mode*/
+{
+	struct rtc_count_config config_rtc_count;
+	rtc_count_get_config_defaults(&config_rtc_count);
+	config_rtc_count.prescaler           = RTC_COUNT_PRESCALER_DIV_1;
+	config_rtc_count.mode                = RTC_COUNT_MODE_16BIT;
+
+	/** Continuously update the counter value so no synchronization is
+	 *  needed for reading. */
+	config_rtc_count.continuously_update = true;
+	rtc_count_init(&config_rtc_count);
+	rtc_count_enable();
+}
+
+void configure_rtc_callbacks(void)
+{
+	/*Register rtc callback*/
+	rtc_count_register_callback(
+			rtc_overflow_callback, RTC_COUNT_CALLBACK_OVERFLOW);
+	rtc_count_enable_callback(RTC_COUNT_CALLBACK_OVERFLOW);
+}
+
+void rtc_overflow_callback(void)
+{
+	/* Do something on RTC overflow here */
+	rtc_count_disable();
+	/* Wakeup callback to switch the timer to default cpu clock*/
+	wakeup_cb(NULL);
+}
+
+#endif
+void wakeup_cb(void *parameter)
+{
+	sys_sleep = false;
+    #ifdef ENABLE_SLEEP
+	ENTER_CRITICAL_REGION();
+
+	/* Stop the Software timer running at 4MHz clock and initialize the
+	 * software timer to default cpu clock*/
+	common_tc_stop();
+	common_tc_init();
+	set_common_tc_overflow_callback(hw_overflow_cb);
+	set_common_tc_expiry_callback(hw_expiry_cb);
+	sw_timer_stop(APP_TIMER_SLEEP);
+	LEAVE_CRITICAL_REGION();
+	#endif
+
+	/* Callback Function in MAC for beacon Synchronization and Handling the
+	 * residual time after Wakeup*/
+	mac_wakeup(res);
+}
+
+#endif
+
+/*
+ * @brief This function will show up the application
+ *        and stack build features and available in the firmware
+ * @param void
+ *
+ */
+static void print_stack_app_build_features(void)
+{
+#ifdef STB_ON_SAL
+	printf("\r\n Security Tool Box On SAL : Enabled");
+#else
+	printf("\r\n Security Tool Box On SAL : Disabled");
+#endif
+
+#ifdef MAC_SECURITY_ZIP
+	printf("\r\n MAC Data & Security Module : Enabled");
+#else
+	printf("\r\n MAC Data & Security Module : Disabled");
+#endif
+
+#ifdef MAC_SECURITY_BEACON
+	printf("\r\n MAC Beacon Security : Enabled");
+#else
+	printf("\r\n MAC Beacon Security : Disabled");
+#endif
+
+#ifdef HIGH_DATA_RATE_SUPPORT
+	printf("\r\n High Data Rate Support : Enabled");
+#else
+	printf("\r\n High Data Rate Support : Disabled");
+#endif
+
+#ifdef GTS_SUPPORT
+	printf("\r\n MAC GTS Support : Enabled");
+#else
+	printf("\r\n MAC GTS Support : Disabled");
+#endif
 }

@@ -57,7 +57,18 @@ extern "C" {
  * \weakgroup sleepmgr_group
  * @{
  */
+#if (SAMG)
+enum sleepmgr_mode {
+	//! Active mode.
+	SLEEPMGR_ACTIVE = 0,
+	/*! Wait mode.
+	 *  Potential Wake Up sources: fast startup events */
+	SLEEPMGR_WAIT,
 
+	SLEEPMGR_NR_OF_MODES,
+};
+
+#else
 enum sleepmgr_mode {
 	//! Active mode.
 	SLEEPMGR_ACTIVE = 0,
@@ -69,6 +80,10 @@ enum sleepmgr_mode {
 	/*! WFI sleep mode.
 	 * Potential Wake Up sources: fast startup events and interrupt. */
 	SLEEPMGR_SLEEP_WFI,
+	/*! Wait mode, wakeup fast (in 3ms).
+	 *  XTAL is not disabled when sleep.
+	 *  Potential Wake Up sources: fast startup events */
+	SLEEPMGR_WAIT_FAST,
 	/*! Wait mode.
 	 *  Potential Wake Up sources: fast startup events */
 	SLEEPMGR_WAIT,
@@ -77,6 +92,7 @@ enum sleepmgr_mode {
 
 	SLEEPMGR_NR_OF_MODES,
 };
+#endif
 
 /**
  * \internal

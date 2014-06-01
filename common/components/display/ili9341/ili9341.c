@@ -3,7 +3,7 @@
  *
  * \brief ILI9341 display controller component driver
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -317,10 +317,10 @@ void ili9341_set_limits(ili9341_coord_t start_x, ili9341_coord_t start_y,
  *
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * ili9341_set_top_left_limit(0, 0);
- * ili9341_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	ili9341_set_top_left_limit(0, 0);
+	ili9341_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \retval ili9341_color_t The read color pixel
  */
@@ -349,10 +349,10 @@ ili9341_color_t ili9341_read_gram(void)
  *
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * ili9341_set_top_left_limit(0, 0);
- * ili9341_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	ili9341_set_top_left_limit(0, 0);
+	ili9341_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param color The color pixel to write to the screen
  */
@@ -375,10 +375,10 @@ void ili9341_write_gram(ili9341_color_t color)
  *
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * ili9341_set_top_left_limit(0, 0);
- * ili9341_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	ili9341_set_top_left_limit(0, 0);
+	ili9341_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param pixels Pointer to the pixel data
  * \param count Number of pixels to copy to the screen
@@ -465,10 +465,10 @@ void ili9341_copy_pixels_to_screen(const ili9341_color_t *pixels, uint32_t count
  *
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * ili9341_set_top_left_limit(0, 0);
- * ili9341_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	ili9341_set_top_left_limit(0, 0);
+	ili9341_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param pixels Pointer to the progmem data
  * \param count Number of pixels to write
@@ -505,10 +505,10 @@ void ili9341_copy_progmem_pixels_to_screen(
  *
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * ili9341_set_top_left_limit(0, 0);
- * ili9341_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	ili9341_set_top_left_limit(0, 0);
+	ili9341_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param color The color to write to the display
  * \param count The number of pixels to write with this color
@@ -585,10 +585,10 @@ void ili9341_duplicate_pixel(const ili9341_color_t color, uint32_t count)
  *
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * ili9341_set_top_left_limit(0, 0);
- * ili9341_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	ili9341_set_top_left_limit(0, 0);
+	ili9341_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param pixels Pointer to the pixel buffer to read to
  * \param count Number of pixels to read

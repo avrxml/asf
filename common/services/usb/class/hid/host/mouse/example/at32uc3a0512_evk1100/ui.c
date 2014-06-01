@@ -3,7 +3,7 @@
  *
  * \brief User Interface
  *
- * Copyright (C) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,7 +56,7 @@ static void ui_disable_asynchronous_interrupt(void);
 /**
  * \brief Interrupt handler for interrupt pin change
  */
-ISR(ui_wakeup_isr, AVR32_GPIO0_IRQ_GROUP, 0)
+ISR(ui_wakeup_isr, AVR32_GPIO_IRQ_GROUP, 0)
 {
 	// Clear GPIO interrupt.
 	gpio_clear_pin_interrupt_flag(GPIO_JOYSTICK_PUSH);

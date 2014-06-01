@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 EEPROM Emulator
+ * \brief SAM D20/D21/R21 EEPROM Emulator
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -136,7 +136,7 @@ static struct _eeprom_module _eeprom_instance = {
 
 
 /** \internal
- *  \breif Erases a given row within the physical EEPROM memory space.
+ *  \brief Erases a given row within the physical EEPROM memory space.
  *
  *  \param[in] row  Physical row in EEPROM space to erase
  */
@@ -152,7 +152,7 @@ static void _eeprom_emulator_nvm_erase_row(
 }
 
 /** \internal
- *  \breif Fills the internal NVM controller page buffer in physical EEPROM memory space.
+ *  \brief Fills the internal NVM controller page buffer in physical EEPROM memory space.
  *
  *  \param[in] physical_page  Physical page in EEPROM space to fill
  *  \param[in] data           Data to write to the physical memory page
@@ -172,7 +172,7 @@ static void _eeprom_emulator_nvm_fill_cache(
 }
 
 /** \internal
- *  \breif Commits the internal NVM controller page buffer to physical memory.
+ *  \brief Commits the internal NVM controller page buffer to physical memory.
  *
  *  \param[in] physical_page  Physical page in EEPROM space to commit
  */
@@ -189,7 +189,7 @@ static void _eeprom_emulator_nvm_commit_cache(
 }
 
 /** \internal
- *  \breif Reads a page of data stored in physical EEPROM memory space.
+ *  \brief Reads a page of data stored in physical EEPROM memory space.
  *
  *  \param[in]  physical_page  Physical page in EEPROM space to read
  *  \param[out] data           Destination buffer to fill with the read data
@@ -524,13 +524,13 @@ static enum status_code _eeprom_emulator_verify_master_page(void)
  *
  * \retval STATUS_OK                    If the emulator parameters were retrieved
  *                                      successfully
- * \retval STATUS_ERR_NOT_INITALIZATED  If the EEPROM Emulator is not initialized
+ * \retval STATUS_ERR_NOT_INITIALIZED   If the EEPROM Emulator is not initialized
  */
 enum status_code eeprom_emulator_get_parameters(
 	struct eeprom_emulator_parameters *const parameters)
 {
 	if (_eeprom_instance.initialized == false) {
-		return STATUS_ERR_NOT_INITALIZATED;
+		return STATUS_ERR_NOT_INITIALIZED;
 	}
 
 	parameters->page_size              = EEPROM_PAGE_SIZE;
@@ -583,7 +583,6 @@ enum status_code eeprom_emulator_init(void)
 	/* Ensure the device fuses are configured for at least one master page row,
 	 * one user EEPROM data row and one spare row */
 	if (parameters.eeprom_number_of_pages < (3 * NVMCTRL_ROW_PAGES)) {
-		Assert(false);
 		return STATUS_ERR_NO_MEMORY;
 	}
 
@@ -661,7 +660,7 @@ void eeprom_emulator_erase_memory(void)
  * \return Status code indicating the status of the operation.
  *
  * \retval STATUS_OK                    If the page was successfully read
- * \retval STATUS_ERR_NOT_INITALIZATED  If the EEPROM emulator is not initialized
+ * \retval STATUS_ERR_NOT_INITIALIZED   If the EEPROM emulator is not initialized
  * \retval STATUS_ERR_BAD_ADDRESS       If an address outside the valid emulated
  *                                      EEPROM memory space was supplied
  */
@@ -671,7 +670,7 @@ enum status_code eeprom_emulator_write_page(
 {
 	/* Ensure the emulated EEPROM has been initialized first */
 	if (_eeprom_instance.initialized == false) {
-		return STATUS_ERR_NOT_INITALIZATED;
+		return STATUS_ERR_NOT_INITIALIZED;
 	}
 
 	/* Make sure the write address is within the allowable address space */
@@ -740,7 +739,7 @@ enum status_code eeprom_emulator_write_page(
  * \return Status code indicating the status of the operation.
  *
  * \retval STATUS_OK                    If the page was successfully read
- * \retval STATUS_ERR_NOT_INITALIZATED  If the EEPROM emulator is not initialized
+ * \retval STATUS_ERR_NOT_INITIALIZED   If the EEPROM emulator is not initialized
  * \retval STATUS_ERR_BAD_ADDRESS       If an address outside the valid emulated
  *                                      EEPROM memory space was supplied
  */
@@ -750,7 +749,7 @@ enum status_code eeprom_emulator_read_page(
 {
 	/* Ensure the emulated EEPROM has been initialized first */
 	if (_eeprom_instance.initialized == false) {
-		return STATUS_ERR_NOT_INITALIZATED;
+		return STATUS_ERR_NOT_INITIALIZED;
 	}
 
 	/* Make sure the read address is within the allowable address space */
@@ -797,7 +796,7 @@ enum status_code eeprom_emulator_read_page(
  * \return Status code indicating the status of the operation.
  *
  * \retval STATUS_OK                    If the page was successfully read
- * \retval STATUS_ERR_NOT_INITALIZATED  If the EEPROM emulator is not initialized
+ * \retval STATUS_ERR_NOT_INITIALIZED   If the EEPROM emulator is not initialized
  * \retval STATUS_ERR_BAD_ADDRESS       If an address outside the valid emulated
  *                                      EEPROM memory space was supplied
  */
@@ -809,9 +808,11 @@ enum status_code eeprom_emulator_write_buffer(
 	enum status_code error_code = STATUS_OK;
 	uint8_t buffer[EEPROM_PAGE_SIZE];
 	uint8_t logical_page = offset / EEPROM_PAGE_SIZE;
-
-	/** Perform the initial page read if the starting offset is not aligned  */
-	if (offset % EEPROM_PAGE_SIZE) {
+	uint16_t c = offset;
+	/* Keep track of whether the currently updated page has been written */
+	bool page_dirty = false;
+	/** Perform the initial page read if necessary*/
+	if ((offset % EEPROM_PAGE_SIZE) || length < EEPROM_PAGE_SIZE) {
 		error_code = eeprom_emulator_read_page(logical_page, buffer);
 
 		if (error_code != STATUS_OK) {
@@ -819,17 +820,21 @@ enum status_code eeprom_emulator_write_buffer(
 		}
 	}
 
-	/* Write the specified data to the emulated EEPROM memory space */
-	for (uint16_t c = offset; c < (length + offset); c++) {
-		/* Copy the next byte of data from the user's buffer to the temporary
-		 * buffer */
+	/* To avoid entering into the initial if in the loop the first time */
+	if ((offset % EEPROM_PAGE_SIZE) == 0) {
 		buffer[c % EEPROM_PAGE_SIZE] = data[c - offset];
+		page_dirty = true;
+		c=c+1;
+	}
 
+	/* Write the specified data to the emulated EEPROM memory space */
+	for (; c < (length + offset); c++) {
 		/* Check if we have written up to a new EEPROM page boundary */
 		if ((c % EEPROM_PAGE_SIZE) == 0) {
 			/* Write the current page to non-volatile memory from the temporary
 			 * buffer */
 			error_code = eeprom_emulator_write_page(logical_page, buffer);
+			page_dirty = false;
 
 			if (error_code != STATUS_OK) {
 				break;
@@ -846,6 +851,15 @@ enum status_code eeprom_emulator_write_buffer(
 				return error_code;
 			}
 		}
+		/* Copy the next byte of data from the user's buffer to the temporary
+		 * buffer */
+		buffer[c % EEPROM_PAGE_SIZE] = data[c - offset];
+		page_dirty = true;
+	}
+
+	/* If the current page is dirty, write it */
+	if (page_dirty) {
+		error_code = eeprom_emulator_write_page(logical_page, buffer);
 	}
 
 	return error_code;
@@ -866,7 +880,7 @@ enum status_code eeprom_emulator_write_buffer(
  * \return Status code indicating the status of the operation.
  *
  * \retval STATUS_OK                    If the page was successfully read
- * \retval STATUS_ERR_NOT_INITALIZATED  If the EEPROM emulator is not initialized
+ * \retval STATUS_ERR_NOT_INITIALIZED   If the EEPROM emulator is not initialized
  * \retval STATUS_ERR_BAD_ADDRESS       If an address outside the valid emulated
  *                                      EEPROM memory space was supplied
  */
@@ -875,21 +889,25 @@ enum status_code eeprom_emulator_read_buffer(
 		uint8_t *const data,
 		const uint16_t length)
 {
-	enum status_code error_code = STATUS_OK;
+	enum status_code error_code;
 	uint8_t buffer[EEPROM_PAGE_SIZE];
 	uint8_t logical_page = offset / EEPROM_PAGE_SIZE;
+	uint16_t c = offset;
 
-	/** Perform the initial page read if the starting offset is not aligned  */
-	if (offset % EEPROM_PAGE_SIZE) {
-		error_code = eeprom_emulator_read_page(logical_page, buffer);
+	/** Perform the initial page read  */
+	error_code = eeprom_emulator_read_page(logical_page, buffer);
+	if (error_code != STATUS_OK) {
+		return error_code;
+	}
 
-		if (error_code != STATUS_OK) {
-			return error_code;
-		}
+	/* To avoid entering into the initial if in the loop the first time */
+	if ((offset % EEPROM_PAGE_SIZE) == 0) {
+		data[0] = buffer[0];
+		c=c+1;
 	}
 
 	/* Read in the specified data from the emulated EEPROM memory space */
-	for (uint16_t c = offset; c < (length + offset); c++) {
+	for (; c < (length + offset); c++) {
 		/* Check if we have read up to a new EEPROM page boundary */
 		if ((c % EEPROM_PAGE_SIZE) == 0) {
 			/* Increment the page number we are looking at */

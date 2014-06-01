@@ -3,7 +3,7 @@
  *
  * \brief AVR MEGARF WatchDog Timer driver Definition.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -371,9 +371,9 @@ void wdt_reset_mcu(void);
  * \subsection megarf_wdt_basic_use_case_setup_code Example code
  * Add to application initialization:
  * \code
- *    wdt_set_timeout_period(WDT_TIMEOUT_PERIOD_2KCLK);
- *    wdt_enable(SYSTEM_RESET_MODE);
- * \endcode
+	wdt_set_timeout_period(WDT_TIMEOUT_PERIOD_2KCLK);
+	wdt_enable(SYSTEM_RESET_MODE);
+\endcode
  *
  * \subsection megarf_wdt_basic_use_case_setup_flow Workflow
  * -# Set timeout period to 2K cycles or 16 ms:
@@ -385,9 +385,9 @@ void wdt_reset_mcu(void);
  * \subsection megarf_wdt_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    delay_ms(10);
- *    wdt_reset();
- * \endcode
+	delay_ms(10);
+	wdt_reset();
+\endcode
  *
  * \subsection megarf_wdt_basic_use_case_usage_flow Workflow
  * -# Wait for 10 ms:
@@ -416,10 +416,10 @@ void wdt_reset_mcu(void);
  * \subsection megarf_wdt_use_case_1_setup_code Example code
  * Add to application initialization:
  * \code
- *    wdt_set_timeout_period(WDT_TIMEOUT_PERIOD_4KCLK);
- *	  wdt_set_interrupt_callback(wdt_timer_callback);
- *    wdt_enable(INTERRUPT_MODE);
- * \endcode
+	wdt_set_timeout_period(WDT_TIMEOUT_PERIOD_4KCLK);
+	wdt_set_interrupt_callback(wdt_timer_callback);
+	wdt_enable(INTERRUPT_MODE);
+\endcode
  *
  * \subsection megarf_wdt_use_case_1_setup_flow Workflow
  * -# Set timeout period to 4K cycles or 32 ms:
@@ -434,9 +434,9 @@ void wdt_reset_mcu(void);
  * \subsection megarf_wdt_use_case_1_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    delay_ms(25);
- *    wdt_reset();
- * \endcode
+	delay_ms(25);
+	wdt_reset();
+\endcode
  *
  * \subsection megarf_wdt_use_case_1_usage_flow Workflow
  * -# Wait for 25 ms to not reset the WDT :

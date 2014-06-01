@@ -105,8 +105,8 @@
 // From module: RTC - Real Time Clock
 #include <rtc.h>
 
-// From module: SAM4S startup code
-#include <exceptions.h>
+// From module: SAM4S Xplained Pro LED support enabled
+#include <led.h>
 
 // From module: SD/MMC stack + Memory Control Access (aka ctrl_access, required for file system or USB)
 #include <sd_mmc_mem.h>

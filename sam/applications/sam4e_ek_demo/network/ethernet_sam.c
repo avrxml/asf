@@ -3,7 +3,7 @@
  *
  * \brief Ethernet management for the standalone lwIP example.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -66,19 +66,19 @@
 #include "lwip/tcp_impl.h"
 #endif
 #include "netif/etharp.h"
-#include "netif/ethernetif.h"
+#include "netif/sam4e_gmac.h"
 
 #if defined(HTTP_RAW_USED)
 #include "httpd.h"
 #endif
 
+//#define TRACE_DEBUG(...)     printf(__VA_ARGS__)
 #define TRACE_DEBUG(...)
 
 /** Global variable containing MAC Config (hw addr, IP, GW, ...) */
 struct netif gs_net_if;
 extern uint32_t g_ip_mode;
 extern int8_t g_c_ipconfig[];
-const portTickType task_delay = 50UL / portTICK_RATE_MS;
 
 /** Timer for calling lwIP tmr functions without system */
 typedef struct timers_info {
@@ -95,7 +95,7 @@ static timers_info_t gs_timers_table[] = {
 	{0, ARP_TMR_INTERVAL, etharp_tmr},
 	/* LWIP_DHCP */
 #if LWIP_DHCP
-	{0, DHCP_COARSE_TIMER_SECS, dhcp_coarse_tmr},
+	{0, DHCP_COARSE_TIMER_MSECS, dhcp_coarse_tmr},
 	{0, DHCP_FINE_TIMER_MSECS, dhcp_fine_tmr},
 #endif
 };
@@ -193,9 +193,6 @@ void init_ethernet(void)
 	/** Initialize lwIP */
 	lwip_init();
 
-	/** Init timer service */
-	sys_init_timing();
-
 	/** Set hw and IP parameters, initialize MAC too */
 	ethernet_configure_interface();
 
@@ -220,7 +217,7 @@ void status_callback(struct netif *netif)
 		TRACE_DEBUG((char const*)g_c_ipconfig);
 		g_ip_mode = 3;
 	} else {
-		printf("Network down");
+		TRACE_DEBUG("Network down");
 	}
 }
 
@@ -230,7 +227,9 @@ void status_callback(struct netif *netif)
  */
 void ethernet_task(void)
 {
-	/** Run periodic tasks */
+	/* Run polling tasks */
+	ethernetif_input(&gs_net_if);
+
+	/* Run periodic tasks */
 	timers_update();
-	vTaskDelay(task_delay);
 }

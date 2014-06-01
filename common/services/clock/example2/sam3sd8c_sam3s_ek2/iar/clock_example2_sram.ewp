@@ -294,12 +294,12 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
+					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../..</state>
+					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/../../../../ioport</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
@@ -556,12 +556,12 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
+					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../..</state>
+					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/../../../../ioport</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
@@ -754,7 +754,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1210,12 +1209,12 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
+					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../..</state>
+					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/../../../../ioport</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
@@ -1472,12 +1471,12 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
+					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../..</state>
+					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/../../../../ioport</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pio</state>
@@ -1670,7 +1669,6 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
-					<state></state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>

@@ -5,7 +5,7 @@
  * \brief Generic FreeRTOS peripheral control functions
  *
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -310,7 +310,7 @@ status_code_t freertos_obtain_peripheral_access_mutex(
 void freertos_start_pdc_transfer(
 		freertos_dma_event_control_t *dma_event_control,
 		const uint8_t *data, size_t len, void *pdc_base_address,
-		xSemaphoreHandle *notification_semaphore, bool is_transmitting)
+		xSemaphoreHandle notification_semaphore, bool is_transmitting)
 {
 	pdc_packet_t pdc_packet;
 

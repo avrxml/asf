@@ -40,11 +40,11 @@
 #include <stdint.h>
 
 /* FreeRTOS includes. */
-#include "FreeRTOS.h"
-#include "task.h"
+#include "include/FreeRTOS.h"
+#include "include/task.h"
 
 /* Utils includes. */
-#include "FreeRTOS_CLI.h"
+#include "include/FreeRTOS_CLI.h"
 
 typedef struct xCOMMAND_INPUT_LIST
 {

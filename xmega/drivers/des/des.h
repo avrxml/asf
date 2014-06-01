@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Data Encryption Standard (DES) driver
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -179,120 +179,120 @@ void des_cbc_decrypt(uint8_t *ciphertext, uint8_t *plaintext,
  * \subsection xmega_des_quickstart_use_case_example_code Example code
  *
  * \code
- * #define DES_BLOCK_SIZE 8
- * #define DATA_BLOCKS    64
- * #define DATA_SIZE      DATA_BLOCKS * DES_BLOCK_SIZE
- *
- * uint8_t keys[DES_BLOCK_SIZE * 3] = {
- *     0x94, 0x74, 0xB8, 0xE8, 0xC7, 0x3B, 0xCA, 0x7D,
- *     0x28, 0x34, 0x76, 0xAB, 0x38, 0xCF, 0x37, 0xC2,
- *     0xFE, 0x98, 0x6C, 0x38, 0x23, 0xFC, 0x2D, 0x23
- * };
- *
- * uint16_t i;
- *
- * uint8_t data[DATA_SIZE];
- * uint8_t encrypted_data_des[DATA_SIZE];
- * uint8_t encrypted_data_3des[DATA_SIZE];
- *
- * uint8_t decrypted_data_des[DATA_SIZE];
- * uint8_t decrypted_data_3des[DATA_SIZE];
- *
- * for (i = 0; i < DATA_SIZE; i++) {
- *     data[i] = (uint8_t)i;
- * }
- *
- * for (i = 0; i < DATA_BLOCKS; i++) {
- *     uint8_t *current_data_block = (data + DES_BLOCK_SIZE * i);
- *     uint8_t *current_des_enc_block =
- *             (encrypted_data_des + DES_BLOCK_SIZE * i);
- *     uint8_t *current_3des_enc_block =
- *             (encrypted_data_3des + DES_BLOCK_SIZE * i);
- *
- *     des_encrypt(current_data_block, current_des_enc_block, keys);
- *     des_3des_encrypt(current_data_block, current_3des_enc_block, keys);
- * }
- *
- * for (i = 0; i < DATA_BLOCKS; i++) {
- *     uint8_t *current_des_enc_block =
- *             (encrypted_data_des + DES_BLOCK_SIZE * i);
- *     uint8_t *current_3des_enc_block =
- *             (encrypted_data_3des + DES_BLOCK_SIZE * i);
- *     uint8_t *current_des_dec_block =
- *             (decrypted_data_des + DES_BLOCK_SIZE * i);
- *     uint8_t *current_3des_dec_block =
- *             (decrypted_data_3des + DES_BLOCK_SIZE * i);
- *
- *     des_decrypt(current_des_enc_block, current_des_dec_block, keys);
- *     des_3des_decrypt(current_3des_enc_block, current_3des_dec_block, keys);
- * }
- * \endcode
+	 #define DES_BLOCK_SIZE 8
+	 #define DATA_BLOCKS    64
+	 #define DATA_SIZE      DATA_BLOCKS * DES_BLOCK_SIZE
+
+	 uint8_t keys[DES_BLOCK_SIZE * 3] = {
+	     0x94, 0x74, 0xB8, 0xE8, 0xC7, 0x3B, 0xCA, 0x7D,
+	     0x28, 0x34, 0x76, 0xAB, 0x38, 0xCF, 0x37, 0xC2,
+	     0xFE, 0x98, 0x6C, 0x38, 0x23, 0xFC, 0x2D, 0x23
+	 };
+
+	 uint16_t i;
+
+	 uint8_t data[DATA_SIZE];
+	 uint8_t encrypted_data_des[DATA_SIZE];
+	 uint8_t encrypted_data_3des[DATA_SIZE];
+
+	 uint8_t decrypted_data_des[DATA_SIZE];
+	 uint8_t decrypted_data_3des[DATA_SIZE];
+
+	 for (i = 0; i < DATA_SIZE; i++) {
+	     data[i] = (uint8_t)i;
+	 }
+
+	 for (i = 0; i < DATA_BLOCKS; i++) {
+	     uint8_t *current_data_block = (data + DES_BLOCK_SIZE * i);
+	     uint8_t *current_des_enc_block =
+	             (encrypted_data_des + DES_BLOCK_SIZE * i);
+	     uint8_t *current_3des_enc_block =
+	             (encrypted_data_3des + DES_BLOCK_SIZE * i);
+
+	     des_encrypt(current_data_block, current_des_enc_block, keys);
+	     des_3des_encrypt(current_data_block, current_3des_enc_block, keys);
+	 }
+
+	 for (i = 0; i < DATA_BLOCKS; i++) {
+	     uint8_t *current_des_enc_block =
+	             (encrypted_data_des + DES_BLOCK_SIZE * i);
+	     uint8_t *current_3des_enc_block =
+	             (encrypted_data_3des + DES_BLOCK_SIZE * i);
+	     uint8_t *current_des_dec_block =
+	             (decrypted_data_des + DES_BLOCK_SIZE * i);
+	     uint8_t *current_3des_dec_block =
+	             (decrypted_data_3des + DES_BLOCK_SIZE * i);
+
+	     des_decrypt(current_des_enc_block, current_des_dec_block, keys);
+	     des_3des_decrypt(current_3des_enc_block, current_3des_dec_block, keys);
+	 }
+\endcode
  *
  * \subsection xmega_des_quickstart_use_case_workflow Workflow
  *
  * We first define the size of a DES block (8 bytes, 64 bits), the amount of
  * data blocks we will use, and the total size of our data block:
  * \code
- * #define DES_BLOCK_SIZE 8
- * #define DATA_BLOCKS    64
- * #define DATA_SIZE      DATA_BLOCKS * DES_BLOCK_SIZE
- * \endcode
+	#define DES_BLOCK_SIZE 8
+	#define DATA_BLOCKS    64
+	#define DATA_SIZE      DATA_BLOCKS * DES_BLOCK_SIZE
+\endcode
  *
  * The DES and 3DES functions require keys to be able to encrypt data, so we
  * create three 64 bit (8 * 8 bit) keys for them to use:
  * \code
- * uint8_t keys[DES_BLOCK_SIZE * 3] = {
- *     0x94, 0x74, 0xB8, 0xE8, 0xC7, 0x3B, 0xCA, 0x7D,
- *     0x28, 0x34, 0x76, 0xAB, 0x38, 0xCF, 0x37, 0xC2,
- *     0xFE, 0x98, 0x6C, 0x38, 0x23, 0xFC, 0x2D, 0x23
- * };
- * \endcode
+	uint8_t keys[DES_BLOCK_SIZE * 3] = {
+	    0x94, 0x74, 0xB8, 0xE8, 0xC7, 0x3B, 0xCA, 0x7D,
+	    0x28, 0x34, 0x76, 0xAB, 0x38, 0xCF, 0x37, 0xC2,
+	    0xFE, 0x98, 0x6C, 0x38, 0x23, 0xFC, 0x2D, 0x23
+	};
+\endcode
  * \note Only the first key is used for the DES routine.
  *
  * We create a data block which we will encrypt, and destination blocks for the
  * encrypted and decrypted data:
  * \code
- * uint16_t i;
- *
- * uint8_t data[DATA_SIZE];
- * uint8_t encrypted_data_des[DATA_SIZE];
- * uint8_t encrypted_data_3des[DATA_SIZE];
- *
- * uint8_t decrypted_data_des[DATA_SIZE];
- * uint8_t decrypted_data_3des[DATA_SIZE];
- * \endcode
+	 uint16_t i;
+
+	 uint8_t data[DATA_SIZE];
+	 uint8_t encrypted_data_des[DATA_SIZE];
+	 uint8_t encrypted_data_3des[DATA_SIZE];
+
+	 uint8_t decrypted_data_des[DATA_SIZE];
+	 uint8_t decrypted_data_3des[DATA_SIZE];
+\endcode
  *
  * We fill our data block with some data:
  * \code
- * for (i = 0; i < DATA_SIZE; i++) {
- *     data[i] = (uint8_t)i;
- * }
- * \endcode
+	for (i = 0; i < DATA_SIZE; i++) {
+	    data[i] = (uint8_t)i;
+	}
+\endcode
  *
  * Now we will encrypt our data with both DES and 3DES encryption. The
  * encrypted values will be stored in the variables encrypted_data_des and
  * encrypted_data_3des.
  * We loop through all the blocks:
  * \code
- * for (i = 0; i < DATA_BLOCKS; i++) {
- * \endcode
+	for (i = 0; i < DATA_BLOCKS; i++) {
+\endcode
  *
  * And create pointers to blocks currently being processed:
  * \code
- *     uint8_t *current_data_block = (data + DES_BLOCK_SIZE * i);
- *     uint8_t *current_des_enc_block =
- *             (encrypted_data_des + DES_BLOCK_SIZE * i);
- *     uint8_t *current_3des_enc_block =
- *             (encrypted_data_3des + DES_BLOCK_SIZE * i);
- * \endcode
+	uint8_t *current_data_block = (data + DES_BLOCK_SIZE * i);
+	uint8_t *current_des_enc_block =
+	        (encrypted_data_des + DES_BLOCK_SIZE * i);
+	uint8_t *current_3des_enc_block =
+	        (encrypted_data_3des + DES_BLOCK_SIZE * i);
+\endcode
  *
  * Finally we call \ref des_encrypt() and \ref des_3des_encrypt() on the
  * data:
  * \code
- *     des_encrypt(current_data_block, current_des_enc_block, keys);
- *     des_3des_encrypt(current_data_block, current_3des_enc_block, keys);
- * }
- * \endcode
+	    des_encrypt(current_data_block, current_des_enc_block, keys);
+	    des_3des_encrypt(current_data_block, current_3des_enc_block, keys);
+	}
+\endcode
  * \note Only the first key is used in the \ref des_encrypt() function.
  *
  * The encrypted data is now stored in the two variables. We will now decrypt
@@ -301,27 +301,27 @@ void des_cbc_decrypt(uint8_t *ciphertext, uint8_t *plaintext,
  *
  * Looping through the blocks:
  * \code
- * for (i = 0; i < DATA_BLOCKS; i++) {
- * \endcode
+	for (i = 0; i < DATA_BLOCKS; i++) {
+\endcode
  *
  * Pointing to the current blocks being processed:
  * \code
- *     uint8_t *current_des_enc_block =
- *             (encrypted_data_des + DES_BLOCK_SIZE * i);
- *     uint8_t *current_3des_enc_block =
- *             (encrypted_data_3des + DES_BLOCK_SIZE * i);
- *     uint8_t *current_des_dec_block =
- *             (decrypted_data_des + DES_BLOCK_SIZE * i);
- *     uint8_t *current_3des_dec_block =
- *             (decrypted_data_3des + DES_BLOCK_SIZE * i);
- * \endcode
+	uint8_t *current_des_enc_block =
+	        (encrypted_data_des + DES_BLOCK_SIZE * i);
+	uint8_t *current_3des_enc_block =
+	        (encrypted_data_3des + DES_BLOCK_SIZE * i);
+	uint8_t *current_des_dec_block =
+	        (decrypted_data_des + DES_BLOCK_SIZE * i);
+	uint8_t *current_3des_dec_block =
+	        (decrypted_data_3des + DES_BLOCK_SIZE * i);
+\endcode
  *
  * And calling the decrypt functions:
  * \code
- *     des_decrypt(current_des_enc_block, current_des_dec_block, keys);
- *     des_3des_decrypt(current_3des_enc_block, current_3des_dec_block, keys);
- * }
- * \endcode
+	    des_decrypt(current_des_enc_block, current_des_dec_block, keys);
+	    des_3des_decrypt(current_3des_enc_block, current_3des_dec_block, keys);
+	}
+\endcode
  *
  */
 

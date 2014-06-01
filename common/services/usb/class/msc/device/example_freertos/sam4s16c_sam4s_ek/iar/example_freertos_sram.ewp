@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4S16C	Atmel SAM4S16C</state>
+					<state>ATSAM4S16C	Atmel SAM4S16C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -163,11 +163,12 @@
 				<option>
 					<name>CCDefines</name>
 					<state>__SAM4S16C__</state>
-					<state>FREERTOS_USED</state>
+					<state>UDD_ENABLE</state>
 					<state>ACCESS_USB_ENABLED</state>
 					<state>SD_MMC_ENABLE</state>
-					<state>UDD_ENABLE</state>
+					<state>FREERTOS_USED</state>
 					<state>BOARD=SAM4S_EK</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
@@ -481,11 +482,12 @@
 				<option>
 					<name>ADefines</name>
 					<state>__SAM4S16C__</state>
-					<state>FREERTOS_USED</state>
+					<state>UDD_ENABLE</state>
 					<state>ACCESS_USB_ENABLED</state>
 					<state>SD_MMC_ENABLE</state>
-					<state>UDD_ENABLE</state>
+					<state>FREERTOS_USED</state>
 					<state>BOARD=SAM4S_EK</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
@@ -1059,7 +1061,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM4S16C	Atmel SAM4S16C</state>
+					<state>ATSAM4S16C	Atmel SAM4S16C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1125,11 +1127,12 @@
 				<option>
 					<name>CCDefines</name>
 					<state>__SAM4S16C__</state>
-					<state>FREERTOS_USED</state>
+					<state>UDD_ENABLE</state>
 					<state>ACCESS_USB_ENABLED</state>
 					<state>SD_MMC_ENABLE</state>
-					<state>UDD_ENABLE</state>
+					<state>FREERTOS_USED</state>
 					<state>BOARD=SAM4S_EK</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
@@ -1443,11 +1446,12 @@
 				<option>
 					<name>ADefines</name>
 					<state>__SAM4S16C__</state>
-					<state>FREERTOS_USED</state>
+					<state>UDD_ENABLE</state>
 					<state>ACCESS_USB_ENABLED</state>
 					<state>SD_MMC_ENABLE</state>
-					<state>UDD_ENABLE</state>
+					<state>FREERTOS_USED</state>
 					<state>BOARD=SAM4S_EK</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
@@ -2176,13 +2180,13 @@
 						<name>$PROJ_DIR$/../../../../../../../clock/sam4s/sysclk.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../clock/sam4s/pll.h</name>
-					</file>
-					<file>
 						<name>$PROJ_DIR$/../../../../../../../clock/sam4s/osc.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../clock/sam4s/genclk.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../clock/sam4s/pll.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../clock/sam4s/sysclk.h</name>
@@ -2271,15 +2275,6 @@
 							</group>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/source/templates/system_sam4s.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/source/templates/exceptions.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/source/templates/exceptions.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/source/templates/system_sam4s.h</name>
 							</file>
 						</group>
 					</group>
@@ -2387,6 +2382,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_rtt.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4s2a.h</name>
+						</file>
 						<group>
 							<name>component</name>
 							<file>
@@ -2397,6 +2395,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_ssc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_uart.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_pmc.h</name>
@@ -2412,9 +2413,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_supc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_uart.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_crccu.h</name>
@@ -2471,6 +2469,12 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_efc.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4sa16b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4s2c.h</name>
+						</file>
 						<group>
 							<name>pio</name>
 							<file>
@@ -2486,13 +2490,28 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4sd32b.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s4c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s4a.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s16c.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4sa16b.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s2a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s2c.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s8c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s4b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4sd32c.h</name>
@@ -2501,11 +2520,14 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4sd16b.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s2b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/pio/pio_sam4s8b.h</name>
 							</file>
 						</group>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4sa16b.h</name>
+							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/system_sam4s.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4s.h</name>
@@ -2517,16 +2539,28 @@
 							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4sd32b.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4s4c.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4s8c.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4s2b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4sd16b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4s4a.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4sd32c.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4s8b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4s4b.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4s/include/sam4s16b.h</name>

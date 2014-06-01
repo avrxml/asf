@@ -217,8 +217,14 @@ CPPFLAGS = \
        -D FREERTOS_USED                                   \
        -D HTTP_USED=1                                     \
        -D TFTP_USED=1                                     \
+       -D __FREERTOS__                                    \
        -D __SAM3X8H__                                     \
-       -D printf=iprintf
+       -D printf=iprintf                                  \
+       -D scanf=iscanf
 
 # Extra flags to use when linking
 LDFLAGS = \
+
+# Pre- and post-build commands
+PREBUILD_CMD = 
+POSTBUILD_CMD = 

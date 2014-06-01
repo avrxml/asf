@@ -3,7 +3,7 @@
  *
  * \brief Monochrome graphic library API header file
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,6 +46,10 @@
 #include <stdint.h>
 
 #include "compiler.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * \ingroup asfdoc_common2_gfx_mono
@@ -139,16 +143,16 @@ void gfx_mono_get_progmem_string_bounding_box(char PROGMEM_PTR_T str,
  * \subsection gfx_mono_font_basic_usage_code Example code
  * Add to, e.g., the main function in the application C-file:
  * \code
- *     system_init();
- *
- *     gfx_mono_init();
- *
- *     gfx_mono_draw_string("Hello world!",0, 0, &sysfont);
- *
- *     while (1) {
- *
- *     }
- * \endcode
+	     system_init();
+
+	     gfx_mono_init();
+
+	     gfx_mono_draw_string("Hello world!",0, 0, &sysfont);
+
+	     while (1) {
+
+	     }
+\endcode
  *
  * \subsection asfdoc_common2_gfx_mono_font_basic_usage_workflow Workflow
  * -# Initialize system:
@@ -162,5 +166,9 @@ void gfx_mono_get_progmem_string_bounding_box(char PROGMEM_PTR_T str,
  * -  \note This uses \ref conf_sysfont.h where sysfont is defines to give the font
  * to be used on the screen.
  */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GFX_MONO_TEXT_H_INCLUDED */

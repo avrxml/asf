@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,23 +51,23 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Crccu hardware registers */
 typedef struct {
-  RwReg CRCCU_DSCR;    /**< \brief (Crccu Offset: 0x00000000) CRCCU Descriptor Base Register */
-  RoReg Reserved1[1];
-  WoReg CRCCU_DMA_EN;  /**< \brief (Crccu Offset: 0x00000008) CRCCU DMA Enable Register */
-  WoReg CRCCU_DMA_DIS; /**< \brief (Crccu Offset: 0x0000000C) CRCCU DMA Disable Register */
-  RoReg CRCCU_DMA_SR;  /**< \brief (Crccu Offset: 0x00000010) CRCCU DMA Status Register */
-  WoReg CRCCU_DMA_IER; /**< \brief (Crccu Offset: 0x00000014) CRCCU DMA Interrupt Enable Register */
-  WoReg CRCCU_DMA_IDR; /**< \brief (Crccu Offset: 0x00000018) CRCCU DMA Interrupt Disable Register */
-  RoReg CRCCU_DMA_IMR; /**< \brief (Crccu Offset: 0x0000001C) CRCCU DMA Interrupt Mask Register */
-  RoReg CRCCU_DMA_ISR; /**< \brief (Crccu Offset: 0x00000020) CRCCU DMA Interrupt Status Register */
-  RoReg Reserved2[4];
-  WoReg CRCCU_CR;      /**< \brief (Crccu Offset: 0x00000034) CRCCU Control Register */
-  RwReg CRCCU_MR;      /**< \brief (Crccu Offset: 0x00000038) CRCCU Mode Register */
-  RoReg CRCCU_SR;      /**< \brief (Crccu Offset: 0x0000003C) CRCCU Status Register */
-  WoReg CRCCU_IER;     /**< \brief (Crccu Offset: 0x00000040) CRCCU Interrupt Enable Register */
-  WoReg CRCCU_IDR;     /**< \brief (Crccu Offset: 0x00000044) CRCCU Interrupt Disable Register */
-  RoReg CRCCU_IMR;     /**< \brief (Crccu Offset: 0x00000048) CRCCU Interrupt Mask Register */
-  RoReg CRCCU_ISR;     /**< \brief (Crccu Offset: 0x0000004C) CRCCU Interrupt Status Register */
+  __IO uint32_t CRCCU_DSCR;    /**< \brief (Crccu Offset: 0x00000000) CRCCU Descriptor Base Register */
+  __I  uint32_t Reserved1[1];
+  __O  uint32_t CRCCU_DMA_EN;  /**< \brief (Crccu Offset: 0x00000008) CRCCU DMA Enable Register */
+  __O  uint32_t CRCCU_DMA_DIS; /**< \brief (Crccu Offset: 0x0000000C) CRCCU DMA Disable Register */
+  __I  uint32_t CRCCU_DMA_SR;  /**< \brief (Crccu Offset: 0x00000010) CRCCU DMA Status Register */
+  __O  uint32_t CRCCU_DMA_IER; /**< \brief (Crccu Offset: 0x00000014) CRCCU DMA Interrupt Enable Register */
+  __O  uint32_t CRCCU_DMA_IDR; /**< \brief (Crccu Offset: 0x00000018) CRCCU DMA Interrupt Disable Register */
+  __I  uint32_t CRCCU_DMA_IMR; /**< \brief (Crccu Offset: 0x0000001C) CRCCU DMA Interrupt Mask Register */
+  __I  uint32_t CRCCU_DMA_ISR; /**< \brief (Crccu Offset: 0x00000020) CRCCU DMA Interrupt Status Register */
+  __I  uint32_t Reserved2[4];
+  __O  uint32_t CRCCU_CR;      /**< \brief (Crccu Offset: 0x00000034) CRCCU Control Register */
+  __IO uint32_t CRCCU_MR;      /**< \brief (Crccu Offset: 0x00000038) CRCCU Mode Register */
+  __I  uint32_t CRCCU_SR;      /**< \brief (Crccu Offset: 0x0000003C) CRCCU Status Register */
+  __O  uint32_t CRCCU_IER;     /**< \brief (Crccu Offset: 0x00000040) CRCCU Interrupt Enable Register */
+  __O  uint32_t CRCCU_IDR;     /**< \brief (Crccu Offset: 0x00000044) CRCCU Interrupt Disable Register */
+  __I  uint32_t CRCCU_IMR;     /**< \brief (Crccu Offset: 0x00000048) CRCCU Interrupt Mask Register */
+  __I  uint32_t CRCCU_ISR;     /**< \brief (Crccu Offset: 0x0000004C) CRCCU Interrupt Status Register */
 } Crccu;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- CRCCU_DSCR : (CRCCU Offset: 0x00000000) CRCCU Descriptor Base Register -------- */

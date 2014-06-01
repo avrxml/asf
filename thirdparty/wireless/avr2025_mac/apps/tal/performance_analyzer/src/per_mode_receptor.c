@@ -2,9 +2,9 @@
  * \file per_mode_receptor.c
  *
  * \brief Receptor functionalities in PER Measurement mode - Performance
- *Analyzer
+ * Analyzer
  * application
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -59,6 +59,9 @@
 #include "app_frame_format.h"
 #include "app_per_mode.h"
 #include "conf_board.h"
+#if !(SAMD || SAMR21)
+#include "led.h"
+#endif
 
 /**
  * \addtogroup group_per_mode_receptor
@@ -73,6 +76,7 @@
 
 /* LED Blink count for identify command */
 #define LED_BLINK_COUNT_FOR_IDENTIFY          (20)
+#define LED_BLINK_COUNT_FOR_BUTTON_PRESS      (10)
 
 /* At every LED_TOGGLE_COUNT_FOR_PER count the Led toggles when PER test
  * is in progress */
@@ -92,6 +96,9 @@ static void get_node_info(peer_info_rsp_t *data);
 static void send_diversity_status_rsp(void);
 
 #endif /* End of ANTENNA_DIVERSITY */
+static void send_range_test_rsp(uint8_t seq_num, uint32_t frame_count,
+		int8_t ed, uint8_t lqi);
+static bool send_range_test_marker_cmd(void);
 
 #ifdef CRC_SETTING_ON_REMOTE_NODE
 static void send_crc_status_rsp(void);
@@ -99,7 +106,7 @@ static bool crc_check_ok(frame_info_t *mac_frame_info);
 static uint16_t crc_test(uint16_t crc, uint8_t data);
 
 #endif /* End of CRC_SETTING_ON_REMOTE_NODE */
-
+static bool range_test_in_progress = false;
 /* === GLOBALS ============================================================= */
 
 static uint32_t number_rx_frames;
@@ -110,6 +117,7 @@ static uint8_t seq_num_receptor;
 uint32_t frames_with_wrong_crc;
 bool manual_crc = false;
 #endif
+static uint8_t marker_seq_num = 0;
 
 /* ! \} */
 
@@ -121,10 +129,21 @@ bool manual_crc = false;
  */
 void per_mode_receptor_init(void *parameter)
 {
+#ifdef EXT_RF_FRONT_END_CTRL
+	pib_value_t pib_value;
+#endif
 	/* PER TEST Receptor sequence number */
 	seq_num_receptor = rand();
 
 	printf("\r\n Starting PER Measurement mode as Reflector");
+
+#ifdef EXT_RF_FRONT_END_CTRL
+	/* Enable RF front end control in PER Measurement mode*/
+	trx_bit_write(SR_PA_EXT_EN, PA_EXT_ENABLE);
+	/* set the TX power to default level */
+	pib_value.pib_value_8bit = TAL_TRANSMIT_POWER_DEFAULT;
+	tal_pib_set(phyTransmitPower, &pib_value);
+#endif
 
 	/* keep the compiler happy */
 	parameter = parameter;
@@ -137,7 +156,62 @@ void per_mode_receptor_init(void *parameter)
  */
 void per_mode_receptor_task(void)
 {
-	/* Do nothing as all events are handled in the Rx_cb handler */
+	/* For Range Test  in PER Mode the receptor has to poll for a button
+	 * press to initiate marker transmission */
+	if (range_test_in_progress) {
+		static uint8_t key_press;
+		/* Check for any key press */
+		key_press = app_debounce_button();
+
+		if (key_press != 0) {
+			printf("\r\n\nButton Pressed...");
+			if (send_range_test_marker_cmd()) {
+				printf("\r\nInitiating Marker Transmission...");
+				/* Timer for LED Blink for Marker Transmission*/
+				sw_timer_start(APP_TIMER_TO_TX,
+						LED_BLINK_RATE_IN_MICRO_SEC,
+						SW_TIMEOUT_RELATIVE,
+						(FUNC_PTR)marker_tx_timer_handler_cb,
+						NULL);
+			}
+		}
+	}
+}
+
+/**
+ * \brief Function to send the range test marker command to the initiator node
+ */
+static bool send_range_test_marker_cmd(void)
+{
+	uint8_t payload_length;
+	app_payload_t msg;
+	result_req_t *data;
+
+	/* Create the payload */
+	msg.cmd_id = RANGE_TEST_MARKER_CMD;
+	seq_num_receptor++;
+	msg.seq_num = marker_seq_num++;
+	data = (result_req_t *)&msg.payload;
+	/* Just a dummy value */
+	data->cmd = DUMMY_PAYLOAD;
+
+	payload_length = ((sizeof(app_payload_t) -
+			sizeof(general_pkt_t)) +
+			sizeof(result_req_t));
+
+	/* Send the frame to Peer node */
+	if (MAC_SUCCESS == transmit_frame(FCF_SHORT_ADDR,
+			(uint8_t *)&(node_info.peer_short_addr),
+			FCF_SHORT_ADDR,
+			seq_num_receptor,
+			(uint8_t *)&msg,
+			payload_length,
+			true)
+			) {
+		return(true);
+	}
+
+	return(false);
 }
 
 /*
@@ -177,18 +251,21 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 #ifdef CRC_SETTING_ON_REMOTE_NODE
 	/* If counting of wrong CRC packets is enabled on receptor node */
 	if (manual_crc) {
+		uint32_t my_addr_temp;
 		uint16_t my_addr;
 		uint16_t dest_addr;
 		memcpy(&dest_addr, &mac_frame_info->mpdu[PL_POS_DST_ADDR_START],
 				SHORT_ADDR_LEN);
-		tal_pib_get(macShortAddress, (uint8_t *)&my_addr);
+		tal_pib_get(macShortAddress, (uint8_t *)&my_addr_temp);
+
+		my_addr = (uint16_t)my_addr_temp;
 		/* Check the destination address of the packet is my address  */
-		if (dest_addr != my_addr) {
+		if (dest_addr != (uint16_t)my_addr) {
 			return;
 		}
 
 		/* Counting of wrong crc packets option enabled and received crc
-		 *is not OK */
+		 * is not OK */
 		if (false == crc_check_ok(mac_frame_info)) {
 			if (msg->cmd_id != PER_TEST_PKT) {
 				/* Don't let in any packets with wrong CRC
@@ -200,7 +277,6 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 			frames_with_wrong_crc++;
 		}
 	}
-
 #endif /* #ifdef CRC_SETTING_ON_REMOTE_NODE */
 
 	switch ((msg->cmd_id)) {
@@ -222,8 +298,9 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 	case PER_TEST_PKT:
 	{
 		static uint8_t cur_seq_no, prev_seq_no;
+
 		/* if PER test frames received then increment number_rx_frames
-		 **/
+		**/
 		if (number_rx_frames == 0) {
 			printf("\r\nReceiving..");
 			aver_lqi
@@ -272,7 +349,7 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 	case RESULT_REQ:
 	{
 		/* Calculate the expected frame size in case of RESULT_REQ cmd
-		 **/
+		**/
 		expected_frame_size
 			=  (FRAME_OVERHEAD + ((sizeof(app_payload_t) -
 				sizeof(general_pkt_t)) +
@@ -297,7 +374,6 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 						"\r\nNumber of received frames with wrong CRC = %" PRIu32,
 						frames_with_wrong_crc);
 			}
-
 #endif /* #ifdef CRC_SETTING_ON_REMOTE_NODE */
 
 			number_rx_frames = 0;
@@ -326,7 +402,7 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 	case DIV_STAT_REQ:
 	{
 		/* Calculate the expected frame size in case of DIV_STAT_REQ cmd
-		 **/
+		**/
 		expected_frame_size
 			= (FRAME_OVERHEAD + ((sizeof(app_payload_t) -
 				sizeof(general_pkt_t)) +
@@ -341,7 +417,7 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 	case DIV_SET_REQ:
 	{
 		/* Calculate the expected frame size in case of DIV_SET_REQ cmd
-		 **/
+		**/
 		expected_frame_size
 			= (FRAME_OVERHEAD + ((sizeof(app_payload_t) -
 				sizeof(general_pkt_t)) +
@@ -353,8 +429,8 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 						ANTENNA_DEFAULT);
 				printf("\r\n Antenna diversity enabled");
 			} else { /* Antenna diversity need to be disabled */
-				/* Set the selected antenna & disable the
-				 *antenna diversity */
+				 /* Set the selected antenna & disable the
+				  * antenna diversity */
 				tal_ant_div_config(ANT_DIVERSITY_DISABLE,
 						msg->payload.div_set_req_data.ant_sel);
 				printf(
@@ -379,7 +455,7 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 	case CRC_STAT_REQ:
 	{
 		/* Calculate the expected frame size in case of CRC_STAT_REQ cmd
-		 **/
+		**/
 		expected_frame_size
 			=  (FRAME_OVERHEAD + ((sizeof(app_payload_t) -
 				sizeof(general_pkt_t)) +
@@ -394,7 +470,7 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 	case CRC_SET_REQ:
 	{
 		/* Calculate the expected frame size in case of CRC_SET_REQ cmd
-		 **/
+		**/
 		expected_frame_size
 			= (FRAME_OVERHEAD + ((sizeof(app_payload_t) -
 				sizeof(general_pkt_t)) +
@@ -454,11 +530,93 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 	}
 	break;
 
+	case RANGE_TEST_START_PKT:
+	{
+		/* set the flag to indicate that the receptor node is in range
+		 * test mode */
+		range_test_in_progress = true;
+		printf("\r\nStarting Range Test in PER Mode...");
+	}
+	break;
+
+	case RANGE_TEST_STOP_PKT:
+	{
+		/* reset the flag to indicate that the range test mode is
+		 * stopped*/
+		range_test_in_progress = false;
+		marker_seq_num = 0;
+		printf("\r\nStopping Range Test...");
+		app_led_event(LED_EVENT_PEER_SEARCH_DONE);
+	}
+	break;
+
+	case RANGE_TEST_PKT:
+	{
+		/* On reception of the range test packet calculate the ed and
+		 * lqi values of
+		 * the received pkt and add it as the payload of the response
+		 * frame*/
+		uint8_t phy_frame_len = mac_frame_info->mpdu[0];
+		uint32_t frame_count;
+		/* Get the frame count in correct format */
+		frame_count
+			= (CCPU_ENDIAN_TO_LE32(msg->payload.range_tx_data.
+				frame_count));
+		int8_t rssi_base_val, ed_value;
+		rssi_base_val = tal_get_rssi_base_val();
+		app_led_event(LED_EVENT_RX_FRAME);
+		/* Map the register ed value to dbm values */
+		ed_value
+			= mac_frame_info->mpdu[phy_frame_len + LQI_LEN +
+				ED_VAL_LEN] + rssi_base_val;
+
+		/* Send Response cmd to the received Range Test packet with the
+		 * lqi and ed values */
+		send_range_test_rsp(msg->seq_num,
+				msg->payload.range_tx_data.frame_count,	\
+				ed_value,
+				mac_frame_info->mpdu[phy_frame_len +
+				LQI_LEN]);
+		/* Print the received values to the terminal */
+		printf(
+				"\r\nRange Test Packet Received...\tFrame No : %" PRIu32 "\tLQI : %d\tED : %d",
+				frame_count,
+				mac_frame_info->mpdu[phy_frame_len + LQI_LEN],
+				ed_value);
+	}
+	break;
+
+	case RANGE_TEST_MARKER_RSP:
+	{
+		/* On reception of the Response frame to the Marker cmd sent ,
+		 * get the lqi and ed values and print it on the terminsl */
+		int8_t rssi_base_val, ed_value;
+		rssi_base_val = tal_get_rssi_base_val();
+		uint8_t phy_frame_len = mac_frame_info->mpdu[0];
+		/* Map the register ed value to dbm values */
+		ed_value
+			= mac_frame_info->mpdu[phy_frame_len + LQI_LEN +
+				ED_VAL_LEN] + rssi_base_val;
+		printf("\r\nMarker Response Received... LQI : %d\t ED %d \n",
+				mac_frame_info->mpdu[phy_frame_len + LQI_LEN],
+				ed_value);
+		/* Timer for LED Blink for Reception of Marker Response*/
+		sw_timer_start(T_APP_TIMER,
+				LED_BLINK_RATE_IN_MICRO_SEC,
+				SW_TIMEOUT_RELATIVE,
+				(FUNC_PTR)marker_rsp_timer_handler_cb,
+				NULL);
+	}
+	break;
+
 	case PEER_INFO_REQ:
 	{
 		send_peer_info_rsp();
 	}
 	break;
+
+	default:
+		break;
 	}
 }
 
@@ -470,19 +628,31 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 static void set_paramter_on_recptor_node(app_payload_t *msg)
 {
 	uint8_t param_val;
+	pib_value_t pib_value;
 
 	switch (msg->payload.set_parm_req_data.param_type) {
 	case CHANNEL: /* Parameter = channel */
 	{
+#ifdef EXT_RF_FRONT_END_CTRL
+		uint8_t chn_before_set;
+		tal_pib_get(phyCurrentChannel, &chn_before_set);
+#endif
 		param_val = msg->payload.set_parm_req_data.param_value;
 
 #if (TAL_TYPE == AT86RF233)
 		tal_set_frequency_regs(CC_BAND_0, CC_NUMBER_0);
 #endif
+		pib_value.pib_value_8bit = param_val;
 		/* set the channel on receptor with the received value */
-		tal_pib_set(phyCurrentChannel, (pib_value_t *)&param_val);
+		tal_pib_set(phyCurrentChannel, &pib_value);
 
 		printf("\r\n Channel changed to %d", param_val);
+#ifdef EXT_RF_FRONT_END_CTRL
+
+		/* Limit the tx power below the default power for ch26 to meet
+		 * FCC Compliance */
+		limit_tx_power_in_ch26(param_val, chn_before_set);
+#endif
 	}
 	break;
 
@@ -508,13 +678,13 @@ static void set_paramter_on_recptor_node(app_payload_t *msg)
 		printf("\r\n Frequency changed to %0.1fMHz", (double)frequency);
 	}
 	break;
-
 #endif
 	case CHANNEL_PAGE:
 	{
 		param_val = msg->payload.set_parm_req_data.param_value;
+		pib_value.pib_value_8bit = param_val;
 		retval_t status  = tal_pib_set(phyCurrentPage,
-				(pib_value_t *)&param_val);
+				&pib_value);
 		if (status == MAC_SUCCESS) {
 			printf("\r\n Channel page changed to %d", param_val);
 		} else {
@@ -533,15 +703,17 @@ static void set_paramter_on_recptor_node(app_payload_t *msg)
 		/* Get the the received tx power in dBm */
 		param_val = msg->payload.set_parm_req_data.param_value;
 		temp_var = CONV_DBM_TO_phyTransmitPower((int8_t)param_val);
+
 		/* If RPC enabled, disable RPC to change the TX power value
-		 *refer sec 9.2.4 */
+		 * refer sec 9.2.4 */
 #if (TAL_TYPE == AT86RF233)
 		/* Store currents RPC settings */
 		tal_trx_reg_read(RG_TRX_RPC, &previous_RPC_value);
 
 		tal_rpc_mode_config(DISABLE_ALL_RPC_MODES);
 #endif
-		tal_pib_set(phyTransmitPower, (pib_value_t *)&temp_var);
+		pib_value.pib_value_8bit = temp_var;
+		tal_pib_set(phyTransmitPower, &pib_value);
 #if (TAL_TYPE == AT86RF233)
 		/* Restore RPC settings. */
 		tal_trx_reg_write(RG_TRX_RPC, previous_RPC_value);
@@ -568,7 +740,6 @@ static void set_paramter_on_recptor_node(app_payload_t *msg)
 					"\r\n Tx Power set to %d dBm (TX_PWR=0x%x) on the node",
 					(int8_t)param_val, tx_pwr_reg);
 		}
-
 #endif /* (TAL_TYPE != AT86RF233) */
 
 #else               /* In case of AT86Rf212 */
@@ -594,15 +765,17 @@ static void set_paramter_on_recptor_node(app_payload_t *msg)
 				&tx_pwr_dbm)) {
 			uint8_t temp_var = CONV_DBM_TO_phyTransmitPower(
 					tx_pwr_dbm);
+
 			/* If RPC enabled, disable RPC to change the TX power
-			 *value refer sec 9.2.4 */
+			 * value refer sec 9.2.4 */
 #if (TAL_TYPE == AT86RF233)
 			/* Store currents RPC settings */
 			tal_trx_reg_read(RG_TRX_RPC, &previous_RPC_value);
 
 			tal_rpc_mode_config(DISABLE_ALL_RPC_MODES);
 #endif
-			tal_pib_set(phyTransmitPower, (pib_value_t *)&temp_var);
+			pib_value.pib_value_8bit = temp_var;
+			tal_pib_set(phyTransmitPower, &pib_value);
 			tal_set_tx_pwr(REGISTER_VALUE, param_val);
 
 #if (TAL_TYPE == AT86RF233)
@@ -625,7 +798,6 @@ static void set_paramter_on_recptor_node(app_payload_t *msg)
 		}
 	}
 	break;
-
 #endif /* End of (TAL_TYPE != AT86RF212) */
 	default:
 		printf(" \r\nUnsupported Parameter");
@@ -642,6 +814,7 @@ static void set_paramter_on_recptor_node(app_payload_t *msg)
  */
 static void identify_timer_handler_cb(void *parameter)
 {
+#if (LED_COUNT > 0)
 	static uint8_t led_count;
 	parameter = parameter;
 	/* LED Blinking sequence is completed */
@@ -649,7 +822,8 @@ static void identify_timer_handler_cb(void *parameter)
 		led_count = 0;
 		app_led_event(LED_EVENT_PEER_SEARCH_DONE);
 	} else { /* Blink count is not completed  */
-		/* For every timeout switch off and on all LEDs alternatively */
+		 /* For every timeout switch off and on all LEDs alternatively
+		 **/
 		if (led_count & 0x01) {
 			led_count++;
 			app_led_event(LED_EVENT_ALL_OFF);
@@ -665,7 +839,82 @@ static void identify_timer_handler_cb(void *parameter)
 				(FUNC_PTR)identify_timer_handler_cb,
 				NULL);
 	}
+#endif
+	return;
+}
 
+/**
+ * \brief Timer Callback function  if marker response command is transmitted on
+ * air
+ *  This is used to blink the LED and thus identify that the transmission is
+ * done
+ * \param parameter pass parameters to timer handler
+ */
+void marker_tx_timer_handler_cb(void *parameter)
+{
+#if (LED_COUNT > 0)
+	static uint8_t led_count;
+	parameter = parameter;
+	/* LED Blinking sequence is completed */
+	if (led_count > LED_BLINK_COUNT_FOR_BUTTON_PRESS) {
+		led_count = 0;
+		app_led_event(LED_EVENT_PEER_SEARCH_DONE);
+	} else { /* Blink count is not completed  */
+		 /* For every timeout switch off and on all LEDs alternatively
+		 **/
+		if (led_count & 0x01) {
+			led_count++;
+			LED_Off(TX_LED);
+			sw_timer_stop(APP_TIMER_TO_TX);
+		} else {
+			led_count++;
+			LED_On(TX_LED);
+		}
+
+		sw_timer_start(APP_TIMER_TO_TX,
+				LED_BLINK_RATE_IN_MICRO_SEC,
+				SW_TIMEOUT_RELATIVE,
+				(FUNC_PTR)marker_tx_timer_handler_cb,
+				NULL);
+	}
+#endif
+	return;
+}
+
+/**
+ * \brief Timer Callback function  if marker command is received on air
+ * This is used to blink the LED and thus identify that the marker frame is
+ * received
+ * \param parameter pass parameters to timer handler
+ */
+void marker_rsp_timer_handler_cb(void *parameter)
+{
+#if (LED_COUNT > 0)
+	static uint8_t led_count;
+	parameter = parameter;
+	/* LED Blinking sequence is completed */
+	if (led_count > LED_BLINK_COUNT_FOR_BUTTON_PRESS) {
+		led_count = 0;
+		app_led_event(LED_EVENT_PEER_SEARCH_DONE);
+	} else { /* Blink count is not completed  */
+		 /* For every timeout switch off and on all LEDs alternatively
+		 **/
+		if (led_count & 0x01) {
+			led_count++;
+			LED_Off(RX_LED);
+			sw_timer_stop(T_APP_TIMER);
+		} else {
+			led_count++;
+			LED_On(RX_LED);
+		}
+
+		sw_timer_start(T_APP_TIMER,
+				LED_BLINK_RATE_IN_MICRO_SEC,
+				SW_TIMEOUT_RELATIVE,
+				(FUNC_PTR)marker_rsp_timer_handler_cb,
+				NULL);
+	}
+#endif
 	return;
 }
 
@@ -708,9 +957,10 @@ static bool crc_check_ok(frame_info_t *mac_frame_info)
 	/* Calculate CRC manually since we are bypassing hardware CRC */
 	uint8_t number_of_bytes_rec = (mac_frame_info->mpdu)[0];
 	uint16_t cal_crc = 0;
-	uint16_t *rec_crc_ptr
-		= (uint16_t *)&(mac_frame_info->mpdu)[number_of_bytes_rec - 1 ];
-	uint16_t rec_crc = CCPU_ENDIAN_TO_LE16(*rec_crc_ptr);
+	uint8_t *rec_crc_ptr
+		= (uint8_t *)&(mac_frame_info->mpdu)[number_of_bytes_rec - 1 ];
+	uint16_t rec_crc;
+	memcpy((uint8_t *)&rec_crc, rec_crc_ptr, sizeof(rec_crc));
 	uint8_t i;
 	for (i = 1; i <= (number_of_bytes_rec - FCS_LEN); i++) {
 		cal_crc = crc_test(cal_crc, (mac_frame_info->mpdu)[i]);
@@ -751,7 +1001,7 @@ static void send_result_rsp(void)
 #endif /* #ifdef CRC_SETTING_ON_REMOTE_NODE */
 	{
 		/* Set a value of 0xffffffff if we are not counting CRC errors
-		 **/
+		**/
 		data->frames_with_wrong_crc
 			= CCPU_ENDIAN_TO_LE32((uint32_t)(-1));
 	}
@@ -803,33 +1053,76 @@ static void send_peer_info_rsp(void)
 }
 
 /**
+ * \brief Function used to send response to the received range test packet
+ * \param seq_num sequence number of the range test packet received
+ * \param frame_count Count of the received Range Test Packet
+ * \param ed ED value of the received range test packet which has to be uploaded
+ * into the response payload
+ * \param lqi LQI value of the received range test packet which has to be
+ * uploaded into the response payload
+ */
+static void send_range_test_rsp(uint8_t seq_num, uint32_t frame_count,
+		int8_t ed, uint8_t lqi)
+{
+	uint8_t payload_length;
+	app_payload_t msg;
+	range_tx_t *data;
+
+	/* Create the payload */
+	msg.cmd_id = RANGE_TEST_RSP;
+	seq_num_receptor++;
+	msg.seq_num = seq_num;
+	data = (range_tx_t *)&msg.payload;
+	data->frame_count = frame_count;
+	data->ed = ed;
+	data->lqi = lqi;
+	app_led_event(LED_EVENT_TX_FRAME);
+	payload_length = ((sizeof(app_payload_t) -
+			sizeof(general_pkt_t)) +
+			sizeof(range_tx_t));
+
+	/* Send the frame to Peer node */
+	transmit_frame(FCF_SHORT_ADDR,
+			(uint8_t *)&(node_info.peer_short_addr),
+			FCF_SHORT_ADDR,
+			seq_num_receptor,
+			(uint8_t *)&msg,
+			payload_length,
+			true);
+}
+
+/**
  * \brief Function used to set default configurations on peer node on reception
- *of
+ * of
  * set_default req
  *
  */
 static void set_default_configuration_peer_node(void)
 {
 	uint8_t temp;
+	pib_value_t pib_value;
 
 	/* Channel default configuration  */
 	temp = DEFAULT_CHANNEL;
-	tal_pib_set(phyCurrentChannel, (pib_value_t *)&temp);
+	pib_value.pib_value_8bit = temp;
+	tal_pib_set(phyCurrentChannel, &pib_value);
 
 	/* Channel page default configuration*/
 	temp = TAL_CURRENT_PAGE_DEFAULT;
-	tal_pib_set(phyCurrentPage, (pib_value_t *)&temp);
+	pib_value.pib_value_8bit = temp;
+	tal_pib_set(phyCurrentPage, &pib_value);
 
 	/* Tx power default configurations */
 	temp = TAL_TRANSMIT_POWER_DEFAULT;
-	tal_pib_set(phyTransmitPower, (pib_value_t *)&temp);
+	pib_value.pib_value_8bit = temp;
+	tal_pib_set(phyTransmitPower, &pib_value);
 
 	/* antenna diversity default configurations */
 #if (ANTENNA_DIVERSITY == 1)
 #if (TAL_TYPE == AT86RF233)
 	/* Disable antenna diversity by default */
 	tal_ant_div_config(ANT_DIVERSITY_DISABLE, ANT_CTRL_1); /* Enable A1/X2
-	                                                        **/
+	                                                       **/
 
 #else
 	/* Enable Antenna Diversity*/

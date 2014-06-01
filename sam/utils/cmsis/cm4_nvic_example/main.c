@@ -3,7 +3,7 @@
  *
  * \brief NVIC Example.
  *
- * Copyright (c) 2011 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -78,14 +78,7 @@
  *
  * \section Usage
  *
- * -# Build the program and download it into the evaluation board. Please
- *    refer to the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a> application note or the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>, depending on the solutions that users choose.
+ * -# Build the program and download it into the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
  *   - 115200 bauds
@@ -95,45 +88,45 @@
  *   - No flow control
  * -# In the terminal window, the following text should appear:
  *    \code
- *     -- Cortex-M4 NVIC Example --
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *     Set INT1's priority higher than INT2.
- *
- *     Menu:
- *     ===================================================
- *     1: Set INT2's priority higher than INT1.
- *     2: Set INT1's priority higher than INT2.
- *     h: Show this menu.
- *
- *     ===================================================
- *     Press button USR-LEFT to trigger the interrupts.
- *    \endcode
+	     -- Cortex-M4 NVIC Example --
+	     -- Compiled: xxx xx xxxx xx:xx:xx --
+	     Set INT1's priority higher than INT2.
+
+	     Menu:
+	     ===================================================
+	     1: Set INT2's priority higher than INT1.
+	     2: Set INT1's priority higher than INT2.
+	     h: Show this menu.
+
+	     ===================================================
+	     Press button USR-LEFT to trigger the interrupts.
+\endcode
  * -# Choose options in the above menu to set interrupt priority.
  * -# Press buttons to trigger the interrupts. \n
  *    If INT2's priority is higher than INT1's, the following text should appear
  *    in the terminal window:
  *    \code
- *    ===================================================
- *    Enter _Int1Handler.
- *    ***************************************************
- *    Enter _Int2Handler.
- *    Exit _Int2Handler.
- *    ***************************************************
- *    Exit _Int1Handler.
- *    ===================================================
- *    \endcode
+	===================================================
+	Enter _Int1Handler.
+	***************************************************
+	Enter _Int2Handler.
+	Exit _Int2Handler.
+	***************************************************
+	Exit _Int1Handler.
+	===================================================
+\endcode
  *    If INT1's priority is higher than INT2's, the following text should appear
  *    in the terminal window:
  *    \code
- *    ===================================================
- *    Enter _Int1Handler.
- *    Exit _Int1Handler.
- *    ===================================================
- *    ***************************************************
- *    Enter _Int2Handler.
- *    Exit _Int2Handler.
- *    ***************************************************
- *    \endcode
+	===================================================
+	Enter _Int1Handler.
+	Exit _Int1Handler.
+	===================================================
+	***************************************************
+	Enter _Int2Handler.
+	Exit _Int2Handler.
+	***************************************************
+\endcode
  *    The result is also shown by LEDs.
  *
  * \section References
@@ -208,7 +201,7 @@ static void Int1Handler(uint32_t ul_id, uint32_t ul_mask)
 
 	gpio_set_pin_low(LED0_GPIO);
 
-	delay_ticks(1000);
+	delay_ticks(2000);
 
 	gpio_set_pin_high(LED0_GPIO);
 
@@ -235,7 +228,7 @@ static void Int2Handler(uint32_t ul_id, uint32_t ul_mask)
 	gpio_set_pin_low(LED1_GPIO);
 
 	/* Delay for a while. */
-	delay_ticks(1000);
+	delay_ticks(2000);
 
 	/* Exit INT2. */
 	gpio_set_pin_high(LED1_GPIO);
@@ -342,7 +335,7 @@ int main(void)
 	uint8_t uc_key;
 
 	/* Initialize the SAM4 system */
-	SystemInit();
+	sysclk_init();
 	board_init();
 
 	WDT->WDT_MR = WDT_MR_WDDIS;

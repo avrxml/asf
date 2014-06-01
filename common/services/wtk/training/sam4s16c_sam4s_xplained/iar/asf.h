@@ -103,9 +103,6 @@
 // From module: SAM4S Xplained LED support enabled
 #include <led.h>
 
-// From module: SAM4S startup code
-#include <exceptions.h>
-
 // From module: SPI - SAM Implementation
 #include <spi_master.h>
 #include <spi_master.h>

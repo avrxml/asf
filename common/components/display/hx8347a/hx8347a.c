@@ -3,7 +3,7 @@
  *
  * \brief HX8347A display controller driver
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -255,10 +255,10 @@ void hx8347a_set_register(uint8_t address, uint8_t bitmask)
  * controller.
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * hx8347a_set_top_left_limit(0, 0);
- * hx8347a_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	hx8347a_set_top_left_limit(0, 0);
+	hx8347a_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \retval hx8347a_color_t the read color pixel
  */
@@ -292,10 +292,10 @@ hx8347a_color_t hx8347a_read_gram(void)
  * Use this function to write a single color pixel to the controller memory.
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * hx8347a_set_top_left_limit(0, 0);
- * hx8347a_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	hx8347a_set_top_left_limit(0, 0);
+	hx8347a_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param color the color pixel to write to the screen
  */
@@ -370,12 +370,12 @@ void hx8347a_set_limits(hx8347a_coord_t start_x, hx8347a_coord_t start_y,
  *
  * Example of usage (for setting landscape mode):
  * \code
- * hx8347a_set_orientation(HX8347A_FLIP_Y | HX8347A_SWITCH_XY);
- * \endcode
+	hx8347a_set_orientation(HX8347A_FLIP_Y | HX8347A_SWITCH_XY);
+\endcode
  * Or use the GFX defines:
  * \code
- * hx8347a_set_orientation(GFX_FLIP_Y | GFX_SWITCH_XY);
- * \endcode
+	hx8347a_set_orientation(GFX_FLIP_Y | GFX_SWITCH_XY);
+\endcode
  *
  * \param flags different flags used to define what orientation to use.
  */
@@ -401,10 +401,10 @@ void hx8347a_set_orientation(uint8_t flags)
  * Used to copy a large quantitative of data to the screen in one go.
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * hx8347a_set_top_left_limit(0, 0);
- * hx8347a_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	hx8347a_set_top_left_limit(0, 0);
+	hx8347a_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param pixels pointer to the pixel data
  * \param count number of pixels to copy to the screen
@@ -435,10 +435,10 @@ void hx8347a_copy_pixels_to_screen(const hx8347a_color_t *pixels, uint32_t count
  * display.
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * hx8347a_set_top_left_limit(0, 0);
- * hx8347a_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	hx8347a_set_top_left_limit(0, 0);
+	hx8347a_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param pixels pointer to the progmem data
  * \param count number of pixels to write
@@ -475,10 +475,10 @@ void hx8347a_copy_progmem_pixels_to_screen(
  * within a set limit.
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * hx8347a_set_top_left_limit(0, 0);
- * hx8347a_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	hx8347a_set_top_left_limit(0, 0);
+	hx8347a_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param color the color to write to the display
  * \param count the number of pixels to write with this color
@@ -509,10 +509,10 @@ void hx8347a_duplicate_pixel(const hx8347a_color_t color, uint32_t count)
  * Use this function to copy pixels from the display to an internal SRAM buffer.
  * Limits have to be set prior to calling this function, e.g.:
  * \code
- * hx8347a_set_top_left_limit(0, 0);
- * hx8347a_set_bottom_right_limit(320, 240);
- * ...
- * \endcode
+	hx8347a_set_top_left_limit(0, 0);
+	hx8347a_set_bottom_right_limit(320, 240);
+	...
+\endcode
  *
  * \param pixels pointer to the pixel buffer to read to
  * \param count number of pixels to read

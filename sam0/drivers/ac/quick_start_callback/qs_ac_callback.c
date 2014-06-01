@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Analog Comparator Driver Quick Start
+ * \brief SAM D20/D21/R21 Analog Comparator Driver Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
 #include <asf.h>
 
 //! [callback_3]
-bool callback_status = false;
+bool volatile callback_status = false;
 //! [callback_3]
 
 void configure_ac(void);
@@ -152,9 +152,7 @@ int main(void)
 	system_init();
 	configure_ac();
 	configure_ac_channel();
-	//! [setup_16]
 	configure_ac_callback();
-	//! [setup_16]
 
 	//! [setup_17]
 	ac_enable(&ac_instance);
@@ -188,10 +186,10 @@ int main(void)
 					(last_comparison & AC_CHAN_STATUS_NEG_ABOVE_POS));
 			//! [main_6]
 			//! [main_7]
-			ac_chan_trigger_single_shot(&ac_instance, AC_COMPARATOR_CHANNEL);
+			callback_status = false;
 			//! [main_7]
 			//! [main_8]
-			callback_status = false;
+			ac_chan_trigger_single_shot(&ac_instance, AC_COMPARATOR_CHANNEL);
 			//! [main_8]
 		}
 	}

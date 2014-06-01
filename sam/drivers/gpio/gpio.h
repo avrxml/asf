@@ -3,7 +3,7 @@
  *
  * \brief GPIO driver.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -208,17 +208,17 @@ static inline void gpio_disable_pin_periph_event(ioport_pin_t pin)
  *
  * Add this to the main loop or a setup function:
  * \code
- *   ioport_set_pin_dir(PIN_PC03, IOPORT_DIR_INPUT);
- *   ioport_set_pin_mode(PIN_PC03, IOPORT_MODE_PULLUP |
- *       IOPORT_MODE_GLITCH_FILTER);
- *   ioport_set_pin_sense_mode(PIN_PC03, IOPORT_SENSE_FALLING);
- *   if (!gpio_set_pin_callback(PIN_PC03, pb0_callback, 1)) {
- *       printf("Set pin callback failure!\r\n");
- *       while (1) {
- *       }
- *   }
- *   gpio_enable_pin_interrupt(PIN_PC03);
- * \endcode
+	ioport_set_pin_dir(PIN_PC03, IOPORT_DIR_INPUT);
+	ioport_set_pin_mode(PIN_PC03, IOPORT_MODE_PULLUP |
+	    IOPORT_MODE_GLITCH_FILTER);
+	ioport_set_pin_sense_mode(PIN_PC03, IOPORT_SENSE_FALLING);
+	if (!gpio_set_pin_callback(PIN_PC03, pb0_callback, 1)) {
+	    printf("Set pin callback failure!\r\n");
+	    while (1) {
+	    }
+	}
+	gpio_enable_pin_interrupt(PIN_PC03);
+\endcode
  *
  * \subsection gpio_setup_workflow Basic Setup Workflow
  *
@@ -226,19 +226,19 @@ static inline void gpio_disable_pin_periph_event(ioport_pin_t pin)
  *  input pin with pull up and glitch filter and to generate an interrupt
  *  when pin falling edge.
  *  \code
- *   ioport_set_pin_dir(PIN_PC03, IOPORT_DIR_INPUT);
- *   ioport_set_pin_mode(PIN_PC03, IOPORT_MODE_PULLUP |
- *       IOPORT_MODE_GLITCH_FILTER);
- *   ioport_set_pin_sense_mode(PIN_PC03, IOPORT_SENSE_FALLING);
- *  \endcode
+	ioport_set_pin_dir(PIN_PC03, IOPORT_DIR_INPUT);
+	ioport_set_pin_mode(PIN_PC03, IOPORT_MODE_PULLUP |
+	    IOPORT_MODE_GLITCH_FILTER);
+	ioport_set_pin_sense_mode(PIN_PC03, IOPORT_SENSE_FALLING);
+\endcode
  * -# Set a callback for the pin interrupt
  *  \code
- *   if (!gpio_set_pin_callback(PIN_PC03, pb0_callback, 1)) {
- *       printf("Set pin callback failure!\r\n");
- *       while (1) {
- *       }
- *   }
- *  \endcode
+	if (!gpio_set_pin_callback(PIN_PC03, pb0_callback, 1)) {
+	    printf("Set pin callback failure!\r\n");
+	    while (1) {
+	    }
+	}
+\endcode
  * -# Enable pin interrupt
  *  \code gpio_enable_pin_interrupt(PIN_PC03); \endcode
  *
@@ -246,11 +246,11 @@ static inline void gpio_disable_pin_periph_event(ioport_pin_t pin)
  *
  * When an interrupt happens on a pin, it will execute your callback function.
  * \code
- *  static void pb0_callback(void)
- *  {
- *      // Pin interrupt handle code
- *  }
- * \endcode
+	static void pb0_callback(void)
+	{
+	    // Pin interrupt handle code
+	}
+\endcode
  *
  */
 #endif  /* GPIO_H_INCLUDED */

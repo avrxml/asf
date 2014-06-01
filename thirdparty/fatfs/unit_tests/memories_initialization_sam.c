@@ -3,7 +3,7 @@
  *
  * \brief Initialization of memories (SAM)
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,18 @@
 #include "conf_board.h" /* To get on-board memories configurations */
 #include "memories_initialization.h"
 
+#ifdef CONF_BOARD_AT45DBX
+#include "at45dbx.h"
+#endif
+
 void memories_initialization(void)
 {
-	/* Intentionally left empty */
+#ifdef CONF_BOARD_AT45DBX
+	at45dbx_init();
+
+	if (at45dbx_mem_check() != true) {
+		while (1) {
+		}
+	}
+#endif
 }

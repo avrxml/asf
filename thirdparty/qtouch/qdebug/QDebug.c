@@ -15,7 +15,7 @@
  * \author               Atmel Corporation: http://www.atmel.com \n
  *                       Support and FAQ: http://support.atmel.no/
  *
- * Copyright (c) 2010-2012, Atmel Corporation All rights reserved.
+ * Copyright (c) 2010-2013, Atmel Corporation All rights reserved.
  * 
  * \asf_license_start
  *
@@ -95,9 +95,7 @@ uint16_t timestamp3_lword;
 qt_lib_siginfo_t lib_siginfo;
 
 /*============================ EXTERN VARIABLES ==============================*/
-extern uint8_t RX_Buffer[];
 extern uint8_t num_sensors;
-extern sensor_t sensors[];
 
 /*============================ LOCAL VARIABLES ===============================*/
 //! Subscriptions.
@@ -157,7 +155,7 @@ QDebug_ProcessCommands (void)
 
   /* Fill in the address for user data in memory */
   uint8_t *pdata = 0;
-  uint8_t time_setting = 0;	// time setting for future use
+  //uint8_t time_setting = 0;    // time setting for future use
 
   if (Receive_Message () == 0)
     return;
@@ -172,7 +170,7 @@ QDebug_ProcessCommands (void)
       break;
     case QT_CMD_SET_GLOBAL_CONFIG:
       Set_Global_Config ();
-      time_setting = GetChar ();	// time setting for future use
+      //time_setting = GetChar ();    // time setting for future use
       break;
     case QT_CMD_SET_CH_CONFIG:
       Set_Channel_Config ();
@@ -267,7 +265,7 @@ Set_Subscriptions (void)
 void
 Set_Global_Config (void)
 {
-  qt_config_data.qt_recal_threshold = (recal_threshold_t) GetChar ();
+  qt_config_data.qt_recal_threshold = GetChar();
   qt_config_data.qt_di = GetChar ();
   qt_config_data.qt_drift_hold_time = GetChar ();
   qt_config_data.qt_max_on_duration = GetChar ();

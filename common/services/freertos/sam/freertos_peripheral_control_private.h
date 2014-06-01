@@ -5,7 +5,7 @@
  * \brief Generic FreeRTOS peripheral control functions
  *
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -80,7 +80,7 @@ they are implemented. */
 void freertos_start_pdc_transfer(
 		freertos_dma_event_control_t *dma_event_control,
 		const uint8_t *data, size_t len, void *pdc_base_address,
-		xSemaphoreHandle *notification_semaphore,
+		xSemaphoreHandle notification_semaphore,
 		bool is_transmitting);
 portBASE_TYPE get_pdc_peripheral_details(
 		const freertos_pdc_peripheral_parameters_t peripheral_array[],

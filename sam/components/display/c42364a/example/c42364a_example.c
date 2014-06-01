@@ -3,7 +3,7 @@
  *
  * \brief C42364A LCD Glass component example for SAM.
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012 - 2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,7 +52,8 @@
  * 32 KHz oscillator crystal.
  *
  * \section files Main Files
- * - c42364a.c: C42364A LCD Glass component driver;
+ * - c42364a_lcdca.c: C42364A LCD Glass component driver using LCDCA;
+ * - c42364a_slcdc.c: C42364A LCD Glass component driver using SLCDC;
  * - c42364a.h: C42364A LCD Glass component driver header file;
  * - c42364a_example.c: C42364A LCD Glass component example application.
  *
@@ -61,14 +62,10 @@
  * for Atmel. Other compilers may or may not work.
  *
  * \section deviceinfo Device Information
- * All SAM devices with an LCDCA connected to C42364A LCD Glass component
- * and a USART module can be used.
+ * All SAM devices with an LCDCA or SLCDC connected to C42364A LCD Glass
+ * component and a USART module can be used.
  *
  * \section configinfo Configuration Information
- * This example has been tested with the following configuration:
- * - SAM4L_EK evaluation kit;
- * - CPU clock: 12 MHz;
- * - USART2 (on SAM4L_EK) abstracted with a USB CDC connection to a PC;
  * - PC terminal settings:
  *   - 115200 bps,
  *   - 8 data bits,
@@ -114,10 +111,16 @@ static void display_menu(void)
 			"  -- Select operation:\n\r"
 			"  c: Clear the screen \n\r"
 			"  h: Display menu \n\r"
+		#if ( SAM4C || SAM4CP )
+			"  1: Basic show feature \n\r"
+		#else
 			"  1: Basic show feature(need 'c' first if '4' selected) \n\r"
+		#endif
 			"  2: Blink feature \n\r"
+		#if !( SAM4C || SAM4CP )
 			"  3: Circular animation feature \n\r"
 			"  4: Text scrolling feature \n\r"
+		#endif
 			"\n\r\n\r");
 }
 
@@ -127,8 +130,15 @@ static void display_menu(void)
 int main(void)
 {
 	uint8_t key;
+#if !( SAM4C || SAM4CP )
 	uint8_t const scrolling_str[] = "C42364A Example  ";
+#endif
+#if ( SAM4C || SAM4CP )
+	int32_t value = 1234;
+#else
 	int32_t value = -12345;
+#endif
+	status_code_t status;
 
 	/* Initialize the SAM system */
 	sysclk_init();
@@ -142,11 +152,18 @@ int main(void)
 	printf("-- %s\n\r", BOARD_NAME);
 	printf("-- Compiled: %s %s --\n\r", __DATE__, __TIME__);
 
+#if !SAM4CP
 	/* Turn on the backlight. */
 	ioport_set_pin_level(LCD_BL_GPIO, LCD_BL_ACTIVE_LEVEL);
+#endif
 
 	/* Initialize the C42364A LCD glass component. */
-	c42364a_init();
+	status = c42364a_init();
+	if (status != STATUS_OK) {
+		printf("-- LCD Initialization fails! --\r\n");
+		while (1) {
+		}
+	}
 
 	printf("Show all the components on the glass.\r\n");
 	c42364a_show_all();
@@ -174,13 +191,29 @@ int main(void)
 
 		case '1':
 			printf("Show icons, number and string.\r\n");
+		#if ( SAM4C || SAM4CP )
+			c42364a_clear_all();
+			c42364a_blink_disable();
+		#endif
 			c42364a_show_icon(C42364A_ICON_ARM);
 			c42364a_show_numeric_dec(value);
+		#if ( SAM4C || SAM4CP )
+			c42364a_show_text((const uint8_t *)"SAM4C");
+		#else
 			c42364a_show_text((const uint8_t *)"Welcome");
+		#endif
 			c42364a_show_battery(C42364A_BATTERY_TWO);
 			break;
 
 		case '2':
+		#if ( SAM4C || SAM4CP )
+			printf("Blink Full Screen.\r\n");
+			c42364a_clear_all();
+			c42364a_write_num_packet((const uint8_t *)"1023");
+			c42364a_show_icon(C42364A_ICON_AM);
+			c42364a_show_icon(C42364A_ICON_COLON);
+			c42364a_blink_screen();
+		#else
 			printf("Blink colon icon, show a time.\r\n");
 			c42364a_clear_icon(C42364A_ICON_MINUS);
 			c42364a_clear_icon(C42364A_ICON_MINUS_SEG1);
@@ -188,8 +221,9 @@ int main(void)
 			c42364a_write_num_packet((const uint8_t *)"1023");
 			c42364a_show_icon(C42364A_ICON_AM);
 			c42364a_blink_icon_start(C42364A_ICON_COLON);
+		#endif
 			break;
-
+	#if !( SAM4C || SAM4CP )
 		case '3':
 			printf("Show the two dots circular animation.\r\n");
 			c42364a_circular_animation_start(C42364A_CSR_RIGHT, 7, 0x03);
@@ -200,7 +234,7 @@ int main(void)
 			c42364a_text_scrolling_start(scrolling_str,
 					strlen((char const *)scrolling_str));
 			break;
-
+	#endif
 		default:
 			break;
 		}

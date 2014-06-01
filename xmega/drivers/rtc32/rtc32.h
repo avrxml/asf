@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA 32-bit Real Time Counter driver definitions
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -209,9 +209,9 @@ void rtc_init(void);
  * \subsection rtc32_basic_use_case_setup_code Example code
  * Add to the initialization code:
  * \code
- *    sysclk_init();
- *    rtc_init();
- * \endcode
+	sysclk_init();
+	rtc_init();
+\endcode
  *
  * \subsection rtc32_basic_use_case_setup_flow Workflow
  * -# Ensure that conf_rtc.h is present for the driver.
@@ -228,8 +228,8 @@ void rtc_init(void);
  * \subsection rtc32_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    rtc_get_time();
- * \endcode
+	rtc_get_time();
+\endcode
  *
  * \subsection rtc32_basic_use_case_usage_flow Workflow
  * -# Get current time of the RTC32:
@@ -256,24 +256,24 @@ void rtc_init(void);
  * reschedules the alarm must be provided
  * by the user.
  * \code
- *   static void alarm(uint32_t time)
- *   {
- *       rtc_set_alarm(2);
- *   }
- * \endcode
+	static void alarm(uint32_t time)
+	{
+	    rtc_set_alarm(2);
+	}
+\endcode
  * \note Since the next alarm will be rounded up to the next second pass, this
  * will actually happen in 3 seconds.
  *
  * \subsection rtc32_use_case_1_setup_code Example code
  * Add to application initialization:
  * \code
- *    pmic_init();
- *    sysclk_init();
- *    sleepmgr_init();
- *    rtc_init();
- *    rtc_set_callback(alarm);
- *    cpu_irq_enable();
- * \endcode
+	pmic_init();
+	sysclk_init();
+	sleepmgr_init();
+	rtc_init();
+	rtc_set_callback(alarm);
+	cpu_irq_enable();
+\endcode
  *
  * \subsection rtc32_use_case_1_setup_flow Workflow
  * -# Ensure that conf_rtc32.h is present for the driver.
@@ -299,11 +299,11 @@ void rtc_init(void);
  *
  * \subsection rtc32_use_case_1_usage_code Example code
  * \code
- *    rtc_set_alarm_relative(3);
- *    while (true) {
- *        sleepmgr_enter_sleep();
- *    }
- * \endcode
+	rtc_set_alarm_relative(3);
+	while (true) {
+	    sleepmgr_enter_sleep();
+	}
+\endcode
  *
  * \subsection rtc32_use_case_1_usage_flow Workflow
  * -# Set the alarm to trigger on next time unit roll over:
@@ -313,10 +313,10 @@ void rtc_init(void);
  * value of 3 causes the alarm to be set of in 3-4 seconds.
  * -# Sleep between each triggered alarm:
  *   - \code 
- *      while (true) {
- *          sleepmgr_enter_sleep();
- *      }
- * \endcode
+	while (true) {
+	    sleepmgr_enter_sleep();
+	}
+\endcode
  */
 
 #endif /* DRIVERS_RTC32_RTC32_H */

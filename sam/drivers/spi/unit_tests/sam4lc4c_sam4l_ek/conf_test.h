@@ -3,7 +3,7 @@
  *
  * \brief Unit test configuration.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,11 +44,11 @@
 #ifndef CONF_TEST_H
 #define CONF_TEST_H
 
-/** Perform unit tests using SPI0 */
+/** Perform unit tests using SPI */
 #define CONF_TEST_SPI        SPI
-/** Unit test SPI0 ID */
+/** Unit test SPI ID */
 #define CONF_TEST_SPI_ID     SPI_IRQn
-/** Unit test SPI0 NPCS */
+/** Unit test SPI NPCS */
 #define CONF_TEST_SPI_NPCS   1
 /** Unit test SPI handler in vector table */
 #define CONF_TEST_SPI_HANDLER SPI_Handler

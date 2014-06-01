@@ -3,7 +3,7 @@
  *
  * @brief Single button controller application
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,26 +45,26 @@
  * \mainpage
  * \section preface Preface
  * This is the reference manual for ZRC Single button controller demo
- *application.
+ * application.
  * \section main_files Application Files
  * - main.c                     Application main file.
  * - vendor_data.c               Vendor Specific API functions
  * \section intro Application Introduction
  *  Single Button Controller is the RF4CE demo application which can be used in
- *the ZRC target - controller setup
+ * the ZRC target - controller setup
  *  This will support push button pairing procedure and zrc commands i.e Sending
- *the button events to the remote terminal target over the air.
+ * the button events to the remote terminal target over the air.
  *
  *	Application supports cold reset and warm reset. While powering on the
- *device, if the Select key is  pressed then it does cold reset.
+ * device, if the Select key is  pressed then it does cold reset.
  *  Otherwise it does warm reset i.e retreiving the network information base
- *from NVM.
+ * from NVM.
  *
  *  If the Select key is pressed on power on, it does the push pairing procedure
- *following the cold reset.
+ * following the cold reset.
  *
  *  The Application will use the ZRC Commands to send the key press event to
- *paired device.
+ * paired device.
  * \section api_modules Application Dependent Modules
  * - \ref group_rf4control
  * - \subpage api
@@ -75,7 +75,7 @@
  * \section references References
  * 1)  IEEE Std 802.15.4-2006 Part 15.4: Wireless Medium Access Control (MAC)
  *     and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal
- *Area
+ * Area
  *     Networks (WPANs).\n\n
  * 2)  AVR Wireless Support <A href="http://avr@atmel.com">avr@atmel.com</A>.\n
  *
@@ -96,8 +96,12 @@
 #include "pb_pairing.h"
 #include "vendor_data.h"
 
-/* === TYPES =============================================================== */
+#ifdef SLEEP_ENABLE
+#include "conf_interrupt.h"
+#include "sleep_mgr.h"
+#endif
 
+/* === TYPES =============================================================== */
 typedef enum node_status_tag {
 	IDLE,
 	WARM_START,
@@ -142,6 +146,11 @@ void nlme_rx_enable_confirm(nwk_enum_t Status);
 static void pbp_org_pair_confirm(nwk_enum_t Status, uint8_t PairingRef);
 static void nlme_start_confirm(nwk_enum_t Status);
 
+#ifdef SLEEP_ENABLE
+static void enter_sleep(void);
+
+#endif
+
 #ifdef ZRC_CMD_DISCOVERY
 static void zrc_cmd_disc_indication(uint8_t PairingRef);
 
@@ -164,14 +173,24 @@ uint8_t app_timer;
 int main(void)
 {
 	irq_initialize_vectors();
-    sysclk_init();
+	#if SAMD21 || SAMD20 || SAMR21
+	system_init();
+	delay_init();
+	#else
+	sysclk_init();
 
 	/* Initialize the board.
 	 * The board-specific conf_board.h file contains the configuration of
 	 * the board initialization.
 	 */
 	board_init();
+	#endif
 
+#ifdef SLEEP_ENABLE
+	/* Configure the wakeup source to wakeup the MCU, when it is in sleep
+	 *mode */
+	config_wakeup_source();
+#endif
 	sw_timer_init();
 
 	/* Initialize all layers */
@@ -211,6 +230,10 @@ int main(void)
 				(FUNC_PTR)nlme_reset_confirm
 				);
 	}
+
+#ifdef SLEEP_ENABLE
+	sm_init();
+#endif
 
 	/* Endless while loop */
 	while (1) {
@@ -444,6 +467,19 @@ static void app_task(void)
 				node_status = TRANSMITTING;
 			}
 		}
+
+#ifdef SLEEP_ENABLE
+		else {
+			if (nwk_ready_to_sleep() || (nwk_stack_idle())) {
+				/* Enter Sleep will enable the wakeup source,
+				 *also config the timers and sleep modes
+				 *handling */
+				enter_sleep();
+				/* MCU wakes up from the sleep and continues in
+				 *normal mode */
+			}
+		}
+#endif
 	}
 	break;
 
@@ -519,12 +555,61 @@ static key_state_t key_state_read(key_id_t key_no)
 	key_state_t key_val = KEY_RELEASED;
 
 	if (SELECT_KEY == key_no) {
+		#if SAMD20 || SAMD21 || SAMR21
+		if (!port_pin_get_input_level(BUTTON_0_PIN)) {
+			key_val = KEY_PRESSED;
+		}
+
+		#else
 		if (!ioport_get_pin_level(GPIO_PUSH_BUTTON_0)) {
 			key_val = KEY_PRESSED;
 		}
+
+		#endif
 	}
 
 	return key_val;
 }
 
+#ifdef SLEEP_ENABLE
+
+/**
+ * @brief enter_sleep This function will put the MCU to Lowest possible sleep
+ *mode
+ *            This function will get the current running timer id expiry
+ *duration. This
+ *            will be used to run the other timer(sleep mode timers during MCU
+ *sleep)
+ *	       wakeup source also used to wakeup the controllers from sleep
+ *mode. The
+ *	       timer drift values will be written into the software timer once
+ *the MCU wake from
+ *		sleep by timer expiry or due to wakeup sources.
+ * @param key_no Key to be read.
+ */
+
+static void enter_sleep(void)
+{
+	uint32_t sleep_duration;
+
+	/* This function will get the next expiry timer duration */
+	sleep_duration = sw_timer_next_timer_expiry_duration();
+
+	if (sleep_duration > MIN_SLEEP_TIME) {
+		/* Enable the wakeup source, before MCU goes to sleep */
+		enable_wakeup_source();
+
+		/* Set MCU to sleep */
+		sm_sleep((sleep_duration -
+				MIN_SLEEP_TIME) / SLEEP_MGR_TIMER_RES);
+
+		/* handle the wakeup, config the clock set the interrupts etc */
+		wakeup_handle();
+
+		/* sw timer  - add the sleep offset time duration */
+		sw_timer_run_residual_time(MIN_SLEEP_TIME);
+	}
+}
+
+#endif
 /* EOF */

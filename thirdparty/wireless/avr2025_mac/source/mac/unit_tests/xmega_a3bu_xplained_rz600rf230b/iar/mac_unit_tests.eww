@@ -1,6 +1,0 @@
-<workspace>
-	<batchBuild></batchBuild>
-	<project>
-		<path>$WS_DIR$\mac_unit_tests.ewp</path>
-	</project>
-</workspace>

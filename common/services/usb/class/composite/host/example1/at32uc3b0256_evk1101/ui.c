@@ -56,7 +56,7 @@ static void ui_disable_asynchronous_interrupt(void);
 /**
  * \brief Interrupt handler for interrupt pin change
  */
-ISR(ui_wakeup_isr, AVR32_GPIO0_IRQ_GROUP, 0)
+ISR(ui_wakeup_isr, AVR32_GPIO_IRQ_GROUP, 0)
 {
 	// Clear GPIO interrupts.
 	gpio_clear_pin_interrupt_flag(GPIO_PUSH_BUTTON_0);

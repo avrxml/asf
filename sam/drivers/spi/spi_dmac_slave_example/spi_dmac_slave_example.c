@@ -3,7 +3,7 @@
  *
  * \brief Serial Peripheral Interface (SPI) DMA slave example for SAM.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,19 +83,13 @@
  * -# Connect the UART port of the evaluation board to the computer and open
  * it in a terminal.
  *    - Settings: 115200 bauds, 8 bits, 1 stop bit, no parity, no flow control.
- * -# Download the program into the evaluation board and run it. Please refer to
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6224.pdf">
- *    SAM-BA User Guide</a>, the
- *    <a href="http://www.atmel.com/dyn/resources/prod_documents/doc6310.pdf">
- *    GNU-Based Software Development</a> application note or the
- *    <a href="ftp://ftp.iar.se/WWWfiles/arm/Guides/EWARM_UserGuide.ENU.pdf">
- *    IAR EWARM User Guide</a>, depending on the solutions that users choose.
+ * -# Download the program into the evaluation board and run it.
  * -# Upon startup, the application will output the following line on the terminal:
  *    \code
- *     -- Spi DMA Slave Example --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- *    \endcode
+	-- Spi DMA Slave Example --
+	-- xxxxxx-xx
+	-- Compiled: xxx xx xxxx xx:xx:xx --
+\endcode
  * -# The following traces detail operations on the SPI example, displaying success
  *    or error messages depending on the results of the commands.
  *
@@ -416,7 +410,8 @@ static void spi_slave_initialize(void)
 	spi_reset(SPI_SLAVE_BASE);
 	spi_set_slave_mode(SPI_SLAVE_BASE);
 	spi_disable_mode_fault_detect(SPI_SLAVE_BASE);
-	spi_set_peripheral_chip_select_value(SPI_SLAVE_BASE, SPI_CHIP_SEL);
+	spi_set_peripheral_chip_select_value(SPI_SLAVE_BASE,
+		spi_get_pcs(SPI_CHIP_SEL));
 	spi_set_clock_polarity(SPI_SLAVE_BASE, SPI_CHIP_SEL, SPI_CLK_POLARITY);
 	spi_set_clock_phase(SPI_SLAVE_BASE, SPI_CHIP_SEL, SPI_CLK_PHASE);
 	spi_set_bits_per_transfer(SPI_SLAVE_BASE, SPI_CHIP_SEL,
@@ -447,7 +442,8 @@ static void spi_master_initialize(void)
 	spi_set_lastxfer(SPI_MASTER_BASE);
 	spi_set_master_mode(SPI_MASTER_BASE);
 	spi_disable_mode_fault_detect(SPI_MASTER_BASE);
-	spi_set_peripheral_chip_select_value(SPI_MASTER_BASE, SPI_CHIP_SEL);
+	spi_set_peripheral_chip_select_value(SPI_MASTER_BASE,
+		spi_get_pcs(SPI_CHIP_SEL));
 	spi_set_clock_polarity(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_CLK_POLARITY);
 	spi_set_clock_phase(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_CLK_PHASE);
 	spi_set_bits_per_transfer(SPI_MASTER_BASE, SPI_CHIP_SEL,

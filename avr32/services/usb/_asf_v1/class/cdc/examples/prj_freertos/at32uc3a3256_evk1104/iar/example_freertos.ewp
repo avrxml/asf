@@ -186,8 +186,9 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>BOARD=EVK1104</state>
+					<state>__FREERTOS__</state>
 					<state>FREERTOS_USED</state>
+					<state>BOARD=EVK1104</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -467,8 +468,9 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>BOARD=EVK1104</state>
+					<state>__FREERTOS__</state>
 					<state>FREERTOS_USED</state>
+					<state>BOARD=EVK1104</state>
 				</option>
 				<option>
 					<name>AIncludePaths</name>
@@ -1091,8 +1093,9 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>BOARD=EVK1104</state>
+					<state>__FREERTOS__</state>
 					<state>FREERTOS_USED</state>
+					<state>BOARD=EVK1104</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1372,8 +1375,9 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>BOARD=EVK1104</state>
+					<state>__FREERTOS__</state>
 					<state>FREERTOS_USED</state>
+					<state>BOARD=EVK1104</state>
 				</option>
 				<option>
 					<name>AIncludePaths</name>

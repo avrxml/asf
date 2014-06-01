@@ -3,7 +3,7 @@
  *
  * \brief AT86RFx Wireless Module Unit Test.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -268,7 +268,7 @@ void usr_mcps_purge_conf(uint8_t msduHandle,
 }
 
 #endif  /* ((MAC_PURGE_REQUEST_CONFIRM == 1) && (MAC_INDIRECT_DATA_BASIC == 1))
-         **/
+        **/
 
 #if (MAC_ASSOCIATION_REQUEST_CONFIRM == 1)
 
@@ -296,7 +296,7 @@ void usr_mlme_associate_conf(uint16_t AssocShortAddress,
  * @brief Callback function usr_mlme_associate_ind
  *
  * @param DeviceAddress         Extended address of device requesting
- *association
+ * association
  * @param CapabilityInformation Capabilities of device requesting association
  */
 void usr_mlme_associate_ind(uint64_t DeviceAddress,
@@ -315,7 +315,7 @@ void usr_mlme_associate_ind(uint64_t DeviceAddress,
  * @param PANDescriptor  Pointer to PAN descriptor for received beacon.
  * @param PendAddrSpec   Pending address specification in received beacon.
  * @param AddrList       List of addresses of devices the coordinator has
- *pending data.
+ * pending data.
  * @param sduLength      Length of beacon payload.
  * @param sdu            Pointer to beacon payload.
  *
@@ -431,7 +431,7 @@ void usr_mlme_orphan_ind(uint64_t OrphanAddress)
 
 /*
  * Callback function that must be implemented by application (NHLE) for MAC
- *service
+ * service
  * MLME-POLL.confirm.
  *
  * @param status           Result of requested poll operation.

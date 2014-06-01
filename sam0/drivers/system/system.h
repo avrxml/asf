@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 System related functionality
+ * \brief SAM D20/D21/R21 System related functionality
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,10 +48,14 @@
 #include <gclk.h>
 #include <pinmux.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
- * \defgroup asfdoc_samd20_system_group SAM D20 System Driver (SYSTEM)
+ * \defgroup asfdoc_sam0_system_group SAM D20/D21/R21 System Driver (SYSTEM)
  *
- * This driver for SAM D20 devices provides an interface for the configuration
+ * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
  * and management of the device's system relation functionality, necessary for
  * the basic device operation. This is not limited to a single peripheral, but
  * extends across multiple hardware peripherals,
@@ -62,20 +66,20 @@
  * - PM (Power Manager)
  *
  * The outline of this documentation is as follows:
- *  - \ref asfdoc_samd20_system_prerequisites
- *  - \ref asfdoc_samd20_system_module_overview
- *  - \ref asfdoc_samd20_system_special_considerations
- *  - \ref asfdoc_samd20_system_extra_info
- *  - \ref asfdoc_samd20_system_examples
- *  - \ref asfdoc_samd20_system_api_overview
+ *  - \ref asfdoc_sam0_system_prerequisites
+ *  - \ref asfdoc_sam0_system_module_overview
+ *  - \ref asfdoc_sam0_system_special_considerations
+ *  - \ref asfdoc_sam0_system_extra_info
+ *  - \ref asfdoc_sam0_system_examples
+ *  - \ref asfdoc_sam0_system_api_overview
  *
  *
- * \section asfdoc_samd20_system_prerequisites Prerequisites
+ * \section asfdoc_sam0_system_prerequisites Prerequisites
  *
  * There are no prerequisites for this module.
  *
  *
- * \section asfdoc_samd20_system_module_overview Module Overview
+ * \section asfdoc_sam0_system_module_overview Module Overview
  *
  * The System driver provides a collection of interfaces between the user
  * application logic, and the core device functionality (such as clocks, reset
@@ -83,22 +87,22 @@
  * a number of sub-modules that control one specific aspect of the device:
  *
  * - System Core (this module)
- * - \ref asfdoc_samd20_system_clock_group "System Clock Control" (sub-module)
- * - \ref asfdoc_samd20_system_interrupt_group "System Interrupt Control" (sub-module)
- * - \ref asfdoc_samd20_system_pinmux_group "System Pin Multiplexer Control" (sub-module)
+ * - \ref asfdoc_sam0_system_clock_group "System Clock Control" (sub-module)
+ * - \ref asfdoc_sam0_system_interrupt_group "System Interrupt Control" (sub-module)
+ * - \ref asfdoc_sam0_system_pinmux_group "System Pin Multiplexer Control" (sub-module)
  *
  *
- * \subsection asfdoc_samd20_system_module_overview_vref Voltage References
- * The various analog modules within the SAM D20 devices (such as AC, ADC and
+ * \subsection asfdoc_sam0_system_module_overview_vref Voltage References
+ * The various analog modules within the SAM D20/D21/R21 devices (such as AC, ADC and
  * DAC) require a voltage reference to be configured to act as a reference point
  * for comparisons and conversions.
  *
- * The SAM D20 devices contain multiple references, including an internal
+ * The SAM D20/D21/R21 devices contain multiple references, including an internal
  * temperature sensor, and a fixed band-gap voltage source. When enabled, the
  * associated voltage reference can be selected within the desired peripheral
  * where applicable.
  *
- * \subsection asfdoc_samd20_system_module_overview_reset_cause System Reset Cause
+ * \subsection asfdoc_sam0_system_module_overview_reset_cause System Reset Cause
  * In some application there may be a need to execute a different program
  * flow based on how the device was reset. For example, if the cause of reset
  * was the Watchdog timer (WDT), this might indicate an error in the application
@@ -107,16 +111,16 @@
  * For this reason, an API is provided to retrieve the cause of the last system
  * reset, so that appropriate action can be taken.
  *
- * \subsection asfdoc_samd20_system_module_overview_sleep_mode Sleep Modes
- * The SAM D20 devices have several sleep modes, where the sleep mode controls
+ * \subsection asfdoc_sam0_system_module_overview_sleep_mode Sleep Modes
+ * The SAM D20/D21/R21 devices have several sleep modes, where the sleep mode controls
  * which clock systems on the device will remain enabled or disabled when the
  * device enters a low power sleep mode.
- * \ref asfdoc_samd20_system_module_sleep_mode_table "The table below" lists the
+ * \ref asfdoc_sam0_system_module_sleep_mode_table "The table below" lists the
  * clock settings of the different sleep modes.
  *
- * \anchor asfdoc_samd20_system_module_sleep_mode_table
+ * \anchor asfdoc_sam0_system_module_sleep_mode_table
  * <table>
- *  <caption>SAM D20 Device Sleep Modes</caption>
+ *  <caption>SAM D20/D21/R21 Device Sleep Modes</caption>
  * 	<tr>
  * 		<th>Sleep mode</th>
  * 		<th>CPU clock</th>
@@ -184,28 +188,28 @@
  * to save power.
  *
  *
- * \section asfdoc_samd20_system_special_considerations Special Considerations
+ * \section asfdoc_sam0_system_special_considerations Special Considerations
  *
  * Most of the functions in this driver have device specific restrictions and
  * caveats; refer to your device datasheet.
  *
  *
- * \section asfdoc_samd20_system_extra_info Extra Information for SYSTEM
+ * \section asfdoc_sam0_system_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_samd20_system_extra. This includes:
- *  - \ref asfdoc_samd20_system_extra_acronyms
- *  - \ref asfdoc_samd20_system_extra_dependencies
- *  - \ref asfdoc_samd20_system_extra_errata
- *  - \ref asfdoc_samd20_system_extra_history
+ * For extra information see \ref asfdoc_sam0_system_extra. This includes:
+ *  - \ref asfdoc_sam0_system_extra_acronyms
+ *  - \ref asfdoc_sam0_system_extra_dependencies
+ *  - \ref asfdoc_sam0_system_extra_errata
+ *  - \ref asfdoc_sam0_system_extra_history
  *
  *
- * \section asfdoc_samd20_system_examples Examples
+ * \section asfdoc_sam0_system_examples Examples
  *
  * For SYSTEM module related examples, please refer to the sub-modules listed in
- * the \ref asfdoc_samd20_system_module_overview "system module overview".
+ * the \ref asfdoc_sam0_system_module_overview "system module overview".
  *
  *
- * \section asfdoc_samd20_system_api_overview API Overview
+ * \section asfdoc_sam0_system_api_overview API Overview
  * @{
  */
 
@@ -226,7 +230,7 @@ enum system_voltage_reference {
  * \brief Device sleep modes.
  *
  * List of available sleep modes in the device. A table of clocks available in
- * different sleep modes can be found in \ref asfdoc_samd20_system_module_overview_sleep_mode.
+ * different sleep modes can be found in \ref asfdoc_sam0_system_module_overview_sleep_mode.
  */
 enum system_sleepmode {
 	/** IDLE 0 sleep mode. */
@@ -259,6 +263,27 @@ enum system_reset_cause {
 	SYSTEM_RESET_CAUSE_POR            = PM_RCAUSE_POR,
 };
 
+/**
+ * \name System identification
+ * @{
+ */
+
+/**
+ * \brief Retrieve the device identification signature
+ *
+ * Retrieves the signature of the current device.
+ *
+ * \return Device ID signature as a 32-bit integer.
+ */
+static inline uint32_t system_get_device_id(void)
+{
+	return DSU->DID.reg;
+}
+
+/**
+ * @}
+ */
+
 
 /**
  * \name Voltage references
@@ -268,9 +293,8 @@ enum system_reset_cause {
 /**
  * \brief Enable the selected voltage reference
  *
- * This function will enable the selected voltage reference, making the voltage
- * reference available on a pin as well as an input source to the analog
- * peripherals.
+ * Enables the selected voltage reference source, making the voltage reference
+ * available on a pin as well as an input source to the analog peripherals.
  *
  * \param[in] vref  Voltage reference to enable
  */
@@ -295,7 +319,7 @@ static inline void system_voltage_reference_enable(
 /**
  * \brief Disable the selected voltage reference
  *
- * This function will disable the selected voltage reference
+ * Disables the selected voltage reference source.
  *
  * \param[in] vref  Voltage reference to disable
  */
@@ -330,12 +354,11 @@ static inline void system_voltage_reference_disable(
 /**
  * \brief Set the sleep mode of the device
  *
- * This function will set the sleep mode of the device; the configured sleep
- * mode will be entered upon the next call of the \ref system_sleep()
- * function.
+ * Sets the sleep mode of the device; the configured sleep mode will be entered
+ * upon the next call of the \ref system_sleep() function.
  *
- * For an overview of what are being disabled in sleep for the different sleep
- * modes, see \ref asfdoc_samd20_system_module_overview_sleep_mode.
+ * For an overview of which systems are disabled in sleep for the different
+ * sleep modes, see \ref asfdoc_sam0_system_module_overview_sleep_mode.
  *
  * \param[in] sleep_mode  Sleep mode to configure for the next sleep operation
  *
@@ -368,10 +391,10 @@ static inline enum status_code system_set_sleepmode(
 /**
  * \brief Put the system to sleep waiting for interrupt
  *
- * This will execute a DSB (data synchronization barrier) intruction to ensure
- * all ongoing memory accesses have completed. Then the WFI (wait for interrupt)
- * instruction is executed, putting the device into the sleep mode specified
- * by \ref system_set_sleepmode and wait for an interrupt to wake up.
+ * Executes a device DSB (Data Synchronization Barrier) instruction to ensure
+ * all ongoing memory accesses have completed, then a WFI (Wait For Interrupt)
+ * instruction to place the device into the sleep mode specified by
+ * \ref system_set_sleepmode until woken by an interrupt.
  */
 static inline void system_sleep(void)
 {
@@ -383,16 +406,43 @@ static inline void system_sleep(void)
  * @}
  */
 
-
 /**
- * \name Reset cause
+ * \name Reset control
  * @{
  */
 
 /**
+ * \brief Check if bugger is present
+ *
+ * Check if debugger is connected to the onboard debug system (DAP)
+ *
+ * \return A bool identifying if a debugger is present
+ *
+ * \retval true  Debugger is connected to the system
+ * \retval false Debugger is not connected to the system
+ *
+ */
+static inline bool system_is_debugger_present(void)
+{
+	return DSU->STATUSB.reg & DSU_STATUSB_DBGPRES;
+}
+
+/**
+ * \brief Reset the MCU
+ *
+ * Resets the MCU and all associated peripherals and registers, except RTC, all 32kHz sources,
+ * WDT (if ALWAYSON is set) and GCLK (if WRTLOCK is set).
+ *
+ */
+static inline void system_reset(void)
+{
+	NVIC_SystemReset();
+}
+
+/**
  * \brief Return the reset cause
  *
- * This function will return the cause of a system reset
+ * Retrieves the cause of the last system reset.
  *
  * \return An enum value indicating the cause of the last system reset.
  */
@@ -423,9 +473,9 @@ void system_init(void);
  */
 
 /**
- * \page asfdoc_samd20_system_extra Extra Information for SYSTEM Driver
+ * \page asfdoc_sam0_system_extra Extra Information for SYSTEM Driver
  *
- * \section asfdoc_samd20_system_extra_acronyms Acronyms
+ * \section asfdoc_sam0_system_extra_acronyms Acronyms
  * Below is a table listing the acronyms used in this module, along with their
  * intended meanings.
  *
@@ -445,17 +495,17 @@ void system_init(void);
  * </table>
  *
  *
- * \section asfdoc_samd20_system_extra_dependencies Dependencies
+ * \section asfdoc_sam0_system_extra_dependencies Dependencies
  * This driver has the following dependencies:
  *
  *  - None
  *
  *
- * \section asfdoc_samd20_system_extra_errata Errata
+ * \section asfdoc_sam0_system_extra_errata Errata
  * There are no errata related to this driver.
  *
  *
- * \section asfdoc_samd20_system_extra_history Module History
+ * \section asfdoc_sam0_system_extra_history Module History
  * An overview of the module history is presented in the table below, with
  * details on the enhancements and fixes made to the module since its first
  * release. The current version of this corresponds to the newest version in
@@ -466,11 +516,21 @@ void system_init(void);
  *		<th>Changelog</th>
  *	</tr>
  *	<tr>
+ *		<td>Added support for SAMD21</td>
+ *	</tr>
+ *	<tr>
+ *		<td>Added new \c system_reset() to reset the complete MCU with some exceptions</td>
+ *	</tr>
+ *	<tr>
+ *		<td>Added new \c system_get_device_id() function to retrieved the device
+ *          ID.</td>
+ *	</tr>
+ *	<tr>
  *		<td>Initial Release</td>
  *	</tr>
  * </table>
  *
- * \page asfdoc_samd20_system_document_revision_history Document Revision History
+ * \page asfdoc_sam0_system_document_revision_history Document Revision History
  *
  * <table>
  *	<tr>
@@ -479,11 +539,30 @@ void system_init(void);
  *		<th>Comments</td>
  *	</tr>
  *	<tr>
+ *		<td>D</td>
+ *		<td>02/2014</td>
+ *		<td>Added support for SAMR21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>C</td>
+ *		<td>01/2014</td>
+ *		<td>Added support for SAMD21.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>B</td>
+ *		<td>06/2013</td>
+ *		<td>Corrected documentation typos.</td>
+ *	</tr>
+ *	<tr>
  *		<td>A</td>
  *		<td>06/2013</td>
  *		<td>Initial release</td>
  *	</tr>
  * </table>
  */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SYSTEM_H_INCLUDED */

@@ -3,7 +3,7 @@
  *
  * \brief Non volatile memories management
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -212,8 +212,8 @@ status_code_t nvm_set_security_bit(void);
  * \subsection nvm_basic_use_case_setup_code Example code
  * Add to you application C-file:
  * \code
- *  if(nvm_init(INT_FLASH) == STATUS_OK)
- *    do_something();
+ *      if(nvm_init(INT_FLASH) == STATUS_OK)
+ *        do_something();
  * \endcode
  *
  * \subsection nvm_basic_use_case_setup_flow Workflow
@@ -230,39 +230,41 @@ status_code_t nvm_set_security_bit(void);
  * non volatile memory
  * Use in the application C-file:
  * \code
- *   uint8_t buffer[] = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE};
+ *         uint8_t buffer[] = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE};
  *
- *   if(nvm_write(INT_FLASH, test_address, (void *)buffer, sizeof(buffer)) ==
- * STATUS_OK)
- *     do_something();
+ *         if(nvm_write(INT_FLASH, test_address, (void *)buffer, sizeof(buffer))
+ *==
+ *       STATUS_OK)
+ *           do_something();
  * \endcode
  *
  * \subsection nvm_basic_use_case_usage_flow Workflow
  * -# Prepare the data you want to send to the non volatile memory
  *   \code uint8_t buffer[] = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE}; \endcode
  * -# Call nvm_write \code nvm_write(INT_FLASH, test_address, (void *)buffer,
- * sizeof(buffer)) \endcode
+ *       sizeof(buffer)) \endcode
  * and optionally check its return value for STATUS_OK.
  *
  * \subsection nvm_basic_use_case_usage_code_reading Example code: Reading from
  * non volatile memory
  * Use in application C-file:
  * \code
- *   uint8_t data_read[8];
+ *         uint8_t data_read[8];
  *
- *   if(nvm_read(INT_FLASH, test_address, (void *)data_read, sizeof(data_read))
- * == STATUS_OK) {
- *     //Check read content
- *     if(data_read[0] == 0xAA)
- *       do_something();
- *   }
+ *         if(nvm_read(INT_FLASH, test_address, (void *)data_read,
+ *sizeof(data_read))
+ *       == STATUS_OK) {
+ *           //Check read content
+ *           if(data_read[0] == 0xAA)
+ *             do_something();
+ *         }
  * \endcode
  *
  * \subsection nvm_basic_use_case_usage_flow Workflow
  * -# Prepare a data buffer that will read data from non volatile memory
  *   \code uint8_t data_read[8]; \endcode
  * -# Call nvm_read \code nvm_read(INT_FLASH, test_address, (void *)data_read,
- * sizeof(data_read)); \endcode
+ *       sizeof(data_read)); \endcode
  * and optionally check its return value for STATUS_OK.
  * The data read from the non volatile memory are in data_read.
  *
@@ -270,8 +272,8 @@ status_code_t nvm_set_security_bit(void);
  * page of non volatile memory
  * Use in the application C-file:
  * \code
- *   if(nvm_page_erase(INT_FLASH, test_page) == STATUS_OK)
- *     do_something();
+ *      if(nvm_page_erase(INT_FLASH, test_page) == STATUS_OK)
+ *        do_something();
  * \endcode
  *
  * \subsection nvm_basic_use_case_usage_flow Workflow
@@ -282,11 +284,11 @@ status_code_t nvm_set_security_bit(void);
  * configuration of non volatile memory
  * Use in application C-file:
  * \code
- *   uint8_t mem_size, page_size, page_num;
+ *         uint8_t mem_size, page_size, page_num;
  *
- *   nvm_get_size(INT_FLASH, &mem_size);
- *   nvm_get_page_size(INT_FLASH, &page_size);
- *   nvm_get_pagenumber(INT_FLASH, test_address, &page_num);
+ *         nvm_get_size(INT_FLASH, &mem_size);
+ *         nvm_get_page_size(INT_FLASH, &page_size);
+ *         nvm_get_pagenumber(INT_FLASH, test_address, &page_num);
  * \endcode
  *
  * \subsection nvm_basic_use_case_usage_flow Workflow
@@ -300,7 +302,7 @@ status_code_t nvm_set_security_bit(void);
  * and optionally check its return value for STATUS_OK.
  * The page size of the non volatile memory is in page_size.
  * -# Call nvm_get_pagenumber \code nvm_get_page_number(INT_FLASH, test_address,
- * &page_num); \endcode
+ *       &page_num); \endcode
  * and optionally check its return value for STATUS_OK.
  * The page number of given address in the non volatile memory is in page_num.
  *
@@ -308,8 +310,8 @@ status_code_t nvm_set_security_bit(void);
  * security bit
  * Use in the application C-file:
  * \code
- *   if(nvm_set_security_bit() == STATUS_OK)
- *     do_something();
+ *      if(nvm_set_security_bit() == STATUS_OK)
+ *        do_something();
  * \endcode
  *
  * \subsection nvm_basic_use_case_usage_flow Workflow

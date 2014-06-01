@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\thirdparty_lwip_raw_basic_http_example_flash.ewp</path>
+	</project>
+</workspace>

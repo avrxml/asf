@@ -4,7 +4,7 @@
  * @brief This file defines all message structures for the MAC.
  *
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -77,6 +77,7 @@
  * needs to be aligned to at list of wpan_pandescriptor_t.
  * This has no impact for 8-bit platforms.
  */
+__PACK__DATA__
 typedef union {
 	uint8_t ed_value[1];
 	wpan_pandescriptor_t wpan_pan_desc;
@@ -93,7 +94,7 @@ typedef struct mcps_data_req_tag {
 
 	/**
 	 * The source addressing mode for this primitive and subsequent MPDU.
-	 *This
+	 * This
 	 * value can take one of the following values: 0 x 00 = no address
 	 * (addressingfields omitted). 0 x 01 = reserved. 0 x 02 = 16 bit short
 	 *  address. 0 x 03 = 64 bit extended address.
@@ -102,7 +103,7 @@ typedef struct mcps_data_req_tag {
 
 	/**
 	 * The destination addressing mode for this primitive and subsequent
-	 *MPDU.
+	 * MPDU.
 	 * This value can take one of the following values: 0 x 00 = no address
 	 * (addressing fields omitted). 0 x 01 = reserved. 0 x 02 = 16 bit short
 	 * address. 0 x 03 = 64 bit extended address.
@@ -129,13 +130,13 @@ typedef struct mcps_data_req_tag {
 
 	/**
 	 * The transmission options for this MSDU. These are a bitwise OR of one
-	 *or
+	 * or
 	 * more of the following:
 	 * 0 x 01 = acknowledged transmission.
 	 * 0 x 04 = indirect transmission.
 	 */
 	uint8_t TxOptions;
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
 
 	/**
 	 * The security level to be used.
@@ -148,10 +149,15 @@ typedef struct mcps_data_req_tag {
 	uint8_t KeyIdMode;
 
 	/**
+	 * The KeySource to find the key.
+	 */
+	uint8_t *KeySource;
+
+	/**
 	 * The index of the key to be used.
 	 */
 	uint8_t KeyIndex;
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* ((MAC_SECURITY_ZIP)  || (MAC_SECURITY_2006)) */
 
 	/**
 	 * The number of octets contained in the MSDU to be transmitted by the
@@ -181,16 +187,16 @@ typedef struct mcps_data_conf_tag {
 	/**
 	 * Optional. The time, in symbols, at which the data were transmitted
 	 * (see 7.5.4.1). The value of this parameter will be considered valid
-	 *only
+	 * only
 	 * if the value of the status parameter is MAC_SUCCESS; if the status
-	 *parameter
+	 * parameter
 	 * is not equal to MAC_SUCCESS, the value of the Timestamp parameter
-	 *shall not
+	 * shall not
 	 * be used for any other purpose. The symbol boundary is described by
 	 * macSyncSymbolOffset (see Table 86 in 7.4.1).
 	 * This is a 24-bit value, and the precision of this value shall be a
 	 * minimum of 20 bits, with the lowest 4 bits being the least
-	 *significant.
+	 * significant.
 	 */
 	uint32_t Timestamp;
 #endif  /* ENABLE_TSTAMP */
@@ -215,7 +221,7 @@ typedef struct mcps_purge_conf_tag {
 
 	/**
 	 * The handle of the MSDU requested to be purge from the transaction
-	 *queue.
+	 * queue.
 	 */
 	uint8_t msduHandle;
 
@@ -241,7 +247,7 @@ typedef struct mlme_associate_req_tag {
 
 	/**
 	 * The coordinator addressing mode for this primitive and subsequent
-	 *MPDU.
+	 * MPDU.
 	 * This value can take one of the following values:
 	 * 2 = 16 bit short address. 3 = 64 bit extended address.
 	 */
@@ -262,8 +268,9 @@ typedef struct mlme_associate_ind_tag {
 	enum msg_code cmdcode;
 	/** The address of the device requesting association. */
 	uint64_t DeviceAddress;
+
 	/** The operational capabilities of the device requesting association.
-	 **/
+	**/
 	uint8_t CapabilityInformation;
 } mlme_associate_ind_t;
 
@@ -296,7 +303,7 @@ typedef struct mlme_associate_conf_tag {
 	/**
 	 * The short device address allocated by the coordinator on successful
 	 * association. This parameter will be equal to 0 x ffff if the
-	 *association
+	 * association
 	 * attempt was unsuccessful.
 	 */
 	uint16_t AssocShortAddress;
@@ -325,8 +332,9 @@ typedef struct mlme_disassociate_req_tag {
 	uint64_t DeviceAddress;
 	/** The reason for the disassociation (see 7.3.1.3.2). */
 	uint8_t DisassociateReason;
+
 	/** TRUE if the disassociation notification command is to be sent
-	 *indirectly. */
+	 * indirectly. */
 	uint8_t TxIndirect;
 } mlme_disassociate_req_t;
 
@@ -353,7 +361,7 @@ typedef struct mlme_disassociate_conf_tag {
 
 	/** The addressing mode of the device that has either requested
 	 *  disassociation or been instructed to disassociate by its
-	 *coordinator.
+	 * coordinator.
 	 */
 	uint8_t DeviceAddrMode;
 
@@ -385,19 +393,19 @@ typedef struct mlme_beacon_notify_ind_tag {
 
 	/**
 	 * The list of addresses of the devices for which the beacon source has
-	 *data. */
+	 * data. */
 	uint8_t *AddrList;
 
 	/**
 	 * The number of octets contained in the beacon payload of the beacon
-	 *frame
+	 * frame
 	 * received by the MAC sublayer.
 	 */
 	uint8_t sduLength;
 
 	/**
 	 * The set of octets comprising the beacon payload to be transferred
-	 *from the
+	 * from the
 	 * MAC sublayerentity to the next higher layer.
 	 */
 	uint8_t *sdu;
@@ -424,12 +432,12 @@ typedef struct mlme_orphan_resp_tag {
 
 	/**
 	 * The short address allocated to the orphaned device if it is
-	 *associated
+	 * associated
 	 * with this coordinator. The special short address 0 x fffe indicates
-	 *that
+	 * that
 	 * no short address was allocated, and the device will use its 64 bit
 	 * extended address in all communications. If the device was not
-	 *associated
+	 * associated
 	 *  with thiscoordinator, this field will contain the value 0 x ffff and
 	 * be ignored on receipt.
 	 */
@@ -451,9 +459,9 @@ typedef struct mlme_reset_req_tag {
 
 	/**
 	 * If TRUE, the MAC sublayer is reset and all MAC PIB attributes are set
-	 *to
+	 * to
 	 * their default values. If FALSE, the MAC sublayer is reset but all MAC
-	 *PIB
+	 * PIB
 	 * attributes retain their values prior to the generation of the
 	 * MLME-RESET.request primitive.
 	 */
@@ -478,11 +486,12 @@ typedef struct mlme_get_req_tag {
 	enum msg_code cmdcode;
 	/**< The identifier of the MAC PIB attribute to get. */
 	uint8_t PIBAttribute;
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
+
 	/**< The index within the table of the specified MAC PIB attribute to
-	 *set. */
+	 * set. */
 	uint8_t PIBAttributeIndex;
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 } mlme_get_req_t;
 
 /**
@@ -495,11 +504,12 @@ typedef struct mlme_get_conf_tag {
 	uint8_t status;
 	/**< The identifier of the MAC PIB attribute to get. */
 	uint8_t PIBAttribute;
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
+
 	/**< The index within the table of the specified MAC PIB attribute to
-	 *set. */
+	 * set. */
 	uint8_t PIBAttributeIndex;
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 	/**< The value of the indicated MAC PIB attribute that was read. */
 	pib_value_t PIBAttributeValue;
 } mlme_get_conf_t;
@@ -514,11 +524,12 @@ typedef struct mlme_set_req_tag {
 	enum msg_code cmdcode;
 	/**< The identifier of the MAC PIB attribute to set. */
 	uint8_t PIBAttribute;
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
+
 	/**< The index within the table of the specified MAC PIB attribute to
-	 *set. */
+	 * set. */
 	uint8_t PIBAttributeIndex;
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 	/**< The value to write to the indicated MAC PIB attribute. */
 	pib_value_t PIBAttributeValue;
 } mlme_set_req_t;
@@ -536,11 +547,12 @@ typedef struct mlme_set_conf_tag {
 	uint8_t status;
 	/**< The identifier of the MAC PIB attribute that was written. */
 	uint8_t PIBAttribute;
-#ifdef MAC_SECURITY_ZIP
+#if ((defined MAC_SECURITY_ZIP)  || (defined MAC_SECURITY_2006))
+
 	/**< The index within the table of the specified MAC PIB attribute to
-	 *set. */
+	 * set. */
 	uint8_t PIBAttributeIndex;
-#endif  /* MAC_SECURITY_ZIP */
+#endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 } mlme_set_conf_t;
 #endif /* (HIGHEST_STACK_LAYER == MAC) */
 
@@ -562,7 +574,7 @@ typedef struct mlme_rx_enable_req_tag {
 	/**
 	 * The number of symbols from the start of the superframe before the
 	 * receiver is to be enabled. The precision of this value is a minimum
-	 *of
+	 * of
 	 * 20 bits, with the lowest 4 bits being the least significant. This
 	 * parameter is ignored for nonbeacon-enabled PANs.
 	 */
@@ -591,16 +603,16 @@ typedef struct mlme_scan_req_tag {
 	/**
 	 * Indicates the type of scan performed: 0 x 00 = ED scan (FFD only).
 	 * 0 x 01 = active scan (FFD only). 0 x 02 = passive scan. 0 x 03 =
-	 *orphan
+	 * orphan
 	 * scan.
 	 */
 	uint8_t ScanType;
 
 	/**
 	 * The 5 MSBs (b27, ... , b31) are reserved. The 27 LSBs (b0, b1, ...
-	 *b26)
+	 * b26)
 	 * indicate which channels are to be scanned (1 = scan, 0 = do not scan)
-	 *for
+	 * for
 	 * each of the 27 valid channels (see 6.1.2).
 	 */
 	uint32_t ScanChannels;
@@ -608,10 +620,10 @@ typedef struct mlme_scan_req_tag {
 	/**
 	 * A value used to calculate the length of time to spend scanning each
 	 * channel for ED, active, and passive scans. This parameter is ignored
-	 *for
+	 * for
 	 * orphan scans. The time spent scanning each channel is
 	 * [aBaseSuperframeDuration * (2n + 1)] symbols, where n is the value of
-	 *the
+	 * the
 	 * ScanDuration parameter.
 	 */
 	uint8_t ScanDuration;
@@ -633,7 +645,7 @@ typedef struct mlme_scan_conf_tag {
 
 	/**
 	 * ScanType Integer 0 x 00 0 x 03 Indicates if the type of scan
-	 *performed:
+	 * performed:
 	 * 0 x 00 = ED scan (FFD only). 0 x 01 = active scan (FFD only). 0 x 02
 	 *=
 	 * passive scan. 0 x 03 = orphan scan.
@@ -644,9 +656,9 @@ typedef struct mlme_scan_conf_tag {
 
 	/**
 	 * Indicates which channels given in the request were not scanned (1 =
-	 *not
+	 * not
 	 * scanned, 0 = scanned or not requested). This parameter is only valid
-	 *for
+	 * for
 	 * passive or active scans.
 	 */
 	uint32_t UnscannedChannels;
@@ -682,7 +694,7 @@ typedef struct mlme_comm_status_ind_tag {
 
 	/**
 	 * The source addressing mode for this primitive. This value can take
-	 *one
+	 * one
 	 * of the following values: 0 = no address (addressing fields omitted).
 	 * 0 x 01 = reserved. 0 x 02 = 16 bit short address. 0 x 03 = 64 bit
 	 *  extended address.
@@ -691,7 +703,7 @@ typedef struct mlme_comm_status_ind_tag {
 
 	/**
 	 * The source addressing mode for this primitive. This value can take
-	 *one
+	 * one
 	 * of the following values: 0 = no address (addressing fields omitted).
 	 * 0 x 01 = reserved. 0 x 02 = 16 bit short address. 0 x 03 = 64 bit
 	 * extended address.
@@ -700,7 +712,7 @@ typedef struct mlme_comm_status_ind_tag {
 
 	/**
 	 * The destination addressing mode for this primitive. This value can
-	 *take
+	 * take
 	 * one of the following values: 0 x 00 = no address (addressing fields
 	 * omitted). 0 x 01 = reserved. 0 x 02 = 16 bit short address.
 	 * 0 x 03 = 64 bit extended address.
@@ -724,19 +736,21 @@ typedef struct mlme_start_req_tag {
 	enum msg_code cmdcode;
 	/** The PAN identifier to be used by the device. */
 	uint16_t PANId;
+
 	/** The logical channel on which to start using the new superframe
-	 *configuration. */
+	 * configuration. */
 	uint8_t LogicalChannel;
+
 	/** The channel page on which to begin using the new superframe
-	 *configuration. */
+	 * configuration. */
 	uint8_t ChannelPage;
 
 	/**
 	 * How often the beacon is to be transmitted. The beacon order, BO, and
-	 *the
+	 * the
 	 * beacon interval, BI, are related as follows: for 0 d BO d 14, BI =
 	 * BaseSuperframeDuration * 2^BO symbols. If BO = 15, the coordinator
-	 *will
+	 * will
 	 * not transmit a beacon, and the SuperframeOrder parameter value is
 	 * ignored.
 	 */
@@ -744,10 +758,10 @@ typedef struct mlme_start_req_tag {
 
 	/**
 	 * The length of the active portion of the superframe, including the
-	 *beacon
+	 * beacon
 	 * frame. The superframe order, SO, and the superframe duration, SD, are
 	 * related as follows: for 0 d SO d BO d 14, SD =
-	 *aBaseSuperframeDuration *
+	 * aBaseSuperframeDuration *
 	 * 2^SO symbols. If SO = 15, the superframe will not be active after the
 	 * beacon.
 	 */
@@ -755,7 +769,7 @@ typedef struct mlme_start_req_tag {
 
 	/**
 	 * If this value is TRUE, the device will become the PAN coordinator of
-	 *a
+	 * a
 	 * new PAN. If this value is FALSE, the device will begin transmitting
 	 * beacons on the PAN with which it is associated.
 	 */
@@ -763,21 +777,82 @@ typedef struct mlme_start_req_tag {
 
 	/**
 	 * If this value is TRUE, the receiver of the beaconing device is
-	 *disabled
+	 * disabled
 	 * macBattLifeExtPeriods full backoff periods after the interframe
-	 *spacing
+	 * spacing
 	 * (IFS) period of the beacon frame. If this value is FALSE, the
-	 *receiver of
+	 * receiver of
 	 * the beaconing device remains enabled for the entire CAP.
 	 */
 	uint8_t BatteryLifeExtension;
 
 	/**
 	 * TRUE if a coordinator realignment command is to be transmitted prior
-	 *to
+	 * to
 	 * changing the superframe configuration or FALSE otherwise.
 	 */
 	uint8_t CoordRealignment;
+
+#ifdef MAC_SECURITY_BEACON
+
+	/**
+	 * The security level to be used for coordinator realignment command
+	 * frames (see Table95 in 7.6.2.2.1).
+	 * Valid values are 0x00–0x07
+	 */
+	uint8_t CoordRealignSecurityLevel;
+
+	/**
+	 * The mode used to identify the key to be used (see Table 96 in
+	 *7.6.2.2.2).
+	 * This parameter is ignored if the CoordRealignSecurityLevel parameter
+	 * is set to 0x00.
+	 */
+	uint8_t CoordRealignKeyIdMode;
+
+	/**
+	 * The originator of the key to be used (see 7.6.2.4.1). This parameter
+	 *is
+	 * ignored if the CoordRealignKeyIdMode parameter is ignored or set to
+	 * 0x00.
+	 */
+	uint8_t *CoordRealignKeySource;
+
+	/**
+	 * The index of the key to be used (see 7.6.2.4.2). This parameter is
+	 * ignored if the CoordRealignKeyIdMode
+	 * parameter is ignored or set to 0x00.
+	 */
+	uint8_t CoordRealignKeyIndex;
+
+	/**
+	 * The security level to be used for beacon frames (see Table 95 in
+	 * 7.6.2.2.1).
+	 */
+	uint8_t BeaconSecurityLevel;
+
+	/**
+	 * The mode used to identify the key to be used
+	 * (see Table 96 in 7.6.2.2.2). This parameter is ignored
+	 * if the BeaconSecurityLevel parameter is set
+	 * to 0x00.
+	 */
+	uint8_t BeaconKeyIdMode;
+
+	/**
+	 * The originator of the key to be used (see 7.6.2.4.1).
+	 * This parameter is ignored if the BeaconKeyIdMode
+	 * parameter is ignored or set to 0x00.
+	 */
+	uint8_t *BeaconKeySource;
+
+	/**
+	 * The index of the key to be used (see 7.6.2.4.2).
+	 * This parameter is ignored if the BeaconKeyIdMode
+	 * parameter is ignored or set to 0x00.
+	 */
+	uint8_t BeaconKeyIndex;
+#endif
 } mlme_start_req_t;
 
 /**
@@ -798,20 +873,21 @@ typedef struct mlme_start_conf_tag {
 typedef struct mlme_sync_req_tag {
 	/** This identifies the message as \ref MLME_SYNC_REQUEST */
 	enum msg_code cmdcode;
+
 	/** The logical channel on which to attempt coordinator synchronization.
-	 **/
+	**/
 	uint8_t LogicalChannel;
 	/** The channel page on which to attempt coordinator synchronization. */
 	uint8_t ChannelPage;
 
 	/**
 	 * TRUE if the MLME is to synchronize with the next beacon and attempt
-	 *to
+	 * to
 	 * track all future beacons. FALSE if the MLME is to synchronize with
-	 *only
+	 * only
 	 * the next beacon.
 	 */
-	uint8_t TrackBeacon;
+	bool TrackBeacon;
 } mlme_sync_req_t;
 
 /**
@@ -852,10 +928,11 @@ typedef struct mlme_poll_req_tag {
 	 * address, 3 = 64 bit extended address.
 	 */
 	uint8_t CoordAddrMode;
+
 	/** The PAN identifier of the coordinator to which the poll is intended.
-	 **/
+	**/
 	uint16_t CoordPANId; /** The address of the coordinator to which the
-	                      *poll is intended. */
+	                      * poll is intended. */
 	/** The address of the coordinator to which the poll is intended. */
 	uint64_t CoordAddress;
 } mlme_poll_req_t;
@@ -869,6 +946,42 @@ typedef struct mlme_poll_conf_tag {
 	/** The status of the data request. */
 	uint8_t status;
 } mlme_poll_conf_t;
+
+#ifdef GTS_SUPPORT
+
+/**
+ * @brief This is the MLME-GTS.request message structure.
+ */
+typedef struct mlme_gts_req_tag {
+	/** This identifies the message as \ref MLME_GTS_REQUEST */
+	enum msg_code cmdcode;
+	uint16_t DeviceShortAddr;
+	gts_char_t GtsChar;
+} mlme_gts_req_t;
+
+/**
+ * @brief This is the MLME-GTS.confirm message structure.
+ */
+typedef struct mlme_gts_conf_tag {
+	/** This identifies the message as \ref MLME_GTS_CONFIRM */
+	enum msg_code cmdcode;
+	gts_char_t GtsChar;
+	/** The status of the data request. */
+	uint8_t status;
+} mlme_gts_conf_t;
+
+/**
+ * @brief This is the MLME-GTS.indication message structure.
+ */
+typedef struct mlme_gts_ind_tag {
+	/** This identifies the message as \ref MLME_GTS_INDICATION */
+	enum msg_code cmdcode;
+	uint16_t DeviceAddr;
+	/** The status of the data request. */
+	gts_char_t GtsChar;
+} mlme_gts_ind_t;
+#endif /* GTS_SUPPORT */
+__PACK__RST_DATA__
 /* ! @} */
 /* === Externals ============================================================ */
 

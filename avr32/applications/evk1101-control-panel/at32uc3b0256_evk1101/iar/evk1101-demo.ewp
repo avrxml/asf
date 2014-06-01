@@ -186,6 +186,7 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>__FREERTOS__</state>
 					<state>BOARD=EVK1101</state>
 					<state>FREERTOS_USED</state>
 					<state>AT45DBX_ENABLE</state>
@@ -472,6 +473,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>__FREERTOS__</state>
 					<state>BOARD=EVK1101</state>
 					<state>FREERTOS_USED</state>
 					<state>AT45DBX_ENABLE</state>
@@ -1101,6 +1103,7 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>__FREERTOS__</state>
 					<state>BOARD=EVK1101</state>
 					<state>FREERTOS_USED</state>
 					<state>AT45DBX_ENABLE</state>
@@ -1387,6 +1390,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>__FREERTOS__</state>
 					<state>BOARD=EVK1101</state>
 					<state>FREERTOS_USED</state>
 					<state>AT45DBX_ENABLE</state>

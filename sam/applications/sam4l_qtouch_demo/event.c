@@ -93,8 +93,8 @@ static void wdt_set_ctrl(uint32_t ctrl)
 static void wdt_clear(void)
 {
 	while (!(WDT->WDT_SR & WDT_SR_CLEARED));
-	WDT->WDT_CTRL = WDT_CLR_WDTCLR | WDT_CLR_KEY((uint32_t)0x55);
-	WDT->WDT_CTRL = WDT_CLR_WDTCLR | WDT_CLR_KEY((uint32_t)0xAA);
+	WDT->WDT_CLR = WDT_CLR_WDTCLR | WDT_CLR_KEY((uint32_t)0x55);
+	WDT->WDT_CLR = WDT_CLR_WDTCLR | WDT_CLR_KEY((uint32_t)0xAA);
 }
 
 /**

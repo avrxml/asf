@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Timer/Counter Driver Basic Quickstart
+ * \brief SAM D20/D21/R21 Timer/Counter Driver Basic Quickstart
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -60,13 +60,13 @@ void configure_tc(void)
 	//! [setup_change_config]
 	config_tc.counter_size    = TC_COUNTER_SIZE_16BIT;
 	config_tc.wave_generation = TC_WAVE_GENERATION_NORMAL_PWM;
-	config_tc.size_specific.size_16_bit.compare_capture_channel[0] = (0xFFFF / 4);
+	config_tc.counter_16_bit.compare_capture_channel[0] = (0xFFFF / 4);
 	//! [setup_change_config]
 
 	//! [setup_change_config_pwm]
-	config_tc.channel_pwm_out_enabled[0] = true;
-	config_tc.channel_pwm_out_pin[0]     = PWM_OUT_PIN;
-	config_tc.channel_pwm_out_mux[0]     = PWM_OUT_MUX;
+	config_tc.pwm_channel[0].enabled = true;
+	config_tc.pwm_channel[0].pin_out = PWM_OUT_PIN;
+	config_tc.pwm_channel[0].pin_mux = PWM_OUT_MUX;
 	//! [setup_change_config_pwm]
 
 	//! [setup_set_config]

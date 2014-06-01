@@ -3,7 +3,7 @@
  *
  * \brief EIC driver for SAM
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -265,38 +265,38 @@ static inline bool eic_line_interrupt_is_pending(Eic *eic,
  * \subsection eic_basic_use_case_setup_code Example code
  * Add to application C-file:
  * \code
- *   void eic_callback(void)
- *   {
- *       // Check if EIC push button line interrupt line is pending
- *       if (eic_line_interrupt_is_pending(EIC, GPIO_PUSH_BUTTON_EIC_LINE)) {
- *           eic_line_clear_interrupt(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
- *           bToggle = 1;
- *       }
- *   }
- *   void eic_setup(void)
- *   {
- *       eic_enable(EIC);
- *
- *       eic_line_set_config(EIC, GPIO_PUSH_BUTTON_EIC_LINE, &eic_line_conf);
- *
- *       eic_line_set_callback(EIC, GPIO_PUSH_BUTTON_EIC_LINE, set_toggle_flag, EIC_5_IRQn, 1);
- *
- *       eic_line_enable(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
- *   }
- * \endcode
+	void eic_callback(void)
+	{
+	    // Check if EIC push button line interrupt line is pending
+	    if (eic_line_interrupt_is_pending(EIC, GPIO_PUSH_BUTTON_EIC_LINE)) {
+	        eic_line_clear_interrupt(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
+	        bToggle = 1;
+	    }
+	}
+	void eic_setup(void)
+	{
+	    eic_enable(EIC);
+
+	    eic_line_set_config(EIC, GPIO_PUSH_BUTTON_EIC_LINE, &eic_line_conf);
+
+	    eic_line_set_callback(EIC, GPIO_PUSH_BUTTON_EIC_LINE, set_toggle_flag, EIC_5_IRQn, 1);
+
+	    eic_line_enable(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
+	}
+\endcode
  *
  * \subsection eic_basic_use_case_setup_flow Workflow
  * -# Define the interrupt callback function in the application:
  *   - \code
-*   void eic_callback(void)
- *   {
- *       // Check if EIC push button line interrupt line is pending
- *       if (eic_line_interrupt_is_pending(EIC, GPIO_PUSH_BUTTON_EIC_LINE)) {
- *           eic_line_clear_interrupt(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
- *           bToggle = 1;
- *       }
- *   }
- * \endcode
+	void eic_callback(void)
+	{
+	    // Check if EIC push button line interrupt line is pending
+	    if (eic_line_interrupt_is_pending(EIC, GPIO_PUSH_BUTTON_EIC_LINE)) {
+	        eic_line_clear_interrupt(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
+	        bToggle = 1;
+	    }
+	}
+\endcode
  * -# Enable EIC module:
  *   - \code eic_enable(EIC); \endcode
  *   - \note Including enable module clock and lock sleep mode.

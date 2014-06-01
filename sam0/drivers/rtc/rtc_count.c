@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 RTC Driver (Count Mode)
+ * \brief SAM D20/D21/R21 RTC Driver (Count Mode)
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,27 +44,32 @@
 #include <gclk.h>
 
 #if !defined(__DOXYGEN__)
-volatile struct _rtc_device _rtc_dev;
+struct rtc_module *_rtc_instance[RTC_INST_NUM];
 #endif
 
 /**
  * \brief Resets the RTC module.
  * Resets the RTC to hardware defaults.
+ *
+ * \param[in,out]  module  Pointer to the software instance struct
  */
-void rtc_count_reset(void)
+void rtc_count_reset(struct rtc_module *const module)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Disable module before reset. */
-	rtc_count_disable();
+	rtc_count_disable(module);
 
 #if RTC_COUNT_ASYNC == true
-	_rtc_dev.registered_callback = 0;
-	_rtc_dev.enabled_callback    = 0;
+	module->registered_callback = 0;
+	module->enabled_callback    = 0;
 #endif
 
-	while (rtc_count_is_syncing()) {
+	while (rtc_count_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 
@@ -76,8 +81,9 @@ void rtc_count_reset(void)
  * \internal Applies the given configuration.
  *
  * Sets the configurations given from the configuration structure to the
- * hardware module.
+ * hardware module
  *
+ * \param[in,out]  module  Pointer to the software instance struct
  * \param[in] config  Pointer to the configuration structure.
  *
  * \return Status of the configuration procedure.
@@ -85,10 +91,14 @@ void rtc_count_reset(void)
  * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were given.
  */
 static enum status_code _rtc_count_set_config(
+		struct rtc_module *const module,
 		const struct rtc_count_config *const config)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	rtc_module->MODE0.CTRL.reg = RTC_MODE0_CTRL_MODE(0) | config->prescaler;
 
@@ -104,19 +114,19 @@ static enum status_code _rtc_count_set_config(
 				rtc_module->MODE0.CTRL.reg |= RTC_MODE0_CTRL_MATCHCLR;
 			}
 			/* Set compare values. */
-			for (uint8_t i = 0; i < RTC_NUM_OF_ALARMS; i++) {
-				while (rtc_count_is_syncing()) {
+			for (uint8_t i = 0; i < RTC_NUM_OF_COMP32; i++) {
+				while (rtc_count_is_syncing(module)) {
 					/* Wait for synchronization */
 				}
 
-				rtc_count_set_compare(config->compare_values[i],
+				rtc_count_set_compare(module, config->compare_values[i],
 						(enum rtc_count_compare)i);
 			}
 			break;
 
 		case RTC_COUNT_MODE_16BIT:
 			/* Set 16bit mode. */
-			rtc_module->MODE0.CTRL.reg |= RTC_MODE0_CTRL_MODE(1);
+			rtc_module->MODE1.CTRL.reg |= RTC_MODE1_CTRL_MODE(1);
 
 			/* Check if match on clear is set, and return invalid
 			 * argument if set. */
@@ -126,11 +136,11 @@ static enum status_code _rtc_count_set_config(
 			}
 			/* Set compare values. */
 			for (uint8_t i = 0; i < RTC_NUM_OF_COMP16; i++) {
-				while (rtc_count_is_syncing()) {
+				while (rtc_count_is_syncing(module)) {
 					/* Wait for synchronization */
 				}
 
-				rtc_count_set_compare(config->compare_values[i],
+				rtc_count_set_compare(module, config->compare_values[i],
 						(enum rtc_count_compare)i);
 			}
 			break;
@@ -155,6 +165,8 @@ static enum status_code _rtc_count_set_config(
  * Initializes the module, setting up all given configurations to provide
  * the desired functionality of the RTC.
  *
+ * \param[out] module  Pointer to the software instance struct
+ * \param[in]   hw      Pointer to hardware instance
  * \param[in] config  Pointer to the configuration structure.
  *
  * \return Status of the initialization procedure.
@@ -162,10 +174,20 @@ static enum status_code _rtc_count_set_config(
  * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were given.
  */
 enum status_code rtc_count_init(
+		struct rtc_module *const module,
+		Rtc *const hw,
 		const struct rtc_count_config *const config)
 {
-	/* Sanity check. */
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(hw);
 	Assert(config);
+
+	/* Initialize device instance */
+	module->hw = hw;
+
+	/* Turn on the digital interface clock */
+	system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBA, PM_APBAMASK_RTC);
 
 	/* Set up GCLK */
 	struct system_gclk_chan_config gclk_chan_conf;
@@ -175,14 +197,21 @@ enum status_code rtc_count_init(
 	system_gclk_chan_enable(RTC_GCLK_ID);
 
 	/* Reset module to hardware defaults. */
-	rtc_count_reset();
+	rtc_count_reset(module);
 
 	/* Save conf_struct internally for continued use. */
-	_rtc_dev.mode                = config->mode;
-	_rtc_dev.continuously_update = config->continuously_update;
+	module->mode                = config->mode;
+	module->continuously_update = config->continuously_update;
+
+#  if (RTC_INST_NUM == 1)
+	_rtc_instance[0] = module;
+#  else
+	/* Register this instance for callbacks*/
+	_rtc_instance[_rtc_get_inst_index(hw)] = module;
+#  endif
 
 	/* Set config and return status. */
-	return _rtc_count_set_config(config);
+	return _rtc_count_set_config(module, config);
 }
 
 /**
@@ -190,6 +219,7 @@ enum status_code rtc_count_init(
  *
  * Sets the value of the counter to the specified value.
  *
+ * \param[in,out] module  Pointer to the software instance struct
  * \param[in] count_value  The value to be set in count register.
  *
  * \return Status of setting the register.
@@ -197,17 +227,21 @@ enum status_code rtc_count_init(
  * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided.
  */
 enum status_code rtc_count_set_count(
+		struct rtc_module *const module,
 		const uint32_t count_value)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
 
-	while (rtc_count_is_syncing()) {
+	Rtc *const rtc_module = module->hw;
+
+	while (rtc_count_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 
 	/* Set count according to mode */
-	switch(_rtc_dev.mode){
+	switch(module->mode){
 		case RTC_COUNT_MODE_32BIT:
 			/* Write value to register. */
 			rtc_module->MODE0.COUNT.reg = count_value;
@@ -235,31 +269,36 @@ enum status_code rtc_count_set_count(
 /**
  * \brief Get the current count value.
  *
+ * \param[in,out] module  Pointer to the software instance struct
+ *
  * Returns the current count value.
  *
  * \return The current counter value as a 32 bit unsigned integer.
  */
-uint32_t rtc_count_get_count(void)
+uint32_t rtc_count_get_count(struct rtc_module *const module)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Initialize return value. */
 	uint32_t ret_val;
 
 	/* Change of read method based on value of continuously_update value in
 	 * the configuration structure. */
-	if(!(_rtc_dev.continuously_update)){
+	if(!(module->continuously_update)) {
 		/* Request read on count register. */
-		rtc_module->MODE0.READREQ.reg = RTC_READREQ_RCONT;
+		rtc_module->MODE0.READREQ.reg = RTC_READREQ_RREQ;
 
-		while (rtc_count_is_syncing()) {
+		while (rtc_count_is_syncing(module)) {
 			/* Wait for synchronization */
 		}
 	}
 
 	/* Read value based on mode. */
-	switch (_rtc_dev.mode) {
+	switch (module->mode) {
 		case RTC_COUNT_MODE_32BIT:
 			/* Return count value in 32 bit mode. */
 			ret_val = rtc_module->MODE0.COUNT.reg;
@@ -289,6 +328,7 @@ uint32_t rtc_count_get_count(void)
  *
  * \note Compare 4 and 5 are only available in 16 bit mode.
  *
+ * \param[in,out] module  Pointer to the software instance struct
  * \param[in] comp_value  The value to be written to the compare.
  * \param[in] comp_index  Index of the compare to set.
  *
@@ -298,21 +338,25 @@ uint32_t rtc_count_get_count(void)
  * \retval STATUS_ERR_BAD_FORMAT   If the module was not initialized in a mode.
  */
 enum status_code rtc_count_set_compare(
+		struct rtc_module *const module,
 		const uint32_t comp_value,
 		const enum rtc_count_compare comp_index)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
 
-	while (rtc_count_is_syncing()) {
+	Rtc *const rtc_module = module->hw;
+
+	while (rtc_count_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 
 	/* Set compare values based on operation mode. */
-	switch (_rtc_dev.mode) {
+	switch (module->mode) {
 		case RTC_COUNT_MODE_32BIT:
 			/* Check sanity of comp_index. */
-			if ((uint32_t)comp_index > RTC_NUM_OF_ALARMS) {
+			if ((uint32_t)comp_index > RTC_NUM_OF_COMP32) {
 				return STATUS_ERR_INVALID_ARG;
 			}
 
@@ -354,6 +398,7 @@ enum status_code rtc_count_set_compare(
  *
  * \note Compare 4 and 5 are only available in 16 bit mode.
  *
+ * \param[in,out] module  Pointer to the software instance struct
  * \param[out] comp_value  Pointer to 32 bit integer that will be populated with
  *                         the current compare value.
  * \param[in]  comp_index  Index of compare to check.
@@ -364,16 +409,20 @@ enum status_code rtc_count_set_compare(
  * \retval STATUS_ERR_BAD_FORMAT   If the module was not initialized in a mode.
  */
 enum status_code rtc_count_get_compare(
+		struct rtc_module *const module,
 		uint32_t *const comp_value,
 		const enum rtc_count_compare comp_index)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
 
-	switch (_rtc_dev.mode) {
+	Rtc *const rtc_module = module->hw;
+
+	switch (module->mode) {
 		case RTC_COUNT_MODE_32BIT:
 			/* Check sanity of comp_index. */
-			if ((uint32_t)comp_index > RTC_NUM_OF_ALARMS) {
+			if ((uint32_t)comp_index > RTC_NUM_OF_COMP32) {
 				return STATUS_ERR_INVALID_ARG;
 			}
 
@@ -408,6 +457,7 @@ enum status_code rtc_count_get_compare(
  *
  * \note Only available in 16 bit mode.
  *
+ * \param[in,out] module  Pointer to the software instance struct
  * \param[out] period_value  Pointer to value for return argument.
  *
  * \return Status of getting the period value.
@@ -415,13 +465,17 @@ enum status_code rtc_count_get_compare(
  * \retval STATUS_ERR_UNSUPPORTED_DEV  If incorrect mode was set.
  */
 enum status_code rtc_count_get_period(
+		struct rtc_module *const module,
 		uint16_t *const period_value)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Check that correct mode is set. */
-	if (_rtc_dev.mode != RTC_COUNT_MODE_16BIT) {
+	if (module->mode != RTC_COUNT_MODE_16BIT) {
 		return STATUS_ERR_UNSUPPORTED_DEV;
 	}
 
@@ -438,6 +492,7 @@ enum status_code rtc_count_get_period(
  *
  * \note Only available in 16 bit mode.
  *
+ * \param[in,out] module  Pointer to the software instance struct
  * \param[in] period_value  The value to set to the period.
  *
  * \return Status of setting the period value.
@@ -445,17 +500,21 @@ enum status_code rtc_count_get_period(
  * \retval STATUS_ERR_UNSUPPORTED_DEV  If module is not operated in 16 bit mode.
  */
 enum status_code rtc_count_set_period(
+		struct rtc_module *const module,
 		const uint16_t period_value)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Check that correct mode is set. */
-	if (_rtc_dev.mode != RTC_COUNT_MODE_16BIT) {
+	if (module->mode != RTC_COUNT_MODE_16BIT) {
 		return STATUS_ERR_UNSUPPORTED_DEV;
 	}
 
-	while (rtc_count_is_syncing()) {
+	while (rtc_count_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 
@@ -473,19 +532,24 @@ enum status_code rtc_count_set_period(
  *
  * \note Compare 4 and 5 are only available in 16 bit mode.
  *
+ * \param[in,out] module  Pointer to the software instance struct
  * \param[in] comp_index  Index of compare to check current flag.
  */
 bool rtc_count_is_compare_match(
+		struct rtc_module *const module,
 		const enum rtc_count_compare comp_index)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Check sanity. */
-	switch (_rtc_dev.mode) {
+	switch (module->mode) {
 		case RTC_COUNT_MODE_32BIT:
 			/* Check sanity for 32 bit mode. */
-			if (comp_index > RTC_NUM_OF_ALARMS) {
+			if (comp_index > RTC_NUM_OF_COMP32) {
 				return false;
 			}
 
@@ -516,6 +580,7 @@ bool rtc_count_is_compare_match(
  *
  * \note Compare 4 and 5 are only available in 16 bit mode.
  *
+ * \param[in,out] module  Pointer to the software instance struct
  * \param[in] comp_index  Index of compare to check current flag.
  *
  * \return Status indicating if flag was successfully cleared.
@@ -524,16 +589,20 @@ bool rtc_count_is_compare_match(
  * \retval STATUS_ERR_BAD_FORMAT   If the module was not initialized in a mode.
  */
 enum status_code rtc_count_clear_compare_match(
+		struct rtc_module *const module,
 		const enum rtc_count_compare comp_index)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Check sanity. */
-	switch (_rtc_dev.mode){
+	switch (module->mode){
 		case RTC_COUNT_MODE_32BIT:
 			/* Check sanity for 32 bit mode. */
-			if (comp_index > RTC_NUM_OF_ALARMS) {
+			if (comp_index > RTC_NUM_OF_COMP32) {
 				return STATUS_ERR_INVALID_ARG;
 			}
 
@@ -570,6 +639,7 @@ enum status_code rtc_count_clear_compare_match(
  *
  * \note Can only be used when the RTC is operated in 1Hz.
  *
+ * \param[in,out] module  Pointer to the software instance struct
  * \param[in] value  Ranging from -127 to 127 used for the correction.
  *
  * \return Status of the calibration procedure.
@@ -577,10 +647,14 @@ enum status_code rtc_count_clear_compare_match(
  * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided.
  */
 enum status_code rtc_count_frequency_correction(
+		struct rtc_module *const module,
 		const int8_t value)
 {
-	/* Initialize module pointer. */
-	Rtc *const rtc_module = RTC;
+	/* Sanity check arguments */
+	Assert(module);
+	Assert(module->hw);
+
+	Rtc *const rtc_module = module->hw;
 
 	/* Check if valid argument. */
 	if (abs(value) > 0x7F) {
@@ -598,7 +672,7 @@ enum status_code rtc_count_frequency_correction(
 		new_correction_value |= RTC_FREQCORR_SIGN;
 	}
 
-	while (rtc_count_is_syncing()) {
+	while (rtc_count_is_syncing(module)) {
 		/* Wait for synchronization */
 	}
 

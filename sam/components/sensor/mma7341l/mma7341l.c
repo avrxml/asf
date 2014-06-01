@@ -70,6 +70,26 @@
 #define MMA7341L_SAMPLES  16
 
 #if SAM3S || SAM4S || SAM3XA || SAM3N
+/* Tracking Time*/
+#define  TRACKING_TIME            1
+/* Transfer Period */
+#define  TRANSFER_PERIOD       1 
+#endif
+
+#if SAM3U
+#ifdef MMA7341L_USE_ADC12
+/* Start Up Time */
+#define   STARTUP_TIME                           7
+/* Off Mode Startup Time */
+#define   OFF_MODE_STARTUP_TIME      7
+#else
+#define   STARTUP_TIME                           3
+#endif
+/* Sample & Hold Time */
+#define   SAMPLE_HOLD_TIME   6
+#endif
+
+#if SAM3S || SAM4S || SAM3XA || SAM3N
 #define mma7341l_adc_get_x_channel_value()    adc_get_channel_value(ADC, (enum adc_channel_num_t)uc_adc_channel_x)
 #define mma7341l_adc_get_y_channel_value()    adc_get_channel_value(ADC, (enum adc_channel_num_t)uc_adc_channel_y)
 #define mma7341l_adc_get_z_channel_value()    adc_get_channel_value(ADC, (enum adc_channel_num_t)uc_adc_channel_z)
@@ -78,13 +98,15 @@
 #define mma7341l_adc_z_conversion_end()       while ((adc_get_status(ADC) & MMA7341L_EOC_Z) != MMA7341L_EOC_Z)
 #define mma7341l_adc_start()                  adc_start(ADC)
 #define mma7341l_adc_enable_clock()           pmc_enable_periph_clk(ID_ADC)
-#define mma7341l_adc_init()                   adc_init(ADC, sysclk_get_cpu_hz(), MMA7341L_ADC_CLK, 8)
+#define mma7341l_adc_init()                   adc_init(ADC, sysclk_get_cpu_hz(), MMA7341L_ADC_CLK, ADC_STARTUP_TIME_4)
 #if SAM3S || SAM4S || SAM3XA
-#define mma7341l_adc_configure_timing()       adc_configure_timing(ADC, 0, ADC_SETTLING_TIME_3, 1)
+#define mma7341l_adc_configure_timing()       adc_configure_timing(ADC, TRACKING_TIME, ADC_SETTLING_TIME_3, TRANSFER_PERIOD)
 #elif SAM3N
-#define mma7341l_adc_configure_timing()       adc_configure_timing(ADC, 0)
+#define mma7341l_adc_configure_timing()       adc_configure_timing(ADC, TRACKING_TIME)
 #endif
+#if SAM3S8 || SAM4S || SAM3N || SAM3SD8
 #define mma7341l_adc_configure_power_save()   adc_configure_power_save(ADC, 0, 0)
+#endif
 #define mma7341l_adc_configure_trigger()      adc_configure_trigger(ADC, ADC_TRIG_SW, 0)
 #define mma7341l_adc_set_resolution()         adc_set_resolution(ADC, (enum adc_resolution_t)ADC_MR_LOWRES_BITS_10)
 #define mma7341l_adc_enable_channel();        adc_enable_channel(ADC,(enum adc_channel_num_t) uc_adc_channel_x);  \
@@ -116,9 +138,9 @@
 #define mma7341l_adc_start()                  adc12b_start(ADC12B)
 #define mma7341l_adc_enable_clock()           pmc_enable_periph_clk(ID_ADC12B)
 #define mma7341l_adc_init() \
-		adc12b_init(ADC12B, sysclk_get_cpu_hz(), MMA7341L_ADC_CLK, 10, 10)
+		adc12b_init(ADC12B, sysclk_get_cpu_hz(), MMA7341L_ADC_CLK, STARTUP_TIME, OFF_MODE_STARTUP_TIME)
 #define mma7341l_adc_configure_timing() \
-		adc12b_configure_timing(ADC12B, 2400)
+		adc12b_configure_timing(ADC12B, SAMPLE_HOLD_TIME)
 #define mma7341l_adc_configure_power_save() \
 		adc12b_configure_power_save(ADC12B, 0, 0)
 #define mma7341l_adc_configure_trigger() \
@@ -157,8 +179,8 @@
 #define mma7341l_adc_start()                  adc_start(ADC)
 #define mma7341l_adc_enable_clock()           pmc_enable_periph_clk(ID_ADC)
 #define mma7341l_adc_init() \
-		adc_init(ADC, sysclk_get_cpu_hz(), MMA7341L_ADC_CLK, 10)
-#define mma7341l_adc_configure_timing()       adc_configure_timing(ADC, 2400)
+		adc_init(ADC, sysclk_get_cpu_hz(), MMA7341L_ADC_CLK, STARTUP_TIME)
+#define mma7341l_adc_configure_timing()       adc_configure_timing(ADC, SAMPLE_HOLD_TIME)
 #define mma7341l_adc_configure_power_save()   adc_configure_power_save(ADC, 0)
 #define mma7341l_adc_configure_trigger() \
 		adc_configure_trigger(ADC, ADC_TRIG_SW)
@@ -290,7 +312,9 @@ void mma7341l_init(void)
 	mma7341l_adc_enable_clock();
 	mma7341l_adc_init();
 	mma7341l_adc_configure_timing();
+#if SAM3S8 || SAM4S || SAM3N || SAM3SD8 || SAM3U	
 	mma7341l_adc_configure_power_save();
+#endif
 	mma7341l_adc_configure_trigger();
 	mma7341l_adc_set_resolution();
 

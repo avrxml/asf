@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,22 +51,22 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Udp hardware registers */
 typedef struct {
-  RoReg UDP_FRM_NUM;  /**< \brief (Udp Offset: 0x000) Frame Number Register */
-  RwReg UDP_GLB_STAT; /**< \brief (Udp Offset: 0x004) Global State Register */
-  RwReg UDP_FADDR;    /**< \brief (Udp Offset: 0x008) Function Address Register */
-  RoReg Reserved1[1];
-  WoReg UDP_IER;      /**< \brief (Udp Offset: 0x010) Interrupt Enable Register */
-  WoReg UDP_IDR;      /**< \brief (Udp Offset: 0x014) Interrupt Disable Register */
-  RoReg UDP_IMR;      /**< \brief (Udp Offset: 0x018) Interrupt Mask Register */
-  RoReg UDP_ISR;      /**< \brief (Udp Offset: 0x01C) Interrupt Status Register */
-  WoReg UDP_ICR;      /**< \brief (Udp Offset: 0x020) Interrupt Clear Register */
-  RoReg Reserved2[1];
-  RwReg UDP_RST_EP;   /**< \brief (Udp Offset: 0x028) Reset Endpoint Register */
-  RoReg Reserved3[1];
-  RwReg UDP_CSR[8];   /**< \brief (Udp Offset: 0x030) Endpoint Control and Status Register */
-  RwReg UDP_FDR[8];   /**< \brief (Udp Offset: 0x050) Endpoint FIFO Data Register */
-  RoReg Reserved4[1];
-  RwReg UDP_TXVC;     /**< \brief (Udp Offset: 0x074) Transceiver Control Register */
+  __I  uint32_t UDP_FRM_NUM;  /**< \brief (Udp Offset: 0x000) Frame Number Register */
+  __IO uint32_t UDP_GLB_STAT; /**< \brief (Udp Offset: 0x004) Global State Register */
+  __IO uint32_t UDP_FADDR;    /**< \brief (Udp Offset: 0x008) Function Address Register */
+  __I  uint32_t Reserved1[1];
+  __O  uint32_t UDP_IER;      /**< \brief (Udp Offset: 0x010) Interrupt Enable Register */
+  __O  uint32_t UDP_IDR;      /**< \brief (Udp Offset: 0x014) Interrupt Disable Register */
+  __I  uint32_t UDP_IMR;      /**< \brief (Udp Offset: 0x018) Interrupt Mask Register */
+  __I  uint32_t UDP_ISR;      /**< \brief (Udp Offset: 0x01C) Interrupt Status Register */
+  __O  uint32_t UDP_ICR;      /**< \brief (Udp Offset: 0x020) Interrupt Clear Register */
+  __I  uint32_t Reserved2[1];
+  __IO uint32_t UDP_RST_EP;   /**< \brief (Udp Offset: 0x028) Reset Endpoint Register */
+  __I  uint32_t Reserved3[1];
+  __IO uint32_t UDP_CSR[8];   /**< \brief (Udp Offset: 0x030) Endpoint Control and Status Register */
+  __IO uint32_t UDP_FDR[8];   /**< \brief (Udp Offset: 0x050) Endpoint FIFO Data Register */
+  __I  uint32_t Reserved4[1];
+  __IO uint32_t UDP_TXVC;     /**< \brief (Udp Offset: 0x074) Transceiver Control Register */
 } Udp;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- UDP_FRM_NUM : (UDP Offset: 0x000) Frame Number Register -------- */
@@ -163,8 +163,7 @@ typedef struct {
 #define UDP_CSR_TXCOMP (0x1u << 0) /**< \brief (UDP_CSR[8]) Generates an IN Packet with Data Previously Written in the DPR */
 #define UDP_CSR_RX_DATA_BK0 (0x1u << 1) /**< \brief (UDP_CSR[8]) Receive Data Bank 0 */
 #define UDP_CSR_RXSETUP (0x1u << 2) /**< \brief (UDP_CSR[8]) Received Setup */
-#define UDP_CSR_STALLSENT (0x1u << 3) /**< \brief (UDP_CSR[8]) Stall Sent (Control, Bulk Interrupt Endpoints)/ISOERROR (Isochronous Endpoints) */
-#define UDP_CSR_ISOERROR (0x1u << 3) /**< \brief (UDP_CSR[8]) Stall Sent (Control, Bulk Interrupt Endpoints)/ISOERROR (Isochronous Endpoints) */
+#define UDP_CSR_STALLSENT (0x1u << 3) /**< \brief (UDP_CSR[8]) Stall Sent */
 #define UDP_CSR_TXPKTRDY (0x1u << 4) /**< \brief (UDP_CSR[8]) Transmit Packet Ready */
 #define UDP_CSR_FORCESTALL (0x1u << 5) /**< \brief (UDP_CSR[8]) Force Stall (used by Control, Bulk and Isochronous Endpoints) */
 #define UDP_CSR_RX_DATA_BK1 (0x1u << 6) /**< \brief (UDP_CSR[8]) Receive Data Bank 1 (only used by endpoints with ping-pong attributes) */
@@ -183,13 +182,14 @@ typedef struct {
 #define UDP_CSR_RXBYTECNT_Pos 16
 #define UDP_CSR_RXBYTECNT_Msk (0x7ffu << UDP_CSR_RXBYTECNT_Pos) /**< \brief (UDP_CSR[8]) Number of Bytes Available in the FIFO */
 #define UDP_CSR_RXBYTECNT(value) ((UDP_CSR_RXBYTECNT_Msk & ((value) << UDP_CSR_RXBYTECNT_Pos)))
+#define UDP_CSR_ISOERROR (0x1u << 3) /**< \brief (UDP_CSR[8]) A CRC error has been detected in an isochronous transfer */
 /* -------- UDP_FDR[8] : (UDP Offset: 0x050) Endpoint FIFO Data Register -------- */
 #define UDP_FDR_FIFO_DATA_Pos 0
 #define UDP_FDR_FIFO_DATA_Msk (0xffu << UDP_FDR_FIFO_DATA_Pos) /**< \brief (UDP_FDR[8]) FIFO Data Value */
 #define UDP_FDR_FIFO_DATA(value) ((UDP_FDR_FIFO_DATA_Msk & ((value) << UDP_FDR_FIFO_DATA_Pos)))
 /* -------- UDP_TXVC : (UDP Offset: 0x074) Transceiver Control Register -------- */
 #define UDP_TXVC_TXVDIS (0x1u << 8) /**< \brief (UDP_TXVC) Transceiver Disable */
-#define UDP_TXVC_PUON (0x1u << 9) /**< \brief (UDP_TXVC) Pullup On */
+#define UDP_TXVC_PUON (0x1u << 9) /**< \brief (UDP_TXVC) Pull-up On */
 
 /*@}*/
 

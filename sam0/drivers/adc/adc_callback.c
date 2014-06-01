@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Peripheral Analog-to-Digital Converter Driver
+ * \brief SAM D20/D21/R21 Peripheral Analog-to-Digital Converter Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,23 +52,25 @@ static void _adc_interrupt_handler(const uint8_t instance)
 	uint32_t flags = module->hw->INTFLAG.reg;
 
 	if (flags & ADC_INTFLAG_RESRDY) {
-		/* clear interrupt flag */
-		module->hw->INTFLAG.reg = ADC_INTFLAG_RESRDY;
+		if ((module->enabled_callback_mask & (1 << ADC_CALLBACK_READ_BUFFER)) &&
+				(module->registered_callback_mask & (1 << ADC_CALLBACK_READ_BUFFER))) {
+			/* clear interrupt flag */
+			module->hw->INTFLAG.reg = ADC_INTFLAG_RESRDY;
 
-		if (module->remaining_conversions > 0) {
 			/* store ADC result in job buffer */
 			*(module->job_buffer++) = module->hw->RESULT.reg;
-			module->remaining_conversions--;
-			if (module->software_trigger == true) {
-				adc_start_conversion(module);
-			}
-		} else {
-			if (module->job_status == STATUS_BUSY) {
-				/* job is complete. update status,disable interrupt
-				 *and call callback */
-				module->job_status = STATUS_OK;
-				adc_disable_interrupt(module, ADC_INTERRUPT_RESULT_READY);
-				if(module->enabled_callback_mask & (1 << ADC_CALLBACK_READ_BUFFER)) {
+
+			if (--module->remaining_conversions > 0) {
+				if (module->software_trigger == true) {
+					adc_start_conversion(module);
+				}
+			} else {
+				if (module->job_status == STATUS_BUSY) {
+					/* job is complete. update status,disable interrupt
+					 *and call callback */
+					module->job_status = STATUS_OK;
+					adc_disable_interrupt(module, ADC_INTERRUPT_RESULT_READY);
+
 					(module->callback[ADC_CALLBACK_READ_BUFFER])(module);
 				}
 			}
@@ -77,7 +79,8 @@ static void _adc_interrupt_handler(const uint8_t instance)
 
 	if (flags & ADC_INTFLAG_WINMON) {
 		module->hw->INTFLAG.reg = ADC_INTFLAG_WINMON;
-		if(module->enabled_callback_mask & (1 << ADC_CALLBACK_WINDOW)) {
+		if ((module->enabled_callback_mask & (1 << ADC_CALLBACK_WINDOW)) &&
+				(module->registered_callback_mask & (1 << ADC_CALLBACK_WINDOW))) {
 			(module->callback[ADC_CALLBACK_WINDOW])(module);
 		}
 
@@ -85,7 +88,8 @@ static void _adc_interrupt_handler(const uint8_t instance)
 
 	if (flags & ADC_INTFLAG_OVERRUN) {
 		module->hw->INTFLAG.reg = ADC_INTFLAG_OVERRUN;
-		if(module->enabled_callback_mask & (1 << ADC_CALLBACK_ERROR)) {
+		if ((module->enabled_callback_mask & (1 << ADC_CALLBACK_ERROR)) &&
+				(module->registered_callback_mask & (1 << ADC_CALLBACK_ERROR))) {
 			(module->callback[ADC_CALLBACK_ERROR])(module);
 		}
 	}
@@ -156,7 +160,7 @@ void adc_unregister_callback(
  * If there is no hardware trigger defined (event action) the
  * driver will retrigger the ADC conversion whenever a conversion
  * is complete until \c samples samples has been acquired. To avoid
- * jitter in the sampling frequency using an event trigger is adviced.
+ * jitter in the sampling frequency using an event trigger is advised.
  *
  * \param[in]  module_inst  Pointer to the ADC software instance struct
  * \param[in]  samples      Number of samples to acquire
@@ -186,9 +190,11 @@ enum status_code adc_read_buffer_job(
 	module_inst->job_buffer = buffer;
 
 	adc_enable_interrupt(module_inst, ADC_INTERRUPT_RESULT_READY);
+
 	if(module_inst->software_trigger == true) {
 		adc_start_conversion(module_inst);
 	}
+
 	return STATUS_OK;
 }
 

@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for flashcalw driver.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -66,6 +66,8 @@
  * All SAM devices with FLASHCALW controller can be used.
  * This example has been tested with the following setup:
  * - sam4l4c_sam4l_ek
+ * - sam4l4c_sam4l_xplained_pro
+ * - sam4l8c_sam4l8_xplained_pro
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -92,6 +94,26 @@
 #define GP_FUSE_BYTE_NUM    (5)
 #define GP_FUSE_BYTE_DATA   (0x5a)
 #define GP_FUSE_ALL_DATA   (0xFFFF12345678FFFFULL)
+
+/**
+ *  Configure serial console.
+ */
+static void configure_console(void)
+{
+	const usart_serial_options_t uart_serial_options = {
+		.baudrate = CONF_UART_BAUDRATE,
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
+	};
+
+	/* Configure console UART. */
+	stdio_serial_init(CONF_UART, &uart_serial_options);
+}
 
 /**
  * \brief Test flashcalw preperties interfaces.
@@ -360,27 +382,100 @@ static void run_flashcalw_gp_fuse_test(const struct test_case *test)
 		"Test flashcalw gp_fuse: gp_fuse read/write all error!");
 
 	/* Clear all fuses */
-	flashcalw_erase_all_gp_fuses(true);
+    flashcalw_erase_all_gp_fuses(true);
+}
+
+/** Counts for 1ms time ticks. */
+volatile uint32_t g_ms_ticks = 0;
+
+/** Fibonacci number */
+#define FIBONACCI_NUM    20
+#define TICK_US 1000
+
+/**
+ *  \brief Recursively calculate the nth Fibonacci number.
+ *
+ * \param n Indicates which (positive) Fibonacci number to compute.
+ *
+ * \return The nth Fibonacci number.
+ */
+static uint32_t recfibo(uint32_t n)
+{
+	if (n == 0 || n == 1) {
+		return n;
+	}
+
+	return recfibo(n - 2) + recfibo(n - 1);
 }
 
 /**
- *  Configure serial console.
+ * \brief Handler for Sytem Tick interrupt.
+ *
+ * Process System Tick Event
+ * Increments the g_ms_ticks counter.
  */
-static void configure_console(void)
+void SysTick_Handler(void)
 {
-	const usart_serial_options_t uart_serial_options = {
-		.baudrate = CONF_UART_BAUDRATE,
-#ifdef CONF_UART_CHAR_LENGTH
-		.charlength = CONF_UART_CHAR_LENGTH,
-#endif
-		.paritytype = CONF_UART_PARITY,
-#ifdef CONF_UART_STOP_BITS
-		.stopbits = CONF_UART_STOP_BITS,
-#endif
-	};
+	g_ms_ticks++;
+}
 
-	/* Configure console UART. */
-	stdio_serial_init(CONF_UART, &uart_serial_options);
+static uint32_t time_tick_get(void)
+{
+	return g_ms_ticks;
+}
+
+static uint32_t time_tick_calc_delay(uint32_t tick_start, uint32_t tick_end)
+{
+	if (tick_end >= tick_start) {
+		return (tick_end - tick_start) * (1000 / TICK_US);
+	} else {
+		/* In the case of 32-bit couter number overflow */
+		return (tick_end +
+			(0xFFFFFFFF - tick_start)) * (1000 / TICK_US);
+	}
+}
+
+/**
+ * \brief Test flashcalw PicoCache feature.
+ *
+ * PicoCache test shows how much the PicoCache feature can improve the
+ * execution speed.
+ *
+ * \param test Current test case.
+ */
+static void run_flashcalw_picocache_test(const struct test_case *test)
+{
+	uint32_t tick_start, time_ms_nocache, time_ms_cache;
+
+	flashcalw_set_wait_state(1);
+	/* Disable PicoCache */
+	flashcalw_picocache_disable();
+	flashcalw_picocache_disable_monitor();
+
+	/* Get current time tick */
+	tick_start = time_tick_get();
+
+	/* Do the Fibonacci calculation. */
+	recfibo(FIBONACCI_NUM);
+
+	/* Calculate the Fibonacci spent time */
+	time_ms_nocache = time_tick_calc_delay(tick_start, time_tick_get());
+
+	/* Enable PicoCache */
+	flashcalw_picocache_enable();
+
+	/* Get current time tick */
+	tick_start = time_tick_get();
+
+	/* Do the Fibonacci calculation. */
+	recfibo(FIBONACCI_NUM);
+
+	/* Calculate the Fibonacci spent time */
+	time_ms_cache = time_tick_calc_delay(tick_start, time_tick_get());
+
+	test_assert_true(test,
+		time_ms_nocache > time_ms_cache,
+		"Test flashcalw PicoCache: PicoCache feature does not work!");
 }
 
 /**
@@ -391,6 +486,13 @@ int main(void)
 	/* Initialize the SAM system */
 	sysclk_init();
 	board_init();
+
+	g_ms_ticks = 0;
+
+	/* Configure systick */
+	if (SysTick_Config(sysclk_get_cpu_hz() / TICK_US)) {
+		Assert(false);
+	}
 
 	/* Initialize the console uart */
 	configure_console();
@@ -416,13 +518,19 @@ int main(void)
 		run_flashcalw_page_access_test, NULL,
 		"flashcalw page access test");
 
+	DEFINE_TEST_CASE(flashcalw_picocache_test, NULL,
+		run_flashcalw_picocache_test, NULL,
+		"flashcalw picocache test");
+
 	/* Put test case addresses in an array */
 	DEFINE_TEST_ARRAY(flashcalw_suite_array) = {
 		&flashcalw_page_access_test,
 		&flashcalw_properties_test,
 		&flashcalw_control_test,
 		&flashcalw_protection_test,
-		&flashcalw_gp_fuse_test,};
+		&flashcalw_gp_fuse_test,
+		&flashcalw_picocache_test,
+	};
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(flashcalw_suite, flashcalw_suite_array,

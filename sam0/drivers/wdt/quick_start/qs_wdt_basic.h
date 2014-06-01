@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 Watchdog Driver Quick Start
+ * \brief SAM Watchdog Driver Quick Start
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \page asfdoc_samd20_wdt_basic_use_case Quick Start Guide for WDT - Basic
+ * \page asfdoc_sam0_wdt_basic_use_case Quick Start Guide for WDT - Basic
  *
  * In this use case, the Watchdog module is configured for:
  *  \li System reset after 2048 clocks of the Watchdog generic clock
@@ -54,55 +54,52 @@
  * resets the Watchdog counter via a button before the timer expires. If the
  * watchdog resets the device, a LED on the board is turned off.
  *
- * \section asfdoc_samd20_wdt_basic_use_case_setup Setup
+ * \section asfdoc_sam0_wdt_basic_use_case_setup Setup
  *
- * \subsection asfdoc_samd20_wdt_basic_use_case_setup_prereq Prerequisites
+ * \subsection asfdoc_sam0_wdt_basic_use_case_setup_prereq Prerequisites
  * There are no special setup requirements for this use-case.
  *
- * \subsection asfdoc_samd20_wdt_basic_use_case_setup_code Code
+ * \subsection asfdoc_sam0_wdt_basic_use_case_setup_code Code
  * Copy-paste the following setup code to your user application:
  * \snippet qs_wdt_basic.c setup
  *
  * Add to user application initialization (typically the start of \c main()):
  * \snippet qs_wdt_basic.c setup_init
  *
- * \subsection asfdoc_samd20_wdt_basic_use_case_setup_flow Workflow
+ * \subsection asfdoc_sam0_wdt_basic_use_case_setup_flow Workflow
  * -# Create a Watchdog module configuration struct, which can be filled out to
  *    adjust the configuration of the Watchdog.
- *  \snippet qs_wdt_basic.c setup_1
+ *    \snippet qs_wdt_basic.c setup_1
  * -# Initialize the Watchdog configuration struct with the module's default
  *    values.
+ *    \snippet qs_wdt_basic.c setup_2
  *    \note This should always be performed before using the configuration
  *          struct to ensure that all values are initialized to known default
  *          settings.
  *
- *  \snippet qs_wdt_basic.c setup_2
  * -# Adjust the configuration struct to set the timeout period and lock mode
  *    of the Watchdog.
- *  \snippet qs_wdt_basic.c setup_3
- * -# Initialize the Watchdog to configure the module with the requested
- *    settings.
- *  \snippet qs_wdt_basic.c setup_4
- * -# Enable the Watchdog to start the module.
- *  \snippet qs_wdt_basic.c setup_5
+ *    \snippet qs_wdt_basic.c setup_3
+ * -# Setups the WDT hardware module with the requested settings.
+ *    \snippet qs_wdt_basic.c setup_4
  *
- * \section asfdoc_samd20_wdt_basic_use_case Use Case
+ * \section asfdoc_sam0_wdt_basic_use_case Use Case
  *
- * \subsection asfdoc_samd20_wdt_basic_use_case_code Code
+ * \subsection asfdoc_sam0_wdt_basic_use_case_code Code
  * Copy-paste the following code to your user application:
  * \snippet qs_wdt_basic.c main
  *
- * \subsection asfdoc_samd20_wdt_basic_use_case_main Workflow
+ * \subsection asfdoc_sam0_wdt_basic_use_case_main Workflow
  * -# Retrieve the cause of the system reset to determine if the watchdog module
  *    was the cause of the last reset.
- *  \snippet qs_wdt_basic.c main_1
+ *    \snippet qs_wdt_basic.c main_1
  * -# Turn on or off the board LED based on whether the watchdog reset the device.
- *  \snippet qs_wdt_basic.c main_2
+ *    \snippet qs_wdt_basic.c main_2
  * -# Enter an infinite loop to hold the main program logic.
- *  \snippet qs_wdt_basic.c main_3
+ *    \snippet qs_wdt_basic.c main_3
  * -# Test to see if the board button is currently being pressed.
- *  \snippet qs_wdt_basic.c main_4
+ *    \snippet qs_wdt_basic.c main_4
  * -# If the button is pressed, turn on the board LED and reset the Watchdog
  *    timer.
- *  \snippet qs_wdt_basic.c main_5
+ *    \snippet qs_wdt_basic.c main_5
  */

@@ -68,19 +68,8 @@
  *
  */
 
+#include <asf.h>
 #include <string.h>
-#include "board.h"
-#include "sysclk.h"
-#include "ssd1306.h"
-#include "at30tse75x.h"
-#include "twi_master.h"
-#include "adc.h"
-#include "ioport.h"
-#include "pio_handler.h"
-#include "sd_mmc.h"
-#include "sd_mmc_spi.h"
-#include "ff.h"
-#include "ctrl_access.h"
 
 /* These settings will force to set and refresh the temperature mode. */
 volatile uint32_t app_mode = 2;

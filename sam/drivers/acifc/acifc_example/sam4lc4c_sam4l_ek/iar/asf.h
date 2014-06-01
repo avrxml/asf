@@ -59,9 +59,6 @@
 #include <compiler.h>
 #include <status_codes.h>
 
-// From module: DACC - Digital-to-Analog Converter
-#include <dacc.h>
-
 // From module: Delay routines
 #include <delay.h>
 
@@ -105,5 +102,8 @@
 
 // From module: USART - Univ. Syn Async Rec/Trans
 #include <usart.h>
+
+// From module: WDT - Watchdog Timer
+#include <wdt_sam4l.h>
 
 #endif // ASF_H

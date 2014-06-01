@@ -3,7 +3,7 @@
  *
  * \brief GFX task for the FreeRTOS Web/DSP Demo.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -107,9 +107,8 @@ static uint32_t button2_filter_cnt = 0;
 static uint32_t touch_sel = 0;
 #define COLOR_CUSTOM_GREY  0xE4E4E4u
 
-/** The Y value to determine which button is pressed*/
-/* this value can be changed according to touch screen calibration status */
-#define BUTTON_DETECT_Y  110
+/** The Y value to determine which button is pressed. */
+#define BUTTON_DETECT_Y  160
 
 /** BMP (Windows) Header Format. */
 COMPILER_PACK_SET(1)
@@ -157,28 +156,27 @@ COMPILER_PACK_RESET()
  */
 static void event_handler(rtouch_event_t const *event)
 {
+	static uint32_t selected = 0;
+
 	switch(event->type) {
 	case RTOUCH_MOVE:
 	case RTOUCH_PRESS:
 	case RTOUCH_RELEASE:
 		if (event->panel.y < BUTTON_DETECT_Y) {
-			/** Static IP button selected. */
-			/** Button 1. */
-			ili93xx_set_foreground_color(COLOR_BLACK);
-			ili93xx_draw_rectangle(20,70,220,130);
-			ili93xx_set_foreground_color(COLOR_CUSTOM_GREY);
-			ili93xx_draw_rectangle(22,72,222,132);
-			ili93xx_set_foreground_color(COLOR_LIGHTGREY);
-			ili93xx_draw_filled_rectangle(21,71,221,131);
-			ili93xx_set_foreground_color(COLOR_BLACK);
-			ili93xx_draw_string(92, 91, (uint8_t *)"Static");
+			if (selected != 1) {
+				selected = 1;
+				/* Static IP button selected. */
+				/* Button 1. */
+				ili93xx_set_foreground_color(COLOR_BLACK);
+				ili93xx_draw_rectangle(20,70,220,130);
+				ili93xx_set_foreground_color(COLOR_CUSTOM_GREY);
+				ili93xx_draw_rectangle(22,72,222,132);
+				ili93xx_set_foreground_color(COLOR_LIGHTGREY);
+				ili93xx_draw_filled_rectangle(21,71,221,131);
+				ili93xx_set_foreground_color(COLOR_BLACK);
+				ili93xx_draw_string(92, 91, (uint8_t *)"Static");
 
-			button1_filter_cnt++;
-			button2_filter_cnt = 0;
-			if (button1_filter_cnt >= 1) {
-				touch_sel = 1;
-
-				/** Button 2. */
+				/* Button 2. */
 				ili93xx_set_foreground_color(COLOR_CUSTOM_GREY);
 				ili93xx_draw_rectangle(20,170,220,230);
 				ili93xx_set_foreground_color(COLOR_BLACK);
@@ -188,23 +186,12 @@ static void event_handler(rtouch_event_t const *event)
 				ili93xx_set_foreground_color(COLOR_BLACK);
 				ili93xx_draw_string(102, 191, (uint8_t *)"DHCP");
 			}
-		} else {
-			/** DHCP IP button selected. */
-			/** Button 2. */
-			ili93xx_set_foreground_color(COLOR_BLACK);
-			ili93xx_draw_rectangle(20,170,220,230);
-			ili93xx_set_foreground_color(COLOR_CUSTOM_GREY);
-			ili93xx_draw_rectangle(22,172,222,232);
-			ili93xx_set_foreground_color(COLOR_LIGHTGREY);
-			ili93xx_draw_filled_rectangle(21,171,221,231);
-			ili93xx_set_foreground_color(COLOR_BLACK);
-			ili93xx_draw_string(102, 191, (uint8_t *)"DHCP");
-
-			button2_filter_cnt++;
-			button1_filter_cnt = 0;
-			if (button2_filter_cnt >= 1) {
-				touch_sel = 2;
-				/** Button 1. */
+		}
+		else {
+			if (selected != 2) {
+				selected = 2;
+				/* DHCP IP button selected. */
+				/* Button 1. */
 				ili93xx_set_foreground_color(COLOR_CUSTOM_GREY);
 				ili93xx_draw_rectangle(20,70,220,130);
 				ili93xx_set_foreground_color(COLOR_BLACK);
@@ -213,41 +200,30 @@ static void event_handler(rtouch_event_t const *event)
 				ili93xx_draw_filled_rectangle(21,71,221,131);
 				ili93xx_set_foreground_color(COLOR_BLACK);
 				ili93xx_draw_string(92, 91, (uint8_t *)"Static");
+
+				/* Button 2. */
+				ili93xx_set_foreground_color(COLOR_BLACK);
+				ili93xx_draw_rectangle(20,170,220,230);
+				ili93xx_set_foreground_color(COLOR_CUSTOM_GREY);
+				ili93xx_draw_rectangle(22,172,222,232);
+				ili93xx_set_foreground_color(COLOR_LIGHTGREY);
+				ili93xx_draw_filled_rectangle(21,171,221,231);
+				ili93xx_set_foreground_color(COLOR_BLACK);
+				ili93xx_draw_string(102, 191, (uint8_t *)"DHCP");
 			}
 		}
-		break;
-	default:
 		break;
 	}
 
 	/** If released, freeze buttons and perform IP settings. */
 	if (event->type == RTOUCH_RELEASE) {
-		if((button1_filter_cnt>1) || (button2_filter_cnt >1)) {
-			g_ip_mode = touch_sel;
-			ili93xx_set_foreground_color(COLOR_GRAY);
-			ili93xx_draw_string(92, 91, (uint8_t *)"Static");
-			ili93xx_draw_string(102, 191, (uint8_t *)"DHCP");
-			ili93xx_set_foreground_color(COLOR_BLACK);
-		} else {
-			/** Button 1. */
-			ili93xx_set_foreground_color(COLOR_CUSTOM_GREY);
-			ili93xx_draw_rectangle(20,70,220,130);
-			ili93xx_set_foreground_color(COLOR_BLACK);
-			ili93xx_draw_rectangle(22,72,222,132);
-			ili93xx_set_foreground_color(COLOR_LIGHTGREY);
-			ili93xx_draw_filled_rectangle(21,71,221,131);
-			ili93xx_set_foreground_color(COLOR_BLACK);
-			ili93xx_draw_string(92, 91, (uint8_t *)"Static");
-			/** Button 2. */
-			ili93xx_set_foreground_color(COLOR_CUSTOM_GREY);
-			ili93xx_draw_rectangle(20,170,220,230);
-			ili93xx_set_foreground_color(COLOR_BLACK);
-			ili93xx_draw_rectangle(22,172,222,232);
-			ili93xx_set_foreground_color(COLOR_LIGHTGREY);
-			ili93xx_draw_filled_rectangle(21,171,221,231);
-			ili93xx_set_foreground_color(COLOR_BLACK);
-			ili93xx_draw_string(102, 191, (uint8_t *)"DHCP");
-		}
+		ili93xx_set_foreground_color(COLOR_GRAY);
+		ili93xx_draw_string(92, 91, (uint8_t *)"Static");
+		ili93xx_draw_string(102, 191, (uint8_t *)"DHCP");
+		if (event->panel.y < 160)
+			g_ip_mode = 1;
+		else
+			g_ip_mode = 2;
 	}
 }
 
@@ -278,13 +254,16 @@ static void gfx_task(void *pvParameters)
 	/* Just to avoid compiler warnings. */
 	UNUSED(pvParameters);
 
-	/** Draw IP config menu. */
+	/* Enable display, backlight and print ATMEL logo. */
+	ili93xx_set_cursor_position(0,0);
 	ili93xx_set_foreground_color(COLOR_WHITE);
 	ili93xx_draw_filled_rectangle(0, 0, ILI93XX_LCD_WIDTH, ILI93XX_LCD_HEIGHT);
-
-	/** Display ATMEL logo. */
-	ili93xx_set_cursor_position(0,0);
 	gfx_draw_bmpfile(logo_atmel_bmp);
+	ili93xx_display_on();
+	for (uint32_t i = AAT31XX_MIN_BACKLIGHT_LEVEL; i <= AAT31XX_MAX_BACKLIGHT_LEVEL; ++i) {
+		aat31xx_set_backlight(i);
+		vTaskDelay(40);
+	}
 	vTaskDelay(presentation_delay);
 
 	/** Initialize touchscreen with default calibration */
@@ -323,11 +302,9 @@ static void gfx_task(void *pvParameters)
 	ili93xx_draw_filled_rectangle(21,171,221,231);
 	ili93xx_set_foreground_color(COLOR_BLACK);
 	ili93xx_draw_string(102, 191, (uint8_t *)"DHCP");
-
 	ili93xx_draw_string(22, 30, (uint8_t *)"IP Configuration");
-
 	ili93xx_draw_string(20, 260, (uint8_t *)"Assigned IP:");
-	ili93xx_draw_rectangle(20, 280, 220, 310);
+	ili93xx_draw_rectangle(20,280,220,310);
 
 	while (g_ip_mode == 0) {
 		rtouch_process();
@@ -421,12 +398,6 @@ static void gfx_init(void)
 	if (1 == ili93xx_init(&g_ili93xx_display_opt)) {
 		while(1);
 	}
-
-	/** Set backlight level */
-	aat31xx_set_backlight(AAT31XX_AVG_BACKLIGHT_LEVEL);
-
-	/** Turn on LCD */
-	ili93xx_display_on();
 }
 
 /**
@@ -499,37 +470,34 @@ static void gfx_draw_bmpfile(const uint8_t *bmpImage)
 	uint32_t i = 0;
 	uint32_t offset;
 
-	bmp_header = (struct bmpfile_header*) bmpImage;
+	bmp_header = (struct bmpfile_header *) bmpImage;
 	length = bmp_header->height * bmp_header->width * 3;
 	offset = sizeof(struct bmpfile_header);
 
 	if (ili93xx_device_type() == DEVICE_TYPE_ILI9325) {
-
 		ili93xx_set_cursor_position(0, 0);
 
-		/** Prepare to write in GRAM */
+		/* Prepare to write in GRAM. */
 		LCD_IR(0);
 		LCD_IR(ILI9325_GRAM_DATA_REG);
 		for (i = offset; i < length; i += 3) {
-			/** Invert red and blue. */
+			/* Invert red and blue. */
 			LCD_WD(bmpImage[i + 2]);
 			LCD_WD(bmpImage[i + 1]);
 			LCD_WD(bmpImage[i]);
 		}
-	} else if (ili93xx_device_type() == DEVICE_TYPE_ILI9341) {
+	}
+	else if (ili93xx_device_type() == DEVICE_TYPE_ILI9341) {
 		ili93xx_set_window(0, 0, bmp_header->width - 15, bmp_header->height);
-		/** memory write command (R2Ch)*/
-		LCD_IR(ILI9341_CMD_MEMORY_WRITE);
+		LCD_IR(ILI9341_CMD_MEMORY_WRITE); /* memory write command (R2Ch) */
 		LCD_IR(ILI9341_CMD_WRITE_MEMORY_CONTINUE);
 
-		/** the original image is mirrored */
-		for (i= bmp_header->height - 1; i * bmp_header->width * 3 > offset;
-				i -=1) {
-			for (uint16_t j = 45; j < bmp_header->width * 3; j += 3) {
+		/* The original image is mirrored. */
+		for (i = bmp_header->height - 1 ; (i * bmp_header->width * 3) > offset ; i -= 1)
+			for (uint16_t j = 45; j < (bmp_header->width * 3); j += 3) {
 				LCD_WD(bmpImage[i * bmp_header->width * 3 + j + 2]);
 				LCD_WD(bmpImage[i * bmp_header->width * 3 + j + 1]);
 				LCD_WD(bmpImage[i * bmp_header->width * 3 + j]);
 			}
-		}
 	}
 }

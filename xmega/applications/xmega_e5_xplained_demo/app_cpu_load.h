@@ -3,7 +3,7 @@
  *
  * \brief Task to manage CPU load monitoring
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,12 +63,12 @@
  *
  * Usage:
  * \code
- * ISR(FOO_vect)
- * {
- *     app_cpu_load_exit_sleep();
- *     ...
- * }
- * \endcode
+	ISR(FOO_vect)
+	{
+	    app_cpu_load_exit_sleep();
+	    ...
+	}
+\endcode
  *
  * \param vect Interrupt vector name as found in the device header files.
  */

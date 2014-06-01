@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Liquid Crystal Display driver.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -181,36 +181,36 @@ static inline void lcd_connection_init(bool com_swp, bool seg_swp,
  * operating frequencies:
  * - 256 Hz:
  * \code
- * LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy1_gc | LCD_DUTY_1_4_gc
- * \endcode
+	LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy1_gc | LCD_DUTY_1_4_gc
+\endcode
  * - 128 Hz:
  * \code
- * LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy2_gc | LCD_DUTY_1_4_gc
- * \endcode
+	LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy2_gc | LCD_DUTY_1_4_gc
+\endcode
  * - 85.3 Hz:
  * \code
- * LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy3_gc | LCD_DUTY_1_4_gc
- * \endcode
+	LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy3_gc | LCD_DUTY_1_4_gc
+\endcode
  * - 64 Hz:
  * \code
- * LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy4_gc | LCD_DUTY_1_4_gc
- * \endcode
+	LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy4_gc | LCD_DUTY_1_4_gc
+\endcode
  * - 51.2 Hz:
  * \code
- * LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy5_gc | LCD_DUTY_1_4_gc
- * \endcode
+	LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy5_gc | LCD_DUTY_1_4_gc
+\endcode
  * - 42.7 Hz:
  * \code
- * LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy6_gc | LCD_DUTY_1_4_gc
- * \endcode
+	LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy6_gc | LCD_DUTY_1_4_gc
+\endcode
  * - 36.6 Hz:
  * \code
- * LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy7_gc | LCD_DUTY_1_4_gc
- * \endcode
+	LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy7_gc | LCD_DUTY_1_4_gc
+\endcode
  * - 32 Hz:
  * \code
- * LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy8_gc | LCD_DUTY_1_4_gc
- * \endcode
+	LCD.CTRB = LCD_PRESC_16_gc | LCD_CLKDIV_DivBy8_gc | LCD_DUTY_1_4_gc
+\endcode
  */
 static inline void lcd_timing_init(enum LCD_PRESC_enum lcd_pres,
 		enum LCD_CLKDIV_enum lcd_clkdiv,
@@ -502,37 +502,37 @@ bool lcd_get_pixel(uint8_t pix_com, uint8_t pix_seg);
  * The sysclk service (\ref sysclk_group) is required for RTC clock source setup. Make
  * sure this is a part of the main initialization code:
  * \code
- *    sysclk_init();
- * \endcode
+	sysclk_init();
+\endcode
  *
  * \subsection lcd_basic_use_case_setup_code Example code
  * The RTC clock source which is also used for LCD needs to be configured in
  * conf_clock.h :
  * \code
- *    #define CONFIG_RTC_SOURCE          SYSCLK_RTCSRC_ULP
- * \endcode
+	#define CONFIG_RTC_SOURCE          SYSCLK_RTCSRC_ULP
+\endcode
  * Add to application C-file:
  * \code
- *   void lcd_init(void)
- *   {
- *        lcd_clk_init();
- *
- *        // Glass connection no COM swap, no SEG swap, use 40 seg line,
- *        no external bias lcd_connection_init(false, false, 40, false);
- *
- *        // LCD waveform timing configuration:
- *        // - Divide LCD source clock module (ULP) by 16
- *        // - 4 divider of the prescaled clock source
- *        // - Configure LCD module to generate low power mode
- *        // - Duty cycle (operating mode) applied to the LCD.
- *        lcd_timing_init(LCD_PRESC_16_gc, LCD_CLKDIV_DivBy4_gc,
- *                        LCD_LP_WAVE_ENABLE_gc, 4);
- *
- *        // Configure blink rate
- *        lcd_blinkrate_init(LCD_BLINKRATE_2Hz_gc);
- *        lcd_enable();
- *   }
- * \endcode
+	   void lcd_init(void)
+	   {
+	        lcd_clk_init();
+
+	        // Glass connection no COM swap, no SEG swap, use 40 seg line,
+	        no external bias lcd_connection_init(false, false, 40, false);
+
+	        // LCD waveform timing configuration:
+	        // - Divide LCD source clock module (ULP) by 16
+	        // - 4 divider of the prescaled clock source
+	        // - Configure LCD module to generate low power mode
+	        // - Duty cycle (operating mode) applied to the LCD.
+	        lcd_timing_init(LCD_PRESC_16_gc, LCD_CLKDIV_DivBy4_gc,
+	                        LCD_LP_WAVE_ENABLE_gc, 4);
+
+	        // Configure blink rate
+	        lcd_blinkrate_init(LCD_BLINKRATE_2Hz_gc);
+	        lcd_enable();
+	   }
+\endcode
  *
  * \subsection lcd_basic_use_case_setup_flow Workflow
  * -# Make sure sysclk_init() is part of the main initalization code:
@@ -552,7 +552,7 @@ bool lcd_get_pixel(uint8_t pix_com, uint8_t pix_seg);
  * , the number of SEG line used and if and external bias source is used.
  * -# Define the LCD waveform timing generation using function:
  *   - \code lcd_timing_init(LCD_PRESC_16_gc, LCD_CLKDIV_DivBy4_gc,
- *                        LCD_LP_WAVE_ENABLE_gc, 4); \endcode
+	                        LCD_LP_WAVE_ENABLE_gc, 4); \endcode
  *   - \note Enabling Low Power Waveform type is recommended to save
  *   power consumption.
  * refresh the glass while CPU core halted and main oscillator stopped
@@ -567,26 +567,26 @@ bool lcd_get_pixel(uint8_t pix_com, uint8_t pix_seg);
  * \subsection lcd_basic_use_case_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
- *    const uint8_t alpha_text[]="HELLO AVR";
- *    const uint8_t num_text[]="1234";
- *
- *    lcd_set_pixel(1,0);
- *
- *    lcd_set_blink_pixel(2,0);
- *
- *    lcd_write_packet(LCD_TDG_14S_4C_gc, FIRST_14SEG_4C, alpha_text, \
- *                    WIDTH_14SEG_4C, DIR_14SEG_4C);
- *
- *    lcd_write_packet(LCD_TDG_7S_4C_gc, FIRST_7SEG_4C, num_text, \
- *                    WIDTH_7SEG_4C, DIR_7SEG_4C);
- *
- *    uint16_t result = adc_get_result(&ADCA, ADC_CH0);
- * \endcode
+	    const uint8_t alpha_text[]="HELLO AVR";
+	    const uint8_t num_text[]="1234";
+
+	    lcd_set_pixel(1,0);
+
+	    lcd_set_blink_pixel(2,0);
+
+	    lcd_write_packet(LCD_TDG_14S_4C_gc, FIRST_14SEG_4C, alpha_text, \
+	                    WIDTH_14SEG_4C, DIR_14SEG_4C);
+
+	    lcd_write_packet(LCD_TDG_7S_4C_gc, FIRST_7SEG_4C, num_text, \
+	                    WIDTH_7SEG_4C, DIR_7SEG_4C);
+
+	    uint16_t result = adc_get_result(&ADCA, ADC_CH0);
+\endcode
  *
  * \subsection lcd_basic_use_case_usage_flow Workflow
  * -# Declare some alphanumeric or numeric string to be displayed:
  *   - \code const uint8_t alpha_text[]="HELLO AVR";
- * const uint8_t num_text[]="1234"; \endcode
+	 const uint8_t num_text[]="1234"; \endcode
  * -# Turn on one individual pixel. A pixel is tupple of (COM,SEG) positions:
  *   - \code lcd_set_pixel(1,0); \endcode
  *   - \note The (1,0) correspond at ICON_USB on the specific glass
@@ -597,10 +597,10 @@ bool lcd_get_pixel(uint8_t pix_com, uint8_t pix_seg);
  *   c42048a used in ASF.
  * -# Display alphanumeric string on 14 segment per digit line:
  *   - \code lcd_write_packet(LCD_TDG_14S_4C_gc, FIRST_14SEG_4C, alpha_text, \
- *                    WIDTH_14SEG_4C, DIR_14SEG_4C); \endcode
+	                    WIDTH_14SEG_4C, DIR_14SEG_4C); \endcode
  * -# Display numeric string on 7 segment per digit line:
  *   - \code lcd_write_packet(LCD_TDG_7S_4C_gc, FIRST_7SEG_4C, num_text, \
- *                    WIDTH_7SEG_4C, DIR_7SEG_4C); \endcode
+	                    WIDTH_7SEG_4C, DIR_7SEG_4C); \endcode
  * \section lcd_use_cases Advanced use cases
  * For more advanced use of the LCD driver, see the following use cases:
  * - \subpage lcd_use_case_1
@@ -632,16 +632,16 @@ bool lcd_get_pixel(uint8_t pix_com, uint8_t pix_seg);
  *
  * The c42048a.c file contains the following initialization function:
  * \code
- * void c42048a_init(void)
- * {
- * lcd_clk_init();
- * lcd_connection_init(COM_SWP, SEG_SWP, PORT_MASK, X_BIAS);
- * lcd_timing_init(LCD_PRESC_16_gc, LCD_CLKDIV_DivBy4_gc,
- *                  LCD_LP_WAVE_ENABLE_gc, LCD_DUTY);
- * lcd_interrupt_init(LCD_INTLVL_OFF_gc, 16);
- * lcd_blinkrate_init(LCD_BLINKRATE_2Hz_gc);
- * lcd_enable();
- * } \endcode
+	void c42048a_init(void)
+	{
+	lcd_clk_init();
+	lcd_connection_init(COM_SWP, SEG_SWP, PORT_MASK, X_BIAS);
+	lcd_timing_init(LCD_PRESC_16_gc, LCD_CLKDIV_DivBy4_gc,
+	                 LCD_LP_WAVE_ENABLE_gc, LCD_DUTY);
+	lcd_interrupt_init(LCD_INTLVL_OFF_gc, 16);
+	lcd_blinkrate_init(LCD_BLINKRATE_2Hz_gc);
+	lcd_enable();
+	} \endcode
  *
  * Adding a call to this c42048a_init glass initialization will performs
  * LCD module initialization according to the glass specific characteristics.
@@ -649,30 +649,30 @@ bool lcd_get_pixel(uint8_t pix_com, uint8_t pix_seg);
  * c42048a.c file also contains high level abstraction functions to easily
  * access specific glass fields like:
  * \code void c42048a_set_numeric_dec(uint16_t val)
- * {
- * lcd_write_packet(...);
- * }
- *
- * void c42048a_set_text(const uint8_t *data)
- * {
- * lcd_write_packet(...);
- * }
- *
- * void c42048a_set_pixel(uint8_t pix_com, uint8_t pix_seg)
- * {
- * lcd_set_pixel(pix_com,pix_seg);
- * } \endcode
+	 {
+	 lcd_write_packet(...);
+	 }
+
+	 void c42048a_set_text(const uint8_t *data)
+	 {
+	 lcd_write_packet(...);
+	 }
+
+	 void c42048a_set_pixel(uint8_t pix_com, uint8_t pix_seg)
+	 {
+	 lcd_set_pixel(pix_com,pix_seg);
+	 } \endcode
  *
  * \section lcd_use_case_1_usage Usage steps
  * \subsection lcd_use_case_1_usage_code Example code
  * The following code illustrates how to initialize and use an LCD defined glass
  * thought its component abstraction layer:
  * \code
- * c42048a_init();
- * c42048a_set_numeric_dec(1245);
- * c42048a_set_text((const uint8_t)"HELLO AVR");
- * c42048a_set_pixel(2,0);
- * \endcode
+	c42048a_init();
+	c42048a_set_numeric_dec(1245);
+	c42048a_set_text((const uint8_t)"HELLO AVR");
+	c42048a_set_pixel(2,0);
+\endcode
  *
  * \subsection adc_use_case_1_usage_flow Workflow
  * -# Initialize the LCD glass component through its high level initilization
@@ -681,7 +681,7 @@ bool lcd_get_pixel(uint8_t pix_com, uint8_t pix_seg);
  * -# Use the component layer function to update specific available fields on
  * the glass (numeric values, text fields or specific pixels...).
  *   - \code c42048a_set_numeric_dec(1245);
- * c42048a_set_text((const uint8_t)"HELLO AVR");
- * c42048a_set_pixel(2,0); \endcode
+	c42048a_set_text((const uint8_t)"HELLO AVR");
+	c42048a_set_pixel(2,0); \endcode
  */
 #endif // _LCD_H_

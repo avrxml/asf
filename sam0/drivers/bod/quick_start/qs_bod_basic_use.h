@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 BOD Driver Quick Start
+ * \brief SAM D20/D21/R21 BOD Driver Quick Start
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,49 +41,49 @@
  */
 
 /**
- * \page asfdoc_samd20_bod_basic_use_case Quick Start Guide for BOD - Basic
+ * \page asfdoc_sam0_bod_basic_use_case Quick Start Guide for BOD - Basic
  *
  * In this use case, the BOD33 will be configured with the following settings:
  * - Continuous sampling mode
  * - Prescaler setting of 2
  * - Reset action on low voltage detect
  *
- * \section asfdoc_samd20_bod_basic_use_case_setup Quick Start
+ * \section asfdoc_sam0_bod_basic_use_case_setup Quick Start
  *
- * \subsection asfdoc_samd20_bod_basic_use_case_prereq Prerequisites
+ * \subsection asfdoc_sam0_bod_basic_use_case_prereq Prerequisites
  * There are no special setup requirements for this use-case.
  *
- * \subsection asfdoc_samd20_bod_basic_use_case_setup_code Code
+ * \subsection asfdoc_sam0_bod_basic_use_case_setup_code Code
  * Copy-paste the following setup code to your user application:
  * \snippet qs_bod_basic_use.c setup
  *
  * Add to user application initialization (typically the start of \c main()):
  * \snippet qs_bod_basic_use.c setup_init
  *
- * \subsection asfdoc_samd20_bod_basic_use_case_setup_flow Workflow
+ * \subsection asfdoc_sam0_bod_basic_use_case_setup_flow Workflow
  * -# Create a BOD module configuration struct, which can be filled out to
  *    adjust the configuration of a physical BOD peripheral.
  *    \snippet qs_bod_basic_use.c setup_config
  * -# Initialize the BOD configuration struct with the module's default values.
+ *    \snippet qs_bod_basic_use.c setup_config_defaults
  *    \note This should always be performed before using the configuration
  *          struct to ensure that all values are initialized to known default
  *          settings.
  *
- *    \snippet qs_bod_basic_use.c setup_config_defaults
  * -# Configure the BOD module with the desired settings.
  *    \snippet qs_bod_basic_use.c setup_set_config
  * -# Enable the BOD module so that it will monitor the power supply voltage.
  *    \snippet qs_bod_basic_use.c setup_enable
  *
  *
- * \section asfdoc_samd20_bod_basic_use_case_main Use Case
+ * \section asfdoc_sam0_bod_basic_use_case_main Use Case
  *
- * \subsection asfdoc_samd20_bod_basic_use_case_main_code Code
+ * \subsection asfdoc_sam0_bod_basic_use_case_main_code Code
  * Copy-paste the following code to your user application:
  * \snippet qs_bod_basic_use.c main
  *
- * \subsection asfdoc_samd20_bod_basic_use_case_main_flow Workflow
+ * \subsection asfdoc_sam0_bod_basic_use_case_main_flow Workflow
  * -# Enter an infinite loop so that the BOD can continue to monitor the supply
  *    voltage level.
- *  \snippet qs_bod_basic_use.c main_loop
+ *    \snippet qs_bod_basic_use.c main_loop
  */

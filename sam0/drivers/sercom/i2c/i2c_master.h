@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D20 I2C Master Driver
+ * \brief SAM SERCOM I2C Master Driver
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -61,20 +61,30 @@ extern "C" {
 #endif
 
 /**
- * \addtogroup asfdoc_samd20_sercom_i2c_group
+ * \addtogroup asfdoc_sam0_sercom_i2c_group
  *
  * @{
  */
 
-#if !defined(__DOXYGEN__)
 /**
- * \internal Setting direction bit in address
+ * \brief I<SUP>2</SUP>C master packet for read/write
+ *
+ * Structure to be used when transferring I<SUP>2</SUP>C master packets.
  */
-enum _i2c_transfer_direction {
-	_I2C_TRANSFER_WRITE = 0,
-	_I2C_TRANSFER_READ = 1,
+struct i2c_master_packet {
+	/** Address to slave device  */
+	uint16_t address;
+	/** Length of data array */
+	uint16_t data_length;
+	/** Data array containing all data to be transferred */
+	uint8_t *data;
+	/** Use 10 bit addressing. Set to false if the feature is not supported by the device  */
+	bool ten_bit_address;
+	/** Use high speed transfer. Set to false if the feature is not supported by the device */
+	bool high_speed;
+	/** High speed mode master code (0000 1XXX), valid when high_speed is true */
+	uint8_t hs_master_code;
 };
-#endif
 
 /** \brief Interrupt flags
  *
@@ -105,24 +115,60 @@ enum i2c_master_start_hold_time {
 };
 
 /**
+ * \ brief Values for inactive bus time-out.
+ *
+ * If the inactive bus time-out is enabled and the bus is inactive for
+ * longer than the time-out setting, the bus state logic will be set to idle.
+ */
+enum i2c_master_inactive_timeout {
+	/** Inactive bus time-out disabled */
+	I2C_MASTER_INACTIVE_TIMEOUT_DISABLED = SERCOM_I2CM_CTRLA_INACTOUT(0),
+	/** Inactive bus time-out 5-6 SCL cycle time-out (50-60us) */
+	I2C_MASTER_INACTIVE_TIMEOUT_55US = SERCOM_I2CM_CTRLA_INACTOUT(1),
+	/** Inactive bus time-out 10-11 SCL cycle time-out (100-110us) */
+	I2C_MASTER_INACTIVE_TIMEOUT_105US = SERCOM_I2CM_CTRLA_INACTOUT(2),
+	/** Inactive bus time-out 20-21 SCL cycle time-out (200-210us) */
+	I2C_MASTER_INACTIVE_TIMEOUT_205US = SERCOM_I2CM_CTRLA_INACTOUT(3),
+};
+
+/**
  * \brief I<SUP>2</SUP>C frequencies
  *
- * Values for standard I<SUP>2</SUP>C speeds supported by the module. The driver
- * will also support setting any value between 10 and 100kHz, in which case set
+ * Values for I<SUP>2</SUP>C speeds supported by the module. The driver
+ * will also support setting any other value, in which case set
  * the value in the \ref i2c_master_config at desired value divided by 1000.
  *
  * Example: If 10kHz operation is required, give baud_rate in the configuration
  * structure the value 10.
- *
- * \note Max speed is given by GCLK-frequency divided by 10, and lowest is
- *       given by GCLK-frequency divided by 510.
  */
 enum i2c_master_baud_rate {
-	/** Baud rate at 100kHz */
+	/** Baud rate at 100kHz (Standard-mode) */
 	I2C_MASTER_BAUD_RATE_100KHZ = 100,
-	/** Baud rate at 400kHz */
+	/** Baud rate at 400kHz (Fast-mode) */
 	I2C_MASTER_BAUD_RATE_400KHZ = 400,
+#ifdef FEATURE_I2C_FAST_MODE_PLUS_AND_HIGH_SPEED
+	/** Baud rate at 1MHz (Fast-mode Plus) */
+	I2C_MASTER_BAUD_RATE_1000KHZ = 1000,
+	/** Baud rate at 3.4MHz (High-speed mode) */
+	I2C_MASTER_BAUD_RATE_3400KHZ = 3400,
+#endif
 };
+
+#ifdef FEATURE_I2C_FAST_MODE_PLUS_AND_HIGH_SPEED
+/**
+ * \brief Enum for the transfer speed
+ *
+ * Enum for the transfer speed.
+ */
+enum i2c_master_transfer_speed {
+	/** Standard-mode (Sm) up to 100 kHz and Fast-mode (Fm) up to 400 kHz */
+	I2C_MASTER_SPEED_STANDARD_AND_FAST = SERCOM_I2CM_CTRLA_SPEED(0),
+	/** Fast-mode Plus (Fm+) up to 1 MHz */
+	I2C_MASTER_SPEED_FAST_MODE_PLUS = SERCOM_I2CM_CTRLA_SPEED(1),
+	/** High-speed mode (Hs-mode) up to 3.4 MHz */
+	I2C_MASTER_SPEED_HIGH_SPEED = SERCOM_I2CM_CTRLA_SPEED(2),
+};
+#endif
 
 #if I2C_MASTER_CALLBACK_MODE == true
 /**
@@ -165,6 +211,8 @@ struct i2c_master_module {
 #if !defined(__DOXYGEN__)
 	/** Hardware instance initialized for the struct */
 	Sercom *hw;
+	/** Module lock */
+	volatile bool locked;
 	/** Unknown bus state timeout */
 	uint16_t unknown_bus_state_timeout;
 	/** Buffer write timeout value */
@@ -188,7 +236,7 @@ struct i2c_master_module {
 	/** Data buffer for packet write and read */
 	volatile uint8_t *buffer;
 	/** Save direction of async request. 1 = read, 0 = write */
-	volatile uint8_t transfer_direction;
+	volatile enum i2c_transfer_direction transfer_direction;
 	/** Status for status read back in error callback */
 	volatile enum status_code status;
 #  endif
@@ -204,13 +252,22 @@ struct i2c_master_module {
  * \ref i2c_master_get_config_defaults .
  */
 struct i2c_master_config {
-	/** Baud rate for I<SUP>2</SUP>C operations */
-	enum i2c_master_baud_rate baud_rate;
+	/** Baud rate (in KHZ) for I<SUP>2</SUP>C operations in
+	 * standard-mode, Fast-mode and Fast-mode Plus Transfers,
+	 * \ref i2c_master_baud_rate */
+	uint32_t baud_rate;
+#ifdef FEATURE_I2C_FAST_MODE_PLUS_AND_HIGH_SPEED
+	/** Baud rate (in KHz) for I<SUP>2</SUP>C operations in
+	 * High-speed mode, \ref i2c_master_baud_rate */
+	uint32_t baud_rate_high_speed;
+	/** Transfer speed mode */
+	enum i2c_master_transfer_speed transfer_speed;
+#endif
 	/** GCLK generator to use as clock source */
 	enum gclk_generator generator_source;
 	/** Bus hold time after start signal on data line */
 	enum i2c_master_start_hold_time start_hold_time;
-	/** Unknown bus state \ref asfdoc_samd20_sercom_i2c_unknown_bus_timeout "timeout" */
+	/** Unknown bus state \ref asfdoc_sam0_sercom_i2c_unknown_bus_timeout "timeout" */
 	uint16_t unknown_bus_state_timeout;
 	/** Timeout for packet write to wait for slave */
 	uint16_t buffer_timeout;
@@ -220,34 +277,83 @@ struct i2c_master_config {
 	uint32_t pinmux_pad0;
 	/** PAD1 (SCL) pinmux */
 	uint32_t pinmux_pad1;
+	/** Set to enable SCL low time-out */
+	bool scl_low_timeout;
+	/** Inactive bus time out */
+	enum i2c_master_inactive_timeout inactive_timeout;
+#ifdef FEATURE_I2C_SCL_STRETCH_MODE
+	/** Set to enable SCL stretch only after ACK bit (required for high speed) */
+	bool scl_stretch_only_after_ack_bit;
+#endif
+#ifdef FEATURE_I2C_SCL_EXTEND_TIMEOUT
+	/** Set to enable slave SCL low extend time-out */
+	bool slave_scl_low_extend_timeout;
+	/** Set to enable maser SCL low extend time-out */
+	bool master_scl_low_extend_timeout;
+#endif
 };
+
+/**
+ * \name Lock/Unlock
+ * @{
+ */
+
+/**
+ * \brief Attempt to get lock on driver instance
+ *
+ * This function checks the instance's lock, which indicates whether or not it
+ * is currently in use, and sets the lock if it was not already set.
+ *
+ * The purpose of this is to enable exclusive access to driver instances, so
+ * that, e.g., transactions by different services will not interfere with each
+ * other.
+ *
+ * \param[in,out] module Pointer to the driver instance to lock.
+ *
+ * \retval STATUS_OK if the module was locked.
+ * \retval STATUS_BUSY if the module was already locked.
+ */
+static inline enum status_code i2c_master_lock(
+		struct i2c_master_module *const module)
+{
+	enum status_code status;
+
+	system_interrupt_enter_critical_section();
+
+	if (module->locked) {
+		status = STATUS_BUSY;
+	} else {
+		module->locked = true;
+		status = STATUS_OK;
+	}
+
+	system_interrupt_leave_critical_section();
+
+	return status;
+}
+
+/**
+ * \brief Unlock driver instance
+ *
+ * This function clears the instance lock, indicating that it is available for
+ * use.
+ *
+ * \param[in,out] module Pointer to the driver instance to lock.
+ *
+ * \retval STATUS_OK if the module was locked.
+ * \retval STATUS_BUSY if the module was already locked.
+ */
+static inline void i2c_master_unlock(struct i2c_master_module *const module)
+{
+	module->locked = false;
+}
+
+/** @} */
 
 /**
  * \name Configuration and Initialization
  * @{
  */
-
-#if !defined(__DOXYGEN__)
-/**
- * \internal
- * Wait for hardware module to sync
- *
- * \param[in]  module  Pointer to software module structure
- */
-static void _i2c_master_wait_for_sync(
-		const struct i2c_master_module *const module)
-{
-	/* Sanity check. */
-	Assert(module);
-	Assert(module->hw);
-
-	SercomI2cm *const i2c_module = &(module->hw->I2CM);
-
-	while (i2c_module->STATUS.reg & SERCOM_I2CM_STATUS_SYNCBUSY) {
-		/* Wait for I2C module to sync. */
-	}
-}
-#endif
 
 /**
  * \brief Returns the synchronization status of the module
@@ -267,10 +373,35 @@ static inline bool i2c_master_is_syncing (
 	Assert(module);
 	Assert(module->hw);
 
-	SercomI2cs *const i2c_hw = &(module->hw->I2CS);
+	SercomI2cm *const i2c_hw = &(module->hw->I2CM);
 
-	return (i2c_hw->STATUS.reg & SERCOM_I2CS_STATUS_SYNCBUSY);
+#if defined(FEATURE_SERCOM_SYNCBUSY_SCHEME_VERSION_1)
+	return (i2c_hw->STATUS.reg & SERCOM_I2CM_STATUS_SYNCBUSY);
+#elif defined(FEATURE_SERCOM_SYNCBUSY_SCHEME_VERSION_2)
+	return (i2c_hw->SYNCBUSY.reg & SERCOM_I2CM_SYNCBUSY_MASK);
+#else
+#  error Unknown SERCOM SYNCBUSY scheme!
+#endif
 }
+
+#if !defined(__DOXYGEN__)
+/**
+ * \internal
+ * Wait for hardware module to sync
+ *
+ * \param[in]  module  Pointer to software module structure
+ */
+static void _i2c_master_wait_for_sync(
+		const struct i2c_master_module *const module)
+{
+	/* Sanity check. */
+	Assert(module);
+
+	while (i2c_master_is_syncing(module)) {
+		/* Wait for I2C module to sync. */
+	}
+}
+#endif
 
 /**
  * \brief Gets the I<SUP>2</SUP>C master default configurations
@@ -287,6 +418,13 @@ static inline bool i2c_master_is_syncing (
  * - Do not run in standby
  * - PINMUX_DEFAULT for SERCOM pads
  *
+ * Those default configuration only availale if the device supports it:
+ * - High speed baudrate 3.4MHz
+ * - Standard-mode and Fast-mode transfer speed
+ * - SCL stretch disabled
+ * - slave SCL low extend time-out disabled
+ * - maser SCL low extend time-out disabled
+ *
  * \param[out] config  Pointer to configuration structure to be initiated
  */
 static inline void i2c_master_get_config_defaults(
@@ -295,6 +433,10 @@ static inline void i2c_master_get_config_defaults(
 	/*Sanity check argument. */
 	Assert(config);
 	config->baud_rate        = I2C_MASTER_BAUD_RATE_100KHZ;
+#ifdef FEATURE_I2C_FAST_MODE_PLUS_AND_HIGH_SPEED
+	config->baud_rate_high_speed = I2C_MASTER_BAUD_RATE_3400KHZ;
+	config->transfer_speed       = I2C_MASTER_SPEED_STANDARD_AND_FAST;
+#endif
 	config->generator_source = GCLK_GENERATOR_0;
 	config->run_in_standby   = false;
 	config->start_hold_time  = I2C_MASTER_START_HOLD_TIME_300NS_600NS;
@@ -302,6 +444,15 @@ static inline void i2c_master_get_config_defaults(
 	config->unknown_bus_state_timeout = 65535;
 	config->pinmux_pad0      = PINMUX_DEFAULT;
 	config->pinmux_pad1      = PINMUX_DEFAULT;
+	config->scl_low_timeout  = false;
+	config->inactive_timeout = I2C_MASTER_INACTIVE_TIMEOUT_DISABLED;
+#ifdef FEATURE_I2C_SCL_STRETCH_MODE
+	config->scl_stretch_only_after_ack_bit = false;
+#endif
+#ifdef FEATURE_I2C_SCL_EXTEND_TIMEOUT
+	config->slave_scl_low_extend_timeout   = false;
+	config->master_scl_low_extend_timeout  = false;
+#endif
 }
 
 enum status_code i2c_master_init(
@@ -313,7 +464,7 @@ enum status_code i2c_master_init(
  * \brief Enables the I<SUP>2</SUP>C module
  *
  * Enables the requested I<SUP>2</SUP>C module and set the bus state to IDLE
- * after the specified \ref asfdoc_samd20_sercom_i2c_timeout "timeout" period if no
+ * after the specified \ref asfdoc_sam0_sercom_i2c_timeout "timeout" period if no
  * stop bit is detected.
  *
  * \param[in]  module  Pointer to the software module struct
@@ -391,23 +542,54 @@ void i2c_master_reset(struct i2c_master_module *const module);
 
 enum status_code i2c_master_read_packet_wait(
 		struct i2c_master_module *const module,
-		struct i2c_packet *const packet);
+		struct i2c_master_packet *const packet);
 
 enum status_code i2c_master_read_packet_wait_no_stop(
 		struct i2c_master_module *const module,
-		struct i2c_packet *const packet);
+		struct i2c_master_packet *const packet);
 
 enum status_code i2c_master_write_packet_wait(
 		struct i2c_master_module *const module,
-		struct i2c_packet *const packet);
+		struct i2c_master_packet *const packet);
 
 enum status_code i2c_master_write_packet_wait_no_stop(
 		struct i2c_master_module *const module,
-		struct i2c_packet *const packet);
+		struct i2c_master_packet *const packet);
 
 void i2c_master_send_stop(struct i2c_master_module *const module);
 
 /** @} */
+
+#ifdef FEATURE_I2C_DMA_SUPPORT
+/**
+* \name SERCOM I2C master with DMA interfaces
+* @{
+*/
+
+/**
+ * \brief Set I2C for DMA transfer with slave address and transfer size.
+ *
+ * This function will set the slave address, transfer size and enable the auto transfer
+ * mode for DMA.
+ *
+ * \param[in,out] module Pointer to the driver instance to lock.
+ * \param[in] addr I2C slave address
+ * \param[in] length I2C transfer length with DMA.
+ * \param[in] direction I2C transfer direction
+ *
+ */
+static inline void i2c_master_dma_set_transfer(struct i2c_master_module *const module,
+		uint16_t addr, uint8_t length, enum i2c_transfer_direction direction)
+{
+	module->hw->I2CM.ADDR.reg =
+		SERCOM_I2CM_ADDR_ADDR(addr<<1) |
+		SERCOM_I2CM_ADDR_LENEN |
+		SERCOM_I2CM_ADDR_LEN(length) |
+		direction;
+}
+
+/** @} */
+#endif
 
 /** @} */
 

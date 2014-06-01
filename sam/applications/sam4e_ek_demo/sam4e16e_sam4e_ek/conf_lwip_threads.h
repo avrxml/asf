@@ -5,7 +5,7 @@
  *
  * This file contains the possible external configuration of the Ethernet module.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,7 +47,7 @@
 #define CONF_LWIP_THREADS_H_INCLUDED
 
 #include "board.h"
-
+#if 0
 /** define stack size for WEB server task */
 #define lwipBASIC_WEB_SERVER_STACK_SIZE   256
 
@@ -83,5 +83,5 @@
 
 /** LED used by the ethernet task, toggled on each activation */
 #define webCONN_LED                       LED1_GPIO
-
+#endif
 #endif /* #ifndef CONF_LWIP_THREADS_H_INCLUDED */
