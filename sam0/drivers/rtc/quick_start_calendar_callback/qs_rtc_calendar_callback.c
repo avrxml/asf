@@ -50,6 +50,10 @@ void configure_rtc_calendar(void);
 struct rtc_module rtc_instance;
 //! [rtc_module_instance]
 
+//! [alarm_struct]
+struct rtc_calendar_alarm_time alarm;
+//! [alarm_struct]
+
 //! [callback]
 void rtc_match_callback(void)
 {
@@ -57,11 +61,6 @@ void rtc_match_callback(void)
 	port_pin_toggle_output_level(LED_0_PIN);
 
 	/* Set new alarm in 5 seconds */
-	//! [alarm_struct]
-	struct rtc_calendar_alarm_time alarm;
-	rtc_calendar_get_time(&rtc_instance, &alarm.time);
-	//! [alarm_struct]
-
 	//! [alarm_mask]
 	alarm.mask = RTC_CALENDAR_ALARM_MASK_SEC;
 	//! [alarm_mask]
@@ -98,19 +97,17 @@ void configure_rtc_calendar(void)
 //! [init_conf]
 
 //! [time_struct]
-	struct rtc_calendar_time alarm;
-	rtc_calendar_get_time_defaults(&alarm);
-	alarm.year      = 2013;
-	alarm.month     = 1;
-	alarm.day       = 1;
-	alarm.hour      = 0;
-	alarm.minute    = 0;
-	alarm.second    = 4;
+	alarm.time.year      = 2013;
+	alarm.time.month     = 1;
+	alarm.time.day       = 1;
+	alarm.time.hour      = 0;
+	alarm.time.minute    = 0;
+	alarm.time.second    = 4;
 //! [time_struct]
 
 //! [set_config]
 	config_rtc_calendar.clock_24h = true;
-	config_rtc_calendar.alarm[0].time = alarm;
+	config_rtc_calendar.alarm[0].time = alarm.time;
 	config_rtc_calendar.alarm[0].mask = RTC_CALENDAR_ALARM_MASK_YEAR;
 //! [set_config]
 

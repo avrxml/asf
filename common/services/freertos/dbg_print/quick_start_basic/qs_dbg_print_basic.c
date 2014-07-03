@@ -81,7 +81,7 @@ int main (void)
 
 //! [main_task_create]
 	xTaskCreate(&main_task,
-		(const signed char *)"Main task",
+		(const char *)"Main task",
 		configMINIMAL_STACK_SIZE + 100,
 		NULL,
 		tskIDLE_PRIORITY + 2,

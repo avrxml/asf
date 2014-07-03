@@ -44,23 +44,20 @@
 #include <asf.h>
 #include "ui.h"
 
-#define  LED_On()          port_pin_set_output_level(LED_0_PIN, 0)
-#define  LED_Off()         port_pin_set_output_level(LED_0_PIN, 1)
-
 void ui_init(void)
 {
 	/* Initialize LEDs */
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_powerdown(void)
 {
-	LED_Off();
+	LED_Off(LED_0_PIN);
 }
 
 void ui_wakeup(void)
 {
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_start_read(void)
@@ -82,10 +79,10 @@ void ui_stop_write(void)
 void ui_process(uint16_t framenumber)
 {
 	if (0 == framenumber) {
-		LED_On();
+		LED_On(LED_0_PIN);
 	}
 	if (1000 == framenumber) {
-		LED_Off();
+		LED_Off(LED_0_PIN);
 	}
 }
 

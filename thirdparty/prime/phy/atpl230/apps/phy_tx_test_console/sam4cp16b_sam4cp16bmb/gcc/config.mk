@@ -182,6 +182,7 @@ CFLAGS =
 CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
        -D BOARD=SAM4CP16BMB                               \
+       -D __FREERTOS__                                    \
        -D __SAM4CP16B_0__                                 \
        -D printf=iprintf                                  \
        -D scanf=iscanf

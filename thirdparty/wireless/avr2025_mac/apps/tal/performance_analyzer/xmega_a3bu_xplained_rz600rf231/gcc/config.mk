@@ -198,7 +198,8 @@ CPPFLAGS = \
        -D IOPORT_XMEGA_COMPAT                             \
        -D PAL_USE_SPI_TRX=1                               \
        -D TAL_TYPE=AT86RF231                              \
-       -D TRX_REG_RAW_VALUE
+       -D TRX_REG_RAW_VALUE                               \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS =  \

@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\adptr_gamepad.ewp</path>
+	</project>
+</workspace>

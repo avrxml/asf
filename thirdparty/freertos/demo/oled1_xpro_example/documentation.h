@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS demo main documentation page.
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,7 +45,7 @@
 #define DOCUMENTATION_H
 
 /**
- * \mainpage FreeRTOS v7.4.2 demo for SAM D20 Xplained Pro
+ * \mainpage FreeRTOS demo using OLED1 Xplained Pro
  *
  * \section appdoc_overview Overview
  * - \ref appdoc_intro
@@ -57,11 +57,11 @@
  *
  * This application demonstrates basic use of the
  * <a href="http://www.freertos.org">FreeRTOS</a> real-time operating system
- * on SAM D20 devices. More specifically, it demonstrates use of tasks, queues
+ * on SAM D devices. More specifically, it demonstrates use of tasks, queues
  * and mutexes (semaphores).
  *
- * The application is designed to run on a SAM D20 Xplained Pro board with a
- * OLED1 Xplained Pro wing board connected to EXT3.
+ * The application is designed to run on a SAM D Xplained Pro board with a
+ * OLED1 Xplained Pro wing board connected to EXT port.
  *
  * After start-up, the application will display a pseudo-random graph that is
  * continuously updated on the OLED, along with a menu bar at the bottom. The
@@ -88,7 +88,7 @@
  * echo back the received characters.
  *
  * For more details on the application:
- * - \ref freertos-v7_4_2_sam_d20_demotasks_group
+ * - \ref freertos_sam0_demo_tasks_group
  * - \ref oled1_xpro_io_group
  * - \ref edbg_cdc_rx_group
  *

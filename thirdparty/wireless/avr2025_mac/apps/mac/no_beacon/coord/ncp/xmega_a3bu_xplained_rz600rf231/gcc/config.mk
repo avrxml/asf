@@ -217,7 +217,8 @@ CPPFLAGS = \
        -D SAL_TYPE=ATXMEGA_SAL                            \
        -D SIO_HUB                                         \
        -D STB_ON_SAL                                      \
-       -D TAL_TYPE=AT86RF231
+       -D TAL_TYPE=AT86RF231                              \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS =  \

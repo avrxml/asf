@@ -78,13 +78,14 @@ CSRCS = \
        sam0/utils/syscalls/gcc/syscalls.c                 \
        thirdparty/freertos/demo/oled1_xpro_example/demotasks.c \
        thirdparty/freertos/demo/oled1_xpro_example/main.c \
-       thirdparty/freertos/freertos-7.4.2/Source/croutine.c \
-       thirdparty/freertos/freertos-7.4.2/Source/list.c   \
-       thirdparty/freertos/freertos-7.4.2/Source/portable/GCC/ARM_CM0/port.c \
-       thirdparty/freertos/freertos-7.4.2/Source/portable/MemMang/heap_1.c \
-       thirdparty/freertos/freertos-7.4.2/Source/queue.c  \
-       thirdparty/freertos/freertos-7.4.2/Source/tasks.c  \
-       thirdparty/freertos/freertos-7.4.2/Source/timers.c
+       thirdparty/freertos/freertos-8.0.1/Source/croutine.c \
+       thirdparty/freertos/freertos-8.0.1/Source/event_groups.c \
+       thirdparty/freertos/freertos-8.0.1/Source/list.c   \
+       thirdparty/freertos/freertos-8.0.1/Source/portable/GCC/ARM_CM0/port.c \
+       thirdparty/freertos/freertos-8.0.1/Source/portable/MemMang/heap_1.c \
+       thirdparty/freertos/freertos-8.0.1/Source/queue.c  \
+       thirdparty/freertos/freertos-8.0.1/Source/tasks.c  \
+       thirdparty/freertos/freertos-8.0.1/Source/timers.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -111,9 +112,6 @@ INC_PATH = \
        sam0/drivers/system/pinmux                         \
        sam0/utils                                         \
        sam0/utils/cmsis/samd21/include                    \
-       sam0/utils/cmsis/samd21/include/component          \
-       sam0/utils/cmsis/samd21/include/instance           \
-       sam0/utils/cmsis/samd21/include/pio                \
        sam0/utils/cmsis/samd21/source                     \
        sam0/utils/header_files                            \
        sam0/utils/preprocessor                            \
@@ -121,8 +119,8 @@ INC_PATH = \
        thirdparty/CMSIS/Lib/GCC                           \
        thirdparty/freertos/demo/oled1_xpro_example        \
        thirdparty/freertos/demo/oled1_xpro_example/samd21_xplained_pro \
-       thirdparty/freertos/freertos-7.4.2/Source/include  \
-       thirdparty/freertos/freertos-7.4.2/Source/portable/GCC/ARM_CM0 \
+       thirdparty/freertos/freertos-8.0.1/Source/include  \
+       thirdparty/freertos/freertos-8.0.1/Source/portable/GCC/ARM_CM0 \
        thirdparty/freertos/demo/oled1_xpro_example/samd21_xplained_pro/gcc
 
 # Additional search paths for libraries.

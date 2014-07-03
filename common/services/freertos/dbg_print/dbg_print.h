@@ -325,10 +325,6 @@ void dbg_print_char(const char outchar);
  *
  * \section asfdoc_common_freertos_dbg_print_extra_freertos FreeRTOS Version
  *
- * This service was implemented and tested with FreeRTOS v7.4.2.
- * Other versions may or may not work.
- *
- *
  * \section asfdoc_common_freertos_dbg_print_extra_acronyms Acronyms
  *
  * Below is a table listing the acronyms used in this module, along with their
@@ -361,9 +357,9 @@ void dbg_print_char(const char outchar);
  * \section asfdoc_common_freertos_dbg_print_extra_dependencies Dependencies
  * This driver has the following dependencies:
  * - FreeRTOS
- * - \ref asfdoc_samd20_sercom_usart_group "SERCOM USART Driver"
- * - \ref asfdoc_samd20_system_clock_group "System Clock Driver"
- * - \ref asfdoc_samd20_system_pinmux_group "System Pin MUX Driver"
+ * - \ref asfdoc_sam0_sercom_usart_group "SERCOM USART Driver"
+ * - \ref asfdoc_sam0_system_clock_group "System Clock Driver"
+ * - \ref asfdoc_sam0_system_pinmux_group "System Pin MUX Driver"
  *
  *
  * \section asfdoc_common_freertos_dbg_print_extra_errata Errata

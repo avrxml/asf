@@ -184,6 +184,7 @@ CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
        -D BOARD=SAM4S_XPLAINED                            \
        -D UDD_ENABLE                                      \
+       -D __FREERTOS__                                    \
        -D __SAM4S16C__                                    \
        -D printf=iprintf                                  \
        -D scanf=iscanf

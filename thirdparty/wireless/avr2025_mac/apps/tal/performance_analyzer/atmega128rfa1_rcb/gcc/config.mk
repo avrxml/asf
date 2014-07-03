@@ -166,7 +166,8 @@ CPPFLAGS = \
        -D HIGHEST_STACK_LAYER=TAL                         \
        -D HIGH_DATA_RATE_SUPPORT                          \
        -D TAL_TYPE=ATMEGARFA1                             \
-       -D TRX_REG_RAW_VALUE
+       -D TRX_REG_RAW_VALUE                               \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS = 

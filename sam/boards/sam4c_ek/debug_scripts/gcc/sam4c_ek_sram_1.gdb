@@ -3,7 +3,7 @@
 #  Connect to J-Link and debug application in sram.
 #
 
-# Note:
+# Note (make sure the GDB in your system evn. path):
 # Use below command line to start GDB server for core 1 debug:
 # > jlinkgdbserver -scriptfile ../SAM4C.JLinkScript -port 2345 -noreset
 

@@ -1891,13 +1891,13 @@
 							<group>
 								<name>sam4e16e_sam4e_ek</name>
 								<file>
-									<name>$PROJ_DIR$/../conf_qt_i2c.h</name>
-								</file>
-								<file>
 									<name>$PROJ_DIR$/../conf_uart_serial.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../conf_board.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../conf_qt_i2c.h</name>
 								</file>
 								<group>
 									<name>iar</name>
@@ -2153,9 +2153,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4e/include/component/chipid.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4e/include/component/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4e/include/component/gmac.h</name>
 							</file>
 							<file>
@@ -2277,9 +2274,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4e/include/instance/efc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4e/include/instance/crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4e/include/instance/acc.h</name>

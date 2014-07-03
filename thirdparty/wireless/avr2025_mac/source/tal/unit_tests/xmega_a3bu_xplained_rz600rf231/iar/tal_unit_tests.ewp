@@ -238,8 +238,9 @@
 					<state></state>
 					<state>FFD</state>
 					<state>TAL_TYPE=AT86RF231</state>
-					<state>_ASSERT_ENABLE_</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
+					<state>_ASSERT_ENABLE_</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>BOARD=XMEGA_A3BU_XPLAINED</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
@@ -586,8 +587,9 @@
 					<name>ADefines</name>
 					<state>FFD</state>
 					<state>TAL_TYPE=AT86RF231</state>
-					<state>_ASSERT_ENABLE_</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
+					<state>_ASSERT_ENABLE_</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>BOARD=XMEGA_A3BU_XPLAINED</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
@@ -1323,8 +1325,9 @@
 					<state>NDEBUG</state>
 					<state>FFD</state>
 					<state>TAL_TYPE=AT86RF231</state>
-					<state>_ASSERT_ENABLE_</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
+					<state>_ASSERT_ENABLE_</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>BOARD=XMEGA_A3BU_XPLAINED</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
@@ -1671,8 +1674,9 @@
 					<name>ADefines</name>
 					<state>FFD</state>
 					<state>TAL_TYPE=AT86RF231</state>
-					<state>_ASSERT_ENABLE_</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
+					<state>_ASSERT_ENABLE_</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>BOARD=XMEGA_A3BU_XPLAINED</state>
 					<state>IOPORT_XMEGA_COMPAT</state>

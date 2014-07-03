@@ -44,10 +44,6 @@
 #include <asf.h>
 #include "ui.h"
 
-#define LED_On()      port_pin_set_output_level(LED_0_PIN, LED_0_ACTIVE)
-#define LED_Off()     port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE)
-#define LED_Toggle()  port_pin_toggle_output_level(LED_0_PIN)
-
 #ifdef USB_HOST_LPM_SUPPORT
 /**
  * \name Internal routines to manage asynchronous interrupt pin change
@@ -113,15 +109,15 @@ static void ui_disable_asynchronous_interrupt(void)
 void ui_init(void)
 {
 	/* Initialize LEDs */
-	LED_Off();
+	LED_Off(LED_0_PIN);
 }
 
 void ui_usb_mode_change(bool b_host_mode)
 {
 	if (b_host_mode) {
-		LED_On();
+		LED_On(LED_0_PIN);
 	} else {
-		LED_Off();
+		LED_Off(LED_0_PIN);
 	}
 }
 
@@ -152,7 +148,7 @@ void ui_usb_connection_event(uhc_device_t *dev, bool b_present)
 {
 	UNUSED(dev);
 	if (!b_present) {
-		LED_On();
+		LED_On(LED_0_PIN);
 		ui_enum_status = UHC_ENUM_DISCONNECT;
 	}
 }
@@ -210,7 +206,7 @@ void ui_usb_sof_event(void)
 		if (++counter_sof > ui_device_speed_blink) {
 			counter_sof = 0;
 			if (!ui_data_transfer) {
-				LED_Toggle();
+				LED_Toggle(LED_0_PIN);
 			}
 		}
 #ifdef USB_HOST_LPM_SUPPORT
@@ -222,7 +218,7 @@ void ui_usb_sof_event(void)
 			if (b_btn_state) {
 				/* Button has been pressed */
 				ui_enable_asynchronous_interrupt();
-				LED_Off();
+				LED_Off(LED_0_PIN);
 				uhc_suspend_lpm(true, BESL_1000_US);
 				return;
 			}
@@ -234,7 +230,7 @@ void ui_usb_sof_event(void)
 void ui_com_rx_start(void)
 {
 	ui_data_transfer = true;
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_com_rx_stop(void)
@@ -245,7 +241,7 @@ void ui_com_rx_stop(void)
 void ui_com_tx_start(void)
 {
 	ui_data_transfer = true;
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_com_tx_stop(void)

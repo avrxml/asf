@@ -3,7 +3,7 @@
  *
  * \brief Header file for SAMD20J16
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -241,22 +241,22 @@ void PTC_Handler                 ( void );
 /** \defgroup SAMD20J16_api Peripheral Software API */
 /*@{*/
 
-#include "component/component_ac.h"
-#include "component/component_adc.h"
-#include "component/component_dac.h"
-#include "component/component_dsu.h"
-#include "component/component_eic.h"
-#include "component/component_evsys.h"
-#include "component/component_gclk.h"
-#include "component/component_nvmctrl.h"
-#include "component/component_pac.h"
-#include "component/component_pm.h"
-#include "component/component_port.h"
-#include "component/component_rtc.h"
-#include "component/component_sercom.h"
-#include "component/component_sysctrl.h"
-#include "component/component_tc.h"
-#include "component/component_wdt.h"
+#include "component/ac.h"
+#include "component/adc.h"
+#include "component/dac.h"
+#include "component/dsu.h"
+#include "component/eic.h"
+#include "component/evsys.h"
+#include "component/gclk.h"
+#include "component/nvmctrl.h"
+#include "component/pac.h"
+#include "component/pm.h"
+#include "component/port.h"
+#include "component/rtc.h"
+#include "component/sercom.h"
+#include "component/sysctrl.h"
+#include "component/tc.h"
+#include "component/wdt.h"
 /*@}*/
 
 /* ************************************************************************** */
@@ -265,36 +265,36 @@ void PTC_Handler                 ( void );
 /** \defgroup SAMD20J16_reg Registers Access Definitions */
 /*@{*/
 
-#include "instance/instance_ac.h"
-#include "instance/instance_adc.h"
-#include "instance/instance_dac.h"
-#include "instance/instance_dsu.h"
-#include "instance/instance_eic.h"
-#include "instance/instance_evsys.h"
-#include "instance/instance_gclk.h"
-#include "instance/instance_nvmctrl.h"
-#include "instance/instance_pac0.h"
-#include "instance/instance_pac1.h"
-#include "instance/instance_pac2.h"
-#include "instance/instance_pm.h"
-#include "instance/instance_port.h"
-#include "instance/instance_rtc.h"
-#include "instance/instance_sercom0.h"
-#include "instance/instance_sercom1.h"
-#include "instance/instance_sercom2.h"
-#include "instance/instance_sercom3.h"
-#include "instance/instance_sercom4.h"
-#include "instance/instance_sercom5.h"
-#include "instance/instance_sysctrl.h"
-#include "instance/instance_tc0.h"
-#include "instance/instance_tc1.h"
-#include "instance/instance_tc2.h"
-#include "instance/instance_tc3.h"
-#include "instance/instance_tc4.h"
-#include "instance/instance_tc5.h"
-#include "instance/instance_tc6.h"
-#include "instance/instance_tc7.h"
-#include "instance/instance_wdt.h"
+#include "instance/ac.h"
+#include "instance/adc.h"
+#include "instance/dac.h"
+#include "instance/dsu.h"
+#include "instance/eic.h"
+#include "instance/evsys.h"
+#include "instance/gclk.h"
+#include "instance/nvmctrl.h"
+#include "instance/pac0.h"
+#include "instance/pac1.h"
+#include "instance/pac2.h"
+#include "instance/pm.h"
+#include "instance/port.h"
+#include "instance/rtc.h"
+#include "instance/sercom0.h"
+#include "instance/sercom1.h"
+#include "instance/sercom2.h"
+#include "instance/sercom3.h"
+#include "instance/sercom4.h"
+#include "instance/sercom5.h"
+#include "instance/sysctrl.h"
+#include "instance/tc0.h"
+#include "instance/tc1.h"
+#include "instance/tc2.h"
+#include "instance/tc3.h"
+#include "instance/tc4.h"
+#include "instance/tc5.h"
+#include "instance/tc6.h"
+#include "instance/tc7.h"
+#include "instance/wdt.h"
 /*@}*/
 
 /* ************************************************************************** */
@@ -338,8 +338,9 @@ void PTC_Handler                 ( void );
 #define ID_ADC           80 /**< \brief Analog Digital Converter (ADC) */
 #define ID_AC            81 /**< \brief Analog Comparators (AC) */
 #define ID_DAC           82 /**< \brief Digital Analog Converter (DAC) */
+#define ID_PTC           83 /**< \brief Peripheral Touch Controller (PTC) */
 
-#define ID_PERIPH_COUNT  83 /**< \brief Number of peripheral IDs */
+#define ID_PERIPH_COUNT  84 /**< \brief Number of peripheral IDs */
 /*@}*/
 
 /* ************************************************************************** */
@@ -362,6 +363,7 @@ void PTC_Handler                 ( void );
 #define NVMCTRL_OTP1                  (0x00806000U) /**< \brief (NVMCTRL) OTP1 Base Address */
 #define NVMCTRL_OTP2                  (0x00806008U) /**< \brief (NVMCTRL) OTP2 Base Address */
 #define NVMCTRL_OTP4                  (0x00806020U) /**< \brief (NVMCTRL) OTP4 Base Address */
+#define NVMCTRL_TEMP_LOG              (0x00806030U) /**< \brief (NVMCTRL) TEMP_LOG Base Address */
 #define NVMCTRL_USER                  (0x00804000U) /**< \brief (NVMCTRL) USER Base Address */
 #define PAC0                          (0x40000000U) /**< \brief (PAC0) APB Base Address */
 #define PAC1                          (0x41000000U) /**< \brief (PAC1) APB Base Address */
@@ -421,6 +423,7 @@ void PTC_Handler                 ( void );
 #define NVMCTRL_OTP1                  (0x00806000U) /**< \brief (NVMCTRL) OTP1 Base Address */
 #define NVMCTRL_OTP2                  (0x00806008U) /**< \brief (NVMCTRL) OTP2 Base Address */
 #define NVMCTRL_OTP4                  (0x00806020U) /**< \brief (NVMCTRL) OTP4 Base Address */
+#define NVMCTRL_TEMP_LOG              (0x00806030U) /**< \brief (NVMCTRL) TEMP_LOG Base Address */
 #define NVMCTRL_USER                  (0x00804000U) /**< \brief (NVMCTRL) USER Base Address */
 #define NVMCTRL_INST_NUM  1                         /**< \brief (NVMCTRL) Number of instances */
 #define NVMCTRL_INSTS     { NVMCTRL }               /**< \brief (NVMCTRL) Instances List */
@@ -439,6 +442,10 @@ void PTC_Handler                 ( void );
 #define PORT_IOBUS        ((Port     *)0x60000000U) /**< \brief (PORT) IOBUS Base Address */
 #define PORT_INST_NUM     1                         /**< \brief (PORT) Number of instances */
 #define PORT_INSTS        { PORT }                  /**< \brief (PORT) Instances List */
+
+#define PTC_GCLK_ID       27
+#define PTC_INST_NUM      1                         /**< \brief (PTC) Number of instances */
+#define PTC_INSTS         { PTC }                   /**< \brief (PTC) Instances List */
 
 #define RTC               ((Rtc      *)0x40001400U) /**< \brief (RTC) APB Base Address */
 #define RTC_INST_NUM      1                         /**< \brief (RTC) Number of instances */
@@ -481,7 +488,7 @@ void PTC_Handler                 ( void );
 /** \defgroup SAMD20J16_port PORT Definitions */
 /*@{*/
 
-#include "pio/pio_samd20j16.h"
+#include "pio/samd20j16.h"
 /*@}*/
 
 /* ************************************************************************** */
@@ -496,6 +503,9 @@ void PTC_Handler                 ( void );
 #define FLASH_ADDR            (0x00000000U) /**< FLASH base address */
 #define FLASH_USER_PAGE_ADDR  (0x00800000U) /**< FLASH_USER_PAGE base address */
 #define HRAMC0_ADDR           (0x20000000U) /**< HRAMC0 base address */
+
+#define DSU_DID_RESETVALUE    0x10001302
+#define PORT_GROUPS           2
 
 /* ************************************************************************** */
 /**  ELECTRICAL DEFINITIONS FOR SAMD20J16 */

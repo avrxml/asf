@@ -290,7 +290,7 @@ static void main_test_memory(uint8_t slot)
 			printf("[FAIL]\n\r");
 			return;
 		}
-		if (SD_MMC_OK != sd_mmc_wait_end_of_read_blocks()) {
+		if (SD_MMC_OK != sd_mmc_wait_end_of_read_blocks(false)) {
 			printf("[FAIL]\n\r");
 			return;
 		}		
@@ -328,7 +328,7 @@ static void main_test_memory(uint8_t slot)
 			printf("[FAIL]\n\r");
 			return;
 		}
-		if (SD_MMC_OK != sd_mmc_wait_end_of_write_blocks()) {
+		if (SD_MMC_OK != sd_mmc_wait_end_of_write_blocks(false)) {
 			printf("[FAIL]\n\r");
 			return;
 		}
@@ -359,7 +359,7 @@ static void main_test_memory(uint8_t slot)
 			printf("Read [FAIL]\n\r");
 			return;
 		}
-		if (SD_MMC_OK != sd_mmc_wait_end_of_read_blocks()) {
+		if (SD_MMC_OK != sd_mmc_wait_end_of_read_blocks(false)) {
 			printf("Read [FAIL]\n\r");
 			return;
 		}

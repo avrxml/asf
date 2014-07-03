@@ -3,7 +3,7 @@
  *
  * \brief USB Device Mass Storage Class (MSC) interface.
  *
- * Copyright (c) 2009 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -124,6 +124,8 @@ static uint16_t udi_msc_nb_block;
 volatile bool udi_msc_b_ack_trans = true;
 //! Status of transfer, aborted if true
 volatile bool udi_msc_b_abort_trans;
+//! Signal (re)init of transfer, if true (by reset/reconnect)
+volatile bool udi_msc_b_reset_trans = true;
 //@}
 
 //@}
@@ -369,6 +371,8 @@ bool udi_msc_enable(void)
 	uint8_t lun;
 	udi_msc_b_trans_req = false;
 	udi_msc_b_cbw_invalid = false;
+	udi_msc_b_ack_trans = true;
+	udi_msc_b_reset_trans = true;
 	udi_msc_nb_lun = get_nb_lun();
 	if (0 == udi_msc_nb_lun)
 		return false; // No lun available, then not authorize to enable interface
@@ -390,6 +394,8 @@ bool udi_msc_enable(void)
 void udi_msc_disable(void)
 {
 	udi_msc_b_trans_req = false;
+	udi_msc_b_ack_trans = true;
+	udi_msc_b_reset_trans = true;
 	UDI_MSC_DISABLE_EXT();
 }
 
@@ -1033,6 +1039,7 @@ bool udi_msc_process_trans(void)
 	if (!udi_msc_b_trans_req)
 		return false;	// No Transfer request to do
 	udi_msc_b_trans_req = false;
+	udi_msc_b_reset_trans = false;
 
 	// Start transfer
 	if (udi_msc_b_read) {
@@ -1041,6 +1048,12 @@ bool udi_msc_process_trans(void)
 	} else {
 		status = usb_2_memory(udi_msc_cbw.bCBWLUN, udi_msc_addr,
 				udi_msc_nb_block);
+	}
+
+	// Check if transfer is aborted by reset
+	if (udi_msc_b_reset_trans) {
+		udi_msc_b_reset_trans = false;
+		return true;
 	}
 
 	// Check status of transfer

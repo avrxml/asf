@@ -43,14 +43,6 @@
 
 #include "pio.h"
 
-/// @cond 0
-/**INDENT-OFF**/
-#ifdef __cplusplus
-extern "C" {
-#endif
-/**INDENT-ON**/
-/// @endcond
-
 #ifndef PIO_WPMR_WPKEY_PASSWD
 #  define PIO_WPMR_WPKEY_PASSWD PIO_WPMR_WPKEY(0x50494Fu)
 #endif
@@ -299,7 +291,7 @@ void pio_set_input(Pio *p_pio, const uint32_t ul_mask,
 		p_pio->PIO_SCIFSR = ul_mask;
 	} else {
 		if (ul_attribute & PIO_DEBOUNCE) {
-			p_pio->PIO_SCIFSR = ul_mask;
+			p_pio->PIO_DIFSR = ul_mask;
 		}
 	}
 #else
@@ -716,22 +708,8 @@ uint32_t pio_get_writeprotect_status(const Pio *p_pio)
  */
 uint32_t pio_get_pin_value(uint32_t ul_pin)
 {
-	Pio *p_pio;
-#if (SAM4C || SAM4CP)
-	if (ul_pin > PIO_PB31_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#elif (SAM4CM)
-	if (ul_pin > PIO_PB21_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#else
-	p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-#endif
+	Pio *p_pio = pio_get_pin_group(ul_pin);
+
 	return (p_pio->PIO_PDSR >> (ul_pin & 0x1F)) & 1;
 }
 
@@ -744,22 +722,8 @@ uint32_t pio_get_pin_value(uint32_t ul_pin)
  */
 void pio_set_pin_high(uint32_t ul_pin)
 {
-	Pio *p_pio;
-#if (SAM4C || SAM4CP)
-	if (ul_pin > PIO_PB31_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#elif (SAM4CM)
-	if (ul_pin > PIO_PB21_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#else
-	p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-#endif
+	Pio *p_pio = pio_get_pin_group(ul_pin);
+
 	/* Value to be driven on the I/O line: 1. */
 	p_pio->PIO_SODR = 1 << (ul_pin & 0x1F);
 }
@@ -773,22 +737,8 @@ void pio_set_pin_high(uint32_t ul_pin)
  */
 void pio_set_pin_low(uint32_t ul_pin)
 {
-	Pio *p_pio;
-#if (SAM4C || SAM4CP)
-	if (ul_pin > PIO_PB31_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#elif (SAM4CM)
-	if (ul_pin > PIO_PB21_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#else
-	p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-#endif
+	Pio *p_pio = pio_get_pin_group(ul_pin);
+
 	/* Value to be driven on the I/O line: 0. */
 	p_pio->PIO_CODR = 1 << (ul_pin & 0x1F);
 }
@@ -802,22 +752,8 @@ void pio_set_pin_low(uint32_t ul_pin)
  */
 void pio_toggle_pin(uint32_t ul_pin)
 {
-	Pio *p_pio;
-#if (SAM4C || SAM4CP)
-	if (ul_pin > PIO_PB31_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#elif (SAM4CM)
-	if (ul_pin > PIO_PB21_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#else
-	p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-#endif
+	Pio *p_pio = pio_get_pin_group(ul_pin);
+
 	if (p_pio->PIO_ODSR & (1 << (ul_pin & 0x1F))) {
 		/* Value to be driven on the I/O line: 0. */
 		p_pio->PIO_CODR = 1 << (ul_pin & 0x1F);
@@ -838,22 +774,7 @@ void pio_toggle_pin(uint32_t ul_pin)
  */
 uint32_t pio_configure_pin(uint32_t ul_pin, const uint32_t ul_flags)
 {
-	Pio *p_pio;
-#if (SAM4C || SAM4CP)
-	if (ul_pin > PIO_PB31_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#elif (SAM4CM)
-	if (ul_pin > PIO_PB21_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#else
-	p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-#endif
+	Pio *p_pio = pio_get_pin_group(ul_pin);
 
 	/* Configure pins */
 	switch (ul_flags & PIO_TYPE_Msk) {
@@ -1004,22 +925,8 @@ uint32_t pio_configure_pin_group(Pio *p_pio,
  */
 void pio_enable_pin_interrupt(uint32_t ul_pin)
 {
-	Pio *p_pio;
-#if (SAM4C || SAM4CP)
-	if (ul_pin > PIO_PB31_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#elif (SAM4CM)
-	if (ul_pin > PIO_PB21_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}	
-#else
-	p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-#endif
+	Pio *p_pio = pio_get_pin_group(ul_pin);
+
 	p_pio->PIO_IER = 1 << (ul_pin & 0x1F);
 }
 
@@ -1033,22 +940,8 @@ void pio_enable_pin_interrupt(uint32_t ul_pin)
  */
 void pio_disable_pin_interrupt(uint32_t ul_pin)
 {
-	Pio *p_pio;
-#if (SAM4C || SAM4CP)
-	if (ul_pin > PIO_PB31_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#elif (SAM4CM)
-	if (ul_pin > PIO_PB21_IDX) {
-		p_pio = PIOC;
-	} else {
-		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}
-#else
-	p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-#endif
+	Pio *p_pio = pio_get_pin_group(ul_pin);
+
 	p_pio->PIO_IDR = 1 << (ul_pin & 0x1F);
 }
 
@@ -1063,8 +956,15 @@ void pio_disable_pin_interrupt(uint32_t ul_pin)
 Pio *pio_get_pin_group(uint32_t ul_pin)
 {
 	Pio *p_pio;
+
 #if (SAM4C || SAM4CP)
-	if (ul_pin > PIO_PB31_IDX) {
+#  ifdef ID_PIOD
+	if (ul_pin > PIO_PC9_IDX) {
+		p_pio = PIOD;
+	} else if (ul_pin > PIO_PB31_IDX) {
+#  else
+	if  (ul_pin > PIO_PB31_IDX) {
+#  endif
 		p_pio = PIOC;
 	} else {
 		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
@@ -1074,7 +974,7 @@ Pio *pio_get_pin_group(uint32_t ul_pin)
 		p_pio = PIOC;
 	} else {
 		p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
-	}	
+	}
 #else
 	p_pio = (Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5)));
 #endif
@@ -1091,8 +991,15 @@ Pio *pio_get_pin_group(uint32_t ul_pin)
 uint32_t pio_get_pin_group_id(uint32_t ul_pin)
 {
 	uint32_t ul_id;
+
 #if (SAM4C || SAM4CP)
+#  ifdef ID_PIOD
+	if (ul_pin > PIO_PC9_IDX) {
+		ul_id = ID_PIOD;
+	} else if (ul_pin > PIO_PB31_IDX) {
+#  else
 	if (ul_pin > PIO_PB31_IDX) {
+#  endif
 		ul_id = ID_PIOC;
 	} else {
 		ul_id = ID_PIOA + (ul_pin >> 5);
@@ -1270,10 +1177,3 @@ void pio_set_io_drive(Pio *p_pio, uint32_t ul_line,
 
 //@}
 
-/// @cond 0
-/**INDENT-OFF**/
-#ifdef __cplusplus
-}
-#endif
-/**INDENT-ON**/
-/// @endcond

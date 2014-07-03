@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -96,7 +96,7 @@ typedef enum IRQn
   UART0_IRQn           =  7, /**<  7 SAM4E8C UART 0 (UART0) */
   PIOA_IRQn            =  9, /**<  9 SAM4E8C Parallel I/O Controller A (PIOA) */
   PIOB_IRQn            = 10, /**< 10 SAM4E8C Parallel I/O Controller B (PIOB) */
-  PIOC_IRQn            = 11, /**< 11 SAM4E8C Parallel I/O Controller C (PIOC) */
+  PIOD_IRQn            = 12, /**< 12 SAM4E8C Parallel I/O Controller D (PIOD) */
   USART0_IRQn          = 14, /**< 14 SAM4E8C USART 0 (USART0) */
   USART1_IRQn          = 15, /**< 15 SAM4E8C USART 1 (USART1) */
   HSMCI_IRQn           = 16, /**< 16 SAM4E8C Multimedia Card Interface (HSMCI) */
@@ -107,12 +107,6 @@ typedef enum IRQn
   TC0_IRQn             = 21, /**< 21 SAM4E8C Timer/Counter 0 (TC0) */
   TC1_IRQn             = 22, /**< 22 SAM4E8C Timer/Counter 1 (TC1) */
   TC2_IRQn             = 23, /**< 23 SAM4E8C Timer/Counter 2 (TC2) */
-  TC3_IRQn             = 24, /**< 24 SAM4E8C Timer/Counter 3 (TC3) */
-  TC4_IRQn             = 25, /**< 25 SAM4E8C Timer/Counter 4 (TC4) */
-  TC5_IRQn             = 26, /**< 26 SAM4E8C Timer/Counter 5 (TC5) */
-  TC6_IRQn             = 27, /**< 27 SAM4E8C Timer/Counter 6 (TC6) */
-  TC7_IRQn             = 28, /**< 28 SAM4E8C Timer/Counter 7 (TC7) */
-  TC8_IRQn             = 29, /**< 29 SAM4E8C Timer/Counter 8 (TC8) */
   AFEC0_IRQn           = 30, /**< 30 SAM4E8C Analog Front End 0 (AFEC0) */
   AFEC1_IRQn           = 31, /**< 31 SAM4E8C Analog Front End 1 (AFEC1) */
   DACC_IRQn            = 32, /**< 32 SAM4E8C Digital To Analog Converter (DACC) */
@@ -121,8 +115,8 @@ typedef enum IRQn
   UDP_IRQn             = 35, /**< 35 SAM4E8C USB DEVICE (UDP) */
   PWM_IRQn             = 36, /**< 36 SAM4E8C PWM (PWM) */
   CAN0_IRQn            = 37, /**< 37 SAM4E8C CAN0 (CAN0) */
-  CAN1_IRQn            = 38, /**< 38 SAM4E8C CAN1 (CAN1) */
   AES_IRQn             = 39, /**< 39 SAM4E8C AES (AES) */
+  GMAC_IRQn            = 44, /**< 44 SAM4E8C EMAC (GMAC) */
   UART1_IRQn           = 45, /**< 45 SAM4E8C UART (UART1) */
 
   PERIPH_COUNT_IRQn    = 46  /**< Number of peripheral IDs */
@@ -162,8 +156,8 @@ typedef struct _DeviceVectors
   void* pvReserved8;
   void* pfnPIOA_Handler;   /*  9 Parallel I/O Controller A */
   void* pfnPIOB_Handler;   /* 10 Parallel I/O Controller B */
-  void* pfnPIOC_Handler;   /* 11 Parallel I/O Controller C */
-  void* pvReserved12;
+  void* pvReserved11;
+  void* pfnPIOD_Handler;   /* 12 Parallel I/O Controller D */
   void* pvReserved13;
   void* pfnUSART0_Handler; /* 14 USART 0 */
   void* pfnUSART1_Handler; /* 15 USART 1 */
@@ -175,12 +169,12 @@ typedef struct _DeviceVectors
   void* pfnTC0_Handler;    /* 21 Timer/Counter 0 */
   void* pfnTC1_Handler;    /* 22 Timer/Counter 1 */
   void* pfnTC2_Handler;    /* 23 Timer/Counter 2 */
-  void* pfnTC3_Handler;    /* 24 Timer/Counter 3 */
-  void* pfnTC4_Handler;    /* 25 Timer/Counter 4 */
-  void* pfnTC5_Handler;    /* 26 Timer/Counter 5 */
-  void* pfnTC6_Handler;    /* 27 Timer/Counter 6 */
-  void* pfnTC7_Handler;    /* 28 Timer/Counter 7 */
-  void* pfnTC8_Handler;    /* 29 Timer/Counter 8 */
+  void* pvReserved24;
+  void* pvReserved25;
+  void* pvReserved26;
+  void* pvReserved27;
+  void* pvReserved28;
+  void* pvReserved29;
   void* pfnAFEC0_Handler;  /* 30 Analog Front End 0 */
   void* pfnAFEC1_Handler;  /* 31 Analog Front End 1 */
   void* pfnDACC_Handler;   /* 32 Digital To Analog Converter */
@@ -189,13 +183,13 @@ typedef struct _DeviceVectors
   void* pfnUDP_Handler;    /* 35 USB DEVICE */
   void* pfnPWM_Handler;    /* 36 PWM */
   void* pfnCAN0_Handler;   /* 37 CAN0 */
-  void* pfnCAN1_Handler;   /* 38 CAN1 */
+  void* pvReserved38;
   void* pfnAES_Handler;    /* 39 AES */
   void* pvReserved40;
   void* pvReserved41;
   void* pvReserved42;
   void* pvReserved43;
-  void* pvReserved44;
+  void* pfnGMAC_Handler;   /* 44 EMAC */
   void* pfnUART1_Handler;  /* 45 UART */
 } DeviceVectors;
 
@@ -218,14 +212,14 @@ void AFEC0_Handler      ( void );
 void AFEC1_Handler      ( void );
 void ARM_Handler        ( void );
 void CAN0_Handler       ( void );
-void CAN1_Handler       ( void );
 void DACC_Handler       ( void );
 void DMAC_Handler       ( void );
 void EFC_Handler        ( void );
+void GMAC_Handler       ( void );
 void HSMCI_Handler      ( void );
 void PIOA_Handler       ( void );
 void PIOB_Handler       ( void );
-void PIOC_Handler       ( void );
+void PIOD_Handler       ( void );
 void PMC_Handler        ( void );
 void PWM_Handler        ( void );
 void RSTC_Handler       ( void );
@@ -236,12 +230,6 @@ void SUPC_Handler       ( void );
 void TC0_Handler        ( void );
 void TC1_Handler        ( void );
 void TC2_Handler        ( void );
-void TC3_Handler        ( void );
-void TC4_Handler        ( void );
-void TC5_Handler        ( void );
-void TC6_Handler        ( void );
-void TC7_Handler        ( void );
-void TC8_Handler        ( void );
 void TWI0_Handler       ( void );
 void TWI1_Handler       ( void );
 void UART0_Handler      ( void );
@@ -256,7 +244,7 @@ void WDT_Handler        ( void );
  */
 
 #define __CM4_REV              0x0000 /**< SAM4E8C core revision number ([15:8] revision number, [7:0] patch number) */
-#define __MPU_PRESENT          0      /**< SAM4E8C does not provide a MPU */
+#define __MPU_PRESENT          1      /**< SAM4E8C does provide a MPU */
 #define __FPU_PRESENT          1      /**< SAM4E8C does provide a FPU */
 #define __NVIC_PRIO_BITS       4      /**< SAM4E8C uses 4 Bits for the Priority Levels */
 #define __Vendor_SysTickConfig 0      /**< Set to 1 if different SysTick Config is used */
@@ -284,10 +272,10 @@ void WDT_Handler        ( void );
 #include "component/can.h"
 #include "component/chipid.h"
 #include "component/cmcc.h"
-#include "component/crccu.h"
 #include "component/dacc.h"
 #include "component/dmac.h"
 #include "component/efc.h"
+#include "component/gmac.h"
 #include "component/gpbr.h"
 #include "component/hsmci.h"
 #include "component/matrix.h"
@@ -318,15 +306,12 @@ void WDT_Handler        ( void );
 #include "instance/pwm.h"
 #include "instance/aes.h"
 #include "instance/can0.h"
-#include "instance/can1.h"
-#include "instance/crccu.h"
+#include "instance/gmac.h"
 #include "instance/uart1.h"
 #include "instance/hsmci.h"
 #include "instance/udp.h"
 #include "instance/spi.h"
 #include "instance/tc0.h"
-#include "instance/tc1.h"
-#include "instance/tc2.h"
 #include "instance/usart0.h"
 #include "instance/usart1.h"
 #include "instance/twi0.h"
@@ -344,7 +329,7 @@ void WDT_Handler        ( void );
 #include "instance/efc.h"
 #include "instance/pioa.h"
 #include "instance/piob.h"
-#include "instance/pioc.h"
+#include "instance/piod.h"
 #include "instance/rstc.h"
 #include "instance/supc.h"
 #include "instance/rtt.h"
@@ -370,7 +355,7 @@ void WDT_Handler        ( void );
 #define ID_UART0  ( 7) /**< \brief UART 0 (UART0) */
 #define ID_PIOA   ( 9) /**< \brief Parallel I/O Controller A (PIOA) */
 #define ID_PIOB   (10) /**< \brief Parallel I/O Controller B (PIOB) */
-#define ID_PIOC   (11) /**< \brief Parallel I/O Controller C (PIOC) */
+#define ID_PIOD   (12) /**< \brief Parallel I/O Controller D (PIOD) */
 #define ID_USART0 (14) /**< \brief USART 0 (USART0) */
 #define ID_USART1 (15) /**< \brief USART 1 (USART1) */
 #define ID_HSMCI  (16) /**< \brief Multimedia Card Interface (HSMCI) */
@@ -381,12 +366,6 @@ void WDT_Handler        ( void );
 #define ID_TC0    (21) /**< \brief Timer/Counter 0 (TC0) */
 #define ID_TC1    (22) /**< \brief Timer/Counter 1 (TC1) */
 #define ID_TC2    (23) /**< \brief Timer/Counter 2 (TC2) */
-#define ID_TC3    (24) /**< \brief Timer/Counter 3 (TC3) */
-#define ID_TC4    (25) /**< \brief Timer/Counter 4 (TC4) */
-#define ID_TC5    (26) /**< \brief Timer/Counter 5 (TC5) */
-#define ID_TC6    (27) /**< \brief Timer/Counter 6 (TC6) */
-#define ID_TC7    (28) /**< \brief Timer/Counter 7 (TC7) */
-#define ID_TC8    (29) /**< \brief Timer/Counter 8 (TC8) */
 #define ID_AFEC0  (30) /**< \brief Analog Front End 0 (AFEC0) */
 #define ID_AFEC1  (31) /**< \brief Analog Front End 1 (AFEC1) */
 #define ID_DACC   (32) /**< \brief Digital To Analog Converter (DACC) */
@@ -395,8 +374,8 @@ void WDT_Handler        ( void );
 #define ID_UDP    (35) /**< \brief USB DEVICE (UDP) */
 #define ID_PWM    (36) /**< \brief PWM (PWM) */
 #define ID_CAN0   (37) /**< \brief CAN0 (CAN0) */
-#define ID_CAN1   (38) /**< \brief CAN1 (CAN1) */
 #define ID_AES    (39) /**< \brief AES (AES) */
+#define ID_GMAC   (44) /**< \brief EMAC (GMAC) */
 #define ID_UART1  (45) /**< \brief UART (UART1) */
 
 #define ID_PERIPH_COUNT (46) /**< \brief Number of peripheral IDs */
@@ -413,8 +392,7 @@ void WDT_Handler        ( void );
 #define PDC_PWM    (0x40000100U) /**< \brief (PDC_PWM   ) Base Address */
 #define AES        (0x40004000U) /**< \brief (AES       ) Base Address */
 #define CAN0       (0x40010000U) /**< \brief (CAN0      ) Base Address */
-#define CAN1       (0x40014000U) /**< \brief (CAN1      ) Base Address */
-#define CRCCU      (0x40044000U) /**< \brief (CRCCU     ) Base Address */
+#define GMAC       (0x40034000U) /**< \brief (GMAC      ) Base Address */
 #define UART1      (0x40060600U) /**< \brief (UART1     ) Base Address */
 #define PDC_UART1  (0x40060700U) /**< \brief (PDC_UART1 ) Base Address */
 #define HSMCI      (0x40080000U) /**< \brief (HSMCI     ) Base Address */
@@ -424,9 +402,6 @@ void WDT_Handler        ( void );
 #define PDC_SPI    (0x40088100U) /**< \brief (PDC_SPI   ) Base Address */
 #define TC0        (0x40090000U) /**< \brief (TC0       ) Base Address */
 #define PDC_TC0    (0x40090100U) /**< \brief (PDC_TC0   ) Base Address */
-#define TC1        (0x40094000U) /**< \brief (TC1       ) Base Address */
-#define PDC_TC1    (0x40094100U) /**< \brief (PDC_TC1   ) Base Address */
-#define TC2        (0x40098000U) /**< \brief (TC2       ) Base Address */
 #define USART0     (0x400A0000U) /**< \brief (USART0    ) Base Address */
 #define PDC_USART0 (0x400A0100U) /**< \brief (PDC_USART0) Base Address */
 #define USART1     (0x400A4000U) /**< \brief (USART1    ) Base Address */
@@ -453,7 +428,7 @@ void WDT_Handler        ( void );
 #define PIOA       (0x400E0E00U) /**< \brief (PIOA      ) Base Address */
 #define PDC_PIOA   (0x400E0F68U) /**< \brief (PDC_PIOA  ) Base Address */
 #define PIOB       (0x400E1000U) /**< \brief (PIOB      ) Base Address */
-#define PIOC       (0x400E1200U) /**< \brief (PIOC      ) Base Address */
+#define PIOD       (0x400E1400U) /**< \brief (PIOD      ) Base Address */
 #define RSTC       (0x400E1800U) /**< \brief (RSTC      ) Base Address */
 #define SUPC       (0x400E1810U) /**< \brief (SUPC      ) Base Address */
 #define RTT        (0x400E1830U) /**< \brief (RTT       ) Base Address */
@@ -466,8 +441,7 @@ void WDT_Handler        ( void );
 #define PDC_PWM    ((Pdc    *)0x40000100U) /**< \brief (PDC_PWM   ) Base Address */
 #define AES        ((Aes    *)0x40004000U) /**< \brief (AES       ) Base Address */
 #define CAN0       ((Can    *)0x40010000U) /**< \brief (CAN0      ) Base Address */
-#define CAN1       ((Can    *)0x40014000U) /**< \brief (CAN1      ) Base Address */
-#define CRCCU      ((Crccu  *)0x40044000U) /**< \brief (CRCCU     ) Base Address */
+#define GMAC       ((Gmac   *)0x40034000U) /**< \brief (GMAC      ) Base Address */
 #define UART1      ((Uart   *)0x40060600U) /**< \brief (UART1     ) Base Address */
 #define PDC_UART1  ((Pdc    *)0x40060700U) /**< \brief (PDC_UART1 ) Base Address */
 #define HSMCI      ((Hsmci  *)0x40080000U) /**< \brief (HSMCI     ) Base Address */
@@ -477,9 +451,6 @@ void WDT_Handler        ( void );
 #define PDC_SPI    ((Pdc    *)0x40088100U) /**< \brief (PDC_SPI   ) Base Address */
 #define TC0        ((Tc     *)0x40090000U) /**< \brief (TC0       ) Base Address */
 #define PDC_TC0    ((Pdc    *)0x40090100U) /**< \brief (PDC_TC0   ) Base Address */
-#define TC1        ((Tc     *)0x40094000U) /**< \brief (TC1       ) Base Address */
-#define PDC_TC1    ((Pdc    *)0x40094100U) /**< \brief (PDC_TC1   ) Base Address */
-#define TC2        ((Tc     *)0x40098000U) /**< \brief (TC2       ) Base Address */
 #define USART0     ((Usart  *)0x400A0000U) /**< \brief (USART0    ) Base Address */
 #define PDC_USART0 ((Pdc    *)0x400A0100U) /**< \brief (PDC_USART0) Base Address */
 #define USART1     ((Usart  *)0x400A4000U) /**< \brief (USART1    ) Base Address */
@@ -506,7 +477,7 @@ void WDT_Handler        ( void );
 #define PIOA       ((Pio    *)0x400E0E00U) /**< \brief (PIOA      ) Base Address */
 #define PDC_PIOA   ((Pdc    *)0x400E0F68U) /**< \brief (PDC_PIOA  ) Base Address */
 #define PIOB       ((Pio    *)0x400E1000U) /**< \brief (PIOB      ) Base Address */
-#define PIOC       ((Pio    *)0x400E1200U) /**< \brief (PIOC      ) Base Address */
+#define PIOD       ((Pio    *)0x400E1400U) /**< \brief (PIOD      ) Base Address */
 #define RSTC       ((Rstc   *)0x400E1800U) /**< \brief (RSTC      ) Base Address */
 #define SUPC       ((Supc   *)0x400E1810U) /**< \brief (SUPC      ) Base Address */
 #define RTT        ((Rtt    *)0x400E1830U) /**< \brief (RTT       ) Base Address */
@@ -551,9 +522,11 @@ void WDT_Handler        ( void );
 
 #define CHIP_JTAGID (0x05B3703FUL)
 #define CHIP_CIDR   (0xA3CC0CE0UL)
-#define CHIP_EXID   (0x00110209UL)
+#define CHIP_EXID         (0x00120209UL)
 #define NB_CH_AFE0  (6UL)
 #define NB_CH_AFE1  (4UL)
+#define NB_CH_DAC         (2UL)
+#define USB_DEVICE_MAX_EP (8UL)
 
 /* ************************************************************************** */
 /*   ELECTRICAL DEFINITIONS FOR SAM4E8C */
@@ -580,6 +553,10 @@ void WDT_Handler        ( void );
 #define CHIP_FREQ_FWS_3                 (80000000UL)  /**< \brief Maximum operating frequency when FWS is 3 */
 #define CHIP_FREQ_FWS_4                 (100000000UL) /**< \brief Maximum operating frequency when FWS is 4 */
 #define CHIP_FREQ_FWS_5                 (123000000UL) /**< \brief Maximum operating frequency when FWS is 5 */
+
+/* HYSTeresis levels: please refer to Electrical Characteristics */
+#define ACC_ACR_HYST_50MV_MAX	          (0x01UL)
+#define ACC_ACR_HYST_90MV_MAX           (0x11UL)
 
 #ifdef __cplusplus
 }

@@ -228,7 +228,8 @@ CPPFLAGS = \
        -D SIO_HUB                                         \
        -D STB_ON_SAL                                      \
        -D TAL_TYPE=AT86RF212                              \
-       -D UDD_ENABLE
+       -D UDD_ENABLE                                      \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS = \

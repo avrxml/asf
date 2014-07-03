@@ -193,10 +193,14 @@ sd_mmc_err_t sd_mmc_start_read_blocks(void *dest, uint16_t nb_block);
 /**
  * \brief Wait the end of read blocks of data from the card.
  *
+ * \param abort Abort reading process initialized by
+ *              \ref sd_mmc_init_read_blocks() after the reading issued by
+ *              \ref sd_mmc_start_read_blocks() is done
+ *
  * \return return SD_MMC_OK if success,
  *         otherwise return an error code (\ref sd_mmc_err_t).
  */
-sd_mmc_err_t sd_mmc_wait_end_of_read_blocks(void);
+sd_mmc_err_t sd_mmc_wait_end_of_read_blocks(bool abort);
 
 /**
  * \brief Initialize the write blocks of data
@@ -225,10 +229,14 @@ sd_mmc_err_t sd_mmc_start_write_blocks(const void *src, uint16_t nb_block);
 /**
  * \brief Wait the end of write blocks of data
  *
+ * \param abort Abort writing process initialized by
+ *              \ref sd_mmc_init_write_blocks() after the writing issued by
+ *              \ref sd_mmc_start_write_blocks() is done
+ *
  * \return return SD_MMC_OK if success,
  *         otherwise return an error code (\ref sd_mmc_err_t).
  */
-sd_mmc_err_t sd_mmc_wait_end_of_write_blocks(void);
+sd_mmc_err_t sd_mmc_wait_end_of_write_blocks(bool abort);
 
 #ifdef SDIO_SUPPORT_ENABLE
 /**

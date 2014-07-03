@@ -1923,6 +1923,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/component/dacc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/component/spi.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/component/aes.h</name>
 							</file>
 							<file>
@@ -1941,9 +1944,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/component/matrix.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/component/spi.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/component/pio.h</name>
 							</file>
 							<file>
@@ -1960,9 +1960,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/component/cmcc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/component/crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/component/dmac.h</name>
@@ -2005,9 +2002,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/instance/gmac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/instance/crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/instance/piob.h</name>
@@ -2225,10 +2219,10 @@
 						<name>$PROJ_DIR$/../../../../clock/sam4e/osc.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../clock/sam4e/pll.h</name>
+						<name>$PROJ_DIR$/../../../../clock/sam4e/sysclk.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../clock/sam4e/sysclk.h</name>
+						<name>$PROJ_DIR$/../../../../clock/sam4e/pll.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../clock/sam4e/genclk.h</name>

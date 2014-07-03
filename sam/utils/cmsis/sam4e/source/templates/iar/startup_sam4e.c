@@ -89,12 +89,12 @@ const intvec_elem __vector_table[] = {
 	{Dummy_Handler},
 	{PIOA_Handler},   /* 9  Parallel I/O Controller A */
 	{PIOB_Handler},   /* 10 Parallel I/O Controller B */
+#ifdef _SAM4E_PIOC_INSTANCE_
 	{PIOC_Handler},   /* 11 Parallel I/O Controller C */
-#ifdef _SAM4E_PIOD_INSTANCE_
-	{PIOD_Handler},   /* 12 Parallel I/O Controller D */
 #else
 	{Dummy_Handler},
 #endif
+	{PIOD_Handler},   /* 12 Parallel I/O Controller D */
 #ifdef _SAM4E_PIOE_INSTANCE_
 	{PIOE_Handler},   /* 13 Parallel I/O Controller E */
 #else
@@ -110,12 +110,24 @@ const intvec_elem __vector_table[] = {
 	{TC0_Handler},    /* 21 Timer/Counter 0 */
 	{TC1_Handler},    /* 22 Timer/Counter 1 */
 	{TC2_Handler},    /* 23 Timer/Counter 2 */
+#ifdef _SAM4E_TC1_INSTANCE_
 	{TC3_Handler},    /* 24 Timer/Counter 3 */
 	{TC4_Handler},    /* 25 Timer/Counter 4 */
 	{TC5_Handler},    /* 26 Timer/Counter 5 */
+#else
+	{Dummy_Handler},
+	{Dummy_Handler},
+	{Dummy_Handler},
+#endif
+#ifdef _SAM4E_TC2_INSTANCE_
 	{TC6_Handler},    /* 27 Timer/Counter 6 */
 	{TC7_Handler},    /* 28 Timer/Counter 7 */
 	{TC8_Handler},    /* 29 Timer/Counter 8 */
+#else
+	{Dummy_Handler},
+	{Dummy_Handler},
+	{Dummy_Handler},
+#endif
 	{AFEC0_Handler},  /* 30 Analog Front End 0 */
 	{AFEC1_Handler},  /* 31 Analog Front End 1 */
 	{DACC_Handler},   /* 32 Digital To Analog Converter */
@@ -124,17 +136,17 @@ const intvec_elem __vector_table[] = {
 	{UDP_Handler},    /* 35 USB DEVICE */
 	{PWM_Handler},    /* 36 PWM */
 	{CAN0_Handler},   /* 37 CAN0 */
+#ifdef _SAM4E_CAN1_INSTANCE_
 	{CAN1_Handler},   /* 38 CAN1 */
+#else
+	{Dummy_Handler},
+#endif
 	{AES_Handler},    /* 39 AES */
 	{Dummy_Handler},
 	{Dummy_Handler},
 	{Dummy_Handler},
 	{Dummy_Handler},
-#ifdef _SAM4E_GMAC_INSTANCE_
 	{GMAC_Handler},   /* 44 GMAC */
-#else
-	{Dummy_Handler},
-#endif
 	{UART1_Handler}   /* 45 UART */
 };
 

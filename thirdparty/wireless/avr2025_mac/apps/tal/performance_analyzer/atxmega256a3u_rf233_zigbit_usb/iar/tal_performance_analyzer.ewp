@@ -239,6 +239,7 @@
 					<state>FFD</state>
 					<state>ENABLE_TFA</state>
 					<state>TAL_TYPE=AT86RF233</state>
+					<state>_DEBUG_=0</state>
 					<state>TRX_REG_RAW_VALUE</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
 					<state>HIGH_DATA_RATE_SUPPORT</state>
@@ -592,6 +593,7 @@
 					<state>FFD</state>
 					<state>ENABLE_TFA</state>
 					<state>TAL_TYPE=AT86RF233</state>
+					<state>_DEBUG_=0</state>
 					<state>TRX_REG_RAW_VALUE</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
 					<state>HIGH_DATA_RATE_SUPPORT</state>
@@ -1334,6 +1336,7 @@
 					<state>FFD</state>
 					<state>ENABLE_TFA</state>
 					<state>TAL_TYPE=AT86RF233</state>
+					<state>_DEBUG_=0</state>
 					<state>TRX_REG_RAW_VALUE</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
 					<state>HIGH_DATA_RATE_SUPPORT</state>
@@ -1687,6 +1690,7 @@
 					<state>FFD</state>
 					<state>ENABLE_TFA</state>
 					<state>TAL_TYPE=AT86RF233</state>
+					<state>_DEBUG_=0</state>
 					<state>TRX_REG_RAW_VALUE</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
 					<state>HIGH_DATA_RATE_SUPPORT</state>

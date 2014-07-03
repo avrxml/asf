@@ -167,6 +167,7 @@ CPPFLAGS = \
        -D BOARD=SAM3X_EK                                  \
        -D TEST_SUITE_DEFINE_ASSERT_MACRO                  \
        -D _ASSERT_ENABLE_                                 \
+       -D __FREERTOS__                                    \
        -D __SAM3X8H__                                     \
        -D printf=iprintf                                  \
        -D scanf=iscanf

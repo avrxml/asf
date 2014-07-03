@@ -1,9 +1,9 @@
 /*
  * \file
  *
- * \brief 
+ * \brief
  *
- * Copyright (C) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \page License
  *
@@ -21,7 +21,7 @@
  * from this software without specific prior written permission.
  *
  * 4. This software may only be redistributed and used in connection with an
- * Atmel AVR product.
+ * Atmel microcontroller product.
  *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -66,7 +66,7 @@ void BitBangSPI_Master_Init (void)
     REG( PORT, SPI_BB_MOSI ) &=  ~(( 1 << MOSI_BB ));
     REG( PORT, SPI_BB_SCK ) &=  ~(( 1 << SCK_BB ));
 
-	REG( PORT, SPI_BB_MISO ) |=  ( 1 << MISO_BB ); 
+	REG( PORT, SPI_BB_MISO ) |=  ( 1 << MISO_BB );
 }
 
 /*============================================================================
@@ -106,7 +106,7 @@ uint8_t BitBangSPI_Send_Byte(uint8_t c)
 
     DELAYUS(75);
 
-    return c;  
+    return c;
 }
 
 
@@ -119,16 +119,16 @@ Output  :   n/a
 Notes   :	Called from Send_Message in QDebugTransport.c
 ============================================================================*/
 void BitBangSPI_Send_Message(void)
-{  
+{
     unsigned int i;
     uint8_t FrameInProgress;
-    
-    // Send our message upstream	
+
+    // Send our message upstream
     for (i=0; i <= TX_index; i++)
     {
         FrameInProgress = RxHandler(BitBangSPI_Send_Byte(TX_Buffer[i]));
     }
-    
+
     // Do we need to receive even more bytes?
     while (FrameInProgress)
         FrameInProgress = RxHandler(BitBangSPI_Send_Byte(0));

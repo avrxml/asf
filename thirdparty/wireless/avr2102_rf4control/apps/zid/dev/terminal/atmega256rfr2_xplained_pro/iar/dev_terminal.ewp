@@ -250,9 +250,10 @@
 					<state>BOARD=ATMEGA256RFR2_XPLAINED_PRO</state>
 					<state>TAL_USER_BUILD_CONFIG</state>
 					<state>NLDE_HANDLE</state>
-					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>RF4CE_TARGET</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_STACK_NVM</state>
 					<state>RF4CE_SECURITY</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
@@ -601,9 +602,10 @@
 					<state>BOARD=ATMEGA256RFR2_XPLAINED_PRO</state>
 					<state>TAL_USER_BUILD_CONFIG</state>
 					<state>NLDE_HANDLE</state>
-					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>RF4CE_TARGET</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_STACK_NVM</state>
 					<state>RF4CE_SECURITY</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
@@ -1359,9 +1361,10 @@
 					<state>BOARD=ATMEGA256RFR2_XPLAINED_PRO</state>
 					<state>TAL_USER_BUILD_CONFIG</state>
 					<state>NLDE_HANDLE</state>
-					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>RF4CE_TARGET</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_STACK_NVM</state>
 					<state>RF4CE_SECURITY</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
@@ -1710,9 +1713,10 @@
 					<state>BOARD=ATMEGA256RFR2_XPLAINED_PRO</state>
 					<state>TAL_USER_BUILD_CONFIG</state>
 					<state>NLDE_HANDLE</state>
-					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>RF4CE_TARGET</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_STACK_NVM</state>
 					<state>RF4CE_SECURITY</state>
 					<state>RSSI_TO_LQI_MAPPING</state>

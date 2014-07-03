@@ -249,6 +249,7 @@
 					<state>STB_ON_SAL</state>
 					<state>PBP_ORG</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ZRC_PROFILE</state>
 					<state>ENABLE_STACK_NVM</state>
@@ -603,6 +604,7 @@
 					<state>STB_ON_SAL</state>
 					<state>PBP_ORG</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ZRC_PROFILE</state>
 					<state>ENABLE_STACK_NVM</state>
@@ -1364,6 +1366,7 @@
 					<state>STB_ON_SAL</state>
 					<state>PBP_ORG</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ZRC_PROFILE</state>
 					<state>ENABLE_STACK_NVM</state>
@@ -1718,6 +1721,7 @@
 					<state>STB_ON_SAL</state>
 					<state>PBP_ORG</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ZRC_PROFILE</state>
 					<state>ENABLE_STACK_NVM</state>

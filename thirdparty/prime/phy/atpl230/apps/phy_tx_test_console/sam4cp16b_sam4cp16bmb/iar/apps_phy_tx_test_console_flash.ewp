@@ -162,9 +162,10 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>BOARD=SAM4CP16BMB</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM4=true</state>
 					<state>__SAM4CP16B_0__</state>
+					<state>BOARD=SAM4CP16BMB</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -476,9 +477,10 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>BOARD=SAM4CP16BMB</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM4=true</state>
 					<state>__SAM4CP16B_0__</state>
+					<state>BOARD=SAM4CP16BMB</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1115,9 +1117,10 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>BOARD=SAM4CP16BMB</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM4=true</state>
 					<state>__SAM4CP16B_0__</state>
+					<state>BOARD=SAM4CP16BMB</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1429,9 +1432,10 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>BOARD=SAM4CP16BMB</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM4=true</state>
 					<state>__SAM4CP16B_0__</state>
+					<state>BOARD=SAM4CP16BMB</state>
 				</option>
 				<option>
 					<name>AList</name>

@@ -238,6 +238,7 @@
 					<state></state>
 					<state>TAL_TYPE=AT86RF231</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>GTS_SUPPORT</state>
@@ -593,6 +594,7 @@
 					<name>ADefines</name>
 					<state>TAL_TYPE=AT86RF231</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>GTS_SUPPORT</state>
@@ -1337,6 +1339,7 @@
 					<state>NDEBUG</state>
 					<state>TAL_TYPE=AT86RF231</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>GTS_SUPPORT</state>
@@ -1692,6 +1695,7 @@
 					<name>ADefines</name>
 					<state>TAL_TYPE=AT86RF231</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>GTS_SUPPORT</state>

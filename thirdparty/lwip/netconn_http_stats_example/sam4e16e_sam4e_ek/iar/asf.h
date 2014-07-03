@@ -74,7 +74,7 @@
 // From module: Ethernet Physical Transceiver (ksz8051mnl)
 #include <ethernet_phy.h>
 
-// From module: FreeRTOS - Kernel 7.3.0
+// From module: FreeRTOS mini Real-Time Kernel
 #include <FreeRTOS.h>
 #include <FreeRTOS_CLI.h>
 #include <StackMacros.h>

@@ -70,7 +70,7 @@ void SystemInit( void )
    * TODO:
    * Add code to initialize the system according to your application.
    *
-   * For SAM4C, the internal 4MHz fast RC oscillator is the default clock
+   * For SAM4CM, the internal 4MHz fast RC oscillator is the default clock
    * selected at system reset state.
    *
    * Note:

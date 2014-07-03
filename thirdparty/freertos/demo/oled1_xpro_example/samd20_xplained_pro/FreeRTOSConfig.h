@@ -78,6 +78,7 @@ void assert_triggered( const char * file, uint32_t line );
 #define configUSE_COUNTING_SEMAPHORES           1
 #define configUSE_QUEUE_SETS                    1
 #define configGENERATE_RUN_TIME_STATS           0
+#define configENABLE_BACKWARD_COMPATIBILITY     1
 
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES                   0

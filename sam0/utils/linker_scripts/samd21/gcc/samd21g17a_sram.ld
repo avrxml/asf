@@ -3,7 +3,7 @@
  *
  * \brief Linker script for running in internal SRAM on the SAMD21G17A
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,7 +49,7 @@ SEARCH_DIR(.)
 /* Memory Spaces Definitions */
 MEMORY
 {
-  ram (rwx) : ORIGIN = 0x20000000, LENGTH = 0x00004000
+  ram    (rwx) : ORIGIN = 0x20000000, LENGTH = 0x00004000
 }
 
 /* The stack size used by the application. NOTE: you need to adjust according to your application. */

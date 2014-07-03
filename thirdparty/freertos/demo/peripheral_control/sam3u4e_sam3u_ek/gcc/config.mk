@@ -185,6 +185,7 @@ CPPFLAGS = \
        -D ARM_MATH_CM3=true                               \
        -D BOARD=SAM3U_EK                                  \
        -D UDD_ENABLE                                      \
+       -D __FREERTOS__                                    \
        -D __SAM3U4E__                                     \
        -D printf=iprintf                                  \
        -D scanf=iscanf

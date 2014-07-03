@@ -1912,12 +1912,14 @@ sd_mmc_err_t sd_mmc_start_read_blocks(void *dest, uint16_t nb_block)
 	return SD_MMC_OK;
 }
 
-sd_mmc_err_t sd_mmc_wait_end_of_read_blocks(void)
+sd_mmc_err_t sd_mmc_wait_end_of_read_blocks(bool abort)
 {
 	if (!driver_wait_end_of_read_blocks()) {
 		return SD_MMC_ERR_COMM;
 	}
-	if (sd_mmc_nb_block_remaining) {
+	if (abort) {
+		sd_mmc_nb_block_remaining = 0;
+	} else if (sd_mmc_nb_block_remaining) {
 		return SD_MMC_OK;
 	}
 
@@ -1996,12 +1998,14 @@ sd_mmc_err_t sd_mmc_start_write_blocks(const void *src, uint16_t nb_block)
 	return SD_MMC_OK;
 }
 
-sd_mmc_err_t sd_mmc_wait_end_of_write_blocks(void)
+sd_mmc_err_t sd_mmc_wait_end_of_write_blocks(bool abort)
 {
 	if (!driver_wait_end_of_write_blocks()) {
 		return SD_MMC_ERR_COMM;
 	}
-	if (sd_mmc_nb_block_remaining) {
+	if (abort) {
+		sd_mmc_nb_block_remaining = 0;
+	} else if (sd_mmc_nb_block_remaining) {
 		return SD_MMC_OK;
 	}
 

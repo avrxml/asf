@@ -251,6 +251,7 @@ CPPFLAGS = \
        -D VENDOR_DATA                                     \
        -D ZRC_CMD_DISCOVERY                               \
        -D ZRC_PROFILE                                     \
+       -D _DEBUG_=0                                       \
        -D __SAM4LC4C__                                    \
        -D printf=iprintf                                  \
        -D scanf=iscanf

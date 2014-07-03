@@ -114,8 +114,8 @@ extern "C" {
 # define IFLASH_PAGE_SIZE     IFLASH0_PAGE_SIZE
 /* Internal flash lock region size. */
 # define IFLASH_LOCK_REGION_SIZE     IFLASH0_LOCK_REGION_SIZE
-#elif (SAM4C32)
-/* The max GPNVM number SAM4C32. */
+#elif (SAM4C32 || SAM4CMP32 || SAM4CMS32)
+/* The max GPNVM number SAM4C(M)32. */
 # define GPNVM_NUM_MAX        3
 #else
 /* The max GPNVM number. */
@@ -123,7 +123,7 @@ extern "C" {
 #endif
 
 #if (SAM4C || SAM4CP || SAM4CM)
-#if SAM4C32
+#if (SAM4C32 || SAM4CMP32 || SAM4CMS32)
 # define EFC     EFC0
 /* Internal Flash 0 base address. */
 # define IFLASH0_ADDR    IFLASH0_CNC_ADDR
@@ -168,7 +168,7 @@ static void translate_address(Efc **pp_efc, uint32_t ul_addr,
 		us_page = (ul_addr - IFLASH0_ADDR) / IFLASH0_PAGE_SIZE;
 		us_offset = (ul_addr - IFLASH0_ADDR) % IFLASH0_PAGE_SIZE;
 	}
-#elif (SAM4SD16 || SAM4SD32 || SAM4C32)
+#elif (SAM4SD16 || SAM4SD32 || SAM4C32 || SAM4CMP32 || SAM4CMS32)
 	uint32_t uc_gpnvm2;
 	uc_gpnvm2 = flash_is_gpnvm_set(2);
 	if (ul_addr >= IFLASH1_ADDR) {
@@ -231,7 +231,7 @@ static void compute_address(Efc *p_efc, uint16_t us_page, uint16_t us_offset,
 /* Dual bank flash */
 #ifdef EFC1
 	/* Compute address */
-#if (SAM4SD16 || SAM4SD32 || SAM4C32)
+#if (SAM4SD16 || SAM4SD32 || SAM4C32 || SAM4CMP32 || SAM4CMS32)
 	uint32_t uc_gpnvm2;
 	uc_gpnvm2 = flash_is_gpnvm_set(2);
 	if (p_efc == EFC0) {

@@ -245,6 +245,7 @@
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>RF4CE_TARGET</state>
 					<state>TAL_TYPE=AT86RF231</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_STACK_NVM</state>
@@ -608,6 +609,7 @@
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>RF4CE_TARGET</state>
 					<state>TAL_TYPE=AT86RF231</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_STACK_NVM</state>
@@ -1360,6 +1362,7 @@
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>RF4CE_TARGET</state>
 					<state>TAL_TYPE=AT86RF231</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_STACK_NVM</state>
@@ -1723,6 +1726,7 @@
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>RF4CE_TARGET</state>
 					<state>TAL_TYPE=AT86RF231</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_STACK_NVM</state>

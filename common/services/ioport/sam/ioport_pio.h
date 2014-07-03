@@ -70,21 +70,21 @@
 #define IOPORT_MODE_MUX_MASK            (0x7 << 0) /*!< MUX bits mask */
 #define IOPORT_MODE_MUX_BIT0            (  1 << 0) /*!< MUX BIT0 mask */
 
-#if SAM3N || SAM3S || SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAMG || SAM4CP || SAM4CM
+#if SAM3N || SAM3S || SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAMG || SAM4CP
 #define IOPORT_MODE_MUX_BIT1            (  1 << 1) /*!< MUX BIT1 mask */
 #endif
 
 #define IOPORT_MODE_MUX_A               (  0 << 0) /*!< MUX function A */
 #define IOPORT_MODE_MUX_B               (  1 << 0) /*!< MUX function B */
 
-#if SAM3N || SAM3S || SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAMG || SAM4CP || SAM4CM
+#if SAM3N || SAM3S || SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAMG || SAM4CP
 #define IOPORT_MODE_MUX_C               (  2 << 0) /*!< MUX function C */
 #define IOPORT_MODE_MUX_D               (  3 << 0) /*!< MUX function D */
 #endif
 
 #define IOPORT_MODE_PULLUP              (  1 << 3) /*!< Pull-up */
 
-#if SAM3N || SAM3S || SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAMG || SAM4CP || SAM4CM
+#if SAM3N || SAM3S || SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAMG || SAM4CP
 #define IOPORT_MODE_PULLDOWN            (  1 << 4) /*!< Pull-down */
 #endif
 
@@ -111,6 +111,10 @@ __always_inline static Pio *arch_ioport_port_to_base(ioport_port_t port)
 #if (SAM4C || SAM4CM || SAM4CP)
 	if (port == IOPORT_PIOC) {
 		return (Pio *)(uintptr_t)PIOC;
+#  ifdef ID_PIOD
+	} else if (port == IOPORT_PIOD) {
+		return (Pio *)(uintptr_t)PIOD;
+#  endif
 	} else {
 		return (Pio *)((uintptr_t)IOPORT_BASE_ADDRESS +
 		       (IOPORT_PIO_OFFSET * port));

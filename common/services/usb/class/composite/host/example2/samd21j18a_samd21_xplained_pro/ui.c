@@ -44,10 +44,6 @@
 #include "conf_usb_host.h"
 #include <asf.h>
 
-#define LED_On()      port_pin_set_output_level(LED_0_PIN, LED_0_ACTIVE)
-#define LED_Off()     port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE)
-#define LED_Toggle()  port_pin_toggle_output_level(LED_0_PIN)
-
 /**
  * \name Internal routines to manage asynchronous interrupt pin change
  * This interrupt is connected to a switch and allows to wakeup CPU in low sleep
@@ -111,15 +107,15 @@ static void ui_disable_asynchronous_interrupt(void)
 void ui_init(void)
 {
 	/* Initialize LEDs */
-	LED_Off();
+	LED_Off(LED_0_PIN);
 }
 
 void ui_usb_mode_change(bool b_host_mode)
 {
 	if (b_host_mode) {
-		LED_On();
+		LED_On(LED_0_PIN);
 	} else {
-		LED_Off();
+		LED_Off(LED_0_PIN);
 	}
 }
 
@@ -158,7 +154,7 @@ void ui_usb_connection_event(uhc_device_t *dev, bool b_present)
 {
 	UNUSED(dev);
 	if (!b_present) {
-		LED_On();
+		LED_On(LED_0_PIN);
 		ui_enum_status = UHC_ENUM_DISCONNECT;
 	}
 }
@@ -213,17 +209,17 @@ void ui_usb_sof_event(void)
 		if (++counter_sof > ui_device_speed_blink) {
 			counter_sof = 0;
 			if (ui_hid_mouse_plug || ui_msc_plug) {
-				LED_Toggle();
+				LED_Toggle(LED_0_PIN);
 			} else {
-				LED_On();
+				LED_On(LED_0_PIN);
 			}
 			if (ui_test_done) {
 				if (ui_test_result) {
 					/* Test successful */
-					LED_On();
+					LED_On(LED_0_PIN);
 				} else {
 					/* Test fail */
-					LED_Off();
+					LED_Off(LED_0_PIN);
 				}
 			}
 		}
@@ -234,7 +230,7 @@ void ui_usb_sof_event(void)
 			btn_suspend = b_btn_state;
 			if (b_btn_state) {
 				/* Button has been pressed */
-				LED_Off();
+				LED_Off(LED_0_PIN);
 				ui_enable_asynchronous_interrupt();
 				uhc_suspend(true);
 				return;
@@ -243,7 +239,7 @@ void ui_usb_sof_event(void)
 
 		/* Power on a LED when the mouse button down */
 		if (ui_nb_down) {
-			LED_On();
+			LED_On(LED_0_PIN);
 		}
 	}
 }
@@ -298,22 +294,22 @@ void ui_uhi_hid_mouse_move(int8_t x, int8_t y, int8_t scroll)
  *  @{ */
 void ui_start_read(void)
 {
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_stop_read(void)
 {
-	LED_Off();
+	LED_Off(LED_0_PIN);
 }
 
 void ui_start_write(void)
 {
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_stop_write(void)
 {
-	LED_Off();
+	LED_Off(LED_0_PIN);
 }
 
 /*! @} */

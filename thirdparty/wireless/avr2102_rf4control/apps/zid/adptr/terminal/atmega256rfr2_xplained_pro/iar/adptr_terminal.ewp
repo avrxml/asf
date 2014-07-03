@@ -269,6 +269,7 @@
 					<state>ZID_PROFILE</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>GDP_PROFILE</state>
 					<state>SIO_HUB</state>
 				</option>
@@ -628,6 +629,7 @@
 					<state>ZID_PROFILE</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>GDP_PROFILE</state>
 					<state>SIO_HUB</state>
 				</option>
@@ -1394,6 +1396,7 @@
 					<state>ZID_PROFILE</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>GDP_PROFILE</state>
 					<state>SIO_HUB</state>
 				</option>
@@ -1753,6 +1756,7 @@
 					<state>ZID_PROFILE</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>GDP_PROFILE</state>
 					<state>SIO_HUB</state>
 				</option>

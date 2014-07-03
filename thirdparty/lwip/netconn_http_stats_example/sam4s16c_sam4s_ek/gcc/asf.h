@@ -71,7 +71,7 @@
 #include <ksz8851snl.h>
 #include <ksz8851snl_reg.h>
 
-// From module: FreeRTOS - Kernel 7.3.0
+// From module: FreeRTOS mini Real-Time Kernel
 #include <FreeRTOS.h>
 #include <FreeRTOS_CLI.h>
 #include <StackMacros.h>

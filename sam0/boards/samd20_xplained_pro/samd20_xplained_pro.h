@@ -534,50 +534,55 @@ void system_board_init(void);
 #define AT86RFX_SPI_MOSI             EXT1_PIN_16
 #define AT86RFX_SPI_MISO             EXT1_PIN_17
 #define AT86RFX_SPI_SCK              EXT1_PIN_18
-#define AT86RFX_CSD     		     EXT1_PIN_5
-#define AT86RFX_CPS 	             EXT1_PIN_8
+#define AT86RFX_CSD                  EXT1_PIN_5
+#define AT86RFX_CPS                  EXT1_PIN_8
 #define LED0 LED0_PIN
 
 #define AT86RFX_SPI_CONFIG(config) \
-        config.mux_setting = EXT1_SPI_SERCOM_MUX_SETTING; \
-        config.mode_specific.master.baudrate = AT86RFX_SPI_BAUDRATE; \
-        config.pinmux_pad0 = EXT1_SPI_SERCOM_PINMUX_PAD0; \
-        config.pinmux_pad1 = PINMUX_UNUSED; \
-        config.pinmux_pad2 = EXT1_SPI_SERCOM_PINMUX_PAD2; \
-        config.pinmux_pad3 = EXT1_SPI_SERCOM_PINMUX_PAD3;
+		config.mux_setting = EXT1_SPI_SERCOM_MUX_SETTING; \
+		config.mode_specific.master.baudrate = AT86RFX_SPI_BAUDRATE; \
+		config.pinmux_pad0 = EXT1_SPI_SERCOM_PINMUX_PAD0; \
+		config.pinmux_pad1 = PINMUX_UNUSED; \
+		config.pinmux_pad2 = EXT1_SPI_SERCOM_PINMUX_PAD2; \
+		config.pinmux_pad3 = EXT1_SPI_SERCOM_PINMUX_PAD3;
 
-#define AT86RFX_IRQ_CHAN             EXT1_IRQ_INPUT
-#define AT86RFX_INTC_INIT()    struct extint_chan_conf eint_chan_conf; \
-                                                extint_chan_get_config_defaults(&eint_chan_conf); \
-                                                eint_chan_conf.gpio_pin = AT86RFX_IRQ_PIN; \
-                                                eint_chan_conf.gpio_pin_mux = EXT1_IRQ_PINMUX; \
-												eint_chan_conf.gpio_pin_pull      = EXTINT_PULL_NONE; \
-                                                eint_chan_conf.wake_if_sleeping    = true; \
-                                                eint_chan_conf.filter_input_signal = false; \
-                                                eint_chan_conf.detection_criteria  = EXTINT_DETECT_RISING; \
-                                                extint_chan_set_config(AT86RFX_IRQ_CHAN, &eint_chan_conf); \
-                                                extint_register_callback(AT86RFX_ISR, AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT);
-                                                
+#define AT86RFX_IRQ_CHAN       EXT1_IRQ_INPUT
+#define AT86RFX_INTC_INIT()    \
+		struct extint_chan_conf eint_chan_conf; \
+		extint_chan_get_config_defaults(&eint_chan_conf); \
+		eint_chan_conf.gpio_pin = AT86RFX_IRQ_PIN; \
+		eint_chan_conf.gpio_pin_mux = EXT1_IRQ_PINMUX; \
+		eint_chan_conf.gpio_pin_pull      = EXTINT_PULL_NONE; \
+		eint_chan_conf.wake_if_sleeping    = true; \
+		eint_chan_conf.filter_input_signal = false; \
+		eint_chan_conf.detection_criteria  = EXTINT_DETECT_RISING; \
+		extint_chan_set_config(AT86RFX_IRQ_CHAN, &eint_chan_conf); \
+		extint_register_callback(AT86RFX_ISR, AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT);
 
 /** Enables the transceiver main interrupt. */
-#define ENABLE_TRX_IRQ()                extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+#define ENABLE_TRX_IRQ()      \
+		extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
 
 /** Disables the transceiver main interrupt. */
-#define DISABLE_TRX_IRQ()               extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+#define DISABLE_TRX_IRQ()     \
+		extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
 
 /** Clears the transceiver main interrupt. */
-#define CLEAR_TRX_IRQ()                 extint_chan_clear_detected(AT86RFX_IRQ_CHAN);
+#define CLEAR_TRX_IRQ()       \
+		extint_chan_clear_detected(AT86RFX_IRQ_CHAN);
 
 /*
  * This macro saves the trx interrupt status and disables the trx interrupt.
  */
-#define ENTER_TRX_REGION()   { extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+#define ENTER_TRX_REGION()   \
+		{ extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
 
 /*
  *  This macro restores the transceiver interrupt status
  */
-#define LEAVE_TRX_REGION()   extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT); }
-                                                
+#define LEAVE_TRX_REGION()   \
+		extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT); }
+
 /**
  * \brief Turns off the specified LEDs.
  *

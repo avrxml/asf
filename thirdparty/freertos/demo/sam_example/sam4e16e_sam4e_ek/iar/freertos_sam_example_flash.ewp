@@ -1988,9 +1988,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/component/cmcc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/component/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/component/dmac.h</name>
 							</file>
 						</group>
@@ -2031,9 +2028,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/instance/gmac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/instance/crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4e/include/instance/piob.h</name>

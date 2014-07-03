@@ -58,7 +58,7 @@ typedef enum test_state {
 	TEST_ERROR
 } test_state_t;
 
-static uint16_t main_usb_sof_counter = 0;
+static volatile uint16_t main_usb_sof_counter = 0;
 
 static test_state_t lun_states[MAX_DRIVE];
 

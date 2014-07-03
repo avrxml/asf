@@ -106,7 +106,7 @@
 // From module: SCIF System Control Interface - UC3C implementation
 #include <scif_uc3c.h>
 
-// From module: SD/MMC stack + Memory Control Access (aka ctrl_access, required for file system or USB)
+// From module: SD/MMC Memory Control Access - Enable
 #include <sd_mmc_mem.h>
 
 // From module: SD/MMC stack on SPI interface

@@ -2082,7 +2082,7 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_can0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_chipid.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_adc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_usart1.h</name>
@@ -2091,7 +2091,7 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_spi0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_adc.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_chipid.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_spi1.h</name>

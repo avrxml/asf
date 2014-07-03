@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -262,7 +262,7 @@ void WDT_Handler        ( void );
  */
 
 #define __CM4_REV              0x0000 /**< SAM4E16E core revision number ([15:8] revision number, [7:0] patch number) */
-#define __MPU_PRESENT          0      /**< SAM4E16E does not provide a MPU */
+#define __MPU_PRESENT          1      /**< SAM4E16E does provide a MPU */
 #define __FPU_PRESENT          1      /**< SAM4E16E does provide a FPU */
 #define __NVIC_PRIO_BITS       4      /**< SAM4E16E uses 4 Bits for the Priority Levels */
 #define __Vendor_SysTickConfig 0      /**< Set to 1 if different SysTick Config is used */
@@ -290,7 +290,6 @@ void WDT_Handler        ( void );
 #include "component/can.h"
 #include "component/chipid.h"
 #include "component/cmcc.h"
-#include "component/crccu.h"
 #include "component/dacc.h"
 #include "component/dmac.h"
 #include "component/efc.h"
@@ -328,7 +327,6 @@ void WDT_Handler        ( void );
 #include "instance/can0.h"
 #include "instance/can1.h"
 #include "instance/gmac.h"
-#include "instance/crccu.h"
 #include "instance/smc.h"
 #include "instance/uart1.h"
 #include "instance/hsmci.h"
@@ -431,7 +429,6 @@ void WDT_Handler        ( void );
 #define CAN0       (0x40010000U) /**< \brief (CAN0      ) Base Address */
 #define CAN1       (0x40014000U) /**< \brief (CAN1      ) Base Address */
 #define GMAC       (0x40034000U) /**< \brief (GMAC      ) Base Address */
-#define CRCCU      (0x40044000U) /**< \brief (CRCCU     ) Base Address */
 #define SMC        (0x40060000U) /**< \brief (SMC       ) Base Address */
 #define UART1      (0x40060600U) /**< \brief (UART1     ) Base Address */
 #define PDC_UART1  (0x40060700U) /**< \brief (PDC_UART1 ) Base Address */
@@ -488,7 +485,6 @@ void WDT_Handler        ( void );
 #define CAN0       ((Can    *)0x40010000U) /**< \brief (CAN0      ) Base Address */
 #define CAN1       ((Can    *)0x40014000U) /**< \brief (CAN1      ) Base Address */
 #define GMAC       ((Gmac   *)0x40034000U) /**< \brief (GMAC      ) Base Address */
-#define CRCCU      ((Crccu  *)0x40044000U) /**< \brief (CRCCU     ) Base Address */
 #define SMC        ((Smc    *)0x40060000U) /**< \brief (SMC       ) Base Address */
 #define UART1      ((Uart   *)0x40060600U) /**< \brief (UART1     ) Base Address */
 #define PDC_UART1  ((Pdc    *)0x40060700U) /**< \brief (PDC_UART1 ) Base Address */
@@ -578,6 +574,8 @@ void WDT_Handler        ( void );
 #define CHIP_EXID   (0x00120200UL)
 #define NB_CH_AFE0  (16UL)
 #define NB_CH_AFE1  (8UL)
+#define NB_CH_DAC         (2UL)
+#define USB_DEVICE_MAX_EP (8UL)
 
 /* ************************************************************************** */
 /*   ELECTRICAL DEFINITIONS FOR SAM4E16E */
@@ -604,6 +602,10 @@ void WDT_Handler        ( void );
 #define CHIP_FREQ_FWS_3                 (80000000UL)  /**< \brief Maximum operating frequency when FWS is 3 */
 #define CHIP_FREQ_FWS_4                 (100000000UL) /**< \brief Maximum operating frequency when FWS is 4 */
 #define CHIP_FREQ_FWS_5                 (123000000UL) /**< \brief Maximum operating frequency when FWS is 5 */
+
+/* HYSTeresis levels: please refer to Electrical Characteristics */
+#define ACC_ACR_HYST_50MV_MAX	          (0x01UL)
+#define ACC_ACR_HYST_90MV_MAX           (0x11UL)
 
 #ifdef __cplusplus
 }

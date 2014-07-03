@@ -3,7 +3,7 @@
  *
  * \brief SD/MMC card unit tests
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -149,7 +149,7 @@ static void run_sd_mmc_rw_test(const struct test_case *test)
 
 	last_blocks_addr -= NB_MULTI_BLOCKS;
 	nb_block = 1;
-	
+
 run_sd_mmc_rw_test_next:
 
 	/* Read (save blocks) the last blocks */
@@ -164,7 +164,7 @@ run_sd_mmc_rw_test_next:
 				split_tansfer? 1 : nb_block),
 				"Error: SD/MMC start read sector(s).");
 		test_assert_true(test, SD_MMC_OK ==
-				sd_mmc_wait_end_of_read_blocks(),
+				sd_mmc_wait_end_of_read_blocks(false),
 				"Error: SD/MMC wait end of read sector(s).");
 	}
 
@@ -175,7 +175,7 @@ run_sd_mmc_rw_test_next:
 	for (i = 0; i < (SD_MMC_BLOCK_SIZE * nb_block / sizeof(uint32_t)); i++) {
 		((uint32_t*)buf_test)[i] = TEST_FILL_VALUE_U32;
 	}
-	
+
 	/* Write the last blocks */
 	test_assert_true(test, SD_MMC_OK ==
 			sd_mmc_init_write_blocks(0, last_blocks_addr, nb_block),
@@ -188,7 +188,7 @@ run_sd_mmc_rw_test_next:
 				split_tansfer? 1 : nb_block),
 				"Error: SD/MMC start write sector(s).");
 		test_assert_true(test, SD_MMC_OK ==
-				sd_mmc_wait_end_of_write_blocks(),
+				sd_mmc_wait_end_of_write_blocks(false),
 				"Error: SD/MMC wait end of write sector(s).");
 	}
 
@@ -209,7 +209,7 @@ run_sd_mmc_rw_test_next:
 				split_tansfer? 1 : nb_block),
 				"Error: SD/MMC start read sector(s).");
 		test_assert_true(test, SD_MMC_OK ==
-				sd_mmc_wait_end_of_read_blocks(),
+				sd_mmc_wait_end_of_read_blocks(false),
 				"Error: SD/MMC wait end of read sector(s).");
 	}
 
@@ -232,7 +232,7 @@ run_sd_mmc_rw_test_next:
 				split_tansfer? 1 : nb_block),
 				"Error: SD/MMC start write restore sector(s).");
 		test_assert_true(test, SD_MMC_OK ==
-				sd_mmc_wait_end_of_write_blocks(),
+				sd_mmc_wait_end_of_write_blocks(false),
 				"Error: SD/MMC wait end of write restore sector(s).");
 	}
 
@@ -248,7 +248,7 @@ run_sd_mmc_rw_test_next:
 				split_tansfer? 1 : nb_block),
 				"Error: SD/MMC start read sector(s).");
 		test_assert_true(test, SD_MMC_OK ==
-				sd_mmc_wait_end_of_read_blocks(),
+				sd_mmc_wait_end_of_read_blocks(false),
 				"Error: SD/MMC wait end of read sector(s).");
 	}
 

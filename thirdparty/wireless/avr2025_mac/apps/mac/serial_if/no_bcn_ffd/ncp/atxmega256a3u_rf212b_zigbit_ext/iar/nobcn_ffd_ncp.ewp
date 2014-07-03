@@ -239,6 +239,7 @@
 					<state>FFD</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
@@ -592,6 +593,7 @@
 					<state>FFD</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
@@ -1334,6 +1336,7 @@
 					<state>FFD</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
@@ -1687,6 +1690,7 @@
 					<state>FFD</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>

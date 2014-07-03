@@ -236,17 +236,17 @@
 				<option>
 					<name>CCDefines</name>
 					<state></state>
-					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>ZRC_CMD_DISCOVERY</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
 					<state>NLDE_HANDLE</state>
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
-					<state>ZRC_CMD_DISCOVERY</state>
 					<state>ENABLE_TFA</state>
 					<state>TFA_BAT_MON</state>
 					<state>VENDOR_DATA</state>
-					<state>ENABLE_STACK_NVM</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_TRX_SRAM</state>
+					<state>ENABLE_STACK_NVM</state>
 					<state>TAL_TYPE=AT86RF212</state>
 					<state>RF4CE_SECURITY</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
@@ -261,6 +261,7 @@
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>SIO_HUB</state>
 				</option>
 				<option>
@@ -607,17 +608,17 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>ZRC_CMD_DISCOVERY</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
 					<state>NLDE_HANDLE</state>
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
-					<state>ZRC_CMD_DISCOVERY</state>
 					<state>ENABLE_TFA</state>
 					<state>TFA_BAT_MON</state>
 					<state>VENDOR_DATA</state>
-					<state>ENABLE_STACK_NVM</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_TRX_SRAM</state>
+					<state>ENABLE_STACK_NVM</state>
 					<state>TAL_TYPE=AT86RF212</state>
 					<state>RF4CE_SECURITY</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
@@ -632,6 +633,7 @@
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>SIO_HUB</state>
 				</option>
 				<option>
@@ -1367,17 +1369,17 @@
 				<option>
 					<name>CCDefines</name>
 					<state>NDEBUG</state>
-					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>ZRC_CMD_DISCOVERY</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
 					<state>NLDE_HANDLE</state>
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
-					<state>ZRC_CMD_DISCOVERY</state>
 					<state>ENABLE_TFA</state>
 					<state>TFA_BAT_MON</state>
 					<state>VENDOR_DATA</state>
-					<state>ENABLE_STACK_NVM</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_TRX_SRAM</state>
+					<state>ENABLE_STACK_NVM</state>
 					<state>TAL_TYPE=AT86RF212</state>
 					<state>RF4CE_SECURITY</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
@@ -1392,6 +1394,7 @@
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>SIO_HUB</state>
 				</option>
 				<option>
@@ -1738,17 +1741,17 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>ZRC_CMD_DISCOVERY</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
 					<state>NLDE_HANDLE</state>
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
-					<state>ZRC_CMD_DISCOVERY</state>
 					<state>ENABLE_TFA</state>
 					<state>TFA_BAT_MON</state>
 					<state>VENDOR_DATA</state>
-					<state>ENABLE_STACK_NVM</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_TRX_SRAM</state>
+					<state>ENABLE_STACK_NVM</state>
 					<state>TAL_TYPE=AT86RF212</state>
 					<state>RF4CE_SECURITY</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
@@ -1763,6 +1766,7 @@
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>SIO_HUB</state>
 				</option>
 				<option>

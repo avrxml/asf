@@ -2170,9 +2170,6 @@
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include/component/rtc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include/component/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include/component/can.h</name>
 							</file>
 							<file>
@@ -2249,9 +2246,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include/instance/dmac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include/instance/crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include/instance/rtc.h</name>

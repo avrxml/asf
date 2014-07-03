@@ -117,7 +117,7 @@
 // From module: SAM4N startup code
 #include <exceptions.h>
 
-// From module: SD/MMC stack + Memory Control Access (aka ctrl_access, required for file system or USB)
+// From module: SD/MMC Memory Control Access - Enable
 #include <sd_mmc_mem.h>
 
 // From module: SD/MMC stack on SPI interface

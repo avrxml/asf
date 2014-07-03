@@ -1998,9 +1998,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/rswdt.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/smc.h</name>
 							</file>
 							<file>
@@ -2092,9 +2089,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/twi.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/smc.h</name>

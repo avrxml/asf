@@ -214,7 +214,8 @@ CPPFLAGS = \
        -D VENDOR_DATA                                     \
        -D WATCHDOG                                        \
        -D ZID_DEVICE                                      \
-       -D ZID_PROFILE
+       -D ZID_PROFILE                                     \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS =  \

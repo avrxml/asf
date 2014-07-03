@@ -248,6 +248,7 @@
 					<state></state>
 					<state>FFD</state>
 					<state>ENABLE_TFA</state>
+					<state>_DEBUG_=0</state>
 					<state>TRX_REG_RAW_VALUE</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
 					<state>HIGH_DATA_RATE_SUPPORT</state>
@@ -567,6 +568,7 @@
 					<name>ADefines</name>
 					<state>FFD</state>
 					<state>ENABLE_TFA</state>
+					<state>_DEBUG_=0</state>
 					<state>TRX_REG_RAW_VALUE</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
 					<state>HIGH_DATA_RATE_SUPPORT</state>
@@ -1297,6 +1299,7 @@
 					<state>NDEBUG</state>
 					<state>FFD</state>
 					<state>ENABLE_TFA</state>
+					<state>_DEBUG_=0</state>
 					<state>TRX_REG_RAW_VALUE</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
 					<state>HIGH_DATA_RATE_SUPPORT</state>
@@ -1616,6 +1619,7 @@
 					<name>ADefines</name>
 					<state>FFD</state>
 					<state>ENABLE_TFA</state>
+					<state>_DEBUG_=0</state>
 					<state>TRX_REG_RAW_VALUE</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
 					<state>HIGH_DATA_RATE_SUPPORT</state>

@@ -176,9 +176,11 @@ inline static void arch_ioport_set_port_mode(ioport_port_t port,
 		config_mask |= PORT_WRCONFIG_PULLEN;
 	}
 
+#ifdef PORT_WRCONFIG_ODRAIN
 	if (mode & IOPORT_MODE_OPEN_DRAIN) {
 		config_mask |= PORT_WRCONFIG_ODRAIN;
 	}
+#endif
 
 	if (mode & IOPORT_MODE_DRIVE_STRENGTH) {
 		config_mask |= PORT_WRCONFIG_DRVSTR;

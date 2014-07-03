@@ -58,20 +58,20 @@
 /*! \name Activation of Logical Unit Numbers
  */
 //! @{
-#if VIRTUAL_MEMORY_ENABLE
+#ifdef VIRTUAL_MEMORY_ENABLE
 #define LUN_0                ENABLE   //!< Enable On-Chip Virtual Memory.
 #else
 #define LUN_0                DISABLE  //!< Disable On-Chip Virtual Memory.
 #endif
 
-#if AT45DBX_ENABLE
+#ifdef AT45DBX_ENABLE
 #define LUN_1                ENABLE   //!< Enable AT45DBX Data Flash.
 #else
 #define LUN_1                DISABLE  //!< Disable AT45DBX Data Flash.
 #endif
 
 //! New setting for SD/MMC stack in common folder
-#if SD_MMC_ENABLE
+#ifdef SD_MMC_ENABLE
 #define LUN_2                ENABLE   //!< Enable common SD/MMC stack
 #define LUN_3                ENABLE
 #else
@@ -80,14 +80,14 @@
 #endif
 
 //! Old setting for SD/MMC stack in AVR folder
-#if SD_MMC_SPI_ENABLE
+#ifdef SD_MMC_SPI_ENABLE
 #define LUN_4                ENABLE   //!< Enable SD/MMC Card over SPI or SPI.
 #else
 #define LUN_4                DISABLE  //!< Disable SD/MMC Card over SPI or SPI.
 #endif
 
 //! Old setting for SD/MMC stack in AVR folder
-#if SD_MMC_MCI_ENABLE
+#ifdef SD_MMC_MCI_ENABLE
 #define LUN_5                ENABLE   //!< Enable SD/MMC Card over MCI or MCI.
 #else
 #define LUN_5                DISABLE  //!< Disable SD/MMC Card over MCI or MCI.
@@ -96,7 +96,7 @@
 #define LUN_6                DISABLE
 #define LUN_7                DISABLE
 
-#if USB_MASS_STORAGE_ENABLE
+#ifdef USB_MASS_STORAGE_ENABLE
 #define LUN_USB              ENABLE   //!< Enable Host Mass-Storage Memory.
 #else
 #define LUN_USB              DISABLE  //!< Disable Host Mass-Storage Memory.
@@ -246,13 +246,13 @@
 /*! \name Activation of Interface Features
  */
 //! @{
-#if ACCESS_USB_ENABLED
+#ifdef ACCESS_USB_ENABLED
 #define ACCESS_USB           true  //!< MEM <-> USB interface.
 #else
 #define ACCESS_USB           false //!< MEM <-> USB interface.
 #endif
 
-#if ACCESS_MEM_TO_RAM_ENABLED
+#ifdef ACCESS_MEM_TO_RAM_ENABLED
 #define ACCESS_MEM_TO_RAM    true  //!< MEM <-> RAM interface.
 #else
 #define ACCESS_MEM_TO_RAM    false //!< MEM <-> RAM interface.

@@ -163,9 +163,10 @@
 				<option>
 					<name>CCDefines</name>
 					<state>__SAM3S4C__</state>
-					<state>BOARD=SAM3S_EK</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>UDD_ENABLE</state>
+					<state>BOARD=SAM3S_EK</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -476,9 +477,10 @@
 				<option>
 					<name>ADefines</name>
 					<state>__SAM3S4C__</state>
-					<state>BOARD=SAM3S_EK</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>UDD_ENABLE</state>
+					<state>BOARD=SAM3S_EK</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1115,9 +1117,10 @@
 				<option>
 					<name>CCDefines</name>
 					<state>__SAM3S4C__</state>
-					<state>BOARD=SAM3S_EK</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>UDD_ENABLE</state>
+					<state>BOARD=SAM3S_EK</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1428,9 +1431,10 @@
 				<option>
 					<name>ADefines</name>
 					<state>__SAM3S4C__</state>
-					<state>BOARD=SAM3S_EK</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>UDD_ENABLE</state>
+					<state>BOARD=SAM3S_EK</state>
 				</option>
 				<option>
 					<name>AList</name>

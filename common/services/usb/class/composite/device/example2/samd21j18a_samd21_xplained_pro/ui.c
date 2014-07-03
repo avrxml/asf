@@ -44,9 +44,6 @@
 #include <asf.h>
 #include "ui.h"
 
-#define  LED_On()          port_pin_set_output_level(LED_0_PIN, 0)
-#define  LED_Off()         port_pin_set_output_level(LED_0_PIN, 1)
-
 #define  MOUSE_MOVE_RANGE 5
 
 //! Sequence process running each \c SEQUENCE_PERIOD ms
@@ -132,7 +129,7 @@ static void ui_wakeup_handler(void)
 {
 	/* It is a wakeup then send wakeup USB */
 	udc_remotewakeup();
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_init(void)
@@ -152,12 +149,12 @@ void ui_init(void)
 	extint_chan_enable_callback(BUTTON_0_EIC_LINE,EXTINT_CALLBACK_TYPE_DETECT);
 
 	/* Initialize LEDs */
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_powerdown(void)
 {
-	LED_Off();
+	LED_Off(LED_0_PIN);
 }
 
 void ui_wakeup_enable(void)
@@ -172,7 +169,7 @@ void ui_wakeup_disable(void)
 
 void ui_wakeup(void)
 {
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_com_open(uint8_t port)
@@ -249,10 +246,10 @@ void ui_process(uint16_t framenumber)
 	uint8_t value;
 
 	if ((framenumber % 1000) == 0) {
-		LED_On();
+		LED_On(LED_0_PIN);
 	}
 	if ((framenumber % 1000) == 500) {
-		LED_Off();
+		LED_Off(LED_0_PIN);
 	}
 	/* Scan process running each 5ms */
 	cpt_sof++;

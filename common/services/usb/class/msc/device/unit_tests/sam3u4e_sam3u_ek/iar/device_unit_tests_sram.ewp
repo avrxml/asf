@@ -2366,6 +2366,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_rtc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_dmac.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_adc.h</name>
 							</file>
 							<file>
@@ -2394,9 +2397,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_efc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_dmac.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_pio.h</name>
@@ -2459,9 +2459,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_tc0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_usart0.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_spi.h</name>
 							</file>
 							<file>
@@ -2483,10 +2480,16 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_twi1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_supc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_udphs.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_wdt.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_usart0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_efc0.h</name>
@@ -2504,16 +2507,13 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_uart.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_chipid.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_usart3.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_supc.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_chipid.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_usart1.h</name>

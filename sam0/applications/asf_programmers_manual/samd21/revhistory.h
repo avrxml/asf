@@ -49,6 +49,11 @@
  *    <th>Date</td>
  *    <th>Comments</td>
  *  </tr>
+  *  <tr>
+ *    <td>B</td>
+ *    <td>05/2014</td>
+ *    <td>Updated documentation to match SAM D21 drivers ASF version 3.17.0.</td>
+ *  </tr>
  *  <tr>
  *    <td>A</td>
  *    <td>01/2014</td>

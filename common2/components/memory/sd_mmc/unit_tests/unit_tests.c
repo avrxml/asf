@@ -140,7 +140,7 @@ static void rw_test(const struct test_case *test, uint16_t nb_block,
 				split_tansfer? 1 : nb_block),
 				"Error: SD/MMC start read sector(s).");
 		test_assert_true(test, SD_MMC_OK ==
-				sd_mmc_wait_end_of_read_blocks(),
+				sd_mmc_wait_end_of_read_blocks(false),
 				"Error: SD/MMC wait end of read sector(s).");
 	}
 
@@ -164,7 +164,7 @@ static void rw_test(const struct test_case *test, uint16_t nb_block,
 				split_tansfer? 1 : nb_block),
 				"Error: SD/MMC start write sector(s).");
 		test_assert_true(test, SD_MMC_OK ==
-				sd_mmc_wait_end_of_write_blocks(),
+				sd_mmc_wait_end_of_write_blocks(false),
 				"Error: SD/MMC wait end of write sector(s).");
 	}
 
@@ -185,7 +185,7 @@ static void rw_test(const struct test_case *test, uint16_t nb_block,
 				split_tansfer? 1 : nb_block),
 				"Error: SD/MMC start read sector(s).");
 		test_assert_true(test, SD_MMC_OK ==
-				sd_mmc_wait_end_of_read_blocks(),
+				sd_mmc_wait_end_of_read_blocks(false),
 				"Error: SD/MMC wait end of read sector(s).");
 	}
 
@@ -208,7 +208,7 @@ static void rw_test(const struct test_case *test, uint16_t nb_block,
 				split_tansfer? 1 : nb_block),
 				"Error: SD/MMC start write restore sector(s).");
 		test_assert_true(test, SD_MMC_OK ==
-				sd_mmc_wait_end_of_write_blocks(),
+				sd_mmc_wait_end_of_write_blocks(false),
 				"Error: SD/MMC wait end of write restore sector(s).");
 	}
 
@@ -224,7 +224,7 @@ static void rw_test(const struct test_case *test, uint16_t nb_block,
 				split_tansfer? 1 : nb_block),
 				"Error: SD/MMC start read sector(s).");
 		test_assert_true(test, SD_MMC_OK ==
-				sd_mmc_wait_end_of_read_blocks(),
+				sd_mmc_wait_end_of_read_blocks(false),
 				"Error: SD/MMC wait end of read sector(s).");
 	}
 

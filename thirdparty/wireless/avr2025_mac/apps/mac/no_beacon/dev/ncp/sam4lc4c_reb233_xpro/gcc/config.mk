@@ -230,6 +230,7 @@ CPPFLAGS = \
        -D SIO_HUB                                         \
        -D STB_ON_SAL                                      \
        -D TAL_TYPE=AT86RF233                              \
+       -D _DEBUG_=0                                       \
        -D __SAM4LC4C__                                    \
        -D printf=iprintf                                  \
        -D scanf=iscanf

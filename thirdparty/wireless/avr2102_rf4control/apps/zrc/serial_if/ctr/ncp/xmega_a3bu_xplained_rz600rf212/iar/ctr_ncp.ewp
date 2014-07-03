@@ -242,6 +242,7 @@
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>ZRC_CMD_DISCOVERY</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ENABLE_STACK_NVM</state>
 					<state>ENABLE_TRX_SRAM</state>
@@ -610,6 +611,7 @@
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>ZRC_CMD_DISCOVERY</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ENABLE_STACK_NVM</state>
 					<state>ENABLE_TRX_SRAM</state>
@@ -1367,6 +1369,7 @@
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>ZRC_CMD_DISCOVERY</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ENABLE_STACK_NVM</state>
 					<state>ENABLE_TRX_SRAM</state>
@@ -1735,6 +1738,7 @@
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>ZRC_CMD_DISCOVERY</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ENABLE_STACK_NVM</state>
 					<state>ENABLE_TRX_SRAM</state>

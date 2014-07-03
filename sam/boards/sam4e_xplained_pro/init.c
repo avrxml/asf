@@ -243,18 +243,21 @@ void board_init(void)
 #endif
 
 #ifdef CONF_BOARD_AT86RFX
+	ioport_set_pin_peripheral_mode(AT86RFX_SPI_MISO, SPI_MISO_FLAGS);
+	ioport_set_pin_peripheral_mode(AT86RFX_SPI_MOSI, SPI_MOSI_FLAGS);
+	ioport_set_pin_peripheral_mode(AT86RFX_SPI_SCK,  SPI_SPCK_FLAGS);
+	ioport_set_pin_peripheral_mode(AT86RFX_SPI_CS_PIN, AT86RFX_SPI_CS_FLAGS);
 
-ioport_set_pin_peripheral_mode(AT86RFX_SPI_MISO, SPI_MISO_FLAGS);
-ioport_set_pin_peripheral_mode(AT86RFX_SPI_MOSI, SPI_MOSI_FLAGS);
-ioport_set_pin_peripheral_mode(AT86RFX_SPI_SCK,  SPI_SPCK_FLAGS);
-ioport_set_pin_peripheral_mode(AT86RFX_SPI_CS_PIN, AT86RFX_SPI_CS_FLAGS);
-
-/* Initialize TRX_RST and SLP_TR as GPIO. */
-ioport_set_pin_dir(AT86RFX_RST_PIN, IOPORT_DIR_OUTPUT);
-ioport_set_pin_level(AT86RFX_RST_PIN, IOPORT_PIN_LEVEL_HIGH);
-ioport_set_pin_dir(AT86RFX_SLP_PIN, IOPORT_DIR_OUTPUT);
-ioport_set_pin_level(AT86RFX_SLP_PIN, IOPORT_PIN_LEVEL_HIGH);
-
+	/* Initialize TRX_RST and SLP_TR as GPIO. */
+	ioport_set_pin_dir(AT86RFX_RST_PIN, IOPORT_DIR_OUTPUT);
+	ioport_set_pin_level(AT86RFX_RST_PIN, IOPORT_PIN_LEVEL_HIGH);
+	ioport_set_pin_dir(AT86RFX_SLP_PIN, IOPORT_DIR_OUTPUT);
+	ioport_set_pin_level(AT86RFX_SLP_PIN, IOPORT_PIN_LEVEL_HIGH);
 #endif  
+
+#if (defined(CONF_BOARD_TWI0) || defined(CONF_BOARD_EDBG_TWI))
+	ioport_set_pin_peripheral_mode(TWI0_DATA_GPIO, TWI0_DATA_FLAGS);
+	ioport_set_pin_peripheral_mode(TWI0_CLK_GPIO, TWI0_CLK_FLAGS);
+#endif
 
 }

@@ -3,7 +3,7 @@
 #
 # \brief Convert display data on a serial line to a graphical representation
 #
-# Copyright (C) 2011 Atmel Corporation. All rights reserved.
+# Copyright (C) 2011-2014 Atmel Corporation. All rights reserved.
 #
 # \page License
 #
@@ -21,7 +21,7 @@
 # from this software without specific prior written permission.
 #
 # 4. This software may only be redistributed and used in connection with an
-# Atmel AVR product.
+# Atmel microcontroller product.
 #
 # THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
 # WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -89,7 +89,7 @@ def dump_display_data(serial_port, baud_rate, output_file_name):
 	output_file.write(display_data)
 
 	output_file.close()
-	
+
 def main():
 	parser = argparse.ArgumentParser(description="This script will try to "
 			"open the given serial port, send a string to "

@@ -247,6 +247,7 @@
 					<name>CCDefines</name>
 					<state></state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>SAL_TYPE=ATMEGARF_SAL</state>
@@ -585,6 +586,7 @@
 				<option>
 					<name>ADefines</name>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>SAL_TYPE=ATMEGARF_SAL</state>
@@ -1329,6 +1331,7 @@
 					<name>CCDefines</name>
 					<state>NDEBUG</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>SAL_TYPE=ATMEGARF_SAL</state>
@@ -1667,6 +1670,7 @@
 				<option>
 					<name>ADefines</name>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>SAL_TYPE=ATMEGARF_SAL</state>

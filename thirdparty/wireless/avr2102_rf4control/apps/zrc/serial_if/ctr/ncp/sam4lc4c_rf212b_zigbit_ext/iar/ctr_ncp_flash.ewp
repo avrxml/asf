@@ -166,16 +166,16 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>ZRC_CMD_DISCOVERY</state>
 					<state>BOARD=SAM4L_XPLAINED_PRO</state>
 					<state>SAL_TYPE=AT86RF2xx</state>
 					<state>NLDE_HANDLE</state>
-					<state>__SAM4LC4C__</state>
-					<state>ZRC_CMD_DISCOVERY</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
-					<state>ENABLE_STACK_NVM</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_TRX_SRAM</state>
+					<state>ENABLE_STACK_NVM</state>
 					<state>RF4CE_SECURITY</state>
 					<state>TAL_TYPE=AT86RF212B</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
@@ -186,6 +186,7 @@
 					<state>REDUCED_PARAM_CHECK</state>
 					<state>ZRC_PROFILE</state>
 					<state>PRIVATE_NIB</state>
+					<state>__SAM4LC4C__</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
 					<state>SIO_HUB</state>
@@ -509,16 +510,16 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>ZRC_CMD_DISCOVERY</state>
 					<state>BOARD=SAM4L_XPLAINED_PRO</state>
 					<state>SAL_TYPE=AT86RF2xx</state>
 					<state>NLDE_HANDLE</state>
-					<state>__SAM4LC4C__</state>
-					<state>ZRC_CMD_DISCOVERY</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
-					<state>ENABLE_STACK_NVM</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_TRX_SRAM</state>
+					<state>ENABLE_STACK_NVM</state>
 					<state>RF4CE_SECURITY</state>
 					<state>TAL_TYPE=AT86RF212B</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
@@ -529,6 +530,7 @@
 					<state>REDUCED_PARAM_CHECK</state>
 					<state>ZRC_PROFILE</state>
 					<state>PRIVATE_NIB</state>
+					<state>__SAM4LC4C__</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
 					<state>SIO_HUB</state>
@@ -1211,16 +1213,16 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>ZRC_CMD_DISCOVERY</state>
 					<state>BOARD=SAM4L_XPLAINED_PRO</state>
 					<state>SAL_TYPE=AT86RF2xx</state>
 					<state>NLDE_HANDLE</state>
-					<state>__SAM4LC4C__</state>
-					<state>ZRC_CMD_DISCOVERY</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
-					<state>ENABLE_STACK_NVM</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_TRX_SRAM</state>
+					<state>ENABLE_STACK_NVM</state>
 					<state>RF4CE_SECURITY</state>
 					<state>TAL_TYPE=AT86RF212B</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
@@ -1231,6 +1233,7 @@
 					<state>REDUCED_PARAM_CHECK</state>
 					<state>ZRC_PROFILE</state>
 					<state>PRIVATE_NIB</state>
+					<state>__SAM4LC4C__</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
 					<state>SIO_HUB</state>
@@ -1554,16 +1557,16 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>ZRC_CMD_DISCOVERY</state>
 					<state>BOARD=SAM4L_XPLAINED_PRO</state>
 					<state>SAL_TYPE=AT86RF2xx</state>
 					<state>NLDE_HANDLE</state>
-					<state>__SAM4LC4C__</state>
-					<state>ZRC_CMD_DISCOVERY</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
-					<state>ENABLE_STACK_NVM</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_TRX_SRAM</state>
+					<state>ENABLE_STACK_NVM</state>
 					<state>RF4CE_SECURITY</state>
 					<state>TAL_TYPE=AT86RF212B</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
@@ -1574,6 +1577,7 @@
 					<state>REDUCED_PARAM_CHECK</state>
 					<state>ZRC_PROFILE</state>
 					<state>PRIVATE_NIB</state>
+					<state>__SAM4LC4C__</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
 					<state>SIO_HUB</state>

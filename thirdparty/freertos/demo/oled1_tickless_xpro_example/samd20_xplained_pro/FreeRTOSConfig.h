@@ -49,11 +49,12 @@
  */
 
 #if defined (__GNUC__) || defined (__ICCARM__)
+#include <gclk.h>
 #include <stdint.h>
 void assert_triggered( const char * file, uint32_t line );
 #endif
 
-#include <gclk.h>
+
 
 #define configUSE_PREEMPTION                    1
 #define configUSE_TICKLESS_IDLE                 2
@@ -78,6 +79,7 @@ void assert_triggered( const char * file, uint32_t line );
 #define configUSE_COUNTING_SEMAPHORES           1
 #define configUSE_QUEUE_SETS                    1
 #define configGENERATE_RUN_TIME_STATS           0
+#define configENABLE_BACKWARD_COMPATIBILITY     1
 
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES                   0
@@ -117,8 +119,10 @@ standard names - or at least those used in the unmodified vector table. */
 #define vPortSVCHandler                         SVC_Handler
 #define xPortPendSVHandler                      PendSV_Handler
 
+#if defined (__GNUC__) || defined (__ICCARM__)
 #include <portmacro.h>
-void vPortSuppressTicksAndSleep( portTickType xExpectedIdleTime );
+void vPortSuppressTicksAndSleep( TickType_t xExpectedIdleTime );
+#endif
 #define portSUPPRESS_TICKS_AND_SLEEP             vPortSuppressTicksAndSleep
 
 #endif /* FREERTOS_CONFIG_H */

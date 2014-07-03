@@ -107,7 +107,7 @@
 #include <uhi_hid_mouse.h>
 
 // From module: USB Host MSC (Multiple classes support)
-#include <uhi_msc.h>
+#include <uhi_msc_mem.h>
 
 // From module: USB Host stack core
 #include <uhc.h>

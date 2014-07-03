@@ -50,8 +50,6 @@ static uint32_t cycles_per_ms = 8000000UL / 1000;
 static uint32_t cycles_per_us = 8000000UL / 1000000;
 
 /**
- * \def delay_init
- *
  * \brief Initialize the delay driver.
  *
  * This must be called during start up to initialize the delay routine with

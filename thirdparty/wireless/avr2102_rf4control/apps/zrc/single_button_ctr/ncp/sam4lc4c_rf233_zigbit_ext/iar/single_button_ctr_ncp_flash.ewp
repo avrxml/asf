@@ -188,9 +188,10 @@
 					<state>ZRC_PROFILE</state>
 					<state>PRIVATE_NIB</state>
 					<state>__SAM4LC4C__</state>
-					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>TAL_TYPE=AT86RF233</state>
+					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>SIO_HUB</state>
 				</option>
 				<option>
@@ -535,9 +536,10 @@
 					<state>ZRC_PROFILE</state>
 					<state>PRIVATE_NIB</state>
 					<state>__SAM4LC4C__</state>
-					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>TAL_TYPE=AT86RF233</state>
+					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>SIO_HUB</state>
 				</option>
 				<option>
@@ -1241,9 +1243,10 @@
 					<state>ZRC_PROFILE</state>
 					<state>PRIVATE_NIB</state>
 					<state>__SAM4LC4C__</state>
-					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>TAL_TYPE=AT86RF233</state>
+					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>SIO_HUB</state>
 				</option>
 				<option>
@@ -1588,9 +1591,10 @@
 					<state>ZRC_PROFILE</state>
 					<state>PRIVATE_NIB</state>
 					<state>__SAM4LC4C__</state>
-					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>TAL_TYPE=AT86RF233</state>
+					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>SIO_HUB</state>
 				</option>
 				<option>

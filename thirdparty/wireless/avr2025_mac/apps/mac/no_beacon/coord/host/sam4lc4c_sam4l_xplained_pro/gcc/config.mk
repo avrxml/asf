@@ -175,6 +175,7 @@ CPPFLAGS = \
        -D FFD                                             \
        -D HIGHEST_STACK_LAYER=MAC                         \
        -D SIO_HUB                                         \
+       -D _DEBUG_=0                                       \
        -D __SAM4LC4C__                                    \
        -D printf=iprintf                                  \
        -D scanf=iscanf

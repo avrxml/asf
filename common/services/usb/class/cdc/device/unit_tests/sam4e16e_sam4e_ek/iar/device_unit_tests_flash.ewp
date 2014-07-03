@@ -2020,13 +2020,7 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/tc0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/afec0.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/rswdt.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/gpbr.h</name>
@@ -2045,6 +2039,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/udp.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/afec0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/tc1.h</name>
@@ -2122,9 +2119,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/twi.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/smc.h</name>
 							</file>
 							<file>
@@ -2134,6 +2128,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/rswdt.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/dacc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/cmcc.h</name>
 							</file>
 							<file>
@@ -2141,9 +2138,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/pwm.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/dacc.h</name>
 							</file>
 						</group>
 						<file>

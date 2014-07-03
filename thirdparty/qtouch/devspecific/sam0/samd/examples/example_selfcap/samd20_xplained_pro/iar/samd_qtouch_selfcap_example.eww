@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\samd_qtouch_selfcap_example_flash.ewp</path>
+	</project>
+</workspace>

@@ -62,7 +62,14 @@
 // From module: EEPROM AT24CXX
 #include <at24cxx.h>
 
-// From module: FreeRTOS - Kernel 7.3.0
+// From module: FreeRTOS - PDC Interface Layer
+#include <freertos_peripheral_control.h>
+#include <freertos_peripheral_control_private.h>
+
+// From module: FreeRTOS - TWI Interface Layer
+#include <freertos_twi_master.h>
+
+// From module: FreeRTOS mini Real-Time Kernel
 #include <FreeRTOS.h>
 #include <FreeRTOS_CLI.h>
 #include <StackMacros.h>
@@ -75,13 +82,6 @@
 #include <semphr.h>
 #include <task.h>
 #include <timers.h>
-
-// From module: FreeRTOS - PDC Interface Layer
-#include <freertos_peripheral_control.h>
-#include <freertos_peripheral_control_private.h>
-
-// From module: FreeRTOS - TWI Interface Layer
-#include <freertos_twi_master.h>
 
 // From module: GPIO - General purpose Input/Output
 #include <gpio.h>

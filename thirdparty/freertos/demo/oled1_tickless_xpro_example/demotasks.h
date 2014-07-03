@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS demo tasks header.
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,7 +45,7 @@
 #define DEMOTASKS_H
 
 /**
- * \defgroup freertos-v7_4_2_sam_d20_demotasks_group FreeRTOS demo tasks
+ * \defgroup freertos_sam0_demo_tasks_group FreeRTOS demo tasks
  *
  * The demo tasks demonstrate basic use of FreeRTOS, with inter-task
  * communication using queues and mutexes.

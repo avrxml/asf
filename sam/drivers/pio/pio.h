@@ -167,7 +167,7 @@ void pio_set_schmitt_trigger(Pio *p_pio, const uint32_t ul_mask);
 uint32_t pio_get_schmitt_trigger(const Pio *p_pio);
 #endif
 
-void pio_configure_interrupt(Pio *p_pio, const uint32_t ul_mask, 
+void pio_configure_interrupt(Pio *p_pio, const uint32_t ul_mask,
 		const uint32_t ul_attr);
 void pio_enable_interrupt(Pio *p_pio, const uint32_t ul_mask);
 void pio_disable_interrupt(Pio *p_pio, const uint32_t ul_mask);
@@ -204,7 +204,7 @@ uint32_t pio_configure_pin(uint32_t ul_pin, const uint32_t ul_flags);
 void pio_set_pin_group_high(Pio *p_pio, uint32_t ul_mask);
 void pio_set_pin_group_low(Pio *p_pio, uint32_t ul_mask);
 void pio_toggle_pin_group(Pio *p_pio, uint32_t ul_mask);
-uint32_t pio_configure_pin_group(Pio *p_pio, uint32_t ul_mask, 
+uint32_t pio_configure_pin_group(Pio *p_pio, uint32_t ul_mask,
 		const uint32_t ul_flags);
 
 #if (SAM4C || SAM4CP || SAM4CM)

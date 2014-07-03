@@ -162,10 +162,11 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>__SAM3X8H__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3X_EK</state>
 					<state>UDD_ENABLE</state>
+					<state>__SAM3X8H__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -477,10 +478,11 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>__SAM3X8H__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3X_EK</state>
 					<state>UDD_ENABLE</state>
+					<state>__SAM3X8H__</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1118,10 +1120,11 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>__SAM3X8H__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3X_EK</state>
 					<state>UDD_ENABLE</state>
+					<state>__SAM3X8H__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1433,10 +1436,11 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>__SAM3X8H__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>BOARD=SAM3X_EK</state>
 					<state>UDD_ENABLE</state>
+					<state>__SAM3X8H__</state>
 				</option>
 				<option>
 					<name>AList</name>

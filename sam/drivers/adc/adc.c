@@ -156,7 +156,8 @@ void adc_set_resolution(Adc *p_adc, const enum adc_resolution_t resolution)
 		break;
 	}
 #else
-	p_adc->ADC_MR |= (resolution << 4) & ADC_MR_LOWRES;
+	p_adc->ADC_MR &= ~ADC_MR_LOWRES;
+	p_adc->ADC_MR |= resolution;
 #endif
 }
 

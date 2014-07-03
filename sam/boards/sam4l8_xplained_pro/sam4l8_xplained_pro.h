@@ -3,7 +3,7 @@
  *
  * \brief SAM4L8 Xplained Pro board definition
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -601,6 +601,22 @@
 #define EDBG_TWI_SDA_MUX          MUX_PA23B_TWIMS0_TWD
 #define EDBG_TWI_SCL_PIN          PIN_PA24B_TWIMS0_TWCK
 #define EDBG_TWI_SCL_MUX          MUX_PA24B_TWIMS0_TWCK
+//@}
+
+//! \name OLED
+//@{
+/** OLED command/data select pin */
+#define UG_2832HSWEG04_DATA_CMD_GPIO   (EXT2_PIN_5)
+/** OLED reset pin */
+#define UG_2832HSWEG04_RESET_GPIO      (EXT2_PIN_10)
+/** OLED SPI configuration */
+#define UG_2832HSWEG04_SS               2
+#define UG_2832HSWEG04_BAUDRATE         5000000
+//! \name OLED dimensions
+//@{
+#define LCD_WIDTH_PIXELS                (128)
+#define LCD_HEIGHT_PIXELS               (32)
+//@}
 //@}
 
 /*! \name Connections of the AT86RFX transceiver

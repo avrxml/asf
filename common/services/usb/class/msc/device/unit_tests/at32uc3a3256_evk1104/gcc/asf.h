@@ -96,7 +96,7 @@
 // From module: Part identification macros
 #include <parts.h>
 
-// From module: SD/MMC stack + Memory Control Access (aka ctrl_access, required for file system or USB)
+// From module: SD/MMC Memory Control Access - Enable
 #include <sd_mmc_mem.h>
 
 // From module: SD/MMC stack on Multimedia Card interface

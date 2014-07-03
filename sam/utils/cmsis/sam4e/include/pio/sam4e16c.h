@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -89,38 +89,6 @@
 #define PIO_PB12             (1u << 12) /**< \brief Pin Controlled by PB12 */
 #define PIO_PB13             (1u << 13) /**< \brief Pin Controlled by PB13 */
 #define PIO_PB14             (1u << 14) /**< \brief Pin Controlled by PB14 */
-#define PIO_PC0              (1u << 0)  /**< \brief Pin Controlled by PC0 */
-#define PIO_PC1              (1u << 1)  /**< \brief Pin Controlled by PC1 */
-#define PIO_PC2              (1u << 2)  /**< \brief Pin Controlled by PC2 */
-#define PIO_PC3              (1u << 3)  /**< \brief Pin Controlled by PC3 */
-#define PIO_PC4              (1u << 4)  /**< \brief Pin Controlled by PC4 */
-#define PIO_PC5              (1u << 5)  /**< \brief Pin Controlled by PC5 */
-#define PIO_PC6              (1u << 6)  /**< \brief Pin Controlled by PC6 */
-#define PIO_PC7              (1u << 7)  /**< \brief Pin Controlled by PC7 */
-#define PIO_PC8              (1u << 8)  /**< \brief Pin Controlled by PC8 */
-#define PIO_PC9              (1u << 9)  /**< \brief Pin Controlled by PC9 */
-#define PIO_PC10             (1u << 10) /**< \brief Pin Controlled by PC10 */
-#define PIO_PC11             (1u << 11) /**< \brief Pin Controlled by PC11 */
-#define PIO_PC12             (1u << 12) /**< \brief Pin Controlled by PC12 */
-#define PIO_PC13             (1u << 13) /**< \brief Pin Controlled by PC13 */
-#define PIO_PC14             (1u << 14) /**< \brief Pin Controlled by PC14 */
-#define PIO_PC15             (1u << 15) /**< \brief Pin Controlled by PC15 */
-#define PIO_PC16             (1u << 16) /**< \brief Pin Controlled by PC16 */
-#define PIO_PC17             (1u << 17) /**< \brief Pin Controlled by PC17 */
-#define PIO_PC18             (1u << 18) /**< \brief Pin Controlled by PC18 */
-#define PIO_PC19             (1u << 19) /**< \brief Pin Controlled by PC19 */
-#define PIO_PC20             (1u << 20) /**< \brief Pin Controlled by PC20 */
-#define PIO_PC21             (1u << 21) /**< \brief Pin Controlled by PC21 */
-#define PIO_PC22             (1u << 22) /**< \brief Pin Controlled by PC22 */
-#define PIO_PC23             (1u << 23) /**< \brief Pin Controlled by PC23 */
-#define PIO_PC24             (1u << 24) /**< \brief Pin Controlled by PC24 */
-#define PIO_PC25             (1u << 25) /**< \brief Pin Controlled by PC25 */
-#define PIO_PC26             (1u << 26) /**< \brief Pin Controlled by PC26 */
-#define PIO_PC27             (1u << 27) /**< \brief Pin Controlled by PC27 */
-#define PIO_PC28             (1u << 28) /**< \brief Pin Controlled by PC28 */
-#define PIO_PC29             (1u << 29) /**< \brief Pin Controlled by PC29 */
-#define PIO_PC30             (1u << 30) /**< \brief Pin Controlled by PC30 */
-#define PIO_PC31             (1u << 31) /**< \brief Pin Controlled by PC31 */
 #define PIO_PD0              (1u << 0)  /**< \brief Pin Controlled by PD0 */
 #define PIO_PD1              (1u << 1)  /**< \brief Pin Controlled by PD1 */
 #define PIO_PD2              (1u << 2)  /**< \brief Pin Controlled by PD2 */
@@ -153,12 +121,6 @@
 #define PIO_PD29             (1u << 29) /**< \brief Pin Controlled by PD29 */
 #define PIO_PD30             (1u << 30) /**< \brief Pin Controlled by PD30 */
 #define PIO_PD31             (1u << 31) /**< \brief Pin Controlled by PD31 */
-#define PIO_PE0              (1u << 0)  /**< \brief Pin Controlled by PE0 */
-#define PIO_PE1              (1u << 1)  /**< \brief Pin Controlled by PE1 */
-#define PIO_PE2              (1u << 2)  /**< \brief Pin Controlled by PE2 */
-#define PIO_PE3              (1u << 3)  /**< \brief Pin Controlled by PE3 */
-#define PIO_PE4              (1u << 4)  /**< \brief Pin Controlled by PE4 */
-#define PIO_PE5              (1u << 5)  /**< \brief Pin Controlled by PE5 */
 /* ========== Pio definition for AFEC0 peripheral ========== */
 #define PIO_PA17X1_AFE0_AD0  (1u << 17) /**< \brief Afec0 signal: AFE0_AD0 */
 #define PIO_PA18X1_AFE0_AD1  (1u << 18) /**< \brief Afec0 signal: AFE0_AD1 */
@@ -193,9 +155,6 @@
 /* ========== Pio definition for CAN0 peripheral ========== */
 #define PIO_PB3A_CANRX0      (1u << 3)  /**< \brief Can0 signal: CANRX0 */
 #define PIO_PB2A_CANTX0      (1u << 2)  /**< \brief Can0 signal: CANTX0 */
-/* ========== Pio definition for CAN1 peripheral ========== */
-#define PIO_PC12C_CANRX1     (1u << 12) /**< \brief Can1 signal: CANRX1 */
-#define PIO_PC15C_CANTX1     (1u << 15) /**< \brief Can1 signal: CANTX1 */
 /* ========== Pio definition for DACC peripheral ========== */
 #define PIO_PB13X1_DAC0      (1u << 13) /**< \brief Dacc signal: DAC0 */
 #define PIO_PB14X1_DAC1      (1u << 14) /**< \brief Dacc signal: DAC1 */
@@ -321,26 +280,6 @@
 #define PIO_PA1B_TIOB0       (1u << 1)  /**< \brief Tc0 signal: TIOB0 */
 #define PIO_PA16B_TIOB1      (1u << 16) /**< \brief Tc0 signal: TIOB1 */
 #define PIO_PA27B_TIOB2      (1u << 27) /**< \brief Tc0 signal: TIOB2 */
-/* ========== Pio definition for TC1 peripheral ========== */
-#define PIO_PC25B_TCLK3      (1u << 25) /**< \brief Tc1 signal: TCLK3 */
-#define PIO_PC28B_TCLK4      (1u << 28) /**< \brief Tc1 signal: TCLK4 */
-#define PIO_PC31B_TCLK5      (1u << 31) /**< \brief Tc1 signal: TCLK5 */
-#define PIO_PC23B_TIOA3      (1u << 23) /**< \brief Tc1 signal: TIOA3 */
-#define PIO_PC26B_TIOA4      (1u << 26) /**< \brief Tc1 signal: TIOA4 */
-#define PIO_PC29B_TIOA5      (1u << 29) /**< \brief Tc1 signal: TIOA5 */
-#define PIO_PC24B_TIOB3      (1u << 24) /**< \brief Tc1 signal: TIOB3 */
-#define PIO_PC27B_TIOB4      (1u << 27) /**< \brief Tc1 signal: TIOB4 */
-#define PIO_PC30B_TIOB5      (1u << 30) /**< \brief Tc1 signal: TIOB5 */
-/* ========== Pio definition for TC2 peripheral ========== */
-#define PIO_PC7B_TCLK6       (1u << 7)  /**< \brief Tc2 signal: TCLK6 */
-#define PIO_PC10B_TCLK7      (1u << 10) /**< \brief Tc2 signal: TCLK7 */
-#define PIO_PC14B_TCLK8      (1u << 14) /**< \brief Tc2 signal: TCLK8 */
-#define PIO_PC5B_TIOA6       (1u << 5)  /**< \brief Tc2 signal: TIOA6 */
-#define PIO_PC8B_TIOA7       (1u << 8)  /**< \brief Tc2 signal: TIOA7 */
-#define PIO_PC11B_TIOA8      (1u << 11) /**< \brief Tc2 signal: TIOA8 */
-#define PIO_PC6B_TIOB6       (1u << 6)  /**< \brief Tc2 signal: TIOB6 */
-#define PIO_PC9B_TIOB7       (1u << 9)  /**< \brief Tc2 signal: TIOB7 */
-#define PIO_PC12B_TIOB8      (1u << 12) /**< \brief Tc2 signal: TIOB8 */
 /* ========== Pio definition for TWI0 peripheral ========== */
 #define PIO_PA4A_TWCK0       (1u << 4)  /**< \brief Twi0 signal: TWCK0 */
 #define PIO_PA3A_TWD0        (1u << 3)  /**< \brief Twi0 signal: TWD0 */
@@ -417,38 +356,6 @@
 #define PIO_PB12_IDX         44
 #define PIO_PB13_IDX         45
 #define PIO_PB14_IDX         46
-#define PIO_PC0_IDX          64
-#define PIO_PC1_IDX          65
-#define PIO_PC2_IDX          66
-#define PIO_PC3_IDX          67
-#define PIO_PC4_IDX          68
-#define PIO_PC5_IDX          69
-#define PIO_PC6_IDX          70
-#define PIO_PC7_IDX          71
-#define PIO_PC8_IDX          72
-#define PIO_PC9_IDX          73
-#define PIO_PC10_IDX         74
-#define PIO_PC11_IDX         75
-#define PIO_PC12_IDX         76
-#define PIO_PC13_IDX         77
-#define PIO_PC14_IDX         78
-#define PIO_PC15_IDX         79
-#define PIO_PC16_IDX         80
-#define PIO_PC17_IDX         81
-#define PIO_PC18_IDX         82
-#define PIO_PC19_IDX         83
-#define PIO_PC20_IDX         84
-#define PIO_PC21_IDX         85
-#define PIO_PC22_IDX         86
-#define PIO_PC23_IDX         87
-#define PIO_PC24_IDX         88
-#define PIO_PC25_IDX         89
-#define PIO_PC26_IDX         90
-#define PIO_PC27_IDX         91
-#define PIO_PC28_IDX         92
-#define PIO_PC29_IDX         93
-#define PIO_PC30_IDX         94
-#define PIO_PC31_IDX         95
 #define PIO_PD0_IDX          96
 #define PIO_PD1_IDX          97
 #define PIO_PD2_IDX          98
@@ -481,11 +388,5 @@
 #define PIO_PD29_IDX         125
 #define PIO_PD30_IDX         126
 #define PIO_PD31_IDX         127
-#define PIO_PE0_IDX          128
-#define PIO_PE1_IDX          129
-#define PIO_PE2_IDX          130
-#define PIO_PE3_IDX          131
-#define PIO_PE4_IDX          132
-#define PIO_PE5_IDX          133
 
 #endif /* _SAM4E16C_PIO_ */

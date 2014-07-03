@@ -401,7 +401,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils</state>
 					<state>$PROJ_DIR$/../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../ioport</state>
+					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/nvm</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
@@ -417,7 +417,7 @@
 					<state>$PROJ_DIR$/../../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/boards/xmega_c3_xplained</state>
-					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../ioport</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/sleep</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/cpu</state>
@@ -693,7 +693,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils</state>
 					<state>$PROJ_DIR$/../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../ioport</state>
+					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/nvm</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
@@ -709,7 +709,7 @@
 					<state>$PROJ_DIR$/../../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/boards/xmega_c3_xplained</state>
-					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../ioport</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/sleep</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/cpu</state>
@@ -1450,7 +1450,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils</state>
 					<state>$PROJ_DIR$/../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../ioport</state>
+					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/nvm</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
@@ -1466,7 +1466,7 @@
 					<state>$PROJ_DIR$/../../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/boards/xmega_c3_xplained</state>
-					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../ioport</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/sleep</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/cpu</state>
@@ -1742,7 +1742,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils</state>
 					<state>$PROJ_DIR$/../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../ioport</state>
+					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/nvm</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
@@ -1758,7 +1758,7 @@
 					<state>$PROJ_DIR$/../../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/boards/xmega_c3_xplained</state>
-					<state>$PROJ_DIR$/../../../../../../../../../xmega/utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../ioport</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/sleep</state>
 					<state>$PROJ_DIR$/../../../../../../../../../xmega/drivers/cpu</state>
@@ -2133,25 +2133,40 @@
 		<group>
 			<name>services</name>
 			<group>
-				<name>usb</name>
+				<name>spi</name>
 				<group>
-					<name>udc</name>
+					<name>xmega_usart_spi</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../udc/udc.c</name>
+						<name>$PROJ_DIR$/../../../../../../../spi/xmega_usart_spi/usart_spi.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../udc/udi.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../udc/udd.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../udc/udc_desc.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../udc/udc.h</name>
+						<name>$PROJ_DIR$/../../../../../../../spi/xmega_usart_spi/usart_spi.h</name>
 					</file>
 				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../spi/usart_spi.h</name>
+				</file>
+			</group>
+			<group>
+				<name>ioport</name>
+				<group>
+					<name>xmega</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../ioport/xmega/ioport_compat.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../ioport/xmega/ioport.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../ioport/xmega/ioport_compat.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../ioport/ioport.h</name>
+				</file>
+			</group>
+			<group>
+				<name>usb</name>
 				<group>
 					<name>class</name>
 					<group>
@@ -2230,29 +2245,29 @@
 						</file>
 					</group>
 				</group>
+				<group>
+					<name>udc</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../udc/udc.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../udc/udi.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../udc/udd.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../udc/udc_desc.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../udc/udc.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../usb_protocol.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../usb_atmel.h</name>
-				</file>
-			</group>
-			<group>
-				<name>ioport</name>
-				<group>
-					<name>xmega</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../ioport/xmega/ioport_compat.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../ioport/xmega/ioport.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../ioport/xmega/ioport_compat.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../ioport/ioport.h</name>
 				</file>
 			</group>
 			<group>
@@ -2295,21 +2310,6 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../clock/sysclk.h</name>
-				</file>
-			</group>
-			<group>
-				<name>spi</name>
-				<group>
-					<name>xmega_usart_spi</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../spi/xmega_usart_spi/usart_spi.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../spi/xmega_usart_spi/usart_spi.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../spi/usart_spi.h</name>
 				</file>
 			</group>
 			<group>

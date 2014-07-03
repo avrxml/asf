@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS demo application tick setup function and tickless function
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -149,7 +149,7 @@ void vPortSetupTimerInterrupt(void)
  *
  * Function to configure timer for sleep, and calculate time slept.
  */ 
-void vPortSuppressTicksAndSleep( portTickType xExpectedIdleTime )
+void vPortSuppressTicksAndSleep( TickType_t xExpectedIdleTime )
 {
 	// Are we running tickless now?
 	if (!tickless_enable) return;

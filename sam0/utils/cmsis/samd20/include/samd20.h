@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Header file for SAMD20J18
+ * \brief Header file for SAMD20
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,37 +44,42 @@
 #ifndef _SAMD20_
 #define _SAMD20_
 
-#if defined (__SAMD20E14__)
+/**
+ * \defgroup SAMD20_definitions SAMD20 Device Definitions
+ * \brief SAMD20 CMSIS Definitions.
+ */
+
+#if defined(__SAMD20E14__) || defined(__ATSAMD20E14__)
 #include "samd20e14.h"
-#elif defined (__SAMD20E15__)
+#elif defined(__SAMD20E15__) || defined(__ATSAMD20E15__)
 #include "samd20e15.h"
-#elif defined (__SAMD20E16__)
+#elif defined(__SAMD20E16__) || defined(__ATSAMD20E16__)
 #include "samd20e16.h"
-#elif defined (__SAMD20E17__)
+#elif defined(__SAMD20E17__) || defined(__ATSAMD20E17__)
 #include "samd20e17.h"
-#elif defined (__SAMD20E18__)
+#elif defined(__SAMD20E18__) || defined(__ATSAMD20E18__)
 #include "samd20e18.h"
-#elif defined (__SAMD20E1F__)
+#elif defined(__SAMD20E1F__) || defined(__ATSAMD20E1F__)
 #include "samd20e1f.h"
-#elif defined (__SAMD20G14__)
+#elif defined(__SAMD20G14__) || defined(__ATSAMD20G14__)
 #include "samd20g14.h"
-#elif defined (__SAMD20G15__)
+#elif defined(__SAMD20G15__) || defined(__ATSAMD20G15__)
 #include "samd20g15.h"
-#elif defined (__SAMD20G16__)
+#elif defined(__SAMD20G16__) || defined(__ATSAMD20G16__)
 #include "samd20g16.h"
-#elif defined (__SAMD20G17__)
+#elif defined(__SAMD20G17__) || defined(__ATSAMD20G17__)
 #include "samd20g17.h"
-#elif defined (__SAMD20G18__)
+#elif defined(__SAMD20G18__) || defined(__ATSAMD20G18__)
 #include "samd20g18.h"
-#elif defined (__SAMD20J14__)
+#elif defined(__SAMD20J14__) || defined(__ATSAMD20J14__)
 #include "samd20j14.h"
-#elif defined (__SAMD20J15__)
+#elif defined(__SAMD20J15__) || defined(__ATSAMD20J15__)
 #include "samd20j15.h"
-#elif defined (__SAMD20J16__)
+#elif defined(__SAMD20J16__) || defined(__ATSAMD20J16__)
 #include "samd20j16.h"
-#elif defined (__SAMD20J17__)
+#elif defined(__SAMD20J17__) || defined(__ATSAMD20J17__)
 #include "samd20j17.h"
-#elif defined (__SAMD20J18__)
+#elif defined(__SAMD20J18__) || defined(__ATSAMD20J18__)
 #include "samd20j18.h"
 #else
   #error Library does not support the specified device.

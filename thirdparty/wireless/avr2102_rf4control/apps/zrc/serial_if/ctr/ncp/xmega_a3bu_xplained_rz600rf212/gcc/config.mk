@@ -232,7 +232,8 @@ CPPFLAGS = \
        -D TAL_TYPE=AT86RF212                              \
        -D VENDOR_DATA                                     \
        -D ZRC_CMD_DISCOVERY                               \
-       -D ZRC_PROFILE
+       -D ZRC_PROFILE                                     \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS =  \

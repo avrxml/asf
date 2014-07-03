@@ -3,7 +3,7 @@
  *
  * \brief Embedded Debugger (EDBG) Virtual COM Port driver for FreeRTOS demo.
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,7 +52,7 @@
  *
  * Simple driver for receiving from the EDBG Virtual COM Port via SERCOM USART.
  *
- * This makes use of the \ref asfdoc_samd20_sercom_usart_group, but configures a
+ * This makes use of the \ref asfdoc_sam0_sercom_usart_group, but configures a
  * custom interrupt handler for the SERCOM instead of using the driver's own
  * handler.
  * The purpose of this driver is to avoid the overhead of the SERCOM USART

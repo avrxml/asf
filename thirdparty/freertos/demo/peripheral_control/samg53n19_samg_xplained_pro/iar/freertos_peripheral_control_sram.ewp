@@ -162,6 +162,7 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>__FREERTOS__</state>
 					<state>__SAMG53N19__</state>
 					<state>BOARD=SAMG53_XPLAINED_PRO</state>
 					<state>ARM_MATH_CM4=true</state>
@@ -295,8 +296,8 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/fpu</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
@@ -470,6 +471,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>__FREERTOS__</state>
 					<state>__SAMG53N19__</state>
 					<state>BOARD=SAMG53_XPLAINED_PRO</state>
 					<state>ARM_MATH_CM4=true</state>
@@ -570,8 +572,8 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/fpu</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
@@ -1104,6 +1106,7 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>__FREERTOS__</state>
 					<state>__SAMG53N19__</state>
 					<state>BOARD=SAMG53_XPLAINED_PRO</state>
 					<state>ARM_MATH_CM4=true</state>
@@ -1237,8 +1240,8 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/fpu</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
@@ -1412,6 +1415,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>__FREERTOS__</state>
 					<state>__SAMG53N19__</state>
 					<state>BOARD=SAMG53_XPLAINED_PRO</state>
 					<state>ARM_MATH_CM4=true</state>
@@ -1512,8 +1516,8 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/fpu</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
@@ -2036,90 +2040,6 @@
 		<group>
 			<name>freertos</name>
 			<group>
-				<name>freertos-7.3.0</name>
-				<group>
-					<name>source</name>
-					<group>
-						<name>portable</name>
-						<group>
-							<name>iar</name>
-							<group>
-								<name>arm_cm4f</name>
-								<file>
-									<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm4f/port.c</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm4f/portasm.s</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/arm_cm4f/portmacro.h</name>
-								</file>
-							</group>
-						</group>
-						<group>
-							<name>memmang</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/memmang/heap_4.c</name>
-							</file>
-						</group>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/queue.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/list.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/timers.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/tasks.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/FreeRTOS_CLI.c</name>
-					</file>
-					<group>
-						<name>include</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/croutine.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/queue.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/mpu_wrappers.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/FreeRTOS_CLI.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/task.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/FreeRTOS.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/list.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/StackMacros.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/portable.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/timers.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/projdefs.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/semphr.h</name>
-						</file>
-					</group>
-				</group>
-			</group>
-			<group>
 				<name>demo</name>
 				<group>
 					<name>peripheral_control</name>
@@ -2180,6 +2100,90 @@
 					<file>
 						<name>$PROJ_DIR$/../../partest.h</name>
 					</file>
+				</group>
+			</group>
+			<group>
+				<name>freertos-7.3.0</name>
+				<group>
+					<name>source</name>
+					<group>
+						<name>portable</name>
+						<group>
+							<name>memmang</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/memmang/heap_4.c</name>
+							</file>
+						</group>
+						<group>
+							<name>iar</name>
+							<group>
+								<name>sam_cm4f</name>
+								<file>
+									<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam_cm4f/port.c</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam_cm4f/portasm.s</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/portable/iar/sam_cm4f/portmacro.h</name>
+								</file>
+							</group>
+						</group>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/queue.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/list.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/timers.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/tasks.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/FreeRTOS_CLI.c</name>
+					</file>
+					<group>
+						<name>include</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/croutine.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/queue.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/mpu_wrappers.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/FreeRTOS_CLI.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/task.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/FreeRTOS.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/list.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/StackMacros.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/portable.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/timers.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/projdefs.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.3.0/source/include/semphr.h</name>
+						</file>
+					</group>
 				</group>
 			</group>
 		</group>
@@ -2298,6 +2302,9 @@
 									<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/samg/samg53/include/component/component_pmc.h</name>
 								</file>
 								<file>
+									<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/samg/samg53/include/component/component_i2sc.h</name>
+								</file>
+								<file>
 									<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/samg/samg53/include/component/component_twi.h</name>
 								</file>
 								<file>
@@ -2314,9 +2321,6 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/samg/samg53/include/component/component_adc.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/samg/samg53/include/component/component_i2sc.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/samg/samg53/include/component/component_supc.h</name>

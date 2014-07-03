@@ -251,6 +251,7 @@
 					<state>NLDE_HANDLE</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ADC_ACCELEROMETER=0</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ENABLE_STACK_NVM</state>
 					<state>BOARD=ATMEGARFX_RCB</state>
@@ -604,6 +605,7 @@
 					<state>NLDE_HANDLE</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ADC_ACCELEROMETER=0</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ENABLE_STACK_NVM</state>
 					<state>BOARD=ATMEGARFX_RCB</state>
@@ -1364,6 +1366,7 @@
 					<state>NLDE_HANDLE</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ADC_ACCELEROMETER=0</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ENABLE_STACK_NVM</state>
 					<state>BOARD=ATMEGARFX_RCB</state>
@@ -1717,6 +1720,7 @@
 					<state>NLDE_HANDLE</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ADC_ACCELEROMETER=0</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ENABLE_STACK_NVM</state>
 					<state>BOARD=ATMEGARFX_RCB</state>

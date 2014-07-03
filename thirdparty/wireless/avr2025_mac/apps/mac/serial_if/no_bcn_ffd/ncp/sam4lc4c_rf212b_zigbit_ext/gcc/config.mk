@@ -232,6 +232,7 @@ CPPFLAGS = \
        -D STB_ON_SAL                                      \
        -D TAL_TYPE=AT86RF212B                             \
        -D TEST_HARNESS                                    \
+       -D _DEBUG_=0                                       \
        -D __SAM4LC4C__                                    \
        -D printf=iprintf                                  \
        -D scanf=iscanf

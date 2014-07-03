@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\ipc_example_core1_sram.ewp</path>
+	</project>
+</workspace>

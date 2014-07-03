@@ -265,6 +265,7 @@
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>_ASSERT_ENABLE_</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>GDP_PROFILE</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 				</option>
@@ -639,6 +640,7 @@
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>_ASSERT_ENABLE_</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>GDP_PROFILE</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 				</option>
@@ -1402,6 +1404,7 @@
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>_ASSERT_ENABLE_</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>GDP_PROFILE</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 				</option>
@@ -1776,6 +1779,7 @@
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>_ASSERT_ENABLE_</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>GDP_PROFILE</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 				</option>

@@ -162,6 +162,7 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>__FREERTOS__</state>
 					<state>BOARD=SAM4E_EK</state>
 					<state>FREERTOS_USED=1</state>
 					<state>ARM_MATH_CM4=true</state>
@@ -297,12 +298,12 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
-					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/lwip</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/ethernet_phy/ksz8051mnl</state>
-					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/arm_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/display/ili93xx</state>
+					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -313,7 +314,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
+					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/gmac</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/resistive_touch/ads7843</state>
 					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/include</state>
@@ -486,6 +487,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>__FREERTOS__</state>
 					<state>BOARD=SAM4E_EK</state>
 					<state>FREERTOS_USED=1</state>
 					<state>ARM_MATH_CM4=true</state>
@@ -588,12 +590,12 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
-					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/lwip</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/ethernet_phy/ksz8051mnl</state>
-					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/arm_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/display/ili93xx</state>
+					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -604,7 +606,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
+					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/gmac</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/resistive_touch/ads7843</state>
 					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/include</state>
@@ -1137,6 +1139,7 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>__FREERTOS__</state>
 					<state>BOARD=SAM4E_EK</state>
 					<state>FREERTOS_USED=1</state>
 					<state>ARM_MATH_CM4=true</state>
@@ -1272,12 +1275,12 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
-					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/lwip</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/ethernet_phy/ksz8051mnl</state>
-					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/arm_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/display/ili93xx</state>
+					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -1288,7 +1291,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
+					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/gmac</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/resistive_touch/ads7843</state>
 					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/include</state>
@@ -1461,6 +1464,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>__FREERTOS__</state>
 					<state>BOARD=SAM4E_EK</state>
 					<state>FREERTOS_USED=1</state>
 					<state>ARM_MATH_CM4=true</state>
@@ -1563,12 +1567,12 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
-					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/lwip</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/ethernet_phy/ksz8051mnl</state>
-					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/arm_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/display/ili93xx</state>
+					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -1579,7 +1583,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
+					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/gmac</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/resistive_touch/ads7843</state>
 					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/include</state>
@@ -2386,15 +2390,15 @@
 						<group>
 							<name>iar</name>
 							<group>
-								<name>arm_cm4f</name>
+								<name>sam_cm4f</name>
 								<file>
-									<name>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/arm_cm4f/port.c</name>
+									<name>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam_cm4f/port.c</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/arm_cm4f/portasm.s</name>
+									<name>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam_cm4f/portasm.s</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/arm_cm4f/portmacro.h</name>
+									<name>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam_cm4f/portmacro.h</name>
 								</file>
 							</group>
 						</group>
@@ -2668,9 +2672,6 @@
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/component/supc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/component/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/component/twi.h</name>
 							</file>
 							<file>
@@ -2801,9 +2802,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/instance/spi.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/instance/crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/instance/usart1.h</name>

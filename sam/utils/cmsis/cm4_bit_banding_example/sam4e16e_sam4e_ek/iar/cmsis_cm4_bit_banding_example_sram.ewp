@@ -2082,9 +2082,6 @@
 								<name>$PROJ_DIR$/../../../sam4e/include/instance/twi1.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4e/include/instance/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../sam4e/include/instance/hsmci.h</name>
 							</file>
 							<file>
@@ -2146,9 +2143,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4e/include/component/pwm.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../sam4e/include/component/crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4e/include/component/gmac.h</name>

@@ -162,10 +162,11 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>BOARD=SAM4S_EK</state>
+					<state>__SAM4S16C__</state>
+					<state>__FREERTOS__</state>
 					<state>UDD_ENABLE</state>
 					<state>ARM_MATH_CM4=true</state>
-					<state>__SAM4S16C__</state>
+					<state>BOARD=SAM4S_EK</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -475,10 +476,11 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>BOARD=SAM4S_EK</state>
+					<state>__SAM4S16C__</state>
+					<state>__FREERTOS__</state>
 					<state>UDD_ENABLE</state>
 					<state>ARM_MATH_CM4=true</state>
-					<state>__SAM4S16C__</state>
+					<state>BOARD=SAM4S_EK</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1114,10 +1116,11 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>BOARD=SAM4S_EK</state>
+					<state>__SAM4S16C__</state>
+					<state>__FREERTOS__</state>
 					<state>UDD_ENABLE</state>
 					<state>ARM_MATH_CM4=true</state>
-					<state>__SAM4S16C__</state>
+					<state>BOARD=SAM4S_EK</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1427,10 +1430,11 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>BOARD=SAM4S_EK</state>
+					<state>__SAM4S16C__</state>
+					<state>__FREERTOS__</state>
 					<state>UDD_ENABLE</state>
 					<state>ARM_MATH_CM4=true</state>
-					<state>__SAM4S16C__</state>
+					<state>BOARD=SAM4S_EK</state>
 				</option>
 				<option>
 					<name>AList</name>

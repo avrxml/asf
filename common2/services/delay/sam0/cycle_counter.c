@@ -44,8 +44,6 @@
 #include "delay.h"
 
 /**
- * \def delay_init
- *
  * \brief Initialize the delay driver.
  *
  * Not used in cycle mode.

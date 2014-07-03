@@ -148,7 +148,7 @@ extern "C" {
  *
  * \subsection asfdoc_sam0_system_clock_module_overview_clock_masking Clock Masking
  * To save power, the input clock to one or more peripherals on the AHB and APBx
- * busses can be masked away - when masked, no clock is passed into the module.
+ * buses can be masked away - when masked, no clock is passed into the module.
  * Disabling of clocks of unused modules will prevent all access to the masked
  * module, but will reduce the overall device power consumption.
  *
@@ -379,7 +379,7 @@ enum system_osc8m_div {
 /**
  * \brief Frequency range for the internal 8Mhz RC oscillator
  *
- * Internal 8Mhz RC oscillator freqency range setting
+ * Internal 8Mhz RC oscillator frequency range setting
  */
 enum system_osc8m_frequency_range {
 	/** Frequency range 4 Mhz to 6 Mhz */
@@ -440,10 +440,13 @@ enum system_clock_dfll_loop_mode {
 	 *  a low frequency reference clock
 	 */
 	SYSTEM_CLOCK_DFLL_LOOP_MODE_CLOSED = SYSCTRL_DFLLCTRL_MODE,
+
+#ifdef SYSCTRL_DFLLCTRL_USBCRM
 	/** The DFLL is operating in USB recovery mode with frequency feedback
 	 *  from USB SOF
 	 */
 	SYSTEM_CLOCK_DFLL_LOOP_MODE_USB_RECOVERY = SYSCTRL_DFLLCTRL_USBCRM,
+#endif
 };
 
 /**
@@ -515,6 +518,10 @@ enum system_clock_source {
 	SYSTEM_CLOCK_SOURCE_DFLL     = GCLK_SOURCE_DFLL48M,
 	/** Internal Ultra Low Power 32kHz oscillator */
 	SYSTEM_CLOCK_SOURCE_ULP32K   = GCLK_SOURCE_OSCULP32K,
+	/** Generator input pad */
+	SYSTEM_CLOCK_SOURCE_GCLKIN     = GCLK_SOURCE_GCLKIN,
+	/** Generic clock generator 1 output */
+	SYSTEM_CLOCK_SOURCE_GCLKGEN1   = GCLK_SOURCE_GCLKGEN1,
 #ifdef FEATURE_SYSTEM_CLOCK_DPLL
 	/** Digital Phase Locked Loop (DPLL).
 	 * Check \c FEATURE_SYSTEM_CLOCK_DPLL for which device support it.

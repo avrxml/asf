@@ -246,27 +246,28 @@
 				<option>
 					<name>CCDefines</name>
 					<state></state>
-					<state>SAL_TYPE=ATMEGARF_SAL</state>
-					<state>STB_ON_SAL</state>
 					<state>ZID_DEVICE</state>
-					<state>PBP_ORG</state>
-					<state>RF4CE_CALLBACK_PARAM</state>
-					<state>VENDOR_DATA</state>
-					<state>MAC_USER_BUILD_CONFIG</state>
-					<state>HIGHEST_STACK_LAYER=RF4CE</state>
-					<state>ENABLE_STACK_NVM</state>
-					<state>EXTERN_EEPROM_AVAILABLE=0</state>
-					<state>REDUCED_PARAM_CHECK</state>
-					<state>AVR477_QTOUCH</state>
-					<state>NLDE_HANDLE</state>
-					<state>ZID_PROFILE</state>
-					<state>RF4CE_SECURITY</state>
 					<state>TAL_USER_BUILD_CONFIG</state>
-					<state>GDP_PROFILE</state>
+					<state>NLDE_HANDLE</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>_DEBUG_=0</state>
+					<state>VENDOR_DATA</state>
+					<state>ENABLE_STACK_NVM</state>
+					<state>RF4CE_SECURITY</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
 					<state>BOARD=DUMMY_BOARD</state>
+					<state>STB_ON_SAL</state>
+					<state>PBP_ORG</state>
+					<state>REDUCED_PARAM_CHECK</state>
+					<state>EXTERN_EEPROM_AVAILABLE=0</state>
+					<state>SAL_TYPE=ATMEGARF_SAL</state>
 					<state>TAL_TYPE=ATMEGARFR2</state>
 					<state>PRIVATE_NIB</state>
+					<state>ZID_PROFILE</state>
+					<state>RF4CE_CALLBACK_PARAM</state>
+					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>AVR477_QTOUCH</state>
+					<state>GDP_PROFILE</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -599,27 +600,28 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>SAL_TYPE=ATMEGARF_SAL</state>
-					<state>STB_ON_SAL</state>
 					<state>ZID_DEVICE</state>
-					<state>PBP_ORG</state>
-					<state>RF4CE_CALLBACK_PARAM</state>
-					<state>VENDOR_DATA</state>
-					<state>MAC_USER_BUILD_CONFIG</state>
-					<state>HIGHEST_STACK_LAYER=RF4CE</state>
-					<state>ENABLE_STACK_NVM</state>
-					<state>EXTERN_EEPROM_AVAILABLE=0</state>
-					<state>REDUCED_PARAM_CHECK</state>
-					<state>AVR477_QTOUCH</state>
-					<state>NLDE_HANDLE</state>
-					<state>ZID_PROFILE</state>
-					<state>RF4CE_SECURITY</state>
 					<state>TAL_USER_BUILD_CONFIG</state>
-					<state>GDP_PROFILE</state>
+					<state>NLDE_HANDLE</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>_DEBUG_=0</state>
+					<state>VENDOR_DATA</state>
+					<state>ENABLE_STACK_NVM</state>
+					<state>RF4CE_SECURITY</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
 					<state>BOARD=DUMMY_BOARD</state>
+					<state>STB_ON_SAL</state>
+					<state>PBP_ORG</state>
+					<state>REDUCED_PARAM_CHECK</state>
+					<state>EXTERN_EEPROM_AVAILABLE=0</state>
+					<state>SAL_TYPE=ATMEGARF_SAL</state>
 					<state>TAL_TYPE=ATMEGARFR2</state>
 					<state>PRIVATE_NIB</state>
+					<state>ZID_PROFILE</state>
+					<state>RF4CE_CALLBACK_PARAM</state>
+					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>AVR477_QTOUCH</state>
+					<state>GDP_PROFILE</state>
 				</option>
 				<option>
 					<name>MacroChars</name>
@@ -1359,27 +1361,28 @@
 				<option>
 					<name>CCDefines</name>
 					<state>NDEBUG</state>
-					<state>SAL_TYPE=ATMEGARF_SAL</state>
-					<state>STB_ON_SAL</state>
 					<state>ZID_DEVICE</state>
-					<state>PBP_ORG</state>
-					<state>RF4CE_CALLBACK_PARAM</state>
-					<state>VENDOR_DATA</state>
-					<state>MAC_USER_BUILD_CONFIG</state>
-					<state>HIGHEST_STACK_LAYER=RF4CE</state>
-					<state>ENABLE_STACK_NVM</state>
-					<state>EXTERN_EEPROM_AVAILABLE=0</state>
-					<state>REDUCED_PARAM_CHECK</state>
-					<state>AVR477_QTOUCH</state>
-					<state>NLDE_HANDLE</state>
-					<state>ZID_PROFILE</state>
-					<state>RF4CE_SECURITY</state>
 					<state>TAL_USER_BUILD_CONFIG</state>
-					<state>GDP_PROFILE</state>
+					<state>NLDE_HANDLE</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>_DEBUG_=0</state>
+					<state>VENDOR_DATA</state>
+					<state>ENABLE_STACK_NVM</state>
+					<state>RF4CE_SECURITY</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
 					<state>BOARD=DUMMY_BOARD</state>
+					<state>STB_ON_SAL</state>
+					<state>PBP_ORG</state>
+					<state>REDUCED_PARAM_CHECK</state>
+					<state>EXTERN_EEPROM_AVAILABLE=0</state>
+					<state>SAL_TYPE=ATMEGARF_SAL</state>
 					<state>TAL_TYPE=ATMEGARFR2</state>
 					<state>PRIVATE_NIB</state>
+					<state>ZID_PROFILE</state>
+					<state>RF4CE_CALLBACK_PARAM</state>
+					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>AVR477_QTOUCH</state>
+					<state>GDP_PROFILE</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1712,27 +1715,28 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>SAL_TYPE=ATMEGARF_SAL</state>
-					<state>STB_ON_SAL</state>
 					<state>ZID_DEVICE</state>
-					<state>PBP_ORG</state>
-					<state>RF4CE_CALLBACK_PARAM</state>
-					<state>VENDOR_DATA</state>
-					<state>MAC_USER_BUILD_CONFIG</state>
-					<state>HIGHEST_STACK_LAYER=RF4CE</state>
-					<state>ENABLE_STACK_NVM</state>
-					<state>EXTERN_EEPROM_AVAILABLE=0</state>
-					<state>REDUCED_PARAM_CHECK</state>
-					<state>AVR477_QTOUCH</state>
-					<state>NLDE_HANDLE</state>
-					<state>ZID_PROFILE</state>
-					<state>RF4CE_SECURITY</state>
 					<state>TAL_USER_BUILD_CONFIG</state>
-					<state>GDP_PROFILE</state>
+					<state>NLDE_HANDLE</state>
+					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>_DEBUG_=0</state>
+					<state>VENDOR_DATA</state>
+					<state>ENABLE_STACK_NVM</state>
+					<state>RF4CE_SECURITY</state>
 					<state>RSSI_TO_LQI_MAPPING</state>
 					<state>BOARD=DUMMY_BOARD</state>
+					<state>STB_ON_SAL</state>
+					<state>PBP_ORG</state>
+					<state>REDUCED_PARAM_CHECK</state>
+					<state>EXTERN_EEPROM_AVAILABLE=0</state>
+					<state>SAL_TYPE=ATMEGARF_SAL</state>
 					<state>TAL_TYPE=ATMEGARFR2</state>
 					<state>PRIVATE_NIB</state>
+					<state>ZID_PROFILE</state>
+					<state>RF4CE_CALLBACK_PARAM</state>
+					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>AVR477_QTOUCH</state>
+					<state>GDP_PROFILE</state>
 				</option>
 				<option>
 					<name>MacroChars</name>

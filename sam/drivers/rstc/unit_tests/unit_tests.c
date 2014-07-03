@@ -190,6 +190,10 @@ int main(void)
 		.baudrate = CONF_TEST_BAUDRATE,
 		.paritytype = CONF_TEST_PARITY
 	};
+	/* Clear DEMCR.VC_CORERESET bit in case of external tool set it.
+	   When RSTC unit test performs reset in the code with VC_CORERESET bit set,
+	   the program will halt at Reset_Handler() after reset. */
+	CoreDebug->DEMCR &= (~CoreDebug_DEMCR_VC_CORERESET_Msk);
 
 	sysclk_init();
 	board_init();

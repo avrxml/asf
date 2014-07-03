@@ -181,6 +181,7 @@ CFLAGS =
 CPPFLAGS = \
        -D ARM_MATH_CM3=true                               \
        -D BOARD=SAM3N_EK                                  \
+       -D __FREERTOS__                                    \
        -D __SAM3N4C__                                     \
        -D printf=iprintf                                  \
        -D scanf=iscanf

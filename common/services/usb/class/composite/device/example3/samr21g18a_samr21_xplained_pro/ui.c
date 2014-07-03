@@ -44,9 +44,6 @@
 #include <asf.h>
 #include "ui.h"
 
-#define  LED_On()          port_pin_set_output_level(LED_0_PIN, 0)
-#define  LED_Off()         port_pin_set_output_level(LED_0_PIN, 1)
-
 //! Sequence process running each \c SEQUENCE_PERIOD ms
 #define SEQUENCE_PERIOD 150
 
@@ -127,7 +124,7 @@ static void ui_wakeup_handler(void)
 {
 	/* It is a wakeup then send wakeup USB */
 	udc_remotewakeup();
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 
@@ -148,12 +145,12 @@ void ui_init(void)
 	extint_chan_enable_callback(BUTTON_0_EIC_LINE,EXTINT_CALLBACK_TYPE_DETECT);
 
 	/* Initialize LEDs */
-	LED_Off();
+	LED_Off(LED_0_PIN);
 }
 
 void ui_powerdown(void)
 {
-	LED_Off();
+	LED_Off(LED_0_PIN);
 }
 
 
@@ -169,7 +166,7 @@ void ui_wakeup_disable(void)
 
 void ui_wakeup(void)
 {
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_start_read(void)
@@ -198,10 +195,10 @@ void ui_process(uint16_t framenumber)
 	static uint16_t cpt_sof = 0;
 
 	if ((framenumber % 1000) == 0) {
-		LED_On();
+		LED_On(LED_0_PIN);
 	}
 	if ((framenumber % 1000) == 500) {
-		LED_Off();
+		LED_Off(LED_0_PIN);
 	}
 	// Scan process running each 2ms
 	cpt_sof++;

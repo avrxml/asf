@@ -188,6 +188,7 @@
 					<name>CCDefines</name>
 					<state>TAL_TYPE=AT86RF231</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>UDD_ENABLE</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
@@ -488,6 +489,7 @@
 					<name>ADefines</name>
 					<state>TAL_TYPE=AT86RF231</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>UDD_ENABLE</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
@@ -1131,6 +1133,7 @@
 					<name>CCDefines</name>
 					<state>TAL_TYPE=AT86RF231</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>UDD_ENABLE</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
@@ -1431,6 +1434,7 @@
 					<name>ADefines</name>
 					<state>TAL_TYPE=AT86RF231</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>UDD_ENABLE</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>

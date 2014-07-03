@@ -215,7 +215,8 @@ CPPFLAGS = \
        -D TAL_USER_BUILD_CONFIG                           \
        -D VENDOR_DATA                                     \
        -D ZID_ADAPTOR                                     \
-       -D ZID_PROFILE
+       -D ZID_PROFILE                                     \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS =  \

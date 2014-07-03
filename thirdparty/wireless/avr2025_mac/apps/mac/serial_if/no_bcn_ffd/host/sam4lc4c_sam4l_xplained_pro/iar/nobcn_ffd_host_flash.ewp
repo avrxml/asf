@@ -169,6 +169,7 @@
 					<state>FFD</state>
 					<state>TEST_HARNESS</state>
 					<state>BOARD=SAM4L_XPLAINED_PRO</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>__SAM4LC4C__</state>
@@ -485,6 +486,7 @@
 					<state>FFD</state>
 					<state>TEST_HARNESS</state>
 					<state>BOARD=SAM4L_XPLAINED_PRO</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>__SAM4LC4C__</state>
@@ -1160,6 +1162,7 @@
 					<state>FFD</state>
 					<state>TEST_HARNESS</state>
 					<state>BOARD=SAM4L_XPLAINED_PRO</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>__SAM4LC4C__</state>
@@ -1476,6 +1479,7 @@
 					<state>FFD</state>
 					<state>TEST_HARNESS</state>
 					<state>BOARD=SAM4L_XPLAINED_PRO</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>__SAM4LC4C__</state>

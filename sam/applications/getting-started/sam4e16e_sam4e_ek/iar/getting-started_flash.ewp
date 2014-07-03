@@ -2069,9 +2069,6 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/afec1.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/gpbr.h</name>
 							</file>
 							<file>
@@ -2136,9 +2133,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/can.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/efc.h</name>

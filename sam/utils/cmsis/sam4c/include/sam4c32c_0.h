@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -574,7 +574,6 @@ void WDT_Handler        ( void );
 #define CHIP_CIDR         (0xA64D0EE0UL)
 #define CHIP_EXID         (0x0UL)
 #define NB_CH_ADC         (8UL)
-#define USB_DEVICE_MAX_EP (-UL)
 
 /* ************************************************************************** */
 /*   ELECTRICAL DEFINITIONS FOR SAM4C32C */

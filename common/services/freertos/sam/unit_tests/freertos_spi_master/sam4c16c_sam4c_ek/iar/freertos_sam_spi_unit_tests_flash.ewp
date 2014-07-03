@@ -162,11 +162,12 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>_ASSERT_ENABLE_</state>
 					<state>BOARD=SAM4C_EK</state>
-					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>ARM_MATH_CM4=true</state>
 					<state>__SAM4C16C_0__</state>
+					<state>_ASSERT_ENABLE_</state>
+					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
+					<state>__FREERTOS__</state>
+					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -299,9 +300,9 @@
 					<state>$PROJ_DIR$/../../../../../../spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/../../../../../../serial</state>
+					<state>$PROJ_DIR$/../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4c/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../clock</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam4c_ek</state>
@@ -317,7 +318,7 @@
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../../spi</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../ioport</state>
@@ -472,11 +473,12 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>_ASSERT_ENABLE_</state>
 					<state>BOARD=SAM4C_EK</state>
-					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>ARM_MATH_CM4=true</state>
 					<state>__SAM4C16C_0__</state>
+					<state>_ASSERT_ENABLE_</state>
+					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
+					<state>__FREERTOS__</state>
+					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -576,9 +578,9 @@
 					<state>$PROJ_DIR$/../../../../../../spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/../../../../../../serial</state>
+					<state>$PROJ_DIR$/../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4c/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../clock</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam4c_ek</state>
@@ -594,7 +596,7 @@
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../../spi</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../ioport</state>
@@ -1108,11 +1110,12 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
-					<state>_ASSERT_ENABLE_</state>
 					<state>BOARD=SAM4C_EK</state>
-					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>ARM_MATH_CM4=true</state>
 					<state>__SAM4C16C_0__</state>
+					<state>_ASSERT_ENABLE_</state>
+					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
+					<state>__FREERTOS__</state>
+					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1245,9 +1248,9 @@
 					<state>$PROJ_DIR$/../../../../../../spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/../../../../../../serial</state>
+					<state>$PROJ_DIR$/../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4c/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../clock</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam4c_ek</state>
@@ -1263,7 +1266,7 @@
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../../spi</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../ioport</state>
@@ -1418,11 +1421,12 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>_ASSERT_ENABLE_</state>
 					<state>BOARD=SAM4C_EK</state>
-					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>ARM_MATH_CM4=true</state>
 					<state>__SAM4C16C_0__</state>
+					<state>_ASSERT_ENABLE_</state>
+					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
+					<state>__FREERTOS__</state>
+					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1522,9 +1526,9 @@
 					<state>$PROJ_DIR$/../../../../../../spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/../../../../../../serial</state>
+					<state>$PROJ_DIR$/../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4c/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../clock</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam4c_ek</state>
@@ -1540,7 +1544,7 @@
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../../spi</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../ioport</state>

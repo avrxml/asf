@@ -250,26 +250,26 @@ void I2S_Handler                 ( void );
 /** \defgroup SAMR21G16A_api Peripheral Software API */
 /*@{*/
 
-#include "component/component_ac.h"
-#include "component/component_adc.h"
-#include "component/component_dmac.h"
-#include "component/component_dsu.h"
-#include "component/component_eic.h"
-#include "component/component_evsys.h"
-#include "component/component_gclk.h"
-#include "component/component_mtb.h"
-#include "component/component_nvmctrl.h"
-#include "component/component_pac.h"
-#include "component/component_pm.h"
-#include "component/component_port.h"
-#include "component/component_rfctrl.h"
-#include "component/component_rtc.h"
-#include "component/component_sercom.h"
-#include "component/component_sysctrl.h"
-#include "component/component_tc.h"
-#include "component/component_tcc.h"
-#include "component/component_usb.h"
-#include "component/component_wdt.h"
+#include "component/ac.h"
+#include "component/adc.h"
+#include "component/dmac.h"
+#include "component/dsu.h"
+#include "component/eic.h"
+#include "component/evsys.h"
+#include "component/gclk.h"
+#include "component/mtb.h"
+#include "component/nvmctrl.h"
+#include "component/pac.h"
+#include "component/pm.h"
+#include "component/port.h"
+#include "component/rfctrl.h"
+#include "component/rtc.h"
+#include "component/sercom.h"
+#include "component/sysctrl.h"
+#include "component/tc.h"
+#include "component/tcc.h"
+#include "component/usb.h"
+#include "component/wdt.h"
 /*@}*/
 
 /* ************************************************************************** */
@@ -278,37 +278,37 @@ void I2S_Handler                 ( void );
 /** \defgroup SAMR21G16A_reg Registers Access Definitions */
 /*@{*/
 
-#include "instance/instance_ac.h"
-#include "instance/instance_adc.h"
-#include "instance/instance_dmac.h"
-#include "instance/instance_dsu.h"
-#include "instance/instance_eic.h"
-#include "instance/instance_evsys.h"
-#include "instance/instance_gclk.h"
-#include "instance/instance_mtb.h"
-#include "instance/instance_nvmctrl.h"
-#include "instance/instance_pac0.h"
-#include "instance/instance_pac1.h"
-#include "instance/instance_pac2.h"
-#include "instance/instance_pm.h"
-#include "instance/instance_port.h"
-#include "instance/instance_rfctrl.h"
-#include "instance/instance_rtc.h"
-#include "instance/instance_sercom0.h"
-#include "instance/instance_sercom1.h"
-#include "instance/instance_sercom2.h"
-#include "instance/instance_sercom3.h"
-#include "instance/instance_sercom4.h"
-#include "instance/instance_sercom5.h"
-#include "instance/instance_sysctrl.h"
-#include "instance/instance_tc3.h"
-#include "instance/instance_tc4.h"
-#include "instance/instance_tc5.h"
-#include "instance/instance_tcc0.h"
-#include "instance/instance_tcc1.h"
-#include "instance/instance_tcc2.h"
-#include "instance/instance_usb.h"
-#include "instance/instance_wdt.h"
+#include "instance/ac.h"
+#include "instance/adc.h"
+#include "instance/dmac.h"
+#include "instance/dsu.h"
+#include "instance/eic.h"
+#include "instance/evsys.h"
+#include "instance/gclk.h"
+#include "instance/mtb.h"
+#include "instance/nvmctrl.h"
+#include "instance/pac0.h"
+#include "instance/pac1.h"
+#include "instance/pac2.h"
+#include "instance/pm.h"
+#include "instance/port.h"
+#include "instance/rfctrl.h"
+#include "instance/rtc.h"
+#include "instance/sercom0.h"
+#include "instance/sercom1.h"
+#include "instance/sercom2.h"
+#include "instance/sercom3.h"
+#include "instance/sercom4.h"
+#include "instance/sercom5.h"
+#include "instance/sysctrl.h"
+#include "instance/tc3.h"
+#include "instance/tc4.h"
+#include "instance/tc5.h"
+#include "instance/tcc0.h"
+#include "instance/tcc1.h"
+#include "instance/tcc2.h"
+#include "instance/usb.h"
+#include "instance/wdt.h"
 /*@}*/
 
 /* ************************************************************************** */
@@ -379,6 +379,7 @@ void I2S_Handler                 ( void );
 #define NVMCTRL_OTP1                  (0x00806000U) /**< \brief (NVMCTRL) OTP1 Base Address */
 #define NVMCTRL_OTP2                  (0x00806008U) /**< \brief (NVMCTRL) OTP2 Base Address */
 #define NVMCTRL_OTP4                  (0x00806020U) /**< \brief (NVMCTRL) OTP4 Base Address */
+#define NVMCTRL_TEMP_LOG              (0x00806030U) /**< \brief (NVMCTRL) TEMP_LOG Base Address */
 #define NVMCTRL_USER                  (0x00804000U) /**< \brief (NVMCTRL) USER Base Address */
 #define PAC0                          (0x40000000U) /**< \brief (PAC0) APB Base Address */
 #define PAC1                          (0x41000000U) /**< \brief (PAC1) APB Base Address */
@@ -442,6 +443,7 @@ void I2S_Handler                 ( void );
 #define NVMCTRL_OTP1                  (0x00806000U) /**< \brief (NVMCTRL) OTP1 Base Address */
 #define NVMCTRL_OTP2                  (0x00806008U) /**< \brief (NVMCTRL) OTP2 Base Address */
 #define NVMCTRL_OTP4                  (0x00806020U) /**< \brief (NVMCTRL) OTP4 Base Address */
+#define NVMCTRL_TEMP_LOG              (0x00806030U) /**< \brief (NVMCTRL) TEMP_LOG Base Address */
 #define NVMCTRL_USER                  (0x00804000U) /**< \brief (NVMCTRL) USER Base Address */
 #define NVMCTRL_INST_NUM  1                         /**< \brief (NVMCTRL) Number of instances */
 #define NVMCTRL_INSTS     { NVMCTRL }               /**< \brief (NVMCTRL) Instances List */
@@ -515,7 +517,7 @@ void I2S_Handler                 ( void );
 /** \defgroup SAMR21G16A_port PORT Definitions */
 /*@{*/
 
-#include "pio/pio_samr21g16a.h"
+#include "pio/samr21g16a.h"
 /*@}*/
 
 /* ************************************************************************** */
@@ -532,6 +534,7 @@ void I2S_Handler                 ( void );
 #define HMCRAMC0_ADDR         (0x20000000U) /**< HMCRAMC0 base address */
 
 #define DSU_DID_RESETVALUE    0x1001001B
+#define EIC_EXTINT_NUM        16
 #define PORT_GROUPS           3
 #define SIP_CONFIG            RF233
 

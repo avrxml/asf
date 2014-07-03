@@ -46,7 +46,7 @@
 #include "demotasks.h"
 
 /**
- * \addtogroup freertos-v7_4_2_sam_d20_demotasks_group
+ * \addtogroup freertos_sam0_demo_tasks_group
  *
  * @{
  */
@@ -128,7 +128,7 @@ static const char menu_items_text[MENU_NUM_ITEMS][6] = {
 
 //! Text to display on about screen
 static const char about_text[] =
-	"FreeRTOS v7.4.2 demo."
+	"FreeRTOS "tskKERNEL_VERSION_NUMBER" demo."
 	"                     "
 	"Use CDC at 9.6 kBaud.";
 
@@ -204,35 +204,35 @@ void demotasks_init(void)
 	terminal_in_queue = xQueueCreate(64, sizeof(uint8_t));
 
 	xTaskCreate(about_task,
-			(signed char *)"About",
+			(const char *)"About",
 			configMINIMAL_STACK_SIZE,
 			NULL,
 			ABOUT_TASK_PRIORITY,
 			&about_task_handle);
 
 	xTaskCreate(graph_task,
-			(signed char *)"Graph",
+			(const char *)"Graph",
 			configMINIMAL_STACK_SIZE,
 			NULL,
 			GRAPH_TASK_PRIORITY,
 			NULL);
 
 	xTaskCreate(main_task,
-			(signed char *) "Main",
+			(const char *) "Main",
 			configMINIMAL_STACK_SIZE,
 			NULL,
 			MAIN_TASK_PRIORITY,
 			NULL);
 
 	xTaskCreate(terminal_task,
-			(signed char *)"Term.",
+			(const char *)"Term.",
 			configMINIMAL_STACK_SIZE,
 			NULL,
 			TERMINAL_TASK_PRIORITY,
 			&terminal_task_handle);
 
 	xTaskCreate(uart_task,
-			(signed char *) "UART",
+			(const char *) "UART",
 			configMINIMAL_STACK_SIZE,
 			NULL,
 			UART_TASK_PRIORITY,

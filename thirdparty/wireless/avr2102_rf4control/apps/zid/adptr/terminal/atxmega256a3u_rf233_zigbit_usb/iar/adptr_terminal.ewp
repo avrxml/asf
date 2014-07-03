@@ -263,6 +263,7 @@
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>TAL_TYPE=AT86RF233</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>GDP_PROFILE</state>
 					<state>SIO_HUB</state>
 				</option>
@@ -636,6 +637,7 @@
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>TAL_TYPE=AT86RF233</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>GDP_PROFILE</state>
 					<state>SIO_HUB</state>
 				</option>
@@ -1398,6 +1400,7 @@
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>TAL_TYPE=AT86RF233</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>GDP_PROFILE</state>
 					<state>SIO_HUB</state>
 				</option>
@@ -1771,6 +1774,7 @@
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>TAL_TYPE=AT86RF233</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>GDP_PROFILE</state>
 					<state>SIO_HUB</state>
 				</option>

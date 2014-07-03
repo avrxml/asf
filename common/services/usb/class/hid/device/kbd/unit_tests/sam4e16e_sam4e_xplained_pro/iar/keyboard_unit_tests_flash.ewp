@@ -2011,10 +2011,10 @@
 									<name>$PROJ_DIR$/../../../udi_hid_kbd_desc.c</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../udi_hid_kbd_conf.h</name>
+									<name>$PROJ_DIR$/../../../udi_hid_kbd.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../udi_hid_kbd.h</name>
+									<name>$PROJ_DIR$/../../../udi_hid_kbd_conf.h</name>
 								</file>
 							</group>
 							<file>
@@ -2059,6 +2059,9 @@
 						<name>$PROJ_DIR$/../../../../../../../../clock/sam4e/sysclk.c</name>
 					</file>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../../../clock/sam4e/osc.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../../../clock/sam4e/sysclk.h</name>
 					</file>
 					<file>
@@ -2066,9 +2069,6 @@
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../../clock/sam4e/pll.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../clock/sam4e/osc.h</name>
 					</file>
 				</group>
 				<file>
@@ -2261,9 +2261,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/component/pmc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/component/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/component/dacc.h</name>
 							</file>
 							<file>
@@ -2345,6 +2342,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/piob.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/pwm.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/can1.h</name>
 							</file>
 							<file>
@@ -2355,9 +2355,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/aes.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/uart1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/dacc.h</name>
@@ -2387,9 +2384,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/chipid.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/pwm.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/udp.h</name>
 							</file>
 							<file>
@@ -2414,9 +2408,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/afec0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/pioa.h</name>
 							</file>
 							<file>
@@ -2430,6 +2421,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/efc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/uart1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/matrix.h</name>

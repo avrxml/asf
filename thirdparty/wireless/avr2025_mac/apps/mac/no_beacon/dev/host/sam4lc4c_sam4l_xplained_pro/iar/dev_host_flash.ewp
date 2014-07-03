@@ -167,6 +167,7 @@
 				<option>
 					<name>CCDefines</name>
 					<state>BOARD=SAM4L_XPLAINED_PRO</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>SIO_HUB</state>
@@ -481,6 +482,7 @@
 				<option>
 					<name>ADefines</name>
 					<state>BOARD=SAM4L_XPLAINED_PRO</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>SIO_HUB</state>
@@ -1154,6 +1156,7 @@
 				<option>
 					<name>CCDefines</name>
 					<state>BOARD=SAM4L_XPLAINED_PRO</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>SIO_HUB</state>
@@ -1468,6 +1471,7 @@
 				<option>
 					<name>ADefines</name>
 					<state>BOARD=SAM4L_XPLAINED_PRO</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>SIO_HUB</state>

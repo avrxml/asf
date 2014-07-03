@@ -212,10 +212,22 @@ extern "C" {
 //@}
 
 /**
+ * \def CONFIG_USBCLK_DIV
+ * \brief Configuration symbol for the USB generic clock divider setting
+ *
+ * Sets the clock division for the USB generic clock.
+ *
+ * \note Only SAM4C32E supports USB feature and The USB clock source is PLLB.
+ */
+#ifdef __DOXYGEN__
+# define CONFIG_USBCLK_DIV
+#endif
+
+/**
  * \name External Crystal Oscillator
  *
- * It depends on the actual XTAL used on the board. 
- * On SAM4C-EK, it is 8M oscilator in used. 
+ * It depends on the actual XTAL used on the board.
+ * On SAM4C-EK, it is 8M oscilator in used.
  */
 #define CHIP_FREQ_XTAL_8M               (8000000UL)
 
@@ -463,6 +475,9 @@ extern void sysclk_set_prescalers(uint32_t ul_pres);
 extern void sysclk_set_source(uint32_t ul_src);
 
 //@}
+
+extern void sysclk_enable_usb(void);
+extern void sysclk_disable_usb(void);
 
 extern void sysclk_init(void);
 

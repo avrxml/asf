@@ -3,7 +3,7 @@
  *
  * \brief Linker script for running in internal SRAM on the SAMD20E14
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,12 +49,11 @@ SEARCH_DIR(.)
 /* Memory Spaces Definitions */
 MEMORY
 {
-  ram (rwx) : ORIGIN = 0x20000000, LENGTH = 0x00000800
+  ram    (rwx) : ORIGIN = 0x20000000, LENGTH = 0x00000800
 }
 
 /* The stack size used by the application. NOTE: you need to adjust according to your application. */
-__stack_size__ = DEFINED(__stack_size__) ? __stack_size__ : 0x200;
-__ram_end__ = ORIGIN(ram) + LENGTH(ram) - 4;
+STACK_SIZE = DEFINED(STACK_SIZE) ? STACK_SIZE : DEFINED(__stack_size__) ? __stack_size__ : 0x200;
 
 /* Section Definitions */
 SECTIONS
@@ -139,7 +138,7 @@ SECTIONS
     {
         . = ALIGN(8);
         _sstack = .;
-        . = . + __stack_size__;
+        . = . + STACK_SIZE;
         . = ALIGN(8);
         _estack = .;
     } > ram

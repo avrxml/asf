@@ -238,6 +238,7 @@
 					<state></state>
 					<state>STB_ON_SAL</state>
 					<state>TAL_TYPE=AT86RF233</state>
+					<state>_DEBUG_=0</state>
 					<state>BOARD=XMEGA_RF233_ZIGBIT</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
@@ -593,6 +594,7 @@
 					<name>ADefines</name>
 					<state>STB_ON_SAL</state>
 					<state>TAL_TYPE=AT86RF233</state>
+					<state>_DEBUG_=0</state>
 					<state>BOARD=XMEGA_RF233_ZIGBIT</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
@@ -1337,6 +1339,7 @@
 					<state>NDEBUG</state>
 					<state>STB_ON_SAL</state>
 					<state>TAL_TYPE=AT86RF233</state>
+					<state>_DEBUG_=0</state>
 					<state>BOARD=XMEGA_RF233_ZIGBIT</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
@@ -1692,6 +1695,7 @@
 					<name>ADefines</name>
 					<state>STB_ON_SAL</state>
 					<state>TAL_TYPE=AT86RF233</state>
+					<state>_DEBUG_=0</state>
 					<state>BOARD=XMEGA_RF233_ZIGBIT</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>

@@ -1927,9 +1927,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/pmc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/pioc.h</name>
 							</file>
 							<file>
@@ -1957,6 +1954,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/aes.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/pioe.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/spi.h</name>
 							</file>
 							<file>
@@ -1976,9 +1976,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/afec1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/pioe.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/piod.h</name>
@@ -2110,9 +2107,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/component/uart.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/component/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/component/pio.h</name>
 							</file>
 							<file>
@@ -2233,10 +2227,10 @@
 					<name>$PROJ_DIR$/../../../../../drivers/pmc/sleep.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../drivers/pmc/pmc.h</name>
+					<name>$PROJ_DIR$/../../../../../drivers/pmc/sleep.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../drivers/pmc/sleep.h</name>
+					<name>$PROJ_DIR$/../../../../../drivers/pmc/pmc.h</name>
 				</file>
 			</group>
 			<group>

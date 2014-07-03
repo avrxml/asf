@@ -189,6 +189,7 @@
 					<state>TAL_TYPE=AT86RF231</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>UDD_ENABLE</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
@@ -493,6 +494,7 @@
 					<state>TAL_TYPE=AT86RF231</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>UDD_ENABLE</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
@@ -1140,6 +1142,7 @@
 					<state>TAL_TYPE=AT86RF231</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>UDD_ENABLE</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
@@ -1444,6 +1447,7 @@
 					<state>TAL_TYPE=AT86RF231</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>UDD_ENABLE</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>

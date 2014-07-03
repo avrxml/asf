@@ -195,7 +195,8 @@ CPPFLAGS = \
        -D TAL_TYPE=AT86RF212                              \
        -D TEST_SUITE_DEFINE_ASSERT_MACRO                  \
        -D UDD_ENABLE                                      \
-       -D _ASSERT_ENABLE_
+       -D _ASSERT_ENABLE_                                 \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS = \

@@ -249,6 +249,7 @@
 					<state>FFD</state>
 					<state>SAL_TYPE=ATMEGARF_SAL</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>GTS_SUPPORT</state>
@@ -590,6 +591,7 @@
 					<state>FFD</state>
 					<state>SAL_TYPE=ATMEGARF_SAL</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>GTS_SUPPORT</state>
@@ -1337,6 +1339,7 @@
 					<state>FFD</state>
 					<state>SAL_TYPE=ATMEGARF_SAL</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>GTS_SUPPORT</state>
@@ -1678,6 +1681,7 @@
 					<state>FFD</state>
 					<state>SAL_TYPE=ATMEGARF_SAL</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>GTS_SUPPORT</state>

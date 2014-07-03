@@ -237,14 +237,15 @@
 					<name>CCDefines</name>
 					<state></state>
 					<state>STB_ON_SAL</state>
-					<state>SIO_HUB</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 					<state>TAL_TYPE=AT86RF212B</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
-					<state>BOARD=XMEGA_RF212B_ZIGBIT</state>
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
+					<state>BOARD=XMEGA_RF212B_ZIGBIT</state>
+					<state>SIO_HUB</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>PAL_USE_SPI_TRX=1</state>
 				</option>
@@ -590,14 +591,15 @@
 				<option>
 					<name>ADefines</name>
 					<state>STB_ON_SAL</state>
-					<state>SIO_HUB</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 					<state>TAL_TYPE=AT86RF212B</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
-					<state>BOARD=XMEGA_RF212B_ZIGBIT</state>
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
+					<state>BOARD=XMEGA_RF212B_ZIGBIT</state>
+					<state>SIO_HUB</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>PAL_USE_SPI_TRX=1</state>
 				</option>
@@ -1332,14 +1334,15 @@
 					<name>CCDefines</name>
 					<state>NDEBUG</state>
 					<state>STB_ON_SAL</state>
-					<state>SIO_HUB</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 					<state>TAL_TYPE=AT86RF212B</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
-					<state>BOARD=XMEGA_RF212B_ZIGBIT</state>
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
+					<state>BOARD=XMEGA_RF212B_ZIGBIT</state>
+					<state>SIO_HUB</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>PAL_USE_SPI_TRX=1</state>
 				</option>
@@ -1685,14 +1688,15 @@
 				<option>
 					<name>ADefines</name>
 					<state>STB_ON_SAL</state>
-					<state>SIO_HUB</state>
+					<state>_DEBUG_=0</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 					<state>TAL_TYPE=AT86RF212B</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
-					<state>BOARD=XMEGA_RF212B_ZIGBIT</state>
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
+					<state>BOARD=XMEGA_RF212B_ZIGBIT</state>
+					<state>SIO_HUB</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>PAL_USE_SPI_TRX=1</state>
 				</option>

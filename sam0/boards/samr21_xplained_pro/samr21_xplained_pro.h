@@ -111,7 +111,7 @@ void system_board_init(void);
 #define LED_0_PIN                 LED0_PIN
 #define LED_0_ACTIVE              LED0_ACTIVE
 #define LED_0_INACTIVE            LED0_INACTIVE
-#define LED0_GPIO 				  LED0_PIN
+#define LED0_GPIO                 LED0_PIN
 
 #define LED_0_PWM_MODULE          TC3
 #define LED_0_PWM_CHANNEL         1
@@ -433,7 +433,7 @@ void system_board_init(void);
 /** \name 802.15.4 TRX Interface definitions
  * @{
  */
- 
+
 #define AT86RFX_SPI                  SERCOM4
 #define AT86RFX_RST_PIN              PIN_PB15
 #define AT86RFX_IRQ_PIN              PIN_PB00
@@ -442,9 +442,9 @@ void system_board_init(void);
 #define AT86RFX_SPI_MOSI             PIN_PB30
 #define AT86RFX_SPI_MISO             PIN_PC19
 #define AT86RFX_SPI_SCK              PIN_PC18
-#define PIN_RFCTRL1					 PIN_PA09
+#define PIN_RFCTRL1                  PIN_PA09
 #define PIN_RFCTRL2                  PIN_PA12
-#define RFCTRL_CFG_ANT_DIV			 4
+#define RFCTRL_CFG_ANT_DIV           4
 
 
 #define AT86RFX_SPI_CONFIG(config) \
@@ -456,37 +456,43 @@ config.pinmux_pad2 = RF_SPI_SERCOM_PINMUX_PAD2; \
 config.pinmux_pad3 = RF_SPI_SERCOM_PINMUX_PAD3;
 
 #define AT86RFX_IRQ_CHAN             RF_IRQ_INPUT
-#define AT86RFX_INTC_INIT()            			struct extint_chan_conf eint_chan_conf; \
-extint_chan_get_config_defaults(&eint_chan_conf); \
-eint_chan_conf.gpio_pin = AT86RFX_IRQ_PIN; \
-eint_chan_conf.gpio_pin_mux = RF_IRQ_PINMUX; \
-eint_chan_conf.gpio_pin_pull      = EXTINT_PULL_NONE; \
-eint_chan_conf.wake_if_sleeping    = true; \
-eint_chan_conf.filter_input_signal = false; \
-eint_chan_conf.detection_criteria  = EXTINT_DETECT_BOTH; \
-extint_chan_set_config(AT86RFX_IRQ_CHAN, &eint_chan_conf); \
-extint_register_callback((extint_callback_t)AT86RFX_ISR,AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT);\
-extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT);
+#define AT86RFX_INTC_INIT()          \
+		struct extint_chan_conf eint_chan_conf; \
+		extint_chan_get_config_defaults(&eint_chan_conf); \
+		eint_chan_conf.gpio_pin = AT86RFX_IRQ_PIN; \
+		eint_chan_conf.gpio_pin_mux = RF_IRQ_PINMUX; \
+		eint_chan_conf.gpio_pin_pull      = EXTINT_PULL_NONE; \
+		eint_chan_conf.wake_if_sleeping    = true; \
+		eint_chan_conf.filter_input_signal = false; \
+		eint_chan_conf.detection_criteria  = EXTINT_DETECT_BOTH; \
+		extint_chan_set_config(AT86RFX_IRQ_CHAN, &eint_chan_conf); \
+		extint_register_callback((extint_callback_t)AT86RFX_ISR,AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT);\
+		extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT);
 
 
 /** Enables the transceiver main interrupt. */
-#define ENABLE_TRX_IRQ()                extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+#define ENABLE_TRX_IRQ()    \
+		extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
 
 /** Disables the transceiver main interrupt. */
-#define DISABLE_TRX_IRQ()               extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+#define DISABLE_TRX_IRQ()   \
+		extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
 
 /** Clears the transceiver main interrupt. */
-#define CLEAR_TRX_IRQ()                 extint_chan_clear_detected(AT86RFX_IRQ_CHAN);
+#define CLEAR_TRX_IRQ()     \
+		extint_chan_clear_detected(AT86RFX_IRQ_CHAN);
 
 /*
  * This macro saves the trx interrupt status and disables the trx interrupt.
  */
-#define ENTER_TRX_REGION()   { extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+#define ENTER_TRX_REGION()   \
+		{ extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
 
 /*
  *  This macro restores the transceiver interrupt status
  */
-#define LEAVE_TRX_REGION()   extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT); }
+#define LEAVE_TRX_REGION()   \
+		extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT); }
 
 /** @} */
 /**
@@ -515,7 +521,7 @@ extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT);
  * \note The pins of the specified LEDs are set to GPIO output mode.
  */
 #define LED_Toggle(led_gpio)  port_pin_toggle_output_level(led_gpio)
-  
+
 
 
 #ifdef __cplusplus

@@ -191,6 +191,7 @@
 					<state>__SAM4LC4C__</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>SIO_HUB</state>
 				</option>
 				<option>
@@ -538,6 +539,7 @@
 					<state>__SAM4LC4C__</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>SIO_HUB</state>
 				</option>
 				<option>
@@ -1244,6 +1246,7 @@
 					<state>__SAM4LC4C__</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>SIO_HUB</state>
 				</option>
 				<option>
@@ -1591,6 +1594,7 @@
 					<state>__SAM4LC4C__</state>
 					<state>RF4CE_CALLBACK_PARAM</state>
 					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>_DEBUG_=0</state>
 					<state>SIO_HUB</state>
 				</option>
 				<option>

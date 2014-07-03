@@ -175,6 +175,7 @@ CPPFLAGS = \
        -D ENABLE_TSTAMP                                   \
        -D HIGHEST_STACK_LAYER=MAC                         \
        -D TEST_HARNESS                                    \
+       -D _DEBUG_=0                                       \
        -D __SAM4LC4C__                                    \
        -D printf=iprintf                                  \
        -D scanf=iscanf

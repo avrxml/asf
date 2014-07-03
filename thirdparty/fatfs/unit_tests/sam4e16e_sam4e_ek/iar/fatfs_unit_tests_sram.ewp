@@ -2306,9 +2306,6 @@
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/component/supc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/component/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/component/efc.h</name>
 							</file>
 							<file>
@@ -2457,9 +2454,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/instance/aes.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/instance/crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/instance/pioe.h</name>

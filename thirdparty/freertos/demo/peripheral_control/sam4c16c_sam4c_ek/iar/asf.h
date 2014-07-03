@@ -56,20 +56,6 @@
 #include <compiler.h>
 #include <status_codes.h>
 
-// From module: FreeRTOS - Kernel 7.3.0
-#include <FreeRTOS.h>
-#include <FreeRTOS_CLI.h>
-#include <StackMacros.h>
-#include <croutine.h>
-#include <list.h>
-#include <mpu_wrappers.h>
-#include <portable.h>
-#include <projdefs.h>
-#include <queue.h>
-#include <semphr.h>
-#include <task.h>
-#include <timers.h>
-
 // From module: FreeRTOS - PDC Interface Layer
 #include <freertos_peripheral_control.h>
 #include <freertos_peripheral_control_private.h>
@@ -85,6 +71,20 @@
 
 // From module: FreeRTOS - USART Interface Layer
 #include <freertos_usart_serial.h>
+
+// From module: FreeRTOS mini Real-Time Kernel
+#include <FreeRTOS.h>
+#include <FreeRTOS_CLI.h>
+#include <StackMacros.h>
+#include <croutine.h>
+#include <list.h>
+#include <mpu_wrappers.h>
+#include <portable.h>
+#include <projdefs.h>
+#include <queue.h>
+#include <semphr.h>
+#include <task.h>
+#include <timers.h>
 
 // From module: Generic board support
 #include <board.h>

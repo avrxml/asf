@@ -246,27 +246,28 @@
 				<option>
 					<name>CCDefines</name>
 					<state></state>
-					<state>RF4CE_TARGET</state>
-					<state>ZRC_CMD_DISCOVERY</state>
-					<state>TAL_TYPE=ATMEGARFR2</state>
-					<state>RF4CE_CALLBACK_PARAM</state>
-					<state>VENDOR_DATA</state>
-					<state>ZRC_PROFILE</state>
 					<state>ENABLE_STACK_NVM</state>
-					<state>HIGHEST_STACK_LAYER=RF4CE</state>
-					<state>REDUCED_PARAM_CHECK</state>
-					<state>CHANNEL_AGILITY</state>
-					<state>SAL_TYPE=ATMEGARF_SAL</state>
-					<state>STB_ON_SAL</state>
-					<state>RF4CE_SECURITY</state>
 					<state>BOARD=ATMEGA256RFR2_XPLAINED_PRO</state>
-					<state>RSSI_TO_LQI_MAPPING</state>
 					<state>NLDE_HANDLE</state>
-					<state>ENABLE_TRX_SRAM</state>
-					<state>SIO_HUB</state>
-					<state>PBP_REC</state>
+					<state>ZRC_CMD_DISCOVERY</state>
+					<state>RF4CE_TARGET</state>
+					<state>_DEBUG_=0</state>
+					<state>VENDOR_DATA</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>ENABLE_TRX_SRAM</state>
+					<state>RF4CE_SECURITY</state>
+					<state>RSSI_TO_LQI_MAPPING</state>
+					<state>PBP_REC</state>
+					<state>STB_ON_SAL</state>
+					<state>REDUCED_PARAM_CHECK</state>
+					<state>SAL_TYPE=ATMEGARF_SAL</state>
+					<state>ZRC_PROFILE</state>
+					<state>TAL_TYPE=ATMEGARFR2</state>
+					<state>CHANNEL_AGILITY</state>
 					<state>PRIVATE_NIB</state>
+					<state>RF4CE_CALLBACK_PARAM</state>
+					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>SIO_HUB</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -602,27 +603,28 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>RF4CE_TARGET</state>
-					<state>ZRC_CMD_DISCOVERY</state>
-					<state>TAL_TYPE=ATMEGARFR2</state>
-					<state>RF4CE_CALLBACK_PARAM</state>
-					<state>VENDOR_DATA</state>
-					<state>ZRC_PROFILE</state>
 					<state>ENABLE_STACK_NVM</state>
-					<state>HIGHEST_STACK_LAYER=RF4CE</state>
-					<state>REDUCED_PARAM_CHECK</state>
-					<state>CHANNEL_AGILITY</state>
-					<state>SAL_TYPE=ATMEGARF_SAL</state>
-					<state>STB_ON_SAL</state>
-					<state>RF4CE_SECURITY</state>
 					<state>BOARD=ATMEGA256RFR2_XPLAINED_PRO</state>
-					<state>RSSI_TO_LQI_MAPPING</state>
 					<state>NLDE_HANDLE</state>
-					<state>ENABLE_TRX_SRAM</state>
-					<state>SIO_HUB</state>
-					<state>PBP_REC</state>
+					<state>ZRC_CMD_DISCOVERY</state>
+					<state>RF4CE_TARGET</state>
+					<state>_DEBUG_=0</state>
+					<state>VENDOR_DATA</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>ENABLE_TRX_SRAM</state>
+					<state>RF4CE_SECURITY</state>
+					<state>RSSI_TO_LQI_MAPPING</state>
+					<state>PBP_REC</state>
+					<state>STB_ON_SAL</state>
+					<state>REDUCED_PARAM_CHECK</state>
+					<state>SAL_TYPE=ATMEGARF_SAL</state>
+					<state>ZRC_PROFILE</state>
+					<state>TAL_TYPE=ATMEGARFR2</state>
+					<state>CHANNEL_AGILITY</state>
 					<state>PRIVATE_NIB</state>
+					<state>RF4CE_CALLBACK_PARAM</state>
+					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>SIO_HUB</state>
 				</option>
 				<option>
 					<name>MacroChars</name>
@@ -1365,27 +1367,28 @@
 				<option>
 					<name>CCDefines</name>
 					<state>NDEBUG</state>
-					<state>RF4CE_TARGET</state>
-					<state>ZRC_CMD_DISCOVERY</state>
-					<state>TAL_TYPE=ATMEGARFR2</state>
-					<state>RF4CE_CALLBACK_PARAM</state>
-					<state>VENDOR_DATA</state>
-					<state>ZRC_PROFILE</state>
 					<state>ENABLE_STACK_NVM</state>
-					<state>HIGHEST_STACK_LAYER=RF4CE</state>
-					<state>REDUCED_PARAM_CHECK</state>
-					<state>CHANNEL_AGILITY</state>
-					<state>SAL_TYPE=ATMEGARF_SAL</state>
-					<state>STB_ON_SAL</state>
-					<state>RF4CE_SECURITY</state>
 					<state>BOARD=ATMEGA256RFR2_XPLAINED_PRO</state>
-					<state>RSSI_TO_LQI_MAPPING</state>
 					<state>NLDE_HANDLE</state>
-					<state>ENABLE_TRX_SRAM</state>
-					<state>SIO_HUB</state>
-					<state>PBP_REC</state>
+					<state>ZRC_CMD_DISCOVERY</state>
+					<state>RF4CE_TARGET</state>
+					<state>_DEBUG_=0</state>
+					<state>VENDOR_DATA</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>ENABLE_TRX_SRAM</state>
+					<state>RF4CE_SECURITY</state>
+					<state>RSSI_TO_LQI_MAPPING</state>
+					<state>PBP_REC</state>
+					<state>STB_ON_SAL</state>
+					<state>REDUCED_PARAM_CHECK</state>
+					<state>SAL_TYPE=ATMEGARF_SAL</state>
+					<state>ZRC_PROFILE</state>
+					<state>TAL_TYPE=ATMEGARFR2</state>
+					<state>CHANNEL_AGILITY</state>
 					<state>PRIVATE_NIB</state>
+					<state>RF4CE_CALLBACK_PARAM</state>
+					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>SIO_HUB</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1721,27 +1724,28 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>RF4CE_TARGET</state>
-					<state>ZRC_CMD_DISCOVERY</state>
-					<state>TAL_TYPE=ATMEGARFR2</state>
-					<state>RF4CE_CALLBACK_PARAM</state>
-					<state>VENDOR_DATA</state>
-					<state>ZRC_PROFILE</state>
 					<state>ENABLE_STACK_NVM</state>
-					<state>HIGHEST_STACK_LAYER=RF4CE</state>
-					<state>REDUCED_PARAM_CHECK</state>
-					<state>CHANNEL_AGILITY</state>
-					<state>SAL_TYPE=ATMEGARF_SAL</state>
-					<state>STB_ON_SAL</state>
-					<state>RF4CE_SECURITY</state>
 					<state>BOARD=ATMEGA256RFR2_XPLAINED_PRO</state>
-					<state>RSSI_TO_LQI_MAPPING</state>
 					<state>NLDE_HANDLE</state>
-					<state>ENABLE_TRX_SRAM</state>
-					<state>SIO_HUB</state>
-					<state>PBP_REC</state>
+					<state>ZRC_CMD_DISCOVERY</state>
+					<state>RF4CE_TARGET</state>
+					<state>_DEBUG_=0</state>
+					<state>VENDOR_DATA</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
+					<state>ENABLE_TRX_SRAM</state>
+					<state>RF4CE_SECURITY</state>
+					<state>RSSI_TO_LQI_MAPPING</state>
+					<state>PBP_REC</state>
+					<state>STB_ON_SAL</state>
+					<state>REDUCED_PARAM_CHECK</state>
+					<state>SAL_TYPE=ATMEGARF_SAL</state>
+					<state>ZRC_PROFILE</state>
+					<state>TAL_TYPE=ATMEGARFR2</state>
+					<state>CHANNEL_AGILITY</state>
 					<state>PRIVATE_NIB</state>
+					<state>RF4CE_CALLBACK_PARAM</state>
+					<state>HIGHEST_STACK_LAYER=RF4CE</state>
+					<state>SIO_HUB</state>
 				</option>
 				<option>
 					<name>MacroChars</name>

@@ -283,6 +283,12 @@
 #define PIN_PCK0_TYPE    PIO_PERIPH_B
 #define PIN_PCK0_ATTR    PIO_DEFAULT
 
+/** TWI0 pins definition */
+#define TWI0_DATA_GPIO   PIO_PA3_IDX
+#define TWI0_DATA_FLAGS  (IOPORT_MODE_MUX_A)
+#define TWI0_CLK_GPIO    PIO_PA4_IDX
+#define TWI0_CLK_FLAGS   (IOPORT_MODE_MUX_A)
+
 /** USART0 pin RX */
 #define PIN_USART0_RXD        {PIO_PB0C_RXD0, PIOB, ID_PIOB, PIO_PERIPH_C, \
 		PIO_DEFAULT}
@@ -714,6 +720,10 @@ void at86rfx_isr(void);
 #define LEAVE_TRX_REGION()         pio_enable_pin_interrupt(AT86RFX_IRQ_PIN)
 
 //@}
+
+/** EDBG related define */
+#define EDBG_I2C_MODULE  TWI0
+#define EDBG_I2C_MODULE_ID  ID_TWI0
 
 /*----------------------------------------------------------------------------*/
 #endif  /* _SAM4E_XPRO_H_ */

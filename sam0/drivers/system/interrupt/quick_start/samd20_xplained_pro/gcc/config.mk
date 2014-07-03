@@ -85,9 +85,6 @@ INC_PATH = \
        sam0/drivers/system/pinmux                         \
        sam0/utils                                         \
        sam0/utils/cmsis/samd20/include                    \
-       sam0/utils/cmsis/samd20/include/component          \
-       sam0/utils/cmsis/samd20/include/instance           \
-       sam0/utils/cmsis/samd20/include/pio                \
        sam0/utils/cmsis/samd20/source                     \
        sam0/utils/header_files                            \
        sam0/utils/preprocessor                            \

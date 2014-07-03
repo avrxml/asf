@@ -238,6 +238,7 @@
 					<state></state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
@@ -594,6 +595,7 @@
 					<name>ADefines</name>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
@@ -1339,6 +1341,7 @@
 					<state>NDEBUG</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
@@ -1695,6 +1698,7 @@
 					<name>ADefines</name>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>_DEBUG_=0</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>

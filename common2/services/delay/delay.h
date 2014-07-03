@@ -47,15 +47,6 @@
 extern "C" {
 #endif
 
-#ifdef SYSTICK_MODE
-#include "sam0/systick_counter.h"
-#endif
-#ifdef CYCLE_MODE
-#include "sam0/cycle_counter.h"
-#endif
-
-void delay_init(void);
-
 /**
  * @defgroup group_common_services_delay Busy-Wait Delay Routines
  *
@@ -65,6 +56,15 @@ void delay_init(void);
  *
  * @{
  */
+
+#ifdef SYSTICK_MODE
+#include "sam0/systick_counter.h"
+#endif
+#ifdef CYCLE_MODE
+#include "sam0/cycle_counter.h"
+#endif
+
+void delay_init(void);
 
 /**
  * \def delay_s

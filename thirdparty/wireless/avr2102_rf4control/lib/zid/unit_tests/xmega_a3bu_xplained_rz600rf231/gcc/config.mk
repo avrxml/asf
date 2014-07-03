@@ -237,7 +237,8 @@ CPPFLAGS = \
        -D VENDOR_DATA                                     \
        -D ZID_ADAPTOR                                     \
        -D ZID_PROFILE                                     \
-       -D _ASSERT_ENABLE_
+       -D _ASSERT_ENABLE_                                 \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS =  \

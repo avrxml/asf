@@ -163,6 +163,7 @@
 				<option>
 					<name>CCDefines</name>
 					<state>__SAM3U4E__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>UDD_ENABLE</state>
 					<state>BOARD=SAM3U_EK</state>
@@ -476,6 +477,7 @@
 				<option>
 					<name>ADefines</name>
 					<state>__SAM3U4E__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>UDD_ENABLE</state>
 					<state>BOARD=SAM3U_EK</state>
@@ -1115,6 +1117,7 @@
 				<option>
 					<name>CCDefines</name>
 					<state>__SAM3U4E__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>UDD_ENABLE</state>
 					<state>BOARD=SAM3U_EK</state>
@@ -1428,6 +1431,7 @@
 				<option>
 					<name>ADefines</name>
 					<state>__SAM3U4E__</state>
+					<state>__FREERTOS__</state>
 					<state>ARM_MATH_CM3=true</state>
 					<state>UDD_ENABLE</state>
 					<state>BOARD=SAM3U_EK</state>

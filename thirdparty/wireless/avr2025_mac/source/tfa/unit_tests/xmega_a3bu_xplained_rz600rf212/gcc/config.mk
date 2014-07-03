@@ -185,7 +185,8 @@ CPPFLAGS = \
        -D PAL_USE_SPI_TRX=1                               \
        -D TAL_TYPE=AT86RF212                              \
        -D TEST_SUITE_DEFINE_ASSERT_MACRO                  \
-       -D _ASSERT_ENABLE_
+       -D _ASSERT_ENABLE_                                 \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS =  \

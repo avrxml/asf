@@ -3,7 +3,7 @@
  *
  * \brief Parallel Input/Output (PIO) interrupt handler for SAM.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -186,11 +186,11 @@ void pio_capture_handler_set(void (*p_handler)(Pio *))
 uint32_t pio_handler_set_pin(uint32_t ul_pin, uint32_t ul_flag,
 		void (*p_handler) (uint32_t, uint32_t))
 {
-	return pio_handler_set((Pio *)((uint32_t)PIOA + (PIO_DELTA * (ul_pin >> 5))),
-			ID_PIOA + (ul_pin >> 5),
-			(1 << (ul_pin & 0x1F)),
-			ul_flag,
-			p_handler);
+	Pio *p_pio = pio_get_pin_group(ul_pin);
+	uint32_t group_id =  pio_get_pin_group_id(ul_pin);
+	uint32_t group_mask = pio_get_pin_group_mask(ul_pin);
+
+	return pio_handler_set(p_pio, group_id, group_mask, ul_flag, p_handler);
 }
 
 /**

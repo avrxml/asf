@@ -3,7 +3,7 @@
  *
  * \brief Startup file for SAM4E.
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -100,12 +100,12 @@ const DeviceVectors exception_table = {
 	(void*) Dummy_Handler,
 	(void*) PIOA_Handler,   /* 9  Parallel I/O Controller A */
 	(void*) PIOB_Handler,   /* 10 Parallel I/O Controller B */
-	(void*) PIOC_Handler,   /* 11 Parallel I/O Controller C */
 #ifdef _SAM4E_PIOD_INSTANCE_
-	(void*) PIOD_Handler,   /* 12 Parallel I/O Controller D */
+	(void*) PIOC_Handler,   /* 11 Parallel I/O Controller C */
 #else
 	(void*) Dummy_Handler,
 #endif
+	(void*) PIOD_Handler,   /* 12 Parallel I/O Controller D */
 #ifdef _SAM4E_PIOE_INSTANCE_
 	(void*) PIOE_Handler,   /* 13 Parallel I/O Controller E */
 #else
@@ -121,12 +121,24 @@ const DeviceVectors exception_table = {
 	(void*) TC0_Handler,    /* 21 Timer/Counter 0 */
 	(void*) TC1_Handler,    /* 22 Timer/Counter 1 */
 	(void*) TC2_Handler,    /* 23 Timer/Counter 2 */
+#ifdef _SAM4E_TC1_INSTANCE_
 	(void*) TC3_Handler,    /* 24 Timer/Counter 3 */
 	(void*) TC4_Handler,    /* 25 Timer/Counter 4 */
 	(void*) TC5_Handler,    /* 26 Timer/Counter 5 */
+#else
+	(void*) Dummy_Handler,
+	(void*) Dummy_Handler,
+	(void*) Dummy_Handler,
+#endif  /* _SAM4E_TC1_INSTANCE_ */
+#ifdef _SAM4E_TC2_INSTANCE_
 	(void*) TC6_Handler,    /* 27 Timer/Counter 6 */
 	(void*) TC7_Handler,    /* 28 Timer/Counter 7 */
 	(void*) TC8_Handler,    /* 29 Timer/Counter 8 */
+#else
+	(void*) Dummy_Handler,
+	(void*) Dummy_Handler,
+	(void*) Dummy_Handler,
+#endif  /* _SAM4E_TC2_INSTANCE_ */
 	(void*) AFEC0_Handler,  /* 30 Analog Front End 0 */
 	(void*) AFEC1_Handler,  /* 31 Analog Front End 1 */
 	(void*) DACC_Handler,   /* 32 Digital To Analog Converter */
@@ -135,17 +147,17 @@ const DeviceVectors exception_table = {
 	(void*) UDP_Handler,    /* 35 USB DEVICE */
 	(void*) PWM_Handler,    /* 36 PWM */
 	(void*) CAN0_Handler,   /* 37 CAN0 */
+#ifdef _SAM4E_CAN1_INSTANCE_
 	(void*) CAN1_Handler,   /* 38 CAN1 */
+#else
+	(void*) Dummy_Handler
+#endif /* _SAM4E_CAN1_INSTANCE_ */
 	(void*) AES_Handler,    /* 39 AES */
 	(void*) Dummy_Handler,
 	(void*) Dummy_Handler,
 	(void*) Dummy_Handler,
 	(void*) Dummy_Handler,
-#ifdef _SAM4E_GMAC_INSTANCE_
 	(void*) GMAC_Handler,   /* 44 EMAC */
-#else
-	(void*) Dummy_Handler,
-#endif
 	(void*) UART1_Handler   /* 45 UART */
 };
 

@@ -162,11 +162,12 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>BOARD=SAM3S_EK2</state>
 					<state>_ASSERT_ENABLE_</state>
 					<state>__SAM3SD8C__</state>
-					<state>ARM_MATH_CM3=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>BOARD=SAM3S_EK2</state>
+					<state>ARM_MATH_CM3=true</state>
+					<state>__FREERTOS__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -469,11 +470,12 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>BOARD=SAM3S_EK2</state>
 					<state>_ASSERT_ENABLE_</state>
 					<state>__SAM3SD8C__</state>
-					<state>ARM_MATH_CM3=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>BOARD=SAM3S_EK2</state>
+					<state>ARM_MATH_CM3=true</state>
+					<state>__FREERTOS__</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1102,11 +1104,12 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>BOARD=SAM3S_EK2</state>
 					<state>_ASSERT_ENABLE_</state>
 					<state>__SAM3SD8C__</state>
-					<state>ARM_MATH_CM3=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>BOARD=SAM3S_EK2</state>
+					<state>ARM_MATH_CM3=true</state>
+					<state>__FREERTOS__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1409,11 +1412,12 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>BOARD=SAM3S_EK2</state>
 					<state>_ASSERT_ENABLE_</state>
 					<state>__SAM3SD8C__</state>
-					<state>ARM_MATH_CM3=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>BOARD=SAM3S_EK2</state>
+					<state>ARM_MATH_CM3=true</state>
+					<state>__FREERTOS__</state>
 				</option>
 				<option>
 					<name>AList</name>

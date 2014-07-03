@@ -45,26 +45,23 @@
 #include "ui.h"
 #include "ieee11073_skeleton.h"
 
-#define  LED_On()          port_pin_set_output_level(LED_0_PIN, 0)
-#define  LED_Off()         port_pin_set_output_level(LED_0_PIN, 1)
-
 static bool associated = false;
 
 void ui_init(void)
 {
 	// Initialize LEDs
-	LED_Off();
+	LED_Off(LED_0_PIN);
 }
 
 void ui_powerdown(void)
 {
-	LED_Off();
+	LED_Off(LED_0_PIN);
 }
 
 
 void ui_wakeup(void)
 {
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_association(bool state)
@@ -80,13 +77,13 @@ void ui_process(uint16_t framenumber)
 
 	if (!associated) {
 		if ((framenumber % 1000) == 0) {
-			LED_On();
+			LED_On(LED_0_PIN);
 		}
 		if ((framenumber % 1000) == 500) {
-			LED_Off();
+			LED_Off(LED_0_PIN);
 		}
 	} else {
-		LED_On();
+		LED_On(LED_0_PIN);
 	}
 
 	/* Scan process running each 20ms */

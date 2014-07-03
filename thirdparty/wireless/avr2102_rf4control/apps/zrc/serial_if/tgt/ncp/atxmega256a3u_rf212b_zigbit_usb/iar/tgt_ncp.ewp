@@ -244,6 +244,7 @@
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>RF4CE_TARGET</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ZRC_CMD_DISCOVERY</state>
 					<state>ENABLE_TRX_SRAM</state>
@@ -614,6 +615,7 @@
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>RF4CE_TARGET</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ZRC_CMD_DISCOVERY</state>
 					<state>ENABLE_TRX_SRAM</state>
@@ -1373,6 +1375,7 @@
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>RF4CE_TARGET</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ZRC_CMD_DISCOVERY</state>
 					<state>ENABLE_TRX_SRAM</state>
@@ -1743,6 +1746,7 @@
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>RF4CE_TARGET</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>ZRC_CMD_DISCOVERY</state>
 					<state>ENABLE_TRX_SRAM</state>

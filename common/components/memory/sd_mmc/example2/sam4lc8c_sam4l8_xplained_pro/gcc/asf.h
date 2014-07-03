@@ -96,7 +96,7 @@
 // From module: SAM4L8 Xplained Pro LED support enabled
 #include <led.h>
 
-// From module: SD/MMC stack + Memory Control Access (aka ctrl_access, required for file system or USB)
+// From module: SD/MMC Memory Control Access - Enable
 #include <sd_mmc_mem.h>
 
 // From module: SD/MMC stack on SPI interface

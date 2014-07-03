@@ -171,6 +171,7 @@
 					<state>NLDE_HANDLE</state>
 					<state>__SAM4LC4C__</state>
 					<state>ZRC_CMD_DISCOVERY</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_TRX_SRAM</state>
@@ -502,6 +503,7 @@
 					<state>NLDE_HANDLE</state>
 					<state>__SAM4LC4C__</state>
 					<state>ZRC_CMD_DISCOVERY</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_TRX_SRAM</state>
@@ -1192,6 +1194,7 @@
 					<state>NLDE_HANDLE</state>
 					<state>__SAM4LC4C__</state>
 					<state>ZRC_CMD_DISCOVERY</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_TRX_SRAM</state>
@@ -1523,6 +1526,7 @@
 					<state>NLDE_HANDLE</state>
 					<state>__SAM4LC4C__</state>
 					<state>ZRC_CMD_DISCOVERY</state>
+					<state>_DEBUG_=0</state>
 					<state>VENDOR_DATA</state>
 					<state>MAC_USER_BUILD_CONFIG</state>
 					<state>ENABLE_TRX_SRAM</state>

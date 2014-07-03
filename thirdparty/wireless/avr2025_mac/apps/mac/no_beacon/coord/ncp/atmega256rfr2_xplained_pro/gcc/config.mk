@@ -192,7 +192,8 @@ CPPFLAGS = \
        -D SAL_TYPE=ATMEGARF_SAL                           \
        -D SIO_HUB                                         \
        -D STB_ON_SAL                                      \
-       -D TAL_TYPE=ATMEGARFR2
+       -D TAL_TYPE=ATMEGARFR2                             \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS = 

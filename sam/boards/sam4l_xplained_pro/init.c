@@ -207,6 +207,13 @@ void board_init(void)
 	ioport_set_pin_peripheral_mode(PIN_PA18D_PARC_PCEN1, MUX_PA18D_PARC_PCEN1);
 	ioport_set_pin_peripheral_mode(PIN_PA19D_PARC_PCEN2, MUX_PA19D_PARC_PCEN2);
 #endif
+
+#ifdef CONF_BOARD_OLED_UG_2832HSWEG04
+	ioport_set_pin_dir(UG_2832HSWEG04_DATA_CMD_GPIO, IOPORT_DIR_OUTPUT);
+	ioport_set_pin_mode(UG_2832HSWEG04_DATA_CMD_GPIO, IOPORT_MODE_PULLUP);
+	ioport_set_pin_dir(UG_2832HSWEG04_RESET_GPIO, IOPORT_DIR_OUTPUT);
+	ioport_set_pin_mode(UG_2832HSWEG04_RESET_GPIO, IOPORT_MODE_PULLUP);
+#endif
 }
 
 /** @} */

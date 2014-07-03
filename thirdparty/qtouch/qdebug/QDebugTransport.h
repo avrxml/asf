@@ -12,7 +12,7 @@
  * - Support email:      touch@atmel.com
  *
  *
- * Copyright (c) 2010 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -66,10 +66,11 @@ extern "C"
 #include "touch_api_at32uc3l.h"
 #elif SAM4L
 # include "touch_api_sam4l.h"
+#elif (SAMD20 || SAMD21)
+# include "touch_api_SAMD.h"
 #else
 #include "touch_api.h"
 #endif
-
 /*============================ MACROS ========================================*/
 
 #ifdef _DEBUG_INTERFACE_
@@ -114,7 +115,7 @@ extern "C"
 #else
 #endif
 
-#if (!(UC3L0)) && (!(SAM4L))
+#if (!(UC3L0)) && (!(SAM4L)) && (!(SAMD20)) && (!(SAMD21))
 #ifdef _ROTOR_SLIDER_
 #define TX_BUFFER_SIZE (QT_NUM_CHANNELS*4)+10
 #define RX_BUFFER_SIZE (QT_NUM_CHANNELS*4)+10
@@ -123,6 +124,7 @@ extern "C"
 #define RX_BUFFER_SIZE (QT_NUM_CHANNELS*3)+10
 #endif
 #endif
+
 #define STATE_IDLE	    0
 #define STATE_LENGTH1	1
 #define STATE_LENGTH2	2

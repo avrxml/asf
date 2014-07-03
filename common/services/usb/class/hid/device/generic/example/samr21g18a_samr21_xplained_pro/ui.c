@@ -44,8 +44,8 @@
 #include <asf.h>
 #include "ui.h"
 
-#define  LED_On()          port_pin_set_output_level(LED_0_PIN, 0)
-#define  LED_Off()         port_pin_set_output_level(LED_0_PIN, 1)
+#define  LED_On(LED_0_PIN)          port_pin_set_output_level(LED_0_PIN, 0)
+#define  LED_Off(LED_0_PIN)         port_pin_set_output_level(LED_0_PIN, 1)
 
 static bool ui_b_led_blink = true;
 static uint8_t ui_hid_report[UDI_HID_REPORT_OUT_SIZE];
@@ -53,12 +53,12 @@ static uint8_t ui_hid_report[UDI_HID_REPORT_OUT_SIZE];
 void ui_init(void)
 {
 	/* Initialize LEDs */
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_powerdown(void)
 {
-	LED_Off();
+	LED_Off(LED_0_PIN);
 }
 
 
@@ -74,7 +74,7 @@ void ui_wakeup_disable(void)
 
 void ui_wakeup(void)
 {
-	LED_On();
+	LED_On(LED_0_PIN);
 }
 
 void ui_process(uint16_t framenumber)
@@ -86,10 +86,10 @@ void ui_process(uint16_t framenumber)
 	// Blink LED
 	if (ui_b_led_blink) {
 		if ((framenumber % 1000) == 0) {
-			LED_On();
+			LED_On(LED_0_PIN);
 		}
 		if ((framenumber % 1000) == 500) {
-			LED_Off();
+			LED_Off(LED_0_PIN);
 		}
 	}
 
@@ -116,7 +116,7 @@ void ui_led_change(uint8_t *report)
 		switch(report[1]) {
 			case '1':
 			ui_b_led_blink = false;
-			LED_On();
+			LED_On(LED_0_PIN);
 			break;
 		}
 	} else {

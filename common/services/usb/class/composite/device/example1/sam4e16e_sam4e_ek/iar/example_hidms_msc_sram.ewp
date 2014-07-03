@@ -2015,9 +2015,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/acc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/instance/pioa.h</name>
 							</file>
 							<file>
@@ -2126,19 +2123,16 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/twi.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/crccu.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/smc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/gpbr.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/rswdt.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/cmcc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/cmcc.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/rswdt.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/supc.h</name>
@@ -2389,10 +2383,10 @@
 									<name>$PROJ_DIR$/../../conf_usb.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../ui.h</name>
+									<name>$PROJ_DIR$/../../main.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../main.h</name>
+									<name>$PROJ_DIR$/../../ui.h</name>
 								</file>
 							</group>
 							<file>

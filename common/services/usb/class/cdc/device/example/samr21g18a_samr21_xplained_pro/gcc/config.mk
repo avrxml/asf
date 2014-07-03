@@ -110,9 +110,6 @@ INC_PATH = \
        sam0/drivers/usb/stack_interface                   \
        sam0/utils                                         \
        sam0/utils/cmsis/samr21/include                    \
-       sam0/utils/cmsis/samr21/include/component          \
-       sam0/utils/cmsis/samr21/include/instance           \
-       sam0/utils/cmsis/samr21/include/pio                \
        sam0/utils/cmsis/samr21/source                     \
        sam0/utils/header_files                            \
        sam0/utils/preprocessor                            \

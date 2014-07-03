@@ -230,7 +230,8 @@ CPPFLAGS = \
        -D TAL_TYPE=AT86RF212                              \
        -D TEST_HARNESS                                    \
        -D TEST_HARNESS_BIG_ENDIAN                         \
-       -D UDD_ENABLE
+       -D UDD_ENABLE                                      \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS = \

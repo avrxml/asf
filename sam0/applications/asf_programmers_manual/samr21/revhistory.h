@@ -51,8 +51,8 @@
  *  </tr>
  *  <tr>
  *    <td>A</td>
- *    <td>03/2014</td>
- *    <td>Initial release.</td>
+ *    <td>05/2014</td>
+ *    <td>Initial release of documentation for ASF version 3.17.0.</td>
  *  </tr>
  * </table>
  */

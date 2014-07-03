@@ -3,7 +3,7 @@
  *
  * \brief Chip-specific system clock management functions.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,7 +40,7 @@
  * \asf_license_stop
  *
  */
-
+#include <compiler.h>
 #include <sysclk.h>
 
 /// @cond 0
@@ -114,6 +114,35 @@ void sysclk_set_source(uint32_t ul_src)
 	SystemCoreClockUpdate();
 }
 
+#if defined(CONFIG_USBCLK_DIV) || defined(__DOXYGEN__)
+/**
+ * \brief Enable full speed USB clock.
+ *
+ * \note The SAM4C32E PMC hardware interprets div as div+1.
+ * For readability the hardware div+1 is hidden in this implementation.
+ */
+void sysclk_enable_usb(void)
+{
+	Assert(CONFIG_USBCLK_DIV > 0);
+	Assert(pmc_is_locked_pllbck()); /* PLLB must be the source of USB clock */
+
+	PMC->PMC_USB = PMC_USB_ONE | PMC_USB_USBDIV(CONFIG_USBCLK_DIV - 1);
+	PMC->PMC_SCER = PMC_SCER_UHDP;
+	return;
+}
+
+/**
+ * \brief Disable full speed USB clock.
+ *
+ * \note This implementation does not switch off the PLL,
+ * it just turns off the USB clock.
+ */
+void sysclk_disable_usb(void)
+{
+	PMC->PMC_SCDR = PMC_SCDR_UHDP;
+}
+#endif /* CONFIG_USBCLK_DIV */
+
 #ifdef CONFIG_CPCLK_ENABLE
 /**
  * \brief Configure clock for coprocessor.
@@ -123,6 +152,9 @@ static void sysclk_configure_cpclk(void)
 #if ((CONFIG_CPCLK_PRES < CPCLK_PRES_MIN) || (CONFIG_CPCLK_PRES > CPCLK_PRES_MAX))
 #error Invalid CONFIG_CPCLK_PRES setting.
 #endif
+
+	/* Assert coprocessor reset and reset its peripheral */
+	RSTC->RSTC_CPMR = RSTC_CPMR_CPKEY(0x5Au);
 
 #ifdef CONFIG_PLL0_SOURCE
 	if ((CONFIG_CPCLK_SOURCE == CPCLK_SRC_PLLACK) &&

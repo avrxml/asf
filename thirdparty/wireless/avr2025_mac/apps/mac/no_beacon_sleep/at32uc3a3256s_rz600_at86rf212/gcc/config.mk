@@ -208,7 +208,8 @@ CPPFLAGS = \
        -D PAL_USE_SPI_TRX=1                               \
        -D SAL_TYPE=AT86RF2xx                              \
        -D STB_ON_SAL                                      \
-       -D TAL_TYPE=AT86RF212
+       -D TAL_TYPE=AT86RF212                              \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS = \

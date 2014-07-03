@@ -242,7 +242,8 @@ CPPFLAGS = \
        -D UDD_ENABLE                                      \
        -D VENDOR_DATA                                     \
        -D ZRC_CMD_DISCOVERY                               \
-       -D ZRC_PROFILE
+       -D ZRC_PROFILE                                     \
+       -D _DEBUG_=0
 
 # Extra flags to use when linking
 LDFLAGS = \
