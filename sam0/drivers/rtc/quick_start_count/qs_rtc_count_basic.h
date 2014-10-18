@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 RTC Count Quick Start
+ * \brief SAM RTC Count Quick Start
  *
  * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
@@ -45,7 +45,7 @@
  * \page asfdoc_sam0_rtc_count_basic_use_case Quick Start Guide for RTC (COUNT) - Basic
  * In this use case, the RTC is set up in count mode. The example configures the
  * RTC in 16 bit mode, with continuous updates to the COUNT register, together
- * with a set compare register value. Every 1000ms a LED on the board is
+ * with a set compare register value. Every 2000ms a LED on the board is
  * toggled.
  *
  * \section asfdoc_sam0_rtc_count_basic_use_case_prereq Prerequisites

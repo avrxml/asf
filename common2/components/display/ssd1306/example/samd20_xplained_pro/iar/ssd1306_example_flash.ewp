@@ -2202,10 +2202,16 @@
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g17.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g17u.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j18.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g16.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g18u.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j14.h</name>
@@ -2329,6 +2335,9 @@
 							<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/samd20e14.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/samd20g18u.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/samd20g14.h</name>
 						</file>
 						<file>
@@ -2339,6 +2348,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/samd20j14.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/samd20g17u.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/samd20e18.h</name>
@@ -2370,10 +2382,10 @@
 			<group>
 				<name>preprocessor</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor/mrepeat.h</name>
+					<name>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor/mrecursion.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor/mrecursion.h</name>
+					<name>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor/mrepeat.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor/tpaste.h</name>

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Peripheral Event Controller (PEVC) example 1 for SAM.
+ * \brief SAM Peripheral Event Controller (PEVC) example 1.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,50 +41,17 @@
  *
  */
 
-/**
- * \mainpage
- * \section intro Introduction
- * This example shows how to use the Peripheral Event Controller.
- * In the example, the AST generate a periodic event which is transmitted
- * to the PDCA. Each time a new event is coming, a character is sent to the
- * USART without the use of the CPU. The main loop of the function is a
- * delay 500ms and toggle a LED continuously to show CPU activity.
- *
- * \section files Main Files
- * - events.c: Events driver;
- * - events.h: Events driver header file;
- * - events_example1.c: Events example 1 application.
- *
- * \section compilinfo Compilation Information
- * This software is written for GNU GCC and IAR Embedded Workbench
- * for Atmel. Other compilers may or may not work.
- *
- * \section deviceinfo Device Information
- * SAM4L device can be used.
- *
- * \section configinfo Configuration Information
- * This example has been tested with the following configuration:
- * - PC terminal settings:
- *   - 115200 bps,
- *   - 8 data bits,
- *   - no parity bit,
- *   - 1 stop bit,
- *   - no flow control.
- *
- * \section contactinfo Contact Information
- * For further information, visit
- * <A href="http://www.atmel.com">Atmel</A>.\n
- * Support and FAQ: http://support.atmel.com/
- */
 #include <asf.h>
-#include "conf_example.h"
+#include <conf_example.h>
+#include <events_example1.h>
 
 uint8_t event_string[] = "AST event triggered PDCA!";
 
 /**
- * PDCA transfer interrupt callback.
+ * \brief PDCA transfer interrupt callback.
  */
-static void pdca_tranfer_done(enum pdca_channel_status status)
+static void pdca_tranfer_done(
+		enum pdca_channel_status status)
 {
 	/* Get PDCA channel status and check if PDCA transfer is completed */
 	if (status == PDCA_CH_TRANSFER_COMPLETED) {
@@ -96,7 +63,7 @@ static void pdca_tranfer_done(enum pdca_channel_status status)
 }
 
 /**
- * Initialize the AST as event generator.
+ * \brief Initialize the AST as event generator.
  */
 static void init_ast(void)
 {
@@ -123,14 +90,15 @@ static void init_ast(void)
 		}
 	}
 
-	/* Enable period enent of AST */
+	/* Enable period event of AST */
 	ast_write_periodic0_value(AST, AST_PSEL_32KHZ_1HZ);
 	ast_enable_event(AST, AST_EVENT_PER);
 }
 
 /**
- * Initialize the PEVC for the example.
+ * \brief Initialize the PEVC for the example.
  */
+//! [quick_start_init_events_function]
 static void init_events(void)
 {
 	struct events_conf    events_config;
@@ -156,9 +124,10 @@ static void init_events(void)
 	/* Enable the channel */
 	events_ch_enable(PEVC_ID_USER_PDCA_0);
 }
+//! [quick_start_init_events_function]
 
 /**
- * Initialize the PDCA transfer for the example.
+ * \brief Initialize the PDCA transfer for the example.
  */
 static void init_pdca(void)
 {
@@ -189,7 +158,7 @@ static void init_pdca(void)
 }
 
 /**
- *  Configure serial console.
+ *  \brief Configure serial console.
  */
 static void configure_console(void)
 {
@@ -197,11 +166,11 @@ static void configure_console(void)
 		.baudrate = CONF_UART_BAUDRATE,
 #ifdef CONF_UART_CHAR_LENGTH
 		.charlength = CONF_UART_CHAR_LENGTH,
-#endif
+#endif /* CONF_UART_CHAR_LENGTH */
 		.paritytype = CONF_UART_PARITY,
 #ifdef CONF_UART_STOP_BITS
 		.stopbits = CONF_UART_STOP_BITS,
-#endif
+#endif /* CONF_UART_STOP_BITS */
 	};
 
 	/* Configure console. */
@@ -225,11 +194,22 @@ int main(void)
 	printf("-- %s\r\n", BOARD_NAME);
 	printf("-- Compiled: %s %s --\r\n", __DATE__, __TIME__);
 
+	//! [quick_start_init_all_basic_use]
+	/* Initialize AST as event generator. */
+	//! [quick_start_init_ast_basic_use]
 	init_ast();
+	//! [quick_start_init_ast_basic_use]
 
+	/* Initialise events for this example. */
+	//! [quick_start_init_events_basic_use]
 	init_events();
+	//! [quick_start_init_events_basic_use]
 
+	/* Initialize the PDCA as event user */
+	//! [quick_start_init_pdca_basic_use]
 	init_pdca();
+	//! [quick_start_init_pdca_basic_use]
+	//! [quick_start_init_all_basic_use]
 
 	while (1) {
 		/* Toggle LED0 every 500 ms */

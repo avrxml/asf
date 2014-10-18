@@ -3,7 +3,7 @@
  *
  * \brief Analog Comparator Controller (ACC) example for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,66 +41,10 @@
  *
  */
 
-/**
- * \mainpage acc_irq ACC IRQ Example
- *
- * \section Purpose
- *
- * The acc_irq example demonstrates how to use the ACC peripheral to
- * detect comparison event on the input pair.
- *
- * \section Requirements
- *
- * This example can be used on the following boards:<br>
- * - SAM3S-EK<br>
- * - SAM3S-EK2<br>
- * - SAM4S-EK<br>
- * - SAM4S-EK2<br>
- *
- * \section Description
- *
- * The acc_irq is aimed to demonstrate the usage of ACC peripheral with
- * interrupt support. The DAC0 and AD5 are selected as two inputs.
- * The user can change the output voltage of DAC0 and change the voltage
- * on AD5 by adjusting VR1.
- *
- * The output voltage of DAC0 is ranged from (1/6)*ADVREF to (5/6)*ADVREF,and
- * the input voltage of AD5 is ranged from 0 to ADVREF.
- *
- * The comparison event would be generated if the voltage of one input is
- * changed across the voltage of the other input. Both bigger and less events
- * could be triggered by default.
- *
- * \section Usage
- *
- * -# Build the program and download it inside the evaluation board.
- * -# On the computer, open and configure a terminal application
- *    (e.g. HyperTerminal on Microsoft Windows) with these settings:
- *   - 115200 bauds
- *   - 8 bits of data
- *   - No parity
- *   - 1 stop bit
- *   - No flow control
- * -# In the terminal window, the
- *    following text should appear (values depend on the board and chip used):
- *    \code
-	-- ACC IRQ Example xxx --
-	-- xxxxxx-xx
-	-- Compiled: xxx xx xxxx xx:xx:xx --
-	-- Menu Choices for this example--
-	-- s: Set new DAC0 output voltage.--
-	-- v: Get voltage on potentiometer.--
-	-- m: Display this menu again.--
-\endcode
- * -# Input command according to the menu.
- * -# Change voltage on AD5 by adjusting VR1 to see what comparison event happen.
- *
- */
-
-#include "asf.h"
-#include "stdio_serial.h"
-#include "conf_board.h"
-#include "conf_clock.h"
+#include <asf.h>
+#include <stdio_serial.h>
+#include <conf_board.h>
+#include <conf_clock.h>
 
 /** Reference voltage for DACC,in mv */
 #define VOLT_REF   (3300)
@@ -136,22 +80,36 @@
 /**
  * Interrupt handler for the ACC.
  */
+//! [acc_irq_handler_start]
 void ACC_Handler(void)
 {
+//! [acc_irq_handler_start]
+
+	//! [acc_irq_handler_status]
 	uint32_t ul_status;
 
 	ul_status = acc_get_interrupt_status(ACC);
 
-	/* Compare Output Interrupt */
+	/** Compare Output Interrupt */
 	if ((ul_status & ACC_ISR_CE) == ACC_ISR_CE) {
-
+		//! [acc_irq_handler_status]
+		//! [acc_irq_handler_result_1]
 		if (acc_get_comparison_result(ACC)) {
+			//! [acc_irq_handler_result_1]
 			puts("-ISR- Voltage Comparison Result: AD5 > DAC0\r");
+		//! [acc_irq_handler_result_2]
 		} else {
+			//! [acc_irq_handler_result_2]
 			puts("-ISR- Voltage Comparison Result: AD5 < DAC0\r");
+		//! [acc_irq_handler_result_3]
 		}
+	//! [acc_irq_handler_result_3]
+	//! [acc_irq_handler_result_end]
 	}
+	//! [acc_irq_handler_result_end]
+	//! [acc_irq_handler_end]
 }
+//! [acc_irq_handler_end]
 
 /**
  *  Configure UART console.
@@ -273,7 +231,7 @@ int main(void)
 	dacc_set_transfer_mode(DACC, 0);
 	/* Power save:
 	 * sleep mode  - 0 (disabled)
-	 * fast wakeup - 0 (disabled)
+	 * fast wake-up - 0 (disabled)
 	 */
 	dacc_set_power_save(DACC, 0, 0);
 	/* Timing:
@@ -329,17 +287,24 @@ int main(void)
 	/* Channel 5 has to be compared */
 	adc_enable_channel(ADC, ADC_CHANNEL_5);
 
-	/* Enable clock for ACC */
+	//! [acc_enable_clock]
+	/** Enable clock for ACC */
 	pmc_enable_periph_clk(ID_ACC);
-	/* Initialize ACC */
+	//! [acc_enable_clock]
+
+	//! [acc_init]
+	/** Initialize ACC */
 	acc_init(ACC, ACC_MR_SELPLUS_AD5, ACC_MR_SELMINUS_DAC0,
 			ACC_MR_EDGETYP_ANY, ACC_MR_INV_DIS);
+	//! [acc_init]
 
-	/* Enable ACC interrupt */
+	//! [acc_irq_enable]
+	/** Enable ACC interrupt */
 	NVIC_EnableIRQ(ACC_IRQn);
 
-	/* Enable */
+	/** Enable */
 	acc_enable_interrupt(ACC);
+	//! [acc_irq_enable]
 
 	dsplay_menu();
 

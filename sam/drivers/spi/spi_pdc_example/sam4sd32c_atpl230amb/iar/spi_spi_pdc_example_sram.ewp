@@ -306,9 +306,10 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -577,9 +578,10 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -1239,9 +1241,10 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -1510,9 +1513,10 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -2046,6 +2050,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>uart</name>
@@ -2143,9 +2153,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/pio/pio_sam4sd32b.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s8c.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/pio/pio_sam4sa16b.h</name>
 							</file>
 							<file>
@@ -2165,6 +2172,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s4c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s8c.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s16b.h</name>
@@ -2215,6 +2225,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/instance/instance_acc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/instance/instance_smc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/instance/instance_chipid.h</name>
 							</file>
 							<file>
@@ -2242,9 +2255,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/instance/instance_usart1.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/instance/instance_pmc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/instance/instance_rtc.h</name>
 							</file>
 							<file>
@@ -2260,9 +2270,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/instance/instance_matrix.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/instance/instance_smc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/instance/instance_uart0.h</name>
 							</file>
 							<file>
@@ -2270,6 +2277,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/instance/instance_cmcc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/instance/instance_pmc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/instance/instance_adc.h</name>

@@ -2280,10 +2280,10 @@
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.h</name>
 				</file>
 			</group>
 			<group>
@@ -2315,6 +2315,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/dmac/dmac.h</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>uotghs</name>

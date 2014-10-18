@@ -1988,6 +1988,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3s/include/instance/instance_rtt.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3s/include/instance/instance_piob.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3s/include/instance/instance_rstc.h</name>
 							</file>
 							<file>
@@ -2055,9 +2058,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3s/include/instance/instance_udp.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3s/include/instance/instance_piob.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3s/include/instance/instance_twi1.h</name>
@@ -2172,9 +2172,6 @@
 					<group>
 						<name>sam3s4c_sam3s_ek</name>
 						<file>
-							<name>$PROJ_DIR$/../conf_pdc_uart_example.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../conf_uart_serial.h</name>
 						</file>
 						<file>
@@ -2189,7 +2186,13 @@
 								<name>$PROJ_DIR$/asf.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../conf_pdc_uart_example.h</name>
+						</file>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../pdc_uart_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../pdc.c</name>
@@ -2352,6 +2355,18 @@
 				</file>
 			</group>
 			<group>
+				<name>ioport</name>
+				<group>
+					<name>sam</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../common/services/ioport/sam/ioport_pio.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../common/services/ioport/ioport.h</name>
+				</file>
+			</group>
+			<group>
 				<name>gpio</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../common/services/gpio/gpio.h</name>
@@ -2360,18 +2375,6 @@
 					<name>sam_gpio</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/gpio/sam_gpio/sam_gpio.h</name>
-					</file>
-				</group>
-			</group>
-			<group>
-				<name>ioport</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../common/services/ioport/ioport.h</name>
-				</file>
-				<group>
-					<name>sam</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/ioport/sam/ioport_pio.h</name>
 					</file>
 				</group>
 			</group>

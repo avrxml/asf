@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21 DAC Quick Start
+ * \brief SAM DAC Quick Start
  *
  * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *

@@ -1964,6 +1964,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/component/component_rtc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/component/component_efc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/component/component_usart.h</name>
 							</file>
 							<file>
@@ -1980,9 +1983,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/component/component_chipid.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/component/component_efc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/component/component_pwm.h</name>
@@ -2251,6 +2251,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../dmac/dmac.h</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 			</group>
 		</group>
 	</group>

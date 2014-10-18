@@ -2007,6 +2007,9 @@
 							<name>$PROJ_DIR$/../conf_clock.h</name>
 						</file>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../pdc_uart_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../pdc.c</name>

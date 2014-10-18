@@ -118,14 +118,7 @@ void board_init(void)
 	ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
 	ioport_set_pin_dir(LED1_GPIO, IOPORT_DIR_OUTPUT);
 	ioport_set_pin_level(LED1_GPIO, LED0_INACTIVE_LEVEL);
-	
-	/* Configure PPLC reset pins */
-	ioport_set_pin_dir(PPLC_ARST_GPIO, IOPORT_DIR_OUTPUT);
-	ioport_set_pin_level(PPLC_ARST_GPIO, PPLC_ARST_INACTIVE_LEVEL);
-        
-	ioport_set_pin_dir(PPLC_SRST_GPIO, IOPORT_DIR_OUTPUT);
-	ioport_set_pin_level(PPLC_SRST_GPIO, PPLC_SRST_INACTIVE_LEVEL);
-	
+		
 	/* Configure SPI pins */
 	ioport_set_pin_peripheral_mode(SPI0_MISO_GPIO, SPI0_MISO_FLAGS);
 	ioport_set_pin_peripheral_mode(SPI0_MOSI_GPIO, SPI0_MOSI_FLAGS);

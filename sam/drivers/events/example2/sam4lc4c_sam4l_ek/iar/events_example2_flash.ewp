@@ -2168,10 +2168,19 @@
 							<name>$PROJ_DIR$/../conf_example.h</name>
 						</file>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../events_example2.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../events.c</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example1/events_example1.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../events.h</name>
 				</file>

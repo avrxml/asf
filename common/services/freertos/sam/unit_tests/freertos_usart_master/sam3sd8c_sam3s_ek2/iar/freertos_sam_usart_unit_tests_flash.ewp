@@ -313,6 +313,7 @@
 					<state>$PROJ_DIR$/../../../../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam3s_ek2</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
@@ -588,6 +589,7 @@
 					<state>$PROJ_DIR$/../../../../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam3s_ek2</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
@@ -1255,6 +1257,7 @@
 					<state>$PROJ_DIR$/../../../../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam3s_ek2</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
@@ -1530,6 +1533,7 @@
 					<state>$PROJ_DIR$/../../../../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam3s_ek2</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
@@ -2277,6 +2281,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>usart</name>

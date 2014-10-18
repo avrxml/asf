@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 External Interrupt Driver Configuration Header
+ * \brief SAM External Interrupt Driver Configuration Header
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *

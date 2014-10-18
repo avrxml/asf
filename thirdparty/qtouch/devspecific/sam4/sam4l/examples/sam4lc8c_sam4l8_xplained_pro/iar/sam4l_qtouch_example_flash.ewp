@@ -2001,6 +2001,9 @@
 								<file>
 									<name>$PROJ_DIR$/../conf_board.h</name>
 								</file>
+								<file>
+									<name>$PROJ_DIR$/../touch_config_sam4l.h</name>
+								</file>
 								<group>
 									<name>iar</name>
 									<file>
@@ -2012,9 +2015,6 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../conf_example.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../touch_config_sam4l.h</name>
 								</file>
 							</group>
 						</group>
@@ -2258,6 +2258,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_eic.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_picouart.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_chipid.h</name>
 							</file>
 							<file>
@@ -2333,7 +2336,7 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_twis1.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_picouart.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_pm.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_iisc.h</name>
@@ -2358,9 +2361,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_pdca.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_pm.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_hmatrix.h</name>
@@ -2450,7 +2450,7 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_lcdca.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_ast.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_gloc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_twis.h</name>
@@ -2465,16 +2465,13 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_crccu.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_gloc.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_ast.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_hmatrixb.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_bscif.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_smap.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_bpm.h</name>
@@ -2517,6 +2514,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_dacc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_smap.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_pevc.h</name>
@@ -2656,9 +2656,21 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/ast/ast.c</name>
 				</file>
+				<group>
+					<name>example2</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/ast/example2/ast_example2.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/ast/ast.h</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/ast/example1/ast_example1.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>wdt</name>

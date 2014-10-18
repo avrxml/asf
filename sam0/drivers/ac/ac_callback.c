@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 AC - Analog Comparator Callback Driver
+ * \brief SAM AC - Analog Comparator Callback Driver
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *

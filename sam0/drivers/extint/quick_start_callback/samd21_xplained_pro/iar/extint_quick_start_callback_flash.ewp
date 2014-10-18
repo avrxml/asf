@@ -2253,9 +2253,6 @@
 							<name>$PROJ_DIR$/../conf_clocks.h</name>
 						</file>
 					</group>
-					<file>
-						<name>$PROJ_DIR$/../../qs_extint_callback.h</name>
-					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../extint.c</name>
@@ -2266,12 +2263,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../extint_callback.h</name>
 				</file>
-				<group>
-					<name>quick_start_polled</name>
-					<file>
-						<name>$PROJ_DIR$/../../../quick_start_polled/qs_extint_basic.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../extint.h</name>
 				</file>

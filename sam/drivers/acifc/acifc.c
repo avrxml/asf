@@ -3,7 +3,7 @@
  *
  * \brief Analog Comparator interface driver for SAM4L.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,11 +41,11 @@
  *
  */
 
+#include <sysclk.h>
+#include <sleepmgr.h>
 #include "acifc.h"
-#include "sysclk.h"
-#include "sleepmgr.h"
 
-/// @cond 0
+/// @cond
 /**INDENT-OFF**/
 #ifdef __cplusplus
 extern "C" {
@@ -57,24 +57,13 @@ struct ac_dev_inst  *_ac_instance;
 ac_callback_t ac_callback_pointer[AC_INTERRUPT_NUM];
 
 /**
- * \defgroup sam_drivers_acifc_group Analog Comparator (AC)
+ * \internal Configure the ACIFC module.
  *
- * See \ref sam_acifc_quickstart.
- *
- * Driver for the Analog Comparator. This driver provides access to the main
- * features of the AC controller.
- *
- * @{
+ * \param[in] dev_inst Driver structure pointer
+ * \param[in] cfg      Module configuration structure pointer
  */
-
-/**
- * \internal Set configurations to module.
- *
- * \param  dev_inst Pointer to device instance structure.
- * \param  cfg      Configuration structure with configurations to set.
- *
- */
-static inline void _ac_set_config(struct ac_dev_inst *const dev_inst,
+static inline void _ac_set_config(
+		struct ac_dev_inst *const dev_inst,
 		struct ac_config *const cfg)
 {
 	/* Sanity check arguments. */
@@ -87,22 +76,22 @@ static inline void _ac_set_config(struct ac_dev_inst *const dev_inst,
 }
 
 /**
- * \brief Initializes the requested AC Hardware module.
+ * \brief Initialize the ACIFC module.
  *
- * Enables the source clock for the requested AC Hardware module and initializes
- * it with the given configuration.
+ * \note Enables the ACIFC module's source clock.
  *
- * \param  dev_inst Pointer to device instance struct.
- * \param  ac       Pointer to the hardware instance.
- * \param  cfg      Pointer to the configuration struct.
+ * \param[out] dev_inst Driver structure pointer
+ * \param[in] ac        Module hardware register base address pointer
+ * \param[in] cfg       Module configuration structure pointer
  *
- * \return              Status of initialization.
- * \retval STATUS_OK Module initiated correctly.
- * \retval STATUS_ERR_DENIED If module has been enabled.
- * \retval STATUS_ERR_BUSY If module is busy comparing.
- *
+ * \return Status of initialization.
+ * \retval STATUS_OK         Module initiated correctly
+ * \retval STATUS_ERR_DENIED Module has already been enabled
+ * \retval STATUS_ERR_BUSY   Module is busy performing a comparison
  */
-enum status_code ac_init(struct ac_dev_inst *const dev_inst, Acifc *const ac,
+enum status_code ac_init(
+		struct ac_dev_inst *const dev_inst,
+		Acifc *const ac,
 		struct ac_config *const cfg)
 {
 	/* Sanity check arguments. */
@@ -117,7 +106,7 @@ enum status_code ac_init(struct ac_dev_inst *const dev_inst, Acifc *const ac,
 	}
 
 	/* Check if comparison is in progress. */
-	if (ac_ctrl & ACIFC_CTRL_USTART){
+	if (ac_ctrl & ACIFC_CTRL_USTART) {
 		return STATUS_ERR_BUSY;
 	}
 
@@ -132,14 +121,15 @@ enum status_code ac_init(struct ac_dev_inst *const dev_inst, Acifc *const ac,
 }
 
 /**
- * \brief Configure the specified AC channel
+ * \brief Configure the specified ACIFC channel.
  *
- * \param dev_inst   Device structure pointer
- * \param channel    AC channel number
- * \param cfg        Configuration for AC channel
- *
+ * \param[in] dev_inst Driver structure pointer
+ * \param[in] channel  ACIFC channel number (range 0 to 7 inclusive)
+ * \param[in] cfg      ACIFC channel configuration structure pointer
  */
-void ac_ch_set_config(struct ac_dev_inst *const dev_inst, uint32_t channel,
+void ac_ch_set_config(
+		struct ac_dev_inst *const dev_inst,
+		uint32_t channel,
 		struct ac_ch_config *cfg)
 {
 	/* Sanity check arguments. */
@@ -162,15 +152,16 @@ void ac_ch_set_config(struct ac_dev_inst *const dev_inst, uint32_t channel,
 }
 
 /**
- * \brief Configure the requested AC window.
+ * \brief Configure the specified ACIFC window.
  *
- * \param dev_inst   Device structure pointer
- * \param window     AC window number
- * \param cfg        Configuration for AC window
- *
+ * \param[in] dev_inst Driver structure pointer
+ * \param[in] window   ACIFC window number (range 0 to 3 inclusive)
+ * \param[in] cfg      ACIFC window configuration structure
  */
-void ac_win_set_config(struct ac_dev_inst *const dev_inst,
-		uint32_t window, struct ac_win_config *cfg)
+void ac_win_set_config(
+		struct ac_dev_inst *const dev_inst,
+		uint32_t window,
+		struct ac_win_config *cfg)
 {
 	/* Sanity check arguments. */
 	Assert(dev_inst);
@@ -188,15 +179,16 @@ void ac_win_set_config(struct ac_dev_inst *const dev_inst,
 }
 
 /**
- * \brief Set callback for AC
+ * \brief Set the ACIFC interrupt callback.
  *
- * \param dev_inst  Device structure pointer
- * \param source    Interrupt source
- * \param callback  Callback function pointer
- * \param irq_level Interrupt level
+ * \param[in] dev_inst  Driver structure pointer
+ * \param[in] source    \ref ac_interrupt_source "ACIFC interrupt source"
+ * \param[in] callback  Interrupt callback function pointer
+ * \param[in] irq_level Interrupt priority level
  */
 void ac_set_callback(struct ac_dev_inst *const dev_inst,
-		ac_interrupt_source_t source, ac_callback_t callback,
+		ac_interrupt_source_t source,
+		ac_callback_t callback,
 		uint8_t irq_level)
 {
 	ac_callback_pointer[source] = callback;
@@ -205,13 +197,13 @@ void ac_set_callback(struct ac_dev_inst *const dev_inst,
 }
 
 /**
- * \brief Enable AC interrupt source.
+ * \brief Enable the specified ACIFC interrupt source.
  *
- * \param p_acifc Pointer to an ACIFC instance.
- * \param source  Interrupt source.
- *
+ * \param[out] dev_inst Driver structure pointer
+ * \param[in] source    \ref ac_interrupt_source "Interrupt source" to enable
  */
-void ac_enable_interrupt(struct ac_dev_inst *const dev_inst,
+void ac_enable_interrupt(
+		struct ac_dev_inst *const dev_inst,
 		ac_interrupt_source_t source)
 {
 	/* Sanity check arguments. */
@@ -249,13 +241,14 @@ void ac_enable_interrupt(struct ac_dev_inst *const dev_inst,
 }
 
 /**
- * \brief Disable AC interrupt source.
+ * \brief Disable the specified ACIFC interrupt source.
  *
- * \param p_acifc Pointer to an ACIFC instance.
- * \param source  Interrupt source.
+ * \param[in] dev_inst Driver structure pointer
+ * \param[in] source   \ref ac_interrupt_source "Interrupt source" to disable
  *
  */
-void ac_disable_interrupt(struct ac_dev_inst *const dev_inst,
+void ac_disable_interrupt(
+		struct ac_dev_inst *const dev_inst,
 		ac_interrupt_source_t source)
 {
 	/* Sanity check arguments. */
@@ -293,31 +286,31 @@ void ac_disable_interrupt(struct ac_dev_inst *const dev_inst,
 }
 
 /**
- * \brief Enable AC Module.
+ * \brief Enable the ACIFC module.
  *
- * \param dev_inst   Device structure pointer
- *
+ * \param[in] dev_inst Driver structure pointer
  */
-void ac_enable(struct ac_dev_inst *const dev_inst)
+void ac_enable(
+		struct ac_dev_inst *const dev_inst)
 {
 	sleepmgr_lock_mode(SLEEPMGR_BACKUP);
 	dev_inst->hw_dev->ACIFC_CTRL |= ACIFC_CTRL_EN;
 }
 
 /**
- * \brief Disable ACIFC Module.
+ * \brief Disable the ACIFC Module.
  *
- * \param dev_inst   Device structure pointer
- *
+ * \param[in] dev_inst Driver structure pointer
  */
-void ac_disable(struct ac_dev_inst *const dev_inst)
+void ac_disable(
+		struct ac_dev_inst *const dev_inst)
 {
 	dev_inst->hw_dev->ACIFC_CTRL &= ~ACIFC_CTRL_EN;
 	sleepmgr_unlock_mode(SLEEPMGR_BACKUP);
 }
 
 /**
- * \brief Interrupt handler for AST.
+ * \internal ACIFC interrupt handler.
  */
 static void ac_interrupt_handler(void)
 {
@@ -325,14 +318,12 @@ static void ac_interrupt_handler(void)
 	uint32_t mask = ac_get_interrupt_mask(_ac_instance);
 	uint32_t i;
 
-	for (i = 0; i < AC_INTERRUPT_WINDOW_0; i++)
-	{
+	for (i = 0; i < AC_INTERRUPT_WINDOW_0; i++) {
 		if ((status & (1 << i)) && (mask & (1 << i))) {
 			ac_callback_pointer[i]();
 		}
 	}
-	for (i = 0; i < (AC_INTERRUPT_NUM - AC_INTERRUPT_WINDOW_0); i++)
-	{
+	for (i = 0; i < (AC_INTERRUPT_NUM - AC_INTERRUPT_WINDOW_0); i++) {
 		if ((status & (1 << (i + AC_WIN_INT_OFFSET))) &&
 				(mask & (1 << (i + AC_WIN_INT_OFFSET)))) {
 			ac_callback_pointer[i + AC_INTERRUPT_WINDOW_0]();
@@ -341,16 +332,14 @@ static void ac_interrupt_handler(void)
 }
 
 /**
- * \brief Interrupt handler for ACIFC interrupt.
+ * \internal Interrupt handler for ACIFC interrupt.
  */
 void ACIFC_Handler(void)
 {
 	ac_interrupt_handler();
 }
 
-//@}
-
-/// @cond 0
+/// @cond
 /**INDENT-OFF**/
 #ifdef __cplusplus
 }

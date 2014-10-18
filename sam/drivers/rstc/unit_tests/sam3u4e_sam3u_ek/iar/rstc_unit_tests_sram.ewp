@@ -1937,6 +1937,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../rstc.c</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example1/rstc_example1.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../rstc.h</name>
 				</file>
@@ -2181,9 +2187,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_rstc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_gpbr.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_adc.h</name>
 							</file>
 							<file>
@@ -2194,6 +2197,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_usart0.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_gpbr.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_efc1.h</name>

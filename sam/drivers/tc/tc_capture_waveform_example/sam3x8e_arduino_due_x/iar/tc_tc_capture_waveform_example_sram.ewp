@@ -2189,6 +2189,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_supc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_uotghs.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_pdc.h</name>
 							</file>
 							<file>
@@ -2229,9 +2232,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_hsmci.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_uotghs.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_gpbr.h</name>
@@ -2382,6 +2382,15 @@
 							</file>
 						</group>
 					</group>
+					<group>
+						<name>sam4e16e_sam4e_ek</name>
+						<file>
+							<name>$PROJ_DIR$/../../sam4e16e_sam4e_ek/conf_board.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../tc_capture_waveform_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../tc.c</name>

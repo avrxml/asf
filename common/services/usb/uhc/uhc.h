@@ -376,7 +376,7 @@ bool uhc_dev_is_high_speed_support(uhc_device_t* dev);
  *
  * This module is based on USB host stack full interrupt driven and supporting
  * \ref sleepmgr_group sleepmgr. For AVR and SAM3/4 devices the
- * \ref clk_group clock services is supported. For SAMD devices the
+ * \ref clk_group clock services is supported. For SAMD21 devices the
  * \ref asfdoc_sam0_system_clock_group clock driver is supported.
  *
  * The following procedure must be executed to setup the project correctly:
@@ -386,7 +386,7 @@ bool uhc_dev_is_high_speed_support(uhc_device_t* dev);
  *   - UC3 and SAM3/4 devices with USB high speed support need 12MHz clock input.\n
  *     You must use an external OSC.
  *   - UC3 devices with USBC hardware need CPU frequency higher than 25MHz.
- *   - SAMD devices without USB high speed support need 48MHz clock input.\n
+ *   - SAMD21 devices without USB high speed support need 48MHz clock input.\n
  *     You must use a DFLL and an external OSC.
  * - In conf_board.h, the define CONF_BOARD_USB_PORT must be added to enable USB lines.
  * (Not mandatory for all boards)
@@ -409,7 +409,7 @@ bool uhc_dev_is_high_speed_support(uhc_device_t* dev);
 	sleepmgr_init(); // Optional
 \endcode
  *
- * For SAMD devices, add to the initialization code:
+ * For SAMD21 devices, add to the initialization code:
    \code
    system_init();
    irq_initialize_vectors();
@@ -494,7 +494,7 @@ bool uhc_dev_is_high_speed_support(uhc_device_t* dev);
 	#define CONFIG_USBCLK_DIV           1
 \endcode
  *
- * Content of conf_clocks.h for SAMD devices (USB):
+ * Content of conf_clocks.h for SAMD21 devices (USB):
  * \code
   // USB Clock Source fixed at DFLL.
   // SYSTEM_CLOCK_SOURCE_XOSC32K configuration - External 32KHz crystal/clock oscillator

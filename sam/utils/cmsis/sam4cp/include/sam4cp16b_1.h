@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -185,6 +185,8 @@ typedef struct _DeviceVectors
   void* pfnIPC1_Handler;   /* 39 Interprocessor communication 1 */
   void* pfnSPI1_Handler;   /* 40 Serial Peripheral Interface 1 */
   void* pfnPWM_Handler;    /* 41 Pulse Width Modulation */
+  void* pvReserved42;
+  void* pvReserved43;
 } DeviceVectors;
 
 /* Cortex-M4 core handlers */
@@ -514,7 +516,7 @@ void WDT_Handler        ( void );
 /** \addtogroup SAM4CP16B_pio Peripheral Pio Definitions */
 /*@{*/
 
-#include "pio/sam4cp16b.h"
+#include "pio/pio_sam4cp16b.h"
 /*@}*/
 
 /* ************************************************************************** */

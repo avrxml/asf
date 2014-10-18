@@ -1913,6 +1913,12 @@
 						</file>
 					</group>
 				</group>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example/aes_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../aes.h</name>
 				</file>
@@ -1958,6 +1964,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../dmac/dmac.h</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 			</group>
 		</group>
 		<group>

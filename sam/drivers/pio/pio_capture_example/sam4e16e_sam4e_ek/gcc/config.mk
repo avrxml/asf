@@ -88,6 +88,7 @@ INC_PATH = \
        sam/boards                                         \
        sam/boards/sam4e_ek                                \
        sam/drivers/pdc                                    \
+       sam/drivers/pdc/pdc_uart_example                   \
        sam/drivers/pio                                    \
        sam/drivers/pio/pio_capture_example                \
        sam/drivers/pio/pio_capture_example/sam4e16e_sam4e_ek \

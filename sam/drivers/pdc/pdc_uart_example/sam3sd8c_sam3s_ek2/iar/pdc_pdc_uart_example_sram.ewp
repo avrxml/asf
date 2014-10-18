@@ -1924,10 +1924,10 @@
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam3s/pll.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam3s/osc.h</name>
+						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam3s/sysclk.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam3s/sysclk.h</name>
+						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam3s/osc.h</name>
 					</file>
 				</group>
 				<file>
@@ -1944,6 +1944,18 @@
 				</file>
 			</group>
 			<group>
+				<name>ioport</name>
+				<group>
+					<name>sam</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../common/services/ioport/sam/ioport_pio.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../common/services/ioport/ioport.h</name>
+				</file>
+			</group>
+			<group>
 				<name>gpio</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../common/services/gpio/gpio.h</name>
@@ -1952,18 +1964,6 @@
 					<name>sam_gpio</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/gpio/sam_gpio/sam_gpio.h</name>
-					</file>
-				</group>
-			</group>
-			<group>
-				<name>ioport</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../common/services/ioport/ioport.h</name>
-				</file>
-				<group>
-					<name>sam</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/ioport/sam/ioport_pio.h</name>
 					</file>
 				</group>
 			</group>
@@ -2007,6 +2007,9 @@
 							</file>
 						</group>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../pdc_uart_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../pdc.c</name>

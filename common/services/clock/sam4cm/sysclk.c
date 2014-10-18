@@ -180,8 +180,8 @@ static void sysclk_configure_cpclk(void)
 
 void sysclk_init(void)
 {
-	/* Set a flash wait state depending on the new cpu frequency */
-	system_init_flash(sysclk_get_cpu_hz());
+	/* Set flash wait state to max in case the below clock switching. */
+	system_init_flash(CHIP_FREQ_CPU_MAX);
 
 	/* Config system clock setting */
 	if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_SLCK_RC) {
@@ -256,6 +256,9 @@ void sysclk_init(void)
 
 	/* Update the SystemFrequency variable */
 	SystemCoreClockUpdate();
+
+	/* Set a flash wait state depending on the new cpu frequency */
+	system_init_flash(sysclk_get_cpu_hz());
 
 #if (defined CONFIG_SYSCLK_DEFAULT_RETURNS_SLOW_OSC)
 	/* Signal that the internal frequencies are setup */

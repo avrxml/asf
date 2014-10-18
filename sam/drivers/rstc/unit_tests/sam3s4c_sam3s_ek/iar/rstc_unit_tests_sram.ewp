@@ -2276,6 +2276,12 @@
 						</file>
 					</group>
 				</group>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example1/rstc_example1.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../rstc.h</name>
 				</file>

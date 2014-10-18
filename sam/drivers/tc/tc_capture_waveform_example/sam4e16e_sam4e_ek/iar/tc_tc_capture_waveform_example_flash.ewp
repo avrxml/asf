@@ -2231,6 +2231,9 @@
 							</file>
 						</group>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../tc_capture_waveform_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../tc.c</name>

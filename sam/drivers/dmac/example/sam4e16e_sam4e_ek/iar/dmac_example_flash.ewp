@@ -1887,6 +1887,9 @@
 							</file>
 						</group>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../dmac_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../dmac.c</name>

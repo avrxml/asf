@@ -100,6 +100,7 @@ INC_PATH = \
        sam/boards/sam4e_ek                                \
        sam/drivers/hsmci                                  \
        sam/drivers/pdc                                    \
+       sam/drivers/pdc/pdc_uart_example                   \
        sam/drivers/pmc                                    \
        sam/drivers/rtc                                    \
        sam/drivers/uart                                   \

@@ -1901,7 +1901,13 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/component/component_rtc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/component/component_supc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/component/component_twi.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/component/component_pdc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/component/component_matrix.h</name>
@@ -1920,9 +1926,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/component/component_udphs.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/component/component_supc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/component/component_adc12b.h</name>
@@ -1961,9 +1964,6 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/component/component_gpbr.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/component/component_pdc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/component/component_smc.h</name>
 							</file>
 							<file>
@@ -1974,9 +1974,6 @@
 							<name>instance</name>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/instance/instance_spi.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/instance/instance_hsmci.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/instance/instance_usart3.h</name>
@@ -2057,6 +2054,9 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/instance/instance_dmac.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/instance/instance_hsmci.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/instance/instance_pioa.h</name>
 							</file>
 							<file>
@@ -2091,9 +2091,6 @@
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/sam3u4e.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/sam3u1e.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/sam3u4c.h</name>
 						</file>
 						<file>
@@ -2104,6 +2101,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/sam3u1c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/sam3u1e.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam3u/include/sam3u2e.h</name>
@@ -2177,10 +2177,10 @@
 					<name>$PROJ_DIR$/../../../../drivers/pio/pio_handler.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/pio/pio.h</name>
+					<name>$PROJ_DIR$/../../../../drivers/pio/pio_handler.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/pio/pio_handler.h</name>
+					<name>$PROJ_DIR$/../../../../drivers/pio/pio.h</name>
 				</file>
 			</group>
 			<group>
@@ -2203,6 +2203,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/tc/tc.c</name>
 				</file>
+				<group>
+					<name>tc_capture_waveform_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
+					</file>
+					<group>
+						<name>sam4e16e_sam4e_ek</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
+						</file>
+					</group>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/tc/tc.h</name>
 				</file>
@@ -2309,10 +2321,10 @@
 					<name>$PROJ_DIR$/../../../../../common/services/clock/osc.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/clock/pll.h</name>
+					<name>$PROJ_DIR$/../../../../../common/services/clock/genclk.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/clock/genclk.h</name>
+					<name>$PROJ_DIR$/../../../../../common/services/clock/pll.h</name>
 				</file>
 			</group>
 			<group>

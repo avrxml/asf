@@ -1941,6 +1941,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/tc/tc.c</name>
 				</file>
+				<group>
+					<name>tc_capture_waveform_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
+					</file>
+					<group>
+						<name>sam4e16e_sam4e_ek</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
+						</file>
+					</group>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/tc/tc.h</name>
 				</file>
@@ -2076,6 +2088,9 @@
 									<name>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include/instance/instance_efc.h</name>
 								</file>
 								<file>
+									<name>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include/instance/instance_piob.h</name>
+								</file>
+								<file>
 									<name>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include/instance/instance_matrix.h</name>
 								</file>
 								<file>
@@ -2131,9 +2146,6 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include/instance/instance_usart.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include/instance/instance_piob.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include/instance/instance_wdt.h</name>

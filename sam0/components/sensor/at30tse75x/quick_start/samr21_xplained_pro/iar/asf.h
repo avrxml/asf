@@ -55,7 +55,7 @@
 // From module: AT30TSE75X Temperature Sensor
 #include <at30tse75x.h>
 
-// From module: Common SAM D20 compiler driver
+// From module: Common SAM0 compiler driver
 #include <compiler.h>
 #include <status_codes.h>
 
@@ -75,6 +75,10 @@
 #include <sercom.h>
 #include <sercom_interrupt.h>
 
+// From module: SERCOM I2C - Master Mode I2C (Polled APIs)
+#include <i2c_common.h>
+#include <i2c_master.h>
+
 // From module: SYSTEM - Clock Management for SAMR21
 #include <clock.h>
 #include <gclk.h>
@@ -87,9 +91,5 @@
 
 // From module: SYSTEM - Interrupt Driver
 #include <system_interrupt.h>
-
-// From module: meta
-#include <i2c_common.h>
-#include <i2c_master.h>
 
 #endif // ASF_H

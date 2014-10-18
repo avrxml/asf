@@ -3,7 +3,7 @@
  *
  * \brief USB Device Human Interface Device (HID) generic interface.
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -87,9 +87,11 @@ UDC_DESC_STORAGE udi_api_t udi_api_hid_generic = {
 //@{
 
 //! To store current rate of HID generic
-static uint8_t udi_hid_generic_rate;
+COMPILER_WORD_ALIGNED
+		static uint8_t udi_hid_generic_rate;
 //! To store current protocol of HID generic
-static uint8_t udi_hid_generic_protocol;
+COMPILER_WORD_ALIGNED
+		static uint8_t udi_hid_generic_protocol;
 //! To signal if the report IN buffer is free (no transfer on going)
 static bool udi_hid_generic_b_report_in_free;
 //! Report to send

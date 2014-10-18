@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 Peripheral Analog-to-Digital Converter Driver
+ * \brief SAM Peripheral Analog-to-Digital Converter Driver
  *
  * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
@@ -45,9 +45,9 @@
 #define ADC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam0_adc_group SAM D20/D21/R21 Analog to Digital Converter Driver (ADC)
+ * \defgroup asfdoc_sam0_adc_group SAM Analog to Digital Converter Driver (ADC)
  *
- * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
+ * This driver for SAM devices provides an interface for the configuration
  * and management of the device's Analog to Digital Converter functionality, for
  * the conversion of analog voltages into a corresponding digital form.
  * The following driver API modes are covered by this manual:
@@ -57,8 +57,12 @@
  * \endif
  *
  * The following peripherals are used by this module:
- *
  *  - ADC (Analog to Digital Converter)
+ *
+ * The following devices can use this module:
+ *  - SAM D20/D21
+ *  - SAM R21
+ *  - SAM D10/D11
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_adc_prerequisites
@@ -359,7 +363,7 @@
  * conversion is completed.
  *
  * \note The connection of events between modules requires the use of the
- *       \ref asfdoc_sam0_events_group "SAM D20/D21/R21 Event System Driver (EVENTS)"
+ *       \ref asfdoc_sam0_events_group "SAM Event System Driver (EVENTS)"
  *       to route output event of one module to the the input event of another.
  *       For more information on event routing, refer to the event driver
  *       documentation.
@@ -1755,6 +1759,11 @@ static inline void adc_disable_interrupt(struct adc_module *const module_inst,
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>E</td>
+ *		<td>05/2014</td>
+ *		<td>Added support for SAMD10/D11.</td>
  *	</tr>
  *	<tr>
  *		<td>D</td>

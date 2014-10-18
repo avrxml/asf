@@ -2128,6 +2128,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_pevc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_usart.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_spi.h</name>
 							</file>
 							<file>
@@ -2177,9 +2180,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_iisc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_usart.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_bscif.h</name>
@@ -2378,6 +2378,9 @@
 							<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
 						</file>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../ast_example2.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../ast.c</name>
@@ -2385,6 +2388,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../ast.h</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example1/ast_example1.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>usart</name>

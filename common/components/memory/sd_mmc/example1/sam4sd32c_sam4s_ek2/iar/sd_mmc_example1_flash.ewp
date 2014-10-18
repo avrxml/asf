@@ -298,6 +298,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../services/serial</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pdc</state>
@@ -570,6 +571,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../services/serial</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pdc</state>
@@ -1233,6 +1235,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../services/serial</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pdc</state>
@@ -1505,6 +1508,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../services/serial</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pdc</state>
@@ -2077,6 +2081,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>pio</name>

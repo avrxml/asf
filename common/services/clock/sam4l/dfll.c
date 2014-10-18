@@ -3,7 +3,7 @@
  *
  * \brief Chip-specific DFLL implementation
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -144,7 +144,8 @@ void dfll_enable_config_defaults(uint32_t dfll_id)
 #endif
 	static bool open_loop_done = false;
 
-	if(SCIF->SCIF_DFLL0CONF & SCIF_DFLL0CONF_MODE) {
+	if((SCIF->SCIF_DFLL0CONF & SCIF_DFLL0CONF_MODE) &&
+	   (SCIF->SCIF_DFLL0CONF & SCIF_DFLL0CONF_EN)) {
 		// Closed-loop mode
 		if (dfll_is_fine_locked(dfll_id)) {
 			return; // DFLL already running

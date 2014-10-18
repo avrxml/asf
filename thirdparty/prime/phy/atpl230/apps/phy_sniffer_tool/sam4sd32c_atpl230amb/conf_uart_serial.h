@@ -53,4 +53,4 @@
 /** Parity setting */
 #define CONF_UART_PARITY     UART_MR_PAR_NO
 
-#endif/* CONF_UART_SERIAL_H_INCLUDED */
+#endif /* CONF_UART_SERIAL_H_INCLUDED */

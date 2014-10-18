@@ -52,7 +52,7 @@
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
-// From module: Common SAM D20 compiler driver
+// From module: Common SAM0 compiler driver
 #include <compiler.h>
 #include <status_codes.h>
 
@@ -114,10 +114,10 @@
 // From module: SYSTEM - Interrupt Driver
 #include <system_interrupt.h>
 
-// From module: Stand-alone port(no OS) of the lwIP v141 stack on SAMD20 with Micrel KSZ8851SNL hardware module.
+// From module: Stand-alone port(no OS) of the lwIP v141 stack on SAM0 with Micrel KSZ8851SNL hardware module.
 #include <arch/cc.h>
 #include <arch/perf.h>
-#include <samd20_spi_ksz8851snl.h>
+#include <sam0_spi_ksz8851snl.h>
 
 // From module: Standard serial I/O (stdio)
 #include <stdio_serial.h>

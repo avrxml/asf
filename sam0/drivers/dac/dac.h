@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21 Peripheral Digital-to-Analog Converter Driver
+ * \brief SAM Peripheral Digital-to-Analog Converter Driver
  *
  * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
@@ -44,9 +44,9 @@
 #define DAC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam0_dac_group SAM D20/D21 Digital-to-Analog Driver (DAC)
+ * \defgroup asfdoc_sam0_dac_group SAM Digital-to-Analog Driver (DAC)
  *
- * This driver for SAM D20/D21 devices provides an interface for the conversion of
+ * This driver for SAM devices provides an interface for the conversion of
  * digital values to analog voltage. The following driver API modes are covered
  * by this manual:
  *
@@ -56,8 +56,11 @@
  * \endif
  *
  * The following peripherals are used by this module:
- *
  *  - DAC (Digital to Analog Converter)
+ *
+ * The following devices can use this module:
+ *  - SAM D20/D21
+ *  - SAM D10/D11
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_dac_prerequisites
@@ -76,8 +79,8 @@
  * \section asfdoc_sam0_dac_module_overview Module Overview
  *
  * The Digital-to-Analog converter converts a digital value to analog voltage.
- * The SAM D20/D21 DAC module has one channel with 10-bit resolution, and is capable
- * of converting up to 350k samples per second (ksps).
+ * The SAM DAC module has one channel with 10-bit resolution,
+ * and is capable of converting up to 350k samples per second (ksps).
  *
  * A common use of DAC is to generate audio signals by connecting the DAC
  * output to a speaker, or to generate a reference voltage; either for an
@@ -150,7 +153,7 @@
  * new data can be loaded to the buffer.
  *
  * \note The connection of events between modules requires the use of the
- *       \ref asfdoc_sam0_events_group "SAM D20/D21 Event System Driver (EVENTS)"
+ *       \ref asfdoc_sam0_events_group "SAM Event System Driver (EVENTS)"
  *       to route output event of one module to the the input event of another.
  *       For more information on event routing, refer to the event driver
  *       documentation.
@@ -311,7 +314,7 @@ extern "C" {
  * Define DAC features set according to different device family
  * @{
  */
-#if (SAMD21)
+#if (SAMD21 || SAMD10 || SAMD11)
 #  define FEATURE_DAC_DATABUF_WRITE_PROTECTION
 #endif
 /*@}*/
@@ -857,6 +860,12 @@ void dac_clear_status(
  *		<th>Date</td>
  *		<th>Comments</td>
  *	</tr>
+ *	<tr>
+ *		<td>D</td>
+ *		<td>05/2014</td>
+ *		<td>Add SAMD10/D11 support.</td>
+ *	</tr>
+ *	<tr>
  *	<tr>
  *		<td>C</td>
  *		<td>01/2014</td>

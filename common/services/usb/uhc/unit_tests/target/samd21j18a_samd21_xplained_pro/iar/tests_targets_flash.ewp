@@ -2062,18 +2062,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/extint/extint.h</name>
 				</file>
-				<group>
-					<name>quick_start_polled</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/extint/quick_start_polled/qs_extint_basic.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_callback</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/extint/quick_start_callback/qs_extint_callback.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/extint/extint_callback.h</name>
 				</file>
@@ -2387,9 +2375,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/dsu.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/mtb.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/wdt.h</name>
 							</file>
 							<file>
@@ -2412,6 +2397,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/dac.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/mtb.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/rtc.h</name>

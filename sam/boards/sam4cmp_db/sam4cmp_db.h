@@ -180,6 +180,9 @@
 /** SPI0 chip select 1 pin definition. */
 #define SPI0_NPCS1_GPIO        (PIO_PA21_IDX)
 #define SPI0_NPCS1_FLAGS       (IOPORT_MODE_MUX_A)
+/** SPI0 chip select 3 pin definition. */
+#define SPI0_NPCS3_GPIO        (PIO_PA23_IDX)
+#define SPI0_NPCS3_FLAGS       (IOPORT_MODE_MUX_A)
 /* @} */
 
 /* Select the SPI module that AT25DFx is connected to */

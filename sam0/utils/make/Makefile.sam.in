@@ -12,7 +12,7 @@
 #
 # \file
 #
-# Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+# Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
 #
 # \asf_license_start
 #
@@ -294,6 +294,9 @@ cflags-gnu-y += --param max-inline-insns-single=500
 
 # To reduce application size use only integer printf function.
 cflags-gnu-y += -Dprintf=iprintf
+
+# Use newlib-nano to reduce application size
+ldflags-gnu-y   += --specs=nano.specs
 
 # Garbage collect unreferred sections when linking.
 ldflags-gnu-y   += -Wl,--gc-sections

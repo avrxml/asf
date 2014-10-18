@@ -2172,6 +2172,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/dmac/dmac.c</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/dmac/dmac.h</name>
 				</file>
@@ -2257,9 +2263,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_ssc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_chipid.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_twi1.h</name>
 							</file>
 							<file>
@@ -2279,6 +2282,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_usart2.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_chipid.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_smc.h</name>
@@ -2362,6 +2368,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/pio/pio_sam3u4c.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/sam3u2e.h</name>
+						</file>
 						<group>
 							<name>component</name>
 							<file>
@@ -2445,9 +2454,6 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/sam3u.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/sam3u2e.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3u/include/sam3u4c.h</name>

@@ -1929,6 +1929,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../rstc.c</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example1/rstc_example1.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../rstc.h</name>
 				</file>
@@ -2047,9 +2053,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4c/include/instance/instance_trng.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4c/include/instance/instance_twi1.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4c/include/instance/instance_usart0.h</name>
 							</file>
 							<file>
@@ -2066,6 +2069,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4c/include/instance/instance_tc0.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4c/include/instance/instance_twi1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4c/include/instance/instance_ipc0.h</name>

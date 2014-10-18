@@ -1976,6 +1976,12 @@
 						</file>
 					</group>
 				</group>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example1/rstc_example1.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../rstc.h</name>
 				</file>
@@ -2025,6 +2031,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3s8/include/instance/instance_wdt.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3s8/include/instance/instance_supc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3s8/include/instance/instance_tc1.h</name>
 							</file>
 							<file>
@@ -2053,9 +2062,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3s8/include/instance/instance_matrix.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3s8/include/instance/instance_supc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3s8/include/instance/instance_piob.h</name>

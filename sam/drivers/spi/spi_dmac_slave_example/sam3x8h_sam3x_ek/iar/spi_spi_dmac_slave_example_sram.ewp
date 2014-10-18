@@ -1945,15 +1945,15 @@
 			</group>
 			<group>
 				<name>gpio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../common/services/gpio/gpio.h</name>
+				</file>
 				<group>
 					<name>sam_gpio</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/gpio/sam_gpio/sam_gpio.h</name>
 					</file>
 				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../common/services/gpio/gpio.h</name>
-				</file>
 			</group>
 			<group>
 				<name>ioport</name>
@@ -2000,10 +2000,10 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/source/templates/system_sam3x.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/source/templates/exceptions.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/source/templates/system_sam3x.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/source/templates/system_sam3x.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/source/templates/exceptions.h</name>
 							</file>
 						</group>
 					</group>
@@ -2014,9 +2014,6 @@
 						</file>
 						<group>
 							<name>instance</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_rtc.h</name>
-							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_hsmci.h</name>
 							</file>
@@ -2075,6 +2072,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_uart.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_tc2.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_wdt.h</name>
 							</file>
 							<file>
@@ -2090,7 +2090,7 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_efc0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_tc2.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_pwm.h</name>
@@ -2207,6 +2207,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_trng.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_ssc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_rstc.h</name>
 							</file>
 							<file>
@@ -2223,9 +2226,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_dmac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_ssc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_hsmci.h</name>
@@ -2401,6 +2401,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../dmac/dmac.h</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 			</group>
 		</group>
 		<group>

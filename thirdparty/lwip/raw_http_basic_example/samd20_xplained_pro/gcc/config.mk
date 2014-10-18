@@ -110,7 +110,7 @@ CSRCS = \
        thirdparty/lwip/lwip-1.4.1/src/core/tcp_out.c      \
        thirdparty/lwip/lwip-1.4.1/src/core/udp.c          \
        thirdparty/lwip/lwip-1.4.1/src/netif/etharp.c      \
-       thirdparty/lwip/lwip-port-1.4.1/sam/netif/samd20_spi_ksz8851snl.c \
+       thirdparty/lwip/lwip-port-1.4.1/sam/netif/sam0_spi_ksz8851snl.c \
        thirdparty/lwip/raw_http_basic_example/network/ethernet.c \
        thirdparty/lwip/raw_http_basic_example/network/httpserver/fs.c \
        thirdparty/lwip/raw_http_basic_example/network/httpserver/fsdata.c \

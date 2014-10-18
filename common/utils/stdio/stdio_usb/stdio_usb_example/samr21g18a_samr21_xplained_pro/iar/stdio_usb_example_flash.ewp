@@ -1973,21 +1973,9 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_callback.h</name>
 				</file>
-				<group>
-					<name>quick_start_polled</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/quick_start_polled/qs_extint_basic.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint.h</name>
 				</file>
-				<group>
-					<name>quick_start_callback</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/quick_start_callback/qs_extint_callback.h</name>
-					</file>
-				</group>
 			</group>
 			<group>
 				<name>port</name>
@@ -2417,13 +2405,13 @@
 						<name>$PROJ_DIR$/../../../../../../services/usb/udc/udc_desc.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../services/usb/udc/udc.h</name>
-					</file>
-					<file>
 						<name>$PROJ_DIR$/../../../../../../services/usb/udc/udi.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../services/usb/udc/udd.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../services/usb/udc/udc.h</name>
 					</file>
 				</group>
 				<group>

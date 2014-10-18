@@ -308,9 +308,10 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../services/clock</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../services/delay</state>
 					<state>$PROJ_DIR$/../../../../services/twi</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../services/delay</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../components/display/ili9341</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../services/spi</state>
@@ -582,9 +583,10 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../services/clock</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../services/delay</state>
 					<state>$PROJ_DIR$/../../../../services/twi</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../services/delay</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../components/display/ili9341</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../services/spi</state>
@@ -1247,9 +1249,10 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../services/clock</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../services/delay</state>
 					<state>$PROJ_DIR$/../../../../services/twi</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../services/delay</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../components/display/ili9341</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../services/spi</state>
@@ -1521,9 +1524,10 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../services/clock</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../services/delay</state>
 					<state>$PROJ_DIR$/../../../../services/twi</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../services/delay</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../components/display/ili9341</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../services/spi</state>
@@ -1917,6 +1921,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>twi</name>

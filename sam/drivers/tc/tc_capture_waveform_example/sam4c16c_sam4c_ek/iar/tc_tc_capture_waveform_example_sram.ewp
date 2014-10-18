@@ -1895,6 +1895,9 @@
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4c/sysclk.c</name>
 					</file>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4c/sysclk.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4c/pll.h</name>
 					</file>
 					<file>
@@ -1902,9 +1905,6 @@
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4c/osc.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4c/sysclk.h</name>
 					</file>
 				</group>
 				<file>
@@ -2017,6 +2017,15 @@
 							</file>
 						</group>
 					</group>
+					<group>
+						<name>sam4e16e_sam4e_ek</name>
+						<file>
+							<name>$PROJ_DIR$/../../sam4e16e_sam4e_ek/conf_board.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../tc_capture_waveform_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../tc.c</name>

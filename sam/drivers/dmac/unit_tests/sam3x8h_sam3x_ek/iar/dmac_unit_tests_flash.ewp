@@ -2038,9 +2038,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_usart0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_rstc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_can0.h</name>
 							</file>
 							<file>
@@ -2078,6 +2075,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_usart3.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_rstc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_tc0.h</name>
@@ -2394,6 +2394,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../dmac.c</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example/dmac_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../dmac.h</name>
 				</file>

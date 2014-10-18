@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 USART Unit test
+ * \brief SAM USART Unit test
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \mainpage SAM D20/D21/R21 USART Unit Test
+ * \mainpage SAM USART Unit Test
  * See \ref appdoc_main "here" for project documentation.
  * \copydetails appdoc_preface
  *
@@ -50,15 +50,15 @@
  * \page appdoc_preface Overview
  * This unit test carries out tests for SERCOM USART driver.
  * It consists of test cases for the following functionalities:
- *      - Test for driver initialization.
- *      - Test for single 8-bit write and read by polling.
- *      - Test for single 9-bit write and read by polling.
- *      - Test for multiple 8-bit write by polling and read by interrupts.
- *      - Test for multiple 8-bit write and read by interrupts.
+ *  - Test for driver initialization.
+ *  - Test for single 8-bit write and read by polling.
+ *  - Test for single 9-bit write and read by polling.
+ *  - Test for multiple 8-bit write by polling and read by interrupts.
+ *  - Test for multiple 8-bit write and read by interrupts.
  */
 
 /**
- * \page appdoc_main SAM D20/D21/R21 USART Unit Test
+ * \page appdoc_main SAM USART Unit Test
  *
  * Overview:
  * - \ref appdoc_sam0_usart_unit_test_intro
@@ -71,9 +71,9 @@
  * \copydetails appdoc_preface
  *
  * The following kit is required for carrying out the test:
- *      - SAM D20 Xplained Pro board
- *      - SAM D21 Xplained Pro board
- *      - SAM R21 Xplained Pro board
+ *  - SAM D20 Xplained Pro board
+ *  - SAM D21 Xplained Pro board
+ *  - SAM R21 Xplained Pro board
  *
  * \section appdoc_sam0_usart_unit_test_setup Setup
  * The following connections has to be made using wires:
@@ -83,7 +83,7 @@
  *  - \b TX/RX: EXT1 PIN9  (PA22) <--> EXT1 PIN15 (PB03)
  *
  * To run the test:
- *  - Connect the SAM D20/D21/R21 Xplained Pro board to the computer using a
+ *  - Connect the SAM Xplained Pro board to the computer using a
  *    micro USB cable.
  *  - Open the virtual COM port in a terminal application.
  *    \note The USB composite firmware running on the Embedded Debugger (EDBG)
@@ -421,7 +421,7 @@ int main(void)
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(usart_suite, usart_tests,
-			"SAM D20/D21/R21 USART driver test suite");
+			"SAM USART driver test suite");
 
 	/* Run all tests in the suite*/
 	test_suite_run(&usart_suite);

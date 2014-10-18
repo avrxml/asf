@@ -1948,10 +1948,10 @@
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/pll.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/osc.h</name>
+						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/sysclk.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/sysclk.h</name>
+						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/osc.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/genclk.h</name>
@@ -2077,9 +2077,6 @@
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/component/component_spi.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/component/component_adc.h</name>
-								</file>
-								<file>
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/component/component_matrix.h</name>
 								</file>
 								<file>
@@ -2090,6 +2087,9 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/component/component_mem2mem.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/component/component_adc.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/component/component_wdt.h</name>
@@ -2131,10 +2131,13 @@
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/instance/instance_piob.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/instance/instance_twi2.h</name>
+									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/instance/instance_i2sc1.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/instance/instance_uart0.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/instance/instance_twi2.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/instance/instance_rstc.h</name>
@@ -2177,9 +2180,6 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/instance/instance_matrix.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/instance/instance_i2sc1.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/instance/instance_gpbr.h</name>
@@ -2260,6 +2260,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../tc/tc.c</name>
 				</file>
+				<group>
+					<name>tc_capture_waveform_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
+					</file>
+					<group>
+						<name>sam4e16e_sam4e_ek</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
+						</file>
+					</group>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../tc/tc.h</name>
 				</file>

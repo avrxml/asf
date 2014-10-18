@@ -307,6 +307,7 @@
 					<state>$PROJ_DIR$/../../../../../boards/sam3u_ek</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -576,6 +577,7 @@
 					<state>$PROJ_DIR$/../../../../../boards/sam3u_ek</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -1236,6 +1238,7 @@
 					<state>$PROJ_DIR$/../../../../../boards/sam3u_ek</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -1505,6 +1508,7 @@
 					<state>$PROJ_DIR$/../../../../../boards/sam3u_ek</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -2030,6 +2034,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_piob.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_hsmci.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_pioa.h</name>
 							</file>
 							<file>
@@ -2064,9 +2071,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_adc12b.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_hsmci.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_usart0.h</name>
@@ -2167,6 +2171,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>uart</name>

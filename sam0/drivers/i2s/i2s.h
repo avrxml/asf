@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D21 I2S - Inter-IC Sound Controller
+ * \brief SAM I2S - Inter-IC Sound Controller
  *
  * Copyright (C) 2014 Atmel Corporation. All rights reserved.
  *
@@ -45,9 +45,9 @@
 #define I2S_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam0_i2s_group SAM D21 Inter-IC Sound Controller Driver (I2S)
+ * \defgroup asfdoc_sam0_i2s_group SAM Inter-IC Sound Controller Driver (I2S)
  *
- * This driver for SAM D21 devices provides an interface for the configuration
+ * This driver for SAM devices provides an interface for the configuration
  * and management of the device's Inter-IC Sound Controller functionality.
  *
  * The following driver API modes are covered by this manual:
@@ -57,8 +57,10 @@
  * \endif
  *
  * The following peripherals are used by this module:
- *
  *  - I2S (Inter-IC Sound Controller)
+ *
+ * The following devices can use this module:
+ *  - SAM D21
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_i2s_prerequisites

@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D21/R21 TCC - Timer Counter for Control Applications Callback Driver Quick Start (with Recoverable Fault)
+ * \brief SAM TCC - Timer Counter for Control Applications Callback Driver Quick Start (with Recoverable Fault)
  *
  * Copyright (C) 2014 Atmel Corporation. All rights reserved.
  *
@@ -44,7 +44,7 @@
 /**
  * \page asfdoc_sam0_tcc_faultn_use_case Quick Start Guide for TCC - Recoverable Fault
  *
- * The supported kit list:
+ * The supported board list:
  *    - SAM D21/R21 Xplained Pro
  *
  * In this use case, the TCC will be used to generate a PWM signal, with a

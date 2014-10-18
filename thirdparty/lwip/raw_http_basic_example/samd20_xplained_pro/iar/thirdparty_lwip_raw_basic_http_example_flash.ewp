@@ -2340,7 +2340,7 @@
 					<group>
 						<name>netif</name>
 						<file>
-							<name>$PROJ_DIR$/../../../lwip-port-1.4.1/sam/netif/samd20_spi_ksz8851snl.c</name>
+							<name>$PROJ_DIR$/../../../lwip-port-1.4.1/sam/netif/sam0_spi_ksz8851snl.c</name>
 						</file>
 					</group>
 					<group>
@@ -2348,7 +2348,7 @@
 						<group>
 							<name>netif</name>
 							<file>
-								<name>$PROJ_DIR$/../../../lwip-port-1.4.1/sam/include/netif/samd20_spi_ksz8851snl.h</name>
+								<name>$PROJ_DIR$/../../../lwip-port-1.4.1/sam/include/netif/sam0_spi_ksz8851snl.h</name>
 							</file>
 						</group>
 						<group>
@@ -2406,58 +2406,10 @@
 					<group>
 						<name>include</name>
 						<group>
-							<name>component</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/pac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/gclk.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/port.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/sercom.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/dsu.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/eic.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/tc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/evsys.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/dac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/rtc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/adc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/sysctrl.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/nvmctrl.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/wdt.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/ac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/pm.h</name>
-							</file>
-						</group>
-						<group>
 							<name>instance</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/instance/adc.h</name>
+							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/instance/sercom2.h</name>
 							</file>
@@ -2496,9 +2448,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/instance/tc3.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/instance/adc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/instance/tc5.h</name>
@@ -2550,7 +2499,61 @@
 							</file>
 						</group>
 						<group>
+							<name>component</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/pac.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/gclk.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/port.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/sercom.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/dsu.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/eic.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/tc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/evsys.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/dac.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/rtc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/adc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/sysctrl.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/nvmctrl.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/wdt.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/ac.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/component/pm.h</name>
+							</file>
+						</group>
+						<group>
 							<name>pio</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g18u.h</name>
+							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g16.h</name>
 							</file>
@@ -2565,6 +2568,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g14.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g17u.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g18.h</name>
@@ -2631,7 +2637,13 @@
 							<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/samd20g14.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/samd20g17u.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/samd20g15.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/samd20g18u.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../sam0/utils/cmsis/samd20/include/samd20g18.h</name>
@@ -2908,18 +2920,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam0/drivers/extint/extint_callback.h</name>
 				</file>
-				<group>
-					<name>quick_start_polled</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../sam0/drivers/extint/quick_start_polled/qs_extint_basic.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_callback</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../sam0/drivers/extint/quick_start_callback/qs_extint_callback.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam0/drivers/extint/extint.h</name>
 				</file>

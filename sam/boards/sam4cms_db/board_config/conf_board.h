@@ -56,6 +56,9 @@
 /* Configure SPI0 NPCS1 */
 //#define CONF_BOARD_SPI0_NPCS1
 
+/* Configure SPI0 NPCS3 */
+//#define CONF_BOARD_SPI0_NPCS3
+
 /* Configure TWI pins*/
 //#define CONF_BOARD_TWI0
 

@@ -308,6 +308,7 @@
 					<state>$PROJ_DIR$/../../../../services/clock</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../services/wtk</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../services/gpio</state>
 					<state>$PROJ_DIR$/../../../../services/twi</state>
 					<state>$PROJ_DIR$/..</state>
@@ -584,6 +585,7 @@
 					<state>$PROJ_DIR$/../../../../services/clock</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../services/wtk</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../services/gpio</state>
 					<state>$PROJ_DIR$/../../../../services/twi</state>
 					<state>$PROJ_DIR$/..</state>
@@ -1251,6 +1253,7 @@
 					<state>$PROJ_DIR$/../../../../services/clock</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../services/wtk</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../services/gpio</state>
 					<state>$PROJ_DIR$/../../../../services/twi</state>
 					<state>$PROJ_DIR$/..</state>
@@ -1527,6 +1530,7 @@
 					<state>$PROJ_DIR$/../../../../services/clock</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../services/wtk</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../services/gpio</state>
 					<state>$PROJ_DIR$/../../../../services/twi</state>
 					<state>$PROJ_DIR$/..</state>
@@ -2282,6 +2286,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 		</group>
 		<group>

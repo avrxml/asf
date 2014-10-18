@@ -44,22 +44,15 @@
 #ifndef CHIP_PPLC_IF_H_INCLUDED
 #define CHIP_PPLC_IF_H_INCLUDED
 
-/// @cond 0
+#include "compiler.h"
+
+/* @cond 0 */
 /**INDENT-OFF**/
 #ifdef __cplusplus
 extern "C" {
 #endif
 /**INDENT-ON**/
-/// @endcond
-
-#include "board.h"
-
-
-#ifndef PPLC_SPI_MODULE
-#define PPLC_SPI_MODULE     SPI
-/* Chip select used by PPLC internal peripheral  */
-#define PPLC_CS             0
-#endif
+/* @endcond */
 
 /**
  * \ingroup plc_group
@@ -71,59 +64,62 @@ extern "C" {
  * @{
  */
 
-//! \name Proxy PLC Controller commands (PPLC_CMD)
-//@{
-#define PPLC_CMD_READ       0x63 //!< Read operation
-#define PPLC_CMD_WRITE      0x2a //!< Write operation
-#define PPLC_CMD_WRITE_REP  0x1e //!< Repetitive write operation
-#define PPLC_CMD_AND        0x4c //!< AND operation
-#define PPLC_CMD_OR         0x71 //!< OR operation
-#define PPLC_CMD_XOR        0x6d //!< XOR operation
-//@}
+/* \name Proxy PLC Controller commands (PPLC_CMD) */
+/* @{ */
+#define PPLC_CMD_READ       0x63 /* < Read operation */
+#define PPLC_CMD_WRITE      0x2a /* < Write operation */
+#define PPLC_CMD_WRITE_REP  0x1e /* < Repetitive write operation */
+#define PPLC_CMD_AND        0x4c /* < AND operation */
+#define PPLC_CMD_OR         0x71 /* < OR operation */
+#define PPLC_CMD_XOR        0x6d /* < XOR operation */
+/* @} */
 
-//! \name Programmable Clock Settings (Hz)
-//@{
-#define PPLC_CLOCK          9000000 //!< PPLC clock setting
-//@}
+/* \name Programmable Clock Settings (Hz) */
+/* @{ */
+#define PPLC_CLOCK          9000000 /* < PPLC clock setting */
+/* @} */
 
-//! \name PPLC interruption priority
-//! \note In case of use of FreeRTOS, GROUP_PRIO is greater value than configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY
-//@{
-#define PPLC_PRIO          11 //!< PPLC interruption group priority
-//@}
+/* \name PPLC interruption priority */
 
-//! \name PPLC communication parameters
-//@{
-#define PPLC_DLYBS         10 //!< Delay before SPCK
-#define PPLC_DLYBCT        0  //!< Delay between consecutive transfers
-//@}
+/* \note In case of use of FreeRTOS, GROUP_PRIO is greater value than
+ * configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY */
+/* @{ */
+#define PPLC_PRIO          11 /* < PPLC interruption group priority */
+/* @} */
 
+/* \name PPLC communication parameters */
+/* @{ */
+#define PPLC_DLYBS         10 /* < Delay before SPCK */
+#define PPLC_DLYBCT        0  /* < Delay between consecutive transfers */
+/* @} */
 
-//! \name Proxy PLC Controller interface
-//@{
+/* \name Proxy PLC Controller interface */
+/* @{ */
 void pplc_if_init(void);
-uint8_t pplc_if_read8 (uint16_t us_addr);
-uint8_t pplc_if_write8 (uint16_t us_addr, uint8_t uc_dat);
-uint16_t pplc_if_read16 (uint16_t us_addr);
-uint8_t pplc_if_write16 (uint16_t us_addr, uint16_t us_dat);
-uint32_t pplc_if_read32 (uint16_t us_addr);
-uint8_t pplc_if_write32 (uint16_t us_addr, uint32_t ul_dat);
-uint8_t pplc_if_read_buf (uint16_t us_addr, uint8_t* buf, uint16_t us_len);
-uint8_t pplc_if_write_buf (uint16_t us_addr, uint8_t* buf, uint16_t us_len);
-uint8_t pplc_if_write_rep (uint16_t us_addr, uint8_t uc_bytes_rep, uint8_t *ptr_buf, uint16_t us_len);
-void pplc_if_and8 (uint16_t us_addr, uint8_t uc_mask);
-void pplc_if_or8 (uint16_t us_addr, uint8_t uc_mask);
-void pplc_if_xor8 (uint16_t us_addr, uint8_t uc_mask);
-void pplc_if_int_handler (uint32_t ul_id, uint32_t uc_mask);
-//@}
-//! @}
+uint8_t pplc_if_read8(uint16_t us_addr);
+uint8_t pplc_if_write8(uint16_t us_addr, uint8_t uc_dat);
+uint16_t pplc_if_read16(uint16_t us_addr);
+uint8_t pplc_if_write16(uint16_t us_addr, uint16_t us_dat);
+uint32_t pplc_if_read32(uint16_t us_addr);
+uint8_t pplc_if_write32(uint16_t us_addr, uint32_t ul_dat);
+uint8_t pplc_if_read_buf(uint16_t us_addr, uint8_t *buf, uint16_t us_len);
+uint8_t pplc_if_write_buf(uint16_t us_addr, uint8_t *buf, uint16_t us_len);
+uint8_t pplc_if_write_rep(uint16_t us_addr, uint8_t uc_bytes_rep,
+		uint8_t *ptr_buf, uint16_t us_len);
+void pplc_if_and8(uint16_t us_addr, uint8_t uc_mask);
+void pplc_if_or8(uint16_t us_addr, uint8_t uc_mask);
+void pplc_if_xor8(uint16_t us_addr, uint8_t uc_mask);
+void pplc_set_handler(void (*p_handler)(void));
 
-/// @cond 0
+/* @} */
+/* @} */
+
+/* @cond 0 */
 /**INDENT-OFF**/
 #ifdef __cplusplus
 }
 #endif
 /**INDENT-ON**/
-/// @endcond
+/* @endcond */
 
 #endif /* CHIP_PPLC_IF_H_INCLUDED */

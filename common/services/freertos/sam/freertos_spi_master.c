@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Peripheral Control API For the SPI
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -437,6 +437,139 @@ status_code_t freertos_spi_read_packet_async(freertos_spi_if p_spi,
 
 			/* Start the transmit so data is also received. */
 			pdc_tx_packet.ul_addr = (uint32_t)data;
+			pdc_tx_packet.ul_size = (uint32_t)len;
+			pdc_disable_transfer(
+					all_spi_definitions[spi_index].pdc_base_address,
+					PERIPH_PTCR_TXTDIS);
+			pdc_tx_init(
+					all_spi_definitions[spi_index].pdc_base_address, &pdc_tx_packet,
+					NULL);
+			pdc_enable_transfer(
+					all_spi_definitions[spi_index].pdc_base_address,
+					PERIPH_PTCR_TXTEN);
+
+			/* Catch the end of reception so the access mutex can be returned,
+			and the task notified (if it supplied a notification semaphore).
+			The interrupt can be enabled here because the ENDRX	signal from the
+			PDC to the peripheral will have been de-asserted when the next
+			transfer was configured. */
+			spi_enable_interrupt(spi_base, SPI_IER_ENDRX);
+
+			return_value = freertos_optionally_wait_transfer_completion(
+					&(rx_dma_control[spi_index]),
+					notification_semaphore,
+					block_time_ticks);
+		}
+	} else {
+		return_value = ERR_INVALID_ARG;
+	}
+
+	return return_value;
+}
+
+/**
+ * \ingroup freertos_spi_peripheral_control_group
+ * \brief Initiate a completely asynchronous multi-byte full duplex operation on an SPI
+ * peripheral.
+ *
+ * freertos_spi_full_duplex_packet_async() is an ASF specific FreeRTOS driver function.
+ * It configures the SPI peripheral DMA controller (PDC) to read/write data from the
+ * SPI port, then returns.  freertos_spi_full_duplex_packet_async() does not wait for
+ * the reception and transmission to complete before returning.
+ *
+ * The FreeRTOS ASF SPI driver is initialized using a call to
+ * freertos_spi_master_init().  The freertos_driver_parameters.options_flags
+ * parameter passed into the initialization function defines the driver behavior.
+ * freertos_spi_full_duplex_packet_async() can only be used if the
+ * freertos_driver_parameters.options_flags parameter passed to the initialization
+ * function had the WAIT_RX_COMPLETE and WAIT_TX_COMPLETE bit clear.
+ *
+ * freertos_spi_full_duplex_packet_async() is an advanced function and readers are
+ * recommended to also reference the application note and examples that
+ * accompany the FreeRTOS ASF drivers.
+ *
+ * The FreeRTOS ASF driver both installs and handles the SPI PDC interrupts.
+ * Users do not need to concern themselves with interrupt handling, and must
+ * not install their own interrupt handler.
+ *
+ * \param p_spi    The handle to the SPI port returned by the
+ *     freertos_spi_master_init() call used to initialise the port.
+ * \param rx_data    A pointer to the buffer into which received data is to be
+ *     written.
+ * \param tx_data    A pointer to the data to be transmitted.
+ * \param len    The number of bytes to receive/transmit.
+ * \param block_time_ticks    The FreeRTOS ASF SPI driver is initialized using a
+ *     call to freertos_spi_master_init().  The
+ *     freertos_driver_parameters.options_flags parameter passed to the
+ *     initialization function defines the driver behavior.  If
+ *     freertos_driver_parameters.options_flags had the USE_RX_ACCESS_MUTEX bit
+ *     set, then the driver will only read from the SPI peripheral if it has
+ *     first gained exclusive access to it.  block_time_ticks specifies the
+ *     maximum amount of time the driver will wait to get exclusive access
+ *     before aborting the read operation.  Other tasks will execute during any
+ *     waiting time.  block_time_ticks is specified in RTOS tick periods.  To
+ *     specify a block time in milliseconds, divide the milliseconds value by
+ *     portTICK_RATE_MS, and pass the result in block_time_ticks.
+ *     portTICK_RATE_MS is defined by FreeRTOS.
+ * \param notification_semaphore    The RTOS task that calls the receive
+ *     function exits the receive function as soon as the reception starts.
+ *     The data being received by the PDC cannot normally be processed until
+ *     after the reception has completed.  The PDC interrupt (handled internally
+ *     by the FreeRTOS ASF driver) 'gives' the semaphore when the PDC transfer
+ *     completes.  The notification_semaphore therefore provides a mechanism for
+ *     the calling task to know when the PDC has read the requested number of
+ *     bytes.  The calling task can call standard FreeRTOS functions to block on
+ *     the semaphore until the PDC interrupt occurs.  Other RTOS tasks will
+ *     execute while the the calling task is in the Blocked state.  The
+ *     semaphore must be created using the FreeRTOS vSemaphoreCreateBinary() API
+ *     function before it is used as a parameter.
+ *
+ * \return     ERR_INVALID_ARG is returned if an input parameter is invalid.
+ *     ERR_TIMEOUT is returned if block_time_ticks passed before exclusive
+ *     access to the SPI peripheral could be obtained.  STATUS_OK is returned if
+ *     the PDC was successfully configured to perform the SPI read operation.
+ */
+status_code_t freertos_spi_full_duplex_packet_async(freertos_spi_if p_spi,
+		uint8_t *rx_data, uint8_t *tx_data, uint32_t len,
+		portTickType block_time_ticks, xSemaphoreHandle notification_semaphore)
+{
+	status_code_t return_value;
+	pdc_packet_t pdc_tx_packet;
+	portBASE_TYPE spi_index;
+	Spi *spi_base;
+	volatile uint16_t junk_value;
+
+	spi_base = (Spi *) p_spi;
+	spi_index = get_pdc_peripheral_details(all_spi_definitions, MAX_SPIS,
+			(void *) spi_base);
+
+	/* Don't do anything unless a valid SPI pointer was used. */
+	if (spi_index < MAX_SPIS) {
+		/* Because the peripheral is half duplex, there is only one access mutex
+		and the rx uses the tx mutex. */
+		return_value = freertos_obtain_peripheral_access_mutex(
+				&(tx_dma_control[spi_index]), &block_time_ticks);
+
+		if (return_value == STATUS_OK) {
+			/* Data must be sent for data to be received.  Set the receive
+			buffer with write buffer content since it also be used as the send buffer. */
+			memcpy(rx_data, tx_data, len);
+
+			/* Ensure Rx is already empty. */
+			while(spi_is_rx_full(all_spi_definitions[spi_index].peripheral_base_address) != 0) {
+				junk_value = ((Spi*) all_spi_definitions[spi_index].peripheral_base_address)->SPI_RDR;
+				(void) junk_value;
+			}
+
+			/* Start the PDC reception, although nothing is received until the
+			SPI is also transmitting. */
+			freertos_start_pdc_rx(&(rx_dma_control[spi_index]),
+					rx_data, len,
+					all_spi_definitions[spi_index].pdc_base_address,
+					notification_semaphore);
+
+			/* Start the transmit so data is also received. */
+			pdc_tx_packet.ul_addr = (uint32_t)rx_data;
 			pdc_tx_packet.ul_size = (uint32_t)len;
 			pdc_disable_transfer(
 					all_spi_definitions[spi_index].pdc_base_address,

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief PARC driver for SAM.
+ * \brief SAM4L PARC driver.
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,22 +41,21 @@
  *
  */
 
-#include "parc.h"
-#include "sysclk.h"
+#include <parc.h>
+#include <sysclk.h>
 
 /**
- * \brief Initializes the PARC
+ * \brief Initialize the PARC module.
  *
- * Initializes the PARC device struct and the hardware module based on the
- * given configuration struct values.
+ * Initialize the PARC driver structure and the hardware module based on the
+ * given configuration structure's contents.
  *
- * \param[out] module_inst Pointer to the PARC software instance struct
- * \param[in]  hw          Pointer to the PARC module instance
- * \param[in]  config      Pointer to the configuration struct
+ * \param[in,out] module_inst Pointer to the PARC driver structure
+ * \param[in]  hw             Pointer to the PARC module hardware register structure
+ * \param[in]  config         Pointer to the PARC configuration structure
  *
- * \return Status of the initialization procedure
- * \retval STATUS_OK                The initialization was successful
- * \retval STATUS_ERR_INVALID_ARG   Invalid argument(s) were provided
+ * \return The initialization status.
+ * \retval STATUS_OK The initialization was successful
  */
 enum status_code parc_init(
 	struct parc_module *const module_inst,
@@ -83,15 +82,15 @@ enum status_code parc_init(
 }
 
 /**
- * \Writes an PARC configuration to the hardware module
+ * \brief Configure the PARC module.
  *
- * Writes a given PARC module configuration to the hardware module.
+ * Configure the PARC module from the supplied configuration structure.
  *
- * \param[out] module_inst  Pointer to the PARC software instance struct
- * \param[in]  config       Pointer to configuration struct
+ * \param[in] module_inst Pointer to the PARC driver structure
+ * \param[in] config      Pointer to the PARC configuration structure
  *
- * \return Status of the configuration procedure
- * \retval STATUS_OK               The configuration was successful
+ * \return The configuration status.
+ * \retval STATUS_OK The configuration was successful
  */
 enum status_code parc_set_config(
 	struct parc_module *const module_inst,

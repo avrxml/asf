@@ -2249,10 +2249,10 @@
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.h</name>
 				</file>
 			</group>
 			<group>
@@ -2311,6 +2311,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/dmac/dmac.h</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>pmc</name>
@@ -2366,9 +2372,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_rtc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_dmac.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_adc.h</name>
 							</file>
 							<file>
@@ -2397,6 +2400,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_efc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_dmac.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/component/component_pio.h</name>
@@ -2459,6 +2465,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_tc0.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_usart0.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_spi.h</name>
 							</file>
 							<file>
@@ -2487,9 +2496,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_wdt.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_usart0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_efc0.h</name>

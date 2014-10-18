@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 Pin Multiplexer Driver
+ * \brief SAM Pin Multiplexer Driver
  *
  * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *

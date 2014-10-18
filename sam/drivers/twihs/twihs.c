@@ -248,7 +248,8 @@ uint32_t twihs_master_read(Twihs *p_twihs, twihs_packet_t *p_packet)
 {
 	uint32_t status, cnt = p_packet->length;
 	uint8_t *buffer = p_packet->buffer;
-	
+	uint32_t timeout = TWIHS_TIMEOUT;;
+
 	/* Check argument */
 	if (cnt == 0) {
 		return TWIHS_INVALID_ARGUMENT;
@@ -272,7 +273,9 @@ uint32_t twihs_master_read(Twihs *p_twihs, twihs_packet_t *p_packet)
 		if (status & TWIHS_SR_NACK) {
 			return TWIHS_RECEIVE_NACK;
 		}
-
+		if (!timeout--) {
+			return TWIHS_ERROR_TIMEOUT;
+		}
 		/* Last byte ? */
 		if (cnt == 1) {
 			p_twihs->TWIHS_CR = TWIHS_CR_STOP;
@@ -284,6 +287,7 @@ uint32_t twihs_master_read(Twihs *p_twihs, twihs_packet_t *p_packet)
 		*buffer++ = p_twihs->TWIHS_RHR;
 
 		cnt--;
+		timeout = TWIHS_TIMEOUT;
 	}
 
 	while (!(p_twihs->TWIHS_SR & TWIHS_SR_TXCOMP)) {

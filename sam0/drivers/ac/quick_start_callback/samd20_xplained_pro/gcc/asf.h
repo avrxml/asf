@@ -56,7 +56,7 @@
 #include <ac.h>
 #include <ac_callback.h>
 
-// From module: Common SAM D20 compiler driver
+// From module: Common SAM0 compiler driver
 #include <compiler.h>
 #include <status_codes.h>
 

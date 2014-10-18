@@ -2015,9 +2015,6 @@
 						<group>
 							<name>instance</name>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_rtc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_hsmci.h</name>
 							</file>
 							<file>
@@ -2075,6 +2072,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_uart.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_tc2.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_wdt.h</name>
 							</file>
 							<file>
@@ -2090,7 +2090,7 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_efc0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_tc2.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_pwm.h</name>
@@ -2207,6 +2207,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_trng.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_ssc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_rstc.h</name>
 							</file>
 							<file>
@@ -2223,9 +2226,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_dmac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_ssc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_hsmci.h</name>
@@ -2337,6 +2337,9 @@
 							</file>
 						</group>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../pdc_uart_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../pdc.c</name>

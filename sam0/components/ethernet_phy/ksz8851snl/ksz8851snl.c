@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief KS8851SNL driver for SAMD20.
+ * \brief KS8851SNL driver for SAM0.
  *
  * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *

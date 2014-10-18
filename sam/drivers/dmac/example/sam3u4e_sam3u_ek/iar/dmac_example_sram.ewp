@@ -1887,6 +1887,9 @@
 							</file>
 						</group>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../dmac_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../dmac.c</name>
@@ -2114,6 +2117,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_piob.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_hsmci.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_pioa.h</name>
 							</file>
 							<file>
@@ -2151,9 +2157,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_adc12b.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_hsmci.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/instance/instance_usart0.h</name>

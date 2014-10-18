@@ -303,6 +303,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
@@ -316,7 +317,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../delay</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
 					<state>$PROJ_DIR$/../../../../../../../gpio</state>
@@ -586,6 +587,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
@@ -599,7 +601,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../delay</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
 					<state>$PROJ_DIR$/../../../../../../../gpio</state>
@@ -1261,6 +1263,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
@@ -1274,7 +1277,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../delay</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
 					<state>$PROJ_DIR$/../../../../../../../gpio</state>
@@ -1544,6 +1547,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
@@ -1557,7 +1561,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../delay</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
 					<state>$PROJ_DIR$/../../../../../../../gpio</state>
@@ -2222,6 +2226,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pdc/pdc.c</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pdc/pdc.h</name>
 				</file>
@@ -2322,6 +2332,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_uart1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_dacc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_supc.h</name>
 							</file>
 							<file>
@@ -2329,9 +2342,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_usart1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_gpbr.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_rstc.h</name>
@@ -2370,6 +2380,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_tc1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_gpbr.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_pioa.h</name>
 							</file>
 							<file>
@@ -2389,9 +2402,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_spi.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_dacc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_tc0.h</name>
@@ -2623,9 +2633,6 @@
 							<name>$PROJ_DIR$/../../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/mpu_wrappers.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/task.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/list.h</name>
 						</file>
 						<file>
@@ -2648,6 +2655,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/portable.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/task.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../../thirdparty/freertos/freertos-7.0.0/source/include/croutine.h</name>

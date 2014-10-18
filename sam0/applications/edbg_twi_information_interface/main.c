@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D21/R21 EDBG TWI Information Interface Example
+ * \brief SAM EDBG TWI Information Interface Example
  *
  * Copyright (C) 2014 Atmel Corporation. All rights reserved.
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \mainpage SAM D21/R21 EDBG TWI Information Interface Example
+ * \mainpage SAM EDBG TWI Information Interface Example
  *
  * \section Purpose
  *
@@ -50,7 +50,10 @@
  *
  * \section Requirements
  *
- * This package can be used with SAM D21/R21 xplained pro.
+ * This package can be used with SAM xplained pro.
+ *
+ * This package has been tested on following boards:
+ * - SAM D21/R21 Xplained Pro
  *
  * \section Description
  *

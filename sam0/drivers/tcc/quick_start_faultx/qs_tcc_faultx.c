@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D21/R21 TCC - Timer Counter for Control Applications Callback Driver Quick Start (with Non-Recoverable Fault)
+ * \brief SAM TCC - Timer Counter for Control Applications Callback Driver Quick Start (with Non-Recoverable Fault)
  *
  * Copyright (C) 2014 Atmel Corporation. All rights reserved.
  *

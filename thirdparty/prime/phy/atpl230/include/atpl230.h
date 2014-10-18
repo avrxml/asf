@@ -55,13 +55,13 @@ extern "C" {
 #endif
 /**INDENT-ON**/
 /// @endcond
-  
+
 /**
  * \defgroup plc_group PLC
- * 
+ *
  * This module provides configuration and utils for Powerline Communications.
  */
- 
+
 /**
  * \ingroup plc_group
  * \defgroup phy_plc_group PRIME Physical Layer
@@ -70,10 +70,17 @@ extern "C" {
  *
  * @{
  */
+//#define PHY_OFFSET_SYMBOL_CONTROL
+
+#define ID_TC_PHY_TX_OFFSET_SYM             ID_TC0
+#define TC_PHY_TX_OFFSET_SYM                TC0
+#define TC_PHY_TX_OFFSET_SYM_CHN            0
+#define TC_PHY_TX_OFFSET_SYM_IRQn           TC0_IRQn
+#define TC_PHY_TX_OFFSET_SYM_Handler        TC0_Handler
 
 //! Coupling Boards Identifiers
 #define ATPLCOUPXXX_NUM	 9
-  
+
 //! \name Coupling Board Definitions
 //@{
 #define ATPLCOUP000_v1  0x01
@@ -86,36 +93,29 @@ extern "C" {
 #define ATPLCOUP005_v1  0x51
 #define ATPLCOUP006_v1  0x61
 //@}
-  
+
 //! \name Phy layer reset Types
 //@{
 #define PHY_RESET_HARD_TYPE  0
 #define PHY_RESET_SOFT_TYPE  1
 //@}
-  
 
-//! \name Max physical pdu size 
-//@{
-#define PHY_MAX_MPDU_SIZE_WITH_MAC_COP		364
-#define PHY_MAX_MPDU_SIZE_NO_MAC_COP		377
-//@}
-
-//! Maximum physical pdu size 
+//! Maximum physical pdu size
 #define PHY_MAX_PPDU_SIZE			512
 
 
-//! Number of transmission buffers 
+//! Number of transmission buffers
 #define PHY_NUM_TX_BUFFERS			4
-//! Number of reception buffers 
+//! Number of reception buffers
 #define PHY_NUM_RX_BUFFERS			4
 
-//! AES 128 Key size 
+//! AES 128 Key size
 #define AES_128_KEY_SIZE			16
 
-//! Configuration Identifiers 
+//! Configuration Identifiers
 #define PHY_NUM_CHANNELS			8
 
-//! \name Identifier for channel Configuration 
+//! \name Identifier for channel Configuration
 //@{
 #define PHY_ID_TX_CHN1				0x000150C7
 #define PHY_ID_TX_CHN2				0x00026A44
@@ -127,11 +127,11 @@ extern "C" {
 #define PHY_ID_TX_CHN8				0x00090330
 //@}
 
-//! \name Commands to access configuration parameters 
+//! \name Commands to access configuration parameters
 //@{
-//!  Read operation 
+//!  Read operation
 #define PHY_CMD_CFG_READ		        0
-//!  Write operation 
+//!  Write operation
 #define PHY_CMD_CFG_WRITE		        1
 //!  AND operation
 #define PHY_CMD_CFG_AND			        2
@@ -141,7 +141,7 @@ extern "C" {
 #define PHY_CMD_CFG_XOR                 4
 //@}
 
-//! \name Impedance states 
+//! \name Impedance states
 //@{
 //! High Impedance
 #define HI_STATE				0
@@ -153,7 +153,7 @@ extern "C" {
 #define LO_STATE_PK				3
 //@}
 
-//! \name Header Type 
+//! \name Header Type
 //@{
 //! Header type: GENERIC PACKET
 #define PHY_HT_GENERIC				0
@@ -162,7 +162,7 @@ extern "C" {
 //! Header type: BEACON PACKET
 #define PHY_HT_BEACON				2
 //@}
-  
+
 //! \name CRC types
 enum VCRCTypes
 {
@@ -172,7 +172,7 @@ enum VCRCTypes
 	CRC_TYPE_32      = 3,
 };
 
-//! \name Protocol values 
+//! \name Protocol values
 //@{
 //! Modulation scheme of the payload: Differential BPSK
 #define PROTOCOL_DBPSK				0x00
@@ -195,48 +195,50 @@ enum VCRCTypes
 //! Emitter Frecuencies Modes
 #define MODE_NUM_EF                             3
 //! 10 MHz
-#define MODE_EF10				0
+#define MODE_EF10                               0
 //! 20 MHz
-#define MODE_EF20				1
+#define MODE_EF20                               1
 //! 40 MHz
-#define MODE_EF40				2
-  
+#define MODE_EF40                               2
+
 //! \name Emitter Driver Mode
 //@{
 //! INTERNAL DRIVER
-#define INTERNAL_DRV_MODE			1
+#define INTERNAL_DRV_MODE                       1
 //! EXTERNAL DRIVER
-#define EXTERNAL_DRV_MODE			2
+#define EXTERNAL_DRV_MODE                       2
 //@}
 
 //!  \name Driver Identification
 //@{
 //! DRIVER 1
-#define DRIVER_1        			1
+#define DRIVER_1                                1
 //! DRIVER 2
-#define DRIVER_2        			2 
+#define DRIVER_2                                2
 //! DRIVER 1 + 2
-#define DRIVER_1_2        			3
+#define DRIVER_1_2                              3
 //@}
 
 //! \name Driver Polarity
 //@{
 //! 0 in emission and 1 in reception
-#define DRV_POL_TX_0_RX_1       		0
+#define DRV_POL_TX_0_RX_1                       0
 //! 1 in emission and 0 in reception
-#define DRV_POL_TX_1_RX_0       		1
-//@}  
-  
+#define DRV_POL_TX_1_RX_0                       1
+//@}
+
 //! \name Mode values
 //@{
-//! PRIME v1.3
-#define MODE_PRIME_V1_3				0x00
-//! PRIME PLUS
-#define MODE_PRIME_PLUS				0x02
+//! TYPE A FRAME
+#define MODE_TYPE_A                             0x00
+//! TYPE B FRAME
+#define MODE_TYPE_B                             0x02
+//! TYPE BACKWARDS COMPATIBILTY FRAME
+#define MODE_TYPE_BC                            0x03
 //! Noise
-#define MODE_NOISE				0xFE
+#define MODE_NOISE                              0xFE
 //! Test
-#define MODE_TEST				0xFF
+#define MODE_TEST                               0xFF
 //@}
 
 //! \name TX scheduling mode values
@@ -247,7 +249,7 @@ enum VCRCTypes
 #define PHY_TX_SCHEDULING_MODE_RELATIVE         1
 //@}
 
-//! \name TX Result values 
+//! \name TX Result values
 //@{
 //! Transmission result: already in process
 #define PHY_TX_RESULT_PROCESS        ATPL230_TXRXBUF_RESULT_INPROCESS
@@ -284,8 +286,8 @@ enum VCRCTypes
 //! Set configuration result: AES not available
 #define PHY_CFG_GEN_ERR_INVALID_AES_ENABLE             4
 //@}
-  
-//! \name Configuration Parameters 
+
+//! \name Configuration Parameters
 //@{
 //! Product identifier
 #define PHY_ID_INFO_PRODUCT										0x0100
@@ -336,7 +338,7 @@ enum VCRCTypes
 //! Bad len in message (too short - too long)
 #define PHY_ID_STATS_TX_BAD_LEN									0x0140
 //! Message to transmit in bad format
-#define PHY_ID_STATS_TX_BAD_FORMAT								0x0144 
+#define PHY_ID_STATS_TX_BAD_FORMAT								0x0144
 //! Timeout error in transmission
 #define PHY_ID_STATS_TX_TIMEOUT									0x0148
 //! Received correctly messages count
@@ -585,13 +587,13 @@ typedef struct
 	uint8_t rxQRMode;         ///< (w/r) Flag to enable / disable Rx Quality Report Mode
 	uint8_t rxScheme;         ///< (r) Modulation Scheme of last received message
 	uint8_t rxHdrRcv;         ///< (r) Flag to indicate if header has already been received
-	uint8_t rxMode;           ///< (w/r) Mode PRIME v1.3 or PRIME v1.4 
+	uint8_t rxMode;           ///< (w/r) Mode PRIME v1.3 or PRIME v1.4
 	uint8_t reserved1;        ///< Reserved
-		  
+
 	uint8_t txIdBuff;         ///< (w/r) Buffer identifier of transmitted message
 	uint8_t txLevel;          ///< (w/r) Level parameter of last transmitted message
 	uint8_t txScheme;         ///< (w/r) Modulation scheme of last transmitted message
-	uint8_t txQRMode;         ///< (w/r) Flag to enable / disable Tx Quality Report Mode 
+	uint8_t txQRMode;         ///< (w/r) Flag to enable / disable Tx Quality Report Mode
 	uint8_t txMode;           ///< (w/r) Mode PRIME v1.3 or PRIME v1.4
 	uint8_t txDisableRx;      ///< (w/r) Flag to enable / disable reception at transmission start
 	uint8_t reserved2;        ///< Reserved
@@ -602,7 +604,7 @@ typedef struct
 	uint16_t reserved3;       ///< Reserved
 
 	uint32_t txTdelay;        ///< (w/r) Delay for transmission in 10's of us
-		  
+
 	uint32_t txTotal;         ///< (r) Transmitted correctly messages count
 	uint32_t txTotalBytes;    ///< (r) Transmitted bytes count
 	uint32_t txTotalErrors;   ///< (r) Transmission errors count
@@ -710,7 +712,7 @@ typedef struct
 	uint16_t tx8LoadThreshold2;				///< (w/r)	Channel 8 Threshold for RMS calculated to detect load type
 	uint16_t tx8LoadThreshold3;				///< (w/r)	Channel 8 Threshold for RMS calculated to detect load type
 	uint16_t tx8LoadThreshold4;				///< (w/r)	Channel 8 Threshold for RMS calculated to detect load type
-  
+
 } atpl230ChnCfg_t;
 
 typedef struct
@@ -718,7 +720,7 @@ typedef struct
 	uint8_t uc_buff_id;					///<	Buffer identifier
 	uint8_t att_level;					///<	Attenuation level with which the message must be transmitted
 	uint8_t scheme;						///<	Modulation scheme of last transmitted message
-	uint8_t disable_rx;					///<	TX Forced  
+	uint8_t disable_rx;					///<	TX Forced
 	uint8_t mode;						///<	Mode PRIME v1.3 or PRIME PLUS
 	uint16_t data_len;					///<	Length of the data buffer.
 	uint8_t *data_buf;					///<	Pointer to data buffer
@@ -920,7 +922,7 @@ static inline void phy_carrier_detect_buff_disable(uint8_t idBuf)
  *
  */
 static inline void phy_carrier_detect_buff_enable(uint8_t idBuf)
-{	
+{
 	pplc_if_and8(REG_ATPL230_TXRXBUF_TXCONF_TX0 + idBuf, (uint8_t)~ATPL230_TXRXBUF_TXCONF_DC_Msk);
 }
 
@@ -973,7 +975,7 @@ static inline uint8_t phy_transmission_buff_is_enable(uint8_t idBuf)
 
 //! \name ATPL230 Physical Layer Interface
 //@{
-void vPhyInitTask (uint8_t uc_ifaceEnable);
+void phy_init (uint8_t uc_ifaceEnable);
 uint8_t phy_get_cfg_param (uint16_t us_id, void *p_val, uint16_t uc_len);
 uint8_t phy_set_cfg_param (uint16_t us_id, void *p_val, uint16_t uc_len);
 uint8_t phy_cmd_cfg_param (uint16_t us_id, uint8_t uc_cmd, uint8_t uc_mask);

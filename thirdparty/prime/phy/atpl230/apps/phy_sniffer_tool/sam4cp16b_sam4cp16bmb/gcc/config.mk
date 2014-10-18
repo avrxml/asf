@@ -102,6 +102,7 @@ INC_PATH = \
        sam/boards/sam4cp16bmb                             \
        sam/components/display/c42364a                     \
        sam/drivers/pdc                                    \
+       sam/drivers/pdc/pdc_uart_example                   \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
        sam/drivers/slcdc                                  \

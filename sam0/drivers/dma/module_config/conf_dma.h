@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D21/R21 Direct Memory Access Driver Configuration Header
+ * \brief SAM Direct Memory Access Driver Configuration Header
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *

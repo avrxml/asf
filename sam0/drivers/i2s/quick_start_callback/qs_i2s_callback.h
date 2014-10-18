@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D21 I2S - Inter-IC Sound Controller Driver Quick Start
+ * \brief SAM I2S - Inter-IC Sound Controller Driver Quick Start
  *
  * Copyright (C) 2014 Atmel Corporation. All rights reserved.
  *

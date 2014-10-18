@@ -1988,6 +1988,9 @@
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4l/dfll.c</name>
 					</file>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4l/pll.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4l/dfll.h</name>
 					</file>
 					<file>
@@ -1998,9 +2001,6 @@
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4l/osc.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4l/pll.h</name>
 					</file>
 				</group>
 				<file>
@@ -2159,6 +2159,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../ast/ast.c</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../ast/example1/ast_example1.h</name>
+					</file>
+				</group>
+				<group>
+					<name>example2</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../ast/example2/ast_example2.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../ast/ast.h</name>
 				</file>
@@ -2259,9 +2271,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_bscif.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_twim0.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_scif.h</name>
 							</file>
 							<file>
@@ -2307,10 +2316,13 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_twis1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_parc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_iisc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_parc.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_bpm.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_usart2.h</name>
@@ -2331,7 +2343,7 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_ast.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_bpm.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_twim0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_pdca.h</name>
@@ -2349,7 +2361,7 @@
 						<group>
 							<name>component</name>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_crccu.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_chipid.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_dacc.h</name>
@@ -2367,7 +2379,7 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_lcdca.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_chipid.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_aesa.h</name>
@@ -2380,6 +2392,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_pevc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_usart.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_spi.h</name>
@@ -2431,9 +2446,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_iisc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_usart.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_bscif.h</name>

@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21 DAC Sound Player Application
+ * \brief SAM DAC Sound Player Application
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -41,7 +41,7 @@
  */
 
 /**
- * \mainpage SAM D20/D21 DAC Sound Player Application
+ * \mainpage SAM DAC Sound Player Application
  * See \ref appdoc_main "here" for project documentation.
  * \copydetails appdoc_preface
  *
@@ -53,7 +53,7 @@
  */
 
 /**
- * \page appdoc_main SAM D20/D21 DAC Sound Player Application
+ * \page appdoc_main SAM DAC Sound Player Application
  *
  * Overview:
  * - \ref appdoc_sam0_dac_sound_player_intro
@@ -70,6 +70,9 @@
  * A timer is used to guarantee the DAC conversions are performed at the correct
  * sample rate, using the Event System module of the device to link the periodic
  * timer output events to the DAC module to trigger new sample conversions.
+ *
+ * This application has been tested on following boards:
+ * - SAM D20/D21 Xplained Pro
  *
  * \section appdoc_sam0_dac_sound_player_setup Hardware Setup
  * The device's DAC channel 0 output should be connected to an audio amplifier,

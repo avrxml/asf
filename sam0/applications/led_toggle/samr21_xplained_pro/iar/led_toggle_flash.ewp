@@ -2011,21 +2011,9 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/extint/extint_callback.h</name>
 				</file>
-				<group>
-					<name>quick_start_callback</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/extint/quick_start_callback/qs_extint_callback.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/extint/extint.h</name>
 				</file>
-				<group>
-					<name>quick_start_polled</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/extint/quick_start_polled/qs_extint_basic.h</name>
-					</file>
-				</group>
 			</group>
 			<group>
 				<name>port</name>
@@ -2349,6 +2337,9 @@
 							<name>$PROJ_DIR$/asf.h</name>
 						</file>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../conf_example.h</name>
+					</file>
 					<file>
 						<name>$PROJ_DIR$/../conf_clocks.h</name>
 					</file>

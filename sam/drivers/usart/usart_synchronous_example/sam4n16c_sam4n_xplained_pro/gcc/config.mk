@@ -85,6 +85,7 @@ INC_PATH = \
        sam/boards                                         \
        sam/boards/sam4n_xplained_pro                      \
        sam/drivers/pdc                                    \
+       sam/drivers/pdc/pdc_uart_example                   \
        sam/drivers/pmc                                    \
        sam/drivers/tc                                     \
        sam/drivers/uart                                   \

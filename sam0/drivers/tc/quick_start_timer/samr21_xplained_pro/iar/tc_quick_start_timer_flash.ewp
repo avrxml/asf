@@ -2307,6 +2307,9 @@
 							</file>
 						</group>
 						<file>
+							<name>$PROJ_DIR$/../conf_qs_tc_timer.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../conf_clocks.h</name>
 						</file>
 					</group>

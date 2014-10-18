@@ -54,6 +54,9 @@ extern "C" {
 /**INDENT-ON**/
 /// @endcond
 
+/** Time-out value (number of attempts). */
+#define TWI_TIMEOUT              15000
+
 /**
  * \brief Return codes for TWI APIs.
  * @{
@@ -67,6 +70,7 @@ extern "C" {
 #define TWI_SEND_OVERRUN         6
 #define TWI_SEND_NACK            7
 #define TWI_BUSY                 8
+#define TWI_ERROR_TIMEOUT        9
 /**
  * @}
  */

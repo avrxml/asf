@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 Event System Unit test
+ * \brief SAM Event System Unit test
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \mainpage SAM D20/D21/R21 EVENTS Unit Test
+ * \mainpage SAM EVENTS Unit Test
  * See \ref appdoc_main "here" for project documentation.
  * \copydetails appdoc_preface
  *
@@ -56,7 +56,7 @@
  */
 
 /**
- * \page appdoc_main SAM D20/D21/R21 EVENTS Unit Test
+ * \page appdoc_main SAM EVENTS Unit Test
  *
  * Overview:
  * - \ref appdoc_sam0_events_unit_test_intro
@@ -575,7 +575,7 @@ int main(void)
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(events_test_suite, events_tests,
-			"SAM D20/D21/R21 Event System driver test suite");
+			"SAM Event System driver test suite");
 
 	/* Run all tests in the suite*/
 	test_suite_run(&events_test_suite);

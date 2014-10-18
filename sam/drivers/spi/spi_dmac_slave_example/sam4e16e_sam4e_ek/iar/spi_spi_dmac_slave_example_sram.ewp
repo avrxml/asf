@@ -2250,6 +2250,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../dmac/dmac.h</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 			</group>
 		</group>
 		<group>

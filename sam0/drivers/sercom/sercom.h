@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 Serial Peripheral Interface Driver
+ * \brief SAM Serial Peripheral Interface Driver
  *
  * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
@@ -54,12 +54,25 @@
 extern "C" {
 #endif
 
+#if (SAMD10) || (SAMD11)
+
+#if (SERCOM0_GCLK_ID_SLOW == SERCOM1_GCLK_ID_SLOW && \
+     SERCOM0_GCLK_ID_SLOW == SERCOM2_GCLK_ID_SLOW)
+#  define SERCOM_GCLK_ID SERCOM0_GCLK_ID_SLOW
+#else
+#  error "SERCOM modules must share the same slow GCLK channel ID."
+#endif
+
+#else
+
 #if (SERCOM0_GCLK_ID_SLOW == SERCOM1_GCLK_ID_SLOW && \
      SERCOM0_GCLK_ID_SLOW == SERCOM2_GCLK_ID_SLOW && \
      SERCOM0_GCLK_ID_SLOW == SERCOM3_GCLK_ID_SLOW)
 #  define SERCOM_GCLK_ID SERCOM0_GCLK_ID_SLOW
 #else
 #  error "SERCOM modules must share the same slow GCLK channel ID."
+#endif
+
 #endif
 
 #if (0x1ff >= REV_SERCOM)

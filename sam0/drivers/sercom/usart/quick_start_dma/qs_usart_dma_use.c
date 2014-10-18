@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D21/R21 Sercom Usart driver with DMA quick start
+ * \brief SAM D21/R21/D10/D11 Sercom Usart driver with DMA quick start
  *
  * Copyright (C) 2014 Atmel Corporation. All rights reserved.
  *

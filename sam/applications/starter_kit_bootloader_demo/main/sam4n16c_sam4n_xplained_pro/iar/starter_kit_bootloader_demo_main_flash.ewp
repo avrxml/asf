@@ -2404,6 +2404,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../drivers/rstc/rstc.h</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../drivers/rstc/example1/rstc_example1.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>adc</name>

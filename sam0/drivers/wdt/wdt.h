@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 Watchdog Driver
+ * \brief SAM Watchdog Driver
  *
  * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
@@ -44,9 +44,9 @@
 #define WDT_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam0_wdt_group SAM D20/D21/R21 Watchdog Driver (WDT)
+ * \defgroup asfdoc_sam0_wdt_group SAM Watchdog Driver (WDT)
  *
- * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
+ * This driver for SAM devices provides an interface for the configuration
  * and management of the device's Watchdog Timer module, including the enabling,
  * disabling and kicking within the device. The following driver API modes are
  * covered by this manual:
@@ -57,8 +57,12 @@
  * \endif
  *
  * The following peripherals are used by this module:
- *
  *  - WDT (Watchdog Timer)
+ *
+ * The following devices can use this module:
+ *  - SAM D20/D21
+ *  - SAM R21
+ *  - SAM D10/D11
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_wdt_prerequisites
@@ -445,6 +449,11 @@ void wdt_reset_count(void);
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>E</td>
+ *		<td>05/2014</td>
+ *		<td>Add SAMD10/D11 support.</td>
  *	</tr>
  *	<tr>
  *		<td>D</td>

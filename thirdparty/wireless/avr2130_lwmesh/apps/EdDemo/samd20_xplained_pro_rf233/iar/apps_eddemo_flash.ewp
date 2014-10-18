@@ -2196,6 +2196,9 @@
 						<file>
 							<name>$PROJ_DIR$/../../EdDemo.c</name>
 						</file>
+						<file>
+							<name>$PROJ_DIR$/../../config.h</name>
+						</file>
 						<group>
 							<name>samd20_xplained_pro_rf233</name>
 							<file>
@@ -2226,9 +2229,6 @@
 								<name>$PROJ_DIR$/../conf_extint.h</name>
 							</file>
 						</group>
-						<file>
-							<name>$PROJ_DIR$/../../config.h</name>
-						</file>
 						<file>
 							<name>$PROJ_DIR$/../../conf_trx_access.h</name>
 						</file>
@@ -2264,23 +2264,11 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_callback.c</name>
 				</file>
-				<group>
-					<name>quick_start_callback</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/quick_start_callback/qs_extint_callback.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_polled</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/quick_start_polled/qs_extint_basic.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint.h</name>
-				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_callback.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint.h</name>
 				</file>
 			</group>
 			<group>
@@ -2297,9 +2285,6 @@
 						<name>$PROJ_DIR$/../../../../../../../sam0/drivers/tc/quick_start_callback/qs_tc_callback.h</name>
 					</file>
 				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam0/drivers/tc/tc.h</name>
-				</file>
 				<group>
 					<name>quick_start</name>
 					<file>
@@ -2312,6 +2297,9 @@
 						<name>$PROJ_DIR$/../../../../../../../sam0/drivers/tc/quick_start_timer/qs_tc_timer.h</name>
 					</file>
 				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sam0/drivers/tc/tc.h</name>
+				</file>
 				<group>
 					<name>quick_start_dma</name>
 					<file>
@@ -2571,13 +2559,16 @@
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20e17.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g18.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20e1f.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j17.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g18.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g18u.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j15.h</name>
@@ -2587,6 +2578,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g17.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g17u.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j14.h</name>
@@ -2619,6 +2613,9 @@
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/instance/pac1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/instance/ac.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/instance/sercom1.h</name>
 							</file>
 							<file>
@@ -2629,9 +2626,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/instance/gclk.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/instance/ac.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/instance/tc5.h</name>
@@ -2713,6 +2707,9 @@
 							<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/samd20e14.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/samd20g18u.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/samd20g14.h</name>
 						</file>
 						<file>
@@ -2726,6 +2723,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/samd20j14.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/samd20g17u.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/samd20e18.h</name>
@@ -2770,18 +2770,12 @@
 				<name>$PROJ_DIR$/../../../../../../../sam0/utils/compiler.h</name>
 			</file>
 			<group>
-				<name>header_files</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam0/utils/header_files/io.h</name>
-				</file>
-			</group>
-			<group>
 				<name>preprocessor</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor/mrepeat.h</name>
+					<name>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor/mrecursion.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor/mrecursion.h</name>
+					<name>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor/mrepeat.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor/tpaste.h</name>
@@ -2791,6 +2785,12 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor/stringz.h</name>
+				</file>
+			</group>
+			<group>
+				<name>header_files</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sam0/utils/header_files/io.h</name>
 				</file>
 			</group>
 			<file>

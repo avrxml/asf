@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Reset Controller (RSTC) driver for SAM.
+ * \brief SAM Reset Controller (RSTC) driver.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
  
 #include "rstc.h"
 
-/// @cond 0
+/// @cond
 /**INDENT-OFF**/
 #ifdef __cplusplus
 extern "C" {
@@ -51,25 +51,21 @@ extern "C" {
 /**INDENT-ON**/
 /// @endcond
 
-/**
- * \defgroup sam_drivers_rstc_group Reset Controller (RSTC)
- *
- * Driver for the RSTC (Reset Controller). This driver provides access to the main 
- * features of the Reset controller.
- *
- * @{
- */
-
 #define RSTC_KEY  0xA5000000
 
 /**
- * \brief Set external reset length.
+ * \brief Set the external reset length.
  *
- * \param p_rstc Pointer to an RSTC instance.
- * \param ul_length The length of external reset.
+ * \param[in,out] p_rstc Module hardware register base address pointer
+ * \param[in] ul_length The length of external reset
  */
-void rstc_set_external_reset(Rstc *p_rstc, const uint32_t ul_length)
+void rstc_set_external_reset(
+		Rstc *p_rstc,
+		const uint32_t ul_length)
 {
+	/* Validate the parameters. */
+	Assert(p_rstc);
+	
 	uint32_t mode = p_rstc->RSTC_MR;
 
 	mode &= ~(RSTC_MR_ERSTL_Msk | RSTC_MR_KEY_Msk);
@@ -79,12 +75,16 @@ void rstc_set_external_reset(Rstc *p_rstc, const uint32_t ul_length)
 }
 
 /**
- * \brief Enable user reset.
+ * \brief Enable User Reset.
  *
- * \param p_rstc Pointer to an RSTC instance.
+ * \param[in,out] p_rstc Module hardware register base address pointer
  */
-void rstc_enable_user_reset(Rstc *p_rstc)
+void rstc_enable_user_reset(
+		Rstc *p_rstc)
 {
+	/* Validate the parameters. */
+	Assert(p_rstc);
+	
 	uint32_t mode = p_rstc->RSTC_MR;
 
 	mode &= ~RSTC_MR_KEY_Msk;
@@ -94,12 +94,16 @@ void rstc_enable_user_reset(Rstc *p_rstc)
 }
 
 /**
- * \brief Disable user reset.
+ * \brief Disable User Reset.
  *
- * \param p_rstc Pointer to an RSTC instance.
+ * \param[in,out] p_rstc Module hardware register base address pointer
  */
-void rstc_disable_user_reset(Rstc *p_rstc)
+void rstc_disable_user_reset(
+		Rstc *p_rstc)
 {
+	/* Validate the parameters. */
+	Assert(p_rstc);
+	
 	uint32_t mode = p_rstc->RSTC_MR;
 
 	mode &= ~(RSTC_MR_URSTEN | RSTC_MR_KEY_Msk);
@@ -109,12 +113,16 @@ void rstc_disable_user_reset(Rstc *p_rstc)
 }
 
 /**
- * \brief Enable user reset interrupt.
+ * \brief Enable the User Reset interrupt.
  *
- * \param p_rstc Pointer to an RSTC instance.
+ * \param[in,out] p_rstc Module hardware register base address pointer
  */
-void rstc_enable_user_reset_interrupt(Rstc *p_rstc)
+void rstc_enable_user_reset_interrupt(
+		Rstc *p_rstc)
 {
+	/* Validate the parameters. */
+	Assert(p_rstc);
+	
 	uint32_t mode = p_rstc->RSTC_MR;
 
 	mode &= ~RSTC_MR_KEY_Msk;
@@ -124,12 +132,16 @@ void rstc_enable_user_reset_interrupt(Rstc *p_rstc)
 }
 
 /**
- * \brief Disable user reset interrupt.
+ * \brief Disable the User Reset interrupt.
  *
- * \param p_rstc Pointer to an RSTC instance.
+ * \param[in,out] p_rstc Module hardware register base address pointer
  */
-void rstc_disable_user_reset_interrupt(Rstc *p_rstc)
+void rstc_disable_user_reset_interrupt(
+		Rstc *p_rstc)
 {
+	/* Validate the parameters. */
+	Assert(p_rstc);
+	
 	uint32_t mode = p_rstc->RSTC_MR;
 
 	mode &= ~(RSTC_MR_URSTIEN | RSTC_MR_KEY_Msk);
@@ -139,11 +151,12 @@ void rstc_disable_user_reset_interrupt(Rstc *p_rstc)
 }
 
 /**
- * \brief Perform software reset.
+ * \brief Perform a Software Reset.
  *
- * \param p_rstc Pointer to an RSTC instance.
+ * \param[out] p_rstc Module hardware register base address pointer
  */
-void rstc_start_software_reset(Rstc *p_rstc)
+void rstc_start_software_reset(
+		Rstc *p_rstc)
 {
 	p_rstc->RSTC_CR = RSTC_KEY | RSTC_CR_PROCRST | RSTC_CR_PERRST;
 }
@@ -151,40 +164,41 @@ void rstc_start_software_reset(Rstc *p_rstc)
 /**
  * \brief Asserts the NRST pin for external resets.
  *
- * \param p_rstc   Pointer to an RSTC instance.
+ * \param[out] p_rstc Module hardware register base address pointer
  */
-void rstc_reset_extern(Rstc *p_rstc)
+void rstc_reset_extern(
+		Rstc *p_rstc)
 {
 	p_rstc->RSTC_CR = RSTC_KEY | RSTC_CR_EXTRST;
 }
 
 /**
- * \brief Get RSTC status.
+ * \brief Get the RSTC status.
  *
- * \param p_rstc Pointer to an RSTC instance.
+ * \param[in] p_rstc Module hardware register base address pointer
  *
  * \return RSTC status.
  */
-uint32_t rstc_get_status(Rstc *p_rstc)
+uint32_t rstc_get_status(
+		Rstc *p_rstc)
 {
 	return p_rstc->RSTC_SR;
 }
 
 /**
- * \brief Get reset cause.
+ * \brief Get the reset cause.
  *
- * \param p_rstc Pointer to an RSTC instance.
+ * \param[in] p_rstc Module hardware register base address pointer
  *
  * \return The last reset cause.
  */
-uint32_t rstc_get_reset_cause(Rstc *p_rstc)
+uint32_t rstc_get_reset_cause(
+		Rstc *p_rstc)
 {
 	return (p_rstc->RSTC_SR & RSTC_SR_RSTTYP_Msk);
 }
 
-//@}
-
-/// @cond 0
+/// @cond
 /**INDENT-OFF**/
 #ifdef __cplusplus
 }

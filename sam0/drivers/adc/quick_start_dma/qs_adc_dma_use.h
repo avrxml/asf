@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D21 Quick Start Guide for Using ADC/DAC driver with DMA
+ * \brief SAM D21/D10/D11 Quick Start Guide for Using ADC/DAC driver with DMA
  *
  * Copyright (C) 2014 Atmel Corporation. All rights reserved.
  *
@@ -46,8 +46,9 @@
  *
  * The supported board list:
  *    - SAMD21 Xplained Pro
+ *    - SAMD11 Xplained Pro
  *
- * This quick start will convert an analog input signal from PA4 and output
+ * This quick start will convert an analog input signal from AIN4 and output
  * the converted value to DAC on PA2. The data between ADC and DAC with be
  * transferred through DMA instead of a CPU intervene.
  *
@@ -57,7 +58,7 @@
  * - 10 bit resolution
  * - Window monitor disabled
  * - No gain
- * - Positive input on ADC PIN 4
+ * - Positive input on ADC AIN4
  * - Averaging disabled
  * - Oversampling disabled
  * - Right adjust data

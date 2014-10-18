@@ -88,6 +88,7 @@ INC_PATH = \
        sam/drivers/aes                                    \
        sam/drivers/aes/gcm_example/sam4cmp16c_sam4cmp_db  \
        sam/drivers/pdc                                    \
+       sam/drivers/pdc/pdc_uart_example                   \
        sam/drivers/pmc                                    \
        sam/drivers/uart                                   \
        sam/drivers/usart                                  \

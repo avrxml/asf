@@ -3,7 +3,7 @@
  *
  * \brief User Interface.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,7 +56,7 @@
 #include "touch_api_sam4l.h"
 #include "ioport.h"
 
-void ui_set_mcu_status(power_scaling_t power_scaling, 
+void ui_set_mcu_status(power_scaling_t power_scaling,
 	sleep_mode_t sleep_mode, uint32_t cpu_freq, cpu_src_t cpu_src);
 power_scaling_t ui_get_power_scaling_mcu_status(void);
 void ui_set_power_scaling_mcu_status(power_scaling_t power_scaling);
@@ -65,7 +65,7 @@ void ui_set_sleep_mode_mcu_status(sleep_mode_t sleep_mode);
 void ui_bm_init(void);
 void ui_bm_send_mcu_status(void);
 void ui_lcd_init(void);
-void ui_lcd_refresh_alphanum(bool ui_lcd_refresh, 
+void ui_lcd_refresh_alphanum(bool ui_lcd_refresh,
 	int32_t event_qtouch_slider_position);
 void ui_lcd_refresh_txt(void);
 

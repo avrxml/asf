@@ -318,6 +318,7 @@
 					<state>$PROJ_DIR$/../../demo-tasks</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/udc</state>
@@ -601,6 +602,7 @@
 					<state>$PROJ_DIR$/../../demo-tasks</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/udc</state>
@@ -1276,6 +1278,7 @@
 					<state>$PROJ_DIR$/../../demo-tasks</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/udc</state>
@@ -1559,6 +1562,7 @@
 					<state>$PROJ_DIR$/../../demo-tasks</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/udc</state>
@@ -2228,6 +2232,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../sam/drivers/pdc/pdc.c</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../sam/drivers/pdc/pdc.h</name>
 				</file>
@@ -2319,13 +2329,13 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_smc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_pioc.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_hsmci.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_gpbr.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_hsmci.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_pioc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/instance/instance_trng.h</name>
@@ -2439,10 +2449,10 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_efc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_matrix.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_twi.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_twi.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_matrix.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3x/include/component/component_pio.h</name>

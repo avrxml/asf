@@ -90,6 +90,7 @@ INC_PATH = \
        sam/boards/samg53_xplained_pro                     \
        sam/drivers/efc                                    \
        sam/drivers/pdc                                    \
+       sam/drivers/pdc/pdc_uart_example                   \
        sam/drivers/pmc                                    \
        sam/drivers/spi                                    \
        sam/drivers/spi/spi_pdc_example/samg53n19_samg_xplained_pro \

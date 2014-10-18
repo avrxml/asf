@@ -116,6 +116,7 @@ INC_PATH = \
        sam/drivers/hsmci                                  \
        sam/drivers/matrix                                 \
        sam/drivers/pdc                                    \
+       sam/drivers/pdc/pdc_uart_example                   \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
        sam/drivers/udp                                    \

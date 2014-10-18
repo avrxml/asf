@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Peripheral Event Controller (PEVC) example 2 for SAM.
+ * \brief SAM Peripheral Event Controller (PEVC) example 2.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,49 +41,17 @@
  *
  */
 
-/**
- * \mainpage
- * \section intro Introduction
- * This example shows how to use the Peripheral Event Controller.
- * In the example, a \ref CONF_EXAMPLE_PIN_EVENT is configured to trigger a GPIO
- * event when detecting a falling edge. Each time a new event is coming, it
- * will trigger the PDCA to send a character to the USART without CPU usage.
- *
- * \section files Main Files
- * - events.c: Events driver;
- * - events.h: Events driver header file;
- * - events_example2.c: Events example 2 application.
- *
- * \section compilinfo Compilation Information
- * This software is written for GNU GCC and IAR Embedded Workbench
- * for Atmel. Other compilers may or may not work.
- *
- * \section deviceinfo Device Information
- * SAM4L device can be used.
- *
- * \section configinfo Configuration Information
- * This example has been tested with the following configuration:
- * - PC terminal settings:
- *   - 115200 bps,
- *   - 8 data bits,
- *   - no parity bit,
- *   - 1 stop bit,
- *   - no flow control.
- *
- * \section contactinfo Contact Information
- * For further information, visit
- * <A href="http://www.atmel.com">Atmel</A>.\n
- * Support and FAQ: http://support.atmel.com/
- */
 #include <asf.h>
-#include "conf_example.h"
+#include <conf_example.h>
+#include <events_example2.h>
 
 uint8_t event_string[] = "GPIO event triggered PDCA!";
 
 /**
- * PDCA transfer interrupt callback.
+ * \brief PDCA transfer interrupt callback.
  */
-static void pdca_tranfer_done(enum pdca_channel_status status)
+static void pdca_tranfer_done(
+		enum pdca_channel_status status)
 {
 	/* Get PDCA channel status and check if PDCA transfer is completed */
 	if (status == PDCA_CH_TRANSFER_COMPLETED) {
@@ -95,7 +63,7 @@ static void pdca_tranfer_done(enum pdca_channel_status status)
 }
 
 /**
- * Initialize the PEVC for the example.
+ * \brief Initialize the PEVC for the example.
  */
 static void init_events(void)
 {
@@ -126,7 +94,7 @@ static void init_events(void)
 }
 
 /**
- * Initialize the PDCA transfer for the example.
+ * \brief Initialize the PDCA transfer for the example.
  */
 static void init_pdca(void)
 {
@@ -157,7 +125,7 @@ static void init_pdca(void)
 }
 
 /**
- *  Configure serial console.
+ *  \brief Configure serial console.
  */
 static void configure_console(void)
 {
@@ -165,11 +133,11 @@ static void configure_console(void)
 		.baudrate = CONF_UART_BAUDRATE,
 #ifdef CONF_UART_CHAR_LENGTH
 		.charlength = CONF_UART_CHAR_LENGTH,
-#endif
+#endif /* CONF_UART_CHAR_LENGTH */
 		.paritytype = CONF_UART_PARITY,
 #ifdef CONF_UART_STOP_BITS
 		.stopbits = CONF_UART_STOP_BITS,
-#endif
+#endif /* CONF_UART_STOP_BITS */
 	};
 
 	/* Configure console. */

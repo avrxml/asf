@@ -307,6 +307,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam3n_ek</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3n/source/templates</state>
@@ -576,6 +577,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam3n_ek</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3n/source/templates</state>
@@ -1236,6 +1238,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam3n_ek</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3n/source/templates</state>
@@ -1505,6 +1508,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam3n_ek</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3n/source/templates</state>
@@ -2005,6 +2009,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>uart</name>
@@ -2331,10 +2341,10 @@
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3n/include/sam3n4b.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3n/include/sam3n1a.h</name>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3n/include/sam3n2b.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3n/include/sam3n2b.h</name>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3n/include/sam3n1a.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3n/include/sam3n.h</name>
@@ -2364,10 +2374,10 @@
 				</file>
 			</group>
 			<file>
-				<name>$PROJ_DIR$/../../../../../utils/compiler.h</name>
+				<name>$PROJ_DIR$/../../../../../utils/status_codes.h</name>
 			</file>
 			<file>
-				<name>$PROJ_DIR$/../../../../../utils/status_codes.h</name>
+				<name>$PROJ_DIR$/../../../../../utils/compiler.h</name>
 			</file>
 			<group>
 				<name>header_files</name>

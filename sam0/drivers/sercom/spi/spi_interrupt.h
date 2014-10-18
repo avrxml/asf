@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 Serial Peripheral Interface Driver (Callback Mode)
+ * \brief SAM Serial Peripheral Interface Driver (Callback Mode)
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *

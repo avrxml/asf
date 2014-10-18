@@ -63,5 +63,5 @@
 
 /** LCD Contrast value */
 #define CONF_C4236A_CONTRAST           8
- 
+
 #endif /* CONF_C42364A_SLCDC_H_INCLUDED */

@@ -2400,6 +2400,9 @@
 							<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
 						</file>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../acifc_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../acifc.h</name>

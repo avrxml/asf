@@ -44,7 +44,7 @@
 #define _USART_SERIAL_H_
 
 #include "compiler.h"
-#if !(SAMD20 || SAMD21 || SAMR21)
+#if !(SAMD20 || SAMD21 || SAMR21 || SAMD10 || SAMD11)
 # include "sysclk.h"
 #endif
 #include "status_codes.h"
@@ -93,7 +93,9 @@ static inline enum status_code usart_serial_putchar(
 		struct usart_module *const module,
 		uint8_t c)
 {
-	return usart_write_wait(module, c);
+	while(STATUS_OK !=usart_write_wait(module, c));
+
+	return STATUS_OK;
 }
 
 /** \brief Waits until a character is received, and returns it.
@@ -105,9 +107,9 @@ static inline void usart_serial_getchar(
 		struct usart_module *const module,
 		uint8_t *c)
 {
-	uint16_t temp;
+	uint16_t temp = 0;
 
-	usart_read_wait(module, &temp);
+	while(STATUS_OK != usart_read_wait(module, &temp));
 
 	*c = temp;
 }

@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D21/R21 TCC Unit test
+ * \brief SAM TCC Unit test
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \mainpage SAM D21/R21 TCC Unit Test
+ * \mainpage SAM TCC Unit Test
  * See \ref appdoc_main "here" for project documentation.
  * \copydetails appdoc_preface
  *
@@ -50,15 +50,15 @@
  * \page appdoc_preface Overview
  * This unit test carries out tests for TCC driver.
  * It consists of test cases for the following functionalities:
- *      - Test for driver initialization.
- *      - Test for TCC start/stop
- *      - Test for TCC callback generation
- *      - Test for 24-bit TCC operation
- *      - Test for compare and capture TCC operation
+ *  - Test for driver initialization.
+ *  - Test for TCC start/stop
+ *  - Test for TCC callback generation
+ *  - Test for 24-bit TCC operation
+ *  - Test for compare and capture TCC operation
  */
 
 /**
- * \page appdoc_main SAM D21/R21 TCC Unit Test
+ * \page appdoc_main SAM TCC Unit Test
  *
  * Overview:
  * - \ref appdoc_sam0_tcc_unit_test_intro
@@ -71,7 +71,7 @@
  * \copydetails appdoc_preface
  *
  * The following kit is required for carrying out the test:
- *      - SAM D21/R21 Xplained Pro board
+ *  - SAM D21/R21 Xplained Pro board
  *
  * \section appdoc_sam0_tcc_unit_test_setup Setup
  * The following connections has to be made using wires:
@@ -81,7 +81,7 @@
  *  - \b EXTINT 7 (PA22, EXT1 pin 9 ) <-----> TCC0 WO0 (PA08, EXT3 pin 10)
  *
  * To run the test:
- *  - Connect the SAM D21/R21 Xplained Pro board to the computer using a
+ *  - Connect the SAM Xplained Pro board to the computer using a
  *    micro USB cable.
  *  - Open the virtual COM port in a terminal application.
  *    \note The USB composite firmware running on the Embedded Debugger (EDBG)
@@ -719,7 +719,7 @@ int main(void)
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(tcc_suite, tcc_tests,
-			"SAM D21/R21 TCC driver test suite");
+			"SAM TCC driver test suite");
 
 	/* Run all tests in the suite*/
 	test_suite_run(&tcc_suite);

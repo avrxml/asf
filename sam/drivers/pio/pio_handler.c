@@ -107,6 +107,9 @@ void pio_handler_process(Pio *p_pio, uint32_t ul_id)
 				}
 			}
 			i++;
+			if (i >= MAX_INTERRUPT_SOURCES) {
+				break;
+			}
 		}
 	}
 

@@ -1886,13 +1886,13 @@
 					<name>$PROJ_DIR$/../../../../../common/services/clock/sysclk.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/clock/genclk.h</name>
-				</file>
-				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/clock/osc.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/clock/pll.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/services/clock/genclk.h</name>
 				</file>
 			</group>
 			<group>
@@ -1911,6 +1911,18 @@
 				</group>
 			</group>
 			<group>
+				<name>gpio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/services/gpio/gpio.h</name>
+				</file>
+				<group>
+					<name>sam_gpio</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../common/services/gpio/sam_gpio/sam_gpio.h</name>
+					</file>
+				</group>
+			</group>
+			<group>
 				<name>ioport</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/ioport/ioport.h</name>
@@ -1921,18 +1933,6 @@
 						<name>$PROJ_DIR$/../../../../../common/services/ioport/sam/ioport_pio.h</name>
 					</file>
 				</group>
-			</group>
-			<group>
-				<name>gpio</name>
-				<group>
-					<name>sam_gpio</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../common/services/gpio/sam_gpio/sam_gpio.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/gpio/gpio.h</name>
-				</file>
 			</group>
 		</group>
 		<group>
@@ -1984,6 +1984,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/tc/tc.c</name>
 				</file>
+				<group>
+					<name>tc_capture_waveform_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
+					</file>
+					<group>
+						<name>sam4e16e_sam4e_ek</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
+						</file>
+					</group>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/tc/tc.h</name>
 				</file>
@@ -2099,9 +2111,6 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/component/component_supc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/component/component_gpbr.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/component/component_uart.h</name>
 							</file>
 							<file>
@@ -2144,6 +2153,9 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/component/component_rstc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/component/component_gpbr.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/component/component_pio.h</name>
 							</file>
 							<file>
@@ -2162,10 +2174,10 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/component/component_efc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/component/component_sdramc.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/component/component_wdt.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/component/component_wdt.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/component/component_sdramc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/component/component_adc.h</name>
@@ -2196,6 +2208,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/instance/instance_dmac.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/instance/instance_matrix.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/instance/instance_pioa.h</name>
@@ -2256,9 +2271,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/instance/instance_pioc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/instance/instance_matrix.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam3x/include/instance/instance_dacc.h</name>
@@ -2363,6 +2375,12 @@
 					<name>$PROJ_DIR$/../../../../utils/header_files/io.h</name>
 				</file>
 			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../utils/compiler.h</name>
+			</file>
+			<file>
+				<name>$PROJ_DIR$/../../../../utils/status_codes.h</name>
+			</file>
 			<group>
 				<name>preprocessor</name>
 				<file>
@@ -2378,12 +2396,6 @@
 					<name>$PROJ_DIR$/../../../../utils/preprocessor/stringz.h</name>
 				</file>
 			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../utils/compiler.h</name>
-			</file>
-			<file>
-				<name>$PROJ_DIR$/../../../../utils/status_codes.h</name>
-			</file>
 		</group>
 		<group>
 			<name>applications</name>

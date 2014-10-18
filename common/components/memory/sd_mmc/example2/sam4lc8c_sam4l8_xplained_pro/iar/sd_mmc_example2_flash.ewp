@@ -2721,9 +2721,21 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/ast/ast.c</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../sam/drivers/ast/example1/ast_example1.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/ast/ast.h</name>
 				</file>
+				<group>
+					<name>example2</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../sam/drivers/ast/example2/ast_example2.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>flashcalw</name>

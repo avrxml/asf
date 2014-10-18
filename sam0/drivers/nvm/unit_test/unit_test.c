@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 NVM Unit test
+ * \brief SAM NVM Unit test
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \mainpage SAM D20/D21/R21 NVM Unit Test
+ * \mainpage SAM NVM Unit Test
  * See \ref appdoc_main "here" for project documentation.
  * \copydetails appdoc_preface
  *
@@ -50,15 +50,15 @@
  * \page appdoc_preface Overview
  * This unit test carries out tests for NVM driver.
  * It consists of test cases for the following functionalities:
- *      - Test for driver initialization.
- *      - Test for NVM parameter retrieval.
- *      - Test for FLASH row erasure.
- *      - Test for FLASH page read and write.
- *      - Test for FLASH partial page update.
+ *  - Test for driver initialization.
+ *  - Test for NVM parameter retrieval.
+ *  - Test for FLASH row erasure.
+ *  - Test for FLASH page read and write.
+ *  - Test for FLASH partial page update.
  */
 
 /**
- * \page appdoc_main SAM D20/D21/R21 NVM Unit Test
+ * \page appdoc_main SAM NVM Unit Test
  *
  * Overview:
  * - \ref appdoc_sam0_nvm_unit_test_intro
@@ -71,16 +71,16 @@
  * \copydetails appdoc_preface
  *
  * The following kit can be used for carrying out the test:
- *      - SAM D20 Xplained Pro board
- *      - SAM D21 Xplained Pro board
- *      - SAM R21 Xplained Pro board
+ *  - SAM D20 Xplained Pro board
+ *  - SAM D21 Xplained Pro board
+ *  - SAM R21 Xplained Pro board
  *
  * \section appdoc_sam0_nvm_unit_test_setup Setup
  * The following connections has to be made using wires:
  *  - None
  *
  * To run the test:
- *  - Connect the SAM D20/D21/R21 Xplained Pro board to the computer using a
+ *  - Connect the SAM Xplained Pro board to the computer using a
  *    micro USB cable.
  *  - Open the virtual COM port in a terminal application.
  *    \note The USB composite firmware running on the Embedded Debugger (EDBG)
@@ -391,7 +391,7 @@ int main(void)
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(nvm_suite, nvm_tests,
-			"SAM D20/D21/R21 NVM driver test suite");
+			"SAM NVM driver test suite");
 
 	/* Run all tests in the suite*/
 	test_suite_run(&nvm_suite);

@@ -314,6 +314,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/components/display/c42364a</state>
@@ -596,6 +597,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/components/display/c42364a</state>
@@ -1269,6 +1271,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/components/display/c42364a</state>
@@ -1551,6 +1554,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/components/display/c42364a</state>
@@ -1957,6 +1961,9 @@
 								<file>
 									<name>$PROJ_DIR$/../conf_board.h</name>
 								</file>
+								<file>
+									<name>$PROJ_DIR$/../conf_pplc_if.h</name>
+								</file>
 								<group>
 									<name>iar</name>
 									<file>
@@ -2142,9 +2149,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_uart1.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_rtt.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_rstc.h</name>
 							</file>
 							<file>
@@ -2179,6 +2183,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_spi1.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_rtt.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_spi0.h</name>
@@ -2226,9 +2233,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/component/component_spi.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/component/component_rstc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/component/component_supc.h</name>
 							</file>
 							<file>
@@ -2256,6 +2260,12 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/component/component_pmc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/component/component_rstc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/component/component_rtc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/component/component_chipid.h</name>
 							</file>
 							<file>
@@ -2281,9 +2291,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/component/component_cmcc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/component/component_rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/component/component_rtt.h</name>
@@ -2390,6 +2397,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>pmc</name>
@@ -2420,6 +2433,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc.c</name>
 				</file>
+				<group>
+					<name>tc_capture_waveform_example</name>
+					<group>
+						<name>sam4e16e_sam4e_ek</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc.h</name>
 				</file>

@@ -2215,9 +2215,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/pio/pio_sam4ls8c.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/pio/pio_sam4lc8b.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/pio/pio_sam4ls2b.h</name>
 							</file>
 							<file>
@@ -2228,6 +2225,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/pio/pio_sam4lc8c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/pio/pio_sam4lc8b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/pio/pio_sam4ls8b.h</name>
@@ -2411,10 +2411,19 @@
 							<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
 						</file>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../ast_example1.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../ast.h</name>
 				</file>
+				<group>
+					<name>example2</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example2/ast_example2.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>flashcalw</name>

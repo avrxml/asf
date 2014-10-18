@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief AST example 1 for SAM.
+ * \brief SAM Asynchronous Timer (AST) example 1.
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,50 +41,11 @@
  *
  */
 
-/**
- * \mainpage
- * \section intro Introduction
- * This is the documentation for the data structures, functions, variables,
- * defines, enums, and typedefs for the Asynchronous Timer driver. It also
- * comes bundled with an application-example of usage.
- *
- * This example demonstrates how to use the AST driver with the 32 KHz
- * oscillator crystal.
- * <b>Operating mode: </b>It uses the USART driver to display a real time
- * counter incremented every second.
- * The display is triggered by the interrupt controller module.
- *
- * \section files Main Files
- * - ast.c: Asynchronous Timer driver;
- * - ast.h: Asynchronous Timer driver header file;
- * - ast_example1.c: Asynchronous Timer example application.
- *
- * \section compilinfo Compilation Information
- * This software is written for GNU GCC and IAR Embedded Workbench
- * for Atmel. Other compilers may or may not work.
- *
- * \section deviceinfo Device Information
- * All SAM devices with an AST and a USART module can be used.
- *
- * \section configinfo Configuration Information
- * This example has been tested with the following configuration:
- * - PC terminal settings:
- *   - 115200 bps,
- *   - 8 data bits,
- *   - no parity bit,
- *   - 1 stop bit,
- *   - no flow control.
- *
- * \section contactinfo Contact Information
- * For further information, visit
- * <A href="http://www.atmel.com">Atmel</A>.\n
- * Support and FAQ: http://support.atmel.no/
- */
-
 #include <asf.h>
+#include "ast_example1.h"
 
 /**
- *  Configure serial console.
+ *  \brief Configure serial console.
  */
 static void configure_console(void)
 {
@@ -92,11 +53,11 @@ static void configure_console(void)
 		.baudrate = CONF_UART_BAUDRATE,
 #ifdef CONF_UART_CHAR_LENGTH
 		.charlength = CONF_UART_CHAR_LENGTH,
-#endif
+#endif /* CONF_UART_CHAR_LENGTH */
 		.paritytype = CONF_UART_PARITY,
 #ifdef CONF_UART_STOP_BITS
 		.stopbits = CONF_UART_STOP_BITS,
-#endif
+#endif /* CONF_UART_STOP_BITS */
 	};
 
 	// Configure console.
@@ -117,7 +78,7 @@ int main(void)
 	configure_console();
 
 	/* Output example information */
-	printf("-- AST Example 1 in calendar mode --\r\n");
+	printf("-- AST Example 1 in Calendar Mode --\r\n");
 	printf("-- %s\n\r", BOARD_NAME);
 	printf("-- Compiled: %s %s --\n\r", __DATE__, __TIME__);
 
@@ -135,7 +96,7 @@ int main(void)
 	calendar.FIELD.hour = 12;
 	calendar.FIELD.day = 20;
 	calendar.FIELD.month = 9;
-	calendar.FIELD.year = 12;
+	calendar.FIELD.year = 14;
 
 	/* Enable the AST */
 	ast_enable(AST);

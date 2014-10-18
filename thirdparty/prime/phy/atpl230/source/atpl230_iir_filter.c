@@ -1,43 +1,43 @@
 /**
-* \file
-*
-* \brief ATPL230 Physical layer - IIR Filter
-*
-* Copyright (c) 2014 Atmel Corporation. All rights reserved.
-*
-* \asf_license_start
-*
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
-*
-* 1. Redistributions of source code must retain the above copyright notice,
-*    this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-*    this list of conditions and the following disclaimer in the documentation
-*    and/or other materials provided with the distribution.
-*
-* 3. The name of Atmel may not be used to endorse or promote products derived
-*    from this software without specific prior written permission.
-*
-* 4. This software may only be redistributed and used in connection with an
-*    Atmel microcontroller product.
-*
-* THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
-* WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
-* EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
-* ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-* STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-* ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
-*
-* \asf_license_stop
-*
-*/
+ * \file
+ *
+ * \brief ATPL230 Physical layer - IIR Filter
+ *
+ * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ *
+ * \asf_license_start
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. The name of Atmel may not be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * 4. This software may only be redistributed and used in connection with an
+ *    Atmel microcontroller product.
+ *
+ * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+ * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * \asf_license_stop
+ *
+ */
 
 #include "compiler.h"
 #include "atpl230_reg.h"
@@ -47,8 +47,8 @@
  * \weakgroup phy_plc_group
  * @{
  */
- 
-//! Filter IIR initialization
+
+/* Filter IIR initialization */
 const uint8_t uc_data_filter_IIR [LENGTH_DATA_FILTER_IIR] = {
 	0x12, 0x5A,
 	0x0D, 0x40,
@@ -92,7 +92,7 @@ const uint8_t uc_data_filter_IIR [LENGTH_DATA_FILTER_IIR] = {
 	0x00, 0x00
 };
 
-//! Chirp initialization
+/* Chirp initialization */
 const uint8_t uc_data_chirp [LENGTH_DATA_CHIRP] = {
 	0x09, 0x6B, 0x7F, 0xA7,
 	0x9D, 0xA6, 0xAE, 0x15,
@@ -161,7 +161,7 @@ const uint8_t uc_data_chirp [LENGTH_DATA_CHIRP] = {
 	0x00, 0x01, 0x7F, 0xFF
 };
 
-//! AngleRealImagComp initialization
+/* AngleRealImagComp initialization */
 const uint8_t uc_data_angle_real_imag_comp [LENGTH_DATA_ANGLE_REAL_IMAG_COMP] = {
 	0x6F, 0x6E,
 	0x68, 0xA1,
@@ -262,6 +262,23 @@ const uint8_t uc_data_angle_real_imag_comp [LENGTH_DATA_ANGLE_REAL_IMAG_COMP] = 
 	0x6F, 0x82
 };
 
-//! @}
+const uint32_t ul_data_offset_correction [NUM_ROWS_DATA_OFFSET_CORRECTION] = {
+	0xC15319F6,
+	0x2FF8D008,
+	0xE60A3EAD,
+	0x0000BC29,
+	0x19F63EAD,
+	0xD008D008,
+	0x3EAD19F6,
+	0xBC290000,
+	0x3EADE60A,
+	0xD0082FF8,
+	0x19F6C153,
+	0x000043D7,
+	0xE60AC153,
+	0x2FF82FF8,
+	0xC153E60A,
+	0x43D70000,
+};
 
-
+/* @} */

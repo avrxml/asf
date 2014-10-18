@@ -2131,6 +2131,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_aesa.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_spi.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_flashcalw.h</name>
 							</file>
 							<file>
@@ -2138,9 +2141,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_pevc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_spi.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_parc.h</name>
@@ -2393,6 +2393,12 @@
 							<name>$PROJ_DIR$/../conf_test.h</name>
 						</file>
 					</group>
+				</group>
+				<group>
+					<name>acifc_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../acifc_example/acifc_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../acifc.h</name>

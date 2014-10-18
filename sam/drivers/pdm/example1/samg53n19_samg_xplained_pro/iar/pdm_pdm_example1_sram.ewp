@@ -294,6 +294,7 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../supc</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include</state>
@@ -561,6 +562,7 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../supc</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include</state>
@@ -1219,6 +1221,7 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../supc</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include</state>
@@ -1486,6 +1489,7 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../supc</state>
+					<state>$PROJ_DIR$/../../../../pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include</state>
@@ -2076,18 +2080,18 @@
 					<name>$PROJ_DIR$/../../../../../utils/preprocessor/mrepeat.h</name>
 				</file>
 			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../utils/compiler.h</name>
-			</file>
-			<file>
-				<name>$PROJ_DIR$/../../../../../utils/status_codes.h</name>
-			</file>
 			<group>
 				<name>header_files</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../utils/header_files/io.h</name>
 				</file>
 			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../utils/compiler.h</name>
+			</file>
+			<file>
+				<name>$PROJ_DIR$/../../../../../utils/status_codes.h</name>
+			</file>
 			<group>
 				<name>fpu</name>
 				<file>
@@ -2138,6 +2142,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>pmc</name>

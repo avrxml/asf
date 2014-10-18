@@ -2146,6 +2146,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../lcdca.h</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example/lcdca_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>flashcalw</name>

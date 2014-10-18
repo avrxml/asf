@@ -2189,24 +2189,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/extint/extint.c</name>
 				</file>
-				<group>
-					<name>quick_start_callback</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/extint/quick_start_callback/qs_extint_callback.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/extint/extint_callback.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/extint/extint.h</name>
 				</file>
-				<group>
-					<name>quick_start_polled</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/extint/quick_start_polled/qs_extint_basic.h</name>
-					</file>
-				</group>
 			</group>
 		</group>
 		<group>
@@ -2566,6 +2554,9 @@
 										<name>$PROJ_DIR$/../conf_virtual_mem.h</name>
 									</file>
 									<file>
+										<name>$PROJ_DIR$/../conf_example.h</name>
+									</file>
+									<file>
 										<name>$PROJ_DIR$/../conf_board.h</name>
 									</file>
 									<group>
@@ -2576,9 +2567,6 @@
 									</group>
 									<file>
 										<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
-									</file>
-									<file>
-										<name>$PROJ_DIR$/../conf_example.h</name>
 									</file>
 									<file>
 										<name>$PROJ_DIR$/../conf_extint.h</name>

@@ -307,12 +307,12 @@
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c/i2c_samd21_r21_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c/i2c_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../boards/samr21_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samr21/include</state>
 					<state>$PROJ_DIR$/../..</state>
@@ -580,12 +580,12 @@
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c/i2c_samd21_r21_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c/i2c_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../boards/samr21_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samr21/include</state>
 					<state>$PROJ_DIR$/../..</state>
@@ -1278,12 +1278,12 @@
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c/i2c_samd21_r21_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c/i2c_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../boards/samr21_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samr21/include</state>
 					<state>$PROJ_DIR$/../..</state>
@@ -1551,12 +1551,12 @@
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c/i2c_samd21_r21_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../drivers/sercom/i2c/i2c_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../boards/samr21_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samr21/include</state>
 					<state>$PROJ_DIR$/../..</state>
@@ -2365,15 +2365,12 @@
 						<name>$PROJ_DIR$/../../../../drivers/sercom/usart/usart.h</name>
 					</file>
 				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/sercom/sercom.c</name>
-				</file>
 				<group>
 					<name>i2c</name>
 					<group>
-						<name>i2c_samd21_r21</name>
+						<name>i2c_samd21_r21_d10_d11</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../drivers/sercom/i2c/i2c_samd21_r21/i2c_master.c</name>
+							<name>$PROJ_DIR$/../../../../drivers/sercom/i2c/i2c_samd21_r21_d10_d11/i2c_master.c</name>
 						</file>
 					</group>
 					<file>
@@ -2395,6 +2392,9 @@
 						</file>
 					</group>
 				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/sercom/sercom.c</name>
+				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/sercom/sercom_interrupt.c</name>
 				</file>

@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 Timer/Counter Driver Basic Quickstart
+ * \brief SAM Timer/Counter Driver Basic Quickstart
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *

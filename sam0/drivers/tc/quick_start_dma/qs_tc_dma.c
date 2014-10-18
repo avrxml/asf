@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D21/R21 Timer/Counter Driver with DMA Quickstart
+ * \brief SAM D21/R21/D10/D11 Timer/Counter Driver with DMA Quickstart
  *
  * Copyright (C) 2014 Atmel Corporation. All rights reserved.
  *
@@ -60,7 +60,7 @@ struct dma_resource example_resource;
 //! [transfer_length]
 
 //! [transfer_counter]
-#define TRANSFER_COUNTER (64)
+#define TRANSFER_COUNTER (32)
 //! [transfer_counter]
 
 //! [source_memory]

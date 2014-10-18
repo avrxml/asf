@@ -46,6 +46,7 @@
  *
  * The supported board list:
  *    - SAM D21/R21 Xplained Pro
+ *    - SAM D11 Xplained Pro
  *
  * In this use case, the TCC will be used as a timer, to generate overflow and
  * compare match callbacks. In the callbacks the on-board LED is toggled.

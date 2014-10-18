@@ -1941,6 +1941,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../tc/tc.c</name>
 				</file>
+				<group>
+					<name>tc_capture_waveform_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
+					</file>
+					<group>
+						<name>sam4e16e_sam4e_ek</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
+						</file>
+					</group>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../tc/tc.h</name>
 				</file>

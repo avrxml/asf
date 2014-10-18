@@ -3,7 +3,7 @@
  *
  * \brief Event Manager.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -69,7 +69,7 @@ static void ast_per_callback(void)
 static void eic5_callback(void)
 {
 	sysclk_enable_peripheral_clock(EIC);
-	
+
 	if(eic_line_interrupt_is_pending(EIC,GPIO_PUSH_BUTTON_EIC_LINE))
 	{
 		eic_line_clear_interrupt(EIC,GPIO_PUSH_BUTTON_EIC_LINE);
@@ -105,7 +105,7 @@ static void enable_wdt(void)
 	wdt_set_ctrl(WDT_CTRL_EN | WDT_CTRL_CEN | WDT_CTRL_PSEL(17) );
 }
 
-/** 
+/**
  * \brief Event Manager QTouch Init.
  */
 void event_qtouch_init(void)
@@ -137,7 +137,7 @@ void event_qtouch_init(void)
 	// Initialize QTouch Library.
 	touch_sensors_init();
 }
-/** 
+/**
  * \brief Event Button Init.
  */
 void event_button_init(void)
@@ -163,10 +163,10 @@ void event_button_init(void)
 	// Enable clock for EIC controller
 	eic_enable(EIC);
 	// Init the EIC controller with the options
-	eic_line_set_config(EIC, GPIO_PUSH_BUTTON_EIC_LINE, 
+	eic_line_set_config(EIC, GPIO_PUSH_BUTTON_EIC_LINE,
 		&eic_line_conf);
 	// Init the callback
-	eic_line_set_callback(EIC, GPIO_PUSH_BUTTON_EIC_LINE, eic5_callback, 
+	eic_line_set_callback(EIC, GPIO_PUSH_BUTTON_EIC_LINE, eic5_callback,
 		EIC_5_IRQn, 1);
 	// Enable the EIC line
 	eic_line_enable(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
@@ -188,16 +188,16 @@ void event_button_init(void)
 	sysclk_enable_peripheral_clock(WDT);
 	enable_wdt();
 }
-/** 
+/**
  * \brief Return QTouch Slider State.
  * \param event_qtouch_position returned slider position.
  */
-bool event_qtouch_get_slider_state( uint8_t* event_qtouch_position ) 
+bool event_qtouch_get_slider_state( uint8_t* event_qtouch_position )
 {
 	bool event_qtouch_slider_state = false;
 
 	// Use Rotor/Slider Position.
-	if (GET_QT_SENSOR_STATE(1) || GET_QT_SENSOR_STATE(2) 
+	if (GET_QT_SENSOR_STATE(1) || GET_QT_SENSOR_STATE(2)
 		|| GET_QT_SENSOR_STATE(3) ) {
 		*event_qtouch_position = GET_QT_ROTOR_SLIDER_POSITION(0);
 		*event_qtouch_position = 255 - *event_qtouch_position;
@@ -210,7 +210,7 @@ bool event_qtouch_get_slider_state( uint8_t* event_qtouch_position )
 	return event_qtouch_slider_state;
 }
 
-/** 
+/**
  * \brief Return QTouch Button State.
  */
 bool event_qtouch_get_button_state(void)
@@ -229,7 +229,7 @@ bool event_qtouch_get_button_state(void)
 	return event_qtouch_button_state;
 }
 
-/** 
+/**
  * \brief Check if push button is pressed or not.
  */
 bool event_is_push_button_pressed(void)

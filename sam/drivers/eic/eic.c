@@ -3,7 +3,7 @@
  *
  * \brief EIC driver for SAM
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,7 +54,7 @@ extern "C" {
 /// @endcond
 
 /**
- * \defgroup sam_drivers_eic_group External Interrupt Controller(EIC)
+ * \defgroup sam_drivers_eic_group SAM4 External Interrupt Controller(EIC)
  *
  * See \ref sam_eic_quickstart.
  *
@@ -71,12 +71,12 @@ extern "C" {
 eic_callback_t eic_callback_pointer[EIC_NUMBER_OF_LINES];
 
 /**
- * \brief Write the EIC hardware with specified configuration value.
+ * \brief Program the EIC hardware with the specified configuration.
  *
- * \param eic Base address of the EIC module
- * \param eic_line_conf Configuration parameters of the EIC module
+ * \param [in]  eic Base address of the EIC module
+ * \param [in]  line_number Number of line to configure
+ * \param [in]  eic_line_conf Configuration parameters for the EIC module
  * (see \ref eic_line_config)
- * \param line_number Number of line to config
  */
 void eic_line_set_config(Eic *eic, uint8_t line_number,
 	struct eic_line_config *eic_line_conf)
@@ -107,7 +107,7 @@ void eic_line_set_config(Eic *eic, uint8_t line_number,
 /**
  * \brief Disable the EIC module
  *
- * \param eic Base address of the EIC module
+ * \param [in]  eic Base address of the EIC module
  */
 void eic_disable(Eic *eic)
 {
@@ -118,7 +118,7 @@ void eic_disable(Eic *eic)
 /**
  * \brief Enable the EIC module
  *
- * \param eic Base address of the EIC module
+ * \param [in]  eic Base address of the EIC module
  */
 void eic_enable(Eic *eic)
 {
@@ -129,11 +129,11 @@ void eic_enable(Eic *eic)
 /**
  * \brief Set callback for given EIC line
  *
- * \param eic Base address of the EIC module
- * \param line_number Number of line.
- * \param callback callback function pointer.
- * \param irq_line  interrupt line.
- * \param irq_level interrupt level.
+ * \param [in]  eic Base address of the EIC module
+ * \param [in]  line_number Number of line
+ * \param [in]  callback Callback function pointer
+ * \param [in]  irq_line  Interrupt line number (EIC_1_IRQn to EIC_8_IRQn)
+ * \param [in]  irq_level Interrupt level (the priority of the interrupt request)
  */
 void eic_line_set_callback(Eic *eic, uint8_t line_number,
 	eic_callback_t callback, uint8_t irq_line, uint8_t irq_level)
@@ -150,7 +150,7 @@ void eic_line_set_callback(Eic *eic, uint8_t line_number,
  * The optional callback used by the interrupt handler is set by the
  * eic_line_set_callback() function.
  *
- * \param line_number EIC linel number to handle interrupt for
+ * \param [in]  line_number EIC line number to handle interrupt for
  */
 static void eic_line_interrupt(uint8_t line_number)
 {

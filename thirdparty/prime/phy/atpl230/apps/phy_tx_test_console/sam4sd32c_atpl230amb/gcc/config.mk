@@ -68,6 +68,7 @@ CSRCS = \
        sam/drivers/rstc/rstc.c                            \
        sam/drivers/spi/spi.c                              \
        sam/drivers/supc/supc.c                            \
+       sam/drivers/tc/tc.c                                \
        sam/drivers/uart/uart.c                            \
        sam/drivers/usart/usart.c                          \
        sam/drivers/wdt/wdt.c                              \
@@ -107,11 +108,13 @@ INC_PATH = \
        sam/drivers/efc                                    \
        sam/drivers/gpbr                                   \
        sam/drivers/pdc                                    \
+       sam/drivers/pdc/pdc_uart_example                   \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
        sam/drivers/rstc                                   \
        sam/drivers/spi                                    \
        sam/drivers/supc                                   \
+       sam/drivers/tc                                     \
        sam/drivers/uart                                   \
        sam/drivers/usart                                  \
        sam/drivers/wdt                                    \

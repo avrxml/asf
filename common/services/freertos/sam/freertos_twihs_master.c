@@ -356,12 +356,6 @@ status_code_t freertos_twihs_write_packet_async(freertos_twihs_if p_twihs,
 						IER_ERROR_INTERRUPTS);
 				/* Release semaphores */
 				xSemaphoreGive(tx_dma_control[twihs_index].peripheral_access_mutex);
-				if (return_value != ERR_TIMEOUT) {
-					if (tx_dma_control[twihs_index].transaction_complete_notification_semaphore != NULL) {
-						xSemaphoreGive(tx_dma_control[twihs_index].transaction_complete_notification_semaphore);
-					}
-				}
-
 			} else {
 
 				twihss[twihs_index].buffer = p_packet->buffer;
@@ -567,11 +561,6 @@ status_code_t freertos_twihs_read_packet_async(freertos_twihs_if p_twihs,
 						IER_ERROR_INTERRUPTS);
 				/* Release semaphores */
 				xSemaphoreGive(tx_dma_control[twihs_index].peripheral_access_mutex);
-				if (return_value != ERR_TIMEOUT) {
-					if (rx_dma_control[twihs_index].transaction_complete_notification_semaphore != NULL) {
-						xSemaphoreGive(rx_dma_control[twihs_index].transaction_complete_notification_semaphore);
-					}
-				}
 			} else {
 				/* Start the PDC reception. */
 				twihss[twihs_index].buffer = p_packet->buffer;

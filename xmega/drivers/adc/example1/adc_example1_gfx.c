@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Analog to Digital Converter Driver Example 1
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -98,6 +98,9 @@ static volatile int16_t last_temperature;
  */
 static void adc_handler(ADC_t *adc, uint8_t ch_mask, adc_result_t result)
 {
+	#ifdef CONF_BOARD_OLED_UG_2832HSWEG04
+		gfx_mono_draw_filled_rect(0,0,128,32,GFX_PIXEL_CLR);
+	#endif
 	int32_t temperature;
 	char out_str[OUTPUT_STR_SIZE];
 
@@ -135,8 +138,10 @@ int main(void)
 	cpu_irq_enable();
 	gfx_mono_init();
 
-	// Enable back light of display
-	ioport_set_pin_high(LCD_BACKLIGHT_ENABLE_PIN);
+	// Enable backlight if display type is not OLED
+	#ifndef CONF_BOARD_OLED_UG_2832HSWEG04
+		ioport_set_pin_high(LCD_BACKLIGHT_ENABLE_PIN);
+	#endif
 
 	// Initialize configuration structures.
 	adc_read_configuration(&ADCA, &adc_conf);

@@ -305,6 +305,7 @@
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
+					<state>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../system</state>
@@ -316,7 +317,6 @@
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../system/clock</state>
 					<state>$PROJ_DIR$/../../../../../system/pinmux</state>
-					<state>$PROJ_DIR$/../../../i2c_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd21_xplained_pro</state>
 					<state>$PROJ_DIR$/.</state>
@@ -574,6 +574,7 @@
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
+					<state>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../system</state>
@@ -585,7 +586,6 @@
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../system/clock</state>
 					<state>$PROJ_DIR$/../../../../../system/pinmux</state>
-					<state>$PROJ_DIR$/../../../i2c_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd21_xplained_pro</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1268,6 +1268,7 @@
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
+					<state>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../system</state>
@@ -1279,7 +1280,6 @@
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../system/clock</state>
 					<state>$PROJ_DIR$/../../../../../system/pinmux</state>
-					<state>$PROJ_DIR$/../../../i2c_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd21_xplained_pro</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1537,6 +1537,7 @@
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
+					<state>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../system</state>
@@ -1548,7 +1549,6 @@
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../system/clock</state>
 					<state>$PROJ_DIR$/../../../../../system/pinmux</state>
-					<state>$PROJ_DIR$/../../../i2c_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd21_xplained_pro</state>
 					<state>$PROJ_DIR$/.</state>
@@ -2040,9 +2040,9 @@
 						</file>
 					</group>
 					<group>
-						<name>i2c_samd21_r21</name>
+						<name>i2c_samd21_r21_d10_d11</name>
 						<file>
-							<name>$PROJ_DIR$/../../../i2c_samd21_r21/i2c_slave.c</name>
+							<name>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11/i2c_slave.c</name>
 						</file>
 					</group>
 					<group>

@@ -3,7 +3,7 @@
  *
  * \brief Font definition of C42364A LCD Glass component.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -78,10 +78,12 @@ enum c42364a_symbol_pixel{
 	B3  = 4 * C42364A_B3_SEG_NUM, A2F, A2E, A2D,         // 29 ==> 30
 	A2A = 4 * C42364A_A2A_SEG_NUM, A2B, A2C, B1,         // 30 ==> 29
 	A2G = 4 * C42364A_A2G_SEG_NUM, A2J, A2L, A2M,        // 31 ==> 28
+#if SAM4CP
 	A1H = 4 * C42364A_A1H_SEG_NUM, A1I, A1K, A1N,        // 28 ==> 31
 	B2  = 4 * C42364A_B2_SEG_NUM, A1F, A1E, A1D,         // 29 ==> 30
 	A1A = 4 * C42364A_A1A_SEG_NUM, A1B, A1C, B8,         // 30 ==> 29
 	A1G = 4 * C42364A_A1G_SEG_NUM, A1J, A1L, A1M,        // 31 ==> 28
+#endif
 };
 
 /*Multiple pixels symbols*/
@@ -90,7 +92,9 @@ enum c42364a_symbol_pixel{
 #define C42364A_PATTERN_SYMBOL_D2       {D2A,D2B,D2C,D2D,D2E,D2F,D2G}
 #define C42364A_PATTERN_SYMBOL_D3       {D3A,D3B,D3C,D3D,D3E,D3F,D3G}
 
+//#if SAM4CP
 #define C42364A_PATTERN_SYMBOL_A1       {A1A,A1B,A1C,A1D,A1E,A1F,A1G,A1H,A1I,A1J,A1K,A1L,A1M,A1N}
+//#endif
 #define C42364A_PATTERN_SYMBOL_A2       {A2A,A2B,A2C,A2D,A2E,A2F,A2G,A2H,A2I,A2J,A2K,A2L,A2M,A2N}
 #define C42364A_PATTERN_SYMBOL_A3       {A3A,A3B,A3C,A3D,A3E,A3F,A3G,A3H,A3I,A3J,A3K,A3L,A3M,A3N}
 #define C42364A_PATTERN_SYMBOL_A4       {A4A,A4B,A4C,A4D,A4E,A4F,A4G,A4H,A4I,A4J,A4K,A4L,A4M,A4N}

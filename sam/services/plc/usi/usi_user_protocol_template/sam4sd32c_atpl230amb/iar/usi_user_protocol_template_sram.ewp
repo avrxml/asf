@@ -309,6 +309,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
@@ -583,6 +584,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
@@ -1248,6 +1250,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
@@ -1522,6 +1525,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
@@ -2022,6 +2026,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../drivers/pdc/pdc.c</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../drivers/pdc/pdc.h</name>
 				</file>
@@ -2031,6 +2041,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../drivers/tc/tc.c</name>
 				</file>
+				<group>
+					<name>tc_capture_waveform_example</name>
+					<group>
+						<name>sam4e16e_sam4e_ek</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../drivers/tc/tc.h</name>
 				</file>
@@ -2092,10 +2114,10 @@
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s8b.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s4b.h</name>
+								<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s2c.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s2c.h</name>
+								<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s4b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s16c.h</name>
@@ -2353,6 +2375,12 @@
 					</group>
 				</group>
 			</group>
+			<group>
+				<name>header_files</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../utils/header_files/io.h</name>
+				</file>
+			</group>
 			<file>
 				<name>$PROJ_DIR$/../../../../../../utils/compiler.h</name>
 			</file>
@@ -2369,12 +2397,6 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../utils/preprocessor/mrepeat.h</name>
-				</file>
-			</group>
-			<group>
-				<name>header_files</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../utils/header_files/io.h</name>
 				</file>
 			</group>
 			<file>

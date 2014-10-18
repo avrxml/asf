@@ -90,7 +90,8 @@ UDC_DESC_STORAGE udi_api_t udi_api_phdc = {
  */
 
 /* ! Variable to store the transfer pending flag */
-static le16_t udi_phdc_holding_data;
+COMPILER_WORD_ALIGNED
+		static le16_t udi_phdc_holding_data;
 
 #if (UDI_PHDC_PREAMBLE_FEATURE == true)
 /* ! Flag to signal the state of preample feature */

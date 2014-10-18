@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief LCDCA example for SAM.
+ * \brief SAM4L LCDCA example.
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,64 +41,6 @@
  *
  */
 
-/**
- * \mainpage
- * \section intro Introduction
- * This example demonstrates how to use LCDCA driver to address an external
- * LCD segment (C42048A).
- *
- * \section files Main Files
- *  - lcdca.c LCDCA Controller driver implementation
- *  - lcdca.h LCDCA Controller driver definitions
- *  - lcdca_example.c example application
- *  - conf_example.h: configuration of the example
- *
- * \section compilinfo Compilation Information
- * This software is written for GNU GCC and IAR Embedded Workbench
- * for Atmel. Other compilers may or may not work.
- *
- * \section deviceinfo Device Information
- * All SAM devices with a LCDCA and a USART module can be used.
- *
- * \section exampledescription Description of the example
- * After an initialization phase, some texts and icons will be displayed.
- * Then it'll demonstrates blinking mode, autonomous segment animation and
- * automated char. Finally, it'll enter power save mode, and display
- * power save string sequence and blink wireless icon when every wake up.
- *
- * The example configures the LCDCA Controller in a mode defined by the LCD
- * glass board connections and the technical characteristics of the LCD
- * component used. It used the following LCDCA controller features:
- *  - the LCD contrast control.
- *  - the hardware blinking,
- *  - the hardware autonomous segment animation,
- *  - the hardware automated char (Sequential and Scrolling),
- *  - the digit hardware encoder,
- *  - the LCD interrupt,
- *
- * The LCDCA is setup to use the extern 32.768 kHz to generate LCD frames at
- * 64 Hz using a low power waveform to reduce toggle activity and hence power
- * consumption. To show the LCDCA controller capability to run in power-save
- * mode, this mode is applied when it is possible.
- *
- * \section configinfo Configuration Information
- * This example has been tested with the following configuration:
- * - SAM4L_EK evaluation kit;
- * - CPU clock: 12 MHz;
- * - USART2 (on SAM4L_EK) abstracted with a USB CDC connection to a PC;
- * - PC terminal settings:
- *   - 115200 bps,
- *   - 8 data bits,
- *   - no parity bit,
- *   - 1 stop bit,
- *   - no flow control.
- *
- * \section contactinfo Contact Information
- * For further information, visit
- * <A href="http://www.atmel.com">Atmel</A>.\n
- * Support and FAQ: http://support.atmel.com/
- */
-
 #include <asf.h>
 #include <string.h>
 #include "conf_example.h"
@@ -133,8 +75,11 @@ static void configure_console(void)
  */
 static inline void c42364a_write_alpha_packet(const uint8_t *data)
 {
+	//! [lcd_example_write_alphanumeric]
+	// Display in alphanumeric field.
 	lcdca_write_packet(LCDCA_TDG_14SEG4COM, FIRST_14SEG_4C, data, \
 			WIDTH_14SEG_4C, DIR_14SEG_4C);
+	//! [lcd_example_write_alphanumeric]
 }
 
 /**
@@ -147,8 +92,11 @@ static inline void c42364a_write_alpha_packet(const uint8_t *data)
  */
 static inline void c42364a_write_num_packet(const uint8_t *data)
 {
+	//! [lcd_example_write_numeric]
+	// Display in numeric field.
 	lcdca_write_packet(LCDCA_TDG_7SEG4COM, FIRST_7SEG_4C, data, \
 			WIDTH_7SEG_4C, DIR_7SEG_4C);
+	//! [lcd_example_write_numeric]
 }
 
 /**
@@ -180,13 +128,17 @@ int main(void)
 	/* LCDCA configuration */
 	struct lcdca_config lcdca_cfg;
 	/* Automated display configuration */
+	//! [lcd_example_scroll_config_1]	
 	struct lcdca_automated_char_config automated_char_cfg;
+	//! [lcd_example_scroll_config_1]	
 	/* String for sequential display */
 	uint8_t const sequential_str[] = \
 		"Sequen tial   string display,Press PB0 to Cont.  ";
 	/* String for scrolling display */
+	//! [lcd_example_scroll_config_2]	
 	uint8_t const scrolling_str[] = \
 		"Scrolling string display, Press PB0 to cont.  ";
+	//! [lcd_example_scroll_config_2]	
 
 	/* String for lowpower display */
 #define MAX_NUM_LOWPOWER_STR    4
@@ -214,14 +166,15 @@ int main(void)
 	printf("-- %s\n\r", BOARD_NAME);
 	printf("-- Compiled: %s %s --\n\r", __DATE__, __TIME__);
 
-	/*
-	 * LCDCA Controller initialization
-	 * - Clock,
-	 * - Connect to C42364A glass LCD component,
-	 * - Timing:  64 Hz frame rate & low power waveform, FC0, FC1, FC2
-	 * - Interrupt: off
-	 */
+	//! [lcd_example_init]
+	// LCDCA Controller initialization
+	// - Clock,
+	// - Connect to C42364A glass LCD component,
+	// - Timing:  64 Hz frame rate & low power waveform, FC0, FC1, FC2
+	// - Interrupt: off.
+	//! [lcd_example_init_clock]
 	lcdca_clk_init();
+	//! [lcd_example_init_clock]
 	lcdca_cfg.port_mask = PORT_MASK;
 	lcdca_cfg.x_bias = false;
 	lcdca_cfg.lp_wave = true;
@@ -232,35 +185,48 @@ int main(void)
 	lcdca_cfg.fc1 = 2;
 	lcdca_cfg.fc2 = 6;
 	lcdca_cfg.contrast = LCD_CONTRAST_LEVEL;
+	//! [lcd_example_set_config]
 	lcdca_set_config(&lcdca_cfg);
+	//! [lcd_example_set_config]
+	//! [lcd_example_enable_module]
 	lcdca_enable();
+	//! [lcd_example_enable_module]
+	//! [lcd_example_enable_timers]
 	lcdca_enable_timer(LCDCA_TIMER_FC0);
 	lcdca_enable_timer(LCDCA_TIMER_FC1);
 	lcdca_enable_timer(LCDCA_TIMER_FC2);
+	//! [lcd_example_enable_timers]
 
 	/* Turn on LCD back light */
+	//! [lcd_example_backlight_on]
 	ioport_set_pin_level(LCD_BL_GPIO, IOPORT_PIN_LEVEL_HIGH);
-
+	//! [lcd_example_backlight_on]
+	//! [lcd_example_init]
+	
 	/* Display some texts and icon on segment LCD */
 	lcdca_set_pixel(ICON_ARM);
 	c42364a_write_num_packet((const uint8_t *)"0123");
 	c42364a_write_alpha_packet((const uint8_t *)"Welcome");
 
 	/* Blink "error" icon */
+	//! [lcd_example_blink_init]
 	blink_cfg.lcd_blink_timer = LCDCA_TIMER_FC1;
 	blink_cfg.lcd_blink_mode = LCDCA_BLINK_SELECTED;
 	lcdca_blink_set_config(&blink_cfg);
 	lcdca_set_pixel(ICON_ERROR);
 	lcdca_set_blink_pixel(ICON_ERROR);
 	lcdca_blink_enable();
-
+	//! [lcd_example_blink_init]
+	
 	/* Autonomous segment animation of 7-pixels area of the LCD */
+	//! [lcd_example_shift_enable]
 	cs_cfg.lcd_csr_timer = LCDCA_TIMER_FC1;
 	cs_cfg.lcd_csr_dir = LCDCA_CSR_RIGHT;
-	cs_cfg.size = 7;    /* Total 7-pixels */
-	cs_cfg.data = 0x03; /* Display 2 pixel at one time */
+	cs_cfg.size = 7;    // Total 7-pixels.
+	cs_cfg.data = 0x03; // Display 2 pixel at one time.
 	lcdca_circular_shift_set_config(&cs_cfg);
 	lcdca_circular_shift_enable();
+	//! [lcd_example_shift_enable]
 
 	/* Automated sequential character string display */
 	automated_char_cfg.automated_mode = LCDCA_AUTOMATED_MODE_SEQUENTIAL;
@@ -277,6 +243,7 @@ int main(void)
 	lcdca_automated_char_stop();
 
 	/* Automated scrolling of character string display */
+	//! [lcd_example_scrolling_enable]
 	automated_char_cfg.automated_mode = LCDCA_AUTOMATED_MODE_SCROLLING;
 	automated_char_cfg.automated_timer = LCDCA_TIMER_FC2;
 	automated_char_cfg.lcd_tdg = LCDCA_TDG_14SEG4COM;
@@ -287,6 +254,7 @@ int main(void)
 	automated_char_cfg.dir_reverse = LCDCA_AUTOMATED_DIR_REVERSE;
 	lcdca_automated_char_set_config(&automated_char_cfg);
 	lcdca_automated_char_start(scrolling_str, strlen((char const *)scrolling_str));
+	//! [lcd_example_scrolling_enable]
 	printf("Press PB0 to stop automated scrolling mode and continue.\n\r");
 	wait_for_switches();
 	lcdca_automated_char_stop();
@@ -294,7 +262,7 @@ int main(void)
 	/* Set callback for LCDCA interrupt */
 	lcdca_set_callback(lcdca_callback, LCDCA_IRQn, 1);
 
-	/* Enable LCDCA wakeup */
+	/* Enable LCDCA wake-up */
 	lcdca_enable_wakeup();
 
 	printf("Enter power save mode.\n\r");

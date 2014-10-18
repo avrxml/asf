@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D21/R21 Direct Memory Access Controller Driver
+ * \brief SAM Direct Memory Access Controller Driver
  *
  * Copyright (C) 2014 Atmel Corporation. All rights reserved.
  *
@@ -48,9 +48,9 @@ extern "C" {
 #endif
 
 /**
- * \defgroup asfdoc_sam0_dma_group SAM D21/R21 Direct Memory Access Controller Driver (DMAC)
+ * \defgroup asfdoc_sam0_dma_group SAM Direct Memory Access Controller Driver (DMAC)
  *
- * This driver for SAM D21/R21 devices provides an interface for the configuration
+ * This driver for SAM devices provides an interface for the configuration
  * and management of the Direct Memory Access Controller(DMAC) module within
  * the device. The DMAC can transfer data between memories and peripherals, and
  * thus off-load these tasks from the CPU. The module supports peripheral to
@@ -58,8 +58,12 @@ extern "C" {
  * transfers.
  *
  * The following peripherals are used by the DMAC Driver:
- *
  * - DMAC (Direct Memory Access Controller)
+ *
+ * The following devices can use this module:
+ *  - SAM D21
+ *  - SAM R21
+ *  - SAM D10/D11
  *
  * The outline of this documentation is as follows:
  * - \ref asfdoc_sam0_dma_prerequisites
@@ -77,7 +81,7 @@ extern "C" {
  *
  * \section asfdoc_sam0_dma_module_overview Module Overview
  *
- * SAM D21/R21 devices with DMAC enables high data transfer rates with minimum
+ * SAM devices with DMAC enables high data transfer rates with minimum
  * CPU intervention and frees up CPU time. With access to all peripherals,
  * the DMAC can handle automatic transfer of data to/from modules.
  * It supports static and incremental addressing for both source and
@@ -94,7 +98,7 @@ extern "C" {
  * operation can be suspended at any time by software, by events
  * from event system, or after selectable descriptor execution. The operation
  * can be resumed by software or by events from event system.
- * The DMAC driver for SAM D21/R21 supports four types of transfers such as
+ * The DMAC driver for SAM supports four types of transfers such as
  * peripheral to peripheral, peripheral to memory, memory to peripheral and
  * memory to memory.
  *
@@ -111,7 +115,7 @@ extern "C" {
  * The implementation of the DMA driver is based on the idea that DMA channel
  * is a finite resource of entities with the same abilities. A DMA channel resource
  * is able to move a defined set of data from a source address to destination
- * address triggered by a transfer trigger. On the SAM D21/R21 devices there are 12
+ * address triggered by a transfer trigger. On the SAM devices there are 12
  * DMA resources available for allocation. Each of these DMA resources can trigger
  * interrupt callback routines and peripheral events.
  * The other main features are
@@ -169,7 +173,7 @@ extern "C" {
  *    <tr>
  *     <td > Burst </td>
  *     <td> It is a transfer of n-beats (n=1,4,8,16).
- *          For the DMAC module in SAM D21/R21, the burst size is one beat.
+ *          For the DMAC module in SAM, the burst size is one beat.
  *          Arbitration takes place each time a burst transfer is completed
  *     </td>
  *    </tr>
@@ -791,6 +795,11 @@ enum status_code dma_add_descriptor(struct dma_resource *resource,
  *        <th>Doc. Rev.</td>
  *        <th>Date</td>
  *        <th>Comments</td>
+ *    </tr>
+ *    <tr>
+ *        <td>C</td>
+ *        <td>04/2014</td>
+ *        <td>Add SAMD10/D11 support</td>
  *    </tr>
  *    <tr>
  *        <td>B</td>

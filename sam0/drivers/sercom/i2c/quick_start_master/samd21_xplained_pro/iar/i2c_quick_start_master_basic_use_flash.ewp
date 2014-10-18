@@ -304,6 +304,7 @@
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
+					<state>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../system</state>
@@ -316,7 +317,6 @@
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../system/clock</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
-					<state>$PROJ_DIR$/../../../i2c_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd21_xplained_pro</state>
 					<state>$PROJ_DIR$/.</state>
@@ -573,6 +573,7 @@
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
+					<state>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../system</state>
@@ -585,7 +586,6 @@
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../system/clock</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
-					<state>$PROJ_DIR$/../../../i2c_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd21_xplained_pro</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1267,6 +1267,7 @@
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
+					<state>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../system</state>
@@ -1279,7 +1280,6 @@
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../system/clock</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
-					<state>$PROJ_DIR$/../../../i2c_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd21_xplained_pro</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1536,6 +1536,7 @@
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
+					<state>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../system</state>
@@ -1548,7 +1549,6 @@
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../system/clock</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
-					<state>$PROJ_DIR$/../../../i2c_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd21_xplained_pro</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1931,69 +1931,6 @@
 		<group>
 			<name>drivers</name>
 			<group>
-				<name>sercom</name>
-				<group>
-					<name>i2c</name>
-					<group>
-						<name>i2c_samd21_r21</name>
-						<file>
-							<name>$PROJ_DIR$/../../../i2c_samd21_r21/i2c_master.c</name>
-						</file>
-					</group>
-					<group>
-						<name>quick_start_master</name>
-						<file>
-							<name>$PROJ_DIR$/../../qs_i2c_master_basic_use.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../qs_i2c_master_basic_use.h</name>
-						</file>
-						<group>
-							<name>samd21_xplained_pro</name>
-							<file>
-								<name>$PROJ_DIR$/../conf_board.h</name>
-							</file>
-							<group>
-								<name>iar</name>
-								<file>
-									<name>$PROJ_DIR$/asf.h</name>
-								</file>
-							</group>
-							<file>
-								<name>$PROJ_DIR$/../conf_clocks.h</name>
-							</file>
-						</group>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../i2c_common.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../i2c_master.h</name>
-					</file>
-					<group>
-						<name>quick_start_master_dma</name>
-						<file>
-							<name>$PROJ_DIR$/../../../quick_start_master_dma/qs_i2c_master_dma.h</name>
-						</file>
-					</group>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../sercom_interrupt.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../sercom.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../sercom_pinout.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../sercom_interrupt.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../sercom.h</name>
-				</file>
-			</group>
-			<group>
 				<name>system</name>
 				<group>
 					<name>interrupt</name>
@@ -2069,6 +2006,69 @@
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../system/system.h</name>
+				</file>
+			</group>
+			<group>
+				<name>sercom</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../sercom_interrupt.c</name>
+				</file>
+				<group>
+					<name>i2c</name>
+					<group>
+						<name>i2c_samd21_r21_d10_d11</name>
+						<file>
+							<name>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11/i2c_master.c</name>
+						</file>
+					</group>
+					<group>
+						<name>quick_start_master</name>
+						<file>
+							<name>$PROJ_DIR$/../../qs_i2c_master_basic_use.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../qs_i2c_master_basic_use.h</name>
+						</file>
+						<group>
+							<name>samd21_xplained_pro</name>
+							<file>
+								<name>$PROJ_DIR$/../conf_board.h</name>
+							</file>
+							<group>
+								<name>iar</name>
+								<file>
+									<name>$PROJ_DIR$/asf.h</name>
+								</file>
+							</group>
+							<file>
+								<name>$PROJ_DIR$/../conf_clocks.h</name>
+							</file>
+						</group>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../i2c_common.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../i2c_master.h</name>
+					</file>
+					<group>
+						<name>quick_start_master_dma</name>
+						<file>
+							<name>$PROJ_DIR$/../../../quick_start_master_dma/qs_i2c_master_dma.h</name>
+						</file>
+					</group>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../sercom.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../sercom_pinout.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../sercom_interrupt.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../sercom.h</name>
 				</file>
 			</group>
 			<group>

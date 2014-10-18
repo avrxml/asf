@@ -1984,9 +1984,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_hflashc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_twim2.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_abdacb.h</name>
 							</file>
 							<file>
@@ -2057,6 +2054,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_catb.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_twim2.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_twim3.h</name>
@@ -2340,6 +2340,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../sam/drivers/ast/ast.c</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../sam/drivers/ast/example1/ast_example1.h</name>
+					</file>
+				</group>
+				<group>
+					<name>example2</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../sam/drivers/ast/example2/ast_example2.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../sam/drivers/ast/ast.h</name>
 				</file>

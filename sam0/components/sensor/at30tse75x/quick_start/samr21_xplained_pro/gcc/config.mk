@@ -57,7 +57,7 @@ CSRCS = \
        sam0/components/sensor/at30tse75x/at30tse75x.c     \
        sam0/components/sensor/at30tse75x/quick_start/qs_at30tse75x.c \
        sam0/drivers/port/port.c                           \
-       sam0/drivers/sercom/i2c/i2c_samd21_r21/i2c_master.c \
+       sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11/i2c_master.c \
        sam0/drivers/sercom/sercom.c                       \
        sam0/drivers/sercom/sercom_interrupt.c             \
        sam0/drivers/system/clock/clock_samd21_r21/clock.c \
@@ -84,7 +84,7 @@ INC_PATH = \
        sam0/drivers/port                                  \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/i2c                            \
-       sam0/drivers/sercom/i2c/i2c_samd21_r21             \
+       sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11     \
        sam0/drivers/system                                \
        sam0/drivers/system/clock                          \
        sam0/drivers/system/clock/clock_samd21_r21         \

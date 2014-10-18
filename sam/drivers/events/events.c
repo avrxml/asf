@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Peripheral Event Controller Driver for SAM.
+ * \brief SAM4L Peripheral Event Controller (PEVC) Driver.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,9 +41,9 @@
  *
  */
 
-#include "events.h"
-#include "sysclk.h"
-#include "sleepmgr.h"
+#include <events.h>
+#include <sysclk.h>
+#include <sleepmgr.h>
 
 /**
  * \brief Initialize an events configuration structure to defaults.
@@ -51,20 +51,28 @@
  *  The default configuration is as follows:
  *  - Input Glitch Filter Divider is set to \ref EVENT_IGF_DIVIDER_1024
  *
- *  \param config    Configuration structure to initialize to default values.
+ *  \param[out] config    Configuration structure to initialize to default values
  */
-void events_get_config_defaults(struct events_conf *const config)
+void events_get_config_defaults(
+		struct events_conf *const config)
 {
+	/* Validate parameters. */
+	Assert(config);
+	
 	config->igf_divider = EVENT_IGF_DIVIDER_1024;
 }
 
 /**
  * \brief Initialize the events module.
  *
- *  \param config    Configuration structure to initialize to default values.
+ *  \param[in] config    Configuration structure to initialize to default values
  */
-void events_init(struct events_conf *const config)
+void events_init(
+		struct events_conf *const config)
 {
+	/* Validate parameters. */
+	Assert(config);
+	
 	/* Enable clock for PEVC module */
 	sysclk_enable_peripheral_clock(PEVC);
 
@@ -94,14 +102,15 @@ void events_disable(void)
  * \brief Initialize an event channel configuration structure to defaults.
  *
  *  The default configuration is as follows:
- *  - Channel ID is initialized to invalid number.
- *  - Generator ID is initialized to invalid number.
- *  - Event shaper is disabled.
- *  - Event Input Glitch Filter is disabled.
+ *  - Channel ID is initialized to invalid number
+ *  - Generator ID is initialized to invalid number
+ *  - Event shaper is disabled
+ *  - Event Input Glitch Filter is disabled
  *
- *  \param config    Configuration structure to initialize to default values.
+ *  \param[out] config    Configuration structure to initialize to default values
  */
-void events_ch_get_config_defaults(struct events_ch_conf *const config)
+void events_ch_get_config_defaults(
+		struct events_ch_conf *const config)
 {
 	/* Sanity check arguments */
 	Assert(config);
@@ -114,11 +123,12 @@ void events_ch_get_config_defaults(struct events_ch_conf *const config)
 }
 
 /**
- * \brief Configure an event channel.
+ * \brief Configure an Event Channel.
  *
- * \param config      Configuration settings for the event channel.
+ * \param[in,out] config      Configuration settings for the Event Channel
  */
-void events_ch_configure(struct events_ch_conf *const config)
+void events_ch_configure(
+		struct events_ch_conf *const config)
 {
 	uint32_t evs_val = 0;
 

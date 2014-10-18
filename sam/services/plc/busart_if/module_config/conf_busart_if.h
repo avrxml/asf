@@ -3,8 +3,8 @@
  *
  * \brief PLC USART Buffered configuration file.
  *
- * This file contains basic functions for the SAM BUFFERED USART, with support for all
- * modes, settings and clock speeds.
+ * This file contains basic functions for the SAM BUFFERED USART, with support
+ * for all modes, settings and clock speeds.
  *
  * Copyright (c) 2014 Atmel Corporation. All rights reserved.
  *

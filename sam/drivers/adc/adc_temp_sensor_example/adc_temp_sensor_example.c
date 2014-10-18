@@ -279,9 +279,12 @@ void ADC_Handler(void)
 #if SAM3S || SAM3XA
 		/* Using multiplication (*0.37736) instead of division (/2.65). */
 		f_temp = (float)(l_vol - 800) * 0.37736 + 27.0;
-#else
+#elif SAM4N
 		/* Using multiplication (*0.21186) instead of division (/4.72). */
 		f_temp = (float)(l_vol - 1440) * 0.21186 + 27.0;
+#else
+		/* Using multiplication (*0.21276) instead of division (/4.7). */
+		f_temp = (float)(l_vol - 1440) * 0.21276 + 27.0;
 #endif
 		print_temp(f_temp);
 		/* Clear the buffer. */

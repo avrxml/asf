@@ -53,7 +53,8 @@ static bool main_b_vendor_enable = false;
 //@{
 //! Size of buffer used for the loopback
 #define  MAIN_LOOPBACK_SIZE    1024
-static uint8_t main_buf_loopback[MAIN_LOOPBACK_SIZE];
+COMPILER_WORD_ALIGNED
+		static uint8_t main_buf_loopback[MAIN_LOOPBACK_SIZE];
 static uint8_t main_buf_iso_sel;
 //@}
 

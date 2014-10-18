@@ -54,14 +54,14 @@
  *
  * \section Description
  *
- * The SAM4L controller waits for button press to generate external interrupt 
+ * The SAM4L controller waits for button press to generate external interrupt
  * and will toggle LED.
  *
  * \section Usage
  *
- * - Build the program and download it to the board.
- * -# On the computer, open and configure a terminal application
- *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
+ * - Build the program and download it to the board
+ * -# On the computer, open, and configure a terminal application
+ *    (e.g., HyperTerminal on Microsoft&reg; Windows&reg;) with these settings:
  *   - 115200 bauds
  *   - 8 bits of data
  *   - No parity
@@ -70,10 +70,10 @@
  * -# In the terminal window, the following text should appear (values depend
  *    on the board and chip used):
  *    \code
-	-- EIC Example xxx --
-	-- xxxxxx-xx
-	-- Compiled: xxx xx xxxx xx:xx:xx --
-\endcode
+ *     -- EIC Example xxx --
+ *     -- xxxxxx-xx
+ *     -- Compiled: xxx xx xxxx xx:xx:xx --
+ *    \endcode
  * -# the sent text should appear.
  */
 
@@ -119,6 +119,54 @@ static void configure_console(void)
 	stdio_serial_init(CONF_UART, &uart_serial_options);
 }
 
+//! [eic_example_code]
+/**
+ * \brief Interrupt handler for EIC interrupt.
+ */
+//! [set_eic_callback]
+static void eic_callback(void)
+{
+	/* Check if EIC push button line interrupt line is pending. */
+	if (eic_line_interrupt_is_pending(EIC, GPIO_PUSH_BUTTON_EIC_LINE)) {
+		eic_line_clear_interrupt(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
+		bToggle = 1;
+	}
+}
+//! [set_eic_callback]
+
+/**
+ * \brief EIC Setup
+ */
+//! [eic_setup]
+static void eic_setup(void)
+{
+//! [enable_eic_module]
+	eic_enable(EIC);
+//! [enable_eic_module]
+
+	struct eic_line_config eic_line_conf;
+	eic_line_conf.eic_mode = EIC_MODE_EDGE_TRIGGERED;
+	eic_line_conf.eic_edge = EIC_EDGE_FALLING_EDGE;
+	eic_line_conf.eic_level = EIC_LEVEL_LOW_LEVEL;
+	eic_line_conf.eic_filter = EIC_FILTER_DISABLED;
+	eic_line_conf.eic_async = EIC_ASYNCH_MODE;
+
+//! [configure_eic_mode]
+	eic_line_set_config(EIC, GPIO_PUSH_BUTTON_EIC_LINE,	&eic_line_conf);
+//! [configure_eic_mode]
+	
+//! [set_eic_callback_1]
+	eic_line_set_callback(EIC, GPIO_PUSH_BUTTON_EIC_LINE, eic_callback,
+	GPIO_PUSH_BUTTON_EIC_IRQ, 1);
+//! [set_eic_callback_1]
+	
+//! [enable_eic_line]
+	eic_line_enable(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
+//! [enable_eic_line]
+}
+//! [eic_setup]
+//! [eic_example_code]
+
 /**
  * \brief Application entry point for eic example.
  *
@@ -126,8 +174,6 @@ static void configure_console(void)
  */
 int main(void)
 {
-	struct eic_line_config eic_line_conf;
-
 	/* Initialize the SAM system. */
 	sysclk_init();
 	board_init();
@@ -138,18 +184,7 @@ int main(void)
 	/* Output example information. */
 	puts(STRING_HEADER);
 
-	eic_line_conf.eic_mode = EIC_MODE_EDGE_TRIGGERED;
-	eic_line_conf.eic_edge = EIC_EDGE_FALLING_EDGE;
-	eic_line_conf.eic_level = EIC_LEVEL_LOW_LEVEL;
-	eic_line_conf.eic_filter = EIC_FILTER_DISABLED;
-	eic_line_conf.eic_async = EIC_ASYNCH_MODE;
-
-	eic_enable(EIC);
-	eic_line_set_config(EIC, GPIO_PUSH_BUTTON_EIC_LINE, 
-		&eic_line_conf);
-	eic_line_set_callback(EIC, GPIO_PUSH_BUTTON_EIC_LINE, set_toggle_flag, 
-		GPIO_PUSH_BUTTON_EIC_IRQ, 1);
-	eic_line_enable(EIC, GPIO_PUSH_BUTTON_EIC_LINE);
+	eic_setup();
 
 	puts("--Push the button to toggle the LED--\r\n\r");
 

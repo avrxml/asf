@@ -40,6 +40,7 @@
  */
 
 #include <asf.h>
+#include "conf_qs_tc_timer.h"
 
 void configure_tc(void);
 void configure_tc_callbacks(void);
@@ -79,7 +80,7 @@ void configure_tc(void)
 	//! [setup_change_config]
 
 	//! [setup_set_config]
-	tc_init(&tc_instance, TC3, &config_tc);
+	tc_init(&tc_instance, CONF_TC_MODULE, &config_tc);
 	//! [setup_set_config]
 
 	//! [setup_enable]

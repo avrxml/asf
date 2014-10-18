@@ -1901,10 +1901,10 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/source/templates/exceptions.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/source/templates/system_sam3u.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/source/templates/exceptions.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/source/templates/exceptions.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/source/templates/system_sam3u.h</name>
 							</file>
 						</group>
 					</group>
@@ -1961,6 +1961,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/component/component_wdt.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/component/component_pwm.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/component/component_usart.h</name>
 							</file>
 							<file>
@@ -1980,9 +1983,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/component/component_efc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/component/component_pwm.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/component/component_matrix.h</name>
@@ -2106,9 +2106,6 @@
 							</file>
 						</group>
 						<file>
-							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/sam3u1c.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/sam3u4e.h</name>
 						</file>
 						<file>
@@ -2125,6 +2122,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/sam3u.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3u/include/sam3u1c.h</name>
 						</file>
 					</group>
 				</group>
@@ -2232,6 +2232,15 @@
 							</file>
 						</group>
 					</group>
+					<group>
+						<name>sam4e16e_sam4e_ek</name>
+						<file>
+							<name>$PROJ_DIR$/../../sam4e16e_sam4e_ek/conf_board.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../tc_capture_waveform_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../tc.c</name>

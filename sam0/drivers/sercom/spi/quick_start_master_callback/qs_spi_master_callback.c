@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 SPI Quick Start
+ * \brief SAM SPI Quick Start
  *
  * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
@@ -50,10 +50,11 @@
 #define SLAVE_SELECT_PIN EXT1_PIN_SPI_SS_0
 //! [slave_select_pin]
 //! [buffer]
-static uint8_t buffer[BUF_LENGTH] = {
+static uint8_t wr_buffer[BUF_LENGTH] = {
 		0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
 		 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0x12, 0x13
 };
+static uint8_t rd_buffer[BUF_LENGTH];
 //! [buffer]
 
 //! [dev_inst]
@@ -63,7 +64,7 @@ struct spi_module spi_master_instance;
 struct spi_slave_inst slave;
 //! [slave_dev_inst]
 //! [var]
-volatile bool transfer_complete_spi_master = false;
+volatile bool transrev_complete_spi_master = false;
 //! [var]
 //! [setup]
 
@@ -73,7 +74,7 @@ void configure_spi_master(void);
 static void callback_spi_master(const struct spi_module *const module)
 {
 //! [callback_var]
-	transfer_complete_spi_master = true;
+	transrev_complete_spi_master = true;
 //! [callback_var]
 }
 //! [callback]
@@ -83,10 +84,10 @@ void configure_spi_master_callbacks(void)
 {
 //! [reg_callback]
 	spi_register_callback(&spi_master_instance, callback_spi_master,
-			SPI_CALLBACK_BUFFER_TRANSMITTED);
+			SPI_CALLBACK_BUFFER_TRANSCEIVED);
 //! [reg_callback]
 //! [en_callback]
-	spi_enable_callback(&spi_master_instance, SPI_CALLBACK_BUFFER_TRANSMITTED);
+	spi_enable_callback(&spi_master_instance, SPI_CALLBACK_BUFFER_TRANSCEIVED);
 //! [en_callback]
 }
 //! [conf_callback]
@@ -161,24 +162,25 @@ int main(void)
 //! [main_start]
 
 //! [main_use_case]
-//! [select_slave]
-	spi_select_slave(&spi_master_instance, &slave, true);
-//! [select_slave]
-//! [write]
-	spi_write_buffer_job(&spi_master_instance, buffer, BUF_LENGTH);
-//! [write]
-//! [wait]
-	while (!transfer_complete_spi_master) {
-		/* Wait for write complete */
-	}
-//! [wait]
-//! [deselect_slave]
-	spi_select_slave(&spi_master_instance, &slave, false);
-//! [deselect_slave]
-
 //! [inf_loop]
 	while (true) {
 		/* Infinite loop */
+		if (!port_pin_get_input_level(BUTTON_0_PIN)) {
+			//! [select_slave]
+			spi_select_slave(&spi_master_instance, &slave, true);
+			//! [select_slave]
+			//! [write and read]
+			spi_transceive_buffer_job(&spi_master_instance, wr_buffer,rd_buffer,BUF_LENGTH);
+			//! [write and read]
+			//! [wait]
+			while (!transrev_complete_spi_master) {
+				/////* Wait for write and read complete */
+			}
+			//! [wait]
+			//! [deselect_slave]
+			spi_select_slave(&spi_master_instance, &slave, false);
+			//! [deselect_slave]
+		}
 	}
 //! [inf_loop]
 //! [main_use_case]

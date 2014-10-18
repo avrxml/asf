@@ -2255,6 +2255,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam/drivers/dmac/dmac.c</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../sam/drivers/dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam/drivers/dmac/dmac.h</name>
 				</file>

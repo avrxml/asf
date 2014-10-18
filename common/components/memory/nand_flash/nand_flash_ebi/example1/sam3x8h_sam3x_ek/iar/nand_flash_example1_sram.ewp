@@ -2154,6 +2154,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/dmac/dmac.c</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/dmac/dmac.h</name>
 				</file>
@@ -2269,10 +2275,10 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3x/include/component/component_tc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3x/include/component/component_usart.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3x/include/component/component_wdt.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3x/include/component/component_wdt.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3x/include/component/component_usart.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3x/include/component/component_pmc.h</name>

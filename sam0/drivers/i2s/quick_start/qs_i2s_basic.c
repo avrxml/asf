@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D21 Inter-IC Sound Controller Basic Quickstart
+ * \brief SAM Inter-IC Sound Controller Basic Quickstart
  *
  * Copyright (C) 2014 Atmel Corporation. All rights reserved.
  *

@@ -2,7 +2,7 @@
  *
  * \file
  *
- * \brief AES software driver for SAM.
+ * \brief SAM Advanced Encryption Standard driver.
  *
  * This file defines a useful set of functions for the AES on SAM devices.
  *
@@ -44,9 +44,9 @@
  *
  */
 
-#include "aes.h"
-#include "sysclk.h"
-#include "sleepmgr.h"
+#include <aes.h>
+#include <sysclk.h>
+#include <sleepmgr.h>
 
 /**
  * \internal
@@ -55,25 +55,28 @@
 aes_callback_t aes_callback_pointer[AES_INTERRUPT_SOURCE_NUM];
 
 /**
- * \brief Initializes a AES configuration structure to defaults.
+ * \brief Initializes an AES configuration structure to defaults.
  *
- *  Initializes a given AES configuration structure to a set of
- *  known default values. This function should be called on all new
- *  instances of these configuration structures before being modified by the
- *  user application.
+ * Initializes the specified AES configuration structure to a set of
+ * known default values.
+ *
+ * \note This function should be called to initialize <b>all</b> new instances of
+ * AES configuration structures before they are further modified by the user
+ * application.
  *
  *  The default configuration is as follows:
- *  - Encryption.
- *  - 128 key size.
- *  - Manual mode.
- *  - ECB mode.
- *  - Last output data mode equal false.
- *  - No extra delay.
+ *  - Data encryption
+ *  - 128-bit AES key size
+ *  - 128-bit cipher feedback size
+ *  - Manual start mode
+ *  - Electronic Codebook (ECB) mode
+ *  - Last output data mode is disabled
+ *  - No extra delay
  *
- *  \param p_cfg Pointer to configuration structure to initialize to
- * default values.
+ *  \param[out] p_cfg Pointer to an AES configuration structure
  */
-void aes_get_config_defaults(struct aes_config *const p_cfg)
+void aes_get_config_defaults(
+		struct aes_config *const p_cfg)
 {
 	/* Sanity check arguments */
 	Assert(p_cfg);
@@ -92,11 +95,12 @@ void aes_get_config_defaults(struct aes_config *const p_cfg)
 /**
  * \brief Initialize the AES module.
  *
- * \param p_aes Base address of the AES instance.
- * \param p_cfg Pointer to AES configuration.
- *
+ * \param[out] p_aes Module hardware register base address pointer
+ * \param[in] p_cfg  Pointer to an AES configuration structure
  */
-void aes_init(Aes *const p_aes, struct aes_config *const p_cfg)
+void aes_init(
+		Aes *const p_aes,
+		struct aes_config *const p_cfg)
 {
 	/* Sanity check arguments */
 	Assert(p_aes);
@@ -116,8 +120,7 @@ void aes_init(Aes *const p_aes, struct aes_config *const p_cfg)
 }
 
 /**
- * \brief Enable the AES.
- *
+ * \brief Enable the AES module.
  */
 void aes_enable(void)
 {
@@ -126,8 +129,7 @@ void aes_enable(void)
 }
 
 /**
- * \brief Disable the AES.
- *
+ * \brief Disable the AES module.
  */
 void aes_disable(void)
 {
@@ -136,16 +138,21 @@ void aes_disable(void)
 }
 
 /**
- * \brief Configure the AES.
+ * \brief Configure the AES module.
  *
- * \param p_aes Base address of the AES instance.
- * \param p_cfg Pointer to AES configuration.
- *
+ * \param[out] p_aes Module hardware register base address pointer
+ * \param[in] p_cfg  Pointer to an AES configuration structure
  */
-void aes_set_config(Aes *const p_aes, struct aes_config *const p_cfg)
+void aes_set_config(
+		Aes *const p_aes,
+		struct aes_config *const p_cfg)
 {
 	uint32_t ul_mode = 0;
 
+	/* Validate arguments. */
+	Assert(p_aes);
+	Assert(p_cfg);
+	
 	/* Set processing mode */
 	if (p_cfg->encrypt_mode) {
 		ul_mode |= AES_MR_CIPHER;
@@ -176,7 +183,7 @@ void aes_set_config(Aes *const p_aes, struct aes_config *const p_cfg)
 	if ((p_cfg->opmode == AES_GCM_MODE) && (p_cfg->gtag_en == true)) {
 		ul_mode |= AES_MR_GTAGEN;
 	}
-	#endif
+	#endif /* SAM4C || SAM4CP || SAM4CM */
 
 	ul_mode |= AES_MR_PROCDLY(p_cfg->processing_delay);
 
@@ -184,7 +191,7 @@ void aes_set_config(Aes *const p_aes, struct aes_config *const p_cfg)
 	ul_mode |= AES_MR_CKEY_PASSWD;
 	#else
 	ul_mode |= AES_MR_CKEY(0xE);
-	#endif
+	#endif /* !(SAM4C || SAM4CP || SAM4CM) */
 
 	p_aes->AES_MR = ul_mode;
 }
@@ -192,16 +199,21 @@ void aes_set_config(Aes *const p_aes, struct aes_config *const p_cfg)
 /**
  * \brief Write the 128/192/256bit cryptographic key.
  *
- * \param  p_aes Base address of the AES instance.
- * \param  *p_key Pointer on 4/6/8 contiguous 32bit words.
+ * \param[out] p_aes Module hardware register base address pointer
+ * \param[in]  p_key Pointer to 4/6/8 contiguous 32-bit words
  *
- * \note The key size depends on the AES configuration.
- *
+ * \note The key size depends on the current AES configuration.
  */
-void aes_write_key(Aes *const p_aes, const uint32_t *p_key)
+void aes_write_key(
+		Aes *const p_aes,
+		const uint32_t *p_key)
 {
 	uint32_t i, key_length = 0;
 
+	/* Validate arguments. */
+	Assert(p_aes);
+	Assert(p_key);
+	
 	switch ((p_aes->AES_MR & AES_MR_KEYSIZE_Msk) >>
 			AES_MR_KEYSIZE_Pos) {
 	case 0: /* 128bit cryptographic key */
@@ -228,16 +240,20 @@ void aes_write_key(Aes *const p_aes, const uint32_t *p_key)
 
 /**
  * \brief Write the initialization vector (for the CBC, CFB, OFB, CTR & GCM
- * cipher modes)
+ * cipher modes).
  *
- * \param  p_aes Base address of the AES instance.
- * \param  *p_vector Pointer on 4 contiguous 32bit words.
- *
+ * \param[out] p_aes   Module hardware register base address pointer
+ * \param[in] p_vector Pointer to four contiguous 32-bit words
  */
-void aes_write_initvector(Aes *const p_aes, const uint32_t *p_vector)
+void aes_write_initvector(
+		Aes *const p_aes,
+		const uint32_t *p_vector)
 {
 	uint32_t i;
 
+	/* Validate arguments. */
+	Assert(p_aes);
+	
 	for (i = 0; i < 4; i++) {
 		p_aes->AES_IVR[i] = *p_vector;
 		p_vector++;
@@ -245,17 +261,21 @@ void aes_write_initvector(Aes *const p_aes, const uint32_t *p_vector)
 }
 
 /**
- * \brief Write the input data.
+ * \brief Write the input data (four consecutive 32-bit words).
  *
- * \param  p_aes Base address of the AES instance.
- * \param  *p_input_data_buffer Pointer to input buffer.
- *
+ * \param[out] p_aes              Module hardware register base address pointer
+ * \param[in] p_input_data_buffer Pointer to an input data buffer
  */
-void aes_write_input_data(Aes *const p_aes,
+void aes_write_input_data(
+		Aes *const p_aes,
 		const uint32_t *p_input_data_buffer)
 {
 	uint32_t i;
 
+	/* Validate arguments. */
+	Assert(p_aes);
+	Assert(p_input_data_buffer);
+	
 	for (i = 0; i < 4; i++) {
 		p_aes->AES_IDATAR[i] = *p_input_data_buffer;
 		p_input_data_buffer++;
@@ -265,32 +285,45 @@ void aes_write_input_data(Aes *const p_aes,
 /**
  * \brief Read the output data.
  *
- * \param  p_aes Base address of the AES instance.
- * \param  *p_output_data_buffer Pointer to output buffer.
+ * \note The data buffer that holds the processed data must be large enough to hold
+ * four consecutive 32-bit words.
  *
+ * \param[in] p_aes                 Module hardware register base address pointer
+ * \param[in] *p_output_data_buffer Pointer to an output buffer
  */
-void aes_read_output_data(Aes *const p_aes,
+void aes_read_output_data(
+		Aes *const p_aes,
 		uint32_t *p_output_data_buffer)
 {
 	uint32_t i;
 
+	/* Validate arguments. */
+	Assert(p_aes);
+	Assert(p_output_data_buffer);
+	
 	for (i = 0; i < 4; i++) {
 		*p_output_data_buffer = p_aes->AES_ODATAR[i];
 		p_output_data_buffer++;
 	}
 }
 
-#if SAM4C || SAM4CP || SAM4CM
+#if SAM4C || SAM4CP || SAM4CM || defined(__DOXYGEN__)
 
 /**
  * \brief Get AES PDC base address.
  *
- * \param p_aes Pointer to a AES instance.
+ * \note This function is only available on SAM4C devices.
  *
- * \return AES PDC registers base for PDC driver to access.
+ * \param[in] p_aes Module hardware register base address pointer
+ *
+ * \return The PDC registers base address for the AES module.
  */
-Pdc *aes_get_pdc_base(Aes *p_aes)
+Pdc *aes_get_pdc_base(
+		Aes *p_aes)
 {
+	/* Validate arguments. */
+	Assert(p_aes);
+	
 	Pdc *p_pdc_base;
 	if (p_aes == AES) {
 		p_pdc_base = PDC_AES;
@@ -301,20 +334,25 @@ Pdc *aes_get_pdc_base(Aes *p_aes)
 	return p_pdc_base;
 }
 
-#endif
+#endif /* SAM4C || SAM4CP || SAM4CM || defined(__DOXYGEN__) */
 
 /**
- * \brief Set callback for AES
+ * \brief Set the AES interrupt callback.
  *
- * \param p_aes Base address of the AES instance.
- * \param source Interrupt source.
- * \param callback callback function pointer.
- * \param irq_level interrupt level.
+ * \param[out] p_aes    Module hardware register base address pointer
+ * \param[in] source    Interrupt source
+ * \param[in] callback  Interrupt callback function pointer
+ * \param[in] irq_level Interrupt priority level
  */
-void aes_set_callback(Aes *const p_aes,
-		aes_interrupt_source_t source, aes_callback_t callback,
+void aes_set_callback(
+		Aes *const p_aes,
+		aes_interrupt_source_t source,
+		aes_callback_t callback,
 		uint8_t irq_level)
 {
+	/* Validate arguments. */
+	Assert(p_aes);
+	
 	if (source == AES_INTERRUPT_DATA_READY) {
 		aes_callback_pointer[0] = callback;
 	} else if (source == AES_INTERRUPT_UNSPECIFIED_REGISTER_ACCESS) {
@@ -331,13 +369,13 @@ void aes_set_callback(Aes *const p_aes,
 	} else if (source == AES_INTERRUPT_TRANSMIT_BUFFER_FULL) {
 		aes_callback_pointer[5] = callback;
 	}
-#endif
+#endif /* SAM4C || SAM4CP || SAM4CM */
 	irq_register_handler((IRQn_Type)AES_IRQn, irq_level);
 	aes_enable_interrupt(p_aes, source);
 }
 
 /**
- * \brief The AES interrupt handler.
+ * \internal The AES interrupt handler.
  */
 void AES_Handler(void)
 {
@@ -380,5 +418,5 @@ void AES_Handler(void)
 			aes_callback_pointer[5]();
 		}
 	}
-#endif
+#endif /* SAM4C || SAM4CP || SAM4CM */
 }

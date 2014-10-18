@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 Event System Driver
+ * \brief SAM Event System Driver
  *
  * Copyright (C) 2014 Atmel Corporation. All rights reserved.
  *

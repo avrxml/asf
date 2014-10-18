@@ -300,9 +300,9 @@
 					<state>$PROJ_DIR$/../../../../../../spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/../../../../../../serial</state>
-					<state>$PROJ_DIR$/../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4c/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../clock</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam4c_ek</state>
@@ -316,9 +316,10 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../ioport</state>
@@ -578,9 +579,9 @@
 					<state>$PROJ_DIR$/../../../../../../spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/../../../../../../serial</state>
-					<state>$PROJ_DIR$/../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4c/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../clock</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam4c_ek</state>
@@ -594,9 +595,10 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../ioport</state>
@@ -1248,9 +1250,9 @@
 					<state>$PROJ_DIR$/../../../../../../spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/../../../../../../serial</state>
-					<state>$PROJ_DIR$/../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4c/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../clock</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam4c_ek</state>
@@ -1264,9 +1266,10 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../ioport</state>
@@ -1526,9 +1529,9 @@
 					<state>$PROJ_DIR$/../../../../../../spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/../../../../../../serial</state>
-					<state>$PROJ_DIR$/../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4c/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../clock</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/sam4c_ek</state>
@@ -1542,9 +1545,10 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../spi</state>
 					<state>$PROJ_DIR$/../../../../../../serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../ioport</state>
@@ -2367,6 +2371,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>spi</name>

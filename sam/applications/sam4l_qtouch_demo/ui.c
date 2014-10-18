@@ -3,7 +3,7 @@
  *
  * \brief User Interface.
  *
- * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,7 +63,7 @@ extern volatile uint32_t event_qtouch_sensors_idle_count;
  * \param cpu_freq CPU frequency.
  * \param cpu_src CPU source clock.
  */
-void ui_set_mcu_status(power_scaling_t power_scaling, 
+void ui_set_mcu_status(power_scaling_t power_scaling,
 	sleep_mode_t sleep_mode, uint32_t cpu_freq, cpu_src_t cpu_src)
 {
 	sam4l_status.power_scaling = power_scaling;
@@ -72,7 +72,7 @@ void ui_set_mcu_status(power_scaling_t power_scaling,
 	sam4l_status.cpu_src = cpu_src;
 }
 
-/** 
+/**
  * \brief Get MCU Power Scaling Status.
  */
 power_scaling_t ui_get_power_scaling_mcu_status(void)
@@ -80,7 +80,7 @@ power_scaling_t ui_get_power_scaling_mcu_status(void)
 	return sam4l_status.power_scaling;
 }
 
-/** 
+/**
  * \brief Set MCU Power Scaling Status.
  * \param power_scaling Power scaling.
  */
@@ -89,7 +89,7 @@ void ui_set_power_scaling_mcu_status(power_scaling_t power_scaling)
 	sam4l_status.power_scaling = power_scaling;
 }
 
-/** 
+/**
  * \brief Get MCU Sleep Mode Status.
  */
 sleep_mode_t ui_get_sleep_mode_mcu_status(void)
@@ -97,7 +97,7 @@ sleep_mode_t ui_get_sleep_mode_mcu_status(void)
 	return sam4l_status.sleep_mode;
 }
 
-/** 
+/**
  * \brief Set MCU Sleep Mode Status.
  * \param sleep_mode Sleep Mode.
  */
@@ -105,13 +105,13 @@ void ui_set_sleep_mode_mcu_status(sleep_mode_t sleep_mode)
 {
 	sam4l_status.sleep_mode = sleep_mode;
 }
-/** 
+/**
  * \brief User Interface - Board Monitor Initialization :
  *  and send SAM4L status.
  */
 void ui_bm_init(void)
 {
-	/* 
+	/*
 	 * Initialize Board Monitor and send first status
 	 */
 	sysclk_enable_peripheral_clock(BM_USART_USART);
@@ -121,7 +121,7 @@ void ui_bm_init(void)
 }
 
 
-/** 
+/**
  * \brief User Interface Board Monitor send SAM4L status.
  */
 void ui_bm_send_mcu_status(void)
@@ -136,15 +136,15 @@ void ui_bm_send_mcu_status(void)
 	sysclk_disable_peripheral_clock(BM_USART_USART);
 }
 
-/** 
+/**
  * \brief User Interface - LCD Initialization.
  */
 void ui_lcd_init(void)
 {
 	uint8_t const scrolling_str[] = "SAM4L-EK DEMO";
-	
+
 	/*
-	 * LCDCA Controller Initialization and display SAM4L-EK DEMO texts on 
+	 * LCDCA Controller Initialization and display SAM4L-EK DEMO texts on
 	 * segment LCD
 	 */
 
@@ -167,12 +167,12 @@ void ui_lcd_init(void)
 
 	ui_lcd_refresh_txt();
 }
-/** 
+/**
  * \brief User Interface LCD Refresh Alphanumeric area.
  * \param ui_lcd_refresh boolean to refresh or not Alphanumeric area.
  * \param event_qtouch_slider_position set slider position in Alphanumeric area.
  */
-void ui_lcd_refresh_alphanum(bool ui_lcd_refresh, 
+void ui_lcd_refresh_alphanum(bool ui_lcd_refresh,
 	int32_t event_qtouch_slider_position)
 {
 	char  string_info[8];
@@ -196,17 +196,21 @@ void ui_lcd_refresh_alphanum(bool ui_lcd_refresh,
 		c42364a_write_num_packet((uint8_t const*)&string_info);
 	}
 }
-/** 
+/**
  * \brief User Interface LCD Refresh Text area.
  */
 void ui_lcd_refresh_txt(void)
 {
 	char  string_info[8];
+	power_scaling_t ps_status = ui_get_power_scaling_mcu_status();
+
 	// Display Power Scaling mode on segment LCD
-	if (ui_get_power_scaling_mcu_status() == POWER_SCALING_PS0){
-		sprintf((char*)string_info, "RUN PS0");
-	} else {
+	if (ps_status == POWER_SCALING_PS1){
 		sprintf((char*)string_info, "RUN PS1");
+	} else if (ps_status == POWER_SCALING_PS2) {
+		sprintf((char*)string_info, "RUN PS2");
+	} else {
+		sprintf((char*)string_info, "RUN PS0");
 	}
 	c42364a_show_text((const uint8_t *)string_info);
 }

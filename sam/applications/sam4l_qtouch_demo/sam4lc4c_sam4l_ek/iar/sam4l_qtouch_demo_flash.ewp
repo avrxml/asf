@@ -2304,6 +2304,9 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/component/component_flashcalw.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/component/component_usbc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/component/component_bscif.h</name>
 							</file>
 							<file>
@@ -2314,9 +2317,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/component/component_pm.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/component/component_usbc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/component/component_tc.h</name>
@@ -2362,6 +2362,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/instance/instance_usart1.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/instance/instance_pm.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/instance/instance_pevc.h</name>
@@ -2454,9 +2457,6 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/instance/instance_usart3.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/instance/instance_pm.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/instance/instance_lcdca.h</name>
 							</file>
 							<file>
@@ -2518,13 +2518,13 @@
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/sam4ls8b.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/sam4ls2c.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/sam4lc2a.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/sam4ls4b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/sam4ls2c.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include/sam4ls2b.h</name>
@@ -2570,6 +2570,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/lcdca/lcdca.h</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/lcdca/example/lcdca_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>eic</name>
@@ -2597,6 +2603,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/ast/ast.h</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/ast/example1/ast_example1.h</name>
+					</file>
+				</group>
+				<group>
+					<name>example2</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/ast/example2/ast_example2.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>flashcalw</name>

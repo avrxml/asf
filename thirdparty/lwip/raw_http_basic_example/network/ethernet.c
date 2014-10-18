@@ -59,7 +59,7 @@
 #elif SAMD20
 # include "ksz8851snl.h"
 # include "ksz8851snl_reg.h"
-# include "netif/samd20_spi_ksz8851snl.h"
+# include "netif/sam0_spi_ksz8851snl.h"
 #else
 # error Unsupported chip type
 #endif
@@ -192,11 +192,11 @@ static void ethernet_configure_interface(void)
 	if (ERR_OK != dhcp_start(&gs_net_if)) {
 		LWIP_ASSERT("ERR_OK != dhcp_start", 0);
 	}
-	printf("DHCP Started\n");
+	printf("DHCP Started\r\n");
 #else
 	/* Static mode. */
 	netif_set_up(&gs_net_if);
-	printf("Static IP Address Assigned\n");
+	printf("Static IP Address Assigned\r\n");
 #endif
 }
 
@@ -227,9 +227,9 @@ void status_callback(struct netif *netif)
 	if (netif_is_up(netif)) {
 		strcpy((char*)c_mess, "IP=");
 		strcat((char*)c_mess, inet_ntoa(*(struct in_addr *)&(netif->ip_addr)));
-		printf("Network up %s\n", (char const*)c_mess);
+		printf("Network up %s\r\n", (char const*)c_mess);
 	} else {
-		printf("Network down\n");
+		printf("Network down\r\n");
 	}
 }
 

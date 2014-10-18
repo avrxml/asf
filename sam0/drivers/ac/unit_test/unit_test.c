@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21 Analog Comparator (AC) Unit test
+ * \brief SAM Analog Comparator (AC) Unit test
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \mainpage SAM D20/D21 AC Unit Test
+ * \mainpage SAM AC Unit Test
  * See \ref appdoc_main "here" for project documentation.
  * \copydetails appdoc_preface
  *
@@ -57,7 +57,7 @@
  */
 
 /**
- * \page appdoc_main SAM D20/D21 AC Unit Test
+ * \page appdoc_main SAM AC Unit Test
  *
  * Overview:
  * - \ref appdoc_sam0_ac_unit_test_intro
@@ -72,15 +72,15 @@
  * Input to the AC is provided with the DAC module.
  *
  * The following kit is required for carrying out the test:
- *      - SAM D20 Xplained Pro board
- *      - SAM D21 Xplained Pro board
+ *  - SAM D20 Xplained Pro board
+ *  - SAM D21 Xplained Pro board
  *
  * \section appdoc_sam0_ac_unit_test_setup Setup
  * The following connections has to be made using wires:
  *  - \b DAC VOUT (PA02) <-----> AIN0 (PA04)
  *
  * To run the test:
- *  - Connect the SAM D20/D21 Xplained Pro board to the computer using a
+ *  - Connect the SAM Xplained Pro board to the computer using a
  *    micro USB cable.
  *  - Open the virtual COM port in a terminal application.
  *    \note The USB composite firmware running on the Embedded Debugger (EDBG)
@@ -609,7 +609,7 @@ int main(void)
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(ac_test_suite, ac_tests,
-			"SAM D20/D21 AC driver test suite");
+			"SAM AC driver test suite");
 
 	/* Run all tests in the suite*/
 	test_suite_run(&ac_test_suite);

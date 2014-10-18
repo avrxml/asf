@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Peripheral DMA Controller (PDC) driver for SAM.
+ * \brief SAM4 Peripheral DMA Controller (PDC) driver.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
 
 #include "pdc.h"
 
-/// @cond 0
+/// @cond
 /**INDENT-OFF**/
 #ifdef __cplusplus
 extern "C" {
@@ -52,29 +52,22 @@ extern "C" {
 /// @endcond
 
 /**
- * \defgroup sam_drivers_pdc_group Peripheral DMA Controller (PDC)
- *
- * \par Purpose
- *
- * The Peripheral DMA Controller (PDC) transfers data between on-chip serial
- * peripherals and the on- and/or off-chip memories. The link between the PDC
- * and a serial peripheral is operated by the AHB to ABP bridge.
- *
- * @{
- */
-
-/**
  * \brief Configure PDC for data transmit.
  *
- * \param p_pdc Pointer to a PDC instance.
- * \param p_packet Pointer to packet information for current buffer register
- * set, NULL to let them as is.
- * \param p_next_packet Pointer to packet information for next buffer register
- * set, NULL to let them as is.
+ * \param[out] p_pdc        Device structure pointer
+ * \param[in] p_packet      Pointer to packet information for current buffer register
+ *                          set, NULL to let them as is.
+ * \param[in] p_next_packet Pointer to packet information for next buffer register
+ *                          set, NULL to let them as is.
  */
-void pdc_tx_init(Pdc *p_pdc, pdc_packet_t *p_packet,
+void pdc_tx_init(
+		Pdc *p_pdc,
+		pdc_packet_t *p_packet,
 		pdc_packet_t *p_next_packet)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	if (p_packet) {
 		p_pdc->PERIPH_TPR = p_packet->ul_addr;
 		p_pdc->PERIPH_TCR = p_packet->ul_size;
@@ -88,15 +81,20 @@ void pdc_tx_init(Pdc *p_pdc, pdc_packet_t *p_packet,
 /**
  * \brief Configure PDC for data receive.
  *
- * \param p_pdc Pointer to a PDC instance.
- * \param p_packet Pointer to packet information for current buffer register
- * set, NULL to let them as is.
- * \param p_next_packet Pointer to packet information for next buffer register
- * set, NULL to let them as is.
+ * \param[out] p_pdc        Device structure pointer
+ * \param[in] p_packet      Pointer to packet information for current buffer register
+ *                          set, NULL to let them as is.
+ * \param[in] p_next_packet Pointer to packet information for next buffer register
+ *                          set, NULL to let them as is.
  */
-void pdc_rx_init(Pdc *p_pdc, pdc_packet_t *p_packet,
+void pdc_rx_init(
+		Pdc *p_pdc,
+		pdc_packet_t *p_packet,
 		pdc_packet_t *p_next_packet)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	if (p_packet) {
 		p_pdc->PERIPH_RPR = p_packet->ul_addr;
 		p_pdc->PERIPH_RCR = p_packet->ul_size;
@@ -110,10 +108,14 @@ void pdc_rx_init(Pdc *p_pdc, pdc_packet_t *p_packet,
 /**
  * \brief Clear PDC buffer receive counter.
  *
- * \param p_pdc Pointer to a PDC instance.
+ * \param[out] p_pdc Device structure pointer
  */
-void pdc_rx_clear_cnt(Pdc *p_pdc)
+void pdc_rx_clear_cnt(
+		Pdc *p_pdc)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	p_pdc->PERIPH_RNCR = 0;
 	p_pdc->PERIPH_RCR = 0;
 }
@@ -124,25 +126,35 @@ void pdc_rx_clear_cnt(Pdc *p_pdc)
  * \note It is forbidden to set both TXTEN and RXTEN for a half duplex
  * peripheral.
  *
- * \param p_pdc Pointer to a PDC instance.
- * \param ul_controls Transfer directions.
- * (bit PERIPH_PTCR_RXTEN and bit PERIPH_PTCR_TXTEN)
+ * \param[out] p_pdc 	  Device structure pointer
+ * \param[in] ul_controls Transfer directions
+ *                        (bit PERIPH_PTCR_RXTEN and bit PERIPH_PTCR_TXTEN)
  */
-void pdc_enable_transfer(Pdc *p_pdc, uint32_t ul_controls)
+void pdc_enable_transfer(
+		Pdc *p_pdc,
+		uint32_t ul_controls)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	p_pdc->PERIPH_PTCR =
 			ul_controls & (PERIPH_PTCR_RXTEN | PERIPH_PTCR_TXTEN);
 }
 
 /**
- * \brief Disable PDC transfers (TX and/or RX)
+ * \brief Disable PDC transfers (TX and/or RX).
  *
- * \param p_pdc Pointer to a PDC instance.
- * \param ul_controls Transfer directions.
- * (bit PERIPH_PTCR_TXTDIS, bit PERIPH_PTCR_TXTDIS)
+ * \param[out] p_pdc      Device structure pointer
+ * \param[in] ul_controls Transfer directions
+ *                        (bit PERIPH_PTCR_TXTDIS, bit PERIPH_PTCR_TXTDIS)
  */
-void pdc_disable_transfer(Pdc *p_pdc, uint32_t ul_controls)
+void pdc_disable_transfer(
+		Pdc *p_pdc,
+		uint32_t ul_controls)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	p_pdc->PERIPH_PTCR =
 			ul_controls & (PERIPH_PTCR_RXTDIS | PERIPH_PTCR_TXTDIS);
 }
@@ -150,114 +162,167 @@ void pdc_disable_transfer(Pdc *p_pdc, uint32_t ul_controls)
 /**
  * \brief Read PDC status.
  *
- * \param p_pdc Pointer to a PDC instance.
+ * \param[in] p_pdc Device structure pointer
  *
- * \return PDC status register value.
+ * \return PDC status register bit map.
+ *
+ * <table>
+ * <tr>
+ * <th>Name</th>
+ * <th>Description</th>
+ * <th>Bit</th>
+ * </tr>
+ * <tr>
+ *   <td>RXTEN</td>
+ *   <td>Receiver Transfer Enabled</td>
+ *   <td>8</td>
+ * </tr>
+ * <tr>
+ *   <td>TXTEN</td>
+ *   <td>Transmitter Transfer Enabled</td>
+ *   <td>1</td>
+ * </tr>
+ * </table>
+ *
  */
-uint32_t pdc_read_status(Pdc *p_pdc)
+uint32_t pdc_read_status(
+		Pdc *p_pdc)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	return p_pdc->PERIPH_PTSR;
 }
 
 /**
  * \brief Return Receive Pointer Register (RPR) value.
  *
- * \param p_pdc Pointer to a PDC instance.
+ * \param[in] p_pdc Device structure pointer
  *
  * \return Receive Pointer Register value.
  */
-uint32_t pdc_read_rx_ptr(Pdc *p_pdc)
+uint32_t pdc_read_rx_ptr(
+		Pdc *p_pdc)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	return p_pdc->PERIPH_RPR;
 }
 
 /**
  * \brief Return Receive Counter Register (RCR) value.
  *
- * \param p_pdc Pointer to a PDC instance.
+ * \param[in] p_pdc Device structure pointer
  *
  * \return Receive Counter Register value.
  */
-uint32_t pdc_read_rx_counter(Pdc *p_pdc)
+uint32_t pdc_read_rx_counter(
+		Pdc *p_pdc)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	return p_pdc->PERIPH_RCR;
 }
 
 /**
  * \brief Return Transmit Pointer Register (TPR) value.
  *
- * \param p_pdc Pointer to a PDC instance.
+ * \param[in] p_pdc Device structure pointer
  *
  * \return Transmit Pointer Register value.
  */
-uint32_t pdc_read_tx_ptr(Pdc *p_pdc)
+uint32_t pdc_read_tx_ptr(
+		Pdc *p_pdc)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	return p_pdc->PERIPH_TPR;
 }
 
 /**
  * \brief Return Transmit Counter Register (TCR) value.
  *
- * \param p_pdc Pointer to a PDC instance.
+ * \param[in] p_pdc Device structure pointer
  *
  * \return Transmit Counter Register value.
  */
-uint32_t pdc_read_tx_counter(Pdc *p_pdc)
+uint32_t pdc_read_tx_counter(
+		Pdc *p_pdc)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	return p_pdc->PERIPH_TCR;
 }
 
 /**
  * \brief Return Receive Next Pointer Register (RNPR) value.
  *
- * \param p_pdc Pointer to a PDC instance.
+ * \param[in] p_pdc Device structure pointer
  *
  * \return Receive Next Pointer Register value.
  */
-uint32_t pdc_read_rx_next_ptr(Pdc *p_pdc)
+uint32_t pdc_read_rx_next_ptr(
+		Pdc *p_pdc)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	return p_pdc->PERIPH_RNPR;
 }
 
 /**
  * \brief Return Receive Next Counter Register (RNCR) value.
  *
- * \param p_pdc Pointer to a PDC instance.
+ * \param[in] p_pdc Device structure pointer
  *
  * \return Receive Next Counter Register value.
  */
-uint32_t pdc_read_rx_next_counter(Pdc *p_pdc)
+uint32_t pdc_read_rx_next_counter(
+		Pdc *p_pdc)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	return p_pdc->PERIPH_RNCR;
 }
 
 /**
  * \brief Return Transmit Next Pointer Register (TNPR) value.
  *
- * \param p_pdc Pointer to a PDC instance.
+ * \param[in] p_pdc Device structure pointer
  *
  * \return Transmit Next Pointer Register value.
  */
-uint32_t pdc_read_tx_next_ptr(Pdc *p_pdc)
+uint32_t pdc_read_tx_next_ptr(
+		Pdc *p_pdc)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	return p_pdc->PERIPH_TNPR;
 }
 
 /**
  * \brief Return Transmit Next Counter Register (TNCR) value.
  *
- * \param p_pdc Pointer to a PDC instance.
+ * \param[in] p_pdc Device structure pointer
  *
  * \return Transmit Next Counter Register value.
  */
-uint32_t pdc_read_tx_next_counter(Pdc *p_pdc)
+uint32_t pdc_read_tx_next_counter(
+		Pdc *p_pdc)
 {
+	/* Validate inputs. */
+	Assert(p_pdc);
+	
 	return p_pdc->PERIPH_TNCR;
 }
 
-//@}
-
-/// @cond 0
+/// @cond
 /**INDENT-OFF**/
 #ifdef __cplusplus
 }

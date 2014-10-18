@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 Peripheral Access Controller Driver
+ * \brief SAM Peripheral Access Controller Driver
  *
  * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
@@ -44,16 +44,20 @@
 #define PAC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam0_pac_group  SAM D20/D21/R21 Peripheral Access Controller Driver (PAC)
+ * \defgroup asfdoc_sam0_pac_group  SAM Peripheral Access Controller Driver (PAC)
  *
- * This driver for SAM D20/D21/R21 devices provides an interface for the locking and
+ * This driver for SAM devices provides an interface for the locking and
  * unlocking of peripheral registers within the device. When a peripheral is
  * locked, accidental writes to the peripheral will be blocked and a CPU
  * exception will be raised.
  *
  * The following peripherals are used by this module:
- *
  *  - PAC (Peripheral Access Controller)
+ *
+ * The following devices can use this module:
+ *  - SAM D20/D21
+ *  - SAM R21
+ *  - SAM D10/D11
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_pac_prerequisites
@@ -71,7 +75,7 @@
  *
  * \section asfdoc_sam0_pac_module_overview Module Overview
  *
- * The SAM D20/D21/R21 devices are fitted with a Peripheral Access Controller (PAC)
+ * The SAM devices are fitted with a Peripheral Access Controller (PAC)
  * that can be used to lock and unlock write access to a peripheral's
  * registers (see \ref asfdoc_sam0_pac_non_write_protected). Locking a
  * peripheral minimizes the risk of unintended configuration changes to a
@@ -915,6 +919,11 @@ __no_inline enum status_code system_peripheral_unlock(
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>F</td>
+ *		<td>04/2014</td>
+ *		<td>Added support for SAMD10/D11.</td>
  *	</tr>
  *	<tr>
  *		<td>E</td>

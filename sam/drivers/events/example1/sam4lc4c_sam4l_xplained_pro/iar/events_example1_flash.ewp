@@ -2133,6 +2133,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../ast/ast.c</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../ast/example1/ast_example1.h</name>
+					</file>
+				</group>
+				<group>
+					<name>example2</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../ast/example2/ast_example2.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../ast/ast.h</name>
 				</file>
@@ -2171,6 +2183,9 @@
 							<name>$PROJ_DIR$/../conf_example.h</name>
 						</file>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../events_example1.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../events.c</name>
@@ -2178,6 +2193,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../events.h</name>
 				</file>
+				<group>
+					<name>example2</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example2/events_example2.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>usart</name>
@@ -2356,7 +2377,7 @@
 						<group>
 							<name>component</name>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_crccu.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_chipid.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_dacc.h</name>
@@ -2374,10 +2395,13 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_lcdca.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_chipid.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_crccu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_aesa.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_smap.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_flashcalw.h</name>
@@ -2411,9 +2435,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_gloc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_smap.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/component/component_twis.h</name>

@@ -300,7 +300,7 @@
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/include</state>
 					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam</state>
@@ -319,6 +319,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/components/display/aat31xx</state>
 					<state>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
@@ -329,7 +330,7 @@
 					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../lwip-port-1.4.1/sam/include</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
 					<state>$PROJ_DIR$/../../network</state>
@@ -589,7 +590,7 @@
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/include</state>
 					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam</state>
@@ -608,6 +609,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/components/display/aat31xx</state>
 					<state>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
@@ -618,7 +620,7 @@
 					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../lwip-port-1.4.1/sam/include</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
 					<state>$PROJ_DIR$/../../network</state>
@@ -1271,7 +1273,7 @@
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/include</state>
 					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam</state>
@@ -1290,6 +1292,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/components/display/aat31xx</state>
 					<state>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
@@ -1300,7 +1303,7 @@
 					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../lwip-port-1.4.1/sam/include</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
 					<state>$PROJ_DIR$/../../network</state>
@@ -1560,7 +1563,7 @@
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/include</state>
 					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam</state>
@@ -1579,6 +1582,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/components/display/aat31xx</state>
 					<state>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
@@ -1589,7 +1593,7 @@
 					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
-					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../lwip-port-1.4.1/sam/include</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
 					<state>$PROJ_DIR$/../../network</state>
@@ -2485,6 +2489,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam/drivers/rstc/rstc.h</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../sam/drivers/rstc/example1/rstc_example1.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>pio</name>
@@ -2530,12 +2540,30 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>tc</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam/drivers/tc/tc.c</name>
 				</file>
+				<group>
+					<name>tc_capture_waveform_example</name>
+					<group>
+						<name>sam4e16e_sam4e_ek</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../sam/drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../../sam/drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam/drivers/tc/tc.h</name>
 				</file>
@@ -2639,6 +2667,9 @@
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/include/component/component_ssc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/include/component/component_rtc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/include/component/component_matrix.h</name>
 							</file>
 							<file>
@@ -2649,9 +2680,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/include/component/component_twi.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/include/component/component_rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4s/include/component/component_pmc.h</name>

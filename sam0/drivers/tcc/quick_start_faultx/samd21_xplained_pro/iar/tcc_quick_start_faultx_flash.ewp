@@ -1948,9 +1948,6 @@
 					<group>
 						<name>samd21_xplained_pro</name>
 						<file>
-							<name>$PROJ_DIR$/../conf_extint.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../conf_board.h</name>
 						</file>
 						<group>
@@ -1964,6 +1961,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../conf_clocks.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../conf_extint.h</name>
 						</file>
 					</group>
 					<file>
@@ -2105,18 +2105,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../extint/extint.c</name>
 				</file>
-				<group>
-					<name>quick_start_callback</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../extint/quick_start_callback/qs_extint_callback.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_polled</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../extint/quick_start_polled/qs_extint_basic.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../extint/extint.h</name>
 				</file>
@@ -2247,6 +2235,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/instance/gclk.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/instance/pac0.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/instance/tc4.h</name>
 							</file>
 							<file>
@@ -2331,9 +2322,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/instance/mtb.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/instance/pac0.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/instance/dac.h</name>
 							</file>
 						</group>
@@ -2355,6 +2343,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/component/evsys.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/component/usb.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/component/dmac.h</name>
 							</file>
 							<file>
@@ -2362,9 +2353,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/component/rtc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/component/usb.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/component/tc.h</name>
@@ -2413,6 +2401,9 @@
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/samd21g15a.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/samd21j17a.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/samd21e16a.h</name>
 						</file>
 						<file>
@@ -2438,9 +2429,6 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/samd21j16a.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd21/include/samd21j17a.h</name>
 						</file>
 					</group>
 				</group>

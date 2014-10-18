@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21 OSC8MHz Calibration Application
+ * \brief SAM OSC8MHz Calibration Application
  *
  * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
@@ -42,7 +42,7 @@
 #include "conf_example.h"
 
 /**
- * \mainpage SAM D20/D21 OSC8M Calibration Example
+ * \mainpage SAM OSC8M Calibration Example
  * See \ref appdoc_main "here" for project documentation.
  * \copydetails appdoc_preface
  *
@@ -53,7 +53,7 @@
  */
 
 /**
- * \page appdoc_main SAM D20/D21 OSC8M Calibration Example
+ * \page appdoc_main SAM OSC8M Calibration Example
  *
  * Overview:
  * - \ref appdoc_sam0_osc8m_cal_intro
@@ -72,6 +72,9 @@
  * This application uses a known external reference frequency to calibrate the
  * internal 8MHz (nominal) RC Oscillator, OSC8M, so that it is as close as
  * possible to the desired 8MHz frequency.
+ *
+ * This application has been tested on following boards:
+ * - SAM D20/D21 Xplained Pro
  *
  * \section appdoc_sam0_osc8m_cal_usage Usage Instructions
  * On startup, the application will immediately begin calibration of the OSC8M

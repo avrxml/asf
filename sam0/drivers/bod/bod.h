@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 Brown Out Detector Driver
+ * \brief SAM Brown Out Detector Driver
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -50,15 +50,19 @@ extern "C" {
 #endif
 
 /**
- * \defgroup asfdoc_sam0_bod_group SAM D20/D21/R21 Brown Out Detector Driver (BOD)
+ * \defgroup asfdoc_sam0_bod_group SAM Brown Out Detector Driver (BOD)
  *
- * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
+ * This driver for SAM devices provides an interface for the configuration
  * and management of the device's Brown Out Detector (BOD) modules, to detect
  * and respond to under-voltage events and take an appropriate action.
  *
  * The following peripherals are used by this module:
- *
  * - SYSCTRL (System Control)
+ *
+ * The following devices can use this module:
+ *  - SAM D20/D21
+ *  - SAM R21
+ *  - SAM D10/D11
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_bod_prerequisites
@@ -76,7 +80,7 @@ extern "C" {
  *
  * \section asfdoc_sam0_bod_module_overview Module Overview
  *
- * The SAM D20/D21/R21 devices contain a number of Brown Out Detector (BOD) modules.
+ * The SAM devices contain a number of Brown Out Detector (BOD) modules.
  * Each BOD monitors the supply voltage for any dips that go below the set
  * threshold for the module. In case of a BOD detection the BOD will either reset
  * the system or raise a hardware interrupt so that a safe power-down sequence can
@@ -424,6 +428,11 @@ static inline void bod_clear_detected(
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>E</td>
+ *		<td>04/2014</td>
+ *		<td>Added support for SAMD10/D11.</td>
  *	</tr>
  *	<tr>
  *		<td>D</td>

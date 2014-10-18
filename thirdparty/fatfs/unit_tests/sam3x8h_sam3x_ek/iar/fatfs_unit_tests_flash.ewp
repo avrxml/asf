@@ -2170,10 +2170,10 @@
 					<name>$PROJ_DIR$/../../../../../sam/drivers/pmc/sleep.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../sam/drivers/pmc/sleep.h</name>
+					<name>$PROJ_DIR$/../../../../../sam/drivers/pmc/pmc.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../sam/drivers/pmc/pmc.h</name>
+					<name>$PROJ_DIR$/../../../../../sam/drivers/pmc/sleep.h</name>
 				</file>
 			</group>
 			<group>
@@ -2190,6 +2190,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam/drivers/dmac/dmac.c</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../sam/drivers/dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../sam/drivers/dmac/dmac.h</name>
 				</file>
@@ -2473,10 +2479,10 @@
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam3x/include/pio/pio_sam3x8h.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam3x/include/pio/pio_sam3x4c.h</name>
+								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam3x/include/pio/pio_sam3x8e.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam3x/include/pio/pio_sam3x8e.h</name>
+								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam3x/include/pio/pio_sam3x4c.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam3x/include/pio/pio_sam3x8c.h</name>
@@ -2591,15 +2597,15 @@
 					<file>
 						<name>$PROJ_DIR$/../conf_board.h</name>
 					</file>
-					<file>
-						<name>$PROJ_DIR$/../conf_test.h</name>
-					</file>
 					<group>
 						<name>iar</name>
 						<file>
 							<name>$PROJ_DIR$/asf.h</name>
 						</file>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../conf_test.h</name>
+					</file>
 					<file>
 						<name>$PROJ_DIR$/../conf_access.h</name>
 					</file>

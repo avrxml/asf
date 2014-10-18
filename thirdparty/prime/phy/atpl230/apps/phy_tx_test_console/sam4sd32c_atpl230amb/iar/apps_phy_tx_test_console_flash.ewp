@@ -318,9 +318,11 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
@@ -600,9 +602,11 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
@@ -1273,9 +1277,11 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
@@ -1555,9 +1561,11 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
@@ -1967,6 +1975,9 @@
 									<name>$PROJ_DIR$/../conf_board.h</name>
 								</file>
 								<file>
+									<name>$PROJ_DIR$/../conf_pplc_if.h</name>
+								</file>
+								<file>
 									<name>$PROJ_DIR$/../conf_example.h</name>
 								</file>
 								<file>
@@ -2147,12 +2158,24 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>rstc</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/rstc/rstc.c</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/rstc/example1/rstc_example1.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/rstc/rstc.h</name>
 				</file>
@@ -2170,6 +2193,27 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pmc/pmc.h</name>
+				</file>
+			</group>
+			<group>
+				<name>tc</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc.c</name>
+				</file>
+				<group>
+					<name>tc_capture_waveform_example</name>
+					<group>
+						<name>sam4e16e_sam4e_ek</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc.h</name>
 				</file>
 			</group>
 			<group>
@@ -2262,10 +2306,10 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_rtt.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_rstc.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_uart.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_uart.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_rstc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_chipid.h</name>

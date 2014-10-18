@@ -1913,6 +1913,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../drivers/acc/acc.c</name>
 				</file>
+				<group>
+					<name>acc_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../drivers/acc/acc_example/acc_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../drivers/acc/acc.h</name>
 				</file>
@@ -2278,9 +2284,6 @@
 							</file>
 						</group>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/sam4s4a.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/sam4s16b.h</name>
 						</file>
 						<file>
@@ -2312,6 +2315,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/sam4sd32b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/sam4s4a.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/sam4sa16c.h</name>

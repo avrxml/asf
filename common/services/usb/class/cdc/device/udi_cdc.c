@@ -3,7 +3,7 @@
  *
  * \brief USB Device Communication Device Class (CDC) interface.
  *
- * Copyright (c) 2009 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -214,7 +214,8 @@ static void udi_cdc_tx_send(uint8_t port);
  * \name Information about configuration of communication line
  */
 //@{
-static usb_cdc_line_coding_t udi_cdc_line_coding[UDI_CDC_PORT_NB];
+COMPILER_WORD_ALIGNED
+		static usb_cdc_line_coding_t udi_cdc_line_coding[UDI_CDC_PORT_NB];
 static bool udi_cdc_serial_state_msg_ongoing[UDI_CDC_PORT_NB];
 static volatile le16_t udi_cdc_state[UDI_CDC_PORT_NB];
 COMPILER_WORD_ALIGNED static usb_cdc_notify_serial_state_t uid_cdc_state_msg[UDI_CDC_PORT_NB];
@@ -959,7 +960,7 @@ iram_size_t udi_cdc_read_buf(void* buf, iram_size_t size)
 iram_size_t udi_cdc_multi_get_free_tx_buffer(uint8_t port)
 {
 	irqflags_t flags;
-	iram_size_t buf_sel_nb, buf_nosel_nb;
+	iram_size_t buf_sel_nb, buf_nosel_nb, retval;
 	uint8_t buf_sel;
 
 #if UDI_CDC_PORT_NB == 1 // To optimize code
@@ -982,9 +983,9 @@ iram_size_t udi_cdc_multi_get_free_tx_buffer(uint8_t port)
 			buf_nosel_nb = UDI_CDC_TX_BUFFERS;
 		}
 	}
+	retval = UDI_CDC_TX_BUFFERS - buf_sel_nb;  
 	cpu_irq_restore(flags);
-
-	return (UDI_CDC_TX_BUFFERS - buf_sel_nb) + (UDI_CDC_TX_BUFFERS - buf_nosel_nb);
+	return retval;
 }
 
 iram_size_t udi_cdc_get_free_tx_buffer(void)

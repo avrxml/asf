@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Peripheral DMA Controller Example for SAM.
+ * \brief SAM Peripheral DMA Controller Example.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,55 +41,17 @@
  *
  */
 
-/**
- * \mainpage Peripheral DMA Controller Example
- *
- * \section Purpose
- *
- * The pdc_uart example demonstrates how to use PDC driver to receive/send 
- * data from/to the UART.
- *
- * \section Requirements
- *
- * This example can be used on any SAM3/4 boards.
- *
- * \section Description
- *
- * The SAM controller waits for BUFFER_SIZE data to receive from the UART.
- * As soon as the expected amount of data is received, the whole buffer is 
- * sent back to the terminal.
- *
- * \section Usage
- *
- * -# Build the program and download it into the evaluation board.
- * -# On the computer, open and configure a terminal application
- *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
- *   - 115200 bauds
- *   - 8 bits of data
- *   - No parity
- *   - 1 stop bit
- *   - No flow control
- * -# In the terminal window, the following text should appear (values depend
- *    on the board and chip used):
- *    \code
-	-- PDC Uart Example xxx --
-	-- xxxxxx-xx
-	-- Compiled: xxx xx xxxx xx:xx:xx --
-\endcode
- * -# the sent text should appear.
- */
-
-#include "asf.h"
-#include "stdio_serial.h"
-#include "conf_board.h"
-#include "conf_pdc_uart_example.h"
+#include <asf.h>
+#include <stdio_serial.h>
+#include <conf_board.h>
+#include <conf_pdc_uart_example.h>
 
 #define BUFFER_SIZE  5
 
 #define STRING_EOL    "\r"
 #define STRING_HEADER "-- PDC_UART Example --\r\n" \
-		"-- "BOARD_NAME" --\r\n" \
-		"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
+"-- "BOARD_NAME" --\r\n" \
+"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
 
 /* Pdc transfer buffer */
 uint8_t g_uc_pdc_buffer[BUFFER_SIZE];
@@ -101,6 +63,8 @@ Pdc *g_p_uart_pdc;
 /**
  * \brief Interrupt handler for UART interrupt.
  */
+
+//! [int_handler]
 void console_uart_irq_handler(void)
 {
 	/* Get UART status and check if PDC receive buffer is full */
@@ -110,6 +74,7 @@ void console_uart_irq_handler(void)
 		pdc_tx_init(g_p_uart_pdc, &g_pdc_uart_packet, NULL);
 	}
 }
+//! [int_handler]
 
 /**
  * \brief Configure UART console.
@@ -134,8 +99,11 @@ static void configure_console(void)
 int main(void)
 {
 	/* Initialize the SAM system */
+
+	//! [board_setup]
 	sysclk_init();
-	board_init();    
+	board_init();
+	//! [board_setup]
 
 	/* Initialize the UART console */
 	configure_console();
@@ -143,6 +111,7 @@ int main(void)
 	/* Output example information */
 	puts(STRING_HEADER);
 
+	//! [pdc_config]
 	/* Get pointer to UART PDC register base */
 	g_p_uart_pdc = uart_get_pdc_base(CONSOLE_UART);
 
@@ -155,13 +124,20 @@ int main(void)
 
 	/* Enable PDC transfers */
 	pdc_enable_transfer(g_p_uart_pdc, PERIPH_PTCR_RXTEN | PERIPH_PTCR_TXTEN);
+	//! [pdc_config]
 
 	/* Enable UART IRQ */
+	//! [uart_irq]
 	uart_enable_interrupt(CONSOLE_UART, UART_IER_RXBUFF);
+	//! [uart_irq]
 
 	/* Enable UART interrupt */
+	//! [uart_nvic_irq]
 	NVIC_EnableIRQ(CONSOLE_UART_IRQn);
+	//! [uart_nvic_irq]
 
+	//! [busy_waiting]
 	while (1) {
 	}
+	//! [busy_waiting]
 }

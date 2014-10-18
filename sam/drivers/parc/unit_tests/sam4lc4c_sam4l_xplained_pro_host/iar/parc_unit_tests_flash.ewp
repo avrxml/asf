@@ -2415,6 +2415,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../parc.h</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example/parc_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../parc_callback.h</name>
 				</file>

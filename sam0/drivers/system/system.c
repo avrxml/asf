@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 System related functionality
+ * \brief SAM System related functionality
  *
  * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
@@ -71,19 +71,6 @@ void _system_extint_init(void);
 #    pragma weak _system_extint_init=_system_dummy_init
 #  endif
 #endif
-
-
-/**
- * Handler for the CPU Hard Fault interrupt, fired if an illegal access was
- * attempted to a memory address.
- */
-void HardFault_Handler(void)
-{
-	while (1) {
-		/* Infinite loop if CPU exception is detected */
-		Assert(false);
-	}
-}
 
 /**
  * \brief Initialize system

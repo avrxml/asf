@@ -3,7 +3,7 @@
  *
  * \brief SAM4L-EK Board Monitor Control.
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,6 +54,7 @@ typedef enum {
 	POWER_SCALING_NA                = 0, //!< Default Power Scaling Configuration
 	POWER_SCALING_PS0               = 1, //!< PS0 Power Scaling Configuration
 	POWER_SCALING_PS1               = 2, //!< PS1 Power Scaling Configuration
+	POWER_SCALING_PS2               = 3, //!< PS2 Power Scaling Configuration
 } power_scaling_t;
 
 //! Sleep Mode definitions

@@ -2378,6 +2378,9 @@
 							<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
 						</file>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../ast_example2.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../ast.c</name>
@@ -2385,6 +2388,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../ast.h</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../example1/ast_example1.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>usart</name>

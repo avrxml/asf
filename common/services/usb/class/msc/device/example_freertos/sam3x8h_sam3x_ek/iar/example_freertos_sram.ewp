@@ -1947,10 +1947,10 @@
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.h</name>
 				</file>
 			</group>
 			<group>
@@ -1970,6 +1970,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/dmac/dmac.h</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>uotghs</name>
@@ -2305,15 +2311,6 @@
 				<name>$PROJ_DIR$/../../../../../../../../../sam/utils/compiler.h</name>
 			</file>
 			<group>
-				<name>header_files</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/utils/header_files/io.h</name>
-				</file>
-			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../../../../sam/utils/status_codes.h</name>
-			</file>
-			<group>
 				<name>preprocessor</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam/utils/preprocessor/mrepeat.h</name>
@@ -2328,6 +2325,15 @@
 					<name>$PROJ_DIR$/../../../../../../../../../sam/utils/preprocessor/tpaste.h</name>
 				</file>
 			</group>
+			<group>
+				<name>header_files</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/utils/header_files/io.h</name>
+				</file>
+			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../../../../sam/utils/status_codes.h</name>
+			</file>
 		</group>
 	</group>
 	<group>

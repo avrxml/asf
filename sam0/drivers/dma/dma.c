@@ -1,7 +1,7 @@
 /*
  * \file
  *
- * \brief SAM D21/R21 Direct Memory Access Controller Driver
+ * \brief SAM Direct Memory Access Controller Driver
  *
  * Copyright (C) 2014 Atmel Corporation. All rights reserved.
  *

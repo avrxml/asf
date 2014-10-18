@@ -135,6 +135,7 @@ INC_PATH = \
        sam/boards/sam4s_ek                                \
        sam/components/ethernet_phy/ksz8851snl             \
        sam/drivers/pdc                                    \
+       sam/drivers/pdc/pdc_uart_example                   \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
        sam/drivers/spi                                    \

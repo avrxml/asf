@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 External Interrupt Unit test
+ * \brief SAM External Interrupt Unit test
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \mainpage SAM D20/D21/R21 EXTINT Unit Test
+ * \mainpage SAM EXTINT Unit Test
  * See \ref appdoc_main "here" for project documentation.
  * \copydetails appdoc_preface
  *
@@ -55,7 +55,7 @@
  */
 
 /**
- * \page appdoc_main SAM D20/D21/R21 EXTINT Unit Test
+ * \page appdoc_main SAM EXTINT Unit Test
  *
  * Overview:
  * - \ref appdoc_sam0_extint_unit_test_intro
@@ -70,7 +70,7 @@
  * Tests will be performed for rising and falling edges of the external signal.
  *
  * The following kit is required for carrying out the test:
- *      - SAM D20/D21/R21 Xplained Pro board
+ *  - SAM D20/D21/R21 Xplained Pro board
  *
  * \section appdoc_sam0_extint_unit_test_setup Setup
  * The following connections has to be made using wires:
@@ -80,7 +80,7 @@
  *  - EXT1 \b Pin 9 (PA22) <-----> Pin 10 (PA23)
  *
  * To run the test:
- *  - Connect the SAM D20/D21/R21 Xplained Pro board to the computer using a
+ *  - Connect the SAM Xplained Pro board to the computer using a
  *    micro USB cable.
  *  - Open the virtual COM port in a terminal application.
  *    \note The USB composite firmware running on the Embedded Debugger (EDBG)
@@ -375,7 +375,7 @@ int main(void)
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(extint_test_suite, extint_tests,
-			"SAM D20/D21/R21 External Interrupt driver test suite");
+			"SAM External Interrupt driver test suite");
 
 	/* Run all tests in the suite*/
 	test_suite_run(&extint_test_suite);

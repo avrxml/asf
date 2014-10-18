@@ -52,7 +52,7 @@
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
-// From module: Common SAM D20 compiler driver
+// From module: Common SAM0 compiler driver
 #include <compiler.h>
 #include <status_codes.h>
 
@@ -71,6 +71,10 @@
 // From module: SERCOM
 #include <sercom.h>
 #include <sercom_interrupt.h>
+
+// From module: SERCOM I2C - Master Mode I2C (Polled APIs)
+#include <i2c_common.h>
+#include <i2c_master.h>
 
 // From module: SERCOM USART - Serial Communications (Callback APIs)
 #include <usart.h>
@@ -94,9 +98,5 @@
 
 // From module: USART - Serial interface- SAM implementation for devices with only USART
 #include <serial.h>
-
-// From module: meta
-#include <i2c_common.h>
-#include <i2c_master.h>
 
 #endif // ASF_H

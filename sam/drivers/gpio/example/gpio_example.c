@@ -3,7 +3,7 @@
  *
  * \brief GPIO interrupt example.
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -55,28 +55,28 @@
  * the PDCA to send a character to the USART without CPU usage.
  *
  * \section files Main Files
- * - gpio.c: GPIO driver implementation;
- * - gpio.h: GPIO driver header file;
- * - gpio_example.c: GPIO example application.
+ * - gpio.c: GPIO driver implementation
+ * - gpio.h: GPIO driver header file
+ * - gpio_example.c: GPIO example application
  *
  * \section compilinfo Compilation Information
- * This software is written for GNU GCC and IAR Embedded Workbench
- * for Atmel. Other compilers may or may not work.
+ * This software is written for GNU GCC and IAR Embedded Workbench&reg;
+ * for Atmel&reg;. Other compilers may or may not work.
  *
  * \section deviceinfo Device Information
  * SAM4L device can be used.
  *
  * \section configinfo Configuration Information
  * This example has been tested with the following configuration:
- * - SAM4L evaluation kit;
- * - SAM4L Xplained Pro;
- * - SAM4L8 Xplained Pro;
+ * - SAM4L evaluation kit
+ * - SAM4L Xplained Pro
+ * - SAM4L8 Xplained Pro
  * - PC terminal settings:
- *   - 115200 bps,
- *   - 8 data bits,
- *   - no parity bit,
- *   - 1 stop bit,
- *   - no flow control.
+ *   - 115200 bps
+ *   - 8 data bits
+ *   - no parity bit
+ *   - 1 stop bit
+ *   - no flow control
  *
  * \section contactinfo Contact Information
  * For further information, visit
@@ -182,11 +182,13 @@ static void init_pdca(void)
 /**
  * Push button 0 interrupt callback.
  */
+//!	[example_pb0_callback]
 static void pb0_callback(void)
 {
-	/* Toggle LED when an interrupt happen on push button */
+	/* Handle pin interrupt here e.g. toggle an LED */
 	LED_Toggle(LED0);
 }
+//!	[example_pb0_callback]
 
 /**
  * \brief Main entry point for GPIO example.
@@ -205,20 +207,28 @@ int main(void)
 	printf("-- %s\r\n", BOARD_NAME);
 	printf("-- Compiled: %s %s --\r\n", __DATE__, __TIME__);
 
+//!	[config_button_0_trig_fall]
 	/* Configure push button 0 to trigger an interrupt on falling edge */
+//!	[config_button_0_trig_fall_1]
 	ioport_set_pin_dir(EXAMPLE_BUTTON_INT, IOPORT_DIR_INPUT);
 	ioport_set_pin_mode(EXAMPLE_BUTTON_INT, IOPORT_MODE_PULLUP |
 			IOPORT_MODE_GLITCH_FILTER);
 	ioport_set_pin_sense_mode(EXAMPLE_BUTTON_INT, IOPORT_SENSE_FALLING);
+//!	[config_button_0_trig_fall_1]
+//!	[config_button_0_trig_fall_2]
 	if (!gpio_set_pin_callback(EXAMPLE_BUTTON_INT, pb0_callback, 1)) {
 		printf("Set pin callback failure!\r\n");
 		while (1) {
 		}
 	}
+//!	[config_button_0_trig_fall_2]
+//!	[enable_pin_interrupt]
 	gpio_enable_pin_interrupt(EXAMPLE_BUTTON_INT);
+//!	[enable_pin_interrupt]
+//! [config_button_0_trig_fall]
 	printf("Press %s to trigger LED.\r\n", BUTTON_0_NAME);
 
-	/* Configure pin to trigger an enent on falling edge */
+	/* Configure pin to trigger an event on falling edge */
 	ioport_set_pin_mode(EXAMPLE_PIN_EVENT, IOPORT_MODE_PULLUP |
 			IOPORT_MODE_MUX_C);
 	ioport_disable_pin(EXAMPLE_PIN_EVENT);

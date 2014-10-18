@@ -126,6 +126,9 @@
 // From module: System Clock Control - SAM4CP implementation
 #include <sysclk.h>
 
+// From module: TC - Timer Counter
+#include <tc.h>
+
 // From module: TRNG - True Random Number Generator Register
 #include <trng.h>
 

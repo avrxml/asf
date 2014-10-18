@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 SPI Unit test
+ * \brief SAM SPI Unit test
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \mainpage SAM D20/D21/R21 SPI Unit Test
+ * \mainpage SAM SPI Unit Test
  * See \ref appdoc_main "here" for project documentation.
  * \copydetails appdoc_preface
  *
@@ -50,16 +50,16 @@
  * \page appdoc_preface Overview
  * This unit test carries out tests for SERCOM SPI driver.
  * It consists of test cases for the following functionalities:
- *      - Test for driver initialization.
- *      - Test for single byte write and read by polling.
- *      - Test for buffer write by polling and read with interrupt.
- *      - Test for buffer read & write using transceive function.
- *      - Test for 9-bit data transfer.
- *      - Test for baudrate.
+ *  - Test for driver initialization.
+ *  - Test for single byte write and read by polling.
+ *  - Test for buffer write by polling and read with interrupt.
+ *  - Test for buffer read & write using transceive function.
+ *  - Test for 9-bit data transfer.
+ *  - Test for baudrate.
  */
 
 /**
- * \page appdoc_main SAM D20/D21/R21 SPI Unit Test
+ * \page appdoc_main SAM SPI Unit Test
  *
  * Overview:
  * - \ref appdoc_sam0_spi_unit_test_intro
@@ -72,9 +72,9 @@
  * \copydetails appdoc_preface
  *
  * The following kit is required for carrying out the test:
- *      - SAM D20 Xplained Pro board
- *      - SAM D21 Xplained Pro board
- *      - SAM R21 Xplained Pro board
+ *  - SAM D20 Xplained Pro board
+ *  - SAM D21 Xplained Pro board
+ *  - SAM R21 Xplained Pro board
  *
  * \section appdoc_sam0_spi_unit_test_setup Setup
  * The following connections has to be made using wires:
@@ -90,7 +90,7 @@
  *  - \b SCK:   EXT1 PIN18 (PB23) <--> EXT1 PIN8  (PA19)
  *
  * To run the test:
- *  - Connect the SAM D20/D21/R21 Xplained Pro board to the computer using a
+ *  - Connect the SAM Xplained Pro board to the computer using a
  *    micro USB cable.
  *  - Open the virtual COM port in a terminal application.
  *    \note The USB composite firmware running on the Embedded Debugger (EDBG)
@@ -633,7 +633,7 @@ int main(void)
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(spi_test_suite, spi_tests,
-			"SAM D20/D21/R21 SPI driver test suite");
+			"SAM SPI driver test suite");
 
 	/* Run all tests in the suite*/
 	test_suite_run(&spi_test_suite);

@@ -3,7 +3,7 @@
  *
  * \brief PARC example.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,84 +41,12 @@
  *
  */
 
-/**
- * \mainpage PARC Example
- *
- * \par Purpose
- * This example demonstrates the data capture function provided by the PARC
- * peripherals.
- *
- * \par Requirements
- *  This package can be used with the following boards with PARC and PDCA.
- *  - SAM4L Xplained Pro
- *  - SAM4L8 Xplained Pro
- *
- * \par Description
- *
- * In this example, GPIO pins on the same evaluation board act as signal
- * source of parallel port which provides PARC data, clock and EN signals.
- * The GPIO pins should be connected to PARC pins through on-board connectors.
- * These pins can be connected easily by plugging wires except PCDATA5 pin
- * of PARC on SAM4L Xplained Pro and SAM4L8 Xplained Pro.
- *
- * The connection list on SAM4L Xplained Pro or SAM4L8 Xplained Pro should be:
- *  EXT3-P9 (PIN_PA06) -- EXT3-P15(PCCK)
- *  EXT1-P7 (PIN_PC00) -- EXT3-P8 (PCDATA0)
- *  EXT1-P8 (PIN_PC01) -- EXT3-P10(PCDATA1)
- *  EXT1-P6 (PIN_PC02) -- EXT4-P15(PCDATA2)
- *  EXT1-P15(PIN_PC03) -- EXT4-P7 (PCDATA3)
- *  EXT2-P7 (PIN_PC04) -- EXT4-P8 (PCDATA4)
- *  EXT2-P8 (PIN_PC05) -- EXT4-P10(PCDATA6)
- *  EXT2-P9 (PIN_PC06) -- EXT4-P9 (PCDATA7)
- *  EXT4-P5 (PIN_PC17) -- EXT4-P18(PCEN1)
- *  EXT4-P6 (PIN_PC18) -- EXT4-P17(PCEN2)
- * Please note the PCDATA5 is only connected to LCD connector (EXT5) which
- * can not be connected easily by plugging wires. So in this example PCDATA5
- * is nor required to be connected.
- *
- * On startup of the example, the debug information is dumped to on-board
- * serial port via DEBUG USB port. A terminal application, such as
- * HyperTerminal, is used to monitor these debug information. Then user
- * can select PARC configuration by input 'y' or 'n' through terminal.
- * After that,PARC captures data. At last the captured data will
- * be sent to the terminal.
- *
- * \par Usage
- *
- * -# Connect GPIO pins and PARC port by plugging wires according to the
- *    above connection list.
- * -# Build the program and download it into the evaluation boards.
- * -# Connect USB cable to the DEBUG USB port on the evaluation kit.
- * -# On the computer, open and configure a terminal application
- *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
- *   - 115200 bauds
- *   - 8 bits of data
- *   - No parity
- *   - 1 stop bit
- *   - No flow control
- * -# In the terminal window, the following text should appear:
- *     -- SAM PARC Example --
- *     -- xxxxxx-xx
- *     -- Compiled: xxx xx xxxx xx:xx:xx --
- * -# Select PARC configuration by inputing 'y' or 'n' when
- *    the following information is displayed on terminal:
- *
- *    Press y to sample the data when both data enable pins are enabled.
- *    Press n to sample the data, don't care the status of the data
- *    enable pins.
- *
- *    Press y to sample all the data
- *    Press n to sample the data only one out of two.
- *
- * -# PARC captures data and sends the captured data on terminal
- */
-
 #include <string.h>
 #include <asf.h>
-#include "conf_board.h"
-#include "conf_clock.h"
-#include "conf_example.h"
-#include "ioport.h"
+#include <conf_board.h>
+#include <conf_clock.h>
+#include <conf_example.h>
+#include <ioport.h>
 #include <sysclk.h>
 
 /** Size of the receive buffer used by the PDCA, in bytes. */
@@ -166,7 +94,7 @@ void TC00_Handler(void)
 	/* Read TC0 Status. */
 	tc_get_status(TC0, 0);
 
-	/* Toggel IO pin to simulate the PCCK */
+	/* Toggel I/O pin to simulate the PCCK */
 	ioport_toggle_pin_level(PIN_PCCK_INPUT);
 
 	/* PCDATA changes every two PCCK level change*/
@@ -262,8 +190,10 @@ int main(void)
 	configure_console();
 	parc_port_source_simulation_config();
 
+	//! [parc_variables]	
 	struct parc_module module_inst;
 	struct parc_config config;
+	//! [parc_variables]	
 
 	/* Output example information. */
 	puts(STRING_HEADER);
@@ -273,7 +203,10 @@ int main(void)
 	/* Start timer. */
 	tc_start(TC0, 0);
 
+	//! [parc_get_defaults]	
+	// Get default configuration
 	parc_get_config_defaults(&config);
+	//! [parc_get_defaults]	
 	printf("Press y to sample the data when both data enable pins are enabled.\r\n");
 	printf("Press n to sample the data, don't care the status of the data enable pins.\r\n");
 	uc_key = 0;
@@ -292,7 +225,7 @@ int main(void)
 		printf("Receive data, don't care the status of the data enable pins.\r\n");
 	}
 
-	printf("Press y to sample all the data\r\n");
+	printf("Press y to sample all the data.\r\n");
 	printf("Press n to sample the data only one out of two.\r\n");
 	uc_key = 0;
 	while ((uc_key != 'y') && (uc_key != 'n')) {
@@ -308,9 +241,20 @@ int main(void)
 		printf("Only one out of two data is sampled, with an even index.\r\n");
 	}
 
+	//! [parc_init_enable_and_start]
+	//! [parc_init_enable_and_start_1]
+	// Initialize PARC.
 	parc_init(&module_inst, PARC, &config);
+	//! [parc_init_enable_and_start_1]
+	
+	//! [parc_init_enable_and_start_2]
+	// Enable the PARC
 	parc_enable(&module_inst);
+	
+	// Start capture.
 	parc_start_capture(&module_inst);
+	//! [parc_init_enable_and_start_2]
+	//! [parc_init_enable_and_start]
 
 	/* Enable PDCA module clock */
 	pdca_enable(PDCA);

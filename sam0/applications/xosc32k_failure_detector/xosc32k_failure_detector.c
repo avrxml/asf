@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 XOSC32K Runtime Failure Detector Application
+ * \brief SAM XOSC32K Runtime Failure Detector Application
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -41,7 +41,7 @@
  */
 
 /**
- * \mainpage SAM D20/D21/R21 XOSC32K Runtime Failure Detector Application
+ * \mainpage SAM XOSC32K Runtime Failure Detector Application
  * See \ref appdoc_main "here" for project documentation.
  * \copydetails appdoc_preface
  *
@@ -53,7 +53,7 @@
  */
 
 /**
- * \page appdoc_main SAM D20/D21/R21 XOSC32K Runtime Failure Detector
+ * \page appdoc_main SAM XOSC32K Runtime Failure Detector
  *
  * Overview:
  * - \ref appdoc_sam0_xosc32k_fail_detect_intro
@@ -64,7 +64,7 @@
  * \section appdoc_sam0_xosc32k_fail_detect_intro Introduction
  * This application demonstrates a runtime XOSC32K (external 32KHz crystal
  * oscillator) failure detector, using hardware timer peripherals and the
- * SAM D20/D21/R21 event system.
+ * SAM event system.
  *
  * A pair of timers are linked together; one with a clock source from the
  * XOSC32K 32.768KHz external clock, and another from the OSC32K 32.768KHz
@@ -82,12 +82,15 @@
  * switched between the internal and external 32KHz clock sources depending on
  * the external reference availability.
  *
+ * This application has been tested on following boards:
+ * - SAM D20/D21/R21/D11 Xplained Pro
+ *
  * \section appdoc_sam0_xosc32k_fail_detect_usageinfo Usage
- * Connect an oscilloscope to PA28 of the SAM D20/D21/R21 Xplained Pro. Run the
- * example application, and press and hold the board button to turn off the
- * external XOSC32K crystal clock source to observe the fail-over to the
- * internal clock source. Releasing the button will re-enable the external
- * crystal.
+ * Connect an oscilloscope to PA28 of the SAM D20/D21 or PB22 of SAMR21 or PA08
+ * of SAM D10/D11 Xplained Pro. Run the example application, and press and hold
+ * the board button to turn off the external XOSC32K crystal clock source to observe
+ * the fail-over to the internal clock source. Releasing the button will re-enable
+ * the external crystal.
  *
  * The board LED will be turned on when the external crystal is used, and
  *  will be turned off when the internal RC is used due to a crystal failure

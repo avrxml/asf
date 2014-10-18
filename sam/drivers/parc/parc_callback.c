@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief PARC driver(callback) for SAM.
+ * \brief SAM4L PARC driver (callback).
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,15 +41,15 @@
  *
  */
 
-#include "parc.h"
-#include "parc_callback.h"
-#include "sysclk.h"
+#include <parc.h>
+#include <parc_callback.h>
+#include <sysclk.h>
 
 struct parc_module *parc_module_instance;
 void _parc_interrupt_handler(void);
 
 /**
- * \brief PARC interrupt entry handler
+ * \internal PARC interrupt entry handler.
  */
 void PARC_Handler(void)
 {
@@ -57,9 +57,9 @@ void PARC_Handler(void)
 }
 
 /**
- * \brief PARC interrupt handler
+ * \internal PARC interrupt handler.
  */
-void _parc_interrupt_handler()
+void _parc_interrupt_handler(void)
 {
 	struct parc_module *module = parc_module_instance;
 
@@ -82,17 +82,16 @@ void _parc_interrupt_handler()
 }
 
 /**
- * \brief Registers a callback
+ * \brief Register a PARC interrupt callback function.
  *
- * Registers a callback function which is implemented by the user.
+ * \note The callback must be enabled by using \ref parc_enable_callback.
  *
- * \note The callback must be enabled by for the interrupt handler to call it
- * when the conditions for the callback is met.
+ * \param[in,out] module    Driver structure pointer
+ * \param[in] callback_func Pointer to a callback function
+ * \param[in] callback_type \ref parc_callback_type "Interrupt callback" type
  *
- * \param[in]     module      Pointer to PARC software instance struct
- * \param[in]     callback_func Pointer to callback function
- * \param[in]     callback_type Callback type given by an enum
- *
+ * \return The status of the interrupt callback register operation.
+ * \retval STATUS_OK PARC interrupt callback was registered successfully
  */
 enum status_code parc_register_callback(
 		struct parc_module *const module,
@@ -113,14 +112,13 @@ enum status_code parc_register_callback(
 }
 
 /**
- * \brief Unregisters a callback
+ * \brief Unregister a PARC interrupt callback.
  *
- * Unregisters a callback function which is implemented by the user.
+ * \param[in,out] module    Driver structure pointer
+ * \param[in] callback_type \ref parc_callback_type "Interrupt callback" type
  *
- * \param[in]     module Pointer to PARC software instance struct
- * \param[in]     callback_func Pointer to callback function
- * \param[in]     callback_type Callback type given by an enum
- *
+ * \return The status of the interrupt callback unregister operation.
+ * \retval STATUS_OK PARC interrupt callback was unregistered successfully
  */
 enum status_code  parc_unregister_callback(
 		struct parc_module *const module,
@@ -137,6 +135,3 @@ enum status_code  parc_unregister_callback(
 
 	return STATUS_OK;
 }
-
-
-

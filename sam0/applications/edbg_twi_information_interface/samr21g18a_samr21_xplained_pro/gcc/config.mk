@@ -56,7 +56,7 @@ CSRCS = \
        sam0/applications/edbg_twi_information_interface/main.c \
        sam0/boards/samr21_xplained_pro/board_init.c       \
        sam0/drivers/port/port.c                           \
-       sam0/drivers/sercom/i2c/i2c_samd21_r21/i2c_master.c \
+       sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11/i2c_master.c \
        sam0/drivers/sercom/sercom.c                       \
        sam0/drivers/sercom/sercom_interrupt.c             \
        sam0/drivers/sercom/usart/usart.c                  \
@@ -87,7 +87,7 @@ INC_PATH = \
        sam0/drivers/port                                  \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/i2c                            \
-       sam0/drivers/sercom/i2c/i2c_samd21_r21             \
+       sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11     \
        sam0/drivers/sercom/usart                          \
        sam0/drivers/system                                \
        sam0/drivers/system/clock                          \

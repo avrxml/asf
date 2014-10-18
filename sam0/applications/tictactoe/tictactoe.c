@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief Tic Tac Toe application for SAM D20/D21/R21 Xplained Pro with OLED1 Xplained Pro
+ * \brief Tic Tac Toe application for SAM Xplained Pro with OLED1 Xplained Pro
  *
  * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -45,17 +45,17 @@
 #include <stdio.h>
 
 /**
- * \mainpage SAM D20/D21/R21 Tic-Tac-Toe Example
+ * \mainpage SAM Tic-Tac-Toe Example
  * See \ref appdoc_sam0_tictactoe_main "here" for project documentation.
  * \copydetails appdoc_preface
  *
  * \page appdoc_preface Overview
  * This application demonstrates the use of the OLED1 Xplained Pro extension
- * board for the SAM D20/D21/R21 Xplained Pro with a Tic-tac-toe game.
+ * board for the SAM Xplained Pro with a Tic-tac-toe game.
  */
 
  /**
- * \page appdoc_sam0_tictactoe_main SAM D20/D21/R21 Tic-Tac-Toe Example
+ * \page appdoc_sam0_tictactoe_main SAM Tic-Tac-Toe Example
  * Overview:
  * - \ref appdoc_sam0_tictactoe_intro
  * - \ref appdoc_sam0_tictactoe_setup
@@ -64,12 +64,15 @@
  *
  * \section  appdoc_sam0_tictactoe_intro Introduction
  * This application demonstrates the use of the OLED1 Xplained Pro extension
- * board for the SAM D20/D21/R21 Xplained Pro with a tic-tac-toe game.
+ * board for the SAM Xplained Pro with a tic-tac-toe game.
  *
  * The game is controlled with the three mechanical buttons on the OLED1
  * Xplained Pro. The goal is to get three circles in a horizontal, diagonal or
- * vertical row, before the opponent (SAM D20/D21/R21) gets three crosses
+ * vertical row, before the opponent (SAM devices) gets three crosses
  * in a row.
+ *
+ * This application has been tested on following boards:
+ * - SAM D20/D21/R21 Xplained Pro
  *
  * \section appdoc_sam0_tictactoe_setup Hardware Setup
  * The OLED1 Xplained Pro extension board must be connected to extension

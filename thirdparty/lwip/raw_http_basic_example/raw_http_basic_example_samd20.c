@@ -52,7 +52,8 @@
  *
  *  \section Requirements
  *
- *  This package can be used with SAM3X-EK and SAM4E-EK.
+ *  This package can be used on SAMD20 Xplained Pro with the Ethernet1
+ *  Xplained Pro extention board on EXT1.
  *
  *  \section Description
  *
@@ -99,9 +100,9 @@
 #include "ethernet.h"
 #include "httpd.h"
 
-#define STRING_EOL    "\n"
-#define STRING_HEADER "-- Raw HTTP Basic Example --"STRING_EOL \
-		"-- "BOARD_NAME" --"STRING_EOL \
+#define STRING_EOL    "\r"
+#define STRING_HEADER "-- Raw HTTP Basic Example -- \r\n" \
+		"-- "BOARD_NAME" --\r\n" \
 		"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
 
 /** Software instance of the USART upon which to transmit the results. */

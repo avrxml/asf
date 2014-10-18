@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM Liquid Crystal Display driver (LCDCA).
+ * \brief SAM4L Liquid Crystal Display driver (LCDCA).
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,22 +41,16 @@
  *
  */
 
-#include "lcdca.h"
-#include "sysclk.h"
-#include "sleepmgr.h"
+#include <lcdca.h>
+#include <sysclk.h>
+#include <sleepmgr.h>
 
-/**
- * \ingroup group_sam_drivers_lcdca
- *
- * @{
- */
-
-/**
- * \internal
- * \brief LCDCA callback function pointer.
- */
+/** \internal LCDCA callback function pointer. */
 lcdca_callback_t lcdca_callback_pointer = NULL;
 
+/**
+ * \brief LCDCA clock initialization.
+ */
 void lcdca_clk_init(void)
 {
 	/* Enable APB clock for LCDCA */
@@ -68,17 +62,27 @@ void lcdca_clk_init(void)
 		osc_enable(OSC_ID_OSC32);
 		osc_wait_ready(OSC_ID_OSC32);
 	}
-
+	bpm_set_clk32_source(BPM, BPM_CLK32_SOURCE_OSC32K);
 #else
 	if (!osc_is_ready(OSC_ID_RC32K)) {
 		osc_enable(OSC_ID_RC32K);
 		osc_wait_ready(OSC_ID_RC32K);
 	}
+	bpm_set_clk32_source(BPM, BPM_CLK32_SOURCE_RC32K);
 #endif
 }
 
-void lcdca_set_config(struct lcdca_config *lcdca_cfg)
+/**
+ * \brief Configure the LCDCA controller.
+ *
+ * \param[in] lcdca_cfg Pointer to an LCDCA configuration structure
+ */
+void lcdca_set_config(
+		struct lcdca_config *lcdca_cfg)
 {
+	/* Validate parameters. */
+	Assert(lcdca_cfg);
+	
 	/* Disable LCD controller and frame counter timer */
 	LCDCA->LCDCA_CR = LCDCA_CR_DIS | LCDCA_CR_FC0DIS | LCDCA_CR_FC1DIS |
 		LCDCA_CR_FC2DIS;
@@ -99,6 +103,9 @@ void lcdca_set_config(struct lcdca_config *lcdca_cfg)
 	lcdca_set_contrast(lcdca_cfg->contrast);
 }
 
+/**
+ * \brief Enable the LCDCA module.
+ */
 void lcdca_enable(void)
 {
 	sleepmgr_lock_mode(SLEEPMGR_RET);
@@ -112,6 +119,9 @@ void lcdca_enable(void)
 	}
 }
 
+/**
+ * \brief Disable the LCDCA module.
+ */
 void lcdca_disable(void)
 {
 	sleepmgr_unlock_mode(SLEEPMGR_RET);
@@ -126,7 +136,15 @@ void lcdca_disable(void)
 	LCDCA->LCDCA_CR = LCDCA_CR_DIS;
 }
 
-void lcdca_set_contrast(int8_t contrast)
+/**
+ * \brief Set the LCDCA fine contrast.
+ *
+ * Transfer function: VLCD = 3.0V + (fcont[5:0] * 0.016V)
+ *
+ * \param[in] contrast Contrast value (range -32 to 31 inclusive)
+ */
+void lcdca_set_contrast(
+		int8_t contrast)
 {
 	uint32_t cfg = LCDCA->LCDCA_CFG;
 	uint32_t fcst_filed;
@@ -147,6 +165,9 @@ void lcdca_set_contrast(int8_t contrast)
 	LCDCA->LCDCA_CFG = cfg | LCDCA_CFG_FCST(fcst_filed);
 }
 
+/**
+ * \brief Set all bits in the LCDCA display memory high.
+ */
 void lcdca_set_display_memory(void)
 {
 	LCDCA->LCDCA_DRL0 = LCDCA_DRL0_DATA_Msk;
@@ -159,7 +180,15 @@ void lcdca_set_display_memory(void)
 	LCDCA->LCDCA_DRH3 = LCDCA_DRH3_DATA_Msk;
 }
 
-void lcdca_enable_timer(uint8_t lcd_timer)
+/**
+ * \brief Enable the specified LCDCA timer, and wait until it is running.
+ *
+ * \note The function \ref lcdca_enable() must be called prior to this function.
+ *
+ * \param[in] lcd_timer Timer number to be enabled
+ */
+void lcdca_enable_timer(
+		uint8_t lcd_timer)
 {
 	if (lcd_timer == LCDCA_TIMER_FC0) {
 		LCDCA->LCDCA_CR = LCDCA_CR_FC0EN;
@@ -176,7 +205,13 @@ void lcdca_enable_timer(uint8_t lcd_timer)
 	}
 }
 
-void lcdca_disable_timer(uint8_t lcd_timer)
+/**
+ * \brief Disable the specified LCDCA timer.
+ *
+ * \param[in] lcd_timer Timer number to be disabled
+ */
+void lcdca_disable_timer(
+		uint8_t lcd_timer)
 {
 	if (lcd_timer == LCDCA_TIMER_FC0) {
 		LCDCA->LCDCA_CR = LCDCA_CR_FC0DIS;
@@ -187,15 +222,35 @@ void lcdca_disable_timer(uint8_t lcd_timer)
 	}
 }
 
-void lcdca_blink_set_config(struct lcdca_blink_config *blink_cfg)
+/**
+ * \brief Set the LCDCA blink configuration.
+ *
+ * \param[in] blink_cfg Pointer to the LCD blink configuration structure
+ */
+void lcdca_blink_set_config(
+		struct lcdca_blink_config *blink_cfg)
 {
+	/* Validate parameters. */
+	Assert(blink_cfg);
+
 	LCDCA->LCDCA_CR = LCDCA_CR_BSTOP;
 	LCDCA->LCDCA_BCFG = LCDCA_BCFG_FCS(blink_cfg->lcd_blink_timer) |
 			blink_cfg->lcd_blink_mode;
 }
 
-void lcdca_set_blink_pixel(uint8_t pix_com, uint8_t pix_seg)
+/**
+ * \brief Start an LCDCA pixel/segment blinking.
+ *
+ * \param[in] pix_com Pixel/segment COMx coordinate
+ * \param[in] pix_seg Pixel/segment SEGy coordinate (range 0 to 1 inclusive)
+ */
+void lcdca_set_blink_pixel(
+		uint8_t pix_com,
+		uint8_t pix_seg)
 {
+	/* Validate parameters. */
+	Assert(pix_seg<=1);
+	
 	if (pix_seg == 0) {
 		LCDCA->LCDCA_BCFG |= LCDCA_BCFG_BSS0(1 << pix_com);
 	}
@@ -205,8 +260,19 @@ void lcdca_set_blink_pixel(uint8_t pix_com, uint8_t pix_seg)
 	}
 }
 
-void lcdca_clear_blink_pixel(uint8_t pix_com, uint8_t pix_seg)
+/**
+ * \brief Stop a specified LCDCA pixel/segment from blinking.
+ *
+ * \param[in] pix_com Pixel/segment COMx coordinate
+ * \param[in] pix_seg Pixel/segment SEGy coordinate (range 0 to 1 inclusive)
+ */
+void lcdca_clear_blink_pixel(
+		uint8_t pix_com,
+		uint8_t pix_seg)
 {
+	/* Validate parameters. */
+	Assert(pix_seg<=1);
+	
 	if (pix_seg == 0) {
 		LCDCA->LCDCA_BCFG &= ~LCDCA_BCFG_BSS0(1 << pix_com);
 	}
@@ -216,6 +282,9 @@ void lcdca_clear_blink_pixel(uint8_t pix_com, uint8_t pix_seg)
 	}
 }
 
+/**
+ * \brief Stop all LCDCA pixels/segments from blinking.
+ */
 void lcdca_clear_blink_all_pixel(void)
 {
 	uint32_t i;
@@ -226,9 +295,19 @@ void lcdca_clear_blink_all_pixel(void)
 	}
 }
 
+/**
+ * \brief Configure the LCDCA automated display.
+ *
+ * \note The automated display is disabled.
+ *
+ * \param[in] ac_cfg Pointer to an automated display configuration structure
+ */
 void lcdca_automated_char_set_config(
 		struct lcdca_automated_char_config *ac_cfg)
 {
+	/* Validate parameters. */
+	Assert(ac_cfg);
+	
 	/* Clear register first */
 	LCDCA->LCDCA_ACMCFG = 0;
 	/* Write configuration then */
@@ -241,8 +320,22 @@ void lcdca_automated_char_set_config(
 			LCDCA_ACMCFG_DIGN(ac_cfg->dign);
 }
 
-void lcdca_automated_char_start(const uint8_t *data, size_t width)
+/**
+ * \brief Start the LCDCA automated display.
+ *
+ * \note This function also initializes and enables the PDCA channel
+ * associated with the LCDCA module.
+ *
+ * \param[in] data  Data string buffer pointer
+ * \param[in] width Data string length
+ */
+ void lcdca_automated_char_start(
+		const uint8_t *data,
+		size_t width)
 {
+	/* Validate parameters. */
+	Assert(data);
+	
 	/* PDCA channel options */
 	pdca_channel_config_t pdca_tx_configs;
 
@@ -258,7 +351,7 @@ void lcdca_automated_char_start(const uint8_t *data, size_t width)
 	/* Enable PDCA controller */
 	pdca_enable(PDCA);
 
-	/* Init PDCA channel with the pdca_options */
+	/* Initialize PDCA channel with the pdca_options */
 	pdca_channel_set_config(LCDCA_AUTOMATED_CHAR_DMA_CH, &pdca_tx_configs);
 
 	/* Enable PDCA channel */
@@ -268,12 +361,28 @@ void lcdca_automated_char_start(const uint8_t *data, size_t width)
 	LCDCA->LCDCA_ACMCFG |= LCDCA_ACMCFG_EN;
 }
 
-void lcdca_automated_char_reload(const uint8_t *data, size_t width)
+/**
+ * \brief LCDCA automated display reload.
+ *
+ * \param[in] data  Data string buffer pointer
+ * \param[in] width Data string length
+ */
+ void lcdca_automated_char_reload(
+		const uint8_t *data,
+		size_t width)
 {
 	pdca_channel_write_reload(LCDCA_AUTOMATED_CHAR_DMA_CH, (void *)data, width);
 }
 
-void lcdca_circular_shift_set_config(struct lcdca_circular_shift_config *cs_cfg)
+/**
+ * \brief Set the LCDCA circular shift configuration.
+ *
+ * \note The circular shift register is disabled.
+ *
+ * \param[in] cs_cfg Pointer to a circular shift configuration structure
+ */
+void lcdca_circular_shift_set_config(
+		struct lcdca_circular_shift_config *cs_cfg)
 {
 	LCDCA->LCDCA_CR = LCDCA_CR_CSTOP;
 	LCDCA->LCDCA_CSRCFG = LCDCA_CSRCFG_FCS(cs_cfg->lcd_csr_timer) |
@@ -281,8 +390,23 @@ void lcdca_circular_shift_set_config(struct lcdca_circular_shift_config *cs_cfg)
 			LCDCA_CSRCFG_SIZE(cs_cfg->size) | LCDCA_CSRCFG_DATA(cs_cfg->data);
 }
 
-void lcdca_write_packet(uint8_t lcd_tdg, uint8_t first_seg,
-		const uint8_t *data, size_t width, uint8_t dir)
+/**
+ * \brief Send a sequence of ASCII bytes to the LCDCA via the digit decoder.
+ *
+ * \note If a NULL byte is encountered, or if the <i>width</i> count expires,
+ * data will no longer be sent via the digit decoder and the function returns.
+ *
+ * \param[in] lcd_tdg   Type of digit decoder
+ * \param[in] first_seg First SEG where the data will be written
+ * \param[in] data      ASCII data buffer pointer
+ * \param[in] width     Maximum number of data bytes
+ * \param[in] dir       Direction (0 for left to right, otherwise right to left)
+ */
+ void lcdca_write_packet(
+		uint8_t lcd_tdg, uint8_t first_seg,
+		const uint8_t *data,
+		size_t width,
+		uint8_t dir)
 {
 	LCDCA->LCDCA_CMCFG = LCDCA_CMCFG_TDG(lcd_tdg)
 			| LCDCA_CMCFG_STSEG(first_seg)
@@ -298,17 +422,17 @@ void lcdca_write_packet(uint8_t lcd_tdg, uint8_t first_seg,
 }
 
 /**
- * \internal
- * \brief Get pixel register from coordinates.
+ * \internal Get the LCDCA pixel/segment register from coordinates.
  *
  * Driver-internal function for getting the address of the register which
  * controls the state for the specified pixel coordinate pair.
  *
- * \param  pix_com  Pixel coordinate - COMx - of the pixel (icon).
+ * \param[in] pix_com Pixel/segment COMx coordinate
  *
- * \return Address of register controlling specified pixel.
+ * \return The address of register controlling specified pixel.
  */
-static uint64_t lcdca_get_pixel_register(uint8_t pix_com)
+static uint64_t lcdca_get_pixel_register(
+		uint8_t pix_com)
 {
 	uint64_t register_value = 0;
 
@@ -336,7 +460,15 @@ static uint64_t lcdca_get_pixel_register(uint8_t pix_com)
 	return register_value;
 }
 
-void lcdca_set_pixel(uint8_t pix_com, uint8_t pix_seg)
+/**
+ * \brief Enable the specified pixel/segment in the LCDCA display memory.
+ *
+ * \param[in] pix_com Pixel/segment COMx coordinate
+ * \param[in] pix_seg Pixel/segment SEGy coordinate
+ */
+ void lcdca_set_pixel(
+		uint8_t pix_com,
+		uint8_t pix_seg)
 {
 	if ((pix_com < LCDCA_MAX_NR_OF_COM) &&
 			(pix_seg < LCDCA_MAX_NBR_OF_SEG)) {
@@ -367,7 +499,13 @@ void lcdca_set_pixel(uint8_t pix_com, uint8_t pix_seg)
 	}
 }
 
-void lcdca_clear_pixel(uint8_t pix_com, uint8_t pix_seg)
+/**
+ * \brief Disable the specified pixel/segment in the LCDCA display memory.
+ *
+ * \param[in] pix_com Pixel/segment COMx coordinate
+ * \param[in] pix_seg Pixel/segment SEGy coordinate
+ */
+ void lcdca_clear_pixel(uint8_t pix_com, uint8_t pix_seg)
 {
 	if ((pix_com < LCDCA_MAX_NR_OF_COM) &&
 			(pix_seg < LCDCA_MAX_NBR_OF_SEG)) {
@@ -398,7 +536,15 @@ void lcdca_clear_pixel(uint8_t pix_com, uint8_t pix_seg)
 	}
 }
 
-void lcdca_toggle_pixel(uint8_t pix_com, uint8_t pix_seg)
+/**
+ * \brief Toggle the specified pixel/segment in the LCDCA display memory.
+ *
+ * \param[in] pix_com Pixel/segment COMx coordinate
+ * \param[in] pix_seg Pixel/segment SEGy coordinate
+ */
+ void lcdca_toggle_pixel(
+		uint8_t pix_com,
+		uint8_t pix_seg)
 {
 	if ((pix_com < LCDCA_MAX_NR_OF_COM) &&
 			(pix_seg < LCDCA_MAX_NBR_OF_SEG)) {
@@ -412,14 +558,33 @@ void lcdca_toggle_pixel(uint8_t pix_com, uint8_t pix_seg)
 	}
 }
 
-bool lcdca_get_pixel(uint8_t pix_com, uint8_t pix_seg)
+/**
+ * \brief Get the specified pixel/segment state from the LCDCA display memory.
+ *
+ * \param[in] pix_com Pixel/segment COMx coordinate
+ * \param[in] pix_seg Pixel/segment SEGy coordinate
+ *
+ * \return The pixel/segment value from the LCDCA display memory.
+ */
+ bool lcdca_get_pixel(
+		uint8_t pix_com,
+		uint8_t pix_seg)
 {
 	uint64_t register_value = lcdca_get_pixel_register(pix_com);
 	return register_value & ((uint64_t)1 << pix_seg);
 }
 
-void lcdca_set_callback(lcdca_callback_t callback,
-		uint8_t irq_line, uint8_t irq_level)
+/**
+ * \brief Set the callback for the LCDCA 'beginning of frame' interrupt.
+ *
+ * \param[in] callback  Pointer to an interrupt callback function
+ * \param[in] irq_line  Interrupt line
+ * \param[in] irq_level Interrupt priority level
+ */
+void lcdca_set_callback(
+		lcdca_callback_t callback,
+		uint8_t irq_line,
+		uint8_t irq_level)
 {
 	lcdca_callback_pointer = callback;
 	NVIC_ClearPendingIRQ((IRQn_Type)irq_line);
@@ -428,6 +593,9 @@ void lcdca_set_callback(lcdca_callback_t callback,
 	lcdca_enable_interrupt();
 }
 
+/**
+ * \internal LCDCA interrupt handler.
+ */
 void LCDCA_Handler(void)
 {
 	/* Clear interrupt flags */
@@ -438,7 +606,3 @@ void LCDCA_Handler(void)
 		lcdca_callback_pointer();
 	}
 }
-
-/**
- * @}
- */

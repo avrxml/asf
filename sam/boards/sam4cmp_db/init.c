@@ -128,6 +128,9 @@ void board_init(void)
 
 #ifdef CONF_BOARD_SPI0_NPCS1
 	ioport_set_pin_peripheral_mode(SPI0_NPCS1_GPIO, SPI0_NPCS1_FLAGS);
+#endif    
+#ifdef CONF_BOARD_SPI0_NPCS3
+	ioport_set_pin_peripheral_mode(SPI0_NPCS3_GPIO, SPI0_NPCS3_FLAGS);
 #endif
 #endif
 

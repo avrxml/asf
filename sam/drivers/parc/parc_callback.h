@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief PARC driver for SAM.
+ * \brief SAM4L PARC driver(callback) for SAM.
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,7 +45,12 @@
 #define PARC_CALLBACK_H_INCLUDED
 
 #include <parc.h>
-/// @cond 0
+
+/** \addtogroup asfdoc_sam_drivers_parc_group
+ * @{
+ */
+
+/// @cond
 /**INDENT-OFF**/
 #ifdef __cplusplus
 extern "C" {
@@ -59,20 +64,18 @@ enum status_code parc_register_callback(struct parc_module *const module,
 
 enum status_code parc_unregister_callback(struct parc_module *const module,
 		enum parc_callback_type callback_type);
-
+		
 /**
- * \brief Enables callback
+ * \brief Enable a PARC interrupt callback function.
  *
- * Enables the callback function registered by \ref
- * parc_register_callback. The callback function will be called from the
- * interrupt handler when the conditions for the callback type are met.
+ * \note The callback function will be called from the PARC interrupt handler
+ * when the callback's corresponding interrupt is asserted.
  *
- * \param[in]  module_inst   Pointer to PARC software instance struct
- * \param[in]  type          Callback type given by an enum
+ * \param[in,out] module_inst Driver structure pointer
+ * \param[in]  type           \ref parc_callback_type "Interrupt callback" to enable
  *
- * \returns    Status of the operation
- * \retval     STATUS_OK     When operation was completed
- *
+ * \return The status of the interrupt callback enable operation.
+ * \retval STATUS_OK Interrupt callback enabled successfully
  */
 static inline enum status_code parc_enable_callback(
 	struct parc_module *const module_inst,
@@ -88,17 +91,13 @@ static inline enum status_code parc_enable_callback(
 }
 
 /**
- * \brief Disables callback
+ * \brief Disable a PARC interrupt callback function.
  *
- * Disables the callback function registered by the \ref
- * parc_register_callback.
+ * \param[in,out] module_inst Driver structure pointer
+ * \param[in]  type           \ref parc_callback_type "Interrupt callback" to disable
  *
- * \param[in] module_inst    Pointer to PARC software instance struct
- * \param[in] type           Callback type given by an enum
- *
- * \returns    Status of the operation
- * \retval     STATUS_OK     When operation was completed
- *
+ * \return The status of the interrupt callback disable operation.
+ * \retval STATUS_OK Interrupt callback disabled successfully
  */
 static inline enum status_code parc_disable_callback(
 	struct parc_module *const module_inst,
@@ -113,12 +112,14 @@ static inline enum status_code parc_disable_callback(
 	return STATUS_OK;
 }
 
-/// @cond 0
+/// @cond
 /**INDENT-OFF**/
 #ifdef __cplusplus
 }
 #endif
 /**INDENT-ON**/
 /// @endcond
+
+/** @} */
 
 #endif  /* PARC_CALLBACK_H_INCLUDED */

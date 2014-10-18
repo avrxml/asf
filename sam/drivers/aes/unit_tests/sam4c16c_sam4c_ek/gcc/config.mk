@@ -92,6 +92,7 @@ INC_PATH = \
        sam/drivers/aes/unit_tests                         \
        sam/drivers/aes/unit_tests/sam4c16c_sam4c_ek       \
        sam/drivers/pdc                                    \
+       sam/drivers/pdc/pdc_uart_example                   \
        sam/drivers/pmc                                    \
        sam/drivers/uart                                   \
        sam/drivers/usart                                  \

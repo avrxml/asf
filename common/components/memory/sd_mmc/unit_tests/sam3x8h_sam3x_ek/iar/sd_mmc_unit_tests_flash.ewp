@@ -1954,6 +1954,9 @@
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3x/include/component/component_dacc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3x/include/component/component_rstc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3x/include/component/component_hsmci.h</name>
 							</file>
 							<file>
@@ -1967,9 +1970,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3x/include/component/component_uart.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3x/include/component/component_rstc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam3x/include/component/component_adc.h</name>
@@ -2277,6 +2277,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/dmac/dmac.h</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../sam/drivers/dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 			</group>
 		</group>
 		<group>

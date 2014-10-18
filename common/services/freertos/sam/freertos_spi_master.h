@@ -88,6 +88,10 @@ status_code_t freertos_spi_read_packet_async(freertos_spi_if p_spi,
 		uint8_t *data, uint32_t len, portTickType block_time_ticks,
 		xSemaphoreHandle notification_semaphore);
 
+status_code_t freertos_spi_full_duplex_packet_async(freertos_spi_if p_spi,
+		uint8_t *rx_data, uint8_t *tx_data, uint32_t len,
+		portTickType block_time_ticks, xSemaphoreHandle notification_semaphore);
+
 /**
  * \ingroup freertos_spi_peripheral_control_group
  * \brief Initiate a multi-byte write operation on an SPI peripheral.

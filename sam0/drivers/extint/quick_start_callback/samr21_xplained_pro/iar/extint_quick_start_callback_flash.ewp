@@ -1964,9 +1964,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/port.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/tc6.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/nvmctrl.h</name>
 							</file>
 							<file>
@@ -1989,6 +1986,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/evsys.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/tc6.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/pac2.h</name>
@@ -2235,9 +2235,6 @@
 							<name>$PROJ_DIR$/../conf_extint.h</name>
 						</file>
 					</group>
-					<file>
-						<name>$PROJ_DIR$/../../qs_extint_callback.h</name>
-					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../extint.c</name>
@@ -2248,12 +2245,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../extint_callback.h</name>
 				</file>
-				<group>
-					<name>quick_start_polled</name>
-					<file>
-						<name>$PROJ_DIR$/../../../quick_start_polled/qs_extint_basic.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../extint.h</name>
 				</file>

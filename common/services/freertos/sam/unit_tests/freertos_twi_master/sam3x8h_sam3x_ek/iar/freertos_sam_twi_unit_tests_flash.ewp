@@ -314,6 +314,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
@@ -593,6 +594,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
@@ -1264,6 +1266,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
@@ -1543,6 +1546,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../thirdparty/freertos/freertos-7.3.0/source/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
@@ -2260,6 +2264,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>twi</name>
@@ -2369,6 +2379,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3x/include/component/component_tc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3x/include/component/component_emac.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3x/include/component/component_pio.h</name>
 							</file>
 							<file>
@@ -2403,9 +2416,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3x/include/component/component_rtt.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3x/include/component/component_emac.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam3x/include/component/component_matrix.h</name>

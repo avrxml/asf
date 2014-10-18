@@ -2420,6 +2420,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../events/events.h</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../events/example1/events_example1.h</name>
+					</file>
+				</group>
+				<group>
+					<name>example2</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../events/example2/events_example2.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>wdt</name>

@@ -248,9 +248,9 @@
 					<state></state>
 					<state>_ASSERT_ENABLE_</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>EXT_BOARD=SENSORS_XPLAINED_INERTIAL_1</state>
-					<state>BOARD=XMEGA_A1_XPLAINED</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
+					<state>BOARD=XMEGA_A1_XPLAINED</state>
+					<state>EXT_BOARD=SENSORS_XPLAINED_INERTIAL_1</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -419,7 +419,7 @@
 					<state>$PROJ_DIR$/../../../../../../xmega/drivers/pmic</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/utils</state>
-					<state>$PROJ_DIR$/../../../../twi</state>
+					<state>$PROJ_DIR$/../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../serial</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../serial/xmega_usart</state>
@@ -431,7 +431,7 @@
 					<state>$PROJ_DIR$/../../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards/xmega_a1_xplained</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards</state>
-					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../twi</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/drivers/twi</state>
@@ -563,9 +563,9 @@
 					<name>ADefines</name>
 					<state>_ASSERT_ENABLE_</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>EXT_BOARD=SENSORS_XPLAINED_INERTIAL_1</state>
-					<state>BOARD=XMEGA_A1_XPLAINED</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
+					<state>BOARD=XMEGA_A1_XPLAINED</state>
+					<state>EXT_BOARD=SENSORS_XPLAINED_INERTIAL_1</state>
 				</option>
 				<option>
 					<name>MacroChars</name>
@@ -687,7 +687,7 @@
 					<state>$PROJ_DIR$/../../../../../../xmega/drivers/pmic</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/utils</state>
-					<state>$PROJ_DIR$/../../../../twi</state>
+					<state>$PROJ_DIR$/../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../serial</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../serial/xmega_usart</state>
@@ -699,7 +699,7 @@
 					<state>$PROJ_DIR$/../../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards/xmega_a1_xplained</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards</state>
-					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../twi</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/drivers/twi</state>
@@ -1289,9 +1289,9 @@
 					<state>NDEBUG</state>
 					<state>_ASSERT_ENABLE_</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>EXT_BOARD=SENSORS_XPLAINED_INERTIAL_1</state>
-					<state>BOARD=XMEGA_A1_XPLAINED</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
+					<state>BOARD=XMEGA_A1_XPLAINED</state>
+					<state>EXT_BOARD=SENSORS_XPLAINED_INERTIAL_1</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1460,7 +1460,7 @@
 					<state>$PROJ_DIR$/../../../../../../xmega/drivers/pmic</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/utils</state>
-					<state>$PROJ_DIR$/../../../../twi</state>
+					<state>$PROJ_DIR$/../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../serial</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../serial/xmega_usart</state>
@@ -1472,7 +1472,7 @@
 					<state>$PROJ_DIR$/../../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards/xmega_a1_xplained</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards</state>
-					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../twi</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/drivers/twi</state>
@@ -1604,9 +1604,9 @@
 					<name>ADefines</name>
 					<state>_ASSERT_ENABLE_</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>EXT_BOARD=SENSORS_XPLAINED_INERTIAL_1</state>
-					<state>BOARD=XMEGA_A1_XPLAINED</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
+					<state>BOARD=XMEGA_A1_XPLAINED</state>
+					<state>EXT_BOARD=SENSORS_XPLAINED_INERTIAL_1</state>
 				</option>
 				<option>
 					<name>MacroChars</name>
@@ -1728,7 +1728,7 @@
 					<state>$PROJ_DIR$/../../../../../../xmega/drivers/pmic</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/utils</state>
-					<state>$PROJ_DIR$/../../../../twi</state>
+					<state>$PROJ_DIR$/../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../serial</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../serial/xmega_usart</state>
@@ -1740,7 +1740,7 @@
 					<state>$PROJ_DIR$/../../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards/xmega_a1_xplained</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/boards</state>
-					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../../twi</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../xmega/drivers/twi</state>

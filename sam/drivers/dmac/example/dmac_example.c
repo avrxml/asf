@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief DMAC (DMA Controller) driver example for SAM.
+ * \brief SAM4E Direct Memory Access Controller driver example.
  *
- * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,69 +41,25 @@
  *
  */
 
-/**
- * \mainpage DMAC Example
- *
- * \section Purpose
- *
- * This example demonstrates how to configure and use DMAC controller
- * for single and multiple buffer transfer.
- *
- * \section Requirements
- *
- * This package can be used with SAM3 evaluation kits which have DMAC
- * controller.
- *
- * \section Descriptions
- *
- * This example transfers data in one RAM buffer to another RAM buffer.
- * Two transfer modes will be used:
- * -# It uses single buffer transfer with polling mode.
- *    After transfer is done, the transferred data will be verified.
- * -# It uses multiple buffer transfer with interrupt mode.
- *    After transfer is done, the transferred data will be verified.
- *
- * \section Usage
- *
- * -# Build the program and download it into the evaluation board.
- * -# On the computer, open and configure a terminal application
- *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
- *   - 115200 bauds
- *   - 8 bits of data
- *   - No parity
- *   - 1 stop bit
- *   - No flow control
- * -# Start the application.
- * -# In the terminal window, the following text should appear
- *    (values depend on the board and the chip used):
- *    \code
-	     -- DMAC Example --
-	     -- xxxxxx-xx
-	     -- Compiled: xxx xx xxxx xx:xx:xx --
+#include <asf.h>
+#include <conf_board.h>
+#include <conf_clock.h>
 
-	     Test single buffer transfer......
-	     > Test OK
-
-	     Test multiple buffer transfer......
-	     > Test OK.
-\endcode
- */
-
-#include "asf.h"
-#include "conf_board.h"
-#include "conf_clock.h"
-
-/* DMA channel used in this example. */
+//! [dmac_define_channel]
+/** DMA channel used in this example. */
 #define DMA_CH 0
+//! [dmac_define_channel]
 
-/* DMA buffer size. */
+//! [dmac_define_buffer]
+/** DMA buffer size. */
 #define DMA_BUF_SIZE    32
-
-/* DMA transfer done flag. */
-volatile uint32_t g_xfer_done = 0;
 
 /** DMA buffer. */
 uint32_t g_dma_buf[6][DMA_BUF_SIZE];
+//! [dmac_define_buffer]
+
+/* DMA transfer done flag. */
+volatile uint32_t g_xfer_done = 0;
 
 /**
  * \brief Configure the console UART.
@@ -125,42 +81,65 @@ static void configure_console(void)
  */
 static void test_single_buf_xfer(void)
 {
+	//! [dmac_define_vars]
 	uint32_t i;
 	uint32_t cfg;
 	dma_transfer_descriptor_t desc;
-
+	//! [dmac_define_vars]
+	
 	printf("\n\rTest single buffer transfer...\n\r");
 
-	/* Initialize DMA buffer */
+	//! [dmac_define_prepare_buffer]
+	/** Initialize DMA buffer */
 	for (i = 0; i < DMA_BUF_SIZE; i++) {
 		g_dma_buf[0][i] = i;
 		g_dma_buf[1][i] = 0;
 	}
+	//! [dmac_define_prepare_buffer]
 
 	/* Initialize and enable DMA controller */
+	//! [dmac_init_clock]
 	pmc_enable_periph_clk(ID_DMAC);
+	//! [dmac_init_clock]
+	
+	//! [dmac_init_module]
 	dmac_init(DMAC);
+	//! [dmac_init_module]
+	
+	//! [dmac_set_priority]
 	dmac_set_priority_mode(DMAC, DMAC_PRIORITY_ROUND_ROBIN);
+	//! [dmac_set_priority]
+	
+	//! [dmac_enable_module]	
 	dmac_enable(DMAC);
+	//! [dmac_enable_module]	
 
-	/* Set for channel configuration register */
-	cfg = DMAC_CFG_SOD_ENABLE |        /* Enable stop on done */
-			DMAC_CFG_AHB_PROT(1) |     /* Set AHB Protection */
-			DMAC_CFG_FIFOCFG_ALAP_CFG; /* FIFO Configuration */
+	//! [dmac_configure_channel]	
+	/** Set for channel configuration register */
+	cfg = DMAC_CFG_SOD_ENABLE |        /** Enable stop on done */
+			DMAC_CFG_AHB_PROT(1) |     /** Set AHB Protection */
+			DMAC_CFG_FIFOCFG_ALAP_CFG; /** FIFO Configuration */
 	dmac_channel_set_configuration(DMAC, DMA_CH, cfg);
+	//! [dmac_configure_channel]	
 
-	/* Initialize single buffer transfer: buffer 0 -> buffer 1 */
+	//! [dmac_configure_for_single_transfer_1]	
+	/** Initialize single buffer transfer: buffer 0 -> buffer 1 */
 	desc.ul_source_addr = (uint32_t) g_dma_buf[0];
 	desc.ul_destination_addr = (uint32_t) g_dma_buf[1];
+	//! [dmac_configure_for_single_transfer_1]	
+	
 	/*
 	 * Set DMA CTRLA:
 	 * - Set Buffer Transfer Size
 	 * - Source transfer size is set to 32-bit width
 	 * - Destination transfer size is set to 32-bit width
 	 */
+	//! [dmac_configure_for_single_transfer_2]	
 	desc.ul_ctrlA = DMAC_CTRLA_BTSIZE(DMA_BUF_SIZE) |
 			DMAC_CTRLA_SRC_WIDTH_WORD |
 			DMAC_CTRLA_DST_WIDTH_WORD;
+	//! [dmac_configure_for_single_transfer_2]	
+	
 	/*
 	 * Set DMA CTRLB:
 	 * - Buffer Descriptor Fetch operation is disabled for the source
@@ -169,19 +148,28 @@ static void test_single_buf_xfer(void)
 	 * - The source address is incremented
 	 * - The destination address is incremented
 	 */
+	//! [dmac_configure_for_single_transfer_3]	
 	desc.ul_ctrlB = DMAC_CTRLB_SRC_DSCR_FETCH_DISABLE |
 			DMAC_CTRLB_DST_DSCR_FETCH_DISABLE |
 			DMAC_CTRLB_FC_MEM2MEM_DMA_FC |
 			DMAC_CTRLB_SRC_INCR_INCREMENTING |
 			DMAC_CTRLB_DST_INCR_INCREMENTING;
+	//! [dmac_configure_for_single_transfer_3]	
+	
 	/* No descriptor for single transfer */
+	//! [dmac_configure_for_single_transfer_4]	
 	desc.ul_descriptor_addr = 0;
 	dmac_channel_single_buf_transfer_init(DMAC, DMA_CH, &desc);
+	//! [dmac_configure_for_single_transfer_4]	
 
 	/* Start DMA transfer and wait for finish */
+	//! [dmac_start_transfer]	
 	dmac_channel_enable(DMAC, DMA_CH);
+	//! [dmac_start_transfer]	
+	//! [dmac_wait_for_done]		
 	while (!dmac_channel_is_transfer_done(DMAC, DMA_CH)) {
 	}
+	//! [dmac_wait_for_done]		
 
 	/* Verify the transferred data */
 	for (i = 0; i < DMA_BUF_SIZE; i++) {

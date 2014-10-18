@@ -2061,6 +2061,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../drivers/ast/ast.h</name>
 				</file>
+				<group>
+					<name>example2</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../drivers/ast/example2/ast_example2.h</name>
+					</file>
+				</group>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../drivers/ast/example1/ast_example1.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>usbc</name>

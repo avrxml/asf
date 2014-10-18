@@ -3,7 +3,7 @@
  *
  * \brief USB Device Human Interface Device (HID) keyboard interface.
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,7 +54,7 @@
  * \defgroup udi_hid_keyboard_group_udc Interface with USB Device Core (UDC)
  *
  * Structures and functions required by UDC.
- * 
+ *
  * @{
  */
 
@@ -92,11 +92,14 @@ UDC_DESC_STORAGE udi_api_t udi_api_hid_kbd = {
 
 
 //! To store current rate of HID keyboard
-static uint8_t udi_hid_kbd_rate;
+COMPILER_WORD_ALIGNED
+		static uint8_t udi_hid_kbd_rate;
 //! To store current protocol of HID keyboard
-static uint8_t udi_hid_kbd_protocol;
+COMPILER_WORD_ALIGNED
+		static uint8_t udi_hid_kbd_protocol;
 //! To store report feedback from USB host
-static uint8_t udi_hid_kbd_report_set;
+COMPILER_WORD_ALIGNED
+		static uint8_t udi_hid_kbd_report_set;
 //! To signal if a valid report is ready to send
 static bool udi_hid_kbd_b_report_valid;
 //! Report ready to send

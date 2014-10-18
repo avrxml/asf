@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief Flash Program example configuration.
+ * \brief Example configuration for PLC PHY TX Test Console Application
  *
  * Copyright (c) 2014 Atmel Corporation. All rights reserved.
  *
@@ -45,6 +45,6 @@
 #define CONF_EXAMPLE_H
 
 /* PHY Data message start address. */
-#define ADDR_APP_PHY_MESSAGE_DATA  (IFLASH0_ADDR+IFLASH_SIZE-(2*IFLASH0_LOCK_REGION_SIZE))
+#define ADDR_APP_PHY_MESSAGE_DATA  (IFLASH0_ADDR + IFLASH_SIZE - (2 * IFLASH0_LOCK_REGION_SIZE))
 
 #endif /* CONF_EXAMPLE_H */

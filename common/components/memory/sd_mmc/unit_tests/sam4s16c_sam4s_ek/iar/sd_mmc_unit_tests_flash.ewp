@@ -308,9 +308,10 @@
 					<state>$PROJ_DIR$/../../../../../../services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../services/delay</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../..</state>
@@ -582,9 +583,10 @@
 					<state>$PROJ_DIR$/../../../../../../services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../services/delay</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../..</state>
@@ -1247,9 +1249,10 @@
 					<state>$PROJ_DIR$/../../../../../../services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../services/delay</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../..</state>
@@ -1521,9 +1524,10 @@
 					<state>$PROJ_DIR$/../../../../../../services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../services/delay</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../..</state>
@@ -2088,6 +2092,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/pdc/pdc.h</name>
 				</file>
+				<group>
+					<name>pdc_uart_example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>pio</name>

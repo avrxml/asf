@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21 DAC Callback Quick Start
+ * \brief SAM DAC Callback Quick Start
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -220,7 +220,7 @@ int main(void)
 //! [init_rtc]
 
 //! [set_rtc_period]
-	rtc_count_set_period(&rtc_instance,1);
+	rtc_count_set_period(&rtc_instance, 1);
 //! [set_rtc_period]
 
 //! [init_dac]
@@ -246,8 +246,8 @@ int main(void)
 //! [enable_dac_callback]
 
 //! [setup_dac_data]
-	for (i=0;i<DATA_LENGTH;i++) {
-		dac_data[i] = 0xfff*i;
+	for (i = 0;i < DATA_LENGTH;i++) {
+		dac_data[i] = 0xfff * i;
 	}
 //! [setup_dac_data]
 //! [setup_init]

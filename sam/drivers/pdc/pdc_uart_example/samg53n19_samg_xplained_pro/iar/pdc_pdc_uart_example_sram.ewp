@@ -1929,10 +1929,10 @@
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/pll.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/osc.h</name>
+						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/sysclk.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/sysclk.h</name>
+						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/osc.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/genclk.h</name>
@@ -2003,6 +2003,9 @@
 							</file>
 						</group>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../pdc_uart_example.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../pdc.c</name>
@@ -2166,9 +2169,6 @@
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/component/component_spi.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/component/component_adc.h</name>
-								</file>
-								<file>
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/component/component_matrix.h</name>
 								</file>
 								<file>
@@ -2176,6 +2176,9 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/component/component_mem2mem.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/component/component_adc.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samg/samg53/include/component/component_wdt.h</name>

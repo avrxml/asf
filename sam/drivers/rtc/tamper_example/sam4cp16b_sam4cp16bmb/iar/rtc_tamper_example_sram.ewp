@@ -1949,6 +1949,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../rstc/rstc.h</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../rstc/example1/rstc_example1.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>usart</name>

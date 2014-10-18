@@ -44,12 +44,6 @@
 #include "gpio.h"
 
 /**
- * \ingroup group_sam_drivers_gpio
- *
- * @{
- */
-
-/**
  * Maximum number of interrupt sources that can be defined. This
  * constant can be increased, but the current value is the smallest possible
  * one that will be compatible with all existing projects.
@@ -78,13 +72,13 @@ static uint32_t gpio_nb_sources = 0;
 /**
  * \brief Set callback for given GPIO pin
  *
- * \param pin The pin number.
- * \param callback callback function pointer.
- * \param irq_level interrupt level.
+ * \param [in] pin The pin number
+ * \param [in] callback callback function pointer
+ * \param [in] irq_level interrupt level
  *
- * \retval \c true Set successfully.
- * \retval \c false Wrong parameters or exceeding maximum number of interrupt
- *                  sources has been defined.
+ * \retval true Set successfully
+ * \retval false Wrong parameters or maximum number of interrupt
+ *                  sources has been exceeding.
  */
 bool gpio_set_pin_callback(ioport_pin_t pin, gpio_pin_callback_t callback,
 		uint8_t irq_level)
@@ -131,7 +125,6 @@ static void gpio_common_handler(uint32_t port_id, uint32_t port_mask)
 	ioport_pin_t pin;
 
 	int_flags = gpio_port->GPIO_IFR;
-	gpio_port->GPIO_IFRC = (int_flags & port_mask);
 
 	for (i = 0; i < gpio_nb_sources; i++) {
 		pin = gpio_int_sources[i].pin;
@@ -144,6 +137,8 @@ static void gpio_common_handler(uint32_t port_id, uint32_t port_mask)
 			}
 		}
 	}
+
+	gpio_port->GPIO_IFRC = (int_flags & port_mask);
 }
 
 /**
@@ -241,5 +236,3 @@ void GPIO_11_Handler(void)
 {
 	gpio_common_handler(IOPORT_GPIOC, (GPIO_INT_GROUP_MASK << 24));
 }
-
-/** @} */

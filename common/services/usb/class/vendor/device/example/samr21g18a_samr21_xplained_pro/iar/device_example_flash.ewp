@@ -1969,18 +1969,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/extint/extint_callback.h</name>
 				</file>
-				<group>
-					<name>quick_start_polled</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/extint/quick_start_polled/qs_extint_basic.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_callback</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/extint/quick_start_callback/qs_extint_callback.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/extint/extint.h</name>
 				</file>
@@ -2043,6 +2031,12 @@
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/system/interrupt/system_interrupt.c</name>
 					</file>
+					<group>
+						<name>system_interrupt_samr21</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samr21/system_interrupt_features.h</name>
+						</file>
+					</group>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/system/interrupt/system_interrupt.h</name>
 					</file>
@@ -2050,12 +2044,6 @@
 						<name>quick_start</name>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/system/interrupt/quick_start/qs_system_interrupt.h</name>
-						</file>
-					</group>
-					<group>
-						<name>system_interrupt_samr21</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samr21/system_interrupt_features.h</name>
 						</file>
 					</group>
 				</group>
@@ -2430,9 +2418,6 @@
 										<name>$PROJ_DIR$/../ui.c</name>
 									</file>
 									<file>
-										<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
-									</file>
-									<file>
 										<name>$PROJ_DIR$/../conf_board.h</name>
 									</file>
 									<group>
@@ -2441,6 +2426,9 @@
 											<name>$PROJ_DIR$/asf.h</name>
 										</file>
 									</group>
+									<file>
+										<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
+									</file>
 									<file>
 										<name>$PROJ_DIR$/../conf_clocks.h</name>
 									</file>

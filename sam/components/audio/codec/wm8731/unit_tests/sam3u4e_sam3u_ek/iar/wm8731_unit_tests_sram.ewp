@@ -1939,6 +1939,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../drivers/dmac/dmac.c</name>
 				</file>
+				<group>
+					<name>example</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../drivers/dmac/example/dmac_example.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../drivers/dmac/dmac.h</name>
 				</file>
@@ -2081,6 +2087,9 @@
 								<name>$PROJ_DIR$/../../../../../../../utils/cmsis/sam3u/include/instance/instance_gpbr.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../utils/cmsis/sam3u/include/instance/instance_pwm.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../utils/cmsis/sam3u/include/instance/instance_twi1.h</name>
 							</file>
 							<file>
@@ -2109,9 +2118,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../utils/cmsis/sam3u/include/instance/instance_wdt.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../utils/cmsis/sam3u/include/instance/instance_pwm.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../utils/cmsis/sam3u/include/instance/instance_rstc.h</name>

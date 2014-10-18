@@ -50,13 +50,15 @@ void configure_i2c_callbacks(void);
 //! [packet_data]
 #define DATA_LENGTH 8
 
-static uint8_t buffer[DATA_LENGTH] = {
+static uint8_t wr_buffer[DATA_LENGTH] = {
 	0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07
 };
 
-static uint8_t buffer_reversed[DATA_LENGTH] = {
+static uint8_t wr_buffer_reversed[DATA_LENGTH] = {
 	0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00
 };
+
+static uint8_t rd_buffer[DATA_LENGTH];
 //! [packet_data]
 
 //! [address]
@@ -64,7 +66,8 @@ static uint8_t buffer_reversed[DATA_LENGTH] = {
 //! [address]
 
 //! [packet_glob]
-struct i2c_master_packet packet;
+struct i2c_master_packet wr_packet;
+struct i2c_master_packet rd_packet;
 //! [packet_glob]
 
 /* Init software module instance. */
@@ -76,19 +79,10 @@ struct i2c_master_module i2c_master_instance;
 void i2c_write_complete_callback(
 		struct i2c_master_module *const module)
 {
-	/* Send every other packet with reversed data */
-	//! [revert_order]
-	if (packet.data[0] == 0x00) {
-		packet.data = &buffer_reversed[0];
-	} else {
-		packet.data = &buffer[0];
-	}
-	//! [revert_order]
-
-	/* Initiate new packet write */
-	//! [write_next]
-	i2c_master_write_packet_job(module, &packet);
-	//! [write_next]
+	/* Initiate new packet read */
+	//! [read_next]
+	i2c_master_read_packet_job(&i2c_master_instance,&rd_packet);
+	//! [read_next]
 }
 //! [callback_func]
 
@@ -148,20 +142,33 @@ int main(void)
 	//! [run_initialize_i2c]
 
 	/* Init i2c packet. */
-	//! [packet]
-	packet.address     = SLAVE_ADDRESS;
-	packet.data_length = DATA_LENGTH;
-	packet.data        = buffer;
-	//! [packet]
-
-	/* Initiate first packet to be sent to slave. */
 	//! [write_packet]
-	i2c_master_write_packet_job(&i2c_master_instance, &packet);
+	wr_packet.address     = SLAVE_ADDRESS;
+	wr_packet.data_length = DATA_LENGTH;
+	wr_packet.data        = wr_buffer;
 	//! [write_packet]
+	//! [read_packet]
+	rd_packet.address     = SLAVE_ADDRESS;
+	rd_packet.data_length = DATA_LENGTH;
+	rd_packet.data        = rd_buffer;
+	//! [read_packet]
 
 	//! [while]
 	while (true) {
 		/* Infinite loop */
+		if (!port_pin_get_input_level(BUTTON_0_PIN)) {
+			/* Send every other packet with reversed data */
+			//! [revert_order]
+			if (wr_packet.data[0] == 0x00) {
+				wr_packet.data = &wr_buffer_reversed[0];
+			} else {
+				wr_packet.data = &wr_buffer[0];
+			}
+			//! [revert_order]
+			//! [write_packet]
+			i2c_master_write_packet_job(&i2c_master_instance, &wr_packet);
+			//! [write_packet]
+		}
 	}
 	//! [while]
 }

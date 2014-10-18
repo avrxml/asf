@@ -40,13 +40,13 @@
  * \asf_license_stop
  *
  */
- 
+
 #include "app.h"
 
 /**
- *  \brief Application initialization: at startup the application run in full 
- *  demo mode (all features on, includes QTouch and segment LCD). Initialize the 
- *  board IO configuration, clocks, QTouch library, xternal interrupts, NVIC and 
+ *  \brief Application initialization: at startup the application run in full
+ *  demo mode (all features on, includes QTouch and segment LCD). Initialize the
+ *  board IO configuration, clocks, QTouch library, xternal interrupts, NVIC and
  *  UI. SAM4L is running at 12 MHz from internal RCFAST (configured at 12MHz).
  */
 void app_init(void)
@@ -79,9 +79,9 @@ void app_init(void)
 }
 
 /**
- *  \brief Initialize the app in low power: now PB0 push button has been pressed 
- *  once, the application switches in low power mode: Stop LCD controller, stop 
- *  LCD backlight, stop QTouch acquisition, switch SAM4L in power scaling PS1 
+ *  \brief Initialize the app in low power: now PB0 push button has been pressed
+ *  once, the application switches in low power mode: Stop LCD controller, stop
+ *  LCD backlight, stop QTouch acquisition, switch SAM4L in power scaling PS1
  *  mode. SAM4L is in RUN mode.
  */
 void app_init_lowpower(void)
@@ -153,8 +153,11 @@ void app_switch_power_scaling(power_scaling_t power_scaling)
 		bpm_configure_power_scaling(BPM,
 				BPM_PMCON_PS(BPM_PS_1),
 				true);
-	}
-	else {
+	} else if (power_scaling == POWER_SCALING_PS2){
+		bpm_configure_power_scaling(BPM,
+				BPM_PMCON_PS(BPM_PS_2),
+				true);
+	} else {
 		bpm_configure_power_scaling(BPM,
 				BPM_PMCON_PS(BPM_PS_0),
 				true);

@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief Analog Comparator Interfacer (ACIFC) example for SAM4L.
+ * \brief SAM4L Analog Comparator Interfacer (ACIFC) example.
  *
  * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -41,61 +41,24 @@
  *
  */
 
-/**
- * \mainpage
- *
- * \section Purpose
- *
- * The Analog Comparator Interfacer example demonstrates how to use the ACIFC
- * peripheral to get comparison result of the input pair.
- *
- * \section Requirements
- *
- * This example can be used with SAM4L MCU featuring Analog Comparator
- * Interface.
- *
- * \section Description
- *
- * This example is aimed to demonstrate the usage of ACIFC peripheral with
- * interrupt support. The PA06 and PA07 are selected as two inputs. The
- * connection can be:
- * \copydoc acifc_example_pins_def
- *
- * \section Usage
- *
- * -# On the computer, open and configure a terminal application
- *    (e.g., HyperTerminal on Microsoft Windows) with these settings:
- *   - 115200 bauds
- *   - 8 bits of data
- *   - No parity
- *   - 1 stop bit
- *   - No flow control
- * -# In the terminal window, the following text should appear (values depend
- *    on the board and chip used):
- *    \code
-	-- ACIFC IRQ Example xxx --
-	-- xxxxxx-xx
-	-- Compiled: xxx xx xxxx xx:xx:xx --
-\endcode
- * -# The application will then output a different message if PA06 lower or
- * higher than PA07.
- *   - -ISR- Voltage Comparison Result: ACAP0 > ACAN0
- *   - -ISR- Voltage Comparison Result: ACAP0 < ACAN0
- */
-#include "asf.h"
-#include "stdio_serial.h"
-#include "conf_board.h"
-#include "conf_clock.h"
+#include <asf.h>
+#include <stdio_serial.h>
+#include <conf_board.h>
+#include <conf_clock.h>
 
+//! [acifc_define_channel]
 /** Analog comparator channel number */
 #define EXAMPLE_AC_CHANNEL         0
+//! [acifc_define_channel]
 
 #define STRING_EOL    "\r"
 #define STRING_HEADER "-- ACIFC IRQ Example  --\r\n" \
 		"-- "BOARD_NAME" --\r\n" \
 		"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
 
+//! [acifc_struct_declaration]
 struct ac_dev_inst ac_device;
+//! [acifc_struct_declaration]
 
 /* State indicate */
 volatile bool state = false;
@@ -154,19 +117,25 @@ int main(void)
 	/* Output example information */
 	puts(STRING_HEADER);
 
-	/* AC instance configuration */
+	//! [acifc_init_and_configure]
+	/** AC instance configuration */
+	//! [acifc_init_and_configure_1]
 	struct ac_config module_cfg;
 	ac_get_config_defaults(&module_cfg);
 	ac_init(&ac_device, ACIFC, &module_cfg);
+	//! [acifc_init_and_configure_1]
 
 	ac_enable(&ac_device);
 
-	/* AC channel configuration */
+	/** AC channel configuration */
+	//! [acifc_init_and_configure_2]
 	struct ac_ch_config ch_cfg;
 	ac_ch_get_config_defaults(&ch_cfg);
 	ch_cfg.always_on = true;
 	ch_cfg.fast_mode = true;
 	ac_ch_set_config(&ac_device, EXAMPLE_AC_CHANNEL, &ch_cfg);
+	//! [acifc_init_and_configure_2]
+	//! [acifc_init_and_configure]
 	ac_set_callback(&ac_device, AC_INTERRUPT_CONVERSION_COMPLETED_0,
 			compare_result_output, 1);
 

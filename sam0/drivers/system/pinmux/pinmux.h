@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 Pin Multiplexer Driver
+ * \brief SAM Pin Multiplexer Driver
  *
  * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
  *
@@ -44,16 +44,20 @@
 #define PINMUX_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam0_system_pinmux_group SAM D20/D21/R21 System Pin Multiplexer Driver (SYSTEM PINMUX)
+ * \defgroup asfdoc_sam0_system_pinmux_group SAM System Pin Multiplexer Driver (SYSTEM PINMUX)
  *
- * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
+ * This driver for SAM devices provides an interface for the configuration
  * and management of the device's physical I/O Pins, to alter the direction and
  * input/drive characteristics as well as to configure the pin peripheral
  * multiplexer selection.
  *
  * The following peripherals are used by this module:
- *
  *  - PORT (Port I/O Management)
+ *
+ * The following devices can use this module:
+ *  - SAM D20/D21
+ *  - SAM R21
+ *  - SAM D10/D11
  *
  * Physically, the modules are interconnected within the device as shown in the
  * following diagram:
@@ -74,14 +78,14 @@
  *
  * \section asfdoc_sam0_system_pinmux_module_overview Module Overview
  *
- * The SAM D20/D21/R21 devices contain a number of General Purpose I/O pins, used to
+ * The SAM devices contain a number of General Purpose I/O pins, used to
  * interface the user application logic and internal hardware peripherals to
  * an external system. The Pin Multiplexer (PINMUX) driver provides a method
  * of configuring the individual pin peripheral multiplexers to select
  * alternate pin functions.
  *
  * \subsection asfdoc_sam0_system_pinmux_physical_logical_pins Physical and Logical GPIO Pins
- * SAM D20/D21/R21 devices use two naming conventions for the I/O pins in the device; one
+ * SAM devices use two naming conventions for the I/O pins in the device; one
  * physical, and one logical. Each physical pin on a device package is assigned
  * both a physical port and pin identifier (e.g. "PORTA.0") as well as a
  * monotonically incrementing logical GPIO number (e.g. "GPIO0"). While the
@@ -90,7 +94,7 @@
  * numbers instead.
  *
  * \subsection asfdoc_sam0_system_pinmux_peripheral_muxing Peripheral Multiplexing
- * SAM D20/D21/R21 devices contain a peripheral MUX, which is individually controllable
+ * SAM devices contain a peripheral MUX, which is individually controllable
  * for each I/O pin of the device. The peripheral MUX allows you to select the
  * function of a physical package pin - whether it will be controlled as a user
  * controllable GPIO pin, or whether it will be connected internally to one of
@@ -145,7 +149,7 @@
  *
  * \section asfdoc_sam0_system_pinmux_special_considerations Special Considerations
  *
- * The SAM D20/D21/R21 port pin input sampling mode is set in groups of four physical
+ * The SAM port pin input sampling mode is set in groups of four physical
  * pins; setting the sampling mode of any pin in a sub-group of eight I/O pins
  * will configure the sampling mode of the entire sub-group.
  *
@@ -476,6 +480,11 @@ static inline void system_pinmux_pin_set_input_sample_mode(
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>F</td>
+ *		<td>04/2014</td>
+ *		<td>Add support for SAMD10/D11</td>
  *	</tr>
  *	<tr>
  *		<td>E</td>

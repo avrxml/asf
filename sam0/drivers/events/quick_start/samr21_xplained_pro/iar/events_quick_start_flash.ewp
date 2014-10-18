@@ -2003,7 +2003,7 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/sercom4.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/rtc.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/pac1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/sercom2.h</name>
@@ -2030,6 +2030,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/ac.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/rtc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/tc4.h</name>
 							</file>
 							<file>
@@ -2049,9 +2052,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/adc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/pac1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samr21/include/instance/i2s.h</name>
@@ -2228,6 +2228,9 @@
 								<name>$PROJ_DIR$/asf.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../conf_qs_events.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../conf_clocks.h</name>
 						</file>

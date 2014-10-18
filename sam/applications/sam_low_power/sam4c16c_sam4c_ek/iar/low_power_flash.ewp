@@ -1954,6 +1954,12 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/rstc/rstc.c</name>
 				</file>
+				<group>
+					<name>example1</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/rstc/example1/rstc_example1.h</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/rstc/rstc.h</name>
 				</file>

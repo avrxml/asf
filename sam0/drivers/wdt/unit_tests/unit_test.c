@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM D20/D21/R21 Watchdog Unit test
+ * \brief SAM Watchdog Unit test
  *
  * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
  *
@@ -42,7 +42,7 @@
  */
 
 /**
- * \mainpage SAM D20/D21/R21 WDT Unit Test
+ * \mainpage SAM WDT Unit Test
  * See \ref appdoc_main "here" for project documentation.
  * \copydetails appdoc_preface
  *
@@ -50,13 +50,13 @@
  * \page appdoc_preface Overview
  * This unit test carries out tests for WDT driver.
  * It consists of test cases for the following functionalities:
- *      - Test for driver initialization.
- *      - Test for early warning callbacks.
- *      - Test for system reset upon timeout.
+ *  - Test for driver initialization.
+ *  - Test for early warning callbacks.
+ *  - Test for system reset upon timeout.
  */
 
 /**
- * \page appdoc_main SAM D20/D21/R21 WDT Unit Test
+ * \page appdoc_main SAM WDT Unit Test
  *
  * Overview:
  * - \ref appdoc_sam0_wdt_unit_test_intro
@@ -69,16 +69,16 @@
  * \copydetails appdoc_preface
  *
  * The following kit is required for carrying out the test:
- *      - SAM D20 Xplained Pro board
- *      - SAM D21 Xplained Pro board
- *      - SAM R21 Xplained Pro board
+ *  - SAM D20 Xplained Pro board
+ *  - SAM D21 Xplained Pro board
+ *  - SAM R21 Xplained Pro board
  *
  * \section appdoc_sam0_wdt_unit_test_setup Setup
  * The following connections has to be made using wires:
  *  - None
  *
  * To run the test:
- *  - Connect the SAM D20/D21/R21 Xplained Pro board to the computer using a
+ *  - Connect the SAM Xplained Pro board to the computer using a
  *    micro USB cable.
  *  - Open the virtual COM port in a terminal application.
  *    \note The USB composite firmware running on the Embedded Debugger (EDBG)
@@ -234,7 +234,7 @@ int main(void)
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(wdt_suite, wdt_tests,
-			"SAM D20/D21/R21 WDT driver test suite");
+			"SAM WDT driver test suite");
 
 	/* Run all tests in the suite*/
 	test_suite_run(&wdt_suite);

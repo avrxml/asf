@@ -52,14 +52,14 @@ extern "C" {
 
 /**
  * \if (I2C_MASTER_MODE && I2C_SLAVE_MODE)
- *   \defgroup asfdoc_sam0_sercom_i2c_group SAM D20/D21/R21 I2C Driver (SERCOM I2C)
+ *   \defgroup asfdoc_sam0_sercom_i2c_group SAM I2C Driver (SERCOM I2C)
  * \elseif I2C_MASTER_MODE
- *   \defgroup asfdoc_sam0_sercom_i2c_group SAM D20/D21/R21 I2C Master Mode Driver (SERCOM I2C)
+ *   \defgroup asfdoc_sam0_sercom_i2c_group SAM I2C Master Mode Driver (SERCOM I2C)
  * \elseif I2C_SLAVE_MODE
- *   \defgroup asfdoc_sam0_sercom_i2c_group SAM D20/D21/R21 I2C Slave Mode Driver (SERCOM I2C)
+ *   \defgroup asfdoc_sam0_sercom_i2c_group SAM I2C Slave Mode Driver (SERCOM I2C)
  * \endif
  *
- * This driver for SAM D20/D21/R21 devices provides an interface for the configuration
+ * This driver for SAM devices provides an interface for the configuration
  * and management of the device's SERCOM I<SUP>2</SUP>C module, for the transfer
  * of data via an I<SUP>2</SUP>C bus. The following driver API modes are covered
  * by this manual:
@@ -78,8 +78,12 @@ extern "C" {
  * \endif
  *
  * The following peripheral is used by this module:
- *
  * - SERCOM (Serial Communication Interface)
+ *
+ * The following devices can use this module:
+ *  - SAM D20/D21
+ *  - SAM R21
+ *  - SAM D10/D11
  *
  * The outline of this documentation is as follows:
  * - \ref asfdoc_sam0_sercom_i2c_prerequisites
@@ -111,19 +115,19 @@ extern "C" {
  *	</tr>
  *	<tr>
  *		<td>FEATURE_I2C_FAST_MODE_PLUS_AND_HIGH_SPEED</td>
- *		<td>SAM D21/R21</td>
+ *		<td>SAM D21/R21/D10/D11</td>
  *	</tr>
  *	<tr>
  *		<td>FEATURE_I2C_10_BIT_ADDRESS</td>
- *		<td>SAM D21/R21</td>
+ *		<td>SAM D21/R21/D10/D11</td>
  *	</tr>
  *	<tr>
  *		<td>FEATURE_I2C_SCL_STRETCH_MODE</td>
- *		<td>SAM D21/R21</td>
+ *		<td>SAM D21/R21/D10/D11</td>
  *	</tr>
  *	<tr>
  *		<td>FEATURE_I2C_SCL_EXTEND_TIMEOUT</td>
- *		<td>SAM D21/R21</td>
+ *		<td>SAM D21/R21/D10/D11</td>
  *	</tr>
  * </table>
  * \note The specific features are only available in the driver when the
@@ -390,7 +394,7 @@ extern "C" {
  *       supported by the driver now.
  * @{
  */
-#if (SAMD21) || (SAMR21) || defined(__DOXYGEN__)
+#if (SAMD21) || (SAMR21) || (SAMD10) || (SAMD11) || defined(__DOXYGEN__)
 /** Fast mode plus and high speed support */
 #  define FEATURE_I2C_FAST_MODE_PLUS_AND_HIGH_SPEED
 /** 10 bit address support */
@@ -526,6 +530,11 @@ enum i2c_transfer_direction {
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>F</td>
+ *		<td>04/2014</td>
+ *		<td>Added SAM D10/D11 support.</td>
  *	</tr>
  *	<tr>
  *		<td>E</td>

@@ -582,7 +582,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories
 # with spaces.
 
-INPUT                  = doxygen_module_mainpage.h ../../sam/netif/samd20_spi_ksz8851snl.c ../../sam/sys_arch.c ../../sam/include/arch/cc.h ../../sam/include/arch/perf.h ../../sam/include/arch/sys_arch.h ../../sam/include/netif/samd20_spi_ksz8851snl.h
+INPUT                  = doxygen_module_mainpage.h ../../sam/netif/sam0_spi_ksz8851snl.c ../../sam/sys_arch.c ../../sam/include/arch/cc.h ../../sam/include/arch/perf.h ../../sam/include/arch/sys_arch.h ../../sam/include/netif/sam0_spi_ksz8851snl.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding, which is

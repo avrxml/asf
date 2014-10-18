@@ -733,6 +733,15 @@ static void local_uart_handler(const portBASE_TYPE uart_index)
  * handler calls the common interrupt handler.
  */
 
+#ifdef UART
+
+void UART_Handler(void)
+{
+	local_uart_handler(0);
+}
+
+#endif /* UART */
+
 #ifdef UART0
 
 void UART0_Handler(void)

@@ -119,8 +119,8 @@ void sysclk_init(void)
 	uint32_t trim_value;
 #endif
 
-	/* Set a flash wait state depending on the new cpu frequency */
-	system_init_flash(sysclk_get_cpu_hz());
+	/* Set flash wait state to max in case the below clock switching. */
+	system_init_flash(CHIP_FREQ_CPU_MAX);
 
 	/* Config system clock setting */
 	if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_SLCK_RC) {
@@ -183,6 +183,9 @@ void sysclk_init(void)
 
 	/* Update the SystemFrequency variable */
 	SystemCoreClockUpdate();
+
+	/* Set a flash wait state depending on the new cpu frequency */
+	system_init_flash(sysclk_get_cpu_hz());
 
 #if SAMG54
 	/* Set the trim value when system run near 96M */
