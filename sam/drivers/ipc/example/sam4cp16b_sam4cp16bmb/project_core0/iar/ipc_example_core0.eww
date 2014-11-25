@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\ipc_example_core0_flash.ewp</path>
+	</project>
+</workspace>

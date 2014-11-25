@@ -1,0 +1,18 @@
+<asf xmlversion="1.0">
+	<module type="driver" id="sam0.utils.cmsis.samd10.include.pio" caption="SAMD10 PIO definitions">
+		<info type="description" value="summary">
+		SAMD10 PIO component definitions.
+		</info>
+		<build type="header-file" value="samd10c12a.h"/>
+		<build type="header-file" value="samd10c13a.h"/>
+		<build type="header-file" value="samd10c14a.h"/>	
+		<build type="header-file" value="samd10d12a.h"/>
+		<build type="header-file" value="samd10d13a.h"/>
+		<build type="header-file" value="samd10d14a.h"/>	
+		<build type="header-file" value="samd10e12a.h"/>
+		<build type="header-file" value="samd10e13a.h"/>
+		<build type="header-file" value="samd10e14a.h"/>
+		<info type="gui-flag" value="hidden"/>
+		<device-support value="samd10"/>
+	</module>
+</asf>

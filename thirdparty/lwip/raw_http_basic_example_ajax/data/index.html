@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>ATMEL SAM web server</title>
+		<link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+   				var set_led_status = function(elm,status) {
+   					if (status == 1) {
+						elm.addClass('led-on').removeClass('led-off').text('ON').append("<span></span>");
+   					} else {
+   						elm.addClass('led-off').removeClass('led-on').text('OFF').prepend("<span></span>");
+	   				}
+   				}
+   				$("span[id^=led]").click(function(){
+   					var elm = $(this);
+					if (elm.hasClass('led-off')) {
+						var status = 1;
+					} else {
+						var status = 0;
+					}
+					set_led_status(elm, status);
+					$.ajax({
+					  url: "set_led",
+					  async: false,
+					  cache: false,
+					  data:{'n':elm.attr('name'),'set':status},
+					  dataType :'json',
+					  success: function(){
+					  }
+					});
+   				});
+			    function updateStatus() {
+			$.ajax({
+					  url: "status",
+					  async: false,
+					  cache: false,
+					  dataType :'json',
+					  success: function(data){
+						 $.each(data['leds'], function (key,v) {
+							set_led_status($('#led-' + key), v);
+							});
+						 setTimeout(updateStatus, 500);
+					  }
+					});
+			    }
+			   updateStatus();
+			});
+
+		</script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="conteiner">
+				<div id="header">
+					<div>
+						<h1 align="middle">Web Application Demo</h1><br>
+						<h3 align="right"> Remote control via internet</h3>
+					</div>
+				</div>
+				<div class="control">
+						<b>Led status:</b><br/>
+						<span id="led-0" name="0" class="led led-off">--</span>
+				</div>
+				<div  class="content footer">
+						Please visit <a href="http://www.atmel.com">www.atmel.com</a> for more info
+				</div>
+			</div>
+		</div>		
+	</body>
+</html>

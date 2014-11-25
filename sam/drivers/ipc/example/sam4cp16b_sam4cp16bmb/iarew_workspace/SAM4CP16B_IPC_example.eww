@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+	<project>
+		<path>$WS_DIR$\..\project_core1\iar\ipc_example_core1_sram.ewp</path>
+	</project>
+	<project>
+		<path>$WS_DIR$\..\project_core0\iar\ipc_example_core0_flash.ewp</path>
+	</project>
+	<batchBuild>
+		<batchDefinition>
+			<name>All</name>
+			<member>
+				<project>ipc_example_core1_sram</project>
+				<configuration>Debug</configuration>
+			</member>
+			<member>
+				<project>ipc_example_core0_flash</project>
+				<configuration>Debug</configuration>
+			</member>
+		</batchDefinition>
+	</batchBuild>
+</workspace>
