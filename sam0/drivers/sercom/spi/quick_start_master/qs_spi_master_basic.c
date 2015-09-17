@@ -3,7 +3,7 @@
  *
  * \brief SAM SPI Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 
 //! [setup]
@@ -50,9 +53,9 @@
 #define SLAVE_SELECT_PIN EXT1_PIN_SPI_SS_0
 //! [slave_select_pin]
 //! [buffer]
-static const uint8_t buffer[BUF_LENGTH] = {
+static uint8_t buffer[BUF_LENGTH] = {
 		0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
-		 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0x12, 0x13
+		0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0x12, 0x13
 };
 //! [buffer]
 
@@ -131,19 +134,23 @@ int main(void)
 //! [main_setup]
 
 //! [main_use_case]
-//! [select_slave]
-	spi_select_slave(&spi_master_instance, &slave, true);
-//! [select_slave]
-//! [write]
-	spi_write_buffer_wait(&spi_master_instance, buffer, BUF_LENGTH);
-//! [write]
-//! [deselect_slave]
-	spi_select_slave(&spi_master_instance, &slave, false);
-//! [deselect_slave]
-
 //! [inf_loop]
 	while (true) {
 		/* Infinite loop */
+		if(!port_pin_get_input_level(BUTTON_0_PIN)) {
+			//! [select_slave]
+			spi_select_slave(&spi_master_instance, &slave, true);
+			//! [select_slave]
+			//! [write]
+			spi_write_buffer_wait(&spi_master_instance, buffer, BUF_LENGTH);
+			//! [write]
+			//! [deselect_slave]
+			spi_select_slave(&spi_master_instance, &slave, false);
+			//! [deselect_slave]
+			//! [light_up]
+			port_pin_set_output_level(LED_0_PIN, LED0_ACTIVE);
+			//! [light_up]
+		}
 	}
 //! [inf_loop]
 //! [main_use_case]

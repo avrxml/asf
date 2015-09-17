@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS demo tasks header.
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

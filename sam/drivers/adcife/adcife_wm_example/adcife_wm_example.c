@@ -3,7 +3,7 @@
  *
  * \brief ADCIFE Window Monitor example for SAM4L.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -99,16 +99,18 @@
  * -# Input the command according to the menu.
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "asf.h"
 #include "stdio_serial.h"
 #include "conf_board.h"
 
 #define VDDANA             3300
-#define REFSEL1_VCCRATIO   625
 
 /* Reference voltage in mv */
-#define VOLT_REF   ((uint32_t)(VDDANA * REFSEL1_VCCRATIO / 1000))
+#define VOLT_REF   1000
 
 /** The maximal digital value*/
 #define MAX_DIGITAL     (4095)
@@ -399,8 +401,8 @@ int main(void)
 	puts(STRING_HEADER);
 
 	/* Initialize threshold. */
-	gs_us_low_threshold = 500;
-	gs_us_high_threshold = 2000;
+	gs_us_low_threshold = 1023;
+	gs_us_high_threshold = 4095;
 
 	struct adc_config adc_cfg = {
 		/* System clock division factor is 16 */
@@ -409,8 +411,8 @@ int main(void)
 		.clksel = ADC_CLKSEL_APBCLK,
 		/* Max speed is 150K */
 		.speed = ADC_SPEED_150K,
-		/* ADC Reference voltage is 0.625*VCC */
-		.refsel = ADC_REFSEL_1,
+		/* ADC Reference voltage is internal 1.0V */
+		.refsel = ADC_REFSEL_0,
 		/* Enables the Startup time */
 		.start_up = CONFIG_ADC_STARTUP
 	};
@@ -438,9 +440,9 @@ int main(void)
 		.internal_timer_max_count = 60,
 		/* Window monitor mode is off */
 		.window_mode = ADC_WM_MODE_3,
-		/* The equivalent voltage value is 500 * VOLT_REF / 4095 = 251mv. */
+		/* The equivalent voltage value is 1023 * VOLT_REF / 4095 = 250mv. */
 		.low_threshold = gs_us_low_threshold,
-		/* The equivalent voltage value is 2000 * VOLT_REF / 4095 = 1002mv. */
+		/* The equivalent voltage value is 4095 * VOLT_REF / 4095 = 1000mv. */
 		.high_threshold = gs_us_high_threshold,
 	};
 

@@ -3,7 +3,7 @@
  *
  * \brief API driver for MMA7341L accelerometer component.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,6 +48,9 @@
  * features of the Accelerometer MMA7341L.
  *
  * \{
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "sysclk.h"

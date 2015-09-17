@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3S4	Atmel SAM3S4</state>
+					<state>ATSAM3S4C	Atmel ATSAM3S4C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -314,6 +314,7 @@
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -596,6 +597,7 @@
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -1052,7 +1054,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3S4	Atmel SAM3S4</state>
+					<state>ATSAM3S4C	Atmel ATSAM3S4C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1269,6 +1271,7 @@
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -1551,6 +1554,7 @@
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -1913,6 +1917,84 @@
 	<group>
 		<name>sam</name>
 		<group>
+			<name>drivers</name>
+			<group>
+				<name>pio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio.h</name>
+				</file>
+			</group>
+			<group>
+				<name>usart</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/usart/usart.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/usart/usart.h</name>
+				</file>
+			</group>
+			<group>
+				<name>udp</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp/udp_device.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp/udp_device.h</name>
+				</file>
+			</group>
+			<group>
+				<name>pmc</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/sleep.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/sleep.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.h</name>
+				</file>
+			</group>
+			<group>
+				<name>matrix</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
+			<name>boards</name>
+			<group>
+				<name>sam3s_ek</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek/init.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek/led.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek/sam3s_ek.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek/led.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
 			<name>utils</name>
 			<group>
 				<name>cmsis</name>
@@ -1923,10 +2005,10 @@
 						<group>
 							<name>templates</name>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/source/templates/system_sam3s.c</name>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/source/templates/exceptions.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/source/templates/exceptions.c</name>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/source/templates/system_sam3s.c</name>
 							</file>
 							<group>
 								<name>iar</name>
@@ -2211,75 +2293,6 @@
 			<file>
 				<name>$PROJ_DIR$/../../../../../../../../../sam/utils/compiler.h</name>
 			</file>
-		</group>
-		<group>
-			<name>boards</name>
-			<group>
-				<name>sam3s_ek</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek/init.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek/led.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek/sam3s_ek.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek/led.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
-			<name>drivers</name>
-			<group>
-				<name>usart</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/usart/usart.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/usart/usart.h</name>
-				</file>
-			</group>
-			<group>
-				<name>pio</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio_handler.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio/pio.h</name>
-				</file>
-			</group>
-			<group>
-				<name>udp</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp/udp_device.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp/udp_device.h</name>
-				</file>
-			</group>
-			<group>
-				<name>pmc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/sleep.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/sleep.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.h</name>
-				</file>
-			</group>
 		</group>
 	</group>
 	<group>

@@ -4,9 +4,9 @@
  * \brief This file contains the Serial interface API used by QDebug component
  * to transfer data over USART Serial interface.
  * - Userguide:          QTouch Library User Guide - doc8207.pdf.
- * - Support email:      touch@atmel.com
+ * - Support: http://www.atmel.com/design-support/
  *
- * Copyright (C) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

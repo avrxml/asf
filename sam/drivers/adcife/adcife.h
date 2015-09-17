@@ -3,7 +3,7 @@
  *
  * \brief Analog-to-Digital Converter driver for SAM4L.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef ADC_H_INCLUDED
@@ -769,7 +772,7 @@ static inline adc_interrupt_source_t adc_get_interrupt_mask(struct adc_dev_inst 
  * \section adcife_basic_use_case Basic use case
  * In this basic use case, the ADCIFE module and single channel are configured for:
  * - 12-bit, unsigned conversions
- * - Internal bandgap as 3.3 V reference
+ * - Internal bandgap as 1.0 V reference
  * - ADC clock rate of at most 1.8 MHz and maximum sample rate is 300 KHz
  * - Software triggering of conversions
  * - Interrupt-based conversion handling
@@ -799,8 +802,8 @@ static inline adc_interrupt_source_t adc_get_interrupt_mask(struct adc_dev_inst 
 	    .clksel = ADC_CLKSEL_APBCLK,
 	    // Max speed is 150K
 	    .speed = ADC_SPEED_150K,
-	    // ADC Reference voltage is 0.625*VCC
-	    .refsel = ADC_REFSEL_1,
+	    // ADC Reference voltage is internal 1.0V
+	    .refsel = ADC_REFSEL_0,
 	    // Enables the Startup time
 	    .start_up = CONFIG_ADC_STARTUP
 	  };

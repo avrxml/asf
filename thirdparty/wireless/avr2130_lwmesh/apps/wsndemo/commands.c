@@ -3,7 +3,7 @@
  *
  * \brief WSNDemo command handler implementation
  *
- * Copyright (C) 2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,7 +47,7 @@
 #include "sysTimer.h"
 #include "commands.h"
 #include "wsndemo.h"
-#if !(SAMD || SAMR21)
+#if !(SAMD || SAMR21||SAML21)
 #if (LED_COUNT > 0)
 #include "led.h"
 #endif

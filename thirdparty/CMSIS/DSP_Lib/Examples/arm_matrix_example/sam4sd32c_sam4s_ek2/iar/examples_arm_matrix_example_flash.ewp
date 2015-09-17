@@ -305,10 +305,9 @@
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek2</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pio</state>
-					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -569,10 +568,9 @@
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek2</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pio</state>
-					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1224,10 +1222,9 @@
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek2</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pio</state>
-					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1488,10 +1485,9 @@
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek2</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pio</state>
-					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1838,57 +1834,6 @@
 			<data></data>
 		</settings>
 	</configuration>
-	<group>
-		<name>thirdparty</name>
-		<group>
-			<name>CMSIS</name>
-			<group>
-				<name>DSP_Lib</name>
-				<group>
-					<name>Examples</name>
-					<group>
-						<name>Common</name>
-						<group>
-							<name>Source</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Source/math_helper.c</name>
-							</file>
-						</group>
-						<group>
-							<name>Include</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Include/math_helper.h</name>
-							</file>
-						</group>
-					</group>
-					<group>
-						<name>arm_matrix_example</name>
-						<file>
-							<name>$PROJ_DIR$/../../arm_matrix_example_f32.c</name>
-						</file>
-						<group>
-							<name>sam4sd32c_sam4s_ek2</name>
-							<file>
-								<name>$PROJ_DIR$/../conf_clock.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../conf_board.h</name>
-							</file>
-							<group>
-								<name>iar</name>
-								<file>
-									<name>$PROJ_DIR$/asf.h</name>
-								</file>
-							</group>
-						</group>
-						<file>
-							<name>$PROJ_DIR$/../../documentation.h</name>
-						</file>
-					</group>
-				</group>
-			</group>
-		</group>
-	</group>
 	<group>
 		<name>sam</name>
 		<group>
@@ -2373,6 +2318,48 @@
 			<file>
 				<name>$PROJ_DIR$/../../../../../../../common/boards/board.h</name>
 			</file>
+		</group>
+	</group>
+	<group>
+		<name>thirdparty</name>
+		<group>
+			<name>CMSIS</name>
+			<group>
+				<name>DSP_Lib</name>
+				<group>
+					<name>Examples</name>
+					<group>
+						<name>arm_matrix_example</name>
+						<file>
+							<name>$PROJ_DIR$/../../arm_matrix_example_f32.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.c</name>
+						</file>
+						<group>
+							<name>sam4sd32c_sam4s_ek2</name>
+							<file>
+								<name>$PROJ_DIR$/../conf_clock.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../conf_board.h</name>
+							</file>
+							<group>
+								<name>iar</name>
+								<file>
+									<name>$PROJ_DIR$/asf.h</name>
+								</file>
+							</group>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../../documentation.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.h</name>
+						</file>
+					</group>
+				</group>
+			</group>
 		</group>
 	</group>
 </project>

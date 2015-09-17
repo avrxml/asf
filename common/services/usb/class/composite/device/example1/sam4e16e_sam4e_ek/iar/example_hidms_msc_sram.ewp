@@ -303,13 +303,14 @@
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/fpu</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../hid/device/mouse</state>
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
@@ -581,13 +582,14 @@
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/fpu</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../hid/device/mouse</state>
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
@@ -1250,13 +1252,14 @@
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/fpu</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../hid/device/mouse</state>
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
@@ -1528,13 +1531,14 @@
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/fpu</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../hid/device/mouse</state>
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
@@ -2129,10 +2133,10 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/gpbr.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/cmcc.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/rswdt.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/rswdt.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/cmcc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/include/component/supc.h</name>
@@ -2250,6 +2254,15 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.h</name>
+				</file>
+			</group>
+			<group>
+				<name>matrix</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.h</name>
 				</file>
 			</group>
 		</group>
@@ -2383,10 +2396,10 @@
 									<name>$PROJ_DIR$/../../conf_usb.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../main.h</name>
+									<name>$PROJ_DIR$/../../ui.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../ui.h</name>
+									<name>$PROJ_DIR$/../../main.h</name>
 								</file>
 							</group>
 							<file>

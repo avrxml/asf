@@ -3,7 +3,7 @@
  *
  * \brief CMSIS Example.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -64,6 +64,9 @@
  *
  * -# Build the program and download it into the evaluation board.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"

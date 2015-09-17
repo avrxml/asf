@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM I2C Master Interface Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,7 @@
  *
  * In this use case, the I<SUP>2</SUP>C will used and set up as follows:
  *  - Master mode
- *  - 100kHz operation speed
+ *  - 100KHz operation speed
  *  - Not operational in standby
  *  - 65535 unknown bus state timeout value
  *
@@ -78,7 +78,7 @@
  * Function for setting up the callback functionality of the driver:
  * \snippet qs_i2c_master_callback.c setup_callback
  *
- * Add to user application main():
+ * Add to user application \c main():
  * \snippet qs_i2c_master_callback.c run_initialize_i2c
  *
  * \subsection asfdoc_sam0_sercom_i2c_master_callback_use_case_setup_workflow Workflow
@@ -99,11 +99,11 @@
  *  -# Enable write complete callback.
  *     \snippet qs_i2c_master_callback.c callback_en
  * -# Create a packet to send to slave.
- *    \snippet qs_i2c_master_callback.c packet
+ *    \snippet qs_i2c_master_callback.c write_packet
  *
  * \section asfdoc_sam0_sercom_i2c_master_callback_use_case_implementation Implementation
  * \subsection asfdoc_sam0_sercom_i2c_master_callback_use_case_code Code
- * Add to user application main:
+ * Add to user application \c main():
  * \snippet qs_i2c_master_callback.c while
  * \subsection asfdoc_sam0_sercom_i2c_master_callback_use_case_implementation_workflow Workflow
  * -# Write packet to slave.
@@ -119,8 +119,11 @@
  *  -# Send every other packet in reversed order.
  *     \snippet qs_i2c_master_callback.c revert_order
  *  -# Write new packet to slave.
- *     \snippet qs_i2c_master_callback.c write_next
+ *     \snippet qs_i2c_master_callback.c write_packet
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>

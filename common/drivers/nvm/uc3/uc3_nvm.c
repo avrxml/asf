@@ -3,7 +3,7 @@
  *
  * \brief Non volatile memories management for UC3 devices
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include "common_nvm.h"
 #include "conf_nvm.h"
@@ -114,6 +117,7 @@ status_code_t nvm_write_char(mem_type_t mem, uint32_t address, uint8_t data)
 
 		at45dbx_write_byte(data);
 		at45dbx_write_close();
+		break;
 #endif
 
 	default:
@@ -135,13 +139,25 @@ status_code_t nvm_read(mem_type_t mem, uint32_t address, void *buffer,
 #if defined(USE_EXTMEM) && defined(CONF_BOARD_AT45DBX)
 	case AT45DBX:
 	{
-		uint32_t sector = address / AT45DBX_SECTOR_SIZE;
-		if (!at45dbx_read_sector_open(sector)) {
-			return ERR_BAD_ADDRESS;
-		}
+		if (len == AT45DBX_SECTOR_SIZE) {
+			uint32_t sector = address / AT45DBX_SECTOR_SIZE;
+			if (!at45dbx_read_sector_open(sector)) {
+				return ERR_BAD_ADDRESS;
+			}
 
-		at45dbx_read_sector_to_ram(buffer);
-		at45dbx_read_close();
+			at45dbx_read_sector_to_ram(buffer);
+			at45dbx_read_close();
+		} else {
+			if (!at45dbx_read_byte_open(address)) {
+				return ERR_BAD_ADDRESS;
+			}
+			uint8_t *buf = (uint8_t *)buffer;
+			while (len--) {
+				*buf++ = at45dbx_read_byte();
+			}
+			at45dbx_read_close();
+		}
+		
 	}
 	break;
 #endif
@@ -166,13 +182,24 @@ status_code_t nvm_write(mem_type_t mem, uint32_t address, void *buffer,
 #if defined(USE_EXTMEM) && defined(CONF_BOARD_AT45DBX)
 	case AT45DBX:
 	{
-		uint32_t sector = address / AT45DBX_SECTOR_SIZE;
-		if (!at45dbx_write_sector_open(sector)) {
-			return ERR_BAD_ADDRESS;
-		}
+		if (len == AT45DBX_SECTOR_SIZE) {
+			uint32_t sector = address / AT45DBX_SECTOR_SIZE;
+			if (!at45dbx_write_sector_open(sector)) {
+				return ERR_BAD_ADDRESS;
+			}
 
-		at45dbx_write_sector_from_ram((const void *)buffer);
-		at45dbx_write_close();
+			at45dbx_write_sector_from_ram((const void *)buffer);
+			at45dbx_write_close();
+		} else {
+			if (!at45dbx_write_byte_open(address)) {
+				return ERR_BAD_ADDRESS;
+			}
+			uint8_t *buf = (uint8_t *)buffer;
+			while (len--) {
+				at45dbx_write_byte(*buf++);
+			}
+			at45dbx_write_close();
+		}	
 	}
 	break;
 #endif

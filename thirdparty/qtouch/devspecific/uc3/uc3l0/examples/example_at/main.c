@@ -4,7 +4,7 @@
  * \brief Autonomous QTouch Example with CAT module using SleepWalking feature
  *        in AT32UC3L series.
  *
- * Copyright (C) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -683,7 +683,7 @@ void power_save_measures_init()
  *  - Capacitive Touch Sensor Tuning
  *  - Capacitive Touch Schematic design
  *  - Capacitive Touch Sensor design
- *  email touch@atmel.com
+ *  refer to http://www.atmel.com/design-support/
  *
  * \section referenceinfo QTouch Library Documentation
  *  - Refer doc8207: Atmel QTouch Library User Guide.
@@ -780,8 +780,7 @@ void power_save_measures_init()
  * For further information, visit :
  * <A href="http://www.atmel.com/products/AVR32/"> Atmel AVR32 </A>.\n
  * Technical support & faq, visit :
- * <A href="http://support.atmel.no/"> Support and FAQ </A>.\n
- * For Technical Support, e-mail : touch@atmel.com
+ * <A href="http://www.atmel.com/design-support/"> Support and FAQ </A>.
  *
  * \author  Atmel Corporation: http://www.atmel.com \n
  */

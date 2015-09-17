@@ -3,7 +3,7 @@
  *
  * @brief This header file declares the interface for the RF4Control stack.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,7 +56,7 @@
 
 /**
  * \defgroup group_rf4control RF4Control v2.0.1
- * The RF4Control stack is a ZigBee® RF4CE Certified Platform implementing the
+ * The RF4Control stack is a ZigBeeRF4CE Certified Platform implementing the
  * ZigBee
  * RF4CE standard.
  *

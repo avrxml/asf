@@ -3,7 +3,7 @@
  *
  * \brief Non volatile memories management
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -252,7 +252,7 @@ status_code_t nvm_set_security_bit(void);
  *         uint8_t data_read[8];
  *
  *         if(nvm_read(INT_FLASH, test_address, (void *)data_read,
- *sizeof(data_read))
+ * sizeof(data_read))
  *       == STATUS_OK) {
  *           //Check read content
  *           if(data_read[0] == 0xAA)

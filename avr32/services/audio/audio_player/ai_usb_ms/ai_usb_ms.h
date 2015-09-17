@@ -7,7 +7,7 @@
  * This function should be connected to the audio interface to give access to the mass storage audio player
  * If you use this routines then you don't must use the other FileSystem routine provide in nav_auto.h, navigation.h, file.h, playlist.h
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,6 +44,9 @@
  * \asf_license_stop
  *
  *****************************************************************************/
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _AI_USB_MS_H_
 #define _AI_USB_MS_H_

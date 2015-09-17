@@ -3,7 +3,7 @@
  *
  * \brief Clock system example 2
  *
- * Copyright (c) 2010-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -112,6 +112,9 @@
  *
  * This is how much the generic clock should divide the frequency of the
  * configured clock source by.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 //@}
 

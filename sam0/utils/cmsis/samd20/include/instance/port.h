@@ -3,7 +3,7 @@
  *
  * \brief Instance description for PORT
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAMD20_PORT_INSTANCE_
@@ -102,35 +105,35 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for PORT peripheral ========== */
-#define PORT_BITS                   64
-#define PORT_DIR_DEFAULT_VAL        { 0x00000000, 0x00000000 }
-#define PORT_DIR_IMPLEMENTED        { 0xDBFFFFFF, 0xC0C3FFFF }
-#define PORT_DRVSTR                 1
-#define PORT_DRVSTR_DEFAULT_VAL     { 0xDBFFFFFF, 0xC0C3FFFF }
-#define PORT_DRVSTR_IMPLEMENTED     { 0xDBFFFFFF, 0xC0C3FFFF }
+#define PORT_BITS                   64       // Number of PORT pins
+#define PORT_DIR_DEFAULT_VAL        { 0x00000000, 0x00000000 } // Default value for DIR of all pins
+#define PORT_DIR_IMPLEMENTED        { 0xDBFFFFFF, 0xC0C3FFFF } // Implementation mask for DIR of all pins
+#define PORT_DRVSTR                 1        // DRVSTR supported
+#define PORT_DRVSTR_DEFAULT_VAL     { 0xDBFFFFFF, 0xC0C3FFFF } // Default value for DRVSTR of all pins
+#define PORT_DRVSTR_IMPLEMENTED     { 0xDBFFFFFF, 0xC0C3FFFF } // Implementation mask for DRVSTR of all pins
 #define PORT_EVENT_IMPLEMENTED      { 0x00000000, 0x00000000 }
-#define PORT_INEN_DEFAULT_VAL       { 0x00000000, 0x00000000 }
-#define PORT_INEN_IMPLEMENTED       { 0xDBFFFFFF, 0xC0C3FFFF }
-#define PORT_ODRAIN                 0
-#define PORT_ODRAIN_DEFAULT_VAL     { 0x00000000, 0x00000000 }
-#define PORT_ODRAIN_IMPLEMENTED     { 0x00000000, 0x00000000 }
-#define PORT_OUT_DEFAULT_VAL        { 0x00000000, 0x00000000 }
-#define PORT_OUT_IMPLEMENTED        { 0xDBFFFFFF, 0xC0C3FFFF }
-#define PORT_PIN_IMPLEMENTED        { 0xDBFFFFFF, 0xC0C3FFFF }
-#define PORT_PMUXBIT0_DEFAULT_VAL   { 0x00000000, 0x00000000 }
-#define PORT_PMUXBIT0_IMPLEMENTED   { 0xDBFFFFFF, 0xC0C3FFFF }
-#define PORT_PMUXBIT1_DEFAULT_VAL   { 0x40000000, 0x00000000 }
-#define PORT_PMUXBIT1_IMPLEMENTED   { 0xDBFFFFF3, 0xC0C3FF0F }
-#define PORT_PMUXBIT2_DEFAULT_VAL   { 0x40000000, 0x00000000 }
-#define PORT_PMUXBIT2_IMPLEMENTED   { 0xDBFFFFF3, 0xC0C3FF0F }
-#define PORT_PMUXBIT3_DEFAULT_VAL   { 0x00000000, 0x00000000 }
-#define PORT_PMUXBIT3_IMPLEMENTED   { 0x00000000, 0x00000000 }
-#define PORT_PMUXEN_DEFAULT_VAL     { 0x64000000, 0x3F3C0000 }
-#define PORT_PMUXEN_IMPLEMENTED     { 0xDBFFFFFF, 0xC0C3FFFF }
-#define PORT_PULLEN_DEFAULT_VAL     { 0x00000000, 0x00000000 }
-#define PORT_PULLEN_IMPLEMENTED     { 0xDBFFFFFF, 0xC0C3FFFF }
-#define PORT_SLEWLIM                0
-#define PORT_SLEWLIM_DEFAULT_VAL    { 0x00000000, 0x00000000 }
-#define PORT_SLEWLIM_IMPLEMENTED    { 0x00000000, 0x00000000 }
+#define PORT_INEN_DEFAULT_VAL       { 0x00000000, 0x00000000 } // Default value for INEN of all pins
+#define PORT_INEN_IMPLEMENTED       { 0xDBFFFFFF, 0xC0C3FFFF } // Implementation mask for INEN of all pins
+#define PORT_ODRAIN                 0        // ODRAIN supported
+#define PORT_ODRAIN_DEFAULT_VAL     { 0x00000000, 0x00000000 } // Default value for ODRAIN of all pins
+#define PORT_ODRAIN_IMPLEMENTED     { 0x00000000, 0x00000000 } // Implementation mask for ODRAIN of all pins
+#define PORT_OUT_DEFAULT_VAL        { 0x00000000, 0x00000000 } // Default value for OUT of all pins
+#define PORT_OUT_IMPLEMENTED        { 0xDBFFFFFF, 0xC0C3FFFF } // Implementation mask for OUT of all pins
+#define PORT_PIN_IMPLEMENTED        { 0xDBFFFFFF, 0xC0C3FFFF } // Implementation mask for all PORT pins
+#define PORT_PMUXBIT0_DEFAULT_VAL   { 0x00000000, 0x00000000 } // Default value for PMUX[0] of all pins
+#define PORT_PMUXBIT0_IMPLEMENTED   { 0xDBFFFFFF, 0xC0C3FFFF } // Implementation mask for PMUX[0] of all pins
+#define PORT_PMUXBIT1_DEFAULT_VAL   { 0x40000000, 0x00000000 } // Default value for PMUX[1] of all pins
+#define PORT_PMUXBIT1_IMPLEMENTED   { 0xDBFFFFF3, 0xC0C3FF0F } // Implementation mask for PMUX[1] of all pins
+#define PORT_PMUXBIT2_DEFAULT_VAL   { 0x40000000, 0x00000000 } // Default value for PMUX[2] of all pins
+#define PORT_PMUXBIT2_IMPLEMENTED   { 0xDBFFFFF3, 0xC0C3FF0F } // Implementation mask for PMUX[2] of all pins
+#define PORT_PMUXBIT3_DEFAULT_VAL   { 0x00000000, 0x00000000 } // Default value for PMUX[3] of all pins
+#define PORT_PMUXBIT3_IMPLEMENTED   { 0x00000000, 0x00000000 } // Implementation mask for PMUX[3] of all pins
+#define PORT_PMUXEN_DEFAULT_VAL     { 0x64000000, 0x3F3C0000 } // Default value for PMUXEN of all pins
+#define PORT_PMUXEN_IMPLEMENTED     { 0xDBFFFFFF, 0xC0C3FFFF } // Implementation mask for PMUXEN of all pins
+#define PORT_PULLEN_DEFAULT_VAL     { 0x00000000, 0x00000000 } // Default value for PULLEN of all pins
+#define PORT_PULLEN_IMPLEMENTED     { 0xDBFFFFFF, 0xC0C3FFFF } // Implementation mask for PULLEN of all pins
+#define PORT_SLEWLIM                0        // SLEWLIM supported
+#define PORT_SLEWLIM_DEFAULT_VAL    { 0x00000000, 0x00000000 } // Default value for SLEWLIM of all pins
+#define PORT_SLEWLIM_IMPLEMENTED    { 0x00000000, 0x00000000 } // Implementation mask for SLEWLIM of all pins
 
 #endif /* _SAMD20_PORT_INSTANCE_ */

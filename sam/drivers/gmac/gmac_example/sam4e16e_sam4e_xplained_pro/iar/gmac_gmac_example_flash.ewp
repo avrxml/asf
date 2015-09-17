@@ -295,7 +295,6 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8051mnl</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4e_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../../utils/fpu</state>
@@ -309,6 +308,7 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
+					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8081mnx</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
@@ -564,7 +564,6 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8051mnl</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4e_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../../utils/fpu</state>
@@ -578,6 +577,7 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
+					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8081mnx</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
@@ -1224,7 +1224,6 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8051mnl</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4e_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../../utils/fpu</state>
@@ -1238,6 +1237,7 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
+					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8081mnx</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
@@ -1493,7 +1493,6 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8051mnl</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4e_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../../utils/fpu</state>
@@ -1507,6 +1506,7 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
+					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8081mnx</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
@@ -2084,6 +2084,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/gmac.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/pioa.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/dacc.h</name>
 							</file>
 							<file>
@@ -2100,9 +2103,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/twi1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/pioa.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/instance/rstc.h</name>
@@ -2176,39 +2176,27 @@
 			</group>
 		</group>
 		<group>
+			<name>components</name>
+			<group>
+				<name>ethernet_phy</name>
+				<group>
+					<name>ksz8081mnx</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8081mnx/ethernet_phy.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8081mnx/ethernet_phy.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../components/ethernet_phy/documentation.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
 			<name>drivers</name>
 			<group>
-				<name>uart</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../uart/uart.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../uart/uart.h</name>
-				</file>
-			</group>
-			<group>
-				<name>pmc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../pmc/sleep.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pmc/pmc.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pmc/pmc.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pmc/sleep.h</name>
-				</file>
-			</group>
-			<group>
 				<name>gmac</name>
-				<file>
-					<name>$PROJ_DIR$/../../../gmac_raw.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../gmac_phy.c</name>
-				</file>
 				<group>
 					<name>gmac_example</name>
 					<file>
@@ -2240,10 +2228,40 @@
 					</file>
 				</group>
 				<file>
+					<name>$PROJ_DIR$/../../../gmac_raw.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../gmac_phy.c</name>
+				</file>
+				<file>
 					<name>$PROJ_DIR$/../../../gmac.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../gmac_raw.h</name>
+				</file>
+			</group>
+			<group>
+				<name>uart</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../uart/uart.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../uart/uart.h</name>
+				</file>
+			</group>
+			<group>
+				<name>pmc</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../pmc/pmc.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../pmc/sleep.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../pmc/pmc.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../pmc/sleep.h</name>
 				</file>
 			</group>
 			<group>
@@ -2253,24 +2271,6 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../usart/usart.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
-			<name>components</name>
-			<group>
-				<name>ethernet_phy</name>
-				<group>
-					<name>ksz8051mnl</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8051mnl/ethernet_phy.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8051mnl/ethernet_phy.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../components/ethernet_phy/documentation.h</name>
 				</file>
 			</group>
 		</group>

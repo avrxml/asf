@@ -3,7 +3,7 @@
  *
  * \brief SAM Timer/Counter Driver for Control Applications Basic Quickstart
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,10 @@
  *
  */
 
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
+
 #include <asf.h>
 #include <conf_quick_start.h>
 
@@ -59,6 +63,7 @@ static void configure_tcc(void)
 	//! [setup_config_defaults]
 
 	//! [setup_change_config]
+	config_tcc.counter.clock_prescaler = TCC_CLOCK_PRESCALER_DIV256;
 	config_tcc.counter.period = 0xFFFF;
 	config_tcc.compare.wave_generation = TCC_WAVE_GENERATION_SINGLE_SLOPE_PWM;
 	config_tcc.compare.match[CONF_PWM_CHANNEL] = (0xFFFF / 4);

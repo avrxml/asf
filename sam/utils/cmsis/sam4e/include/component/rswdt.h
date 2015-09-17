@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_RSWDT_COMPONENT_
 #define _SAM4E_RSWDT_COMPONENT_
@@ -51,16 +54,16 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Rswdt hardware registers */
 typedef struct {
-  WoReg RSWDT_CR; /**< \brief (Rswdt Offset: 0x00) Control Register */
-  RwReg RSWDT_MR; /**< \brief (Rswdt Offset: 0x04) Mode Register */
-  RoReg RSWDT_SR; /**< \brief (Rswdt Offset: 0x08) Status Register */
+  __O  uint32_t RSWDT_CR; /**< \brief (Rswdt Offset: 0x00) Control Register */
+  __IO uint32_t RSWDT_MR; /**< \brief (Rswdt Offset: 0x04) Mode Register */
+  __I  uint32_t RSWDT_SR; /**< \brief (Rswdt Offset: 0x08) Status Register */
 } Rswdt;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- RSWDT_CR : (RSWDT Offset: 0x00) Control Register -------- */
 #define RSWDT_CR_WDRSTT (0x1u << 0) /**< \brief (RSWDT_CR) Watchdog Restart */
 #define RSWDT_CR_KEY_Pos 24
 #define RSWDT_CR_KEY_Msk (0xffu << RSWDT_CR_KEY_Pos) /**< \brief (RSWDT_CR) Password */
-#define RSWDT_CR_KEY(value) ((RSWDT_CR_KEY_Msk & ((value) << RSWDT_CR_KEY_Pos)))
+#define   RSWDT_CR_KEY_PASSWD (0xC4u << 24) /**< \brief (RSWDT_CR) Writing any other value in this field aborts the write operation. */
 /* -------- RSWDT_MR : (RSWDT Offset: 0x04) Mode Register -------- */
 #define RSWDT_MR_WDV_Pos 0
 #define RSWDT_MR_WDV_Msk (0xfffu << RSWDT_MR_WDV_Pos) /**< \brief (RSWDT_MR) Watchdog Counter Value */

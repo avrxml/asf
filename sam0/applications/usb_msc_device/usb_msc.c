@@ -3,7 +3,7 @@
  *
  * \brief SAM D11 USB Mass Storage Class Driver
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 
@@ -89,9 +92,9 @@ static volatile uint16_t wValue, wIndex, wLength, wStatus;
 
 struct sbc_read_capacity10_data {
 	/* !< LBA of last logical block */
-	be32_t max_lba; 
+	be32_t max_lba;
 	 /* !< Number of bytes in the last logical block */
-	be32_t block_len;      
+	be32_t block_len;
 };
 
 struct command_block_wrapper {
@@ -107,7 +110,7 @@ cbw;
 
 struct csw_signature {
 	/* dCSWSignature Signature field contain 53425355h (little endian) */
-	uint8_t dCSWSignature[4];        
+	uint8_t dCSWSignature[4];
 	uint8_t dCSWTag[4];
 	uint8_t dCSWDataResidue[4];
 	uint8_t bCSWStatus;
@@ -166,7 +169,7 @@ void usb_init(void)
 	/* Set the descriptor address */
 	USB->DEVICE.DESCADD.reg = (uint32_t)(&usb_endpoint_table[0]);
 	/* Set speed configuration to Full speed */
-	USB->DEVICE.CTRLB.bit.SPDCONF = USB_DEVICE_CTRLB_SPDCONF_0_Val;
+	USB->DEVICE.CTRLB.bit.SPDCONF = USB_DEVICE_CTRLB_SPDCONF_FS_Val;
 	/* Attach to the USB host */
 	USB->DEVICE.CTRLB.reg &= ~USB_DEVICE_CTRLB_DETACH;
 
@@ -178,10 +181,10 @@ void usb_init(void)
 	USB->DEVICE.INTENSET.reg = USB_DEVICE_INTENSET_SOF |
 			USB_DEVICE_INTENSET_EORST;
 	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTENSET.bit.RXSTP = 1;
-	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTENSET.bit.TRCPT = 2;
-	USB->DEVICE.DeviceEndpoint[MSC_BULK_OUT_EP].EPINTENSET.bit.TRCPT = 2;
-	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.bit.TRCPT = 2;
-	USB->DEVICE.DeviceEndpoint[MSC_BULK_OUT_EP].EPINTFLAG.bit.TRCPT = 2;
+	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTENSET.reg = USB_DEVICE_EPINTENSET_TRCPT1;
+	USB->DEVICE.DeviceEndpoint[MSC_BULK_OUT_EP].EPINTENSET.reg = USB_DEVICE_EPINTENSET_TRCPT1;
+	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.reg = USB_DEVICE_EPINTFLAG_TRCPT1;
+	USB->DEVICE.DeviceEndpoint[MSC_BULK_OUT_EP].EPINTFLAG.reg = USB_DEVICE_EPINTFLAG_TRCPT1;
 
 	/* Set callback function to be called on a USB SOF interrupt */
 	usb_set_callback(USB_CALLBACK_SOF);
@@ -246,7 +249,7 @@ static void USB_Setup_Send_ZLP()
 	usb_endpoint_table[CTRL_EP].DeviceDescBank[IN_BANK].PCKSIZE.bit.
 	BYTE_COUNT = 0;
 	/* Clear the transfer complete flag  */
-	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.bit.TRCPT = 2;
+	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.reg = USB_DEVICE_EPINTFLAG_TRCPT1;
 	/* Set the bank as ready */
 	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPSTATUSSET.bit.BK1RDY = 1;
 	/* Wait for transfer to complete */
@@ -322,7 +325,7 @@ int32_t USB_Write(uint8_t *pData, int32_t length, uint8_t ep_num)
 	usb_endpoint_table[ep_num].DeviceDescBank[IN_BANK].PCKSIZE.bit.
 	MULTI_PACKET_SIZE = 0;
 	/* Clear the transfer complete flag  */
-	USB->DEVICE.DeviceEndpoint[ep_num].EPINTFLAG.bit.TRCPT = 2;
+	USB->DEVICE.DeviceEndpoint[ep_num].EPINTFLAG.reg = USB_DEVICE_EPINTFLAG_TRCPT1;
 	/* Set the bank as ready */
 	USB->DEVICE.DeviceEndpoint[ep_num].EPSTATUSSET.bit.BK1RDY = 1;
 
@@ -353,13 +356,13 @@ void USB_Handler(void)
 		.dCSWDataResidue[2] = cbw.dCBWDataTransferLength[2],
 		.dCSWDataResidue[3] = cbw.dCBWDataTransferLength[3],
 		 /* command failed */
-		.bCSWStatus        = 0x01,             
+		.bCSWStatus        = 0x01,
 	};
 
 	/* USB interrupt because of SOF token */
 	if (USB->DEVICE.INTFLAG.bit.SOF) {
 		/* Clear interrupt flag */
-		USB->DEVICE.INTFLAG.bit.SOF = 1;
+		USB->DEVICE.INTFLAG.reg = USB_DEVICE_INTFLAG_SOF;
 
 		if (callback_sof) {
 			callback_sof();
@@ -368,7 +371,7 @@ void USB_Handler(void)
 
 	/* USB interrupt because of end of reset signal */
 	if (USB->DEVICE.INTFLAG.bit.EORST) {
-		USB->DEVICE.INTFLAG.bit.EORST = 1;
+		USB->DEVICE.INTFLAG.reg = USB_DEVICE_INTFLAG_EORST;
 		/* Set Device address as 0 */
 		USB->DEVICE.DADD.reg = USB_DEVICE_DADD_ADDEN | 0;
 		/* Configure endpoint 0 */
@@ -404,15 +407,15 @@ void USB_Handler(void)
 		USB->DEVICE.INTENSET.reg = USB_DEVICE_INTENSET_SOF |
 				USB_DEVICE_INTENSET_EORST;
 		USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTENSET.bit.RXSTP = 1;
-		USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTENSET.bit.TRCPT = 2;
-		USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.bit.TRCPT = 2;
+		USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTENSET.reg = USB_DEVICE_EPINTENSET_TRCPT1;
+		USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.reg = USB_DEVICE_EPINTFLAG_TRCPT1;
 		CurrentConfig = 0;
 	}
 
 	/* USB interrupt because of received setup signal from control endpoint
 	**/
 	if (USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.bit.RXSTP) {
-		USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.bit.RXSTP = 1;
+		USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.reg = USB_DEVICE_EPINTFLAG_RXSTP;
 		/* Read the USB request parameters */
 		bmRequestType = ctrl_ep_out_buffer[0];
 		bRequest      = ctrl_ep_out_buffer[1];
@@ -506,8 +509,7 @@ void USB_Handler(void)
 				= (uint32_t)&msc_bulk_ep_in_buffer[0];
 			USB->DEVICE.INTENSET.reg = USB_DEVICE_INTENSET_SOF |
 					USB_DEVICE_INTENSET_EORST;
-			USB->DEVICE.DeviceEndpoint[MSC_BULK_OUT_EP].EPINTENSET.
-			bit.TRCPT = 1;
+			USB->DEVICE.DeviceEndpoint[MSC_BULK_OUT_EP].EPINTENSET.reg = USB_DEVICE_EPINTENSET_TRCPT0;
 
 			/*reset both Bulk IN and OUT data toggle bits*/
 			USB->DEVICE.DeviceEndpoint[MSC_BULK_IN_EP].EPSTATUSCLR.
@@ -540,10 +542,10 @@ void USB_Handler(void)
 			wIndex &= 0x0F;
 			if (wIndex <= 3) {
 				if (dir) {
-					wStatus	= (USB->DEVICE.DeviceEndpoint[wIndex].EPSTATUS.reg 
+					wStatus	= (USB->DEVICE.DeviceEndpoint[wIndex].EPSTATUS.reg
 							   & USB_DEVICE_EPSTATUSSET_STALLRQ(2)) ? 1 : 0;
 				} else {
-					wStatus	= (USB->DEVICE.DeviceEndpoint[wIndex].EPSTATUS.reg 
+					wStatus	= (USB->DEVICE.DeviceEndpoint[wIndex].EPSTATUS.reg
 								& USB_DEVICE_EPSTATUSSET_STALLRQ(1)) ? 1 : 0;
 				}
 
@@ -745,12 +747,10 @@ void USB_Handler(void)
 
 	/* USB interrupt because of Transfer complete interrupt from bulk out
 	 * endpoint */
-	if ((USB->DEVICE.DeviceEndpoint[MSC_BULK_OUT_EP].EPINTFLAG.bit.TRCPT &
-			1)) {
-		/*clear transfer complete flag*/
-		USB->DEVICE.DeviceEndpoint[MSC_BULK_OUT_EP].EPINTFLAG.bit.TRCPT
-			= 1;
-		/* clear BK0RDY bit otherwise incoming data will discard*/
+	if ((USB->DEVICE.DeviceEndpoint[MSC_BULK_OUT_EP].EPINTFLAG.vec.TRCPT & 1)) {
+		/* Clear transfer complete flag*/
+		USB->DEVICE.DeviceEndpoint[MSC_BULK_OUT_EP].EPINTFLAG.reg = USB_DEVICE_EPINTFLAG_TRCPT0;
+		/* Clear BK0RDY bit otherwise incoming data will discard*/
 		USB->DEVICE.DeviceEndpoint[MSC_BULK_OUT_EP].EPSTATUSCLR.reg
 			= USB_DEVICE_EPSTATUSCLR_BK0RDY;
 		/* Copy Command Block Signature to cbw.dCBWSignature*/
@@ -780,14 +780,14 @@ void USB_Handler(void)
 		lba[2] = cbw.CBWCB[3];
 		lba[1] = cbw.CBWCB[4];
 		lba[0] = cbw.CBWCB[5];
-		uint32_t logic_block_address = 
+		uint32_t logic_block_address =
 			(lba[3]<<24) | (lba[2]<<16) | (lba[1]<<8) | lba[0];
 
 		/*allocation length*/
 		uint8_t allocation_len[2];
 		allocation_len[1] = cbw.CBWCB[3];
 		allocation_len[0] = cbw.CBWCB[4];
-		uint16_t allocation_length = 
+		uint16_t allocation_length =
 			(allocation_len[1]<<8) | allocation_len[0];
 
 
@@ -806,12 +806,12 @@ void USB_Handler(void)
 
 		/*dCBW_Transger_Length = Number of bytes of data that Host
 		 * expects to transfer on BULK IN/OUT endpoint*/
-		uint32_t dCBW_Transfer_Length = 
-			(cbw.dCBWDataTransferLength[3]<<24) | 
-			(cbw.dCBWDataTransferLength[2]<<16) | 
-			(cbw.dCBWDataTransferLength[1]<<8) | 
+		uint32_t dCBW_Transfer_Length =
+			(cbw.dCBWDataTransferLength[3]<<24) |
+			(cbw.dCBWDataTransferLength[2]<<16) |
+			(cbw.dCBWDataTransferLength[1]<<8) |
 			(cbw.dCBWDataTransferLength[0]);
-		
+
 		/*Command Status Wrapper*/
 		struct csw_signature CSW_data = {
 			.dCSWSignature[0] = 0x55,
@@ -824,7 +824,7 @@ void USB_Handler(void)
 			.dCSWTag[3] = cbw.dCBWTag[3],
 			.dCSWDataResidue = {0x0,0x0,0x0,0x0},
 			/* command passed */
-			.bCSWStatus        = 0x00,              
+			.bCSWStatus        = 0x00,
 		};
 
 		struct csw_signature CSW_failed = {
@@ -838,7 +838,7 @@ void USB_Handler(void)
 			.dCSWTag[3] = cbw.dCBWTag[3],
 			.dCSWDataResidue = {0x0,0x0,0x0,0x0},
 			 /* command failed */
-			.bCSWStatus        = 0x01, 
+			.bCSWStatus        = 0x01,
 		};
 
 		/*Check CBW signature whether the received CBW is valid */
@@ -850,7 +850,7 @@ void USB_Handler(void)
 			uint8_t buffer[512];
 			memset(buffer, 0, 512);
 			switch (cbw.CBWCB[0]) {
-			/*Inquiry command to obtain disk information*/	
+			/*Inquiry command to obtain disk information*/
 			case SBC_CMD_INQUIRY:
 
 				/* Send inquiry data if the allocation length is

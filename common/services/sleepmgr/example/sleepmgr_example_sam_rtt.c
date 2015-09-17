@@ -3,7 +3,7 @@
  *
  * \brief Sleep manager example for SAM series
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -59,6 +59,7 @@
  * The example has been tested on the boards:
  *  - SAM4N Xplained Pro kit
  *  - SAMG53 Xplained Pro kit
+ *  - SAMG55 Xplained Pro kit
  *  - SAM4C evaluation kit
  *
  * \section exampledescription Description of the example
@@ -78,7 +79,10 @@
  * \section contactinfo Contact Information
  * For further information, visit
  * <A href="http://www.atmel.com/">Atmel</A>.\n
- * Support and FAQ: http://support.atmel.no/
+ * Support and FAQ: http://www.atmel.com/design-support/
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -126,7 +130,7 @@ int main(void)
 
 	/* Set wakeup source to rtt_alarm */
 	pmc_set_fast_startup_input(PMC_FSMR_RTTAL);
-#if (!SAMG)
+#if ((!SAMG51) && (!SAMG53) && (!SAMG54))
 	supc_set_wakeup_mode(SUPC, SUPC_WUMR_RTTEN_ENABLE);
 #endif
 	/* Initialize the sleep manager, lock initial mode. */

@@ -3,7 +3,7 @@
  *
  * \brief DACC sinewave example configuration.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,6 +44,9 @@
 /**
  * \defgroup dac_sinewave_example_pin_defs
  * - PB13
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef CONF_DACC_SINEWAVE_EXAMPLE_H_INCLUDED

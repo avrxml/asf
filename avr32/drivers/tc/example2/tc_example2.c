@@ -7,7 +7,7 @@
  * mode(input) and the other configured in Waveform mode(output) to generate a
  * PWM on the output.
  *
- * Copyright (c) 2009 - 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -119,6 +119,9 @@
  * \section contactinfo Contact Information
  * For further information, visit
  * <A href="http://www.atmel.com/products/AVR32/">Atmel AVR32</A>.\n
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 

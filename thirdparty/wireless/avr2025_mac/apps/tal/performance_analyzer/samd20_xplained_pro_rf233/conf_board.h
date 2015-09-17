@@ -3,7 +3,7 @@
  *
  * \brief Board configuration
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,7 +49,6 @@
 #define CONF_BOARD_AT86RFX
 #define MCU_SOC_NAME        "ATSAMD20J18"
 
-#define AT86RFX_SPI_BAUDRATE             4000000UL
 #ifdef EXT_RF_FRONT_END_CTRL /*For External PA for 233FEM*/
 
 #define EXT_PA_SE2431L

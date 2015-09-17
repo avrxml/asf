@@ -3,7 +3,7 @@
  *
  * \brief USB Device Human Interface Device (HID) keyboard interface.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -135,7 +135,7 @@ UDC_DESC_STORAGE udi_hid_kbd_report_desc_t udi_hid_kbd_report_desc = {
 				0x95, 0x08,     /* Report Count (8)
 		                                 *                 */
 				0x81, 0x02,     /* Input (Data, Variable,
-		                                 *Absolute)  */
+		                                 * Absolute)  */
 				0x81, 0x01,     /* Input (Constant)
 		                                 *                 */
 				0x19, 0x00,     /* Usage Minimum (0)
@@ -167,22 +167,23 @@ UDC_DESC_STORAGE udi_hid_kbd_report_desc_t udi_hid_kbd_report_desc = {
 				0x95, 0x05,     /* Report Count (5)
 		                                 *                 */
 				0x91, 0x02,     /* Output (Data, Variable,
-		                                 *Absolute) */
+		                                 * Absolute) */
 				0x95, 0x03,     /* Report Count (3)
 		                                 *                 */
 				0x91, 0x01,     /* Output (Constant)
 		                                 *                */
 				0xC0,   /* End Collection                    */
 				0x05, 0x0c,                     /* USAGE_PAGE
-		                                                 * (Consumer
-		                                                 * Devices) */
+		                                                * (Consumer
+		                                                * Devices) */
 				0x09, 0x01,                     /* USAGE
 		                                                 * (Consumer
 		                                                 * Control) */
 				0xa1, 0x01,
 				0x85, 0x02,
 				0x09, 0xe2,                     /*   USAGE
-		                                                 * (Mute) 0x01 */
+		                                                 * (Mute) 0x01
+		                                                 **/
 				0x09, 0xe9,                     /*   USAGE
 		                                                 * (Volume Up)
 		                                                 * 0x02 */
@@ -193,43 +194,53 @@ UDC_DESC_STORAGE udi_hid_kbd_report_desc_t udi_hid_kbd_report_desc = {
 		                                                 * (Play/Pause)
 		                                                 * 0x04 */
 				0x09, 0xb7,                     /*   USAGE
-		                                                 * (Stop) 0x05 */
+		                                                 * (Stop) 0x05
+		                                                 **/
 				0x09, 0xb6,                     /*  USAGE (Scan
 		                                                 * Previous
-		                                                 * Track) 0x06 */
+		                                                 * Track) 0x06
+		                                                 **/
 				0x09, 0xb5,                     /*   USAGE (Scan
 		                                                 * Next Track)
 		                                                 * 0x07 */
 				0x09, 0xb0,                     /*   USAGE
-		                                                 * (play) 0x08 */
+		                                                 * (play) 0x08
+		                                                 **/
 				0x09, 0xb1,                     /*   USAGE
-		                                                 * (pause) 0x08 */
+		                                                 * (pause) 0x08
+		                                                 **/
 				0x09, 0xbc,                     /*   USAGE
-		                                                 * (repeat) 0x09 */
+		                                                 * (repeat) 0x09
+		                                                 **/
 				0x0a, 0x21, 0x02,               /*   USAGE (www
-		                                                 * search) 0x0a */
+		                                                 * search) 0x0a
+		                                                 **/
 				0x0a, 0x23, 0x02,               /*   USAGE (www
-		                                                 * home) 0x0b */
+		                                                * home) 0x0b */
 				0x0a, 0x2a, 0x02,               /*   USAGE (www
 		                                                 * favorites)
 		                                                 * 0x0c */
 				0x0a, 0x27, 0x02,               /*   USAGE (www
 		                                                 * refresh) 0x0d
 		                                                 *     0x0a,
-		                                                 * 0x26, 0x02, */
+		                                                 * 0x26, 0x02,
+		                                                 **/
 				0x0a, 0x25, 0x02,               /*   USAGE (www
-		                                                 * forward) 0x0f */
+		                                                 * forward) 0x0f
+		                                                 **/
 				0x0a, 0x24, 0x02,               /*   USAGE (www
-		                                                 * back) 0x10 */
+		                                                * back) 0x10 */
 				0x15, 0x00,                     /*
 		                                                 *
 		                                                 *
-		                                                 * LOGICAL_MINIMUM
+		                                                 *
+		                                                 *LOGICAL_MINIMUM
 		                                                 * (0) */
 				0x25, 0x01,                     /*
 		                                                 *
 		                                                 *
-		                                                 * LOGICAL_MAXIMUM
+		                                                 *
+		                                                 *LOGICAL_MAXIMUM
 		                                                 * (1) */
 				0x75, 0x01,                     /*   REPORT_SIZE
 		                                                 * (1) */
@@ -238,7 +249,9 @@ UDC_DESC_STORAGE udi_hid_kbd_report_desc_t udi_hid_kbd_report_desc = {
 		                                                 *  REPORT_COUNT
 		                                                 * (16) */
 				0x81, 0x62,                     /*   INPUT
-		                                                 * (Data,Var,Abs,NPrf,Null) */
+		                                                 *
+		                                                 *(Data,Var,Abs,NPrf,Null)
+		                                                 **/
 				0xc0}
 };
 
@@ -462,6 +475,7 @@ bool udi_hid_kbd_down(uint8_t key_id)
 
 	if (UDI_HID_KBD_REPORT_SIZE == i) {
 		/* Array full */
+
 		/* TODO manage more than UDI_HID_KBD_REPORT_SIZE key pressed in
 		 * same time */
 		cpu_irq_restore(flags);

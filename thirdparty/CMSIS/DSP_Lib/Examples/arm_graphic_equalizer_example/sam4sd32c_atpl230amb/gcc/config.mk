@@ -63,9 +63,9 @@ CSRCS = \
        sam/utils/cmsis/sam4s/source/templates/gcc/startup_sam4s.c \
        sam/utils/cmsis/sam4s/source/templates/system_sam4s.c \
        sam/utils/syscalls/gcc/syscalls.c                  \
-       thirdparty/CMSIS/DSP_Lib/Examples/Common/Source/math_helper.c \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_graphic_equalizer_example/arm_graphic_equalizer_data.c \
-       thirdparty/CMSIS/DSP_Lib/Examples/arm_graphic_equalizer_example/arm_graphic_equalizer_example_q31.c
+       thirdparty/CMSIS/DSP_Lib/Examples/arm_graphic_equalizer_example/arm_graphic_equalizer_example_q31.c \
+       thirdparty/CMSIS/DSP_Lib/Examples/arm_graphic_equalizer_example/math_helper.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -87,7 +87,6 @@ INC_PATH = \
        sam/utils/cmsis/sam4s/source/templates             \
        sam/utils/header_files                             \
        sam/utils/preprocessor                             \
-       thirdparty/CMSIS/DSP_Lib/Examples/Common/Include   \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_graphic_equalizer_example \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_graphic_equalizer_example/sam4sd32c_atpl230amb \
        thirdparty/CMSIS/Include                           \

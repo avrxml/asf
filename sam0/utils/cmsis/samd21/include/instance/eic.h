@@ -3,7 +3,7 @@
  *
  * \brief Instance description for EIC
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAMD21_EIC_INSTANCE_
 #define _SAMD21_EIC_INSTANCE_
@@ -72,7 +75,7 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for EIC peripheral ========== */
-#define EIC_CONFIG_NUM              ((EIC_EXTINT_NUM+7)/8)
-#define EIC_GCLK_ID                 5
+#define EIC_CONFIG_NUM              2        // Number of CONFIG registers
+#define EIC_GCLK_ID                 5        // Index of Generic Clock
 
 #endif /* _SAMD21_EIC_INSTANCE_ */

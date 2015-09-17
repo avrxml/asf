@@ -4,7 +4,7 @@
  *
  * @brief Return values of APIs
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -55,7 +55,7 @@
 /* === Includes ============================================================ */
 #include "compiler.h"
 
-#if (SAMD || SAMR21 || SAM4L || SAM4S || SAM4E)
+#if (SAMD || SAMR21 || SAML21 || SAM4L || SAM4S || SAM4E)
  #define __PACK__RST_DATA__  COMPILER_PACK_RESET()
  #define __PACK__DATA__          COMPILER_PACK_SET(1)
 #if (SAM4L || SAM4S || SAM4E)
@@ -189,7 +189,7 @@ typedef enum
 	                                     **/
 	MAC_READ_ONLY               = 0xFB, /**< SET request issued for read
 	                                     * only attribute defined by
-	                                     *802.15.4
+	                                     * 802.15.4
 	                                     **/
 	MAC_SCAN_IN_PROGRESS        = 0xFC /**< Scan operation failed because of
 	                                    * ongoing scan defined by 802.15.4

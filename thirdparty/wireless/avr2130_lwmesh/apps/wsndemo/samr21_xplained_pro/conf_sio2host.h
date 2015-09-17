@@ -3,7 +3,7 @@
  *
  * \brief Serial Input & Output configuration
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,7 +45,11 @@
  #define SERIAL_RX_BUF_SIZE_HOST    156
 
 #define USART_HOST                 EDBG_CDC_MODULE
-
+#define HOST_SERCOM_MUX_SETTING    EDBG_CDC_SERCOM_MUX_SETTING
+#define HOST_SERCOM_PINMUX_PAD0    EDBG_CDC_SERCOM_PINMUX_PAD0
+#define HOST_SERCOM_PINMUX_PAD1    EDBG_CDC_SERCOM_PINMUX_PAD1
+#define HOST_SERCOM_PINMUX_PAD2    EDBG_CDC_SERCOM_PINMUX_PAD2
+#define HOST_SERCOM_PINMUX_PAD3    EDBG_CDC_SERCOM_PINMUX_PAD3
 /** Baudrate setting */
 #define USART_HOST_BAUDRATE        38400
 

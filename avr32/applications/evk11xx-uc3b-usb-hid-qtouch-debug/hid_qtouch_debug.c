@@ -3,7 +3,7 @@
  *
  * \brief  Main file of the USB HID QTouch Debug.
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -60,6 +60,9 @@
  * -# All messages received from the QTouch Library (i.e. over the UART) are
  * sent through USB to QTouch Studio.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 //_____  I N C L U D E S ___________________________________________________

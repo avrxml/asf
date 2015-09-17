@@ -3,7 +3,7 @@
  *
  * \brief USB host driver for Mass Storage Class interface.
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,8 +52,8 @@
  * - \ref asfdoc_uhi_msc_exqsg
  * - \ref asfdoc_uhi_msc_config_examples
  *
- * For more details for Atmel® Software Framework (ASF) USB Host Stack,
- * refer to following application notes:
+ * For more details for Atmel&reg; Software Framework (ASF) USB Host Stack,
+ * refer to following application note:
  * - <a href="http://www.atmel.com/dyn/resources/prod_documents/doc8486.pdf">
  *   AVR4950: ASF - USB Host Stack</a>
  *
@@ -72,6 +72,9 @@
 
 /** Global definition which contains standard UHI API for UHC.
  *  It must be added in USB_HOST_UHI definition from conf_usb_host.h file. */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #define UHI_MSC { \
 	.install = uhi_msc_install, \
 	.enable = uhi_msc_enable, \
@@ -116,13 +119,13 @@ void uhi_msc_uninstall(uhc_device_t* dev);
 /** Status of LUN. */
 typedef enum
 {
-	/** Success, memory ready. */
+	/** Success, memory ready */
 	LUN_GOOD       = 0,
-	/** An error occurred. */
+	/** An error occurred */
 	LUN_FAIL       = 1,
-	/** Memory unplugged. */
+	/** Memory unplugged */
 	LUN_NOT_PRESENT = 2,
-	/** Memory not initialized or changed. */
+	/** Memory not initialized or changed */
 	LUN_BUSY       = 3,
 } lun_status_t;
 
@@ -162,7 +165,9 @@ bool uhi_msc_is_available(void);
 
 /**
  * \brief Gives the number of LUN available
- * Note: A LUN can be available, but with a status LUN_NOT_PRESENT.
+ *
+ * \note A LUN can be available, but with a status LUN_NOT_PRESENT.
+ *
  * It is the case for a card reader without card.
  *
  * \return Number of LUN available.
@@ -182,40 +187,42 @@ uhi_msc_lun_t* uhi_msc_get_lun_desc(uint8_t lun);
  * \brief Checks and update the status of the LUN
  *
  * \param[in] lun       LUN number
- * \param[in] callback  Callback to call at the end of scsi command
+ * \param[in] callback  Callback to call at the end of SCSI command
  *
- * \return True, if the scsi command has been accepted.
+ * \return True, if the SCSI command has been accepted.
  */
 bool uhi_msc_scsi_test_unit_ready(uint8_t lun, uhi_msc_scsi_callback_t callback);
 
 /**
  * \brief Reads a LUN data section to RAM buffer
- * Note: The sector size used to define the data section
+ *
+ * \note The sector size used to define the data section
  * is the sector size returned by LUN in \capacity field.
  *
  * \param[in] lun       LUN number
  * \param[in] addr      Sector address to read
  * \param[out] ram       RAM address used to store the data
  * \param[in] nb_sector Number of sector to read
- * \param[in] callback  Callback to call at the end of scsi command
+ * \param[in] callback  Callback to call at the end of SCSI command
  *
- * \return True, if the scsi command has been accepted.
+ * \return True, if the SCSI command has been accepted.
  */
 bool uhi_msc_scsi_read_10(uint8_t lun, uint32_t addr, uint8_t *ram,
 		uint8_t nb_sector, uhi_msc_scsi_callback_t callback);
 
 /**
  * \brief Writes a RAM buffer in a LUN data section
- * Note: The sector size used to define the data section
+ *
+ * \note The sector size used to define the data section
  * is the sector size returned by LUN in \capacity field.
  *
  * \param[in] lun       LUN number
  * \param[in] addr      Sector address to write
  * \param[in] ram       RAM address of data to write
  * \param[in] nb_sector Number of sector to write
- * \param[in] callback  Callback to call at the end of scsi command
+ * \param[in] callback  Callback to call at the end of SCSI command
  *
- * \return True, if the scsi command has been accepted.
+ * \return True, if the SCSI command has been accepted.
  */
 bool uhi_msc_scsi_write_10(uint8_t lun, uint32_t addr, const uint8_t *ram,
 		uint8_t nb_sector, uhi_msc_scsi_callback_t callback);
@@ -233,7 +240,8 @@ bool uhi_msc_scsi_write_10(uint8_t lun, uint32_t addr, const uint8_t *ram,
 /**
  * \brief Gives the number of available LUN
  *
- * Note: A LUN can be available, but with a status not present.
+ * \note A LUN can be available, but with a status not present.
+ *
  * It is the case for a card reader without card.
  *
  * \return Number of available LUN.
@@ -334,7 +342,7 @@ Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram);
  * can be added to decode the USB memory file system, see FatFS examples.
  *
  * \subsection uhi_msc_mem_basic_use_case_setup Setup Steps
- * As a USB host, it follows common USB host setup steps.Refer to
+ * As a USB host, it follows common USB host setup steps. Refer to
  * \ref asfdoc_uhc_basic_use_case_setup "USB Host Basic Setup".
  *
  * \subsection uhi_msc_mem_basic_use_case_usage Usage Steps
@@ -454,5 +462,22 @@ Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram);
  *
  * \subsection asfdoc_uhi_msc_config_examples_4_5 SAMD21 Devices (USB)
  * \include example2/samd21j18a_samd21_xplained_pro/conf_board.h
+ */
+
+/**
+ * \page asfdoc_uhi_msc_document_revision_history Document Revision History
+ *
+ * <table>
+ * <tr>
+ *    <th>Doc. Rev.</td>
+ *    <th>Date</td>
+ *    <th>Comments</td>
+ * </tr>
+ * <tr>
+ *    <td>42344A</td>
+ *    <td>12/2014</td>
+ *    <td>Initial release.</td>
+ * </tr>
+ * </table>
  */
 

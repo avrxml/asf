@@ -3,7 +3,7 @@
  *
  * \brief USB Device Driver for UDP. Compliant with common UDD driver.
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,9 +40,15 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "conf_usb.h"
 #include "sysclk.h"
+#if SAMG55
+#include "matrix.h"
+#endif
 #include "udd.h"
 #include "udp_device.h"
 #include <string.h>
@@ -52,8 +58,8 @@
 #  include "sleepmgr.h"
 #endif
 
-#if !(SAM3S || SAM4S || SAM4E)
-#  error The current UDP Device Driver supports only SAM3S and SAM4S devices.
+#if !(SAM3S || SAM4S || SAM4E || SAMG55)
+#  error The current UDP Device Driver supports only SAM3S, SAM4S, SAM4E and SAMG55 devices.
 #endif
 
 #ifndef UDD_USB_INT_LEVEL
@@ -137,8 +143,12 @@
 #ifndef UDD_NO_SLEEP_MGR
 
 //! Definition of sleep levels
-#define UDP_SLEEP_MODE_USB_SUSPEND  SLEEPMGR_WAIT_FAST
+#define UDP_SLEEP_MODE_USB_SUSPEND  SLEEPMGR_ACTIVE
+#if SAMG55
+#define UDP_SLEEP_MODE_USB_IDLE     SLEEPMGR_ACTIVE
+#else
 #define UDP_SLEEP_MODE_USB_IDLE     SLEEPMGR_SLEEP_WFI
+#endif
 
 //! State of USB line
 static bool udd_b_idle;
@@ -546,6 +556,10 @@ void udd_enable(void)
 	irqflags_t flags;
 
 	flags = cpu_irq_save();
+
+#if SAMG55
+	matrix_set_usb_device();
+#endif
 
 	// Enable USB hardware
 	udd_enable_periph_ck();
@@ -1340,10 +1354,15 @@ static void udd_ep_finish_job(udd_ep_job_t * ptr_job, int status,
 
 static void udd_ep_ack_out_received(udd_ep_id_t ep)
 {
+	bool bank0_received, bank1_received;
 	udd_ep_job_t *ptr_job = &udd_ep_job[ep - 1];
-	if (Is_udd_all_banks_received(ep)) {
+
+	bank0_received = Is_udd_bank0_received(ep);
+	bank1_received = Is_udd_bank1_received(ep);
+
+	if (bank0_received && bank1_received) {
 		// The only way is to use ptr_job->bank
-	} else if (Is_udd_bank0_received(ep)) {
+	} else if (bank0_received) {
 		// Must be bank0
 		ptr_job->bank = 0;
 	} else {

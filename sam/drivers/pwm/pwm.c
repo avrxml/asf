@@ -3,7 +3,7 @@
  *
  * \brief Pulse Width Modulation (PWM) driver for SAM.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "pwm.h"
@@ -172,7 +175,7 @@ uint32_t pwm_channel_init(Pwm *p_pwm, pwm_channel_t *p_channel)
 	/* Channel Mode/Clock Register */
 	tmp_reg = (p_channel->ul_prescaler & 0xF) |
 			(p_channel->polarity << 9) |
-#if (SAM3U || SAM3S || SAM3XA || SAM4S || SAM4E)
+#if (SAM3U || SAM3S || SAM3XA || SAM4S || SAM4E || SAMV70 || SAMV71 || SAME70 || SAMS70)
 			(p_channel->counter_event) |
 			(p_channel->b_deadtime_generator << 16) |
 			(p_channel->b_pwmh_output_inverted << 17) |
@@ -187,7 +190,7 @@ uint32_t pwm_channel_init(Pwm *p_pwm, pwm_channel_t *p_channel)
 	/* Channel Period Register */
 	p_pwm->PWM_CH_NUM[ch_num].PWM_CPRD = p_channel->ul_period;
 	
-#if (SAM3U || SAM3S || SAM3XA || SAM4S || SAM4E)
+#if (SAM3U || SAM3S || SAM3XA || SAM4S || SAM4E || SAMV70 || SAMV71 || SAME70 || SAMS70)
 	/* Channel Dead Time Register */
 	if (p_channel->b_deadtime_generator) {
 		p_pwm->PWM_CH_NUM[ch_num].PWM_DT =
@@ -219,7 +222,7 @@ uint32_t pwm_channel_init(Pwm *p_pwm, pwm_channel_t *p_channel)
 	}
 
 	/* Fault Protection Value Register */
-#if (SAM4E)
+#if (SAM4E || SAMV70 || SAMV71 || SAME70 || SAMS70)
 	if (p_channel->ul_fault_output_pwmh == PWM_HIGHZ) {
 		p_pwm->PWM_FPV2 |= (0x01 << ch_num);
 	} else {
@@ -271,7 +274,7 @@ uint32_t pwm_channel_init(Pwm *p_pwm, pwm_channel_t *p_channel)
 	}
 #endif
 
-#if (SAM3U || SAM3S || SAM4S || SAM4E)
+#if (SAM3U || SAM3S || SAM4S || SAM4E || SAMV70 || SAMV71 || SAME70 || SAMS70)
 	ch_num *= 8;
 	fault_enable_reg = p_pwm->PWM_FPE;
 	fault_enable_reg &= ~(0xFF << ch_num);
@@ -293,6 +296,18 @@ uint32_t pwm_channel_init(Pwm *p_pwm, pwm_channel_t *p_channel)
 	p_pwm->PWM_CH_NUM_0X400[ch_num].PWM_CAE =
 			PWM_CAE_ADEDGV(p_channel->ul_additional_edge) |
 			p_channel->additional_edge_mode;
+#elif (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	if (!ch_num) {
+		if (p_channel->spread_spectrum_mode ==
+		PWM_SPREAD_SPECTRUM_MODE_RANDOM) {
+			p_pwm->PWM_SSPR = PWM_SSPR_SPRD(p_channel->ul_spread) |
+			PWM_SSPR_SPRDM;
+			} else {
+			p_pwm->PWM_SSPR = PWM_SSPR_SPRD(p_channel->ul_spread);
+		}
+	}
+	p_pwm->PWM_CH_NUM[ch_num].PWM_CMR &= (~PWM_CMR_PPM);
+	p_pwm->PWM_CH_NUM[ch_num].PWM_CMR |= (p_channel->ul_ppm_mode & PWM_CMR_PPM);
 #endif
 
 	return 0;
@@ -496,7 +511,7 @@ void pwm_channel_disable_interrupt(Pwm *p_pwm, uint32_t ul_event,
 }
 
 
-#if (SAM3U || SAM3S || SAM3XA || SAM4S || SAM4E)
+#if (SAM3U || SAM3S || SAM3XA || SAM4S || SAM4E || SAMV70 || SAMV71 || SAME70 || SAMS70)
 /**
  * \brief Change output selection of the PWM channel.
  *
@@ -793,7 +808,7 @@ void pwm_cmp_disable_interrupt(Pwm *p_pwm, uint32_t ul_sources,
 	}
 }
 
-
+#if !(SAMV70 || SAMV71 || SAME70 || SAMS70)
 /**
  * \brief Set PDC transfer request mode.
  *
@@ -837,6 +852,7 @@ void pwm_pdc_disable_interrupt(Pwm *p_pwm, uint32_t ul_sources)
 {
 	p_pwm->PWM_IDR2 = ul_sources;
 }
+#endif
 
 /**
  * \brief Initialize synchronous channels update mode and period.
@@ -1007,7 +1023,7 @@ uint32_t pwm_get_interrupt_mask(Pwm *p_pwm)
 }
 #endif
 
-#if (SAM3S || SAM3XA || SAM4S || SAM4E)
+#if (SAM3S || SAM3XA || SAM4S || SAM4E || SAMV70 || SAMV71 || SAME70 || SAMS70)
 /**
  * \brief Initialize PWM stepper motor mode.
  *
@@ -1093,6 +1109,90 @@ void pwm_channel_update_polarity_mode(Pwm *p_pwm, pwm_channel_t *p_channel,
 		} else {
 			p_pwm->PWM_CH_NUM_0X400[p_channel->channel].PWM_CMUPD = 0;
 		}
+	}
+}
+#elif (SAMV70 || SAMV71 || SAME70 || SAMS70)
+/**
+ * \brief Change spread spectrum value.
+ *
+ * \param p_pwm Pointer to a PWM instance.
+ * \param p_channel Configurations of the specified PWM channel.
+ * \param ul_spread New spread spectrum value.
+ */
+void pwm_channel_update_spread(Pwm *p_pwm, pwm_channel_t *p_channel,
+		uint32_t ul_spread)
+{
+	/* Save new spread spectrum value */
+	p_channel->ul_spread = ul_spread;
+
+	/* Write spread spectrum update register */
+	p_pwm->PWM_SSPUP = PWM_SSPUP_SPRDUP(ul_spread);
+}
+
+/**
+ * \brief Change leading edge value and mode.
+ *
+ * \param p_pwm Pointer to a PWM instance.
+ * \param p_channel Configurations of the specified PWM channel.
+ * \param ul_leading_edge_delay Leading-Edge Blanking Delay for TRGINx.
+ * \param leading_edge_blanking_mode New additional edge mode.
+ */
+void pwm_channel_update_leading_edge(Pwm *p_pwm, pwm_channel_t *p_channel,
+		uint32_t ul_leading_edge_delay,
+		pwm_leading_edge_blanking_mode_t leading_edge_blanking_mode)
+{
+	uint32_t ul_mask;
+	/* Save new leading edge value */
+	p_channel->ul_leading_edge_delay = ul_leading_edge_delay;
+	p_channel->leading_edge_blanking_mode = leading_edge_blanking_mode;
+
+	/* Write channel leading edge update register */
+	if (p_channel->channel == 1) {
+		ul_mask = p_pwm->PWM_LEBR1;
+		p_pwm->PWM_LEBR1 = PWM_LEBR1_LEBDELAY(ul_leading_edge_delay) | leading_edge_blanking_mode;
+	} else if (p_channel->channel == 2) {
+		ul_mask = p_pwm->PWM_LEBR2;
+		p_pwm->PWM_LEBR2 = PWM_LEBR2_LEBDELAY(ul_leading_edge_delay) | leading_edge_blanking_mode;
+	} else if (p_channel->channel == 3) {
+		ul_mask = p_pwm->PWM_LEBR3;
+		p_pwm->PWM_LEBR3 = PWM_LEBR3_LEBDELAY(ul_leading_edge_delay) | leading_edge_blanking_mode;
+	} else if (p_channel->channel == 4) {
+		ul_mask = p_pwm->PWM_LEBR4;
+		p_pwm->PWM_LEBR4 = PWM_LEBR4_LEBDELAY(ul_leading_edge_delay) | leading_edge_blanking_mode;
+	}
+}
+#endif
+
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+/**
+ * \brief Set dma duty.
+ *
+ * \param p_pwm Pointer to a PWM instance.
+ * \param ul_dma_duty_value The dma duty to be set.
+ */
+void pwm_set_dma_duty(Pwm *p_pwm, uint32_t ul_dma_duty_value)
+{
+	uint32_t ul_mask = p_pwm->PWM_DMAR & (~PWM_DMAR_DMADUTY_Msk);
+	p_pwm->PWM_DMAR = ul_mask | PWM_DMAR_DMADUTY(ul_dma_duty_value);
+}
+
+/**
+ * \brief set external trigger mode.
+ *
+ * \param p_pwm Pointer to a PWM instance.
+ * \param p_channel Configurations of the specified PWM channel.
+ * \param ul_mode The external trigger mode to be set.
+ */
+void pwm_set_ext_trigger_mode(Pwm *p_pwm, pwm_channel_t *p_channel, uint32_t ul_mode)
+{
+	if (p_channel->channel == 1) {
+			p_pwm->PWM_ETRG1 = ul_mode;
+		} else if (p_channel->channel == 2) {
+			p_pwm->PWM_ETRG2 = ul_mode;
+		} else if (p_channel->channel == 3) {
+			p_pwm->PWM_ETRG3 = ul_mode;
+		} else if (p_channel->channel == 4) {
+			p_pwm->PWM_ETRG4 = ul_mode;
 	}
 }
 #endif

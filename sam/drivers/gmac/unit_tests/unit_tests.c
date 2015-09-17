@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for GMAC driver.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,18 +40,19 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
+#include <asf.h>
 #include "board.h"
 #include <sysclk.h>
-#include "gmac.h"
-#include "gmac_raw.h"
 #include <string.h>
 #include <unit_test/suite.h>
 #include <stdio_serial.h>
 #include "conf_test.h"
 #include "conf_board.h"
 #include "mini_ip.h"
-#include "ethernet_phy.h"
 #include "conf_eth.h"
 
 /**
@@ -74,6 +75,7 @@
  * All SAM devices can be used.
  * This example has been tested with the following setup:
  * - sam4e16e_sam4e_ek
+ * - samv71q21_samv71_xplained_ultra
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -81,7 +83,7 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit <a href="http://www.atmel.com/">Atmel</a>.\n
- * Support and FAQ: http://support.atmel.no/
+ * Support and FAQ: http://www.atmel.com/design-support/
  */
 
 //! \name Unit test configuration
@@ -125,7 +127,11 @@ static uint8_t gs_uc_mac_address[] =
  */
 void GMAC_Handler(void)
 {
+#if (SAM4E)
 	gmac_handler(&gs_gmac_dev);
+#else
+	gmac_handler(&gs_gmac_dev, GMAC_QUE_0);
+#endif
 }
 
 /**
@@ -187,12 +193,21 @@ static void run_gmac_read_write_test(const struct test_case *test)
 	uint32_t ul_retry_time = 0;
 
 	/* Write the arp frame first */
+#if (SAM4E)
 	gmac_dev_write(&gs_gmac_dev, gs_arp_frame, sizeof(gs_arp_frame), NULL);
+#else
+	gmac_dev_write(&gs_gmac_dev, GMAC_QUE_0, gs_arp_frame, sizeof(gs_arp_frame), NULL);
+#endif
 
 	while ( ul_retry_time < GMAC_UINT_TEST_MAX_RETRY_TIME ) {
 		/* Read the frame in the gmac buffer */
+#if (SAM4E)
 		if (GMAC_OK != gmac_dev_read(&gs_gmac_dev, (uint8_t *) gs_uc_eth_buffer,
 						sizeof(gs_uc_eth_buffer), &ul_frm_size)) {
+#else
+		if (GMAC_OK != gmac_dev_read(&gs_gmac_dev, GMAC_QUE_0, (uint8_t *) gs_uc_eth_buffer,
+						sizeof(gs_uc_eth_buffer), &ul_frm_size)) {
+#endif
 			continue;
 		}
 
@@ -215,7 +230,13 @@ int main(void)
 {
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate = CONF_TEST_BAUDRATE,
-		.paritytype = CONF_TEST_PARITY
+#ifdef CONF_TEST_CHAR_LENGTH
+        .charlength = CONF_TEST_CHAR_LENGTH,
+#endif
+        .paritytype = CONF_TEST_PARITY,
+#ifdef CONF_TEST_STOP_BITS
+        .stopbits = CONF_TEST_STOP_BITS,
+#endif
 	};
 
 	/* Initialize the system clock and board */

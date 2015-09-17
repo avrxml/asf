@@ -3,7 +3,7 @@
  *
  * \brief Header file for SAMD20J14
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAMD20J14_
@@ -92,12 +95,12 @@ typedef volatile       uint8_t  RwReg8;  /**< Read-Write  8-bit register (volati
 /** Interrupt Number Definition */
 typedef enum IRQn
 {
-  /******  Cortex-M0+ Processor Exceptions Numbers *******************************/
-  NonMaskableInt_IRQn      = -14, /**<  2 Non Maskable Interrupt                 */
-  HardFault_IRQn           = -13, /**<  3 Cortex-M0+ Hard Fault Interrupt        */
-  SVCall_IRQn              = -5,  /**< 11 Cortex-M0+ SV Call Interrupt           */
-  PendSV_IRQn              = -2,  /**< 14 Cortex-M0+ Pend SV Interrupt           */
-  SysTick_IRQn             = -1,  /**< 15 Cortex-M0+ System Tick Interrupt       */
+  /******  Cortex-M0+ Processor Exceptions Numbers ******************************/
+  NonMaskableInt_IRQn      = -14,/**<  2 Non Maskable Interrupt                 */
+  HardFault_IRQn           = -13,/**<  3 Cortex-M0+ Hard Fault Interrupt        */
+  SVCall_IRQn              = -5, /**< 11 Cortex-M0+ SV Call Interrupt           */
+  PendSV_IRQn              = -2, /**< 14 Cortex-M0+ Pend SV Interrupt           */
+  SysTick_IRQn             = -1, /**< 15 Cortex-M0+ System Tick Interrupt       */
   /******  SAMD20J14-specific Interrupt Numbers ***********************/
   PM_IRQn                  =  0, /**<  0 SAMD20J14 Power Manager (PM) */
   SYSCTRL_IRQn             =  1, /**<  1 SAMD20J14 System Control (SYSCTRL) */
@@ -304,7 +307,7 @@ void PTC_Handler                 ( void );
 /*@{*/
 
 // Peripheral instances on HPB0 bridge
-#define ID_PAC0           0 /**< \brief Peripheral Access Controller PAC (PAC0) */
+#define ID_PAC0           0 /**< \brief Peripheral Access Controller 0 (PAC0) */
 #define ID_PM             1 /**< \brief Power Manager (PM) */
 #define ID_SYSCTRL        2 /**< \brief System Control (SYSCTRL) */
 #define ID_GCLK           3 /**< \brief Generic Clock Generator (GCLK) */
@@ -313,28 +316,28 @@ void PTC_Handler                 ( void );
 #define ID_EIC            6 /**< \brief External Interrupt Controller (EIC) */
 
 // Peripheral instances on HPB1 bridge
-#define ID_PAC1          32 /**< \brief Peripheral Access Controller PAC (PAC1) */
+#define ID_PAC1          32 /**< \brief Peripheral Access Controller 1 (PAC1) */
 #define ID_DSU           33 /**< \brief Device Service Unit (DSU) */
 #define ID_NVMCTRL       34 /**< \brief Non-Volatile Memory Controller (NVMCTRL) */
 #define ID_PORT          35 /**< \brief Port Module (PORT) */
 
 // Peripheral instances on HPB2 bridge
-#define ID_PAC2          64 /**< \brief Peripheral Access Controller PAC (PAC2) */
+#define ID_PAC2          64 /**< \brief Peripheral Access Controller 2 (PAC2) */
 #define ID_EVSYS         65 /**< \brief Event System Interface (EVSYS) */
-#define ID_SERCOM0       66 /**< \brief Serial Communication Interface SERCOM (SERCOM0) */
-#define ID_SERCOM1       67 /**< \brief Serial Communication Interface SERCOM (SERCOM1) */
-#define ID_SERCOM2       68 /**< \brief Serial Communication Interface SERCOM (SERCOM2) */
-#define ID_SERCOM3       69 /**< \brief Serial Communication Interface SERCOM (SERCOM3) */
-#define ID_SERCOM4       70 /**< \brief Serial Communication Interface SERCOM (SERCOM4) */
-#define ID_SERCOM5       71 /**< \brief Serial Communication Interface SERCOM (SERCOM5) */
-#define ID_TC0           72 /**< \brief Basic Timer Counter TC (TC0) */
-#define ID_TC1           73 /**< \brief Basic Timer Counter TC (TC1) */
-#define ID_TC2           74 /**< \brief Basic Timer Counter TC (TC2) */
-#define ID_TC3           75 /**< \brief Basic Timer Counter TC (TC3) */
-#define ID_TC4           76 /**< \brief Basic Timer Counter TC (TC4) */
-#define ID_TC5           77 /**< \brief Basic Timer Counter TC (TC5) */
-#define ID_TC6           78 /**< \brief Basic Timer Counter TC (TC6) */
-#define ID_TC7           79 /**< \brief Basic Timer Counter TC (TC7) */
+#define ID_SERCOM0       66 /**< \brief Serial Communication Interface 0 (SERCOM0) */
+#define ID_SERCOM1       67 /**< \brief Serial Communication Interface 1 (SERCOM1) */
+#define ID_SERCOM2       68 /**< \brief Serial Communication Interface 2 (SERCOM2) */
+#define ID_SERCOM3       69 /**< \brief Serial Communication Interface 3 (SERCOM3) */
+#define ID_SERCOM4       70 /**< \brief Serial Communication Interface 4 (SERCOM4) */
+#define ID_SERCOM5       71 /**< \brief Serial Communication Interface 5 (SERCOM5) */
+#define ID_TC0           72 /**< \brief Basic Timer Counter 0 (TC0) */
+#define ID_TC1           73 /**< \brief Basic Timer Counter 1 (TC1) */
+#define ID_TC2           74 /**< \brief Basic Timer Counter 2 (TC2) */
+#define ID_TC3           75 /**< \brief Basic Timer Counter 3 (TC3) */
+#define ID_TC4           76 /**< \brief Basic Timer Counter 4 (TC4) */
+#define ID_TC5           77 /**< \brief Basic Timer Counter 5 (TC5) */
+#define ID_TC6           78 /**< \brief Basic Timer Counter 6 (TC6) */
+#define ID_TC7           79 /**< \brief Basic Timer Counter 7 (TC7) */
 #define ID_ADC           80 /**< \brief Analog Digital Converter (ADC) */
 #define ID_AC            81 /**< \brief Analog Comparators (AC) */
 #define ID_DAC           82 /**< \brief Digital Analog Converter (DAC) */
@@ -350,134 +353,134 @@ void PTC_Handler                 ( void );
 /*@{*/
 
 #if defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)
-#define AC                            (0x42004400U) /**< \brief (AC) APB Base Address */
-#define ADC                           (0x42004000U) /**< \brief (ADC) APB Base Address */
-#define DAC                           (0x42004800U) /**< \brief (DAC) APB Base Address */
-#define DSU                           (0x41002000U) /**< \brief (DSU) APB Base Address */
-#define EIC                           (0x40001800U) /**< \brief (EIC) APB Base Address */
-#define EVSYS                         (0x42000400U) /**< \brief (EVSYS) APB Base Address */
-#define GCLK                          (0x40000C00U) /**< \brief (GCLK) APB Base Address */
-#define NVMCTRL                       (0x41004000U) /**< \brief (NVMCTRL) APB Base Address */
-#define NVMCTRL_CAL                   (0x00800000U) /**< \brief (NVMCTRL) CAL Base Address */
-#define NVMCTRL_LOCKBIT               (0x00802000U) /**< \brief (NVMCTRL) LOCKBIT Base Address */
-#define NVMCTRL_OTP1                  (0x00806000U) /**< \brief (NVMCTRL) OTP1 Base Address */
-#define NVMCTRL_OTP2                  (0x00806008U) /**< \brief (NVMCTRL) OTP2 Base Address */
-#define NVMCTRL_OTP4                  (0x00806020U) /**< \brief (NVMCTRL) OTP4 Base Address */
-#define NVMCTRL_TEMP_LOG              (0x00806030U) /**< \brief (NVMCTRL) TEMP_LOG Base Address */
-#define NVMCTRL_USER                  (0x00804000U) /**< \brief (NVMCTRL) USER Base Address */
-#define PAC0                          (0x40000000U) /**< \brief (PAC0) APB Base Address */
-#define PAC1                          (0x41000000U) /**< \brief (PAC1) APB Base Address */
-#define PAC2                          (0x42000000U) /**< \brief (PAC2) APB Base Address */
-#define PM                            (0x40000400U) /**< \brief (PM) APB Base Address */
-#define PORT                          (0x41004400U) /**< \brief (PORT) APB Base Address */
-#define PORT_IOBUS                    (0x60000000U) /**< \brief (PORT) IOBUS Base Address */
-#define RTC                           (0x40001400U) /**< \brief (RTC) APB Base Address */
-#define SERCOM0                       (0x42000800U) /**< \brief (SERCOM0) APB Base Address */
-#define SERCOM1                       (0x42000C00U) /**< \brief (SERCOM1) APB Base Address */
-#define SERCOM2                       (0x42001000U) /**< \brief (SERCOM2) APB Base Address */
-#define SERCOM3                       (0x42001400U) /**< \brief (SERCOM3) APB Base Address */
-#define SERCOM4                       (0x42001800U) /**< \brief (SERCOM4) APB Base Address */
-#define SERCOM5                       (0x42001C00U) /**< \brief (SERCOM5) APB Base Address */
-#define SYSCTRL                       (0x40000800U) /**< \brief (SYSCTRL) APB Base Address */
-#define TC0                           (0x42002000U) /**< \brief (TC0) APB Base Address */
-#define TC1                           (0x42002400U) /**< \brief (TC1) APB Base Address */
-#define TC2                           (0x42002800U) /**< \brief (TC2) APB Base Address */
-#define TC3                           (0x42002C00U) /**< \brief (TC3) APB Base Address */
-#define TC4                           (0x42003000U) /**< \brief (TC4) APB Base Address */
-#define TC5                           (0x42003400U) /**< \brief (TC5) APB Base Address */
-#define TC6                           (0x42003800U) /**< \brief (TC6) APB Base Address */
-#define TC7                           (0x42003C00U) /**< \brief (TC7) APB Base Address */
-#define WDT                           (0x40001000U) /**< \brief (WDT) APB Base Address */
+#define AC                            (0x42004400UL) /**< \brief (AC) APB Base Address */
+#define ADC                           (0x42004000UL) /**< \brief (ADC) APB Base Address */
+#define DAC                           (0x42004800UL) /**< \brief (DAC) APB Base Address */
+#define DSU                           (0x41002000UL) /**< \brief (DSU) APB Base Address */
+#define EIC                           (0x40001800UL) /**< \brief (EIC) APB Base Address */
+#define EVSYS                         (0x42000400UL) /**< \brief (EVSYS) APB Base Address */
+#define GCLK                          (0x40000C00UL) /**< \brief (GCLK) APB Base Address */
+#define NVMCTRL                       (0x41004000UL) /**< \brief (NVMCTRL) APB Base Address */
+#define NVMCTRL_CAL                   (0x00800000UL) /**< \brief (NVMCTRL) CAL Base Address */
+#define NVMCTRL_LOCKBIT               (0x00802000UL) /**< \brief (NVMCTRL) LOCKBIT Base Address */
+#define NVMCTRL_OTP1                  (0x00806000UL) /**< \brief (NVMCTRL) OTP1 Base Address */
+#define NVMCTRL_OTP2                  (0x00806008UL) /**< \brief (NVMCTRL) OTP2 Base Address */
+#define NVMCTRL_OTP4                  (0x00806020UL) /**< \brief (NVMCTRL) OTP4 Base Address */
+#define NVMCTRL_TEMP_LOG              (0x00806030UL) /**< \brief (NVMCTRL) TEMP_LOG Base Address */
+#define NVMCTRL_USER                  (0x00804000UL) /**< \brief (NVMCTRL) USER Base Address */
+#define PAC0                          (0x40000000UL) /**< \brief (PAC0) APB Base Address */
+#define PAC1                          (0x41000000UL) /**< \brief (PAC1) APB Base Address */
+#define PAC2                          (0x42000000UL) /**< \brief (PAC2) APB Base Address */
+#define PM                            (0x40000400UL) /**< \brief (PM) APB Base Address */
+#define PORT                          (0x41004400UL) /**< \brief (PORT) APB Base Address */
+#define PORT_IOBUS                    (0x60000000UL) /**< \brief (PORT) IOBUS Base Address */
+#define RTC                           (0x40001400UL) /**< \brief (RTC) APB Base Address */
+#define SERCOM0                       (0x42000800UL) /**< \brief (SERCOM0) APB Base Address */
+#define SERCOM1                       (0x42000C00UL) /**< \brief (SERCOM1) APB Base Address */
+#define SERCOM2                       (0x42001000UL) /**< \brief (SERCOM2) APB Base Address */
+#define SERCOM3                       (0x42001400UL) /**< \brief (SERCOM3) APB Base Address */
+#define SERCOM4                       (0x42001800UL) /**< \brief (SERCOM4) APB Base Address */
+#define SERCOM5                       (0x42001C00UL) /**< \brief (SERCOM5) APB Base Address */
+#define SYSCTRL                       (0x40000800UL) /**< \brief (SYSCTRL) APB Base Address */
+#define TC0                           (0x42002000UL) /**< \brief (TC0) APB Base Address */
+#define TC1                           (0x42002400UL) /**< \brief (TC1) APB Base Address */
+#define TC2                           (0x42002800UL) /**< \brief (TC2) APB Base Address */
+#define TC3                           (0x42002C00UL) /**< \brief (TC3) APB Base Address */
+#define TC4                           (0x42003000UL) /**< \brief (TC4) APB Base Address */
+#define TC5                           (0x42003400UL) /**< \brief (TC5) APB Base Address */
+#define TC6                           (0x42003800UL) /**< \brief (TC6) APB Base Address */
+#define TC7                           (0x42003C00UL) /**< \brief (TC7) APB Base Address */
+#define WDT                           (0x40001000UL) /**< \brief (WDT) APB Base Address */
 #else
-#define AC                ((Ac       *)0x42004400U) /**< \brief (AC) APB Base Address */
-#define AC_INST_NUM       1                         /**< \brief (AC) Number of instances */
-#define AC_INSTS          { AC }                    /**< \brief (AC) Instances List */
+#define AC                ((Ac       *)0x42004400UL) /**< \brief (AC) APB Base Address */
+#define AC_INST_NUM       1                          /**< \brief (AC) Number of instances */
+#define AC_INSTS          { AC }                     /**< \brief (AC) Instances List */
 
-#define ADC               ((Adc      *)0x42004000U) /**< \brief (ADC) APB Base Address */
-#define ADC_INST_NUM      1                         /**< \brief (ADC) Number of instances */
-#define ADC_INSTS         { ADC }                   /**< \brief (ADC) Instances List */
+#define ADC               ((Adc      *)0x42004000UL) /**< \brief (ADC) APB Base Address */
+#define ADC_INST_NUM      1                          /**< \brief (ADC) Number of instances */
+#define ADC_INSTS         { ADC }                    /**< \brief (ADC) Instances List */
 
-#define DAC               ((Dac      *)0x42004800U) /**< \brief (DAC) APB Base Address */
-#define DAC_INST_NUM      1                         /**< \brief (DAC) Number of instances */
-#define DAC_INSTS         { DAC }                   /**< \brief (DAC) Instances List */
+#define DAC               ((Dac      *)0x42004800UL) /**< \brief (DAC) APB Base Address */
+#define DAC_INST_NUM      1                          /**< \brief (DAC) Number of instances */
+#define DAC_INSTS         { DAC }                    /**< \brief (DAC) Instances List */
 
-#define DSU               ((Dsu      *)0x41002000U) /**< \brief (DSU) APB Base Address */
-#define DSU_INST_NUM      1                         /**< \brief (DSU) Number of instances */
-#define DSU_INSTS         { DSU }                   /**< \brief (DSU) Instances List */
+#define DSU               ((Dsu      *)0x41002000UL) /**< \brief (DSU) APB Base Address */
+#define DSU_INST_NUM      1                          /**< \brief (DSU) Number of instances */
+#define DSU_INSTS         { DSU }                    /**< \brief (DSU) Instances List */
 
-#define EIC               ((Eic      *)0x40001800U) /**< \brief (EIC) APB Base Address */
-#define EIC_INST_NUM      1                         /**< \brief (EIC) Number of instances */
-#define EIC_INSTS         { EIC }                   /**< \brief (EIC) Instances List */
+#define EIC               ((Eic      *)0x40001800UL) /**< \brief (EIC) APB Base Address */
+#define EIC_INST_NUM      1                          /**< \brief (EIC) Number of instances */
+#define EIC_INSTS         { EIC }                    /**< \brief (EIC) Instances List */
 
-#define EVSYS             ((Evsys    *)0x42000400U) /**< \brief (EVSYS) APB Base Address */
-#define EVSYS_INST_NUM    1                         /**< \brief (EVSYS) Number of instances */
-#define EVSYS_INSTS       { EVSYS }                 /**< \brief (EVSYS) Instances List */
+#define EVSYS             ((Evsys    *)0x42000400UL) /**< \brief (EVSYS) APB Base Address */
+#define EVSYS_INST_NUM    1                          /**< \brief (EVSYS) Number of instances */
+#define EVSYS_INSTS       { EVSYS }                  /**< \brief (EVSYS) Instances List */
 
-#define GCLK              ((Gclk     *)0x40000C00U) /**< \brief (GCLK) APB Base Address */
-#define GCLK_INST_NUM     1                         /**< \brief (GCLK) Number of instances */
-#define GCLK_INSTS        { GCLK }                  /**< \brief (GCLK) Instances List */
+#define GCLK              ((Gclk     *)0x40000C00UL) /**< \brief (GCLK) APB Base Address */
+#define GCLK_INST_NUM     1                          /**< \brief (GCLK) Number of instances */
+#define GCLK_INSTS        { GCLK }                   /**< \brief (GCLK) Instances List */
 
-#define NVMCTRL           ((Nvmctrl  *)0x41004000U) /**< \brief (NVMCTRL) APB Base Address */
-#define NVMCTRL_CAL                   (0x00800000U) /**< \brief (NVMCTRL) CAL Base Address */
-#define NVMCTRL_LOCKBIT               (0x00802000U) /**< \brief (NVMCTRL) LOCKBIT Base Address */
-#define NVMCTRL_OTP1                  (0x00806000U) /**< \brief (NVMCTRL) OTP1 Base Address */
-#define NVMCTRL_OTP2                  (0x00806008U) /**< \brief (NVMCTRL) OTP2 Base Address */
-#define NVMCTRL_OTP4                  (0x00806020U) /**< \brief (NVMCTRL) OTP4 Base Address */
-#define NVMCTRL_TEMP_LOG              (0x00806030U) /**< \brief (NVMCTRL) TEMP_LOG Base Address */
-#define NVMCTRL_USER                  (0x00804000U) /**< \brief (NVMCTRL) USER Base Address */
-#define NVMCTRL_INST_NUM  1                         /**< \brief (NVMCTRL) Number of instances */
-#define NVMCTRL_INSTS     { NVMCTRL }               /**< \brief (NVMCTRL) Instances List */
+#define NVMCTRL           ((Nvmctrl  *)0x41004000UL) /**< \brief (NVMCTRL) APB Base Address */
+#define NVMCTRL_CAL                   (0x00800000UL) /**< \brief (NVMCTRL) CAL Base Address */
+#define NVMCTRL_LOCKBIT               (0x00802000UL) /**< \brief (NVMCTRL) LOCKBIT Base Address */
+#define NVMCTRL_OTP1                  (0x00806000UL) /**< \brief (NVMCTRL) OTP1 Base Address */
+#define NVMCTRL_OTP2                  (0x00806008UL) /**< \brief (NVMCTRL) OTP2 Base Address */
+#define NVMCTRL_OTP4                  (0x00806020UL) /**< \brief (NVMCTRL) OTP4 Base Address */
+#define NVMCTRL_TEMP_LOG              (0x00806030UL) /**< \brief (NVMCTRL) TEMP_LOG Base Address */
+#define NVMCTRL_USER                  (0x00804000UL) /**< \brief (NVMCTRL) USER Base Address */
+#define NVMCTRL_INST_NUM  1                          /**< \brief (NVMCTRL) Number of instances */
+#define NVMCTRL_INSTS     { NVMCTRL }                /**< \brief (NVMCTRL) Instances List */
 
-#define PAC0              ((Pac      *)0x40000000U) /**< \brief (PAC0) APB Base Address */
-#define PAC1              ((Pac      *)0x41000000U) /**< \brief (PAC1) APB Base Address */
-#define PAC2              ((Pac      *)0x42000000U) /**< \brief (PAC2) APB Base Address */
-#define PAC_INST_NUM      3                         /**< \brief (PAC) Number of instances */
-#define PAC_INSTS         { PAC0, PAC1, PAC2 }      /**< \brief (PAC) Instances List */
+#define PAC0              ((Pac      *)0x40000000UL) /**< \brief (PAC0) APB Base Address */
+#define PAC1              ((Pac      *)0x41000000UL) /**< \brief (PAC1) APB Base Address */
+#define PAC2              ((Pac      *)0x42000000UL) /**< \brief (PAC2) APB Base Address */
+#define PAC_INST_NUM      3                          /**< \brief (PAC) Number of instances */
+#define PAC_INSTS         { PAC0, PAC1, PAC2 }       /**< \brief (PAC) Instances List */
 
-#define PM                ((Pm       *)0x40000400U) /**< \brief (PM) APB Base Address */
-#define PM_INST_NUM       1                         /**< \brief (PM) Number of instances */
-#define PM_INSTS          { PM }                    /**< \brief (PM) Instances List */
+#define PM                ((Pm       *)0x40000400UL) /**< \brief (PM) APB Base Address */
+#define PM_INST_NUM       1                          /**< \brief (PM) Number of instances */
+#define PM_INSTS          { PM }                     /**< \brief (PM) Instances List */
 
-#define PORT              ((Port     *)0x41004400U) /**< \brief (PORT) APB Base Address */
-#define PORT_IOBUS        ((Port     *)0x60000000U) /**< \brief (PORT) IOBUS Base Address */
-#define PORT_INST_NUM     1                         /**< \brief (PORT) Number of instances */
-#define PORT_INSTS        { PORT }                  /**< \brief (PORT) Instances List */
+#define PORT              ((Port     *)0x41004400UL) /**< \brief (PORT) APB Base Address */
+#define PORT_IOBUS        ((Port     *)0x60000000UL) /**< \brief (PORT) IOBUS Base Address */
+#define PORT_INST_NUM     1                          /**< \brief (PORT) Number of instances */
+#define PORT_INSTS        { PORT }                   /**< \brief (PORT) Instances List */
 
 #define PTC_GCLK_ID       27
-#define PTC_INST_NUM      1                         /**< \brief (PTC) Number of instances */
-#define PTC_INSTS         { PTC }                   /**< \brief (PTC) Instances List */
+#define PTC_INST_NUM      1                          /**< \brief (PTC) Number of instances */
+#define PTC_INSTS         { PTC }                    /**< \brief (PTC) Instances List */
 
-#define RTC               ((Rtc      *)0x40001400U) /**< \brief (RTC) APB Base Address */
-#define RTC_INST_NUM      1                         /**< \brief (RTC) Number of instances */
-#define RTC_INSTS         { RTC }                   /**< \brief (RTC) Instances List */
+#define RTC               ((Rtc      *)0x40001400UL) /**< \brief (RTC) APB Base Address */
+#define RTC_INST_NUM      1                          /**< \brief (RTC) Number of instances */
+#define RTC_INSTS         { RTC }                    /**< \brief (RTC) Instances List */
 
-#define SERCOM0           ((Sercom   *)0x42000800U) /**< \brief (SERCOM0) APB Base Address */
-#define SERCOM1           ((Sercom   *)0x42000C00U) /**< \brief (SERCOM1) APB Base Address */
-#define SERCOM2           ((Sercom   *)0x42001000U) /**< \brief (SERCOM2) APB Base Address */
-#define SERCOM3           ((Sercom   *)0x42001400U) /**< \brief (SERCOM3) APB Base Address */
-#define SERCOM4           ((Sercom   *)0x42001800U) /**< \brief (SERCOM4) APB Base Address */
-#define SERCOM5           ((Sercom   *)0x42001C00U) /**< \brief (SERCOM5) APB Base Address */
-#define SERCOM_INST_NUM   6                         /**< \brief (SERCOM) Number of instances */
+#define SERCOM0           ((Sercom   *)0x42000800UL) /**< \brief (SERCOM0) APB Base Address */
+#define SERCOM1           ((Sercom   *)0x42000C00UL) /**< \brief (SERCOM1) APB Base Address */
+#define SERCOM2           ((Sercom   *)0x42001000UL) /**< \brief (SERCOM2) APB Base Address */
+#define SERCOM3           ((Sercom   *)0x42001400UL) /**< \brief (SERCOM3) APB Base Address */
+#define SERCOM4           ((Sercom   *)0x42001800UL) /**< \brief (SERCOM4) APB Base Address */
+#define SERCOM5           ((Sercom   *)0x42001C00UL) /**< \brief (SERCOM5) APB Base Address */
+#define SERCOM_INST_NUM   6                          /**< \brief (SERCOM) Number of instances */
 #define SERCOM_INSTS      { SERCOM0, SERCOM1, SERCOM2, SERCOM3, SERCOM4, SERCOM5 } /**< \brief (SERCOM) Instances List */
 
-#define SYSCTRL           ((Sysctrl  *)0x40000800U) /**< \brief (SYSCTRL) APB Base Address */
-#define SYSCTRL_INST_NUM  1                         /**< \brief (SYSCTRL) Number of instances */
-#define SYSCTRL_INSTS     { SYSCTRL }               /**< \brief (SYSCTRL) Instances List */
+#define SYSCTRL           ((Sysctrl  *)0x40000800UL) /**< \brief (SYSCTRL) APB Base Address */
+#define SYSCTRL_INST_NUM  1                          /**< \brief (SYSCTRL) Number of instances */
+#define SYSCTRL_INSTS     { SYSCTRL }                /**< \brief (SYSCTRL) Instances List */
 
-#define TC0               ((Tc       *)0x42002000U) /**< \brief (TC0) APB Base Address */
-#define TC1               ((Tc       *)0x42002400U) /**< \brief (TC1) APB Base Address */
-#define TC2               ((Tc       *)0x42002800U) /**< \brief (TC2) APB Base Address */
-#define TC3               ((Tc       *)0x42002C00U) /**< \brief (TC3) APB Base Address */
-#define TC4               ((Tc       *)0x42003000U) /**< \brief (TC4) APB Base Address */
-#define TC5               ((Tc       *)0x42003400U) /**< \brief (TC5) APB Base Address */
-#define TC6               ((Tc       *)0x42003800U) /**< \brief (TC6) APB Base Address */
-#define TC7               ((Tc       *)0x42003C00U) /**< \brief (TC7) APB Base Address */
-#define TC_INST_NUM       8                         /**< \brief (TC) Number of instances */
+#define TC0               ((Tc       *)0x42002000UL) /**< \brief (TC0) APB Base Address */
+#define TC1               ((Tc       *)0x42002400UL) /**< \brief (TC1) APB Base Address */
+#define TC2               ((Tc       *)0x42002800UL) /**< \brief (TC2) APB Base Address */
+#define TC3               ((Tc       *)0x42002C00UL) /**< \brief (TC3) APB Base Address */
+#define TC4               ((Tc       *)0x42003000UL) /**< \brief (TC4) APB Base Address */
+#define TC5               ((Tc       *)0x42003400UL) /**< \brief (TC5) APB Base Address */
+#define TC6               ((Tc       *)0x42003800UL) /**< \brief (TC6) APB Base Address */
+#define TC7               ((Tc       *)0x42003C00UL) /**< \brief (TC7) APB Base Address */
+#define TC_INST_NUM       8                          /**< \brief (TC) Number of instances */
 #define TC_INSTS          { TC0, TC1, TC2, TC3, TC4, TC5, TC6, TC7 } /**< \brief (TC) Instances List */
 
-#define WDT               ((Wdt      *)0x40001000U) /**< \brief (WDT) APB Base Address */
-#define WDT_INST_NUM      1                         /**< \brief (WDT) Number of instances */
-#define WDT_INSTS         { WDT }                   /**< \brief (WDT) Instances List */
+#define WDT               ((Wdt      *)0x40001000UL) /**< \brief (WDT) APB Base Address */
+#define WDT_INST_NUM      1                          /**< \brief (WDT) Number of instances */
+#define WDT_INSTS         { WDT }                    /**< \brief (WDT) Instances List */
 
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /*@}*/
@@ -495,16 +498,16 @@ void PTC_Handler                 ( void );
 /**  MEMORY MAPPING DEFINITIONS FOR SAMD20J14 */
 /* ************************************************************************** */
 
-#define FLASH_SIZE            0x4000 /* 16 kB */
+#define FLASH_SIZE            0x4000UL /* 16 kB */
 #define FLASH_PAGE_SIZE       64
 #define FLASH_NB_OF_PAGES     256
 #define FLASH_USER_PAGE_SIZE  64
-#define HRAMC0_SIZE           0x800 /* 2 kB */
-#define FLASH_ADDR            (0x00000000U) /**< FLASH base address */
-#define FLASH_USER_PAGE_ADDR  (0x00800000U) /**< FLASH_USER_PAGE base address */
-#define HRAMC0_ADDR           (0x20000000U) /**< HRAMC0 base address */
+#define HRAMC0_SIZE           0x800UL /* 2 kB */
+#define FLASH_ADDR            (0x00000000UL) /**< FLASH base address */
+#define FLASH_USER_PAGE_ADDR  (0x00800000UL) /**< FLASH_USER_PAGE base address */
+#define HRAMC0_ADDR           (0x20000000UL) /**< HRAMC0 base address */
 
-#define DSU_DID_RESETVALUE    0x10001304
+#define DSU_DID_RESETVALUE    0x10001304UL
 #define PORT_GROUPS           2
 
 /* ************************************************************************** */

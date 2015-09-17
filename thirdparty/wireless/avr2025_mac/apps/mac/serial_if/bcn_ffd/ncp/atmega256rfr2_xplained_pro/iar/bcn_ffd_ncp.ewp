@@ -2243,10 +2243,10 @@
 							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_types.h</name>
+							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_generic.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_generic.h</name>
+							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_types.h</name>
 						</file>
 					</group>
 				</group>
@@ -2622,6 +2622,9 @@
 						<name>$PROJ_DIR$/../../../../../../../include/ieee_const.h</name>
 					</file>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../../include/tal_build_config.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../../include/mac_build_config.h</name>
 					</file>
 					<file>
@@ -2631,7 +2634,7 @@
 						<name>$PROJ_DIR$/../../../../../../../include/return_val.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../include/tal_build_config.h</name>
+						<name>$PROJ_DIR$/../../../../../../../include/ieee_154g.h</name>
 					</file>
 				</group>
 			</group>

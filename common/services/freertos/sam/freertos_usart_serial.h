@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Peripheral Control API For the USART
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #ifndef FREERTOS_USART_SERIAL_INCLUDED
 #define FREERTOS_USART_SERIAL_INCLUDED
@@ -410,7 +413,7 @@ uint32_t freertos_usart_serial_read_packet(freertos_usart_if p_usart,
 	     // freertos_usart_write_packet() does not return until transmission of
 	     // the string has completed (other FreeRTOS task will execute while the
 	     // transmission is in progress), meaning the function can exit even
-	     // though the buffer being transmitted is declared on the function’s
+	     // though the buffer being transmitted is declared on the function's
 	     // stack because it is guaranteed that nothing is still using the data
 	     // the buffer contains.
 	     return result;

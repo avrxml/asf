@@ -3,7 +3,7 @@
  *
  * \brief Management of the virtual memory.
  *
- * Copyright (c) 2009 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,6 +49,9 @@
  * Mass Storage Interface via the service Memory Control Access.
  *
  * \{
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 //_____  I N C L U D E S ___________________________________________________

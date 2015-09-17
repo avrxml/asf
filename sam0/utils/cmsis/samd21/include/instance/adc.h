@@ -3,7 +3,7 @@
  *
  * \brief Instance description for ADC
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAMD21_ADC_INSTANCE_
@@ -90,10 +93,10 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for ADC peripheral ========== */
-#define ADC_DMAC_ID_RESRDY          39
-#define ADC_EXTCHANNEL_MSB          19
-#define ADC_GCLK_ID                 30
-#define ADC_RESULT_BITS             16
-#define ADC_RESULT_MSB              (ADC_RESULT_BITS-1)
+#define ADC_DMAC_ID_RESRDY          39       // Index of DMA RESRDY trigger
+#define ADC_EXTCHANNEL_MSB          19       // Number of external channels
+#define ADC_GCLK_ID                 30       // Index of Generic Clock
+#define ADC_RESULT_BITS             16       // Size of RESULT.RESULT bitfield
+#define ADC_RESULT_MSB              15       // Size of Result
 
 #endif /* _SAMD21_ADC_INSTANCE_ */

@@ -3,7 +3,7 @@
  *
  * \brief SDRAM controller (SDRAMC) driver for SAM.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "compiler.h"
 #include "sdramc.h"
@@ -75,6 +78,7 @@ extern "C" {
 void sdramc_init(sdramc_memory_dev_t *p_sdram, uint32_t ul_clk)
 {
 	volatile uint32_t i;
+	volatile uint16_t *pSdram = (uint16_t *)(BOARD_SDRAM_ADDR);
 
 	/* Prevent setting the SDRAMC entering to sleep mode */
 	sleepmgr_lock_mode(SLEEPMGR_ACTIVE);
@@ -97,7 +101,7 @@ void sdramc_init(sdramc_memory_dev_t *p_sdram, uint32_t ul_clk)
 
 	/* Step 4. */
 
-	/* A minimum pause of 200 ¦Ìs is provided to precede any signal toggle.
+	/* A minimum pause of 200 Âµs is provided to precede any signal toggle.
 	   (6 core cycles per iteration) */
 	for (i = 0; i < ((ul_clk / 1000000) * 200 / 6); i++) {
 		;
@@ -111,7 +115,7 @@ void sdramc_init(sdramc_memory_dev_t *p_sdram, uint32_t ul_clk)
 	   acknowledge this command. Now the clock which drives SDR-SDRAM
 	   device is enabled. */
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_NOP;
-	*(uint16_t *)(BOARD_SDRAM_ADDR) = 0;
+	*pSdram = 0x0;
 
 	/* Step 6. */
 
@@ -120,7 +124,7 @@ void sdramc_init(sdramc_memory_dev_t *p_sdram, uint32_t ul_clk)
 	   must set Mode to 2 in the Mode Register. Perform a write access to
 	   any SDRSDRAM address to acknowledge this command. */
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_ALLBANKS_PRECHARGE;
-	*(uint16_t *)(BOARD_SDRAM_ADDR) = 0x0;
+	*pSdram = 0x0;
 
 	/* Add some delays after precharge */
 	for (i = 0; i < ((ul_clk / 1000000) * 200 / 6); i++) {
@@ -133,34 +137,34 @@ void sdramc_init(sdramc_memory_dev_t *p_sdram, uint32_t ul_clk)
 	   must set Mode to 4 in the Mode Register. Once in the idle state,
 	   eight AUTO REFRESH cycles must be performed. */
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_AUTO_REFRESH;
-	*(uint16_t *)(BOARD_SDRAM_ADDR + 0) = 0x1;
+	*pSdram = 0x1;
 
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_AUTO_REFRESH;
-	*(uint16_t *)(BOARD_SDRAM_ADDR + 0) = 0x2;
+	*pSdram = 0x2;
 
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_AUTO_REFRESH;
-	*(uint16_t *)(BOARD_SDRAM_ADDR + 0) = 0x3;
+	*pSdram = 0x3;
 
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_AUTO_REFRESH;
-	*(uint16_t *)(BOARD_SDRAM_ADDR + 0) = 0x4;
+	*pSdram = 0x4;
 
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_AUTO_REFRESH;
-	*(uint16_t *)(BOARD_SDRAM_ADDR + 0) = 0x5;
+	*pSdram = 0x5;
 
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_AUTO_REFRESH;
-	*(uint16_t *)(BOARD_SDRAM_ADDR + 0) = 0x6;
+	*pSdram = 0x6;
 
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_AUTO_REFRESH;
-	*(uint16_t *)(BOARD_SDRAM_ADDR + 0) = 0x7;
+	*pSdram = 0x7;
 
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_AUTO_REFRESH;
-	*(uint16_t *)(BOARD_SDRAM_ADDR + 0) = 0x8;
+	*pSdram = 0x8;
 
 	/* Step 8. */
 	/* A Mode Register Set (MRS) cycle is issued to program the parameters
 	   of the SDRAM devices, in particular CAS latency and burst length. */
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_LOAD_MODEREG;
-	*(uint16_t *)(BOARD_SDRAM_ADDR + p_sdram->ul_mode) = 0xcafe;
+	*((uint16_t *)(pSdram + p_sdram->ul_mode)) = 0xcafe;
 
 	/* Step 9. */
 
@@ -169,14 +173,14 @@ void sdramc_init(sdramc_memory_dev_t *p_sdram, uint32_t ul_clk)
 	   PASR, DS). The write address must be chosen so that BA[1] is set to
 	   1 and BA[0] is set to 0. */
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_EXT_LOAD_MODEREG;
-	*((uint16_t *)(BOARD_SDRAM_ADDR + (1 << p_sdram->ul_bk1))) = 0;
+	*((uint16_t *)(pSdram + (1 << p_sdram->ul_bk1))) = 0x0;
 
 	/* Step 10. */
 	/* The application must go into Normal Mode, setting Mode to 0 in the
 	   Mode Register and perform a write access at any location in the\
 	   SDRAM to acknowledge this command. */
 	SDRAMC->SDRAMC_MR = SDRAMC_MR_MODE_NORMAL;
-	*(uint16_t *)(BOARD_SDRAM_ADDR) = 0x0;
+	*pSdram = 0x0;
 
 	/* Step 11. */
 

@@ -4,7 +4,7 @@
  * \brief Default descriptors for a USB Device
  * with a single interface HID keyboard
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,7 +51,7 @@
 /**
  * \ingroup udi_hid_keyboard_group
  * \defgroup udi_hid_keyboard_group_single_desc USB device descriptors for a
- *single interface
+ * single interface
  *
  * The following structures provide the USB device descriptors required
  * for USB Device with a single interface HID keyboard.
@@ -148,7 +148,8 @@ UDC_DESC_STORAGE udc_config_speed_t udc_config_fshs[1] = {{
 									  = (
 									  usb_conf_desc_t
 									  UDC_DESC_STORAGE
-				*)&udc_desc,
+									  *)&
+										  udc_desc,
 								  .udi_apis
 									  =
 										  udi_apis,

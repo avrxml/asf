@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM I2C Slave Quick Start Guide with Callbacks
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 
@@ -67,7 +70,7 @@ static uint8_t read_buffer [DATA_LENGTH];
 #define SLAVE_ADDRESS 0x12
 //! [address]
 
-/* Init device instance. */
+/* Init device instance */
 //! [module]
 struct i2c_slave_module i2c_slave_instance;
 //! [module]
@@ -76,7 +79,7 @@ struct i2c_slave_module i2c_slave_instance;
 void i2c_read_request_callback(
 		struct i2c_slave_module *const module)
 {
-	/* Init i2c packet. */
+	/* Init i2c packet */
 	//! [packet_write]
 	packet.data_length = DATA_LENGTH;
 	packet.data        = write_buffer;
@@ -93,7 +96,7 @@ void i2c_read_request_callback(
 void i2c_write_request_callback(
 		struct i2c_slave_module *const module)
 {
-	/* Init i2c packet. */
+	/* Init i2c packet */
 	//! [packet_read]
 	packet.data_length = DATA_LENGTH;
 	packet.data        = read_buffer;
@@ -110,19 +113,19 @@ void i2c_write_request_callback(
 //! [initialize_i2c]
 void configure_i2c_slave(void)
 {
-	/* Initialize config structure and module instance. */
+	/* Initialize config structure and module instance */
 	//! [init_conf]
 	struct i2c_slave_config config_i2c_slave;
 	i2c_slave_get_config_defaults(&config_i2c_slave);
 	//! [init_conf]
-	/* Change address and address_mode. */
+	/* Change address and address_mode */
 	//! [conf_changes]
 	config_i2c_slave.address      = SLAVE_ADDRESS;
 	config_i2c_slave.address_mode = I2C_SLAVE_ADDRESS_MODE_MASK;
 	//! [conf_changes]
-	/* Initialize and enable device with config. */
+	/* Initialize and enable device with config */
 	//! [init_module]
-	i2c_slave_init(&i2c_slave_instance, SERCOM2, &config_i2c_slave);
+	i2c_slave_init(&i2c_slave_instance, CONF_I2C_SLAVE_MODULE, &config_i2c_slave);
 	//! [init_module]
 
 	//! [enable_module]
@@ -154,7 +157,7 @@ int main(void)
 	system_init();
 
 	//! [run_initialize_i2c]
-	/* Configure device and enable. */
+	/* Configure device and enable */
 	//! [config]
 	configure_i2c_slave();
 	//! [config]

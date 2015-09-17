@@ -3,7 +3,7 @@
  *
  * \brief SAM4L Peripheral Event Controller (PEVC) Driver.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <events.h>
@@ -99,7 +102,7 @@ void events_disable(void)
 }
 
 /**
- * \brief Initialize an event channel configuration structure to defaults.
+ * \brief Initialize an Event Channel configuration structure to defaults.
  *
  *  The default configuration is as follows:
  *  - Channel ID is initialized to invalid number

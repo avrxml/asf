@@ -3,7 +3,7 @@
  *
  * @brief Implements data request related functions
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -206,7 +206,7 @@ bool mac_build_and_tx_data_req(bool expl_poll,
 			force_own_long_addr) {
 		frame_ptr -= 8;
 		frame_len += 6; /* Add further 6 octets for long Source Address
-		                 **/
+		                **/
 
 		/* Build the Source address. */
 		convert_64_bit_to_byte_array(tal_pib.IeeeAddress, frame_ptr);
@@ -247,7 +247,7 @@ bool mac_build_and_tx_data_req(bool expl_poll,
 			) {
 		frame_ptr -= 2;
 		frame_len += 2; /* Add further 6 octets for long Source Pan-Id
-		                 **/
+		                **/
 
 		convert_16_bit_to_byte_array(tal_pib.PANId, frame_ptr);
 	} else {
@@ -435,9 +435,10 @@ static buffer_t *build_null_data_frame(void)
 
 	/* Get the payload pointer. */
 	frame_ptr = (uint8_t *)transmit_frame + LARGE_BUFFER_SIZE - 2; /* Add 2
-	                                                               * octets
-	                                                               * for
-	                                                               * FCS. */
+	                                                                * octets
+	                                                                * for
+	                                                                * FCS.
+	                                                                **/
 
 	/*
 	 * Set Source Address.
@@ -671,14 +672,13 @@ void mac_process_data_request(buffer_t *msg)
 
 				if (MAC_SUCCESS != build_sec) {
 					/* The MAC Data Payload is encrypted
-					 *based on the security level. */
+					 * based on the security level. */
 					transmit_frame->indirect_in_transit
 						= false;
 					return;
 				}
 			}
 		}
-
 #endif
 
 		/*

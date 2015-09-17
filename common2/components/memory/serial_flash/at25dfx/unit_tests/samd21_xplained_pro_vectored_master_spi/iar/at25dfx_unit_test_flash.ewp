@@ -166,9 +166,9 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM0=true</state>
 					<state>BOARD=SAMD21_XPLAINED_PRO</state>
 					<state>_ASSERT_ENABLE_</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAMD21J18A__</state>
@@ -303,13 +303,14 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/source</state>
 					<state>$PROJ_DIR$/../../../hal/spi_master_vec</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/port</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/preprocessor</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam0/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/spi</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/power</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial</state>
@@ -317,6 +318,9 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd21</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/boards/samd21_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/spi_master_vec</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
@@ -324,7 +328,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/header_files</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam0/boards/samd21_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
@@ -476,9 +480,9 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM0=true</state>
 					<state>BOARD=SAMD21_XPLAINED_PRO</state>
 					<state>_ASSERT_ENABLE_</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAMD21J18A__</state>
@@ -580,13 +584,14 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/source</state>
 					<state>$PROJ_DIR$/../../../hal/spi_master_vec</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/port</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/preprocessor</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam0/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/spi</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/power</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial</state>
@@ -594,6 +599,9 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd21</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/boards/samd21_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/spi_master_vec</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
@@ -601,7 +609,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/header_files</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam0/boards/samd21_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1124,7 +1132,7 @@
 				</option>
 				<option>
 					<name>OGUseCmsis</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>OGUseCmsisDspLib</name>
@@ -1145,9 +1153,9 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM0=true</state>
 					<state>BOARD=SAMD21_XPLAINED_PRO</state>
 					<state>_ASSERT_ENABLE_</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAMD21J18A__</state>
@@ -1216,7 +1224,7 @@
 				</option>
 				<option>
 					<name>CCDebugInfo</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IEndianMode</name>
@@ -1282,13 +1290,14 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/source</state>
 					<state>$PROJ_DIR$/../../../hal/spi_master_vec</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/port</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/preprocessor</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam0/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/spi</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/power</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial</state>
@@ -1296,6 +1305,9 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd21</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/boards/samd21_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/spi_master_vec</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
@@ -1303,7 +1315,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/header_files</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam0/boards/samd21_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1455,9 +1467,9 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM0=true</state>
 					<state>BOARD=SAMD21_XPLAINED_PRO</state>
 					<state>_ASSERT_ENABLE_</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAMD21J18A__</state>
@@ -1559,13 +1571,14 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/source</state>
 					<state>$PROJ_DIR$/../../../hal/spi_master_vec</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/port</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/preprocessor</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam0/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/spi</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/power</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial</state>
@@ -1573,6 +1586,9 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd21</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/boards/samd21_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/spi_master_vec</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
@@ -1580,7 +1596,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/header_files</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam0/boards/samd21_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1972,6 +1988,12 @@
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/usart/usart_interrupt.c</name>
 					</file>
+					<group>
+						<name>quick_start_callback</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/usart/quick_start_callback/qs_usart_callback.h</name>
+						</file>
+					</group>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/usart/usart_interrupt.h</name>
 					</file>
@@ -1982,9 +2004,9 @@
 						</file>
 					</group>
 					<group>
-						<name>quick_start_callback</name>
+						<name>quick_start_lin</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/usart/quick_start_callback/qs_usart_callback.h</name>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/sercom/usart/quick_start_lin/qs_lin.h</name>
 						</file>
 					</group>
 					<group>
@@ -2080,12 +2102,6 @@
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/interrupt/system_interrupt.c</name>
 					</file>
-					<group>
-						<name>quick_start</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/interrupt/quick_start/qs_system_interrupt.h</name>
-						</file>
-					</group>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/interrupt/system_interrupt.h</name>
 					</file>
@@ -2095,6 +2111,30 @@
 							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd21/system_interrupt_features.h</name>
 						</file>
 					</group>
+				</group>
+				<group>
+					<name>clock</name>
+					<group>
+						<name>clock_samd21_r21_da</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da/clock.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da/gclk.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da/clock_feature.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21_da/clock_config_check.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/gclk.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock.h</name>
+					</file>
 				</group>
 				<group>
 					<name>pinmux</name>
@@ -2115,41 +2155,26 @@
 					<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/system.c</name>
 				</file>
 				<group>
-					<name>clock</name>
+					<name>power</name>
 					<group>
-						<name>clock_samd21_r21</name>
+						<name>power_sam_d_r</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21/gclk.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21/clock.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock_samd21_r21/clock_config_check.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/gclk.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/clock.h</name>
-					</file>
-					<group>
-						<name>quick_start_clock</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/quick_start_clock/qs_clock_source.h</name>
-						</file>
-					</group>
-					<group>
-						<name>quick_start_gclk</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/clock/quick_start_gclk/qs_gclk_basic.h</name>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/power/power_sam_d_r/power.h</name>
 						</file>
 					</group>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/system.h</name>
 				</file>
+				<group>
+					<name>reset</name>
+					<group>
+						<name>reset_sam_d_r</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/drivers/system/reset/reset_sam_d_r/reset.h</name>
+						</file>
+					</group>
+				</group>
 			</group>
 			<group>
 				<name>port</name>
@@ -2206,6 +2231,90 @@
 					<group>
 						<name>include</name>
 						<group>
+							<name>pio</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21j16b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g18au.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21j15a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e16b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g15a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g17au.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e18a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g17a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21j15b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21j16a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21j18a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g16a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g16b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21j17a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g18a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e16bu.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e15a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e16l.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e15bu.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g15b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g15l.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e15l.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g16l.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e17a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e15b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e16a.h</name>
+							</file>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21e16l.h</name>
+						</file>
+						<group>
 							<name>component</name>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/component/ac.h</name>
@@ -2226,10 +2335,16 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/component/mtb.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/component/hmatrixb.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/component/eic.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/component/pac.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/component/tcc_lighting.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/component/gclk.h</name>
@@ -2272,45 +2387,6 @@
 							</file>
 						</group>
 						<group>
-							<name>pio</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21j15a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g15a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e18a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g17a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21j16a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21j18a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g16a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21j17a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21g18a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e15a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e17a.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/pio/samd21e16a.h</name>
-							</file>
-						</group>
-						<group>
 							<name>instance</name>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/tcc1.h</name>
@@ -2323,6 +2399,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/pac0.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/sbmatrix.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/sercom2.h</name>
@@ -2358,10 +2437,10 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/sercom5.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/dsu.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/wdt.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/wdt.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/dsu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/mtb.h</name>
@@ -2370,13 +2449,19 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/gclk.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/evsys.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/i2s.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/tc7.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/evsys.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/port.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/ac1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/sysctrl.h</name>
@@ -2411,12 +2496,15 @@
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/adc.h</name>
 							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/instance/i2s.h</name>
-							</file>
 						</group>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21j15a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21g16l.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21e16bu.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21g16a.h</name>
@@ -2425,13 +2513,22 @@
 							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21j17a.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21g16b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21j16a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21j16b.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21e17a.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21g15a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21g17au.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21e18a.h</name>
@@ -2443,16 +2540,40 @@
 							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21g17a.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21e16b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21g15l.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21e15bu.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21g15b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21j15b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21e15b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21g18a.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21e16a.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21g18au.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21e15a.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21j18a.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam0/utils/cmsis/samd21/include/samd21e15l.h</name>
 						</file>
 					</group>
 				</group>
@@ -2561,10 +2682,10 @@
 							<group>
 								<name>spi_master_vec</name>
 								<file>
-									<name>$PROJ_DIR$/../../../hal/spi_master_vec/at25dfx_priv_hal.h</name>
+									<name>$PROJ_DIR$/../../../hal/spi_master_vec/at25dfx_hal.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../hal/spi_master_vec/at25dfx_hal.h</name>
+									<name>$PROJ_DIR$/../../../hal/spi_master_vec/at25dfx_priv_hal.h</name>
 								</file>
 							</group>
 						</group>

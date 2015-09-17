@@ -3,7 +3,7 @@
  *
  * @brief
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -82,7 +82,7 @@ void sm_init(void)
 /**
  * \brief This function puts the  device to sleep
  * \param interval : in seconds for the device to sleep.Range of Interval is
- *1-68719s
+ * 1-68719s
  */
 void sm_sleep(uint32_t interval)
 {

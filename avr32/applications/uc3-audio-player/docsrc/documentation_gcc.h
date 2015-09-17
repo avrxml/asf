@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -59,4 +59,7 @@
  *
  * \section avr32studio AVR32Studio
  * - See "AVR32769: How to Compile the standalone AVR32 Software Framework in AVR32 Studio V2".
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

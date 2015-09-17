@@ -3,7 +3,7 @@
  *
  * \brief Default CDC configuration for a USB Device with a single interface
  *
- * Copyright (c) 2009 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _UDI_CDC_CONF_H_
@@ -119,6 +122,7 @@ extern "C" {
 #    define  UDI_CDC_COMM_EP_1             (6 | USB_EP_DIR_IN)  // Notify
 #  endif
 //! 3 endpoints used per CDC interface
+#undef USB_DEVICE_MAX_EP   // undefine this definition in header file
 #define  USB_DEVICE_MAX_EP             (3*UDI_CDC_PORT_NB)
 //@}
 

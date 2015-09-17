@@ -3,7 +3,7 @@
  *
  * \brief SAM Reset Controller (RSTC) driver.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
  
 #include "rstc.h"
@@ -158,7 +161,11 @@ void rstc_disable_user_reset_interrupt(
 void rstc_start_software_reset(
 		Rstc *p_rstc)
 {
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
+	p_rstc->RSTC_CR = RSTC_KEY | RSTC_CR_PROCRST;
+#else
 	p_rstc->RSTC_CR = RSTC_KEY | RSTC_CR_PROCRST | RSTC_CR_PERRST;
+#endif
 }
 
 /**

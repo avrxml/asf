@@ -3,7 +3,7 @@
  *
  * \brief USART hardware handshaking example for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -105,6 +105,9 @@
  *     should match the size of the sent file (unless it is a text file, see
  *     explanation in description section).
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <string.h>

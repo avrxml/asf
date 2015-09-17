@@ -3,7 +3,7 @@
  *
  * \brief Example application for ATMEL PRIME v1.3 Service Node
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

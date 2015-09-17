@@ -5,7 +5,7 @@
  *
  * This file defines common SAM series.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,6 +41,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAM_IO_
@@ -124,6 +127,31 @@
 /* SAMG54 series */
 #if (SAMG54)
 #  include "samg54.h"
+#endif
+
+/* SAMG55 series */
+#if (SAMG55)
+#  include "samg55.h"
+#endif
+
+/* SAMV71 series */
+#if (SAMV71)
+#  include "samv71.h"
+#endif
+
+/* SAMV70 series */
+#if (SAMV70)
+#  include "samv70.h"
+#endif
+
+/* SAME70 series */
+#if (SAME70)
+#  include "same70.h"
+#endif
+
+/* SAMS70 series */
+#if (SAMS70)
+#  include "sams70.h"
 #endif
 
 #endif /* _SAM_IO_ */

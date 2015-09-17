@@ -3,7 +3,7 @@
  *
  * \brief USB configuration file
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _CONF_USB_H_
@@ -123,7 +126,11 @@
 //! Note: Disable the endpoints of a type, if size equal 0
 #define UDI_VENDOR_EPS_SIZE_INT_FS    64
 #define UDI_VENDOR_EPS_SIZE_BULK_FS   64
+#if SAMG55
+#define UDI_VENDOR_EPS_SIZE_ISO_FS   0
+#else
 #define UDI_VENDOR_EPS_SIZE_ISO_FS   256
+#endif
 
 //! endpoints size for high speed
 #define UDI_VENDOR_EPS_SIZE_INT_HS    64

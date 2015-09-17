@@ -87,6 +87,9 @@
 // From module: Interrupt management - SAM implementation
 #include <interrupt.h>
 
+// From module: MATRIX - Bus Matrix
+#include <matrix.h>
+
 // From module: Memory Control Access Interface
 #include <ctrl_access.h>
 

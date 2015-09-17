@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for AES driver.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include <conf_test.h>
@@ -66,6 +69,7 @@
  * - sam4e16e_sam4e_ek
  * - sam4c16c_sam4c_ek
  * - sam4cp16b_sam4cp16bmb
+ * - samv71q21_samv71_xplained_ultra
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -73,7 +77,7 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit <a href="http://www.atmel.com/">Atmel</a>.\n
- * Support and FAQ: http://support.atmel.no/
+ * Support and FAQ: http://www.atmel.com/design-support/
  */
 
 #define AES_EXAMPLE_REFBUF_SIZE 4
@@ -839,7 +843,13 @@ int main(void)
 {
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate = CONF_TEST_BAUDRATE,
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
 		.paritytype = CONF_TEST_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	sysclk_init();

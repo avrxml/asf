@@ -55,6 +55,10 @@
 // From module: AST - Asynchronous Timer
 #include <ast.h>
 
+// From module: C42364A Display LCD Glass
+#include <c42364a.h>
+#include <c42364a_segmap.h>
+
 // From module: Common SAM compiler driver
 #include <compiler.h>
 #include <status_codes.h>
@@ -111,9 +115,5 @@
 
 // From module: WDT - Watchdog Timer
 #include <wdt_sam4l.h>
-
-// From module: sam.components.display.c42364a
-#include <c42364a.h>
-#include <c42364a_segmap.h>
 
 #endif // ASF_H

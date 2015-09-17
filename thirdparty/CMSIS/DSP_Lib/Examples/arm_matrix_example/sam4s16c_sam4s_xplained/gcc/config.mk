@@ -63,8 +63,8 @@ CSRCS = \
        sam/utils/cmsis/sam4s/source/templates/gcc/startup_sam4s.c \
        sam/utils/cmsis/sam4s/source/templates/system_sam4s.c \
        sam/utils/syscalls/gcc/syscalls.c                  \
-       thirdparty/CMSIS/DSP_Lib/Examples/Common/Source/math_helper.c \
-       thirdparty/CMSIS/DSP_Lib/Examples/arm_matrix_example/arm_matrix_example_f32.c
+       thirdparty/CMSIS/DSP_Lib/Examples/arm_matrix_example/arm_matrix_example_f32.c \
+       thirdparty/CMSIS/DSP_Lib/Examples/arm_matrix_example/math_helper.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -85,7 +85,6 @@ INC_PATH = \
        sam/utils/cmsis/sam4s/source/templates             \
        sam/utils/header_files                             \
        sam/utils/preprocessor                             \
-       thirdparty/CMSIS/DSP_Lib/Examples/Common/Include   \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_matrix_example \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_matrix_example/sam4s16c_sam4s_xplained \
        thirdparty/CMSIS/Include                           \

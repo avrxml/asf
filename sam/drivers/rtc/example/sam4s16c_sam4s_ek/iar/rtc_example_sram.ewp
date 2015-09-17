@@ -2242,6 +2242,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/component/component_spi.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/component/component_efc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/component/component_pwm.h</name>
 							</file>
 							<file>
@@ -2303,9 +2306,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/component/component_crccu.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/component/component_efc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/component/component_acc.h</name>

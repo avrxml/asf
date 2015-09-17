@@ -6,7 +6,7 @@
  *
  * This file show a way to use the IMA/DVI ADPCM decoding functions with a full example.
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -95,6 +95,9 @@
  * - EVK1100 or EVK1101 evaluation kit;
  * - CPU clock: 12 MHz;
  * - USART1 connected to a PC serial port via a standard RS232 DB9 cable.\n
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 

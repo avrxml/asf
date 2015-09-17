@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM USART Asynchronous Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef USART_INTERRUPT_H_INCLUDED
 #define USART_INTERRUPT_H_INCLUDED
 
@@ -50,12 +53,12 @@ extern "C" {
 #endif
 
 #if !defined(__DOXYGEN__)
-void _usart_write_buffer(
+enum status_code _usart_write_buffer(
 		struct usart_module *const module,
 		uint8_t *tx_data,
 		uint16_t length);
 
-void _usart_read_buffer(
+enum status_code _usart_read_buffer(
 		struct usart_module *const module,
 		uint8_t *rx_data,
 		uint16_t length);
@@ -130,12 +133,12 @@ static inline void usart_disable_callback(
  */
 
 /**
- * \name Writing and reading
+ * \name Writing and Reading
  * @{
  */
 enum status_code usart_write_job(
 		struct usart_module *const module,
-		const uint16_t tx_data);
+		const uint16_t *tx_data);
 
 enum status_code usart_read_job(
 		struct usart_module *const module,
@@ -165,9 +168,10 @@ enum status_code usart_get_job_status(
 /**
  * @}
  */
- 
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* USART_INTERRUPT_H_INCLUDED */
+

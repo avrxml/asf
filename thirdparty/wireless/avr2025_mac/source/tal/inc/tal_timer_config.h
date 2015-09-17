@@ -3,7 +3,7 @@
  *
  * @brief File contains TAL timer configuration parameters.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -188,6 +188,25 @@ extern uint8_t TAL_CALIBRATION;
 #define NUMBER_OF_TAL_TIMERS        (0)
 #endif  /* ENABLE_FTN_PLL_CALIBRATION */
 #endif
+#endif
+
+#if (TAL_TYPE == AT86RF215)
+extern uint8_t TAL_T_0;
+extern uint8_t TAL_T_1;
+
+#ifdef ENABLE_FTN_PLL_CALIBRATION
+
+extern uint8_t TAL_T_CALIBRATION_0;
+extern uint8_t TAL_T_CALIBRATION_1;
+
+#endif
+
+#ifdef ENABLE_FTN_PLL_CALIBRATION
+#define NUMBER_OF_TAL_TIMERS        (4)
+#else
+#define NUMBER_OF_TAL_TIMERS        (2)
+#endif
+
 #endif
 /* === PROTOTYPES ========================================================== */
 

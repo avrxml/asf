@@ -3,7 +3,7 @@
  *
  * \brief SAM D20 System Interrupt Driver
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef SYSTEM_INTERRUPT_FEATURES_H_INCLUDED
 #define SYSTEM_INTERRUPT_FEATURES_H_INCLUDED
@@ -57,11 +60,11 @@
 		MREPEAT(name##_INST_NUM, _MODULE_IRQn, name)
 
 #  define _SYSTEM_INTERRUPT_IPSR_MASK              0x0000003f
-#  define _SYSTEM_INTERRUPT_PRIORITY_MASK          0x00000007
+#  define _SYSTEM_INTERRUPT_PRIORITY_MASK          0x00000003
 
 #  define _SYSTEM_INTERRUPT_EXTERNAL_VECTOR_START  0
 
-#  define _SYSTEM_INTERRUPT_SYSTICK_PRI_POS        29
+#  define _SYSTEM_INTERRUPT_SYSTICK_PRI_POS        30
 #endif
 
 /**
@@ -73,7 +76,7 @@
  * \brief Table of possible system interrupt/exception vector numbers.
  *
  * Table of all possible interrupt and exception vector indexes within the
- * SAMD20 device.
+ * SAM D20 device.
  */
 #if defined(__DOXYGEN__)
 /** \note The actual enumeration name is "system_interrupt_vector". */
@@ -81,30 +84,30 @@ enum system_interrupt_vector_samd20 {
 #else
 enum system_interrupt_vector {
 #endif
-	/** Interrupt vector index for a NMI interrupt. */
+	/** Interrupt vector index for a NMI interrupt */
 	SYSTEM_INTERRUPT_NON_MASKABLE      = NonMaskableInt_IRQn,
-	/** Interrupt vector index for a Hard Fault memory access exception. */
+	/** Interrupt vector index for a Hard Fault memory access exception */
 	SYSTEM_INTERRUPT_HARD_FAULT        = HardFault_IRQn,
-	/** Interrupt vector index for a Supervisor Call exception. */
+	/** Interrupt vector index for a Supervisor Call exception */
 	SYSTEM_INTERRUPT_SV_CALL           = SVCall_IRQn,
-	/** Interrupt vector index for a Pending Supervisor interrupt. */
+	/** Interrupt vector index for a Pending Supervisor interrupt */
 	SYSTEM_INTERRUPT_PENDING_SV        = PendSV_IRQn,
-	/** Interrupt vector index for a System Tick interrupt. */
+	/** Interrupt vector index for a System Tick interrupt */
 	SYSTEM_INTERRUPT_SYSTICK           = SysTick_IRQn,
 
-	/** Interrupt vector index for a Power Manager peripheral interrupt. */
+	/** Interrupt vector index for a Power Manager peripheral interrupt */
 	SYSTEM_INTERRUPT_MODULE_PM         = PM_IRQn,
-	/** Interrupt vector index for a System Control peripheral interrupt. */
+	/** Interrupt vector index for a System Control peripheral interrupt */
 	SYSTEM_INTERRUPT_MODULE_SYSCTRL    = SYSCTRL_IRQn,
-	/** Interrupt vector index for a Watch Dog peripheral interrupt. */
+	/** Interrupt vector index for a Watch Dog peripheral interrupt */
 	SYSTEM_INTERRUPT_MODULE_WDT        = WDT_IRQn,
-	/** Interrupt vector index for a Real Time Clock peripheral interrupt. */
+	/** Interrupt vector index for a Real Time Clock peripheral interrupt */
 	SYSTEM_INTERRUPT_MODULE_RTC        = RTC_IRQn,
-	/** Interrupt vector index for an External Interrupt peripheral interrupt. */
+	/** Interrupt vector index for an External Interrupt peripheral interrupt */
 	SYSTEM_INTERRUPT_MODULE_EIC        = EIC_IRQn,
-	/** Interrupt vector index for a Non Volatile Memory Controller interrupt. */
+	/** Interrupt vector index for a Non Volatile Memory Controller interrupt */
 	SYSTEM_INTERRUPT_MODULE_NVMCTRL    = NVMCTRL_IRQn,
-	/** Interrupt vector index for an Event System interrupt. */
+	/** Interrupt vector index for an Event System interrupt */
 	SYSTEM_INTERRUPT_MODULE_EVSYS      = EVSYS_IRQn,
 #if defined(__DOXYGEN__)
 	/** Interrupt vector index for a SERCOM peripheral interrupt.
@@ -127,11 +130,11 @@ enum system_interrupt_vector {
 	_SYSTEM_INTERRUPT_MODULES(SERCOM)
 	_SYSTEM_INTERRUPT_MODULES(TC)
 #endif
-	/** Interrupt vector index for an Analog Comparator peripheral interrupt. */
+	/** Interrupt vector index for an Analog Comparator peripheral interrupt */
 	SYSTEM_INTERRUPT_MODULE_AC         = AC_IRQn,
-	/** Interrupt vector index for an Analog-to-Digital peripheral interrupt. */
+	/** Interrupt vector index for an Analog-to-Digital peripheral interrupt */
 	SYSTEM_INTERRUPT_MODULE_ADC        = ADC_IRQn,
-	/** Interrupt vector index for a Digital-to-Analog peripheral interrupt. */
+	/** Interrupt vector index for a Digital-to-Analog peripheral interrupt */
 	SYSTEM_INTERRUPT_MODULE_DAC        = DAC_IRQn,
 };
 

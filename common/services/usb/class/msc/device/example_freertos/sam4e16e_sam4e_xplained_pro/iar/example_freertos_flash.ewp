@@ -307,11 +307,12 @@
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/fpu</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
@@ -585,11 +586,12 @@
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/fpu</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
@@ -1255,11 +1257,12 @@
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/fpu</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
@@ -1533,11 +1536,12 @@
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/fpu</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4e/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
@@ -2254,6 +2258,15 @@
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.h</name>
 				</file>
 			</group>
+			<group>
+				<name>matrix</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.h</name>
+				</file>
+			</group>
 		</group>
 		<group>
 			<name>boards</name>
@@ -2312,10 +2325,10 @@
 										<name>$PROJ_DIR$/../conf_virtual_mem.h</name>
 									</file>
 									<file>
-										<name>$PROJ_DIR$/../conf_board.h</name>
+										<name>$PROJ_DIR$/../conf_clock.h</name>
 									</file>
 									<file>
-										<name>$PROJ_DIR$/../conf_clock.h</name>
+										<name>$PROJ_DIR$/../conf_board.h</name>
 									</file>
 									<group>
 										<name>iar</name>

@@ -3,7 +3,7 @@
  *
  * \brief SD/MMC card example with FatFs
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -68,6 +68,9 @@
  *     -- Compiled: xxx xx xxxx xx:xx:xx --
  *     Please plug an SD, MMC card in slot.
  *    \endcode
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>

@@ -294,7 +294,6 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
@@ -310,7 +309,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -559,7 +558,6 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
@@ -575,7 +573,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1215,7 +1213,6 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
@@ -1231,7 +1228,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1480,7 +1477,6 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
@@ -1496,7 +1492,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1851,27 +1847,18 @@
 				<group>
 					<name>Examples</name>
 					<group>
-						<name>Common</name>
-						<group>
-							<name>Source</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Source/math_helper.c</name>
-							</file>
-						</group>
-						<group>
-							<name>Include</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Include/math_helper.h</name>
-							</file>
-						</group>
-					</group>
-					<group>
 						<name>arm_graphic_equalizer_example</name>
 						<file>
 							<name>$PROJ_DIR$/../../arm_graphic_equalizer_example_q31.c</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../arm_graphic_equalizer_data.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.h</name>
 						</file>
 						<group>
 							<name>sam4sd32c_atpl230amb</name>

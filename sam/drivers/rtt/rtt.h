@@ -3,7 +3,7 @@
  *
  * \brief Real-time Timer (RTT) driver for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef RTT_H_INCLUDED
 #define RTT_H_INCLUDED
@@ -55,7 +58,7 @@ extern "C" {
 /// @endcond
 
 uint32_t rtt_init(Rtt *p_rtt, uint16_t us_prescaler);
-#if (SAM4N || SAM4S || SAM4E || SAM4C || SAMG || SAM4CP || SAM4CM)
+#if (SAM4N || SAM4S || SAM4E || SAM4C || SAMG || SAM4CP || SAM4CM || SAMV71 || SAMV70 || SAME70 || SAMS70)
 void rtt_sel_source(Rtt *p_rtt, bool is_rtc_sel);
 void rtt_enable(Rtt *p_rtt);
 void rtt_disable(Rtt *p_rtt);

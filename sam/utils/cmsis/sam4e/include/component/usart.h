@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_USART_COMPONENT_
 #define _SAM4E_USART_COMPONENT_
@@ -51,37 +54,37 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Usart hardware registers */
 typedef struct {
-  WoReg US_CR;         /**< \brief (Usart Offset: 0x0000) Control Register */
-  RwReg US_MR;         /**< \brief (Usart Offset: 0x0004) Mode Register */
-  WoReg US_IER;        /**< \brief (Usart Offset: 0x0008) Interrupt Enable Register */
-  WoReg US_IDR;        /**< \brief (Usart Offset: 0x000C) Interrupt Disable Register */
-  RoReg US_IMR;        /**< \brief (Usart Offset: 0x0010) Interrupt Mask Register */
-  RoReg US_CSR;        /**< \brief (Usart Offset: 0x0014) Channel Status Register */
-  RoReg US_RHR;        /**< \brief (Usart Offset: 0x0018) Receiver Holding Register */
-  WoReg US_THR;        /**< \brief (Usart Offset: 0x001C) Transmitter Holding Register */
-  RwReg US_BRGR;       /**< \brief (Usart Offset: 0x0020) Baud Rate Generator Register */
-  RwReg US_RTOR;       /**< \brief (Usart Offset: 0x0024) Receiver Time-out Register */
-  RwReg US_TTGR;       /**< \brief (Usart Offset: 0x0028) Transmitter Timeguard Register */
-  RoReg Reserved1[5];
-  RwReg US_FIDI;       /**< \brief (Usart Offset: 0x0040) FI DI Ratio Register */
-  RoReg US_NER;        /**< \brief (Usart Offset: 0x0044) Number of Errors Register */
-  RoReg Reserved2[1];
-  RwReg US_IF;         /**< \brief (Usart Offset: 0x004C) IrDA Filter Register */
-  RwReg US_MAN;        /**< \brief (Usart Offset: 0x0050) Manchester Encoder Decoder Register */
-  RoReg Reserved3[36];
-  RwReg US_WPMR;       /**< \brief (Usart Offset: 0xE4) Write Protect Mode Register */
-  RoReg US_WPSR;       /**< \brief (Usart Offset: 0xE8) Write Protect Status Register */
-  RoReg Reserved4[5];
-  RwReg US_RPR;        /**< \brief (Usart Offset: 0x100) Receive Pointer Register */
-  RwReg US_RCR;        /**< \brief (Usart Offset: 0x104) Receive Counter Register */
-  RwReg US_TPR;        /**< \brief (Usart Offset: 0x108) Transmit Pointer Register */
-  RwReg US_TCR;        /**< \brief (Usart Offset: 0x10C) Transmit Counter Register */
-  RwReg US_RNPR;       /**< \brief (Usart Offset: 0x110) Receive Next Pointer Register */
-  RwReg US_RNCR;       /**< \brief (Usart Offset: 0x114) Receive Next Counter Register */
-  RwReg US_TNPR;       /**< \brief (Usart Offset: 0x118) Transmit Next Pointer Register */
-  RwReg US_TNCR;       /**< \brief (Usart Offset: 0x11C) Transmit Next Counter Register */
-  WoReg US_PTCR;       /**< \brief (Usart Offset: 0x120) Transfer Control Register */
-  RoReg US_PTSR;       /**< \brief (Usart Offset: 0x124) Transfer Status Register */
+  __O  uint32_t US_CR;         /**< \brief (Usart Offset: 0x0000) Control Register */
+  __IO uint32_t US_MR;         /**< \brief (Usart Offset: 0x0004) Mode Register */
+  __O  uint32_t US_IER;        /**< \brief (Usart Offset: 0x0008) Interrupt Enable Register */
+  __O  uint32_t US_IDR;        /**< \brief (Usart Offset: 0x000C) Interrupt Disable Register */
+  __I  uint32_t US_IMR;        /**< \brief (Usart Offset: 0x0010) Interrupt Mask Register */
+  __I  uint32_t US_CSR;        /**< \brief (Usart Offset: 0x0014) Channel Status Register */
+  __I  uint32_t US_RHR;        /**< \brief (Usart Offset: 0x0018) Receive Holding Register */
+  __O  uint32_t US_THR;        /**< \brief (Usart Offset: 0x001C) Transmit Holding Register */
+  __IO uint32_t US_BRGR;       /**< \brief (Usart Offset: 0x0020) Baud Rate Generator Register */
+  __IO uint32_t US_RTOR;       /**< \brief (Usart Offset: 0x0024) Receiver Time-out Register */
+  __IO uint32_t US_TTGR;       /**< \brief (Usart Offset: 0x0028) Transmitter Timeguard Register */
+  __I  uint32_t Reserved1[5];
+  __IO uint32_t US_FIDI;       /**< \brief (Usart Offset: 0x0040) FI DI Ratio Register */
+  __I  uint32_t US_NER;        /**< \brief (Usart Offset: 0x0044) Number of Errors Register */
+  __I  uint32_t Reserved2[1];
+  __IO uint32_t US_IF;         /**< \brief (Usart Offset: 0x004C) IrDA Filter Register */
+  __IO uint32_t US_MAN;        /**< \brief (Usart Offset: 0x0050) Manchester Configuration Register */
+  __I  uint32_t Reserved3[36];
+  __IO uint32_t US_WPMR;       /**< \brief (Usart Offset: 0x00E4) Write Protection Mode Register */
+  __I  uint32_t US_WPSR;       /**< \brief (Usart Offset: 0x00E8) Write Protection Status Register */
+  __I  uint32_t Reserved4[5];
+  __IO uint32_t US_RPR;        /**< \brief (Usart Offset: 0x100) Receive Pointer Register */
+  __IO uint32_t US_RCR;        /**< \brief (Usart Offset: 0x104) Receive Counter Register */
+  __IO uint32_t US_TPR;        /**< \brief (Usart Offset: 0x108) Transmit Pointer Register */
+  __IO uint32_t US_TCR;        /**< \brief (Usart Offset: 0x10C) Transmit Counter Register */
+  __IO uint32_t US_RNPR;       /**< \brief (Usart Offset: 0x110) Receive Next Pointer Register */
+  __IO uint32_t US_RNCR;       /**< \brief (Usart Offset: 0x114) Receive Next Counter Register */
+  __IO uint32_t US_TNPR;       /**< \brief (Usart Offset: 0x118) Transmit Next Pointer Register */
+  __IO uint32_t US_TNCR;       /**< \brief (Usart Offset: 0x11C) Transmit Next Counter Register */
+  __O  uint32_t US_PTCR;       /**< \brief (Usart Offset: 0x120) Transfer Control Register */
+  __I  uint32_t US_PTSR;       /**< \brief (Usart Offset: 0x124) Transfer Status Register */
 } Usart;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- US_CR : (USART Offset: 0x0000) Control Register -------- */
@@ -115,15 +118,15 @@ typedef struct {
 #define   US_MR_USART_MODE_IS07816_T_0 (0x4u << 0) /**< \brief (US_MR) IS07816 Protocol: T = 0 */
 #define   US_MR_USART_MODE_IS07816_T_1 (0x6u << 0) /**< \brief (US_MR) IS07816 Protocol: T = 1 */
 #define   US_MR_USART_MODE_IRDA (0x8u << 0) /**< \brief (US_MR) IrDA */
-#define   US_MR_USART_MODE_SPI_MASTER (0xEu << 0) /**< \brief (US_MR) SPI Master */
+#define   US_MR_USART_MODE_SPI_MASTER (0xEu << 0) /**< \brief (US_MR) SPI master */
 #define   US_MR_USART_MODE_SPI_SLAVE (0xFu << 0) /**< \brief (US_MR) SPI Slave */
 #define US_MR_USCLKS_Pos 4
 #define US_MR_USCLKS_Msk (0x3u << US_MR_USCLKS_Pos) /**< \brief (US_MR) Clock Selection */
-#define   US_MR_USCLKS_MCK (0x0u << 4) /**< \brief (US_MR) Master Clock MCK is selected */
-#define   US_MR_USCLKS_DIV (0x1u << 4) /**< \brief (US_MR) Internal Clock Divided MCK/DIV (DIV=8) is selected */
-#define   US_MR_USCLKS_SCK (0x3u << 4) /**< \brief (US_MR) Serial Clock SLK is selected */
+#define   US_MR_USCLKS_MCK (0x0u << 4) /**< \brief (US_MR) Peripheral clock is selected */
+#define   US_MR_USCLKS_DIV (0x1u << 4) /**< \brief (US_MR) Peripheral clock divided (DIV=8) is selected */
+#define   US_MR_USCLKS_SCK (0x3u << 4) /**< \brief (US_MR) Serial clock SCK is selected */
 #define US_MR_CHRL_Pos 6
-#define US_MR_CHRL_Msk (0x3u << US_MR_CHRL_Pos) /**< \brief (US_MR) Character Length. */
+#define US_MR_CHRL_Msk (0x3u << US_MR_CHRL_Pos) /**< \brief (US_MR) Character Length */
 #define   US_MR_CHRL_5_BIT (0x0u << 6) /**< \brief (US_MR) Character length is 5 bits */
 #define   US_MR_CHRL_6_BIT (0x1u << 6) /**< \brief (US_MR) Character length is 6 bits */
 #define   US_MR_CHRL_7_BIT (0x2u << 6) /**< \brief (US_MR) Character length is 7 bits */
@@ -144,7 +147,7 @@ typedef struct {
 #define   US_MR_NBSTOP_2_BIT (0x2u << 12) /**< \brief (US_MR) 2 stop bits */
 #define US_MR_CHMODE_Pos 14
 #define US_MR_CHMODE_Msk (0x3u << US_MR_CHMODE_Pos) /**< \brief (US_MR) Channel Mode */
-#define   US_MR_CHMODE_NORMAL (0x0u << 14) /**< \brief (US_MR) Normal Mode */
+#define   US_MR_CHMODE_NORMAL (0x0u << 14) /**< \brief (US_MR) Normal mode */
 #define   US_MR_CHMODE_AUTOMATIC (0x1u << 14) /**< \brief (US_MR) Automatic Echo. Receiver input is connected to the TXD pin. */
 #define   US_MR_CHMODE_LOCAL_LOOPBACK (0x2u << 14) /**< \brief (US_MR) Local Loopback. Transmitter output is connected to the Receiver Input. */
 #define   US_MR_CHMODE_REMOTE_LOOPBACK (0x3u << 14) /**< \brief (US_MR) Remote Loopback. RXD pin is internally connected to the TXD pin. */
@@ -159,7 +162,7 @@ typedef struct {
 #define US_MR_MAX_ITERATION_Pos 24
 #define US_MR_MAX_ITERATION_Msk (0x7u << US_MR_MAX_ITERATION_Pos) /**< \brief (US_MR) Maximum Number of Automatic Iteration */
 #define US_MR_MAX_ITERATION(value) ((US_MR_MAX_ITERATION_Msk & ((value) << US_MR_MAX_ITERATION_Pos)))
-#define US_MR_FILTER (0x1u << 28) /**< \brief (US_MR) Infrared Receive Line Filter */
+#define US_MR_FILTER (0x1u << 28) /**< \brief (US_MR) Receive Line Filter */
 #define US_MR_MAN (0x1u << 29) /**< \brief (US_MR) Manchester Encoder/Decoder Enable */
 #define US_MR_MODSYNC (0x1u << 30) /**< \brief (US_MR) Manchester Synchronization Mode */
 #define US_MR_ONEBIT (0x1u << 31) /**< \brief (US_MR) Start Frame Delimiter Selector */
@@ -180,7 +183,7 @@ typedef struct {
 #define US_IER_ITER (0x1u << 10) /**< \brief (US_IER) Max number of Repetitions Reached Interrupt Enable */
 #define US_IER_TXBUFE (0x1u << 11) /**< \brief (US_IER) Buffer Empty Interrupt Enable (available in all USART modes of operation) */
 #define US_IER_RXBUFF (0x1u << 12) /**< \brief (US_IER) Buffer Full Interrupt Enable (available in all USART modes of operation) */
-#define US_IER_NACK (0x1u << 13) /**< \brief (US_IER) Non AcknowledgeInterrupt Enable */
+#define US_IER_NACK (0x1u << 13) /**< \brief (US_IER) Non Acknowledge Interrupt Enable */
 #define US_IER_RIIC (0x1u << 16) /**< \brief (US_IER) Ring Indicator Input Change Enable */
 #define US_IER_DSRIC (0x1u << 17) /**< \brief (US_IER) Data Set Ready Input Change Enable */
 #define US_IER_DCDIC (0x1u << 18) /**< \brief (US_IER) Data Carrier Detect Input Change Interrupt Enable */
@@ -201,7 +204,7 @@ typedef struct {
 #define US_IDR_ITER (0x1u << 10) /**< \brief (US_IDR) Max Number of Repetitions Reached Interrupt Disable */
 #define US_IDR_TXBUFE (0x1u << 11) /**< \brief (US_IDR) Buffer Empty Interrupt Disable (available in all USART modes of operation) */
 #define US_IDR_RXBUFF (0x1u << 12) /**< \brief (US_IDR) Buffer Full Interrupt Disable (available in all USART modes of operation) */
-#define US_IDR_NACK (0x1u << 13) /**< \brief (US_IDR) Non AcknowledgeInterrupt Disable */
+#define US_IDR_NACK (0x1u << 13) /**< \brief (US_IDR) Non Acknowledge Interrupt Disable */
 #define US_IDR_RIIC (0x1u << 16) /**< \brief (US_IDR) Ring Indicator Input Change Disable */
 #define US_IDR_DSRIC (0x1u << 17) /**< \brief (US_IDR) Data Set Ready Input Change Disable */
 #define US_IDR_DCDIC (0x1u << 18) /**< \brief (US_IDR) Data Carrier Detect Input Change Interrupt Disable */
@@ -222,7 +225,7 @@ typedef struct {
 #define US_IMR_ITER (0x1u << 10) /**< \brief (US_IMR) Max Number of Repetitions Reached Interrupt Mask */
 #define US_IMR_TXBUFE (0x1u << 11) /**< \brief (US_IMR) Buffer Empty Interrupt Mask (available in all USART modes of operation) */
 #define US_IMR_RXBUFF (0x1u << 12) /**< \brief (US_IMR) Buffer Full Interrupt Mask (available in all USART modes of operation) */
-#define US_IMR_NACK (0x1u << 13) /**< \brief (US_IMR) Non AcknowledgeInterrupt Mask */
+#define US_IMR_NACK (0x1u << 13) /**< \brief (US_IMR) Non Acknowledge Interrupt Mask */
 #define US_IMR_RIIC (0x1u << 16) /**< \brief (US_IMR) Ring Indicator Input Change Mask */
 #define US_IMR_DSRIC (0x1u << 17) /**< \brief (US_IMR) Data Set Ready Input Change Mask */
 #define US_IMR_DCDIC (0x1u << 18) /**< \brief (US_IMR) Data Carrier Detect Input Change Interrupt Mask */
@@ -240,10 +243,10 @@ typedef struct {
 #define US_CSR_PARE (0x1u << 7) /**< \brief (US_CSR) Parity Error */
 #define US_CSR_TIMEOUT (0x1u << 8) /**< \brief (US_CSR) Receiver Time-out */
 #define US_CSR_TXEMPTY (0x1u << 9) /**< \brief (US_CSR) Transmitter Empty */
-#define US_CSR_ITER (0x1u << 10) /**< \brief (US_CSR) MaxNumber of Repetitions Reached */
+#define US_CSR_ITER (0x1u << 10) /**< \brief (US_CSR) Max Number of Repetitions Reached */
 #define US_CSR_TXBUFE (0x1u << 11) /**< \brief (US_CSR) Transmission Buffer Empty */
 #define US_CSR_RXBUFF (0x1u << 12) /**< \brief (US_CSR) Reception Buffer Full */
-#define US_CSR_NACK (0x1u << 13) /**< \brief (US_CSR) Non AcknowledgeInterrupt */
+#define US_CSR_NACK (0x1u << 13) /**< \brief (US_CSR) Non Acknowledge Interrupt */
 #define US_CSR_RIIC (0x1u << 16) /**< \brief (US_CSR) Ring Indicator Input Change Flag */
 #define US_CSR_DSRIC (0x1u << 17) /**< \brief (US_CSR) Data Set Ready Input Change Flag */
 #define US_CSR_DCDIC (0x1u << 18) /**< \brief (US_CSR) Data Carrier Detect Input Change Flag */
@@ -254,11 +257,11 @@ typedef struct {
 #define US_CSR_CTS (0x1u << 23) /**< \brief (US_CSR) Image of CTS Input */
 #define US_CSR_MANERR (0x1u << 24) /**< \brief (US_CSR) Manchester Error */
 #define US_CSR_UNRE (0x1u << 10) /**< \brief (US_CSR) Underrun Error */
-/* -------- US_RHR : (USART Offset: 0x0018) Receiver Holding Register -------- */
+/* -------- US_RHR : (USART Offset: 0x0018) Receive Holding Register -------- */
 #define US_RHR_RXCHR_Pos 0
 #define US_RHR_RXCHR_Msk (0x1ffu << US_RHR_RXCHR_Pos) /**< \brief (US_RHR) Received Character */
 #define US_RHR_RXSYNH (0x1u << 15) /**< \brief (US_RHR) Received Sync */
-/* -------- US_THR : (USART Offset: 0x001C) Transmitter Holding Register -------- */
+/* -------- US_THR : (USART Offset: 0x001C) Transmit Holding Register -------- */
 #define US_THR_TXCHR_Pos 0
 #define US_THR_TXCHR_Msk (0x1ffu << US_THR_TXCHR_Pos) /**< \brief (US_THR) Character to be Transmitted */
 #define US_THR_TXCHR(value) ((US_THR_TXCHR_Msk & ((value) << US_THR_TXCHR_Pos)))
@@ -289,7 +292,7 @@ typedef struct {
 #define US_IF_IRDA_FILTER_Pos 0
 #define US_IF_IRDA_FILTER_Msk (0xffu << US_IF_IRDA_FILTER_Pos) /**< \brief (US_IF) IrDA Filter */
 #define US_IF_IRDA_FILTER(value) ((US_IF_IRDA_FILTER_Msk & ((value) << US_IF_IRDA_FILTER_Pos)))
-/* -------- US_MAN : (USART Offset: 0x0050) Manchester Encoder Decoder Register -------- */
+/* -------- US_MAN : (USART Offset: 0x0050) Manchester Configuration Register -------- */
 #define US_MAN_TX_PL_Pos 0
 #define US_MAN_TX_PL_Msk (0xfu << US_MAN_TX_PL_Pos) /**< \brief (US_MAN) Transmitter Preamble Length */
 #define US_MAN_TX_PL(value) ((US_MAN_TX_PL_Msk & ((value) << US_MAN_TX_PL_Pos)))
@@ -312,15 +315,15 @@ typedef struct {
 #define US_MAN_RX_MPOL (0x1u << 28) /**< \brief (US_MAN) Receiver Manchester Polarity */
 #define US_MAN_ONE (0x1u << 29) /**< \brief (US_MAN) Must Be Set to 1 */
 #define US_MAN_DRIFT (0x1u << 30) /**< \brief (US_MAN) Drift Compensation */
-/* -------- US_WPMR : (USART Offset: 0xE4) Write Protect Mode Register -------- */
-#define US_WPMR_WPEN (0x1u << 0) /**< \brief (US_WPMR) Write Protect Enable */
+/* -------- US_WPMR : (USART Offset: 0x00E4) Write Protection Mode Register -------- */
+#define US_WPMR_WPEN (0x1u << 0) /**< \brief (US_WPMR) Write Protection Enable */
 #define US_WPMR_WPKEY_Pos 8
-#define US_WPMR_WPKEY_Msk (0xffffffu << US_WPMR_WPKEY_Pos) /**< \brief (US_WPMR) Write Protect KEY */
-#define US_WPMR_WPKEY(value) ((US_WPMR_WPKEY_Msk & ((value) << US_WPMR_WPKEY_Pos)))
-/* -------- US_WPSR : (USART Offset: 0xE8) Write Protect Status Register -------- */
-#define US_WPSR_WPVS (0x1u << 0) /**< \brief (US_WPSR) Write Protect Violation Status */
+#define US_WPMR_WPKEY_Msk (0xffffffu << US_WPMR_WPKEY_Pos) /**< \brief (US_WPMR) Write Protection Key */
+#define   US_WPMR_WPKEY_PASSWD (0x555341u << 8) /**< \brief (US_WPMR) Writing any other value in this field aborts the write operation of the WPEN bit. Always reads as 0. */
+/* -------- US_WPSR : (USART Offset: 0x00E8) Write Protection Status Register -------- */
+#define US_WPSR_WPVS (0x1u << 0) /**< \brief (US_WPSR) Write Protection Violation Status */
 #define US_WPSR_WPVSRC_Pos 8
-#define US_WPSR_WPVSRC_Msk (0xffffu << US_WPSR_WPVSRC_Pos) /**< \brief (US_WPSR) Write Protect Violation Source */
+#define US_WPSR_WPVSRC_Msk (0xffffu << US_WPSR_WPVSRC_Pos) /**< \brief (US_WPSR) Write Protection Violation Source */
 /* -------- US_RPR : (USART Offset: 0x100) Receive Pointer Register -------- */
 #define US_RPR_RXPTR_Pos 0
 #define US_RPR_RXPTR_Msk (0xffffffffu << US_RPR_RXPTR_Pos) /**< \brief (US_RPR) Receive Pointer Register */

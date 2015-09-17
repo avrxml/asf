@@ -3,7 +3,7 @@
  *
  * \brief Implementation of Transceiver Feature Access (TFA) functionality.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -512,6 +512,7 @@ void tfa_continuous_tx_start(continuous_tx_mode_t tx_mode, bool random_content)
 				(tal_pib.CurrentPage == 16) ||
 				(tal_pib.CurrentPage == 17)) &&
 				(tal_pib.CurrentChannel == 0)) {                                          /*
+			                                                                                   *
 			                                                                                   *868.3MHz
 			                                                                                   **/
 			trx_reg_write(RG_TRX_CTRL_2, 0x0A); /* 400 kchip/s

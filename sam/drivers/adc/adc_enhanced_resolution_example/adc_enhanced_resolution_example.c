@@ -3,7 +3,7 @@
  *
  * \brief ADC Enhanced Resolution example.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -53,17 +53,18 @@
  * This example can be used on boards:
  * - sam4n16c_sam4n_xplained_pro
  * - samg53n19_samg_xplained_pro
+ * - samg55j19_samg_xplained_pro
  *
  * \section Description
  *
- * The ADC on normally operates in 8-bit or 10-bit resolution mode. But
- * obtained by interpolating multiple samples, the 11-bit and 12-bit resolution
+ * The ADC on normally operates in 8-bit, 10-bit or 12-bit resolution mode.
+ * But obtained by interpolating multiple samples, the hegher resolution
  * mode can be achieved, which is so called enhanced resolution mode.
- * For 11-bit mode, 4 samples are used, which gives an effective sample rate
- * of 1/4 of the actual sample frequency.
- * For 12-bit mode, 16 samples are used, giving an effective sample rate of
- * 1/16 of the actual sample frequency. This arrangement allows conversion
- * speed to be traded for better accuracy.
+ * For basic resolution plus one bit mode, 4 samples are used, which gives an
+ * effective sample rate of 1/4 of the actual sample frequency.
+ * For basic resolution plus two bit mode, 16 samples are used, giving an
+ * effective sample rate of 1/16 of the actual sample frequency. This
+ * arrangement allows conversion speed to be traded for better accuracy.
  *
  * \section Usage
  *
@@ -85,6 +86,9 @@
 \endcode
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <stdio.h>
 #include <string.h>
@@ -95,10 +99,16 @@
 #define VOLT_REF        (3300)
 
 /** The maximal digital value */
-#define MAX_DIGITAL_8_Bit  (255UL)
+#define MAX_DIGITAL_8_BIT  (255UL)
 #define MAX_DIGITAL_10_BIT (1023UL)
 #define MAX_DIGITAL_11_BIT (2046UL)
 #define MAX_DIGITAL_12_BIT (4092UL)
+#if SAMG55
+#define MAX_DIGITAL_13_BIT (8190UL)
+#define MAX_DIGITAL_14_BIT (16382UL)
+#define MAX_DIGITAL_15_BIT (32766UL)
+#define MAX_DIGITAL_16_BIT (65534UL)
+#endif
 
 #define STRING_EOL    "\r"
 
@@ -122,7 +132,13 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	/* Configure console UART. */
@@ -141,6 +157,12 @@ static void configure_tc_trigger(void)
 
 	/* Enable peripheral clock. */
 	pmc_enable_periph_clk(ID_TC0);
+#if SAMG55
+	/* Enable PCK output */
+	pmc_disable_pck(PMC_PCK_3);
+	pmc_switch_pck_to_sclk(PMC_PCK_3, PMC_PCK_PRES_CLK_1);
+	pmc_enable_pck(PMC_PCK_3);
+#endif
 
 	/* TIOA configuration */
 	ioport_set_pin_mode(PIN_TC0_TIOA0, PIN_TC0_TIOA0_MUX);
@@ -163,10 +185,18 @@ static void configure_tc_trigger(void)
 static void display_menu(void)
 {
 	printf("\n\r-- press a key to select the resolution mode--\n\r"
+#if SAMG55
+	"-- a: Normal Resolution Mode, 12-bit --\n\r"
+	"-- b: Enhanced Resolution Mode, 13-bit --\n\r"
+	"-- c: Enhanced Resolution Mode, 14-bit --\n\r"
+	"-- d: Enhanced Resolution Mode, 15-bit --\n\r"
+	"-- e: Enhanced Resolution Mode, 16-bit --\n\r");
+#else
 	"-- a: Normal Resolution Mode, 8-bit --\n\r"
 	"-- b: Normal Resolution Mode, 10-bit --\n\r"
 	"-- c: Enhanced Resolution Mode, 11-bit --\n\r"
 	"-- d: Enhanced Resolution Mode, 12-bit --\n\r");
+#endif
 }
 
 /**
@@ -180,12 +210,56 @@ static void set_adc_resolution(void)
 	display_menu();
 
 	while (!uc_done) {
-		while (uart_read(CONF_UART, &uc_key)) {
-		}
+		scanf("%c", (char *)&uc_key);
 
 		switch (uc_key) {
+#if SAMG55
 		case 'a':
-			g_max_digital = MAX_DIGITAL_8_Bit;
+			g_max_digital = MAX_DIGITAL_12_BIT;
+			adc_set_resolution(ADC, ADC_12_BITS);
+			puts(" Set Resolution to Normal 12-bit \n\r");
+			uc_done = 1;
+			puts(" Quit Configuration \n\r");
+			break;
+		case 'b':
+			g_max_digital = MAX_DIGITAL_13_BIT;
+			adc_set_resolution(ADC, ADC_13_BITS);
+			adc_average_on_single_trigger(ADC);
+			puts(" Set Resolution to Enhanced 13-bit \n\r");
+			uc_done = 1;
+			puts(" Quit Configuration \n\r");
+			break;
+
+		case 'c':
+			g_max_digital = MAX_DIGITAL_14_BIT;
+			adc_set_resolution(ADC, ADC_14_BITS);
+			adc_average_on_single_trigger(ADC);
+			puts(" Set Resolution to Enhanced 14-bit \n\r");
+			uc_done = 1;
+			puts(" Quit Configuration \n\r");
+			break;
+
+		case 'd':
+			g_max_digital = MAX_DIGITAL_15_BIT;
+			adc_set_resolution(ADC, ADC_15_BITS);
+			adc_average_on_single_trigger(ADC);
+			puts(" Set Resolution to Enhanced 15-bit \n\r");
+			uc_done = 1;
+			puts(" Quit Configuration \n\r");
+			break;
+
+		case 'e':
+			g_max_digital = MAX_DIGITAL_16_BIT;
+			adc_set_resolution(ADC, ADC_16_BITS);
+			adc_average_on_single_trigger(ADC);
+			puts(" Set Resolution to Enhanced 16-bit \n\r");
+			uc_done = 1;
+			puts(" Quit Configuration \n\r");
+			break;
+
+#else
+		case 'a':
+			g_max_digital = MAX_DIGITAL_8_BIT;
 			adc_set_resolution(ADC, ADC_8_BITS);
 			puts(" Set Resolution to Normal 8-bit \n\r");
 			uc_done = 1;
@@ -216,7 +290,7 @@ static void set_adc_resolution(void)
 			uc_done = 1;
 			puts(" Quit Configuration \n\r");
 			break;
-
+#endif
 		default:
 			break;
 		}
@@ -251,6 +325,9 @@ int main(void)
 	puts(STRING_HEADER);
 
 	adc_enable();
+#if SAMG55
+	adc_select_clock_source_mck(ADC);
+#endif
 
 	struct adc_config adc_cfg;
 

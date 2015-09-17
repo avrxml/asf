@@ -3,7 +3,7 @@
  *
  * \brief EIC driver for SAM
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,17 +40,24 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef EIC_H_INCLUDED
 #define EIC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_eic_group  SAM4 External Interrupt Controller (EIC)
+ * \defgroup asfdoc_sam_drivers_eic_group  SAM4L External Interrupt Controller (EIC) Driver
  *
- * This document describes the SAM4 driver providing access to the
- * advanced functions of the on-chip EIC controller interrupt and event support.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers 
+ * provides an interface for the configuration and management of the device's
+ * on-chip External Interrupt Controller (EIC).
  *
-* The outline of this documentation is as follows:
+ * Devices from the following series can use this module:
+ * - Atmel | SMART SAM4L
+ *
+ * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam_drivers_eic_prerequisites
  *  - \ref asfdoc_sam_drivers_eic_module_overview
  *  - \ref asfdoc_sam_drivers_eic_special_considerations
@@ -142,7 +149,7 @@ extern "C" {
 
 /** \name External Interrupt lines */
 /* @{ */
-/** Non-Maskable Interrupt */
+/** Non-Maskable Interrupt. */
 #define EXT_NMI     0
 /** External Interrupt 1. */
 #define EXT_INT1    1
@@ -412,7 +419,8 @@ static inline bool eic_line_interrupt_is_pending(Eic *eic,
 
  * \page sam_eic_quickstart Quickstart guide for SAM EIC driver
  *
- * This is the quickstart guide for the \ref sam_drivers_eic_group "SAM EIC driver",
+ * This is the quickstart guide for the \ref asfdoc_sam_drivers_eic_group
+ * "SAM4L External Interrupt Controller (EIC) Driver",
  * with step-by-step instructions on how to configure and use the driver in a
  * selection of use cases.
  *
@@ -456,6 +464,11 @@ static inline bool eic_line_interrupt_is_pending(Eic *eic,
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>42278B</td>
+ *		<td>07/2015</td>
+ *		<td>Updated title of application note and added list of supported devices</td>
  *	</tr>
  *	<tr>
  *		<td>42278A</td>

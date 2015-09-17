@@ -3,7 +3,7 @@
  *
  * \brief Instance description for AC
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -78,10 +78,10 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for AC peripheral ========== */
-#define AC_CMP_NUM                  2
-#define AC_GCLK_ID_ANA              32
-#define AC_GCLK_ID_DIG              31
-#define AC_NUM_CMP                  AC_CMP_NUM
-#define AC_PAIRS                    1
+#define AC_CMP_NUM                  2        // Number of comparators
+#define AC_GCLK_ID_ANA              32       // Index of Generic Clock for analog
+#define AC_GCLK_ID_DIG              31       // Index of Generic Clock for digital
+#define AC_NUM_CMP                  2       
+#define AC_PAIRS                    1        // Number of pairs of comparators
 
 #endif /* _SAMR21_AC_INSTANCE_ */

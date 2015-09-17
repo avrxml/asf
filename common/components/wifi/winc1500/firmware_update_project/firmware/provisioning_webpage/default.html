@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow:hidden;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Log In</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body id="body" style="overflow:hidden;">
+<div id="log-in-form-container">
+<div id="logo-container">
+<br></br>
+<p>Connect to Network<p>
+</div>
+<div id="scroll">
+<div id="form-container">
+<form id="form-holder" method="post" action="">
+<p>Network Name<p>
+<input type="text" name="login" value="" maxlength="32">
+<p>Pass phrase</p>
+<input type="password" name="password" value="" maxlength="64">
+<p>Device Name<p>
+<input type="text" name="device-name" value="" maxlength="48">
+<input type="submit" name="connect" value="Connect" class="connect-button">
+</form>
+<div id="buffer"></div>
+</div>
+<div id="detect-device-container">
+<form id="detect-device-holder" method="get" action="">
+<p>Detect Device</p>
+<input type="submit" name="refresh" value="Refresh" class="refresh-button">
+<div id="buffer"></div>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>

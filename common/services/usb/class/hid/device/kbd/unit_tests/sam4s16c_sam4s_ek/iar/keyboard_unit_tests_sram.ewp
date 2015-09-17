@@ -306,6 +306,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam/boards/sam4s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../udc</state>
@@ -584,6 +585,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam/boards/sam4s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../udc</state>
@@ -1253,6 +1255,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam/boards/sam4s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../udc</state>
@@ -1531,6 +1534,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam/boards/sam4s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../udc</state>
@@ -2184,6 +2188,15 @@
 				</file>
 			</group>
 			<group>
+				<name>matrix</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../sam/drivers/matrix/matrix.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../sam/drivers/matrix/matrix.h</name>
+				</file>
+			</group>
+			<group>
 				<name>uart</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../../sam/drivers/uart/uart.c</name>
@@ -2236,6 +2249,9 @@
 						<name>include</name>
 						<group>
 							<name>component</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_pdc.h</name>
+							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_pmc.h</name>
 							</file>
@@ -2298,9 +2314,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_efc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_pdc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4s/include/component/component_rtc.h</name>
@@ -2372,9 +2385,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_cmcc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_rtc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_spi.h</name>
 							</file>
 							<file>
@@ -2400,6 +2410,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_piob.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam/utils/cmsis/sam4s/include/instance/instance_wdt.h</name>

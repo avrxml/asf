@@ -3,7 +3,7 @@
  *
  * \brief This file implements functions for initializing TAL.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -403,9 +403,9 @@ static void trx_config(void)
 	                                                       * pending data
 	                                                       **/
 	trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /* Enable
-	                                                      * buffer
-	                                                      * protection
-	                                                      * mode */
+	                                                     * buffer
+	                                                     * protection
+	                                                     * mode */
 	trx_reg_write(RG_IRQ_MASK, TRX_IRQ_DEFAULT);
 #if (defined BEACON_SUPPORT) || (defined ENABLE_TSTAMP)
 	/* The TX start timestamp is taken by the respective PAL layer */

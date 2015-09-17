@@ -6,7 +6,7 @@
  *
  * This file defines a set of functions to dump trace.
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,6 +45,9 @@
  *****************************************************************************/
 
 /* Scheduler include files. */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <stdlib.h>
 #include <string.h>
 #include "FreeRTOS.h"

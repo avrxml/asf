@@ -335,6 +335,7 @@
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/spi</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -620,6 +621,7 @@
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/spi</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1330,6 +1332,7 @@
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/spi</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1615,6 +1618,7 @@
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/spi</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -2698,18 +2702,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/tc/tc.c</name>
 				</file>
-				<group>
-					<name>tc_capture_waveform_example</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../sam/drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
-					</file>
-					<group>
-						<name>sam4e16e_sam4e_ek</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../sam/drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
-						</file>
-					</group>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/tc/tc.h</name>
 				</file>
@@ -2769,6 +2761,15 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/flashcalw/flashcalw.h</name>
+				</file>
+			</group>
+			<group>
+				<name>gpio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sam/drivers/gpio/gpio.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sam/drivers/gpio/gpio.h</name>
 				</file>
 			</group>
 		</group>
@@ -2860,16 +2861,16 @@
 				<group>
 					<name>sam4l</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4l/osc.c</name>
-					</file>
-					<file>
 						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4l/pll.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4l/sysclk.c</name>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4l/osc.c</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4l/dfll.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4l/sysclk.c</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4l/sysclk.h</name>

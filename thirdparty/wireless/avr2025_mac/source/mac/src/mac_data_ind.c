@@ -5,7 +5,7 @@
  * @brief Implements incoming frame handling in the MAC
  *
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -740,8 +740,8 @@ static bool process_data_ind_not_transient(buffer_t *b_ptr, frame_info_t *f_ptr)
 								= MAC_ACTIVE_CAP;
 
 							/* Check whether the
-							 *radio needs to be
-							 *woken up. */
+							 * radio needs to be
+							 * woken up. */
 							mac_trx_wakeup();
 
 							/* Set transceiver in rx

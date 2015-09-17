@@ -3,7 +3,7 @@
  *
  * \brief Chip Identifier (CHIPID) example for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -53,7 +53,7 @@
  *
  * \par Requirements
  *
- * This example can be used on any SAM3/4 boards.
+ * This example can be used on any SAM3/4 boards and SAMV71 Xplained Ultra board.
  *
  * \par Description
  *
@@ -87,6 +87,9 @@
 	...
 \endcode
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <string.h>
@@ -186,8 +189,8 @@ const chipidtype_t chipid_sramsize[CHIPID_SRAMSIZE_SIZE] = {
 
 	// identifier       description
 	{0x0,               "48K bytes"},
-	{0x1,               "1K bytes"},
-	{0x2,               "2K bytes"},
+	{0x1,               "192K bytes"},
+	{0x2,               "384K bytes"},
 	{0x3,               "6K bytes"},
 	{0x4,               "112K bytes"},
 	{0x5,               "4K bytes"},
@@ -204,11 +207,15 @@ const chipidtype_t chipid_sramsize[CHIPID_SRAMSIZE_SIZE] = {
 };
 
 //! Number of architectures Supported
-#define CHIPID_ARCH_SIZE    40
+#define CHIPID_ARCH_SIZE    47
 //! Architectures support list
 const chipidtype_t chipid_archsize[CHIPID_ARCH_SIZE] = {
 
 	// identifier       description
+	{0x10,              "ATSAME70 Series"},
+	{0x11,              "ATSAMS70 Series"},
+	{0x12,              "ATSAMV71 Series"},
+	{0x13,              "ATSAMV70 Series"},
 	{0x19,              "AT91SAM9xx Series"},
 	{0x29,              "AT91SAM9XExx Series"},
 	{0x34,              "AT91x34 series"},
@@ -219,6 +226,9 @@ const chipidtype_t chipid_archsize[CHIPID_ARCH_SIZE] = {
 	{0x40,              "AT91x40 Series"},
 	{0x42,              "AT91x42 Series"},
 	{0x43,              "AT91SAMG51 Series"},
+	{0x44,              "AT91SAMG55 Series(49-lead version)"},
+	{0x45,              "AT91SAMG55 Series(64-lead version)"},
+	{0x46,              "AT91SAMG55 Series(100-lead version)"},
 	{0x47,              "AT91SAMG53/SAMG54 Series"},
 	{0x55,              "AT91x55 Series"},
 	{0x60,              "AT91SAM7Axx Series"},
@@ -358,9 +368,15 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
-	
+
 	/* Configure console UART. */
 	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
 	stdio_serial_init(CONF_UART, &uart_serial_options);

@@ -56,7 +56,7 @@
 #include <compiler.h>
 #include <status_codes.h>
 
-// From module: Ethernet Physical Transceiver (ksz8051mnl)
+// From module: Ethernet Physical Transceiver (ksz8081mnx)
 #include <ethernet_phy.h>
 
 // From module: Generic board support

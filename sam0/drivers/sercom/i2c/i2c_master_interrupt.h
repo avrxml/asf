@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM I2C Master Interrupt Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef I2C_MASTER_INTERRUPT_H_INCLUDED
@@ -86,11 +89,11 @@ static inline void i2c_master_enable_callback(
 		struct i2c_master_module *const module,
 		enum i2c_master_callback callback_type)
 {
-	/* Sanity check. */
+	/* Sanity check */
 	Assert(module);
 	Assert(module->hw);
 
-	/* Mark callback as enabled. */
+	/* Mark callback as enabled */
 	module->enabled_callback |= (1 << callback_type);
 }
 
@@ -106,26 +109,38 @@ static inline void i2c_master_disable_callback(
 		struct i2c_master_module *const module,
 		enum i2c_master_callback callback_type)
 {
-	/* Sanity check. */
+	/* Sanity check */
 	Assert(module);
 	Assert(module->hw);
 
-	/* Mark callback as disabled. */
+	/* Mark callback as disabled */
 	module->enabled_callback &= ~(1 << callback_type);
 }
 
 /** @} */
 
 /**
- * \name Read and Write, Interrupt-Driven
+ * \name Read and Write, Interrupt-driven
  * @{
  */
 
+enum status_code i2c_master_read_bytes(
+		struct i2c_master_module *const module,
+		struct i2c_master_packet *const packet);
+ 
 enum status_code i2c_master_read_packet_job(
 		struct i2c_master_module *const module,
 		struct i2c_master_packet *const packet);
 
 enum status_code i2c_master_read_packet_job_no_stop(
+		struct i2c_master_module *const module,
+		struct i2c_master_packet *const packet);
+
+enum status_code i2c_master_read_packet_job_no_nack(
+		struct i2c_master_module *const module,
+		struct i2c_master_packet *const packet);
+
+enum status_code i2c_master_write_bytes(
 		struct i2c_master_module *const module,
 		struct i2c_master_packet *const packet);
 
@@ -147,13 +162,13 @@ enum status_code i2c_master_write_packet_job_no_stop(
 static inline void i2c_master_cancel_job(
 		struct i2c_master_module *const module)
 {
-	/* Sanity check. */
+	/* Sanity check */
 	Assert(module);
 	Assert(module->hw);
 
-	/* Set buffer to 0. */
+	/* Set buffer to 0 */
 	module->buffer_remaining = 0;
-	/* Update status*/
+	/* Update status */
 	module->status = STATUS_ABORTED;
 }
 
@@ -180,11 +195,11 @@ static inline void i2c_master_cancel_job(
 static inline enum status_code i2c_master_get_job_status(
 		struct i2c_master_module *const module)
 {
-	/* Check sanity. */
+	/* Check sanity */
 	Assert(module);
 	Assert(module->hw);
 
-	/* Return current status code. */
+	/* Return current status code */
 	return module->status;
 }
 

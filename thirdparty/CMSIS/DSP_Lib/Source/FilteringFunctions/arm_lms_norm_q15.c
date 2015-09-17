@@ -1,71 +1,79 @@
-/* ----------------------------------------------------------------------   
-* Copyright (C) 2010 ARM Limited. All rights reserved.   
-*   
-* $Date:        15. July 2011  
-* $Revision: 	V1.0.10  
-*   
-* Project: 	    CMSIS DSP Library   
-* Title:	    arm_lms_norm_q15.c   
-*   
-* Description:	Q15 NLMS filter.   
-*   
+/* ----------------------------------------------------------------------    
+* Copyright (C) 2010-2014 ARM Limited. All rights reserved.    
+*    
+* $Date:        12. March 2014
+* $Revision: 	V1.4.4
+*    
+* Project: 	    CMSIS DSP Library    
+* Title:	    arm_lms_norm_q15.c    
+*    
+* Description:	Q15 NLMS filter.    
+*    
 * Target Processor: Cortex-M4/Cortex-M3/Cortex-M0
 *  
-* Version 1.0.10 2011/7/15 
-*    Big Endian support added and Merged M0 and M3/M4 Source code.  
-*   
-* Version 1.0.3 2010/11/29  
-*    Re-organized the CMSIS folders and updated documentation.   
-*    
-* Version 1.0.2 2010/11/11   
-*    Documentation updated.    
-*   
-* Version 1.0.1 2010/10/05    
-*    Production release and review comments incorporated.   
-*   
-* Version 1.0.0 2010/09/20    
-*    Production release and review comments incorporated   
-*   
-* Version 0.0.7  2010/06/10    
-*    Misra-C changes done   
+* Redistribution and use in source and binary forms, with or without 
+* modification, are permitted provided that the following conditions
+* are met:
+*   - Redistributions of source code must retain the above copyright
+*     notice, this list of conditions and the following disclaimer.
+*   - Redistributions in binary form must reproduce the above copyright
+*     notice, this list of conditions and the following disclaimer in
+*     the documentation and/or other materials provided with the 
+*     distribution.
+*   - Neither the name of ARM LIMITED nor the names of its contributors
+*     may be used to endorse or promote products derived from this
+*     software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+* FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
+* COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+* INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+* BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+* ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+* POSSIBILITY OF SUCH DAMAGE.    
 * -------------------------------------------------------------------- */
 
 #include "arm_math.h"
 
-/**   
- * @ingroup groupFilters   
+/**    
+ * @ingroup groupFilters    
  */
 
-/**   
- * @addtogroup LMS_NORM   
- * @{   
+/**    
+ * @addtogroup LMS_NORM    
+ * @{    
  */
 
-/**   
-* @brief Processing function for Q15 normalized LMS filter.   
-* @param[in] *S points to an instance of the Q15 normalized LMS filter structure.   
-* @param[in] *pSrc points to the block of input data.   
-* @param[in] *pRef points to the block of reference data.   
-* @param[out] *pOut points to the block of output data.   
-* @param[out] *pErr points to the block of error data.   
-* @param[in] blockSize number of samples to process.   
-* @return none.   
-*   
-* <b>Scaling and Overflow Behavior:</b>    
-* \par    
-* The function is implemented using a 64-bit internal accumulator.    
-* Both coefficients and state variables are represented in 1.15 format and   
-* multiplications yield a 2.30 result. The 2.30 intermediate results are   
-* accumulated in a 64-bit accumulator in 34.30 format.    
-* There is no risk of internal overflow with this approach and the full   
-* precision of intermediate multiplications is preserved. After all additions   
-* have been performed, the accumulator is truncated to 34.15 format by   
-* discarding low 15 bits. Lastly, the accumulator is saturated to yield a   
-* result in 1.15 format.   
-*   
-* \par  
-* 	In this filter, filter coefficients are updated for each sample and the updation of filter cofficients are saturted.   
-*   
+/**    
+* @brief Processing function for Q15 normalized LMS filter.    
+* @param[in] *S points to an instance of the Q15 normalized LMS filter structure.    
+* @param[in] *pSrc points to the block of input data.    
+* @param[in] *pRef points to the block of reference data.    
+* @param[out] *pOut points to the block of output data.    
+* @param[out] *pErr points to the block of error data.    
+* @param[in] blockSize number of samples to process.    
+* @return none.    
+*    
+* <b>Scaling and Overflow Behavior:</b>     
+* \par     
+* The function is implemented using a 64-bit internal accumulator.     
+* Both coefficients and state variables are represented in 1.15 format and    
+* multiplications yield a 2.30 result. The 2.30 intermediate results are    
+* accumulated in a 64-bit accumulator in 34.30 format.     
+* There is no risk of internal overflow with this approach and the full    
+* precision of intermediate multiplications is preserved. After all additions    
+* have been performed, the accumulator is truncated to 34.15 format by    
+* discarding low 15 bits. Lastly, the accumulator is saturated to yield a    
+* result in 1.15 format.    
+*    
+* \par   
+* 	In this filter, filter coefficients are updated for each sample and the updation of filter cofficients are saturted.    
+*    
  */
 
 void arm_lms_norm_q15(
@@ -88,10 +96,13 @@ void arm_lms_norm_q15(
   q15_t e = 0, d = 0;                            /* error, reference data sample */
   q15_t w = 0, in;                               /* weight factor and state */
   q15_t x0;                                      /* temporary variable to hold input sample */
-  uint32_t shift = (uint32_t) S->postShift + 1u; /* Shift to be applied to the output */
+  //uint32_t shift = (uint32_t) S->postShift + 1u; /* Shift to be applied to the output */ 
   q15_t errorXmu, oneByEnergy;                   /* Temporary variables to store error and mu product and reciprocal of energy */
   q15_t postShift;                               /* Post shift to be applied to weight after reciprocal calculation */
   q31_t coef;                                    /* Teporary variable for coefficient */
+  q31_t acc_l, acc_h;
+  int32_t lShift = (15 - (int32_t) S->postShift);       /*  Post shift  */
+  int32_t uShift = (32 - lShift);
 
   energy = S->energy;
   x0 = S->x0;
@@ -104,7 +115,7 @@ void arm_lms_norm_q15(
   blkCnt = blockSize;
 
 
-#ifndef ARM_MATH_CM0
+#ifndef ARM_MATH_CM0_FAMILY
 
   /* Run the below code for Cortex-M4 and Cortex-M3 */
 
@@ -136,8 +147,19 @@ void arm_lms_norm_q15(
     {
 
       /* Perform the multiply-accumulate */
+#ifndef UNALIGNED_SUPPORT_DISABLE
+
       acc = __SMLALD(*__SIMD32(px)++, (*__SIMD32(pb)++), acc);
       acc = __SMLALD(*__SIMD32(px)++, (*__SIMD32(pb)++), acc);
+
+#else
+
+      acc += (((q31_t) * px++ * (*pb++)));
+      acc += (((q31_t) * px++ * (*pb++)));
+      acc += (((q31_t) * px++ * (*pb++)));
+      acc += (((q31_t) * px++ * (*pb++)));
+
+#endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
 
       /* Decrement the loop counter */
       tapCnt--;
@@ -155,8 +177,17 @@ void arm_lms_norm_q15(
       tapCnt--;
     }
 
-    /* Converting the result to 1.15 format */
-    acc = __SSAT((acc >> (16u - shift)), 16u);
+    /* Calc lower part of acc */
+    acc_l = acc & 0xffffffff;
+
+    /* Calc upper part of acc */
+    acc_h = (acc >> 32) & 0xffffffff;
+
+    /* Apply shift for lower part of acc and upper part of acc */
+    acc = (uint32_t) acc_l >> lShift | acc_h << uShift;
+
+    /* Converting the result to 1.15 format and saturate the output */
+    acc = __SSAT(acc, 16u);
 
     /* Store the result from accumulator into the destination buffer. */
     *pOut++ = (q15_t) acc;
@@ -231,8 +262,8 @@ void arm_lms_norm_q15(
   S->energy = (q15_t) energy;
   S->x0 = x0;
 
-  /* Processing is complete. Now copy the last numTaps - 1 samples to the   
-     satrt of the state buffer. This prepares the state buffer for the   
+  /* Processing is complete. Now copy the last numTaps - 1 samples to the    
+     satrt of the state buffer. This prepares the state buffer for the    
      next function call. */
 
   /* Points to the start of the pState buffer */
@@ -244,8 +275,19 @@ void arm_lms_norm_q15(
   while(tapCnt > 0u)
   {
 
+#ifndef UNALIGNED_SUPPORT_DISABLE
+
     *__SIMD32(pStateCurnt)++ = *__SIMD32(pState)++;
     *__SIMD32(pStateCurnt)++ = *__SIMD32(pState)++;
+
+#else
+
+    *pStateCurnt++ = *pState++;
+    *pStateCurnt++ = *pState++;
+    *pStateCurnt++ = *pState++;
+    *pStateCurnt++ = *pState++;
+
+#endif
 
     tapCnt--;
 
@@ -300,8 +342,20 @@ void arm_lms_norm_q15(
       tapCnt--;
     }
 
+    /* Calc lower part of acc */
+    acc_l = acc & 0xffffffff;
+
+    /* Calc upper part of acc */
+    acc_h = (acc >> 32) & 0xffffffff;
+
+    /* Apply shift for lower part of acc and upper part of acc */
+    acc = (uint32_t) acc_l >> lShift | acc_h << uShift;
+
+    /* Converting the result to 1.15 format and saturate the output */
+    acc = __SSAT(acc, 16u);
+
     /* Converting the result to 1.15 format */
-    acc = __SSAT((acc >> (16u - shift)), 16u);
+    //acc = __SSAT((acc >> (16u - shift)), 16u); 
 
     /* Store the result from accumulator into the destination buffer. */
     *pOut++ = (q15_t) acc;
@@ -357,8 +411,8 @@ void arm_lms_norm_q15(
   S->energy = (q15_t) energy;
   S->x0 = x0;
 
-  /* Processing is complete. Now copy the last numTaps - 1 samples to the       
-     satrt of the state buffer. This prepares the state buffer for the       
+  /* Processing is complete. Now copy the last numTaps - 1 samples to the        
+     satrt of the state buffer. This prepares the state buffer for the        
      next function call. */
 
   /* Points to the start of the pState buffer */
@@ -376,11 +430,11 @@ void arm_lms_norm_q15(
     tapCnt--;
   }
 
-#endif /*   #ifndef ARM_MATH_CM0 */
+#endif /*   #ifndef ARM_MATH_CM0_FAMILY */
 
 }
 
 
-/**   
-   * @} end of LMS_NORM group   
+/**    
+   * @} end of LMS_NORM group    
    */

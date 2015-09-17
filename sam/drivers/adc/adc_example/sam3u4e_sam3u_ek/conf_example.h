@@ -3,7 +3,7 @@
  *
  * \brief ADC example configuration.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,6 +45,9 @@
  * \defgroup adc_example_pin_defs
  *   - <b> BUTTON  --  TRIGGER</b>
  *   - BP4(PA18)  --  ADTRG(PA2)
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef CONF_EXAMPLE_H_INCLUDED

@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_AFEC_COMPONENT_
 #define _SAM4E_AFEC_COMPONENT_
@@ -51,52 +54,52 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Afec hardware registers */
 typedef struct {
-  WoReg AFEC_CR;       /**< \brief (Afec Offset: 0x00) Control Register */
-  RwReg AFEC_MR;       /**< \brief (Afec Offset: 0x04) Mode Register */
-  RwReg AFEC_EMR;      /**< \brief (Afec Offset: 0x08) Extended Mode Register */
-  RwReg AFEC_SEQ1R;    /**< \brief (Afec Offset: 0x0C) Channel Sequence 1 Register */
-  RwReg AFEC_SEQ2R;    /**< \brief (Afec Offset: 0x10) Channel Sequence 2 Register */
-  WoReg AFEC_CHER;     /**< \brief (Afec Offset: 0x14) Channel Enable Register */
-  WoReg AFEC_CHDR;     /**< \brief (Afec Offset: 0x18) Channel Disable Register */
-  RoReg AFEC_CHSR;     /**< \brief (Afec Offset: 0x1C) Channel Status Register */
-  RoReg AFEC_LCDR;     /**< \brief (Afec Offset: 0x20) Last Converted Data Register */
-  WoReg AFEC_IER;      /**< \brief (Afec Offset: 0x24) Interrupt Enable Register */
-  WoReg AFEC_IDR;      /**< \brief (Afec Offset: 0x28) Interrupt Disable Register */
-  RoReg AFEC_IMR;      /**< \brief (Afec Offset: 0x2C) Interrupt Mask Register */
-  RoReg AFEC_ISR;      /**< \brief (Afec Offset: 0x30) Interrupt Status Register */
-  RoReg Reserved1[6];
-  RoReg AFEC_OVER;     /**< \brief (Afec Offset: 0x4C) Overrun Status Register */
-  RwReg AFEC_CWR;      /**< \brief (Afec Offset: 0x50) Compare Window Register */
-  RwReg AFEC_CGR;      /**< \brief (Afec Offset: 0x54) Channel Gain Register */
-  RoReg Reserved2[1];
-  RwReg AFEC_CDOR;     /**< \brief (Afec Offset: 0x5C) Channel Calibration DC Offset Register */
-  RwReg AFEC_DIFFR;    /**< \brief (Afec Offset: 0x60) Channel Differential Register */
-  RwReg AFEC_CSELR;    /**< \brief (Afec Offset: 0x64) Channel Register Selection */
-  RoReg AFEC_CDR;      /**< \brief (Afec Offset: 0x68) Channel Data Register */
-  RwReg AFEC_COCR;     /**< \brief (Afec Offset: 0x6C) Channel Offset Compensation Register */
-  RwReg AFEC_TEMPMR;   /**< \brief (Afec Offset: 0x70) Temperature Sensor Mode Register */
-  RwReg AFEC_TEMPCWR;  /**< \brief (Afec Offset: 0x74) Temperature Compare Window Register */
-  RoReg Reserved3[7];
-  RwReg AFEC_ACR;      /**< \brief (Afec Offset: 0x94) Analog Control Register */
-  RoReg Reserved4[19];
-  RwReg AFEC_WPMR;     /**< \brief (Afec Offset: 0xE4) Write Protect Mode Register */
-  RoReg AFEC_WPSR;     /**< \brief (Afec Offset: 0xE8) Write Protect Status Register */
-  RoReg Reserved5[5];
-  RwReg AFEC_RPR;      /**< \brief (Afec Offset: 0x100) Receive Pointer Register */
-  RwReg AFEC_RCR;      /**< \brief (Afec Offset: 0x104) Receive Counter Register */
-  RoReg Reserved6[2];
-  RwReg AFEC_RNPR;     /**< \brief (Afec Offset: 0x110) Receive Next Pointer Register */
-  RwReg AFEC_RNCR;     /**< \brief (Afec Offset: 0x114) Receive Next Counter Register */
-  RoReg Reserved7[2];
-  WoReg AFEC_PTCR;     /**< \brief (Afec Offset: 0x120) Transfer Control Register */
-  RoReg AFEC_PTSR;     /**< \brief (Afec Offset: 0x124) Transfer Status Register */
+  __O  uint32_t AFEC_CR;       /**< \brief (Afec Offset: 0x00) AFEC Control Register */
+  __IO uint32_t AFEC_MR;       /**< \brief (Afec Offset: 0x04) AFEC Mode Register */
+  __IO uint32_t AFEC_EMR;      /**< \brief (Afec Offset: 0x08) AFEC Extended Mode Register */
+  __IO uint32_t AFEC_SEQ1R;    /**< \brief (Afec Offset: 0x0C) AFEC Channel Sequence 1 Register */
+  __IO uint32_t AFEC_SEQ2R;    /**< \brief (Afec Offset: 0x10) AFEC Channel Sequence 2 Register */
+  __O  uint32_t AFEC_CHER;     /**< \brief (Afec Offset: 0x14) AFEC Channel Enable Register */
+  __O  uint32_t AFEC_CHDR;     /**< \brief (Afec Offset: 0x18) AFEC Channel Disable Register */
+  __I  uint32_t AFEC_CHSR;     /**< \brief (Afec Offset: 0x1C) AFEC Channel Status Register */
+  __I  uint32_t AFEC_LCDR;     /**< \brief (Afec Offset: 0x20) AFEC Last Converted Data Register */
+  __O  uint32_t AFEC_IER;      /**< \brief (Afec Offset: 0x24) AFEC Interrupt Enable Register */
+  __O  uint32_t AFEC_IDR;      /**< \brief (Afec Offset: 0x28) AFEC Interrupt Disable Register */
+  __I  uint32_t AFEC_IMR;      /**< \brief (Afec Offset: 0x2C) AFEC Interrupt Mask Register */
+  __I  uint32_t AFEC_ISR;      /**< \brief (Afec Offset: 0x30) AFEC Interrupt Status Register */
+  __I  uint32_t Reserved1[6];
+  __I  uint32_t AFEC_OVER;     /**< \brief (Afec Offset: 0x4C) AFEC Overrun Status Register */
+  __IO uint32_t AFEC_CWR;      /**< \brief (Afec Offset: 0x50) AFEC Compare Window Register */
+  __IO uint32_t AFEC_CGR;      /**< \brief (Afec Offset: 0x54) AFEC Channel Gain Register */
+  __I  uint32_t Reserved2[1];
+  __IO uint32_t AFEC_CDOR;     /**< \brief (Afec Offset: 0x5C) AFEC Channel Calibration DC Offset Register */
+  __IO uint32_t AFEC_DIFFR;    /**< \brief (Afec Offset: 0x60) AFEC Channel Differential Register */
+  __IO uint32_t AFEC_CSELR;    /**< \brief (Afec Offset: 0x64) AFEC Channel Register Selection */
+  __I  uint32_t AFEC_CDR;      /**< \brief (Afec Offset: 0x68) AFEC Channel Data Register */
+  __IO uint32_t AFEC_COCR;     /**< \brief (Afec Offset: 0x6C) AFEC Channel Offset Compensation Register */
+  __IO uint32_t AFEC_TEMPMR;   /**< \brief (Afec Offset: 0x70) AFEC Temperature Sensor Mode Register */
+  __IO uint32_t AFEC_TEMPCWR;  /**< \brief (Afec Offset: 0x74) AFEC Temperature Compare Window Register */
+  __I  uint32_t Reserved3[7];
+  __IO uint32_t AFEC_ACR;      /**< \brief (Afec Offset: 0x94) AFEC Analog Control Register */
+  __I  uint32_t Reserved4[19];
+  __IO uint32_t AFEC_WPMR;     /**< \brief (Afec Offset: 0xE4) AFEC Write Protection Mode Register */
+  __I  uint32_t AFEC_WPSR;     /**< \brief (Afec Offset: 0xE8) AFEC Write Protection Status Register */
+  __I  uint32_t Reserved6[5];
+  __IO uint32_t AFEC_RPR;      /**< \brief (Afec Offset: 0x100) Receive Pointer Register */
+  __IO uint32_t AFEC_RCR;      /**< \brief (Afec Offset: 0x104) Receive Counter Register */
+  __I  uint32_t Reserved7[2];
+  __IO uint32_t AFEC_RNPR;     /**< \brief (Afec Offset: 0x110) Receive Next Pointer Register */
+  __IO uint32_t AFEC_RNCR;     /**< \brief (Afec Offset: 0x114) Receive Next Counter Register */
+  __I  uint32_t Reserved8[2];
+  __O  uint32_t AFEC_PTCR;     /**< \brief (Afec Offset: 0x120) Transfer Control Register */
+  __I  uint32_t AFEC_PTSR;     /**< \brief (Afec Offset: 0x124) Transfer Status Register */
 } Afec;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-/* -------- AFEC_CR : (AFEC Offset: 0x00) Control Register -------- */
+/* -------- AFEC_CR : (AFEC Offset: 0x00) AFEC Control Register -------- */
 #define AFEC_CR_SWRST (0x1u << 0) /**< \brief (AFEC_CR) Software Reset */
 #define AFEC_CR_START (0x1u << 1) /**< \brief (AFEC_CR) Start Conversion */
 #define AFEC_CR_AUTOCAL (0x1u << 3) /**< \brief (AFEC_CR) Automatic Calibration of AFEC */
-/* -------- AFEC_MR : (AFEC Offset: 0x04) Mode Register -------- */
+/* -------- AFEC_MR : (AFEC Offset: 0x04) AFEC Mode Register -------- */
 #define AFEC_MR_TRGEN (0x1u << 0) /**< \brief (AFEC_MR) Trigger Enable */
 #define   AFEC_MR_TRGEN_DIS (0x0u << 0) /**< \brief (AFEC_MR) Hardware triggers are disabled. Starting a conversion is only possible by software. */
 #define   AFEC_MR_TRGEN_EN (0x1u << 0) /**< \brief (AFEC_MR) Hardware trigger selected by TRGSEL field is enabled. */
@@ -111,7 +114,7 @@ typedef struct {
 #define AFEC_MR_SLEEP (0x1u << 5) /**< \brief (AFEC_MR) Sleep Mode */
 #define   AFEC_MR_SLEEP_NORMAL (0x0u << 5) /**< \brief (AFEC_MR) Normal Mode: The AFEC Core and reference voltage circuitry are kept ON between conversions */
 #define   AFEC_MR_SLEEP_SLEEP (0x1u << 5) /**< \brief (AFEC_MR) Sleep Mode: The AFEC Core and reference voltage circuitry are OFF between conversions */
-#define AFEC_MR_FWUP (0x1u << 6) /**< \brief (AFEC_MR) Fast Wake Up */
+#define AFEC_MR_FWUP (0x1u << 6) /**< \brief (AFEC_MR) Fast Wake-up */
 #define   AFEC_MR_FWUP_OFF (0x0u << 6) /**< \brief (AFEC_MR) Normal Sleep Mode: The sleep mode is defined by the SLEEP bit */
 #define   AFEC_MR_FWUP_ON (0x1u << 6) /**< \brief (AFEC_MR) Fast Wake Up Sleep Mode: The Voltage reference is ON between conversions and AFEC Core is OFF */
 #define AFEC_MR_FREERUN (0x1u << 7) /**< \brief (AFEC_MR) Free Run Mode */
@@ -121,7 +124,7 @@ typedef struct {
 #define AFEC_MR_PRESCAL_Msk (0xffu << AFEC_MR_PRESCAL_Pos) /**< \brief (AFEC_MR) Prescaler Rate Selection */
 #define AFEC_MR_PRESCAL(value) ((AFEC_MR_PRESCAL_Msk & ((value) << AFEC_MR_PRESCAL_Pos)))
 #define AFEC_MR_STARTUP_Pos 16
-#define AFEC_MR_STARTUP_Msk (0xfu << AFEC_MR_STARTUP_Pos) /**< \brief (AFEC_MR) Start Up Time */
+#define AFEC_MR_STARTUP_Msk (0xfu << AFEC_MR_STARTUP_Pos) /**< \brief (AFEC_MR) Start-up Time */
 #define   AFEC_MR_STARTUP_SUT0 (0x0u << 16) /**< \brief (AFEC_MR) 0 periods of AFEClock */
 #define   AFEC_MR_STARTUP_SUT8 (0x1u << 16) /**< \brief (AFEC_MR) 8 periods of AFEClock */
 #define   AFEC_MR_STARTUP_SUT16 (0x2u << 16) /**< \brief (AFEC_MR) 16 periods of AFEClock */
@@ -146,7 +149,7 @@ typedef struct {
 #define   AFEC_MR_SETTLING_AST17 (0x3u << 20) /**< \brief (AFEC_MR) 17 periods of AFEClock */
 #define AFEC_MR_ANACH (0x1u << 23) /**< \brief (AFEC_MR) Analog Change */
 #define   AFEC_MR_ANACH_NONE (0x0u << 23) /**< \brief (AFEC_MR) No analog change on channel switching: DIFF0, GAIN0 are used for all channels */
-#define   AFEC_MR_ANACH_ALLOWED (0x1u << 23) /**< \brief (AFEC_MR) Allows different analog settings for each channel. See AFEC_CGR Register. */
+#define   AFEC_MR_ANACH_ALLOWED (0x1u << 23) /**< \brief (AFEC_MR) Allows different analog settings for each channel. See AFEC_CGR. */
 #define AFEC_MR_TRACKTIM_Pos 24
 #define AFEC_MR_TRACKTIM_Msk (0xfu << AFEC_MR_TRACKTIM_Pos) /**< \brief (AFEC_MR) Tracking Time */
 #define AFEC_MR_TRACKTIM(value) ((AFEC_MR_TRACKTIM_Msk & ((value) << AFEC_MR_TRACKTIM_Pos)))
@@ -155,8 +158,8 @@ typedef struct {
 #define AFEC_MR_TRANSFER(value) ((AFEC_MR_TRANSFER_Msk & ((value) << AFEC_MR_TRANSFER_Pos)))
 #define AFEC_MR_USEQ (0x1u << 31) /**< \brief (AFEC_MR) Use Sequence Enable */
 #define   AFEC_MR_USEQ_NUM_ORDER (0x0u << 31) /**< \brief (AFEC_MR) Normal Mode: The controller converts channels in a simple numeric order. */
-#define   AFEC_MR_USEQ_REG_ORDER (0x1u << 31) /**< \brief (AFEC_MR) User Sequence Mode: The sequence respects what is defined in AFEC_SEQR1 and AFEC_SEQR2 registers. */
-/* -------- AFEC_EMR : (AFEC Offset: 0x08) Extended Mode Register -------- */
+#define   AFEC_MR_USEQ_REG_ORDER (0x1u << 31) /**< \brief (AFEC_MR) User Sequence Mode: The sequence respects what is defined in AFEC_SEQR1 and AFEC_SEQR2. */
+/* -------- AFEC_EMR : (AFEC Offset: 0x08) AFEC Extended Mode Register -------- */
 #define AFEC_EMR_CMPMODE_Pos 0
 #define AFEC_EMR_CMPMODE_Msk (0x3u << AFEC_EMR_CMPMODE_Pos) /**< \brief (AFEC_EMR) Comparison Mode */
 #define   AFEC_EMR_CMPMODE_LOW (0x0u << 0) /**< \brief (AFEC_EMR) Generates an event when the converted data is lower than the low threshold of the window. */
@@ -178,9 +181,21 @@ typedef struct {
 #define   AFEC_EMR_RES_OSR16 (0x3u << 16) /**< \brief (AFEC_EMR) 14-bit resolution, AFEC sample rate divided by 16 (averaging). */
 #define   AFEC_EMR_RES_OSR64 (0x4u << 16) /**< \brief (AFEC_EMR) 15-bit resolution, AFEC sample rate divided by 64 (averaging). */
 #define   AFEC_EMR_RES_OSR256 (0x5u << 16) /**< \brief (AFEC_EMR) 16-bit resolution, AFEC sample rate divided by 256 (averaging). */
-#define AFEC_EMR_TAG (0x1u << 24) /**< \brief (AFEC_EMR) TAG of AFEC_LDCR register */
+#define AFEC_EMR_AFEMODE_Pos 20
+#define AFEC_EMR_AFEMODE_Msk (0x3u << AFEC_EMR_AFEMODE_Pos) /**< \brief (AFEC_EMR) AFE Running Mode */
+#define   AFEC_EMR_AFEMODE_NORMAL (0x0u << 20) /**< \brief (AFEC_EMR) Normal mode of operation. */
+#define   AFEC_EMR_AFEMODE_OFFSET_ERROR (0x1u << 20) /**< \brief (AFEC_EMR) Offset Error mode to measure the offset error. */
+#define   AFEC_EMR_AFEMODE_GAIN_ERROR_HIGH (0x2u << 20) /**< \brief (AFEC_EMR) Gain Error mode to measure the gain error. */
+#define   AFEC_EMR_AFEMODE_GAIN_ERROR_LOW (0x3u << 20) /**< \brief (AFEC_EMR)   */
+#define AFEC_EMR_TAG (0x1u << 24) /**< \brief (AFEC_EMR) TAG of the AFEC_LDCR */
 #define AFEC_EMR_STM (0x1u << 25) /**< \brief (AFEC_EMR) Single Trigger Mode */
-/* -------- AFEC_SEQ1R : (AFEC Offset: 0x0C) Channel Sequence 1 Register -------- */
+#define AFEC_EMR_SIGNMODE_Pos 28
+#define AFEC_EMR_SIGNMODE_Msk (0x3u << AFEC_EMR_SIGNMODE_Pos) /**< \brief (AFEC_EMR) Sign Mode */
+#define   AFEC_EMR_SIGNMODE_SE_UNSG_DF_SIGN (0x0u << 28) /**< \brief (AFEC_EMR) Single-Ended Channels: Unsigned conversions.Differential Channels: Signed conversions. */
+#define   AFEC_EMR_SIGNMODE_SE_SIGN_DF_UNSG (0x1u << 28) /**< \brief (AFEC_EMR) Single-Ended Channels: Signed conversions.Differential Channels: Unsigned conversions. */
+#define   AFEC_EMR_SIGNMODE_ALL_UNSIGNED (0x2u << 28) /**< \brief (AFEC_EMR) All Channels: Unsigned conversions. */
+#define   AFEC_EMR_SIGNMODE_ALL_SIGNED (0x3u << 28) /**< \brief (AFEC_EMR) All Channels: Signed conversions. */
+/* -------- AFEC_SEQ1R : (AFEC Offset: 0x0C) AFEC Channel Sequence 1 Register -------- */
 #define AFEC_SEQ1R_USCH0_Pos 0
 #define AFEC_SEQ1R_USCH0_Msk (0xfu << AFEC_SEQ1R_USCH0_Pos) /**< \brief (AFEC_SEQ1R) User Sequence Number 0 */
 #define AFEC_SEQ1R_USCH0(value) ((AFEC_SEQ1R_USCH0_Msk & ((value) << AFEC_SEQ1R_USCH0_Pos)))
@@ -205,7 +220,7 @@ typedef struct {
 #define AFEC_SEQ1R_USCH7_Pos 28
 #define AFEC_SEQ1R_USCH7_Msk (0xfu << AFEC_SEQ1R_USCH7_Pos) /**< \brief (AFEC_SEQ1R) User Sequence Number 7 */
 #define AFEC_SEQ1R_USCH7(value) ((AFEC_SEQ1R_USCH7_Msk & ((value) << AFEC_SEQ1R_USCH7_Pos)))
-/* -------- AFEC_SEQ2R : (AFEC Offset: 0x10) Channel Sequence 2 Register -------- */
+/* -------- AFEC_SEQ2R : (AFEC Offset: 0x10) AFEC Channel Sequence 2 Register -------- */
 #define AFEC_SEQ2R_USCH8_Pos 0
 #define AFEC_SEQ2R_USCH8_Msk (0xfu << AFEC_SEQ2R_USCH8_Pos) /**< \brief (AFEC_SEQ2R) User Sequence Number 8 */
 #define AFEC_SEQ2R_USCH8(value) ((AFEC_SEQ2R_USCH8_Msk & ((value) << AFEC_SEQ2R_USCH8_Pos)))
@@ -230,7 +245,7 @@ typedef struct {
 #define AFEC_SEQ2R_USCH15_Pos 28
 #define AFEC_SEQ2R_USCH15_Msk (0xfu << AFEC_SEQ2R_USCH15_Pos) /**< \brief (AFEC_SEQ2R) User Sequence Number 15 */
 #define AFEC_SEQ2R_USCH15(value) ((AFEC_SEQ2R_USCH15_Msk & ((value) << AFEC_SEQ2R_USCH15_Pos)))
-/* -------- AFEC_CHER : (AFEC Offset: 0x14) Channel Enable Register -------- */
+/* -------- AFEC_CHER : (AFEC Offset: 0x14) AFEC Channel Enable Register -------- */
 #define AFEC_CHER_CH0 (0x1u << 0) /**< \brief (AFEC_CHER) Channel 0 Enable */
 #define AFEC_CHER_CH1 (0x1u << 1) /**< \brief (AFEC_CHER) Channel 1 Enable */
 #define AFEC_CHER_CH2 (0x1u << 2) /**< \brief (AFEC_CHER) Channel 2 Enable */
@@ -247,7 +262,7 @@ typedef struct {
 #define AFEC_CHER_CH13 (0x1u << 13) /**< \brief (AFEC_CHER) Channel 13 Enable */
 #define AFEC_CHER_CH14 (0x1u << 14) /**< \brief (AFEC_CHER) Channel 14 Enable */
 #define AFEC_CHER_CH15 (0x1u << 15) /**< \brief (AFEC_CHER) Channel 15 Enable */
-/* -------- AFEC_CHDR : (AFEC Offset: 0x18) Channel Disable Register -------- */
+/* -------- AFEC_CHDR : (AFEC Offset: 0x18) AFEC Channel Disable Register -------- */
 #define AFEC_CHDR_CH0 (0x1u << 0) /**< \brief (AFEC_CHDR) Channel 0 Disable */
 #define AFEC_CHDR_CH1 (0x1u << 1) /**< \brief (AFEC_CHDR) Channel 1 Disable */
 #define AFEC_CHDR_CH2 (0x1u << 2) /**< \brief (AFEC_CHDR) Channel 2 Disable */
@@ -264,7 +279,7 @@ typedef struct {
 #define AFEC_CHDR_CH13 (0x1u << 13) /**< \brief (AFEC_CHDR) Channel 13 Disable */
 #define AFEC_CHDR_CH14 (0x1u << 14) /**< \brief (AFEC_CHDR) Channel 14 Disable */
 #define AFEC_CHDR_CH15 (0x1u << 15) /**< \brief (AFEC_CHDR) Channel 15 Disable */
-/* -------- AFEC_CHSR : (AFEC Offset: 0x1C) Channel Status Register -------- */
+/* -------- AFEC_CHSR : (AFEC Offset: 0x1C) AFEC Channel Status Register -------- */
 #define AFEC_CHSR_CH0 (0x1u << 0) /**< \brief (AFEC_CHSR) Channel 0 Status */
 #define AFEC_CHSR_CH1 (0x1u << 1) /**< \brief (AFEC_CHSR) Channel 1 Status */
 #define AFEC_CHSR_CH2 (0x1u << 2) /**< \brief (AFEC_CHSR) Channel 2 Status */
@@ -281,12 +296,12 @@ typedef struct {
 #define AFEC_CHSR_CH13 (0x1u << 13) /**< \brief (AFEC_CHSR) Channel 13 Status */
 #define AFEC_CHSR_CH14 (0x1u << 14) /**< \brief (AFEC_CHSR) Channel 14 Status */
 #define AFEC_CHSR_CH15 (0x1u << 15) /**< \brief (AFEC_CHSR) Channel 15 Status */
-/* -------- AFEC_LCDR : (AFEC Offset: 0x20) Last Converted Data Register -------- */
+/* -------- AFEC_LCDR : (AFEC Offset: 0x20) AFEC Last Converted Data Register -------- */
 #define AFEC_LCDR_LDATA_Pos 0
 #define AFEC_LCDR_LDATA_Msk (0xffffu << AFEC_LCDR_LDATA_Pos) /**< \brief (AFEC_LCDR) Last Data Converted */
 #define AFEC_LCDR_CHNB_Pos 24
 #define AFEC_LCDR_CHNB_Msk (0xfu << AFEC_LCDR_CHNB_Pos) /**< \brief (AFEC_LCDR) Channel Number */
-/* -------- AFEC_IER : (AFEC Offset: 0x24) Interrupt Enable Register -------- */
+/* -------- AFEC_IER : (AFEC Offset: 0x24) AFEC Interrupt Enable Register -------- */
 #define AFEC_IER_EOC0 (0x1u << 0) /**< \brief (AFEC_IER) End of Conversion Interrupt Enable 0 */
 #define AFEC_IER_EOC1 (0x1u << 1) /**< \brief (AFEC_IER) End of Conversion Interrupt Enable 1 */
 #define AFEC_IER_EOC2 (0x1u << 2) /**< \brief (AFEC_IER) End of Conversion Interrupt Enable 2 */
@@ -305,12 +320,12 @@ typedef struct {
 #define AFEC_IER_EOC15 (0x1u << 15) /**< \brief (AFEC_IER) End of Conversion Interrupt Enable 15 */
 #define AFEC_IER_DRDY (0x1u << 24) /**< \brief (AFEC_IER) Data Ready Interrupt Enable */
 #define AFEC_IER_GOVRE (0x1u << 25) /**< \brief (AFEC_IER) General Overrun Error Interrupt Enable */
-#define AFEC_IER_COMPE (0x1u << 26) /**< \brief (AFEC_IER) Comparison Event Interrupt Enable+ */
+#define AFEC_IER_COMPE (0x1u << 26) /**< \brief (AFEC_IER) Comparison Event Interrupt Enable */
 #define AFEC_IER_ENDRX (0x1u << 27) /**< \brief (AFEC_IER) End of Receive Buffer Interrupt Enable */
 #define AFEC_IER_RXBUFF (0x1u << 28) /**< \brief (AFEC_IER) Receive Buffer Full Interrupt Enable */
 #define AFEC_IER_TEMPCHG (0x1u << 30) /**< \brief (AFEC_IER) Temperature Change Interrupt Enable */
 #define AFEC_IER_EOCAL (0x1u << 31) /**< \brief (AFEC_IER) End of Calibration Sequence Interrupt Enable */
-/* -------- AFEC_IDR : (AFEC Offset: 0x28) Interrupt Disable Register -------- */
+/* -------- AFEC_IDR : (AFEC Offset: 0x28) AFEC Interrupt Disable Register -------- */
 #define AFEC_IDR_EOC0 (0x1u << 0) /**< \brief (AFEC_IDR) End of Conversion Interrupt Disable 0 */
 #define AFEC_IDR_EOC1 (0x1u << 1) /**< \brief (AFEC_IDR) End of Conversion Interrupt Disable 1 */
 #define AFEC_IDR_EOC2 (0x1u << 2) /**< \brief (AFEC_IDR) End of Conversion Interrupt Disable 2 */
@@ -334,7 +349,7 @@ typedef struct {
 #define AFEC_IDR_RXBUFF (0x1u << 28) /**< \brief (AFEC_IDR) Receive Buffer Full Interrupt Disable */
 #define AFEC_IDR_TEMPCHG (0x1u << 30) /**< \brief (AFEC_IDR) Temperature Change Interrupt Disable */
 #define AFEC_IDR_EOCAL (0x1u << 31) /**< \brief (AFEC_IDR) End of Calibration Sequence Interrupt Disable */
-/* -------- AFEC_IMR : (AFEC Offset: 0x2C) Interrupt Mask Register -------- */
+/* -------- AFEC_IMR : (AFEC Offset: 0x2C) AFEC Interrupt Mask Register -------- */
 #define AFEC_IMR_EOC0 (0x1u << 0) /**< \brief (AFEC_IMR) End of Conversion Interrupt Mask 0 */
 #define AFEC_IMR_EOC1 (0x1u << 1) /**< \brief (AFEC_IMR) End of Conversion Interrupt Mask 1 */
 #define AFEC_IMR_EOC2 (0x1u << 2) /**< \brief (AFEC_IMR) End of Conversion Interrupt Mask 2 */
@@ -358,7 +373,7 @@ typedef struct {
 #define AFEC_IMR_RXBUFF (0x1u << 28) /**< \brief (AFEC_IMR) Receive Buffer Full Interrupt Mask */
 #define AFEC_IMR_TEMPCHG (0x1u << 30) /**< \brief (AFEC_IMR) Temperature Change Interrupt Mask */
 #define AFEC_IMR_EOCAL (0x1u << 31) /**< \brief (AFEC_IMR) End of Calibration Sequence Interrupt Mask */
-/* -------- AFEC_ISR : (AFEC Offset: 0x30) Interrupt Status Register -------- */
+/* -------- AFEC_ISR : (AFEC Offset: 0x30) AFEC Interrupt Status Register -------- */
 #define AFEC_ISR_EOC0 (0x1u << 0) /**< \brief (AFEC_ISR) End of Conversion 0 */
 #define AFEC_ISR_EOC1 (0x1u << 1) /**< \brief (AFEC_ISR) End of Conversion 1 */
 #define AFEC_ISR_EOC2 (0x1u << 2) /**< \brief (AFEC_ISR) End of Conversion 2 */
@@ -382,7 +397,7 @@ typedef struct {
 #define AFEC_ISR_RXBUFF (0x1u << 28) /**< \brief (AFEC_ISR) RX Buffer Full */
 #define AFEC_ISR_TEMPCHG (0x1u << 30) /**< \brief (AFEC_ISR) Temperature Change */
 #define AFEC_ISR_EOCAL (0x1u << 31) /**< \brief (AFEC_ISR) End of Calibration Sequence */
-/* -------- AFEC_OVER : (AFEC Offset: 0x4C) Overrun Status Register -------- */
+/* -------- AFEC_OVER : (AFEC Offset: 0x4C) AFEC Overrun Status Register -------- */
 #define AFEC_OVER_OVRE0 (0x1u << 0) /**< \brief (AFEC_OVER) Overrun Error 0 */
 #define AFEC_OVER_OVRE1 (0x1u << 1) /**< \brief (AFEC_OVER) Overrun Error 1 */
 #define AFEC_OVER_OVRE2 (0x1u << 2) /**< \brief (AFEC_OVER) Overrun Error 2 */
@@ -399,14 +414,14 @@ typedef struct {
 #define AFEC_OVER_OVRE13 (0x1u << 13) /**< \brief (AFEC_OVER) Overrun Error 13 */
 #define AFEC_OVER_OVRE14 (0x1u << 14) /**< \brief (AFEC_OVER) Overrun Error 14 */
 #define AFEC_OVER_OVRE15 (0x1u << 15) /**< \brief (AFEC_OVER) Overrun Error 15 */
-/* -------- AFEC_CWR : (AFEC Offset: 0x50) Compare Window Register -------- */
+/* -------- AFEC_CWR : (AFEC Offset: 0x50) AFEC Compare Window Register -------- */
 #define AFEC_CWR_LOWTHRES_Pos 0
-#define AFEC_CWR_LOWTHRES_Msk (0xfffu << AFEC_CWR_LOWTHRES_Pos) /**< \brief (AFEC_CWR) Low Threshold */
+#define AFEC_CWR_LOWTHRES_Msk (0xffffu << AFEC_CWR_LOWTHRES_Pos) /**< \brief (AFEC_CWR) Low Threshold */
 #define AFEC_CWR_LOWTHRES(value) ((AFEC_CWR_LOWTHRES_Msk & ((value) << AFEC_CWR_LOWTHRES_Pos)))
 #define AFEC_CWR_HIGHTHRES_Pos 16
-#define AFEC_CWR_HIGHTHRES_Msk (0xfffu << AFEC_CWR_HIGHTHRES_Pos) /**< \brief (AFEC_CWR) High Threshold */
+#define AFEC_CWR_HIGHTHRES_Msk (0xffffu << AFEC_CWR_HIGHTHRES_Pos) /**< \brief (AFEC_CWR) High Threshold */
 #define AFEC_CWR_HIGHTHRES(value) ((AFEC_CWR_HIGHTHRES_Msk & ((value) << AFEC_CWR_HIGHTHRES_Pos)))
-/* -------- AFEC_CGR : (AFEC Offset: 0x54) Channel Gain Register -------- */
+/* -------- AFEC_CGR : (AFEC Offset: 0x54) AFEC Channel Gain Register -------- */
 #define AFEC_CGR_GAIN0_Pos 0
 #define AFEC_CGR_GAIN0_Msk (0x3u << AFEC_CGR_GAIN0_Pos) /**< \brief (AFEC_CGR) Gain for channel 0 */
 #define AFEC_CGR_GAIN0(value) ((AFEC_CGR_GAIN0_Msk & ((value) << AFEC_CGR_GAIN0_Pos)))
@@ -455,24 +470,24 @@ typedef struct {
 #define AFEC_CGR_GAIN15_Pos 30
 #define AFEC_CGR_GAIN15_Msk (0x3u << AFEC_CGR_GAIN15_Pos) /**< \brief (AFEC_CGR) Gain for channel 15 */
 #define AFEC_CGR_GAIN15(value) ((AFEC_CGR_GAIN15_Msk & ((value) << AFEC_CGR_GAIN15_Pos)))
-/* -------- AFEC_CDOR : (AFEC Offset: 0x5C) Channel Calibration DC Offset Register -------- */
-#define AFEC_CDOR_OFF0 (0x1u << 0) /**< \brief (AFEC_CDOR) Offset for channel 0, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF1 (0x1u << 1) /**< \brief (AFEC_CDOR) Offset for channel 1, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF2 (0x1u << 2) /**< \brief (AFEC_CDOR) Offset for channel 2, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF3 (0x1u << 3) /**< \brief (AFEC_CDOR) Offset for channel 3, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF4 (0x1u << 4) /**< \brief (AFEC_CDOR) Offset for channel 4, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF5 (0x1u << 5) /**< \brief (AFEC_CDOR) Offset for channel 5, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF6 (0x1u << 6) /**< \brief (AFEC_CDOR) Offset for channel 6, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF7 (0x1u << 7) /**< \brief (AFEC_CDOR) Offset for channel 7, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF8 (0x1u << 8) /**< \brief (AFEC_CDOR) Offset for channel 8, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF9 (0x1u << 9) /**< \brief (AFEC_CDOR) Offset for channel 9, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF10 (0x1u << 10) /**< \brief (AFEC_CDOR) Offset for channel 10, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF11 (0x1u << 11) /**< \brief (AFEC_CDOR) Offset for channel 11, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF12 (0x1u << 12) /**< \brief (AFEC_CDOR) Offset for channel 12, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF13 (0x1u << 13) /**< \brief (AFEC_CDOR) Offset for channel 13, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF14 (0x1u << 14) /**< \brief (AFEC_CDOR) Offset for channel 14, used in automatic calibration procedure */
-#define AFEC_CDOR_OFF15 (0x1u << 15) /**< \brief (AFEC_CDOR) Offset for channel 15, used in automatic calibration procedure */
-/* -------- AFEC_DIFFR : (AFEC Offset: 0x60) Channel Differential Register -------- */
+/* -------- AFEC_CDOR : (AFEC Offset: 0x5C) AFEC Channel Calibration DC Offset Register -------- */
+#define AFEC_CDOR_OFF0 (0x1u << 0) /**< \brief (AFEC_CDOR) Offset for Channel 0, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF1 (0x1u << 1) /**< \brief (AFEC_CDOR) Offset for Channel 1, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF2 (0x1u << 2) /**< \brief (AFEC_CDOR) Offset for Channel 2, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF3 (0x1u << 3) /**< \brief (AFEC_CDOR) Offset for Channel 3, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF4 (0x1u << 4) /**< \brief (AFEC_CDOR) Offset for Channel 4, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF5 (0x1u << 5) /**< \brief (AFEC_CDOR) Offset for Channel 5, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF6 (0x1u << 6) /**< \brief (AFEC_CDOR) Offset for Channel 6, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF7 (0x1u << 7) /**< \brief (AFEC_CDOR) Offset for Channel 7, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF8 (0x1u << 8) /**< \brief (AFEC_CDOR) Offset for Channel 8, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF9 (0x1u << 9) /**< \brief (AFEC_CDOR) Offset for Channel 9, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF10 (0x1u << 10) /**< \brief (AFEC_CDOR) Offset for Channel 10, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF11 (0x1u << 11) /**< \brief (AFEC_CDOR) Offset for Channel 11, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF12 (0x1u << 12) /**< \brief (AFEC_CDOR) Offset for Channel 12, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF13 (0x1u << 13) /**< \brief (AFEC_CDOR) Offset for Channel 13, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF14 (0x1u << 14) /**< \brief (AFEC_CDOR) Offset for Channel 14, used in Automatic Calibration Procedure */
+#define AFEC_CDOR_OFF15 (0x1u << 15) /**< \brief (AFEC_CDOR) Offset for Channel 15, used in Automatic Calibration Procedure */
+/* -------- AFEC_DIFFR : (AFEC Offset: 0x60) AFEC Channel Differential Register -------- */
 #define AFEC_DIFFR_DIFF0 (0x1u << 0) /**< \brief (AFEC_DIFFR) Differential inputs for channel 0 */
 #define AFEC_DIFFR_DIFF1 (0x1u << 1) /**< \brief (AFEC_DIFFR) Differential inputs for channel 1 */
 #define AFEC_DIFFR_DIFF2 (0x1u << 2) /**< \brief (AFEC_DIFFR) Differential inputs for channel 2 */
@@ -489,18 +504,18 @@ typedef struct {
 #define AFEC_DIFFR_DIFF13 (0x1u << 13) /**< \brief (AFEC_DIFFR) Differential inputs for channel 13 */
 #define AFEC_DIFFR_DIFF14 (0x1u << 14) /**< \brief (AFEC_DIFFR) Differential inputs for channel 14 */
 #define AFEC_DIFFR_DIFF15 (0x1u << 15) /**< \brief (AFEC_DIFFR) Differential inputs for channel 15 */
-/* -------- AFEC_CSELR : (AFEC Offset: 0x64) Channel Register Selection -------- */
+/* -------- AFEC_CSELR : (AFEC Offset: 0x64) AFEC Channel Register Selection -------- */
 #define AFEC_CSELR_CSEL_Pos 0
 #define AFEC_CSELR_CSEL_Msk (0xfu << AFEC_CSELR_CSEL_Pos) /**< \brief (AFEC_CSELR) Channel Selection */
 #define AFEC_CSELR_CSEL(value) ((AFEC_CSELR_CSEL_Msk & ((value) << AFEC_CSELR_CSEL_Pos)))
-/* -------- AFEC_CDR : (AFEC Offset: 0x68) Channel Data Register -------- */
+/* -------- AFEC_CDR : (AFEC Offset: 0x68) AFEC Channel Data Register -------- */
 #define AFEC_CDR_DATA_Pos 0
 #define AFEC_CDR_DATA_Msk (0xfffu << AFEC_CDR_DATA_Pos) /**< \brief (AFEC_CDR) Converted Data */
-/* -------- AFEC_COCR : (AFEC Offset: 0x6C) Channel Offset Compensation Register -------- */
+/* -------- AFEC_COCR : (AFEC Offset: 0x6C) AFEC Channel Offset Compensation Register -------- */
 #define AFEC_COCR_AOFF_Pos 0
 #define AFEC_COCR_AOFF_Msk (0xfffu << AFEC_COCR_AOFF_Pos) /**< \brief (AFEC_COCR) Analog Offset */
 #define AFEC_COCR_AOFF(value) ((AFEC_COCR_AOFF_Msk & ((value) << AFEC_COCR_AOFF_Pos)))
-/* -------- AFEC_TEMPMR : (AFEC Offset: 0x70) Temperature Sensor Mode Register -------- */
+/* -------- AFEC_TEMPMR : (AFEC Offset: 0x70) AFEC Temperature Sensor Mode Register -------- */
 #define AFEC_TEMPMR_RTCT (0x1u << 0) /**< \brief (AFEC_TEMPMR) Temperature Sensor RTC Trigger mode */
 #define AFEC_TEMPMR_TEMPCMPMOD_Pos 4
 #define AFEC_TEMPMR_TEMPCMPMOD_Msk (0x3u << AFEC_TEMPMR_TEMPCMPMOD_Pos) /**< \brief (AFEC_TEMPMR) Temperature Comparison Mode */
@@ -508,23 +523,23 @@ typedef struct {
 #define   AFEC_TEMPMR_TEMPCMPMOD_HIGH (0x1u << 4) /**< \brief (AFEC_TEMPMR) Generates an event when the converted data is higher than the high threshold of the window. */
 #define   AFEC_TEMPMR_TEMPCMPMOD_IN (0x2u << 4) /**< \brief (AFEC_TEMPMR) Generates an event when the converted data is in the comparison window. */
 #define   AFEC_TEMPMR_TEMPCMPMOD_OUT (0x3u << 4) /**< \brief (AFEC_TEMPMR) Generates an event when the converted data is out of the comparison window. */
-/* -------- AFEC_TEMPCWR : (AFEC Offset: 0x74) Temperature Compare Window Register -------- */
+/* -------- AFEC_TEMPCWR : (AFEC Offset: 0x74) AFEC Temperature Compare Window Register -------- */
 #define AFEC_TEMPCWR_TLOWTHRES_Pos 0
 #define AFEC_TEMPCWR_TLOWTHRES_Msk (0xffffu << AFEC_TEMPCWR_TLOWTHRES_Pos) /**< \brief (AFEC_TEMPCWR) Temperature Low Threshold */
 #define AFEC_TEMPCWR_TLOWTHRES(value) ((AFEC_TEMPCWR_TLOWTHRES_Msk & ((value) << AFEC_TEMPCWR_TLOWTHRES_Pos)))
 #define AFEC_TEMPCWR_THIGHTHRES_Pos 16
 #define AFEC_TEMPCWR_THIGHTHRES_Msk (0xffffu << AFEC_TEMPCWR_THIGHTHRES_Pos) /**< \brief (AFEC_TEMPCWR) Temperature High Threshold */
 #define AFEC_TEMPCWR_THIGHTHRES(value) ((AFEC_TEMPCWR_THIGHTHRES_Msk & ((value) << AFEC_TEMPCWR_THIGHTHRES_Pos)))
-/* -------- AFEC_ACR : (AFEC Offset: 0x94) Analog Control Register -------- */
+/* -------- AFEC_ACR : (AFEC Offset: 0x94) AFEC Analog Control Register -------- */
 #define AFEC_ACR_IBCTL_Pos 8
 #define AFEC_ACR_IBCTL_Msk (0x3u << AFEC_ACR_IBCTL_Pos) /**< \brief (AFEC_ACR) AFEC Bias Current Control */
 #define AFEC_ACR_IBCTL(value) ((AFEC_ACR_IBCTL_Msk & ((value) << AFEC_ACR_IBCTL_Pos)))
-/* -------- AFEC_WPMR : (AFEC Offset: 0xE4) Write Protect Mode Register -------- */
-#define AFEC_WPMR_WPEN (0x1u << 0) /**< \brief (AFEC_WPMR) Write Protect Enable */
+/* -------- AFEC_WPMR : (AFEC Offset: 0xE4) AFEC Write Protection Mode Register -------- */
+#define AFEC_WPMR_WPEN (0x1u << 0) /**< \brief (AFEC_WPMR) Write Protection Enable */
 #define AFEC_WPMR_WPKEY_Pos 8
 #define AFEC_WPMR_WPKEY_Msk (0xffffffu << AFEC_WPMR_WPKEY_Pos) /**< \brief (AFEC_WPMR) Write Protect KEY */
-#define   AFEC_WPMR_WPKEY_ADC (0x414443u << 8) /**< \brief (AFEC_WPMR) Should be written at value 0x414443 ("ADC" in ASCII). Writing any other value in this field aborts the write operation of the WPEN bit. Always reads as 0. */
-/* -------- AFEC_WPSR : (AFEC Offset: 0xE8) Write Protect Status Register -------- */
+#define   AFEC_WPMR_WPKEY_PASSWD (0x414443u << 8) /**< \brief (AFEC_WPMR) Writing any other value in this field aborts the write operation of the WPEN bit. Always reads as 0. */
+/* -------- AFEC_WPSR : (AFEC Offset: 0xE8) AFEC Write Protection Status Register -------- */
 #define AFEC_WPSR_WPVS (0x1u << 0) /**< \brief (AFEC_WPSR) Write Protect Violation Status */
 #define AFEC_WPSR_WPVSRC_Pos 8
 #define AFEC_WPSR_WPVSRC_Msk (0xffffu << AFEC_WPSR_WPVSRC_Pos) /**< \brief (AFEC_WPSR) Write Protect Violation Source */

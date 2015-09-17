@@ -3,7 +3,7 @@
  *
  * \brief Ethernet Phy management
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -66,6 +66,9 @@
  *   - ethernet_phy_reset()
  *
  * @{
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 //! @}

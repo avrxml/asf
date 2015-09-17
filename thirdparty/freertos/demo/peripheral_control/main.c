@@ -5,7 +5,7 @@
  * \brief Example that demonstrates FreeRTOS peripheral control functions
  * and FreeRTOS+CLI
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -331,13 +331,6 @@
  * EEPROM/flash examples will use the blocking FreeRTOS API. */
 #define mainDEMONSTRATE_ASYNCHRONOUS_API        (0)
 
-/* Ensure the echo tasks and the CLI tasks do not both attempt to access the
- * USART simultaneously. */
-#if ((defined confINCLUDE_USART_ECHO_TASKS) && (defined confINCLUDE_USART_CLI))
-	#error Only one task can access the USART can be included in the demo.
-#endif /* (defined confINCLUDE_USART_ECHO_TASKS) &&
-		(defined confINCLUDE_USART_CLI) */
-
 /*-----------------------------------------------------------*/
 
 /*
@@ -403,7 +396,7 @@ int main(void)
 
 	#if (defined confINCLUDE_USART_CLI)
 	{
-		create_usart_cli_task(BOARD_USART,
+		create_usart_cli_task(BOARD_USART_CLI,
 				mainUSART_CLI_TASK_STACK_SIZE,
 				mainUSART_CLI_TASK_PRIORITY);
 	}

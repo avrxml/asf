@@ -3,7 +3,7 @@
  *
  * \brief USB Device Driver for UDP. Compliant with common UDD driver.
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef UDP_DEVICE_H_INCLUDED
@@ -369,7 +372,7 @@ __always_inline static void io_pin_init(uint32_t pin, uint32_t flags,
   //! enables the selected endpoint
 #define  udd_enable_endpoint(ep)                   udp_set_csr(ep, UDP_CSR_EPEDS)
   //! disables the selected endpoint
-#define  udd_disable_endpoint(ep)                  (Clr_bits(UDP->UDP_CSR[ep], UDP_CSR_EPEDS))
+#define  udd_disable_endpoint(ep)                  udp_clear_csr(ep, UDP_CSR_EPEDS)
   //! tests if the selected endpoint is enabled
 #define  Is_udd_endpoint_enabled(ep)               (Tst_bits(UDP->UDP_CSR[ep], UDP_CSR_EPEDS))
   //! resets the selected endpoint
@@ -498,9 +501,9 @@ __always_inline static void io_pin_init(uint32_t pin, uint32_t flags,
 #define  udd_kill_data_in_fifo(ep, dual_bank)                                 \
 	do {                                                                  \
 		if ((dual_bank)) {                                            \
-			Clr_bits(UDP->UDP_CSR[ep], UDP_CSR_TXPKTRDY);         \
+			udp_clear_csr(ep, UDP_CSR_TXPKTRDY);         \
 			while ( Tst_bits(UDP->UDP_CSR[ep], UDP_CSR_TXPKTRDY));\
-			Set_bits(UDP->UDP_CSR[ep], UDP_CSR_TXPKTRDY);         \
+			udp_set_csr(ep, UDP_CSR_TXPKTRDY);         \
 			while (!Tst_bits(UDP->UDP_CSR[ep], UDP_CSR_TXPKTRDY));\
 		}                                                             \
 		udp_clear_csr(ep, UDP_CSR_TXPKTRDY);                          \

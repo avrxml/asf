@@ -3,7 +3,7 @@
  *
  * \brief USB Device Controller (UDC)
  *
- * Copyright (c) 2009 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "conf_usb.h"
 #include "usb_protocol.h"
@@ -62,7 +65,12 @@
 //! Device status state (see enum usb_device_status in usb_protocol.h)
 static le16_t udc_device_status;
 
+COMPILER_WORD_ALIGNED
+//! Device interface setting value
+static uint8_t udc_iface_setting = 0;
+
 //! Device Configuration number selected by the USB host
+COMPILER_WORD_ALIGNED
 static uint8_t udc_num_configuration = 0;
 
 //! Pointer on the selected speed device configuration
@@ -859,7 +867,6 @@ static bool udc_req_std_dev_set_configuration(void)
  */
 static bool udc_req_std_iface_get_setting(void)
 {
-	static uint8_t udc_iface_setting;
 	uint8_t iface_num;
 	udi_api_t UDC_DESC_STORAGE *udi_api;
 

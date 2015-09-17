@@ -3,7 +3,7 @@
  *
  * \brief SAM DAC Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 
 void configure_dac(void);
@@ -62,10 +65,6 @@ void configure_dac(void)
 //! [setup_set_config]
 	dac_init(&dac_instance, DAC, &config_dac);
 //! [setup_set_config]
-
-//! [setup_enable]
-	dac_enable(&dac_instance);
-//! [setup_enable]
 }
 
 void configure_dac_channel(void)
@@ -95,6 +94,10 @@ int main(void)
 	configure_dac();
 	configure_dac_channel();
 //! [setup_init]
+
+//! [setup_enable]
+	dac_enable(&dac_instance);
+//! [setup_enable]
 
 //! [main]
 //! [main_output_var]

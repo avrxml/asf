@@ -3,7 +3,7 @@
  *
  * @brief
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -321,7 +321,6 @@ uint8_t tfa_ed_sample(void)
 			= (uint8_t)(((uint16_t)ed_value *
 				0xFF) / CLIP_VALUE_REG);
 	}
-
 #endif
 
 	return ed_value;
@@ -384,12 +383,13 @@ uint16_t tfa_get_batmon_voltage(void)
 	}
 
 	/* Scan through the current range for the matching threshold. */
-	if (mv == 1) { /* 1 = indicates that voltage is within supported range */
+	if (mv == 1) { /* 1 = indicates that voltage is within supported range
+		        **/
 		vth_val = 0x0F;
 		for (uint8_t i = 0; i < 16; i++) {
 			trx_bit_write(SR_BATMON_VTH, vth_val);
 			pal_timer_delay(2); /* Wait until Batmon has been
-			                     *settled. */
+			                     * settled. */
 			if (trx_bit_read(SR_BATMON_OK) == BATMON_VALID) {
 				break;
 			}

@@ -3,7 +3,7 @@
  *
  * \brief SAM AC - Analog Comparator Callback Driver
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef AC_CALLBACK_H_INCLUDED
 #define AC_CALLBACK_H_INCLUDED
@@ -53,12 +56,10 @@ extern "C" {
 #endif
 
 #if (AC_INST_NUM > 1) && !defined(__DOXYGEN__)
-#  define _AC_INTERRUPT_VECT_NUM(n, unused) \
-		  SYSTEM_INTERRUPT_MODULE_AC##n,
 /**
  * \internal Get the interrupt vector for the given device instance
  *
- * \param[in] TC module instance number.
+ * \param[in] TC module instance number
  *
  * \return Interrupt vector for of the given TC module instance.
  */
@@ -67,7 +68,13 @@ static enum system_interrupt_vector _ac_interrupt_get_interrupt_vector(
 {
 	static uint8_t ac_interrupt_vectors[AC_INST_NUM] =
 		{
-			MREPEAT(AC_INST_NUM, _AC_INTERRUPT_VECT_NUM, ~)
+			SYSTEM_INTERRUPT_MODULE_AC,
+#if (AC_INST_NUM == 2)
+			SYSTEM_INTERRUPT_MODULE_AC1,
+#endif
+#if (AC_INST_NUM >= 3)
+#  error This driver is not support more than three AC instances.
+#endif
 		};
 
 	return ac_interrupt_vectors[inst_num];
@@ -89,7 +96,7 @@ enum status_code ac_unregister_callback(
 		const enum ac_callback callback_type);
 
 /**
- * \brief Enables callback
+ * \brief Enables callback.
  *
  * Enables the callback function registered by the \ref
  * ac_register_callback. The callback function will be called from the
@@ -129,9 +136,11 @@ static inline void ac_enable_callback(
 		case AC_CALLBACK_COMPARATOR_3:
 			inenset_temp |= AC_INTFLAG_COMP3;
 			break;
+#  if !(SAMC20)
 		case AC_CALLBACK_WINDOW_1:
 			inenset_temp |= AC_INTFLAG_WIN1;
 			break;
+#  endif
 #endif
 		default:
 			break;
@@ -149,7 +158,7 @@ static inline void ac_enable_callback(
 }
 
 /**
- * \brief Disables callback
+ * \brief Disables callback.
  *
  * Disables the callback function registered by the \ref
  * ac_register_callback, and the callback will not be called from the
@@ -189,9 +198,11 @@ static inline void ac_disable_callback(
 		case AC_CALLBACK_COMPARATOR_3:
 			inenclr_temp |= AC_INTFLAG_COMP3;
 			break;
+#  if !(SAMC20)
 		case AC_CALLBACK_WINDOW_1:
 			inenclr_temp |= AC_INTFLAG_WIN1;
 			break;
+#  endif
 #endif
 		default:
 			break;

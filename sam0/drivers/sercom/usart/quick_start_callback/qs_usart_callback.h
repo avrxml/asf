@@ -3,7 +3,7 @@
  *
  * \brief SAM USART Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,7 +49,7 @@
  * the USART will be configured with the following settings:
  * - Asynchronous mode
  * - 9600 Baudrate
- * - 8-bits, No Parity and 1 Stop Bit
+ * - 8-bits, No Parity and one Stop Bit
  * - TX and RX enabled and connected to the Xplained Pro Embedded Debugger virtual COM port
  *
  * \section asfdoc_sam0_sercom_usart_callback_use_case_setup Setup
@@ -88,7 +88,7 @@
  *           struct to ensure that all values are initialized to known default
  *           settings.
  *
- *  -# Alter the USART settings to configure the physical pinout, baud rate and
+ *  -# Alter the USART settings to configure the physical pinout, baudrate, and
  *     other relevant parameters.
  *     \snippet qs_usart_callback.c setup_change_config
  *  -# Configure the USART module with the desired settings, retrying while the
@@ -120,6 +120,9 @@
  * -# Perform an asynchronous read of the USART, which will fire the registered
  *    callback when characters are received.
  *    \snippet qs_usart_callback.c main_read
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>

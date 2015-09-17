@@ -28,22 +28,25 @@
  * Include header files for all drivers that have been imported from
  * Atmel Software Framework (ASF).
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 
 int main (void)
 {
 	board_init();
 
-	// Insert application code here, after the board has been initialized.
+	/* Insert application code here, after the board has been initialized. */
 
-	// This skeleton code simply sets the LED to the state of the button.
+	/* This skeleton code simply sets the LED to the state of the button. */
 	while (1) {
-		// Is button pressed?
+		/* Is button pressed? */
 		if (ioport_get_pin_level(BUTTON_0_PIN) == BUTTON_0_ACTIVE) {
-			// Yes, so turn LED on.
+			/* Yes, so turn LED on. */
 			ioport_set_pin_level(LED_0_PIN, LED_0_ACTIVE);
 		} else {
-			// No, so turn LED off.
+			/* No, so turn LED off. */
 			ioport_set_pin_level(LED_0_PIN, !LED_0_ACTIVE);
 		}
 	}

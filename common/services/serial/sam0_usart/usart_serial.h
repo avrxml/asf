@@ -3,7 +3,7 @@
  *
  * \brief USART Serial wrapper service for the SAM D20 devices.
  *
- * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,11 +40,14 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef _USART_SERIAL_H_
 #define _USART_SERIAL_H_
 
 #include "compiler.h"
-#if !(SAMD20 || SAMD21 || SAMR21 || SAMD10 || SAMD11)
+#if !(SAM0)
 # include "sysclk.h"
 #endif
 #include "status_codes.h"

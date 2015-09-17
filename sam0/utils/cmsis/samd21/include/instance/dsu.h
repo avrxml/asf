@@ -3,7 +3,7 @@
  *
  * \brief Instance description for DSU
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAMD21_DSU_INSTANCE_
@@ -94,6 +97,6 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for DSU peripheral ========== */
-#define DSU_CLK_HSB_ID              3
+#define DSU_CLK_HSB_ID              3        // Index of AHB clock in PM.AHBMASK register
 
 #endif /* _SAMD21_DSU_INSTANCE_ */

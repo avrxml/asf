@@ -3,7 +3,7 @@
  *
  * \brief SAM Timer/Counter Driver for Control Applications DMA Quickstart
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,6 +37,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -206,6 +209,7 @@ static void configure_tcc(void)
 	//! [setup_config_defaults]
 
 	//! [setup_change_config]
+	config_tcc.counter.clock_prescaler = TCC_CLOCK_PRESCALER_DIV1024;
 	config_tcc.counter.period = 0x1000;
 	config_tcc.compare.channel_function[CONF_TCC_CAPTURE_CHANNEL] =
 			TCC_CHANNEL_FUNCTION_CAPTURE;

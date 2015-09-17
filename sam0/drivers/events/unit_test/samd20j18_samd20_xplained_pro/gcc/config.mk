@@ -55,11 +55,11 @@ CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        common/utils/unit_test/suite.c                     \
        sam0/boards/samd20_xplained_pro/board_init.c       \
-       sam0/drivers/events/events.c                       \
        sam0/drivers/events/events_hooks.c                 \
+       sam0/drivers/events/events_sam_d_r/events.c        \
        sam0/drivers/events/unit_test/unit_test.c          \
        sam0/drivers/port/port.c                           \
-       sam0/drivers/rtc/rtc_count.c                       \
+       sam0/drivers/rtc/rtc_sam_d_r/rtc_count.c           \
        sam0/drivers/sercom/sercom.c                       \
        sam0/drivers/sercom/sercom_interrupt.c             \
        sam0/drivers/sercom/usart/usart.c                  \
@@ -69,7 +69,7 @@ CSRCS = \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
-       sam0/drivers/tc/tc.c                               \
+       sam0/drivers/tc/tc_sam_d_r/tc.c                    \
        sam0/utils/cmsis/samd20/source/gcc/startup_samd20.c \
        sam0/utils/cmsis/samd20/source/system_samd20.c     \
        sam0/utils/stdio/read.c                            \
@@ -87,10 +87,12 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samd20_xplained_pro                    \
        sam0/drivers/events                                \
+       sam0/drivers/events/events_sam_d_r                 \
        sam0/drivers/events/unit_test                      \
        sam0/drivers/events/unit_test/samd20j18_samd20_xplained_pro \
        sam0/drivers/port                                  \
        sam0/drivers/rtc                                   \
+       sam0/drivers/rtc/rtc_sam_d_r                       \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/usart                          \
        sam0/drivers/system                                \
@@ -99,7 +101,12 @@ INC_PATH = \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samd20 \
        sam0/drivers/system/pinmux                         \
+       sam0/drivers/system/power                          \
+       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/reset                          \
+       sam0/drivers/system/reset/reset_sam_d_r            \
        sam0/drivers/tc                                    \
+       sam0/drivers/tc/tc_sam_d_r                         \
        sam0/utils                                         \
        sam0/utils/cmsis/samd20/include                    \
        sam0/utils/cmsis/samd20/source                     \
@@ -156,7 +163,7 @@ CFLAGS =
 #   BOARD      Target board in use, see boards/board.h for a list.
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
-       -D ARM_MATH_CM0=true                               \
+       -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMD20_XPLAINED_PRO                       \
        -D EVENTS_INTERRUPT_HOOKS_MODE=true                \
        -D RTC_COUNT_ASYNC=false                           \

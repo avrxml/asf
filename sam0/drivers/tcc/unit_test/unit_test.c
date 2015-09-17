@@ -3,7 +3,7 @@
  *
  * \brief SAM TCC Unit test
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,14 +71,18 @@
  * \copydetails appdoc_preface
  *
  * The following kit is required for carrying out the test:
- *  - SAM D21/R21 Xplained Pro board
+ *  - SAM D21/R21/L21/DA1/C21 Xplained Pro board
  *
  * \section appdoc_sam0_tcc_unit_test_setup Setup
  * The following connections has to be made using wires:
- * - SAM D21 Xplained Pro:
+ * - SAM D21/DA1 Xplained Pro:
  *  - \b EXTINT 4 (PB04, EXT1 pin 9 ) <-----> TCC0 WO0 (PA08, EXT2 pin 11)
  * - SAM R21 Xplained Pro:
- *  - \b EXTINT 7 (PA22, EXT1 pin 9 ) <-----> TCC0 WO0 (PA08, EXT3 pin 10)
+ *  - \b EXTINT 6 (PA06, EXT1 pin 3 ) <-----> TCC0 WO0 (PA08, EXT3 pin 10)
+ * - SAM L21 Xplained Pro:
+ *  - \b EXTINT 4 (PB04, EXT1 pin 9 ) <-----> TCC0 WO0 (PB30, EXT3 pin 5)
+ * - SAM C21 Xplained Pro:
+ *  - \b EXTINT 4 (PA20, EXT1 pin 5 ) <-----> TCC0 WO0 (PA08, EXT2 pin 3)
  *
  * To run the test:
  *  - Connect the SAM Xplained Pro board to the computer using a
@@ -104,11 +108,15 @@
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include <stdio_serial.h>
 #include <string.h>
 #include "conf_test.h"
+#include "conf_clocks.h"
 
 /* Structure for UART module connected to EDBG (used for unit test output) */
 static struct usart_module cdc_uart_module;
@@ -362,7 +370,7 @@ static void run_capture_and_compare_test(const struct test_case *test)
 
 	/* Calculate the theoretical PWM frequency & duty */
 	uint32_t frequency_output, duty_output;
-	frequency_output = system_clock_source_get_hz(SYSTEM_CLOCK_SOURCE_OSC8M) / (0x03FF+1);
+	frequency_output = system_clock_source_get_hz(CONF_CLOCK_GCLK_0_CLOCK_SOURCE) / (0x03FF+1);
 
 	/* This value is depend on the WaveGeneration Mode */
 	duty_output = (uint32_t)(tcc_test0_config.compare.match[TCC_MATCH_CAPTURE_CHANNEL_0] * 100) /
@@ -399,7 +407,9 @@ static void run_capture_and_compare_test(const struct test_case *test)
 	extint_chan_config.gpio_pin            = CONF_EIC_PIN;
 	extint_chan_config.gpio_pin_mux        = CONF_EIC_MUX;
 	extint_chan_config.gpio_pin_pull       = EXTINT_PULL_UP;
+#if (!SAML21 && !SAMC21)
 	extint_chan_config.wake_if_sleeping    = false;
+#endif
 	extint_chan_config.filter_input_signal = false;
 	extint_chan_config.detection_criteria  = EXTINT_DETECT_HIGH;
 	extint_chan_set_config(CONF_EIC_CHAN, &extint_chan_config);
@@ -441,7 +451,7 @@ static void run_capture_and_compare_test(const struct test_case *test)
 
 	if(period_after_capture != 0) {
 		capture_frequency =
-				system_clock_source_get_hz(SYSTEM_CLOCK_SOURCE_OSC8M) /
+				system_clock_source_get_hz(CONF_CLOCK_GCLK_0_CLOCK_SOURCE) /
 				period_after_capture;
 		capture_duty = (uint32_t)(pulse_width_after_capture) * 100 /
 				period_after_capture;

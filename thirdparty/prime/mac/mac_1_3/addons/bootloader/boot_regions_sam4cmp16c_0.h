@@ -3,7 +3,7 @@
  *
  * \brief Bootloader configuration for SAM4CMP16C_0.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

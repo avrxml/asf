@@ -3,7 +3,7 @@
  *
  * \brief Embedded Flash service for SAM.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <string.h>
 #include <assert.h>
@@ -62,7 +65,8 @@ extern "C" {
  * @{
  */
 
-#if (SAM4E || SAM4N || SAM4S || SAM4C || SAMG || SAM4CP || SAM4CM)
+#if (SAM4E || SAM4N || SAM4S || SAM4C || SAMG || SAM4CP || SAM4CM || \
+	 SAMV71 || SAMV70 || SAMS70 || SAME70)
 /* User signature size */
 # define FLASH_USER_SIG_SIZE   (512)
 #endif
@@ -357,7 +361,8 @@ uint32_t flash_set_wait_state_adaptively(uint32_t ul_address)
 	} else {
 		efc_set_wait_state(p_efc, 4);
 	}
-#elif (SAM4S || SAM4E || SAM4N || SAM4C || SAM4CP || SAM4CM)
+#elif (SAM4S || SAM4E || SAM4N || SAM4C || SAM4CP || SAM4CM || \
+	 SAMV71 || SAMV70 || SAMS70 || SAME70)
 	} else if (clock < CHIP_FREQ_FWS_3) {
 		efc_set_wait_state(p_efc, 3);
 	} else if (clock < CHIP_FREQ_FWS_4) {
@@ -520,7 +525,8 @@ uint32_t flash_erase_plane(uint32_t ul_address)
 }
 #endif
 
-#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM || \
+	 SAMV71 || SAMV70 || SAMS70 || SAME70)
 /**
  * \brief Erase the specified pages of flash.
  *
@@ -609,9 +615,13 @@ uint32_t flash_write(uint32_t ul_address, const void *p_buffer,
 
 	translate_address(&p_efc, ul_address, &us_page, &us_offset);
 
+#if SAM3S || SAM3N || SAM3XA || SAM3U
 	/* According to the errata, set the wait state value to 6. */
 	ul_fws_temp = efc_get_wait_state(p_efc);
 	efc_set_wait_state(p_efc, 6);
+#else
+	UNUSED(ul_fws_temp);
+#endif
 
 	/* Write all pages */
 	while (ul_size > 0) {
@@ -661,8 +671,10 @@ uint32_t flash_write(uint32_t ul_address, const void *p_buffer,
 		us_offset = 0;
 	}
 
+#if SAM3S || SAM3N || SAM3XA || SAM3U
 	/* According to the errata, restore the wait state value. */
 	efc_set_wait_state(p_efc, ul_fws_temp);
+#endif
 
 	return FLASH_RC_OK;
 }
@@ -971,7 +983,8 @@ uint32_t flash_read_unique_id(uint32_t *pul_data, uint32_t ul_size)
 	return FLASH_RC_OK;
 }
 
-#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM || \
+	 SAMV71 || SAMV70 || SAMS70 || SAME70)
 /**
  * \brief Read the flash user signature.
  *

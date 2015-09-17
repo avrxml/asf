@@ -1988,9 +1988,6 @@
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4l/dfll.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4l/pll.h</name>
-					</file>
-					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4l/dfll.h</name>
 					</file>
 					<file>
@@ -2001,6 +1998,9 @@
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4l/osc.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../common/services/clock/sam4l/pll.h</name>
 					</file>
 				</group>
 				<file>
@@ -2159,18 +2159,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../tc/tc.c</name>
 				</file>
-				<group>
-					<name>tc_capture_waveform_example</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
-					</file>
-					<group>
-						<name>sam4e16e_sam4e_ek</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
-						</file>
-					</group>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../tc/tc.h</name>
 				</file>
@@ -2262,6 +2250,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_bscif.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_twim0.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_scif.h</name>
 							</file>
 							<file>
@@ -2307,13 +2298,10 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_twis1.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_parc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_iisc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_bpm.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_parc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_usart2.h</name>
@@ -2334,7 +2322,7 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_ast.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_twim0.h</name>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_bpm.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/instance/instance_pdca.h</name>
@@ -2518,6 +2506,9 @@
 							</file>
 						</group>
 						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/sam4lc8c.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/sam4lc2b.h</name>
 						</file>
 						<file>
@@ -2546,9 +2537,6 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/sam4ls4a.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/sam4lc8c.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include/sam4ls8c.h</name>

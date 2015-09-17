@@ -1,0 +1,9 @@
+<h1>Addresses</h1>
+%! addresses
+<h1>Neighbors</h1>
+%! neighbors
+<h1>Routes</h1>
+<table class="t t-b t-s">
+<thead><tr><th>Route</th><th>Next-hop</th></tr></thead>
+%! routes
+</table>

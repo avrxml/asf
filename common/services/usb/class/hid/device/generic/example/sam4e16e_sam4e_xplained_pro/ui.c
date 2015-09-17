@@ -3,7 +3,7 @@
  *
  * \brief User Interface
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -78,11 +81,14 @@ void ui_process(uint16_t framenumber)
 	static bool btn0_last_state = false;
 	static uint8_t cpt_sof = 0;
 
-	if ((framenumber % 1000) == 0) {
-		LED_On(LED0);
-	}
-	if ((framenumber % 1000) == 500) {
-		LED_Off(LED0);
+	// Blink LED
+	if(ui_b_led_blink) {
+		if ((framenumber % 1000) == 0) {
+			LED_On(LED0);
+		}
+		if ((framenumber % 1000) == 500) {
+			LED_Off(LED0);
+		}
 	}
 	/* Scan process running each 40ms */
 	cpt_sof++;

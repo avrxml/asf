@@ -3,7 +3,7 @@
  *
  * \brief PWM service for XMEGA.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -120,6 +120,9 @@ void pwm_init(struct pwm_config *config, enum pwm_tc_t tc,
 	UNUSED(num_chan);
 
 	/* Set TC and correct I/O pin to output */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 	switch (tc) {
 #if defined(TCC0)
 	case PWM_TCC0:

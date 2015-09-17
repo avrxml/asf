@@ -3,7 +3,7 @@
  *
  * \brief Example application for the RF4CE and QMatrix integration for ATMega128RFA1 on AVR477 board.
  *
- * Copyright (C) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \page License
  *
@@ -63,9 +63,8 @@
  * \section contactinfo Contact Information
  * For further information, visit
  * <A href="http://www.atmel.com/avr">Atmel AVR</A>.\n
- * Support and FAQ: http://support.atmel.no/
+ * Support and FAQ: http://www.atmel.com/design-support/
  */
-
 /**
  * \page Rem AVR477 Remote
  

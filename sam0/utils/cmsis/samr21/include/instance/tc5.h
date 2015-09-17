@@ -3,7 +3,7 @@
  *
  * \brief Instance description for TC5
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -92,20 +92,20 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for TC5 peripheral ========== */
-#define TC5_CC8_NUM                 2
-#define TC5_CC16_NUM                2
-#define TC5_CC32_NUM                2
-#define TC5_DITHERING_EXT           0
+#define TC5_CC8_NUM                 2        // Number of 8-bit Counters
+#define TC5_CC16_NUM                2        // Number of 16-bit Counters
+#define TC5_CC32_NUM                2        // Number of 32-bit Counters
+#define TC5_DITHERING_EXT           0        // Dithering feature implemented
 #define TC5_DMAC_ID_MC_0            31
 #define TC5_DMAC_ID_MC_1            32
 #define TC5_DMAC_ID_MC_LSB          31
 #define TC5_DMAC_ID_MC_MSB          32
 #define TC5_DMAC_ID_MC_SIZE         2
-#define TC5_DMAC_ID_OVF             30
-#define TC5_GCLK_ID                 28
-#define TC5_MASTER                  0
-#define TC5_OW_NUM                  2
-#define TC5_PERIOD_EXT              0
-#define TC5_SHADOW_EXT              0
+#define TC5_DMAC_ID_OVF             30       // Indexes of DMA Overflow trigger
+#define TC5_GCLK_ID                 28       // Index of Generic Clock
+#define TC5_MASTER                  0       
+#define TC5_OW_NUM                  2        // Number of Output Waveforms
+#define TC5_PERIOD_EXT              0        // Period feature implemented
+#define TC5_SHADOW_EXT              0        // Shadow feature implemented
 
 #endif /* _SAMR21_TC5_INSTANCE_ */

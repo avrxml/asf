@@ -67,6 +67,7 @@ CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        sam/boards/sam3s_ek/init.c                         \
        sam/boards/sam3s_ek/led.c                          \
+       sam/drivers/matrix/matrix.c                        \
        sam/drivers/pio/pio.c                              \
        sam/drivers/pio/pio_handler.c                      \
        sam/drivers/pmc/pmc.c                              \
@@ -102,6 +103,7 @@ INC_PATH = \
        common/utils                                       \
        sam/boards                                         \
        sam/boards/sam3s_ek                                \
+       sam/drivers/matrix                                 \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
        sam/drivers/udp                                    \

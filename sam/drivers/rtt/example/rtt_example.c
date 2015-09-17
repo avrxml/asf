@@ -3,7 +3,7 @@
  *
  * \brief Real-time Timer (RTT) example for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -82,6 +82,9 @@
 	Choice?
 \endcode
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "asf.h"
 #include "stdio_serial.h"
@@ -158,7 +161,7 @@ static void configure_rtt(void)
 	uint32_t ul_previous_time;
 
 	/* Configure RTT for a 1 second tick interrupt */
-#if SAM4N || SAM4S || SAM4E || SAM4C || SAM4CP || SAM4CM
+#if SAM4N || SAM4S || SAM4E || SAM4C || SAM4CP || SAM4CM || SAMV71 || SAMV70 || SAME70 || SAMS70
 	rtt_sel_source(RTT, false);
 #endif
 	rtt_init(RTT, 32768);
@@ -181,7 +184,13 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	/* Configure console UART. */
@@ -246,7 +255,7 @@ int main(void)
 	/* User input loop */
 	while (1) {
 		/* Wait for user input */
-		while (uart_read(CONSOLE_UART, &c));
+		scanf("%c", (char *)&c);
 
 		/* Main menu mode */
 		if (g_uc_state == STATE_MAIN_MENU) {
@@ -270,7 +279,7 @@ int main(void)
 				g_ul_new_alarm = g_ul_new_alarm * 10 + c - '0';
 				refresh_display();
 			} else if (c == ASCII_BS) {
-				uart_write(CONSOLE_UART, c);
+				printf("%c", c);
 				g_ul_new_alarm /= 10;
 				refresh_display();
 			} else if (c == ASCII_CR) {

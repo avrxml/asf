@@ -61,8 +61,8 @@ CSRCS = \
        sam/utils/cmsis/sam4e/source/templates/gcc/startup_sam4e.c \
        sam/utils/cmsis/sam4e/source/templates/system_sam4e.c \
        sam/utils/syscalls/gcc/syscalls.c                  \
-       thirdparty/CMSIS/DSP_Lib/Examples/Common/Source/math_helper.c \
-       thirdparty/CMSIS/DSP_Lib/Examples/arm_convolution_example/arm_convolution_example_f32.c
+       thirdparty/CMSIS/DSP_Lib/Examples/arm_convolution_example/arm_convolution_example_f32.c \
+       thirdparty/CMSIS/DSP_Lib/Examples/arm_convolution_example/math_helper.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -82,7 +82,6 @@ INC_PATH = \
        sam/utils/fpu                                      \
        sam/utils/header_files                             \
        sam/utils/preprocessor                             \
-       thirdparty/CMSIS/DSP_Lib/Examples/Common/Include   \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_convolution_example \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_convolution_example/sam4e16e_sam4e_ek \
        thirdparty/CMSIS/Include                           \
@@ -95,7 +94,7 @@ LIB_PATH =  \
 
 # List of libraries to use during linking.
 LIBS =  \
-       arm_cortexM4lf_math                                \
+       arm_cortexM4lf_math_softfp                         \
        m                                                 
 
 # Path relative to top level directory pointing to a linker script.

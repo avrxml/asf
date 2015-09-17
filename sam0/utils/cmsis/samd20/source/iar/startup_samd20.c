@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,23 +38,20 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "samd20.h"
+
+typedef void (*intfunc) (void);
+typedef union { intfunc __fun; void * __ptr; } intvec_elem;
 
 void __iar_program_start(void);
 int __low_level_init(void);
 
 void Dummy_Handler(void);
 void Reset_Handler(void);
-
-/**
- * \brief Default interrupt handler for unused IRQs.
- */
-void Dummy_Handler(void)
-{
-        while (1) {
-        }
-}
 
 /* Cortex-M0+ core handlers */
 void NMI_Handler              ( void );
@@ -109,30 +106,46 @@ void PTC_Handler              ( void );
 #pragma weak SERCOM1_Handler          = Dummy_Handler
 #pragma weak SERCOM2_Handler          = Dummy_Handler
 #pragma weak SERCOM3_Handler          = Dummy_Handler
+#ifdef       ID_SERCOM4
 #pragma weak SERCOM4_Handler          = Dummy_Handler
+#endif
+#ifdef       ID_SERCOM5
 #pragma weak SERCOM5_Handler          = Dummy_Handler
+#endif
 #pragma weak TC0_Handler              = Dummy_Handler
 #pragma weak TC1_Handler              = Dummy_Handler
 #pragma weak TC2_Handler              = Dummy_Handler
 #pragma weak TC3_Handler              = Dummy_Handler
 #pragma weak TC4_Handler              = Dummy_Handler
 #pragma weak TC5_Handler              = Dummy_Handler
+#ifdef       ID_TC6
 #pragma weak TC6_Handler              = Dummy_Handler
+#endif
+#ifdef       ID_TC7
 #pragma weak TC7_Handler              = Dummy_Handler
+#endif
+#ifdef       ID_ADC
 #pragma weak ADC_Handler              = Dummy_Handler
+#endif
+#ifdef       ID_AC
 #pragma weak AC_Handler               = Dummy_Handler
+#endif
+#ifdef       ID_DAC
 #pragma weak DAC_Handler              = Dummy_Handler
+#endif
+#ifdef       ID_PTC
 #pragma weak PTC_Handler              = Dummy_Handler
+#endif
 
 /* Exception Table */
-#pragma language=extended
-#pragma segment="CSTACK"
+#pragma language = extended
+#pragma segment  = "CSTACK"
 
 /* The name "__vector_table" has special meaning for C-SPY: */
 /* it is where the SP start value is found, and the NVIC vector */
 /* table register (VTOR) is initialized to this address if != 0 */
 
-#pragma section = ".intvec"
+#pragma section  = ".intvec"
 #pragma location = ".intvec"
 const DeviceVectors __vector_table[] = {
         __sfe("CSTACK"),
@@ -164,20 +177,52 @@ const DeviceVectors __vector_table[] = {
         (void*) SERCOM1_Handler,        /*  8 Serial Communication Interface 1 */
         (void*) SERCOM2_Handler,        /*  9 Serial Communication Interface 2 */
         (void*) SERCOM3_Handler,        /* 10 Serial Communication Interface 3 */
+#ifdef ID_SERCOM4
         (void*) SERCOM4_Handler,        /* 11 Serial Communication Interface 4 */
+#else
+        (void*) (0UL), /* Reserved*/
+#endif
+#ifdef ID_SERCOM5
         (void*) SERCOM5_Handler,        /* 12 Serial Communication Interface 5 */
+#else
+        (void*) (0UL), /* Reserved*/
+#endif
         (void*) TC0_Handler,            /* 13 Basic Timer Counter 0 */
         (void*) TC1_Handler,            /* 14 Basic Timer Counter 1 */
         (void*) TC2_Handler,            /* 15 Basic Timer Counter 2 */
         (void*) TC3_Handler,            /* 16 Basic Timer Counter 3 */
         (void*) TC4_Handler,            /* 17 Basic Timer Counter 4 */
         (void*) TC5_Handler,            /* 18 Basic Timer Counter 5 */
+#ifdef ID_TC6
         (void*) TC6_Handler,            /* 19 Basic Timer Counter 6 */
+#else
+        (void*) (0UL), /* Reserved*/
+#endif
+#ifdef ID_TC7
         (void*) TC7_Handler,            /* 20 Basic Timer Counter 7 */
+#else
+        (void*) (0UL), /* Reserved*/
+#endif
+#ifdef ID_ADC
         (void*) ADC_Handler,            /* 21 Analog Digital Converter */
+#else
+        (void*) (0UL), /* Reserved*/
+#endif
+#ifdef ID_AC
         (void*) AC_Handler,             /* 22 Analog Comparators */
+#else
+        (void*) (0UL), /* Reserved*/
+#endif
+#ifdef ID_DAC
         (void*) DAC_Handler,            /* 23 Digital Analog Converter */
+#else
+        (void*) (0UL), /* Reserved*/
+#endif
+#ifdef ID_PTC
         (void*) PTC_Handler             /* 24 Peripheral Touch Controller */
+#else
+        (void*) (0UL)  /* Reserved*/
+#endif
 };
 
 /**------------------------------------------------------------------------------
@@ -199,5 +244,17 @@ int __low_level_init(void)
  *------------------------------------------------------------------------------*/
 void Reset_Handler(void)
 {
+        /* Overwriting the default value of the NVMCTRL.CTRLB.MANW bit (errata reference 13134) */
+        NVMCTRL->CTRLB.bit.MANW = 1;
+
         __iar_program_start();
+}
+
+/**
+ * \brief Default interrupt handler for unused IRQs.
+ */
+void Dummy_Handler(void)
+{
+        while (1) {
+        }
 }

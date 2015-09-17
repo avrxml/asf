@@ -3,7 +3,7 @@
  *
  * \brief PMC Clock Failure Detection Example
  *
- * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -67,6 +67,9 @@
  *  When the external oscillator is activated, the XIN pin is automatically set
  *  in XIN mode, and no more in PIO mode.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>

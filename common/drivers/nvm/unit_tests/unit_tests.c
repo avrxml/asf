@@ -3,7 +3,7 @@
  *
  * \brief Common NVM driver Unit Test.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,6 +71,9 @@
  * \section contactinfo Contact Information
  * For further information, visit
  * <A href="http://www.atmel.com/">Atmel</A>.\n
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <stdint.h>
@@ -167,7 +170,9 @@ static void run_byte_access_test(const struct test_case *test)
 {
 	status_code_t status;
 	uint8_t read_data[4], i;
-
+#if SAM4S
+	nvm_page_erase(INT_FLASH, TEST_ADDRESS / IFLASH_PAGE_SIZE);
+#endif
 	/* Write four bytes one by one from the given address */
 	for (i = 0; i < 4; i++) {
 		status = nvm_write_char(INT_FLASH, (uint32_t)TEST_ADDRESS + i, BYTE_PATTERN1(
@@ -206,6 +211,9 @@ static void run_buffer_access_test(const struct test_case *test)
 	for (i = 0; i < 20; i++) {
 		test_buf[i] = BYTE_PATTERN2(i);
 	}
+#if SAM4S
+	nvm_page_erase(INT_FLASH, TEST_ADDRESS / IFLASH_PAGE_SIZE);
+#endif
 
 	/* Write the buffer to the non volatile memory */
 	status = nvm_write(INT_FLASH, (uint32_t)TEST_ADDRESS, (void *)test_buf,

@@ -295,7 +295,6 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
@@ -309,7 +308,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -560,7 +559,6 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
@@ -574,7 +572,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1216,7 +1214,6 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
@@ -1230,7 +1227,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1481,7 +1478,6 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/atpl230amb</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
@@ -1495,7 +1491,7 @@
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1851,27 +1847,15 @@
 				<group>
 					<name>Examples</name>
 					<group>
-						<name>Common</name>
-						<group>
-							<name>Source</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Source/math_helper.c</name>
-							</file>
-						</group>
-						<group>
-							<name>Include</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Include/math_helper.h</name>
-							</file>
-						</group>
-					</group>
-					<group>
 						<name>arm_signal_converge_example</name>
 						<file>
 							<name>$PROJ_DIR$/../../arm_signal_converge_data.c</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../arm_signal_converge_example_f32.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.c</name>
 						</file>
 						<group>
 							<name>sam4sd32c_atpl230amb</name>
@@ -1891,6 +1875,9 @@
 						<file>
 							<name>$PROJ_DIR$/../../documentation.h</name>
 						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.h</name>
+						</file>
 					</group>
 				</group>
 			</group>
@@ -1908,10 +1895,10 @@
 						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4s/sysclk.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4s/pll.h</name>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4s/osc.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4s/osc.h</name>
+						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4s/pll.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../common/services/clock/sam4s/sysclk.h</name>
@@ -2179,6 +2166,9 @@
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include/component/component_pio.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include/component/component_wdt.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include/component/component_spi.h</name>
 							</file>
 							<file>
@@ -2198,9 +2188,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include/component/component_smc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include/component/component_wdt.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include/component/component_udp.h</name>

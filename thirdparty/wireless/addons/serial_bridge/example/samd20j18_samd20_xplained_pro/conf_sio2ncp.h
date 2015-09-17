@@ -3,7 +3,7 @@
  *
  * \brief Serial Input & Output configuration
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,16 +45,11 @@
 
 #define USART_NCP                 EXT1_UART_MODULE
 
-#define SIO2NCP_USART_INIT()            struct usart_config uart_config; \
-        /* Configure USART for unit test output */ \
-	usart_get_config_defaults(&uart_config); \
-	uart_config.mux_setting     =  EXT1_UART_SERCOM_MUX_SETTING; \
-	uart_config.pinmux_pad3      = EXT1_UART_SERCOM_PINMUX_PAD3; \
-	uart_config.pinmux_pad2      = EXT1_UART_SERCOM_PINMUX_PAD2; \
-	uart_config.pinmux_pad1      = EXT1_UART_SERCOM_PINMUX_PAD1; \
-	uart_config.pinmux_pad0      = EXT1_UART_SERCOM_PINMUX_PAD0; \
-	uart_config.baudrate         = USART_NCP_BAUDRATE;
-
+#define NCP_SERCOM_MUX_SETTING    EXT1_UART_SERCOM_MUX_SETTING
+#define NCP_SERCOM_PINMUX_PAD0    EXT1_UART_SERCOM_PINMUX_PAD0
+#define NCP_SERCOM_PINMUX_PAD1    EXT1_UART_SERCOM_PINMUX_PAD1
+#define NCP_SERCOM_PINMUX_PAD2    EXT1_UART_SERCOM_PINMUX_PAD2
+#define NCP_SERCOM_PINMUX_PAD3    EXT1_UART_SERCOM_PINMUX_PAD3
 /** Baudrate setting */
 #define USART_NCP_BAUDRATE        9600
 

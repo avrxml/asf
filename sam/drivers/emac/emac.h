@@ -3,7 +3,7 @@
  *
  * \brief EMAC (Ethernet MAC) driver for SAM.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef EMAC_H_INCLUDED
@@ -1087,7 +1090,7 @@ void emac_handler(emac_device_t* p_emac_dev);
 	#define ETH_PHY_MODE                                  BOARD_EMAC_MODE_RMII
 \endcode
  *
- * A specific emac device and the receive data buffer must be defined; another ul_frm_size should be defined
+ * A specific EMAC device and the receive data buffer must be defined; another ul_frm_size should be defined
  * to trace the actual size of the data received.
  * \code
 	 static emac_device_t gs_emac_dev;

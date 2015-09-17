@@ -3,7 +3,7 @@
  *
  * \brief SAM GPIO Port Driver Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -102,4 +102,7 @@
  * -# Write the inverted pin level state to LED pin, which has been configured as
  *    an output in the use-case setup code.
  *    \snippet qs_port_basic.c main_2
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

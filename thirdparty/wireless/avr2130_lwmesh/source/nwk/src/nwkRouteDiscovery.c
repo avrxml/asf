@@ -3,7 +3,7 @@
  *
  * \brief Route discovery implementation
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -269,7 +269,6 @@ bool nwkRouteDiscoveryRequestReceived(NWK_DataInd_t *ind)
 	if (1 == command->multicast && NWK_GroupIsMember(command->dstAddr)) {
 		reply = true;
 	}
-
 #endif
 
 	if (0 == command->multicast && command->dstAddr == nwkIb.addr) {

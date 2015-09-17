@@ -3,7 +3,7 @@
  *
  * \brief SAM System Interrupt Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,10 +40,13 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include "system_interrupt.h"
 
 /**
- * \brief Check if a interrupt line is pending
+ * \brief Check if a interrupt line is pending.
  *
  * Checks if the requested interrupt vector is pending.
  *
@@ -73,9 +76,9 @@ bool system_interrupt_is_pending(
 }
 
 /**
- * \brief Set a interrupt vector as pending
+ * \brief Set a interrupt vector as pending.
  *
- * Set the requested interrupt vector as pending (i.e issues a software
+ * Set the requested interrupt vector as pending (i.e. issues a software
  * interrupt request for the specified vector). The software handler will be
  * handled (if enabled) in a priority order based on vector number and
  * configured priority settings.
@@ -111,7 +114,7 @@ enum status_code system_interrupt_set_pending(
 }
 
 /**
- * \brief Clear pending interrupt vector
+ * \brief Clear pending interrupt vector.
  *
  * Clear a pending interrupt vector, so the software handler is not executed.
  *
@@ -146,7 +149,7 @@ enum status_code system_interrupt_clear_pending(
 }
 
 /**
- * \brief Set interrupt vector priority level
+ * \brief Set interrupt vector priority level.
  *
  * Set the priority level of an external interrupt or exception.
  *
@@ -170,7 +173,7 @@ enum status_code system_interrupt_set_priority(
 		uint8_t priority_pos = ((vector % 4) * 8) + (8 - __NVIC_PRIO_BITS);
 
 		NVIC->IP[register_num] =
-				(NVIC->IP[register_num] & ~(0x3 << priority_pos)) |
+				(NVIC->IP[register_num] & ~(_SYSTEM_INTERRUPT_PRIORITY_MASK << priority_pos)) |
 				(priority_level << priority_pos);
 
 	} else if (vector == SYSTEM_INTERRUPT_SYSTICK) {
@@ -184,7 +187,7 @@ enum status_code system_interrupt_set_priority(
 }
 
 /**
- * \brief Get interrupt vector priority level
+ * \brief Get interrupt vector priority level.
  *
  * Retrieves the priority level of the requested external interrupt or exception.
  *

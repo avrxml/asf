@@ -3,7 +3,7 @@
  *
  * \brief UC3 MCI driver
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -592,7 +595,7 @@ bool mci_adtc_stop(sdmmc_cmd_def_t cmd, uint32_t arg)
 	}
 
 	/* Workaround on AT32UC3A3 <= Rev. D
-	 * See Datasheet 32072G section errata §38.3.8 MCI */
+	 * See Datasheet 32072G section errata 3.8 MCI */
 	return mci_wait_busy_on_line();
     }
 

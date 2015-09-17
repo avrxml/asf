@@ -3,7 +3,7 @@
  *
  * @brief This file implements helper functions to configure transceiver
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,12 +41,17 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
 
 /* === INCLUDES ============================================================ */
+
+/**
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ *Support</a>
+ */
 
 #include "pal.h"
 #include "return_val.h"
@@ -387,7 +392,6 @@ retval_t tal_set_frequency_regs(uint8_t cc_band, uint8_t cc_number)
 	} else if (cc_band == CC_BAND_5 && cc_number > MIN_CC_BAND_5_OFFSET) {
 		return MAC_INVALID_PARAMETER;
 	}
-
 #endif /* End of (TAL_TYPE == AT86RF233) || (TAL_TYPE == ATMEGARFR2) */
 
 	/*
@@ -518,14 +522,12 @@ retval_t tal_calculate_frequency(uint8_t cc_band, uint8_t cc_number,
 	case 6:
 		*freq = CC_6_START_FREQUENCY + (0.1 * cc_number);
 		break;
-
 #endif /* End of TAL_TYPE == AT86RF212 */
 	default:
 		return MAC_INVALID_PARAMETER;
 	}
 
 	return MAC_SUCCESS;
-
 #endif /* End of ((TAL_TYPE == AT86RF233) || (TAL_TYPE == ATMEGARFR2))*/
 }
 
@@ -625,7 +627,6 @@ retval_t tal_trx_reg_read(uint16_t reg_addr, uint8_t *data)
 	if (reg_addr > MAX_REG_ADDR_VALUE) {
 		return MAC_INVALID_PARAMETER;
 	}
-
 #endif /* End of (TAL_TYPE == ATMEGARFA1) || (TAL_TYPE == ATMEGA256RFR2)*/
 
 	/* Read the corresponding transceiver register and return through data
@@ -655,7 +656,6 @@ retval_t  tal_trx_reg_write(uint16_t reg_addr, uint8_t value)
 	if (reg_addr > MAX_REG_ADDR_VALUE) {
 		return MAC_INVALID_PARAMETER;
 	}
-
 #endif /* End of (TAL_TYPE == ATMEGARFA1) || (TAL_TYPE == ATMEGA256RFR2)*/
 	trx_reg_write(reg_addr, value);
 
@@ -691,7 +691,6 @@ retval_t tal_get_curr_trx_config(param_type parameter, uint8_t *param_value)
 	case ANT_SELECT:
 		*param_value = trx_bit_read(SR_ANT_SEL);
 		break;
-
 #endif
 #if (TAL_TYPE != AT86RF230B)
 	case ANT_CTRL:
@@ -712,7 +711,6 @@ retval_t tal_get_curr_trx_config(param_type parameter, uint8_t *param_value)
 	case CC_NUMBER:
 		*param_value = trx_reg_read(RG_CC_CTRL_0);
 		break;
-
 #endif
 	case TX_PWR:
 		*param_value = trx_bit_read(SR_TX_PWR);
@@ -751,7 +749,6 @@ retval_t tal_dump_registers(uint16_t start_addr, uint16_t end_addr,
 	if (start_addr > MAX_REG_ADDR_VALUE || end_addr > MAX_REG_ADDR_VALUE) {
 		return MAC_INVALID_PARAMETER;
 	}
-
 #endif /* End of (TAL_TYPE == ATMEGARFA1) || (TAL_TYPE == ATMEGA256RFR2)*/
 	length = end_addr - start_addr;
 	if (length < 0) {
@@ -885,7 +882,7 @@ retval_t tal_rxsafe_mode_ctrl(bool safe_mode_ctrl)
 {
 	/*configure rx_safe_mode */
 	trx_bit_write(SR_RX_SAFE_MODE, safe_mode_ctrl); /* configure buffer
-	                                                * protection mode */
+	                                                 * protection mode */
 #if (TAL_TYPE == ATMEGARFA1)
 	CONF_REG_WRITE();
 #endif /* TAL_TYPE == ATMEGA128RFA1 */

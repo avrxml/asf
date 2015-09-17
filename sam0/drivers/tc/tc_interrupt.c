@@ -3,7 +3,7 @@
  *
  * \brief SAM TC - Timer Counter Callback Driver
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,6 +41,10 @@
  *
  */
 
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
+
 #include "tc_interrupt.h"
 
 void *_tc_instances[TC_INST_NUM];
@@ -48,7 +52,7 @@ void *_tc_instances[TC_INST_NUM];
 void _tc_interrupt_handler(uint8_t instance);
 
 /**
- * \brief Registers a callback
+ * \brief Registers a callback.
  *
  * Registers a callback function which is implemented by the user.
  *
@@ -86,9 +90,9 @@ enum status_code tc_register_callback(
 }
 
 /**
- * \brief Unregisters a callback
+ * \brief Unregisters a callback.
  *
- * Unregisters a callback function implemented by the user. The callback should be 
+ * Unregisters a callback function implemented by the user. The callback should be
  * disabled before it is unregistered.
  *
  * \param[in]     module Pointer to TC software instance struct
@@ -120,7 +124,7 @@ enum status_code tc_unregister_callback(
 /**
  * \internal ISR handler for TC
  *
- * Auto-generate a set of interrupt handlers for each TC in the device
+ * Auto-generate a set of interrupt handlers for each TC in the device.
  */
 #define _TC_INTERRUPT_HANDLER(n, m) \
 		void TC##n##_Handler(void) \
@@ -128,7 +132,13 @@ enum status_code tc_unregister_callback(
 			_tc_interrupt_handler(m); \
 		}
 
-MRECURSION(TC_INST_NUM, _TC_INTERRUPT_HANDLER, TC_INST_MAX_ID)
+#if (SAML21E) || (SAML21G)
+	_TC_INTERRUPT_HANDLER(0,0)
+	_TC_INTERRUPT_HANDLER(1,1)
+	_TC_INTERRUPT_HANDLER(4,2)
+#else
+	MRECURSION(TC_INST_NUM, _TC_INTERRUPT_HANDLER, TC_INST_MAX_ID)
+#endif
 
 
 /**

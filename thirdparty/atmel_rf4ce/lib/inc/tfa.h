@@ -7,10 +7,10 @@
  * $Id: tfa.h 24320 2010-11-26 08:59:36Z sschneid $
  *
  * @author    Atmel Corporation: http://www.atmel.com
- * @author    Support email: avr@atmel.com
+ * @author    Support: http://www.atmel.com/design-support/
  */
 /*
- * Copyright (c) 2009-2012, Atmel Corporation All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * 
  */

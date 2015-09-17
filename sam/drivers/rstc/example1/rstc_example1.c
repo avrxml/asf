@@ -3,7 +3,7 @@
  *
  * \brief SAM Reset Controller (RSTC) Driver Example
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -36,6 +36,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * \asf_license_stop
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include <asf.h>
 #include <string.h>
@@ -73,7 +76,13 @@ static void configure_console(void)
 {
 	static const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	/* Configure console UART. */
@@ -91,8 +100,12 @@ static void configure_console(void)
 			BOARD_FREQ_SLCK_XTAL);
 
 	/* Initialize the watchdog. */
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
+	wdt_init(WDT, WDT_MR_WDRSTEN, t, t);
+#else
 	wdt_init(WDT, WDT_MR_WDRSTEN | WDT_MR_WDRPROC /* | WDT_MR_WDDBGHLT | WDT_MR_WDIDLEHLT */,
 			t, t);
+#endif
  }
  
 /**
@@ -100,7 +113,9 @@ static void configure_console(void)
  */
 static void wait_for_message_gone(void)
 {
+#if !(SAMV70 || SAMV71 || SAME70 || SAMS70)
 	while (!uart_is_tx_buf_empty(CONSOLE_UART));
+#endif
 }
 
 /**
@@ -213,8 +228,11 @@ static void display_menu(void)
  */
 int main(void)
 {
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	uint32_t uc_key;
+#else
 	uint8_t uc_key;
-	
+#endif	
 	/* Initialize the SAM system. */
 	sysclk_init();
 	board_init();
@@ -239,9 +257,12 @@ int main(void)
 	display_menu();
 	
 	while (1) {
-		/* Wait for a key press or reset IRQ to trigger. */
+		/* Wait for a key press or reset IRQ to trigger. */	
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+		while (usart_read(CONSOLE_UART, &uc_key) && (!reset_interrupt_triggered));
+#else
 		while (uart_read(CONSOLE_UART, &uc_key) && (!reset_interrupt_triggered));
-		
+#endif		
 		//! [reset_irq_has_triggered]
 		if (reset_interrupt_triggered) {
 			/* Critical section to access a variable that is set in an IRQ. */

@@ -4,7 +4,7 @@
  * \brief LED, Button and terminal print functions - Perfoamnce Analyzer
  * application
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2012, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -50,7 +50,7 @@
 #include "tal.h"
 # include "app_init.h"
 #if (LED_COUNT > 0)
-#if !(SAMD ||  SAMR21)
+#if !(SAMD ||  SAMR21 || SAML21)
 # include "led.h"
 #endif
 #endif
@@ -186,13 +186,8 @@ bool app_debounce_button(void)
 			key_cnt++;
 		}
 	} else if (!(button_pressed()) &&
-			(key_cnt == COUNT_FOR_VALID_KEY_PRESS)) {           /*
-		                                                             *
-		                                                             *Button
-		                                                             *
-		                                                             *
-		                                                             *released
-		                                                             **/
+			(key_cnt == COUNT_FOR_VALID_KEY_PRESS)) {
+		/* Button released */
 		ret = 1;
 		key_cnt = 0;
 	} else {
@@ -209,7 +204,7 @@ bool app_debounce_button(void)
  */
 bool button_pressed(void)
 {
-#if SAMD || SAMR21
+#if SAMD || SAMR21 || SAML21
 	if (port_pin_get_input_level(SW0_PIN)) {
 		return false;
 	} else {
@@ -224,7 +219,7 @@ bool button_pressed(void)
 		return false;
 	}
 
-#elif defined GPIO_PUSH_BUTTON_0        /*Read the current state of the button*/
+#elif defined GPIO_PUSH_BUTTON_0   /*Read the current state of the button*/
 	if (ioport_get_pin_level(GPIO_PUSH_BUTTON_0)) {
 		return false;
 	} else {

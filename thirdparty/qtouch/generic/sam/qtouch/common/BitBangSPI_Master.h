@@ -5,7 +5,7 @@
  *
  * \brief  This file contains the BitBangSPI Configuration settings.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

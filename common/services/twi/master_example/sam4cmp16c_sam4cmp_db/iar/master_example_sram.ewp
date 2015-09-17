@@ -2106,7 +2106,7 @@
 							</file>
 						</group>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms8c_1.h</name>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms4c_1.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cmp16c_1.h</name>
@@ -2118,6 +2118,12 @@
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms8c_0.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms4c_0.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms8c_1.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cmp16c_0.h</name>
 						</file>
 						<group>
@@ -2127,6 +2133,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cms16c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cms4c.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cmp16c.h</name>
@@ -2153,11 +2162,14 @@
 					</group>
 				</group>
 			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../sam/utils/compiler.h</name>
+			</file>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../sam/utils/status_codes.h</name>
+			</file>
 			<group>
 				<name>preprocessor</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../sam/utils/preprocessor/stringz.h</name>
-				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../sam/utils/preprocessor/mrepeat.h</name>
 				</file>
@@ -2167,13 +2179,10 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../sam/utils/preprocessor/tpaste.h</name>
 				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../sam/utils/preprocessor/stringz.h</name>
+				</file>
 			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../sam/utils/status_codes.h</name>
-			</file>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../sam/utils/compiler.h</name>
-			</file>
 			<group>
 				<name>header_files</name>
 				<file>
@@ -2207,10 +2216,10 @@
 					</file>
 				</group>
 				<file>
-					<name>$PROJ_DIR$/../../../../clock/osc.h</name>
+					<name>$PROJ_DIR$/../../../../clock/pll.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../clock/pll.h</name>
+					<name>$PROJ_DIR$/../../../../clock/osc.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../clock/genclk.h</name>

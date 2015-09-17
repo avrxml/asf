@@ -3,7 +3,7 @@
  *
  * \brief ADC Controller driver.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef ADC2_H_INCLUDED
 #define ADC2_H_INCLUDED
@@ -64,10 +67,18 @@
 
 /** Definitions for ADC resolution */
 enum adc_resolution {
+#if SAMG55
+	ADC_12_BITS = ADC_EMR_OSR_NO_AVERAGE,     /* ADC 12-bit resolution */
+	ADC_13_BITS = ADC_EMR_OSR_OSR4,           /* ADC 13-bit resolution */
+	ADC_14_BITS = ADC_EMR_OSR_OSR16,          /* ADC 14-bit resolution */
+	ADC_15_BITS = ADC_EMR_OSR_OSR64,          /* ADC 15-bit resolution */
+	ADC_16_BITS = ADC_EMR_OSR_OSR256,         /* ADC 16-bit resolution */
+#else
 	ADC_8_BITS = ADC_MR_LOWRES_BITS_8,        /* ADC 8-bit resolution */
 	ADC_10_BITS = ADC_MR_LOWRES_BITS_10,      /* ADC 10-bit resolution */
 	ADC_11_BITS = ADC_EMR_OSR_OSR4,           /* ADC 11-bit resolution */
 	ADC_12_BITS = ADC_EMR_OSR_OSR16           /* ADC 12-bit resolution */
+#endif
 };
 
 /** Definitions for ADC power mode */
@@ -318,6 +329,42 @@ static inline void adc_ch_sanity_check(Adc *const adc,
 }
 
 #if (SAMG)
+#if SAMG55
+/**
+ * \brief Configure ADC clock to mck.
+ *
+ * \param adc  Base address of the ADC.
+ *
+ */
+static inline void adc_select_clock_source_mck(Adc *const adc)
+{
+	uint32_t reg;
+
+	reg = adc->ADC_EMR;
+
+	reg &= ~ADC_EMR_SRCCLK_PMC_PCK;
+
+	adc->ADC_EMR = reg;
+}
+
+/**
+ * \brief Configure ADC clock to pck.
+ *
+ * \param adc  Base address of the ADC.
+ *
+ */
+static inline void adc_select_clock_source_pck(Adc *const adc)
+{
+	uint32_t reg;
+
+	reg = adc->ADC_EMR;
+
+	reg |= ADC_EMR_SRCCLK_PMC_PCK;
+
+	adc->ADC_EMR = reg;
+}
+
+#else
 /**
  * \brief Configure ADC clock to MCK.
  *
@@ -328,7 +375,7 @@ static inline void adc_set_clock_mck(Adc *const adc)
 {
 	uint32_t reg;
 
-	reg = adc->ADC_MR;
+	reg = adc->ADC_EMR;
 
 	reg |= ADC_MR_DIV1;
 
@@ -352,6 +399,7 @@ static inline void adc_set_clock_mck_div3(Adc *const adc)
 
 	adc->ADC_MR = reg;
 }
+#endif
 #endif
 
 /**
@@ -434,13 +482,19 @@ static inline void adc_set_writeprotect(Adc *const adc,
  *
  * \param adc  Base address of the ADC.
  *
- * \return 0 if the peripheral is not protected, or 16-bit write protect
+ * \return 0 if no write protect violation occurred, or 16-bit write protect
  * violation source.
  */
 static inline uint32_t adc_get_writeprotect_status(Adc *const adc)
 {
-	return (adc->ADC_WPSR & ADC_WPSR_WPVS) ?
-			(adc->ADC_WPSR & ADC_WPMR_WPKEY_Msk) : 0;
+	uint32_t reg_value;
+
+	reg_value = adc->ADC_WPSR;
+	if (reg_value & ADC_WPSR_WPVS) {
+		return (reg_value & ADC_WPSR_WPVSRC_Msk) >> ADC_WPSR_WPVSRC_Pos;
+	} else {
+		return 0;
+	}
 }
 
 /**
@@ -579,7 +633,11 @@ static inline uint32_t adc_get_latest_value(Adc *const adc)
  */
 static inline uint32_t adc_get_latest_chan_num(Adc *const adc)
 {
+#if SAMG55
+	return (adc->ADC_LCDR & ADC_LCDR_CHNBOSR_Msk) >> ADC_LCDR_CHNBOSR_Pos;
+#else
 	return (adc->ADC_LCDR & ADC_LCDR_CHNB_Msk) >> ADC_LCDR_CHNB_Pos;
+#endif
 }
 
 void adc_enable_interrupt(Adc *const adc,

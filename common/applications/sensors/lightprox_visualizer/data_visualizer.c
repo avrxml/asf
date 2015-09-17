@@ -15,7 +15,7 @@
  * <a href="http://www.atmel.com/dyn/products/tools_card.asp?tool_id=5017">Atmel
  *Data Visualizer</a>
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,6 +51,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <stdio.h>

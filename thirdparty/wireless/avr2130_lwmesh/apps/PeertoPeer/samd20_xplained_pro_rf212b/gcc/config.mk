@@ -55,20 +55,21 @@ CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        common2/services/delay/sam0/systick_counter.c      \
        sam0/boards/samd20_xplained_pro/board_init.c       \
-       sam0/drivers/extint/extint.c                       \
        sam0/drivers/extint/extint_callback.c              \
+       sam0/drivers/extint/extint_sam_d_r/extint.c        \
        sam0/drivers/port/port.c                           \
        sam0/drivers/sercom/sercom.c                       \
        sam0/drivers/sercom/sercom_interrupt.c             \
        sam0/drivers/sercom/spi/spi.c                      \
        sam0/drivers/sercom/usart/usart.c                  \
+       sam0/drivers/sercom/usart/usart_interrupt.c        \
        sam0/drivers/system/clock/clock_samd20/clock.c     \
        sam0/drivers/system/clock/clock_samd20/gclk.c      \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
-       sam0/drivers/tc/tc.c                               \
        sam0/drivers/tc/tc_interrupt.c                     \
+       sam0/drivers/tc/tc_sam_d_r/tc.c                    \
        sam0/utils/cmsis/samd20/source/gcc/startup_samd20.c \
        sam0/utils/cmsis/samd20/source/system_samd20.c     \
        sam0/utils/stdio/read.c                            \
@@ -106,6 +107,7 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samd20_xplained_pro                    \
        sam0/drivers/extint                                \
+       sam0/drivers/extint/extint_sam_d_r                 \
        sam0/drivers/port                                  \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/spi                            \
@@ -116,7 +118,12 @@ INC_PATH = \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samd20 \
        sam0/drivers/system/pinmux                         \
+       sam0/drivers/system/power                          \
+       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/reset                          \
+       sam0/drivers/system/reset/reset_sam_d_r            \
        sam0/drivers/tc                                    \
+       sam0/drivers/tc/tc_sam_d_r                         \
        sam0/utils                                         \
        sam0/utils/cmsis/samd20/include                    \
        sam0/utils/cmsis/samd20/source                     \
@@ -185,7 +192,7 @@ CFLAGS =
 #   BOARD      Target board in use, see boards/board.h for a list.
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
-       -D ARM_MATH_CM0=true                               \
+       -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMD20_XPLAINED_PRO                       \
        -D EXTINT_CALLBACK_MODE=true                       \
        -D PHY_AT86RF212B                                  \
@@ -193,7 +200,7 @@ CPPFLAGS = \
        -D SPI_CALLBACK_MODE=false                         \
        -D SYSTICK_MODE                                    \
        -D TC_ASYNC=true                                   \
-       -D USART_CALLBACK_MODE=false                       \
+       -D USART_CALLBACK_MODE=true                        \
        -D __SAMD20J18__
 
 # Extra flags to use when linking

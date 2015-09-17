@@ -2782,6 +2782,9 @@
 						<name>$PROJ_DIR$/../../../../../../avr2025_mac/include/ieee_const.h</name>
 					</file>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../avr2025_mac/include/ieee_154g.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../avr2025_mac/include/avr2025_mac.h</name>
 					</file>
 					<file>

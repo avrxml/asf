@@ -3,7 +3,7 @@
  *
  * \brief TCC Quick Start configuration
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CONF_QUICK_START_H_INCLUDED
 #define CONF_QUICK_START_H_INCLUDED
@@ -53,7 +56,7 @@
 #define CONF_PWM_OUTPUT      LED_0_PWM4CTRL_OUTPUT
 /** PWM output pin */
 #define CONF_PWM_OUT_PIN     LED_0_PWM4CTRL_PIN
-/** PWM output pin mux */
+/** PWM output pinmux */
 #define CONF_PWM_OUT_MUX     LED_0_PWM4CTRL_MUX
 //[definition_pwm]
 

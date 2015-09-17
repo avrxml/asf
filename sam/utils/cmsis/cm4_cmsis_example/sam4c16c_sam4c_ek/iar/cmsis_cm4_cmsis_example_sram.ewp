@@ -1946,13 +1946,16 @@
 								<name>$PROJ_DIR$/../../../sam4c/include/pio/pio_sam4c32e.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4c/include/pio/pio_sam4c8c.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../sam4c/include/pio/pio_sam4c32c.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../sam4c/include/pio/pio_sam4c4c.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../sam4c/include/pio/pio_sam4c16c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../sam4c/include/pio/pio_sam4c8c.h</name>
 							</file>
 						</group>
 						<group>
@@ -2012,6 +2015,9 @@
 								<name>$PROJ_DIR$/../../../sam4c/include/instance/instance_rtt.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../sam4c/include/instance/instance_uotghs.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../sam4c/include/instance/instance_pmc.h</name>
 							</file>
 							<file>
@@ -2055,9 +2061,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4c/include/instance/instance_uart1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../sam4c/include/instance/instance_uotghs.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4c/include/instance/instance_ipc1.h</name>
@@ -2150,9 +2153,6 @@
 								<name>$PROJ_DIR$/../../../sam4c/include/component/component_pio.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4c/include/component/component_rtc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../sam4c/include/component/component_chipid.h</name>
 							</file>
 							<file>
@@ -2160,6 +2160,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4c/include/component/component_rstc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../sam4c/include/component/component_rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4c/include/component/component_icm.h</name>
@@ -2190,10 +2193,16 @@
 							<name>$PROJ_DIR$/../../../sam4c/include/sam4c.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../sam4c/include/sam4c32c_1.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../sam4c/include/sam4c4c_1.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../sam4c/include/sam4c16c_1.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../sam4c/include/sam4c32c_1.h</name>
+							<name>$PROJ_DIR$/../../../sam4c/include/sam4c4c_0.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../sam4c/include/sam4c8c_1.h</name>

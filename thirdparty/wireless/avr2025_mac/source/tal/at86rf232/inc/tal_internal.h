@@ -3,7 +3,7 @@
  *
  * @brief
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -62,15 +62,15 @@
 /**
  * \defgroup group_tal AT86RF232 Transceiver Abstraction Layer
  * The AT86RF232 is a feature rich, low-power 2.4 GHz radio transceiver designed
- *for industrial
+ * for industrial
  *  and consumer ZigBee/IEEE 802.15.4, 6LoWPAN, RF4CE and high data rate sub
- *1GHz  ISM band applications
+ * 1GHz  ISM band applications
  * The Transceiver Abstraction Layer (TAL) implements the transceiver specific
- *functionalities and
+ * functionalities and
  * provides interfaces to the upper layers (like IEEE 802.15.4 MAC )and  uses
- *the services of PAL.
+ * the services of PAL.
  * \a Refer <A href="http://www.atmel.com/Images/doc8321.pdf">AT86RF232 Data
- *Sheet </A> \b for \b detailed \b information .
+ * Sheet </A> \b for \b detailed \b information .
  */
 
 /* === TYPES =============================================================== */

@@ -3,7 +3,7 @@
  *
  * \brief SAM D20 Master SPI Bootloader
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -74,7 +74,7 @@
  * \section appdoc_samd20_spi_master_bootloader_features Features
  * \li Application for self programming
  * \li Uses SPI Master interface
- * \li The binary file stored in AT45DBX dataflash is programmed
+ * \li The binary file stored in SD/MMC card is programmed
  * \li Resets the device after programming and starts executing application
  *
  * \section appdoc_samd20_spi_master_bootloader_intro Introduction
@@ -85,28 +85,26 @@
  * great use in situations where the application has to be updated on the field.
  * The boot loader may use various interfaces like SPI, UART, TWI, Ethernet etc.
  * \n
- * This application implements a SPI Master bootloader for SAM D20. AT45DBX
- * DataFlash is used as the SPI slave to store the binary file to be programmed
+ * This application implements a SPI Master bootloader for SAM D20. SD/MMC
+ * card is used as the SPI slave to store the binary file to be programmed
  * to the device.
  *
  * \section appdoc_samd20_spi_master_bootloader_mem_org Program Memory Organization
- * This bootloader implementation consumes around 8000 bytes (approximately),
- * which is 32 rows of Program Memory space starting from 0x00000000. BOOTPROT
- * fuses on the device can be set to protect first 32 rows of the program
+ * This bootloader implementation consumes around 24000 bytes (approximately),
+ * which is 96 rows of Program Memory space starting from 0x00000000. BOOTPROT
+ * fuses on the device can be set to protect first 96 rows of the program
  * memory which are allocated for the BOOT section. So, the end user application
- * should be generated with starting address as 0x00002000.
+ * should be generated with starting address as 0x00008000.
  *
  * \section appdoc_samd20_spi_master_bootloader_prereq Prerequisites
  * The end user application to be programmed to the Program Memory of SAM D20
- * using bootloader should be generated with starting address as 0x00002000.
- * Length of this binary file should be stored in the first 4 bytes of sector 0
- * in AT45DBX dataflash. The binary file contents should be stored from
- * sector 1 onwards.
+ * using bootloader should be generated with starting address as 0x00008000.
+ * The output binary file name of this user application should be modified to "demo.bin".
  *
  * \section appdoc_samd20_spi_master_bootloader_hw Hardware Setup
  * SAM D20 in SAM D20 Xplained Pro kit is used as the SPI master.
- * The IO1-Xplained Pro wing containing the AT45DBX dataflash should be
- * connected to External header 3 (EXT3) of SAM D20 Xplained Pro.
+ * The IO1-Xplained Pro wing containing the SD/MMC card should be
+ * connected to External header 1 (EXT1) of SAM D20 Xplained Pro.
  * SW0 on this kit will be configured as BOOT_LOAD_PIN and LED0 will be used
  * to display the bootloader status. LED0 will be ON when the device is in
  * bootloader mode.
@@ -118,7 +116,7 @@
  * executed at each reset/power-on sequence. Initially check the
  * status of a user configurable BOOT_LOAD_PIN.
  * - If the pin is pulled low continue execution in bootloader mode.
- * - Else read the first location of application section (0x00002000) which
+ * - Else read the first location of application section (0x00008000) which
  *   contains the stack pointer address and check whether it is 0xFFFFFFFF.
  *    - If yes, application section is empty and wait indefinitely there.
  *    - If not, jump to the application section and start execution from there.
@@ -130,14 +128,11 @@
  * Initialize the following
  *   - Board
  *   - System clock
- *   - AT45DBX Dataflash
+ *   - SD/MMC card
  *   - NVM module
  *
  * \subsection appdoc_samd20_spi_master_bootloader_boot_protocol Boot Protocol
- * Status of AT45DBX dataflash component is checked. If the check succeeds,
- *   - Read first 4 bytes of sector 0 which contains the length of the data to
- *     be programmed
- *   - Read a block from AT45DBX of size AT45DBX_SECTOR_SIZE
+ *   - Read a block from SD/MMC card of size DATA_SIZE
  *   - Program the data to Program memory starting APP_START_ADDRESS
  *   - Repeat till entire length of data has been programmed to the device
  *
@@ -154,63 +149,21 @@
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
-#include <at45dbx.h>
 #include "conf_bootloader.h"
+#include "memories_initialization.h"
+
+/** Size of the file to write/read. */
+#define DATA_SIZE 512
 
 /* Function prototypes */
-static uint32_t get_length(void);
-static void fetch_data(uint32_t sector, uint8_t *buffer, uint16_t len);
 static void program_memory(uint32_t address, uint8_t *buffer, uint16_t len);
 static void start_application(void);
 static void check_boot_mode(void);
-
-/**
- * \brief Function for fetching length of file to be programmed
- *
- * This function will open sector 0 of AT45DBX dataflash component and read the
- * first 4 bytes which contain the length of the file to be programmed. It
- * closes the sector after reading
- */
-static uint32_t get_length(void)
-{
-	uint32_t len = 0;
-
-	/* Open sector 0 to get the file length */
-	at45dbx_read_sector_open(0);
-
-	/* Read the first 4 bytes which contain the length */
-	MSB0W(len) = at45dbx_read_byte();
-	MSB1W(len) = at45dbx_read_byte();
-	MSB2W(len) = at45dbx_read_byte();
-	MSB3W(len) = at45dbx_read_byte();
-
-	/* Close sector */
-	at45dbx_read_close();
-
-	return len;
-}
-
-/**
- * \brief Function for fetching data to be programmed
- *
- * This function will fetch the data from the AT45DBX dataflash
- * component to be programmed to Flash
- *
- * \param sector sector number of dataflash AT45DBX
- * \param buffer pointer to the buffer to store data from AT45DBX
- * \param len    length of the data to be read from AT45DBX
- */
-static void fetch_data(uint32_t sector, uint8_t *buffer, uint16_t len)
-{
-	/* Open the dataflash sector */
-	at45dbx_read_sector_open(sector);
-	/* Read the contents to RAM */
-	at45dbx_read_sector_to_ram(buffer);
-	/* Close the sector */
-	at45dbx_read_close();
-}
 
 /**
  * \brief Function for programming data to Flash
@@ -361,16 +314,15 @@ int main(void)
 {
 	uint32_t len = 0;
 	uint32_t remaining_length = 0;
-	uint32_t curr_sector;
 	uint32_t curr_prog_addr;
-	uint8_t buff[AT45DBX_SECTOR_SIZE] = {0};
+	uint32_t disk_dev_num;
+	uint32_t byte_read;
+	uint8_t buff[DATA_SIZE] = {0};
 	struct nvm_config config;
 
 	/* Check switch state to enter boot mode or application mode */
 	check_boot_mode();
 
-	/* Data to be programmed is available from sector 1 of AT45DBX */
-	curr_sector = 1;
 	/*
 	 * Application to be programmed from APP_START_ADDRESS defined in
 	 * conf_bootloader.h
@@ -380,43 +332,57 @@ int main(void)
 	/* Initialize system */
 	system_init();
 
-	/* Initialize AT45DBX dataflash component */
-	at45dbx_init();
+	/* Intialize the memory device */
+	memories_initialization();
 
 	/* Get NVM default configuration and load the same */
 	nvm_get_config_defaults(&config);
+	config.manual_page_write = false;
 	nvm_set_config(&config);
 
 	/* Turn on LED */
 	port_pin_set_output_level(BOOT_LED, false);
 
 	/* Check the dataflash component */
-	if (at45dbx_mem_check() == true) {
+	for (disk_dev_num = 0; disk_dev_num < get_nb_lun(); disk_dev_num++) {
+		/* File name to be validated */
+		TCHAR file_name[12] = "0:demo.bin";
+
+		/* Declare these as static to avoid stack usage.
+		 * They each contain an array of maximum sector size.
+		 */
+		static FATFS fs;
+		static FIL file_object;
+
+		file_name[0] = '0' + disk_dev_num;
+
+		f_mount(disk_dev_num, &fs);
+		f_open(&file_object, (char const *)file_name,
+			FA_OPEN_EXISTING | FA_READ);
 		/* Get the length to be programmed */
-		len = get_length();
+		len = file_object.fsize;
 		remaining_length = len;
 
 		do {
-			/* Read data of AT45DBX_SECTOR_SIZE */
-			fetch_data(curr_sector, buff, min(AT45DBX_SECTOR_SIZE, len));
+			/* Read data of DATA_SIZE */
+			f_read(&file_object, buff, min(DATA_SIZE, len), &byte_read);
 
 			/* Program the read data into Flash */
-			program_memory(curr_prog_addr, buff, min(AT45DBX_SECTOR_SIZE, len));
-
-			/* Increment the dataflash sector */
-			curr_sector++;
+			program_memory(curr_prog_addr, buff, min(DATA_SIZE, len));
 
 			/* Increment the current programming address */
-			curr_prog_addr += min(AT45DBX_SECTOR_SIZE, len);
+			curr_prog_addr += min(DATA_SIZE, len);
 
 			/* Calculate remaining length */
-			remaining_length -= min(AT45DBX_SECTOR_SIZE, len);
+			remaining_length -= min(DATA_SIZE, len);
 
 			/* Update the length to remaining length to be programmed */
 			len = remaining_length;
 
 			/* Do this for entire length */
 		} while (len != 0);
+
+		f_close(&file_object);
 
 		start_application();
 	}

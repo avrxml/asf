@@ -1,167 +1,111 @@
-END USER LICENCE AGREEMENT FOR THE CORTEX MICROCONTROLLER SOFTWARE INTERFACE
-STANDARD (CMSIS) SPECIFICATION AND SOFTWARE
+END USER LICENCE AGREEMENT FOR THE CORTEX MICROCONTROLLER SOFTWARE INTERFACE STANDARD (CMSIS) DELIVERABLES 
 
-THIS END USER LICENCE AGREEMENT ("LICENCE") IS A LEGAL AGREEMENT BETWEEN YOU (EITHER A
-SINGLE INDIVIDUAL, OR SINGLE LEGAL ENTITY) AND ARM LIMITED ("ARM") FOR THE USE OF THE
-CMSIS SPECIFICATION, EXAMPLE CODE, DSP LIBRARY SPECIFICATION AND DSP LIBRARY
-IMPLEMENTATION AS SUCH TERMS ARE DEFINED BELOW (COLLECTIVELY, THE "ARM
-DELIVERABLES"). ARM IS ONLY WILLING TO LICENSE THE ARM DELIVERABLES TO YOU ON CONDITION
-THAT YOU ACCEPT ALL OF THE TERMS IN THIS LICENCE. BY CLICKING "I AGREE", OR BY INSTALLING
-OR OTHERWISE USING OR COPYING THE ARM DELIVERABLES YOU INDICATE THAT YOU AGREE TO
-BE BOUND BY ALL THE TERMS OF THIS LICENCE. IF YOU DO NOT AGREE TO THE TERMS OF THIS
-LICENCE, ARM IS UNWILLING TO LICENSE YOU TO USE THE ARM DELIVERABLES AND YOU MAY NOT
-INSTALL, USE OR COPY THE ARM DELIVERABLES.
+THIS END USER LICENCE AGREEMENT ("LICENCE") IS A LEGAL AGREEMENT BETWEEN YOU (EITHER A SINGLE INDIVIDUAL, OR SINGLE LEGAL ENTITY) AND ARM LIMITED ("ARM") FOR THE USE OF THE CMSIS DELIVERABLES. ARM IS ONLY WILLING TO LICENSE THE CMSIS DELIVERABLES TO YOU ON CONDITION THAT YOU ACCEPT ALL OF THE TERMS IN THIS LICENCE. BY CLICKING "I AGREE", OR BY INSTALLING OR OTHERWISE USING OR COPYING THE CMSIS DELIVERABLES YOU INDICATE THAT YOU AGREE TO BE BOUND BY ALL THE TERMS OF THIS LICENCE. IF YOU DO NOT AGREE TO THE TERMS OF THIS LICENCE, ARM IS UNWILLING TO LICENSE YOU TO USE OF THE CMSIS DELIVERABLES AND YOU MAY NOT INSTALL, USE OR COPY THE CMSIS DELIVERABLES.
 
-"CMSIS Specification" means any documentation and C programming language files defining the application
-programming interface, naming and coding conventions of the Cortex Microcontroller Software Interface
-Standard (CMSIS) as well as the System View Description (SVD) documentation and associated XML schema
-file. Notwithstanding the foregoing, "CMSIS Specification" shall not include (i) the implementation of other
-published specifications referenced in the CMSIS Specification; (ii) any enabling technologies that may be
-necessary to make or use any product or portion thereof that complies with the CMSIS Specification, but are not
-themselves expressly set forth in the CMSIS Specification (e.g. compiler front ends, code generators, back ends,
-libraries or other compiler, assembler or linker technologies; validation or debug software or hardware;
-applications, operating system or driver software; RISC architecture; processor microarchitecture); (iii)
-maskworks and physical layouts of integrated circuit designs; or (iv) RTL or other high level representations of
-integrated circuit designs.
+“CMSIS Deliverables” means the following components: (i) CMSIS-CORE; (ii) CMSIS-DRIVER; (iii) CMSIS-DSP; (iv) CMSIS-PACK; (v) CMSIS-RTOS API; and (vi) CMSIS-SVD .
 
-"DSP Library Implementation" means any C programming language source code implementing the functionality
-of the digital signal processor (DSP) algorithms and the application programming interface as defined in the DSP
-Library Specification. The DSP Library Implementation makes use of CMSIS application programming interface
-and therefore is targeted at Cortex-M class processors.
+“CMSIS-CORE” means the specification defining the application programming interface, naming and coding conventions for the Cortex-M processor cores.
 
-"DSP Library Specification" means the DSP library documentation and C programming language file defining the
-application programming interface of the DSP Library Implementation. Notwithstanding the foregoing, "DSP
-Library Specification" shall not include (i) the implementation of other published specifications referenced in the
-DSP Library Specification; (ii) any enabling technologies that may be necessary to make or use any product or
-portion thereof that complies with the DSP Library Specification, but are not themselves expressly set forth in the
-DSP Library Specification (e.g. compiler front ends, code generators, back ends, libraries or other compiler,
-assembler or linker technologies; validation or debug software or hardware; applications, operating system or
-driver software; RISC architecture; processor microarchitecture); (iii) maskworks and physical layouts of
-integrated circuit designs; or (iv) RTL or other high level representations of integrated circuit designs.
+”CMSIS-DRIVER” means the specification defining a generic peripheral driver application programming interface, naming and coding conventions.
 
-"Example Code" means any files in C, C++ or ARM assembly programming languages, associated project and
-configuration files that demonstrate the usage of the CMSIS Specification, the DSP Library Specification and the
-DSP Library Implementation, for microprocessors or device specific software applications that are for use with
-microprocessors.
+“CMSIS-DSP” means the digital signal process (DSP) library specification defining the application programming interface of a DSP library implementation.
+
+“CMSIS-PACK” means the specification defining a software pack file format, verification utility, and the associated XML schema file.
+
+“CMSIS-RTOS API” means the real-time operating system (RTOS) specification defining a generic application programming interface layer for a RTOS system.
+
+Notwithstanding the foregoing, the CMSIS Deliverables shall not include: (i) the implementation of other published specifications referenced in the CMSIS Deliverables ; (ii) any enabling technologies that may be necessary to make or use any product or portion thereof that complies with the CMSIS Deliverables, but are not themselves expressly set forth in the CMSIS Deliverables  (e.g. compiler front ends, code generators, back ends, libraries or other compiler, assembler or linker technologies; validation or debug software or hardware; applications, operating system or driver software; RISC architecture; processor microarchitecture); (iii) maskworks and physical layouts of integrated circuit designs; or (iv) RTL or other high level representations of integrated circuit designs.
+
+“CMSIS-SVD” means the specification defining the System View Description (SVD), verification utility, and associated XML schema files.
+
+“Separate Files” means the components in the CMSIS reference implementation identified in the Schedule that demonstrate the usage of the CMSIS-CORE, CMSIS-DRIVER, CMSIS-DSP, CMSIS-PACK and CMSIS-RTOS API,  for microprocessors or device specific software applications that are for use with microprocessors. 
 
 1. LICENCE GRANTS.
 
-1.1 ARM hereby grants to you, subject to the terms and conditions of this Licence, a non-exclusive, nontransferable
-licence, to;
+1.1 CMSIS DELIVERABLES
 
-(i) use and copy the CMSIS Specification for the purpose of developing, having developed, manufacturing,
-having manufactured, offering to sell, selling, supplying or otherwise distributing products that comply with the
-CMSIS Specification, provided that you preserve any copyright notices which are included with, or in, the CMSIS
-Specification and provided that you do not use ARM's name, logo or trademarks to market such products;
+ARM hereby grants to you, subject to the terms and conditions of this Licence, a non-exclusive, non-transferable licence, to use and copy the CMSIS Deliverables for the purpose of:
 
-(ii) use, copy, and modify (solely to the extent necessary to incorporate the whole or any part of the DSP Library
-Specification into your documentation), the DSP Library Specification, for the purpose of developing, having
-developed, manufacturing, having manufactured, offering to sell, selling, supplying or otherwise distributing
-products that comply with the DSP Library Specification, and distribute and have distributed any documentation
-created by or for you that has been derived from the DSP Library Specification with such products, provided that
-you preserve any copyright notices which are included with, or in, the DSP Library Specification and provided that
-you do not use ARM's name, logo or trademarks to market such products;
+(i) subject to clause 1.2, developing, having developed, manufacturing, having manufactured, offering to sell, selling, supplying or otherwise distributing products that comply with the CMSIS Deliverables; and
 
-(iii) use, copy, modify and sublicense the Example Code solely for the purpose of developing, having developed,
-manufacturing, having manufactured, offering to sell, selling, supplying or otherwise distributing products that
-comply with either or both the CMSIS Specification and the DSP Library Specification, provided that you preserve
-any copyright notices which are included with, or in, the Example Code and that you do not use ARM's name,
-logo or trademarks to market such products;
+(ii) distributing and having distributed (directly or through your customers and authorised distributors) the CMSIS-Deliverables unmodified, with the products you have developed under Clause 1.1 (i) provided you preserve any copyright notices which are included with the CMSIS Deliverables.
 
-(iv) use, copy and modify (provided that the logical functionality and the application programming interface of the
-DSP Library Implementation are maintained) the DSP Library Implementation, solely for the purposes of
-developing; (a) software applications for use with microprocessors manufactured or simulated under licence from
-ARM ("Software Applications"); and (b) tools that are designed to develop software programs for use with
-microprocessors manufactured or simulated under licence from ARM ("Tools"); and
+1.2 CONDITIONS ON REDISTRIBUTION.
 
-(v) subject to clause 1.1(vi) below; (a) distribute and sublicense the use of the DSP Library Implementation
-(including any modified forms thereof created under Clause 1.1(iv) above) in binary or source format, solely as
-incorporated into Software Library Applications and Tools to third parties; and (b) sublicense to such third parties
-the right to use and copy the Tools for the purposes of developing and distribute software programs for use with
-microprocessors manufactured or simulated under licence from ARM.
+If you distribute (directly or through your customers and authorised distributors) the products you have created pursuant to Clauses 1.1 (i) you agree: (a) not to use ARM’s name, logo or trademarks to market any or all of the products created under Clause 1.1 (i); (b) to preserve any copyright notices included in the CMSIS Deliverables; and (c) to ensure your customers and authorised distributors comply with this Clause 1.2.
 
-(vi) CONDITIONS ON REDISTRIBUTION: If you choose to redistribute the whole or any part of the DSP Library
-Implementation as incorporated into Software Library Applications or Tools, you agree to; (a) ensure that the
-DSP Library Implementation is licensed for use only as part of Software Library Applications and Tools and only
-for use with microprocessors manufactured or simulated under licence from ARM; (b) not to use ARM's name,
-logo or trademarks to market Software Applications and Tools; and (c) include valid copyright notices on
-Software Applications and Tools, and preserve any copyright notices which are included with, or in, the DSP
-Library Implementation.
+2. RESTRICTIONS ON USE OF THE CMSIS DELIVERABLES.
 
-2. RESTRICTIONS ON USE OF THE ARM DELIVERABLES.
+PERMITTED USERS: The CMSIS Deliverables shall be used only by you (either a single individual, or single legal entity) your employees, or by your on-site bona fide sub-contractors for whose acts and omissions you hereby agree to be responsible to ARM for to the same extent as you are for your employees, and provided always that such sub-contractors: (i) are contractually obligated to use the CMSIS Deliverables only for your benefit; and (ii) agree to assign all their work product and
+any rights they create therein in the supply of such work to you.
 
-PERMITTED USERS: The ARM Deliverables shall be used only by you (either a single individual, or single legal
-entity) your employees, or by your on-site bona fide sub-contractors for whose acts and omissions you hereby
-agree to be responsible to ARM for to the same extent as you are for your employees, and provided always that
-such sub-contractors; (i) are contractually obligated to use the ARM Deliverables only for your benefit, and (ii)
-agree to assign all their work product and any rights they create therein in the supply of such work to you.
-COPYRIGHT AND RESERVATION OF RIGHTS: The ARM Deliverables are owned by ARM or its licensors and
-are protected by copyright and other intellectual property laws and international treaties. The ARM Deliverables
-are licensed not sold. Except as expressly licensed herein, you acquire no right, title or interest in the ARM
-Deliverables or any intellectual property therein. In no event shall the licences granted herein be construed as
-granting you, expressly or by implication, estoppels or otherwise, a licence to use any ARM technology except
-the ARM Deliverables.
+COPYRIGHT AND RESERVATION OF RIGHTS: The CMSIS Deliverables are owned by ARM or its licensors and are protected by copyright and other intellectual property laws and international treaties. The CMSIS Deliverables are licensed not sold. Except as expressly licensed herein, you acquire no right, title or interest in the CMSIS Deliverables or any intellectual property therein. In no event shall the licences granted herein be construed as granting you, expressly or by implication, estoppels or otherwise, a licence to use any ARM technology except the CMSIS Deliverables.
 
 3. SUPPORT.
 
-ARM is not obligated to support the ARM Deliverables but may do so entirely at ARM's discretion.
+ARM is not obligated to support the CMSIS Deliverables but may do so entirely at ARM's discretion.
 
-4. NO WARRANTY
+4. NO WARRANTY.
 
-YOU AGREE THAT THE ARM DELIVERABLES ARE LICENSED "AS IS", AND THAT ARM EXPRESSLY
-DISCLAIMS ALL REPRESENTATIONS, WARRANTIES, CONDITIONS OR OTHER TERMS, EXPRESS,
-IMPLIED OR STATUTORY, INCLUDING WITHOUT LIMITATION THE IMPLIED WARRANTIES OF NONINFRINGEMENT,
-SATISFACTORY QUALITY, AND FITNESS FOR A PARTICULAR PURPOSE. THE ARM
-DELIVERABLES MAY CONTAIN ERRORS. ARM RESERVES THE RIGHT TO INCORPORATE
-MODIFICATIONS TO THE ARM DELIVERABLES IN LATER REVISIONS OF THEM, AND TO MAKE
-IMPROVEMENTS OR CHANGES IN THE ARM DELIVERABLES AT ANY TIME.
+YOU AGREE THAT THE CMSIS DELIVERABLES ARE LICENSED "AS IS", AND THAT ARM EXPRESSLY DISCLAIMS ALL REPRESENTATIONS, WARRANTIES, CONDITIONS OR OTHER TERMS, EXPRESS, IMPLIED OR STATUTORY, INCLUDING WITHOUT LIMITATION THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, SATISFACTORY QUALITY, AND FITNESS FOR A PARTICULAR PURPOSE. THE CMSIS DELIVERABLES MAY CONTAIN ERRORS.
 
 5. LIMITATION OF LIABILITY.
 
-THE MAXIMUM LIABILITY OF ARM TO YOU IN AGGREGATE FOR ALL CLAIMS MADE AGAINST ARM IN
-CONTRACT, TORT OR OTHERWISE UNDER OR IN CONNECTION WITH THE SUBJECT MATTER OF THIS
-LICENCE SHALL NOT EXCEED THE GREATER OF (I) THE TOTAL OF SUMS PAID BY YOU TO ARM (IF
-ANY) FOR THIS LICENCE AND (II) US$10.00. THE LIMITATIONS, EXCLUSIONS AND DISCLAIMERS IN
-THIS LICENCE SHALL APPLY TO THE MAXIMUM EXTENT ALLOWED BY APPLICABLE LAW.
+THE MAXIMUM LIABILITY OF ARM TO YOU IN AGGREGATE FOR ALL CLAIMS MADE AGAINST ARM IN CONTRACT, TORT OR OTHERWISE UNDER OR IN CONNECTION WITH THE SUBJECT MATTER OF THIS LICENCE SHALL NOT EXCEED THE GREATER OF (I) THE TOTAL OF SUMS PAID BY YOU TO ARM (IF ANY) FOR THIS LICENCE AND (II) US$10.00.  THE LIMITATIONS, EXCLUSIONS AND DISCLAIMERS IN THIS LICENCE SHALL APPLY TO THE MAXIMUM EXTENT ALLOWED BY APPLICABLE LAW.
 
-6. U.S. GOVERNMENT END USERS.
-US Government Restrictions: Use, duplication, reproduction, release, modification, disclosure or transfer of this
-commercial product and accompanying documentation is restricted in accordance with the terms of this Licence.
+6. THIRD PARTY RIGHTS.
 
-7. TERM AND TERMINATION.
+The Separate Files are delivered subject to and your use is governed by their own separate licence agreements. This Licence does not apply to such Separate Files and they are not included in the term “CMSIS Deliverables” under this Licence. You agree to comply with all terms and conditions imposed on you in respect of such Separate Files including those identified in the Schedule (“Third Party Terms”).
 
-7.1 This Licence shall remain in force until terminated in accordance with the terms of Clause 7.2 or Clause 7.3
-below.
+ARM HEREBY DISCLAIMS ANY AND ALL WARRANTIES EXPRESS OR IMPLIED FROM ANY THIRD PARTIES REGARDING ANY SEPARATE FILES, ANY THIRD PARTY MATERIALS INCLUDED IN THE SOFTWARE, ANY THIRD PARTY MATERIALS FROM WHICH THE SOFTWARE IS DERIVED (COLLECTIVELY “OTHER CODE”), AND THE USE OF ANY OR ALL THE OTHER CODE IN CONNECTION WITH THE SOFTWARE, INCLUDING (WITHOUT LIMITATION) ANY WARRANTIES OF SATISFACTORY QUALITY OR FITNESS FOR A PARTICULAR PURPOSE.
 
-7.2 Without prejudice to any of its other rights if you are in breach of any of the terms and conditions of this
-Licence then ARM may terminate this Licence immediately upon giving written notice to you. You may terminate
-this Licence at any time.
+NO THIRD PARTY LICENSORS OF OTHER CODE SHALL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED AND WHETHER MADE UNDER CONTRACT, TORT OR OTHER LEGAL THEORY, ARISING IN ANY WAY OUT OF THE USE OR DISTRIBUTION OF THE OTHER CODE OR THE EXERCISE OF ANY RIGHTS GRANTED UNDER EITHER OR BOTH THIS LICENCE AND THE LEGAL TERMS APPLICABLE TO ANY SEPARATE FILES, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGES.
 
-7.3 This Licence shall immediately terminate and shall be unavailable to you if you or any party affiliated to you
-asserts any patents against ARM, ARM affiliates, third parties who have a valid licence from ARM for the ARM
-Deliverables, or any customers or distributors of any of them based upon a claim that your (or your affiliate)
-patent is Necessary to implement the CMSIS Specification or DSP Library Specification. In this Licence; (i)
-"affiliate" means any entity controlling, controlled by or under common control with a party (in fact or in law, via
-voting securities, management control or otherwise) and "affiliated" shall be construed accordingly; (ii) "assert"
-means to allege infringement in legal or administrative proceedings, or proceedings before any other competent
-trade, arbitral or international authority; (iii) "Necessary" means with respect to any claims of any patent, those
-claims which, without the appropriate permission of the patent owner, will be infringed when implementing the
-CMSIS Specification or DSP Library Specification because no alternative, commercially reasonable, noninfringing
-way of implementing the CMSIS Specification or DSP Library Specification is known.
+7. U.S. GOVERNMENT END USERS.
 
-7.4 Upon termination of this Licence, you shall stop using the ARM Deliverables and destroy all copies of the
-ARM Deliverables in your possession. The provisions of clauses 5, 6, 7, and 8 shall survive termination of this
-Licence.
+US Government Restrictions: Use, duplication, reproduction, release, modification, disclosure or transfer of this commercial product and accompanying documentation is restricted in accordance with the terms of this Licence.
 
-8. GENERAL.
+8. TERM AND TERMINATION.
 
-This Licence is governed by English Law. Except where ARM agrees otherwise in a written contract signed by
-you and ARM, this is the only agreement between you and ARM relating to the ARM Deliverables and it may only
-be modified by written agreement between you and ARM. Except as expressly agreed in writing, this Licence
-may not be modified by purchase orders, advertising or other representation by any person. If any clause or
-sentence in this Licence is held by a court of law to be illegal or unenforceable the remaining provisions of this
-Licence shall not be affected thereby. The failure by ARM to enforce any of the provisions of this Licence, unless
-waived in writing, shall not constitute a waiver of ARM's rights to enforce such provision or any other provision of
-this Licence in the future. This Licence may not be assigned without the prior written consent of ARM.
+8.1 This Licence shall remain in force until terminated in accordance with the terms of Clause 8.2 or Clause 8.3 below.
 
-ARM contract reference LEC-PRE-00489
+8.2 Without prejudice to any of its other rights if you are in breach of any of the terms and conditions of this Licence then ARM may terminate this Licence immediately upon giving written notice to you.  You may terminate this Licence at any time.
+
+8.3 This Licence shall immediately terminate and shall be unavailable to you if you or any party affiliated to you asserts any patents against ARM, ARM affiliates, third parties who have a valid licence from ARM for the CMSIS Deliverables, or any customers or distributors of any of them based upon a claim that your (or your affiliate) patent is Necessary to implement the CMSIS Deliverables. In this Licence: (i) "affiliate" means any entity controlling, controlled by or under
+common control with a party (in fact or in law, via voting securities, management control or otherwise) and "affiliated" shall be construed accordingly; (ii) "assert" means to allege infringement in legal or administrative proceedings, or proceedings before any other competent trade, arbitral or international authority; and (iii) “Necessary” means with respect to any claims of any patent, those claims which, without the appropriate permission of the patent owner, will be
+infringed when implementing the CMSIS Deliverables because no alternative, commercially reasonable, non-infringing way of implementing the CMSIS Deliverables is known.
+
+8.4 Upon termination of this Licence, you shall stop using the CMSIS Deliverables and destroy all copies of the CMSIS Deliverables in your possession. The provisions of clauses 5, 6, 7, 8 and 9 shall survive termination of this Licence.
+
+9. GENERAL.
+
+This Licence is governed by English Law. Except where ARM agrees otherwise in a written contract signed by you and ARM, this is the only agreement between you and ARM relating to the CMSIS Deliverables and it may only be modified by written agreement between you and ARM. Except as expressly agreed in writing, this Licence may not be modified by purchase orders, advertising or other representation by any person. If any clause or sentence in this Licence is held by a court of law to be
+illegal or unenforceable the remaining provisions of this Licence shall not be affected thereby. The failure by ARM to enforce any of the provisions of this Licence, unless waived in writing, shall not constitute a waiver of ARM's rights to enforce such provision or any other provision of this Licence in the future.  This Licence may not be assigned without the prior written consent of ARM.
+
+SCHEDULE
+
+Separate Files
+
+The package also includes the components contained in the following directories:
+(a) ./CMSIS/DSP_Lib -  DSP Library sources and examples;
+(b) ./CMSIS/Include - Header files;
+(c) ./CMSIS/Lib - DSP Library build for various toolchains;
+(d) ./CMSIS/RTOS - Header file template for CMSIS-RTOS implementation; and
+(e) ./Device - Template files and implementations for Cortex-M class processors.
+
+All of the above components (a– e) are licensed to you under the terms of the BSD licence, which is incorporated within or alongside the above components.  
+(f) ./CMSIS/Driver – CMSIS-Driver header files
+(g) ./CMSIS/Pack – Example Device Family Pack
+
+The above components (f – g) are licensed to you under the terms of the zlib licence, which is incorporated within or alongside the above components.
+
+
+
+
+ARM contract reference LEC-PRE-00489- v3.0
+1 June 2014
+CONFIDENTIAL
+LEC-PRE-00489
+SP-Version: 3.0
+

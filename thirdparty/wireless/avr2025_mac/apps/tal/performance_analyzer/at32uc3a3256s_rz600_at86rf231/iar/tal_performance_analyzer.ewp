@@ -1997,19 +1997,19 @@
 									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_constants.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_irq_handler.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_rx.h</name>
-								</file>
-								<file>
 									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_config.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_irq_handler.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_slotted_csma.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/at86rf231.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_rx.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_internal.h</name>
@@ -2100,6 +2100,9 @@
 								<name>$PROJ_DIR$/../../../../../source/mac/inc/mac_msg_type_data_ind.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../source/mac/inc/mac_msg_types.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../source/mac/inc/mac_api.h</name>
 							</file>
 							<file>
@@ -2110,9 +2113,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../source/mac/inc/mac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../source/mac/inc/mac_msg_types.h</name>
 							</file>
 						</group>
 					</group>
@@ -2165,6 +2165,9 @@
 							<group>
 								<name>at32uc3a3256s_rz600_at86rf231</name>
 								<file>
+									<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
+								</file>
+								<file>
 									<name>$PROJ_DIR$/../conf_trx_access.h</name>
 								</file>
 								<file>
@@ -2187,9 +2190,6 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../conf_spi_master.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../conf_hw_timer.h</name>
@@ -2239,6 +2239,9 @@
 				</group>
 				<group>
 					<name>include</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../include/ieee_154g.h</name>
+					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../include/avr2025_mac.h</name>
 					</file>

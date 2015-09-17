@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E8E_
 #define _SAM4E8E_
@@ -53,17 +56,10 @@
 
 #ifdef __cplusplus
  extern "C" {
-#endif
+#endif 
 
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 #include <stdint.h>
-#ifndef __cplusplus
-typedef volatile const uint32_t RoReg; /**< Read only 32-bit register (volatile const unsigned int) */
-#else
-typedef volatile       uint32_t RoReg; /**< Read only 32-bit register (volatile const unsigned int) */
-#endif
-typedef volatile       uint32_t WoReg; /**< Write only 32-bit register (volatile unsigned int) */
-typedef volatile       uint32_t RwReg; /**< Read-Write 32-bit register (volatile unsigned int) */
 #endif
 
 /* ************************************************************************** */
@@ -85,7 +81,7 @@ typedef enum IRQn
   PendSV_IRQn           = -2,  /**< 14 Cortex-M4 Pend SV Interrupt           */
   SysTick_IRQn          = -1,  /**< 15 Cortex-M4 System Tick Interrupt       */
 /******  SAM4E8E specific Interrupt Numbers *********************************/
-
+  
   SUPC_IRQn            =  0, /**<  0 SAM4E8E Supply Controller (SUPC) */
   RSTC_IRQn            =  1, /**<  1 SAM4E8E Reset Controller (RSTC) */
   RTC_IRQn             =  2, /**<  2 SAM4E8E Real Time Clock (RTC) */
@@ -135,7 +131,7 @@ typedef struct _DeviceVectors
 {
   /* Stack pointer */
   void* pvStack;
-
+  
   /* Cortex-M handlers */
   void* pfnReset_Handler;
   void* pfnNMI_Handler;
@@ -258,11 +254,11 @@ void USART1_Handler     ( void );
 void WDT_Handler        ( void );
 
 /**
- * \brief Configuration of the Cortex-M4 Processor and Core Peripherals
+ * \brief Configuration of the Cortex-M4 Processor and Core Peripherals 
  */
 
-#define __CM4_REV              0x0000 /**< SAM4E8E core revision number ([15:8] revision number, [7:0] patch number) */
-#define __MPU_PRESENT          1     /**< SAM4E8E does provide a MPU */
+#define __CM4_REV              0x0001 /**< SAM4E8E core revision number ([15:8] revision number, [7:0] patch number) */
+#define __MPU_PRESENT          1      /**< SAM4E8E does provide a MPU */
 #define __FPU_PRESENT          1      /**< SAM4E8E does provide a FPU */
 #define __NVIC_PRIO_BITS       4      /**< SAM4E8E uses 4 Bits for the Priority Levels */
 #define __Vendor_SysTickConfig 0      /**< Set to 1 if different SysTick Config is used */
@@ -569,11 +565,11 @@ void WDT_Handler        ( void );
 /*   MISCELLANEOUS DEFINITIONS FOR SAM4E8E */
 /* ************************************************************************** */
 
-#define CHIP_JTAGID (0x05B3703FUL)
-#define CHIP_CIDR   (0xA3CC0CE0UL)
-#define CHIP_EXID   (0x00120208UL)
-#define NB_CH_AFE0  (16UL)
-#define NB_CH_AFE1  (8UL)
+#define CHIP_JTAGID       (0x05B3703FUL)
+#define CHIP_CIDR         (0xA3CC0CE0UL)
+#define CHIP_EXID         (0x00120208UL)
+#define NB_CH_AFE0        (16UL)
+#define NB_CH_AFE1        (8UL)
 #define NB_CH_DAC         (2UL)
 #define USB_DEVICE_MAX_EP (8UL)
 

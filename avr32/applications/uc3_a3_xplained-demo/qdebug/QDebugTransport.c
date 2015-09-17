@@ -1,12 +1,12 @@
 /*******************************************************************************
 *   $FILE:  QDebugTransport.c
 *   Atmel Corporation:  http://www.atmel.com \n
-*   Support email:  touch@atmel.com
+*   Support: http://www.atmel.com/design-support/
 ******************************************************************************/
 
 /**
  *
- * Copyright (c) 2010 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,6 +45,9 @@
  */
 
 /*============================ INCLUDES ======================================*/
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include "touch_api.h"
 #include "QDebug.h"
 #include "QDebugTransport.h"

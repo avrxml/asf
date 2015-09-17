@@ -3,7 +3,7 @@
  *
  * \brief Driver for AT86RF212 transceiver.
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,6 +42,9 @@
  */
 
 /* Prevent double inclusion */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef AT86RF212_H
 #define AT86RF212_H
 
@@ -81,7 +84,7 @@
 #define CCA_PROCESS_TIME_SYM   (1)	/* TRX Parameter: CCA processing time in symbols */
 #define CCA_PREPARATION_DURATION_US   (50)	/* TRX Parameter: Preparation time for CCA */
 #define CCA_DURATION_SYM   (CCA_DETECTION_TIME_SYMBOL + CCA_PROCESS_TIME_SYM)	/* TRX Parameter: Complete CCA Duration in symbols */
-#define RST_PULSE_WIDTH_US   ((RST_PULSE_WIDTH_NS + 999) / 1000)	/* TRX Parameter: Round up RST_PULSE_WIDTH_NS value to µs */
+#define RST_PULSE_WIDTH_US   ((RST_PULSE_WIDTH_NS + 999) / 1000)	/* TRX Parameter: Round up RST_PULSE_WIDTH_NS value to Âµs */
 
 /** Register addresses */
 

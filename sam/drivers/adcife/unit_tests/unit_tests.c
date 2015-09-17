@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for ADCIFE driver.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <board.h>
@@ -85,7 +88,7 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit <a href="http://www.atmel.com/">Atmel</a>.\n
- * Support and FAQ: http://support.atmel.no/
+ * Support and FAQ: http://www.atmel.com/design-support/
  */
 
 //! \name Unit test configuration
@@ -255,8 +258,8 @@ static void run_adcife_init_test(const struct test_case *test)
 		.clksel = ADC_CLKSEL_APBCLK,
 		/* Max speed is 150K */
 		.speed = ADC_SPEED_150K,
-		/* ADC Reference voltage is 0.625*VCC */
-		.refsel = ADC_REFSEL_1,
+		/* ADC Reference voltage is internal 1.0V */
+		.refsel = ADC_REFSEL_0,
 		/* Enables the Startup time */
 		.start_up = CONFIG_ADC_STARTUP
 	};
@@ -376,20 +379,20 @@ static void run_adcife_itimer_trig_test(const struct test_case *test)
 
 /* When VDDANA is in MIN value = 2.4V, the equivalent voltage value is
  * (2400 * 255) / ((1 << 10) - 1) = 598mv. The relative digital value is
- * 598 * 4095 / 2062 = 1188. */
-#define DAC_INTERNAL_MIN_VALUE          1188
+ * 598 * 4095 / 1000 = 2449. */
+#define DAC_INTERNAL_MIN_VALUE          2449
 /* When VDDANA is in MAX value = 3.6V the equivalent voltage value is
  * (3600 * 255) / ((1 << 10) - 1) = 897mv. The relative digital value is
- * 897 * 4095 / 2062 = 1781. */
-#define DAC_INTERNAL_MAX_VALUE          1781
+ * 897 * 4095 / 1000 = 3673. */
+#define DAC_INTERNAL_MAX_VALUE          3673
 /* When VCC is in MIN value = 1.6V, the equivalent voltage value is
  * 1600 / 10 = 160mv. The relative digital value is
- * 160 * 4095 / 2062 = 318. */
-#define VCC_SCALED_MIN_VALUE            318
+ * 160 * 4095 / 1000 = 434. */
+#define VCC_SCALED_MIN_VALUE            434
 /* When VCC is in MAX value = 3.6V, the equivalent voltage value is
  * 3600 / 10 = 360mv. The relative digital value is
- * 360 * 4095 / 2062 = 715. */
-#define VCC_SCALED_MAX_VALUE            715
+ * 360 * 4095 / 1000 = 1474. */
+#define VCC_SCALED_MAX_VALUE            1474
 
 /**
  * \brief Test ADCIFE in multiple channel mode.
@@ -409,8 +412,8 @@ static void run_adcife_multichannel_test(const struct test_case *test)
 	delay_ms(100);
 
 	/* The DAC output voltage value is 823mv, so the equivalent ADC value should be
-	 * 4095 * 823 / 2062 = 1634. The scaled VCC output voltage is 330mv, so the
-	 * equivalent ADC value should be 4095 * 330 / 2062 =  655. */
+	 * 4095 * 823 / 1000 = 3370. The scaled VCC output voltage is 330mv, so the
+	 * equivalent ADC value should be 4095 * 330 / 1000 =  1351. */
 	test_assert_true(test,
 			((DAC_INTERNAL_MIN_VALUE < g_adc_sample_data[0] < DAC_INTERNAL_MAX_VALUE)
 			&& (VCC_SCALED_MIN_VALUE < g_adc_sample_data[1] < VCC_SCALED_MAX_VALUE)),
@@ -448,10 +451,10 @@ static void run_adcife_wm_test(const struct test_case *test)
 		.internal_timer_max_count = 60,
 		/* Window monitor mode is off */
 		.window_mode = ADC_WM_MODE_3,
-		/*  The equivalent voltage value is 100 * 2062 / 4095 = 50mv. */
-		.low_threshold = 100,
-		/*  The equivalent voltage value is 1000 * 2062 / 4095 = 500mv. */
-		.high_threshold = 1000,
+		/*  The equivalent voltage value is 205 * 1000 / 4095 = 50mv. */
+		.low_threshold = 205,
+		/*  The equivalent voltage value is 2050 * 1000 / 4095 = 500mv. */
+		.high_threshold = 2050,
 	};
 
 	adc_ch_set_config(&g_adc_inst, &adc_ch_cfg);

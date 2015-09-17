@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_PDC_COMPONENT_
 #define _SAM4E_PDC_COMPONENT_
@@ -51,16 +54,16 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Pdc hardware registers */
 typedef struct {
-  RwReg PERIPH_RPR;  /**< \brief (Pdc Offset: 0x00) Receive Pointer Register */
-  RwReg PERIPH_RCR;  /**< \brief (Pdc Offset: 0x04) Receive Counter Register */
-  RwReg PERIPH_TPR;  /**< \brief (Pdc Offset: 0x08) Transmit Pointer Register */
-  RwReg PERIPH_TCR;  /**< \brief (Pdc Offset: 0x0C) Transmit Counter Register */
-  RwReg PERIPH_RNPR; /**< \brief (Pdc Offset: 0x10) Receive Next Pointer Register */
-  RwReg PERIPH_RNCR; /**< \brief (Pdc Offset: 0x14) Receive Next Counter Register */
-  RwReg PERIPH_TNPR; /**< \brief (Pdc Offset: 0x18) Transmit Next Pointer Register */
-  RwReg PERIPH_TNCR; /**< \brief (Pdc Offset: 0x1C) Transmit Next Counter Register */
-  WoReg PERIPH_PTCR; /**< \brief (Pdc Offset: 0x20) Transfer Control Register */
-  RoReg PERIPH_PTSR; /**< \brief (Pdc Offset: 0x24) Transfer Status Register */
+  __IO uint32_t PERIPH_RPR;  /**< \brief (Pdc Offset: 0x00) Receive Pointer Register */
+  __IO uint32_t PERIPH_RCR;  /**< \brief (Pdc Offset: 0x04) Receive Counter Register */
+  __IO uint32_t PERIPH_TPR;  /**< \brief (Pdc Offset: 0x08) Transmit Pointer Register */
+  __IO uint32_t PERIPH_TCR;  /**< \brief (Pdc Offset: 0x0C) Transmit Counter Register */
+  __IO uint32_t PERIPH_RNPR; /**< \brief (Pdc Offset: 0x10) Receive Next Pointer Register */
+  __IO uint32_t PERIPH_RNCR; /**< \brief (Pdc Offset: 0x14) Receive Next Counter Register */
+  __IO uint32_t PERIPH_TNPR; /**< \brief (Pdc Offset: 0x18) Transmit Next Pointer Register */
+  __IO uint32_t PERIPH_TNCR; /**< \brief (Pdc Offset: 0x1C) Transmit Next Counter Register */
+  __O  uint32_t PERIPH_PTCR; /**< \brief (Pdc Offset: 0x20) Transfer Control Register */
+  __I  uint32_t PERIPH_PTSR; /**< \brief (Pdc Offset: 0x24) Transfer Status Register */
 } Pdc;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- PERIPH_RPR : (PDC Offset: 0x00) Receive Pointer Register -------- */

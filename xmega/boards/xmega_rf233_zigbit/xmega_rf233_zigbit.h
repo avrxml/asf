@@ -8,7 +8,7 @@
  *
  * To use this board define BOARD=XMEGA_RF233_ZIGBIT
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,6 +44,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #ifndef _XMEGA_ZIGBIT_RF233_H_
 #define _XMEGA_ZIGBIT_RF233_H_
@@ -114,8 +117,8 @@
 //@{
 #define TWID_SDA                        IOPORT_CREATE_PIN(PORTD, 0)
 #define TWID_SCL                        IOPORT_CREATE_PIN(PORTD, 1)
-#define USARTE0_RXD                     IOPORT_CREATE_PIN(PORTE, 2)
-#define USARTE0_TXD                     IOPORT_CREATE_PIN(PORTE, 3)
+#define USARTD0_RXD                     IOPORT_CREATE_PIN(PORTD, 2)
+#define USARTD0_TXD                     IOPORT_CREATE_PIN(PORTD, 3)
 #define SPID_SS                         IOPORT_CREATE_PIN(PORTD, 4)
 #define SPID_MOSI                       IOPORT_CREATE_PIN(PORTD, 5)
 #define SPID_MISO                       IOPORT_CREATE_PIN(PORTD, 6)

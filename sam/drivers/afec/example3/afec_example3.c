@@ -3,7 +3,7 @@
  *
  * \brief AFEC automatic comparison example for SAM.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,7 +51,7 @@
  *
  * \section Requirements
  *
- * This example can be used on SAM4E-EK boards.
+ * This example can be used on SAM4E-EK boards,SAMV71-Xplained-Ultra.
  *
  * \section Description
  *
@@ -79,6 +79,9 @@
 	-- Compiled: xxx xx xxxx xx:xx:xx --
 \endcode
  * -# The application will output comparison result on the terminal.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <stdio.h>
@@ -109,7 +112,13 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+	#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+	#endif
+		.paritytype = CONF_UART_PARITY,
+	#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+	#endif
 	};
 
 	/* Configure console UART. */
@@ -126,7 +135,7 @@ static void afec_print_comp_result(void)
 
 	/* Disable Compare Interrupt. */
 	afec_disable_interrupt(AFEC0, AFEC_INTERRUPT_COMP_ERROR);
-
+	
 	us_adc = afec_channel_get_value(AFEC0, AFEC_CHANNEL_POTENTIOMETER);
 
 	printf("-ISR-:Potentiometer voltage %d mv is in the comparison "
@@ -164,14 +173,25 @@ int main(void)
 
 	struct afec_ch_config afec_ch_cfg;
 	afec_ch_get_config_defaults(&afec_ch_cfg);
-	afec_ch_set_config(AFEC0, AFEC_CHANNEL_POTENTIOMETER, &afec_ch_cfg);
+	
+#if (SAMV71 || SAMV70 || SAME70 || SAMS70) 
+	/*
+	 * Because the internal AFEC offset is 0x200, it should cancel it and shift
+	 * down to 0.
+	 */
+	afec_channel_set_analog_offset(AFEC0, AFEC_CHANNEL_POTENTIOMETER, 0x200);
 
+	afec_ch_cfg.gain = AFEC_GAINVALUE_0;
+
+#else
 	/*
 	 * Because the internal AFEC offset is 0x800, it should cancel it and shift
 	 * down to 0.
 	 */
 	afec_channel_set_analog_offset(AFEC0, AFEC_CHANNEL_POTENTIOMETER, 0x800);
+#endif
 
+	afec_ch_set_config(AFEC0, AFEC_CHANNEL_POTENTIOMETER, &afec_ch_cfg);
 	afec_set_trigger(AFEC0, AFEC_TRIG_SW);
 
 	afec_set_comparison_mode(AFEC0, AFEC_CMP_MODE_2, AFEC_CHANNEL_POTENTIOMETER, 0);
@@ -179,6 +199,7 @@ int main(void)
 
 	/* Enable channel for potentiometer. */
 	afec_channel_enable(AFEC0, AFEC_CHANNEL_POTENTIOMETER);
+
 
 	afec_set_callback(AFEC0, AFEC_INTERRUPT_COMP_ERROR, afec_print_comp_result, 1);
 

@@ -3,7 +3,7 @@
  *
  * \brief PDM driver for SAM.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef PDM_H_INCLUDED
@@ -584,9 +587,9 @@ __always_inline static void pdm_disable_callback(
 /// @endcond
 
 /**
- * \page sam_pdm_quickstart Quickstart guide for SAM pdm module
+ * \page sam_pdm_quickstart Quickstart guide for SAM PDM module
  *
- * This is the quickstart guide for the "SAM pdm module", with step-by-step
+ * This is the quickstart guide for the "SAM PDM module", with step-by-step
  * instructions on how to configure and use the module in a selection of use
  * cases.
  *
@@ -598,7 +601,7 @@ __always_inline static void pdm_disable_callback(
  * - \ref pdm_basic_use_case
  *
  * \section pdm_basic_use_case Basic use case
- * In this basic use case, the pdm module are configured for:
+ * In this basic use case, the PDM module are configured for:
  * - The default configuration is as follows:
  *   PDMCLK = MCK/8
  *   High-pass filter enabled
@@ -630,11 +633,11 @@ __always_inline static void pdm_disable_callback(
  *   - \code
 	pdm_get_config_default(&pdm_cfg);
 \endcode
- * -# Initialize the pdm module with configuration:
+ * -# Initialize the PDM module with configuration:
  *   - \code
 	pdm_init(&pdm, PDMIC0, &pdm_cfg);
 \endcode
- * -# Enable pdm module conversion:
+ * -# Enable PDM module conversion:
  *   - \code pdm_enable(&pdm); \endcode
  * -# Get converted data:
  *   - \code pdm_read_convert_data(&pdm, &data); \endcode

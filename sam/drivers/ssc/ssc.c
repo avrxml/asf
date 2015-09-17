@@ -3,7 +3,7 @@
  *
  * \brief Synchronous Serial Controller (SSC) driver for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <string.h>
@@ -822,14 +825,15 @@ void ssc_set_writeprotect(Ssc *p_ssc, uint32_t ul_enable)
  *
  * \param p_ssc Pointer to an SSC instance.
  *
- * \return 0 if the peripheral is not protected. Write Protect Violation Status otherwise.
+ * \return 0 if no write protect violation occurred, or 16-bit write protect
+ * violation source.
  */
 uint32_t ssc_get_writeprotect_status(Ssc *p_ssc)
 {
 	uint32_t ul_reg_val;
 
-	ul_reg_val = p_ssc->SSC_WPMR;
-	if (ul_reg_val & SSC_WPMR_WPEN) {
+	ul_reg_val = p_ssc->SSC_WPSR;
+	if (ul_reg_val & SSC_WPSR_WPVS) {
 		return (ul_reg_val & SSC_WPSR_WPVSRC_Msk) >> SSC_WPSR_WPVSRC_Pos;
 	} else {
 		return 0;

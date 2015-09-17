@@ -2309,9 +2309,6 @@
 											<name>$PROJ_DIR$/../../avr_477/inc/touch_config.h</name>
 										</file>
 										<file>
-											<name>$PROJ_DIR$/../../avr_477/inc/Avr477QTouch.h</name>
-										</file>
-										<file>
 											<name>$PROJ_DIR$/../../avr_477/inc/qm_asm_avr.h</name>
 										</file>
 										<file>
@@ -2319,6 +2316,9 @@
 										</file>
 										<file>
 											<name>$PROJ_DIR$/../../avr_477/inc/memorymap.h</name>
+										</file>
+										<file>
+											<name>$PROJ_DIR$/../../avr_477/inc/Avr477QTouch.h</name>
 										</file>
 										<file>
 											<name>$PROJ_DIR$/../../avr_477/inc/touch_api.h</name>
@@ -2666,6 +2666,9 @@
 								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_config.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_msg_types.h</name>
 							</file>
 							<file>
@@ -2676,9 +2679,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_msg_type_data_ind.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_security.h</name>
@@ -2798,6 +2798,9 @@
 					<name>include</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../avr2025_mac/include/ieee_const.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../avr2025_mac/include/ieee_154g.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../avr2025_mac/include/mac_build_config.h</name>

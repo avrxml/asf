@@ -3,7 +3,7 @@
  *
  * \brief SAM ADC Quick Start
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 
 void configure_adc(void);
@@ -59,7 +62,11 @@ void configure_adc(void)
 //! [setup_config_defaults]
 
 //! [setup_set_config]
+#if (SAMC21)
+	adc_init(&adc_instance, ADC1, &config_adc);
+#else
 	adc_init(&adc_instance, ADC, &config_adc);
+#endif
 //! [setup_set_config]
 
 //! [setup_enable]

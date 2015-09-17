@@ -3,7 +3,7 @@
  *
  * \brief SAM Direct Memory Access Controller Driver
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <string.h>
 #include "dma.h"
@@ -58,28 +61,31 @@ struct _dma_module _dma_inst = {
 	.free_channels = CONF_MAX_USED_CHANNEL_NUM,
 };
 
-/** Maximum retry counter for resuming a job transfer */
+/** Maximum retry counter for resuming a job transfer. */
 #define MAX_JOB_RESUME_COUNT    10000
 
-/** DMA channel mask*/
+/** DMA channel mask. */
 #define DMA_CHANNEL_MASK   (0x1f)
 
 COMPILER_ALIGNED(16)
-DmacDescriptor descriptor_section[CONF_MAX_USED_CHANNEL_NUM];
+DmacDescriptor descriptor_section[CONF_MAX_USED_CHANNEL_NUM] SECTION_DMAC_DESCRIPTOR;
 
-/** Initial write back memory section */
+/** Initial write back memory section. */
 COMPILER_ALIGNED(16)
-static DmacDescriptor _write_back_section[CONF_MAX_USED_CHANNEL_NUM];
+static DmacDescriptor _write_back_section[CONF_MAX_USED_CHANNEL_NUM] SECTION_DMAC_DESCRIPTOR;
 
-/** Internal DMA resource pool */
+/** Internal DMA resource pool. */
 static struct dma_resource* _dma_active_resource[CONF_MAX_USED_CHANNEL_NUM];
+
+/* DMA channel interrup flag. */
+uint8_t g_chan_interrupt_flag[CONF_MAX_USED_CHANNEL_NUM]={0};
 
 /**
  * \brief Find a free channel for a DMA resource.
  *
  * Find a channel for the requested DMA resource.
  *
- * \return Status of channel allocation
+ * \return Status of channel allocation.
  * \retval DMA_INVALID_CHANNEL  No channel available
  * \retval count          Allocated channel for the DMA resource
  */
@@ -120,7 +126,7 @@ static uint8_t _dma_find_first_free_channel_and_allocate(void)
 /**
  * \brief Release an allocated DMA channel.
  *
- * \param[in]  channel  Channel id to be released.
+ * \param[in]  channel  Channel id to be released
  *
  */
 static void _dma_release_channel(uint8_t channel)
@@ -208,7 +214,7 @@ void DMAC_Handler( void )
 		/* Clear transfer error flag */
 		DMAC->CHINTFLAG.reg = DMAC_CHINTENCLR_TERR;
 
-		/* Set IO ERROR status */
+		/* Set I/O ERROR status */
 		resource->job_status = STATUS_ERR_IO;
 
 		/* Execute the callback function */
@@ -259,6 +265,7 @@ void DMAC_Handler( void )
  *  \li Only software/event trigger
  *  \li Requires a trigger for each transaction
  *  \li No event input /output
+ *  \li DMA channel is disabled during sleep mode (if has the feature)
  * \param[out] config Pointer to the configuration
  *
  */
@@ -275,6 +282,9 @@ void dma_get_config_defaults(struct dma_resource_config *config)
 	/* Event configurations, no event input/output */
 	config->event_config.input_action = DMA_EVENT_INPUT_NOACT;
 	config->event_config.event_output_enable = false;
+#ifdef FEATURE_DMA_CHANNEL_STANDBY
+	config->run_in_standby = false;
+#endif
 }
 
 /**
@@ -301,9 +311,13 @@ enum status_code dma_allocate(struct dma_resource *resource,
 
 	if (!_dma_inst._dma_init) {
 		/* Initialize clocks for DMA */
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21)
+		system_ahb_clock_set_mask(MCLK_AHBMASK_DMAC);
+#else
 		system_ahb_clock_set_mask(PM_AHBMASK_DMAC);
 		system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBB,
 				PM_APBBMASK_DMAC);
+#endif
 
 		/* Perform a software reset before enable DMA controller */
 		DMAC->CTRL.reg &= ~DMAC_CTRL_DMAENABLE;
@@ -337,6 +351,12 @@ enum status_code dma_allocate(struct dma_resource *resource,
 	DMAC->CHID.reg = DMAC_CHID_ID(resource->channel_id);
 	DMAC->CHCTRLA.reg &= ~DMAC_CHCTRLA_ENABLE;
 	DMAC->CHCTRLA.reg = DMAC_CHCTRLA_SWRST;
+
+#ifdef FEATURE_DMA_CHANNEL_STANDBY
+	if(config->run_in_standby){
+		DMAC->CHCTRLA.reg |= DMAC_CHCTRLA_RUNSTDBY;
+	}
+#endif
 
 	/** Configure the DMA control,channel registers and descriptors here */
 	_dma_set_config(resource, config);
@@ -401,7 +421,7 @@ enum status_code dma_free(struct dma_resource *resource)
  *
  * \param[in,out] resource Pointer to the DMA resource
  *
- * \return Status of the transfer start procedure
+ * \return Status of the transfer start procedure.
  *
  * \retval STATUS_OK The transfer was started successfully
  * \retval STATUS_BUSY The DMA resource was busy and the transfer was not started
@@ -431,9 +451,7 @@ enum status_code dma_start_transfer_job(struct dma_resource *resource)
 
 	/* Set the interrupt flag */
 	DMAC->CHID.reg = DMAC_CHID_ID(resource->channel_id);
-	DMAC->CHINTENSET.reg = DMAC_CHINTENSET_TERR |
-			 DMAC_CHINTENSET_TCMPL | DMAC_CHINTENSET_SUSP;
-
+	DMAC->CHINTENSET.reg = (DMAC_CHINTENSET_MASK & g_chan_interrupt_flag[resource->channel_id]);
 	/* Set job status */
 	resource->job_status = STATUS_BUSY;
 
@@ -442,7 +460,7 @@ enum status_code dma_start_transfer_job(struct dma_resource *resource)
 						sizeof(DmacDescriptor));
 
 	/* Enable the transfer channel */
-	DMAC->CHCTRLA.reg = DMAC_CHCTRLA_ENABLE;
+	DMAC->CHCTRLA.reg |= DMAC_CHCTRLA_ENABLE;
 
 	system_interrupt_leave_critical_section();
 
@@ -458,7 +476,7 @@ enum status_code dma_start_transfer_job(struct dma_resource *resource)
  * resource structure.
  *
  * \note The DMA resource will not be freed after calling this function.
- *       The function \ref dma_free() can be used to free an allocated resource. 
+ *       The function \ref dma_free() can be used to free an allocated resource.
  *
  * \param[in,out] resource Pointer to the DMA resource
  *
@@ -598,7 +616,7 @@ void dma_descriptor_create(DmacDescriptor* descriptor,
 }
 
 /**
- * \brief Add a DMA transfer descriptor to a DMA resource
+ * \brief Add a DMA transfer descriptor to a DMA resource.
  *
  * This function will add a DMA transfer descriptor to a DMA resource.
  * If there was a transfer descriptor already allocated to the DMA resource,

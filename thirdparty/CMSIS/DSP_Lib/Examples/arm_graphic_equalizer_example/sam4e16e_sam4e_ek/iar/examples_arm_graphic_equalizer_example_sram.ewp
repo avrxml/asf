@@ -308,7 +308,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4e_ek</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -571,7 +570,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4e_ek</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1225,7 +1223,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4e_ek</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1488,7 +1485,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4e_ek</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1843,27 +1839,15 @@
 				<group>
 					<name>Examples</name>
 					<group>
-						<name>Common</name>
-						<group>
-							<name>Source</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Source/math_helper.c</name>
-							</file>
-						</group>
-						<group>
-							<name>Include</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Include/math_helper.h</name>
-							</file>
-						</group>
-					</group>
-					<group>
 						<name>arm_graphic_equalizer_example</name>
 						<file>
 							<name>$PROJ_DIR$/../../arm_graphic_equalizer_example_q31.c</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../arm_graphic_equalizer_data.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.c</name>
 						</file>
 						<group>
 							<name>sam4e16e_sam4e_ek</name>
@@ -1882,6 +1866,9 @@
 						</group>
 						<file>
 							<name>$PROJ_DIR$/../../documentation.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.h</name>
 						</file>
 					</group>
 				</group>
@@ -2036,6 +2023,9 @@
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include/instance/afec0.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include/instance/twi1.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include/instance/spi.h</name>
 							</file>
 							<file>
@@ -2097,9 +2087,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include/instance/supc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include/instance/twi1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4e/include/instance/tc1.h</name>
@@ -2301,10 +2288,10 @@
 				</file>
 			</group>
 			<file>
-				<name>$PROJ_DIR$/../../../../../../../common/utils/parts.h</name>
+				<name>$PROJ_DIR$/../../../../../../../common/utils/interrupt.h</name>
 			</file>
 			<file>
-				<name>$PROJ_DIR$/../../../../../../../common/utils/interrupt.h</name>
+				<name>$PROJ_DIR$/../../../../../../../common/utils/parts.h</name>
 			</file>
 		</group>
 		<group>

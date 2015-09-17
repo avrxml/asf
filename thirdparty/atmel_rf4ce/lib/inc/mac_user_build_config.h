@@ -6,10 +6,10 @@
  * $Id: mac_user_build_config.h 20338 2010-02-13 22:43:25Z uwalter $
  *
  * @author    Atmel Corporation: http://www.atmel.com
- * @author    Support email: avr@atmel.com
+ * @author    Support: http://www.atmel.com/design-support/
  */
 /*
- * Copyright (c) 2009-2012, Atmel Corporation All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * 
  */

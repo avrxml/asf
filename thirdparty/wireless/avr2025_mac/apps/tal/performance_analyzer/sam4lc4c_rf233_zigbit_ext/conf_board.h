@@ -3,7 +3,7 @@
  *
  * \brief  Configuration File for SAM4L-EK Board.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,8 +47,9 @@
 /** Enable Com Port. */
 #define CONF_BOARD_COM_PORT
 #define CONF_BOARD_AT86RFX
+
 /*Board Has an External PA Connected to the Radio ,Following are the constatnts
- *related to the Exxt PA */
+ * related to the Exxt PA */
 
 #ifdef EXT_RF_FRONT_END_CTRL /*For External PA for 233FEM*/
 

@@ -3,7 +3,7 @@
  *
  * \brief Parallel Input/Output (PIO) Controller driver for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef PIO_H_INCLUDED
@@ -78,7 +81,7 @@ typedef enum _pio_type {
 	PIO_NOT_A_PIN   = PIO_TYPE_NOT_A_PIN,
 	PIO_PERIPH_A    = PIO_TYPE_PIO_PERIPH_A,
 	PIO_PERIPH_B    = PIO_TYPE_PIO_PERIPH_B,
-#if (SAM3S || SAM3N || SAM4S || SAM4E || SAM4N || SAM4C || SAM4CP || SAM4CM)
+#if (SAM3S || SAM3N || SAM4S || SAM4E || SAM4N || SAM4C || SAM4CP || SAM4CM || SAMV71 || SAMV70 || SAME70 || SAMS70)
 	PIO_PERIPH_C    = PIO_TYPE_PIO_PERIPH_C,
 	PIO_PERIPH_D    = PIO_TYPE_PIO_PERIPH_D,
 #endif
@@ -152,7 +155,7 @@ void pio_set_multi_driver(Pio *p_pio, const uint32_t ul_mask,
 		const uint32_t ul_multi_driver_enable);
 uint32_t pio_get_multi_driver_status(const Pio *p_pio);
 
-#if (SAM3S || SAM3N || SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+#if (SAM3S || SAM3N || SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM || SAMV71 || SAMV70 || SAME70 || SAMS70)
 void pio_pull_down(Pio *p_pio, const uint32_t ul_mask,
 		const uint32_t ul_pull_down_enable);
 #endif
@@ -162,7 +165,7 @@ void pio_disable_output_write(Pio *p_pio, const uint32_t ul_mask);
 uint32_t pio_get_output_write_status(const Pio *p_pio);
 void pio_sync_output_write(Pio *p_pio, const uint32_t ul_mask);
 
-#if (SAM3S || SAM3N || SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+#if (SAM3S || SAM3N || SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM || SAMV71 || SAMV70 || SAME70 || SAMS70)
 void pio_set_schmitt_trigger(Pio *p_pio, const uint32_t ul_mask);
 uint32_t pio_get_schmitt_trigger(const Pio *p_pio);
 #endif
@@ -178,7 +181,7 @@ void pio_set_additional_interrupt_mode(Pio *p_pio,
 void pio_set_writeprotect(Pio *p_pio, const uint32_t ul_enable);
 uint32_t pio_get_writeprotect_status(const Pio *p_pio);
 
-#if (SAM3S || SAM4S || SAM4E)
+#if (SAM3S || SAM4S || SAM4E || SAMV71 || SAMV70 || SAME70 || SAMS70)
 void pio_capture_set_mode(Pio *p_pio, uint32_t ul_mode);
 void pio_capture_enable(Pio *p_pio);
 void pio_capture_disable(Pio *p_pio);
@@ -187,7 +190,9 @@ void pio_capture_enable_interrupt(Pio *p_pio, const uint32_t ul_mask);
 void pio_capture_disable_interrupt(Pio * p_pio, const uint32_t ul_mask);
 uint32_t pio_capture_get_interrupt_status(const Pio *p_pio);
 uint32_t pio_capture_get_interrupt_mask(const Pio *p_pio);
+#if !(SAMV71 || SAMV70 || SAME70 || SAMS70)
 Pdc *pio_capture_get_pdc_base(const Pio *p_pio);
+#endif
 #endif
 
 /* GPIO Support */
@@ -207,16 +212,36 @@ void pio_toggle_pin_group(Pio *p_pio, uint32_t ul_mask);
 uint32_t pio_configure_pin_group(Pio *p_pio, uint32_t ul_mask,
 		const uint32_t ul_flags);
 
-#if (SAM4C || SAM4CP || SAM4CM)
+#if (SAM4C || SAM4CP || SAM4CM || SAMG55)
 enum pio_io_drive_mode {
-	PIO_IO_DRIVE_HIGH = 0,
-	PIO_IO_DRIVE_MEDIUM,
-	PIO_IO_DRIVE_LOW,
+	PIO_IO_DRIVE_LOW = 0,
+	PIO_IO_DRIVE_HIGH,
 };
 void pio_set_io_drive(Pio *p_pio, uint32_t ul_line,
 		enum pio_io_drive_mode mode);
 #endif
 
+#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+void pio_keypad_enable(Pio *p_pio);
+void pio_keypad_disable(Pio *p_pio);
+void pio_keypad_set_row_num(Pio *p_pio, uint8_t num);
+uint8_t pio_keypad_get_row_num(const Pio *p_pio);
+void pio_keypad_set_column_num(Pio *p_pio, uint8_t num);
+uint8_t pio_keypad_get_column_num(const Pio *p_pio);
+void pio_keypad_set_debouncing_value(Pio *p_pio, uint16_t value);
+uint16_t pio_keypad_get_debouncing_value(const Pio *p_pio);
+void pio_keypad_enable_interrupt(Pio *p_pio, uint32_t ul_mask);
+void pio_keypad_disable_interrupt(Pio *p_pio, uint32_t ul_mask);
+uint32_t pio_keypad_get_interrupt_mask(const Pio *p_pio);
+uint32_t pio_keypad_get_press_status(const Pio *p_pio);
+uint32_t pio_keypad_get_release_status(const Pio *p_pio);
+uint8_t pio_keypad_get_simult_press_num(const Pio *p_pio);
+uint8_t pio_keypad_get_simult_release_num(const Pio *p_pio);
+uint8_t pio_keypad_get_press_row_index(const Pio *p_pio, uint8_t queue);
+uint8_t pio_keypad_get_press_column_index(const Pio *p_pio, uint8_t queue);
+uint8_t pio_keypad_get_release_row_index(const Pio *p_pio, uint8_t queue);
+uint8_t pio_keypad_get_release_column_index(const Pio *p_pio, uint8_t queue);
+#endif
 /**
  * \page sam_pio_quickstart Quick Start Guide for the SAM PIO driver
  *
@@ -321,12 +346,14 @@ void pio_set_io_drive(Pio *p_pio, uint32_t ul_line,
  * \subsection sam_pio_quickstart_use_case_2_example_code Example code
  * Add the following function to your application:
  * \code
-	void pin_edge_handler(void)
+	void pin_edge_handler(const uint32_t id, const uint32_t index)
 	{
-	    if (pio_get(PIOA, PIO_TYPE_PIO_INPUT, PIO_PA16))
-	        pio_clear(PIOA, PIO_PA23);
-	    else
-	        pio_set(PIOA, PIO_PA23);
+		if ((id == ID_PIOA) && (index == PIO_PA16)){
+			if (pio_get(PIOA, PIO_TYPE_PIO_INPUT, PIO_PA16))
+				pio_clear(PIOA, PIO_PA23);
+			else
+				pio_set(PIOA, PIO_PA23);
+		}
 	}
 \endcode
  *

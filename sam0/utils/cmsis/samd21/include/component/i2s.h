@@ -3,7 +3,7 @@
  *
  * \brief Component description for I2S
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAMD21_I2S_COMPONENT_
 #define _SAMD21_I2S_COMPONENT_
@@ -51,7 +54,7 @@
 /*@{*/
 
 #define I2S_U2224
-#define REV_I2S                     0x101
+#define REV_I2S                     0x110
 
 /* -------- I2S_CTRLA : (I2S Offset: 0x00) (R/W  8) Control A -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -76,27 +79,27 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define I2S_CTRLA_OFFSET            0x00         /**< \brief (I2S_CTRLA offset) Control A */
-#define I2S_CTRLA_RESETVALUE        0x00         /**< \brief (I2S_CTRLA reset_value) Control A */
+#define I2S_CTRLA_RESETVALUE        0x00ul       /**< \brief (I2S_CTRLA reset_value) Control A */
 
 #define I2S_CTRLA_SWRST_Pos         0            /**< \brief (I2S_CTRLA) Software Reset */
-#define I2S_CTRLA_SWRST             (0x1u << I2S_CTRLA_SWRST_Pos)
+#define I2S_CTRLA_SWRST             (0x1ul << I2S_CTRLA_SWRST_Pos)
 #define I2S_CTRLA_ENABLE_Pos        1            /**< \brief (I2S_CTRLA) Enable */
-#define I2S_CTRLA_ENABLE            (0x1u << I2S_CTRLA_ENABLE_Pos)
+#define I2S_CTRLA_ENABLE            (0x1ul << I2S_CTRLA_ENABLE_Pos)
 #define I2S_CTRLA_CKEN0_Pos         2            /**< \brief (I2S_CTRLA) Clock Unit 0 Enable */
 #define I2S_CTRLA_CKEN0             (1 << I2S_CTRLA_CKEN0_Pos)
 #define I2S_CTRLA_CKEN1_Pos         3            /**< \brief (I2S_CTRLA) Clock Unit 1 Enable */
 #define I2S_CTRLA_CKEN1             (1 << I2S_CTRLA_CKEN1_Pos)
 #define I2S_CTRLA_CKEN_Pos          2            /**< \brief (I2S_CTRLA) Clock Unit x Enable */
-#define I2S_CTRLA_CKEN_Msk          (0x3u << I2S_CTRLA_CKEN_Pos)
+#define I2S_CTRLA_CKEN_Msk          (0x3ul << I2S_CTRLA_CKEN_Pos)
 #define I2S_CTRLA_CKEN(value)       ((I2S_CTRLA_CKEN_Msk & ((value) << I2S_CTRLA_CKEN_Pos)))
 #define I2S_CTRLA_SEREN0_Pos        4            /**< \brief (I2S_CTRLA) Serializer 0 Enable */
 #define I2S_CTRLA_SEREN0            (1 << I2S_CTRLA_SEREN0_Pos)
 #define I2S_CTRLA_SEREN1_Pos        5            /**< \brief (I2S_CTRLA) Serializer 1 Enable */
 #define I2S_CTRLA_SEREN1            (1 << I2S_CTRLA_SEREN1_Pos)
 #define I2S_CTRLA_SEREN_Pos         4            /**< \brief (I2S_CTRLA) Serializer x Enable */
-#define I2S_CTRLA_SEREN_Msk         (0x3u << I2S_CTRLA_SEREN_Pos)
+#define I2S_CTRLA_SEREN_Msk         (0x3ul << I2S_CTRLA_SEREN_Pos)
 #define I2S_CTRLA_SEREN(value)      ((I2S_CTRLA_SEREN_Msk & ((value) << I2S_CTRLA_SEREN_Pos)))
-#define I2S_CTRLA_MASK              0x3Fu        /**< \brief (I2S_CTRLA) MASK Register */
+#define I2S_CTRLA_MASK              0x3Ful       /**< \brief (I2S_CTRLA) MASK Register */
 
 /* -------- I2S_CLKCTRL : (I2S Offset: 0x04) (R/W 32) Clock Unit n Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -125,74 +128,74 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define I2S_CLKCTRL_OFFSET          0x04         /**< \brief (I2S_CLKCTRL offset) Clock Unit n Control */
-#define I2S_CLKCTRL_RESETVALUE      0x00000000   /**< \brief (I2S_CLKCTRL reset_value) Clock Unit n Control */
+#define I2S_CLKCTRL_RESETVALUE      0x00000000ul /**< \brief (I2S_CLKCTRL reset_value) Clock Unit n Control */
 
 #define I2S_CLKCTRL_SLOTSIZE_Pos    0            /**< \brief (I2S_CLKCTRL) Slot Size */
-#define I2S_CLKCTRL_SLOTSIZE_Msk    (0x3u << I2S_CLKCTRL_SLOTSIZE_Pos)
+#define I2S_CLKCTRL_SLOTSIZE_Msk    (0x3ul << I2S_CLKCTRL_SLOTSIZE_Pos)
 #define I2S_CLKCTRL_SLOTSIZE(value) ((I2S_CLKCTRL_SLOTSIZE_Msk & ((value) << I2S_CLKCTRL_SLOTSIZE_Pos)))
-#define   I2S_CLKCTRL_SLOTSIZE_8_Val      0x0u   /**< \brief (I2S_CLKCTRL) 8-bit Slot for Clock Unit n */
-#define   I2S_CLKCTRL_SLOTSIZE_16_Val     0x1u   /**< \brief (I2S_CLKCTRL) 16-bit Slot for Clock Unit n */
-#define   I2S_CLKCTRL_SLOTSIZE_24_Val     0x2u   /**< \brief (I2S_CLKCTRL) 24-bit Slot for Clock Unit n */
-#define   I2S_CLKCTRL_SLOTSIZE_32_Val     0x3u   /**< \brief (I2S_CLKCTRL) 32-bit Slot for Clock Unit n */
+#define   I2S_CLKCTRL_SLOTSIZE_8_Val      0x0ul  /**< \brief (I2S_CLKCTRL) 8-bit Slot for Clock Unit n */
+#define   I2S_CLKCTRL_SLOTSIZE_16_Val     0x1ul  /**< \brief (I2S_CLKCTRL) 16-bit Slot for Clock Unit n */
+#define   I2S_CLKCTRL_SLOTSIZE_24_Val     0x2ul  /**< \brief (I2S_CLKCTRL) 24-bit Slot for Clock Unit n */
+#define   I2S_CLKCTRL_SLOTSIZE_32_Val     0x3ul  /**< \brief (I2S_CLKCTRL) 32-bit Slot for Clock Unit n */
 #define I2S_CLKCTRL_SLOTSIZE_8      (I2S_CLKCTRL_SLOTSIZE_8_Val    << I2S_CLKCTRL_SLOTSIZE_Pos)
 #define I2S_CLKCTRL_SLOTSIZE_16     (I2S_CLKCTRL_SLOTSIZE_16_Val   << I2S_CLKCTRL_SLOTSIZE_Pos)
 #define I2S_CLKCTRL_SLOTSIZE_24     (I2S_CLKCTRL_SLOTSIZE_24_Val   << I2S_CLKCTRL_SLOTSIZE_Pos)
 #define I2S_CLKCTRL_SLOTSIZE_32     (I2S_CLKCTRL_SLOTSIZE_32_Val   << I2S_CLKCTRL_SLOTSIZE_Pos)
 #define I2S_CLKCTRL_NBSLOTS_Pos     2            /**< \brief (I2S_CLKCTRL) Number of Slots in Frame */
-#define I2S_CLKCTRL_NBSLOTS_Msk     (0x7u << I2S_CLKCTRL_NBSLOTS_Pos)
+#define I2S_CLKCTRL_NBSLOTS_Msk     (0x7ul << I2S_CLKCTRL_NBSLOTS_Pos)
 #define I2S_CLKCTRL_NBSLOTS(value)  ((I2S_CLKCTRL_NBSLOTS_Msk & ((value) << I2S_CLKCTRL_NBSLOTS_Pos)))
 #define I2S_CLKCTRL_FSWIDTH_Pos     5            /**< \brief (I2S_CLKCTRL) Frame Sync Width */
-#define I2S_CLKCTRL_FSWIDTH_Msk     (0x3u << I2S_CLKCTRL_FSWIDTH_Pos)
+#define I2S_CLKCTRL_FSWIDTH_Msk     (0x3ul << I2S_CLKCTRL_FSWIDTH_Pos)
 #define I2S_CLKCTRL_FSWIDTH(value)  ((I2S_CLKCTRL_FSWIDTH_Msk & ((value) << I2S_CLKCTRL_FSWIDTH_Pos)))
-#define   I2S_CLKCTRL_FSWIDTH_SLOT_Val    0x0u   /**< \brief (I2S_CLKCTRL) Frame Sync Pulse is 1 Slot wide (default for I2S protocol) */
-#define   I2S_CLKCTRL_FSWIDTH_HALF_Val    0x1u   /**< \brief (I2S_CLKCTRL) Frame Sync Pulse is half a Frame wide */
-#define   I2S_CLKCTRL_FSWIDTH_BIT_Val     0x2u   /**< \brief (I2S_CLKCTRL) Frame Sync Pulse is 1 Bit wide */
-#define   I2S_CLKCTRL_FSWIDTH_BURST_Val   0x3u   /**< \brief (I2S_CLKCTRL) Clock Unit n operates in Burst mode, with a 1-bit wide Frame Sync pulse per Data sample, only when Data transfer is requested */
+#define   I2S_CLKCTRL_FSWIDTH_SLOT_Val    0x0ul  /**< \brief (I2S_CLKCTRL) Frame Sync Pulse is 1 Slot wide (default for I2S protocol) */
+#define   I2S_CLKCTRL_FSWIDTH_HALF_Val    0x1ul  /**< \brief (I2S_CLKCTRL) Frame Sync Pulse is half a Frame wide */
+#define   I2S_CLKCTRL_FSWIDTH_BIT_Val     0x2ul  /**< \brief (I2S_CLKCTRL) Frame Sync Pulse is 1 Bit wide */
+#define   I2S_CLKCTRL_FSWIDTH_BURST_Val   0x3ul  /**< \brief (I2S_CLKCTRL) Clock Unit n operates in Burst mode, with a 1-bit wide Frame Sync pulse per Data sample, only when Data transfer is requested */
 #define I2S_CLKCTRL_FSWIDTH_SLOT    (I2S_CLKCTRL_FSWIDTH_SLOT_Val  << I2S_CLKCTRL_FSWIDTH_Pos)
 #define I2S_CLKCTRL_FSWIDTH_HALF    (I2S_CLKCTRL_FSWIDTH_HALF_Val  << I2S_CLKCTRL_FSWIDTH_Pos)
 #define I2S_CLKCTRL_FSWIDTH_BIT     (I2S_CLKCTRL_FSWIDTH_BIT_Val   << I2S_CLKCTRL_FSWIDTH_Pos)
 #define I2S_CLKCTRL_FSWIDTH_BURST   (I2S_CLKCTRL_FSWIDTH_BURST_Val << I2S_CLKCTRL_FSWIDTH_Pos)
 #define I2S_CLKCTRL_BITDELAY_Pos    7            /**< \brief (I2S_CLKCTRL) Data Delay from Frame Sync */
-#define I2S_CLKCTRL_BITDELAY        (0x1u << I2S_CLKCTRL_BITDELAY_Pos)
-#define   I2S_CLKCTRL_BITDELAY_LJ_Val     0x0u   /**< \brief (I2S_CLKCTRL) Left Justified (0 Bit Delay) */
-#define   I2S_CLKCTRL_BITDELAY_I2S_Val    0x1u   /**< \brief (I2S_CLKCTRL) I2S (1 Bit Delay) */
+#define I2S_CLKCTRL_BITDELAY        (0x1ul << I2S_CLKCTRL_BITDELAY_Pos)
+#define   I2S_CLKCTRL_BITDELAY_LJ_Val     0x0ul  /**< \brief (I2S_CLKCTRL) Left Justified (0 Bit Delay) */
+#define   I2S_CLKCTRL_BITDELAY_I2S_Val    0x1ul  /**< \brief (I2S_CLKCTRL) I2S (1 Bit Delay) */
 #define I2S_CLKCTRL_BITDELAY_LJ     (I2S_CLKCTRL_BITDELAY_LJ_Val   << I2S_CLKCTRL_BITDELAY_Pos)
 #define I2S_CLKCTRL_BITDELAY_I2S    (I2S_CLKCTRL_BITDELAY_I2S_Val  << I2S_CLKCTRL_BITDELAY_Pos)
 #define I2S_CLKCTRL_FSSEL_Pos       8            /**< \brief (I2S_CLKCTRL) Frame Sync Select */
-#define I2S_CLKCTRL_FSSEL           (0x1u << I2S_CLKCTRL_FSSEL_Pos)
-#define   I2S_CLKCTRL_FSSEL_SCKDIV_Val    0x0u   /**< \brief (I2S_CLKCTRL) Divided Serial Clock n is used as Frame Sync n source */
-#define   I2S_CLKCTRL_FSSEL_FSPIN_Val     0x1u   /**< \brief (I2S_CLKCTRL) FSn input pin is used as Frame Sync n source */
+#define I2S_CLKCTRL_FSSEL           (0x1ul << I2S_CLKCTRL_FSSEL_Pos)
+#define   I2S_CLKCTRL_FSSEL_SCKDIV_Val    0x0ul  /**< \brief (I2S_CLKCTRL) Divided Serial Clock n is used as Frame Sync n source */
+#define   I2S_CLKCTRL_FSSEL_FSPIN_Val     0x1ul  /**< \brief (I2S_CLKCTRL) FSn input pin is used as Frame Sync n source */
 #define I2S_CLKCTRL_FSSEL_SCKDIV    (I2S_CLKCTRL_FSSEL_SCKDIV_Val  << I2S_CLKCTRL_FSSEL_Pos)
 #define I2S_CLKCTRL_FSSEL_FSPIN     (I2S_CLKCTRL_FSSEL_FSPIN_Val   << I2S_CLKCTRL_FSSEL_Pos)
 #define I2S_CLKCTRL_FSINV_Pos       11           /**< \brief (I2S_CLKCTRL) Frame Sync Invert */
-#define I2S_CLKCTRL_FSINV           (0x1u << I2S_CLKCTRL_FSINV_Pos)
+#define I2S_CLKCTRL_FSINV           (0x1ul << I2S_CLKCTRL_FSINV_Pos)
 #define I2S_CLKCTRL_SCKSEL_Pos      12           /**< \brief (I2S_CLKCTRL) Serial Clock Select */
-#define I2S_CLKCTRL_SCKSEL          (0x1u << I2S_CLKCTRL_SCKSEL_Pos)
-#define   I2S_CLKCTRL_SCKSEL_MCKDIV_Val   0x0u   /**< \brief (I2S_CLKCTRL) Divided Master Clock n is used as Serial Clock n source */
-#define   I2S_CLKCTRL_SCKSEL_SCKPIN_Val   0x1u   /**< \brief (I2S_CLKCTRL) SCKn input pin is used as Serial Clock n source */
+#define I2S_CLKCTRL_SCKSEL          (0x1ul << I2S_CLKCTRL_SCKSEL_Pos)
+#define   I2S_CLKCTRL_SCKSEL_MCKDIV_Val   0x0ul  /**< \brief (I2S_CLKCTRL) Divided Master Clock n is used as Serial Clock n source */
+#define   I2S_CLKCTRL_SCKSEL_SCKPIN_Val   0x1ul  /**< \brief (I2S_CLKCTRL) SCKn input pin is used as Serial Clock n source */
 #define I2S_CLKCTRL_SCKSEL_MCKDIV   (I2S_CLKCTRL_SCKSEL_MCKDIV_Val << I2S_CLKCTRL_SCKSEL_Pos)
 #define I2S_CLKCTRL_SCKSEL_SCKPIN   (I2S_CLKCTRL_SCKSEL_SCKPIN_Val << I2S_CLKCTRL_SCKSEL_Pos)
 #define I2S_CLKCTRL_MCKSEL_Pos      16           /**< \brief (I2S_CLKCTRL) Master Clock Select */
-#define I2S_CLKCTRL_MCKSEL          (0x1u << I2S_CLKCTRL_MCKSEL_Pos)
-#define   I2S_CLKCTRL_MCKSEL_GCLK_Val     0x0u   /**< \brief (I2S_CLKCTRL) GCLK_I2S_n is used as Master Clock n source */
-#define   I2S_CLKCTRL_MCKSEL_MCKPIN_Val   0x1u   /**< \brief (I2S_CLKCTRL) MCKn input pin is used as Master Clock n source */
+#define I2S_CLKCTRL_MCKSEL          (0x1ul << I2S_CLKCTRL_MCKSEL_Pos)
+#define   I2S_CLKCTRL_MCKSEL_GCLK_Val     0x0ul  /**< \brief (I2S_CLKCTRL) GCLK_I2S_n is used as Master Clock n source */
+#define   I2S_CLKCTRL_MCKSEL_MCKPIN_Val   0x1ul  /**< \brief (I2S_CLKCTRL) MCKn input pin is used as Master Clock n source */
 #define I2S_CLKCTRL_MCKSEL_GCLK     (I2S_CLKCTRL_MCKSEL_GCLK_Val   << I2S_CLKCTRL_MCKSEL_Pos)
 #define I2S_CLKCTRL_MCKSEL_MCKPIN   (I2S_CLKCTRL_MCKSEL_MCKPIN_Val << I2S_CLKCTRL_MCKSEL_Pos)
 #define I2S_CLKCTRL_MCKEN_Pos       18           /**< \brief (I2S_CLKCTRL) Master Clock Enable */
-#define I2S_CLKCTRL_MCKEN           (0x1u << I2S_CLKCTRL_MCKEN_Pos)
+#define I2S_CLKCTRL_MCKEN           (0x1ul << I2S_CLKCTRL_MCKEN_Pos)
 #define I2S_CLKCTRL_MCKDIV_Pos      19           /**< \brief (I2S_CLKCTRL) Master Clock Division Factor */
-#define I2S_CLKCTRL_MCKDIV_Msk      (0x1Fu << I2S_CLKCTRL_MCKDIV_Pos)
+#define I2S_CLKCTRL_MCKDIV_Msk      (0x1Ful << I2S_CLKCTRL_MCKDIV_Pos)
 #define I2S_CLKCTRL_MCKDIV(value)   ((I2S_CLKCTRL_MCKDIV_Msk & ((value) << I2S_CLKCTRL_MCKDIV_Pos)))
 #define I2S_CLKCTRL_MCKOUTDIV_Pos   24           /**< \brief (I2S_CLKCTRL) Master Clock Output Division Factor */
-#define I2S_CLKCTRL_MCKOUTDIV_Msk   (0x1Fu << I2S_CLKCTRL_MCKOUTDIV_Pos)
+#define I2S_CLKCTRL_MCKOUTDIV_Msk   (0x1Ful << I2S_CLKCTRL_MCKOUTDIV_Pos)
 #define I2S_CLKCTRL_MCKOUTDIV(value) ((I2S_CLKCTRL_MCKOUTDIV_Msk & ((value) << I2S_CLKCTRL_MCKOUTDIV_Pos)))
 #define I2S_CLKCTRL_FSOUTINV_Pos    29           /**< \brief (I2S_CLKCTRL) Frame Sync Output Invert */
-#define I2S_CLKCTRL_FSOUTINV        (0x1u << I2S_CLKCTRL_FSOUTINV_Pos)
+#define I2S_CLKCTRL_FSOUTINV        (0x1ul << I2S_CLKCTRL_FSOUTINV_Pos)
 #define I2S_CLKCTRL_SCKOUTINV_Pos   30           /**< \brief (I2S_CLKCTRL) Serial Clock Output Invert */
-#define I2S_CLKCTRL_SCKOUTINV       (0x1u << I2S_CLKCTRL_SCKOUTINV_Pos)
+#define I2S_CLKCTRL_SCKOUTINV       (0x1ul << I2S_CLKCTRL_SCKOUTINV_Pos)
 #define I2S_CLKCTRL_MCKOUTINV_Pos   31           /**< \brief (I2S_CLKCTRL) Master Clock Output Invert */
-#define I2S_CLKCTRL_MCKOUTINV       (0x1u << I2S_CLKCTRL_MCKOUTINV_Pos)
-#define I2S_CLKCTRL_MASK            0xFFFD19FFu  /**< \brief (I2S_CLKCTRL) MASK Register */
+#define I2S_CLKCTRL_MCKOUTINV       (0x1ul << I2S_CLKCTRL_MCKOUTINV_Pos)
+#define I2S_CLKCTRL_MASK            0xFFFD19FFul /**< \brief (I2S_CLKCTRL) MASK Register */
 
 /* -------- I2S_INTENCLR : (I2S Offset: 0x0C) (R/W 16) Interrupt Enable Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -226,37 +229,37 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define I2S_INTENCLR_OFFSET         0x0C         /**< \brief (I2S_INTENCLR offset) Interrupt Enable Clear */
-#define I2S_INTENCLR_RESETVALUE     0x0000       /**< \brief (I2S_INTENCLR reset_value) Interrupt Enable Clear */
+#define I2S_INTENCLR_RESETVALUE     0x0000ul     /**< \brief (I2S_INTENCLR reset_value) Interrupt Enable Clear */
 
 #define I2S_INTENCLR_RXRDY0_Pos     0            /**< \brief (I2S_INTENCLR) Receive Ready 0 Interrupt Enable */
 #define I2S_INTENCLR_RXRDY0         (1 << I2S_INTENCLR_RXRDY0_Pos)
 #define I2S_INTENCLR_RXRDY1_Pos     1            /**< \brief (I2S_INTENCLR) Receive Ready 1 Interrupt Enable */
 #define I2S_INTENCLR_RXRDY1         (1 << I2S_INTENCLR_RXRDY1_Pos)
 #define I2S_INTENCLR_RXRDY_Pos      0            /**< \brief (I2S_INTENCLR) Receive Ready x Interrupt Enable */
-#define I2S_INTENCLR_RXRDY_Msk      (0x3u << I2S_INTENCLR_RXRDY_Pos)
+#define I2S_INTENCLR_RXRDY_Msk      (0x3ul << I2S_INTENCLR_RXRDY_Pos)
 #define I2S_INTENCLR_RXRDY(value)   ((I2S_INTENCLR_RXRDY_Msk & ((value) << I2S_INTENCLR_RXRDY_Pos)))
 #define I2S_INTENCLR_RXOR0_Pos      4            /**< \brief (I2S_INTENCLR) Receive Overrun 0 Interrupt Enable */
 #define I2S_INTENCLR_RXOR0          (1 << I2S_INTENCLR_RXOR0_Pos)
 #define I2S_INTENCLR_RXOR1_Pos      5            /**< \brief (I2S_INTENCLR) Receive Overrun 1 Interrupt Enable */
 #define I2S_INTENCLR_RXOR1          (1 << I2S_INTENCLR_RXOR1_Pos)
 #define I2S_INTENCLR_RXOR_Pos       4            /**< \brief (I2S_INTENCLR) Receive Overrun x Interrupt Enable */
-#define I2S_INTENCLR_RXOR_Msk       (0x3u << I2S_INTENCLR_RXOR_Pos)
+#define I2S_INTENCLR_RXOR_Msk       (0x3ul << I2S_INTENCLR_RXOR_Pos)
 #define I2S_INTENCLR_RXOR(value)    ((I2S_INTENCLR_RXOR_Msk & ((value) << I2S_INTENCLR_RXOR_Pos)))
 #define I2S_INTENCLR_TXRDY0_Pos     8            /**< \brief (I2S_INTENCLR) Transmit Ready 0 Interrupt Enable */
 #define I2S_INTENCLR_TXRDY0         (1 << I2S_INTENCLR_TXRDY0_Pos)
 #define I2S_INTENCLR_TXRDY1_Pos     9            /**< \brief (I2S_INTENCLR) Transmit Ready 1 Interrupt Enable */
 #define I2S_INTENCLR_TXRDY1         (1 << I2S_INTENCLR_TXRDY1_Pos)
 #define I2S_INTENCLR_TXRDY_Pos      8            /**< \brief (I2S_INTENCLR) Transmit Ready x Interrupt Enable */
-#define I2S_INTENCLR_TXRDY_Msk      (0x3u << I2S_INTENCLR_TXRDY_Pos)
+#define I2S_INTENCLR_TXRDY_Msk      (0x3ul << I2S_INTENCLR_TXRDY_Pos)
 #define I2S_INTENCLR_TXRDY(value)   ((I2S_INTENCLR_TXRDY_Msk & ((value) << I2S_INTENCLR_TXRDY_Pos)))
 #define I2S_INTENCLR_TXUR0_Pos      12           /**< \brief (I2S_INTENCLR) Transmit Underrun 0 Interrupt Enable */
 #define I2S_INTENCLR_TXUR0          (1 << I2S_INTENCLR_TXUR0_Pos)
 #define I2S_INTENCLR_TXUR1_Pos      13           /**< \brief (I2S_INTENCLR) Transmit Underrun 1 Interrupt Enable */
 #define I2S_INTENCLR_TXUR1          (1 << I2S_INTENCLR_TXUR1_Pos)
 #define I2S_INTENCLR_TXUR_Pos       12           /**< \brief (I2S_INTENCLR) Transmit Underrun x Interrupt Enable */
-#define I2S_INTENCLR_TXUR_Msk       (0x3u << I2S_INTENCLR_TXUR_Pos)
+#define I2S_INTENCLR_TXUR_Msk       (0x3ul << I2S_INTENCLR_TXUR_Pos)
 #define I2S_INTENCLR_TXUR(value)    ((I2S_INTENCLR_TXUR_Msk & ((value) << I2S_INTENCLR_TXUR_Pos)))
-#define I2S_INTENCLR_MASK           0x3333u      /**< \brief (I2S_INTENCLR) MASK Register */
+#define I2S_INTENCLR_MASK           0x3333ul     /**< \brief (I2S_INTENCLR) MASK Register */
 
 /* -------- I2S_INTENSET : (I2S Offset: 0x10) (R/W 16) Interrupt Enable Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -290,37 +293,37 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define I2S_INTENSET_OFFSET         0x10         /**< \brief (I2S_INTENSET offset) Interrupt Enable Set */
-#define I2S_INTENSET_RESETVALUE     0x0000       /**< \brief (I2S_INTENSET reset_value) Interrupt Enable Set */
+#define I2S_INTENSET_RESETVALUE     0x0000ul     /**< \brief (I2S_INTENSET reset_value) Interrupt Enable Set */
 
 #define I2S_INTENSET_RXRDY0_Pos     0            /**< \brief (I2S_INTENSET) Receive Ready 0 Interrupt Enable */
 #define I2S_INTENSET_RXRDY0         (1 << I2S_INTENSET_RXRDY0_Pos)
 #define I2S_INTENSET_RXRDY1_Pos     1            /**< \brief (I2S_INTENSET) Receive Ready 1 Interrupt Enable */
 #define I2S_INTENSET_RXRDY1         (1 << I2S_INTENSET_RXRDY1_Pos)
 #define I2S_INTENSET_RXRDY_Pos      0            /**< \brief (I2S_INTENSET) Receive Ready x Interrupt Enable */
-#define I2S_INTENSET_RXRDY_Msk      (0x3u << I2S_INTENSET_RXRDY_Pos)
+#define I2S_INTENSET_RXRDY_Msk      (0x3ul << I2S_INTENSET_RXRDY_Pos)
 #define I2S_INTENSET_RXRDY(value)   ((I2S_INTENSET_RXRDY_Msk & ((value) << I2S_INTENSET_RXRDY_Pos)))
 #define I2S_INTENSET_RXOR0_Pos      4            /**< \brief (I2S_INTENSET) Receive Overrun 0 Interrupt Enable */
 #define I2S_INTENSET_RXOR0          (1 << I2S_INTENSET_RXOR0_Pos)
 #define I2S_INTENSET_RXOR1_Pos      5            /**< \brief (I2S_INTENSET) Receive Overrun 1 Interrupt Enable */
 #define I2S_INTENSET_RXOR1          (1 << I2S_INTENSET_RXOR1_Pos)
 #define I2S_INTENSET_RXOR_Pos       4            /**< \brief (I2S_INTENSET) Receive Overrun x Interrupt Enable */
-#define I2S_INTENSET_RXOR_Msk       (0x3u << I2S_INTENSET_RXOR_Pos)
+#define I2S_INTENSET_RXOR_Msk       (0x3ul << I2S_INTENSET_RXOR_Pos)
 #define I2S_INTENSET_RXOR(value)    ((I2S_INTENSET_RXOR_Msk & ((value) << I2S_INTENSET_RXOR_Pos)))
 #define I2S_INTENSET_TXRDY0_Pos     8            /**< \brief (I2S_INTENSET) Transmit Ready 0 Interrupt Enable */
 #define I2S_INTENSET_TXRDY0         (1 << I2S_INTENSET_TXRDY0_Pos)
 #define I2S_INTENSET_TXRDY1_Pos     9            /**< \brief (I2S_INTENSET) Transmit Ready 1 Interrupt Enable */
 #define I2S_INTENSET_TXRDY1         (1 << I2S_INTENSET_TXRDY1_Pos)
 #define I2S_INTENSET_TXRDY_Pos      8            /**< \brief (I2S_INTENSET) Transmit Ready x Interrupt Enable */
-#define I2S_INTENSET_TXRDY_Msk      (0x3u << I2S_INTENSET_TXRDY_Pos)
+#define I2S_INTENSET_TXRDY_Msk      (0x3ul << I2S_INTENSET_TXRDY_Pos)
 #define I2S_INTENSET_TXRDY(value)   ((I2S_INTENSET_TXRDY_Msk & ((value) << I2S_INTENSET_TXRDY_Pos)))
 #define I2S_INTENSET_TXUR0_Pos      12           /**< \brief (I2S_INTENSET) Transmit Underrun 0 Interrupt Enable */
 #define I2S_INTENSET_TXUR0          (1 << I2S_INTENSET_TXUR0_Pos)
 #define I2S_INTENSET_TXUR1_Pos      13           /**< \brief (I2S_INTENSET) Transmit Underrun 1 Interrupt Enable */
 #define I2S_INTENSET_TXUR1          (1 << I2S_INTENSET_TXUR1_Pos)
 #define I2S_INTENSET_TXUR_Pos       12           /**< \brief (I2S_INTENSET) Transmit Underrun x Interrupt Enable */
-#define I2S_INTENSET_TXUR_Msk       (0x3u << I2S_INTENSET_TXUR_Pos)
+#define I2S_INTENSET_TXUR_Msk       (0x3ul << I2S_INTENSET_TXUR_Pos)
 #define I2S_INTENSET_TXUR(value)    ((I2S_INTENSET_TXUR_Msk & ((value) << I2S_INTENSET_TXUR_Pos)))
-#define I2S_INTENSET_MASK           0x3333u      /**< \brief (I2S_INTENSET) MASK Register */
+#define I2S_INTENSET_MASK           0x3333ul     /**< \brief (I2S_INTENSET) MASK Register */
 
 /* -------- I2S_INTFLAG : (I2S Offset: 0x14) (R/W 16) Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -354,37 +357,37 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define I2S_INTFLAG_OFFSET          0x14         /**< \brief (I2S_INTFLAG offset) Interrupt Flag Status and Clear */
-#define I2S_INTFLAG_RESETVALUE      0x0000       /**< \brief (I2S_INTFLAG reset_value) Interrupt Flag Status and Clear */
+#define I2S_INTFLAG_RESETVALUE      0x0000ul     /**< \brief (I2S_INTFLAG reset_value) Interrupt Flag Status and Clear */
 
 #define I2S_INTFLAG_RXRDY0_Pos      0            /**< \brief (I2S_INTFLAG) Receive Ready 0 */
 #define I2S_INTFLAG_RXRDY0          (1 << I2S_INTFLAG_RXRDY0_Pos)
 #define I2S_INTFLAG_RXRDY1_Pos      1            /**< \brief (I2S_INTFLAG) Receive Ready 1 */
 #define I2S_INTFLAG_RXRDY1          (1 << I2S_INTFLAG_RXRDY1_Pos)
 #define I2S_INTFLAG_RXRDY_Pos       0            /**< \brief (I2S_INTFLAG) Receive Ready x */
-#define I2S_INTFLAG_RXRDY_Msk       (0x3u << I2S_INTFLAG_RXRDY_Pos)
+#define I2S_INTFLAG_RXRDY_Msk       (0x3ul << I2S_INTFLAG_RXRDY_Pos)
 #define I2S_INTFLAG_RXRDY(value)    ((I2S_INTFLAG_RXRDY_Msk & ((value) << I2S_INTFLAG_RXRDY_Pos)))
 #define I2S_INTFLAG_RXOR0_Pos       4            /**< \brief (I2S_INTFLAG) Receive Overrun 0 */
 #define I2S_INTFLAG_RXOR0           (1 << I2S_INTFLAG_RXOR0_Pos)
 #define I2S_INTFLAG_RXOR1_Pos       5            /**< \brief (I2S_INTFLAG) Receive Overrun 1 */
 #define I2S_INTFLAG_RXOR1           (1 << I2S_INTFLAG_RXOR1_Pos)
 #define I2S_INTFLAG_RXOR_Pos        4            /**< \brief (I2S_INTFLAG) Receive Overrun x */
-#define I2S_INTFLAG_RXOR_Msk        (0x3u << I2S_INTFLAG_RXOR_Pos)
+#define I2S_INTFLAG_RXOR_Msk        (0x3ul << I2S_INTFLAG_RXOR_Pos)
 #define I2S_INTFLAG_RXOR(value)     ((I2S_INTFLAG_RXOR_Msk & ((value) << I2S_INTFLAG_RXOR_Pos)))
 #define I2S_INTFLAG_TXRDY0_Pos      8            /**< \brief (I2S_INTFLAG) Transmit Ready 0 */
 #define I2S_INTFLAG_TXRDY0          (1 << I2S_INTFLAG_TXRDY0_Pos)
 #define I2S_INTFLAG_TXRDY1_Pos      9            /**< \brief (I2S_INTFLAG) Transmit Ready 1 */
 #define I2S_INTFLAG_TXRDY1          (1 << I2S_INTFLAG_TXRDY1_Pos)
 #define I2S_INTFLAG_TXRDY_Pos       8            /**< \brief (I2S_INTFLAG) Transmit Ready x */
-#define I2S_INTFLAG_TXRDY_Msk       (0x3u << I2S_INTFLAG_TXRDY_Pos)
+#define I2S_INTFLAG_TXRDY_Msk       (0x3ul << I2S_INTFLAG_TXRDY_Pos)
 #define I2S_INTFLAG_TXRDY(value)    ((I2S_INTFLAG_TXRDY_Msk & ((value) << I2S_INTFLAG_TXRDY_Pos)))
 #define I2S_INTFLAG_TXUR0_Pos       12           /**< \brief (I2S_INTFLAG) Transmit Underrun 0 */
 #define I2S_INTFLAG_TXUR0           (1 << I2S_INTFLAG_TXUR0_Pos)
 #define I2S_INTFLAG_TXUR1_Pos       13           /**< \brief (I2S_INTFLAG) Transmit Underrun 1 */
 #define I2S_INTFLAG_TXUR1           (1 << I2S_INTFLAG_TXUR1_Pos)
 #define I2S_INTFLAG_TXUR_Pos        12           /**< \brief (I2S_INTFLAG) Transmit Underrun x */
-#define I2S_INTFLAG_TXUR_Msk        (0x3u << I2S_INTFLAG_TXUR_Pos)
+#define I2S_INTFLAG_TXUR_Msk        (0x3ul << I2S_INTFLAG_TXUR_Pos)
 #define I2S_INTFLAG_TXUR(value)     ((I2S_INTFLAG_TXUR_Msk & ((value) << I2S_INTFLAG_TXUR_Pos)))
-#define I2S_INTFLAG_MASK            0x3333u      /**< \brief (I2S_INTFLAG) MASK Register */
+#define I2S_INTFLAG_MASK            0x3333ul     /**< \brief (I2S_INTFLAG) MASK Register */
 
 /* -------- I2S_SYNCBUSY : (I2S Offset: 0x18) (R/  16) Synchronization Status -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -414,34 +417,34 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define I2S_SYNCBUSY_OFFSET         0x18         /**< \brief (I2S_SYNCBUSY offset) Synchronization Status */
-#define I2S_SYNCBUSY_RESETVALUE     0x0000       /**< \brief (I2S_SYNCBUSY reset_value) Synchronization Status */
+#define I2S_SYNCBUSY_RESETVALUE     0x0000ul     /**< \brief (I2S_SYNCBUSY reset_value) Synchronization Status */
 
 #define I2S_SYNCBUSY_SWRST_Pos      0            /**< \brief (I2S_SYNCBUSY) Software Reset Synchronization Status */
-#define I2S_SYNCBUSY_SWRST          (0x1u << I2S_SYNCBUSY_SWRST_Pos)
+#define I2S_SYNCBUSY_SWRST          (0x1ul << I2S_SYNCBUSY_SWRST_Pos)
 #define I2S_SYNCBUSY_ENABLE_Pos     1            /**< \brief (I2S_SYNCBUSY) Enable Synchronization Status */
-#define I2S_SYNCBUSY_ENABLE         (0x1u << I2S_SYNCBUSY_ENABLE_Pos)
+#define I2S_SYNCBUSY_ENABLE         (0x1ul << I2S_SYNCBUSY_ENABLE_Pos)
 #define I2S_SYNCBUSY_CKEN0_Pos      2            /**< \brief (I2S_SYNCBUSY) Clock Unit 0 Enable Synchronization Status */
 #define I2S_SYNCBUSY_CKEN0          (1 << I2S_SYNCBUSY_CKEN0_Pos)
 #define I2S_SYNCBUSY_CKEN1_Pos      3            /**< \brief (I2S_SYNCBUSY) Clock Unit 1 Enable Synchronization Status */
 #define I2S_SYNCBUSY_CKEN1          (1 << I2S_SYNCBUSY_CKEN1_Pos)
 #define I2S_SYNCBUSY_CKEN_Pos       2            /**< \brief (I2S_SYNCBUSY) Clock Unit x Enable Synchronization Status */
-#define I2S_SYNCBUSY_CKEN_Msk       (0x3u << I2S_SYNCBUSY_CKEN_Pos)
+#define I2S_SYNCBUSY_CKEN_Msk       (0x3ul << I2S_SYNCBUSY_CKEN_Pos)
 #define I2S_SYNCBUSY_CKEN(value)    ((I2S_SYNCBUSY_CKEN_Msk & ((value) << I2S_SYNCBUSY_CKEN_Pos)))
 #define I2S_SYNCBUSY_SEREN0_Pos     4            /**< \brief (I2S_SYNCBUSY) Serializer 0 Enable Synchronization Status */
 #define I2S_SYNCBUSY_SEREN0         (1 << I2S_SYNCBUSY_SEREN0_Pos)
 #define I2S_SYNCBUSY_SEREN1_Pos     5            /**< \brief (I2S_SYNCBUSY) Serializer 1 Enable Synchronization Status */
 #define I2S_SYNCBUSY_SEREN1         (1 << I2S_SYNCBUSY_SEREN1_Pos)
 #define I2S_SYNCBUSY_SEREN_Pos      4            /**< \brief (I2S_SYNCBUSY) Serializer x Enable Synchronization Status */
-#define I2S_SYNCBUSY_SEREN_Msk      (0x3u << I2S_SYNCBUSY_SEREN_Pos)
+#define I2S_SYNCBUSY_SEREN_Msk      (0x3ul << I2S_SYNCBUSY_SEREN_Pos)
 #define I2S_SYNCBUSY_SEREN(value)   ((I2S_SYNCBUSY_SEREN_Msk & ((value) << I2S_SYNCBUSY_SEREN_Pos)))
 #define I2S_SYNCBUSY_DATA0_Pos      8            /**< \brief (I2S_SYNCBUSY) Data 0 Synchronization Status */
 #define I2S_SYNCBUSY_DATA0          (1 << I2S_SYNCBUSY_DATA0_Pos)
 #define I2S_SYNCBUSY_DATA1_Pos      9            /**< \brief (I2S_SYNCBUSY) Data 1 Synchronization Status */
 #define I2S_SYNCBUSY_DATA1          (1 << I2S_SYNCBUSY_DATA1_Pos)
 #define I2S_SYNCBUSY_DATA_Pos       8            /**< \brief (I2S_SYNCBUSY) Data x Synchronization Status */
-#define I2S_SYNCBUSY_DATA_Msk       (0x3u << I2S_SYNCBUSY_DATA_Pos)
+#define I2S_SYNCBUSY_DATA_Msk       (0x3ul << I2S_SYNCBUSY_DATA_Pos)
 #define I2S_SYNCBUSY_DATA(value)    ((I2S_SYNCBUSY_DATA_Msk & ((value) << I2S_SYNCBUSY_DATA_Pos)))
-#define I2S_SYNCBUSY_MASK           0x033Fu      /**< \brief (I2S_SYNCBUSY) MASK Register */
+#define I2S_SYNCBUSY_MASK           0x033Ful     /**< \brief (I2S_SYNCBUSY) MASK Register */
 
 /* -------- I2S_SERCTRL : (I2S Offset: 0x20) (R/W 32) Serializer n Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -481,55 +484,55 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define I2S_SERCTRL_OFFSET          0x20         /**< \brief (I2S_SERCTRL offset) Serializer n Control */
-#define I2S_SERCTRL_RESETVALUE      0x00000000   /**< \brief (I2S_SERCTRL reset_value) Serializer n Control */
+#define I2S_SERCTRL_RESETVALUE      0x00000000ul /**< \brief (I2S_SERCTRL reset_value) Serializer n Control */
 
 #define I2S_SERCTRL_SERMODE_Pos     0            /**< \brief (I2S_SERCTRL) Serializer Mode */
-#define I2S_SERCTRL_SERMODE_Msk     (0x3u << I2S_SERCTRL_SERMODE_Pos)
+#define I2S_SERCTRL_SERMODE_Msk     (0x3ul << I2S_SERCTRL_SERMODE_Pos)
 #define I2S_SERCTRL_SERMODE(value)  ((I2S_SERCTRL_SERMODE_Msk & ((value) << I2S_SERCTRL_SERMODE_Pos)))
-#define   I2S_SERCTRL_SERMODE_RX_Val      0x0u   /**< \brief (I2S_SERCTRL) Receive */
-#define   I2S_SERCTRL_SERMODE_TX_Val      0x1u   /**< \brief (I2S_SERCTRL) Transmit */
-#define   I2S_SERCTRL_SERMODE_PDM2_Val    0x2u   /**< \brief (I2S_SERCTRL) Receive one PDM data on each serial clock edge */
+#define   I2S_SERCTRL_SERMODE_RX_Val      0x0ul  /**< \brief (I2S_SERCTRL) Receive */
+#define   I2S_SERCTRL_SERMODE_TX_Val      0x1ul  /**< \brief (I2S_SERCTRL) Transmit */
+#define   I2S_SERCTRL_SERMODE_PDM2_Val    0x2ul  /**< \brief (I2S_SERCTRL) Receive one PDM data on each serial clock edge */
 #define I2S_SERCTRL_SERMODE_RX      (I2S_SERCTRL_SERMODE_RX_Val    << I2S_SERCTRL_SERMODE_Pos)
 #define I2S_SERCTRL_SERMODE_TX      (I2S_SERCTRL_SERMODE_TX_Val    << I2S_SERCTRL_SERMODE_Pos)
 #define I2S_SERCTRL_SERMODE_PDM2    (I2S_SERCTRL_SERMODE_PDM2_Val  << I2S_SERCTRL_SERMODE_Pos)
 #define I2S_SERCTRL_TXDEFAULT_Pos   2            /**< \brief (I2S_SERCTRL) Line Default Line when Slot Disabled */
-#define I2S_SERCTRL_TXDEFAULT_Msk   (0x3u << I2S_SERCTRL_TXDEFAULT_Pos)
+#define I2S_SERCTRL_TXDEFAULT_Msk   (0x3ul << I2S_SERCTRL_TXDEFAULT_Pos)
 #define I2S_SERCTRL_TXDEFAULT(value) ((I2S_SERCTRL_TXDEFAULT_Msk & ((value) << I2S_SERCTRL_TXDEFAULT_Pos)))
-#define   I2S_SERCTRL_TXDEFAULT_ZERO_Val  0x0u   /**< \brief (I2S_SERCTRL) Output Default Value is 0 */
-#define   I2S_SERCTRL_TXDEFAULT_ONE_Val   0x1u   /**< \brief (I2S_SERCTRL) Output Default Value is 1 */
-#define   I2S_SERCTRL_TXDEFAULT_HIZ_Val   0x3u   /**< \brief (I2S_SERCTRL) Output Default Value is high impedance */
+#define   I2S_SERCTRL_TXDEFAULT_ZERO_Val  0x0ul  /**< \brief (I2S_SERCTRL) Output Default Value is 0 */
+#define   I2S_SERCTRL_TXDEFAULT_ONE_Val   0x1ul  /**< \brief (I2S_SERCTRL) Output Default Value is 1 */
+#define   I2S_SERCTRL_TXDEFAULT_HIZ_Val   0x3ul  /**< \brief (I2S_SERCTRL) Output Default Value is high impedance */
 #define I2S_SERCTRL_TXDEFAULT_ZERO  (I2S_SERCTRL_TXDEFAULT_ZERO_Val << I2S_SERCTRL_TXDEFAULT_Pos)
 #define I2S_SERCTRL_TXDEFAULT_ONE   (I2S_SERCTRL_TXDEFAULT_ONE_Val << I2S_SERCTRL_TXDEFAULT_Pos)
 #define I2S_SERCTRL_TXDEFAULT_HIZ   (I2S_SERCTRL_TXDEFAULT_HIZ_Val << I2S_SERCTRL_TXDEFAULT_Pos)
 #define I2S_SERCTRL_TXSAME_Pos      4            /**< \brief (I2S_SERCTRL) Transmit Data when Underrun */
-#define I2S_SERCTRL_TXSAME          (0x1u << I2S_SERCTRL_TXSAME_Pos)
-#define   I2S_SERCTRL_TXSAME_ZERO_Val     0x0u   /**< \brief (I2S_SERCTRL) Zero data transmitted in case of underrun */
-#define   I2S_SERCTRL_TXSAME_SAME_Val     0x1u   /**< \brief (I2S_SERCTRL) Last data transmitted in case of underrun */
+#define I2S_SERCTRL_TXSAME          (0x1ul << I2S_SERCTRL_TXSAME_Pos)
+#define   I2S_SERCTRL_TXSAME_ZERO_Val     0x0ul  /**< \brief (I2S_SERCTRL) Zero data transmitted in case of underrun */
+#define   I2S_SERCTRL_TXSAME_SAME_Val     0x1ul  /**< \brief (I2S_SERCTRL) Last data transmitted in case of underrun */
 #define I2S_SERCTRL_TXSAME_ZERO     (I2S_SERCTRL_TXSAME_ZERO_Val   << I2S_SERCTRL_TXSAME_Pos)
 #define I2S_SERCTRL_TXSAME_SAME     (I2S_SERCTRL_TXSAME_SAME_Val   << I2S_SERCTRL_TXSAME_Pos)
 #define I2S_SERCTRL_CLKSEL_Pos      5            /**< \brief (I2S_SERCTRL) Clock Unit Selection */
-#define I2S_SERCTRL_CLKSEL          (0x1u << I2S_SERCTRL_CLKSEL_Pos)
-#define   I2S_SERCTRL_CLKSEL_CLK0_Val     0x0u   /**< \brief (I2S_SERCTRL) Use Clock Unit 0 */
-#define   I2S_SERCTRL_CLKSEL_CLK1_Val     0x1u   /**< \brief (I2S_SERCTRL) Use Clock Unit 1 */
+#define I2S_SERCTRL_CLKSEL          (0x1ul << I2S_SERCTRL_CLKSEL_Pos)
+#define   I2S_SERCTRL_CLKSEL_CLK0_Val     0x0ul  /**< \brief (I2S_SERCTRL) Use Clock Unit 0 */
+#define   I2S_SERCTRL_CLKSEL_CLK1_Val     0x1ul  /**< \brief (I2S_SERCTRL) Use Clock Unit 1 */
 #define I2S_SERCTRL_CLKSEL_CLK0     (I2S_SERCTRL_CLKSEL_CLK0_Val   << I2S_SERCTRL_CLKSEL_Pos)
 #define I2S_SERCTRL_CLKSEL_CLK1     (I2S_SERCTRL_CLKSEL_CLK1_Val   << I2S_SERCTRL_CLKSEL_Pos)
 #define I2S_SERCTRL_SLOTADJ_Pos     7            /**< \brief (I2S_SERCTRL) Data Slot Formatting Adjust */
-#define I2S_SERCTRL_SLOTADJ         (0x1u << I2S_SERCTRL_SLOTADJ_Pos)
-#define   I2S_SERCTRL_SLOTADJ_RIGHT_Val   0x0u   /**< \brief (I2S_SERCTRL) Data is right adjusted in slot */
-#define   I2S_SERCTRL_SLOTADJ_LEFT_Val    0x1u   /**< \brief (I2S_SERCTRL) Data is left adjusted in slot */
+#define I2S_SERCTRL_SLOTADJ         (0x1ul << I2S_SERCTRL_SLOTADJ_Pos)
+#define   I2S_SERCTRL_SLOTADJ_RIGHT_Val   0x0ul  /**< \brief (I2S_SERCTRL) Data is right adjusted in slot */
+#define   I2S_SERCTRL_SLOTADJ_LEFT_Val    0x1ul  /**< \brief (I2S_SERCTRL) Data is left adjusted in slot */
 #define I2S_SERCTRL_SLOTADJ_RIGHT   (I2S_SERCTRL_SLOTADJ_RIGHT_Val << I2S_SERCTRL_SLOTADJ_Pos)
 #define I2S_SERCTRL_SLOTADJ_LEFT    (I2S_SERCTRL_SLOTADJ_LEFT_Val  << I2S_SERCTRL_SLOTADJ_Pos)
 #define I2S_SERCTRL_DATASIZE_Pos    8            /**< \brief (I2S_SERCTRL) Data Word Size */
-#define I2S_SERCTRL_DATASIZE_Msk    (0x7u << I2S_SERCTRL_DATASIZE_Pos)
+#define I2S_SERCTRL_DATASIZE_Msk    (0x7ul << I2S_SERCTRL_DATASIZE_Pos)
 #define I2S_SERCTRL_DATASIZE(value) ((I2S_SERCTRL_DATASIZE_Msk & ((value) << I2S_SERCTRL_DATASIZE_Pos)))
-#define   I2S_SERCTRL_DATASIZE_32_Val     0x0u   /**< \brief (I2S_SERCTRL) 32 bits */
-#define   I2S_SERCTRL_DATASIZE_24_Val     0x1u   /**< \brief (I2S_SERCTRL) 24 bits */
-#define   I2S_SERCTRL_DATASIZE_20_Val     0x2u   /**< \brief (I2S_SERCTRL) 20 bits */
-#define   I2S_SERCTRL_DATASIZE_18_Val     0x3u   /**< \brief (I2S_SERCTRL) 18 bits */
-#define   I2S_SERCTRL_DATASIZE_16_Val     0x4u   /**< \brief (I2S_SERCTRL) 16 bits */
-#define   I2S_SERCTRL_DATASIZE_16C_Val    0x5u   /**< \brief (I2S_SERCTRL) 16 bits compact stereo */
-#define   I2S_SERCTRL_DATASIZE_8_Val      0x6u   /**< \brief (I2S_SERCTRL) 8 bits */
-#define   I2S_SERCTRL_DATASIZE_8C_Val     0x7u   /**< \brief (I2S_SERCTRL) 8 bits compact stereo */
+#define   I2S_SERCTRL_DATASIZE_32_Val     0x0ul  /**< \brief (I2S_SERCTRL) 32 bits */
+#define   I2S_SERCTRL_DATASIZE_24_Val     0x1ul  /**< \brief (I2S_SERCTRL) 24 bits */
+#define   I2S_SERCTRL_DATASIZE_20_Val     0x2ul  /**< \brief (I2S_SERCTRL) 20 bits */
+#define   I2S_SERCTRL_DATASIZE_18_Val     0x3ul  /**< \brief (I2S_SERCTRL) 18 bits */
+#define   I2S_SERCTRL_DATASIZE_16_Val     0x4ul  /**< \brief (I2S_SERCTRL) 16 bits */
+#define   I2S_SERCTRL_DATASIZE_16C_Val    0x5ul  /**< \brief (I2S_SERCTRL) 16 bits compact stereo */
+#define   I2S_SERCTRL_DATASIZE_8_Val      0x6ul  /**< \brief (I2S_SERCTRL) 8 bits */
+#define   I2S_SERCTRL_DATASIZE_8C_Val     0x7ul  /**< \brief (I2S_SERCTRL) 8 bits compact stereo */
 #define I2S_SERCTRL_DATASIZE_32     (I2S_SERCTRL_DATASIZE_32_Val   << I2S_SERCTRL_DATASIZE_Pos)
 #define I2S_SERCTRL_DATASIZE_24     (I2S_SERCTRL_DATASIZE_24_Val   << I2S_SERCTRL_DATASIZE_Pos)
 #define I2S_SERCTRL_DATASIZE_20     (I2S_SERCTRL_DATASIZE_20_Val   << I2S_SERCTRL_DATASIZE_Pos)
@@ -539,26 +542,26 @@ typedef union {
 #define I2S_SERCTRL_DATASIZE_8      (I2S_SERCTRL_DATASIZE_8_Val    << I2S_SERCTRL_DATASIZE_Pos)
 #define I2S_SERCTRL_DATASIZE_8C     (I2S_SERCTRL_DATASIZE_8C_Val   << I2S_SERCTRL_DATASIZE_Pos)
 #define I2S_SERCTRL_WORDADJ_Pos     12           /**< \brief (I2S_SERCTRL) Data Word Formatting Adjust */
-#define I2S_SERCTRL_WORDADJ         (0x1u << I2S_SERCTRL_WORDADJ_Pos)
-#define   I2S_SERCTRL_WORDADJ_RIGHT_Val   0x0u   /**< \brief (I2S_SERCTRL) Data is right adjusted in word */
-#define   I2S_SERCTRL_WORDADJ_LEFT_Val    0x1u   /**< \brief (I2S_SERCTRL) Data is left adjusted in word */
+#define I2S_SERCTRL_WORDADJ         (0x1ul << I2S_SERCTRL_WORDADJ_Pos)
+#define   I2S_SERCTRL_WORDADJ_RIGHT_Val   0x0ul  /**< \brief (I2S_SERCTRL) Data is right adjusted in word */
+#define   I2S_SERCTRL_WORDADJ_LEFT_Val    0x1ul  /**< \brief (I2S_SERCTRL) Data is left adjusted in word */
 #define I2S_SERCTRL_WORDADJ_RIGHT   (I2S_SERCTRL_WORDADJ_RIGHT_Val << I2S_SERCTRL_WORDADJ_Pos)
 #define I2S_SERCTRL_WORDADJ_LEFT    (I2S_SERCTRL_WORDADJ_LEFT_Val  << I2S_SERCTRL_WORDADJ_Pos)
 #define I2S_SERCTRL_EXTEND_Pos      13           /**< \brief (I2S_SERCTRL) Data Formatting Bit Extension */
-#define I2S_SERCTRL_EXTEND_Msk      (0x3u << I2S_SERCTRL_EXTEND_Pos)
+#define I2S_SERCTRL_EXTEND_Msk      (0x3ul << I2S_SERCTRL_EXTEND_Pos)
 #define I2S_SERCTRL_EXTEND(value)   ((I2S_SERCTRL_EXTEND_Msk & ((value) << I2S_SERCTRL_EXTEND_Pos)))
-#define   I2S_SERCTRL_EXTEND_ZERO_Val     0x0u   /**< \brief (I2S_SERCTRL) Extend with zeroes */
-#define   I2S_SERCTRL_EXTEND_ONE_Val      0x1u   /**< \brief (I2S_SERCTRL) Extend with ones */
-#define   I2S_SERCTRL_EXTEND_MSBIT_Val    0x2u   /**< \brief (I2S_SERCTRL) Extend with Most Significant Bit */
-#define   I2S_SERCTRL_EXTEND_LSBIT_Val    0x3u   /**< \brief (I2S_SERCTRL) Extend with Least Significant Bit */
+#define   I2S_SERCTRL_EXTEND_ZERO_Val     0x0ul  /**< \brief (I2S_SERCTRL) Extend with zeroes */
+#define   I2S_SERCTRL_EXTEND_ONE_Val      0x1ul  /**< \brief (I2S_SERCTRL) Extend with ones */
+#define   I2S_SERCTRL_EXTEND_MSBIT_Val    0x2ul  /**< \brief (I2S_SERCTRL) Extend with Most Significant Bit */
+#define   I2S_SERCTRL_EXTEND_LSBIT_Val    0x3ul  /**< \brief (I2S_SERCTRL) Extend with Least Significant Bit */
 #define I2S_SERCTRL_EXTEND_ZERO     (I2S_SERCTRL_EXTEND_ZERO_Val   << I2S_SERCTRL_EXTEND_Pos)
 #define I2S_SERCTRL_EXTEND_ONE      (I2S_SERCTRL_EXTEND_ONE_Val    << I2S_SERCTRL_EXTEND_Pos)
 #define I2S_SERCTRL_EXTEND_MSBIT    (I2S_SERCTRL_EXTEND_MSBIT_Val  << I2S_SERCTRL_EXTEND_Pos)
 #define I2S_SERCTRL_EXTEND_LSBIT    (I2S_SERCTRL_EXTEND_LSBIT_Val  << I2S_SERCTRL_EXTEND_Pos)
 #define I2S_SERCTRL_BITREV_Pos      15           /**< \brief (I2S_SERCTRL) Data Formatting Bit Reverse */
-#define I2S_SERCTRL_BITREV          (0x1u << I2S_SERCTRL_BITREV_Pos)
-#define   I2S_SERCTRL_BITREV_MSBIT_Val    0x0u   /**< \brief (I2S_SERCTRL) Transfer Data Most Significant Bit (MSB) first (default for I2S protocol) */
-#define   I2S_SERCTRL_BITREV_LSBIT_Val    0x1u   /**< \brief (I2S_SERCTRL) Transfer Data Least Significant Bit (LSB) first */
+#define I2S_SERCTRL_BITREV          (0x1ul << I2S_SERCTRL_BITREV_Pos)
+#define   I2S_SERCTRL_BITREV_MSBIT_Val    0x0ul  /**< \brief (I2S_SERCTRL) Transfer Data Most Significant Bit (MSB) first (default for I2S protocol) */
+#define   I2S_SERCTRL_BITREV_LSBIT_Val    0x1ul  /**< \brief (I2S_SERCTRL) Transfer Data Least Significant Bit (LSB) first */
 #define I2S_SERCTRL_BITREV_MSBIT    (I2S_SERCTRL_BITREV_MSBIT_Val  << I2S_SERCTRL_BITREV_Pos)
 #define I2S_SERCTRL_BITREV_LSBIT    (I2S_SERCTRL_BITREV_LSBIT_Val  << I2S_SERCTRL_BITREV_Pos)
 #define I2S_SERCTRL_SLOTDIS0_Pos    16           /**< \brief (I2S_SERCTRL) Slot 0 Disabled for this Serializer */
@@ -578,23 +581,23 @@ typedef union {
 #define I2S_SERCTRL_SLOTDIS7_Pos    23           /**< \brief (I2S_SERCTRL) Slot 7 Disabled for this Serializer */
 #define I2S_SERCTRL_SLOTDIS7        (1 << I2S_SERCTRL_SLOTDIS7_Pos)
 #define I2S_SERCTRL_SLOTDIS_Pos     16           /**< \brief (I2S_SERCTRL) Slot x Disabled for this Serializer */
-#define I2S_SERCTRL_SLOTDIS_Msk     (0xFFu << I2S_SERCTRL_SLOTDIS_Pos)
+#define I2S_SERCTRL_SLOTDIS_Msk     (0xFFul << I2S_SERCTRL_SLOTDIS_Pos)
 #define I2S_SERCTRL_SLOTDIS(value)  ((I2S_SERCTRL_SLOTDIS_Msk & ((value) << I2S_SERCTRL_SLOTDIS_Pos)))
 #define I2S_SERCTRL_MONO_Pos        24           /**< \brief (I2S_SERCTRL) Mono Mode */
-#define I2S_SERCTRL_MONO            (0x1u << I2S_SERCTRL_MONO_Pos)
-#define   I2S_SERCTRL_MONO_STEREO_Val     0x0u   /**< \brief (I2S_SERCTRL) Normal mode */
-#define   I2S_SERCTRL_MONO_MONO_Val       0x1u   /**< \brief (I2S_SERCTRL) Left channel data is duplicated to right channel */
+#define I2S_SERCTRL_MONO            (0x1ul << I2S_SERCTRL_MONO_Pos)
+#define   I2S_SERCTRL_MONO_STEREO_Val     0x0ul  /**< \brief (I2S_SERCTRL) Normal mode */
+#define   I2S_SERCTRL_MONO_MONO_Val       0x1ul  /**< \brief (I2S_SERCTRL) Left channel data is duplicated to right channel */
 #define I2S_SERCTRL_MONO_STEREO     (I2S_SERCTRL_MONO_STEREO_Val   << I2S_SERCTRL_MONO_Pos)
 #define I2S_SERCTRL_MONO_MONO       (I2S_SERCTRL_MONO_MONO_Val     << I2S_SERCTRL_MONO_Pos)
 #define I2S_SERCTRL_DMA_Pos         25           /**< \brief (I2S_SERCTRL) Single or Multiple DMA Channels */
-#define I2S_SERCTRL_DMA             (0x1u << I2S_SERCTRL_DMA_Pos)
-#define   I2S_SERCTRL_DMA_SINGLE_Val      0x0u   /**< \brief (I2S_SERCTRL) Single DMA channel */
-#define   I2S_SERCTRL_DMA_MULTIPLE_Val    0x1u   /**< \brief (I2S_SERCTRL) One DMA channel per data channel */
+#define I2S_SERCTRL_DMA             (0x1ul << I2S_SERCTRL_DMA_Pos)
+#define   I2S_SERCTRL_DMA_SINGLE_Val      0x0ul  /**< \brief (I2S_SERCTRL) Single DMA channel */
+#define   I2S_SERCTRL_DMA_MULTIPLE_Val    0x1ul  /**< \brief (I2S_SERCTRL) One DMA channel per data channel */
 #define I2S_SERCTRL_DMA_SINGLE      (I2S_SERCTRL_DMA_SINGLE_Val    << I2S_SERCTRL_DMA_Pos)
 #define I2S_SERCTRL_DMA_MULTIPLE    (I2S_SERCTRL_DMA_MULTIPLE_Val  << I2S_SERCTRL_DMA_Pos)
 #define I2S_SERCTRL_RXLOOP_Pos      26           /**< \brief (I2S_SERCTRL) Loop-back Test Mode */
-#define I2S_SERCTRL_RXLOOP          (0x1u << I2S_SERCTRL_RXLOOP_Pos)
-#define I2S_SERCTRL_MASK            0x07FFF7BFu  /**< \brief (I2S_SERCTRL) MASK Register */
+#define I2S_SERCTRL_RXLOOP          (0x1ul << I2S_SERCTRL_RXLOOP_Pos)
+#define I2S_SERCTRL_MASK            0x07FFF7BFul /**< \brief (I2S_SERCTRL) MASK Register */
 
 /* -------- I2S_DATA : (I2S Offset: 0x30) (R/W 32) Data n -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -607,12 +610,12 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define I2S_DATA_OFFSET             0x30         /**< \brief (I2S_DATA offset) Data n */
-#define I2S_DATA_RESETVALUE         0x00000000   /**< \brief (I2S_DATA reset_value) Data n */
+#define I2S_DATA_RESETVALUE         0x00000000ul /**< \brief (I2S_DATA reset_value) Data n */
 
 #define I2S_DATA_DATA_Pos           0            /**< \brief (I2S_DATA) Sample Data */
-#define I2S_DATA_DATA_Msk           (0xFFFFFFFFu << I2S_DATA_DATA_Pos)
+#define I2S_DATA_DATA_Msk           (0xFFFFFFFFul << I2S_DATA_DATA_Pos)
 #define I2S_DATA_DATA(value)        ((I2S_DATA_DATA_Msk & ((value) << I2S_DATA_DATA_Pos)))
-#define I2S_DATA_MASK               0xFFFFFFFFu  /**< \brief (I2S_DATA) MASK Register */
+#define I2S_DATA_MASK               0xFFFFFFFFul /**< \brief (I2S_DATA) MASK Register */
 
 /** \brief I2S hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))

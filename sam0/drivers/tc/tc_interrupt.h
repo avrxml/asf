@@ -3,7 +3,7 @@
  *
  * \brief SAM TC - Timer Counter Callback Driver
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,6 +41,10 @@
  *
  */
 
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
+
 #ifndef TC_INTERRUPT_H_INCLUDED
 #define TC_INTERRUPT_H_INCLUDED
 
@@ -68,7 +72,13 @@ static enum system_interrupt_vector _tc_interrupt_get_interrupt_vector(
 {
 	static uint8_t tc_interrupt_vectors[TC_INST_NUM] =
 		{
+#if (SAML21E) || (SAML21G)
+			SYSTEM_INTERRUPT_MODULE_TC0,
+			SYSTEM_INTERRUPT_MODULE_TC1,
+			SYSTEM_INTERRUPT_MODULE_TC4
+#else
 			MRECURSION(TC_INST_NUM, _TC_INTERRUPT_VECT_NUM, TC_INST_MAX_ID)
+#endif
 		};
 
 	return (enum system_interrupt_vector)tc_interrupt_vectors[inst_num];
@@ -90,7 +100,7 @@ enum status_code tc_unregister_callback(
 		const enum tc_callback callback_type);
 
 /**
- * \brief Enables callback
+ * \brief Enables callback.
  *
  * Enables the callback function registered by the \ref
  * tc_register_callback. The callback function will be called from the
@@ -127,7 +137,7 @@ static inline void tc_enable_callback(
 }
 
 /**
- * \brief Disables callback
+ * \brief Disables callback.
  *
  * Disables the callback function registered by the \ref
  * tc_register_callback, and the callback will not be called from the

@@ -63,9 +63,9 @@ CSRCS = \
        sam/utils/cmsis/samg/samg53/source/templates/gcc/startup_samg53.c \
        sam/utils/cmsis/samg/samg53/source/templates/system_samg53.c \
        sam/utils/syscalls/gcc/syscalls.c                  \
-       thirdparty/CMSIS/DSP_Lib/Examples/Common/Source/math_helper.c \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_graphic_equalizer_example/arm_graphic_equalizer_data.c \
-       thirdparty/CMSIS/DSP_Lib/Examples/arm_graphic_equalizer_example/arm_graphic_equalizer_example_q31.c
+       thirdparty/CMSIS/DSP_Lib/Examples/arm_graphic_equalizer_example/arm_graphic_equalizer_example_q31.c \
+       thirdparty/CMSIS/DSP_Lib/Examples/arm_graphic_equalizer_example/math_helper.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -87,7 +87,6 @@ INC_PATH = \
        sam/utils/fpu                                      \
        sam/utils/header_files                             \
        sam/utils/preprocessor                             \
-       thirdparty/CMSIS/DSP_Lib/Examples/Common/Include   \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_graphic_equalizer_example \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_graphic_equalizer_example/samg53n19_samg_xplained_pro \
        thirdparty/CMSIS/Include                           \
@@ -100,7 +99,7 @@ LIB_PATH =  \
 
 # List of libraries to use during linking.
 LIBS =  \
-       arm_cortexM4lf_math                                \
+       arm_cortexM4lf_math_softfp                         \
        m                                                 
 
 # Path relative to top level directory pointing to a linker script.

@@ -3,7 +3,7 @@
  *
  * \brief SAM Pin Multiplexer Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <pinmux.h>
 
 /**
@@ -50,9 +53,9 @@
  * \note If the pin direction is set as an output, the pull-up/pull-down input
  *       configuration setting is ignored.
  *
- * \param[in] port      Base of the PORT module to configure.
- * \param[in] pin_mask  Mask of the port pin to configure.
- * \param[in] config    Configuration settings for the pin.
+ * \param[in] port      Base of the PORT module to configure
+ * \param[in] pin_mask  Mask of the port pin to configure
+ * \param[in] config    Configuration settings for the pin
  */
 static void _system_pinmux_config(
 		PortGroup *const port,
@@ -67,8 +70,8 @@ static void _system_pinmux_config(
 
 	/* Enabled powersave mode, don't create configuration */
 	if (!config->powersave) {
-		/* Enable the pin peripheral mux flag if non-GPIO selected (pin mux will
-		 * be written later) and store the new mux mask */
+		/* Enable the pin peripheral MUX flag if non-GPIO selected (pinmux will
+		 * be written later) and store the new MUX mask */
 		if (config->mux_position != SYSTEM_PINMUX_GPIO) {
 			pin_cfg |= PORT_WRCONFIG_PMUXEN;
 			pin_cfg |= (config->mux_position << PORT_WRCONFIG_PMUX_Pos);
@@ -92,11 +95,13 @@ static void _system_pinmux_config(
 		/* Check if the user has requested that the output buffer be enabled */
 		if ((config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT) ||
 				(config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT_WITH_READBACK)) {
-			/* Cannot use a pullup if the output driver is enabled,
+			/* Cannot use a pull-up if the output driver is enabled,
 			 * if requested the input buffer can only sample the current
 			 * output state */
 			pin_cfg &= ~PORT_WRCONFIG_PULLEN;
 		}
+	} else {
+		port->DIRCLR.reg = pin_mask;
 	}
 
 	/* The Write Configuration register (WRCONFIG) requires the
@@ -122,7 +127,7 @@ static void _system_pinmux_config(
 		 * requested and it does not violate the valid set of port
 		 * configurations */
 		if (pin_cfg & PORT_WRCONFIG_PULLEN) {
-			/* Set the OUT register bits to enable the pullup if requested,
+			/* Set the OUT register bits to enable the pull-up if requested,
 			 * clear to enable pull-down */
 			if (config->input_pull == SYSTEM_PINMUX_PIN_PULL_UP) {
 				port->OUTSET.reg = pin_mask;
@@ -149,8 +154,8 @@ static void _system_pinmux_config(
  * \note If the pin direction is set as an output, the pull-up/pull-down input
  *       configuration setting is ignored.
  *
- * \param[in] gpio_pin  Index of the GPIO pin to configure.
- * \param[in] config    Configuration settings for the pin.
+ * \param[in] gpio_pin  Index of the GPIO pin to configure
+ * \param[in] config    Configuration settings for the pin
  */
 void system_pinmux_pin_set_config(
 		const uint8_t gpio_pin,
@@ -171,9 +176,9 @@ void system_pinmux_pin_set_config(
  * \note If the pin direction is set as an output, the pull-up/pull-down input
  *       configuration setting is ignored.
  *
- * \param[in] port      Base of the PORT module to configure.
- * \param[in] mask      Mask of the port pin(s) to configure.
- * \param[in] config    Configuration settings for the pin.
+ * \param[in] port      Base of the PORT module to configure
+ * \param[in] mask      Mask of the port pin(s) to configure
+ * \param[in] config    Configuration settings for the pin
  */
 void system_pinmux_group_set_config(
 		PortGroup *const port,
@@ -196,9 +201,9 @@ void system_pinmux_group_set_config(
  * control when the physical I/O pin value is sampled and
  * stored inside the microcontroller.
  *
- * \param[in] port     Base of the PORT module to configure.
- * \param[in] mask     Mask of the port pin(s) to configure.
- * \param[in] mode     New pin sampling mode to configure.
+ * \param[in] port     Base of the PORT module to configure
+ * \param[in] mask     Mask of the port pin(s) to configure
+ * \param[in] mode     New pin sampling mode to configure
  */
 void system_pinmux_group_set_input_sample_mode(
 		PortGroup *const port,
@@ -213,3 +218,94 @@ void system_pinmux_group_set_input_sample_mode(
 		port->CTRL.reg &= ~mask;
 	}
 }
+
+#ifdef FEATURE_SYSTEM_PINMUX_SLEWRATE_LIMITER
+/**
+ * \brief Configures the output slew rate mode for a group of pins.
+ *
+ * Configures the output slew rate mode for a group of pins, to
+ * control the speed at which the physical output pin can react to
+ * logical changes of the I/O pin value.
+ *
+ * \param[in] port     Base of the PORT module to configure
+ * \param[in] mask     Mask of the port pin(s) to configure
+ * \param[in] mode     New pin slew rate mode to configure
+ */
+void system_pinmux_group_set_output_slew_rate(
+		PortGroup *const port,
+		const uint32_t mask,
+		const enum system_pinmux_pin_slew_rate mode)
+{
+	Assert(port);
+
+	for (int i = 0; i < 32; i++) {
+		if (mask & (1UL << i)) {
+			if (mode == SYSTEM_PINMUX_PIN_SLEW_RATE_LIMITED) {
+				port->PINCFG[i].reg |=  PORT_PINCFG_SLEWLIM;
+			} else {
+				port->PINCFG[i].reg &= ~PORT_PINCFG_SLEWLIM;
+			}
+		}
+	}
+}
+#endif
+
+#ifdef FEATURE_SYSTEM_PINMUX_DRIVE_STRENGTH
+/**
+ * \brief Configures the output driver strength mode for a group of pins.
+ *
+ * Configures the output drive strength for a group of pins, to
+ * control the amount of current the pad is able to sink/source.
+ *
+ * \param[in] port     Base of the PORT module to configure
+ * \param[in] mask     Mask of the port pin(s) to configure
+ * \param[in] mode     New output driver strength mode to configure
+ */
+void system_pinmux_group_set_output_strength(
+		PortGroup *const port,
+		const uint32_t mask,
+		const enum system_pinmux_pin_strength mode)
+{
+	Assert(port);
+
+	for (int i = 0; i < 32; i++) {
+		if (mask & (1UL << i)) {
+			if (mode == SYSTEM_PINMUX_PIN_STRENGTH_HIGH) {
+				port->PINCFG[i].reg |=  PORT_PINCFG_DRVSTR;
+			} else {
+				port->PINCFG[i].reg &= ~PORT_PINCFG_DRVSTR;
+			}
+		}
+	}
+}
+#endif
+
+#ifdef FEATURE_SYSTEM_PINMUX_OPEN_DRAIN
+/**
+ * \brief Configures the output driver mode for a group of pins.
+ *
+ * Configures the output driver mode for a group of pins, to
+ * control the pad behavior.
+ *
+ * \param[in] port Base of the PORT module to configure
+ * \param[in] mask Mask of the port pin(s) to configure
+ * \param[in] mode New pad output driver mode to configure
+ */
+void system_pinmux_group_set_output_drive(
+		PortGroup *const port,
+		const uint32_t mask,
+		const enum system_pinmux_pin_drive mode)
+{
+	Assert(port);
+
+	for (int i = 0; i < 32; i++) {
+		if (mask & (1UL << i)) {
+			if (mode == SYSTEM_PINMUX_PIN_DRIVE_OPEN_DRAIN) {
+				port->PINCFG[i].reg |= PORT_PINCFG_ODRAIN;
+			} else {
+				port->PINCFG[i].reg &= ~PORT_PINCFG_ODRAIN;
+			}
+		}
+	}
+}
+#endif

@@ -3,7 +3,7 @@
  *
  * @brief This file handles the frame transmission within the TAL.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -646,7 +646,7 @@ static void start_backoff(void)
 			tal_rx_on_required = true;
 		} else {
 			set_trx_state(CMD_RX_AACK_ON); /* receive while backoff
-			                                **/
+			                               **/
 		}
 
 #else

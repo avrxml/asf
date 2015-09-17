@@ -3,7 +3,7 @@
  *
  * \brief FLEXCOM driver for SAM.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "flexcom.h"
 #include "sysclk.h"
@@ -64,72 +67,72 @@ void flexcom_enable(Flexcom *p_flexcom)
 {
 	sleepmgr_lock_mode(SLEEPMGR_ACTIVE);
 	/* Enable PMC clock for FLEXCOM */
-#ifdef ID_USART7
+#ifdef ID_FLEXCOM7
 	 if (p_flexcom == FLEXCOM7) {
-		sysclk_enable_peripheral_clock(ID_USART7);
+		sysclk_enable_peripheral_clock(ID_FLEXCOM7);
 		/* Enable PCK output */
 		pmc_disable_pck(PMC_PCK_7);
 		pmc_switch_pck_to_mck(PMC_PCK_7, PMC_PCK_PRES_CLK_1);
 		pmc_enable_pck(PMC_PCK_7);
 	} else
 #endif
-#ifdef ID_USART6
+#ifdef ID_FLEXCOM6
 	if (p_flexcom == FLEXCOM6) {
-		sysclk_enable_peripheral_clock(ID_USART6);
+		sysclk_enable_peripheral_clock(ID_FLEXCOM6);
 		/* Enable PCK output */
 		pmc_disable_pck(PMC_PCK_7);
 		pmc_switch_pck_to_mck(PMC_PCK_7, PMC_PCK_PRES_CLK_1);
 		pmc_enable_pck(PMC_PCK_7);
 	} else
 #endif
-#ifdef ID_USART5
+#ifdef ID_FLEXCOM5
 	if (p_flexcom == FLEXCOM5) {
-		sysclk_enable_peripheral_clock(ID_USART5);
+		sysclk_enable_peripheral_clock(ID_FLEXCOM5);
 		/* Enable PCK output */
 		pmc_disable_pck(PMC_PCK_7);
 		pmc_switch_pck_to_mck(PMC_PCK_7, PMC_PCK_PRES_CLK_1);
 		pmc_enable_pck(PMC_PCK_7);
 	} else
 #endif
-#ifdef ID_USART4
+#ifdef ID_FLEXCOM4
 	if (p_flexcom == FLEXCOM4) {
-		sysclk_enable_peripheral_clock(ID_USART4);
+		sysclk_enable_peripheral_clock(ID_FLEXCOM4);
 		/* Enable PCK output */
 		pmc_disable_pck(PMC_PCK_7);
 		pmc_switch_pck_to_mck(PMC_PCK_7, PMC_PCK_PRES_CLK_1);
 		pmc_enable_pck(PMC_PCK_7);
 	} else
 #endif
-#ifdef ID_USART3
+#ifdef ID_FLEXCOM3
 	if (p_flexcom == FLEXCOM3) {
-		sysclk_enable_peripheral_clock(ID_USART3);
+		sysclk_enable_peripheral_clock(ID_FLEXCOM3);
 		/* Enable PCK output */
 		pmc_disable_pck(PMC_PCK_6);
 		pmc_switch_pck_to_mck(PMC_PCK_6, PMC_PCK_PRES_CLK_1);
 		pmc_enable_pck(PMC_PCK_6);
 	} else
 #endif
-#ifdef ID_USART2
+#ifdef ID_FLEXCOM2
 	if (p_flexcom == FLEXCOM2) {
-		sysclk_enable_peripheral_clock(ID_USART2);
+		sysclk_enable_peripheral_clock(ID_FLEXCOM2);
 		/* Enable PCK output */
 		pmc_disable_pck(PMC_PCK_6);
 		pmc_switch_pck_to_mck(PMC_PCK_6, PMC_PCK_PRES_CLK_1);
 		pmc_enable_pck(PMC_PCK_6);
 	} else
 #endif
-#ifdef ID_USART1
+#ifdef ID_FLEXCOM1
 	if (p_flexcom == FLEXCOM1) {
-		sysclk_enable_peripheral_clock(ID_USART1);
+		sysclk_enable_peripheral_clock(ID_FLEXCOM1);
 		/* Enable PCK output */
 		pmc_disable_pck(PMC_PCK_6);
 		pmc_switch_pck_to_mck(PMC_PCK_6, PMC_PCK_PRES_CLK_1);
 		pmc_enable_pck(PMC_PCK_6);
 	} else
 #endif
-#ifdef ID_USART0
+#ifdef ID_FLEXCOM0
 	if (p_flexcom == FLEXCOM0) {
-		sysclk_enable_peripheral_clock(ID_USART0);
+		sysclk_enable_peripheral_clock(ID_FLEXCOM0);
 		/* Enable PCK output */
 		pmc_disable_pck(PMC_PCK_6);
 		pmc_switch_pck_to_mck(PMC_PCK_6, PMC_PCK_PRES_CLK_1);
@@ -151,60 +154,60 @@ void flexcom_disable(Flexcom *p_flexcom)
 {
 	sleepmgr_unlock_mode(SLEEPMGR_ACTIVE);
 	/* Enable PMC clock for FLEXCOM */
-#ifdef ID_USART7
+#ifdef ID_FLEXCOM7
 	 if (p_flexcom == FLEXCOM7) {
-		 sysclk_disable_peripheral_clock(ID_USART7);
+		 sysclk_disable_peripheral_clock(ID_FLEXCOM7);
 		 /* Disable PCK output */
 		pmc_disable_pck(PMC_PCK_7);
 	} else
 #endif
-#ifdef ID_USART6
+#ifdef ID_FLEXCOM6
 	if (p_flexcom == FLEXCOM6) {
-		sysclk_disable_peripheral_clock(ID_USART6);
+		sysclk_disable_peripheral_clock(ID_FLEXCOM6);
 		/* Disable PCK output */
 		pmc_disable_pck(PMC_PCK_7);
 	} else
 #endif
-#ifdef ID_USART5
+#ifdef ID_FLEXCOM5
 	if (p_flexcom == FLEXCOM5) {
-		sysclk_disable_peripheral_clock(ID_USART5);
+		sysclk_disable_peripheral_clock(ID_FLEXCOM5);
 		/* Disable PCK output */
 		pmc_disable_pck(PMC_PCK_7);
 	} else
 #endif
-#ifdef ID_USART4
+#ifdef ID_FLEXCOM4
 	if (p_flexcom == FLEXCOM4) {
-		sysclk_disable_peripheral_clock(ID_USART4);
+		sysclk_disable_peripheral_clock(ID_FLEXCOM4);
 		/* Disable PCK output */
 		pmc_disable_pck(PMC_PCK_7);
 	} else
 #endif
-#ifdef ID_USART3
+#ifdef ID_FLEXCOM3
 	if (p_flexcom == FLEXCOM3) {
-		sysclk_disable_peripheral_clock(ID_USART3);
+		sysclk_disable_peripheral_clock(ID_FLEXCOM3);
 		/* Disable PCK output */
 		pmc_disable_pck(PMC_PCK_6);
 	} else
 #endif
-#ifdef ID_USART2
+#ifdef ID_FLEXCOM2
 	if (p_flexcom == FLEXCOM2) {
-		sysclk_disable_peripheral_clock(ID_USART2);
+		sysclk_disable_peripheral_clock(ID_FLEXCOM2);
 		/* Disable PCK output */
 		pmc_disable_pck(PMC_PCK_6);
 	} else
 #endif
-#ifdef ID_USART1
+#ifdef ID_FLEXCOM1
 	if (p_flexcom == FLEXCOM1) {
-		sysclk_disable_peripheral_clock(ID_USART1);
+		sysclk_disable_peripheral_clock(ID_FLEXCOM1);
 		/* Disable PCK output */
 		pmc_disable_pck(PMC_PCK_6);
 	} else
 #endif
-#ifdef ID_USART0
+#ifdef ID_FLEXCOM0
 	if (p_flexcom == FLEXCOM0) {
 		/* Disable PCK output */
 		pmc_disable_pck(PMC_PCK_6);
-		sysclk_disable_peripheral_clock(ID_USART0);
+		sysclk_disable_peripheral_clock(ID_FLEXCOM0);
 	} else
 #endif
 	{

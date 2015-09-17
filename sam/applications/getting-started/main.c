@@ -3,7 +3,7 @@
  *
  * \brief Getting Started Application.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,6 +83,9 @@
  * -# If the button 2 available, pressing button 2 should make the other LED
  *    stop & restart blinking.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"
@@ -277,6 +280,12 @@ static void configure_tc(void)
 
 	/* Configure PMC */
 	pmc_enable_periph_clk(ID_TC0);
+#if SAMG55
+	/* Enable PCK output */
+	pmc_disable_pck(PMC_PCK_3);
+	pmc_switch_pck_to_sclk(PMC_PCK_3, PMC_PCK_PRES_CLK_1);
+	pmc_enable_pck(PMC_PCK_3);
+#endif
 
 	/** Configure TC for a 4Hz frequency and trigger on RC compare. */
 	tc_find_mck_divisor(4, ul_sysclk, &ul_div, &ul_tcclks, ul_sysclk);
@@ -306,13 +315,20 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	/* Configure console UART. */
 	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
 	stdio_serial_init(CONF_UART, &uart_serial_options);
 }
+
 // [main_console_configure]
 
 /**
@@ -345,6 +361,14 @@ int main(void)
 	board_init();
 //! [main_step_sys_init]
 
+#if (SAMV71 || SAMV70|| SAME70 || SAMS70)
+	if (GPIO_PUSH_BUTTON_2 == PIO_PB12_IDX) {
+		matrix_set_system_io(matrix_get_system_io() | CCFG_SYSIO_SYSIO12);
+	}
+	ioport_set_pin_dir(GPIO_PUSH_BUTTON_2, IOPORT_DIR_INPUT);
+	ioport_set_pin_mode(GPIO_PUSH_BUTTON_2, GPIO_PUSH_BUTTON_2_FLAGS);
+	ioport_set_pin_sense_mode(GPIO_PUSH_BUTTON_2, GPIO_PUSH_BUTTON_2_SENSE);
+#endif
 //! [main_step_console_init]
 	/* Initialize the console uart */
 	configure_console();

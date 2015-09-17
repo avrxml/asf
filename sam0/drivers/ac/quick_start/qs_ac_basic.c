@@ -3,7 +3,7 @@
  *
  * \brief SAM Analog Comparator Driver Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include <asf.h>
 
@@ -103,8 +106,8 @@ void configure_ac_channel(void)
 	struct system_pinmux_config ac0_pin_conf;
 	system_pinmux_get_config_defaults(&ac0_pin_conf);
 	ac0_pin_conf.direction    = SYSTEM_PINMUX_PIN_DIR_INPUT;
-	ac0_pin_conf.mux_position = MUX_PA04B_AC_AIN0;
-	system_pinmux_pin_set_config(PIN_PA04B_AC_AIN0, &ac0_pin_conf);
+	ac0_pin_conf.mux_position = CONF_AC_MUX;
+	system_pinmux_pin_set_config(CONF_AC_PIN, &ac0_pin_conf);
 	//! [setup_11]
 
 	/* Initialize and enable the Analog Comparator channel with the user

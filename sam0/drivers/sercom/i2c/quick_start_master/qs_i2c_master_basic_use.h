@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM I2C Master Quick Start Guide
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,7 +46,7 @@
  *
  * In this use case, the I<SUP>2</SUP>C will used and set up as follows:
  *  - Master mode
- *  - 100kHz operation speed
+ *  - 100KHz operation speed
  *  - Not operational in standby
  *  - 10000 packet timeout value
  *  - 65535 unknown bus state timeout value
@@ -79,7 +79,7 @@
  * \snippet qs_i2c_master_basic_use.c init
  *
  * \subsection asfdoc_sam0_sercom_i2c_master_basic_use_setup_workflow Workflow
- * -# Configure and enable module:
+ * -# Configure and enable module.
  *    \snippet qs_i2c_master_basic_use.c initialize_i2c
  *   -# Create and initialize configuration structure.
  *      \snippet qs_i2c_master_basic_use.c init_conf
@@ -91,7 +91,7 @@
  *      \snippet qs_i2c_master_basic_use.c enable_module
  * -# Create a variable to see when we should stop trying to send packet.
  *    \snippet qs_i2c_master_basic_use.c timeout_counter
- * -# Create a packet to send:
+ * -# Create a packet to send.
  *    \snippet qs_i2c_master_basic_use.c packet
  *
  * \section asfdoc_sam0_sercom_i2c_master_basic_use_implemenation Implementation
@@ -108,6 +108,9 @@
  *    \snippet qs_i2c_master_basic_use.c read_packet
  * The module will try to read the packet TIMEOUT number of times or until it is
  * successfully read.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>

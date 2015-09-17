@@ -3,7 +3,7 @@
  *
  * \brief SAM D2x SPI configuration
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
 
 #ifndef CONF_SPI_H_INCLUDED
 #  define CONF_SPI_H_INCLUDED
-
+#  define AT86RFX_SPI_BAUDRATE             5000000UL
 #  define CONF_SPI_MASTER_ENABLE     true
 #  define CONF_SPI_SLAVE_ENABLE      false
 #  define CONF_SPI_TIMEOUT           10000

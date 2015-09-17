@@ -294,7 +294,6 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
@@ -306,7 +305,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4cms_db</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -556,7 +555,6 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
@@ -568,7 +566,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4cms_db</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1209,7 +1207,6 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
@@ -1221,7 +1218,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4cms_db</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1471,7 +1468,6 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
@@ -1483,7 +1479,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4cms_db</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1939,6 +1935,9 @@
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/component/tc.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms8c_1.h</name>
+						</file>
 						<group>
 							<name>instance</name>
 							<file>
@@ -1949,6 +1948,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/instance/cmcc0.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/instance/usart0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/instance/ipc0.h</name>
@@ -1976,9 +1978,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/instance/pmc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/instance/cmcc1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/instance/spi0.h</name>
@@ -2026,9 +2025,6 @@
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/instance/matrix0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/instance/usart0.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/instance/piob.h</name>
 							</file>
 							<file>
@@ -2047,6 +2043,9 @@
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/instance/pioa.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/instance/cmcc1.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/instance/gpbr.h</name>
 							</file>
 							<file>
@@ -2061,9 +2060,6 @@
 						</group>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms16c_0.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms8c_1.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/system_sam4cm.h</name>
@@ -2082,7 +2078,13 @@
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cmp8c.h</name>
 							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cms4c.h</name>
+							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms4c_0.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms16c_1.h</name>
 						</file>
@@ -2091,6 +2093,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cm.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms4c_1.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cmp16c_0.h</name>
@@ -2178,27 +2183,15 @@
 				<group>
 					<name>Examples</name>
 					<group>
-						<name>Common</name>
-						<group>
-							<name>Source</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Source/math_helper.c</name>
-							</file>
-						</group>
-						<group>
-							<name>Include</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Include/math_helper.h</name>
-							</file>
-						</group>
-					</group>
-					<group>
 						<name>arm_signal_converge_example</name>
 						<file>
 							<name>$PROJ_DIR$/../../arm_signal_converge_data.c</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../arm_signal_converge_example_f32.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.c</name>
 						</file>
 						<group>
 							<name>sam4cms16c_sam4cms_db</name>
@@ -2217,6 +2210,9 @@
 						</group>
 						<file>
 							<name>$PROJ_DIR$/../../documentation.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.h</name>
 						</file>
 					</group>
 				</group>

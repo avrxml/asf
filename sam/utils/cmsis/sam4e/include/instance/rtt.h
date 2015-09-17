@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,21 +38,24 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_RTT_INSTANCE_
 #define _SAM4E_RTT_INSTANCE_
 
 /* ========== Register definition for RTT peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-#define REG_RTT_MR          (0x400E1830U) /**< \brief (RTT) Mode Register */
-#define REG_RTT_AR          (0x400E1834U) /**< \brief (RTT) Alarm Register */
-#define REG_RTT_VR          (0x400E1838U) /**< \brief (RTT) Value Register */
-#define REG_RTT_SR          (0x400E183CU) /**< \brief (RTT) Status Register */
+  #define REG_RTT_MR                  (0x400E1830U) /**< \brief (RTT) Mode Register */
+  #define REG_RTT_AR                  (0x400E1834U) /**< \brief (RTT) Alarm Register */
+  #define REG_RTT_VR                  (0x400E1838U) /**< \brief (RTT) Value Register */
+  #define REG_RTT_SR                  (0x400E183CU) /**< \brief (RTT) Status Register */
 #else
-#define REG_RTT_MR (*(RwReg*)0x400E1830U) /**< \brief (RTT) Mode Register */
-#define REG_RTT_AR (*(RwReg*)0x400E1834U) /**< \brief (RTT) Alarm Register */
-#define REG_RTT_VR (*(RoReg*)0x400E1838U) /**< \brief (RTT) Value Register */
-#define REG_RTT_SR (*(RoReg*)0x400E183CU) /**< \brief (RTT) Status Register */
+  #define REG_RTT_MR (*(__IO uint32_t*)0x400E1830U) /**< \brief (RTT) Mode Register */
+  #define REG_RTT_AR (*(__IO uint32_t*)0x400E1834U) /**< \brief (RTT) Alarm Register */
+  #define REG_RTT_VR (*(__I  uint32_t*)0x400E1838U) /**< \brief (RTT) Value Register */
+  #define REG_RTT_SR (*(__I  uint32_t*)0x400E183CU) /**< \brief (RTT) Status Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAM4E_RTT_INSTANCE_ */

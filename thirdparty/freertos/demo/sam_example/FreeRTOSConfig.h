@@ -85,8 +85,8 @@
 #define configUSE_MUTEXES                          1
 #define configUSE_RECURSIVE_MUTEXES                0
 #define configCHECK_FOR_STACK_OVERFLOW             2
-
 #define configGENERATE_RUN_TIME_STATS              0
+#define configENABLE_BACKWARD_COMPATIBILITY        1
 
 #define configMAX_PRIORITIES                       ((unsigned portBASE_TYPE) 5)
 #define configMAX_CO_ROUTINE_PRIORITIES            (2)

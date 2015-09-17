@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_CAN_COMPONENT_
 #define _SAM4E_CAN_COMPONENT_
@@ -51,34 +54,34 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief CanMb hardware registers */
 typedef struct {
-  RwReg  CAN_MMR;       /**< \brief (CanMb Offset: 0x0) Mailbox Mode Register */
-  RwReg  CAN_MAM;       /**< \brief (CanMb Offset: 0x4) Mailbox Acceptance Mask Register */
-  RwReg  CAN_MID;       /**< \brief (CanMb Offset: 0x8) Mailbox ID Register */
-  RwReg  CAN_MFID;      /**< \brief (CanMb Offset: 0xC) Mailbox Family ID Register */
-  RwReg  CAN_MSR;       /**< \brief (CanMb Offset: 0x10) Mailbox Status Register */
-  RwReg  CAN_MDL;       /**< \brief (CanMb Offset: 0x14) Mailbox Data Low Register */
-  RwReg  CAN_MDH;       /**< \brief (CanMb Offset: 0x18) Mailbox Data High Register */
-  RwReg  CAN_MCR;       /**< \brief (CanMb Offset: 0x1C) Mailbox Control Register */
+  __IO uint32_t CAN_MMR;  /**< \brief (CanMb Offset: 0x0) Mailbox Mode Register */
+  __IO uint32_t CAN_MAM;  /**< \brief (CanMb Offset: 0x4) Mailbox Acceptance Mask Register */
+  __IO uint32_t CAN_MID;  /**< \brief (CanMb Offset: 0x8) Mailbox ID Register */
+  __I  uint32_t CAN_MFID; /**< \brief (CanMb Offset: 0xC) Mailbox Family ID Register */
+  __I  uint32_t CAN_MSR;  /**< \brief (CanMb Offset: 0x10) Mailbox Status Register */
+  __IO uint32_t CAN_MDL;  /**< \brief (CanMb Offset: 0x14) Mailbox Data Low Register */
+  __IO uint32_t CAN_MDH;  /**< \brief (CanMb Offset: 0x18) Mailbox Data High Register */
+  __O  uint32_t CAN_MCR;  /**< \brief (CanMb Offset: 0x1C) Mailbox Control Register */
 } CanMb;
 /** \brief Can hardware registers */
 #define CANMB_NUMBER 8
 typedef struct {
-  RwReg  CAN_MR;        /**< \brief (Can Offset: 0x0000) Mode Register */
-  WoReg  CAN_IER;       /**< \brief (Can Offset: 0x0004) Interrupt Enable Register */
-  WoReg  CAN_IDR;       /**< \brief (Can Offset: 0x0008) Interrupt Disable Register */
-  RoReg  CAN_IMR;       /**< \brief (Can Offset: 0x000C) Interrupt Mask Register */
-  RoReg  CAN_SR;        /**< \brief (Can Offset: 0x0010) Status Register */
-  RwReg  CAN_BR;        /**< \brief (Can Offset: 0x0014) Baudrate Register */
-  RoReg  CAN_TIM;       /**< \brief (Can Offset: 0x0018) Timer Register */
-  RoReg  CAN_TIMESTP;   /**< \brief (Can Offset: 0x001C) Timestamp Register */
-  RoReg  CAN_ECR;       /**< \brief (Can Offset: 0x0020) Error Counter Register */
-  WoReg  CAN_TCR;       /**< \brief (Can Offset: 0x0024) Transfer Command Register */
-  WoReg  CAN_ACR;       /**< \brief (Can Offset: 0x0028) Abort Command Register */
-  RoReg  Reserved1[46];
-  RwReg  CAN_WPMR;      /**< \brief (Can Offset: 0x00E4) Write Protect Mode Register */
-  RoReg  CAN_WPSR;      /**< \brief (Can Offset: 0x00E8) Write Protect Status Register */
-  RoReg  Reserved2[69];
-  CanMb  CAN_MB[CANMB_NUMBER]; /**< \brief (Can Offset: 0x200) MB = 0 .. 7 */
+  __IO uint32_t CAN_MR;               /**< \brief (Can Offset: 0x0000) Mode Register */
+  __O  uint32_t CAN_IER;              /**< \brief (Can Offset: 0x0004) Interrupt Enable Register */
+  __O  uint32_t CAN_IDR;              /**< \brief (Can Offset: 0x0008) Interrupt Disable Register */
+  __I  uint32_t CAN_IMR;              /**< \brief (Can Offset: 0x000C) Interrupt Mask Register */
+  __I  uint32_t CAN_SR;               /**< \brief (Can Offset: 0x0010) Status Register */
+  __IO uint32_t CAN_BR;               /**< \brief (Can Offset: 0x0014) Baudrate Register */
+  __I  uint32_t CAN_TIM;              /**< \brief (Can Offset: 0x0018) Timer Register */
+  __I  uint32_t CAN_TIMESTP;          /**< \brief (Can Offset: 0x001C) Timestamp Register */
+  __I  uint32_t CAN_ECR;              /**< \brief (Can Offset: 0x0020) Error Counter Register */
+  __O  uint32_t CAN_TCR;              /**< \brief (Can Offset: 0x0024) Transfer Command Register */
+  __O  uint32_t CAN_ACR;              /**< \brief (Can Offset: 0x0028) Abort Command Register */
+  __I  uint32_t Reserved1[46];
+  __IO uint32_t CAN_WPMR;             /**< \brief (Can Offset: 0x00E4) Write Protect Mode Register */
+  __I  uint32_t CAN_WPSR;             /**< \brief (Can Offset: 0x00E8) Write Protect Status Register */
+  __I  uint32_t Reserved2[69];
+       CanMb    CAN_MB[CANMB_NUMBER]; /**< \brief (Can Offset: 0x200) MB = 0 .. 7 */
 } Can;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- CAN_MR : (CAN Offset: 0x0000) Mode Register -------- */
@@ -172,7 +175,7 @@ typedef struct {
 #define CAN_SR_SLEEP (0x1u << 20) /**< \brief (CAN_SR) CAN controller in Low power Mode */
 #define CAN_SR_WAKEUP (0x1u << 21) /**< \brief (CAN_SR) CAN controller is not in Low power Mode */
 #define CAN_SR_TOVF (0x1u << 22) /**< \brief (CAN_SR) Timer Overflow */
-#define CAN_SR_TSTP (0x1u << 23) /**< \brief (CAN_SR)  */
+#define CAN_SR_TSTP (0x1u << 23) /**< \brief (CAN_SR) Timestamp */
 #define CAN_SR_CERR (0x1u << 24) /**< \brief (CAN_SR) Mailbox CRC Error */
 #define CAN_SR_SERR (0x1u << 25) /**< \brief (CAN_SR) Mailbox Stuffing Error */
 #define CAN_SR_AERR (0x1u << 26) /**< \brief (CAN_SR) Acknowledgment Error */
@@ -199,7 +202,7 @@ typedef struct {
 #define CAN_BR_BRP(value) ((CAN_BR_BRP_Msk & ((value) << CAN_BR_BRP_Pos)))
 #define CAN_BR_SMP (0x1u << 24) /**< \brief (CAN_BR) Sampling Mode */
 #define   CAN_BR_SMP_ONCE (0x0u << 24) /**< \brief (CAN_BR) The incoming bit stream is sampled once at sample point. */
-#define   CAN_BR_SMP_THREE (0x1u << 24) /**< \brief (CAN_BR) The incoming bit stream is sampled three times with a period of a MCK clock period, centered on sample point. */
+#define   CAN_BR_SMP_THREE (0x1u << 24) /**< \brief (CAN_BR) The incoming bit stream is sampled three times with a period of a peripheral clock, centered on sample point. */
 /* -------- CAN_TIM : (CAN Offset: 0x0018) Timer Register -------- */
 #define CAN_TIM_TIMER_Pos 0
 #define CAN_TIM_TIMER_Msk (0xffffu << CAN_TIM_TIMER_Pos) /**< \brief (CAN_TIM) Timer */
@@ -233,8 +236,8 @@ typedef struct {
 /* -------- CAN_WPMR : (CAN Offset: 0x00E4) Write Protect Mode Register -------- */
 #define CAN_WPMR_WPEN (0x1u << 0) /**< \brief (CAN_WPMR) Write Protection Enable */
 #define CAN_WPMR_WPKEY_Pos 8
-#define CAN_WPMR_WPKEY_Msk (0xffffffu << CAN_WPMR_WPKEY_Pos) /**< \brief (CAN_WPMR) SPI Write Protection Key Password */
-#define CAN_WPMR_WPKEY(value) ((CAN_WPMR_WPKEY_Msk & ((value) << CAN_WPMR_WPKEY_Pos)))
+#define CAN_WPMR_WPKEY_Msk (0xffffffu << CAN_WPMR_WPKEY_Pos) /**< \brief (CAN_WPMR) SPI Write Protection Key Password. */
+#define   CAN_WPMR_WPKEY_PASSWD (0x43414Eu << 8) /**< \brief (CAN_WPMR) Writing any other value in this field aborts the write operation of the WPEN bit.Always reads as 0 */
 /* -------- CAN_WPSR : (CAN Offset: 0x00E8) Write Protect Status Register -------- */
 #define CAN_WPSR_WPVS (0x1u << 0) /**< \brief (CAN_WPSR) Write Protection Violation Status */
 #define CAN_WPSR_WPVSRC_Pos 8

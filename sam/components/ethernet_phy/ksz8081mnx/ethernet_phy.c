@@ -3,7 +3,7 @@
  *
  * \brief API driver for KSZ8081MNX PHY component.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "ethernet_phy.h"
@@ -206,7 +209,7 @@ uint8_t ethernet_phy_set_link(Gmac *p_gmac, uint8_t uc_phy_addr,
 	}
 
 	/* Read advertisement */
-	uc_rc = gmac_phy_read(p_gmac, uc_phy_address, GMII_ANAR, &ul_stat2);
+	uc_rc = gmac_phy_read(p_gmac, uc_phy_address, GMII_PCR1, &ul_stat2);
 	if (uc_rc != GMAC_OK) {
 		/* Disable PHY management and start the GMAC transfer */
 		gmac_enable_management(p_gmac, false);
@@ -214,25 +217,25 @@ uint8_t ethernet_phy_set_link(Gmac *p_gmac, uint8_t uc_phy_addr,
 		return uc_rc;
 	}
 
-	if ((ul_stat1 & GMII_100BASE_TX_FD) && (ul_stat2 & GMII_100TX_FDX)) {
+	if ((ul_stat1 & GMII_100BASE_TX_FD) && (ul_stat2 & GMII_OMI_100BASE_TX_FD)) {
 		/* Set GMAC for 100BaseTX and Full Duplex */
 		uc_speed = true;
 		uc_fd = true;
 	}
 
-	if ((ul_stat1 & GMII_10BASE_T_FD) && (ul_stat2 & GMII_10_FDX)) {
+	if ((ul_stat1 & GMII_10BASE_T_FD) && (ul_stat2 & GMII_OMI_10BASE_T_FD)) {
 		/* Set MII for 10BaseT and Full Duplex */
 		uc_speed = false;
 		uc_fd = true;
 	}
 
-	if ((ul_stat1 & GMII_100BASE_TX_HD) && (ul_stat2 & GMII_100TX_HDX)) {
+	if ((ul_stat1 & GMII_100BASE_TX_HD) && (ul_stat2 & GMII_OMI_100BASE_TX_HD)) {
 		/* Set MII for 100BaseTX and Half Duplex */
 		uc_speed = true;
 		uc_fd = false;
 	}
 
-	if ((ul_stat1 & GMII_10BASE_T_HD) && (ul_stat2 & GMII_10_HDX)) {
+	if ((ul_stat1 & GMII_10BASE_T_HD) && (ul_stat2 & GMII_OMI_10BASE_T_HD)) {
 		/* Set MII for 10BaseT and Half Duplex */
 		uc_speed = false;
 		uc_fd = false;
@@ -342,7 +345,7 @@ uint8_t ethernet_phy_auto_negotiate(Gmac *p_gmac, uint8_t uc_phy_addr)
 	}
 
 	/* Get the auto negotiate link partner base page */
-	uc_rc = gmac_phy_read(p_gmac, uc_phy_addr, GMII_PCR1, &ul_phy_analpar);
+	uc_rc = gmac_phy_read(p_gmac, uc_phy_addr, GMII_ANLPAR, &ul_phy_analpar);
 	if (uc_rc != GMAC_OK) {
 		gmac_enable_management(p_gmac, false);
 		return uc_rc;

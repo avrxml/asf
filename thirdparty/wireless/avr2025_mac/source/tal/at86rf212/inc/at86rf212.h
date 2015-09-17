@@ -5,7 +5,7 @@
  *
  * @brief File contains register and command defines specific for AT86RF212.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -92,9 +92,9 @@
 #define TRX_OFF_TO_PLL_ON_TIME_US         (200)  /* TRX Parameter: tTR4 */
 #define TRX_IRQ_DELAY_US                  (9)  /* TRX Parameter: tIRQ */
 #define RSSI_BASE_VAL_BPSK_20_DBM         (-100)  /* TRX Parameter:
-	                                          * RSSI_BASE_VAL */
+	                                           * RSSI_BASE_VAL */
 #define RSSI_BASE_VAL_BPSK_40_DBM         (-100)  /* TRX Parameter:
-	                                          * RSSI_BASE_VAL */
+	                                           * RSSI_BASE_VAL */
 #define RSSI_BASE_VAL_OQPSK_100_DBM       (-98)  /* TRX Parameter: RSSI_BASE_VAL
 	                                         **/
 #define RSSI_BASE_VAL_OQPSK_SIN_250_DBM   (-98)  /* TRX Parameter: RSSI_BASE_VAL
@@ -119,17 +119,24 @@
 	                                     * for CCA */
 #define CCA_DURATION_SYM   (CCA_DETECTION_TIME_SYMBOL + CCA_PROCESS_TIME_SYM)  /*
 	                                                                        *
+	                                                                        *
 	                                                                        *TRX
+	                                                                        *
 	                                                                        *
 	                                                                        *Parameter:
 	                                                                        *
+	                                                                        *
 	                                                                        *Complete
+	                                                                        *
 	                                                                        *
 	                                                                        *CCA
 	                                                                        *
+	                                                                        *
 	                                                                        *Duration
 	                                                                        *
+	                                                                        *
 	                                                                        *in
+	                                                                        *
 	                                                                        *
 	                                                                        *symbols
 	                                                                        **/

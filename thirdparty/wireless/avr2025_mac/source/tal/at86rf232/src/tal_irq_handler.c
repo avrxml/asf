@@ -3,7 +3,7 @@
  *
  * @brief
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -88,7 +88,7 @@ void trx_irq_handler_cb(void)
 		 *
 		 * In case Antenna diversity is used or the utilization of
 		 * the Timestamp IRQ is disabled, the timestamp needs to be read
-		 *now
+		 * now
 		 * the "old-fashioned" way.
 		 *
 		 * The timestamping is generally only done for
@@ -117,7 +117,7 @@ void trx_irq_handler_cb(void)
 				handle_tx_end_irq(false); /* see tal_tx.c */
 			}
 		} else { /* Other tal_state than TAL_TX_... */
-			/* Handle rx interrupt. */
+			 /* Handle rx interrupt. */
 			handle_received_frame_irq(); /* see tal_rx.c */
 		}
 	}
@@ -164,7 +164,6 @@ void trx_irq_awake_handler_cb(void)
 	if (trx_irq_cause & (~(TRX_IRQ_0_PLL_LOCK | TRX_IRQ_4_CCA_ED_DONE))) {
 		Assert("Unexpected interrupt" == 0);
 	}
-
 #endif
 }
 

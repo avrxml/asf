@@ -297,7 +297,6 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8051mnl</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4e_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../efc</state>
@@ -312,6 +311,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8081mnx</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
@@ -570,7 +570,6 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8051mnl</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4e_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../efc</state>
@@ -585,6 +584,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8081mnx</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
@@ -1234,7 +1234,6 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8051mnl</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4e_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../efc</state>
@@ -1249,6 +1248,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8081mnx</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
@@ -1507,7 +1507,6 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8051mnl</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4e_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../efc</state>
@@ -1522,6 +1521,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8081mnx</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
@@ -2192,6 +2192,24 @@
 			</group>
 		</group>
 		<group>
+			<name>components</name>
+			<group>
+				<name>ethernet_phy</name>
+				<group>
+					<name>ksz8081mnx</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8081mnx/ethernet_phy.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8081mnx/ethernet_phy.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../components/ethernet_phy/documentation.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
 			<name>drivers</name>
 			<group>
 				<name>usart</name>
@@ -2293,24 +2311,6 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../services/flash_efc/flash_efc.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
-			<name>components</name>
-			<group>
-				<name>ethernet_phy</name>
-				<group>
-					<name>ksz8051mnl</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8051mnl/ethernet_phy.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../components/ethernet_phy/ksz8051mnl/ethernet_phy.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../components/ethernet_phy/documentation.h</name>
 				</file>
 			</group>
 		</group>

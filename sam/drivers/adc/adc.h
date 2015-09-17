@@ -3,7 +3,7 @@
  *
  * \brief Analog-to-Digital Converter (ADC/ADC12B) driver for SAM.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef ADC_H_INCLUDED
@@ -487,7 +490,7 @@ Pdc *adc12b_get_pdc_base(const Adc12b *p_adc);
  * driven
  */
 /**
- * \page adc_use_case_1 Use case #1
+ * \page adc_use_case_1 Advanced use cases
  * In this use case the ADC module and one channel are configured for:
  * - 12-bit, unsigned conversions
  * - Internal bandgap as 3.3 V reference

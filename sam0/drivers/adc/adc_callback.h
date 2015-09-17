@@ -3,7 +3,7 @@
  *
  * \brief SAM Peripheral Analog-to-Digital Converter Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef ADC_CALLBACK_H_INCLUDED
@@ -79,7 +82,7 @@ void adc_unregister_callback(
 		enum adc_callback callback_type);
 
 /**
- * \brief Enables callback
+ * \brief Enables callback.
  *
  * Enables the callback function registered by \ref
  * adc_register_callback. The callback function will be called from the
@@ -88,7 +91,7 @@ void adc_unregister_callback(
  * \param[in]     module Pointer to ADC software instance struct
  * \param[in]     callback_type Callback type given by an enum
  *
- * \returns    Status of the operation
+ * \return    Status of the operation.
  * \retval     STATUS_OK              If operation was completed
  * \retval     STATUS_ERR_INVALID     If operation was not completed,
  *                                    due to invalid callback_type
@@ -115,7 +118,7 @@ static inline void adc_enable_callback(
 }
 
 /**
- * \brief Disables callback
+ * \brief Disables callback.
  *
  * Disables the callback function registered by the \ref
  * adc_register_callback.
@@ -123,7 +126,7 @@ static inline void adc_enable_callback(
  * \param[in]     module Pointer to ADC software instance struct
  * \param[in]     callback_type Callback type given by an enum
  *
- * \returns    Status of the operation
+ * \return    Status of the operation.
  * \retval     STATUS_OK              If operation was completed
  * \retval     STATUS_ERR_INVALID     If operation was not completed,
  *                                    due to invalid callback_type

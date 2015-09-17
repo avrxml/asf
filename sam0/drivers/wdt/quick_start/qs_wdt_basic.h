@@ -3,7 +3,7 @@
  *
  * \brief SAM Watchdog Driver Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,7 +52,7 @@
  * This use case sets up the Watchdog to force a system reset after every 2048
  * clocks of the Watchdog's Generic Clock channel, unless the user periodically
  * resets the Watchdog counter via a button before the timer expires. If the
- * watchdog resets the device, a LED on the board is turned off.
+ * Watchdog resets the device, a LED on the board is turned off.
  *
  * \section asfdoc_sam0_wdt_basic_use_case_setup Setup
  *
@@ -90,10 +90,10 @@
  * \snippet qs_wdt_basic.c main
  *
  * \subsection asfdoc_sam0_wdt_basic_use_case_main Workflow
- * -# Retrieve the cause of the system reset to determine if the watchdog module
+ * -# Retrieve the cause of the system reset to determine if the Watchdog module
  *    was the cause of the last reset.
  *    \snippet qs_wdt_basic.c main_1
- * -# Turn on or off the board LED based on whether the watchdog reset the device.
+ * -# Turn on or off the board LED based on whether the Watchdog reset the device.
  *    \snippet qs_wdt_basic.c main_2
  * -# Enter an infinite loop to hold the main program logic.
  *    \snippet qs_wdt_basic.c main_3
@@ -102,4 +102,7 @@
  * -# If the button is pressed, turn on the board LED and reset the Watchdog
  *    timer.
  *    \snippet qs_wdt_basic.c main_5
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

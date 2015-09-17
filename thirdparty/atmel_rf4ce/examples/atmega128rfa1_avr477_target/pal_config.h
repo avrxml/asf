@@ -5,7 +5,7 @@
  *
  * To use this board, define BOARD=AVR477_TARGET.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,13 +43,13 @@
  *
  */
 /*
- * Copyright (c) 2009, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * 
  */
 
 /*
- * Copyright (c) 2009, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * 
  */

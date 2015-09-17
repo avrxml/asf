@@ -3,7 +3,7 @@
  *
  * @brief ZID USB HID Adaptor Application
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,19 +51,19 @@
  * \section intro Application Introduction
  * When ZID PC adaptor is plugged into a PC,it enumerates as a HID compliant
  * composite device(HID Compliant keyboard,HID compliant Mouse and HID compliant
- *consumer control device)and
+ * consumer control device)and
  * a green LED on the dongle will blink. It indicates that after initialization
- *pairing procedure is in progress.
+ * pairing procedure is in progress.
  * If it finds a remote and pairing is successful the green led will become
- *stable.
+ * stable.
  * Once the pairing is successful the adaptor will receive ZID reports from
- *class device/ZID Remote
+ * class device/ZID Remote
  * and redirect the HID reports to PC. ZID reports triggered by media player
- *keys( volume up/down/mute keys,
+ * keys( volume up/down/mute keys,
  * play / pause / stop /next/previous keys are handled by supporting
- *applications (for example, Windows master volume control, media player,
+ * applications (for example, Windows master volume control, media player,
  * etc...) Along with media player remote, the ZID Remote application also
- *demonstrates Power point(PPT) remote
+ * demonstrates Power point(PPT) remote
  * and Pointing and clicking functionality as mouse.
  * Warm reset,Multiple devices
  *
@@ -80,7 +80,8 @@
  *     and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal
  * Area
  *     Networks (WPANs).\n\n
- * 2)  AVR Wireless Support <A href="http://avr@atmel.com">avr@atmel.com</A>.\n
+ * 2)  <a href="http://www.atmel.com/design-support/">Atmel Design
+ *Support</a>.\n
  *
  * \section contactinfo Contact Information
  * For further information,visit
@@ -88,7 +89,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -196,7 +197,7 @@ int main(void)
 
 	/*
 	 * The stack is initialized above, hence the global interrupts are
-	 *enabled
+	 * enabled
 	 * here.
 	 */
 	cpu_irq_enable();
@@ -339,7 +340,7 @@ bool pbp_allow_pairing(nwk_enum_t Status, uint64_t SrcIEEEAddr,
 
 /**
  * @brief This function registers the callback function for indications from the
- *stack.
+ * stack.
  *
  */
 static void zid_indication_callback_init(void)
@@ -410,7 +411,7 @@ void zid_standby_leave_indication(void)
 
 /**
  * @brief Notify the application when ZID report data is received from the
- *paired device.
+ * paired device.
  *
  * @param PairingRef Pairing reference.
  * @param num_report_records number of Report records.
@@ -491,7 +492,7 @@ static void zid_report_data_indication(uint8_t PairingRef,
 				}
 			} else {
 				/* Application can implement for other report
-				 *types.*/
+				 * types.*/
 			}
 
 			break;

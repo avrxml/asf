@@ -3,7 +3,7 @@
  *
  * @brief
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -82,26 +82,26 @@ extern uint8_t Channel_Offset;
 	((uint32_t)1 << (Base_Channel + Channel_Offset + Channel_Offset)))
 
 /* The amount that needs to be added to the frame counter if a device is reset.
- **/
+**/
 #define nwkcFrameCounterWindow      1024
 
 /* The length, in octets, of the MAC beacon payload field, as used by the RF4CE
- *protocol. */
+ * protocol. */
 #define nwkcMACBeaconPayloadLength  2
 
 /* The maximum number of entries supported in the node descriptors list
  * generated through the discovery process.
  * Implementation specific but >= nwkcMinNodeDescListSize */
 #define nwkcMaxNodeDescListSize     3  /* 3 = (LARGE_BUFFER_SIZE - 3) /
-	                                *sizeof(node_desc_t) */
+	                                * sizeof(node_desc_t) */
 
 /* The maximum duty cycle in MAC symbols, permitted for a power saving device.
- **/
+**/
 /* (1s) */
 #define nwkcMaxDutyCycle            62500
 
 /* The maximum time, in MAC symbols, to wait for each security link key seed
- *exchange. */
+ * exchange. */
 /* (see Equation 1) (60ms) */
 #define nwkcMaxKeySeedWaitTime      3750
 
@@ -114,12 +114,12 @@ extern uint8_t Channel_Offset;
 #define nwkcMaxSecCmdTxPower        -15
 
 /* The minimum receiver on time, in MAC symbols, permitted for a power saving
- *device. */
+ * device. */
 /*  (16.8ms) (see Equation 2) */
 #define nwkcMinActivePeriod         1050
 
 /* The minimum number of pairing table entries that a controller device shall
- *support. */
+ * support. */
 #define nwkcMinControllerPairingTableSize   1
 
 /* The minimum number of entries that must be supported in the node descriptor
@@ -131,7 +131,7 @@ extern uint8_t Channel_Offset;
 #define nwkcMinNWKHeaderOverhead    5
 
 /* The minimum number of pairing table entries that a target device shall
- *support. */
+ * support. */
 #define nwkcMinTargetPairingTableSize 5
 
 /* The capabilities of this node. Implementation specific according to the
@@ -167,7 +167,7 @@ extern uint8_t Channel_Offset;
 #define nwkActivePeriod_def         0xffffff
 
 /* The logical channel that was chosen when the RC PAN was formed. (Target
- *device only) */
+ * device only) */
 #define nwkBaseChannel_def          Base_Channel    /* 15 */
 
 /* The LQI threshold below which discovery requests will be rejected. */
@@ -264,7 +264,7 @@ extern uint8_t Channel_Offset;
 /* typedef void (*handler_t)(uint8_t *); */
 
 /* packing of the data types starts here. Some architecture requires the data
- *type to be aligned, like CM0 */
+ * type to be aligned, like CM0 */
 __PACK__DATA__
 
 /* Structure implementing the NIB */
@@ -553,7 +553,7 @@ typedef struct pair_var_tag {
 	uint16_t originator_pan_id;
 #endif
 #if (defined RF4CE_SECURITY) || (defined RF4CE_PLATFORM)  /* target and
-	                                                   *controller */
+	                                                   * controller */
 	uint8_t key_ex_transfer_count;
 #endif
 #ifdef RF4CE_PLATFORM
@@ -561,7 +561,7 @@ typedef struct pair_var_tag {
 	bool seed_wait_timer_expired;
 	uint8_t *last_seed_data_buf;
 	uint8_t *accumulated_seed_data_buf; /* if target -> == pair_resp_msg_ptr
-	                                     **/
+	                                    **/
 	uint8_t seed_seq_num;
 #elif (defined RF4CE_SECURITY)
 #if (defined RF4CE_TARGET)
@@ -571,7 +571,7 @@ typedef struct pair_var_tag {
 	/* target and controller */
 	uint8_t *last_seed_data_buf;
 	uint8_t *accumulated_seed_data_buf; /* if target -> == pair_resp_msg_ptr
-	                                     **/
+	                                    **/
 	uint8_t seed_seq_num;
 #endif  /* #ifdef RF4CE_PLATFORM */
 } pair_var_t;

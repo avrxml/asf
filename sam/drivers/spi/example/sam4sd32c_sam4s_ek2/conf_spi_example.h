@@ -3,7 +3,7 @@
  *
  * \brief SPI example configuration.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,6 +50,9 @@
  *  - MOSI(PA13)  -- MOSI(PA13)
  *  - SPCK(PA14)  -- SPCK(PA14)
  *  - GND -- GND
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef CONF_SPI_EXAMPLE_H_INCLUDED

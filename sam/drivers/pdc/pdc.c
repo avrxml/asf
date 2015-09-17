@@ -3,7 +3,7 @@
  *
  * \brief SAM4 Peripheral DMA Controller (PDC) driver.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "pdc.h"
 
@@ -56,9 +59,9 @@ extern "C" {
  *
  * \param[out] p_pdc        Device structure pointer
  * \param[in] p_packet      Pointer to packet information for current buffer register
- *                          set, NULL to let them as is.
+ *                          set. Use NULL to leave unaltered.
  * \param[in] p_next_packet Pointer to packet information for next buffer register
- *                          set, NULL to let them as is.
+ *                          set. Use NULL to leave unaltered.
  */
 void pdc_tx_init(
 		Pdc *p_pdc,
@@ -83,9 +86,9 @@ void pdc_tx_init(
  *
  * \param[out] p_pdc        Device structure pointer
  * \param[in] p_packet      Pointer to packet information for current buffer register
- *                          set, NULL to let them as is.
+ *                          set. Use NULL to leave unaltered.
  * \param[in] p_next_packet Pointer to packet information for next buffer register
- *                          set, NULL to let them as is.
+ *                          set. Use NULL to leave unaltered.
  */
 void pdc_rx_init(
 		Pdc *p_pdc,

@@ -3,7 +3,7 @@
  *
  * \brief Main functions for XMEGA-B1 Xplained demonstration
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -80,6 +80,9 @@
  * - adc_sensors.c On-board sensor measurements
  * - ui.c Manages the user interface (LCD, LEDs, Touch Sensor)
  * - usb_hid_com.c Manages the USB generic communication messages with the host
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "compiler.h"

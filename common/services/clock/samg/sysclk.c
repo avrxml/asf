@@ -3,7 +3,7 @@
  *
  * \brief Chip-specific system clock management functions.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <sysclk.h>
@@ -107,10 +110,79 @@ void sysclk_set_source(uint32_t ul_src)
 	case SYSCLK_SRC_PLLACK:
 		pmc_mck_set_source(PMC_MCKR_CSS_PLLA_CLK);
 		break;
-	}
 
+#if SAMG55
+	case SYSCLK_SRC_PLLBCK:
+		pmc_mck_set_source(PMC_MCKR_CSS_PLLB_CLK);
+		break;
+#endif
+	}
 	SystemCoreClockUpdate();
 }
+
+#if SAMG55
+#if defined(CONFIG_USBCLK_SOURCE) || defined(__DOXYGEN__)
+/**
+ * \brief Enable USB clock.
+ *
+ *
+ * \param pll_id Source of the USB clock.
+ * \param div Actual clock divisor. Must be superior to 0.
+ */
+void sysclk_enable_usb(void)
+{
+	Assert(CONFIG_USBCLK_DIV > 0);
+
+#ifdef CONFIG_PLL0_SOURCE
+	if (CONFIG_USBCLK_SOURCE == USBCLK_SRC_PLL0) {
+		struct pll_config pllcfg;
+
+		pll_enable_source(CONFIG_PLL0_SOURCE);
+		pll_config_defaults(&pllcfg, 0);
+		pll_enable(&pllcfg, 0);
+		pll_wait_for_lock(0);
+#ifdef UHD_ENABLE
+		pmc_switch_uhpck_to_pllack(CONFIG_USBCLK_DIV - 1);
+		pmc_enable_uhpck();
+#else
+		pmc_switch_udpck_to_pllack(CONFIG_USBCLK_DIV - 1);
+		pmc_enable_udpck();
+#endif
+		return;
+	}
+#endif
+
+#ifdef CONFIG_PLL1_SOURCE
+	if (CONFIG_USBCLK_SOURCE == USBCLK_SRC_PLL1) {
+		struct pll_config pllcfg;
+
+		pll_enable_source(CONFIG_PLL1_SOURCE);
+		pll_config_defaults(&pllcfg, 1);
+		pll_enable(&pllcfg, 1);
+		pll_wait_for_lock(1);
+#ifdef UHD_ENABLE
+		pmc_switch_uhpck_to_pllbck(CONFIG_USBCLK_DIV - 1);
+		pmc_enable_uhpck();
+#else
+		pmc_switch_udpck_to_pllbck(CONFIG_USBCLK_DIV - 1);
+		pmc_enable_udpck();
+#endif
+		return;
+	}
+#endif
+}
+
+/**
+ * \brief Disable the USB clock.
+ *
+ * \note This implementation does not switch off the PLL, it just turns off the USB clock.
+ */
+void sysclk_disable_usb(void)
+{
+	pmc_disable_udpck();
+}
+#endif // CONFIG_USBCLK_SOURCE
+#endif
 
 void sysclk_init(void)
 {
@@ -179,6 +251,20 @@ void sysclk_init(void)
 		pll_wait_for_lock(0);
 		pmc_switch_mck_to_pllack(CONFIG_SYSCLK_PRES);
 	}
+#endif
+
+#if SAMG55
+#ifdef CONFIG_PLL1_SOURCE
+	else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_PLLBCK) {
+		struct pll_config pllcfg;
+
+		pll_enable_source(CONFIG_PLL1_SOURCE);
+		pll_config_defaults(&pllcfg, 1);
+		pll_enable(&pllcfg, 1);
+		pll_wait_for_lock(1);
+		pmc_switch_mck_to_pllbck(CONFIG_SYSCLK_PRES);
+	}
+#endif
 #endif
 
 	/* Update the SystemFrequency variable */

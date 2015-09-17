@@ -61,9 +61,9 @@ CSRCS = \
        sam/utils/cmsis/sam4cp/source/templates/gcc/startup_sam4cp.c \
        sam/utils/cmsis/sam4cp/source/templates/system_sam4cp.c \
        sam/utils/syscalls/gcc/syscalls.c                  \
-       thirdparty/CMSIS/DSP_Lib/Examples/Common/Source/math_helper.c \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_linear_interp_example/arm_linear_interp_data.c \
-       thirdparty/CMSIS/DSP_Lib/Examples/arm_linear_interp_example/arm_linear_interp_example_f32.c
+       thirdparty/CMSIS/DSP_Lib/Examples/arm_linear_interp_example/arm_linear_interp_example_f32.c \
+       thirdparty/CMSIS/DSP_Lib/Examples/arm_linear_interp_example/math_helper.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -83,7 +83,6 @@ INC_PATH = \
        sam/utils/cmsis/sam4cp/source/templates            \
        sam/utils/header_files                             \
        sam/utils/preprocessor                             \
-       thirdparty/CMSIS/DSP_Lib/Examples/Common/Include   \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_linear_interp_example \
        thirdparty/CMSIS/DSP_Lib/Examples/arm_linear_interp_example/sam4cp16b_sam4cp16bmb \
        thirdparty/CMSIS/Include                           \

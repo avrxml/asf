@@ -7,7 +7,7 @@
  * This file defines a useful set of functions for the AES-GCM mode on SAM
  *devices.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,6 +43,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -203,7 +206,7 @@ static void gcm_mode_encryption_test(void)
 	gcm_input_data.aad_len = AES_AAD_EFFECTIVE_SIZE;
 	gcm_input_data.output = output_data;
 	gcm_input_data.tag = tag_data;
-
+	
 	/* Set GTAGEN to '1' and generate Tag automatically */
 	g_aes_cfg.gtag_en = true;
 	aes_set_config(AES, &g_aes_cfg);
@@ -236,7 +239,6 @@ static void gcm_mode_encryption_test(void)
 
 	/* Write AAD Data for TAG generation */
 	uint32_t offset = 0;
-
 	for (i = 0; i < (AES_AAD_SIZE / 4); i++) {
 		/* write the input data */
 		aes_write_input_data(AES, (gcm_input_data.aad + offset));

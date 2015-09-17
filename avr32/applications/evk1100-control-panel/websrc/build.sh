@@ -1,4 +1,7 @@
 #!/bin/sh
+ /**
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 rm -f WebServerGraph.tgz
 rm -f ../DATAFLASH_CONTENT/WEB/*
 perl compact.pl

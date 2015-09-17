@@ -3,7 +3,7 @@
  *
  * \brief SAM TCC - Timer Counter for Control Applications Callback Driver
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "tcc_callback.h"
 
@@ -67,7 +70,7 @@ const uint32_t _tcc_intflag[TCC_CALLBACK_N] = {
 /**
  * \internal Get the interrupt vector for the given device instance
  *
- * \param[in] The TCC module instance number.
+ * \param[in] The TCC module instance number
  *
  * \return Interrupt vector for of the given TCC module instance.
  */
@@ -197,7 +200,7 @@ void tcc_disable_callback(
 /**
  * \internal ISR handler for TCC
  *
- * Auto-generate a set of interrupt handlers for each TCC in the device
+ * Auto-generate a set of interrupt handlers for each TCC in the device.
  */
 #define _TCC_INTERRUPT_HANDLER(n, m) \
 		void TCC##n##_Handler(void) \
@@ -208,13 +211,13 @@ void tcc_disable_callback(
 MREPEAT(TCC_INST_NUM, _TCC_INTERRUPT_HANDLER, 0)
 
 /**
- * \internal Interrupt Handler for the TCC module
+ * \internal Interrupt handler for the TCC module
  *
  * Handles interrupts as they occur, it will run the callback functions
  * that are registered and enabled.
  *
  * \param[in]  module_index  ID of the TCC instance calling the interrupt
- *                           handler.
+ *                           handler
  */
 void _tcc_interrupt_handler(
 		uint8_t module_index)

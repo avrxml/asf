@@ -3,7 +3,7 @@
  *
  * \brief Peripheral DMA Controller Example for SAM.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -77,6 +77,9 @@
 	-- Compiled: xxx xx xxxx xx:xx:xx --
 \endcode
  * -# the sent text should appear.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"

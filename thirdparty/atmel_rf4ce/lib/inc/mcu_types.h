@@ -5,10 +5,10 @@
  * $Id: mcu_types.h 20986 2010-03-19 17:40:19Z dthiele $
  *
  * @author    Atmel Corporation: http://www.atmel.com
- * @author    Support email: avr@atmel.com
+ * @author    Support: http://www.atmel.com/design-support/
  */
 /*
- * Copyright (c) 2009-2012, Atmel Corporation All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * 
  */

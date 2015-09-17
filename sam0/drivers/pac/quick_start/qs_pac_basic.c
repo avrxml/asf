@@ -3,7 +3,7 @@
  *
  * \brief SAM PAC Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 
 void config_port_pins(void);
@@ -48,7 +51,7 @@ void config_port_pins(void);
 void config_port_pins(void)
 {
 	struct port_config pin_conf;
-	
+
 	port_get_config_defaults(&pin_conf);
 
 	pin_conf.direction  = PORT_PIN_DIR_INPUT;
@@ -75,6 +78,9 @@ int main (void)
 //! [init_lock]
 
 //! [enable_interrupts]
+#if (SAML21) || (SAML22) || (SAMC21) || defined(__DOXYGEN__)
+	system_pac_enable_interrupt();
+#endif
 	system_interrupt_enable_global();
 //! [enable_interrupts]
 

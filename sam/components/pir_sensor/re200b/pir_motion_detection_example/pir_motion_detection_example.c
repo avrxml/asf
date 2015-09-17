@@ -3,7 +3,7 @@
  *
  * \brief re200b pir motion detect example.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -68,6 +68,9 @@
  * -# Build the program and download it inside the evaluation board.
  * -# Some text, image and basic shapes should be displayed on the LCD.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"

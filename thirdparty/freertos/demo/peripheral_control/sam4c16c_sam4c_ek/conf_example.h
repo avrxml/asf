@@ -3,7 +3,7 @@
  *
  * \brief Task configurations.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,7 @@
 #ifndef CONF_EXAMPLE_H
 #define CONF_EXAMPLE_H
 
-#define BOARD_USART  USART2
+#define BOARD_USART_CLI  USART2
 #define BOARD_SPI    SPI0
 
 #define CONF_EXAMPLE_CS  0

@@ -3,7 +3,7 @@
  *
  * \brief SSD1306 OLED display controller driver.
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #ifndef SSD1306_H_INCLUDED
 #define SSD1306_H_INCLUDED
@@ -141,7 +144,7 @@ extern "C" {
  *
  * The OLED controller support both serial and parallel mode, that means there
  * is a number of possible ways of interfacing the controller using different
- * AVR peripherals. The different interfaces can be selected using different
+ * SAM peripherals. The different interfaces can be selected using different
  * defines. This driver supports the serial communication mode using an
  * SPI Master.
  *

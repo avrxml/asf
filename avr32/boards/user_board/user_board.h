@@ -4,6 +4,9 @@
  * \brief User board definition template
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef USER_BOARD_H
 #define USER_BOARD_H

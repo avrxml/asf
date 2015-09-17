@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,6 +37,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #ifndef _SAM4C32C_0_
 #define _SAM4C32C_0_
@@ -594,7 +597,7 @@ void WDT_Handler        ( void );
 /* Embedded Flash Write Wait State */
 #define CHIP_FLASH_WRITE_WAIT_STATE     (6U)
 
-/* Embedded Flash Read Wait State (VDDCORE set at 1.20V / VDDIO set between 2.7V to 3.6V / @ 85�C) */
+/* Embedded Flash Read Wait State (VDDCORE set at 1.20V / VDDIO set between 2.7V to 3.6V / @ 85°C) */
 #define CHIP_FREQ_FWS_0                 (21000000UL)  /**< \brief Maximum operating frequency when FWS is 0 */
 #define CHIP_FREQ_FWS_1                 (42000000UL)  /**< \brief Maximum operating frequency when FWS is 1 */
 #define CHIP_FREQ_FWS_2                 (63000000UL)  /**< \brief Maximum operating frequency when FWS is 2 */

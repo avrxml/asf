@@ -3,7 +3,7 @@
  *
  * \brief SSD1306 display controller driver configuration file.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

@@ -3,7 +3,7 @@
  *
  * \brief AT30TSE75X Temperature Sensor driver Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -79,4 +79,7 @@
  * -# Continuously read the temperature:
  *  \snippet qs_at30tse75x.c read_temp
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

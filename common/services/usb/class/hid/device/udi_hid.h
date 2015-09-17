@@ -3,7 +3,7 @@
  *
  * \brief USB Device Human Interface Device (HID) interface definitions.
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _UDI_HID_H_
 #define _UDI_HID_H_
@@ -72,7 +75,7 @@ extern "C" {
  *
  * \return \c 1 if function was successfully done, otherwise \c 0.
  */
-bool udi_hid_setup( uint8_t *rate, uint8_t *protocol, uint8_t *report_desc, bool (*set_report)(void) );
+bool udi_hid_setup( uint8_t *rate, uint8_t *protocol, uint8_t *report_desc, bool (*setup_report)(void) );
 
 //@}
 

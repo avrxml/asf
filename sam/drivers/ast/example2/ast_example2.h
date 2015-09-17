@@ -3,7 +3,7 @@
  *
  * \brief SAM Asynchronous Timer (AST) example 2 alarm wakeup.
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,12 +40,15 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef AST_EXAMPLE2_H_INCLUDED
 #define AST_EXAMPLE2_H_INCLUDED 
 
 /**
- * \page asfdoc_sam_drivers_ast_example2 Asynchronous Timer (AST) -  Example 2 Alarm wakeup
+ * \page asfdoc_sam_drivers_ast_example2 Asynchronous Timer (AST) -  Example 2 Alarm Wakeup
  *
  * \section asfdoc_sam_drivers_ast_example2_purpose Purpose
  * This example demonstrates how to use the AST driver with the 32kHz

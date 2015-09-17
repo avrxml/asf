@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,10 +38,17 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef _SAM4C_
 #define _SAM4C_
 
-#if defined (__SAM4C8C_0__)
+#if defined (__SAM4C4C_0__)
+#include "sam4c4c_0.h"
+#elif defined (__SAM4C4C_1__)
+#include "sam4c4c_1.h"
+#elif defined (__SAM4C8C_0__)
 #include "sam4c8c_0.h"
 #elif defined (__SAM4C8C_1__)
 #include "sam4c8c_1.h"

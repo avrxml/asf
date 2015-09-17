@@ -5,7 +5,7 @@
  *
  * \brief QTouch example for SAM4L.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,6 +54,9 @@
 
 /**
  * Includes for Touch Library.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include "touch_api_sam4l.h"
 

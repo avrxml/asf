@@ -3,7 +3,7 @@
  *
  * \brief Instance description for SERCOM0
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAMD21_SERCOM0_INSTANCE_
@@ -134,10 +137,10 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for SERCOM0 peripheral ========== */
-#define SERCOM0_DMAC_ID_RX          1
-#define SERCOM0_DMAC_ID_TX          2
-#define SERCOM0_GCLK_ID_CORE        20
-#define SERCOM0_GCLK_ID_SLOW        19
-#define SERCOM0_INT_MSB             6
+#define SERCOM0_DMAC_ID_RX          1        // Index of DMA RX trigger
+#define SERCOM0_DMAC_ID_TX          2        // Index of DMA TX trigger
+#define SERCOM0_GCLK_ID_CORE        20       // Index of Generic Clock for Core
+#define SERCOM0_GCLK_ID_SLOW        19       // Index of Generic Clock for SMbus timeout
+#define SERCOM0_INT_MSB             6       
 
 #endif /* _SAMD21_SERCOM0_INSTANCE_ */

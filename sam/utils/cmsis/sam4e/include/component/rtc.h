@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_RTC_COMPONENT_
 #define _SAM4E_RTC_COMPONENT_
@@ -51,18 +54,18 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Rtc hardware registers */
 typedef struct {
-  RwReg RTC_CR;     /**< \brief (Rtc Offset: 0x00) Control Register */
-  RwReg RTC_MR;     /**< \brief (Rtc Offset: 0x04) Mode Register */
-  RwReg RTC_TIMR;   /**< \brief (Rtc Offset: 0x08) Time Register */
-  RwReg RTC_CALR;   /**< \brief (Rtc Offset: 0x0C) Calendar Register */
-  RwReg RTC_TIMALR; /**< \brief (Rtc Offset: 0x10) Time Alarm Register */
-  RwReg RTC_CALALR; /**< \brief (Rtc Offset: 0x14) Calendar Alarm Register */
-  RoReg RTC_SR;     /**< \brief (Rtc Offset: 0x18) Status Register */
-  WoReg RTC_SCCR;   /**< \brief (Rtc Offset: 0x1C) Status Clear Command Register */
-  WoReg RTC_IER;    /**< \brief (Rtc Offset: 0x20) Interrupt Enable Register */
-  WoReg RTC_IDR;    /**< \brief (Rtc Offset: 0x24) Interrupt Disable Register */
-  RoReg RTC_IMR;    /**< \brief (Rtc Offset: 0x28) Interrupt Mask Register */
-  RoReg RTC_VER;    /**< \brief (Rtc Offset: 0x2C) Valid Entry Register */
+  __IO uint32_t RTC_CR;     /**< \brief (Rtc Offset: 0x00) Control Register */
+  __IO uint32_t RTC_MR;     /**< \brief (Rtc Offset: 0x04) Mode Register */
+  __IO uint32_t RTC_TIMR;   /**< \brief (Rtc Offset: 0x08) Time Register */
+  __IO uint32_t RTC_CALR;   /**< \brief (Rtc Offset: 0x0C) Calendar Register */
+  __IO uint32_t RTC_TIMALR; /**< \brief (Rtc Offset: 0x10) Time Alarm Register */
+  __IO uint32_t RTC_CALALR; /**< \brief (Rtc Offset: 0x14) Calendar Alarm Register */
+  __I  uint32_t RTC_SR;     /**< \brief (Rtc Offset: 0x18) Status Register */
+  __O  uint32_t RTC_SCCR;   /**< \brief (Rtc Offset: 0x1C) Status Clear Command Register */
+  __O  uint32_t RTC_IER;    /**< \brief (Rtc Offset: 0x20) Interrupt Enable Register */
+  __O  uint32_t RTC_IDR;    /**< \brief (Rtc Offset: 0x24) Interrupt Disable Register */
+  __I  uint32_t RTC_IMR;    /**< \brief (Rtc Offset: 0x28) Interrupt Mask Register */
+  __I  uint32_t RTC_VER;    /**< \brief (Rtc Offset: 0x2C) Valid Entry Register */
 } Rtc;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- RTC_CR : (RTC Offset: 0x00) Control Register -------- */
@@ -89,29 +92,29 @@ typedef struct {
 #define RTC_MR_HIGHPPM (0x1u << 15) /**< \brief (RTC_MR) HIGH PPM Correction */
 #define RTC_MR_OUT0_Pos 16
 #define RTC_MR_OUT0_Msk (0x7u << RTC_MR_OUT0_Pos) /**< \brief (RTC_MR) RTCOUT0 OutputSource Selection */
-#define   RTC_MR_OUT0_NO_WAVE (0x0u << 16) /**< \brief (RTC_MR) no waveform, stuck at '0' */
+#define   RTC_MR_OUT0_NO_WAVE (0x0u << 16) /**< \brief (RTC_MR) No waveform, stuck at '0' */
 #define   RTC_MR_OUT0_FREQ1HZ (0x1u << 16) /**< \brief (RTC_MR) 1 Hz square wave */
 #define   RTC_MR_OUT0_FREQ32HZ (0x2u << 16) /**< \brief (RTC_MR) 32 Hz square wave */
 #define   RTC_MR_OUT0_FREQ64HZ (0x3u << 16) /**< \brief (RTC_MR) 64 Hz square wave */
 #define   RTC_MR_OUT0_FREQ512HZ (0x4u << 16) /**< \brief (RTC_MR) 512 Hz square wave */
-#define   RTC_MR_OUT0_ALARM_TOGGLE (0x5u << 16) /**< \brief (RTC_MR) output toggles when alarm flag rises */
-#define   RTC_MR_OUT0_ALARM_FLAG (0x6u << 16) /**< \brief (RTC_MR) output is a copy of the alarm flag */
-#define   RTC_MR_OUT0_PROG_PULSE (0x7u << 16) /**< \brief (RTC_MR) duty cycle programmable pulse */
+#define   RTC_MR_OUT0_ALARM_TOGGLE (0x5u << 16) /**< \brief (RTC_MR) Output toggles when alarm flag rises */
+#define   RTC_MR_OUT0_ALARM_FLAG (0x6u << 16) /**< \brief (RTC_MR) Output is a copy of the alarm flag */
+#define   RTC_MR_OUT0_PROG_PULSE (0x7u << 16) /**< \brief (RTC_MR) Duty cycle programmable pulse */
 #define RTC_MR_OUT1_Pos 20
 #define RTC_MR_OUT1_Msk (0x7u << RTC_MR_OUT1_Pos) /**< \brief (RTC_MR) RTCOUT1 Output Source Selection */
-#define   RTC_MR_OUT1_NO_WAVE (0x0u << 20) /**< \brief (RTC_MR) no waveform, stuck at '0' */
+#define   RTC_MR_OUT1_NO_WAVE (0x0u << 20) /**< \brief (RTC_MR) No waveform, stuck at '0' */
 #define   RTC_MR_OUT1_FREQ1HZ (0x1u << 20) /**< \brief (RTC_MR) 1 Hz square wave */
 #define   RTC_MR_OUT1_FREQ32HZ (0x2u << 20) /**< \brief (RTC_MR) 32 Hz square wave */
 #define   RTC_MR_OUT1_FREQ64HZ (0x3u << 20) /**< \brief (RTC_MR) 64 Hz square wave */
 #define   RTC_MR_OUT1_FREQ512HZ (0x4u << 20) /**< \brief (RTC_MR) 512 Hz square wave */
-#define   RTC_MR_OUT1_ALARM_TOGGLE (0x5u << 20) /**< \brief (RTC_MR) output toggles when alarm flag rises */
-#define   RTC_MR_OUT1_ALARM_FLAG (0x6u << 20) /**< \brief (RTC_MR) output is a copy of the alarm flag */
-#define   RTC_MR_OUT1_PROG_PULSE (0x7u << 20) /**< \brief (RTC_MR) duty cycle programmable pulse */
+#define   RTC_MR_OUT1_ALARM_TOGGLE (0x5u << 20) /**< \brief (RTC_MR) Output toggles when alarm flag rises */
+#define   RTC_MR_OUT1_ALARM_FLAG (0x6u << 20) /**< \brief (RTC_MR) Output is a copy of the alarm flag */
+#define   RTC_MR_OUT1_PROG_PULSE (0x7u << 20) /**< \brief (RTC_MR) Duty cycle programmable pulse */
 #define RTC_MR_THIGH_Pos 24
 #define RTC_MR_THIGH_Msk (0x7u << RTC_MR_THIGH_Pos) /**< \brief (RTC_MR) High Duration of the Output Pulse */
 #define   RTC_MR_THIGH_H_31MS (0x0u << 24) /**< \brief (RTC_MR) 31.2 ms */
 #define   RTC_MR_THIGH_H_16MS (0x1u << 24) /**< \brief (RTC_MR) 15.6 ms */
-#define   RTC_MR_THIGH_H_4MS (0x2u << 24) /**< \brief (RTC_MR) 3.91 Mms */
+#define   RTC_MR_THIGH_H_4MS (0x2u << 24) /**< \brief (RTC_MR) 3.91 ms */
 #define   RTC_MR_THIGH_H_976US (0x3u << 24) /**< \brief (RTC_MR) 976 us */
 #define   RTC_MR_THIGH_H_488US (0x4u << 24) /**< \brief (RTC_MR) 488 us */
 #define   RTC_MR_THIGH_H_122US (0x5u << 24) /**< \brief (RTC_MR) 122 us */
@@ -190,7 +193,7 @@ typedef struct {
 #define   RTC_SR_CALEV_NO_CALEVENT (0x0u << 4) /**< \brief (RTC_SR) No calendar event has occurred since the last clear. */
 #define   RTC_SR_CALEV_CALEVENT (0x1u << 4) /**< \brief (RTC_SR) At least one calendar event has occurred since the last clear. */
 #define RTC_SR_TDERR (0x1u << 5) /**< \brief (RTC_SR) Time and/or Date Free Running Error */
-#define   RTC_SR_TDERR_CORRECT (0x0u << 5) /**< \brief (RTC_SR) The internal free running counters are carrying valid values since the last read of RTC_SR. */
+#define   RTC_SR_TDERR_CORRECT (0x0u << 5) /**< \brief (RTC_SR) The internal free running counters are carrying valid values since the last read of the Status Register (RTC_SR). */
 #define   RTC_SR_TDERR_ERR_TIMEDATE (0x1u << 5) /**< \brief (RTC_SR) The internal free running counters have been corrupted (invalid date or time, non-BCD values) since the last read and/or they are still invalid. */
 /* -------- RTC_SCCR : (RTC Offset: 0x1C) Status Clear Command Register -------- */
 #define RTC_SCCR_ACKCLR (0x1u << 0) /**< \brief (RTC_SCCR) Acknowledge Clear */

@@ -3,7 +3,7 @@
  *
  * \brief SAM Serial Peripheral Interface Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,14 +40,17 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include "sercom_interrupt.h"
 
 void *_sercom_instances[SERCOM_INST_NUM];
 
-/** Save status of initialized handlers. */
+/** Save status of initialized handlers */
 static bool _handler_table_initialized = false;
 
-/** Void pointers for saving device instance structures. */
+/** Void pointers for saving device instance structures */
 static void (*_sercom_interrupt_handlers[SERCOM_INST_NUM])(const uint8_t instance);
 
 /**
@@ -64,32 +67,6 @@ static void _sercom_default_handler(
 
 /**
  * \internal
- * Find index of given instance.
- *
- * \param[in] sercom_instance  Instance pointer.
- *
- * \return Index of given instance.
- */
-uint8_t _sercom_get_sercom_inst_index(
-		Sercom *const sercom_instance)
-{
-	/* Save all available SERCOM instances for compare. */
-	Sercom *sercom_instances[SERCOM_INST_NUM] = SERCOM_INSTS;
-
-	/* Find index for sercom instance. */
-	for (uint32_t i = 0; i < SERCOM_INST_NUM; i++) {
-		if ((uintptr_t)sercom_instance == (uintptr_t)sercom_instances[i]) {
-			return i;
-		}
-	}
-
-	/* Invalid data given. */
-	Assert(false);
-	return 0;
-}
-
-/**
- * \internal
  * Saves the given callback handler.
  *
  * \param[in]  instance           Instance index.
@@ -99,7 +76,7 @@ void _sercom_set_handler(
 		const uint8_t instance,
 		const sercom_handler_t interrupt_handler)
 {
-	/* Initialize handlers with default handler and device instances with 0. */
+	/* Initialize handlers with default handler and device instances with 0 */
 	if (_handler_table_initialized == false) {
 		for (uint32_t i = 0; i < SERCOM_INST_NUM; i++) {
 			_sercom_interrupt_handlers[i] = &_sercom_default_handler;
@@ -109,7 +86,7 @@ void _sercom_set_handler(
 		_handler_table_initialized = true;
 	}
 
-	/* Save interrupt handler. */
+	/* Save interrupt handler */
 	_sercom_interrupt_handlers[instance] = interrupt_handler;
 }
 

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atmel Webserver</title>
+<link rel="stylesheet" href="http://www.atmel.com/System/Styles/style.css" type="text/css" media="screen" />
+<link href="http://thingsquare.com/dcdn/1.1/bs.css" rel="stylesheet">
+<style>
+
+body {
+	background: 			url("http://www.atmel.com/images/bodybg.png") 0 0 repeat-x;
+	background-color: 		#FFF;
+	margin:					0 auto;
+	font-family: 			Verdana, Geneva, sans-serif;
+  font-size: 						15px !important;
+}
+
+</style> 
+</head>
+
+<body class="microsite" style="background-image:none;">
+    <div id="container">
+       <div id="content">
+
+      <a id="pagetop"></a>
+      <div style="margin-left: 10px;">
+    	<a href="http://www.atmel.com/">
+    		<img src="http://www.atmel.com/Images/atmel.png" alt="ATMEL Logo" border="0" />
+  		</a>
+  	</div>
+
+        
+        <div id="content-page">
+	    <div class="micro-column">
+        <div id="widemicrotabs">
+    
+
+ <div class="fixed-height microtab_container tabs-panels">
+                    <div class="tab_content">
+
+
+
+<a  href="http://www.atmel.com/products/wireless/802154/default.aspx" target="_blank"><img width="100%"
+src="http://www.atmel.com/Images/IoT%20Campaign%20Banner_HP_Origami_%20980%20X352.jpg"></a>
+
+
+
+<ul class="microtabs" style="position:relative; right:50px; top:-400px; border-bottom:none">
+<li style="height:40px;font-weight:bolder;font-size:2em; width:auto;border-bottom:2px solid #f4f3f3 !important; background-color:#f4f3f3 !important;" class="active">
+<a onclick="_gaq.push ();" href="index3.html" target="_self">IPv6 to IPv4 Mapping Table </a></li>
+<li style="height:35px;font-size:1.5em; width:auto"><a onclick="_gaq.push ();" href="index2.html" target="_self">IPV6 Neighbours  </a> </li>
+<li style="height:35px;font-size:1.5em; width:auto"><a onclick="_gaq.push ();" href="index1.html" target="_self">  RPL Routes  </a> </li>
+<li style="height:35px;font-size:1.5em;width:auto"><a onclick="_gaq.push ();" href="index.html" target="_self"> Smart Connect 6LoWPAN </a> </li>
+</ul>
+
+<a name="body_0" style="text-decoration:none;">&nbsp;</a>
+    <div style="Position: relative; top: -25px; width:auto;">
+
+<h1>IPv6 to IPv4 Mapping Table</h1>
+<div id="nat"><br></div>
+<hr>
+
+<div align = "center">
+<a href="nat.shtml" id="nat-load" class="btn">Refresh</a>
+</div>
+
+</div>
+
+<hr>
+                
+                  </div><!-- /#tab_content -->
+               </div>
+            </div>
+        </div><!-- /#micro-column -->
+       </div><!-- /#content-page -->
+      </div><!-- /#content -->
+    </div><!-- /#container -->
+    
+<script src="http://thingsquare.com/dcdn/1.1/u.js"></script>
+<script>
+var opts={lines:12,length:4,width:2,radius:4,rotate:12,color:'#000',speed:1.8,trail:56,shadow:false,hwaccel:false,className:'spinner',zIndex:2e9,top:'auto',left:'auto'};
+function spinload(spinid,url,id){ var t = document.getElementById(spinid);
+var s = new Spinner(opts).spin(t);$.get(url,function(data){$(id).html(data);}).always(function(){s.stop();})}
+$('#rpl-load').click(function(){spinload('routes','routes.shtml','#routes'); return false;});
+$('#rpl-reset').click(function(){spinload('routes','rplreset.shtml','#routes');return false;});
+$('#rpl-root').click(function(){spinload('routes','rplroot.shtml','#routes');return false;});
+$('#nbrs-load').click(function(){spinload('nbrs','nbrs.shtml','#nbrs');return false;});
+$('#nbrs-ping').click(function(){spinload('nbrs','nbrsping.shtml','#nbrs');return false;});
+$('#nbrs-led').click(function(){spinload('nbrs','nbrsled.shtml','#nbrs');return false;});
+$('#rpl-ping').click(function(){spinload('routes','routesping.shtml','#routes');return false;});
+$('#nat-load').click(function(){spinload('nat','nat.shtml','#nat');return false;});
+$(document).ready(function() {
+$('#rpl-load').click(); $('#nbrs-load').click(); $('#nat-load').click();
+});</script>
+</body>
+</html>

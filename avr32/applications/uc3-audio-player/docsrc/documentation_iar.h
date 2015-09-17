@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,4 +50,7 @@
  *  - The project should compile. Then the generated binary file is downloaded
  *    to the target to finally switch to the debug mode.
  * - Click on the `Go' button in the `Debug' menu or press F5.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

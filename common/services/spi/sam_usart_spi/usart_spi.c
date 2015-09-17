@@ -3,7 +3,7 @@
  *
  * \brief SAM USART in SPI mode driver functions.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,9 +40,16 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "usart_spi.h"
 #include "sysclk.h"
+#if SAMG55
+#include "flexcom.h"
+#include "conf_board.h"
+#endif
 
 /// @cond 0
 /**INDENT-OFF**/
@@ -59,6 +66,8 @@ extern "C" {
  */
 void usart_spi_init(Usart *p_usart)
 {
+#if (!SAMG55)
+
 	uint8_t uc_id;
 
 #ifdef USART0
@@ -85,8 +94,13 @@ void usart_spi_init(Usart *p_usart)
 	}
 #endif
 
+#endif
+
 #if SAM4L
 	sysclk_enable_peripheral_clock(p_usart);
+#elif SAMG55
+	flexcom_enable(BOARD_FLEXCOM_USART);
+	flexcom_set_opmode(BOARD_FLEXCOM_USART, FLEXCOM_USART);
 #else
 	sysclk_enable_peripheral_clock(uc_id);
 #endif
@@ -175,10 +189,12 @@ uint32_t usart_spi_write_packet(Usart *p_usart, const uint8_t *data, size_t len)
  */
 void usart_spi_read_single(Usart *p_usart, uint8_t *data)
 {
+	uint32_t temp_data = 0;
 	/* Dummy write one data to slave in order to read data. */
 	usart_putchar(p_usart, CONFIG_USART_SPI_DUMMY);
 
-	usart_getchar(p_usart, (uint32_t*)data);
+	usart_getchar(p_usart, &temp_data);
+	*data = (uint8_t)temp_data;
 }
 
 /**
@@ -287,7 +303,9 @@ uint32_t usart_spi_is_tx_ready(Usart *p_usart)
  */
 uint32_t usart_spi_is_rx_full(Usart *p_usart)
 {
+#if (!SAMV71 && !SAMV70 && !SAME70 && !SAMS70)
 	return usart_is_rx_buf_full(p_usart);
+#endif
 }
 
 /*! \brief Enable the USART for the specified USART in SPI mode.

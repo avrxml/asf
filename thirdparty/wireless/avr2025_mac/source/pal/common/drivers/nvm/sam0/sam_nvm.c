@@ -3,7 +3,7 @@
  *
  * \brief Non volatile memories management for SAM devices
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -94,7 +94,7 @@ status_code_t nvm_sam0_read(mem_type_t mem, uint32_t address,
 			uint16_t data = NVM_MEMORY[page_address++];
 
 			/* Copy first byte of the 16-bit chunk to the
-			 *destination buffer */
+			 * destination buffer */
 			buffer[i] = (data & 0xFF);
 
 			/* If we are not at the end of a read request with an
@@ -223,6 +223,9 @@ status_code_t nvm_init(mem_type_t mem)
 		struct nvm_config config;
 		/* Get the default configuration */
 		nvm_get_config_defaults(&config);
+
+		/* Enable automatic page write mode */
+		config.manual_page_write = false;
 
 		/* Set wait state to 1 */
 		config.wait_states = 2;

@@ -3,7 +3,7 @@
  *
  * \brief SAM RTC Calendar Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,7 @@
 /**
  * \page asfdoc_sam0_rtc_calendar_basic_use_case Quick Start Guide for RTC (CAL) - Basic
  * In this use case, the RTC is set up in calendar mode. The time is set and
- * also a alarm is set to show a general use of the RTC in calendar mode. Also
+ * also an alarm is set to show a general use of the RTC in calendar mode. Also
  * the clock is swapped from 24h to 12h mode after initialization. The board LED
  * will be toggled once the current time matches the set time.
  *
@@ -64,7 +64,7 @@
  * \section asfdoc_sam0_rtc_calendar_basic_use_case_setup Setup
  *
  * \subsection asfdoc_sam0_rtc_calendar_basic_use_case_init_code Initialization Code
- * Create a rtc_module struct and add to the main application source file,
+ * Create an rtc_module struct and add to the main application source file,
  * outside of any functions:
  * \snippet qs_rtc_calendar_basic.c rtc_module_instance
  *
@@ -90,7 +90,7 @@
  *    \snippet qs_rtc_calendar_basic.c set_config
  * -# Initialize module.
  *    \snippet qs_rtc_calendar_basic.c init_rtc
- * -# Enable module
+ * -# Enable module.
  *    \snippet qs_rtc_calendar_basic.c enable
  *
  * \section asfdoc_sam0_rtc_calendar_basic_use_case_count_basic_implement Implementation
@@ -106,4 +106,7 @@
  *    \snippet qs_rtc_calendar_basic.c alarm_match_action
  * -# Clear the alarm match, so that future alarms may occur.
  *    \snippet qs_rtc_calendar_basic.c clear_alarm_match
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

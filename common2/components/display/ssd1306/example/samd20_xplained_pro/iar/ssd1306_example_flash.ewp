@@ -63,7 +63,7 @@
 				</option>
 				<option>
 					<name>OGCoreOrChip</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GRuntimeLibSelect</name>
@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>default  None</state>
+					<state>ATSAMD20J18	Atmel ATSAMD20J18</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -166,7 +166,7 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM0=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>SPI_CALLBACK_MODE=true</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
 					<state>__SAMD20J18__</state>
@@ -300,7 +300,8 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_samd20</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/port</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/boards/samd20_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/source</state>
@@ -308,11 +309,14 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom/spi</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../services/delay/sam0</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
@@ -470,7 +474,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM0=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>SPI_CALLBACK_MODE=true</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
 					<state>__SAMD20J18__</state>
@@ -571,7 +575,8 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_samd20</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/port</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/boards/samd20_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/source</state>
@@ -579,11 +584,14 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom/spi</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../services/delay/sam0</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
@@ -1030,7 +1038,7 @@
 				</option>
 				<option>
 					<name>OGCoreOrChip</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GRuntimeLibSelect</name>
@@ -1064,7 +1072,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>default  None</state>
+					<state>ATSAMD20J18	Atmel ATSAMD20J18</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1112,7 +1120,7 @@
 				</option>
 				<option>
 					<name>OGUseCmsis</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>OGUseCmsisDspLib</name>
@@ -1133,7 +1141,7 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM0=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>SPI_CALLBACK_MODE=true</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
 					<state>__SAMD20J18__</state>
@@ -1202,7 +1210,7 @@
 				</option>
 				<option>
 					<name>CCDebugInfo</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IEndianMode</name>
@@ -1267,7 +1275,8 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_samd20</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/port</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/boards/samd20_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/source</state>
@@ -1275,11 +1284,14 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom/spi</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../services/delay/sam0</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
@@ -1437,7 +1449,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM0=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>SPI_CALLBACK_MODE=true</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
 					<state>__SAMD20J18__</state>
@@ -1538,7 +1550,8 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_samd20</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/port</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/boards/samd20_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/source</state>
@@ -1546,11 +1559,14 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom/spi</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../services/delay/sam0</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
@@ -1967,12 +1983,6 @@
 						<name>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt.h</name>
 					</file>
 					<group>
-						<name>quick_start</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/quick_start/qs_system_interrupt.h</name>
-						</file>
-					</group>
-					<group>
 						<name>system_interrupt_samd20</name>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd20/system_interrupt_features.h</name>
@@ -2005,6 +2015,9 @@
 							<name>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_samd20/clock.c</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_samd20/clock_feature.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_samd20/clock_config_check.h</name>
 						</file>
 					</group>
@@ -2014,16 +2027,22 @@
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/gclk.h</name>
 					</file>
+				</group>
+				<group>
+					<name>power</name>
 					<group>
-						<name>quick_start_gclk</name>
+						<name>power_sam_d_r</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/quick_start_gclk/qs_gclk_basic.h</name>
+							<name>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power/power_sam_d_r/power.h</name>
 						</file>
 					</group>
+				</group>
+				<group>
+					<name>reset</name>
 					<group>
-						<name>quick_start_clock</name>
+						<name>reset_sam_d_r</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/quick_start_clock/qs_clock_source.h</name>
+							<name>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset/reset_sam_d_r/reset.h</name>
 						</file>
 					</group>
 				</group>
@@ -2187,12 +2206,6 @@
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g18.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20e1f.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j17.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j15.h</name>
 							</file>
 							<file>
@@ -2217,6 +2230,9 @@
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j14.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j17.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20e14.h</name>
 							</file>
 							<file>
@@ -2239,6 +2255,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/instance/wdt.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/instance/sercom2.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/instance/sercom1.h</name>
@@ -2293,9 +2312,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/instance/tc2.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/instance/sercom2.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/samd20/include/instance/pm.h</name>

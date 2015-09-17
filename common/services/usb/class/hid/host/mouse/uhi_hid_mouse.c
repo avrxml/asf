@@ -3,7 +3,7 @@
  *
  * \brief USB host Human Interface Device (HID) mouse driver.
  *
- * Copyright (C) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "conf_usb_host.h"

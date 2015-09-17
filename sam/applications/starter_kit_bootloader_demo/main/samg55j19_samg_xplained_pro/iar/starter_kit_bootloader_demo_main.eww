@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\starter_kit_bootloader_demo_main_flash.ewp</path>
+	</project>
+</workspace>

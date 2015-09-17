@@ -8,7 +8,7 @@
  * service selection depends on  AT45DBX_USES_SPI_MASTER_SERVICE or
  * AT45DBX_USES_USART_SPI_SERVICE in conf_at45dbx.h
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,6 +44,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _AT45DBX_HAL_SPI_H_

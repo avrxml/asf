@@ -3,7 +3,7 @@
  *
  * \brief USB Device Human Interface Device (HID) gamepad interface.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,7 +54,7 @@
  * \defgroup udi_hid_gamepad_group_udc Interface with USB Device Core (UDC)
  *
  * Structures and functions required by UDC.
- * 
+ *
  * @{
  */
 
@@ -63,16 +63,15 @@ void udi_hid_gpd_disable(void);
 bool udi_hid_gpd_setup(void);
 uint8_t udi_hid_gpd_getsetting(void);
 
-//! Global structure which contains standard UDI interface for UDC
+/* ! Global structure which contains standard UDI interface for UDC */
 UDC_DESC_STORAGE udi_api_t udi_api_hid_gpd = {
-	.enable = (bool(*)(void))udi_hid_gpd_enable,
+	.enable = (bool (*)(void))udi_hid_gpd_enable,
 	.disable = (void (*)(void))udi_hid_gpd_disable,
-	.setup = (bool(*)(void))udi_hid_gpd_setup,
-	.getsetting = (uint8_t(*)(void))udi_hid_gpd_getsetting,
+	.setup = (bool (*)(void))udi_hid_gpd_setup,
+	.getsetting = (uint8_t (*)(void))udi_hid_gpd_getsetting,
 	.sof_notify = NULL,
 };
-//@}
-
+/* @} */
 
 /**
  * \ingroup udi_hid_gamepad_group
@@ -85,80 +84,90 @@ UDC_DESC_STORAGE udi_api_t udi_api_hid_gpd = {
 /**
  * \name Internal defines and variables to manage HID gamepad
  */
-//@{
+/* @{ */
 
-//! Size of report for standard HID gamepad
+/* ! Size of report for standard HID gamepad */
 #define UDI_HID_GPD_REPORT_SIZE  4
 
-
-//! To store current rate of HID gamepad
+/* ! To store current rate of HID gamepad */
 static uint8_t udi_hid_gpd_rate;
-//! To store current protocol of HID gamepad
+/* ! To store current protocol of HID gamepad */
 static uint8_t udi_hid_gpd_protocol;
-//! To store report feedback from USB host
+/* ! To store report feedback from USB host */
 static uint8_t udi_hid_gpd_report_set;
-//! To signal if a valid report is ready to send
+/* ! To signal if a valid report is ready to send */
 static bool udi_hid_gpd_b_report_valid;
-//! Report ready to send
+/* ! Report ready to send */
 static uint8_t udi_hid_gpd_report[UDI_HID_GPD_REPORT_SIZE];
-//! Signal if a report transfer is on going
+/* ! Signal if a report transfer is on going */
 static bool udi_hid_gpd_b_report_trans_ongoing;
-//! Buffer used to send report
+/* ! Buffer used to send report */
 COMPILER_WORD_ALIGNED
-		static uint8_t
+static uint8_t
 		udi_hid_gpd_report_trans[UDI_HID_GPD_REPORT_SIZE];
 
-//@}
+/* @} */
 
-//! HID report descriptor for standard HID gamepad
+/* ! HID report descriptor for standard HID gamepad */
 UDC_DESC_STORAGE udi_hid_gpd_report_desc_t udi_hid_gpd_report_desc = {
 	{
-				0x05,0x01, /*UsagePage(Generic Desktop)*/
-				0x09,0x04, /*Usage(Joystick),*/
-				0xA1,0x01, /*Collection(Application),*/
-				0x05,0x02,	/*UsagePage(Simulation Controls),*/
-				0x09,0xbb,/*	Usage (Throttle),*/
-				0x15,0x81,/*	Logical Minimum(-127)*/
-				0x25,0x7f,/*	Logical Maximum(127),*/
-				0x75,0x08,/*	Report Size (8),*/
-				0x95,0x01,/*	Report Count (1),*/
-				0x81,0x02,/*	Input (Data, Variable, Absolute),*/
-				0x05,0x01,/*	UsagePage(Generic Desktop)*/
-				0x09,0x01,/*  Usage(Pointer),*/
-				0xA1,0x00,	/*Collection(Physical),*/
-				0x09,0x30,/*	Usage(X),*/
-				0x09,0x31,/*	Usage (Y),*/
-				0x95,0x02,/*	Report Count (2),*/
-				0x81,0x02,/*	Input (Data, Variable, Absolute),*/
-				0xC0,	/*End Collection(),*/
-				0x09,0x39,/*	Usage(Hat Switch),*/
-				0x15,0x00,/*	Logical Minimum(0),*/
-				0x25,0x03,/*	Logical Maximum(3),*/
-				0x35,0x00,/*Physical Minimum(0),*/
-				0x46,0x0E,0x01, /*	Physical Maximum(270),*/
-				0x65,0x14, /*Unit (English Rotation: Angular Position), ;Degrees*/
-				0x75,0x04,/*	Report Size(4),*/
-				0x95,0x01,/*	Report Count(1),*/
-				0x81,0x02,/*	Input (Data, Variable, Absolute, NULL State),*/
-				0x05,0x09,/*					Usage Page(Buttons),*/
-				0x19,0x01,/*	Usage Minimum (Button 1),*/
-				0x29,0x04,/*	Usage Maximum (Button 4),*/
-				0x15,0x00,                    //   LOGICAL_MINIMUM (0)
-				0x25,0x01,	//					Logical Maximum (1),
-				0x95,0x04,//	Report Count (4),
-				0x75,0x01,/* Report size*/
-				0x55,0x00,/*unit exponent*/
-				0x65,0x00,//	Unit (None),
-				0x81,0x02,//	Input (Data, Variable, Absolute),
-				0xC0//	End Collection()
-					
-			}
+		0x05, 0x01,                /*UsagePage(Generic Desktop)*/
+		0x09, 0x04,                /*Usage(Joystick),*/
+		0xA1, 0x01,                /*Collection(Application),*/
+		0x05, 0x02,                     /*UsagePage(Simulation
+		                                 *Controls),*/
+		0x09, 0xbb,               /*	Usage (Throttle),*/
+		0x15, 0x81,               /*	Logical Minimum(-127)*/
+		0x25, 0x7f,               /*	Logical Maximum(127),*/
+		0x75, 0x08,               /*	Report Size (8),*/
+		0x95, 0x01,               /*	Report Count (1),*/
+		0x81, 0x02,               /*	Input (Data, Variable,
+		                           *Absolute),*/
+		0x05, 0x01,               /*	UsagePage(Generic Desktop)*/
+		0x09, 0x01,               /*  Usage(Pointer),*/
+		0xA1, 0x00,                     /*Collection(Physical),*/
+		0x09, 0x30,               /*	Usage(X),*/
+		0x09, 0x31,               /*	Usage (Y),*/
+		0x95, 0x02,               /*	Report Count (2),*/
+		0x81, 0x02,               /*	Input (Data, Variable,
+		                           *Absolute),*/
+		0xC0,                   /*End Collection(),*/
+		0x09, 0x39,               /*	Usage(Hat Switch),*/
+		0x15, 0x00,               /*	Logical Minimum(0),*/
+		0x25, 0x03,               /*	Logical Maximum(3),*/
+		0x35, 0x00,               /*Physical Minimum(0),*/
+		0x46, 0x0E, 0x01,               /*	Physical Maximum(270),*/
+		0x65, 0x14,                /*Unit (English Rotation: Angular
+		                            *Position), ;Degrees*/
+		0x75, 0x04,               /*	Report Size(4),*/
+		0x95, 0x01,               /*	Report Count(1),*/
+		0x81, 0x02,               /*	Input (Data, Variable, Absolute,
+		                           *NULL State),*/
+		0x05, 0x09,               /*					Usage
+		                           *Page(Buttons),*/
+		0x19, 0x01,               /*	Usage Minimum (Button 1),*/
+		0x29, 0x04,               /*	Usage Maximum (Button 4),*/
+		0x15, 0x00,                                   /*
+		                                               *
+		                                               *
+		                                               * LOGICAL_MINIMUM
+		                                               * (0) */
+		0x25, 0x01,                     /*					Logical
+		                                 * Maximum (1), */
+		0x95, 0x04,               /*	Report Count (4), */
+		0x75, 0x01,               /* Report size*/
+		0x55, 0x00,               /*unit exponent*/
+		0x65, 0x00,               /*	Unit (None), */
+		0x81, 0x02,               /*	Input (Data, Variable,
+		                           * Absolute), */
+		0xC0                /*	End Collection() */
+	}
 };
 
 /**
  * \name Internal routines
  */
-//@{
+/* @{ */
 
 /**
  * \brief Changes gamepad report states (like LEDs)
@@ -193,15 +202,14 @@ static void udi_hid_gpd_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
  */
 static void udi_hid_gpd_setreport_valid(void);
 
-//@}
+/* @} */
 
-
-//--------------------------------------------
-//------ Interface for UDI HID level
+/* -------------------------------------------- */
+/* ------ Interface for UDI HID level */
 
 bool udi_hid_gpd_enable(void)
 {
-	// Initialize internal values
+	/* Initialize internal values */
 	udi_hid_gpd_rate = 0;
 	udi_hid_gpd_protocol = 0;
 	udi_hid_gpd_b_report_trans_ongoing = false;
@@ -210,43 +218,38 @@ bool udi_hid_gpd_enable(void)
 	return UDI_HID_GPD_ENABLE_EXT();
 }
 
-
 void udi_hid_gpd_disable(void)
 {
 	UDI_HID_GPD_DISABLE_EXT();
 }
 
-
 bool udi_hid_gpd_setup(void)
 {
 	return udi_hid_setup(&udi_hid_gpd_rate,
-								&udi_hid_gpd_protocol,
-								(uint8_t *) &udi_hid_gpd_report_desc,
-								udi_hid_gpd_setreport);
+			&udi_hid_gpd_protocol,
+			(uint8_t *)&udi_hid_gpd_report_desc,
+			udi_hid_gpd_setreport);
 }
-
 
 uint8_t udi_hid_gpd_getsetting(void)
 {
 	return 0;
 }
 
-
 static bool udi_hid_gpd_setreport(void)
 {
-	if ((USB_HID_REPORT_TYPE_OUTPUT == (udd_g_ctrlreq.req.wValue >> 8))
-			&& (0 == (0xFF & udd_g_ctrlreq.req.wValue))
-			&& (1 == udd_g_ctrlreq.req.wLength)) {
-		// Report OUT type on report ID 0 from USB Host
+	if ((USB_HID_REPORT_TYPE_OUTPUT == (udd_g_ctrlreq.req.wValue >> 8)) &&
+			(0 == (0xFF & udd_g_ctrlreq.req.wValue)) &&
+			(1 == udd_g_ctrlreq.req.wLength)) {
+		/* Report OUT type on report ID 0 from USB Host */
 		udd_g_ctrlreq.payload = &udi_hid_gpd_report_set;
 		udd_g_ctrlreq.callback = udi_hid_gpd_setreport_valid;
 		udd_g_ctrlreq.payload_size = 1;
 		return true;
 	}
+
 	return false;
 }
-
-
 
 bool udi_hid_gpd_throttle_move(int8_t pos)
 {
@@ -254,101 +257,105 @@ bool udi_hid_gpd_throttle_move(int8_t pos)
 
 	irqflags_t flags = cpu_irq_save();
 
-	// Add position in HID mouse report
-	s16_newpos = (int8_t) udi_hid_gpd_report[0];
+	/* Add position in HID mouse report */
+	s16_newpos = (int8_t)udi_hid_gpd_report[0];
 	s16_newpos += pos;
 	if ((-127 > s16_newpos) || (127 < s16_newpos)) {
 		cpu_irq_restore(flags);
-		return false;	// Overflow of report
+		return false;   /* Overflow of report */
 	}
-	udi_hid_gpd_report[0] = (uint8_t) s16_newpos;
-	// Valid and send report
+
+	udi_hid_gpd_report[0] = (uint8_t)s16_newpos;
+	/* Valid and send report */
 	udi_hid_gpd_b_report_valid = true;
 	udi_hid_gpd_send_report();
 
 	cpu_irq_restore(flags);
 	return true;
 }
+
 bool udi_hid_gpd_moveX(int8_t pos)
-{  
+{
 	int16_t s16_newpos;
 
 	irqflags_t flags = cpu_irq_save();
 
-	// Add position in HID mouse report
-	s16_newpos = (int8_t) udi_hid_gpd_report[1];
+	/* Add position in HID mouse report */
+	s16_newpos = (int8_t)udi_hid_gpd_report[1];
 	s16_newpos += pos;
 	if ((-127 > s16_newpos) || (127 < s16_newpos)) {
 		cpu_irq_restore(flags);
-		return false;	// Overflow of report
+		return false;   /* Overflow of report */
 	}
+
 	udi_hid_gpd_report[1] = (uint8_t)s16_newpos;
-  	// Valid and send report
+	/* Valid and send report */
 	udi_hid_gpd_b_report_valid = true;
 	udi_hid_gpd_send_report();
 
 	cpu_irq_restore(flags);
 	return true;
 }
+
 bool udi_hid_gpd_moveY(int8_t pos)
 {
-  int16_t s16_newpos;
+	int16_t s16_newpos;
 
-  irqflags_t flags = cpu_irq_save();
-
-  // Add position in HID mouse report
-  s16_newpos = (int8_t) udi_hid_gpd_report[2];
-  s16_newpos += pos;
-  if ((-127 > s16_newpos) || (127 < s16_newpos)) {
-	  cpu_irq_restore(flags);
-	  return false;	// Overflow of report
-  }
-   udi_hid_gpd_report[2] = (uint8_t) s16_newpos;
-  // Valid and send report
-  udi_hid_gpd_b_report_valid = true;
-  udi_hid_gpd_send_report();
-  
-  cpu_irq_restore(flags);
-  return true;
-}
-bool udi_hid_gpd_buttons(bool b_state,uint8_t key_id)
-{ 
-	if(b_state)
-	{
-		udi_hid_gpd_report[3] |= key_id;
-	}
-	else
-	{
-		udi_hid_gpd_report[3] &= ~key_id;
-	}
 	irqflags_t flags = cpu_irq_save();
 
-	// Valid and send report
+	/* Add position in HID mouse report */
+	s16_newpos = (int8_t)udi_hid_gpd_report[2];
+	s16_newpos += pos;
+	if ((-127 > s16_newpos) || (127 < s16_newpos)) {
+		cpu_irq_restore(flags);
+		return false; /* Overflow of report */
+	}
+
+	udi_hid_gpd_report[2] = (uint8_t)s16_newpos;
+	/* Valid and send report */
 	udi_hid_gpd_b_report_valid = true;
 	udi_hid_gpd_send_report();
 
 	cpu_irq_restore(flags);
 	return true;
-	
 }
 
+bool udi_hid_gpd_buttons(bool b_state, uint8_t key_id)
+{
+	if (b_state) {
+		udi_hid_gpd_report[3] |= key_id;
+	} else {
+		udi_hid_gpd_report[3] &= ~key_id;
+	}
 
-//--------------------------------------------
-//------ Internal routines
+	irqflags_t flags = cpu_irq_save();
+
+	/* Valid and send report */
+	udi_hid_gpd_b_report_valid = true;
+	udi_hid_gpd_send_report();
+
+	cpu_irq_restore(flags);
+	return true;
+}
+
+/* -------------------------------------------- */
+/* ------ Internal routines */
 
 static bool udi_hid_gpd_send_report(void)
 {
-	if (udi_hid_gpd_b_report_trans_ongoing)
+	if (udi_hid_gpd_b_report_trans_ongoing) {
 		return false;
+	}
+
 	memcpy(udi_hid_gpd_report_trans, udi_hid_gpd_report,
 			UDI_HID_GPD_REPORT_SIZE);
 	udi_hid_gpd_b_report_valid = false;
-	udi_hid_gpd_b_report_trans_ongoing =
-			udd_ep_run(	UDI_HID_GPD_EP_IN,
-							false,
-							udi_hid_gpd_report_trans,
-							UDI_HID_GPD_REPORT_SIZE,
-							udi_hid_gpd_report_sent);
+	udi_hid_gpd_b_report_trans_ongoing
+		= udd_ep_run(     UDI_HID_GPD_EP_IN,
+			false,
+			udi_hid_gpd_report_trans,
+			UDI_HID_GPD_REPORT_SIZE,
+			udi_hid_gpd_report_sent);
 	return udi_hid_gpd_b_report_trans_ongoing;
 }
 
@@ -369,4 +376,4 @@ static void udi_hid_gpd_setreport_valid(void)
 	UDI_HID_GPD_CHANGE_LED(udi_hid_gpd_report_set);
 }
 
-//@}
+/* @} */

@@ -6,7 +6,7 @@
  * This file contains functions for initializing and reading data
  * from a Kionix KXTF9 3-axis accelerometer.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,6 +42,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #ifndef _KXTF9_H_
 #define _KXTF9_H_

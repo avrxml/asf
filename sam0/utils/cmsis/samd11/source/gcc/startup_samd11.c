@@ -3,7 +3,7 @@
  *
  * \brief gcc starttup file for SAMD11
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -78,17 +78,23 @@ void RTC_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler
 void EIC_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void NVMCTRL_Handler         ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void DMAC_Handler            ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#ifdef ID_USB
 void USB_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif
 void EVSYS_Handler           ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void SERCOM0_Handler         ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void SERCOM1_Handler         ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#ifdef ID_SERCOM2
 void SERCOM2_Handler         ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif
 void TCC0_Handler            ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void TC1_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void TC2_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void ADC_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void AC_Handler              ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#ifdef ID_DAC
 void DAC_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif
 void PTC_Handler             ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 
 /* Exception Table */
@@ -122,17 +128,29 @@ const DeviceVectors exception_table = {
         (void*) EIC_Handler,            /*  4 External Interrupt Controller */
         (void*) NVMCTRL_Handler,        /*  5 Non-Volatile Memory Controller */
         (void*) DMAC_Handler,           /*  6 Direct Memory Access Controller */
+#ifdef ID_USB
         (void*) USB_Handler,            /*  7 Universal Serial Bus */
+#else
+        (void*) (0UL), /* Reserved */
+#endif
         (void*) EVSYS_Handler,          /*  8 Event System Interface */
         (void*) SERCOM0_Handler,        /*  9 Serial Communication Interface 0 */
         (void*) SERCOM1_Handler,        /* 10 Serial Communication Interface 1 */
+#ifdef ID_SERCOM2
         (void*) SERCOM2_Handler,        /* 11 Serial Communication Interface 2 */
+#else
+        (void*) (0UL), /* Reserved */
+#endif
         (void*) TCC0_Handler,           /* 12 Timer Counter Control */
         (void*) TC1_Handler,            /* 13 Basic Timer Counter 0 */
         (void*) TC2_Handler,            /* 14 Basic Timer Counter 1 */
         (void*) ADC_Handler,            /* 15 Analog Digital Converter */
         (void*) AC_Handler,             /* 16 Analog Comparators */
+#ifdef ID_DAC
         (void*) DAC_Handler,            /* 17 Digital Analog Converter */
+#else
+        (void*) (0UL), /* Reserved */
+#endif
         (void*) PTC_Handler             /* 18 Peripheral Touch Controller */
 };
 
@@ -162,6 +180,19 @@ void Reset_Handler(void)
         /* Set the vector table base address */
         pSrc = (uint32_t *) & _sfixed;
         SCB->VTOR = ((uint32_t) pSrc & SCB_VTOR_TBLOFF_Msk);
+
+        /* Change default QOS values to have the best performance and correct USB behaviour */
+        SBMATRIX->SFR[SBMATRIX_SLAVE_HMCRAMC0].reg = 2;
+#if defined(ID_USB)
+        USB->DEVICE.QOSCTRL.bit.CQOS = 2;
+        USB->DEVICE.QOSCTRL.bit.DQOS = 2;
+#endif
+        DMAC->QOSCTRL.bit.DQOS = 2;
+        DMAC->QOSCTRL.bit.FQOS = 2;
+        DMAC->QOSCTRL.bit.WRBQOS = 2;
+
+        /* Overwriting the default value of the NVMCTRL.CTRLB.MANW bit (errata reference 13134) */
+        NVMCTRL->CTRLB.bit.MANW = 1;
 
         /* Initialize the C library */
         __libc_init_array();

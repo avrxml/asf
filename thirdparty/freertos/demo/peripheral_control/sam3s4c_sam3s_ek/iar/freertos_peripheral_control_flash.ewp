@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3S4	Atmel SAM3S4</state>
+					<state>ATSAM3S4C	Atmel ATSAM3S4C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -304,13 +304,14 @@
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/freertos/sam</state>
 					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/include</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
@@ -586,13 +587,14 @@
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/freertos/sam</state>
 					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/include</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
@@ -1053,7 +1055,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3S4	Atmel SAM3S4</state>
+					<state>ATSAM3S4C	Atmel ATSAM3S4C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1260,13 +1262,14 @@
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/freertos/sam</state>
 					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/include</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
@@ -1542,13 +1545,14 @@
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam3s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/include</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/freertos/sam</state>
 					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/include</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
@@ -1950,6 +1954,21 @@
 		<group>
 			<name>services</name>
 			<group>
+				<name>serial</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../common/services/serial/usart_serial.c</name>
+				</file>
+				<group>
+					<name>sam_uart</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart/uart_serial.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../common/services/serial/serial.h</name>
+				</file>
+			</group>
+			<group>
 				<name>usb</name>
 				<group>
 					<name>class</name>
@@ -1958,10 +1977,10 @@
 						<group>
 							<name>device</name>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc/device/udi_cdc.c</name>
+								<name>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc/device/udi_cdc_desc.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc/device/udi_cdc_desc.c</name>
+								<name>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc/device/udi_cdc.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc/device/udi_cdc.h</name>
@@ -1998,21 +2017,6 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../common/services/usb/usb_protocol.h</name>
-				</file>
-			</group>
-			<group>
-				<name>serial</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../common/services/serial/usart_serial.c</name>
-				</file>
-				<group>
-					<name>sam_uart</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart/uart_serial.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../common/services/serial/serial.h</name>
 				</file>
 			</group>
 			<group>
@@ -2316,6 +2320,15 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../sam/drivers/pmc/pmc.h</name>
+				</file>
+			</group>
+			<group>
+				<name>matrix</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../sam/drivers/matrix/matrix.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../sam/drivers/matrix/matrix.h</name>
 				</file>
 			</group>
 			<group>

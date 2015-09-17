@@ -3,7 +3,7 @@
  *
  * \brief Debug print basic quick start guide
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -116,4 +116,7 @@
  *    \snippet qs_dbg_print_basic.c  main_task_create
  * -# Start the FreeRTOS scheduler:
  *    \snippet qs_dbg_print_basic.c  freertos_start
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

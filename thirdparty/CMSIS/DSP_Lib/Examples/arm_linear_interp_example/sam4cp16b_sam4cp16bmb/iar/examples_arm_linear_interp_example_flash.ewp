@@ -306,7 +306,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cp/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cp/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4cp16bmb</state>
 					<state>$PROJ_DIR$/.</state>
@@ -569,7 +568,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cp/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cp/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4cp16bmb</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1223,7 +1221,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cp/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cp/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4cp16bmb</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1486,7 +1483,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cp/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4cp/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4cp16bmb</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1835,60 +1831,6 @@
 		</settings>
 	</configuration>
 	<group>
-		<name>thirdparty</name>
-		<group>
-			<name>CMSIS</name>
-			<group>
-				<name>DSP_Lib</name>
-				<group>
-					<name>Examples</name>
-					<group>
-						<name>Common</name>
-						<group>
-							<name>Source</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Source/math_helper.c</name>
-							</file>
-						</group>
-						<group>
-							<name>Include</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Include/math_helper.h</name>
-							</file>
-						</group>
-					</group>
-					<group>
-						<name>arm_linear_interp_example</name>
-						<file>
-							<name>$PROJ_DIR$/../../arm_linear_interp_data.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../arm_linear_interp_example_f32.c</name>
-						</file>
-						<group>
-							<name>sam4cp16b_sam4cp16bmb</name>
-							<file>
-								<name>$PROJ_DIR$/../conf_clock.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../conf_board.h</name>
-							</file>
-							<group>
-								<name>iar</name>
-								<file>
-									<name>$PROJ_DIR$/asf.h</name>
-								</file>
-							</group>
-						</group>
-						<file>
-							<name>$PROJ_DIR$/../../documentation.h</name>
-						</file>
-					</group>
-				</group>
-			</group>
-		</group>
-	</group>
-	<group>
 		<name>sam</name>
 		<group>
 			<name>utils</name>
@@ -2215,6 +2157,51 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/boards/sam4cp16bmb/led.h</name>
 				</file>
+			</group>
+		</group>
+	</group>
+	<group>
+		<name>thirdparty</name>
+		<group>
+			<name>CMSIS</name>
+			<group>
+				<name>DSP_Lib</name>
+				<group>
+					<name>Examples</name>
+					<group>
+						<name>arm_linear_interp_example</name>
+						<file>
+							<name>$PROJ_DIR$/../../arm_linear_interp_data.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../arm_linear_interp_example_f32.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.c</name>
+						</file>
+						<group>
+							<name>sam4cp16b_sam4cp16bmb</name>
+							<file>
+								<name>$PROJ_DIR$/../conf_clock.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../conf_board.h</name>
+							</file>
+							<group>
+								<name>iar</name>
+								<file>
+									<name>$PROJ_DIR$/asf.h</name>
+								</file>
+							</group>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../../documentation.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.h</name>
+						</file>
+					</group>
+				</group>
 			</group>
 		</group>
 	</group>

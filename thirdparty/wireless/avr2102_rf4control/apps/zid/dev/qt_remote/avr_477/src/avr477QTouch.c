@@ -3,7 +3,7 @@
  *
  * \brief AVR477QTouch buttons handling implementation.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -343,9 +343,9 @@ void BSP_InitQTouch(BSP_TouchEventHandler_t handler)
 	/*  This function is called after the library has made capacitive
 	 * measurements,
 	 *   but before it has processed them. The user can use this hook to
-	 *apply filter
+	 * apply filter
 	 *   functions to the measured signal values.(Possibly to fix sensor
-	 *layout faults)    */
+	 * layout faults)    */
 
 	/* This function is also used to send signal values to simulate Accelero
 	 * meter,
@@ -393,7 +393,7 @@ uint8_t Touch_measurement(uint8_t *button_event, uint8_t *button_state)
 		burst_flag = status_flag & QTLIB_BURST_AGAIN;
 
 		/* check whether the sensor status is changed from previous
-		 *status */
+		 * status */
 		temp_status1 = memory_map.body.sensor_status[0] ^
 				qt_measure_data.qt_touch_status.sensor_states[0];
 		temp_status2 = memory_map.body.sensor_status[1] ^
@@ -635,7 +635,7 @@ void touch_interrupt_call_back(void)
 
 /**
  * @brief  Configure the sensors, assign the channel number, aks_group,
- *hysteresis.
+ * hysteresis.
  * @ingroup QTouch
  */
 void config_sensors(void)
@@ -650,7 +650,9 @@ void config_sensors(void)
 	qt_enable_key(CHANNEL_16, AKS_GROUP_1, 16u, HYST_6_25 ); /* Sensor 7 */
 	qt_enable_rotor(CHANNEL_8, CHANNEL_11, AKS_GROUP_1, 45u, HYST_25,
 			RES_8_BIT, 3u );                                               /*
+	                                                                                *
 	                                                                                *Sensor
+	                                                                                *
 	                                                                                *8
 	                                                                                **/
 	qt_enable_key(CHANNEL_12, AKS_GROUP_1, 20u, HYST_6_25 ); /* Sensor 9 */

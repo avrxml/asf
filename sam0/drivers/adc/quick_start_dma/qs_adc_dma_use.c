@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D21/D10/D11 ADC with DMA quick start
+ * \brief SAM D21/D11/L21/DA1/C21 ADC with DMA quick start
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 
 void configure_dma_resource(struct dma_resource *resource);
@@ -63,7 +66,7 @@ struct dma_resource example_resource;
 
 // [transfer_descriptor]
 COMPILER_ALIGNED(16)
-DmacDescriptor example_descriptor;
+DmacDescriptor example_descriptor SECTION_DMAC_DESCRIPTOR;
 // [transfer_descriptor]
 
 //! [setup]
@@ -79,17 +82,25 @@ void configure_adc(void)
 //! [setup_adc_config_defaults]
 
 //! [setup_adc_config_extra]
+#if !(SAML21)
+#if !(SAMC21)
 	config_adc.gain_factor     = ADC_GAIN_FACTOR_DIV2;
+#endif
+	config_adc.resolution      = ADC_RESOLUTION_10BIT;
+#endif
 	config_adc.clock_prescaler = ADC_CLOCK_PRESCALER_DIV16;
 	config_adc.reference       = ADC_REFERENCE_INTVCC1;
 	config_adc.positive_input  = ADC_POSITIVE_INPUT_PIN4;
-	config_adc.resolution      = ADC_RESOLUTION_10BIT;
 	config_adc.freerunning     = true;
 	config_adc.left_adjust     = false;
 //! [setup_adc_config_extra]
 
 //! [setup_adc_set_config]
+#if (SAMC21)
+	adc_init(&adc_instance, ADC1, &config_adc);
+#else
 	adc_init(&adc_instance, ADC, &config_adc);
+#endif
 //! [setup_adc_set_config]
 
 //! [setup_adc_enable]
@@ -110,16 +121,17 @@ void configure_dac(void)
 //! [setup_dac_config_defaults]
 
 //! [setup_dac_config_extra]
+#if (SAML21)
+	config_dac.reference = DAC_REFERENCE_INTREF;
+#else
 	config_dac.reference = DAC_REFERENCE_AVCC;
+#endif
 //! [setup_dac_config_extra]
 
 //! [setup_dac_set_config]
 	dac_init(&dac_instance, DAC, &config_dac);
 //! [setup_dac_set_config]
 
-//! [setup_dac_enable]
-	dac_enable(&dac_instance);
-//! [setup_dac_enable]
 }
 //! [configure_dac]
 
@@ -156,7 +168,11 @@ void configure_dma_resource(struct dma_resource *resource)
 //! [setup_dma_set_config_default]
 
 //! [setup_dma_set_config_extra]
+#if (SAMC21)
+	config.peripheral_trigger = ADC1_DMAC_ID_RESRDY;
+#else
 	config.peripheral_trigger = ADC_DMAC_ID_RESRDY;
+#endif
 	config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
 //! [setup_dma_set_config_extra]
 
@@ -183,7 +199,11 @@ void setup_transfer_descriptor(DmacDescriptor *descriptor)
 	descriptor_config.src_increment_enable = false;
 	descriptor_config.block_transfer_count = 1000;
 	descriptor_config.source_address = (uint32_t)(&adc_instance.hw->RESULT.reg);
+#if (SAML21)
+	descriptor_config.destination_address = (uint32_t)(&dac_instance.hw->DATA[DAC_CHANNEL_0].reg);
+#else
 	descriptor_config.destination_address = (uint32_t)(&dac_instance.hw->DATA.reg);
+#endif
 	descriptor_config.next_descriptor_address = (uint32_t)descriptor;
 //! [setup_dma_desc_config_set_extra]
 
@@ -210,6 +230,10 @@ int main(void)
 //! [setup_dac_channel]
 	configure_dac_channel();
 //! [setup_dac_channel]
+
+//! [setup_dac_enable]
+	dac_enable(&dac_instance);
+//! [setup_dac_enable]
 
 //! [setup_dma_resource]
 	configure_dma_resource(&example_resource);

@@ -3,7 +3,7 @@
  *
  * \brief SAM XOSC32K Runtime Failure Detector Application
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \license
  * \asf_license_start
@@ -83,14 +83,14 @@
  * the external reference availability.
  *
  * This application has been tested on following boards:
- * - SAM D20/D21/R21/D11 Xplained Pro
+ * - SAM D20/D21/R21/L21/D11 Xplained Pro
  *
  * \section appdoc_sam0_xosc32k_fail_detect_usageinfo Usage
  * Connect an oscilloscope to PA28 of the SAM D20/D21 or PB22 of SAMR21 or PA08
- * of SAM D10/D11 Xplained Pro. Run the example application, and press and hold
- * the board button to turn off the external XOSC32K crystal clock source to observe
- * the fail-over to the internal clock source. Releasing the button will re-enable
- * the external crystal.
+ * of SAM D10/D11 or PA27 of SAML21 Xplained Pro. Run the example application, and 
+ * press and hold the board button to turn off the external XOSC32K crystal clock 
+ * source to observe the fail-over to the internal clock source. Releasing the 
+ * button will re-enable the external crystal.
  *
  * The board LED will be turned on when the external crystal is used, and
  *  will be turned off when the internal RC is used due to a crystal failure
@@ -104,6 +104,9 @@
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include "conf_example.h"
@@ -116,7 +119,7 @@
 #define GCLK_GENERATOR_XOSC32K GCLK_GENERATOR_2
 /** Generator index configured to source from the internal OSC32K oscillator. */
 #define GCLK_GENERATOR_OSC32K  GCLK_GENERATOR_1
-/** If \c true, the CPU clock will be routed out to the PA27 GPIO pin */
+/** If \c true, the CPU clock will be routed out to GPIO pin */
 #define ENABLE_CPU_CLOCK_OUT   true
 
 /** Software instance of the XOSC32K timer */
@@ -124,6 +127,9 @@ static struct tc_module tc_xosc32k;
 /** Software instance of the OSC32K timer */
 static struct tc_module tc_osc32k;
 
+#if SAML21
+#define SYSCTRL_GCLK_ID_DFLL48 REG_GCLK_PCHCTRL0
+#endif
 
 /** Configures and starts the DFLL in closed loop mode with the given reference
  *  generator.
@@ -137,8 +143,12 @@ static void init_dfll(
 	system_gclk_gen_get_config_defaults(&cpu_clock_conf);
 	cpu_clock_conf.output_enable = ENABLE_CPU_CLOCK_OUT;
 
-	/* Switch to OSC8M while the DFLL is being reconfigured */
+	/* Switch to OSC8M/OSC16M while the DFLL is being reconfigured */
+#if SAML21
+	cpu_clock_conf.source_clock = SYSTEM_CLOCK_SOURCE_OSC16M;
+#else
 	cpu_clock_conf.source_clock = SYSTEM_CLOCK_SOURCE_OSC8M;
+#endif
 	system_gclk_gen_set_config(GCLK_GENERATOR_0, &cpu_clock_conf);
 
 	/* Turn off DFLL before adjusting its configuration */
@@ -147,9 +157,13 @@ static void init_dfll(
 	/* Configure DFLL reference clock, use raw register write to
 	 * force-configure the channel even if the currently selected generator
 	 * clock has failed */
+#if SAML21
+        GCLK->PCHCTRL[SYSCTRL_GCLK_ID_DFLL48].reg = GCLK_PCHCTRL_GEN(source_generator);      
+#else
 	GCLK->CLKCTRL.reg =
 			GCLK_CLKCTRL_ID(SYSCTRL_GCLK_ID_DFLL48) |
 			GCLK_CLKCTRL_GEN(source_generator);
+#endif
 	system_gclk_chan_enable(SYSCTRL_GCLK_ID_DFLL48);
 
 	/* Configure DFLL */
@@ -188,7 +202,9 @@ static void init_xosc32k(void)
 	/* Configure and enable the XOSC32K clock source */
 	struct system_clock_source_xosc32k_config xosc32k_conf;
 	system_clock_source_xosc32k_get_config_defaults(&xosc32k_conf);
+#if !SAML21
 	xosc32k_conf.auto_gain_control = false;
+#endif
 	xosc32k_conf.on_demand = false;
 	system_clock_source_xosc32k_set_config(&xosc32k_conf);
 	system_clock_source_enable(SYSTEM_CLOCK_SOURCE_XOSC32K);

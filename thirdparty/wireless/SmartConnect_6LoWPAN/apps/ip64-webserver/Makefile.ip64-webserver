@@ -1,0 +1,6 @@
+ip64-webserver_src = ip64-webserver.c httpd.c ip64-webserver-http-strings.c psock.c memb.c \
+                     httpd-fs.c httpd-cgi.c
+
+APPS += network-reboot simple-udp-ping
+include $(THSQ)/apps/simple-udp-ping/Makefile.simple-udp-ping
+include $(THSQ)/apps/network-reboot/Makefile.network-reboot

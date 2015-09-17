@@ -6,10 +6,10 @@
  * $Id: vendor_data.c 24198 2010-11-15 20:46:17Z uwalter $
  *
  * @author    Atmel Corporation: http://www.atmel.com
- * @author    Support email: avr@atmel.com
+ * @author    Support: http://www.atmel.com/design-support/
  */
 /*
- * Copyright (c) 2010-2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
  */
 
 #ifdef VENDOR_DATA

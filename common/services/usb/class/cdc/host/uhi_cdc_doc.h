@@ -3,7 +3,7 @@
  *
  * \brief USB host driver for Communication Device Class interface.
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,8 +52,8 @@
  * - \ref asfdoc_uhi_cdc_exqsg
  * - \ref asfdoc_uhi_cdc_config_examples
  *
- * For more details for Atmel® Software Framework (ASF) USB Host Stack,
- * refer to following application notes:
+ * For more details for Atmel&reg; Software Framework (ASF) USB Host Stack,
+ * refer to following application note:
  * - <a href="http://www.atmel.com/dyn/resources/prod_documents/doc8486.pdf">
  *   AVR4950: ASF - USB Host Stack</a>
  *
@@ -72,6 +72,9 @@
 
 /** Global definition which contains standard UHI API for UHC.
  *  It must be added in USB_HOST_UHI define from conf_usb_host.h file. */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #define UHI_CDC { \
 	.install = uhi_cdc_install, \
 	.enable = uhi_cdc_enable, \
@@ -391,4 +394,20 @@ iram_size_t uhi_cdc_write_buf(uint8_t port, const void* buf, iram_size_t size);
  * \include example/samd21j18a_samd21_xplained_pro/conf_board.h
  */
 
+/**
+ * \page asfdoc_uhi_cdc_document_revision_history Document Revision History
+ *
+ * <table>
+ * <tr>
+ *    <th>Doc. Rev.</td>
+ *    <th>Date</td>
+ *    <th>Comments</td>
+ * </tr>
+ * <tr>
+ *    <td>42338A</td>
+ *    <td>12/2014</td>
+ *    <td>Initial release.</td>
+ * </tr>
+ * </table>
+ */
 

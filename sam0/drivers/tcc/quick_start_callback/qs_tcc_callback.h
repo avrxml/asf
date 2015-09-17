@@ -3,7 +3,7 @@
  *
  * \brief SAM TCC - Timer Counter for Control Applications Callback Driver Quick Start
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,12 +40,15 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 /**
  * \page asfdoc_sam0_tcc_callback_use_case Quick Start Guide for TCC - Callback
  *
  * The supported board list:
- *    - SAM D21/R21 Xplained Pro
+ *    - SAM D21/R21/L21/L22/DA1/C21 Xplained Pro
  *
  * In this use case, the TCC will be used to generate a PWM signal, with a
  * varying duty cycle. Here the pulse width is increased each time the timer
@@ -58,11 +61,15 @@
  *  <tr><th> Board        </td><th> Pin  </td><th> Connect to </td></tr>
  *  <tr><td> SAMD21 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
  *  <tr><td> SAMR21 Xpro  </td><td> PA19 </td><td> LED0       </td></tr>
+ *  <tr><td> SAML21 Xpro  </td><td> PB10 </td><td> LED0       </td></tr>
+ *  <tr><td> SAML22 Xpro  </td><td> PC27 </td><td> LED0       </td></tr>
+ *  <tr><td> SAMDA1 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
+ *  <tr><td> SAMC21 Xpro  </td><td> PA15 </td><td> LED0       </td></tr>
  * </table>
  *
  * The TCC module will be set up as follows:
  * - GCLK generator 0 (GCLK main) clock source
- * - Use double buffering write when set top, compare or pattern through API
+ * - Use double buffering write when set top, compare, or pattern through API
  * - No dithering on the counter or compare
  * - No prescaler
  * - Single Slope PWM wave generation

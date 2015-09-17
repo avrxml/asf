@@ -3,7 +3,7 @@
  *
  * \brief Real-Time Clock (RTC) driver for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef RTC_H_INCLUDED
@@ -78,16 +81,20 @@ void rtc_clear_time_alarm(Rtc *p_rtc);
 void rtc_clear_date_alarm(Rtc *p_rtc);
 uint32_t rtc_get_status(Rtc *p_rtc);
 void rtc_clear_status(Rtc *p_rtc, uint32_t ul_clear);
+uint32_t rtc_get_valid_entry(Rtc *p_rtc);
+void rtc_set_time_event(Rtc *p_rtc, uint32_t ul_selection);
+void rtc_set_calendar_event(Rtc *p_rtc, uint32_t ul_selection);
 
 #if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4N) || (SAM4C) || (SAMG) || (SAM4CP) || (SAM4CM))
 void rtc_set_calendar_mode(Rtc *p_rtc, uint32_t ul_mode);
+uint32_t rtc_get_calendar_mode(Rtc *p_rtc);
 void rtc_set_calibration(Rtc *p_rtc, uint32_t ul_direction_ppm,
 		uint32_t ul_correction, uint32_t ul_range_ppm);
 #endif
 
-#if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4C) || (SAMG) || (SAM4CP) || (SAM4CM))
+#if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4C) || (SAMG) || (SAM4CP) || (SAM4CM) || SAMV71 || SAMV70 || SAME70 || SAMS70)
 void rtc_set_waveform(Rtc *p_rtc, uint32_t ul_channel, uint32_t ul_value);
-#if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4C)|| (SAM4CP) || (SAM4CM))
+#if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4C)|| (SAM4CP) || (SAM4CM) || SAMV71 || SAMV70 || SAME70 || SAMS70)
 void rtc_set_pulse_parameter(Rtc *p_rtc, uint32_t ul_time_high,
 		uint32_t ul_period);
 #endif
@@ -105,6 +112,10 @@ void rtc_get_tamper_date(Rtc *p_rtc, uint32_t *pul_year, uint32_t *pul_month,
 uint32_t rtc_get_tamper_source(Rtc *p_rtc, uint8_t reg_num);
 uint32_t rtc_get_tamper_event_counter(Rtc *p_rtc);
 bool rtc_is_tamper_occur_in_backup_mode(Rtc *p_rtc, uint8_t reg_num);
+#endif
+
+#if (SAMG55)
+uint32_t rtc_get_milliseconds(Rtc *p_rtc);
 #endif
 
 /**

@@ -3,7 +3,7 @@
  *
  * \brief TC Capture Waveform Example for SAM.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -130,6 +133,12 @@ static void tc_waveform_initialize(void)
 
 	/* Configure the PMC to enable the TC module. */
 	sysclk_enable_peripheral_clock(ID_TC_WAVEFORM);
+#if SAMG55
+	/* Enable PCK output */
+	pmc_disable_pck(PMC_PCK_3);
+	pmc_switch_pck_to_mck(PMC_PCK_3, PMC_PCK_PRES_CLK_1);
+	pmc_enable_pck(PMC_PCK_3);
+#endif
 
 	/* Init TC to waveform mode. */
 	tc_init(TC, TC_CHANNEL_WAVEFORM,
@@ -164,6 +173,12 @@ static void tc_capture_initialize(void)
 {
 	/* Configure the PMC to enable the TC module */
 	sysclk_enable_peripheral_clock(ID_TC_CAPTURE);
+#if SAMG55
+	/* Enable PCK output */
+	pmc_disable_pck(PMC_PCK_3);
+	pmc_switch_pck_to_mck(PMC_PCK_3, PMC_PCK_PRES_CLK_1);
+	pmc_enable_pck(PMC_PCK_3);
+#endif
 
 	/* Init TC to capture mode. */
 	tc_init(TC, TC_CHANNEL_CAPTURE,

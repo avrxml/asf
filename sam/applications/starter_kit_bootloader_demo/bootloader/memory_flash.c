@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,6 +37,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "bootloader.h"
@@ -106,6 +109,25 @@ uint32_t mem_flash_erase(void *addr, uint32_t size)
 		}
 	}
 	return erased;
+#elif SAMG55
+	uint32_t page_addr = (uint32_t)addr;
+	uint32_t page_off  = page_addr % (IFLASH_PAGE_SIZE*16);
+	uint32_t rc, erased = 0;
+	if (page_off) {
+		dbg_print("flash: erase address must be 16 page aligned\r\n");
+		page_addr = page_addr - page_off;
+		dbg_print("flash: erase from %x\r\n", (unsigned)page_addr);
+	}
+	for (erased = 0; erased < size;) {
+		rc = flash_erase_page((uint32_t)page_addr, IFLASH_ERASE_PAGES_16);
+		erased    += IFLASH_PAGE_SIZE*16;
+		page_addr += IFLASH_PAGE_SIZE*16;
+		if (rc != FLASH_RC_OK) {
+			dbg_print("flash: %x erase error\r\n", (unsigned)page_addr);
+			break;
+		}
+	}
+	return erased;
 #else
 	/* Everything assume to be erased since we use erase and write command */
 	UNUSED(addr);
@@ -125,7 +147,7 @@ bool mem_flash_page_write(void *addr, void *data)
 {
 	uint32_t rc = FLASH_RC_OK;
 	mem_flash_op_enter();
-#if SAM4S || SAM4E || SAM4N
+#if SAM4S || SAM4E || SAM4N || SAMG55
 	/* The EWP command can only be used in 8 KBytes sector for SAM4S, SAM4E
 	 * and SAM4N, so an erase command is requried before write operation.
 	 */

@@ -3,7 +3,7 @@
  *
  * \brief Linker script for running in internal FLASH on the SAMD21J16A
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,8 +49,8 @@ SEARCH_DIR(.)
 /* Memory Spaces Definitions */
 MEMORY
 {
-  rom    (rx)  : ORIGIN = 0x00000000, LENGTH = 0x00010000
-  ram    (rwx) : ORIGIN = 0x20000000, LENGTH = 0x00002000
+  rom      (rx)  : ORIGIN = 0x00000000, LENGTH = 0x00010000
+  ram      (rwx) : ORIGIN = 0x20000000, LENGTH = 0x00002000
 }
 
 /* The stack size used by the application. NOTE: you need to adjust according to your application. */

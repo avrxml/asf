@@ -3,7 +3,7 @@
  *
  * \brief SAM4L PARC driver.
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,19 +40,25 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef PARC_H_INCLUDED
 #define PARC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_parc_group SAM4L Parallel Capture (PARC)
+ * \defgroup asfdoc_sam_drivers_parc_group SAM4L Parallel Capture (PARC) Driver
  *
- * This driver for SAM4L devices provides an interface for the configuration and
- * management of the Parallel Capture module.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides an interface for 
+ * the configuration and management of the Parallel Capture module.
  *
  * The Parallel Capture module samples an external 8-bit bus with an external
  * input clock. It can be connected to a CMOS digital image sensor, an ADC,
  * a DSP synchronous port, etc.
+ *
+ * Devices from the following series can use this module:
+ * - Atmel | SMART SAM4L
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam_drivers_parc_prerequisites
@@ -84,7 +90,7 @@
  *    - When PCEN1 and PCEN2 are both high
  *    - When PCEN1 or PCEN2 are high
  *    - PC1EN1 and PCEN2 are both inactive i.e. data is sampled without condition
- * - Peripheral DMA is supported
+ * - Peripheral Direct Memory Access (DMA) is supported
  * - Peripheral events are supported
  *
  * \subsection asfdoc_sam_drivers_parc_module_overview_width Concatenated Data Capture
@@ -617,7 +623,7 @@ static inline uint32_t parc_get_version(
  * </tr>
  *  <tr>
  *      <td>CMOS</td>
- *      <td>Complementary Metal–Oxide–Semiconductor</td>
+ *      <td>Complementary Metal-Oxide-Semiconductor</td>
  * </tr>
  *  <tr>
  *      <td>DMA</td>
@@ -690,7 +696,7 @@ static inline uint32_t parc_get_version(
  * This is a list of the available Quick Start Guides (QSGs) and example
  * applications for \ref asfdoc_sam_drivers_parc_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  *  - \subpage asfdoc_sam_drivers_parc_qsg
@@ -703,6 +709,11 @@ static inline uint32_t parc_get_version(
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>42297B</td>
+ *		<td>07/2015</td>
+ *		<td>Updated title of application note and added list of supported devices</td>
  *	</tr>
  *	<tr>
  *		<td>42297A</td>

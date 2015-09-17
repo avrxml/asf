@@ -3,7 +3,7 @@
  *
  * \brief FFT example for SAM toolkit demo application.
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,11 +40,17 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <board.h>
 #include <sysclk.h>
 #include <asf.h>
 #include "arm_math.h"
+#if (__CM4_CMSIS_VERSION_MAIN >= (0x04))
+#include "arm_const_structs.h"
+#endif
 #include "demo.h"
 #include "pdc.h"
 
@@ -435,7 +441,6 @@ static void u16_to_q15(uint16_t *p_u16, q15_t *p_q15, uint32_t size,
 static void fft_process(q15_t *buffer, uint32_t fft_size)
 {
 	uint32_t i;
-	arm_cfft_radix4_instance_q15 S;
 	uint32_t ifft_flag = 0;
 	uint32_t do_bit_reverse = true;
 	/* Convert input to {real[0], imag[0], real[1], imag[1],...} */
@@ -443,8 +448,14 @@ static void fft_process(q15_t *buffer, uint32_t fft_size)
 		buffer[2 * i] = buffer[i - 1];
 		buffer[2 * i - 1] = 0;
 	}
+
+#if (__CM4_CMSIS_VERSION_MAIN >= (0x04))
+	arm_cfft_q15(&arm_cfft_sR_q15_len256, buffer, ifft_flag, do_bit_reverse);
+#else
+	arm_cfft_radix4_instance_q15 S;
 	arm_cfft_radix4_init_q15(&S, fft_size, ifft_flag, do_bit_reverse);
 	arm_cfft_radix4_q15(&S, buffer);
+#endif
 	arm_cmplx_mag_q15(buffer, buffer, fft_size);
 	/* FFT output gain */
 	for (i = 0; i < fft_size; i++) {

@@ -3,7 +3,7 @@
  *
  * \brief PMC Clock Switching example for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -94,8 +94,11 @@
  * \section contactinfo Contact Information
  * For further information, visit
  * <A href="http://www.atmel.com/">Atmel</A>.\n
- * Support and FAQ: http://support.atmel.no/
+ * Support and FAQ: http://www.atmel.com/design-support/
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"
@@ -189,7 +192,13 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	/* Configure console UART. */
@@ -210,16 +219,27 @@ static void config_uart_and_pck(uint32_t ul_clock_source,
 		uint32_t ul_prescaler, uint32_t ul_master_clock)
 {
 	if (ul_master_clock > BOARD_FREQ_SLCK_XTAL) {
+		/* Configure PMC */
+		pmc_enable_periph_clk(CONSOLE_UART_ID);
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
+		sam_usart_opt_t usart_settings;
+		usart_settings.baudrate = PMC_CLOCK_SWITCHING_EXAMPLE_BAUDRATE;
+		usart_settings.char_length = CONF_UART_CHAR_LENGTH;
+		usart_settings.parity_type = CONF_UART_PARITY;
+		usart_settings.stop_bits= CONF_UART_STOP_BITS;
+		usart_settings.channel_mode= US_MR_CHMODE_NORMAL;
+		usart_init_rs232(CONSOLE_UART, &usart_settings,
+			ul_master_clock / CONFIG_SYSCLK_DIV);
+		usart_enable_tx(CONSOLE_UART);
+		usart_enable_rx(CONSOLE_UART);
+#else
 		const sam_uart_opt_t uart_console_settings = {
 			ul_master_clock, PMC_CLOCK_SWITCHING_EXAMPLE_BAUDRATE,
 			UART_MR_PAR_NO
 		};
-
-		/* Configure PMC */
-		pmc_enable_periph_clk(CONSOLE_UART_ID);
-
 		/* Configure UART */
 		uart_init(CONSOLE_UART, &uart_console_settings);
+#endif
 	}
 
 	/* Programmable clock output disabled */
@@ -279,8 +299,13 @@ int main(void)
 
 	puts("-I- Press Button "BUTTON_NAME" to continue.\r\n");
 	/* Wait for UART transmit done */
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
+	while (!usart_is_tx_empty(CONF_UART)) {
+	};
+#else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
+#endif	
 	for (gs_uc_wait_button = 1; gs_uc_wait_button;) {
 	}
 
@@ -289,8 +314,13 @@ int main(void)
 			"-I- From now on, the UART baud rate is 2400bps. So please change the terminal setting before the next clock switch\r\n"
 			"-I- Press Button "BUTTON_NAME" to switch next clock configuration... \r\n");
 	/* Wait for UART transmit done */
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
+	while (!usart_is_tx_empty(CONF_UART)) {
+	};
+#else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
+#endif	
 
 	/* First switch to slow clock */
 	pmc_switch_mck_to_sclk(PMC_MCKR_PRES_CLK_1);
@@ -317,8 +347,13 @@ int main(void)
 			"-I- The master clock is slow clock\n\r"
 			"-I- Press Button "BUTTON_NAME" to switch next clock configuration after it has been measured.\r\n");
 	/* Wait for UART transmit done */
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
+	while (!usart_is_tx_empty(CONF_UART)) {
+	};
+#else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
+#endif	
 
 	/* Enable the External 32K oscillator */
 	pmc_switch_sclk_to_32kxtal(PMC_OSC_XTAL);
@@ -371,8 +406,13 @@ int main(void)
 			"-I- The master clock is PLLA clock divided by 2 \n\r"
 			"-I- Press Button "BUTTON_NAME" to switch next clock configuration... \r\n");
 	/* Wait for UART transmit done */
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
+	while (!usart_is_tx_empty(CONF_UART)) {
+	};
+#else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
+#endif	
 
 	/* Enable the PLLA clock, the mainck equals 12Mhz * (32-1+1) / 3 = 128Mhz */
 	pmc_enable_pllack((32 - 1), 0x3f, 3);
@@ -384,8 +424,13 @@ int main(void)
 
 	/* Delay for a while */
 	/* Wait for UART transmit done */
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
+	while (!usart_is_tx_empty(CONF_UART)) {
+	};
+#else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
+#endif	
 
 	/* Then program the CSS field. */
 	pmc_switch_mck_to_pllack(PMC_MCKR_PRES_CLK_2);
@@ -403,16 +448,26 @@ int main(void)
 			"-I- The master clock is slow clock\n\r"
 			"-I- Press Button "BUTTON_NAME" to switch next clock configuration...\r\n");
 	/* Wait for UART transmit done */
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
+	while (!usart_is_tx_empty(CONF_UART)) {
+	};
+#else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
+#endif	
 
 	/* Switch slow clck to extern 32k xtal */
 	pmc_switch_sclk_to_32kxtal(PMC_OSC_XTAL);
 
 	/* Delay for a while to make sure the clock is stable */
 	/* Wait for UART transmit done */
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
+	while (!usart_is_tx_empty(CONF_UART)) {
+	};
+#else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
+#endif	
 
 	/* If a new value for CSS field corresponds to Main Clock or Slow Clock,
 	 * program the CSS field first.
@@ -505,8 +560,13 @@ int main(void)
 	}
 	puts("\r\n\r\n-I- Done.\r\n");
 	/* Wait for UART transmit done */
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
+	while (!usart_is_tx_empty(CONF_UART)) {
+	};
+#else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
+#endif	
 
 	while (1) {
 	}

@@ -68,7 +68,7 @@
 // From module: Part identification macros
 #include <parts.h>
 
-// From module: SERCOM
+// From module: SERCOM Callback API
 #include <sercom.h>
 #include <sercom_interrupt.h>
 
@@ -77,7 +77,7 @@
 #include <i2c_slave.h>
 #include <i2c_slave_interrupt.h>
 
-// From module: SYSTEM - Clock Management for SAMD21
+// From module: SYSTEM - Clock Management for SAMD21/R21/DAx
 #include <clock.h>
 #include <gclk.h>
 
@@ -89,5 +89,11 @@
 
 // From module: SYSTEM - Interrupt Driver
 #include <system_interrupt.h>
+
+// From module: SYSTEM - Power Management for SAM D20/D21/R21/D09/D10/D11/DA0/DA1
+#include <power.h>
+
+// From module: SYSTEM - Reset Management for SAM D20/D21/R21/D09/D10/D11/DA0/DA1
+#include <reset.h>
 
 #endif // ASF_H

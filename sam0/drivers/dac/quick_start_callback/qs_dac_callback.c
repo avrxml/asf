@@ -3,7 +3,7 @@
  *
  * \brief SAM DAC Callback Quick Start
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 
 //! [transfer_length]
@@ -61,7 +64,7 @@ struct rtc_module rtc_instance;
 //! [rtc_module_inst]
 
 //! [event_res]
-	struct events_resource event_dac;
+struct events_resource event_dac;
 //! [event_res]
 
 //! [transfer_done_flag]
@@ -95,7 +98,11 @@ void configure_event_resource(void)
 //! [allocate_event_resource]
 
 //! [attach_event_to_dac]
+#if (SAML21)
+	events_attach_user(&event_dac, EVSYS_ID_USER_DAC_START_0);
+#else
 	events_attach_user(&event_dac, EVSYS_ID_USER_DAC_START);
+#endif
 //! [attach_event_to_dac]
 }
 //! [setup_event_resource]
@@ -119,7 +126,9 @@ void configure_rtc_count(void)
 //! [setup_rtc_modify_conf]
 	config_rtc_count.prescaler           = RTC_COUNT_PRESCALER_DIV_1;
 	config_rtc_count.mode                = RTC_COUNT_MODE_16BIT;
+#ifdef FEATURE_RTC_CONTINUOUSLY_UPDATED
 	config_rtc_count.continuously_update = true;
+#endif
 //! [setup_rtc_modify_conf]
 
 //! [init_rtc_count]
@@ -163,7 +172,11 @@ void configure_dac(void)
 //! [setup_dac_config_default]
 
 //! [setup_dac_start_on_event]
+#if (SAML21)
+	dac_instance.start_on_event[DAC_CHANNEL_0] = true;
+#else
 	dac_instance.start_on_event = true;
+#endif
 //! [setup_dac_start_on_event]
 
 //! [setup_dac_instance]
@@ -172,16 +185,16 @@ void configure_dac(void)
 
 //! [setup_dac_on_event_start_conversion]
 	struct dac_events events =
+#if (SAML21)
+		{ .on_event_chan0_start_conversion = true };
+#else
 		{ .on_event_start_conversion = true };
+#endif
 //! [setup_dac_on_event_start_conversion]
 
 //! [enable_dac_event]
 	dac_enable_events(&dac_instance, &events);
 //! [enable_dac_event]
-
-//! [enable_dac]
-	dac_enable(&dac_instance);
-//! [enable_dac]
 }
 //! [setup_dac]
 
@@ -230,6 +243,10 @@ int main(void)
 //! [init_dac_chan]
 	configure_dac_channel();
 //! [init_dac_chan]
+
+//! [enable_dac]
+	dac_enable(&dac_instance);
+//! [enable_dac]
 
 //! [init_event_resource]
 	configure_event_resource();

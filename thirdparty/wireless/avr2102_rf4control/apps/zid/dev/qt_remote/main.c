@@ -3,7 +3,7 @@
  *
  * @brief ZID HID Qtouch Remote Application
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -51,17 +51,17 @@
  * \mainpage
  * \section preface Preface
  * This application demonstrates the use of  AVR477 remote control as ZID class
- *device,
+ * device,
  * Which pairs with the ZID HID PC adaptor and controls the PC applications like
- *Windows Media player.
+ * Windows Media player.
  * \section main_files Application Files
  * - main.c                     Application main file.
  * - vendor_data.c              Vendor Specific API functions
  * \section intro Application Introduction
  *  HID QTOUCH Remote is the demo application which can act as a media player
- *remote when paired up with ZID USB HID PC adaptor.
+ * remote when paired up with ZID USB HID PC adaptor.
  *  On Power up,Remote will initiate push button pairing procedure and pairs
- *with an adaptor if it is found.After pairing it can be
+ * with an adaptor if it is found.After pairing it can be
  *  used as a media player remote,The demo application
  *  shows the following Commands,
  *  1. Opening the media player
@@ -86,7 +86,8 @@
  *     and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal
  * Area
  *     Networks (WPANs).\n\n
- * 2)  AVR Wireless Support <A href="http://avr@atmel.com">avr@atmel.com</A>.\n
+ * 2)  <a href="http://www.atmel.com/design-support/">Atmel Design
+ *Support</a>.\n
  *
  * \section contactinfo Contact Information
  * For further information,visit
@@ -301,10 +302,10 @@ int main(void)
 /**
  * @brief nlme_reset_confirm The NLME-RESET.confirm primitive allows the NLME
  * to notify the application of the status of its request to reset the NWK
- *layer.
+ * layer.
  *
  * @param Status  status from the network layer corresponds to the
- *nlme_reset_req
+ * nlme_reset_req
  */
 #ifdef RF4CE_CALLBACK_PARAM
 static
@@ -355,7 +356,7 @@ void nlme_reset_confirm(nwk_enum_t Status)
  * to notify the application of the status of its request to start a network.
  *
  * @param Status  status from the network layer corresponds to the
- *nlme_start_req
+ * nlme_start_req
  */
 #ifdef RF4CE_CALLBACK_PARAM
 static
@@ -394,7 +395,7 @@ void nlme_start_confirm(nwk_enum_t Status)
  *        check whether attributes are sent to the ZID Adaptor.
  *
  * @param Status  status from the network layer corresponds to the
- *zid_set_attribute_request
+ * zid_set_attribute_request
  * @param PairingRef current pairing ref
  * @param ZIDAttribute attribute name
  * @param ZIDAttributeIndex attribute index
@@ -738,7 +739,7 @@ void zid_data_confirm(nwk_enum_t Status, uint8_t PairingRef)
  *        HID adaptor shall create a get report command frame and transmit
  *        it to the appropriate HID class device. On receipt of the
  *        corresponding report data  command frame, the HID adaptor shall pass
- *the
+ * the
  *        report to the HID class driver.
  *
  * @param zid_report_type Report type
@@ -757,8 +758,9 @@ static void zid_get_report_indication(uint8_t PairingRef,
 	zid_report_type = zid_report_type;
 	zid_report_desc = zid_report_desc;
 	RxFlags = RxFlags;
+
 	/* zid_report_data_request should be used to respond to this indication
-	 **/
+	**/
 	/* num_report_data_records will be one */
 	mouse_desc_t mouse_desc;
 	zid_report_data_record_t zid_report_data;
@@ -822,7 +824,7 @@ bool check_zid_adaptor_compatibility(uint8_t PairingRef, uint8_t payload_length,
 	 * Application need to find out the compatibility with the adaptor
 	 * It needs to extract the adaptor attributes from the following payloas
 	 * Payload format is as per the GET_ATTRIBUTES_RESPONSE packet format
-	 *excluding the header
+	 * excluding the header
 	 * payload[0] = attr_id...........
 	 *
 	 */

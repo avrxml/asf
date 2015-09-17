@@ -63,6 +63,7 @@ CSRCS = \
        sam/boards/sam4l_xplained_pro/init.c               \
        sam/drivers/bpm/bpm.c                              \
        sam/drivers/flashcalw/flashcalw.c                  \
+       sam/drivers/gpio/gpio.c                            \
        sam/drivers/spi/spi.c                              \
        sam/drivers/tc/tc.c                                \
        sam/drivers/wdt/wdt_sam4l.c                        \
@@ -134,6 +135,7 @@ INC_PATH = \
        sam/boards/sam4l_xplained_pro                      \
        sam/drivers/bpm                                    \
        sam/drivers/flashcalw                              \
+       sam/drivers/gpio                                   \
        sam/drivers/spi                                    \
        sam/drivers/tc                                     \
        sam/drivers/wdt                                    \

@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3S4	Atmel SAM3S4</state>
+					<state>ATSAM3S4C	Atmel ATSAM3S4C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -298,9 +298,11 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../msc</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -309,10 +311,9 @@
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
 					<state>$PROJ_DIR$/../../../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils</state>
@@ -321,7 +322,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../boards</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../ioport</state>
-					<state>$PROJ_DIR$/../../../../../msc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../hid</state>
 					<state>$PROJ_DIR$/../../../../../../../storage/ctrl_access</state>
 					<state>$PROJ_DIR$/.</state>
@@ -576,9 +577,11 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../msc</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -587,10 +590,9 @@
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
 					<state>$PROJ_DIR$/../../../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils</state>
@@ -599,7 +601,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../boards</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../ioport</state>
-					<state>$PROJ_DIR$/../../../../../msc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../hid</state>
 					<state>$PROJ_DIR$/../../../../../../../storage/ctrl_access</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1044,7 +1046,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3S4	Atmel SAM3S4</state>
+					<state>ATSAM3S4C	Atmel ATSAM3S4C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1245,9 +1247,11 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../msc</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -1256,10 +1260,9 @@
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
 					<state>$PROJ_DIR$/../../../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils</state>
@@ -1268,7 +1271,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../boards</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../ioport</state>
-					<state>$PROJ_DIR$/../../../../../msc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../hid</state>
 					<state>$PROJ_DIR$/../../../../../../../storage/ctrl_access</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1523,9 +1526,11 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc</state>
+					<state>$PROJ_DIR$/../../../../../msc</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../components/memory/virtual_mem</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -1534,10 +1539,9 @@
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
 					<state>$PROJ_DIR$/../../../../../../../gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils</state>
@@ -1546,7 +1550,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../boards</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../ioport</state>
-					<state>$PROJ_DIR$/../../../../../msc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../hid</state>
 					<state>$PROJ_DIR$/../../../../../../../storage/ctrl_access</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1937,6 +1941,15 @@
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.h</name>
 				</file>
 			</group>
+			<group>
+				<name>matrix</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.h</name>
+				</file>
+			</group>
 		</group>
 		<group>
 			<name>boards</name>
@@ -2006,6 +2019,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_wdt.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_supc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_matrix.h</name>
 							</file>
 							<file>
@@ -2013,9 +2029,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_dacc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_supc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s/include/instance/instance_efc.h</name>

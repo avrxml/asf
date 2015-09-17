@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for TRNG driver.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <stdint.h>
@@ -77,6 +80,7 @@
  * - sam4cp16b_sam4cp16bmb
  * - sam4cmp16c_sam4cmp_db
  * - sam4cms16c_sam4cms_db
+ * - samv71q21_samv71_xplained_ultra
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -84,7 +88,7 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit <a href="http://www.atmel.com/">Atmel</a>.\n
- * Support and FAQ: http://support.atmel.no/
+ * Support and FAQ: http://www.atmel.com/design-support/
  */
 
 //! \name Unit test configuration

@@ -4,7 +4,7 @@
  *
  * \brief qtouch_example.c file configurations for UC3B0 devices.
  *
- * Copyright (C) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

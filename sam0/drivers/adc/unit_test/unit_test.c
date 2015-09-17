@@ -3,7 +3,7 @@
  *
  * \brief SAM Analog to Digital Converter (ADC) Unit test
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -75,10 +75,14 @@
  * The following kit is required for carrying out the test:
  *  - SAM D20 Xplained Pro board
  *  - SAM D21 Xplained Pro board
+ *  - SAM L21 Xplained Pro board
+ *  - SAM DA1 Xplained Pro board
+ *  - SAM C21 Xplained Pro board
  *
  * \section asfdoc_sam0_adc_unit_test_setup Setup
  * The following connections has to be made using wires:
- *  - \b DAC VOUT (PA02) <-----> ADC2 (PB08)
+ * - SAM D21/L21/C21/D20 Xplained Pro
+ *  - \b DAC VOUT (PA02) <-----> ADC4 (PA04)
  *
  * To run the test:
  *  - Connect the supported Xplained Pro board to the computer using a
@@ -104,6 +108,9 @@
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include <stdio_serial.h>
@@ -117,11 +124,16 @@
 /* Theoretical ADC result for DAC full-swing output */
 #define ADC_VAL_DAC_FULL_OUTPUT 4095
 /* Offset due to ADC & DAC errors */
-#define ADC_OFFSET              100
+#define ADC_OFFSET              150
+#if (SAML21)
+#  define DAC_VAL_HALF_VOLT     2047
+#  define DAC_VAL_ONE_VOLT      4095
+#else
 /* Theoretical DAC value for 0.5V output*/
-#define DAC_VAL_HALF_VOLT       512
+#  define DAC_VAL_HALF_VOLT     512
 /* Theoretical DAC value for 1.0V output*/
-#define DAC_VAL_ONE_VOLT        1023
+#  define DAC_VAL_ONE_VOLT      1023
+#endif
 
 /* Structure for UART module connected to EDBG (used for unit test output) */
 struct usart_module cdc_uart_module;
@@ -145,7 +157,7 @@ volatile bool adc_init_success = false;
  *
  * \param module Pointer to the ADC module (not used)
  */
-static void adc_user_callback(const struct adc_module *const module)
+static void adc_user_callback(struct adc_module *const module)
 {
 	interrupt_flag = true;
 }
@@ -187,15 +199,20 @@ static void test_dac_init(void)
 
 	/* Configure the DAC module */
 	dac_get_config_defaults(&config);
+#if (SAML21)
+	config.reference    = DAC_REFERENCE_INTREF;
+#else
 	config.reference    = DAC_REFERENCE_INT1V;
+#endif
 	config.clock_source = GCLK_GENERATOR_3;
 	dac_init(&dac_inst, DAC, &config);
-	dac_enable(&dac_inst);
 
 	/* Configure the DAC channel */
 	dac_chan_get_config_defaults(&chan_config);
 	dac_chan_set_config(&dac_inst, DAC_CHANNEL_0, &chan_config);
 	dac_chan_enable(&dac_inst, DAC_CHANNEL_0);
+
+	dac_enable(&dac_inst);
 }
 
 /**
@@ -216,14 +233,24 @@ static void run_adc_init_test(const struct test_case *test)
 	/* Structure for ADC configuration */
 	struct adc_config config;
 	adc_get_config_defaults(&config);
-	config.positive_input = ADC_POSITIVE_INPUT_PIN2;
-	config.negative_input = ADC_NEGATIVE_INPUT_GND;
+	config.positive_input = CONF_ADC_POSITIVE_INPUT;
+	config.negative_input = CONF_ADC_NEGATIVE_INPUT;
+#if (SAML21) || (SAMC21)
+	config.reference      = ADC_REFERENCE_INTREF;
+#else
 	config.reference      = ADC_REFERENCE_INT1V;
+#endif
 	config.clock_source   = GCLK_GENERATOR_3;
+#if !(SAML21) && !(SAMC21)
 	config.gain_factor    = ADC_GAIN_FACTOR_1X;
+#endif
 
 	/* Initialize the ADC */
+#if (SAMC21)
+	status = adc_init(&adc_inst, ADC0, &config);
+#else
 	status = adc_init(&adc_inst, ADC, &config);
+#endif
 
 	/* Check for successful initialization */
 	test_assert_true(test, status == STATUS_OK,
@@ -274,7 +301,12 @@ static void run_adc_polled_mode_test(const struct test_case *test)
 			(adc_result < (ADC_VAL_DAC_HALF_OUTPUT + ADC_OFFSET)),
 			"Error in ADC conversion at 0.5V input (Expected: ~%d, Result: %d)", ADC_VAL_DAC_HALF_OUTPUT, adc_result);
 
+	/* Errata 14094 for SAMC21
+	   Once set, the ADC.SWTRIG.START will not be cleared until the Microcontroller is reset.
+	   Border effect: FLUSH function always start a new conversion, once START = 1. */
+#if !(SAMC21)
 	adc_flush(&adc_inst);
+#endif
 
 	/* Set 1V on DAC output */
 	dac_chan_write(&dac_inst, DAC_CHANNEL_0, DAC_VAL_ONE_VOLT);
@@ -294,8 +326,10 @@ static void run_adc_polled_mode_test(const struct test_case *test)
 
 	/* Ensure ADC gives linearly increasing conversions for linearly increasing inputs */
 	for (uint16_t i = 0; i < DAC_VAL_ONE_VOLT; i++) {
+	/* Errata 14094 for SAMC21 */
+#if !(SAMC21)
 		adc_flush(&adc_inst);
-
+#endif
 		/* Write the next highest DAC output voltage */
 		dac_chan_write(&dac_inst, DAC_CHANNEL_0, i);
 		delay_ms(1);
@@ -423,14 +457,24 @@ static void setup_adc_average_mode_test(const struct test_case *test)
 	adc_disable(&adc_inst);
 	struct adc_config config;
 	adc_get_config_defaults(&config);
-	config.positive_input     = ADC_POSITIVE_INPUT_PIN2;
-	config.negative_input     = ADC_NEGATIVE_INPUT_GND;
+	config.positive_input     = CONF_ADC_POSITIVE_INPUT;
+	config.negative_input     = CONF_ADC_NEGATIVE_INPUT;
+#if (SAML21) || (SAMC21)
+	config.reference          = ADC_REFERENCE_INTREF;
+#else
 	config.reference          = ADC_REFERENCE_INT1V;
+#endif
 	config.clock_source       = GCLK_GENERATOR_3;
+#if !(SAML21) && !(SAMC21)
 	config.gain_factor        = ADC_GAIN_FACTOR_1X;
+#endif
 
 	/* Re-initialize & enable ADC */
+#if (SAMC21)
+	status = adc_init(&adc_inst, ADC0, &config);
+#else
 	status = adc_init(&adc_inst, ADC, &config);
+#endif
 	test_assert_true(test, status == STATUS_OK,
 			"ADC initialization failed");
 	status = adc_enable(&adc_inst);
@@ -496,11 +540,18 @@ static void setup_adc_window_mode_test(const struct test_case *test)
 	adc_disable(&adc_inst);
 	struct adc_config config;
 	adc_get_config_defaults(&config);
-	config.positive_input = ADC_POSITIVE_INPUT_PIN2;
-	config.negative_input = ADC_NEGATIVE_INPUT_GND;
+	config.positive_input = CONF_ADC_POSITIVE_INPUT;
+	config.negative_input = CONF_ADC_NEGATIVE_INPUT;
+#if (SAML21) || (SAMC21)
+	config.reference      = ADC_REFERENCE_INTREF;
+	config.clock_prescaler = ADC_CLOCK_PRESCALER_DIV16;
+#else
 	config.reference      = ADC_REFERENCE_INT1V;
+#endif
 	config.clock_source   = GCLK_GENERATOR_3;
+#if !(SAML21) && !(SAMC21)
 	config.gain_factor    = ADC_GAIN_FACTOR_1X;
+#endif
 	config.resolution     = ADC_RESOLUTION_12BIT;
 	config.freerunning    = true;
 	config.window.window_mode = ADC_WINDOW_MODE_BETWEEN_INVERTED;
@@ -508,7 +559,11 @@ static void setup_adc_window_mode_test(const struct test_case *test)
 	config.window.window_upper_value = (ADC_VAL_DAC_HALF_OUTPUT + ADC_OFFSET);
 
 	/* Re-initialize & enable ADC */
+#if (SAMC21)
+	status = adc_init(&adc_inst, ADC0, &config);
+#else
 	status = adc_init(&adc_inst, ADC, &config);
+#endif
 	test_assert_true(test, status == STATUS_OK,
 			"ADC initialization failed");
 	status = adc_enable(&adc_inst);

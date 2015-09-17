@@ -309,7 +309,6 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -574,7 +573,6 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1230,7 +1228,6 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1495,7 +1492,6 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1851,27 +1847,18 @@
 				<group>
 					<name>Examples</name>
 					<group>
-						<name>Common</name>
-						<group>
-							<name>Source</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Source/math_helper.c</name>
-							</file>
-						</group>
-						<group>
-							<name>Include</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Include/math_helper.h</name>
-							</file>
-						</group>
-					</group>
-					<group>
 						<name>arm_graphic_equalizer_example</name>
 						<file>
 							<name>$PROJ_DIR$/../../arm_graphic_equalizer_example_q31.c</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../arm_graphic_equalizer_data.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../documentation.h</name>
@@ -2159,21 +2146,21 @@
 				</file>
 			</group>
 			<group>
-				<name>supc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam/drivers/supc/supc.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam/drivers/supc/supc.h</name>
-				</file>
-			</group>
-			<group>
 				<name>efc</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/efc/efc.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/efc/efc.h</name>
+				</file>
+			</group>
+			<group>
+				<name>supc</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sam/drivers/supc/supc.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sam/drivers/supc/supc.h</name>
 				</file>
 			</group>
 		</group>

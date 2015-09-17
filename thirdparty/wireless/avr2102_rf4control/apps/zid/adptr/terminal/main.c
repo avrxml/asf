@@ -3,7 +3,7 @@
  *
  * @brief Terminal Adaptor application
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,11 +40,11 @@
  * \asf_license_stop
  *
  * @author    Atmel Corporation: http://www.atmel.com
- * @author    Support email: avr@atmel.com
+ * @author    Support: http://www.atmel.com/design-support/
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -71,7 +71,7 @@
  *
  * Push button pairing procedure can be triggered at target side either by using
  *"All-in-one start" option or "Reset"->"Start"->"ZID Connecting" sequence and
- *make
+ * make
  * sure that the PBP is triggered at the ZID class device side also.
  * The status of the push button pairing procedure will be displayed on the
  * terminal.Then it displays ZID reports  received from the ZID Class device.
@@ -89,7 +89,8 @@
  *     and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal
  * Area
  *     Networks (WPANs).\n\n
- * 2)  AVR Wireless Support <A href="http://avr@atmel.com">avr@atmel.com</A>.\n
+ * 2)  <a href="http://www.atmel.com/design-support/">Atmel Design
+ *Support</a>.\n
  *
  * \section contactinfo Contact Information
  * For further information,visit
@@ -213,14 +214,15 @@ int main(void)
 
 	/*
 	 * The stack is initialized above, hence the global interrupts are
-	 *enabled
+	 * enabled
 	 * here.
 	 */
 	cpu_irq_enable();
 
 #ifdef SIO_HUB
+
 	/* Initialize the serial interface used for communication with terminal
-	 *program. */
+	 * program. */
 
 	sio2host_init();
 #endif
@@ -460,7 +462,7 @@ void nlme_get_confirm(nwk_enum_t Status, nib_attribute_t NIBAttribute,
  * @brief Print the pairing table to the terminal program
  *
  * @param start_from_scratch    Whether pairing table has to printed from
- *scratch.
+ * scratch.
  * @param table_entry           Table entry
  * @param index                 Index of the table entry to be printed.
  */
@@ -670,7 +672,7 @@ bool pbp_allow_pairing(nwk_enum_t Status, uint64_t SrcIEEEAddr,
 
 /**
  * @brief This function registers the callback function for indications from the
- *stack.
+ * stack.
  *
  */
 static void zid_indication_callback_init(void)
@@ -731,7 +733,7 @@ void zid_connect_confirm(nwk_enum_t Status, uint8_t PairingRef)
 
 /**
  * @brief Notify the application when ZID report data is received from the
- *paired device.
+ * paired device.
  *
  * @param PairingRef Pairing reference.
  * @param num_report_records number of Report records.

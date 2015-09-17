@@ -3,7 +3,7 @@
  *
  * \brief USB configuration file
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -58,7 +58,8 @@
 	USB_PID_ATMEL_ASF_HIDKEYBOARD_MOUSE_MID
 #define  USB_DEVICE_MAJOR_VERSION         1
 #define  USB_DEVICE_MINOR_VERSION         0
-#define  USB_DEVICE_POWER                 100 /* Consumption on Vbus line (mA) */
+#define  USB_DEVICE_POWER                 100 /* Consumption on Vbus line (mA)
+	                                       **/
 #define  USB_DEVICE_ATTR \
 	(USB_CONFIG_ATTR_REMOTE_WAKEUP | USB_CONFIG_ATTR_SELF_POWERED)
 /* (USB_CONFIG_ATTR_REMOTE_WAKEUP|USB_CONFIG_ATTR_BUS_POWERED) */
@@ -105,7 +106,7 @@
 /**
  * USB Device low level configuration
  * When only one interface is used, these configurations are defined by the
- *class module.
+ * class module.
  * For composite device, these configuration must be defined here
  * @{
  */
@@ -116,6 +117,7 @@
 #define  USB_DEVICE_NB_INTERFACE       2
 
 /* ! 7 endpoints used by HID mouse, HID keyboard, CDC and MSC interfaces */
+
 /* ! but an IN and OUT endpoints can be defined with the same number on XMEGA,
  * thus 5 */
 /* (7 | USB_EP_DIR_IN)  // CDC Notify endpoint */

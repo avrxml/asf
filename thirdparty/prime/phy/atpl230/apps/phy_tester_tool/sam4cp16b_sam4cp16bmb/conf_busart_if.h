@@ -6,7 +6,7 @@
  * This file contains basic functions for the SAM BUFFERED USART, with support
  * for all modes, settings and clock speeds.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

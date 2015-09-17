@@ -1,0 +1,143 @@
+<!-- SAM R21 XPRO Smart Connect -->
+<capabilityfile_meter capfile_version="0005" device_model="00080146" software_version="0002" date="2015-07-27">
+<interfaces>
+	<iface>device.interfaces.wlan0</iface>
+</interfaces>
+
+<!-- Device Information -->
+<group name="device_info" description="Device Info">
+	<parameter name="dev.id" description="Device ID" paramid="1001" type="string" default="" restartrequired="0" readonly="1" hint="">
+		<restrictions>
+			<length value="64" />
+		</restrictions>
+	</parameter>
+	<parameter name="dev.serial_no" description="Serial Number" paramid="1002" type="string" default="" restartrequired="0" readonly="1" hint="">
+		<restrictions>
+			<length value="64" />
+		</restrictions>
+	</parameter>
+</group>
+
+<!-- 6LoWPAN configuration -->
+<group name="6lowpan_config" description="6LoWPAN Configuration">
+  <parameter name="802.15.4/eui_64" description="EUI64" paramid="1011" type="string" default="" restartrequired="0" readonly="1">
+		<restrictions>
+			<length value="50"/>
+		</restrictions>
+	</parameter>
+  <parameter name="802.15.4/rf_channel" description="RF Channel" paramid="1012" type="string" default="" restartrequired="0" readonly="1">
+		<restrictions>
+			<length value="10" />
+		</restrictions>
+	</parameter>
+  <parameter name="802.15.4/node_id" description="Node ID" paramid="1013" type="string" default="" restartrequired="0" readonly="1">
+		<restrictions>
+			<length value="10" />
+		</restrictions>
+	</parameter>
+  <parameter name="802.15.4/pan_id" description="PAN ID" paramid="1014" type="string" default="" restartrequired="0" readonly="1">
+		<restrictions>
+			<length value="20" />
+		</restrictions>
+	</parameter>
+  <parameter name="802.15.4/aes_encryption" description="AES Encryption" paramid="1015" type="enum" default="0" restartrequired="0" readonly="1">
+	  <restrictions>
+			<option description="Disabled" value="0" />
+      <option description="Enabled" value="1" />
+		</restrictions>
+	</parameter>
+  <parameter name="6LoWPAN/ll_ipv6_address" description="Link Layer IPv6 Address" paramid="1016" type="string" default="" restartrequired="0" readonly="1">
+		<restrictions>
+			<length value="50" />
+		</restrictions>
+	</parameter>
+  <parameter name="6LoWPAN/global_ipv6_address" description="Global IPv6 Address" paramid="1017" type="string" default="" restartrequired="0" readonly="1">
+		<restrictions>
+			<length value="50" />
+		</restrictions>
+	</parameter>
+</group>
+
+<!-- Light Control -->
+<group name="light_control" description="Light Control">
+	<parameter name="led.state" description="LED State" paramid="1020" type="enum" default="2" restartrequired="0" readonly="0" hint="LED State">
+		<restrictions>
+			<option description="Off" value="0" />
+			<option description="On" value="1" />
+			<option description="Blinking" value="2" />
+		</restrictions>
+	</parameter>
+</group>
+
+
+<group name="agent_config" description="Airsync Agent">
+<!-- Airsync Agent -->
+	<parameter name="Agent Configuration/sync_interval" description="Periodic Airsync Reporting Interval [s]" paramid="1030" type="uint32" default="10" restartrequired="0" readonly="0" hint="Range: 1-900 [s]">
+		<restrictions>
+			<min value="1"/>
+			<max value="900"/>
+			<step value="1"/>
+		</restrictions>
+	</parameter>
+	<parameter name="Agent Info/agent_version" description="Agent Version" paramid="1031" type="string" default="" restartrequired="0" readonly="1">
+		<restrictions>
+			<length value="32" />
+		</restrictions>
+	</parameter>
+</group>
+
+<!-- alarms -->
+<fm_alarms>
+	<alarm name="Example alarm" id="1" severity="warning">
+		<description>Example alarm</description>
+	</alarm>
+</fm_alarms>
+
+<!-- statistics -->
+<static_description>
+	<available_objects>
+		<object_group name="Statistics">
+      	<object name="stat.temp" description="Temperature [C]">
+					<statistics>
+						<stat name="count" unit="C" id="201" type="float">
+							<attributes>
+							</attributes>
+						</stat>
+					</statistics>
+				</object>
+		    <object name="stat.voltage" description="Supply Voltage [V]">
+					<statistics>
+						<stat name="count" unit="V" id="202" type="float">
+							<attributes>
+							</attributes>
+						</stat>
+					</statistics>
+				</object>
+        <object name="stat.analog" description="Analog Input [V]">
+					<statistics>
+						<stat name="count" unit="V" id="203" type="float">
+							<attributes>
+							</attributes>
+						</stat>
+					</statistics>
+				</object>
+				<object name="stat.key_state" description="Key State [-]">
+					<statistics>
+						<stat name="count" unit="-" id="204" type="uint8">
+							<attributes>
+							</attributes>
+						</stat>
+					</statistics>
+				</object>
+				<object name="stat.rssi" description="RSSI [dBm]">
+					<statistics>
+						<stat name="count" unit="dBm" id="205" type="int8">
+							<attributes>
+							</attributes>
+						</stat>
+					</statistics>
+				</object>
+		</object_group>
+	</available_objects>
+</static_description>
+</capabilityfile_meter>

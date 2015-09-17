@@ -3,7 +3,7 @@
  *
  * \brief Serial Input & Output configuration
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -91,7 +91,7 @@
 
 /* ! \name Configuration for SAM4L */
 /* ! @{ */
-#if (SAM && !(SAMD || SAMR21))
+#if (SAM && !(SAMD || SAMR21 || SAML21))
 #define USART_HOST                 USART0
 /* / ** Baudrate setting * / */
 #define USART_HOST_BAUDRATE        9600
@@ -113,15 +113,20 @@
 
 /* ! \name Configuration for SAMD20 */
 /* ! @{ */
-#if (SAMD || SAMR21)
+#if (SAMD || SAMR21 || SAML21)
 #define USART_HOST                 SERCOM0
+#define HOST_SERCOM_MUX_SETTING    USART_RX_1_TX_0_XCK_1
+#define HOST_SERCOM_PINMUX_PAD0    PINMUX_PA04D_SERCOM0_PAD0
+#define HOST_SERCOM_PINMUX_PAD1    PINMUX_PA05D_SERCOM0_PAD1
+#define HOST_SERCOM_PINMUX_PAD2    PINMUX_UNUSED
+#define HOST_SERCOM_PINMUX_PAD3    PINMUX_UNUSED
 /** Baudrate setting */
 #define USART_HOST_BAUDRATE        9600
 
 #define USART_HOST_RX_ISR_ENABLE()  _sercom_set_handler(0, USART_HOST_ISR_VECT); \
 	USART_HOST->USART.INTENSET.reg = SERCOM_USART_INTFLAG_RXC; \
 	system_interrupt_enable(SYSTEM_INTERRUPT_MODULE_SERCOM0);
-#endif /* SAMD || SAMR21 */
+#endif /* SAMD || SAMR21 || SAML21 */
 
 /* ! @} */
 #endif /* CONF_SIO2HOST_H_INCLUDED */

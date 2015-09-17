@@ -3,7 +3,7 @@
  *
  * \brief Enhanced Embedded Flash Controller (EEFC) driver for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "efc.h"
 
@@ -64,7 +67,7 @@ extern "C" {
 #if (SAM3XA || SAM3U4 || SAM4SD16 || SAM4SD32)
 # define READ_BUFF_ADDR0    IFLASH0_ADDR
 # define READ_BUFF_ADDR1    IFLASH1_ADDR
-#elif (SAM3S || SAM3N || SAM4E || SAM4N || SAMG)
+#elif (SAM3S || SAM3N || SAM4E || SAM4N || SAMG || SAMV71 || SAMV70 || SAMS70 || SAME70)
 # define READ_BUFF_ADDR     IFLASH_ADDR
 #elif (SAM4C || SAM4CP || SAM4CM)
 #if SAM4C32
@@ -86,6 +89,9 @@ extern "C" {
 #define EEFC_FCR_FCMD(value) \
 	((EEFC_FCR_FCMD_Msk & ((value) << EEFC_FCR_FCMD_Pos)))
 #define EEFC_ERROR_FLAGS  (EEFC_FSR_FLOCKE | EEFC_FSR_FCMDE | EEFC_FSR_FLERR)
+#elif (SAMV71 || SAMV70 || SAMS70 || SAME70)
+#define EEFC_ERROR_FLAGS  (EEFC_FSR_FLOCKE | EEFC_FSR_FCMDE | EEFC_FSR_FLERR \
+	| EEFC_FSR_UECCELSB | EEFC_FSR_MECCELSB | EEFC_FSR_UECCEMSB | EEFC_FSR_MECCEMSB)
 #else
 #define EEFC_ERROR_FLAGS  (EEFC_FSR_FLOCKE | EEFC_FSR_FCMDE)
 #endif
@@ -112,15 +118,17 @@ extern uint32_t efc_perform_fcr(Efc *p_efc, uint32_t ul_fcr);
  */
 uint32_t efc_init(Efc *p_efc, uint32_t ul_access_mode, uint32_t ul_fws)
 {
-#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM || \
+	 SAMV71 || SAMV70 || SAMS70 || SAME70)
 	efc_write_fmr(p_efc, ul_access_mode | EEFC_FMR_FWS(ul_fws) | EEFC_FMR_CLOE);
 #else
 	efc_write_fmr(p_efc, ul_access_mode | EEFC_FMR_FWS(ul_fws));
-#endif	
+#endif
 	return EFC_RC_OK;
 }
 
-#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM || \
+	 SAMV71 || SAMV70 || SAMS70 || SAME70)
 /**
  * \brief Enable code loop optimization.
  *
@@ -170,6 +178,27 @@ void efc_disable_frdy_interrupt(Efc *p_efc)
 	efc_write_fmr(p_efc, ul_fmr & (~EEFC_FMR_FRDY));
 }
 
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
+/**
+ * \brief Enable the write protection.
+ *
+ * \param p_efc Pointer to an EFC instance.
+ */
+void efc_enable_write_protection(Efc *p_efc)
+{
+	p_efc->EEFC_WPMR = EEFC_WPMR_WPKEY_PASSWD | EEFC_WPMR_WPEN;
+}
+
+/**
+ * \brief Disable the write protection.
+ *
+ * \param p_efc Pointer to an EFC instance.
+ */
+void efc_disable_write_protection(Efc *p_efc)
+{
+	p_efc->EEFC_WPMR = EEFC_WPMR_WPKEY_PASSWD;
+}
+#else
 /**
  * \brief Set flash access mode.
  *
@@ -194,6 +223,7 @@ uint32_t efc_get_flash_access_mode(Efc *p_efc)
 {
 	return (p_efc->EEFC_FMR & EEFC_FMR_FAM);
 }
+#endif
 
 /**
  * \brief Set flash wait state.
@@ -236,15 +266,21 @@ uint32_t efc_get_wait_state(Efc *p_efc)
 uint32_t efc_perform_command(Efc *p_efc, uint32_t ul_command,
 		uint32_t ul_argument)
 {
+	uint32_t result;
+	irqflags_t flags;
+
 	/* Unique ID commands are not supported. */
 	if (ul_command == EFC_FCMD_STUI || ul_command == EFC_FCMD_SPUI) {
 		return EFC_RC_NOT_SUPPORT;
 	}
 
+	flags = cpu_irq_save();
 	/* Use RAM Function. */
-	return efc_perform_fcr(p_efc,
+	result = efc_perform_fcr(p_efc,
 			EEFC_FCR_FKEY_PASSWD | EEFC_FCR_FARG(ul_argument) |
 			EEFC_FCR_FCMD(ul_command));
+	cpu_irq_restore(flags);
+	return result;
 }
 
 /**
@@ -298,7 +334,8 @@ uint32_t efc_perform_read_sequence(Efc *p_efc,
 	uint32_t *p_ul_data =
 			(uint32_t *) ((p_efc == EFC0) ?
 			READ_BUFF_ADDR0 : READ_BUFF_ADDR1);
-#elif (SAM3S || SAM4S || SAM3N || SAM3U || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+#elif (SAM3S || SAM4S || SAM3N || SAM3U || SAM4E || SAM4N || SAM4C || SAMG || \
+	   SAM4CP || SAM4CM || SAMV71 || SAMV70 || SAMS70 || SAME70)
 	uint32_t *p_ul_data = (uint32_t *) READ_BUFF_ADDR;
 #else
 	return EFC_RC_NOT_SUPPORT;
@@ -311,7 +348,8 @@ uint32_t efc_perform_read_sequence(Efc *p_efc,
 	p_efc->EEFC_FMR |= (0x1u << 16);
 
 	/* Send the Start Read command */
-#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM || \
+	 SAMV71 || SAMV70 || SAMS70 || SAME70)
 	p_efc->EEFC_FCR = EEFC_FCR_FKEY_PASSWD | EEFC_FCR_FARG(0)
 			| EEFC_FCR_FCMD(ul_cmd_st);
 #else
@@ -334,7 +372,8 @@ uint32_t efc_perform_read_sequence(Efc *p_efc,
 
 	/* To stop the read mode */
 	p_efc->EEFC_FCR =
-#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM || \
+	 SAMV71 || SAMV70 || SAMS70 || SAME70)
 			EEFC_FCR_FKEY_PASSWD | EEFC_FCR_FARG(0) |
 			EEFC_FCR_FCMD(ul_cmd_sp);
 #else

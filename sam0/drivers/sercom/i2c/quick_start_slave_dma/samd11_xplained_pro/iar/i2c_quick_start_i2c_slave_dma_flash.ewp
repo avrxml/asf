@@ -166,7 +166,7 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM0=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>I2C_SLAVE_CALLBACK_MODE=false</state>
 					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 					<state>__SAMD11D14AM__</state>
@@ -298,20 +298,24 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../port</state>
+					<state>$PROJ_DIR$/../../../../../system/power</state>
+					<state>$PROJ_DIR$/../../../../../system/reset</state>
+					<state>$PROJ_DIR$/../../../i2c_sam0</state>
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../dma</state>
+					<state>$PROJ_DIR$/../../../../../system/clock/clock_samd09_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd11_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../..</state>
+					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11</state>
+					<state>$PROJ_DIR$/../../../../../system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/source</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../../system/clock/clock_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../../../system/power/power_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd10_d11</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include</state>
@@ -469,7 +473,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM0=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>I2C_SLAVE_CALLBACK_MODE=false</state>
 					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 					<state>__SAMD11D14AM__</state>
@@ -568,20 +572,24 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../port</state>
+					<state>$PROJ_DIR$/../../../../../system/power</state>
+					<state>$PROJ_DIR$/../../../../../system/reset</state>
+					<state>$PROJ_DIR$/../../../i2c_sam0</state>
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../dma</state>
+					<state>$PROJ_DIR$/../../../../../system/clock/clock_samd09_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd11_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../..</state>
+					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11</state>
+					<state>$PROJ_DIR$/../../../../../system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/source</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../../system/clock/clock_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../../../system/power/power_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd10_d11</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include</state>
@@ -1131,7 +1139,7 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM0=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>I2C_SLAVE_CALLBACK_MODE=false</state>
 					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 					<state>__SAMD11D14AM__</state>
@@ -1263,20 +1271,24 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../port</state>
+					<state>$PROJ_DIR$/../../../../../system/power</state>
+					<state>$PROJ_DIR$/../../../../../system/reset</state>
+					<state>$PROJ_DIR$/../../../i2c_sam0</state>
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../dma</state>
+					<state>$PROJ_DIR$/../../../../../system/clock/clock_samd09_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd11_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../..</state>
+					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11</state>
+					<state>$PROJ_DIR$/../../../../../system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/source</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../../system/clock/clock_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../../../system/power/power_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd10_d11</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include</state>
@@ -1434,7 +1446,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM0=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>I2C_SLAVE_CALLBACK_MODE=false</state>
 					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 					<state>__SAMD11D14AM__</state>
@@ -1533,20 +1545,24 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../port</state>
+					<state>$PROJ_DIR$/../../../../../system/power</state>
+					<state>$PROJ_DIR$/../../../../../system/reset</state>
+					<state>$PROJ_DIR$/../../../i2c_sam0</state>
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../dma</state>
+					<state>$PROJ_DIR$/../../../../../system/clock/clock_samd09_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../boards/samd11_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../..</state>
+					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11</state>
+					<state>$PROJ_DIR$/../../../../../system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/source</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../../system/clock/clock_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../../../system/power/power_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd10_d11</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include</state>
@@ -1964,6 +1980,9 @@
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/instance/usb.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/instance/sbmatrix.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/instance/gclk.h</name>
 							</file>
 							<file>
@@ -2052,6 +2071,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/component/dsu.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/component/hmatrixb.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/component/wdt.h</name>
@@ -2158,45 +2180,6 @@
 			<name>drivers</name>
 			<group>
 				<name>system</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../system/system.c</name>
-				</file>
-				<group>
-					<name>clock</name>
-					<group>
-						<name>clock_samd10_d11</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../system/clock/clock_samd10_d11/gclk.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../system/clock/clock_samd10_d11/clock.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../system/clock/clock_samd10_d11/clock_config_check.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../../system/clock/gclk.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../system/clock/clock.h</name>
-					</file>
-				</group>
-				<group>
-					<name>interrupt</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt.h</name>
-					</file>
-					<group>
-						<name>system_interrupt_samd10_d11</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd10_d11/system_interrupt_features.h</name>
-						</file>
-					</group>
-				</group>
 				<group>
 					<name>pinmux</name>
 					<file>
@@ -2213,8 +2196,68 @@
 					</group>
 				</group>
 				<file>
+					<name>$PROJ_DIR$/../../../../../system/system.c</name>
+				</file>
+				<group>
+					<name>interrupt</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt.h</name>
+					</file>
+					<group>
+						<name>system_interrupt_samd10_d11</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../system/interrupt/system_interrupt_samd10_d11/system_interrupt_features.h</name>
+						</file>
+					</group>
+				</group>
+				<group>
+					<name>clock</name>
+					<group>
+						<name>clock_samd09_d10_d11</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../system/clock/clock_samd09_d10_d11/gclk.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../system/clock/clock_samd09_d10_d11/clock.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../system/clock/clock_samd09_d10_d11/clock_feature.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../system/clock/clock_samd09_d10_d11/clock_config_check.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../../system/clock/gclk.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../system/clock/clock.h</name>
+					</file>
+				</group>
+				<file>
 					<name>$PROJ_DIR$/../../../../../system/system.h</name>
 				</file>
+				<group>
+					<name>reset</name>
+					<group>
+						<name>reset_sam_d_r</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../system/reset/reset_sam_d_r/reset.h</name>
+						</file>
+					</group>
+				</group>
+				<group>
+					<name>power</name>
+					<group>
+						<name>power_sam_d_r</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../system/power/power_sam_d_r/power.h</name>
+						</file>
+					</group>
+				</group>
 			</group>
 			<group>
 				<name>sercom</name>
@@ -2223,12 +2266,6 @@
 				</file>
 				<group>
 					<name>i2c</name>
-					<group>
-						<name>i2c_samd21_r21_d10_d11</name>
-						<file>
-							<name>$PROJ_DIR$/../../../i2c_samd21_r21_d10_d11/i2c_slave.c</name>
-						</file>
-					</group>
 					<group>
 						<name>quick_start_slave_dma</name>
 						<file>
@@ -2256,6 +2293,12 @@
 							<name>$PROJ_DIR$/../../qs_i2c_slave_dma.h</name>
 						</file>
 					</group>
+					<group>
+						<name>i2c_sam0</name>
+						<file>
+							<name>$PROJ_DIR$/../../../i2c_sam0/i2c_slave.c</name>
+						</file>
+					</group>
 					<file>
 						<name>$PROJ_DIR$/../../../i2c_common.h</name>
 					</file>
@@ -2281,18 +2324,18 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../dma/dma.c</name>
 				</file>
-				<group>
-					<name>quick_start</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../dma/quick_start/qs_dma_basic.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../dma/dma.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../dma/dma_crc.h</name>
 				</file>
+				<group>
+					<name>quick_start</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../dma/quick_start/qs_dma_basic.h</name>
+					</file>
+				</group>
 			</group>
 			<group>
 				<name>port</name>

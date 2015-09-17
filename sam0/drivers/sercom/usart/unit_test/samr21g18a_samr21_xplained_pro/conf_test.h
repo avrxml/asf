@@ -3,7 +3,7 @@
  *
  * \brief SAM R21 Xplained Pro test configuration.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CONF_TEST_H_INCLUDED
 #define CONF_TEST_H_INCLUDED
@@ -54,7 +57,7 @@
 
 /* RX USART to test */
 #define CONF_RX_USART              SERCOM5
-#define CONF_RX_USART_SERCOM_MUX   USART_RX_1_TX_0_XCK_1
+#define CONF_RX_USART_SERCOM_MUX   USART_RX_0_TX_2_XCK_3
 #define CONF_RX_USART_PINMUX_PAD0  PINMUX_PB02D_SERCOM5_PAD0
 #define CONF_RX_USART_PINMUX_PAD1  PINMUX_PB03D_SERCOM5_PAD1
 #define CONF_RX_USART_PINMUX_PAD2  PINMUX_PB22D_SERCOM5_PAD2
@@ -63,8 +66,8 @@
 /* TX USART to test */
 #define CONF_TX_USART              SERCOM3
 #define CONF_TX_USART_SERCOM_MUX   USART_RX_1_TX_0_XCK_1
-#define CONF_TX_USART_PINMUX_PAD0  PINMUX_PA22C_SERCOM3_PAD0
-#define CONF_TX_USART_PINMUX_PAD1  PINMUX_PA23C_SERCOM3_PAD1
+#define CONF_TX_USART_PINMUX_PAD0  PINMUX_PA16D_SERCOM3_PAD0
+#define CONF_TX_USART_PINMUX_PAD1  PINMUX_PA17D_SERCOM3_PAD1
 #define CONF_TX_USART_PINMUX_PAD2  PINMUX_PA18D_SERCOM3_PAD2
 #define CONF_TX_USART_PINMUX_PAD3  PINMUX_PA19D_SERCOM3_PAD3
 

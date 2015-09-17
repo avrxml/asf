@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS configurations for the SAM4SD32 toolkit demo application.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -92,6 +92,9 @@
     http://www.OpenRTOS.com - Commercial support, development, porting,
     licensing and training services.
 */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H

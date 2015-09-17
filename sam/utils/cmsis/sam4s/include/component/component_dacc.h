@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,6 +37,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAM4S_DACC_COMPONENT_
@@ -92,6 +95,7 @@ typedef struct {
 #define   DACC_MR_WORD_WORD (0x1u << 4) /**< \brief (DACC_MR) Word Transfer */
 #define DACC_MR_SLEEP (0x1u << 5) /**< \brief (DACC_MR) Sleep Mode */
 #define DACC_MR_FASTWKUP (0x1u << 6) /**< \brief (DACC_MR) Fast Wake up Mode */
+#define DACC_MR_ONE (0x1u << 8) /**< \brief (DACC_MR) Bit 8 must always be set to 1 when programming the DACC_MR */
 #define DACC_MR_REFRESH_Pos 8
 #define DACC_MR_REFRESH_Msk (0xffu << DACC_MR_REFRESH_Pos) /**< \brief (DACC_MR) Refresh Period */
 #define DACC_MR_REFRESH(value) ((DACC_MR_REFRESH_Msk & ((value) << DACC_MR_REFRESH_Pos)))
@@ -139,6 +143,38 @@ typedef struct {
 #define   DACC_MR_STARTUP_1856 (0x1Du << 24) /**< \brief (DACC_MR) 1856 periods of DACClock */
 #define   DACC_MR_STARTUP_1920 (0x1Eu << 24) /**< \brief (DACC_MR) 1920 periods of DACClock */
 #define   DACC_MR_STARTUP_1984 (0x1Fu << 24) /**< \brief (DACC_MR) 1984 periods of DACClock */
+#define   DACC_MR_STARTUP_2048 (0x20u << 24) /**< \brief (DACC_MR) 2048 periods of DACClock */
+#define   DACC_MR_STARTUP_2112 (0x21u << 24) /**< \brief (DACC_MR) 2112 periods of DACClock */
+#define   DACC_MR_STARTUP_2176 (0x22u << 24) /**< \brief (DACC_MR) 2176 periods of DACClock */
+#define   DACC_MR_STARTUP_2240 (0x23u << 24) /**< \brief (DACC_MR) 2240 periods of DACClock */
+#define   DACC_MR_STARTUP_2304 (0x24u << 24) /**< \brief (DACC_MR) 2304 periods of DACClock */
+#define   DACC_MR_STARTUP_2368 (0x25u << 24) /**< \brief (DACC_MR) 2368 periods of DACClock */
+#define   DACC_MR_STARTUP_2432 (0x26u << 24) /**< \brief (DACC_MR) 2432 periods of DACClock */
+#define   DACC_MR_STARTUP_2496 (0x27u << 24) /**< \brief (DACC_MR) 2496 periods of DACClock */
+#define   DACC_MR_STARTUP_2560 (0x28u << 24) /**< \brief (DACC_MR) 2560 periods of DACClock */
+#define   DACC_MR_STARTUP_2624 (0x29u << 24) /**< \brief (DACC_MR) 2624 periods of DACClock */
+#define   DACC_MR_STARTUP_2688 (0x2Au << 24) /**< \brief (DACC_MR) 2688 periods of DACClock */
+#define   DACC_MR_STARTUP_2752 (0x2Bu << 24) /**< \brief (DACC_MR) 2752 periods of DACClock */
+#define   DACC_MR_STARTUP_2816 (0x2Cu << 24) /**< \brief (DACC_MR) 2816 periods of DACClock */
+#define   DACC_MR_STARTUP_2880 (0x2Du << 24) /**< \brief (DACC_MR) 2880 periods of DACClock */
+#define   DACC_MR_STARTUP_2944 (0x2Eu << 24) /**< \brief (DACC_MR) 2944 periods of DACClock */
+#define   DACC_MR_STARTUP_3008 (0x2Fu << 24) /**< \brief (DACC_MR) 3008 periods of DACClock */
+#define   DACC_MR_STARTUP_3072 (0x30u << 24) /**< \brief (DACC_MR) 3072 periods of DACClock */
+#define   DACC_MR_STARTUP_3136 (0x31u << 24) /**< \brief (DACC_MR) 3136 periods of DACClock */
+#define   DACC_MR_STARTUP_3200 (0x32u << 24) /**< \brief (DACC_MR) 3200 periods of DACClock */
+#define   DACC_MR_STARTUP_3264 (0x33u << 24) /**< \brief (DACC_MR) 3264 periods of DACClock */
+#define   DACC_MR_STARTUP_3328 (0x34u << 24) /**< \brief (DACC_MR) 3328 periods of DACClock */
+#define   DACC_MR_STARTUP_3392 (0x35u << 24) /**< \brief (DACC_MR) 3392 periods of DACClock */
+#define   DACC_MR_STARTUP_3456 (0x36u << 24) /**< \brief (DACC_MR) 3456 periods of DACClock */
+#define   DACC_MR_STARTUP_3520 (0x37u << 24) /**< \brief (DACC_MR) 3520 periods of DACClock */
+#define   DACC_MR_STARTUP_3584 (0x38u << 24) /**< \brief (DACC_MR) 3584 periods of DACClock */
+#define   DACC_MR_STARTUP_3648 (0x39u << 24) /**< \brief (DACC_MR) 3648 periods of DACClock */
+#define   DACC_MR_STARTUP_3712 (0x3Au << 24) /**< \brief (DACC_MR) 3712 periods of DACClock */
+#define   DACC_MR_STARTUP_3776 (0x3Bu << 24) /**< \brief (DACC_MR) 3776 periods of DACClock */
+#define   DACC_MR_STARTUP_3840 (0x3Cu << 24) /**< \brief (DACC_MR) 3840 periods of DACClock */
+#define   DACC_MR_STARTUP_3904 (0x3Du << 24) /**< \brief (DACC_MR) 3904 periods of DACClock */
+#define   DACC_MR_STARTUP_3968 (0x3Eu << 24) /**< \brief (DACC_MR) 3968 periods of DACClock */
+#define   DACC_MR_STARTUP_4032 (0x3Fu << 24) /**< \brief (DACC_MR) 4032 periods of DACClock */
 /* -------- DACC_CHER : (DACC Offset: 0x10) Channel Enable Register -------- */
 #define DACC_CHER_CH0 (0x1u << 0) /**< \brief (DACC_CHER) Channel 0 Enable */
 #define DACC_CHER_CH1 (0x1u << 1) /**< \brief (DACC_CHER) Channel 1 Enable */

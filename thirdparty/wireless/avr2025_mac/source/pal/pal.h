@@ -3,7 +3,7 @@
  *
  * @brief PAL related APIs
  *
- *  Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,7 +39,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013 - 2015, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -56,9 +56,9 @@
 /**
  * \defgroup group_pal PAL
  * This module acts as a wrapper layer between the Wireless stack and the ASF
- *drivers
+ * drivers
  * All hardwar level acess to the ASF drivers from the stack happens through
- *this module
+ * this module
  * @{
  */
 /* === Includes ============================================================ */
@@ -71,7 +71,11 @@
 #include "asf.h"
 
 #if (PAL_USE_SPI_TRX == 1)
+#ifdef MULTI_TRX_SUPPORT
+#include "trx_access_2.h"
+#else
 #include "trx_access.h"
+#endif
 #else
 #include "sysclk.h"
 #endif /* #if (PAL_USE_SPI_TRX = 1) */
@@ -286,6 +290,16 @@ static inline void pal_global_irq_disable(void)
 }
 
 /**
+ * \brief Initializes the transceiver main interrupt
+ *
+ * This function sets the microcontroller specific registers
+ * responsible for handling the transceiver main interrupt
+ *
+ * \param trx_irq_cb Callback function for the transceiver main interrupt
+ */
+void pal_trx_irq_init(FUNC_PTR trx_irq_cb);
+
+/**
  * @brief Provides timestamp of the last received frame
  *
  * This function provides the timestamp (in microseconds)
@@ -315,9 +329,9 @@ bool pal_calibrate_rc_osc(void);
  *
  * @param source
  * - @ref TMR_CLK_SRC_DURING_TRX_SLEEP if clock source during sleep is to be
- *selected, and
+ * selected, and
  * - @ref TMR_CLK_SRC_DURING_TRX_AWAKE if clock source while being awake is
- *selected.
+ * selected.
  */
 void pal_timer_source_select(source_type_t source);
 

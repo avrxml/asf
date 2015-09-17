@@ -3,7 +3,7 @@
  *
  * \brief Analog-Front-End Controller driver for SAM.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef AFEC_H_INCLUDED
 #define AFEC_H_INCLUDED
@@ -47,6 +50,16 @@
 #include "compiler.h"
 #include "status_codes.h"
 
+#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+/** Definitions for AFEC resolution */
+enum afec_resolution {
+	AFEC_12_BITS = AFEC_EMR_RES_NO_AVERAGE,    /* AFEC 12-bit resolution */
+	AFEC_13_BITS = AFEC_EMR_RES_OSR4,          /* AFEC 13-bit resolution */
+	AFEC_14_BITS = AFEC_EMR_RES_OSR16,         /* AFEC 14-bit resolution */
+	AFEC_15_BITS = AFEC_EMR_RES_OSR64,         /* AFEC 15-bit resolution */
+	AFEC_16_BITS = AFEC_EMR_RES_OSR256         /* AFEC 16-bit resolution */
+};
+#else
 /** Definitions for AFEC resolution */
 enum afec_resolution {
 	AFEC_10_BITS = AFEC_EMR_RES_LOW_RES,       /* AFEC 10-bit resolution */
@@ -56,7 +69,7 @@ enum afec_resolution {
 	AFEC_15_BITS = AFEC_EMR_RES_OSR64,         /* AFEC 15-bit resolution */
 	AFEC_16_BITS = AFEC_EMR_RES_OSR256         /* AFEC 16-bit resolution */
 };
-
+#endif
 /** Definitions for AFEC power mode */
 enum afec_power_mode {
 	/* AFEC core on and reference voltage circuitry on */
@@ -83,6 +96,10 @@ enum afec_trigger {
 	AFEC_TRIG_PWM_EVENT_LINE_0 = AFEC_MR_TRGSEL_AFEC_TRIG4 | AFEC_MR_TRGEN,
 	/* PWM Event Line 1 */
 	AFEC_TRIG_PWM_EVENT_LINE_1 = AFEC_MR_TRGSEL_AFEC_TRIG5 | AFEC_MR_TRGEN,
+#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+	/*Analog Comparator*/
+	AFEC_TRIG_ANALOG_COMPARATOR = AFEC_MR_TRGSEL_AFEC_TRIG6 | AFEC_MR_TRGEN,
+#endif	
 	/* Freerun mode conversion. */
 	AFEC_TRIG_FREERUN = 0xFF,
 };
@@ -120,6 +137,35 @@ enum afec_channel_num {
 	AFEC_TEMPERATURE_SENSOR,
 	AFEC_CHANNEL_ALL = 0xFFFF,
 } ;
+#elif (SAMV71 || SAMV70 || SAME70 || SAMS70)
+/** Definitions for AFEC channel number */
+enum afec_channel_num {
+	AFEC_CHANNEL_0 = 0,
+	AFEC_CHANNEL_1,
+	AFEC_CHANNEL_2,
+	AFEC_CHANNEL_3,
+	AFEC_CHANNEL_4,
+	AFEC_CHANNEL_5,
+	AFEC_CHANNEL_6,
+	AFEC_CHANNEL_7,
+	AFEC_CHANNEL_8,
+	AFEC_CHANNEL_9,
+	AFEC_CHANNEL_10,
+	AFEC_TEMPERATURE_SENSOR,
+	AFEC_CHANNEL_ALL = 0x0FFF,
+} ;
+
+#define NB_CH_AFE0  (12UL)
+#define NB_CH_AFE1  (12UL)
+#endif
+
+#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+enum afec_sample_hold_mode {
+	/*Single Sample-and-Hold mode*/
+	AFEC_SAMPLE_HOLD_MODE_0,
+	/*Dual Sample-and-Hold mode*/
+	AFEC_SAMPLE_HOLD_MODE_1,
+};
 #endif
 
 /** Definitions for AFEC gain value */
@@ -150,6 +196,7 @@ enum afec_startup_time {
 	AFEC_STARTUP_TIME_15 = AFEC_MR_STARTUP_SUT960
 };
 
+#if SAM4E
 /** Definitions for AFEC analog settling time */
 enum afec_settling_time {
 	AFEC_SETTLING_TIME_0 = AFEC_MR_SETTLING_AST3,
@@ -157,6 +204,7 @@ enum afec_settling_time {
 	AFEC_SETTLING_TIME_2 = AFEC_MR_SETTLING_AST9,
 	AFEC_SETTLING_TIME_3 = AFEC_MR_SETTLING_AST17
 };
+#endif
 
 /** Definitions for Comparison Mode */
 enum afec_cmp_mode {
@@ -190,8 +238,10 @@ struct afec_config {
 	uint32_t afec_clock;
 	/** Start Up Time */
 	enum afec_startup_time startup_time;
-	/** Analog Settling Time = (settling_time + 1) / AFEC clock */
-	enum afec_settling_time settling_time;
+	#if defined __SAM4E8C__  || defined __SAM4E16C__ || defined __SAM4E8E__  || defined __SAM4E16E__
+		/** Analog Settling Time = (settling_time + 1) / AFEC clock */
+		enum afec_settling_time settling_time;
+	#endif
 	/** Tracking Time = tracktim / AFEC clock */
 	uint8_t tracktim;
 	/** Transfer Period = (transfer * 2 + 3) / AFEC clock */
@@ -277,6 +327,28 @@ enum afec_interrupt_source {
 	_AFEC_NUM_OF_INTERRUPT_SOURCE,
 	AFEC_INTERRUPT_ALL = 0xDF00FFFF,
 };
+#elif (SAMV71 || SAMV70 || SAME70 || SAMS70)
+/** AFEC interrupt source type */
+enum afec_interrupt_source {
+	AFEC_INTERRUPT_EOC_0 = 0,
+	AFEC_INTERRUPT_EOC_1,
+	AFEC_INTERRUPT_EOC_2,
+	AFEC_INTERRUPT_EOC_3,
+	AFEC_INTERRUPT_EOC_4,
+	AFEC_INTERRUPT_EOC_5,
+	AFEC_INTERRUPT_EOC_6,
+	AFEC_INTERRUPT_EOC_7,
+	AFEC_INTERRUPT_EOC_8,
+	AFEC_INTERRUPT_EOC_9,
+	AFEC_INTERRUPT_EOC_10,
+	AFEC_INTERRUPT_EOC_11,
+	AFEC_INTERRUPT_DATA_READY,
+	AFEC_INTERRUPT_OVERRUN_ERROR,
+	AFEC_INTERRUPT_COMP_ERROR,
+	AFEC_INTERRUPT_TEMP_CHANGE,
+	_AFEC_NUM_OF_INTERRUPT_SOURCE,
+	AFEC_INTERRUPT_ALL = 0x47000FFF,
+};
 #endif
 
 typedef void (*afec_callback_t)(void);
@@ -297,6 +369,16 @@ void afec_disable(Afec *const afec);
 void afec_set_callback(Afec *const afec, enum afec_interrupt_source source,
 		afec_callback_t callback, uint8_t irq_level);
 
+#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+void afec_configure_auto_error_correction(Afec *const afec,
+		const enum afec_channel_num channel,int16_t offsetcorr, uint16_t gaincorr);
+
+uint32_t afec_get_correction_value(Afec *const afec,
+	   const enum afec_channel_num afec_ch);
+void afec_set_sample_hold_mode(Afec *const afec,
+		const enum afec_channel_num channel,const enum afec_sample_hold_mode mode);
+
+#endif
 /**
  * \internal
  * \brief AFEC channel sanity check
@@ -312,6 +394,8 @@ static inline void afec_ch_sanity_check(Afec *const afec,
 	#if defined __SAM4E8C__  || defined __SAM4E16C__
 		Assert((channel < NB_CH_AFE0) || (channel == AFEC_TEMPERATURE_SENSOR));
 	#elif defined __SAM4E8E__  || defined __SAM4E16E__
+		Assert(channel < NB_CH_AFE0);
+	#elif (SAMV71 || SAMV70 || SAME70 || SAMS70)
 		Assert(channel < NB_CH_AFE0);
 	#endif
 	} else if (afec == AFEC1) {
@@ -404,10 +488,9 @@ static inline void afec_set_writeprotect(Afec *const afec,
 		const bool is_enable)
 {
 	if (is_enable) {
-		afec->AFEC_WPMR = AFEC_WPMR_WPEN | AFEC_WPMR_WPKEY_ADC;
+		afec->AFEC_WPMR = AFEC_WPMR_WPEN | AFEC_WPMR_WPKEY_PASSWD;
 	} else {
-		afec->AFEC_WPMR &= ~AFEC_WPMR_WPEN;
-		afec->AFEC_WPMR |= AFEC_WPMR_WPKEY_ADC;
+		afec->AFEC_WPMR = AFEC_WPMR_WPKEY_PASSWD;
 	}
 }
 
@@ -416,13 +499,19 @@ static inline void afec_set_writeprotect(Afec *const afec,
  *
  * \param afec  Base address of the AFEC.
  *
- * \return 0 if the peripheral is not protected, or 16-bit write protect
+ * \return 0 if no write protect violation occurred, or 16-bit write protect
  * violation source.
  */
 static inline uint32_t afec_get_writeprotect_status(Afec *const afec)
 {
-	return (afec->AFEC_WPSR & AFEC_WPSR_WPVS) ?
-			(afec->AFEC_WPSR & AFEC_WPMR_WPKEY_Msk) : 0;
+	uint32_t reg_value;
+
+	reg_value = afec->AFEC_WPSR;
+	if (reg_value & AFEC_WPSR_WPVS) {
+		return (reg_value & AFEC_WPSR_WPVSRC_Msk) >> AFEC_WPSR_WPVSRC_Pos;
+	} else {
+		return 0;
+	}
 }
 
 /**
@@ -591,6 +680,7 @@ static inline uint32_t afec_get_interrupt_mask(Afec *const afec)
 	return afec->AFEC_IMR;
 }
 
+#if SAM4E
 /**
  * \brief Get PDC registers base address.
  *
@@ -639,6 +729,7 @@ static inline enum status_code afec_start_calibration(Afec *const afec)
 	afec->AFEC_CR = AFEC_CR_AUTOCAL;
 	return STATUS_OK;
 }
+#endif
 
 /**
  * \page sam_afec_quickstart Quickstart guide for SAM AFEC driver

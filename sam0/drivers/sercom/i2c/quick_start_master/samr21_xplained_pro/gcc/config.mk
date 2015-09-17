@@ -55,12 +55,11 @@ CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        sam0/boards/samr21_xplained_pro/board_init.c       \
        sam0/drivers/port/port.c                           \
-       sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11/i2c_master.c \
+       sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.c      \
        sam0/drivers/sercom/i2c/quick_start_master/qs_i2c_master_basic_use.c \
        sam0/drivers/sercom/sercom.c                       \
-       sam0/drivers/sercom/sercom_interrupt.c             \
-       sam0/drivers/system/clock/clock_samd21_r21/clock.c \
-       sam0/drivers/system/clock/clock_samd21_r21/gclk.c  \
+       sam0/drivers/system/clock/clock_samd21_r21_da/clock.c \
+       sam0/drivers/system/clock/clock_samd21_r21_da/gclk.c \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
@@ -80,15 +79,19 @@ INC_PATH = \
        sam0/drivers/port                                  \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/i2c                            \
-       sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11     \
+       sam0/drivers/sercom/i2c/i2c_sam0                   \
        sam0/drivers/sercom/i2c/quick_start_master         \
        sam0/drivers/sercom/i2c/quick_start_master/samr21_xplained_pro \
        sam0/drivers/system                                \
        sam0/drivers/system/clock                          \
-       sam0/drivers/system/clock/clock_samd21_r21         \
+       sam0/drivers/system/clock/clock_samd21_r21_da      \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samr21 \
        sam0/drivers/system/pinmux                         \
+       sam0/drivers/system/power                          \
+       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/reset                          \
+       sam0/drivers/system/reset/reset_sam_d_r            \
        sam0/utils                                         \
        sam0/utils/cmsis/samr21/include                    \
        sam0/utils/cmsis/samr21/source                     \
@@ -144,7 +147,7 @@ CFLAGS =
 #   BOARD      Target board in use, see boards/board.h for a list.
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
-       -D ARM_MATH_CM0=true                               \
+       -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMR21_XPLAINED_PRO                       \
        -D I2C_MASTER_CALLBACK_MODE=false                  \
        -D __SAMR21G18A__

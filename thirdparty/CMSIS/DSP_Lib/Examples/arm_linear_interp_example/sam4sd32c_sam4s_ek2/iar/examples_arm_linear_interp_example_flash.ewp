@@ -294,7 +294,6 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek2</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
@@ -309,7 +308,7 @@
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -558,7 +557,6 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek2</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
@@ -573,7 +571,7 @@
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1213,7 +1211,6 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek2</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
@@ -1228,7 +1225,7 @@
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1477,7 +1474,6 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek2</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
@@ -1492,7 +1488,7 @@
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1847,27 +1843,15 @@
 				<group>
 					<name>Examples</name>
 					<group>
-						<name>Common</name>
-						<group>
-							<name>Source</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Source/math_helper.c</name>
-							</file>
-						</group>
-						<group>
-							<name>Include</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Include/math_helper.h</name>
-							</file>
-						</group>
-					</group>
-					<group>
 						<name>arm_linear_interp_example</name>
 						<file>
 							<name>$PROJ_DIR$/../../arm_linear_interp_data.c</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../arm_linear_interp_example_f32.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.c</name>
 						</file>
 						<group>
 							<name>sam4sd32c_sam4s_ek2</name>
@@ -1886,6 +1870,9 @@
 						</group>
 						<file>
 							<name>$PROJ_DIR$/../../documentation.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.h</name>
 						</file>
 					</group>
 				</group>

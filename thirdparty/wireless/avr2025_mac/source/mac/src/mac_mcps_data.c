@@ -3,7 +3,7 @@
  *
  * @brief Handles MCPS related primitives and frames
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -226,7 +226,6 @@ void mcps_data_request(uint8_t *msg)
 #endif  /* ENABLE_TSTAMP */
 		return;
 	}
-
 #endif /* GTS_SUPPORT */
 
 	/* Check whether both Src and Dst Address are not present */
@@ -256,7 +255,6 @@ void mcps_data_request(uint8_t *msg)
 #endif  /* ENABLE_TSTAMP */
 		return;
 	}
-
 #endif  /* REDUCED_PARAM_CHECK */
 
 	/* Now all is fine, continue... */
@@ -322,7 +320,6 @@ void mcps_data_request(uint8_t *msg)
 #endif  /* ENABLE_TSTAMP */
 			return;
 		}
-
 #endif   /* ENABLE_QUEUE_CAPACITY */
 		qmm_queue_append(&broadcast_q, (buffer_t *)msg);
 		return;
@@ -403,7 +400,7 @@ void mcps_data_request(uint8_t *msg)
 
 				if (MAC_SUCCESS != build_sec) {
 					/* The MAC Data Payload is encrypted
-					 *based on the security level. */
+					 * based on the security level. */
 					mac_gen_mcps_data_conf((buffer_t *)msg,
 							(uint8_t)build_sec,
 			#ifdef ENABLE_TSTAMP
@@ -417,7 +414,6 @@ void mcps_data_request(uint8_t *msg)
 				}
 			}
 		}
-
 #endif
 
 #ifdef BEACON_SUPPORT
@@ -513,7 +509,7 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 			/*
 			 * Even if the Source address mode is zero, and the
 			 * source address
-			 * informationis ís not present, the values are cleared
+			 * informationis is not present, the values are cleared
 			 * to prevent
 			 * the providing of trash information.
 			 */
@@ -576,7 +572,7 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 				/*
 				 * Even if the Destination address mode is zero,
 				 * and the destination
-				 * address information is ís not present, the
+				 * address information is not present, the
 				 * values are cleared to
 				 * prevent the providing of trash information.
 				 * The Desintation address was already cleared
@@ -607,8 +603,8 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 #ifdef FFD
 			{
 				uint8_t loop_index;
-				for (loop_index =
-						0;
+				for (loop_index
+							= 0;
 						loop_index <
 						mac_pan_gts_table_len;
 						loop_index++) {
@@ -626,8 +622,11 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 							GtsDirection) {
 						#ifdef GTS_DEBUG
 						port_pin_toggle_output_level(
-								DEBUG_PIN11);             /* coord
-						                                           * rx */
+								DEBUG_PIN11);             /*
+						                                           * coord
+						                                           *
+						                                           *rx
+						                                           **/
 						#endif
 						reset_gts_expiry(
 								&mac_pan_gts_table[
@@ -765,7 +764,6 @@ static retval_t build_data_frame(mcps_data_req_t *pmdr,
 			return (build_sec);
 		}
 	}
-
 #endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 
 	/*
@@ -841,7 +839,6 @@ static retval_t build_data_frame(mcps_data_req_t *pmdr,
 	if (pmdr->SecurityLevel > 0) {
 		fcf |= FCF_SECURITY_ENABLED | FCF_FRAME_VERSION_2006;
 	}
-
 #endif
 
 	if (pmdr->TxOptions & WPAN_TXOPT_ACK) {

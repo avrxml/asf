@@ -3,7 +3,7 @@
  *
  * @brief
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -218,7 +218,7 @@ retval_t tal_init(void)
 
 		/*
 		 * The proper seed for function rand() has already been
-		 *generated
+		 * generated
 		 * in function tal_generate_rand_seed().
 		 */
 		uint8_t *ptr_pib = (uint8_t *)&tal_pib.IeeeAddress;
@@ -230,7 +230,7 @@ retval_t tal_init(void)
 			 * Note:
 			 * Even if casting the 16 bit rand value back to 8 bit,
 			 * and running the loop 8 timers (instead of only 4
-			 *times)
+			 * times)
 			 * may look cumbersome, it turns out that the code gets
 			 * smaller using 8-bit here.
 			 * And timing is not an issue at this place...
@@ -258,14 +258,13 @@ retval_t tal_init(void)
 #endif
 
 	/* Initialize the buffer management module and get a buffer to store
-	 *reveived frames. */
+	 * reveived frames. */
 	bmm_buffer_init();
 	tal_rx_buffer = bmm_buffer_alloc(LARGE_BUFFER_SIZE);
 #if _DEBUG_ > 0
 	if (tal_rx_buffer == NULL) {
 		return FAILURE;
 	}
-
 #endif
 
 	/* Init incoming frame queue */
@@ -318,8 +317,9 @@ static retval_t trx_init(void)
 		/* Wait a short time interval. */
 		pal_timer_delay(TRX_POLL_WAIT_TIME_US);
 		poll_counter++;
+
 		/* Check if AT86RF232 is connected; omit manufacturer id check
-		 **/
+		**/
 	} while (trx_reg_read(RG_PART_NUM) != PART_NUM_AT86RF232);
 #endif  /* !defined FPGA_EMULATION */
 
@@ -380,7 +380,7 @@ static retval_t internal_tal_reset(bool set_default_pib)
 		init_tal_pib(); /* implementation can be found in 'tal_pib.c' */
 	} else {
 		/* nothing to do - the current TAL PIB attribute values are used
-		 **/
+		**/
 	}
 
 	/*
@@ -438,13 +438,13 @@ static void trx_config(void)
 	 */
 	trx_bit_write(SR_AACK_FVN_MODE, FRAME_VERSION_01);
 	trx_bit_write(SR_AACK_SET_PD, SET_PD); /* ACKs for data requests,
-	                                        *indicate pending data */
+	                                        * indicate pending data */
 	trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /* Enable buffer
-	                                                      *protection mode
+	                                                      * protection mode
 	                                                      **/
 	trx_reg_write(RG_IRQ_MASK, TRX_IRQ_DEFAULT); /* The TRX_END interrupt of
-	                                              *the transceiver is
-	                                              *enabled. */
+	                                              * the transceiver is
+	                                              * enabled. */
 
 #if (ANTENNA_DIVERSITY == 1)
 	/* Use antenna diversity */
@@ -534,7 +534,7 @@ retval_t tal_reset(bool set_default_pib)
 	/*
 	 * Do the reset stuff.
 	 * Set the default PIBs depending on the given parameter
-	 *set_default_pib.
+	 * set_default_pib.
 	 * Do NOT generate random seed again.
 	 */
 	if (internal_tal_reset(set_default_pib) != MAC_SUCCESS) {
@@ -580,8 +580,9 @@ retval_t tal_reset(bool set_default_pib)
 	 * Install a handler for the transceiver interrupt.
 	 */
 	trx_irq_init((FUNC_PTR)trx_irq_handler_cb);
+
 	/* The pending transceiver interrupts on the microcontroller are
-	 *cleared. */
+	 * cleared. */
 	pal_trx_irq_flag_clr();
 	pal_trx_irq_en(); /* Enable transceiver main interrupt. */
 
@@ -591,7 +592,7 @@ retval_t tal_reset(bool set_default_pib)
 		retval_t timer_status;
 
 		/* Calibration timer has already been stopped within this
-		 *function. */
+		 * function. */
 
 		/* Start periodic calibration timer. */
 		timer_status = pal_timer_start(TAL_CALIBRATION,
@@ -654,7 +655,7 @@ void tal_generate_rand_seed(void)
 
 	/*
 	 * The 16-bit random value is generated from various 2-bit random
-	 *values.
+	 * values.
 	 */
 	for (uint8_t i = 0; i < 8; i++) {
 		/* Now we can safely read the 2-bit random number. */
@@ -699,7 +700,6 @@ static retval_t tal_timer_init(void)
 	if (MAC_SUCCESS != pal_timer_get_id(&TAL_T_BOFF)) {
 		return FAILURE;
 	}
-
 #endif
 
 #else
@@ -727,7 +727,6 @@ static retval_t tal_timer_init(void)
 	if (MAC_SUCCESS != pal_timer_get_id(&TAL_T_BOFF)) {
 		return FAILURE;
 	}
-
 #endif
 
 #else

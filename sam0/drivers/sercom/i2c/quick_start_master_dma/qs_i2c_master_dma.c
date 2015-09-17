@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM I2C Master with DMA Quick Start Guide
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -78,7 +81,7 @@ static void configure_i2c_master(void)
 
 	/* Initialize and enable device with config. */
 	//! [init_module]
-	i2c_master_init(&i2c_master_instance, SERCOM2, &config_i2c_master);
+	i2c_master_init(&i2c_master_instance, CONF_I2C_MASTER_MODULE, &config_i2c_master);
 	//! [init_module]
 
 	//! [enable_module]
@@ -101,7 +104,7 @@ DmacDescriptor example_descriptor;
 //! [transfer_descriptor]
 
 //! [transfer_done]
-static void transfer_done( const struct dma_resource* const resource )
+static void transfer_done(struct dma_resource* const resource )
 {
 	UNUSED(resource);
 
@@ -121,7 +124,7 @@ static void configure_dma_resource(struct dma_resource *resource)
 	//! [dma_setup_2]
 
 	//! [dma_setup_3]
-	config.peripheral_trigger = SERCOM2_DMAC_ID_TX;
+	config.peripheral_trigger = CONF_I2C_DMA_TRIGGER;
 	config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
 	//! [dma_setup_3]
 
@@ -147,7 +150,8 @@ static void setup_dma_descriptor(DmacDescriptor *descriptor)
 	descriptor_config.dst_increment_enable = false;
 	descriptor_config.block_transfer_count = DATA_LENGTH;
 	descriptor_config.source_address = (uint32_t)buffer + DATA_LENGTH;
-	descriptor_config.destination_address = (uint32_t)(&i2c_master_instance.hw->I2CM.DATA.reg);
+	descriptor_config.destination_address =
+			(uint32_t)(&i2c_master_instance.hw->I2CM.DATA.reg);
 	//! [dma_setup_7]
 
 	//! [dma_setup_8]

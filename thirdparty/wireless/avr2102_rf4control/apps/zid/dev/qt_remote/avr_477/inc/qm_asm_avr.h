@@ -7,9 +7,9 @@
  * - Compiler:           IAR EWAVR and GNU GCC for AVR.
  * - Supported devices:  Atmel AVR 8-bit.
  * - Userguide:          QTouch Library User Guide - doc8207.pdf.
- * - Support email:      touch@atmel.com
+ * - Support: http://www.atmel.com/design-support/
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,7 +47,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -126,7 +126,7 @@
 
 /**
  * Set actual delay time in capacitive charge loop based on dwell time. The -1
- *is because
+ * is because
  * the following instruction in the charge transfer routine takes one cycle.
  */
 #define DELAY_DWELL_TIME        (DWELL_TIME_CYCLES - 1)

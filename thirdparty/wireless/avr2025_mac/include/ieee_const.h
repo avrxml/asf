@@ -4,7 +4,7 @@
  * @brief This header holds all IEEE 802.15.4-2006 constants and attribute
  * identifiers
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013 - 2015, Atmel Corporation All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -830,6 +830,16 @@
 #define macPANCoordShortAddress         (0x7E)
 
 /**
+ * Private MAC PIB attribute to control the CSMA algorithm.
+ */
+
+/**
+ * Maximum number of frames that are allowed to be received during CSMA
+ * backoff periods for a tx transaction.
+ */
+#define macMaxNumRxFramesDuringBackoff  (0x7F)
+
+/**
  * Private MAC PIB attribute to allow setting the MAC address in test mode.
  * @todo numbering needs to alligned with other special speer attributes
  */
@@ -1053,6 +1063,16 @@ typedef enum phy_enum_tag {
 #define FCF_FRAMETYPE_MAC_CMD           (0x03)
 
 /**
+ * Define the LLDN frame type. See 802.15.4e-2012
+ */
+#define FCF_FRAMETYPE_LLDN              (0x04)
+
+/**
+ * Define the multipurpose frame type. See 802.15.4e-2012
+ */
+#define FCF_FRAMETYPE_MP                (0x05)
+
+/**
  * A macro to set the frame type.
  */
 #define FCF_SET_FRAMETYPE(x)            (x)
@@ -1078,10 +1098,50 @@ typedef enum phy_enum_tag {
 #define FCF_PAN_ID_COMPRESSION          (1 << 6)
 
 /**
+ * The mask for a IEEE 802.15.4-2003 compatible frame in the
+ * frame version subfield
+ */
+#define FCF_FRAME_VERSION_2003          (0 << 12)
+
+/**
  * The mask for a IEEE 802.15.4-2006 compatible frame in the
  * frame version subfield
  */
 #define FCF_FRAME_VERSION_2006          (1 << 12)
+
+/**
+ * The mask for a IEEE 802.15.4e-2012 compatible frame in the
+ * frame version subfield
+ */
+#define FCF_FRAME_VERSION_2012          (2 << 12)
+
+/**
+ * Shift value for the frame version subfield fcf1
+ */
+#define FCF1_FV_SHIFT                   (4)
+
+/**
+ * The mask for the frame version subfield fcf1
+ */
+#define FCF1_FV_MASK                    (3 << FCF1_FV_SHIFT)
+
+/**
+ * The mask for a IEEE 802.15.4-2003 compatible frame in the
+ * frame version subfield fcf1
+ */
+#define FCF1_FV_2003                    (0)
+
+/**
+ * The mask for a IEEE 802.15.4-2006 compatible frame in the
+ * frame version subfield fcf1
+ */
+#define FCF1_FV_2006                    (1)
+
+/**
+ * The mask for a IEEE 802.15.4e-2012 compatible frame in the
+ * frame version subfield fcf1
+ */
+#define FCF1_FV_2012                    (2)
 
 /**
  * Address Mode: NO ADDRESS
@@ -1361,6 +1421,32 @@ typedef enum trx_cca_mode_tag {
 trx_cca_mode_t;
 #endif
 /* ! @} */
+
+/**
+ * CCA mode enumeration
+ */
+typedef enum cca_mode_tag {
+	CCA_MODE_0_CS_OR_ED = 0,
+	CCA_MODE_1_ED = 1, /* To be conform to IEEE 15.4 and TRX register */
+	CCA_MODE_2_CS,
+	CCA_MODE_3_CS_ED,
+	CCA_MODE_4_ALOHA
+} SHORTENUM cca_mode_t;
+
+typedef enum ch_pg_tag {
+	CH_PG_2003 = 0,
+	CH_PG_2006 = 2,
+	CH_PG_CHINA = 5,
+	CH_PG_JAPAN = 6,
+	CH_PG_MSK = 7,
+	CH_PG_LRP_UWB = 8,
+	CH_PG_SUN = 9,
+	CH_PG_GENERIC_PHY = 10,
+	CH_PG_16 = 16,
+	CH_PG_18 = 18,
+	CH_PG_INVALID = 0xFF
+} SHORTENUM ch_pg_t;
+
 /* === Externals ============================================================ */
 
 /* === Prototypes =========================================================== */

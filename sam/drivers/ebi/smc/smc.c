@@ -3,7 +3,7 @@
  *
  * \brief Static Memory Controller (SMC) driver for SAM.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "smc.h"
 #include "board.h"
@@ -52,16 +55,8 @@ extern "C" {
 /**INDENT-ON**/
 /// @endcond
 
-/**
- * \defgroup sam_drivers_smc_group Static Memory Controller (SMC)
- *
- * Driver for the Static Memory Controller. It provides functions for configuring
- * and using the on-chip SMC.
- *
- * @{
- */
-
-#if ((SAM3S) || (SAM3U) || (SAM3XA) || (SAM4S) || (SAM4E) || (SAM4C) || (SAM4CM))
+#if ((SAM3S) || (SAM3U) || (SAM3XA) || (SAM4S) || (SAM4E) || (SAM4C) || (SAM4CM) \
+	|| (SAMV71) || (SAMV70) || (SAME70) || (SAMS70) || (__DOXYGEN__))
 #define SMC_WPKEY_VALUE (0x534D43)
 /**
  * \brief Configure the SMC Setup timing for the specified Chip Select.
@@ -135,7 +130,7 @@ uint32_t smc_get_mode(Smc *p_smc, uint32_t ul_cs)
  */
 void smc_enable_writeprotect(Smc *p_smc, uint32_t ul_enable)
 {
-#if (SAM3S || SAM4S || SAM4E || SAM4C || SAM4CM)
+#if (SAM3S || SAM4S || SAM4E || SAM4C || SAM4CM || (SAMV71) || (SAMV70) || (SAME70) || (SAMS70))
 	if (ul_enable) {
 		p_smc->SMC_WPMR =
 				SMC_WPMR_WPKEY(SMC_WPKEY_VALUE) | SMC_WPMR_WPEN;
@@ -166,7 +161,7 @@ uint32_t smc_get_writeprotect_status(Smc *p_smc)
 }
 #endif
 
-#if ((SAM3U) || (SAM3XA))
+#if ((SAM3U) || (SAM3XA) || (__DOXYGEN__))
 /**
  * \brief Configure the SMC nand timing for the specified Chip Select.
  * \param p_smc Pointer to an SMC instance.
@@ -419,8 +414,6 @@ void smc_ecc_get_value(Smc *p_smc, uint32_t *p_ecc)
 	p_ecc[15] = p_smc->SMC_ECC_PR15;
 }
 #endif /* ((SAM3U) || (SAM3XA)) */
-
-//@}
 
 /// @cond 0
 /**INDENT-OFF**/

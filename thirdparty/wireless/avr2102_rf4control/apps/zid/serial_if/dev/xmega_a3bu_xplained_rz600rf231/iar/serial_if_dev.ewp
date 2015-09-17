@@ -2445,6 +2445,9 @@
 						<name>$PROJ_DIR$/../../../../../../include/nwk_internal.h</name>
 					</file>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../include/nwk_msg_code.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../include/rf4ce.h</name>
 					</file>
 					<file>
@@ -2467,9 +2470,6 @@
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../include/vendor_data.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../include/nwk_msg_code.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../include/zid_device.h</name>
@@ -2554,9 +2554,6 @@
 						<group>
 							<name>inc</name>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_api.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_config.h</name>
 							</file>
 							<file>
@@ -2579,6 +2576,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_data_structures.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_api.h</name>
 							</file>
 						</group>
 					</group>
@@ -2764,6 +2764,9 @@
 					<name>include</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../avr2025_mac/include/ieee_const.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../avr2025_mac/include/ieee_154g.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../avr2025_mac/include/mac_build_config.h</name>

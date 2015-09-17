@@ -3,7 +3,7 @@
  *
  * \brief Real-Time Clock (RTC) driver for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "rtc.h"
@@ -261,26 +264,25 @@ uint32_t rtc_set_time_alarm(Rtc *p_rtc,
 			}
 		}
 
-		ul_alarm |= RTC_TIMALR_HOUREN | ((ul_hour / BCD_FACTOR) <<
-				(RTC_TIMR_HOUR_Pos + BCD_SHIFT)) |
+		ul_alarm |= ((ul_hour / BCD_FACTOR) << (RTC_TIMR_HOUR_Pos + BCD_SHIFT)) |
 				((ul_hour % BCD_FACTOR) << RTC_TIMR_HOUR_Pos);
 	}
 
 	/* Minute alarm setting */
 	if (ul_minute_flag) {
-		ul_alarm |= RTC_TIMALR_MINEN | ((ul_minute / BCD_FACTOR) <<
-				(RTC_TIMR_MIN_Pos + BCD_SHIFT)) |
+		ul_alarm |= ((ul_minute / BCD_FACTOR) << (RTC_TIMR_MIN_Pos + BCD_SHIFT)) |
 				((ul_minute % BCD_FACTOR) << RTC_TIMR_MIN_Pos);
 	}
 
 	/* Second alarm setting */
 	if (ul_second_flag) {
-		ul_alarm |= RTC_TIMALR_SECEN | ((ul_second / BCD_FACTOR) <<
-				(RTC_TIMR_SEC_Pos + BCD_SHIFT)) |
+		ul_alarm |= ((ul_second / BCD_FACTOR) << (RTC_TIMR_SEC_Pos + BCD_SHIFT)) |
 				((ul_second % BCD_FACTOR) << RTC_TIMR_SEC_Pos);
 	}
 
+	p_rtc->RTC_TIMALR &= ~(RTC_TIMALR_SECEN | RTC_TIMALR_MINEN | RTC_TIMALR_HOUREN);
 	p_rtc->RTC_TIMALR = ul_alarm;
+	p_rtc->RTC_TIMALR |= (RTC_TIMALR_SECEN | RTC_TIMALR_MINEN | RTC_TIMALR_HOUREN);
 
 	return (p_rtc->RTC_VER & RTC_VER_NVTIMALR);
 }
@@ -403,20 +405,20 @@ uint32_t rtc_set_date_alarm(Rtc *p_rtc,
 
 	/* Month alarm setting */
 	if (ul_month_flag) {
-		ul_alarm |= RTC_CALALR_MTHEN | ((ul_month / BCD_FACTOR) <<
-				(RTC_CALR_MONTH_Pos + BCD_SHIFT)) |
+		ul_alarm |= ((ul_month / BCD_FACTOR) << (RTC_CALR_MONTH_Pos + BCD_SHIFT)) |
 				((ul_month % BCD_FACTOR) << RTC_CALR_MONTH_Pos);
 	}
 
 	/* Day alarm setting */
 	if (ul_day_flag) {
-		ul_alarm |= RTC_CALALR_DATEEN | ((ul_day / BCD_FACTOR) <<
-				(RTC_CALR_DATE_Pos + BCD_SHIFT)) |
+		ul_alarm |= ((ul_day / BCD_FACTOR) << (RTC_CALR_DATE_Pos + BCD_SHIFT)) |
 				((ul_day % BCD_FACTOR) << RTC_CALR_DATE_Pos);
 	}
 
 	/* Set alarm */
+	p_rtc->RTC_CALALR &= ~(RTC_CALALR_MTHEN | RTC_CALALR_DATEEN);
 	p_rtc->RTC_CALALR = ul_alarm;
+	p_rtc->RTC_CALALR |= (RTC_CALALR_MTHEN | RTC_CALALR_DATEEN);
 
 	return (p_rtc->RTC_VER & RTC_VER_NVCALALR);
 }
@@ -465,6 +467,42 @@ void rtc_clear_status(Rtc *p_rtc, uint32_t ul_clear)
 	p_rtc->RTC_SCCR = ul_clear;
 }
 
+/**
+ * \brief Get the RTC valid entry.
+ *
+ * \param p_rtc Pointer to an RTC instance.
+ *
+ * \return 0 for no invalid data, else has contained invalid data.
+ */
+uint32_t rtc_get_valid_entry(Rtc *p_rtc)
+{
+	return (p_rtc->RTC_VER);
+}
+
+/**
+ * \brief Set the RTC time event selection.
+ *
+ * \param p_rtc Pointer to an RTC instance.
+ * \param ul_selection Time event selection to be enabled.
+ */
+void rtc_set_time_event(Rtc *p_rtc, uint32_t ul_selection)
+{
+	p_rtc->RTC_CR &= ~RTC_CR_TIMEVSEL_Msk;
+	p_rtc->RTC_CR |= (ul_selection << RTC_CR_TIMEVSEL_Pos) & RTC_CR_TIMEVSEL_Msk;
+}
+
+/**
+ * \brief Set the RTC calendar event selection.
+ *
+ * \param p_rtc Pointer to an RTC instance.
+ * \param ul_selection Calendar event selection to be enabled..
+ */
+void rtc_set_calendar_event(Rtc *p_rtc, uint32_t ul_selection)
+{
+	p_rtc->RTC_CR &= ~RTC_CR_CALEVSEL_Msk;
+	p_rtc->RTC_CR |= (ul_selection << RTC_CR_CALEVSEL_Pos) & RTC_CR_CALEVSEL_Msk;
+}
+
 #if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4N) || (SAM4C) || (SAMG) || (SAM4CP) || (SAM4CM))
 /**
  * \brief Set the RTC calendar mode.
@@ -478,6 +516,24 @@ void rtc_set_calendar_mode(Rtc *p_rtc, uint32_t ul_mode)
 		p_rtc->RTC_MR |= RTC_MR_PERSIAN;
 	} else {
 		p_rtc->RTC_MR &= (~RTC_MR_PERSIAN);
+	}
+}
+
+/**
+ * \brief Get the RTC calendar mode.
+ *
+ * \param p_rtc Pointer to an RTC instance.
+ *
+ * \return 1 for Persian calendar, 0 for Gregorian calendar.
+ */
+uint32_t rtc_get_calendar_mode(Rtc *p_rtc)
+{
+	uint32_t ul_temp = p_rtc->RTC_MR;
+
+	if (ul_temp & RTC_MR_PERSIAN) {
+		return 1;
+	} else {
+		return 0;
 	}
 }
 
@@ -514,7 +570,7 @@ void rtc_set_calibration(Rtc *p_rtc, uint32_t ul_direction_ppm,
 }
 #endif
 
-#if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4C) || (SAMG) || (SAM4CP) || (SAM4CM))
+#if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4C) || (SAMG) || (SAM4CP) || (SAM4CM) || SAMV71 || SAMV70 || SAME70 || SAMS70)
 /**
  * \brief Set the RTC output waveform.
  *
@@ -627,7 +683,7 @@ void rtc_set_waveform(Rtc *p_rtc, uint32_t ul_channel, uint32_t ul_value)
 	}
 }
 
-#if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4C))
+#if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4C) || SAMV71 || SAMV70 || SAME70 || SAMS70)
 /**
  * \brief Set the pulse output waveform parameters.
  *
@@ -821,6 +877,21 @@ bool rtc_is_tamper_occur_in_backup_mode(Rtc *p_rtc, uint8_t reg_num)
 	}
 }
 #endif
+
+#if (SAMG55)
+/**
+ * \brief Get the RTC milliseconds value.
+ *
+ * \param p_rtc Pointer to an RTC instance.
+ *
+ * \return Number of 1/1024 seconds elapsed within one second.
+ */
+uint32_t rtc_get_milliseconds(Rtc *p_rtc)
+{
+	return (p_rtc->RTC_MSR) & RTC_MSR_MS_Msk;
+}
+#endif
+
 
 //@}
 

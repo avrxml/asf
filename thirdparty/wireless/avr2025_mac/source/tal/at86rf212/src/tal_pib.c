@@ -3,7 +3,7 @@
  *
  * @brief This file handles the TAL PIB attributes, set/get and initialization
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -513,11 +513,15 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				if (tal_trx_status != TRX_OFF) {
 					previous_trx_status = RX_AACK_ON; /* any
 					                                   *
+					                                   *
 					                                   *other
+					                                   *
 					                                   *
 					                                   *than
 					                                   *
+					                                   *
 					                                   *TRX_OFF
+					                                   *
 					                                   *
 					                                   *state
 					                                   **/
@@ -588,11 +592,15 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				if (tal_trx_status != TRX_OFF) {
 					previous_trx_status = RX_AACK_ON; /* any
 					                                   *
+					                                   *
 					                                   *other
+					                                   *
 					                                   *
 					                                   *than
 					                                   *
+					                                   *
 					                                   *TRX_OFF
+					                                   *
 					                                   *
 					                                   *state
 					                                   **/

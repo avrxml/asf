@@ -348,7 +348,7 @@
 					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../lib/zrc/tgt/config</state>
-					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../avr2025_mac/source/tal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../addons/sio2host/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/delay</state>
@@ -362,6 +362,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -660,7 +661,7 @@
 					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../lib/zrc/tgt/config</state>
-					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../avr2025_mac/source/tal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../addons/sio2host/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/delay</state>
@@ -674,6 +675,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1397,7 +1399,7 @@
 					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../lib/zrc/tgt/config</state>
-					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../avr2025_mac/source/tal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../addons/sio2host/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/delay</state>
@@ -1411,6 +1413,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1709,7 +1712,7 @@
 					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../lib/zrc/tgt/config</state>
-					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../avr2025_mac/source/tal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../addons/sio2host/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/delay</state>
@@ -1723,6 +1726,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -2608,6 +2612,9 @@
 						<name>$PROJ_DIR$/../../../../../../avr2025_mac/include/ieee_const.h</name>
 					</file>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../avr2025_mac/include/ieee_154g.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../avr2025_mac/include/avr2025_mac.h</name>
 					</file>
 					<file>
@@ -3056,9 +3063,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_bscif.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_bpm.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_freqm.h</name>
 							</file>
 							<file>
@@ -3090,6 +3094,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_spi.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_bpm.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include/component/component_dacc.h</name>
@@ -3223,18 +3230,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc.c</name>
 				</file>
-				<group>
-					<name>tc_capture_waveform_example</name>
-					<group>
-						<name>sam4e16e_sam4e_ek</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc.h</name>
 				</file>
@@ -3255,6 +3250,15 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/flashcalw/flashcalw.h</name>
+				</file>
+			</group>
+			<group>
+				<name>gpio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/gpio/gpio.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/gpio/gpio.h</name>
 				</file>
 			</group>
 			<group>

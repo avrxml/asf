@@ -4,7 +4,7 @@
  * \brief This header file contains types and variable definition that are used
  * within the TAL only.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -481,15 +481,15 @@ void ed_scan_done(void);
  */
 #define TRX_RST_HIGH()                      (TRXPR |= _BV(TRXRST))  /**< Set
 	                                                             * Reset
-	                                                             *Bit.
+	                                                             * Bit.
 	                                                             **/
 #define TRX_RST_LOW()                       (TRXPR &= ~_BV(TRXRST)) /**< Clear
 	                                                             * Reset
-	                                                             *Bit.
+	                                                             * Bit.
 	                                                             **/
 #define TRX_SLP_TR_HIGH()                   (TRXPR |= _BV(SLPTR))   /**< Set
-	                                                            * Sleep/TR
-	                                                            * Bit. */
+	                                                             * Sleep/TR
+	                                                             * Bit. */
 #define TRX_SLP_TR_LOW()                    (TRXPR &= ~_BV(SLPTR))  /**< Clear
 	                                                             * Sleep/TR
 	                                                             * Bit. */

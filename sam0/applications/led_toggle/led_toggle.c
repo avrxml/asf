@@ -3,7 +3,7 @@
  *
  * \brief SAM LED Toggle Example
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,8 +48,7 @@
  *
  *
  * \page appdoc_preface Overview
- * This application demonstrates a simple example to turn on the board LED when
- * a button is pressed, using a variety of methods and modules within the device.
+ * This application demonstrates a simple example to toggle the board LED.
  */
 
 /**
@@ -58,58 +57,19 @@
  * Overview:
  * - \ref appdoc_sam0_led_toggle_app_intro
  * - \ref appdoc_sam0_led_toggle_app_usage
- * - \ref appdoc_sam0_led_toggle_app_config
  * - \ref appdoc_sam0_led_toggle_app_compinfo
  * - \ref appdoc_sam0_led_toggle_app_contactinfo
  *
  * \section appdoc_sam0_led_toggle_app_intro Introduction
- * This application demonstrates a simple example to turn on the board LED when
- * a button is pressed, using a variety of methods and modules within the device.
+ * This application demonstrates a simple example to toggle the board LED.
  *
  * This application has been tested on following boards:
- * - SAM D20/D21/R21/D11 Xplained Pro
+ * - SAM D20/D21/R21/D11/L21/L22 Xplained Pro
+ * - SAM D10 Xplained Mini
  *
  * \section appdoc_sam0_led_toggle_app_usage Usage
- * When run, press the board button to turn on the board LED, release to turn
- * the LED off. If the application settings are altered, the application must be
- * recompiled and re-run on the device.
- *
- * \section appdoc_sam0_led_toggle_app_config Configuration
- * The table \ref appdoc_sam0_led_toggle_app_conftable "below" shows the
- * possible configurations of this example.
- *
- * \anchor appdoc_sam0_led_toggle_app_conftable
- * <table>
- *  <caption>Example Configurations</caption>
- * 	<tr>
- * 		<th>USE_INTERRUPTS</th>
- * 		<th>USE_EIC</th>
- * 		<th>Result</th>
- * 	</tr>
- * 	<tr>
- * 		<td>false</td>
- * 		<td>false</td>
- * 		<td>Polled via PORT driver</td>
- * 	</tr>
- * 	<tr>
- * 		<td>false</td>
- * 		<td>true</td>
- * 		<td>Polled via EIC driver</td>
- * 	</tr>
- * 	<tr>
- * 		<td>true</td>
- * 		<td>false</td>
- * 		<td>Asynchronous using SysTick handler</td>
- * 	</tr>
- * 	<tr>
- * 		<td>true</td>
- * 		<td>true</td>
- * 		<td>Asynchronous using EIC handler</td>
- * 	</tr>
- * </table>
- *
- * \note When the button is connected to the non-maskable pin, the USE_EIC_NMI
- *       in conf_example.h should be defined to true, else be false.
+ * The application uses system timer to generate periodic interrupts, once the
+ * interrupt occurs, LED0 will toggle.
  *
  * \section appdoc_sam0_led_toggle_app_compinfo Compilation Info
  * This software was written for the GNU GCC and IAR for ARM.
@@ -119,62 +79,13 @@
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
-#include "conf_example.h"
-
-/** If \true, interrupts are used to alter the board state, when \false polling
- *  is used.
- */
-#define USE_INTERRUPTS   true
-
-/** If \true, the External Interrupt Controller module is used to check when the
- *   button state changes, when \false the PORT module is used.
- */
-#define USE_EIC          true
 
 
-/** Updates the board LED to the current button state. */
-static void update_led_state(void)
-{
-	bool pin_state = port_pin_get_input_level(BUTTON_0_PIN);
-	port_pin_set_output_level(LED_0_PIN, pin_state);
-}
-
-#if USE_INTERRUPTS == true
-#  if USE_EIC == true
-#    if USE_EIC_NMI == false
-/** Callback function for the EXTINT driver, called when an external interrupt
- *  detection occurs.
- */
-static void extint_callback(void)
-{
-	update_led_state();
-}
-
-/** Configures and registers the External Interrupt callback function with the
- *  driver.
- */
-static void configure_eic_callback(void)
-{
-	extint_register_callback(extint_callback,
-			BUTTON_0_EIC_LINE,
-			EXTINT_CALLBACK_TYPE_DETECT);
-	extint_chan_enable_callback(BUTTON_0_EIC_LINE,
-			EXTINT_CALLBACK_TYPE_DETECT);
-}
-#    else
-/** Handler for the NMI module interrupt. */
-void NMI_Handler(void)
-{
-	if (extint_nmi_is_detected(BUTTON_0_EIC_LINE)) {
-		/* Clear flag */
-		extint_nmi_clear_detected(BUTTON_0_EIC_LINE);
-		update_led_state();
-	}
-}
-#    endif
-#  else
 /** Handler for the device SysTick module, called when the SysTick counter
  *  reaches the set period.
  *
@@ -184,97 +95,29 @@ void NMI_Handler(void)
  */
 void SysTick_Handler(void)
 {
-	update_led_state();
+	port_pin_toggle_output_level(LED_0_PIN);
 }
 
-/** Configures the SysTick module to fire a SysTick interrupt every 999 system
- *  clock source cycles.
- */
-static void configure_systick_handler(void)
+/** Configure LED0, turn it off*/
+static void config_led(void)
 {
-	SysTick->CTRL = 0;
-	SysTick->LOAD = 999;
-	SysTick->VAL  = 0;
-	SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk;
-}
-#  endif
-#endif
+	struct port_config pin_conf;
+	port_get_config_defaults(&pin_conf);
 
-#if USE_EIC == true
-/** Configures the External Interrupt Controller to detect changes in the board
- *  button state.
- */
-#  if USE_EIC_NMI == false
-static void configure_extint(void)
-{
-	struct extint_chan_conf eint_chan_conf;
-	extint_chan_get_config_defaults(&eint_chan_conf);
-
-	eint_chan_conf.gpio_pin           = BUTTON_0_EIC_PIN;
-	eint_chan_conf.gpio_pin_mux       = BUTTON_0_EIC_MUX;
-	eint_chan_conf.detection_criteria = EXTINT_DETECT_BOTH;
-	eint_chan_conf.filter_input_signal = true;
-	extint_chan_set_config(BUTTON_0_EIC_LINE, &eint_chan_conf);
+	pin_conf.direction  = PORT_PIN_DIR_OUTPUT;
+	port_pin_set_config(LED_0_PIN, &pin_conf);
+	port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE);
 }
-#  else
- /** Configures the NMI to detect changes in the board
- *  button state.
- */
-static void configure_nmi(void)
-{
-	struct extint_nmi_conf eint_nmi_conf;
-	extint_nmi_get_config_defaults(&eint_nmi_conf);
-
-	eint_nmi_conf.gpio_pin           = BUTTON_0_EIC_PIN;
-	eint_nmi_conf.gpio_pin_mux       = BUTTON_0_EIC_MUX;
-	eint_nmi_conf.detection_criteria = EXTINT_DETECT_BOTH;
-	eint_nmi_conf.filter_input_signal = true;
-	extint_nmi_set_config(BUTTON_0_EIC_LINE, &eint_nmi_conf);
-}
-#  endif
-#endif
 
 int main(void)
 {
 	system_init();
 
-#if USE_EIC == true
-#  if USE_EIC_NMI == false
-	configure_extint();
-#  else
-	configure_nmi();
-#  endif
-#endif
+	/*Configure system tick to generate periodic interrupts */
+	SysTick_Config(system_gclk_gen_get_hz(GCLK_GENERATOR_0));
 
-#if USE_INTERRUPTS == true
-#  if USE_EIC == false
-	configure_systick_handler();
-#  else
-#    if USE_EIC_NMI == false
-	configure_eic_callback();
-#    endif
-#  endif
-
-	system_interrupt_enable_global();
+	config_led();
 
 	while (true) {
-		/* Do nothing - use interrupts */
 	}
-#else
-#  if USE_EIC == false
-	while (true) {
-		update_led_state();
-	}
-#  else
-	while (true) {
-#    if USE_EIC_NMI == false
-		if (extint_chan_is_detected(BUTTON_0_EIC_LINE)) {
-			extint_chan_clear_detected(BUTTON_0_EIC_LINE);
-
-			update_led_state();
-		}
-#    endif
-	}
-#  endif
-#endif
 }

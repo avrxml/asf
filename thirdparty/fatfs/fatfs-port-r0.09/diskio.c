@@ -3,7 +3,7 @@
  *
  * \brief Implementation of low level disk I/O module skeleton for FatFS.
  *
- * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -60,7 +60,7 @@ extern "C" {
 # include <rtc.h>
 #endif
 
-#if (SAMD20 || SAMD21 || SAMR21)
+#if (SAM0)
 # include <rtc_calendar.h>
 struct rtc_module rtc_instance;
 

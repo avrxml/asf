@@ -3,7 +3,7 @@
  *
  * \brief Linker script for running in internal SRAM on the SAMD20E14
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,21 +40,24 @@
  * \asf_license_stop
  *
  */
+ /**
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 /*###ICF### Section handled by ICF editor, don't touch! ****/
 /*-Editor annotation file-*/
 /* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\cortex_v1_0.xml" */
 /*-Specials-*/
-define symbol __ICFEDIT_intvec_start__     = 0x20000000;
+define symbol __ICFEDIT_intvec_start__        = 0x20000000;
 /*-Memory Regions-*/
-define symbol __ICFEDIT_region_RAM_start__ = 0x20000000;
-define symbol __ICFEDIT_region_RAM_end__   = 0x20000800;
+define symbol __ICFEDIT_region_RAM_start__    = 0x20000000;
+define symbol __ICFEDIT_region_RAM_end__      = 0x200007FF;
 /*-Sizes-*/
 if (!isdefinedsymbol(__ICFEDIT_size_cstack__)) {
   define symbol __ICFEDIT_size_cstack__    = 0x200;
 }
 if (!isdefinedsymbol(__ICFEDIT_size_heap__)) {
-  define symbol __ICFEDIT_size_heap__      = 0x200;
+  define symbol __ICFEDIT_size_heap__      = 0x0;
 }
 /**** End of ICF editor section. ###ICF###*/
 
@@ -69,4 +72,5 @@ do not initialize  { section .noinit };
 
 place at address mem:__ICFEDIT_intvec_start__ { readonly section .intvec };
 place in RAM_region                           { readonly };
-place in RAM_region                           { readwrite, block CSTACK, block HEAP };
+place in RAM_region                           { readwrite };
+place at end of RAM_region                    { block CSTACK, block HEAP };

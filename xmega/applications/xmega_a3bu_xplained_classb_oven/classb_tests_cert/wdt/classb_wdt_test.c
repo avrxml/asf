@@ -40,6 +40,9 @@
  *
  * \asf_license_stop
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "classb_wdt_test.h"
 #include "error_handler.h"

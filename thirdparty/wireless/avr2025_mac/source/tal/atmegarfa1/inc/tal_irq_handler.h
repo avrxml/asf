@@ -3,7 +3,7 @@
  *
  * @brief This header file contains the interrupt handling definitions
  *
- * Copyright (c) 2013-2014-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -220,7 +220,7 @@ void pal_trx_irq_init_aes_ready(FUNC_PTR trx_irq_cb);
 
 /**
  * \brief Returns the current callback function for the transceiver RX END
- *interrupt
+ * interrupt
  *
  * \return Current callback function for the transceiver RX END interrupt
  * \ingroup group_pal_interrupt
@@ -229,7 +229,7 @@ FUNC_PTR pal_trx_irq_get_hdlr_rx_end(void);
 
 /**
  * \brief Returns the current callback function for the transceiver TX END
- *interrupt
+ * interrupt
  *
  * \return Current callback function for the transceiver TX END interrupt
  * \ingroup group_pal_interrupt

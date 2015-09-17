@@ -4,7 +4,7 @@
  * @brief This file implements GTS feature for MAC.
  *
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -219,10 +219,11 @@ void mlme_gts_request(uint8_t *m)
 					= (uint8_t *)gts_req_frame +
 						LARGE_BUFFER_SIZE -
 						GTS_REQ_PAYLOAD_LEN - 2; /* Add
-		                                                          *2
+		                                                          * 2
+		                                                          *
 		                                                          *octets
-		                                                          *for
-		                                                          *FCS.
+		                                                          * for
+		                                                          * FCS.
 		                                                          **/
 
 		/* Update the payload field. */
@@ -345,7 +346,7 @@ void mac_process_gts_request(buffer_t *gts_req)
 	if (GTS_ALLOCATE == (mgi->GtsChar).GtsCharType) {
 		if (mac_gts_allocate(mgi->GtsChar, mgi->DeviceAddr)) {
 			/* Append the MLME GTS indication to the MAC-NHLE queue.
-			 **/
+			**/
 			qmm_queue_append(&mac_nhle_q, gts_req);
 		} else {
 			bmm_buffer_free(gts_req);
@@ -353,7 +354,7 @@ void mac_process_gts_request(buffer_t *gts_req)
 	} else {
 		if (mac_gts_deallocate(mgi->GtsChar, mgi->DeviceAddr, false)) {
 			/* Append the MLME GTS indication to the MAC-NHLE queue.
-			 **/
+			**/
 			qmm_queue_append(&mac_nhle_q, gts_req);
 		} else {
 			bmm_buffer_free(gts_req);
@@ -407,7 +408,7 @@ void mac_gts_table_update(void)
 				mgi->cmdcode = MLME_GTS_INDICATION;
 
 				/* Append the MLME GTS indication to the
-				 *MAC-NHLE queue. */
+				 * MAC-NHLE queue. */
 				qmm_queue_append(&mac_nhle_q, buffer_header);
 				--table_index;
 			}
@@ -442,12 +443,18 @@ uint8_t mac_add_gts_info(uint8_t *frame_ptr)
 			frame_ptr--;
 			*frame_ptr
 				= mac_pan_gts_table[table_index].DevShortAddr >>
-					8;                                             /* GTS
-			                                                                * List */
+					8;                                             /*
+			                                                                * GTS
+			                                                                *
+			                                                                *List
+			                                                                **/
 			frame_ptr--;
 			*frame_ptr
-				= mac_pan_gts_table[table_index].DevShortAddr;    /* GTS
-			                                                           * List */
+				= mac_pan_gts_table[table_index].DevShortAddr;    /*
+			                                                           * GTS
+			                                                           *
+			                                                           *List
+			                                                           **/
 
 			update_octets_count += 3;
 
@@ -563,7 +570,7 @@ bool mac_gts_deallocate(gts_char_t GtsCharacteristics, uint16_t DevAddress,
 	for (table_index = 0; table_index < mac_pan_gts_table_len;
 			table_index++) {
 		/* Check to identify the GTS to be deallocated from the
-		 *table...*/
+		 * table...*/
 		if (mac_pan_gts_table[table_index].DevShortAddr == DevAddress &&
 				mac_pan_gts_table[table_index].GtsDesc.
 				GtsDirection ==
@@ -628,23 +635,32 @@ bool mac_gts_deallocate(gts_char_t GtsCharacteristics, uint16_t DevAddress,
 				 * = mac_pan_gts_table[table_index1 +
 				 * 1].DevShortAddr; */
 				/*  */
-				/* mac_pan_gts_table[table_index1].GtsDesc.GtsDirection
+
+				/*
+				 * mac_pan_gts_table[table_index1].GtsDesc.GtsDirection
 				 * = mac_pan_gts_table[table_index1 +
 				 * 1].GtsDesc.GtsDirection; */
 				/*  */
-				/* mac_pan_gts_table[table_index1].GtsDesc.GtsLength
+
+				/*
+				 * mac_pan_gts_table[table_index1].GtsDesc.GtsLength
 				 * = mac_pan_gts_table[table_index1 +
 				 * 1].GtsDesc.GtsLength; */
 				/*  */
-				/* mac_pan_gts_table[table_index1].GtsDesc.GtsStartingSlot
+
+				/*
+				 * mac_pan_gts_table[table_index1].GtsDesc.GtsStartingSlot
 				 * = mac_pan_gts_table[table_index1 +
 				 * 1].GtsDesc.GtsStartingSlot; */
 				/*  */
+
 				/* mac_pan_gts_table[table_index1].ExpiryCount =
 				 * mac_pan_gts_table[table_index1 +
 				 * 1].ExpiryCount; */
 				/*  */
-				/* mac_pan_gts_table[table_index1].PersistenceCount
+
+				/*
+				 * mac_pan_gts_table[table_index1].PersistenceCount
 				 * = mac_pan_gts_table[table_index1 +
 				 * 1].PersistenceCount; */
 				if (0 <
@@ -749,7 +765,8 @@ void mac_parse_bcn_gts_info(uint8_t gts_count, uint8_t gts_dir,
 				}
 			} else if (GTS_STATE_IDLE ==
 					mac_dev_gts_table[table_index].GtsState
-					&& 0 != gts_list_ptr->starting_slot) {
+					&&
+					0 != gts_list_ptr->starting_slot) {
 				mac_dev_gts_table[table_index].GtsLength
 					= gts_list_ptr->length;
 				mac_dev_gts_table[table_index].GtsStartingSlot
@@ -759,7 +776,8 @@ void mac_parse_bcn_gts_info(uint8_t gts_count, uint8_t gts_dir,
 					= GTS_STATE_ALLOCATED;
 			} else if (GTS_STATE_ALLOCATED ==
 					mac_dev_gts_table[table_index].GtsState
-					&& 0 == gts_list_ptr->starting_slot) {
+					&&
+					0 == gts_list_ptr->starting_slot) {
 				mac_dev_gts_table[table_index].GtsLength
 					= gts_list_ptr->length;
 				mac_dev_gts_table[table_index].GtsStartingSlot
@@ -853,7 +871,7 @@ void handle_gts_data_req(mcps_data_req_t *data_req, uint8_t *msg)
 					return;
 				} else {
 					/* Append the MCPS data request into the
-					 *GTS queue */
+					 * GTS queue */
 					#ifdef ENABLE_QUEUE_CAPACITY
 					if (QUEUE_FULL ==
 							qmm_queue_append(
@@ -1125,7 +1143,7 @@ void mac_t_gts_cb(void *callback_parameter)
 					GTS_DEBUG_SET, GTS_DEBUG_VALUE_HIGH);
 			#endif
 		} else { /* Do nothing as mac_superframe_state will be modified
-			  *at end of Active reagion*/
+			  * at end of Active reagion*/
 		}
 
 		if (NULL != temp_ptr && (*temp_ptr).size > 0) {
@@ -1254,7 +1272,7 @@ void mac_tx_gts_data(queue_t *gts_data)
 
 			if (MAC_SUCCESS != build_sec) {
 				/* The MAC Data Payload is encrypted based on
-				 *the security level. */
+				 * the security level. */
 				mac_gen_mcps_data_conf(
 						(buffer_t *)transmit_frame->buffer_header,
 						(uint8_t)build_sec,

@@ -3,7 +3,7 @@
  *
  * \brief SAM D21 Xplained Pro test configuration.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CONF_TEST_H_INCLUDED
 #define CONF_TEST_H_INCLUDED
@@ -52,28 +55,24 @@
 #define CONF_STDIO_PINMUX_PAD3    EDBG_CDC_SERCOM_PINMUX_PAD3
 #define CONF_STDIO_BAUDRATE       38400
 
-/* RX USART to test */
-#define CONF_RX_USART              EXT1_UART_MODULE
-#define CONF_RX_USART_SERCOM_MUX   EXT1_UART_SERCOM_MUX_SETTING
-#define CONF_RX_USART_PINMUX_PAD0  EXT1_UART_SERCOM_PINMUX_PAD0
-#define CONF_RX_USART_PINMUX_PAD1  EXT1_UART_SERCOM_PINMUX_PAD1
-#define CONF_RX_USART_PINMUX_PAD2  EXT1_UART_SERCOM_PINMUX_PAD2
-#define CONF_RX_USART_PINMUX_PAD3  EXT1_UART_SERCOM_PINMUX_PAD3
-
-/* TX USART to test
- *
- * There is only one SERCOM for USART on the EXT headers of the rev. 2
- * SAM D21 Xplained Pro. The settings below are a hack to get a second
- * USART via a SERCOM that is not mapped to a RX/TX pin on a header.
- *
- * More specifically, it is the SPI SERCOM on EXT1, with RX mapped to PA05
- * (EXT1_PIN_15 or "SS_0") and TX mapped to PA04 (EXT1_PIN_17 or "MISO").
+/* RX USART to test
+ * For unit_test connection uniformity, SERCOM for USART should be
+ * the same as SPI, SERCOM for USART in the EXT headers of the
+ * rev. 2 is not suitable, just define them directly here.
  */
-#define CONF_TX_USART              SERCOM0
+#define CONF_RX_USART              SERCOM1
+#define CONF_RX_USART_SERCOM_MUX   USART_RX_0_TX_2_XCK_3
+#define CONF_RX_USART_PINMUX_PAD0  PINMUX_PA16C_SERCOM1_PAD0
+#define CONF_RX_USART_PINMUX_PAD1  PINMUX_PA17C_SERCOM1_PAD1
+#define CONF_RX_USART_PINMUX_PAD2  PINMUX_PA18C_SERCOM1_PAD2
+#define CONF_RX_USART_PINMUX_PAD3  PINMUX_PA19C_SERCOM1_PAD3
+
+/* TX USART to test */
+#define CONF_TX_USART              SERCOM5
 #define CONF_TX_USART_SERCOM_MUX   USART_RX_1_TX_0_XCK_1
-#define CONF_TX_USART_PINMUX_PAD0  PINMUX_PA04D_SERCOM0_PAD0
-#define CONF_TX_USART_PINMUX_PAD1  PINMUX_PA05D_SERCOM0_PAD1
-#define CONF_TX_USART_PINMUX_PAD2  PINMUX_PA06D_SERCOM0_PAD2
-#define CONF_TX_USART_PINMUX_PAD3  PINMUX_PA07D_SERCOM0_PAD3
+#define CONF_TX_USART_PINMUX_PAD0  PINMUX_PB16C_SERCOM5_PAD0
+#define CONF_TX_USART_PINMUX_PAD1  PINMUX_PB17C_SERCOM5_PAD1
+#define CONF_TX_USART_PINMUX_PAD2  PINMUX_PB22D_SERCOM5_PAD2
+#define CONF_TX_USART_PINMUX_PAD3  PINMUX_PB23D_SERCOM5_PAD3
 
 #endif /* CONF_TEST_H_INCLUDED */

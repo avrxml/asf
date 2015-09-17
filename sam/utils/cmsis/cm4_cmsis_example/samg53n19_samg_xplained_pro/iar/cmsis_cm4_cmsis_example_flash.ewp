@@ -293,7 +293,7 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../samg/samg53/source/templates</state>
+					<state>$PROJ_DIR$/../../../samg/samg53/include</state>
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
@@ -308,7 +308,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../drivers/efc</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../samg/samg53/include</state>
+					<state>$PROJ_DIR$/../../../samg/samg53/source/templates</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -556,7 +556,7 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../samg/samg53/source/templates</state>
+					<state>$PROJ_DIR$/../../../samg/samg53/include</state>
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
@@ -571,7 +571,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../drivers/efc</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../samg/samg53/include</state>
+					<state>$PROJ_DIR$/../../../samg/samg53/source/templates</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1210,7 +1210,7 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../samg/samg53/source/templates</state>
+					<state>$PROJ_DIR$/../../../samg/samg53/include</state>
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
@@ -1225,7 +1225,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../drivers/efc</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../samg/samg53/include</state>
+					<state>$PROJ_DIR$/../../../samg/samg53/source/templates</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1473,7 +1473,7 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../samg/samg53/source/templates</state>
+					<state>$PROJ_DIR$/../../../samg/samg53/include</state>
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
@@ -1488,7 +1488,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../drivers/efc</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../samg/samg53/include</state>
+					<state>$PROJ_DIR$/../../../samg/samg53/source/templates</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>

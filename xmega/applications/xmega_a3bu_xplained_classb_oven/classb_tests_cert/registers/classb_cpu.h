@@ -6,7 +6,7 @@
  * \par Application note:
  *      AVR1610: Guide to IEC60730 Class B compliance with XMEGA
  *
- * Copyright (C) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,6 +41,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * \asf_license_stop
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef CLASSB_CPU_H_

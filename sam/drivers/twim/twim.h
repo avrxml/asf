@@ -5,7 +5,7 @@
  *
  * This file defines a useful set of functions for the TWIM on SAM4L devices.
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,6 +41,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 
@@ -244,7 +247,7 @@ void twim_pdca_transfer_prepare(Twim *twim, twi_package_t *package,
  * \subsection twim_basic_prereq Prerequisites
  *
  * This module requires the following service
- * - \ref clk_group
+ * - \ref clk_group "Clock Management (Sysclock)"
  *
  * \subsection twim_basic_setup_workflow
  *

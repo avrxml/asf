@@ -3,7 +3,7 @@
  *
  * \brief CAN transceiver SN65HVD234 driver.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,6 +51,9 @@
  * Control the RS and EN pin level for SN65HVD234.
  *
  * \{
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "board.h"

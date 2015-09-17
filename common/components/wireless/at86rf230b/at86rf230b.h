@@ -3,7 +3,7 @@
  *
  * \brief Driver for AT86RF230B transceiver.
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,6 +42,9 @@
  */
 
 /* Prevent double inclusion */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef AT86RF230B_H
 #define AT86RF230B_H
 

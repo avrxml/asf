@@ -3,7 +3,7 @@
  *
  * \brief XMEGA RTC calibration demo application main file
  *
- * Copyright (C) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,6 +83,9 @@
  *
  * \section contactinfo Contact Information
  *  For further information, visit <a href="http://www.atmel.com/">Atmel</a>.\n
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <compiler.h>

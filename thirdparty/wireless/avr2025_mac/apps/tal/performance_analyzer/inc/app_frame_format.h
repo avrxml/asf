@@ -4,7 +4,7 @@
  * \brief Defines various structure definitions, used to communicate with
  * Peer node over the air - Performance Analyzer application
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2012, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -54,7 +54,7 @@
 /* === Includes ============================================================= */
 
 /* === Macros =============================================================== */
-
+#define REMOTE_MSG_BUF_SIZE                 (116)
 /* === Types ================================================================ */
 COMPILER_PACK_SET(1)
 
@@ -99,7 +99,7 @@ typedef struct {
  */
 typedef struct {
 	uint8_t param_type;
-	uint8_t param_value;
+	uint16_t param_value;
 } set_parm_req_t;
 
 /**
@@ -170,6 +170,14 @@ typedef struct {
 } crc_stat_req_t;
 
 /**
+ * \brief Remote Test Start Request Structure
+ *
+ */
+typedef struct {
+	uint8_t remote_serial_data[REMOTE_MSG_BUF_SIZE];
+} remote_test_req_t;
+
+/**
  * \brief CRC status response frame structure to send the peer
  * node's CRC settings
  *
@@ -207,6 +215,8 @@ typedef struct {
 	char trx_name[16];
 	char board_name[25];
 	uint64_t mac_address;
+	float fw_version;
+	uint32_t feature_mask;
 } peer_info_rsp_t;
 
 typedef struct {
@@ -234,10 +244,11 @@ typedef union {
 	range_tx_t range_tx_data;
 	result_req_t result_req_data;
 	crc_stat_req_t crc_stat_req_data;
+	remote_test_req_t remote_test_req_data;
 } general_pkt_t;
 
 /**
- * \brief application payload frame stucture
+ * \brief application payload frame structure
  *
  */
 typedef struct {

@@ -3,7 +3,7 @@
  *
  * \brief SAMG55 Xplained Pro board initialization
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <compiler.h>
@@ -197,6 +200,22 @@ void system_board_init(void)
 #ifdef CONF_BOARD_PDM
 	ioport_set_pin_peripheral_mode(PDM_CLK_GPIO, PDM_CLK_FLAGS);
 	ioport_set_pin_peripheral_mode(PDM_DAT_GPIO, PDM_DAT_FLAGS);
+#endif
+
+#ifdef CONF_BOARD_USART0
+	ioport_set_pin_peripheral_mode(USART0_RXD_GPIO, USART0_RXD_FLAGS);
+	ioport_set_pin_peripheral_mode(USART0_TXD_GPIO, USART0_TXD_FLAGS);
+	ioport_set_pin_peripheral_mode(USART0_SCK_GPIO, USART0_SCK_FLAGS);
+	ioport_set_pin_peripheral_mode(USART0_CTS_GPIO, USART0_CTS_FLAGS);
+	ioport_set_pin_peripheral_mode(USART0_RTS_GPIO, USART0_RTS_FLAGS);
+#endif
+
+#ifdef CONF_BOARD_USART6
+	ioport_set_pin_peripheral_mode(USART6_RXD_GPIO, USART6_RXD_FLAGS);
+	ioport_set_pin_peripheral_mode(USART6_TXD_GPIO, USART6_TXD_FLAGS);
+	ioport_set_pin_peripheral_mode(USART6_SCK_GPIO, USART6_SCK_FLAGS);
+	ioport_set_pin_peripheral_mode(USART6_CTS_GPIO, USART6_CTS_FLAGS);
+	ioport_set_pin_peripheral_mode(USART6_RTS_GPIO, USART6_RTS_FLAGS);
 #endif
 
 #if defined(CONF_BOARD_USB_PORT)

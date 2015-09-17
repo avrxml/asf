@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D21/R21/D10/D11 TC Driver Quick Start
+ * \brief SAM TC Driver Quick Start
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,21 +40,24 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 /**
  * \page asfdoc_sam0_tc_dma_use_case Quick Start Guide for Using DMA with TC
  *
  * The supported kit list:
- *    - SAM D21/R21/D11 Xplained Pro
+ *    - SAM D21/R21/D11/L21/L22/DA1/C21 Xplained Pro
  *
  * In this use case, the TC will be used to generate a PWM signal. Here
  * the pulse width is set to one quarter of the period. Once the counter value
- * matches the values in the Compare/Capture Value register, a event will be
+ * matches the values in the Compare/Capture Value register, an event will be
  * tiggered for a DMA memory to memory transfer.
  * The TC module will be set up as follows:
  *
  * \li GCLK generator 0 (GCLK main) clock source
- * \li 16 bit resolution on the counter
+ * \li 16-bit resolution on the counter
  * \li No prescaler
  * \li Normal PWM wave generation
  * \li GCLK reload action
@@ -82,15 +85,27 @@
  *
  * Add to the main application source file, before any functions, according to
  * the kit used:
- * - SAM D21 Xplained Pro
- *   \snippet samd21_xplained_pro/conf_quick_start.h definition_pwm
- *   \snippet samd21_xplained_pro/conf_quick_start.h definition_dma
- * - SAM R21 Xplained Pro
- *   \snippet samr21_xplained_pro/conf_quick_start.h definition_pwm
- *   \snippet samr21_xplained_pro/conf_quick_start.h definition_dma
- * - SAM D11 Xplained Pro
- *   \snippet samd11_xplained_pro/conf_quick_start.h definition_pwm
- *   \snippet samd11_xplained_pro/conf_quick_start.h definition_dma
+ * - SAM D21 Xplained Pro.
+ *   \snippet quick_start_dma/samd21_xplained_pro/conf_quick_start.h definition_pwm
+ *   \snippet quick_start_dma/samd21_xplained_pro/conf_quick_start.h definition_dma
+ * - SAM R21 Xplained Pro.
+ *   \snippet quick_start_dma/samr21_xplained_pro/conf_quick_start.h definition_pwm
+ *   \snippet quick_start_dma/samr21_xplained_pro/conf_quick_start.h definition_dma
+ * - SAM D11 Xplained Pro.
+ *   \snippet quick_start_dma/samd11_xplained_pro/conf_quick_start.h definition_pwm
+ *   \snippet quick_start_dma/samd11_xplained_pro/conf_quick_start.h definition_dma
+ * - SAM L21 Xplained Pro.
+ *   \snippet quick_start_dma/saml21_xplained_pro/conf_quick_start.h definition_pwm
+ *   \snippet quick_start_dma/saml21_xplained_pro/conf_quick_start.h definition_dma
+ * - SAM L22 Xplained Pro.
+ *   \snippet quick_start_dma/saml22_xplained_pro/conf_quick_start.h definition_pwm
+ *   \snippet quick_start_dma/saml22_xplained_pro/conf_quick_start.h definition_dma
+ * - SAM DA1 Xplained Pro.
+ *   \snippet quick_start_dma/samda1_xplained_pro/conf_quick_start.h definition_pwm
+ *   \snippet quick_start_dma/samda1_xplained_pro/conf_quick_start.h definition_dma
+ * - SAM C21 Xplained Pro.
+ *   \snippet quick_start_dma/samc21_xplained_pro/conf_quick_start.h definition_pwm
+ *   \snippet quick_start_dma/samc21_xplained_pro/conf_quick_start.h definition_dma 
  *
  * Add to the main application source file, outside of any functions:
  * \snippet qs_tc_dma.c module_inst
@@ -133,7 +148,7 @@
  *          settings.
  *
  * -# Alter the TC settings to configure the counter width, wave generation
- *    mode and the compare channel 0 value.
+ *    mode, and the compare channel 0 value.
  *    \snippet qs_tc_dma.c setup_change_config
  * -# Alter the TC settings to configure the PWM output on a physical device
  *    pin.
@@ -170,7 +185,7 @@
  *          settings.
  *
  * -# Set the specific parameters for a DMA transfer with transfer size, source
- *    address, destination address.
+ *    address, and destination address.
  *    \snippet qs_tc_dma.c dma_setup_6
  *
  * -# Create the DMA transfer descriptor.
@@ -208,9 +223,9 @@
  * -# Wait for transfer done.
  *    \snippet qs_tc_dma.c main_3
  *
- * -# Update the source and destination address for next transfer
+ * -# Update the source and destination address for next transfer.
  *    \snippet qs_tc_dma.c main_4
  *
- * -# enter endless loop
+ * -# Enter endless loop.
  *    \snippet qs_tc_dma.c endless_loop
  */

@@ -3,7 +3,7 @@
  *
  * \brief HMATRIX driver for SAM.
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef __HMATRIX_H_INCLUDED__
@@ -244,9 +247,9 @@ void hmatrix_get_slave_priority(enum hmatrix_slave_id slave_id,
  * HMATRIX module.
  *
  * \section hmatrix_qs_use_cases Use cases
- * - \ref hmatrix_basic
+ * - \ref hmatrix_basic "HMATRIX Basic Usage"
  *
- * \section hmatrix_basic HMATRIX basic usage
+ * \section hmatrix_basic HMATRIX Basic Usage
  *
  * This use case will demonstrate how to configurate the HMATRIX module to
  * set the slave with different default master type.
@@ -257,13 +260,13 @@ void hmatrix_get_slave_priority(enum hmatrix_slave_id slave_id,
  * \subsection hmatrix_basic_prereq Prerequisites
  *
  * This module requires the following service
- * - \ref clk_group
+ * - \ref clk_group "Clock Management (Sysclock)"
  *
- * \subsection hmatrix_basic_setup_code
+ * \subsection hmatrix_basic_setup_code Code
  *
  * Add this to the main loop or a setup function:
  *
- * \subsection hmatrix_basic_setup_workflow
+ * \subsection hmatrix_basic_setup_workflow Workflow
  *
  * -# Enable the HMATRIX module
  *  - \code hmatrix_enable(); \endcode
@@ -275,7 +278,7 @@ void hmatrix_get_slave_priority(enum hmatrix_slave_id slave_id,
  *
  * \section hmatrix_basic_usage Usage steps
  *
- * \subsection hmatrix_basic_usage_code
+ * \subsection hmatrix_basic_usage_code Code
  *
  * -# We can set slave with Round-Robin arbitration and without default master
  *  - \code

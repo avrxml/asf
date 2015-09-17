@@ -3,7 +3,7 @@
  *
  * \brief  Configuration File for SAM4L-EK Board.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,5 +47,27 @@
 /** Enable Com Port. */
 #define CONF_BOARD_COM_PORT
 #define CONF_BOARD_AT86RFX
+
+#ifdef EXT_RF_FRONT_END_CTRL /*For External PA for 233FEM*/
+
+#define EXT_PA_SE2431L
+
+/*
+ * Value of an external LNA gain.
+ * If no external LNA is available, the value is 0.
+ */
+#define EXT_LNA_HIGH_GAIN    (14)
+
+#endif
+
+#ifdef CUSTOM_DEFAULT_TX_PWR /*For External PA for 233FEM*/
+
+/*
+ * Default value of transmit power of transceiver: Preset
+ *    - definition acct. IEEE802.15.4 PHY PIB attribute phyTransmitPower
+ *    - TX Pout init value based on validation
+ */
+#define TAL_TRANSMIT_POWER_DEFAULT      (TX_PWR_TOLERANCE | 0x14)
+#endif
 
 #endif  /* CONF_BOARD_H_INCLUDED */

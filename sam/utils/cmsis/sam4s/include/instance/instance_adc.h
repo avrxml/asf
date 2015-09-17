@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4S_ADC_INSTANCE_
 #define _SAM4S_ADC_INSTANCE_
@@ -46,7 +49,8 @@
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
   #define REG_ADC_CR                    (0x40038000U) /**< \brief (ADC) Control Register */
   #define REG_ADC_MR                    (0x40038004U) /**< \brief (ADC) Mode Register */
-  #define REG_ADC_SEQR                  (0x40038008U) /**< \brief (ADC) Channel Sequence Register */
+  #define REG_ADC_SEQR1                  (0x40038008U) /**< \brief (ADC) Channel Sequence Register 1 */
+  #define REG_ADC_SEQR2                  (0x4003800CU) /**< \brief (ADC) Channel Sequence Register 2 */
   #define REG_ADC_CHER                  (0x40038010U) /**< \brief (ADC) Channel Enable Register */
   #define REG_ADC_CHDR                  (0x40038014U) /**< \brief (ADC) Channel Disable Register */
   #define REG_ADC_CHSR                  (0x40038018U) /**< \brief (ADC) Channel Status Register */
@@ -73,7 +77,8 @@
 #else
   #define REG_ADC_CR   (*(__O  uint32_t*)0x40038000U) /**< \brief (ADC) Control Register */
   #define REG_ADC_MR   (*(__IO uint32_t*)0x40038004U) /**< \brief (ADC) Mode Register */
-  #define REG_ADC_SEQR (*(__IO uint32_t*)0x40038008U) /**< \brief (ADC) Channel Sequence Register */
+  #define REG_ADC_SEQR1 (*(__IO uint32_t*)0x40038008U) /**< \brief (ADC) Channel Sequence Register 1 */
+  #define REG_ADC_SEQR2 (*(__IO uint32_t*)0x4003800CU) /**< \brief (ADC) Channel Sequence Register 2 */
   #define REG_ADC_CHER (*(__O  uint32_t*)0x40038010U) /**< \brief (ADC) Channel Enable Register */
   #define REG_ADC_CHDR (*(__O  uint32_t*)0x40038014U) /**< \brief (ADC) Channel Disable Register */
   #define REG_ADC_CHSR (*(__I  uint32_t*)0x40038018U) /**< \brief (ADC) Channel Status Register */

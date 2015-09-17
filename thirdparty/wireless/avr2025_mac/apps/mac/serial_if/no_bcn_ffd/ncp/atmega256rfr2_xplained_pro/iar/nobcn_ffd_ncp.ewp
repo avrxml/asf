@@ -2235,10 +2235,10 @@
 							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_types.h</name>
+							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_generic.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_generic.h</name>
+							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_types.h</name>
 						</file>
 					</group>
 				</group>
@@ -2438,13 +2438,13 @@
 								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_generic.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_timer_config.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_helper.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_generic.h</name>
 							</file>
 						</group>
 					</group>
@@ -2576,9 +2576,6 @@
 											<name>$PROJ_DIR$/../conf_sio2host.h</name>
 										</file>
 										<file>
-											<name>$PROJ_DIR$/../conf_clock.h</name>
-										</file>
-										<file>
 											<name>$PROJ_DIR$/../conf_hw_timer.h</name>
 										</file>
 										<group>
@@ -2589,6 +2586,9 @@
 										</group>
 										<file>
 											<name>$PROJ_DIR$/../conf_usart_serial.h</name>
+										</file>
+										<file>
+											<name>$PROJ_DIR$/../conf_clock.h</name>
 										</file>
 									</group>
 									<file>
@@ -2614,6 +2614,9 @@
 						<name>$PROJ_DIR$/../../../../../../../include/ieee_const.h</name>
 					</file>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../../include/tal_build_config.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../../include/mac_build_config.h</name>
 					</file>
 					<file>
@@ -2623,7 +2626,7 @@
 						<name>$PROJ_DIR$/../../../../../../../include/return_val.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../include/tal_build_config.h</name>
+						<name>$PROJ_DIR$/../../../../../../../include/ieee_154g.h</name>
 					</file>
 				</group>
 			</group>
@@ -2691,28 +2694,28 @@
 				</file>
 			</group>
 			<group>
-				<name>ioport</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../common/services/ioport/ioport.h</name>
-				</file>
-				<group>
-					<name>mega</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../../../common/services/ioport/mega/ioport.h</name>
-					</file>
-				</group>
-			</group>
-			<group>
 				<name>delay</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../common/services/delay/delay.h</name>
-				</file>
 				<group>
 					<name>mega</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../../../../common/services/delay/mega/cycle_counter.h</name>
 					</file>
 				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../common/services/delay/delay.h</name>
+				</file>
+			</group>
+			<group>
+				<name>ioport</name>
+				<group>
+					<name>mega</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../../../common/services/ioport/mega/ioport.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../common/services/ioport/ioport.h</name>
+				</file>
 			</group>
 		</group>
 		<group>

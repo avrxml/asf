@@ -52,6 +52,11 @@
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
+// From module: C42364A Display LCD Glass
+#include <c42364a.h>
+#include <c42364a_font.h>
+#include <c42364a_segmap.h>
+
 // From module: Common SAM compiler driver
 #include <compiler.h>
 #include <status_codes.h>
@@ -99,10 +104,5 @@
 
 // From module: USART - Univ. Syn Async Rec/Trans
 #include <usart.h>
-
-// From module: sam.components.display.c42364a
-#include <c42364a.h>
-#include <c42364a_font.h>
-#include <c42364a_segmap.h>
 
 #endif // ASF_H

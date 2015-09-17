@@ -3,7 +3,7 @@
  *
  * \brief Header file for SAMD20
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAMD20_
 #define _SAMD20_
@@ -59,8 +62,6 @@
 #include "samd20e17.h"
 #elif defined(__SAMD20E18__) || defined(__ATSAMD20E18__)
 #include "samd20e18.h"
-#elif defined(__SAMD20E1F__) || defined(__ATSAMD20E1F__)
-#include "samd20e1f.h"
 #elif defined(__SAMD20G14__) || defined(__ATSAMD20G14__)
 #include "samd20g14.h"
 #elif defined(__SAMD20G15__) || defined(__ATSAMD20G15__)
@@ -69,8 +70,12 @@
 #include "samd20g16.h"
 #elif defined(__SAMD20G17__) || defined(__ATSAMD20G17__)
 #include "samd20g17.h"
+#elif defined(__SAMD20G17U__) || defined(__ATSAMD20G17U__)
+#include "samd20g17u.h"
 #elif defined(__SAMD20G18__) || defined(__ATSAMD20G18__)
 #include "samd20g18.h"
+#elif defined(__SAMD20G18U__) || defined(__ATSAMD20G18U__)
+#include "samd20g18u.h"
 #elif defined(__SAMD20J14__) || defined(__ATSAMD20J14__)
 #include "samd20j14.h"
 #elif defined(__SAMD20J15__) || defined(__ATSAMD20J15__)

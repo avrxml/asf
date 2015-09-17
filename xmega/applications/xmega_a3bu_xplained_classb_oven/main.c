@@ -3,7 +3,7 @@
  *
  * \brief XMEGA A3BU Class B demonstration
  *
- * Copyright (C) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -171,6 +171,9 @@
  *
  * Last, an error can be induced by removing the jumper between ADC2 and ADC4
  * on the J2 header on the XMEGA-A3BU Xplained board.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>

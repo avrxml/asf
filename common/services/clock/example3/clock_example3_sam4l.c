@@ -3,7 +3,7 @@
  *
  * \brief Clock system example 3
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -115,6 +115,9 @@
  * \note The pin is assumed to be configured by the board initialization.
  */
 /* @} */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include <conf_example3.h>

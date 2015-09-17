@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for PMC driver.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -62,7 +65,7 @@
  * - Switch main clock as MCK and enable PCK output
  * - Switch PLLA clock as MCK and enable PCK output
  * - Switch PLLB clock as MCK and enable PCK output (for SAM3S, SAM4S, SAM4C/SAM4CM and SAM4CP)
- * - Switch UPLL clock as MCK and enable PCK output (for SAM3XA and SAM3U)
+ * - Switch UPLL clock as MCK and enable PCK output (for SAM3XA, SAM3U and SAMV71)
  * - Test entering and exiting of sleep mode
  *
  * \section files Main Files
@@ -88,6 +91,7 @@
  * - sam4cp16b_sam4cp16bmb
  * - sam4cmp16c_sam4cmp_db
  * - sam4cms16c_sam4cms_db
+ * - samv71q21_samv71_xplained_ultra
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -95,7 +99,7 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit <a href="http://www.atmel.com/">Atmel</a>.\n
- * Support and FAQ: http://support.atmel.no/
+ * Support and FAQ: http://www.atmel.com/design-support/
  */
 
 //! \name Unit test configuration
@@ -149,6 +153,9 @@ static void run_periph_clk_cfg_test(const struct test_case *test)
 #elif (SAM4C || SAM4CM || SAM4CP)
 #  define PERIPH_ID_START     ID_UART0
 #  define PERIPH_ID_END       ID_SMC1
+#elif (SAMV71 || SAMV70 || SAME70 || SAMS70)
+#  define PERIPH_ID_START     ID_UART0
+#  define PERIPH_ID_END       ID_PWM1
 #else
 #  error No peripheral defined for test.
 #endif
@@ -193,7 +200,11 @@ static void switch_mck_to_default(void)
  */
 static uint32_t is_serial_output_done(void)
 {
+#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+	if (usart_is_tx_empty(CONF_TEST_UART)) {
+#else
 	if (uart_is_tx_empty(CONF_TEST_UART)) {
+#endif		
 		return 1;
 	} else {
 		return 0;
@@ -387,7 +398,7 @@ static void run_switch_pllbck_as_mck_test(const struct test_case *test)
 }
 #endif
 
-#if (SAM3XA || SAM3U)
+#if (SAM3XA || SAM3U || SAMV71 || SAMV70 || SAME70 || SAMS70)
 /**
  * \brief Switch UPLL clock as MCK and enable PCK output,
  * and check if it can be used.
@@ -460,7 +471,13 @@ int main(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_TEST_BAUDRATE,
-		.paritytype = CONF_TEST_PARITY
+	#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+	#endif
+		.paritytype = CONF_TEST_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	/* Initialize the system. */
@@ -504,7 +521,7 @@ int main(void)
 			"Switch to PLLB Clock");
 #endif
 
-#if (SAM3XA || SAM3U)
+#if (SAM3XA || SAM3U || SAMV71 || SAMV70 || SAME70 || SAMS70)
 	DEFINE_TEST_CASE(switch_upllck_as_mck, NULL,
 			run_switch_upllck_as_mck_test, NULL,
 			"Switch to UPLL Clock");
@@ -521,7 +538,7 @@ int main(void)
 #if (SAM3S || SAM4S || SAM4C || SAM4CM || SAM4CP)
 		&switch_pllbck_as_mck,
 #endif
-#if (SAM3XA || SAM3U)
+#if (SAM3XA || SAM3U || SAMV71 || SAMV70 || SAME70 || SAMS70)
 		&switch_upllck_as_mck,
 #endif
 		&test_sleep_mode,

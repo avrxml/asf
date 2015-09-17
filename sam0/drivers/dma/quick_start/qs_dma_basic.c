@@ -3,7 +3,7 @@
  *
  * \brief SAM Direct Memory Access Controller(DMAC) Driver Quick Start
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 
 //! [setup]
@@ -61,11 +64,11 @@ static volatile bool transfer_is_done = false;
 
 //! [transfer_descriptor]
 COMPILER_ALIGNED(16)
-DmacDescriptor example_descriptor;
+DmacDescriptor example_descriptor SECTION_DMAC_DESCRIPTOR;
 //! [transfer_descriptor]
 
 //! [_transfer_done]
-static void transfer_done( const struct dma_resource* const resource )
+static void transfer_done(struct dma_resource* const resource )
 {
 	transfer_is_done = true;
 }

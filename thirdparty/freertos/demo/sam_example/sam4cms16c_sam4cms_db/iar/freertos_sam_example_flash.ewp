@@ -2027,6 +2027,9 @@
 							<name>$PROJ_DIR$/../../../../freertos-7.0.0/source/include/projdefs.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.0.0/source/include/portable.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../freertos-7.0.0/source/include/mpu_wrappers.h</name>
 						</file>
 						<file>
@@ -2043,9 +2046,6 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../freertos-7.0.0/source/include/StackMacros.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.0.0/source/include/portable.h</name>
 						</file>
 					</group>
 				</group>
@@ -2212,7 +2212,7 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/matrix0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/cmcc0.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/spi0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/usart0.h</name>
@@ -2260,7 +2260,7 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/ipc1.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/spi0.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/cmcc0.h</name>
 							</file>
 						</group>
 						<group>
@@ -2317,9 +2317,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/gpbr.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/adc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/rswdt.h</name>
 							</file>
 							<file>
@@ -2338,6 +2335,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/matrix.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/adc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/rtc.h</name>
 							</file>
 							<file>
@@ -2347,6 +2347,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/slcdc.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms4c_1.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms8c_1.h</name>
 						</file>
@@ -2368,9 +2371,15 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cms16c.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cms4c.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cmp16c.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms4c_0.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cmp8c_1.h</name>
 						</file>

@@ -294,9 +294,8 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
@@ -307,9 +306,9 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -558,9 +557,8 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
@@ -571,9 +569,9 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1213,9 +1211,8 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
@@ -1226,9 +1223,9 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1477,9 +1474,8 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
@@ -1490,9 +1486,9 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../../../sam/boards/sam4s_ek</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1839,57 +1835,6 @@
 		</settings>
 	</configuration>
 	<group>
-		<name>thirdparty</name>
-		<group>
-			<name>CMSIS</name>
-			<group>
-				<name>DSP_Lib</name>
-				<group>
-					<name>Examples</name>
-					<group>
-						<name>Common</name>
-						<group>
-							<name>Source</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Source/math_helper.c</name>
-							</file>
-						</group>
-						<group>
-							<name>Include</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Include/math_helper.h</name>
-							</file>
-						</group>
-					</group>
-					<group>
-						<name>arm_matrix_example</name>
-						<file>
-							<name>$PROJ_DIR$/../../arm_matrix_example_f32.c</name>
-						</file>
-						<group>
-							<name>sam4s16c_sam4s_ek</name>
-							<file>
-								<name>$PROJ_DIR$/../conf_clock.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../conf_board.h</name>
-							</file>
-							<group>
-								<name>iar</name>
-								<file>
-									<name>$PROJ_DIR$/asf.h</name>
-								</file>
-							</group>
-						</group>
-						<file>
-							<name>$PROJ_DIR$/../../documentation.h</name>
-						</file>
-					</group>
-				</group>
-			</group>
-		</group>
-	</group>
-	<group>
 		<name>sam</name>
 		<group>
 			<name>boards</name>
@@ -1914,10 +1859,10 @@
 			<group>
 				<name>pio</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam/drivers/pio/pio.c</name>
+					<name>$PROJ_DIR$/../../../../../../../sam/drivers/pio/pio_handler.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam/drivers/pio/pio_handler.c</name>
+					<name>$PROJ_DIR$/../../../../../../../sam/drivers/pio/pio.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/pio/pio_handler.h</name>
@@ -2373,6 +2318,48 @@
 			<file>
 				<name>$PROJ_DIR$/../../../../../../../common/boards/board.h</name>
 			</file>
+		</group>
+	</group>
+	<group>
+		<name>thirdparty</name>
+		<group>
+			<name>CMSIS</name>
+			<group>
+				<name>DSP_Lib</name>
+				<group>
+					<name>Examples</name>
+					<group>
+						<name>arm_matrix_example</name>
+						<file>
+							<name>$PROJ_DIR$/../../arm_matrix_example_f32.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.c</name>
+						</file>
+						<group>
+							<name>sam4s16c_sam4s_ek</name>
+							<file>
+								<name>$PROJ_DIR$/../conf_clock.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../conf_board.h</name>
+							</file>
+							<group>
+								<name>iar</name>
+								<file>
+									<name>$PROJ_DIR$/asf.h</name>
+								</file>
+							</group>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../../documentation.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.h</name>
+						</file>
+					</group>
+				</group>
+			</group>
 		</group>
 	</group>
 </project>

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D21/D10/D11 Quick Start Guide for Using ADC/DAC driver with DMA
+ * \brief SAM D21/D11/L21/DA1/C21 Quick Start Guide for Using ADC/DAC driver with DMA
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,6 +47,9 @@
  * The supported board list:
  *    - SAMD21 Xplained Pro
  *    - SAMD11 Xplained Pro
+ *    - SAML21 Xplained Pro
+ *    - SAMDA1 Xplained Pro
+ *    - SAMC21 Xplained Pro
  *
  * This quick start will convert an analog input signal from AIN4 and output
  * the converted value to DAC on PA2. The data between ADC and DAC with be
@@ -55,7 +58,7 @@
  * The ADC will be configured with the following settings:
  * - 1/2 VDDANA
  * - Div 16 clock prescaler
- * - 10 bit resolution
+ * - 10-bit resolution
  * - Window monitor disabled
  * - No gain
  * - Positive input on ADC AIN4
@@ -72,7 +75,7 @@
  * - Pin scan mode disabled
  *
  * The DAC will be configured with the following settings:
- * - Analog VCC as reference
+ * - Analog V<SUB>CC</SUB> as reference
  * - Internal output disabled
  * - Drive the DAC output to PA2
  * - Right adjust data
@@ -113,7 +116,7 @@
  *          In most cases, this should be global.
  *
  * -# Configure the ADC module.
- *  -# Create a ADC module configuration struct, which can be filled out to
+ *  -# Create an ADC module configuration struct, which can be filled out to
  *     adjust the configuration of a physical ADC peripheral.
  *     \snippet qs_adc_dma_use.c setup_adc_config
  *  -# Initialize the ADC configuration struct with the module's default values.
@@ -122,9 +125,9 @@
  *           struct to ensure that all values are initialized to known default
  *           settings.
  *
- *  -# Set extra configurations
+ *  -# Set extra configurations.
  *     \snippet qs_adc_dma_use.c setup_adc_config_extra
- *  -# Set ADC configurations
+ *  -# Set ADC configurations.
  *     \snippet qs_adc_dma_use.c setup_adc_set_config
 
  *  -# Enable the ADC module so that conversions can be made.
@@ -182,7 +185,7 @@
  *          settings.
  *
  * -# Set extra configurations for the DMA resource. ADC_DMAC_ID_RESRDY trigger
- *    and trigger causes a beat transfer in this example.
+ *      causes a beat transfer in this example.
  *    \snippet qs_adc_dma_use.c setup_dma_set_config_extra
  *
  * -# Allocate a DMA resource with the configurations.
@@ -200,7 +203,7 @@
  *          settings.
  *
  * -# Set the specific parameters for a DMA transfer with transfer size, source
- *    address, destination address.
+ *    address, and destination address.
  *    \snippet qs_adc_dma_use.c setup_dma_desc_config_set_extra
  *
  * -# Create the DMA transfer descriptor.
@@ -222,6 +225,11 @@
  * -# Start the transfer job.
  *  \snippet qs_adc_dma_use.c start_transfer
  *
- * -# Enter endless loop
+ * -# Enter endless loop.
  *  \snippet qs_adc_dma_use.c endless_loop
  */
+
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
+

@@ -3,7 +3,7 @@
  *
  * @brief Low-level crypto API for an AES unit implemented in AT86RF2xx
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,11 +43,11 @@
 /**
  * @author
  *      Atmel Corporation: http://www.atmel.com
- *      Support email: avr@atmel.com
+ *      Support: http://www.atmel.com/design-support/
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */

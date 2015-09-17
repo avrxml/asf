@@ -4,7 +4,7 @@
  * \brief Provides the low-level initialization functions that called 
  * on chip startup.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,6 +41,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef SYSTEM_SAM3SD8_H_INCLUDED
 #define SYSTEM_SAM3SD8_H_INCLUDED
@@ -54,6 +57,7 @@ extern "C" {
 /* @endcond */
 
 #include <stdint.h>
+#include <compiler.h>
 
 extern uint32_t SystemCoreClock;	/* System Clock Frequency (Core Clock) */
 

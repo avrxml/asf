@@ -5,7 +5,7 @@
  *
  * This file contains definitions and functions for raw NAND Flash operation.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,6 +42,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "nand_flash_raw.h"
 #include "conf_board.h"
@@ -56,6 +59,9 @@
 #include "conf_ebi.h"
 #endif
 #include "delay.h"
+#if (SAM4E)
+#include <ioport.h>
+#endif
 
 #ifndef PIN_NF_CE_IDX
 #warning There are no NAND Flash module on the board.
@@ -471,7 +477,13 @@ uint32_t nand_flash_raw_initialize(struct nand_flash_raw *raw,
 
 	/* CS setting in matrix */
 	matrix_set_nandflash_cs(0x1u << BOARD_NAND_CS);
-
+#if (SAM4E) 
+	if (PIN_NF_RB_IDX == PIO_PB12_IDX) {
+		matrix_set_system_io(CCFG_SYSIO_SYSIO12);	
+		ioport_set_pin_dir(PIN_NF_RB_IDX, IOPORT_DIR_INPUT);
+		ioport_set_pin_mode(PIN_NF_RB_IDX, IOPORT_MODE_PULLUP);
+	}
+#endif
 	/* Configure SMC interface for NAND Flash */
 	smc_set_setup_timing(SMC, BOARD_NAND_CS, CONF_NF_SETUP_TIMING);
 	smc_set_pulse_timing(SMC, BOARD_NAND_CS, CONF_NF_PULSE_TIMING);

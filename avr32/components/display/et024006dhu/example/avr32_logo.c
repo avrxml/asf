@@ -4,7 +4,7 @@
  *
  * \brief Logo displayed by the ET024006DHU example.
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,6 +41,9 @@
  * \asf_license_stop
  *
  ******************************************************************************/
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 const unsigned short int avr32_logo[] = {
 	0x220D, 0x220D, 0x21EC, 0x220D, 0x220D, 0x222D, 0x220D, 0x220D,

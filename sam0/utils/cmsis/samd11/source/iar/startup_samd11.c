@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,48 +41,14 @@
 
 #include "samd11.h"
 
+typedef void (*intfunc) (void);
+typedef union { intfunc __fun; void * __ptr; } intvec_elem;
+
 void __iar_program_start(void);
 int __low_level_init(void);
 
+/* Default empty handler */
 void Dummy_Handler(void);
-void Reset_Handler(void);
-
-/**
- * \brief Default interrupt handler for unused IRQs.
- */
-void Dummy_Handler(void)
-{
-        while (1) {
-        }
-}
-
-/* Cortex-M0+ core handlers */
-void NMI_Handler              ( void );
-void HardFault_Handler        ( void );
-void SVC_Handler              ( void );
-void PendSV_Handler           ( void );
-void SysTick_Handler          ( void );
-
-/* Peripherals handlers */
-void PM_Handler               ( void );
-void SYSCTRL_Handler          ( void );
-void WDT_Handler              ( void );
-void RTC_Handler              ( void );
-void EIC_Handler              ( void );
-void NVMCTRL_Handler          ( void );
-void DMAC_Handler             ( void );
-void USB_Handler              ( void );
-void EVSYS_Handler            ( void );
-void SERCOM0_Handler          ( void );
-void SERCOM1_Handler          ( void );
-void SERCOM2_Handler          ( void );
-void TCC0_Handler             ( void );
-void TC1_Handler              ( void );
-void TC2_Handler              ( void );
-void ADC_Handler              ( void );
-void AC_Handler               ( void );
-void DAC_Handler              ( void );
-void PTC_Handler              ( void );
 
 /* Cortex-M0+ core handlers */
 #pragma weak NMI_Handler              = Dummy_Handler
@@ -99,30 +65,35 @@ void PTC_Handler              ( void );
 #pragma weak EIC_Handler              = Dummy_Handler
 #pragma weak NVMCTRL_Handler          = Dummy_Handler
 #pragma weak DMAC_Handler             = Dummy_Handler
+#ifdef       ID_USB
 #pragma weak USB_Handler              = Dummy_Handler
+#endif
 #pragma weak EVSYS_Handler            = Dummy_Handler
 #pragma weak SERCOM0_Handler          = Dummy_Handler
 #pragma weak SERCOM1_Handler          = Dummy_Handler
+#ifdef       ID_SERCOM2
 #pragma weak SERCOM2_Handler          = Dummy_Handler
+#endif
 #pragma weak TCC0_Handler             = Dummy_Handler
 #pragma weak TC1_Handler              = Dummy_Handler
 #pragma weak TC2_Handler              = Dummy_Handler
 #pragma weak ADC_Handler              = Dummy_Handler
 #pragma weak AC_Handler               = Dummy_Handler
+#ifdef       ID_DAC
 #pragma weak DAC_Handler              = Dummy_Handler
+#endif
 #pragma weak PTC_Handler              = Dummy_Handler
 
 /* Exception Table */
-#pragma language=extended
-#pragma segment="CSTACK"
+#pragma language = extended
+#pragma segment  = "CSTACK"
 
 /* The name "__vector_table" has special meaning for C-SPY: */
 /* it is where the SP start value is found, and the NVIC vector */
 /* table register (VTOR) is initialized to this address if != 0 */
 
-#pragma section = ".intvec"
+#pragma section  = ".intvec"
 #pragma location = ".intvec"
-//! [startup_vector_table]
 const DeviceVectors __vector_table[] = {
         __sfe("CSTACK"),
         (void*) Reset_Handler,
@@ -149,20 +120,31 @@ const DeviceVectors __vector_table[] = {
         (void*) EIC_Handler,            /*  4 External Interrupt Controller */
         (void*) NVMCTRL_Handler,        /*  5 Non-Volatile Memory Controller */
         (void*) DMAC_Handler,           /*  6 Direct Memory Access Controller */
+#ifdef ID_USB
         (void*) USB_Handler,            /*  7 Universal Serial Bus */
+#else
+        (void*) (0UL), /* Reserved*/
+#endif
         (void*) EVSYS_Handler,          /*  8 Event System Interface */
         (void*) SERCOM0_Handler,        /*  9 Serial Communication Interface 0 */
         (void*) SERCOM1_Handler,        /* 10 Serial Communication Interface 1 */
+#ifdef ID_SERCOM2
         (void*) SERCOM2_Handler,        /* 11 Serial Communication Interface 2 */
-        (void*) TCC0_Handler,           /* 12 Timer Counter Control 0 */
+#else
+        (void*) (0UL), /* Reserved*/
+#endif
+        (void*) TCC0_Handler,           /* 12 Timer Counter Control */
         (void*) TC1_Handler,            /* 13 Basic Timer Counter 0 */
         (void*) TC2_Handler,            /* 14 Basic Timer Counter 1 */
         (void*) ADC_Handler,            /* 15 Analog Digital Converter */
         (void*) AC_Handler,             /* 16 Analog Comparators */
+#ifdef ID_DAC
         (void*) DAC_Handler,            /* 17 Digital Analog Converter */
+#else
+        (void*) (0UL), /* Reserved*/
+#endif
         (void*) PTC_Handler             /* 18 Peripheral Touch Controller */
 };
-//! [startup_vector_table]
 
 /**------------------------------------------------------------------------------
  * This is the code that gets called on processor reset. To initialize the
@@ -183,5 +165,27 @@ int __low_level_init(void)
  *------------------------------------------------------------------------------*/
 void Reset_Handler(void)
 {
+        /* Change default QOS values to have the best performance and correct USB behaviour */
+        SBMATRIX->SFR[SBMATRIX_SLAVE_HMCRAMC0].reg = 2;
+#if defined(ID_USB)
+        USB->DEVICE.QOSCTRL.bit.CQOS = 2;
+        USB->DEVICE.QOSCTRL.bit.DQOS = 2;
+#endif
+        DMAC->QOSCTRL.bit.DQOS = 2;
+        DMAC->QOSCTRL.bit.FQOS = 2;
+        DMAC->QOSCTRL.bit.WRBQOS = 2;
+
+        /* Overwriting the default value of the NVMCTRL.CTRLB.MANW bit (errata reference 13134) */
+        NVMCTRL->CTRLB.bit.MANW = 1;
+
         __iar_program_start();
+}
+
+/**
+ * \brief Default interrupt handler for unused IRQs.
+ */
+void Dummy_Handler(void)
+{
+        while (1) {
+        }
 }

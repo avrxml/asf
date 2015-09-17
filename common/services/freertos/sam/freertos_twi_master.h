@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Peripheral Control API For the TWI
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef FREERTOS_TWI_MASTER_INCLUDED
@@ -618,7 +621,7 @@ status_code_t freertos_twi_read_packet_async(freertos_twi_if p_twi,
 	  {
 	  // The buffers into which the data is placed are too large to be declared on
 	  // the task stack, so are instead declared static (making this function
-	  // non-reentrant – meaning it can only be called by a single task at a time,
+	  // non-reentrant meaning it can only be called by a single task at a time,
 	  // otherwise multiple tasks would use the same buffers).
 	  static uint8_t first_receive_buffer[BUFFER_SIZE], second_receive_buffer[BUFFER_SIZE];
 	  xSemaphoreHandle notification_semaphore = NULL;

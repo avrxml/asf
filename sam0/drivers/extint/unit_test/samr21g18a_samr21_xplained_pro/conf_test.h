@@ -3,7 +3,7 @@
  *
  * \brief SAM R21 Xplained Pro test configuration.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CONF_TEST_H_INCLUDED
 #define CONF_TEST_H_INCLUDED
@@ -51,5 +54,12 @@
 #define CONF_STDIO_PINMUX_PAD2    EDBG_CDC_SERCOM_PINMUX_PAD2
 #define CONF_STDIO_PINMUX_PAD3    EDBG_CDC_SERCOM_PINMUX_PAD3
 #define CONF_STDIO_BAUDRATE       38400
+
+/* GPIO pin used for testing the interrupts */
+#define GPIO_TEST_PIN_EXTINT  EXT3_PIN_10
+
+#define EIC_TEST_CHANNEL      6
+#define EIC_TEST_PIN          PIN_PA06A_EIC_EXTINT6
+#define EIC_TEST_PIN_MUX      PINMUX_PA06A_EIC_EXTINT6
 
 #endif /* CONF_TEST_H_INCLUDED */

@@ -2238,10 +2238,10 @@
 									<name>$PROJ_DIR$/../../../../../source/tal/atmegarfr2/inc/tal_slotted_csma.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../source/tal/atmegarfr2/inc/atmega256rfr2.h</name>
+									<name>$PROJ_DIR$/../../../../../source/tal/atmegarfr2/inc/tal_internal.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../source/tal/atmegarfr2/inc/tal_internal.h</name>
+									<name>$PROJ_DIR$/../../../../../source/tal/atmegarfr2/inc/atmega256rfr2.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../source/tal/atmegarfr2/inc/tal_irq_handler.h</name>
@@ -2433,9 +2433,6 @@
 							<group>
 								<name>inc</name>
 								<file>
-									<name>$PROJ_DIR$/../../inc/app_frame_format.h</name>
-								</file>
-								<file>
 									<name>$PROJ_DIR$/../../inc/perf_api_serial_handler.h</name>
 								</file>
 								<file>
@@ -2452,6 +2449,9 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../inc/app_init.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../inc/app_frame_format.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../inc/perf_msg_const.h</name>
@@ -2497,6 +2497,9 @@
 					<name>include</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../include/mac_build_config.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../include/ieee_154g.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../include/return_val.h</name>

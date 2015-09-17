@@ -3,7 +3,7 @@
  *
  * \brief SAMG55 Xplained Pro board definition
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef SAMG55_XPLAINED_PRO_H_INCLUDED
@@ -186,7 +189,7 @@ void system_board_init(void);
 #define BUTTON_COUNT 1
 
 #define CONSOLE_UART               USART7
-#define CONSOLE_UART_ID            ID_USART7
+#define CONSOLE_UART_ID            ID_FLEXCOM7
 /** USART7 pins (TXD7 and RXD7) definitions, PA27,28. */
 #define PINS_USART7        (PIO_PA27B_RXD7| PIO_PA28B_TXD7)
 #define PINS_USART7_FLAGS  (IOPORT_MODE_MUX_B)
@@ -314,7 +317,7 @@ void system_board_init(void);
 /** \name Extension header #1 UART definitions
  *  @{
  */
-#define EXT1_UART_MODULE          USART
+#define EXT1_UART_MODULE          USART0
 #define EXT1_UART_RXD_MUX         IOPORT_MODE_MUX_A
 #define EXT1_UART_TXD_MUX         IOPORT_MODE_MUX_A
 /** @} */
@@ -421,8 +424,8 @@ void system_board_init(void);
 /** \name Extension header #4 pin definitions
  *  @{
  */
-#define EXT4_PIN_5                IOPORT_CREATE_PIN(PIOA, 15)
-#define EXT4_PIN_9                IOPORT_CREATE_PIN(PIOB, 8)
+#define EXT4_PIN_5                IOPORT_CREATE_PIN(PIOA, 31)
+#define EXT4_PIN_9                IOPORT_CREATE_PIN(PIOB, 14)
 #define EXT4_PIN_11               IOPORT_CREATE_PIN(PIOB, 10)
 #define EXT4_PIN_12               IOPORT_CREATE_PIN(PIOB, 11)
 /** @} */
@@ -527,6 +530,34 @@ void system_board_init(void);
 #define TWI6_DATA_FLAGS  IOPORT_MODE_MUX_B
 #define TWI6_CLK_GPIO    EXT3_PIN_12
 #define TWI6_CLK_FLAGS   IOPORT_MODE_MUX_B
+/** @} */
+
+/** \name USART
+* @{
+*/
+/** USART0 pin definitions */
+#define USART0_RXD_GPIO	  EXT1_PIN_13
+#define USART0_RXD_FLAGS  IOPORT_MODE_MUX_A
+#define USART0_TXD_GPIO   EXT1_PIN_14
+#define USART0_TXD_FLAGS  IOPORT_MODE_MUX_A
+#define USART0_SCK_GPIO   EXT3_PIN_14
+#define USART0_SCK_FLAGS  IOPORT_MODE_MUX_A
+#define USART0_CTS_GPIO   EXT1_PIN_6
+#define USART0_CTS_FLAGS  IOPORT_MODE_MUX_A
+#define USART0_RTS_GPIO   EXT1_PIN_5
+#define USART0_RTS_FLAGS  IOPORT_MODE_MUX_A
+
+/** USART6 pin definitions */
+#define USART6_RXD_GPIO   EXT4_PIN_12
+#define USART6_RXD_FLAGS  IOPORT_MODE_MUX_B
+#define USART6_TXD_GPIO   EXT4_PIN_11
+#define USART6_TXD_FLAGS  IOPORT_MODE_MUX_B
+#define USART6_SCK_GPIO   EXT3_PIN_8
+#define USART6_SCK_FLAGS  IOPORT_MODE_MUX_B
+#define USART6_CTS_GPIO   EXT4_PIN_9
+#define USART6_CTS_FLAGS  IOPORT_MODE_MUX_B
+#define USART6_RTS_GPIO   EXT3_PIN_6
+#define USART6_RTS_FLAGS  IOPORT_MODE_MUX_B
 /** @} */
 
 //! \name I2S0

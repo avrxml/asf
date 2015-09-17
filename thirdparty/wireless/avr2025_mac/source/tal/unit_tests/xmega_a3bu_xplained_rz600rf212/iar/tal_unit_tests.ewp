@@ -2438,6 +2438,9 @@
 				<group>
 					<name>include</name>
 					<file>
+						<name>$PROJ_DIR$/../../../../../include/ieee_154g.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../include/avr2025_mac.h</name>
 					</file>
 					<file>
@@ -2742,10 +2745,10 @@
 					<name>$PROJ_DIR$/../../../../../../../../xmega/boards/xmega_a3bu_xplained/init.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../xmega/boards/xmega_a3bu_xplained/xmega_a3bu_xplained.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../xmega/boards/xmega_a3bu_xplained/led.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../xmega/boards/xmega_a3bu_xplained/led.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../xmega/boards/xmega_a3bu_xplained/xmega_a3bu_xplained.h</name>
 				</file>
 			</group>
 		</group>

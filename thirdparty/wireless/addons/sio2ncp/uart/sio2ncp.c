@@ -4,7 +4,7 @@
  * \brief Handles Serial I/O  Functionalities
  *
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -93,8 +93,17 @@ static uint8_t serial_rx_count;
 void sio2ncp_init(void)
 {
 #if SAMD || SAMR21
-	SIO2NCP_USART_INIT();
-	stdio_serial_init(&uart_module, USART_NCP, &uart_config);
+	struct usart_config ncp_uart_config;
+	/* Configure USART for unit test output */
+	usart_get_config_defaults(&ncp_uart_config);
+	ncp_uart_config.mux_setting = NCP_SERCOM_MUX_SETTING;
+
+	ncp_uart_config.pinmux_pad0 = NCP_SERCOM_PINMUX_PAD0;
+	ncp_uart_config.pinmux_pad1 = NCP_SERCOM_PINMUX_PAD1;
+	ncp_uart_config.pinmux_pad2 = NCP_SERCOM_PINMUX_PAD2;
+	ncp_uart_config.pinmux_pad3 = NCP_SERCOM_PINMUX_PAD3;
+	ncp_uart_config.baudrate    = USART_NCP_BAUDRATE;
+	stdio_serial_init(&uart_module, USART_NCP, &ncp_uart_config);
 	usart_enable(&uart_module);
 	/* Enable transceivers */
 	usart_enable_transceiver(&uart_module, USART_TRANSCEIVER_TX);
@@ -104,8 +113,10 @@ void sio2ncp_init(void)
 #endif
 
 #if (BOARD == SAM4L_XPLAINED_PRO)
+#if defined (NCP_RESET_GPIO)
 	ioport_set_pin_dir(NCP_RESET_GPIO, IOPORT_DIR_OUTPUT);
 	ioport_set_pin_level(NCP_RESET_GPIO, IOPORT_PIN_LEVEL_HIGH);
+#endif
 #endif /* (BOARD == SAM4L_XPLAINED_PRO) */
 	USART_NCP_RX_ISR_ENABLE();
 }
@@ -136,6 +147,15 @@ uint8_t sio2ncp_tx(uint8_t *data, uint8_t length)
 uint8_t sio2ncp_rx(uint8_t *data, uint8_t max_length)
 {
 	uint8_t data_received = 0;
+	if(serial_rx_buf_tail >= serial_rx_buf_head)
+	{
+		serial_rx_count = serial_rx_buf_tail - serial_rx_buf_head;
+	}
+	else
+	{
+		serial_rx_count = serial_rx_buf_tail + (SERIAL_RX_BUF_SIZE_NCP - serial_rx_buf_head);
+	}
+	
 	if (0 == serial_rx_count) {
 		return 0;
 	}
@@ -183,12 +203,14 @@ uint8_t sio2ncp_rx(uint8_t *data, uint8_t max_length)
 	while (max_length > 0) {
 		/* Start to copy from head. */
 		*data = serial_rx_buf[serial_rx_buf_head];
-		serial_rx_buf_head++;
-		serial_rx_count--;
 		data++;
 		max_length--;
-		if ((SERIAL_RX_BUF_SIZE_NCP) == serial_rx_buf_head) {
+		if ((SERIAL_RX_BUF_SIZE_NCP - 1) == serial_rx_buf_head) {
 			serial_rx_buf_head = 0;
+		}
+		else
+		{
+			serial_rx_buf_head++;
 		}
 	}
 	return data_received;
@@ -231,7 +253,6 @@ USART_NCP_ISR_VECT()
 
 	/* The number of data in the receive buffer is incremented and the
 	 * buffer is updated. */
-	serial_rx_count++;
 
 	serial_rx_buf[serial_rx_buf_tail] = temp;
 

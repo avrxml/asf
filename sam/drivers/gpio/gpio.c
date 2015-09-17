@@ -3,7 +3,7 @@
  *
  * \brief GPIO driver.
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "gpio.h"
@@ -78,7 +81,7 @@ static uint32_t gpio_nb_sources = 0;
  *
  * \retval true Set successfully
  * \retval false Wrong parameters or maximum number of interrupt
- *                  sources has been exceeding.
+ *                  sources has been exceeding
  */
 bool gpio_set_pin_callback(ioport_pin_t pin, gpio_pin_callback_t callback,
 		uint8_t irq_level)

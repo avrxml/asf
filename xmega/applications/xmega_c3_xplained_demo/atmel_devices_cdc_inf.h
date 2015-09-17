@@ -1,7 +1,7 @@
 "; Windows 2000, XP, Vista and 7 (x32 and x64) setup file for Atmel CDC Devices\r\n"
 "\r\n"
 "; Copyright (c) 2000 Microsoft Corporation\r\n"
-"; Copyright (C) 2000-2012 ATMEL, Inc.\r\n"
+"; Copyright (C) 2000-2015 ATMEL, Inc.\r\n"
 "\r\n"
 "[Version] \r\n"
 "Signature=\"$Windows NT$\" \r\n"

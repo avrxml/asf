@@ -85,6 +85,10 @@ INC_PATH = \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samd20 \
        sam0/drivers/system/pinmux                         \
+       sam0/drivers/system/power                          \
+       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/reset                          \
+       sam0/drivers/system/reset/reset_sam_d_r            \
        sam0/utils                                         \
        sam0/utils/cmsis/samd20/include                    \
        sam0/utils/cmsis/samd20/source                     \
@@ -140,7 +144,7 @@ CFLAGS =
 #   BOARD      Target board in use, see boards/board.h for a list.
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
-       -D ARM_MATH_CM0=true                               \
+       -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMD20_XPLAINED_PRO                       \
        -D SYSTICK_MODE                                    \
        -D __SAMD20J18__

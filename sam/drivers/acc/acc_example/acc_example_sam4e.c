@@ -3,7 +3,7 @@
  *
  * \brief Analog Comparator Controller (ACC) example for SAM4E.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -92,6 +92,9 @@
  * -# Input command according to the menu.
  * -# Change voltage on AD5 by adjusting VR1 to see what comparison event happen.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"
@@ -256,11 +259,13 @@ int main(void)
 	dacc_disable_trigger(DACC);
 	/* Half word transfer mode */
 	dacc_set_transfer_mode(DACC, 0);
+#if (SAM3S) || (SAM3XA)
 	/* Power save:
 	 * sleep mode  - 0 (disabled)
 	 * fast wakeup - 0 (disabled)
 	 */
 	dacc_set_power_save(DACC, 0, 0);
+#endif
 	/* Timing:
 	 * refresh        - 0x08 (1024*8 dacc clocks)
 	 * max speed mode -    0 (disabled)

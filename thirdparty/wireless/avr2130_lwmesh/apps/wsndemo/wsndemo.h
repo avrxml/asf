@@ -3,7 +3,7 @@
  *
  * \brief  Main of WSNDemo application
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
 
 /**
  * \page license License
- * Copyright(c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -51,7 +51,9 @@
 #define WSNDEMO_H
 
 # include "board.h"
-int wsndemo_main(void);
+
+void wsndemo_init(void);
+void wsndemo_task(void);
 
 #ifndef LED_COUNT
 #define LED_COUNT 0

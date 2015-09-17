@@ -3,7 +3,7 @@
  *
  * \brief HMATRIX example for SAM.
  *
- * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,6 +83,9 @@
 	-- Test2: configure Round-Robin arbitration with last access master. --
 	    Led toggled xxx times in one second
 \endcode
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"

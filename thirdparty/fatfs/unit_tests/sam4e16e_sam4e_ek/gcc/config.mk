@@ -136,7 +136,7 @@ LIB_PATH =  \
 # List of libraries to use during linking.
 LIBS =  \
        _nand_flash_cortexm4                               \
-       arm_cortexM4lf_math                                \
+       arm_cortexM4lf_math_softfp                         \
        m                                                 
 
 # Path relative to top level directory pointing to a linker script.

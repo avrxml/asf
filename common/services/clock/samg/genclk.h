@@ -3,7 +3,7 @@
  *
  * \brief Chip-specific generic clock management.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CHIP_GENCLK_H_INCLUDED
 #define CHIP_GENCLK_H_INCLUDED
@@ -65,6 +68,13 @@ extern "C" {
 #define GENCLK_PCK_0      0  //!< PCK0 ID
 #define GENCLK_PCK_1      1  //!< PCK1 ID
 #define GENCLK_PCK_2      2  //!< PCK2 ID
+#if SAMG55
+#define GENCLK_PCK_3      3  //!< PCK3 ID
+#define GENCLK_PCK_4      4  //!< PCK4 ID
+#define GENCLK_PCK_5      5  //!< PCK5 ID
+#define GENCLK_PCK_6      6  //!< PCK6 ID
+#define GENCLK_PCK_7      7  //!< PCK7 ID
+#endif
 //@}
 
 //! \name Programmable Clock Sources (PCK)
@@ -80,7 +90,12 @@ enum genclk_source {
 	GENCLK_PCK_SRC_MAINCK_XTAL   = 6, //!< External crystal oscillator as PCK source clock
 	GENCLK_PCK_SRC_MAINCK_BYPASS = 7, //!< External bypass oscillator as PCK source clock
 	GENCLK_PCK_SRC_PLLACK        = 8, //!< Use PLLACK as PCK source clock
+#if SAMG55
+	GENCLK_PCK_SRC_PLLBCK        = 9, //!< Use PLLBCK as PCK source clock
+	GENCLK_PCK_SRC_MCK           = 10, //!< Use Master Clk as PCK source clock
+#else
 	GENCLK_PCK_SRC_MCK           = 9, //!< Use Master Clk as PCK source clock
+#endif
 };
 
 //@}
@@ -149,6 +164,12 @@ static inline void genclk_config_set_source(struct genclk_config *p_cfg,
 	case GENCLK_PCK_SRC_PLLACK:
 		p_cfg->ctrl |= (PMC_PCK_CSS_PLLA_CLK);
 		break;
+
+#if SAMG55
+	case GENCLK_PCK_SRC_PLLBCK:
+		p_cfg->ctrl |= (PMC_PCK_CSS_PLLB_CLK);
+		break;
+#endif
 
 	case GENCLK_PCK_SRC_MCK:
 		p_cfg->ctrl |= (PMC_PCK_CSS_MCK);
@@ -239,6 +260,14 @@ static inline void genclk_enable_source(enum genclk_source e_src)
 	case GENCLK_PCK_SRC_PLLACK:
 		pll_enable_config_defaults(0);
 		break;
+#endif
+
+#if SAMG55
+#ifdef CONFIG_PLL1_SOURCE
+	case GENCLK_PCK_SRC_PLLBCK:
+		pll_enable_config_defaults(1);
+		break;
+#endif
 #endif
 
 	case GENCLK_PCK_SRC_MCK:

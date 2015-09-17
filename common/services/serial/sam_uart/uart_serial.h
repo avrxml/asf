@@ -3,7 +3,7 @@
  *
  * \brief Uart Serial for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,12 +40,18 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef _UART_SERIAL_H_
 #define _UART_SERIAL_H_
 
 #include "compiler.h"
 #include "sysclk.h"
-#if (!SAM4L)
+#if (SAMG55)
+#include "flexcom.h"
+#endif
+#if ((!SAM4L) && (!SAMG55))
 #include "uart.h"
 #endif
 #include "usart.h"
@@ -95,7 +101,7 @@ typedef Usart *usart_if;
 static inline void usart_serial_init(usart_if p_usart,
 		usart_serial_options_t *opt)
 {
-#if (!SAM4L)
+#if ((!SAM4L) && (!SAMG55))
 	sam_uart_opt_t uart_settings;
 	uart_settings.ul_mck = sysclk_get_peripheral_hz();
 	uart_settings.ul_baudrate = opt->baudrate;
@@ -169,7 +175,12 @@ static inline void usart_serial_init(usart_if p_usart,
 # ifdef USART0
 	if (USART0 == p_usart) {
 #if (!SAM4L)
+#if (SAMG55)
+		flexcom_enable(FLEXCOM0);
+		flexcom_set_opmode(FLEXCOM0, FLEXCOM_USART);
+#else
 		sysclk_enable_peripheral_clock(ID_USART0);
+#endif
 		/* Configure USART */
 		usart_init_rs232(p_usart, &usart_settings,
 				sysclk_get_peripheral_hz());
@@ -188,7 +199,12 @@ static inline void usart_serial_init(usart_if p_usart,
 # ifdef USART1
 	if (USART1 == p_usart) {
 #if (!SAM4L)
+#if (SAMG55)
+		flexcom_enable(FLEXCOM1);
+		flexcom_set_opmode(FLEXCOM1, FLEXCOM_USART);
+#else
 		sysclk_enable_peripheral_clock(ID_USART1);
+#endif
 		/* Configure USART */
 		usart_init_rs232(p_usart, &usart_settings,
 				sysclk_get_peripheral_hz());
@@ -207,7 +223,12 @@ static inline void usart_serial_init(usart_if p_usart,
 # ifdef USART2
 	if (USART2 == p_usart) {
 #if (!SAM4L)
+#if (SAMG55)
+		flexcom_enable(FLEXCOM2);
+		flexcom_set_opmode(FLEXCOM2, FLEXCOM_USART);
+#else
 		sysclk_enable_peripheral_clock(ID_USART2);
+#endif
 		/* Configure USART */
 		usart_init_rs232(p_usart, &usart_settings,
 				sysclk_get_peripheral_hz());
@@ -226,7 +247,12 @@ static inline void usart_serial_init(usart_if p_usart,
 # ifdef USART3
 	if (USART3 == p_usart) {
 #if (!SAM4L)
+#if (SAMG55)
+		flexcom_enable(FLEXCOM3);
+		flexcom_set_opmode(FLEXCOM3, FLEXCOM_USART);
+#else
 		sysclk_enable_peripheral_clock(ID_USART3);
+#endif
 		/* Configure USART */
 		usart_init_rs232(p_usart, &usart_settings,
 				sysclk_get_peripheral_hz());
@@ -245,7 +271,12 @@ static inline void usart_serial_init(usart_if p_usart,
 # ifdef USART4
 	if (USART4 == p_usart) {
 #if (!SAM4L)
+#if (SAMG55)
+		flexcom_enable(FLEXCOM4);
+		flexcom_set_opmode(FLEXCOM4, FLEXCOM_USART);
+#else
 		sysclk_enable_peripheral_clock(ID_USART4);
+#endif
 		/* Configure USART */
 		usart_init_rs232(p_usart, &usart_settings,
 				sysclk_get_peripheral_hz());
@@ -261,6 +292,79 @@ static inline void usart_serial_init(usart_if p_usart,
 		usart_enable_rx(p_usart);
 	}
 # endif
+# ifdef USART5
+	if (USART5 == p_usart) {
+#if (!SAM4L)
+#if (SAMG55)
+		flexcom_enable(FLEXCOM5);
+		flexcom_set_opmode(FLEXCOM5, FLEXCOM_USART);
+#else
+		sysclk_enable_peripheral_clock(ID_USART5);
+#endif
+		/* Configure USART */
+		usart_init_rs232(p_usart, &usart_settings,
+				sysclk_get_peripheral_hz());
+#endif
+#if (SAM4L)
+		sysclk_enable_peripheral_clock(p_usart);
+		/* Configure USART */
+		usart_init_rs232(p_usart, &usart_settings,
+				sysclk_get_peripheral_bus_hz(p_usart));
+#endif
+		/* Enable the receiver and transmitter. */
+		usart_enable_tx(p_usart);
+		usart_enable_rx(p_usart);
+	}
+# endif
+# ifdef USART6
+	if (USART6 == p_usart) {
+#if (!SAM4L)
+#if (SAMG55)
+		flexcom_enable(FLEXCOM6);
+		flexcom_set_opmode(FLEXCOM6, FLEXCOM_USART);
+#else
+		sysclk_enable_peripheral_clock(ID_USART6);
+#endif
+		/* Configure USART */
+		usart_init_rs232(p_usart, &usart_settings,
+				sysclk_get_peripheral_hz());
+#endif
+#if (SAM4L)
+		sysclk_enable_peripheral_clock(p_usart);
+		/* Configure USART */
+		usart_init_rs232(p_usart, &usart_settings,
+				sysclk_get_peripheral_bus_hz(p_usart));
+#endif
+		/* Enable the receiver and transmitter. */
+		usart_enable_tx(p_usart);
+		usart_enable_rx(p_usart);
+	}
+# endif
+# ifdef USART7
+	if (USART7 == p_usart) {
+#if (!SAM4L)
+#if (SAMG55)
+		flexcom_enable(FLEXCOM7);
+		flexcom_set_opmode(FLEXCOM7, FLEXCOM_USART);
+#else
+		sysclk_enable_peripheral_clock(ID_USART7);
+#endif
+		/* Configure USART */
+		usart_init_rs232(p_usart, &usart_settings,
+				sysclk_get_peripheral_hz());
+#endif
+#if (SAM4L)
+		sysclk_enable_peripheral_clock(p_usart);
+		/* Configure USART */
+		usart_init_rs232(p_usart, &usart_settings,
+				sysclk_get_peripheral_bus_hz(p_usart));
+#endif
+		/* Enable the receiver and transmitter. */
+		usart_enable_tx(p_usart);
+		usart_enable_rx(p_usart);
+	}
+# endif
+
 #endif /* ifdef USART */
 
 }
@@ -347,6 +451,24 @@ static inline int usart_serial_putchar(usart_if p_usart, const uint8_t c)
 		return 1;
 	}
 # endif
+# ifdef USART5
+	if (USART5 == p_usart) {
+		while (usart_write(p_usart, c)!=0);
+		return 1;
+	}
+# endif
+# ifdef USART6
+	if (USART6 == p_usart) {
+		while (usart_write(p_usart, c)!=0);
+		return 1;
+	}
+# endif
+# ifdef USART7
+	if (USART7 == p_usart) {
+		while (usart_write(p_usart, c)!=0);
+		return 1;
+	}
+# endif
 #endif /* ifdef USART */
 
 	return 0;
@@ -429,6 +551,24 @@ static inline void usart_serial_getchar(usart_if p_usart, uint8_t *data)
 		*data = (uint8_t)(val & 0xFF);
 	}
 # endif
+# ifdef USART5
+	if (USART5 == p_usart) {
+		while (usart_read(p_usart, &val));
+		*data = (uint8_t)(val & 0xFF);
+	}
+# endif
+# ifdef USART6
+	if (USART6 == p_usart) {
+		while (usart_read(p_usart, &val));
+		*data = (uint8_t)(val & 0xFF);
+	}
+# endif
+# ifdef USART7
+	if (USART7 == p_usart) {
+		while (usart_read(p_usart, &val));
+		*data = (uint8_t)(val & 0xFF);
+	}
+# endif
 #endif /* ifdef USART */
 
 }
@@ -498,6 +638,21 @@ static inline uint32_t usart_serial_is_rx_ready(usart_if p_usart)
 # endif
 # ifdef USART4
 	if (USART4 == p_usart) {
+		return usart_is_rx_ready(p_usart);
+	}
+# endif
+# ifdef USART5
+	if (USART5 == p_usart) {
+		return usart_is_rx_ready(p_usart);
+	}
+# endif
+# ifdef USART6
+	if (USART6 == p_usart) {
+		return usart_is_rx_ready(p_usart);
+	}
+# endif
+# ifdef USART7
+	if (USART7 == p_usart) {
 		return usart_is_rx_ready(p_usart);
 	}
 # endif

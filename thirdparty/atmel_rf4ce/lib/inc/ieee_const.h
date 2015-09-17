@@ -6,10 +6,10 @@
  * $Id: ieee_const.h 26610 2011-05-11 08:47:45Z sschneid $
  *
  * @author    Atmel Corporation: http://www.atmel.com
- * @author    Support email: avr@atmel.com
+ * @author    Support: http://www.atmel.com/design-support/
  */
 /*
- * Copyright (c) 2009-2012, Atmel Corporation All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * 
  */

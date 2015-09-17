@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM4 Analog Comparator Controller (ACC) driver.
+ * \brief SAM Analog Comparator Controller (ACC) driver.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,20 +40,28 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef ACC_H_INCLUDED
 #define ACC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_acc_group SAM4 Analog Comparator Controller (ACC)
+ * \defgroup asfdoc_sam_drivers_acc_group SAM3S/4E/4S Analog Comparator Controller (ACC) Driver
  *
- * This driver for SAM4E and SAM4S devices provides an interface for the configuration
- * and management of the device's Analog Comparator Controller functionality.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides an interface for 
+ * the configuration and management of the device's Analog Comparator Controller functionality.
  *
  * The Analog Comparator compares two voltages, and the result of this comparison
  * gives a compare output. The user application can select whether to use a high-speed
  * or a low-power option as well as selecting the hysteresis level, edge detection,
  * and polarity.
+ *
+ * Devices from the following series can use this module:
+ * - Atmel | SMART SAM3S
+ * - Atmel | SMART SAM4E
+ * - Atmel | SMART SAM4S
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam_drivers_acc_prerequisites
@@ -81,7 +89,8 @@
  * application can select a high-speed or low-power option, the hysteresis level,
  * edge detection, and polarity.
  *
- * The ACC can also generate a comparison event that can be used by the PWM.
+ * The ACC can also generate a comparison event that can be used by the Pulse Width
+ * Modulation (PWM) module.
  *
  *
  * \section asfdoc_sam_drivers_acc_special_considerations Special Considerations
@@ -104,10 +113,11 @@
  *
  * \subsection asfdoc_sam_drivers_acc_special_considerations_io I/O Lines
  *
- * The analog input pins (AD0-AD7 and DAC0-1) are multiplexed with GPIO lines.
- * The assignment of these pins to ACC module inputs is automatically done
- * when the corresponding input is assigned to the comparator's plus/minus inputs
- * by the user application performing a write to the module's Mode Register.
+ * The analog input pins (AD0-AD7 and DAC0-1) are multiplexed with general-purpose 
+ * input/output (GPIO) lines. The assignment of these pins to ACC module inputs 
+ * is automatically done when the corresponding input is assigned to the 
+ * comparator's plus/minus inputs by the user application performing a write to 
+ * the module's Mode Register.
  *
  * \subsection asfdoc_sam_drivers_acc_special_considerations_power Power Management
  * The ACC module is clocked through the Power Management Controller (PMC),
@@ -126,7 +136,7 @@
  * \subsection asfdoc_sam_drivers_acc_special_considerations_fault Fault Output
  *
  * The ACC module has a FAULT output that is connected to the FAULT input of the
- * PWM module. Refer to "fault mode”, and the implementation of the pwm in
+ * PWM module. Refer to "fault mode" and the implementation of the PWM in
  * the device-specific datasheet.
  *
  *
@@ -158,7 +168,7 @@ extern "C" {
 /**INDENT-ON**/
 /// @endcond
 
-/** \name Hysteresis levels
+/** \name Hysteresis Levels
  * Refer to the "Analog Comparator Characteristics" table in the
  * "Electrical Characteristics" chapter of the device-specific datasheet.
  * @{
@@ -269,7 +279,7 @@ uint32_t acc_get_writeprotect_status(Acc *p_acc);
  * This is a list of the available Quick Start guides (QSGs) and example
  * applications for \ref asfdoc_sam_drivers_acc_group. QSGs are simple examples, with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  *  - \subpage asfdoc_sam_drivers_acc_qsg
@@ -283,6 +293,11 @@ uint32_t acc_get_writeprotect_status(Acc *p_acc);
  *		<th>Date</td>
  *		<th>Comments</td>
  *	</tr>
+ *  <tr>
+ *    <td>42292B</td>
+ *    <td>07/2015</td>
+ *    <td>Updated title of application note and added list of supported devices</td>
+ *  </tr>
  *	<tr>
  *		<td>42292A</td>
  *		<td>05/2014</td>

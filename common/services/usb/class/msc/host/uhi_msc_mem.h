@@ -3,7 +3,7 @@
  *
  * \brief USB host Mass Storage interface for control access module.
  *
- * Copyright (C) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _UHI_MSC_MEM_H_
 #define _UHI_MSC_MEM_H_
@@ -64,7 +67,7 @@ extern "C" {
 /**
  * \brief Gives the number of available LUN
  *
- * Note: A LUN can be available, but with a status not present.
+ * \note A LUN can be available, but with a status not present.
  * It is the case for a card reader without card.
  *
  * \return Number of available LUN

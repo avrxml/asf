@@ -4,7 +4,7 @@
  *
  * \brief Basic skeleton for ethernet interface
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

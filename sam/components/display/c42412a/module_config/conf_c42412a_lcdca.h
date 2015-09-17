@@ -3,7 +3,7 @@
  *
  * \brief C42412A configuration.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,6 +42,9 @@
  */
 
 /** Configuration of the C42412A LCD glass driver */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CONF_C42412A_LCDCA_H_INCLUDED
 #define CONF_C42412A_LCDCA_H_INCLUDED

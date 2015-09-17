@@ -3,7 +3,7 @@
  *
  * \brief SAM Direct Memory Access Controller(DMAC) Driver Quick Start
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 /**
  * \page asfdoc_sam0_dma_basic_use_case Quick Start Guide for Memory to Memory Data Transfer Using DMAC
@@ -48,6 +51,9 @@
  *    - SAMD21 Xplained Pro
  *    - SAMR21 Xplained Pro
  *    - SAMD11 Xplained Pro
+ *    - SAML21 Xplained Pro
+ *    - SAML22 Xplained Pro
+ *    - SAMDA1 Xplained Pro
  *
  * In this use case, the DMAC is configured for:
  *  \li Moving data from memory to memory
@@ -100,7 +106,7 @@
  *          settings.
  *
  * -# Set the specific parameters for a DMA transfer with transfer size, source
- *    address, destination address. In this example, we have enabled the
+ *    address, and destination address. In this example, we have enabled the
  *    source and destination address increment.
  *    The source and destination addresses to be stored into descriptor_config
  *    must correspond to the end of the transfer.
@@ -131,7 +137,7 @@
  * \section asfdoc_sam0_dma_basic_use_case_main Use Case
  *
  * \subsection asfdoc_sam0_dma_basic_use_casecode_code Code
- * Add the following code at the start of \c main()
+ * Add the following code at the start of \c main():
  * \snippet qs_dma_basic.c sample_resource
  * Copy the following code to your user application:
  * \snippet qs_dma_basic.c main

@@ -3,7 +3,7 @@
  *
  * \brief SAM Serial Peripheral Interface Driver
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include "spi_interrupt.h"
 
@@ -253,7 +256,7 @@ void spi_unregister_callback(
  * Sets up the driver to write to the SPI from a given buffer. If registered
  * and enabled, a callback function will be called when the write is finished.
  *
- * \param[in]  module   Pointer to USART software instance struct
+ * \param[in]  module   Pointer to SPI software instance struct
  * \param[out] tx_data  Pointer to data buffer to receive
  * \param[in]  length   Data buffer length
  *
@@ -298,9 +301,9 @@ enum status_code spi_write_buffer_job(
  * \param[in]  module   Pointer to SPI software instance struct
  * \param[out] rx_data  Pointer to data buffer to receive
  * \param[in]  length   Data buffer length
- * \param[in]  dummy    Dummy character to send when reading in master mode.
+ * \param[in]  dummy    Dummy character to send when reading in master mode
  *
- * \returns Status of the operation
+ * \returns Status of the operation.
  * \retval  STATUS_OK               If the operation completed successfully
  * \retval  STATUS_ERR_BUSY         If the SPI was already busy with a read
  *                                  operation
@@ -350,7 +353,7 @@ enum status_code spi_read_buffer_job(
  * \param[out] rx_data  Pointer to data buffer to receive
  * \param[in]  length   Data buffer length
  *
- * \returns Status of the operation
+ * \returns Status of the operation.
  * \retval  STATUS_OK               If the operation completed successfully
  * \retval  STATUS_ERR_BUSY         If the SPI was already busy with a read
  *                                  operation
@@ -582,14 +585,8 @@ void _spi_interrupt_handler(
 
 				if (module->dir == SPI_DIRECTION_WRITE &&
 						!(module->receiver_enabled)) {
-					/* Buffer sent with receiver disabled */
-					module->dir = SPI_DIRECTION_IDLE;
-					module->status = STATUS_OK;
-					/* Run callback if registered and enabled */
-					if (callback_mask & (1 << SPI_CALLBACK_BUFFER_TRANSMITTED)){
-							(module->callback[SPI_CALLBACK_BUFFER_TRANSMITTED])
-									(module);
-					}
+					/* Enable the Data Register transmit complete Interrupt */
+					spi_hw->INTENSET.reg = SPI_INTERRUPT_FLAG_TX_COMPLETE;
 				}
 			}
 		}
@@ -684,6 +681,22 @@ void _spi_interrupt_handler(
 
 		}
 #  endif
+#  if CONF_SPI_MASTER_ENABLE == true
+		if ((module->mode == SPI_MODE_MASTER) &&
+			(module->dir == SPI_DIRECTION_WRITE) && !(module->receiver_enabled)) {
+		  	/* Clear interrupt flag */
+		 	spi_hw->INTENCLR.reg
+					= SPI_INTERRUPT_FLAG_TX_COMPLETE;
+			/* Buffer sent with receiver disabled */
+			module->dir = SPI_DIRECTION_IDLE;
+			module->status = STATUS_OK;
+			/* Run callback if registered and enabled */
+			if (callback_mask & (1 << SPI_CALLBACK_BUFFER_TRANSMITTED)){
+				(module->callback[SPI_CALLBACK_BUFFER_TRANSMITTED])
+						(module);
+			}
+		}
+#endif
 	}
 
 #  ifdef FEATURE_SPI_SLAVE_SELECT_LOW_DETECT

@@ -5,7 +5,7 @@
  * \brief Clock configuration file with a 12MHz crystal on OSC0 and 11.2896MHz
  * crystal on OSC1.
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,6 +42,9 @@
  * \asf_license_stop
  *
  ******************************************************************************/
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <avr32/io.h>
 #include "board.h"

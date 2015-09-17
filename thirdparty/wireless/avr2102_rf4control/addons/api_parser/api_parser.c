@@ -4,7 +4,7 @@
  * @brief RF4CE API parser.
  *
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -72,6 +72,7 @@
 #include "zrc.h"
 #endif
 #include "vendor_data.h"
+#include "nwk_config.h"
 
 /* === MACROS ============================================================== */
 
@@ -157,99 +158,104 @@ static nwk_indication_callback_t nwk_ind_callback;
 /* === Prototypes ========================================================== */
 
 static inline void process_incoming_data(void);
-nwk_enum_t nwk_init(void);
+
+/* nwk_enum_t nwk_init(void); */
 static uint8_t *get_next_tx_buffer(void);
 static inline void handle_incoming_msg(void);
-bool nlme_reset_request(bool SetDefaultNIB,
-		FUNC_PTR confirm_cb
-		);
-bool nlde_data_request(uint8_t PairingRef, profile_id_t ProfileId,
-		uint16_t VendorId, uint8_t nsduLength, uint8_t *nsdu,
-		uint8_t TxOptions,
-		uint8_t Handle,
-		FUNC_PTR confirm_cb
-		);
-bool nlme_auto_discovery_request(uint8_t RecAppCapabilities,
-		dev_type_t RecDevTypeList[DEVICE_TYPE_LIST_SIZE],
-		profile_id_t RecProfileIdList[PROFILE_ID_LIST_SIZE],
-		uint32_t AutoDiscDuration,
-		FUNC_PTR confirm_cb
-		);
-bool nlme_discovery_request(uint16_t DstPANId, uint16_t DstNwkAddr,
-		uint8_t OrgAppCapabilities,
-		dev_type_t OrgDevTypeList[3],
-		profile_id_t OrgProfileIdList[7],
-		dev_type_t SearchDevType,
-		uint8_t DiscProfileIdListSize,
-		profile_id_t DiscProfileIdList[7],
-		uint32_t DiscDuration,
-		FUNC_PTR confirm_cb
-		);
 
-bool nlme_discovery_response(nwk_enum_t Status, uint64_t DstIEEEAddr,
-		uint8_t RecAppCapabilities, dev_type_t RecDevTypeList[3],
-		profile_id_t RecProfileIdList[7], uint8_t DiscReqLQI);
-bool nlme_pair_request(uint8_t LogicalChannel, uint16_t DstPANId,
-		uint64_t DstIEEEAddr,
-		uint8_t OrgAppCapabilities,
-		dev_type_t OrgDevTypeList[DEVICE_TYPE_LIST_SIZE],
-		profile_id_t OrgProfileIdList[PROFILE_ID_LIST_SIZE],
-		uint8_t KeyExTransferCount,
-		FUNC_PTR confirm_cb
-		);
-bool nlme_pair_response(nwk_enum_t Status, uint16_t DstPANId,
-		uint64_t DstIEEEAddr,
-		uint8_t RecAppCapabilities, dev_type_t RecDevTypeList[3],
-		profile_id_t RecProfileIdList[7], uint8_t ProvPairingRef);
-bool nlme_get_request(nib_attribute_t NIBAttribute, uint8_t NIBAttributeIndex,
-		FUNC_PTR confirm_cb
-		);
-bool nlme_rx_enable_request(uint32_t RxOnDuration,
-		FUNC_PTR confirm_cb
-		);
-bool nlme_set_request(nib_attribute_t NIBAttribute, uint8_t NIBAttributeIndex,
-		uint8_t *NIBAttributeValue,
-		FUNC_PTR confirm_cb
-		);
-bool nlme_start_request(
-		FUNC_PTR confirm_cb);
-
-bool nlme_unpair_request(uint8_t PairingRef,
-		FUNC_PTR confirm_cb
-		);
-bool nlme_unpair_response(uint8_t PairingRef);
-
-bool nlme_update_key_request(uint8_t PairingRef, uint8_t NewLinkKey[16],
-		FUNC_PTR confirm_cb
-		);
-bool nwk_ch_agility_request(nwk_agility_mode_t AgilityMode,
-		FUNC_PTR confirm_cb
-		);
-bool pbp_org_pair_request(uint8_t OrgAppCapabilities,
-		dev_type_t OrgDevTypeList[DEVICE_TYPE_LIST_SIZE],
-		profile_id_t OrgProfileIdList[PROFILE_ID_LIST_SIZE],
-		dev_type_t SearchDevType, uint8_t DiscProfileIdListSize,
-		profile_id_t DiscProfileIdList[PROFILE_ID_LIST_SIZE],
-		FUNC_PTR confirm_cb
-		);
-bool pbp_rec_pair_request(uint8_t RecAppCapabilities,
-		dev_type_t RecDevTypeList[3],
-		profile_id_t RecProfileIdList[7],
-		FUNC_PTR confirm_cb
-		);
-bool zrc_cmd_request(uint8_t PairingRef, uint16_t VendorId,
-		zrc_cmd_code_t CmdCode,
-		uint8_t CmdLength, uint8_t *Cmd, uint8_t TxOptions,
-		FUNC_PTR confirm_cb
-		);
-bool zrc_cmd_disc_request(uint8_t PairingRef,
-		FUNC_PTR confirm_cb
-		);
-bool zrc_cmd_disc_response(uint8_t PairingRef, uint8_t *SupportedCmd);
-void register_nwk_indication_callback(nwk_indication_callback_t *nwk_ind_cb);
-void register_zrc_indication_callback(
-		zrc_indication_callback_t *zrc_ind_callback);
-
+/*
+ * bool nlme_reset_request(bool SetDefaultNIB,
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool nlde_data_request(uint8_t PairingRef, profile_id_t ProfileId,
+ *              uint16_t VendorId, uint8_t nsduLength, uint8_t *nsdu,
+ *              uint8_t TxOptions,
+ *              uint8_t Handle,
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool nlme_auto_discovery_request(uint8_t RecAppCapabilities,
+ *              dev_type_t RecDevTypeList[DEVICE_TYPE_LIST_SIZE],
+ *              profile_id_t RecProfileIdList[PROFILE_ID_LIST_SIZE],
+ *              uint32_t AutoDiscDuration,
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool nlme_discovery_request(uint16_t DstPANId, uint16_t DstNwkAddr,
+ *              uint8_t OrgAppCapabilities,
+ *              dev_type_t OrgDevTypeList[3],
+ *              profile_id_t OrgProfileIdList[7],
+ *              dev_type_t SearchDevType,
+ *              uint8_t DiscProfileIdListSize,
+ *              profile_id_t DiscProfileIdList[7],
+ *              uint32_t DiscDuration,
+ *              FUNC_PTR confirm_cb
+ *              );
+ *
+ * bool nlme_discovery_response(nwk_enum_t Status, uint64_t DstIEEEAddr,
+ *              uint8_t RecAppCapabilities, dev_type_t RecDevTypeList[3],
+ *              profile_id_t RecProfileIdList[7], uint8_t DiscReqLQI);
+ * bool nlme_pair_request(uint8_t LogicalChannel, uint16_t DstPANId,
+ *              uint64_t DstIEEEAddr,
+ *              uint8_t OrgAppCapabilities,
+ *              dev_type_t OrgDevTypeList[DEVICE_TYPE_LIST_SIZE],
+ *              profile_id_t OrgProfileIdList[PROFILE_ID_LIST_SIZE],
+ *              uint8_t KeyExTransferCount,
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool nlme_pair_response(nwk_enum_t Status, uint16_t DstPANId,
+ *              uint64_t DstIEEEAddr,
+ *              uint8_t RecAppCapabilities, dev_type_t RecDevTypeList[3],
+ *              profile_id_t RecProfileIdList[7], uint8_t ProvPairingRef);
+ * bool nlme_get_request(nib_attribute_t NIBAttribute, uint8_t
+ * NIBAttributeIndex,
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool nlme_rx_enable_request(uint32_t RxOnDuration,
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool nlme_set_request(nib_attribute_t NIBAttribute, uint8_t
+ * NIBAttributeIndex,
+ *              uint8_t *NIBAttributeValue,
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool nlme_start_request(
+ *              FUNC_PTR confirm_cb);
+ *
+ * bool nlme_unpair_request(uint8_t PairingRef,
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool nlme_unpair_response(uint8_t PairingRef);
+ *
+ * bool nlme_update_key_request(uint8_t PairingRef, uint8_t NewLinkKey[16],
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool nwk_ch_agility_request(nwk_agility_mode_t AgilityMode,
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool pbp_org_pair_request(uint8_t OrgAppCapabilities,
+ *              dev_type_t OrgDevTypeList[DEVICE_TYPE_LIST_SIZE],
+ *              profile_id_t OrgProfileIdList[PROFILE_ID_LIST_SIZE],
+ *              dev_type_t SearchDevType, uint8_t DiscProfileIdListSize,
+ *              profile_id_t DiscProfileIdList[PROFILE_ID_LIST_SIZE],
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool pbp_rec_pair_request(uint8_t RecAppCapabilities,
+ *              dev_type_t RecDevTypeList[3],
+ *              profile_id_t RecProfileIdList[7],
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool zrc_cmd_request(uint8_t PairingRef, uint16_t VendorId,
+ *              zrc_cmd_code_t CmdCode,
+ *              uint8_t CmdLength, uint8_t *Cmd, uint8_t TxOptions,
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool zrc_cmd_disc_request(uint8_t PairingRef,
+ *              FUNC_PTR confirm_cb
+ *              );
+ * bool zrc_cmd_disc_response(uint8_t PairingRef, uint8_t *SupportedCmd);
+ * void register_nwk_indication_callback(nwk_indication_callback_t *nwk_ind_cb);
+ * void register_zrc_indication_callback(
+ *              zrc_indication_callback_t *zrc_ind_callback);
+ */
 /* === Externals ==========================================================  */
 /* Network confirmation callback pointers */
 
@@ -508,6 +514,7 @@ static inline void handle_incoming_msg(void)
 					&sio_rx_buf[index], 8);
 			index += 8;
 			NodeDescList[i].NodeCapabilities = sio_rx_buf[index++]; /*
+				                                                 *
 				                                                 *17
 				                                                 **/
 			NodeDescList[i].VendorId = sio_rx_buf[index++];
@@ -515,15 +522,18 @@ static inline void handle_incoming_msg(void)
 			for (k = 0; k < 7; k++) {
 				NodeDescList[i].VendorString[k]
 					= sio_rx_buf[index++];                 /*
+					                                        *
 					                                        *20
 					                                        **/
 			}
 			NodeDescList[i].AppCapabilities = sio_rx_buf[index++]; /*
+				                                                *
 				                                                *27
 				                                                **/
 			for (k = 0; k < 15; k++) {
 				NodeDescList[i].UserString[k]
 					= sio_rx_buf[index++];               /*
+					                                      *
 					                                      *28
 					                                      **/
 			}
@@ -531,6 +541,7 @@ static inline void handle_incoming_msg(void)
 				NodeDescList[i].DevTypeList[k]
 					= (dev_type_t)sio_rx_buf
 						[index++];                                 /*
+					                                                    *
 					                                                    *43
 					                                                    **/
 			}
@@ -538,11 +549,12 @@ static inline void handle_incoming_msg(void)
 				NodeDescList[i].ProfileIdList[k]
 					= (profile_id_t)
 						sio_rx_buf[index++];                          /*
+					                                                       *
 					                                                       *46
 					                                                       **/
 			}
 			NodeDescList[i].DiscReqLQI = sio_rx_buf[index++]; /* 53
-				                                           **/
+				                                          **/
 		}
 
 		nlme_discovery_confirm_cb((nwk_enum_t)sio_rx_buf[2],
@@ -583,7 +595,7 @@ static inline void handle_incoming_msg(void)
 				((uint16_t)sio_rx_buf[5] << 8)),   /* Rec Vendor
 			                                            * Id// */
 				RecVendorString, /* uint8_t RecVendorString[7],
-			                          **/
+			                         **/
 				sio_rx_buf[6 + 7], /* RecAppCapabilities */
 				RecUserString,
 				RecDevTypeList,
@@ -691,6 +703,7 @@ static inline void handle_incoming_msg(void)
 				(nwk_enum_t)sio_rx_buf[2], sio_rx_buf[3],
 				((uint16_t)sio_rx_buf[4] |
 				((uint16_t)sio_rx_buf[5] << 8)),       /*
+			                                                *
 			                                                *DstPANId//
 			                                                **/
 				sio_rx_buf[6],
@@ -708,6 +721,7 @@ static inline void handle_incoming_msg(void)
 		MEMCPY_ENDIAN(&DstIEEEAddr, &sio_rx_buf[3], 8);
 		nwk_ind_callback.nlme_discovery_indication_cb(
 				(nwk_enum_t)sio_rx_buf[2], DstIEEEAddr, /*
+			                                                 *
 			                                                 *DstIEEEaddr
 			                                                 **/
 				sio_rx_buf[11],
@@ -821,7 +835,7 @@ static inline void handle_incoming_msg(void)
 				sio_rx_buf[2], /* pairing ref */
 				((uint16_t)sio_rx_buf[4] |
 				((uint16_t)sio_rx_buf[5] << 8)),   /* vendor id
-			                                            **/
+			                                           **/
 				sio_rx_buf[8], /* nsdu length */
 				&sio_rx_buf[9],
 				sio_rx_buf[6], /* rx link quality */

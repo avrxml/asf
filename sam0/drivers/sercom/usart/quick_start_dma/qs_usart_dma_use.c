@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D21/R21/D10/D11 Sercom Usart driver with DMA quick start
+ * \brief SAM Sercom Usart driver with DMA quick start
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 
 //! [module_inst]
@@ -64,14 +67,14 @@ DmacDescriptor example_descriptor_tx;
 
 //! [setup]
 //! [transfer_done_rx]
-static void transfer_done_rx( const struct dma_resource* const resource )
+static void transfer_done_rx(struct dma_resource* const resource )
 {
 	dma_start_transfer_job(&usart_dma_resource_tx);
 }
 //! [transfer_done_rx]
 
 //! [transfer_done_tx]
-static void transfer_done_tx( const struct dma_resource* const resource )
+static void transfer_done_tx(struct dma_resource* const resource )
 {
 	dma_start_transfer_job(&usart_dma_resource_rx);
 }

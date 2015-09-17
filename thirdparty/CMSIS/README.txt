@@ -1,8 +1,8 @@
 * -------------------------------------------------------------------
-* Copyright (C) 2011 ARM Limited. All rights reserved.  
+* Copyright (C) 2011-2014 ARM Limited. All rights reserved.  
 * 
-* Date:        11 October 2011  
-* Revision:    V3.00 
+* Date:        17 February 2014  
+* Revision:    V4.00 
 *  
 * Project:     Cortex Microcontroller Software Interface Standard (CMSIS)
 * Title:       Release Note for CMSIS
@@ -17,7 +17,7 @@ The Cortex Microcontroller Software Interface Standard (CMSIS) provides a single
 Cortex-Mx processor series vendors. It enables code re-use and code sharing across software projects 
 and reduces time-to-market for new embedded applications.
 
-CMSIS is released under the terms of the end user license agreement ("CMSIS END USER LICENCE AGREEMENT.pdf").
+CMSIS is released under the terms of the end user license agreement ("CMSIS_END_USER_LICENCE_AGREEMENT.pdf").
 Any user of the software package is bound to the terms and conditions of the end user license agreement.
 
 
@@ -33,5 +33,10 @@ Include                 - CMSIS Core Support and CMSIS DSP Include Files.
 Lib                     - CMSIS DSP Libraries.
 
 RTOS                    - CMSIS RTOS API template header file.
+
+Driver                  - CMSIS Peripheral Driver Interface.
+
+Pack                    - CMSIS Software Packs.
+                          Mechanism to install software, device support, APIs, and example projects.
 
 SVD                     - CMSIS SVD Schema files and Conversion Utility.

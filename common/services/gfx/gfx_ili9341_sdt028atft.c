@@ -6,7 +6,7 @@
  *
  * This files includes the correct header files for the graphics service
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,6 +47,9 @@
 /**
  * \ingroup gfx_ili9341_sdt028atft
  * @{
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "gfx.h"

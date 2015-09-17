@@ -4,7 +4,7 @@
  * @brief
  *
  *
- *  Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,7 @@
 #include "tc.h"
 #include "tc_interrupt.h"
 #include "hw_timer.h"
-#if SAMD || SAMR21
+#if SAMD || SAMR21 || SAML21
 #include "clock.h"
 #include <system_interrupt.h>
 #else
@@ -164,7 +164,6 @@ uint8_t tmr_init(void)
 		timer_config.clock_prescaler = TC_CLOCK_PRESCALER_DIV2;
 		timer_config.run_in_standby = true;
 	}
-
 	#endif
 	timer_config.counter_16_bit.compare_capture_channel[0] = TIMER_PERIOD;
 	tc_init(&module_inst, TIMER, &timer_config);
@@ -176,8 +175,9 @@ uint8_t tmr_init(void)
 	tc_enable_callback(&module_inst, TC_CALLBACK_CC_CHANNEL0);
 
 	tc_enable(&module_inst);
+
 	/* calculate how faster the timer with current clk freq compared to
-	 *timer with 1Mhz */
+	 * timer with 1Mhz */
 	#ifdef ENABLE_SLEEP
 	if (sys_sleep == true) {
 		timer_multiplier = system_gclk_gen_get_hz(1) / 2000000;

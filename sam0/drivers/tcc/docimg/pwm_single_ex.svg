@@ -32,7 +32,7 @@
          font-style="normal"
          font-weight="normal"
          units-per-em="2048"
-         font-family="Arial embedded" />
+         font-family="Arial" />
       <missing-glyph
          id="missing-glyph2992"
          d="M 0,0 L 2047,0 2047,2047 0,2047 0,0 Z"
@@ -274,7 +274,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3071"
            y="1609"
@@ -486,7 +486,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3145"
            y="5405"
@@ -733,7 +733,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3218"
            y="6198"
@@ -832,7 +832,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3251"
            y="7609"
@@ -892,7 +892,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3276"
            y="638"
@@ -1089,7 +1089,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3355"
            y="6009"
@@ -1285,7 +1285,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3499"
            y="1798"
@@ -1296,7 +1296,7 @@
            x="13870" />
         <text
            xml:space="preserve"
-           style="font-size:338.66668701px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+           style="font-size:338.66668701px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial"
            x="12303.818"
            y="719.92755"
            id="text4654"
@@ -1328,7 +1328,7 @@
          style="fill:none;stroke:none" />
       <text
          xml:space="preserve"
-         style="font-size:338.66668701px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         style="font-size:338.66668701px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial"
          x="14924.331"
          y="3697.373"
          id="text3275"
@@ -1363,7 +1363,7 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial"
        x="243.64101"
        y="545.89258"
        id="text4666"
@@ -1374,7 +1374,7 @@
          y="545.89258">(CCx)</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial"
        x="28.701876"
        y="407.54227"
        id="text4670"

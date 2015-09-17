@@ -6,7 +6,7 @@
  *
  * This implements the range measurement mode functionality
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,7 @@
  */
 
 /*
- * Copyright (c) 2012, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -230,12 +230,12 @@ static void range_test_tx_timer_handler_cb(void *parameter)
 /**
  * \brief Send Range Measurement mode test frames to the peer device.
  *
- * This is a unicast with source address and destination addreses which were set
- * during peer search process
+ * This is a unicast with source address and destination addresses which were
+ * set during peer search process
  */
 static int range_test_frame_tx(void)
 {
-	uint8_t payload_length;
+	uint16_t payload_length;
 	app_payload_t msg;
 	data_pkt_range_test_t *data;
 

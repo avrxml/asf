@@ -4,7 +4,7 @@
  * \brief USB host driver
  * Compliance with common driver UHD
  *
- * Copyright (C) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "conf_usb_host.h"
@@ -1284,7 +1287,7 @@ static void uhd_sof_interrupt(void)
 			// It is a micro SOF
 			if (!uhd_suspend_start && !uhd_resume_start) {
 				// If no resume and no suspend on going
-				// then send Micro start of frame event (each 125µs)
+				// then send Micro start of frame event (each 125 Âµs)
 				uhc_notify_sof(true);
 			}
 			return;

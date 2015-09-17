@@ -3,7 +3,7 @@
  *
  * \brief SAM GPIO driver.
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,17 +40,25 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef GPIO_H_INCLUDED
 #define GPIO_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_gpio_group SAM4 GPIO - General-Purpose Input/Output (GPIO)
+ * \defgroup asfdoc_sam_drivers_gpio_group SAM4L General-Purpose Input/Output (GPIO) Driver
  * 
  *
- * This is a driver for advanced GPIO functions of the on-chip GPIO controller:
- * interrupt and event support.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers 
+ * provides an interface for the configuration and management of 
+ * the on-chip General-Purpose Input/Output (GPIO) controller with 
+ * both interrupt and event support.
  *
-* The outline of this documentation is as follows:
+ * Devices from the following series can use this module:
+ * - Atmel | SMART SAM4L
+ *
+ * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam_drivers_gpiox_prerequisites
  *  - \ref asfdoc_sam_drivers_gpiox_module_overview
  *  - \ref asfdoc_sam_drivers_gpiox_special_considerations
@@ -76,7 +84,7 @@
  *
  *
  * \section asfdoc_sam_drivers_gpiox_special_considerations Special Considerations
- * None.
+ * There are no special considerations for this module.
  *
  *
  * \section asfdoc_sam_drivers_gpiox_extra_info Extra Information
@@ -290,7 +298,7 @@ static inline void gpio_disable_pin_periph_event(ioport_pin_t pin)
  * This is a list of the available Quick Start guides (QSGs) and example
  * applications for \ref asfdoc_sam_drivers_gpio_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  *  - \ref asfdoc_sam_drivers_gpiox_qsg
@@ -302,6 +310,11 @@ static inline void gpio_disable_pin_periph_event(ioport_pin_t pin)
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>42280B</td>
+ *		<td>07/2015</td>
+ *		<td>Updated title of application note and added list of supported devices</td>
  *	</tr>
  *	<tr>
  *		<td>42280A</td>
@@ -335,7 +348,7 @@ static inline void gpio_disable_pin_periph_event(ioport_pin_t pin)
  *
  * \subsection gpio_int_prereq Prerequisites
  *
- * This module requires the following service
+ * This module requires the following service:
  * - \ref clk_group "Clock management"
  * - \ref ioport_group "Common IOPORT (for GPIO)"
  *
@@ -353,7 +366,7 @@ static inline void gpio_disable_pin_periph_event(ioport_pin_t pin)
  *
  * -# Initialize a pin to trigger an interrupt. Here, we initialize PC03 as an
  * input pin with pull up and glitch filter and to generate an interrupt on a
- * falling edge
+ * falling edge.
  * \snippet example/gpio_example.c config_button_0_trig_fall_1
  * -# Set a callback for the pin interrupt.
  * \snippet example/gpio_example.c config_button_0_trig_fall_2

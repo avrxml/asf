@@ -3,7 +3,7 @@
  *
  * \brief Common NVM service example
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -84,6 +84,9 @@
  * For further information, visit
  * <A href="http://www.atmel.com/">Atmel</A>.\n
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "asf.h"
 #include "conf_nvm_example.h"
@@ -101,6 +104,10 @@ static status_code_t test_mem(mem_type_t mem, uint32_t test_address)
 	if (nvm_init(mem) != STATUS_OK) {
 		return ERR_INVALID_ARG;
 	}
+
+#if SAM4S
+	nvm_page_erase(mem, test_address / IFLASH_PAGE_SIZE);
+#endif
 
 	/* Write test pattern to the specified address */
 	nvm_write(mem, test_address, (void *)write_buf, sizeof(write_buf));

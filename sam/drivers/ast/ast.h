@@ -3,7 +3,7 @@
  *
  * \brief SAM Asynchronous Timer (AST) driver.
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,19 +40,26 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef AST_H_INCLUDED
 #define AST_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_ast_group SAM4L Asynchronous Timer (AST)
+ * \defgroup asfdoc_sam_drivers_ast_group SAM4L Asynchronous Timer (AST) Driver
  *
- * This driver for SAM4L devices provides an interface for the configuration
- * and management of the device's Asynchronous Timer functionality.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides 
+ * an interface for the configuration and management of the device's 
+ * Asynchronous Timer functionality.
  *
  * The Asynchronous Timer can generate periodic interrupts and peripheral events
  * from output from the prescaler, as well as alarm interrupts and peripheral
  * events, which can trigger at any counter value.
+ *
+ * Devices from the following series can use this module:
+ * - Atmel | SMART SAM4L
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam_drivers_ast_prerequisites
@@ -94,7 +101,7 @@
  * interrupt, event, or both. The AST can also be configured to clear the clock
  * value on alarm match which will generate an overflow interrupt.
  *
- * \note Refer to module configuration at the end of the ast section of the device
+ * \note Refer to module configuration at the end of the AST section of the device
  * datasheet for the number of alarms supported.
  *
  * Whilst in Calendar Mode and using a nominal 1Hz input clock frequency, a register
@@ -166,7 +173,7 @@ extern "C" {
 /**INDENT-ON**/
 /// @endcond */
 
-/** Timeout to prevent code hang in clock initialization */
+/** Timeout to prevent code hang in clock initialization. */
 #define AST_POLL_TIMEOUT 10000
 
 /** \name Predefined PSEL Values
@@ -191,19 +198,19 @@ extern "C" {
 /** \internal Timeout to prevent code hang in clock initialization */
 #define AST_POLL_TIMEOUT 10000
 #endif /* !defined(__DOXYGEN__) */
-/** Description for Calendar Field.*/
+/** Description for Calendar Field. */
 struct ast_calv {
-	/** Seconds in the range 0 to 59. */
+	/** Seconds in the range 0 to 59 */
 	uint32_t sec   : 6;
-	/** Minutes in the range range 0 to 59. */
+	/** Minutes in the range range 0 to 59 */
 	uint32_t min   : 6;
-	/** Hours in the range 0 to 23. */
+	/** Hours in the range 0 to 23 */
 	uint32_t hour  : 5;
-	/** Day in the range 1 to 31. */
+	/** Day in the range 1 to 31 */
 	uint32_t day   : 5;
-	/** Month in the range 1 to 12. */
+	/** Month in the range 1 to 12 */
 	uint32_t month : 4;
-	/** Year in the range 0 to 63. */
+	/** Year in the range 0 to 63 */
 	uint32_t year  : 6;
 };
 
@@ -211,30 +218,30 @@ struct ast_calv {
 struct ast_calendar {
 	union {
 		uint32_t field;
-		/** Calendar. */
+		/** Calendar */
 		struct ast_calv FIELD;
 	};
 };
 
 /** \ref ast_mode "AST Calendar Mode". */
 typedef enum ast_mode {
-	/** Counter Mode. */
+	/** Counter Mode */
 	AST_COUNTER_MODE  = 0,
-	/** Calendar Mode. */
+	/** Calendar Mode */
 	AST_CALENDAR_MODE = 1,
 } ast_mode_t;
 
 /** \ref ast_oscillator_type "AST Oscillator type". */
 typedef enum ast_oscillator_type {
-	/** System RC oscillator (RCSYS). */
+	/** System RC oscillator (RCSYS) */
 	AST_OSC_RC    = 0,
-	/** 32kHz oscillator (OSC32 or RC32). */
+	/** 32kHz oscillator (OSC32 or RC32) */
 	AST_OSC_32KHZ = 1,
-	/** APB clock. */
+	/** APB clock */
 	AST_OSC_PB    = 2,
-	/** Generic clock (GCLK). */
+	/** Generic clock (GCLK) */
 	AST_OSC_GCLK  = 3,
-	/** 1kHz clock from the 32kHz oscillator or 32kHz RC oscillator (CLK_1K). */
+	/** 1kHz clock from the 32kHz oscillator or 32kHz RC oscillator (CLK_1K) */
 	AST_OSC_1KHZ  = 4,
 } ast_oscillator_type_t;
 
@@ -243,35 +250,35 @@ typedef enum ast_oscillator_type {
 #endif /* !defined(__DOXYGEN__) */
 /** \ref ast_interrupt_source "AST interrupt source". */
 typedef enum ast_interrupt_source {
-	/** Alarm interrupt. */
+	/** Alarm interrupt */
 	AST_INTERRUPT_ALARM = 0,
-	/** Periodic interrupt. */
+	/** Periodic interrupt */
 	AST_INTERRUPT_PER,
-	/** Overflow interrupt. */
+	/** Overflow interrupt */
 	AST_INTERRUPT_OVF,
-	/** Synchronization complete interrupt. */
+	/** Synchronization complete interrupt */
 	AST_INTERRUPT_READY,
-	/** Clock synchronization complete interrupt. */
+	/** Clock synchronization complete interrupt */
 	AST_INTERRUPT_CLKREADY,
 } ast_interrupt_source_t;
 
 /** \ref ast_wakeup_source "AST wake-up source". */
 typedef enum ast_wakeup_source {
-	/** Alarm wake-up source. */
+	/** Alarm wake-up source */
 	AST_WAKEUP_ALARM = 0,
-	/** Peripheral interrupt wake-up source. */
+	/** Peripheral interrupt wake-up source */
 	AST_WAKEUP_PER,
-	/** Counter overflow wake-up source. */
+	/** Counter overflow wake-up source */
 	AST_WAKEUP_OVF,
 } ast_wakeup_source_t;
 
 /** \ref ast_event_source "AST event source". */
 typedef enum ast_event_source {
-	/** Alarm event generation. */
+	/** Alarm event generation */
 	AST_EVENT_ALARM = 0,
-	/** Peripheral event generation. */
+	/** Peripheral event generation */
 	AST_EVENT_PER,
-	/** Counter overflow event generation. */
+	/** Counter overflow event generation */
 	AST_EVENT_OVF,
 } ast_event_source_t;
 
@@ -280,16 +287,16 @@ struct ast_config {
 	/**
 	 * Mode: Calendar Mode:
 	 * \ref AST_CALENDAR_MODE or
-	 * Counter Mode: \ref AST_COUNTER_MODE.
+	 * Counter Mode: \ref AST_COUNTER_MODE
 	 */
 	ast_mode_t mode;
-	/** Oscillator type. */
+	/** Oscillator type */
 	ast_oscillator_type_t osc_type;
-	/** Prescaler Value. */
+	/** Prescaler Value */
 	uint8_t psel;
-	/** Initial counter Value. */
+	/** Initial counter Value */
 	uint32_t counter;
-	/** Initial calendar Value. */
+	/** Initial calendar Value */
 	struct ast_calendar calendar;
 };
 
@@ -488,7 +495,7 @@ void ast_disable_event(Ast *ast, ast_event_source_t source);
  * This is a list of the available Quick Start Guides (QSGs) and example
  * applications for \ref asfdoc_sam_drivers_ast_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  *  - \subpage asfdoc_sam_drivers_ast_qsg
@@ -502,6 +509,11 @@ void ast_disable_event(Ast *ast, ast_event_source_t source);
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+  *	<tr>
+ *		<td>42283B</td>
+ *		<td>07/2015</td>
+ *		<td>Updated title of application note and added list of supported devices</td>
  *	</tr>
  *	<tr>
  *		<td>42283A</td>
@@ -517,9 +529,9 @@ void ast_disable_event(Ast *ast, ast_event_source_t source);
  *
  * This is the quick start guide for the \ref asfdoc_sam_drivers_ast_group, with
  * step-by-step instructions on how to configure and use the driver for
- * a specific use case.The code examples can be copied into e.g. the main
- * application loop or any other function that will need to control the
- * AST module.
+ * a specific use case.The code examples can be copied into the main 
+ * application loop or any other function that will need to control 
+ * the AST module.
  *
  * \section asfdoc_sam_drivers_ast_qsg_use_cases Use Cases
  * - \ref asfdoc_sam_drivers_ast_qsg_basic

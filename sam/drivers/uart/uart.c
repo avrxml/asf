@@ -3,7 +3,7 @@
  *
  * \brief Universal Asynchronous Receiver Transceiver (UART) driver for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "uart.h"
@@ -103,8 +106,10 @@ uint32_t uart_init(Uart *p_uart, const sam_uart_opt_t *p_uart_opt)
 	/* Configure mode */
 	p_uart->UART_MR = p_uart_opt->ul_mode;
 
+#if (!SAMV71 && !SAMV70 && !SAME70 && !SAMS70)
 	/* Disable PDC channel */
 	p_uart->UART_PTCR = UART_PTCR_RXTDIS | UART_PTCR_TXTDIS;
+#endif
 
 	/* Enable receiver and transmitter */
 	p_uart->UART_CR = UART_CR_RXEN | UART_CR_TXEN;
@@ -310,45 +315,6 @@ uint32_t uart_is_rx_ready(Uart *p_uart)
 }
 
 /**
- * \brief Check if one receive buffer is filled.
- *
- * \param p_uart Pointer to a UART instance.
- *
- * \retval 1 Receive is completed.
- * \retval 0 Receive is still pending.
- */
-uint32_t uart_is_rx_buf_end(Uart *p_uart)
-{
-	return (p_uart->UART_SR & UART_SR_ENDRX) > 0;
-}
-
-/**
- * \brief Check if one transmit buffer is sent out.
- *
- * \param p_uart Pointer to a UART instance.
- *
- * \retval 1 Transmit is completed.
- * \retval 0 Transmit is still pending.
- */
-uint32_t uart_is_tx_buf_end(Uart *p_uart)
-{
-	return (p_uart->UART_SR & UART_SR_ENDTX) > 0;
-}
-
-/**
- * \brief Check if both receive buffers are full.
- *
- * \param p_uart Pointer to a UART instance.
- *
- * \retval 1 Receive buffers are full.
- * \retval 0 Receive buffers are not full.
- */
-uint32_t uart_is_rx_buf_full(Uart *p_uart)
-{
-	return (p_uart->UART_SR & UART_SR_RXBUFF) > 0;
-}
-
-/**
  * \brief Check if both transmit buffers are sent out.
  *
  * \param p_uart Pointer to a UART instance.
@@ -414,6 +380,46 @@ uint32_t uart_read(Uart *p_uart, uint8_t *puc_data)
 	return 0;
 }
 
+#if (!SAMV71 && !SAMV70 && !SAME70 && !SAMS70)
+/**
+ * \brief Check if one receive buffer is filled.
+ *
+ * \param p_uart Pointer to a UART instance.
+ *
+ * \retval 1 Receive is completed.
+ * \retval 0 Receive is still pending.
+ */
+uint32_t uart_is_rx_buf_end(Uart *p_uart)
+{
+	return (p_uart->UART_SR & UART_SR_ENDRX) > 0;
+}
+
+/**
+ * \brief Check if one transmit buffer is sent out.
+ *
+ * \param p_uart Pointer to a UART instance.
+ *
+ * \retval 1 Transmit is completed.
+ * \retval 0 Transmit is still pending.
+ */
+uint32_t uart_is_tx_buf_end(Uart *p_uart)
+{
+	return (p_uart->UART_SR & UART_SR_ENDTX) > 0;
+}
+
+/**
+ * \brief Check if both receive buffers are full.
+ *
+ * \param p_uart Pointer to a UART instance.
+ *
+ * \retval 1 Receive buffers are full.
+ * \retval 0 Receive buffers are not full.
+ */
+uint32_t uart_is_rx_buf_full(Uart *p_uart)
+{
+	return (p_uart->UART_SR & UART_SR_RXBUFF) > 0;
+}
+
 /**
  * \brief Get UART PDC base address.
  *
@@ -447,6 +453,7 @@ Pdc *uart_get_pdc_base(Uart *p_uart)
 
 	return p_pdc_base;
 }
+#endif
 
 #if (SAM4C || SAM4CP || SAM4CM)
 /**
@@ -496,7 +503,7 @@ void uart_config_optical_interface(Uart *p_uart,
 }
 #endif
 
-#if (SAMG53 || SAMG54)
+#if (SAMG53 || SAMG54 || SAMV71 || SAMV70 || SAME70 || SAMS70)
 /**
  * \brief Set sleepwalking match mode.
  *

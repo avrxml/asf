@@ -3,7 +3,7 @@
  *
  * \brief SAM Watchdog Driver Callback Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -69,7 +69,7 @@
  * \snippet qs_wdt_callback.c setup_init
  *
  * \subsection asfdoc_sam0_wdt_callback_use_case_setup_flow Workflow
- * -# Configure and enable the Watchdog driver
+ * -# Configure and enable the Watchdog driver.
  *  -# Create a Watchdog module configuration struct, which can be filled out to
  *     adjust the configuration of the Watchdog.
  *     \snippet qs_wdt_callback.c setup_1
@@ -85,7 +85,7 @@
  *     \snippet qs_wdt_callback.c setup_3
  *  -# Sets up the WDT hardware module with the requested settings.
  *     \snippet qs_wdt_callback.c setup_4
- * -# Register and enable the Early Warning callback handler
+ * -# Register and enable the Early Warning callback handler.
  *  -# Register the user-provided Early Warning callback function with the
  *     driver, so that it will be run when an Early Warning condition occurs.
  *     \snippet qs_wdt_callback.c setup_5
@@ -105,4 +105,7 @@
  *    \snippet qs_wdt_callback.c main_2
  * -# Enter an infinite loop to hold the main program logic.
  *    \snippet qs_wdt_callback.c main_3
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Digital to Analog Converter Driver Example 2
  *
- * Copyright (C) 2010 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -86,6 +86,9 @@
 /**
  * \def OUTPUT_DAC
  * \brief DAC to use in example
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 //@}

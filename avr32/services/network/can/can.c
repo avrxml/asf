@@ -7,7 +7,7 @@
  * This file contains basic functions for the AVR32 CAN, with support for all
  * modes, settings and clock speeds.
  *
- * Copyright (c) 2009 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,6 +44,9 @@
  * \asf_license_stop
  *
  ******************************************************************************/
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 //_____ I N C L U D E S ________________________________________________________
 #include "avr32/io.h"
@@ -280,7 +283,7 @@ U8 can_init(U8 ch,
  * - 3x bits of interframe.
  */
 #define DELAY_HZ         (BAUDRATE_HZ/141.0)   /*Compute Maximum delay time*/
-#define DELAY            (1000000 / DELAY_HZ)  /*Compute Delay in µs*/
+#define DELAY            (1000000 / DELAY_HZ)  /*Compute Delay in Âµs */
    delay_us(DELAY);
    if(!CANIF_channel_enable_status(ch)) {
             return CAN_CMD_REFUSED;

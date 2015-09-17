@@ -3,7 +3,7 @@
  *
  * \brief SAM NVM Unit test
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -74,6 +74,9 @@
  *  - SAM D20 Xplained Pro board
  *  - SAM D21 Xplained Pro board
  *  - SAM R21 Xplained Pro board
+ *  - SAM L21 Xplained Pro board
+ *  - SAM L22 Xplained Pro board
+ *  - SAM DA1 Xplained Pro board
  *
  * \section appdoc_sam0_nvm_unit_test_setup Setup
  * The following connections has to be made using wires:
@@ -100,6 +103,9 @@
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include <stdio_serial.h>
@@ -118,7 +124,7 @@
 	((uint8_t)(((x) * 3) & 0xff))
 
 /* Test page is set to 8th from last */
-#define TEST_PAGE_ADDR     (NVMCTRL_PAGES - 8) * NVMCTRL_PAGE_SIZE
+#define TEST_PAGE_ADDR     (FLASH_NB_OF_PAGES - 8) * NVMCTRL_PAGE_SIZE
 
 /* Flag to indicate NVM initialization status */
 static volatile bool nvm_init_success = false;
@@ -148,10 +154,10 @@ static void run_nvm_parameter_test(const struct test_case *test)
 			NVMCTRL_PAGE_SIZE);
 
 	/* Validate the page count */
-	test_assert_true(test, parameters.nvm_number_of_pages == NVMCTRL_PAGES,
+	test_assert_true(test, parameters.nvm_number_of_pages == FLASH_NB_OF_PAGES,
 			"Number of Pages incorrect (read: 0x%02x,"
 			" expected: 0x%02x)", parameters.nvm_number_of_pages,
-			NVMCTRL_PAGES);
+			FLASH_NB_OF_PAGES);
 }
 
 /**
@@ -172,6 +178,9 @@ static void run_nvm_init_test(const struct test_case *test)
 
 	/* Set wait state to 1 */
 	config.wait_states = 1;
+
+	/* Enable automatic page write mode */
+	config.manual_page_write = false;
 
 	/* Set the NVM configuration */
 	status = nvm_set_config(&config);

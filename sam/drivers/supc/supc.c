@@ -3,7 +3,7 @@
  *
  * \brief Supply Controller (SUPC) driver for SAM.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "supc.h"
@@ -118,6 +121,8 @@ void supc_switch_sclk_to_32kxtal(Supc *p_supc, uint32_t ul_bypass)
 	/* Set Bypass mode if required */
 	if (ul_bypass == 1) {
 		p_supc->SUPC_MR |= SUPC_MR_KEY_PASSWD | SUPC_MR_OSCBYPASS;
+	} else {
+		p_supc->SUPC_MR &= ~(SUPC_MR_KEY_PASSWD | SUPC_MR_OSCBYPASS);
 	}
 
 	p_supc->SUPC_CR |= SUPC_CR_KEY_PASSWD | SUPC_CR_XTALSEL;
@@ -231,7 +236,7 @@ void supc_disable_monitor_interrupt(Supc *p_supc)
 	p_supc->SUPC_SMMR &= ~SUPC_SMMR_SMIEN;
 }
 
-#if (!SAMG)
+#if (!(SAMG51 || SAMG53 || SAMG54))
 /**
  * \brief Set system controller wake up mode.
  *
@@ -382,6 +387,30 @@ void supc_set_regulator_trim_user(Supc *p_supc, uint32_t value)
 		 | SUPC_MR_VRVDD(value);
 }
 
+#endif
+
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+/**
+ * \brief SRAM On In Backup Mode.
+ *
+ * \param p_supc Pointer to a SUPC instance.
+ *
+ */
+void supc_backup_sram_on(Supc *p_supc)
+{
+	p_supc->SUPC_MR |= (SUPC_MR_KEY_PASSWD | SUPC_MR_BKUPRETON);
+}
+
+/**
+ * \brief SRAM Off In Backup Mode.
+ *
+ * \param p_supc Pointer to a SUPC instance.
+ *
+ */
+void supc_backup_sram_off(Supc *p_supc)
+{
+	p_supc->SUPC_MR &= (~(SUPC_MR_KEY_PASSWD | SUPC_MR_BKUPRETON));	
+}
 #endif
 
 //@}

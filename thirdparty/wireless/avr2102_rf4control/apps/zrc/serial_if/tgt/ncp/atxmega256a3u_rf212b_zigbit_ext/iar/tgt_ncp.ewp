@@ -2752,6 +2752,9 @@
 				<group>
 					<name>include</name>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../../../avr2025_mac/include/ieee_154g.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../../../avr2025_mac/include/stack_config.h</name>
 					</file>
 					<file>

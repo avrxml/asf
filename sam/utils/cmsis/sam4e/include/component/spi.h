@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_SPI_COMPONENT_
 #define _SAM4E_SPI_COMPONENT_
@@ -51,30 +54,30 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Spi hardware registers */
 typedef struct {
-  WoReg SPI_CR;        /**< \brief (Spi Offset: 0x00) Control Register */
-  RwReg SPI_MR;        /**< \brief (Spi Offset: 0x04) Mode Register */
-  RoReg SPI_RDR;       /**< \brief (Spi Offset: 0x08) Receive Data Register */
-  WoReg SPI_TDR;       /**< \brief (Spi Offset: 0x0C) Transmit Data Register */
-  RoReg SPI_SR;        /**< \brief (Spi Offset: 0x10) Status Register */
-  WoReg SPI_IER;       /**< \brief (Spi Offset: 0x14) Interrupt Enable Register */
-  WoReg SPI_IDR;       /**< \brief (Spi Offset: 0x18) Interrupt Disable Register */
-  RoReg SPI_IMR;       /**< \brief (Spi Offset: 0x1C) Interrupt Mask Register */
-  RoReg Reserved1[4];
-  RwReg SPI_CSR[4];    /**< \brief (Spi Offset: 0x30) Chip Select Register */
-  RoReg Reserved2[41];
-  RwReg SPI_WPMR;      /**< \brief (Spi Offset: 0xE4) Write Protection Control Register */
-  RoReg SPI_WPSR;      /**< \brief (Spi Offset: 0xE8) Write Protection Status Register */
-  RoReg Reserved3[5];
-  RwReg SPI_RPR;       /**< \brief (Spi Offset: 0x100) Receive Pointer Register */
-  RwReg SPI_RCR;       /**< \brief (Spi Offset: 0x104) Receive Counter Register */
-  RwReg SPI_TPR;       /**< \brief (Spi Offset: 0x108) Transmit Pointer Register */
-  RwReg SPI_TCR;       /**< \brief (Spi Offset: 0x10C) Transmit Counter Register */
-  RwReg SPI_RNPR;      /**< \brief (Spi Offset: 0x110) Receive Next Pointer Register */
-  RwReg SPI_RNCR;      /**< \brief (Spi Offset: 0x114) Receive Next Counter Register */
-  RwReg SPI_TNPR;      /**< \brief (Spi Offset: 0x118) Transmit Next Pointer Register */
-  RwReg SPI_TNCR;      /**< \brief (Spi Offset: 0x11C) Transmit Next Counter Register */
-  WoReg SPI_PTCR;      /**< \brief (Spi Offset: 0x120) Transfer Control Register */
-  RoReg SPI_PTSR;      /**< \brief (Spi Offset: 0x124) Transfer Status Register */
+  __O  uint32_t SPI_CR;        /**< \brief (Spi Offset: 0x00) Control Register */
+  __IO uint32_t SPI_MR;        /**< \brief (Spi Offset: 0x04) Mode Register */
+  __I  uint32_t SPI_RDR;       /**< \brief (Spi Offset: 0x08) Receive Data Register */
+  __O  uint32_t SPI_TDR;       /**< \brief (Spi Offset: 0x0C) Transmit Data Register */
+  __I  uint32_t SPI_SR;        /**< \brief (Spi Offset: 0x10) Status Register */
+  __O  uint32_t SPI_IER;       /**< \brief (Spi Offset: 0x14) Interrupt Enable Register */
+  __O  uint32_t SPI_IDR;       /**< \brief (Spi Offset: 0x18) Interrupt Disable Register */
+  __I  uint32_t SPI_IMR;       /**< \brief (Spi Offset: 0x1C) Interrupt Mask Register */
+  __I  uint32_t Reserved1[4];
+  __IO uint32_t SPI_CSR[4];    /**< \brief (Spi Offset: 0x30) Chip Select Register */
+  __I  uint32_t Reserved2[41];
+  __IO uint32_t SPI_WPMR;      /**< \brief (Spi Offset: 0xE4) Write Protection Mode Register */
+  __I  uint32_t SPI_WPSR;      /**< \brief (Spi Offset: 0xE8) Write Protection Status Register */
+  __I  uint32_t Reserved3[5];
+  __IO uint32_t SPI_RPR;       /**< \brief (Spi Offset: 0x100) Receive Pointer Register */
+  __IO uint32_t SPI_RCR;       /**< \brief (Spi Offset: 0x104) Receive Counter Register */
+  __IO uint32_t SPI_TPR;       /**< \brief (Spi Offset: 0x108) Transmit Pointer Register */
+  __IO uint32_t SPI_TCR;       /**< \brief (Spi Offset: 0x10C) Transmit Counter Register */
+  __IO uint32_t SPI_RNPR;      /**< \brief (Spi Offset: 0x110) Receive Next Pointer Register */
+  __IO uint32_t SPI_RNCR;      /**< \brief (Spi Offset: 0x114) Receive Next Counter Register */
+  __IO uint32_t SPI_TNPR;      /**< \brief (Spi Offset: 0x118) Transmit Next Pointer Register */
+  __IO uint32_t SPI_TNCR;      /**< \brief (Spi Offset: 0x11C) Transmit Next Counter Register */
+  __O  uint32_t SPI_PTCR;      /**< \brief (Spi Offset: 0x120) Transfer Control Register */
+  __I  uint32_t SPI_PTSR;      /**< \brief (Spi Offset: 0x124) Transfer Status Register */
 } Spi;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- SPI_CR : (SPI Offset: 0x00) Control Register -------- */
@@ -113,13 +116,13 @@ typedef struct {
 #define SPI_SR_TDRE (0x1u << 1) /**< \brief (SPI_SR) Transmit Data Register Empty */
 #define SPI_SR_MODF (0x1u << 2) /**< \brief (SPI_SR) Mode Fault Error */
 #define SPI_SR_OVRES (0x1u << 3) /**< \brief (SPI_SR) Overrun Error Status */
-#define SPI_SR_ENDRX (0x1u << 4) /**< \brief (SPI_SR) End of RX buffer */
-#define SPI_SR_ENDTX (0x1u << 5) /**< \brief (SPI_SR) End of TX buffer */
+#define SPI_SR_ENDRX (0x1u << 4) /**< \brief (SPI_SR) End of RX Buffer */
+#define SPI_SR_ENDTX (0x1u << 5) /**< \brief (SPI_SR) End of TX Buffer */
 #define SPI_SR_RXBUFF (0x1u << 6) /**< \brief (SPI_SR) RX Buffer Full */
 #define SPI_SR_TXBUFE (0x1u << 7) /**< \brief (SPI_SR) TX Buffer Empty */
 #define SPI_SR_NSSR (0x1u << 8) /**< \brief (SPI_SR) NSS Rising */
 #define SPI_SR_TXEMPTY (0x1u << 9) /**< \brief (SPI_SR) Transmission Registers Empty */
-#define SPI_SR_UNDES (0x1u << 10) /**< \brief (SPI_SR) Underrun Error Status (Slave Mode Only) */
+#define SPI_SR_UNDES (0x1u << 10) /**< \brief (SPI_SR) Underrun Error Status (Slave mode Only) */
 #define SPI_SR_SPIENS (0x1u << 16) /**< \brief (SPI_SR) SPI Enable Status */
 /* -------- SPI_IER : (SPI Offset: 0x14) Interrupt Enable Register -------- */
 #define SPI_IER_RDRF (0x1u << 0) /**< \brief (SPI_IER) Receive Data Register Full Interrupt Enable */
@@ -182,11 +185,11 @@ typedef struct {
 #define SPI_CSR_DLYBCT_Pos 24
 #define SPI_CSR_DLYBCT_Msk (0xffu << SPI_CSR_DLYBCT_Pos) /**< \brief (SPI_CSR[4]) Delay Between Consecutive Transfers */
 #define SPI_CSR_DLYBCT(value) ((SPI_CSR_DLYBCT_Msk & ((value) << SPI_CSR_DLYBCT_Pos)))
-/* -------- SPI_WPMR : (SPI Offset: 0xE4) Write Protection Control Register -------- */
+/* -------- SPI_WPMR : (SPI Offset: 0xE4) Write Protection Mode Register -------- */
 #define SPI_WPMR_WPEN (0x1u << 0) /**< \brief (SPI_WPMR) Write Protection Enable */
 #define SPI_WPMR_WPKEY_Pos 8
-#define SPI_WPMR_WPKEY_Msk (0xffffffu << SPI_WPMR_WPKEY_Pos) /**< \brief (SPI_WPMR) Write Protection Key Password */
-#define SPI_WPMR_WPKEY(value) ((SPI_WPMR_WPKEY_Msk & ((value) << SPI_WPMR_WPKEY_Pos)))
+#define SPI_WPMR_WPKEY_Msk (0xffffffu << SPI_WPMR_WPKEY_Pos) /**< \brief (SPI_WPMR) Write Protect Key */
+#define   SPI_WPMR_WPKEY_PASSWD (0x535049u << 8) /**< \brief (SPI_WPMR) Writing any other value in this field aborts the write operation of the WPEN bit.Always reads as 0. */
 /* -------- SPI_WPSR : (SPI Offset: 0xE8) Write Protection Status Register -------- */
 #define SPI_WPSR_WPVS (0x1u << 0) /**< \brief (SPI_WPSR) Write Protection Violation Status */
 #define SPI_WPSR_WPVSRC_Pos 8

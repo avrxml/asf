@@ -3,7 +3,7 @@
  *
  * @brief
  *
- *  Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,9 +42,9 @@
 #include "conf_common_sw_timer.h"
 #include "common_hw_timer.h"
 #include "common_sw_timer.h"
-#if SAMD || SAMR21
+#if SAMD || SAMR21 || SAML21
 #include "system.h"
-#endif /* SAMD || SAMR21 */
+#endif /* SAMD || SAMR21 || SAML21*/
 #include "board.h"
 
 #if (TOTAL_NUMBER_OF_SW_TIMERS > 0)

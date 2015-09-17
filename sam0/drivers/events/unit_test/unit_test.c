@@ -3,7 +3,7 @@
  *
  * \brief SAM Event System Unit test
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -81,6 +81,10 @@
  *      - SAM D20 Xplained Pro board
  *      - SAM D21 Xplained Pro board
  *      - SAM R21 Xplained Pro board
+ *      - SAM L21 Xplained Pro board
+ *      - SAM L22 Xplained Pro board
+ *      - SAM DA1 Xplained Pro board
+ *      - SAM C21 Xplained Pro board
  *
  * \section appdoc_sam0_events_unit_test_setup Setup
  * The following connections has to be made using wires:
@@ -112,6 +116,9 @@
  * \section appdoc_sam0_events_unit_test_contactinfo Contact Information
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -205,7 +212,9 @@ static void test_event_gen_user_init(void)
 	rtc_count_get_config_defaults(&config_rtc_count);
 	config_rtc_count.prescaler           = RTC_COUNT_PRESCALER_DIV_1;
 	config_rtc_count.mode                = RTC_COUNT_MODE_16BIT;
+#ifdef FEATURE_RTC_CONTINUOUSLY_UPDATED
 	config_rtc_count.continuously_update = true;
+#endif
 	config_rtc_count.compare_values[0]   = 50;
 	status = rtc_count_init(&rtc_inst, RTC, &config_rtc_count);
 
@@ -467,38 +476,11 @@ static void setup_asynchronous_event_test(const struct test_case *test)
  */
 static void run_asynchronous_event_test(const struct test_case *test)
 {
-	uint32_t timeout_cycles = 1000;
+	uint32_t timeout_cycles;
 
 	/* Skip test if initialization failed */
 	test_assert_true(test, init_success,
 			"Skipping test due to failed initialization");
-
-	/* Check whether event user is ready */
-	do {
-
-		timeout_cycles--;
-		if (events_is_users_ready(&events)) {
-			break;
-		}
-
-	} while (timeout_cycles > 0);
-
-	test_assert_true(test, timeout_cycles > 0,
-			"Timeout error: Event user not ready");
-
-	/* Check whether event channel is ready */
-	timeout_cycles = 1000;
-	do {
-
-		timeout_cycles--;
-		if (!events_is_busy(&events)) {
-			break;
-		}
-
-	} while (timeout_cycles > 0);
-
-	test_assert_true(test, timeout_cycles > 0,
-			"Timeout error: Event channel not ready");
 
 	/* Event action test */
 	rtc_count_enable(&rtc_inst);

@@ -3,7 +3,7 @@
  *
  * \brief Clock system example 2
  *
- * Copyright (c) 2010 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -94,6 +94,9 @@
  * \brief Pin to set as output for clock signal
  *
  * This must be defined as IOPORT pin 7 of the port setting in CLKOUT_PORT.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 //@}
 

@@ -3,7 +3,7 @@
  *
  * \brief USB Device Mass Storage Class (MSC) interface definitions.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,7 +52,7 @@
  * - \ref asfdoc_udi_msc_exqsg
  * - \ref asfdoc_udi_msc_config_examples
  *
- * For more details for Atmel® Software Framework (ASF) USB Device Stack,
+ * For more details for Atmel&reg; Software Framework (ASF) USB Device Stack,
  * refer to following application notes:
  * - <a href="http://www.atmel.com/dyn/resources/prod_documents/doc8360.pdf">
  *   AVR4900: ASF - USB Device Stack</a>
@@ -92,6 +92,9 @@ typedef struct {
 } udi_msc_desc_t;
 
 /** By default no string is associated to this interface. */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef UDI_MSC_STRING_ID
 #define UDI_MSC_STRING_ID     0
 #endif
@@ -539,5 +542,22 @@ bool udi_msc_trans_block(bool b_read, uint8_t * block, iram_size_t block_size,
  *
  * \subsection asfdoc_udi_msc_config_examples_6_2 On-board Virtual Memory Disk
  * \include example/sam3u4e_sam3u_ek/conf_virtual_mem.h
+ */
+
+/**
+ * \page asfdoc_udi_msc_document_revision_history Document Revision History
+ *
+ * <table>
+ * <tr>
+ *    <th>Doc. Rev.</td>
+ *    <th>Date</td>
+ *    <th>Comments</td>
+ * </tr>
+ * <tr>
+ *    <td>42343A</td>
+ *    <td>12/2014</td>
+ *    <td>Initial release.</td>
+ * </tr>
+ * </table>
  */
 

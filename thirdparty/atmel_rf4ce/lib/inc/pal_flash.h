@@ -6,10 +6,10 @@
  * $Id: pal_flash.h 26812 2011-05-23 08:27:09Z pawan.jadia $
  *
  * @author    Atmel Corporation: http://www.atmel.com
- * @author    Support email: avr@atmel.com
+ * @author    Support: http://www.atmel.com/design-support/
  */
 /*
- * Copyright (c) 2010-2012, Atmel Corporation All rights reserved.
+ * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * 
  */

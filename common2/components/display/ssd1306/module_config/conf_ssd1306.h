@@ -3,7 +3,7 @@
  *
  * \brief SSD1306 display controller driver configuration file.
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,12 +40,16 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef CONF_SSD1306_H_INCLUDED
 #define CONF_SSD1306_H_INCLUDED
 
 #include <board.h>
 
-// Interface configuration for SAM D20/D21 Xplained Pro
+#ifdef EXT3_SPI_MODULE
+/* Interface configuration for SAM Xplained Pro */
 #  define SSD1306_SPI                 EXT3_SPI_MODULE
 #  define CONFIG_SSD1306_FRAMEBUFFER
 
@@ -58,8 +62,23 @@
 #  define SSD1306_SPI_PINMUX_PAD1     PINMUX_UNUSED
 #  define SSD1306_SPI_PINMUX_PAD2     EXT3_SPI_SERCOM_PINMUX_PAD2
 #  define SSD1306_SPI_PINMUX_PAD3     EXT3_SPI_SERCOM_PINMUX_PAD3
+#else
+/* Dummy Interface configuration */
+#  define SSD1306_SPI                 0
+#  define CONFIG_SSD1306_FRAMEBUFFER
 
-// Minimum clock period is 50ns@3.3V -> max frequency is 20MHz
+#  define SSD1306_DC_PIN              0
+#  define SSD1306_RES_PIN             0
+#  define SSD1306_CS_PIN              0
+
+#  define SSD1306_SPI_PINMUX_SETTING  0
+#  define SSD1306_SPI_PINMUX_PAD0     0
+#  define SSD1306_SPI_PINMUX_PAD1     0
+#  define SSD1306_SPI_PINMUX_PAD2     0
+#  define SSD1306_SPI_PINMUX_PAD3     0
+#endif
+
+/* Minimum clock period is 50ns@3.3V -> max frequency is 20MHz */
 #define SSD1306_CLOCK_SPEED           1000000UL
 #define SSD1306_DISPLAY_CONTRAST_MAX  40
 #define SSD1306_DISPLAY_CONTRAST_MIN  30

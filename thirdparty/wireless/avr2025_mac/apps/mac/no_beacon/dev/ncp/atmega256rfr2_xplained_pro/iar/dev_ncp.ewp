@@ -2463,13 +2463,13 @@
 								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_generic.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_timer_config.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_helper.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_generic.h</name>
 							</file>
 						</group>
 					</group>
@@ -2550,6 +2550,9 @@
 											<name>$PROJ_DIR$/../conf_sio2host.h</name>
 										</file>
 										<file>
+											<name>$PROJ_DIR$/../conf_clock.h</name>
+										</file>
+										<file>
 											<name>$PROJ_DIR$/../conf_hw_timer.h</name>
 										</file>
 										<file>
@@ -2563,9 +2566,6 @@
 										</group>
 										<file>
 											<name>$PROJ_DIR$/../conf_usart_serial.h</name>
-										</file>
-										<file>
-											<name>$PROJ_DIR$/../conf_clock.h</name>
 										</file>
 									</group>
 									<file>
@@ -2589,6 +2589,9 @@
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../include/ieee_const.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../include/ieee_154g.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../include/mac_build_config.h</name>

@@ -977,6 +977,9 @@ of the block that handles odd image width (about line 268 in v6 jdmerge.c):
   /* If image width is odd, do the last output column separately */
   if (cinfo->output_width & 1) {
     register JSAMPLE * range_limit = cinfo->sample_range_limit; /* ADD THIS */
+ /**
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
     cb = GETJSAMPLE(*inptr1);
 Pretty bizarre, especially since the very similar routine h2v2_merged_upsample
 doesn't trigger the bug.

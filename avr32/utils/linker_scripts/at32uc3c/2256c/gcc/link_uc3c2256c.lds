@@ -5,13 +5,13 @@
  * - Supported devices:  AVR32 AT32UC3C2256C
  *
  * - author              Atmel Corporation: http://www.atmel.com \n
- *                       Support and FAQ: http://support.atmel.no/
+ *                       Support and FAQ: http://www.atmel.com/design-support/
  *
  ******************************************************************************/
 
 /**
  *
- * Copyright (c) 2009 - 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009 - 2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

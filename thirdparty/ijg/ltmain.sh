@@ -1,4 +1,7 @@
 # ltmain.sh - Provide generalized library-building support services.
+ /**
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 # NOTE: Changing this file will not affect anything until you rerun ltconfig.
 #
 # Copyright (C) 1996-1998 Free Software Foundation, Inc.

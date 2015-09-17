@@ -15,7 +15,7 @@
  *
  * $Revision: 506 $
  * $Date: 2007-05-21 20:00:05 +0200 (Mon, 21 May 2007) $ \n
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,6 +52,9 @@
  * \asf_license_stop
  *
  *****************************************************************************/
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "compiler.h"
 #include "abdac.h"

@@ -3,7 +3,7 @@
  *
  * \brief SD/MMC card access through FatFs
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -297,7 +300,7 @@ static bool app_microsd_install(void)
 
 	/* Fill header file */
 	app_microsd_write_file("--Data logs--\r\n");
-	app_microsd_write_file("timestamp - seconds - °C\r\n");
+	app_microsd_write_file("timestamp - seconds - Â°C\r\n");
 
 	/* Notify install successfull */
 	app_microsd_ready = true;

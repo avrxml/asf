@@ -4,7 +4,7 @@
  *
  * \brief Basic header that describes the compiler and AVR32 UC3 to lwIP.
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

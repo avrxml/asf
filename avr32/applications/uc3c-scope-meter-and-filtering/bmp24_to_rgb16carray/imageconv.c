@@ -1,4 +1,7 @@
 #include <stdio.h>
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #define HEADER_SIZE       0x36
 
@@ -49,13 +52,13 @@ int main(void)
                 " * - AppNote:\r\n"
                 " *\r\n"
                 " * \author               Atmel Corporation: http://www.atmel.com \\n\r\n"
-                " *                       Support and FAQ: http://support.atmel.no/\r\n"
+                " *                       Support and FAQ: http://www.atmel.com/design-support/\r\n"
                 " *\r\n"
                 " ******************************************************************************/\r\n"
                 "\r\n"
 /**
  *
- * Copyright (c) 2009-2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

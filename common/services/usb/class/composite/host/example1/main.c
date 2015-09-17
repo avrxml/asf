@@ -3,7 +3,7 @@
  *
  * \brief Main functions for USB host mass storage and mouse composite example
  *
- * Copyright (C) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,14 +40,17 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include "conf_usb_host.h"
 #include "ui.h"
 #include "main.h"
 
-static uint16_t main_usb_sof_counter = 0;
-static uint8_t lun_state = 0;
+static volatile uint16_t main_usb_sof_counter = 0;
+static volatile uint8_t lun_state = 0;
 
 #define MSG_TEST "Test UHI MSC\n"
 

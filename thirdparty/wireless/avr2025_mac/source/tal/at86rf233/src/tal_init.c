@@ -3,7 +3,7 @@
  *
  * @brief This file implements functions for initializing TAL.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -270,7 +270,6 @@ retval_t tal_init(void)
 	if (tal_rx_buffer == NULL) {
 		return FAILURE;
 	}
-
 #endif
 
 	/* Init incoming frame queue */
@@ -446,11 +445,11 @@ void trx_config(void)
 	 */
 	trx_bit_write(SR_AACK_FVN_MODE, FRAME_VERSION_01);
 	trx_bit_write(SR_AACK_SET_PD, SET_PD); /* ACKs for data requests,
-	                                        * indicate pending data */
+	                                       * indicate pending data */
 	trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /* Enable
-	                                                      * buffer
-	                                                      * protection
-	                                                      * mode */
+	                                                     * buffer
+	                                                     * protection
+	                                                     * mode */
 	trx_reg_write(RG_IRQ_MASK, TRX_IRQ_DEFAULT); /* The TRX_END
 	                                              * interrupt of the
 	                                              * transceiver is
@@ -708,7 +707,6 @@ static retval_t tal_timer_init(void)
 	if (MAC_SUCCESS != pal_timer_get_id(&TAL_T_BOFF)) {
 		return FAILURE;
 	}
-
 #endif
 
 #else
@@ -736,7 +734,6 @@ static retval_t tal_timer_init(void)
 	if (MAC_SUCCESS != pal_timer_get_id(&TAL_T_BOFF)) {
 		return FAILURE;
 	}
-
 #endif
 
 #else

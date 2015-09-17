@@ -3,7 +3,7 @@
  *
  * \brief UART functions
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,12 +40,25 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include "conf_example.h"
 #include "uart.h"
 #include "main.h"
 #include "ui.h"
+#if (SAMG55)
+#include "flexcom.h"
+#endif
+
+#if SAMG55
+#   define USART_PERIPH_CLK_ENABLE() flexcom_enable(BOARD_FLEXCOM);      \
+	                                                        flexcom_set_opmode(BOARD_FLEXCOM, FLEXCOM_USART);
+#else
+#   define USART_PERIPH_CLK_ENABLE() sysclk_enable_peripheral_clock(USART_ID)
+#endif
 
 static sam_usart_opt_t usart_options;
 
@@ -181,7 +194,7 @@ void uart_open(uint8_t port)
 	NVIC_EnableIRQ(USART_INT_IRQn);
 
 	// Initialize it in RS232 mode.
-	pmc_enable_periph_clk(USART_ID);
+	USART_PERIPH_CLK_ENABLE();
 	if (usart_init_rs232(USART_BASE, &usart_options,
 				sysclk_get_peripheral_hz())) {
 		return;

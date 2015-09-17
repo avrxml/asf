@@ -3,7 +3,7 @@
  *
  * \brief SAM Peripheral Access Controller Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,24 +40,30 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef PAC_H_INCLUDED
 #define PAC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam0_pac_group  SAM Peripheral Access Controller Driver (PAC)
+ * \defgroup asfdoc_sam0_pac_group SAM Peripheral Access Controller (PAC) Driver
  *
- * This driver for SAM devices provides an interface for the locking and
- * unlocking of peripheral registers within the device. When a peripheral is
- * locked, accidental writes to the peripheral will be blocked and a CPU
- * exception will be raised.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontroller provides
+ * an interface for the locking and unlocking of peripheral registers within
+ * the device. When a peripheral is locked, accidental writes to the peripheral
+ * will be blocked and a CPU exception will be raised.
  *
  * The following peripherals are used by this module:
  *  - PAC (Peripheral Access Controller)
  *
  * The following devices can use this module:
- *  - SAM D20/D21
- *  - SAM R21
- *  - SAM D10/D11
+ *  - Atmel | SMART SAM D20/D21
+ *  - Atmel | SMART SAM R21
+ *  - Atmel | SMART SAM D09/D10/D11
+ *  - Atmel | SMART SAM L21/L22
+ *  - Atmel | SMART SAM DA1
+ *  - Atmel | SMART SAM C20/C21
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_pac_prerequisites
@@ -96,9 +102,9 @@
  * peripheral is not relocked, and that already unlocked peripherals are not
  * unlocked again. Attempting to unlock and already unlocked peripheral, or
  * attempting to lock a peripheral that is currently locked will generate a
- * non-maskable interrupt (NMI). This implies that the implementer must keep
+ * CPU exception. This implies that the implementer must keep
  * strict control over the peripheral's lock-state before modifying them. With
- * this added safety, the probability of stopping run-away code increases as
+ * this added safety, the probability of stopping runaway code increases as
  * the program pointer can be caught inside the exception handler, and necessary
  * countermeasures can be initiated. The implementer should also consider using
  * sanity checks after an unlock has been performed to further increase the
@@ -180,7 +186,7 @@
  *			int_unlock -> int_modify [style=dotted];
  *			int_modify -> int_lock [style=dotted];
  *		}
- *		exception [label="NMI", shape=box, style=filled, fillcolor=red];
+ *		exception [label="Exception", shape=box, style=filled, fillcolor=red];
  *		main_modify -> int_unlock [label=" Interrupt"];
  *		int_unlock -> exception;
  *		exception -> exception;
@@ -189,12 +195,12 @@
  *
  * \subsection asfdoc_sam0_pac_code_run_away Run-away Code
  * Run-away code can be caused by the MCU being operated outside its
- * specification, faulty code or EMI issues. If a run-away code occurs, it is
+ * specification, faulty code or EMI issues. If a runaway code occurs, it is
  * favorable to catch the issue as soon as possible. With a correct
- * implementation of the PAC, the run-away code can potentially be stopped.
+ * implementation of the PAC, the runaway code can potentially be stopped.
  *
  * A graphical example showing how a PAC implementation will behave for
- * different circumstances of run-away code in shown in
+ * different circumstances of runaway code in shown in
  * \ref asfdoc_sam0_pac_code_runaway_diagram "the first" and
  * \ref asfdoc_sam0_pac_code_runaway_diagram2 "second figures below".
  *
@@ -259,7 +265,7 @@
  *			</table>
  *			>]
  *			runaway1 -> program1:f0;
- *			label="1. Run-away code is caught in sanity check.\nA NMI is executed."
+ *			label="1. Run-away code is caught in sanity check.\nA CPU exception is executed."
  *		}
  *	   subgraph cluster_away2{
  *		rankdir=TB;
@@ -319,7 +325,7 @@
  *			</table>
  *			>]
  *			runaway2 -> program2:f0;
- *			label="2. Run-away code is caught when modifying\nlocked peripheral. A NMI is executed."
+ *			label="2. Run-away code is caught when modifying\nlocked peripheral. A CPU exception is executed."
  *		}
  *	}
  * \enddot
@@ -385,7 +391,7 @@
  *			</table>
  *			>]
  *			runaway3 -> program3:f0;
- *			label="3. Run-away code is caught when locking\nlocked peripheral. A NMI is executed."
+ *			label="3. Run-away code is caught when locking\nlocked peripheral. A CPU exception is executed."
  *		}
  *	subgraph cluster_away4 {
  *		rankdir=TB;
@@ -451,16 +457,16 @@
  * \enddot
  *
  * In the example, green indicates that the command is allowed, red indicates
- * where the run-away code will be caught, and the arrow where the run-away
+ * where the runaway code will be caught, and the arrow where the runaway
  * code enters the application. In special circumstances, like example 4
- * above, the run-away code will not be caught. However, the protection scheme
+ * above, the runaway code will not be caught. However, the protection scheme
  * will greatly enhance peripheral configuration security from being affected by
- * run-away code.
+ * runaway code.
  *
  * \subsubsection asfdoc_sam0_pac_bitwise_code Key-Argument
- * To protect the module functions against run-away code themselves, a key
+ * To protect the module functions against runaway code themselves, a key
  * is required as one of the input arguments. The key-argument will make sure
- * that run-away code entering the function without a function call will be
+ * that runaway code entering the function without a function call will be
  * rejected before inflicting any damage. The argument is simply set to be
  * the bitwise inverse of the module flag, i.e.
  *
@@ -478,10 +484,10 @@
  * locked. It is therefore recommended that any unused peripheral is locked
  * during application initialization.
  *
- * \subsection asfdoc_sam0_pac_no_inline Use of __no_inline 
+ * \subsection asfdoc_sam0_pac_no_inline Use of __no_inline
  * Using the function attribute \c __no_inline will ensure that there will only be
- * one copy of each functions in the PAC driver API in the application. This will 
- * lower the likelihood that run-away code will hit any of these functions.
+ * one copy of each functions in the PAC driver API in the application. This will
+ * lower the likelihood that runaway code will hit any of these functions.
  *
  * \subsection asfdoc_sam0_pac_module_overview_physical Physical Connection
  *
@@ -628,13 +634,13 @@
  *	}
  * \enddot
  *
- * In the left figure above, one can see the run-away code continues as all
- * illegal operations are conditional. On the right side figure, the run-away
+ * In the left figure above, one can see the runaway code continues as all
+ * illegal operations are conditional. On the right side figure, the runaway
  * code is caught as it tries to unlock the peripheral.
  *
  * \section asfdoc_sam0_pac_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_sam0_pac_extra. This includes:
+ * For extra information, see \ref asfdoc_sam0_pac_extra. This includes:
  *  - \ref asfdoc_sam0_pac_extra_acronyms
  *  - \ref asfdoc_sam0_pac_extra_dependencies
  *  - \ref asfdoc_sam0_pac_extra_errata
@@ -668,7 +674,7 @@ extern "C" {
  */
 #define SYSTEM_PERIPHERAL_ID(peripheral)    ID_##peripheral
 
-/** \name Peripheral lock and unlock
+/** \name Peripheral Lock and Unlock
  * @{
  */
 __no_inline enum status_code system_peripheral_lock(
@@ -679,6 +685,62 @@ __no_inline enum status_code system_peripheral_unlock(
 		const uint32_t peripheral_id,
 		const uint32_t key);
 /** @}  */
+
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || defined(__DOXYGEN__)
+/** \name APIs available for SAM L21/L22/C20/C21.
+ * @{
+ */
+__no_inline enum status_code system_peripheral_lock_always(
+		const uint32_t peripheral_id,
+		const uint32_t key);
+
+/**
+ * \brief Enable PAC interrupt.
+ *
+ * Enable PAC interrupt so can trigger execution on peripheral access error,
+ * see \ref SYSTEM_Handler().
+ *
+ */
+static inline void system_pac_enable_interrupt(void)
+{
+	PAC->INTENSET.reg = PAC_INTENSET_ERR;
+}
+
+/**
+ * \brief Disable PAC interrupt.
+ *
+ * Disable PAC interrupt on peripheral access error.
+ *
+ */
+static inline void system_pac_disable_interrupt(void)
+{
+	PAC->INTENCLR.reg = PAC_INTENCLR_ERR;
+}
+
+/**
+ * \brief Enable PAC event output.
+ *
+ * Enable PAC event output on peripheral access error.
+ *
+ */
+static inline void system_pac_enable_event(void)
+{
+	PAC->EVCTRL.reg = PAC_EVCTRL_ERREO;
+}
+
+/**
+ * \brief Disable PAC event output.
+ *
+ * Disable PAC event output on peripheral access error.
+ *
+ */
+static inline void system_pac_disable_event(void)
+{
+	PAC->EVCTRL.reg &= (~PAC_EVCTRL_ERREO);
+}
+
+/** @}  */
+#endif
 
 #ifdef __cplusplus
 }
@@ -770,9 +832,6 @@ __no_inline enum status_code system_peripheral_unlock(
  *		<th>Changelog</th>
  *	</tr>
  *	<tr>
- *		<td>Added support for SAMD21</td>
- *	</tr>
- *	<tr>
  *		<td>Initial Release</td>
  *	</tr>
  * </table>
@@ -784,7 +843,7 @@ __no_inline enum status_code system_peripheral_unlock(
  * This is a list of the available Quick Start guides (QSGs) and example
  * applications for \ref asfdoc_sam0_pac_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  *  - \subpage asfdoc_sam0_pac_basic_use_case
@@ -921,48 +980,37 @@ __no_inline enum status_code system_peripheral_unlock(
  *		<th>Comments</td>
  *	</tr>
  *	<tr>
- *		<td>F</td>
- *		<td>04/2014</td>
- *		<td>Added support for SAMD10/D11.</td>
+ *		<td>42107F</td>
+ *		<td>08/2015</td>
+ *		<td>Added support for SAM L21/L22, SAM C21, and SAM DA1</td>
  *	</tr>
  *	<tr>
- *		<td>E</td>
- *		<td>03/2014</td>
- *		<td>Added support for SAMR21.</td>
+ *		<td>42107E</td>
+ *		<td>12/2014</td>
+ *		<td>Added support for SAM R21 and SAM D10/D11</td>
  *	</tr>
  *	<tr>
- *		<td>D</td>
+ *		<td>42107D</td>
  *		<td>01/2014</td>
- *		<td>Added support for SAMD21.</td>
+ *		<td>Added support for SAM D21</td>
  *	</tr>
  *	<tr>
- *		<td>C</td>
+ *		<td>42107C</td>
  *		<td>10/2013</td>
  *		<td>Extended acronyms list</td>
  *	</tr>
  *	<tr>
- *		<td>B</td>
+ *		<td>42107B</td>
  *		<td>06/2013</td>
- *		<td>Corrected documentation typos.</td>
+ *		<td>Corrected documentation typos</td>
  *	</tr>
  *	<tr>
- *		<td>A</td>
+ *		<td>42107A</td>
  *		<td>06/2013</td>
- *		<td>Initial release</td>
+ *		<td>Initial document release</td>
  *	</tr>
  * </table>
  */
 
 #endif /* PAC_H_INCLUDED */
-
-
-
-
-
-
-
-
-
-
-
 

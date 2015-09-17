@@ -3,7 +3,7 @@
  *
  * \brief TWI Slave Example configuration.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,16 +42,19 @@
  */
 
 /* Configuration of TWI Slave Example */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CONF_TWI_SLAVE_EXAMPLE_H_INCLUDED
 #define CONF_TWI_SLAVE_EXAMPLE_H_INCLUDED
 
 /** Definition of TWI interrupt ID on board. */
-#define BOARD_TWI_IRQn          USART4_SPI4_TWI4_IRQn
-#define BOARD_TWI_Handler       USART4_SPI4_TWI4_Handler
+#define BOARD_TWI_IRQn          FLEXCOM4_IRQn
+#define BOARD_TWI_Handler       FLEXCOM4_Handler
 
 /** TWI ID for SLAVE application to use */
-#define BOARD_ID_TWI_SLAVE          ID_TWI4
+#define BOARD_ID_TWI_SLAVE          ID_FLEXCOM4
 /** TWI Base for TWI SLAVE application to use */
 #define BOARD_BASE_TWI_SLAVE        TWI4
 

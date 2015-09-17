@@ -3,7 +3,7 @@
  *
  * @brief HAL related APIs for externally plugged transceivers
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -58,14 +58,14 @@
 /**
  * \defgroup group_trx_access
  *  This module includes api's and defenitions required for Devices with
- *externally plugged transceivers(Non Soc's)
+ * externally plugged transceivers(Non Soc's)
  * @{
  */
 /* === Includes ============================================================ */
 
 #include "compiler.h"
 #include "conf_trx_access.h"
-#if SAMD || SAMR21
+#if SAMD || SAMR21 || SAML21
 #include "port.h"
 #include "extint.h"
 #else
@@ -109,7 +109,7 @@
 /**
  * Set TRX GPIO pins.
  */
-#if SAMD || SAMR21
+#if SAMD || SAMR21 || SAML21
 #define RST_HIGH()                      port_pin_set_output_level( \
 		AT86RFX_RST_PIN, true)
 #define RST_LOW()                       port_pin_set_output_level( \

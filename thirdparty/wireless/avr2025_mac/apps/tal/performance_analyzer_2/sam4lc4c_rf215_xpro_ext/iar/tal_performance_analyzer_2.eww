@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\tal_performance_analyzer_2_flash.ewp</path>
+	</project>
+</workspace>

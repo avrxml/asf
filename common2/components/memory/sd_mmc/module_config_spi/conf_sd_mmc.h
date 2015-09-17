@@ -3,7 +3,7 @@
  *
  * \brief SD/MMC stack configuration file.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,40 +40,56 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CONF_SD_MMC_H_INCLUDED
 #define CONF_SD_MMC_H_INCLUDED
 
-// Define to enable the SPI mode instead of Multimedia Card interface mode
+/* Define to enable the SPI mode instead of Multimedia Card interface mode */
 #define SD_MMC_SPI_MODE
 
-// Define to enable the SDIO support
+/* Define to enable the SDIO support */
 //#define SDIO_SUPPORT_ENABLE
 
-// Define to enable the debug trace to the current standard output (stdio)
+/* Define to enable the debug trace to the current standard output (stdio) */
 //#define SD_MMC_DEBUG
 
-// Define to memory count
+/* Define to memory count */
 #define SD_MMC_SPI_MEM_CNT          1
 
-//! Select the SPI module SD/MMC is connected to
-#define SD_MMC_SPI                 EXT1_SPI_MODULE
+/* Select the SPI module SD/MMC is connected to */
+#ifdef EXT1_SPI_MODULE /* Default configuration for Xplained Pro kit */
+#  define SD_MMC_SPI                 EXT1_SPI_MODULE
+#  define SD_MMC_SPI_PINMUX_SETTING  EXT1_SPI_SERCOM_MUX_SETTING
+#  define SD_MMC_SPI_PINMUX_PAD0     EXT1_SPI_SERCOM_PINMUX_PAD0
+#  define SD_MMC_SPI_PINMUX_PAD1     EXT1_SPI_SERCOM_PINMUX_PAD1
+#  define SD_MMC_SPI_PINMUX_PAD2     EXT1_SPI_SERCOM_PINMUX_PAD2
+#  define SD_MMC_SPI_PINMUX_PAD3     EXT1_SPI_SERCOM_PINMUX_PAD3
 
-#define SD_MMC_SPI_PINMUX_SETTING  EXT1_SPI_SERCOM_MUX_SETTING
-#define SD_MMC_SPI_PINMUX_PAD0     EXT1_SPI_SERCOM_PINMUX_PAD0
-#define SD_MMC_SPI_PINMUX_PAD1     EXT1_SPI_SERCOM_PINMUX_PAD1
-#define SD_MMC_SPI_PINMUX_PAD2     EXT1_SPI_SERCOM_PINMUX_PAD2
-#define SD_MMC_SPI_PINMUX_PAD3     EXT1_SPI_SERCOM_PINMUX_PAD3
+#  define SD_MMC_CS                  EXT1_PIN_15
 
-#define SD_MMC_CS                  EXT1_PIN_15
+#  define SD_MMC_0_CD_GPIO           (EXT1_PIN_10)
+#  define SD_MMC_0_CD_DETECT_VALUE   0
+#else /* Dummy configuration */
+#  define SD_MMC_SPI                 0
+#  define SD_MMC_SPI_PINMUX_SETTING  0
+#  define SD_MMC_SPI_PINMUX_PAD0     0
+#  define SD_MMC_SPI_PINMUX_PAD1     0
+#  define SD_MMC_SPI_PINMUX_PAD2     0
+#  define SD_MMC_SPI_PINMUX_PAD3     0
 
-#define SD_MMC_0_CD_GPIO           (EXT1_PIN_10)
-#define SD_MMC_0_CD_DETECT_VALUE    0
+#  define SD_MMC_CS                  0
 
-// Define the SPI clock source
+#  define SD_MMC_0_CD_GPIO           0
+#  define SD_MMC_0_CD_DETECT_VALUE   0
+#endif
+
+/* Define the SPI clock source */
 #define SD_MMC_SPI_SOURCE_CLOCK    GCLK_GENERATOR_0
 
-// Define the SPI max clock
+/* Define the SPI max clock */
 #define SD_MMC_SPI_MAX_CLOCK       4000000
 
 #endif /* CONF_SD_MMC_H_INCLUDED */

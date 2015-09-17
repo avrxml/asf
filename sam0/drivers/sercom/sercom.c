@@ -3,7 +3,7 @@
  *
  * \brief SAM Serial Peripheral Interface Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,10 +40,13 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include "sercom.h"
 
 #define SHIFT 32
-#define BAUD_INT_MAX   8192   
+#define BAUD_INT_MAX   8192
 #define BAUD_FP_MAX     8
 
 #if !defined(__DOXYGEN__)
@@ -51,9 +54,9 @@
  * \internal Configuration structure to save current gclk status.
  */
 struct _sercom_conf {
-	/* Status of gclk generator initialization. */
+	/* Status of gclk generator initialization */
 	bool generator_is_set;
-	/* Sercom gclk generator used. */
+	/* Sercom gclk generator used */
 	enum gclk_generator generator_source;
 };
 
@@ -99,7 +102,7 @@ enum status_code _sercom_get_sync_baud_val(
 	uint32_t clock_value = external_clock;
 
 
-	/* Check if baudrate is outside of valid range. */
+	/* Check if baudrate is outside of valid range */
 	if (baudrate > (external_clock / 2)) {
 		/* Return with error code */
 		return STATUS_ERR_BAUDRATE_UNAVAILABLE;
@@ -200,26 +203,26 @@ enum status_code sercom_set_gclk_generator(
 		const enum gclk_generator generator_source,
 		const bool force_change)
 {
-	/* Check if valid option. */
+	/* Check if valid option */
 	if (!_sercom_config.generator_is_set || force_change) {
-		/* Create and fill a GCLK configuration structure for the new config. */
+		/* Create and fill a GCLK configuration structure for the new config */
 		struct system_gclk_chan_config gclk_chan_conf;
 		system_gclk_chan_get_config_defaults(&gclk_chan_conf);
 		gclk_chan_conf.source_generator = generator_source;
 		system_gclk_chan_set_config(SERCOM_GCLK_ID, &gclk_chan_conf);
 		system_gclk_chan_enable(SERCOM_GCLK_ID);
 
-		/* Save config. */
+		/* Save config */
 		_sercom_config.generator_source = generator_source;
 		_sercom_config.generator_is_set = true;
 
 		return STATUS_OK;
 	} else if (generator_source == _sercom_config.generator_source) {
-		/* Return status OK if same config. */
+		/* Return status OK if same config */
 		return STATUS_OK;
 	}
 
-	/* Return invalid config to already initialized GCLK. */
+	/* Return invalid config to already initialized GCLK */
 	return STATUS_ERR_ALREADY_INITIALIZED;
 }
 
@@ -244,13 +247,13 @@ enum status_code sercom_set_gclk_generator(
 /**
  * \internal Gets the default PAD pinout for a given SERCOM.
  *
- * Returns the PINMUX settings for the given SERCOM and pad. This is used
+ * Returns the pinmux settings for the given SERCOM and pad. This is used
  * for default configuration of pins.
  *
  * \param[in]  sercom_module   Pointer to the SERCOM module
  * \param[in]  pad             PAD to get default pinout for
  *
- * \returns The default PINMUX for the given SERCOM instance and PAD
+ * \returns The default pinmux for the given SERCOM instance and PAD
  *
  */
 uint32_t _sercom_get_default_pad(
@@ -262,6 +265,32 @@ uint32_t _sercom_get_default_pad(
 		MREPEAT(SERCOM_INST_NUM, _SERCOM_PAD_DEFAULTS_CASE, pad)
 	}
 
+	Assert(false);
+	return 0;
+}
+
+/**
+ * \internal
+ * Find index of given instance.
+ *
+ * \param[in] sercom_instance  Instance pointer.
+ *
+ * \return Index of given instance.
+ */
+uint8_t _sercom_get_sercom_inst_index(
+		Sercom *const sercom_instance)
+{
+	/* Save all available SERCOM instances for compare */
+	Sercom *sercom_instances[SERCOM_INST_NUM] = SERCOM_INSTS;
+
+	/* Find index for sercom instance */
+	for (uint32_t i = 0; i < SERCOM_INST_NUM; i++) {
+		if ((uintptr_t)sercom_instance == (uintptr_t)sercom_instances[i]) {
+			return i;
+		}
+	}
+
+	/* Invalid data given */
 	Assert(false);
 	return 0;
 }

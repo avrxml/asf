@@ -1,4 +1,7 @@
 dnl -*- m4 -*-
+ /**
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 dnl
 dnl libmad - MPEG audio decoder library
 dnl Copyright (C) 2000-2004 Underbit Technologies, Inc.

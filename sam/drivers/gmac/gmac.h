@@ -3,7 +3,7 @@
  *
  * \brief GMAC (Ethernet MAC) driver for SAM.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef GMAC_H_INCLUDED
@@ -148,6 +151,19 @@ typedef enum {
 	GMAC_PHY_RMII = 1,    /** Reduced MII mode */
 	GMAC_PHY_INVALID = 0xFF, /* Invalid mode*/
 } gmac_mii_mode_t;
+
+/* This is the list of GMAC priority queue */
+typedef enum  {
+	GMAC_QUE_0 = 0,
+#if !(SAM4E)
+	GMAC_QUE_1 = 1,
+	GMAC_QUE_2 = 2,
+#endif
+#  if !defined(__DOXYGEN__)
+	GMAC_QUE_N,
+#  endif
+
+}gmac_quelist_t;
 
 /** Receive buffer descriptor struct */
 COMPILER_PACK_SET(8)
@@ -365,16 +381,6 @@ static inline void gmac_tx_pause_frame(Gmac* p_gmac)
 static inline void gmac_tx_pause_zero_quantum_frame(Gmac* p_gmac)
 {
 	p_gmac->GMAC_NCR |= GMAC_NCR_TXZQPF;
-}
-
-/**
- * \brief Read snapshot.
- *
- * \param p_gmac   Pointer to the GMAC instance.
- */
-static inline void gmac_read_snapshot(Gmac* p_gmac)
-{
-	p_gmac->GMAC_NCR |= GMAC_NCR_RDS;
 }
 
 /**
@@ -992,19 +998,274 @@ static inline void gmac_set_address64(Gmac* p_gmac, uint8_t uc_index,
  * \param p_gmac   Pointer to the GMAC instance.
  * \param mode   Media independent interface mode.
  */
+#if (SAM4E)
 static inline void gmac_select_mii_mode(Gmac* p_gmac, gmac_mii_mode_t mode)
 {
 	switch (mode) {
 		case GMAC_PHY_MII:
 		case GMAC_PHY_RMII:
-			p_gmac->GMAC_UR |= GMAC_UR_RMIIMII;
+			p_gmac->GMAC_UR |= GMAC_UR_MII;
 		break;
 
 		default:
-			p_gmac->GMAC_UR &= ~GMAC_UR_RMIIMII;
+			p_gmac->GMAC_UR &= ~GMAC_UR_MII;
 		break;
 	}
 }
+#else
+static inline void gmac_select_mii_mode(Gmac* p_gmac, gmac_mii_mode_t mode)
+{
+	switch (mode) {
+		case GMAC_PHY_MII:
+			p_gmac->GMAC_UR |= GMAC_UR_RMII;
+			break;
+
+		case GMAC_PHY_RMII:
+		default:
+			p_gmac->GMAC_UR &= ~GMAC_UR_RMII;
+			break;
+	}
+}
+#endif
+
+#if !(SAM4E)
+/**
+ * \brief Set 1588 timer comparison.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param seconds47   Second comparison high
+ * \param seconds31   Second comparison low
+ * \param nanosec     Nanosecond Comparison
+ */
+static inline void gmac_set_tsu_compare(Gmac *p_gmac, uint32_t seconds47, uint32_t seconds31, uint32_t nanosec)
+{
+	p_gmac->GMAC_SCH = seconds47;
+	p_gmac->GMAC_SCL = seconds31;
+	p_gmac->GMAC_NSC = nanosec;
+}
+
+/**
+ * \brief Get interrupt status.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param queue_idx   Index of queue, start from 1
+ *
+ * \return Interrupt status.
+ */
+static inline uint32_t gmac_get_priority_interrupt_status(Gmac* p_gmac, gmac_quelist_t queue_idx)
+{
+	return p_gmac->GMAC_ISRPQ[queue_idx - 1];
+}
+
+/**
+ * \brief Set base address of TX buffer.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param queue_idx   Index of queue, start from 1
+ */
+static inline void gmac_set_tx_priority_queue(Gmac* p_gmac, uint32_t ul_addr, gmac_quelist_t queue_idx)
+{
+    p_gmac->GMAC_TBQBAPQ[queue_idx - 1] = GMAC_TBQB_ADDR_Msk & ul_addr;
+}
+
+/**
+ * \brief Get base address of TX buffer.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param queue_idx   Index of queue, start from 1
+ *
+ * \return Base address.
+ */
+static inline uint32_t gmac_get_tx_priority_queue(Gmac* p_gmac, gmac_quelist_t queue_idx)
+{
+	return p_gmac->GMAC_TBQBAPQ[queue_idx - 1];
+}
+
+/**
+ * \brief Set base address of RX buffer.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param queue_idx   Index of queue, start from 1
+ */
+static inline void gmac_set_rx_priority_queue(Gmac* p_gmac, uint32_t ul_addr, gmac_quelist_t queue_idx)
+{
+    p_gmac->GMAC_RBQBAPQ[queue_idx - 1] = GMAC_RBQB_ADDR_Msk & ul_addr;
+}
+
+/**
+ * \brief Get base address of RX buffer.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param queue_idx   Index of queue, start from 1
+ *
+ * \return Base address.
+ */
+static inline uint32_t gmac_get_rx_priority_queue(Gmac* p_gmac, gmac_quelist_t queue_idx)
+{
+	return p_gmac->GMAC_RBQBAPQ[queue_idx - 1];
+}
+
+/**
+ * \brief Set size of RX buffer.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param queue_idx   Index of queue, start from 1
+ */
+static inline void gmac_set_rx_priority_bufsize(Gmac* p_gmac, uint32_t ul_size, gmac_quelist_t queue_idx)
+{
+	p_gmac->GMAC_RBSRPQ[queue_idx - 1] = ul_size;
+}
+
+/**
+ * \brief Enable or disable credit-based shaping on the second highest priority queue.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param uc_enable   0 to disable, 1 to enable it
+ */
+static inline void gmac_enable_cbsque_a(Gmac* p_gmac, uint8_t uc_enable)
+{
+	if (uc_enable) {
+		p_gmac->GMAC_CBSCR |= GMAC_CBSCR_QAE;
+	} else {
+		p_gmac->GMAC_CBSCR &= ~GMAC_CBSCR_QAE;
+	}
+}
+
+/**
+ * \brief Enable or disable credit-based shaping on the highest priority queue.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param uc_enable   0 to disable, 1 to enable it
+ */
+static inline void gmac_enable_cbsque_b(Gmac* p_gmac, uint8_t uc_enable)
+{
+	if (uc_enable) {
+		p_gmac->GMAC_CBSCR |= GMAC_CBSCR_QBE;
+	} else {
+		p_gmac->GMAC_CBSCR &= ~GMAC_CBSCR_QBE;
+	}
+}
+
+/**
+ * \brief Set credit-based shaping on the highest priority queue.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param idleslope_a   Value for queue A in bytes/second
+ */
+static inline void gmac_config_idleslope_a(Gmac* p_gmac, uint32_t idleslope_a)
+{    
+	p_gmac->GMAC_CBSISQA = idleslope_a;
+}
+
+/**
+ * \brief Set credit-based shaping on the highest priority queue.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param idleslope_b   Value for queue B in bytes/second
+ */
+static inline void gmac_config_idleslope_b(Gmac* p_gmac, uint32_t idleslope_b)
+{    
+	p_gmac->GMAC_CBSISQB = idleslope_b;
+}
+
+/**
+ * \brief Set screening type 1 register.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param reg_val  Value for screening type 1
+ * \param index    Index of register
+ */
+static inline void gmac_write_screener_reg_1(Gmac* p_gmac, uint32_t reg_val, uint32_t index)
+{
+	p_gmac->GMAC_ST1RPQ[index] = reg_val;
+}
+
+/**
+ * \brief Set screening type 2 register.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param reg_val  Value for screening type 2
+ * \param index    Index of register
+ */
+static inline void gmac_write_screener_reg_2 (Gmac* p_gmac, uint32_t reg_val, uint32_t index)
+{
+	p_gmac->GMAC_ST2RPQ[index] = reg_val;
+}
+
+/**
+ * \brief Enable interrupt(s).
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param ul_source   Interrupt source(s) to be enabled.
+ * \param queue_idx   Index of queue, start from 1
+ */
+static inline void gmac_enable_priority_interrupt(Gmac* p_gmac, uint32_t ul_source, gmac_quelist_t queue_idx)
+{
+	p_gmac->GMAC_IERPQ[queue_idx - 1] = ul_source;
+}
+
+/**
+ * \brief Disable interrupt(s).
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param ul_source   Interrupt source(s) to be disabled.
+ * \param queue_idx   Index of queue, start from 1
+ */
+static inline void gmac_disable_priority_interrupt(Gmac* p_gmac, uint32_t ul_source, gmac_quelist_t queue_idx)
+{
+	p_gmac->GMAC_IDRPQ[queue_idx - 1] = ul_source;
+}
+
+/**
+ * \brief Get interrupt mask.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param queue_idx   Index of queue, start from 1
+ *
+ * \return Interrupt mask.
+ */
+static inline uint32_t gmac_get_priority_interrupt_mask(Gmac* p_gmac, gmac_quelist_t queue_idx)
+{
+	return p_gmac->GMAC_IMRPQ[queue_idx - 1];
+}
+
+/**
+ * \brief Set screening type 2 eherType register.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param ethertype  Ethertype compare value
+ * \param index    Index of register
+ */
+static inline void gmac_write_ethtype_reg(Gmac* p_gmac, uint16_t ethertype, uint32_t index)
+{
+	p_gmac->GMAC_ST2ER[index] = (uint32_t)ethertype;
+}
+
+/**
+ * \brief Set screening type 2 compare word register.
+ *
+ * \param p_gmac   Pointer to the GMAC instance.
+ * \param c0reg    Compare value 0
+ * \param c1reg    Compare value 1
+ * \param index    Index of register
+ */
+static inline void gmac_write_screen_compare_reg(Gmac* p_gmac, uint32_t c0reg, uint16_t c1reg, uint32_t index)
+{
+	volatile uint32_t *p_PRAS;
+	uint32_t ul_dlt;
+
+	ul_dlt = (uint32_t)&(p_gmac->GMAC_ST2CW01);
+	ul_dlt = ul_dlt - (uint32_t)&(p_gmac->GMAC_ST2CW00);
+
+	p_PRAS = (volatile uint32_t *)((uint32_t)&(p_gmac->GMAC_ST2CW00) +
+			index * ul_dlt);
+	*p_PRAS = c0reg;
+	p_PRAS = (volatile uint32_t *)((uint32_t)&(p_gmac->GMAC_ST2CW10) +
+			index * ul_dlt);
+	*p_PRAS = (uint32_t)c1reg;
+}
+
+#endif
 
 uint8_t gmac_phy_read(Gmac* p_gmac, uint8_t uc_phy_address, uint8_t uc_address,
 		uint32_t* p_value);

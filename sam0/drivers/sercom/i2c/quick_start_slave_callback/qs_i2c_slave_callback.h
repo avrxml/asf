@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM I2C Slave Quick Start Guide with Callbacks
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,7 +46,7 @@
  *
  * In this use case, the I<SUP>2</SUP>C will used and set up as follows:
  *  - Slave mode
- *  - 100kHz operation speed
+ *  - 100KHz operation speed
  *  - Not operational in standby
  *  - 10000 packet timeout value
  *
@@ -70,7 +70,7 @@
  * Globally accessible packet:
  * \snippet qs_i2c_slave_callback.c packet
  *
- * Function for setting up the module.
+ * Function for setting up the module:
  * \snippet qs_i2c_slave_callback.c initialize_i2c
  *
  * Callback function for read request from a master:
@@ -82,11 +82,11 @@
  * Function for setting up the callback functionality of the driver:
  * \snippet qs_i2c_slave_callback.c setup_i2c_callback
  *
- * Add to user application main():
+ * Add to user application \c main():
  * \snippet qs_i2c_slave_callback.c run_initialize_i2c
  *
  * \subsection asfdoc_sam0_sercom_i2c_slave_callback_use_setup_workflow Workflow
- * -# Configure and enable module:
+ * -# Configure and enable module.
  *    \snippet qs_i2c_slave_callback.c config
  *   -# Create and initialize configuration structure.
  *      \snippet qs_i2c_slave_callback.c init_conf
@@ -103,7 +103,7 @@
  *
  * \section asfdoc_sam0_sercom_i2c_slave_callback_use_implementation Implementation
  * \subsection asfdoc_sam0_sercom_i2c_slave_callback_use_implementation_code Code
- * Add to user application main:
+ * Add to user application \c main():
  * \snippet qs_i2c_slave_callback.c while
  * \subsection i2c_slave_callback_use_implementation_workflow Workflow
  * -# Infinite while loop, while waiting for interaction from master.
@@ -125,6 +125,9 @@
  *     \snippet qs_i2c_slave_callback.c packet_read
  *  -# Read packet from master.
  *     \snippet qs_i2c_slave_callback.c read_packet
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>

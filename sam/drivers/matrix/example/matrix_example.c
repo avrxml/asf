@@ -3,7 +3,7 @@
  *
  * \brief Matrix example for SAM.
  *
- * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -84,6 +84,9 @@
 	    Led toggled xxx times in one second
 \endcode
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "asf.h"
 #include "stdio_serial.h"
@@ -103,6 +106,8 @@
 #define MATRIX_SLAVE_NUM    6
 #elif (SAM4C || SAM4CP || SAM4CM)
 #define MATRIX_SLAVE_NUM    8
+#elif (SAMV71 || SAMV70 || SAMS70 || SAME70)
+#define MATRIX_SLAVE_NUM    9
 #else
 #warning "Not define matrix slave number, set 1 for default."
 #define MATRIX_SLAVE_NUM    1
@@ -123,7 +128,13 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	/* Configure console UART. */
@@ -197,7 +208,8 @@ int main(void)
 	/* First, test with Round-Robin arbitration without default master */
 	puts("-- Test1: configure Round-Robin arbitration without default master. --\r");
 	for (ul_slave_id = 0; ul_slave_id < MATRIX_SLAVE_NUM; ul_slave_id++) {
-#if (!SAM4E) && (!SAM4C) && (!SAM4CP) && (!SAM4CM)
+#if (!SAM4E) && (!SAM4C) && (!SAM4CP) && (!SAM4CM) && \
+	(!SAMV71) && (!SAMV70) && (!SAMS70) && (!SAME70)
 		matrix_set_slave_arbitration_type(ul_slave_id,
 				MATRIX_ARBT_ROUND_ROBIN);
 #endif
@@ -210,7 +222,8 @@ int main(void)
 	/* Second, test with Round-Robin arbitration with last access master */
 	puts("-- Test2: configure Round-Robin arbitration with last access master. --\r");
 	for (ul_slave_id = 0; ul_slave_id < MATRIX_SLAVE_NUM; ul_slave_id++) {
-#if (!SAM4E) && (!SAM4C) && (!SAM4CP) && (!SAM4CM)
+#if (!SAM4E) && (!SAM4C) && (!SAM4CP) && (!SAM4CM) && \
+	(!SAMV71) && (!SAMV70) && (!SAMS70) && (!SAME70)
 		matrix_set_slave_arbitration_type(ul_slave_id,
 				MATRIX_ARBT_ROUND_ROBIN);
 #endif

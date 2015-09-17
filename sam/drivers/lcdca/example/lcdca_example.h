@@ -3,7 +3,7 @@
  *
  * \brief SAM4L LCDCA example.
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,12 +40,15 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef LCDCA_EXAMPLE_H_INCLUDED
 #define LCDCA_EXAMPLE_H_INCLUDED
 
 /**
- * \page asfdoc_sam_drivers_lcdca_example Liquid Crystal Controller - Example interfacing to a C42048A display
+ * \page asfdoc_sam_drivers_lcdca_example Liquid Crystal Controller - Example Interfacing to a C42048A Display
  *
  * \section asfdoc_sam_drivers_lcdca_example_intro Purpose
  * This example demonstrates how to use the LCDCA driver to interface to an external

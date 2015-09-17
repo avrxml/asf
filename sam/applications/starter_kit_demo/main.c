@@ -3,7 +3,7 @@
  *
  * \brief Starter Kit Demo.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -66,6 +66,9 @@
  * IO1 extension must be connected on EXT2.
  * OLED1 extension must be connected on EXT3.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>

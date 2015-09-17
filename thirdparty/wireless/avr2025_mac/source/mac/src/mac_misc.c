@@ -4,7 +4,7 @@
  * @brief This file implements miscellaneous MAC sublayer components.
  *
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -172,13 +172,13 @@ retval_t mac_init(void)
 	port_pin_set_config(DEBUG_PIN15, &config_port_pin);
 
 	/*ioport_configure_pin(DEBUG_PIN1, IOPORT_DIR_OUTPUT |
-	*  IOPORT_INIT_LOW);
-	*  ioport_configure_pin(DEBUG_PIN2, IOPORT_DIR_OUTPUT |
-	*  IOPORT_INIT_LOW);
-	*  ioport_configure_pin(DEBUG_PIN3, IOPORT_DIR_OUTPUT |
-	*  IOPORT_INIT_LOW);
-	*  ioport_configure_pin(DEBUG_PIN4, IOPORT_DIR_OUTPUT |
-	*  IOPORT_INIT_LOW);*/
+	 *  IOPORT_INIT_LOW);
+	 *  ioport_configure_pin(DEBUG_PIN2, IOPORT_DIR_OUTPUT |
+	 *  IOPORT_INIT_LOW);
+	 *  ioport_configure_pin(DEBUG_PIN3, IOPORT_DIR_OUTPUT |
+	 *  IOPORT_INIT_LOW);
+	 *  ioport_configure_pin(DEBUG_PIN4, IOPORT_DIR_OUTPUT |
+	 *  IOPORT_INIT_LOW);*/
 	#endif
 
 	/* Initialize TAL */

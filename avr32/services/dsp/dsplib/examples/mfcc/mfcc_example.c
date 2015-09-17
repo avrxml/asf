@@ -7,7 +7,7 @@
  * \section file File(s)
  * - \ref mfcc_example.c
  *
- * Copyright (c) 2009-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,6 +44,9 @@
  * \asf_license_stop
  *
  *****************************************************************************/
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <avr32/io.h>
 #include "cycle_counter.h"

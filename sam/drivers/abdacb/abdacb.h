@@ -3,7 +3,7 @@
  *
  * \brief ABDAC driver for SAM.
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _ABDAC_H_INCLUDED
@@ -355,7 +358,7 @@ void abdac_set_callback(struct abdac_dev_inst *const dev_inst,
  * ABDAC module.
  *
  * \section abdac_qs_use_cases Use cases
- * - \ref abdac_basic
+ * - \ref abdac_basic "ABDAC Basic Usage"
  *
  * \section abdac_basic ABDAC basic usage
  *
@@ -368,7 +371,7 @@ void abdac_set_callback(struct abdac_dev_inst *const dev_inst,
  * \subsection abdac_basic_prereq Prerequisites
  *
  * This module requires the following service
- * - \ref clk_group
+ * - \ref clk_group "Clock Management (Sysclock)"
  *
  * \subsection abdac_basic_setup_code
  *

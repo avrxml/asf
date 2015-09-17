@@ -3,7 +3,7 @@
  *
  * \brief Main system routines interface
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -57,7 +57,7 @@
 /**
  * \defgroup group_lwmesh Light Weight Mesh  v2.0
  *      Lightweight Mesh software stack is an easy to use proprietary low power
- *wireless mesh network protocol.
+ * wireless mesh network protocol.
  *
  */
 
@@ -66,9 +66,9 @@
  * \defgroup group_phy PHY
  * Radio physical layer (PHY) provides functions for radio transceiver access.
  * Some of them are accessible only by the network layer (request to send data,
- *data indication);
+ * data indication);
  * some of them can be used from the application (channel selection, random
- *number generation, energy detection, etc.)
+ * number generation, energy detection, etc.)
  *
  *
  */
@@ -77,7 +77,7 @@
  * \ingroup group_lwmesh
  * \defgroup group_lwmesh_nwk Network layer(NWK)
  *  Network layer (NWK) provides core stack functionality and provides two
- *routing algorithms,1.Native routing and 2.AODV routing.
+ * routing algorithms,1.Native routing and 2.AODV routing.
  *
  */
 
@@ -85,9 +85,9 @@
  * \ingroup group_lwmesh
  * \defgroup group_lwmesh_sys LWMesh System Services
  * System services provide common functions for all layers, which are necessary
- *for normal stack operation.
+ * for normal stack operation.
  * System services include basic types and definitions, software timers, default
- *configuration parameters, encryption module access, etc.
+ * configuration parameters, encryption module access, etc.
  * @{
  */
 

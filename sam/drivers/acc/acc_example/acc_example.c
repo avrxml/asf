@@ -3,7 +3,7 @@
  *
  * \brief Analog Comparator Controller (ACC) example for SAM.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -229,11 +232,13 @@ int main(void)
 	dacc_disable_trigger(DACC);
 	/* Half word transfer mode */
 	dacc_set_transfer_mode(DACC, 0);
+#if (SAM3S) || (SAM3XA)
 	/* Power save:
 	 * sleep mode  - 0 (disabled)
 	 * fast wake-up - 0 (disabled)
 	 */
 	dacc_set_power_save(DACC, 0, 0);
+#endif
 	/* Timing:
 	 * refresh        - 0x08 (1024*8 dacc clocks)
 	 * max speed mode -    0 (disabled)

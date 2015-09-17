@@ -3,7 +3,7 @@
  *
  * \brief Startup file for SAM4E.
  *
- * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "sam4e.h"
@@ -100,7 +103,7 @@ const DeviceVectors exception_table = {
 	(void*) Dummy_Handler,
 	(void*) PIOA_Handler,   /* 9  Parallel I/O Controller A */
 	(void*) PIOB_Handler,   /* 10 Parallel I/O Controller B */
-#ifdef _SAM4E_PIOD_INSTANCE_
+#ifdef _SAM4E_PIOC_INSTANCE_
 	(void*) PIOC_Handler,   /* 11 Parallel I/O Controller C */
 #else
 	(void*) Dummy_Handler,
@@ -150,7 +153,7 @@ const DeviceVectors exception_table = {
 #ifdef _SAM4E_CAN1_INSTANCE_
 	(void*) CAN1_Handler,   /* 38 CAN1 */
 #else
-	(void*) Dummy_Handler
+	(void*) Dummy_Handler,
 #endif /* _SAM4E_CAN1_INSTANCE_ */
 	(void*) AES_Handler,    /* 39 AES */
 	(void*) Dummy_Handler,

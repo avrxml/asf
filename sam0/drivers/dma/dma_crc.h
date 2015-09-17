@@ -3,7 +3,7 @@
  *
  * \brief SAM DMA cyclic redundancy check (CRC) Driver
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef DMA_CRC_H_INCLUDED
 #define DMA_CRC_H_INCLUDED
 
@@ -49,32 +52,32 @@
 extern "C" {
 #endif
 
-/** DMA channel n offset*/
+/** DMA channel n offset. */
 #define DMA_CRC_CHANNEL_N_OFFSET 0x20
 
-/** CRC Polynomial Type */
+/** CRC Polynomial Type. */
 enum crc_polynomial_type {
-	/** CRC16 (CRC-CCITT) */
+	/** CRC16 (CRC-CCITT). */
 	CRC_TYPE_16,
-	/** CRC32 (IEEE 802.3) */
+	/** CRC32 (IEEE 802.3). */
 	CRC_TYPE_32,
 };
 
-/** CRC Beat Type */
+/** CRC Beat Type. */
 enum crc_beat_size {
-	/** Byte bus access */
+	/** Byte bus access. */
 	CRC_BEAT_SIZE_BYTE,
-	/** Half-word bus access */
+	/** Half-word bus access. */
 	CRC_BEAT_SIZE_HWORD,
-	/** Word bus access */
+	/** Word bus access. */
 	CRC_BEAT_SIZE_WORD,
 };
 
-/** Configurations for CRC calculation */
+/** Configurations for CRC calculation. */
 struct dma_crc_config {
-	/** CRC polynomial type */
+	/** CRC polynomial type. */
 	enum crc_polynomial_type type;
-	/** CRC beat size */
+	/** CRC beat size. */
 	enum crc_beat_size size;
 };
 
@@ -85,7 +88,7 @@ struct dma_crc_config {
  *  \li Polynomial type is set to CRC-16(CRC-CCITT)
  *  \li CRC Beat size: BYTE
  *
- * \param[in] config default configurations.
+ * \param[in] config default configurations
  */
 static inline void dma_crc_get_config_defaults(struct dma_crc_config *config)
 {
@@ -101,8 +104,8 @@ static inline void dma_crc_get_config_defaults(struct dma_crc_config *config)
  * This function enables a CRC calculation with an allocated DMA channel. This channel ID
  * can be gotten from a successful \ref dma_allocate.
  *
- * \param[in] channel_id DMA channel expected with CRC calculation.
- * \param[in] config CRC calculation configurations.
+ * \param[in] channel_id DMA channel expected with CRC calculation
+ * \param[in] config CRC calculation configurations
  *
  * \return Status of the DMC CRC.
  * \retval STATUS_OK Get the DMA CRC module
@@ -188,8 +191,8 @@ static inline enum status_code dma_crc_io_enable(
  *
  * This function calculate the CRC of the input data buffer.
  *
- * \param[in] buffer CRC Pointer to calculation buffer.
- * \param[in] total_beat_size Total beat size to be calculated.
+ * \param[in] buffer CRC Pointer to calculation buffer
+ * \param[in] total_beat_size Total beat size to be calculated
  *
  * \return Calculated CRC checksum value.
  */

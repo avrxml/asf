@@ -4,7 +4,7 @@
  *
  * \brief sprintf functions to replace newlib for AVR32 UC3.
  *
- * Copyright (c) 2006-2008 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2006-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

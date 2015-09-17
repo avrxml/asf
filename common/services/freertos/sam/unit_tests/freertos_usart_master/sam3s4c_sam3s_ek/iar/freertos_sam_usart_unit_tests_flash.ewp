@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3S4	Atmel SAM3S4</state>
+					<state>ATSAM3S4C	Atmel ATSAM3S4C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1041,7 +1041,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3S4	Atmel SAM3S4</state>
+					<state>ATSAM3S4C	Atmel ATSAM3S4C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>

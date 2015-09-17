@@ -1,0 +1,16 @@
+<form action= "index2.html" method="get" >
+<table class="t t-b t-s">
+<thead>
+<tr>
+<th>Neighbor</th><th>Link metric</th><th>Ping time</th>
+<th>
+<input type="submit" class="btn" name="nbraction" value="Led On">
+<input type="submit" class="btn" name="nbraction" value="Led Off">
+<input type="submit" class="btn" name="nbraction" value="Led Blink">
+<input type="submit" class="btn" name="nbraction" value="Ping">
+</th>
+</tr>
+</thead>
+%! nbrsled
+</table>
+</form>

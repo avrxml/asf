@@ -3,7 +3,7 @@
  *
  * \brief Clock system example 3
  *
- * Copyright (c) 2010 - 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -128,6 +128,9 @@
  *
  * This specifies to the \ref sysclk_group which timer/counter on the port to
  * enable the peripheral clock for.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 //@}
 

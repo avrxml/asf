@@ -4,7 +4,7 @@
  *
  * \brief Basic WEB Server for AVR32 UC3.
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -57,6 +57,9 @@
   + Changed the page returned by the lwIP WEB server demo to display the
     task status table rather than the TCP/IP statistics.
 */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #if (HTTP_USED == 1)
 

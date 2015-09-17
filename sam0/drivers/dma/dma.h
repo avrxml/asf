@@ -3,7 +3,7 @@
  *
  * \brief SAM Direct Memory Access Controller Driver
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef DMA_H_INCLUDED
 #define DMA_H_INCLUDED
 
@@ -50,20 +53,23 @@ extern "C" {
 /**
  * \defgroup asfdoc_sam0_dma_group SAM Direct Memory Access Controller Driver (DMAC)
  *
- * This driver for SAM devices provides an interface for the configuration
+ * This driver for Atmel&reg; | SMART SAM devices provides an interface for the configuration
  * and management of the Direct Memory Access Controller(DMAC) module within
  * the device. The DMAC can transfer data between memories and peripherals, and
  * thus off-load these tasks from the CPU. The module supports peripheral to
- * peripheral, peripheral to memory, memory to peripheral and memory to memory
+ * peripheral, peripheral to memory, memory to peripheral, and memory to memory
  * transfers.
  *
  * The following peripherals are used by the DMAC Driver:
  * - DMAC (Direct Memory Access Controller)
  *
  * The following devices can use this module:
- *  - SAM D21
- *  - SAM R21
- *  - SAM D10/D11
+ *  - Atmel | SMART SAM D21
+ *  - Atmel | SMART SAM R21
+ *  - Atmel | SMART SAM D09/D10/D11
+ *  - Atmel | SMART SAM L21/L22
+ *  - Atmel | SMART SAM DA1
+ *  - Atmel | SMART SAM C20/C21
  *
  * The outline of this documentation is as follows:
  * - \ref asfdoc_sam0_dma_prerequisites
@@ -94,19 +100,36 @@ extern "C" {
  * the DMAC to transfer the data into another peripheral or into SRAM.
  * The CPU can remain in sleep during this time to reduce power consumption.
  *
- * The DMAC module has 12 channels. The DMA channel
- * operation can be suspended at any time by software, by events
+ * <table>
+ *    <tr>
+ *      <th>Device</th>
+ *      <th>Dma channel number</th>
+ *    </tr>
+ *    <tr>
+ *      <td>SAM D21/R21/C20/C21</td>
+ *      <td>12</td>
+ *    </tr>
+ *    <tr>
+ *      <td>SAM D09/D10/D11</td>
+ *      <td>6</td>
+ *    </tr>
+ *    <tr>
+ *      <td>SAM L21</td>
+ *      <td>16</td>
+ *    </tr>
+ * </table>
+ * The DMA channel operation can be suspended at any time by software, by events
  * from event system, or after selectable descriptor execution. The operation
  * can be resumed by software or by events from event system.
  * The DMAC driver for SAM supports four types of transfers such as
- * peripheral to peripheral, peripheral to memory, memory to peripheral and
+ * peripheral to peripheral, peripheral to memory, memory to peripheral, and
  * memory to memory.
  *
  * The basic transfer unit is a beat which is defined as a single bus access.
  * There can be multiple beats in a single block transfer and multiple block
  * transfers in a DMA transaction.
  * DMA transfer is based on descriptors, which holds transfer properties
- * such as the source and destination addresses, transfer counter and other
+ * such as the source and destination addresses, transfer counter, and other
  * additional transfer control information.
  * The descriptors can be static or linked. When static, a single block transfer
  * is performed. When linked, a number of transfer descriptors can be used to
@@ -124,11 +147,11 @@ extern "C" {
  *  - Software
  *  - Event System
  *  - Peripheral
- * - Event input and output is supported for the 4 lower channels
- * - 4 level channel priority
+ * - Event input and output is supported for the four lower channels
+ * - Four level channel priority
  * - Optional interrupt generation on transfer complete, channel error or channel suspend
  * - Supports multi-buffer or circular buffer mode by linking multiple descriptors
- * - Beat size configurable as 8-bit, 16-bit or 32-bit
+ * - Beat size configurable as 8-bit, 16-bit, or 32-bit
  *
  * A simplified block diagram of the DMA Resource can be seen in
  * \ref asfdoc_sam0_dma_module_block_diagram "the figure below".
@@ -158,6 +181,20 @@ extern "C" {
  * }
  * \enddot
  *
+ * \subsection asfdoc_sam0_dma_features Driver Feature Macro Definition
+ * <table>
+ *  <tr>
+ *    <th>Driver Feature Macro</th>
+ *    <th>Supported devices</th>
+ *  </tr>
+ *  <tr>
+ *    <td>FEATURE_DMA_CHANNEL_STANDBY</td>
+ *    <td>SAM L21/L22/C20/C21</td>
+ *  </tr>
+ * </table>
+ * \note The specific features are only available in the driver when the
+ * selected device supports those features.
+ *
  * \subsection asfdoc_sam0_dma_module_overview_dma_transf_term Terminology Used in DMAC Transfers
  *
  *   <table border="0" cellborder="1" cellspacing="0" >
@@ -167,7 +204,7 @@ extern "C" {
  *    <tr>
  *     <td > Beat </td>
  *     <td > It is a single bus access by the DMAC.
- *           Configurable as 8-bit, 16-bit or 32-bit
+ *           Configurable as 8-bit, 16-bit, or 32-bit
  *     </td>
  *    </tr>
  *    <tr>
@@ -190,10 +227,10 @@ extern "C" {
  * along with the transfer descriptors defines the data transfer properties.
  * - The transfer control descriptor defines the source and destination
  * addresses, source and destination address increment settings, the
- * block transfer count and event output condition selection.
+ * block transfer count and event output condition selection
  * - Dedicated channel registers control the peripheral trigger source,
- * trigger mode settings, event input actions and channel priority level
- * settings.
+ * trigger mode settings, event input actions, and channel priority level
+ * settings
  *
  * With a successful DMA resource allocation, a dedicated
  * DMA channel will be assigned. The channel will be occupied until the
@@ -204,7 +241,7 @@ extern "C" {
  *
  * \subsection asfdoc_sam0_dma_module_overview_dma_trigger DMA Triggers
  * DMA transfer can be started only when a DMA transfer request is acknowledged/granted by the arbiter. A
- * transfer request can be triggered from software, peripheral or an event. There
+ * transfer request can be triggered from software, peripheral, or an event. There
  * are dedicated source trigger selections for each DMA channel usage.
 
  *
@@ -213,22 +250,22 @@ extern "C" {
  * defines these channel properties.
  *   <table border="0" cellborder="1" cellspacing="0" >
  *    <tr>
- *        <th> Field Name </th> <th> Field Width </th>
+ *        <th> Field name </th> <th> Field width </th>
  *    </tr>
  *    <tr>
- *     <td > Descriptor Next Address </td> <td > 32 Bits </td>
+ *     <td > Descriptor Next Address </td> <td > 32 bits </td>
  *    </tr>
  *    <tr>
- *     <td > Destination Address </td> <td> 32 Bits </td>
+ *     <td > Destination Address </td> <td> 32 bits </td>
  *    </tr>
  *    <tr>
- *     <td > Source Address </td> <td> 32 Bits </td>
+ *     <td > Source Address </td> <td> 32 bits </td>
  *    </tr>
  *    <tr>
- *     <td > Block Transfer Counter </td> <td> 16 Bits </td>
+ *     <td > Block Transfer Counter </td> <td> 16 bits </td>
  *    </tr>
  *    <tr>
- *     <td > Block Transfer Control </td> <td> 16 Bits </td>
+ *     <td > Block Transfer Control </td> <td> 16 bits </td>
  *    </tr>
  *   </table>
  *
@@ -241,12 +278,12 @@ extern "C" {
  * \subsection asfdoc_sam0_dma_module_overview_dma_output DMA Interrupts/Events
  * Both an interrupt callback and an peripheral event can be triggered by the
  * DMA transfer. Three types of callbacks are supported by the DMA driver:
- * transfer complete, channel suspend and transfer error. Each of these callback
+ * transfer complete, channel suspend, and transfer error. Each of these callback
  * types can be registered and enabled for each channel independently through
  * the DMA driver API.
  *
  * The DMAC module can also generate events on transfer complete. Event
- * generation is enabled through the DMA channel, event channel configuration
+ * generation is enabled through the DMA channel, event channel configuration,
  * and event user multiplexing is done through the events driver.
  *
  * The DMAC can generate events in the below cases:
@@ -262,7 +299,7 @@ extern "C" {
  *
  * \section asfdoc_sam0_dma_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_sam0_dma_extra. This includes:
+ * For extra information, see \ref asfdoc_sam0_dma_extra. This includes:
  * - \ref asfdoc_sam0_dma_extra_acronyms
  * - \ref asfdoc_sam0_dma_extra_dependencies
  * - \ref asfdoc_sam0_dma_extra_errata
@@ -282,39 +319,46 @@ extern "C" {
 #include <compiler.h>
 #include "conf_dma.h"
 
-/** DMA invalid channel number */
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || defined(__DOXYGEN__)
+#define FEATURE_DMA_CHANNEL_STANDBY
+#endif
+
+/** DMA invalid channel number. */
 #define DMA_INVALID_CHANNEL        0xff
 
-/** ExInitial description section */
+/** ExInitial description section. */
 extern DmacDescriptor descriptor_section[CONF_MAX_USED_CHANNEL_NUM];
 
-/** DMA priority level */
+/* DMA channel interrup flag. */
+extern uint8_t g_chan_interrupt_flag[CONF_MAX_USED_CHANNEL_NUM];
+
+/** DMA priority level. */
 enum dma_priority_level {
-	/** Priority level 0 */
+	/** Priority level 0. */
 	DMA_PRIORITY_LEVEL_0,
-	/** Priority level 1 */
+	/** Priority level 1. */
 	DMA_PRIORITY_LEVEL_1,
-	/** Priority level 2 */
+	/** Priority level 2. */
 	DMA_PRIORITY_LEVEL_2,
-	/** Priority level 3 */
+	/** Priority level 3. */
 	DMA_PRIORITY_LEVEL_3,
 };
 
 /** DMA input actions. */
 enum dma_event_input_action {
-	/** No action */
+	/** No action. */
 	DMA_EVENT_INPUT_NOACT,
-	/** Normal transfer and periodic transfer trigger */
+	/** Normal transfer and periodic transfer trigger. */
 	DMA_EVENT_INPUT_TRIG,
-	/** Conditional transfer trigger*/
+	/** Conditional transfer trigger. */
 	DMA_EVENT_INPUT_CTRIG,
-	/** Conditional block transfer */
+	/** Conditional block transfer. */
 	DMA_EVENT_INPUT_CBLOCK,
-	/** Channel suspend operation */
+	/** Channel suspend operation. */
 	DMA_EVENT_INPUT_SUSPEND,
-	/** Channel resume operation */
+	/** Channel resume operation. */
 	DMA_EVENT_INPUT_RESUME,
-	/** Skip next block suspend action */
+	/** Skip next block suspend action. */
 	DMA_EVENT_INPUT_SSKIP,
 };
 
@@ -324,44 +368,44 @@ enum dma_event_input_action {
  * STEPSEL setting.
  */
 enum dma_address_increment_stepsize {
-	/** The address is incremented by (beat size * 1)*/
+	/** The address is incremented by (beat size * 1). */
 	DMA_ADDRESS_INCREMENT_STEP_SIZE_1 = 0,
-	/** The address is incremented by (beat size * 2) */
+	/** The address is incremented by (beat size * 2). */
 	DMA_ADDRESS_INCREMENT_STEP_SIZE_2,
-	/** The address is incremented by (beat size * 4) */
+	/** The address is incremented by (beat size * 4). */
 	DMA_ADDRESS_INCREMENT_STEP_SIZE_4,
-	/** The address is incremented by (beat size * 8) */
+	/** The address is incremented by (beat size * 8). */
 	DMA_ADDRESS_INCREMENT_STEP_SIZE_8,
-	/** The address is incremented by (beat size * 16) */
+	/** The address is incremented by (beat size * 16). */
 	DMA_ADDRESS_INCREMENT_STEP_SIZE_16,
-	/** The address is incremented by (beat size * 32) */
+	/** The address is incremented by (beat size * 32). */
 	DMA_ADDRESS_INCREMENT_STEP_SIZE_32,
-	/** The address is incremented by (beat size * 64) */
+	/** The address is incremented by (beat size * 64). */
 	DMA_ADDRESS_INCREMENT_STEP_SIZE_64,
-	/** The address is incremented by (beat size * 128) */
+	/** The address is incremented by (beat size * 128). */
 	DMA_ADDRESS_INCREMENT_STEP_SIZE_128,
 };
 
 /**
  * DMA step selection. This bit determines whether the step size setting
- * is applied to source or destination address
+ * is applied to source or destination address.
  */
 enum dma_step_selection {
-	/** Step size settings apply to the destination address */
+	/** Step size settings apply to the destination address. */
 	DMA_STEPSEL_DST = 0,
-	/** Step size settings apply to the source address */
+	/** Step size settings apply to the source address. */
 	DMA_STEPSEL_SRC,
 };
 
 /** The basic transfer unit in DMAC is a beat, which is defined as a
  *  single bus access. Its size is configurable and applies to both read
- *  and write */
+ *  and write. */
 enum dma_beat_size {
-	/** 8-bit access */
+	/** 8-bit access. */
 	DMA_BEAT_SIZE_BYTE = 0,
-	/** 16-bit access */
+	/** 16-bit access. */
 	DMA_BEAT_SIZE_HWORD,
-	/** 32-bit access */
+	/** 32-bit access. */
 	DMA_BEAT_SIZE_WORD,
 };
 
@@ -369,39 +413,39 @@ enum dma_beat_size {
  * Block action definitions.
  */
 enum dma_block_action {
-	/** No action */
+	/** No action. */
 	DMA_BLOCK_ACTION_NOACT = 0,
 	/** Channel in normal operation and sets transfer complete interrupt flag
-	 *  after block transfer */
+	 *  after block transfer. */
 	DMA_BLOCK_ACTION_INT,
 	/** Trigger channel suspend after block transfer and sets channel
-	 *  suspend interrupt flag once the channel is suspended */
+	 *  suspend interrupt flag once the channel is suspended. */
 	DMA_BLOCK_ACTION_SUSPEND,
 	/** Sets transfer complete interrupt flag after a block transfer and
 	 *  trigger channel suspend. The channel suspend interrupt flag will be set
-	 *  once the channel is suspended*/
+	 *  once the channel is suspended. */
 	DMA_BLOCK_ACTION_BOTH,
 };
 
 /** Event output selection. */
 enum dma_event_output_selection {
-	/** Event generation disable */
+	/** Event generation disable. */
 	DMA_EVENT_OUTPUT_DISABLE = 0,
-	/** Event strobe when block transfer complete */
+	/** Event strobe when block transfer complete. */
 	DMA_EVENT_OUTPUT_BLOCK,
-	/** Event output reserved */
+	/** Event output reserved. */
 	DMA_EVENT_OUTPUT_RESERVED,
-	/** Event strobe when beat transfer complete */
+	/** Event strobe when beat transfer complete. */
 	DMA_EVENT_OUTPUT_BEAT,
 };
 
 /** DMA trigger action type. */
 enum dma_transfer_trigger_action{
-	/** Perform a block transfer when triggered */
+	/** Perform a block transfer when triggered. */
 	DMA_TRIGGER_ACTON_BLOCK = DMAC_CHCTRLB_TRIGACT_BLOCK_Val,
-	/** Perform a beat transfer when triggered */
+	/** Perform a beat transfer when triggered. */
 	DMA_TRIGGER_ACTON_BEAT = DMAC_CHCTRLB_TRIGACT_BEAT_Val,
-	/** Perform a transaction when triggered */
+	/** Perform a transaction when triggered. */
 	DMA_TRIGGER_ACTON_TRANSACTION = DMAC_CHCTRLB_TRIGACT_TRANSACTION_Val,
 };
 
@@ -409,15 +453,15 @@ enum dma_transfer_trigger_action{
  * Callback types for DMA callback driver.
  */
 enum dma_callback_type {
-	/** Callback for transfer complete */
-	DMA_CALLBACK_TRANSFER_DONE,
 	/** Callback for any of transfer errors. A transfer error is flagged
      *	if a bus error is detected during an AHB access or when the DMAC
-	 *  fetches an invalid descriptor */
+	 *  fetches an invalid descriptor. */
 	DMA_CALLBACK_TRANSFER_ERROR,
-	/** Callback for channel suspend */
+	/** Callback for transfer complete. */
+	DMA_CALLBACK_TRANSFER_DONE,
+	/** Callback for channel suspend. */
 	DMA_CALLBACK_CHANNEL_SUSPEND,
-	/** Number of available callbacks */
+	/** Number of available callbacks. */
 	DMA_CALLBACK_N,
 };
 
@@ -429,76 +473,80 @@ enum dma_callback_type {
  */
 struct dma_descriptor_config {
 	/** Descriptor valid flag used to identify whether a descriptor is
-	    valid or not*/
+	    valid or not. */
 	bool descriptor_valid;
 	/** This is used to generate an event on specific transfer action in
-	    a channel. Supported only in four lower channels */
+	    a channel. Supported only in four lower channels. */
 	enum dma_event_output_selection event_output_selection;
-	/** Action taken when a block transfer is completed */
+	/** Action taken when a block transfer is completed. */
 	enum dma_block_action block_action;
-	/** Beat size is configurable as 8-bit, 16-bit or 32-bit */
+	/** Beat size is configurable as 8-bit, 16-bit, or 32-bit. */
 	enum dma_beat_size beat_size;
-	/** Used for enabling the source address increment */
+	/** Used for enabling the source address increment. */
 	bool src_increment_enable;
-	/** Used for enabling the destination address increment */
+	/** Used for enabling the destination address increment. */
 	bool dst_increment_enable;
 	/** This bit selects whether the source or destination address is
-	    using the step size settings */
+	    using the step size settings. */
 	enum dma_step_selection step_selection;
 	/** The step size for source/destination address increment.
 	    The next address is calculated
-	    as next_addr = addr + (2^step_size * beat size)*/
+	    as next_addr = addr + (2^step_size * beat size). */
 	enum dma_address_increment_stepsize step_size;
 	/** It is the number of beats in a block. This count value is
-	 * decremented by one after each beat data transfer */
+	 * decremented by one after each beat data transfer. */
 	uint16_t block_transfer_count;
-	/** Transfer source address */
+	/** Transfer source address. */
 	uint32_t source_address;
-	/** Transfer destination address */
+	/** Transfer destination address. */
 	uint32_t destination_address;
 	/** Set to zero for static descriptors. This must have a valid memory
-	    address for linked descriptors */
+	    address for linked descriptors. */
 	uint32_t next_descriptor_address;
 };
 
-/** Configurations for DMA events */
+/** Configurations for DMA events. */
 struct dma_events_config {
-	/** Event input actions */
+	/** Event input actions. */
 	enum dma_event_input_action input_action;
-	/** Enable DMA event output */
+	/** Enable DMA event output. */
 	bool event_output_enable;
 };
 
-/** DMA configurations for transfer */
+/** DMA configurations for transfer. */
 struct dma_resource_config {
-	/** DMA transfer priority */
+	/** DMA transfer priority. */
 	enum dma_priority_level priority;
-	/**DMA peripheral trigger index*/
+	/**DMA peripheral trigger index. */
 	uint8_t peripheral_trigger;
-	/** DMA trigger action */
+	/** DMA trigger action. */
 	enum dma_transfer_trigger_action trigger_action;
-	/** DMA events configurations */
+#ifdef FEATURE_DMA_CHANNEL_STANDBY
+	/** Keep DMA channel enabled in standby sleep mode if true. */
+	bool run_in_standby;
+#endif
+	/** DMA events configurations. */
 	struct dma_events_config event_config;
 };
 
-/** Forward definition of the DMA resource */
+/** Forward definition of the DMA resource. */
 struct dma_resource;
-/** Type definition for a DMA resource callback function*/
-typedef void (*dma_callback_t)(const struct dma_resource *const resource);
+/** Type definition for a DMA resource callback function. */
+typedef void (*dma_callback_t)(struct dma_resource *const resource);
 
-/** Structure for DMA transfer resource */
+/** Structure for DMA transfer resource. */
 struct dma_resource {
-	/** Allocated DMA channel ID*/
+	/** Allocated DMA channel ID. */
 	uint8_t channel_id;
-	/** Array of callback functions for DMA transfer job */
+	/** Array of callback functions for DMA transfer job. */
 	dma_callback_t callback[DMA_CALLBACK_N];
-	/** Bit mask for enabled callbacks */
+	/** Bit mask for enabled callbacks. */
 	uint8_t callback_enable;
-	/** Status of the last job */
+	/** Status of the last job. */
 	volatile enum status_code job_status;
-	/** Transferred data size */
+	/** Transferred data size. */
 	uint32_t transfered_size;
-	/** DMA transfer descriptor */
+	/** DMA transfer descriptor. */
 	DmacDescriptor* descriptor;
 };
 
@@ -517,7 +565,7 @@ static inline enum status_code dma_get_job_status(struct dma_resource *resource)
 }
 
 /**
- * \brief Check if the given DMA resource is busy
+ * \brief Check if the given DMA resource is busy.
  *
  * \param[in] resource Pointer to the DMA resource
  *
@@ -534,7 +582,7 @@ static inline bool dma_is_busy(struct dma_resource *resource)
 }
 
 /**
- * \brief Enable a callback function for a dedicated DMA resource
+ * \brief Enable a callback function for a dedicated DMA resource.
  *
  * \param[in] resource Pointer to the DMA resource
  * \param[in] type Callback function type
@@ -546,10 +594,11 @@ static inline void dma_enable_callback(struct dma_resource *resource,
 	Assert(resource);
 
 	resource->callback_enable |= 1 << type;
+	g_chan_interrupt_flag[resource->channel_id] |= (1UL << type);
 }
 
 /**
- * \brief Disable a callback function for a dedicated DMA resource
+ * \brief Disable a callback function for a dedicated DMA resource.
  *
  * \param[in] resource Pointer to the DMA resource
  * \param[in] type Callback function type
@@ -561,12 +610,14 @@ static inline void dma_disable_callback(struct dma_resource *resource,
 	Assert(resource);
 
 	resource->callback_enable &= ~(1 << type);
+	g_chan_interrupt_flag[resource->channel_id] &= (~(1UL << type) & DMAC_CHINTENSET_MASK);
+	DMAC->CHINTENCLR.reg = (1UL << type);
 }
 
 /**
- * \brief Register a callback function for a dedicated DMA resource
+ * \brief Register a callback function for a dedicated DMA resource.
  *
- * There are three type of callback functions, which can be registered
+ * There are three types of callback functions, which can be registered:
  * - Callback for transfer complete
  * - Callback for transfer error
  * - Callback for channel suspend
@@ -585,9 +636,9 @@ static inline void dma_register_callback(struct dma_resource *resource,
 }
 
 /**
- * \brief Unregister a callback function for a dedicated DMA resource
+ * \brief Unregister a callback function for a dedicated DMA resource.
  *
- * There are three type of callback functions,
+ * There are three types of callback functions:
  * - Callback for transfer complete
  * - Callback for transfer error
  * - Callback for channel suspend
@@ -608,7 +659,7 @@ static inline void dma_unregister_callback(struct dma_resource *resource,
 }
 
 /**
- * \brief Will set a software trigger for resource
+ * \brief Will set a software trigger for resource.
  *
  * This function is used to set a software trigger on the DMA channel
  * associated with resource. If a trigger is already pending no new trigger
@@ -677,7 +728,7 @@ static inline void dma_descriptor_get_config_defaults(struct dma_descriptor_conf
 }
 
 /**
- * \brief Update DMA descriptor
+ * \brief Update DMA descriptor.
  *
  * This function can update the descriptor of an allocated DMA resource.
  *
@@ -691,7 +742,7 @@ static inline void dma_update_descriptor(struct dma_resource *resource,
 }
 
 /**
- * \brief Reset DMA descriptor
+ * \brief Reset DMA descriptor.
  *
  * This function will clear the DESCADDR register of an allocated DMA resource.
  *
@@ -766,6 +817,12 @@ enum status_code dma_add_descriptor(struct dma_resource *resource,
  *     <th>Changelog</th>
  *   </tr>
  *   <tr>
+ *     <td>Add SAM C21 support</td>
+ *   </tr>
+ *   <tr>
+ *     <td>Add SAM L21 support</td>
+ *   </tr>
+ *   <tr>
  *     <td>Initial Release</td>
  *   </tr>
  * </table>
@@ -784,7 +841,7 @@ enum status_code dma_add_descriptor(struct dma_resource *resource,
  *
  * \note More DMA usage examples are available in peripheral QSGs.
  * A quick start guide for TC/TCC
- * shows the usage of DMA event trigger; SERCOM SPI/USART/I2C has example for
+ * shows the usage of DMA event trigger; SERCOM SPI/USART/I<SUP>2</SUP>C has example for
  * DMA transfer from peripheral to memory or from memory to peripheral;
  * ADC/DAC shows peripheral to peripheral transfer.
  *
@@ -798,13 +855,13 @@ enum status_code dma_add_descriptor(struct dma_resource *resource,
  *    </tr>
  *    <tr>
  *        <td>C</td>
- *        <td>04/2014</td>
- *        <td>Add SAMD10/D11 support</td>
+ *        <td>08/2015</td>
+ *        <td>Added SAM L21/L22, SAM C21, and SAM DA1 support</td>
  *    </tr>
  *    <tr>
  *        <td>B</td>
- *        <td>03/2014</td>
- *        <td>Add SAMR21 support</td>
+ *        <td>12/2014</td>
+ *        <td>Added SAM R21 and SAM D10/D11 support</td>
  *    </tr>
  *    <tr>
  *        <td>A</td>

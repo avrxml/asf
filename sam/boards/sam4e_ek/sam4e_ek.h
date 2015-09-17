@@ -3,7 +3,7 @@
  *
  * \brief SAM4E-EK Board Definition.
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAM4E_EK_H_
@@ -102,11 +105,11 @@
 #define PINS_UART0_ATTR   PIO_DEFAULT
 
 /** UART1 pins (UTXD1 and URXD1) definitions, PA6,5. */
-#define PINS_UART1        (PIO_PA6C_URXD1 | PIO_PA5C_UTXD1)
+#define PINS_UART1        (PIO_PA6C_UTXD1 | PIO_PA5C_URXD1)
 #define PINS_UART1_FLAGS  (IOPORT_MODE_MUX_C)
 
 #define PINS_UART1_PORT   IOPORT_PIOA
-#define PINS_UART1_MASK   (PIO_PA6C_URXD1 | PIO_PA5C_UTXD1)
+#define PINS_UART1_MASK   (PIO_PA6C_UTXD1 | PIO_PA5C_URXD1)
 #define PINS_UART1_PIO    PIOA
 #define PINS_UART1_ID     ID_PIOA
 #define PINS_UART1_TYPE   PIO_PERIPH_C

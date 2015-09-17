@@ -3,7 +3,7 @@
  *
  * \brief Watchdog Timer (WDT) example for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,6 +83,9 @@
 	Press xxx to simulate a deadlock loop.
 \endcode
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "asf.h"
 #include "conf_board.h"
@@ -161,7 +164,13 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	/* Configure console UART. */
@@ -236,7 +245,9 @@ int main(void)
 	}
 	/* Configure WDT to trigger an interrupt (or reset). */
 	wdt_mode = WDT_MR_WDFIEN |  /* Enable WDT fault interrupt. */
+#if !(SAMV70 || SAMV71 || SAME70 || SAMS70)
 			WDT_MR_WDRPROC   |  /* WDT fault resets processor only. */
+#endif
 			WDT_MR_WDDBGHLT  |  /* WDT stops in debug state. */
 			WDT_MR_WDIDLEHLT;   /* WDT stops in idle state. */
 	/* Initialize WDT with the given parameters. */
@@ -263,7 +274,7 @@ int main(void)
 
 			/* Toggle LED at the given period. */
 			if ((g_ul_ms_ticks % BLINK_PERIOD) == 0) {
-#if (SAM4E || SAM4N || SAM4C || SAMG)
+#if (SAM4E || SAM4N || SAM4C || SAMG || SAMV70 || SAMV71 || SAME70 || SAMS70)
 				LED_Toggle(LED0);
 #else
 				LED_Toggle(LED0_GPIO);

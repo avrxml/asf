@@ -3,7 +3,7 @@
  *
  * \brief USB host driver for Human Interface Device (HID) mouse interface.
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,8 +52,8 @@
  * - \ref asfdoc_uhi_hid_mouse_exqsg
  * - \ref asfdoc_uhi_hid_mouse_config_examples
  *
- * For more details for Atmel® Software Framework (ASF) USB Host Stack,
- * refer to following application notes:
+ * For more details for Atmel&reg; Software Framework (ASF) USB Host Stack,
+ * refer to following application note:
  * - <a href="http://www.atmel.com/dyn/resources/prod_documents/doc8486.pdf">
  *   AVR4950: ASF - USB Host Stack</a>
  *
@@ -72,6 +72,9 @@
 /** Global define which contains standard UHI API for UHC.
  *
  *  It must be added in USB_HOST_UHI define from conf_usb_host.h file. */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #define UHI_HID_MOUSE { \
 	.install = uhi_hid_mouse_install, \
 	.enable = uhi_hid_mouse_enable, \
@@ -81,7 +84,7 @@
 /**@}*/
 
 /**
- * \name Functions Required by UHC.
+ * \name Functions Required by UHC
  * @{
  */
 
@@ -143,7 +146,7 @@ extern void uhi_hid_mouse_uninstall(uhc_device_t* dev);
  * steps for setup can be copied into a custom initialization function, while
  * the steps for usage can be copied into, e.g., the main application function.
  *
- * \section uhi_hid_mouse_basic_use_case Basic use case
+ * \section uhi_hid_mouse_basic_use_case Basic Use Case
  * In this basic use case, the "USB Host HID Mouse (Single Class support)" module is used.
  * The "USB Host HID Mouse (Multiple Classes support)" module usage is described
  * in \ref uhi_hid_mouse_use_cases "Advanced Use Cases".
@@ -296,5 +299,22 @@ extern void uhi_hid_mouse_uninstall(uhc_device_t* dev);
  *
  * \subsection asfdoc_uhi_hid_mouse_config_examples_4_5 SAMD21 Devices (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_board.h
+ */
+
+/**
+ * \page asfdoc_uhi_hid_mouse_document_revision_history Document Revision History
+ *
+ * <table>
+ * <tr>
+ *    <th>Doc. Rev.</td>
+ *    <th>Date</td>
+ *    <th>Comments</td>
+ * </tr>
+ * <tr>
+ *    <td>42342A</td>
+ *    <td>12/2014</td>
+ *    <td>Initial release.</td>
+ * </tr>
+ * </table>
  */
 

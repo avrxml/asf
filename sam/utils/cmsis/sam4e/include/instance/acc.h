@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,31 +38,34 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_ACC_INSTANCE_
 #define _SAM4E_ACC_INSTANCE_
 
 /* ========== Register definition for ACC peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-#define REG_ACC_CR            (0x400BC000U) /**< \brief (ACC) Control Register */
-#define REG_ACC_MR            (0x400BC004U) /**< \brief (ACC) Mode Register */
-#define REG_ACC_IER           (0x400BC024U) /**< \brief (ACC) Interrupt Enable Register */
-#define REG_ACC_IDR           (0x400BC028U) /**< \brief (ACC) Interrupt Disable Register */
-#define REG_ACC_IMR           (0x400BC02CU) /**< \brief (ACC) Interrupt Mask Register */
-#define REG_ACC_ISR           (0x400BC030U) /**< \brief (ACC) Interrupt Status Register */
-#define REG_ACC_ACR           (0x400BC094U) /**< \brief (ACC) Analog Control Register */
-#define REG_ACC_WPMR          (0x400BC0E4U) /**< \brief (ACC) Write Protect Mode Register */
-#define REG_ACC_WPSR          (0x400BC0E8U) /**< \brief (ACC) Write Protect Status Register */
+  #define REG_ACC_CR                    (0x400BC000U) /**< \brief (ACC) Control Register */
+  #define REG_ACC_MR                    (0x400BC004U) /**< \brief (ACC) Mode Register */
+  #define REG_ACC_IER                   (0x400BC024U) /**< \brief (ACC) Interrupt Enable Register */
+  #define REG_ACC_IDR                   (0x400BC028U) /**< \brief (ACC) Interrupt Disable Register */
+  #define REG_ACC_IMR                   (0x400BC02CU) /**< \brief (ACC) Interrupt Mask Register */
+  #define REG_ACC_ISR                   (0x400BC030U) /**< \brief (ACC) Interrupt Status Register */
+  #define REG_ACC_ACR                   (0x400BC094U) /**< \brief (ACC) Analog Control Register */
+  #define REG_ACC_WPMR                  (0x400BC0E4U) /**< \brief (ACC) Write Protection Mode Register */
+  #define REG_ACC_WPSR                  (0x400BC0E8U) /**< \brief (ACC) Write Protection Status Register */
 #else
-#define REG_ACC_CR   (*(WoReg*)0x400BC000U) /**< \brief (ACC) Control Register */
-#define REG_ACC_MR   (*(RwReg*)0x400BC004U) /**< \brief (ACC) Mode Register */
-#define REG_ACC_IER  (*(WoReg*)0x400BC024U) /**< \brief (ACC) Interrupt Enable Register */
-#define REG_ACC_IDR  (*(WoReg*)0x400BC028U) /**< \brief (ACC) Interrupt Disable Register */
-#define REG_ACC_IMR  (*(RoReg*)0x400BC02CU) /**< \brief (ACC) Interrupt Mask Register */
-#define REG_ACC_ISR  (*(RoReg*)0x400BC030U) /**< \brief (ACC) Interrupt Status Register */
-#define REG_ACC_ACR  (*(RwReg*)0x400BC094U) /**< \brief (ACC) Analog Control Register */
-#define REG_ACC_WPMR (*(RwReg*)0x400BC0E4U) /**< \brief (ACC) Write Protect Mode Register */
-#define REG_ACC_WPSR (*(RoReg*)0x400BC0E8U) /**< \brief (ACC) Write Protect Status Register */
+  #define REG_ACC_CR   (*(__O  uint32_t*)0x400BC000U) /**< \brief (ACC) Control Register */
+  #define REG_ACC_MR   (*(__IO uint32_t*)0x400BC004U) /**< \brief (ACC) Mode Register */
+  #define REG_ACC_IER  (*(__O  uint32_t*)0x400BC024U) /**< \brief (ACC) Interrupt Enable Register */
+  #define REG_ACC_IDR  (*(__O  uint32_t*)0x400BC028U) /**< \brief (ACC) Interrupt Disable Register */
+  #define REG_ACC_IMR  (*(__I  uint32_t*)0x400BC02CU) /**< \brief (ACC) Interrupt Mask Register */
+  #define REG_ACC_ISR  (*(__I  uint32_t*)0x400BC030U) /**< \brief (ACC) Interrupt Status Register */
+  #define REG_ACC_ACR  (*(__IO uint32_t*)0x400BC094U) /**< \brief (ACC) Analog Control Register */
+  #define REG_ACC_WPMR (*(__IO uint32_t*)0x400BC0E4U) /**< \brief (ACC) Write Protection Mode Register */
+  #define REG_ACC_WPSR (*(__I  uint32_t*)0x400BC0E8U) /**< \brief (ACC) Write Protection Status Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAM4E_ACC_INSTANCE_ */

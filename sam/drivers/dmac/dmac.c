@@ -3,7 +3,7 @@
  *
  * \brief SAM4E DMA Controller (DMAC) driver.
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,8 +40,15 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include  "dmac.h"
+
+#ifndef DMAC_WPMR_WPKEY_PASSWD
+#  define DMAC_WPMR_WPKEY_PASSWD DMAC_WPMR_WPKEY(0x444D41u)
+#endif
 
 /**
  * \brief Initialize the DMA controller and disable it.
@@ -674,10 +681,9 @@ void dmac_set_writeprotect(
 	Assert(p_dmac);
 	
 	if (ul_enable) {
-		p_dmac->DMAC_WPMR = DMAC_WPMR_WPKEY(DMAC_WPKEY) |
-				DMAC_WPMR_WPEN;
+		p_dmac->DMAC_WPMR = DMAC_WPMR_WPKEY_PASSWD | DMAC_WPMR_WPEN;
 	} else {
-		p_dmac->DMAC_WPMR = DMAC_WPMR_WPKEY(DMAC_WPKEY);
+		p_dmac->DMAC_WPMR = DMAC_WPMR_WPKEY_PASSWD;
 	}
 }
 

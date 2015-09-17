@@ -308,7 +308,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -572,7 +571,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1227,7 +1225,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1491,7 +1488,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/include</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/gpio</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1847,24 +1843,12 @@
 				<group>
 					<name>Examples</name>
 					<group>
-						<name>Common</name>
-						<group>
-							<name>Source</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Source/math_helper.c</name>
-							</file>
-						</group>
-						<group>
-							<name>Include</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Include/math_helper.h</name>
-							</file>
-						</group>
-					</group>
-					<group>
 						<name>arm_fir_example</name>
 						<file>
 							<name>$PROJ_DIR$/../../arm_fir_data.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.c</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../arm_fir_example_f32.c</name>
@@ -1886,6 +1870,9 @@
 						</group>
 						<file>
 							<name>$PROJ_DIR$/../../documentation.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.h</name>
 						</file>
 					</group>
 				</group>

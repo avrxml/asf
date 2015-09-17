@@ -313,6 +313,7 @@
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards/sam4s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -595,6 +596,7 @@
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards/sam4s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -1268,6 +1270,7 @@
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards/sam4s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -1550,6 +1553,7 @@
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards/sam4s_ek</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -2305,6 +2309,15 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.h</name>
+				</file>
+			</group>
+			<group>
+				<name>matrix</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.h</name>
 				</file>
 			</group>
 		</group>

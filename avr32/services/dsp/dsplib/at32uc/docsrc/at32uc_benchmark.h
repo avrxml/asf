@@ -4,7 +4,7 @@
  *
  * \brief Benchmark
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -212,4 +212,7 @@
  * - Decoding a 100-element vector:\n
  * \b 4\b ,\b 740 \b cycles (158.0us @ 30MHz) using \ref dsp_adpcm_ima_decode.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

@@ -3,7 +3,7 @@
  *
  * @brief RF4CE Serial Interface Implementation
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -101,7 +101,7 @@
 
 /**
  * A UART state that expects the protocol id  to be received as the next
- *character.
+ * character.
  */
 #define UART_RX_PROTOCOL_ID             (3)
 
@@ -323,7 +323,7 @@ void serial_data_handler(void)
 		rx_index = 0;
 		data_length = sio2host_rx(data, SIO_RX_BUF_SIZE);
 	} else { /* Data has been received, process the data */
-		/* Process each single byte */
+		 /* Process each single byte */
 		process_incoming_sio_data();
 		data_length--;
 		rx_index++;
@@ -401,13 +401,13 @@ static inline void process_incoming_sio_data(void)
 		}
 
 		/* Make rx buffer ready for next reception before handling
-		 *received data. */
+		 * received data. */
 		sio_rx_ptr = sio_rx_buf;
 		sio_rx_state = UART_RX_STATE_SOT;
 		break;
 
 	/* Unknown state and initialize the serial input handler state to the
-	 *initial state */
+	 * initial state */
 	default:
 		sio_rx_ptr = sio_rx_buf;
 		sio_rx_state = UART_RX_STATE_SOT;
@@ -438,12 +438,14 @@ static inline void handle_incoming_msg(void)
 
 	switch (sio_rx_buf[1]) { /* message type */
 	case NLDE_DATA_REQUEST:
+
 		/* Attention: The TxOption field is moved before the nsduLength
-		 *field! */
+		 * field! */
 		ret_val = nlde_data_request(sio_rx_buf[2],
 				(profile_id_t)sio_rx_buf[3],
 				((uint16_t)sio_rx_buf[4] |
 				((uint16_t)sio_rx_buf[5] << 8)),                                       /*
+		                                                                                        *
 		                                                                                        *VendorId
 		                                                                                        **/
 				sio_rx_buf[7],             /* nsduLength */
@@ -582,13 +584,25 @@ static inline void handle_incoming_msg(void)
 			}
 
 			ret_val = pbp_org_pair_request(sio_rx_buf[2], /*
-			                                               * OrgAppCapabilities */
-					OrgDevTypeList,            /* OrgDevTypeList */
-					OrgProfileIdList,          /* OrgProfileIdList */
+			                                               *
+			                                               *OrgAppCapabilities
+			                                               **/
+					OrgDevTypeList,            /*
+			                                            *OrgDevTypeList
+			                                            **/
+					OrgProfileIdList,          /*
+			                                            *OrgProfileIdList
+			                                            **/
 					(dev_type_t)sio_rx_buf[13],            /*
-			                                                        * SearchDevType */
-					sio_rx_buf[14],            /* DiscProfileIdListSize */
-					DiscProfileIdList       /* DiscProfileIdList, */
+			                                                        *
+			                                                        *SearchDevType
+			                                                        **/
+					sio_rx_buf[14],            /*
+			                                            *DiscProfileIdListSize
+			                                            **/
+					DiscProfileIdList       /*
+			                                         *DiscProfileIdList,
+			                                         **/
 #ifdef RF4CE_CALLBACK_PARAM
 					, (FUNC_PTR)pbp_org_pair_confirm
 #endif
@@ -630,11 +644,16 @@ static inline void handle_incoming_msg(void)
 						i];
 			}
 			ret_val = pbp_rec_pair_request(sio_rx_buf[2], /*
-			                                               * RecAppCapabilities */
+			                                               *
+			                                               *RecAppCapabilities
+			                                               **/
 					RecDevTypeList,       /* (dev_type_t
-			                                       * *)&sio_rx_buf[3], */
+			                                       *
+			                                       **)&sio_rx_buf[3],
+			                                       **/
 					RecProfileIdList       /* (profile_id_t
-			                                        * *)&sio_rx_buf[3
+			                                        *
+			                                        **)&sio_rx_buf[3
 			                                        * + 3], */
 #ifdef RF4CE_CALLBACK_PARAM
 					, (FUNC_PTR)pbp_rec_pair_confirm
@@ -645,8 +664,10 @@ static inline void handle_incoming_msg(void)
 		ret_val = pbp_rec_pair_request(
 				sio_rx_buf[2] /*uint8_t RecAppCapabilities*/,
 				(dev_type_t *)&sio_rx_buf[3] /*dev_type_t
-		                                              *RecDevTypeList[DEVICE_TYPE_LIST_SIZE]*/           ,
+		                                              *
+		                                              *RecDevTypeList[DEVICE_TYPE_LIST_SIZE]*/,
 				(profile_id_t *)&sio_rx_buf[3 + 3]           /*profile_id_t
+		                                                              *
 		                                                              *RecProfileIdList[PROFILE_ID_LIST_SIZE]*/
 #ifdef RF4CE_CALLBACK_PARAM
 				, (FUNC_PTR)pbp_rec_pair_confirm
@@ -661,8 +682,10 @@ static inline void handle_incoming_msg(void)
 		ret_val = zid_rec_connect_request(
 				sio_rx_buf[2] /*uint8_t RecAppCapabilities*/,
 				(dev_type_t *)&sio_rx_buf[3] /*dev_type_t
-		                                              *RecDevTypeList[DEVICE_TYPE_LIST_SIZE]*/           ,
+		                                              *
+		                                              *RecDevTypeList[DEVICE_TYPE_LIST_SIZE]*/,
 				(profile_id_t *)&sio_rx_buf[3 + 3]               /*profile_id_t
+		                                                                  *
 		                                                                  *RecProfileIdList[PROFILE_ID_LIST_SIZE]*/
 #ifdef RF4CE_CALLBACK_PARAM
 				, (FUNC_PTR)zid_connect_confirm
@@ -674,18 +697,24 @@ static inline void handle_incoming_msg(void)
 #ifdef ZID_DEVICE
 	case ZID_ORG_CONNECT_REQUEST:
 		ret_val = zid_org_connect_request(sio_rx_buf[2], /*uint8_t
+		                                                  *
 		                                                  *OrgAppCapabilities,
 		                                                  **/
 				(dev_type_t *)&sio_rx_buf[3],               /*dev_type_t
+		                                                             *
 		                                                             *OrgDevTypeList[DEVICE_TYPE_LIST_SIZE],
 		                                                             **/
 				(profile_id_t *)&sio_rx_buf[3 + 3],               /*profile_id_t
+		                                                                   *
 		                                                                   *OrgProfileIdList[PROFILE_ID_LIST_SIZE],*/
 				(dev_type_t)sio_rx_buf[13],               /*dev_type_t
+		                                                           *
 		                                                           *SearchDevType,*/
 				sio_rx_buf[14],               /*uint8_t
+		                                               *
 		                                               *DiscProfileIdListSize,*/
 				(profile_id_t *)&sio_rx_buf[15]               /*profile_id_t
+		                                                               *
 		                                                               *DiscProfileIdList[PROFILE_ID_LIST_SIZE]);*/
 #ifdef RF4CE_CALLBACK_PARAM
 				, (FUNC_PTR)zid_connect_confirm
@@ -697,13 +726,14 @@ static inline void handle_incoming_msg(void)
 #ifdef ZID_ADAPTOR
 	case ZID_SET_REPORT_REQUEST:
 		ret_val = zid_set_report_request(sio_rx_buf[2], /*uint8_t
-		                                                 *pairingref, */
+		                                                 * pairingref,
+		                                                 **/
 				sio_rx_buf[4],               /*uint8_t
-		                                              *payloadlength */
+		                                              * payloadlength */
 				&sio_rx_buf[5],               /* uint8_t
 		                                               **payload */
 				sio_rx_buf[3]               /* uint8_t Txoptions
-		                                             **/
+		                                            **/
 #ifdef RF4CE_CALLBACK_PARAM
 				, (FUNC_PTR)zid_set_report_confirm
 #endif
@@ -716,16 +746,19 @@ static inline void handle_incoming_msg(void)
 		uint8_t num_records, *msg_ptr, *desc_ptr;
 		uint8_t i, buffer[256]; /* need to decide the size */
 		num_records = sio_rx_buf[5];
-		/* sio_rx_buf[4] is ignored since zid_payload length is not used */
+		/* sio_rx_buf[4] is ignored since zid_payload length is not used
+		 **/
 		/* zid_report_data_record_t *zid_report_data_record_ptr[8]; */
 		zid_report_data_record_t zid_report_data_record[8];
 		msg_ptr = (uint8_t *)&sio_rx_buf[6];
 		desc_ptr = (uint8_t *)&buffer[0];
 		for (i = 0; i < num_records; i++) {
 			/* zid_report_data_record_ptr[i] =
-			 * &zid_report_data_record[i];//(zid_report_data_record_t
+			 *
+			 *&zid_report_data_record[i];//(zid_report_data_record_t
 			 * *)msg_ptr; */
-			/* zid_report_data_record[i].report_size = *msg_ptr++; */
+			/* zid_report_data_record[i].report_size = *msg_ptr++;
+			 **/
 			zid_report_data_record[i].report_type
 				= (zid_report_types_t)*msg_ptr++;
 			zid_report_data_record[i].report_desc_identifier
@@ -739,7 +772,7 @@ static inline void handle_incoming_msg(void)
 			case MOUSE:
 			{
 				/* Mouse report received and construct the ZID
-				 *mouse report */
+				 * mouse report */
 				mouse_desc_t *mouse_desc_ptr
 					= (mouse_desc_t *)desc_ptr;
 				mouse_desc_ptr->button0 = *msg_ptr++ & 0x01;
@@ -754,7 +787,7 @@ static inline void handle_incoming_msg(void)
 			case KEYBOARD:
 			{
 				/* Keyboard report received and construct the
-				 *ZID Keyboard report */
+				 * ZID Keyboard report */
 				if (zid_report_data_record[i].report_type ==
 						INPUT) {
 					keyboard_input_desc_t *mouse_desc_ptr
@@ -799,7 +832,7 @@ static inline void handle_incoming_msg(void)
 			case CONTACT_DATA:
 			{
 				/* Construct & send the ZID contact data report
-				 **/
+				**/
 				contact_data_report_t *contact_data;
 				contact_data
 					= (contact_data_report_t *)desc_ptr;
@@ -862,6 +895,7 @@ static inline void handle_incoming_msg(void)
 
 				scroll_gesture->finger_count = *msg_ptr++ & 0x7;
 				scroll_gesture->type = *msg_ptr++ & 0x1F;
+
 				/*                  scroll_gesture->reserved_1 =
 				 * sio_rx_buf[9]; */
 				scroll_gesture->direction = *msg_ptr++ & 0x07;
@@ -1005,21 +1039,22 @@ static inline void handle_incoming_msg(void)
 				break;
 			}
 			}
+
 			/* msg_ptr +=
 			 * (zid_report_data_record_ptr[i]->report_size -3); */
 		}
 
 		ret_val = zid_report_data_request(sio_rx_buf[2], /*uint8_t
-			                                          *PairingRef,
+			                                          * PairingRef,
 			                                          **/
 				num_records,               /*uint8_t
-			                                    *zidPayloadLength,
+			                                    * zidPayloadLength,
 			                                    **/
 				zid_report_data_record,               /*uint8_t
-			                                               **zidPayload,
+			                                               * **zidPayload,
 			                                               **/
 				sio_rx_buf[3]              /*, uint8_t
-			                                    *TxOptions);*/
+			                                    * TxOptions);*/
 #ifdef RF4CE_CALLBACK_PARAM
 				, (FUNC_PTR)zid_report_data_confirm
 #endif
@@ -1030,11 +1065,14 @@ static inline void handle_incoming_msg(void)
 #if (defined ZID_PROFILE) && (ZID_SET == 1)
 	case ZID_SET_ATTRIBUTE_REQUEST:
 		ret_val = zid_set_attribute_request(sio_rx_buf[2], /*uint8_t
+		                                                    *
 		                                                    *PairingRef,*/
 				(zid_attribute_t)sio_rx_buf[3],                 /*zid_attribute_t
+		                                                                 *
 		                                                                 *ZIDAttribute,
 		                                                                 **/
 				sio_rx_buf[4],                 /*uint8_t
+		                                                *
 		                                                *ZIDAttributeIndex,
 		                                                **/
 				&sio_rx_buf[6]                 /*,uint8_t
@@ -1049,13 +1087,15 @@ static inline void handle_incoming_msg(void)
 #if (defined ZID_PROFILE) && (ZID_GET == 1)
 	case ZID_GET_ATTRIBUTE_REQUEST:
 		ret_val = zid_get_attribute_request(sio_rx_buf[2], /* bool OTA
-		                                                    **/
+		                                                   **/
 				sio_rx_buf[3],                 /*uint8_t
-		                                                *PairingRef, */
+		                                                * PairingRef, */
 				(zid_attribute_t)sio_rx_buf[4],                 /*zid_attribute_t
+		                                                                 *
 		                                                                 *ZIDAttribute,
 		                                                                 **/
 				sio_rx_buf[5]                /*uint8_t
+		                                              *
 		                                              *ZIDAttributeIndex);*/
 #ifdef RF4CE_CALLBACK_PARAM
 				, (FUNC_PTR)zid_get_attribute_confirm
@@ -1093,10 +1133,11 @@ static inline void handle_incoming_msg(void)
 #ifdef VENDOR_DATA
 	case VENDOR_DATA_REQUEST:
 		ret_val = nlde_data_request(sio_rx_buf[2], /*uint8_t
-		                                            *PairingRef,*/
+		                                            * PairingRef,*/
 				PROFILE_ID_ZID,
 				(uint16_t)sio_rx_buf[4] |
 				((uint16_t)sio_rx_buf[5] << 8),                                   /*uint16_t
+		                                                                                   *
 		                                                                                   *VendorId,*/
 				sio_rx_buf[7],         /*uint8_t nsduLength,*/
 				&sio_rx_buf[8],         /*uint8_t *nsdu,*/

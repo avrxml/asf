@@ -3,7 +3,7 @@
  *
  * \brief Debug print implementation
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "dbg_print.h"
@@ -490,7 +493,9 @@ enum status_code dbg_init(void)
 #else
 	// Compute baud rate, if it is achievable
 	status = _sercom_get_async_baud_val(CONF_DBG_PRINT_BAUD_RATE,
-			system_gclk_chan_get_hz(gclk_index), &baud);
+			system_gclk_chan_get_hz(gclk_index), &baud,
+			SERCOM_ASYNC_OPERATION_MODE_ARITHMETIC,
+			SERCOM_ASYNC_SAMPLE_NUM_16);
 	if (status != STATUS_OK) {
 		return status;
 	}

@@ -64,6 +64,7 @@ CSRCS = \
        common/utils/stdio/write.c                         \
        common/utils/unit_test/suite.c                     \
        sam/boards/sam4e_xplained_pro/init.c               \
+       sam/drivers/matrix/matrix.c                        \
        sam/drivers/pio/pio.c                              \
        sam/drivers/pio/pio_handler.c                      \
        sam/drivers/pmc/pmc.c                              \
@@ -97,6 +98,7 @@ INC_PATH = \
        common/utils/stdio/stdio_serial                    \
        sam/boards                                         \
        sam/boards/sam4e_xplained_pro                      \
+       sam/drivers/matrix                                 \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
        sam/drivers/uart                                   \
@@ -118,7 +120,7 @@ LIB_PATH =  \
 
 # List of libraries to use during linking.
 LIBS =  \
-       arm_cortexM4lf_math                                \
+       arm_cortexM4lf_math_softfp                         \
        m                                                 
 
 # Path relative to top level directory pointing to a linker script.

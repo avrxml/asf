@@ -8,14 +8,13 @@
  *                       IAR Workbench and GNU GCC for Atmel ARM.
  * - Supported devices:  Atmel AVR 8-bit, AVR 32-bit, Atmel ARM.
  * - Userguide:          QTouch Library User Guide - doc8207.pdf.
- * - Support email:      touch@atmel.com
+ * - Support:            http://www.atmel.com/design-support/
  *
- * \author               Atmel Corporation: http://www.atmel.com \n
- *                       Support and FAQ: http://support.atmel.no/
+ * \author               Atmel Corporation: http://www.atmel.com
  *
  ******************************************************************************/
 
-/* Copyright (c) 2010-2013 Atmel Corporation. All rights reserved.
+/* Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:

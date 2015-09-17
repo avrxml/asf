@@ -3,7 +3,7 @@
  *
  * \brief AVR MEGA TC Driver
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,7 +50,7 @@
 #include "status_codes.h"
 
 /* ! \internal Local storage of Timer Counter TCC1  interrupt callback function
- **/
+**/
 static tc_callback_t tc_tccr1_ovf_callback;
 static tc_callback_t tc_tccr1_compa_callback;
 static tc_callback_t tc_tccr1_compb_callback;

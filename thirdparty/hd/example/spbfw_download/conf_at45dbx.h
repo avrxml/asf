@@ -6,7 +6,7 @@
  *
  * This file contains the possible external configuration of the AT45DBX.
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

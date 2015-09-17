@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of functions for the CMCC on SAM devices.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,6 +43,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CMCC_H_INCLUDED
 #define CMCC_H_INCLUDED
@@ -64,6 +67,17 @@
 extern "C" {
 #endif
 
+#if SAMG55
+/** Cache Controller Programmable Cache Size */
+enum cmcc_cache_size {
+	CMCC_PROG_CSIZE_1KB = 0 << 4,
+	CMCC_PROG_CSIZE_2KB = 1 << 4,
+	CMCC_PROG_CSIZE_4KB = 2 << 4,
+	CMCC_PROG_CSIZE_8KB = 3 << 4,
+	CMCC_PROG_CSIZE_16KB = 4 << 4,
+};
+#endif
+
 /** Cache Controller Monitor Counter Mode */
 enum cmcc_monitor_mode {
 	CMCC_CYCLE_COUNT_MODE = 0,
@@ -78,6 +92,10 @@ struct cmcc_config {
 	bool cmcc_monitor_enable;
 	/* Cache Controller Monitor Counter Mode */
 	enum cmcc_monitor_mode cmcc_mcfg_mode;
+#if SAMG55
+	/* Cache Controller Programmable Cache Size */
+	enum cmcc_cache_size cmcc_cfg_cache_size;
+#endif
 };
 
 void cmcc_get_config_defaults(struct cmcc_config *const cfg);
@@ -99,9 +117,12 @@ static inline void cmcc_set_config(Cmcc *const p_cmcc,
 		struct cmcc_config *const cfg)
 {
 	p_cmcc->CMCC_MCFG = cfg->cmcc_mcfg_mode;
+#if SAMG55	
+	p_cmcc->CMCC_CFG |= cfg->cmcc_cfg_cache_size;
+#endif
 }
 
-#if SAM4E
+#if SAM4E || SAMG55
 /**
  * \brief Enable Clock gating.
  *
@@ -122,6 +143,52 @@ static inline void cmcc_enable_clock_gating(Cmcc *const p_cmcc)
 static inline void cmcc_disable_clock_gating(Cmcc *const p_cmcc)
 {
 	p_cmcc->CMCC_CFG |= CMCC_CFG_GCLKDIS;
+}
+#endif
+
+#if SAMG55
+/**
+ * \brief Enable Instruction Caching.
+ *
+ * \param p_cmcc Pointer to an CMCC instance.
+ *
+ */
+static inline void cmcc_enable_instruction_caching(Cmcc *const p_cmcc)
+{
+	p_cmcc->CMCC_CFG &= ~CMCC_CFG_ICDIS;
+}
+
+/**
+ * \brief Disable Instruction Caching.
+ *
+ * \param p_cmcc Pointer to an CMCC instance.
+ *
+ */
+static inline void cmcc_disable_instruction_caching(Cmcc *const p_cmcc)
+{
+	p_cmcc->CMCC_CFG |= CMCC_CFG_ICDIS;
+}
+
+/**
+ * \brief Enable Data Caching.
+ *
+ * \param p_cmcc Pointer to an CMCC instance.
+ *
+ */
+static inline void cmcc_enable_data_caching(Cmcc *const p_cmcc)
+{
+	p_cmcc->CMCC_CFG &= ~CMCC_CFG_DCDIS;
+}
+
+/**
+ * \brief Disable Data Caching.
+ *
+ * \param p_cmcc Pointer to an CMCC instance.
+ *
+ */
+static inline void cmcc_disable_data_caching(Cmcc *const p_cmcc)
+{
+	p_cmcc->CMCC_CFG |= CMCC_CFG_DCDIS;
 }
 #endif
 
@@ -231,7 +298,7 @@ static inline void cmcc_invalidate_all(Cmcc *const p_cmcc)
  *
  * \section cmcc_basic_setup Setup steps
  *
- * \subsection cmcc_basic_setup_code
+ * \subsection cmcc_basic_setup_code  Code
  *
  * Add this to the main loop or a setup function:
  * \code
@@ -241,7 +308,7 @@ static inline void cmcc_invalidate_all(Cmcc *const p_cmcc)
 	cmcc_enable(CMCC);
 \endcode
  *
- * \subsection cmcc_basic_setup_workflow
+ * \subsection cmcc_basic_setup_workflow Workflow
  *
  * -# Enable the CMCC module
  * \code 
@@ -257,7 +324,7 @@ static inline void cmcc_invalidate_all(Cmcc *const p_cmcc)
  *
  * \section cmcc_basic_usage Usage steps
  *
- * \subsection cmcc_basic_usage_code
+ * \subsection cmcc_basic_usage_code Code
  *
  * We can then get the count of Cache Monitor Event by
  * \code

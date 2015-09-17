@@ -4,7 +4,7 @@
  * \brief Universal Synchronous Asynchronous Receiver Transmitter (USART) driver
  * for SAM.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "usart.h"
@@ -115,7 +118,7 @@ extern "C" {
  * \retval 1 Baud rate set point is out of range for the given input clock
  * frequency.
  */
-static uint32_t usart_set_async_baudrate(Usart *p_usart,
+uint32_t usart_set_async_baudrate(Usart *p_usart,
 		uint32_t baudrate, uint32_t ul_mck)
 {
 	uint32_t over;
@@ -193,42 +196,6 @@ static void usart_set_sync_slave_baudrate(Usart *p_usart)
 {
 	p_usart->US_MR = (p_usart->US_MR & ~US_MR_USCLKS_Msk) |
 			US_MR_USCLKS_SCK | US_MR_SYNC;
-}
-
-
-/**
- * \brief Calculate a clock divider (\e CD) for the USART ISO7816 mode to
- * generate an ISO7816 clock as close as possible to the clock set point.
- *
- * \note ISO7816 clock calculation: Clock = ul_mck / cd
- *
- * \param p_usart Pointer to a USART instance.
- * \param clock ISO7816 clock set point.
- * \param ul_mck USART module input clock frequency.
- *
- * \retval 0 ISO7816 clock is successfully initialized.
- * \retval 1 ISO7816 clock set point is out of range for the given input clock
- * frequency.
- */
-static uint32_t usart_set_iso7816_clock(Usart *p_usart,
-		uint32_t clock, uint32_t ul_mck)
-{
-	uint32_t cd;
-
-	/* Calculate clock divider according to the formula in ISO7816 mode. */
-	cd = (ul_mck + clock / 2) / clock;
-
-	if (cd < MIN_CD_VALUE || cd > MAX_CD_VALUE) {
-		return 1;
-	}
-
-	p_usart->US_MR = (p_usart->US_MR & ~(US_MR_USCLKS_Msk | US_MR_SYNC |
-			US_MR_OVER)) | US_MR_USCLKS_MCK | US_MR_CLKO;
-
-	/* Configure the baudrate generate register. */
-	p_usart->US_BRGR = cd << US_BRGR_CD_Pos;
-
-	return 0;
 }
 
 /**
@@ -517,6 +484,7 @@ uint32_t usart_init_rs485(Usart *p_usart,
 	return 0;
 }
 
+#if (!SAMG55 && !SAMV71 && !SAMV70 && !SAME70 && !SAMS70)
 /**
  * \brief Configure USART to work in IrDA mode.
  *
@@ -543,6 +511,43 @@ uint32_t usart_init_irda(Usart *p_usart,
 	/* Set IrDA mode. */
 	p_usart->US_MR = (p_usart->US_MR & ~US_MR_USART_MODE_Msk) |
 			US_MR_USART_MODE_IRDA;
+
+	return 0;
+}
+#endif
+
+#if (!SAMV71 && !SAMV70 && !SAME70 && !SAMS70)
+/**
+ * \brief Calculate a clock divider (\e CD) for the USART ISO7816 mode to
+ * generate an ISO7816 clock as close as possible to the clock set point.
+ *
+ * \note ISO7816 clock calculation: Clock = ul_mck / cd
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param clock ISO7816 clock set point.
+ * \param ul_mck USART module input clock frequency.
+ *
+ * \retval 0 ISO7816 clock is successfully initialized.
+ * \retval 1 ISO7816 clock set point is out of range for the given input clock
+ * frequency.
+ */
+static uint32_t usart_set_iso7816_clock(Usart *p_usart,
+		uint32_t clock, uint32_t ul_mck)
+{
+	uint32_t cd;
+
+	/* Calculate clock divider according to the formula in ISO7816 mode. */
+	cd = (ul_mck + clock / 2) / clock;
+
+	if (cd < MIN_CD_VALUE || cd > MAX_CD_VALUE) {
+		return 1;
+	}
+
+	p_usart->US_MR = (p_usart->US_MR & ~(US_MR_USCLKS_Msk | US_MR_SYNC |
+			US_MR_OVER)) | US_MR_USCLKS_MCK | US_MR_CLKO;
+
+	/* Configure the baudrate generate register. */
+	p_usart->US_BRGR = cd << US_BRGR_CD_Pos;
 
 	return 0;
 }
@@ -590,7 +595,7 @@ uint32_t usart_init_iso7816(Usart *p_usart,
 		if (p_usart_opt->bit_order || p_usart_opt->max_iterations) {
 			return 1;
 		}
-		
+
 		/* Set USART mode to ISO7816, T=1, and always uses 1 stop bit. */
 		ul_reg_val |= US_MR_USART_MODE_IS07816_T_1 | US_MR_NBSTOP_1_BIT;
 	} else {
@@ -619,6 +624,92 @@ uint32_t usart_init_iso7816(Usart *p_usart,
 
 	return 0;
 }
+
+/**
+ * \brief Reset the ITERATION in US_CSR when the ISO7816 mode is enabled.
+ *
+ * \param p_usart Pointer to a USART instance.
+ */
+void usart_reset_iterations(Usart *p_usart)
+{
+	p_usart->US_CR = US_CR_RSTIT;
+}
+
+/**
+ * \brief Reset NACK in US_CSR.
+ *
+ * \param p_usart Pointer to a USART instance.
+ */
+void usart_reset_nack(Usart *p_usart)
+{
+	p_usart->US_CR = US_CR_RSTNACK;
+}
+
+/**
+ * \brief Check if one receive buffer is filled.
+ *
+ * \param p_usart Pointer to a USART instance.
+ *
+ * \retval 1 Receive is complete.
+ * \retval 0 Receive is still pending.
+ */
+uint32_t usart_is_rx_buf_end(Usart *p_usart)
+{
+	return (p_usart->US_CSR & US_CSR_ENDRX) > 0;
+}
+
+/**
+ * \brief Check if one transmit buffer is empty.
+ *
+ * \param p_usart Pointer to a USART instance.
+ *
+ * \retval 1 Transmit is complete.
+ * \retval 0 Transmit is still pending.
+ */
+uint32_t usart_is_tx_buf_end(Usart *p_usart)
+{
+	return (p_usart->US_CSR & US_CSR_ENDTX) > 0;
+}
+
+/**
+ * \brief Check if both receive buffers are full.
+ *
+ * \param p_usart Pointer to a USART instance.
+ *
+ * \retval 1 Receive buffers are full.
+ * \retval 0 Receive buffers are not full.
+ */
+uint32_t usart_is_rx_buf_full(Usart *p_usart)
+{
+	return (p_usart->US_CSR & US_CSR_RXBUFF) > 0;
+}
+
+/**
+ * \brief Check if both transmit buffers are empty.
+ *
+ * \param p_usart Pointer to a USART instance.
+ *
+ * \retval 1 Transmit buffers are empty.
+ * \retval 0 Transmit buffers are not empty.
+ */
+uint32_t usart_is_tx_buf_empty(Usart *p_usart)
+{
+	return (p_usart->US_CSR & US_CSR_TXBUFE) > 0;
+}
+
+/**
+ * \brief Get the total number of errors that occur during an ISO7816 transfer.
+ *
+ * \param p_usart Pointer to a USART instance.
+ *
+ * \return The number of errors that occurred.
+ */
+uint8_t usart_get_error_number(Usart *p_usart)
+{
+	return (p_usart->US_NER & US_NER_NB_ERRORS_Msk);
+}
+
+#endif
 
 /**
  * \brief Configure USART to work in SPI mode and act as a master.
@@ -748,7 +839,7 @@ uint32_t usart_init_spi_slave(Usart *p_usart,
 	return 0;
 }
 
-#if (SAM3XA || SAM4L)
+#if (SAM3XA || SAM4L || SAMG55 || SAMV71 || SAMV70 || SAME70 || SAMS70)
 
 /**
  * \brief Configure USART to work in LIN mode and act as a LIN master.
@@ -1027,6 +1118,272 @@ uint8_t usart_lin_get_data_length(Usart *usart)
 
 #endif
 
+#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+/**
+ * \brief Get identifier send status.
+ *
+ * \param p_usart Pointer to a USART instance.
+ *
+ * \return
+ * 0:  No LIN identifier has been sent since the last RSTSTA.
+ * 1: :At least one LIN identifier has been sent since the last RSTSTA.
+ */
+uint8_t usart_lin_identifier_send_complete(Usart *usart)
+{
+	return (usart->US_CSR & US_CSR_LINID) > 0;
+}
+
+/**
+ * \brief Get identifier received status.
+ *
+ * \param p_usart Pointer to a USART instance.
+ *
+ * \return
+ * 0:  No LIN identifier has been reveived since the last RSTSTA.
+ * 1: At least one LIN identifier has been received since the last RSTSTA.
+ */
+uint8_t usart_lin_identifier_reception_complete(Usart *usart)
+{
+	return (usart->US_CSR & US_CSR_LINID) > 0;
+}
+
+/**
+ * \brief Get transmission status.
+ *
+ * \param p_usart Pointer to a USART instance.
+ *
+ * \return
+ * 0: The USART is idle or a LIN transfer is ongoing.
+ * 1: A LIN transfer has been completed since the last RSTSTA.
+ */
+uint8_t usart_lin_tx_complete(Usart *usart)
+{
+	return (usart->US_CSR & US_CSR_LINTC) > 0;
+}
+
+/**
+ * \brief Configure USART to work in LON mode.
+ *
+ * \note By default, the transmitter and receiver aren't enabled.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param ul_baudrate Baudrate to be used.
+ * \param ul_mck USART module input clock frequency.
+ *
+ * \retval 0 on success.
+ * \retval 1 on failure.
+ */
+uint32_t usart_init_lon(Usart *p_usart,uint32_t ul_baudrate,
+		uint32_t ul_mck)
+{
+	/* Reset the USART and shut down TX and RX. */
+	usart_reset(p_usart);
+
+	/* Set up the baudrate. */
+	if (usart_set_async_baudrate(p_usart, ul_baudrate, ul_mck)) {
+		return 1;
+	}
+
+	/* Set LIN master mode. */
+	p_usart->US_MR = (p_usart->US_MR & ~US_MR_USART_MODE_Msk) |
+			US_MR_USART_MODE_LON;
+
+	usart_enable_rx(p_usart);
+	usart_enable_tx(p_usart);
+
+	return 0;
+}
+
+/**
+ * \brief set LON parameter value.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param uc_type 0: LON comm_type = 1 mode,
+ *  1: LON comm_type = 2 mode
+ */
+void  usart_lon_set_comm_type(Usart *p_usart, uint8_t uc_type)
+{
+	p_usart->US_LONMR = (p_usart->US_LONMR & ~US_LONMR_COMMT) |
+			 (uc_type << 0);
+}
+
+/**
+ * \brief Disable  LON Collision Detection Feature.
+ *
+ * \param p_usart Pointer to a USART instance.
+ */
+void usart_lon_disable_coll_detection(Usart *p_usart)
+{
+	p_usart->US_LONMR |= US_LONMR_COLDET;
+}
+
+/**
+ * \brief Enable LON Collision Detection Feature.
+ *
+ * \param p_usart Pointer to a USART instance.
+ */
+void usart_lon_enable_coll_detection(Usart *p_usart)
+{
+	p_usart->US_LONMR &= ~US_LONMR_COLDET;
+}
+
+/**
+ * \brief set Terminate Frame upon Collision Notification.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param uc_type 0:  Do not terminate the frame in LON comm_type = 1 mode upon collision detection.
+ * 1:Terminate the frame in LON comm_type = 1 mode upon collision detection if possible.
+ */
+void  usart_lon_set_tcol(Usart *p_usart, uint8_t uc_type)
+{
+	p_usart->US_LONMR = (p_usart->US_LONMR & ~US_LONMR_TCOL) |
+			 (uc_type << 2);
+}
+
+/**
+ * \brief set  LON Collision Detection on Frame Tail.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param uc_type 0: Detect collisions after CRC has been sent but prior end of transmission in LON comm_type = 1 mode.
+ * 1: Ignore collisions after CRC has been sent but prior end of transmission in LON comm_type = 1 mode.
+ */
+void  usart_lon_set_cdtail(Usart *p_usart, uint8_t uc_type)
+{
+	p_usart->US_LONMR = (p_usart->US_LONMR & ~US_LONMR_CDTAIL) |
+			 (uc_type << 3);
+}
+
+/**
+ * \brief set  LON DMA Mode.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param uc_type 0: The LON data length register US_LONDL is not written by the DMA.
+ * 1: The LON data length register US_LONDL is written by the DMA.
+ */
+void  usart_lon_set_dmam(Usart *p_usart, uint8_t uc_type)
+{
+	p_usart->US_LONMR = (p_usart->US_LONMR & ~US_LONMR_DMAM) |
+			 (uc_type << 4);
+}
+
+/**
+ * \brief set LON Beta1 Length after Transmission.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param ul_len 1-16777215: LON beta1 length after transmission in tbit
+ */
+void  usart_lon_set_beta1_tx_len(Usart *p_usart, uint32_t ul_len)
+{
+	p_usart->US_LONB1TX = US_LONB1TX_BETA1TX(ul_len);
+}
+
+/**
+ * \brief set LON Beta1 Length after Reception.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param ul_len 1-16777215: LON beta1 length after reception in tbit.
+ */
+void  usart_lon_set_beta1_rx_len(Usart *p_usart, uint32_t ul_len)
+{
+	p_usart->US_LONB1RX = US_LONB1RX_BETA1RX(ul_len);
+}
+
+/**
+ * \brief set  LON Priority.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param uc_psnb 0 -127: LON Priority Slot Number.
+ * \param uc_nps  0 -127: LON Node Priority Slot.
+ */
+void  usart_lon_set_priority(Usart *p_usart, uint8_t uc_psnb, uint8_t uc_nps)
+{
+	p_usart->US_LONPRIO = US_LONPRIO_PSNB(uc_psnb) | US_LONPRIO_NPS(uc_nps);
+}
+
+/**
+ * \brief set LON Indeterminate Time after Transmission.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param ul_time 1-16777215: LON Indeterminate Time after Transmission (comm_type = 1 mode only).
+ */
+void  usart_lon_set_tx_idt(Usart *p_usart, uint32_t ul_time)
+{
+	p_usart->US_IDTTX = US_IDTTX_IDTTX(ul_time);
+}
+
+/**
+ * \brief set LON Indeterminate Time after Reception.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param ul_time 1-16777215: LON Indeterminate Time after Reception (comm_type = 1 mode only).
+ */
+void  usart_lon_set_rx_idt(Usart *p_usart, uint32_t ul_time)
+{
+	p_usart->US_IDTRX = US_IDTRX_IDTRX(ul_time);
+}
+
+/**
+ * \brief set LON Preamble Length.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param ul_len 1-16383: LON preamble length in tbit(without byte-sync).
+ */
+void  usart_lon_set_pre_len(Usart *p_usart, uint32_t ul_len)
+{
+	p_usart->US_LONPR = US_LONPR_LONPL(ul_len);
+}
+
+/**
+ * \brief set LON  Data Length.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param uc_len 0-255: LON data length is LONDL+1 bytes.
+ */
+void  usart_lon_set_data_len(Usart *p_usart, uint8_t uc_len)
+{
+	p_usart->US_LONDL = US_LONDL_LONDL(uc_len);
+}
+
+/**
+ * \brief set  LON Priority.
+ *
+ * \param p_usart Pointer to a USART instance.
+ * \param uc_bli   LON Backlog Increment.
+ * \param uc_altp LON Alternate Path Bit.
+ * \param uc_pb   LON Priority Bit.
+ */
+void  usart_lon_set_l2hdr(Usart *p_usart, uint8_t uc_bli, uint8_t uc_altp, uint8_t uc_pb)
+{
+	p_usart->US_LONL2HDR = US_LONL2HDR_BLI(uc_bli) | (uc_altp << 6) | (uc_pb << 7);
+}
+
+/**
+ * \brief Check if LON Transmission End.
+ *
+ * \param p_usart Pointer to a USART instance.
+ *
+ * \retval 1  At least one transmission has been performed since the last RSTSTA.
+ * \retval 0  Transmission on going or no transmission occurred since the last RSTSTA.
+ */
+uint32_t usart_lon_is_tx_end(Usart *p_usart)
+{
+	return (p_usart->US_CSR & US_CSR_LTXD) > 0;
+}
+
+/**
+ * \brief Check if LON Reception End.
+ *
+ * \param p_usart Pointer to a USART instance.
+ *
+ * \retval 1  At least one Reception has been performed since the last RSTSTA.
+ * \retval 0  Reception on going or no Reception occurred since the last RSTSTA.
+ */
+uint32_t usart_lon_is_rx_end(Usart *p_usart)
+{
+	return (p_usart->US_CSR & US_CSR_LRXD) > 0;
+}
+#endif
+
 /**
  * \brief Enable USART transmitter.
  *
@@ -1224,26 +1581,6 @@ uint32_t usart_send_address(Usart *p_usart, uint32_t ul_addr)
 }
 
 /**
- * \brief Reset the ITERATION in US_CSR when the ISO7816 mode is enabled.
- *
- * \param p_usart Pointer to a USART instance.
- */
-void usart_reset_iterations(Usart *p_usart)
-{
-	p_usart->US_CR = US_CR_RSTIT;
-}
-
-/**
- * \brief Reset NACK in US_CSR.
- *
- * \param p_usart Pointer to a USART instance.
- */
-void usart_reset_nack(Usart *p_usart)
-{
-	p_usart->US_CR = US_CR_RSTNACK;
-}
-
-/**
  * \brief Restart the receive timeout.
  *
  * \param p_usart Pointer to a USART instance.
@@ -1359,58 +1696,6 @@ uint32_t usart_is_tx_empty(Usart *p_usart)
 uint32_t usart_is_rx_ready(Usart *p_usart)
 {
 	return (p_usart->US_CSR & US_CSR_RXRDY) > 0;
-}
-
-/**
- * \brief Check if one receive buffer is filled.
- *
- * \param p_usart Pointer to a USART instance.
- *
- * \retval 1 Receive is complete.
- * \retval 0 Receive is still pending.
- */
-uint32_t usart_is_rx_buf_end(Usart *p_usart)
-{
-	return (p_usart->US_CSR & US_CSR_ENDRX) > 0;
-}
-
-/**
- * \brief Check if one transmit buffer is empty.
- *
- * \param p_usart Pointer to a USART instance.
- *
- * \retval 1 Transmit is complete.
- * \retval 0 Transmit is still pending.
- */
-uint32_t usart_is_tx_buf_end(Usart *p_usart)
-{
-	return (p_usart->US_CSR & US_CSR_ENDTX) > 0;
-}
-
-/**
- * \brief Check if both receive buffers are full.
- *
- * \param p_usart Pointer to a USART instance.
- *
- * \retval 1 Receive buffers are full.
- * \retval 0 Receive buffers are not full.
- */
-uint32_t usart_is_rx_buf_full(Usart *p_usart)
-{
-	return (p_usart->US_CSR & US_CSR_RXBUFF) > 0;
-}
-
-/**
- * \brief Check if both transmit buffers are empty.
- *
- * \param p_usart Pointer to a USART instance.
- *
- * \retval 1 Transmit buffers are empty.
- * \retval 0 Transmit buffers are not empty.
- */
-uint32_t usart_is_tx_buf_empty(Usart *p_usart)
-{
-	return (p_usart->US_CSR & US_CSR_TXBUFE) > 0;
 }
 
 /**
@@ -1539,7 +1824,7 @@ uint32_t *usart_get_rx_access(Usart *p_usart)
 }
 #endif
 
-#if (!SAM4L)
+#if (!SAM4L && !SAMV71 && !SAMV70 && !SAME70 && !SAMS70)
 /**
  * \brief Get USART PDC base address.
  *
@@ -1583,6 +1868,30 @@ Pdc *usart_get_pdc_base(Usart *p_usart)
 		return p_pdc_base;
 	}
 #endif
+#ifdef PDC_USART4
+	else if (p_usart == USART4) {
+		p_pdc_base = PDC_USART4;
+		return p_pdc_base;
+	}
+#endif
+#ifdef PDC_USART5
+	else if (p_usart == USART5) {
+		p_pdc_base = PDC_USART5;
+		return p_pdc_base;
+	}
+#endif
+#ifdef PDC_USART6
+	else if (p_usart == USART6) {
+		p_pdc_base = PDC_USART6;
+		return p_pdc_base;
+	}
+#endif
+#ifdef PDC_USART7
+	else if (p_usart == USART7) {
+		p_pdc_base = PDC_USART7;
+		return p_pdc_base;
+	}
+#endif
 
 	return p_pdc_base;
 }
@@ -1613,8 +1922,8 @@ void usart_disable_writeprotect(Usart *p_usart)
  *
  * \param p_usart Pointer to a USART instance.
  *
- * \return 0 if the peripheral is not protected.
- * \return 16-bit Write Protect Violation Status otherwise.
+ * \return 0 if no write protect violation occurred, or 16-bit write protect
+ * violation source.
  */
 uint32_t usart_get_writeprotect_status(Usart *p_usart)
 {
@@ -1626,18 +1935,6 @@ uint32_t usart_get_writeprotect_status(Usart *p_usart)
 	} else {
 		return 0;
 	}
-}
-
-/**
- * \brief Get the total number of errors that occur during an ISO7816 transfer.
- *
- * \param p_usart Pointer to a USART instance.
- *
- * \return The number of errors that occurred.
- */
-uint8_t usart_get_error_number(Usart *p_usart)
-{
-	return (p_usart->US_NER & US_NER_NB_ERRORS_Msk);
 }
 
 #if (SAM3S || SAM4S || SAM3U || SAM3XA || SAM4L || SAM4E || SAM4C || SAM4CP || SAM4CM)
@@ -1759,6 +2056,39 @@ uint32_t usart_get_version(Usart *p_usart)
 	return p_usart->US_VERSION;
 }
 
+#endif
+
+#if SAMG55
+/**
+ * \brief Set sleepwalking match mode.
+ *
+ * \param p_uart Pointer to a USART instance.
+ * \param ul_low_value First comparison value for received character.
+ * \param ul_high_value Second comparison value for received character.
+ * \param cmpmode ture for start condition, false for flag only.
+ * \param cmppar ture for parity check, false for no.
+ */
+void usart_set_sleepwalking(Usart *p_uart, uint8_t ul_low_value,
+		bool cmpmode, bool cmppar, uint8_t ul_high_value)
+{
+	Assert(ul_low_value <= ul_high_value);
+
+	uint32_t temp = 0;
+
+	if (cmpmode) {
+		temp |= US_CMPR_CMPMODE_START_CONDITION;
+	}
+
+	if (cmppar) {
+		temp |= US_CMPR_CMPPAR;
+	}
+
+	temp |= US_CMPR_VAL1(ul_low_value);
+
+	temp |= US_CMPR_VAL2(ul_high_value);
+
+	p_uart->US_CMPR= temp;
+}
 #endif
 
 //@}

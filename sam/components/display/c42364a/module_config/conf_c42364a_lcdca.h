@@ -3,7 +3,7 @@
  *
  * \brief C42364A configuration.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,6 +42,9 @@
  */
 
 /** Configuration of the C42364A LCD glass driver */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CONF_C42364A_LCDCA_H_INCLUDED
 #define CONF_C42364A_LCDCA_H_INCLUDED

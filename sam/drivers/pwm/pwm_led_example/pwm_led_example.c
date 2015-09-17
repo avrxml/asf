@@ -3,7 +3,7 @@
  *
  * \brief PWM LED example for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,7 +52,7 @@
  *
  * \section Requirements
  *
- * This example can be used on any SAM3/4 boards. The 2 required leds need to
+ * This example can be used on SAM boards. The 2 required leds need to
  * be connected to PWM output pins, else consider probing the PWM output pins
  * with an oscilloscope.
  *
@@ -66,6 +66,9 @@
  * & PIN_PWM_LED1_CHANNEL
  * -# Change duty cycle in ISR
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"
@@ -91,16 +94,25 @@ pwm_channel_t g_pwm_channel_led;
 /**
  * \brief Interrupt handler for the PWM controller.
  */
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+void PWM0_Handler(void)
+#else
 void PWM_Handler(void)
+#endif
 {
 	static uint32_t ul_count = 0;  /* PWM counter value */
 	static uint32_t ul_duty = INIT_DUTY_VALUE;  /* PWM duty cycle rate */
 	static uint8_t fade_in = 1;  /* LED fade in flag */
+
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	uint32_t events = pwm_channel_get_interrupt_status(PWM0);
+#else
 	uint32_t events = pwm_channel_get_interrupt_status(PWM);
+#endif
 
 	/* Interrupt on PIN_PWM_LED0_CHANNEL */
 	if ((events & (1 << PIN_PWM_LED0_CHANNEL)) ==
-			(1 << PIN_PWM_LED0_CHANNEL)) {
+	(1 << PIN_PWM_LED0_CHANNEL)) {
 		ul_count++;
 
 		/* Fade in/out */
@@ -111,7 +123,7 @@ void PWM_Handler(void)
 				if (ul_duty == PERIOD_VALUE) {
 					fade_in = 0;
 				}
-			} else {
+				} else {
 				/* Fade out */
 				ul_duty--;
 				if (ul_duty == INIT_DUTY_VALUE) {
@@ -122,9 +134,17 @@ void PWM_Handler(void)
 			/* Set new duty cycle */
 			ul_count = 0;
 			g_pwm_channel_led.channel = PIN_PWM_LED0_CHANNEL;
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+			pwm_channel_update_duty(PWM0, &g_pwm_channel_led, ul_duty);
+#else
 			pwm_channel_update_duty(PWM, &g_pwm_channel_led, ul_duty);
+#endif
 			g_pwm_channel_led.channel = PIN_PWM_LED1_CHANNEL;
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+			pwm_channel_update_duty(PWM0, &g_pwm_channel_led, ul_duty);
+#else
 			pwm_channel_update_duty(PWM, &g_pwm_channel_led, ul_duty);
+#endif
 		}
 	}
 }
@@ -136,7 +156,13 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	/* Configure console UART. */
@@ -161,13 +187,22 @@ int main(void)
 
 	/* Output example information */
 	puts(STRING_HEADER);
-
+	
 	/* Enable PWM peripheral clock */
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	pmc_enable_periph_clk(ID_PWM0);
+#else
 	pmc_enable_periph_clk(ID_PWM);
+#endif
 
 	/* Disable PWM channels for LEDs */
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	pwm_channel_disable(PWM0, PIN_PWM_LED0_CHANNEL);
+	pwm_channel_disable(PWM0, PIN_PWM_LED1_CHANNEL);
+#else
 	pwm_channel_disable(PWM, PIN_PWM_LED0_CHANNEL);
 	pwm_channel_disable(PWM, PIN_PWM_LED1_CHANNEL);
+#endif
 
 	/* Set PWM clock A as PWM_FREQUENCY*PERIOD_VALUE (clock B is not used) */
 	pwm_clock_t clock_setting = {
@@ -175,7 +210,11 @@ int main(void)
 		.ul_clkb = 0,
 		.ul_mck = sysclk_get_cpu_hz()
 	};
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	pwm_init(PWM0, &clock_setting);
+#else
 	pwm_init(PWM, &clock_setting);
+#endif
 
 	/* Initialize PWM channel for LED0 */
 	/* Period is left-aligned */
@@ -189,10 +228,18 @@ int main(void)
 	/* Duty cycle value of output waveform */
 	g_pwm_channel_led.ul_duty = INIT_DUTY_VALUE;
 	g_pwm_channel_led.channel = PIN_PWM_LED0_CHANNEL;
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	pwm_channel_init(PWM0, &g_pwm_channel_led);
+#else
 	pwm_channel_init(PWM, &g_pwm_channel_led);
+#endif
 
 	/* Enable channel counter event interrupt */
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	pwm_channel_enable_interrupt(PWM0, PIN_PWM_LED0_CHANNEL, 0);
+#else
 	pwm_channel_enable_interrupt(PWM, PIN_PWM_LED0_CHANNEL, 0);
+#endif
 
 	/* Initialize PWM channel for LED1 */
 	/* Period is center-aligned */
@@ -206,20 +253,39 @@ int main(void)
 	/* Duty cycle value of output waveform */
 	g_pwm_channel_led.ul_duty = INIT_DUTY_VALUE;
 	g_pwm_channel_led.channel = PIN_PWM_LED1_CHANNEL;
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	pwm_channel_init(PWM0, &g_pwm_channel_led);
+
+	/* Disable channel counter event interrupt */
+	pwm_channel_disable_interrupt(PWM0, PIN_PWM_LED1_CHANNEL, 0);
+#else
 	pwm_channel_init(PWM, &g_pwm_channel_led);
 
 	/* Disable channel counter event interrupt */
 	pwm_channel_disable_interrupt(PWM, PIN_PWM_LED1_CHANNEL, 0);
+#endif
 
 	/* Configure interrupt and enable PWM interrupt */
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	NVIC_DisableIRQ(PWM0_IRQn);
+	NVIC_ClearPendingIRQ(PWM0_IRQn);
+	NVIC_SetPriority(PWM0_IRQn, 0);
+	NVIC_EnableIRQ(PWM0_IRQn);
+	
+	/* Enable PWM channels for LEDs */
+	pwm_channel_enable(PWM0, PIN_PWM_LED0_CHANNEL);
+	pwm_channel_enable(PWM0, PIN_PWM_LED1_CHANNEL);
+#else
 	NVIC_DisableIRQ(PWM_IRQn);
 	NVIC_ClearPendingIRQ(PWM_IRQn);
 	NVIC_SetPriority(PWM_IRQn, 0);
 	NVIC_EnableIRQ(PWM_IRQn);
-
+	
 	/* Enable PWM channels for LEDs */
 	pwm_channel_enable(PWM, PIN_PWM_LED0_CHANNEL);
 	pwm_channel_enable(PWM, PIN_PWM_LED1_CHANNEL);
+#endif
+
 
 	/* Infinite loop */
 	while (1) {

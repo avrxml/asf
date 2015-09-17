@@ -3,7 +3,7 @@
  *
  * @brief This file contains the Queue Management Module definitions.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -88,9 +88,10 @@ typedef struct
  * The application should declare the queue of type queue_t
  * and call qmm_queue_init before invoking any other functionality of qmm.
  *
+ * @ingroup apiMacTypes
  */
 typedef struct
-#if !defined(__DOXYGEN__)
+#if !defined(DOXYGEN)
 		queue_tag
 #endif
 {

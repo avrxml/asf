@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3SD8	Atmel SAM3SD8</state>
+					<state>ATSAM3SD8C	Atmel ATSAM3SD8C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -312,6 +312,7 @@
 					<state>$PROJ_DIR$/../../../../../hid/device/mouse</state>
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -594,6 +595,7 @@
 					<state>$PROJ_DIR$/../../../../../hid/device/mouse</state>
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -1052,7 +1054,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3SD8	Atmel SAM3SD8</state>
+					<state>ATSAM3SD8C	Atmel ATSAM3SD8C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1267,6 +1269,7 @@
 					<state>$PROJ_DIR$/../../../../../hid/device/mouse</state>
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -1549,6 +1552,7 @@
 					<state>$PROJ_DIR$/../../../../../hid/device/mouse</state>
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -2034,6 +2038,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_uart1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_usart1.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_pioc.h</name>
 							</file>
 							<file>
@@ -2041,9 +2048,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_twi0.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_usart1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_tc1.h</name>
@@ -2235,6 +2239,15 @@
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.h</name>
 				</file>
 			</group>
+			<group>
+				<name>matrix</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.h</name>
+				</file>
+			</group>
 		</group>
 		<group>
 			<name>boards</name>
@@ -2362,6 +2375,9 @@
 										<name>$PROJ_DIR$/../conf_virtual_mem.h</name>
 									</file>
 									<file>
+										<name>$PROJ_DIR$/../conf_example.h</name>
+									</file>
+									<file>
 										<name>$PROJ_DIR$/../conf_clock.h</name>
 									</file>
 									<file>
@@ -2373,9 +2389,6 @@
 											<name>$PROJ_DIR$/asf.h</name>
 										</file>
 									</group>
-									<file>
-										<name>$PROJ_DIR$/../conf_example.h</name>
-									</file>
 									<file>
 										<name>$PROJ_DIR$/../conf_access.h</name>
 									</file>

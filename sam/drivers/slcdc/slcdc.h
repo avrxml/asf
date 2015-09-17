@@ -3,7 +3,7 @@
  *
  * \brief SAM Segment LCD Controller (SLCDC).
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef SLCDC_H_INCLUDED
 #define SLCDC_H_INCLUDED
 
@@ -59,9 +62,9 @@ extern "C" {
  * \section dependencies Dependencies
  *
  * The SLCDC module depends on the following modules:
- * - \ref sysclk_group for SLCDC clock control.
- * - \ref interrupt_group for enabling or disabling interrupts.
- * - \ref sleepmgr_group to unlock SLCDC
+ * - \ref sysclk_group "System Clock Management (Sysclock)"
+ * - \ref interrupt_group "Interrupt"
+ * - \ref sleepmgr_group "Sleep manager (sleepmgr)"
  * @{
  */
 
@@ -465,9 +468,9 @@ void slcdc_set_display_memory(Slcdc *p_slcdc);
  * \subsection slcdc_basic_prereq Prerequisites
  *
  * This module requires the following service
- * - \ref clk_group
- * - \ref supc_group
- * - \ref sleepmgr_group
+ * - \ref clk_group "Clock Management (Sysclock)"
+ * - \ref supc_group "Supply Controller (SUPC)"
+ * - \ref sleepmgr_group "Sleep manager (sleepmgr)"
  *
  * \subsection slcdc_basic_setup_code Setup Code Example
  *

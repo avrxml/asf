@@ -4,7 +4,7 @@
  * \brief Initialization prototypes and enumerations - Performance Analyzer
  * application
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2012, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -50,9 +50,10 @@
 #ifndef APP_INIT_H
 #define APP_INIT_H
 
-# include "tal.h"
+#include "tal.h"
 #include "string.h"
-# include "app_config.h"
+#include "app_config.h"
+#include "user_interface.h"
 
 /**
  * \defgroup group_perf_analyzer Performance Analyzer Application
@@ -73,7 +74,7 @@
 
 /* === Macros =============================================================== */
 /* Version of the software */
-#define FIRMWARE_VERSION    2.3f
+#define FIRMWARE_VERSION   3.2
 
 #if ((TAL_TYPE == AT86RF212) || (TAL_TYPE == AT86RF212B))
 #define DEFAULT_CHANNEL         (1)
@@ -137,6 +138,8 @@
 
 #if ((TAL_TYPE == ATMEGARFA1) || (TAL_TYPE == ATMEGARFR2))
 #define IC_TYPE 0X01
+#elif SAMR21
+#define IC_TYPE 0X01
 #else
 #define IC_TYPE 0X00
 #endif
@@ -196,6 +199,16 @@ void set_main_state(main_state_t state, void *arg);
 
 void app_alert(void);
 
+/**
+ * \brief Save all user settings before Start of CW transmission
+ */
+void save_all_settings(void);
+
+/**
+ * \brief Recover all user settings before Start of CW transmission
+ */
+void recover_all_settings(void);
+
 /* INIT state functions */
 
 /**
@@ -243,6 +256,7 @@ extern uint8_t T_APP_TIMER_RANGE;
 extern uint8_t APP_TIMER_TO_TX;
 extern uint8_t APP_TIMER_TO_TX_LED_OFF;
 extern uint8_t APP_TIMER_TO_RX_LED_OFF;
+extern uint8_t CW_TX_TIMER;
 
 /* === Externals ============================================================ */
 
@@ -268,7 +282,7 @@ extern retval_t transmit_frame( uint8_t dst_addr_mode,
 		uint8_t src_addr_mode,
 		uint8_t msdu_handle,
 		uint8_t *payload,
-		uint8_t payload_length,
+		uint16_t payload_length,
 		uint8_t ack_req);
 
 #ifdef __cplusplus

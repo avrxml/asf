@@ -3,7 +3,7 @@
  *
  * \brief ADC temperature sensor example for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -94,6 +94,9 @@
  * -# The application will output current Celsius temperature on the terminal, and
  *    users can set temperature offset by a menu.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <stdio.h>

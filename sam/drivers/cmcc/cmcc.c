@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of functions for the CMCC on SAM devices.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,6 +43,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "cmcc.h"
 
@@ -68,6 +71,9 @@ void cmcc_get_config_defaults(struct cmcc_config *const cfg)
 	/* Default configuration values */
 	cfg->cmcc_monitor_enable = true;
 	cfg->cmcc_mcfg_mode = CMCC_DHIT_COUNT_MODE;
+#if SAMG55
+	cfg->cmcc_cfg_cache_size = CMCC_PROG_CSIZE_1KB;
+#endif
 }
 
 /**

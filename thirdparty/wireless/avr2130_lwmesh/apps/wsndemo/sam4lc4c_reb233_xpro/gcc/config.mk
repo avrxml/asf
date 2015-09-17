@@ -67,6 +67,7 @@ CSRCS = \
        sam/drivers/ast/ast.c                              \
        sam/drivers/bpm/bpm.c                              \
        sam/drivers/flashcalw/flashcalw.c                  \
+       sam/drivers/gpio/gpio.c                            \
        sam/drivers/spi/spi.c                              \
        sam/drivers/tc/tc.c                                \
        sam/drivers/usart/usart.c                          \
@@ -118,6 +119,7 @@ INC_PATH = \
        sam/drivers/ast                                    \
        sam/drivers/bpm                                    \
        sam/drivers/flashcalw                              \
+       sam/drivers/gpio                                   \
        sam/drivers/spi                                    \
        sam/drivers/tc                                     \
        sam/drivers/usart                                  \

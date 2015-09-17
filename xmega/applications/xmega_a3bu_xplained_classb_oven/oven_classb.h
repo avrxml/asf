@@ -3,7 +3,7 @@
  *
  * \brief Class B application error insertion
  *
- * Copyright (C) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -101,6 +101,9 @@
  * \li \ref int_mon
  * \li \ref classb_sram
  * \li \ref classb_wdt
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef OVEN_CLASSB_H

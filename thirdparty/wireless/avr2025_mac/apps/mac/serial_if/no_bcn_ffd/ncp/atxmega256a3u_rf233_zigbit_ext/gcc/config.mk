@@ -202,10 +202,14 @@ CFLAGS =
 #   BOARD      Target board in use, see boards/board.h for a list.
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
+       -D ANTENNA_DIVERSITY=0                             \
        -D BOARD=XMEGA_RF233_ZIGBIT                        \
        -D CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA       \
+       -D CUSTOM_DEFAULT_TX_PWR                           \
+       -D CUSTOM_PWR_TABLE                                \
        -D DISABLE_TSTAMP_IRQ=1                            \
        -D ENABLE_TSTAMP                                   \
+       -D EXT_RF_FRONT_END_CTRL                           \
        -D FFD                                             \
        -D HIGHEST_STACK_LAYER=MAC                         \
        -D IOPORT_XMEGA_COMPAT                             \

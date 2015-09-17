@@ -80,6 +80,9 @@
 // From module: LCD - ILI9341 Display Controller
 #include <ili9341.h>
 
+// From module: MATRIX - Bus Matrix
+#include <matrix.h>
+
 // From module: PDC - Peripheral DMA Controller Example
 #include <pdc.h>
 

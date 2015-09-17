@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D21/R21/D10/D11 Timer/Counter Driver with DMA Quickstart
+ * \brief SAM Timer/Counter Driver with DMA Quickstart
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,11 +38,14 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 #include <conf_quick_start.h>
 
 void configure_tc(void);
-void transfer_done( const struct dma_resource* const resource);
+void transfer_done(struct dma_resource* const resource);
 void configure_dma_resource(struct dma_resource *resource);
 void setup_dma_descriptor(DmacDescriptor *descriptor);
 
@@ -113,7 +116,7 @@ void configure_tc(void)
 //! [config_tc]
 
 //! [_transfer_done]
-void transfer_done( const struct dma_resource* const resource )
+void transfer_done(struct dma_resource* const resource )
 {
 	UNUSED(resource);
 
@@ -153,7 +156,8 @@ void setup_dma_descriptor(DmacDescriptor *descriptor)
 	//! [dma_setup_6]
 	descriptor_config.block_transfer_count = TRANSFER_SIZE;
 	descriptor_config.source_address = (uint32_t)source_memory + TRANSFER_SIZE;
-	descriptor_config.destination_address = (uint32_t)destination_memory + TRANSFER_SIZE;
+	descriptor_config.destination_address =
+			(uint32_t)destination_memory + TRANSFER_SIZE;
 	//! [dma_setup_6]
 
 	//! [dma_setup_7]

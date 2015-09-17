@@ -3,7 +3,7 @@
  *
  * \brief Memory map for QMatrix file
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -52,8 +52,10 @@
 #define MEMORY_H
 
 /*----------------------------------------------------------------------------
-*  nested include files
-*  ----------------------------------------------------------------------------*/
+ *  nested include files
+ *
+ *
+ *----------------------------------------------------------------------------*/
 #if defined(__ICCAVR__)
 #include <ioavr.h>
 #include <intrinsics.h>
@@ -66,8 +68,10 @@
 #include <stdint.h>
 
 /*----------------------------------------------------------------------------
-*  manifest constants
-*  ----------------------------------------------------------------------------*/
+ *  manifest constants
+ *
+ *
+ *----------------------------------------------------------------------------*/
 
 /* Memory Map */
 
@@ -83,20 +87,22 @@
 #define MATCH              0x00
 
 /*----------------------------------------------------------------------------
-*  type definitions
-*  ----------------------------------------------------------------------------*/
+ *  type definitions
+ *
+ *
+ *----------------------------------------------------------------------------*/
 
 /* definition of memory map body */
 typedef struct tag_memory_map_body_t {
 	uint8_t id;                       /* Address  0 - hard-coded chip id */
 	uint8_t major_minor;              /* Address  1 - hard-coded chip
-	                                   *version */
+	                                   * version */
 	uint8_t sensor_status[2];            /* Address  3-4 - Key status */
 	uint8_t wheel_position;           /* Address  5 - Wheel Position */
 	uint8_t prox_status;              /* Address  6 - Proximity Sensor
-	                                   *Status */
+	                                   * Status */
 	uint8_t accelero_status;           /* Address  7 - Acclerometer Status
-	                                    **/
+	                                   **/
 } memory_map_body_t;
 
 /* union allowing memory map to be addressed by field name, or as an array */
@@ -107,12 +113,16 @@ typedef union tag_memory_map_t {
 /* ! @} */
 
 /*----------------------------------------------------------------------------
-*  macros
-*  ----------------------------------------------------------------------------*/
+ *  macros
+ *
+ *
+ *----------------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------
-*  extern variables
-*  ----------------------------------------------------------------------------*/
+ *  extern variables
+ *
+ *
+ *----------------------------------------------------------------------------*/
 
 extern memory_map_t memory_map;  /* application memory map */
 extern uint8_t sent_status_out[NUM_STATUS_BYTES];
@@ -122,5 +132,7 @@ extern uint8_t comms_match(void);
 #endif /* MEMORY_H */
 
 /*----------------------------------------------------------------------------
-*  End of file $RCSfile: memory_map.h $
-*  ----------------------------------------------------------------------------*/
+ *  End of file $RCSfile: memory_map.h $
+ *
+ *
+ *----------------------------------------------------------------------------*/

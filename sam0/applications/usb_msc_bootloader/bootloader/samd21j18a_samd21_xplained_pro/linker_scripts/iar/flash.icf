@@ -3,7 +3,7 @@
  *
  * \brief Linker script for running in internal FLASH on the SAMD21J18A
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,18 +45,18 @@
 /*-Editor annotation file-*/
 /* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\cortex_v1_0.xml" */
 /*-Specials-*/
-define symbol __ICFEDIT_intvec_start__     = 0x00000000;
+define symbol __ICFEDIT_intvec_start__ = 0x00000000;
 /*-Memory Regions-*/
 define symbol __ICFEDIT_region_RAM_start__ = 0x20000000;
 define symbol __ICFEDIT_region_RAM_end__   = 0x20008000;
 define symbol __ICFEDIT_region_ROM_start__ = 0x00000000;
-define symbol __ICFEDIT_region_ROM_end__   = 0x00008000;
+define symbol __ICFEDIT_region_ROM_end__   = 0x00008fff;
 /*-Sizes-*/
 if (!isdefinedsymbol(__ICFEDIT_size_cstack__)) {
-  define symbol __ICFEDIT_size_cstack__    = 0x3000;
+define symbol __ICFEDIT_size_cstack__ = 0x3000;
 }
 if (!isdefinedsymbol(__ICFEDIT_size_heap__)) {
-  define symbol __ICFEDIT_size_heap__      = 0x200;
+define symbol __ICFEDIT_size_heap__ = 0x200;
 }
 /**** End of ICF editor section. ###ICF###*/
 

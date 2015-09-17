@@ -4,7 +4,7 @@
 *
 * \brief Chinese Font Table
 *
-* Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
 *
 * \asf_license_start
 *
@@ -41,6 +41,9 @@
 * \asf_license_stop
 *
 *****************************************************************************/
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _CHINESE_FONT_H_
 #define _CHINESE_FONT_H_

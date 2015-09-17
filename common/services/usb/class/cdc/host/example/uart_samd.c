@@ -3,7 +3,7 @@
  *
  * \brief UART functions
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "conf_example.h"
 #include "conf_usb_host.h"
@@ -63,7 +66,7 @@ static uint8_t rx_data;
  *
  * * \param module USART module causing the interrupt (not used)
  */
-static void usart_tx_callback(const struct usart_module *const module)
+static void usart_tx_callback(struct usart_module *const module)
 {
 	/* Data ready to be sent */
 	if (uhi_cdc_is_rx_ready(0)) {
@@ -86,7 +89,7 @@ static void usart_tx_callback(const struct usart_module *const module)
  *
  * * \param module USART module causing the interrupt (not used)
  */
-static void usart_rx_callback(const struct usart_module *const module)
+static void usart_rx_callback(struct usart_module *const module)
 {
 	/* Data received */
 	ui_com_tx_start();
@@ -198,15 +201,7 @@ void uart_config(usb_cdc_line_coding_t *cfg)
 
 void uart_open(void)
 {
-	usart_disable(&usart_module_edbg);
-	usart_init(&usart_module_edbg, CONF_USART_BASE, &usart_conf);
 	usart_enable(&usart_module_edbg);
-
-	/* Enable interrupts */
-	usart_register_callback(&usart_module_edbg, usart_tx_callback,
-			USART_CALLBACK_BUFFER_TRANSMITTED);
-	usart_register_callback(&usart_module_edbg, usart_rx_callback,
-			USART_CALLBACK_BUFFER_RECEIVED);
 }
 
 void uart_close(void)

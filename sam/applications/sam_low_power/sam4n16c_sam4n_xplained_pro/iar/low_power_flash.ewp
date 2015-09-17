@@ -1885,10 +1885,10 @@
 								</file>
 							</group>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4n/source/templates/exceptions.c</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4n/source/templates/system_sam4n.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4n/source/templates/system_sam4n.c</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4n/source/templates/exceptions.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4n/source/templates/exceptions.h</name>
@@ -2150,6 +2150,15 @@
 				</file>
 			</group>
 			<group>
+				<name>usart</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/usart/usart.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/usart/usart.h</name>
+				</file>
+			</group>
+			<group>
 				<name>pio</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/pio/pio.c</name>
@@ -2174,15 +2183,6 @@
 				</file>
 			</group>
 			<group>
-				<name>wdt</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/wdt/wdt.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/wdt/wdt.h</name>
-				</file>
-			</group>
-			<group>
 				<name>pmc</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/pmc/sleep.c</name>
@@ -2198,12 +2198,12 @@
 				</file>
 			</group>
 			<group>
-				<name>usart</name>
+				<name>wdt</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/usart/usart.c</name>
+					<name>$PROJ_DIR$/../../../../drivers/wdt/wdt.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/usart/usart.h</name>
+					<name>$PROJ_DIR$/../../../../drivers/wdt/wdt.h</name>
 				</file>
 			</group>
 		</group>
@@ -2259,40 +2259,22 @@
 	<group>
 		<name>common</name>
 		<group>
-			<name>utils</name>
+			<name>services</name>
 			<group>
-				<name>stdio</name>
+				<name>serial</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/utils/stdio/write.c</name>
+					<name>$PROJ_DIR$/../../../../../common/services/serial/usart_serial.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/utils/stdio/read.c</name>
+					<name>$PROJ_DIR$/../../../../../common/services/serial/serial.h</name>
 				</file>
 				<group>
-					<name>stdio_serial</name>
+					<name>sam_uart</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial/stdio_serial.h</name>
+						<name>$PROJ_DIR$/../../../../../common/services/serial/sam_uart/uart_serial.h</name>
 					</file>
 				</group>
 			</group>
-			<group>
-				<name>interrupt</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../common/utils/interrupt/interrupt_sam_nvic.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../common/utils/interrupt/interrupt_sam_nvic.h</name>
-				</file>
-			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../common/utils/parts.h</name>
-			</file>
-			<file>
-				<name>$PROJ_DIR$/../../../../../common/utils/interrupt.h</name>
-			</file>
-		</group>
-		<group>
-			<name>services</name>
 			<group>
 				<name>clock</name>
 				<group>
@@ -2327,21 +2309,6 @@
 				</file>
 			</group>
 			<group>
-				<name>serial</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/serial/usart_serial.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/serial/serial.h</name>
-				</file>
-				<group>
-					<name>sam_uart</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../common/services/serial/sam_uart/uart_serial.h</name>
-					</file>
-				</group>
-			</group>
-			<group>
 				<name>ioport</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/ioport/ioport.h</name>
@@ -2353,6 +2320,39 @@
 					</file>
 				</group>
 			</group>
+		</group>
+		<group>
+			<name>utils</name>
+			<group>
+				<name>stdio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/utils/stdio/write.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/utils/stdio/read.c</name>
+				</file>
+				<group>
+					<name>stdio_serial</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial/stdio_serial.h</name>
+					</file>
+				</group>
+			</group>
+			<group>
+				<name>interrupt</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/utils/interrupt/interrupt_sam_nvic.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/utils/interrupt/interrupt_sam_nvic.h</name>
+				</file>
+			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../common/utils/parts.h</name>
+			</file>
+			<file>
+				<name>$PROJ_DIR$/../../../../../common/utils/interrupt.h</name>
+			</file>
 		</group>
 		<group>
 			<name>boards</name>

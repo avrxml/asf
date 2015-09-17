@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for AFEC driver.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <board.h>
 #include <sysclk.h>
@@ -72,7 +75,7 @@
  * - \ref conf_sleepmgr.h
  *
  * \section device_info Device Info
- * The SAM4E devices can be used.
+ * The SAM4E ,SAMV71-Xplained-Ultra devices can be used.
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -80,7 +83,7 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit <a href="http://www.atmel.com/">Atmel</a>.\n
- * Support and FAQ: http://support.atmel.no/
+ * Support and FAQ: http://www.atmel.com/design-support/
  */
 
 /** Conversion data is ready flag */
@@ -150,7 +153,7 @@ static void run_afec_tc_trig_test(const struct test_case *test)
 
 	afec_set_callback(AFEC0, AFEC_INTERRUPT_DATA_READY,
 			afec_set_data_ready_flag, 1);
-	delay_ms(2000);
+	delay_ms(3000);
 
 	test_assert_true(test, is_data_ready == true,
 			"AFEC using TC trigger test failed");
@@ -182,7 +185,13 @@ int main(void)
 {
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate   = CONF_TEST_BAUDRATE,
-		.paritytype = CONF_TEST_PARITY
+		.paritytype = CONF_TEST_PARITY,
+	#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+	#endif
+	#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+	#endif
 	};
 
 	/* Initialize the system clock and board */
@@ -198,12 +207,20 @@ int main(void)
 
 	afec_get_config_defaults(&afec_cfg);
 	afec_init(AFEC0, &afec_cfg);
-
+	
+  #if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+	/*
+	 * Because the internal ADC offset is 0x200, it should cancel it and shift
+	 * down to 0.
+	 */
+	afec_channel_set_analog_offset(AFEC0, AFEC_CHANNEL_1, 0x200);
+#else
 	/*
 	 * Because the internal ADC offset is 0x800, it should cancel it and shift
 	 * down to 0.
 	 */
 	afec_channel_set_analog_offset(AFEC0, AFEC_CHANNEL_1, 0x800);
+#endif
 
 	afec_channel_enable(AFEC0, AFEC_CHANNEL_1);
 

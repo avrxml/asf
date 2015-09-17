@@ -1,0 +1,5 @@
+<table class="t t-b t-s">
+<thead><tr><th>Local</th><th>Remote</th><th>State</th><th>Retransmissions</th><th>Timer</th><th>Flags</th></tr></thead>
+%! tcp-connections
+</table>
+%! file-stats .

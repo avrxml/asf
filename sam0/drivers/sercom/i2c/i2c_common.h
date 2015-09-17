@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM I2C Common Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef I2C_COMMON_H_INCLUDED
 #define I2C_COMMON_H_INCLUDED
 
@@ -52,17 +55,17 @@ extern "C" {
 
 /**
  * \if (I2C_MASTER_MODE && I2C_SLAVE_MODE)
- *   \defgroup asfdoc_sam0_sercom_i2c_group SAM I2C Driver (SERCOM I2C)
+ *   \defgroup asfdoc_sam0_sercom_i2c_group SAM I2C (SERCOM I2C) Driver
  * \elseif I2C_MASTER_MODE
- *   \defgroup asfdoc_sam0_sercom_i2c_group SAM I2C Master Mode Driver (SERCOM I2C)
+ *   \defgroup asfdoc_sam0_sercom_i2c_group SAM I2C Master Mode (SERCOM I2C) Driver
  * \elseif I2C_SLAVE_MODE
- *   \defgroup asfdoc_sam0_sercom_i2c_group SAM I2C Slave Mode Driver (SERCOM I2C)
+ *   \defgroup asfdoc_sam0_sercom_i2c_group SAM I2C Slave Mode (SERCOM I2C) Driver
  * \endif
  *
- * This driver for SAM devices provides an interface for the configuration
- * and management of the device's SERCOM I<SUP>2</SUP>C module, for the transfer
- * of data via an I<SUP>2</SUP>C bus. The following driver API modes are covered
- * by this manual:
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides
+ * an interface for the configuration and management of the device's SERCOM
+ * I<SUP>2</SUP>C module, for the transfer of data via an I<SUP>2</SUP>C bus.
+ * The following driver API modes are covered by this manual:
  *
  * \if I2C_MASTER_MODE
  * - Master Mode Polled APIs
@@ -81,9 +84,12 @@ extern "C" {
  * - SERCOM (Serial Communication Interface)
  *
  * The following devices can use this module:
- *  - SAM D20/D21
- *  - SAM R21
- *  - SAM D10/D11
+ *  - Atmel | SMART SAM D20/D21
+ *  - Atmel | SMART SAM R21
+ *  - Atmel | SMART SAM D09/D10/D11
+ *  - Atmel | SMART SAM L21/L22
+ *  - Atmel | SMART SAM DA1
+ *  - Atmel | SMART SAM C20/C21
  *
  * The outline of this documentation is as follows:
  * - \ref asfdoc_sam0_sercom_i2c_prerequisites
@@ -115,19 +121,19 @@ extern "C" {
  *	</tr>
  *	<tr>
  *		<td>FEATURE_I2C_FAST_MODE_PLUS_AND_HIGH_SPEED</td>
- *		<td>SAM D21/R21/D10/D11</td>
+ *		<td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21</td>
  *	</tr>
  *	<tr>
  *		<td>FEATURE_I2C_10_BIT_ADDRESS</td>
- *		<td>SAM D21/R21/D10/D11</td>
+ *		<td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21</td>
  *	</tr>
  *	<tr>
  *		<td>FEATURE_I2C_SCL_STRETCH_MODE</td>
- *		<td>SAM D21/R21/D10/D11</td>
+ *		<td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21</td>
  *	</tr>
  *	<tr>
  *		<td>FEATURE_I2C_SCL_EXTEND_TIMEOUT</td>
- *		<td>SAM D21/R21/D10/D11</td>
+ *		<td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21</td>
  *	</tr>
  * </table>
  * \note The specific features are only available in the driver when the
@@ -156,7 +162,7 @@ extern "C" {
  * replaced with a constant current source.
  *
  * \anchor asfdoc_sam0_sercom_i2c_bus_topology_figure
- * \image html bus_topology.svg "I2C bus topology" width=100%
+ * \image html bus_topology.svg "I2C Bus Topology" Width=100%
  *
  * \subsection asfdoc_sam0_sercom_i2c_transactions Transactions
  * The I<SUP>2</SUP>C standard defines three fundamental transaction formats:
@@ -186,10 +192,10 @@ extern "C" {
  * is then called a \b Repeated \b Start condition.
  *
  * \subsubsection asfdoc_sam0_sercom_i2c_address_packets Address Packets
- * The slave address consists of seven bits. The 8th bit in the transfer
+ * The slave address consists of seven bits. The 8<SUP>th</SUP> bit in the transfer
  * determines the data direction (read or write). An address packet always
- * succeeds a \b Start or \b Repeated \b Start condition. The 8th bit is handled
- * in the driver, and the user will only have to provide the 7 bit address.
+ * succeeds a \b Start or \b Repeated \b Start condition. The 8<SUP>th</SUP> bit is handled
+ * in the driver, and the user will only have to provide the 7-bit address.
  *
  * \subsubsection asfdoc_sam0_sercom_i2c_data_packets Data Packets
  * Data packets are nine bits long, consisting of one 8-bit data byte, and an
@@ -210,7 +216,7 @@ extern "C" {
  * a \b Stop condition.
  *
  * \anchor asfdoc_sam0_sercom_i2c_trans_examples_i2c_read
- * \image html i2c_read.svg "I2C Packet Read" width=100%
+ * \image html i2c_read.svg "I2C Packet Read" Width=100%
  *
  * Example of a write transaction is shown in
  * \ref asfdoc_sam0_sercom_i2c_trans_examples_i2c_write "the figure below". Here, the
@@ -221,7 +227,7 @@ extern "C" {
  * a \b Stop condition.
  *
  * \anchor asfdoc_sam0_sercom_i2c_trans_examples_i2c_write
- * \image html i2c_write.svg "I2C Packet Write" width=100%
+ * \image html i2c_write.svg "I2C Packet Write" Width=100%
  *
  * \subsubsection asfdoc_sam0_sercom_i2c_packet_timeout Packet Timeout
  * When a master sends an I<SUP>2</SUP>C packet, there is no way of
@@ -288,7 +294,7 @@ extern "C" {
  * \li \b UNKNOWN If the master has recently been enabled or connected to
  * the bus. Is forced to \b IDLE after given
  * \ref asfdoc_sam0_sercom_i2c_unknown_bus_timeout "timeout" when
- * the master module is enabled.
+ * the master module is enabled
  *
  * The bus state diagram can be seen in
  * \ref asfdoc_sam0_sercom_i2c_bus_states_figure "the figure below".
@@ -296,7 +302,7 @@ extern "C" {
  * \li P: Stop condition
  * \li Sr: Repeated start condition
  * \anchor asfdoc_sam0_sercom_i2c_bus_states_figure
- * \image html bus_state_diagram.svg "I2C bus state diagram" width=100%
+ * \image html bus_state_diagram.svg "I2C Bus State Diagram" Width=100%
  *
  * \subsection asfdoc_sam0_sercom_i2c_timeout Bus Timing
  * Inactive bus timeout for the master and SDA hold time is configurable in the
@@ -322,14 +328,14 @@ extern "C" {
  *
  * \subsection asfdoc_sam0_sercom_i2c_sleep_modes Operation in Sleep Modes
  * The I<SUP>2</SUP>C module can operate in all sleep modes by setting
- * the run_in_standby boolean in the \ref i2c_master_config or
+ * the run_in_standby Boolean in the \ref i2c_master_config or
  * \ref i2c_slave_config struct.
  * The operation in slave and master mode is shown in
  * \ref asfdoc_sam0_sercom_i2c_sleep_modes_table "the table below".
  *
  * \anchor asfdoc_sam0_sercom_i2c_sleep_modes_table
  * <table>
- *   <caption>I2C standby operations</caption>
+ *   <caption>I2C Standby Operations</caption>
  *   <tr>
  *      <th>Run in standby</th>
  *      <th>Slave</th>
@@ -351,7 +357,7 @@ extern "C" {
  * \section asfdoc_sam0_sercom_i2c_special_considerations Special Considerations
  *
  * \if (I2C_MASTER_CALLBACK_MODE || I2C_SLAVE_CALLBACK_MODE)
- *   \subsection asfdoc_sam0_sercom_i2c_common_interrupt Interrupt-Driven Operation
+ *   \subsection asfdoc_sam0_sercom_i2c_common_interrupt Interrupt-driven Operation
  *   While an interrupt-driven operation is in progress, subsequent calls to a
  *   write or read operation will return the STATUS_BUSY flag, indicating that
  *   only one operation is allowed at any given time.
@@ -370,7 +376,7 @@ extern "C" {
  * \endif
  *
  * \section asfdoc_sam0_sercom_i2c_extra Extra Information
- * For extra information see \ref asfdoc_sam0_sercom_i2c_extra_info_page.
+ * For extra information, see \ref asfdoc_sam0_sercom_i2c_extra_info_page.
  * This includes:
  *  - \ref asfdoc_sam0_sercom_i2c_acronyms
  *  - \ref asfdoc_sam0_sercom_i2c_extra_dependencies
@@ -387,17 +393,16 @@ extern "C" {
  */
 
 /**
- * \name Driver feature definition
- * Define SERCOME I2C driver features set according to different device family.
+ * \name Driver Feature Definition
+ * Define SERCOM I<SUP>2</SUP>C driver features set according to different device family.
  *
- * \note The high speed mode and 10-bit address feature are not
- *       supported by the driver now.
  * @{
  */
-#if (SAMD21) || (SAMR21) || (SAMD10) || (SAMD11) || defined(__DOXYGEN__)
-/** Fast mode plus and high speed support */
+#if (SAMD21) || (SAMR21) || (SAMD10) || (SAMD11) || (SAML21) || (SAMDA1) || \
+	(SAML22) || (SAMC20) || (SAMC21) || (SAMD09) || defined(__DOXYGEN__)
+/** Fast mode plus and high speed support. */
 #  define FEATURE_I2C_FAST_MODE_PLUS_AND_HIGH_SPEED
-/** 10 bit address support */
+/** 10-bit address support */
 #  define FEATURE_I2C_10_BIT_ADDRESS
 /** SCL stretch mode support */
 #  define FEATURE_I2C_SCL_STRETCH_MODE
@@ -413,7 +418,9 @@ extern "C" {
  * For slave: direction of request from master.
  */
 enum i2c_transfer_direction {
+	/** Master write operation is in progress */
 	I2C_TRANSFER_WRITE = 0,
+	/** Master read operation is in progress */
 	I2C_TRANSFER_READ  = 1,
 };
 
@@ -478,19 +485,19 @@ enum i2c_transfer_direction {
  *	</tr>
  *	<tr>
  *		<td>
- *		\li Added 10-bit addressing and high speed support in SAM D21.
- *		\li Seperate structure i2c_packet into i2c_master_packet and i2c_slave packet.
+ *		\li Added 10-bit addressing and high speed support in SAM D21
+ *		\li Separate structure i2c_packet into i2c_master_packet and i2c_slave packet
  *		</td>
  *	</tr>
  *	<tr>
  *		<td>
- *		\li Added support for SCL stretch and extended timeout hardware features in SAM D21.
- *		\li Added fast mode plus support in SAM D21.
+ *		\li Added support for SCL stretch and extended timeout hardware features in SAM D21
+ *		\li Added fast mode plus support in SAM D21
  *		</td>
  *	</tr>
  *	<tr>
  *		<td>Fixed incorrect logical mask for determining if a bus error has
- *          occurred in I2C Slave mode.
+ *          occurred in I<SUP>2</SUP>C Slave mode
  *      </td>
  *	</tr>
  *	<tr>
@@ -505,7 +512,7 @@ enum i2c_transfer_direction {
  * This is a list of the available Quick Start guides (QSGs) and example
  * applications for \ref asfdoc_sam0_sercom_i2c_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  * \if I2C_MASTER_MODE
@@ -525,6 +532,7 @@ enum i2c_transfer_direction {
  *
  * \page asfdoc_sam0_sercom_i2c_document_revision_history Document Revision History
  *
+ * \if (I2C_MASTER_MODE || I2C_MASTER_CALLBACK_MODE)
  * <table>
  *	<tr>
  *		<th>Doc. Rev.</td>
@@ -532,36 +540,67 @@ enum i2c_transfer_direction {
  *		<th>Comments</td>
  *	</tr>
  *	<tr>
- *		<td>F</td>
- *		<td>04/2014</td>
- *		<td>Added SAM D10/D11 support.</td>
+ *		<td>42117E</td>
+ *		<td>08/2015</td>
+ *		<td>Added support for SAM L21/L22, SAM DA1 and SAM C21</td>
  *	</tr>
  *	<tr>
- *		<td>E</td>
- *		<td>03/2014</td>
- *		<td>Added SAM R21 support.</td>
+ *		<td>42117D</td>
+ *		<td>12/2014</td>
+ *		<td>Added support for 10-bit addressing and high speed in SAM D21.
+ *		    Added support for SAM R21 and SAM D10/D11.</td>
  *	</tr>
  *	<tr>
- *		<td>D</td>
- *		<td>03/2014</td>
- *		<td>Added 10-bit addressing and high speed support in SAM D21.</td>
- *	</tr>
- *	<tr>
- *		<td>C</td>
+ *		<td>42117C</td>
  *		<td>01/2014</td>
- *		<td>Added the SAM D21 to the application note.</td>
+ *		<td>Added support for SAM D21</td>
  *	</tr>
  *	<tr>
- *		<td>B</td>
+ *		<td>42117B</td>
  *		<td>06/2013</td>
- *		<td>Corrected documentation typos. Updated I2C Bus State Diagram.</td>
+ *		<td>Corrected documentation typos. Updated I<SUP>2</SUP>C Bus State Diagram.</td>
  *	</tr>
  *	<tr>
- *		<td>A</td>
+ *		<td>42117A</td>
  *		<td>06/2013</td>
  *		<td>Initial release</td>
  *	</tr>
  * </table>
+ * \else
+ * <table>
+ *	<tr>
+ *		<th>Doc. Rev.</td>
+ *		<th>Date</td>
+ *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>42116E</td>
+ *		<td>08/2015</td>
+ *		<td>Added support for SAM L21/L22, SAM DA1 and SAM C21</td>
+ *	</tr>
+ *	<tr>
+ *		<td>42116D</td>
+ *		<td>12/2014</td>
+ *		<td>Added support for 10-bit addressing and high speed in SAM D21.
+ *		    Added support for SAM R21 and SAM D10/D11.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>42116C</td>
+ *		<td>01/2014</td>
+ *		<td>Added support for SAM D21</td>
+ *	</tr>
+ *	<tr>
+ *		<td>42116B</td>
+ *		<td>06/2013</td>
+ *		<td>Corrected documentation typos. Updated I<SUP>2</SUP>C Bus State Diagram.</td>
+ *	</tr>
+ *	<tr>
+ *		<td>42116A</td>
+ *		<td>06/2013</td>
+ *		<td>Initial release</td>
+ *	</tr>
+ * </table>
+ *\endif
  */
 
 #endif /* I2C_COMMON_H_INCLUDED */

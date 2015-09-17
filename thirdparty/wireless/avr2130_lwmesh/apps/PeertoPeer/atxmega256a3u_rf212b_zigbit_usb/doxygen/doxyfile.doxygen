@@ -25,7 +25,7 @@ DOXYFILE_ENCODING      = UTF-8
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded
 # by quotes) that should identify the project.
 
-PROJECT_NAME           = "LWMesh-Peer2Peer Application:AT86RF212B-XMEGA-A3U AT86RF212B Zigbit(USB)"
+PROJECT_NAME           = "LWMesh-Peer2Peer Application - XMEGA-A3U AT86RF212B Zigbit (ATZB-X-212B-USB)"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number.
 # This could be handy for archiving the generated documentation or

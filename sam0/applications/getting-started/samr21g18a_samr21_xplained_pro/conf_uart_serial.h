@@ -3,7 +3,7 @@
  *
  * \brief SAM R21 USART configuration.
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CONF_TEST_H
 #define CONF_TEST_H
@@ -52,6 +55,6 @@
 #define CONF_STDIO_PINMUX_PAD1   EDBG_CDC_SERCOM_PINMUX_PAD1
 #define CONF_STDIO_PINMUX_PAD2   EDBG_CDC_SERCOM_PINMUX_PAD2
 #define CONF_STDIO_PINMUX_PAD3   EDBG_CDC_SERCOM_PINMUX_PAD3
-#define CONF_STDIO_BAUDRATE      115200
+#define CONF_STDIO_BAUDRATE      38400
 //! [conf_uart_serial_settings]
 #endif // CONF_TEST_H

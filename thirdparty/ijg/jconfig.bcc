@@ -1,5 +1,8 @@
 /* jconfig.bcc --- jconfig.h for Borland C (Turbo C) on MS-DOS or OS/2. */
 /* see jconfig.doc for explanations */
+ /**
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #define HAVE_PROTOTYPES
 #define HAVE_UNSIGNED_CHAR

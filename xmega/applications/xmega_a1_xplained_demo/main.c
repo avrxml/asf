@@ -3,7 +3,7 @@
  *
  * \brief XMEGA-A1 Xplained demo application
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -77,6 +77,9 @@
  * \section Configuration
  * Some board-specific configurations and definitions are required for this
  * application. These are contained in \ref conf_example.h.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <board.h>

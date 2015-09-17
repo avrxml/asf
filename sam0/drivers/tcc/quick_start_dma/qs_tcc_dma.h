@@ -3,7 +3,7 @@
  *
  * \brief SAM TCC Driver Quick Start with DMA
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,16 +40,19 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 /**
  * \page asfdoc_sam0_tcc_dma_use_case Quick Start Guide for Using DMA with TCC
  *
  * The supported board list:
- *    - SAM D21/R21 Xplained Pro
+ *    - SAM D21/R21/L21/L22/DA1/C21 Xplained Pro
  *
  * In this use case, the TCC will be used to generate a PWM signal. Here
  * the pulse width varies through following values with the help of DMA
- * transfer: one quarter of the period, half of the period and three quarters
+ * transfer: one quarter of the period, half of the period, and three quarters
  * of the period.
  * The PWM output can be used to drive an LED. The waveform can also be
  * viewed using an oscilloscope.
@@ -61,13 +64,17 @@
  *  <tr><th> Board        </td><th> Pin  </td><th> Connect to </td></tr>
  *  <tr><td> SAMD21 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
  *  <tr><td> SAMR21 Xpro  </td><td> PA19 </td><td> LED0       </td></tr>
+ *  <tr><td> SAML21 Xpro  </td><td> PB10 </td><td> LED0       </td></tr>
+ *  <tr><td> SAML22 Xpro  </td><td> PC27 </td><td> LED0       </td></tr>
+ *  <tr><td> SAMDA1 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
+ *  <tr><td> SAMC21 Xpro  </td><td> PA15 </td><td> LED0       </td></tr>
  * </table>
  *
  * The TCC module will be setup as follows:
  * - GCLK generator 0 (GCLK main) clock source
- * - Use double buffering write when set top, compare or pattern through API
+ * - Use double buffering write when set top, compare, or pattern through API
  * - No dithering on the counter or compare
- * - No prescaler
+ * - Prescaler is set to 1024
  * - Single Slope PWM wave generation
  * - GCLK reload action
  * - Don't run in standby
@@ -92,8 +99,8 @@
  * - Two DMA resources are used
  * - Both DMA resources use peripheral trigger
  * - Both DMA resources perform beat transfer on trigger
- * - Both DMA resources use beat size of 16-bits
- * - Both DMA resources are configured to transfer 3 beats and
+ * - Both DMA resources use beat size of 16 bits
+ * - Both DMA resources are configured to transfer three beats and
  *   then repeat again in same buffer
  * - On DMA resource which controls the compare value
  *   - TCC0 overflow triggers DMA transfer
@@ -115,16 +122,33 @@
  *
  * Add to the main application source file, before any functions, according to
  * the kit used:
- * - SAM D21 Xplained Pro:
+ * - SAM D21 Xplained Pro.
  * \snippet samd21_xplained_pro/conf_quick_start_dma.h definition_pwm
  * \snippet samd21_xplained_pro/conf_quick_start_dma.h definition_feedback
  * \snippet samd21_xplained_pro/conf_quick_start_dma.h definition_dma_compare_trigger
  * \snippet samd21_xplained_pro/conf_quick_start_dma.h definition_dma_capture_trigger
- * - SAM R21 Xplained Pro:
+ * - SAM R21 Xplained Pro.
  * \snippet samr21_xplained_pro/conf_quick_start_dma.h definition_pwm
  * \snippet samr21_xplained_pro/conf_quick_start_dma.h definition_feedback
  * \snippet samr21_xplained_pro/conf_quick_start_dma.h definition_dma_compare_trigger
  * \snippet samr21_xplained_pro/conf_quick_start_dma.h definition_dma_capture_trigger
+ * - SAM L21 Xplained Pro.
+ * \snippet saml21_xplained_pro/conf_quick_start_dma.h definition_pwm
+ * \snippet saml21_xplained_pro/conf_quick_start_dma.h definition_feedback
+ * \snippet saml21_xplained_pro/conf_quick_start_dma.h definition_dma_compare_trigger
+ * - SAM L22 Xplained Pro.
+ * \snippet saml22_xplained_pro/conf_quick_start_dma.h definition_pwm
+ * \snippet saml22_xplained_pro/conf_quick_start_dma.h definition_feedback
+ * \snippet saml22_xplained_pro/conf_quick_start_dma.h definition_dma_compare_trigger
+ * - SAM DA1 Xplained Pro.
+ * \snippet samda1_xplained_pro/conf_quick_start_dma.h definition_pwm
+ * \snippet samda1_xplained_pro/conf_quick_start_dma.h definition_feedback
+ * \snippet samda1_xplained_pro/conf_quick_start_dma.h definition_dma_compare_trigger
+ * \snippet samda1_xplained_pro/conf_quick_start_dma.h definition_dma_capture_trigger
+ * - SAM C21 Xplained Pro.
+ * \snippet samc21_xplained_pro/conf_quick_start_dma.h definition_pwm
+ * \snippet samc21_xplained_pro/conf_quick_start_dma.h definition_feedback
+ * \snippet samc21_xplained_pro/conf_quick_start_dma.h definition_dma_compare_trigger
  *
  * Add to the main application source file, outside of any functions:
  * \snippet qs_tcc_dma.c module_inst
@@ -183,7 +207,7 @@
  *      \snippet qs_tcc_dma.c event_setup_3
  * -# Allocate and configure the resource using the configuration structure.
  *      \snippet qs_tcc_dma.c event_setup_4
- * -# Attach a user to the resource
+ * -# Attach a user to the resource.
  *      \snippet qs_tcc_dma.c event_setup_5
  * \subsubsection asfdoc_sam0_tcc_dma_use_case_setup_flow_dma_capture Configure the DMA for Capture TCC Channel 1
  * Configure the DMAC module to obtain captured value from TCC channel 1.
@@ -202,11 +226,11 @@
  *       \snippet qs_tcc_dma.c dma_setup_3
  * -# Allocate a DMA resource with the configurations.
  *       \snippet qs_tcc_dma.c dma_setup_4
- * -# Prepare DMA transfer descriptor
+ * -# Prepare DMA transfer descriptor.
  *  -# Create a DMA transfer descriptor.
  *       \snippet qs_tcc_dma.c capture_dma_descriptor
- *       \note When multiple descriptors are linked. The linked item should
- *             never go out of scope before it's loaded (to DMA Write-Back
+ *       \note When multiple descriptors are linked, the linked item should
+ *             never go out of scope before it is loaded (to DMA Write-Back
  *             memory section). In most cases, if more than one descriptors are
  *             used, they should be global except the very first one.
  *  -# Create a DMA transfer descriptor struct.
@@ -223,7 +247,7 @@
  *       \snippet qs_tcc_dma.c dma_setup_7
  *  -# Create the DMA transfer descriptor with the given configuration.
  *       \snippet qs_tcc_dma.c dma_setup_8
- * -# Start DMA transfer job with prepared descriptor
+ * -# Start DMA transfer job with prepared descriptor.
  *  -# Add the DMA transfer descriptor to the allocated DMA resource.
  *       \snippet qs_tcc_dma.c dma_setup_10
  *       \note When adding multiple descriptors, the last added one is linked
@@ -235,13 +259,13 @@
  * \subsubsection asfdoc_sam0_tcc_dma_use_case_setup_flow_dma_compare Configure the DMA for Compare TCC Channel 0
  * Configure the DMAC module to update TCC channel 0 compare value.
  * The flow is similar to last DMA configure step for capture.
- * -# Allocate and configure the DMA resource
+ * -# Allocate and configure the DMA resource.
  *     \snippet qs_tcc_dma.c compare_dma_resource
  *     \snippet qs_tcc_dma.c config_dma_resource_for_wave
- * -# Prepare DMA transfer descriptor
+ * -# Prepare DMA transfer descriptor.
  *     \snippet qs_tcc_dma.c compare_dma_descriptor
  *     \snippet qs_tcc_dma.c config_dma_descriptor_for_wave
- * -# Start DMA transfer job with prepared descriptor
+ * -# Start DMA transfer job with prepared descriptor.
  *     \snippet qs_tcc_dma.c config_dma_job_for_wave
  * -# Enable the TCC module to start the timer and begin PWM signal generation.
  *     \snippet qs_tcc_dma.c setup_enable

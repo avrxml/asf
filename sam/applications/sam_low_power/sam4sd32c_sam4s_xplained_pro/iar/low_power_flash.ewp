@@ -2064,6 +2064,9 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/component/component_udp.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/component/component_adc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/component/component_pwm.h</name>
 							</file>
 							<file>
@@ -2074,9 +2077,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/component/component_gpbr.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/component/component_adc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/component/component_ssc.h</name>
@@ -2193,9 +2193,6 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/instance/instance_efc1.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/instance/instance_tc1.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/instance/instance_dacc.h</name>
 							</file>
 							<file>
@@ -2212,6 +2209,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/instance/instance_spi.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/instance/instance_tc1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4s/include/instance/instance_usart1.h</name>

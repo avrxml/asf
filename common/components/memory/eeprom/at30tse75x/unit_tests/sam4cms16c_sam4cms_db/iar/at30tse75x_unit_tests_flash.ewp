@@ -2101,11 +2101,11 @@
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms8c_0.h</name>
 						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cmp8c_0.h</name>
+						</file>
 						<group>
 							<name>instance</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/instance/usart0.h</name>
-							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/instance/cmcc0.h</name>
 							</file>
@@ -2140,7 +2140,7 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/instance/usart3.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/instance/adc.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/instance/usart0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/instance/pioa.h</name>
@@ -2153,6 +2153,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/instance/rswdt.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/instance/adc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/instance/gpbr.h</name>
@@ -2221,9 +2224,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/instance/aes.h</name>
 							</file>
 						</group>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cmp8c_0.h</name>
-						</file>
 						<group>
 							<name>component</name>
 							<file>
@@ -2260,13 +2260,13 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/component/slcdc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/component/rtc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/component/trng.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/component/rtt.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/component/usart.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/component/supc.h</name>
@@ -2296,7 +2296,7 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/component/icm.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/component/usart.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/component/rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/component/wdt.h</name>
@@ -2309,12 +2309,18 @@
 							</file>
 						</group>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms4c_1.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms16c_1.h</name>
 						</file>
 						<group>
 							<name>pio</name>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cms8c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cms4c.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cmp16c.h</name>
@@ -2331,6 +2337,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cmp8c_1.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms4c_0.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cm/include/sam4cm.h</name>

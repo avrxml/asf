@@ -68,6 +68,9 @@
 // From module: Interrupt management - SAM implementation
 #include <interrupt.h>
 
+// From module: MATRIX - Bus Matrix
+#include <matrix.h>
+
 // From module: PIO - Parallel Input/Output Controller
 #include <pio.h>
 

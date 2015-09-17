@@ -5,11 +5,11 @@
  *
  *
  * @author    Atmel Corporation: http://www.atmel.com
- * @author    Support email: avr@atmel.com
+ * @author    Support: http://www.atmel.com/design-support/
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -108,6 +108,6 @@ void waiting_for_get_attribute_response_timeout_cb(void *callback_parameter);
 #endif /* ZID_DEVICE_H */
 
 #endif  /* #if (((defined ZID_PROFILE) && (defined ZID_DEVICE)) || (defined
-         *DOXYGEN)) */
+         * DOXYGEN)) */
 
 /* EOF */

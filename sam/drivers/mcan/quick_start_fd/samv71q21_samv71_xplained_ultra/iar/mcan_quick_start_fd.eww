@@ -1,0 +1,9 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\mcan_quick_start_fd_flash.ewp</path>
+	</project>
+	<project>
+		<path>$WS_DIR$\mcan_quick_start_fd_sram.ewp</path>
+	</project>
+</workspace>

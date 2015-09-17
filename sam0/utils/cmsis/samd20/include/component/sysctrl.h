@@ -3,7 +3,7 @@
  *
  * \brief Component description for SYSCTRL
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAMD20_SYSCTRL_COMPONENT_
@@ -76,33 +79,33 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_INTENCLR_OFFSET     0x00         /**< \brief (SYSCTRL_INTENCLR offset) Interrupt Enable Clear */
-#define SYSCTRL_INTENCLR_RESETVALUE 0x00000000   /**< \brief (SYSCTRL_INTENCLR reset_value) Interrupt Enable Clear */
+#define SYSCTRL_INTENCLR_RESETVALUE 0x00000000ul /**< \brief (SYSCTRL_INTENCLR reset_value) Interrupt Enable Clear */
 
 #define SYSCTRL_INTENCLR_XOSCRDY_Pos 0            /**< \brief (SYSCTRL_INTENCLR) XOSC Ready */
-#define SYSCTRL_INTENCLR_XOSCRDY    (0x1u << SYSCTRL_INTENCLR_XOSCRDY_Pos)
+#define SYSCTRL_INTENCLR_XOSCRDY    (0x1ul << SYSCTRL_INTENCLR_XOSCRDY_Pos)
 #define SYSCTRL_INTENCLR_XOSC32KRDY_Pos 1            /**< \brief (SYSCTRL_INTENCLR) XOSC32K Ready */
-#define SYSCTRL_INTENCLR_XOSC32KRDY (0x1u << SYSCTRL_INTENCLR_XOSC32KRDY_Pos)
+#define SYSCTRL_INTENCLR_XOSC32KRDY (0x1ul << SYSCTRL_INTENCLR_XOSC32KRDY_Pos)
 #define SYSCTRL_INTENCLR_OSC32KRDY_Pos 2            /**< \brief (SYSCTRL_INTENCLR) OSC32K Ready */
-#define SYSCTRL_INTENCLR_OSC32KRDY  (0x1u << SYSCTRL_INTENCLR_OSC32KRDY_Pos)
+#define SYSCTRL_INTENCLR_OSC32KRDY  (0x1ul << SYSCTRL_INTENCLR_OSC32KRDY_Pos)
 #define SYSCTRL_INTENCLR_OSC8MRDY_Pos 3            /**< \brief (SYSCTRL_INTENCLR) OSC8M Ready */
-#define SYSCTRL_INTENCLR_OSC8MRDY   (0x1u << SYSCTRL_INTENCLR_OSC8MRDY_Pos)
+#define SYSCTRL_INTENCLR_OSC8MRDY   (0x1ul << SYSCTRL_INTENCLR_OSC8MRDY_Pos)
 #define SYSCTRL_INTENCLR_DFLLRDY_Pos 4            /**< \brief (SYSCTRL_INTENCLR) DFLL Ready */
-#define SYSCTRL_INTENCLR_DFLLRDY    (0x1u << SYSCTRL_INTENCLR_DFLLRDY_Pos)
+#define SYSCTRL_INTENCLR_DFLLRDY    (0x1ul << SYSCTRL_INTENCLR_DFLLRDY_Pos)
 #define SYSCTRL_INTENCLR_DFLLOOB_Pos 5            /**< \brief (SYSCTRL_INTENCLR) DFLL Out Of Bounds */
-#define SYSCTRL_INTENCLR_DFLLOOB    (0x1u << SYSCTRL_INTENCLR_DFLLOOB_Pos)
+#define SYSCTRL_INTENCLR_DFLLOOB    (0x1ul << SYSCTRL_INTENCLR_DFLLOOB_Pos)
 #define SYSCTRL_INTENCLR_DFLLLCKF_Pos 6            /**< \brief (SYSCTRL_INTENCLR) DFLL Lock Fine */
-#define SYSCTRL_INTENCLR_DFLLLCKF   (0x1u << SYSCTRL_INTENCLR_DFLLLCKF_Pos)
+#define SYSCTRL_INTENCLR_DFLLLCKF   (0x1ul << SYSCTRL_INTENCLR_DFLLLCKF_Pos)
 #define SYSCTRL_INTENCLR_DFLLLCKC_Pos 7            /**< \brief (SYSCTRL_INTENCLR) DFLL Lock Coarse */
-#define SYSCTRL_INTENCLR_DFLLLCKC   (0x1u << SYSCTRL_INTENCLR_DFLLLCKC_Pos)
+#define SYSCTRL_INTENCLR_DFLLLCKC   (0x1ul << SYSCTRL_INTENCLR_DFLLLCKC_Pos)
 #define SYSCTRL_INTENCLR_DFLLRCS_Pos 8            /**< \brief (SYSCTRL_INTENCLR) DFLL Reference Clock Stopped */
-#define SYSCTRL_INTENCLR_DFLLRCS    (0x1u << SYSCTRL_INTENCLR_DFLLRCS_Pos)
+#define SYSCTRL_INTENCLR_DFLLRCS    (0x1ul << SYSCTRL_INTENCLR_DFLLRCS_Pos)
 #define SYSCTRL_INTENCLR_BOD33RDY_Pos 9            /**< \brief (SYSCTRL_INTENCLR) BOD33 Ready */
-#define SYSCTRL_INTENCLR_BOD33RDY   (0x1u << SYSCTRL_INTENCLR_BOD33RDY_Pos)
+#define SYSCTRL_INTENCLR_BOD33RDY   (0x1ul << SYSCTRL_INTENCLR_BOD33RDY_Pos)
 #define SYSCTRL_INTENCLR_BOD33DET_Pos 10           /**< \brief (SYSCTRL_INTENCLR) BOD33 Detection */
-#define SYSCTRL_INTENCLR_BOD33DET   (0x1u << SYSCTRL_INTENCLR_BOD33DET_Pos)
+#define SYSCTRL_INTENCLR_BOD33DET   (0x1ul << SYSCTRL_INTENCLR_BOD33DET_Pos)
 #define SYSCTRL_INTENCLR_B33SRDY_Pos 11           /**< \brief (SYSCTRL_INTENCLR) BOD33 Synchronization Ready */
-#define SYSCTRL_INTENCLR_B33SRDY    (0x1u << SYSCTRL_INTENCLR_B33SRDY_Pos)
-#define SYSCTRL_INTENCLR_MASK       0x00000FFFu  /**< \brief (SYSCTRL_INTENCLR) MASK Register */
+#define SYSCTRL_INTENCLR_B33SRDY    (0x1ul << SYSCTRL_INTENCLR_B33SRDY_Pos)
+#define SYSCTRL_INTENCLR_MASK       0x00000FFFul /**< \brief (SYSCTRL_INTENCLR) MASK Register */
 
 /* -------- SYSCTRL_INTENSET : (SYSCTRL Offset: 0x04) (R/W 32) Interrupt Enable Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -127,33 +130,33 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_INTENSET_OFFSET     0x04         /**< \brief (SYSCTRL_INTENSET offset) Interrupt Enable Set */
-#define SYSCTRL_INTENSET_RESETVALUE 0x00000000   /**< \brief (SYSCTRL_INTENSET reset_value) Interrupt Enable Set */
+#define SYSCTRL_INTENSET_RESETVALUE 0x00000000ul /**< \brief (SYSCTRL_INTENSET reset_value) Interrupt Enable Set */
 
 #define SYSCTRL_INTENSET_XOSCRDY_Pos 0            /**< \brief (SYSCTRL_INTENSET) XOSC Ready */
-#define SYSCTRL_INTENSET_XOSCRDY    (0x1u << SYSCTRL_INTENSET_XOSCRDY_Pos)
+#define SYSCTRL_INTENSET_XOSCRDY    (0x1ul << SYSCTRL_INTENSET_XOSCRDY_Pos)
 #define SYSCTRL_INTENSET_XOSC32KRDY_Pos 1            /**< \brief (SYSCTRL_INTENSET) XOSC32K Ready */
-#define SYSCTRL_INTENSET_XOSC32KRDY (0x1u << SYSCTRL_INTENSET_XOSC32KRDY_Pos)
+#define SYSCTRL_INTENSET_XOSC32KRDY (0x1ul << SYSCTRL_INTENSET_XOSC32KRDY_Pos)
 #define SYSCTRL_INTENSET_OSC32KRDY_Pos 2            /**< \brief (SYSCTRL_INTENSET) OSC32K Ready */
-#define SYSCTRL_INTENSET_OSC32KRDY  (0x1u << SYSCTRL_INTENSET_OSC32KRDY_Pos)
+#define SYSCTRL_INTENSET_OSC32KRDY  (0x1ul << SYSCTRL_INTENSET_OSC32KRDY_Pos)
 #define SYSCTRL_INTENSET_OSC8MRDY_Pos 3            /**< \brief (SYSCTRL_INTENSET) OSC8M Ready */
-#define SYSCTRL_INTENSET_OSC8MRDY   (0x1u << SYSCTRL_INTENSET_OSC8MRDY_Pos)
+#define SYSCTRL_INTENSET_OSC8MRDY   (0x1ul << SYSCTRL_INTENSET_OSC8MRDY_Pos)
 #define SYSCTRL_INTENSET_DFLLRDY_Pos 4            /**< \brief (SYSCTRL_INTENSET) DFLL Ready */
-#define SYSCTRL_INTENSET_DFLLRDY    (0x1u << SYSCTRL_INTENSET_DFLLRDY_Pos)
+#define SYSCTRL_INTENSET_DFLLRDY    (0x1ul << SYSCTRL_INTENSET_DFLLRDY_Pos)
 #define SYSCTRL_INTENSET_DFLLOOB_Pos 5            /**< \brief (SYSCTRL_INTENSET) DFLL Out Of Bounds */
-#define SYSCTRL_INTENSET_DFLLOOB    (0x1u << SYSCTRL_INTENSET_DFLLOOB_Pos)
+#define SYSCTRL_INTENSET_DFLLOOB    (0x1ul << SYSCTRL_INTENSET_DFLLOOB_Pos)
 #define SYSCTRL_INTENSET_DFLLLCKF_Pos 6            /**< \brief (SYSCTRL_INTENSET) DFLL Lock Fine */
-#define SYSCTRL_INTENSET_DFLLLCKF   (0x1u << SYSCTRL_INTENSET_DFLLLCKF_Pos)
+#define SYSCTRL_INTENSET_DFLLLCKF   (0x1ul << SYSCTRL_INTENSET_DFLLLCKF_Pos)
 #define SYSCTRL_INTENSET_DFLLLCKC_Pos 7            /**< \brief (SYSCTRL_INTENSET) DFLL Lock Coarse */
-#define SYSCTRL_INTENSET_DFLLLCKC   (0x1u << SYSCTRL_INTENSET_DFLLLCKC_Pos)
+#define SYSCTRL_INTENSET_DFLLLCKC   (0x1ul << SYSCTRL_INTENSET_DFLLLCKC_Pos)
 #define SYSCTRL_INTENSET_DFLLRCS_Pos 8            /**< \brief (SYSCTRL_INTENSET) DFLL Reference Clock Stopped */
-#define SYSCTRL_INTENSET_DFLLRCS    (0x1u << SYSCTRL_INTENSET_DFLLRCS_Pos)
+#define SYSCTRL_INTENSET_DFLLRCS    (0x1ul << SYSCTRL_INTENSET_DFLLRCS_Pos)
 #define SYSCTRL_INTENSET_BOD33RDY_Pos 9            /**< \brief (SYSCTRL_INTENSET) BOD33 Ready */
-#define SYSCTRL_INTENSET_BOD33RDY   (0x1u << SYSCTRL_INTENSET_BOD33RDY_Pos)
+#define SYSCTRL_INTENSET_BOD33RDY   (0x1ul << SYSCTRL_INTENSET_BOD33RDY_Pos)
 #define SYSCTRL_INTENSET_BOD33DET_Pos 10           /**< \brief (SYSCTRL_INTENSET) BOD33 Detection */
-#define SYSCTRL_INTENSET_BOD33DET   (0x1u << SYSCTRL_INTENSET_BOD33DET_Pos)
+#define SYSCTRL_INTENSET_BOD33DET   (0x1ul << SYSCTRL_INTENSET_BOD33DET_Pos)
 #define SYSCTRL_INTENSET_B33SRDY_Pos 11           /**< \brief (SYSCTRL_INTENSET) BOD33 Synchronization Ready */
-#define SYSCTRL_INTENSET_B33SRDY    (0x1u << SYSCTRL_INTENSET_B33SRDY_Pos)
-#define SYSCTRL_INTENSET_MASK       0x00000FFFu  /**< \brief (SYSCTRL_INTENSET) MASK Register */
+#define SYSCTRL_INTENSET_B33SRDY    (0x1ul << SYSCTRL_INTENSET_B33SRDY_Pos)
+#define SYSCTRL_INTENSET_MASK       0x00000FFFul /**< \brief (SYSCTRL_INTENSET) MASK Register */
 
 /* -------- SYSCTRL_INTFLAG : (SYSCTRL Offset: 0x08) (R/W 32) Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -178,33 +181,33 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_INTFLAG_OFFSET      0x08         /**< \brief (SYSCTRL_INTFLAG offset) Interrupt Flag Status and Clear */
-#define SYSCTRL_INTFLAG_RESETVALUE  0x00000000   /**< \brief (SYSCTRL_INTFLAG reset_value) Interrupt Flag Status and Clear */
+#define SYSCTRL_INTFLAG_RESETVALUE  0x00000000ul /**< \brief (SYSCTRL_INTFLAG reset_value) Interrupt Flag Status and Clear */
 
 #define SYSCTRL_INTFLAG_XOSCRDY_Pos 0            /**< \brief (SYSCTRL_INTFLAG) XOSC Ready */
-#define SYSCTRL_INTFLAG_XOSCRDY     (0x1u << SYSCTRL_INTFLAG_XOSCRDY_Pos)
+#define SYSCTRL_INTFLAG_XOSCRDY     (0x1ul << SYSCTRL_INTFLAG_XOSCRDY_Pos)
 #define SYSCTRL_INTFLAG_XOSC32KRDY_Pos 1            /**< \brief (SYSCTRL_INTFLAG) XOSC32K Ready */
-#define SYSCTRL_INTFLAG_XOSC32KRDY  (0x1u << SYSCTRL_INTFLAG_XOSC32KRDY_Pos)
+#define SYSCTRL_INTFLAG_XOSC32KRDY  (0x1ul << SYSCTRL_INTFLAG_XOSC32KRDY_Pos)
 #define SYSCTRL_INTFLAG_OSC32KRDY_Pos 2            /**< \brief (SYSCTRL_INTFLAG) OSC32K Ready */
-#define SYSCTRL_INTFLAG_OSC32KRDY   (0x1u << SYSCTRL_INTFLAG_OSC32KRDY_Pos)
+#define SYSCTRL_INTFLAG_OSC32KRDY   (0x1ul << SYSCTRL_INTFLAG_OSC32KRDY_Pos)
 #define SYSCTRL_INTFLAG_OSC8MRDY_Pos 3            /**< \brief (SYSCTRL_INTFLAG) OSC8M Ready */
-#define SYSCTRL_INTFLAG_OSC8MRDY    (0x1u << SYSCTRL_INTFLAG_OSC8MRDY_Pos)
+#define SYSCTRL_INTFLAG_OSC8MRDY    (0x1ul << SYSCTRL_INTFLAG_OSC8MRDY_Pos)
 #define SYSCTRL_INTFLAG_DFLLRDY_Pos 4            /**< \brief (SYSCTRL_INTFLAG) DFLL Ready */
-#define SYSCTRL_INTFLAG_DFLLRDY     (0x1u << SYSCTRL_INTFLAG_DFLLRDY_Pos)
+#define SYSCTRL_INTFLAG_DFLLRDY     (0x1ul << SYSCTRL_INTFLAG_DFLLRDY_Pos)
 #define SYSCTRL_INTFLAG_DFLLOOB_Pos 5            /**< \brief (SYSCTRL_INTFLAG) DFLL Out Of Bounds */
-#define SYSCTRL_INTFLAG_DFLLOOB     (0x1u << SYSCTRL_INTFLAG_DFLLOOB_Pos)
+#define SYSCTRL_INTFLAG_DFLLOOB     (0x1ul << SYSCTRL_INTFLAG_DFLLOOB_Pos)
 #define SYSCTRL_INTFLAG_DFLLLCKF_Pos 6            /**< \brief (SYSCTRL_INTFLAG) DFLL Lock Fine */
-#define SYSCTRL_INTFLAG_DFLLLCKF    (0x1u << SYSCTRL_INTFLAG_DFLLLCKF_Pos)
+#define SYSCTRL_INTFLAG_DFLLLCKF    (0x1ul << SYSCTRL_INTFLAG_DFLLLCKF_Pos)
 #define SYSCTRL_INTFLAG_DFLLLCKC_Pos 7            /**< \brief (SYSCTRL_INTFLAG) DFLL Lock Coarse */
-#define SYSCTRL_INTFLAG_DFLLLCKC    (0x1u << SYSCTRL_INTFLAG_DFLLLCKC_Pos)
+#define SYSCTRL_INTFLAG_DFLLLCKC    (0x1ul << SYSCTRL_INTFLAG_DFLLLCKC_Pos)
 #define SYSCTRL_INTFLAG_DFLLRCS_Pos 8            /**< \brief (SYSCTRL_INTFLAG) DFLL Reference Clock Stopped */
-#define SYSCTRL_INTFLAG_DFLLRCS     (0x1u << SYSCTRL_INTFLAG_DFLLRCS_Pos)
+#define SYSCTRL_INTFLAG_DFLLRCS     (0x1ul << SYSCTRL_INTFLAG_DFLLRCS_Pos)
 #define SYSCTRL_INTFLAG_BOD33RDY_Pos 9            /**< \brief (SYSCTRL_INTFLAG) BOD33 Ready */
-#define SYSCTRL_INTFLAG_BOD33RDY    (0x1u << SYSCTRL_INTFLAG_BOD33RDY_Pos)
+#define SYSCTRL_INTFLAG_BOD33RDY    (0x1ul << SYSCTRL_INTFLAG_BOD33RDY_Pos)
 #define SYSCTRL_INTFLAG_BOD33DET_Pos 10           /**< \brief (SYSCTRL_INTFLAG) BOD33 Detection */
-#define SYSCTRL_INTFLAG_BOD33DET    (0x1u << SYSCTRL_INTFLAG_BOD33DET_Pos)
+#define SYSCTRL_INTFLAG_BOD33DET    (0x1ul << SYSCTRL_INTFLAG_BOD33DET_Pos)
 #define SYSCTRL_INTFLAG_B33SRDY_Pos 11           /**< \brief (SYSCTRL_INTFLAG) BOD33 Synchronization Ready */
-#define SYSCTRL_INTFLAG_B33SRDY     (0x1u << SYSCTRL_INTFLAG_B33SRDY_Pos)
-#define SYSCTRL_INTFLAG_MASK        0x00000FFFu  /**< \brief (SYSCTRL_INTFLAG) MASK Register */
+#define SYSCTRL_INTFLAG_B33SRDY     (0x1ul << SYSCTRL_INTFLAG_B33SRDY_Pos)
+#define SYSCTRL_INTFLAG_MASK        0x00000FFFul /**< \brief (SYSCTRL_INTFLAG) MASK Register */
 
 /* -------- SYSCTRL_PCLKSR : (SYSCTRL Offset: 0x0C) (R/  32) Power and Clocks Status -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -229,33 +232,33 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_PCLKSR_OFFSET       0x0C         /**< \brief (SYSCTRL_PCLKSR offset) Power and Clocks Status */
-#define SYSCTRL_PCLKSR_RESETVALUE   0x00000000   /**< \brief (SYSCTRL_PCLKSR reset_value) Power and Clocks Status */
+#define SYSCTRL_PCLKSR_RESETVALUE   0x00000000ul /**< \brief (SYSCTRL_PCLKSR reset_value) Power and Clocks Status */
 
 #define SYSCTRL_PCLKSR_XOSCRDY_Pos  0            /**< \brief (SYSCTRL_PCLKSR) XOSC Ready */
-#define SYSCTRL_PCLKSR_XOSCRDY      (0x1u << SYSCTRL_PCLKSR_XOSCRDY_Pos)
+#define SYSCTRL_PCLKSR_XOSCRDY      (0x1ul << SYSCTRL_PCLKSR_XOSCRDY_Pos)
 #define SYSCTRL_PCLKSR_XOSC32KRDY_Pos 1            /**< \brief (SYSCTRL_PCLKSR) XOSC32K Ready */
-#define SYSCTRL_PCLKSR_XOSC32KRDY   (0x1u << SYSCTRL_PCLKSR_XOSC32KRDY_Pos)
+#define SYSCTRL_PCLKSR_XOSC32KRDY   (0x1ul << SYSCTRL_PCLKSR_XOSC32KRDY_Pos)
 #define SYSCTRL_PCLKSR_OSC32KRDY_Pos 2            /**< \brief (SYSCTRL_PCLKSR) OSC32K Ready */
-#define SYSCTRL_PCLKSR_OSC32KRDY    (0x1u << SYSCTRL_PCLKSR_OSC32KRDY_Pos)
+#define SYSCTRL_PCLKSR_OSC32KRDY    (0x1ul << SYSCTRL_PCLKSR_OSC32KRDY_Pos)
 #define SYSCTRL_PCLKSR_OSC8MRDY_Pos 3            /**< \brief (SYSCTRL_PCLKSR) OSC8M Ready */
-#define SYSCTRL_PCLKSR_OSC8MRDY     (0x1u << SYSCTRL_PCLKSR_OSC8MRDY_Pos)
+#define SYSCTRL_PCLKSR_OSC8MRDY     (0x1ul << SYSCTRL_PCLKSR_OSC8MRDY_Pos)
 #define SYSCTRL_PCLKSR_DFLLRDY_Pos  4            /**< \brief (SYSCTRL_PCLKSR) DFLL Ready */
-#define SYSCTRL_PCLKSR_DFLLRDY      (0x1u << SYSCTRL_PCLKSR_DFLLRDY_Pos)
+#define SYSCTRL_PCLKSR_DFLLRDY      (0x1ul << SYSCTRL_PCLKSR_DFLLRDY_Pos)
 #define SYSCTRL_PCLKSR_DFLLOOB_Pos  5            /**< \brief (SYSCTRL_PCLKSR) DFLL Out Of Bounds */
-#define SYSCTRL_PCLKSR_DFLLOOB      (0x1u << SYSCTRL_PCLKSR_DFLLOOB_Pos)
+#define SYSCTRL_PCLKSR_DFLLOOB      (0x1ul << SYSCTRL_PCLKSR_DFLLOOB_Pos)
 #define SYSCTRL_PCLKSR_DFLLLCKF_Pos 6            /**< \brief (SYSCTRL_PCLKSR) DFLL Lock Fine */
-#define SYSCTRL_PCLKSR_DFLLLCKF     (0x1u << SYSCTRL_PCLKSR_DFLLLCKF_Pos)
+#define SYSCTRL_PCLKSR_DFLLLCKF     (0x1ul << SYSCTRL_PCLKSR_DFLLLCKF_Pos)
 #define SYSCTRL_PCLKSR_DFLLLCKC_Pos 7            /**< \brief (SYSCTRL_PCLKSR) DFLL Lock Coarse */
-#define SYSCTRL_PCLKSR_DFLLLCKC     (0x1u << SYSCTRL_PCLKSR_DFLLLCKC_Pos)
+#define SYSCTRL_PCLKSR_DFLLLCKC     (0x1ul << SYSCTRL_PCLKSR_DFLLLCKC_Pos)
 #define SYSCTRL_PCLKSR_DFLLRCS_Pos  8            /**< \brief (SYSCTRL_PCLKSR) DFLL Reference Clock Stopped */
-#define SYSCTRL_PCLKSR_DFLLRCS      (0x1u << SYSCTRL_PCLKSR_DFLLRCS_Pos)
+#define SYSCTRL_PCLKSR_DFLLRCS      (0x1ul << SYSCTRL_PCLKSR_DFLLRCS_Pos)
 #define SYSCTRL_PCLKSR_BOD33RDY_Pos 9            /**< \brief (SYSCTRL_PCLKSR) BOD33 Ready */
-#define SYSCTRL_PCLKSR_BOD33RDY     (0x1u << SYSCTRL_PCLKSR_BOD33RDY_Pos)
+#define SYSCTRL_PCLKSR_BOD33RDY     (0x1ul << SYSCTRL_PCLKSR_BOD33RDY_Pos)
 #define SYSCTRL_PCLKSR_BOD33DET_Pos 10           /**< \brief (SYSCTRL_PCLKSR) BOD33 Detection */
-#define SYSCTRL_PCLKSR_BOD33DET     (0x1u << SYSCTRL_PCLKSR_BOD33DET_Pos)
+#define SYSCTRL_PCLKSR_BOD33DET     (0x1ul << SYSCTRL_PCLKSR_BOD33DET_Pos)
 #define SYSCTRL_PCLKSR_B33SRDY_Pos  11           /**< \brief (SYSCTRL_PCLKSR) BOD33 Synchronization Ready */
-#define SYSCTRL_PCLKSR_B33SRDY      (0x1u << SYSCTRL_PCLKSR_B33SRDY_Pos)
-#define SYSCTRL_PCLKSR_MASK         0x00000FFFu  /**< \brief (SYSCTRL_PCLKSR) MASK Register */
+#define SYSCTRL_PCLKSR_B33SRDY      (0x1ul << SYSCTRL_PCLKSR_B33SRDY_Pos)
+#define SYSCTRL_PCLKSR_MASK         0x00000FFFul /**< \brief (SYSCTRL_PCLKSR) MASK Register */
 
 /* -------- SYSCTRL_XOSC : (SYSCTRL Offset: 0x10) (R/W 16) XOSC Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -276,25 +279,25 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_XOSC_OFFSET         0x10         /**< \brief (SYSCTRL_XOSC offset) XOSC Control */
-#define SYSCTRL_XOSC_RESETVALUE     0x0080       /**< \brief (SYSCTRL_XOSC reset_value) XOSC Control */
+#define SYSCTRL_XOSC_RESETVALUE     0x0080ul     /**< \brief (SYSCTRL_XOSC reset_value) XOSC Control */
 
 #define SYSCTRL_XOSC_ENABLE_Pos     1            /**< \brief (SYSCTRL_XOSC) Enable */
-#define SYSCTRL_XOSC_ENABLE         (0x1u << SYSCTRL_XOSC_ENABLE_Pos)
+#define SYSCTRL_XOSC_ENABLE         (0x1ul << SYSCTRL_XOSC_ENABLE_Pos)
 #define SYSCTRL_XOSC_XTALEN_Pos     2            /**< \brief (SYSCTRL_XOSC) Crystal Oscillator Enable */
-#define SYSCTRL_XOSC_XTALEN         (0x1u << SYSCTRL_XOSC_XTALEN_Pos)
+#define SYSCTRL_XOSC_XTALEN         (0x1ul << SYSCTRL_XOSC_XTALEN_Pos)
 #define SYSCTRL_XOSC_RUNSTDBY_Pos   6            /**< \brief (SYSCTRL_XOSC) Run during Standby */
-#define SYSCTRL_XOSC_RUNSTDBY       (0x1u << SYSCTRL_XOSC_RUNSTDBY_Pos)
+#define SYSCTRL_XOSC_RUNSTDBY       (0x1ul << SYSCTRL_XOSC_RUNSTDBY_Pos)
 #define SYSCTRL_XOSC_ONDEMAND_Pos   7            /**< \brief (SYSCTRL_XOSC) Enable on Demand */
-#define SYSCTRL_XOSC_ONDEMAND       (0x1u << SYSCTRL_XOSC_ONDEMAND_Pos)
+#define SYSCTRL_XOSC_ONDEMAND       (0x1ul << SYSCTRL_XOSC_ONDEMAND_Pos)
 #define SYSCTRL_XOSC_GAIN_Pos       8            /**< \brief (SYSCTRL_XOSC) Gain Value */
-#define SYSCTRL_XOSC_GAIN_Msk       (0x7u << SYSCTRL_XOSC_GAIN_Pos)
+#define SYSCTRL_XOSC_GAIN_Msk       (0x7ul << SYSCTRL_XOSC_GAIN_Pos)
 #define SYSCTRL_XOSC_GAIN(value)    ((SYSCTRL_XOSC_GAIN_Msk & ((value) << SYSCTRL_XOSC_GAIN_Pos)))
 #define SYSCTRL_XOSC_AMPGC_Pos      11           /**< \brief (SYSCTRL_XOSC) Automatic Amplitude Gain Control */
-#define SYSCTRL_XOSC_AMPGC          (0x1u << SYSCTRL_XOSC_AMPGC_Pos)
+#define SYSCTRL_XOSC_AMPGC          (0x1ul << SYSCTRL_XOSC_AMPGC_Pos)
 #define SYSCTRL_XOSC_STARTUP_Pos    12           /**< \brief (SYSCTRL_XOSC) Start-Up Time */
-#define SYSCTRL_XOSC_STARTUP_Msk    (0xFu << SYSCTRL_XOSC_STARTUP_Pos)
+#define SYSCTRL_XOSC_STARTUP_Msk    (0xFul << SYSCTRL_XOSC_STARTUP_Pos)
 #define SYSCTRL_XOSC_STARTUP(value) ((SYSCTRL_XOSC_STARTUP_Msk & ((value) << SYSCTRL_XOSC_STARTUP_Pos)))
-#define SYSCTRL_XOSC_MASK           0xFFC6u      /**< \brief (SYSCTRL_XOSC) MASK Register */
+#define SYSCTRL_XOSC_MASK           0xFFC6ul     /**< \brief (SYSCTRL_XOSC) MASK Register */
 
 /* -------- SYSCTRL_XOSC32K : (SYSCTRL Offset: 0x14) (R/W 16) XOSC32K Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -318,28 +321,28 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_XOSC32K_OFFSET      0x14         /**< \brief (SYSCTRL_XOSC32K offset) XOSC32K Control */
-#define SYSCTRL_XOSC32K_RESETVALUE  0x0080       /**< \brief (SYSCTRL_XOSC32K reset_value) XOSC32K Control */
+#define SYSCTRL_XOSC32K_RESETVALUE  0x0080ul     /**< \brief (SYSCTRL_XOSC32K reset_value) XOSC32K Control */
 
 #define SYSCTRL_XOSC32K_ENABLE_Pos  1            /**< \brief (SYSCTRL_XOSC32K) Enable */
-#define SYSCTRL_XOSC32K_ENABLE      (0x1u << SYSCTRL_XOSC32K_ENABLE_Pos)
+#define SYSCTRL_XOSC32K_ENABLE      (0x1ul << SYSCTRL_XOSC32K_ENABLE_Pos)
 #define SYSCTRL_XOSC32K_XTALEN_Pos  2            /**< \brief (SYSCTRL_XOSC32K) Crystal Oscillator Enable */
-#define SYSCTRL_XOSC32K_XTALEN      (0x1u << SYSCTRL_XOSC32K_XTALEN_Pos)
+#define SYSCTRL_XOSC32K_XTALEN      (0x1ul << SYSCTRL_XOSC32K_XTALEN_Pos)
 #define SYSCTRL_XOSC32K_EN32K_Pos   3            /**< \brief (SYSCTRL_XOSC32K) 32kHz Output Enable */
-#define SYSCTRL_XOSC32K_EN32K       (0x1u << SYSCTRL_XOSC32K_EN32K_Pos)
+#define SYSCTRL_XOSC32K_EN32K       (0x1ul << SYSCTRL_XOSC32K_EN32K_Pos)
 #define SYSCTRL_XOSC32K_EN1K_Pos    4            /**< \brief (SYSCTRL_XOSC32K) 1kHz Output Enable */
-#define SYSCTRL_XOSC32K_EN1K        (0x1u << SYSCTRL_XOSC32K_EN1K_Pos)
+#define SYSCTRL_XOSC32K_EN1K        (0x1ul << SYSCTRL_XOSC32K_EN1K_Pos)
 #define SYSCTRL_XOSC32K_AAMPEN_Pos  5            /**< \brief (SYSCTRL_XOSC32K) Automatic Amplitude Control Enable */
-#define SYSCTRL_XOSC32K_AAMPEN      (0x1u << SYSCTRL_XOSC32K_AAMPEN_Pos)
+#define SYSCTRL_XOSC32K_AAMPEN      (0x1ul << SYSCTRL_XOSC32K_AAMPEN_Pos)
 #define SYSCTRL_XOSC32K_RUNSTDBY_Pos 6            /**< \brief (SYSCTRL_XOSC32K) Run during Standby */
-#define SYSCTRL_XOSC32K_RUNSTDBY    (0x1u << SYSCTRL_XOSC32K_RUNSTDBY_Pos)
+#define SYSCTRL_XOSC32K_RUNSTDBY    (0x1ul << SYSCTRL_XOSC32K_RUNSTDBY_Pos)
 #define SYSCTRL_XOSC32K_ONDEMAND_Pos 7            /**< \brief (SYSCTRL_XOSC32K) Enable on Demand */
-#define SYSCTRL_XOSC32K_ONDEMAND    (0x1u << SYSCTRL_XOSC32K_ONDEMAND_Pos)
+#define SYSCTRL_XOSC32K_ONDEMAND    (0x1ul << SYSCTRL_XOSC32K_ONDEMAND_Pos)
 #define SYSCTRL_XOSC32K_STARTUP_Pos 8            /**< \brief (SYSCTRL_XOSC32K) Start-Up Time */
-#define SYSCTRL_XOSC32K_STARTUP_Msk (0x7u << SYSCTRL_XOSC32K_STARTUP_Pos)
+#define SYSCTRL_XOSC32K_STARTUP_Msk (0x7ul << SYSCTRL_XOSC32K_STARTUP_Pos)
 #define SYSCTRL_XOSC32K_STARTUP(value) ((SYSCTRL_XOSC32K_STARTUP_Msk & ((value) << SYSCTRL_XOSC32K_STARTUP_Pos)))
 #define SYSCTRL_XOSC32K_WRTLOCK_Pos 12           /**< \brief (SYSCTRL_XOSC32K) Write Lock */
-#define SYSCTRL_XOSC32K_WRTLOCK     (0x1u << SYSCTRL_XOSC32K_WRTLOCK_Pos)
-#define SYSCTRL_XOSC32K_MASK        0x17FEu      /**< \brief (SYSCTRL_XOSC32K) MASK Register */
+#define SYSCTRL_XOSC32K_WRTLOCK     (0x1ul << SYSCTRL_XOSC32K_WRTLOCK_Pos)
+#define SYSCTRL_XOSC32K_MASK        0x17FEul     /**< \brief (SYSCTRL_XOSC32K) MASK Register */
 
 /* -------- SYSCTRL_OSC32K : (SYSCTRL Offset: 0x18) (R/W 32) OSC32K Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -364,27 +367,27 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_OSC32K_OFFSET       0x18         /**< \brief (SYSCTRL_OSC32K offset) OSC32K Control */
-#define SYSCTRL_OSC32K_RESETVALUE   0x003F0080   /**< \brief (SYSCTRL_OSC32K reset_value) OSC32K Control */
+#define SYSCTRL_OSC32K_RESETVALUE   0x003F0080ul /**< \brief (SYSCTRL_OSC32K reset_value) OSC32K Control */
 
 #define SYSCTRL_OSC32K_ENABLE_Pos   1            /**< \brief (SYSCTRL_OSC32K) Enable */
-#define SYSCTRL_OSC32K_ENABLE       (0x1u << SYSCTRL_OSC32K_ENABLE_Pos)
+#define SYSCTRL_OSC32K_ENABLE       (0x1ul << SYSCTRL_OSC32K_ENABLE_Pos)
 #define SYSCTRL_OSC32K_EN32K_Pos    2            /**< \brief (SYSCTRL_OSC32K) 32kHz Output Enable */
-#define SYSCTRL_OSC32K_EN32K        (0x1u << SYSCTRL_OSC32K_EN32K_Pos)
+#define SYSCTRL_OSC32K_EN32K        (0x1ul << SYSCTRL_OSC32K_EN32K_Pos)
 #define SYSCTRL_OSC32K_EN1K_Pos     3            /**< \brief (SYSCTRL_OSC32K) 1kHz Output Enable */
-#define SYSCTRL_OSC32K_EN1K         (0x1u << SYSCTRL_OSC32K_EN1K_Pos)
+#define SYSCTRL_OSC32K_EN1K         (0x1ul << SYSCTRL_OSC32K_EN1K_Pos)
 #define SYSCTRL_OSC32K_RUNSTDBY_Pos 6            /**< \brief (SYSCTRL_OSC32K) Run during Standby */
-#define SYSCTRL_OSC32K_RUNSTDBY     (0x1u << SYSCTRL_OSC32K_RUNSTDBY_Pos)
+#define SYSCTRL_OSC32K_RUNSTDBY     (0x1ul << SYSCTRL_OSC32K_RUNSTDBY_Pos)
 #define SYSCTRL_OSC32K_ONDEMAND_Pos 7            /**< \brief (SYSCTRL_OSC32K) Enable on Demand */
-#define SYSCTRL_OSC32K_ONDEMAND     (0x1u << SYSCTRL_OSC32K_ONDEMAND_Pos)
+#define SYSCTRL_OSC32K_ONDEMAND     (0x1ul << SYSCTRL_OSC32K_ONDEMAND_Pos)
 #define SYSCTRL_OSC32K_STARTUP_Pos  8            /**< \brief (SYSCTRL_OSC32K) Start-Up Time */
-#define SYSCTRL_OSC32K_STARTUP_Msk  (0x7u << SYSCTRL_OSC32K_STARTUP_Pos)
+#define SYSCTRL_OSC32K_STARTUP_Msk  (0x7ul << SYSCTRL_OSC32K_STARTUP_Pos)
 #define SYSCTRL_OSC32K_STARTUP(value) ((SYSCTRL_OSC32K_STARTUP_Msk & ((value) << SYSCTRL_OSC32K_STARTUP_Pos)))
 #define SYSCTRL_OSC32K_WRTLOCK_Pos  12           /**< \brief (SYSCTRL_OSC32K) Write Lock */
-#define SYSCTRL_OSC32K_WRTLOCK      (0x1u << SYSCTRL_OSC32K_WRTLOCK_Pos)
+#define SYSCTRL_OSC32K_WRTLOCK      (0x1ul << SYSCTRL_OSC32K_WRTLOCK_Pos)
 #define SYSCTRL_OSC32K_CALIB_Pos    16           /**< \brief (SYSCTRL_OSC32K) Calibration Value */
-#define SYSCTRL_OSC32K_CALIB_Msk    (0x7Fu << SYSCTRL_OSC32K_CALIB_Pos)
+#define SYSCTRL_OSC32K_CALIB_Msk    (0x7Ful << SYSCTRL_OSC32K_CALIB_Pos)
 #define SYSCTRL_OSC32K_CALIB(value) ((SYSCTRL_OSC32K_CALIB_Msk & ((value) << SYSCTRL_OSC32K_CALIB_Pos)))
-#define SYSCTRL_OSC32K_MASK         0x007F17CEu  /**< \brief (SYSCTRL_OSC32K) MASK Register */
+#define SYSCTRL_OSC32K_MASK         0x007F17CEul /**< \brief (SYSCTRL_OSC32K) MASK Register */
 
 /* -------- SYSCTRL_OSCULP32K : (SYSCTRL Offset: 0x1C) (R/W  8) OSCULP32K Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -399,14 +402,14 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_OSCULP32K_OFFSET    0x1C         /**< \brief (SYSCTRL_OSCULP32K offset) OSCULP32K Control */
-#define SYSCTRL_OSCULP32K_RESETVALUE 0x0F         /**< \brief (SYSCTRL_OSCULP32K reset_value) OSCULP32K Control */
+#define SYSCTRL_OSCULP32K_RESETVALUE 0x0Ful       /**< \brief (SYSCTRL_OSCULP32K reset_value) OSCULP32K Control */
 
 #define SYSCTRL_OSCULP32K_CALIB_Pos 0            /**< \brief (SYSCTRL_OSCULP32K) Calibration Value */
-#define SYSCTRL_OSCULP32K_CALIB_Msk (0x1Fu << SYSCTRL_OSCULP32K_CALIB_Pos)
+#define SYSCTRL_OSCULP32K_CALIB_Msk (0x1Ful << SYSCTRL_OSCULP32K_CALIB_Pos)
 #define SYSCTRL_OSCULP32K_CALIB(value) ((SYSCTRL_OSCULP32K_CALIB_Msk & ((value) << SYSCTRL_OSCULP32K_CALIB_Pos)))
 #define SYSCTRL_OSCULP32K_WRTLOCK_Pos 7            /**< \brief (SYSCTRL_OSCULP32K) Write Lock */
-#define SYSCTRL_OSCULP32K_WRTLOCK   (0x1u << SYSCTRL_OSCULP32K_WRTLOCK_Pos)
-#define SYSCTRL_OSCULP32K_MASK      0x9Fu        /**< \brief (SYSCTRL_OSCULP32K) MASK Register */
+#define SYSCTRL_OSCULP32K_WRTLOCK   (0x1ul << SYSCTRL_OSCULP32K_WRTLOCK_Pos)
+#define SYSCTRL_OSCULP32K_MASK      0x9Ful       /**< \brief (SYSCTRL_OSCULP32K) MASK Register */
 
 /* -------- SYSCTRL_OSC8M : (SYSCTRL Offset: 0x20) (R/W 32) OSC8M Control A -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -428,24 +431,24 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_OSC8M_OFFSET        0x20         /**< \brief (SYSCTRL_OSC8M offset) OSC8M Control A */
-#define SYSCTRL_OSC8M_RESETVALUE    0x87070382   /**< \brief (SYSCTRL_OSC8M reset_value) OSC8M Control A */
+#define SYSCTRL_OSC8M_RESETVALUE    0x87070382ul /**< \brief (SYSCTRL_OSC8M reset_value) OSC8M Control A */
 
 #define SYSCTRL_OSC8M_ENABLE_Pos    1            /**< \brief (SYSCTRL_OSC8M) Enable */
-#define SYSCTRL_OSC8M_ENABLE        (0x1u << SYSCTRL_OSC8M_ENABLE_Pos)
+#define SYSCTRL_OSC8M_ENABLE        (0x1ul << SYSCTRL_OSC8M_ENABLE_Pos)
 #define SYSCTRL_OSC8M_RUNSTDBY_Pos  6            /**< \brief (SYSCTRL_OSC8M) Run during Standby */
-#define SYSCTRL_OSC8M_RUNSTDBY      (0x1u << SYSCTRL_OSC8M_RUNSTDBY_Pos)
+#define SYSCTRL_OSC8M_RUNSTDBY      (0x1ul << SYSCTRL_OSC8M_RUNSTDBY_Pos)
 #define SYSCTRL_OSC8M_ONDEMAND_Pos  7            /**< \brief (SYSCTRL_OSC8M) Enable on Demand */
-#define SYSCTRL_OSC8M_ONDEMAND      (0x1u << SYSCTRL_OSC8M_ONDEMAND_Pos)
+#define SYSCTRL_OSC8M_ONDEMAND      (0x1ul << SYSCTRL_OSC8M_ONDEMAND_Pos)
 #define SYSCTRL_OSC8M_PRESC_Pos     8            /**< \brief (SYSCTRL_OSC8M) Prescaler Select */
-#define SYSCTRL_OSC8M_PRESC_Msk     (0x3u << SYSCTRL_OSC8M_PRESC_Pos)
+#define SYSCTRL_OSC8M_PRESC_Msk     (0x3ul << SYSCTRL_OSC8M_PRESC_Pos)
 #define SYSCTRL_OSC8M_PRESC(value)  ((SYSCTRL_OSC8M_PRESC_Msk & ((value) << SYSCTRL_OSC8M_PRESC_Pos)))
 #define SYSCTRL_OSC8M_CALIB_Pos     16           /**< \brief (SYSCTRL_OSC8M) Calibration Value */
-#define SYSCTRL_OSC8M_CALIB_Msk     (0xFFFu << SYSCTRL_OSC8M_CALIB_Pos)
+#define SYSCTRL_OSC8M_CALIB_Msk     (0xFFFul << SYSCTRL_OSC8M_CALIB_Pos)
 #define SYSCTRL_OSC8M_CALIB(value)  ((SYSCTRL_OSC8M_CALIB_Msk & ((value) << SYSCTRL_OSC8M_CALIB_Pos)))
 #define SYSCTRL_OSC8M_FRANGE_Pos    30           /**< \brief (SYSCTRL_OSC8M) Frequency Range */
-#define SYSCTRL_OSC8M_FRANGE_Msk    (0x3u << SYSCTRL_OSC8M_FRANGE_Pos)
+#define SYSCTRL_OSC8M_FRANGE_Msk    (0x3ul << SYSCTRL_OSC8M_FRANGE_Pos)
 #define SYSCTRL_OSC8M_FRANGE(value) ((SYSCTRL_OSC8M_FRANGE_Msk & ((value) << SYSCTRL_OSC8M_FRANGE_Pos)))
-#define SYSCTRL_OSC8M_MASK          0xCFFF03C2u  /**< \brief (SYSCTRL_OSC8M) MASK Register */
+#define SYSCTRL_OSC8M_MASK          0xCFFF03C2ul /**< \brief (SYSCTRL_OSC8M) MASK Register */
 
 /* -------- SYSCTRL_DFLLCTRL : (SYSCTRL Offset: 0x24) (R/W 16) DFLL Config -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -468,25 +471,25 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_DFLLCTRL_OFFSET     0x24         /**< \brief (SYSCTRL_DFLLCTRL offset) DFLL Config */
-#define SYSCTRL_DFLLCTRL_RESETVALUE 0x0080       /**< \brief (SYSCTRL_DFLLCTRL reset_value) DFLL Config */
+#define SYSCTRL_DFLLCTRL_RESETVALUE 0x0080ul     /**< \brief (SYSCTRL_DFLLCTRL reset_value) DFLL Config */
 
 #define SYSCTRL_DFLLCTRL_ENABLE_Pos 1            /**< \brief (SYSCTRL_DFLLCTRL) Enable */
-#define SYSCTRL_DFLLCTRL_ENABLE     (0x1u << SYSCTRL_DFLLCTRL_ENABLE_Pos)
+#define SYSCTRL_DFLLCTRL_ENABLE     (0x1ul << SYSCTRL_DFLLCTRL_ENABLE_Pos)
 #define SYSCTRL_DFLLCTRL_MODE_Pos   2            /**< \brief (SYSCTRL_DFLLCTRL) Mode Selection */
-#define SYSCTRL_DFLLCTRL_MODE       (0x1u << SYSCTRL_DFLLCTRL_MODE_Pos)
+#define SYSCTRL_DFLLCTRL_MODE       (0x1ul << SYSCTRL_DFLLCTRL_MODE_Pos)
 #define SYSCTRL_DFLLCTRL_STABLE_Pos 3            /**< \brief (SYSCTRL_DFLLCTRL) Stable Frequency */
-#define SYSCTRL_DFLLCTRL_STABLE     (0x1u << SYSCTRL_DFLLCTRL_STABLE_Pos)
+#define SYSCTRL_DFLLCTRL_STABLE     (0x1ul << SYSCTRL_DFLLCTRL_STABLE_Pos)
 #define SYSCTRL_DFLLCTRL_LLAW_Pos   4            /**< \brief (SYSCTRL_DFLLCTRL) Lose Lock After Wake */
-#define SYSCTRL_DFLLCTRL_LLAW       (0x1u << SYSCTRL_DFLLCTRL_LLAW_Pos)
+#define SYSCTRL_DFLLCTRL_LLAW       (0x1ul << SYSCTRL_DFLLCTRL_LLAW_Pos)
 #define SYSCTRL_DFLLCTRL_RUNSTDBY_Pos 6            /**< \brief (SYSCTRL_DFLLCTRL) Run during Standby */
-#define SYSCTRL_DFLLCTRL_RUNSTDBY   (0x1u << SYSCTRL_DFLLCTRL_RUNSTDBY_Pos)
+#define SYSCTRL_DFLLCTRL_RUNSTDBY   (0x1ul << SYSCTRL_DFLLCTRL_RUNSTDBY_Pos)
 #define SYSCTRL_DFLLCTRL_ONDEMAND_Pos 7            /**< \brief (SYSCTRL_DFLLCTRL) Enable on Demand */
-#define SYSCTRL_DFLLCTRL_ONDEMAND   (0x1u << SYSCTRL_DFLLCTRL_ONDEMAND_Pos)
+#define SYSCTRL_DFLLCTRL_ONDEMAND   (0x1ul << SYSCTRL_DFLLCTRL_ONDEMAND_Pos)
 #define SYSCTRL_DFLLCTRL_CCDIS_Pos  8            /**< \brief (SYSCTRL_DFLLCTRL) Chill Cycle Disable */
-#define SYSCTRL_DFLLCTRL_CCDIS      (0x1u << SYSCTRL_DFLLCTRL_CCDIS_Pos)
+#define SYSCTRL_DFLLCTRL_CCDIS      (0x1ul << SYSCTRL_DFLLCTRL_CCDIS_Pos)
 #define SYSCTRL_DFLLCTRL_QLDIS_Pos  9            /**< \brief (SYSCTRL_DFLLCTRL) Quick Lock Disable */
-#define SYSCTRL_DFLLCTRL_QLDIS      (0x1u << SYSCTRL_DFLLCTRL_QLDIS_Pos)
-#define SYSCTRL_DFLLCTRL_MASK       0x03DEu      /**< \brief (SYSCTRL_DFLLCTRL) MASK Register */
+#define SYSCTRL_DFLLCTRL_QLDIS      (0x1ul << SYSCTRL_DFLLCTRL_QLDIS_Pos)
+#define SYSCTRL_DFLLCTRL_MASK       0x03DEul     /**< \brief (SYSCTRL_DFLLCTRL) MASK Register */
 
 /* -------- SYSCTRL_DFLLVAL : (SYSCTRL Offset: 0x28) (R/W 32) DFLL Calibration Value -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -501,18 +504,18 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_DFLLVAL_OFFSET      0x28         /**< \brief (SYSCTRL_DFLLVAL offset) DFLL Calibration Value */
-#define SYSCTRL_DFLLVAL_RESETVALUE  0x00000000   /**< \brief (SYSCTRL_DFLLVAL reset_value) DFLL Calibration Value */
+#define SYSCTRL_DFLLVAL_RESETVALUE  0x00000000ul /**< \brief (SYSCTRL_DFLLVAL reset_value) DFLL Calibration Value */
 
 #define SYSCTRL_DFLLVAL_FINE_Pos    0            /**< \brief (SYSCTRL_DFLLVAL) Fine Calibration Value */
-#define SYSCTRL_DFLLVAL_FINE_Msk    (0x3FFu << SYSCTRL_DFLLVAL_FINE_Pos)
+#define SYSCTRL_DFLLVAL_FINE_Msk    (0x3FFul << SYSCTRL_DFLLVAL_FINE_Pos)
 #define SYSCTRL_DFLLVAL_FINE(value) ((SYSCTRL_DFLLVAL_FINE_Msk & ((value) << SYSCTRL_DFLLVAL_FINE_Pos)))
 #define SYSCTRL_DFLLVAL_COARSE_Pos  10           /**< \brief (SYSCTRL_DFLLVAL) Coarse Calibration Value */
-#define SYSCTRL_DFLLVAL_COARSE_Msk  (0x3Fu << SYSCTRL_DFLLVAL_COARSE_Pos)
+#define SYSCTRL_DFLLVAL_COARSE_Msk  (0x3Ful << SYSCTRL_DFLLVAL_COARSE_Pos)
 #define SYSCTRL_DFLLVAL_COARSE(value) ((SYSCTRL_DFLLVAL_COARSE_Msk & ((value) << SYSCTRL_DFLLVAL_COARSE_Pos)))
 #define SYSCTRL_DFLLVAL_DIFF_Pos    16           /**< \brief (SYSCTRL_DFLLVAL) Multiplication Ratio Difference */
-#define SYSCTRL_DFLLVAL_DIFF_Msk    (0xFFFFu << SYSCTRL_DFLLVAL_DIFF_Pos)
+#define SYSCTRL_DFLLVAL_DIFF_Msk    (0xFFFFul << SYSCTRL_DFLLVAL_DIFF_Pos)
 #define SYSCTRL_DFLLVAL_DIFF(value) ((SYSCTRL_DFLLVAL_DIFF_Msk & ((value) << SYSCTRL_DFLLVAL_DIFF_Pos)))
-#define SYSCTRL_DFLLVAL_MASK        0xFFFFFFFFu  /**< \brief (SYSCTRL_DFLLVAL) MASK Register */
+#define SYSCTRL_DFLLVAL_MASK        0xFFFFFFFFul /**< \brief (SYSCTRL_DFLLVAL) MASK Register */
 
 /* -------- SYSCTRL_DFLLMUL : (SYSCTRL Offset: 0x2C) (R/W 32) DFLL Multiplier -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -527,18 +530,18 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_DFLLMUL_OFFSET      0x2C         /**< \brief (SYSCTRL_DFLLMUL offset) DFLL Multiplier */
-#define SYSCTRL_DFLLMUL_RESETVALUE  0x00000000   /**< \brief (SYSCTRL_DFLLMUL reset_value) DFLL Multiplier */
+#define SYSCTRL_DFLLMUL_RESETVALUE  0x00000000ul /**< \brief (SYSCTRL_DFLLMUL reset_value) DFLL Multiplier */
 
 #define SYSCTRL_DFLLMUL_MUL_Pos     0            /**< \brief (SYSCTRL_DFLLMUL) Multiplication Value */
-#define SYSCTRL_DFLLMUL_MUL_Msk     (0xFFFFu << SYSCTRL_DFLLMUL_MUL_Pos)
+#define SYSCTRL_DFLLMUL_MUL_Msk     (0xFFFFul << SYSCTRL_DFLLMUL_MUL_Pos)
 #define SYSCTRL_DFLLMUL_MUL(value)  ((SYSCTRL_DFLLMUL_MUL_Msk & ((value) << SYSCTRL_DFLLMUL_MUL_Pos)))
 #define SYSCTRL_DFLLMUL_FSTEP_Pos   16           /**< \brief (SYSCTRL_DFLLMUL) Maximum Fine Step Size */
-#define SYSCTRL_DFLLMUL_FSTEP_Msk   (0x3FFu << SYSCTRL_DFLLMUL_FSTEP_Pos)
+#define SYSCTRL_DFLLMUL_FSTEP_Msk   (0x3FFul << SYSCTRL_DFLLMUL_FSTEP_Pos)
 #define SYSCTRL_DFLLMUL_FSTEP(value) ((SYSCTRL_DFLLMUL_FSTEP_Msk & ((value) << SYSCTRL_DFLLMUL_FSTEP_Pos)))
 #define SYSCTRL_DFLLMUL_CSTEP_Pos   26           /**< \brief (SYSCTRL_DFLLMUL) Maximum Coarse Step Size */
-#define SYSCTRL_DFLLMUL_CSTEP_Msk   (0x3Fu << SYSCTRL_DFLLMUL_CSTEP_Pos)
+#define SYSCTRL_DFLLMUL_CSTEP_Msk   (0x3Ful << SYSCTRL_DFLLMUL_CSTEP_Pos)
 #define SYSCTRL_DFLLMUL_CSTEP(value) ((SYSCTRL_DFLLMUL_CSTEP_Msk & ((value) << SYSCTRL_DFLLMUL_CSTEP_Pos)))
-#define SYSCTRL_DFLLMUL_MASK        0xFFFFFFFFu  /**< \brief (SYSCTRL_DFLLMUL) MASK Register */
+#define SYSCTRL_DFLLMUL_MASK        0xFFFFFFFFul /**< \brief (SYSCTRL_DFLLMUL) MASK Register */
 
 /* -------- SYSCTRL_DFLLSYNC : (SYSCTRL Offset: 0x30) (R/W  8) DFLL Synchronization -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -552,11 +555,11 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_DFLLSYNC_OFFSET     0x30         /**< \brief (SYSCTRL_DFLLSYNC offset) DFLL Synchronization */
-#define SYSCTRL_DFLLSYNC_RESETVALUE 0x00         /**< \brief (SYSCTRL_DFLLSYNC reset_value) DFLL Synchronization */
+#define SYSCTRL_DFLLSYNC_RESETVALUE 0x00ul       /**< \brief (SYSCTRL_DFLLSYNC reset_value) DFLL Synchronization */
 
 #define SYSCTRL_DFLLSYNC_READREQ_Pos 7            /**< \brief (SYSCTRL_DFLLSYNC) Read Request Synchronization */
-#define SYSCTRL_DFLLSYNC_READREQ    (0x1u << SYSCTRL_DFLLSYNC_READREQ_Pos)
-#define SYSCTRL_DFLLSYNC_MASK       0x80u        /**< \brief (SYSCTRL_DFLLSYNC) MASK Register */
+#define SYSCTRL_DFLLSYNC_READREQ    (0x1ul << SYSCTRL_DFLLSYNC_READREQ_Pos)
+#define SYSCTRL_DFLLSYNC_MASK       0x80ul       /**< \brief (SYSCTRL_DFLLSYNC) MASK Register */
 
 /* -------- SYSCTRL_BOD33 : (SYSCTRL Offset: 0x34) (R/W 32) 3.3V Brown-Out Detector (BOD33) Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -581,28 +584,28 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_BOD33_OFFSET        0x34         /**< \brief (SYSCTRL_BOD33 offset) 3.3V Brown-Out Detector (BOD33) Control */
-#define SYSCTRL_BOD33_RESETVALUE    0x00000000   /**< \brief (SYSCTRL_BOD33 reset_value) 3.3V Brown-Out Detector (BOD33) Control */
+#define SYSCTRL_BOD33_RESETVALUE    0x00000000ul /**< \brief (SYSCTRL_BOD33 reset_value) 3.3V Brown-Out Detector (BOD33) Control */
 
 #define SYSCTRL_BOD33_ENABLE_Pos    1            /**< \brief (SYSCTRL_BOD33) Enable */
-#define SYSCTRL_BOD33_ENABLE        (0x1u << SYSCTRL_BOD33_ENABLE_Pos)
+#define SYSCTRL_BOD33_ENABLE        (0x1ul << SYSCTRL_BOD33_ENABLE_Pos)
 #define SYSCTRL_BOD33_HYST_Pos      2            /**< \brief (SYSCTRL_BOD33) Hysteresis Enable */
-#define SYSCTRL_BOD33_HYST          (0x1u << SYSCTRL_BOD33_HYST_Pos)
+#define SYSCTRL_BOD33_HYST          (0x1ul << SYSCTRL_BOD33_HYST_Pos)
 #define SYSCTRL_BOD33_ACTION_Pos    3            /**< \brief (SYSCTRL_BOD33) Action when Threshold Crossed */
-#define SYSCTRL_BOD33_ACTION_Msk    (0x3u << SYSCTRL_BOD33_ACTION_Pos)
+#define SYSCTRL_BOD33_ACTION_Msk    (0x3ul << SYSCTRL_BOD33_ACTION_Pos)
 #define SYSCTRL_BOD33_ACTION(value) ((SYSCTRL_BOD33_ACTION_Msk & ((value) << SYSCTRL_BOD33_ACTION_Pos)))
 #define SYSCTRL_BOD33_RUNSTDBY_Pos  6            /**< \brief (SYSCTRL_BOD33) Run during Standby */
-#define SYSCTRL_BOD33_RUNSTDBY      (0x1u << SYSCTRL_BOD33_RUNSTDBY_Pos)
+#define SYSCTRL_BOD33_RUNSTDBY      (0x1ul << SYSCTRL_BOD33_RUNSTDBY_Pos)
 #define SYSCTRL_BOD33_MODE_Pos      8            /**< \brief (SYSCTRL_BOD33) Operation Modes */
-#define SYSCTRL_BOD33_MODE          (0x1u << SYSCTRL_BOD33_MODE_Pos)
+#define SYSCTRL_BOD33_MODE          (0x1ul << SYSCTRL_BOD33_MODE_Pos)
 #define SYSCTRL_BOD33_CEN_Pos       9            /**< \brief (SYSCTRL_BOD33) Clock Enable */
-#define SYSCTRL_BOD33_CEN           (0x1u << SYSCTRL_BOD33_CEN_Pos)
+#define SYSCTRL_BOD33_CEN           (0x1ul << SYSCTRL_BOD33_CEN_Pos)
 #define SYSCTRL_BOD33_PSEL_Pos      12           /**< \brief (SYSCTRL_BOD33) Prescaler Select */
-#define SYSCTRL_BOD33_PSEL_Msk      (0xFu << SYSCTRL_BOD33_PSEL_Pos)
+#define SYSCTRL_BOD33_PSEL_Msk      (0xFul << SYSCTRL_BOD33_PSEL_Pos)
 #define SYSCTRL_BOD33_PSEL(value)   ((SYSCTRL_BOD33_PSEL_Msk & ((value) << SYSCTRL_BOD33_PSEL_Pos)))
 #define SYSCTRL_BOD33_LEVEL_Pos     16           /**< \brief (SYSCTRL_BOD33) Threshold Level */
-#define SYSCTRL_BOD33_LEVEL_Msk     (0x3Fu << SYSCTRL_BOD33_LEVEL_Pos)
+#define SYSCTRL_BOD33_LEVEL_Msk     (0x3Ful << SYSCTRL_BOD33_LEVEL_Pos)
 #define SYSCTRL_BOD33_LEVEL(value)  ((SYSCTRL_BOD33_LEVEL_Msk & ((value) << SYSCTRL_BOD33_LEVEL_Pos)))
-#define SYSCTRL_BOD33_MASK          0x003FF35Eu  /**< \brief (SYSCTRL_BOD33) MASK Register */
+#define SYSCTRL_BOD33_MASK          0x003FF35Eul /**< \brief (SYSCTRL_BOD33) MASK Register */
 
 /* -------- SYSCTRL_VREG : (SYSCTRL Offset: 0x3C) (R/W 16) VREG Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -619,13 +622,13 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_VREG_OFFSET         0x3C         /**< \brief (SYSCTRL_VREG offset) VREG Control */
-#define SYSCTRL_VREG_RESETVALUE     0x0402       /**< \brief (SYSCTRL_VREG reset_value) VREG Control */
+#define SYSCTRL_VREG_RESETVALUE     0x0402ul     /**< \brief (SYSCTRL_VREG reset_value) VREG Control */
 
 #define SYSCTRL_VREG_RUNSTDBY_Pos   6            /**< \brief (SYSCTRL_VREG) Run during Standby */
-#define SYSCTRL_VREG_RUNSTDBY       (0x1u << SYSCTRL_VREG_RUNSTDBY_Pos)
+#define SYSCTRL_VREG_RUNSTDBY       (0x1ul << SYSCTRL_VREG_RUNSTDBY_Pos)
 #define SYSCTRL_VREG_FORCELDO_Pos   13           /**< \brief (SYSCTRL_VREG) Force LDO Voltage Regulator */
-#define SYSCTRL_VREG_FORCELDO       (0x1u << SYSCTRL_VREG_FORCELDO_Pos)
-#define SYSCTRL_VREG_MASK           0x2040u      /**< \brief (SYSCTRL_VREG) MASK Register */
+#define SYSCTRL_VREG_FORCELDO       (0x1ul << SYSCTRL_VREG_FORCELDO_Pos)
+#define SYSCTRL_VREG_MASK           0x2040ul     /**< \brief (SYSCTRL_VREG) MASK Register */
 
 /* -------- SYSCTRL_VREF : (SYSCTRL Offset: 0x40) (R/W 32) VREF Control A -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -643,16 +646,16 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SYSCTRL_VREF_OFFSET         0x40         /**< \brief (SYSCTRL_VREF offset) VREF Control A */
-#define SYSCTRL_VREF_RESETVALUE     0x00000000   /**< \brief (SYSCTRL_VREF reset_value) VREF Control A */
+#define SYSCTRL_VREF_RESETVALUE     0x00000000ul /**< \brief (SYSCTRL_VREF reset_value) VREF Control A */
 
 #define SYSCTRL_VREF_TSEN_Pos       1            /**< \brief (SYSCTRL_VREF) Temperature Sensor Output Enable */
-#define SYSCTRL_VREF_TSEN           (0x1u << SYSCTRL_VREF_TSEN_Pos)
+#define SYSCTRL_VREF_TSEN           (0x1ul << SYSCTRL_VREF_TSEN_Pos)
 #define SYSCTRL_VREF_BGOUTEN_Pos    2            /**< \brief (SYSCTRL_VREF) Bandgap Output Enable */
-#define SYSCTRL_VREF_BGOUTEN        (0x1u << SYSCTRL_VREF_BGOUTEN_Pos)
+#define SYSCTRL_VREF_BGOUTEN        (0x1ul << SYSCTRL_VREF_BGOUTEN_Pos)
 #define SYSCTRL_VREF_CALIB_Pos      16           /**< \brief (SYSCTRL_VREF) Voltage Reference Calibration Value */
-#define SYSCTRL_VREF_CALIB_Msk      (0x7FFu << SYSCTRL_VREF_CALIB_Pos)
+#define SYSCTRL_VREF_CALIB_Msk      (0x7FFul << SYSCTRL_VREF_CALIB_Pos)
 #define SYSCTRL_VREF_CALIB(value)   ((SYSCTRL_VREF_CALIB_Msk & ((value) << SYSCTRL_VREF_CALIB_Pos)))
-#define SYSCTRL_VREF_MASK           0x07FF0006u  /**< \brief (SYSCTRL_VREF) MASK Register */
+#define SYSCTRL_VREF_MASK           0x07FF0006ul /**< \brief (SYSCTRL_VREF) MASK Register */
 
 /** \brief SYSCTRL hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))

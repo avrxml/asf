@@ -3,7 +3,7 @@
  *
  * \brief SAM Serial Peripheral Interface Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include "spi.h"
 
@@ -78,8 +81,8 @@ void spi_reset(
  * \param[in]  module  Pointer to the software instance struct
  * \param[in]  baudrate  The baudrate wanted
  *
- * \return The status of the configuration
- * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided.
+ * \return The status of the configuration.
+ * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided
  * \retval STATUS_OK               If the configuration was written
  */
 enum status_code spi_set_baudrate(
@@ -162,8 +165,8 @@ static void _spi_clear_tx_complete_flag(
  * \param[in]  module  Pointer to the software instance struct
  * \param[in]  config  Pointer to the configuration struct
  *
- * \return The status of the configuration
- * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided.
+ * \return The status of the configuration.
+ * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided
  * \retval STATUS_OK               If the configuration was written
  */
 static enum status_code _spi_set_config(
@@ -181,6 +184,9 @@ static enum status_code _spi_set_config(
 	struct system_pinmux_config pin_conf;
 	system_pinmux_get_config_defaults(&pin_conf);
 	pin_conf.direction = SYSTEM_PINMUX_PIN_DIR_INPUT;
+	if(config->mode == SPI_MODE_SLAVE) {
+		pin_conf.input_pull = SYSTEM_PINMUX_PIN_PULL_NONE;
+	}
 
 	uint32_t pad_pinmuxes[] = {
 			config->pinmux_pad0, config->pinmux_pad1,
@@ -263,7 +269,7 @@ static enum status_code _spi_set_config(
 	/* Set clock polarity and clock phase */
 	ctrla |= config->transfer_mode;
 
-	/* Set mux setting */
+	/* Set MUX setting */
 	ctrla |= config->mux_setting;
 
 	/* Set SPI character size */
@@ -310,8 +316,8 @@ static enum status_code _spi_set_config(
  * \param[in]  module  Pointer to the software instance struct
  * \param[in]  config  Pointer to the configuration struct
  *
- * \return The status of the configuration
- * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided.
+ * \return The status of the configuration.
+ * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided
  * \retval STATUS_ERR_DENIED       If configuration was different from previous
  * \retval STATUS_OK               If the configuration was written
  */
@@ -379,7 +385,7 @@ static enum status_code _spi_check_config(
 			return STATUS_ERR_DENIED;
 		}
 
-		ctrla |= SERCOM_SPI_CTRLA_MODE_SPI_MASTER;
+		ctrla |= SERCOM_SPI_CTRLA_MODE(0x3);
 	}
 #  endif
 
@@ -403,7 +409,7 @@ static enum status_code _spi_check_config(
 			/* Enable pre-loading of shift register */
 			ctrlb |= SERCOM_SPI_CTRLB_PLOADEN;
 		}
-		ctrla |= SERCOM_SPI_CTRLA_MODE_SPI_SLAVE;
+		ctrla |= SERCOM_SPI_CTRLA_MODE(0x2);
 	}
 #  endif
 	/* Set data order */
@@ -412,7 +418,7 @@ static enum status_code _spi_check_config(
 	/* Set clock polarity and clock phase */
 	ctrla |= config->transfer_mode;
 
-	/* Set mux setting */
+	/* Set MUX setting */
 	ctrla |= config->mux_setting;
 
 	/* Set SPI character size */
@@ -468,11 +474,11 @@ static enum status_code _spi_check_config(
  * \param[in]   hw      Pointer to hardware instance
  * \param[in]   config  Pointer to the config struct
  *
- * \return Status of the initialization
- * \retval STATUS_OK               Module initiated correctly.
- * \retval STATUS_ERR_DENIED       If module is enabled.
- * \retval STATUS_BUSY             If module is busy resetting.
- * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided.
+ * \return Status of the initialization.
+ * \retval STATUS_OK               Module initiated correctly
+ * \retval STATUS_ERR_DENIED       If module is enabled
+ * \retval STATUS_BUSY             If module is busy resetting
+ * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided
  */
 enum status_code spi_init(
 		struct spi_module *const module,
@@ -506,11 +512,53 @@ enum status_code spi_init(
 	}
 
 	uint32_t sercom_index = _sercom_get_sercom_inst_index(module->hw);
-	uint32_t pm_index     = sercom_index + PM_APBCMASK_SERCOM0_Pos;
-	uint32_t gclk_index   = sercom_index + SERCOM0_GCLK_ID_CORE;
+	uint32_t pm_index, gclk_index;
+#if (SAML21)
+	if (sercom_index == 5) {
+#  ifdef ID_SERCOM5
+		pm_index     = MCLK_APBDMASK_SERCOM5_Pos;
+		gclk_index   =  SERCOM5_GCLK_ID_CORE;
+#  else
+		return STATUS_ERR_INVALID_ARG;
+#  endif
+	} else {
+		pm_index     = sercom_index + MCLK_APBCMASK_SERCOM0_Pos;
+		gclk_index   = sercom_index + SERCOM0_GCLK_ID_CORE;
+	}
+#elif (SAMC21) || (SAML22)
+	if (sercom_index == 5) {
+#  ifdef ID_SERCOM5
+		pm_index     = MCLK_APBCMASK_SERCOM5_Pos;
+		gclk_index   =  SERCOM5_GCLK_ID_CORE;
+#  else
+		return STATUS_ERR_INVALID_ARG;
+#  endif
+	} else {
+		pm_index     = sercom_index + MCLK_APBCMASK_SERCOM0_Pos;
+		gclk_index   = sercom_index + SERCOM0_GCLK_ID_CORE;
+	}
+#elif (SAMC20)
+	pm_index     = sercom_index + MCLK_APBCMASK_SERCOM0_Pos;
+	gclk_index   = sercom_index + SERCOM0_GCLK_ID_CORE;
+#else
+	pm_index     = sercom_index + PM_APBCMASK_SERCOM0_Pos;
+	gclk_index   = sercom_index + SERCOM0_GCLK_ID_CORE;
+#endif
 
 	/* Turn on module in PM */
+#if (SAML21)
+	if (sercom_index == 5) {
+#  ifdef ID_SERCOM5
+		system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBD, 1 << pm_index);
+#  else
+		return STATUS_ERR_INVALID_ARG;
+#  endif
+	} else {
+		system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBC, 1 << pm_index);
+	}
+#else
 	system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBC, 1 << pm_index);
+#endif
 
 	/* Set up the GCLK for the module */
 	struct system_gclk_chan_config gclk_chan_conf;
@@ -523,14 +571,14 @@ enum status_code spi_init(
 #  if CONF_SPI_MASTER_ENABLE == true
 	if (config->mode == SPI_MODE_MASTER) {
 		/* Set the SERCOM in SPI master mode */
-		spi_module->CTRLA.reg |= SERCOM_SPI_CTRLA_MODE_SPI_MASTER;
+		spi_module->CTRLA.reg |= SERCOM_SPI_CTRLA_MODE(0x3);
 	}
 #  endif
 
 #  if CONF_SPI_SLAVE_ENABLE == true
 	if (config->mode == SPI_MODE_SLAVE) {
 		/* Set the SERCOM in SPI slave mode */
-		spi_module->CTRLA.reg |= SERCOM_SPI_CTRLA_MODE_SPI_SLAVE;
+		spi_module->CTRLA.reg |= SERCOM_SPI_CTRLA_MODE(0x2);
 	}
 #  endif
 
@@ -579,13 +627,13 @@ enum status_code spi_init(
  * \param[in]  length   Length of data to receive
  * \param[in]  dummy    8- or 9-bit dummy byte to shift out in master mode
  *
- * \return Status of the read operation
+ * \return Status of the read operation.
  * \retval STATUS_OK              If the read was completed
  * \retval STATUS_ABORTED          If transaction was ended by master before
  *                                 entire buffer was transferred
- * \retval STATUS_ERR_INVALID_ARG If invalid argument(s) were provided.
+ * \retval STATUS_ERR_INVALID_ARG If invalid argument(s) were provided
  * \retval STATUS_ERR_TIMEOUT     If the operation was not completed within the
- *                                timeout in slave mode.
+ *                                timeout in slave mode
  * \retval STATUS_ERR_DENIED      If the receiver is not enabled
  * \retval STATUS_ERR_OVERFLOW    If the data is overflown
  */
@@ -781,7 +829,7 @@ enum status_code spi_transceive_wait(
  * \brief Selects slave device
  *
  * This function will drive the slave select pin of the selected device low or
- * high depending on the select boolean.
+ * high depending on the select Boolean.
  * If slave address recognition is enabled, the address will be sent to the
  * slave when selecting it.
  *
@@ -790,7 +838,7 @@ enum status_code spi_transceive_wait(
  * \param[in] select  Boolean stating if the slave should be selected or
  *                    deselected
  *
- * \return Status of the operation
+ * \return Status of the operation.
  * \retval STATUS_OK                   If the slave device was selected
  * \retval STATUS_ERR_UNSUPPORTED_DEV  If the SPI module is operating in slave
  *                                     mode
@@ -864,7 +912,7 @@ enum status_code spi_select_slave(
  * \param[in] tx_data  Pointer to the buffer to transmit
  * \param[in] length   Number of SPI characters to transfer
  *
- * \return Status of the write operation
+ * \return Status of the write operation.
  * \retval STATUS_OK               If the write was completed
  * \retval STATUS_ABORTED          If transaction was ended by master before
  *                                 entire buffer was transferred
@@ -1034,11 +1082,11 @@ enum status_code spi_write_buffer_wait(
  * \param[out] rx_data  Pointer to the buffer where received data will be stored
  * \param[in]  length   Number of SPI characters to transfer
  *
- * \return Status of the operation
+ * \return Status of the operation.
  * \retval STATUS_OK               If the operation was completed
- * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided.
+ * \retval STATUS_ERR_INVALID_ARG  If invalid argument(s) were provided
  * \retval STATUS_ERR_TIMEOUT      If the operation was not completed within the
- *                                 timeout in slave mode.
+ *                                 timeout in slave mode
  * \retval STATUS_ERR_DENIED       If the receiver is not enabled
  * \retval STATUS_ERR_OVERFLOW     If the data is overflown
  */

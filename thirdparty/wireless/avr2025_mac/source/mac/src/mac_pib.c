@@ -3,7 +3,7 @@
  *
  * @brief Implements the MAC PIB attribute handling.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -139,8 +139,9 @@ static FLASH_DECLARE(uint8_t mac_pib_size[]) = {
 static FLASH_DECLARE(uint8_t mac_sec_pib_size[]) = {
 	sizeof(mac_key_table_t),    /* 0x71: macKeyTable */
 	sizeof(uint8_t),            /* 0x72: macKeyTableEntries */
+
 	/* Since the structure is not packed, we need to use the hardcode value
-	 **/
+	**/
 	17,                         /* 0x73: macDeviceTable */
 	sizeof(uint16_t),            /* 0x74: macDeviceTableEntries */
 	sizeof(mac_sec_lvl_table_t), /* 0x75: macSecurityLevelTable */
@@ -260,7 +261,7 @@ void mlme_get_request(uint8_t *m)
  * @param set_trx_to_sleep Set TRX back to sleep after this PIB access if it was
  *        before starting this TRX access. Otherwise the transceiver state will
  *        remain as it is, i.e. in case the transceiver was woken up, it will
- *stay
+ * stay
  *        awake.
  *        The default value for just changing one variable is true, i.e. the
  *        transceiver will be put back to sleep if it has been woken up.
@@ -364,7 +365,6 @@ retval_t mlme_set(uint8_t attribute, pib_value_t *attribute_value,
 			status = MAC_INVALID_PARAMETER;
 			break;
 		}
-
 #endif  /* REDUCED_PARAM_CHECK */
 		mac_pib.mac_BeaconPayloadLength
 			= attribute_value->pib_value_8bit;
@@ -380,7 +380,6 @@ retval_t mlme_set(uint8_t attribute, pib_value_t *attribute_value,
 		mac_pib.mac_TransactionPersistenceTime
 			= attribute_value->pib_value_16bit;
 		break;
-
 #endif /* (MAC_INDIRECT_DATA_FFD == 1) */
 	case macCoordExtendedAddress:
 		mac_pib.mac_CoordExtendedAddress
@@ -488,7 +487,6 @@ retval_t mlme_set(uint8_t attribute, pib_value_t *attribute_value,
 				 */
 				recalc_macMaxFrameTotalWaitTime();
 			}
-
 #endif  /* ((MAC_INDIRECT_DATA_BASIC == 1) || defined(BEACON_SUPPORT)) */
 		}
 		break;
@@ -534,7 +532,7 @@ retval_t mlme_set(uint8_t attribute, pib_value_t *attribute_value,
 
 			/*
 			 * Since the members of the mac_dev_table_t structure do
-			 *contain padding bytes,
+			 * contain padding bytes,
 			 * each member needs to be filled in separately.
 			 */
 			/* PAN-Id */
@@ -545,7 +543,8 @@ retval_t mlme_set(uint8_t attribute, pib_value_t *attribute_value,
 					sizeof(uint16_t));
 
 			/*
-			 * ADDR_COPY_DST_SRC_16(mac_sec_pib.DeviceTable[attribute_index].DeviceDescriptor[0].PANId,
+			 *
+			 *ADDR_COPY_DST_SRC_16(mac_sec_pib.DeviceTable[attribute_index].DeviceDescriptor[0].PANId,
 			 *(uint16_t *)attribute_temp_ptr); */
 			attribute_temp_ptr += sizeof(uint16_t);
 
@@ -1143,7 +1142,6 @@ uint8_t mac_get_pib_attribute_size(uint8_t pib_attribute_id)
 	if (macBeaconPayload == pib_attribute_id) {
 		return (mac_pib.mac_BeaconPayloadLength);
 	}
-
 #endif  /* (MAC_START_REQUEST_CONFIRM == 1) */
 
 	if (MAX_PHY_PIB_ATTRIBUTE_ID >= pib_attribute_id) {
@@ -1162,7 +1160,6 @@ uint8_t mac_get_pib_attribute_size(uint8_t pib_attribute_id)
 		return(PGM_READ_BYTE(&mac_sec_pib_size[pib_attribute_id -
 		       MIN_MAC_SEC_PIB_ATTRIBUTE_ID]));
 	}
-
 #endif  /* (MAC_SECURITY_ZIP || MAC_SECURITY_2006) */
 
 	if (MIN_PRIVATE_PIB_ATTRIBUTE_ID <= pib_attribute_id) {

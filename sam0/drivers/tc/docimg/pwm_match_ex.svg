@@ -3,7 +3,7 @@
 <svg version="1.2" baseProfile="tiny" width="160mm" height="90mm" viewBox="0 0 16000 9000" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
  <defs>
   <font id="EmbeddedFont_1" horiz-adv-x="2048">
-   <font-face font-family="Arial embedded" units-per-em="2048" font-weight="normal" font-style="normal" ascent="1852" descent="450"/>
+   <font-face font-family="Arial" units-per-em="2048" font-weight="normal" font-style="normal" ascent="1852" descent="450"/>
    <missing-glyph horiz-adv-x="2048" d="M 0,0 L 2047,0 2047,2047 0,2047 0,0 Z"/>
    <glyph unicode="x" horiz-adv-x="954" d="M 15,0 L 403,552 44,1062 269,1062 432,813 C 463,766 487,726 506,694 535,738 562,777 587,811 L 766,1062 981,1062 614,562 1009,0 788,0 570,330 512,419 233,0 15,0 Z"/>
    <glyph unicode="w" horiz-adv-x="1430" d="M 331,0 L 6,1062 192,1062 361,449 424,221 C 427,232 445,305 479,440 L 648,1062 833,1062 992,446 1045,243 1106,448 1288,1062 1463,1062 1131,0 944,0 775,636 734,817 519,0 331,0 Z"/>
@@ -54,7 +54,7 @@
   </g>
   <g id="Drawing_3">
    <rect fill="none" stroke="none" x="13200" y="5682" width="1301" height="641"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="353" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="353" font-style="normal" font-weight="400">
     <text x="13450" y="6120">T</text>
     <text x="13657" y="6120">i</text>
     <text x="13734" y="6120">m</text>
@@ -81,7 +81,7 @@
   </g>
   <g id="Drawing_10">
    <rect fill="none" stroke="none" x="13600" y="3182" width="2101" height="1419"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="353" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="353" font-style="normal" font-weight="400">
     <text x="13850" y="3620">C</text>
     <text x="14104" y="3620">o</text>
     <text x="14299" y="3620">m</text>
@@ -120,7 +120,7 @@
   </g>
   <g id="Drawing_16">
    <rect fill="none" stroke="none" x="6000" y="6542" width="4401" height="641"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="353" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="353" font-style="normal" font-weight="400">
     <text x="6250" y="6980">R</text>
     <text x="6504" y="6980">e</text>
     <text x="6699" y="6980">l</text>
@@ -156,7 +156,7 @@
   </g>
   <g id="Drawing_20">
    <rect fill="none" stroke="none" x="10651" y="553" width="4150" height="1030"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="353" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="353" font-style="normal" font-weight="400">
     <text x="10901" y="991">C</text>
     <text x="11155" y="991">o</text>
     <text x="11350" y="991">u</text>
@@ -212,7 +212,7 @@
   </g>
   <g id="Drawing_23">
    <rect fill="none" stroke="none" x="4500" y="482" width="5601" height="1030"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="353" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="353" font-style="normal" font-weight="400">
     <text x="4750" y="920">T</text>
     <text x="4966" y="920">O</text>
     <text x="5241" y="920">P</text>
@@ -346,7 +346,7 @@
   </g>
   <g id="Drawing_50">
    <rect fill="none" stroke="none" x="13200" y="6413" width="1701" height="641"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="353" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="353" font-style="normal" font-weight="400">
     <text x="13450" y="6851">M</text>
     <text x="13742" y="6851">a</text>
     <text x="13937" y="6851">t</text>
@@ -359,7 +359,7 @@
   </g>
   <g id="Drawing_52">
    <rect fill="none" stroke="none" x="600" y="7182" width="2601" height="1419"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="353" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="353" font-style="normal" font-weight="400">
     <text x="850" y="7620">P</text>
     <text x="1083" y="7620">W</text>
     <text x="1434" y="7620">M</text>
@@ -383,7 +383,7 @@
   </g>
   <g id="Drawing_53">
    <rect fill="none" stroke="none" x="13300" y="1742" width="2101" height="641"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="353" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="353" font-style="normal" font-weight="400">
     <text x="13550" y="2180">M</text>
     <text x="13842" y="2180">a</text>
     <text x="14037" y="2180">x</text>
@@ -391,7 +391,7 @@
   </g>
   <g id="Drawing_54">
    <rect fill="none" stroke="none" x="0" y="1171" width="2001" height="1030"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="353" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="353" font-style="normal" font-weight="400">
     <text x="376" y="1609">C</text>
     <text x="630" y="1609">o</text>
     <text x="825" y="1609">u</text>

@@ -3,7 +3,7 @@
  *
  * \brief DAC Sinewave Example.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -93,6 +93,9 @@
  * -# Input command according to the menu.
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "asf.h"
 #include "conf_board.h"
@@ -101,9 +104,13 @@
 
 
 /** Analog control value */
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+#define DACC_ANALOG_CONTROL (DACC_ACR_IBCTLCH0(0x02) | DACC_ACR_IBCTLCH1(0x02))
+#else
 #define DACC_ANALOG_CONTROL (DACC_ACR_IBCTLCH0(0x02) \
 		| DACC_ACR_IBCTLCH1(0x02) \
 		| DACC_ACR_IBCTLDACCORE(0x01))
+#endif
 
 /** The maximal sine wave sample data (no sign) */
 #define MAX_DIGITAL   (0x7ff)
@@ -281,11 +288,19 @@ void SysTick_Handler(void)
 {
 	uint32_t status;
 	uint32_t dac_val;
-
+	
 	status = dacc_get_interrupt_status(DACC_BASE);
 
 	/* If ready for new data */
+#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+# if (DACC_CHANNEL == 0)
+	if ((status & DACC_ISR_TXRDY0) == DACC_ISR_TXRDY0) {
+#elif (DACC_CHANNEL == 1)
+	if ((status & DACC_ISR_TXRDY1) == DACC_ISR_TXRDY1) {
+#endif
+#else
 	if ((status & DACC_ISR_TXRDY) == DACC_ISR_TXRDY) {
+#endif
 		g_ul_index_sample++;
 		if (g_ul_index_sample >= SAMPLES) {
 			g_ul_index_sample = 0;
@@ -295,7 +310,11 @@ void SysTick_Handler(void)
 				: wave_to_dacc(gc_us_sine_data[g_ul_index_sample],
 					 g_l_amplitude,
 					 MAX_DIGITAL * 2, MAX_AMPLITUDE);
+#if !(SAMV70 || SAMV71 || SAME70 || SAMS70)
 		dacc_write_conversion_data(DACC_BASE, dac_val);
+#else
+		dacc_write_conversion_data(DACC_BASE, dac_val, DACC_CHANNEL);
+#endif
 	}
 }
 
@@ -343,20 +362,25 @@ int main(void)
 	/* Enable DAC */
 	dacc_enable(DACC_BASE);
 #else
+#if (SAM3S) || (SAM3XA)
 	/* Power save:
 	 * sleep mode  - 0 (disabled)
 	 * fast wakeup - 0 (disabled)
 	 */
 	dacc_set_power_save(DACC_BASE, 0, 0);
+#endif
+
 	/* Timing:
 	 * refresh        - 0x08 (1024*8 dacc clocks)
 	 * max speed mode -    0 (disabled)
 	 * startup time   - 0x10 (1024 dacc clocks)
 	 */
+#if !(SAMV70 || SAMV71 || SAME70 || SAMS70)
 	dacc_set_timing(DACC_BASE, 0x08, 0, 0x10);
 
 	/* Disable TAG and select output channel DACC_CHANNEL */
 	dacc_set_channel_selection(DACC_BASE, DACC_CHANNEL);
+#endif
 
 	/* Enable output channel DACC_CHANNEL */
 	dacc_enable_channel(DACC_BASE, DACC_CHANNEL);

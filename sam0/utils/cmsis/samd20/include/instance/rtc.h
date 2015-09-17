@@ -3,7 +3,7 @@
  *
  * \brief Instance description for RTC
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAMD20_RTC_INSTANCE_
@@ -106,12 +109,12 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for RTC peripheral ========== */
-#define RTC_ALARM_NUM               1
-#define RTC_COMP16_NUM              2
-#define RTC_COMP32_NUM              RTC_ALARM_NUM
-#define RTC_GCLK_ID                 2
-#define RTC_NUM_OF_ALARMS           RTC_ALARM_NUM
-#define RTC_NUM_OF_COMP16           RTC_COMP16_NUM
-#define RTC_NUM_OF_COMP32           RTC_COMP32_NUM
+#define RTC_ALARM_NUM               1        // Number of Alarms
+#define RTC_COMP16_NUM              2        // Number of 16-bit Comparators
+#define RTC_COMP32_NUM              1        // Number of 32-bit Comparators
+#define RTC_GCLK_ID                 2        // Index of Generic Clock
+#define RTC_NUM_OF_ALARMS           1        // Number of Alarms (obsolete)
+#define RTC_NUM_OF_COMP16           2        // Number of 16-bit Comparators (obsolete)
+#define RTC_NUM_OF_COMP32           1        // Number of 32-bit Comparators (obsolete)
 
 #endif /* _SAMD20_RTC_INSTANCE_ */

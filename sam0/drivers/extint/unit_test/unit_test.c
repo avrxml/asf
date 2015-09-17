@@ -3,7 +3,7 @@
  *
  * \brief SAM External Interrupt Unit test
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -70,14 +70,20 @@
  * Tests will be performed for rising and falling edges of the external signal.
  *
  * The following kit is required for carrying out the test:
- *  - SAM D20/D21/R21 Xplained Pro board
+ *  - SAM D20/D21/R21/L21/L22/DA1/C21 Xplained Pro board
  *
  * \section appdoc_sam0_extint_unit_test_setup Setup
  * The following connections has to be made using wires:
- * - SAM D20/D21 Xplained Pro
- *  - EXT1 \b Pin 9 (PB04) <-----> Pin 10 (PB05)
+ * - SAM D21/DA1/D20 Xplained Pro
+ *  - EXT1 \b Pin 9 (PB04) <-----> Pin 11 (PA08)
  * - SAM R21 Xplained Pro
- *  - EXT1 \b Pin 9 (PA22) <-----> Pin 10 (PA23)
+ *  - EXT1 \b Pin 3 (PA06) <-----> EXT3 Pin 10 (PA08)
+ * - SAM L21 Xplained Pro
+ *  - EXT1 \b Pin 9 (PB04) <-----> EXT3 Pin 5 (PB30)
+ * - SAM L22 Xplained Pro
+ *  - EXT1 \b Pin 9 (PC02) <-----> EXT3 Pin 5 (PC16)
+ * - SAM C21 Xplained Pro
+ *  - EXT1 \b Pin 9 (PB14) <-----> EXT1 Pin 10 (PB15)
  *
  * To run the test:
  *  - Connect the SAM Xplained Pro board to the computer using a
@@ -104,18 +110,14 @@
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include <stdio_serial.h>
 #include <string.h>
 #include "conf_test.h"
-
-/* GPIO pin used for testing the interrupts */
-#define GPIO_TEST_PIN_EXTINT  EXT1_PIN_10
-
-#define EIC_TEST_CHANNEL      EXT1_IRQ_INPUT
-#define EIC_TEST_PIN          EXT1_IRQ_PIN
-#define EIC_TEST_PIN_MUX      EXT1_IRQ_PINMUX
 
 /* Structure for UART module connected to EDBG (used for unit test output) */
 struct usart_module cdc_uart_module;

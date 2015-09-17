@@ -16,6 +16,9 @@
 *                                               STACK SIZES
 *******************************************************************************
 */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #define  APP_TASK_STK_SIZE          256
 

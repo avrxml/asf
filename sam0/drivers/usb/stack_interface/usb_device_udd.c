@@ -3,7 +3,7 @@
  *
  * \brief USB Device wrapper layer for compliance with common driver UDD
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <string.h>
 #include <stdlib.h>
 
@@ -61,8 +64,8 @@
 #  error The High speed mode is not supported on this part, please remove USB_DEVICE_HS_SUPPORT in conf_usb.h
 #endif
 
-#if !(SAMD21) && !(SAMR21) && !(SAMD11)
-# error The current USB Device Driver supports only SAMD21/R21/D11
+#if !(SAMD21) && !(SAMR21) && !(SAMD11) && !(SAML21) && !(SAML22) && !(SAMDA1)
+# error The current USB Device Driver supports only SAMD21/R21/D11/L21/L22/DA1
 #endif
 
 #ifndef UDC_REMOTEWAKEUP_LPM_ENABLE
@@ -94,7 +97,11 @@ struct usb_module usb_device;
  * @{
  */
 #ifndef UDD_CLOCK_GEN
+#if (SAML21) || (SAML22)
+#  define UDD_CLOCK_GEN      GCLK_GENERATOR_3
+#else
 #  define UDD_CLOCK_GEN      GCLK_GENERATOR_0
+#endif
 #endif
 #ifndef UDD_CLOCK_SOURCE
 #  define UDD_CLOCK_SOURCE   SYSTEM_CLOCK_SOURCE_DFLL
@@ -103,13 +110,32 @@ static inline void udd_wait_clock_ready(void)
 {
 
 	if (UDD_CLOCK_SOURCE == SYSTEM_CLOCK_SOURCE_DPLL) {
+#if (SAML21) || (SAML22)
+	#define DPLL_READY_FLAG (OSCCTRL_DPLLSTATUS_CLKRDY | OSCCTRL_DPLLSTATUS_LOCK)
+
+		while((OSCCTRL->DPLLSTATUS.reg & DPLL_READY_FLAG) != DPLL_READY_FLAG);
+	}
+#else
 #define DPLL_READY_FLAG (SYSCTRL_DPLLSTATUS_ENABLE | \
 		SYSCTRL_DPLLSTATUS_CLKRDY | SYSCTRL_DPLLSTATUS_LOCK)
 
 		while((SYSCTRL->DPLLSTATUS.reg & DPLL_READY_FLAG) != DPLL_READY_FLAG);
 	}
+#endif
 
 	if (UDD_CLOCK_SOURCE == SYSTEM_CLOCK_SOURCE_DFLL) {
+#if (SAML21) || (SAML22)
+#define DFLL_READY_FLAG (OSCCTRL_STATUS_DFLLRDY | \
+		OSCCTRL_STATUS_DFLLLCKF | OSCCTRL_STATUS_DFLLLCKC)
+
+		/* In USB recovery mode the status is not checked */
+		if (!(OSCCTRL->DFLLCTRL.reg & OSCCTRL_DFLLCTRL_USBCRM)) {
+			while((OSCCTRL->STATUS.reg & DFLL_READY_FLAG) != DFLL_READY_FLAG);
+		} else {
+			while((OSCCTRL->STATUS.reg & OSCCTRL_STATUS_DFLLRDY) != OSCCTRL_STATUS_DFLLRDY);
+		}
+	}
+#else
 #define DFLL_READY_FLAG (SYSCTRL_PCLKSR_DFLLRDY | \
 		SYSCTRL_PCLKSR_DFLLLCKF | SYSCTRL_PCLKSR_DFLLLCKC)
 
@@ -120,7 +146,7 @@ static inline void udd_wait_clock_ready(void)
 			while((SYSCTRL->PCLKSR.reg & SYSCTRL_PCLKSR_DFLLRDY) != SYSCTRL_PCLKSR_DFLLRDY);
 		}
 	}
-
+#endif
 }
 /** @} */
 
@@ -148,9 +174,15 @@ static void udd_sleep_mode(enum udd_usb_state_enum new_state)
 {
 	enum sleepmgr_mode sleep_mode[] = {
 		SLEEPMGR_ACTIVE,  /* UDD_STATE_OFF (not used) */
+	#if (SAML21) || (SAML22)
+		SLEEPMGR_IDLE,  /* UDD_STATE_SUSPEND */
+		SLEEPMGR_IDLE,  /* UDD_STATE_SUSPEND_LPM */
+		SLEEPMGR_IDLE,  /* UDD_STATE_IDLE */
+	#else
 		SLEEPMGR_IDLE_2,  /* UDD_STATE_SUSPEND */
 		SLEEPMGR_IDLE_1,  /* UDD_STATE_SUSPEND_LPM */
 		SLEEPMGR_IDLE_0,  /* UDD_STATE_IDLE */
+	#endif	
 	};
 
 	static enum udd_usb_state_enum udd_state = UDD_STATE_OFF;
@@ -432,7 +464,7 @@ void udd_ep_abort(udd_ep_id_t ep)
 
 bool udd_is_high_speed(void)
 {
-#if SAMD21 || SAMR21 || SAMD11
+#if SAMD21 || SAMR21 || SAMD11 || SAML21  || SAML22 || SAMDA1
 	return false;
 #endif
 }
@@ -1024,7 +1056,7 @@ static void _usb_device_lpm_suspend(struct usb_module *module_inst, void *pointe
 	usb_device_disable_callback(&usb_device, USB_DEVICE_CALLBACK_SUSPEND);
 	usb_device_enable_callback(&usb_device, USB_DEVICE_CALLBACK_WAKEUP);
 
-//#warning Here the sleep mode must be choose to have a DFLL startup time < bmAttribut.BESL
+//#warning Here the sleep mode must be choose to have a DFLL startup time < bmAttribut.HIRD
 	udd_sleep_mode(UDD_STATE_SUSPEND_LPM);  // Enter in LPM SUSPEND mode
 	if ((*lpm_wakeup_enable)) {
 		UDC_REMOTEWAKEUP_LPM_ENABLE();

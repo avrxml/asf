@@ -3,7 +3,7 @@
  *
  * \brief UART Sleepwalking Example for SAM.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -81,6 +81,9 @@
 \endcode
  * -# the sent text should appear.
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include "conf_example.h"
@@ -111,6 +114,8 @@ void console_uart_irq_handler(void)
  */
 static void uart_sleepwalking_test_active(void)
 {
+	uint8_t temp;
+
 	puts("Test in active mode, press 's' to continue.\r");
 
 	/* Wait for the puts operation to finish. */
@@ -131,6 +136,7 @@ static void uart_sleepwalking_test_active(void)
 	/* Wait for the match interrupt */
 	while (!cmp_flag) {
 	}
+	uart_read(CONSOLE_UART, &temp);
 
 	puts("'s' character is received.\r\n\r");
 

@@ -2052,15 +2052,6 @@
 							<name>$PROJ_DIR$/../conf_clock.h</name>
 						</file>
 					</group>
-					<group>
-						<name>sam4e16e_sam4e_ek</name>
-						<file>
-							<name>$PROJ_DIR$/../../sam4e16e_sam4e_ek/conf_board.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../tc_capture_waveform_example.h</name>
-					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../tc.c</name>

@@ -236,16 +236,20 @@
 				<option>
 					<name>CCDefines</name>
 					<state></state>
+					<state>ANTENNA_DIVERSITY=0</state>
 					<state>FFD</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>CUSTOM_DEFAULT_TX_PWR</state>
 					<state>TAL_TYPE=AT86RF233</state>
 					<state>_DEBUG_=0</state>
 					<state>BOARD=XMEGA_RF233_ZIGBIT</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
+					<state>EXT_RF_FRONT_END_CTRL</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
+					<state>CUSTOM_PWR_TABLE</state>
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>PAL_USE_SPI_TRX=1</state>
@@ -590,16 +594,20 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>ANTENNA_DIVERSITY=0</state>
 					<state>FFD</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>CUSTOM_DEFAULT_TX_PWR</state>
 					<state>TAL_TYPE=AT86RF233</state>
 					<state>_DEBUG_=0</state>
 					<state>BOARD=XMEGA_RF233_ZIGBIT</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
+					<state>EXT_RF_FRONT_END_CTRL</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
+					<state>CUSTOM_PWR_TABLE</state>
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>PAL_USE_SPI_TRX=1</state>
@@ -1333,16 +1341,20 @@
 				<option>
 					<name>CCDefines</name>
 					<state>NDEBUG</state>
+					<state>ANTENNA_DIVERSITY=0</state>
 					<state>FFD</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>CUSTOM_DEFAULT_TX_PWR</state>
 					<state>TAL_TYPE=AT86RF233</state>
 					<state>_DEBUG_=0</state>
 					<state>BOARD=XMEGA_RF233_ZIGBIT</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
+					<state>EXT_RF_FRONT_END_CTRL</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
+					<state>CUSTOM_PWR_TABLE</state>
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>PAL_USE_SPI_TRX=1</state>
@@ -1687,16 +1699,20 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>ANTENNA_DIVERSITY=0</state>
 					<state>FFD</state>
 					<state>TEST_HARNESS</state>
 					<state>STB_ON_SAL</state>
+					<state>CUSTOM_DEFAULT_TX_PWR</state>
 					<state>TAL_TYPE=AT86RF233</state>
 					<state>_DEBUG_=0</state>
 					<state>BOARD=XMEGA_RF233_ZIGBIT</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
+					<state>EXT_RF_FRONT_END_CTRL</state>
 					<state>CONFIG_NVM_IGNORE_XMEGA_A3_D3_REVB_ERRATA</state>
 					<state>IOPORT_XMEGA_COMPAT</state>
+					<state>CUSTOM_PWR_TABLE</state>
 					<state>SAL_TYPE=ATXMEGA_SAL</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>PAL_USE_SPI_TRX=1</state>
@@ -2642,6 +2658,9 @@
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../include/mac_build_config.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../include/ieee_154g.h</name>
 					</file>
 				</group>
 			</group>

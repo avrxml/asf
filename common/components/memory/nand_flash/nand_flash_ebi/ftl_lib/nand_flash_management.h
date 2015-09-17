@@ -5,7 +5,7 @@
  *
  * This file contains definitions and functions for NAND Flash block management.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,6 +46,9 @@
 /**
  * The lower layer of NAND Flash block management, it is called by NAND Flash
  * translation layer, and it will call NAND Flash ECC layer.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef NAND_FLASH_MANAGEMENT_H_INCLUDED

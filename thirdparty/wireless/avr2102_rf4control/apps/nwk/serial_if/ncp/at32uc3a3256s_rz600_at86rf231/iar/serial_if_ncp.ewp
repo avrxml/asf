@@ -1983,10 +1983,10 @@
 								<group>
 									<name>at32uc3a3256s_rz600_at86rf231</name>
 									<file>
-										<name>$PROJ_DIR$/../conf_board.h</name>
+										<name>$PROJ_DIR$/../conf_clock.h</name>
 									</file>
 									<file>
-										<name>$PROJ_DIR$/../conf_clock.h</name>
+										<name>$PROJ_DIR$/../conf_board.h</name>
 									</file>
 									<file>
 										<name>$PROJ_DIR$/../conf_usb.h</name>
@@ -2234,13 +2234,13 @@
 								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_api.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_msg_types.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_msg_const.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_internal.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_msg_types.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../avr2025_mac/source/mac/inc/mac_msg_type_data_ind.h</name>
@@ -2435,6 +2435,9 @@
 					<name>include</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../avr2025_mac/include/ieee_const.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../avr2025_mac/include/ieee_154g.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../avr2025_mac/include/mac_build_config.h</name>

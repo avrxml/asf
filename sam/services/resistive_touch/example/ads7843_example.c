@@ -3,7 +3,7 @@
  *
  * \brief ads7843 touchscreen controller Example.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,6 +83,9 @@
  * -# Touch the LCD, the pen position will output on the terminal
  *    if touchscreen is calibrated ok.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"

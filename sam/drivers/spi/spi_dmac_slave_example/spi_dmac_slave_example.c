@@ -3,7 +3,7 @@
  *
  * \brief Serial Peripheral Interface (SPI) DMA slave example for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -93,6 +93,9 @@
  * -# The following traces detail operations on the SPI example, displaying success
  *    or error messages depending on the results of the commands.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 

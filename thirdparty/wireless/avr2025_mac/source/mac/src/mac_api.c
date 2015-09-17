@@ -4,7 +4,7 @@
  * @brief This file contains MAC API functions.
  *
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -999,7 +999,6 @@ bool wpan_mlme_gts_req(uint16_t DevShortAddr, gts_char_t GtsChar)
 	qmm_queue_append(&nhle_mac_q, buffer_header);
 #endif  /* ENABLE_QUEUE_CAPACITY */
 	return true;
-
 #endif /* GTS_SUPPORT */
 }
 

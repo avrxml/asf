@@ -3,7 +3,7 @@
  *
  * \brief User Interface
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -219,7 +222,7 @@ void ui_usb_sof_event(void)
 				/* Button has been pressed */
 				ui_enable_asynchronous_interrupt();
 				LED_Off(LED_0_PIN);
-				uhc_suspend_lpm(true, BESL_1000_US);
+				uhc_suspend_lpm(true, HIRD_800_US);
 				return;
 			}
 		}

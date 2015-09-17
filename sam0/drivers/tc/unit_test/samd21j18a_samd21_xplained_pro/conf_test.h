@@ -3,7 +3,7 @@
  *
  * \brief SAM D21 Xplained Pro test configuration.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CONF_TEST_H_INCLUDED
 #define CONF_TEST_H_INCLUDED
@@ -53,8 +56,8 @@
 #define CONF_STDIO_BAUDRATE       38400
 #define CONF_TEST_TC0             TC4
 #define CONF_TEST_TC1             TC5
-#define CONF_EIC_PIN              PIN_PA16A_EIC_EXTINT0
-#define CONF_EIC_MUX              MUX_PA16A_EIC_EXTINT0
+#define CONF_EIC_PIN              PIN_PB00A_EIC_EXTINT0
+#define CONF_EIC_MUX              MUX_PB00A_EIC_EXTINT0
 #define CONF_TEST_PIN_OUT         PIN_PB09E_TC4_WO1
 #define CONF_TEST_PIN_MUX         MUX_PB09E_TC4_WO1
 #define CONF_EVENT_GENERATOR_ID   EVSYS_ID_GEN_EIC_EXTINT_0

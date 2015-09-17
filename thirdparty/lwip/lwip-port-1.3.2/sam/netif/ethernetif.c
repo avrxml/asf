@@ -7,7 +7,7 @@
  * search-and-replace for the word "ethernetif" to replace it with
  * something that better describes your network interface.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

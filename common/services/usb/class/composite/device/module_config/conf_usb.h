@@ -3,7 +3,7 @@
  *
  * \brief USB configuration file
  *
- * Copyright (c) 2009 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _CONF_USB_H_
 #define _CONF_USB_H_
@@ -58,7 +61,7 @@
 #define  USB_DEVICE_PRODUCT_ID            0xFFFF
 #define  USB_DEVICE_MAJOR_VERSION         1
 #define  USB_DEVICE_MINOR_VERSION         0
-#define  USB_DEVICE_POWER                 100 // Consumption on Vbus line (mA)
+#define  USB_DEVICE_POWER                 100 // Consumption on VBUS line (mA)
 #define  USB_DEVICE_ATTR                  \
 		(USB_CONFIG_ATTR_SELF_POWERED)
 // (USB_CONFIG_ATTR_BUS_POWERED)
@@ -158,11 +161,11 @@
  * #define  UDI_CDC_TX_EMPTY_NOTIFY(port) my_callback_tx_empty_notify(port)
  * extern void my_callback_tx_empty_notify(uint8_t port);
  * #define  UDI_CDC_SET_CODING_EXT(port,cfg) my_callback_config(port,cfg)
- * extern void my_callback_config(uint8_t port, usb_cdc_line_coding_t * cfg); 
+ * extern void my_callback_config(uint8_t port, usb_cdc_line_coding_t * cfg);
  * #define  UDI_CDC_SET_DTR_EXT(port,set) my_callback_cdc_set_dtr(port,set)
  * extern void my_callback_cdc_set_dtr(uint8_t port, bool b_enable);
  * #define  UDI_CDC_SET_RTS_EXT(port,set) my_callback_cdc_set_rts(port,set)
- * extern void my_callback_cdc_set_rts(uint8_t port, bool b_enable); 
+ * extern void my_callback_cdc_set_rts(uint8_t port, bool b_enable);
  */
 
 //! Define it when the transfer CDC Device to Host is a low rate (<512000 bauds)

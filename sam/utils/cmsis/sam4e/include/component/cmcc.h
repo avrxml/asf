@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_CMCC_COMPONENT_
 #define _SAM4E_CMCC_COMPONENT_
@@ -51,17 +54,17 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Cmcc hardware registers */
 typedef struct {
-  RoReg CMCC_TYPE;    /**< \brief (Cmcc Offset: 0x00) Cache Type Register */
-  RwReg CMCC_CFG;     /**< \brief (Cmcc Offset: 0x04) Cache Configuration Register */
-  WoReg CMCC_CTRL;    /**< \brief (Cmcc Offset: 0x08) Cache Control Register */
-  RoReg CMCC_SR;      /**< \brief (Cmcc Offset: 0x0C) Cache Status Register */
-  RoReg Reserved1[4];
-  WoReg CMCC_MAINT0;  /**< \brief (Cmcc Offset: 0x20) Cache Maintenance Register 0 */
-  WoReg CMCC_MAINT1;  /**< \brief (Cmcc Offset: 0x24) Cache Maintenance Register 1 */
-  RwReg CMCC_MCFG;    /**< \brief (Cmcc Offset: 0x28) Cache Monitor Configuration Register */
-  RwReg CMCC_MEN;     /**< \brief (Cmcc Offset: 0x2C) Cache Monitor Enable Register */
-  WoReg CMCC_MCTRL;   /**< \brief (Cmcc Offset: 0x30) Cache Monitor Control Register */
-  RoReg CMCC_MSR;     /**< \brief (Cmcc Offset: 0x34) Cache Monitor Status Register */
+  __I  uint32_t CMCC_TYPE;    /**< \brief (Cmcc Offset: 0x00) Cache Type Register */
+  __IO uint32_t CMCC_CFG;     /**< \brief (Cmcc Offset: 0x04) Cache Configuration Register */
+  __O  uint32_t CMCC_CTRL;    /**< \brief (Cmcc Offset: 0x08) Cache Control Register */
+  __I  uint32_t CMCC_SR;      /**< \brief (Cmcc Offset: 0x0C) Cache Status Register */
+  __I  uint32_t Reserved1[4];
+  __O  uint32_t CMCC_MAINT0;  /**< \brief (Cmcc Offset: 0x20) Cache Maintenance Register 0 */
+  __O  uint32_t CMCC_MAINT1;  /**< \brief (Cmcc Offset: 0x24) Cache Maintenance Register 1 */
+  __IO uint32_t CMCC_MCFG;    /**< \brief (Cmcc Offset: 0x28) Cache Monitor Configuration Register */
+  __IO uint32_t CMCC_MEN;     /**< \brief (Cmcc Offset: 0x2C) Cache Monitor Enable Register */
+  __O  uint32_t CMCC_MCTRL;   /**< \brief (Cmcc Offset: 0x30) Cache Monitor Control Register */
+  __I  uint32_t CMCC_MSR;     /**< \brief (Cmcc Offset: 0x34) Cache Monitor Status Register */
 } Cmcc;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- CMCC_TYPE : (CMCC Offset: 0x00) Cache Type Register -------- */
@@ -85,10 +88,10 @@ typedef struct {
 #define   CMCC_TYPE_CSIZE_CSIZE_8KB (0x3u << 8) /**< \brief (CMCC_TYPE) Cache Size 8 Kbytes */
 #define CMCC_TYPE_CLSIZE_Pos 11
 #define CMCC_TYPE_CLSIZE_Msk (0x7u << CMCC_TYPE_CLSIZE_Pos) /**< \brief (CMCC_TYPE) Cache Size */
-#define   CMCC_TYPE_CLSIZE_CLSIZE_1KB (0x0u << 11) /**< \brief (CMCC_TYPE) 4 bytes */
-#define   CMCC_TYPE_CLSIZE_CLSIZE_2KB (0x1u << 11) /**< \brief (CMCC_TYPE) 8 bytes */
-#define   CMCC_TYPE_CLSIZE_CLSIZE_4KB (0x2u << 11) /**< \brief (CMCC_TYPE) 16 bytes */
-#define   CMCC_TYPE_CLSIZE_CLSIZE_8KB (0x3u << 11) /**< \brief (CMCC_TYPE) 32 bytes */
+#define   CMCC_TYPE_CLSIZE_CLSIZE_1KB (0x0u << 11) /**< \brief (CMCC_TYPE) 4 Bytes */
+#define   CMCC_TYPE_CLSIZE_CLSIZE_2KB (0x1u << 11) /**< \brief (CMCC_TYPE) 8 Bytes */
+#define   CMCC_TYPE_CLSIZE_CLSIZE_4KB (0x2u << 11) /**< \brief (CMCC_TYPE) 16 Bytes */
+#define   CMCC_TYPE_CLSIZE_CLSIZE_8KB (0x3u << 11) /**< \brief (CMCC_TYPE) 32 Bytes */
 /* -------- CMCC_CFG : (CMCC Offset: 0x04) Cache Configuration Register -------- */
 #define CMCC_CFG_GCLKDIS (0x1u << 0) /**< \brief (CMCC_CFG) Disable Clock Gating */
 /* -------- CMCC_CTRL : (CMCC Offset: 0x08) Cache Control Register -------- */

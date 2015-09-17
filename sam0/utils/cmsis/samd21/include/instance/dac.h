@@ -3,7 +3,7 @@
  *
  * \brief Instance description for DAC
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAMD21_DAC_INSTANCE_
 #define _SAMD21_DAC_INSTANCE_
@@ -68,7 +71,7 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for DAC peripheral ========== */
-#define DAC_DMAC_ID_EMPTY           40
-#define DAC_GCLK_ID                 33
+#define DAC_DMAC_ID_EMPTY           40       // Index of DMAC EMPTY trigger
+#define DAC_GCLK_ID                 33       // Index of Generic Clock
 
 #endif /* _SAMD21_DAC_INSTANCE_ */

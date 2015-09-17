@@ -2041,18 +2041,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../drivers/tc/tc.c</name>
 				</file>
-				<group>
-					<name>tc_capture_waveform_example</name>
-					<group>
-						<name>sam4e16e_sam4e_ek</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../drivers/tc/tc.h</name>
 				</file>
@@ -2114,10 +2102,10 @@
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s8b.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s2c.h</name>
+								<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s4b.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s4b.h</name>
+								<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s2c.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/sam4s/include/pio/pio_sam4s16c.h</name>

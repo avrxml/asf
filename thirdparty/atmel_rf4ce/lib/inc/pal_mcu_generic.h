@@ -8,10 +8,10 @@
  * $Id: pal_mcu_generic.h 22792 2010-08-09 06:22:00Z uwalter $
  *
  * @author    Atmel Corporation: http://www.atmel.com
- * @author    Support email: avr@atmel.com
+ * @author    Support: http://www.atmel.com/design-support/
  */
 /*
- * Copyright (c) 2009-2012, Atmel Corporation All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * 
  */

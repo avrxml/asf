@@ -4,7 +4,7 @@
  *
  * @brief MAC API for IEEE 802.15.4-2006
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,7 +43,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -580,7 +580,7 @@ bool wpan_task(void);
  * @param SecurityLevel Used security level; this parameter is only available
  *                      if MAC security is enabled via MAC_SECURITY_ZIP
  * @param KeyIdMode     Used mode to identify the key; this parameter is only
- *available
+ * available
  *                      if MAC security is enabled via MAC_SECURITY_ZIP
  * @param KeyIndex      Used index of the key; this parameter is only available
  *                      if MAC security is enabled via MAC_SECURITY_ZIP
@@ -1354,10 +1354,10 @@ uint32_t mac_ready_to_sleep(void);
 
 /*
  * @brief MAC Wakeup Callback Function from application for Synchronizing beacon
- *timing after Wakeup
+ * timing after Wakeup
  *
  * This function Handles the residual time for Beacon Synchronization after
- *Wakeup
+ * Wakeup
  * @param res_time remaining time to be synchronized with next beacon timing.
  */
 #if  (defined ENABLE_SLEEP || defined RTC_SLEEP)

@@ -3,7 +3,7 @@
  *
  * \brief USB device configuration file
  *
- * Copyright (C) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _CONF_USB_H_
@@ -80,6 +83,8 @@
 #if (UC3A3||UC3A4)
 //#define  USB_DEVICE_HS_SUPPORT
 #elif (SAM3XA)
+//#define  USB_DEVICE_HS_SUPPORT
+#elif (SAMV71 || SAMV70 || SAMS70 || SAMV70)
 //#define  USB_DEVICE_HS_SUPPORT
 #endif
 //@}

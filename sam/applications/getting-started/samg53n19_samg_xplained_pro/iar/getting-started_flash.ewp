@@ -307,9 +307,9 @@
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../drivers/uart</state>
-					<state>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include</state>
-					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/source/templates</state>
+					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../drivers/usart</state>
@@ -578,9 +578,9 @@
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../drivers/uart</state>
-					<state>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include</state>
-					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/source/templates</state>
+					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../drivers/usart</state>
@@ -1240,9 +1240,9 @@
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../drivers/uart</state>
-					<state>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include</state>
-					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/source/templates</state>
+					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../drivers/usart</state>
@@ -1511,9 +1511,9 @@
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../drivers/uart</state>
-					<state>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include</state>
-					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/source/templates</state>
+					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../drivers/usart</state>
@@ -1941,18 +1941,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/tc/tc.c</name>
 				</file>
-				<group>
-					<name>tc_capture_waveform_example</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
-					</file>
-					<group>
-						<name>sam4e16e_sam4e_ek</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
-						</file>
-					</group>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/tc/tc.h</name>
 				</file>
@@ -2088,9 +2076,6 @@
 									<name>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include/instance/instance_efc.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include/instance/instance_piob.h</name>
-								</file>
-								<file>
 									<name>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include/instance/instance_matrix.h</name>
 								</file>
 								<file>
@@ -2146,6 +2131,9 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include/instance/instance_usart.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include/instance/instance_piob.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../utils/cmsis/samg/samg53/include/instance/instance_wdt.h</name>

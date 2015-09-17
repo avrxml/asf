@@ -3,7 +3,7 @@
  *
  * \brief SAM Event System Driver Quick Start
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,23 +40,26 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 /**
- * \page asfdoc_sam0_events_interrupt_hook_use_case Quick Start Guide for EVENTS - interrupt hooks
+ * \page asfdoc_sam0_events_interrupt_hook_use_case Quick Start Guide for EVENTS - Interrupt Hooks
  *
  * In this use case, the EVENT module is configured for:
  *  \li Synchronous event path with rising edge detection
- *  \li TC4 as event generator on the allocated event channel
- *  \li No event channel user attached
+ *  \li TC4 as event generator on the allocated event channel(TC0 is used for SAM L22)
+ *  \li One event channel user attached
  *  \li An event interrupt hook is used to execute some code when an event is detected
  *
- * In this usecase TC4 is used as event generator, generating events on overflow.
- * No user attached, counting events on the channel. To able to execute
+ * In this usecase TC is used as event generator, generating events on overflow.
+ * One user attached, counting events on the channel. To be able to execute
  * some code when an event is detected, an interrupt hook is used. The interrupt
- * hook will also count the number of events detected and toggle a led on the board
+ * hook will also count the number of events detected and toggle a LED on the board
  * each time an event is detected.
  *
- * \note Because this example is showing how to setup an interrupt hook there is no
+ * \note Because this example is showing how to set up an interrupt hook there is no
  *       user attached to the user.
  *
  * \section asfdoc_sam0_events_interrup_hook_setup Setup
@@ -79,6 +82,18 @@
  * - SAM D11 Xplained Pro
  *   \snippet samd11_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
  *   \snippet samd11_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
+ * - SAM L21 Xplained Pro
+ *   \snippet saml21_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
+ *   \snippet saml21_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
+ * - SAM L22 Xplained Pro
+ *   \snippet saml22_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
+ *   \snippet saml22_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
+ * - SAM DA1 Xplained Pro
+ *   \snippet samda1_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
+ *   \snippet samda1_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
+ * - SAM C21 Xplained Pro
+ *   \snippet samc21_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
+ *   \snippet samc21_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
  *
  * Copy-paste the following setup code to your user application:
  * \snippet qs_events_interrupt_hook.c setup
@@ -100,7 +115,7 @@
  *  \snippet qs_events_interrupt_hook.c setup_2
  *  \br
  *
- * -# Adjust the configuration structure
+ * -# Adjust the configuration structure:
  *      \li Use EXAMPLE_EVENT_GENRATOR as event generator
  *      \li Detect events on rising edge
  *      \li Use the synchronous event path
@@ -114,7 +129,7 @@
  *  \snippet qs_events_interrupt_hook.c setup_4
  *  \br
  *
- * -# Make sure there is no user attached. To attach an user, change the value
+ * -# Make sure there is no user attached. To attach a user, change the value
  *    of EXAMPLE_EVENT_USER to the correct peripheral ID.
  *  \snippet qs_events_interrupt_hook.c setup_5
  *  \br
@@ -125,37 +140,37 @@
  *
  * -# Initialize the TC module configuration structure with safe default values.
  * \note This function shall always be called on new configuration structure instances
- *       to make sure that all structure members is initialized.
+ *       to make sure that all structure members are initialized.
  *
  * \snippet qs_events_interrupt_hook.c setup_7
  *
- * -# Adjust the config_tc structure
- *	\li Set counter size to 8bit
+ * -# Adjust the config_tc structure:
+ *	\li Set counter size to 8-bit
  *	\li Set wave generation mode to normal frequency generation
- *	\li Use GCLK generator 1 to as tc module clock source
+ *	\li Use GCLK generator 1 to as TC module clock source
  *	\li Prescale the input clock with 64
  *
  * \snippet qs_events_interrupt_hook.c setup_8
  *
- * -# Initialize, configure and assosiate the tc_instance handle with the TC hardware pointed to by TC_MODULE
+ * -# Initialize, configure, and assosiate the tc_instance handle with the TC hardware pointed to by TC_MODULE.
  * \snippet qs_events_interrupt_hook.c setup_9
  *
  * -# Adjust the config_events structure to enable event generation on overflow in the timer and then
- *    enable the event configuration
+ *    enable the event configuration.
  * \snippet qs_events_interrupt_hook.c setup_10
  *
- * -# Enable the timer/counter module
+ * -# Enable the timer/counter module.
  * \snippet qs_events_interrupt_hook.c setup_11
  *
- * -# Create a new interrupt hook and use the function event_counter as hook code
+ * -# Create a new interrupt hook and use the function event_counter as hook code.
  * \snippet qs_events_interrupt_hook.c setup_12
  *
- * -# Add the newly created hook to the interrupt hook queue and enable the event detected interrupt
+ * -# Add the newly created hook to the interrupt hook queue and enable the event detected interrupt.
  * \snippet qs_events_interrupt_hook.c setup_13
  *
- * -# Example interrupt hook code. If the hook was triggered by a event detected interrupt on the
- *    event channel this code will toggle the led on the Xplained PRO board and increase the value
- *    of the event_count variable. The interrupt then acknowledged.
+ * -# Example interrupt hook code. If the hook was triggered by an event detected interrupt on the
+ *    event channel this code will toggle the LED on the Xplained PRO board and increase the value
+ *    of the event_count variable. The interrupt is then acknowledged.
  *
  * \snippet qs_events_interrupt_hook.c setup_14
  *
@@ -166,9 +181,9 @@
  * \snippet qs_events_interrupt_hook.c main
  *
  * \subsection asfdoc_sam0_events_interrupt_hook_code_flow Workflow
- * -# Wait for the even channel to become ready.
+ * -# Wait for the event channel to become ready.
  * \snippet qs_events_interrupt_hook.c main_1
  *
- * -# Start the timer/counter
+ * -# Start the timer/counter.
  * \snippet qs_events_interrupt_hook.c main_2
  */

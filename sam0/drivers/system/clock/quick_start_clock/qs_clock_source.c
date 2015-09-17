@@ -3,7 +3,7 @@
  *
  * \brief SAM System Clock Driver Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,6 +37,9 @@
  *
  * \asf_license_stop
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 
 void configure_extosc32k(void);
@@ -63,6 +66,7 @@ void configure_extosc32k(void)
 }
 //! [config_extosc32k]
 
+#if (!SAMC21)
 //! [config_dfll]
 void configure_dfll_open_loop(void)
 {
@@ -78,6 +82,7 @@ void configure_dfll_open_loop(void)
 //! [config_dfll_set_config]
 }
 //! [config_dfll]
+#endif
 //! [setup]
 
 int main(void)
@@ -98,6 +103,7 @@ int main(void)
 	}
 //! [enable_extosc32k_main]
 
+#if (!SAMC21)
 	/* Configure the DFLL in open loop mode using default values */
 //! [config_dfll_main]
 	configure_dfll_open_loop();
@@ -126,6 +132,7 @@ int main(void)
 	config_gclock_gen.division_factor = 1;
 	system_gclk_gen_set_config(GCLK_GENERATOR_0, &config_gclock_gen);
 //! [set_sys_clk_src]
+#endif
 //! [main]
 
 	while (true) {

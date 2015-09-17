@@ -3,7 +3,7 @@
  *
  * \brief SAM R21 Direct Memory Access Driver Configuration Header
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,9 +40,13 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef CONF_DMA_H_INCLUDED
 #define CONF_DMA_H_INCLUDED
 
 #  define CONF_MAX_USED_CHANNEL_NUM     1
+#  define CONF_I2C_DMA_TRIGGER          SERCOM2_DMAC_ID_TX
 
 #endif

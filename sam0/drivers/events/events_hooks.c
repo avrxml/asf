@@ -3,7 +3,7 @@
  *
  * \brief SAM Event System Controller Driver
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,13 +40,21 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include "events.h"
 #include "events_hooks.h"
 #include "system_interrupt.h"
 
-#define _EVENTS_INTFLAGS_DETECT  0x0f00ff00
-#define _EVENTS_INTFLAGS_OVERRUN 0x000f00ff
-#define _EVENTS_INTFLAGS_MASK    _EVENTS_INTFLAGS_DETECT | _EVENTS_INTFLAGS_OVERRUN
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21)
+#  define _EVENTS_INTFLAGS_DETECT  0x0fff0000
+#  define _EVENTS_INTFLAGS_OVERRUN 0x00000fff
+#else
+#  define _EVENTS_INTFLAGS_DETECT  0x0f00ff00
+#  define _EVENTS_INTFLAGS_OVERRUN 0x000f00ff
+#endif
+#define _EVENTS_INTFLAGS_MASK (_EVENTS_INTFLAGS_DETECT | _EVENTS_INTFLAGS_OVERRUN)
 
 extern struct _events_module _events_inst;
 
@@ -64,7 +72,7 @@ enum status_code events_add_hook(struct events_resource *resource, struct events
 {
 	struct events_hook *tmp_hook = NULL;
 
-	/* Assosiate the hook with the resource */
+	/* Associate the hook with the resource */
 	hook->resource = resource;
 
 	/* Check if this is the first hook in the list */
@@ -131,9 +139,11 @@ enum status_code events_enable_interrupt_source(struct events_resource *resource
 	Assert((source == EVENTS_INTERRUPT_DETECT) || (source == EVENTS_INTERRUPT_OVERRUN));
 
 	if (source == EVENTS_INTERRUPT_DETECT) {
-		EVSYS->INTENSET.reg = _events_find_bit_position(resource->channel, _EVENTS_START_OFFSET_DETECTION_BIT);
+		EVSYS->INTENSET.reg = _events_find_bit_position(resource->channel,
+				_EVENTS_START_OFFSET_DETECTION_BIT);
 	} else if (source == EVENTS_INTERRUPT_OVERRUN) {
-		EVSYS->INTENSET.reg = _events_find_bit_position(resource->channel, _EVENTS_START_OFFSET_OVERRUN_BIT);
+		EVSYS->INTENSET.reg = _events_find_bit_position(resource->channel,
+				_EVENTS_START_OFFSET_OVERRUN_BIT);
 	} else {
 		return STATUS_ERR_INVALID_ARG;
 	}
@@ -146,9 +156,11 @@ enum status_code events_disable_interrupt_source(struct events_resource *resourc
 	Assert((source == EVENTS_INTERRUPT_DETECT) || (source == EVENTS_INTERRUPT_OVERRUN));
 
 	if (source == EVENTS_INTERRUPT_DETECT) {
-		EVSYS->INTENCLR.reg = _events_find_bit_position(resource->channel, _EVENTS_START_OFFSET_DETECTION_BIT);
+		EVSYS->INTENCLR.reg = _events_find_bit_position(resource->channel,
+				_EVENTS_START_OFFSET_DETECTION_BIT);
 	} else if (source == EVENTS_INTERRUPT_OVERRUN) {
-		EVSYS->INTENCLR.reg = _events_find_bit_position(resource->channel, _EVENTS_START_OFFSET_OVERRUN_BIT);
+		EVSYS->INTENCLR.reg = _events_find_bit_position(resource->channel,
+			_EVENTS_START_OFFSET_OVERRUN_BIT);
 	} else {
 		return STATUS_ERR_INVALID_ARG;
 	}
@@ -161,34 +173,38 @@ bool events_is_interrupt_set(struct events_resource *resource, enum events_inter
 {
 	Assert((source == EVENTS_INTERRUPT_DETECT) || (source == EVENTS_INTERRUPT_OVERRUN));
 
-	uint8_t bitpos;
+	uint32_t bitpos;
 
 	if (source == EVENTS_INTERRUPT_DETECT) {
-		bitpos = _events_find_bit_position(resource->channel, _EVENTS_START_OFFSET_DETECTION_BIT);
+		bitpos = _events_find_bit_position(resource->channel,
+				_EVENTS_START_OFFSET_DETECTION_BIT);
 	} else if (source == EVENTS_INTERRUPT_OVERRUN) {
-		bitpos = _events_find_bit_position(resource->channel, _EVENTS_START_OFFSET_OVERRUN_BIT);
+		bitpos = _events_find_bit_position(resource->channel,
+				_EVENTS_START_OFFSET_OVERRUN_BIT);
 	} else {
 		return false;
 	}
 
-	return (bool)(_events_inst.interrupt_flag_buffer >> bitpos);
+	return (bool)(_events_inst.interrupt_flag_buffer & bitpos);
 }
 
 enum status_code events_ack_interrupt(struct events_resource *resource, enum events_interrupt_source source)
 {
 	Assert((source == EVENTS_INTERRUPT_DETECT) || (source == EVENTS_INTERRUPT_OVERRUN));
 
-	uint8_t bitpos;
+	uint32_t bitpos;
 
 	if (source == EVENTS_INTERRUPT_DETECT) {
-		bitpos = _events_find_bit_position(resource->channel, _EVENTS_START_OFFSET_DETECTION_BIT);
+		bitpos = _events_find_bit_position(resource->channel,
+				_EVENTS_START_OFFSET_DETECTION_BIT);
 	} else if (source == EVENTS_INTERRUPT_OVERRUN) {
-		bitpos = _events_find_bit_position(resource->channel, _EVENTS_START_OFFSET_OVERRUN_BIT);
+		bitpos = _events_find_bit_position(resource->channel,
+				_EVENTS_START_OFFSET_OVERRUN_BIT);
 	} else {
 		return STATUS_ERR_INVALID_ARG;
 	}
 
-	_events_inst.interrupt_flag_ack_buffer |= 1 << bitpos;
+	_events_inst.interrupt_flag_ack_buffer |= bitpos;
 
 	return STATUS_OK;
 }

@@ -3,7 +3,7 @@
  *
  * \brief GMAC example for SAM.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -105,6 +105,9 @@
  *  \note
  *  Make sure the IP address of the device(EK board) and the computer are in the same network.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include <asf.h>
 #include <string.h>
@@ -258,7 +261,11 @@ static void gmac_process_arp_packet(uint8_t *p_uc_data, uint32_t ul_size)
 			p_arp->ar_tpa[i] = p_arp->ar_spa[i];
 			p_arp->ar_spa[i] = gs_uc_ip_address[i];
 		}
+#if (SAM4E)
 		ul_rc = gmac_dev_write(&gs_gmac_dev, p_uc_data, ul_size, NULL);
+#else
+		ul_rc = gmac_dev_write(&gs_gmac_dev, GMAC_QUE_0, p_uc_data, ul_size, NULL);
+#endif
 		if (ul_rc != GMAC_OK) {
 			printf("E: ARP Send - 0x%x\n\r", ul_rc);
 		}
@@ -322,8 +329,13 @@ static void gmac_process_ip_packet(uint8_t *p_uc_data, uint32_t ul_size)
 				p_eth->et_src[i] = gs_uc_mac_address[i];
 			}
 			/* Send the echo_reply */
+#if (SAM4E)
 			ul_rc = gmac_dev_write(&gs_gmac_dev, p_uc_data,
 					SWAP16(p_ip_header->ip_len) + 14, NULL);
+#else
+			ul_rc = gmac_dev_write(&gs_gmac_dev, GMAC_QUE_0, p_uc_data,
+					SWAP16(p_ip_header->ip_len) + 14, NULL);
+#endif
 			if (ul_rc != GMAC_OK) {
 				printf("E: ICMP Send - 0x%x\n\r", ul_rc);
 			}
@@ -383,7 +395,13 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+#ifdef CONF_UART_CHAR_LENGTH
+        .charlength = CONF_UART_CHAR_LENGTH,
+#endif
+        .paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+        .stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 	
 	/* Configure console UART. */
@@ -396,7 +414,11 @@ static void configure_console(void)
  */
 void GMAC_Handler(void)
 {
+#if (SAM4E)
 	gmac_handler(&gs_gmac_dev);
+#else
+	gmac_handler(&gs_gmac_dev, GMAC_QUE_0);
+#endif
 }
 
 /**
@@ -472,8 +494,13 @@ int main(void)
 
 	while (1) {
 		/* Process packets */
+#if (SAM4E)
 		if (GMAC_OK != gmac_dev_read(&gs_gmac_dev, (uint8_t *) gs_uc_eth_buffer,
 						sizeof(gs_uc_eth_buffer), &ul_frm_size)) {
+#else
+		if (GMAC_OK != gmac_dev_read(&gs_gmac_dev, GMAC_QUE_0, (uint8_t *) gs_uc_eth_buffer,
+						sizeof(gs_uc_eth_buffer), &ul_frm_size)) {
+#endif
 			continue;
 		}
 

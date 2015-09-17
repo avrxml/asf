@@ -3,7 +3,7 @@
  *
  * \brief KS8851SNL driver for SAM0.
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "ksz8851snl.h"
@@ -127,14 +130,14 @@ void configure_intn(void (*p_handler) (void))
  */
 void ksz8851_fifo_read(uint8_t *buf, uint32_t len)
 {
-	uint8_t tmpbuf[9];
+	uint8_t tmpbuf[11];
 
 	spi_select_slave(&ksz8851snl_master, &ksz8851snl_slave, true);
 
 	tmpbuf[0] = FIFO_READ;
 
 	/* Perform SPI transfer. */
-	spi_transceive_buffer_wait(&ksz8851snl_master, tmpbuf, tmpbuf, 9);
+	spi_transceive_buffer_wait(&ksz8851snl_master, tmpbuf, tmpbuf, 11);
 	spi_read_buffer_wait(&ksz8851snl_master, buf, len, 0xff);
 
 	/* Read CRC (don't care). */

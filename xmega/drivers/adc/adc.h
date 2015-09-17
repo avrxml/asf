@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Analog to Digital Converter driver
  *
- * Copyright (C) 2010-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #ifndef ADC_H
 #define ADC_H
@@ -208,20 +211,43 @@ struct adc_config {
 #define TEMPSENSE0    offsetof(NVM_PROD_SIGNATURES_t, TEMPSENSE0)
 /** Temperature sensor calibration byte 1. */
 #define TEMPSENSE1    offsetof(NVM_PROD_SIGNATURES_t, TEMPSENSE1)
-
+/** Temperature at which TEMPSENSE1/TEMPSENSE0 is measured. */
+#define HOTTEMP       offsetof(NVM_PROD_SIGNATURES_t, HOTTEMP)
+/** Temperature at which TEMPSENSE3/TEMPSENSE2 is measured. */
+#define ROOMTEMP      offsetof(NVM_PROD_SIGNATURES_t, ROOMTEMP)
+/** Temperature sensor calibration byte 2. */
+#define TEMPSENSE2    offsetof(NVM_PROD_SIGNATURES_t, TEMPSENSE2)
+/** Temperature sensor calibration byte 3. */
+#define TEMPSENSE3    offsetof(NVM_PROD_SIGNATURES_t, TEMPSENSE3)
 /** @} */
 
 /** \brief ADC calibration data */
 enum adc_calibration_data {
-	ADC_CAL_ADCA,    /**< ADC A pipeline calibration data. */
-	ADC_CAL_ADCB,    /**< ADC B pipeline calibration data. */
-
+	/** ADC A pipeline calibration data. */
+	ADC_CAL_ADCA,
+	/** ADC B pipeline calibration data. */
+	ADC_CAL_ADCB,
 	/**
 	 * \brief Temperature sensor calibration data.
 	 * \note 12-bit unsigned, measured at 85 degrees Celsius, equivalent to
 	 * 358.15 kelvin.
+	 *
+	 * For AVR XMEGA E devices, the calibration reading is 12 Bit signed.
+	 * AVR XMEGA E production signature row contains data for two 
+	 * calibration points. Each calibration point has one byte for
+	 * storing the temperature at which the internal temperature sensor
+	 * is measured and two bytes for the corresponding ADC reading.
 	 */
 	ADC_CAL_TEMPSENSE,
+	/** Normally one calibration point is taken at 85 Deg C,
+	 * but the exact value in Deg C is given in the HOTTEMP signature row.
+	 */
+	ADC_CAL_HOTTEMP,
+	/** ADC reading at ROOMTEMP in stored in TEMPSENSE2. */
+	ADC_CAL_TEMPSENSE2,
+	/** The room temperature (in Deg C) measured during device manufacturing.
+	 */
+	ADC_CAL_ROOMTEMP
 };
 
 /** \name ADC channel masks */
@@ -349,7 +375,7 @@ enum adc_reference {
  *
  * \return Pointer to ADC channel
  */
-static __always_inline ADC_CH_t *adc_get_channel(
+__always_inline static  ADC_CH_t *adc_get_channel(
 		ADC_t *adc, uint8_t ch_mask)
 {
 	uint8_t index = 0;
@@ -756,6 +782,22 @@ static inline uint16_t adc_get_calibration_data(enum adc_calibration_data cal)
 		data = nvm_read_production_signature_row(TEMPSENSE1);
 		data <<= 8;
 		data |= nvm_read_production_signature_row(TEMPSENSE0);
+		break;
+#endif
+
+#if XMEGA_E
+	case ADC_CAL_HOTTEMP:
+		data = nvm_read_production_signature_row(HOTTEMP);
+		break;
+	
+	case ADC_CAL_ROOMTEMP:
+		data = nvm_read_production_signature_row(ROOMTEMP);
+		break;
+	
+	case ADC_CAL_TEMPSENSE2:
+		data = nvm_read_production_signature_row(TEMPSENSE3);
+		data <<= 8;
+		data |= nvm_read_production_signature_row(TEMPSENSE2);
 		break;
 #endif
 

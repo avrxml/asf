@@ -2315,10 +2315,10 @@
 									<name>$PROJ_DIR$/../../../../../source/tal/atmegarfr2/inc/tal_pib.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../source/tal/atmegarfr2/inc/atmega256rfr2.h</name>
+									<name>$PROJ_DIR$/../../../../../source/tal/atmegarfr2/inc/tal_internal.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../source/tal/atmegarfr2/inc/tal_internal.h</name>
+									<name>$PROJ_DIR$/../../../../../source/tal/atmegarfr2/inc/atmega256rfr2.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../source/tal/atmegarfr2/inc/tal_irq_handler.h</name>
@@ -2501,10 +2501,10 @@
 									<name>$PROJ_DIR$/../conf_clock.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../conf_hw_timer.h</name>
+									<name>$PROJ_DIR$/../conf_board.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../conf_board.h</name>
+									<name>$PROJ_DIR$/../conf_hw_timer.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../conf_usart_serial.h</name>
@@ -2520,6 +2520,9 @@
 					<name>include</name>
 					<file>
 						<name>$PROJ_DIR$/../../../../../include/mac_build_config.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../include/ieee_154g.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../include/return_val.h</name>

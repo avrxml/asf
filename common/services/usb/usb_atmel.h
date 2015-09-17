@@ -3,7 +3,7 @@
  *
  * \brief All USB VIDs and PIDs from Atmel USB applications
  *
- * Copyright (c) 2009-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _USB_ATMEL_H_
@@ -120,6 +123,7 @@
 #define  USB_PID_ATMEL_ASF_MSC                     0x2403
 #define  USB_PID_ATMEL_ASF_CDC                     0x2404
 #define  USB_PID_ATMEL_ASF_PHDC                    0x2405
+#define  USB_PID_ATMEL_ASF_HIDMTOUCH               0x2406
 #define  USB_PID_ATMEL_ASF_MSC_HIDMOUSE            0x2420
 #define  USB_PID_ATMEL_ASF_MSC_HIDS_CDC            0x2421
 #define  USB_PID_ATMEL_ASF_MSC_HIDKEYBOARD         0x2422

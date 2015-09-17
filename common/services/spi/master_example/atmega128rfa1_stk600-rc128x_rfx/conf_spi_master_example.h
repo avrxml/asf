@@ -3,7 +3,7 @@
  *
  * \brief Configuration of the atmega128rfa1_stk600 board for the spi example
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #ifndef _CONF_SPI_MASTER_EXAMPLE_H
 #define _CONF_SPI_MASTER_EXAMPLE_H

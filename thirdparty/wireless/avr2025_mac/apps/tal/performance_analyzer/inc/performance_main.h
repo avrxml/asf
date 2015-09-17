@@ -3,7 +3,7 @@
  *
  * \brief API function protypes - Performance Analyzer application
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -50,6 +50,16 @@
 #ifndef PERF_MAIN_H
 #define PERF_MAIN_H
 
-void performance_analyzer_main(void);
+/**
+ * \brief Init function of the Performance Analyzer application
+ * \ingroup group_app_init
+ */
+void performance_analyzer_init(void);
+
+/**
+ * \brief This task needs to be called in a while(1) for performing Performance
+ *Analyzer tasks
+ */
+void performance_analyzer_task(void);
 
 #endif

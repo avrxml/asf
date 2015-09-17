@@ -7,7 +7,7 @@
  * This file show a way to use the 16-bit NLMS filter function and print the output signal
  * through the USART.
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -74,6 +74,9 @@
  *   - no parity bit,
  *   - 1 stop bit,
  *   - no flow control.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <avr32/io.h>

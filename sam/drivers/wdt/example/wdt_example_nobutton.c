@@ -3,7 +3,7 @@
  *
  * \brief Watchdog Timer (WDT) example for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -80,6 +80,9 @@
 \endcode
  * -# After XX seconds the system enters in a deadlock loop.
 \endcode
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"

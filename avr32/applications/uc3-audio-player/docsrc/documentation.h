@@ -70,13 +70,13 @@
  * \section contactinfo Contact Information
  * For further information, visit
  * <A href="http://www.atmel.com/products/AVR32/">Atmel 32-bit AVR Microcontrollers</A>.\n
- * Support and FAQ: http://support.atmel.no/
+ * Support and FAQ: http://www.atmel.com/design-support/
  *
  */
 
 /**
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -112,4 +112,7 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

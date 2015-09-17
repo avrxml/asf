@@ -59,7 +59,7 @@
 // From module: EEFC - Enhanced Embedded Flash Controller
 #include <efc.h>
 
-// From module: Ethernet Physical Transceiver (ksz8051mnl)
+// From module: Ethernet Physical Transceiver (ksz8081mnx)
 #include <ethernet_phy.h>
 
 // From module: Flash - SAM Flash Service API

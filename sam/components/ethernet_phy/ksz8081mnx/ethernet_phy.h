@@ -3,7 +3,7 @@
  *
  * \brief KSZ8081MNX (Ethernet PHY) driver for SAM.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef ETHERNET_PHY_H_INCLUDED
@@ -153,6 +156,12 @@
 #define GMII_NP_ABLE          (1 << 2) // Local Device Next Page Able
 #define GMII_PAGE_RX          (1 << 1) // New Page Received
 #define GMII_LP_AN_ABLE       (1 << 0) // Link Partner Auto-negotiation Able
+
+// Bit definitions: GMII_PCR1 0x1E PHY Control 1
+#define GMII_OMI_10BASE_T_HD	0x0001
+#define GMII_OMI_100BASE_TX_HD	0x0002
+#define GMII_OMI_10BASE_T_FD	0x0005
+#define GMII_OMI_100BASE_TX_FD	0x0006
 
 /**
  * \brief Perform a HW initialization to the PHY and set up clocks.

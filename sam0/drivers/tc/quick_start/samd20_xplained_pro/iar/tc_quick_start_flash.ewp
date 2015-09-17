@@ -63,7 +63,7 @@
 				</option>
 				<option>
 					<name>OGCoreOrChip</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GRuntimeLibSelect</name>
@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>default  None</state>
+					<state>ATSAMD20J18	Atmel ATSAMD20J18</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -166,7 +166,7 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM0=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>__SAMD20J18__</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
 					<state>TC_ASYNC=false</state>
@@ -298,24 +298,29 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../..</state>
+					<state>$PROJ_DIR$/../../../../system/clock/clock_samd20</state>
+					<state>$PROJ_DIR$/../../../../system/power</state>
+					<state>$PROJ_DIR$/../../../../system/reset</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../boards/samd20_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd20/source</state>
+					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd20</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt</state>
+					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../..</state>
+					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include</state>
 					<state>$PROJ_DIR$/../../../../system/pinmux</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../system/clock/clock_samd20</state>
-					<state>$PROJ_DIR$/../../../../../boards/samd20_xplained_pro</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd20/source</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
-					<state>$PROJ_DIR$/../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../system</state>
-					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd20</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../tc_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../system/clock</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -466,7 +471,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM0=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>__SAMD20J18__</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
 					<state>TC_ASYNC=false</state>
@@ -565,24 +570,29 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../..</state>
+					<state>$PROJ_DIR$/../../../../system/clock/clock_samd20</state>
+					<state>$PROJ_DIR$/../../../../system/power</state>
+					<state>$PROJ_DIR$/../../../../system/reset</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../boards/samd20_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd20/source</state>
+					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd20</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt</state>
+					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../..</state>
+					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include</state>
 					<state>$PROJ_DIR$/../../../../system/pinmux</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../system/clock/clock_samd20</state>
-					<state>$PROJ_DIR$/../../../../../boards/samd20_xplained_pro</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd20/source</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
-					<state>$PROJ_DIR$/../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../system</state>
-					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd20</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../tc_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../system/clock</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1022,7 +1032,7 @@
 				</option>
 				<option>
 					<name>OGCoreOrChip</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GRuntimeLibSelect</name>
@@ -1056,7 +1066,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>default  None</state>
+					<state>ATSAMD20J18	Atmel ATSAMD20J18</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1104,7 +1114,7 @@
 				</option>
 				<option>
 					<name>OGUseCmsis</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>OGUseCmsisDspLib</name>
@@ -1125,7 +1135,7 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM0=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>__SAMD20J18__</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
 					<state>TC_ASYNC=false</state>
@@ -1193,7 +1203,7 @@
 				</option>
 				<option>
 					<name>CCDebugInfo</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IEndianMode</name>
@@ -1257,24 +1267,29 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../..</state>
+					<state>$PROJ_DIR$/../../../../system/clock/clock_samd20</state>
+					<state>$PROJ_DIR$/../../../../system/power</state>
+					<state>$PROJ_DIR$/../../../../system/reset</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../boards/samd20_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd20/source</state>
+					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd20</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt</state>
+					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../..</state>
+					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include</state>
 					<state>$PROJ_DIR$/../../../../system/pinmux</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../system/clock/clock_samd20</state>
-					<state>$PROJ_DIR$/../../../../../boards/samd20_xplained_pro</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd20/source</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
-					<state>$PROJ_DIR$/../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../system</state>
-					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd20</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../tc_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../system/clock</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1425,7 +1440,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM0=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>__SAMD20J18__</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
 					<state>TC_ASYNC=false</state>
@@ -1524,24 +1539,29 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../..</state>
+					<state>$PROJ_DIR$/../../../../system/clock/clock_samd20</state>
+					<state>$PROJ_DIR$/../../../../system/power</state>
+					<state>$PROJ_DIR$/../../../../system/reset</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../boards/samd20_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd20/source</state>
+					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../port</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd20</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt</state>
+					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../..</state>
+					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include</state>
 					<state>$PROJ_DIR$/../../../../system/pinmux</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../system/clock/clock_samd20</state>
-					<state>$PROJ_DIR$/../../../../../boards/samd20_xplained_pro</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd20/source</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
-					<state>$PROJ_DIR$/../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../system</state>
-					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd20</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../tc_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../system/clock</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1929,12 +1949,6 @@
 					<file>
 						<name>$PROJ_DIR$/../../qs_tc_basic.c</name>
 					</file>
-					<file>
-						<name>$PROJ_DIR$/../../qs_tc_basic.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../conf_quick_start.h</name>
-					</file>
 					<group>
 						<name>samd20_xplained_pro</name>
 						<file>
@@ -1947,17 +1961,17 @@
 							</file>
 						</group>
 						<file>
+							<name>$PROJ_DIR$/../conf_quick_start.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../conf_clocks.h</name>
 						</file>
 					</group>
 				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../tc.c</name>
-				</file>
 				<group>
-					<name>quick_start_dma</name>
+					<name>tc_sam_d_r</name>
 					<file>
-						<name>$PROJ_DIR$/../../../quick_start_dma/qs_tc_dma.h</name>
+						<name>$PROJ_DIR$/../../../tc_sam_d_r/tc.c</name>
 					</file>
 				</group>
 				<file>
@@ -1980,6 +1994,9 @@
 							<name>$PROJ_DIR$/../../../../system/clock/clock_samd20/gclk.c</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../system/clock/clock_samd20/clock_feature.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../system/clock/clock_samd20/clock_config_check.h</name>
 						</file>
 					</group>
@@ -1989,18 +2006,6 @@
 					<file>
 						<name>$PROJ_DIR$/../../../../system/clock/clock.h</name>
 					</file>
-					<group>
-						<name>quick_start_gclk</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../system/clock/quick_start_gclk/qs_gclk_basic.h</name>
-						</file>
-					</group>
-					<group>
-						<name>quick_start_clock</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../system/clock/quick_start_clock/qs_clock_source.h</name>
-						</file>
-					</group>
 				</group>
 				<group>
 					<name>pinmux</name>
@@ -2031,16 +2036,28 @@
 					<file>
 						<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt.h</name>
 					</file>
+				</group>
+				<group>
+					<name>power</name>
 					<group>
-						<name>quick_start</name>
+						<name>power_sam_d_r</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../system/interrupt/quick_start/qs_system_interrupt.h</name>
+							<name>$PROJ_DIR$/../../../../system/power/power_sam_d_r/power.h</name>
 						</file>
 					</group>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../system/system.h</name>
 				</file>
+				<group>
+					<name>reset</name>
+					<group>
+						<name>reset_sam_d_r</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r/reset.h</name>
+						</file>
+					</group>
+				</group>
 			</group>
 			<group>
 				<name>port</name>
@@ -2084,6 +2101,9 @@
 						<group>
 							<name>pio</name>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/samd20e15.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/samd20j15.h</name>
 							</file>
 							<file>
@@ -2123,16 +2143,10 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/samd20g17.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/samd20e15.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/samd20g17u.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/samd20e16.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/samd20e1f.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/pio/samd20e14.h</name>
@@ -2201,6 +2215,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/instance/pac1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/instance/evsys.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/instance/sercom5.h</name>
 							</file>
 							<file>
@@ -2249,9 +2266,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/instance/nvmctrl.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/instance/evsys.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/instance/tc5.h</name>
 							</file>
 							<file>
@@ -2289,9 +2303,6 @@
 							</file>
 						</group>
 						<file>
-							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/samd20g18u.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/samd20j16.h</name>
 						</file>
 						<file>
@@ -2317,6 +2328,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/samd20e16.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/samd20g18u.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd20/include/samd20g15.h</name>

@@ -337,7 +337,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
-					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/gpio</state>
 					<state>$PROJ_DIR$/../../../../../source/tal/inc</state>
 					<state>$PROJ_DIR$/../../../../../source/pal</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/delay</state>
@@ -350,6 +350,7 @@
 					<state>$PROJ_DIR$/../../inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -637,7 +638,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
-					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/gpio</state>
 					<state>$PROJ_DIR$/../../../../../source/tal/inc</state>
 					<state>$PROJ_DIR$/../../../../../source/pal</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/delay</state>
@@ -650,6 +651,7 @@
 					<state>$PROJ_DIR$/../../inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1362,7 +1364,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
-					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/gpio</state>
 					<state>$PROJ_DIR$/../../../../../source/tal/inc</state>
 					<state>$PROJ_DIR$/../../../../../source/pal</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/delay</state>
@@ -1375,6 +1377,7 @@
 					<state>$PROJ_DIR$/../../inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1662,7 +1665,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils/stdio/stdio_serial</state>
-					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/gpio</state>
 					<state>$PROJ_DIR$/../../../../../source/tal/inc</state>
 					<state>$PROJ_DIR$/../../../../../source/pal</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/delay</state>
@@ -1675,6 +1678,7 @@
 					<state>$PROJ_DIR$/../../inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
+					<state>$PROJ_DIR$/../../../../../../services/common_hw_timer</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -2401,6 +2405,9 @@
 				<group>
 					<name>include</name>
 					<file>
+						<name>$PROJ_DIR$/../../../../../include/ieee_154g.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../include/avr2025_mac.h</name>
 					</file>
 					<file>
@@ -3037,18 +3044,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc.c</name>
 				</file>
-				<group>
-					<name>tc_capture_waveform_example</name>
-					<group>
-						<name>sam4e16e_sam4e_ek</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc.h</name>
 				</file>
@@ -3069,6 +3064,15 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/flashcalw/flashcalw.h</name>
+				</file>
+			</group>
+			<group>
+				<name>gpio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/gpio/gpio.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/gpio/gpio.h</name>
 				</file>
 			</group>
 			<group>

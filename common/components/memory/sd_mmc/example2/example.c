@@ -3,7 +3,7 @@
  *
  * \brief SD/MMC card example with FatFs
  *
- * Copyright (c) 2012 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -69,6 +69,9 @@
 	Please plug an SD, MMC or SDIO card in slot.
 \endcode
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include "conf_example.h"
@@ -86,7 +89,6 @@ int main(void)
 	FRESULT res;
 	FATFS fs;
 	FIL file_object;
-
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate   = CONF_TEST_BAUDRATE,
 		.charlength = CONF_TEST_CHARLENGTH,

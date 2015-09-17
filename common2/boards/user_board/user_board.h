@@ -10,6 +10,9 @@
  * startup time for an external crystal, external memory devices, LED and USART
  * pins.
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef USER_BOARD_H
 #define USER_BOARD_H

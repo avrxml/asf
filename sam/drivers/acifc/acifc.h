@@ -3,7 +3,7 @@
  *
  * \brief SAM4L Analog Comparator Interface Driver.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,19 +40,26 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef ACIFC_H_INCLUDED
 #define ACIFC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_acifc_group SAM4L Analog Comparator Interface Controller (ACIFC)
+ * \defgroup asfdoc_sam_drivers_acifc_group SAM4L Analog Comparator Interface Controller (ACIFC) Driver
  *
- * This driver for SAM4L devices provides an interface for the configuration
- * and management of the device's Analog Comparator Interface Controller functionality.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides 
+ * an interface for the configuration and management of the device's Analog 
+ * Comparator Interface Controller functionality.
  *
  * The Analog Comparator Interface controls eight Analog Comparators (AC) with
  * identical behavior. Each Analog Comparator compares two voltages, yielding an
  * output that depends on the result of the comparison.
+ *
+ * Devices from the following series can use this module:
+ * - Atmel | SMART SAM4L
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam_drivers_acifc_prerequisites
@@ -177,149 +184,149 @@ struct ac_dev_inst {
 
 /** ACIFC hysteresis voltage. */
 enum ac_hysteresis_voltage {
-	AC_HYSTERESIS_0_MV = 0,		/**< 0mV of hysteresis. */
-	AC_HYSTERESIS_25_MV,		/**< 25mV of hysteresis. */
-	AC_HYSTERESIS_50_MV,		/**< 50mV of hysteresis. */
-	AC_HYSTERESIS_75_MV			/**< 75mV of hysteresis. */
+	AC_HYSTERESIS_0_MV = 0,		/**< 0mV of hysteresis */
+	AC_HYSTERESIS_25_MV,		/**< 25mV of hysteresis */
+	AC_HYSTERESIS_50_MV,		/**< 50mV of hysteresis */
+	AC_HYSTERESIS_75_MV			/**< 75mV of hysteresis */
 };
 
 /** ACIFC negative input. */
 enum ac_negative_input{
 	AC_NEGTIVE_INPUT_EXTERNAL = 0,		/**< ACANx (ACBNx) pin selected. */
 #if !defined(__DOXYGEN__)
-	AC_NEGTIVE_INPUT_RESERVED1,			/**< Reserved. */
-	AC_NEGTIVE_INPUT_RESERVED2,			/**< Reserved. */
-	AC_NEGTIVE_INPUT_RESERVED3			/**< Reserved. */
+	AC_NEGTIVE_INPUT_RESERVED1,			/**< Reserved */
+	AC_NEGTIVE_INPUT_RESERVED2,			/**< Reserved */
+	AC_NEGTIVE_INPUT_RESERVED3			/**< Reserved */
 #endif /* !defined(__DOXYGEN__) */
 };
 
 /** ACIFC comparator mode. */
 enum ac_comparator_mode {
-	AC_COMPARATOR_OFF = 0,			/**< Off. */
-	AC_COMPARATOR_CONTINUOUS,		/**< Continuous measurement mode. */
-	AC_COMPARATOR_USER_TRIGGERED,	/**< User triggered single measurement mode. */
-	AC_COMPARATOR_EVENT_TRIGGERED	/**< Peripheral event triggered single measurement mode. */
+	AC_COMPARATOR_OFF = 0,			/**< Off */
+	AC_COMPARATOR_CONTINUOUS,		/**< Continuous measurement mode */
+	AC_COMPARATOR_USER_TRIGGERED,	/**< User triggered single measurement mode */
+	AC_COMPARATOR_EVENT_TRIGGERED	/**< Peripheral event triggered single measurement mode */
 };
 
 /** ACIFC channel interrupt setting. */
 enum ac_ch_interrupt_setting {
-	AC_CH_IS_VINP_GT_VINN = 0,		/**< Interrupt when V<SUB>INP</SUB> > V<SUB>INN</SUB>. */
-	AC_CH_IS_VINP_LT_VINN,			/**< Interrupt when V<SUB>INP</SUB> < V<SUB>INN</SUB>. */
-	AC_CH_IS_OUTPUT_TGL,			/**< Interrupt on toggle of ACOUT. */
-	AC_CH_IS_COMP_DONE				/**< Interrupt when comparison of V<SUB>INP</SUB> and V<SUB>INN</SUB> is done. */
+	AC_CH_IS_VINP_GT_VINN = 0,		/**< Interrupt when V<SUB>INP</SUB> > V<SUB>INN</SUB> */
+	AC_CH_IS_VINP_LT_VINN,			/**< Interrupt when V<SUB>INP</SUB> < V<SUB>INN</SUB> */
+	AC_CH_IS_OUTPUT_TGL,			/**< Interrupt on toggle of ACOUT */
+	AC_CH_IS_COMP_DONE				/**< Interrupt when comparison of V<SUB>INP</SUB> and V<SUB>INN</SUB> is done */
 };
 
 /** ACIFC channel configuration structure. */
 struct ac_ch_config {
-	/** Hysteresis value. */
+	/** Hysteresis value */
 	enum ac_hysteresis_voltage hysteresis_voltage;
-	/**  Specify whether the ACIFC channel is always on. */
+	/**  Specify whether the ACIFC channel is always on */
 	bool always_on;
-	/**  Enable/disable fast mode. */
+	/**  Enable/disable fast mode */
 	bool fast_mode;
-	/**  Enable/disable the output event when ACOUT is zero. */
+	/**  Enable/disable the output event when ACOUT is zero */
 	bool event_negative;
-	/**  Enable/disable the output event when ACOUT is one. */
+	/**  Enable/disable the output event when ACOUT is one */
 	bool event_positive;
-	/** The negative input setting. */
+	/** The negative input setting */
 	enum ac_negative_input negative_input;
-	/** The comparator mode setting. */
+	/** The comparator mode setting */
 	enum ac_comparator_mode comparator_mode;
-	/** The interrupt setting. */
+	/** The interrupt setting */
 	enum ac_ch_interrupt_setting interrupt_setting;
 };
 
 /** ACIFC window event output configuration. */
 enum ac_win_event_source {
-	AC_WIN_EVENT_ACWOUT_RISING_EDGE = 0,	/**< ACWOUT rising edge. */
-	AC_WIN_EVENT_ACWOUT_FALLING_EDGE,		/**< ACWOUT falling edge. */
-	AC_WIN_EVENT_ACWOUT_ON_ANY_EDGE,		/**< ACWOUT rising or falling edge. */
-	AC_WIN_EVENT_INSIDE_WINDOW,				/**< Inside window. */
-	AC_WIN_EVENT_OUTSIDE_WINDOW,			/**< Outside window. */
-	AC_WIN_EVENT_MEASURE_DONE,				/**< Measurement done. */
+	AC_WIN_EVENT_ACWOUT_RISING_EDGE = 0,	/**< ACWOUT rising edge */
+	AC_WIN_EVENT_ACWOUT_FALLING_EDGE,		/**< ACWOUT falling edge */
+	AC_WIN_EVENT_ACWOUT_ON_ANY_EDGE,		/**< ACWOUT rising or falling edge */
+	AC_WIN_EVENT_INSIDE_WINDOW,				/**< Inside window */
+	AC_WIN_EVENT_OUTSIDE_WINDOW,			/**< Outside window */
+	AC_WIN_EVENT_MEASURE_DONE,				/**< Measurement done */
 #if !defined(__DOXYGEN__)
-	AC_WIN_EVENT_RESERVED1,					/**< Reserved. */
-	AC_WIN_EVENT_RESERVED2					/**< Reserved. */
+	AC_WIN_EVENT_RESERVED1,					/**< Reserved */
+	AC_WIN_EVENT_RESERVED2					/**< Reserved */
 #endif /* !defined(__DOXYGEN__) */
 };
 
 /** ACIFC window interrupt settings. */
 enum ac_win_interrupt_setting {
-	/** Window interrupt as soon as the common input voltage is inside the window. */
+	/** Window interrupt as soon as the common input voltage is inside the window */
 	AC_WIN_IS_VINP_INSIDE_WINDOW = 0,
-	/** Window interrupt as soon as the common input voltage is outside the window. */
+	/** Window interrupt as soon as the common input voltage is outside the window */
 	AC_WIN_IS_VINP_OUTSIDE_WINDOW,
-	/** Window interrupt on toggle of ACWOUT. */
+	/** Window interrupt on toggle of ACWOUT */
 	AC_WIN_IS_WINDOW_OUTPUT_TGL,
-	/** Window interrupt when evaluation of common input voltage is done. */
+	/** Window interrupt when evaluation of common input voltage is done */
 	AC_WIN_IS_WINDOW_COMP_DONE,
 	/** Window interrupt when the common input voltage enters the window
-	(e.g. the rising-edge of ACWOUT). */
+	(e.g. the rising-edge of ACWOUT) */
 	AC_WIN_IS_VINP_ENTER_WINDOW,
 	/** Window interrupt when the common input voltage leaves the window
-	(e.g. the falling-edge of ACWOUT). */
+	(e.g. the falling-edge of ACWOUT) */
 	AC_WIN_IS_VINP_LEAVE_WINDOW,
 #if !defined(__DOXYGEN__)
-	/** Reserved. */
+	/** Reserved */
 	AC_WIN_IS_RESERVED1,
-	/** Reserved. */
+	/** Reserved */
 	AC_WIN_IS_RESERVED2,
 #endif /* !defined(__DOXYGEN__) */
 };
 
 /** ACIFC window configuration structure. */
 struct ac_win_config {
-	/**  Enable/disable window mode. */
+	/**  Enable/disable window mode */
 	bool enable;
-	/**  Enable/disable the window event from ACWOUT. */
+	/**  Enable/disable the window event from ACWOUT */
 	bool event_enable;
-	/** Window event output configuration. */
+	/** Window event output configuration */
 	enum ac_win_event_source event_source;
-	/** Interrupt settings. */
+	/** Interrupt settings */
 	enum ac_win_interrupt_setting interrupt_setting;
 };
 
 /** ACIFC interrupt configuration type. */
 typedef enum ac_interrupt_source {
-	/** Conversion completed on channel 0. */
+	/** Conversion completed on channel 0 */
 	AC_INTERRUPT_CONVERSION_COMPLETED_0 = 0,
-	/** Start-up time elapsed on channel 0. */
+	/** Start-up time elapsed on channel 0 */
 	AC_INTERRUPT_STARTUP_TIME_ELAPSED_0,
-	/** Conversion completed on channel 1. */
+	/** Conversion completed on channel 1 */
 	AC_INTERRUPT_CONVERSION_COMPLETED_1,
-	/** Start-up time elapsed on channel 1. */
+	/** Start-up time elapsed on channel 1 */
 	AC_INTERRUPT_STARTUP_TIME_ELAPSED_1,
-	/** Conversion completed on channel 2. */
+	/** Conversion completed on channel 2 */
 	AC_INTERRUPT_CONVERSION_COMPLETED_2,
-	/** Start-up time elapsed on channel 2. */
+	/** Start-up time elapsed on channel 2 */
 	AC_INTERRUPT_STARTUP_TIME_ELAPSED_2,
-	/** Conversion completed on channel 3. */
+	/** Conversion completed on channel 3 */
 	AC_INTERRUPT_CONVERSION_COMPLETED_3,
-	/** Start-up time elapsed on channel 3. */
+	/** Start-up time elapsed on channel 3 */
 	AC_INTERRUPT_STARTUP_TIME_ELAPSED_3,
-	/** Conversion completed on channel 4. */
+	/** Conversion completed on channel 4 */
 	AC_INTERRUPT_CONVERSION_COMPLETED_4,
-	/** Start-up time elapsed on channel 4. */
+	/** Start-up time elapsed on channel 4 */
 	AC_INTERRUPT_STARTUP_TIME_ELAPSED_4,
-	/** Conversion completed on channel 5. */
+	/** Conversion completed on channel 5 */
 	AC_INTERRUPT_CONVERSION_COMPLETED_5,
-	/** Start-up time elapsed on channel 5. */
+	/** Start-up time elapsed on channel 5 */
 	AC_INTERRUPT_STARTUP_TIME_ELAPSED_5,
-	/** Conversion completed on channel 6. */
+	/** Conversion completed on channel 6 */
 	AC_INTERRUPT_CONVERSION_COMPLETED_6,
-	/** Start-up time elapsed on channel 6. */
+	/** Start-up time elapsed on channel 6 */
 	AC_INTERRUPT_STARTUP_TIME_ELAPSED_6,
-	/** Conversion completed on channel 7. */
+	/** Conversion completed on channel 7 */
 	AC_INTERRUPT_CONVERSION_COMPLETED_7,
-	/** Start-up time elapsed on channel 7. */
+	/** Start-up time elapsed on channel 7 */
 	AC_INTERRUPT_STARTUP_TIME_ELAPSED_7,
-	/** Window 0 interrupt. */
+	/** Window 0 interrupt */
 	AC_INTERRUPT_WINDOW_0,
-	/** Window 1 interrupt. */
+	/** Window 1 interrupt */
 	AC_INTERRUPT_WINDOW_1,
-	/** Window 2 interrupt. */
+	/** Window 2 interrupt */
 	AC_INTERRUPT_WINDOW_2,
-	/** Window 3 interrupt. */
+	/** Window 3 interrupt */
 	AC_INTERRUPT_WINDOW_3,
 #if !defined(__DOXYGEN__)	
 	AC_INTERRUPT_NUM,
@@ -520,7 +527,7 @@ static inline uint32_t ac_get_status(
  /** @} */
 
 /**
- * \page asfdoc_sam_drivers_acifc_extra Extra Information for Analog Comparator Interface driver
+ * \page asfdoc_sam_drivers_acifc_extra Extra Information for Analog Comparator Interface Driver
  *
  * \section asfdoc_sam_drivers_acifc_extra_acronyms Acronyms
  * Below is a table listing the acronyms used in this module, along with their
@@ -578,7 +585,7 @@ static inline uint32_t ac_get_status(
  * This is a list of the available Quick Start guides (QSGs) and example
  * applications for \ref asfdoc_sam_drivers_acifc_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  *  - \subpage asfdoc_sam_drivers_acifc_qsg
@@ -591,6 +598,11 @@ static inline uint32_t ac_get_status(
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>42323B
+ *		<td>05/2014</td>
+ *		<td>Updated title of application note and added list of supported devices</td>
  *	</tr>
  *	<tr>
  *		<td>42323A</td>

@@ -4,7 +4,7 @@
  * \brief Provides the low-level initialization functions that called
  * on chip startup.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,6 +41,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "sam4e.h"
 
@@ -60,7 +63,7 @@ extern "C" {
 		| CKGR_PLLAR_DIVA(0x1U))
 #define SYS_BOARD_MCKR      (PMC_MCKR_PRES_CLK_2 | PMC_MCKR_CSS_PLLA_CLK)
 
-#define SYS_CKGR_MOR_KEY_VALUE	CKGR_MOR_KEY(0x37) /* Key to unlock MOR register */
+#define SYS_CKGR_MOR_KEY_VALUE	CKGR_MOR_KEY_PASSWD/* Key to unlock MOR register */
 
 uint32_t SystemCoreClock = CHIP_FREQ_MAINCK_RC_4MHZ;
 

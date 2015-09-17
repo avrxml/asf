@@ -7,11 +7,11 @@
  *
  *
  * @author    Atmel Corporation: http://www.atmel.com
- * @author    Support email: avr@atmel.com
+ * @author    Support: http://www.atmel.com/design-support/
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -94,7 +94,7 @@
  * ensure that NIB storage location, firmware image and bootloader area do not
  * overlap; check if nib is sufficient while changing pairing table size. */
 #define NIB_SIZE                    (6 * 1024) /*for ZID and NWK nib *//* bytes
-	                                        **/
+	                                       **/
 
 /* Fixed size of the boot loader area.
  * If the boot loader area size is changed,

@@ -4,7 +4,7 @@
  * \brief Example to illustrate the Sleepwalking feature with the ADCIFB module
  *        in AT32UC3L series
  *
- * Copyright (C) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,6 +43,9 @@
  */
 
 /* Include Files */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <stdint.h>
 #include "compiler.h"
 #include "board.h"
@@ -667,8 +670,7 @@ static void power_save_measures_init()
  * For further information, visit :
  * <A href="http://www.atmel.com/products/AVR32/"> Atmel AVR32 </A>.\n
  * Technical support & faq, visit :
- * <A href="http://support.atmel.no/"> Support and FAQ </A>.\n
- * For Technical Support, e-mail : avr32@atmel.com
+ * <A href="http://www.atmel.com/design-support/"> Support and FAQ </A>.
  *
  * \author
  * Atmel Corporation : http://www.atmel.com \n

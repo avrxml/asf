@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Peripheral Control API For the USART
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,12 +42,18 @@
  */
 
 /* Standard includes. */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <string.h>
 
 /* ASF includes. */
 #include "serial.h"
 #include "freertos_usart_serial.h"
 #include "freertos_peripheral_control_private.h"
+#if (SAMG55)
+#include "flexcom.h"
+#endif
 
 /* Every bit in the interrupt mask. */
 #define MASK_ALL_INTERRUPTS         (0xffffffffUL)
@@ -65,7 +71,9 @@ Equivalent to times 5 then divide by 1000. */
 #define BITS_PER_5_MS               (200UL)
 
 /* Work out how many USARTS are present. */
-#if defined(PDC_USART6)
+#if defined(PDC_USART7)
+	#define MAX_USARTS                              (8)
+#elif defined(PDC_USART6)
 	#define MAX_USARTS                              (7)
 #elif defined(PDC_USART5)
 	#define MAX_USARTS                              (6)
@@ -105,6 +113,19 @@ static freertos_dma_event_control_t tx_dma_control[MAX_USARTS];
 /* Create an array that holds the information required about each defined
 USART. */
 static const freertos_pdc_peripheral_parameters_t all_usart_definitions[MAX_USARTS] = {
+#if SAMG55
+	{USART0, PDC_USART0, ID_FLEXCOM0, FLEXCOM0_IRQn},
+	{USART1, PDC_USART1, ID_FLEXCOM1, FLEXCOM1_IRQn},
+	{USART2, PDC_USART2, ID_FLEXCOM2, FLEXCOM2_IRQn},
+	{USART3, PDC_USART3, ID_FLEXCOM3, FLEXCOM3_IRQn},
+	{USART4, PDC_USART4, ID_FLEXCOM4, FLEXCOM4_IRQn},
+	{USART5, PDC_USART5, ID_FLEXCOM5, FLEXCOM5_IRQn},
+	{USART6, PDC_USART6, ID_FLEXCOM6, FLEXCOM6_IRQn},
+#if (MAX_USARTS > 7)
+	{USART7, PDC_USART7, ID_FLEXCOM7, FLEXCOM7_IRQn},
+#endif
+
+#else
 #if	defined(PDC_USART0)
 	{USART0, PDC_USART0, ID_USART0, USART0_IRQn},
 #endif
@@ -130,11 +151,17 @@ static const freertos_pdc_peripheral_parameters_t all_usart_definitions[MAX_USAR
 #endif
 
 #if (MAX_USARTS > 5)
-	{USART4, PDC_USART5, ID_USART4, USART4_IRQn},
+	{USART5, PDC_USART5, ID_USART5, USART5_IRQn},
 #endif
 
 #if (MAX_USARTS > 6)
-	{USART4, PDC_USART6, ID_USART4, USART4_IRQn},
+	{USART6, PDC_USART6, ID_USART6, USART6_IRQn},
+#endif
+
+#if (MAX_USARTS > 7)
+	{USART7, PDC_USART7, ID_USART7, USART7_IRQn},
+#endif
+
 #endif
 };
 
@@ -209,9 +236,17 @@ freertos_usart_if freertos_usart_serial_init(Usart *p_usart,
 		pdc_disable_transfer(all_usart_definitions[usart_index].pdc_base_address,
 				(PERIPH_PTCR_RXTDIS | PERIPH_PTCR_TXTDIS));
 
+#if (SAMG55)
+		/* Enable the peripheral and set USART mode. */
+		uint32_t temp = (uint32_t)all_usart_definitions[usart_index].peripheral_base_address - 0x200;
+		Flexcom *p_flexcom = (Flexcom *)temp;
+		flexcom_enable(p_flexcom);
+		flexcom_set_opmode(p_flexcom, FLEXCOM_USART);
+#else
 		/* Enable the peripheral clock in the PMC. */
 		pmc_enable_periph_clk(
 				all_usart_definitions[usart_index].peripheral_id);
+#endif
 
 		switch (freertos_driver_parameters->operation_mode) {
 		case USART_RS232:
@@ -766,6 +801,57 @@ static void local_usart_handler(const portBASE_TYPE usart_index)
  * Individual interrupt handlers follow from here.  Each individual interrupt
  * handler calls the common interrupt handler.
  */
+#if SAMG55
+#ifdef CONF_FREERTOS_USE_USART0
+void FLEXCOM0_Handler(void)
+{
+	local_usart_handler(0);
+}
+#endif
+#ifdef CONF_FREERTOS_USE_USART1
+void FLEXCOM1_Handler(void)
+{
+	local_usart_handler(1);
+}
+#endif
+#ifdef CONF_FREERTOS_USE_USART2
+void FLEXCOM2_Handler(void)
+{
+	local_usart_handler(2);
+}
+#endif
+#ifdef CONF_FREERTOS_USE_USART3
+void FLEXCOM3_Handler(void)
+{
+	local_usart_handler(3);
+}
+#endif
+#ifdef CONF_FREERTOS_USE_USART4
+void FLEXCOM4_Handler(void)
+{
+	local_usart_handler(4);
+}
+#endif
+#ifdef CONF_FREERTOS_USE_USART5
+void FLEXCOM5_Handler(void)
+{
+	local_usart_handler(5);
+}
+#endif
+#ifdef CONF_FREERTOS_USE_USART6
+void FLEXCOM6_Handler(void)
+{
+	local_usart_handler(6);
+}
+#endif
+#ifdef CONF_FREERTOS_USE_USART7
+void FLEXCOM7_Handler(void)
+{
+	local_usart_handler(7);
+}
+#endif
+	
+#else
 #ifdef USART
 
 void USART_Handler(void)
@@ -837,3 +923,4 @@ void USART6_Handler(void)
 }
 
 #endif /* USART6 */
+#endif

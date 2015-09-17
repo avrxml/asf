@@ -3,7 +3,7 @@
  *
  * \brief Common Hardware Timer configuration
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -84,7 +84,7 @@
 #define TIMER     (TC0)
 #endif /* SAMD */
 
-#if (SAMD21 || SAMR21)
+#if (SAMD21 || SAMR21 || SAML21)
 #define TIMER                (TC3)
 #define TIMER_CHANNEL_ID     0
 #endif

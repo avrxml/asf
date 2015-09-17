@@ -3,7 +3,7 @@
  *
  * \brief Instance description for PM
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAMD20_PM_INSTANCE_
@@ -78,10 +81,11 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for PM peripheral ========== */
-#define PM_CTRL_MCSEL_DFLL48M       3
-#define PM_CTRL_MCSEL_GCLK          0
-#define PM_CTRL_MCSEL_OSC8M         1
-#define PM_CTRL_MCSEL_XOSC          2
-#define PM_PM_CLK_APB_NUM           2
+#define PM_CTRL_MCSEL_DFLL48M       3       
+#define PM_CTRL_MCSEL_GCLK          0       
+#define PM_CTRL_MCSEL_OSC8M         1       
+#define PM_CTRL_MCSEL_XOSC          2       
+#define PM_PM_CLK_APB_NUM           2       
+#define PM_SYSTEM_CLOCK             1000000  // System Clock Frequency at Reset
 
 #endif /* _SAMD20_PM_INSTANCE_ */

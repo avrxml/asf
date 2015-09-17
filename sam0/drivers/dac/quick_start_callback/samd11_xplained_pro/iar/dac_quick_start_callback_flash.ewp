@@ -166,10 +166,10 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM0=true</state>
 					<state>RTC_COUNT_ASYNC=true</state>
 					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
 					<state>DAC_CALLBACK_MODE=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>__SAMD11D14AM__</state>
 					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 				</option>
@@ -300,26 +300,33 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../system/clock/clock_samd10_d11</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../port</state>
+					<state>$PROJ_DIR$/../../../../system/reset</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../system/clock/clock_samd09_d10_d11</state>
+					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../system/power</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../rtc/rtc_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../dac_sam_d_c</state>
 					<state>$PROJ_DIR$/../../../../rtc</state>
-					<state>$PROJ_DIR$/../../../../../../common/boards</state>
-					<state>$PROJ_DIR$/../../../../system</state>
-					<state>$PROJ_DIR$/../../../../system/pinmux</state>
-					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd10_d11</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../events</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/source</state>
-					<state>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../events/events_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../../../common/boards</state>
+					<state>$PROJ_DIR$/../../../../system/pinmux</state>
+					<state>$PROJ_DIR$/../../../../system</state>
+					<state>$PROJ_DIR$/../../../../events</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../system/clock</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -470,10 +477,10 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM0=true</state>
 					<state>RTC_COUNT_ASYNC=true</state>
 					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
 					<state>DAC_CALLBACK_MODE=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>__SAMD11D14AM__</state>
 					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 				</option>
@@ -571,26 +578,33 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../system/clock/clock_samd10_d11</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../port</state>
+					<state>$PROJ_DIR$/../../../../system/reset</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../system/clock/clock_samd09_d10_d11</state>
+					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../system/power</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../rtc/rtc_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../dac_sam_d_c</state>
 					<state>$PROJ_DIR$/../../../../rtc</state>
-					<state>$PROJ_DIR$/../../../../../../common/boards</state>
-					<state>$PROJ_DIR$/../../../../system</state>
-					<state>$PROJ_DIR$/../../../../system/pinmux</state>
-					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd10_d11</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../events</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/source</state>
-					<state>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../events/events_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../../../common/boards</state>
+					<state>$PROJ_DIR$/../../../../system/pinmux</state>
+					<state>$PROJ_DIR$/../../../../system</state>
+					<state>$PROJ_DIR$/../../../../events</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../system/clock</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1133,10 +1147,10 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM0=true</state>
 					<state>RTC_COUNT_ASYNC=true</state>
 					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
 					<state>DAC_CALLBACK_MODE=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>__SAMD11D14AM__</state>
 					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 				</option>
@@ -1267,26 +1281,33 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../system/clock/clock_samd10_d11</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../port</state>
+					<state>$PROJ_DIR$/../../../../system/reset</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../system/clock/clock_samd09_d10_d11</state>
+					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../system/power</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../rtc/rtc_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../dac_sam_d_c</state>
 					<state>$PROJ_DIR$/../../../../rtc</state>
-					<state>$PROJ_DIR$/../../../../../../common/boards</state>
-					<state>$PROJ_DIR$/../../../../system</state>
-					<state>$PROJ_DIR$/../../../../system/pinmux</state>
-					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd10_d11</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../events</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/source</state>
-					<state>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../events/events_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../../../common/boards</state>
+					<state>$PROJ_DIR$/../../../../system/pinmux</state>
+					<state>$PROJ_DIR$/../../../../system</state>
+					<state>$PROJ_DIR$/../../../../events</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../system/clock</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1437,10 +1458,10 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM0=true</state>
 					<state>RTC_COUNT_ASYNC=true</state>
 					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
 					<state>DAC_CALLBACK_MODE=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>__SAMD11D14AM__</state>
 					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 				</option>
@@ -1538,26 +1559,33 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../system/clock/clock_samd10_d11</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../port</state>
+					<state>$PROJ_DIR$/../../../../system/reset</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../system/clock/clock_samd09_d10_d11</state>
+					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../system/power</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../rtc/rtc_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../dac_sam_d_c</state>
 					<state>$PROJ_DIR$/../../../../rtc</state>
-					<state>$PROJ_DIR$/../../../../../../common/boards</state>
-					<state>$PROJ_DIR$/../../../../system</state>
-					<state>$PROJ_DIR$/../../../../system/pinmux</state>
-					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd10_d11</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
-					<state>$PROJ_DIR$/../../../../events</state>
-					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/source</state>
-					<state>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../events/events_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../../../common/boards</state>
+					<state>$PROJ_DIR$/../../../../system/pinmux</state>
+					<state>$PROJ_DIR$/../../../../system</state>
+					<state>$PROJ_DIR$/../../../../events</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../system/clock</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1940,12 +1968,18 @@
 			<name>drivers</name>
 			<group>
 				<name>dac</name>
-				<file>
-					<name>$PROJ_DIR$/../../../dac.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../dac_callback.c</name>
-				</file>
+				<group>
+					<name>dac_sam_d_c</name>
+					<file>
+						<name>$PROJ_DIR$/../../../dac_sam_d_c/dac_callback.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../dac_sam_d_c/dac.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../dac_sam_d_c/dac_feature.h</name>
+					</file>
+				</group>
 				<group>
 					<name>quick_start_callback</name>
 					<file>
@@ -1977,17 +2011,38 @@
 			<group>
 				<name>system</name>
 				<group>
+					<name>pinmux</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.c</name>
+					</file>
+					<group>
+						<name>quick_start</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/pinmux/quick_start/qs_pinmux_basic.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../system/system.c</name>
+				</file>
+				<group>
 					<name>clock</name>
 					<group>
-						<name>clock_samd10_d11</name>
+						<name>clock_samd09_d10_d11</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../system/clock/clock_samd10_d11/gclk.c</name>
+							<name>$PROJ_DIR$/../../../../system/clock/clock_samd09_d10_d11/clock.c</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../system/clock/clock_samd10_d11/clock.c</name>
+							<name>$PROJ_DIR$/../../../../system/clock/clock_samd09_d10_d11/gclk.c</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../system/clock/clock_samd10_d11/clock_config_check.h</name>
+							<name>$PROJ_DIR$/../../../../system/clock/clock_samd09_d10_d11/clock_config_check.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/clock/clock_samd09_d10_d11/clock_feature.h</name>
 						</file>
 					</group>
 					<file>
@@ -1997,9 +2052,6 @@
 						<name>$PROJ_DIR$/../../../../system/clock/clock.h</name>
 					</file>
 				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../system/system.c</name>
-				</file>
 				<group>
 					<name>interrupt</name>
 					<file>
@@ -2016,49 +2068,67 @@
 					</group>
 				</group>
 				<group>
-					<name>pinmux</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.c</name>
-					</file>
+					<name>power</name>
 					<group>
-						<name>quick_start</name>
+						<name>power_sam_d_r</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../system/pinmux/quick_start/qs_pinmux_basic.h</name>
+							<name>$PROJ_DIR$/../../../../system/power/power_sam_d_r/power.h</name>
 						</file>
 					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.h</name>
-					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../system/system.h</name>
 				</file>
+				<group>
+					<name>reset</name>
+					<group>
+						<name>reset_sam_d_r</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r/reset.h</name>
+						</file>
+					</group>
+				</group>
 			</group>
 			<group>
 				<name>rtc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../rtc/rtc_count_interrupt.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../rtc/rtc_count.c</name>
-				</file>
 				<group>
-					<name>quick_start_count_callback</name>
+					<name>rtc_sam_d_r</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../rtc/quick_start_count_callback/qs_rtc_count_callback.h</name>
+						<name>$PROJ_DIR$/../../../../rtc/rtc_sam_d_r/rtc_count_interrupt.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../rtc/rtc_sam_d_r/rtc_count.c</name>
 					</file>
 				</group>
-				<group>
-					<name>quick_start_count</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../rtc/quick_start_count/qs_rtc_count_basic.h</name>
-					</file>
-				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../rtc/rtc_tamper.h</name>
+				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../rtc/rtc_count.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../rtc/rtc_count_interrupt.h</name>
+				</file>
+			</group>
+			<group>
+				<name>events</name>
+				<group>
+					<name>events_sam_d_r</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../events/events_sam_d_r/events.c</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../events/events_hooks.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../events/events_common.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../events/events_hooks.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../events/events.h</name>
 				</file>
 			</group>
 			<group>
@@ -2075,36 +2145,6 @@
 						<name>$PROJ_DIR$/../../../../port/quick_start/qs_port_basic.h</name>
 					</file>
 				</group>
-			</group>
-			<group>
-				<name>events</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../events/events.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../events/events_hooks.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../events/events_common.h</name>
-				</file>
-				<group>
-					<name>quick_start</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../events/quick_start/qs_events_basic.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../events/events_hooks.h</name>
-				</file>
-				<group>
-					<name>quick_start_interrupt_hook</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../events/quick_start_interrupt_hook/qs_events_interrupt_hook.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../events/events.h</name>
-				</file>
 			</group>
 		</group>
 		<group>
@@ -2127,15 +2167,15 @@
 					<name>samd11</name>
 					<group>
 						<name>source</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/source/system_samd11.c</name>
+						</file>
 						<group>
 							<name>iar</name>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/source/iar/startup_samd11.c</name>
 							</file>
 						</group>
-						<file>
-							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/source/system_samd11.c</name>
-						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/source/system_samd11.h</name>
 						</file>
@@ -2214,6 +2254,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/pac2.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/sbmatrix.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/evsys.h</name>
 							</file>
 							<file>
@@ -2222,6 +2265,9 @@
 						</group>
 						<group>
 							<name>component</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/component/hmatrixb.h</name>
+							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/component/adc.h</name>
 							</file>
@@ -2245,9 +2291,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/component/gclk.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/component/dsu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/component/nvmctrl.h</name>
@@ -2277,6 +2320,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/component/eic.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/component/dsu.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/component/tcc.h</name>
 							</file>
 							<file>
@@ -2296,13 +2342,13 @@
 							</file>
 						</group>
 						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11d14am.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11d14as.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11c14a.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11d14am.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11.h</name>
@@ -2313,10 +2359,10 @@
 			<group>
 				<name>preprocessor</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../../utils/preprocessor/stringz.h</name>
+					<name>$PROJ_DIR$/../../../../../utils/preprocessor/mrecursion.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../utils/preprocessor/mrecursion.h</name>
+					<name>$PROJ_DIR$/../../../../../utils/preprocessor/stringz.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../utils/preprocessor/preprocessor.h</name>

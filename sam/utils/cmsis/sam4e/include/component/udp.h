@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_UDP_COMPONENT_
 #define _SAM4E_UDP_COMPONENT_
@@ -51,22 +54,22 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Udp hardware registers */
 typedef struct {
-  RoReg UDP_FRM_NUM;  /**< \brief (Udp Offset: 0x000) Frame Number Register */
-  RwReg UDP_GLB_STAT; /**< \brief (Udp Offset: 0x004) Global State Register */
-  RwReg UDP_FADDR;    /**< \brief (Udp Offset: 0x008) Function Address Register */
-  RoReg Reserved1[1];
-  WoReg UDP_IER;      /**< \brief (Udp Offset: 0x010) Interrupt Enable Register */
-  WoReg UDP_IDR;      /**< \brief (Udp Offset: 0x014) Interrupt Disable Register */
-  RoReg UDP_IMR;      /**< \brief (Udp Offset: 0x018) Interrupt Mask Register */
-  RoReg UDP_ISR;      /**< \brief (Udp Offset: 0x01C) Interrupt Status Register */
-  WoReg UDP_ICR;      /**< \brief (Udp Offset: 0x020) Interrupt Clear Register */
-  RoReg Reserved2[1];
-  RwReg UDP_RST_EP;   /**< \brief (Udp Offset: 0x028) Reset Endpoint Register */
-  RoReg Reserved3[1];
-  RwReg UDP_CSR[8];   /**< \brief (Udp Offset: 0x030) Endpoint Control and Status Register */
-  RwReg UDP_FDR[8];   /**< \brief (Udp Offset: 0x050) Endpoint FIFO Data Register */
-  RoReg Reserved4[1];
-  RwReg UDP_TXVC;     /**< \brief (Udp Offset: 0x074) Transceiver Control Register */
+  __I  uint32_t UDP_FRM_NUM;  /**< \brief (Udp Offset: 0x000) Frame Number Register */
+  __IO uint32_t UDP_GLB_STAT; /**< \brief (Udp Offset: 0x004) Global State Register */
+  __IO uint32_t UDP_FADDR;    /**< \brief (Udp Offset: 0x008) Function Address Register */
+  __I  uint32_t Reserved1[1];
+  __O  uint32_t UDP_IER;      /**< \brief (Udp Offset: 0x010) Interrupt Enable Register */
+  __O  uint32_t UDP_IDR;      /**< \brief (Udp Offset: 0x014) Interrupt Disable Register */
+  __I  uint32_t UDP_IMR;      /**< \brief (Udp Offset: 0x018) Interrupt Mask Register */
+  __I  uint32_t UDP_ISR;      /**< \brief (Udp Offset: 0x01C) Interrupt Status Register */
+  __O  uint32_t UDP_ICR;      /**< \brief (Udp Offset: 0x020) Interrupt Clear Register */
+  __I  uint32_t Reserved2[1];
+  __IO uint32_t UDP_RST_EP;   /**< \brief (Udp Offset: 0x028) Reset Endpoint Register */
+  __I  uint32_t Reserved3[1];
+  __IO uint32_t UDP_CSR[8];   /**< \brief (Udp Offset: 0x030) Endpoint Control and Status Register */
+  __IO uint32_t UDP_FDR[8];   /**< \brief (Udp Offset: 0x050) Endpoint FIFO Data Register */
+  __I  uint32_t Reserved4[1];
+  __IO uint32_t UDP_TXVC;     /**< \brief (Udp Offset: 0x074) Transceiver Control Register */
 } Udp;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- UDP_FRM_NUM : (UDP Offset: 0x000) Frame Number Register -------- */

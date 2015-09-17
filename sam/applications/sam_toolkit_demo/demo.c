@@ -3,7 +3,7 @@
  *
  * \brief SAM toolkit demo application.
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -90,6 +90,9 @@
  * -# Pressing and release the icon buttons on the LCD. The corresponding window
  * will show and display the result.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "conf_board.h"

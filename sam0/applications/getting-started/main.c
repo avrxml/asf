@@ -3,7 +3,7 @@
  *
  * \brief Getting Started Application.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,7 +52,9 @@
  *
  * \section Requirements
  *
- * This package can be used with SAM D21/R21 xplained pro.
+ * This application has been tested on following boards:
+ * - SAM D21/R21/L21/L22/C21 Xplained Pro
+ * - SAM D10 Xplained Mini
  *
  * \section Description
  *
@@ -63,7 +65,7 @@
  * -# Build the program and download it inside the evaluation board.
  * -# On the computer, open and configure a terminal application
  *    (e.g. HyperTerminal on Microsoft Windows) with these settings:
- *   - 115200 bauds
+ *   - 38400 bauds
  *   - 8 bits of data
  *   - No parity
  *   - 1 stop bit
@@ -80,6 +82,9 @@
  *    blinking.
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "asf.h"
 #include "stdio_serial.h"
@@ -89,7 +94,8 @@
 #define STRING_EOL    "\r"
 #define STRING_HEADER "-- Getting Started Example --\r\n" \
 		"-- "BOARD_NAME" --\r\n" \
-		"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
+		"-- Compiled: "__DATE__" "__TIME__" --\r\n" \
+		"-- Pressing and release button SW0 should make LED0 on and off --"STRING_EOL
 
 
 #ifdef __cplusplus
@@ -124,7 +130,11 @@ static void configure_console(void)
 static void update_led_state(void)
 {
 	bool pin_state = port_pin_get_input_level(BUTTON_0_PIN);
-	port_pin_set_output_level(LED_0_PIN, pin_state);
+	if (pin_state) {
+		port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE);
+	} else {
+		port_pin_set_output_level(LED_0_PIN, LED_0_ACTIVE);
+	}
 }
 
 /** Callback function for the EXTINT driver, called when an external interrupt
@@ -187,7 +197,7 @@ static void configure_tc(void)
 	config_tc.counter_size    = TC_COUNTER_SIZE_16BIT;
 	config_tc.counter_16_bit.value = TC_COUNT_VALUE;
 
-	tc_init(&tc_instance, TC3, &config_tc);
+	tc_init(&tc_instance, CONF_TC_INSTANCE, &config_tc);
 	tc_enable(&tc_instance);
 }
 

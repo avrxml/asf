@@ -3,7 +3,7 @@
  *
  * \brief Main functions for the Voltage meter demonstration.
  *
- * Copyright (c) 2011 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -70,6 +70,9 @@
  * CS2: Potentiometer voltage
  *
  * CS3: External voltage
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include "asf.h"
 #include "main.h"

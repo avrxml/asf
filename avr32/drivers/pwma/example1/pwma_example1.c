@@ -4,7 +4,7 @@
  * \brief Example to illustrate the basic PWMA Function 
  * of generating waveform to two different PWMA channels.
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,6 +45,9 @@
 /*
  * Include header files for all drivers that have been imported from
  * Atmel Software Framework (ASF).
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include <asf.h>
 
@@ -456,8 +459,7 @@ int main (void)
  * For further information, visit :
  * <A href="http://www.atmel.com/products/AVR32/"> Atmel AVR32 </A>.\n
  * Technical support & faq, visit :
- * <A href="http://support.atmel.no/"> Support and FAQ </A>.\n
- * For Technical Support e-mail : avr32@atmel.com
+ * <A href="http://www.atmel.com/design-support/"> Support and FAQ </A>.
  *
  * \author
  * Atmel Corporation : http://www.atmel.com \n

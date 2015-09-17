@@ -9,9 +9,9 @@
  *                       IAR Workbench and GNU GCC for Atmel ARM.
  * - Supported devices:  Atmel AVR 8-bit, AVR 32-bit, Atmel ARM.
  * - Userguide:          QTouch Library User Guide - doc8207.pdf.
- * - Support email:      touch@atmel.com
+ * - Support: http://www.atmel.com/design-support/
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,7 +49,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -63,7 +63,7 @@
  * This is the QTouch Library for AVR and AVR32 devices that consists of
  * one api header file(touch_api.h) and respective pre-compiled libraries.
  * All projects using these libraries must also provide the required header
- *file(touch_qt_config.h)
+ * file(touch_qt_config.h)
  * used to configure the library.
  * For more information on the Qtouch Library, check www.atmel.com/qtouchlib.
  *
@@ -71,8 +71,10 @@
  */
 
 /*----------------------------------------------------------------------------
-*                           nested include files
-*  ----------------------------------------------------------------------------*/
+ *                           nested include files
+ *
+ *
+ *----------------------------------------------------------------------------*/
 #include "touch_config.h"
 #include <stdint.h>
 #include <stdbool.h>
@@ -108,24 +110,25 @@
 
 /*----------------------------------------------------------------------------
  *                      Note: choice of library version
- * -----------------------------------------------------------------------------*/
+ *
+ *-----------------------------------------------------------------------------*/
 
 /**
  * QTouch libraries are supplied built with a range of charge times.
  * Charge time is the duration in which charge is transferred from the AVR onto
  * the measurement capacitor. Shorter charge times result in faster
- *measurements,
+ * measurements,
  * but may be too fast to completely transfer charge onto the measurement
  * capacitor.
  *
  * The range of charge times lets the user choose a suitable version for the
- *clock
+ * clock
  * rate their chip is running at.
  *
  * To make capacitive measurements, a charge time on the order of 0.25us to
- *2.5us
+ * 2.5us
  * is typically required. The following table shows the charge times
- *corresponding
+ * corresponding
  * to a range of clock speeds.
  *
  * Clock speed (MHz) Cycle time (us) Suitable charge times
@@ -320,7 +323,7 @@
  * Default: RECAL_50 (recalibration threshold = 50% of detection threshold).
  */
 #define DEF_QT_RECAL_THRESHOLD         RECAL_50 /* recal threshold = 50% of
-	                                         *detect */
+	                                         * detect */
 
 /**
  * Positive recalibration delay.
@@ -340,8 +343,10 @@
 #endif
 
 /*----------------------------------------------------------------------------
-*                                   macros
-*  ----------------------------------------------------------------------------*/
+ *                                   macros
+ *
+ *
+ *----------------------------------------------------------------------------*/
 
 /**
  * Utility macro for expanding port registers.
@@ -369,15 +374,19 @@
 #define QTLIB_NO_ACTIVITY             (uint16_t)0x0000
 /* ! indicating that at least one sensor is in detect. */
 #define QTLIB_IN_DETECT               (uint16_t)0x0001
+
 /* ! indicating that at least one sensor haschanged ON/OFF state since last call
  * to measure_sensors. */
 #define QTLIB_STATUS_CHANGE           (uint16_t)0x0002
+
 /* ! indicating that at least one rotor slider has changed position since last
  * call to measure_sensors. */
 #define QTLIB_ROTOR_SLIDER_POS_CHANGE (uint16_t)0x0004
+
 /* ! indicating that at least one reference value has changed since last call to
  * measure_sensors. */
 #define QTLIB_CHANNEL_REF_CHANGE      (uint16_t)0x0008
+
 /* ! indicating that reburst is needed to resolve in FILTERIN or FILTEROUT or
  * RECALIBRATE state. */
 #define QTLIB_BURST_AGAIN             (uint16_t)0x0100
@@ -391,8 +400,10 @@
 #define QTLIB_RESOLVE_POS_RECAL       (uint16_t)0x1000
 
 /*----------------------------------------------------------------------------
-*                               type definitions
-*  ----------------------------------------------------------------------------*/
+ *                               type definitions
+ *
+ *
+ *----------------------------------------------------------------------------*/
 #if defined (__ICCAVR__) || defined (__ICCAVR32__)
 /* ! An signed 8-bit value. */
 /* typedef signed char int8_t; */
@@ -408,7 +419,7 @@
 
 /**
  * This part of the code below is used for library selection. This code will not
- *be documented.
+ * be documented.
  */
 #ifdef _QTOUCH_
 
@@ -485,10 +496,12 @@
 
 #if !(defined(__AVR32__) || defined(__ICCAVR32__) || defined(_TOUCH_ARM_))
 /* ! Macros for string concatenation. */
-/* #define JOIN3( a, b, c, d, e ) burst_ ## a ## _ ## b ## _ ## c ## d ## _ ## e */
+/* #define JOIN3( a, b, c, d, e ) burst_ ## a ## _ ## b ## _ ## c ## d ## _ ## e
+ **/
 #define JOIN4( a, b, c, d, e, \
 			f ) burst_ ## a ## _ ## b ## _ ## c ## d ## _ ## e ## _	\
 	## f
+
 /* #define BURST_JOIN( static_flag, num_ports, intra1, intra2, pow_opt ) JOIN3(
  * static_flag, num_ports, intra1, intra2, pow_opt ) */
 #define BURST_JOIN( static_flag, num_ports, intra1, intra2, pow_opt, \
@@ -500,10 +513,12 @@
 		QTOUCH_SNS_PORT_COUNT, INTRABURST_1, \
 		INTRABURST_2, _POWER_OPTIMIZATION_, \
 		QTOUCH_PIN_CONF )
+
 /* #define BURST_FUNC_NAME               BURST_JOIN( _STATIC_PORT_PIN_CONF_,
  * QTOUCH_SNS_PORT_COUNT, INTRABURST_1, INTRABURST_2, _POWER_OPTIMIZATION_ ) */
 
-/* ! Burst function prototype. The code itself is stored in the touch library. */
+/* ! Burst function prototype. The code itself is stored in the touch library.
+ **/
 extern void BURST_FUNC_NAME(TOUCH_DATA_T mask_index);
 
 /* ! Function pointer used for bursting. */
@@ -604,7 +619,8 @@ extern void (*burst_proc)(TOUCH_DATA_T mask_index);
 
 #endif
 
-/* ! Burst function prototype. The code itself is stored in the touch library. */
+/* ! Burst function prototype. The code itself is stored in the touch library.
+ **/
 extern void BURST_FUNC_NAME(TOUCH_DATA_T mask_index);
 
 /* ! Function pointer used for bursting. */
@@ -905,7 +921,7 @@ typedef struct tag_qt_touch_status_t {
 	/**
 	 * Rotor angles or slider positions.
 	 *  These values are valid when sensor_states shows that the
-	 *corresponding
+	 * corresponding
 	 *  rotor or slider sensor is in detect.
 	 */
 	uint8_t rotor_slider_values[QT_MAX_NUM_ROTORS_SLIDERS];
@@ -994,8 +1010,10 @@ typedef struct tag_sensor_t {
 sensor_t;
 
 /*----------------------------------------------------------------------------
-*                               extern variables
-*  ----------------------------------------------------------------------------*/
+ *                               extern variables
+ *
+ *
+ *----------------------------------------------------------------------------*/
 
 /**
  * This configuration data structure parameters if needs to be changed will be
@@ -1015,8 +1033,10 @@ extern sensor_t sensors[QT_NUM_CHANNELS];
 extern uint16_t qt_measurement_period_msec;
 
 /*----------------------------------------------------------------------------
-*                               api
-*  ----------------------------------------------------------------------------*/
+ *                               api
+ *
+ *
+ *----------------------------------------------------------------------------*/
 
 /*! \brief  This function is called after the library has made capacitive
  * measurements,
@@ -1029,7 +1049,7 @@ extern void (*qt_filter_callback)(void);
 /*! \brief Get the library signature.
  *
  * \param  qt_lib_siginfo_t: lib_sig_ptr=Pointer to the library signature
- *structure
+ * structure
  */
 extern void qt_get_library_sig(qt_lib_siginfo_t *lib_sig_ptr);
 

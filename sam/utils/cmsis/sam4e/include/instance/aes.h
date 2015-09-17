@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,33 +38,36 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_AES_INSTANCE_
 #define _SAM4E_AES_INSTANCE_
 
 /* ========== Register definition for AES peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-#define REG_AES_CR                 (0x40004000U) /**< \brief (AES) Control Register */
-#define REG_AES_MR                 (0x40004004U) /**< \brief (AES) Mode Register */
-#define REG_AES_IER                (0x40004010U) /**< \brief (AES) Interrupt Enable Register */
-#define REG_AES_IDR                (0x40004014U) /**< \brief (AES) Interrupt Disable Register */
-#define REG_AES_IMR                (0x40004018U) /**< \brief (AES) Interrupt Mask Register */
-#define REG_AES_ISR                (0x4000401CU) /**< \brief (AES) Interrupt Status Register */
-#define REG_AES_KEYWR              (0x40004020U) /**< \brief (AES) Key Word Register */
-#define REG_AES_IDATAR             (0x40004040U) /**< \brief (AES) Input Data Register */
-#define REG_AES_ODATAR             (0x40004050U) /**< \brief (AES) Output Data Register */
-#define REG_AES_IVR                (0x40004060U) /**< \brief (AES) Initialization Vector Register */
+  #define REG_AES_CR                      (0x40004000U) /**< \brief (AES) Control Register */
+  #define REG_AES_MR                      (0x40004004U) /**< \brief (AES) Mode Register */
+  #define REG_AES_IER                     (0x40004010U) /**< \brief (AES) Interrupt Enable Register */
+  #define REG_AES_IDR                     (0x40004014U) /**< \brief (AES) Interrupt Disable Register */
+  #define REG_AES_IMR                     (0x40004018U) /**< \brief (AES) Interrupt Mask Register */
+  #define REG_AES_ISR                     (0x4000401CU) /**< \brief (AES) Interrupt Status Register */
+  #define REG_AES_KEYWR                   (0x40004020U) /**< \brief (AES) Key Word Register */
+  #define REG_AES_IDATAR                  (0x40004040U) /**< \brief (AES) Input Data Register */
+  #define REG_AES_ODATAR                  (0x40004050U) /**< \brief (AES) Output Data Register */
+  #define REG_AES_IVR                     (0x40004060U) /**< \brief (AES) Initialization Vector Register */
 #else
-#define REG_AES_CR        (*(WoReg*)0x40004000U) /**< \brief (AES) Control Register */
-#define REG_AES_MR        (*(RwReg*)0x40004004U) /**< \brief (AES) Mode Register */
-#define REG_AES_IER       (*(WoReg*)0x40004010U) /**< \brief (AES) Interrupt Enable Register */
-#define REG_AES_IDR       (*(WoReg*)0x40004014U) /**< \brief (AES) Interrupt Disable Register */
-#define REG_AES_IMR       (*(RoReg*)0x40004018U) /**< \brief (AES) Interrupt Mask Register */
-#define REG_AES_ISR       (*(RoReg*)0x4000401CU) /**< \brief (AES) Interrupt Status Register */
-#define REG_AES_KEYWR     (*(WoReg*)0x40004020U) /**< \brief (AES) Key Word Register */
-#define REG_AES_IDATAR    (*(WoReg*)0x40004040U) /**< \brief (AES) Input Data Register */
-#define REG_AES_ODATAR    (*(RoReg*)0x40004050U) /**< \brief (AES) Output Data Register */
-#define REG_AES_IVR       (*(WoReg*)0x40004060U) /**< \brief (AES) Initialization Vector Register */
+  #define REG_AES_CR     (*(__O  uint32_t*)0x40004000U) /**< \brief (AES) Control Register */
+  #define REG_AES_MR     (*(__IO uint32_t*)0x40004004U) /**< \brief (AES) Mode Register */
+  #define REG_AES_IER    (*(__O  uint32_t*)0x40004010U) /**< \brief (AES) Interrupt Enable Register */
+  #define REG_AES_IDR    (*(__O  uint32_t*)0x40004014U) /**< \brief (AES) Interrupt Disable Register */
+  #define REG_AES_IMR    (*(__I  uint32_t*)0x40004018U) /**< \brief (AES) Interrupt Mask Register */
+  #define REG_AES_ISR    (*(__I  uint32_t*)0x4000401CU) /**< \brief (AES) Interrupt Status Register */
+  #define REG_AES_KEYWR  (*(__O  uint32_t*)0x40004020U) /**< \brief (AES) Key Word Register */
+  #define REG_AES_IDATAR (*(__O  uint32_t*)0x40004040U) /**< \brief (AES) Input Data Register */
+  #define REG_AES_ODATAR (*(__I  uint32_t*)0x40004050U) /**< \brief (AES) Output Data Register */
+  #define REG_AES_IVR    (*(__O  uint32_t*)0x40004060U) /**< \brief (AES) Initialization Vector Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAM4E_AES_INSTANCE_ */

@@ -9,7 +9,7 @@
  * - Supported hosts:    All AVR32 hosts with a USB module can be used.
  *
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,6 +46,9 @@
  * \asf_license_stop
  *
  ***************************************************************************/
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 
 #ifndef _USB_HOST_USER_H_

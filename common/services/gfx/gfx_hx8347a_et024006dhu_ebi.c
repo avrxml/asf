@@ -5,7 +5,7 @@
  *
  * This files includes the correct header files for the grapics service
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,6 +46,9 @@
 /**
  * \ingroup gfx_hx8347a_et024006dhu_ebi
  * @{
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "gfx.h"

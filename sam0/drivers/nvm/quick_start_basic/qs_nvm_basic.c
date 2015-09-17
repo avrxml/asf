@@ -3,7 +3,7 @@
  *
  * \brief SAM Non Volatile Memory Driver Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 
 void configure_nvm(void);
@@ -56,8 +59,12 @@ void configure_nvm(void)
 //! [setup_2]
 
 //! [setup_3]
-	nvm_set_config(&config_nvm);
+	config_nvm.manual_page_write = false;
 //! [setup_3]
+
+//! [setup_4]
+	nvm_set_config(&config_nvm);
+//! [setup_4]
 }
 //! [setup]
 

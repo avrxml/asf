@@ -3,7 +3,7 @@
  *
  * \brief AVR MEGARF MAC Symbol Counter Driver Definitions
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #ifndef MACSC_MEGARF_H
 #define MACSC_MEGARF_H
@@ -445,7 +448,7 @@ static inline void macsc_enable_manual_bts(void)
  * This bit is set if a write operation to the symbol counter register is
  * pending. This bit is set after writing the counter low byte (SCCNTLL)
  * until the symbol counter is updated with the new value.
- * This update process can take up to 16 ìs and during this time,
+ * This update process can take up to 16 Âµs and during this time,
  * no read or write access to the 32 bit counter register should occur.
  *
  */

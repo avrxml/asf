@@ -3,7 +3,7 @@
  *
  * \brief Receive routines implementation
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -227,7 +227,6 @@ static bool nwkRxRejectDuplicate(NwkFrameHeader_t *header)
 								header->nwkDstAddr,
 								header->nwkFcf.multicast);
 					}
-
 	#endif
 					return true;
 				}
@@ -271,7 +270,6 @@ static bool nwkRxSeriveDataInd(NWK_DataInd_t *ind)
 	if (0 == (ind->options & NWK_IND_OPT_SECURED)) {
 		return false;
 	}
-
 #endif
 
 	if (ind->size < 1) {
@@ -285,7 +283,6 @@ static bool nwkRxSeriveDataInd(NWK_DataInd_t *ind)
 #ifdef NWK_ENABLE_ROUTING
 	case NWK_COMMAND_ROUTE_ERROR:
 		return nwkRouteErrorReceived(ind);
-
 #endif
 
 #ifdef NWK_ENABLE_ROUTE_DISCOVERY
@@ -294,7 +291,6 @@ static bool nwkRxSeriveDataInd(NWK_DataInd_t *ind)
 
 	case NWK_COMMAND_ROUTE_REPLY:
 		return nwkRouteDiscoveryReplyReceived(ind);
-
 #endif
 
 	default:
@@ -314,7 +310,6 @@ static void nwkRxHandleReceivedFrame(NwkFrame_t *frame)
 	if (header->nwkFcf.security) {
 		return;
 	}
-
 #endif
 
 #ifdef NWK_ENABLE_MULTICAST
@@ -326,7 +321,6 @@ static void nwkRxHandleReceivedFrame(NwkFrame_t *frame)
 	if (header->nwkFcf.multicast) {
 		return;
 	}
-
 #endif
 
 	if (NWK_BROADCAST_PANID == header->macDstPanId) {
@@ -347,7 +341,6 @@ static void nwkRxHandleReceivedFrame(NwkFrame_t *frame)
 	if (!NWK_FilterAddress(header->macSrcAddr, &frame->rx.lqi)) {
 		return;
 	}
-
 #endif
 
 	if (NWK_BROADCAST_ADDR == header->nwkDstAddr &&

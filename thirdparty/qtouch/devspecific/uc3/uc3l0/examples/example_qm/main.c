@@ -10,10 +10,10 @@
  * QT600 UC3L board.
  *
  * - Userguide:          QTouch Library User Guide - doc8207.pdf.
- * - Support email:      touch@atmel.com
+ * - Support: http://www.atmel.com/design-support/
  *
  *
- * Copyright (c) 2010-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -454,7 +454,7 @@ main (void)
      - Capacitive Touch Sensor Tuning
      - Capacitive Touch Schematic design
      - Capacitive Touch Sensor design
-   email touch@atmel.com
+   refer to http://www.atmel.com/design-support/
 
 2. For more QTouch Library documentation,
    refer Atmel QTouch Library User Guide doc8207.pdf.

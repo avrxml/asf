@@ -2047,10 +2047,10 @@
 								<name>$PROJ_DIR$/../../../../../source/stb/inc/stb.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../source/stb/inc/stb_armcrypto.h</name>
+								<name>$PROJ_DIR$/../../../../../source/stb/inc/stb_generic.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../source/stb/inc/stb_generic.h</name>
+								<name>$PROJ_DIR$/../../../../../source/stb/inc/stb_armcrypto.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../source/stb/inc/stb_internal.h</name>
@@ -2103,13 +2103,13 @@
 									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_pib.h</name>
 								</file>
 								<file>
+									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_config.h</name>
+								</file>
+								<file>
 									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_constants.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_irq_handler.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_config.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../source/tal/at86rf231/inc/tal_slotted_csma.h</name>
@@ -2252,6 +2252,9 @@
 				</group>
 				<group>
 					<name>include</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../include/ieee_154g.h</name>
+					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../include/avr2025_mac.h</name>
 					</file>

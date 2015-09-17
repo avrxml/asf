@@ -3,7 +3,7 @@
  *
  * \brief USB Host Controller (UHC)
  *
- * Copyright (C) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "conf_usb_host.h"
@@ -182,6 +185,10 @@ static void uhc_enumeration_step15(
 #ifdef USB_HOST_LPM_SUPPORT
 static void uhc_enumeration_step16_lpm(void);
 static void uhc_enumeration_step17_lpm(
+		usb_add_t add,
+		uhd_trans_status_t status,
+		uint16_t payload_trans);
+static void uhc_enumeration_step18_lpm(
 		usb_add_t add,
 		uhd_trans_status_t status,
 		uint16_t payload_trans);
@@ -781,14 +788,13 @@ static void uhc_enumeration_step15(
 
 #ifdef USB_HOST_LPM_SUPPORT
 /**
- * \brief Device enumeration step 16 (LPM only)
- * Requests the USB structure of the USB BOS / LPM descriptor.
+ * \brief Requests the USB structure of the USB BOS descriptor
  */
-static void uhc_enumeration_step16_lpm(void)
+static void uhc_request_bos_desc(uint16_t length,
+		const uhd_callback_setup_end_t callback)
 {
 	usb_setup_req_t req;
-
-	uhc_dev_enum->lpm_desc = malloc(sizeof(usb_dev_lpm_desc_t));
+	uhc_dev_enum->lpm_desc = malloc(length);
 	if (uhc_dev_enum->lpm_desc == NULL) {
 		Assert(false);
 		uhc_enumeration_error(UHC_ENUM_MEMORY_LIMIT);
@@ -799,20 +805,31 @@ static void uhc_enumeration_step16_lpm(void)
 	req.bRequest = USB_REQ_GET_DESCRIPTOR;
 	req.wValue = USB_DT_BOS << 8;
 	req.wIndex = 0;
-	req.wLength = sizeof(usb_dev_lpm_desc_t);
+	req.wLength = length;
 	if (!uhd_setup_request(UHC_DEVICE_ENUM_ADD,
 			&req,
 			(uint8_t *) uhc_dev_enum->lpm_desc,
-			sizeof(usb_dev_lpm_desc_t),
-			NULL, uhc_enumeration_step17_lpm)) {
+			length,
+			NULL, callback)) {
 		uhc_enumeration_error(UHC_ENUM_MEMORY_LIMIT);
 		return;
 	}
 }
 
 /**
+ * \brief Device enumeration step 16 (LPM only)
+ * Requests first part of the USB BOS descriptor.
+ */
+static void uhc_enumeration_step16_lpm(void)
+{
+	uhc_request_bos_desc(sizeof(usb_dev_bos_desc_t),
+			uhc_enumeration_step17_lpm);
+}
+
+
+/**
  * \brief Device enumeration step 17 (LPM only)
- * Check LPM support through the BOS descriptor received
+ * Check LPM support through the BOS descriptor received and request the whole BOS descriptor.
  *
  * \param add           USB address of the setup request
  * \param status        Transfer status
@@ -826,6 +843,49 @@ static void uhc_enumeration_step17_lpm(
 	UNUSED(add);
 
 	if (status == UHD_TRANS_STALL) {
+		// No BOS, LPM not supported
+		free(uhc_dev_enum->lpm_desc);
+		uhc_dev_enum->lpm_desc = NULL;
+	} else if ((status != UHD_TRANS_NOERROR)
+			|| (payload_trans != sizeof(usb_dev_bos_desc_t))
+			|| (uhc_dev_enum->lpm_desc->bos.bDescriptorType != USB_DT_BOS)) {
+		// Descriptor error
+		uhc_enumeration_error((status==UHD_TRANS_DISCONNECT)?
+				UHC_ENUM_DISCONNECT:UHC_ENUM_FAIL);
+		return;
+	} else if (status == UHD_TRANS_NOERROR) {
+		uint16_t len = le16_to_cpu(uhc_dev_enum->lpm_desc->bos.wTotalLength);
+		free(uhc_dev_enum->lpm_desc);
+		uhc_dev_enum->lpm_desc = NULL;
+		// LPM descriptor is possible
+		if (len > sizeof(usb_dev_lpm_desc_t)) {
+			// Request the descriptors
+			uhc_request_bos_desc(len, uhc_enumeration_step18_lpm);
+			return;
+		}
+	}
+	// Enumeration OK
+	uhc_enum_try = 0;
+	UHC_ENUM_EVENT(uhc_dev_enum, UHC_ENUM_SUCCESS);
+}
+
+/**
+ * \brief Device enumeration step 18 (LPM only)
+ * Check LPM support through the BOS descriptor received
+ *
+ * \param add           USB address of the setup request
+ * \param status        Transfer status
+ * \param payload_trans Number of data transfered during DATA phase
+ */
+static void uhc_enumeration_step18_lpm(
+		usb_add_t add,
+		uhd_trans_status_t status,
+		uint16_t payload_trans)
+{
+	UNUSED(add);
+
+	if (status == UHD_TRANS_STALL) {
+		// No BOS, LPM not supported
 		free(uhc_dev_enum->lpm_desc);
 		uhc_dev_enum->lpm_desc = NULL;
 	} else if ((status != UHD_TRANS_NOERROR)
@@ -837,9 +897,21 @@ static void uhc_enumeration_step17_lpm(
 		return;
 	} else if (status == UHD_TRANS_NOERROR) {
 		// Check LPM support
-		if ((uhc_dev_enum->lpm_desc->capa_ext.bDescriptorType != USB_DT_DEVICE_CAPABILITY)
-				|| (uhc_dev_enum->lpm_desc->capa_ext.bDevCapabilityType != USB_DC_USB20_EXTENSION)
-					|| (!(uhc_dev_enum->lpm_desc->capa_ext.bmAttributes & (USB_DC_EXT_LPM)))) {
+		uint8_t *desc = (uint8_t *)uhc_dev_enum->lpm_desc;
+		usb_dev_capa_ext_desc_t *ext_desc;
+		uint8_t i;
+		for (i = 0; i < uhc_dev_enum->lpm_desc->bos.bNumDeviceCaps; i ++) {
+			desc += desc[0];
+			ext_desc = (usb_dev_capa_ext_desc_t *)desc;
+			if (ext_desc->bDescriptorType == USB_DT_DEVICE_CAPABILITY
+					&& ext_desc->bDevCapabilityType == USB_DC_USB20_EXTENSION
+					&& (ext_desc->bmAttributes & USB_DC_EXT_LPM)) {
+				// LPM supported
+				break;
+			}
+		}
+		if (i >= uhc_dev_enum->lpm_desc->bos.bNumDeviceCaps) {
+			// LPM not supported
 			free(uhc_dev_enum->lpm_desc);
 			uhc_dev_enum->lpm_desc = NULL;
 		}
@@ -1044,7 +1116,7 @@ void uhc_resume(void)
 }
 
 #ifdef USB_HOST_LPM_SUPPORT
-bool uhc_suspend_lpm(bool b_remotewakeup, uint8_t besl)
+bool uhc_suspend_lpm(bool b_remotewakeup, uint8_t hird)
 {
 	if (uhc_enum_try) {
 		// enumeration on-going, the USB suspend can't be done
@@ -1058,7 +1130,7 @@ bool uhc_suspend_lpm(bool b_remotewakeup, uint8_t besl)
 	}
 
 	// Suspend all USB devices
-	return uhd_suspend_lpm(b_remotewakeup, besl);
+	return uhd_suspend_lpm(b_remotewakeup, hird);
 }
 #endif // USB_HOST_LPM_SUPPORT
 

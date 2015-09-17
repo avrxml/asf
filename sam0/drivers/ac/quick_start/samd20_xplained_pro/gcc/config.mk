@@ -54,7 +54,7 @@ TARGET_SRAM = ac_quick_start_sram.elf
 CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        sam0/boards/samd20_xplained_pro/board_init.c       \
-       sam0/drivers/ac/ac.c                               \
+       sam0/drivers/ac/ac_sam_d_r/ac.c                    \
        sam0/drivers/ac/quick_start/qs_ac_basic.c          \
        sam0/drivers/port/port.c                           \
        sam0/drivers/system/clock/clock_samd20/clock.c     \
@@ -76,6 +76,7 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samd20_xplained_pro                    \
        sam0/drivers/ac                                    \
+       sam0/drivers/ac/ac_sam_d_r                         \
        sam0/drivers/ac/quick_start                        \
        sam0/drivers/ac/quick_start/samd20_xplained_pro    \
        sam0/drivers/port                                  \
@@ -85,6 +86,10 @@ INC_PATH = \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samd20 \
        sam0/drivers/system/pinmux                         \
+       sam0/drivers/system/power                          \
+       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/reset                          \
+       sam0/drivers/system/reset/reset_sam_d_r            \
        sam0/utils                                         \
        sam0/utils/cmsis/samd20/include                    \
        sam0/utils/cmsis/samd20/source                     \
@@ -141,7 +146,7 @@ CFLAGS =
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
        -D AC_CALLBACK_MODE=false                          \
-       -D ARM_MATH_CM0=true                               \
+       -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMD20_XPLAINED_PRO                       \
        -D __SAMD20J18__
 

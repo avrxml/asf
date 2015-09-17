@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,6 +37,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAM4CMP8C_PIO_
@@ -94,7 +97,7 @@
 #define PIO_PB17             (1u << 17) /**< \brief Pin Controlled by PB17 */
 #define PIO_PB18             (1u << 18) /**< \brief Pin Controlled by PB18 */
 #define PIO_PB19             (1u << 19) /**< \brief Pin Controlled by PB19 */
-#define PIO_PB21             (1u << 20) /**< \brief Pin Controlled by PB21 */
+#define PIO_PB21             (1u << 21) /**< \brief Pin Controlled by PB21 */
 #define PIO_PC0              (1u << 0)  /**< \brief Pin Controlled by PC0 */
 #define PIO_PC1              (1u << 1)  /**< \brief Pin Controlled by PC1 */
 #define PIO_PC2              (1u << 2)  /**< \brief Pin Controlled by PC2 */
@@ -358,7 +361,7 @@
 #define PIO_PB17_IDX         49
 #define PIO_PB18_IDX         50
 #define PIO_PB19_IDX         51
-#define PIO_PB21_IDX         52
+#define PIO_PB21_IDX         53
 #define PIO_PC0_IDX          64
 #define PIO_PC1_IDX          65
 #define PIO_PC2_IDX          66

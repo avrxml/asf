@@ -3,7 +3,7 @@
 <svg version="1.2" baseProfile="tiny" width="180mm" height="210mm" viewBox="0 0 18000 21000" preserveAspectRatio="xMidYMid" fill-rule="evenodd" stroke-width="28.222" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
  <defs>
   <font id="EmbeddedFont_1" horiz-adv-x="2048">
-   <font-face font-family="Arial embedded" units-per-em="2048" font-weight="normal" font-style="normal" ascent="1852" descent="450"/>
+   <font-face font-family="Arial" units-per-em="2048" font-weight="normal" font-style="normal" ascent="1852" descent="450"/>
    <missing-glyph horiz-adv-x="2048" d="M 0,0 L 2047,0 2047,2047 0,2047 0,0 Z"/>
    <glyph unicode="x" horiz-adv-x="954" d="M 15,0 L 403,552 44,1062 269,1062 432,813 C 463,766 487,726 506,694 535,738 562,777 587,811 L 766,1062 981,1062 614,562 1009,0 788,0 570,330 512,419 233,0 15,0 Z"/>
    <glyph unicode="v" horiz-adv-x="954" d="M 430,0 L 26,1062 216,1062 444,426 C 469,357 491,286 512,212 528,268 550,335 579,414 L 815,1062 1000,1062 598,0 430,0 Z"/>
@@ -54,7 +54,7 @@
   </g>
   <g id="Drawing_2">
    <path fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-width="50" stroke-linejoin="round" d="M 4966,7508 L 2134,7508 2134,5483 7797,5483 7797,7508 4966,7508 Z"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="4210" y="6640">C</text>
     <text x="4515" y="6640">o</text>
     <text x="4752" y="6640">u</text>
@@ -66,7 +66,7 @@
   </g>
   <g id="Drawing_3">
    <path fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-width="50" stroke-linejoin="round" d="M 4966,4430 L 2134,4430 2134,3701 7797,3701 7797,4430 4966,4430 Z"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="4070" y="4210">P</text>
     <text x="4354" y="4210">r</text>
     <text x="4493" y="4210">e</text>
@@ -80,7 +80,7 @@
   </g>
   <g id="Drawing_4">
    <rect fill="none" stroke="none" x="1924" y="2040" width="6083" height="1261"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="2174" y="2546">B</text>
     <text x="2458" y="2546">a</text>
     <text x="2695" y="2546">s</text>
@@ -97,7 +97,7 @@
   </g>
   <g id="Drawing_5">
    <path fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-width="50" stroke-linejoin="round" d="M 10963,5605 L 9180,5605 9180,3580 12746,3580 12746,5605 10963,5605 Z"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="9714" y="4737">C</text>
     <text x="10019" y="4737">o</text>
     <text x="10256" y="4737">n</text>
@@ -127,7 +127,7 @@
   </g>
   <g id="Drawing_9">
    <rect fill="none" stroke="none" x="6100" y="9500" width="4455" height="726"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="6350" y="10006">C</text>
     <text x="6655" y="10006">o</text>
     <text x="6892" y="10006">m</text>
@@ -152,7 +152,7 @@
   </g>
   <g id="Drawing_11">
    <rect fill="none" stroke="none" x="5805" y="10125" width="4453" height="727"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="6055" y="10631">C</text>
     <text x="6360" y="10631">o</text>
     <text x="6597" y="10631">m</text>
@@ -179,7 +179,7 @@
   </g>
   <g id="Drawing_13">
    <rect fill="none" stroke="none" x="5319" y="10826" width="4453" height="726"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="5569" y="11332">C</text>
     <text x="5874" y="11332">o</text>
     <text x="6111" y="11332">m</text>
@@ -204,7 +204,7 @@
   </g>
   <g id="Drawing_15">
    <path fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-width="50" stroke-linejoin="round" d="M 10963,14376 L 8840,14376 8840,12350 13086,12350 13086,14376 10963,14376 Z"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="9714" y="13507">C</text>
     <text x="10019" y="13507">o</text>
     <text x="10256" y="13507">n</text>
@@ -222,7 +222,7 @@
   </g>
   <g id="Drawing_16">
    <rect fill="none" stroke="none" x="4946" y="11400" width="4455" height="726"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="5196" y="11906">C</text>
     <text x="5501" y="11906">o</text>
     <text x="5738" y="11906">m</text>
@@ -244,7 +244,7 @@
   </g>
   <g id="Drawing_17">
    <path fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-width="50" stroke-linejoin="round" d="M 10963,17375 L 8840,17375 8840,15349 13086,15349 13086,17375 10963,17375 Z"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="9935" y="16269">W</text>
     <text x="10337" y="16269">a</text>
     <text x="10574" y="16269">v</text>
@@ -272,7 +272,7 @@
   </g>
   <g id="Drawing_19">
    <path fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-width="50" stroke-linejoin="round" d="M 4966,15735 L 2894,15735 2894,15006 7037,15006 7037,15735 4966,15735 Z"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="4542" y="15515">C</text>
     <text x="4847" y="15515">C</text>
     <text x="5152" y="15515">0</text>
@@ -284,7 +284,7 @@
   </g>
   <g id="Drawing_21">
    <path fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-width="50" stroke-linejoin="round" d="M 4966,18895 L 2894,18895 2894,18166 7037,18166 7037,18895 4966,18895 Z"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="635" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="635" font-style="normal" font-weight="400">
     <text x="4779" y="18747">=</text>
    </g>
   </g>
@@ -314,7 +314,7 @@
   </g>
   <g id="Drawing_28">
    <rect fill="none" stroke="none" x="14800" y="1800" width="2501" height="851"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="15050" y="2306">G</text>
     <text x="15380" y="2306">C</text>
     <text x="15685" y="2306">L</text>
@@ -353,7 +353,7 @@
   </g>
   <g id="Drawing_36">
    <rect fill="none" stroke="none" x="7200" y="19700" width="3401" height="1200"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="7450" y="20206">I</text>
     <text x="7569" y="20206">n</text>
     <text x="7806" y="20206">t</text>
@@ -381,7 +381,7 @@
   </g>
   <g id="Drawing_37">
    <rect fill="none" stroke="none" x="12100" y="300" width="3501" height="1200"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="12350" y="806">I</text>
     <text x="12469" y="806">n</text>
     <text x="12706" y="806">t</text>
@@ -409,7 +409,7 @@
   </g>
   <g id="Drawing_38">
    <rect fill="none" stroke="none" x="12300" y="19550" width="2401" height="1151"/>
-   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial embedded" font-size="423" font-style="normal" font-weight="400">
+   <g fill="rgb(0,0,0)" stroke="none" font-family="Arial" font-size="423" font-style="normal" font-weight="400">
     <text x="12550" y="20056">W</text>
     <text x="12969" y="20056">O</text>
     <text x="13299" y="20056">x</text>

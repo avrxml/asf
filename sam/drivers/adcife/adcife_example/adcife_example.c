@@ -3,7 +3,7 @@
  *
  * \brief Analog-to-Digital Converter Interface Example for SAM4L.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -95,14 +95,14 @@
  * -# The application will output converted value to HyperTerminal and display
  *    a menu for users to set different modes..
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "asf.h"
 
-#define VDDANA             3300
-#define REFSEL1_VCCRATIO   625
-
 /* Reference voltage in mV */
-#define VOLT_REF   ((uint32_t)(VDDANA * REFSEL1_VCCRATIO / 1000))
+#define VOLT_REF   1000
 
 /** The maximal digital value*/
 #define MAX_DIGITAL        4095
@@ -316,8 +316,8 @@ static void start_adc(void)
 		.clksel = ADC_CLKSEL_APBCLK,
 		/* Max speed is 150K */
 		.speed = ADC_SPEED_150K,
-		/* ADC Reference voltage is 0.625*VCC */
-		.refsel = ADC_REFSEL_1,
+		/* ADC Reference voltage is internal 1.0V */
+		.refsel = ADC_REFSEL_0,
 		/* Enables the Startup time */
 		.start_up = CONFIG_ADC_STARTUP
 	};

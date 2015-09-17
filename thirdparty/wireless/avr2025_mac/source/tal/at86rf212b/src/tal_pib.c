@@ -3,7 +3,7 @@
  *
  * @brief This file handles the TAL PIB attributes, set/get and initialization
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -508,8 +508,9 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 
 				previous_channel = tal_pib.CurrentChannel;
 				tal_pib.CurrentChannel = value->pib_value_8bit;
+
 				/*Set the default Power Values For the Changed
-				 *Channel according to values in datasheet*/
+				 * Channel according to values in datasheet*/
 				set_default_tx_pwr();
 
 				/*
@@ -519,11 +520,15 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				if (tal_trx_status != TRX_OFF) {
 					previous_trx_status = RX_AACK_ON; /* any
 					                                   *
+					                                   *
 					                                   *other
+					                                   *
 					                                   *
 					                                   *than
 					                                   *
+					                                   *
 					                                   *TRX_OFF
+					                                   *
 					                                   *
 					                                   *state
 					                                   **/
@@ -593,11 +598,15 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				if (tal_trx_status != TRX_OFF) {
 					previous_trx_status = RX_AACK_ON; /* any
 					                                   *
+					                                   *
 					                                   *other
+					                                   *
 					                                   *
 					                                   *than
 					                                   *
+					                                   *
 					                                   *TRX_OFF
+					                                   *
 					                                   *
 					                                   *state
 					                                   **/
@@ -626,8 +635,8 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 				}
 
 				/*Set the default Power Values For the Changed
-				 *Channel Page according to values in
-				 *datasheet*/
+				 * Channel Page according to values in
+				 * datasheet*/
 				set_default_tx_pwr();
 			}
 
@@ -847,8 +856,9 @@ static bool apply_channel_page_configuration(uint8_t ch_page)
 	 * Before updating the transceiver a number of TAL PIB attributes need
 	 * to be updated depending on the channel page.
 	 */
+
 	/* \todo these configurations are not rate dependent here! But shall be!
-	 **/
+	**/
 	tal_pib.MaxFrameDuration = MAX_FRAME_DURATION;
 	tal_pib.SHRDuration = NO_OF_SYMBOLS_PREAMBLE_SFD;
 	tal_pib.SymbolsPerOctet = SYMBOLS_PER_OCTET;

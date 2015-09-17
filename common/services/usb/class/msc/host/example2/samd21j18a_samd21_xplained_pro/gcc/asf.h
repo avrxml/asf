@@ -83,11 +83,12 @@
 
 // From module: RTC - Real Time Counter in Calendar Mode (Polled APIs)
 #include <rtc_calendar.h>
+#include <rtc_tamper.h>
 
-// From module: SAM D21/R21 USB Dual role interface
+// From module: SAM D21/R21/D11/L21/DA1/L22 USB Dual role interface
 #include <usb_dual.h>
 
-// From module: SYSTEM - Clock Management for SAMD21
+// From module: SYSTEM - Clock Management for SAMD21/R21/DAx
 #include <clock.h>
 #include <gclk.h>
 
@@ -100,6 +101,12 @@
 // From module: SYSTEM - Interrupt Driver
 #include <system_interrupt.h>
 
+// From module: SYSTEM - Power Management for SAM D20/D21/R21/D09/D10/D11/DA0/DA1
+#include <power.h>
+
+// From module: SYSTEM - Reset Management for SAM D20/D21/R21/D09/D10/D11/DA0/DA1
+#include <reset.h>
+
 // From module: Sleep manager - SAMD implementation
 #include <samd/sleepmgr.h>
 #include <sleepmgr.h>
@@ -111,7 +118,7 @@
 #include <usb.h>
 
 // From module: USB Host MSC (Single Class support)
-#include <uhi_msc.h>
+#include <uhi_msc_mem.h>
 
 // From module: USB Host stack core
 #include <uhc.h>

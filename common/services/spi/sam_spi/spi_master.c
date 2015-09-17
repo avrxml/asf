@@ -3,7 +3,7 @@
  *
  * \brief SPI master common service for SAM.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,8 +40,15 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "spi_master.h"
+#if SAMG55
+#include "flexcom.h"
+#include "conf_board.h"
+#endif
 
 /**
  * \brief Max number when the chip selects are connected to a 4- to 16-bit decoder.
@@ -70,7 +77,12 @@
  */
 void spi_master_init(Spi *p_spi)
 {
+#if SAMG55
+	flexcom_enable(BOARD_FLEXCOM_SPI);
+	flexcom_set_opmode(BOARD_FLEXCOM_SPI, FLEXCOM_SPI);
+#else
 	spi_enable_clock(p_spi);
+#endif
 	spi_reset(p_spi);
 	spi_set_master_mode(p_spi);
 	spi_disable_mode_fault_detect(p_spi);

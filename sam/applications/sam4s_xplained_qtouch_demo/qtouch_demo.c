@@ -3,7 +3,7 @@
  *
  * \brief SAM4S-Xplained QTouch and LED demonstration.
  *
- * Copyright (c) 2012 - 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -69,6 +69,9 @@
  * -# Press and release the QTouch slider will set the LEDs blinking at a
  * different frequency.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"

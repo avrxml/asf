@@ -3,7 +3,7 @@
  *
  * \brief AVR UC3 IISC I2S example 2
  *
- * Copyright (c) 2010 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -70,6 +70,9 @@
  * \section contactinfo Contact Information
  * For further information, visit
  * <A href="http://www.atmel.com/uc3/">Atmel AVR UC3</A>.\n
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "compiler.h"

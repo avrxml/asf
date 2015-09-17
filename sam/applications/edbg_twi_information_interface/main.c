@@ -3,7 +3,7 @@
  *
  * \brief SAM EDBG TWI Information Interface Example
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -77,6 +77,9 @@
  *    \endcode
  * -# Extension boards information and kit data will be show in the terminal.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>

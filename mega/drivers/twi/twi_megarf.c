@@ -3,7 +3,7 @@
  *
  * \brief megaRF TWI master and slave driver.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "twi_megarf.h"
@@ -421,7 +424,7 @@ status_code_t twi_master_init(volatile void *twi, twi_master_options_t *opt)
  *
  * After initiating the twi as slave,the TWI waits until it is addressed by its
  * own slave address (or the general call address if enabled) followed by the
- * data direction bit. If the direction bit is “1” (read), the TWI will operate in Slave
+ * data direction bit. If the direction bit is (read), the TWI will operate in Slave
  * transmit mode, otherwise Slave receive mode is entered
  *
  * The status and state is indicated to the application code through the
@@ -705,7 +708,7 @@ static void twi_interrupt_handler(void)
 		                     * data has been received; NOT ACK has been
 		                     * returned */
 	case TWS_ST_DATA_ACK_LAST_BYTE: /* Last data byte in TWDR has been
-		                         * transmitted (TWEA = “0”); ACK has
+		                         * transmitted (TWEA = ; ACK has
 		                         * been received */
 		twi_slave_bus_reset();
 		slave_transfer.status = TWI_STATUS_IO_ERROR;

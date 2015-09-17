@@ -3,7 +3,7 @@
  *
  * \brief SAMG53 Xplained Pro board initialization
  *
- * Copyright (c) 2013 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <compiler.h>
@@ -102,7 +105,7 @@ void system_board_init(void)
 #if defined (CONF_BOARD_UART_CONSOLE)
 	/* Configure UART pins */
 	ioport_set_port_peripheral_mode(PINS_UART0_PORT, PINS_UART0,
-			PINS_UART0_MASK);
+			PINS_UART0_FLAGS);
 #endif
 
 #ifdef CONF_BOARD_USART_RXD

@@ -309,7 +309,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -574,7 +573,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1230,7 +1228,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1495,7 +1492,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/supc</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../Common/Include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1851,24 +1847,15 @@
 				<group>
 					<name>Examples</name>
 					<group>
-						<name>Common</name>
-						<group>
-							<name>Source</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Source/math_helper.c</name>
-							</file>
-						</group>
-						<group>
-							<name>Include</name>
-							<file>
-								<name>$PROJ_DIR$/../../../Common/Include/math_helper.h</name>
-							</file>
-						</group>
-					</group>
-					<group>
 						<name>arm_convolution_example</name>
 						<file>
 							<name>$PROJ_DIR$/../../arm_convolution_example_f32.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../math_helper.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../documentation.h</name>
@@ -1935,9 +1922,6 @@
 									<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/samg/samg53/include/component/component_adc.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/samg/samg53/include/component/component_spi.h</name>
-								</file>
-								<file>
 									<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/samg/samg53/include/component/component_usart.h</name>
 								</file>
 								<file>
@@ -1972,6 +1956,9 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/samg/samg53/include/component/component_uart.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/samg/samg53/include/component/component_spi.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/samg/samg53/include/component/component_chipid.h</name>
@@ -2156,21 +2143,21 @@
 				</file>
 			</group>
 			<group>
-				<name>supc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam/drivers/supc/supc.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam/drivers/supc/supc.h</name>
-				</file>
-			</group>
-			<group>
 				<name>efc</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/efc/efc.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/efc/efc.h</name>
+				</file>
+			</group>
+			<group>
+				<name>supc</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sam/drivers/supc/supc.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sam/drivers/supc/supc.h</name>
 				</file>
 			</group>
 		</group>

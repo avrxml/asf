@@ -6,7 +6,7 @@
  *
  * This file defines the types used in the Fixed Point DSP library
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -76,6 +76,9 @@
  *</em>
  * Here is a link where you can find more information <a target="_parent" href="http://en.wikipedia.org/wiki/Fixed-point_arithmetic">
  * http://en.wikipedia.org/wiki/Fixed-point_arithmetic</a> on fixed-point formats.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef __DSP_TYPES_H__

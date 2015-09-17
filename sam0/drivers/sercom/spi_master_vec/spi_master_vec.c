@@ -3,7 +3,7 @@
  *
  * \brief SERCOM SPI master with vectored I/O driver implementation
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "spi_master_vec.h"
@@ -146,7 +149,11 @@ enum status_code spi_master_vec_init(struct spi_master_vec_module *const module,
 	struct system_gclk_chan_config gclk_chan_conf;
 	uint16_t tmp_baud;
 	uint32_t sercom_index = _sercom_get_sercom_inst_index((Sercom *)spi_hw);
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21)
+	uint32_t pm_index = sercom_index + MCLK_APBCMASK_SERCOM0_Pos;
+#else
 	uint32_t pm_index = sercom_index + PM_APBCMASK_SERCOM0_Pos;
+#endif
 	uint32_t gclk_index = sercom_index + SERCOM0_GCLK_ID_CORE;
 	uint32_t gclk_hz;
 
@@ -165,7 +172,7 @@ enum status_code spi_master_vec_init(struct spi_master_vec_module *const module,
 	_spi_master_vec_wait_for_sync(spi_hw);
 
 	/* Set up the SERCOM SPI module as master */
-	spi_hw->CTRLA.reg = SERCOM_SPI_CTRLA_MODE_SPI_MASTER;
+	spi_hw->CTRLA.reg = SERCOM_SPI_CTRLA_MODE(0x3);
 	spi_hw->CTRLA.reg |= (uint32_t)config->mux_setting
 			| config->transfer_mode
 			| config->data_order

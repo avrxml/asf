@@ -83,7 +83,7 @@
 				</option>
 				<option>
 					<name>OCDynDriverList</name>
-					<state>JLINK_ID</state>
+					<state>CMSISDAP_ID</state>
 				</option>
 				<option>
 					<name>OCLastSavedByProductVersion</name>
@@ -143,7 +143,7 @@
 				</option>
 				<option>
 					<name>OverrideDefFlashBoard</name>
-					<state>1</state>
+					<state>0</state>
 				</option>
 				<option>
 					<name>OCImagesOffset1</name>
@@ -239,6 +239,19 @@
 				</option>
 				<option>
 					<name>OCDriverInfo</name>
+					<state>1</state>
+				</option>
+			</data>
+		</settings>
+		<settings>
+			<name>CMSISDAP_ID</name>
+			<archiveVersion>2</archiveVersion>
+			<data>
+				<version>2</version>
+				<wantNonLocal>1</wantNonLocal>
+				<debug>1</debug>
+				<option>
+					<name>CMSISDAPInterfaceRadio</name>
 					<state>1</state>
 				</option>
 			</data>
@@ -1230,7 +1243,7 @@
 				</option>
 				<option>
 					<name>OCDownloadVerifyAll</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>OCProductVersion</name>
@@ -1238,7 +1251,7 @@
 				</option>
 				<option>
 					<name>OCDynDriverList</name>
-					<state>ARMSIM_ID</state>
+					<state>CMSISDAP_ID</state>
 				</option>
 				<option>
 					<name>OCLastSavedByProductVersion</name>
@@ -1394,6 +1407,19 @@
 				</option>
 				<option>
 					<name>OCDriverInfo</name>
+					<state>1</state>
+				</option>
+			</data>
+		</settings>
+		<settings>
+			<name>CMSISDAP_ID</name>
+			<archiveVersion>2</archiveVersion>
+			<data>
+				<version>2</version>
+				<wantNonLocal>1</wantNonLocal>
+				<debug>1</debug>
+				<option>
+					<name>CMSISDAPInterfaceRadio</name>
 					<state>1</state>
 				</option>
 			</data>

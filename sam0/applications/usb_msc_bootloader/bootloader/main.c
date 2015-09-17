@@ -3,7 +3,7 @@
  *
  * \brief SAM0 USB Host Mass Storage Bootloader Application with CRC Check.
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -369,7 +372,7 @@ static bool program_memory(void)
 	curr_address = 0;
 	
 	/* Erase flash rows to fit new firmware */
-	rows_clear = file_size / NVMCTRL_ROW_SIZE;
+	rows_clear = ((file_size / NVMCTRL_ROW_SIZE) + 1);
 	for (i = 0; i < rows_clear; i++) {
 		do {
 			error_code =
@@ -431,7 +434,7 @@ static bool program_memory(void)
 static void console_init(void)
 {
 	struct usart_config usart_conf;
-	struct usart_module cdc_uart_module;
+	static struct usart_module cdc_uart_module;
 
 	usart_get_config_defaults(&usart_conf);
 	usart_conf.mux_setting = CONF_STDIO_MUX_SETTING;
@@ -465,6 +468,7 @@ static void bootloader_system_init(void)
 
 	/* Initialize the NVM */
 	nvm_get_config_defaults(&nvm_cfg);
+	nvm_cfg.manual_page_write = false;
 	nvm_set_config(&nvm_cfg);
 
 	/* Initialize the sleep manager */
@@ -476,7 +480,7 @@ static void bootloader_system_init(void)
 	/* Wait stdio stable */
 	delay_ms(5);
 	/* Print a header */
-	printf(APP_HEADER);
+	puts(APP_HEADER);
 #endif
 
 	/* Enable the global interrupts */
@@ -504,7 +508,7 @@ int main(void)
 
 #if CONSOLE_OUTPUT_ENABLED
 	/* Print a header */
-	printf("Insert device\r\n");
+	puts("Insert device\r\n");
 #endif
 	/* The USB management is entirely managed by interrupts. */
 	while (true) {
@@ -517,7 +521,7 @@ int main(void)
 
 #if CONSOLE_OUTPUT_ENABLED
 		/* Print a header */
-		printf("Device Connected\r\n");
+		puts("Device Connected\r\n");
 #endif
 		/* Go through the different LUN and check for the file. */
 		for (lun = 0; (lun < uhi_msc_mem_get_lun()) && (lun < 8); lun++) {
@@ -529,7 +533,7 @@ int main(void)
 
 #if CONSOLE_OUTPUT_ENABLED
 			/* Print the current task */
-			printf("Mounting the device...\r\n");
+			puts("Mounting the device...\r\n");
 #endif
 			/* 
 			 * Set and mount the currently selected LUN as a drive
@@ -547,7 +551,7 @@ int main(void)
 			if (res != FR_OK) {
 #if CONSOLE_OUTPUT_ENABLED
 				/* Print task output */
-				printf(TASK_FAILED);
+				puts(TASK_FAILED);
 #endif
 				/* Check the next LUN */
 				continue;
@@ -555,7 +559,7 @@ int main(void)
 
 #if CONSOLE_OUTPUT_ENABLED
 			/* Print the current task */
-			printf("Search firmware...\r\n");
+			puts("Search firmware...\r\n");
 #endif
 			/* Firmware files on the disk */
 			input_file_name[0] = lun + '0';
@@ -571,7 +575,7 @@ int main(void)
 					&& (res == FR_OK))) {
 #if CONSOLE_OUTPUT_ENABLED
 				/* Print task output */
-				printf(TASK_FAILED);
+				puts(TASK_FAILED);
 #endif
 				/* LUN error */
 				f_close(&file_object);
@@ -583,8 +587,8 @@ int main(void)
 
 #if CONSOLE_OUTPUT_ENABLED
 			/* Print the current task */
-			printf(TASK_PASSED);
-			printf("Integrity check...\r\n");
+			puts(TASK_PASSED);
+			puts("Integrity check...\r\n");
 #endif
 
 #if FIRMWARE_CRC_CHECK
@@ -592,7 +596,7 @@ int main(void)
 			if (!integrity_check_in_disk()) {
 #if CONSOLE_OUTPUT_ENABLED
 				/* Print a header */
-				printf(TASK_FAILED);
+				puts(TASK_FAILED);
 #endif
 				continue;
 			}
@@ -600,11 +604,11 @@ int main(void)
 
 #if CONSOLE_OUTPUT_ENABLED
 			/* Print the current task */
-			printf(TASK_PASSED);
+			puts(TASK_PASSED);
 #  if FIRMWARE_CRC_CHECK
-			printf("Programming & verifying...\r\n");
+			puts("Programming & verifying...\r\n");
 #  else
-			printf("Programming...\r\n");
+			puts("Programming...\r\n");
 #  endif
 #endif
 
@@ -612,7 +616,7 @@ int main(void)
 			if (!program_memory()) {
 #if CONSOLE_OUTPUT_ENABLED
 				/* Print task output */
-				printf(TASK_FAILED);
+				puts(TASK_FAILED);
 #endif
 				continue;
 			}
@@ -628,8 +632,8 @@ int main(void)
 
 #if CONSOLE_OUTPUT_ENABLED
 			/* Print the current task */
-			printf(TASK_PASSED);
-			printf("Starting application...\r\n");
+			puts(TASK_PASSED);
+			puts("Starting application...\r\n");
 #endif
 
 			/* Start the application with a WDT Reset */

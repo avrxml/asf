@@ -20,6 +20,9 @@
 */
 
 #define     CPU_CONST_FREQ                     1                        /* Enable automatic CPU operating frequency check           */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #if CPU_CONST_FREQ > 0
   #define   CPU_CLK_FREQ()              BSP_CPU_ClkFreq()

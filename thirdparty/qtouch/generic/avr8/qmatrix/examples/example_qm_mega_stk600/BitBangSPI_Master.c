@@ -3,7 +3,7 @@
  *
  * \brief
  *
- * Copyright (C) 2009-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \page License
  *

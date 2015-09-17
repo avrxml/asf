@@ -5,13 +5,13 @@
  * - Supported devices:  AVR ATUC256L3U
  *
  * - author              Atmel Corporation: http://www.atmel.com \n
- *                       Support and FAQ: http://support.atmel.no/
+ *                       Support and FAQ: http://www.atmel.com/design-support/
  *
  ******************************************************************************/
 
 /**
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

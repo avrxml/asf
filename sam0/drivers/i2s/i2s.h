@@ -3,7 +3,7 @@
  *
  * \brief SAM I2S - Inter-IC Sound Controller
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef I2S_H_INCLUDED
 #define I2S_H_INCLUDED
@@ -47,7 +50,7 @@
 /**
  * \defgroup asfdoc_sam0_i2s_group SAM Inter-IC Sound Controller Driver (I2S)
  *
- * This driver for SAM devices provides an interface for the configuration
+ * This driver for Atmel® | SMART SAM devices provides an interface for the configuration
  * and management of the device's Inter-IC Sound Controller functionality.
  *
  * The following driver API modes are covered by this manual:
@@ -60,7 +63,8 @@
  *  - I2S (Inter-IC Sound Controller)
  *
  * The following devices can use this module:
- *  - SAM D21
+ *  - Atmel | SMART SAM D21
+ *  - Atmel | SMART SAM DA1
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_i2s_prerequisites
@@ -241,7 +245,7 @@
  * The general TDM waveform generation is as follow:
  *
  * \anchor asfdoc_sam0_i2s_module_tdm_wave_diagram
- * \image html tdm_wave.png "TDM Waveform generation"
+ * \image html tdm_wave.svg "TDM Waveform generation"
  *
  * Some other settings could also be found to set up clock, data formatting and
  * pin mux.
@@ -789,8 +793,8 @@ struct i2s_module {
  *
  * \return Synchronization status of the underlying hardware module(s).
  *
- * \retval true if the module has completed synchronization
- * \retval false if the module synchronization is ongoing
+ * \retval false If the module has completed synchronization
+ * \retval true If the module synchronization is ongoing
  */
 static inline bool i2s_is_syncing(
 		const struct i2s_module *const module_inst)
@@ -1383,6 +1387,11 @@ enum status_code i2s_serializer_read_buffer_wait(
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>B</td>
+ *		<td>04/2015</td>
+ *		<td>Added support for SAMDA1.</td>
  *	</tr>
  *	<tr>
  *		<td>A</td>

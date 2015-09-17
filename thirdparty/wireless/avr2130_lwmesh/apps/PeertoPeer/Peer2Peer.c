@@ -3,7 +3,7 @@
  *
  * \brief Peer2Peer application implementation
  *
- * Copyright (C) 2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,10 @@
  * \mainpage
  * \section preface Preface
  * This is the reference manual for the LWMesh Peer2Peer Application
- * //TODO
+ * The LightWeight Mesh Peer2Peer  implements a wireless UART application.Two nodes are used in this application
+ * These two nodes must be configured with addresses 0x0001 and 0x0000 respectively.
+ * To test this application,open a terminal for both the nodes.On entering text in the terminal the data is transmitted from one 
+ * node to another node(0x0001 to 0x0000 and vice-versa)
  */
 /*- Includes ---------------------------------------------------------------*/
 #include <stdlib.h>
@@ -52,7 +55,7 @@
 #include <string.h>
 #include "config.h"
 #include "sys.h"
-#if SAMD || SAMR21
+#if SAMD || SAMR21 || SAML21
 #include "system.h"
 #else
 #include "led.h"
@@ -205,7 +208,7 @@ static void APP_TaskHandler(void)
 int main(void)
 {
 	irq_initialize_vectors();
-	#if SAMD || SAMR21
+	#if SAMD || SAMR21 || SAML21
 	system_init();
 	delay_init();
 	#else

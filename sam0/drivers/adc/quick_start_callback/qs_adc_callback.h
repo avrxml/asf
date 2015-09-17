@@ -3,7 +3,7 @@
  *
  * \brief SAM ADC Quick Start
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,18 +44,18 @@
 /**
  * \page asfdoc_sam0_adc_basic_use_case_callback Quick Start Guide for ADC - Callback
  *
- * In this use case, the ADC will be convert 128 samples using interrupt driven conversion.
+ * In this use case, the ADC will convert 128 samples using interrupt driven conversion.
  * When all samples have been sampled, a callback will be called that signals the main
- * application that conversion is compete.
+ * application that conversion is complete.
  *
  * The ADC will be set up as follows:
- * - VCC / 2 as reference
+ * - V<SUB>CC</SUB> / 2 as reference
  * - Div 8 clock prescaler
- * - 12 bit resolution
+ * - 12-bit resolution
  * - Window monitor disabled
  * - 1/2 gain
  * - Positive input on ADC PIN 0
- * - Negative input to GND (Single ended)
+ * - Negative input to GND (single ended)
  * - Averaging disabled
  * - Oversampling disabled
  * - Right adjust data
@@ -89,7 +89,7 @@
  *
  * \subsection asfdoc_sam0_adc_basic_use_case_callback_workflow Workflow
  * -# Create a module software instance structure for the ADC module to store
- *    the ADC driver state while it is in use.
+ *    the ADC driver state while in use.
  *    \snippet qs_adc_callback.c module_inst
  *    \note This should never go out of scope as long as the module is in use.
  *          In most cases, this should be global.
@@ -101,7 +101,7 @@
  *    an asynchronous read job.
  * \snippet qs_adc_callback.c job_complete_callback
  * -# Configure the ADC module.
- *  -# Create a ADC module configuration struct, which can be filled out to
+ *  -# Create an ADC module configuration struct, which can be filled out to
  *     adjust the configuration of a physical ADC peripheral.
  *     \snippet qs_adc_callback.c setup_config
  *  -# Initialize the ADC configuration struct with the module's default values.
@@ -112,11 +112,11 @@
  *
  *  -# Change the ADC module configuration to suit the application.
  *     \snippet qs_adc_callback.c setup_modify_conf
- *  -# Set ADC configurations
+ *  -# Set ADC configurations.
  *     \snippet qs_adc_callback.c setup_set_config
  *  -# Enable the ADC module so that conversions can be made.
  *     \snippet qs_adc_callback.c setup_enable
- * -# Register and enable the ADC Read Buffer Complete callback handler
+ * -# Register and enable the ADC Read Buffer Complete callback handler.
  *  -# Register the user-provided Read Buffer Complete callback function with
  *     the driver, so that it will be run when an asynchronous buffer read job
  *     completes.
@@ -142,4 +142,7 @@
  *     \snippet qs_adc_callback.c job_complete_poll
  *  -# Enter an infinite loop once the conversion is complete.
  *     \snippet qs_adc_callback.c inf_loop
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

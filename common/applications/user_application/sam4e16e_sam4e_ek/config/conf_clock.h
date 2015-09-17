@@ -3,7 +3,7 @@
  *
  * \brief SAM4E clock configuration.
  *
- * Copyright (c) 2012-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef CONF_CLOCK_H_INCLUDED
 #define CONF_CLOCK_H_INCLUDED
@@ -75,7 +78,7 @@
 // ===== USB Clock Source Options   (Fusb = FpllX / USB_div)
 // Use div effective value here.
 #define CONFIG_USBCLK_SOURCE        USBCLK_SRC_PLL0
-#define CONFIG_USBCLK_DIV           2
+#define CONFIG_USBCLK_DIV           4
 
 // ===== Target frequency (System clock)
 // - XTAL frequency: 12MHz
@@ -86,9 +89,9 @@
 // - System clock: 12 * 16 / 1 / 2 = 96MHz
 // ===== Target frequency (USB Clock)
 // - USB clock source: PLLA
-// - USB clock divider: 2 (divided by 2)
-// - PLLA output: XTAL * 16 / 2
-// - USB clock: 12 * 16 / 2 / 2 = 48MHz
+// - USB clock divider: 4 (divided by 4)
+// - PLLA output: XTAL * 16 / 1
+// - USB clock: 12 * 16 / 1 / 4 = 48MHz
 
 
 #endif /* CONF_CLOCK_H_INCLUDED */

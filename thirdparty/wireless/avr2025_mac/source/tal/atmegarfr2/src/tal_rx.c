@@ -3,7 +3,7 @@
  *
  * \brief This file implements the frame reception functions.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -127,6 +127,7 @@ void handle_received_frame_irq(void)
 		                                                       * Disable
 		                                                       * buffer
 		                                                       *
+		                                                       *
 		                                                       *protection
 		                                                       * mode
 		                                                       **/
@@ -134,6 +135,7 @@ void handle_received_frame_irq(void)
 		trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /*
 		                                                      * Enable
 		                                                      * buffer
+		                                                      *
 		                                                      *
 		                                                      *protection
 		                                                      * mode
@@ -240,6 +242,7 @@ void handle_received_frame_irq(void)
 		                                                       * Disable
 		                                                       * buffer
 		                                                       *
+		                                                       *
 		                                                       *protection
 		                                                       * mode
 		                                                       **/
@@ -247,6 +250,7 @@ void handle_received_frame_irq(void)
 		trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /*
 		                                                      * Enable
 		                                                      * buffer
+		                                                      *
 		                                                      *
 		                                                      *protection
 		                                                      * mode

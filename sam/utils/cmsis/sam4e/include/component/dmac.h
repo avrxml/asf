@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_DMAC_COMPONENT_
 #define _SAM4E_DMAC_COMPONENT_
@@ -51,40 +54,40 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief DmacCh_num hardware registers */
 typedef struct {
-  RwReg       DMAC_SADDR;     /**< \brief (DmacCh_num Offset: 0x0) DMAC Channel Source Address Register */
-  RwReg       DMAC_DADDR;     /**< \brief (DmacCh_num Offset: 0x4) DMAC Channel Destination Address Register */
-  RwReg       DMAC_DSCR;      /**< \brief (DmacCh_num Offset: 0x8) DMAC Channel Descriptor Address Register */
-  RwReg       DMAC_CTRLA;     /**< \brief (DmacCh_num Offset: 0xC) DMAC Channel Control A Register */
-  RwReg       DMAC_CTRLB;     /**< \brief (DmacCh_num Offset: 0x10) DMAC Channel Control B Register */
-  RwReg       DMAC_CFG;       /**< \brief (DmacCh_num Offset: 0x14) DMAC Channel Configuration Register */
-  RoReg       Reserved1[4];
+  __IO uint32_t DMAC_SADDR;   /**< \brief (DmacCh_num Offset: 0x0) DMAC Channel Source Address Register */
+  __IO uint32_t DMAC_DADDR;   /**< \brief (DmacCh_num Offset: 0x4) DMAC Channel Destination Address Register */
+  __IO uint32_t DMAC_DSCR;    /**< \brief (DmacCh_num Offset: 0x8) DMAC Channel Descriptor Address Register */
+  __IO uint32_t DMAC_CTRLA;   /**< \brief (DmacCh_num Offset: 0xC) DMAC Channel Control A Register */
+  __IO uint32_t DMAC_CTRLB;   /**< \brief (DmacCh_num Offset: 0x10) DMAC Channel Control B Register */
+  __IO uint32_t DMAC_CFG;     /**< \brief (DmacCh_num Offset: 0x14) DMAC Channel Configuration Register */
+  __I  uint32_t Reserved1[4];
 } DmacCh_num;
 /** \brief Dmac hardware registers */
 #define DMACCH_NUM_NUMBER 4
 typedef struct {
-  RwReg       DMAC_GCFG;      /**< \brief (Dmac Offset: 0x000) DMAC Global Configuration Register */
-  RwReg       DMAC_EN;        /**< \brief (Dmac Offset: 0x004) DMAC Enable Register */
-  RwReg       DMAC_SREQ;      /**< \brief (Dmac Offset: 0x008) DMAC Software Single Request Register */
-  RwReg       DMAC_CREQ;      /**< \brief (Dmac Offset: 0x00C) DMAC Software Chunk Transfer Request Register */
-  RwReg       DMAC_LAST;      /**< \brief (Dmac Offset: 0x010) DMAC Software Last Transfer Flag Register */
-  RoReg       Reserved1[1];
-  WoReg       DMAC_EBCIER;    /**< \brief (Dmac Offset: 0x018) DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer Transfer Completed Interrupt Enable register. */
-  WoReg       DMAC_EBCIDR;    /**< \brief (Dmac Offset: 0x01C) DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer Transfer Completed Interrupt Disable register. */
-  RoReg       DMAC_EBCIMR;    /**< \brief (Dmac Offset: 0x020) DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer transfer completed Mask Register. */
-  RoReg       DMAC_EBCISR;    /**< \brief (Dmac Offset: 0x024) DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer transfer completed Status Register. */
-  WoReg       DMAC_CHER;      /**< \brief (Dmac Offset: 0x028) DMAC Channel Handler Enable Register */
-  WoReg       DMAC_CHDR;      /**< \brief (Dmac Offset: 0x02C) DMAC Channel Handler Disable Register */
-  RoReg       DMAC_CHSR;      /**< \brief (Dmac Offset: 0x030) DMAC Channel Handler Status Register */
-  RoReg       Reserved2[2];
-  DmacCh_num  DMAC_CH_NUM[DMACCH_NUM_NUMBER]; /**< \brief (Dmac Offset: 0x3C) ch_num = 0 .. 3 */
-  RoReg       Reserved3[66];
-  RwReg       DMAC_WPMR;      /**< \brief (Dmac Offset: 0x1E4) DMAC Write Protect Mode Register */
-  RoReg       DMAC_WPSR;      /**< \brief (Dmac Offset: 0x1E8) DMAC Write Protect Status Register */
+  __IO uint32_t   DMAC_GCFG;                      /**< \brief (Dmac Offset: 0x000) DMAC Global Configuration Register */
+  __IO uint32_t   DMAC_EN;                        /**< \brief (Dmac Offset: 0x004) DMAC Enable Register */
+  __IO uint32_t   DMAC_SREQ;                      /**< \brief (Dmac Offset: 0x008) DMAC Software Single Request Register */
+  __IO uint32_t   DMAC_CREQ;                      /**< \brief (Dmac Offset: 0x00C) DMAC Software Chunk Transfer Request Register */
+  __IO uint32_t   DMAC_LAST;                      /**< \brief (Dmac Offset: 0x010) DMAC Software Last Transfer Flag Register */
+  __I  uint32_t   Reserved1[1];
+  __O  uint32_t   DMAC_EBCIER;                    /**< \brief (Dmac Offset: 0x018) DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer Transfer Completed Interrupt Enable register. */
+  __O  uint32_t   DMAC_EBCIDR;                    /**< \brief (Dmac Offset: 0x01C) DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer Transfer Completed Interrupt Disable register. */
+  __I  uint32_t   DMAC_EBCIMR;                    /**< \brief (Dmac Offset: 0x020) DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer transfer completed Mask Register. */
+  __I  uint32_t   DMAC_EBCISR;                    /**< \brief (Dmac Offset: 0x024) DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer transfer completed Status Register. */
+  __O  uint32_t   DMAC_CHER;                      /**< \brief (Dmac Offset: 0x028) DMAC Channel Handler Enable Register */
+  __O  uint32_t   DMAC_CHDR;                      /**< \brief (Dmac Offset: 0x02C) DMAC Channel Handler Disable Register */
+  __I  uint32_t   DMAC_CHSR;                      /**< \brief (Dmac Offset: 0x030) DMAC Channel Handler Status Register */
+  __I  uint32_t   Reserved2[2];
+       DmacCh_num DMAC_CH_NUM[DMACCH_NUM_NUMBER]; /**< \brief (Dmac Offset: 0x3C) ch_num = 0 .. 3 */
+  __I  uint32_t   Reserved3[66];
+  __IO uint32_t   DMAC_WPMR;                      /**< \brief (Dmac Offset: 0x1E4) DMAC Write Protect Mode Register */
+  __I  uint32_t   DMAC_WPSR;                      /**< \brief (Dmac Offset: 0x1E8) DMAC Write Protect Status Register */
 } Dmac;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- DMAC_GCFG : (DMAC Offset: 0x000) DMAC Global Configuration Register -------- */
 #define DMAC_GCFG_ARB_CFG (0x1u << 4) /**< \brief (DMAC_GCFG) Arbiter Configuration */
-#define   DMAC_GCFG_ARB_CFG_FIXED (0x0u << 4) /**< \brief (DMAC_GCFG) Fixed priority arbiter. */
+#define   DMAC_GCFG_ARB_CFG_FIXED (0x0u << 4) /**< \brief (DMAC_GCFG) Fixed priority arbiter (see "Basic Definitions" ) */
 #define   DMAC_GCFG_ARB_CFG_ROUND_ROBIN (0x1u << 4) /**< \brief (DMAC_GCFG) Modified round robin arbiter. */
 /* -------- DMAC_EN : (DMAC Offset: 0x004) DMAC Enable Register -------- */
 #define DMAC_EN_ENABLE (0x1u << 0) /**< \brief (DMAC_EN) General Enable of DMA */
@@ -293,7 +296,7 @@ typedef struct {
 #define DMAC_WPMR_WPEN (0x1u << 0) /**< \brief (DMAC_WPMR) Write Protect Enable */
 #define DMAC_WPMR_WPKEY_Pos 8
 #define DMAC_WPMR_WPKEY_Msk (0xffffffu << DMAC_WPMR_WPKEY_Pos) /**< \brief (DMAC_WPMR) Write Protect KEY */
-#define DMAC_WPMR_WPKEY(value) ((DMAC_WPMR_WPKEY_Msk & ((value) << DMAC_WPMR_WPKEY_Pos)))
+#define   DMAC_WPMR_WPKEY_PASSWD (0x444D41u << 8) /**< \brief (DMAC_WPMR) Writing any other value in this field aborts the write operation of the WPEN bit.Always reads as 0. */
 /* -------- DMAC_WPSR : (DMAC Offset: 0x1E8) DMAC Write Protect Status Register -------- */
 #define DMAC_WPSR_WPVS (0x1u << 0) /**< \brief (DMAC_WPSR) Write Protect Violation Status */
 #define DMAC_WPSR_WPVSRC_Pos 8

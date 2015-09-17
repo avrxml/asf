@@ -3,7 +3,7 @@
  *
  * \brief USB Device Human Interface Device (HID) gamepad interface.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -122,7 +122,7 @@ typedef struct {
 /**
  * \ingroup udi_hid_group
  * \defgroup udi_hid_gamepad_group USB Device Interface (UDI) for Human
- *Interface Device (HID) gamepad Class
+ * Interface Device (HID) gamepad Class
  *
  * Common APIs used by high level application to use this USB class.
  *
@@ -139,6 +139,7 @@ typedef struct {
  *
  */
 bool udi_hid_gpd_buttons(bool b_state, uint8_t key_id);
+
 /**
  * \brief Move the throttle
  *
@@ -147,6 +148,7 @@ bool udi_hid_gpd_buttons(bool b_state, uint8_t key_id);
  * \return \c 1 if function was successfully done, otherwise \c 0.
  */
 bool udi_hid_gpd_throttle_move(int8_t pos);
+
 /**
  * \brief Move the x axe
  * \param pos   Signed value to move
@@ -154,6 +156,7 @@ bool udi_hid_gpd_throttle_move(int8_t pos);
  * \return \c 1 if function was successfully done, otherwise \c 0.
  */
 bool udi_hid_gpd_moveX(int8_t pos);
+
 /**
  * \brief Move the y axe
  * \param pos   Signed value to move
@@ -170,7 +173,7 @@ bool udi_hid_gpd_moveY(int8_t pos);
 
 /**
  * \page udi_hid_gamepad_quickstart Quick start guide for USB device gamepad
- *module (UDI gamepad)
+ * module (UDI gamepad)
  *
  * This is the quick start guide for the \ref udi_hid_gamepad_group
  * "USB device gamepad module (UDI gamepad)" with step-by-step instructions on
@@ -186,9 +189,9 @@ bool udi_hid_gpd_moveY(int8_t pos);
  *
  * \section udi_hid_gamepad_basic_use_case Basic use case
  * In this basic use case, the "USB HID gamepad (Single Interface Device)"
- *module is used.
+ * module is used.
  * The "USB HID gamepad (Composite Device)" module usage is described in \ref
- *udi_hid_gamepad_use_cases
+ * udi_hid_gamepad_use_cases
  * "Advanced use cases".
  *
  * \section udi_hid_gamepad_basic_use_case_setup Setup steps
@@ -235,26 +238,26 @@ bool udi_hid_gpd_moveY(int8_t pos);
  *
  * \subsection udi_hid_gamepad_basic_use_case_setup_flow Workflow
  * -# Ensure that conf_usb.h is available and contains the following
- *configuration
+ * configuration
  * which is the USB device gamepad configuration:
  *   - \code #define UDI_HID_gpd_ENABLE_EXT() my_callback_gamepad_enable()
  * extern bool my_callback_gamepad_enable(void); \endcode
  *     \note After the device enumeration (detecting and identifying USB
- *devices),
+ * devices),
  *     the USB host starts the device configuration. When the USB gamepad
- *interface
+ * interface
  *     from the device is accepted by the host, the USB host enables this
- *interface and the
+ * interface and the
  *     UDI_HID_gpd_ENABLE_EXT() callback function is called and return true.
  *     Thus, it is recommended to enable sensors used by the gamepad in this
- *function.
+ * function.
  *   - \code #define UDI_HID_gpd_DISABLE_EXT() my_callback_gamepad_disable()
  * extern void my_callback_gamepad_disable(void); \endcode
  *     \note When the USB device is unplugged or is reset by the USB host, the
- *USB
+ * USB
  *     interface is disabled and the UDI_HID_gpd_DISABLE_EXT() callback function
  *     is called. Thus, it is recommended to disable sensors used by the
- *gamepad
+ * gamepad
  *     in this function.
  * -# send gamepad events:
  *   - \code // Send events key modifier released
@@ -268,7 +271,7 @@ bool udi_hid_gpd_moveY(int8_t pos);
  *
  * \section udi_hid_gamepad_use_cases Advanced use cases
  * For more advanced use of the UDI HID gamepad module, see the following use
- *cases:
+ * cases:
  * - \subpage udi_hid_gamepad_use_case_composite
  * - \subpage udc_use_case_1
  * - \subpage udc_use_case_2

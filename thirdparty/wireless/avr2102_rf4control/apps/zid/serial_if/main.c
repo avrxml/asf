@@ -3,7 +3,7 @@
  *
  * @brief RF4CE Serial Interface Application
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -78,7 +78,8 @@
  *     and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal
  * Area
  *     Networks (WPANs).\n\n
- * 2)  AVR Wireless Support <A href="http://avr@atmel.com">avr@atmel.com</A>.\n
+ * 2)  <a href="http://www.atmel.com/design-support/">Atmel Design
+ *Support</a>.\n
  *
  * \section contactinfo Contact Information
  * For further information,visit
@@ -86,7 +87,7 @@
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -187,7 +188,9 @@ bool check_zid_adaptor_compatibility(uint8_t PairingRef, uint8_t payload_length,
 		uint8_t *payload)
 {
 	/* Application need to find out the compatibility with the adaptor */
-	/* It needs to extract the adaptor attributes from the following payloas */
+	/* It needs to extract the adaptor attributes from the following payloas
+	 **/
+
 	/* Payload format is as per the GET_ATTRIBUTES_RESPONSE packet format
 	 * excluding the header */
 	/* payload[0] = attr_id........... */

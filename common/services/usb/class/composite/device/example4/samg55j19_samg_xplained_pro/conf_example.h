@@ -3,7 +3,7 @@
  *
  * \brief Example configuration
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef CONF_EXAMPLE_H_INCLUDED
 #define CONF_EXAMPLE_H_INCLUDED
 
@@ -47,10 +50,10 @@
 #define USART_DISABLE()
 #define BOARD_FLEXCOM    FLEXCOM7
 #define USART_BASE       ((Usart*)USART7)
-#define USART_ID         ID_USART7
+#define USART_ID         ID_FLEXCOM7
 
-#define USART_HANDLER    USART7_SPI7_TWI7_Handler
-#define USART_INT_IRQn   USART7_SPI7_TWI7_IRQn
+#define USART_HANDLER    FLEXCOM7_Handler
+#define USART_INT_IRQn   FLEXCOM7_IRQn
 #define USART_INT_LEVEL  3
 
 #endif /* CONF_EXAMPLE_H_INCLUDED */

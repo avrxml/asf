@@ -3,7 +3,7 @@
  *
  * \brief Analog-Front-End Controller driver for SAM.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "afec.h"
 #include "sleepmgr.h"
@@ -68,16 +71,29 @@
 #define AFEC_INTERRUPT_GAP1                  (17UL)
 #elif defined __SAM4E8E__  || defined __SAM4E16E__
 #define AFEC_INTERRUPT_GAP1                  (8UL)
+#elif (SAMV71 || SAMV70 || SAME70 || SAMS70)
+/* The gap between bit EOC11 and DRDY in interrupt register */
+#define AFEC_INTERRUPT_GAP1                  (12UL)
 #endif
 
+#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+/* The gap between bit COMPE and TEMPCHG in interrupt register */
+#define AFEC_INTERRUPT_GAP2                  (3UL)
+#else
 /* The gap between bit RXBUFF and TEMPCHG in interrupt register */
 #define AFEC_INTERRUPT_GAP2                  (1UL)
+#endif
 
 /* The number of channel in channel sequence1 register */
 #define AFEC_SEQ1_CHANNEL_NUM                (8UL)
 
+#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+/* The interrupt source number of temperature sensor */
+#define AFEC_TEMP_INT_SOURCE_NUM             (11UL)
+#else
 /* The interrupt source number of temperature sensor */
 #define AFEC_TEMP_INT_SOURCE_NUM             (15UL)
+#endif
 
 afec_callback_t afec_callback_pointer[NUM_OF_AFEC][_AFEC_NUM_OF_INTERRUPT_SOURCE];
 
@@ -139,12 +155,17 @@ static void afec_set_config(Afec *const afec, struct afec_config *config)
 {
 	uint32_t reg = 0;
 
-	reg = (config->anach ? AFEC_MR_ANACH_ALLOWED : 0) |
-			(config->useq ? AFEC_MR_USEQ_REG_ORDER : 0) |
+	reg = (config->useq ? AFEC_MR_USEQ_REG_ORDER : 0) |
+		#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+			AFEC_MR_PRESCAL((config->mck / config->afec_clock )- 1) |
+			AFEC_MR_ONE |
+		#else
+			(config->anach ? AFEC_MR_ANACH_ALLOWED : 0) |
 			AFEC_MR_PRESCAL(config->mck / (2 * config->afec_clock) - 1) |
+			(config->settling_time) |		
+		#endif
 			AFEC_MR_TRACKTIM(config->tracktim) |
 			AFEC_MR_TRANSFER(config->transfer) |
-			(config->settling_time) |
 			(config->startup_time);
 
 	afec->AFEC_MR = reg;
@@ -152,8 +173,11 @@ static void afec_set_config(Afec *const afec, struct afec_config *config)
 	afec->AFEC_EMR = (config->tag ? AFEC_EMR_TAG : 0) |
 			(config->resolution) |
 			(config->stm ? AFEC_EMR_STM : 0);
-
-	afec->AFEC_ACR = AFEC_ACR_IBCTL(config->ibctl);
+  #if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+	afec->AFEC_ACR = AFEC_ACR_IBCTL(config->ibctl) | AFEC_ACR_PGA0EN | AFEC_ACR_PGA1EN;
+  #else
+    afec->AFEC_ACR = AFEC_ACR_IBCTL(config->ibctl);
+  #endif
 }
 
 /**
@@ -198,6 +222,7 @@ void afec_temp_sensor_set_config(Afec *const afec,
 
 	afec->AFEC_TEMPCWR = AFEC_TEMPCWR_TLOWTHRES(config->low_threshold) |
 			AFEC_TEMPCWR_THIGHTHRES(config->high_threshold);
+			
 }
 
 /**
@@ -209,10 +234,10 @@ void afec_temp_sensor_set_config(Afec *const afec,
  * The default configuration is as follows:
  * - 12 -bit resolution
  * - AFEC clock frequency is 6MHz
- * - Start Up Time is 64 periods AFEC clock
+ * - Start Up Time is 64 periods AFEC clock, for SAMV71 is 24 periods AFEC clock
  * - Analog Settling Time is 3 periods of AFEC clock
  * - Tracking Time is 3 periods of AFEC clock
- * - Transfer Period is 5 periods AFEC clock
+ * - Transfer Period is 5 periods AFEC clock,for SAMV71 is 7 periods AFEC clock
  * - Allows different analog settings for each channel
  * - The controller converts channels in a simple numeric order
  * - Appends the channel number to the conversion result in AFE_LDCR register
@@ -228,16 +253,18 @@ void afec_get_config_defaults(struct afec_config *const cfg)
 
 	cfg->resolution = AFEC_12_BITS;
 	cfg->mck = sysclk_get_cpu_hz();
-	cfg->afec_clock = 6000000UL;
-	cfg->startup_time = AFEC_STARTUP_TIME_4;
-	cfg->settling_time = AFEC_SETTLING_TIME_0;
-	cfg->tracktim = 2;
-	cfg->transfer = 1;
-	cfg->anach = true;
-	cfg->useq = false;
-	cfg->tag = true;
-	cfg->stm = true;
-	cfg->ibctl = 1;
+		cfg->afec_clock = 6000000UL;
+		cfg->startup_time = AFEC_STARTUP_TIME_4;
+	#if !(SAMV71 || SAMV70 || SAME70 || SAMS70)
+		cfg->settling_time = AFEC_SETTLING_TIME_0;
+	#endif	
+		cfg->tracktim = 2;
+		cfg->transfer = 1;
+		cfg->anach = true;
+		cfg->useq = false;
+		cfg->tag = true;
+		cfg->stm = true;
+		cfg->ibctl = 1;
 }
 
 /**
@@ -257,7 +284,8 @@ void afec_ch_get_config_defaults(struct afec_ch_config *const cfg)
 	Assert(cfg);
 
 	cfg->diff = false;
-	cfg->gain = AFEC_GAINVALUE_1;
+   	cfg->gain = AFEC_GAINVALUE_1;
+
 }
 
 /**
@@ -417,8 +445,13 @@ void afec_enable_interrupt(Afec *const afec,
 	}
 
 	if (interrupt_source < AFEC_INTERRUPT_DATA_READY) {
-		if (interrupt_source == AFEC_INTERRUPT_EOC_15) {
+	  #if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+		if (interrupt_source == AFEC_INTERRUPT_EOC_11) {
 			afec->AFEC_IER = 1 << AFEC_TEMP_INT_SOURCE_NUM;
+	  #else
+		if (interrupt_source == AFEC_INTERRUPT_EOC_15) {
+			afec->AFEC_IER = 1 << AFEC_TEMP_INT_SOURCE_NUM;	  
+	  #endif 
 		} else {
 			afec->AFEC_IER = 1 << interrupt_source;
 		}
@@ -445,8 +478,13 @@ void afec_disable_interrupt(Afec *const afec,
 	}
 
 	if (interrupt_source < AFEC_INTERRUPT_DATA_READY) {
-		if (interrupt_source == AFEC_INTERRUPT_EOC_15) {
+	  #if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+		if (interrupt_source == AFEC_INTERRUPT_EOC_11) {
 			afec->AFEC_IDR = 1 << AFEC_TEMP_INT_SOURCE_NUM;
+	  #else
+		if (interrupt_source == AFEC_INTERRUPT_EOC_15) {
+			afec->AFEC_IDR = 1 << AFEC_TEMP_INT_SOURCE_NUM;	  
+	  #endif
 		} else {
 			afec->AFEC_IDR = 1 << interrupt_source;
 		}
@@ -502,7 +540,7 @@ static void afec_process_callback(Afec *const afec)
 					afec_interrupt(inst_num, (enum afec_interrupt_source)cnt);
 				}
 			}
-		#elif defined __SAM4E8E__  || defined __SAM4E16E__
+		#elif defined __SAM4E8E__  || defined __SAM4E16E__ || SAMV71 || SAMV70 || SAMS70 || SAME70
 			if (status & (1 << cnt)) {
 				afec_interrupt(inst_num, (enum afec_interrupt_source)cnt);
 			}
@@ -601,5 +639,87 @@ void afec_configure_sequence(Afec *const afec,
 		}
 	}
 }
+
+#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
+/**
+ * \brief Configure Automatic Error Correction.
+ *
+ * \param afec  Base address of the AFEC
+ * \param channel  Number of channels in the list.
+ * \param offsetcorr  the Offset Correction value,signed value
+ * \param gaincorr the Gain Correction value.
+ */
+void afec_configure_auto_error_correction(Afec *const afec,
+		const enum afec_channel_num channel, int16_t offsetcorr, uint16_t gaincorr)
+{
+
+	if (channel != AFEC_CHANNEL_ALL) {
+		afec_ch_sanity_check(afec, channel);
+	}
+
+	uint32_t reg = 0;
+	reg = afec->AFEC_CECR;
+	reg = (channel == AFEC_CHANNEL_ALL)? 0 : ~(0x1u << channel);
+	reg |= (channel == AFEC_CHANNEL_ALL)? AFEC_CHANNEL_ALL : (0x1u << channel);
+	afec->AFEC_CECR = reg;
+
+	afec->AFEC_COSR = AFEC_COSR_CSEL;
+    afec->AFEC_CVR = AFEC_CVR_OFFSETCORR(offsetcorr) | AFEC_CVR_GAINCORR(gaincorr);		 
+	
+}
+
+/**
+ * \brief correct the Converted Data of the selected channel if automatic error correction is enabled.
+ *
+ * \param afec  Base address of the AFEC.
+ * \param afec_ch AFEC channel number.
+ *
+ * \return AFEC corrected value of the selected channel.
+ */
+ uint32_t afec_get_correction_value(Afec *const afec,
+		const enum afec_channel_num afec_ch)
+{	
+	uint32_t corrected_data = 0;
+	uint32_t converted_data = 0;
+	
+	afec_ch_sanity_check(afec, afec_ch);
+
+	afec->AFEC_CSELR = afec_ch;
+	converted_data = afec->AFEC_CDR;
+
+	corrected_data = (converted_data + (afec->AFEC_CVR & AFEC_CVR_OFFSETCORR_Msk)) * 
+			(afec->AFEC_CVR >> AFEC_CVR_GAINCORR_Pos) / 1024u;
+	return corrected_data;
+	
+}
+
+/**
+ * \brief Configure sample&hold mode.
+ *
+ * \param afec  Base address of the AFEC.
+ * \param channel   AFEC Channel number.
+ * \param mode sample&hold mode.
+ */
+void afec_set_sample_hold_mode(Afec *const afec,
+		const enum afec_channel_num channel, const enum afec_sample_hold_mode mode)
+{
+	if (channel != AFEC_CHANNEL_ALL) {
+		afec_ch_sanity_check(afec, channel);
+	}
+		
+	uint32_t reg = 0;
+	reg = afec->AFEC_SHMR;
+	if (mode == AFEC_SAMPLE_HOLD_MODE_1) {
+		
+		reg |= (channel == AFEC_CHANNEL_ALL)? AFEC_CHANNEL_ALL : 0x1u << channel;
+	}
+	else {
+		
+		reg = (channel == AFEC_CHANNEL_ALL)? 0 : ~(0x1u << channel);
+	}
+	afec->AFEC_SHMR = reg;
+		
+}
+#endif
 
 //@}

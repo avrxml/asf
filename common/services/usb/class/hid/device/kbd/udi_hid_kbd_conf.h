@@ -4,7 +4,7 @@
  * \brief Default HID keyboard configuration for a USB Device
  * with a single interface HID keyboard
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,6 +41,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _UDI_HID_KBD_CONF_H_
 #define _UDI_HID_KBD_CONF_H_
@@ -64,6 +67,7 @@
  */
 //@{
 //! 1 endpoint used by HID keyboard standard interface
+#undef USB_DEVICE_MAX_EP   // undefine this definition in header file
 #define  USB_DEVICE_MAX_EP             1
 //@}
 

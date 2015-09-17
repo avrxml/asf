@@ -32,7 +32,7 @@
          font-style="normal"
          font-weight="normal"
          units-per-em="2048"
-         font-family="Arial embedded" />
+         font-family="Arial" />
       <missing-glyph
          id="missing-glyph2992"
          d="M 0,0 L 2047,0 2047,2047 0,2047 0,0 Z"
@@ -294,7 +294,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3077"
            y="6120"
@@ -439,7 +439,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3166"
            y="6980"
@@ -579,7 +579,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3224"
            y="991"
@@ -700,7 +700,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3325"
            y="920"
@@ -1094,7 +1094,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3510"
            y="6851"
@@ -1143,7 +1143,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3528"
            y="7620"
@@ -1240,7 +1240,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3571"
            y="2180"
@@ -1271,7 +1271,7 @@
          font-weight="400"
          font-style="normal"
          font-size="353"
-         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial embedded">
+         style="font-size:353px;font-style:normal;font-weight:400;fill:#000000;stroke:none;font-family:Arial">
         <text
            id="text3582"
            y="1609"
@@ -1399,7 +1399,7 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial"
        x="231.28572"
        y="546.64789"
        id="text4620"
@@ -1410,7 +1410,7 @@
          y="546.64789">(COUNT)</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial"
        x="463.57144"
        y="715.93365"
        id="text4624"
@@ -1421,7 +1421,7 @@
          y="715.93365">(CC0)</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial"
        x="435.57367"
        y="509.03906"
        id="text4624-1"
@@ -1432,7 +1432,7 @@
          y="509.03906">(CC0)</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial"
        x="605.43085"
        y="511.89914"
        id="text4620-4"
@@ -1443,7 +1443,7 @@
          y="511.89914">(COUNT)</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial"
        x="710"
        y="624.50507"
        id="text4670"

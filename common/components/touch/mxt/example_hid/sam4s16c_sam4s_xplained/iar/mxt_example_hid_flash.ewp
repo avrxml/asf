@@ -304,6 +304,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/spi</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -587,6 +588,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/spi</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -1261,6 +1263,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/spi</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -1544,6 +1547,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/spi</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -2297,6 +2301,15 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../sam/drivers/spi/spi.h</name>
+				</file>
+			</group>
+			<group>
+				<name>matrix</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sam/drivers/matrix/matrix.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sam/drivers/matrix/matrix.h</name>
 				</file>
 			</group>
 			<group>

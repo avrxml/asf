@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,4 +52,7 @@
  * \section information Information
  * All the files related to this module are located under /avr32/services/dsp/dsplib/utils/program/data_print\n
  * In this directory you can find the source code and the binary of this module.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

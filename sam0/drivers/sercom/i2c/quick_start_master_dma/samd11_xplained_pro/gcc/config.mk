@@ -56,11 +56,11 @@ CSRCS = \
        sam0/boards/samd11_xplained_pro/board_init.c       \
        sam0/drivers/dma/dma.c                             \
        sam0/drivers/port/port.c                           \
-       sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11/i2c_master.c \
+       sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.c      \
        sam0/drivers/sercom/i2c/quick_start_master_dma/qs_i2c_master_dma.c \
        sam0/drivers/sercom/sercom.c                       \
-       sam0/drivers/system/clock/clock_samd10_d11/clock.c \
-       sam0/drivers/system/clock/clock_samd10_d11/gclk.c  \
+       sam0/drivers/system/clock/clock_samd09_d10_d11/clock.c \
+       sam0/drivers/system/clock/clock_samd09_d10_d11/gclk.c \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
@@ -81,15 +81,19 @@ INC_PATH = \
        sam0/drivers/port                                  \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/i2c                            \
-       sam0/drivers/sercom/i2c/i2c_samd21_r21_d10_d11     \
+       sam0/drivers/sercom/i2c/i2c_sam0                   \
        sam0/drivers/sercom/i2c/quick_start_master_dma     \
        sam0/drivers/sercom/i2c/quick_start_master_dma/samd11_xplained_pro \
        sam0/drivers/system                                \
        sam0/drivers/system/clock                          \
-       sam0/drivers/system/clock/clock_samd10_d11         \
+       sam0/drivers/system/clock/clock_samd09_d10_d11     \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samd10_d11 \
        sam0/drivers/system/pinmux                         \
+       sam0/drivers/system/power                          \
+       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/reset                          \
+       sam0/drivers/system/reset/reset_sam_d_r            \
        sam0/utils                                         \
        sam0/utils/cmsis/samd11/include                    \
        sam0/utils/cmsis/samd11/source                     \
@@ -145,7 +149,7 @@ CFLAGS =
 #   BOARD      Target board in use, see boards/board.h for a list.
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
-       -D ARM_MATH_CM0=true                               \
+       -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMD11_XPLAINED_PRO                       \
        -D I2C_MASTER_CALLBACK_MODE=false                  \
        -D __SAMD11D14AM__

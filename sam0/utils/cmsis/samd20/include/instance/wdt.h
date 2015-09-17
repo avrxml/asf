@@ -3,7 +3,7 @@
  *
  * \brief Instance description for WDT
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAMD20_WDT_INSTANCE_
 #define _SAMD20_WDT_INSTANCE_
@@ -66,6 +69,6 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for WDT peripheral ========== */
-#define WDT_GCLK_ID                 1
+#define WDT_GCLK_ID                 1        // Index of Generic Clock
 
 #endif /* _SAMD20_WDT_INSTANCE_ */

@@ -2640,6 +2640,9 @@
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../include/mac_build_config.h</name>
 					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../include/ieee_154g.h</name>
+					</file>
 				</group>
 			</group>
 			<group>
@@ -2765,15 +2768,15 @@
 					<name>$PROJ_DIR$/../../../../../../../../../../xmega/utils/preprocessor/mrepeat.h</name>
 				</file>
 			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../../../../../xmega/utils/assembler.h</name>
+			</file>
 			<group>
 				<name>assembler</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../../xmega/utils/assembler/iar.h</name>
 				</file>
 			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../../../../../xmega/utils/assembler.h</name>
-			</file>
 			<file>
 				<name>$PROJ_DIR$/../../../../../../../../../../xmega/utils/compiler.h</name>
 			</file>
@@ -2912,10 +2915,10 @@
 					<name>$PROJ_DIR$/../../../../../../../../../../common/services/clock/genclk.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../common/services/clock/pll.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../../../common/services/clock/osc.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../common/services/clock/osc.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../../../common/services/clock/pll.h</name>
 				</file>
 			</group>
 			<group>

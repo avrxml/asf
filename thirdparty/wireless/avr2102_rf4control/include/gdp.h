@@ -5,11 +5,11 @@
  *
  *
  * @author    Atmel Corporation: http://www.atmel.com
- * @author    Support email: avr@atmel.com
+ * @author    Support: http://www.atmel.com/design-support/
  */
 
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -159,7 +159,8 @@ void gdp_get_attributes_response_confirm(nwk_enum_t nwk_status,
 		uint8_t PairingRef);
 bool gdp_heartbeat_request(uint8_t PairingRef);
 
-/* void gdp_get_attribute(uint8_t attribute_id,uint8_t *length, uint8_t *value); */
+/* void gdp_get_attribute(uint8_t attribute_id,uint8_t *length, uint8_t *value);
+ **/
 void gdp_heartbeat_confirm(nwk_enum_t Status, uint8_t PairingRef);
 void gdp_heartbeat_indication(uint8_t PairingRef);
 void gdp_generic_response_indication(nwk_enum_t Status, uint8_t PairingRef,

@@ -3,7 +3,7 @@
  *
  * \brief Example application for GFX Monochrome System Font (sysfont)
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 /**
  * \page asfdoc_common2_gfx_mono_sysfont_example GFX Mono Font Example
@@ -61,9 +64,11 @@
  * - SAM D21 Xplained Pro
  * - SAM R21 Xplained Pro
  * - SAM D11 Xplained Pro
+ * - SAM L21 Xplained Pro
+ * - SAM L22 Xplained Pro
  *
  * \section asfdoc_common2_sysfont_example_description Description of the example application
- * The example application will upon power up display two text strings on the
+ * The example application will upon power up display several text strings on the
  * display; "PASSION...".
  *
  * \section asfdoc_common2_sysfont_example_dependencies Dependencies
@@ -71,7 +76,7 @@
  * - \ref asfdoc_common2_gfx_mono_font
  *
  * \section asfdoc_common2_sysfont_example_compinfo Compilation info
- * This software was written for the GNU GCC and IAR for AVR. Other compilers
+ * This software was written for the GNU GCC and IAR. Other compilers
  * may or may not work.
  *
  * \section asfdoc_common2_sysfont_example_contactinfo Contact Information

@@ -3,7 +3,7 @@
  *
  * \brief User Interface
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,13 +40,12 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include "ui.h"
-
-#define LED_On(LED_0_PIN)      port_pin_set_output_level(LED_0_PIN, LED_0_ACTIVE)
-#define LED_Off(LED_0_PIN)     port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE)
-#define LED_Toggle(LED_0_PIN)  port_pin_toggle_output_level(LED_0_PIN)
 
 /**
  * \name Internal routines to manage asynchronous interrupt pin change

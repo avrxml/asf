@@ -3,7 +3,7 @@
  *
  * \brief Commonly used includes, types and macros.
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,6 +37,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef UTILS_COMPILER_H_INCLUDED
@@ -707,6 +710,7 @@ typedef struct
  */
 #define Abs(a)              (((a) <  0 ) ? -(a) : (a))
 
+#ifndef __cplusplus
 /** \brief Takes the minimal value of \a a and \a b.
  *
  * \param[in] a Input value.
@@ -750,6 +754,7 @@ typedef struct
  * \note More optimized if only used with values unknown at compile time.
  */
 #define max(a, b)   Max(a, b)
+#endif
 
 /** @} */
 

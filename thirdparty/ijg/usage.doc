@@ -1,4 +1,7 @@
 USAGE instructions for the Independent JPEG Group's JPEG software
+ /**
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 =================================================================
 
 This file describes usage of the JPEG conversion programs cjpeg and djpeg,

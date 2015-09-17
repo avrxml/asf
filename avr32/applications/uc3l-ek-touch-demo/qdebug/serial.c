@@ -3,7 +3,7 @@
  *
  * \brief Usart interface functions
  *
- * Copyright (c) 2010 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,6 +42,9 @@
  */
 
 /*============================ INCLUDES ======================================*/
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include "serial.h"
 #include "pdca.h"
 #include "usart.h"

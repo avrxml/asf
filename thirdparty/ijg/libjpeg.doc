@@ -2720,6 +2720,9 @@ The jpeg_progress_mgr struct contains four fields which are set by the library:
 	long pass_limit;	/* total number of work units in this pass */
 	int completed_passes;	/* passes completed so far */
 	int total_passes;	/* total number of passes expected */
+ /**
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 During any one pass, pass_counter increases from 0 up to (not including)
 pass_limit; the step size is usually but not necessarily 1.  The pass_limit
 value may change from one pass to another.  The expected total number of

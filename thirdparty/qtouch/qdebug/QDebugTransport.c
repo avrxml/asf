@@ -10,10 +10,10 @@
  * - Supported devices:  AT32UC3A0/A1 Series, AT32UC3B0/B1 Series,
  *                       AT32UC3C0/C1 Series AND AT32UC3L0 series
  * - Userguide:          QTouch Library User Guide - doc8207.pdf.
- * - Support email:      touch@atmel.com
+ * - Support: http://www.atmel.com/design-support/
  *
  *
- * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

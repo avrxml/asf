@@ -1,0 +1,1 @@
+websocket_src = websocket.c websocket-http-client.c http-strings.c

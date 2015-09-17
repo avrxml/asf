@@ -3,7 +3,7 @@
  *
  * \brief Task to manage the sensor sampling
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -97,9 +100,9 @@ static int8_t temperature;
  *
  * This table gives the correspondance between the ADC code and the temperature.
  * Each elements of the table corresponds to an ADC code value.
- * The index in the table give the corresponding temperature (in°C) with
+ * The index in the table give the corresponding temperature (inÂ°C) with
  * the following formula : Tempeature=index-5.
- * table[O] corresponds to -5°C temperature code
+ * table[O] corresponds to -5Â°C temperature code
  * The following table gives the ADC code for signed single ended mode
  * with internal VCC/1.6 reference.
  */

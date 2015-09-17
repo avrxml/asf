@@ -3,7 +3,7 @@
  *
  * \brief SDRAM controller (SDRAMC) driver for SAM.
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef SDRAMC_H_INCLUDED
@@ -149,6 +152,45 @@ static inline void sdram_enter_deep_power_down(void)
 	sleepmgr_unlock_mode(SLEEPMGR_ACTIVE);
 	SDRAMC->SDRAMC_LPR |= SDRAMC_LPR_LPCB_DEEP_POWER_DOWN;
 }
+
+#if !(SAM3XA)
+/**
+ * \brief Unaligned access is supported.
+ */
+static inline void sdram_enable_unaligned_support(void)
+{
+	SDRAMC->SDRAMC_CFR1 |= SDRAMC_CFR1_UNAL;
+}
+
+/**
+ * \brief Unaligned access is not supported.
+ */
+static inline void sdram_disable_unaligned_support(void)
+{
+	SDRAMC->SDRAMC_CFR1 &= ~SDRAMC_CFR1_UNAL;
+}
+
+/**
+ * \brief Off-chip Memory Scrambling is enabled.
+ * \param ul_key1  Key Part 1.
+ * \param ul_key2  Key Part 2.
+ */
+static inline void sdram_enable_scrambling(uint32_t ul_key1, uint32_t ul_key2)
+{
+	SDRAMC->SDRAMC_OCMS |= SDRAMC_OCMS_SDR_SE;
+	SDRAMC->SDRAMC_OCMS_KEY1 = ul_key1;
+	SDRAMC->SDRAMC_OCMS_KEY2 = ul_key2;
+}
+
+/**
+ * \brief Off-chip Memory Scrambling is disabled.
+ */
+static inline void sdram_disable_scrambling(void)
+{
+	SDRAMC->SDRAMC_OCMS &= ~SDRAMC_OCMS_SDR_SE;
+}
+
+#endif
 
 /// @cond 0
 /**INDENT-OFF**/

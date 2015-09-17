@@ -3,7 +3,7 @@
  *
  * \brief SAM SPI Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include <asf.h>
 
 void configure_spi_slave(void);
@@ -50,10 +53,11 @@ void configure_spi_slave(void);
 //! [buf_length]
 
 //! [buffer]
-static const uint8_t buffer[BUF_LENGTH] = {
+static uint8_t buffer_expect[BUF_LENGTH] = {
 		0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
 		 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0x12, 0x13
 };
+static uint8_t buffer_rx[BUF_LENGTH] = {0x00};
 //! [buffer]
 
 //! [dev_inst]
@@ -113,6 +117,8 @@ void configure_spi_slave(void)
 int main(void)
 {
 //! [main_start]
+	uint8_t result = 0;
+	
 	/* Initialize system */
 //! [system_init]
 	system_init();
@@ -124,16 +130,35 @@ int main(void)
 //! [main_start]
 
 //! [main_use_case]
-//! [write]
-	while (spi_write_buffer_wait(&spi_slave_instance, buffer, BUF_LENGTH) != STATUS_OK) {
-		/* Wait for transfer from master */
+//! [read]
+	while(spi_read_buffer_wait(&spi_slave_instance, buffer_rx, BUF_LENGTH,
+		0x00) != STATUS_OK) {
+		/* Wait for transfer from the master */
 	}
-//! [write]
-
-
+//! [read]
+//! [compare]
+	for (uint8_t i = 0; i < BUF_LENGTH; i++) {
+		if(buffer_rx[i] != buffer_expect[i]) {
+			result++;
+		}
+	}
+//! [compare]
 //! [inf_loop]
 	while (true) {
-		/* Infinite loop */
+		/* Infinite loop */		
+		if (result) {
+			port_pin_toggle_output_level(LED_0_PIN);
+			/* Add a short delay to see LED toggle */
+			volatile uint32_t delay = 30000;
+			while(delay--) {
+			}
+		} else {
+			port_pin_toggle_output_level(LED_0_PIN);
+			/* Add a short delay to see LED toggle */
+			volatile uint32_t delay = 600000;
+			while(delay--) {
+			}
+		}
 	}
 //! [inf_loop]
 //! [main_use_case]

@@ -3,7 +3,7 @@
  *
  * @brief RF4CE Serial Interface Implementation
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -68,6 +68,7 @@
 #ifdef VENDOR_DATA
 #include "vendor_data.h"
 #endif
+#include "nwk_config.h"
 
 /* === MACROS ============================================================== */
 
@@ -488,6 +489,7 @@ static inline void handle_incoming_msg(void)
 				((uint16_t)sio_rx_buf[4] |
 				((uint16_t)sio_rx_buf[5] << 8)),                                       /*
 		                                                                                        *
+		                                                                                        *
 		                                                                                        *VendorId
 		                                                                                        **/
 				sio_rx_buf[7],             /* nsduLength */
@@ -516,23 +518,27 @@ static inline void handle_incoming_msg(void)
 
 		ret_val = nlme_auto_discovery_request(sio_rx_buf[2], /*
 			                                              *
+			                                              *
 			                                              *RecAppCapabilities
 			                                              **/
 				RecDevTypeList,                      /*
-			                                              * (dev_type_t
 			                                              *
-			                                              **)&sio_rx_buf[3],
+			                                              *(dev_type_t
+			                                              *
+			                                              ***)&sio_rx_buf[3],
 			                                              **/
 				RecProfileIdList,                      /*
-			                                                * (profile_id_t
 			                                                *
-			                                                **)&sio_rx_buf[3
+			                                                *(profile_id_t
+			                                                *
+			                                                ***)&sio_rx_buf[3
 			                                                * + 3],
 			                                                **/
 				AutoDiscDuration,                     /*
-			                                               * *(uint32_t
 			                                               *
-			                                               **)&sio_rx_buf[3
+			                                               **(uint32_t
+			                                               *
+			                                               ***)&sio_rx_buf[3
 			                                               * + 3 +
 			                                               * 7]); */
 				(FUNC_PTR)nlme_auto_discovery_confirm
@@ -579,34 +585,45 @@ static inline void handle_incoming_msg(void)
 		ret_val = nlme_discovery_request(PANId, NwkAddr,
 				sio_rx_buf[6],                    /* uint8_t
 			                                           *
+			                                           *
 			                                           *OrgAppCapabilities,
 			                                           **/
 				dev_type_list,                   /* uint8_t
 			                                          *
+			                                          *
 			                                          *OrgDevTypeList[DEVICE_TYPE_LIST_SIZE],
 			                                          **/
 				org_profile_id_list,                   /*
-			                                                * uint8_t
+			                                                *
+			                                                *uint8_t
+			                                                *
 			                                                *
 			                                                *OrgProfileIdList[DEVICE_TYPE_LIST_SIZE],
 			                                                **/
 				(dev_type_t)sio_rx_buf[7 + 3 /*num_dev_types*/ +
 				7 /*num_profiles*/],                                                                    /*
-			                                                                                                 * uint8_t
+			                                                                                                 *
+			                                                                                                 *uint8_t
+			                                                                                                 *
 			                                                                                                 *
 			                                                                                                 *SearchDevType,
 			                                                                                                 **/
 				sio_rx_buf[8 + 3 + 7],                     /*
-			                                                    * uint8_t
+			                                                    *
+			                                                    *uint8_t
+			                                                    *
 			                                                    *
 			                                                    *DiscProfileIdListSize,
 			                                                    **/
 				disc_profile_id_list,                    /*
-			                                                  * uint8_t
+			                                                  *
+			                                                  *uint8_t
+			                                                  *
 			                                                  *
 			                                                  *DiscProfileIdList[PROFILE_ID_LIST_SIZE],
 			                                                  **/
 				disc_duration,                       /* uint32_t
+			                                              *
 			                                              *
 			                                              *DiscDuration);
 			                                              **/
@@ -636,20 +653,26 @@ static inline void handle_incoming_msg(void)
 			                                         * DstIEEEAddr,
 			                                         **/
 				sio_rx_buf[11],                         /*
-			                                                 * uint8_t
+			                                                 *
+			                                                 *uint8_t
+			                                                 *
 			                                                 *
 			                                                 *RecAppCapabilities,
 			                                                 **/
 				dev_type_list,                    /* uint8_t
 			                                           *
+			                                           *
 			                                           *RecDevTypeList[DEVICE_TYPE_LIST_SIZE],
 			                                           **/
 				profile_id_list,                    /* uint8_t
 			                                             *
+			                                             *
 			                                             *RecProfileIdList[PROFILE_ID_LIST_SIZE],
 			                                             **/
 				sio_rx_buf[12 + 3 + 7]);                         /*
-			                                                          * uint8_t
+			                                                          *
+			                                                          *uint8_t
+			                                                          *
 			                                                          *
 			                                                          *DiscReqLQI);
 			                                                          **/
@@ -681,24 +704,30 @@ static inline void handle_incoming_msg(void)
 		}
 		ret_val = nlme_pair_response(Status, /* nwk_enum_t Status, */
 				DstPANId,                /* uint16_t DstPANId,
-			                                  **/
+			                                 **/
 				DstIEEEAddr,                /* uint64_t
 			                                     * DstIEEEAddr, */
 				sio_rx_buf[13],                         /*
-			                                                 * uint8_t
+			                                                 *
+			                                                 *uint8_t
+			                                                 *
 			                                                 *
 			                                                 *RecAppCapabilities,
 			                                                 **/
 				dev_type_list,                /* uint8_t
 			                                       *
+			                                       *
 			                                       *RecDevTypeList[DEVICE_TYPE_LIST_SIZE],
 			                                       **/
 				profile_id_list,                /* uint8_t
 			                                         *
+			                                         *
 			                                         *RecProfileIdList[PROFILE_ID_LIST_SIZE],
 			                                         **/
 				sio_rx_buf[14 + 3 + 7]);                 /*
-			                                                  * uint8_t
+			                                                  *
+			                                                  *uint8_t
+			                                                  *
 			                                                  *
 			                                                  *ProvPairingRef);
 			                                                  **/
@@ -736,22 +765,26 @@ static inline void handle_incoming_msg(void)
 			                                     * LogicalChannel,
 			                                     **/
 				DstPANId,                /* uint16_t DstPANId,
-			                                  **/
+			                                 **/
 				DstIEEEAddr,                /* uint64_t
 			                                     * DstIEEEAddr, */
 				sio_rx_buf[13],             /* uint8_t
+			                                     *
 			                                     *
 			                                     *OrgAppCapabilities,
 			                                     **/
 				dev_type_list,                /* uint8_t
 			                                       *
+			                                       *
 			                                       *OrgDevTypeList[DEVICE_TYPE_LIST_SIZE],
 			                                       **/
 				profile_id_list,                /* uint8_t
 			                                         *
+			                                         *
 			                                         *OrgProfileIdList[PROFILE_ID_LIST_SIZE],
 			                                         **/
 				sio_rx_buf[14 + 3 + 7],            /* uint8_t
+			                                            *
 			                                            *
 			                                            *KeyExTransferCount);
 			                                            **/
@@ -846,22 +879,28 @@ static inline void handle_incoming_msg(void)
 
 		ret_val = pbp_org_pair_request(sio_rx_buf[2], /*
 			                                       *
+			                                       *
 			                                       *OrgAppCapabilities
 			                                       **/
 				OrgDevTypeList,                    /*
+			                                            *
 			                                            *OrgDevTypeList
 			                                            **/
 				OrgProfileIdList,                  /*
+			                                            *
 			                                            *OrgProfileIdList
 			                                            **/
 				(dev_type_t)sio_rx_buf[13],                    /*
 			                                                        *
+			                                                        *
 			                                                        *SearchDevType
 			                                                        **/
 				sio_rx_buf[14],                    /*
+			                                            *
 			                                            *DiscProfileIdListSize
 			                                            **/
 				DiscProfileIdList,              /*
+			                                         *
 			                                         *DiscProfileIdList,
 			                                         **/
 				(FUNC_PTR)pbp_org_pair_confirm
@@ -884,15 +923,16 @@ static inline void handle_incoming_msg(void)
 		}
 		ret_val = pbp_rec_pair_request(sio_rx_buf[2], /*
 			                                       *
+			                                       *
 			                                       *RecAppCapabilities
 			                                       **/
 				RecDevTypeList,               /* (dev_type_t
 			                                       *
-			                                       **)&sio_rx_buf[3],
+			                                       ***)&sio_rx_buf[3],
 			                                       **/
 				RecProfileIdList,              /* (profile_id_t
 			                                        *
-			                                        **)&sio_rx_buf[3
+			                                        ***)&sio_rx_buf[3
 			                                        * + 3], */
 				(FUNC_PTR)pbp_rec_pair_confirm
 				);
@@ -907,10 +947,13 @@ static inline void handle_incoming_msg(void)
 				(uint16_t)sio_rx_buf[3] |
 				((uint16_t)sio_rx_buf[4] << 8),                                 /*uint16_t
 		                                                                                 *
+		                                                                                 *
 		                                                                                 *VendorId,*/
 				(zrc_cmd_code_t)sio_rx_buf[5],        /*
 		                                                       *
+		                                                       *
 		                                                       *zrc_cmd_code_t
+		                                                       *
 		                                                       *
 		                                                       *cerc_cmd_code,
 		                                                       **/
@@ -944,6 +987,7 @@ static inline void handle_incoming_msg(void)
 				PROFILE_ID_ZRC,
 				(uint16_t)sio_rx_buf[4] |
 				((uint16_t)sio_rx_buf[5] << 8),                                   /*uint16_t
+		                                                                                   *
 		                                                                                   *
 		                                                                                   *VendorId,*/
 				sio_rx_buf[7],         /*uint8_t nsduLength,*/

@@ -3,7 +3,7 @@
  *
  * \brief Instance description for RFCTRL
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,6 +52,6 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for RFCTRL peripheral ========== */
-#define RFCTRL_FBUSMSB              5
+#define RFCTRL_FBUSMSB              5       
 
 #endif /* _SAMR21_RFCTRL_INSTANCE_ */

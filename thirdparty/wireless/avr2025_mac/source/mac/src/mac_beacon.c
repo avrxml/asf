@@ -7,7 +7,7 @@
  * CSMA-CA after reception of a beacon request frame in a nonbeacon-enabled PAN.
  *
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,7 +46,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -77,8 +77,9 @@
  * Time in (advance) symbols before beacon interval when beacon is prepared
  */
 #define ADVNC_BCN_PREP_TIME                 (50)
+
 /* Minimum Wakeup time for beacon synchronization when handling Wakeup from
- *application sleep*/
+ * application sleep*/
 #define MAC_MIN_WAKEUP_US                   (200)
 
 /*
@@ -394,7 +395,6 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 	if (mac_pib.mac_AssociationPermit) {
 		superframe_spec |= (1U << ASSOC_PERMIT_BIT_POS);
 	}
-
 #endif
 
 	/* Set the Superframe Specification Field. */
@@ -424,7 +424,7 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 		}
 
 		/* place the GTS  and Super frame specification fields into the
-		 *before the MIC - Data */
+		 * before the MIC - Data */
 		if ((beacon_sec_buf.SecurityLevel == 1) ||
 				(beacon_sec_buf.SecurityLevel == 5)) {
 			memmove((frame_ptr_mhr_gts - 0x04), frame_ptr_mhr_gts, \
@@ -439,7 +439,6 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 					(mac_payload_ptr - frame_ptr_mhr_gts));
 		}
 	}
-
 #endif  /* (MAC_SECURITY_BEACON || MAC_SECURITY_2006_BEACON) */
 
 	/*
@@ -449,7 +448,7 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 			tal_pib.ShortAddress) {
 		frame_ptr -= 8;
 		frame_len += 6; /* Add further 6 octets for long Source Address
-		                 **/
+		                **/
 		convert_64_bit_to_byte_array(tal_pib.IeeeAddress, frame_ptr);
 #if ((defined MAC_SECURITY_BEACON)  || (defined MAC_SECURITY_2006_BEACON))
 		beacon_sec_buf.SrcAddrMode = FCF_LONG_ADDR;
@@ -488,7 +487,6 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 		vpan_no++;
 		vpan_no = vpan_no % mac_pib.privateVirtualPANs;
 	}
-
 #endif /* TEST_HARNESS */
 
 	/* Set BSN. */
@@ -501,7 +499,6 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 	if (beacon_sec_buf.SecurityLevel > 0) {
 		fcf |= FCF_SECURITY_ENABLED | FCF_FRAME_VERSION_2006;
 	}
-
 #endif
 
 #if (MAC_START_REQUEST_CONFIRM == 1)
@@ -546,7 +543,6 @@ void mac_build_and_tx_beacon(bool beacon_enabled,
 			return;
 		}
 	}
-
 #endif
 	if (!beacon_enabled) {
 		/* Buffer header not required in BEACON build. */
@@ -1006,7 +1002,6 @@ static void mac_t_beacon_cb(void *callback_parameter)
 			port_pin_set_output_level(DEBUG_PIN3, 1);
 			#endif
 		}
-
 #endif /* GTS_SUPPORT */
 
 		/*
@@ -1050,8 +1045,9 @@ static void mac_t_superframe_cb(void *callback_parameter)
 {
 	/*     * Go to sleep (independent of the value of macRxOnWhenIdle) */
 	/*     * because we enter the inactive portion now. */
+
 	/*     * Note: Do not use mac_sleep_trans() here, because this would
-	 *check */
+	 * check */
 	/*     * macRxOnWhenIdle first. */
 	/*     * / */
 	/*    */
@@ -1059,7 +1055,7 @@ static void mac_t_superframe_cb(void *callback_parameter)
 	mac_sleep_trans();
 
 	/*    callback_parameter = callback_parameter;  / * Keep compiler happy.
-	 ** / */
+	** / */
     #ifdef GTS_DEBUG
 	port_pin_set_output_level(DEBUG_PIN2, 0);
 	port_pin_set_output_level(DEBUG_PIN4, 0);
@@ -1132,10 +1128,10 @@ void mac_tx_pending_bc_data(void)
 
 /*
  * @brief MAC Wakeup Callback Function from application for Synchronizing beacon
- *timing after Wakeup
+ * timing after Wakeup
  *
  * This function Handles the residual time for Beacon Synchronization after
- *Wakeup
+ * Wakeup
  * @param res_time remaining time to be synchronized with next beacon timing.
  */
 void mac_wakeup(uint32_t res_time)
@@ -1156,7 +1152,6 @@ void mac_wakeup(uint32_t res_time)
 			mac_t_prepare_beacon_cb(NULL);
 		}
 	}
-
   #endif
 	if (MAC_ASSOCIATED == mac_state) {
 		sw_timer_stop(T_Beacon_Tracking_Period);

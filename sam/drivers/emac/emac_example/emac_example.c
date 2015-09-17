@@ -3,7 +3,7 @@
  *
  * \brief EMAC example for SAM.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -105,6 +105,9 @@
  *  \note
  *  Make sure the IP address of the device(EK board) and the computer are in the same network.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include <asf.h>
 #include <string.h>

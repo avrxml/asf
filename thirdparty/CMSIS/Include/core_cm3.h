@@ -1,47 +1,62 @@
 /**************************************************************************//**
  * @file     core_cm3.h
  * @brief    CMSIS Cortex-M3 Core Peripheral Access Layer Header File
- * @version  V3.00
- * @date     03. February 2012
+ * @version  V4.00
+ * @date     22. August 2014
  *
  * @note
- * Copyright (C) 2009-2012 ARM Limited. All rights reserved.
- *
- * @par
- * ARM Limited (ARM) is supplying this software for use with Cortex-M
- * processor based microcontrollers.  This file can be freely distributed
- * within development tools that are supporting such ARM based processors.
- *
- * @par
- * THIS SOFTWARE IS PROVIDED "AS IS".  NO WARRANTIES, WHETHER EXPRESS, IMPLIED
- * OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE.
- * ARM SHALL NOT, IN ANY CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR
- * CONSEQUENTIAL DAMAGES, FOR ANY REASON WHATSOEVER.
  *
  ******************************************************************************/
+/* Copyright (c) 2009 - 2014 ARM LIMITED
+
+   All rights reserved.
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are met:
+   - Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+   - Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
+   - Neither the name of ARM nor the names of its contributors may be used
+     to endorse or promote products derived from this software without
+     specific prior written permission.
+   *
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+   ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDERS AND CONTRIBUTORS BE
+   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+   POSSIBILITY OF SUCH DAMAGE.
+   ---------------------------------------------------------------------------*/
+
+
 #if defined ( __ICCARM__ )
  #pragma system_include  /* treat file as system include file for MISRA check */
-#endif
-
-#ifdef __cplusplus
- extern "C" {
 #endif
 
 #ifndef __CORE_CM3_H_GENERIC
 #define __CORE_CM3_H_GENERIC
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
 /** \page CMSIS_MISRA_Exceptions  MISRA-C:2004 Compliance Exceptions
   CMSIS violates the following MISRA-C:2004 rules:
-  
+
    \li Required Rule 8.5, object/function definition in header file.<br>
-     Function definitions in header files are used to allow 'inlining'. 
+     Function definitions in header files are used to allow 'inlining'.
 
    \li Required Rule 18.4, declaration of union type or object of union type: '{...}'.<br>
      Unions are used for effective representation of core registers.
-   
+
    \li Advisory Rule 19.7, Function-like macro defined.<br>
-     Function-like macros are used to allow more efficient code. 
+     Function-like macros are used to allow more efficient code.
  */
 
 
@@ -53,7 +68,7 @@
  */
 
 /*  CMSIS CM3 definitions */
-#define __CM3_CMSIS_VERSION_MAIN  (0x03)                                   /*!< [31:16] CMSIS HAL main version   */
+#define __CM3_CMSIS_VERSION_MAIN  (0x04)                                   /*!< [31:16] CMSIS HAL main version   */
 #define __CM3_CMSIS_VERSION_SUB   (0x00)                                   /*!< [15:0]  CMSIS HAL sub version    */
 #define __CM3_CMSIS_VERSION       ((__CM3_CMSIS_VERSION_MAIN << 16) | \
                                     __CM3_CMSIS_VERSION_SUB          )     /*!< CMSIS HAL version number         */
@@ -66,6 +81,11 @@
   #define __INLINE         __inline                                   /*!< inline keyword for ARM Compiler       */
   #define __STATIC_INLINE  static __inline
 
+#elif defined ( __GNUC__ )
+  #define __ASM            __asm                                      /*!< asm keyword for GNU Compiler          */
+  #define __INLINE         inline                                     /*!< inline keyword for GNU Compiler       */
+  #define __STATIC_INLINE  static inline
+
 #elif defined ( __ICCARM__ )
   #define __ASM            __asm                                      /*!< asm keyword for IAR Compiler          */
   #define __INLINE         inline                                     /*!< inline keyword for IAR Compiler. Only available in High optimization mode! */
@@ -75,24 +95,31 @@
   #define __ASM            __asm                                      /*!< asm keyword for TI CCS Compiler       */
   #define __STATIC_INLINE  static inline
 
-#elif defined ( __GNUC__ )
-  #define __ASM            __asm                                      /*!< asm keyword for GNU Compiler          */
-  #define __INLINE         inline                                     /*!< inline keyword for GNU Compiler       */
-  #define __STATIC_INLINE  static inline
-
 #elif defined ( __TASKING__ )
   #define __ASM            __asm                                      /*!< asm keyword for TASKING Compiler      */
   #define __INLINE         inline                                     /*!< inline keyword for TASKING Compiler   */
   #define __STATIC_INLINE  static inline
 
+#elif defined ( __CSMC__ )
+  #define __packed
+  #define __ASM            _asm                                      /*!< asm keyword for COSMIC Compiler      */
+  #define __INLINE         inline                                    /*use -pc99 on compile line !< inline keyword for COSMIC Compiler   */
+  #define __STATIC_INLINE  static inline
+
 #endif
 
-/** __FPU_USED indicates whether an FPU is used or not. This core does not support an FPU at all
+/** __FPU_USED indicates whether an FPU is used or not.
+    This core does not support an FPU at all
 */
 #define __FPU_USED       0
 
 #if defined ( __CC_ARM )
   #if defined __TARGET_FPU_VFP
+    #warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+  #endif
+
+#elif defined ( __GNUC__ )
+  #if defined (__VFP_FP__) && !defined(__SOFTFP__)
     #warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
   #endif
 
@@ -106,18 +133,24 @@
     #warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
   #endif
 
-#elif defined ( __GNUC__ )
-  #if defined (__VFP_FP__) && !defined(__SOFTFP__)
-    #warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+#elif defined ( __TASKING__ )
+  #if defined __FPU_VFP__
+    #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
   #endif
 
-#elif defined ( __TASKING__ )
-    /* add preprocessor checks */
+#elif defined ( __CSMC__ )		/* Cosmic */
+  #if ( __CSMC__ & 0x400)		// FPU present for parser
+    #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+  #endif
 #endif
 
 #include <stdint.h>                      /* standard types definitions                      */
 #include <core_cmInstr.h>                /* Core Instruction Access                         */
 #include <core_cmFunc.h>                 /* Core Function Access                            */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __CORE_CM3_H_GENERIC */
 
@@ -125,6 +158,10 @@
 
 #ifndef __CORE_CM3_H_DEPENDANT
 #define __CORE_CM3_H_DEPENDANT
+
+#ifdef __cplusplus
+ extern "C" {
+#endif
 
 /* check device defines and use defaults */
 #if defined __CHECK_DEVICE_DEFINES
@@ -152,7 +189,7 @@
 /* IO definitions (access restrictions to peripheral registers) */
 /**
     \defgroup CMSIS_glob_defs CMSIS Global Defines
- 
+
     <strong>IO Type Qualifiers</strong> are used
     \li to specify the access to peripheral variables.
     \li for automatic generation of peripheral register debug information.
@@ -607,7 +644,7 @@ typedef struct
 #define SysTick_CALIB_SKEW_Msk             (1UL << SysTick_CALIB_SKEW_Pos)                /*!< SysTick CALIB: SKEW Mask */
 
 #define SysTick_CALIB_TENMS_Pos             0                                             /*!< SysTick CALIB: TENMS Position */
-#define SysTick_CALIB_TENMS_Msk            (0xFFFFFFUL << SysTick_VAL_CURRENT_Pos)        /*!< SysTick CALIB: TENMS Mask */
+#define SysTick_CALIB_TENMS_Msk            (0xFFFFFFUL << SysTick_CALIB_TENMS_Pos)        /*!< SysTick CALIB: TENMS Mask */
 
 /*@} end of group CMSIS_SysTick */
 
@@ -634,39 +671,81 @@ typedef struct
   __IO uint32_t TPR;                     /*!< Offset: 0xE40 (R/W)  ITM Trace Privilege Register              */
        uint32_t RESERVED2[15];
   __IO uint32_t TCR;                     /*!< Offset: 0xE80 (R/W)  ITM Trace Control Register                */
+       uint32_t RESERVED3[29];
+  __O  uint32_t IWR;                     /*!< Offset: 0xEF8 ( /W)  ITM Integration Write Register            */
+  __I  uint32_t IRR;                     /*!< Offset: 0xEFC (R/ )  ITM Integration Read Register             */
+  __IO uint32_t IMCR;                    /*!< Offset: 0xF00 (R/W)  ITM Integration Mode Control Register     */
+       uint32_t RESERVED4[43];
+  __O  uint32_t LAR;                     /*!< Offset: 0xFB0 ( /W)  ITM Lock Access Register                  */
+  __I  uint32_t LSR;                     /*!< Offset: 0xFB4 (R/ )  ITM Lock Status Register                  */
+       uint32_t RESERVED5[6];
+  __I  uint32_t PID4;                    /*!< Offset: 0xFD0 (R/ )  ITM Peripheral Identification Register #4 */
+  __I  uint32_t PID5;                    /*!< Offset: 0xFD4 (R/ )  ITM Peripheral Identification Register #5 */
+  __I  uint32_t PID6;                    /*!< Offset: 0xFD8 (R/ )  ITM Peripheral Identification Register #6 */
+  __I  uint32_t PID7;                    /*!< Offset: 0xFDC (R/ )  ITM Peripheral Identification Register #7 */
+  __I  uint32_t PID0;                    /*!< Offset: 0xFE0 (R/ )  ITM Peripheral Identification Register #0 */
+  __I  uint32_t PID1;                    /*!< Offset: 0xFE4 (R/ )  ITM Peripheral Identification Register #1 */
+  __I  uint32_t PID2;                    /*!< Offset: 0xFE8 (R/ )  ITM Peripheral Identification Register #2 */
+  __I  uint32_t PID3;                    /*!< Offset: 0xFEC (R/ )  ITM Peripheral Identification Register #3 */
+  __I  uint32_t CID0;                    /*!< Offset: 0xFF0 (R/ )  ITM Component  Identification Register #0 */
+  __I  uint32_t CID1;                    /*!< Offset: 0xFF4 (R/ )  ITM Component  Identification Register #1 */
+  __I  uint32_t CID2;                    /*!< Offset: 0xFF8 (R/ )  ITM Component  Identification Register #2 */
+  __I  uint32_t CID3;                    /*!< Offset: 0xFFC (R/ )  ITM Component  Identification Register #3 */
 } ITM_Type;
 
 /* ITM Trace Privilege Register Definitions */
-#define ITM_TPR_PRIVMASK_Pos                0                                          /*!< ITM TPR: PRIVMASK Position */
-#define ITM_TPR_PRIVMASK_Msk               (0xFUL << ITM_TPR_PRIVMASK_Pos)             /*!< ITM TPR: PRIVMASK Mask */
+#define ITM_TPR_PRIVMASK_Pos                0                                             /*!< ITM TPR: PRIVMASK Position */
+#define ITM_TPR_PRIVMASK_Msk               (0xFUL << ITM_TPR_PRIVMASK_Pos)                /*!< ITM TPR: PRIVMASK Mask */
 
 /* ITM Trace Control Register Definitions */
-#define ITM_TCR_BUSY_Pos                   23                                          /*!< ITM TCR: BUSY Position */
-#define ITM_TCR_BUSY_Msk                   (1UL << ITM_TCR_BUSY_Pos)                   /*!< ITM TCR: BUSY Mask */
+#define ITM_TCR_BUSY_Pos                   23                                             /*!< ITM TCR: BUSY Position */
+#define ITM_TCR_BUSY_Msk                   (1UL << ITM_TCR_BUSY_Pos)                      /*!< ITM TCR: BUSY Mask */
 
-#define ITM_TCR_TraceBusID_Pos             16                                          /*!< ITM TCR: ATBID Position */
-#define ITM_TCR_TraceBusID_Msk             (0x7FUL << ITM_TCR_TraceBusID_Pos)          /*!< ITM TCR: ATBID Mask */
+#define ITM_TCR_TraceBusID_Pos             16                                             /*!< ITM TCR: ATBID Position */
+#define ITM_TCR_TraceBusID_Msk             (0x7FUL << ITM_TCR_TraceBusID_Pos)             /*!< ITM TCR: ATBID Mask */
 
-#define ITM_TCR_GTSFREQ_Pos                10                                          /*!< ITM TCR: Global timestamp frequency Position */
-#define ITM_TCR_GTSFREQ_Msk                (3UL << ITM_TCR_GTSFREQ_Pos)                /*!< ITM TCR: Global timestamp frequency Mask */
+#define ITM_TCR_GTSFREQ_Pos                10                                             /*!< ITM TCR: Global timestamp frequency Position */
+#define ITM_TCR_GTSFREQ_Msk                (3UL << ITM_TCR_GTSFREQ_Pos)                   /*!< ITM TCR: Global timestamp frequency Mask */
 
-#define ITM_TCR_TSPrescale_Pos              8                                          /*!< ITM TCR: TSPrescale Position */
-#define ITM_TCR_TSPrescale_Msk             (3UL << ITM_TCR_TSPrescale_Pos)             /*!< ITM TCR: TSPrescale Mask */
+#define ITM_TCR_TSPrescale_Pos              8                                             /*!< ITM TCR: TSPrescale Position */
+#define ITM_TCR_TSPrescale_Msk             (3UL << ITM_TCR_TSPrescale_Pos)                /*!< ITM TCR: TSPrescale Mask */
 
-#define ITM_TCR_SWOENA_Pos                  4                                          /*!< ITM TCR: SWOENA Position */
-#define ITM_TCR_SWOENA_Msk                 (1UL << ITM_TCR_SWOENA_Pos)                 /*!< ITM TCR: SWOENA Mask */
+#define ITM_TCR_SWOENA_Pos                  4                                             /*!< ITM TCR: SWOENA Position */
+#define ITM_TCR_SWOENA_Msk                 (1UL << ITM_TCR_SWOENA_Pos)                    /*!< ITM TCR: SWOENA Mask */
 
-#define ITM_TCR_TXENA_Pos                   3                                          /*!< ITM TCR: TXENA Position */
-#define ITM_TCR_TXENA_Msk                  (1UL << ITM_TCR_TXENA_Pos)                  /*!< ITM TCR: TXENA Mask */
+#define ITM_TCR_DWTENA_Pos                  3                                             /*!< ITM TCR: DWTENA Position */
+#define ITM_TCR_DWTENA_Msk                 (1UL << ITM_TCR_DWTENA_Pos)                    /*!< ITM TCR: DWTENA Mask */
 
-#define ITM_TCR_SYNCENA_Pos                 2                                          /*!< ITM TCR: SYNCENA Position */
-#define ITM_TCR_SYNCENA_Msk                (1UL << ITM_TCR_SYNCENA_Pos)                /*!< ITM TCR: SYNCENA Mask */
+#define ITM_TCR_SYNCENA_Pos                 2                                             /*!< ITM TCR: SYNCENA Position */
+#define ITM_TCR_SYNCENA_Msk                (1UL << ITM_TCR_SYNCENA_Pos)                   /*!< ITM TCR: SYNCENA Mask */
 
-#define ITM_TCR_TSENA_Pos                   1                                          /*!< ITM TCR: TSENA Position */
-#define ITM_TCR_TSENA_Msk                  (1UL << ITM_TCR_TSENA_Pos)                  /*!< ITM TCR: TSENA Mask */
+#define ITM_TCR_TSENA_Pos                   1                                             /*!< ITM TCR: TSENA Position */
+#define ITM_TCR_TSENA_Msk                  (1UL << ITM_TCR_TSENA_Pos)                     /*!< ITM TCR: TSENA Mask */
 
-#define ITM_TCR_ITMENA_Pos                  0                                          /*!< ITM TCR: ITM Enable bit Position */
-#define ITM_TCR_ITMENA_Msk                 (1UL << ITM_TCR_ITMENA_Pos)                 /*!< ITM TCR: ITM Enable bit Mask */
+#define ITM_TCR_ITMENA_Pos                  0                                             /*!< ITM TCR: ITM Enable bit Position */
+#define ITM_TCR_ITMENA_Msk                 (1UL << ITM_TCR_ITMENA_Pos)                    /*!< ITM TCR: ITM Enable bit Mask */
+
+/* ITM Integration Write Register Definitions */
+#define ITM_IWR_ATVALIDM_Pos                0                                             /*!< ITM IWR: ATVALIDM Position */
+#define ITM_IWR_ATVALIDM_Msk               (1UL << ITM_IWR_ATVALIDM_Pos)                  /*!< ITM IWR: ATVALIDM Mask */
+
+/* ITM Integration Read Register Definitions */
+#define ITM_IRR_ATREADYM_Pos                0                                             /*!< ITM IRR: ATREADYM Position */
+#define ITM_IRR_ATREADYM_Msk               (1UL << ITM_IRR_ATREADYM_Pos)                  /*!< ITM IRR: ATREADYM Mask */
+
+/* ITM Integration Mode Control Register Definitions */
+#define ITM_IMCR_INTEGRATION_Pos            0                                             /*!< ITM IMCR: INTEGRATION Position */
+#define ITM_IMCR_INTEGRATION_Msk           (1UL << ITM_IMCR_INTEGRATION_Pos)              /*!< ITM IMCR: INTEGRATION Mask */
+
+/* ITM Lock Status Register Definitions */
+#define ITM_LSR_ByteAcc_Pos                 2                                             /*!< ITM LSR: ByteAcc Position */
+#define ITM_LSR_ByteAcc_Msk                (1UL << ITM_LSR_ByteAcc_Pos)                   /*!< ITM LSR: ByteAcc Mask */
+
+#define ITM_LSR_Access_Pos                  1                                             /*!< ITM LSR: Access Position */
+#define ITM_LSR_Access_Msk                 (1UL << ITM_LSR_Access_Pos)                    /*!< ITM LSR: Access Mask */
+
+#define ITM_LSR_Present_Pos                 0                                             /*!< ITM LSR: Present Position */
+#define ITM_LSR_Present_Msk                (1UL << ITM_LSR_Present_Pos)                   /*!< ITM LSR: Present Mask */
 
 /*@}*/ /* end of group CMSIS_ITM */
 
@@ -1031,6 +1110,24 @@ typedef struct
 #define MPU_RASR_ATTRS_Pos                 16                                             /*!< MPU RASR: MPU Region Attribute field Position */
 #define MPU_RASR_ATTRS_Msk                 (0xFFFFUL << MPU_RASR_ATTRS_Pos)               /*!< MPU RASR: MPU Region Attribute field Mask */
 
+#define MPU_RASR_XN_Pos                    28                                             /*!< MPU RASR: ATTRS.XN Position */
+#define MPU_RASR_XN_Msk                    (1UL << MPU_RASR_XN_Pos)                       /*!< MPU RASR: ATTRS.XN Mask */
+
+#define MPU_RASR_AP_Pos                    24                                             /*!< MPU RASR: ATTRS.AP Position */
+#define MPU_RASR_AP_Msk                    (0x7UL << MPU_RASR_AP_Pos)                     /*!< MPU RASR: ATTRS.AP Mask */
+
+#define MPU_RASR_TEX_Pos                   19                                             /*!< MPU RASR: ATTRS.TEX Position */
+#define MPU_RASR_TEX_Msk                   (0x7UL << MPU_RASR_TEX_Pos)                    /*!< MPU RASR: ATTRS.TEX Mask */
+
+#define MPU_RASR_S_Pos                     18                                             /*!< MPU RASR: ATTRS.S Position */
+#define MPU_RASR_S_Msk                     (1UL << MPU_RASR_S_Pos)                        /*!< MPU RASR: ATTRS.S Mask */
+
+#define MPU_RASR_C_Pos                     17                                             /*!< MPU RASR: ATTRS.C Position */
+#define MPU_RASR_C_Msk                     (1UL << MPU_RASR_C_Pos)                        /*!< MPU RASR: ATTRS.C Mask */
+
+#define MPU_RASR_B_Pos                     16                                             /*!< MPU RASR: ATTRS.B Position */
+#define MPU_RASR_B_Msk                     (1UL << MPU_RASR_B_Pos)                        /*!< MPU RASR: ATTRS.B Mask */
+
 #define MPU_RASR_SRD_Pos                    8                                             /*!< MPU RASR: Sub-Region Disable Position */
 #define MPU_RASR_SRD_Msk                   (0xFFUL << MPU_RASR_SRD_Pos)                   /*!< MPU RASR: Sub-Region Disable Mask */
 
@@ -1267,7 +1364,7 @@ __STATIC_INLINE void NVIC_DisableIRQ(IRQn_Type IRQn)
     for the specified interrupt.
 
     \param [in]      IRQn  Interrupt number.
-    
+
     \return             0  Interrupt status is not pending.
     \return             1  Interrupt status is pending.
  */
@@ -1304,9 +1401,9 @@ __STATIC_INLINE void NVIC_ClearPendingIRQ(IRQn_Type IRQn)
 /** \brief  Get Active Interrupt
 
     The function reads the active register in NVIC and returns the active bit.
-    
+
     \param [in]      IRQn  Interrupt number.
-    
+
     \return             0  Interrupt status is not active.
     \return             1  Interrupt status is active.
  */
@@ -1318,11 +1415,11 @@ __STATIC_INLINE uint32_t NVIC_GetActive(IRQn_Type IRQn)
 
 /** \brief  Set Interrupt Priority
 
-    The function sets the priority of an interrupt. 
+    The function sets the priority of an interrupt.
 
     \note The priority cannot be set for every core interrupt.
 
-    \param [in]      IRQn  Interrupt number. 
+    \param [in]      IRQn  Interrupt number.
     \param [in]  priority  Priority to set.
  */
 __STATIC_INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
@@ -1360,7 +1457,7 @@ __STATIC_INLINE uint32_t NVIC_GetPriority(IRQn_Type IRQn)
     The function encodes the priority for an interrupt with the given priority group,
     preemptive priority value, and subpriority value.
     In case of a conflict between priority grouping and available
-    priority bits (__NVIC_PRIO_BITS), the samllest possible priority group is set.
+    priority bits (__NVIC_PRIO_BITS), the smallest possible priority group is set.
 
     \param [in]     PriorityGroup  Used priority group.
     \param [in]   PreemptPriority  Preemptive priority value (starting from 0).
@@ -1388,7 +1485,7 @@ __STATIC_INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t P
     The function decodes an interrupt priority value with a given priority group to
     preemptive priority value and subpriority value.
     In case of a conflict between priority grouping and available
-    priority bits (__NVIC_PRIO_BITS) the samllest possible priority group is set.
+    priority bits (__NVIC_PRIO_BITS) the smallest possible priority group is set.
 
     \param [in]         Priority   Priority value, which can be retrieved with the function \ref NVIC_GetPriority().
     \param [in]     PriorityGroup  Used priority group.
@@ -1440,23 +1537,23 @@ __STATIC_INLINE void NVIC_SystemReset(void)
 /** \brief  System Tick Configuration
 
     The function initializes the System Timer and its interrupt, and starts the System Tick Timer.
-    Counter is in free running mode to generate periodic interrupts.   
+    Counter is in free running mode to generate periodic interrupts.
 
     \param [in]  ticks  Number of ticks between two interrupts.
-    
+
     \return          0  Function succeeded.
     \return          1  Function failed.
-    
-    \note     When the variable <b>__Vendor_SysTickConfig</b> is set to 1, then the 
-    function <b>SysTick_Config</b> is not included. In this case, the file <b><i>device</i>.h</b> 
+
+    \note     When the variable <b>__Vendor_SysTickConfig</b> is set to 1, then the
+    function <b>SysTick_Config</b> is not included. In this case, the file <b><i>device</i>.h</b>
     must contain a vendor-specific implementation of this function.
 
  */
 __STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
 {
-  if (ticks > SysTick_LOAD_RELOAD_Msk)  return (1);            /* Reload value impossible */
+  if ((ticks - 1) > SysTick_LOAD_RELOAD_Msk)  return (1);      /* Reload value impossible */
 
-  SysTick->LOAD  = (ticks & SysTick_LOAD_RELOAD_Msk) - 1;      /* set reload register */
+  SysTick->LOAD  = ticks - 1;                                  /* set reload register */
   NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);  /* set Priority for Systick Interrupt */
   SysTick->VAL   = 0;                                          /* Load the SysTick Counter Value */
   SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
@@ -1489,7 +1586,7 @@ extern volatile int32_t ITM_RxBuffer;                    /*!< External variable 
     \li Is blocking when a debugger is connected, but the previous character sent has not been transmitted.
 
     \param [in]     ch  Character to transmit.
-    
+
     \returns            Character to transmit.
  */
 __STATIC_INLINE uint32_t ITM_SendChar (uint32_t ch)
@@ -1541,10 +1638,13 @@ __STATIC_INLINE int32_t ITM_CheckChar (void) {
 
 /*@} end of CMSIS_core_DebugFunctions */
 
-#endif /* __CORE_CM3_H_DEPENDANT */
 
-#endif /* __CMSIS_GENERIC */
+
 
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* __CORE_CM3_H_DEPENDANT */
+
+#endif /* __CMSIS_GENERIC */

@@ -3,7 +3,7 @@
  *
  * \brief SAM I2S Unit test
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -55,7 +55,7 @@
  */
 
 /**
- * \page appdoc_main SAM D21 I2S Unit Test
+ * \page appdoc_main SAM I2S Unit Test
  *
  * Overview:
  * - \ref appdoc_sam0_i2s_unit_test_intro
@@ -71,10 +71,11 @@
  *
  * The following kit is required for carrying out the test:
  *  - SAM D21 Xplained Pro board
+ *  - SAM DA1 Xplained Pro board
  *
  * \section appdoc_sam0_i2s_unit_test_setup Setup
  * The following connections has to be made using wires:
- *  - SAM D21 Xplained Pro
+ *  - SAM D21/DA1 Xplained Pro
  *    - EXT2 \b Pin 3 (PA10, SCK0) <-----> EXT3 \b Pin 13 (PB11, SCK1)
  *    - EXT2 \b Pin 4 (PA11, FS0)  <-----> \b Pin 7 (PB12, FS1)
  *
@@ -101,6 +102,9 @@
  * \section appdoc_sam0_i2s_unit_test_contactinfo Contact Information
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -430,7 +434,7 @@ int main(void)
 
 	/* Define the test suite */
 	DEFINE_TEST_SUITE(i2s_test_suite, i2s_tests,
-			"SAM D21 I2S driver test suite");
+			"SAM I2S driver test suite");
 
 	/* Run all tests in the suite*/
 	test_suite_run(&i2s_test_suite);

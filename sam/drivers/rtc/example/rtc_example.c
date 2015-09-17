@@ -3,7 +3,7 @@
  *
  * \brief Real-Time Clock (RTC) example for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -69,7 +69,8 @@
 	   w - Generate Waveform
 \endcode
  *
- * "w" is an additional option for SAM3S8, SAM3SD8, SAM4S, SAM4C, SAM4CP and SAM4CM.
+ * "w" is an additional option for SAM3S8, SAM3SD8, SAM4S, SAM4C, SAM4CP, SAM4CM
+ * SAMV71, SAMV70, SAME70 and SAMS70.
  * An RTC output can be programmed to generate several waveforms, including a
  * prescaled clock derived from slow clock.
  *
@@ -129,6 +130,9 @@
  * -# Press one of the keys listed in the menu to perform the corresponding
  * action.
  * 
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"
@@ -210,7 +214,13 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	/* Configure console UART. */
@@ -235,7 +245,7 @@ static uint32_t get_new_time(void)
 	/* Use gs_uc_rtc_time[] as a format template. */
 	while (1) {
 
-		while (uart_read(CONSOLE_UART, &uc_key));
+		scanf("%c", (char *)&uc_key);
 
 		/* End input */
 		if (uc_key == 0x0d || uc_key == 0x0a) {
@@ -271,7 +281,7 @@ static uint32_t get_new_time(void)
 			continue;
 		}
 
-		while (uart_write(CONSOLE_UART, uc_key));
+		printf("%c", uc_key);
 		gs_uc_rtc_time[i++] = uc_key;
 
 	}
@@ -335,7 +345,7 @@ static uint32_t get_new_date(void)
 	/* Use gs_uc_rtc_time[] as a format template */
 	while (1) {
 
-		while (uart_read(CONSOLE_UART, &uc_key));
+		scanf("%c", (char *)&uc_key);
 
 		/* End input */
 		if (uc_key == 0x0d || uc_key == 0x0a) {
@@ -371,7 +381,7 @@ static uint32_t get_new_date(void)
 			continue;
 		}
 
-		while (uart_write(CONSOLE_UART, uc_key));
+		printf("%c", uc_key);
 		gs_uc_date[i++] = uc_key;
 
 	}
@@ -430,7 +440,7 @@ static void refresh_display(void)
 					"  d - Set date\n\r"
 					"  i - Set time alarm\n\r"
 					"  m - Set date alarm\r");
-#if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4C) || (SAM4CP) || (SAM4CM))
+#if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4C) || (SAM4CP) || (SAM4CM) || (SAMV71)|| (SAMV70) || (SAME70) || (SAMS70))
 			puts("  w - Generate Waveform\r");
 #endif
 			if (gs_ul_alarm_triggered) {
@@ -520,7 +530,7 @@ int main(void)
 	/* Handle keypresses */
 	while (1) {
 
-		while (uart_read(CONSOLE_UART, &uc_key));
+		scanf("%c", (char *)&uc_key);
 
 		/* Set time */
 		if (uc_key == 't') {
@@ -642,7 +652,7 @@ int main(void)
 			refresh_display();
 		}
 
-#if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4C) || (SAM4CP) || (SAM4CM))
+#if ((SAM3S8) || (SAM3SD8) || (SAM4S) || (SAM4C) || (SAM4CP) || (SAM4CM) || (SAMV71)|| (SAMV70) || (SAME70) || (SAMS70))
 		/* Generate Waveform */
 		if (uc_key == 'w') {
 			gs_ul_state = STATE_WAVEFORM;
@@ -658,7 +668,7 @@ int main(void)
 					"  8 - Quit\r");
 
 			while (1) {
-				while (uart_read(CONSOLE_UART, &uc_key));
+				scanf("%c", (char *)&uc_key);
 
 				if ((uc_key >= '0') && (uc_key <= '7')) {
 					rtc_set_waveform(RTC, 0, char_to_digit(uc_key));

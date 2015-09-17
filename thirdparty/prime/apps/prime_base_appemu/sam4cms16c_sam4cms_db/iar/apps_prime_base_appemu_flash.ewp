@@ -2016,10 +2016,10 @@
 							<name>$PROJ_DIR$/../../../../mac/mac_1_3/include/bmngt.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../mac/mac_1_3/include/prime.h</name>
+							<name>$PROJ_DIR$/../../../../mac/mac_1_3/include/mngl.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../mac/mac_1_3/include/mngl.h</name>
+							<name>$PROJ_DIR$/../../../../mac/mac_1_3/include/prime.h</name>
 						</file>
 					</group>
 					<group>
@@ -2100,6 +2100,9 @@
 					<group>
 						<name>sam4cms16c_sam4cms_db</name>
 						<file>
+							<name>$PROJ_DIR$/../conf_board.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../conf_buart_if.h</name>
 						</file>
 						<file>
@@ -2110,9 +2113,6 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../conf_uart_serial.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../conf_board.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../conf_busart_if.h</name>
@@ -2615,6 +2615,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/tc0.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/tc1.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/chipid.h</name>
 							</file>
 							<file>
@@ -2678,9 +2681,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/cmcc1.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/tc1.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/instance/aes.h</name>
 							</file>
 							<file>
@@ -2719,9 +2719,6 @@
 						</group>
 						<group>
 							<name>component</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/rstc.h</name>
-							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/chipid.h</name>
 							</file>
@@ -2786,6 +2783,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/pdc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/rstc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/matrix.h</name>
 							</file>
 							<file>
@@ -2795,12 +2795,15 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/pwm.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/slcdc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/pio.h</name>
 							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/component/slcdc.h</name>
+							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms4c_1.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms8c_1.h</name>
 						</file>
@@ -2822,9 +2825,15 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cms16c.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cms4c.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cmp16c.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms4c_0.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cmp8c_1.h</name>
 						</file>
@@ -2849,12 +2858,6 @@
 					</group>
 				</group>
 			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../sam/utils/compiler.h</name>
-			</file>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../sam/utils/status_codes.h</name>
-			</file>
 			<group>
 				<name>preprocessor</name>
 				<file>
@@ -2870,6 +2873,12 @@
 					<name>$PROJ_DIR$/../../../../../../sam/utils/preprocessor/stringz.h</name>
 				</file>
 			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../sam/utils/compiler.h</name>
+			</file>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../sam/utils/status_codes.h</name>
+			</file>
 			<group>
 				<name>header_files</name>
 				<file>

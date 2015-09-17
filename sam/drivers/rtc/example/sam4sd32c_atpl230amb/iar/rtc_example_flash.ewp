@@ -2162,6 +2162,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/component/component_spi.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/component/component_efc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/component/component_pwm.h</name>
 							</file>
 							<file>
@@ -2175,9 +2178,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/component/component_supc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/component/component_efc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include/component/component_pio.h</name>
@@ -2355,6 +2355,9 @@
 							<name>$PROJ_DIR$/../conf_uart_serial.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../conf_clock.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../conf_board.h</name>
 						</file>
 						<group>
@@ -2363,9 +2366,6 @@
 								<name>$PROJ_DIR$/asf.h</name>
 							</file>
 						</group>
-						<file>
-							<name>$PROJ_DIR$/../conf_clock.h</name>
-						</file>
 					</group>
 				</group>
 				<file>

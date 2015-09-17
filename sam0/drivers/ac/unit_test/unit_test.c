@@ -3,7 +3,7 @@
  *
  * \brief SAM Analog Comparator (AC) Unit test
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -74,6 +74,9 @@
  * The following kit is required for carrying out the test:
  *  - SAM D20 Xplained Pro board
  *  - SAM D21 Xplained Pro board
+ *  - SAM L21 Xplained Pro board
+ *  - SAM DA1 Xplained Pro board
+ *  - SAM C21 Xplained Pro board
  *
  * \section appdoc_sam0_ac_unit_test_setup Setup
  * The following connections has to be made using wires:
@@ -105,22 +108,39 @@
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <asf.h>
 #include <stdio_serial.h>
 #include <string.h>
 #include "conf_test.h"
 
-#define AC_SCALER_0_25_VOLT 4
-#define AC_SCALER_0_50_VOLT 9
-#define AC_SCALER_0_75_VOLT 14
+#if (SAMC21)
+#  define AC_SCALER_0_25_VOLT 2
+#  define AC_SCALER_0_50_VOLT 6
+#  define AC_SCALER_0_75_VOLT 9
+#else
+#  define AC_SCALER_0_25_VOLT 4
+#  define AC_SCALER_0_50_VOLT 9
+#  define AC_SCALER_0_75_VOLT 14
+#endif
 
 /* Theoretical DAC value for 0.0V output*/
 #define DAC_VAL_ZERO_VOLT   0
 /* Theoretical DAC value for 0.5V output*/
-#define DAC_VAL_HALF_VOLT   512
+#if (SAML21)
+#  define DAC_VAL_HALF_VOLT   2048
+#else
+#  define DAC_VAL_HALF_VOLT   512
+#endif
 /* Theoretical DAC value for 1.0V output*/
-#define DAC_VAL_ONE_VOLT    1023
+#if (SAML21)
+#  define DAC_VAL_ONE_VOLT    4095
+#else
+#  define DAC_VAL_ONE_VOLT    1023
+#endif
 
 /* Structure for UART module connected to EDBG (used for unit test output) */
 struct usart_module cdc_uart_module;
@@ -185,12 +205,13 @@ static void test_dac_init(void)
 	/* Configure the DAC module */
 	dac_get_config_defaults(&config);
 	dac_init(&dac_inst, DAC, &config);
-	dac_enable(&dac_inst);
 
 	/* Configure the DAC channel */
 	dac_chan_get_config_defaults(&chan_config);
 	dac_chan_set_config(&dac_inst, DAC_CHANNEL_0, &chan_config);
 	dac_chan_enable(&dac_inst, DAC_CHANNEL_0);
+
+	dac_enable(&dac_inst);
 }
 
 /**
@@ -309,9 +330,6 @@ static void setup_ac_callback_mode_test(const struct test_case *test)
 	struct ac_config config;
 	struct ac_chan_config channel_config;
 
-	/* Set input to 0V */
-	dac_chan_write(&dac_inst, DAC_CHANNEL_0, DAC_VAL_ZERO_VOLT);
-
 	/* Set the flag to false */
 	ac_init_success = false;
 	ac_reset(&ac_inst);
@@ -377,8 +395,13 @@ static void run_ac_callback_mode_test(const struct test_case *test)
 	test_assert_true(test, ac_init_success,
 			"Skipping test due to failed AC initialization");
 
+	/* Set input to 0V */
+	dac_chan_write(&dac_inst, DAC_CHANNEL_0, DAC_VAL_ZERO_VOLT);
+	/* Wait for AC output */
+	delay_ms(1);
 	/* Test for rising edge detection */
 	dac_chan_write(&dac_inst, DAC_CHANNEL_0, DAC_VAL_ONE_VOLT);
+	/* Wait for AC output */
 	delay_ms(1);
 	do {
 		timeout_cycles--;

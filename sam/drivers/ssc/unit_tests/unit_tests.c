@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for SSC driver.
  *
- * Copyright (c) 2011-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <stdint.h>
@@ -76,6 +79,7 @@
  * - sam4s16c_sam4s_ek
  * - sam4s16c_sam4s_xplained
  * - sam4sd32c_sam4s_ek2
+ * - samv71q21_samv71_xplained_ultra
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -83,7 +87,7 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit <a href="http://www.atmel.com/">Atmel</a>.\n
- * Support and FAQ: http://support.atmel.no/
+ * Support and FAQ: http://www.atmel.com/design-support/
  */
 
 //! \name Unit test configuration
@@ -239,7 +243,14 @@ int main(void)
 {
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate   = CONF_TEST_BAUDRATE,
-		.paritytype = CONF_TEST_PARITY
+#ifdef CONF_TEST_CHAR_LENGTH
+		.charlength = CONF_TEST_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_TEST_PARITY,
+#ifdef CONF_TEST_STOP_BITS
+		.stopbits = CONF_TEST_STOP_BITS,
+#endif
+
 	};
 
 	sysclk_init();

@@ -3,7 +3,7 @@
  *
  * \brief  Main of Performance_Analyzer application
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
 
 /**
  * \page license License
- * Copyright(c) 2012, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -58,7 +58,7 @@
 #include "app_range_mode.h"
 #include "perf_api_serial_handler.h"
 #include "app_config.h"
-#if SAMD || SAMR21
+#if SAMD || SAMR21 || SAML21
 #include "system.h"
 #else
 #if (LED_COUNT > 0)
@@ -160,7 +160,7 @@
  * - \b Packet \b Error \b Rate \b Measurement \b(PER) is to evaluate
  * the packet transmission and reception capabilities of the wireless nodes.
  * The Transmitter node shall be connected to the Performance Analyzer.
- * If ‘Initiate Peer search’ command is received from the analyzer after the
+ * If 'Initiate Peer search' command is received from the analyzer after the
  * board
  * is connected, then the node (Transmitter) tries to find its peer node (i.e.
  * Reflector).
@@ -276,7 +276,8 @@
  *     and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal
  * Area
  *     Networks (WPANs).\n\n
- * 2)  AVR Wireless Support <A href="http://avr@atmel.com">avr@atmel.com</A>.\n
+ * 2)  <a href="http://www.atmel.com/design-support/">Atmel Design
+ *Support</a>.\n
  * \page contactinfo Contact Information
  * For further information,visit
  * <A href="http://www.atmel.com/avr">www.atmel.com</A>.\n
@@ -429,10 +430,10 @@ volatile node_ib_t node_info;
 /* === IMPLEMENTATION ====================================================== */
 
 /**
- * \brief Main function of the Performance Analyzer application
+ * \brief Init function of the Performance Analyzer application
  * \ingroup group_app_init
  */
-void performance_analyzer_main(void)
+void performance_analyzer_init(void)
 {
 	sio2host_init();
 
@@ -442,19 +443,21 @@ void performance_analyzer_main(void)
 	 */
 	set_main_state(INIT, NULL);
 
-	cpu_irq_enable();
-
 	/* INIT was a success - so change to WAIT_FOR_EVENT state */
 	set_main_state(WAIT_FOR_EVENT, NULL);
+}
 
-	/* Endless while loop */
-	while (1) {
-		pal_task(); /* Handle platform specific tasks, like serial
-		             * interface */
-		tal_task(); /* Handle transceiver specific tasks */
-		app_task(); /* Application task */
-		serial_data_handler();
-	}
+/**
+ * \brief This task needs to be called in a while(1) for performing
+ *  Performance Analyzer tasks
+ */
+void performance_analyzer_task(void)
+{
+	pal_task(); /* Handle platform specific tasks, like serial
+	             * interface */
+	tal_task(); /* Handle transceiver specific tasks */
+	app_task(); /* Application task */
+	serial_data_handler();
 }
 
 /**
@@ -613,20 +616,21 @@ void set_main_state(main_state_t state, void *arg)
  * \param ack_req           specifies ack requested for frame if set to 1
  *
  * \return MAC_SUCCESS      if the TAL has accepted the data for frame
- * transmission
- *         TAL_BUSY         if the TAL is busy servicing the previous tx request
+ *                          transmission
+ *         TAL_BUSY         if the TAL is busy servicing the previous tx
+ *                          request
  */
 retval_t transmit_frame(uint8_t dst_addr_mode,
 		uint8_t *dst_addr,
 		uint8_t src_addr_mode,
 		uint8_t msdu_handle,
 		uint8_t *payload,
-		uint8_t payload_length,
+		uint16_t payload_length,
 		uint8_t ack_req)
 {
 	uint8_t i;
 	uint16_t temp_value;
-	uint8_t frame_length;
+	uint16_t frame_length;
 	uint8_t *frame_ptr;
 	uint8_t *temp_frame_ptr;
 	uint16_t fcf = 0;
@@ -717,7 +721,7 @@ retval_t transmit_frame(uint8_t dst_addr_mode,
 
 	/* First element shall be length of PHY frame. */
 	frame_ptr--;
-	*frame_ptr = frame_length;
+	*frame_ptr = (uint8_t)frame_length;
 
 	/* Finished building of frame. */
 	node_info.tx_frame_info->mpdu = frame_ptr;

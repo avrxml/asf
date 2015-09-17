@@ -3,7 +3,7 @@
  *
  * \brief ATMEGAxxxRFA1 registers description
  *
- * Copyright (C)2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,11 +50,11 @@
  * \defgroup group_phy_rfa1 ATMEGARFA1 PHY Layer
  * The ATmega128RFA1 is a low-power CMOS 8-bit microcontroller based on the AVR
  * enhanced RISC architecture combined with a high data rate transceiver for the
- *2.4 GHz
+ * 2.4 GHz
  *  ISM band. It is derived from the ATmega1281 microcontroller and the
- *AT86RF231 radio transceiver.
+ * AT86RF231 radio transceiver.
  * \a Refer <A href="http://www.atmel.com/Images/doc8266.pdf">ATMEGARFA1 Data
- *Sheet </A> \b for \b detailed \b information .
+ * Sheet </A> \b for \b detailed \b information .
  * @{
  */
 
@@ -325,7 +325,8 @@ struct __struct_RX_SYN_REG {
 #define XAH_CTRL_1_REG_s MMIO_REG(0x157, struct __struct_XAH_CTRL_1_REG)
 struct __struct_XAH_CTRL_1_REG {
 	uint8_t               : 1;
-	uint8_t aackPromMode  : 1; /* Enable Acknowledgment in Promiscuous Mode */
+	uint8_t aackPromMode  : 1; /* Enable Acknowledgment in Promiscuous Mode
+	                            **/
 	uint8_t aackAckTime   : 1; /* Reduce Acknowledgment Time */
 	uint8_t               : 1;
 	uint8_t aackUpldResFt : 1; /* Process Reserved Frames */
@@ -338,7 +339,8 @@ struct __struct_XAH_CTRL_1_REG {
 #define FTN_CTRL_REG_s  MMIO_REG(0x158, struct __struct_FTN_CTRL_REG)
 struct __struct_FTN_CTRL_REG {
 	uint8_t          : 7;
-	uint8_t ftnStart : 1; /* Start Calibration Loop of Filter Tuning Network */
+	uint8_t ftnStart : 1; /* Start Calibration Loop of Filter Tuning Network
+	                       **/
 };
 
 /* Transceiver Center Frequency Calibration Control Register */
@@ -403,9 +405,11 @@ struct __struct_XAH_CTRL_0_REG {
 #define CSMA_SEED_1_REG   MMIO_REG(0x16E, uint8_t)
 #define CSMA_SEED_1_REG_s MMIO_REG(0x16E, struct __struct_CSMA_SEED_1_REG)
 struct __struct_CSMA_SEED_1_REG {
-	uint8_t csmaSeed_1   : 3; /* Seed Value for CSMA Random Number Generator */
+	uint8_t csmaSeed_1   : 3; /* Seed Value for CSMA Random Number Generator
+	                           **/
 	uint8_t aackIAmCoord : 1; /* Set Personal Area Network Coordinator */
-	uint8_t aackDisAck   : 1; /* Disable Acknowledgment Frame Transmission */
+	uint8_t aackDisAck   : 1; /* Disable Acknowledgment Frame Transmission
+	                           **/
 	uint8_t aackSetPd    : 1; /* Set Frame Pending Sub-field */
 	uint8_t aackFvnMode  : 2; /* Acknowledgment Frame Filter Mode */
 };

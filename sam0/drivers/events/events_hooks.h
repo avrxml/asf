@@ -3,7 +3,7 @@
  *
  * \brief SAM Event System Driver
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "events.h"
 
@@ -57,101 +60,101 @@ extern "C" {
  */
 
 /**
- * \brief Interrupt source enumerator
+ * \brief Interrupt source enumerator.
  *
- * Interrupt source selector definitions
+ * Interrupt source selector definitions.
  *
  */
 enum events_interrupt_source {
-	/* Overrun in event channel detected interrupt */
+	/** Overrun in event channel detected interrupt */
 	EVENTS_INTERRUPT_OVERRUN,
-	/* Event signal propagation in event channel detected interrupt */
+	/** Event signal propagation in event channel detected interrupt */
 	EVENTS_INTERRUPT_DETECT,
 };
 
 /**
- * \brief Initializes a interrupt hook for insertion in the event interrupt hook queue
+ * \brief Initializes an interrupt hook for insertion in the event interrupt hook queue.
  *
- * Initializes a hook structure so it is ready for insertion in the interrupt hook queue
+ * Initializes a hook structure so it is ready for insertion in the interrupt hook queue.
  *
  * \param[out] hook Pointer to an \ref events_hook struct instance
- * \param[in]  hook_func Pointer to a function contaning the interrupt hook code
+ * \param[in]  hook_func Pointer to a function containing the interrupt hook code
  *
- * \return Status of the hook creation procedure
- * \retval STATUS_OK Creation and initialization of interrup hook went sucessful
+ * \return Status of the hook creation procedure.
+ * \retval STATUS_OK Creation and initialization of interrupt hook went successful
  *
  */
 enum status_code events_create_hook(struct events_hook *hook, events_interrupt_hook hook_func);
 
 /**
- * \brief Insert hook into the event drivers interrupt hook queue
+ * \brief Insert hook into the event drivers interrupt hook queue.
  *
- * Inserts a hook into the event drivers interrupt hook queue
+ * Inserts a hook into the event drivers interrupt hook queue.
  *
  * \param[in] resource Pointer to an \ref events_resource struct instance
  * \param[in] hook     Pointer to an \ref events_hook struct instance
  *
- * \return Status of the insertion procedure
- * \retval STATUS_OK Insertion of hook went sucessful
+ * \return Status of the insertion procedure.
+ * \retval STATUS_OK Insertion of hook went successful
  *
  */
 enum status_code events_add_hook(struct events_resource *resource, struct events_hook *hook);
 
 /**
- * \brief Remove hook from the event drivers interrupt hook queue
+ * \brief Remove hook from the event drivers interrupt hook queue.
  *
- * Removes a hook from the event drivers interrupt hook queue
+ * Removes a hook from the event drivers interrupt hook queue.
  *
  * \param[in] resource Pointer to an \ref events_resource struct instance
  * \param[in] hook     Pointer to an \ref events_hook struct instance
  *
- * \return Status of the removal procedure
- * \retval STATUS_OK Removal of hook went sucessful
- * \retval STATUS_ERR_NO_MEMORY There is no hooks instances in the event driver interrupt hook list
+ * \return Status of the removal procedure.
+ * \retval STATUS_OK Removal of hook went successful
+ * \retval STATUS_ERR_NO_MEMORY There are no hooks instances in the event driver interrupt hook list
  * \retval STATUS_ERR_NOT_FOUND Interrupt hook not found in the event drivers interrupt hook list
  *
  */
 enum status_code events_del_hook(struct events_resource *resource, struct events_hook *hook);
 
 /**
- * \brief Enable interrupt source
+ * \brief Enable interrupt source.
  *
- * Enable an interrupt source so can trigger execution of an interrupt hook
+ * Enable an interrupt source so can trigger execution of an interrupt hook.
  *
  * \param[in] resource Pointer to an \ref events_resource struct instance
  * \param[in] source   One of the members in the \ref events_interrupt_source enumerator
  *
- * \return Status of the interrupt source enable procedure
- * \retval STATUS_OK              Enabling of the interrupt source went sucessful
+ * \return Status of the interrupt source enable procedure.
+ * \retval STATUS_OK              Enabling of the interrupt source went successful
  * \retval STATUS_ERR_INVALID_ARG Interrupt source does not exist
  *
  */
 enum status_code events_enable_interrupt_source(struct events_resource *resource, enum events_interrupt_source source);
 
 /**
- * \brief Disable interrupt source
+ * \brief Disable interrupt source.
  *
- * Disable an interrupt source so can trigger execution of an interrupt hook
+ * Disable an interrupt source so can trigger execution of an interrupt hook.
  *
  * \param[in] resource Pointer to an \ref events_resource struct instance
  * \param[in] source   One of the members in the \ref events_interrupt_source enumerator
  *
- * \return Status of the interrupt source enable procedure
- * \retval STATUS_OK              Enabling of the interrupt source went sucessful
+ * \return Status of the interrupt source enable procedure.
+ * \retval STATUS_OK              Enabling of the interrupt source went successful
  * \retval STATUS_ERR_INVALID_ARG Interrupt source does not exist
  *
  */
 enum status_code events_disable_interrupt_source(struct events_resource *resource, enum events_interrupt_source source);
 
 /**
- * \brief Check if interrupt source is set
+ * \brief Check if interrupt source is set.
  *
- * Check if an interrupt source is set and should be processed
+ * Check if an interrupt source is set and should be processed.
  *
  * \param[in] resource Pointer to an \ref events_resource struct instance
- * \param[in] source   One of the memebers in the \ref events_interrupt_source enumerator
+ * \param[in] source   One of the members in the \ref events_interrupt_source enumerator
  *
- * \return Status of the interrupt source
+ * \return Status of the interrupt source.
  * \retval true  Interrupt source is set
  * \retval false Interrupt source is not set
  *
@@ -159,15 +162,15 @@ enum status_code events_disable_interrupt_source(struct events_resource *resourc
 bool events_is_interrupt_set(struct events_resource *resource, enum events_interrupt_source source);
 
 /**
- * \brief Acknowledge an interrupt source
+ * \brief Acknowledge an interrupt source.
  *
- * Acknowledge an interrupt source so the interrupt state is cleared in hardware
+ * Acknowledge an interrupt source so the interrupt state is cleared in hardware.
  *
  * \param[in] resource Pointer to an \ref events_resource struct instance
  * \param[in] source   One of the members in the \ref events_interrupt_source enumerator
  *
- * \return Status of the interrupt source
- * \retval STATUS_OK Interrupt source was acknowledged sucessfully
+ * \return Status of the interrupt source.
+ * \retval STATUS_OK Interrupt source was acknowledged successfully
  *
  */
 enum status_code events_ack_interrupt(struct events_resource *resource, enum events_interrupt_source source);

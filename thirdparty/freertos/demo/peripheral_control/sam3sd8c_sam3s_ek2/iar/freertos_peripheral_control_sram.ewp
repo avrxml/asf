@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3SD8	Atmel SAM3SD8</state>
+					<state>ATSAM3SD8C	Atmel ATSAM3SD8C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -305,12 +305,13 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/freertos/sam</state>
 					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/include</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
@@ -587,12 +588,13 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/freertos/sam</state>
 					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/include</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
@@ -1053,7 +1055,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3SD8	Atmel SAM3SD8</state>
+					<state>ATSAM3SD8C	Atmel ATSAM3SD8C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1261,12 +1263,13 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/freertos/sam</state>
 					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/include</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
@@ -1543,12 +1546,13 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/freertos/sam</state>
 					<state>$PROJ_DIR$/../../../../freertos-7.3.0/source/include</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/pdc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
@@ -1958,10 +1962,10 @@
 						<group>
 							<name>device</name>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc/device/udi_cdc.c</name>
+								<name>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc/device/udi_cdc_desc.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc/device/udi_cdc_desc.c</name>
+								<name>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc/device/udi_cdc.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../common/services/usb/class/cdc/device/udi_cdc.h</name>
@@ -2169,6 +2173,15 @@
 				</file>
 			</group>
 			<group>
+				<name>matrix</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../sam/drivers/matrix/matrix.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../sam/drivers/matrix/matrix.h</name>
+				</file>
+			</group>
+			<group>
 				<name>pio</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../sam/drivers/pio/pio.c</name>
@@ -2303,9 +2316,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/component/component_rstc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/component/component_spi.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/component/component_efc.h</name>
 							</file>
 							<file>
@@ -2325,6 +2335,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/component/component_udp.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/component/component_spi.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/component/component_uart.h</name>
@@ -2399,6 +2412,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_rtc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_pmc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_pioc.h</name>
 							</file>
 							<file>
@@ -2409,9 +2425,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_tc1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_pmc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_usart1.h</name>

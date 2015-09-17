@@ -2149,6 +2149,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_uart1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_rtt.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_rstc.h</name>
 							</file>
 							<file>
@@ -2183,9 +2186,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_spi1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_rtt.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_spi0.h</name>
@@ -2436,18 +2436,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc.h</name>
 				</file>
-				<group>
-					<name>tc_capture_waveform_example</name>
-					<group>
-						<name>sam4e16e_sam4e_ek</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../sam/drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
-					</file>
-				</group>
 			</group>
 			<group>
 				<name>supc</name>

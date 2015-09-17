@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_RTT_COMPONENT_
 #define _SAM4E_RTT_COMPONENT_
@@ -51,10 +54,10 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Rtt hardware registers */
 typedef struct {
-  RwReg RTT_MR; /**< \brief (Rtt Offset: 0x00) Mode Register */
-  RwReg RTT_AR; /**< \brief (Rtt Offset: 0x04) Alarm Register */
-  RoReg RTT_VR; /**< \brief (Rtt Offset: 0x08) Value Register */
-  RoReg RTT_SR; /**< \brief (Rtt Offset: 0x0C) Status Register */
+  __IO uint32_t RTT_MR; /**< \brief (Rtt Offset: 0x00) Mode Register */
+  __IO uint32_t RTT_AR; /**< \brief (Rtt Offset: 0x04) Alarm Register */
+  __I  uint32_t RTT_VR; /**< \brief (Rtt Offset: 0x08) Value Register */
+  __I  uint32_t RTT_SR; /**< \brief (Rtt Offset: 0x0C) Status Register */
 } Rtt;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- RTT_MR : (RTT Offset: 0x00) Mode Register -------- */
@@ -75,7 +78,7 @@ typedef struct {
 #define RTT_VR_CRTV_Msk (0xffffffffu << RTT_VR_CRTV_Pos) /**< \brief (RTT_VR) Current Real-time Value */
 /* -------- RTT_SR : (RTT Offset: 0x0C) Status Register -------- */
 #define RTT_SR_ALMS (0x1u << 0) /**< \brief (RTT_SR) Real-time Alarm Status */
-#define RTT_SR_RTTINC (0x1u << 1) /**< \brief (RTT_SR) Real-time Timer Increment */
+#define RTT_SR_RTTINC (0x1u << 1) /**< \brief (RTT_SR) Prescaler Roll-over Status */
 
 /*@}*/
 

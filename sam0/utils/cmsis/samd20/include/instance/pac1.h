@@ -3,7 +3,7 @@
  *
  * \brief Instance description for PAC1
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAMD20_PAC1_INSTANCE_
 #define _SAMD20_PAC1_INSTANCE_
@@ -54,6 +57,6 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for PAC1 peripheral ========== */
-#define PAC1_WPROT_DEFAULT_VAL      0x00000002
+#define PAC1_WPROT_DEFAULT_VAL      0x00000002 // PAC protection mask at reset
 
 #endif /* _SAMD20_PAC1_INSTANCE_ */

@@ -6,7 +6,7 @@
  *
  * This file contains the version string of the audio player application
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,6 +48,9 @@
 /*! \addtogroup group_features
  *
  * \section features_version Features for package version
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _CONF_VERSION_H_

@@ -3,7 +3,7 @@
  *
  * \brief SAM DAC Sound Player Application
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \license
  * \asf_license_start
@@ -72,10 +72,10 @@
  * timer output events to the DAC module to trigger new sample conversions.
  *
  * This application has been tested on following boards:
- * - SAM D20/D21 Xplained Pro
+ * - SAM D20/D21/L21/C21 Xplained Pro
  *
  * \section appdoc_sam0_dac_sound_player_setup Hardware Setup
- * The device's DAC channel 0 output should be connected to an audio amplifier,
+ * The device's DAC channel output should be connected to an audio amplifier,
  * speaker, oscilloscope or other similar monitoring equipment so that the
  * generated waveform can be monitored.
  *
@@ -91,6 +91,9 @@
  * \section appdoc_sam0_dac_sound_player_contactinfo Contact Information
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -132,12 +135,21 @@ static void configure_dac(struct dac_module *dac_module)
 	/* Get the default DAC channel config */
 	dac_chan_get_config_defaults(&channel_config);
 
+#if (SAML21)
+	/* Set the channel configuration, and enable it */
+	dac_chan_set_config(dac_module, DAC_CHANNEL_1, &channel_config);
+	dac_chan_enable(dac_module, DAC_CHANNEL_1);
+
+	/* Enable event triggered conversions */
+	struct dac_events events = { .on_event_chan1_start_conversion = true };
+#else
 	/* Set the channel configuration, and enable it */
 	dac_chan_set_config(dac_module, DAC_CHANNEL_0, &channel_config);
 	dac_chan_enable(dac_module, DAC_CHANNEL_0);
 
 	/* Enable event triggered conversions */
 	struct dac_events events = { .on_event_start_conversion = true };
+#endif
 	dac_enable_events(dac_module, &events);
 
 	dac_enable(dac_module);
@@ -190,7 +202,11 @@ static void configure_events(struct events_resource *event)
 	config.path         = EVENTS_PATH_ASYNCHRONOUS;
 
 	events_allocate(event, &config);
+#if (SAML21)
+	events_attach_user(event, EVSYS_ID_USER_DAC_START_1);
+#else
 	events_attach_user(event, EVSYS_ID_USER_DAC_START);
+#endif
 }
 
 /**
@@ -206,7 +222,11 @@ int main(void)
 	system_init();
 
 	/* Enable the internal bandgap to use as reference to the DAC */
+#if (SAML21) || (SAMC21)
+	system_voltage_reference_enable(SYSTEM_VOLTAGE_REFERENCE_OUTPUT);
+#else
 	system_voltage_reference_enable(SYSTEM_VOLTAGE_REFERENCE_BANDGAP);
+#endif
 
 	/* Module configuration */
 	configure_tc(&tc_module);
@@ -224,9 +244,15 @@ int main(void)
 		port_pin_toggle_output_level(LED0_PIN);
 
 		for (uint32_t i = 0; i < number_of_samples; i++) {
+#if (SAML21)
+			dac_chan_write(&dac_module, DAC_CHANNEL_1, wav_samples[i] << 2);
+
+			while (!dac_chan_is_end_of_conversion(&dac_module, DAC_CHANNEL_1)) {
+#else
 			dac_chan_write(&dac_module, DAC_CHANNEL_0, wav_samples[i]);
 
 			while (!(DAC->INTFLAG.reg & DAC_INTFLAG_EMPTY)) {
+#endif
 				/* Wait for data buffer to be empty */
 			}
 

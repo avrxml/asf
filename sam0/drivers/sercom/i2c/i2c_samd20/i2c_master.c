@@ -3,7 +3,7 @@
  *
  * \brief SAM D20 I2C Master Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "i2c_master.h"
 
@@ -52,8 +55,8 @@
 /**
  * \internal Sets configurations to module
  *
- * \param[out] module  Pointer to software module structure.
- * \param[in]  config  Configuration structure with configurations to set.
+ * \param[out] module  Pointer to software module structure
+ * \param[in]  config  Configuration structure with configurations to set
  *
  * \return Status of setting configuration.
  * \retval STATUS_OK                        If module was configured correctly
@@ -360,8 +363,8 @@ static enum status_code _i2c_master_wait_for_bus(
  * \internal
  * Starts blocking read operation.
  *
- * \param[in,out] module  Pointer to software module struct.
- * \param[in,out] packet  Pointer to I<SUP>2</SUP>C packet to transfer.
+ * \param[in,out] module  Pointer to software module struct
+ * \param[in,out] packet  Pointer to I<SUP>2</SUP>C packet to transfer
  *
  * \return Status of reading packet.
  * \retval STATUS_OK                    The packet was read successfully
@@ -415,7 +418,7 @@ static enum status_code _i2c_master_read_packet(
 				return STATUS_ERR_PACKET_COLLISION;
 			}
 
-			if (tmp_data_length == 0) {
+			if (module->send_nack && tmp_data_length == 0) {
 				/* Set action to NACK */
 				i2c_module->CTRLB.reg |= SERCOM_I2CM_CTRLB_ACKACT;
 			} else {
@@ -436,6 +439,9 @@ static enum status_code _i2c_master_read_packet(
 			/* Send stop command unless arbitration is lost. */
 			_i2c_master_wait_for_sync(module);
 			i2c_module->CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3);
+		} else {
+		  	_i2c_master_wait_for_sync(module);
+			i2c_module->CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(1);
 		}
 
 		/* Save last data to buffer. */
@@ -484,7 +490,8 @@ enum status_code i2c_master_read_packet_wait(
 #endif
 
 	module->send_stop = true;
-
+	module->send_nack = true;
+	
 	return _i2c_master_read_packet(module, packet);
 }
 
@@ -530,6 +537,57 @@ enum status_code i2c_master_read_packet_wait_no_stop(
 #endif
 
 	module->send_stop = false;
+	module->send_nack = true;
+	
+	return _i2c_master_read_packet(module, packet);
+}
+
+/**
+ * \internal
+ * Starts blocking read operation.
+ * \brief Reads data packet from slave without sending a nack signal and a stop 
+ * condition when done
+ *
+ * Reads a data packet from the specified slave address on the I<SUP>2</SUP>C
+ * bus without sending a nack signal and a stop condition when done, 
+ * thus retaining ownership of the bus when done. To end the transaction, a
+ * \ref i2c_master_read_packet_wait "read" or
+ * \ref i2c_master_write_packet_wait "write" with stop condition must be
+ * performed.
+ *
+ * \note This will stall the device from any other operation. For
+ *       interrupt-driven operation, see \ref i2c_master_read_packet_job.
+ *
+ * \param[in,out] module  Pointer to software module struct
+ * \param[in,out] packet  Pointer to I<SUP>2</SUP>C packet to transfer
+ *
+ * \return Status of reading packet.
+ * \retval STATUS_OK                    The packet was read successfully
+ * \retval STATUS_ERR_TIMEOUT           If no response was given within
+ *                                      specified timeout period
+ * \retval STATUS_ERR_DENIED            If error on bus
+ * \retval STATUS_ERR_PACKET_COLLISION  If arbitration is lost
+ * \retval STATUS_ERR_BAD_ADDRESS       If slave is busy, or no slave
+ *                                      acknowledged the address
+ */
+enum status_code i2c_master_read_packet_wait_no_nack(
+		struct i2c_master_module *const module,
+		struct i2c_master_packet *const packet)
+{
+	/* Sanity check */
+	Assert(module);
+	Assert(module->hw);
+	Assert(packet);
+
+#if I2C_MASTER_CALLBACK_MODE == true
+	/* Check if the I2C module is busy with a job. */
+	if (module->buffer_remaining > 0) {
+		return STATUS_BUSY;
+	}
+#endif
+
+	module->send_stop = false;
+	module->send_nack = false;
 
 	return _i2c_master_read_packet(module, packet);
 }
@@ -538,11 +596,11 @@ enum status_code i2c_master_read_packet_wait_no_stop(
  * \internal
  * Starts blocking write operation.
  *
- * \param[in,out] module  Pointer to software module struct.
- * \param[in,out] packet  Pointer to I<SUP>2</SUP>C packet to transfer.
+ * \param[in,out] module  Pointer to software module struct
+ * \param[in,out] packet  Pointer to I<SUP>2</SUP>C packet to transfer
  *
- * \return Status of reading packet.
- * \retval STATUS_OK                    The packet was read successfully
+ * \return Status of write packet.
+ * \retval STATUS_OK                    The packet was write successfully
  * \retval STATUS_ERR_TIMEOUT           If no response was given within
  *                                      specified timeout period
  * \retval STATUS_ERR_DENIED            If error on bus
@@ -628,8 +686,8 @@ static enum status_code _i2c_master_write_packet(
  * \param[in,out] module  Pointer to software module struct
  * \param[in,out] packet  Pointer to I<SUP>2</SUP>C packet to transfer
  *
- * \return Status of reading packet.
- * \retval STATUS_OK                    If packet was read
+ * \return Status of write packet.
+ * \retval STATUS_OK                    If packet was write successfully
  * \retval STATUS_BUSY                  If master module is busy with a job
  * \retval STATUS_ERR_DENIED            If error on bus
  * \retval STATUS_ERR_PACKET_COLLISION  If arbitration is lost
@@ -658,7 +716,8 @@ enum status_code i2c_master_write_packet_wait(
 #endif
 
 	module->send_stop = true;
-
+	module->send_nack = true;
+	
 	return _i2c_master_write_packet(module, packet);
 }
 
@@ -677,8 +736,8 @@ enum status_code i2c_master_write_packet_wait(
  * \param[in,out] module  Pointer to software module struct
  * \param[in,out] packet  Pointer to I<SUP>2</SUP>C packet to transfer
  *
- * \return Status of reading packet.
- * \retval STATUS_OK                    If packet was read
+ * \return Status of write packet.
+ * \retval STATUS_OK                    If packet was write successfully
  * \retval STATUS_BUSY                  If master module is busy
  * \retval STATUS_ERR_DENIED            If error on bus
  * \retval STATUS_ERR_PACKET_COLLISION  If arbitration is lost
@@ -706,7 +765,8 @@ enum status_code i2c_master_write_packet_wait_no_stop(
 #endif
 
 	module->send_stop = false;
-
+	module->send_nack = true;
+	
 	return _i2c_master_write_packet(module, packet);
 }
 
@@ -720,7 +780,7 @@ enum status_code i2c_master_write_packet_wait_no_stop(
  *       is to be sent after a read, the \ref i2c_master_read_packet_wait
  *       function must be used.
  *
- * \param[in] module  Pointer to the software instance struct
+ * \param[in,out] module  Pointer to the software instance struct
  */
 void i2c_master_send_stop(struct i2c_master_module *const module)
 {
@@ -733,4 +793,89 @@ void i2c_master_send_stop(struct i2c_master_module *const module)
 	/* Send stop command */
 	_i2c_master_wait_for_sync(module);
 	i2c_module->CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3);
+}
+
+/**
+ * \brief Sends nack signal on bus
+ *
+ * Sends a nack signal on bus.
+ *
+ * \note This function can only be used after the
+ *       \ref i2c_master_write_packet_wait_no_nack function,
+ *        or \ref i2c_master_read_byte function.
+ * \param[in,out] module  Pointer to the software instance struct
+ */
+void i2c_master_send_nack(struct i2c_master_module *const module)
+{
+	/* Sanity check */
+	Assert(module);
+	Assert(module->hw);
+
+	SercomI2cm *const i2c_module = &(module->hw->I2CM);
+
+	/* Send nack signal */
+	_i2c_master_wait_for_sync(module);
+	i2c_module->CTRLB.reg |= SERCOM_I2CM_CTRLB_ACKACT;
+}
+
+/**
+ * \brief Reads one byte data from slave
+ *
+ * \param[in,out]  module  Pointer to software module struct
+ * \param[out]     byte    Read one byte data to slave
+ *
+ * \return Status of reading byte.
+ * \retval STATUS_OK                    One byte was read successfully
+ * \retval STATUS_ERR_TIMEOUT           If no response was given within
+ *                                      specified timeout period
+ * \retval STATUS_ERR_DENIED            If error on bus
+ * \retval STATUS_ERR_PACKET_COLLISION  If arbitration is lost
+ * \retval STATUS_ERR_BAD_ADDRESS       If slave is busy, or no slave
+ *                                      acknowledged the address
+ */
+enum status_code i2c_master_read_byte(
+		struct i2c_master_module *const module,
+		uint8_t *byte)
+{
+  	enum status_code tmp_status;
+  	SercomI2cm *const i2c_module = &(module->hw->I2CM);
+
+	i2c_module->CTRLB.reg &= ~SERCOM_I2CM_CTRLB_ACKACT;
+	/* Write byte to slave. */
+	_i2c_master_wait_for_sync(module);
+	*byte = i2c_module->DATA.reg;
+	/* Wait for response. */
+	tmp_status = _i2c_master_wait_for_bus(module);
+	
+	return tmp_status;
+}
+
+/**
+ * \brief Write one byte data to slave
+ *
+ * \param[in,out]  module  Pointer to software module struct
+ * \param[in]      byte    Send one byte data to slave
+ *
+ * \return Status of writing byte.
+ * \retval STATUS_OK                    One byte was write successfully
+ * \retval STATUS_ERR_TIMEOUT           If no response was given within
+ *                                      specified timeout period
+ * \retval STATUS_ERR_DENIED            If error on bus
+ * \retval STATUS_ERR_PACKET_COLLISION  If arbitration is lost
+ * \retval STATUS_ERR_BAD_ADDRESS       If slave is busy, or no slave
+ *                                      acknowledged the address
+ */
+enum status_code i2c_master_write_byte(
+		struct i2c_master_module *const module,
+		uint8_t byte)
+{
+  	enum status_code tmp_status;
+  	SercomI2cm *const i2c_module = &(module->hw->I2CM);
+	
+	/* Write byte to slave. */
+	_i2c_master_wait_for_sync(module);
+	i2c_module->DATA.reg = byte;
+	/* Wait for response. */
+	tmp_status = _i2c_master_wait_for_bus(module);
+	return tmp_status;
 }

@@ -3,7 +3,7 @@
  *
  * \brief Instance description for TC3
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAMD21_TC3_INSTANCE_
@@ -92,20 +95,20 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for TC3 peripheral ========== */
-#define TC3_CC8_NUM                 2
-#define TC3_CC16_NUM                2
-#define TC3_CC32_NUM                2
-#define TC3_DITHERING_EXT           0
+#define TC3_CC8_NUM                 2        // Number of 8-bit Counters
+#define TC3_CC16_NUM                2        // Number of 16-bit Counters
+#define TC3_CC32_NUM                2        // Number of 32-bit Counters
+#define TC3_DITHERING_EXT           0        // Dithering feature implemented
 #define TC3_DMAC_ID_MC_0            25
 #define TC3_DMAC_ID_MC_1            26
 #define TC3_DMAC_ID_MC_LSB          25
 #define TC3_DMAC_ID_MC_MSB          26
 #define TC3_DMAC_ID_MC_SIZE         2
-#define TC3_DMAC_ID_OVF             24
-#define TC3_GCLK_ID                 27
-#define TC3_MASTER                  0
-#define TC3_OW_NUM                  2
-#define TC3_PERIOD_EXT              0
-#define TC3_SHADOW_EXT              0
+#define TC3_DMAC_ID_OVF             24       // Indexes of DMA Overflow trigger
+#define TC3_GCLK_ID                 27       // Index of Generic Clock
+#define TC3_MASTER                  0       
+#define TC3_OW_NUM                  2        // Number of Output Waveforms
+#define TC3_PERIOD_EXT              0        // Period feature implemented
+#define TC3_SHADOW_EXT              0        // Shadow feature implemented
 
 #endif /* _SAMD21_TC3_INSTANCE_ */

@@ -2345,10 +2345,10 @@
 								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_timer_config.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_generic.h</name>
+								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_types.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_types.h</name>
+								<name>$PROJ_DIR$/../../../../../../../source/tal/inc/tal_generic.h</name>
 							</file>
 						</group>
 					</group>
@@ -2643,6 +2643,9 @@
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../include/mac_build_config.h</name>
 					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../include/ieee_154g.h</name>
+					</file>
 				</group>
 			</group>
 			<group>
@@ -2877,15 +2880,15 @@
 				</file>
 			</group>
 			<group>
-				<name>pmic</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../xmega/drivers/pmic/pmic.h</name>
-				</file>
-			</group>
-			<group>
 				<name>sleep</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../../xmega/drivers/sleep/sleep.h</name>
+				</file>
+			</group>
+			<group>
+				<name>pmic</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../xmega/drivers/pmic/pmic.h</name>
 				</file>
 			</group>
 		</group>

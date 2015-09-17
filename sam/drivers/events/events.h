@@ -3,7 +3,7 @@
  *
  * \brief SAM4L Peripheral Event Controller (PEVC) Driver.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,15 +40,19 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef EVENTS_H_INCLUDED
 #define EVENTS_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_events_group SAM4L Peripheral Event Controller (PEVC)
+ * \defgroup asfdoc_sam_drivers_events_group SAM4L Peripheral Event Controller (PEVC) Driver
  *
- * This driver provides a unified interface for the configuration and
- * management of the event channels within the SAM4L device.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers 
+ * provides a unified interface for the configuration and
+ * management of the Event Channels.
  *
  * The peripheral event generators and users are interconnected by a network
  * known as the Peripheral Event System.
@@ -57,6 +61,9 @@
  * signaling without CPU intervention, and without consuming system resources
  * such as bus or RAM bandwidth. This offloads the CPU and system resources
  * compared to a traditional interrupt-based software driven system.
+ *
+ * Devices from the following series can use this module:
+ * - Atmel | SMART SAM4L
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam_drivers_events_prerequisites
@@ -170,8 +177,8 @@
  *
  *   node [label="Destination\nPeripherals" shape=ellipse style=filled fillcolor=lightgray] dst_peripheral;
  *
- *   src_peripheral -> events_chan:f1 [label="Source\nMUXs"];
- *   events_chan:f1 -> events_user:f1 [label="Channel\nMUXs"];
+ *   src_peripheral -> events_chan:f1 [label="Source\nMUXes"];
+ *   events_chan:f1 -> events_user:f1 [label="Channel\nMUXes"];
  *   events_user:f1 -> dst_peripheral;
  * }
  * \enddot
@@ -188,7 +195,7 @@
  *     event enabled.
  *
  * \subsubsection asfdoc_sam_drivers_events_overview_config_evsys Event System
- *  -# The event system channel must be configured and enabled, with the.
+ *  -# The event system channel must be configured and enabled, with the
  *     correct source peripheral selected as the channel's Event Generator.
  *  -# The event system user must be configured and enabled, with the
  *     correct source Event Channel selected as the source.
@@ -244,37 +251,37 @@ extern "C" {
  * Enumerate for the possible division ratios of an Input Glitch Filter.
  */
 enum events_igf_divider {
-	/** Select a prescaler division ratio of 1. */
+	/** Select a prescaler division ratio of 1 */
 	EVENT_IGF_DIVIDER_1       = 0,
-	/** Select a prescaler division ratio of 2. */
+	/** Select a prescaler division ratio of 2 */
 	EVENT_IGF_DIVIDER_2       = 1,
-	/** Select a prescaler division ratio of 4. */
+	/** Select a prescaler division ratio of 4 */
 	EVENT_IGF_DIVIDER_4       = 2,
-	/** Select a prescaler division ratio of 8. */
+	/** Select a prescaler division ratio of 8 */
 	EVENT_IGF_DIVIDER_8       = 3,
-	/** Select a prescaler division ratio of 16. */
+	/** Select a prescaler division ratio of 16 */
 	EVENT_IGF_DIVIDER_16      = 4,
-	/** Select a prescaler division ratio of 32. */
+	/** Select a prescaler division ratio of 32 */
 	EVENT_IGF_DIVIDER_32      = 5,
-	/** Select a prescaler division ratio of 64. */
+	/** Select a prescaler division ratio of 64 */
 	EVENT_IGF_DIVIDER_64      = 6,
-	/** Select a prescaler division ratio of 128. */
+	/** Select a prescaler division ratio of 128 */
 	EVENT_IGF_DIVIDER_128     = 7,
-	/** Select a prescaler division ratio of 256. */
+	/** Select a prescaler division ratio of 256 */
 	EVENT_IGF_DIVIDER_256     = 8,
-	/** Select a prescaler division ratio of 512. */
+	/** Select a prescaler division ratio of 512 */
 	EVENT_IGF_DIVIDER_512     = 9,
-	/** Select a prescaler division ratio of 1024. */
+	/** Select a prescaler division ratio of 1024 */
 	EVENT_IGF_DIVIDER_1024    = 10,
-	/** Select a prescaler division ratio of 2048. */
+	/** Select a prescaler division ratio of 2048 */
 	EVENT_IGF_DIVIDER_2048    = 11,
-	/** Select a prescaler division ratio of 4096. */
+	/** Select a prescaler division ratio of 4096 */
 	EVENT_IGF_DIVIDER_4096    = 12,
-	/** Select a prescaler division ratio of 8192. */
+	/** Select a prescaler division ratio of 8192 */
 	EVENT_IGF_DIVIDER_8192    = 13,
-	/** Select a prescaler division ratio of 16384. */
+	/** Select a prescaler division ratio of 16384 */
 	EVENT_IGF_DIVIDER_16384   = 14,
-	/** Select a prescaler division ratio of 32768. */
+	/** Select a prescaler division ratio of 32768 */
 	EVENT_IGF_DIVIDER_32768   = 15
 };
 
@@ -282,13 +289,13 @@ enum events_igf_divider {
  * \brief Event Input Glitch Filter edge detection configurations.
  */
 enum events_igf_edge {
-	/** Input Glitch Filter is disabled. */
+	/** Input Glitch Filter is disabled */
 	EVENT_IGF_EDGE_NONE    = 0,
-	/** Event detection through Input Glitch Filter on rising edge. */
+	/** Event detection through Input Glitch Filter on rising edge */
 	EVENT_IGF_EDGE_RISING  = 1,
-	/** Event detection through Input Glitch Filter on falling edge. */
+	/** Event detection through Input Glitch Filter on falling edge */
 	EVENT_IGF_EDGE_FALLING = 2,
-	/** Event detection through Input Glitch Filter on both edges. */
+	/** Event detection through Input Glitch Filter on both edges */
 	EVENT_IGF_EDGE_BOTH    = 3
 };
 
@@ -298,7 +305,7 @@ enum events_igf_edge {
  * Configuration structure for event module.
  */
 struct events_conf {
-	/** Input Glitch Filter divider. */
+	/** Input Glitch Filter divider */
 	enum events_igf_divider igf_divider;
 };
 
@@ -308,13 +315,13 @@ struct events_conf {
  * Configuration structure for an Event Channel.
  */
 struct events_ch_conf {
-	/** Channel to configure (user). */
+	/** Channel to configure (user) */
 	uint32_t channel_id;
-	/** Event generator to connect to the channel. */
+	/** Event generator to connect to the channel */
 	uint32_t generator_id;
-	/** Enable Event Shaper (EVS) or not. */
+	/** Enable Event Shaper (EVS) or not */
 	bool shaper_enable;
-	/** Edge detection for Event Channels. */
+	/** Edge detection for Event Channels */
 	enum events_igf_edge   igf_edge;
 };
 
@@ -567,7 +574,7 @@ static inline void events_ch_clear_overrun_status(
  * This is a list of the available Quick Start Guides (QSGs) and example
  * applications for \ref asfdoc_sam_drivers_events_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  *  - \subpage asfdoc_sam_events_qsg
@@ -581,6 +588,11 @@ static inline void events_ch_clear_overrun_status(
  *		<th>Doc. Rev.</td>
  *		<th>Date</td>
  *		<th>Comments</td>
+ *	</tr>
+ *	<tr>
+ *		<td>42312B</td>
+ *		<td>07/2015</td>
+ *		<td>Updated title of application note and added list of supported devices</td>
  *	</tr>
  *	<tr>
  *		<td>42312A</td>
@@ -607,7 +619,7 @@ static inline void events_ch_clear_overrun_status(
  * \section asfdoc_sam_events_qsg_basic_use_case Basic Use Case
  *
  * This use case will demonstrate how to use the Peripheral Event Controller
- * on SAM4L_EK. In this use case, one event channel is configured as:
+ * on SAM4L_EK. In this use case, one Event Channel is configured as:
  * - Configure AST periodic event 0 as a generator
  * - Configure PDCA channel 0 as a user to transfer one word
  * - Enable the event shaper for the generator
@@ -617,7 +629,7 @@ static inline void events_ch_clear_overrun_status(
  * \subsection asfdoc_sam_events_qsg_prereq Prerequisites
  *
  * This module requires the following service:
- * - \ref clk_group
+ * - \ref clk_group "Clock Management (Sysclock)"
  *
  * \subsection asfdoc_sam_events_qsg_setup_code Code Example
  *

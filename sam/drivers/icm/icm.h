@@ -3,7 +3,7 @@
  *
  * \brief SAM Integrity Check Monitor (ICM).
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #ifndef ICM_H_INCLUDED
 #define ICM_H_INCLUDED
@@ -425,7 +428,7 @@ void icm_set_hash_value(Icm *p_icm, uint32_t *p_value);
  * \section icm_basic ICM basic usage
  *
  * This use case will demonstrate how to configure and use of the on-chip
- * ICM controller to check the integrity of internal SRAM. The region decriptor
+ * ICM controller to check the integrity of internal SRAM. The region descriptor
  * structure address in main list must be 64 byte alignment and in secondary list
  * must be 4 byte alignment. The hash area start address must be 128 byte alignment.
 .*

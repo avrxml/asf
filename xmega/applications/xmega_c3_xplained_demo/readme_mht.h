@@ -1,4 +1,7 @@
 "MIME-Version: 1.0\r\n"
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 "Content-Type: multipart\/related; boundary=\"----=_NextPart_01CDCEDF.69C9E3C0\"\r\n"
 "\r\n"
 "This document is a Single File Web Page, also known as a Web Archive file.  If you are seeing this message, your browser or editor doesn't support Web Archive files.  Please download a browser that supports Web Archive, such as Microsoft Internet Explorer.\r\n"

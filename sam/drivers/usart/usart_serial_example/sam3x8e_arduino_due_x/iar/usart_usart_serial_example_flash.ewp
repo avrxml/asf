@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3X8	Atmel SAM3X8</state>
+					<state>ATSAM3X8E	Atmel ATSAM3X8E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1030,7 +1030,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3X8	Atmel SAM3X8</state>
+					<state>ATSAM3X8E	Atmel ATSAM3X8E</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1935,18 +1935,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../tc/tc.c</name>
 				</file>
-				<group>
-					<name>tc_capture_waveform_example</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../tc/tc_capture_waveform_example/tc_capture_waveform_example.h</name>
-					</file>
-					<group>
-						<name>sam4e16e_sam4e_ek</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../tc/tc_capture_waveform_example/sam4e16e_sam4e_ek/conf_board.h</name>
-						</file>
-					</group>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../tc/tc.h</name>
 				</file>
@@ -2020,6 +2008,9 @@
 						<group>
 							<name>instance</name>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_rtc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_hsmci.h</name>
 							</file>
 							<file>
@@ -2090,9 +2081,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_efc0.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/instance/instance_tc2.h</name>
@@ -2212,9 +2200,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_trng.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_ssc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_rstc.h</name>
 							</file>
 							<file>
@@ -2231,6 +2216,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_dmac.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_ssc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam3x/include/component/component_hsmci.h</name>

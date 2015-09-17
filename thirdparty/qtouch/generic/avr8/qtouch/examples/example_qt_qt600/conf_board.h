@@ -3,7 +3,7 @@
  *
  * \brief Board configuration header
  *
- * Copyright (C) 2010-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * \page License
  *

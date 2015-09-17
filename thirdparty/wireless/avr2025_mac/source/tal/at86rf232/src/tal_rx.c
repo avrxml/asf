@@ -3,7 +3,7 @@
  *
  * @brief
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -112,10 +112,10 @@ void handle_received_frame_irq(void)
 
 		/*
 		 * Although the buffer protection mode is enabled and the
-		 *receiver has
+		 * receiver has
 		 * been switched to PLL_ON, the next incoming frame was faster.
 		 * It cannot be handled and is discarded. Reading anything from
-		 *the
+		 * the
 		 * frame resets the buffer protection mode.
 		 */
 		uint8_t dummy;
@@ -132,13 +132,13 @@ void handle_received_frame_irq(void)
 			return;
 		}
 	}
-
 #endif
 
 #if (defined ENABLE_TRX_SRAM) || defined(ENABLE_TRX_SRAM_READ)
 	/* Use SRAM read to keep rx safe mode armed. */
 	trx_sram_read(0x00, &phy_frame_len, LENGTH_FIELD_LEN); /* 0x00: SRAM
-	                                                        * offset address */
+	                                                        * offset address
+	                                                        **/
 #else
 	/* Get frame length from transceiver. */
 	trx_frame_read(&phy_frame_len, LENGTH_FIELD_LEN);
@@ -151,7 +151,7 @@ void handle_received_frame_irq(void)
 
 	/*
 	 * The PHY header is also included in the frame (length field), hence
-	 *the frame length
+	 * the frame length
 	 * is incremented.
 	 * In addition to that, the LQI and ED value are uploaded, too.
 	 */
@@ -165,7 +165,7 @@ void handle_received_frame_irq(void)
 	/*
 	 * Note: The following code is different from single chip
 	 * transceivers, since reading the frame via SPI contains the length
-	 *field
+	 * field
 	 * in the first octet. RF232's frame buffer includes ED value too.
 	 */
 	trx_frame_read(frame_ptr,
@@ -184,11 +184,11 @@ void handle_received_frame_irq(void)
 #endif  /* #if (defined BEACON_SUPPORT) || (defined ENABLE_TSTAMP) */
 
 	/* Append received frame to incoming_frame_queue and get new rx buffer.
-	 **/
+	**/
 	qmm_queue_append(&tal_incoming_frame_queue, tal_rx_buffer);
 
 	/* The previous buffer is eaten up and a new buffer is not assigned yet.
-	 **/
+	**/
 	tal_rx_buffer = bmm_buffer_alloc(LARGE_BUFFER_SIZE);
 
 	/* Check if receive buffer is available */
@@ -197,16 +197,16 @@ void handle_received_frame_irq(void)
 		 * Turn off the receiver until a buffer is available again.
 		 * tal_task() will take care of eventually reactivating it.
 		 * Due to ongoing ACK transmission do not force to switch it
-		 *off.
+		 * off.
 		 */
 		set_trx_state(CMD_PLL_ON);
 		tal_rx_on_required = true;
 	} else {
 		/*
 		 * Trx returns to RX_AACK_ON automatically, if this was its
-		 *previous state.
+		 * previous state.
 		 * Keep the following as a reminder, if receiver is used with
-		 *RX_ON instead.
+		 * RX_ON instead.
 		 */
 		/* trx_reg_write(RG_TRX_STATE, CMD_RX_AACK_ON); */
 	}
@@ -259,7 +259,7 @@ void process_incoming_frame(buffer_t *buf_ptr)
 
 		/*
 		 * The LQI normalization is done using the ED level measured
-		 *during
+		 * during
 		 * the frame reception.
 		 */
 #ifdef RSSI_TO_LQI_MAPPING
@@ -280,7 +280,6 @@ void process_incoming_frame(buffer_t *buf_ptr)
 
 		return;
 	}
-
 #endif   /* #ifdef PROMISCUOUS_MODE */
 
 #ifdef BEACON_SUPPORT
@@ -292,12 +291,12 @@ void process_incoming_frame(buffer_t *buf_ptr)
 	if ((receive_frame->mpdu[PL_POS_FCF_1] & FCF_FRAMETYPE_MASK) ==
 			FCF_FRAMETYPE_BEACON) {
 		/* Debug pin to switch on: define ENABLE_DEBUG_PINS,
-		 *pal_config.h */
+		 * pal_config.h */
 		PIN_BEACON_START();
 
 		if (tal_csma_state == BACKOFF_WAITING_FOR_BEACON) {
 			/* Debug pin to switch on: define ENABLE_DEBUG_PINS,
-			 *pal_config.h */
+			 * pal_config.h */
 			PIN_WAITING_FOR_BEACON_END();
 			tal_pib.BeaconTxTime = TAL_CONVERT_US_TO_SYMBOLS(
 					receive_frame->time_stamp);
@@ -305,10 +304,9 @@ void process_incoming_frame(buffer_t *buf_ptr)
 		}
 
 		/* Debug pin to switch on: define ENABLE_DEBUG_PINS,
-		 *pal_config.h */
+		 * pal_config.h */
 		PIN_BEACON_END();
 	}
-
 #endif  /* BEACON_SUPPORT */
 
 #ifndef TRX_REG_RAW_VALUE

@@ -91,6 +91,12 @@
 // From module: SYSTEM - Interrupt Driver
 #include <system_interrupt.h>
 
+// From module: SYSTEM - Power Management for SAM D20/D21/R21/D09/D10/D11/DA0/DA1
+#include <power.h>
+
+// From module: SYSTEM - Reset Management for SAM D20/D21/R21/D09/D10/D11/DA0/DA1
+#include <reset.h>
+
 // From module: TC - Timer Counter (Callback APIs)
 #include <tc.h>
 #include <tc_interrupt.h>

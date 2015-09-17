@@ -3,7 +3,7 @@
  *
  * \brief SAM D20 I2C Slave Interrupt Driver
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "i2c_slave_interrupt.h"
@@ -300,8 +303,8 @@ void _i2c_slave_interrupt_handler(
 			}
 		}
 
-		if (i2c_hw->STATUS.reg & (SERCOM_I2CS_STATUS_BUSERR ||
-				SERCOM_I2CS_STATUS_COLL || SERCOM_I2CS_STATUS_LOWTOUT)) {
+		if (i2c_hw->STATUS.reg & (SERCOM_I2CS_STATUS_BUSERR |
+				SERCOM_I2CS_STATUS_COLL | SERCOM_I2CS_STATUS_LOWTOUT)) {
 			/* An error occurred in last packet transfer */
 			module->status = STATUS_ERR_IO;
 
@@ -310,8 +313,8 @@ void _i2c_slave_interrupt_handler(
 			}
 		}
 		if (module->nack_on_address) {
-			/* NACK address */
-			i2c_hw->CTRLB.reg |= SERCOM_I2CS_CTRLB_ACKACT;
+			/* NACK address, workaround 13574 */
+			_i2c_slave_set_ctrlb_ackact(module, false);
 		} else if (i2c_hw->STATUS.reg & SERCOM_I2CS_STATUS_DIR) {
 			/* Set transfer direction in module instance */
 			module->transfer_direction = I2C_TRANSFER_READ;
@@ -322,11 +325,11 @@ void _i2c_slave_interrupt_handler(
 			}
 
 			if (module->buffer_length == 0) {
-				/* Data buffer not set up, NACK address */
-				i2c_hw->CTRLB.reg |= SERCOM_I2CS_CTRLB_ACKACT;
+				/* Data buffer not set up, NACK address, workaround 13574*/
+				_i2c_slave_set_ctrlb_ackact(module, false);
 			} else {
-				/* ACK address */
-				i2c_hw->CTRLB.reg &= ~SERCOM_I2CS_CTRLB_ACKACT;
+				/* ACK address, workaround 13574 */
+				_i2c_slave_set_ctrlb_ackact(module, true);
 			}
 		} else {
 			/* Set transfer direction in dev inst */
@@ -338,19 +341,19 @@ void _i2c_slave_interrupt_handler(
 			}
 
 			if (module->buffer_length == 0) {
-				/* Data buffer not set up, NACK address */
-				i2c_hw->CTRLB.reg |= SERCOM_I2CS_CTRLB_ACKACT;
+				/* Data buffer not set up, NACK address, workaround 13574 */
+				_i2c_slave_set_ctrlb_ackact(module, false);
 			} else {
-				/* ACK address */
-				i2c_hw->CTRLB.reg &= ~SERCOM_I2CS_CTRLB_ACKACT;
+				/* ACK address, workaround 13574 */
+				_i2c_slave_set_ctrlb_ackact(module, true);
 			}
 		}
 
-		/* ACK or NACK address */
-		i2c_hw->CTRLB.reg |= SERCOM_I2CS_CTRLB_CMD(0x3);
+		/* ACK or NACK address, Workaround 13574 */
+		_i2c_slave_set_ctrlb_cmd3(module);
 
-		/* ACK next incoming packet */
-		i2c_hw->CTRLB.reg &= ~SERCOM_I2CS_CTRLB_ACKACT;
+		/* ACK next incoming packet, workaround 13574 */
+		_i2c_slave_set_ctrlb_ackact(module, true);
 
 	} else if (i2c_hw->INTFLAG.reg & SERCOM_I2CS_INTFLAG_PREC) {
 		/* Stop condition on bus - current transfer done */
@@ -394,8 +397,8 @@ void _i2c_slave_interrupt_handler(
 			module->buffer_length = 0;
 
 			if (module->transfer_direction == I2C_TRANSFER_WRITE) {
-				/* Buffer is full, send NACK */
-				i2c_hw->CTRLB.reg |= SERCOM_I2CS_CTRLB_ACKACT;
+				/* Buffer is full, send NACK, workaround 13574 */
+				_i2c_slave_set_ctrlb_ackact(module, false);
 				i2c_hw->CTRLB.reg |= SERCOM_I2CS_CTRLB_CMD(0x2);
 
 				/* Set status, new character in DATA register will overflow
@@ -408,7 +411,7 @@ void _i2c_slave_interrupt_handler(
 				}
 			} else {
 				/* Release SCL and wait for new start condition */
-				i2c_hw->CTRLB.reg |= SERCOM_I2CS_CTRLB_ACKACT;
+				_i2c_slave_set_ctrlb_ackact(module, false);
 				i2c_hw->CTRLB.reg |= SERCOM_I2CS_CTRLB_CMD(0x2);
 
 				/* Transfer successful */

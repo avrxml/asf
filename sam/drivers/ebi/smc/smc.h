@@ -3,7 +3,7 @@
  *
  * \brief Static Memory Controller (SMC) driver for SAM.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef SMC_H_INCLUDED
 #define SMC_H_INCLUDED
@@ -54,7 +57,20 @@ extern "C" {
 /**INDENT-ON**/
 /// @endcond
 
-#if ((SAM3S) || (SAM3U) || (SAM3XA) || (SAM4S) || (SAM4E) || (SAM4C) || (SAM4CM))
+/**
+ * \defgroup sam_drivers_smc_group Static Memory Controller (SMC)
+ *
+ * Driver for the Static Memory Controller. It provides functions for configuring
+ * and using the on-chip SMC.
+ *
+ * \section asfdoc_sam_drivers_smc_api_overview API Overview
+ * @{
+ *
+ * \note Some APIs are only available for specific SAM devices.
+ */
+
+#if ((SAM3S) || (SAM3U) || (SAM3XA) || (SAM4S) || (SAM4E) || (SAM4C) || (SAM4CM) \
+	|| (SAMV71) || (SAMV70) || (SAME70) || (SAMS70) || (__DOXYGEN__))
 void smc_set_setup_timing(Smc *p_smc, uint32_t ul_cs, uint32_t ul_setup_timing);
 void smc_set_pulse_timing(Smc *p_smc, uint32_t ul_cs, uint32_t ul_pulse_timing);
 void smc_set_cycle_timing(Smc *p_smc, uint32_t ul_cs, uint32_t ul_cycle_timing);
@@ -64,7 +80,7 @@ void smc_enable_writeprotect(Smc *p_smc, uint32_t ul_enable);
 uint32_t smc_get_writeprotect_status(Smc *p_smc);
 #endif	/* ((SAM3S) || (SAM3U) || (SAM3XA)) */
 
-#if ((SAM3U) || (SAM3XA))
+#if ((SAM3U) || (SAM3XA) || (__DOXYGEN__))
 /* NFCADDR_CMD : NFC Address Command */
 #define NFCADDR_CMD_CMD1      (0xFFu <<  2) /* Command Register Value for Cycle 1 */
 #define NFCADDR_CMD_CMD2      (0xFFu << 10) /* Command Register Value for Cycle 2 */
@@ -108,6 +124,8 @@ void smc_ecc_init(Smc *p_smc, uint32_t ul_type, uint32_t ul_pagesize);
 uint32_t smc_ecc_get_status(Smc *p_smc, uint32_t ul_parity_number);
 void smc_ecc_get_value(Smc *p_smc, uint32_t *p_ecc);
 #endif  /* ((SAM3U) || (SAM3XA)) */
+
+/** @} */
 
 /// @cond 0
 /**INDENT-OFF**/

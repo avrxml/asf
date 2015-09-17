@@ -6,7 +6,7 @@
  * This header file declares prototypes of PAL APIs, enumerations
  * used by TAL and MAC.
  *
- *  Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -124,7 +124,7 @@ void pal_task(void);
  *          - @ref PAL_TMR_ALREADY_RUNNING if the timer is already running.
  *          - @ref MAC_SUCCESS if timer is started or
  *          - @ref PAL_TMR_INVALID_TIMEOUT if timeout is not within timeout
- *range.
+ * range.
  */
 retval_t pal_timer_start(uint8_t timer_id,
 		uint32_t timer_count,
@@ -191,7 +191,7 @@ retval_t pal_start_high_priority_timer(uint8_t timer_id,
  *
  * @return
  * - @ref PAL_TMR_NOT_RUNNING if the timer id does not match with the high
- *priority
+ * priority
  * timer register, or
  * - @ref MAC_SUCCESS otherwise.
  */

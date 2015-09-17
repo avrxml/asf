@@ -3,7 +3,7 @@
  *
  * \brief This file defines all Req, confirm, Indication message constants.
  * - Performance Analyzer application
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -73,9 +73,10 @@
 
 #define PROTOCOL_ID_LEN                 (1)
 #define OCTET_STR_LEN_BYTE_LEN          (1)
+#define CMD_ID_LEN                      (1)
 
 #define IDENTIFY_BOARD_CONFIRM_LEN      (19)
-#define PERF_START_CONFIRM_LEN          (21)
+#define PERF_START_CONFIRM_LEN          (31)
 #define PERF_SET_CONFIRM_LEN            (3)
 #define PERF_GET_CONFIRM_LEN            (3)
 #define IDENTIFY_PEER_NODE_CONFIRM_LEN  (2)
@@ -84,6 +85,8 @@
 #define REGISTER_READ_CONFIRM_LEN       (5)
 #define REGISTER_WRITE_CONFIRM_LEN      (5)
 #define REGISTER_DUMP_CONFIRM_LEN       (6)
+#define PKT_STREAM_CONFIRM_LEN          (3)
+#define RX_ON_CONFIRM_LEN                           (3)
 #define ED_SCAN_START_CONFIRM_LEN       (7)
 #define ED_SCAN_END_INDICATION_LEN      (2)
 #define SENSOR_DATA_CONFIRM_LEN         (10)
@@ -96,8 +99,8 @@
 #define RANGE_TEST_STOP_CONFIRM_LEN     (2)
 #define PER_TEST_END_INDICATION_LEN     (36)
 #define PEER_DISCONNECT_CONFIRM_LEN     (2)
-#define SET_DEFAULT_CONFIG_CONFIRM_LEN  (20)
-#define GET_CURRENT_CONFIG_CONFIRM_LEN  (24)
+#define SET_DEFAULT_CONFIG_CONFIRM_LEN  (22)
+#define GET_CURRENT_CONFIG_CONFIRM_LEN  (26)
 #define RANGE_MEASURE_STATS_CONFIRM     (10)
 
 /* ! \} */
@@ -120,6 +123,8 @@
 #define TRANSCEIVER_IN_SLEEP              (0x29)
 #define TRANSMISSION_FAILURE              (0x30)
 #define RANGE_TEST_IN_PROGRESS            (0x31)
+#define PKT_STREAM_IN_PROGRESS            (0x32)
+#define RX_ON_MODE_IN_PROGRESS            (0x33)
 
 /* ! \} */
 
@@ -158,15 +163,80 @@
 /* MACROS to set the specific features supported */
 #define MULTI_CHANNEL_SELECT              ((uint32_t)(1) << 0)
 #define PER_RANGE_TEST_MODE               ((uint32_t)(1) << 1)
+#define PER_REMOTE_CONFIG_MODE            ((uint32_t)(1) << 2)
+#define PKT_STREAMING_MODE                ((uint32_t)(1) << 3)
+#define CONTINUOUS_RX_ON_MODE             ((uint32_t)(1) << 4)
 
 /* ! \} */
+
+/* Defines used for transceiver operation mode */
+#define TX_OP_MODE                              (0x01)
+#define TEST_FRAMES_SENT                        (0x02)
+#define WAIT_FOR_TEST_RES                       (0x03)
+#define SET_PARAMETER                           (0x04)
+#if (ANTENNA_DIVERSITY == 1)
+#define DIVERSITY_STATUS_REQ                    (0x05)
+#define DIVERSITY_SET_REQ                       (0x06)
+#endif /* #if (ANTENNA_DIVERSITY == 1) */
+#define CONTINUOUS_TX_MODE                      (0x07)
+#define IDENTIFY_PEER                           (0x08)
+#ifdef CRC_SETTING_ON_REMOTE_NODE
+#define CRC_STATUS_REQ_WAIT                     (0x09)
+#define CRC_SET_REQ_WAIT                        (0x0A)
+#endif /* #ifdef CRC_SETTING_ON_REMOTE_NODE */
+#define PEER_INFO_RSP_WAIT                      (0x0B)
+#define DISCONNECT_PEER                         (0x0C)
+#define SET_DEFAULT_CONFIG_PEER                 (0x0D)
+#define PER_TEST_START                          (0x0E)
+#define RANGE_TEST_START                        (0x0F)
+#define RANGE_TEST_TX                           (0x10)
+#define RANGE_TEST_STOP                         (0x11)
+#define REMOTE_TEST_MODE                        (0X12)
+#define PKT_STREAM_MODE                                                 (0X13)
+
+#define RANGE_TST_PKT_SEQ_POS                    (11)
+
+#if (TAL_TYPE == ATMEGARFR2)
+#define MAX_REG_ADDRESS                         (0x1ff)
+#define MIN_REG_ADDRESS                         (0x141)
+#else
+#define MAX_REG_ADDRESS                         (0x3f)
+#define MIN_REG_ADDRESS                         (0x00)
+#endif /* End of #if (TAL_TYPE == ATMEGARFR2) */
+
+#define RX_DESENSITIZE_LEVEL                    (0x08)
+#define NO_RX_DESENSITIZE_LEVEL                 (0x00)
+#define INVALID_VALUE                           (0xff)
+
+#if (TAL_TYPE == AT86RF233)
+#define FREQUENCY_MULTIPLIER                     (2)
+#endif /* End of (TAL_TYPE == AT86RF233) */
+
+#if (ANTENNA_DIVERSITY == 1)
+#define ENABLE_ANT_DIVERSITY                      (0)
+#define ENABLE_ANTENNA_1                          (1)
+#define ENABLE_ANTENNA_2                          (2)
+#endif /* End of ANETENNA_DIVERSITY */
+
+/* To handle Transceiver reset */
+#define TRX_RESET                               (0)
+#define BIT_COUNT                               (32)
+#define MAX_SCAN_DURATION                       (14)
+#define NO_OF_REGISTERS                         (65)
+
+#define TIMEOUT_FOR_RESPONSE_IN_MICRO_SEC       (200000)
+#define RANGE_TX_BEACON_INTERVAL                (3000000)
+#define RANGE_TX_BEACON_START_INTERVAL          (100000)
+#define MICRO_SEC_MULTIPLIER                    (1.0 / 1000000)
+#define MILLI_VOLT_MULTIPLIER                   (1.0 / 1000)
 
 /**
  * \name Generic
  * \{
  */
 /* generic macros */
-
+#define REMOTE_CMD_MASK                   (0x80)
+#define MESSAGE_ID_MASK                   (0x7F)
 #define FIELD_DOES_NOT_EXIST              (0xFF)
 #define BYTE_LEN                          (0x08)
 
@@ -182,6 +252,7 @@
 #define TX_POWER_FORMAT_DBM               (1)
 
 #define MESSAGE_ID_POS                    (2)
+#define CMD_POS                           (3)
 
 /* Field positions - PERF_SET_REQ frame */
 #define PARAM_TYPE_POS                    (3)
@@ -193,11 +264,14 @@
 /* Field positions - CONT_WAVE_TX_REQ frame */
 #define START_STOP_POS                    (3)
 #define TX_MODE_POS                       (4)
+#define TMR_VAL_1                         (5)
+#define TMR_VAL_2                         (6)
 
 /* Field positions - REGISTER_READ, WRITE */
 #define REGISTER_ADDR_POS                 (3)
 #define REGISTER_VAL_POS                  (5)
-
+#define PKTSTREAM_STOP                                    (0)
+#define RX_ON_STOP                                            (0)
 /* Field positions - REGISTER_DUMP_REQ */
 #define START_REG_ADDR_POS                (3)
 #define END_REG_ADDR_POS                  (5)
@@ -207,6 +281,14 @@
 #define SCAN_DURATION_POS                 (3)
 #define CHANNELS_SELECT_POS               (4)
 #define MSG_LEN_ED_SCAN_REQ               (7)
+
+/* Field positions - PKT_STREAM_REQ frame */
+#define FRAME_LEN_1                       (4)
+#define FRAME_LEN_2                       (5)
+#define GAP_TIME_1                        (6)
+#define GAP_TIME_2                        (7)
+#define TIMEOUT_VAL_1                     (8)
+#define TIMEOUT_VAL_2                     (9)
 
 /* ! \} */
 /* === Types ================================================================ */
@@ -235,6 +317,8 @@ enum msg_code {
 	GET_CURRENT_CONFIG_REQ          =     (0x0f),
 	RANGE_TEST_START_REQ            =     (0X50),
 	RANGE_TEST_STOP_REQ             =     (0x52),
+	PKT_STREAM_REQ                  =     (0X22),
+	RX_ON_REQ                                               =     (0X24),
 
 	/* Confirms and Indications */
 
@@ -260,14 +344,16 @@ enum msg_code {
 	RANGE_TEST_STOP_CONFIRM         =     (0x53),
 	RANGE_TEST_BEACON_RESPONSE      =     (0x54),
 	RANGE_TEST_BEACON               =     (0x55),
-	RANGE_TEST_MARKER_INDICATION    =     (0x56)
+	RANGE_TEST_MARKER_INDICATION    =     (0x56),
+	PKT_STREAM_CONFIRM              =     (0x23),
+	RX_ON_CONFIRM                                   =     (0X25)
 }
 SHORTENUM;
 
 /* ! \} */
 
 /**
- * Paramter value types
+ * Parameter value types
  */
 typedef union {
 	/** Parameter Bool */

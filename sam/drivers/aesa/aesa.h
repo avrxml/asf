@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of functions for the AES on SAM devices.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,6 +42,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef AES_H_INCLUDED
@@ -388,9 +391,9 @@ static inline void aes_write_drng_seed(struct aes_dev_inst *const dev_inst,
  * AES module.
  *
  * \section aes_qs_use_cases Use cases
- * - \ref aes_basic
+ * - \ref aes_basic "AES Basic Usage"
  *
- * \section aes_basic AES basic usage
+ * \section aes_basic AES Basic Usage
  *
  * This use case will demonstrate how to initialize the AES module to
  * encryption or decryption data.
@@ -401,9 +404,9 @@ static inline void aes_write_drng_seed(struct aes_dev_inst *const dev_inst,
  * \subsection aes_basic_prereq Prerequisites
  *
  * This module requires the following service
- * - \ref clk_group
+ * - \ref clk_group "Clock Management (Sysclock)"
  *
- * \subsection aes_basic_setup_code
+ * \subsection aes_basic_setup_code Code
  *
  * Add this to the main loop or a setup function:
  * \code
@@ -414,7 +417,7 @@ static inline void aes_write_drng_seed(struct aes_dev_inst *const dev_inst,
 	aes_enable(&g_aes_inst);
 \endcode
  *
- * \subsection aes_basic_setup_workflow
+ * \subsection aes_basic_setup_workflow Workflow
  *
  * -# Enable the AES module
  *  - \code aes_enable(&g_aes_inst); \endcode
@@ -438,9 +441,9 @@ static inline void aes_write_drng_seed(struct aes_dev_inst *const dev_inst,
  *
  * \section aes_basic_usage Usage steps
  *
- * \subsection aes_basic_usage_code
+ * \subsection aes_basic_usage_code Code
  *
- * We can then encrypte the plain text by
+ * We can then encrypt the plain text by
  * \code
 	aes_set_new_message(&g_aes_inst);
 	aes_write_key(&g_aes_inst, key128);

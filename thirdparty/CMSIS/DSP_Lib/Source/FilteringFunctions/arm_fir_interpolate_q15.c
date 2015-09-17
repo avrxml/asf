@@ -1,63 +1,75 @@
-/*-----------------------------------------------------------------------------   
-* Copyright (C) 2010 ARM Limited. All rights reserved.   
-*   
-* $Date:        15. July 2011  
-* $Revision: 	V1.0.10  
-*   
-* Project: 	    CMSIS DSP Library   
-* Title:		arm_fir_interpolate_q15.c   
-*   
-* Description:	Q15 FIR interpolation.   
-*   
+/*-----------------------------------------------------------------------------    
+* Copyright (C) 2010-2014 ARM Limited. All rights reserved.    
+*    
+* $Date:        12. March 2014
+* $Revision: 	V1.4.4
+*    
+* Project: 	    CMSIS DSP Library    
+* Title:		arm_fir_interpolate_q15.c    
+*    
+* Description:	Q15 FIR interpolation.    
+*    
 * Target Processor: Cortex-M4/Cortex-M3/Cortex-M0
 *  
-* Version 1.0.10 2011/7/15 
-*    Big Endian support added and Merged M0 and M3/M4 Source code.  
-*   
-* Version 1.0.3 2010/11/29  
-*    Re-organized the CMSIS folders and updated documentation.   
-*    
-* Version 1.0.2 2010/11/11   
-*    Documentation updated.    
-*   
-* Version 1.0.1 2010/10/05    
-*    Production release and review comments incorporated.   
-*   
-* Version 1.0.0 2010/09/20    
-*    Production release and review comments incorporated   
-*   
-* Version 0.0.7  2010/06/10    
-*    Misra-C changes done   
+* Redistribution and use in source and binary forms, with or without 
+* modification, are permitted provided that the following conditions
+* are met:
+*   - Redistributions of source code must retain the above copyright
+*     notice, this list of conditions and the following disclaimer.
+*   - Redistributions in binary form must reproduce the above copyright
+*     notice, this list of conditions and the following disclaimer in
+*     the documentation and/or other materials provided with the 
+*     distribution.
+*   - Neither the name of ARM LIMITED nor the names of its contributors
+*     may be used to endorse or promote products derived from this
+*     software without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+* FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
+* COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+* INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+* BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+* ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+* POSSIBILITY OF SUCH DAMAGE.    
 * ---------------------------------------------------------------------------*/
 
 #include "arm_math.h"
 
-/**   
- * @ingroup groupFilters   
+/**    
+ * @ingroup groupFilters    
  */
 
-/**   
- * @addtogroup FIR_Interpolate   
- * @{   
+/**    
+ * @addtogroup FIR_Interpolate    
+ * @{    
  */
 
-/**   
- * @brief Processing function for the Q15 FIR interpolator.   
- * @param[in] *S        points to an instance of the Q15 FIR interpolator structure.   
- * @param[in] *pSrc     points to the block of input data.   
- * @param[out] *pDst    points to the block of output data.   
- * @param[in] blockSize number of input samples to process per call.   
- * @return none.   
- *   
- * <b>Scaling and Overflow Behavior:</b>   
- * \par   
- * The function is implemented using a 64-bit internal accumulator.   
- * Both coefficients and state variables are represented in 1.15 format and multiplications yield a 2.30 result.   
- * The 2.30 intermediate results are accumulated in a 64-bit accumulator in 34.30 format.   
- * There is no risk of internal overflow with this approach and the full precision of intermediate multiplications is preserved.   
- * After all additions have been performed, the accumulator is truncated to 34.15 format by discarding low 15 bits.   
- * Lastly, the accumulator is saturated to yield a result in 1.15 format.   
+/**    
+ * @brief Processing function for the Q15 FIR interpolator.    
+ * @param[in] *S        points to an instance of the Q15 FIR interpolator structure.    
+ * @param[in] *pSrc     points to the block of input data.    
+ * @param[out] *pDst    points to the block of output data.    
+ * @param[in] blockSize number of input samples to process per call.    
+ * @return none.    
+ *    
+ * <b>Scaling and Overflow Behavior:</b>    
+ * \par    
+ * The function is implemented using a 64-bit internal accumulator.    
+ * Both coefficients and state variables are represented in 1.15 format and multiplications yield a 2.30 result.    
+ * The 2.30 intermediate results are accumulated in a 64-bit accumulator in 34.30 format.    
+ * There is no risk of internal overflow with this approach and the full precision of intermediate multiplications is preserved.    
+ * After all additions have been performed, the accumulator is truncated to 34.15 format by discarding low 15 bits.    
+ * Lastly, the accumulator is saturated to yield a result in 1.15 format.    
  */
+
+#ifndef ARM_MATH_CM0_FAMILY
+
+  /* Run the below code for Cortex-M4 and Cortex-M3 */
 
 void arm_fir_interpolate_q15(
   const arm_fir_interpolate_instance_q15 * S,
@@ -69,25 +81,160 @@ void arm_fir_interpolate_q15(
   q15_t *pCoeffs = S->pCoeffs;                   /* Coefficient pointer                                      */
   q15_t *pStateCurnt;                            /* Points to the current sample of the state                */
   q15_t *ptr1, *ptr2;                            /* Temporary pointers for state and coefficient buffers     */
-
-
-#ifndef ARM_MATH_CM0
-
-  /* Run the below code for Cortex-M4 and Cortex-M3 */
-
   q63_t sum0;                                    /* Accumulators                                             */
-  q15_t x0, c0, c1;                              /* Temporary variables to hold state and coefficient values */
-  q31_t c, x;
+  q15_t x0, c0;                                  /* Temporary variables to hold state and coefficient values */
   uint32_t i, blkCnt, j, tapCnt;                 /* Loop counters                                            */
   uint16_t phaseLen = S->phaseLength;            /* Length of each polyphase filter component */
-
+  uint32_t blkCntN2;
+  q63_t acc0, acc1;
+  q15_t x1;
 
   /* S->pState buffer contains previous frame (phaseLen - 1) samples */
   /* pStateCurnt points to the location where the new input data should be written */
-  pStateCurnt = S->pState + (phaseLen - 1u);
+  pStateCurnt = S->pState + ((q31_t) phaseLen - 1);
 
-  /* Total number of intput samples */
-  blkCnt = blockSize;
+  /* Initialise  blkCnt */
+  blkCnt = blockSize / 2;
+  blkCntN2 = blockSize - (2 * blkCnt);
+
+  /* Samples loop unrolled by 2 */
+  while(blkCnt > 0u)
+  {
+    /* Copy new input sample into the state buffer */
+    *pStateCurnt++ = *pSrc++;
+    *pStateCurnt++ = *pSrc++;
+
+    /* Address modifier index of coefficient buffer */
+    j = 1u;
+
+    /* Loop over the Interpolation factor. */
+    i = (S->L);
+
+    while(i > 0u)
+    {
+      /* Set accumulator to zero */
+      acc0 = 0;
+      acc1 = 0;
+
+      /* Initialize state pointer */
+      ptr1 = pState;
+
+      /* Initialize coefficient pointer */
+      ptr2 = pCoeffs + (S->L - j);
+
+      /* Loop over the polyPhase length. Unroll by a factor of 4.        
+       ** Repeat until we've computed numTaps-(4*S->L) coefficients. */
+      tapCnt = phaseLen >> 2u;
+
+      x0 = *(ptr1++);
+
+      while(tapCnt > 0u)
+      {
+
+        /* Read the input sample */
+        x1 = *(ptr1++);
+
+        /* Read the coefficient */
+        c0 = *(ptr2);
+
+        /* Perform the multiply-accumulate */
+        acc0 += (q63_t) x0 *c0;
+        acc1 += (q63_t) x1 *c0;
+
+
+        /* Read the coefficient */
+        c0 = *(ptr2 + S->L);
+
+        /* Read the input sample */
+        x0 = *(ptr1++);
+
+        /* Perform the multiply-accumulate */
+        acc0 += (q63_t) x1 *c0;
+        acc1 += (q63_t) x0 *c0;
+
+
+        /* Read the coefficient */
+        c0 = *(ptr2 + S->L * 2);
+
+        /* Read the input sample */
+        x1 = *(ptr1++);
+
+        /* Perform the multiply-accumulate */
+        acc0 += (q63_t) x0 *c0;
+        acc1 += (q63_t) x1 *c0;
+
+        /* Read the coefficient */
+        c0 = *(ptr2 + S->L * 3);
+
+        /* Read the input sample */
+        x0 = *(ptr1++);
+
+        /* Perform the multiply-accumulate */
+        acc0 += (q63_t) x1 *c0;
+        acc1 += (q63_t) x0 *c0;
+
+
+        /* Upsampling is done by stuffing L-1 zeros between each sample.        
+         * So instead of multiplying zeros with coefficients,        
+         * Increment the coefficient pointer by interpolation factor times. */
+        ptr2 += 4 * S->L;
+
+        /* Decrement the loop counter */
+        tapCnt--;
+      }
+
+      /* If the polyPhase length is not a multiple of 4, compute the remaining filter taps */
+      tapCnt = phaseLen % 0x4u;
+
+      while(tapCnt > 0u)
+      {
+
+        /* Read the input sample */
+        x1 = *(ptr1++);
+
+        /* Read the coefficient */
+        c0 = *(ptr2);
+
+        /* Perform the multiply-accumulate */
+        acc0 += (q63_t) x0 *c0;
+        acc1 += (q63_t) x1 *c0;
+
+        /* Increment the coefficient pointer by interpolation factor times. */
+        ptr2 += S->L;
+
+        /* update states for next sample processing */
+        x0 = x1;
+
+        /* Decrement the loop counter */
+        tapCnt--;
+      }
+
+      /* The result is in the accumulator, store in the destination buffer. */
+      *pDst = (q15_t) (__SSAT((acc0 >> 15), 16));
+      *(pDst + S->L) = (q15_t) (__SSAT((acc1 >> 15), 16));
+
+      pDst++;
+
+      /* Increment the address modifier index of coefficient buffer */
+      j++;
+
+      /* Decrement the loop counter */
+      i--;
+    }
+
+    /* Advance the state pointer by 1        
+     * to process the next group of interpolation factor number samples */
+    pState = pState + 2;
+
+    pDst += S->L;
+
+    /* Decrement the loop counter */
+    blkCnt--;
+  }
+
+  /* If the blockSize is not a multiple of 2, compute any remaining output samples here.        
+   ** No loop unrolling is used. */
+  blkCnt = blkCntN2;
 
   /* Loop over the blockSize. */
   while(blkCnt > 0u)
@@ -111,79 +258,68 @@ void arm_fir_interpolate_q15(
       /* Initialize coefficient pointer */
       ptr2 = pCoeffs + (S->L - j);
 
-      /* Loop over the polyPhase length. Unroll by a factor of 4.   
+      /* Loop over the polyPhase length. Unroll by a factor of 4.        
        ** Repeat until we've computed numTaps-(4*S->L) coefficients. */
-      tapCnt = (uint32_t) phaseLen >> 2u;
+      tapCnt = phaseLen >> 2;
       while(tapCnt > 0u)
       {
-        /* Read the coefficient */
-        c0 = *(ptr2);
-
-        /* Upsampling is done by stuffing L-1 zeros between each sample.   
-         * So instead of multiplying zeros with coefficients,   
-         * Increment the coefficient pointer by interpolation factor times. */
-        ptr2 += S->L;
-
-        /* Read the coefficient */
-        c1 = *(ptr2);
-
-        /* Increment the coefficient pointer by interpolation factor times. */
-        ptr2 += S->L;
-
-        /* Pack the coefficients */
-#ifndef  ARM_MATH_BIG_ENDIAN
-
-        c = __PKHBT(c0, c1, 16);
-
-#else
-
-        c = __PKHBT(c1, c0, 16);
-
-#endif /*      #ifndef  ARM_MATH_BIG_ENDIAN    */
-
-        /* Read twp consecutive input samples */
-        x = *__SIMD32(ptr1)++;
-
-        /* Perform the multiply-accumulate */
-        sum0 = __SMLALD(x, c, sum0);
 
         /* Read the coefficient */
         c0 = *(ptr2);
 
-        /* Upsampling is done by stuffing L-1 zeros between each sample.   
-         * So insted of multiplying zeros with coefficients,   
+        /* Upsampling is done by stuffing L-1 zeros between each sample.        
+         * So instead of multiplying zeros with coefficients,        
          * Increment the coefficient pointer by interpolation factor times. */
         ptr2 += S->L;
 
+        /* Read the input sample */
+        x0 = *(ptr1++);
+
+        /* Perform the multiply-accumulate */
+        sum0 += (q63_t) x0 *c0;
+
         /* Read the coefficient */
-        c1 = *(ptr2);
+        c0 = *(ptr2);
 
         /* Increment the coefficient pointer by interpolation factor times. */
         ptr2 += S->L;
 
-        /* Pack the coefficients */
-#ifndef  ARM_MATH_BIG_ENDIAN
-
-        c = __PKHBT(c0, c1, 16);
-
-#else
-
-        c = __PKHBT(c1, c0, 16);
-
-#endif /*      #ifndef  ARM_MATH_BIG_ENDIAN            */
-
-        /* Read twp consecutive input samples */
-        x = *__SIMD32(ptr1)++;
+        /* Read the input sample */
+        x0 = *(ptr1++);
 
         /* Perform the multiply-accumulate */
-        sum0 = __SMLALD(x, c, sum0);
+        sum0 += (q63_t) x0 *c0;
+
+        /* Read the coefficient */
+        c0 = *(ptr2);
+
+        /* Increment the coefficient pointer by interpolation factor times. */
+        ptr2 += S->L;
+
+        /* Read the input sample */
+        x0 = *(ptr1++);
+
+        /* Perform the multiply-accumulate */
+        sum0 += (q63_t) x0 *c0;
+
+        /* Read the coefficient */
+        c0 = *(ptr2);
+
+        /* Increment the coefficient pointer by interpolation factor times. */
+        ptr2 += S->L;
+
+        /* Read the input sample */
+        x0 = *(ptr1++);
+
+        /* Perform the multiply-accumulate */
+        sum0 += (q63_t) x0 *c0;
 
         /* Decrement the loop counter */
         tapCnt--;
       }
 
       /* If the polyPhase length is not a multiple of 4, compute the remaining filter taps */
-      tapCnt = (uint32_t) phaseLen & 0x3u;
+      tapCnt = phaseLen & 0x3u;
 
       while(tapCnt > 0u)
       {
@@ -197,7 +333,7 @@ void arm_fir_interpolate_q15(
         x0 = *(ptr1++);
 
         /* Perform the multiply-accumulate */
-        sum0 = __SMLALD(x0, c0, sum0);
+        sum0 += (q63_t) x0 *c0;
 
         /* Decrement the loop counter */
         tapCnt--;
@@ -206,14 +342,13 @@ void arm_fir_interpolate_q15(
       /* The result is in the accumulator, store in the destination buffer. */
       *pDst++ = (q15_t) (__SSAT((sum0 >> 15), 16));
 
-      /* Increment the address modifier index of coefficient buffer */
       j++;
 
       /* Decrement the loop counter */
       i--;
     }
 
-    /* Advance the state pointer by 1   
+    /* Advance the state pointer by 1        
      * to process the next group of interpolation factor number samples */
     pState = pState + 1;
 
@@ -221,8 +356,9 @@ void arm_fir_interpolate_q15(
     blkCnt--;
   }
 
-  /* Processing is complete.   
-   ** Now copy the last phaseLen - 1 samples to the satrt of the state buffer.   
+
+  /* Processing is complete.    
+   ** Now copy the last phaseLen - 1 samples to the satrt of the state buffer.    
    ** This prepares the state buffer for the next function call. */
 
   /* Points to the start of the state buffer */
@@ -233,10 +369,21 @@ void arm_fir_interpolate_q15(
   /* copy data */
   while(i > 0u)
   {
+#ifndef UNALIGNED_SUPPORT_DISABLE
+
     *__SIMD32(pStateCurnt)++ = *__SIMD32(pState)++;
     *__SIMD32(pStateCurnt)++ = *__SIMD32(pState)++;
 
-    /* Decrement the loop counter */
+#else
+
+    *pStateCurnt++ = *pState++;
+	*pStateCurnt++ = *pState++;
+	*pStateCurnt++ = *pState++;
+	*pStateCurnt++ = *pState++;
+	
+#endif	/*	#ifndef UNALIGNED_SUPPORT_DISABLE	*/
+	
+	/* Decrement the loop counter */
     i--;
   }
 
@@ -249,11 +396,22 @@ void arm_fir_interpolate_q15(
     /* Decrement the loop counter */
     i--;
   }
+}
 
 #else
 
   /* Run the below code for Cortex-M0 */
 
+void arm_fir_interpolate_q15(
+  const arm_fir_interpolate_instance_q15 * S,
+  q15_t * pSrc,
+  q15_t * pDst,
+  uint32_t blockSize)
+{
+  q15_t *pState = S->pState;                     /* State pointer                                            */
+  q15_t *pCoeffs = S->pCoeffs;                   /* Coefficient pointer                                      */
+  q15_t *pStateCurnt;                            /* Points to the current sample of the state                */
+  q15_t *ptr1, *ptr2;                            /* Temporary pointers for state and coefficient buffers     */
   q63_t sum;                                     /* Accumulator */
   q15_t x0, c0;                                  /* Temporary variables to hold state and coefficient values */
   uint32_t i, blkCnt, tapCnt;                    /* Loop counters                                            */
@@ -315,7 +473,7 @@ void arm_fir_interpolate_q15(
       i--;
     }
 
-    /* Advance the state pointer by 1          
+    /* Advance the state pointer by 1           
      * to process the next group of interpolation factor number samples */
     pState = pState + 1;
 
@@ -323,8 +481,8 @@ void arm_fir_interpolate_q15(
     blkCnt--;
   }
 
-  /* Processing is complete.        
-   ** Now copy the last phaseLen - 1 samples to the start of the state buffer.      
+  /* Processing is complete.         
+   ** Now copy the last phaseLen - 1 samples to the start of the state buffer.       
    ** This prepares the state buffer for the next function call. */
 
   /* Points to the start of the state buffer */
@@ -340,10 +498,11 @@ void arm_fir_interpolate_q15(
     i--;
   }
 
-#endif /*   #ifndef ARM_MATH_CM0 */
-
 }
 
- /**   
-  * @} end of FIR_Interpolate group   
+#endif /*   #ifndef ARM_MATH_CM0_FAMILY */
+
+
+ /**    
+  * @} end of FIR_Interpolate group    
   */

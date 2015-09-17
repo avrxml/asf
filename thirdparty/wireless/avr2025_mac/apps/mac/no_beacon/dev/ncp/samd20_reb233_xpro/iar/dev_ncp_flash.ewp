@@ -63,7 +63,7 @@
 				</option>
 				<option>
 					<name>OGCoreOrChip</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GRuntimeLibSelect</name>
@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>default  None</state>
+					<state>ATSAMD20J18	Atmel ATSAMD20J18</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -167,22 +167,22 @@
 				<option>
 					<name>CCDefines</name>
 					<state>ANTENNA_DIVERSITY=0</state>
-					<state>ARM_MATH_CM0=true</state>
+					<state>SYSTICK_MODE</state>
 					<state>STB_ON_SAL</state>
 					<state>RTC_COUNT_ASYNC=true</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
-					<state>SYSTICK_MODE</state>
+					<state>TAL_TYPE=AT86RF233</state>
 					<state>_DEBUG_=0</state>
 					<state>TC_ASYNC=true</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
-					<state>USART_CALLBACK_MODE=false</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
-					<state>__SAMD20J18__</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
+					<state>USART_CALLBACK_MODE=true</state>
 					<state>SPI_CALLBACK_MODE=false</state>
+					<state>__SAMD20J18__</state>
 					<state>ENABLE_DEEP_SLEEP</state>
 					<state>SAL_TYPE=AT86RF2xx</state>
-					<state>TAL_TYPE=AT86RF233</state>
 					<state>SIO_HUB</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>PAL_USE_SPI_TRX=1</state>
@@ -318,7 +318,8 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock/clock_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../../source/mac/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/port</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../../../../../services/sal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -331,18 +332,23 @@
 					<state>$PROJ_DIR$/../../../../../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer/sam0</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc</state>
 					<state>$PROJ_DIR$/../../../../../../../source/resources/buffer/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../source/tal/at86rf233/inc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/extint/extint_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/power/power_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer</state>
 					<state>$PROJ_DIR$/../../../../../../../source/stb/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../source/tal/inc</state>
@@ -355,8 +361,9 @@
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/boards/samd20_xplained_pro</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/tc_sam_d_r</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -507,22 +514,22 @@
 				<option>
 					<name>ADefines</name>
 					<state>ANTENNA_DIVERSITY=0</state>
-					<state>ARM_MATH_CM0=true</state>
+					<state>SYSTICK_MODE</state>
 					<state>STB_ON_SAL</state>
 					<state>RTC_COUNT_ASYNC=true</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
-					<state>SYSTICK_MODE</state>
+					<state>TAL_TYPE=AT86RF233</state>
 					<state>_DEBUG_=0</state>
 					<state>TC_ASYNC=true</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
-					<state>USART_CALLBACK_MODE=false</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
-					<state>__SAMD20J18__</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
+					<state>USART_CALLBACK_MODE=true</state>
 					<state>SPI_CALLBACK_MODE=false</state>
+					<state>__SAMD20J18__</state>
 					<state>ENABLE_DEEP_SLEEP</state>
 					<state>SAL_TYPE=AT86RF2xx</state>
-					<state>TAL_TYPE=AT86RF233</state>
 					<state>SIO_HUB</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>PAL_USE_SPI_TRX=1</state>
@@ -625,7 +632,8 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock/clock_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../../source/mac/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/port</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../../../../../services/sal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -638,18 +646,23 @@
 					<state>$PROJ_DIR$/../../../../../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer/sam0</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc</state>
 					<state>$PROJ_DIR$/../../../../../../../source/resources/buffer/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../source/tal/at86rf233/inc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/extint/extint_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/power/power_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer</state>
 					<state>$PROJ_DIR$/../../../../../../../source/stb/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../source/tal/inc</state>
@@ -662,8 +675,9 @@
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/boards/samd20_xplained_pro</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/tc_sam_d_r</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1102,7 +1116,7 @@
 				</option>
 				<option>
 					<name>OGCoreOrChip</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>GRuntimeLibSelect</name>
@@ -1136,7 +1150,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>default  None</state>
+					<state>ATSAMD20J18	Atmel ATSAMD20J18</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1184,7 +1198,7 @@
 				</option>
 				<option>
 					<name>OGUseCmsis</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>OGUseCmsisDspLib</name>
@@ -1206,22 +1220,22 @@
 				<option>
 					<name>CCDefines</name>
 					<state>ANTENNA_DIVERSITY=0</state>
-					<state>ARM_MATH_CM0=true</state>
+					<state>SYSTICK_MODE</state>
 					<state>STB_ON_SAL</state>
 					<state>RTC_COUNT_ASYNC=true</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
-					<state>SYSTICK_MODE</state>
+					<state>TAL_TYPE=AT86RF233</state>
 					<state>_DEBUG_=0</state>
 					<state>TC_ASYNC=true</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
-					<state>USART_CALLBACK_MODE=false</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
-					<state>__SAMD20J18__</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
+					<state>USART_CALLBACK_MODE=true</state>
 					<state>SPI_CALLBACK_MODE=false</state>
+					<state>__SAMD20J18__</state>
 					<state>ENABLE_DEEP_SLEEP</state>
 					<state>SAL_TYPE=AT86RF2xx</state>
-					<state>TAL_TYPE=AT86RF233</state>
 					<state>SIO_HUB</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>PAL_USE_SPI_TRX=1</state>
@@ -1289,7 +1303,7 @@
 				</option>
 				<option>
 					<name>CCDebugInfo</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IEndianMode</name>
@@ -1357,7 +1371,8 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock/clock_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../../source/mac/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/port</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../../../../../services/sal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -1370,18 +1385,23 @@
 					<state>$PROJ_DIR$/../../../../../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer/sam0</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc</state>
 					<state>$PROJ_DIR$/../../../../../../../source/resources/buffer/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../source/tal/at86rf233/inc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/extint/extint_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/power/power_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer</state>
 					<state>$PROJ_DIR$/../../../../../../../source/stb/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../source/tal/inc</state>
@@ -1394,8 +1414,9 @@
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/boards/samd20_xplained_pro</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/tc_sam_d_r</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1546,22 +1567,22 @@
 				<option>
 					<name>ADefines</name>
 					<state>ANTENNA_DIVERSITY=0</state>
-					<state>ARM_MATH_CM0=true</state>
+					<state>SYSTICK_MODE</state>
 					<state>STB_ON_SAL</state>
 					<state>RTC_COUNT_ASYNC=true</state>
 					<state>BOARD=SAMD20_XPLAINED_PRO</state>
-					<state>SYSTICK_MODE</state>
+					<state>TAL_TYPE=AT86RF233</state>
 					<state>_DEBUG_=0</state>
 					<state>TC_ASYNC=true</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
-					<state>USART_CALLBACK_MODE=false</state>
 					<state>HIGHEST_STACK_LAYER=MAC</state>
 					<state>ENABLE_TSTAMP</state>
-					<state>__SAMD20J18__</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
+					<state>USART_CALLBACK_MODE=true</state>
 					<state>SPI_CALLBACK_MODE=false</state>
+					<state>__SAMD20J18__</state>
 					<state>ENABLE_DEEP_SLEEP</state>
 					<state>SAL_TYPE=AT86RF2xx</state>
-					<state>TAL_TYPE=AT86RF233</state>
 					<state>SIO_HUB</state>
 					<state>DISABLE_TSTAMP_IRQ=1</state>
 					<state>PAL_USE_SPI_TRX=1</state>
@@ -1664,7 +1685,8 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock/clock_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../../source/mac/inc</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/port</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../../../../../services/sal/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -1677,18 +1699,23 @@
 					<state>$PROJ_DIR$/../../../../../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/spi</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer/sam0</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc</state>
 					<state>$PROJ_DIR$/../../../../../../../source/resources/buffer/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../source/tal/at86rf233/inc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/extint/extint_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/power/power_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/reset/reset_sam_d_r</state>
 					<state>$PROJ_DIR$/../../../../../../../../services/common_hw_timer</state>
 					<state>$PROJ_DIR$/../../../../../../../source/stb/inc</state>
 					<state>$PROJ_DIR$/../../../../../../../source/tal/inc</state>
@@ -1701,8 +1728,9 @@
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/boards/samd20_xplained_pro</state>
-					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/utils/stdio/stdio_serial</state>
+					<state>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/tc_sam_d_r</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -2169,9 +2197,6 @@
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_data_ind.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_api.c</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_orphan.c</name>
 							</file>
 							<file>
@@ -2193,19 +2218,22 @@
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_misc.c</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_api.c</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_rx_enable.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_gts.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_dispatcher.c</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_disassociate.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_security.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_dispatcher.c</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../source/mac/src/mac_data_req.c</name>
@@ -2309,6 +2337,9 @@
 									<name>$PROJ_DIR$/../../../../../../../source/tal/at86rf233/inc/at86rf233.h</name>
 								</file>
 								<file>
+									<name>$PROJ_DIR$/../../../../../../../source/tal/at86rf233/inc/tal_irq_handler.h</name>
+								</file>
+								<file>
 									<name>$PROJ_DIR$/../../../../../../../source/tal/at86rf233/inc/tal_rx.h</name>
 								</file>
 								<file>
@@ -2316,9 +2347,6 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../../source/tal/at86rf233/inc/tal_constants.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../../../../../../../source/tal/at86rf233/inc/tal_irq_handler.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../../source/tal/at86rf233/inc/tal_slotted_csma.h</name>
@@ -2504,13 +2532,16 @@
 						<name>$PROJ_DIR$/../../../../../../../include/ieee_const.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../include/return_val.h</name>
-					</file>
-					<file>
 						<name>$PROJ_DIR$/../../../../../../../include/tal_build_config.h</name>
 					</file>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../../include/return_val.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../../include/mac_build_config.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../include/ieee_154g.h</name>
 					</file>
 				</group>
 			</group>
@@ -2578,13 +2609,37 @@
 		<group>
 			<name>drivers</name>
 			<group>
+				<name>rtc</name>
+				<group>
+					<name>rtc_sam_d_r</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_sam_d_r/rtc_count.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_sam_d_r/rtc_count_interrupt.c</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_tamper.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_count_interrupt.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_count.h</name>
+				</file>
+			</group>
+			<group>
 				<name>extint</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/extint/extint_callback.c</name>
 				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/extint/extint.c</name>
-				</file>
+				<group>
+					<name>extint_sam_d_r</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/extint/extint_sam_d_r/extint.c</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/extint/extint.h</name>
 				</file>
@@ -2605,6 +2660,9 @@
 							<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock/clock_samd20/clock.c</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock/clock_samd20/clock_feature.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock/clock_samd20/clock_config_check.h</name>
 						</file>
 					</group>
@@ -2614,18 +2672,6 @@
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock/gclk.h</name>
 					</file>
-					<group>
-						<name>quick_start_gclk</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock/quick_start_gclk/qs_gclk_basic.h</name>
-						</file>
-					</group>
-					<group>
-						<name>quick_start_clock</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/clock/quick_start_clock/qs_clock_source.h</name>
-						</file>
-					</group>
 				</group>
 				<group>
 					<name>pinmux</name>
@@ -2659,16 +2705,28 @@
 							<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/interrupt/system_interrupt_samd20/system_interrupt_features.h</name>
 						</file>
 					</group>
+				</group>
+				<group>
+					<name>reset</name>
 					<group>
-						<name>quick_start</name>
+						<name>reset_sam_d_r</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/interrupt/quick_start/qs_system_interrupt.h</name>
+							<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/reset/reset_sam_d_r/reset.h</name>
 						</file>
 					</group>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/system.h</name>
 				</file>
+				<group>
+					<name>power</name>
+					<group>
+						<name>power_sam_d_r</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/system/power/power_sam_d_r/power.h</name>
+						</file>
+					</group>
+				</group>
 			</group>
 			<group>
 				<name>port</name>
@@ -2720,10 +2778,16 @@
 				<group>
 					<name>usart</name>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/usart/usart_interrupt.c</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/usart/usart.c</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/usart/usart.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/usart/usart_interrupt.h</name>
 					</file>
 					<group>
 						<name>quick_start_dma</name>
@@ -2735,6 +2799,18 @@
 						<name>quick_start</name>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/usart/quick_start/qs_usart_basic_use.h</name>
+						</file>
+					</group>
+					<group>
+						<name>quick_start_callback</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/usart/quick_start_callback/qs_usart_callback.h</name>
+						</file>
+					</group>
+					<group>
+						<name>quick_start_lin</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/sercom/usart/quick_start_lin/qs_lin.h</name>
 						</file>
 					</group>
 				</group>
@@ -2752,67 +2828,19 @@
 				</file>
 			</group>
 			<group>
-				<name>rtc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_count.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_count_interrupt.c</name>
-				</file>
-				<group>
-					<name>quick_start_count_callback</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/quick_start_count_callback/qs_rtc_count_callback.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_count</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/quick_start_count/qs_rtc_count_basic.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_count_interrupt.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/rtc/rtc_count.h</name>
-				</file>
-			</group>
-			<group>
 				<name>tc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/tc.c</name>
-				</file>
+				<group>
+					<name>tc_sam_d_r</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/tc_sam_d_r/tc.c</name>
+					</file>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/tc_interrupt.c</name>
 				</file>
-				<group>
-					<name>quick_start</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/quick_start/qs_tc_basic.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/tc_interrupt.h</name>
 				</file>
-				<group>
-					<name>quick_start_callback</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/quick_start_callback/qs_tc_callback.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_timer</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/quick_start_timer/qs_tc_timer.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_dma</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/quick_start_dma/qs_tc_dma.h</name>
-					</file>
-				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../../sam0/drivers/tc/tc.h</name>
 				</file>
@@ -2892,9 +2920,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/instance/pac2.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/instance/tc6.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/instance/dac.h</name>
 							</file>
 							<file>
@@ -2926,6 +2951,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/instance/tc4.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/instance/tc6.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/instance/tc3.h</name>
@@ -2973,6 +3001,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j18.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j14.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g18.h</name>
 							</file>
 							<file>
@@ -2983,12 +3014,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20g18u.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20e1f.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j14.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/pio/samd20j15.h</name>
@@ -3016,9 +3041,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/component/gclk.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/component/dsu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/component/dac.h</name>
@@ -3055,6 +3077,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/component/adc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/component/dsu.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../../sam0/utils/cmsis/samd20/include/component/rtc.h</name>

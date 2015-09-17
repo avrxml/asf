@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D21/R21/D10/D11 Quick Start Guide for Using Usart driver with DMA
+ * \brief SAM Quick Start Guide for Using Usart driver with DMA
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,21 +40,28 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 /**
  * \page asfdoc_sam0_sercom_usart_dma_use_case Quick Start Guide for Using DMA with SERCOM USART
  *
  * The supported board list:
- *    - SAMD21 Xplained Pro
- *    - SAMR21 Xplained Pro
- *    - SAMR11 Xplained Pro
+ *    - SAM D21 Xplained Pro
+ *    - SAM R21 Xplained Pro
+ *    - SAM D11 Xplained Pro
+ *    - SAM DA1 Xplained Pro
+ *    - SAM L21 Xplained Pro
+ *    - SAM L22 Xplained Pro
+ *    - SAM C21 Xplained Pro
  *
- * This quick start will receiving 8 bytes of data from PC terminal and transmit back the string
+ * This quick start will receive eight bytes of data from the PC terminal and transmit back the string
  * to the terminal through DMA. In this use case the USART will be configured with the following
  * settings:
  * - Asynchronous mode
  * - 9600 Baudrate
- * - 8-bits, No Parity and 1 Stop Bit
+ * - 8-bits, No Parity and one Stop Bit
  * - TX and RX enabled and connected to the Xplained Pro Embedded Debugger virtual COM port
  *
  * \section asfdoc_sam0_sercom_usart_dma_use_case_setup Setup
@@ -90,9 +97,9 @@
  *    \note This should never go out of scope as long as the module is in use.
  *          In most cases, this should be global.
  *
- * -# Create a buffer to store the data to be transferred /received
+ * -# Create a buffer to store the data to be transferred /received.
  *    \snippet qs_usart_dma_use.c usart_buffer
- * -# Create DMA transfer descriptors for RX/TX
+ * -# Create DMA transfer descriptors for RX/TX.
  *    \snippet qs_usart_dma_use.c transfer_descriptor
  *
  * \subsubsection asfdoc_sam0_usart_dma_use_case_setup_flow_usart Configure the USART
@@ -105,7 +112,7 @@
  *          struct to ensure that all values are initialized to known default
  *          settings.
  *
- * -# Alter the USART settings to configure the physical pinout, baud rate and
+ * -# Alter the USART settings to configure the physical pinout, baudrate, and
  *    other relevant parameters.
  *    \snippet qs_usart_dma_use.c setup_change_config
  * -# Configure the USART module with the desired settings, retrying while the
@@ -115,10 +122,10 @@
  *    \snippet qs_usart_dma_use.c setup_enable
  *
  * \subsubsection asfdoc_sam0_usart_dma_use_case_setup_flow_dma Configure DMA
- * -# Create a callback function of receiver done
+ * -# Create a callback function of receiver done.
  *    \snippet qs_usart_dma_use.c transfer_done_rx
  *
- * -# Create a callback function of transmission done
+ * -# Create a callback function of transmission done.
  *    \snippet qs_usart_dma_use.c transfer_done_tx
  *
  * -# Create a DMA resource configuration structure, which can be filled out to
@@ -133,7 +140,7 @@
  *          settings.
  *
  * -# Set extra configurations for the DMA resource. It is using peripheral
- *    trigger, SERCOM Tx empty trigger and trigger causes a beat transfer in
+ *    trigger. SERCOM TX empty trigger causes a beat transfer in
  *    this example.
  *    \snippet qs_usart_dma_use.c setup_rx_3
  *
@@ -152,13 +159,13 @@
  *          settings.
  *
  * -# Set the specific parameters for a DMA transfer with transfer size, source
- *    address, destination address.
+ *    address, and destination address.
  *    \snippet qs_usart_dma_use.c setup_rx_7
  *
  * -# Create the DMA transfer descriptor.
  *    \snippet qs_usart_dma_use.c setup_rx_8
  *
- * -# Create a DMA resource configuration structure for tx, which can be filled
+ * -# Create a DMA resource configuration structure for TX, which can be filled
  *    out to adjust the configuration of a single DMA transfer.
  *    \snippet qs_usart_dma_use.c setup_tx_1
  *
@@ -170,7 +177,7 @@
  *          settings.
  *
  * -# Set extra configurations for the DMA resource. It is using peripheral
- *    trigger, SERCOM Rx Ready trigger and trigger causes a beat transfer in
+ *    trigger. SERCOM RX Ready trigger causes a beat transfer in
  *    this example.
  *    \snippet qs_usart_dma_use.c setup_tx_3
  *
@@ -189,7 +196,7 @@
  *          settings.
  *
  * -# Set the specific parameters for a DMA transfer with transfer size, source
- *    address, destination address.
+ *    address, and destination address.
  *    \snippet qs_usart_dma_use.c setup_tx_7
  *
  * -# Create the DMA transfer descriptor.
@@ -205,6 +212,6 @@
  * -# Wait for receiving data.
  *    \snippet qs_usart_dma_use.c main_1
  *
- * -# enter endless loop
+ * -# Enter endless loop.
  *    \snippet qs_usart_dma_use.c endless_loop
  */

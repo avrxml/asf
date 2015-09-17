@@ -3,7 +3,7 @@
  *
  * @brief This module runs the MAC scheduler.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -295,7 +295,7 @@ bool mac_task(void)
  * or idle in case of no beacon support.
  *
  * @return  32bit time duration in microseconds for which the mac is ready to
- *sleep
+ * sleep
  *
  * For No beacon support 1 if stack is idle,0 if it is busy
  */
@@ -316,7 +316,6 @@ uint32_t mac_ready_to_sleep(void)
 				return sleep_time;
 			}
 		}
-
 		#endif
 		if (MAC_ASSOCIATED == mac_state) {
 			rem_time = sw_timer_get_residual_time(
@@ -347,7 +346,6 @@ uint32_t mac_ready_to_sleep(void)
 	} else {
 		sleep_time = READY_TO_SLEEP;
 	}
-
 #endif
 	return sleep_time;
 }

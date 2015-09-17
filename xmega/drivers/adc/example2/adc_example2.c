@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Analog to Digital Converter Driver Example 2
  *
- * Copyright (c) 2010-2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -146,6 +146,9 @@
  *
  * This determines the number of samples used for the oversampling. It is given
  * as an exponent of 2, i.e., setting this factor to 3 gives 2^3 = 8 samples.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 //@}

@@ -3,7 +3,7 @@
  *
  * \brief SAM D20 Generic Clock Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,10 +40,36 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <gclk.h>
 #include <clock.h>
 #include <system_interrupt.h>
+
+/**
+ * \brief Determines if the hardware module(s) are currently synchronizing to the bus.
+ *
+ * Checks to see if the underlying hardware peripheral module(s) are currently
+ * synchronizing across multiple clock domains to the hardware bus, This
+ * function can be used to delay further operations on a module until such time
+ * that it is ready, to prevent blocking delays for synchronization in the
+ * user application.
+ *
+ * \return Synchronization status of the underlying hardware module(s).
+ *
+ * \retval false if the module has completed synchronization
+ * \retval true if the module synchronization is ongoing
+ */
+static inline bool system_gclk_is_syncing(void)
+{
+	if (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY){
+		return true;
+	}
+
+	return false;
+}
 
 /**
  * \brief Initializes the GCLK driver.
@@ -228,13 +254,13 @@ void system_gclk_gen_disable(
 }
 
 /**
- * \brief Determins if the specified Generic Clock Generator is enabled
+ * \brief Determins if the specified Generic Clock Generator is enabled.
  *
  * \param[in] generator  Generic Clock Generator index to check
  *
  * \return The enabled status.
- * \retval true The Generic Clock Generator is enabled;
- * \retval false The Generic Clock Generator is disabled.
+ * \retval true The Generic Clock Generator is enabled
+ * \retval false The Generic Clock Generator is disabled
  */
 bool system_gclk_gen_is_enabled(
 		const uint8_t generator)
@@ -402,8 +428,8 @@ void system_gclk_chan_disable(
  * \param[in] channel  Generic Clock Channel index
  *
  * \return The enabled status.
- * \retval true The Generic Clock channel is enabled;
- * \retval false The Generic Clock channel is disabled.
+ * \retval true The Generic Clock channel is enabled
+ * \retval false The Generic Clock channel is disabled
  */
 bool system_gclk_chan_is_enabled(
 		const uint8_t channel)
@@ -437,20 +463,20 @@ void system_gclk_chan_lock(
 	/* Select the requested generator channel */
 	*((uint8_t*)&GCLK->CLKCTRL.reg) = channel;
 
-	/* Enable the generic clock */
-	GCLK->CLKCTRL.reg |= GCLK_CLKCTRL_CLKEN;
+	/* Lock the generic clock */
+	GCLK->CLKCTRL.reg |= GCLK_CLKCTRL_WRTLOCK;
 
 	system_interrupt_leave_critical_section();
 }
 
 /**
- * \brief Determins if the specified Generic Clock channel is locked
+ * \brief Determins if the specified Generic Clock channel is locked.
  *
  * \param[in] channel  Generic Clock Channel index
  *
  * \return The lock status.
- * \retval true The Generic Clock channel is locked;
- * \retval false The Generic Clock channel is not locked.
+ * \retval true The Generic Clock channel is locked
+ * \retval false The Generic Clock channel is not locked
  */
 bool system_gclk_chan_is_locked(
 		const uint8_t channel)

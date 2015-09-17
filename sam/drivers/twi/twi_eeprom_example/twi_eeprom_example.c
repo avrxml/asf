@@ -3,7 +3,7 @@
  *
  * \brief TWI EEPROM Example for SAM.
  *
- * Copyright (c) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -55,6 +55,7 @@
  *  - SAM3X evaluation kit
  *  - SAMG53 Xplained Pro kit
  *  - SAM4N Xplained Pro kit
+ *  - SAMG55 Xplained Pro kit
  *
  * \section files Main files:
  *  - twi.c SAM Two-Wire Interface driver implementation.
@@ -86,8 +87,11 @@
  * \section contactinfo Contact Information
  * For further information, visit
  * <A href="http://www.atmel.com/">Atmel</A>.\n
- * Support and FAQ: http://support.atmel.com/
+ * Support and FAQ: http://www.atmel.com/design-support/
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"
@@ -130,11 +134,21 @@ extern "C" {
 #define AT24C_ADDRESS          0x40
 #endif
 
-#if SAMG
+#if SAMG53
 /** TWI ID for simulated EEPROM application to use */
 #define BOARD_ID_TWI_EEPROM         ID_TWI2
 /** TWI Base for simulated TWI EEPROM application to use */
 #define BOARD_BASE_TWI_EEPROM       TWI2
+/** The address for simulated TWI EEPROM application */
+#undef  AT24C_ADDRESS
+#define AT24C_ADDRESS        0x40
+#endif
+
+#if SAMG55
+/** TWI ID for simulated EEPROM application to use */
+#define BOARD_ID_TWI_EEPROM         ID_TWI4
+/** TWI Base for simulated TWI EEPROM application to use */
+#define BOARD_BASE_TWI_EEPROM       TWI4
 /** The address for simulated TWI EEPROM application */
 #undef  AT24C_ADDRESS
 #define AT24C_ADDRESS        0x40
@@ -171,7 +185,13 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-		.paritytype = CONF_UART_PARITY
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	/* Configure console UART. */
@@ -231,8 +251,14 @@ int main(void)
 		}
 	}
 
+#if (SAMG55)
+	/* Enable the peripheral and set TWI mode. */
+	flexcom_enable(BOARD_FLEXCOM_TWI);
+	flexcom_set_opmode(BOARD_FLEXCOM_TWI, FLEXCOM_TWI);
+#else
 	/* Enable the peripheral clock for TWI */
 	pmc_enable_periph_clk(BOARD_ID_TWI_EEPROM);
+#endif
 
 	/* Configure the options of TWI driver */
 	opt.master_clk = sysclk_get_cpu_hz();

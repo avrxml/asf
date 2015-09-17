@@ -3,7 +3,7 @@
  *
  * \brief Frequency Meter driver for SAM4L.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef FREQM_H_INCLUDED
@@ -295,7 +298,7 @@ static inline uint32_t freqm_get_interrupt_mask(
  *   - \code freqm_set_configure(FREQM, 1, 0, 128); \endcode
  * -# Start Measurement.
  *   - \code freqm_start_measure(FREQM); \endcode
- * -# Get mesurement result:
+ * -# Get measurement result:
  * \code
 	cpu_clk = (freqm_get_result_blocking(FREQM) / 128) * 32768;
 \endcode

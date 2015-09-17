@@ -2444,9 +2444,6 @@
 								<name>$PROJ_DIR$/../../../../mac/inc/mac_config.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../mac/inc/mac_msg_const.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../mac/inc/mac_msg_type_data_ind.h</name>
 							</file>
 							<file>
@@ -2456,6 +2453,9 @@
 								<name>$PROJ_DIR$/../../../../mac/inc/mac_msg_types.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../mac/inc/mac_msg_const.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../mac/inc/mac.h</name>
 							</file>
 						</group>
@@ -2463,6 +2463,9 @@
 				</group>
 				<group>
 					<name>include</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../include/ieee_154g.h</name>
+					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../include/avr2025_mac.h</name>
 					</file>
@@ -2497,10 +2500,10 @@
 						<name>$PROJ_DIR$/../../../../../../../../common/services/ioport/xmega/ioport_compat.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../../common/services/ioport/xmega/ioport_compat.h</name>
+						<name>$PROJ_DIR$/../../../../../../../../common/services/ioport/xmega/ioport.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../../common/services/ioport/xmega/ioport.h</name>
+						<name>$PROJ_DIR$/../../../../../../../../common/services/ioport/xmega/ioport_compat.h</name>
 					</file>
 				</group>
 				<file>

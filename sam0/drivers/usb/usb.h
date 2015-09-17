@@ -3,7 +3,7 @@
  *
  * \brief SAM USB Driver
  *
- * Copyright (C) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef USB_H_INCLUDED
 #define USB_H_INCLUDED
 
@@ -62,9 +65,12 @@ extern "C" {
  *  - USB (Universal Serial Bus)
  *
  * The following devices can use this module:
- *  - SAM D21
- *  - SAM R21
- *  - SAM D11
+ *  - Atmel | SMART SAM D21
+ *  - Atmel | SMART SAM R21
+ *  - Atmel | SMART SAM D11 (Only USB device support on SAM D11 device)
+ *  - Atmel | SMART SAM L21
+ *  - Atmel | SMART SAM L22 (Only USB device support on SAM L22 device)
+ *  - Atmel | SMART SAM DA1
  *
  * The USB module covers following mode:
  * \if USB_DEVICE_MODE
@@ -227,7 +233,7 @@ enum usb_device_lpm_mode {
 struct usb_module;
 
 /**
- * \name Host callback functions types
+ * \name Host Callback Functions Types
  * @{
  */
 typedef void (*usb_host_callback_t)(struct usb_module *module_inst);
@@ -235,7 +241,7 @@ typedef void (*usb_host_pipe_callback_t)(struct usb_module *module_inst, void *)
 /** @} */
 
 /**
- * \name Device callback functions types
+ * \name Device Callback Functions Types
  * @{
  */
 typedef void (*usb_device_callback_t)(struct usb_module *module_inst, void* pointer);
@@ -266,6 +272,7 @@ struct usb_module {
 	/** Hardware module pointer of the associated USB peripheral. */
 	Usb *hw;
 
+#if !SAMD11 && !SAML22
 	/** Array to store host related callback functions */
 	usb_host_callback_t host_callback[USB_HOST_CALLBACK_N];
 	usb_host_pipe_callback_t host_pipe_callback[USB_PIPE_NUM][USB_HOST_PIPE_CALLBACK_N];
@@ -277,6 +284,7 @@ struct usb_module {
 	uint8_t host_pipe_registered_callback_mask[USB_PIPE_NUM];
 	/** Bit mask for host pipe callbacks enabled */
 	uint8_t host_pipe_enabled_callback_mask[USB_PIPE_NUM];
+#endif
 
 	/** Array to store device related callback functions */
 	usb_device_callback_t device_callback[USB_DEVICE_CALLBACK_N];
@@ -339,6 +347,7 @@ struct usb_endpoint_callback_parameter {
 
 void usb_enable(struct usb_module *module_inst);
 void usb_disable(struct usb_module *module_inst);
+
 /**
  * \brief Get the status of USB module's state machine
  *
@@ -350,13 +359,14 @@ static inline uint8_t usb_get_state_machine_status(struct usb_module *module_ins
 	Assert(module_inst);
 	Assert(module_inst->hw);
 
-	return module_inst->hw->HOST.FSMSTATUS.reg;
+	return module_inst->hw->DEVICE.FSMSTATUS.reg;
 }
 
 void usb_get_config_defaults(struct usb_config *module_config);
 enum status_code usb_init(struct usb_module *module_inst, Usb *const hw,
 		struct usb_config *module_config);
 
+#if !SAMD11 && !SAML22
 /**
  * \brief Enable the USB host by setting the VBUS OK
  *
@@ -462,7 +472,7 @@ static inline void usb_host_send_l1_resume(struct usb_module *module_inst)
  *
  * \param module_inst Pointer to USB module instance struct
  *
- * \return USB speed mode (\ref usb_speed)
+ * \return USB speed mode (\ref usb_speed).
  */
 static inline enum usb_speed usb_host_get_speed(struct usb_module *module_inst)
 {
@@ -482,7 +492,7 @@ static inline enum usb_speed usb_host_get_speed(struct usb_module *module_inst)
  *
  * \param module_inst Pointer to USB software instance struct
  *
- * \return frame number value
+ * \return frame number value.
  */
 static inline uint16_t usb_host_get_frame_number(struct usb_module *module_inst)
 {
@@ -492,6 +502,7 @@ static inline uint16_t usb_host_get_frame_number(struct usb_module *module_inst)
 
 	return (uint16_t)(module_inst->hw->HOST.FNUM.bit.FNUM);
 }
+#endif
 
 /**
  * \brief Attach USB device to the bus
@@ -517,7 +528,7 @@ static inline void usb_device_detach(struct usb_module *module_inst)
  * \brief Get the speed mode of USB device
  *
  * \param module_inst Pointer to USB device module instance
- * \return USB Speed mode (\ref usb_speed)
+ * \return USB Speed mode (\ref usb_speed).
  */
 static inline enum usb_speed usb_device_get_speed(struct usb_module *module_inst)
 {
@@ -532,7 +543,7 @@ static inline enum usb_speed usb_device_get_speed(struct usb_module *module_inst
  * \brief Get the address of USB device
  *
  * \param module_inst Pointer to USB device module instance
- * \return USB device address value
+ * \return USB device address value.
  */
 static inline uint8_t usb_device_get_address(struct usb_module *module_inst)
 {
@@ -554,7 +565,7 @@ static inline void usb_device_set_address(struct usb_module *module_inst, uint8_
  * \brief Get the frame number of USB device
  *
  * \param module_inst Pointer to USB device module instance
- * \return USB device frame number value
+ * \return USB device frame number value.
  */
 static inline uint16_t usb_device_get_frame_number(struct usb_module *module_inst)
 {
@@ -565,7 +576,7 @@ static inline uint16_t usb_device_get_frame_number(struct usb_module *module_ins
  * \brief Get the micro-frame number of USB device
  *
  * \param module_inst Pointer to USB device module instance
- * \return USB device micro-frame number value
+ * \return USB device micro-frame number value.
  */
 static inline uint16_t usb_device_get_micro_frame_number(struct usb_module *module_inst)
 {
@@ -595,7 +606,7 @@ static inline void usb_device_set_lpm_mode(struct usb_module *module_inst,
 }
 
 /**
- * \name USB Host Callback management
+ * \name USB Host Callback Management
  * @{
  */
 enum status_code usb_host_register_callback(struct usb_module *module_inst,
@@ -610,7 +621,7 @@ enum status_code usb_host_disable_callback(struct usb_module *module_inst,
 /** @} */
 
 /**
- * \name USB Device Callback management
+ * \name USB Device Callback Management
  * @{
  */
 enum status_code usb_device_register_callback(struct usb_module *module_inst,
@@ -625,7 +636,7 @@ enum status_code usb_device_disable_callback(struct usb_module *module_inst,
 /** @} */
 
 /**
- * \name USB Host Pipe configuration
+ * \name USB Host Pipe Configuration
  * @{
  */
 void usb_host_pipe_get_config_defaults(struct usb_host_pipe_config *ep_config);
@@ -646,7 +657,7 @@ bool usb_device_endpoint_is_configured(struct usb_module *module_inst, uint8_t e
 /** @} */
 
 /**
- * \name USB Host Pipe Callback management
+ * \name USB Host Pipe Callback Management
  * @{
  */
 enum status_code usb_host_pipe_register_callback(
@@ -665,7 +676,7 @@ enum status_code usb_host_pipe_disable_callback(
 /** @} */
 
 /**
- * \name USB Device Endpoint Callback management
+ * \name USB Device Endpoint Callback Management
  * @{
  */
 enum status_code usb_device_endpoint_register_callback(
@@ -684,7 +695,7 @@ enum status_code usb_device_endpoint_disable_callback(
 /** @} */
 
 /**
- * \name USB Host Pipe Job management
+ * \name USB Host Pipe Job Management
  * @{
  */
 enum status_code usb_host_pipe_setup_job(struct usb_module *module_inst,
@@ -695,11 +706,11 @@ enum status_code usb_host_pipe_write_job(struct usb_module *module_inst,
 		uint8_t pipe_num, uint8_t *buf, uint32_t buf_size);
 enum status_code usb_host_pipe_abort_job(struct usb_module *module_inst, uint8_t pipe_num);
 enum status_code usb_host_pipe_lpm_job(struct usb_module *module_inst,
-		uint8_t pipe_num, bool b_remotewakeup, uint8_t besl);
+		uint8_t pipe_num, bool b_remotewakeup, uint8_t hird);
 /** @} */
 
 /**
- * \name USB Device Endpoint Job management
+ * \name USB Device Endpoint Job Management
  * @{
  */
 enum status_code usb_device_endpoint_write_buffer_job(struct usb_module *module_inst,uint8_t ep_num,
@@ -711,6 +722,7 @@ enum status_code usb_device_endpoint_setup_buffer_job(struct usb_module *module_
 void usb_device_endpoint_abort_job(struct usb_module *module_inst, uint8_t ep);
 /** @} */
 
+#if !SAMD11 && !SAML22
 /**
  * \name USB Host Pipe Operations
  * @{
@@ -801,6 +813,7 @@ static inline void usb_host_pipe_clear_toggle(struct usb_module *module_inst, ui
 void usb_host_pipe_set_auto_zlp(struct usb_module *module_inst, uint8_t pipe_num, bool value);
 
 /** @} */
+#endif
 
 /**
  * \name USB Device Endpoint Operations

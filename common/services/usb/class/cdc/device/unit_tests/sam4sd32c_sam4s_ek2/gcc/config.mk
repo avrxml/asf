@@ -65,6 +65,7 @@ CSRCS = \
        common/utils/unit_test/suite.c                     \
        sam/boards/sam4s_ek2/init.c                        \
        sam/boards/sam4s_ek2/led.c                         \
+       sam/drivers/matrix/matrix.c                        \
        sam/drivers/pio/pio.c                              \
        sam/drivers/pio/pio_handler.c                      \
        sam/drivers/pmc/pmc.c                              \
@@ -98,6 +99,7 @@ INC_PATH = \
        common/utils/stdio/stdio_serial                    \
        sam/boards                                         \
        sam/boards/sam4s_ek2                               \
+       sam/drivers/matrix                                 \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
        sam/drivers/uart                                   \

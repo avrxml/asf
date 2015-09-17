@@ -3,7 +3,7 @@
  *
  * \brief ASF Programmers Manual Preface
  *
- * Copyright (C) 2013 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,7 +47,7 @@
 /**
  * \page appdoc_preface Preface
  *
- * The Atmel® Software Framework (ASF) is a collection of free embedded software
+ * The Atmel&reg; Software Framework (ASF) is a collection of free embedded software
  * for Atmel microcontroller devices. It simplifies the usage of Atmel products,
  * providing an abstraction to the hardware and high-value middleware.
  *
@@ -62,6 +62,9 @@
  * \anchor sam0_asfdoc_preface_asf_structure
  * \image html asf_structure.jpg ""
  *
- * For more information on ASF please refer to the online documentation at
+ * For more information on ASF refer to the online documentation at
  * <a href="www.atmel.com/asf">www.atmel.com/asf</a>.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

@@ -3,7 +3,7 @@
  *
  * \brief SAM PINMUX Driver Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,7 +50,7 @@
  *  \li Sampling mode of the pin changed to sample on demand
  *
  * This use case sets up the PINMUX to configure a physical I/O pin set as
- * an input with pull-up. and changes the sampling mode of the pin to reduce
+ * an input with pull-up and changes the sampling mode of the pin to reduce
  * power by only sampling the physical pin state when the user application
  * attempts to read it.
  *
@@ -73,7 +73,7 @@
  *          struct to ensure that all values are initialized to known default
  *          settings.
  *
- * -# Adjust the configuration struct to request an input pin with pullup
+ * -# Adjust the configuration struct to request an input pin with pull-up
  *    connected to the GPIO peripheral.
  *  \snippet qs_pinmux_basic.c pinmux_update_config_values
  * -# Configure GPIO10 with the initialized pin configuration struct, to enable
@@ -90,4 +90,7 @@
 
  * -# Adjust the configuration of the pin to enable on-demand sampling mode.
  *    \snippet qs_pinmux_basic.c pinmux_change_input_sampling
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

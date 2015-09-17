@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3SD8	Atmel SAM3SD8</state>
+					<state>ATSAM3SD8C	Atmel ATSAM3SD8C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -299,11 +299,12 @@
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
@@ -570,11 +571,12 @@
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
@@ -1030,7 +1032,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>SAM3SD8	Atmel SAM3SD8</state>
+					<state>ATSAM3SD8C	Atmel ATSAM3SD8C</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1232,11 +1234,12 @@
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
@@ -1503,11 +1506,12 @@
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp</state>
@@ -1967,21 +1971,6 @@
 				</file>
 			</group>
 			<group>
-				<name>sleepmgr</name>
-				<group>
-					<name>sam</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../sleepmgr/sam/sleepmgr.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../sleepmgr/sam/sleepmgr.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../sleepmgr/sleepmgr.h</name>
-				</file>
-			</group>
-			<group>
 				<name>clock</name>
 				<group>
 					<name>sam3s</name>
@@ -2012,6 +2001,21 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../clock/sysclk.h</name>
+				</file>
+			</group>
+			<group>
+				<name>sleepmgr</name>
+				<group>
+					<name>sam</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../sleepmgr/sam/sleepmgr.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../sleepmgr/sam/sleepmgr.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../sleepmgr/sleepmgr.h</name>
 				</file>
 			</group>
 			<group>
@@ -2084,6 +2088,21 @@
 				</file>
 			</group>
 			<group>
+				<name>pmc</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/sleep.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/sleep.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.h</name>
+				</file>
+			</group>
+			<group>
 				<name>udp</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/udp/udp_device.c</name>
@@ -2093,18 +2112,12 @@
 				</file>
 			</group>
 			<group>
-				<name>pmc</name>
+				<name>matrix</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.c</name>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/sleep.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/sleep.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.h</name>
 				</file>
 			</group>
 			<group>
@@ -2130,15 +2143,15 @@
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates/system_sam3sd8.c</name>
 							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates/exceptions.c</name>
+							</file>
 							<group>
 								<name>iar</name>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates/iar/startup_sam3sd8.c</name>
 								</file>
 							</group>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates/exceptions.c</name>
-							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/source/templates/system_sam3sd8.h</name>
 							</file>
@@ -2239,6 +2252,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_uart1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_usart1.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_pioc.h</name>
 							</file>
 							<file>
@@ -2246,9 +2262,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_twi0.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_usart1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam3s8/include/instance/instance_tc1.h</name>
@@ -2395,10 +2408,10 @@
 			<group>
 				<name>sam3s_ek2</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek2/init.c</name>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek2/led.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek2/led.c</name>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek2/init.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../../../sam/boards/sam3s_ek2/sam3s_ek2.h</name>

@@ -4,7 +4,7 @@
  *
  * \brief Configuration for the ET024006DHU display.
  *
- * Copyright (c) 2009-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

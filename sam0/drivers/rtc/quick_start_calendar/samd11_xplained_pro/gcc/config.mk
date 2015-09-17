@@ -56,9 +56,9 @@ CSRCS = \
        sam0/boards/samd11_xplained_pro/board_init.c       \
        sam0/drivers/port/port.c                           \
        sam0/drivers/rtc/quick_start_calendar/qs_rtc_calendar_basic.c \
-       sam0/drivers/rtc/rtc_calendar.c                    \
-       sam0/drivers/system/clock/clock_samd10_d11/clock.c \
-       sam0/drivers/system/clock/clock_samd10_d11/gclk.c  \
+       sam0/drivers/rtc/rtc_sam_d_r/rtc_calendar.c        \
+       sam0/drivers/system/clock/clock_samd09_d10_d11/clock.c \
+       sam0/drivers/system/clock/clock_samd09_d10_d11/gclk.c \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
@@ -79,12 +79,17 @@ INC_PATH = \
        sam0/drivers/rtc                                   \
        sam0/drivers/rtc/quick_start_calendar              \
        sam0/drivers/rtc/quick_start_calendar/samd11_xplained_pro \
+       sam0/drivers/rtc/rtc_sam_d_r                       \
        sam0/drivers/system                                \
        sam0/drivers/system/clock                          \
-       sam0/drivers/system/clock/clock_samd10_d11         \
+       sam0/drivers/system/clock/clock_samd09_d10_d11     \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samd10_d11 \
        sam0/drivers/system/pinmux                         \
+       sam0/drivers/system/power                          \
+       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/reset                          \
+       sam0/drivers/system/reset/reset_sam_d_r            \
        sam0/utils                                         \
        sam0/utils/cmsis/samd11/include                    \
        sam0/utils/cmsis/samd11/source                     \
@@ -140,7 +145,7 @@ CFLAGS =
 #   BOARD      Target board in use, see boards/board.h for a list.
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
-       -D ARM_MATH_CM0=true                               \
+       -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMD11_XPLAINED_PRO                       \
        -D RTC_CALENDAR_ASYNC=false                        \
        -D __SAMD11D14AM__

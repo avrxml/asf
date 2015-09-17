@@ -3,7 +3,7 @@
  *
  * \brief Matrix driver for SAM.
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include  "matrix.h"
@@ -99,11 +102,27 @@ extern "C" {
  */
 void matrix_set_master_burst_type(uint32_t ul_id, burst_type_t burst_type)
 {
+#if (SAMV70 || SAMS70|| SAME70)
+	Matrix *p_matrix = MATRIX;
+	volatile uint32_t *p_MCFG;
+	volatile uint32_t ul_reg;
+	uint32_t ul_dlt;
+
+	ul_dlt = (uint32_t)&(p_matrix->MATRIX_MCFG1);
+	ul_dlt = ul_dlt - (uint32_t)&(p_matrix->MATRIX_MCFG0);
+
+	p_MCFG = (volatile uint32_t *)((uint32_t)&(p_matrix->MATRIX_MCFG0) +
+			ul_id * ul_dlt);
+
+	ul_reg = *p_MCFG & (~MATRIX_MCFG0_ULBT_Msk);
+	*p_MCFG = ul_reg | (uint32_t)burst_type;
+#else
 	Matrix *p_matrix = MATRIX;
 	volatile uint32_t ul_reg;
 
 	ul_reg = p_matrix->MATRIX_MCFG[ul_id] & (~MATRIX_MCFG_ULBT_Msk);
 	p_matrix->MATRIX_MCFG[ul_id] = ul_reg | (uint32_t)burst_type;
+#endif
 }
 
 /**
@@ -115,11 +134,27 @@ void matrix_set_master_burst_type(uint32_t ul_id, burst_type_t burst_type)
  */
 burst_type_t matrix_get_master_burst_type(uint32_t ul_id)
 {
+#if (SAMV70 || SAMS70|| SAME70)
+	Matrix *p_matrix = MATRIX;
+	volatile uint32_t *p_MCFG;
+	volatile uint32_t ul_reg;
+	uint32_t ul_dlt;
+
+	ul_dlt = (uint32_t)&(p_matrix->MATRIX_MCFG1);
+	ul_dlt = ul_dlt - (uint32_t)&(p_matrix->MATRIX_MCFG0);
+
+	p_MCFG = (volatile uint32_t *)((uint32_t)&(p_matrix->MATRIX_MCFG0) +
+			ul_id * ul_dlt);
+
+	ul_reg = *p_MCFG & (~MATRIX_MCFG0_ULBT_Msk);
+	return (burst_type_t)ul_reg;
+#else
 	Matrix *p_matrix = MATRIX;
 	volatile uint32_t ul_reg;
 
 	ul_reg = p_matrix->MATRIX_MCFG[ul_id] & (MATRIX_MCFG_ULBT_Msk);
 	return (burst_type_t)ul_reg;
+#endif
 }
 
 /**
@@ -218,8 +253,8 @@ uint32_t matrix_get_slave_fixed_default_master(uint32_t ul_id)
 	return (ul_reg >> MATRIX_SCFG_FIXED_DEFMSTR_Pos);
 }
 
-#if !SAM4E && !SAM4C && !SAM4CP && !SAM4CM
-
+#if !SAM4E && !SAM4C && !SAM4CP && !SAM4CM && \
+	 !SAMV71 && !SAMV70 && !SAMS70 && !SAME70
 /**
  * \brief Set slave arbitration type of the specified slave.
  *
@@ -261,6 +296,10 @@ arbitration_type_t matrix_get_slave_arbitration_type(uint32_t ul_id)
  */
 void matrix_set_slave_priority(uint32_t ul_id, uint32_t ul_prio)
 {
+#if (SAMV71 || SAMV70|| SAME70)
+	Matrix *p_matrix = MATRIX;
+	p_matrix->MATRIX_PR[ul_id].MATRIX_PRAS = ul_prio;
+#else
 	Matrix *p_matrix = MATRIX;
 	volatile uint32_t *p_PRAS;
 	uint32_t ul_dlt;
@@ -272,6 +311,7 @@ void matrix_set_slave_priority(uint32_t ul_id, uint32_t ul_prio)
 			ul_id * ul_dlt);
 
 	*p_PRAS = ul_prio;
+#endif
 }
 
 /**
@@ -283,6 +323,10 @@ void matrix_set_slave_priority(uint32_t ul_id, uint32_t ul_prio)
  */
 uint32_t matrix_get_slave_priority(uint32_t ul_id)
 {
+#if (SAMV71 || SAMV70|| SAME70)
+	Matrix *p_matrix = MATRIX;
+	return p_matrix->MATRIX_PR[ul_id].MATRIX_PRAS;
+#else
 	Matrix *p_matrix = MATRIX;
 	volatile uint32_t *p_PRAS;
 	uint32_t ul_dlt;
@@ -294,10 +338,66 @@ uint32_t matrix_get_slave_priority(uint32_t ul_id)
 			ul_id * ul_dlt);
 
 	return (*p_PRAS);
+#endif
 }
 
-#if (SAM3XA || SAM3U || SAM4E)
+#if (SAMV71 || SAMV70|| SAME70 || SAMS70)
+/**
+ * \brief Set priority for the specified slave access.
+ *
+ * \param ul_id Slave index.
+ * \param ul_prio_b Bitmask OR of priorities of master x.
+ */
+void matrix_set_slave_priority_b(uint32_t ul_id, uint32_t ul_prio_b)
+{
+#if (SAMV71 || SAMV70|| SAME70)
+	Matrix *p_matrix = MATRIX;
+	p_matrix->MATRIX_PR[ul_id].MATRIX_PRBS = ul_prio_b;
+#else
+	Matrix *p_matrix = MATRIX;
+	volatile uint32_t *p_PRAS;
+	uint32_t ul_dlt;
 
+	ul_dlt = (uint32_t)&(p_matrix->MATRIX_PRBS1);
+	ul_dlt = ul_dlt - (uint32_t)&(p_matrix->MATRIX_PRBS0);
+
+	p_PRAS = (volatile uint32_t *)((uint32_t)&(p_matrix->MATRIX_PRBS0) +
+			ul_id * ul_dlt);
+
+	*p_PRAS = ul_prio;
+#endif
+}
+
+/**
+ * \brief Get priority for the specified slave access.
+ *
+ * \param ul_id Slave index.
+ *
+ * \return Bitmask OR of priorities of master x.
+ */
+uint32_t matrix_get_slave_priority_b(uint32_t ul_id)
+{
+#if (SAMV71 || SAMV70|| SAME70)
+	Matrix *p_matrix = MATRIX;
+	return p_matrix->MATRIX_PR[ul_id].MATRIX_PRBS;
+#else
+	Matrix *p_matrix = MATRIX;
+	volatile uint32_t *p_PRAS;
+	uint32_t ul_dlt;
+
+	ul_dlt = (uint32_t)&(p_matrix->MATRIX_PRBS1);
+	ul_dlt = ul_dlt - (uint32_t)&(p_matrix->MATRIX_PRBS0);
+
+	p_PRAS = (volatile uint32_t *)((uint32_t)&(p_matrix->MATRIX_PRBS0) +
+			ul_id * ul_dlt);
+
+	return (*p_PRAS);
+#endif
+}
+#endif
+
+#if (SAM3XA || SAM3U || SAM4E ||\
+	 SAMV71 || SAMV70 || SAMS70 || SAME70)
 /**
  * \brief Set bus matrix master remap.
  *
@@ -322,10 +422,10 @@ uint32_t matrix_get_master_remap(void)
 	return (p_matrix->MATRIX_MRCR);
 }
 
-#endif /* (SAM3XA || SAM3U || SAM4E) */
+#endif
 
-#if (SAM3S || SAM3XA || SAM3N || SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
-
+#if (SAM3S || SAM3XA || SAM3N || SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM || \
+	 SAMV71 || SAMV70 || SAMS70 || SAME70)
 /**
  * \brief Set system IO.
  *
@@ -334,17 +434,22 @@ uint32_t matrix_get_master_remap(void)
 void matrix_set_system_io(uint32_t ul_io)
 {
 	Matrix *p_matrix = MATRIX;
-	
+
 #if (SAM4C || SAM4CP || SAM4CM)
-	
+
 	p_matrix->MATRIX_SYSIO = ul_io;
+
+#elif (SAMV71 || SAMV70 || SAMS70 || SAME70)
 	
+	p_matrix->CCFG_SYSIO &= 0xFFFF0000;
+	p_matrix->CCFG_SYSIO |= (ul_io & 0xFFFF);
+
 #else
-	
+
 	p_matrix->CCFG_SYSIO = ul_io;
-	
+
 #endif
-	
+
 }
 
 /**
@@ -355,22 +460,26 @@ void matrix_set_system_io(uint32_t ul_io)
 uint32_t matrix_get_system_io(void)
 {
 	Matrix *p_matrix = MATRIX;
-	
+
 #if (SAM4C || SAM4CP || SAM4CM)
 
 	return (p_matrix->MATRIX_SYSIO);
-	
+
+#elif (SAMV71 || SAMV70 || SAMS70 || SAME70)
+
+	return (p_matrix->CCFG_SYSIO & 0xFFFF);
+
 #else
-	
+
 	return (p_matrix->CCFG_SYSIO);
-	
+
 #endif
 }
 
 #endif
 
-#if (SAM3S || SAM4S || SAM4E || SAM4C || SAM4CP || SAM4CM)
-
+#if (SAM3S || SAM4S || SAM4E || SAM4C || SAM4CP || SAM4CM || \
+	 SAMV71 || SAMV70 || SAMS70 || SAME70)
 /**
  * \brief Set NAND Flash Chip Select configuration register.
  *
@@ -381,15 +490,15 @@ void matrix_set_nandflash_cs(uint32_t ul_cs)
 {
 	Matrix *p_matrix = MATRIX;
 
-	
+
 #if (SAM4C || SAM4CP || SAM4CM)
 
 	p_matrix->MATRIX_SMCNFCS = ul_cs;
-	
+
 #else
-	
+
 	p_matrix->CCFG_SMCNFCS = ul_cs;
-	
+
 #endif
 }
 
@@ -401,19 +510,20 @@ void matrix_set_nandflash_cs(uint32_t ul_cs)
 uint32_t matrix_get_nandflash_cs(void)
 {
 	Matrix *p_matrix = MATRIX;
-	
+
 #if (SAM4C || SAM4CP || SAM4CM)
 
 	return (p_matrix->MATRIX_SMCNFCS);
-	
+
 #else
-	
+
 	return (p_matrix->CCFG_SMCNFCS);
-	
+
 #endif
 }
 
-#endif /* (SAM3S || SAM4S || SAM4E || SAM4C || SAM4CP || SAM4CM) */
+#endif
+
 #if (!SAMG)
 /**
  * \brief Enable or disable write protect of MATRIX registers.
@@ -441,6 +551,61 @@ uint32_t matrix_get_writeprotect_status(void)
 	Matrix *p_matrix = MATRIX;
 
 	return (p_matrix->MATRIX_WPSR);
+}
+#endif
+
+#if SAMG55
+/**
+ * \brief Set USB device mode.
+ *
+ */
+void matrix_set_usb_device(void)
+{
+	Matrix *p_matrix = MATRIX;
+
+	p_matrix->CCFG_SYSIO &= ~(CCFG_SYSIO_SYSIO10 | CCFG_SYSIO_SYSIO11);
+
+	p_matrix->CCFG_USBMR |= CCFG_USBMR_DEVICE;
+}
+
+/**
+ * \brief Set USB device mode.
+ *
+ */
+void matrix_set_usb_host(void)
+{
+	Matrix *p_matrix = MATRIX;
+
+	p_matrix->CCFG_SYSIO &= ~(CCFG_SYSIO_SYSIO10 | CCFG_SYSIO_SYSIO11);
+
+	p_matrix->CCFG_USBMR &= ~CCFG_USBMR_DEVICE;
+}
+#endif
+
+#if (SAMV71 || SAMV70|| SAME70)
+/**
+ * \brief Set CAN0 DMA base address.
+ *
+ * \param base_addr the 16-bit MSB of the CAN0 DMA base address.
+ */
+void matrix_set_can0_addr(uint32_t base_addr)
+{
+	Matrix *p_matrix = MATRIX;
+	p_matrix->CCFG_CAN0 = CCFG_CAN0_CAN0DMABA(base_addr);
+}
+
+/**
+ * \brief Set CAN1 DMA base address.
+ *
+ * \param base_addr the 16-bit MSB of the CAN1 DMA base address.
+ */
+void matrix_set_can1_addr(uint32_t base_addr)
+{
+	Matrix *p_matrix = MATRIX;
+	volatile uint32_t ul_reg;
+
+	ul_reg = p_matrix->CCFG_SYSIO & (~CCFG_SYSIO_CAN1DMABA_Msk);
+	p_matrix->CCFG_SYSIO = ul_reg | CCFG_SYSIO_CAN1DMABA(base_addr);
 }
 #endif
 

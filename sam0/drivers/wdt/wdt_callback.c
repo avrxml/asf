@@ -3,7 +3,7 @@
  *
  * \brief SAM Watchdog Driver
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #include "wdt.h"
 #include <system.h>
 #include <system_interrupt.h>
@@ -57,8 +60,8 @@ wdt_callback_t wdt_early_warning_callback;
  * \param[in] type      Type of callback function to register
  *
  * \return Status of the registration operation.
- * \retval STATUS_OK               The callback was registered successfully.
- * \retval STATUS_ERR_INVALID_ARG  If an invalid callback type was supplied.
+ * \retval STATUS_OK               The callback was registered successfully
+ * \retval STATUS_ERR_INVALID_ARG  If an invalid callback type was supplied
  */
 enum status_code wdt_register_callback(
 		const wdt_callback_t callback,
@@ -87,8 +90,8 @@ enum status_code wdt_register_callback(
  * \param[in] type  Type of callback function to unregister
  *
  * \return Status of the de-registration operation.
- * \retval STATUS_OK               The callback was Unregistered successfully.
- * \retval STATUS_ERR_INVALID_ARG  If an invalid callback type was supplied.
+ * \retval STATUS_OK               The callback was Unregistered successfully
+ * \retval STATUS_ERR_INVALID_ARG  If an invalid callback type was supplied
  */
 enum status_code wdt_unregister_callback(
 		const enum wdt_callback type)
@@ -113,8 +116,8 @@ enum status_code wdt_unregister_callback(
  * \param[in] type  Type of callback function to enable
  *
  * \return Status of the callback enable operation.
- * \retval STATUS_OK               The callback was enabled successfully.
- * \retval STATUS_ERR_INVALID_ARG  If an invalid callback type was supplied.
+ * \retval STATUS_OK               The callback was enabled successfully
+ * \retval STATUS_ERR_INVALID_ARG  If an invalid callback type was supplied
  */
 enum status_code wdt_enable_callback(
 		const enum wdt_callback type)
@@ -141,8 +144,8 @@ enum status_code wdt_enable_callback(
  * \param[in] type  Type of callback function to disable
  *
  * \return Status of the callback disable operation.
- * \retval STATUS_OK               The callback was disabled successfully.
- * \retval STATUS_ERR_INVALID_ARG  If an invalid callback type was supplied.
+ * \retval STATUS_OK               The callback was disabled successfully
+ * \retval STATUS_ERR_INVALID_ARG  If an invalid callback type was supplied
  */
 enum status_code wdt_disable_callback(
 		const enum wdt_callback type)

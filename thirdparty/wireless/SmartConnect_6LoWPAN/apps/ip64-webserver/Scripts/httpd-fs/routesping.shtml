@@ -1,0 +1,4 @@
+<table class="t t-b t-s">
+<thead><tr><th>Route</th><th>Nopath</th><th>Next-hop</th><th>Ping time</th></tr></thead>
+%! rtsping
+</table>

@@ -3,7 +3,7 @@
  *
  * \brief Common API for USB Host Drivers (UHD)
  *
- * Copyright (C) 2011 - 2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _UHD_H_
@@ -224,11 +227,11 @@ void uhd_resume(void);
  * The SUSPEND LPM state is enable when a LPM transaction is done.
  *
  * \param b_remotewakeup Authorize the remote wakeup features, if true
- * \param besl Best effort service latency value
+ * \param hird Host Initiated Resume Duration
  *
  * \return USB line in SUSPEND state, if true
  */
-bool uhd_suspend_lpm(bool b_remotewakeup, uint8_t besl);
+bool uhd_suspend_lpm(bool b_remotewakeup, uint8_t hird);
 #endif // USB_HOST_LPM_SUPPORT
 
 /**

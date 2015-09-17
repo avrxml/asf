@@ -3,7 +3,7 @@
  *
  * \brief Two-Wire Interface High Speed (TWIHS) driver for SAM.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef TWIHS_H_INCLUDED
 #define TWIHS_H_INCLUDED
@@ -74,7 +77,7 @@ extern "C" {
 /**
  * @}
  */
- 
+
 /**
  * \brief Input parameters when initializing the TWIHS module mode.
  */
@@ -195,6 +198,7 @@ static inline void twihs_send_clear(Twihs *p_twihs)
 	p_twihs->TWIHS_CR = TWIHS_CR_CLEAR;
 }
 
+#if !(SAMV70 || SAMV71 || SAME70 || SAMS70)
 /**
  * \brief Enable alternative command mode.
  *
@@ -214,6 +218,7 @@ static inline void twihs_disable_alternative_command(Twihs *p_twihs)
 {
 	p_twihs->TWIHS_CR = TWIHS_CR_ACMDIS;
 }
+#endif
 
 /**
  * \brief Normal value to be returned in the ACK cycle of the data phase in slave receiver mode.
@@ -295,7 +300,7 @@ static inline void twihs_clear_disable_clock_wait_state(Twihs *p_twihs)
 	p_twihs->TWIHS_SMR &= ~TWIHS_SMR_SCLWSDIS;
 }
 
-#if (SAMG53 || SAMG54)
+#if (SAMG53 || SAMG54 || SAMV70 || SAMV71 || SAME70 || SAMS70)
 /**
  * \brief Slave Address 1 matching disabled.
  *
@@ -403,11 +408,15 @@ void twihs_set_slave_addr(Twihs *p_twihs, uint32_t ul_device_addr);
 uint32_t twihs_slave_read(Twihs *p_twihs, uint8_t *p_data);
 uint32_t twihs_slave_write(Twihs *p_twihs, uint8_t *p_data);
 void twihs_reset(Twihs *p_twihs);
+#if !(SAMV70 || SAMV71 || SAME70 || SAMS70)
 Pdc *twihs_get_pdc_base(Twihs *p_twihs);
+#endif
 void twihs_set_write_protection(Twihs *p_twihs, bool flag);
 void twihs_read_write_protection_status(Twihs *p_twihs, uint32_t *p_status);
 void twihs_smbus_set_timing(Twihs *p_twihs, uint32_t ul_timing);
+#if !(SAMV70 || SAMV71 || SAME70 || SAMS70)
 void twihs_set_alternative_command(Twihs *p_twihs, uint32_t ul_alt_cmd);
+#endif
 void twihs_set_filter(Twihs *p_twihs, uint32_t ul_filter);
 void twihs_mask_slave_addr(Twihs *p_twihs, uint32_t ul_mask);
 

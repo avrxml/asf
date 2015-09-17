@@ -3,7 +3,7 @@
  *
  * @brief File contains register and command defines specific for AT86RF231.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -53,12 +53,14 @@
 /* === INCLUDES ============================================================ */
 
 #include "tal_types.h"
+
 #if (TAL_TYPE == AT86RF233)
 #ifndef EXT_RF_FRONT_END_CTRL
 #define TRANSCEIVER_NAME    "AT86RF233"
 #else
 #define TRANSCEIVER_NAME    "AT86RF233+FEM"
 #endif
+
 /* === EXTERNALS =========================================================== */
 
 /* === TYPES =============================================================== */

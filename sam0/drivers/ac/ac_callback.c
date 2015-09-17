@@ -3,7 +3,7 @@
  *
  * \brief SAM AC - Analog Comparator Callback Driver
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include "ac_callback.h"
 
@@ -48,7 +51,7 @@ struct ac_module *_ac_instance[AC_INST_NUM];
 void _ac_interrupt_handler(const uint32_t instance_index);
 
 /**
- * \brief Registers a callback
+ * \brief Registers a callback.
  *
  * Registers a callback function which is implemented by the user.
  *
@@ -81,7 +84,7 @@ enum status_code ac_register_callback(
 }
 
 /**
- * \brief Unregisters a callback
+ * \brief Unregisters a callback.
  *
  * Unregisters a callback function implemented by the user.
  *
@@ -113,18 +116,22 @@ void AC_Handler(void)
 {
 	_ac_interrupt_handler(0);
 }
-#elif (AC_INST_NUM > 1)
-#  define _AC_INTERRUPT_HANDLER(n, unused) \
-		void AC##n##_Handler(void) \
-		{ \
-			_ac_interrupt_handler(n); \
-		}
+#elif (AC_INST_NUM == 2)
+void AC_Handler(void)
+{
+	_ac_interrupt_handler(0);
+}
 
-MREPEAT(AC_INST_NUM, _AC_INTERRUPT_HANDLER, ~)
-#endif /* (AC_INST_NUM > 1) */
+void AC1_Handler(void)
+{
+	_ac_interrupt_handler(1);
+}
+#else
+#  error This driver is not support more than three AC instances.
+#endif
 
 /**
- * \brief Interrupt Handler for AC module
+ * \brief Interrupt Handler for AC module.
  *
  * Handles interrupts as they occur, it will run the callback functions
  * that are registered and enabled.
@@ -186,6 +193,7 @@ void _ac_interrupt_handler(const uint32_t instance_index)
 		module->hw->INTFLAG.reg = AC_INTFLAG_COMP3;
 	}
 
+#  if !(SAMC20)
 		/* Check if window 1 needs to be serviced */
 	if (interrupt_and_callback_status_mask & AC_INTFLAG_WIN1) {
 		/* Invoke registered and enabled callback function */
@@ -193,5 +201,6 @@ void _ac_interrupt_handler(const uint32_t instance_index)
 		/* Clear interrupt flag */
 		module->hw->INTFLAG.reg = AC_INTFLAG_WIN1;
 	}
+#  endif
 #endif /* (AC_NUM_CMP > 2) */
 }

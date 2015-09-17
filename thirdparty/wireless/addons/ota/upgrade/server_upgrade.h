@@ -1,0 +1,38 @@
+#ifndef SERVER_UPGRADE_H
+#define SERVER_UPGRADE_H
+
+#include "compiler.h"
+
+typedef enum {
+	SERVER_DISCOVERY_REQUEST = 0x00,
+	SERVER_NOTIFY_INDICATION,
+	SERVER_NOTIFY_CONFIRM,
+	QUERY_IMAGE_REQUEST,
+	IMAGE_NOTIFY_REQUEST,
+	IMAGE_NOTIFY_CONFIRM,
+	IMAGE_REQUEST,
+	IMAGE_RESPONSE,
+	IMAGE_CONFIRM,
+	SWITCH_IMAGE_REQUEST,
+	SWITCH_IMAGE_RESPONSE,
+	SWITCH_IMAGE_CONFIRM,
+	UPGRADE_ERROR_MSG = 0xF0
+}upgrade_msg_code_t;
+
+typedef enum {
+	UPGRADE_OTA_IDLE,
+	SERVER_NOTIFY_SENT,
+	IMAGE_NOTIFY_SENT,
+	IMAGE_RESPONSE_SENT,
+	SWITCH_RESPONSE_SENT,
+}upgrade_ota_state_t;
+
+COMPILER_PACK_SET (1)
+typedef struct {
+	uint8_t msg_id;
+	uint64_t ieee_addr;
+	uint16_t short_addr;
+}server_notify_indication_t;
+COMPILER_PACK_RESET ()
+
+#endif /* SERVER_UPGRADE_H */

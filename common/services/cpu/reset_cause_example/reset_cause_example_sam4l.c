@@ -3,7 +3,7 @@
  *
  * \brief CPU reset cause example for SAM4L
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -86,6 +86,9 @@
 	  w: Generate watchdog reset
 	  s: Generate system reset
 \endcode
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"

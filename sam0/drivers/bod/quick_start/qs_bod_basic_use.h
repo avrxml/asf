@@ -3,7 +3,7 @@
  *
  * \brief SAM BOD Driver Quick Start
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,7 +45,7 @@
  *
  * In this use case, the BOD33 will be configured with the following settings:
  * - Continuous sampling mode
- * - Prescaler setting of 2
+ * - Prescaler setting of two
  * - Reset action on low voltage detect
  *
  * \section asfdoc_sam0_bod_basic_use_case_setup Quick Start
@@ -86,4 +86,7 @@
  * -# Enter an infinite loop so that the BOD can continue to monitor the supply
  *    voltage level.
  *    \snippet qs_bod_basic_use.c main_loop
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

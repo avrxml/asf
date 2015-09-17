@@ -3,7 +3,7 @@
  *
  * \brief Component description for SPI
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAM4L_SPI_COMPONENT_
@@ -398,7 +401,7 @@
 #define SPI_WPSR_WPVS(value)        ((SPI_WPSR_WPVS_Msk & ((value) << SPI_WPSR_WPVS_Pos)))
 #define   SPI_WPSR_WPVS_WRITE_WITH_WP (0x1u <<  0) /**< \brief (SPI_WPSR) The Write Protection has blocked a Write access to a protected register (since the last read). */
 #define   SPI_WPSR_WPVS_SWRST_WITH_WP (0x2u <<  0) /**< \brief (SPI_WPSR) Software Reset has been performed while Write Protection was enabled (since the last read or since the last write access on MR, IER, IDR or CSRx). */
-#define   SPI_WPSR_WPVS_UNEXPECTED_WRITE (0x4u <<  0) /**< \brief (SPI_WPSR) Write accesses have been detected on MR (while a chip select was active) or on CSRi (while the Chip Select “i” was active) since the last read. */
+#define   SPI_WPSR_WPVS_UNEXPECTED_WRITE (0x4u <<  0) /**< \brief (SPI_WPSR) Write accesses have been detected on MR (while a chip select was active) or on CSRi (while the Chip Select "i" was active) since the last read. */
 #define SPI_WPSR_WPVSRC_Pos         8            /**< \brief (SPI_WPSR) Write Protection Violation Source */
 #define SPI_WPSR_WPVSRC_Msk         (0xFFu << SPI_WPSR_WPVSRC_Pos)
 #define SPI_WPSR_WPVSRC(value)      ((SPI_WPSR_WPVSRC_Msk & ((value) << SPI_WPSR_WPVSRC_Pos)))

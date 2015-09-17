@@ -3,7 +3,7 @@
  *
  * @brief This file implements slotted CSMA-CA functions.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  */
 
 /*
- * Copyright (c) 2013-2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -79,7 +79,7 @@
  * Conversion of octets to microseconds
  */
 #define CCA_GUARD_DURATION_US           (1000)  /* used for calculation overhead
-	                                         **/
+	                                        **/
 #define CSMA_BEACON_LOSS_GUARD_TIME_US  (2000)
 #define PRE_BEACON_GUARD_TIME_US        (1000)
 
@@ -242,12 +242,14 @@ static void calculate_transaction_duration(void)
 		/* Ensure there is room for the ACK. */
 		transaction_duration_octets += ACK_FRAME_LEN + PHY_OVERHEAD; /*
 		                                                              *
+		                                                              *
 		                                                              *octets
 		                                                              **/
 
 		/* Space is needed until the ACK is sent. */
 		transaction_duration_sym += aTurnaroundTime +
 				aUnitBackoffPeriod;                       /*
+		                                                           *
 		                                                           *
 		                                                           *symbols
 		                                                           **/
@@ -291,12 +293,14 @@ uint16_t calc_frame_transmit_duration(uint8_t *phy_frame)
 	if (phy_frame[PL_POS_FCF_1] & FCF_ACK_REQUEST) {
 		/* Ensure there is room for the ACK. */
 		transaction_duration_octets += ACK_FRAME_LEN + PHY_OVERHEAD; /**
+		                                                              *
 		                                                              *octets
 		                                                              **/
 
 		/* Space is needed until the ACK is sent. */
 		transaction_duration_sym += aTurnaroundTime +
 				aUnitBackoffPeriod;                       /**
+		                                                           *
 		                                                           *symbols
 		                                                           **/
 	}
@@ -640,7 +644,6 @@ static uint8_t perform_cca_twice(void)
 #endif
 		return PHY_BUSY;
 	}
-
 #endif /* ((MAC_START_REQUEST_CONFIRM == 1) && (defined BEACON_SUPPORT)) */
 
 	/* Ensure that trx is at least in TRX_OFF mode at this time. */
@@ -814,7 +817,6 @@ static void start_beacon_loss_timer(void)
 			Assert("beacon loss timer start failed: ?" == 0);
 		}
 	}
-
 #endif
 }
 
@@ -832,7 +834,6 @@ static void beacon_loss_timer_cb(void *parameter)
 	if (tal_csma_state != BACKOFF_WAITING_FOR_BEACON) {
 		Assert("beacon loss timer issue" == 0);
 	}
-
 #endif
 
 	tal_csma_state = NO_BEACON_TRACKING;
@@ -862,7 +863,6 @@ static void tx_done(retval_t status)
 	if (pal_is_timer_running(TAL_CSMA_BEACON_LOSS_TIMER)) {
 		Assert("beacon lost timer is still running" == 0);
 	}
-
 #endif
 
 	tal_state = TAL_IDLE;

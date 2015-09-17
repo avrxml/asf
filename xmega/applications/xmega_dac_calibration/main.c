@@ -3,7 +3,7 @@
  *
  * \brief XMEGA DAC Calibration application Main File
  *
- * Copyright (C) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,6 +83,9 @@
  * \brief This is an example on how to calibrate the XMEGA DAC by using the 
  * internal ADC.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include <asf.h>
 #include <conf_board.h>

@@ -52,12 +52,18 @@ TARGET_SRAM = spi_master_bootloader_sram.elf
 
 # List of C source files.
 CSRCS = \
+       common/services/storage/ctrl_access/ctrl_access.c  \
        common/utils/interrupt/interrupt_sam_nvic.c        \
-       common2/components/memory/data_flash/at45dbx/at45dbx.c \
+       common2/components/memory/sd_mmc/sd_mmc.c          \
+       common2/components/memory/sd_mmc/sd_mmc_mem.c      \
+       common2/components/memory/sd_mmc/sd_mmc_spi.c      \
+       common2/services/delay/sam0/cycle_counter.c        \
+       sam0/applications/spi_master_bootloader/memories_initialization_sam0.c \
        sam0/applications/spi_master_bootloader/spi_master_bootloader.c \
        sam0/boards/samd20_xplained_pro/board_init.c       \
        sam0/drivers/nvm/nvm.c                             \
        sam0/drivers/port/port.c                           \
+       sam0/drivers/rtc/rtc_sam_d_r/rtc_calendar.c        \
        sam0/drivers/sercom/sercom.c                       \
        sam0/drivers/sercom/sercom_interrupt.c             \
        sam0/drivers/sercom/spi/spi.c                      \
@@ -71,7 +77,13 @@ CSRCS = \
        sam0/drivers/wdt/wdt_callback.c                    \
        sam0/utils/cmsis/samd20/source/gcc/startup_samd20.c \
        sam0/utils/cmsis/samd20/source/system_samd20.c     \
-       sam0/utils/syscalls/gcc/syscalls.c
+       sam0/utils/stdio/read.c                            \
+       sam0/utils/stdio/write.c                           \
+       sam0/utils/syscalls/gcc/syscalls.c                 \
+       thirdparty/fatfs/fatfs-port-r0.09/diskio.c         \
+       thirdparty/fatfs/fatfs-port-r0.09/sam0/fattime_rtc.c \
+       thirdparty/fatfs/fatfs-r0.09/src/ff.c              \
+       thirdparty/fatfs/fatfs-r0.09/src/option/ccsbcs.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -79,14 +91,19 @@ ASSRCS =
 # List of include paths.
 INC_PATH = \
        common/boards                                      \
+       common/services/storage/ctrl_access                \
        common/utils                                       \
-       common2/components/memory/data_flash/at45dbx       \
+       common2/components/memory/sd_mmc                   \
+       common2/services/delay                             \
+       common2/services/delay/sam0                        \
        sam0/applications/spi_master_bootloader            \
        sam0/applications/spi_master_bootloader/samd20_xplained_pro \
        sam0/boards                                        \
        sam0/boards/samd20_xplained_pro                    \
        sam0/drivers/nvm                                   \
        sam0/drivers/port                                  \
+       sam0/drivers/rtc                                   \
+       sam0/drivers/rtc/rtc_sam_d_r                       \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/spi                            \
        sam0/drivers/system                                \
@@ -95,6 +112,10 @@ INC_PATH = \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samd20 \
        sam0/drivers/system/pinmux                         \
+       sam0/drivers/system/power                          \
+       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/reset                          \
+       sam0/drivers/system/reset/reset_sam_d_r            \
        sam0/drivers/wdt                                   \
        sam0/utils                                         \
        sam0/utils/cmsis/samd20/include                    \
@@ -102,7 +123,9 @@ INC_PATH = \
        sam0/utils/header_files                            \
        sam0/utils/preprocessor                            \
        thirdparty/CMSIS/Include                           \
-       thirdparty/CMSIS/Lib/GCC \
+       thirdparty/CMSIS/Lib/GCC                           \
+       thirdparty/fatfs/fatfs-port-r0.09/sam0             \
+       thirdparty/fatfs/fatfs-r0.09/src \
        sam0/applications/spi_master_bootloader/samd20_xplained_pro/gcc
 
 # Additional search paths for libraries.
@@ -151,14 +174,20 @@ CFLAGS =
 #   BOARD      Target board in use, see boards/board.h for a list.
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
-       -D ARM_MATH_CM0=true                               \
+       -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMD20_XPLAINED_PRO                       \
+       -D CYCLE_MODE                                      \
+       -D RTC_CALENDAR_ASYNC=false                        \
+       -D SD_MMC_ENABLE                                   \
        -D SPI_CALLBACK_MODE=true                          \
        -D WDT_CALLBACK_MODE=true                          \
        -D __SAMD20J18__
 
 # Extra flags to use when linking
 LDFLAGS = \
+                                                          \
+       -Wl,--defsym,STACK_SIZE=0x2000                     \
+       -Wl,--defsym,__stack_size__=0x2000
 
 # Pre- and post-build commands
 PREBUILD_CMD = 

@@ -3,7 +3,7 @@
  *
  * @brief Single button controller application
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -77,7 +77,8 @@
  *     and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal
  * Area
  *     Networks (WPANs).\n\n
- * 2)  AVR Wireless Support <A href="http://avr@atmel.com">avr@atmel.com</A>.\n
+ * 2)  <a href="http://www.atmel.com/design-support/">Atmel Design
+ *Support</a>.\n
  *
  * \section contactinfo Contact Information
  * For further information,visit
@@ -95,6 +96,7 @@
 #include "zrc.h"
 #include "pb_pairing.h"
 #include "vendor_data.h"
+#include "nwk_config.h"
 
 #ifdef SLEEP_ENABLE
 #include "conf_interrupt.h"
@@ -187,8 +189,9 @@ int main(void)
 	#endif
 
 #ifdef SLEEP_ENABLE
+
 	/* Configure the wakeup source to wakeup the MCU, when it is in sleep
-	 *mode */
+	 * mode */
 	config_wakeup_source();
 #endif
 	sw_timer_init();
@@ -472,11 +475,12 @@ static void app_task(void)
 		else {
 			if (nwk_ready_to_sleep() || (nwk_stack_idle())) {
 				/* Enter Sleep will enable the wakeup source,
-				 *also config the timers and sleep modes
-				 *handling */
+				 * also config the timers and sleep modes
+				 * handling */
 				enter_sleep();
+
 				/* MCU wakes up from the sleep and continues in
-				 *normal mode */
+				 * normal mode */
 			}
 		}
 #endif
@@ -564,7 +568,6 @@ static key_state_t key_state_read(key_id_t key_no)
 		if (!ioport_get_pin_level(GPIO_PUSH_BUTTON_0)) {
 			key_val = KEY_PRESSED;
 		}
-
 		#endif
 	}
 
@@ -575,15 +578,15 @@ static key_state_t key_state_read(key_id_t key_no)
 
 /**
  * @brief enter_sleep This function will put the MCU to Lowest possible sleep
- *mode
+ * mode
  *            This function will get the current running timer id expiry
- *duration. This
+ * duration. This
  *            will be used to run the other timer(sleep mode timers during MCU
- *sleep)
+ * sleep)
  *	       wakeup source also used to wakeup the controllers from sleep
- *mode. The
+ * mode. The
  *	       timer drift values will be written into the software timer once
- *the MCU wake from
+ * the MCU wake from
  *		sleep by timer expiry or due to wakeup sources.
  * @param key_no Key to be read.
  */

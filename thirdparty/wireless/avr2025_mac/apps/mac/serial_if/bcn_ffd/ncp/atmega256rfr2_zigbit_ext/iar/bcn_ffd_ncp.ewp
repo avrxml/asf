@@ -2240,13 +2240,13 @@
 					<group>
 						<name>inc</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_types.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_generic.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../services/sal/inc/sal_types.h</name>
 						</file>
 					</group>
 				</group>
@@ -2415,9 +2415,6 @@
 									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc/tal_internal.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc/atmega256rfr2.h</name>
-								</file>
-								<file>
 									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc/tal_constants.h</name>
 								</file>
 								<file>
@@ -2425,6 +2422,9 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc/tal_tx.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc/atmega256rfr2.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../../../source/tal/atmegarfr2/inc/tal_rx.h</name>
@@ -2600,10 +2600,10 @@
 										</file>
 									</group>
 									<file>
-										<name>$PROJ_DIR$/../../app_config.h</name>
+										<name>$PROJ_DIR$/../../conf_trx_access.h</name>
 									</file>
 									<file>
-										<name>$PROJ_DIR$/../../conf_trx_access.h</name>
+										<name>$PROJ_DIR$/../../app_config.h</name>
 									</file>
 								</group>
 							</group>
@@ -2622,6 +2622,9 @@
 						<name>$PROJ_DIR$/../../../../../../../include/ieee_const.h</name>
 					</file>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../../include/tal_build_config.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../../include/mac_build_config.h</name>
 					</file>
 					<file>
@@ -2631,7 +2634,7 @@
 						<name>$PROJ_DIR$/../../../../../../../include/return_val.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../../include/tal_build_config.h</name>
+						<name>$PROJ_DIR$/../../../../../../../include/ieee_154g.h</name>
 					</file>
 				</group>
 			</group>

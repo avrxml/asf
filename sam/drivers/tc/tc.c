@@ -3,7 +3,7 @@
  *
  * \brief SAM Timer Counter (TC) driver.
  *
- * Copyright (c) 2011-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #include <assert.h>
 #include "tc.h"
@@ -64,7 +67,7 @@ extern "C" {
  * \param[in] ul_mode    Control mode register bitmask value to set
  *
  * \note For more information regarding <i>ul_mode</i> configuration refer to
- * the section  entitled "Channel Mode Register: Capture Mode" and.or section
+ * the section entitled "Channel Mode Register: Capture Mode" and/or section
  * "Waveform Operating Mode" in the device-specific datasheet.
  *
  * \note If the TC is configured for waveform generation then the external event
@@ -479,7 +482,7 @@ uint32_t tc_get_status(
  * Finds the best MCK divisor given the timer frequency and MCK. The result
  * is guaranteed to satisfy the following equation:
  * \code (MCK / (DIV * 65536)) <= freq <= (MCK / DIV) \endcode
- * with DIV being the lowest possible value, to maximize timing adjust resolution.
+ * With DIV being the lowest possible value, to maximize timing adjust resolution.
  *
  * \param[in] ul_freq     Desired timer frequency
  * \param[in] ul_mck      Master clock frequency

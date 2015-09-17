@@ -1,4 +1,7 @@
 Advanced usage instructions for the Independent JPEG Group's JPEG software
+ /**
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 ==========================================================================
 
 This file describes cjpeg's "switches for wizards".

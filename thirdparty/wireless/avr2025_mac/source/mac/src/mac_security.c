@@ -5,7 +5,7 @@
  *
  * This file handles MAC security according to IEEE 802.15.4-2006.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,7 +44,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -470,13 +470,13 @@ retval_t mac_secure(frame_info_t *frame, uint8_t *mac_payload_ptr,
 		memcpy(enc_data_test, text_header,
 				(hdr_len_test + msdu_length));
 		stb_ccm_secure( enc_data_test, /* plain text header (string a)
-		                                *and payload concatenated */
+		                                * and payload concatenated */
 				nonce_test,
 				key_local,         /* security_key */
 				hdr_len_test,         /* plain text header
-		                                       *length */
+		                                       * length */
 				msdu_length,         /* Length of payload to be
-		                                      *encrypted */
+		                                      * encrypted */
 				SecurityLevel,         /* security level **/
 				AES_DIR_ENCRYPT);
 	}
@@ -543,18 +543,19 @@ retval_t mac_secure(frame_info_t *frame, uint8_t *mac_payload_ptr,
 			stb_ccm_secure(enc_data,         /* plain text header
 				                          * (string a)
 				                          * and payload
-				                          *concatenated */
+				                          * concatenated */
 					nonce,
 					current_key,         /*security_key */
 					hdr_len,         /* plain text header
-				                          *length */
+				                          * length */
 					pmdr->msduLength,         /* Length of
 				                                   * payload
 				                                   * to be
-				                                   *encrypted */
+				                                   * encrypted
+				                                   **/
 					pmdr->SecurityLevel,         /* security
-				                                     * level
-				                                     **/
+				                                      * level
+				                                      **/
 					AES_DIR_ENCRYPT);
 		}
 		mac_sec_pib.FrameCounter++;
@@ -578,18 +579,19 @@ retval_t mac_secure(frame_info_t *frame, uint8_t *mac_payload_ptr,
 			stb_ccm_secure(enc_data,         /* plaintext header
 				                          * (string a)
 				                          * and payload
-				                          *concatenated */
+				                          * concatenated */
 					nonce,
 					current_key,         /*security_key */
 					hdr_len,         /* plaintext header
-				                          *length */
+				                          * length */
 					pmdr->msduLength,         /* Length of
 				                                   * payload
 				                                   * to be
-				                                   *encrypted */
+				                                   * encrypted
+				                                   **/
 					pmdr->SecurityLevel,         /* security
-				                                     * level
-				                                     **/
+				                                      * level
+				                                      **/
 					AES_DIR_ENCRYPT);
 		}
 
@@ -615,7 +617,7 @@ retval_t mac_secure(frame_info_t *frame, uint8_t *mac_payload_ptr,
  *  @param Pointer to the key descriptor
  *
  *  @return retval_t MAC_SUCCESS or MAC_UNSUPPORTED_SECURITY or
- *MAC_UNAVAILABLE_KEY
+ * MAC_UNAVAILABLE_KEY
  *
  */
 static inline retval_t outgoing_key_retrieval(mcps_data_req_t *pmdr,
@@ -624,7 +626,8 @@ static inline retval_t outgoing_key_retrieval(mcps_data_req_t *pmdr,
 	uint8_t key_lookup_data_size;
 	uint8_t lookup_data[9] = {0};
 	mac_key_table_t *curr_key_desc;
-	if (pmdr->KeyIdMode == KEY_ID_MODE_0) { /* implicit key identification */
+	if (pmdr->KeyIdMode == KEY_ID_MODE_0) { /* implicit key identification
+		                                 **/
 		switch (pmdr->DstAddrMode) {
 			/* 1) is not applicable for ZIP */
 			/* 2) is not applicable for ZIP */
@@ -646,18 +649,26 @@ static inline retval_t outgoing_key_retrieval(mcps_data_req_t *pmdr,
 						>> 8);
 				lookup_data[4] = 0x00;
 				key_lookup_data_size = FIVE_OCTET_LOOK_UP; /*
-				                                            * key
-				                                            * lookup
-				                                            * size
+				                                            *
+				                                            *key
+				                                            *
+				                                            *lookup
+				                                            *
+				                                            *size
 				                                            * =
 				                                            * 5
 				                                            * ->
-				                                            * key
-				                                            * lookup
-				                                            * data
-				                                            * size
+				                                            *
+				                                            *key
+				                                            *
+				                                            *lookup
+				                                            *
+				                                            *data
+				                                            *
+				                                            *size
 				                                            * =
-				                                            * 0 */
+				                                            * 0
+				                                            **/
 			} else if (mac_sec_pib.PANCoordShortAddress ==
 					NO_SHORT_ADDR) {
 				memcpy(&lookup_data[0],
@@ -666,32 +677,39 @@ static inline retval_t outgoing_key_retrieval(mcps_data_req_t *pmdr,
 						8);
 				lookup_data[8] = 0x00;
 				key_lookup_data_size = NINE_OCTET_LOOK_UP; /*
-				                                            * key
-				                                            * lookup
-				                                            * size
+				                                            *
+				                                            *key
+				                                            *
+				                                            *lookup
+				                                            *
+				                                            *size
 				                                            * =
 				                                            * 9
 				                                            * ->
-				                                            * key
-				                                            * lookup
-				                                            * data
-				                                            * size
+				                                            *
+				                                            *key
+				                                            *
+				                                            *lookup
+				                                            *
+				                                            *data
+				                                            *
+				                                            *size
 				                                            * =
-				                                            * 1 */
+				                                            * 1
+				                                            **/
 			}
 			break;
-
 #endif
 		/* 7.5.8.2.2 -  a.3 */
 		case FCF_SHORT_ADDR:
 			/* lookup_data: Dest PANId right-concatenated */
 			lookup_data[1] = (uint8_t)pmdr->DstPANId; /* LSB */
 			lookup_data[0] = (uint8_t)(pmdr->DstPANId >> 8); /* MSB
-			                                                  **/
+			                                                 **/
 			/* 2-octet dest addr right-concatenated */
 			lookup_data[3] = (uint8_t)pmdr->DstAddr; /* LSB */
 			lookup_data[2] = (uint8_t)(pmdr->DstAddr >> 8); /* MSB
-			                                                 **/
+			                                                **/
 			lookup_data[4] = 0x00; /* single octet 0x00 */
 			key_lookup_data_size = FIVE_OCTET_LOOK_UP; /* key lookup
 			                                            * size = 5
@@ -709,16 +727,17 @@ static inline retval_t outgoing_key_retrieval(mcps_data_req_t *pmdr,
 			                                            * size = 9
 			                                            * -> key
 			                                            * lookup
-			                                            *data size =
-			                                            *1 */
+			                                            * data size
+			                                            *=
+			                                            * 1 */
 			break;
 
 		default:
 			return MAC_UNSUPPORTED_SECURITY; /* applies for ZIP only
-			                                  **/
+			                                 **/
 		}
 	} else if (pmdr->KeyIdMode == KEY_ID_MODE_1) { /* explicit key
-		                                        *identification */
+		                                        * identification */
 		/*
 		 * lookup_data:
 		 * 8-octet of macDefaultKeySource right-concatenated with
@@ -728,6 +747,7 @@ static inline retval_t outgoing_key_retrieval(mcps_data_req_t *pmdr,
 			lookup_data[i] = mac_sec_pib.DefaultKeySource[i];
 		}
 		lookup_data[KEY_SRC_LEN_8] = pmdr->KeyIndex; /*
+		                                              *
 		                                              *tx_frame->key_id[0];
 		                                              **/
 		key_lookup_data_size = NINE_OCTET_LOOK_UP; /* key lookup size =
@@ -931,7 +951,7 @@ static inline retval_t unsecure_frame(parse_t *mac_parse_data_buf,
 
 	/*
 	 * Create Nonce - Attentation: byte order is inverse in comparison to
-	 *RF4CE
+	 * RF4CE
 	 * RF4CE: Little endian
 	 */
 	uint8_t *addr_ptr;
@@ -949,7 +969,6 @@ static inline retval_t unsecure_frame(parse_t *mac_parse_data_buf,
 
 		addr_ptr = (uint8_t *)&coord_ieee_address;
 	}
-
 #endif
 	uint8_t m = get_mic_length(mac_parse_data_buf->sec_ctrl.sec_level);
 
@@ -964,29 +983,43 @@ static inline retval_t unsecure_frame(parse_t *mac_parse_data_buf,
 
 		uint8_t sec_hdr_len = SEC_CTRL_FLD_LEN + FRAME_COUNTER_LEN +
 				mac_parse_data_buf->key_id_len;                                               /*
-			                                                                                       * 5
-			                                                                                       * =
-			                                                                                       * sec
-			                                                                                       * ctrl
-			                                                                                       * +
-			                                                                                       * frame
-			                                                                                       * counter */
+			                                                                                       *
+			                                                                                       *5
+			                                                                                       *
+			                                                                                       *=
+			                                                                                       *
+			                                                                                       *sec
+			                                                                                       *
+			                                                                                       *ctrl
+			                                                                                       *
+			                                                                                       *+
+			                                                                                       *
+			                                                                                       *frame
+			                                                                                       *
+			                                                                                       *counter
+			                                                                                       **/
 		uint8_t mhr_len = mac_payload - mpdu + sec_hdr_len;
 		uint8_t encryp_payload_len = mac_parse_data_buf->mpdu_length -
 				mhr_len - m - CRC_LEN;                                                 /*
-			                                                                                * 2
-			                                                                                * =
-			                                                                                * CRC */
+			                                                                                *
+			                                                                                *2
+			                                                                                *
+			                                                                                *=
+			                                                                                *
+			                                                                                *CRC
+			                                                                                **/
 
 		if (stb_ccm_secure(mpdu, /* plaintext header (string a) and
-			                  *payload concatenated */
+			                  * payload concatenated */
 				nonce,
 				current_key,    /* security_key */
 				mhr_len,    /* plaintext header length */
 				encryp_payload_len,    /* Length of payload to
-			                                *be encrypted */
+			                                * be encrypted */
 				mac_parse_data_buf->sec_ctrl.sec_level,    /*
+			                                                    *
 			                                                    *security
+			                                                    *
 			                                                    *level
 			                                                    **/
 				AES_DIR_DECRYPT)
@@ -1012,20 +1045,32 @@ static inline retval_t unsecure_frame(parse_t *mac_parse_data_buf,
 
 		uint8_t sec_hdr_len = SEC_CTRL_FLD_LEN + FRAME_COUNTER_LEN + \
 				mac_parse_data_buf->key_id_len;                                             /*
-			                                                                                     * 5
-			                                                                                     * =
-			                                                                                     * sec
-			                                                                                     * ctrl
-			                                                                                     * +
-			                                                                                     * frame
-			                                                                                     * counter */
+			                                                                                     *
+			                                                                                     *5
+			                                                                                     *
+			                                                                                     *=
+			                                                                                     *
+			                                                                                     *sec
+			                                                                                     *
+			                                                                                     *ctrl
+			                                                                                     *
+			                                                                                     *+
+			                                                                                     *
+			                                                                                     *frame
+			                                                                                     *
+			                                                                                     *counter
+			                                                                                     **/
 
 		uint8_t mhr_len = mac_payload - mpdu + sec_hdr_len;
 		uint8_t encryp_payload_len = mac_parse_data_buf->mpdu_length -
 				mhr_len - m - CRC_LEN;                                                                 /*
-			                                                                                                * 2
-			                                                                                                * =
-			                                                                                                * CRC */
+			                                                                                                *
+			                                                                                                *2
+			                                                                                                *
+			                                                                                                *=
+			                                                                                                *
+			                                                                                                *CRC
+			                                                                                                **/
 
 		/* calculate the Fixed Field of the GTS Length and Pending
 		 * Address Field Length and
@@ -1056,22 +1101,27 @@ static inline retval_t unsecure_frame(parse_t *mac_parse_data_buf,
 		beacon_add_len += pending_addr_len + gts_field_len;
 
 		if (stb_ccm_secure(mpdu, /* plaintext header (string a) and
-			                  *payload concatenated */
+			                  * payload concatenated */
 				nonce,
 				current_key,    /* security key */
 				(mhr_len + beacon_add_len),    /* plaintext
-			                                        *header length
+			                                        * header length
 			                                        **/
 				(encryp_payload_len - beacon_add_len),    /*
+			                                                   *
 			                                                   *Length
-			                                                   *of
+			                                                   * of
+			                                                   *
 			                                                   *payload
-			                                                   *to
-			                                                   *be
+			                                                   * to
+			                                                   * be
+			                                                   *
 			                                                   *encrypted
 			                                                   **/
 				mac_parse_data_buf->sec_ctrl.sec_level,    /*
+			                                                    *
 			                                                    *security
+			                                                    *
 			                                                    *level
 			                                                    **/
 				AES_DIR_DECRYPT)
@@ -1113,7 +1163,7 @@ static inline retval_t unsecure_frame(parse_t *mac_parse_data_buf,
  *
  *  @param mac_parse_data_buf Structure to hold the mac Auxiliary header & data
  *  @param device_desc Structure to hold the device key, device usage list, key
- *usage list
+ * usage list
  *  @param key_device_desc structure to hold the KeyDeviceDescriptor
  *
  * @return MAC_UNSUPPORTED_SECURITY or FAILURE, MAC_SUCCESS, MAC_UNAVAILABLE_KEY
@@ -1136,7 +1186,9 @@ static inline retval_t incoming_sec_material_retrieval(
 	mac_key_device_desc_t *curr_key_device_desc;
 	/* 7.5.8.2.3 (a) & (b) */
 	if (mac_parse_data_buf->sec_ctrl.key_id_mode == KEY_ID_MODE_0) { /*
-	                                                                  * implicit */
+		                                                          *
+		                                                          *implicit
+		                                                          **/
 		switch (mac_parse_data_buf->src_addr_mode) {
 		/* 1) is not applicable for ZIP */
 		/* 2) is not applicable for ZIP */
@@ -1162,14 +1214,14 @@ static inline retval_t incoming_sec_material_retrieval(
 						>> 8);
 				lookup_data[4] = 0x00;
 				lookup_data_size = FIVE_OCTET_LOOK_UP; /* key
-					                                * lookup
-					                                * size =
-					                                * 5 ->
-					                                * key
-					                                * lookup
-					                                * data
-					                                * size =
-					                                * 0 */
+					                               * lookup
+					                               * size =
+					                               * 5 ->
+					                               * key
+					                               * lookup
+					                               * data
+					                               * size =
+					                               * 0 */
 			} else if (mac_sec_pib.PANCoordShortAddress ==
 					NO_SHORT_ADDR) {
 				memcpy(&lookup_data[0],
@@ -1178,14 +1230,14 @@ static inline retval_t incoming_sec_material_retrieval(
 						8);
 				lookup_data[8] = 0x00;
 				lookup_data_size = NINE_OCTET_LOOK_UP; /* key
-					                                * lookup
-					                                * size =
-					                                * 9 ->
-					                                * key
-					                                * lookup
-					                                * data
-					                                * size =
-					                                * 1 */
+					                               * lookup
+					                               * size =
+					                               * 9 ->
+					                               * key
+					                               * lookup
+					                               * data
+					                               * size =
+					                               * 1 */
 			}
 		}
 		break;
@@ -1194,26 +1246,35 @@ static inline retval_t incoming_sec_material_retrieval(
 		{
 			/* PAN Id: TAL handles PAN ID compression issue */
 			lookup_data[1] = (uint8_t)mac_parse_data_buf->src_panid; /*
-				                                                  * LSB */
+				                                                  *
+				                                                  *LSB
+				                                                  **/
 			lookup_data[0]
 				= (uint8_t)(mac_parse_data_buf->src_panid >>
 					8);                                         /*
-				                                                     * MSB */
+				                                                     *
+				                                                     *MSB
+				                                                     **/
 			/* 2-octet dest addr right-concatenated */
 			lookup_data[3]
 				= (uint8_t)mac_parse_data_buf->src_addr.
 					short_address;                                    /*
-				                                                           * LSB */
+				                                                           *
+				                                                           *LSB
+				                                                           **/
 			lookup_data[2]
 				= (uint8_t)(mac_parse_data_buf->src_addr.
 					short_address
 					>> 8);                                                   /*
-				                                                                  * MSB */
+				                                                                  *
+				                                                                  *MSB
+				                                                                  **/
 			lookup_data[4] = 0x00; /* single octet 0x00 */
 			lookup_data_size = FIVE_OCTET_LOOK_UP; /* key lookup
 				                                * size = 5 ->
 				                                * key lookup
-				                                * data size = 0 */
+				                                * data size = 0
+				                                **/
 		}
 		break;
 
@@ -1227,7 +1288,8 @@ static inline retval_t incoming_sec_material_retrieval(
 			lookup_data_size = NINE_OCTET_LOOK_UP; /* key lookup
 				                                * size = 9 ->
 				                                * key lookup
-				                                * data size = 1 */
+				                                * data size = 1
+				                                **/
 		}
 		break;
 
@@ -1309,19 +1371,27 @@ static inline retval_t incoming_sec_material_retrieval(
 	case FCF_SHORT_ADDR:
 	{
 		device_lookup_data[1] = (uint8_t)mac_parse_data_buf->src_panid; /*
-			                                                         * LSB */
+			                                                         *
+			                                                         *LSB
+			                                                         **/
 		device_lookup_data[0]
 			= (uint8_t)(mac_parse_data_buf->src_panid >>
 				8);                                                    /*
-			                                                                * MSB */
+			                                                                *
+			                                                                *MSB
+			                                                                **/
 		/* 2-octet dest addr right-concatenated */
 		device_lookup_data[3]
 			= (uint8_t)mac_parse_data_buf->src_addr.short_address;               /*
-			                                                                      * LSB */
+			                                                                      *
+			                                                                      *LSB
+			                                                                      **/
 		device_lookup_data[2]
 			= (uint8_t)(mac_parse_data_buf->src_addr.short_address
 				>> 8);                                                              /*
-			                                                                             * MSB */
+			                                                                             *
+			                                                                             *MSB
+			                                                                             **/
 		device_lookup_data_size = LOOK_UP_SIZE_4;
 	}
 	break;
@@ -1361,7 +1431,7 @@ static inline retval_t incoming_sec_material_retrieval(
  *  This function will checks the received key descriptor against with
  *  with the available key descriptor based  on the lookup data size.
  *  If device lookup data match found then based on the match corresponding key
- *will used.
+ * will used.
  *
  *  @param lookup_data device lookup data
  *  @param lookup_data_size Incoming frame lookup data size
@@ -1377,8 +1447,8 @@ static retval_t key_descriptor_lookup(uint8_t *lookup_data,
 {
 	/* Get key from KeyDescriptor as 7.5.8.2.5 */
 	for (uint8_t i = 0; i < mac_sec_pib.KeyTableEntries; i++) {
-		for (uint8_t k =
-				0;
+		for (uint8_t k
+					= 0;
 				k <
 				mac_sec_pib.KeyTable[i].KeyIdLookupListEntries;
 				k++) {
@@ -1474,7 +1544,7 @@ static retval_t blacklist_checking_procedure(uint8_t *device_lookup_data,
  * info
  *
  *  This function validates the incoming frame info of PANID and Short Address
- *or Extended
+ * or Extended
  *  IEEE Address against with associated device info.
  *
  *  @param device_desc device descriptor of associated device
@@ -1497,7 +1567,9 @@ static retval_t device_descriptor_lookup(mac_device_desc_t device_desc,
 		/* 2-octet dest addr right-concatenated */
 		lookup_data[3] = (uint8_t)device_desc.ShortAddress; /* LSB */
 		lookup_data[2] = (uint8_t)(device_desc.ShortAddress >> 8); /*
-		                                                            * MSB */
+		                                                            *
+		                                                            *MSB
+		                                                            **/
 		compare
 			= memcmp(device_lookup_data, lookup_data,
 				LOOK_UP_SIZE_4);
@@ -1612,8 +1684,9 @@ bool build_sec_mcps_data_frame(mcps_data_req_t *mpdr, frame_info_t *mframe)
 
 	if (fcf & FCF_SECURITY_ENABLED) {
 		uint8_t keyid_len;
+
 		/* Security Fields are available so extract the aux security
-		 *header */
+		 * header */
 		mpdr->SecurityLevel = (*mpdu_ptr & SEC_CTRL_SEC_LVL_MASK);
 		mpdr->KeyIdMode
 			= ((*mpdu_ptr++ >>

@@ -3,7 +3,7 @@
  *
  * \brief Communication between USART and SPI slave/I2C slave Demo.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -122,6 +122,9 @@
  * \section appdoc_sam0_com_usart_spi_i2c_slave_demo_contactinfo Contact Information
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "asf.h"
@@ -272,7 +275,7 @@ static void usart_read_callback(const struct usart_module *const usart_module)
  *
  * \param module SPI module causing the interrupt
  */
-static void spi_slave_finish_callback(const struct spi_module *const module)
+static void spi_slave_finish_callback(struct spi_module *const module)
 {
 	spi_slave_rd_flag = true;
 	spi_slave_init();

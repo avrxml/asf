@@ -3,7 +3,7 @@
  *
  * \brief SAM4L Liquid Crystal Display driver (LCDCA).
  *
- * Copyright (c) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,17 +40,24 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef LCDCA_H_INCLUDED
 #define LCDCA_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_lcdca_group SAM4L Liquid Crystal Display (LCDCA)
+ * \defgroup asfdoc_sam_drivers_lcdca_group SAM4L Liquid Crystal Display (LCDCA) Driver
  *
- * This driver for SAM4L devices provides an interface for the configuration
- * and management of the device's Liquid Crystal Display Controller functionality.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides an interface for 
+ * the configuration and management of the device's Liquid Crystal Display Controller 
+ * functionality.
  *
  * The LCD controller is intended for monochrome passive Liquid Crystal Displays
  * (LCDs) with up to four common terminals and up to 40 segment terminals.
+ *
+ * Devices from the following series can use this module:
+ * - Atmel | SMART SAM4L
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam_drivers_lcdca_prerequisites
@@ -172,48 +179,48 @@
 extern "C" {
 #endif
 
-/** \name LCDCA address limits */
+/** \name LCDCA Address Limits */
 /* @{ */
-/** Maximum number of common lines.*/
+/** Maximum number of common lines*/
 #define LCDCA_MAX_NR_OF_COM    4
-/** Maximum number of segment lines. */
+/** Maximum number of segment lines */
 # define LCDCA_MAX_NBR_OF_SEG  40
 /* @} */
 
-/** \name LCDCA display digit.*/
+/** \name LCDCA Display Digit*/
 /* @{ */
-/** 7-segment display with three common terminals. */
+/** 7-segment display with three common terminals */
 #define LCDCA_TDG_7SEG3COM        0
-/** 7-segment display with four common terminals. */
+/** 7-segment display with four common terminals */
 #define LCDCA_TDG_7SEG4COM        1
-/** 14-segment display with four common terminals. */
+/** 14-segment display with four common terminals */
 #define LCDCA_TDG_14SEG4COM       2
-/** 16-segment display with three common terminals. */
+/** 16-segment display with three common terminals */
 #define LCDCA_TDG_16SEG3COM       3
 /* @} */
 
-/** \name LCDCA Timer resource. */
+/** \name LCDCA Timer Resource */
 /* @{ */
-/** Timer FC0 resource. */
+/** Timer FC0 resource */
 #define LCDCA_TIMER_FC0        0
-/** Timer FC1 resource. */
+/** Timer FC1 resource */
 #define LCDCA_TIMER_FC1        1
-/** Timer FC2 resource. */
+/** Timer FC2 resource */
 #define LCDCA_TIMER_FC2        2
 /* @} */
 
-/** \name LCDCA CMCFG Digit reverse mode */
+/** \name LCDCA CMCFG Digit Reverse Mode */
 /* @{ */
-#define LCDCA_CMCFG_DREV_LEFT   1 /**< Decrement the segment index. */
-#define LCDCA_CMCFG_DREV_RIGHT  0 /**< Increment the segment index. */
+#define LCDCA_CMCFG_DREV_LEFT   1 /**< Decrement the segment index */
+#define LCDCA_CMCFG_DREV_RIGHT  0 /**< Increment the segment index */
 /* @} */
 
-/** LCDCA automated character DMA Channel (sequential or scrolling). */
+/** LCDCA automated character DMA Channel (sequential or scrolling) */
 #ifndef LCDCA_AUTOMATED_CHAR_DMA_CH
 #define LCDCA_AUTOMATED_CHAR_DMA_CH  3
 #endif
 
-/** \name LCDCA duty selection. */
+/** \name LCDCA Duty Selection. */
 /* @{ */
 #define LCDCA_DUTY_1_4     0   /**< Duty=1/4, Bias=1/3, COM0:3 */
 #define LCDCA_DUTY_STATIC  1   /**< Duty=Static, Bias=Static, COM0 */
@@ -221,75 +228,75 @@ extern "C" {
 #define LCDCA_DUTY_1_3     3   /**< Duty=1/3, Bias=1/3, COM0:2 */
 /* @} */
 
-/** LCDCA controller configuration structure. */
+/** LCDCA controller configuration structure */
 typedef struct lcdca_config {
-	/** Number of SEGx pin connections used. */
+	/** Number of SEGx pin connections used */
 	uint8_t port_mask;
-	/** External bias (false: internal gen, true: external gen). */
+	/** External bias (false: internal gen, true: external gen) */
 	bool x_bias;
-	/** Wave mode (false: low power waveform, true: standard waveform). */
+	/** Wave mode (false: low power waveform, true: standard waveform) */
 	bool lp_wave;
-	/** Duty type selection. */
+	/** Duty type selection */
 	uint8_t duty_type;
-	/** Clock source prescale bypass enable/disable. */
+	/** Clock source prescale bypass enable/disable */
 	bool lcd_pres;
-	/** Prescale clock source divider. */
+	/** Prescale clock source divider */
 	uint8_t lcd_clkdiv;
-	/** Frame Counter 0. */
+	/** Frame Counter 0 */
 	uint8_t fc0;
-	/** Frame Counter 1. */
+	/** Frame Counter 1 */
 	uint8_t fc1;
-	/** Frame Counter 2. */
+	/** Frame Counter 2 */
 	uint8_t fc2;
-	/** Contrast setting. */
+	/** Contrast setting */
 	int8_t contrast;
 } lcdca_config_t;
 
-/** \name LCDCA Blink Mode. */
+/** \name LCDCA Blink Mode */
 /* @{ */
-/** All LCD segments will blink. */
+/** All LCD segments will blink */
 #define LCDCA_BLINK_FULL       0
-/** Only the selected segment will blink. */
+/** Only the selected segment will blink */
 #define LCDCA_BLINK_SELECTED   LCDCA_BCFG_MODE
 /* @} */
 
-/** Blink configuration structure. */
+/** Blink configuration structure */
 typedef struct lcdca_blink_config {
-	/** LCDCA blink timer. */
+	/** LCDCA blink timer */
 	uint8_t lcd_blink_timer;
-	/** Blink Mode. */
+	/** Blink Mode */
 	uint8_t lcd_blink_mode;
 } lcdca_blink_config_t;
 
-/** \name LCDCA shift register direction. */
+/** \name LCDCA Shift Register Direction */
 /* @{ */
-/** Right direction. */
+/** Right direction */
 #define LCDCA_CSR_RIGHT       LCDCA_CSRCFG_DIR
-/** Left direction. */
+/** Left direction */
 #define LCDCA_CSR_LEFT        0
 /* @} */
 
-/** Circular shift configuration structure. */
+/** Circular shift configuration structure */
 typedef struct lcdca_circular_shift_config {
-	/** LCDCA shift register timer. */
+	/** LCDCA shift register timer */
 	uint8_t lcd_csr_timer;
-	/** Shift direction. */
+	/** Shift direction */
 	uint8_t lcd_csr_dir;
-	/** Size of the circular shift register. */
+	/** Size of the circular shift register */
 	uint8_t size;
-	/** Circular shift register value. */
+	/** Circular shift register value */
 	uint8_t data;
 } lcdca_circular_shift_config_t;
 
-/** \name LCDCA automated mode. */
+/** \name LCDCA Automated Mode. */
 /* @{ */
-/** Sequential character string display mode. */
+/** Sequential character string display mode */
 #define LCDCA_AUTOMATED_MODE_SEQUENTIAL    0
-/** Scrolling character string display mode. */
+/** Scrolling character string display mode */
 #define LCDCA_AUTOMATED_MODE_SCROLLING     1
 /* @} */
 
-/** \name LCDCA automated direction. */
+/** \name LCDCA Automated Direction. */
 /* @{ */
 /** Digit direction is reversed. */
 #define LCDCA_AUTOMATED_DIR_REVERSE        1
@@ -299,26 +306,26 @@ typedef struct lcdca_circular_shift_config {
 
 /** Automated character display configuration structure. */
 typedef struct lcdca_automated_char_config {
-	/** Automated display mode selection. */
+	/** Automated display mode selection */
 	uint8_t automated_mode;
-	/** Timer selected for automated mode. */
+	/** Timer selected for automated mode */
 	uint8_t automated_timer;
-	/** Type of digit selected. */
+	/** Type of digit selected */
 	uint8_t lcd_tdg;
-	/** Start segment. */
+	/** Start segment */
 	uint8_t stseg;
 	/**
 	 * The number of steps to use in scrolling mode.
 	 * STEPS = string length - DIGN + 1
 	 */
 	uint8_t steps;
-	/** Number of digits used in the display. */
+	/** Number of digits used in the display */
 	uint8_t dign;
-	/** Digit display direction. */
+	/** Digit display direction */
 	uint8_t dir_reverse;
 } lcdca_automated_char_config_t;
 
-/** LCDCA interrupt callback type. */
+/** LCDCA interrupt callback type */
 typedef void (*lcdca_callback_t)(void);
 
 void lcdca_clk_init(void);
@@ -559,7 +566,7 @@ static inline void lcdca_disable_interrupt(void)
  * This is a list of the available Quick Start Guides (QSGs) and example
  * applications for \ref asfdoc_sam_drivers_lcdca_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  *  - \subpage asfdoc_sam_drivers_lcdca_qsg
@@ -574,6 +581,11 @@ static inline void lcdca_disable_interrupt(void)
  *		<th>Comments</td>
  *	</tr>
  *	<tr>
+ *		<td>42296B</td>
+ *		<td>07/2015</td>
+ *		<td>Updated title of application note and added list of supported devices</td>
+ *	</tr>
+ *	<tr>
  *		<td>42296A</td>
  *		<td>05/2014</td>
  *		<td>Initial document release</td>
@@ -583,7 +595,7 @@ static inline void lcdca_disable_interrupt(void)
  */
 
 /**
- * \page asfdoc_sam_drivers_lcdca_qsg Quick Start Guide for the LCDCA driver
+ * \page asfdoc_sam_drivers_lcdca_qsg Quick Start Guide for the LCDCA Driver
  *
  * This is the quick start guide for the \ref asfdoc_sam_drivers_lcdca_group, with
  * step-by-step instructions on how to configure and use the driver for

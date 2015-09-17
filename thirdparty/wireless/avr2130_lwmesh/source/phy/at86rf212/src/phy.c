@@ -3,7 +3,7 @@
  *
  * \brief AT86RF212 PHY implementation
  *
- * Copyright (C) 2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -84,6 +84,7 @@ static uint8_t phyModulation;
 *****************************************************************************/
 void PHY_Init(void)
 {
+	uint8_t reg;
 	trx_spi_init();
 	PhyReset();
 
@@ -96,7 +97,10 @@ void PHY_Init(void)
 	} while (TRX_STATUS_TRX_OFF !=
 			(phyReadRegister(TRX_STATUS_REG) & TRX_STATUS_MASK));
 
-	phyWriteRegister(PHY_TX_PWR_REG, 0x41);
+	reg = phyReadRegister(RF_CTRL_0_REG) & ~0x03;
+	phyWriteRegister(RF_CTRL_0_REG, reg | 0X03); /* GC_TX_OFFS =3 for BPSK */
+
+	phyWriteRegister(PHY_TX_PWR_REG, 0x42); /* 3dBm */
 
 	phyWriteRegister(TRX_CTRL_1_REG,
 			(1 << TX_AUTO_CRC_ON) | (3 << SPI_CMD_MODE) |
@@ -156,16 +160,6 @@ void PHY_SetShortAddr(uint16_t addr)
 	phyWriteRegister(SHORT_ADDR_0_REG, d[0]);
 	phyWriteRegister(SHORT_ADDR_1_REG, d[1]);
 	phyWriteRegister(CSMA_SEED_0_REG, d[0] + d[1]);
-}
-
-/*************************************************************************//**
-*****************************************************************************/
-void PHY_SetTxPower(uint8_t txPower)
-{
-	uint8_t reg;
-
-	reg = phyReadRegister(PHY_TX_PWR_REG) & ~0x0f;
-	phyWriteRegister(PHY_TX_PWR_REG, reg | txPower);
 }
 
 /*************************************************************************//**

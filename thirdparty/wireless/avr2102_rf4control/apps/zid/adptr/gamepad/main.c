@@ -3,7 +3,7 @@
  *
  * @brief ZID USB HID Adaptor Application
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,7 +40,8 @@
  * \asf_license_stop
  *
  */
- /**
+
+/**
  * \mainpage
  * \section preface Preface
  * This is the reference manual for ZID USB HID adaptor application.
@@ -48,17 +49,24 @@
  * - main.c                      Application main file.
  * - vendor_data.c               Vendor Specific API functions
  * \section intro Application Introduction
- * When ZID PC adaptor is plugged into a PC,it enumerates as a HID compliant 
- * composite device(HID Compliant keyboard,HID compliant Mouse and HID compliant consumer control device)and
- * a green LED on the dongle will blink. It indicates that after initialization pairing procedure is in progress. 
- * If it finds a remote and pairing is successful the green led will become stable.
- * Once the pairing is successful the adaptor will receive ZID reports from class device/ZID Remote 
- * and redirect the HID reports to PC. ZID reports triggered by media player keys( volume up/down/mute keys, 
- * play / pause / stop /next/previous keys are handled by supporting applications (for example, Windows master volume control, media player, 
- * etc...) Along with media player remote, the ZID Remote application also demonstrates Power point(PPT) remote
+ * When ZID PC adaptor is plugged into a PC,it enumerates as a HID compliant
+ * composite device(HID Compliant keyboard,HID compliant Mouse and HID compliant
+ *consumer control device)and
+ * a green LED on the dongle will blink. It indicates that after initialization
+ *pairing procedure is in progress.
+ * If it finds a remote and pairing is successful the green led will become
+ *stable.
+ * Once the pairing is successful the adaptor will receive ZID reports from
+ *class device/ZID Remote
+ * and redirect the HID reports to PC. ZID reports triggered by media player
+ *keys( volume up/down/mute keys,
+ * play / pause / stop /next/previous keys are handled by supporting
+ *applications (for example, Windows master volume control, media player,
+ * etc...) Along with media player remote, the ZID Remote application also
+ *demonstrates Power point(PPT) remote
  * and Pointing and clicking functionality as mouse.
  * Warm reset,Multiple devices
- *  
+ *
  * ZID PC adaptor can be used with the ZID device application.
  * \section api_modules Application Dependent Modules
  * - \ref group_rf4control
@@ -70,18 +78,18 @@
  * \section references References
  * 1)  IEEE Std 802.15.4-2006 Part 15.4: Wireless Medium Access Control (MAC)
  *     and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal
- *Area
+ * Area
  *     Networks (WPANs).\n\n
- * 2)  AVR Wireless Support <A href="http://avr@atmel.com">avr@atmel.com</A>.\n
+ * 2)  <a href="http://www.atmel.com/design-support/">Atmel Design
+ *Support</a>.\n
  *
  * \section contactinfo Contact Information
  * For further information,visit
  * <A href="http://www.atmel.com/avr">www.atmel.com</A>.\n
  */
 
-
 /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -99,7 +107,6 @@
 #include "pb_pairing.h"
 #include "common_sw_timer.h"
 #include "zid.h"
-
 
 /* === Macros ============================================================== */
 #define PAIR_WAIT_PERIOD    500000
@@ -120,16 +127,14 @@
 #define LED_DATA                        (LED0)
 #endif
 /* === TYPES =============================================================== */
-typedef enum node_status_tag
-{
-    IDLE = 0,
-    RESETTING,
-    POWER_SAVE,
-    STARTING,
-    ZID_CONNECTING,
-    ALL_IN_ONE_START,
-    WARM_STARTING
-  
+typedef enum node_status_tag {
+	IDLE = 0,
+	RESETTING,
+	POWER_SAVE,
+	STARTING,
+	ZID_CONNECTING,
+	ALL_IN_ONE_START,
+	WARM_STARTING
 } SHORTENUM node_status_t;
 
 /* === Globals ============================================================= */
@@ -138,8 +143,9 @@ static nwk_indication_callback_t nwk_ind;
 static uint8_t number_of_paired_dev = 0;
 
 static node_status_t node_status;
+
 /* This is used to find out the duplicate entry
- on receiving the pairing confirmation */
+ * on receiving the pairing confirmation */
 static bool duplicate_pair_entry = false;
 static uint8_t target_auto_start = true;
 static volatile bool main_b_kbd_enable = false;
@@ -155,8 +161,10 @@ static void zid_indication_callback_init(void);
 static void nlme_unpair_indication(uint8_t PairingRef);
 static void zid_heartbeat_indication(uint8_t PairingRef);
 static void zid_connect_confirm(nwk_enum_t Status, uint8_t PairingRef);
-static void zid_report_data_indication(uint8_t PairingRef, uint8_t num_report_records,
-                                               zid_report_data_record_t *zid_report_data_record_ptr, uint8_t RxLinkQuality, uint8_t RxFlags);
+static void zid_report_data_indication(uint8_t PairingRef,
+		uint8_t num_report_records,
+		zid_report_data_record_t *zid_report_data_record_ptr,
+		uint8_t RxLinkQuality, uint8_t RxFlags);
 
 void zid_standby_leave_indication(void);
 static void nlme_reset_confirm(nwk_enum_t Status);
@@ -164,52 +172,49 @@ static void nlme_start_confirm(nwk_enum_t Status);
 static void app_task(void);
 static void led_handling(void *callback_parameter);
 static void app_alert(void);
+
 /* === Implementation ====================================================== */
 
 /**
  * Main function, initialization and main message loop
  *
  */
-int main (void)
+int main(void)
 {
-    irq_initialize_vectors();
+	irq_initialize_vectors();
 
-    /* Initialize the board.ss
-     * The board-specific conf_board.h file contains the configuration of
-     * the board initialization.
-     */
-     sysclk_init();
-     board_init();
-   
-     sw_timer_init();
-	 
-    if (nwk_init()!= NWK_SUCCESS)
-    {
-        app_alert();
-    }
+	/* Initialize the board.ss
+	 * The board-specific conf_board.h file contains the configuration of
+	 * the board initialization.
+	 */
+	sysclk_init();
+	board_init();
 
-    zid_indication_callback_init();
-    /*
-     * The stack is initialized above, hence the global interrupts are enabled
-     * here.
-     */
-    cpu_irq_enable();
+	sw_timer_init();
+
+	if (nwk_init() != NWK_SUCCESS) {
+		app_alert();
+	}
+
+	zid_indication_callback_init();
+
+	/*
+	 * The stack is initialized above, hence the global interrupts are
+	 *enabled
+	 * here.
+	 */
+	cpu_irq_enable();
 	/* Initializing udc stack as HID composite device*/
 	udc_start();
-    
-   sw_timer_get_id(&APP_TIMER);
 
-    /* Endless while loop */
-	//udi_hid_gpd_up(16);
-    while (1)
-    {    
-		
-		
-         app_task(); /* Application task */
-        nwk_task(); /* RF4CE network layer task */
-		
-		
-    }
+	sw_timer_get_id(&APP_TIMER);
+
+	/* Endless while loop */
+	/* udi_hid_gpd_up(16); */
+	while (1) {
+		app_task(); /* Application task */
+		nwk_task(); /* RF4CE network layer task */
+	}
 }
 
 /**
@@ -217,18 +222,15 @@ int main (void)
  */
 static void app_task(void)
 {
-    if (target_auto_start == true)
-    {
-        target_auto_start = false;
-        node_status = ALL_IN_ONE_START;
-        nlme_reset_request(true 
-                         , (FUNC_PTR)nlme_reset_confirm
-						  );
-        return;
-    }
-           
+	if (target_auto_start == true) {
+		target_auto_start = false;
+		node_status = ALL_IN_ONE_START;
+		nlme_reset_request(true,
+				(FUNC_PTR)nlme_reset_confirm
+				);
+		return;
+	}
 }
-
 
 /**
  * @brief Notify the application of the status of its request to reset the NWK
@@ -239,20 +241,18 @@ static void app_task(void)
 
 static void nlme_reset_confirm(nwk_enum_t Status)
 {
-   if (Status == NWK_SUCCESS)
-    {
-        nlme_start_request(
-                 (FUNC_PTR)nlme_start_confirm
-                   );
-    }
-	else
-	{   
+	if (Status == NWK_SUCCESS) {
+		nlme_start_request(
+				(FUNC_PTR)nlme_start_confirm
+				);
+	} else {
 		/*Something Went wrong sending nlme_reset_request again*/
-		nlme_reset_request(true
-		 , (FUNC_PTR)nlme_reset_confirm
-		 );
+		nlme_reset_request(true,
+				(FUNC_PTR)nlme_reset_confirm
+				);
 	}
 }
+
 /**
  * @brief Notify the application of the status of its request to start the NWK.
  *
@@ -260,58 +260,56 @@ static void nlme_reset_confirm(nwk_enum_t Status)
  */
 static void nlme_start_confirm(nwk_enum_t Status)
 {
-  if (Status == NWK_SUCCESS)
-    {
-       sw_timer_start(APP_TIMER,
-                        PAIR_WAIT_PERIOD,
-                        SW_TIMEOUT_RELATIVE,
-                        (FUNC_PTR)led_handling,
-                        NULL);
-       
-       dev_type_t RecDevTypeList[DEVICE_TYPE_LIST_SIZE];
-       profile_id_t RecProfileIdList[PROFILE_ID_LIST_SIZE];
+	if (Status == NWK_SUCCESS) {
+		sw_timer_start(APP_TIMER,
+				PAIR_WAIT_PERIOD,
+				SW_TIMEOUT_RELATIVE,
+				(FUNC_PTR)led_handling,
+				NULL);
 
-       RecDevTypeList[0] = (dev_type_t)SUPPORTED_DEV_TYPE_0;
-       RecProfileIdList[0] = SUPPORTED_PROFILE_ID_0;
-           
-       node_status = ZID_CONNECTING;
+		dev_type_t RecDevTypeList[DEVICE_TYPE_LIST_SIZE];
+		profile_id_t RecProfileIdList[PROFILE_ID_LIST_SIZE];
 
+		RecDevTypeList[0] = (dev_type_t)SUPPORTED_DEV_TYPE_0;
+		RecProfileIdList[0] = SUPPORTED_PROFILE_ID_0;
 
-       zid_rec_connect_request(APP_CAPABILITIES, RecDevTypeList, RecProfileIdList
-                                     , (FUNC_PTR)zid_connect_confirm
-                              );
-    }
+		node_status = ZID_CONNECTING;
+
+		zid_rec_connect_request(APP_CAPABILITIES, RecDevTypeList,
+				RecProfileIdList,
+				(FUNC_PTR)zid_connect_confirm
+				);
+	}
 }
-
 
 /**
  * @brief Function to handle the LED States based on application state.
- *        
+ *
  *
  * @param callback_parameter  callback parameter if any.
  */
 static void led_handling(void *callback_parameter)
 {
-     switch (node_status)
-     {
-         case ZID_CONNECTING:
-         case ALL_IN_ONE_START:
-            sw_timer_start(APP_TIMER,
-                             PAIR_WAIT_PERIOD,
-                             SW_TIMEOUT_RELATIVE,
-                             (FUNC_PTR)led_handling,
-                             NULL);
-             LED_Toggle(LED_NWK_SETUP);
-             break;
+	switch (node_status) {
+	case ZID_CONNECTING:
+	case ALL_IN_ONE_START:
+		sw_timer_start(APP_TIMER,
+				PAIR_WAIT_PERIOD,
+				SW_TIMEOUT_RELATIVE,
+				(FUNC_PTR)led_handling,
+				NULL);
+		LED_Toggle(LED_NWK_SETUP);
+		break;
 
-         default:
-             sw_timer_stop(APP_TIMER);
-             break;
-     }
+	default:
+		sw_timer_stop(APP_TIMER);
+		break;
+	}
 
-     /* Keep compiler happy */
-     callback_parameter = callback_parameter;
+	/* Keep compiler happy */
+	callback_parameter = callback_parameter;
 }
+
 /**
  * @brief This function decides whether push button pairing request should be
  *        allowed.
@@ -327,186 +325,177 @@ static void led_handling(void *callback_parameter)
  *
  * @return true if pairing is granted; else false
  */
-bool pbp_allow_pairing(nwk_enum_t Status, uint64_t SrcIEEEAddr, uint16_t OrgVendorId,
-                       uint8_t OrgVendorString[7], uint8_t OrgUserString[15],
-                       uint8_t KeyExTransferCount)
+bool pbp_allow_pairing(nwk_enum_t Status, uint64_t SrcIEEEAddr,
+		uint16_t OrgVendorId,
+		uint8_t OrgVendorString[7], uint8_t OrgUserString[15],
+		uint8_t KeyExTransferCount)
 {
-    /* Keep compiler happy */
-    Status = Status;
-    SrcIEEEAddr = SrcIEEEAddr;
-    OrgVendorId = OrgVendorId;
-    OrgVendorString[0] = OrgVendorString[0];
-    OrgUserString[0] = OrgUserString[0];
-    KeyExTransferCount = KeyExTransferCount;
+	/* Keep compiler happy */
+	Status = Status;
+	SrcIEEEAddr = SrcIEEEAddr;
+	OrgVendorId = OrgVendorId;
+	OrgVendorString[0] = OrgVendorString[0];
+	OrgUserString[0] = OrgUserString[0];
+	KeyExTransferCount = KeyExTransferCount;
 
-    return true;
+	return true;
 }
 
 /**
- * @brief This function registers the callback function for indications from the stack.
+ * @brief This function registers the callback function for indications from the
+ *stack.
  *
  */
 static void zid_indication_callback_init(void)
 {
-    zid_ind.zid_heartbeat_indication_cb = zid_heartbeat_indication;
+	zid_ind.zid_heartbeat_indication_cb = zid_heartbeat_indication;
 
-    zid_ind.zid_report_data_indication_cb = zid_report_data_indication;
-    register_zid_indication_callback(&zid_ind);
-    nwk_ind.nlme_unpair_indication_cb = nlme_unpair_indication;
-    zid_ind.zid_standby_leave_indication_cb = zid_standby_leave_indication;
-    register_nwk_indication_callback(&nwk_ind);
+	zid_ind.zid_report_data_indication_cb = zid_report_data_indication;
+	register_zid_indication_callback(&zid_ind);
+	nwk_ind.nlme_unpair_indication_cb = nlme_unpair_indication;
+	zid_ind.zid_standby_leave_indication_cb = zid_standby_leave_indication;
+	register_nwk_indication_callback(&nwk_ind);
 }
 
 /**
  * @brief Notify the application of the removal of link by another device.
  *
  * The NLME-UNPAIR.indication primitive allows the NLME to notify the
- *application
+ * application
  * of the removal of a pairing link by another device.
  *
  * @param PairingRef       Pairing Ref for which entry is removed from pairing
- *table.
+ * table.
  */
 static void nlme_unpair_indication(uint8_t PairingRef)
 {
-  number_of_paired_dev--;
+	number_of_paired_dev--;
 }
+
 /**
  * @brief Notify the application of the status of its heartbeat request.
- *        
+ *
  *
  * @param PairingRef  Pairing reference.
  */
 
 static void zid_heartbeat_indication(uint8_t PairingRef)
 {
-    PairingRef = PairingRef;
+	PairingRef = PairingRef;
 }
 
 /**
  * @brief Notify the application of the status of its connect request.
- *        
+ *
  * @param Status  nwk status.
  * @param PairingRef  Pairing reference.
  */
 
 static void zid_connect_confirm(nwk_enum_t Status, uint8_t PairingRef)
-{  
-  node_status = IDLE;
-  if (Status == NWK_SUCCESS)
-  {
-        if (duplicate_pair_entry == false)
-        {
-            number_of_paired_dev++;
-        }
-        LED_On(LED0);
-      
-  }
- }
- 
+{
+	node_status = IDLE;
+	if (Status == NWK_SUCCESS) {
+		if (duplicate_pair_entry == false) {
+			number_of_paired_dev++;
+		}
+
+		LED_On(LED0);
+	}
+}
 
 /**
  * @brief Notify the application of the status of its standby request.
- *        
+ *
  */
 void zid_standby_leave_indication(void)
 {
-  LED_Off(LED0);
+	LED_Off(LED0);
 }
+
 /**
- * @brief Notify the application when ZID report data is received from the paired device.
- *  
+ * @brief Notify the application when ZID report data is received from the
+ *paired device.
+ *
  * @param PairingRef Pairing reference.
  * @param num_report_records number of Report records.
  * @param *zid_report_data_record_ptr pointer to the report data received.
  * @param  RxLinkQuality    LQI value of the report data frame.
  * @param  RxFlags          Receive flags.
  */
-static void zid_report_data_indication(uint8_t PairingRef, uint8_t num_report_records,
-                                                zid_report_data_record_t *zid_report_data_record_ptr, uint8_t RxLinkQuality, uint8_t RxFlags)
-{          
-   
-                  
-                  
-     for(uint8_t i=0;i<num_report_records;i++)
-     {  
-    
-         switch(zid_report_data_record_ptr->report_desc_identifier)
-         {
-     
-		   case KEYBOARD:
-		   {
-			   keyboard_input_desc_t *keyboard_desc;
-			   
-			   keyboard_desc = (keyboard_input_desc_t *)zid_report_data_record_ptr->report_data;
-			   udi_hid_gpd_buttons(true,keyboard_desc->key_code[0]);
-			   if(keyboard_desc->key_code[1]==0x01)
-			   {
-				    udi_hid_gpd_throttle_move(JOYSTICK_POSITIVE_DISPLACEMENT);
-					//pos =pos+10;
-			   }
-			   else if(keyboard_desc->key_code[1]==0x02)
-			   {
-				     udi_hid_gpd_throttle_move(JOYSTICK_NEGATIVE_DISPLACEMENT);
-					 
-		       }
-			   else if(keyboard_desc->key_code[2]==0x01)
-			   {
-				   udi_hid_gpd_moveY(JOYSTICK_NEGATIVE_DISPLACEMENT);
-			   }
-			   else if(keyboard_desc->key_code[2]==0x02)
-			   {
-				   udi_hid_gpd_moveY(JOYSTICK_POSITIVE_DISPLACEMENT);
-			   }
-			   else if(keyboard_desc->key_code[2] ==0x03)
-			   {
-				   udi_hid_gpd_moveX(JOYSTICK_NEGATIVE_DISPLACEMENT);
-			   }
-			   else if(keyboard_desc->key_code[2]==0x04)
-			   {
-				   udi_hid_gpd_moveX(JOYSTICK_POSITIVE_DISPLACEMENT);
-			   }
-			   else
-			   {
-				   //do nothing
-			   }
-			   break;
-		   }
-		 default:
-		 break;
-         }
-         zid_report_data_record_ptr++;
-     }
+static void zid_report_data_indication(uint8_t PairingRef,
+		uint8_t num_report_records,
+		zid_report_data_record_t *zid_report_data_record_ptr,
+		uint8_t RxLinkQuality, uint8_t RxFlags)
+{
+	for (uint8_t i = 0; i < num_report_records; i++) {
+		switch (zid_report_data_record_ptr->report_desc_identifier) {
+		case KEYBOARD:
+		{
+			keyboard_input_desc_t *keyboard_desc;
 
-    RxLinkQuality = RxLinkQuality;
-    RxFlags = RxFlags;
+			keyboard_desc
+				= (keyboard_input_desc_t *)
+					zid_report_data_record_ptr
+					->report_data;
+			udi_hid_gpd_buttons(true, keyboard_desc->key_code[0]);
+			if (keyboard_desc->key_code[1] == 0x01) {
+				udi_hid_gpd_throttle_move(
+						JOYSTICK_POSITIVE_DISPLACEMENT);
+				/* pos =pos+10; */
+			} else if (keyboard_desc->key_code[1] == 0x02) {
+				udi_hid_gpd_throttle_move(
+						JOYSTICK_NEGATIVE_DISPLACEMENT);
+			} else if (keyboard_desc->key_code[2] == 0x01) {
+				udi_hid_gpd_moveY(JOYSTICK_NEGATIVE_DISPLACEMENT);
+			} else if (keyboard_desc->key_code[2] == 0x02) {
+				udi_hid_gpd_moveY(JOYSTICK_POSITIVE_DISPLACEMENT);
+			} else if (keyboard_desc->key_code[2] == 0x03) {
+				udi_hid_gpd_moveX(JOYSTICK_NEGATIVE_DISPLACEMENT);
+			} else if (keyboard_desc->key_code[2] == 0x04) {
+				udi_hid_gpd_moveX(JOYSTICK_POSITIVE_DISPLACEMENT);
+			} else {
+				/* do nothing */
+			}
 
+			break;
+		}
+
+		default:
+			break;
+		}
+		zid_report_data_record_ptr++;
+	}
+
+	RxLinkQuality = RxLinkQuality;
+	RxFlags = RxFlags;
 }
-
 
 bool main_mouse_enable(void)
 {
 	main_b_mouse_enable = true;
 	return true;
 }
+
 void main_mouse_disable(void)
 {
 	main_b_mouse_enable = false;
 }
+
 bool main_kbd_enable(void)
 {
 	main_b_kbd_enable = true;
 	return true;
 }
+
 void main_kbd_disable(void)
 {
 	main_b_kbd_enable = false;
 }
+
 /* Alert to indicate something has gone wrong in the application */
 static void app_alert(void)
 {
-    while (1)
-    {
+	while (1) {
 		#if LED_COUNT > 0
 		LED_Toggle(LED0);
 		#endif
@@ -541,4 +530,5 @@ static void app_alert(void)
 		delay_us(0xFFFF);
 	}
 }
+
 /* EOF */

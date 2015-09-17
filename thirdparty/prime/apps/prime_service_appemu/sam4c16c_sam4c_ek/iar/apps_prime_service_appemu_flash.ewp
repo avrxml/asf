@@ -2712,6 +2712,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/instance/instance_cmcc0.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/instance/instance_ipc0.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/instance/instance_rswdt.h</name>
 							</file>
 							<file>
@@ -2772,9 +2775,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/instance/instance_rtt.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/instance/instance_ipc0.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/instance/instance_rtc.h</name>
 							</file>
 							<file>
@@ -2829,6 +2829,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/pio/pio_sam4c32c.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/pio/pio_sam4c4c.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/pio/pio_sam4c16c.h</name>
 							</file>
 							<file>
@@ -2842,7 +2845,13 @@
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/sam4c32e_0.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/sam4c4c_0.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/sam4c16c_1.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/sam4c4c_1.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4c/include/sam4c32c_1.h</name>

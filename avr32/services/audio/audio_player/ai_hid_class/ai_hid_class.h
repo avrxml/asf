@@ -6,7 +6,7 @@
  *
  * This function should be connected to the audio interface to give access to the Audio class audio player
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -43,6 +43,9 @@
  * \asf_license_stop
  *
  *****************************************************************************/
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 
 extern const ai_fct_set ai_hid_class_fct_set;

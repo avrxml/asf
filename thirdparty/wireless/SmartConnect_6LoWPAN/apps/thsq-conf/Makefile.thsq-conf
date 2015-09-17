@@ -1,0 +1,3 @@
+# The thsq-conf app only consists of the thsq-conf.h file, and does
+# not include any source files. Therefor this file is empty, except
+# for this comment.

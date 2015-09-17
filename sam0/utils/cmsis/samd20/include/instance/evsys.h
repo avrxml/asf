@@ -3,7 +3,7 @@
  *
  * \brief Instance description for EVSYS
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAMD20_EVSYS_INSTANCE_
 #define _SAMD20_EVSYS_INSTANCE_
@@ -64,11 +67,11 @@
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 /* ========== Instance parameters for EVSYS peripheral ========== */
-#define EVSYS_CHANNELS              8
-#define EVSYS_CHANNELS_BITS         (len(bin(EVSYS_CHANNELS-1))-2)
-#define EVSYS_CHANNELS_MSB          7
-#define EVSYS_EXTEVT_NUM            
-#define EVSYS_EXT_EVT_MSB           0
+#define EVSYS_CHANNELS              8        // Number of Channels
+#define EVSYS_CHANNELS_BITS         3        // Number of bits to select Channel
+#define EVSYS_CHANNELS_MSB          7        // Number of Channels - 1
+#define EVSYS_EXTEVT_NUM                     // Number of External Event Generators
+#define EVSYS_EXT_EVT_MSB           0        // Number of External Event Generators - 1
 #define EVSYS_GCLK_ID_0             4
 #define EVSYS_GCLK_ID_1             5
 #define EVSYS_GCLK_ID_2             6
@@ -80,10 +83,10 @@
 #define EVSYS_GCLK_ID_LSB           4
 #define EVSYS_GCLK_ID_MSB           11
 #define EVSYS_GCLK_ID_SIZE          8
-#define EVSYS_GENERATORS            59
-#define EVSYS_GENERATORS_BITS       (len(bin(EVSYS_GENERATORS-1))-2)
-#define EVSYS_USERS                 14
-#define EVSYS_USERS_BITS            (len(bin(EVSYS_USERS-1))-2)
+#define EVSYS_GENERATORS            59       // Total Number of Event Generators
+#define EVSYS_GENERATORS_BITS       6        // Number of bits to select Event Generator
+#define EVSYS_USERS                 14       // Total Number of Event Users
+#define EVSYS_USERS_BITS            4        // Number of bits to select Event User
 
 // GENERATORS
 #define EVSYS_ID_GEN_RTC_CMP_0      1

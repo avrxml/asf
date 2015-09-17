@@ -3,7 +3,7 @@
  *
  * \brief SAM System Interrupt Driver
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef SYSTEM_INTERRUPT_H_INCLUDED
 #define SYSTEM_INTERRUPT_H_INCLUDED
 
@@ -48,18 +51,22 @@ extern "C" {
 #endif
 
 /**
- * \defgroup asfdoc_sam0_system_interrupt_group SAM System Interrupt Driver (SYSTEM INTERRUPT)
+ * \defgroup asfdoc_sam0_system_interrupt_group SAM System Interrupt (SYSTEM INTERRUPT) Driver
  *
- * This driver for SAM devices provides an interface for the configuration
- * and management of internal software and hardware interrupts/exceptions.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides
+ * an interface for the configuration and management of internal software and
+ * hardware interrupts/exceptions.
  *
- * The following peripherals are used by this module:
+ * The following peripheral is used by this module:
  *  - NVIC (Nested Vector Interrupt Controller)
  *
  * The following devices can use this module:
- *  - SAM D20/D21
- *  - SAM R21
- *  - SAM D10/D11
+ *  - Atmel | SMART SAM D20/D21
+ *  - Atmel | SMART SAM R21
+ *  - Atmel | SMART SAM D09/D10/D11
+ *  - Atmel | SMART SAM L21/L22
+ *  - Atmel | SMART SAM DA1
+ *  - Atmel | SMART SAM C20/C21
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_system_interrupt_prerequisites
@@ -77,7 +84,7 @@ extern "C" {
  *
  * \section asfdoc_sam0_system_interrupt_module_overview Module Overview
  *
- * The ARM&reg; Cortex&reg; M0+ core contains an interrupt an exception vector table, which
+ * The ARM&reg; Cortex&reg; M0+ core contains an interrupt and exception vector table, which
  * can be used to configure the device's interrupt handlers; individual
  * interrupts and exceptions can be enabled and disabled, as well as configured
  * with a variable priority.
@@ -110,7 +117,7 @@ extern "C" {
  *
  * \section asfdoc_sam0_system_interrupt_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_sam0_system_interrupt_extra. This includes:
+ * For extra information, see \ref asfdoc_sam0_system_interrupt_extra. This includes:
  *  - \ref asfdoc_sam0_system_interrupt_extra_acronyms
  *  - \ref asfdoc_sam0_system_interrupt_extra_dependencies
  *  - \ref asfdoc_sam0_system_interrupt_extra_errata
@@ -137,13 +144,13 @@ extern "C" {
  * device.
  */
 enum system_interrupt_priority_level {
-	/** Priority level 0, the highest possible interrupt priority. */
+	/** Priority level 0, the highest possible interrupt priority */
 	SYSTEM_INTERRUPT_PRIORITY_LEVEL_0  = 0,
-	/** Priority level 1. */
+	/** Priority level 1 */
 	SYSTEM_INTERRUPT_PRIORITY_LEVEL_1  = 1,
-	/** Priority level 2. */
+	/** Priority level 2 */
 	SYSTEM_INTERRUPT_PRIORITY_LEVEL_2  = 2,
-	/** Priority level 3, the lowest possible interrupt priority. */
+	/** Priority level 3, the lowest possible interrupt priority */
 	SYSTEM_INTERRUPT_PRIORITY_LEVEL_3  = 3,
 };
 
@@ -153,7 +160,7 @@ enum system_interrupt_priority_level {
  */
 
 /**
- * \brief Enters a critical section
+ * \brief Enters a critical section.
  *
  * Disables global interrupts. To support nested critical sections, an internal
  * count of the critical section nesting will be kept, so that global interrupts
@@ -166,7 +173,7 @@ static inline void system_interrupt_enter_critical_section(void)
 }
 
 /**
- * \brief Leaves a critical section
+ * \brief Leaves a critical section.
  *
  * Enables global interrupts. To support nested critical sections, an internal
  * count of the critical section nesting will be kept, so that global interrupts
@@ -186,7 +193,7 @@ static inline void system_interrupt_leave_critical_section(void)
  */
 
 /**
- * \brief Check if global interrupts are enabled
+ * \brief Check if global interrupts are enabled.
  *
  * Checks if global interrupts are currently enabled.
  *
@@ -202,7 +209,7 @@ static inline bool system_interrupt_is_global_enabled(void)
 }
 
 /**
- * \brief Enables global interrupts
+ * \brief Enables global interrupts.
  *
  * Enables global interrupts in the device to fire any enabled interrupt handlers.
  */
@@ -212,7 +219,7 @@ static inline void system_interrupt_enable_global(void)
 }
 
 /**
- * \brief Disables global interrupts
+ * \brief Disables global interrupts.
  *
  * Disabled global interrupts in the device, preventing any enabled interrupt
  * handlers from executing.
@@ -223,13 +230,13 @@ static inline void system_interrupt_disable_global(void)
 }
 
 /**
- * \brief Checks if an interrupt vector is enabled or not
+ * \brief Checks if an interrupt vector is enabled or not.
  *
  * Checks if a specific interrupt vector is currently enabled.
  *
  * \param[in] vector  Interrupt vector number to check
  *
- * \returns A variable identifying if the requested interrupt vector is enabled
+ * \returns A variable identifying if the requested interrupt vector is enabled.
  *
  * \retval true   Specified interrupt vector is currently enabled
  * \retval false  Specified interrupt vector is currently disabled
@@ -242,7 +249,7 @@ static inline bool system_interrupt_is_enabled(
 }
 
 /**
- * \brief Enable interrupt vector
+ * \brief Enable interrupt vector.
  *
  * Enables execution of the software handler for the requested interrupt vector.
  *
@@ -255,7 +262,7 @@ static inline void system_interrupt_enable(
 }
 
 /**
- * \brief Disable interrupt vector
+ * \brief Disable interrupt vector.
  *
  * Disables execution of the software handler for the requested interrupt vector.
  *
@@ -275,7 +282,7 @@ static inline void system_interrupt_disable(
  */
 
 /**
- * \brief Get active interrupt (if any)
+ * \brief Get active interrupt (if any).
  *
  * Return the vector number for the current executing software handler, if any.
  *
@@ -284,8 +291,8 @@ static inline void system_interrupt_disable(
 static inline enum system_interrupt_vector system_interrupt_get_active(void)
 {
 	uint32_t IPSR = __get_IPSR();
-
-	return (enum system_interrupt_vector)(IPSR & _SYSTEM_INTERRUPT_IPSR_MASK);
+	/* The IPSR returns the Exception number, which with an offset 16 to IRQ number. */
+	return (enum system_interrupt_vector)((IPSR & _SYSTEM_INTERRUPT_IPSR_MASK) - 16);
 }
 
 bool system_interrupt_is_pending(
@@ -332,7 +339,7 @@ enum system_interrupt_priority_level system_interrupt_get_priority(
  *	</tr>
  *	<tr>
  *		<td>NMI</td>
- *		<td>Non-maskable interrupt</td>
+ *		<td>Non-maskable Interrupt</td>
  *	</tr>
  *	<tr>
  *		<td>SERCOM</td>
@@ -362,15 +369,6 @@ enum system_interrupt_priority_level system_interrupt_get_priority(
  *		<th>Changelog</th>
  *	</tr>
  *	<tr>
- *		<td>Added support for SAMD10/D11</td>
- *	</tr>
- *	<tr>
- *		<td>Added support for SAMR21</td>
- *	</tr>
- *	<tr>
- *		<td>Added support for SAMD21</td>
- *	</tr>
- *	<tr>
  *		<td>Initial Release</td>
  *	</tr>
  * </table>
@@ -382,7 +380,7 @@ enum system_interrupt_priority_level system_interrupt_get_priority(
  * This is a list of the available Quick Start guides (QSGs) and example
  * applications for \ref asfdoc_sam0_system_interrupt_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  *  - \subpage asfdoc_sam0_system_interrupt_critsec_use_case
@@ -397,27 +395,27 @@ enum system_interrupt_priority_level system_interrupt_get_priority(
  *		<th>Comments</td>
  *	</tr>
  *	<tr>
- *		<td>E</td>
- *		<td>04/2014</td>
- *		<td>Add support for SAMD10/D11.</td>
+ *		<td>42122E</td>
+ *		<td>08/2015</td>
+ *		<td>Added support for SAM L21/L22, SAM DA1, and SAM C20/C21</td>
  *	</tr>
  *	<tr>
- *		<td>D</td>
- *		<td>02/2014</td>
- *		<td>Add support for SAMR21.</td>
+ *		<td>42122D</td>
+ *		<td>12/2014</td>
+ *		<td>Added support for SAM R21 and SAM D10/D11</td>
  *	</tr>
  *	<tr>
- *		<td>C</td>
+ *		<td>42122C</td>
  *		<td>01/2014</td>
- *		<td>Add support for SAMD21.</td>
+ *		<td>Added support for SAM D21</td>
  *	</tr>
  *	<tr>
- *		<td>B</td>
+ *		<td>42122B</td>
  *		<td>06/2013</td>
- *		<td>Corrected documentation typos.</td>
+ *		<td>Corrected documentation typos</td>
  *	</tr>
  *	<tr>
- *		<td>A</td>
+ *		<td>42122A</td>
  *		<td>06/2013</td>
  *		<td>Initial release</td>
  *	</tr>

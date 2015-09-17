@@ -3,7 +3,7 @@
  *
  * \brief SAM SPI Unit test
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -75,19 +75,43 @@
  *  - SAM D20 Xplained Pro board
  *  - SAM D21 Xplained Pro board
  *  - SAM R21 Xplained Pro board
+ *  - SAM L21 Xplained Pro board
+ *  - SAM L22 Xplained Pro board
+ *  - SAM DA1 Xplained Pro board
+ *  - SAM C21 Xplained Pro board
  *
  * \section appdoc_sam0_spi_unit_test_setup Setup
  * The following connections has to be made using wires:
- * - SAM D21/D21 Xplained Pro
- *  - \b SS_0:  EXT1 PIN15 (PA05) <--> EXT2 PIN15 (PA17)
- *  - \b DO/DI: EXT1 PIN16 (PA06) <--> EXT2 PIN17 (PA16)
- *  - \b DI/DO: EXT1 PIN17 (PA04) <--> EXT2 PIN16 (PA18)
- *  - \b SCK:   EXT1 PIN18 (PA07) <--> EXT2 PIN18 (PA19)
+ * -SAM D20 Xplained Pro
+ *  - \b SCK:   EXT3 PIN15 (PB23) <--> EXT2 PIN15 (PA17)
+ *  - \b SS_0:  EXT3 PIN16 (PB17) <--> EXT2 PIN16 (PA18)
+ *  - \b DI/DO: EXT3 PIN17 (PB16) <--> EXT2 PIN17 (PA16)
+ *  - \b DO/DI: EXT3 PIN18 (PB22) <--> EXT2 PIN18 (PA19)
+ * -SAM D21/DA1 Xplained Pro
+ *  - \b SCK:   EXT3 PIN15 (PB17) <--> EXT2 PIN15 (PA17)
+ *  - \b SS_0:  EXT3 PIN16 (PB22) <--> EXT2 PIN16 (PA18)
+ *  - \b DI/DO: EXT3 PIN17 (PB16) <--> EXT2 PIN17 (PA16)
+ *  - \b DO/DI: EXT3 PIN18 (PB23) <--> EXT2 PIN18 (PA19)
  * - SAM R21 Xplained Pro
- *  - \b SS_0:  EXT1 PIN15 (PB03) <--> EXT1 PIN10 (PA23)
- *  - \b DO/DI: EXT1 PIN16 (PB22) <--> EXT1 PIN9  (PA22)
- *  - \b DI/DO: EXT1 PIN17 (PB02) <--> EXT1 PIN7  (PA18)
+ *  - \b SS_0:  EXT1 PIN15 (PB03) <--> EXT1 PIN12 (PA17)
+ *  - \b DI/D0: EXT1 PIN16 (PB22) <--> EXT1 PIN7  (PA18)
+ *  - \b DO/DI: EXT1 PIN17 (PB02) <--> EXT1 PIN11  (PA16)
  *  - \b SCK:   EXT1 PIN18 (PB23) <--> EXT1 PIN8  (PA19)
+ * - SAM L21 Xplained Pro
+ *  - \b DO/DI: EXT3 PIN9  (PA16) <--> EXT3 PIN17 (PB16)
+ *  - \b SS_0:  EXT2 PIN15 (PA17) <--> EXT3 PIN15 (PB17)
+ *  - \b DI/DO: EXT2 PIN14 (PA18) <--> EXT3 PIN16 (PB22)
+ *  - \b SCK:   EXT2 PIN13 (PA19) <--> EXT3 PIN18 (PB23)
+ * - SAM L22 Xplained Pro.
+ *  - \b SS_0:  EXT1 PIN15 (PB21) <--> EXT2 PIN15 (PA17)
+ *  - \b DO/DI: EXT1 PIN16 (PB00) <--> EXT2 PIN17 (PA16)
+ *  - \b DI/DO: EXT1 PIN17 (PB02) <--> EXT2 PIN16 (PA18)
+ *  - \b SCK:   EXT1 PIN18 (PB01) <--> EXT2 PIN18 (PA19)
+ * - SAM C21 Xplained Pro.
+ *  - \b SS_0:  EXT1 PIN15 (PA17) <--> EXT2 PIN15 (PB03)
+ *  - \b DO/DI: EXT1 PIN16 (PA18) <--> EXT2 PIN17 (PB02)
+ *  - \b DI/DO: EXT1 PIN17 (PA16) <--> EXT2 PIN16 (PB00)
+ *  - \b SCK:   EXT1 PIN18 (PA19) <--> EXT2 PIN18 (PB01)
  *
  * To run the test:
  *  - Connect the SAM Xplained Pro board to the computer using a
@@ -112,6 +136,9 @@
  * \section appdoc_sam0_spi_unit_test_contactinfo Contact Information
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include <asf.h>
@@ -153,7 +180,7 @@ volatile bool spi_init_success = false;
  *
  * \param module SPI module causing the interrupt (not used)
  */
-static void user_spi_callback(const struct spi_module *const module)
+static void user_spi_callback(struct spi_module *const module)
 {
 	transfer_complete = true;
 }

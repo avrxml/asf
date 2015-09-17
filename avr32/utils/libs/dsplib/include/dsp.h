@@ -8,7 +8,7 @@
  *
  * This file add some doxygen documentation to the project
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -115,7 +115,7 @@
 
 /**
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -184,6 +184,9 @@
  *</em>
  * Here is a link where you can find more information <a target="_parent" href="http://en.wikipedia.org/wiki/Fixed-point_arithmetic">
  * http://en.wikipedia.org/wiki/Fixed-point_arithmetic</a> on fixed-point formats.
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef __DSP_TYPES_H__
@@ -473,7 +476,7 @@ typedef struct A_PACKED dsp32_complex_t
 
 /**
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -1272,7 +1275,7 @@ void dsp16_vect_complex_conj(dsp16_complex_t *vect1, dsp16_complex_t *vect2, int
 
 /**
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -1689,7 +1692,7 @@ void dsp16_filt_lpfirdesign_windowed_sinc(dsp16_t *c, int fc_hz, int fs_hz, int 
 
 /**
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -2182,7 +2185,7 @@ dsp32_t dsp32_op_rand(void);
 
 /**
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -2614,7 +2617,7 @@ void dsp32_gen_dirac(dsp32_t *vect1, int size, int dirac_index);
 
 /**
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -2783,7 +2786,7 @@ void dsp32_trans_realcomplexfft(dsp32_complex_t *vect1, dsp32_t *vect2, int nlog
 
 /**
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -3130,7 +3133,7 @@ void dsp32_win_welch(dsp32_t *vect1, dsp32_t *vect2, int size);
 
 /**
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -3238,7 +3241,7 @@ void dsp_adpcm_ima_decode(int16_t *out, void *in, int size, int16_t *step_index,
 
 /**
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *

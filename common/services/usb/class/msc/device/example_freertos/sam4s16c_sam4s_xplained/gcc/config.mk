@@ -67,6 +67,7 @@ CSRCS = \
        sam/boards/sam4s_xplained/init.c                   \
        sam/boards/sam4s_xplained/led.c                    \
        sam/drivers/ebi/smc/smc.c                          \
+       sam/drivers/matrix/matrix.c                        \
        sam/drivers/pio/pio.c                              \
        sam/drivers/pio/pio_handler.c                      \
        sam/drivers/pmc/pmc.c                              \
@@ -105,6 +106,7 @@ INC_PATH = \
        sam/boards                                         \
        sam/boards/sam4s_xplained                          \
        sam/drivers/ebi/smc                                \
+       sam/drivers/matrix                                 \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
        sam/drivers/udp                                    \

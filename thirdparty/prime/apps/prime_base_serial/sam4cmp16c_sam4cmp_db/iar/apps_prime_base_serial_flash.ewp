@@ -2063,10 +2063,10 @@
 					<group>
 						<name>include</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../mac/mac_1_3/include/mngl.h</name>
+							<name>$PROJ_DIR$/../../../../mac/mac_1_3/include/bmngt.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../mac/mac_1_3/include/bmngt.h</name>
+							<name>$PROJ_DIR$/../../../../mac/mac_1_3/include/mngl.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../mac/mac_1_3/include/prime.h</name>
@@ -2825,6 +2825,9 @@
 							</file>
 						</group>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms4c_1.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms8c_1.h</name>
 						</file>
 						<file>
@@ -2842,9 +2845,15 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cms16c.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cms4c.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/pio/sam4cmp16c.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cms4c_0.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cm/include/sam4cmp8c_1.h</name>
 						</file>
@@ -2872,12 +2881,6 @@
 					</group>
 				</group>
 			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../sam/utils/compiler.h</name>
-			</file>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../sam/utils/status_codes.h</name>
-			</file>
 			<group>
 				<name>preprocessor</name>
 				<file>
@@ -2893,6 +2896,12 @@
 					<name>$PROJ_DIR$/../../../../../../sam/utils/preprocessor/stringz.h</name>
 				</file>
 			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../sam/utils/compiler.h</name>
+			</file>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../sam/utils/status_codes.h</name>
+			</file>
 			<group>
 				<name>header_files</name>
 				<file>

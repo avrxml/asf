@@ -3,7 +3,7 @@
  *
  * \brief Chip-specific reset cause functions
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,6 +40,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 #ifndef SAM4L_RESET_CAUSE_H
 #define SAM4L_RESET_CAUSE_H
 
@@ -49,7 +52,7 @@
  * \defgroup group_sam4l_drivers_cpu SAM4L reset cause
  * \ingroup reset_cause_group
  *
- * See \ref reset_cause_quickstart
+ * Driver for CPU specific features. It provides functions for MCU Reset Cause.
  *
  * @{
  */

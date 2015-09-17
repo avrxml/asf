@@ -9,10 +9,10 @@
  *
  *
  * - Userguide:          QTouch Library Peripheral Touch Controller User Guide.
- * - Support email:      touch@atmel.com
+ * - Support: http://www.atmel.com/design-support/
  *
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,6 +52,21 @@
 
 #ifndef TOUCH_API_SAMD_H
 #define TOUCH_API_SAMD_H
+
+/**
+ * \defgroup group_thirdparty_qtouch_devspecific_sam0_samd QTouch Library for SAM0
+ * 
+ * This is the QTouch Library for SAM0 devices that consists in
+ * one api header file(touch_api_SAMD.h) and one pre-compiled
+ * library(libsamd-qt-gcc.a).
+ *
+ * All projects using this library must also provide the required header
+ * file(touch_config_samd.h) used to configure the library.
+ *
+ * For more information on the Qtouch Library, check www.atmel.com/qtouchlib.
+ *
+ * \{
+ */
 
 #ifdef __cplusplus
 extern "C"
@@ -1226,4 +1241,7 @@ void touch_selfcap_rs_table_init(void);
 }
 #endif
 
+/**
+ * \}
+ */
 #endif                          /* TOUCH_API_SAMD_H */

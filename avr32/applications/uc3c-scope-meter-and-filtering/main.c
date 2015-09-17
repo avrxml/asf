@@ -3,7 +3,7 @@
  *
  * \brief AVR UC3C Scope Meter and Filtering Demo
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,7 +46,7 @@
  * on the UC3C_EK development kit.
  * - Step 1: Connect J34 (1-2), J35 (1-2) and J38 (3-4) headers.
  *   Turn potentiometer P1 to have the arrow vertical (It is the trigger level).
- * - Step 2: Plug a USB cable from the USB_VC connector (J27) to one of the PC’s
+ * - Step 2: Plug a USB cable from the USB_VC connector (J27) to one of the PC's
  *   USB ports. This provide power and USB serial communications port.
  * - Step 3: Load and run this application.
  * - Step 4: A sine wave is generated (takes part of the DAC task generation).
@@ -95,6 +95,9 @@
  * \section contactinfo Contact Information
  * For further information, visit
  * <A href="http://www.atmel.com/avr">Atmel AVR</A>.\n
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "compiler.h"

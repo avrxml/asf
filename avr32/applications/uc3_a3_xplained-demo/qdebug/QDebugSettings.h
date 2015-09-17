@@ -1,4 +1,7 @@
 //---------- Do not edit --------------------
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 // Project Constants
 // Values from 0xF000->0xFFFF are reserved for Atmel Kits
 // values from 0x0000->0xEFFF are available for other projects

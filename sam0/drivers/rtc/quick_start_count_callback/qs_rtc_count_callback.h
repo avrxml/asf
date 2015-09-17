@@ -3,7 +3,7 @@
  *
  * \brief SAM RTC Count Quick Start
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,7 +45,7 @@
  * \page asfdoc_sam0_rtc_count_callback_use_case Quick Start Guide for RTC (COUNT) - Callback
  *
  * In this use case, the RTC is set up in count mode. The quick start
- * configures the RTC in 16 bit mode and to continuously update COUNT register.
+ * configures the RTC in 16-bit mode and to continuously update COUNT register.
  * The rest of the configuration is according to the
  * \ref rtc_count_get_config_defaults "default".
  * A callback is implemented for when the RTC overflows.
@@ -66,7 +66,7 @@
  * \section asfdoc_sam0_rtc_count_callback_use_case_setup Setup
  *
  * \subsection asfdoc_sam0_rtc_count_callback_use_case_setup_code Code
- * Create a rtc_module struct and add to the main application source file,
+ * Create an rtc_module struct and add to the main application source file,
  * outside of any functions:
  * \snippet qs_rtc_count_callback.c rtc_module_instance
  * The following must be added to the user application:
@@ -125,4 +125,7 @@
  * \subsection asfdoc_sam0_rtc_count_callback_use_case_callback_workflow Workflow
  * -# Perform the desired user action for each RTC overflow:
  *    \snippet qs_rtc_count_callback.c overflow_act
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

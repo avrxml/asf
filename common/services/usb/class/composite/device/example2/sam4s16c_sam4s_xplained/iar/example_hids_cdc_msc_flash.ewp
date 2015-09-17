@@ -313,6 +313,7 @@
 					<state>$PROJ_DIR$/../../../../../hid/device/mouse</state>
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -596,6 +597,7 @@
 					<state>$PROJ_DIR$/../../../../../hid/device/mouse</state>
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -1270,6 +1272,7 @@
 					<state>$PROJ_DIR$/../../../../../hid/device/mouse</state>
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -1553,6 +1556,7 @@
 					<state>$PROJ_DIR$/../../../../../hid/device/mouse</state>
 					<state>$PROJ_DIR$/../../../../../msc/device</state>
 					<state>$PROJ_DIR$/../../../../../../../clock</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../udc</state>
 					<state>$PROJ_DIR$/../../../../../..</state>
@@ -2323,6 +2327,15 @@
 					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/pmc/pmc.h</name>
 				</file>
 			</group>
+			<group>
+				<name>matrix</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../../../sam/drivers/matrix/matrix.h</name>
+				</file>
+			</group>
 		</group>
 		<group>
 			<name>boards</name>
@@ -2379,9 +2392,27 @@
 				<group>
 					<name>class</name>
 					<group>
+						<name>cdc</name>
+						<group>
+							<name>device</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../cdc/device/udi_cdc.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../cdc/device/udi_cdc.h</name>
+							</file>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../cdc/usb_protocol_cdc.h</name>
+						</file>
+					</group>
+					<group>
 						<name>hid</name>
 						<group>
 							<name>device</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../hid/device/udi_hid.c</name>
+							</file>
 							<group>
 								<name>mouse</name>
 								<file>
@@ -2391,9 +2422,6 @@
 									<name>$PROJ_DIR$/../../../../../hid/device/mouse/udi_hid_mouse.h</name>
 								</file>
 							</group>
-							<file>
-								<name>$PROJ_DIR$/../../../../../hid/device/udi_hid.c</name>
-							</file>
 							<group>
 								<name>kbd</name>
 								<file>
@@ -2409,21 +2437,6 @@
 						</group>
 						<file>
 							<name>$PROJ_DIR$/../../../../../hid/usb_protocol_hid.h</name>
-						</file>
-					</group>
-					<group>
-						<name>cdc</name>
-						<group>
-							<name>device</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../../cdc/device/udi_cdc.c</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../cdc/device/udi_cdc.h</name>
-							</file>
-						</group>
-						<file>
-							<name>$PROJ_DIR$/../../../../../cdc/usb_protocol_cdc.h</name>
 						</file>
 					</group>
 					<group>

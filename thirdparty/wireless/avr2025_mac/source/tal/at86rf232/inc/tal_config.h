@@ -3,7 +3,7 @@
  *
  * @brief
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -109,12 +109,19 @@ typedef enum tal_timer_id_tag {
 
 #if (NUMBER_OF_TAL_TIMERS > 0)
 #define TAL_LAST_TIMER_ID    (TAL_FIRST_TIMER_ID + NUMBER_OF_TAL_TIMERS - 1) /*
-	                                                                      * -1:
-	                                                                      * timer
-	                                                                      * id
-	                                                                      * starts
-	                                                                      * with
-	                                                                      * 0 */
+	                                                                      *
+	                                                                      *-1:
+	                                                                      *
+	                                                                      *timer
+	                                                                      *
+	                                                                      *id
+	                                                                      *
+	                                                                      *starts
+	                                                                      *
+	                                                                      *with
+	                                                                      *
+	                                                                      *0
+	                                                                      **/
 #else
 #define TAL_LAST_TIMER_ID    (TAL_FIRST_TIMER_ID)
 #endif

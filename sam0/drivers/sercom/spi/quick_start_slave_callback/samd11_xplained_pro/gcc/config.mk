@@ -60,8 +60,8 @@ CSRCS = \
        sam0/drivers/sercom/spi/quick_start_slave_callback/qs_spi_slave_callback.c \
        sam0/drivers/sercom/spi/spi.c                      \
        sam0/drivers/sercom/spi/spi_interrupt.c            \
-       sam0/drivers/system/clock/clock_samd10_d11/clock.c \
-       sam0/drivers/system/clock/clock_samd10_d11/gclk.c  \
+       sam0/drivers/system/clock/clock_samd09_d10_d11/clock.c \
+       sam0/drivers/system/clock/clock_samd09_d10_d11/gclk.c \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
@@ -85,10 +85,14 @@ INC_PATH = \
        sam0/drivers/sercom/spi/quick_start_slave_callback/samd11_xplained_pro \
        sam0/drivers/system                                \
        sam0/drivers/system/clock                          \
-       sam0/drivers/system/clock/clock_samd10_d11         \
+       sam0/drivers/system/clock/clock_samd09_d10_d11     \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samd10_d11 \
        sam0/drivers/system/pinmux                         \
+       sam0/drivers/system/power                          \
+       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/reset                          \
+       sam0/drivers/system/reset/reset_sam_d_r            \
        sam0/utils                                         \
        sam0/utils/cmsis/samd11/include                    \
        sam0/utils/cmsis/samd11/source                     \
@@ -144,7 +148,7 @@ CFLAGS =
 #   BOARD      Target board in use, see boards/board.h for a list.
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
-       -D ARM_MATH_CM0=true                               \
+       -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMD11_XPLAINED_PRO                       \
        -D SPI_CALLBACK_MODE=true                          \
        -D __SAMD11D14AM__

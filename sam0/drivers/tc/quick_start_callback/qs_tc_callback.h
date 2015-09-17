@@ -3,7 +3,7 @@
  *
  * \brief SAM TC - Timer Counter Callback Driver Quick Start
  *
- * Copyright (C) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,6 +41,10 @@
  *
  */
 
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
+
 /**
  * \page asfdoc_sam0_tc_callback_use_case Quick Start Guide for TC - Callback
  *
@@ -49,7 +53,7 @@
  * count matches the set compare value. The TC module will be set up as follows:
  *
  * - GCLK generator 0 (GCLK main) clock source
- * - 16 bit resolution on the counter
+ * - 16-bit resolution on the counter
  * - No prescaler
  * - Normal PWM wave generation
  * - GCLK reload action
@@ -70,7 +74,22 @@
  *
  * \subsection asfdoc_sam0_tc_callback_use_case_setup_code Code
  * Add to the main application source file, before any functions:
- * \snippet conf_quick_start_callback.h definition_pwm
+ * - SAM D21 Xplained Pro.
+ *   \snippet samd21_xplained_pro/conf_quick_start_callback.h definition_pwm
+ * - SAM D20 Xplained Pro.
+ *   \snippet samd20_xplained_pro/conf_quick_start_callback.h definition_pwm
+ * - SAM R21 Xplained Pro.
+ *   \snippet samr21_xplained_pro/conf_quick_start_callback.h definition_pwm
+ * - SAM D11 Xplained Pro.
+ *   \snippet samd11_xplained_pro/conf_quick_start_callback.h definition_pwm
+ * - SAM L21 Xplained Pro.
+ *   \snippet saml21_xplained_pro/conf_quick_start_callback.h definition_pwm
+ * - SAM L22 Xplained Pro.
+ *   \snippet saml22_xplained_pro/conf_quick_start_callback.h definition_pwm
+ * - SAM DA1 Xplained Pro.
+ *   \snippet samda1_xplained_pro/conf_quick_start_callback.h definition_pwm
+ * - SAM C21 Xplained Pro.
+ *   \snippet samc21_xplained_pro/conf_quick_start_callback.h definition_pwm 
  *
  * Add to the main application source file, outside of any functions:
  * \snippet qs_tc_callback.c module_inst
@@ -102,7 +121,7 @@
  *           settings.
  *
  *  -# Alter the TC settings to configure the counter width, wave generation
- *     mode and the compare channel 0 value.
+ *     mode, and the compare channel 0 value.
  *     \snippet qs_tc_callback.c setup_change_config
  *  -# Alter the TC settings to configure the PWM output on a physical device
  *     pin.

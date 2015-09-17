@@ -3,7 +3,7 @@
  *
  * @brief Implements the coordinator realignment command. *
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -145,9 +145,10 @@ bool mac_tx_coord_realignment_command(frame_msgtype_t cmd_type,
 				= (uint8_t *)coord_realignment_frame +
 					LARGE_BUFFER_SIZE -
 					COORD_REALIGN_PAYLOAD_LEN - 2; /* Add 2
-	                                                               * octets
-	                                                               * for
-	                                                               * FCS. */
+	                                                                * octets
+	                                                                * for
+	                                                                * FCS.
+	                                                                **/
 
 	/* Update the payload field. */
 	*frame_ptr++ = COORDINATORREALIGNMENT;

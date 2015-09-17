@@ -3,7 +3,7 @@
  *
  * \brief  Configuration File for SAM4L Xplained Pro Board.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,6 +49,9 @@
  *  - Or
  *  - PA06(EXT3/PIN9) -- VCC(EXT3/PIN20)
  *  - PA07(EXT2/PIN3) -- GND(EXT2/PIN19)
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef CONF_BOARD_H_INCLUDED

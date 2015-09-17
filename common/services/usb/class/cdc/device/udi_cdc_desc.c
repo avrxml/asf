@@ -3,7 +3,7 @@
  *
  * \brief Default descriptors for a USB Device with a single interface CDC
  *
- * Copyright (c) 2009-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "conf_usb.h"
@@ -134,9 +137,7 @@ UDC_DESC_STORAGE usb_dev_lpm_desc_t udc_device_lpm = {
 	.capa_ext.bLength          = sizeof(usb_dev_capa_ext_desc_t),
 	.capa_ext.bDescriptorType  = USB_DT_DEVICE_CAPABILITY,
 	.capa_ext.bDevCapabilityType = USB_DC_USB20_EXTENSION,
-	.capa_ext.bmAttributes     = ((USB_DC_EXT_LPM | USB_DC_EXT_BESL \
-	  | USB_DC_EXT_BESL_BASELINE_VALID | USB_DC_EXT_BESL_DEEP_VALID \
-	  | USB_DC_EXT_BESL_DEEP(BESL_4000_US) | USB_DC_EXT_BESL_BASELINE(BESL_125_US))),
+	.capa_ext.bmAttributes     = USB_DC_EXT_LPM,
 };
 #endif
 

@@ -3,7 +3,7 @@
  *
  * \brief SAM Analog Comparator Driver Quick Start
  *
- * Copyright (C) 2012-2014 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,13 +45,13 @@
  * \page asfdoc_sam0_ac_callback_use_case Quick Start Guide for AC - Callback
  *
  * In this use case, the Analog Comparator module is configured for:
- *  \li Comparator peripheral in manually triggered (i.e. "Single Shot" mode)
+ *  \li Comparator peripheral in manually triggered (e.g. "Single Shot" mode)
  *  \li One comparator channel connected to input MUX pin 0 and compared to a
- *      scaled VCC/2 voltage
+ *      scaled V<SUB>CC</SUB>/2 voltage
  *
  * This use case sets up the Analog Comparator to compare an input voltage fed
  * into a GPIO pin of the device against a scaled voltage of the
- * microcontroller's VCC power rail. The comparisons are made on-demand in
+ * microcontroller's V<SUB>CC</SUB> power rail. The comparisons are made on-demand in
  * single-shot mode, and the result stored into a local variable which is then
  * output to the board LED to visually show the comparison state.
  *
@@ -71,7 +71,7 @@
  * -# Create an AC device instance struct, which will be associated with an
  *    Analog Comparator peripheral hardware instance.
  *    \snippet qs_ac_callback.c setup_1
- *    \note Device instance structures shall \b never go out of scope when in
+ *    \note Device instance structures shall \i never go out of scope when in
  *          use.
  *
  * -# Define a macro to select the comparator channel that will be sampled, for
@@ -119,9 +119,9 @@
  *
  * -# Create a new callback function.
  *    \snippet qs_ac_callback.c callback_1
- * -# Create a callback status software flag
+ * -# Create a callback status software flag.
  *    \snippet qs_ac_callback.c callback_3
- * -# Let the callback function set the calback_status flag to true
+ * -# Let the callback function set the calback_status flag to true.
  *    \snippet qs_ac_callback.c callback_2
  *
  * -# Create a new function \c configure_ac_callback(), which will be used to
@@ -135,7 +135,7 @@
  * -# Enable the now initialized Analog Comparator peripheral.
  *    \snippet qs_ac_callback.c setup_17
  *    \note This should not be done until after the AC is setup and ready
- *       to be used
+ *       to be used.
  *
  * \section asfdoc_sam0_ac_callback_use_case_imp Implementation
  *
@@ -166,4 +166,7 @@
  *    \snippet qs_ac_callback.c main_7
  * -# Trigger the next conversion on the Analog Comparator channel.
  *    \snippet qs_ac_callback.c main_8
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */

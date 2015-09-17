@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -38,6 +38,9 @@
  * \asf_license_stop
  *
  */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ */
 
 #ifndef _SAM4E_TC_COMPONENT_
 #define _SAM4E_TC_COMPONENT_
@@ -51,49 +54,49 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief TcChannel hardware registers */
 typedef struct {
-  RwReg      TC_CCR;        /**< \brief (TcChannel Offset: 0x0) Channel Control Register */
-  RwReg      TC_CMR;        /**< \brief (TcChannel Offset: 0x4) Channel Mode Register */
-  RwReg      TC_SMMR;       /**< \brief (TcChannel Offset: 0x8) Stepper Motor Mode Register */
-  RwReg      TC_RAB;        /**< \brief (TcChannel Offset: 0xC) Register AB */
-  RwReg      TC_CV;         /**< \brief (TcChannel Offset: 0x10) Counter Value */
-  RwReg      TC_RA;         /**< \brief (TcChannel Offset: 0x14) Register A */
-  RwReg      TC_RB;         /**< \brief (TcChannel Offset: 0x18) Register B */
-  RwReg      TC_RC;         /**< \brief (TcChannel Offset: 0x1C) Register C */
-  RwReg      TC_SR;         /**< \brief (TcChannel Offset: 0x20) Status Register */
-  RwReg      TC_IER;        /**< \brief (TcChannel Offset: 0x24) Interrupt Enable Register */
-  RwReg      TC_IDR;        /**< \brief (TcChannel Offset: 0x28) Interrupt Disable Register */
-  RwReg      TC_IMR;        /**< \brief (TcChannel Offset: 0x2C) Interrupt Mask Register */
-  RwReg      TC_EMR;        /**< \brief (TcChannel Offset: 0x30) Extended Mode Register */
-  RoReg      Reserved1[3];
+  __O  uint32_t TC_CCR;       /**< \brief (TcChannel Offset: 0x0) Channel Control Register */
+  __IO uint32_t TC_CMR;       /**< \brief (TcChannel Offset: 0x4) Channel Mode Register */
+  __IO uint32_t TC_SMMR;      /**< \brief (TcChannel Offset: 0x8) Stepper Motor Mode Register */
+  __I  uint32_t TC_RAB;       /**< \brief (TcChannel Offset: 0xC) Register AB */
+  __I  uint32_t TC_CV;        /**< \brief (TcChannel Offset: 0x10) Counter Value */
+  __IO uint32_t TC_RA;        /**< \brief (TcChannel Offset: 0x14) Register A */
+  __IO uint32_t TC_RB;        /**< \brief (TcChannel Offset: 0x18) Register B */
+  __IO uint32_t TC_RC;        /**< \brief (TcChannel Offset: 0x1C) Register C */
+  __I  uint32_t TC_SR;        /**< \brief (TcChannel Offset: 0x20) Status Register */
+  __O  uint32_t TC_IER;       /**< \brief (TcChannel Offset: 0x24) Interrupt Enable Register */
+  __O  uint32_t TC_IDR;       /**< \brief (TcChannel Offset: 0x28) Interrupt Disable Register */
+  __I  uint32_t TC_IMR;       /**< \brief (TcChannel Offset: 0x2C) Interrupt Mask Register */
+  __IO uint32_t TC_EMR;       /**< \brief (TcChannel Offset: 0x30) Extended Mode Register */
+  __I  uint32_t Reserved1[3];
 } TcChannel;
 /** \brief TcPdc hardware registers */
 typedef struct {
-  RwReg      TC_RPR;        /**< \brief (TcPdc Offset: 0x0) Receive Pointer Register */
-  RwReg      TC_RCR;        /**< \brief (TcPdc Offset: 0x4) Receive Counter Register */
-  RoReg      Reserved2[2];
-  RwReg      TC_RNPR;       /**< \brief (TcPdc Offset: 0x10) Receive Next Pointer Register */
-  RwReg      TC_RNCR;       /**< \brief (TcPdc Offset: 0x14) Receive Next Counter Register */
-  RoReg      Reserved3[2];
-  RwReg      TC_PTCR;       /**< \brief (TcPdc Offset: 0x20) Transfer Control Register */
-  RwReg      TC_PTSR;       /**< \brief (TcPdc Offset: 0x24) Transfer Status Register */
-  RoReg      Reserved4[6];
+  __IO uint32_t TC_RPR;       /**< \brief (TcPdc Offset: 0x0) Receive Pointer Register */
+  __IO uint32_t TC_RCR;       /**< \brief (TcPdc Offset: 0x4) Receive Counter Register */
+  __I  uint32_t Reserved2[2];
+  __IO uint32_t TC_RNPR;      /**< \brief (TcPdc Offset: 0x10) Receive Next Pointer Register */
+  __IO uint32_t TC_RNCR;      /**< \brief (TcPdc Offset: 0x14) Receive Next Counter Register */
+  __I  uint32_t Reserved3[2];
+  __O  uint32_t TC_PTCR;      /**< \brief (TcPdc Offset: 0x20) Transfer Control Register */
+  __I  uint32_t TC_PTSR;      /**< \brief (TcPdc Offset: 0x24) Transfer Status Register */
+  __I  uint32_t Reserved4[6];
 } TcPdc;
 /** \brief Tc hardware registers */
 #define TCCHANNEL_NUMBER 3
 #define TCPDC_NUMBER 3
 typedef struct {
-  TcChannel  TC_CHANNEL[TCCHANNEL_NUMBER]; /**< \brief (Tc Offset: 0x0) channel = 0 .. 2 */
-  WoReg      TC_BCR;        /**< \brief (Tc Offset: 0xC0) Block Control Register */
-  RwReg      TC_BMR;        /**< \brief (Tc Offset: 0xC4) Block Mode Register */
-  WoReg      TC_QIER;       /**< \brief (Tc Offset: 0xC8) QDEC Interrupt Enable Register */
-  WoReg      TC_QIDR;       /**< \brief (Tc Offset: 0xCC) QDEC Interrupt Disable Register */
-  RoReg      TC_QIMR;       /**< \brief (Tc Offset: 0xD0) QDEC Interrupt Mask Register */
-  RoReg      TC_QISR;       /**< \brief (Tc Offset: 0xD4) QDEC Interrupt Status Register */
-  RwReg      TC_FMR;        /**< \brief (Tc Offset: 0xD8) Fault Mode Register */
-  RoReg      Reserved1[2];
-  RwReg      TC_WPMR;       /**< \brief (Tc Offset: 0xE4) Write Protect Mode Register */
-  RoReg      Reserved2[6];
-  TcPdc      TC_PDC[TCPDC_NUMBER]; /**< \brief (Tc Offset: 0x100) pdc = 0 .. 2 */
+       TcChannel TC_CHANNEL[TCCHANNEL_NUMBER]; /**< \brief (Tc Offset: 0x0) channel = 0 .. 2 */
+  __O  uint32_t  TC_BCR;                       /**< \brief (Tc Offset: 0xC0) Block Control Register */
+  __IO uint32_t  TC_BMR;                       /**< \brief (Tc Offset: 0xC4) Block Mode Register */
+  __O  uint32_t  TC_QIER;                      /**< \brief (Tc Offset: 0xC8) QDEC Interrupt Enable Register */
+  __O  uint32_t  TC_QIDR;                      /**< \brief (Tc Offset: 0xCC) QDEC Interrupt Disable Register */
+  __I  uint32_t  TC_QIMR;                      /**< \brief (Tc Offset: 0xD0) QDEC Interrupt Mask Register */
+  __I  uint32_t  TC_QISR;                      /**< \brief (Tc Offset: 0xD4) QDEC Interrupt Status Register */
+  __IO uint32_t  TC_FMR;                       /**< \brief (Tc Offset: 0xD8) Fault Mode Register */
+  __I  uint32_t  Reserved1[2];
+  __IO uint32_t  TC_WPMR;                      /**< \brief (Tc Offset: 0xE4) Write Protection Mode Register */
+  __I  uint32_t  Reserved2[6];
+       TcPdc     TC_PDC[TCPDC_NUMBER];         /**< \brief (Tc Offset: 0x100) pdc = 0 .. 2 */
 } Tc;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- TC_CCR : (TC Offset: N/A) Channel Control Register -------- */
@@ -103,11 +106,11 @@ typedef struct {
 /* -------- TC_CMR : (TC Offset: N/A) Channel Mode Register -------- */
 #define TC_CMR_TCCLKS_Pos 0
 #define TC_CMR_TCCLKS_Msk (0x7u << TC_CMR_TCCLKS_Pos) /**< \brief (TC_CMR) Clock Selection */
-#define   TC_CMR_TCCLKS_TIMER_CLOCK1 (0x0u << 0) /**< \brief (TC_CMR) Clock selected: TCLK1 */
-#define   TC_CMR_TCCLKS_TIMER_CLOCK2 (0x1u << 0) /**< \brief (TC_CMR) Clock selected: TCLK2 */
-#define   TC_CMR_TCCLKS_TIMER_CLOCK3 (0x2u << 0) /**< \brief (TC_CMR) Clock selected: TCLK3 */
-#define   TC_CMR_TCCLKS_TIMER_CLOCK4 (0x3u << 0) /**< \brief (TC_CMR) Clock selected: TCLK4 */
-#define   TC_CMR_TCCLKS_TIMER_CLOCK5 (0x4u << 0) /**< \brief (TC_CMR) Clock selected: TCLK5 */
+#define   TC_CMR_TCCLKS_TIMER_CLOCK1 (0x0u << 0) /**< \brief (TC_CMR) Clock selected: internal TIMER_CLOCK1 clock signal (from PMC) */
+#define   TC_CMR_TCCLKS_TIMER_CLOCK2 (0x1u << 0) /**< \brief (TC_CMR) Clock selected: internal TIMER_CLOCK2 clock signal (from PMC) */
+#define   TC_CMR_TCCLKS_TIMER_CLOCK3 (0x2u << 0) /**< \brief (TC_CMR) Clock selected: internal TIMER_CLOCK3 clock signal (from PMC) */
+#define   TC_CMR_TCCLKS_TIMER_CLOCK4 (0x3u << 0) /**< \brief (TC_CMR) Clock selected: internal TIMER_CLOCK4 clock signal (from PMC) */
+#define   TC_CMR_TCCLKS_TIMER_CLOCK5 (0x4u << 0) /**< \brief (TC_CMR) Clock selected: internal TIMER_CLOCK5 clock signal (from PMC) */
 #define   TC_CMR_TCCLKS_XC0 (0x5u << 0) /**< \brief (TC_CMR) Clock selected: XC0 */
 #define   TC_CMR_TCCLKS_XC1 (0x6u << 0) /**< \brief (TC_CMR) Clock selected: XC1 */
 #define   TC_CMR_TCCLKS_XC2 (0x7u << 0) /**< \brief (TC_CMR) Clock selected: XC2 */
@@ -288,12 +291,12 @@ typedef struct {
 /* -------- TC_EMR : (TC Offset: N/A) Extended Mode Register -------- */
 #define TC_EMR_TRIGSRCA_Pos 0
 #define TC_EMR_TRIGSRCA_Msk (0x3u << TC_EMR_TRIGSRCA_Pos) /**< \brief (TC_EMR) TRIGger SouRCe for input A */
-#define   TC_EMR_TRIGSRCA_EXTERNAL_TIOAx (0x0u << 0) /**< \brief (TC_EMR) the trigger/capture input A is driven by external pin TIOAx */
-#define   TC_EMR_TRIGSRCA_PWMx (0x1u << 0) /**< \brief (TC_EMR) the trigger/capture input A is driven internally by PWMx */
+#define   TC_EMR_TRIGSRCA_EXTERNAL_TIOAx (0x0u << 0) /**< \brief (TC_EMR) The trigger/capture input A is driven by external pin TIOAx */
+#define   TC_EMR_TRIGSRCA_PWMx (0x1u << 0) /**< \brief (TC_EMR) The trigger/capture input A is driven internally by PWMx */
 #define TC_EMR_TRIGSRCB_Pos 4
 #define TC_EMR_TRIGSRCB_Msk (0x3u << TC_EMR_TRIGSRCB_Pos) /**< \brief (TC_EMR) TRIGger SouRCe for input B */
-#define   TC_EMR_TRIGSRCB_EXTERNAL_TIOBx (0x0u << 4) /**< \brief (TC_EMR) the trigger/capture input B is driven by external pin TIOBx */
-#define   TC_EMR_TRIGSRCB_PWMx (0x1u << 4) /**< \brief (TC_EMR) the trigger/capture input B is driven internally by PWMx */
+#define   TC_EMR_TRIGSRCB_EXTERNAL_TIOBx (0x0u << 4) /**< \brief (TC_EMR) The trigger/capture input B is driven by external pin TIOBx */
+#define   TC_EMR_TRIGSRCB_PWMx (0x1u << 4) /**< \brief (TC_EMR) The trigger/capture input B is driven internally by PWMx */
 #define TC_EMR_NODIVCLK (0x1u << 8) /**< \brief (TC_EMR) NO DIVided CLocK */
 /* -------- TC_BCR : (TC Offset: 0xC0) Block Control Register -------- */
 #define TC_BCR_SYNC (0x1u << 0) /**< \brief (TC_BCR) Synchro Command */
@@ -311,8 +314,8 @@ typedef struct {
 #define TC_BMR_TC2XC2S_Pos 4
 #define TC_BMR_TC2XC2S_Msk (0x3u << TC_BMR_TC2XC2S_Pos) /**< \brief (TC_BMR) External Clock Signal 2 Selection */
 #define   TC_BMR_TC2XC2S_TCLK2 (0x0u << 4) /**< \brief (TC_BMR) Signal connected to XC2: TCLK2 */
-#define   TC_BMR_TC2XC2S_TIOA1 (0x2u << 4) /**< \brief (TC_BMR) Signal connected to XC2: TIOA1 */
-#define   TC_BMR_TC2XC2S_TIOA2 (0x3u << 4) /**< \brief (TC_BMR) Signal connected to XC2: TIOA2 */
+#define   TC_BMR_TC2XC2S_TIOA0 (0x2u << 4) /**< \brief (TC_BMR) Signal connected to XC2: TIOA0 */
+#define   TC_BMR_TC2XC2S_TIOA1 (0x3u << 4) /**< \brief (TC_BMR) Signal connected to XC2: TIOA1 */
 #define TC_BMR_QDEN (0x1u << 8) /**< \brief (TC_BMR) Quadrature Decoder ENabled */
 #define TC_BMR_POSEN (0x1u << 9) /**< \brief (TC_BMR) POSition ENabled */
 #define TC_BMR_SPEEDEN (0x1u << 10) /**< \brief (TC_BMR) SPEED ENabled */
@@ -323,7 +326,7 @@ typedef struct {
 #define TC_BMR_INVIDX (0x1u << 15) /**< \brief (TC_BMR) INVerted InDeX */
 #define TC_BMR_SWAP (0x1u << 16) /**< \brief (TC_BMR) SWAP PHA and PHB */
 #define TC_BMR_IDXPHB (0x1u << 17) /**< \brief (TC_BMR) InDeX pin is PHB pin */
-#define TC_BMR_FILTER (0x1u << 19) /**< \brief (TC_BMR)  */
+#define TC_BMR_FILTER (0x1u << 19) /**< \brief (TC_BMR) Glitch Filter */
 #define TC_BMR_MAXFILT_Pos 20
 #define TC_BMR_MAXFILT_Msk (0x3fu << TC_BMR_MAXFILT_Pos) /**< \brief (TC_BMR) MAXimum FILTer */
 #define TC_BMR_MAXFILT(value) ((TC_BMR_MAXFILT_Msk & ((value) << TC_BMR_MAXFILT_Pos)))
@@ -347,11 +350,11 @@ typedef struct {
 /* -------- TC_FMR : (TC Offset: 0xD8) Fault Mode Register -------- */
 #define TC_FMR_ENCF0 (0x1u << 0) /**< \brief (TC_FMR) ENable Compare Fault Channel 0 */
 #define TC_FMR_ENCF1 (0x1u << 1) /**< \brief (TC_FMR) ENable Compare Fault Channel 1 */
-/* -------- TC_WPMR : (TC Offset: 0xE4) Write Protect Mode Register -------- */
+/* -------- TC_WPMR : (TC Offset: 0xE4) Write Protection Mode Register -------- */
 #define TC_WPMR_WPEN (0x1u << 0) /**< \brief (TC_WPMR) Write Protect Enable */
 #define TC_WPMR_WPKEY_Pos 8
 #define TC_WPMR_WPKEY_Msk (0xffffffu << TC_WPMR_WPKEY_Pos) /**< \brief (TC_WPMR) Write Protect KEY */
-#define TC_WPMR_WPKEY(value) ((TC_WPMR_WPKEY_Msk & ((value) << TC_WPMR_WPKEY_Pos)))
+#define   TC_WPMR_WPKEY_PASSWD (0x54494Du << 8) /**< \brief (TC_WPMR) Writing any other value in this field aborts the write operation of the WPEN bit.Always reads as 0. */
 /* -------- TC_RPR : (TC Offset: N/A) Receive Pointer Register -------- */
 #define TC_RPR_RXPTR_Pos 0
 #define TC_RPR_RXPTR_Msk (0xffffffffu << TC_RPR_RXPTR_Pos) /**< \brief (TC_RPR) Receive Pointer Register */

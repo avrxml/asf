@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Web/DSP Demo.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -104,6 +104,9 @@
  * With FPU on, hardware floating-point instruction is used, which can improve
  * the performance of floating-point arithmetic in the DSP task.
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 #include "task_demo.h"
 #include "ethernet_sam.h"

@@ -3,7 +3,7 @@
  *
  * \brief AT86RF212 PHY interface
  *
- * Copyright (C) 2014, Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -86,7 +86,6 @@ void PHY_SetBand(uint8_t band);
 void PHY_SetModulation(uint8_t modulation);
 void PHY_SetPanId(uint16_t panId);
 void PHY_SetShortAddr(uint16_t addr);
-void PHY_SetTxPower(uint8_t txPower);
 void PHY_Sleep(void);
 void PHY_Wakeup(void);
 void PHY_DataReq(uint8_t *data);

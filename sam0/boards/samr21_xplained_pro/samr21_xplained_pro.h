@@ -3,7 +3,7 @@
  *
  * \brief SAM R21 Xplained Pro board definition
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,6 +39,9 @@
  *
  * \asf_license_stop
  *
+ */
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef SAMR21_XPLAINED_PRO_H_INCLUDED
@@ -447,27 +450,14 @@ void system_board_init(void);
 #define RFCTRL_CFG_ANT_DIV           4
 
 
-#define AT86RFX_SPI_CONFIG(config) \
-config.mux_setting = RF_SPI_SERCOM_MUX_SETTING; \
-config.mode_specific.master.baudrate = AT86RFX_SPI_BAUDRATE; \
-config.pinmux_pad0 = RF_SPI_SERCOM_PINMUX_PAD0; \
-config.pinmux_pad1 = PINMUX_UNUSED; \
-config.pinmux_pad2 = RF_SPI_SERCOM_PINMUX_PAD2; \
-config.pinmux_pad3 = RF_SPI_SERCOM_PINMUX_PAD3;
+#define AT86RFX_SPI_SERCOM_MUX_SETTING   RF_SPI_SERCOM_MUX_SETTING
+#define AT86RFX_SPI_SERCOM_PINMUX_PAD0   RF_SPI_SERCOM_PINMUX_PAD0
+#define AT86RFX_SPI_SERCOM_PINMUX_PAD1   PINMUX_UNUSED
+#define AT86RFX_SPI_SERCOM_PINMUX_PAD2   RF_SPI_SERCOM_PINMUX_PAD2
+#define AT86RFX_SPI_SERCOM_PINMUX_PAD3   RF_SPI_SERCOM_PINMUX_PAD3
 
 #define AT86RFX_IRQ_CHAN             RF_IRQ_INPUT
-#define AT86RFX_INTC_INIT()          \
-		struct extint_chan_conf eint_chan_conf; \
-		extint_chan_get_config_defaults(&eint_chan_conf); \
-		eint_chan_conf.gpio_pin = AT86RFX_IRQ_PIN; \
-		eint_chan_conf.gpio_pin_mux = RF_IRQ_PINMUX; \
-		eint_chan_conf.gpio_pin_pull      = EXTINT_PULL_NONE; \
-		eint_chan_conf.wake_if_sleeping    = true; \
-		eint_chan_conf.filter_input_signal = false; \
-		eint_chan_conf.detection_criteria  = EXTINT_DETECT_BOTH; \
-		extint_chan_set_config(AT86RFX_IRQ_CHAN, &eint_chan_conf); \
-		extint_register_callback((extint_callback_t)AT86RFX_ISR,AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT);\
-		extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT);
+#define AT86RFX_IRQ_PINMUX           RF_IRQ_PINMUX
 
 
 /** Enables the transceiver main interrupt. */

@@ -4,7 +4,7 @@
  * @brief This file implements the functions for initializing buffer module,
  *  allocating and freeing up buffers.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,7 +42,7 @@
  */
 
 /*
- * Copyright (c) 2013, Atmel Corporation All rights reserved.
+ * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */
@@ -51,8 +51,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "return_val.h"
 #include "pal.h"
+#include "return_val.h"
 #include "bmm.h"
 #include "qmm.h"
 #include "tal.h"
@@ -192,7 +192,11 @@ void bmm_buffer_init(void)
  * @return pointer to the buffer allocated,
  *  NULL if buffer not available.
  */
-buffer_t *bmm_buffer_alloc(uint8_t size)
+#if defined(ENABLE_LARGE_BUFFER)
+buffer_t *bmm_buffer_alloc(uint16_t size)
+#else
+buffer_t * bmm_buffer_alloc(uint8_t size)
+#endif
 {
 	buffer_t *pfree_buffer = NULL;
 
@@ -206,7 +210,7 @@ buffer_t *bmm_buffer_alloc(uint8_t size)
 	if (size <= LARGE_BUFFER_SIZE) {
 		/*
 		 * Allocate small buffer if size is less than small buffer size
-		 * and if
+		 *and if
 		 * small buffer is available allocate from small buffer pool.
 		 */
 		if ((size <= SMALL_BUFFER_SIZE)) {
@@ -216,17 +220,43 @@ buffer_t *bmm_buffer_alloc(uint8_t size)
 		}
 
 		/*
-		 * If size is greater than small buffer size or no free small
-		 * buffer is
-		 * available, allocate a buffer from large buffer pool if
-		 * avialable
+		 * Allocate buffer only if size requested is less than or equal
+		 *to
+		 * maximum
+		 * size that can be allocated.
 		 */
-		if (NULL == pfree_buffer) {
-			/* Allocate buffer from free large buffer queue */
-			pfree_buffer = qmm_queue_remove(&free_large_buffer_q,
-					NULL);
+		if (size <= LARGE_BUFFER_SIZE) {
+			/*
+			 * Allocate small buffer if size is less than small
+			 *buffer size
+			 * and if
+			 * small buffer is available allocate from small buffer
+			 *pool.
+			 */
+			if ((size <= SMALL_BUFFER_SIZE)) {
+				/* Allocate buffer from free small buffer queue
+				 **/
+				pfree_buffer = qmm_queue_remove(
+						&free_small_buffer_q,
+						NULL);
+			}
+
+			/*
+			 * If size is greater than small buffer size or no free
+			 *small
+			 * buffer is
+			 * available, allocate a buffer from large buffer pool
+			 *if
+			 * avialable
+			 */
+			if (NULL == pfree_buffer) {
+				/* Allocate buffer from free large buffer queue
+				 **/
+				pfree_buffer = qmm_queue_remove(
+						&free_large_buffer_q,
+						NULL);
+			}
 		}
-	}
 
 #else /* no small buffers available at all */
 	/* Allocate buffer from free large buffer queue */
@@ -235,39 +265,40 @@ buffer_t *bmm_buffer_alloc(uint8_t size)
 	size = size; /* Keep compiler happy. */
 #endif
 
-	return pfree_buffer;
-}
-
-/**
- * @brief Frees up a buffer.
- *
- * This function frees up a buffer. The pointer passed to this function
- * should be the pointer returned during buffer allocation. The result is
- * unpredictable if an incorrect pointer is passed.
- *
- * @param pbuffer Pointer to buffer that has to be freed.
- */
-void bmm_buffer_free(buffer_t *pbuffer)
-{
-	if (NULL == pbuffer) {
-		/* If the buffer pointer is NULL abort free operation */
-		return;
+		return pfree_buffer;
 	}
+
+	/**
+	 * @brief Frees up a buffer.
+	 *
+	 * This function frees up a buffer. The pointer passed to this function
+	 * should be the pointer returned during buffer allocation. The result
+	 *is
+	 * unpredictable if an incorrect pointer is passed.
+	 *
+	 * @param pbuffer Pointer to buffer that has to be freed.
+	 */
+	void bmm_buffer_free(buffer_t *pbuffer)
+	{
+		if (NULL == pbuffer) {
+			/* If the buffer pointer is NULL abort free operation */
+			return;
+		}
 
 #if (TOTAL_NUMBER_OF_SMALL_BUFS > 0)
-	if (IS_SMALL_BUF(pbuffer)) {
-		/* Append the buffer into free small buffer queue */
-		qmm_queue_append(&free_small_buffer_q, pbuffer);
-	} else {
-		/* Append the buffer into free large buffer queue */
-		qmm_queue_append(&free_large_buffer_q, pbuffer);
-	}
+		if (IS_SMALL_BUF(pbuffer)) {
+			/* Append the buffer into free small buffer queue */
+			qmm_queue_append(&free_small_buffer_q, pbuffer);
+		} else {
+			/* Append the buffer into free large buffer queue */
+			qmm_queue_append(&free_large_buffer_q, pbuffer);
+		}
 
 #else /* no small buffers available at all */
-	/* Append the buffer into free large buffer queue */
-	qmm_queue_append(&free_large_buffer_q, pbuffer);
+		/* Append the buffer into free large buffer queue */
+		qmm_queue_append(&free_large_buffer_q, pbuffer);
 #endif
-}
+	}
 
 #endif /* (TOTAL_NUMBER_OF_BUFS > 0) */
 /* EOF */
