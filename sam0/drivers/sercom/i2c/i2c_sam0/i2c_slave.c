@@ -3,7 +3,7 @@
  *
  * \brief SAM I2C Slave Driver
  *
- * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -106,10 +106,14 @@ static enum status_code _i2c_slave_set_config(
 		tmp_ctrla = 0;
 	}
 
+	/* Check and set SCL clock stretch mode. */
+	if (config->scl_stretch_only_after_ack_bit || (config->transfer_speed == I2C_SLAVE_SPEED_HIGH_SPEED)) {
+		tmp_ctrla |= SERCOM_I2CM_CTRLA_SCLSM;
+	}
+	
 	tmp_ctrla |= ((uint32_t)config->sda_hold_time |
 			config->transfer_speed |
 			(config->scl_low_timeout << SERCOM_I2CS_CTRLA_LOWTOUTEN_Pos) |
-			(config->scl_stretch_only_after_ack_bit << SERCOM_I2CS_CTRLA_SCLSM_Pos) |
 			(config->slave_scl_low_extend_timeout << SERCOM_I2CS_CTRLA_SEXTTOEN_Pos));
 
 	i2c_hw->CTRLA.reg |= tmp_ctrla;
@@ -128,7 +132,7 @@ static enum status_code _i2c_slave_set_config(
 /**
  * \brief Initializes the requested I<SUP>2</SUP>C hardware module
  *
- * Initializes the SERCOM I<SUP>2</SUP>C Slave device requested and sets the provided
+ * Initializes the SERCOM I<SUP>2</SUP>C slave device requested and sets the provided
  * software module struct.  Run this function before any further use of
  * the driver.
  *
@@ -170,8 +174,8 @@ enum status_code i2c_slave_init(
 
 	uint32_t sercom_index = _sercom_get_sercom_inst_index(module->hw);
 	uint32_t pm_index, gclk_index; 
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21)
-#if (SAML21)
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30)
+#if (SAML21) || (SAMR30)
 	if (sercom_index == 5) {
 		pm_index     = MCLK_APBDMASK_SERCOM5_Pos;
 		gclk_index   = SERCOM5_GCLK_ID_CORE;
@@ -189,7 +193,7 @@ enum status_code i2c_slave_init(
 #endif
 	
 	/* Turn on module in PM */
-#if (SAML21)
+#if (SAML21) || (SAMR30)
 	if (sercom_index == 5) {
 		system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBD, 1 << pm_index);
 	} else {

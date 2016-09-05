@@ -3,7 +3,7 @@
  *
  * \brief FLEXCOM driver for SAM.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -65,6 +65,10 @@ extern "C" {
  */
 void flexcom_enable(Flexcom *p_flexcom)
 {
+#if SAMG55
+    #define PMC_PCK_PRES_CLK_1  PMC_PCK_PRES(0)
+#endif
+
 	sleepmgr_lock_mode(SLEEPMGR_ACTIVE);
 	/* Enable PMC clock for FLEXCOM */
 #ifdef ID_FLEXCOM7

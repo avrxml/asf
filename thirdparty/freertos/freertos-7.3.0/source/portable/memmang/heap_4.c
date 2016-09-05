@@ -144,7 +144,7 @@ static size_t xFreeBytesRemaining = ( ( size_t ) configTOTAL_HEAP_SIZE ) & ( ( s
 /* STATIC FUNCTIONS ARE DEFINED AS MACROS TO MINIMIZE THE FUNCTION CALL DEPTH. */
 
 /*-----------------------------------------------------------*/
-
+extern void vApplicationMallocFailedHook( void );
 void *pvPortMalloc( size_t xWantedSize )
 {
 xBlockLink *pxBlock, *pxPreviousBlock, *pxNewBlockLink;
@@ -225,7 +225,6 @@ void *pvReturn = NULL;
 	{
 		if( pvReturn == NULL )
 		{
-			extern void vApplicationMallocFailedHook( void );
 			vApplicationMallocFailedHook();
 		}
 	}

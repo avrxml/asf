@@ -306,6 +306,8 @@
 					<state>$PROJ_DIR$/../../../../../../../../../thirdparty/fatfs/fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4l/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
@@ -582,6 +584,8 @@
 					<state>$PROJ_DIR$/../../../../../../../../../thirdparty/fatfs/fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4l/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
@@ -1284,6 +1288,8 @@
 					<state>$PROJ_DIR$/../../../../../../../../../thirdparty/fatfs/fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4l/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>
@@ -1560,6 +1566,8 @@
 					<state>$PROJ_DIR$/../../../../../../../../../thirdparty/fatfs/fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/utils/cmsis/sam4l/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../../../../../sam/drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../../../sleepmgr</state>

@@ -56,7 +56,7 @@
 #include <compiler.h>
 #include <status_codes.h>
 
-// From module: Display - ILI9488 LCD Controller
+// From module: Display - ILI9488 LCD Controller (EBI)
 #include <ili9488.h>
 
 // From module: GPIO - General purpose Input/Output

@@ -305,7 +305,9 @@
 					<state>$PROJ_DIR$/../../../../../../thirdparty/fatfs/fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example1</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
@@ -584,7 +586,9 @@
 					<state>$PROJ_DIR$/../../../../../../thirdparty/fatfs/fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example1</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
@@ -1289,7 +1293,9 @@
 					<state>$PROJ_DIR$/../../../../../../thirdparty/fatfs/fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example1</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
@@ -1568,7 +1574,9 @@
 					<state>$PROJ_DIR$/../../../../../../thirdparty/fatfs/fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example1</state>
 					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>

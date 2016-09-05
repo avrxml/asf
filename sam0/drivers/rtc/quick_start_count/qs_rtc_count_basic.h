@@ -76,7 +76,7 @@
  * \snippet qs_rtc_count_basic.c add_main
  *
  * \subsection rtc_count_basic_use_workflow Workflow
- * -# Create a RTC configuration structure to hold the desired RTC driver
+ * -# Create an RTC configuration structure to hold the desired RTC driver
  *    settings.
  *    \snippet qs_rtc_count_basic.c set_conf
  * -# Fill the configuration structure with the default driver configuration.

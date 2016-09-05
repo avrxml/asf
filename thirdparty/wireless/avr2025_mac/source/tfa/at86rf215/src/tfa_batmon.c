@@ -93,54 +93,48 @@ static irq_handler_t irq_hdl_batmon;
 uint16_t tfa_get_batmon_voltage(void)
 {
 	uint16_t mv;
-
 	if ((tal_state[RF09] == TAL_SLEEP) && (tal_state[RF24] == TAL_SLEEP)) {
 		return 0;
 	}
 
 	/* Store previous settings: range, threshold, IRQ */
 #ifdef IQ_RADIO
-	bool previous_range = pal_dev_bit_read(RF215_RF, SR_RF_BMDVC_BMHR);
-	uint8_t pre_vth = pal_dev_bit_read(RF215_RF, SR_RF_BMDVC_BMVTH);
+	bool previous_range = trx_bit_read(RF215_RF, SR_RF_BMDVC_BMHR);
+	uint8_t pre_vth = trx_bit_read(RF215_RF, SR_RF_BMDVC_BMVTH);
 #else
-	bool previous_range = trx_bit_read(SR_RF_BMDVC_BMHR);
-	uint8_t pre_vth = trx_bit_read(SR_RF_BMDVC_BMVTH);
+	bool previous_range = trx_bit_read( SR_RF_BMDVC_BMHR);
+	uint8_t pre_vth = trx_bit_read( SR_RF_BMDVC_BMVTH);
 #endif
 
 	/* Disable both battery monitor interrupt during measurement */
 	for (uint8_t i = 0; i < NUM_TRX; i++) {
 		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * i;
 #ifdef IQ_RADIO
-		pal_dev_bit_write(RF215_RF, reg_offset + SR_RF09_IRQM_BATLOW,
-				0);
+		trx_bit_write(RF215_RF, reg_offset + SR_RF09_IRQM_BATLOW, 0);
 #else
-		trx_bit_write(reg_offset + SR_RF09_IRQM_BATLOW, 0);
+		trx_bit_write( reg_offset + SR_RF09_IRQM_BATLOW, 0);
 #endif
 	}
 
 	/* Check if supply voltage is within lower range */
 #ifdef IQ_RADIO
-	pal_dev_bit_write(RF215_RF, SR_RF_BMDVC_BMHR, 0);
-	pal_dev_bit_write(RF215_RF, SR_RF_BMDVC_BMVTH, 0x0F);
-	pal_timer_delay(2); /* Wait until Batmon has been settled. */ /* @ ToDo:
-	                                                               * Is it
-	                                                               * necessary? */
-	bool high_range = pal_dev_bit_read(RF215_RF, SR_RF_BMDVC_BMS);
+	trx_bit_write(RF215_RF, SR_RF_BMDVC_BMHR, 0);
+	trx_bit_write(RF215_RF, SR_RF_BMDVC_BMVTH, 0x0F);
+	pal_timer_delay(2); /* Wait until Batmon has been settled. */
+	bool high_range = trx_bit_read(RF215_RF, SR_RF_BMDVC_BMS);
 #else
-	trx_bit_write(SR_RF_BMDVC_BMHR, 0);
-	trx_bit_write(SR_RF_BMDVC_BMVTH, 0x0F);
-	pal_timer_delay(2); /* Wait until Batmon has been settled. */ /* @ ToDo:
-	                                                               * Is it
-	                                                               * necessary? */
-	bool high_range = trx_bit_read(SR_RF_BMDVC_BMS);
+	trx_bit_write( SR_RF_BMDVC_BMHR, 0);
+	trx_bit_write( SR_RF_BMDVC_BMVTH, 0x0F);
+	pal_timer_delay(2); /* Wait until Batmon has been settled. */
+	bool high_range = trx_bit_read( SR_RF_BMDVC_BMS);
 #endif
 	if (high_range) {
 		/* EVDD is above threshold */
 		/* Set to high range */
 #ifdef IQ_RADIO
-		pal_dev_bit_write(RF215_RF, SR_RF_BMDVC_BMHR, 1);
+		trx_bit_write(RF215_RF, SR_RF_BMDVC_BMHR, 1);
 #else
-		trx_bit_write(SR_RF_BMDVC_BMHR, 1);
+		trx_bit_write( SR_RF_BMDVC_BMHR, 1);
 #endif
 	} else {
 		/* EVDD is below threshold */
@@ -151,23 +145,13 @@ uint16_t tfa_get_batmon_voltage(void)
 	uint8_t vth = 0xFF; /* 0xFF used as flag */
 	for (uint8_t i = 0; i < 16; i++) {
 #ifdef IQ_RADIO
-		pal_dev_bit_write(RF215_RF, SR_RF_BMDVC_BMVTH, i);
-		pal_timer_delay(2); /* Wait until Batmon has been settled. */ /*
-		                                                               * @
-		                                                               * ToDo:
-		                                                               * Is
-		                                                               * it
-		                                                               * necessary? */
-		if (pal_dev_bit_read(RF215_RF, SR_RF_BMDVC_BMS) == 0)
+		trx_bit_write(RF215_RF, SR_RF_BMDVC_BMVTH, i);
+		pal_timer_delay(2); /* Wait until Batmon has been settled. */
+		if (trx_bit_read(RF215_RF, SR_RF_BMDVC_BMS) == 0)
 #else
-		trx_bit_write(SR_RF_BMDVC_BMVTH, i);
-		pal_timer_delay(2); /* Wait until Batmon has been settled. */ /*
-		                                                               * @
-		                                                               * ToDo:
-		                                                               * Is
-		                                                               * it
-		                                                               * necessary? */
-		if (trx_bit_read(SR_RF_BMDVC_BMS) == 0)
+		trx_bit_write( SR_RF_BMDVC_BMVTH, i);
+		pal_timer_delay(2); /* Wait until Batmon has been settled. */
+		if (trx_bit_read( SR_RF_BMDVC_BMS) == 0)
 #endif
 		{
 			vth = i;
@@ -196,32 +180,34 @@ uint16_t tfa_get_batmon_voltage(void)
 
 	/* Re-store previous settings: range, threshold, IRQ */
 #ifdef IQ_RADIO
-	pal_dev_bit_write(RF215_RF, SR_RF_BMDVC_BMHR, previous_range);
-	pal_dev_bit_write(RF215_RF, SR_RF_BMDVC_BMVTH, pre_vth);
+	trx_bit_write(RF215_RF, SR_RF_BMDVC_BMHR, previous_range);
+	trx_bit_write(RF215_RF, SR_RF_BMDVC_BMVTH, pre_vth);
 #else
-	trx_bit_write(SR_RF_BMDVC_BMHR, previous_range);
-	trx_bit_write(SR_RF_BMDVC_BMVTH, pre_vth);
+	trx_bit_write( SR_RF_BMDVC_BMHR, previous_range);
+	trx_bit_write( SR_RF_BMDVC_BMVTH, pre_vth);
 #endif
 	/* Clear pending BATLOW IRQ */
 	uint8_t irqs[2];
-	trx_read(RG_RF09_IRQS, irqs, 2);
-	for (uint8_t i = 0; i < NUM_TRX; i++) {
+	trx_read( RG_RF09_IRQS, irqs, 2);
+	for (trx_id_t i = (trx_id_t)0; i < NUM_TRX; i++) {
 		irqs[i] &=  (uint8_t)(~(uint32_t)RF_IRQ_BATLOW);
-		TAL_RF_IRQ_ADD((trx_id_t)i, irqs[i]);
+		TAL_RF_IRQ_ADD(i, irqs[i]);
+		TAL_RF_IRQ_CLR(i, RF_IRQ_TRXRDY);
 	}
 
 	for (uint8_t i = 0; i < NUM_TRX; i++) {
 		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * i;
 #ifdef IQ_RADIO
-		pal_dev_bit_write(RF215_RF, reg_offset + SR_RF09_IRQM_BATLOW,
-				1);
+		trx_bit_write(RF215_RF, reg_offset + SR_RF09_IRQM_BATLOW, 1);
 #else
-		trx_bit_write(reg_offset + SR_RF09_IRQM_BATLOW, 1);
+		trx_bit_write( reg_offset + SR_RF09_IRQM_BATLOW, 1);
 #endif
 	}
 
 	return mv;
 }
+
+#endif /* #if (defined SUPPORT_TFA) || (defined TFA_BAT_MON_READ) */
 
 #endif /* #if (defined ENABLE_TFA) || (defined TFA_BAT_MON_READ) */
 
@@ -263,11 +249,11 @@ retval_t tfa_batmon_irq_init(FUNC_PTR(batmon_irq_cb), uint16_t vth)
 		}
 
 #ifdef IQ_RADIO
-		pal_dev_bit_write(RF215_RF, SR_RF_BMDVC_BMHR, high_range);
-		pal_dev_bit_write(RF215_RF, SR_RF_BMDVC_BMVTH, reg);
+		trx_bit_write(RF215_RF, SR_RF_BMDVC_BMHR, high_range);
+		trx_bit_write(RF215_RF, SR_RF_BMDVC_BMVTH, reg);
 #else
-		trx_bit_write(SR_RF_BMDVC_BMHR, high_range);
-		trx_bit_write(SR_RF_BMDVC_BMVTH, reg);
+		trx_bit_write( SR_RF_BMDVC_BMHR, high_range);
+		trx_bit_write( SR_RF_BMDVC_BMVTH, reg);
 #endif
 
 		ret = MAC_SUCCESS;
@@ -277,7 +263,7 @@ retval_t tfa_batmon_irq_init(FUNC_PTR(batmon_irq_cb), uint16_t vth)
 }
 
 #endif /* #if (defined ENABLE_TFA) || (defined TFA_BAT_MON) || (defined
-        *TFA_BAT_MON_IRQ) */
+        * TFA_BAT_MON_IRQ) */
 
 #if (defined ENABLE_TFA) || (defined TFA_BAT_MON) || (defined TFA_BAT_MON_IRQ)
 void handle_batmon_irq(void)
@@ -288,8 +274,6 @@ void handle_batmon_irq(void)
 }
 
 #endif /* #if (defined ENABLE_TFA) || (defined TFA_BAT_MON) || (defined
-        *TFA_BAT_MON_IRQ) */
-
-#endif /* #if (defined ENABLE_TFA)  || . . . */
+        * TFA_BAT_MON_IRQ) */
 
 /* EOF */

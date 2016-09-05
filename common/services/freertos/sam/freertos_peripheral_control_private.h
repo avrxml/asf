@@ -5,7 +5,7 @@
  * \brief Generic FreeRTOS peripheral control functions
  *
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,6 +49,14 @@
 #ifndef FREERTOS_PRIVATE_PERIPHERAL_CONTROL_INCLUDED
 #define FREERTOS_PRIVATE_PERIPHERAL_CONTROL_INCLUDED
 
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+extern "C" {
+#endif
+/**INDENT-ON**/
+/// @endcond
+
 /* Contains the information needed to control circular buffer reception using
 the PDC. */
 typedef struct freertos_pdc_rx_control {
@@ -64,7 +72,7 @@ typedef struct freertos_pdc_rx_control {
 transmit function with a multi-tasking application. */
 typedef struct freertos_dma_tx_control {
 	xSemaphoreHandle transaction_complete_notification_semaphore;	/*< Used to indicate the end of a DMA controlled transaction. */
-	xSemaphoreHandle peripheral_access_mutex;						/*< Used for mutual exclusion to the DMA.  Optional. */
+	xSemaphoreHandle peripheral_access_sem;						    /*< Used for mutual exclusion to the DMA.  Optional. */
 } freertos_dma_event_control_t;
 
 /* Contains identification information required for accessing a peripheral. */
@@ -96,7 +104,7 @@ uint32_t freertos_copy_bytes_from_pdc_circular_buffer(
 		freertos_pdc_rx_control_t *p_rx_buffer_details,
 		uint32_t next_byte_to_be_written, uint8_t *buf,
 		uint32_t bytes_to_read);
-status_code_t freertos_obtain_peripheral_access_mutex(
+status_code_t freertos_obtain_peripheral_access_semphore(
 		freertos_dma_event_control_t *dma_event_control,
 		portTickType *max_block_time_ticks);
 status_code_t freertos_optionally_wait_transfer_completion(
@@ -108,5 +116,13 @@ void create_peripheral_control_semaphores(const uint8_t options_flags,
 		freertos_dma_event_control_t *rx_dma_control);
 void configure_interrupt_controller(const enum IRQn peripheral_irq,
 		uint32_t interrupt_priority);
+
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+}
+#endif
+/**INDENT-ON**/
+/// @endcond
 
 #endif /* FREERTOS_PRIVATE_PERIPHERAL_CONTROL_INCLUDED */

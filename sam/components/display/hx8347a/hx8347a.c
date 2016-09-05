@@ -3,7 +3,7 @@
  *
  * \brief API driver for HX8347A TFT display component.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -751,7 +751,9 @@ void hx8347a_set_display_direction(display_direction_t dd)
 {
 	if (dd == LANDSCAPE) {
 		hx8347a_write_register(HX8347A_MEMORY_ACCESS_CTRL,
-				HX8347A_MEMORY_ACCESS_CTRL_MV | HX8347A_MEMORY_ACCESS_CTRL_BGR);
+				HX8347A_MEMORY_ACCESS_CTRL_MV | 
+				HX8347A_MEMORY_ACCESS_CTRL_MY | 
+				HX8347A_MEMORY_ACCESS_CTRL_BGR);
 	} else {
 		hx8347a_write_register(HX8347A_MEMORY_ACCESS_CTRL,
 				HX8347A_MEMORY_ACCESS_CTRL_MY | 

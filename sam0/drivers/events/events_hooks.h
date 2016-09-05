@@ -125,7 +125,7 @@ enum status_code events_del_hook(struct events_resource *resource, struct events
  * \param[in] source   One of the members in the \ref events_interrupt_source enumerator
  *
  * \return Status of the interrupt source enable procedure.
- * \retval STATUS_OK              Enabling of the interrupt source went successful
+ * \retval STATUS_OK              Enabling of the interrupt source was successful
  * \retval STATUS_ERR_INVALID_ARG Interrupt source does not exist
  *
  */

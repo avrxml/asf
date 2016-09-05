@@ -3,7 +3,7 @@
  *
  * \brief SAM Serial Peripheral Interface Driver
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -190,6 +190,14 @@ static void _spi_read_buffer(
 		hw->INTFLAG.reg = SPI_INTERRUPT_FLAG_TX_COMPLETE;
 		/* Enable transmit complete interrupt for slave */
 		tmp_intenset |= SPI_INTERRUPT_FLAG_TX_COMPLETE;
+
+		/* Workaround for SSL flag enable */
+#ifdef FEATURE_SPI_SLAVE_SELECT_LOW_DETECT
+		/* Clear SSL flag if set */
+		hw->INTFLAG.reg = SPI_INTERRUPT_FLAG_SLAVE_SELECT_LOW;
+		/* Enable Slave Select Low Interrupt for slave */
+		tmp_intenset |= SPI_INTERRUPT_FLAG_SLAVE_SELECT_LOW;
+#endif
 	}
 #  endif
 
@@ -614,7 +622,7 @@ void _spi_interrupt_handler(
 			uint16_t flush = spi_hw->DATA.reg;
 			UNUSED(flush);
 			/* Clear overflow flag */
-			spi_hw->STATUS.reg |= SERCOM_SPI_STATUS_BUFOVF;
+			spi_hw->STATUS.reg = SERCOM_SPI_STATUS_BUFOVF;
 		} else {
 			if (module->dir == SPI_DIRECTION_WRITE) {
 				/* Flush receive buffer when writing */

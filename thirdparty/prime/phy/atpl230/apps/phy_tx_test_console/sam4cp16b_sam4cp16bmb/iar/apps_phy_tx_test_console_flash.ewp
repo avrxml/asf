@@ -297,9 +297,9 @@
 					<state>$PROJ_DIR$/../../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial</state>
@@ -320,12 +320,13 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/trng</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../coupling_config</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/ioport</state>
@@ -581,9 +582,9 @@
 					<state>$PROJ_DIR$/../../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial</state>
@@ -604,12 +605,13 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/trng</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../coupling_config</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/ioport</state>
@@ -1256,9 +1258,9 @@
 					<state>$PROJ_DIR$/../../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial</state>
@@ -1279,12 +1281,13 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/trng</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../coupling_config</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/ioport</state>
@@ -1540,9 +1543,9 @@
 					<state>$PROJ_DIR$/../../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/rstc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4cp/source/templates</state>
-					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../freertos/freertos-7.3.0/source/portable/iar/sam</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/efc</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial</state>
@@ -1563,12 +1566,13 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/trng</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/pdc/pdc_uart_example</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../coupling_config</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/ioport</state>

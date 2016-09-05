@@ -3,7 +3,7 @@
  *
  * \brief Handles Serial I/O  Functionalities For the Host Device
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,7 +52,7 @@
 /* === PROTOTYPES ========================================================== */
 
 /* === GLOBALS ========================================================== */
-#if SAMD || SAMR21 || SAML21
+#if SAMD || SAMR21 || SAML21 || SAMR30
 static struct usart_module host_uart_module;
 #else
 static usart_serial_options_t usart_serial_options = {
@@ -88,7 +88,7 @@ static uint8_t serial_rx_count;
 
 void sio2host_init(void)
 {
-#if SAMD || SAMR21 || SAML21
+#if SAMD || SAMR21 || SAML21 || SAMR30
 	struct usart_config host_uart_config;
 	/* Configure USART for unit test output */
 	usart_get_config_defaults(&host_uart_config);
@@ -112,19 +112,23 @@ void sio2host_init(void)
 
 uint8_t sio2host_tx(uint8_t *data, uint8_t length)
 {
-#if SAMD || SAMR21 || SAML21
+#if SAMD || SAMR21 || SAML21 || SAMR30
 	status_code_genare_t status;
 #else
 	status_code_t status;
 #endif /*SAMD || SAMR21 || SAML21 */
 
 	do {
-#if SAMD || SAMR21 || SAML21
+#if SAMD || SAMR21 || SAML21 || SAMR30
 		status
 			= usart_serial_write_packet(&host_uart_module,
 				(const uint8_t *)data, length);
+#elif SAM4S || SAM4E
+        status = usart_serial_write_packet((Usart *)USART_HOST,
+				(const uint8_t *)data,
+				length);
 #else
-		status = usart_serial_write_packet(USART_HOST,
+	    status = usart_serial_write_packet(USART_HOST,
 				(const uint8_t *)data,
 				length);
 #endif
@@ -228,17 +232,19 @@ int sio2host_getchar_nowait(void)
 	}
 }
 
-#if SAMD || SAMR21 || SAML21
+#if SAMD || SAMR21 || SAML21 || SAMR30
 void USART_HOST_ISR_VECT(uint8_t instance)
 #else
 USART_HOST_ISR_VECT()
 #endif
 {
 	uint8_t temp;
-#if SAMD || SAMR21 || SAML21
+#if SAMD || SAMR21 || SAML21 || SAMR30
 	usart_serial_read_packet(&host_uart_module, &temp, 1);
+#elif SAM4E || SAM4S
+	usart_serial_read_packet((Usart *)USART_HOST, &temp, 1);
 #else
-	usart_serial_read_packet(USART_HOST, &temp, 1);
+    usart_serial_read_packet(USART_HOST, &temp, 1);
 #endif
 
 	/* Introducing critical section to avoid buffer corruption. */

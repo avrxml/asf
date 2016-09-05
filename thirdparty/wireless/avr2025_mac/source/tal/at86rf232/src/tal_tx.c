@@ -295,7 +295,7 @@ void send_frame(csma_mode_t csma_mode, bool tx_retries)
 	/* Configure tx according to csma usage */
 	if ((csma_mode == NO_CSMA_NO_IFS) || (csma_mode == NO_CSMA_WITH_IFS)) {
 		trx_bit_write(SR_MAX_CSMA_RETRIES, 7); /* immediate transmission
-		                                        **/
+		                                       **/
 	} else {
 		trx_bit_write(SR_MAX_CSMA_RETRIES, tal_pib.MaxCSMABackoffs);
 	}

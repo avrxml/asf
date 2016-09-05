@@ -679,7 +679,7 @@ static inline void aes_gcm_set_gf_multiplication(struct aes_module *const module
  * This is a list of the available Quick Start Guides (QSGs) and example
  * applications for \ref asfdoc_sam0_drivers_aes_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  *  - \subpage asfdoc_sam0_aes_basic_use_case
@@ -696,7 +696,7 @@ static inline void aes_gcm_set_gf_multiplication(struct aes_module *const module
  *	</tr>
  *	<tr>
  *      <td>42445B</td>
- *		<td>08/2015</td>
+ *		<td>12/2015</td>
  *		<td>Added support for SAM L22</td>
  *	</tr>
  *	<tr>

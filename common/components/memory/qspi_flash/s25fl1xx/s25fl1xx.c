@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief QSPI flash memory driver for S25FL116K.
+ * \brief QSPI flash memory driver for S25FL1XX.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,43 +40,19 @@
  * \asf_license_stop
  *
  */
-
-/**
- * \add to group at25d_module S25FL1 driver
- * \in group lib_spiflash
- * The S25FL1 serial data flash driver is based on the corresponding S25FL1 SPI driver.
- * A S25FL1 instance has to be initialized using the data flash level function
- * S25FL1D_Configure(). S25FL1 Dataflash can be automatically detected using
- * the S25FL1D_FindDevice() function. Then S25FL1 dataflash operations such as
- * read, write and erase DF can be launched using s25fl1xx_send_command function
- * with corresponding S25FL1 command set.
- *
- * \section Usage
- * <ul>
- * <li> Reads a serial flash device ID using S25FL1D_ReadJedecId().</li>
- * <li> Reads data from the S25fl1 at the specified address using S25FL1D_Read().</li>
- * <li> Writes data on the S25fl1 at the specified address using S25FL1D_Write().</li>
- * <li> Erases all chip using S25FL1D_EraseBlock().</li>
- * <li> Erases a specified block using S25FL1D_EraseBlock().</li>
- * <li> Poll until the S25fl1 has completed of corresponding operations using
- * s25fl1xx_wait_memory_access_end(qspid).</li>
- * <li> Retrieves and returns the S25fl1 current using s25fl1xx_read_status(qspid).</li>
- * </ul>
- *
- */
-/*@{*/
-/*@}*/
-
-/**
- * \file
- *
- * Implementation for the S25FL1 serial flash driver.
- *
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
-/*----------------------------------------------------------------------------
- *        Headers
- *----------------------------------------------------------------------------*/
+/**
+ * \defgroup group_common_components_memory_qspi_flash_s25fl1xx QSPI Flash S25FL1XX Series
+ *
+ * Low-level driver for the S25FL1XX Series QSPI Flash controller. This driver provides access to the main
+ * features of the S25FL1XX Series QSPI Flash.
+ *
+ * \{
+ */
+
 #include <board.h>
 #include <assert.h>
 #include "stdlib.h"
@@ -84,18 +60,16 @@
 #include "s25fl1xx.h"
 #include "delay.h"
 
-/*----------------------------------------------------------------------------
- *        Variable
- *----------------------------------------------------------------------------*/
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+extern "C" {
+#endif
+/**INDENT-ON**/
+/// @endcond
 
 struct qspi_inst_frame_t *dev;
 struct qspi_inst_frame_t *mem;
-
-/*----------------------------------------------------------------------------
- *        Definition
- *----------------------------------------------------------------------------*/
-#define READ_DEV        0
-#define WRITE_DEV       1
 
 #define PAGE_SIZE       256
 
@@ -282,7 +256,6 @@ static void s25fl1xx_memory_access(struct qspid_t *qspid, uint8_t instr, uint32_
 		mem->inst_frame.bm.b_tfr_type = (QSPI_IFR_TFRTYP_TRSFR_WRITE_MEMORY >> QSPI_IFR_TFRTYP_Pos);
 		qspid->qspi_buffer.tx_data_size = size;
 	} else {
-		mem->addr += 1;
 		mem->inst_frame.bm.b_tfr_type = (QSPI_IFR_TFRTYP_TRSFR_READ_MEMORY >> QSPI_IFR_TFRTYP_Pos);
 		qspid->qspi_buffer.rx_data_size = size;
 	}
@@ -829,17 +802,10 @@ uint8_t s25fl1xx_erase_64k_block(struct qspid_t *qspid, uint32_t address)
  */
  uint8_t s25fl1xx_read(struct qspid_t *qspid, uint32_t *data,  uint32_t size, uint32_t address)
 {
-	/** 1 DummyRead is 8 dummy cycles of SPI */
-	const uint8_t dummy_read = 1;
-	uint8_t *data_rx;
 	uint8_t secure = 0;
+	mem->inst_frame.bm.b_dummy_cycles = 8;
+	s25fl1xx_memory_access(qspid, S25FL1XX_READ_ARRAY , address, 0, data, QSPI_READ_ACCESS, size, secure);
 
-	data_rx = malloc(size);
-	s25fl1xx_memory_access(qspid, S25FL1XX_READ_ARRAY , address, 0, (uint32_t *)data_rx, QSPI_READ_ACCESS, (size + dummy_read), secure);
-	memcpy(data, data_rx , size);
-
-	data_rx = NULL;
-	free(data_rx);
 	return 0;
 }
 
@@ -984,3 +950,15 @@ void s25fl1xx_enter_continous_read_mode(struct qspid_t *qspid)
 	mem->inst_frame.bm.b_opt_en = 0;
 	mem->inst_frame.bm.b_continues_read  = 0;
 }
+
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+}
+#endif
+/**INDENT-ON**/
+/// @endcond
+
+/**
+ * \}
+ */

@@ -3,7 +3,7 @@
  *
  * \brief SAM Serial Peripheral Interface Driver
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -513,7 +513,7 @@ enum status_code spi_init(
 
 	uint32_t sercom_index = _sercom_get_sercom_inst_index(module->hw);
 	uint32_t pm_index, gclk_index;
-#if (SAML21)
+#if (SAML21) || (SAMR30)
 	if (sercom_index == 5) {
 #  ifdef ID_SERCOM5
 		pm_index     = MCLK_APBDMASK_SERCOM5_Pos;
@@ -525,10 +525,10 @@ enum status_code spi_init(
 		pm_index     = sercom_index + MCLK_APBCMASK_SERCOM0_Pos;
 		gclk_index   = sercom_index + SERCOM0_GCLK_ID_CORE;
 	}
-#elif (SAMC21) || (SAML22)
+#elif (SAMC21) 
 	if (sercom_index == 5) {
 #  ifdef ID_SERCOM5
-		pm_index     = MCLK_APBCMASK_SERCOM5_Pos;
+		pm_index     = sercom_index + MCLK_APBCMASK_SERCOM0_Pos;
 		gclk_index   =  SERCOM5_GCLK_ID_CORE;
 #  else
 		return STATUS_ERR_INVALID_ARG;
@@ -537,7 +537,7 @@ enum status_code spi_init(
 		pm_index     = sercom_index + MCLK_APBCMASK_SERCOM0_Pos;
 		gclk_index   = sercom_index + SERCOM0_GCLK_ID_CORE;
 	}
-#elif (SAMC20)
+#elif (SAMC20) || (SAML22)
 	pm_index     = sercom_index + MCLK_APBCMASK_SERCOM0_Pos;
 	gclk_index   = sercom_index + SERCOM0_GCLK_ID_CORE;
 #else
@@ -546,7 +546,7 @@ enum status_code spi_init(
 #endif
 
 	/* Turn on module in PM */
-#if (SAML21)
+#if (SAML21) || (SAMR30)
 	if (sercom_index == 5) {
 #  ifdef ID_SERCOM5
 		system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBD, 1 << pm_index);
@@ -630,7 +630,7 @@ enum status_code spi_init(
  * \return Status of the read operation.
  * \retval STATUS_OK              If the read was completed
  * \retval STATUS_ABORTED          If transaction was ended by master before
- *                                 entire buffer was transferred
+ *                                 the entire buffer was transferred
  * \retval STATUS_ERR_INVALID_ARG If invalid argument(s) were provided
  * \retval STATUS_ERR_TIMEOUT     If the operation was not completed within the
  *                                timeout in slave mode
@@ -992,7 +992,7 @@ enum status_code spi_write_buffer_wait(
 			/* Start timeout period for slave */
 			if (module->mode == SPI_MODE_SLAVE) {
 				for (uint32_t i = 0; i <= SPI_TIMEOUT; i++) {
-					if (spi_is_ready_to_write(module)) {
+					if (length && spi_is_ready_to_write(module)) {
 						data_to_send = tx_data[tx_pos++];
 						/* If 9-bit data, get next byte to send from the buffer */
 						if (module->character_size == SPI_CHARACTER_SIZE_9BIT) {

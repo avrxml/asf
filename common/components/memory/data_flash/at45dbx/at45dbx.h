@@ -3,7 +3,7 @@
  *
  * \brief Management of the AT45DBX DataFlash component.
  *
- * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -87,7 +87,11 @@ extern "C" {
 //! @}
 
 //! Number of bits for addresses within logical sectors of file system.
+#ifdef AT45DB641E
+#define AT45DBX_SECTOR_BITS     8
+#else
 #define AT45DBX_SECTOR_BITS     9
+#endif
 
 //! Logical sector size of file system in bytes.
 #define AT45DBX_SECTOR_SIZE     (1 << AT45DBX_SECTOR_BITS)
@@ -262,7 +266,7 @@ extern void at45dbx_spi_write_packet(void const *data, size_t len);
  */
 static inline bool at45dbx_check_address(uint32_t address)
 {
-	if (address > (((uint32_t)1<<AT45DBX_MEM_SIZE)*AT45DBX_MEM_CNT)) {
+	if (address >= (((uint32_t)1<<AT45DBX_MEM_SIZE)*AT45DBX_MEM_CNT)) {
 		return false;
 	} else {
 		return true;

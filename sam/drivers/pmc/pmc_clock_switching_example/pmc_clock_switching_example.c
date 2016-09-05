@@ -305,7 +305,7 @@ int main(void)
 #else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
-#endif	
+#endif
 	for (gs_uc_wait_button = 1; gs_uc_wait_button;) {
 	}
 
@@ -320,7 +320,7 @@ int main(void)
 #else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
-#endif	
+#endif
 
 	/* First switch to slow clock */
 	pmc_switch_mck_to_sclk(PMC_MCKR_PRES_CLK_1);
@@ -343,6 +343,7 @@ int main(void)
 	for (gs_uc_wait_button = 1; gs_uc_wait_button;) {
 	}
 
+#if !(SAME70)
 	puts("\n\r-I- Switch the XTAL 32K crystal oscillator to be the source of the slow clock\n\r"
 			"-I- The master clock is slow clock\n\r"
 			"-I- Press Button "BUTTON_NAME" to switch next clock configuration after it has been measured.\r\n");
@@ -353,10 +354,11 @@ int main(void)
 #else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
-#endif	
+#endif
 
 	/* Enable the External 32K oscillator */
 	pmc_switch_sclk_to_32kxtal(PMC_OSC_XTAL);
+#endif
 
 	/* If a new value for CSS field corresponds to Main Clock or Slow Clock,
 	 * program the CSS field first.
@@ -412,7 +414,7 @@ int main(void)
 #else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
-#endif	
+#endif
 
 	/* Enable the PLLA clock, the mainck equals 12Mhz * (32-1+1) / 3 = 128Mhz */
 	pmc_enable_pllack((32 - 1), 0x3f, 3);
@@ -430,7 +432,7 @@ int main(void)
 #else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
-#endif	
+#endif
 
 	/* Then program the CSS field. */
 	pmc_switch_mck_to_pllack(PMC_MCKR_PRES_CLK_2);
@@ -441,6 +443,7 @@ int main(void)
 	config_uart_and_pck(PMC_PCK_CSS_PLLA_CLK, PMC_PCK_PRES_CLK_2,
 			PMC_CLOCK_SWITCHING_EXAMPLE_FIXED_PLLA/2);
 
+#if !(SAME70)
 	for (gs_uc_wait_button = 1; gs_uc_wait_button;) {
 	}
 
@@ -454,10 +457,11 @@ int main(void)
 #else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
-#endif	
+#endif
 
 	/* Switch slow clck to extern 32k xtal */
 	pmc_switch_sclk_to_32kxtal(PMC_OSC_XTAL);
+#endif
 
 	/* Delay for a while to make sure the clock is stable */
 	/* Wait for UART transmit done */
@@ -467,7 +471,7 @@ int main(void)
 #else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
-#endif	
+#endif
 
 	/* If a new value for CSS field corresponds to Main Clock or Slow Clock,
 	 * program the CSS field first.
@@ -566,7 +570,7 @@ int main(void)
 #else
 	while (!uart_is_tx_empty(CONF_UART)) {
 	};
-#endif	
+#endif
 
 	while (1) {
 	}

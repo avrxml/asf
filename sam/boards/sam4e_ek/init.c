@@ -3,7 +3,7 @@
  *
  * \brief SAM4E-EK board init.
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -276,7 +276,8 @@ void board_init(void)
 	ioport_set_pin_peripheral_mode(PIN_HSMCI_MCDA3_GPIO, PIN_HSMCI_MCDA3_FLAGS);
 
 	/* Configure SD/MMC card detect pin */
-	ioport_set_pin_peripheral_mode(SD_MMC_0_CD_GPIO, SD_MMC_0_CD_FLAGS);
+	ioport_set_pin_dir(SD_MMC_0_CD_GPIO, IOPORT_DIR_INPUT);
+	ioport_set_pin_mode(SD_MMC_0_CD_GPIO, SD_MMC_0_CD_FLAGS);
 #endif
 
 #ifdef CONF_BOARD_TWI1

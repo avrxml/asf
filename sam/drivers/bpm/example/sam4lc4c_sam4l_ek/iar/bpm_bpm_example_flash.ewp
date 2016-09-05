@@ -305,6 +305,8 @@
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../ast/example1</state>
+					<state>$PROJ_DIR$/../../../../ast/example2</state>
 					<state>$PROJ_DIR$/../../../../ast</state>
 					<state>$PROJ_DIR$/../../../../eic</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
@@ -576,6 +578,8 @@
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../ast/example1</state>
+					<state>$PROJ_DIR$/../../../../ast/example2</state>
 					<state>$PROJ_DIR$/../../../../ast</state>
 					<state>$PROJ_DIR$/../../../../eic</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
@@ -1272,6 +1276,8 @@
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../ast/example1</state>
+					<state>$PROJ_DIR$/../../../../ast/example2</state>
 					<state>$PROJ_DIR$/../../../../ast</state>
 					<state>$PROJ_DIR$/../../../../eic</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
@@ -1543,6 +1549,8 @@
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../ast/example1</state>
+					<state>$PROJ_DIR$/../../../../ast/example2</state>
 					<state>$PROJ_DIR$/../../../../ast</state>
 					<state>$PROJ_DIR$/../../../../eic</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>

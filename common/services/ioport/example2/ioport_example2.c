@@ -73,6 +73,7 @@
  *  - SAMG53 Xplained Pro kit
  *  - SAMG55 Xplained Pro kit
  *  - SAMV71 Xplained Ultra kit
+ *  - SAME70 Xplained Pro kit
  *
  * \section example_description Description of the example
  * This example flashes a single LEDs present with flash speed of 1Hz.

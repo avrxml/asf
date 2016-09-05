@@ -1989,9 +1989,6 @@
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/instance/evsys.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/instance/mtb.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/instance/wdt.h</name>
 							</file>
 							<file>
@@ -2047,6 +2044,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/instance/tc1.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/instance/mtb.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/instance/sysctrl.h</name>
@@ -2132,7 +2132,13 @@
 							<file>
 								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/pio/samd11d14am.h</name>
 							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/pio/samd11d14au.h</name>
+							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/samd11d14au.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/samd11.h</name>
 						</file>
@@ -2299,18 +2305,18 @@
 							<name>$PROJ_DIR$/../../../i2c_sam0/i2c_master.c</name>
 						</file>
 					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../i2c_common.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../i2c_master.h</name>
-					</file>
 					<group>
 						<name>quick_start_master</name>
 						<file>
 							<name>$PROJ_DIR$/../../../quick_start_master/qs_i2c_master_basic_use.h</name>
 						</file>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../i2c_common.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../i2c_master.h</name>
+					</file>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../sercom_pinout.h</name>

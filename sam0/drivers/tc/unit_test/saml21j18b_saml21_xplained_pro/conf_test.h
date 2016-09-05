@@ -3,7 +3,7 @@
  *
  * \brief SAM L21 Xplained Pro test configuration.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -58,8 +58,8 @@
 #define CONF_TEST_TC1             TC1
 #define CONF_EIC_PIN              PIN_PB00A_EIC_EXTINT0
 #define CONF_EIC_MUX              MUX_PB00A_EIC_EXTINT0
-#define CONF_TEST_PIN_OUT         PIN_PB12E_TC0_WO0
-#define CONF_TEST_PIN_MUX         PINMUX_PB12E_TC0_WO0
+#define CONF_TEST_PIN_OUT         PIN_PB09E_TC0_WO1
+#define CONF_TEST_PIN_MUX         PINMUX_PB09E_TC0_WO1
 #define CONF_EVENT_GENERATOR_ID   EVSYS_ID_GEN_EIC_EXTINT_0
 #define CONF_EVENT_USED_ID        EVSYS_ID_USER_TC1_EVU
 #define CONF_CAPTURE_CHAN_0       0

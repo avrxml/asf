@@ -91,6 +91,7 @@
  * - 4cmp16c-sam4cmp-db
  * - 4cms16c-sam4cms-db
  * - samv71q21_samv71_xplained_ultra
+ * - same70q21_same70_xplained
  *
  * \section connection_note Connection
  * \subsection SAM4N Xplained Pro extra connection

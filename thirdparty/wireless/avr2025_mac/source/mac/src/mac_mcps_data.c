@@ -623,7 +623,9 @@ void mac_process_data_frame(buffer_t *buf_ptr)
 						#ifdef GTS_DEBUG
 						port_pin_toggle_output_level(
 								DEBUG_PIN11);             /*
-						                                           * coord
+						                                           *
+						                                           *coord
+						                                           *
 						                                           *
 						                                           *rx
 						                                           **/

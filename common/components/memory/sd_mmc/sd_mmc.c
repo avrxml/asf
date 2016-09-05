@@ -3,7 +3,7 @@
  *
  * \brief Common SD/MMC stack
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -608,72 +608,52 @@ static bool sdio_op_cond(void)
  */
 static bool sdio_get_max_speed(void)
 {
-	uint32_t addr, addr_cis;
+	uint32_t addr_new, addr_old;
 	uint8_t buf[6];
  	uint32_t unit;
 	uint32_t mul;
-	uint8_t tplfe_max_tran_speed;
+	uint8_t tplfe_max_tran_speed, i;
+	uint8_t addr_cis[4];
 
-	// Read CIS area address in CCCR area
-	addr_cis = 0; // Init all bytes, because the next function fill 3 bytes only
-	if (!sdio_cmd53(SDIO_CMD53_READ_FLAG, SDIO_CIA, SDIO_CCCR_CIS_PTR,
-			1, 3, true)) {
-		sd_mmc_debug("%s: CMD53 Read CIS Fail\n\r", __func__);
-		return false;
+	/* Read CIS area address in CCCR area */
+	addr_old = SDIO_CCCR_CIS_PTR;
+	for(i = 0; i < 4; i++) {
+		sdio_cmd52(SDIO_CMD52_READ_FLAG, SDIO_CIA, addr_old, 0, &addr_cis[i]);
+		addr_old++;
 	}
-	if (!driver_start_read_blocks((uint8_t *)&addr_cis, 1)) {
-		return false;
-	}
-	if (!driver_wait_end_of_read_blocks()) {
-		return false;
-	}
-	addr_cis = le32_to_cpu(addr_cis);
+	addr_old = addr_cis[0] + (addr_cis[1] << 8) + \
+				(addr_cis[2] << 16) + (addr_cis[3] << 24);
+	addr_new = addr_old;
 
-	// Search Fun0 tuple in the CIA area
-	addr = addr_cis;
 	while (1) {
-		// Read a sample of CIA area
-		if (!sdio_cmd53(SDIO_CMD53_READ_FLAG, SDIO_CIA, addr, 1, 3, true)) {
-			sd_mmc_debug("%s: CMD53 Read CIA Fail\n\r", __func__);
-			return false;
-		}
-		if (!driver_start_read_blocks(buf, 1)) {
-			return false;
-		}
-		if (!driver_wait_end_of_read_blocks()) {
-			return false;
+		/* Read a sample of CIA area */
+		for(i=0; i<3; i++) {
+			sdio_cmd52(SDIO_CMD52_READ_FLAG, SDIO_CIA, addr_new, 0, &buf[i]);
+			addr_new++;
 		}
 		if (buf[0] == SDIO_CISTPL_END) {
-			sd_mmc_debug("%s: CMD53 Tuple error\n\r", __func__);
-			return false; // Tuple error
+			return false; /* Tuple error */
 		}
 		if (buf[0] == SDIO_CISTPL_FUNCE && buf[2] == 0x00) {
-			break; // Fun0 tuple found
+			break; /* Fun0 tuple found */
 		}
 		if (buf[1] == 0) {
-			sd_mmc_debug("%s: CMD53 Tuple error\n\r", __func__);
-			return false; // Tuple error
+			return false; /* Tuple error */
 		}
-
-		// Next address
-		addr += (buf[1] + 2);
-		if (addr > (addr_cis + 256)) {
-			sd_mmc_debug("%s: CMD53 Outoff CIS area\n\r", __func__);
-			return false; // Outoff CIS area
+		/* Next address */
+		addr_new += buf[1]-1;
+		if (addr_new > (addr_old + 256)) {
+			return false; /* Outoff CIS area */
 		}
 	}
 
-	// Read all Fun0 tuple fields: fn0_blk_siz & max_tran_speed
-	if (!sdio_cmd53(SDIO_CMD53_READ_FLAG, SDIO_CIA, addr, 1, 6, true)) {
-		sd_mmc_debug("%s: CMD53 Read all Fun0 Fail\n\r", __func__);
-		return false;
+	/* Read all Fun0 tuple fields: fn0_blk_siz & max_tran_speed */
+	addr_new -= 3;
+	for(i = 0; i < 6; i++) {
+		sdio_cmd52(SDIO_CMD52_READ_FLAG, SDIO_CIA, addr_new, 0, &buf[i]);
+		addr_new++;
 	}
-	if (!driver_start_read_blocks(buf, 1)) {
-		return false;
-	}
-	if (!driver_wait_end_of_read_blocks()) {
-		return false;
-	}
+
 	tplfe_max_tran_speed = buf[5];
 	if (tplfe_max_tran_speed > 0x32) {
 		/* Error on SDIO register, the high speed is not activated
@@ -681,10 +661,10 @@ static bool sdio_get_max_speed(void)
 		 * This error is present on specific SDIO card
 		 * (H&D wireless card - HDG104 WiFi SIP).
 		 */
-		tplfe_max_tran_speed = 0x32; // 25Mhz
+		tplfe_max_tran_speed = 0x32; /* 25Mhz */
 	}
 
-	// Decode transfer speed in Hz.
+	/* Decode transfer speed in Hz.*/
 	unit = sd_mmc_trans_units[tplfe_max_tran_speed & 0x7];
 	mul = sd_trans_multipliers[(tplfe_max_tran_speed >> 3) & 0xF];
 	sd_mmc_card->clock = unit * mul * 1000;
@@ -1506,6 +1486,9 @@ static bool sd_mmc_spi_card_init(void)
 static bool sd_mmc_mci_card_init(void)
 {
 	uint8_t v2 = 0;
+#ifdef SDIO_SUPPORT_ENABLE
+	uint8_t data = 0x08;
+#endif
 
 	// In first, try to install SD/SDIO card
 	sd_mmc_card->type = CARD_TYPE_SD;
@@ -1515,6 +1498,11 @@ static bool sd_mmc_mci_card_init(void)
 
 	// Card need of 74 cycles clock minimum to start
 	driver_send_clock();
+
+#ifdef SDIO_SUPPORT_ENABLE
+	/* CMD52 Reset SDIO */
+	sdio_cmd52(SDIO_CMD52_WRITE_FLAG, SDIO_CIA,SDIO_CCCR_IOA, 0, &data);
+#endif
 
 	// CMD0 - Reset all cards to idle state.
 	if (!driver_send_cmd(SDMMC_MCI_CMD0_GO_IDLE_STATE, 0)) {
@@ -1759,7 +1747,7 @@ static bool sd_mmc_mci_install_mmc(void)
 void sd_mmc_init(void)
 {
 	//! Enable the PMC clock for the card detect pins
-#if (defined SD_MMC_0_CD_GPIO) && (!defined SAM4L)
+#if (defined SD_MMC_0_CD_GPIO) && (SAM) && (!SAM4L)
 # include "pmc.h"
 # define SD_MMC_ENABLE_CD_PIN(slot, unused) \
 	pmc_enable_periph_clk(SD_MMC_##slot##_CD_PIO_ID);
@@ -1767,7 +1755,7 @@ void sd_mmc_init(void)
 # undef SD_MMC_ENABLE_CD_PIN
 #endif
 	//! Enable the PMC clock for the card write protection pins
-#if (defined SD_MMC_0_WP_GPIO) && (!defined SAM4L)
+#if (defined SD_MMC_0_WP_GPIO) && (SAM) && (!SAM4L)
 # include "pmc.h"
 # define SD_MMC_ENABLE_WP_PIN(slot, unused) \
 	pmc_enable_periph_clk(SD_MMC_##slot##_WP_PIO_ID);

@@ -88,7 +88,7 @@ enum status_code trng_unregister_callback(
  * trng_register_callback. The callback function will be called from the
  * interrupt handler when the conditions for the callback type are met.
  *
- * \param[in]     module Pointer to TRNG software instance struct
+ * \param[in]     module        Pointer to TRNG software instance struct
  * \param[in]     callback_type Callback type given by an enum
  */
 static inline void trng_enable_callback(
@@ -108,7 +108,7 @@ static inline void trng_enable_callback(
  * Disables the callback function registered by the \ref
  * trng_register_callback.
  *
- * \param[in]     module Pointer to TRNG software instance struct
+ * \param[in]     module        Pointer to TRNG software instance struct
  * \param[in]     callback_type Callback type given by an enum
  */
 static inline void trng_disable_callback(

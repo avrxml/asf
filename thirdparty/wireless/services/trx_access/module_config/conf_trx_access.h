@@ -3,7 +3,7 @@
  *
  * \brief Common TRX Access Configuration
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -240,10 +240,13 @@ void at86rfx_isr(void);
 #endif
 #endif
 
-#if (SAMD || SAMR21 || SAML21)
+#if (SAMD || SAMR21 || SAML21 || SAMR30)
 #if SAMR21
 #warning \
 	"For SAMR21 Antenna Diversity Related Pin configurations refer to system_board_init function of SAMR21 Xplained Pro board_init.c file "
+#elif SAMR30
+#warning \
+	"For SAMR30 Antenna Diversity Related Pin configurations refer to system_board_init function of SAMR30 Xplained Pro board_init.c file "
 #endif
 #ifndef AT86RFX_SPI
 #define AT86RFX_SPI                  SERCOM0
@@ -294,5 +297,5 @@ void at86rfx_isr(void);
 	}
 
 #endif
-#endif /* SAMD || SAMR21 || SAML21 */
+#endif /* SAMD || SAMR21 || SAML21 || SAMR30 */
 #endif /* CONF_TRX_ACCESS_H_INCLUDED */

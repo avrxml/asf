@@ -2081,19 +2081,16 @@
 					<file>
 						<name>$PROJ_DIR$/../../main.c</name>
 					</file>
-					<file>
-						<name>$PROJ_DIR$/../../FreeRTOSConfig.h</name>
-					</file>
 					<group>
 						<name>sam4sd32c_atpl230amb</name>
 						<file>
 							<name>$PROJ_DIR$/../conf_uart_serial.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../conf_board.h</name>
+							<name>$PROJ_DIR$/../conf_clock.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../conf_clock.h</name>
+							<name>$PROJ_DIR$/../conf_board.h</name>
 						</file>
 						<group>
 							<name>iar</name>
@@ -2101,6 +2098,9 @@
 								<name>$PROJ_DIR$/asf.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../FreeRTOSConfig.h</name>
+						</file>
 					</group>
 				</group>
 			</group>
@@ -2365,6 +2365,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_usart.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_spi.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_smc.h</name>
 							</file>
 							<file>
@@ -2398,22 +2401,16 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_rstc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_efc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_rtt.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_gpbr.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_pio.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_efc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_uart.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_spi.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_matrix.h</name>
@@ -2426,6 +2423,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_pwm.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/component/component_pio.h</name>
 							</file>
 						</group>
 						<file>
@@ -2450,10 +2450,10 @@
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s2b.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s4a.h</name>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s2c.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s2c.h</name>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s4a.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4s/include/sam4s4c.h</name>
@@ -2485,6 +2485,9 @@
 					</group>
 				</group>
 			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../sam/utils/status_codes.h</name>
+			</file>
 			<group>
 				<name>preprocessor</name>
 				<file>
@@ -2500,9 +2503,6 @@
 					<name>$PROJ_DIR$/../../../../../../sam/utils/preprocessor/stringz.h</name>
 				</file>
 			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../sam/utils/status_codes.h</name>
-			</file>
 			<file>
 				<name>$PROJ_DIR$/../../../../../../sam/utils/compiler.h</name>
 			</file>

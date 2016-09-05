@@ -4,7 +4,7 @@
  *
  * \brief FreeRTOS+CLI task implementation example
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -104,7 +104,7 @@ void create_usart_cli_task(Usart *usart_base, uint16_t stack_depth_words,
 		RX_BUFFER_SIZE_BYTES,							/* The size of the buffer provided to the USART driver to store incoming characters. */
 		configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY,	/* The priority used by the USART interrupts. */
 		USART_RS232,									/* Configure the USART for RS232 operation. */
-		(WAIT_TX_COMPLETE | USE_TX_ACCESS_MUTEX)		/* Use access mutex on Tx (as more than one task transmits) but not Rx. Wait for a Tx to complete before returning from send functions. */
+		(WAIT_TX_COMPLETE | USE_TX_ACCESS_SEM)		/* Use access mutex on Tx (as more than one task transmits) but not Rx. Wait for a Tx to complete before returning from send functions. */
 	};
 
 	const sam_usart_opt_t usart_settings = {

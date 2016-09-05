@@ -411,12 +411,12 @@ bool udi_hid_kbd_down(uint8_t key_id);
  * \subsection asfdoc_udi_hid_keyboard_config_examples_2_2 AT32UC3C, ATUCXXD, ATUCXXL3U, ATUCXXL4U Devices (USBC)
  * \include example/atuc128d3_stk600-rcuc3d/conf_clock.h
  *
- * \subsection asfdoc_udi_hid_keyboard_config_examples_2_3 SAM3X, SAM3A Devices (UOTGHS: USB OTG High Speed)
+ * \subsection asfdoc_udi_hid_keyboard_config_examples_2_3 SAM3X and SAM3A Devices (UOTGHS: USB OTG High Speed)
  * \include example/sam3x8h_sam3x_ek/conf_clock.h
  *
  * \section asfdoc_udi_hid_keyboard_config_examples_3 conf_clocks.h
  *
- * \subsection asfdoc_udi_hid_keyboard_config_examples_3_1 SAMD21 Device (USB)
+ * \subsection asfdoc_udi_hid_keyboard_config_examples_3_1 SAM D21 Device (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_clocks.h
  *
  * \section asfdoc_udi_hid_keyboard_config_examples_4 conf_board.h
@@ -427,10 +427,10 @@ bool udi_hid_kbd_down(uint8_t key_id);
  * \subsection asfdoc_udi_hid_keyboard_config_examples_4_2 AT32UC3C, ATUCXXD, ATUCXXL3U, ATUCXXL4U Devices (USBC)
  * \include example/atuc128d3_stk600-rcuc3d/conf_board.h
  *
- * \subsection asfdoc_udi_hid_keyboard_config_examples_4_3 SAM3X, SAM3A Devices (UOTGHS: USB OTG High Speed)
+ * \subsection asfdoc_udi_hid_keyboard_config_examples_4_3 SAM3X and SAM3A Devices (UOTGHS: USB OTG High Speed)
  * \include example/sam3x8h_sam3x_ek/conf_board.h
  *
- * \subsection asfdoc_udi_hid_keyboard_config_examples_4_4 SAMD21 Device (USB)
+ * \subsection asfdoc_udi_hid_keyboard_config_examples_4_4 SAM D21 Device (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_board.h
  */
 
@@ -439,14 +439,19 @@ bool udi_hid_kbd_down(uint8_t key_id);
  *
  * <table>
  * <tr>
- *    <th>Doc. Rev.</td>
- *    <th>Date</td>
- *    <th>Comments</td>
+ *    <th>Doc. Rev.</th>
+ *    <th>Date</th>
+ *    <th>Comments</th>
+ * </tr>
+ * <tr>
+ *    <td>42340B</td>
+ *    <td>12/2015</td>
+ *    <td>Fixed typos</td>
  * </tr>
  * <tr>
  *    <td>42340A</td>
  *    <td>12/2014</td>
- *    <td>Initial release.</td>
+ *    <td>Initial release</td>
  * </tr>
  * </table>
  */

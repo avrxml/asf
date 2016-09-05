@@ -2057,9 +2057,6 @@
 					<file>
 						<name>$PROJ_DIR$/../../main.c</name>
 					</file>
-					<file>
-						<name>$PROJ_DIR$/../../FreeRTOSConfig.h</name>
-					</file>
 					<group>
 						<name>sam4cms16c_sam4cms_db</name>
 						<file>
@@ -2074,6 +2071,9 @@
 								<name>$PROJ_DIR$/asf.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../FreeRTOSConfig.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../conf_clock.h</name>
 						</file>

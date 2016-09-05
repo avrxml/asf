@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for FreeRTOS SPI Interface Layer.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -231,7 +231,7 @@ static void create_spi_task(Spi *spi_base, uint16_t stack_depth_words,
 	0,												/* There is no Rx buffer, so the rx buffer size is not used. */
 	configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY,	/* The priority used by the SPI interrupts. */
 	SPI_MASTER,										/* Communicating with the flash requires the peripheral to be configured as an SPI master. */
-	(USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE | WAIT_RX_COMPLETE)	/* The blocking driver is to be used, so WAIT_TX_COMPLETE and WAIT_RX_COMPLETE are set. */
+	(USE_TX_ACCESS_SEM | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE | WAIT_RX_COMPLETE)	/* The blocking driver is to be used, so WAIT_TX_COMPLETE and WAIT_RX_COMPLETE are set. */
 };
 
 	/* Initialize the FreeRTOS driver for blocking operation.  The

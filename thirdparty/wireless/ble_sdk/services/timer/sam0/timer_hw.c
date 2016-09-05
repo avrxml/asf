@@ -3,7 +3,7 @@
  *
  * \brief Handler timer functionalities
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,12 +47,27 @@
 #include "conf_timer.h"
 
 /* === TYPES =============================================================== */
+#ifdef SAMD21
+#define TMRID TC3
+#else
+#define TMRID TC0
+#endif
+static struct hw_timer_struct
+{
+	struct tc_module timer_instance;
+	void            *timer_id;
+	uint32_t         timer_frequency;
+	uint32_t         timer_usage;
+}hw_timers[] = {{{0}, TMRID, 0, 0}};
+
 uint32_t timeout_count;
+uint32_t timer_count_per_ms;
 hw_timer_callback_t timer_callback;
+platform_hw_timer_callback_t platform_cc1_cb;
 /* === MACROS ============================================================== */
 
 void tc_cc0_cb(struct tc_module *const module_inst);
-
+void tc_cc1_cb(struct tc_module *const module_inst);
 
 void hw_timer_init(void)
 {
@@ -107,5 +122,62 @@ void hw_timer_stop(void)
 	tc_disable_callback(&tc_instance, TC_CALLBACK_CC_CHANNEL0);
 }
 
+void tc_cc1_cb(struct tc_module *const module_inst)
+{
+	platform_cc1_cb(module_inst);
+}
+
+
+void *platform_configure_timer(platform_hw_timer_callback_t bus_tc_cb_ptr)
+{
+	struct tc_config timer_config;
+	
+	system_interrupt_enter_critical_section();
+	if (hw_timers[0].timer_usage == 0)
+	{
+		hw_timers[0].timer_usage = 1;
+		platform_cc1_cb = bus_tc_cb_ptr;
+
+		tc_get_config_defaults(&timer_config);
+		timer_config.clock_prescaler		= TC_CLOCK_PRESCALER_DIV1;
+		timer_config.oneshot				= true;
+		timer_config.counter_size			= TC_COUNTER_SIZE_32BIT;
+		timer_config.count_direction		= TC_COUNT_DIRECTION_UP;
+		tc_init(&bus_tc_instance, CONF_BUS_TC_MODULE, &timer_config);
+		timer_count_per_ms = ((system_gclk_gen_get_hz(timer_config.clock_source)) /1000);
+		tc_set_count_value(&bus_tc_instance, 0);
+		tc_enable(&bus_tc_instance);
+		tc_stop_counter(&bus_tc_instance);
+		tc_register_callback(&bus_tc_instance, tc_cc1_cb,
+		TC_CALLBACK_OVERFLOW);
+		tc_enable_callback(&bus_tc_instance, TC_CALLBACK_OVERFLOW);
+		
+		hw_timers[0].timer_frequency = (system_gclk_gen_get_hz(timer_config.clock_source));
+		hw_timers[0].timer_instance = bus_tc_instance;
+		system_interrupt_leave_critical_section();
+		return (&hw_timers[0]);
+	}
+	system_interrupt_leave_critical_section();
+	return NULL;
+}
+
+
+void platform_start_bus_timer(void *timer_handle, uint32_t ms)
+{
+	tc_set_count_value(&bus_tc_instance, (0xFFFFFFFF - (timer_count_per_ms * ms)));
+	tc_start_counter(&bus_tc_instance);
+}
+
+void platform_delete_bus_timer(void *timer_handle)
+{
+	tc_stop_counter(&bus_tc_instance);
+	tc_reset(&bus_tc_instance);
+	hw_timers[0].timer_usage = 0;
+}
+
+void platform_stop_bus_timer(void *timer_handle)
+{
+	tc_stop_counter(&bus_tc_instance);
+}
 
 /* EOF */

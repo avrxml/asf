@@ -3,7 +3,7 @@
  *
  * \brief SAM ADC Sleepwalking Example
  *
- * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,7 +71,7 @@
  * a given threshold; in this application 0.5 Volts.
  *
  * This application has been tested on following boards:
- * - SAM D20/D21/R21/D11/L21/L22/C21 Xplained Pro
+ * - SAM D20/D21/R21/D11/L21/L22/C21/R30 Xplained Pro
  *
  * \section appdoc_sam0_adc_sleepwalking_setup Hardware Setup
  * This application use AIN0 as ADC input channel.
@@ -82,6 +82,7 @@
  * Connect the PA02(EXT1 pin3) to GND in SAM D10/D11 Xplained Pro to trigger it.
  * Connect the PA03(EXT1 pin4) to GND in SAM L21/L22 Xplained Pro to trigger it.
  * Connect the PA03_ADC_DAC_VREF(J701 pin4) to GND in SAM C21 Xplained Pro to trigger it.
+ * Connect the PA04(EXT1 pin14) to GND in SAM R30 Xplained Pro to trigger it.
  *
  * If debugging it is also possible to start a debug session and place a
  * breakpoint in the window callback that will trigger whenever the voltage
@@ -172,7 +173,7 @@ static void event_setup(struct events_resource *event)
 	/* Setup a event channel with RTC compare 0 as input */
 	config.generator    = EVSYS_ID_GEN_RTC_CMP_0;
 	config.path         = EVENTS_PATH_ASYNCHRONOUS;
-#if (SAML21) || (SAML22) || (SAMC21)
+#if (SAML21) || (SAML22) || (SAMC21) || (SAMR30)
     config.run_in_standby = true;
     config.on_demand      = true;
 #endif
@@ -191,14 +192,14 @@ static void adc_setup(void)
 {
 	struct adc_config config;
 	adc_get_config_defaults(&config);
-#if (!SAML21) && (!SAML22) && (!SAMC21)
+#if (!SAML21) && (!SAML22) && (!SAMC21) && (!SAMR30)
 	config.gain_factor        = ADC_GAIN_FACTOR_1X;
 #endif
 	/* Use GCLK generator 4 as clock source */
 	config.clock_source       = GCLK_GENERATOR_4;
 	/* Divide input clock by 4 */
 	config.clock_prescaler    = ADC_CLOCK_PRESCALER_DIV4;
-#if (SAML21) || (SAML22) || (SAMC21)
+#if (SAML21) || (SAML22) || (SAMC21) || (SAMR30)
 	/* Use internal bandgap reference */
 	config.reference          = ADC_REFERENCE_INTREF;
 #else
@@ -215,10 +216,13 @@ static void adc_setup(void)
 	config.resolution         = ADC_RESOLUTION_CUSTOM;
 	config.accumulate_samples = ADC_ACCUMULATE_SAMPLES_16;
 	config.divide_result      = ADC_DIVIDE_RESULT_16;
+#if SAMR30
+	config.positive_input     = ADC_POSITIVE_INPUT_PIN4;
+#endif
 
 	/* Configure window */
 	config.window.window_mode = ADC_WINDOW_MODE_BELOW_UPPER;
-#if (SAML21) || (SAML22) || (SAMC21)
+#if (SAML21) || (SAML22) || (SAMC21) || (SAMR30)
 	config.on_demand          = true;
 #endif
 	config.window.window_upper_value = 2048;
@@ -257,7 +261,7 @@ int main(void)
 
 	/* Set sleep mode to STANDBY */
 	system_set_sleepmode(SYSTEM_SLEEPMODE_STANDBY);
-#if (SAML21)
+#if (SAML21) || (SAMR30)
 	/* Configure standby mode */
 	struct system_standby_config config;
 	system_standby_get_config_defaults(&config);

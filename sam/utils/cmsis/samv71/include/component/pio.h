@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -113,18 +113,9 @@ typedef struct {
   __I  uint32_t PIO_WPSR;      /**< \brief (Pio Offset: 0x00E8) Write Protection Status Register */
   __I  uint32_t Reserved12[5];
   __IO uint32_t PIO_SCHMITT;   /**< \brief (Pio Offset: 0x0100) Schmitt Trigger Register */
-  __I  uint32_t Reserved13[7];
-  __IO uint32_t PIO_KER;       /**< \brief (Pio Offset: 0x0120) Keypad Controller Enable Register */
-  __IO uint32_t PIO_KRCR;      /**< \brief (Pio Offset: 0x0124) Keypad Controller Row Column Register */
-  __IO uint32_t PIO_KDR;       /**< \brief (Pio Offset: 0x0128) Keypad Controller Debouncing Register */
-  __I  uint32_t Reserved14[1];
-  __O  uint32_t PIO_KIER;      /**< \brief (Pio Offset: 0x0130) Keypad Controller Interrupt Enable Register */
-  __O  uint32_t PIO_KIDR;      /**< \brief (Pio Offset: 0x0134) Keypad Controller Interrupt Disable Register */
-  __I  uint32_t PIO_KIMR;      /**< \brief (Pio Offset: 0x0138) Keypad Controller Interrupt Mask Register */
-  __I  uint32_t PIO_KSR;       /**< \brief (Pio Offset: 0x013C) Keypad Controller Status Register */
-  __I  uint32_t PIO_KKPR;      /**< \brief (Pio Offset: 0x0140) Keypad Controller Key Press Register */
-  __I  uint32_t PIO_KKRR;      /**< \brief (Pio Offset: 0x0144) Keypad Controller Key Release Register */
-  __I  uint32_t Reserved15[2];
+  __I  uint32_t Reserved13[5];
+  __IO uint32_t PIO_DRIVER;     /**< (PIO Offset: 0x118) I/O Drive Register */
+  __I  uint32_t Reserved14[13];
   __IO uint32_t PIO_PCMR;      /**< \brief (Pio Offset: 0x0150) Parallel Capture Mode Register */
   __O  uint32_t PIO_PCIER;     /**< \brief (Pio Offset: 0x0154) Parallel Capture Interrupt Enable Register */
   __O  uint32_t PIO_PCIDR;     /**< \brief (Pio Offset: 0x0158) Parallel Capture Interrupt Disable Register */
@@ -1599,69 +1590,6 @@ typedef struct {
 #define PIO_SCHMITT_SCHMITT29 (0x1u << 29) /**< \brief (PIO_SCHMITT) Schmitt Trigger Control */
 #define PIO_SCHMITT_SCHMITT30 (0x1u << 30) /**< \brief (PIO_SCHMITT) Schmitt Trigger Control */
 #define PIO_SCHMITT_SCHMITT31 (0x1u << 31) /**< \brief (PIO_SCHMITT) Schmitt Trigger Control */
-/* -------- PIO_KER : (PIO Offset: 0x0120) Keypad Controller Enable Register -------- */
-#define PIO_KER_KCE (0x1u << 0) /**< \brief (PIO_KER) Keypad Controller Enable */
-/* -------- PIO_KRCR : (PIO Offset: 0x0124) Keypad Controller Row Column Register -------- */
-#define PIO_KRCR_NBR_Pos 0
-#define PIO_KRCR_NBR_Msk (0x7u << PIO_KRCR_NBR_Pos) /**< \brief (PIO_KRCR) Number of Columns of the Keypad Matrix */
-#define PIO_KRCR_NBR(value) ((PIO_KRCR_NBR_Msk & ((value) << PIO_KRCR_NBR_Pos)))
-#define PIO_KRCR_NBC_Pos 8
-#define PIO_KRCR_NBC_Msk (0x7u << PIO_KRCR_NBC_Pos) /**< \brief (PIO_KRCR) Number of Rows of the Keypad Matrix */
-#define PIO_KRCR_NBC(value) ((PIO_KRCR_NBC_Msk & ((value) << PIO_KRCR_NBC_Pos)))
-/* -------- PIO_KDR : (PIO Offset: 0x0128) Keypad Controller Debouncing Register -------- */
-#define PIO_KDR_DBC_Pos 0
-#define PIO_KDR_DBC_Msk (0x3ffu << PIO_KDR_DBC_Pos) /**< \brief (PIO_KDR) Debouncing Value */
-#define PIO_KDR_DBC(value) ((PIO_KDR_DBC_Msk & ((value) << PIO_KDR_DBC_Pos)))
-/* -------- PIO_KIER : (PIO Offset: 0x0130) Keypad Controller Interrupt Enable Register -------- */
-#define PIO_KIER_KPR (0x1u << 0) /**< \brief (PIO_KIER) Key Press Interrupt Enable */
-#define PIO_KIER_KRL (0x1u << 1) /**< \brief (PIO_KIER) Key Release Interrupt Enable */
-/* -------- PIO_KIDR : (PIO Offset: 0x0134) Keypad Controller Interrupt Disable Register -------- */
-#define PIO_KIDR_KPR (0x1u << 0) /**< \brief (PIO_KIDR) Key Press Interrupt Disable */
-#define PIO_KIDR_KRL (0x1u << 1) /**< \brief (PIO_KIDR) Key Release Interrupt Disable */
-/* -------- PIO_KIMR : (PIO Offset: 0x0138) Keypad Controller Interrupt Mask Register -------- */
-#define PIO_KIMR_KPR (0x1u << 0) /**< \brief (PIO_KIMR) Key Press Interrupt Mask */
-#define PIO_KIMR_KRL (0x1u << 1) /**< \brief (PIO_KIMR) Key Release Interrupt Mask */
-/* -------- PIO_KSR : (PIO Offset: 0x013C) Keypad Controller Status Register -------- */
-#define PIO_KSR_KPR (0x1u << 0) /**< \brief (PIO_KSR) Key Press Status */
-#define PIO_KSR_KRL (0x1u << 1) /**< \brief (PIO_KSR) Key Release Status */
-#define PIO_KSR_NBKPR_Pos 8
-#define PIO_KSR_NBKPR_Msk (0x3u << PIO_KSR_NBKPR_Pos) /**< \brief (PIO_KSR) Number of Simultaneous Key Presses */
-#define PIO_KSR_NBKRL_Pos 16
-#define PIO_KSR_NBKRL_Msk (0x3u << PIO_KSR_NBKRL_Pos) /**< \brief (PIO_KSR) Number of Simultaneous Key Releases */
-/* -------- PIO_KKPR : (PIO Offset: 0x0140) Keypad Controller Key Press Register -------- */
-#define PIO_KKPR_KEY0ROW_Pos 0
-#define PIO_KKPR_KEY0ROW_Msk (0x7u << PIO_KKPR_KEY0ROW_Pos) /**< \brief (PIO_KKPR) Row Index of the First Detected Key Press */
-#define PIO_KKPR_KEY0COL_Pos 4
-#define PIO_KKPR_KEY0COL_Msk (0x7u << PIO_KKPR_KEY0COL_Pos) /**< \brief (PIO_KKPR) Column Index of the First Detected Key Press */
-#define PIO_KKPR_KEY1ROW_Pos 8
-#define PIO_KKPR_KEY1ROW_Msk (0x7u << PIO_KKPR_KEY1ROW_Pos) /**< \brief (PIO_KKPR) Row Index of the Second Detected Key Press */
-#define PIO_KKPR_KEY1COL_Pos 12
-#define PIO_KKPR_KEY1COL_Msk (0x7u << PIO_KKPR_KEY1COL_Pos) /**< \brief (PIO_KKPR) Column Index of the Second Detected Key Press */
-#define PIO_KKPR_KEY2ROW_Pos 16
-#define PIO_KKPR_KEY2ROW_Msk (0x7u << PIO_KKPR_KEY2ROW_Pos) /**< \brief (PIO_KKPR) Row Index of the Third Detected Key Press */
-#define PIO_KKPR_KEY2COL_Pos 20
-#define PIO_KKPR_KEY2COL_Msk (0x7u << PIO_KKPR_KEY2COL_Pos) /**< \brief (PIO_KKPR) Column Index of the Third Detected Key Press */
-#define PIO_KKPR_KEY3ROW_Pos 24
-#define PIO_KKPR_KEY3ROW_Msk (0x7u << PIO_KKPR_KEY3ROW_Pos) /**< \brief (PIO_KKPR) Row Index of the Fourth Detected Key Press */
-#define PIO_KKPR_KEY3COL_Pos 28
-#define PIO_KKPR_KEY3COL_Msk (0x7u << PIO_KKPR_KEY3COL_Pos) /**< \brief (PIO_KKPR) Column Index of the Fourth Detected Key Press */
-/* -------- PIO_KKRR : (PIO Offset: 0x0144) Keypad Controller Key Release Register -------- */
-#define PIO_KKRR_KEY0ROW_Pos 0
-#define PIO_KKRR_KEY0ROW_Msk (0x7u << PIO_KKRR_KEY0ROW_Pos) /**< \brief (PIO_KKRR) Row Index of the First Detected Key Release */
-#define PIO_KKRR_KEY0COL_Pos 4
-#define PIO_KKRR_KEY0COL_Msk (0x7u << PIO_KKRR_KEY0COL_Pos) /**< \brief (PIO_KKRR) Column Index of the First Detected Key Release */
-#define PIO_KKRR_KEY1ROW_Pos 8
-#define PIO_KKRR_KEY1ROW_Msk (0x7u << PIO_KKRR_KEY1ROW_Pos) /**< \brief (PIO_KKRR) Row Index of the Second Detected Key Release */
-#define PIO_KKRR_KEY1COL_Pos 12
-#define PIO_KKRR_KEY1COL_Msk (0x7u << PIO_KKRR_KEY1COL_Pos) /**< \brief (PIO_KKRR) Column Index of the Second Detected Key Release */
-#define PIO_KKRR_KEY2ROW_Pos 16
-#define PIO_KKRR_KEY2ROW_Msk (0x7u << PIO_KKRR_KEY2ROW_Pos) /**< \brief (PIO_KKRR) Row Index of the Third Detected Key Release */
-#define PIO_KKRR_KEY2COL_Pos 20
-#define PIO_KKRR_KEY2COL_Msk (0x7u << PIO_KKRR_KEY2COL_Pos) /**< \brief (PIO_KKRR) Column Index of the Third Detected Key Release */
-#define PIO_KKRR_KEY3ROW_Pos 24
-#define PIO_KKRR_KEY3ROW_Msk (0x7u << PIO_KKRR_KEY3ROW_Pos) /**< \brief (PIO_KKRR) Row Index of the Fourth Detected Key Release */
-#define PIO_KKRR_KEY3COL_Pos 28
-#define PIO_KKRR_KEY3COL_Msk (0x7u << PIO_KKRR_KEY3COL_Pos) /**< \brief (PIO_KKRR) Column Index of the Fourth Detected Key Release */
 /* -------- PIO_PCMR : (PIO Offset: 0x0150) Parallel Capture Mode Register -------- */
 #define PIO_PCMR_PCEN (0x1u << 0) /**< \brief (PIO_PCMR) Parallel Capture Mode Enable */
 #define PIO_PCMR_DSIZE_Pos 4

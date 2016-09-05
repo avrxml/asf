@@ -384,7 +384,7 @@ uint16_t tfa_get_batmon_voltage(void)
 
 	/* Scan through the current range for the matching threshold. */
 	if (mv == 1) { /* 1 = indicates that voltage is within supported range
-		        **/
+		       **/
 		vth_val = 0x0F;
 		for (uint8_t i = 0; i < 16; i++) {
 			trx_bit_write(SR_BATMON_VTH, vth_val);

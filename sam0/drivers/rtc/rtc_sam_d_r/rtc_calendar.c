@@ -3,7 +3,7 @@
  *
  * \brief SAM RTC Driver (Calendar Mode)
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -132,12 +132,18 @@ void rtc_calendar_disable(struct rtc_module *const module)
 		/* Wait for synchronization */
 	}
 
+	/* Disbale interrupt */
+	rtc_module->MODE2.INTENCLR.reg = RTC_MODE2_INTENCLR_MASK;
+	/* Clear interrupt flag */
+	rtc_module->MODE2.INTFLAG.reg = RTC_MODE2_INTFLAG_MASK;
+
 	/* Disable RTC module. */
 	rtc_module->MODE2.CTRL.reg &= ~RTC_MODE2_CTRL_ENABLE;
 }
 
 /**
  * \brief Resets the RTC module
+ *
  * Resets the RTC module to hardware defaults.
  *
  * \param[in,out] module  Pointer to the software instance struct
@@ -173,7 +179,7 @@ void rtc_calendar_reset(struct rtc_module *const module)
  * \param[in, out] module  Pointer to the software instance struct
  * \param[in] time  Pointer to the time structure
  *
- * \return 32-bit value
+ * \return 32-bit value.
  */
 uint32_t rtc_calendar_time_to_register_value(
 		struct rtc_module *const module,
@@ -510,6 +516,12 @@ void rtc_calendar_get_time(
 		while (rtc_calendar_is_syncing(module)) {
 			/* Wait for synchronization */
 		}
+	} else if (!(rtc_module->MODE2.READREQ.reg & RTC_READREQ_RCONT)){
+		rtc_module->MODE2.READREQ.reg |= RTC_READREQ_RCONT | RTC_READREQ_RREQ;
+		 /* wait that the first Read request finishes */
+		while (rtc_calendar_is_syncing(module)) {
+			/* Wait for synchronization */
+		}
 	}
 
 	/* Read value. */
@@ -567,7 +579,7 @@ enum status_code rtc_calendar_set_alarm(
 /**
  * \brief Get the current alarm time of specified alarm.
  *
- * Retrieves the current alarm time for the alarm specified.
+ * Retrieves the current alarm time for the alarm specified alarm.
  *
  * \param[in, out] module  Pointer to the software instance struct
  * \param[out] alarm  Pointer to the struct that will be filled with alarm

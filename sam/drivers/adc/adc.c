@@ -3,7 +3,7 @@
  *
  * \brief Analog-to-Digital Converter (ADC/ADC12B) driver for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -339,11 +339,11 @@ void adc_start(Adc *p_adc)
 }
 
 /**
- * \brief Stop analog-to-digital conversion.
+ * \brief Reset ADC.
  *
  * \param p_adc Pointer to an ADC instance.
  */
-void adc_stop(Adc *p_adc)
+void adc_reset(Adc *p_adc)
 {
 	p_adc->ADC_CR = ADC_CR_SWRST;
 }

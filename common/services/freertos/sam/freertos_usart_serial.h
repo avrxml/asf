@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Peripheral Control API For the USART
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,6 +54,14 @@
 /* ASF includes. */
 #include "freertos_peripheral_control.h"
 #include "usart.h"
+
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+extern "C" {
+#endif
+/**INDENT-ON**/
+/// @endcond
 
 #if XMEGA
 # error Unsupported chip type
@@ -127,7 +135,7 @@ uint32_t freertos_usart_serial_read_packet(freertos_usart_if p_usart,
  *     a call to freertos_usart_serial_init().  The
  *     freertos_driver_parameters.options_flags parameter passed to the
  *     initialization function defines the driver behavior.  If
- *     freertos_driver_parameters.options_flags had the USE_TX_ACCESS_MUTEX bit
+ *     freertos_driver_parameters.options_flags had the USE_TX_ACCESS_SEM bit
  *     set, then the driver will only write to the USART peripheral if it has
  *     first gained exclusive access to it.  block_time_ticks specifies the
  *     maximum amount of time the driver will wait to get exclusive access before
@@ -143,6 +151,14 @@ uint32_t freertos_usart_serial_read_packet(freertos_usart_if p_usart,
  *     PDC was successfully configured to perform the USART write operation.
  */
 #define freertos_usart_write_packet(p_usart, data, len, block_time_ticks) freertos_usart_write_packet_async((p_usart), (data), (len), (block_time_ticks), (NULL))
+ 
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+}
+#endif
+/**INDENT-ON**/
+/// @endcond
 
 #endif  /* FREERTOS_USART_SERIAL_INCLUDED */
 
@@ -261,7 +277,7 @@ uint32_t freertos_usart_serial_read_packet(freertos_usart_if p_usart,
 	     // Flags set to allow access from multiple tasks, and to wait in the
 	     // transmit function until the transmit is complete.  Note that other
 	     // FreeRTOS tasks will execute during the wait period.
-	     (USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE)
+	     (USE_TX_ACCESS_SEM | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE)
 	  };
 
 	  // The RS232 configuration.  This structure, and the values used in its
@@ -340,7 +356,7 @@ uint32_t freertos_usart_serial_read_packet(freertos_usart_if p_usart,
 
 	     // Flags set to allow access from multiple tasks.  Note in this case the
 	     // WAIT_TX_COMPLETE flag is *not* used.
-	     (USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX)
+	     (USE_TX_ACCESS_SEM | USE_RX_ACCESS_MUTEX)
 	  };
 
 	  // The RS232 configuration.  This structure, and the values used in its

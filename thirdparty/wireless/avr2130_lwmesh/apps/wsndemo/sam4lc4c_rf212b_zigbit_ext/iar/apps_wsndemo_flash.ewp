@@ -309,6 +309,8 @@
 					<state>$PROJ_DIR$/../../../../../services/trx_access</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
@@ -595,6 +597,8 @@
 					<state>$PROJ_DIR$/../../../../../services/trx_access</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
@@ -1306,6 +1310,8 @@
 					<state>$PROJ_DIR$/../../../../../services/trx_access</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
@@ -1592,6 +1598,8 @@
 					<state>$PROJ_DIR$/../../../../../services/trx_access</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>

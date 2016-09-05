@@ -3,7 +3,7 @@
  *
  * \brief Header file for SAMC20G17A
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -101,8 +101,8 @@ typedef enum IRQn
   /******  SAMC20G17A-specific Interrupt Numbers ***********************/
   SYSTEM_IRQn              =  0, /**<  0 SAMC20G17A System Interrupts */
   MCLK_IRQn                =  0, /**<  0 SAMC20G17A Main Clock (MCLK) */
-  OSCCTRL_IRQn             =  0, /**<  0 SAMC20G17A Oscillators Control (OSCCTRL) */
   OSC32KCTRL_IRQn          =  0, /**<  0 SAMC20G17A 32k Oscillators Control (OSC32KCTRL) */
+  OSCCTRL_IRQn             =  0, /**<  0 SAMC20G17A Oscillators Control (OSCCTRL) */
   PAC_IRQn                 =  0, /**<  0 SAMC20G17A Peripheral Access Controller (PAC) */
   PM_IRQn                  =  0, /**<  0 SAMC20G17A Power Manager (PM) */
   SUPC_IRQn                =  0, /**<  0 SAMC20G17A Supply Controller (SUPC) */
@@ -119,6 +119,8 @@ typedef enum IRQn
   SERCOM2_IRQn             = 11, /**< 11 SAMC20G17A Serial Communication Interface 2 (SERCOM2) */
   SERCOM3_IRQn             = 12, /**< 12 SAMC20G17A Serial Communication Interface 3 (SERCOM3) */
   TCC0_IRQn                = 17, /**< 17 SAMC20G17A Timer Counter Control 0 (TCC0) */
+  TCC1_IRQn                = 18, /**< 18 SAMC20G17A Timer Counter Control 1 (TCC1) */
+  TCC2_IRQn                = 19, /**< 19 SAMC20G17A Timer Counter Control 2 (TCC2) */
   TC0_IRQn                 = 20, /**< 20 SAMC20G17A Basic Timer Counter 0 (TC0) */
   TC1_IRQn                 = 21, /**< 21 SAMC20G17A Basic Timer Counter 1 (TC1) */
   TC2_IRQn                 = 22, /**< 22 SAMC20G17A Basic Timer Counter 2 (TC2) */
@@ -154,7 +156,7 @@ typedef struct _DeviceVectors
   void* pfnSysTick_Handler;
 
   /* Peripheral handlers */
-  void* pfnSYSTEM_Handler;                /*  0 Main Clock, Oscillators Control, 32k Oscillators Control, Peripheral Access Controller, Power Manager, Supply Controller, Trigger Allocator */
+  void* pfnSYSTEM_Handler;                /*  0 Main Clock, 32k Oscillators Control, Oscillators Control, Peripheral Access Controller, Power Manager, Supply Controller, Trigger Allocator */
   void* pfnWDT_Handler;                   /*  1 Watchdog Timer */
   void* pfnRTC_Handler;                   /*  2 Real-Time Counter */
   void* pfnEIC_Handler;                   /*  3 External Interrupt Controller */
@@ -172,8 +174,8 @@ typedef struct _DeviceVectors
   void* pfnReserved15;
   void* pfnReserved16;
   void* pfnTCC0_Handler;                  /* 17 Timer Counter Control 0 */
-  void* pfnReserved18;
-  void* pfnReserved19;
+  void* pfnTCC1_Handler;                  /* 18 Timer Counter Control 1 */
+  void* pfnTCC2_Handler;                  /* 19 Timer Counter Control 2 */
   void* pfnTC0_Handler;                   /* 20 Basic Timer Counter 0 */
   void* pfnTC1_Handler;                   /* 21 Basic Timer Counter 1 */
   void* pfnTC2_Handler;                   /* 22 Basic Timer Counter 2 */
@@ -209,6 +211,8 @@ void SERCOM1_Handler             ( void );
 void SERCOM2_Handler             ( void );
 void SERCOM3_Handler             ( void );
 void TCC0_Handler                ( void );
+void TCC1_Handler                ( void );
+void TCC2_Handler                ( void );
 void TC0_Handler                 ( void );
 void TC1_Handler                 ( void );
 void TC2_Handler                 ( void );
@@ -314,6 +318,8 @@ void PTC_Handler                 ( void );
 #include "instance/tc3.h"
 #include "instance/tc4.h"
 #include "instance/tcc0.h"
+#include "instance/tcc1.h"
+#include "instance/tcc2.h"
 #include "instance/wdt.h"
 /*@}*/
 
@@ -352,18 +358,23 @@ void PTC_Handler                 ( void );
 #define ID_SERCOM2       67 /**< \brief Serial Communication Interface 2 (SERCOM2) */
 #define ID_SERCOM3       68 /**< \brief Serial Communication Interface 3 (SERCOM3) */
 #define ID_TCC0          73 /**< \brief Timer Counter Control 0 (TCC0) */
+#define ID_TCC1          74 /**< \brief Timer Counter Control 1 (TCC1) */
+#define ID_TCC2          75 /**< \brief Timer Counter Control 2 (TCC2) */
 #define ID_TC0           76 /**< \brief Basic Timer Counter 0 (TC0) */
 #define ID_TC1           77 /**< \brief Basic Timer Counter 1 (TC1) */
 #define ID_TC2           78 /**< \brief Basic Timer Counter 2 (TC2) */
 #define ID_TC3           79 /**< \brief Basic Timer Counter 3 (TC3) */
 #define ID_TC4           80 /**< \brief Basic Timer Counter 4 (TC4) */
-#define ID_ADC0          81 /**< \brief Analog Digital Converter 0 (ADC0) */
+#define ID_ADC0          81 /**< \brief Analog Digital Converter (ADC0) */
 #define ID_AC            84 /**< \brief Analog Comparators (AC) */
 #define ID_PTC           86 /**< \brief Peripheral Touch Controller (PTC) */
 #define ID_CCL           87 /**< \brief Configurable Custom Logic (CCL) */
 #define ID_TAL           88 /**< \brief Trigger Allocator (TAL) */
 
-#define ID_PERIPH_COUNT  89 /**< \brief Number of peripheral IDs */
+// Peripheral instances on AHB (as if on bridge 3)
+#define ID_DIVAS         96 /**< \brief Divide and Square Root Accelerator (DIVAS) */
+
+#define ID_PERIPH_COUNT  97 /**< \brief Max number of peripheral IDs */
 /*@}*/
 
 /* ************************************************************************** */
@@ -417,6 +428,8 @@ void PTC_Handler                 ( void );
 #define TC3                           (0x42003C00UL) /**< \brief (TC3) APB Base Address */
 #define TC4                           (0x42004000UL) /**< \brief (TC4) APB Base Address */
 #define TCC0                          (0x42002400UL) /**< \brief (TCC0) APB Base Address */
+#define TCC1                          (0x42002800UL) /**< \brief (TCC1) APB Base Address */
+#define TCC2                          (0x42002C00UL) /**< \brief (TCC2) APB Base Address */
 #define WDT                           (0x40002000UL) /**< \brief (WDT) APB Base Address */
 #else
 #define AC                ((Ac       *)0x42005000UL) /**< \brief (AC) APB Base Address */
@@ -542,8 +555,10 @@ void PTC_Handler                 ( void );
 #define TC_INSTS          { TC0, TC1, TC2, TC3, TC4 } /**< \brief (TC) Instances List */
 
 #define TCC0              ((Tcc      *)0x42002400UL) /**< \brief (TCC0) APB Base Address */
-#define TCC_INST_NUM      1                          /**< \brief (TCC) Number of instances */
-#define TCC_INSTS         { TCC0 }                   /**< \brief (TCC) Instances List */
+#define TCC1              ((Tcc      *)0x42002800UL) /**< \brief (TCC1) APB Base Address */
+#define TCC2              ((Tcc      *)0x42002C00UL) /**< \brief (TCC2) APB Base Address */
+#define TCC_INST_NUM      3                          /**< \brief (TCC) Number of instances */
+#define TCC_INSTS         { TCC0, TCC1, TCC2 }       /**< \brief (TCC) Instances List */
 
 #define WDT               ((Wdt      *)0x40002000UL) /**< \brief (WDT) APB Base Address */
 #define WDT_INST_NUM      1                          /**< \brief (WDT) Number of instances */

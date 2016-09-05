@@ -3,7 +3,7 @@
  *
  * \brief SAM RTC Driver (Calendar Mode)
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -142,6 +142,11 @@ void rtc_calendar_disable(struct rtc_module *const module)
 		/* Wait for synchronization */
 	}
 
+	/* Disbale interrupt */
+	rtc_module->MODE2.INTENCLR.reg = RTC_MODE2_INTENCLR_MASK;
+	/* Clear interrupt flag */
+	rtc_module->MODE2.INTFLAG.reg = RTC_MODE2_INTFLAG_MASK;
+
 	/* Disable RTC module. */
 	rtc_module->MODE2.CTRLA.reg &= ~RTC_MODE2_CTRLA_ENABLE;
 
@@ -152,6 +157,7 @@ void rtc_calendar_disable(struct rtc_module *const module)
 
 /**
  * \brief Resets the RTC module.
+ *
  * Resets the RTC module to hardware defaults.
  *
  * \param[in,out] module  Pointer to the software instance struct
@@ -191,7 +197,7 @@ void rtc_calendar_reset(struct rtc_module *const module)
  * \param[in, out] module  Pointer to the software instance struct
  * \param[in] time  Pointer to the time structure
  *
- * \return 32-bit value
+ * \return 32-bit value.
  */
 uint32_t rtc_calendar_time_to_register_value(
 		struct rtc_module *const module,
@@ -301,7 +307,7 @@ static void _rtc_calendar_set_config(
 	/* Set to calendar mode and set the prescaler. */
 	tmp_reg = RTC_MODE2_CTRLA_MODE(2) | config->prescaler;
 
-#if (SAML22)
+#if (SAML21XXXB) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30)
 	if(config->enable_read_sync) {
 		tmp_reg |= RTC_MODE2_CTRLA_CLOCKSYNC;
 	}

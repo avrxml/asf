@@ -3,7 +3,7 @@
  *
  * \brief SAM DA1 SPI configuration
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,7 +50,16 @@
 
 #  define CONF_SPI_MASTER_ENABLE     true
 #  define CONF_SPI_SLAVE_ENABLE      false
-#  define CONF_SPI_TIMEOUT           10000
+
+//[definition_master]
+#define CONF_MASTER_SPI_MODULE  EXT1_SPI_MODULE
+#define CONF_MASTER_SS_PIN      EXT1_PIN_SPI_SS_0
+#define CONF_MASTER_MUX_SETTING EXT1_SPI_SERCOM_MUX_SETTING
+#define CONF_MASTER_PINMUX_PAD0 EXT1_SPI_SERCOM_PINMUX_PAD0
+#define CONF_MASTER_PINMUX_PAD1 PINMUX_UNUSED
+#define CONF_MASTER_PINMUX_PAD2 EXT1_SPI_SERCOM_PINMUX_PAD2
+#define CONF_MASTER_PINMUX_PAD3 EXT1_SPI_SERCOM_PINMUX_PAD3
+//[definition_master]
 
 #endif /* CONF_SPI_H_INCLUDED */
 

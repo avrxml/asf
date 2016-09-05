@@ -3,7 +3,7 @@
  *
  * \brief SAM D1x Clock Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -289,7 +289,7 @@ void system_clock_source_xosc_set_config(
 			temp.bit.GAIN = 2;
 		} else if (config->frequency <= 16000000) {
 			temp.bit.GAIN = 3;
-		} else if (config->frequency <= 30000000) {
+		} else if (config->frequency <= 32000000) {
 			temp.bit.GAIN = 4;
 		}
 

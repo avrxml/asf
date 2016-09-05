@@ -3,7 +3,7 @@
  *
  * \brief SAM Control Area Network Driver Configuration Header
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -89,7 +89,7 @@
 /*
  * The setting of the nominal bit rate is based on the PCK5 which is 30M which you can
  * change. Below is the default configuration. The
- * time quanta is 30MHz / (2+1) =  10MHz. And each bit is (3+10+7) = 20 time
+ * time quanta is 30MHz / (2+1) =  10MHz. And each bit is (1 + NTSEG1 + 1 + NTSEG2 + 1) = 20 time
  * quanta which means the bit rate is 10MHz/20=500KHz.
  */
 /** Nominal bit Baud Rate Prescaler */
@@ -104,7 +104,7 @@
 /*
  * The setting of the data bit rate is based on the PCK5 which is 30M which you can
  * change. Below is the default configuration. The
- * time quanta is 30MHz / (0+1) =  30MHz. And each bit is (3+9+3) = 16 time
+ * time quanta is 30MHz / (0+1) =  30MHz. And each bit is (1 + FTSEG1 + 1 + FTSEG2 + 1) = 16 time
  * quanta which means the bit rate is 30MHz/15=2MHz.
  */
 /** Data bit Baud Rate Prescaler */

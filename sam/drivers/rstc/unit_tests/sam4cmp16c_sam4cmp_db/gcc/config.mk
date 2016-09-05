@@ -43,7 +43,7 @@ PRJ_PATH = ../../../../../..
 ARCH = cortex-m4
 
 # Target part: none, sam3n4 or sam4l4aa
-PART = sam4cmp16c_0
+PART = sam4cmp16c:0
 
 # Application target name. Given with suffix .a for library and .elf for a
 # standalone application.
@@ -88,6 +88,7 @@ INC_PATH = \
        sam/drivers/gpbr                                   \
        sam/drivers/pmc                                    \
        sam/drivers/rstc                                   \
+       sam/drivers/rstc/example1                          \
        sam/drivers/rstc/unit_tests                        \
        sam/drivers/rstc/unit_tests/sam4cmp16c_sam4cmp_db  \
        sam/drivers/uart                                   \

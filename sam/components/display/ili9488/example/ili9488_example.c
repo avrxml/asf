@@ -74,10 +74,6 @@
 #include "conf_board.h"
 #include "conf_clock.h"
 
-/* Chip select number to be set */
-#define ILI9488_LCD_CS      3
-
-#define COLOR_CONVERT       RGB_24_TO_RGB565
 
 struct ili9488_opt_t g_ili9488_display_opt;
 
@@ -166,27 +162,6 @@ int main(void)
 	puts("ILI9488 example\n\r");
 	
 	configure_systick();
-	/* Enable peripheral clock */
-	pmc_enable_periph_clk(ID_SMC);
-
-	/* Configure SMC, NCS3 is assigned to LCD */
-	smc_set_setup_timing(SMC,ILI9488_LCD_CS,SMC_SETUP_NWE_SETUP(2)
-			| SMC_SETUP_NCS_WR_SETUP(0)
-			| SMC_SETUP_NRD_SETUP(0)
-			| SMC_SETUP_NCS_RD_SETUP(0));
-	smc_set_pulse_timing(SMC, ILI9488_LCD_CS , SMC_PULSE_NWE_PULSE(6)
-			| SMC_PULSE_NCS_WR_PULSE(0xA)
-			| SMC_PULSE_NRD_PULSE(0xA)
-			| SMC_PULSE_NCS_RD_PULSE(0xA));
-	smc_set_cycle_timing(SMC, ILI9488_LCD_CS, SMC_CYCLE_NWE_CYCLE(0xA)
-			| SMC_CYCLE_NRD_CYCLE(0xA));
-
-
-	smc_set_mode(SMC, ILI9488_LCD_CS, SMC_MODE_READ_MODE
-			| SMC_MODE_WRITE_MODE
-			| SMC_MODE_DBW_16_BIT
-			| SMC_MODE_EXNW_MODE_DISABLED
-			| SMC_MODE_TDF_CYCLES(0xF));
 
 	/* Initialize display parameter */
 	g_ili9488_display_opt.ul_width = ILI9488_LCD_WIDTH;
@@ -199,10 +174,8 @@ int main(void)
 	
 	/* Draw text, image and basic shapes on the LCD */
 	ili9488_set_foreground_color(COLOR_CONVERT(COLOR_WHITE));
-	ili9488_draw_filled_rectangle(0, 0, ILI9488_LCD_WIDTH-1,ILI9488_LCD_HEIGHT-1);
+	ili9488_draw_filled_rectangle(0, 0, ILI9488_LCD_WIDTH,ILI9488_LCD_HEIGHT);
 	
-	/* enable partial mode when draw line or circle. */
-	ili9488_write_register(ILI9488_CMD_PARTIAL_MODE_ON, 0, 0);
 	
 	ili9488_set_foreground_color(COLOR_CONVERT(COLOR_BLACK));
 	ili9488_draw_string(10, 20, (uint8_t *)"ili9488_lcd example");
@@ -216,7 +189,7 @@ int main(void)
 	ili9488_draw_circle(180, 160, 40);
 	
 	ili9488_set_foreground_color(COLOR_CONVERT(COLOR_VIOLET));
-	ili9488_draw_line(0, 0, ILI9488_LCD_WIDTH-1, ILI9488_LCD_HEIGHT-1);
+	ili9488_draw_line(0, 0, ILI9488_LCD_WIDTH, ILI9488_LCD_HEIGHT);
 	
 	while(1) {
 

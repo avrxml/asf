@@ -3,7 +3,7 @@
  *
  * \brief Smart Card Standard ISO7816 driver.
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,9 +51,11 @@ extern "C" {
 #endif
 
 /**
- * \defgroup sam_services_smart_card_group Smart Card Service
+ * \defgroup asfdoc_sam0_iso7816_group Smart Card Service
  *
  * The smart card service provides functions for cards supporting ISO7816 protocol.
+ *
+ * \ref asfdoc_sam0_iso7816_qs.
  *
  * @{
  */
@@ -99,8 +101,6 @@ static enum status_code iso7816_get_char(uint8_t *p_char_received)
 
 	if (iso7816_usart_status == ISO7816_USART_SEND) {
 		iso7816_usart_status = ISO7816_USART_RCV;
-		usart_disable_transceiver(iso7816_usart_module, USART_TRANSCEIVER_TX);
-		usart_enable_transceiver(iso7816_usart_module, USART_TRANSCEIVER_RX);
 	}
 
 	/* Wait USART ready for reception. */
@@ -128,8 +128,6 @@ static enum status_code iso7816_send_char(uint8_t uc_char)
 
 	if (iso7816_usart_status == ISO7816_USART_RCV) {
 		iso7816_usart_status = ISO7816_USART_SEND;
-		usart_disable_transceiver(iso7816_usart_module, USART_TRANSCEIVER_RX);
-		usart_enable_transceiver(iso7816_usart_module, USART_TRANSCEIVER_TX);
 	}
 
 	ul_status = usart_write_wait(iso7816_usart_module, uc_char);
@@ -176,22 +174,14 @@ uint16_t iso7816_xfr_block_tpdu_t0(const uint8_t *p_apdu,
 	uint16_t us_message_index = 0;
 	uint8_t uc_sw1 = 0;
 	uint8_t uc_proc_byte;
-	uint8_t uc_cmd_case;
-	uint8_t message_p3;
+	uint8_t  uc_cmd_case;
+	uint8_t p_dummy[5];
 
-	if (us_length < 4) {
-		us_message_index = 0;
-		return us_message_index;
-	} else if (us_length == 4) {
-		message_p3 = 0;
-	} else {
-		message_p3 = p_apdu[4];
-	}
-	iso7816_send_char(p_apdu[0]);  /* CLA */
-	iso7816_send_char(p_apdu[1]);  /* INS */
-	iso7816_send_char(p_apdu[2]);  /* P1 */
-	iso7816_send_char(p_apdu[3]);  /* P2 */
-	iso7816_send_char(message_p3); /* P3 */
+	iso7816_send_char(p_apdu[0]); /* CLA */
+	iso7816_send_char(p_apdu[1]); /* INS */
+	iso7816_send_char(p_apdu[2]); /* P1 */
+	iso7816_send_char(p_apdu[3]); /* P2 */
+	iso7816_send_char(p_apdu[4]); /* P3 */
 
 	/* Handle the four structures of command APDU. */
 	us_apdu_index = 4;
@@ -228,6 +218,11 @@ uint16_t iso7816_xfr_block_tpdu_t0(const uint8_t *p_apdu,
 
 	/* Handle Procedure Bytes. */
 	do {
+		/*Dummy Read - Start*/
+		iso7816_get_char(&p_dummy[0]);
+		iso7816_get_char(&p_dummy[1]);
+		iso7816_get_char(&p_dummy[2]);
+		/*Dummy Read - End*/
 		iso7816_get_char(&uc_proc_byte);
 		uint8_t uc_proc_byte_x = (uc_proc_byte ^ 0xff);
 		/* Handle NULL. */
@@ -252,6 +247,10 @@ uint16_t iso7816_xfr_block_tpdu_t0(const uint8_t *p_apdu,
 				do {
 					iso7816_send_char(p_apdu[++us_apdu_index]);
 				} while (0 != --us_ne_nc);
+				/*Dummy Read - Start*/
+				iso7816_get_char(&p_dummy[3]);
+				iso7816_get_char(&p_dummy[4]);
+				/*Dummy Read - End*/
 			}
 		}
 		/* Handle INS ^ 0xff. */
@@ -260,7 +259,7 @@ uint16_t iso7816_xfr_block_tpdu_t0(const uint8_t *p_apdu,
 				/* receive data from card. */
 				iso7816_get_char(&p_message[us_message_index++]);
 			} else {
-				iso7816_send_char(p_apdu[++us_apdu_index]);
+				iso7816_send_char(p_apdu[us_apdu_index++]);
 			}
 			us_ne_nc--;
 		} else {
@@ -375,6 +374,47 @@ void iso7816_warm_reset(void)
 }
 
 /**
+ * \brief Decode ATR trace.
+ *
+ * \param[in] p_atr Pinter on ATR buffer.
+ */
+void iso7816_decode_atr(uint8_t *p_atr)
+{
+	uint32_t i;
+	uint32_t j;
+	uint32_t y;
+	uint8_t uc_offset;
+
+	i = 2;
+	y = p_atr[1] & 0xF0;
+
+	/* Read ATR Ti. */
+	uc_offset = 1;
+	while (y) {
+		if (y & 0x10) { /* TA[i] */
+			i++;
+		}
+		if (y & 0x20) { /* TB[i] */
+			i++;
+		}
+		if (y & 0x40) { /* TC[i] */
+			i++;
+		}
+		if (y & 0x80) { /* TD[i] */
+			y = p_atr[i++] & 0xF0;
+		} else {
+			y = 0;
+		}
+		uc_offset++;
+	}
+
+	y = p_atr[1] & 0x0F;
+	for (j = 0; j < y; j++) {
+		i++;
+	}
+}
+
+/**
  * \brief Initializes a ISO7816 interface device.
  *
  * \param[out] module       Pointer to USART device
@@ -391,10 +431,16 @@ void iso7816_init(struct usart_module *const module, uint32_t pin_rst, \
 	iso7816_pin_rst       = pin_rst;
 	iso7816_gs_frequency  = clock_get_hz;
 
-	usart_disable_transceiver(iso7816_usart_module, USART_TRANSCEIVER_TX);
-	usart_enable_transceiver(iso7816_usart_module, USART_TRANSCEIVER_RX);
 }
 //@}
+
+/**
+ * \page asfdoc_sam0_iso7816_qs
+ *
+ * Driver for smart card via ISO7816.
+ * See \ref appdoc_sam0_smart_card_main "here" for project documentation.
+ *
+ */
 
 #ifdef __cplusplus
 }

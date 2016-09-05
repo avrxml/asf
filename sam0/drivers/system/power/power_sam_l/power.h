@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM L21/L22 Power functionality
+ * \brief SAM L21/L22/R30 Power functionality
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -107,7 +107,7 @@ enum system_ram_back_bias_mode {
 	SYSTEM_RAM_BACK_BIAS_OFF,
 };
 
-#if SAML21
+#if SAML21 || SAMR30
 /**
  * \brief Linked power domain.
  *
@@ -126,7 +126,7 @@ enum system_linked_power_domain {
 	SYSTEM_LINKED_POWER_DOMAIN_PD012     = PM_STDBYCFG_LINKPD_PD012_Val,
 };
 
-#if (SAML21XXXB)
+#if (SAML21XXXB) || (SAMR30)
 /**
  * \brief VREG switching mode.
  *
@@ -279,7 +279,7 @@ enum system_backup_pin {
  * Configuration structure for standby mode.
  */
 struct system_standby_config {
-#if SAML21
+#if SAML21 || SAMR30
 	/** Power domain. */
 	enum system_power_domain  power_domain;
 	/** Enable dynamic power gating for power domain 0 */
@@ -321,7 +321,7 @@ struct system_voltage_regulator_config {
 	enum system_voltage_regulator_sel  regulator_sel;
 	/** Low power efficiency */
 	enum system_voltage_regulator_low_power_efficiency low_power_efficiency;
-#if SAML22
+#if SAML22 || SAML21XXXB
 	/** Run in standby in performance level 0. */
 	bool run_in_standby_pl0;
 #endif
@@ -384,7 +384,7 @@ static inline void system_voltage_regulator_get_config_defaults(
 	config->run_in_standby       = false;
 	config->regulator_sel        = SYSTEM_VOLTAGE_REGULATOR_LDO;
 	config->low_power_efficiency = SYSTEM_VOLTAGE_REGULATOR_LOW_POWER_EFFICIENCY_DEFAULT;
-#if SAML22
+#if SAML22 || SAML21XXXB
 	config->run_in_standby_pl0   = false;
 #endif
 }
@@ -405,10 +405,10 @@ static inline void system_voltage_regulator_set_config(
 	SUPC->VREG.bit.VSVSTEP  = config->voltage_scale_step;
 	SUPC->VREG.bit.RUNSTDBY = config->run_in_standby;
 	SUPC->VREG.bit.SEL      = config->regulator_sel;
-#if (SAML21XXXB)
+#if (SAML21XXXB) || (SAMR30)
 	SUPC->VREG.bit.LPEFF    = config->low_power_efficiency;
 #endif
-#if SAML22
+#if SAML22 || SAML21XXXB
 	SUPC->VREG.bit.STDBYPL0 = config->run_in_standby_pl0;
 #endif
 	while(!(SUPC->STATUS.reg & SUPC_STATUS_VREGRDY)) {
@@ -809,7 +809,7 @@ static inline enum status_code system_switch_performance_level(
 		return STATUS_OK;
 	}
 
-#if SAML22
+#if SAML22 || SAML21XXXB
 	if (PM->PLCFG.reg & PM_PLCFG_PLDIS) {
 		return STATUS_ERR_INVALID_ARG;
 	}
@@ -828,7 +828,7 @@ static inline enum status_code system_switch_performance_level(
 	return STATUS_OK;
 }
 
-#if SAML22
+#if SAML22 || SAML21XXXB
 /**
  * \brief Enable performance level switch.
  *
@@ -910,11 +910,11 @@ static inline void system_standby_get_config_defaults(
 		struct system_standby_config *const config)
 {
 	Assert(config);
-#if SAML21
+#if SAML21 || SAMR30
 	config->power_domain        = SYSTEM_POWER_DOMAIN_DEFAULT;
 	config->enable_dpgpd0       = false;
 	config->enable_dpgpd1       = false;
-#if (SAML21XXXB)
+#if (SAML21XXXB) || (SAMR30)
 	config->vregs_mode          = SYSTEM_SYSTEM_VREG_SWITCH_AUTO;
 #else
 	config->disable_avregsd     = false;
@@ -939,11 +939,11 @@ static inline void system_standby_set_config(
 		struct system_standby_config *const config)
 {
 	Assert(config);
-#if SAML21
+#if SAML21 || SAMR30
 	PM->STDBYCFG.reg = PM_STDBYCFG_PDCFG(config->power_domain)
 					 | (config->enable_dpgpd0 << PM_STDBYCFG_DPGPD0_Pos)
 					 | (config->enable_dpgpd1 << PM_STDBYCFG_DPGPD1_Pos)
-#if (SAML21XXXB)
+#if (SAML21XXXB) || (SAMR30)
 					 | PM_STDBYCFG_VREGSMOD(config->vregs_mode)
 #else
 					 | (config->disable_avregsd << PM_STDBYCFG_AVREGSD_Pos)

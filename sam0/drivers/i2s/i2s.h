@@ -3,7 +3,7 @@
  *
  * \brief SAM I2S - Inter-IC Sound Controller
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,10 +48,11 @@
 #define I2S_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam0_i2s_group SAM Inter-IC Sound Controller Driver (I2S)
+ * \defgroup asfdoc_sam0_i2s_group SAM Inter-IC Sound Controller (I2S) Driver
  *
- * This driver for Atmel® | SMART SAM devices provides an interface for the configuration
- * and management of the device's Inter-IC Sound Controller functionality.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides
+ * an interface for the configuration and management of the device's Inter-IC
+ * Sound Controller functionality.
  *
  * The following driver API modes are covered by this manual:
  * - Polled APIs
@@ -59,8 +60,8 @@
  * - Callback APIs
  * \endif
  *
- * The following peripherals are used by this module:
- *  - I2S (Inter-IC Sound Controller)
+ * The following peripheral is used by this module:
+ *  - I<SUP>2</SUP>S (Inter-IC Sound Controller)
  *
  * The following devices can use this module:
  *  - Atmel | SMART SAM D21
@@ -80,24 +81,24 @@
  *
  * \section asfdoc_sam0_i2s_module_overview Module Overview
  *
- * The I2S provides bidirectional, synchronous, digital audio link with external
- * audio devices through these signal pins:
+ * The I<SUP>2</SUP>S provides bidirectional, synchronous, digital audio link with
+ * external audio devices through these signal pins:
  *  - Serial Data (SDm)
  *  - Frame Sync (FSn)
  *  - Serial Clock (SCKn)
  *  - Master Clock (MCKn)
  *
- * The I2S consists of 2 Clock Units and 2 Serializers, which can be separately
- * configured and enabled, to provide varies functionalities as follow:
+ * The I<SUP>2</SUP>S consists of two Clock Units and two Serializers, which can be
+ * separately configured and enabled, to provide varies functionalities as follow:
  *  - Communicate to Audio CODECs as Master or Slave, or provides clock and
  *    frame sync signals as Controller
- *  - Communicate to DAC or ADC through dedicated I2S serial interface
+ *  - Communicate to DAC or ADC through dedicated I<SUP>2</SUP>S serial interface
  *  - Communicate to multi-slot or multiple stereo DACs or ADCs, via
  *    Time Division Multiplexed (TDM) format
  *  - Reading mono or stereo MEMS microphones, using the Pulse Density
  *    Modulation (PDM) interface
  *
- * The I2S supports compact stereo data word, where left channel data bits are
+ * The I<SUP>2</SUP>S supports compact stereo data word, where left channel data bits are
  * in lower half and right channel data bits are in upper half. It reduces the
  * number of data words for stereo audio data and the DMA bandwidth.
  *
@@ -105,71 +106,73 @@
  * allows range covering 16fs to 1024fs MCK, to provide oversampling clock to an
  * external audio CODEC or digital signal processor (DSP).
  *
- * A block diagram of the I2S can be seen in
+ * A block diagram of the I<SUP>2</SUP>S can be seen in
  * \ref asfdoc_sam0_i2s_module_block_diagram "the figure below".
  *
  * \anchor asfdoc_sam0_i2s_module_block_diagram
  * \image html i2s_blocks.svg "I2S Block Diagram"
  *
- * This driver for I2S module provides an interface to
- *  - initialize and control I2S module
- *  - configure and control the I2S Clock Unit and Serializer
- *  - transmit/receive data through I2S Serializer
+ * This driver for I<SUP>2</SUP>S module provides an interface to:
+ *  - Initialize and control I<SUP>2</SUP>S module
+ *  - Configure and control the I<SUP>2</SUP>S Clock Unit and Serializer
+ *  - Transmit/receive data through I<SUP>2</SUP>S Serializer
  *
  * \subsection asfdoc_sam0_i2s_module_overview_clocks Clocks
  *
- * To use I2S module, the I2S bus interface clock (clk_i2s) must be enabled via
- * Power Manager.
+ * To use I<SUP>2</SUP>S module, the I<SUP>2</SUP>S bus interface clock (clk_i2s)
+ * must be enabled via Power Manager.
  *
- * For each I2S Clock Unit, a generic clock (gclk_i2s_n) is connnected. When I2S
- * works in master mode the generic clock is used. It should be prepared before
- * clock unit is used. In master mode the input generic clock will be used as
- * MCK for SCKn and FSn generation, in addition, the MCK could be devided and
- * output to I2S MCKn pin, as oversampling clock to external audio device.
+ * For each I<SUP>2</SUP>S Clock Unit, a generic clock (gclk_i2s_n) is connnected.
+ * When I<SUP>2</SUP>S works in master mode the generic clock is used. It should
+ * be prepared before clock unit is used. In master mode the input generic clock
+ * will be used as MCK for SCKn and FSn generation, in addition, the MCK could be
+ * devided and output to I<SUP>2</SUP>S MCKn pin, as oversampling clock to
+ * external audio device.
  *
- * The I2S Serializer uses clock and control signal from Clock Unit to handle
+ * The I<SUP>2</SUP>S Serializer uses clock and control signal from Clock Unit to handle
  * transfer. Select different clock unit with different configurations allows
- * the I2S to work as master or slave, to work on non-related clocks.
+ * the I<SUP>2</SUP>S to work as master or slave, to work on non-related clocks.
  *
  * When using the driver with ASF, enabling the register interface is normally
  * done by the \c init function.
- * The gclk source for the asynchronous domain is normally configured and set
- * through the _configuration struct_ / _init_ function. 
- * If gclk source != 0 is used, this source has to be configured and enabled
+ * The Generic Clock Controller (GCLK) source for the asynchronous domain is
+ * normally configured and set through the _configuration
+ * struct_ / _init_ function.
+ * If GCLK source != 0 is used, this source has to be configured and enabled
  * through invoking the system_gclk driver function when needed, or modifying
  * conf_clock.h to enable it at the beginning.
  *
  * \subsection asfdoc_sam0_i2s_module_overview_frame Audio Frame Generation
  *
  * Audio sample data for all channels are sent in frames, one frame can consist
- * 1 - 8 slots where each slot can be configured to a size 8-bit, 16-bit, 24-bit
- * or 32-bit. The audio frame synch clock is generated by the I2S Clock unit in
- * the master/controller mode. The frame rate (or frame sync frequency) is
- * calculated as follow:
+ * 1 - 8 slots where each slot can be configured to a size 8-bit, 16-bit, 24-bit,
+ * or 32-bit. The audio frame synch clock is generated by the I<SUP>2</SUP>S
+ * Clock unit in the master/controller mode. The frame rate (or frame sync
+ * frequency) is calculated as follows:
  *
  * FS = SCK / number_of_slots / number_of_bits_in_slot
  *
  * The serial clock (SCK) source is either an external source (slave mode) or
- * generated by the I2S clock unit (controller or master mode) using the MCK as
- * source.
+ * generated by the I<SUP>2</SUP>S clock unit (controller or master mode) using
+ * the MCK as source.
  *
  * SCK = MCK / sck_div
  * \note SCK generation division value is MCKDIV in register.
  *
- * MCK is either an external source or generated using the gclk input from a
+ * MCK is either an external source or generated using the GCLK input from a
  * generic clock generator.
  *
- * \subsection asfdoc_sam0_i2s_module_overview_mode Master, Controller and Slave modes
+ * \subsection asfdoc_sam0_i2s_module_overview_mode Master, Controller, and Slave Modes
  *
- * The i2s module has three modes: master, controller and slave.
+ * The I<SUP>2</SUP>S module has three modes: master, controller, and slave.
  *
  * \subsubsection asfdoc_sam0_i2s_module_overview_mode_mst Master
- * In master mode the module will control the data flow on the i2s bus and can
+ * In master mode the module will control the data flow on the I<SUP>2</SUP>S bus and can
  * be responsible for clock generation. The Serializers are enabled and will
- * transmit/receive data. On a bus with only master and slave the SCK and FS
+ * transmit/receive data. On a bus with only master and slave the SCK, and FS
  * clock signal will be outputted on the SCK and FS pin on the master module.
  * MCK can optionally be outputted on the MCK pin, if there is a controller
- * module on the bus the SCK, FS and optionally the MCK clock is sourced from
+ * module on the bus the SCK, FS, and optionally the MCK clock is sourced from
  * the same pins. Serial data will be trancieved on the SD pin in both
  * scenarios.
  *
@@ -186,44 +189,45 @@
  * and will tranceive data on the SD pin. All data flow is controlled by the
  * master.
  *
- * \subsubsection asfdoc_sam0_i2s_module_overview_mode_chg Switch modes
- * The mode switching between master, controller and slave modes are actually
- * done by modifying the source mode of I2S pins.
- * The source mode of I2S pins are selected by writing corresponding bits in
- * CLKCTRLn.
+ * \subsubsection asfdoc_sam0_i2s_module_overview_mode_chg Switch Modes
+ * The mode switching between master, controller, and slave modes are actually
+ * done by modifying the source mode of I<SUP>2</SUP>S pins.
+ * The source mode of I<SUP>2</SUP>S pins are selected by writing corresponding
+ * bits in CLKCTRLn.
  * Since source mode switching changes the direction of pin, the mode must be
- * changed when the I2S Clock Unit is stopped.
+ * changed when the I<SUP>2</SUP>S Clock Unit is stopped.
  *
  * \subsection asfdoc_sam0_i2s_module_overview_data Data Stream Reception/Transmission
  *
- * The I2S module support several data stream formats:
- * - I2S format
+ * The I<SUP>2</SUP>S module support several data stream formats:
+ * - I<SUP>2</SUP>S format
  * - Time Division Multiplexed (TDM) format
  * - Pulse Density Modulation (PDM) format (reception only)
  *
- * Basically the I2S module can send several words within each frame, it's more
- * like TDM format. With adjust to the number of data words in a frame, the FS
- * width, the FS to data bits delay, etc., the module is able to handle I2S
- * compliant data stream.
+ * Basically the I<SUP>2</SUP>S module can send several words within each frame,
+ * it's more like TDM format. With adjust to the number of data words in a frame,
+ * the FS width, the FS to data bits delay, etc., the module is able to handle
+ * I<SUP>2</SUP>S compliant data stream.
  *
- * Also the Serializer can receive PDM format data stream, which allows the I2S
- * module receive 1 PDM data on each SCK edge.
+ * Also the Serializer can receive PDM format data stream, which allows the 
+ * I<SUP>2</SUP>S module receive 1 PDM data on each SCK edge.
  *
  * \subsubsection asfdoc_sam0_i2s_module_overview_data_i2s I2S Stream Reception/Transmission
  *
- * For 2-channel I2S compliant data stream format the i2s module uses the FS
- * line as word select (WS) signal and will send left channel data word on low
- * WS level and right channel data word on high WS level as specified in the I2S
- * standard. The supported word sizes are 8-, 16-, 18-, 20-, 24- and 32- bit.
+ * For 2-channel I<SUP>2</SUP>S compliant data stream format the I<SUP>2</SUP>S 
+ * module uses the FS line as word select (WS) signal and will send left channel
+ * data word on low WS level and right channel data word on high WS level as
+ * specified in the I<SUP>2</SUP>S standard. The supported word sizes are 8-,
+ * 16-, 18-, 20-, 24-, and 32- bit.
  *
- * Thus for I2S stream, the following settings should be applied to the module:
+ * Thus for I<SUP>2</SUP>S stream, the following settings should be applied to the module:
  *  - Data starting delay after FS transition : one SCK period
  *  - FS width : half of frame
  *  - Data bits adjust in word : left-adjusted
  *  - Bit transmitting order : MSB first
  *
- * Following is an example for I2S application connections and waveforms. See
- * \ref asfdoc_sam0_i2s_module_i2s_example_diagram "the figure below".
+ * Following is an example for I<SUP>2</SUP>S application connections and waveforms. See
+ * the figure below.
  *
  * \anchor asfdoc_sam0_i2s_module_i2s_example_diagram
  * \image html i2s_example.svg "I2S Example Diagram"
@@ -233,23 +237,23 @@
  * data stream format most of the configurations could be adjusted:
  *  - Main Frame related settings are as follow:
  *   - Frame Sync (FS) options:
- *    - the active edge of the FS (or if FS is inverted before use)
- *    - the width of the FS
- *   - the delay between FS to first data bit
+ *    - The active edge of the FS (or if FS is inverted before use)
+ *    - The width of the FS
+ *   - The delay between FS to first data bit
  *  - Data alignment in slot
  *  - The number of slots and slot size can be adjusted, it has been mentioned
  *    in \ref asfdoc_sam0_i2s_module_overview_frame
  *  - The data word size is controlled by Serializer, it can be chosen among
- *    8, 16, 18, 20, 24 and 32 bits.
+ *    8, 16, 18, 20, 24, and 32 bits.
  *
- * The general TDM waveform generation is as follow:
+ * The general TDM waveform generation is as follows:
  *
  * \anchor asfdoc_sam0_i2s_module_tdm_wave_diagram
- * \image html tdm_wave.svg "TDM Waveform generation"
+ * \image html tdm_wave.svg "TDM Waveform Generation"
  *
  * Some other settings could also be found to set up clock, data formatting and
- * pin mux.
- * refer to \ref i2s_clock_unit_config "Clock Unit Configurations"
+ * pin multiplexer (MUX).
+ * Refer to \ref i2s_clock_unit_config "Clock Unit Configurations"
  * and \ref i2s_serializer_config "Serializer Configurations" for more
  * details.
  *
@@ -268,7 +272,7 @@
  * \image html tdm_codec_example.svg "Time Slot Example Diagram"
  *
  * \subsubsection asfdoc_sam0_i2s_module_overview_data_pdm PDM Reception
- * The I2S Serializer integrates PDM reception feature, to use this feature,
+ * The I<SUP>2</SUP>S Serializer integrates PDM reception feature, to use this feature,
  * simply select PDM2 mode in Serializer configuration. In PDM2 mode, it assumes
  * two microphones are input for stereo stream. The left microphone bits will
  * be stored in lower half and right microphone bits in upper half of the data
@@ -282,32 +286,32 @@
  * \image html pdm_example.svg "Time PDM2 Example Diagram"
  *
  * \subsubsection asfdoc_sam0_i2s_module_overview_data_fmt MONO and Compact Data
- * The I2S Serializer can accept some pre-defined data format and generates
+ * The I<SUP>2</SUP>S Serializer can accept some pre-defined data format and generates
  * the data stream in specified way.
  *
  * When transmitting data, the Serializer can work in MONO mode: assum input
  * is single channel mono data on left channel and copy it to right channel
  * automatically.
  *
- * Also the I2S Serializer can support compact stereo data word. The data word
+ * Also the I<SUP>2</SUP>S Serializer can support compact stereo data word. The data word
  * size of the Serializer can be set to \ref I2S_DATA_SIZE_16BIT_COMPACT
  * "16-bit compact" or \ref I2S_DATA_SIZE_8BIT_COMPACT "8-bit compact", with
- * these option I2S Serializer will compact left channel data and right channel
+ * these option I<SUP>2</SUP>S Serializer will compact left channel data and right channel
  * data together, the left channel data will take lower bytes and right channel
  * data take higher bytes.
  *
  * \subsection asfdoc_sam0_i2s_module_overview_loop Loop-back Mode
- * The I2S can be configured to loop back the Transmitter to Receiver. In this
+ * The I<SUP>2</SUP>S can be configured to loop back the Transmitter to Receiver. In this
  * mode Serializer's input will be connected to another Serializer's output
  * internally.
  *
  * \subsection asfdoc_sam0_i2s_module_overview_sleep Sleep Modes
- * The I2S will continue to operate in any sleep mode, where the selected source
+ * The I<SUP>2</SUP>S will continue to operate in any sleep mode, where the selected source
  * clocks are running.
  *
  * \section asfdoc_sam0_i2s_special_considerations Special Considerations
  *
- * There is no special considerations for I2S module.
+ * There is no special considerations for I<SUP>2</SUP>S module.
  *
  * \section asfdoc_sam0_i2s_extra_info Extra Information
  *
@@ -344,12 +348,12 @@ extern struct i2s_module *_i2s_instances[I2S_INST_NUM];
 /** Forward definition of the device instance */
 struct i2s_module;
 
-/** Type of the callback functions */
+/** Type of the callback functions. */
 typedef void (*i2s_serializer_callback_t)
 		(struct i2s_module *const module);
 
 /**
- * \brief I2S Serializer Callback enum
+ * \brief I<SUP>2</SUP>S Serializer Callback enum
  */
 enum i2s_serializer_callback {
 	/** Callback for buffer read/write finished */
@@ -364,29 +368,29 @@ enum i2s_serializer_callback {
 #endif /* #if I2S_CALLBACK_MODE == true */
 
 /**
- * \name Module status flags
+ * \name Module Status Flags
  *
- * I2S status flags, returned by \ref i2s_get_status() and cleared by
+ * I<SUP>2</SUP>S status flags, returned by \ref i2s_get_status() and cleared by
  * \ref i2s_clear_status().
  *
  * @{
  */
 
-/** Module Serializer x (0~1) Transmit Underrun */
+/** Module Serializer x (0~1) Transmit Underrun. */
 #define I2S_STATUS_TRANSMIT_UNDERRUN(x)     (1u << ((x)+0))
-/** Module Serializer x (0~1) is ready to accept new data to be transmitted */
+/** Module Serializer x (0~1) is ready to accept new data to be transmitted. */
 #define I2S_STATUS_TRANSMIT_READY(x)        (1u << ((x)+2))
-/** Module Serializer x (0~1) Receive Overrun */
+/** Module Serializer x (0~1) Receive Overrun. */
 #define I2S_STATUS_RECEIVE_OVERRUN(x)       (1u << ((x)+4))
-/** Module Serializer x (0~1) has received a new data */
+/** Module Serializer x (0~1) has received a new data. */
 #define I2S_STATUS_RECEIVE_READY(x)         (1u << ((x)+6))
-/** Module is busy on synchronization */
+/** Module is busy on synchronization. */
 #define I2S_STATUS_SYNC_BUSY                (1u << 8)
 
 /** @} */
 
 /**
- * Master Clock (MCK) source selection
+ * Master Clock (MCK) source selection.
  */
 enum i2s_master_clock_source {
 	/** Master Clock (MCK) is from general clock */
@@ -396,7 +400,7 @@ enum i2s_master_clock_source {
 };
 
 /**
- * Serial Clock (SCK) source selection
+ * Serial Clock (SCK) source selection.
  */
 enum i2s_serial_clock_source {
 	/** Serial Clock (SCK) is divided from Master Clock */
@@ -406,38 +410,38 @@ enum i2s_serial_clock_source {
 };
 
 /**
- * Data delay from Frame Sync (FS)
+ * Data delay from Frame Sync (FS).
  */
 enum i2s_data_delay {
 	/** Left Justified (no delay) */
 	I2S_DATA_DELAY_0,
-	/** I2S data delay (1-bit delay) */
+	/** I<SUP>2</SUP>S data delay (1-bit delay) */
 	I2S_DATA_DELAY_1,
 	/** Left Justified (no delay) */
 	I2S_DATA_DELAY_LEFT_JUSTIFIED = I2S_DATA_DELAY_0,
-	/** I2S data delay (1-bit delay) */
+	/** I<SUP>2</SUP>S data delay (1-bit delay) */
 	I2S_DATA_DELAY_I2S = I2S_DATA_DELAY_1
 };
 
 /**
- * Frame Sync (FS) source
+ * Frame Sync (FS) source.
  */
 enum i2s_frame_sync_source {
-	/** Frame Sync (FS) is divided from I2S Serial Clock */
+	/** Frame Sync (FS) is divided from I<SUP>2</SUP>S Serial Clock */
 	I2S_FRAME_SYNC_SOURCE_SCKDIV,
 	/** Frame Sync (FS) is input from FS input pin */
 	I2S_FRAME_SYNC_SOURCE_FSPIN
 };
 
 /**
- * Frame Sync (FS) output pulse width
+ * Frame Sync (FS) output pulse width.
  */
 enum i2s_frame_sync_width {
-	/** Frame Sync (FS) Pulse is 1 Slot width */
+	/** Frame Sync (FS) Pulse is one slot width */
 	I2S_FRAME_SYNC_WIDTH_SLOT,
-	/** Frame Sync (FS) Pulse is half a Frame width */
+	/** Frame Sync (FS) Pulse is half a frame width */
 	I2S_FRAME_SYNC_WIDTH_HALF_FRAME,
-	/** Frame Sync (FS) Pulse is 1 Bit width */
+	/** Frame Sync (FS) Pulse is one bit width */
 	I2S_FRAME_SYNC_WIDTH_BIT,
 	/** 1-bit wide Frame Sync (FS) per Data sample, only used when Data transfer
 	 *  is requested */
@@ -445,7 +449,7 @@ enum i2s_frame_sync_width {
 };
 
 /**
- * Time Slot Size in number of I2S serial clocks (bits)
+ * Time Slot Size in number of I<SUP>2</SUP>S serial clocks (bits).
  */
 enum i2s_slot_size {
 	/** 8-bit slot */
@@ -459,17 +463,17 @@ enum i2s_slot_size {
 };
 
 /**
- * DMA channels usage for I2S
+ * DMA channels usage for I<SUP>2</SUP>S.
  */
 enum i2s_dma_usage {
-	/** Single DMA channel for all I2S channels */
+	/** Single DMA channel for all I<SUP>2</SUP>S channels */
 	I2S_DMA_USE_SINGLE_CHANNEL_FOR_ALL,
 	/** One DMA channel per data channel */
 	I2S_DMA_USE_ONE_CHANNEL_PER_DATA_CHANNEL
 };
 
 /**
- * I2S data format, to extend mono data to 2 channels
+ * I<SUP>2</SUP>S data format, to extend mono data to two channels.
  */
 enum i2s_data_format {
 	/** Normal mode, keep data to its right channel */
@@ -480,17 +484,19 @@ enum i2s_data_format {
 };
 
 /**
- * I2S data bit order
+ * I<SUP>2</SUP>S data bit order.
  */
 enum i2s_bit_order {
-	/** Transfer Data Most Significant Bit first (Default for I2S protocol) */
+	/** Transfer Data Most Significant Bit first 
+	 * (Default for I<SUP>2</SUP>S protocol) 
+	 */
 	I2S_BIT_ORDER_MSB_FIRST,
 	/** Transfer Data Least Significant Bit first */
 	I2S_BIT_ORDER_LSB_FIRST
 };
 
 /**
- * I2S data bit padding
+ * I<SUP>2</SUP>S data bit padding.
  */
 enum i2s_bit_padding {
 	/** Padding with 0 */
@@ -504,7 +510,7 @@ enum i2s_bit_padding {
 };
 
 /**
- * I2S data word adjust
+ * I<SUP>2</SUP>S data word adjust.
  */
 enum i2s_data_adjust {
 	/** Data is right adjusted in word */
@@ -514,7 +520,7 @@ enum i2s_data_adjust {
 };
 
 /**
- * I2S data word size
+ * I<SUP>2</SUP>S data word size.
  */
 enum i2s_data_size {
 	/** 32-bit */
@@ -536,7 +542,7 @@ enum i2s_data_size {
 };
 
 /**
- * I2S data slot adjust
+ * I<SUP>2</SUP>S data slot adjust.
  */
 enum i2s_slot_adjust {
 	/** Data is right adjusted in slot */
@@ -546,7 +552,7 @@ enum i2s_slot_adjust {
 };
 
 /**
- * I2S data padding
+ * I<SUP>2</SUP>S data padding.
  */
 enum i2s_data_padding {
 	/** Padding 0 in case of under-run */
@@ -562,7 +568,7 @@ enum i2s_data_padding {
 };
 
 /**
- * I2S line default value when slot disabled
+ * I<SUP>2</SUP>S line default value when slot disabled.
  */
 enum i2s_line_default_state {
 	/** Output default value is 0 */
@@ -577,7 +583,7 @@ enum i2s_line_default_state {
 };
 
 /**
- * I2S Serializer mode
+ * I<SUP>2</SUP>S Serializer mode.
  */
 enum i2s_serializer_mode {
 	/** Serializer is used to receive data */
@@ -589,7 +595,7 @@ enum i2s_serializer_mode {
 };
 
 /**
- * I2S clock unit selection
+ * I<SUP>2</SUP>S clock unit selection.
  */
 enum i2s_clock_unit {
 	/** Clock Unit channel 0 */
@@ -601,7 +607,7 @@ enum i2s_clock_unit {
 };
 
 /**
- * I2S Serializer selection
+ * I<SUP>2</SUP>S Serializer selection.
  */
 enum i2s_serializer {
 	/** Serializer channel 0 */
@@ -614,19 +620,19 @@ enum i2s_serializer {
 
 
 /**
- * Configure for I2S pin
+ * Configure for I<SUP>2</SUP>S pin.
  */
 struct i2s_pin_config {
 	/** GPIO index to access the pin */
 	uint8_t gpio;
 	/** Pin function MUX */
 	uint8_t mux;
-	/** Enable this pin for I2S module */
+	/** Enable this pin for I<SUP>2</SUP>S module */
 	bool enable;
 };
 
 /**
- * Configure for I2S clock (SCK)
+ * Configure for I<SUP>2</SUP>S clock (SCK).
  */
 struct i2s_clock_config {
 	/** Divide generic clock to master clock output (1~32, 0,1 means no div) */
@@ -648,7 +654,7 @@ struct i2s_clock_config {
 };
 
 /**
- * Configure fir I2S frame sync (FS)
+ * Configure for I<SUP>2</SUP>S frame sync (FS).
  */
 struct i2s_frame_sync_config {
 	/** Frame Sync (FS) generated or input from pin */
@@ -662,7 +668,7 @@ struct i2s_frame_sync_config {
 };
 
 /**
- * Configure fir I2S frame
+ * Configure for I<SUP>2</SUP>S frame.
  */
 struct i2s_frame_config {
 	/** Number of slots in a frame (1~8, 0,1 means minimum 1) */
@@ -676,7 +682,7 @@ struct i2s_frame_config {
 };
 
 /**
- * Configure for I2S clock unit
+ * Configure for I<SUP>2</SUP>S clock unit.
  */
 struct i2s_clock_unit_config {
 	/** Configure clock generation */
@@ -693,7 +699,7 @@ struct i2s_clock_unit_config {
 };
 
 /**
- * Configure for I2S Serializer
+ * Configure for I<SUP>2</SUP>S Serializer.
  */
 struct i2s_serializer_config {
 	/** Configure Serializer data pin */
@@ -739,7 +745,7 @@ struct i2s_serializer_config {
 };
 
 /**
- * \brief I2S Serializer instance struct
+ * \brief I<SUP>2</SUP>S Serializer instance struct.
  */
 struct i2s_serializer_module {
 
@@ -770,7 +776,7 @@ struct i2s_serializer_module {
 };
 
 /**
- * \brief I2S Software Module instance struct
+ * \brief I<SUP>2</SUP>S Software Module instance struct.
  */
 struct i2s_module {
 	/** Module HW register access base */
@@ -823,9 +829,9 @@ enum status_code i2s_init(
  */
 
 /**
- * \brief Enable the I2S module.
+ * \brief Enable the I<SUP>2</SUP>S module.
  *
- * Enables a I2S module that has been previously initialized.
+ * Enables a I<SUP>2</SUP>S module that has been previously initialized.
  *
  * \param[in]  module_inst   Pointer to the software module instance struct
  */
@@ -841,9 +847,9 @@ static inline void i2s_enable(const struct i2s_module *const module_inst)
 }
 
 /**
- * \brief Disables the I2S module.
+ * \brief Disables the I<SUP>2</SUP>S module.
  *
- * Disables a I2S module.
+ * Disables a I<SUP>2</SUP>S module.
  *
  * \param[in]  module_inst   Pointer to the software module instance struct
  */
@@ -855,14 +861,17 @@ static inline void i2s_disable(const struct i2s_module *const module_inst)
 	while (module_inst->hw->SYNCBUSY.reg & I2S_SYNCBUSY_ENABLE) {
 		/* Sync wait */
 	}
+
+	module_inst->hw->INTENCLR.reg = I2S_INTENCLR_MASK;
+	module_inst->hw->INTFLAG.reg = I2S_INTFLAG_MASK;
 	module_inst->hw->CTRLA.reg &= ~I2S_SYNCBUSY_ENABLE;
 }
 
 /**
- * \brief Resets the I2S module.
+ * \brief Resets the I<SUP>2</SUP>S module.
  *
- * Resets the I2S module, restoring all hardware module registers to their
- * default values and disabling the module. The I2S module will not be
+ * Resets the I<SUP>2</SUP>S module, restoring all hardware module registers to their
+ * default values and disabling the module. The I<SUP>2</SUP>S module will not be
  * accessible while the reset is being performed.
  *
  * \param[in]  module_inst    Pointer to the software module instance struct
@@ -891,18 +900,18 @@ static inline void i2s_reset(const struct i2s_module *const module_inst)
  */
 
 /**
- * \brief Initializes config with predefined default values for I2S clock unit.
+ * \brief Initializes config with predefined default values for I<SUP>2</SUP>S clock unit.
  *
- * This function will initialize a given I2S Clock Unit configuration structure
+ * This function will initialize a given I<SUP>2</SUP>S Clock Unit configuration structure
  * to a set of known default values. This function should be called on any new
  * instance of the configuration structures before being modified by the user
  * application.
  *
- * The default configuration is as follow:
- * - The clock unit does not generate output clocks (MCK, SCK and FS)
- * - The pins (MCK, SCK and FS) and Mux configurations are not set
+ * The default configuration is as follows:
+ * - The clock unit does not generate output clocks (MCK, SCK, and FS)
+ * - The pins (MCK, SCK, and FS) and MUX configurations are not set
  *
- * \param[out]  config  Pointer to a I2S module clock unit configuration struct
+ * \param[out]  config  Pointer to a I<SUP>2</SUP>S module clock unit configuration struct
  *                      to set
  */
 static inline void i2s_clock_unit_get_config_defaults(
@@ -957,12 +966,12 @@ enum status_code i2s_clock_unit_set_config(
  */
 
 /**
- * \brief Enable the Specified Clock Unit of I2S module.
+ * \brief Enable the Specified Clock Unit of I<SUP>2</SUP>S module.
  *
- * Enables a Clock Unit in I2S module that has been previously initialized.
+ * Enables a Clock Unit in I<SUP>2</SUP>S module that has been previously initialized.
  *
  * \param[in] module_inst   Pointer to the software module instance struct
- * \param[in] clock_unit    I2S Clock Unit to enable
+ * \param[in] clock_unit    I<SUP>2</SUP>S Clock Unit to enable
  */
 static inline void i2s_clock_unit_enable(
 		const struct i2s_module *const module_inst,
@@ -982,12 +991,12 @@ static inline void i2s_clock_unit_enable(
 }
 
 /**
- * \brief Disable the Specified Clock Unit of I2S module.
+ * \brief Disable the Specified Clock Unit of I<SUP>2</SUP>S module.
  *
- * Disables a Clock Unit in I2S module that has been previously initialized.
+ * Disables a Clock Unit in I<SUP>2</SUP>S module that has been previously initialized.
  *
  * \param[in]  module_inst  Pointer to the software module instance struct
- * \param[in] clock_unit    I2S Clock Unit to disable
+ * \param[in] clock_unit    I<SUP>2</SUP>S Clock Unit to disable
  */
 static inline void i2s_clock_unit_disable(
 		const struct i2s_module *const module_inst,
@@ -1015,30 +1024,30 @@ static inline void i2s_clock_unit_disable(
  */
 
 /**
- * \brief Initializes config with predefined default values for I2S Serializer.
+ * \brief Initializes config with predefined default values for I<SUP>2</SUP>S Serializer.
  *
- * This function will initialize a given I2S Clock Unit configuration structure
+ * This function will initialize a given I<SUP>2</SUP>S Clock Unit configuration structure
  * to a set of known default values. This function should be called on any new
  * instance of the configuration structures before being modified by the user
  * application.
  *
- * The default configuration is as follow:
+ * The default configuration is as follows:
  * - Output data does not internally loopback to input line
  * - Does not extend mono data (left channel) to right channel
  * - None of the data slot is disabled
- * - MSB of I2S data is transferred first
+ * - MSB of I<SUP>2</SUP>S data is transferred first
  * - In data word data is adjusted right
  * - In slot data word is adjusted left
  * - The data size is 16-bit width
- * - I2S will padd 0 to not defined bits
- * - I2S will padd 0 to not defined words
- * - I2S will use single DMA channel for all data channels
- * - I2S will use clock unit 0 to serve as clock
+ * - I<SUP>2</SUP>S will padd 0 to not defined bits
+ * - I<SUP>2</SUP>S will padd 0 to not defined words
+ * - I<SUP>2</SUP>S will use single DMA channel for all data channels
+ * - I<SUP>2</SUP>S will use clock unit 0 to serve as clock
  * - The default data line state is 0, when there is no data
- * - I2S will transmit data to output line
- * - The data pin and Mux configuration are not set
+ * - I<SUP>2</SUP>S will transmit data to output line
+ * - The data pin and MUX configuration are not set
  *
- * \param[out]  config  Pointer to a I2S module Serializer configuration struct
+ * \param[out]  config  Pointer to a I<SUP>2</SUP>S module Serializer configuration struct
  *                      to set
  */
 static inline void i2s_serializer_get_config_defaults(
@@ -1091,12 +1100,12 @@ enum status_code i2s_serializer_set_config(
  */
 
 /**
- * \brief Enable the Specified Serializer of I2S module.
+ * \brief Enable the Specified Serializer of I<SUP>2</SUP>S module.
  *
- * Enables a Serializer in I2S module that has been previously initialized.
+ * Enables a Serializer in I<SUP>2</SUP>S module that has been previously initialized.
  *
  * \param[in]  module_inst   Pointer to the software module instance struct
- * \param[in]  serializer    I2S Serializer to enable
+ * \param[in]  serializer    I<SUP>2</SUP>S Serializer to enable
  */
 static inline void i2s_serializer_enable(
 		const struct i2s_module *const module_inst,
@@ -1116,12 +1125,12 @@ static inline void i2s_serializer_enable(
 }
 
 /**
- * \brief Disable the Specified Serializer of I2S module.
+ * \brief Disable the Specified Serializer of I<SUP>2</SUP>S module.
  *
- * Disables a Serializer in I2S module that has been previously initialized.
+ * Disables a Serializer in I<SUP>2</SUP>S module that has been previously initialized.
  *
  * \param[in]  module_inst   Pointer to the software module instance struct
- * \param[in]  serializer    I2S Serializer to disable
+ * \param[in]  serializer    I<SUP>2</SUP>S Serializer to disable
  */
 static inline void i2s_serializer_disable(
 		const struct i2s_module *const module_inst,
@@ -1165,12 +1174,12 @@ void i2s_disable_status_interrupt(
 /** @}*/
 
 /**
- * \name Data read/write
+ * \name Data Read/Write
  * @{
  */
 
 /**
- * \brief Write a data word to the specified Serializer of I2S module
+ * \brief Write a data word to the specified Serializer of I<SUP>2</SUP>S module
  *
  * \param[in]  module_inst   Pointer to the software module instance struct
  * \param[in]  serializer    The Serializer to write to
@@ -1201,7 +1210,7 @@ static inline void i2s_serializer_write_wait(
 }
 
 /**
- * \brief Read a data word from the specified Serializer of I2S module
+ * \brief Read a data word from the specified Serializer of I<SUP>2</SUP>S module
  *
  * \param[in]  module_inst   Pointer to the software module instance struct
  * \param[in]  serializer    The Serializer to read
@@ -1230,38 +1239,11 @@ static inline uint32_t i2s_serializer_read_wait(
 	return data;
 }
 
-
-/**
- * \brief Write buffer to the specified Serializer of I2S module
- *
- * \param[in]  module_inst   Pointer to the software module instance struct
- * \param[in]  serializer    The Serializer to write to
- * \param[in]  buffer        The data buffer to write
- * \param[in]  size          Number of data words to write
- *
- * \return Status of the initialization procedure.
- *
- * \retval STATUS_OK           The data was sent successfully
- * \retval STATUS_INVALID_ARG  An invalid buffer pointer was supplied
- */
 enum status_code i2s_serializer_write_buffer_wait(
 		const struct i2s_module *const module_inst,
 		enum i2s_serializer serializer,
 		void *buffer, uint32_t size);
 
-/**
- * \brief Read from the specified Serializer of I2S module to a buffer
- *
- * \param[in]  module_inst   Pointer to the software module instance struct
- * \param[in]  serializer    The Serializer to write to
- * \param[in]  buffer        The buffer to fill read data
- * \param[in]  size          Number of data words to read
- *
- * \return Status of the initialization procedure.
- *
- * \retval STATUS_OK           The data was sent successfully
- * \retval STATUS_INVALID_ARG  An invalid buffer pointer was supplied
- */
 enum status_code i2s_serializer_read_buffer_wait(
 		const struct i2s_module *const module_inst,
 		enum i2s_serializer serializer,
@@ -1289,7 +1271,7 @@ enum status_code i2s_serializer_read_buffer_wait(
  *      <th>Description</th>
  *  </tr>
  *  <tr>
- *      <td>I2S, IIS</td>
+ *      <td>I<SUP>2</SUP>S, IIS</td>
  *      <td>Inter-IC Sound Controller</td>
  *  </tr>
  *  <tr>
@@ -1384,17 +1366,17 @@ enum status_code i2s_serializer_read_buffer_wait(
  *
  * <table>
  *	<tr>
- *		<th>Doc. Rev.</td>
- *		<th>Date</td>
- *		<th>Comments</td>
+ *		<th>Doc. Rev.</th>
+ *		<th>Date</th>
+ *		<th>Comments</th>
  *	</tr>
  *	<tr>
- *		<td>B</td>
- *		<td>04/2015</td>
- *		<td>Added support for SAMDA1.</td>
+ *		<td>42255B</td>
+ *		<td>12/2015</td>
+ *		<td>Added support for SAM DA1</td>
  *	</tr>
  *	<tr>
- *		<td>A</td>
+ *		<td>42255A</td>
  *		<td>01/2014</td>
  *		<td>Initial release</td>
  *	</tr>

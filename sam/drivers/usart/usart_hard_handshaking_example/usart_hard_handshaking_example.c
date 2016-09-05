@@ -3,7 +3,7 @@
  *
  * \brief USART hardware handshaking example for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -283,8 +283,8 @@ static void configure_usart(void)
 		0
 	};
 
-	/* Get system clock. */
-	ul_sysclk = sysclk_get_cpu_hz();
+	/* Get peripheral clock. */
+	ul_sysclk = sysclk_get_peripheral_hz();
 
 	/* Enable peripheral clock. */
 	sysclk_enable_peripheral_clock(BOARD_ID_USART);

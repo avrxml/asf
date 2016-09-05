@@ -3,7 +3,7 @@
  *
  * \brief SAM D11 SPI configuration
  *
- * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,7 +50,15 @@
 
 #  define CONF_SPI_MASTER_ENABLE     false
 #  define CONF_SPI_SLAVE_ENABLE      true
-#  define CONF_SPI_TIMEOUT           10000
+
+//[definition_slave]
+#define CONF_SLAVE_SPI_MODULE  EXT1_SPI_MODULE
+#define CONF_SLAVE_MUX_SETTING EXT1_SPI_SERCOM_MUX_SETTING
+#define CONF_SLAVE_PINMUX_PAD0 EXT1_SPI_SERCOM_PINMUX_PAD0
+#define CONF_SLAVE_PINMUX_PAD1 EXT1_SPI_SERCOM_PINMUX_PAD1
+#define CONF_SLAVE_PINMUX_PAD2 EXT1_SPI_SERCOM_PINMUX_PAD2
+#define CONF_SLAVE_PINMUX_PAD3 EXT1_SPI_SERCOM_PINMUX_PAD3
+//[definition_slave]
 
 #endif /* CONF_SPI_H_INCLUDED */
 

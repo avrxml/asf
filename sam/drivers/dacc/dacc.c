@@ -476,7 +476,7 @@ uint32_t dacc_set_power_save(Dacc *p_dacc,
 }
 #endif /* (SAM3S) || (SAM3XA) */
 
-#if !(SAMV70 || SAMV71 || SAME70 || SAMS70)
+#if !(SAMV70 || SAMV71 || SAME70 || SAMS70 || SAM4E)
 /**
  * \brief Set DACC timings.
  *
@@ -493,6 +493,33 @@ uint32_t dacc_set_timing(Dacc *p_dacc,
 	uint32_t mr = p_dacc->DACC_MR
 	& (~(DACC_MR_REFRESH_Msk | DACC_MR_STARTUP_Msk));
 	mr |= DACC_MR_REFRESH(ul_refresh);
+	if (ul_maxs) {
+		mr |= DACC_MR_MAXS;
+		} else {
+		mr &= ~DACC_MR_MAXS;
+	}
+	mr |= (DACC_MR_STARTUP_Msk & ((ul_startup) << DACC_MR_STARTUP_Pos));
+
+	p_dacc->DACC_MR = mr;
+	return DACC_RC_OK;
+}
+#endif
+
+#if (SAM4E)
+/**
+ * \brief Set DACC timings.
+ *
+ * \param p_dacc Pointer to a DACC instance. 
+ * \param ul_maxs Max speed mode configuration.
+ * \param ul_startup Startup time selection.
+ *
+ * \return \ref DACC_RC_OK for OK.
+ */
+uint32_t dacc_set_timing(Dacc *p_dacc,
+		 uint32_t ul_maxs, uint32_t ul_startup)
+{
+	uint32_t mr = p_dacc->DACC_MR
+	& (~(DACC_MR_REFRESH_Msk | DACC_MR_STARTUP_Msk));
 	if (ul_maxs) {
 		mr |= DACC_MR_MAXS;
 		} else {

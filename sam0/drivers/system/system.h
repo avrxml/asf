@@ -68,13 +68,13 @@ extern "C" {
  * The following peripherals are used by this module:
  * \if DEVICE_SAML21_SYSTEM_SUPPORT
  *  - PM (Power Manager)
- *  - RSTC(Reset Controller)
- *  - SUPC(Supply Controller)
+ *  - RSTC (Reset Controller)
+ *  - SUPC (Supply Controller)
  * \endif
  * \if DEVICE_SAMC21_SYSTEM_SUPPORT
  *  - PM (Power Manager)
- *  - RSTC(Reset Controller)
- *  - SUPC(Supply Controller)
+ *  - RSTC (Reset Controller)
+ *  - SUPC (Supply Controller)
  * \endif
  * \if DEVICE_SAMD21_SYSTEM_SUPPORT
  *  - SYSCTRL (System Control)
@@ -92,7 +92,7 @@ extern "C" {
  *  - Atmel | SMART SAM D20/D21
  *  - Atmel | SMART SAM R21
  *  - Atmel | SMART SAM D09/D10/D11
- *  - Atmel | SMART SAM DAx
+ *  - Atmel | SMART SAM DA1
  * \endif
  *
  * The outline of this documentation is as follows:
@@ -492,10 +492,12 @@ extern "C" {
  * \section asfdoc_sam0_system_examples Examples
  *
  * For SYSTEM module related examples, refer to the sub-modules listed in
- * the \ref asfdoc_sam0_system_module_overview "system module overview".
+ * the \ref asfdoc_sam0_system_module_overview "Module Overview".
  *
+ * \if DEVICE_SAML21_SYSTEM_SUPPORT
  * For a list of examples related to this driver, see
  * \ref asfdoc_sam0_drivers_power_exqsg.
+ * \endif
  *
  *
  * \section asfdoc_sam0_system_api_overview API Overview
@@ -565,16 +567,16 @@ void system_init(void);
  */
 
 /**
-
-* \page asfdoc_sam0_drivers_power_exqsg Examples for Power Driver
+ *
+ * \if DEVICE_SAML21_SYSTEM_SUPPORT
+ * \page asfdoc_sam0_drivers_power_exqsg Examples for SYSTEM Driver
  *
  * This is a list of the available Quick Start Guides (QSGs) and example
- * applications. QSGs are simple examples with step-by-step instructions to
+ * applications for \ref asfdoc_sam0_system_group. QSGs are simple examples with step-by-step instructions to
  * configure and use this driver in a selection of
  * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
- * \if DEVICE_SAML21_SYSTEM_SUPPORT
  *  - \subpage asfdoc_sam0_power_basic_use_case
  * \endif
  *
@@ -658,7 +660,7 @@ void system_init(void);
  *  </tr>
  *  <tr>
  *      <td>Added new \c system_get_device_id() function to retrieved the device
- *          ID.</td>
+ *          ID</td>
  *  </tr>
  *  <tr>
  *      <td>Initial Release</td>
@@ -670,9 +672,9 @@ void system_init(void);
  *
  * <table>
  * <tr>
- *      <th>Doc. Rev.</td>
- *      <th>Date</td>
- *      <th>Comments</td>
+ *      <th>Doc. Rev.</th>
+ *      <th>Date</th>
+ *      <th>Comments</th>
  *  </tr>
  * \if DEVICE_SAML21_SYSTEM_SUPPORT
  *  <tr>
@@ -684,25 +686,25 @@ void system_init(void);
  * \if DEVICE_SAMC21_SYSTEM_SUPPORT
  *  <tr>
  *      <td>42484A</td>
- *      <td>08/2015</td>
+ *      <td>12/2015</td>
  *      <td>Initial document release.</td>
  * </tr>
  * \endif
  * \if DEVICE_SAMD21_SYSTEM_SUPPORT
  *  <tr>
  *      <td>42120E</td>
- *      <td>04/2015</td>
- *      <td>Added support for SAMDAx</td>
+ *      <td>12/2015</td>
+ *      <td>Added support for SAM DA1 and SAM D09</td>
  * </tr>
  *  <tr>
  *      <td>42120D</td>
  *      <td>12/2014</td>
- *      <td>Added support for SAMR21 and SAMD10/D11</td>
+ *      <td>Added support for SAM R21 and SAM D10/D11</td>
  * </tr>
  * <tr>
  *      <td>42120C</td>
  *      <td>01/2014</td>
- *      <td>Added support for SAMD21</td>
+ *      <td>Added support for SAM D21</td>
  *  </tr>
  *  <tr>
  *      <td>42120B</td>

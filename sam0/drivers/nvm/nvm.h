@@ -3,7 +3,7 @@
  *
  * \brief SAM Non-Volatile Memory driver
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,6 +63,7 @@
  *  - Atmel | SMART SAM L21/L22
  *  - Atmel | SMART SAM DA1
  *  - Atmel | SMART SAM C20/C21
+ *  - Atmel | SMART SAM R30
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_nvm_prerequisites
@@ -87,16 +88,16 @@
  * \subsection asfdoc_sam0_nvm_features Driver Feature Macro Definition
  * <table>
  *  <tr>
- *    <th>Driver Feature Macro</th>
+ *    <th>Driver feature macro</th>
  *    <th>Supported devices</th>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_NVM_RWWEE</td>
- *    <td>SAM L21/L22, SAM D21-64K, SAM DA1, SAM C20/C21</td>
+ *    <td>SAM L21/L22, SAM D21-64K, SAM DA1, SAM C20/C21, SAM R30</td>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_BOD12</td>
- *    <td>SAM L21</td>
+ *    <td>SAM L21, SAMR30</td>
  *  </tr>
  * </table>
  * \note The specific features are only available in the driver when the
@@ -170,7 +171,7 @@
  * \dot
  * digraph row_layout {
  *  size="4,4"
- *  node [shape=plaintext, fontname=areal]
+ *  node [shape=plaintext, fontname=arial]
  *  row [label=<
  *   <table border="0" cellborder="1" cellspacing="0">
  *    <tr>
@@ -285,14 +286,17 @@ extern "C" {
 #endif
 
 /**
+ * \name Driver Feature Definition
+ *
  * Define NVM features set according to the different device families.
  * @{
 */
-#if (SAML21) || (SAML22) || (SAMDA1) || (SAMC20) || (SAMC21) || defined(SAMD21_64K) || defined(__DOXYGEN__)
+#if (SAML21) || (SAML22) || (SAMDA1) || (SAMC20) || (SAMC21) || (SAMR30) || defined(SAMD21_64K) || defined(__DOXYGEN__)
 /** Read while write EEPROM emulation feature. */
 #  define FEATURE_NVM_RWWEE
 #endif
-#if (SAML21) || defined(__DOXYGEN__)
+#if (SAML21) || (SAMR30) || defined(__DOXYGEN__)
+/** Brown-out detector internal to the voltage regulator for VDDCORE. */
 #define FEATURE_BOD12
 #endif
 /*@}*/
@@ -815,7 +819,7 @@ static inline enum nvm_error nvm_get_error(void)
 	ret_val = (enum nvm_error)(nvm_module->STATUS.reg & NVM_ERRORS_MASK);
 
 	/* Clear error flags */
-	nvm_module->STATUS.reg &= ~NVMCTRL_STATUS_MASK;
+	nvm_module->STATUS.reg = NVM_ERRORS_MASK;
 
 	/* Return error code from the NVM controller */
 	return ret_val;
@@ -905,14 +909,14 @@ static inline enum nvm_error nvm_get_error(void)
  *
  * <table>
  *	<tr>
- *		<th>Doc. Rev.</td>
- *		<th>Date</td>
- *		<th>Comments</td>
+ *		<th>Doc. Rev.</th>
+ *		<th>Date</th>
+ *		<th>Comments</th>
  *	</tr>
  *	<tr>
  *		<td>42114E</td>
- *		<td>08/2015</td>
- *		<td>Added support for SAM L21/L22, SAM C21, and SAM DA1</td>
+ *		<td>12/2015</td>
+ *		<td>Added support for SAM L21/L22, SAM C21, SAM D09, SAMR30 and SAM DA1</td>
  *	</tr>
  *	<tr>
  *		<td>42114D</td>

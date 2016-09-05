@@ -3,7 +3,7 @@
  *
  * \brief SAMV71-XLTRA Board Definition.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -420,10 +420,13 @@
 						 PIO_PD9A_GMDIO)
 
 /** Board configuration of the AT24MAC EEPROM */
+#define BOARD_AT24MAC_TWIHS               TWIHS0
+//#define BOARD_AT24MAC_ADDRESS             (0xBE >> 1)
+#define BOARD_AT24MAC_TWIHS_CLK           (400000UL)
+#define BOARD_AT24MAC_PAGE_SIZE           16
 #define BOARD_AT24MAC_TWIHS_INSTANCE      TWIHS0
 #define BOARD_AT24MAC_ADDRESS             (0xAE >> 1)
-#define BOARD_CLK_TWIHS_EEPROM            0
-#define BOARD_CLK_TWIHS_MUX_EEPROM        0
+#define BOARD_CLK_TWIHS_EEPROM            PIO_PA4
 
 /** HSMCI pins definition. */
 /*! Number of slot connected on HSMCI interface */
@@ -456,6 +459,8 @@
 #define SD_MMC_0_CD_DETECT_VALUE        0
 
 /** EBI pins configuration for LCD */
+/* Chip select number to be set */
+#define BOARD_ILI9488_EBI_NPCS       3
 /** LCD reset pin */
 #define PIN_EBI_RESET_MASK	  PIO_PC13
 #define PIN_EBI_RESET_PIO	  PIOC
@@ -607,6 +612,79 @@
 #define SDRAM_SDA10_FLAGS    PIO_PERIPH_C
 #define SDRAM_D_FLAGS        PIO_PERIPH_A
 
+/** Image sensor definitions */
+/** OV_SW_OVT pin definition */
+#define OV_PWD_GPIO                    PIO_PC19_IDX
+#define OV_PWD_FLAGS                   (PIO_OUTPUT_1 | PIO_DEFAULT)
+#define OV_PWD_MASK                    PIO_PC19
+#define OV_PWD_PIO                     PIOC
+#define OV_PWD_ID                      ID_PIOC
+#define OV_PWD_TYPE                    PIO_OUTPUT_1
+
+/** OV_RST pin definition */
+#define OV_RST_GPIO                    PIO_PB13_IDX
+#define OV_RST_FLAGS                   (PIO_OUTPUT_1 | PIO_DEFAULT)
+#define OV_RST_MASK                    PIO_PB13
+#define OV_RST_PIO                     PIOB
+#define OV_RST_ID                      ID_PIOB
+#define OV_RST_TYPE                    PIO_OUTPUT_1
+
+/** OV_PCK0 pin definition */
+#define ISI_PCK0_PIO                   PIO_PA6_IDX
+#define ISI_PCK0_FLAGS                 (PIO_PERIPH_B | PIO_DEFAULT)
+#define ISI_PCK0_MASK                  PIO_PA6
+#define ISI_PCK0_ID                    ID_PIOA
+#define ISI_PCK0_TYPE                  PIO_OUTPUT_0
+
+/** OV_PCK pin definition */
+#define ISI_PCK_PIO                    PIO_PA24_IDX
+#define ISI_PCK_FLAGS                  (PIO_PERIPH_D | PIO_DEFAULT)
+#define ISI_PCK_MASK                   PIO_PA24
+#define ISI_PCK_ID                     ID_PIOA
+#define ISI_PCK_TYPE                   PIO_OUTPUT_0
+
+/** OV_HSYNC pin definition */
+#define ISI_HSYNC_PIO                  PIO_PD24_IDX
+#define ISI_HSYNC_FLAGS                (PIO_PERIPH_D | PIO_IT_RISE_EDGE)
+#define ISI_HSYNC_MASK                 PIO_PD24
+#define ISI_HSYNC_ID                   ID_PIOD
+#define ISI_HSYNC_TYPE                 PIO_PULLUP
+
+/** OV_VSYNC pin definition */
+#define ISI_VSYNC_PIO                  PIO_PD25_IDX
+#define ISI_VSYNC_FLAGS                (PIO_PERIPH_D | PIO_IT_RISE_EDGE)
+#define ISI_VSYNC_MASK                 PIO_PD25
+#define ISI_VSYNC_ID                   ID_PIOD
+#define ISI_VSYNC_TYPE                 PIO_PULLUP
+
+/** OV Data Bus pins */
+#define ISI_D0_PIO                 PIO_PD22_IDX
+#define ISI_D1_PIO                 PIO_PD21_IDX
+#define ISI_D2_PIO                 PIO_PB3_IDX
+#define ISI_D3_PIO                 PIO_PA9_IDX
+#define ISI_D4_PIO                 PIO_PA5_IDX
+#define ISI_D5_PIO                 PIO_PD11_IDX
+#define ISI_D6_PIO                 PIO_PD12_IDX
+#define ISI_D7_PIO                 PIO_PA27_IDX
+#define ISI_D8_PIO                 PIO_PD27_IDX
+#define ISI_D9_PIO                 PIO_PD28_IDX
+#define ISI_D10_PIO                PIO_PD30_IDX
+#define ISI_D11_PIO                PIO_PD31_IDX
+#define ISI_D0_FLAGS               PIO_PERIPH_D | PIO_PULLUP
+#define ISI_D1_FLAGS               PIO_PERIPH_D | PIO_PULLUP
+#define ISI_D2_FLAGS               PIO_PERIPH_D | PIO_PULLUP
+#define ISI_D3_FLAGS               PIO_PERIPH_B | PIO_PULLUP
+#define ISI_D4_FLAGS               PIO_PERIPH_B | PIO_PULLUP
+#define ISI_D5_FLAGS               PIO_PERIPH_D | PIO_PULLUP
+#define ISI_D6_FLAGS               PIO_PERIPH_D | PIO_PULLUP
+#define ISI_D7_FLAGS               PIO_PERIPH_D | PIO_PULLUP
+#define ISI_D8_FLAGS               PIO_PERIPH_D | PIO_PULLUP
+#define ISI_D9_FLAGS               PIO_PERIPH_D | PIO_PULLUP
+#define ISI_D10_FLAGS              PIO_PERIPH_D | PIO_PULLUP
+#define ISI_D11_FLAGS              PIO_PERIPH_D | PIO_PULLUP
+
+/** TWI interface for OV7740 */
+#define OV7740_TWIHS  TWIHS0
 
 /*----------------------------------------------------------------------------*/
 #endif   /* _SAMV71_XLTRA_H_ */

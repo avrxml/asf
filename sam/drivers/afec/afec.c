@@ -67,7 +67,7 @@
 #endif
 
 /* The gap between bit EOC15 and DRDY in interrupt register */
-#if defined __SAM4E8C__  || defined __SAM4E16C__
+#if defined __SAM4E8C__  || defined __SAM4E16C__ || defined __SAM4E8CB__ || defined __SAM4E16CB__
 #define AFEC_INTERRUPT_GAP1                  (17UL)
 #elif defined __SAM4E8E__  || defined __SAM4E16E__
 #define AFEC_INTERRUPT_GAP1                  (8UL)
@@ -335,10 +335,15 @@ enum status_code afec_init(Afec *const afec, struct afec_config *config)
 	afec->AFEC_CR = AFEC_CR_SWRST;
 	afec_set_config(afec, config);
 
-	uint32_t i, j;
-	for (i = 0; i < NUM_OF_AFEC; i++) {
-		for (j = 0; j < _AFEC_NUM_OF_INTERRUPT_SOURCE; j++) {
-			afec_callback_pointer[i][j] = 0;
+	uint32_t i;
+	if(afec == AFEC0) {
+		for (i = 0; i < _AFEC_NUM_OF_INTERRUPT_SOURCE; i++){
+			afec_callback_pointer[0][i] = 0;
+		}
+	}
+	if(afec == AFEC1) {
+		for (i = 0; i < _AFEC_NUM_OF_INTERRUPT_SOURCE; i++){
+			afec_callback_pointer[1][i] = 0;
 		}
 	}
 
@@ -525,12 +530,12 @@ static void afec_process_callback(Afec *const afec)
 	volatile uint32_t status;
 	uint32_t cnt, inst_num;
 
-	status = afec_get_interrupt_status(afec);
+	status = afec_get_interrupt_status(afec) & afec_get_interrupt_mask(afec);
 	inst_num = afec_find_inst_num(afec);
 
 	for (cnt = 0; cnt < _AFEC_NUM_OF_INTERRUPT_SOURCE; cnt++) {
 		if (cnt < AFEC_INTERRUPT_DATA_READY) {
-		#if defined __SAM4E8C__  || defined __SAM4E16C__
+		#if defined __SAM4E8C__  || defined __SAM4E16C__ || defined __SAM4E8CB__  || defined __SAM4E16CB__
 			if(cnt == AFEC_INTERRUPT_EOC_15) {
 				if (status & (1 << AFEC_TEMP_INT_SOURCE_NUM)) {
 					afec_interrupt(inst_num, (enum afec_interrupt_source)cnt);

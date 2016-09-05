@@ -470,10 +470,19 @@
 #define MUX_PB08D_SERCOM4_PAD0             3L
 #define PINMUX_PB08D_SERCOM4_PAD0  ((PIN_PB08D_SERCOM4_PAD0 << 16) | MUX_PB08D_SERCOM4_PAD0)
 #define PORT_PB08D_SERCOM4_PAD0    (1ul <<  8)
+#define PIN_PC19F_SERCOM4_PAD0            83L  /**< \brief SERCOM4 signal: PAD0 on PC19 mux F */
+#define MUX_PC19F_SERCOM4_PAD0             5L
+#define PINMUX_PC19F_SERCOM4_PAD0  ((PIN_PC19F_SERCOM4_PAD0 << 16) | MUX_PC19F_SERCOM4_PAD0)
+#define PORT_PC19F_SERCOM4_PAD0    (1ul << 19)
+
 #define PIN_PB09D_SERCOM4_PAD1            41L  /**< \brief SERCOM4 signal: PAD1 on PB09 mux D */
 #define MUX_PB09D_SERCOM4_PAD1             3L
 #define PINMUX_PB09D_SERCOM4_PAD1  ((PIN_PB09D_SERCOM4_PAD1 << 16) | MUX_PB09D_SERCOM4_PAD1)
 #define PORT_PB09D_SERCOM4_PAD1    (1ul <<  9)
+#define PIN_PB31F_SERCOM4_PAD1            63L  /**< \brief SERCOM4 signal: PAD1 on PB31 mux F */
+#define MUX_PB31F_SERCOM4_PAD1             5L
+#define PINMUX_PB31F_SERCOM4_PAD1  ((PIN_PB31F_SERCOM4_PAD1 << 16) | MUX_PB31F_SERCOM4_PAD1)
+#define PORT_PB31F_SERCOM4_PAD1    (1ul << 31)
 #define PIN_PA14D_SERCOM4_PAD2            14L  /**< \brief SERCOM4 signal: PAD2 on PA14 mux D */
 #define MUX_PA14D_SERCOM4_PAD2             3L
 #define PINMUX_PA14D_SERCOM4_PAD2  ((PIN_PA14D_SERCOM4_PAD2 << 16) | MUX_PA14D_SERCOM4_PAD2)
@@ -482,6 +491,10 @@
 #define MUX_PB14C_SERCOM4_PAD2             2L
 #define PINMUX_PB14C_SERCOM4_PAD2  ((PIN_PB14C_SERCOM4_PAD2 << 16) | MUX_PB14C_SERCOM4_PAD2)
 #define PORT_PB14C_SERCOM4_PAD2    (1ul << 14)
+#define PIN_PB30F_SERCOM4_PAD2            62L  /**< \brief SERCOM4 signal: PAD2 on PB30 mux F */
+#define MUX_PB30F_SERCOM4_PAD2             5L
+#define PINMUX_PB30F_SERCOM4_PAD2  ((PIN_PB30F_SERCOM4_PAD2 << 16) | MUX_PB30F_SERCOM4_PAD2)
+#define PORT_PB30F_SERCOM4_PAD2    (1ul << 30)
 #define PIN_PA15D_SERCOM4_PAD3            15L  /**< \brief SERCOM4 signal: PAD3 on PA15 mux D */
 #define MUX_PA15D_SERCOM4_PAD3             3L
 #define PINMUX_PA15D_SERCOM4_PAD3  ((PIN_PA15D_SERCOM4_PAD3 << 16) | MUX_PA15D_SERCOM4_PAD3)
@@ -490,6 +503,10 @@
 #define MUX_PB15C_SERCOM4_PAD3             2L
 #define PINMUX_PB15C_SERCOM4_PAD3  ((PIN_PB15C_SERCOM4_PAD3 << 16) | MUX_PB15C_SERCOM4_PAD3)
 #define PORT_PB15C_SERCOM4_PAD3    (1ul << 15)
+#define PIN_PC18F_SERCOM4_PAD3            82L  /**< \brief SERCOM4 signal: PAD3 on PC18 mux F */
+#define MUX_PC18F_SERCOM4_PAD3             5L
+#define PINMUX_PC18F_SERCOM4_PAD3  ((PIN_PC18F_SERCOM4_PAD3 << 16) | MUX_PC18F_SERCOM4_PAD3)
+#define PORT_PC18F_SERCOM4_PAD3    (1ul << 18)
 /* ========== PORT definition for SERCOM5 peripheral ========== */
 #define PIN_PB16C_SERCOM5_PAD0            48L  /**< \brief SERCOM5 signal: PAD0 on PB16 mux C */
 #define MUX_PB16C_SERCOM5_PAD0             2L
@@ -787,5 +804,22 @@
 #define MUX_PA19H_AC_CMP1                  7L
 #define PINMUX_PA19H_AC_CMP1       ((PIN_PA19H_AC_CMP1 << 16) | MUX_PA19H_AC_CMP1)
 #define PORT_PA19H_AC_CMP1         (1ul << 19)
+/* ========== PORT definition for RFCTRL peripheral ========== */
+#define PIN_PA08F_RFCTRL_FECTRL0           8L  /**< \brief RFCTRL signal: FECTRL0 on PA08 mux F */
+#define MUX_PA08F_RFCTRL_FECTRL0           5L
+#define PINMUX_PA08F_RFCTRL_FECTRL0  ((PIN_PA08F_RFCTRL_FECTRL0 << 16) | MUX_PA08F_RFCTRL_FECTRL0)
+#define PORT_PA08F_RFCTRL_FECTRL0  (1ul <<  8)
+#define PIN_PA09F_RFCTRL_FECTRL1           9L  /**< \brief RFCTRL signal: FECTRL1 on PA09 mux F */
+#define MUX_PA09F_RFCTRL_FECTRL1           5L
+#define PINMUX_PA09F_RFCTRL_FECTRL1  ((PIN_PA09F_RFCTRL_FECTRL1 << 16) | MUX_PA09F_RFCTRL_FECTRL1)
+#define PORT_PA09F_RFCTRL_FECTRL1  (1ul <<  9)
+#define PIN_PA14F_RFCTRL_FECTRL4          14L  /**< \brief RFCTRL signal: FECTRL4 on PA14 mux F */
+#define MUX_PA14F_RFCTRL_FECTRL4           5L
+#define PINMUX_PA14F_RFCTRL_FECTRL4  ((PIN_PA14F_RFCTRL_FECTRL4 << 16) | MUX_PA14F_RFCTRL_FECTRL4)
+#define PORT_PA14F_RFCTRL_FECTRL4  (1ul << 14)
+#define PIN_PA15F_RFCTRL_FECTRL5          15L  /**< \brief RFCTRL signal: FECTRL5 on PA15 mux F */
+#define MUX_PA15F_RFCTRL_FECTRL5           5L
+#define PINMUX_PA15F_RFCTRL_FECTRL5  ((PIN_PA15F_RFCTRL_FECTRL5 << 16) | MUX_PA15F_RFCTRL_FECTRL5)
+#define PORT_PA15F_RFCTRL_FECTRL5  (1ul << 15)
 
 #endif /* _SAMR21E19A_PIO_ */

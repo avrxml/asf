@@ -68,7 +68,7 @@
 #  define CONF_CLOCK_XOSC_RUN_IN_STANDBY          false
 
 /* SYSTEM_CLOCK_SOURCE_XOSC32K configuration - External 32KHz crystal/clock
- *oscillator */
+ * oscillator */
 #  define CONF_CLOCK_XOSC32K_ENABLE               false
 #  define CONF_CLOCK_XOSC32K_EXTERNAL_CRYSTAL     SYSTEM_CLOCK_EXTERNAL_CRYSTAL
 #  define CONF_CLOCK_XOSC32K_STARTUP_TIME         SYSTEM_XOSC32K_STARTUP_65536
@@ -93,7 +93,7 @@
 #  define CONF_CLOCK_DFLL_ON_DEMAND               false
 
 /* DFLL open loop mode configuration */
-#  define CONF_CLOCK_DFLL_FINE_VALUE              (0xff / 4)
+#  define CONF_CLOCK_DFLL_FINE_VALUE              (512)
 
 /* DFLL closed loop mode configuration */
 #  define CONF_CLOCK_DFLL_SOURCE_GCLK_GENERATOR   GCLK_GENERATOR_1

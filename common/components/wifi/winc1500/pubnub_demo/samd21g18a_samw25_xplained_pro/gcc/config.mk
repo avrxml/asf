@@ -55,6 +55,8 @@ CSRCS = \
        common/components/wifi/winc1500/bsp/source/nm_bsp_samd21.c \
        common/components/wifi/winc1500/bus_wrapper/source/nm_bus_wrapper_samd21.c \
        common/components/wifi/winc1500/common/source/nm_common.c \
+       common/components/wifi/winc1500/driver/source/m2m_ate_mode.c \
+       common/components/wifi/winc1500/driver/source/m2m_crypto.c \
        common/components/wifi/winc1500/driver/source/m2m_hif.c \
        common/components/wifi/winc1500/driver/source/m2m_ota.c \
        common/components/wifi/winc1500/driver/source/m2m_periph.c \
@@ -68,11 +70,13 @@ CSRCS = \
        common/components/wifi/winc1500/pubnub_demo/PubNub.c \
        common/components/wifi/winc1500/pubnub_demo/main.c \
        common/components/wifi/winc1500/socket/source/socket.c \
-       common/components/wifi/winc1500/spi_flash/spi_flash.c \
+       common/components/wifi/winc1500/spi_flash/source/spi_flash.c \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        common2/services/delay/sam0/systick_counter.c      \
        sam0/boards/samw25_xplained_pro/board_init.c       \
        sam0/components/sensor/at30tse75x/at30tse75x.c     \
+       sam0/drivers/adc/adc_sam_d_r/adc.c                 \
+       sam0/drivers/adc/adc_sam_d_r/adc_callback.c        \
        sam0/drivers/extint/extint_callback.c              \
        sam0/drivers/extint/extint_sam_d_r/extint.c        \
        sam0/drivers/port/port.c                           \
@@ -106,26 +110,10 @@ ASSRCS =
 INC_PATH = \
        common/boards                                      \
        common/components/wifi/winc1500                    \
-       common/components/wifi/winc1500/bsp                \
-       common/components/wifi/winc1500/bsp/include        \
-       common/components/wifi/winc1500/bsp/source         \
-       common/components/wifi/winc1500/bus_wrapper        \
-       common/components/wifi/winc1500/bus_wrapper/include \
-       common/components/wifi/winc1500/bus_wrapper/source \
-       common/components/wifi/winc1500/common             \
-       common/components/wifi/winc1500/common/include     \
-       common/components/wifi/winc1500/common/source      \
-       common/components/wifi/winc1500/driver             \
-       common/components/wifi/winc1500/driver/include     \
-       common/components/wifi/winc1500/driver/source      \
        common/components/wifi/winc1500/pubnub_demo        \
        common/components/wifi/winc1500/pubnub_demo/android_app \
        common/components/wifi/winc1500/pubnub_demo/doc    \
        common/components/wifi/winc1500/pubnub_demo/samd21g18a_samw25_xplained_pro \
-       common/components/wifi/winc1500/socket             \
-       common/components/wifi/winc1500/socket/include     \
-       common/components/wifi/winc1500/socket/source      \
-       common/components/wifi/winc1500/spi_flash          \
        common/services/serial                             \
        common/utils                                       \
        common2/services/delay                             \
@@ -133,6 +121,8 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samw25_xplained_pro                    \
        sam0/components/sensor/at30tse75x                  \
+       sam0/drivers/adc                                   \
+       sam0/drivers/adc/adc_sam_d_r                       \
        sam0/drivers/extint                                \
        sam0/drivers/extint/extint_sam_d_r                 \
        sam0/drivers/port                                  \
@@ -210,6 +200,7 @@ CFLAGS =
 #   BOARD      Target board in use, see boards/board.h for a list.
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
+       -D ADC_CALLBACK_MODE=true                          \
        -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMW25_XPLAINED_PRO                       \
        -D EXTINT_CALLBACK_MODE=true                       \

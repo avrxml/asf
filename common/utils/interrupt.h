@@ -3,7 +3,7 @@
  *
  * \brief Global interrupt management for 8- and 32-bit AVR
  *
- * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,11 +48,11 @@
 
 #include <parts.h>
 
-#if XMEGA || MEGA || TINY
+#if XMEGA || MEGA
 #  include "interrupt/interrupt_avr8.h"
 #elif UC3
 #  include "interrupt/interrupt_avr32.h"
-#elif SAM
+#elif SAM || SAMB
 #  include "interrupt/interrupt_sam_nvic.h"
 #else
 #  error Unsupported device.

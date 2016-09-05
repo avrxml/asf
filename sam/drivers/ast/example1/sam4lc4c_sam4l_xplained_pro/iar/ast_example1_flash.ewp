@@ -304,6 +304,8 @@
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../example2</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
@@ -573,6 +575,8 @@
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../example2</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
@@ -1267,6 +1271,8 @@
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../example2</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
@@ -1536,6 +1542,8 @@
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../example2</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>

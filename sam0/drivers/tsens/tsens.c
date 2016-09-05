@@ -174,9 +174,9 @@ enum status_code tsens_init(struct tsens_config *config)
  *  \li Register OFFSET value
  *
  * \note Register GAIN and OFFSET is loaded from NVM, or can also be fixed.
- * If fix this bitfield, pay attention to the relationship between GCLK
- * frequency, GAIN and resolution. See \ref asfdoc_sam0_tsens_module_overview
- * "here".
+ * If this bitfield is to be fixed, pay attention to the relationship between GCLK
+ * frequency, GAIN, and resolution. See \ref asfdoc_sam0_tsens_module_overview
+ * "Chapter Module Overview".
  *
  * \param[out] config  Pointer to configuration struct to initialize to
  *                     default values
@@ -205,7 +205,7 @@ void tsens_get_config_defaults(struct tsens_config *const config)
 /**
  * \brief Reads the TSENS result.
  *
- * Reads the result from an TSENS conversion that was previously started.
+ * Reads the result from a TSENS conversion that was previously started.
  *
  * \param[out] result       Pointer to store the result value in
  *

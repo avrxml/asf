@@ -112,13 +112,18 @@ typedef enum tal_timer_id_tag {
 	                                                                      *
 	                                                                      *-1:
 	                                                                      *
+	                                                                      *
 	                                                                      *timer
+	                                                                      *
 	                                                                      *
 	                                                                      *id
 	                                                                      *
+	                                                                      *
 	                                                                      *starts
 	                                                                      *
+	                                                                      *
 	                                                                      *with
+	                                                                      *
 	                                                                      *
 	                                                                      *0
 	                                                                      **/

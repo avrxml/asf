@@ -3,7 +3,7 @@
  *
  * \brief SAM TCC - Timer Counter for Control Applications Callback Driver
  *
- * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -188,7 +188,7 @@ void tcc_disable_callback(
 	Assert(module->hw);
 
 	/* Disable interrupts for this TCC module */
-	system_interrupt_enable(_tcc_interrupt_get_interrupt_vector(
+	system_interrupt_disable(_tcc_interrupt_get_interrupt_vector(
 			_tcc_get_inst_index(module->hw)));
 
 	/* Disable channel or other callbacks */

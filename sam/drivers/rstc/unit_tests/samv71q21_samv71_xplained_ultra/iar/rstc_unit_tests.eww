@@ -1,9 +1,0 @@
-<workspace>
-	<batchBuild></batchBuild>
-	<project>
-		<path>$WS_DIR$\rstc_unit_tests_flash.ewp</path>
-	</project>
-	<project>
-		<path>$WS_DIR$\rstc_unit_tests_sram.ewp</path>
-	</project>
-</workspace>

@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\find_me_sam4s_xplained_pro_flash.ewp</path>
+	</project>
+</workspace>

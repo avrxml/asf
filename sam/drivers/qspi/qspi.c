@@ -3,7 +3,7 @@
  *
  * \brief Quad Serial Peripheral Interface (QSPI) driver for SAMV71.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -163,8 +163,8 @@ static inline void qspi_set_bits_per_transfer(Qspi *qspi, uint32_t bits)
 static inline void qspi_set_minimum_inactive_qcs_delay(Qspi *qspi, uint8_t uc_dlybct)
 {
 	assert(qspi);
-	uint32_t mask = qspi->QSPI_MR & (~QSPI_MR_DLYBCT_Msk);
-	qspi->QSPI_MR = mask | QSPI_MR_DLYBCT(uc_dlybct);
+	uint32_t mask = qspi->QSPI_MR & (~QSPI_MR_DLYCS_Msk);
+	qspi->QSPI_MR = mask | QSPI_MR_DLYCS(uc_dlybct);
 }
 
 /**
@@ -176,8 +176,8 @@ static inline void qspi_set_minimum_inactive_qcs_delay(Qspi *qspi, uint8_t uc_dl
 static inline void qspi_set_delay_between_consecutive_transfers(Qspi *qspi, uint32_t uc_dlycs)
 {
 	assert(qspi);
-	uint32_t mask = qspi->QSPI_MR & (~QSPI_MR_DLYCS_Msk);
-	qspi->QSPI_MR = mask | QSPI_MR_DLYCS(uc_dlycs);
+	uint32_t mask = qspi->QSPI_MR & (~QSPI_MR_DLYBCT_Msk);
+	qspi->QSPI_MR = mask | QSPI_MR_DLYBCT(uc_dlycs);
 }
 
 /**
@@ -229,7 +229,7 @@ static inline void qspi_write_spi(Qspi *qspi, uint16_t w_data)
  * \return status QSPI set config result.
  *
  */
-enum status_code qspi_set_config(Qspi *qspi, struct qspi_config_t *qspi_config)
+static enum status_code qspi_set_config(Qspi *qspi, struct qspi_config_t *qspi_config)
 {
 	enum status_code status = STATUS_OK;
 	if(qspi_config->serial_memory_mode == mem_mode) {

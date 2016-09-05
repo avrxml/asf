@@ -3,7 +3,7 @@
  *
  * \brief PubNub Example.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -21,9 +21,6 @@
  *
  * 3. The name of Atmel may not be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
  *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -48,10 +45,17 @@
 extern "C" {
 #endif
 
-/** Wi-Fi Settings */
-#define MAIN_WIFI_M2M_WLAN_SSID     "SSID" /* < Destination SSID */
-#define MAIN_WIFI_M2M_WLAN_AUTH     M2M_WIFI_SEC_WPA_PSK /* < Security manner */
-#define MAIN_WIFI_M2M_WLAN_PSK      "PASSWORD" /* < Password for Destination SSID */
+/** Wi-Fi settings. */
+#define MAIN_WLAN_SSID                                  "DEMO_AP"
+#define MAIN_WLAN_PSK                                   "12345678"
+#define MAIN_WLAN_AUTH                                  M2M_WIFI_SEC_WPA_PSK
+
+/** PubNub settings. */
+#define MAIN_PUBNUB_PUBLISH_KEY                         "demo"
+#define MAIN_PUBNUB_SUBSCRIBE_KEY                       "demo"
+#define MAIN_PUBNUB_CHANNEL						        "WINC1500_00:00" /**< Do not change - last digits will be updated with MAC address. */
+#define MAIN_PUBNUB_PUBLISH_INTERVAL                    (3000)
+#define MAIN_PUBNUB_SUBSCRIBE_INTERVAL                  (1000)
 
 #ifdef __cplusplus
 }

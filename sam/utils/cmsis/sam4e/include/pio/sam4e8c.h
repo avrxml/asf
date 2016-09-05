@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -170,7 +170,7 @@
 #define PIO_PD8A_GMDC        (1u << 8)  /**< \brief Gmac signal: GMDC */
 #define PIO_PD9A_GMDIO       (1u << 9)  /**< \brief Gmac signal: GMDIO */
 #define PIO_PD5A_GRX0        (1u << 5)  /**< \brief Gmac signal: GRX0 */
-#define PIO_PD6A_GRX0        (1u << 6)  /**< \brief Gmac signal: GRX0 */
+#define PIO_PD6A_GRX1        (1u << 6)  /**< \brief Gmac signal: GRX1 */
 #define PIO_PD11A_GRX2       (1u << 11) /**< \brief Gmac signal: GRX2 */
 #define PIO_PD12A_GRX3       (1u << 12) /**< \brief Gmac signal: GRX3 */
 #define PIO_PD14A_GRXCK      (1u << 14) /**< \brief Gmac signal: GRXCK */

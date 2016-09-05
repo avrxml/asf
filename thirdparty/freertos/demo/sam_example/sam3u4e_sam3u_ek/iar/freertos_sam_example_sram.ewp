@@ -2094,10 +2094,10 @@
 								<name>$PROJ_DIR$/asf.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../FreeRTOSConfig.h</name>
+						</file>
 					</group>
-					<file>
-						<name>$PROJ_DIR$/../../FreeRTOSConfig.h</name>
-					</file>
 				</group>
 			</group>
 		</group>
@@ -2146,9 +2146,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_piob.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_hsmci.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_twi0.h</name>
@@ -2203,6 +2200,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_matrix.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_hsmci.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam3u/include/instance/instance_pmc.h</name>

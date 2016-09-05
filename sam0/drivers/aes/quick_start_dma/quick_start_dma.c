@@ -187,7 +187,7 @@ static void configure_dma_aes_wr(void)
 	dma_get_config_defaults(&tx_config);
 
 	tx_config.peripheral_trigger = AES_DMAC_ID_WR;
-	tx_config.trigger_action = DMA_TRIGGER_ACTON_BLOCK;
+	tx_config.trigger_action = DMA_TRIGGER_ACTION_BLOCK;
 
 	dma_allocate(&example_resource_tx, &tx_config);
 
@@ -213,7 +213,7 @@ static void configure_dma_aes_rd(void)
 	dma_get_config_defaults(&rx_config);
 
 	rx_config.peripheral_trigger = AES_DMAC_ID_RD;
-	rx_config.trigger_action = DMA_TRIGGER_ACTON_BLOCK;
+	rx_config.trigger_action = DMA_TRIGGER_ACTION_BLOCK;
 
 	dma_allocate(&example_resource_rx, &rx_config);
 

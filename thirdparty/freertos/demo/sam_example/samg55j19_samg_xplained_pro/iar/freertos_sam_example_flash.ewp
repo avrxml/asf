@@ -1939,13 +1939,13 @@
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/pll.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/sysclk.h</name>
-					</file>
-					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/osc.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/genclk.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../common/services/clock/samg/sysclk.h</name>
 					</file>
 				</group>
 				<file>
@@ -2481,6 +2481,9 @@
 							<name>$PROJ_DIR$/../../../../freertos-7.0.0/source/include/projdefs.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../freertos-7.0.0/source/include/portable.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../freertos-7.0.0/source/include/mpu_wrappers.h</name>
 						</file>
 						<file>
@@ -2498,9 +2501,6 @@
 						<file>
 							<name>$PROJ_DIR$/../../../../freertos-7.0.0/source/include/StackMacros.h</name>
 						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../freertos-7.0.0/source/include/portable.h</name>
-						</file>
 					</group>
 				</group>
 			</group>
@@ -2510,9 +2510,6 @@
 					<name>sam_example</name>
 					<file>
 						<name>$PROJ_DIR$/../../main.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../FreeRTOSConfig.h</name>
 					</file>
 					<group>
 						<name>samg55j19_samg_xplained_pro</name>
@@ -2533,6 +2530,9 @@
 						</group>
 						<file>
 							<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../FreeRTOSConfig.h</name>
 						</file>
 					</group>
 				</group>

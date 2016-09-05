@@ -210,7 +210,7 @@ buffer_t * bmm_buffer_alloc(uint8_t size)
 	if (size <= LARGE_BUFFER_SIZE) {
 		/*
 		 * Allocate small buffer if size is less than small buffer size
-		 *and if
+		 * and if
 		 * small buffer is available allocate from small buffer pool.
 		 */
 		if ((size <= SMALL_BUFFER_SIZE)) {
@@ -221,21 +221,21 @@ buffer_t * bmm_buffer_alloc(uint8_t size)
 
 		/*
 		 * Allocate buffer only if size requested is less than or equal
-		 *to
+		 * to
 		 * maximum
 		 * size that can be allocated.
 		 */
 		if (size <= LARGE_BUFFER_SIZE) {
 			/*
 			 * Allocate small buffer if size is less than small
-			 *buffer size
+			 * buffer size
 			 * and if
 			 * small buffer is available allocate from small buffer
-			 *pool.
+			 * pool.
 			 */
 			if ((size <= SMALL_BUFFER_SIZE)) {
 				/* Allocate buffer from free small buffer queue
-				 **/
+				**/
 				pfree_buffer = qmm_queue_remove(
 						&free_small_buffer_q,
 						NULL);
@@ -243,15 +243,15 @@ buffer_t * bmm_buffer_alloc(uint8_t size)
 
 			/*
 			 * If size is greater than small buffer size or no free
-			 *small
+			 * small
 			 * buffer is
 			 * available, allocate a buffer from large buffer pool
-			 *if
+			 * if
 			 * avialable
 			 */
 			if (NULL == pfree_buffer) {
 				/* Allocate buffer from free large buffer queue
-				 **/
+				**/
 				pfree_buffer = qmm_queue_remove(
 						&free_large_buffer_q,
 						NULL);
@@ -273,7 +273,7 @@ buffer_t * bmm_buffer_alloc(uint8_t size)
 	 *
 	 * This function frees up a buffer. The pointer passed to this function
 	 * should be the pointer returned during buffer allocation. The result
-	 *is
+	 * is
 	 * unpredictable if an incorrect pointer is passed.
 	 *
 	 * @param pbuffer Pointer to buffer that has to be freed.

@@ -54,6 +54,7 @@ TARGET_SRAM = htpt_temperature_sensor_samg55_xplained_pro_sram.elf
 CSRCS = \
        common/components/memory/eeprom/at30tse75x/at30tse75x.c \
        common/services/clock/samg/sysclk.c                \
+       common/services/delay/sam/cycle_counter.c          \
        common/services/serial/usart_serial.c              \
        common/services/sleepmgr/sam/sleepmgr.c            \
        common/utils/interrupt/interrupt_sam_nvic.c        \
@@ -62,6 +63,7 @@ CSRCS = \
        sam/boards/samg55_xplained_pro/board_init.c        \
        sam/drivers/efc/efc.c                              \
        sam/drivers/flexcom/flexcom.c                      \
+       sam/drivers/pdc/pdc.c                              \
        sam/drivers/pio/pio.c                              \
        sam/drivers/pio/pio_handler.c                      \
        sam/drivers/pmc/pmc.c                              \
@@ -74,8 +76,11 @@ CSRCS = \
        sam/utils/cmsis/samg/samg55/source/templates/system_samg55.c \
        sam/utils/syscalls/gcc/syscalls.c                  \
        thirdparty/wireless/ble_sdk/apps/htpt_temperature_sensor/htpt_app.c \
+       thirdparty/wireless/ble_sdk/ble_services/ble_mgr/ble_manager.c \
+       thirdparty/wireless/ble_sdk/ble_services/device_infomation/device_info.c \
        thirdparty/wireless/ble_sdk/services/console/sam/console_serial.c \
        thirdparty/wireless/ble_sdk/services/serial/uart/sam/serial_drv.c \
+       thirdparty/wireless/ble_sdk/services/serial_fifo/serial_fifo.c \
        thirdparty/wireless/ble_sdk/services/timer/sam/timer_hw.c \
        thirdparty/wireless/ble_sdk/src/platform.c
 
@@ -87,6 +92,7 @@ INC_PATH = \
        common/boards                                      \
        common/components/memory/eeprom/at30tse75x         \
        common/services/clock                              \
+       common/services/delay                              \
        common/services/ioport                             \
        common/services/serial                             \
        common/services/serial/sam_uart                    \
@@ -98,6 +104,8 @@ INC_PATH = \
        sam/boards/samg55_xplained_pro                     \
        sam/drivers/efc                                    \
        sam/drivers/flexcom                                \
+       sam/drivers/pdc                                    \
+       sam/drivers/pdc/pdc_uart_example                   \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
        sam/drivers/supc                                   \
@@ -112,18 +120,22 @@ INC_PATH = \
        sam/utils/preprocessor                             \
        thirdparty/CMSIS/Include                           \
        thirdparty/CMSIS/Lib/GCC                           \
+       thirdparty/wireless/ble_sdk/apps/config/samg55     \
        thirdparty/wireless/ble_sdk/apps/htpt_temperature_sensor \
-       thirdparty/wireless/ble_sdk/apps/htpt_temperature_sensor/samg55_xplained_pro \
+       thirdparty/wireless/ble_sdk/ble_services/ble_mgr   \
+       thirdparty/wireless/ble_sdk/ble_services/device_infomation \
        thirdparty/wireless/ble_sdk/inc                    \
        thirdparty/wireless/ble_sdk/services/console       \
        thirdparty/wireless/ble_sdk/services/serial/uart   \
-       thirdparty/wireless/ble_sdk/services/timer \
+       thirdparty/wireless/ble_sdk/services/serial_fifo   \
+       thirdparty/wireless/ble_sdk/services/timer         \
+       thirdparty/wireless/ble_sdk/utils \
        thirdparty/wireless/ble_sdk/apps/htpt_temperature_sensor/samg55_xplained_pro/gcc
 
 # Additional search paths for libraries.
 LIB_PATH =  \
        thirdparty/CMSIS/Lib/GCC                           \
-       thirdparty/wireless/ble_sdk/lib/samd21/gcc        
+       thirdparty/wireless/ble_sdk/lib/cm4f/gcc          
 
 # List of libraries to use during linking.
 LIBS =  \
@@ -174,7 +186,17 @@ CFLAGS =  \
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
+       -D ATT_DB_MEMORY                                   \
+       -D BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL             \
        -D BOARD=SAMG55_XPLAINED_PRO                       \
+       -D BOARD_AT30TSE_DEVICE_ADDR=0x0                   \
+       -D DEVICE_INFORMATION_SERVICE                      \
+       -D ENABLE_POWER_SAVE                               \
+       -D HTPT_SERVICE                                    \
+       -D NENABLE_PTS=false                               \
+       -D NEW_EVT_HANDLER                                 \
+       -D UART_FLOWCONTROL_4WIRE_MODE=true                \
+       -D UART_FLOWCONTROL_6WIRE_MODE=false               \
        -D __SAMG55J19__                                   \
        -D printf=iprintf                                  \
        -D scanf=iscanf

@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\freertos_oled1_tickless_xpro_example_flash.ewp</path>
+	</project>
+</workspace>

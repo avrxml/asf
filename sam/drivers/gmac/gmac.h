@@ -3,7 +3,7 @@
  *
  * \brief GMAC (Ethernet MAC) driver for SAM.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -350,6 +350,7 @@ static inline void gmac_enable_back_pressure(Gmac* p_gmac, uint8_t uc_enable)
  */
 static inline void gmac_start_transmission(Gmac* p_gmac)
 {
+	__DSB();
 	p_gmac->GMAC_NCR |= GMAC_NCR_TSTART;
 }
 

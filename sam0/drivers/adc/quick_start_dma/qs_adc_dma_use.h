@@ -45,11 +45,11 @@
  * \page asfdoc_sam0_adc_dma_use_case Quick Start Guide for Using DMA with ADC/DAC
  *
  * The supported board list:
- *    - SAMD21 Xplained Pro
- *    - SAMD11 Xplained Pro
- *    - SAML21 Xplained Pro
- *    - SAMDA1 Xplained Pro
- *    - SAMC21 Xplained Pro
+ *    - SAM D21 Xplained Pro
+ *    - SAM D11 Xplained Pro
+ *    - SAM L21 Xplained Pro
+ *    - SAM DA1 Xplained Pro
+ *    - SAM C21 Xplained Pro
  *
  * This quick start will convert an analog input signal from AIN4 and output
  * the converted value to DAC on PA2. The data between ADC and DAC with be

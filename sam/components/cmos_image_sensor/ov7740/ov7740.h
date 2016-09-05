@@ -49,7 +49,6 @@
 
 #include "compiler.h"
 #include "board.h"
-#include "twi.h"
 #include "delay.h"
 #include "pio.h"
 
@@ -332,8 +331,20 @@ extern const ov_reg OV7740_QQVGA_RGB888[];
 extern const ov_reg OV7740_TEST_PATTERN[];
 extern const ov_reg OV7740_VGA_YUV422_20FPS[];
 
-void ov_power(uint32_t on_off, Pio* const p_pio, const uint32_t ul_mask);
-void ov_reset(Pio* const p_pio, const uint32_t ul_mask);
+#if OV7740_TWIHS_SUPPORT == true
+#  include "twihs.h"
+uint32_t ov_read_reg(Twihs* const p_twi, twihs_packet_t *p_packet);
+uint32_t ov_write_reg(Twihs* const p_twi, twihs_packet_t* const p_packet);
+uint32_t ov_write_regs(Twihs* const p_twi, const ov_reg *p_reg_list);
+void ov_dump_registers(Twihs* const p_twi, ov_reg *p_regs);
+uint32_t ov_init(Twihs* const p_twi );
+uint32_t ov_configure(Twihs* const p_twi, const e_ov7740_format format);
+uint32_t ov_configure_finish(Twihs* const p_twi);
+uint32_t ov_configure_manual(Twihs* const p_twi);
+uint32_t ov_store_manual(Twihs* const p_twi, volatile uint32_t *p_backup_addr,
+		uint32_t ul_size);
+#else
+#  include "twi.h"
 uint32_t ov_read_reg(Twi* const p_twi, twi_packet_t *p_packet);
 uint32_t ov_write_reg(Twi* const p_twi, twi_packet_t* const p_packet);
 uint32_t ov_write_regs(Twi* const p_twi, const ov_reg *p_reg_list);
@@ -344,6 +355,9 @@ uint32_t ov_configure_finish(Twi* const p_twi);
 uint32_t ov_configure_manual(Twi* const p_twi);
 uint32_t ov_store_manual(Twi* const p_twi, volatile uint32_t *p_backup_addr,
 		uint32_t ul_size);
+#endif
+void ov_power(uint32_t on_off, Pio* const p_pio, const uint32_t ul_mask);
+void ov_reset(Pio* const p_pio, const uint32_t ul_mask);
 uint32_t ov_restore_manual(volatile uint32_t *p_backup_addr, uint32_t ul_size);
 
 #ifdef __cplusplus

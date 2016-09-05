@@ -6,7 +6,7 @@
  *
  * This file manages the accesses to the AT45DBX data flash components.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -161,11 +161,15 @@
 
 #elif AT45DBX_MEM_SIZE == AT45DBX_8MB
 
-/*! \name AT45DB642 Memories
+/*! \name AT45DB642D or AT45DB641E Memories
  */
 //! @{
 #define AT45DBX_DENSITY                   0x3C        //!< Device density value.
+#ifdef AT45DB641E
+#define AT45DBX_BYTE_ADDR_BITS            9          //!< Address bits for byte position within buffer.
+#else
 #define AT45DBX_BYTE_ADDR_BITS            11          //!< Address bits for byte position within buffer.
+#endif
 //! @}
 
 #else

@@ -4,7 +4,7 @@
  * \brief Universal Synchronous Asynchronous Receiver Transmitter (USART) driver
  * for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -646,6 +646,20 @@ void usart_reset_nack(Usart *p_usart)
 }
 
 /**
+ * \brief Check if both receive buffers are full.
+ *
+ * \param p_usart Pointer to a USART instance.
+ *
+ * \retval 1 Receive buffers are full.
+ * \retval 0 Receive buffers are not full.
+ */
+uint32_t usart_is_rx_buf_full(Usart *p_usart)
+{
+	return (p_usart->US_CSR & US_CSR_RXBUFF) > 0;
+}
+
+#if (!SAM4L)
+/**
  * \brief Check if one receive buffer is filled.
  *
  * \param p_usart Pointer to a USART instance.
@@ -672,19 +686,6 @@ uint32_t usart_is_tx_buf_end(Usart *p_usart)
 }
 
 /**
- * \brief Check if both receive buffers are full.
- *
- * \param p_usart Pointer to a USART instance.
- *
- * \retval 1 Receive buffers are full.
- * \retval 0 Receive buffers are not full.
- */
-uint32_t usart_is_rx_buf_full(Usart *p_usart)
-{
-	return (p_usart->US_CSR & US_CSR_RXBUFF) > 0;
-}
-
-/**
  * \brief Check if both transmit buffers are empty.
  *
  * \param p_usart Pointer to a USART instance.
@@ -696,6 +697,7 @@ uint32_t usart_is_tx_buf_empty(Usart *p_usart)
 {
 	return (p_usart->US_CSR & US_CSR_TXBUFE) > 0;
 }
+#endif
 
 /**
  * \brief Get the total number of errors that occur during an ISO7816 transfer.

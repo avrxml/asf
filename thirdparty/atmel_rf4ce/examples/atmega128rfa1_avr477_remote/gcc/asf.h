@@ -91,7 +91,7 @@
 // From module: Generic board support
 #include <board.h>
 
-// From module: Interrupt management - megaAVR and tinyAVR implementation
+// From module: Interrupt management - megaAVR implementation
 #include <interrupt.h>
 
 // From module: MEGA compiler driver

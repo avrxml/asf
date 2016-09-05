@@ -478,7 +478,6 @@ static void wait_for_reply_timer_handler_cb(void *parameter)
 				(param_value_t *)&crc_settings);
 		break;
 	}
-
 #endif /* #ifdef CRC_SETTING_ON_REMOTE_NODE */
 	case PEER_INFO_RSP_WAIT:
 	{
@@ -641,7 +640,7 @@ void per_mode_initiator_tx_done_cb(trx_id_t trx, retval_t status,
 			}
 		} else {
 			/* After successful transmission, set the params on
-			 *Initiator node */
+			 * Initiator node */
 			set_parameter_on_transmitter_node(trx, status);
 		}
 
@@ -716,7 +715,6 @@ void per_mode_initiator_tx_done_cb(trx_id_t trx, retval_t status,
 	case CRC_STATUS_REQ_WAIT:
 		/* Do nothing */
 		break;
-
 #endif /* #ifdef CRC_SETTING_ON_REMOTE_NODE */
 	case IDENTIFY_PEER:
 	{
@@ -1001,7 +999,7 @@ static void set_parameter_on_transmitter_node(trx_id_t trx, retval_t status)
 		curr_trx_config_params[trx].tx_power_dbm = tx_pwr_dbm;
 
 		/*Tx power in dBm also need to be updated as it changes with reg
-		 *value */
+		 * value */
 		tal_get_curr_trx_config(trx, TX_PWR,
 				&(curr_trx_config_params[trx].
 				tx_power_reg));
@@ -1029,7 +1027,7 @@ static void set_parameter_on_transmitter_node(trx_id_t trx, retval_t status)
 			curr_trx_config_params[trx].tx_power_reg = tx_pwr_reg;
 
 			/*Tx power in dBm also need to be updated as it changes
-			 *with reg value */
+			 * with reg value */
 			curr_trx_config_params[trx].tx_power_dbm = tx_pwr_dbm;
 
 			/* Send Set confirmation with status */
@@ -1081,6 +1079,7 @@ void per_mode_initiator_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 				sw_timer_stop(APP_TIMER_TO_TX);
 				int8_t rssi_val = (int8_t)CCPU_ENDIAN_TO_LE32(
 						msg->payload.test_result_rsp_data.rssi_avrg_rx);
+
 				/* rssi_val =
 				 * scale_reg_value_to_ed((uint8_t)rssi_val); */
 
@@ -1094,8 +1093,9 @@ void per_mode_initiator_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 				frames_with_wrong_crc
 					= (msg->payload.test_result_rsp_data
 						.frames_with_wrong_crc);
+
 				/* Value of 0xffffffff means that CRC errors
-				 *were not counted */
+				 * were not counted */
 
 #else
 				frames_with_wrong_crc = 0XFFFFFFFF;
@@ -1163,7 +1163,6 @@ void per_mode_initiator_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 		}
 	}
 	break;
-
 #endif /* #ifdef CRC_SETTING_ON_REMOTE_NODE */
 	case PEER_INFO_RSP:
 	{
@@ -1173,8 +1172,9 @@ void per_mode_initiator_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 					sizeof(general_pkt_t)) +
 					sizeof(peer_info_rsp_t)))) {
 				sw_timer_stop(APP_TIMER_TO_TX);
+
 				/* Send the confirmation with status as SUCCESS
-				 **/
+				**/
 				usr_perf_start_confirm(trx,
 						MAC_SUCCESS,
 						START_MODE_PER,
@@ -1297,7 +1297,7 @@ static void config_per_test_parameters(trx_id_t trx)
 				(pib_value_t *)&default_trx_config_params[trx].channel);
 
 		/* Make the ISM frequency as null as IEEE channel is set in
-		 *default case */
+		 * default case */
 		curr_trx_config_params[trx].channel_page
 			= default_trx_config_params[trx].channel_page
 					= TAL_CURRENT_PAGE_DEFAULT_RF24;
@@ -1305,7 +1305,7 @@ static void config_per_test_parameters(trx_id_t trx)
 				(pib_value_t *)&default_trx_config_params[trx].channel_page);
 
 		/* As tx power is already configure by TAL in tal_pib.c get it
-		 *for application*/
+		 * for application*/
 		temp = TAL_TRANSMIT_POWER_DEFAULT;
 		tal_pib_set(trx, phyTransmitPower, (pib_value_t *)&temp);
 	} else {
@@ -1319,8 +1319,9 @@ static void config_per_test_parameters(trx_id_t trx)
 					= TAL_CURRENT_PAGE_DEFAULT_RF09;
 		tal_pib_set(trx, phyCurrentPage,
 				(pib_value_t *)&default_trx_config_params[trx].channel_page);
+
 		/* As tx power is already configure by TAL in tal_pib.c get it
-		 *for application*/
+		 * for application*/
 		int8_t temp_dbm = TAL_TRANSMIT_POWER_DEFAULT;
 		tal_pib_set(trx, phyTransmitPower, (pib_value_t *)&temp_dbm);
 	}
@@ -1397,11 +1398,11 @@ static void set_transceiver_state(trx_id_t trx, uint8_t transceiver_state)
 		break;
 
 		/* For any cmd other than toggle sleep, return with error code
-		 **/
+		**/
 		default:
 		{
 			/* Send confirmation with status Failure because the
-			 *transceiver is in sleep */
+			 * transceiver is in sleep */
 			usr_perf_set_confirm(trx, TRANSCEIVER_IN_SLEEP,
 					PARAM_TRX_STATE,
 					(param_value_t *)&transceiver_state);
@@ -1436,7 +1437,7 @@ static void set_transceiver_state(trx_id_t trx, uint8_t transceiver_state)
 	case TRX_OFF: /* TRX_OFF */
 	{
 		/* Put the transceiver in TRX OFF state- default state for
-		 *Single node tests */
+		 * Single node tests */
 		tal_rx_enable(trx, PHY_TRX_OFF);
 
 		curr_trx_config_params[trx].trx_state = TRX_OFF;
@@ -1454,7 +1455,7 @@ static void set_transceiver_state(trx_id_t trx, uint8_t transceiver_state)
 	case RX_ON: /*RX_ON*/
 	{
 		/* Put the transceiver in TRX OFF state- default state for
-		 *Single node tests */
+		 * Single node tests */
 		tal_rx_enable(trx, PHY_RX_ON);
 
 		curr_trx_config_params[trx].trx_state = RX_ON;
@@ -1495,8 +1496,9 @@ static void toggle_trx_sleep(trx_id_t trx)
 		/* Wakeup from sleep or deep sleep is successful */
 		if (MAC_SUCCESS == tal_trx_wakeup(trx)) {
 			trx_sleep_status[trx] = false;
+
 			/*Waking up one of the transceiver wakes wakes other one
-			 *as well,put the other transceiver to sleep here*/
+			 * as well,put the other transceiver to sleep here*/
 			if ((trx == RF09) && (trx_sleep_status[RF24])) {
 				tal_trx_sleep(RF24);
 			} else if ((trx == RF24) && (trx_sleep_status[RF09])) {
@@ -1523,7 +1525,6 @@ static void recover_all_settings(trx_id_t trx)
 	if (true == curr_trx_config_params[trx].rx_desensitize) {
 		tal_set_rx_sensitivity_level(trx, RX_DESENSITIZE_LEVEL);
 	}
-
 #endif
 
 	tal_pib_set(trx, phyTransmitPower,
@@ -1641,7 +1642,7 @@ void read_trx_registers(trx_id_t trx, uint16_t reg_addr)
 
 	if (reg_addr > MAX_REG_ADDRESS) {
 		/* Send the confirmation with status as OUT_OF_RANGE register
-		 *address */
+		 * address */
 		usr_register_read_confirm(trx, VALUE_OUT_OF_RANGE, reg_addr,
 				reg_val);
 		return;
@@ -1662,7 +1663,7 @@ void write_trx_registers(trx_id_t trx, uint16_t reg_addr, uint8_t reg_val)
 {
 	if (reg_addr > MAX_REG_ADDRESS) {
 		/* Send the confirmation with status as OUT_OF_RANGE register
-		 *address */
+		 * address */
 		usr_register_write_confirm(trx, VALUE_OUT_OF_RANGE, reg_addr,
 				reg_val);
 		return;
@@ -1689,7 +1690,7 @@ void dump_trx_register_values(trx_id_t trx, uint16_t start_reg_addr,
 	num_of_reg_to_read = ((end_reg_addr - start_reg_addr));
 	if (num_of_reg_to_read < 0) {
 		/* Send the confirmation with status as OUT_OF_RANGE register
-		 *address */
+		 * address */
 		usr_register_dump_confirm(trx, INVALID_REGISTER_ORDER,
 				start_reg_addr,
 				end_reg_addr,
@@ -1705,7 +1706,7 @@ void dump_trx_register_values(trx_id_t trx, uint16_t start_reg_addr,
 
 	if (status == MAC_SUCCESS) {
 		/* Send the confirmation with status as MAC_SUCCESS register
-		 *address */
+		 * address */
 		usr_register_dump_confirm(trx, MAC_SUCCESS,
 				start_reg_addr,
 				end_reg_addr,
@@ -1802,7 +1803,7 @@ void per_mode_initiator_ed_end_cb(trx_id_t trx, uint8_t energy_level)
 
 /**
  * *\brief Function to set the various configuration parameters in SUN PAGE for
- *PER Test
+ * PER Test
  *
  * \param sun_page    Pointer to the configurable parameter value structure
  */
@@ -1882,8 +1883,8 @@ void perf_set_sun_page(trx_id_t trx, uint8_t *param_val)
 		sun_page[trx].sun_phy_mode.mr_fsk.mod_idx
 			= sun_phy_page_set[trx].phy_mode.fsk.mod_idx
 					=  *temp_param_val++;
-		sun_page[trx].sun_phy_mode.mr_fsk.data_rate
-			= sun_phy_page_set[trx].phy_mode.fsk.data_rate
+		sun_page[trx].sun_phy_mode.mr_fsk.sym_rate
+			= sun_phy_page_set[trx].phy_mode.fsk.sym_rate
 					=  *temp_param_val++;
 		sun_page[trx].sun_phy_mode.mr_fsk.op_mode
 			= sun_phy_page_set[trx].phy_mode.fsk.op_mode
@@ -2055,8 +2056,8 @@ static void send_sun_page_changed(trx_id_t trx)
 /*
  * *\brief Function to set the various configuration parameters for PER Test
  *
- **\param param_type   Type of the parameter to be set
- **\param param_value  Pointer to the value to be set
+ ***\param param_type   Type of the parameter to be set
+ ***\param param_value  Pointer to the value to be set
  */
 
 void perf_set_req(trx_id_t trx, uint8_t set_param_type,
@@ -2097,21 +2098,21 @@ void perf_set_req(trx_id_t trx, uint8_t set_param_type,
 	break;
 
 	case PARAM_FRAME_RETRY: /* Frame Retry configuration request-
-		                 *Enable/Disable */
+		                 * Enable/Disable */
 	{
 		config_frame_retry(trx, param_value->param_value_bool);
 	}
 	break;
 
 	case PARAM_ACK_REQUEST: /* Auto Ack Request configuration request-
-		                 *Enable/Disable */
+		                 * Enable/Disable */
 	{
 		config_ack_request(trx, param_value->param_value_bool);
 	}
 	break;
 
 	case PARAM_DESENSITIZATION: /* Configure Rx Desensitization request-
-		                     *Enable /Disable*/
+		                     * Enable /Disable*/
 	{
 		config_rx_desensitization(trx, param_value->param_value_bool);
 	}
@@ -2123,7 +2124,6 @@ void perf_set_req(trx_id_t trx, uint8_t set_param_type,
 		config_crc_peer_node(trx, param_value->param_value_bool);
 	}
 	break;
-
 #endif
 	case PARAM_TRX_STATE: /* Set Transceiver state request */
 	{
@@ -2132,7 +2132,7 @@ void perf_set_req(trx_id_t trx, uint8_t set_param_type,
 	break;
 
 	case PARAM_NO_OF_TEST_FRAMES: /* Set No.Of test Frames for PER test
-		                       *request */
+		                       * request */
 	{
 		uint32_t no_of_test_frames;
 		MEMCPY_ENDIAN(&(no_of_test_frames),
@@ -2155,7 +2155,7 @@ void perf_set_req(trx_id_t trx, uint8_t set_param_type,
 	break;
 
 	case PARAM_PHY_FRAME_LENGTH:  /* Set PHY frame length for PER test
-		                       *request */
+		                       * request */
 	{
 		set_phy_frame_length(trx, param_value->param_value_16bit);
 	}
@@ -2184,7 +2184,7 @@ void perf_set_req(trx_id_t trx, uint8_t set_param_type,
 /*
  * *\brief Function to get the various configuration parameters for PER Test
  *
- **\param param_type Parameter type to be read
+ ***\param param_type Parameter type to be read
  */
 void perf_get_req(trx_id_t trx, uint8_t param_type_data)
 {
@@ -2229,7 +2229,7 @@ void perf_get_req(trx_id_t trx, uint8_t param_type_data)
 			} else if (phy_param.modulation == FSK) {
 				param_val[3] = phy_param.phy_mode.fsk.mod_type;
 				param_val[4] = phy_param.phy_mode.fsk.mod_idx;
-				param_val[5] = phy_param.phy_mode.fsk.data_rate;
+				param_val[5] = phy_param.phy_mode.fsk.sym_rate;
 				param_val[6] = phy_param.phy_mode.fsk.op_mode;
 				param_val[7] = phy_param.phy_mode.fsk.bt;
 				param_val[8]
@@ -2289,7 +2289,7 @@ void perf_get_req(trx_id_t trx, uint8_t param_type_data)
 	break;
 
 	case PARAM_FRAME_RETRY: /* Frame Retry configuration request-
-		                 *Enable/Disable */
+		                 * Enable/Disable */
 	{
 		/* Send Get confirmation with status SUCCESS */
 		usr_perf_get_confirm(trx, MAC_SUCCESS,
@@ -2299,7 +2299,7 @@ void perf_get_req(trx_id_t trx, uint8_t param_type_data)
 	break;
 
 	case PARAM_ACK_REQUEST: /* Auto Ack Request configuration request-
-		                 *Enable/Disable */
+		                 * Enable/Disable */
 	{
 		/* Send Get confirmation with status SUCCESS */
 		usr_perf_get_confirm(trx, MAC_SUCCESS,
@@ -2309,7 +2309,7 @@ void perf_get_req(trx_id_t trx, uint8_t param_type_data)
 	break;
 
 	case PARAM_DESENSITIZATION: /* Configure Rx Desensitization request-
-		                     *Enable /Disable*/
+		                     * Enable /Disable*/
 	{
 		/* Send Get confirmation with status SUCCESS */
 		usr_perf_get_confirm(trx, MAC_SUCCESS,
@@ -2324,7 +2324,6 @@ void perf_get_req(trx_id_t trx, uint8_t param_type_data)
 		get_crc_settings_peer_node(trx);
 	}
 	break;
-
 #endif
 	case PARAM_TRX_STATE: /* Set Transceiver state request */
 	{
@@ -2339,7 +2338,7 @@ void perf_get_req(trx_id_t trx, uint8_t param_type_data)
 	break;
 
 	case PARAM_NO_OF_TEST_FRAMES: /* Set No.Of test Frames for PER test
-		                       *request */
+		                       * request */
 	{
 		/* Send get confirmation with status SUCCESS */
 		usr_perf_get_confirm(trx, MAC_SUCCESS,
@@ -2349,7 +2348,7 @@ void perf_get_req(trx_id_t trx, uint8_t param_type_data)
 	break;
 
 	case PARAM_PHY_FRAME_LENGTH:  /* Set PHY frame length for PER test
-		                       *request */
+		                       * request */
 	{
 		/* Send get confirmation with status SUCCESS */
 		usr_perf_get_confirm(trx, MAC_SUCCESS,
@@ -2403,9 +2402,15 @@ static void set_phy_frame_length(trx_id_t trx, uint16_t frame_len)
 				= aMaxPHYPacketSize;
 		} else if (frame_len <
 				(FRAME_OVERHEAD + 1 + tal_pib[trx].FCSLen)) { /*
-		                                                               *1=>
-		                                                               *cmdID*/      /* FCS
-		                                                                              * Len */
+			                                                       *
+			                                                       *1=>
+			                                                       *
+			                                                       *cmdID*/
+			                                                       /*
+			                                                       *FCS
+			                                                       *
+			                                                       *Len
+			                                                       **/
 			curr_trx_config_params[trx].phy_frame_length
 				= (FRAME_OVERHEAD + 1);
 		} else {
@@ -2417,18 +2422,33 @@ static void set_phy_frame_length(trx_id_t trx, uint16_t frame_len)
 			curr_trx_config_params[trx].phy_frame_length
 				= aMaxPHYPacketSize_4g;
 		} else if (frame_len < (FRAME_OVERHEAD + tal_pib[trx].FCSLen)) { /*
-		                                                                  *1=>
-		                                                                  *cmdID*/      /* frame
-		                                                                                 * overhead
-		                                                                                 * is
-		                                                                                 * without
-		                                                                                 * fcs
-		                                                                                 * ,hence
-		                                                                                 * add
-		                                                                                 * 4
-		                                                                                 * bytes
-		                                                                                 * for
-		                                                                                 * fcs */
+			                                                          *
+			                                                          *1=>
+			                                                          *
+			                                                          *cmdID*/
+			                                                          /*
+			                                                          *frame
+			                                                          *
+			                                                          *overhead
+			                                                          *
+			                                                          *is
+			                                                          *
+			                                                          *without
+			                                                          *
+			                                                          *fcs
+			                                                          *
+			                                                          *,hence
+			                                                          *
+			                                                          *add
+			                                                          *
+			                                                          *4
+			                                                          *
+			                                                          *bytes
+			                                                          *
+			                                                          *for
+			                                                          *
+			                                                          *fcs
+			                                                          **/
 			curr_trx_config_params[trx].phy_frame_length
 				= (FRAME_OVERHEAD + 1);
 		} else {
@@ -2462,7 +2482,7 @@ static void set_channel_app(trx_id_t trx, uint16_t channel)
 #endif
 
 		/* Check the channel is a valid one and is a supported channel
-		 **/
+		**/
 		if ((channel < BIT_COUNT) &&
 				(supported_channels & ((uint32_t)0x01) <<
 				channel)) {
@@ -2479,6 +2499,7 @@ static void set_channel_app(trx_id_t trx, uint16_t channel)
 
 				tal_pib_get(trx, phyTransmitPower,
 						(uint8_t *)&dbm_val);
+
 				/* dbm_val =
 				 * CONV_phyTransmitPower_TO_DBM(tx_pwr); */
 				curr_trx_config_params[trx].tx_power_dbm
@@ -2491,7 +2512,7 @@ static void set_channel_app(trx_id_t trx, uint16_t channel)
 			}
 		} else {
 			/* Send Set confirmation with status
-			 *MAC_INVALID_PARAMETER */
+			 * MAC_INVALID_PARAMETER */
 			usr_perf_set_confirm(trx, VALUE_OUT_OF_RANGE,
 					PARAM_CHANNEL,
 					(param_value_t *)&channel);
@@ -2500,7 +2521,7 @@ static void set_channel_app(trx_id_t trx, uint16_t channel)
 		uint16_t max_sun_ch = get_sun_max_ch_no(trx);
 		if (channel > (max_sun_ch - 1)) {
 			/* Send Set confirmation with status
-			 *MAC_INVALID_PARAMETER */
+			 * MAC_INVALID_PARAMETER */
 			usr_perf_set_confirm(trx, VALUE_OUT_OF_RANGE,
 					PARAM_CHANNEL,
 					(param_value_t *)&channel);
@@ -2605,12 +2626,12 @@ static void set_tx_power(trx_id_t trx, uint8_t tx_power_format,
 		if (tx_pwr_reg <= MAX_TX_PWR_REG_VAL) {
 			if (true == peer_found[trx]) {
 				/* send the tx power in Reg value to remote node
-				 **/
+				**/
 				send_parameters_changed(trx, TX_POWER_REG,
 						(uint8_t)tx_pwr_reg);
 			} else {
 				/* set the Tx power on source node in case of no
-				 *peer */
+				 * peer */
 				if (MAC_SUCCESS ==
 						tal_convert_reg_value_to_dBm(
 						tx_pwr_reg,
@@ -2619,18 +2640,18 @@ static void set_tx_power(trx_id_t trx, uint8_t tx_power_format,
 							(pib_value_t *)&tx_pwr_dbm);
 
 					/* update the data base with this value
-					 **/
+					**/
 					curr_trx_config_params[trx].tx_power_reg
 						= tx_pwr_reg;
 
 					/*Tx power in dBm also need to be
-					 *updated as it changes with reg value
+					 * updated as it changes with reg value
 					 **/
 					curr_trx_config_params[trx].tx_power_dbm
 						= tx_pwr_dbm;
 
 					/* Send Set confirmation with status
-					 *SUCCESS */
+					 * SUCCESS */
 					usr_perf_set_confirm(trx, MAC_SUCCESS,
 							PARAM_TX_POWER_REG,
 							(param_value_t *)&tx_pwr_reg);
@@ -2666,7 +2687,7 @@ static void set_tx_power(trx_id_t trx, uint8_t tx_power_format,
 						(uint8_t)tx_pwr_dbm);
 			} else {
 				/* set the Tx power on source node in case of no
-				 *peer */
+				 * peer */
 				tal_pib_set(trx, phyTransmitPower,
 						(pib_value_t *)&tx_pwr_dbm);
 
@@ -2675,7 +2696,7 @@ static void set_tx_power(trx_id_t trx, uint8_t tx_power_format,
 					= tx_pwr_dbm;
 
 				/*Tx power in Reg also need to be updated as it
-				 *changes with dBm value */
+				 * changes with dBm value */
 				tal_get_curr_trx_config(trx, TX_PWR,
 						&(curr_trx_config_params
 						[trx].tx_power_reg));
@@ -2687,7 +2708,7 @@ static void set_tx_power(trx_id_t trx, uint8_t tx_power_format,
 			}
 		} else {
 			/* Send Set confirmation with status VALUE_OUT_OF_RANGE
-			 **/
+			**/
 			usr_perf_set_confirm(trx, VALUE_OUT_OF_RANGE,
 					PARAM_TX_POWER_DBM,
 					(param_value_t *)&tx_pwr_dbm);
@@ -2806,8 +2827,9 @@ void get_sensor_data(trx_id_t trx)
 void set_default_configuration(trx_id_t trx)
 {
 	trx_config_params_t dummy_params = {0};
+
 	/* Send set_default_config_req command if the peer device is connected
-	 **/
+	**/
 	if (true == peer_found[trx]) {
 		/* CRC set request sent successfully */
 		if (send_set_default_config_command(trx)) {
@@ -2820,8 +2842,8 @@ void set_default_configuration(trx_id_t trx)
 			op_mode[trx] = TX_OP_MODE;
 		}
 	} else { /* Single node Tests case,set default values only on source
-	          *node */
-		/* Set the default values for all configurable parameters */
+		  * node */
+		 /* Set the default values for all configurable parameters */
 		config_per_test_parameters(trx);
 
 		/* Send the confirmation with the status as SUCCESS */
@@ -2836,7 +2858,6 @@ void set_default_configuration(trx_id_t trx)
  */
 void get_current_configuration(trx_id_t trx)
 {
-	
 	/* Send the confirmation with the status as SUCCESS */
 	usr_get_current_config_confirm(trx, MAC_SUCCESS,
 			&curr_trx_config_params[trx]);
@@ -2927,7 +2948,7 @@ static void config_crc_peer_node(trx_id_t trx, bool config_value)
 			op_mode[trx] = TX_OP_MODE;
 		}
 	} else { /* The node is operating in the SINGLE NODE TESTS mode*/
-		/* Send the confirmation with status INVALID_CMD */
+		 /* Send the confirmation with status INVALID_CMD */
 		usr_perf_set_confirm(trx, INVALID_CMD,
 				PARAM_CRC_ON_PEER,
 				(param_value_t *)&config_value);
@@ -2988,7 +3009,7 @@ void disconnect_peer_node(trx_id_t trx)
 			op_mode[trx] = TX_OP_MODE;
 
 			/* Send confirmation with status as TRANSMISSION_FAILURE
-			 **/
+			**/
 			usr_peer_disconnect_confirm(trx, TRANSMISSION_FAILURE);
 		}
 	} else { /* non PER mode case */
@@ -3010,7 +3031,7 @@ void initiate_per_test(trx_id_t trx)
 {
 	if (TX_OP_MODE == op_mode[trx]) {
 		/* Initiate a packet to tell the receptor that a new PER test is
-		 *going to be started */
+		 * going to be started */
 		if (send_per_test_start_cmd(trx)) {
 			op_mode[trx] = PER_TEST_START;
 		} else {
@@ -3093,10 +3114,15 @@ static void configure_frame_sending(trx_id_t trx)
 				= (uint8_t *)node_info[trx].tx_frame_info +
 					LARGE_BUFFER_SIZE -
 					app_frame_length - tal_pib[trx].FCSLen; /*
+	                                                                         *
 	                                                                         *Add
+	                                                                         *
 	                                                                         *2
+	                                                                         *
 	                                                                         *octets
+	                                                                         *
 	                                                                         *for
+	                                                                         *
 	                                                                         *FCS.
 	                                                                         **/
 
@@ -3109,14 +3135,17 @@ static void configure_frame_sending(trx_id_t trx)
 	/*
 	 * Assign dummy payload values.
 	 * Payload is stored to the end of the buffer avoiding payload copying
-	 *by TAL.
+	 * by TAL.
 	 */
 	for (uint16_t index_t = 0; index_t < (app_frame_length - 1);
 			index_t++) {                                        /*
-	                                                                     *1=>
-	                                                                     *cmd
-	                                                                     *ID
-	                                                                     **/
+		                                                             *
+		                                                             *1=>
+		                                                             *
+		                                                             *cmd
+		                                                             *
+		                                                             *ID
+		                                                             **/
 		*temp_frame_ptr++ = index_t; /* dummy values */
 	}
 
@@ -3722,11 +3751,16 @@ static void configure_range_test_frame_sending(trx_id_t trx)
 				= (uint8_t *)node_info[trx].tx_frame_info +
 					LARGE_BUFFER_SIZE -
 					app_frame_length - tal_pib[trx].FCSLen; /*
-	                                                                         * Add
-	                                                                         * 2
+	                                                                         *
+	                                                                         *Add
+	                                                                         *
+	                                                                         *2
+	                                                                         *
 	                                                                         *
 	                                                                         *octets
+	                                                                         *
 	                                                                         *for
+	                                                                         *
 	                                                                         *
 	                                                                         *FCS.
 	                                                                         **/
@@ -3738,14 +3772,17 @@ static void configure_range_test_frame_sending(trx_id_t trx)
 	(tmp->cmd_id) = RANGE_TEST_PKT;
 	temp_frame_ptr++;
 	(tmp->seq_num) = seq_num_initiator[trx]; /* to be incremented for every
-	                                         * frame
-	                                         **/
+	                                          * frame
+	                                          **/
 	temp_frame_ptr++;
 	range_test_frame_cnt[trx]++;
 	data->frame_count = (CCPU_ENDIAN_TO_LE32(range_test_frame_cnt[trx])); /*
-	                                                                       * to
+	                                                                       *
+	                                                                       *to
+	                                                                       *
 	                                                                       *
 	                                                                       *be
+	                                                                       *
 	                                                                       *
 	                                                                       *
 	                                                                       *checked

@@ -1946,7 +1946,7 @@
 				<group>
 					<name>usart_rs485_example</name>
 					<file>
-						<name>$PROJ_DIR$/../../usart_rs485_example_samv71.c</name>
+						<name>$PROJ_DIR$/../../usart_rs485_example_canopus.c</name>
 					</file>
 					<group>
 						<name>samv71q21_samv71_xplained_ultra</name>

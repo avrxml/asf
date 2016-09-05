@@ -3,7 +3,7 @@
  *
  * \brief SAM External Interrupt Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -312,7 +312,7 @@ void extint_chan_set_config(
 		= (EIC_module->CONFIG[channel / 8].reg &
 			~((EIC_CONFIG_SENSE0_Msk | EIC_CONFIG_FILTEN0) << config_pos)) |
 			(new_config << config_pos);
-#if (SAML22) || (SAML21XXXB)
+#if (SAML22) || (SAML21XXXB) || (SAMC20) || (SAMR30)
 	/* Config asynchronous edge detection */
 	if (config->enable_async_edge_detection) {
 		EIC_module->ASYNCH.reg |= (1UL << channel);
@@ -380,7 +380,7 @@ enum status_code extint_nmi_set_config(
 		new_config |= EIC_NMICTRL_NMIFILTEN;
 	}
 
-#if (SAML21XXXB) || (SAML22) || (SAMC21)
+#if (SAML21XXXB) || (SAML22) || (SAMC21) || (SAMR30)
 	/* Enable asynchronous edge detection if requested in the config */
 	if (config->enable_async_edge_detection) {
 		new_config |= EIC_NMICTRL_NMIASYNCH;

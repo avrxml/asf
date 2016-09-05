@@ -3,7 +3,7 @@
  *
  * \brief SAM D20 DAC WAVEFORM GENERATOR
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -148,7 +148,7 @@ uint16_t i, arr_index;
 /* Timer 0 interrupt handler */
 void TC0_Handler(void)
 {
-	TC0->COUNT16.INTFLAG.bit.MC0 = 1;
+	TC0->COUNT16.INTFLAG.reg = TC_INTFLAG_MC0;
 #if WAVE_MODE==SINE_WAVE
 	dac_chan_write(&dac_inst, 0, sine_wave_buf[arr_index++]);
 	if (arr_index == 360) {
@@ -181,7 +181,7 @@ void timer_init(void)
 	tc_enable(&tc_inst);
 	tc_stop_counter(&tc_inst);
 	/* Enable TC0 match/capture channel 0 interrupt */
-	TC0->COUNT16.INTENSET.bit.MC0 = 1;
+	TC0->COUNT16.INTENSET.reg = TC_INTENSET_MC0;
 	/* Enable TC0 module interrupt */
 	NVIC_EnableIRQ(TC0_IRQn);
 }

@@ -95,7 +95,7 @@ app_state_t;
 #define FRAME_TYPE_DATA                 (1)
 #define CMD_FRAME_ID_NA                 (0) /* CommandFrameIdentifier is n/a */
 #define ZIP_SEC_MIN                     (0x05) /* SecurityMinimum for ZIP is 5
-	                                        **/
+	                                       **/
 #define DEV_OVERRIDE_SEC_MIN            (1) /* DeviceOverrideSecurityMinimum:
 	                                     * True */
 #define ZIP_KEY_ID_MODE                 (1) /* ZIP uses KeyIdMode 1 */

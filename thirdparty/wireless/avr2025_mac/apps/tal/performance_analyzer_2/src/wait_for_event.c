@@ -112,8 +112,9 @@ void wait_for_event_task(trx_id_t trx)
 	if (key_press != 0) {
 		/* check->print event to be changed to sio */
 		print_event(trx, PRINT_KEY_PRESS_PEER_SEARCH_INITIATOR);
+
 		/* key press detected - so change to state PEER_SEARCH_RANGE_TX
-		 **/
+		**/
 		set_main_state(trx, PEER_SEARCH_RANGE_TX, NULL);
 	}
 }
@@ -156,7 +157,7 @@ void wait_for_event_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 					LQI_LEN + ED_VAL_LEN];
 
 			/* Check the threshold if the configuration mode is
-			 *enabled, not otherwise */
+			 * enabled, not otherwise */
 			if (((msg->payload.peer_req_data.config_mode == true) &&
 					(ed_val > ed_threshold)) ||
 					(msg->payload.peer_req_data.config_mode
@@ -174,9 +175,9 @@ void wait_for_event_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 
 					/*
 					 * Frame found to be peer search for
-					 *range test
+					 * range test
 					 * so change to state
-					 *PEER_SEARCH_RANGE_RX
+					 * PEER_SEARCH_RANGE_RX
 					 */
 					set_main_state(trx,
 							PEER_SEARCH_RANGE_RX,
@@ -189,7 +190,7 @@ void wait_for_event_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 
 					/*
 					 * Frame found to be peer search for
-					 *range test
+					 * range test
 					 * so change to state PEER_SEARCH_PER_RX
 					 */
 					set_main_state(trx, PEER_SEARCH_PER_RX,
@@ -199,8 +200,9 @@ void wait_for_event_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 					break;
 
 				default:
+
 					/* The node has got a wrong frame: No
-					 *change of mode */
+					 * change of mode */
 					print_event(trx,
 							PRINT_PEER_SEARCH_RECEPTOR_BAD_FRAME);
 					break;
@@ -212,7 +214,7 @@ void wait_for_event_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 
 /**
  * \brief Configure the TAL PIB's relevant to the Performance analyzer
- *application
+ * application
  * \ingroup group_app_init
  */
 static void configure_pibs(trx_id_t trx)
@@ -237,7 +239,7 @@ static void configure_pibs(trx_id_t trx)
 	tal_pib_set(trx, phyCurrentChannel, (pib_value_t *)&temp_word);
 
 	/* Set IEEE address - To make sure that trx registers written properly
-	 **/
+	**/
 	tal_pib_set(trx, macIeeeAddress,
 			(pib_value_t *)&tal_pib[trx].IeeeAddress);
 }

@@ -3,7 +3,7 @@
  *
  * \brief SAM TC - Timer Counter Callback Driver
  *
- * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,7 +63,7 @@ extern void *_tc_instances[TC_INST_NUM];
 /**
  * \internal Get the interrupt vector for the given device instance
  *
- * \param[in] TC module instance number.
+ * \param[in] TC module instance number
  *
  * \return Interrupt vector for of the given TC module instance.
  */
@@ -72,7 +72,7 @@ static enum system_interrupt_vector _tc_interrupt_get_interrupt_vector(
 {
 	static uint8_t tc_interrupt_vectors[TC_INST_NUM] =
 		{
-#if (SAML21E) || (SAML21G)
+#if (SAML21E) || (SAML21G) || (SAMR30E) || (SAMR30G)
 			SYSTEM_INTERRUPT_MODULE_TC0,
 			SYSTEM_INTERRUPT_MODULE_TC1,
 			SYSTEM_INTERRUPT_MODULE_TC4
@@ -107,7 +107,7 @@ enum status_code tc_unregister_callback(
  * interrupt handler when the conditions for the callback type are
  * met. This function will also enable the appropriate interrupts.
  *
- * \param[in]     module Pointer to TC software instance struct
+ * \param[in]     module        Pointer to TC software instance struct
  * \param[in]     callback_type Callback type given by an enum
  */
 static inline void tc_enable_callback(
@@ -144,7 +144,7 @@ static inline void tc_enable_callback(
  * interrupt routine. The function will also disable the appropriate
  * interrupts.
  *
- * \param[in]     module Pointer to TC software instance struct
+ * \param[in]     module        Pointer to TC software instance struct
  * \param[in]     callback_type Callback type given by an enum
  */
 static inline void tc_disable_callback(

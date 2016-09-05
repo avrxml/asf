@@ -4,7 +4,7 @@
  *
  * \brief SAM Segment Liquid Crystal Display(SLCD) Controller.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -189,8 +189,6 @@ struct slcd_config {
 	uint8_t bias_buffer_duration;
 	/** Enable bias buffer if true */
 	bool enable_bias_buffer;
-	/** Enable external bias capacitor if true */
-	bool enable_ext_bias;
 };
 /**
  * \brief SLCD event enable/disable structure
@@ -328,8 +326,8 @@ enum status_code slcd_set_contrast(uint8_t contrast);
  *
  * \return Synchronization status of the underlying hardware module.
  *
- * \retval true  if the module synchronization is ongoing
- * \retval false if the module has completed synchronization
+ * \retval true  If the module synchronization is ongoing
+ * \retval false If the module has completed synchronization
  */
 static inline bool slcd_is_syncing(void)
 {
@@ -398,9 +396,9 @@ static inline void slcd_disable_display(void)
 	}
 }
 /**
- * \brief  DMA Display Memory Update Frame Counter Selection
+ * \brief  DMA display memory update frame counter selection
  *
- * it's used to select the frame counter for DMA to update the display memory.
+ * It's used to select the frame counter for DMA to update the display memory.
  *
  *  \note It can be called only before the module is enabled.
  *
@@ -568,7 +566,7 @@ static inline void slcd_disable_events(struct slcd_events *const events)
  *  \param[in] presc_bypass_enable Bypass of the frame counter prescaler
  *  \param[in] overflow_value  Frame counter overflow value. The number of frame
  *		before overflow is ((overflow_value+1)*8) when presc_bypass_enable=0
- 		else (overflow_value+1). The MAX. overflow value is 0x1ffff
+ 		else (overflow_value+1). The MAX. overflow value is 0x1FFFF.
  */
 static inline void slcd_set_frame_counter(enum slcd_frame_counter fc,
 										   bool  presc_bypass_enable,
@@ -873,11 +871,11 @@ static inline bool slcd_get_vlcd_ready_status(void)
  * </tr>
  *  <tr>
  *      <td>COM</td>
- *      <td>Common,denotes how many segments are connected to a segment terminal</td>
+ *      <td>Common, denotes how many segments are connected to a segment terminal</td>
  * </tr>
  *  <tr>
  *      <td>SEG</td>
- *      <td>Segment,the least viewing element (pixel) which can be on or off</td>
+ *      <td>Segment, the least viewing element (pixel) which can be on or off</td>
  * </tr>
  *  <tr>
  *      <td>Duty</td>
@@ -926,7 +924,7 @@ static inline bool slcd_get_vlcd_ready_status(void)
  * This is a list of the available Quick Start Guides (QSGs) and example
  * applications for \ref asfdoc_sam0_drivers_slcd_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  *  - \subpage asfdoc_sam0_slcd_basic_use_case
@@ -935,12 +933,13 @@ static inline bool slcd_get_vlcd_ready_status(void)
  *
  * <table>
  *	<tr>
- *		<th>Date</td>
- *		<th>Comments</td>
+ *		<th>Doc. rev.</th>
+ *		<th>Date</th>
+ *		<th>Comments</th>
  *	</tr>
  *	<tr>
- *      <td>A</td>
- *		<td>06/2015</td>
+ *      <td>42605A</td>
+ *		<td>12/2015</td>
  *		<td>Initial release</td>
  *	</tr>
  * </table>

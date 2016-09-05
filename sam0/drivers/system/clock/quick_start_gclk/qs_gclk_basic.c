@@ -3,7 +3,7 @@
  *
  * \brief SAM Generic Clock Driver Quick Start
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -58,7 +58,7 @@ void configure_gclock_generator(void)
 	system_gclk_gen_get_config_defaults(&gclock_gen_conf);
 //! [setup_2]
 
-#if (SAML21) || (SAML22)
+#if (SAML21) || (SAML22) || (SAMR30)
 //! [setup_3]
 	gclock_gen_conf.source_clock    = SYSTEM_CLOCK_SOURCE_OSC16M;
 	gclock_gen_conf.division_factor = 128;
@@ -96,7 +96,7 @@ void configure_gclock_channel(void)
 //! [setup_8]
 	gclk_chan_conf.source_generator = GCLK_GENERATOR_1;
 //! [setup_8]
-#if (SAMD10) || (SAMD11)
+#if (SAMD10) || (SAMD11) || SAMR30
 //! [setup_9]
 	system_gclk_chan_set_config(TC1_GCLK_ID, &gclk_chan_conf);
 //! [setup_9]

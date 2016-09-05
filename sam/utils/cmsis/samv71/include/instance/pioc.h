@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -94,6 +94,7 @@
   #define REG_PIOC_WPMR                     (0x400E12E4U) /**< \brief (PIOC) Write Protection Mode Register */
   #define REG_PIOC_WPSR                     (0x400E12E8U) /**< \brief (PIOC) Write Protection Status Register */
   #define REG_PIOC_SCHMITT                  (0x400E1300U) /**< \brief (PIOC) Schmitt Trigger Register */
+  #define REG_PIOC_DRIVER                   (0x400E1318U) /**< \brief (PIOC) I/O Drive Register */
   #define REG_PIOC_KER                      (0x400E1320U) /**< \brief (PIOC) Keypad Controller Enable Register */
   #define REG_PIOC_KRCR                     (0x400E1324U) /**< \brief (PIOC) Keypad Controller Row Column Register */
   #define REG_PIOC_KDR                      (0x400E1328U) /**< \brief (PIOC) Keypad Controller Debouncing Register */
@@ -157,6 +158,7 @@
   #define REG_PIOC_WPMR    (*(__IO uint32_t*)0x400E12E4U) /**< \brief (PIOC) Write Protection Mode Register */
   #define REG_PIOC_WPSR    (*(__I  uint32_t*)0x400E12E8U) /**< \brief (PIOC) Write Protection Status Register */
   #define REG_PIOC_SCHMITT (*(__IO uint32_t*)0x400E1300U) /**< \brief (PIOC) Schmitt Trigger Register */
+  #define REG_PIOC_DRIVER  (*(__IO uint32_t*)0x400E1318U) /**< \brief (PIOC) I/O Drive Register */
   #define REG_PIOC_KER     (*(__IO uint32_t*)0x400E1320U) /**< \brief (PIOC) Keypad Controller Enable Register */
   #define REG_PIOC_KRCR    (*(__IO uint32_t*)0x400E1324U) /**< \brief (PIOC) Keypad Controller Row Column Register */
   #define REG_PIOC_KDR     (*(__IO uint32_t*)0x400E1328U) /**< \brief (PIOC) Keypad Controller Debouncing Register */

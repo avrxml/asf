@@ -6,7 +6,7 @@
  *
  * This file contains the possible external configuration of the Ethernet module.
  *
- * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -64,7 +64,7 @@ to use an MII interface. */
 #define ETHERNET_CONF_TX_BUFFER_SIZE       512
 
 /*! Clock definition */
-#define ETHERNET_CONF_SYSTEM_CLOCK         48000000
+#define ETHERNET_CONF_SYSTEM_CLOCK         60000000
 
 /*! Use Auto negotiation to get speed and duplex */
 #define ETHERNET_CONF_AN_ENABLE                      1

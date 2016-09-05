@@ -3,7 +3,7 @@
  *
  * \brief Low Power Application.
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -442,7 +442,6 @@ static void test_active_mode(void)
 	puts("Exit from active mode.\r");
 }
 
-#if (!(SAMG51 || SAMG53 || SAMG54))
 /**
  * \brief Test sleep Mode.
  */
@@ -466,7 +465,6 @@ static void test_sleep_mode(void)
 
 	puts("Exit from sleep Mode.\r");
 }
-#endif
 
 /**
  * \brief Test wait mode.
@@ -570,9 +568,7 @@ static void display_menu_core(void)
 	printf("  G : 64-bit flash access\n\r");
 	printf("Mode:\n\r");
 	printf("  A : Active Mode\n\r");
-#if (!(SAMG51 || SAMG53 || SAMG54))
 	printf("  S : Sleep Mode\n\r");
-#endif
 	printf("  W : Wait Mode\n\r");
 #if (!(SAMG51 || SAMG53 || SAMG54))
 	printf("  B : Backup Mode(Entered %d times).\n\r", (int)gpbr_read(GPBR0));
@@ -626,12 +622,10 @@ static void test_core(void)
 			test_active_mode();
 			break;
 
-#if (!(SAMG51 || SAMG53 || SAMG54))
 		case 's':
 		case 'S':
 			test_sleep_mode();
 			break;
-#endif
 
 		case 'w':
 		case 'W':

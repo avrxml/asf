@@ -3,7 +3,7 @@
  *
  * \brief USART functions for SAM-BA on SAM0
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -89,14 +89,14 @@ void usart_close(void);
  *
  * \return \c 1 if function was successfully done, otherwise \c 0.
  */
-int usart_putc(uint8_t value);
+int usart_putc(int value);
 
 /**
  * \brief Waits and gets a value on usart line
  *
  * \return value read on usart line
  */
-uint8_t usart_getc(void);
+int usart_getc(void);
 
 /**
  * \brief Returns true if the SAM-BA Uart received the sharp char

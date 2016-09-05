@@ -52,18 +52,18 @@
  *
  * In this use case, the TCC will be used to generate a PWM signal. Here
  * the pulse width is set to one quarter of the period.
- * When connect PWM output to LED it makes the LED light. To see the waveform,
+ * When the PWM signal connects to LED, LED will light. To see the waveform,
  * you may need an oscilloscope.
  *
  * The PWM output is set up as follows:
  * <table>
- *  <tr><th> Board        </td><th> Pin  </td><th> Connect to </td></tr>
- *  <tr><td> SAMD21 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
- *  <tr><td> SAMR21 Xpro  </td><td> PA19 </td><td> LED0       </td></tr>
- *  <tr><td> SAML21 Xpro  </td><td> PB10 </td><td> LED0       </td></tr>
- *  <tr><td> SAML22 Xpro  </td><td> PC27 </td><td> LED0       </td></tr>
- *  <tr><td> SAMDA1 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
- *  <tr><td> SAMC21 Xpro  </td><td> PA15 </td><td> LED0       </td></tr>
+ *  <tr><th> Board         </td><th> Pin  </td><th> Connect to </td></tr>
+ *  <tr><td> SAM D21 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM R21 Xpro  </td><td> PA19 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM L21 Xpro  </td><td> PB10 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM L22 Xpro  </td><td> PC27 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM DA1 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM C21 Xpro  </td><td> PA15 </td><td> LED0       </td></tr>
  * </table>
  *
  * The TCC module will be set up as follows:
@@ -123,7 +123,7 @@
  *           settings.
  *
  *  -# Alter the TCC settings to configure the counter width, wave generation
- *     mode and the compare channel 0 value.
+ *     mode, and the compare channel 0 value.
  *     \snippet qs_tcc_basic.c setup_change_config
  *  -# Alter the TCC settings to configure the PWM output on a physical device
  *     pin.

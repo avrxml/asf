@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -93,6 +93,7 @@
   #define REG_PIOA_WPMR                     (0x400E0EE4U) /**< \brief (PIOA) Write Protection Mode Register */
   #define REG_PIOA_WPSR                     (0x400E0EE8U) /**< \brief (PIOA) Write Protection Status Register */
   #define REG_PIOA_SCHMITT                  (0x400E0F00U) /**< \brief (PIOA) Schmitt Trigger Register */
+  #define REG_PIOA_DRIVER                   (0x400E0F10U) /**< \brief (PIOA) PIO I/O Drive Register */
 #else
   #define REG_PIOA_PER     (*(__O  uint32_t*)0x400E0E00U) /**< \brief (PIOA) PIO Enable Register */
   #define REG_PIOA_PDR     (*(__O  uint32_t*)0x400E0E04U) /**< \brief (PIOA) PIO Disable Register */
@@ -140,6 +141,7 @@
   #define REG_PIOA_WPMR    (*(__IO uint32_t*)0x400E0EE4U) /**< \brief (PIOA) Write Protection Mode Register */
   #define REG_PIOA_WPSR    (*(__I  uint32_t*)0x400E0EE8U) /**< \brief (PIOA) Write Protection Status Register */
   #define REG_PIOA_SCHMITT (*(__IO uint32_t*)0x400E0F00U) /**< \brief (PIOA) Schmitt Trigger Register */
+  #define REG_PIOA_DRIVER  (*(__IO uint32_t*)0x400E0F10U) /**< \brief (PIOA) PIO I/O Drive Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAMG55_PIOA_INSTANCE_ */

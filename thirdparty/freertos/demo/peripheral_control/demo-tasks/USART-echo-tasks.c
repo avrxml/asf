@@ -5,7 +5,7 @@
  * \brief FreeRTOS USART driver echo test tasks
  *
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -220,7 +220,7 @@ void create_usart_echo_test_tasks(Usart *usart_base,
 		RX_BUFFER_SIZE,									/* The size of the buffer provided to the USART driver to store incoming characters. */
 		configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY,	/* The priority used by the USART interrupts. */
 		USART_RS232,									/* Configure the USART for RS232 operation. */
-		(USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX)
+		(USE_TX_ACCESS_SEM | USE_RX_ACCESS_MUTEX)
 	};
 
 	const sam_usart_opt_t usart_settings = {

@@ -3,7 +3,7 @@
  *
  * \brief Instance description for EIC
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,7 +54,7 @@
 #define REG_EIC_INTENCLR           (0x4000280CU) /**< \brief (EIC) Interrupt Enable Clear */
 #define REG_EIC_INTENSET           (0x40002810U) /**< \brief (EIC) Interrupt Enable Set */
 #define REG_EIC_INTFLAG            (0x40002814U) /**< \brief (EIC) Interrupt Flag Status and Clear */
-#define REG_EIC_EIC_ASYNCH         (0x40002818U) /**< \brief (EIC) EIC Asynchronous edge Detection Enable */
+#define REG_EIC_ASYNCH             (0x40002818U) /**< \brief (EIC) EIC Asynchronous edge Detection Enable */
 #define REG_EIC_CONFIG0            (0x4000281CU) /**< \brief (EIC) Configuration 0 */
 #define REG_EIC_CONFIG1            (0x40002820U) /**< \brief (EIC) Configuration 1 */
 #else
@@ -66,7 +66,7 @@
 #define REG_EIC_INTENCLR           (*(RwReg  *)0x4000280CU) /**< \brief (EIC) Interrupt Enable Clear */
 #define REG_EIC_INTENSET           (*(RwReg  *)0x40002810U) /**< \brief (EIC) Interrupt Enable Set */
 #define REG_EIC_INTFLAG            (*(RwReg  *)0x40002814U) /**< \brief (EIC) Interrupt Flag Status and Clear */
-#define REG_EIC_EIC_ASYNCH         (*(RwReg  *)0x40002818U) /**< \brief (EIC) EIC Asynchronous edge Detection Enable */
+#define REG_EIC_ASYNCH             (*(RwReg  *)0x40002818U) /**< \brief (EIC) EIC Asynchronous edge Detection Enable */
 #define REG_EIC_CONFIG0            (*(RwReg  *)0x4000281CU) /**< \brief (EIC) Configuration 0 */
 #define REG_EIC_CONFIG1            (*(RwReg  *)0x40002820U) /**< \brief (EIC) Configuration 1 */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */

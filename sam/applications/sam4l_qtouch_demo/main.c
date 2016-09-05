@@ -3,7 +3,7 @@
  *
  * \brief Low Power and QTouch Demo for SAM4L.
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -75,6 +75,8 @@
  * transition, the SAM4L is sending the information to the board monitor
  * (over the USART). The current SAM4L sleep mode is displayed by the board
  * monitor on the OLED display.
+ *
+ * It requires a board monitor firmware version V1.4 if it runs on SAM4L_EK board.
  *
  * \section Usage
  *

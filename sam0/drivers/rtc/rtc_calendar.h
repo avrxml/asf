@@ -3,7 +3,7 @@
  *
  * \brief SAM RTC Driver (Calendar Mode)
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -70,6 +70,7 @@
  *  - Atmel | SMART SAM L21/L22
  *  - Atmel | SMART SAM DA1
  *  - Atmel | SMART SAM C20/C21
+ *  - Atmel | SMART SAM R30
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_rtc_calendar_prerequisites
@@ -111,19 +112,19 @@
  *  </tr>
  *  <tr>
  *    <td>FEATURE_RTC_PERIODIC_INT</td>
- *    <td>SAM L21/L22/C20/C21</td>
+ *    <td>SAM L21/L22/C20/C21/R30</td>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_RTC_PRESCALER_OFF</td>
- *    <td>SAM L21/L22/C20/C21</td>
+ *    <td>SAM L21/L22/C20/C21/R30</td>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_RTC_CLOCK_SELECTION</td>
- *    <td>SAM L21/L22/C20/C21</td>
+ *    <td>SAM L21/L22/C20/C21/R30</td>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_RTC_GENERAL_PURPOSE_REG</td>
- *    <td>SAM L21/L22</td>
+ *    <td>SAM L21/L22/R30</td>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_RTC_CONTINUOUSLY_UPDATED</td>
@@ -228,7 +229,7 @@
  *
  *
  * \subsection asfdoc_sam0_rtc_calendar_module_overview_tamper_detect RTC Tamper Detect
- * see  \ref asfdoc_sam0_rtc_tamper_detect
+ * See \ref asfdoc_sam0_rtc_tamper_detect.
  *
  * \section asfdoc_sam0_rtc_calendar_special_considerations Special Considerations
  *
@@ -243,10 +244,10 @@
  * \subsubsection asfdoc_sam0_rtc_calendar_clock_samd_r SAM D20/D21/R21/D10/D11/DA1 Clock Setup
  * The RTC is typically clocked by a specialized GCLK generator that has a
  * smaller prescaler than the others. By default the RTC clock is on, selected
- * to use the internal 32KHz RC-oscillator with a prescaler of 32, giving a
- * resulting clock frequency of 1024Hz to the RTC. When the internal RTC
- * prescaler is set to 1024, this yields an end-frequency of 1Hz for correct
- * time keeping operations.
+ * to use the internal 32KHz Resistor/Capacitor (RC)-oscillator with a prescaler
+ * of 32, giving a resulting clock frequency of 1024Hz to the RTC. When the
+ * internal RTC prescaler is set to 1024, this yields an end-frequency of 1Hz
+ * for correct time keeping operations.
  *
  * The implementer also has the option to set other end-frequencies.
  * \ref asfdoc_sam0_rtc_calendar_rtc_out_freq "The table below" lists the
@@ -298,8 +299,8 @@
  * \note For the calendar to operate correctly, an asynchronous clock of 1Hz
  *       should be used.
  *
- * \subsubsection asfdoc_sam0_rtc_calendar_clock_saml SAM L21/C20/C21 Clock Setup
- * The RTC clock can be selected from OSC32K, XOSC32K or OSCULP32K , and a 32KHz
+ * \subsubsection asfdoc_sam0_rtc_calendar_clock_saml SAM L21/C20/C21/R30 Clock Setup
+ * The RTC clock can be selected from OSC32K, XOSC32K, or OSCULP32K. A 32KHz
  * or 1KHz oscillator clock frequency is required. This clock must be
  * configured and enabled in the 32KHz oscillator controller before using the RTC.
  *
@@ -381,19 +382,19 @@ extern "C" {
  * Define port features set according to different device family
  * @{
 */
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || defined(__DOXYGEN__)
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30) || defined(__DOXYGEN__)
 /** RTC periodic interval interrupt. */
 #  define FEATURE_RTC_PERIODIC_INT
-/** RTC prescaler is off */
+/** RTC prescaler is off. */
 #  define FEATURE_RTC_PRESCALER_OFF
-/** RTC clock selection */
+/** RTC clock selection. */
 #  define FEATURE_RTC_CLOCK_SELECTION
 #  if !(SAMC20) && !(SAMC21)
-/** General purpose registers */
+/** General purpose registers. */
 #  define FEATURE_RTC_GENERAL_PURPOSE_REG
 #  endif
 #else
-/** RTC continuously updated */
+/** RTC continuously updated. */
 #  define FEATURE_RTC_CONTINUOUSLY_UPDATED
 #endif
 
@@ -414,10 +415,12 @@ enum rtc_clock_sel {
 	RTC_CLOCK_SELECTION_ULP1K = OSC32KCTRL_RTCCTRL_RTCSEL_ULP1K_Val,
 	/** 32.768kHz from 32KHz internal ULP oscillator */
 	RTC_CLOCK_SELECTION_ULP32K = OSC32KCTRL_RTCCTRL_RTCSEL_ULP32K_Val,
+#if !(SAML22)
 	/** 1.024kHz from 32KHz internal oscillator */
 	RTC_CLOCK_SELECTION_OSC1K = OSC32KCTRL_RTCCTRL_RTCSEL_OSC1K_Val,
 	/** 32.768kHz from 32KHz internal oscillator */
 	RTC_CLOCK_SELECTION_OSC32K = OSC32KCTRL_RTCCTRL_RTCSEL_OSC32K_Val,
+#endif
 	/** 1.024kHz from 32KHz internal oscillator */
 	RTC_CLOCK_SELECTION_XOSC1K = OSC32KCTRL_RTCCTRL_RTCSEL_XOSC1K_Val,
 	/** 32.768kHz from 32.768kHz external crystal oscillator */
@@ -688,7 +691,7 @@ enum rtc_calendar_alarm_mask {
 struct rtc_calendar_events {
 	/** Generate an output event on each overflow of the RTC count */
 	bool generate_event_on_overflow;
-	/** Generate an output event on a alarm channel match against the RTC
+	/** Generate an output event on an alarm channel match against the RTC
 	 *  count */
 	bool generate_event_on_alarm[RTC_NUM_OF_ALARMS];
 	/** Generate an output event periodically at a binary division of the RTC
@@ -763,7 +766,7 @@ struct rtc_calendar_config {
 	bool clock_24h;
 	/** Initial year for counter value 0 */
 	uint16_t year_init_value;
-#if (SAML22)
+#if (SAML21XXXB) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30)
 	/** Enable count read synchronization. The CLOCK value requires
 	 * synchronization when reading. Disabling the synchronization
 	 * will prevent the CLOCK value from displaying the current value. */
@@ -837,7 +840,7 @@ static inline void rtc_calendar_get_config_defaults(
 #endif
 	config->clock_24h           = false;
 	config->year_init_value     = 2000;
-#if (SAML22)
+#if (SAML21XXXB) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30)
 	config->enable_read_sync    = true;
 #endif
 	for (uint8_t i = 0; i < RTC_NUM_OF_ALARMS; i++) {
@@ -981,10 +984,10 @@ static inline void rtc_calendar_clear_overflow(struct rtc_module *const module)
  * \param[in,out]  module  RTC hardware module
  * \param[in]  n  RTC periodic interval interrupt
  *
- * \return periodic interval interrupt state of the RTC module.
+ * \return Periodic interval interrupt state of the RTC module.
  *
- * \retval true   RTC periodic interval interrupt occurs
- * \retval false  RTC periodic interval interrupt dosen't occurs
+ * \retval true   RTC periodic interval interrupt occur
+ * \retval false  RTC periodic interval interrupt doesn't occur
  */
 static inline bool rtc_calendar_is_periodic_interval(struct rtc_module *const module,
 										enum rtc_calendar_periodic_interval n)
@@ -1026,7 +1029,7 @@ static inline void rtc_calendar_clear_periodic_interval(struct rtc_module *const
  * \brief Check the RTC alarm flag.
  *
  * Check if the specified alarm flag is set. The flag is set when there
- * is an compare match between the alarm value and the clock.
+ * is a compare match between the alarm value and the clock.
  *
  * \param[in,out] module  Pointer to the software instance struct
  * \param[in] alarm_index  Index of the alarm to check
@@ -1253,7 +1256,7 @@ static inline void rtc_write_general_purpose_reg(
  * \param[in] module  Pointer to the software instance struct
  * \param[in] index General purpose register index (0..3)
  *
- * \return Value Of general purpose register
+ * \return Value of general purpose register.
  */
 static inline uint32_t rtc_read_general_purpose_reg(
 	struct rtc_module *const module,
@@ -1350,7 +1353,7 @@ void rtc_tamper_get_stamp (struct rtc_module *const module,
  *          clock to the module if it is disabled</td>
  *	</tr>
  *	<tr>
- *		<td>Initial Release</td>
+ *		<td>Initial release</td>
  *	</tr>
  * </table>
  */
@@ -1379,8 +1382,8 @@ void rtc_tamper_get_stamp (struct rtc_module *const module,
  *	</tr>
  *	<tr>
  *		<td>42126E</td>
- *		<td>08/2015</td>
- *		<td>Added support for SAM L21/L22, SAM C21, and SAM DA1</td>
+ *		<td>12/2015</td>
+ *		<td>Added support for SAM L21/L22, SAMR30, SAM C21, SAM D09, and SAM DA1</td>
  *	</tr>
  *	<tr>
  *		<td>42126D</td>
@@ -1401,7 +1404,7 @@ void rtc_tamper_get_stamp (struct rtc_module *const module,
  *	<tr>
  *		<td>42126A</td>
  *		<td>06/2013</td>
- *		<td>Initial release</td>
+ *		<td>Initial document release</td>
  *	</tr>
  * </table>
  */

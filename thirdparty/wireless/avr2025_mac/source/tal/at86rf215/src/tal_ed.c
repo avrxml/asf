@@ -101,6 +101,8 @@ static uint32_t sampler_counter[NUM_TRX];
 #if (MAC_SCAN_ED_REQUEST_CONFIRM == 1) || (defined DOXYGEN)
 retval_t tal_ed_start(trx_id_t trx_id, uint8_t scan_duration)
 {
+	Assert((trx_id >= 0) && (trx_id < NUM_TRX));
+
 	uint16_t sample_duration;
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 
@@ -127,10 +129,10 @@ retval_t tal_ed_start(trx_id_t trx_id, uint8_t scan_duration)
 	switch_to_txprep(trx_id);
 
 	/* Disable BB */
-	trx_bit_write(reg_offset + SR_BBC0_PC_BBEN, 0);
+	trx_bit_write( reg_offset + SR_BBC0_PC_BBEN, 0);
 
 	/* Setup and start energy detection, ensure AGC is not hold */
-	trx_bit_write(reg_offset + SR_RF09_AGCC_FRZC, 0);
+	trx_bit_write( reg_offset + SR_RF09_AGCC_FRZC, 0);
 
 	/* Setup energy measurement averaging duration */
 	sample_duration = ED_SAMPLE_DURATION_SYM *
@@ -138,14 +140,13 @@ retval_t tal_ed_start(trx_id_t trx_id, uint8_t scan_duration)
 	set_ed_sample_duration(trx_id, sample_duration);
 #ifndef BASIC_MODE
 	/* Enable EDC IRQ */
-	trx_bit_write(reg_offset + SR_RF09_IRQM_EDC, 1);
+	trx_bit_write( reg_offset + SR_RF09_IRQM_EDC, 1);
 #endif
 	/* Calculate the number of samples */
 	sampler_counter[trx_id] = aBaseSuperframeDuration
 			* ((1UL << scan_duration) + 1);
 	sampler_counter[trx_id] = sampler_counter[trx_id] /
 			ED_SAMPLE_DURATION_SYM;
-
 #ifdef REDUCED_ED_SAMPLE_COUNTER /* used for testing */
 	/* used for debugging purposes only */
 	sampler_counter[trx_id] = REDUCED_ED_SAMPLE_COUNTER;
@@ -153,18 +154,17 @@ retval_t tal_ed_start(trx_id_t trx_id, uint8_t scan_duration)
 
 	/* Set RF to Rx */
 #ifdef IQ_RADIO
-	pal_trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_RX);
+	trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_RX);
 #else
-	trx_reg_write(reg_offset + RG_RF09_CMD, RF_RX);
+	trx_reg_write( reg_offset + RG_RF09_CMD, RF_RX);
 #endif
 	trx_state[trx_id] = RF_RX;
 	pal_timer_delay(tal_pib[trx_id].agc_settle_dur); /* allow filters to
 	                                                  * settle */
 
 	tal_state[trx_id] = TAL_ED_SCAN;
-
 	/* Start energy measurement */
-	trx_bit_write(reg_offset + SR_RF09_EDC_EDM, RF_EDCONT);
+	trx_bit_write( reg_offset + SR_RF09_EDC_EDM, RF_EDCONT);
 
 	return MAC_SUCCESS;
 }
@@ -183,8 +183,7 @@ void handle_ed_end_irq(trx_id_t trx_id)
 	/* Capture ED value for current frame / ED scan */
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 #ifdef IQ_RADIO
-	tal_current_ed_val[trx_id] = pal_trx_reg_read(RF215_RF,
-			reg_offset + RG_RF09_EDV);
+	tal_current_ed_val[trx_id] = trx_reg_read(reg_offset + RG_RF09_EDV);
 #else
 	tal_current_ed_val[trx_id] = trx_reg_read(reg_offset + RG_RF09_EDV);
 #endif
@@ -209,39 +208,37 @@ void handle_ed_end_irq(trx_id_t trx_id)
 		}
 
 		sampler_counter[trx_id]--;
-
 		if (sampler_counter[trx_id] == 0) {
 			/* Keep RF in Rx state */
 			/* Stop continuous energy detection */
 #ifdef IQ_RADIO
-			pal_trx_bit_write(RF215_RF,
-					reg_offset + SR_RF09_EDC_EDM,
+			trx_bit_write(RF215_RF, reg_offset + SR_RF09_EDC_EDM,
 					RF_EDAUTO);
 #else
-			trx_bit_write(reg_offset + SR_RF09_EDC_EDM, RF_EDAUTO);
+			trx_bit_write( reg_offset + SR_RF09_EDC_EDM, RF_EDAUTO);
 #endif
 			/* Restore ED average duration for CCA */
 			set_ed_sample_duration(trx_id,
 					tal_pib[trx_id].CCADuration_us);
 			/* Switch BB on again */
-			trx_bit_write(reg_offset + SR_BBC0_PC_BBEN, 1);
+			trx_bit_write( reg_offset + SR_BBC0_PC_BBEN, 1);
 			tal_state[trx_id] = TAL_IDLE;
 			/* Set trx state for leaving ED scan */
 			if (trx_default_state[trx_id] == RF_RX) {
 				switch_to_rx(trx_id);
 			} else {
 #ifdef IQ_RADIO
-				pal_trx_reg_write(RF215_RF,
+				trx_reg_write(RF215_RF,
 						reg_offset + RG_RF09_CMD,
 						RF_TRXOFF);
 #else
-				trx_reg_write(reg_offset + RG_RF09_CMD,
+				trx_reg_write( reg_offset + RG_RF09_CMD,
 						RF_TRXOFF);
 #endif
 			}
 
 			/* Scale result to 0xFF */
-			int8_t ed = max_ed_level[trx_id]; /* scale_ed_value(max_ed_level[trx_id]); */
+			uint8_t ed = max_ed_level[trx_id]; /*scale_ed_value(max_ed_level[trx_id]);*/
 #ifndef BASIC_MODE
 			/* Disable EDC IRQ again */
 			trx_bit_write(reg_offset + SR_RF09_IRQM_EDC, 0);
@@ -282,10 +279,9 @@ void set_ed_sample_duration(trx_id_t trx_id, uint16_t sample_duration_us)
 
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 #ifdef IQ_RADIO
-	pal_trx_reg_write(RF215_RF, reg_offset + RG_RF09_EDD,
-			((df << 2) | dtb));
+	trx_reg_write(RF215_RF, reg_offset + RG_RF09_EDD, ((df << 2) | dtb));
 #else
-	trx_reg_write(reg_offset + RG_RF09_EDD, ((df << 2) | dtb));
+	trx_reg_write( reg_offset + RG_RF09_EDD, ((df << 2) | dtb));
 #endif
 }
 
@@ -301,7 +297,6 @@ void set_ed_sample_duration(trx_id_t trx_id, uint16_t sample_duration_us)
 uint8_t scale_ed_value(int8_t ed)
 {
 	uint8_t result;
-
 	if (ed == 127) {
 		result = 0x00;
 	} else if (ed >= UPPER_ED_LIMIT) {
@@ -331,12 +326,11 @@ void stop_ed_scan(trx_id_t trx_id)
 	/* Stop continuous energy detection */
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 #ifdef IQ_RADIO
-	pal_trx_bit_write(RF215_RF, reg_offset + SR_RF09_EDC_EDM, RF_EDAUTO);
+	trx_bit_write(RF215_RF, reg_offset + SR_RF09_EDC_EDM, RF_EDAUTO);
 #else
-	trx_bit_write(reg_offset + SR_RF09_EDC_EDM, RF_EDAUTO);
+	trx_bit_write( reg_offset + SR_RF09_EDC_EDM, RF_EDAUTO);
 #endif
 	sampler_counter[trx_id] = 0;
-
 	/* Clear any pending ED IRQ */
 	TAL_RF_IRQ_CLR(trx_id, RF_IRQ_EDC);
 	handle_ed_end_irq(trx_id);

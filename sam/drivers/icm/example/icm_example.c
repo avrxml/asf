@@ -3,7 +3,7 @@
  *
  * \brief ICM example for SAM.
  *
- * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -94,7 +94,7 @@ struct icm_region_descriptor_sec_list reg_descriptor_sec;
 COMPILER_ALIGNED(128)
 uint32_t output_sha[0x20];
 
-/* Memory region0 area */
+/* Memory region0 area, string "abc" */
 volatile uint32_t message_sha_0[16] = {
 	0x80636261,
 	0x00000000,
@@ -114,29 +114,28 @@ volatile uint32_t message_sha_0[16] = {
 	0x18000000
 };
 
-/* Memory region1 main list area */
+/* Memory region1 main list area, string "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq" */
 volatile uint32_t message_sha_1_main[16] = {
-	0x80636261,
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x00000000,
-	0x18000000,
+	0x64636261,
+	0x65646362,
+	0x66656463,
+	0x67666564,
+	0x68676665,
+	0x69686766,
+	0x6a696867,
+	0x6b6a6968,
+	0x6c6b6a69,
+	0x6d6c6b6a,
+	0x6e6d6c6b,
+	0x6f6e6d6c,
+	0x706f6e6d,
+	0x71706f6e,
+	0x00000080,
+	0x00000000
 };
 
 /* Memory region1 secondary list area */
 volatile uint32_t message_sha_1_sec[16] = {
-	0x80636261,
 	0x00000000,
 	0x00000000,
 	0x00000000,
@@ -151,7 +150,8 @@ volatile uint32_t message_sha_1_sec[16] = {
 	0x00000000,
 	0x00000000,
 	0x00000000,
-	0x18000000,
+	0x00000000,
+	0xc0010000
 };
 
 /**

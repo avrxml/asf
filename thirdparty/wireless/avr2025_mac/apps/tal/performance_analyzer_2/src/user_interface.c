@@ -80,7 +80,7 @@ static void app_switch_off_rx_led_cb(void *parameter);
 
 /**
  * This table holds the Messages to be printed on the UART Terminal at each
- *event
+ * event
  */
 print_event_msg_t print_event_table[NUM_MAX_PRINT_EVENTS] = {
 	{ /* PRINT_KEY_PRESS_WHILE_POWER_ON_CONFIG_MODE */
@@ -180,8 +180,11 @@ bool app_debounce_button(void)
 			key_cnt++;
 		}
 	} else if (!(button_pressed()) &&
-			(key_cnt == COUNT_FOR_VALID_KEY_PRESS)) {           /* Button
-	                                                                     * released */
+			(key_cnt == COUNT_FOR_VALID_KEY_PRESS)) {           /*
+		                                                             * Button
+		                                                             *
+		                                                             *released
+		                                                             **/
 		ret = 1;
 		key_cnt = 0;
 	} else {
@@ -208,7 +211,6 @@ bool button_pressed(void)
 
 #else
 	return false;
-
 #endif
 }
 

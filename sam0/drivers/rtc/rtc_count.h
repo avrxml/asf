@@ -3,7 +3,7 @@
  *
  * \brief SAM RTC Driver (Count Mode)
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,6 +71,7 @@
  *  - Atmel | SMART SAM L21/L22
  *  - Atmel | SMART SAM DA1
  *  - Atmel | SMART SAM C20/C21
+ *  - Atmel | SMART SAM R30
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_rtc_count_prerequisites
@@ -114,19 +115,19 @@
  *  </tr>
  *  <tr>
  *    <td>FEATURE_RTC_PERIODIC_INT</td>
- *    <td>SAM L21/L22</C20/C21</td>
+ *    <td>SAM L21/L22/C20/C21/R30</td>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_RTC_PRESCALER_OFF</td>
- *    <td>SAM L21/L22</C20/C21</td>
+ *    <td>SAM L21/L22/C20/C21/R30</td>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_RTC_CLOCK_SELECTION</td>
- *    <td>SAM L21/L22</C20/C21</td>
+ *    <td>SAM L21/L22/C20/C21/R30</td>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_RTC_GENERAL_PURPOSE_REG</td>
- *    <td>SAM L21/L22</td>
+ *    <td>SAM L21/L22/R30</td>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_RTC_CONTINUOUSLY_UPDATED</td>
@@ -231,9 +232,9 @@
  *
  *
  * \subsection asfdoc_sam0_rtc_count_module_overview_tamper_detect RTC Tamper Detect
- * \section asfdoc_sam0_rtc_count_special_considerations Special Considerations
  * see \ref asfdoc_sam0_rtc_tamper_detect
  *
+ * \section asfdoc_sam0_rtc_count_special_considerations Special Considerations
  *
  * \subsection asfdoc_sam0_rtc_count_special_considerations_clock Clock Setup
  * \subsubsection asfdoc_sam0_rtc_count_clock_samd_r SAM D20/D21/R21/D10/D11/DA1 Clock Setup
@@ -290,8 +291,8 @@
  * }
  * \enddot
  *
- * \subsubsection asfdoc_sam0_rtc_count_clock_saml SAM L21/C20/C21 Clock Setup
- * The RTC clock can be selected from OSC32K, XOSC32K or OSCULP32K, and a 32KHz
+ * \subsubsection asfdoc_sam0_rtc_count_clock_saml SAM L21/C20/C21/R30 Clock Setup
+ * The RTC clock can be selected from OSC32K, XOSC32K, or OSCULP32K, and a 32KHz
  * or 1KHz oscillator clock frequency is required. This clock must be
  * configured and enabled in the 32KHz oscillator controller before using the RTC.
  *
@@ -368,22 +369,24 @@ extern "C" {
 #endif
 
 /**
+ * \name Driver Feature Definition
+ *
  * Define port features set according to different device family.
  * @{
 */
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || defined(__DOXYGEN__)
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30) || defined(__DOXYGEN__)
 /** RTC periodic interval interrupt. */
 #  define FEATURE_RTC_PERIODIC_INT
-/** RTC prescaler is off */
+/** RTC prescaler is off. */
 #  define FEATURE_RTC_PRESCALER_OFF
-/** RTC clock selection */
+/** RTC clock selection. */
 #  define FEATURE_RTC_CLOCK_SELECTION
 #  if !(SAMC20) && !(SAMC21)
-/** General purpose registers */
+/** General purpose registers. */
 #  define FEATURE_RTC_GENERAL_PURPOSE_REG
 #  endif
 #else
-/** RTC continuously updated */
+/** RTC continuously updated. */
 #  define FEATURE_RTC_CONTINUOUSLY_UPDATED
 #endif
 
@@ -404,11 +407,13 @@ enum rtc_clock_sel {
 	RTC_CLOCK_SELECTION_ULP1K = OSC32KCTRL_RTCCTRL_RTCSEL_ULP1K_Val,
 	/** 32.768KHz from 32KHz internal ULP oscillator */
 	RTC_CLOCK_SELECTION_ULP32K = OSC32KCTRL_RTCCTRL_RTCSEL_ULP32K_Val,
+#if !(SAML22)
 	/** 1.024KHz from 32KHz internal oscillator */
 	RTC_CLOCK_SELECTION_OSC1K = OSC32KCTRL_RTCCTRL_RTCSEL_OSC1K_Val,
 	/** 32.768KHz from 32KHz internal oscillator */
 	RTC_CLOCK_SELECTION_OSC32K = OSC32KCTRL_RTCCTRL_RTCSEL_OSC32K_Val,
-	/** 1.024KHz from 32KHz internal oscillator */
+#endif
+	/** 1.024KHz from 32KHz external oscillator */
 	RTC_CLOCK_SELECTION_XOSC1K = OSC32KCTRL_RTCCTRL_RTCSEL_XOSC1K_Val,
 	/** 32.768KHz from 32.768KHz external crystal oscillator */
 	RTC_CLOCK_SELECTION_XOSC32K = OSC32KCTRL_RTCCTRL_RTCSEL_XOSC32K_Val,
@@ -726,7 +731,7 @@ struct rtc_count_config {
 	 *  needed for reading */
 	bool continuously_update;
 #endif
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21)
+#if (SAML21XXXB) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30)
 	/** Enable count read synchronization. The COUNT value requires
 	 * synchronization when reading. Disabling the synchronization
 	 * will prevent the COUNT value from displaying the current value. */
@@ -750,7 +755,7 @@ struct rtc_count_config {
  *  Initializes the configuration structure to default values. This
  *  function should be called at the start of any RTC initialization.
  *
- *  The default configuration is as follows:
+ *  The default configuration is:
  *  - Input clock divided by a factor of 1024
  *  - RTC in 32-bit mode
  *  - Clear on compare match off
@@ -760,7 +765,7 @@ struct rtc_count_config {
  *  - Count read synchronization is enabled for SAM L22
  *
  *  \param[out] config  Configuration structure to be initialized to default
- *                      values.
+ *                      values
  */
 static inline void rtc_count_get_config_defaults(
 		struct rtc_count_config *const config)
@@ -776,7 +781,7 @@ static inline void rtc_count_get_config_defaults(
 #ifdef FEATURE_RTC_CONTINUOUSLY_UPDATED
 	config->continuously_update = false;
 #endif
-#if (SAML22)
+#if (SAML21XXXB) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30)
 	config->enable_read_sync    = true;
 #endif
 
@@ -1125,7 +1130,7 @@ static inline void rtc_write_general_purpose_reg(
  * \param[in] module  Pointer to the software instance struct
  * \param[in] index General purpose register index (0..3)
  *
- * \return Value of general purpose register
+ * \return Value of general purpose register.
  */
 static inline uint32_t rtc_read_general_purpose_reg(
 	struct rtc_module *const module,
@@ -1217,6 +1222,9 @@ uint32_t rtc_tamper_get_stamp (struct rtc_module *const module);
  *		<td>Added support for SAM L21/L22</td>
  *	</tr>
  *	<tr>
+ *		<td>Added support for SAM R30</td>
+ *	</tr>
+ *	<tr>
  *		<td>Added support for RTC tamper feature</td>
  *	</tr>
  *	<tr>
@@ -1256,14 +1264,14 @@ uint32_t rtc_tamper_get_stamp (struct rtc_module *const module);
  *
  * <table>
  *	<tr>
- *		<th>Doc. Rev.</td>
- *		<th>Date</td>
- *		<th>Comments</td>
+ *		<th>Doc. Rev.</th>
+ *		<th>Date</th>
+ *		<th>Comments</th>
  *	</tr>
  *	<tr>
  *		<td>42111E</td>
- *		<td>08/2015</td>
- *		<td>Added support for SAM L21/L22, SAM C21, and SAM DA1</td>
+ *		<td>12/2015</td>
+ *		<td>Added support for SAM L21/L22, SAM C21, SAM D09, SAMR30 and SAM DA1</td>
  *	</tr>
  *	<tr>
  *		<td>42111D</td>

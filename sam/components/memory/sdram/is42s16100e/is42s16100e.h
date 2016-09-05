@@ -3,7 +3,7 @@
  *
  * \brief IS42S16100E configuration.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -59,7 +59,7 @@ extern "C" {
 /// @endcond
 
 /**
- * \defgroup group_sam_components_memory_sdram_mt48lc16m16a2 SDRAM IS42S16100E
+ * \defgroup group_sam_components_memory_sdram_is42s16100e SDRAM IS42S16100E
  *
  * This is a configuration for the IS42S16100E SDRAM from Micron.
  * This configuration will be used by the SDRAM driver to set up the
@@ -71,7 +71,7 @@ extern "C" {
 /* SDRAM IS42S16100E configuration */
 const sdramc_memory_dev_t SDRAM_ISSI_IS42S16100E = {
 	22, /* Block1 is at the bit 22, 2+8+11+1. */
-	0,  /*
+	0x30,  /*
 	     * This configures the SDRAM with the following parameters in the
 	     *mode register:
 	     * - bits 0 to 2: burst length: 1 (000b);

@@ -3,7 +3,7 @@
  *
  * \brief SAM Event System Controller Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,7 +47,7 @@
 #include "events_hooks.h"
 #include "system_interrupt.h"
 
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21)
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30)
 #  define _EVENTS_INTFLAGS_DETECT  0x0fff0000
 #  define _EVENTS_INTFLAGS_OVERRUN 0x00000fff
 #else

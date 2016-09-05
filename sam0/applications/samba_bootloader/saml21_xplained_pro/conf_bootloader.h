@@ -3,7 +3,7 @@
  *
  * \brief Bootloader specific configuration.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,14 +49,14 @@
 
 #include "conf_board.h"
 
-#define APP_START_ADDRESS          0x00002000
+#define APP_START_ADDRESS          0x00006000
 #define BOOT_LED                   LED0_PIN
 #define BOOT_LOAD_PIN              SW0_PIN
 #define GPIO_BOOT_PIN_MASK         (1U << (BOOT_LOAD_PIN & 0x1F))
 
 #define BOOT_USART_MODULE          EDBG_CDC_MODULE
 #define BOOT_USART_BAUDRATE        115200
-#define BOOT_USART_MUX_SETTINGS    USART_RX_1_TX_0_XCK_1
+#define BOOT_USART_MUX_SETTINGS    EDBG_CDC_SERCOM_MUX_SETTING
 #define BOOT_USART_PAD0            EDBG_CDC_SERCOM_PINMUX_PAD0
 #define BOOT_USART_PAD1            EDBG_CDC_SERCOM_PINMUX_PAD1
 #define BOOT_USART_GCLK_SOURCE     GCLK_GENERATOR_0

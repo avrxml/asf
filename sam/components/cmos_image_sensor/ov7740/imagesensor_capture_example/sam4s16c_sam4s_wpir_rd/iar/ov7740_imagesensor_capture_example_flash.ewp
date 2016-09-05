@@ -164,6 +164,7 @@
 					<name>CCDefines</name>
 					<state>__SAM4S16C__</state>
 					<state>BOARD=SAM4S_WPIR_RD</state>
+					<state>OV7740_TWIHS_SUPPORT=false</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
@@ -471,6 +472,7 @@
 					<name>ADefines</name>
 					<state>__SAM4S16C__</state>
 					<state>BOARD=SAM4S_WPIR_RD</state>
+					<state>OV7740_TWIHS_SUPPORT=false</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
@@ -1103,6 +1105,7 @@
 					<name>CCDefines</name>
 					<state>__SAM4S16C__</state>
 					<state>BOARD=SAM4S_WPIR_RD</state>
+					<state>OV7740_TWIHS_SUPPORT=false</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
@@ -1410,6 +1413,7 @@
 					<name>ADefines</name>
 					<state>__SAM4S16C__</state>
 					<state>BOARD=SAM4S_WPIR_RD</state>
+					<state>OV7740_TWIHS_SUPPORT=false</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>

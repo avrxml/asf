@@ -166,6 +166,7 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
+					<state>ILI9488_EBIMODE</state>
 					<state>BOARD=SAMV71_XPLAINED_ULTRA</state>
 					<state>ARM_MATH_CM7=true</state>
 					<state>__SAMV71Q21__</state>
@@ -471,6 +472,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>ILI9488_EBIMODE</state>
 					<state>BOARD=SAMV71_XPLAINED_ULTRA</state>
 					<state>ARM_MATH_CM7=true</state>
 					<state>__SAMV71Q21__</state>
@@ -1135,6 +1137,7 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
+					<state>ILI9488_EBIMODE</state>
 					<state>BOARD=SAMV71_XPLAINED_ULTRA</state>
 					<state>ARM_MATH_CM7=true</state>
 					<state>__SAMV71Q21__</state>
@@ -1440,6 +1443,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>ILI9488_EBIMODE</state>
 					<state>BOARD=SAMV71_XPLAINED_ULTRA</state>
 					<state>ARM_MATH_CM7=true</state>
 					<state>__SAMV71Q21__</state>

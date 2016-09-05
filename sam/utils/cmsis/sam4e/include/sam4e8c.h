@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -501,7 +501,7 @@ void WDT_Handler        ( void );
 #define IFLASH_PAGE_SIZE        (512u)
 #define IFLASH_LOCK_REGION_SIZE (8192u)
 #define IFLASH_NB_OF_PAGES      (1024u)
-#define IFLASH_NB_OF_LOCK_BITS  (128u)
+#define IFLASH_NB_OF_LOCK_BITS  (64u)
 #define IRAM_SIZE               (0x20000u)
 
 #define IFLASH_ADDR  (0x00400000u) /**< Internal Flash base address */

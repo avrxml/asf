@@ -151,7 +151,11 @@ CPPFLAGS = \
 
 # Extra flags to use when linking
 LDFLAGS =  \
-       -Wl,--section-start=.bootloader=0x1f000           
+       -Wl,--defsym=__eerd_byte_m128rfa1=eeprom_read_byte \
+       -Wl,--defsym=__eewr_byte_m128rfa1=eeprom_write_byte \
+       -Wl,--section-start=.bootloader=0x1f000            \
+       -Wl,-u,eeprom_read_byte                            \
+       -Wl,-u,eeprom_write_byte                          
 
 # Pre- and post-build commands
 PREBUILD_CMD = 

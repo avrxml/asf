@@ -3,7 +3,7 @@
  *
  * \brief BLE Profile related declarations
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -59,7 +59,7 @@ typedef struct prf_server_error_ind
 }prf_server_error_ind_t;
 
 /// Time profile information
-struct prf_date_time
+typedef struct prf_date_time
 {
     /// year time element
     uint16_t year;
@@ -73,7 +73,7 @@ struct prf_date_time
     uint8_t min;
     /// second time element
     uint8_t sec;
-};
+}prf_date_time_t;
 
 
 #endif /* __PROFILES_H__ */

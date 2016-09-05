@@ -4,7 +4,7 @@
  * \brief  Common utilities for both Initiator and Receptor in PER Measurement
  * mode - Performance Analyzer application
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -163,31 +163,23 @@ void config_per_test_parameters(void)
 		= default_trx_config_params.retry_enabled = false;
 
 #if (ANTENNA_DIVERSITY == 1)
-#if (TAL_TYPE == AT86RF233)
+#if (TAL_TYPE == AT86RF233) || (TAL_TYPE == ATMEGARFR2) || (TAL_TYPE == AT86RF212B)
 	/* Disable antenna diversity by default. */
 	curr_trx_config_params.antenna_diversity
-		= default_trx_config_params.antenna_diversity = false;
+		= default_trx_config_params.antenna_diversity
+				= ENABLE_ANTENNA_DIVERSITY;
 	curr_trx_config_params.antenna_selected
 		= default_trx_config_params.antenna_selected
-				= ANT_CTRL_1;
+				= ANT_SELECTED;
 
 	/* This is required for set default config request command to set the
 	 * config parameters to their defaults */
 	/* Disable antenna diversity by default */
 	/* Enable A1/X2 */
-	tal_ant_div_config(ANT_DIVERSITY_DISABLE, ANT_CTRL_1); /* Enable A1/X2
-	                                                       **/
-
-#else
-	curr_trx_config_params.antenna_diversity
-		= default_trx_config_params.antenna_diversity = true;
-	curr_trx_config_params.antenna_selected
-		= default_trx_config_params.antenna_selected
-				= ANT_CTRL_0;
-
-	/* Enable Antenna Diversity*/
-	tal_ant_div_config(ANT_DIVERSITY_ENABLE, ANTENNA_DEFAULT);
-#endif /* end of (TAL_TYPE == AT86RF233) */
+	tal_ant_div_config(ENABLE_ANTENNA_DIVERSITY, ANT_SELECTED); /* Enable
+	                                                            * A1/X2
+	                                                            **/
+#endif
 #endif
 
 #if (TAL_TYPE != AT86RF230B)
@@ -242,7 +234,7 @@ void config_per_test_parameters(void)
 
 	curr_trx_config_params.channel_page
 		= default_trx_config_params.channel_page
-				= TAL_CURRENT_PAGE_DEFAULT;
+				= DEFAULT_PAGE;
 	pib_value.pib_value_8bit = default_trx_config_params.channel_page;
 	tal_pib_set(phyCurrentPage, &pib_value);
 
@@ -272,21 +264,14 @@ void config_per_test_parameters(void)
 
 		/* Set the config parameters on peer node */
 #if (ANTENNA_DIVERSITY == 1)
-#if (TAL_TYPE == AT86RF233)
+#if (TAL_TYPE == AT86RF233) || (TAL_TYPE == ATMEGARFR2) || (TAL_TYPE == AT86RF212B)
 		curr_trx_config_params.antenna_diversity_on_peer
 			= default_trx_config_params.
-				antenna_diversity_on_peer = false;
+				antenna_diversity_on_peer
+					= ENABLE_ANTENNA_DIVERSITY;
 		curr_trx_config_params.antenna_selected_on_peer
 			= default_trx_config_params.
-				antenna_selected_on_peer = ANT_CTRL_1;
-
-#else
-		curr_trx_config_params.antenna_diversity_on_peer
-			= default_trx_config_params.
-				antenna_diversity_on_peer = true;
-		curr_trx_config_params.antenna_selected_on_peer
-			= default_trx_config_params.
-				antenna_selected_on_peer = ANT_CTRL_0;
+				antenna_selected_on_peer = ANT_SELECTED;
 #endif /* End of #if(TAL_TYPE == AT86RF233) */
 #endif /* End of #if (ANTENNA_DIVERSITY == 1) */
 	}
@@ -314,7 +299,7 @@ void pktstream_test(uint16_t gap_time, uint16_t timeout, bool start_stop,
 	/*  Send the Packet Stream Start Confirm in case of Receptor before
 	 * beginning
 	 *  packet streaming.Serial Handler will take care in sending the
-	 *confirmation
+	 * confirmation
 	 *   over the air to the Host*/
 	if ((node_info.main_state == PER_TEST_RECEPTOR)) {
 		serial_data_handler();
@@ -347,7 +332,7 @@ void pktstream_test(uint16_t gap_time, uint16_t timeout, bool start_stop,
 		}
 	} else {
 		/*stop packet streaming once the current packet transmission is
-		 *completed*/
+		 * completed*/
 		pkt_stream_stop = true;
 		sw_timer_stop(T_APP_TIMER);
 		op_mode = TX_OP_MODE;
@@ -430,6 +415,7 @@ void configure_pkt_stream_frames(uint16_t frame_len)
 	*frame_ptr = (uint8_t)rand();
 
 	/* Set the FCF. */
+
 	/* Reserved frame type so that other apps doesnot receive and process
 	 * this data */
 	fcf |= 0x04 | FCF_SET_SOURCE_ADDR_MODE(FCF_SHORT_ADDR) |
@@ -610,7 +596,7 @@ void start_cw_transmission(uint8_t tx_mode, uint16_t tmr_val)
 		case CW_MODE: /* CW mode*/
 		{
 			/* In CW_MODE the parameter random_content is obsolete.
-			 **/
+			**/
 			tfa_continuous_tx_start(CW_MODE, false);
 		}
 		break;

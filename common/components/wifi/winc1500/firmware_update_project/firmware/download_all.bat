@@ -54,7 +54,7 @@ echo Downloading Gain Values...
 if "%2" == "SAMW25" ( Set GAIN_FILE=-hp ../gain_sheets/samw25_gain_setting.csv
 goto DOWNLOAD_GAIN
 )
-Set GAIN_FILE=-hp ../gain_sheets/default_gain_setting.csv
+Set GAIN_FILE=-hp ../gain_sheets/ATWINC1510-MR210PB.csv
 :DOWNLOAD_GAIN
 gain_builder.exe %GAIN_FILE% -no_wait -port %PORT_NUM%
 IF %ERRORLEVEL% NEQ  0 goto END

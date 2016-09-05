@@ -3,7 +3,7 @@
  *
  * \brief SAM3/SAM4 Sleep manager implementation.
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -60,21 +60,6 @@ extern "C" {
  * \weakgroup sleepmgr_group
  * @{
  */
-#if (SAMG51 || SAMG53 || SAMG54)
-enum sleepmgr_mode {
-	//! Active mode.
-	SLEEPMGR_ACTIVE = 0,
-	/*! Wait mode, wakeup fast (in 3ms).
-	 *  Potential Wake Up sources: fast startup events */
-	SLEEPMGR_WAIT_FAST,
-	/*! Wait mode.
-	 *  Potential Wake Up sources: fast startup events */
-	SLEEPMGR_WAIT,
-
-	SLEEPMGR_NR_OF_MODES,
-};
-
-#else
 enum sleepmgr_mode {
 	//! Active mode.
 	SLEEPMGR_ACTIVE = 0,
@@ -93,12 +78,12 @@ enum sleepmgr_mode {
 	/*! Wait mode.
 	 *  Potential Wake Up sources: fast startup events */
 	SLEEPMGR_WAIT,
+#if (!(SAMG51 || SAMG53 || SAMG54))
 	//! Backup mode. Potential Wake Up sources: WKUPs, SM, RTT, RTC.
 	SLEEPMGR_BACKUP,
-
+#endif
 	SLEEPMGR_NR_OF_MODES,
 };
-#endif
 
 /**
  * \internal

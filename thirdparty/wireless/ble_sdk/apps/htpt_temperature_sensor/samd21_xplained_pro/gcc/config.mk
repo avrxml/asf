@@ -53,6 +53,7 @@ TARGET_SRAM = htpt_temperature_sensor_samd21_xplained_pro_sram.elf
 # List of C source files.
 CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
+       common2/services/delay/sam0/systick_counter.c      \
        sam0/boards/samd21_xplained_pro/board_init.c       \
        sam0/components/sensor/at30tse75x/at30tse75x.c     \
        sam0/drivers/extint/extint_callback.c              \
@@ -76,8 +77,11 @@ CSRCS = \
        sam0/utils/stdio/write.c                           \
        sam0/utils/syscalls/gcc/syscalls.c                 \
        thirdparty/wireless/ble_sdk/apps/htpt_temperature_sensor/htpt_app.c \
+       thirdparty/wireless/ble_sdk/ble_services/ble_mgr/ble_manager.c \
+       thirdparty/wireless/ble_sdk/ble_services/device_infomation/device_info.c \
        thirdparty/wireless/ble_sdk/services/console/sam0/console_serial.c \
        thirdparty/wireless/ble_sdk/services/serial/uart/sam0/serial_drv.c \
+       thirdparty/wireless/ble_sdk/services/serial_fifo/serial_fifo.c \
        thirdparty/wireless/ble_sdk/services/timer/sam0/timer_hw.c \
        thirdparty/wireless/ble_sdk/src/platform.c
 
@@ -89,6 +93,8 @@ INC_PATH = \
        common/boards                                      \
        common/services/serial                             \
        common/utils                                       \
+       common2/services/delay                             \
+       common2/services/delay/sam0                        \
        sam0/boards                                        \
        sam0/boards/samd21_xplained_pro                    \
        sam0/components/sensor/at30tse75x                  \
@@ -119,18 +125,23 @@ INC_PATH = \
        sam0/utils/stdio/stdio_serial                      \
        thirdparty/CMSIS/Include                           \
        thirdparty/CMSIS/Lib/GCC                           \
+       thirdparty/wireless/ble_sdk/apps/config/samd21     \
        thirdparty/wireless/ble_sdk/apps/htpt_temperature_sensor \
        thirdparty/wireless/ble_sdk/apps/htpt_temperature_sensor/samd21_xplained_pro \
+       thirdparty/wireless/ble_sdk/ble_services/ble_mgr   \
+       thirdparty/wireless/ble_sdk/ble_services/device_infomation \
        thirdparty/wireless/ble_sdk/inc                    \
        thirdparty/wireless/ble_sdk/services/console       \
        thirdparty/wireless/ble_sdk/services/serial/uart   \
-       thirdparty/wireless/ble_sdk/services/timer \
+       thirdparty/wireless/ble_sdk/services/serial_fifo   \
+       thirdparty/wireless/ble_sdk/services/timer         \
+       thirdparty/wireless/ble_sdk/utils \
        thirdparty/wireless/ble_sdk/apps/htpt_temperature_sensor/samd21_xplained_pro/gcc
 
 # Additional search paths for libraries.
 LIB_PATH =  \
        thirdparty/CMSIS/Lib/GCC                           \
-       thirdparty/wireless/ble_sdk/lib/samd21/gcc        
+       thirdparty/wireless/ble_sdk/lib/cm0p/gcc          
 
 # List of libraries to use during linking.
 LIBS =  \
@@ -176,10 +187,21 @@ CFLAGS =
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
        -D ARM_MATH_CM0PLUS=true                           \
+       -D AT30TSE_TEMPERATURE_TWI_ADDR=0x48               \
+       -D ATT_DB_MEMORY                                   \
+       -D BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL             \
        -D BOARD=SAMD21_XPLAINED_PRO                       \
+       -D DEVICE_INFORMATION_SERVICE                      \
+       -D ENABLE_POWER_SAVE                               \
        -D EXTINT_CALLBACK_MODE=true                       \
+       -D HTPT_SERVICE                                    \
        -D I2C_MASTER_CALLBACK_MODE=false                  \
+       -D NENABLE_PTS=false                               \
+       -D NEW_EVT_HANDLER                                 \
+       -D SYSTICK_MODE                                    \
        -D TC_ASYNC=true                                   \
+       -D UART_FLOWCONTROL_4WIRE_MODE=false               \
+       -D UART_FLOWCONTROL_6WIRE_MODE=true                \
        -D USART_CALLBACK_MODE=true                        \
        -D __SAMD21J18A__
 

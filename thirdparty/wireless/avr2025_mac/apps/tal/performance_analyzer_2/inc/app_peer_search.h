@@ -211,7 +211,7 @@ void peer_search_initiator_task(trx_id_t trx);
 
 /**
  * \brief Callback that is called once tx is done in peer search initiator
- *state.
+ * state.
  *
  * \param status    Status of the transmission procedure
  * \param frame     Pointer to the transmitted frame structure

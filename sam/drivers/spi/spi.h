@@ -3,7 +3,7 @@
  *
  * \brief Serial Peripheral Interface (SPI) driver for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -503,7 +503,7 @@ void spi_configure_cs_behavior(Spi *p_spi, uint32_t ul_pcs_ch,
 		uint32_t ul_cs_behavior);
 void spi_set_bits_per_transfer(Spi *p_spi, uint32_t ul_pcs_ch, uint32_t ul_bits);
 int16_t spi_calc_baudrate_div(const uint32_t baudrate, uint32_t mck);
-void spi_set_baudrate_div(Spi *p_spi, uint32_t ul_pcs_ch,
+int16_t spi_set_baudrate_div(Spi *p_spi, uint32_t ul_pcs_ch,
 		uint8_t uc_baudrate_divider);
 void spi_set_transfer_delay(Spi *p_spi, uint32_t ul_pcs_ch, uint8_t uc_dlybs,
 		uint8_t uc_dlybct);
@@ -603,7 +603,7 @@ uint32_t spi_get_writeprotect_status(Spi *p_spi);
 
 	       spi_set_bits_per_transfer(p_spi, device->id, CONFIG_SPI_MASTER_BITS_PER_TRANSFER);
 	       spi_set_baudrate_div(p_spi, device->id,
-	                            spi_calc_baudrate_div(baud_rate, sysclk_get_cpu_hz()));
+	                            spi_calc_baudrate_div(baud_rate, sysclk_get_peripheral_hz()));
 
 	       spi_configure_cs_behavior(p_spi, device->id, SPI_CS_KEEP_LOW);
 

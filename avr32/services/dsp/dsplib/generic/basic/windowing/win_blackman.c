@@ -107,10 +107,11 @@ void dsp16_win_black(dsp16_t *vect1, dsp16_t *vect2, int size)
     defined(FORCE_GENERIC_WIN32_BLACK) || \
     !defined(TARGET_SPECIFIC_WIN32_BLACK)
 
+S64 temp64;
+
 void dsp32_win_black(dsp32_t *vect1, dsp32_t *vect2, int size)
 {
   dsp32_t s, t, w;
-  S64 temp64;
   int i;
 
   // Initialization

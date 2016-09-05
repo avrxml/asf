@@ -3,7 +3,7 @@
  *
  * \brief SAM Control Area Network (CAN) Low Level Driver
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -518,6 +518,8 @@ struct can_config {
 	enum can_timeout_mode timeout_mode;
 	/** Timeout enable. */
 	bool timeout_enable;
+	/** Transceiver Delay Compensation enable. */		
+	bool tdc_enable;
 	/** Transmitter Delay Compensation Offset : 0x0-0x7F */
 	uint8_t delay_compensation_offset;
 	/** Transmitter Delay Compensation Filter Window Length : 0x0-0x7F */
@@ -605,6 +607,7 @@ static inline void can_get_config_defaults(
 	config->timeout_period = 0xFFFF;
 	config->timeout_mode = CAN_TIMEOUT_CONTINUES;
 	config->timeout_enable = false;
+	config->tdc_enable = false;
 	config->delay_compensation_offset = 0;
 	config->delay_compensation_filter_window_length = 0;
 	config->nonmatching_frames_action_standard = CAN_NONMATCHING_FRAMES_REJECT;
@@ -630,6 +633,22 @@ static inline void can_get_config_defaults(
  */
 void can_init(struct can_module *const module_inst, Can *hw,
 		struct can_config *config);
+
+/**
+ * \brief Set CAN baudrate.
+ *
+ * \param[in]  hw          Pointer to the CAN module instance
+ * \param[in]  baudrate    CAN baudrate
+ */
+void can_set_baudrate(Can *hw, uint32_t baudrate);
+
+/**
+ * \brief Set CAN_FD baudrate.
+ *
+ * \param[in]  hw          Pointer to the CAN module instance
+ * \param[in]  baudrate    CAN_FD baudrate
+ */
+void can_fd_set_baudrate(Can *hw, uint32_t baudrate);
 
 /**
  * \brief Start CAN module communication.
@@ -842,10 +861,10 @@ static inline void can_rx_clear_buffer_status(
 		struct can_module *const module_inst, uint32_t index)
 {
 	if (index < 32) {
-		module_inst->hw->NDAT1.reg |= (1 << index);
+		module_inst->hw->NDAT1.reg = (1 << index);
 	} else {
 		index -= 32;
-		module_inst->hw->NDAT2.reg |= (1 << index);
+		module_inst->hw->NDAT2.reg = (1 << index);
 	}
 }
 
@@ -917,7 +936,7 @@ static inline void can_get_standard_message_filter_element_default(
  *  \retval STATUS_OK   Set the correct standard message filter.
  *  \retval STATUS_ERR_INVALID_ARG The parameter is not correct.
  */
-enum status_code can_set_rx_standand_filter(
+enum status_code can_set_rx_standard_filter(
 		struct can_module *const module_inst,
 		struct can_standard_message_filter_element *sd_filter, uint32_t index);
 
@@ -1253,9 +1272,9 @@ enum can_interrupt_source {
 	/** Watchdog Interrupt Interrupt Enable. */
 	CAN_WATCHDOG = CAN_IE_WDIE,
 	/** Protocol Error in Arbitration Phase Enable. */
-	CAN_PROTOCAL_ERROR_ARBITRATION = CAN_IE_PEAE,
+	CAN_PROTOCOL_ERROR_ARBITRATION = CAN_IE_PEAE,
 	/** Protocol Error in Data Phase Enable. */
-	CAN_PROTOCAL_ERROR_DATA = CAN_IE_PEDE,
+	CAN_PROTOCOL_ERROR_DATA = CAN_IE_PEDE,
 	/** Access to Reserved Address Enable. */
 	CAN_ACCESS_RESERVED_ADDRESS = CAN_IE_ARAE,
 };

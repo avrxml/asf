@@ -3,7 +3,7 @@
  *
  * \brief SAM True Random Number Generator (TRNG) Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -131,7 +131,7 @@ typedef void (*trng_callback_t)(struct trng_module *const module_inst);
 enum trng_callback {
 	/** Callback for specific number of random data ready */
 	TRNG_CALLBACK_READ_BUFFER = 0,
-	/** Number of available callbacks. */
+	/** Number of available callbacks */
 #if !defined(__DOXYGEN__)
 	TRNG_CALLBACK_N,
 #endif
@@ -149,20 +149,20 @@ enum trng_callback {
  */
 struct trng_module {
 #if !defined(__DOXYGEN__)
-	/** Hardware module pointer of the associated TRNG peripheral. */
+	/** Hardware module pointer of the associated TRNG peripheral */
 	Trng *hw;
 #  if TRNG_CALLBACK_MODE == true
-	/** Array of callbacks. */
+	/** Array of callbacks */
 	trng_callback_t callback[TRNG_CALLBACK_N];
-	/** Bit mask for callbacks registered. */
+	/** Bit mask for callbacks registered */
 	uint8_t register_callback_mask;
-	/** Bit mask for callbacks enabled. */
+	/** Bit mask for callbacks enabled */
 	uint8_t enable_callback_mask;
-	/** Holds the status of the ongoing or last read job. */
+	/** Holds the status of the ongoing or last read job */
 	volatile enum status_code job_status;
-	/** Pointer to buffer used for TRNG results. */
+	/** Pointer to buffer used for TRNG results */
 	volatile uint32_t *job_buffer;
-	/** Remaining number of TRNG results in current job. */
+	/** Remaining number of TRNG results in current job */
 	volatile uint32_t remaining_number;
 #  endif
 #endif
@@ -264,6 +264,11 @@ static inline void trng_disable(
 
 	Trng *const trng_module = module_inst->hw;
 
+	/* Disbale interrupt */
+	trng_module->INTENCLR.reg = TRNG_INTENCLR_MASK;
+	/* Clear interrupt flag */
+	trng_module->INTFLAG.reg = TRNG_INTFLAG_MASK;
+
 	/* Disable TRNG */
 	trng_module->CTRLA.reg &= ~TRNG_CTRLA_ENABLE;
 }
@@ -272,7 +277,7 @@ static inline void trng_disable(
  * \brief Enables a TRNG event output.
  *
  *  Enables output events from the True Random Number Generator
- *  module. See \ref trng_events "here" for a list of events this module
+ *  module. See \ref Section Struct trng_events for a list of events this module
  *  supports.
  *
  *  \note Events cannot be altered while the module is enabled.
@@ -300,8 +305,8 @@ static inline void trng_enable_events(
  * \brief Disables a TRNG event output.
  *
  *  Disables output events from the True Random Number Generator
- *  module. See \ref trng_events "here" for a list of events this module
- *  supports.
+ *  module. See \ref Section Struct trng_events for a list of events
+ *  this module supports.
  *
  *  \note Events cannot be altered while the module is enabled.
  *
@@ -375,8 +380,6 @@ static inline enum status_code trng_read(
  * \page asfdoc_sam0_trng_extra Extra Information for TRNG Driver
  *
  * \section asfdoc_sam0_trng_extra_acronyms Acronyms
- * Below is a table listing the acronyms used in this module, along with their
- * intended meanings.
  *
  * <table>
  *	<tr>
@@ -438,7 +441,7 @@ static inline enum status_code trng_read(
  *	</tr>
  *	<tr>
  *		<td>42444B</td>
- *		<td>08/2015</td>
+ *		<td>01/2016</td>
  *		<td>Added support for SAM L22</td>
  *	</tr>
  *	<tr>

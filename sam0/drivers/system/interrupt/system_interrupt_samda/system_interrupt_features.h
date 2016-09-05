@@ -82,7 +82,7 @@
  */
 #if defined(__DOXYGEN__)
 /** \note The actual enumeration name is "system_interrupt_vector". */
-enum system_interrupt_vector_samdax {
+enum system_interrupt_vector_samda1 {
 #else
 enum system_interrupt_vector {
 #endif

@@ -173,7 +173,7 @@ void configure_dma_resource(struct dma_resource *resource)
 #else
 	config.peripheral_trigger = ADC_DMAC_ID_RESRDY;
 #endif
-	config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
+	config.trigger_action = DMA_TRIGGER_ACTION_BEAT;
 //! [setup_dma_set_config_extra]
 
 //! [allocate_dma_resource]

@@ -644,7 +644,7 @@ enum adp_dashboard_element_type {
 	uint16_t  y;            \
 	uint16_t  width;        \
 	uint16_t  height;       \
-	enum adp_dashboard_element_type element_type; 
+	enum adp_dashboard_element_type element_type 
 
 SHORTENUM struct adp_msg_conf_dashboard_element_common {
 	/* Dashboard ID */
@@ -938,6 +938,6 @@ bool adp_transceive_single_stream(uint16_t stream_id, uint8_t* data, uint8_t dat
 
 /* Init SPI/TWI interface used. And some other misc init */
 void adp_init(void);
-volatile uint16_t adp_add_send_byte(uint8_t* buffer, uint8_t index, uint8_t* data, uint16_t length);
+uint16_t adp_add_send_byte(uint8_t* buffer, uint8_t index, uint8_t* data, uint16_t length);
 
 #endif

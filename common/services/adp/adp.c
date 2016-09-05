@@ -64,7 +64,7 @@ static uint16_t length_received;
 /** Current state */
 static enum rx_state_e rx_state;
 
-volatile uint16_t adp_add_send_byte(uint8_t* buffer, uint8_t index, uint8_t* data, uint16_t length)
+uint16_t adp_add_send_byte(uint8_t* buffer, uint8_t index, uint8_t* data, uint16_t length)
 {
 	for(uint16_t i = 0; i < length; i++) {
 		if (*(data + i) == ADP_TOKEN){
@@ -272,8 +272,8 @@ static bool adp_request_handshake(uint8_t protocol_version, uint8_t options, uin
 	msg_format.protocol_msg_id = MSG_REQ_HANDSHAKE;
 	msg_format.data_length = MSQ_REQ_HANDSHAKE_LEN;
 	
-	msg_request_handshake.protocol_version = ADP_VERSION;
-	msg_request_handshake.options = ADP_HANDSHAKE_OPTIONS_GPIO;
+	msg_request_handshake.protocol_version = protocol_version;
+	msg_request_handshake.options = options;
 	memcpy(&msg_request_handshake.key, key, 8);
 	memcpy((uint8_t*)&msg_format.data, &msg_request_handshake, sizeof(msg_request_handshake));
 	/* Send the protocol packet data */
@@ -295,7 +295,7 @@ enum adp_handshake_status adp_wait_for_handshake(void)
 	uint8_t handshake_status;
 
 	/* Keep sending handshake until we get something back */
-	while (adp_request_handshake(ADP_VERSION, 0, &handshake_status) == false) {
+	while (adp_request_handshake(ADP_VERSION, ADP_HANDSHAKE_OPTIONS_GPIO, &handshake_status) == false) {
 	}
 
 	/* Return status */

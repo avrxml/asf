@@ -47,7 +47,7 @@
 /**
  * \page asfdoc_sam0_tc_timer_use_case Quick Start Guide for TC - Timer
  *
- * In this use case, the TC  will be used as a timer, to generate overflow and
+ * In this use case, the TC will be used as a timer to generate overflow and
  * compare match callbacks. In the callbacks the on-board LED is toggled.
  *
  * The TC module will be set up as follows:

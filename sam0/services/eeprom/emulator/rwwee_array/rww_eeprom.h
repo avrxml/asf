@@ -78,7 +78,7 @@
  *
  * \section asfdoc_sam0_rww_eeprom_module_overview Module Overview
  *
- * SAM device embeds a separate read while write EEPROM emulation (RWWEE) array
+ * SAM devices embeds a separate read while write EEPROM emulation (RWWEE) array
  * that can be programmed while the main array is not blocked.
  * To use RWWEE memory, data must be written as a number of physical memory pages
  * (of several bytes each) rather than being individually byte addressable, and
@@ -87,7 +87,7 @@
  * emulation scheme is implemented to present a more user-friendly API for
  * data storage and retrieval.
  *
- * This module provides a RWW EEPROM emulation layer on top of the device's
+ * This module provides an RWW EEPROM emulation layer on top of the device's
  * internal NVM controller, to provide a standard interface for the reading and
  * writing of non-volatile configuration data. This data is placed into the
  * RWW EEPROM emulated section. Emulated EEPROM is exempt from the usual device
@@ -266,7 +266,7 @@
  * \anchor asfdoc_sam0_rww_eeprom_init_layout
  * \image html init_layout.svg "Initial Physical Layout of the Emulated RWW EEPROM Memory"
  *
- * When a RWW EEPROM page needs to be committed to physical memory, the next free
+ * When an RWW EEPROM page needs to be committed to physical memory, the next free
  * page in the same row will be chosen. This makes recovery simple, as the
  * right-most version of a logical page in a row is considered the most current.
  * With four pages to a physical NVM row, this allows for up to four updates to
@@ -331,7 +331,7 @@
  *
  * \subsection asfdoc_sam0_rww_eeprom_special_considerations_checksum RWW EEPROM Page Checksum
  * For each page, a checksum function is used to verify the integrity of
- * the page data. After reading the page data using 
+ * the page data. When reading the page data, using 
  * \ref rww_eeprom_emulator_read_page(). When its checksum is not correct, an error can be
  * detected. This function can be enabled or disabled through the configuration file.
  *
@@ -472,8 +472,6 @@ enum status_code rww_eeprom_emulator_read_buffer(
  * \page asfdoc_sam0_rww_eeprom_extra Extra Information
  *
  * \section asfdoc_sam0_rww_eeprom_extra_acronyms Acronyms
- * Below is a table listing the acronyms used in this module, along with their
- * intended meanings.
  *
  * <table>
  *	<tr>
@@ -546,8 +544,8 @@ enum status_code rww_eeprom_emulator_read_buffer(
  *	</tr>
  *	<tr>
  *		<td>42447B</td>
- *		<td>08/2015</td>
- *		<td>Added support for SAM L22, SAM DA1 and SAM C20/C21</td>
+ *		<td>02/2016</td>
+ *		<td>Added support for SAM L22, SAM DA1, and SAM C20/C21</td>
  *	</tr>
  *	<tr>
  *		<td>42447A</td>

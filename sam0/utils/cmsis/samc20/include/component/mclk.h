@@ -3,7 +3,7 @@
  *
  * \brief Component description for MCLK
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -153,8 +153,7 @@ typedef union {
     uint32_t NVMCTRL_:1;       /*!< bit:      5  NVMCTRL AHB Clock Mask             */
     uint32_t HMCRAMCHS_:1;     /*!< bit:      6  HMCRAMCHS AHB Clock Mask           */
     uint32_t DMAC_:1;          /*!< bit:      7  DMAC AHB Clock Mask                */
-    uint32_t CAN0_:1;          /*!< bit:      8  CAN0 AHB Clock Mask                */
-    uint32_t CAN1_:1;          /*!< bit:      9  CAN1 AHB Clock Mask                */
+    uint32_t :2;               /*!< bit:  8.. 9  Reserved                           */
     uint32_t PAC_:1;           /*!< bit:     10  PAC AHB Clock Mask                 */
     uint32_t NVMCTRL_PICACHU_:1; /*!< bit:     11  NVMCTRL_PICACHU AHB Clock Mask     */
     uint32_t DIVAS_:1;         /*!< bit:     12  DIVAS AHB Clock Mask               */
@@ -183,17 +182,13 @@ typedef union {
 #define MCLK_AHBMASK_HMCRAMCHS      (0x1ul << MCLK_AHBMASK_HMCRAMCHS_Pos)
 #define MCLK_AHBMASK_DMAC_Pos       7            /**< \brief (MCLK_AHBMASK) DMAC AHB Clock Mask */
 #define MCLK_AHBMASK_DMAC           (0x1ul << MCLK_AHBMASK_DMAC_Pos)
-#define MCLK_AHBMASK_CAN0_Pos       8            /**< \brief (MCLK_AHBMASK) CAN0 AHB Clock Mask */
-#define MCLK_AHBMASK_CAN0           (0x1ul << MCLK_AHBMASK_CAN0_Pos)
-#define MCLK_AHBMASK_CAN1_Pos       9            /**< \brief (MCLK_AHBMASK) CAN1 AHB Clock Mask */
-#define MCLK_AHBMASK_CAN1           (0x1ul << MCLK_AHBMASK_CAN1_Pos)
 #define MCLK_AHBMASK_PAC_Pos        10           /**< \brief (MCLK_AHBMASK) PAC AHB Clock Mask */
 #define MCLK_AHBMASK_PAC            (0x1ul << MCLK_AHBMASK_PAC_Pos)
 #define MCLK_AHBMASK_NVMCTRL_PICACHU_Pos 11           /**< \brief (MCLK_AHBMASK) NVMCTRL_PICACHU AHB Clock Mask */
 #define MCLK_AHBMASK_NVMCTRL_PICACHU (0x1ul << MCLK_AHBMASK_NVMCTRL_PICACHU_Pos)
 #define MCLK_AHBMASK_DIVAS_Pos      12           /**< \brief (MCLK_AHBMASK) DIVAS AHB Clock Mask */
 #define MCLK_AHBMASK_DIVAS          (0x1ul << MCLK_AHBMASK_DIVAS_Pos)
-#define MCLK_AHBMASK_MASK           0x00001FFFul /**< \brief (MCLK_AHBMASK) MASK Register */
+#define MCLK_AHBMASK_MASK           0x00001CFFul /**< \brief (MCLK_AHBMASK) MASK Register */
 
 /* -------- MCLK_APBAMASK : (MCLK Offset: 0x14) (R/W 32) APBA Mask -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -211,8 +206,7 @@ typedef union {
     uint32_t RTC_:1;           /*!< bit:      9  RTC APB Clock Enable               */
     uint32_t EIC_:1;           /*!< bit:     10  EIC APB Clock Enable               */
     uint32_t FREQM_:1;         /*!< bit:     11  FREQM APB Clock Enable             */
-    uint32_t TSENS_:1;         /*!< bit:     12  TSENS APB Clock Enable             */
-    uint32_t :19;              /*!< bit: 13..31  Reserved                           */
+    uint32_t :20;              /*!< bit: 12..31  Reserved                           */
   } bit;                       /*!< Structure used for bit  access                  */
   uint32_t reg;                /*!< Type      used for register access              */
 } MCLK_APBAMASK_Type;
@@ -245,9 +239,7 @@ typedef union {
 #define MCLK_APBAMASK_EIC           (0x1ul << MCLK_APBAMASK_EIC_Pos)
 #define MCLK_APBAMASK_FREQM_Pos     11           /**< \brief (MCLK_APBAMASK) FREQM APB Clock Enable */
 #define MCLK_APBAMASK_FREQM         (0x1ul << MCLK_APBAMASK_FREQM_Pos)
-#define MCLK_APBAMASK_TSENS_Pos     12           /**< \brief (MCLK_APBAMASK) TSENS APB Clock Enable */
-#define MCLK_APBAMASK_TSENS         (0x1ul << MCLK_APBAMASK_TSENS_Pos)
-#define MCLK_APBAMASK_MASK          0x00001FFFul /**< \brief (MCLK_APBAMASK) MASK Register */
+#define MCLK_APBAMASK_MASK          0x00000FFFul /**< \brief (MCLK_APBAMASK) MASK Register */
 
 /* -------- MCLK_APBBMASK : (MCLK Offset: 0x18) (R/W 32) APBB Mask -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -286,9 +278,7 @@ typedef union {
     uint32_t SERCOM1_:1;       /*!< bit:      2  SERCOM1 APB Clock Enable           */
     uint32_t SERCOM2_:1;       /*!< bit:      3  SERCOM2 APB Clock Enable           */
     uint32_t SERCOM3_:1;       /*!< bit:      4  SERCOM3 APB Clock Enable           */
-    uint32_t SERCOM4_:1;       /*!< bit:      5  SERCOM4 APB Clock Enable           */
-    uint32_t SERCOM5_:1;       /*!< bit:      6  SERCOM5 APB Clock Enable           */
-    uint32_t :2;               /*!< bit:  7.. 8  Reserved                           */
+    uint32_t :4;               /*!< bit:  5.. 8  Reserved                           */
     uint32_t TCC0_:1;          /*!< bit:      9  TCC0 APB Clock Enable              */
     uint32_t TCC1_:1;          /*!< bit:     10  TCC1 APB Clock Enable              */
     uint32_t TCC2_:1;          /*!< bit:     11  TCC2 APB Clock Enable              */
@@ -298,10 +288,9 @@ typedef union {
     uint32_t TC3_:1;           /*!< bit:     15  TC3 APB Clock Enable               */
     uint32_t TC4_:1;           /*!< bit:     16  TC4 APB Clock Enable               */
     uint32_t ADC0_:1;          /*!< bit:     17  ADC0 APB Clock Enable              */
-    uint32_t ADC1_:1;          /*!< bit:     18  ADC1 APB Clock Enable              */
-    uint32_t SDADC_:1;         /*!< bit:     19  SDADC APB Clock Enable             */
+    uint32_t :2;               /*!< bit: 18..19  Reserved                           */
     uint32_t AC_:1;            /*!< bit:     20  AC APB Clock Enable                */
-    uint32_t DAC_:1;           /*!< bit:     21  DAC APB Clock Enable               */
+    uint32_t :1;               /*!< bit:     21  Reserved                           */
     uint32_t PTC_:1;           /*!< bit:     22  PTC APB Clock Enable               */
     uint32_t CCL_:1;           /*!< bit:     23  CCL APB Clock Enable               */
     uint32_t TAL_:1;           /*!< bit:     24  TAL APB Clock Enable               */
@@ -324,10 +313,6 @@ typedef union {
 #define MCLK_APBCMASK_SERCOM2       (0x1ul << MCLK_APBCMASK_SERCOM2_Pos)
 #define MCLK_APBCMASK_SERCOM3_Pos   4            /**< \brief (MCLK_APBCMASK) SERCOM3 APB Clock Enable */
 #define MCLK_APBCMASK_SERCOM3       (0x1ul << MCLK_APBCMASK_SERCOM3_Pos)
-#define MCLK_APBCMASK_SERCOM4_Pos   5            /**< \brief (MCLK_APBCMASK) SERCOM4 APB Clock Enable */
-#define MCLK_APBCMASK_SERCOM4       (0x1ul << MCLK_APBCMASK_SERCOM4_Pos)
-#define MCLK_APBCMASK_SERCOM5_Pos   6            /**< \brief (MCLK_APBCMASK) SERCOM5 APB Clock Enable */
-#define MCLK_APBCMASK_SERCOM5       (0x1ul << MCLK_APBCMASK_SERCOM5_Pos)
 #define MCLK_APBCMASK_TCC0_Pos      9            /**< \brief (MCLK_APBCMASK) TCC0 APB Clock Enable */
 #define MCLK_APBCMASK_TCC0          (0x1ul << MCLK_APBCMASK_TCC0_Pos)
 #define MCLK_APBCMASK_TCC1_Pos      10           /**< \brief (MCLK_APBCMASK) TCC1 APB Clock Enable */
@@ -346,21 +331,15 @@ typedef union {
 #define MCLK_APBCMASK_TC4           (0x1ul << MCLK_APBCMASK_TC4_Pos)
 #define MCLK_APBCMASK_ADC0_Pos      17           /**< \brief (MCLK_APBCMASK) ADC0 APB Clock Enable */
 #define MCLK_APBCMASK_ADC0          (0x1ul << MCLK_APBCMASK_ADC0_Pos)
-#define MCLK_APBCMASK_ADC1_Pos      18           /**< \brief (MCLK_APBCMASK) ADC1 APB Clock Enable */
-#define MCLK_APBCMASK_ADC1          (0x1ul << MCLK_APBCMASK_ADC1_Pos)
-#define MCLK_APBCMASK_SDADC_Pos     19           /**< \brief (MCLK_APBCMASK) SDADC APB Clock Enable */
-#define MCLK_APBCMASK_SDADC         (0x1ul << MCLK_APBCMASK_SDADC_Pos)
 #define MCLK_APBCMASK_AC_Pos        20           /**< \brief (MCLK_APBCMASK) AC APB Clock Enable */
 #define MCLK_APBCMASK_AC            (0x1ul << MCLK_APBCMASK_AC_Pos)
-#define MCLK_APBCMASK_DAC_Pos       21           /**< \brief (MCLK_APBCMASK) DAC APB Clock Enable */
-#define MCLK_APBCMASK_DAC           (0x1ul << MCLK_APBCMASK_DAC_Pos)
 #define MCLK_APBCMASK_PTC_Pos       22           /**< \brief (MCLK_APBCMASK) PTC APB Clock Enable */
 #define MCLK_APBCMASK_PTC           (0x1ul << MCLK_APBCMASK_PTC_Pos)
 #define MCLK_APBCMASK_CCL_Pos       23           /**< \brief (MCLK_APBCMASK) CCL APB Clock Enable */
 #define MCLK_APBCMASK_CCL           (0x1ul << MCLK_APBCMASK_CCL_Pos)
 #define MCLK_APBCMASK_TAL_Pos       24           /**< \brief (MCLK_APBCMASK) TAL APB Clock Enable */
 #define MCLK_APBCMASK_TAL           (0x1ul << MCLK_APBCMASK_TAL_Pos)
-#define MCLK_APBCMASK_MASK          0x01FFFE7Ful /**< \brief (MCLK_APBCMASK) MASK Register */
+#define MCLK_APBCMASK_MASK          0x01D3FE1Ful /**< \brief (MCLK_APBCMASK) MASK Register */
 
 /** \brief MCLK hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))

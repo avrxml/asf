@@ -166,7 +166,7 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 					<state>__SAMD11D14AM__</state>
@@ -471,7 +471,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 					<state>__SAMD11D14AM__</state>
@@ -1135,7 +1135,7 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 					<state>__SAMD11D14AM__</state>
@@ -1440,7 +1440,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 					<state>__SAMD11D14AM__</state>
@@ -2025,9 +2025,6 @@
 			</group>
 			<group>
 				<name>events</name>
-				<file>
-					<name>$PROJ_DIR$/../../../events_hooks.c</name>
-				</file>
 				<group>
 					<name>quick_start</name>
 					<file>
@@ -2059,9 +2056,6 @@
 					</file>
 				</group>
 				<file>
-					<name>$PROJ_DIR$/../../../events_hooks.h</name>
-				</file>
-				<file>
 					<name>$PROJ_DIR$/../../../events.h</name>
 				</file>
 				<file>
@@ -2082,18 +2076,6 @@
 						<name>$PROJ_DIR$/../../../../port/quick_start/qs_port_basic.h</name>
 					</file>
 				</group>
-			</group>
-		</group>
-		<group>
-			<name>boards</name>
-			<group>
-				<name>samd11_xplained_pro</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro/board_init.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro/samd11_xplained_pro.h</name>
-				</file>
 			</group>
 		</group>
 		<group>
@@ -2269,6 +2251,9 @@
 						<group>
 							<name>pio</name>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/pio/samd11d14au.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/pio/samd11d14am.h</name>
 							</file>
 							<file>
@@ -2283,6 +2268,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11d14as.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11d14au.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11c14a.h</name>
@@ -2321,6 +2309,18 @@
 				<name>header_files</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../utils/header_files/io.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
+			<name>boards</name>
+			<group>
+				<name>samd11_xplained_pro</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro/board_init.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro/samd11_xplained_pro.h</name>
 				</file>
 			</group>
 		</group>

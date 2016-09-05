@@ -168,8 +168,8 @@
 					<name>CCDefines</name>
 					<state>BOARD=SAML22_XPLAINED_PRO</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
 					<state>__SAML22N18A__</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -473,8 +473,8 @@
 					<name>ADefines</name>
 					<state>BOARD=SAML22_XPLAINED_PRO</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
 					<state>__SAML22N18A__</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1137,8 +1137,8 @@
 					<name>CCDefines</name>
 					<state>BOARD=SAML22_XPLAINED_PRO</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
 					<state>__SAML22N18A__</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1442,8 +1442,8 @@
 					<name>ADefines</name>
 					<state>BOARD=SAML22_XPLAINED_PRO</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
 					<state>__SAML22N18A__</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -2055,12 +2055,6 @@
 						</file>
 					</group>
 				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../events_hooks.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../events_hooks.h</name>
-				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../events_common.h</name>
 				</file>

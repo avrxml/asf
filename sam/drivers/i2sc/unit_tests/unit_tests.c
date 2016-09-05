@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for I2S driver.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -212,7 +212,7 @@ static void run_i2s_test(const struct test_case *test)
 	 * need adjust here the enable sequence and add some delay
 	 * functions if it's needed.
 	 */
-	for (i = 0; i < 0x4; i++) {
+	for (i = 0; i < 0x8; i++) {
 		input_samples_left[i] = i;
 	}
 
@@ -255,8 +255,12 @@ int main(void)
 	board_init();
 
 	const usart_serial_options_t usart_serial_options = {
-		.baudrate = CONF_TEST_BAUDRATE,
-		.paritytype = CONF_TEST_PARITY,
+		.baudrate = CONF_UART_BAUDRATE,
+		.paritytype = CONF_UART_PARITY,
+#if SAMG55
+		.charlength = CONF_UART_CHAR_LENGTH,
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
 	};
 
 	stdio_serial_init(CONF_TEST_USART, &usart_serial_options);

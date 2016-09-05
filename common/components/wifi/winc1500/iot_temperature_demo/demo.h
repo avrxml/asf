@@ -4,7 +4,7 @@
  *
  * \brief IoT Temperature Sensor Demo.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -22,9 +22,6 @@
  *
  * 3. The name of Atmel may not be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
  *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -71,8 +68,11 @@ extern "C" {
 #define DEMO_WLAN_AP_WEP_KEY				"1234567890"			// Wep key.
 #define DEMO_WLAN_AP_SECURITY				M2M_WIFI_SEC_OPEN		// Security mode.
 #define DEMO_WLAN_AP_MODE					0						// Visible.
-
+#if SAME70
+#define CREDENTIAL_ENTRY_BUTTON				PIO_PA11_IDX
+#elif SAMD21
 #define CREDENTIAL_ENTRY_BUTTON				PIN_PA15
+#endif
 
 void demo_start(void);
 

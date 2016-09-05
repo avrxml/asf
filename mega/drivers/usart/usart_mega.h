@@ -6,7 +6,7 @@
  * This file contains basic functions for the AVR MEGA USART, with support for
  * all modes, settings and clock speeds.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -97,13 +97,21 @@ typedef struct USART_struct {
 	register8_t UCSRnA;  /* Control Register A */
 	register8_t UCSRnB;  /* Control Register B */
 	register8_t UCSRnC;  /* Control Register C */
+#if AVR8_PART_IS_DEFINED(ATmega324PB)
+	register8_t UCSRnD;  /* Control Register D */
+#else
 	register8_t reserved;
+#endif
 	register16_t UBRR;  /* Baud Rate Register Value */
 	register8_t UDR;  /* I/O Data Register */
 } USART_t;
 
 #define USART0    (*(USART_t *)0xC0)   /* Universal Asynchronous
 	                                 * Receiver-Transmitter A0 */
+#if AVR8_PART_IS_DEFINED(ATmega324PB)
+#define USART1    (*(USART_t *)0xC8)   /* Universal Asynchronous
+	                                 * Receiver-Transmitter A1 */
+#endif
 
 /* USART.UCSRxA  bit masks and bit positions */
 #define USART_RXC_bm  0x80 /* RX complete bit mask.*/

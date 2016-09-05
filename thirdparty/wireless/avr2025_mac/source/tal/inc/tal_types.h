@@ -60,12 +60,9 @@
 #define AT86RF212B              (0x22)
 #define AT86RF232               (0x12)
 #define AT86RF233               (0x13)
-#define AT86RF215LT             (0x14)
-#define AT86RF215               (0x15)
-#define AT86RF234               (0x16)
+#define AT86RF215               (0x14)
 /* TAL Type for Mega RF single chips, e.g. ATMEGA128RFA1 */
 #define ATMEGARFA1              (0x51)
-#define ATMEGARFA2              (0x52)
 #define ATMEGARFR2              (0x53)
 
 /* === PROTOTYPES ========================================================== */

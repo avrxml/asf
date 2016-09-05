@@ -89,6 +89,13 @@ bool frame_buf_filled[NUM_TRX];
 
 static void handle_ifs(trx_id_t trx_id);
 
+#ifdef MEASURE_TIME_OF_FLIGHT
+#   ifdef SUPPORT_LEGACY_OQPSK
+static uint32_t calc_tof(trx_id_t trx_id);
+
+#   endif  /* SUPPORT_LEGACY_OQPSK */
+#endif  /* #ifdef MEASURE_TIME_OF_FLIGHT */
+
 /* === IMPLEMENTATION ====================================================== */
 
 /**
@@ -99,10 +106,10 @@ static void handle_ifs(trx_id_t trx_id);
  *
  * @param trx_id Transceiver identifier
  * @param tx_frame Pointer to the frame_info_t structure updated by the MAC
- *layer
+ * layer
  * @param csma_mode Indicates mode of csma-ca to be performed for this frame
  * @param perform_frame_retry Indicates whether to retries are to be performed
- *for
+ * for
  *                            this frame
  *
  * @return
@@ -116,6 +123,8 @@ static void handle_ifs(trx_id_t trx_id);
 retval_t tal_tx_frame(trx_id_t trx_id, frame_info_t *tx_frame,
 		csma_mode_t csma_mode, bool perform_frame_retry)
 {
+	Assert((trx_id >= 0) && (trx_id < NUM_TRX));
+
 	if (tal_state[trx_id] == TAL_SLEEP) {
 		return TAL_TRX_ASLEEP;
 	}
@@ -156,6 +165,7 @@ retval_t tal_tx_frame(trx_id_t trx_id, frame_info_t *tx_frame,
 	tal_state[trx_id] = TAL_TX;
 	frame_buf_filled[trx_id] = false;
 	global_csma_mode[trx_id] = csma_mode;
+	tal_pib[trx_id].NumRxFramesDuringBackoff = 0;
 
 	/* Check if ACK is requested. */
 	if (*mac_frame_ptr[trx_id]->mpdu & FCF_ACK_REQUEST) {
@@ -173,9 +183,6 @@ retval_t tal_tx_frame(trx_id_t trx_id, frame_info_t *tx_frame,
 #endif
 
 	if (csma_mode == CSMA_UNSLOTTED) {
-#ifdef RX_WHILE_BACKOFF
-		tal_pib[trx_id].NumRxFramesDuringBackoff = 0;
-#endif
 		csma_start(trx_id);
 	} else { /* csma_mode == NO_CSMA_NO_IFS or NO_CSMA_WITH_IFS */
 		if (csma_mode == NO_CSMA_WITH_IFS) {
@@ -204,6 +211,8 @@ retval_t tal_tx_frame(trx_id_t trx_id, frame_info_t *tx_frame,
  */
 void transmit_frame(trx_id_t trx_id, cca_use_t cca)
 {
+	cancel_any_reception(trx_id);
+
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 
 	/* Configure auto modes */
@@ -216,11 +225,12 @@ void transmit_frame(trx_id_t trx_id, cca_use_t cca)
 		/* Enable Tx2RX */
 		amcs |= AMCS_TX2RX_MASK;
 		/* Configure frame filter to receive only ACK frames */
-		trx_reg_write(reg_offset + RG_BBC0_AFFTM, ACK_FRAME_TYPE_ONLY);
+		trx_reg_write(  reg_offset + RG_BBC0_AFFTM,
+				ACK_FRAME_TYPE_ONLY);
 	}
 
 	/* Other auto mode settings can be set to 0 */
-	trx_reg_write(reg_offset + RG_BBC0_AMCS, amcs);
+	trx_reg_write( reg_offset + RG_BBC0_AMCS, amcs);
 
 	if (frame_buf_filled[trx_id] == false) {
 		/* fill length field */
@@ -240,34 +250,19 @@ void transmit_frame(trx_id_t trx_id, cca_use_t cca)
 		/* Disable BB; it will enabled for transmission automatically
 		 *again */
 		trx_bit_write(reg_offset + SR_BBC0_PC_BBEN, 0);
-
-		/* Ensure to reach the correct trx state */
-		if (trx_state[trx_id] == RF_TRXOFF) {
-			switch_to_txprep(trx_id);
-		}
-
-		if (trx_state[trx_id] != RF_RX) {
-			switch_to_rx(trx_id);
-			pal_timer_delay(tal_pib[trx_id].agc_settle_dur); /*
-			                                                  * allow
-			                                                  * filters
-			                                                  * to
-			                                                  * settle */
-		}
-
-		/* Disable TRXRDY during CCA */
-		trx_bit_write(reg_offset + SR_RF09_IRQM_TRXRDY, 0);
+		trx_reg_write( reg_offset + RG_RF09_CMD, RF_RX);
+		trx_state[trx_id] = RF_RX;
+		pal_timer_delay(tal_pib[trx_id].agc_settle_dur); /* allow
+		                                                  * filters to
+		                                                  * settle */
 
 		/* Start single ED measurement; use reg_write - it's the only
 		 *sub-register */
-		trx_reg_write(reg_offset + RG_RF09_EDC, RF_EDSINGLE);
+		trx_reg_write( reg_offset + RG_RF09_EDC, RF_EDSINGLE);
 		tx_state[trx_id] = TX_CCATX;
 	} else { /* no CCA */
-		if (trx_state[trx_id] != RF_TXPREP) {
-			switch_to_txprep(trx_id);
-		}
-
-		trx_reg_write(reg_offset + RG_RF09_CMD, RF_TX);
+		/*("switch to Tx")*/
+		trx_reg_write( reg_offset + RG_RF09_CMD, RF_TX);
 		trx_state[trx_id] = RF_TX;
 		tx_state[trx_id] = TX_TX;
 	}
@@ -280,7 +275,7 @@ void transmit_frame(trx_id_t trx_id, cca_use_t cca)
 	if (frame_buf_filled[trx_id] == false) {
 		/* fill frame buffer; do not provide FCS values */
 		uint16_t tx_frm_buf_offset = BB_TX_FRM_BUF_OFFSET * trx_id;
-		trx_write(tx_frm_buf_offset + RG_BBC0_FBTXS,
+		trx_write( tx_frm_buf_offset + RG_BBC0_FBTXS,
 				(uint8_t *)mac_frame_ptr[trx_id]->mpdu,
 				mac_frame_ptr[trx_id]->len_no_crc);
 
@@ -288,7 +283,7 @@ void transmit_frame(trx_id_t trx_id, cca_use_t cca)
 		bool underrun = trx_bit_read(reg_offset + SR_BBC0_PS_TXUR);
 		if (underrun) {
 			/* Abort ongoing transmission */
-			trx_reg_write(reg_offset + RG_RF09_CMD, RF_TRXOFF);
+			trx_reg_write( reg_offset + RG_RF09_CMD, RF_TRXOFF);
 			trx_state[trx_id] = RF_TRXOFF;
 
 			/* Enable BB again and TXAFCS */
@@ -304,12 +299,14 @@ void transmit_frame(trx_id_t trx_id, cca_use_t cca)
 		} else {
 			/* Enable automatic FCS appending for remaining frame or
 			 *later ACK transmission */
+#ifdef RF215v1
 			uint16_t reg_pc = reg_offset + RG_BBC0_PC;
-			uint8_t pc = trx_reg_read(reg_pc);
+			uint8_t pc = trx_reg_read( reg_pc);
 			pc |= PC_TXAFCS_MASK;
-			trx_reg_write(reg_pc, pc);
+			trx_reg_write( reg_pc, pc);
 			if (cca == WITH_CCA) {
-				rf_cmd_state_t state = trx_reg_read(
+				rf_cmd_state_t state
+					= (rf_cmd_state_t)trx_reg_read(
 						reg_offset + RG_RF09_STATE);
 				if (state != RF_RX) {
 					pc |= PC_BBEN_MASK;
@@ -317,6 +314,9 @@ void transmit_frame(trx_id_t trx_id, cca_use_t cca)
 				}
 			}
 
+#else
+			trx_bit_write( reg_offset + SR_BBC0_PC_TXAFCS, 1);
+#endif
 			frame_buf_filled[trx_id] = true;
 		}
 	}
@@ -329,13 +329,20 @@ void transmit_frame(trx_id_t trx_id, cca_use_t cca)
  */
 void handle_tx_end_irq(trx_id_t trx_id)
 {
+	/* ACK transmission completed */
+	if (ack_transmitting[trx_id]) {
+		ack_transmission_done(trx_id);
+		return;
+	}
+
 	switch (tx_state[trx_id]) {
 	case TX_CCATX:
 	{
 		/* Check channel */
 		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
-		uint8_t ccaed = trx_bit_read(reg_offset + SR_BBC0_AMCS_CCAED);
+		uint8_t ccaed = trx_bit_read( reg_offset + SR_BBC0_AMCS_CCAED);
 		if (ccaed == BB_CH_CLEAR) {
+			/* Channel idle and frame has been sent */
 #ifdef MEASURE_ON_AIR_DURATION
 			tal_pib[trx_id].OnAirDuration
 				+= pal_sub_time_us(rxe_txe_tstamp[trx_id],
@@ -345,10 +352,10 @@ void handle_tx_end_irq(trx_id_t trx_id)
 			/* @ToDo: Minus processing delay */
 #endif
 			/* Start ACK wait timer - see below */
-		} else {
+		} else { /* channel busy */
 			/* Switch BB on again */
 			trx_bit_write(reg_offset + SR_BBC0_PC_BBEN, 1);
-			trx_state[trx_id] = RF_RX;
+			switch_to_txprep(trx_id);
 			csma_continue(trx_id);
 			return;
 		}
@@ -363,16 +370,6 @@ void handle_tx_end_irq(trx_id_t trx_id)
 		/* @ToDo: Minus processing delay */
 #endif
 		/* Start ACK wait timer - see below */
-		break;
-
-#ifdef RX_WHILE_BACKOFF
-	case TX_DEFER: /* Fall through */
-#endif
-	case TX_IDLE: /* receive transaction -> ACK transmission */
-		/* ACK transmission completed */
-		ack_transmission_done(trx_id);
-		return;
-
 		break;
 
 #ifdef SUPPORT_MODE_SWITCH
@@ -400,9 +397,7 @@ void handle_tx_end_irq(trx_id_t trx_id)
 #endif
 
 	default:
-#if (_DEBUG_ > 0) && (defined SIO_HUB)
-		printf("Unexpected tx_state 0x%02X\n", tx_state[trx_id]);
-#endif
+		Assert("Unexpected tx_state" == 0);
 		break;
 	}
 
@@ -461,7 +456,8 @@ void tx_done_handling(trx_id_t trx_id, retval_t status)
 
 			return; /* next tx attempt and no tx done cb */
 		}
-	} else { /* status == CHANNEL_ACCESS_FAILURE or FAILURE */
+	} else { /* status == CHANNEL_ACCESS_FAILURE or FAILURE or
+	          * TAL_FRAME_PENDING */
 		/* do nothing */
 	}
 
@@ -476,31 +472,46 @@ void tx_done_handling(trx_id_t trx_id, retval_t status)
 	mac_frame_ptr[trx_id]->time_stamp = fs_tstamp[trx_id];
 #endif
 
-	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 #ifdef MEASURE_TIME_OF_FLIGHT
+#   ifdef SUPPORT_LEGACY_OQPSK
+	/* ToF only supported for Legacy-OQPSK */
+
+	/* Initialize ToF value (in case we run in any of the non-if cases). */
+	mac_frame_ptr[trx_id]->TimeOfFlight = INVALID_TOF_VALUE;
+
 	if (ack_requested[trx_id]) {
 		if (status == MAC_SUCCESS) {
-			trx_read(reg_offset + RG_BBC0_CNT0,
-					(uint8_t *)&tal_pib[trx_id].TimeOfFlight,
-					4);
+			if (tal_pib[trx_id].phy.modulation == LEG_OQPSK) {
+				mac_frame_ptr[trx_id]->TimeOfFlight = calc_tof(
+						trx_id);
+			}
 		}
 	}
 
-#endif
-	/* Enable AACK again and disable CCA / TX procedure */
-	trx_reg_write( reg_offset + RG_BBC0_AMCS, AMCS_AACK_MASK);
+#   else    /* SUPPORT_LEGACY_OQPSK */
+	/* ToF not supported */
+	mac_frame_ptr[trx_id]->TimeOfFlight = INVALID_TOF_VALUE;
+#   endif  /* SUPPORT_LEGACY_OQPSK */
+#endif  /* #ifdef MEASURE_TIME_OF_FLIGHT */
 
-#if (defined RF215V1) && ((defined SUPPORT_FSK) || (defined SUPPORT_OQPSK))
-	stop_rpc(trx_id);
-#endif
+	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
+
+	/* Enable AACK again and disable CCA / TX procedure */
+	trx_reg_write((reg_offset + RG_BBC0_AMCS), AMCS_AACK_MASK);
 
 	/* Set trx state for leaving TX transaction */
 	if (trx_default_state[trx_id] == RF_RX) {
-		switch_to_rx(trx_id);
+		if (trx_state[trx_id] != RF_RX) {
+			switch_to_rx(trx_id);
+		}
 	} else {
-		trx_reg_write(reg_offset + RG_RF09_CMD, RF_TRXOFF);
+		trx_reg_write((reg_offset + RG_RF09_CMD), RF_TRXOFF);
 		trx_state[trx_id] = RF_TRXOFF;
 	}
+
+#if (defined SUPPORT_FSK) || (defined SUPPORT_OQPSK)
+	start_rpc(trx_id);
+#endif
 
 	tx_state[trx_id] = TX_IDLE;
 	tal_state[trx_id] = TAL_IDLE;
@@ -543,6 +554,79 @@ static void handle_ifs(trx_id_t trx_id)
 		}
 	}
 }
+
+/**
+ * @brief Confinues with a deferred transmission
+ *
+ * @param trx_id Transceiver identifier
+ */
+void continue_deferred_transmission(trx_id_t trx_id)
+{
+	Assert((trx_id >= 0) && (trx_id < NUM_TRX));
+
+	if (tal_pib[trx_id].NumRxFramesDuringBackoff >
+			tal_pib[trx_id].MaxNumRxFramesDuringBackoff) {
+		tx_done_handling(trx_id, MAC_CHANNEL_ACCESS_FAILURE);
+	} else {
+		if (global_csma_mode[trx_id] == CSMA_UNSLOTTED) {
+			csma_start(trx_id);
+		} else {
+			transmit_frame(trx_id, NO_CCA);
+		}
+	}
+}
+
+#ifdef MEASURE_TIME_OF_FLIGHT
+#   ifdef SUPPORT_LEGACY_OQPSK
+
+/**
+ * @brief Calculates ToF value.
+ *
+ * @param trx_id Transceiver identifier
+ */
+static uint32_t calc_tof(trx_id_t trx_id)
+{
+	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
+
+	uint32_t tof_counter_value;
+	trx_read((reg_offset + RG_BBC0_CNT0),
+			(uint8_t *)&(tof_counter_value), 4);
+
+#       ifdef TIME_OF_FLIGHT_COUNTER_MODE
+	/* Simply return the ToF counter value. */
+	return tof_counter_value;
+
+#       else   /* Regular mode */
+	uint32_t tof_time_ns = tof_counter_value * 1000 / 32;
+	uint32_t frame_duation_ns
+		= (mac_frame_ptr[trx_id]->len_no_crc + tal_pib[trx_id].FCSLen) *
+			1000 * tal_get_symbol_duration_us(trx_id) * 2;
+
+	uint32_t offset_and_frame_ns = frame_duation_ns;
+	if (trx_id == RF09) {
+		offset_and_frame_ns += TOF_PROC_DELAY_OFFSET_SUB_GHZ_NS;
+	} else {
+		offset_and_frame_ns += TOF_PROC_DELAY_OFFSET_2_4_GHZ_NS;
+	}
+
+	/*
+	 * Calculate final ToF value in ns.
+	 * Note: Final time of flight must not be negative,
+	 * which would result in very large unsigned ToF value.
+	 */
+	if (tof_time_ns >= offset_and_frame_ns) {
+		tof_time_ns -= offset_and_frame_ns;
+	} else {
+		tof_time_ns = 0;
+	}
+
+	return tof_time_ns;
+
+#       endif   /* TIME_OF_FLIGHT_COUNTER_MODE */
+}
+
+#   endif  /* SUPPORT_LEGACY_OQPSK */
+#endif  /* #ifdef MEASURE_TIME_OF_FLIGHT */
 
 #endif /* #ifndef BASIC_MODE */
 

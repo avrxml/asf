@@ -161,6 +161,7 @@ CFLAGS =
 CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
        -D BOARD=SAM4S_WPIR_RD                             \
+       -D OV7740_TWIHS_SUPPORT=false                      \
        -D __SAM4S16C__                                    \
        -D printf=iprintf                                  \
        -D scanf=iscanf

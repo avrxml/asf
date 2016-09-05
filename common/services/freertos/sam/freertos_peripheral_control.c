@@ -5,7 +5,7 @@
  * \brief Generic FreeRTOS peripheral control functions
  *
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -113,13 +113,17 @@ void create_peripheral_control_semaphores(const uint8_t options_flags,
 		freertos_dma_event_control_t *rx_dma_control)
 {
 	/* If the tx driver is to be thread aware then create an access control
-	mutex.  An Rx access mutex is not created in this function as half duplex
-	peripherals need only use a single access mutex, and the Tx mutex is used
+	semaphore.  An Rx access mutex is not created in this function as half duplex
+	peripherals need only use a single access mutex, and the Tx semaphore is used
 	for the purpose.  Full duplex peripherals have extra configuration steps
 	that are performed separately. */
-	if ((options_flags & USE_TX_ACCESS_MUTEX) != 0) {
-		tx_dma_control->peripheral_access_mutex = xSemaphoreCreateMutex();
-		configASSERT(tx_dma_control->peripheral_access_mutex);
+	if ((options_flags & USE_TX_ACCESS_SEM) != 0) {
+		vSemaphoreCreateBinary(
+				tx_dma_control->peripheral_access_sem);
+		configASSERT(tx_dma_control->peripheral_access_sem);
+		
+		/* Ensure the binary semaphore starts with equal to 1 */
+		xSemaphoreGive(tx_dma_control->peripheral_access_sem);
 	}
 
 	/* If the transmit function is only going to return once the transmit is
@@ -266,25 +270,25 @@ uint32_t freertos_copy_bytes_from_pdc_circular_buffer(
 
 /*
  * For internal use only.
- * If a peripheral access mutex is not defined, just return STATUS_OK and take
+ * If a peripheral access semphore is not defined, just return STATUS_OK and take
  * no other action.
- * If a peripheral access mutex is defined, attempt to obtain the mutex.
- * Return STATUS_OK if the mutex was obtained, and ERR_TIMEOUT if the mutex
+ * If a peripheral access semphore is defined, attempt to obtain the semphore.
+ * Return STATUS_OK if the semphore was obtained, and ERR_TIMEOUT if the semphore
  * did not become available within max_block_time_ticks tick periods.
  */
-status_code_t freertos_obtain_peripheral_access_mutex(
+status_code_t freertos_obtain_peripheral_access_semphore(
 		freertos_dma_event_control_t *dma_event_control,
 		portTickType *max_block_time_ticks)
 {
 	status_code_t return_value = STATUS_OK;
 	xTimeOutType time_out_definition;
 
-	if (dma_event_control->peripheral_access_mutex != NULL) {
+	if (dma_event_control->peripheral_access_sem != NULL) {
 		/* Remember the time on entry. */
 		vTaskSetTimeOutState(&time_out_definition);
 
 		/* Wait to get exclusive access to the peripheral. */
-		if (xSemaphoreTake(dma_event_control->peripheral_access_mutex,
+		if (xSemaphoreTake(dma_event_control->peripheral_access_sem,
 				*max_block_time_ticks) == pdFAIL) {
 			return_value = ERR_TIMEOUT;
 		} else {

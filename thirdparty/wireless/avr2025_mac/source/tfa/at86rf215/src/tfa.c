@@ -115,31 +115,29 @@ phy_enum_t tfa_cca_perform(trx_id_t trx_id)
 
 #ifndef BASIC_MODE
 		/* Enable EDC interrupt */
-		trx_bit_write(reg_offset + SR_RF09_IRQM_EDC, 1);
+		trx_bit_write( reg_offset + SR_RF09_IRQM_EDC, 1);
 #endif
 		/* Start single ED measurement; use reg_write - it's the only
 		 *subregister */
 		tal_state[trx_id] = TAL_TFA_CCA;
 #ifdef IQ_RADIO
 		/* Enable EDC interrupt */
-		pal_dev_bit_write(RF215_RF, reg_offset + SR_RF09_IRQM_EDC, 1);
-		pal_dev_reg_write(RF215_RF, reg_offset + RG_RF09_EDC,
-				RF_EDSINGLE);
+		trx_bit_write(RF215_RF, reg_offset + SR_RF09_IRQM_EDC, 1);
+		trx_reg_write(RF215_RF, reg_offset + RG_RF09_EDC, RF_EDSINGLE);
 #else
-		trx_reg_write(reg_offset + RG_RF09_EDC, RF_EDSINGLE);
+		trx_reg_write( reg_offset + RG_RF09_EDC, RF_EDSINGLE);
 #endif
 
 		/* Wait until measurement is completed */
 		while (TAL_RF_IS_IRQ_SET(trx_id, RF_IRQ_EDC) == false) {
 		}
 		TAL_RF_IRQ_CLR(trx_id, RF_IRQ_EDC);
-
 #ifndef BASIC_MODE
 		/* Disable EDC interrupt again */
-		trx_bit_write(reg_offset + SR_RF09_IRQM_EDC, 0);
+		trx_bit_write( reg_offset + SR_RF09_IRQM_EDC, 0);
 #endif
 #ifdef IQ_RADIO
-		pal_dev_bit_write(RF215_RF, reg_offset + SR_RF09_IRQM_EDC, 0);
+		trx_bit_write(RF215_RF, reg_offset + SR_RF09_IRQM_EDC, 0);
 #endif
 		/* Since it is a blocking function, restore TAL state */
 		tal_state[trx_id] = TAL_IDLE;
@@ -147,11 +145,11 @@ phy_enum_t tfa_cca_perform(trx_id_t trx_id)
 		switch_to_txprep(trx_id); /* Leave Rx mode */
 
 		/* Switch BB on again */
-		trx_bit_write(reg_offset + SR_BBC0_PC_BBEN, 1);
+		trx_bit_write( reg_offset + SR_BBC0_PC_BBEN, 1);
 
 		/* Capture ED value for current frame / ED scan */
 #ifdef IQ_RADIO
-		tal_current_ed_val[trx_id] = pal_dev_reg_read(RF215_RF,
+		tal_current_ed_val[trx_id] = trx_reg_read(RF215_RF,
 				reg_offset +
 				RG_RF09_EDV);
 #else
@@ -172,9 +170,9 @@ phy_enum_t tfa_cca_perform(trx_id_t trx_id)
 			switch_to_rx(trx_id);
 		} else {
 			/* Switch to TRXOFF */
-			trx_reg_write(reg_offset + RG_RF09_CMD, RF_TRXOFF);
+			trx_reg_write( reg_offset + RG_RF09_CMD, RF_TRXOFF);
 #ifdef IQ_RADIO
-			pal_dev_reg_write(RF215_RF, reg_offset + RG_RF09_CMD,
+			trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD,
 					RF_TRXOFF);
 #endif
 			trx_state[trx_id] = RF_TRXOFF;
@@ -186,8 +184,6 @@ phy_enum_t tfa_cca_perform(trx_id_t trx_id)
 
 #endif
 
-#if (defined ENABLE_TFA) || (defined TFA_CW)
-
 /**
  * @brief Starts continuous transmission on current channel
  *
@@ -197,7 +193,6 @@ phy_enum_t tfa_cca_perform(trx_id_t trx_id)
 void tfa_continuous_tx_start(trx_id_t trx_id, continuous_tx_mode_t tx_mode)
 {
 	uint16_t len;
-
 	if (tal_state[trx_id] != TAL_IDLE) {
 		return;
 	}
@@ -209,10 +204,10 @@ void tfa_continuous_tx_start(trx_id_t trx_id, continuous_tx_mode_t tx_mode)
 			return;
 		} else {
 			/* Select corresponding baseband core */
-			pal_dev_bit_write(RF215_BB, SR_RF_IQIFC2_CSELTX, RF09); /*
-			                                                         * RF09
-			                                                         * is
-			                                                         * selected */
+			trx_bit_write(RF215_BB, SR_RF_IQIFC2_CSELTX, RF09); /*
+			                                                     * RF09
+			                                                     * is
+			                                                     * selected */
 		}
 	} else {
 		/* Check if the other radio is currently in use */
@@ -220,10 +215,10 @@ void tfa_continuous_tx_start(trx_id_t trx_id, continuous_tx_mode_t tx_mode)
 			return;
 		} else {
 			/* Select corresponding baseband core */
-			pal_dev_bit_write(RF215_BB, SR_RF_IQIFC2_CSELTX, RF24); /*
-			                                                         * RF24
-			                                                         * is
-			                                                         * selected */
+			trx_bit_write(RF215_BB, SR_RF_IQIFC2_CSELTX, RF24); /*
+			                                                     * RF24
+			                                                     * is
+			                                                     * selected */
 		}
 	}
 
@@ -243,31 +238,30 @@ void tfa_continuous_tx_start(trx_id_t trx_id, continuous_tx_mode_t tx_mode)
 	if (tx_mode == CW_MODE) {
 #ifdef IQ_RADIO
 		/* Disable embedded TX control */
-		pal_dev_bit_write(RF215_RF, SR_RF_IQIFC0_EEC, 0);
+		trx_bit_write(RF215_RF, SR_RF_IQIFC0_EEC, 0);
 #else
 		/* Enable baseband bypass */
-		trx_bit_write(SR_RF_IQIFC1_CHPM, 1);
+		trx_bit_write( SR_RF_IQIFC1_CHPM, 1);
 #endif
 
 		/* Configure DAC to generate carrier signal */
 		uint8_t dac_config[2] = {(0x7E | 0x80), (0x3F | 0x80)};
 #ifdef IQ_RADIO
-		pal_dev_write(RF215_RF, reg_offset + RG_RF09_TXDACI, dac_config,
-				2);
+		trx_write(RF215_RF, reg_offset + RG_RF09_TXDACI, dac_config, 2);
 #else
-		trx_write(reg_offset + RG_RF09_TXDACI, dac_config, 2);
+		trx_write( reg_offset + RG_RF09_TXDACI, dac_config, 2);
 #endif
 
 		/* Trigger Tx start */
 #ifdef IQ_RADIO
-		pal_dev_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_TX);
+		trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_TX);
 #else
-		trx_reg_write(reg_offset + RG_RF09_CMD, RF_TX);
+		trx_reg_write( reg_offset + RG_RF09_CMD, RF_TX);
 #endif
 		trx_state[trx_id] = RF_TX;
 	} else { /* PRBS mode */
 		/* Enable continuous transmission mode */
-		trx_bit_write(reg_offset + SR_BBC0_PC_CTX, 1);
+		trx_bit_write( reg_offset + SR_BBC0_PC_CTX, 1);
 
 		/* Fill length field */
 #ifdef SUPPORT_LEGACY_OQPSK
@@ -279,8 +273,8 @@ void tfa_continuous_tx_start(trx_id_t trx_id, continuous_tx_mode_t tx_mode)
 			len = 2047;
 		}
 
-		trx_write(reg_offset + RG_BBC0_TXFLL, (uint8_t *)&len, 2);
-		trx_reg_write(reg_offset + RG_RF09_CMD, RF_TX);
+		trx_write( reg_offset + RG_BBC0_TXFLL, (uint8_t *)&len, 2);
+		trx_reg_write( reg_offset + RG_RF09_CMD, RF_TX);
 		trx_state[trx_id] = RF_TX;
 
 		/* Fill frame buffer */
@@ -290,14 +284,14 @@ void tfa_continuous_tx_start(trx_id_t trx_id, continuous_tx_mode_t tx_mode)
 			for (uint16_t i = 0; i < 10; i++) {
 				data[i] = (uint8_t)rand();
 			}
-			trx_write(tx_frm_buf_offset + RG_BBC0_FBTXS, data, 10);
+			trx_write( tx_frm_buf_offset + RG_BBC0_FBTXS, data, 10);
 			tx_frm_buf_offset += 10;
 		}
 		uint16_t remaining_bytes = len % 10;
 		for (uint16_t i = 0; i < remaining_bytes; i++) {
 			data[i] = (uint8_t)rand();
 		}
-		trx_write(tx_frm_buf_offset + RG_BBC0_FBTXS, data,
+		trx_write( tx_frm_buf_offset + RG_BBC0_FBTXS, data,
 				remaining_bytes);
 	}
 }
@@ -313,12 +307,12 @@ void tfa_continuous_tx_start(trx_id_t trx_id, continuous_tx_mode_t tx_mode)
  */
 void tfa_continuous_tx_stop(trx_id_t trx_id)
 {
-	uint16_t reg_offset = BB_BASE_ADDR_OFFSET * trx_id;
+	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 	/* Stop continuous transmission */
-	trx_bit_write(reg_offset + SR_BBC0_PC_CTX, 0);
+	trx_bit_write( reg_offset + SR_BBC0_PC_CTX, 0);
 #ifdef IQ_RADIO
 	/* Allow command via SPI */
-	pal_dev_bit_write(RF215_RF, SR_RF_IQIFC0_EEC, 0);
+	trx_bit_write(RF215_RF, SR_RF_IQIFC0_EEC, 0);
 #endif
 	switch_to_txprep(trx_id);
 
@@ -326,11 +320,11 @@ void tfa_continuous_tx_stop(trx_id_t trx_id)
 	uint8_t dac_config[2] = {0x00, 0x00};
 	uint16_t rft_reg_offset = RFT_TST_ADDR_OFFSET * trx_id;
 #ifdef IQ_RADIO
-	pal_dev_write(RF215_RF, rft_reg_offset + RG_RF09_TXDACI, dac_config, 2);
+	trx_write(RF215_RF, rft_reg_offset + RG_RF09_TXDACI, dac_config, 2);
 	/* Enable embedded TX control again */
-	pal_dev_bit_write(RF215_RF, SR_RF_IQIFC0_EEC, 1);
+	trx_bit_write(RF215_RF, SR_RF_IQIFC0_EEC, 1);
 #else
-	trx_write(rft_reg_offset + RG_RF09_TXDACI, dac_config, 2);
+	trx_write( rft_reg_offset + RG_RF09_TXDACI, dac_config, 2);
 	/* Disable baseband bypass */
 	trx_bit_write( SR_RF_IQIFC1_CHPM, 0);
 #endif
@@ -343,19 +337,15 @@ void tfa_continuous_tx_stop(trx_id_t trx_id)
 		tal_state[trx_id] = TAL_IDLE;
 		/* Switch to TRXOFF */
 #ifdef IQ_RADIO
-		pal_dev_reg_write(RF215_RF, reg_offset + RG_RF09_CMD,
-				RF_TRXOFF);
-		pal_dev_reg_write(RF215_BB, reg_offset + RG_RF09_CMD,
-				RF_TRXOFF);
+		trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_TRXOFF);
+		trx_reg_write(RF215_BB, reg_offset + RG_RF09_CMD, RF_TRXOFF);
 #else
-		trx_reg_write(reg_offset + RG_RF09_CMD, RF_TRXOFF);
+		trx_reg_write( reg_offset + RG_RF09_CMD, RF_TRXOFF);
 #endif
 		trx_state[trx_id] = RF_TRXOFF;
 	}
 }
 
 #endif
-
-#endif /* #if (defined ENABLE_TFA) || (defined TFA_CW) || (defined TFA_CCA) */
 
 /* EOF */

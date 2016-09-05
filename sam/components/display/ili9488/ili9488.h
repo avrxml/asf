@@ -60,7 +60,18 @@
 /// @endcond
 
 /** Type define for an integer type large enough to store a pixel color. */
-typedef uint32_t ili9488_color_t;
+#ifdef ILI9488_EBIMODE
+   typedef uint16_t ili9488_color_t;
+#  define LCD_DATA_COLOR_UNIT 1
+#  define COLOR_CONVERT       RGB_24_TO_RGB565
+#endif
+#ifdef ILI9488_SPIMODE
+   typedef uint8_t ili9488_color_t;
+#  define LCD_DATA_COLOR_UNIT 3
+#  define COLOR_CONVERT       RGB_24_TO_18BIT
+#endif
+
+typedef int16_t ili9488_coord_t;
 
 typedef union _union_type
 {
@@ -77,14 +88,24 @@ typedef union _union_type
 	}half_word;
 }union_type;
 
-/** Bit mask for flipping X for ili9488_set_display_mirror() */
+/** Bit mask for flipping X for ili9488_set_orientation() */
 #define ILI9488_FLIP_X 1
-/** Bit mask for flipping Y for ili9488_set_display_mirror() */
+/** Bit mask for flipping Y for ili9488_set_orientation() */
 #define ILI9488_FLIP_Y 2
+/** Bit mask for swapping X and Y for ili9488_set_orientation() */
+#define ILI9488_SWITCH_XY 4
+
 
 /* ILI9488 screen size */
 #define ILI9488_LCD_WIDTH  320
 #define ILI9488_LCD_HEIGHT 480
+
+/** Height of display using swapped X/Y orientation */
+#define ILI9488_SWITCH_XY_HEIGHT 480
+
+/** Width of display using swapped X/Y orientation */
+#define ILI9488_SWITCH_XY_WIDTH  320
+
 /* ILI9488 ID code */
 #define ILI9488_DEVICE_CODE (0x9488u)
 
@@ -196,38 +217,31 @@ typedef union _union_type
 #define get_24b_to_32b(x)           (((union_type*)&(x))->byte.byte_32)
 
 /* Define EBI access for ILI9488 16-bit System Interface.*/
-#if defined(BOARD_ILI9488_ADDR)
+#ifdef ILI9488_EBIMODE
 	static inline void LCD_IR(uint8_t lcd_index)
 	{
-		*((volatile uint8_t *)(BOARD_ILI9488_ADDR)) = lcd_index; /* ILI9488 index register address */
+		*((volatile uint16_t *)(BOARD_ILI9488_ADDR)) = lcd_index; /* ILI9488 index register address */
 	}
 	static inline void LCD_WD(uint16_t lcd_data)
 	{
 		*(volatile uint16_t *)(BOARD_ILI9488_ADDR) = lcd_data;
 	}
-	static inline void LCD_MULTI_WD(uint16_t *lcd_data, uint32_t size)
+	static inline void LCD_MULTI_WD(const uint16_t *lcd_data, uint32_t size)
 	{
-		volatile uint16_t * ptr = (volatile uint16_t *)(BOARD_ILI9488_ADDR);
-
 		while(size--) {
-			*ptr++ = *lcd_data++;
+			*((volatile uint16_t *)(BOARD_ILI9488_ADDR)) = *lcd_data++;
 		}
-
 	}
 	static inline uint16_t LCD_RD(void)
 	{
 		return *(volatile uint16_t *)(BOARD_ILI9488_ADDR);
 	}
-	static inline void LCD_MULTI_RD(uint32_t *pbuffer, uint32_t size)
+	static inline void LCD_MULTI_RD(uint16_t *pbuffer, uint32_t size)
 	{
-		volatile uint32_t *ptr = (volatile uint32_t *)BOARD_ILI9488_ADDR;
-		
 		while(size--) {
-			*pbuffer++ = *ptr++;
+			*pbuffer++ = *((volatile uint16_t *)(BOARD_ILI9488_ADDR));
 		}
 	}
-#else
-	#error "Missing module configuration for ILI9488!"
 #endif
 
 /* RGB 24-bits color table definition (RGB888). */
@@ -279,12 +293,17 @@ typedef union _union_type
 #define RGB_24_TO_RGB565(RGB) \
 		(((RGB >>19)<<11) | (((RGB & 0x00FC00) >>5)) | (RGB & 0x00001F))
 #define RGB_24_TO_18BIT(RGB) \
-		(((RGB >>16)&0xFC) | (((RGB & 0x00FF00) >>10) << 10) | (RGB & 0x0000FC)<<16)
+		((RGB & 0xFC0000) | (RGB & 0x00FC00) | (RGB & 0x0000FC))
 #define RGB_16_TO_18BIT(RGB) \
-		(((((RGB >>11)*63)/31)<<18) | (RGB & 0x00FC00) | (((RGB & 0x00001F)*63)/31))
+		(((((RGB >>11)*63)/31) << 18) | (((RGB >> 5) & 0x00003F) << 10) | (((RGB & 0x00001F)*63)/31) << 2)
 #define BGR_TO_RGB_18BIT(RGB) \
 		(RGB & 0xFF0000) | ((RGB & 0x00FF00) >> 8 ) | ( (RGB & 0x0000FC) >> 16 ))
 #define BGR_16_TO_18BITRGB(RGB)   BGR_TO_RGB_18BIT(RGB_16_TO_18BIT(RGB))
+
+#define ILI9488_COLOR(r, g, b)\
+			((((uint16_t)b) >> 3) |\
+			((((uint16_t)g) << 3) & 0x07E0) |\
+			((((uint16_t)r) << 8) & 0xf800))
 
 /**
  * Input parameters when initializing ili9488 driver.
@@ -320,7 +339,7 @@ void ili9488_set_display_direction(enum ili9488_display_direction direction);
 void ili9488_set_window( uint16_t dwX, uint16_t dwY, uint16_t dwWidth, uint16_t dwHeight );
 void ili9488_display_on(void);
 void ili9488_display_off(void);
-void ili9488_set_foreground_color(ili9488_color_t ul_color);
+void ili9488_set_foreground_color(uint32_t ul_color);
 void ili9488_fill(ili9488_color_t ul_color);
 void ili9488_set_cursor_position(uint16_t us_x, uint16_t us_y);
 void ili9488_scroll(uint16_t ul_tfa, uint16_t ul_lines, uint16_t ul_bfa);
@@ -340,11 +359,19 @@ void ili9488_draw_prepare(uint32_t ul_x, uint32_t ul_y, uint32_t ul_width,
 void ili9488_draw_string(uint32_t ul_x, uint32_t ul_y, const uint8_t *p_str);
 void ili9488_draw_pixmap(uint32_t ul_x, uint32_t ul_y, uint32_t ul_width,
 		uint32_t ul_height, const ili9488_color_t *p_ul_pixmap);
-void ili9488_set_display_mirror(uint8_t flags);
-void ili9488_write_register(uint8_t uc_reg, uint16_t *us_data, uint32_t size);
 void ili9488_delay(uint32_t ul_ms);
 void ili9488_write_brightness(uint16_t us_value);
-uint32_t ili9488_read_brightness(void);
+uint16_t ili9488_read_gram(void);
+void ili9488_write_gram(uint16_t color);
+void ili9488_set_top_left_limit(ili9488_coord_t x, ili9488_coord_t y);
+void ili9488_set_bottom_right_limit(ili9488_coord_t x, ili9488_coord_t y);
+void ili9488_set_limits(ili9488_coord_t start_x, ili9488_coord_t start_y,
+		ili9488_coord_t end_x, ili9488_coord_t end_y);
+void ili9488_set_orientation(uint8_t flags);
+void ili9488_copy_pixels_to_screen(const uint16_t *pixels,
+		uint32_t count);
+void ili9488_copy_pixels_from_screen(uint16_t *pixels, uint32_t count);
+void ili9488_duplicate_pixel(const uint16_t color, uint32_t count);
 /// @cond 0
 /**INDENT-OFF**/
 #ifdef __cplusplus

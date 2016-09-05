@@ -4,7 +4,7 @@
  *
  * \brief CTRL_ACCESS interface for the AT45DBX data flash controller.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -57,6 +57,16 @@
 #include "at45dbx.h"
 #include "at45dbx_mem.h"
 
+#ifdef AT45DB641E
+//!< Address bits for byte position within buffer.
+#define AT45DBX_BYTE_ADDR_BITS            9
+
+//! Number of bits for addresses within pages.
+#define AT45DBX_PAGE_BITS                 (AT45DBX_BYTE_ADDR_BITS - 1)
+
+//! Page size in bytes.
+#define AT45DBX_PAGE_SIZE                 (1 << AT45DBX_PAGE_BITS)
+#endif
 
 //_____ D E F I N I T I O N S ______________________________________________
 
@@ -73,7 +83,8 @@ Ctrl_status at45dbx_test_unit_ready(void)
 
 Ctrl_status at45dbx_read_capacity(U32 *u32_nb_sector)
 {
-  *u32_nb_sector = (AT45DBX_MEM_CNT << (AT45DBX_MEM_SIZE - AT45DBX_SECTOR_BITS)) - 1;
+	/* FATFS sector size 512Byte. */
+	*u32_nb_sector = (AT45DBX_MEM_CNT << (AT45DBX_MEM_SIZE - 9)) - 1;
 
   return CTRL_GOOD;
 }
@@ -185,25 +196,47 @@ void at45dbx_write_multiple_sector_callback(void *psector)
 
 Ctrl_status at45dbx_df_2_ram(U32 addr, void *ram)
 {
-  if (addr + 1 > AT45DBX_MEM_CNT << (AT45DBX_MEM_SIZE - AT45DBX_SECTOR_BITS)) return CTRL_FAIL;
+	/* FATFS sector size 512Byte. */
+	if (addr + 1 > AT45DBX_MEM_CNT << (AT45DBX_MEM_SIZE - 9)) return CTRL_FAIL;
 
-  at45dbx_read_open(addr);
-  at45dbx_read_sector_2_ram(ram);
-  at45dbx_read_close();
+#ifdef AT45DB641E
+	at45dbx_read_open(addr*2);
+	at45dbx_read_sector_2_ram(ram);
+	at45dbx_read_close();
 
-  return CTRL_GOOD;
+	at45dbx_read_open(addr*2+1);
+	at45dbx_read_sector_2_ram(ram + AT45DBX_PAGE_SIZE);
+	at45dbx_read_close();
+#else
+	at45dbx_read_open(addr);
+	at45dbx_read_sector_2_ram(ram);
+	at45dbx_read_close();
+#endif
+
+	return CTRL_GOOD;
 }
 
 
 Ctrl_status at45dbx_ram_2_df(U32 addr, const void *ram)
 {
-  if (addr + 1 > AT45DBX_MEM_CNT << (AT45DBX_MEM_SIZE - AT45DBX_SECTOR_BITS)) return CTRL_FAIL;
+	/* FATFS sector size 512Byte. */
+	if (addr + 1 > AT45DBX_MEM_CNT << (AT45DBX_MEM_SIZE - 9)) return CTRL_FAIL;
 
-  at45dbx_write_open(addr);
-  at45dbx_write_sector_from_ram(ram);
-  at45dbx_write_close();
+#ifdef AT45DB641E
+	at45dbx_write_open(addr*2);
+	at45dbx_write_sector_from_ram(ram);
+	at45dbx_write_close();
 
-  return CTRL_GOOD;
+	at45dbx_write_open(addr*2+1);
+	at45dbx_write_sector_from_ram(ram + AT45DBX_PAGE_SIZE);
+	at45dbx_write_close();
+#else
+	at45dbx_write_open(addr);
+	at45dbx_write_sector_from_ram(ram);
+	at45dbx_write_close();
+#endif
+
+	return CTRL_GOOD;
 }
 
 

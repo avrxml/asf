@@ -3,7 +3,7 @@
  *
  * \brief SAM D21 Xplained Pro board configuration.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,4 +47,5 @@
 #ifndef CONF_BOARD_H_INCLUDED
 #define CONF_BOARD_H_INCLUDED
 
+#define CONF_USBCDC_INTERFACE_SUPPORT
 #endif /* CONF_BOARD_H_INCLUDED */

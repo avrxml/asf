@@ -3,7 +3,7 @@
  *
  * \brief gcc starttup file for SAML22
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -117,78 +117,78 @@ __attribute__ ((section(".vectors")))
 const DeviceVectors exception_table = {
 
         /* Configure Initial Stack Pointer, using linker-generated symbols */
-        (void*) (&_estack),
+        .pvStack                = (void*) (&_estack),
 
-        (void*) Reset_Handler,
-        (void*) NMI_Handler,
-        (void*) HardFault_Handler,
-        (void*) (0UL), /* Reserved */
-        (void*) (0UL), /* Reserved */
-        (void*) (0UL), /* Reserved */
-        (void*) (0UL), /* Reserved */
-        (void*) (0UL), /* Reserved */
-        (void*) (0UL), /* Reserved */
-        (void*) (0UL), /* Reserved */
-        (void*) SVC_Handler,
-        (void*) (0UL), /* Reserved */
-        (void*) (0UL), /* Reserved */
-        (void*) PendSV_Handler,
-        (void*) SysTick_Handler,
+        .pfnReset_Handler       = (void*) Reset_Handler,
+        .pfnNMI_Handler         = (void*) NMI_Handler,
+        .pfnHardFault_Handler   = (void*) HardFault_Handler,
+        .pvReservedM12          = (void*) (0UL), /* Reserved */
+        .pvReservedM11          = (void*) (0UL), /* Reserved */
+        .pvReservedM10          = (void*) (0UL), /* Reserved */
+        .pvReservedM9           = (void*) (0UL), /* Reserved */
+        .pvReservedM8           = (void*) (0UL), /* Reserved */
+        .pvReservedM7           = (void*) (0UL), /* Reserved */
+        .pvReservedM6           = (void*) (0UL), /* Reserved */
+        .pfnSVC_Handler         = (void*) SVC_Handler,
+        .pvReservedM4           = (void*) (0UL), /* Reserved */
+        .pvReservedM3           = (void*) (0UL), /* Reserved */
+        .pfnPendSV_Handler      = (void*) PendSV_Handler,
+        .pfnSysTick_Handler     = (void*) SysTick_Handler,
 
         /* Configurable interrupts */
-        (void*) SYSTEM_Handler,         /*  0 Main Clock, 32k Oscillators Control, Oscillators Control, Peripheral Access Controller, Power Manager, Supply Controller, Trigger Allocator */
-        (void*) WDT_Handler,            /*  1 Watchdog Timer */
-        (void*) RTC_Handler,            /*  2 Real-Time Counter */
-        (void*) EIC_Handler,            /*  3 External Interrupt Controller */
-        (void*) FREQM_Handler,          /*  4 Frequency Meter */
+        .pfnSYSTEM_Handler      = (void*) SYSTEM_Handler,         /*  0 Main Clock, 32k Oscillators Control, Oscillators Control, Peripheral Access Controller, Power Manager, Supply Controller, Trigger Allocator */
+        .pfnWDT_Handler         = (void*) WDT_Handler,            /*  1 Watchdog Timer */
+        .pfnRTC_Handler         = (void*) RTC_Handler,            /*  2 Real-Time Counter */
+        .pfnEIC_Handler         = (void*) EIC_Handler,            /*  3 External Interrupt Controller */
+        .pfnFREQM_Handler       = (void*) FREQM_Handler,          /*  4 Frequency Meter */
 #ifdef ID_USB
-        (void*) USB_Handler,            /*  5 Universal Serial Bus */
+        .pfnUSB_Handler         = (void*) USB_Handler,            /*  5 Universal Serial Bus */
 #else
-        (void*) (0UL), /* Reserved */
+        .pvReserved5            = (void*) (0UL),                  /*  5 Reserved */
 #endif
-        (void*) NVMCTRL_Handler,        /*  6 Non-Volatile Memory Controller */
-        (void*) DMAC_Handler,           /*  7 Direct Memory Access Controller */
-        (void*) EVSYS_Handler,          /*  8 Event System Interface */
-        (void*) SERCOM0_Handler,        /*  9 Serial Communication Interface 0 */
-        (void*) SERCOM1_Handler,        /* 10 Serial Communication Interface 1 */
-        (void*) SERCOM2_Handler,        /* 11 Serial Communication Interface 2 */
+        .pfnNVMCTRL_Handler     = (void*) NVMCTRL_Handler,        /*  6 Non-Volatile Memory Controller */
+        .pfnDMAC_Handler        = (void*) DMAC_Handler,           /*  7 Direct Memory Access Controller */
+        .pfnEVSYS_Handler       = (void*) EVSYS_Handler,          /*  8 Event System Interface */
+        .pfnSERCOM0_Handler     = (void*) SERCOM0_Handler,        /*  9 Serial Communication Interface 0 */
+        .pfnSERCOM1_Handler     = (void*) SERCOM1_Handler,        /* 10 Serial Communication Interface 1 */
+        .pfnSERCOM2_Handler     = (void*) SERCOM2_Handler,        /* 11 Serial Communication Interface 2 */
 #ifdef ID_SERCOM3
-        (void*) SERCOM3_Handler,        /* 12 Serial Communication Interface 3 */
+        .pfnSERCOM3_Handler     = (void*) SERCOM3_Handler,        /* 12 Serial Communication Interface 3 */
 #else
-        (void*) (0UL), /* Reserved */
+        .pvReserved12           = (void*) (0UL),                  /* 12 Reserved */
 #endif
 #ifdef ID_SERCOM4
-        (void*) SERCOM4_Handler,        /* 13 Serial Communication Interface 4 */
+        .pfnSERCOM4_Handler     = (void*) SERCOM4_Handler,        /* 13 Serial Communication Interface 4 */
 #else
-        (void*) (0UL), /* Reserved */
+        .pvReserved13           = (void*) (0UL),                  /* 13 Reserved */
 #endif
 #ifdef ID_SERCOM5
-        (void*) SERCOM5_Handler,        /* 14 Serial Communication Interface 5 */
+        .pfnSERCOM5_Handler     = (void*) SERCOM5_Handler,        /* 14 Serial Communication Interface 5 */
 #else
-        (void*) (0UL), /* Reserved */
+        .pvReserved14           = (void*) (0UL),                  /* 14 Reserved */
 #endif
-        (void*) TCC0_Handler,           /* 15 Timer Counter Control */
-        (void*) TC0_Handler,            /* 16 Basic Timer Counter 0 */
-        (void*) TC1_Handler,            /* 17 Basic Timer Counter 1 */
-        (void*) TC2_Handler,            /* 18 Basic Timer Counter 2 */
-        (void*) TC3_Handler,            /* 19 Basic Timer Counter 3 */
-        (void*) ADC_Handler,            /* 20 Analog Digital Converter */
-        (void*) AC_Handler,             /* 21 Analog Comparators */
+        .pfnTCC0_Handler        = (void*) TCC0_Handler,           /* 15 Timer Counter Control */
+        .pfnTC0_Handler         = (void*) TC0_Handler,            /* 16 Basic Timer Counter 0 */
+        .pfnTC1_Handler         = (void*) TC1_Handler,            /* 17 Basic Timer Counter 1 */
+        .pfnTC2_Handler         = (void*) TC2_Handler,            /* 18 Basic Timer Counter 2 */
+        .pfnTC3_Handler         = (void*) TC3_Handler,            /* 19 Basic Timer Counter 3 */
+        .pfnADC_Handler         = (void*) ADC_Handler,            /* 20 Analog Digital Converter */
+        .pfnAC_Handler          = (void*) AC_Handler,             /* 21 Analog Comparators */
 #ifdef ID_PTC
-        (void*) PTC_Handler,            /* 22 Peripheral Touch Controller */
+        .pfnPTC_Handler         = (void*) PTC_Handler,            /* 22 Peripheral Touch Controller */
 #else
-        (void*) (0UL), /* Reserved */
+        .pvReserved22           = (void*) (0UL),                  /* 22 Reserved */
 #endif
-        (void*) SLCD_Handler,           /* 23 Segment Liquid Crystal Display Controller */
+        .pfnSLCD_Handler        = (void*) SLCD_Handler,           /* 23 Segment Liquid Crystal Display Controller */
 #ifdef ID_AES
-        (void*) AES_Handler,            /* 24 Advanced Encryption Standard */
+        .pfnAES_Handler         = (void*) AES_Handler,            /* 24 Advanced Encryption Standard */
 #else
-        (void*) (0UL), /* Reserved */
+        .pvReserved24           = (void*) (0UL),                  /* 24 Reserved */
 #endif
 #ifdef ID_TRNG
-        (void*) TRNG_Handler            /* 25 True Random Generator */
+        .pfnTRNG_Handler        = (void*) TRNG_Handler            /* 25 True Random Generator */
 #else
-        (void*) (0UL)  /* Reserved */
+        .pvReserved25           = (void*) (0UL)                   /* 25 Reserved */
 #endif
 };
 

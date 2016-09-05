@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief USART Serial wrapper service for the SAM D20 devices.
+ * \brief USART Serial wrapper service for the SAM D/L/C/R devices.
  *
  * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
@@ -47,9 +47,6 @@
 #define _USART_SERIAL_H_
 
 #include "compiler.h"
-#if !(SAM0)
-# include "sysclk.h"
-#endif
 #include "status_codes.h"
 #include "usart.h"
 
@@ -63,7 +60,7 @@ typedef Sercom * usart_inst_t;
 
 //struct usart_module usart;
 
-/*! \brief Initializes the Usart in master mode.
+/*! \brief Initializes the Usart in serial mode.
  *
  * \param[in,out] module  Software instance of the USART to initialize.
  * \param[in]     hw      Base address of the hardware USART.

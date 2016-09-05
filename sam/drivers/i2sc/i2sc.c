@@ -117,7 +117,7 @@ static enum status_code _i2s_set_config(struct i2s_dev_inst *const dev_inst)
 
 	/* Set the master clock mode */
 	if (dev_inst->cfg->master_clock_enable) {
-		mr |= I2SC_MR_IMCKMODE;
+		mr |= I2SC_MR_IMCKMODE | I2SC_MR_IMCKDIV(dev_inst->cfg->master_clock_divide);
 	}
 
 	if (dev_inst->cfg->slot_length_24) {

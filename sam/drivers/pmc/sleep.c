@@ -3,7 +3,7 @@
  *
  * \brief Sleep mode access
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,7 +47,7 @@
 #include <compiler.h>
 #include "sleep.h"
 
-/* SAM3 and SAM4 series */
+/* SAM3,SAM4,SAMG,SAMV,SAMS and SAME series */
 #if (SAM3S || SAM3N || SAM3XA || SAM3U || SAM4S || SAM4E || SAM4N || SAM4C || \
 		SAM4CM || SAMG || SAM4CP || SAMV71 || SAMV70 || SAMS70 || SAME70)
 # include "pmc.h"
@@ -282,10 +282,9 @@ static pmc_callback_wakeup_clocks_restored_t callback_clocks_restored = NULL;
 void pmc_sleep(int sleep_mode)
 {
 	switch (sleep_mode) {
-#if (!(SAMG51 || SAMG53 || SAMG54))
 	case SAM_PM_SMODE_SLEEP_WFI:
 	case SAM_PM_SMODE_SLEEP_WFE:
-#if (SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAM4CP || SAMG55 || SAMV71 || SAMV70 || SAMS70 || SAME70)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAM4CP || SAMG || SAMV71 || SAMV70 || SAMS70 || SAME70)
 		SCB->SCR &= (uint32_t)~SCR_SLEEPDEEP;
 		cpu_irq_enable();
 		__WFI();
@@ -300,7 +299,6 @@ void pmc_sleep(int sleep_mode)
 			__WFE();
 		break;
 #endif
-#endif
 
 	case SAM_PM_SMODE_WAIT_FAST:
 	case SAM_PM_SMODE_WAIT: {
@@ -309,7 +307,7 @@ void pmc_sleep(int sleep_mode)
 #if defined(EFC1)
 		uint32_t fmr1;
 #endif
-#if (SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAM4CP || SAMG55 || SAMV71 || SAMV70 || SAMS70 || SAME70)
+#if (SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAM4CP || SAMG || SAMV71 || SAMV70 || SAMS70 || SAME70)
 		(sleep_mode == SAM_PM_SMODE_WAIT_FAST) ?
 				pmc_set_flash_in_wait_mode(PMC_FSMR_FLPM_FLASH_STANDBY) :
 				pmc_set_flash_in_wait_mode(PMC_FSMR_FLPM_FLASH_DEEP_POWERDOWN);

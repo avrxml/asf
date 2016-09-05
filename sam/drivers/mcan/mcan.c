@@ -3,7 +3,7 @@
  *
  * \brief SAM Control Area Network (MCAN) Low Level Driver
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -47,9 +47,20 @@
 #include "mcan.h"
 #include "pmc.h"
 #include <string.h>
+#include <sysclk.h>
+
+/** @cond 0 */
+/**INDENT-OFF**/
+#ifdef __cplusplus
+extern "C" {
+#endif
+/**INDENT-ON**/
+/** @endcond */
 
 /* PCK5 ID,assigned to MCAN module */
 #define PMC_PCK_5               5
+/* Get a value of 2 to 15 bit. */
+#define BIT_2_TO_15_MASK         0x0000fffc
 
 /* Message ram definition. */
 COMPILER_ALIGNED(4)
@@ -91,36 +102,34 @@ static struct mcan_extended_message_filter_element mcan1_rx_extended_filter[CONF
 static void _mcan_message_memory_init(Mcan *hw)
 {
 	if (hw == MCAN0) {
-		hw->MCAN_SIDFC = (uint32_t)mcan0_rx_standard_filter |
+		hw->MCAN_SIDFC = ((uint32_t)mcan0_rx_standard_filter & BIT_2_TO_15_MASK) |
 				MCAN_SIDFC_LSS(CONF_MCAN0_RX_STANDARD_ID_FILTER_NUM);
-		hw->MCAN_XIDFC = (uint32_t)mcan0_rx_extended_filter |
+		hw->MCAN_XIDFC = ((uint32_t)mcan0_rx_extended_filter & BIT_2_TO_15_MASK) |
 				MCAN_XIDFC_LSE(CONF_MCAN0_RX_EXTENDED_ID_FILTER_NUM);
-		hw->MCAN_RXF0C = (uint32_t)mcan0_rx_fifo_0 |
+		hw->MCAN_RXF0C = ((uint32_t)mcan0_rx_fifo_0 & BIT_2_TO_15_MASK) |
 				MCAN_RXF0C_F0S(CONF_MCAN0_RX_FIFO_0_NUM);
-		hw->MCAN_RXF1C = (uint32_t)mcan0_rx_fifo_1 |
+		hw->MCAN_RXF1C = ((uint32_t)mcan0_rx_fifo_1 & BIT_2_TO_15_MASK) |
 				MCAN_RXF1C_F1S(CONF_MCAN0_RX_FIFO_1_NUM);
-		hw->MCAN_RXBC = (uint32_t)mcan0_rx_buffer |
-				MCAN_RXF0C_F0S(CONF_MCAN0_RX_BUFFER_NUM);
-		hw->MCAN_TXBC = (uint32_t)mcan0_tx_buffer |
+		hw->MCAN_RXBC = ((uint32_t)mcan0_rx_buffer & BIT_2_TO_15_MASK);
+		hw->MCAN_TXBC = ((uint32_t)mcan0_tx_buffer & BIT_2_TO_15_MASK) |
 				MCAN_TXBC_NDTB(CONF_MCAN0_TX_BUFFER_NUM) |
 				MCAN_TXBC_TFQS(CONF_MCAN0_TX_FIFO_QUEUE_NUM);
-		hw->MCAN_TXEFC = (uint32_t)mcan0_tx_event_fifo |
+		hw->MCAN_TXEFC = ((uint32_t)mcan0_tx_event_fifo & BIT_2_TO_15_MASK) |
 				MCAN_TXEFC_EFS(CONF_MCAN0_TX_EVENT_FIFO);
 	} else if (hw == MCAN1) {
-		hw->MCAN_SIDFC = (uint32_t)mcan1_rx_standard_filter |
+		hw->MCAN_SIDFC = ((uint32_t)mcan1_rx_standard_filter & BIT_2_TO_15_MASK) |
 				MCAN_SIDFC_LSS(CONF_MCAN1_RX_STANDARD_ID_FILTER_NUM);
-		hw->MCAN_XIDFC = (uint32_t)mcan1_rx_extended_filter |
+		hw->MCAN_XIDFC = ((uint32_t)mcan1_rx_extended_filter & BIT_2_TO_15_MASK) |
 				MCAN_XIDFC_LSE(CONF_MCAN1_RX_EXTENDED_ID_FILTER_NUM);
-		hw->MCAN_RXF0C = (uint32_t)mcan1_rx_fifo_0 |
+		hw->MCAN_RXF0C = ((uint32_t)mcan1_rx_fifo_0 & BIT_2_TO_15_MASK) |
 				MCAN_RXF0C_F0S(CONF_MCAN1_RX_FIFO_0_NUM);
-		hw->MCAN_RXF1C = (uint32_t)mcan1_rx_fifo_1 |
+		hw->MCAN_RXF1C = ((uint32_t)mcan1_rx_fifo_1 & BIT_2_TO_15_MASK) |
 				MCAN_RXF1C_F1S(CONF_MCAN1_RX_FIFO_1_NUM);
-		hw->MCAN_RXBC = (uint32_t)mcan1_rx_buffer |
-				MCAN_RXF0C_F0S(CONF_MCAN1_RX_BUFFER_NUM);
-		hw->MCAN_TXBC = (uint32_t)mcan1_tx_buffer |
+		hw->MCAN_RXBC = ((uint32_t)mcan1_rx_buffer & BIT_2_TO_15_MASK);
+		hw->MCAN_TXBC = ((uint32_t)mcan1_tx_buffer & BIT_2_TO_15_MASK) |
 				MCAN_TXBC_NDTB(CONF_MCAN1_TX_BUFFER_NUM) |
 				MCAN_TXBC_TFQS(CONF_MCAN1_TX_FIFO_QUEUE_NUM);
-		hw->MCAN_TXEFC = (uint32_t)mcan1_tx_event_fifo |
+		hw->MCAN_TXEFC = ((uint32_t)mcan1_tx_event_fifo & BIT_2_TO_15_MASK) |
 				MCAN_TXEFC_EFS(CONF_MCAN1_TX_EVENT_FIFO);
 	}
 
@@ -160,9 +169,12 @@ static void _mcan_set_configuration(Mcan *hw, struct mcan_config *config)
 			MCAN_FBTP_FSJW(CONF_MCAN_FBTP_FSJW_VALUE) |
 			MCAN_FBTP_FTSEG1(CONF_MCAN_FBTP_FTSEG1_VALUE) |
 			MCAN_FBTP_FTSEG2(CONF_MCAN_FBTP_FTSEG2_VALUE) |
-			MCAN_FBTP_TDC |
 			MCAN_FBTP_TDCO(config->delay_compensation_offset);
 
+	if (config->tdc_enable) {
+		hw->MCAN_FBTP |= MCAN_FBTP_TDC_ENABLED;
+	}
+	
 	hw->MCAN_RWD |= MCAN_RWD_WDC(config->watchdog_configuration);
 
 	if (config->transmit_pause) {
@@ -271,6 +283,50 @@ void mcan_init(struct mcan_module *const module_inst, Mcan *hw,
 }
 
 /**
+ * \brief Set MCAN baudrate.
+ *
+ * \param[in]  hw          Pointer to the MCAN module instance
+ * \param[in]  baudrate    MCAN baudrate
+ */
+void mcan_set_baudrate(Mcan *hw, uint32_t baudrate)
+{
+	uint32_t gclk_mcan_value;
+	uint32_t mcan_nbtp_nbrp_value;
+	uint32_t mcan_nbtp_nsgw_value = 3, mcan_nbtp_ntseg1_value = 10, mcan_nbtp_ntseg2_value = 7;
+
+	gclk_mcan_value = sysclk_get_peripheral_hz();
+
+	mcan_nbtp_nbrp_value = gclk_mcan_value / baudrate / (3 + mcan_nbtp_ntseg1_value + mcan_nbtp_ntseg2_value);
+	
+	hw->MCAN_BTP = MCAN_BTP_BRP(mcan_nbtp_nbrp_value) |
+			MCAN_BTP_SJW(mcan_nbtp_nsgw_value) |
+			MCAN_BTP_TSEG1(mcan_nbtp_ntseg1_value) |
+			MCAN_BTP_TSEG2(mcan_nbtp_ntseg2_value);
+}
+
+/**
+ * \brief Set MCAN_FD baudrate.
+ *
+ * \param[in]  hw          Pointer to the MCAN_FD module instance
+ * \param[in]  baudrate    MCAN_FD baudrate
+ */
+void mcan_fd_set_baudrate(Mcan *hw, uint32_t baudrate)
+{
+	uint32_t gclk_mcan_fd_value;
+	uint32_t mcan_fd_dbtp_dbrp_value;
+	uint32_t mcan_fd_dbtp_dsgw_value = 3, mcan_fd_dbtp_dtseg1_value = 9, mcan_fd_dbtp_dtseg2_value = 3;
+
+	gclk_mcan_fd_value = sysclk_get_peripheral_hz();
+	
+	mcan_fd_dbtp_dbrp_value = gclk_mcan_fd_value / baudrate / (3 + mcan_fd_dbtp_dtseg1_value + mcan_fd_dbtp_dtseg2_value);
+	
+	hw->MCAN_FBTP = MCAN_FBTP_FBRP(mcan_fd_dbtp_dbrp_value) |
+			MCAN_FBTP_FSJW(mcan_fd_dbtp_dsgw_value) |
+			MCAN_FBTP_FTSEG1(mcan_fd_dbtp_dtseg1_value) |
+			MCAN_FBTP_FTSEG2(mcan_fd_dbtp_dtseg2_value);
+}
+
+/**
  * \brief start can module after initialization.
  *
  * \param module_inst  MCAN instance
@@ -310,10 +366,10 @@ void mcan_enable_fd_mode(struct mcan_module *const module_inst)
 	module_inst->hw->MCAN_CCCR |= MCAN_CCCR_CCE;
 
 	module_inst->hw->MCAN_CCCR |= MCAN_CCCR_CME(2);
-	module_inst->hw->MCAN_CCCR |= MCAN_CCCR_CMR(MCAN_CCCR_CMR_FD_BITRATE_SWITCH);
+	module_inst->hw->MCAN_CCCR |= MCAN_CCCR_CMR(2);
 }
 
-/**
+/** 
  * \brief disable fd mode of mcan module.
  *
  * \param module_inst  MCAN instance
@@ -447,7 +503,7 @@ void mcan_disable_test_mode(struct mcan_module *const module_inst)
  *
  * \return status code.
  */
-enum status_code mcan_set_rx_standand_filter(
+enum status_code mcan_set_rx_standard_filter(
 		struct mcan_module *const module_inst,
 		struct mcan_standard_message_filter_element *sd_filter, uint32_t index)
 {
@@ -612,3 +668,10 @@ enum status_code mcan_get_tx_event_fifo_element(
 	return ERR_INVALID_ARG;
 }
 
+/** @cond 0 */
+/**INDENT-OFF**/
+#ifdef __cplusplus
+}
+#endif
+/**INDENT-ON**/
+/** @endcond */

@@ -3,7 +3,7 @@
  *
  * \brief Sleep mode access
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -74,22 +74,16 @@ extern "C" {
  * \param sleep_mode Sleep mode to set.
  */
 #endif
-/* SAM3 and SAM4 series */
+/* SAM3,SAM4,SAMG,SAMV,SAME and SAMS series */
 #if (SAM3S || SAM3N || SAM3XA || SAM3U || SAM4S || SAM4E || SAM4N || SAM4C || \
-		SAM4CM || SAM4CP || SAMG || SAMV71)
-
-#if (SAM3S || SAM3N || SAM3XA || SAM3U || SAM4S || SAM4E || SAM4N || SAM4C || \
-		SAM4CM || SAM4CP || SAMG55 || SAMV71)
+		SAM4CM || SAM4CP || SAMG || SAMV71 || SAME70 || SAMS70)
 # define  SAM_PM_SMODE_ACTIVE     0 /**< Active */
 # define  SAM_PM_SMODE_SLEEP_WFE  1 /**< Wait for Events */
 # define  SAM_PM_SMODE_SLEEP_WFI  2 /**< Wait for Interrupts */
 # define  SAM_PM_SMODE_WAIT_FAST  3 /**< Wait Mode, startup fast (in 3ms) */
 # define  SAM_PM_SMODE_WAIT       4 /**< Wait Mode */
+#if (!(SAMG51 || SAMG53 || SAMG54))
 # define  SAM_PM_SMODE_BACKUP     5 /**< Backup Mode */
-#else
-# define  SAM_PM_SMODE_ACTIVE     0 /**< Active */
-# define  SAM_PM_SMODE_WAIT_FAST  1 /**< Wait Mode, startup fast (in 3ms) */
-# define  SAM_PM_SMODE_WAIT       2 /**< Wait Mode */
 #endif
 
 /** (SCR) Sleep deep bit */

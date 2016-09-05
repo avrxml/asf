@@ -18,7 +18,7 @@
  */
 
 /*
- * Copyright (c) 2001-2003, Adam Dunkels.
+ * Copyright (c) 2001-2016, Adam Dunkels.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -270,7 +270,7 @@ typedef uip_eth_addr uip_lladdr_t;
 /**
  * uIP initialization function.
  *
- * This function should be called at boot up to initilize the uIP
+ * This function should be called at boot up to initialize the uIP
  * TCP/IP stack.
  */
 void uip_init(void);

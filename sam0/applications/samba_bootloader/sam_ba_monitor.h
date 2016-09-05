@@ -47,7 +47,7 @@
 #ifndef _MONITOR_SAM_BA_H_
 #define _MONITOR_SAM_BA_H_
 
-#define SAM_BA_VERSION              "2.14"
+#define SAM_BA_VERSION              "2.16"
 
 /* Selects USART as the communication interface of the monitor */
 #define SAM_BA_INTERFACE_USART      1

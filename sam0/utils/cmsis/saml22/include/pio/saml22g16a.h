@@ -3,7 +3,7 @@
  *
  * \brief Peripheral I/O description for SAML22G16A
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -473,6 +473,43 @@
 #define MUX_PA25C_SERCOM2_PAD3             2L
 #define PINMUX_PA25C_SERCOM2_PAD3  ((PIN_PA25C_SERCOM2_PAD3 << 16) | MUX_PA25C_SERCOM2_PAD3)
 #define PORT_PA25C_SERCOM2_PAD3    (1ul << 25)
+/* ========== PORT definition for SERCOM3 peripheral ========== */
+#define PIN_PA12D_SERCOM3_PAD0            12L  /**< \brief SERCOM3 signal: PAD0 on PA12 mux D */
+#define MUX_PA12D_SERCOM3_PAD0             3L
+#define PINMUX_PA12D_SERCOM3_PAD0  ((PIN_PA12D_SERCOM3_PAD0 << 16) | MUX_PA12D_SERCOM3_PAD0)
+#define PORT_PA12D_SERCOM3_PAD0    (1ul << 12)
+#define PIN_PB08D_SERCOM3_PAD0            40L  /**< \brief SERCOM3 signal: PAD0 on PB08 mux D */
+#define MUX_PB08D_SERCOM3_PAD0             3L
+#define PINMUX_PB08D_SERCOM3_PAD0  ((PIN_PB08D_SERCOM3_PAD0 << 16) | MUX_PB08D_SERCOM3_PAD0)
+#define PORT_PB08D_SERCOM3_PAD0    (1ul <<  8)
+#define PIN_PB02C_SERCOM3_PAD0            34L  /**< \brief SERCOM3 signal: PAD0 on PB02 mux C */
+#define MUX_PB02C_SERCOM3_PAD0             2L
+#define PINMUX_PB02C_SERCOM3_PAD0  ((PIN_PB02C_SERCOM3_PAD0 << 16) | MUX_PB02C_SERCOM3_PAD0)
+#define PORT_PB02C_SERCOM3_PAD0    (1ul <<  2)
+#define PIN_PA13D_SERCOM3_PAD1            13L  /**< \brief SERCOM3 signal: PAD1 on PA13 mux D */
+#define MUX_PA13D_SERCOM3_PAD1             3L
+#define PINMUX_PA13D_SERCOM3_PAD1  ((PIN_PA13D_SERCOM3_PAD1 << 16) | MUX_PA13D_SERCOM3_PAD1)
+#define PORT_PA13D_SERCOM3_PAD1    (1ul << 13)
+#define PIN_PB09D_SERCOM3_PAD1            41L  /**< \brief SERCOM3 signal: PAD1 on PB09 mux D */
+#define MUX_PB09D_SERCOM3_PAD1             3L
+#define PINMUX_PB09D_SERCOM3_PAD1  ((PIN_PB09D_SERCOM3_PAD1 << 16) | MUX_PB09D_SERCOM3_PAD1)
+#define PORT_PB09D_SERCOM3_PAD1    (1ul <<  9)
+#define PIN_PB03C_SERCOM3_PAD1            35L  /**< \brief SERCOM3 signal: PAD1 on PB03 mux C */
+#define MUX_PB03C_SERCOM3_PAD1             2L
+#define PINMUX_PB03C_SERCOM3_PAD1  ((PIN_PB03C_SERCOM3_PAD1 << 16) | MUX_PB03C_SERCOM3_PAD1)
+#define PORT_PB03C_SERCOM3_PAD1    (1ul <<  3)
+#define PIN_PA14D_SERCOM3_PAD2            14L  /**< \brief SERCOM3 signal: PAD2 on PA14 mux D */
+#define MUX_PA14D_SERCOM3_PAD2             3L
+#define PINMUX_PA14D_SERCOM3_PAD2  ((PIN_PA14D_SERCOM3_PAD2 << 16) | MUX_PA14D_SERCOM3_PAD2)
+#define PORT_PA14D_SERCOM3_PAD2    (1ul << 14)
+#define PIN_PA15D_SERCOM3_PAD3            15L  /**< \brief SERCOM3 signal: PAD3 on PA15 mux D */
+#define MUX_PA15D_SERCOM3_PAD3             3L
+#define PINMUX_PA15D_SERCOM3_PAD3  ((PIN_PA15D_SERCOM3_PAD3 << 16) | MUX_PA15D_SERCOM3_PAD3)
+#define PORT_PA15D_SERCOM3_PAD3    (1ul << 15)
+#define PIN_PB11D_SERCOM3_PAD3            43L  /**< \brief SERCOM3 signal: PAD3 on PB11 mux D */
+#define MUX_PB11D_SERCOM3_PAD3             3L
+#define PINMUX_PB11D_SERCOM3_PAD3  ((PIN_PB11D_SERCOM3_PAD3 << 16) | MUX_PB11D_SERCOM3_PAD3)
+#define PORT_PB11D_SERCOM3_PAD3    (1ul << 11)
 /* ========== PORT definition for TCC0 peripheral ========== */
 #define PIN_PA24F_TCC0_WO0                24L  /**< \brief TCC0 signal: WO0 on PA24 mux F */
 #define MUX_PA24F_TCC0_WO0                 5L

@@ -107,15 +107,6 @@
 #   endif
 
 /**
- * During CSMA backoff periods the receiver can be set to receive mode.
- * This feature can be enabled during compile time by uncomment the define
- * RX_WHILE_BACKOFF.
- */
-#   ifndef RX_WHILE_BACKOFF
-/* #       define RX_WHILE_BACKOFF */
-#   endif
-
-/**
  * For applications such as sniffer or beacon-enabled applications a time stamp
  * for each frame is required.
  * This feature can be enabled during compile time by uncomment the define
@@ -212,14 +203,6 @@
 #   endif
 
 /**
- * uncomment the following define RF215V1
- * if the RF215 version 1 module is used
- */
-#   ifndef RF215V1
-#      define RF215V1
-#   endif
-
-/**
  * Enable FSK mode switch support
  * To include the mode switch support to the build,
  * uncomment the following define SUPPORT_MODE_SWITCH.
@@ -305,6 +288,13 @@
  */
 #   ifndef TFA_CCA
 #       define TFA_CCA
+#   endif
+
+/**
+ * Use direct modulation for all devices except version 1
+ */
+#   if (!defined RF215v1)
+#       define DIRECT_MODULATION
 #   endif
 
 #endif /* TAL_SUPPORT_ALL_FEATURES */

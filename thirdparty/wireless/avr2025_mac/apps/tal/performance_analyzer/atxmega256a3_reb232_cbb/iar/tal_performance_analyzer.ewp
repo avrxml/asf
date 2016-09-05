@@ -2259,10 +2259,10 @@
 									<name>$PROJ_DIR$/../../../../../source/tal/at86rf232/inc/tal_rx.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../source/tal/at86rf232/inc/tal_config.h</name>
+									<name>$PROJ_DIR$/../../../../../source/tal/at86rf232/inc/tal_internal.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../../../../../source/tal/at86rf232/inc/tal_internal.h</name>
+									<name>$PROJ_DIR$/../../../../../source/tal/at86rf232/inc/tal_config.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../../../../source/tal/at86rf232/inc/tal_tx.h</name>
@@ -2380,13 +2380,13 @@
 								<name>$PROJ_DIR$/../../../../../source/mac/inc/mac_msg_type_data_ind.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../source/mac/inc/mac_config.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../source/mac/inc/mac.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../source/mac/inc/mac_api.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../source/mac/inc/mac_config.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../source/mac/inc/mac_msg_const.h</name>
@@ -2449,6 +2449,9 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../conf_sio2host.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../conf_perf_analyzer.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../conf_clock.h</name>

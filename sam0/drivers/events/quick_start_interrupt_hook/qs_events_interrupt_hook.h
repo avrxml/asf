@@ -49,11 +49,11 @@
  *
  * In this use case, the EVENT module is configured for:
  *  \li Synchronous event path with rising edge detection
- *  \li TC4 as event generator on the allocated event channel(TC0 is used for SAM L22)
+ *  \li TC4 as event generator on the allocated event channel (TC0 is used for SAM L22)
  *  \li One event channel user attached
  *  \li An event interrupt hook is used to execute some code when an event is detected
  *
- * In this usecase TC is used as event generator, generating events on overflow.
+ * In this use case TC is used as event generator, generating events on overflow.
  * One user attached, counting events on the channel. To be able to execute
  * some code when an event is detected, an interrupt hook is used. The interrupt
  * hook will also count the number of events detected and toggle a LED on the board
@@ -65,33 +65,33 @@
  * \section asfdoc_sam0_events_interrup_hook_setup Setup
  *
  * \subsection asfdoc_sam0_events_interrupt_hook_setup_prereq Prerequisites
- * There are no special setup requirements for this use-case.
+ * There are no special setup requirements for this use case.
  *
  * \subsection asfdoc_sam0_events_interrupt_hook_setup_code Code
  * Add to the main application source file, before any functions, according to
  * the kit used:
- * - SAM D20 Xplained Pro
+ * - SAM D20 Xplained Pro:
  *   \snippet samd20_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
  *   \snippet samd20_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
- * - SAM D21 Xplained Pro
+ * - SAM D21 Xplained Pro:
  *   \snippet samd21_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
  *   \snippet samd21_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
- * - SAM R21 Xplained Pro
+ * - SAM R21 Xplained Pro:
  *   \snippet samr21_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
  *   \snippet samr21_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
- * - SAM D11 Xplained Pro
+ * - SAM D11 Xplained Pro:
  *   \snippet samd11_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
  *   \snippet samd11_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
- * - SAM L21 Xplained Pro
+ * - SAM L21 Xplained Pro:
  *   \snippet saml21_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
  *   \snippet saml21_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
- * - SAM L22 Xplained Pro
+ * - SAM L22 Xplained Pro:
  *   \snippet saml22_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
  *   \snippet saml22_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
- * - SAM DA1 Xplained Pro
+ * - SAM DA1 Xplained Pro:
  *   \snippet samda1_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
  *   \snippet samda1_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
- * - SAM C21 Xplained Pro
+ * - SAM C21 Xplained Pro:
  *   \snippet samc21_xplained_pro/conf_qs_events_interrupt_hook.h definition_event
  *   \snippet samc21_xplained_pro/conf_qs_events_interrupt_hook.h definition_tc
  *

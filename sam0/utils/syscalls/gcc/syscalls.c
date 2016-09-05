@@ -3,7 +3,7 @@
  *
  * \brief Syscalls for SAM0 (GCC).
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -111,9 +111,7 @@ extern int _lseek(int file, int ptr, int dir)
 
 extern void _exit(int status)
 {
-	printf("Exiting with status %d.\n", status);
-
-	for (;;);
+	asm("BKPT #0");
 }
 
 extern void _kill(int pid, int sig)

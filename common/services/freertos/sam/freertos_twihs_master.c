@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Peripheral Control API For the TWIHS
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -246,7 +246,7 @@ freertos_twihs_if freertos_twihs_master_init(Twihs *p_twihs,
  *     call to freertos_twihs_master_init().  The
  *     freertos_driver_parameters.options_flags parameter passed to the
  *     initialization function defines the driver behavior.  If
- *     freertos_driver_parameters.options_flags had the USE_TX_ACCESS_MUTEX bit
+ *     freertos_driver_parameters.options_flags had the USE_TX_ACCESS_SEM bit
  *     set, then the driver will only write to the TWIHS peripheral if it has
  *     first gained exclusive access to it.  block_time_ticks specifies the
  *     maximum amount of time the driver will wait to get exclusive access
@@ -288,7 +288,7 @@ status_code_t freertos_twihs_write_packet_async(freertos_twihs_if p_twihs,
 
 	/* Don't do anything unless a valid TWIHS pointer was used. */
 	if ((twihs_index < MAX_TWIHS) && (p_packet->length > 0)) {
-		return_value = freertos_obtain_peripheral_access_mutex(
+		return_value = freertos_obtain_peripheral_access_semphore(
 				&(tx_dma_control[twihs_index]), &block_time_ticks);
 
 		if (return_value == STATUS_OK) {
@@ -331,7 +331,7 @@ status_code_t freertos_twihs_write_packet_async(freertos_twihs_if p_twihs,
 								all_twihs_definitions[twihs_index].peripheral_base_address,
 								IER_ERROR_INTERRUPTS);
 						/* Release semaphore */
-						xSemaphoreGive(tx_dma_control[twihs_index].peripheral_access_mutex);
+						xSemaphoreGive(tx_dma_control[twihs_index].peripheral_access_sem);
 						return TWIHS_RECEIVE_NACK;
 					}
 					if (status & TWIHS_SR_TXRDY) {
@@ -358,7 +358,7 @@ status_code_t freertos_twihs_write_packet_async(freertos_twihs_if p_twihs,
 						all_twihs_definitions[twihs_index].peripheral_base_address,
 						IER_ERROR_INTERRUPTS);
 				/* Release semaphores */
-				xSemaphoreGive(tx_dma_control[twihs_index].peripheral_access_mutex);
+				xSemaphoreGive(tx_dma_control[twihs_index].peripheral_access_sem);
 			} else {
 
 				twihss[twihs_index].buffer = p_packet->buffer;
@@ -470,7 +470,7 @@ status_code_t freertos_twihs_read_packet_async(freertos_twihs_if p_twihs,
 	if ((twihs_index < MAX_TWIHS) && (p_packet->length > 0)) {
 		/* Because the peripheral is half duplex, there is only one access mutex
 		and the rx uses the tx mutex. */
-		return_value = freertos_obtain_peripheral_access_mutex(
+		return_value = freertos_obtain_peripheral_access_semphore(
 				&(tx_dma_control[twihs_index]), &block_time_ticks);
 
 		if (return_value == STATUS_OK) {
@@ -529,7 +529,7 @@ status_code_t freertos_twihs_read_packet_async(freertos_twihs_if p_twihs,
 								all_twihs_definitions[twihs_index].peripheral_base_address,
 								IER_ERROR_INTERRUPTS);
 						/* Release semaphore */
-						xSemaphoreGive(tx_dma_control[twihs_index].peripheral_access_mutex);
+						xSemaphoreGive(tx_dma_control[twihs_index].peripheral_access_sem);
 						return TWIHS_RECEIVE_NACK;
 					}
 					/* Last byte ? */
@@ -563,7 +563,7 @@ status_code_t freertos_twihs_read_packet_async(freertos_twihs_if p_twihs,
 						all_twihs_definitions[twihs_index].peripheral_base_address,
 						IER_ERROR_INTERRUPTS);
 				/* Release semaphores */
-				xSemaphoreGive(tx_dma_control[twihs_index].peripheral_access_mutex);
+				xSemaphoreGive(tx_dma_control[twihs_index].peripheral_access_sem);
 			} else {
 				/* Start the PDC reception. */
 				twihss[twihs_index].buffer = p_packet->buffer;
@@ -652,16 +652,16 @@ static void local_twihs_handler(const portBASE_TYPE twihs_index)
 
 		/* If the driver is supporting multi-threading, then return the access
 		mutex. */
-		if (tx_dma_control[twihs_index].peripheral_access_mutex != NULL) {
+		if (tx_dma_control[twihs_index].peripheral_access_sem != NULL) {
 			xSemaphoreGiveFromISR(
-					tx_dma_control[twihs_index].peripheral_access_mutex,
+					tx_dma_control[twihs_index].peripheral_access_sem,
 					&higher_priority_task_woken);
 		}
 
 		/* if the sending task supplied a notification semaphore, then
 		notify the task that the transmission has completed. */
 		if (!(timeout_counter >= TWIHS_TIMEOUT_COUNTER)) {
-			if (tx_dma_control[twihs_index]. transaction_complete_notification_semaphore != NULL) {
+			if (tx_dma_control[twihs_index].transaction_complete_notification_semaphore != NULL) {
 				xSemaphoreGiveFromISR(
 						tx_dma_control[twihs_index].transaction_complete_notification_semaphore,
 						&higher_priority_task_woken);
@@ -728,9 +728,9 @@ static void local_twihs_handler(const portBASE_TYPE twihs_index)
 		/* If the driver is supporting multi-threading, then return the access
 		mutex.  NOTE: As the peripheral is half duplex there is only one
 		access mutex, and the reception uses the tx access muted. */
-		if (tx_dma_control[twihs_index].peripheral_access_mutex != NULL) {
+		if (tx_dma_control[twihs_index].peripheral_access_sem != NULL) {
 			xSemaphoreGiveFromISR(
-					tx_dma_control[twihs_index].peripheral_access_mutex,
+					tx_dma_control[twihs_index].peripheral_access_sem,
 					&higher_priority_task_woken);
 		}
 
@@ -761,9 +761,9 @@ static void local_twihs_handler(const portBASE_TYPE twihs_index)
 		twihs_disable_interrupt(twihs_port, TWIHS_IDR_ENDTX);
 		twihs_disable_interrupt(twihs_port, TWIHS_IDR_ENDRX);
 
-		if (tx_dma_control[twihs_index].peripheral_access_mutex != NULL) {
+		if (tx_dma_control[twihs_index].peripheral_access_sem != NULL) {
 			xSemaphoreGiveFromISR(
-					tx_dma_control[twihs_index].peripheral_access_mutex,
+					tx_dma_control[twihs_index].peripheral_access_sem,
 					&higher_priority_task_woken);
 		}
 	}

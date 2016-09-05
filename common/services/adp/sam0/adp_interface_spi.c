@@ -50,9 +50,6 @@
 #include <asf.h>
 #include "adp_interface.h"
 
-#define EDBG_SPI EDBG_SPI_MODULE
-#define EDBG_SPI_SS_PIN PIN_PB31//PIN_PB17
-
 struct spi_module edbg_spi;
 struct spi_slave_inst slave;
 
@@ -90,7 +87,7 @@ static void adp_interface_transceive(uint8_t *tx_data, uint8_t *rx_data, uint16_
 * \brief Initialize EDBG SPI communication for SAM0
 *
 */
-bool adp_interface_init(void)
+enum status_code adp_interface_init(void)
 {
 	enum status_code return_value;
 
@@ -101,7 +98,7 @@ bool adp_interface_init(void)
 	struct spi_config config;
 
 	spi_slave_inst_get_config_defaults(&slave_dev_config);
-	slave_dev_config.ss_pin = EDBG_SPI_SS_PIN;
+	slave_dev_config.ss_pin = (EDBG_SPI_SERCOM_PINMUX_PAD1 >> 16) & 0xFF;
 	spi_attach_slave(&slave, &slave_dev_config);
 
 	spi_get_config_defaults(&config);
@@ -112,7 +109,7 @@ bool adp_interface_init(void)
 	config.pinmux_pad2 = EDBG_SPI_SERCOM_PINMUX_PAD2;
 	config.pinmux_pad3 = EDBG_SPI_SERCOM_PINMUX_PAD3;
 
-	return_value = spi_init(&edbg_spi, EDBG_SPI, &config);
+	return_value = spi_init(&edbg_spi, EDBG_SPI_MODULE, &config);
 
 	spi_enable(&edbg_spi);
 
@@ -145,7 +142,7 @@ void adp_interface_transceive_procotol(uint8_t* tx_buf, uint16_t length, uint8_t
 * \param[in]  length  The length of the read data
 * \param[out] rx_buf  Pointer to store the received SPI character
 */
-bool adp_interface_read_response(uint8_t* rx_buf, uint16_t length)
+enum status_code adp_interface_read_response(uint8_t* rx_buf, uint16_t length)
 {
 	bool status;
 

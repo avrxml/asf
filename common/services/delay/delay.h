@@ -3,7 +3,7 @@
  *
  * \brief Common Delay Service
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -112,21 +112,21 @@ extern "C" {
  * @brief Delay in seconds.
  * @param delay Delay in seconds
  */
-#define delay_s(delay)      cpu_delay_ms(1000 * delay, F_CPU)
+#define delay_s(delay)      ((delay) ? cpu_delay_ms(1000 * delay, F_CPU) : cpu_delay_us(1, F_CPU))
 
 /**
  * @def delay_ms
  * @brief Delay in milliseconds.
  * @param delay Delay in milliseconds
  */
-#define delay_ms(delay)     cpu_delay_ms(delay, F_CPU)
+#define delay_ms(delay)     ((delay) ? cpu_delay_ms(delay, F_CPU) : cpu_delay_us(1, F_CPU))
 
 /**
  * @def delay_us
  * @brief Delay in microseconds.
  * @param delay Delay in microseconds
  */
-#define delay_us(delay)     cpu_delay_us(delay, F_CPU)
+#define delay_us(delay)     ((delay) ? cpu_delay_us(delay, F_CPU) : cpu_delay_us(1, F_CPU))
 
 #ifdef __cplusplus
 }

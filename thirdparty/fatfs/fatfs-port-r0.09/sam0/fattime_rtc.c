@@ -3,7 +3,7 @@
  *
  * \brief Implementation of low level disk I/O module skeleton for FatFS.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -61,7 +61,7 @@ uint32_t get_fattime(void);
  *
  * bit10:5   Minute (0..59)
  *
- * bit4:0    Second (0..59)
+ * bit4:0    Second (0..29)
  *
  * \return Current time.
  */
@@ -78,7 +78,7 @@ uint32_t get_fattime(void)
 			| (current_time.day << 16)
 			| (current_time.hour << 11)
 			| (current_time.minute << 5)
-			| (current_time.second << 0);
+			| ((current_time.second >> 1) << 0);
 
 	return ul_time;
 }

@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM I2C Master Quick Start Guide
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,8 +83,11 @@ void configure_i2c_master(void)
 	/* Change buffer timeout to something longer. */
 	//! [conf_change]
 	config_i2c_master.buffer_timeout = 10000;
+#if SAMR30
+	config_i2c_master.pinmux_pad0    = CONF_MASTER_SDA_PINMUX;
+	config_i2c_master.pinmux_pad1    = CONF_MASTER_SCK_PINMUX;
+#endif
 	//! [conf_change]
-
 	/* Initialize and enable device with config. */
 	//! [init_module]
 	i2c_master_init(&i2c_master_instance, CONF_I2C_MASTER_MODULE, &config_i2c_master);

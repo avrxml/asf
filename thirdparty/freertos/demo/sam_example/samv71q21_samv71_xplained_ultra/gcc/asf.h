@@ -56,10 +56,12 @@
 #include <compiler.h>
 #include <status_codes.h>
 
-// From module: FreeRTOS mini Real-Time Kernel
+// From module: FreeRTOS - kernel 8.2.3
 #include <FreeRTOS.h>
 #include <StackMacros.h>
 #include <croutine.h>
+#include <deprecated_definitions.h>
+#include <event_groups.h>
 #include <list.h>
 #include <mpu_wrappers.h>
 #include <portable.h>

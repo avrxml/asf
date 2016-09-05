@@ -3,7 +3,7 @@
  *
  * \brief I2C Master Bootloader Bridge Application
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -132,6 +132,7 @@ static void configure_usart(void)
 
 	struct usart_config config_usart;
 	usart_get_config_defaults(&config_usart);
+	config_usart.generator_source = GCLK_GENERATOR_3;
 	config_usart.baudrate    = 115200;
 	config_usart.mux_setting = EDBG_CDC_SERCOM_MUX_SETTING;
 	config_usart.pinmux_pad0 = EDBG_CDC_SERCOM_PINMUX_PAD0;

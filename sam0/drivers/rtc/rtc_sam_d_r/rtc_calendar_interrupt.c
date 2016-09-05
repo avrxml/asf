@@ -62,7 +62,7 @@ extern struct rtc_module *_rtc_instance[RTC_INST_NUM];
  *
  * \return                        Status of registering callback.
  * \retval STATUS_OK              Registering was done successfully
- * \retval STATUS_ERR_INVALID_ARG If trying to register a callback not available
+ * \retval STATUS_ERR_INVALID_ARG If trying to register, a callback is not available
  */
 enum status_code rtc_calendar_register_callback(
 		struct rtc_module *const module,
@@ -101,7 +101,7 @@ enum status_code rtc_calendar_register_callback(
  *
  * \return                        Status of unregistering callback.
  * \retval STATUS_OK              Unregistering was done successfully
- * \retval STATUS_ERR_INVALID_ARG If trying to unregister a callback not available
+ * \retval STATUS_ERR_INVALID_ARG If trying to unregister, a callback is not available
  */
 enum status_code rtc_calendar_unregister_callback(
 		struct rtc_module *const module,

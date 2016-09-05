@@ -3,7 +3,7 @@
  *
  * \brief TWIHS MASTER Example for SAM.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -53,6 +53,7 @@
  *
  * This package can be used with the following setup:
  *  - SAMV71 Xplained Ultra kit
+ *  - SAME70 Xplained kit
  *
  * \section files Main files:
  *  - twihs.c SAM Two-Wire Interface driver implementation.
@@ -208,7 +209,7 @@ int main(void)
 
 	/* Turn off LEDs */
 	LED_Off(LED0);
-	
+
     /* Initialize the console UART */
 	configure_console();
 
@@ -228,7 +229,7 @@ int main(void)
 	pmc_enable_periph_clk(BOARD_ID_TWIHS_EEPROM);
 
 	/* Configure the options of TWI driver */
-	opt.master_clk = sysclk_get_cpu_hz();
+	opt.master_clk = sysclk_get_peripheral_hz();
 	opt.speed      = TWIHS_CLK;
 
 	/* Configure the data packet to be transmitted */

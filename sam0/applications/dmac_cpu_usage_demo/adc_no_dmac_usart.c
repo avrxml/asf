@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAMD10/SAMD11 DMAC Application Note Example for the case 'ADC_NO_DMAC_USART'
+ * \brief DMAC Application Note Example for the case 'ADC_NO_DMAC_USART'
  *
  * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
@@ -85,7 +85,7 @@ static void _usart_interrupt_handler(void);
 /* MACRO Definitions */
 
 /*! Maximum reload value that can be loaded to SysTick */
-#define SYSTICK_MAX_VALUE  (SysTick_LOAD_RELOAD_Msk - 1) //// Niyas - Not the right approach to load the maximum value; In this case it works as SysTick_LOAD_RELOAD_Pos is 0
+#define SYSTICK_MAX_VALUE  (SysTick_LOAD_RELOAD_Msk - 1)
 
 /*! Number of ADC samples to be taken and transferred (for with and without case) */
 #define BLOCK_COUNT 1024
@@ -119,7 +119,7 @@ struct usart_module usart_instance;
 struct adc_module adc_instance;
 
 /*! brief PORT base address */
-volatile PortGroup *const port_base = PORT;
+volatile PortGroup *const port_base = (PortGroup *const)PORT;
 
 
 /**
@@ -152,6 +152,9 @@ static void _adc_interrupt_handler(void)
 	/* Check if the all the samples has been done by ADC */
 	if (adc_sample_count == BLOCK_COUNT){
 		
+		/* Clear ADC interrupt */
+		adc_hw->INTFLAG.reg = ADC_INTFLAG_RESRDY;
+
 		/* Disable ADC */
 		adc_hw->CTRLA.reg &= ~ADC_CTRLA_ENABLE;
 
@@ -217,7 +220,13 @@ static void _usart_interrupt_handler(void)
  * NOTE: This will point to the _usart_interrupt_handler function
  *       where the USART interrupt is being processed.
  */
+#if (SAMD11) || (SAMD10) 
+/* SERCOM2 is used in SAM D10/D11 devices */
 void SERCOM2_Handler()
+#else 
+/* SERCOM4 is used in other devices */
+void SERCOM4_Handler()
+#endif
 {
 	_usart_interrupt_handler();
 }
@@ -262,7 +271,7 @@ void SysTick_Handler(void)
 void systick_init()
 {
 	/* Calculate the reload value */
-	systick_reload = SYSTICK_MAX_VALUE;// Niyas - what is the need of this and what will be the interrupt time interval with this value? 
+	systick_reload = SYSTICK_MAX_VALUE;
 
 	/* Initialize software counter */
 	systick_counter = 0;
@@ -295,7 +304,7 @@ void configure_usart(void)
 	struct usart_config config_usart;
 	
 	/* USART base address */
-	SercomUsart *const usart_hw	= SERCOM2;
+	SercomUsart *const usart_hw	= (SercomUsart *const)EDBG_CDC_MODULE;
 	
 	/* Get USART default configuration */
 	usart_get_config_defaults(&config_usart);
@@ -314,7 +323,7 @@ void configure_usart(void)
 	}
 
 	/* Enable interrupt */
-	system_interrupt_enable(SERCOM2_IRQn);
+	system_interrupt_enable(EDBG_CDC_MODULE_IRQn);
 
 
 	/* Enable USART */
@@ -337,7 +346,9 @@ void configure_adc(void)
 	/* Get default ADC configuration */
 	adc_get_config_defaults(&config_adc);
 
+#if (SAMD11) || (SAMD10)
 	config_adc.gain_factor     = ADC_GAIN_FACTOR_DIV2;
+#endif
 	config_adc.clock_prescaler = ADC_CLOCK_PRESCALER_DIV64;
 	config_adc.reference       = ADC_REFERENCE_INTVCC1;
 	config_adc.positive_input  = ADC_POSITIVE_INPUT_PIN0;
@@ -382,7 +393,7 @@ uint32_t calculate_cycles_taken(uint32_t start_cycle, uint32_t end_cycle)
  * \brief Configure port pins PA14 and PA16 as output with zero 
  * as initial out value.
  */
-void configure_port(void)// Niyas - why this configuration? Can be conditional if it is for debugging
+void configure_port(void)
 {
 	/* Set PA14 and PA15 as output */
 	port_base->DIRSET.reg = (1UL << PIN_PA14 % 32 ) | (1UL << PIN_PA16 % 32 );
@@ -509,15 +520,10 @@ int main(void)
  * which executes whenever CPU is available. The proportion of these two values
  * are used to calculate the CPU usage for the chosen case.
  *
- * For more details about this application, please refer to the Application 
- * note "AT07685: CPU Usage demonstration using DMAC Application" in the 
- * link http://www.atmel.com/devices/ATSAMD11D14A.aspx?tab=documents
- *
  * \section referenceinfo References
- * - SAMD10/11 device data sheet
- * - SAMD11 Xplained Pro board schematics
+ * - SAM D10/D11 SAM L22 device data sheet
+ * - SAMD11 / SAML22 Xplained Pro board schematics
  * - IO1 Xplained board schematics
- * - ATxxxx Application note
  *
  * \section compinfo Compiler Support
  * This example application supports
@@ -525,50 +531,9 @@ int main(void)
  *
  * \section deviceinfo Device support
  * - ATSAMD11/10 Series
+ * - ATSAML22 Series
  *
  * \author
- * Atmel Corporation : http://www.atmel.com \n
+ * Atmel Corporation : http://www.atmel.com
  */
-
 #endif
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 

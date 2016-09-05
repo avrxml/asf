@@ -3,7 +3,7 @@
  *
  * \brief SAM Sercom Usart driver with DMA quick start
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -61,8 +61,8 @@ static uint16_t string[BUFFER_LEN];
 
 //! [transfer_descriptor]
 COMPILER_ALIGNED(16)
-DmacDescriptor example_descriptor_rx;
-DmacDescriptor example_descriptor_tx;
+DmacDescriptor example_descriptor_rx SECTION_DMAC_DESCRIPTOR;
+DmacDescriptor example_descriptor_tx SECTION_DMAC_DESCRIPTOR;
 //! [transfer_descriptor]
 
 //! [setup]
@@ -93,7 +93,7 @@ static void configure_dma_resource_rx(struct dma_resource *resource)
 
 //! [setup_rx_3]
 	config.peripheral_trigger = EDBG_CDC_SERCOM_DMAC_ID_RX;
-	config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
+	config.trigger_action = DMA_TRIGGER_ACTION_BEAT;
 //! [setup_rx_3]
 
 //! [setup_rx_4]
@@ -142,7 +142,7 @@ static void configure_dma_resource_tx(struct dma_resource *resource)
 
 //! [setup_tx_3]
 	config.peripheral_trigger = EDBG_CDC_SERCOM_DMAC_ID_TX;
-	config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
+	config.trigger_action = DMA_TRIGGER_ACTION_BEAT;
 //! [setup_tx_3]
 
 //! [setup_tx_4]

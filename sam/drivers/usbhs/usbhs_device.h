@@ -58,6 +58,10 @@ extern "C" {
 /**INDENT-ON**/
 /// @endcond
 
+#ifndef USBHS_RAM_ADDR
+#define USBHS_RAM_ADDR        0xA0100000u
+#endif
+
 //! \ingroup udd_group
 //! \defgroup udd_udphs_group USB High-Speed Port for device mode (USBHS)
 //! USBHS low-level driver for USB device mode

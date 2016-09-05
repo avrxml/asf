@@ -4,7 +4,7 @@
  *
  * \brief WINC1500 Security Connection with Wi-Fi Protected Setup(WPS) Example.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -22,9 +22,6 @@
  *
  * 3. The name of Atmel may not be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
  *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -245,6 +242,7 @@ int main(void)
 {
 	tstrWifiInitParam param;
 	int8_t ret;
+	char devName[] = "WINC1500_WPS";
 
 	/* Initialize the board. */
 	system_init();
@@ -266,6 +264,9 @@ int main(void)
 		while (1) {
 		}
 	}
+
+	/* Device name must be set before enabling WPS mode. */
+	m2m_wifi_set_device_name((uint8 *)devName, strlen(devName));
 
 	if (!MAIN_WPS_PUSH_BUTTON_FEATURE) {
 		/* case 2 WPS PIN method */

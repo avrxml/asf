@@ -55,7 +55,6 @@ CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        common/utils/unit_test/suite.c                     \
        sam0/boards/samd21_xplained_pro/board_init.c       \
-       sam0/drivers/events/events_hooks.c                 \
        sam0/drivers/events/events_sam_d_r/events.c        \
        sam0/drivers/events/unit_test/unit_test.c          \
        sam0/drivers/port/port.c                           \
@@ -165,7 +164,7 @@ CFLAGS =
 CPPFLAGS = \
        -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMD21_XPLAINED_PRO                       \
-       -D EVENTS_INTERRUPT_HOOKS_MODE=true                \
+       -D EVENTS_INTERRUPT_HOOKS_MODE=false               \
        -D RTC_COUNT_ASYNC=false                           \
        -D TC_ASYNC=false                                  \
        -D TEST_SUITE_DEFINE_ASSERT_MACRO                  \

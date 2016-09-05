@@ -3,7 +3,7 @@
  *
  * \brief SAM L21 Generic Clock Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -414,7 +414,7 @@ void system_gclk_chan_lock(
 {
 	system_interrupt_enter_critical_section();
 
-	 GCLK->PCHCTRL[channel].reg |= GCLK_PCHCTRL_WRTLOCK;
+	GCLK->PCHCTRL[channel].reg |= GCLK_PCHCTRL_WRTLOCK | GCLK_PCHCTRL_CHEN;
 	system_interrupt_leave_critical_section();
 }
 

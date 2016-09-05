@@ -3,7 +3,7 @@
  *
  * \brief Serial Console functionalities
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -42,11 +42,12 @@
 
 /* === INCLUDES ============================================================ */
 
-#include "asf.h"
+#include <asf.h>
 #include "console_serial.h"
 #include "conf_console.h"
-
-
+#include "usart.h"
+#include "platform.h"
+#include "timer_hw.h"
 /* === TYPES =============================================================== */
 
 /* === MACROS ============================================================== */
@@ -72,6 +73,16 @@ void serial_console_init(void)
 	usart_enable(&cdc_uart_module);
 }
 
+uint8_t getchar_timeout(uint32_t timeout)
+{
+	uint16_t temp = NULL;
 
+	while((STATUS_OK != usart_read_wait(&cdc_uart_module, &temp)) && timeout){
+		timeout--;
+		delay_ms(1);
+	}
+
+	return ((uint8_t)temp);	
+}
 
 /* EOF */

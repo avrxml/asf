@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,9 +37,6 @@
  *
  * \asf_license_stop
  *
- */
-/*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "samd21.h"
@@ -124,7 +121,7 @@ void Dummy_Handler(void);
 #pragma section  = ".intvec"
 #pragma location = ".intvec"
 const DeviceVectors __vector_table[] = {
-        __sfe("CSTACK"),
+        (void*) __sfe("CSTACK"),
         (void*) Reset_Handler,
         (void*) NMI_Handler,
         (void*) HardFault_Handler,
@@ -152,7 +149,7 @@ const DeviceVectors __vector_table[] = {
 #ifdef ID_USB
         (void*) USB_Handler,            /*  7 Universal Serial Bus */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /*  7 Reserved */
 #endif
         (void*) EVSYS_Handler,          /*  8 Event System Interface */
         (void*) SERCOM0_Handler,        /*  9 Serial Communication Interface 0 */
@@ -162,12 +159,12 @@ const DeviceVectors __vector_table[] = {
 #ifdef ID_SERCOM4
         (void*) SERCOM4_Handler,        /* 13 Serial Communication Interface 4 */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 13 Reserved */
 #endif
 #ifdef ID_SERCOM5
         (void*) SERCOM5_Handler,        /* 14 Serial Communication Interface 5 */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 14 Reserved */
 #endif
         (void*) TCC0_Handler,           /* 15 Timer Counter Control 0 */
         (void*) TCC1_Handler,           /* 16 Timer Counter Control 1 */
@@ -178,42 +175,42 @@ const DeviceVectors __vector_table[] = {
 #ifdef ID_TC6
         (void*) TC6_Handler,            /* 21 Basic Timer Counter 3 */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 21 Reserved */
 #endif
 #ifdef ID_TC7
         (void*) TC7_Handler,            /* 22 Basic Timer Counter 4 */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 22 Reserved */
 #endif
 #ifdef ID_ADC
         (void*) ADC_Handler,            /* 23 Analog Digital Converter */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 23 Reserved */
 #endif
 #ifdef ID_AC
         (void*) AC_Handler,             /* 24 Analog Comparators 0 */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 24 Reserved */
 #endif
 #ifdef ID_DAC
         (void*) DAC_Handler,            /* 25 Digital Analog Converter */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 25 Reserved */
 #endif
 #ifdef ID_PTC
         (void*) PTC_Handler,            /* 26 Peripheral Touch Controller */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 26 Reserved */
 #endif
 #ifdef ID_I2S
         (void*) I2S_Handler,            /* 27 Inter-IC Sound Interface */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 27 Reserved */
 #endif
 #ifdef ID_AC1
         (void*) AC1_Handler             /* 28 Analog Comparators 1 */
 #else
-        (void*) (0UL)  /* Reserved*/
+        (void*) (0UL)                   /* 28 Reserved */
 #endif
 };
 

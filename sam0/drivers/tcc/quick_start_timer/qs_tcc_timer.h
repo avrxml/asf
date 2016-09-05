@@ -115,7 +115,7 @@
  *           struct to ensure that all values are initialized to known default
  *           settings.
  *
- *  -# Alter the TCC settings to configure the GCLK source, prescaler, period
+ *  -# Alter the TCC settings to configure the GCLK source, prescaler, period,
  *     and compare channel values.
  *     \snippet qs_tcc_timer.c setup_change_config
  *  -# Configure the TCC module with the desired settings.

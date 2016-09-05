@@ -1,10 +1,10 @@
 /**
  * \file user_interface.c
  *
- * \brief LED, Button and terminal print functions - Perfoamnce Analyzer
+ * \brief LED, Button and terminal print functions - Performance Analyzer
  * application
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,7 +50,7 @@
 #include "tal.h"
 # include "app_init.h"
 #if (LED_COUNT > 0)
-#if !(SAMD ||  SAMR21 || SAML21)
+#if !(SAMD || SAMR21 || SAML21 || SAMR30)
 # include "led.h"
 #endif
 #endif
@@ -204,12 +204,14 @@ bool app_debounce_button(void)
  */
 bool button_pressed(void)
 {
-#if SAMD || SAMR21 || SAML21
+#ifdef SW0_PIN
+#if SAMD || SAMR21 || SAML21 || SAMR30
 	if (port_pin_get_input_level(SW0_PIN)) {
 		return false;
 	} else {
 		return true;
 	}
+#endif
 #endif
 
 #ifdef SENSOR_TERMINAL_BOARD

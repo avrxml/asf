@@ -1,0 +1,9 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\at30tse75x_quick_start_flash.ewp</path>
+	</project>
+	<project>
+		<path>$WS_DIR$\at30tse75x_quick_start_sram.ewp</path>
+	</project>
+</workspace>

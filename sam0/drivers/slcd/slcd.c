@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of functions for the SLCD on SAM devices.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -125,7 +125,6 @@ void slcd_get_config_defaults(struct slcd_config *config)
 	config->enable_low_resistance = false;
 	config->bias_buffer_duration = 0;
 	config->enable_bias_buffer = false;
-	config->enable_ext_bias = false;
 }
 
 /**
@@ -162,8 +161,7 @@ enum status_code slcd_init(struct slcd_config *const config)
 	SLCD->CTRLB.reg = SLCD_CTRLB_BBD(config->bias_buffer_duration)
   					| (config->enable_bias_buffer << SLCD_CTRLB_BBEN_Pos)
   					| SLCD_CTRLB_LRD(config->low_resistance_duration)
-  					| (config->enable_low_resistance << SLCD_CTRLB_LREN_Pos)
-  					| (config->enable_ext_bias << SLCD_CTRLB_EXTBIAS_Pos);
+  					| (config->enable_low_resistance << SLCD_CTRLB_LREN_Pos);
 
 
     SLCD->CTRLC.reg |= SLCD_CTRLC_LPPM(CONF_SLCD_POWER_MODE) | SLCD_CTRLC_CTST(0x0F);
@@ -200,6 +198,8 @@ void slcd_enable(void)
  */
 void slcd_disable(void)
 {
+	SLCD->INTENCLR.reg = SLCD_INTENCLR_MASK;
+	SLCD->INTFLAG.reg = SLCD_INTFLAG_MASK;
 	SLCD->CTRLA.reg &= ~(SLCD_CTRLA_ENABLE);
 	while (slcd_is_syncing()) {
 		/* Wait for synchronization */
@@ -248,7 +248,7 @@ void slcd_reset(void)
  * \param[in] contrast Contrast value
  *
  * \return Status of set contrast.
- * \retval STATUS_OK SLCD contrast set successful
+ * \retval STATUS_OK               SLCD contrast set successful
  * \retval STATUS_ERR_INVALID_ARG  SLCD is not working in internal supply mode
  */
 enum status_code slcd_set_contrast(uint8_t contrast)
@@ -292,8 +292,8 @@ void slcd_blink_get_config_defaults(struct slcd_blink_config *blink_config)
  * \param[in] config  Pointer to an SLCD blink configuration structure
  *
  * \return Status of the configuration procedure.
- * \retval STATUS_OK SLCD blink configuration went successful
- * \retval STATUS_ERR_INVALID_ARG  If blink  configuration failed
+ * \retval STATUS_OK               SLCD blink configuration went successful
+ * \retval STATUS_ERR_INVALID_ARG  If blink configuration failed
  */
 
 enum status_code  slcd_blink_set_config(struct slcd_blink_config *const blink_config)
@@ -536,21 +536,16 @@ void slcd_set_display_memory(void)
 /**
  * \brief Set the specified segment in the SLCD display memory
  *
- * \param[in] pix_seg Pixel/segment SEG coordinate
+ * \param[in] pix_seg     Pixel/segment SEG coordinate
  * \param[in] byte_offset Byte offset in display memory
- * \param[in] seg_mask Byte offset in display memory
+ * \param[in] seg_mask    Byte offset in display memory
  */
 void slcd_set_seg_data(uint8_t seg_data,uint8_t byte_offset,uint8_t seg_mask)
 {
-	uint32_t temp = SLCD->ISDATA.reg;
-
-	temp &= (~ SLCD_ISDATA_SDATA(0xff)) | (~ SLCD_ISDATA_OFF(0x3f));
-
 	SLCD->ISDATA.reg = SLCD_ISDATA_SDATA(seg_data)
 					 | SLCD_ISDATA_OFF(byte_offset)
 					 | SLCD_ISDATA_SDMASK(seg_mask);
 
-	SLCD->ISDATA.reg = temp;
 	while (slcd_get_char_writing_status()) {
 	}
 }
@@ -592,7 +587,7 @@ void slcd_automated_char_get_config_default(
  * \param[in] config  Pointer to an SLCD automated character configuration structure
  *
  * \return Status of the configuration procedure.
- * \retval STATUS_OK SLCD automated character configuration went successful
+ * \retval STATUS_OK               SLCD automated character configuration went successful
  * \retval STATUS_ERR_INVALID_ARG  If automated character  configuration failed
  */
 enum status_code slcd_automated_char_set_config(
@@ -621,9 +616,9 @@ enum status_code slcd_automated_char_set_config(
  *
  * Set Character mode amd SEG line per digit.
  *
- * \param[in] order  Mapping order in char mode
+ * \param[in] order         Mapping order in char mode
  * \param[in] seg_line_num  Define the number of SEG line per digit,
- * 	it equal to number of SEG line - 1
+ *                          it equal to number of SEG line - 1
  */
 void slcd_character_map_set(
 		enum slcd_automated_char_order order,
@@ -636,8 +631,8 @@ void slcd_character_map_set(
 /**
  * \brief Write segments data to display memory in character mode
  *
- * \param[in] seg_data Pixel/segment data
- * \param[in] data_mask Segments data mask
+ * \param[in] seg_data       Pixel/segment data
+ * \param[in] data_mask      Segments data mask
  * \param[in] com_line_index COM line index
  * \param[in] seg_line_index Segments line index
  */
@@ -683,7 +678,7 @@ void slcd_circular_shift_get_config_defaults(
  * \param[in] config  Pointer to an SLCD circular shift configuration structure
  *
  * \return Status of the configuration procedure.
- * \retval STATUS_OK SLCD circular shift configuration went successful
+ * \retval STATUS_OK               SLCD circular shift configuration went successful
  * \retval STATUS_ERR_INVALID_ARG  If circular shift configuration failed
  */
 

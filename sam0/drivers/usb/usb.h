@@ -3,7 +3,7 @@
  *
  * \brief SAM USB Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -294,7 +294,7 @@ struct usb_module {
 	/** Bit mask for device callbacks enabled */
 	uint16_t device_enabled_callback_mask;
 	/** Bit mask for device endpoint callbacks registered */
-	uint8_t deivce_endpoint_registered_callback_mask[USB_EPT_NUM];
+	uint8_t device_endpoint_registered_callback_mask[USB_EPT_NUM];
 	/** Bit mask for device endpoint callbacks enabled */
 	uint8_t device_endpoint_enabled_callback_mask[USB_EPT_NUM];
 };

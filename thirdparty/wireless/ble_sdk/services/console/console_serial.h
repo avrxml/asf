@@ -3,7 +3,7 @@
  *
  * \brief Serial Console functionalities
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -44,5 +44,5 @@
 #define COSOLE_SERIAL_H
 
 void serial_console_init(void);
-
+uint8_t getchar_timeout(uint32_t timeout);
 #endif /* COSOLE_SERIAL_H */

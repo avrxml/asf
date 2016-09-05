@@ -324,11 +324,12 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../drivers/rtc</state>
 					<state>$PROJ_DIR$/../../../../../drivers/pmc</state>
@@ -614,11 +615,12 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../drivers/rtc</state>
 					<state>$PROJ_DIR$/../../../../../drivers/pmc</state>
@@ -1295,11 +1297,12 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../drivers/rtc</state>
 					<state>$PROJ_DIR$/../../../../../drivers/pmc</state>
@@ -1585,11 +1588,12 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../drivers/uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../drivers/rtc</state>
 					<state>$PROJ_DIR$/../../../../../drivers/pmc</state>

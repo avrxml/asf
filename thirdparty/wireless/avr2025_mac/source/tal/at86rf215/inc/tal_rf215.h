@@ -53,6 +53,7 @@
 
 /* === INCLUDES ============================================================ */
 
+#include "tal.h"
 #include "tal_config.h"
 #include "pal.h"
 #include "ieee_154g.h"

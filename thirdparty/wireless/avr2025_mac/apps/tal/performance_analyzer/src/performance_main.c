@@ -3,7 +3,7 @@
  *
  * \brief  Main of Performance_Analyzer application
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -58,7 +58,7 @@
 #include "app_range_mode.h"
 #include "perf_api_serial_handler.h"
 #include "app_config.h"
-#if SAMD || SAMR21 || SAML21
+#if SAMD || SAMR21 || SAML21 || SAMR30
 #include "system.h"
 #else
 #if (LED_COUNT > 0)
@@ -277,7 +277,7 @@
  * Area
  *     Networks (WPANs).\n\n
  * 2)  <a href="http://www.atmel.com/design-support/">Atmel Design
- *Support</a>.\n
+ * Support</a>.\n
  * \page contactinfo Contact Information
  * For further information,visit
  * <A href="http://www.atmel.com/avr">www.atmel.com</A>.\n

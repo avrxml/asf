@@ -64,21 +64,21 @@
  * \subsection asfdoc_sam0_events_basic_use_casesetup_code Code
  * Add to the main application source file, before any functions, according to
  * the kit used:
- * - SAM D20 Xplained Pro.
+ * - SAM D20 Xplained Pro:
  *   \snippet samd20_xplained_pro/conf_qs_events.h definition_event
- * - SAM D21 Xplained Pro.
+ * - SAM D21 Xplained Pro:
  *   \snippet samd21_xplained_pro/conf_qs_events.h definition_event
- * - SAM R21 Xplained Pro.
+ * - SAM R21 Xplained Pro:
  *   \snippet samr21_xplained_pro/conf_qs_events.h definition_event
- * - SAM D11 Xplained Pro.
+ * - SAM D11 Xplained Pro:
  *   \snippet samd11_xplained_pro/conf_qs_events.h definition_event
- * - SAM L21 Xplained Pro
+ * - SAM L21 Xplained Pro:
  *   \snippet saml21_xplained_pro/conf_qs_events.h definition_event
- * - SAM L22 Xplained Pro
+ * - SAM L22 Xplained Pro:
  *   \snippet saml22_xplained_pro/conf_qs_events.h definition_event
- * - SAM DA1 Xplained Pro.
+ * - SAM DA1 Xplained Pro:
  *   \snippet samda1_xplained_pro/conf_qs_events.h definition_event
- * - SAM C21 Xplained Pro
+ * - SAM C21 Xplained Pro:
  *   \snippet samc21_xplained_pro/conf_qs_events.h definition_event
  *
  * Copy-paste the following setup code to your user application:
@@ -104,7 +104,7 @@
  *          settings.
  *
  * -# Adjust the configuration struct to request that the channel is to be attached
- *    to the specified event generator, that rising edges of the event signal
+ *    to the specified event generator, that rising edges of the event signal is to
  *    be detected on the channel, and that the synchronous event path is to be used.
  *    \snippet qs_events_basic.c setup_3
  *    \br

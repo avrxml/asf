@@ -3,7 +3,7 @@
  *
  * \brief SAM L21 Clock Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -191,7 +191,7 @@ static inline void _system_clock_source_dfll_set_config_errata_9905(void)
  *
  * Determines the current operating frequency of a given clock source.
  *
- * \param[in] clock_source  Clock source to get the frequency of
+ * \param[in] clock_source  Clock source
  *
  * \returns Frequency of the given clock source, in Hz.
  */
@@ -345,7 +345,7 @@ void system_clock_source_xosc_set_config(
 			temp.bit.GAIN = 2;
 		} else if (config->frequency <= 16000000) {
 			temp.bit.GAIN = 3;
-		} else if (config->frequency <= 30000000) {
+		} else if (config->frequency <= 32000000) {
 			temp.bit.GAIN = 4;
 		}
 
@@ -499,10 +499,10 @@ void system_clock_source_dpll_set_config(
 	while(OSCCTRL->DPLLSYNCBUSY.reg & OSCCTRL_DPLLSYNCBUSY_DPLLPRESC){
 		}
 	/*
-	 * Fck = Fckrx * (LDR + 1 + LDRFRAC / 16)
+	 * Fck = Fckrx * (LDR + 1 + LDRFRAC / 16) / (2^PRESC)
 	 */
 	_system_clock_inst.dpll.frequency =
-			(refclk * (((tmpldr + 1) << 4) + tmpldrfrac)) >> 4;
+			(refclk * (((tmpldr + 1) << 4) + tmpldrfrac)) >> (4 + config->prescaler);
 }
 
 /**
@@ -512,11 +512,11 @@ void system_clock_source_dpll_set_config(
  * registers. The acceptable ranges are:
  *
  * For OSC32K:
- *  - 7 bits (max value 128)
+ *  - 7 bits (max. value 128)
  * For OSC16MHZ:
- *  - 8 bits (Max value 255)
+ *  - 8 bits (max. value 255)
  * For OSCULP:
- *  - 5 bits (Max value 32)
+ *  - 5 bits (max. value 32)
  *
  * \note The frequency range parameter applies only when configuring the 8MHz
  *       oscillator and will be ignored for the other oscillators.
@@ -526,9 +526,9 @@ void system_clock_source_dpll_set_config(
  * \param[in] freq_range         Frequency range (8MHz oscillator only)
  *
  * \retval STATUS_OK               The calibration value was written
- *                                 successfully.
+ *                                 successfully
  * \retval STATUS_ERR_INVALID_ARG  The setting is not valid for selected clock
- *                                 source.
+ *                                 source
  */
 enum status_code system_clock_source_write_calibration(
 		const enum system_clock_source clock_source,
@@ -1009,10 +1009,10 @@ void system_clock_init(void)
 #  endif
 
 	/* CPU and BUS clocks */
+	system_backup_clock_set_divider(CONF_CLOCK_BACKUP_DIVIDER);
+	system_low_power_clock_set_divider(CONF_CLOCK_LOW_POWER_DIVIDER);
 	system_cpu_clock_set_divider(CONF_CLOCK_CPU_DIVIDER);
 	system_main_clock_set_failure_detect(CONF_CLOCK_CPU_CLOCK_FAILURE_DETECT);
-	system_low_power_clock_set_divider(CONF_CLOCK_LOW_POWER_DIVIDER);
-	system_backup_clock_set_divider(CONF_CLOCK_BACKUP_DIVIDER);
 
 	/* GCLK 0 */
 #if CONF_CLOCK_CONFIGURE_GCLK == true

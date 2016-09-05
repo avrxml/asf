@@ -88,9 +88,9 @@ void get_chat_input(char input);
  * \page overview Overview
  * \section intro Introduction
  * This  application Performance Analyzer is a serial interface based
- *application,
+ * application,
  * which communicates with Performance Analyzer to demonstrate various features
- *and
+ * and
  * capabilities of Atmel Transceivers such as:
  * - Range of the Transceiver for peer-to-peer communication (Range Measurement)
  * - Robust Link Quality
@@ -106,50 +106,50 @@ void get_chat_input(char input);
  * - Battery Monitor
  *
  * Based on the roles and functionalities the wireless node can be configured
- *as:\n
+ * as:\n
  * 1) \b Transmitter which is connected to the performance analyzer,takes the
  * user events like key press to find its peer node(i.e. Reflector)
  * in Range measurement mode or 'Initiate Peer search' command from the
- *Performance Analyzer
+ * Performance Analyzer
  * to find its peer node in PER mode.\n
  * 2) \b Reflector which is not connected to the Performance Analyzer, receives
  * peer request from the transmitter and participates in the peer search process
- *to get paired with the transmitter node.\n
+ * to get paired with the transmitter node.\n
  * 3) \b Single \b Node  which is connected to the performance analyzer and
- *receives 'Continue As single node'
+ * receives 'Continue As single node'
  * command from the user, will start as a standalone node in which only minimal
- *set of testing can be performed.\n
+ * set of testing can be performed.\n
  *
  * Performance Analyzer mainly works in three operating modes which are
  * Range Measurement mode, Packet Error rate measurement (PER) mode and single
- *node mode.\n
+ * node mode.\n
  *
  *
  * - \b Range \b Measurement \b mode is to evaluate the communication coverage
- *area of the transceiver.
+ * area of the transceiver.
  * During Range Measurement, on key press the Transmitter node will initiate
  * a procedure to find a peer node. Once peer node is found, packet transmission
  * is initiated by the node on which the key press was detected initially, acts
  * as Transmitter node. The other node acts as Reflector, receives the packets
- *and
+ * and
  * acknowledges each packet received. The LED on the Reflector will blink
- *sequentially
+ * sequentially
  * and repeat at the rate at which the packets are received. The LED on the
- *Transmitter
+ * Transmitter
  * will blink sequentially and repeat at the rate at which the packets are
- *transmitted.
+ * transmitted.
  * By moving the Reflector away from Transmitter, user can find the
- *transceiver's
+ * transceiver's
  * communication coverage area by observing the LED blinking on the Reflector
- *node.
+ * node.
  * The LED on Reflector will stop blinking when Reflector node is out of range.
  * A key press on the Reflector node also initiates packet transmission
- *continuously
+ * continuously
  * from Reflector node. Once the transmission is initiated from a node, any time
  * it can be stopped or started by pressing the same key again. The number of
- *frames
+ * frames
  * transmitted and received in a particular node can be checked by connecting
- *the nodes
+ * the nodes
  * to HyperTerminal anytime.\n
  *
  *
@@ -157,51 +157,51 @@ void get_chat_input(char input);
  * the packet transmission and reception capabilities of the wireless nodes.
  * The Transmitter node shall be connected to the Performance Analyzer.
  * If ‘Initiate Peer search’ command is received from the analyzer after the
- *board
+ * board
  * is connected, then the node (Transmitter) tries to find its peer node (i.e.
- *Reflector).
+ * Reflector).
  * The Procedure to find and get paired with the Peer node is explained in the
- *user guide.
+ * user guide.
  * Once peer node is found and paired, a menu will appear on the Performance
- *Analyzer including
+ * Analyzer including
  * the details of the Board it is paired with. Using the menu options user can
- *configure various
+ * configure various
  * parameters like channel, channel page, frame length, no. of frames etc. and
- *start the PER test.
+ * start the PER test.
  * User also can evaluate the transceiver by enabling, disabling various
- *features like CSMA-CA, RPC,
+ * features like CSMA-CA, RPC,
  * antenna diversity etc. Whenever the parameters are changed from the
- *transmitter
+ * transmitter
  * side through analyzer, the same will be reflected in the reflector node also.
  * User can see the changes in reflector node if it is connected to
- *HyperTerminal.\n
+ * HyperTerminal.\n
  *
  *
  * - \b Single \b Node \b mode If the user wants to evaluate some of the
- *transceiver
+ * transceiver
  * features with single node by giving the command 'Continue as Single Node' in
  * Performance Analyzer or If the peer search process by the transmitter is
- *timed out
+ * timed out
  * (No Peer Response received within the time out) the node starts as a single
- *node.
+ * node.
  * In this state user will be able to evaluate the transceiver features for
  * which no peer node is needed e.g. Continuous Wave transmission, Energy scan
- *on all
+ * on all
  * channels, TX power settings,reading/writing transceiver registers,etc.\n
  *
  *
  * - \b Configuration \b mode Configuration  mode  is  the  startup  mode  in
  * which  two  nodes(i.e Transmitter and
  * Reflector) can connect each other if they are only within in the vicinity of
- *one meter
+ * one meter
  * approximately.This  is  to  restrict  the  distance  range  for  connecting
  * devices.
  * User  can  enter  into  configuration  mode  by  pressing  the  button  while
  * Power  on
  * /reset.After this the node can pair with any other node in PER or range
- *measurement mode as usual.
+ * measurement mode as usual.
  * Then the device (transmitter) shall go to the low TX level (TX_PWR = 0x0F)
- *and
+ * and
  * sends the peer request with the config_mode  bit  set  to  true.  On  the
  * other  device  (reflector),  if  the  peer  request received with
  * config_mode bit true, it checks the ED level and if it is above defined
@@ -212,39 +212,39 @@ void get_chat_input(char input);
  * \page main_files Application Files
  * - main.c\n                      Application main file.
  * - init_state.c\n                Initialization functions and utilities of
- *Performance Analyzer application.
+ * Performance Analyzer application.
  * - peer_search_initiator.c\n     Handles Initiator functionalities in Peer
- *search process.
+ * search process.
  * - peer_search_receptor.c\n      Handles Receptor functionalities in Peer
- *search process.
+ * search process.
  * - per_mode_common_utils.c\n     Contains Common utilities for both Initiator
- *and Receptor in PER Measurement mode
+ * and Receptor in PER Measurement mode
  * - per_mode_initiator.c\n        Initiator/Transmitter functionalities in PER
- *Measurement mode.
+ * Measurement mode.
  * - per_mode_receptor.c\n         Receptor functionalities in PER Measurement
- *mode.
+ * mode.
  * - range_measure.c\n             Performs Range Measurement mode
- *functionalities.
+ * functionalities.
  * - perf_api_serial_handler.c\n   Handles all the Serial input and output
- *commands.
+ * commands.
  * - user_interface.c\n            Handles all User interface related functions
- *such as Button,Print,LED events.
+ * such as Button,Print,LED events.
  * - wait_for_event.c\n            Event handling functionalities to start Peer
- *Search.
+ * Search.
  * \page devsup Device Support
  * - \b ATXMEGA256A3BU
  *                     - <A
- *href="http://www.atmel.com/tools/xmega-a3buxplained.aspx"> \b   XMEGA-A3BU
- *Xplained  </A>  <A
- *href="http://store.atmel.com/PartDetail.aspx?q=p:10500293">\a Buy </A>\n
+ * href="http://www.atmel.com/tools/xmega-a3buxplained.aspx"> \b   XMEGA-A3BU
+ * Xplained  </A>  <A
+ * href="http://store.atmel.com/PartDetail.aspx?q=p:10500293">\a Buy </A>\n
  * - \b ATXMEGA256A3U-Zigbit (USB and Carrier)
  * - \b Atmega256rfr2 Xplained Pro
  * - \b Atmega256rfr2 Zigbit (Carrier)
  *
  * - \b UC3A3256S
  *                      - <A href="http://www.atmel.com/tools/rz600.aspx"> \b
- *RZ600 </A> <A
- *href="http://store.atmel.com/PartDetail.aspx?q=p:10500245;c:100118">\a Buy
+ * RZ600 </A> <A
+ * href="http://store.atmel.com/PartDetail.aspx?q=p:10500245;c:100118">\a Buy
  *</A>\n
  * \page compinfo Compilation Info
  * This software was written for the GNU GCC and IAR for AVR.
@@ -253,7 +253,7 @@ void get_chat_input(char input);
  * \page references References
  * 1)  IEEE Std 802.15.4-2006 Part 15.4: Wireless Medium Access Control (MAC)
  *     and Physical Layer (PHY) Specifications for Low-Rate Wireless Personal
- *Area
+ * Area
  *     Networks (WPANs).\n\n
  * 2)  AVR Wireless Support <A href="http://avr@atmel.com">avr@atmel.com</A>.\n
  * \page contactinfo Contact Information
@@ -288,8 +288,9 @@ typedef struct {
 	/* main state exit function : all timers should be stopped and other
 	 * resources used in the state must be freed which is done here */
 	void (*func_main_state_exit)(trx_id_t trx);
+
 	/* if main state has sub state, it can be initialized using this
-	 *function */
+	 * function */
 	void (*func_sub_state_set)(trx_id_t trx, uint8_t state, void *arg);
 } state_function_t;
 /* === MACROS ============================================================== */
@@ -529,7 +530,7 @@ void config_node_ib(trx_id_t trx)
 	node_info[trx].transmitting = false;
 
 	/* Init tx frame info structure value that do not change during program
-	 *execution */
+	 * execution */
 	node_info[trx].tx_frame_info = (frame_info_t *)storage_buffer[trx];
 
 	/* random number initialized for the sequence number */
@@ -567,9 +568,9 @@ void set_main_state(trx_id_t trx, main_state_t state, void *arg)
 	/* Nullify all the previous tx call backs. In case of change in main
 	 * state
 	 * TX call back prevention is taken care here. If the state has sub
-	 *states
+	 * states
 	 * TX call back during sub state change must be taken care during sub
-	 *state
+	 * state
 	 * set exclusively
 	 */
 	node_info[trx].transmitting = false;
@@ -603,7 +604,7 @@ void set_main_state(trx_id_t trx, main_state_t state, void *arg)
  * \param ack_req           specifies ack requested for frame if set to 1
  *
  * \return MAC_SUCCESS      if the TAL has accepted the data for frame
- *transmission
+ * transmission
  *         TAL_BUSY         if the TAL is busy servicing the previous tx request
  */
 

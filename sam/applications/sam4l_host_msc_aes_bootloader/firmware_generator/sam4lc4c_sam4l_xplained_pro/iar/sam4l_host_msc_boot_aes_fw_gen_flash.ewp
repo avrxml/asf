@@ -299,13 +299,15 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../drivers/usbc</state>
-					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/msc</state>
 					<state>$PROJ_DIR$/../../../../../../thirdparty/fatfs/fatfs-r0.09/src</state>
 					<state>$PROJ_DIR$/../../../../../../thirdparty/fatfs/fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
@@ -315,7 +317,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/uhc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
 					<state>$PROJ_DIR$/../../../../../drivers/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/msc/host</state>
@@ -578,13 +580,15 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../drivers/usbc</state>
-					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/msc</state>
 					<state>$PROJ_DIR$/../../../../../../thirdparty/fatfs/fatfs-r0.09/src</state>
 					<state>$PROJ_DIR$/../../../../../../thirdparty/fatfs/fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
@@ -594,7 +598,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/uhc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
 					<state>$PROJ_DIR$/../../../../../drivers/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/msc/host</state>
@@ -1283,13 +1287,15 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../../drivers/usbc</state>
-					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/msc</state>
 					<state>$PROJ_DIR$/../../../../../../thirdparty/fatfs/fatfs-r0.09/src</state>
 					<state>$PROJ_DIR$/../../../../../../thirdparty/fatfs/fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
@@ -1299,7 +1305,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/uhc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
 					<state>$PROJ_DIR$/../../../../../drivers/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/msc/host</state>
@@ -1562,13 +1568,15 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../../drivers/usbc</state>
-					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/msc</state>
 					<state>$PROJ_DIR$/../../../../../../thirdparty/fatfs/fatfs-r0.09/src</state>
 					<state>$PROJ_DIR$/../../../../../../thirdparty/fatfs/fatfs-port-r0.09/sam</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
@@ -1578,7 +1586,7 @@
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/uhc</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb</state>
 					<state>$PROJ_DIR$/../../../../../drivers/gpio</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/usb/class/msc/host</state>

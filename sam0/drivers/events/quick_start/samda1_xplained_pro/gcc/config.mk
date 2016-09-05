@@ -54,7 +54,6 @@ TARGET_SRAM = events_quick_start_sram.elf
 CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        sam0/boards/samda1_xplained_pro/board_init.c       \
-       sam0/drivers/events/events_hooks.c                 \
        sam0/drivers/events/events_sam_d_r/events.c        \
        sam0/drivers/events/quick_start/qs_events_basic.c  \
        sam0/drivers/port/port.c                           \
@@ -148,7 +147,7 @@ CFLAGS =
 CPPFLAGS = \
        -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMDA1_XPLAINED_PRO                       \
-       -D EVENTS_INTERRUPT_HOOKS_MODE=true                \
+       -D EVENTS_INTERRUPT_HOOKS_MODE=false               \
        -D __SAMDA1J16A__
 
 # Extra flags to use when linking

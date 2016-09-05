@@ -6,7 +6,7 @@
  *
  * This file provides a useful example for the MACB interface on AVR32 devices.
  *
- * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -100,8 +100,8 @@
 #define MACB_EXAMPLE_CPU_HZ			60000000
 #define MACB_EXAMPLE_PBA_HZ			60000000
 #elif ( (BOARD == EVK1100) || (BOARD==EVK1105) )
-#define MACB_EXAMPLE_CPU_HZ			48000000
-#define MACB_EXAMPLE_PBA_HZ			24000000
+#define MACB_EXAMPLE_CPU_HZ			60000000
+#define MACB_EXAMPLE_PBA_HZ			30000000
 #else
 #error 'Board not supported by this example!'
 #endif

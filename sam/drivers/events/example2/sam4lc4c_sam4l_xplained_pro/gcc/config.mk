@@ -94,6 +94,7 @@ INC_PATH = \
        sam/boards/sam4l_xplained_pro                      \
        sam/drivers/bpm                                    \
        sam/drivers/events                                 \
+       sam/drivers/events/example1                        \
        sam/drivers/events/example2                        \
        sam/drivers/events/example2/sam4lc4c_sam4l_xplained_pro \
        sam/drivers/flashcalw                              \

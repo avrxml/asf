@@ -5,7 +5,7 @@
  * This file manages the accesses to the AT45DBX data flash components.
  *
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -141,6 +141,15 @@
 #define AT45DBX_BYTE_ADDR_BITS            9           //!< Address bits for byte position within buffer.
 //! @}
 
+#elif AT45DBX_MEM_SIZE == AT45DBX_1MB
+
+/*! \name AT45DB081 Memories
+ */
+//! @{
+#define AT45DBX_DENSITY                   0x24        //!< Device density value.
+#define AT45DBX_BYTE_ADDR_BITS            9           //!< Address bits for byte position within buffer.
+//! @}
+
 #elif AT45DBX_MEM_SIZE == AT45DBX_2MB
 
 /*! \name AT45DB161 Memories
@@ -161,11 +170,15 @@
 
 #elif AT45DBX_MEM_SIZE == AT45DBX_8MB
 
-/*! \name AT45DB642 Memories
+/*! \name AT45DB642D or AT45DB641E Memories
  */
 //! @{
 #define AT45DBX_DENSITY                   0x3C        //!< Device density value.
+#ifdef AT45DB641E
+#define AT45DBX_BYTE_ADDR_BITS            9          //!< Address bits for byte position within buffer.
+#else
 #define AT45DBX_BYTE_ADDR_BITS            11          //!< Address bits for byte position within buffer.
+#endif
 //! @}
 
 #else
@@ -195,6 +208,8 @@
  */
 #define spi_write_dummy()                 spi_write(AT45DBX_SPI, 0xFF)
 
+//! Address shifter to unselect correct DF.
+#define AT45DBX_CHIP_UNSELECT(addr) (((addr)<=0) ? 0 : ((addr)-1))
 
 //! Boolean indicating whether memory is in busy state.
 static bool at45dbx_busy;
@@ -244,7 +259,7 @@ bool at45dbx_mem_check(void)
 		// Send the Status Register Read command.
 		at45dbx_spi_write_byte(AT45DBX_CMDC_RD_STATUS_REG);
 		// Send a dummy byte to read the status register.
-			at45dbx_spi_read_byte(&status);
+		at45dbx_spi_read_byte(&status);
 		// Unselect the checked DF memory.
 		at45dbx_chipselect_df(df, false);
 		// Unexpected device density value.
@@ -332,7 +347,7 @@ bool at45dbx_read_byte_open(uint32_t ad)
 void at45dbx_read_close(void)
 {
 	// Unselect the DF memory at45dbx_gl_ptr_mem points to.
-	at45dbx_chipselect_df(at45dbx_gl_ptr_mem >> AT45DBX_MEM_SIZE, false);
+	at45dbx_chipselect_df(AT45DBX_CHIP_UNSELECT(at45dbx_gl_ptr_mem) >> AT45DBX_MEM_SIZE, false);
 	// Memory ready.
 	at45dbx_busy = false;
 }
@@ -423,7 +438,7 @@ void at45dbx_write_close(void)
 	}
 
 	// Unselect the DF memory at45dbx_gl_ptr_mem points to.
-	at45dbx_chipselect_df(at45dbx_gl_ptr_mem >> AT45DBX_MEM_SIZE, false);
+	at45dbx_chipselect_df(AT45DBX_CHIP_UNSELECT(at45dbx_gl_ptr_mem) >> AT45DBX_MEM_SIZE, false);
 
 	// Memory busy.
 	at45dbx_busy = true;
@@ -461,7 +476,7 @@ uint8_t at45dbx_read_byte(void)
 	// If end of page reached,
 	if (!Rd_bitfield(at45dbx_gl_ptr_mem, AT45DBX_MSK_PTR_BYTE)) {
 		// unselect the DF memory at45dbx_gl_ptr_mem points to.
-		at45dbx_chipselect_df(at45dbx_gl_ptr_mem >> AT45DBX_MEM_SIZE, false);
+		at45dbx_chipselect_df(AT45DBX_CHIP_UNSELECT(at45dbx_gl_ptr_mem) >> AT45DBX_MEM_SIZE, false);
 		// Memory busy.
 		at45dbx_busy = true;
 	}
@@ -487,7 +502,7 @@ bool at45dbx_write_byte(uint8_t b)
 	// If end of page reached,
 	if (!Rd_bitfield(at45dbx_gl_ptr_mem, AT45DBX_MSK_PTR_BYTE)) {
 		// unselect the DF memory at45dbx_gl_ptr_mem points to in order to program the page.
-		at45dbx_chipselect_df(at45dbx_gl_ptr_mem >> AT45DBX_MEM_SIZE, false);
+		at45dbx_chipselect_df(AT45DBX_CHIP_UNSELECT(at45dbx_gl_ptr_mem) >> AT45DBX_MEM_SIZE, false);
 		// Memory busy.
 		at45dbx_busy = true;
 	}
@@ -556,7 +571,7 @@ bool at45dbx_write_sector_from_ram(const void *ram)
 		 // If end of page reached,
 		if (!Rd_bitfield(at45dbx_gl_ptr_mem, AT45DBX_MSK_PTR_BYTE)) {
 			// unselect the DF memory at45dbx_gl_ptr_mem points to in order to program the page.
-			at45dbx_chipselect_df(at45dbx_gl_ptr_mem >> AT45DBX_MEM_SIZE, false);
+			at45dbx_chipselect_df(AT45DBX_CHIP_UNSELECT(at45dbx_gl_ptr_mem) >> AT45DBX_MEM_SIZE, false);
 			// Memory busy.
 			at45dbx_busy = true;
 		}
@@ -570,7 +585,7 @@ bool at45dbx_write_sector_from_ram(const void *ram)
 		 // If end of page reached,
 		if (!Rd_bitfield(at45dbx_gl_ptr_mem, AT45DBX_MSK_PTR_BYTE)) {
 			// unselect the DF memory at45dbx_gl_ptr_mem points to in order to program the page.
-			at45dbx_chipselect_df(at45dbx_gl_ptr_mem >> AT45DBX_MEM_SIZE, false);
+			at45dbx_chipselect_df(AT45DBX_CHIP_UNSELECT(at45dbx_gl_ptr_mem) >> AT45DBX_MEM_SIZE, false);
 			// Memory busy.
 			at45dbx_busy = true;
 		}

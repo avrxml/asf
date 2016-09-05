@@ -66,6 +66,7 @@ void iso7816_data_block_atr(uint8_t *p_atr, uint8_t *p_length);
 bool iso7816_get_reset_statuts(void);
 void iso7816_cold_reset(void);
 void iso7816_warm_reset(void);
+void iso7816_decode_atr(uint8_t *p_atr);
 
 #endif /* ISO7816_H_INCLUDED */
 

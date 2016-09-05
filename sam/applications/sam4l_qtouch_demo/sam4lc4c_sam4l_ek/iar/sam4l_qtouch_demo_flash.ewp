@@ -303,10 +303,11 @@
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/qdebug</state>
 					<state>$PROJ_DIR$/../../../../drivers/pdca</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/devspecific/sam4/sam4l/include</state>
+					<state>$PROJ_DIR$/../../../../drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4l/source/templates</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/devspecific/sam4/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/ast</state>
 					<state>$PROJ_DIR$/../../qtouch</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/devspecific/sam4/sam4l</state>
@@ -317,6 +318,7 @@
 					<state>$PROJ_DIR$/../../../../drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../components/display/c42364a</state>
@@ -580,10 +582,11 @@
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/qdebug</state>
 					<state>$PROJ_DIR$/../../../../drivers/pdca</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/devspecific/sam4/sam4l/include</state>
+					<state>$PROJ_DIR$/../../../../drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4l/source/templates</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/devspecific/sam4/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/ast</state>
 					<state>$PROJ_DIR$/../../qtouch</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/devspecific/sam4/sam4l</state>
@@ -594,6 +597,7 @@
 					<state>$PROJ_DIR$/../../../../drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../components/display/c42364a</state>
@@ -1282,10 +1286,11 @@
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/qdebug</state>
 					<state>$PROJ_DIR$/../../../../drivers/pdca</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/devspecific/sam4/sam4l/include</state>
+					<state>$PROJ_DIR$/../../../../drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4l/source/templates</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/devspecific/sam4/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/ast</state>
 					<state>$PROJ_DIR$/../../qtouch</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/devspecific/sam4/sam4l</state>
@@ -1296,6 +1301,7 @@
 					<state>$PROJ_DIR$/../../../../drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../components/display/c42364a</state>
@@ -1559,10 +1565,11 @@
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/qdebug</state>
 					<state>$PROJ_DIR$/../../../../drivers/pdca</state>
-					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/devspecific/sam4/sam4l/include</state>
+					<state>$PROJ_DIR$/../../../../drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/sam4l/source/templates</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../drivers/ast/example1</state>
+					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/devspecific/sam4/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/ast</state>
 					<state>$PROJ_DIR$/../../qtouch</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/qtouch/devspecific/sam4/sam4l</state>
@@ -1573,6 +1580,7 @@
 					<state>$PROJ_DIR$/../../../../drivers/eic</state>
 					<state>$PROJ_DIR$/../../../../../common/services/clock</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../components/display/c42364a</state>

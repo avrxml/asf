@@ -47,6 +47,20 @@
 #ifndef WM8904_H_INCLUDED
 #define WM8904_H_INCLUDED
 
+/**
+ * \defgroup sam_components_audio_codec_wm8904_group WM8904 Audio Codec
+ *
+ * See \ref sam_wm8904_quickstart
+ *
+ * \par Purpose
+ *
+ * The module provides useful API of WM8904 audio codec through a TWI interface.
+ *
+ * \section dependencies Dependencies
+ * This driver depends on the following module:
+ * - \ref twi_group for common TWI service.
+ * @{
+ */
 
 #include "twihs_master.h"
 #include "conf_wm8904.h"
@@ -58,11 +72,6 @@ extern "C" {
 #endif
 /**INDENT-ON**/
 /// @endcond
-
-
-
-
-
 
 #define WM8904_CLK_MCLK 1
 #define WM8904_CLK_FLL  2
@@ -1314,6 +1323,8 @@ extern "C" {
 void wm8904_write_register(uint8_t uc_register_address, uint16_t us_data);
 uint16_t wm8904_read_register(uint8_t uc_register_address);
 uint32_t wm8904_twi_init(void);
+
+//@}
 
 /// @cond 0
 /**INDENT-OFF**/

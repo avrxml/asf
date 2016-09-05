@@ -120,22 +120,29 @@
 #define CCA_DURATION_SYM   (CCA_DETECTION_TIME_SYMBOL + CCA_PROCESS_TIME_SYM)  /*
 	                                                                        *
 	                                                                        *
+	                                                                        *
 	                                                                        *TRX
+	                                                                        *
 	                                                                        *
 	                                                                        *
 	                                                                        *Parameter:
 	                                                                        *
 	                                                                        *
+	                                                                        *
 	                                                                        *Complete
+	                                                                        *
 	                                                                        *
 	                                                                        *
 	                                                                        *CCA
 	                                                                        *
 	                                                                        *
+	                                                                        *
 	                                                                        *Duration
 	                                                                        *
 	                                                                        *
+	                                                                        *
 	                                                                        *in
+	                                                                        *
 	                                                                        *
 	                                                                        *
 	                                                                        *symbols

@@ -438,7 +438,7 @@ static void trx_config(void)
 	 */
 	trx_bit_write(SR_AACK_FVN_MODE, FRAME_VERSION_01);
 	trx_bit_write(SR_AACK_SET_PD, SET_PD); /* ACKs for data requests,
-	                                        * indicate pending data */
+	                                       * indicate pending data */
 	trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /* Enable buffer
 	                                                      * protection mode
 	                                                      **/

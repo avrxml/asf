@@ -3,7 +3,7 @@
  *
  * \brief SAM Non Volatile Memory driver
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -84,7 +84,7 @@ static struct _nvm_module _nvm_dev;
 /**
  * \brief Sets the up the NVM hardware module based on the configuration.
  *
- * Writes a given configuration of a NVM controller configuration to the
+ * Writes a given configuration of an NVM controller configuration to the
  * hardware module, and initializes the internal device struct.
  *
  * \param[in] config    Configuration settings for the NVM controller
@@ -109,7 +109,7 @@ enum status_code nvm_set_config(
 	/* Get a pointer to the module hardware instance */
 	Nvmctrl *const nvm_module = NVMCTRL;
 
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21)
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30)
 	/* Turn on the digital interface clock */
 	system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBB, MCLK_APBBMASK_NVMCTRL);
 #else
@@ -118,7 +118,7 @@ enum status_code nvm_set_config(
 #endif
 
 	/* Clear error flags */
-	nvm_module->STATUS.reg |= NVMCTRL_STATUS_MASK;
+	nvm_module->STATUS.reg = NVMCTRL_STATUS_MASK;
 
 	/* Check if the module is busy */
 	if (!nvm_is_ready()) {
@@ -166,7 +166,7 @@ enum status_code nvm_set_config(
  * \brief Executes a command on the NVM controller.
  *
  * Executes an asynchronous command on the NVM controller, to perform a requested
- * action such as a NVM page read or write operation.
+ * action such as an NVM page read or write operation.
  *
  * \note The function will return before the execution of the given command is
  *       completed.
@@ -223,7 +223,7 @@ enum status_code nvm_execute_command(
 #endif
 
 	/* Clear error flags */
-	nvm_module->STATUS.reg |= NVMCTRL_STATUS_MASK;
+	nvm_module->STATUS.reg = NVMCTRL_STATUS_MASK;
 
 	/* Check if the module is busy */
 	if (!nvm_is_ready()) {
@@ -295,7 +295,7 @@ enum status_code nvm_execute_command(
  * Writes from a buffer to a given page in the NVM memory, retaining any
  * unmodified data already stored in the page.
  *
- * \note If manual write mode is enable, write command must be executed after
+ * \note If manual write mode is enable, the write command must be executed after
  * this function, otherwise the data will not write to NVM from page buffer.
  *
  * \warning This routine is unsafe if data integrity is critical; a system reset
@@ -455,7 +455,7 @@ enum status_code nvm_write_buffer(
 		return STATUS_ERR_BAD_ADDRESS;
 	}
 
-	/* Check if the write length is longer than a NVM page */
+	/* Check if the write length is longer than an NVM page */
 	if (length > _nvm_dev.page_size) {
 		return STATUS_ERR_INVALID_ARG;
 	}
@@ -477,7 +477,7 @@ enum status_code nvm_write_buffer(
 	}
 
 	/* Clear error flags */
-	nvm_module->STATUS.reg |= NVMCTRL_STATUS_MASK;
+	nvm_module->STATUS.reg = NVMCTRL_STATUS_MASK;
 
 	uint32_t nvm_address = destination_address / 2;
 
@@ -561,7 +561,7 @@ enum status_code nvm_read_buffer(
 		return STATUS_ERR_BAD_ADDRESS;
 	}
 
-	/* Check if the write length is longer than a NVM page */
+	/* Check if the write length is longer than an NVM page */
 	if (length > _nvm_dev.page_size) {
 		return STATUS_ERR_INVALID_ARG;
 	}
@@ -575,7 +575,7 @@ enum status_code nvm_read_buffer(
 	}
 
 	/* Clear error flags */
-	nvm_module->STATUS.reg |= NVMCTRL_STATUS_MASK;
+	nvm_module->STATUS.reg = NVMCTRL_STATUS_MASK;
 
 	uint32_t page_address = source_address / 2;
 
@@ -614,6 +614,7 @@ enum status_code nvm_read_buffer(
  * \retval STATUS_ERR_BAD_ADDRESS  The requested row address was outside the
  *                                 acceptable range of the NVM memory region or
  *                                 not aligned to the start of a row
+ * \retval STATUS_ABORTED          NVM erased error
  */
 enum status_code nvm_erase_row(
 		const uint32_t row_address)
@@ -650,7 +651,7 @@ enum status_code nvm_erase_row(
 	}
 
 	/* Clear error flags */
-	nvm_module->STATUS.reg |= NVMCTRL_STATUS_MASK;
+	nvm_module->STATUS.reg = NVMCTRL_STATUS_MASK;
 
 	/* Set address and command */
 	nvm_module->ADDR.reg  = (uintptr_t)&NVM_MEMORY[row_address / 4];
@@ -670,6 +671,11 @@ enum status_code nvm_erase_row(
 #endif
 
 	while (!nvm_is_ready()) {
+	}
+
+	/* There existed error in NVM erase operation */
+	if ((enum nvm_error)(nvm_module->STATUS.reg & NVM_ERRORS_MASK) != NVM_ERROR_NONE) {
+		return STATUS_ABORTED;
 	}
 
 	return STATUS_OK;
@@ -694,7 +700,7 @@ void nvm_get_parameters(
 	Nvmctrl *const nvm_module = NVMCTRL;
 
 	/* Clear error flags */
-	nvm_module->STATUS.reg |= NVMCTRL_STATUS_MASK;
+	nvm_module->STATUS.reg = NVMCTRL_STATUS_MASK;
 
 	/* Read out from the PARAM register */
 	uint32_t param_reg = nvm_module->PARAM.reg;
@@ -798,7 +804,7 @@ static void _nvm_translate_raw_fusebits_to_struct (
 			((raw_user_row[0] & NVMCTRL_FUSES_EEPROM_SIZE_Msk)
 			>> NVMCTRL_FUSES_EEPROM_SIZE_Pos);
 
-#if (SAML21) || (SAML22)
+#if (SAML21) || (SAML22) || (SAMR30)
 	fusebits->bod33_level = (uint8_t)
 			((raw_user_row[0] & FUSES_BOD33USERLEVEL_Msk)
 			>> FUSES_BOD33USERLEVEL_Pos);
@@ -815,7 +821,7 @@ static void _nvm_translate_raw_fusebits_to_struct (
 			((raw_user_row[1] & FUSES_BOD33_HYST_Msk)
 			>> FUSES_BOD33_HYST_Pos);
 
-#elif (SAMD20) || (SAMD21) || (SAMR21)|| (SAMDA1) || (SAMD09)
+#elif (SAMD20) || (SAMD21) || (SAMR21)|| (SAMDA1) || (SAMD09) || (SAMD10)
 	fusebits->bod33_level = (uint8_t)
 			((raw_user_row[0] & FUSES_BOD33USERLEVEL_Msk)
 			>> FUSES_BOD33USERLEVEL_Pos);
@@ -905,7 +911,7 @@ static void _nvm_translate_raw_fusebits_to_struct (
 	fusebits->wdt_timeout_period = (uint8_t)
 			((raw_user_row[0] & WDT_FUSES_PER_Msk) >> WDT_FUSES_PER_Pos);
 
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21)
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30)
 	fusebits->wdt_window_timeout = (enum nvm_wdt_window_timeout)
 			((raw_user_row[1] & WDT_FUSES_WINDOW_Msk) >> WDT_FUSES_WINDOW_Pos);
 #else
@@ -1004,7 +1010,7 @@ enum status_code nvm_set_fuses(struct nvm_fusebits *fb)
 	fusebits[0] &= (~NVMCTRL_FUSES_EEPROM_SIZE_Msk);
 	fusebits[0] |= NVMCTRL_FUSES_EEPROM_SIZE(fb->eeprom_size);
 
-#if (SAML21) || (SAML22)
+#if (SAML21) || (SAML22) || (SAMR30)
 	fusebits[0] &= (~FUSES_BOD33USERLEVEL_Msk);
 	fusebits[0] |= FUSES_BOD33USERLEVEL(fb->bod33_level);
 
@@ -1017,7 +1023,7 @@ enum status_code nvm_set_fuses(struct nvm_fusebits *fb)
 	fusebits[1] &= (~FUSES_BOD33_HYST_Msk);
 	fusebits[1] |= fb->bod33_hysteresis << FUSES_BOD33_HYST_Pos;
 
-#elif (SAMD20) || (SAMD21) || (SAMR21) || (SAMDA1) || (SAMD09)
+#elif (SAMD20) || (SAMD21) || (SAMR21) || (SAMDA1) || (SAMD09) || (SAMD10)
 	fusebits[0] &= (~FUSES_BOD33USERLEVEL_Msk);
 	fusebits[0] |= FUSES_BOD33USERLEVEL(fb->bod33_level);
 
@@ -1067,7 +1073,7 @@ enum status_code nvm_set_fuses(struct nvm_fusebits *fb)
 	fusebits[0] &= (~WDT_FUSES_PER_Msk);
 	fusebits[0] |= fb->wdt_timeout_period << WDT_FUSES_PER_Pos;
 
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21)
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30)
 	fusebits[1] &= (~WDT_FUSES_WINDOW_Msk);
 	fusebits[1] |= fb->wdt_window_timeout << WDT_FUSES_WINDOW_Pos;
 #else
@@ -1105,7 +1111,7 @@ enum status_code nvm_set_fuses(struct nvm_fusebits *fb)
 #endif
 		
 	fusebits[0] &= (~FUSES_BOD12USERLEVEL_Msk);
-	fusebits[0] |= ((FUSES_BOD12USERLEVEL_Msk & ((fb->bod33_level) << 
+	fusebits[0] |= ((FUSES_BOD12USERLEVEL_Msk & ((fb->bod12_level) << 
 						FUSES_BOD12USERLEVEL_Pos)));
 
 	fusebits[0] &= (~FUSES_BOD12_DIS_Msk);

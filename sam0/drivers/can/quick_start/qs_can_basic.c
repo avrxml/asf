@@ -3,7 +3,7 @@
  *
  * \brief SAM CAN basic Quick Start
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -130,8 +130,8 @@ static void configure_can(void)
 
 	/* Enable interrupts for this CAN module */
 	system_interrupt_enable(SYSTEM_INTERRUPT_MODULE_CAN0);
-	can_enable_interrupt(&can_instance, CAN_PROTOCAL_ERROR_ARBITRATION
-			| CAN_PROTOCAL_ERROR_DATA);
+	can_enable_interrupt(&can_instance, CAN_PROTOCOL_ERROR_ARBITRATION
+			| CAN_PROTOCOL_ERROR_DATA);
 }
 //! [can_init_setup]
 
@@ -146,7 +146,7 @@ static void can_set_standard_filter_0(void)
 	sd_filter.S0.bit.SFEC =
 			CAN_STANDARD_MESSAGE_FILTER_ELEMENT_S0_SFEC_STRXBUF_Val;
 
-	can_set_rx_standand_filter(&can_instance, &sd_filter,
+	can_set_rx_standard_filter(&can_instance, &sd_filter,
 			CAN_RX_STANDARD_FILTER_INDEX_0);
 	can_enable_interrupt(&can_instance, CAN_RX_BUFFER_NEW_MESSAGE);
 }
@@ -158,7 +158,7 @@ static void can_set_standard_filter_1(void)
 	can_get_standard_message_filter_element_default(&sd_filter);
 	sd_filter.S0.bit.SFID1 = CAN_RX_STANDARD_FILTER_ID_1;
 
-	can_set_rx_standand_filter(&can_instance, &sd_filter,
+	can_set_rx_standard_filter(&can_instance, &sd_filter,
 			CAN_RX_STANDARD_FILTER_INDEX_1);
 	can_enable_interrupt(&can_instance, CAN_RX_FIFO_0_NEW_MESSAGE);
 }
@@ -297,11 +297,11 @@ void CAN0_Handler(void)
 		printf("\r\n\r\n");
 	}
 
-	if ((status & CAN_PROTOCAL_ERROR_ARBITRATION)
-			|| (status & CAN_PROTOCAL_ERROR_DATA)) {
-		can_clear_interrupt_status(&can_instance, CAN_PROTOCAL_ERROR_ARBITRATION
-			 	| CAN_PROTOCAL_ERROR_DATA);
-		printf("Protocal error, please double check the clock in two boards. \r\n\r\n");
+	if ((status & CAN_PROTOCOL_ERROR_ARBITRATION)
+			|| (status & CAN_PROTOCOL_ERROR_DATA)) {
+		can_clear_interrupt_status(&can_instance, CAN_PROTOCOL_ERROR_ARBITRATION
+			 	| CAN_PROTOCOL_ERROR_DATA);
+		printf("Protocol error, please double check the clock in two boards. \r\n\r\n");
 	}
 }
 //! [can_interrupt_handler]

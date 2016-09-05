@@ -43,7 +43,7 @@ PRJ_PATH = ../../../../../../..
 ARCH = cortex-m4
 
 # Target part: none, sam3n4 or sam4l4aa
-PART = sam4c16c_1
+PART = sam4c16c:1
 
 # Application target name. Given with suffix .a for library and .elf for a
 # standalone application.

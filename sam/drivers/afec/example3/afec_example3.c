@@ -51,7 +51,8 @@
  *
  * \section Requirements
  *
- * This example can be used on SAM4E-EK boards,SAMV71-Xplained-Ultra.
+ * This example can be used on SAM4E-EK boards,SAMV71-Xplained-Ultra,
+ * SAME70-Xplained-Pro.
  *
  * \section Description
  *
@@ -112,13 +113,13 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-	#ifdef CONF_UART_CHAR_LENGTH
+#ifdef CONF_UART_CHAR_LENGTH
 		.charlength = CONF_UART_CHAR_LENGTH,
-	#endif
+#endif
 		.paritytype = CONF_UART_PARITY,
-	#ifdef CONF_UART_STOP_BITS
+#ifdef CONF_UART_STOP_BITS
 		.stopbits = CONF_UART_STOP_BITS,
-	#endif
+#endif
 	};
 
 	/* Configure console UART. */
@@ -135,7 +136,7 @@ static void afec_print_comp_result(void)
 
 	/* Disable Compare Interrupt. */
 	afec_disable_interrupt(AFEC0, AFEC_INTERRUPT_COMP_ERROR);
-	
+
 	us_adc = afec_channel_get_value(AFEC0, AFEC_CHANNEL_POTENTIOMETER);
 
 	printf("-ISR-:Potentiometer voltage %d mv is in the comparison "
@@ -173,8 +174,8 @@ int main(void)
 
 	struct afec_ch_config afec_ch_cfg;
 	afec_ch_get_config_defaults(&afec_ch_cfg);
-	
-#if (SAMV71 || SAMV70 || SAME70 || SAMS70) 
+
+#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
 	/*
 	 * Because the internal AFEC offset is 0x200, it should cancel it and shift
 	 * down to 0.
@@ -200,12 +201,10 @@ int main(void)
 	/* Enable channel for potentiometer. */
 	afec_channel_enable(AFEC0, AFEC_CHANNEL_POTENTIOMETER);
 
-
 	afec_set_callback(AFEC0, AFEC_INTERRUPT_COMP_ERROR, afec_print_comp_result, 1);
 
 	while (1) {
 		afec_start_software_conversion(AFEC0);
 		delay_ms(1000);
-
 	}
 }

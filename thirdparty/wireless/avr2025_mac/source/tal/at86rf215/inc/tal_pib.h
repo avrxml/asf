@@ -75,8 +75,8 @@
 /**
  * Default value of maximum backoff exponent used while performing CSMA
  */
-#define TAL_RF09_MAXBE_DEF                      (0x05)
-#define TAL_RF24_MAXBE_DEF                      (0x05)
+#define TAL_RF09_MAXBE_DEF                      (0x08)
+#define TAL_RF24_MAXBE_DEF                      (0x08)
 
 /**
  * Default value of PIB attribute macMaxFrameRetries
@@ -93,8 +93,8 @@
 /**
  * Default value of minimum backoff exponent used while performing CSMA
  */
-#define TAL_RF09_MINBE_DEF                      (0x03)
-#define TAL_RF24_MINBE_DEF                      (0x03)
+#define TAL_RF09_MINBE_DEF                      (0x05)
+#define TAL_RF24_MINBE_DEF                      (0x05)
 
 /**
  * Default value of the maximum number of frames that are allowed to be

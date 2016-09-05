@@ -56,6 +56,13 @@
 #include <compiler.h>
 #include <status_codes.h>
 
+// From module: Delay routines
+#include <delay.h>
+
+// From module: EXTINT - External Interrupt (Callback APIs)
+#include <extint.h>
+#include <extint_callback.h>
+
 // From module: Generic board support
 #include <board.h>
 
@@ -94,5 +101,15 @@
 
 // From module: SYSTEM - Reset Management for SAM D20/D21/R21/D09/D10/D11/DA0/DA1
 #include <reset.h>
+
+// From module: Standard serial I/O (stdio)
+#include <stdio_serial.h>
+
+// From module: TC - Timer Counter (Callback APIs)
+#include <tc.h>
+#include <tc_interrupt.h>
+
+// From module: USART - Serial interface- SAM implementation for devices with only USART
+#include <serial.h>
 
 #endif // ASF_H

@@ -97,7 +97,11 @@ const intvec_elem __vector_table[] = {
 #else
 	{Dummy_Handler},
 #endif
+#ifdef _SAM4E_PIOD_INSTANCE_
 	{PIOD_Handler},   /* 12 Parallel I/O Controller D */
+#else
+	{Dummy_Handler},
+#endif
 #ifdef _SAM4E_PIOE_INSTANCE_
 	{PIOE_Handler},   /* 13 Parallel I/O Controller E */
 #else
@@ -149,7 +153,11 @@ const intvec_elem __vector_table[] = {
 	{Dummy_Handler},
 	{Dummy_Handler},
 	{Dummy_Handler},
+#ifdef _SAM4E_GMAC_INSTANCE_
 	{GMAC_Handler},   /* 44 GMAC */
+#else
+	{Dummy_Handler},
+#endif
 	{UART1_Handler}   /* 45 UART */
 };
 

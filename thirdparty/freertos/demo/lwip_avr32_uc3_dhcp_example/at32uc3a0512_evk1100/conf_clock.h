@@ -3,7 +3,7 @@
  *
  * \brief Atmel Development Board Clock Configuration (ASF)
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -54,7 +54,7 @@
 #define CONFIG_SYSCLK_PBB_DIV        (0)
 
 #define CONFIG_PLL0_SOURCE           (PLL_SRC_OSC0)
-#define CONFIG_PLL0_MUL              (48000000UL / BOARD_OSC0_HZ)
+#define CONFIG_PLL0_MUL              (60000000UL / BOARD_OSC0_HZ)
 #define CONFIG_PLL0_DIV              (1)
 
 #endif /* CONF_CLOCK_H_INCLUDED */

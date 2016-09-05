@@ -3,7 +3,7 @@
  *
  * \brief PDM driver for SAM.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -160,7 +160,6 @@ enum status_code pdm_init(struct pdm_instance *const dev_inst, Pdmic *hw,
 	uint32_t dsp_cfg = 0;
 
 	Assert(dev_inst);
-	Assert(dev_inst->buffer_size);
 	Assert(hw);
 	Assert(cfg);
 
@@ -233,7 +232,7 @@ enum status_code pdm_read_convert_data(struct pdm_instance *const dev_inst,
 {
 	/* Sanity check arguments */
 	Assert(dev_inst);
-	Assert(dev_inst->hw_dev);
+	Assert(dev_inst->hw);
 
 	uint32_t timeout = PDM_RETRY_VALUE;
 

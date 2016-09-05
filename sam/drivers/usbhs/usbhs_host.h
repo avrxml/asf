@@ -56,6 +56,10 @@
 extern "C" {
 #endif
 
+#ifndef USBHS_RAM_ADDR
+#define USBHS_RAM_ADDR        0xA0100000u
+#endif
+
 //! \ingroup usb_host_group
 //! \defgroup uhd_group USB Host Driver (UHD)
 //! USBHS low-level driver for USB host mode

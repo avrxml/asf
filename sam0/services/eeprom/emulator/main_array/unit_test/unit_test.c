@@ -3,7 +3,7 @@
  *
  * \brief SAM EEPROM Emulator Service Unit test
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -76,6 +76,7 @@
  *      - SAM L22 Xplained Pro board
  *      - SAM C21 Xplained Pro board
  *      - SAM DA1 Xplained Pro board
+ *      - SAM R30 Xplained Pro board
  *
  * \section appdoc_sam0_eeprom_emulator_unit_test_setup Setup
  * The following connections has to be made using wires:

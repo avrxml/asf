@@ -255,38 +255,32 @@ Event_VBUS_present() // VBUS interrupt or GPIO interrupt or other
  *
  * This module is based on USB device stack full interrupt driven, and supporting
  * \ref sleepmgr_group "sleepmgr".
- * For AVR&reg; and Atmel&reg; | SMART SAM3/4 devices the \ref clk_group "clock services" is supported.
- * For SAMD21 devices the \ref asfdoc_sam0_system_clock_group "clock driver" is supported.
+ * For AVR&reg; and Atmel&reg; | SMART ARM&reg;-based SAM3/4 devices the
+ * \ref clk_group "clock services" is supported.
+ * For SAM D21 devices the \ref asfdoc_sam0_system_clock_group "clock driver" is supported.
  *
  * The following procedure must be executed to set up the project correctly:
  * - Specify the clock configuration:
  *   - XMEGA&reg; USB devices need 48MHz clock input.
- *
  *     XMEGA USB devices need CPU frequency higher than 12MHz.
- *
  *     You can use either an internal RC 48MHz auto calibrated by Start of Frames
  *     or an external OSC.
  *   - UC3 and SAM3/4 devices without USB high speed support need 48MHz clock input.
- *
  *     You must use a PLL and an external OSC.
  *   - UC3 and SAM3/4 devices with USB high speed support need 12MHz clock input.
- *
  *     You must use an external OSC.
- *   - UC3 devices with USBC hardware need CPU frequency higher than 25MHz.
- *   - SAMD21 devices without USB high speed support need 48MHz clock input.
- *
+ *   - UC3 devices with USBC hardware need CPU frequency higher than 25MHz
+ *   - SAM D21 devices without USB high speed support need 48MHz clock input.
  *     You should use DFLL with USBCRM.
  * - In conf_board.h, the define CONF_BOARD_USB_PORT must be added to enable USB lines.
- * (Not mandatory for all boards)
+ *   (Not mandatory for all boards).
  * - Enable interrupts
  * - Initialize the clock service
  *
- * The usage of \ref sleepmgr_group "sleepmgr" service is optional, but recommended to reduce power
+ * The usage of \ref sleepmgr_group "sleep manager" service is optional, but recommended to reduce power
  * consumption:
  * - Initialize the sleep manager service
  * - Activate sleep mode when the application is in IDLE state
- *
- * \subpage udc_conf_clock.
  *
  * For AVR and SAM3/4 devices, add to the initialization code:
  * \code
@@ -297,7 +291,7 @@ Event_VBUS_present() // VBUS interrupt or GPIO interrupt or other
  sleepmgr_init(); // Optional
  \endcode
  *
- * For SAMD21 devices, add to the initialization code:
+ * For SAM D21 devices, add to the initialization code:
  * \code
  system_init();
  irq_initialize_vectors();
@@ -355,6 +349,7 @@ Event_VBUS_present() // VBUS interrupt or GPIO interrupt or other
  * \code
  udc_start();
  \endcode
+ *
  *   \note In case of USB dual roles (Device and Host) managed through USB OTG connector
  * (USB ID pin), the call of udc_start() must be removed and replaced by uhc_start().
  * Refer to section "Dual roles" for further information in the application note:
@@ -428,7 +423,7 @@ Event_VBUS_present() // VBUS interrupt or GPIO interrupt or other
  #define CONFIG_USBCLK_DIV           1
  \endcode
  *
- * Content of conf_clocks.h for SAMD21 devices (USB):
+ * Content of conf_clocks.h for SAM D21 devices (USB):
  * \code
  // System clock bus configuration
  #  define CONF_CLOCK_FLASH_WAIT_STATES            2

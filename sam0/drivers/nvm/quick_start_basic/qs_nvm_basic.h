@@ -45,7 +45,7 @@
  * \page asfdoc_sam0_nvm_basic_use_case Quick Start Guide for NVM - Basic
  *
  * In this use case, the NVM module is configured for:
- *  \li Power reduction mode enabled after sleep until first NVM access
+ *  \li Power reduction mode enabled after sleep mode until first NVM access
  *  \li Automatic page write commands issued to commit data as pages are written
  *      to the internal buffer
  *  \li Zero wait states when reading FLASH memory
@@ -80,9 +80,9 @@
  * -# Enable automatic page write mode. The new data will be written to NVM automaticly.
  *    \snippet qs_nvm_basic.c setup_3
  *    \note If automatic page write mode is disabled, the data will not write to NVM
- *    		until the NVM write command has been invoked. For safe use of the NVM module,
- *    		disable automatic page write mode and use write command to commit data is
- *    		recommended.
+ *          until the NVM write command has been invoked. For safe use of the NVM module,
+ *          disable automatic page write mode and use write command to commit data is
+ *          recommended.
  *
  * -# Configure NVM controller with the created configuration struct settings.
  *    \snippet qs_nvm_basic.c setup_4
@@ -107,7 +107,7 @@
  *    \snippet qs_nvm_basic.c main_4
  *    \note This must be performed before writing new data into an NVM page.
  *
- * -# Write the databuffer to the previously erased page of the NVM.
+ * -# Write the data buffer to the previously erased page of the NVM.
  *    \snippet qs_nvm_basic.c main_5
  *    \note The new data will be written to NVM memory automatically, as the
  *          NVM controller is configured in automatic page write mode.

@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM I2C Master Driver
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -528,16 +528,22 @@ static inline void i2c_master_disable(
 
 	SercomI2cm *const i2c_module = &(module->hw->I2CM);
 
+#if I2C_MASTER_CALLBACK_MODE == true
+		/* Disable module interrupts */
+		system_interrupt_disable(_sercom_get_interrupt_vector(module->hw));
+#endif
+
 	/* Wait for module to sync */
 	_i2c_master_wait_for_sync(module);
+
+	/* Disbale interrupt */
+	i2c_module->INTENCLR.reg = SERCOM_I2CM_INTENCLR_MASK;
+	/* Clear interrupt flag */
+	i2c_module->INTFLAG.reg = SERCOM_I2CM_INTFLAG_MASK;
 
 	/* Disable module */
 	i2c_module->CTRLA.reg &= ~SERCOM_I2CM_CTRLA_ENABLE;
 
-#if I2C_MASTER_CALLBACK_MODE == true
-	/* Disable module interrupts */
-	system_interrupt_disable(_sercom_get_interrupt_vector(module->hw));
-#endif
 }
 
 void i2c_master_reset(struct i2c_master_module *const module);

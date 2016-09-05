@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------
-* Copyright (C) 2010-2012 ARM Limited. All rights reserved.
+* Copyright (C) 2010-2015 ARM Limited. All rights reserved.
 *
 * $Date:         17. January 2013
 * $Revision:     V1.4.0
@@ -10,7 +10,7 @@
 * Description:   Example showing an audio graphic equalizer constructed
 *                out of Biquad filters.
 *
-* Target Processor: Cortex-M4/Cortex-M3
+* Target Processor: Cortex-M4/Cortex-M3/Cortex-M7
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions

@@ -162,10 +162,11 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>OV7740_TWIHS_SUPPORT=false</state>
 					<state>_ASSERT_ENABLE_</state>
+					<state>BOARD=SAM4S_WPIR_RD</state>
 					<state>__SAM4S16C__</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>BOARD=SAM4S_WPIR_RD</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
@@ -468,10 +469,11 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>OV7740_TWIHS_SUPPORT=false</state>
 					<state>_ASSERT_ENABLE_</state>
+					<state>BOARD=SAM4S_WPIR_RD</state>
 					<state>__SAM4S16C__</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>BOARD=SAM4S_WPIR_RD</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
@@ -1099,10 +1101,11 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>OV7740_TWIHS_SUPPORT=false</state>
 					<state>_ASSERT_ENABLE_</state>
+					<state>BOARD=SAM4S_WPIR_RD</state>
 					<state>__SAM4S16C__</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>BOARD=SAM4S_WPIR_RD</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>
@@ -1405,10 +1408,11 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>OV7740_TWIHS_SUPPORT=false</state>
 					<state>_ASSERT_ENABLE_</state>
+					<state>BOARD=SAM4S_WPIR_RD</state>
 					<state>__SAM4S16C__</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
-					<state>BOARD=SAM4S_WPIR_RD</state>
 					<state>ARM_MATH_CM4=true</state>
 				</option>
 				<option>

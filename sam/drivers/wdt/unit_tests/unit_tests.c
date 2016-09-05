@@ -89,6 +89,7 @@
  * - sam4cms16c_sam4cms_db
  * - sam4cp16b_sam4cp16bmb
  * - samv71q21_samv71_xplained_ultra
+ * - same70q21_same70_xplained_pro
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers

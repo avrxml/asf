@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\multirole_multiconnect_saml21_xplained_pro_b_flash.ewp</path>
+	</project>
+</workspace>

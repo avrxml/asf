@@ -4,7 +4,7 @@
  *
  * \brief IoT Temperature Sensor Demo.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -22,9 +22,6 @@
  *
  * 3. The name of Atmel may not be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
  *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -68,6 +65,7 @@
  */
 
 #include "asf.h"
+#include <string.h>
 #include "stdio_serial.h"
 #include "conf_uart_serial.h"
 #include "demo.h"
@@ -77,8 +75,10 @@
 		"-- "BOARD_NAME" --"STRING_EOL \
 		"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
 
+#if SAMD21
 /** UART module for debug. */
 static struct usart_module cdc_uart_module;
+#endif
 
 /** SysTick counter to avoid busy wait delay. */
 volatile uint32_t ms_ticks = 0;
@@ -88,6 +88,7 @@ volatile uint32_t ms_ticks = 0;
  */
 static void configure_console(void)
 {
+#if SAMD21
 	struct usart_config usart_conf;
 
 	usart_get_config_defaults(&usart_conf);
@@ -100,6 +101,22 @@ static void configure_console(void)
 
 	stdio_serial_init(&cdc_uart_module, CONF_STDIO_USART_MODULE, &usart_conf);
 	usart_enable(&cdc_uart_module);
+#elif SAME70
+	const usart_serial_options_t uart_serial_options = {
+		.baudrate = CONF_UART_BAUDRATE,
+#ifdef CONF_UART_CHAR_LENGTH
+		.charlength = CONF_UART_CHAR_LENGTH,
+#endif
+		.paritytype = CONF_UART_PARITY,
+#ifdef CONF_UART_STOP_BITS
+		.stopbits = CONF_UART_STOP_BITS,
+#endif
+	};
+
+	/* Configure console UART. */
+	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
+	stdio_serial_init(CONF_UART, &uart_serial_options);
+#endif
 }
 
 /**
@@ -119,7 +136,12 @@ void SysTick_Handler(void)
  */
 int main(void)
 {
+#if SAMD21
 	system_init();
+#elif SAME70
+	sysclk_init();
+	board_init();
+#endif
 
 	/* Initialize the UART console. */
 	configure_console();
@@ -128,10 +150,18 @@ int main(void)
 	delay_init();
 			
 	/* Enable SysTick interrupt for non busy wait delay. */
+#if SAMD21
 	if (SysTick_Config(system_cpu_clock_get_hz()/1000)) {
 		puts("main: SysTick configuration error!");
 		while (1);
 	}
+#elif SAME70
+	if (SysTick_Config(sysclk_get_main_hz()/1000)) {
+		puts("main: SysTick configuration error!");
+		while (1);
+	}
+#endif
+
 
 	/* Output example information */
 	puts(STRING_HEADER);

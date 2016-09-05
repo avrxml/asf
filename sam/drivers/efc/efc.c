@@ -3,7 +3,7 @@
  *
  * \brief Enhanced Embedded Flash Controller (EEFC) driver for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -70,7 +70,7 @@ extern "C" {
 #elif (SAM3S || SAM3N || SAM4E || SAM4N || SAMG || SAMV71 || SAMV70 || SAMS70 || SAME70)
 # define READ_BUFF_ADDR     IFLASH_ADDR
 #elif (SAM4C || SAM4CP || SAM4CM)
-#if SAM4C32
+#if (SAM4C32 || SAM4CMS32 || SAM4CMP32)
 # define READ_BUFF_ADDR0    IFLASH0_CNC_ADDR
 # define READ_BUFF_ADDR1    IFLASH1_CNC_ADDR
 #else
@@ -330,7 +330,7 @@ uint32_t efc_perform_read_sequence(Efc *p_efc,
 	volatile uint32_t ul_status;
 	uint32_t ul_cnt;
 
-#if (SAM3U4 || SAM3XA || SAM4SD16 || SAM4SD32 || SAM4C32)
+#if (SAM3U4 || SAM3XA || SAM4SD16 || SAM4SD32 || SAM4C32 || SAM4CMS32|| SAM4CMP32)
 	uint32_t *p_ul_data =
 			(uint32_t *) ((p_efc == EFC0) ?
 			READ_BUFF_ADDR0 : READ_BUFF_ADDR1);

@@ -166,7 +166,7 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>BOARD=SAMR21_XPLAINED_PRO</state>
 					<state>__SAMR21G18A__</state>
@@ -471,7 +471,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>BOARD=SAMR21_XPLAINED_PRO</state>
 					<state>__SAMR21G18A__</state>
@@ -1135,7 +1135,7 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>BOARD=SAMR21_XPLAINED_PRO</state>
 					<state>__SAMR21G18A__</state>
@@ -1440,7 +1440,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>BOARD=SAMR21_XPLAINED_PRO</state>
 					<state>__SAMR21G18A__</state>
@@ -2049,18 +2049,12 @@
 						</file>
 					</group>
 				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../events_hooks.c</name>
-				</file>
 				<group>
 					<name>events_sam_d_r</name>
 					<file>
 						<name>$PROJ_DIR$/../../../events_sam_d_r/events.c</name>
 					</file>
 				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../events_hooks.h</name>
-				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../events.h</name>
 				</file>

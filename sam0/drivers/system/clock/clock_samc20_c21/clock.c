@@ -3,7 +3,7 @@
  *
  * \brief SAM C2x Clock Driver
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -246,7 +246,7 @@ void system_clock_source_xosc_set_config(
 			temp.bit.GAIN = 2;
 		} else if (config->frequency <= 16000000) {
 			temp.bit.GAIN = 3;
-		} else if (config->frequency <= 30000000) {
+		} else if (config->frequency <= 32000000) {
 			temp.bit.GAIN = 4;
 		}
 
@@ -370,12 +370,12 @@ void system_clock_source_dpll_set_config(
 	while(OSCCTRL->DPLLSYNCBUSY.reg & OSCCTRL_DPLLSYNCBUSY_DPLLPRESC){
 		}
 	/*
-	 * Fck = Fckrx * (LDR + 1 + LDRFRAC / 16)
+	 * Fck = Fckrx * (LDR + 1 + LDRFRAC / 16) / (2^PRESC)
 	 */
 	_system_clock_inst.dpll.frequency =
 			(config->reference_frequency *
 			 (((tmpldr + 1) << 4) + tmpldrfrac)
-			) >> 4;
+			) >> (4 + config->prescaler);
 }
 
 /**
@@ -619,9 +619,9 @@ bool system_clock_source_is_ready(
  * application. All clock sources and GCLK generators are running when this function
  * returns.
  *
- * \note OSC48M is always enabled and if user selects other clocks for GCLK generators,
+ * \note OSC48M is always enabled and if the user selects other clocks for GCLK generators,
  * the OSC48M default enable can be disabled after system_clock_init. Make sure the
- * clock switch successfully before disabling OSC48M.
+ * clock switches successfully before disabling OSC48M.
  */
 void system_clock_init(void)
 {
@@ -642,11 +642,11 @@ void system_clock_init(void)
 	xosc_conf.frequency         = CONF_CLOCK_XOSC_EXTERNAL_FREQUENCY;
 	xosc_conf.on_demand         = CONF_CLOCK_XOSC_ON_DEMAND;
 	xosc_conf.run_in_standby    = CONF_CLOCK_XOSC_RUN_IN_STANDBY;
-	xosc_conf.clock_failure_detector_prescaler = CONF_CLOCK_XOSC_FAILURE_DETECTOT_PRE;
-	xosc_conf.enable_clock_failure_detector    = CONF_CLOCK_XOSC_FAILURE_DETECTOT_EANBLE;
+	xosc_conf.clock_failure_detector_prescaler = CONF_CLOCK_XOSC_FAILURE_DETECTOR_PRE;
+	xosc_conf.enable_clock_failure_detector    = CONF_CLOCK_XOSC_FAILURE_DETECTOR_ENABLE;
 	xosc_conf.enable_clock_failure_detector_event_outut =
-											CONF_CLOCK_XOSC_FAILURE_DETECTOT_EVENT_OUTPUT_EANBLE;
-	xosc_conf.enable_clock_switch_back = CONF_CLOCK_XOSC_FAILURE_SWITCH_BACK_EANBLE;
+											CONF_CLOCK_XOSC_FAILURE_DETECTOR_EVENT_OUTPUT_ENABLE;
+	xosc_conf.enable_clock_switch_back = CONF_CLOCK_XOSC_FAILURE_SWITCH_BACK_ENABLE;
 
 	system_clock_source_xosc_set_config(&xosc_conf);
 	system_clock_source_enable(SYSTEM_CLOCK_SOURCE_XOSC);
@@ -664,11 +664,11 @@ void system_clock_init(void)
 	xosc32k_conf.enable_32khz_output = CONF_CLOCK_XOSC32K_ENABLE_32KHZ_OUTPUT;
 	xosc32k_conf.on_demand           = false;
 	xosc32k_conf.run_in_standby      = CONF_CLOCK_XOSC32K_RUN_IN_STANDBY;
-	xosc32k_conf.clock_failure_detector_prescaler = CONF_CLOCK_XOSC32K_FAILURE_DETECTOT_PRE;
-	xosc32k_conf.enable_clock_failure_detector    = CONF_CLOCK_XOSC32K_FAILURE_DETECTOT_EANBLE;
+	xosc32k_conf.clock_failure_detector_prescaler = CONF_CLOCK_XOSC32K_FAILURE_DETECTOR_PRE;
+	xosc32k_conf.enable_clock_failure_detector    = CONF_CLOCK_XOSC32K_FAILURE_DETECTOR_ENABLE;
 	xosc32k_conf.enable_clock_failure_detector_event_outut =
-											CONF_CLOCK_XOSC32K_FAILURE_DETECTOT_EVENT_OUTPUT_EANBLE;
-	xosc32k_conf.enable_clock_switch_back = CONF_CLOCK_XOSC32K_FAILURE_SWITCH_BACK_EANBLE;
+											CONF_CLOCK_XOSC32K_FAILURE_DETECTOR_EVENT_OUTPUT_ENABLE;
+	xosc32k_conf.enable_clock_switch_back = CONF_CLOCK_XOSC32K_FAILURE_SWITCH_BACK_ENABLE;
 
 	system_clock_source_xosc32k_set_config(&xosc32k_conf);
 	system_clock_source_enable(SYSTEM_CLOCK_SOURCE_XOSC32K);
@@ -745,7 +745,7 @@ void system_clock_init(void)
 
 	dpll_config.reference_clock     = CONF_CLOCK_DPLL_REFERENCE_CLOCK;
 	dpll_config.reference_frequency = CONF_CLOCK_DPLL_REFERENCE_FREQUENCY;
-	dpll_config.reference_divider   = CONF_CLOCK_DPLL_REFEREMCE_DIVIDER;
+	dpll_config.reference_divider   = CONF_CLOCK_DPLL_REFERENCE_DIVIDER;
 	dpll_config.output_frequency    = CONF_CLOCK_DPLL_OUTPUT_FREQUENCY;
 	dpll_config.prescaler           = CONF_CLOCK_DPLL_PRESCALER;
 

@@ -339,14 +339,14 @@ typedef struct {
 //!@{
 
 /**
- * \brief Notify a state change of DCD signal
+ * \brief Notify a state change of Data Carrier Detect (DCD) signal
  *
  * \param[in] b_set      DCD is enabled if true, else disabled
  */
 void udi_cdc_ctrl_signal_dcd(bool b_set);
 
 /**
- * \brief Notify a state change of DSR signal
+ * \brief Notify a state change of Data Set Ready (DSR) signal
  *
  * \param[in] b_set      DSR is enabled if true, else disabled
  */
@@ -407,7 +407,7 @@ iram_size_t udi_cdc_get_free_tx_buffer(void);
 
 /**
  * \brief This function checks if a new character sent is possible.
- * The type int is used to support scanf redirection from compiler LIB.
+ * The type int is used to support scanf redirection from compiler .lib file.
  *
  * \return \c 1 if a new character can be sent.
  */
@@ -625,7 +625,7 @@ iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void* buf, iram_size_t s
  \endcode
  *
  * \subsubsection udi_cdc_basic_use_case_setup_usage_flow Workflow
- * -# Ensure that conf_usb.h is available and contains the following configuration
+ * -# Ensure that conf_usb.h is available and contains the following configuration,
  * which is the USB device CDC configuration:
  * \code
  #define USB_DEVICE_SERIAL_NAME  "12...EF" // Disk SN for CDC
@@ -832,7 +832,7 @@ iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void* buf, iram_size_t s
  * \subsection asfdoc_udi_cdc_config_examples_2_2 AT32UC3A0, AT32UC3A1, AT32UC3B Devices (USBB)
  * \include example/at32uc3a0512_evk1100/conf_clock.h
  *
- * \subsection asfdoc_udi_cdc_config_examples_2_3 AT32UC3A3, AT32UC3A4 Devices (USBB with High Speed Support)
+ * \subsection asfdoc_udi_cdc_config_examples_2_3 AT32UC3A3 and AT32UC3A4 Devices (USBB with High Speed Support)
  * \include example/at32uc3a3256_evk1104/conf_clock.h
  *
  * \subsection asfdoc_udi_cdc_config_examples_2_4 AT32UC3C, ATUCXXD, ATUCXXL3U, ATUCXXL4U Devices (USBC)
@@ -844,12 +844,12 @@ iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void* buf, iram_size_t s
  * \subsection asfdoc_udi_cdc_config_examples_2_6 SAM3U Device (UPDHS: USB Peripheral Device High Speed)
  * \include example/sam3u4e_sam3u_ek/conf_clock.h
  *
- * \subsection asfdoc_udi_cdc_config_examples_2_7 SAM3X, SAM3A Devices (UOTGHS: USB OTG High Speed)
+ * \subsection asfdoc_udi_cdc_config_examples_2_7 SAM3X and SAM3A Devices (UOTGHS: USB OTG High Speed)
  * \include example/sam3x8h_sam3x_ek/conf_clock.h
  *
  * \section asfdoc_udi_cdc_config_examples_3 conf_clocks.h
  *
- * \subsection asfdoc_udi_cdc_config_examples_3_1 SAMD21 Device (USB)
+ * \subsection asfdoc_udi_cdc_config_examples_3_1 SAM D21 Device (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_clocks.h
  *
  * \section asfdoc_udi_cdc_config_examples_4 conf_board.h
@@ -857,16 +857,16 @@ iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void* buf, iram_size_t s
  * \subsection asfdoc_udi_cdc_config_examples_4_1 AT32UC3A0, AT32UC3A1, AT32UC3B Devices (USBB)
  * \include example/at32uc3a0512_evk1100/conf_board.h
  *
- * \subsection asfdoc_udi_cdc_config_examples_4_2 AT32UC3A3, AT32UC3A4 Devices (USBB with High Speed Support)
+ * \subsection asfdoc_udi_cdc_config_examples_4_2 AT32UC3A3 and AT32UC3A4 Devices (USBB with High Speed Support)
  * \include example/at32uc3a3256_evk1104/conf_board.h
  *
  * \subsection asfdoc_udi_cdc_config_examples_4_3 AT32UC3C, ATUCXXD, ATUCXXL3U, ATUCXXL4U Devices (USBC)
  * \include example/at32uc3c0512c_uc3c_ek/conf_board.h
  *
- * \subsection asfdoc_udi_cdc_config_examples_4_4 SAM3X, SAM3A Devices (UOTGHS: USB OTG High Speed)
+ * \subsection asfdoc_udi_cdc_config_examples_4_4 SAM3X and SAM3A Devices (UOTGHS: USB OTG High Speed)
  * \include example/sam3x8h_sam3x_ek/conf_board.h
  *
- * \subsection asfdoc_udi_cdc_config_examples_4_5 SAMD21 Device (USB)
+ * \subsection asfdoc_udi_cdc_config_examples_4_5 SAM D21 Device (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_board.h
  */
 
@@ -875,14 +875,19 @@ iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void* buf, iram_size_t s
  *
  * <table>
  * <tr>
- *    <th>Doc. Rev.</td>
- *    <th>Date</td>
- *    <th>Comments</td>
+ *    <th>Doc. Rev.</th>
+ *    <th>Date</th>
+ *    <th>Comments</th>
+ * </tr>
+ * <tr>
+ *    <td>42337B</td>
+ *    <td>12/2015</td>
+ *    <td>Fixed typos</td>
  * </tr>
  * <tr>
  *    <td>42337A</td>
  *    <td>12/2014</td>
- *    <td>Initial release.</td>
+ *    <td>Initial release</td>
  * </tr>
  * </table>
  */

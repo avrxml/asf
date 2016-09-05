@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for OV7740 driver.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -211,7 +211,7 @@ static void pio_capture_init(Pio* const p_pio, uint32_t ul_id)
 	p_pio->PIO_PCMR &= ~((uint32_t)PIO_PCMR_PCEN);
 
 	/* Disable rxbuff interrupt */
-	p_pio->PIO_PCIDR |= PIO_PCIDR_RXBUFF;
+	p_pio->PIO_PCIDR = PIO_PCIDR_RXBUFF;
 
 	/* 32bit width */
 	p_pio->PIO_PCMR &= ~((uint32_t)PIO_PCMR_DSIZE_Msk);

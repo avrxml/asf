@@ -3,7 +3,7 @@
  *
  * \brief GMAC example for SAM.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -58,7 +58,8 @@
  *  \section Description
  *
  *  Upon startup, the program will configure the GMAC with a default IP and
- *  MAC address and then ask the transceiver to auto-negotiate the best mode
+ *  MAC address. If the device support AT24MAC EEPROM, EIA-48 MAC address is
+ *  stored in it. And then ask the transceiver to auto-negotiate the best mode
  *  of operation. Once this is done, it will start to monitor incoming packets
  *  and process them whenever appropriate.
  *
@@ -123,8 +124,8 @@ extern "C" {
 /// @endcond
 
 #define STRING_EOL    "\r"
-#define STRING_HEADER "-- GMAC Example --\r" \
-		"-- "BOARD_NAME" --\r" \
+#define STRING_HEADER "-- GMAC Example --\r\n" \
+		"-- "BOARD_NAME" --\r\n" \
 		"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
 
 /** The MAC address used for the test */
@@ -237,13 +238,15 @@ static void gmac_process_arp_packet(uint8_t *p_uc_data, uint32_t ul_size)
 	p_arp_header_t p_arp = (p_arp_header_t) (p_uc_data + ETH_HEADER_SIZE);
 
 	if (SWAP16(p_arp->ar_op) == ARP_REQUEST) {
-		printf("-- IP  %d.%d.%d.%d\n\r",
+		printf("-- MAC %x:%x:%x:%x:%x:%x\n\r",
 				p_eth->et_dest[0], p_eth->et_dest[1],
-				p_eth->et_dest[2], p_eth->et_dest[3]);
+				p_eth->et_dest[2], p_eth->et_dest[3],
+				p_eth->et_dest[4], p_eth->et_dest[5]);
 
-		printf("-- IP  %d.%d.%d.%d\n\r",
+		printf("-- MAC %x:%x:%x:%x:%x:%x\n\r",
 				p_eth->et_src[0], p_eth->et_src[1],
-				p_eth->et_src[2], p_eth->et_src[3]);
+				p_eth->et_src[2], p_eth->et_src[3],
+				p_eth->et_src[4], p_eth->et_src[5]);
 
 		/* ARP reply operation */
 		p_arp->ar_op = SWAP16(ARP_REPLY);
@@ -293,12 +296,12 @@ static void gmac_process_ip_packet(uint8_t *p_uc_data, uint32_t ul_size)
 	p_icmp_echo_header_t p_icmp_echo =
 			(p_icmp_echo_header_t) ((int8_t *) p_ip_header +
 			ETH_IP_HEADER_SIZE);
-	printf("-- IP  %d.%d.%d.%d\n\r", p_eth->et_dest[0], p_eth->et_dest[1],
-			p_eth->et_dest[2], p_eth->et_dest[3]);
+	printf("-- IP  %d.%d.%d.%d\n\r", p_ip_header->ip_dst[0], p_ip_header->ip_dst[1],
+			p_ip_header->ip_dst[2], p_ip_header->ip_dst[3]);
 
 	printf("-- IP  %d.%d.%d.%d\n\r",
-			p_eth->et_src[0], p_eth->et_src[1], p_eth->et_src[2],
-			p_eth->et_src[3]);
+			p_ip_header->ip_src[0], p_ip_header->ip_src[1], p_ip_header->ip_src[2],
+			p_ip_header->ip_src[3]);
 	switch (p_ip_header->ip_p) {
 	case IP_PROT_ICMP:
 		if (p_icmp_echo->type == ICMP_ECHO_REQUEST) {
@@ -388,6 +391,38 @@ static void gmac_process_eth_packet(uint8_t *p_uc_data, uint32_t ul_size)
 	}
 }
 
+#ifdef ETH_SUPPORT_AT24MAC
+static void at24mac_get_mac_address(void)
+{
+	twihs_options_t opt;
+	twihs_packet_t packet_mac_addr;
+	uint8_t orginal_mac_addr[BOARD_AT24MAC_PAGE_SIZE];
+
+	/* Enable TWI peripheral */
+	pmc_enable_periph_clk(ID_TWIHS0);
+
+	/* Init TWI peripheral */
+	opt.master_clk = sysclk_get_cpu_hz();
+	opt.speed = BOARD_AT24MAC_TWIHS_CLK;
+	twihs_master_init(BOARD_AT24MAC_TWIHS, &opt);
+
+	/* MAC address */
+	packet_mac_addr.chip = BOARD_AT24MAC_ADDRESS;
+	packet_mac_addr.addr[0] = 0x9A;
+	packet_mac_addr.addr_length = 1;
+	packet_mac_addr.buffer = orginal_mac_addr;
+	packet_mac_addr.length = BOARD_AT24MAC_PAGE_SIZE;
+
+	twihs_master_read(BOARD_AT24MAC_TWIHS, &packet_mac_addr);
+
+	if ((orginal_mac_addr[0] == 0xFC) && (orginal_mac_addr[1] == 0xC2)
+		&& (orginal_mac_addr[2] == 0x3D)) {
+		for (uint8_t i = 0; i < 6; i++)
+			gs_uc_mac_address[i] = orginal_mac_addr[i];
+	}
+}
+#endif
+
 /**
  *  \brief Configure UART console.
  */
@@ -440,6 +475,10 @@ int main(void)
 	configure_console();
 
 	puts(STRING_HEADER);
+
+#ifdef ETH_SUPPORT_AT24MAC
+	at24mac_get_mac_address();
+#endif
 
 	/* Display MAC & IP settings */
 	printf("-- MAC %x:%x:%x:%x:%x:%x\n\r",

@@ -161,12 +161,11 @@ void gmac_handler(gmac_device_t* p_gmac_dev, gmac_quelist_t queue_idx);
  *
  * \section gmac_basic_use_case Basic use case
  * In the basic use case, the GMAC driver are configured for:
- * - PHY component KSZ8051MNL is used
- * - GMAC uses MII mode
+ * - PHY component KSZ8061RNB is used
+ * - GMAC uses RMII mode
  * - The number of receive buffer is 16
  * - The number of transfer buffer is 8
  * - MAC address is set to 00-04-25-1c-a0-02
- * - IP address is set to 192.168.0.2
  * - IP address is set to 192.168.0.2
  * - Gateway is set to 192.168.0.1
  * - Network mask is 255.255.255.0
@@ -179,7 +178,7 @@ void gmac_handler(gmac_device_t* p_gmac_dev, gmac_quelist_t queue_idx);
  * \subsection gmac_basic_use_case_setup_prereq Prerequisites
  * -# \ref sysclk_group "System Clock Management (sysclock)"
  * -# \ref pmc_group "Power Management Controller (pmc)"
- * -# \ref ksz8051mnl_ethernet_phy_group "PHY component (KSZ8051MNL)"
+ * -# \ref ksz8061rnb_ethernet_phy_group "PHY component (KSZ8061RNB)"
  *
  * \subsection gmac_basic_use_case_setup_code Example code
  * Content of conf_eth.h

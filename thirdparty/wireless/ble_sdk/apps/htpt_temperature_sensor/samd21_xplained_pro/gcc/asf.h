@@ -59,6 +59,9 @@
 #include <compiler.h>
 #include <status_codes.h>
 
+// From module: Delay routines
+#include <delay.h>
+
 // From module: EXTINT - External Interrupt (Callback APIs)
 #include <extint.h>
 #include <extint_callback.h>

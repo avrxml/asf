@@ -3,7 +3,7 @@
  *
  * \brief HTTP File Downloader Example.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,15 +45,16 @@
 extern "C" {
 #endif
 
-/*
- * Wi-Fi Settings
- */
+/** Wi-Fi AP Settings. */
 #define MAIN_WLAN_SSID                       "DEMO_AP" /**< Destination SSID */
 #define MAIN_WLAN_AUTH                       M2M_WIFI_SEC_WPA_PSK /**< Security manner */
 #define MAIN_WLAN_PSK                        "12345678" /**< Password for Destination SSID */
 
+/** IP address parsing. */
+#define IPV4_BYTE(val, index)                ((val >> (index * 8)) & 0xFF)
+
 /** Content URI for download. */
-#define MAIN_HTTP_FILE_URL                   "http://www.atmel.com/Images/asf-releasenotes-3.22.0.pdf"
+#define MAIN_HTTP_FILE_URL                   "http://www.atmel.com/Images/45093A-SmartConnectWINC1500_E_US_101014_web.pdf"
 
 /** Maximum size for packet buffer. */
 #define MAIN_BUFFER_MAX_SIZE                 (1446)

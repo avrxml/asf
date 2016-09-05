@@ -6,7 +6,7 @@
  * This file contains definitions and services related to the features of the
  * AT30TS Temperature Sensor.
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -63,6 +63,8 @@ extern "C" {
  * \section apiinfo APIs for interfacing AT30TSxx Temperature Sensor
  * AT30TSxx Temperature Sensor API can be found 
  * \ref sensor_at30ts_api_group "here"
+ *
+ * @{
  */
 
 #include "compiler.h"
@@ -654,6 +656,10 @@ uint8_t write_tcrit(uint8_t sign, uint8_t itemp, uint16_t ftemp);
 
 /** @} */
 
+/** @} */
+
+/** @} */
+
 #ifdef __cplusplus
 }
 #endif
@@ -765,7 +771,7 @@ uint8_t write_tcrit(uint8_t sign, uint8_t itemp, uint16_t ftemp);
  * opt.chip = EXAMPLE_TS_DEVICE_ADDR;
  * opt.speed = TWI_SPEED;
  * twi_master_setup(TWI_MODULE, &opt);
-* 
+ * 
  * \endcode
 
  * \section at30ts_basic_use_case_usage Usage steps
@@ -780,7 +786,5 @@ uint8_t write_tcrit(uint8_t sign, uint8_t itemp, uint16_t ftemp);
  *  status = ts_read_eeprom(EE_TEST_ADDR, PATTERN_TEST_LENGTH, ibuf);
  * \endcode
  */
-
- /** @} */
  
 #endif  /* AT30TS_H_ */

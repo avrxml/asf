@@ -95,9 +95,13 @@ INC_PATH = \
        sam/boards                                         \
        sam/boards/sam4l_ek                                \
        sam/drivers/ast                                    \
+       sam/drivers/ast/example1                           \
+       sam/drivers/ast/example2                           \
        sam/drivers/bpm                                    \
        sam/drivers/dacc                                   \
        sam/drivers/events                                 \
+       sam/drivers/events/example1                        \
+       sam/drivers/events/example2                        \
        sam/drivers/events/unit_tests                      \
        sam/drivers/events/unit_tests/sam4lc4c_sam4l_ek    \
        sam/drivers/flashcalw                              \

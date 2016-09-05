@@ -296,7 +296,7 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../drivers/rstc</state>
@@ -307,6 +307,7 @@
 					<state>$PROJ_DIR$/../../network</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c</state>
+					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/ebi/smc</state>
@@ -338,7 +339,7 @@
 					<state>$PROJ_DIR$/../../../../drivers/dacc</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../services/resistive_touch</state>
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c/device_specific</state>
@@ -599,7 +600,7 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../drivers/rstc</state>
@@ -610,6 +611,7 @@
 					<state>$PROJ_DIR$/../../network</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c</state>
+					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/ebi/smc</state>
@@ -641,7 +643,7 @@
 					<state>$PROJ_DIR$/../../../../drivers/dacc</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../services/resistive_touch</state>
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c/device_specific</state>
@@ -1293,7 +1295,7 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../drivers/rstc</state>
@@ -1304,6 +1306,7 @@
 					<state>$PROJ_DIR$/../../network</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c</state>
+					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/ebi/smc</state>
@@ -1335,7 +1338,7 @@
 					<state>$PROJ_DIR$/../../../../drivers/dacc</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../services/resistive_touch</state>
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c/device_specific</state>
@@ -1596,7 +1599,7 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../drivers/rstc</state>
@@ -1607,6 +1610,7 @@
 					<state>$PROJ_DIR$/../../network</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/freertos/freertos-7.3.0/source/portable/iar/sam_cm4f</state>
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c</state>
+					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../../../thirdparty/lwip/lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/ebi/smc</state>
@@ -1638,7 +1642,7 @@
 					<state>$PROJ_DIR$/../../../../drivers/dacc</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../services/resistive_touch</state>
 					<state>$PROJ_DIR$/../../../../../common/components/touch/qt/qt_i2c/device_specific</state>
@@ -2400,9 +2404,6 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/dacc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/pmc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/hsmci.h</name>
 							</file>
 							<file>
@@ -2499,6 +2500,9 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/afec1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/pmc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/gpbr.h</name>
 							</file>
 							<file>
@@ -2517,7 +2521,13 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e16e.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e16cb.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e8e.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e8cb.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e16c.h</name>
@@ -2626,7 +2636,13 @@
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e8e.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e8cb.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e16c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e16cb.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e.h</name>
@@ -2640,16 +2656,13 @@
 					<name>$PROJ_DIR$/../../../../utils/header_files/io.h</name>
 				</file>
 			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../utils/status_codes.h</name>
-			</file>
 			<group>
 				<name>preprocessor</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../utils/preprocessor/mrepeat.h</name>
+					<name>$PROJ_DIR$/../../../../utils/preprocessor/tpaste.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../utils/preprocessor/tpaste.h</name>
+					<name>$PROJ_DIR$/../../../../utils/preprocessor/mrepeat.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../utils/preprocessor/preprocessor.h</name>
@@ -2658,6 +2671,9 @@
 					<name>$PROJ_DIR$/../../../../utils/preprocessor/stringz.h</name>
 				</file>
 			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../utils/status_codes.h</name>
+			</file>
 			<group>
 				<name>fpu</name>
 				<file>
@@ -3135,10 +3151,10 @@
 					</file>
 				</group>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/clock/pll.h</name>
+					<name>$PROJ_DIR$/../../../../../common/services/clock/sysclk.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../common/services/clock/sysclk.h</name>
+					<name>$PROJ_DIR$/../../../../../common/services/clock/pll.h</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../common/services/clock/osc.h</name>

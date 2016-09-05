@@ -514,13 +514,17 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 					previous_trx_status = RX_AACK_ON; /* any
 					                                   *
 					                                   *
+					                                   *
 					                                   *other
+					                                   *
 					                                   *
 					                                   *
 					                                   *than
 					                                   *
 					                                   *
+					                                   *
 					                                   *TRX_OFF
+					                                   *
 					                                   *
 					                                   *
 					                                   *state
@@ -593,13 +597,17 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value)
 					previous_trx_status = RX_AACK_ON; /* any
 					                                   *
 					                                   *
+					                                   *
 					                                   *other
+					                                   *
 					                                   *
 					                                   *
 					                                   *than
 					                                   *
 					                                   *
+					                                   *
 					                                   *TRX_OFF
+					                                   *
 					                                   *
 					                                   *
 					                                   *state

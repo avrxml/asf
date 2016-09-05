@@ -267,11 +267,10 @@ int main(void)
 	dacc_set_power_save(DACC, 0, 0);
 #endif
 	/* Timing:
-	 * refresh        - 0x08 (1024*8 dacc clocks)
 	 * max speed mode -    0 (disabled)
 	 * startup time   - 0xf (960 dacc clocks)
 	 */
-	dacc_set_timing(DACC, 0x08, 0, 0xf);
+	dacc_set_timing(DACC, 0, 0xf);
 	/* Disable TAG and select output channel DACC_CHANNEL */
 	dacc_set_channel_selection(DACC, DACC_CHANNEL_0);
 	/* Enable output channel DACC_CHANNEL */

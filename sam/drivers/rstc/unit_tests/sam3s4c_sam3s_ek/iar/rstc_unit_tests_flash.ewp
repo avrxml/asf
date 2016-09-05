@@ -299,6 +299,7 @@
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3s/include</state>
 					<state>$PROJ_DIR$/../../../../gpbr</state>
@@ -315,7 +316,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../pio</state>
@@ -572,6 +573,7 @@
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3s/include</state>
 					<state>$PROJ_DIR$/../../../../gpbr</state>
@@ -588,7 +590,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../pio</state>
@@ -1236,6 +1238,7 @@
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3s/include</state>
 					<state>$PROJ_DIR$/../../../../gpbr</state>
@@ -1252,7 +1255,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../pio</state>
@@ -1509,6 +1512,7 @@
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam3s/include</state>
 					<state>$PROJ_DIR$/../../../../gpbr</state>
@@ -1525,7 +1529,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../pio</state>

@@ -3,7 +3,7 @@
  *
  * \brief SAM SPI Quick Start
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -111,26 +111,16 @@ void configure_spi_slave(void)
 	config_spi_slave.mode_specific.slave.frame_format = SPI_FRAME_FORMAT_SPI_FRAME;
 //! [conf_format]
 //! [mux_setting]
-	config_spi_slave.mux_setting = EXT1_SPI_SERCOM_MUX_SETTING;
+	config_spi_slave.mux_setting = CONF_SLAVE_MUX_SETTING;
 //! [mux_setting]
-	/* Configure pad 0 for data in */
-//! [di]
-	config_spi_slave.pinmux_pad0 = EXT1_SPI_SERCOM_PINMUX_PAD0;
-//! [di]
-	/* Configure pad 1 as unused */
-//! [ss]
-	config_spi_slave.pinmux_pad1 = EXT1_SPI_SERCOM_PINMUX_PAD1;
-//! [ss]
-	/* Configure pad 2 for data out */
-//! [do]
-	config_spi_slave.pinmux_pad2 = EXT1_SPI_SERCOM_PINMUX_PAD2;
-//! [do]
-	/* Configure pad 3 for SCK */
-//! [sck]
-	config_spi_slave.pinmux_pad3 = EXT1_SPI_SERCOM_PINMUX_PAD3;
-//! [sck]
+
+	config_spi_slave.pinmux_pad0 = CONF_SLAVE_PINMUX_PAD0;
+	config_spi_slave.pinmux_pad1 = CONF_SLAVE_PINMUX_PAD1;
+	config_spi_slave.pinmux_pad2 = CONF_SLAVE_PINMUX_PAD2;
+	config_spi_slave.pinmux_pad3 = CONF_SLAVE_PINMUX_PAD3;
+
 //! [init]
-	spi_init(&spi_slave_instance, EXT1_SPI_MODULE, &config_spi_slave);
+	spi_init(&spi_slave_instance, CONF_SLAVE_SPI_MODULE, &config_spi_slave);
 //! [init]
 
 //! [enable]

@@ -298,6 +298,7 @@
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../conf_src/common</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/sam4cp/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../conf_src/core0</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/sam4cp/include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
@@ -312,7 +313,7 @@
 					<state>$PROJ_DIR$/../../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../usart</state>
-					<state>$PROJ_DIR$/../../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../pmc</state>
@@ -570,6 +571,7 @@
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../conf_src/common</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/sam4cp/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../conf_src/core0</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/sam4cp/include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
@@ -584,7 +586,7 @@
 					<state>$PROJ_DIR$/../../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../usart</state>
-					<state>$PROJ_DIR$/../../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../pmc</state>
@@ -1233,6 +1235,7 @@
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../conf_src/common</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/sam4cp/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../conf_src/core0</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/sam4cp/include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
@@ -1247,7 +1250,7 @@
 					<state>$PROJ_DIR$/../../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../usart</state>
-					<state>$PROJ_DIR$/../../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../pmc</state>
@@ -1505,6 +1508,7 @@
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../conf_src/common</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/sam4cp/source/templates</state>
+					<state>$PROJ_DIR$/../../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../conf_src/core0</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/sam4cp/include</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
@@ -1519,7 +1523,7 @@
 					<state>$PROJ_DIR$/../../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../usart</state>
-					<state>$PROJ_DIR$/../../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../../pmc</state>

@@ -3,7 +3,7 @@
  *
  * \brief SAM D11 USB Mass Storage Class Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -154,7 +154,7 @@ void usb_init(void)
 
 	/* Reset */
 	USB->DEVICE.CTRLA.bit.SWRST = 1;
-	while (USB->DEVICE.SYNCBUSY.bit.SWRST) {
+	while (USB->DEVICE.SYNCBUSY.reg & USB_SYNCBUSY_SWRST) {
 		/* Sync wait */
 	}
 
@@ -180,7 +180,7 @@ void usb_init(void)
 	/* Enable needed interrupts */
 	USB->DEVICE.INTENSET.reg = USB_DEVICE_INTENSET_SOF |
 			USB_DEVICE_INTENSET_EORST;
-	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTENSET.bit.RXSTP = 1;
+	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTENSET.reg = USB_DEVICE_EPINTENSET_RXSTP;
 	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTENSET.reg = USB_DEVICE_EPINTENSET_TRCPT1;
 	USB->DEVICE.DeviceEndpoint[MSC_BULK_OUT_EP].EPINTENSET.reg = USB_DEVICE_EPINTENSET_TRCPT1;
 	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.reg = USB_DEVICE_EPINTFLAG_TRCPT1;
@@ -251,7 +251,7 @@ static void USB_Setup_Send_ZLP()
 	/* Clear the transfer complete flag  */
 	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.reg = USB_DEVICE_EPINTFLAG_TRCPT1;
 	/* Set the bank as ready */
-	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPSTATUSSET.bit.BK1RDY = 1;
+	USB->DEVICE.DeviceEndpoint[CTRL_EP].EPSTATUSSET.reg = USB_DEVICE_EPSTATUSSET_BK1RDY;
 	/* Wait for transfer to complete */
 	while (!(USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.reg &
 			USB_DEVICE_EPINTFLAG_TRCPT(2))) {
@@ -327,7 +327,7 @@ int32_t USB_Write(uint8_t *pData, int32_t length, uint8_t ep_num)
 	/* Clear the transfer complete flag  */
 	USB->DEVICE.DeviceEndpoint[ep_num].EPINTFLAG.reg = USB_DEVICE_EPINTFLAG_TRCPT1;
 	/* Set the bank as ready */
-	USB->DEVICE.DeviceEndpoint[ep_num].EPSTATUSSET.bit.BK1RDY = 1;
+	USB->DEVICE.DeviceEndpoint[ep_num].EPSTATUSSET.reg = USB_DEVICE_EPSTATUSSET_BK1RDY;
 
 	/* Wait for transfer to complete */
 	while (!(USB->DEVICE.DeviceEndpoint[ep_num].EPINTFLAG.reg &
@@ -360,7 +360,7 @@ void USB_Handler(void)
 	};
 
 	/* USB interrupt because of SOF token */
-	if (USB->DEVICE.INTFLAG.bit.SOF) {
+	if (USB->DEVICE.INTFLAG.reg & USB_DEVICE_INTFLAG_SOF) {
 		/* Clear interrupt flag */
 		USB->DEVICE.INTFLAG.reg = USB_DEVICE_INTFLAG_SOF;
 
@@ -370,7 +370,7 @@ void USB_Handler(void)
 	}
 
 	/* USB interrupt because of end of reset signal */
-	if (USB->DEVICE.INTFLAG.bit.EORST) {
+	if (USB->DEVICE.INTFLAG.reg & USB_DEVICE_INTFLAG_EORST) {
 		USB->DEVICE.INTFLAG.reg = USB_DEVICE_INTFLAG_EORST;
 		/* Set Device address as 0 */
 		USB->DEVICE.DADD.reg = USB_DEVICE_DADD_ADDEN | 0;
@@ -406,7 +406,7 @@ void USB_Handler(void)
 			= USB_DEVICE_EPSTATUSCLR_BK0RDY;
 		USB->DEVICE.INTENSET.reg = USB_DEVICE_INTENSET_SOF |
 				USB_DEVICE_INTENSET_EORST;
-		USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTENSET.bit.RXSTP = 1;
+		USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTENSET.reg = USB_DEVICE_EPINTENSET_RXSTP;
 		USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTENSET.reg = USB_DEVICE_EPINTENSET_TRCPT1;
 		USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.reg = USB_DEVICE_EPINTFLAG_TRCPT1;
 		CurrentConfig = 0;
@@ -414,7 +414,7 @@ void USB_Handler(void)
 
 	/* USB interrupt because of received setup signal from control endpoint
 	**/
-	if (USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.bit.RXSTP) {
+	if (USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.reg & USB_DEVICE_EPINTFLAG_RXSTP) {
 		USB->DEVICE.DeviceEndpoint[CTRL_EP].EPINTFLAG.reg = USB_DEVICE_EPINTFLAG_RXSTP;
 		/* Read the USB request parameters */
 		bmRequestType = ctrl_ep_out_buffer[0];
@@ -942,8 +942,7 @@ void USB_Handler(void)
 								DeviceEndpoint[
 									MSC_BULK_OUT_EP
 								]
-								.EPSTATUS.bit.
-								BK0RDY)) {
+								.EPSTATUS.reg & USB_DEVICE_EPSTATUS_BK0RDY)) {
 						}
 						for (int j = 0; j < 64; j++) {
 							buffer[64 * i +
@@ -956,8 +955,7 @@ void USB_Handler(void)
 						}
 						USB->DEVICE.DeviceEndpoint[
 							MSC_BULK_OUT_EP]
-						.EPSTATUSCLR.bit
-						.BK0RDY = 1;
+						.EPSTATUSCLR.reg = USB_DEVICE_EPSTATUSCLR_BK0RDY;
 					}
 					USB_Write((uint8_t *)&CSW_failed,
 							sizeof(CSW_failed),
@@ -1027,8 +1025,7 @@ void USB_Handler(void)
 								DeviceEndpoint[
 									MSC_BULK_OUT_EP
 								]
-								.EPSTATUS.bit.
-								BK0RDY)) {
+								.EPSTATUS.reg & USB_DEVICE_EPSTATUS_BK0RDY)) {
 						}
 						for (int j = 0; j < 64; j++) {
 							buffer[64 * i +
@@ -1041,8 +1038,7 @@ void USB_Handler(void)
 						}
 						USB->DEVICE.DeviceEndpoint[
 							MSC_BULK_OUT_EP]
-						.EPSTATUSCLR.bit
-						.BK0RDY = 1;
+						.EPSTATUSCLR.reg = USB_DEVICE_EPSTATUSCLR_BK0RDY;
 					}
 					USB_Write((uint8_t *)&CSW_failed,
 							sizeof(CSW_failed),
@@ -1091,9 +1087,7 @@ void USB_Handler(void)
 									[
 										MSC_BULK_OUT_EP
 									].
-									EPSTATUS
-									.bit.
-									BK0RDY))
+									EPSTATUS.reg & USB_DEVICE_EPSTATUS_BK0RDY))
 							{
 							}
 							for (int j = 0; j < 64;
@@ -1113,9 +1107,8 @@ void USB_Handler(void)
 								MSC_BULK_OUT_EP
 							].
 							EPSTATUSCLR
-							.bit.
-							BK0RDY
-								= 1;
+							.reg
+								= USB_DEVICE_EPSTATUSCLR_BK0RDY;
 						}
 					}
 					USB_Write((uint8_t *)&CSW_failed,
@@ -1149,9 +1142,7 @@ void USB_Handler(void)
 									[
 										MSC_BULK_OUT_EP
 									].
-									EPSTATUS
-									.bit.
-									BK0RDY))
+									EPSTATUS.reg & USB_DEVICE_EPSTATUS_BK0RDY))
 							{
 							}
 							for (int j = 0; j < 64;
@@ -1171,9 +1162,8 @@ void USB_Handler(void)
 								MSC_BULK_OUT_EP
 							].
 							EPSTATUSCLR
-							.bit.
-							BK0RDY
-								= 1;
+							.reg
+								= USB_DEVICE_EPSTATUSCLR_BK0RDY;
 						}
 
 						if (SD_MMC_OK !=
@@ -1222,8 +1212,7 @@ void USB_Handler(void)
 								DeviceEndpoint[
 									MSC_BULK_OUT_EP
 								]
-								.EPSTATUS.bit.
-								BK0RDY)) {
+								.EPSTATUS.reg & USB_DEVICE_EPSTATUS_BK0RDY)) {
 						}
 						for (int j = 0; j < 64; j++) {
 							buffer[64 * i +
@@ -1235,8 +1224,8 @@ void USB_Handler(void)
 						}
 						USB->DEVICE.DeviceEndpoint[
 							MSC_BULK_OUT_EP]
-						.EPSTATUSCLR.bit
-						.BK0RDY = 1;
+						.EPSTATUSCLR.reg
+						 = USB_DEVICE_EPSTATUSCLR_BK0RDY;
 					}
 					memset(buffer,0,512);
 				}

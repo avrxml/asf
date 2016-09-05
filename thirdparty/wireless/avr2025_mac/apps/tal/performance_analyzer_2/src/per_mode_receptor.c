@@ -133,8 +133,9 @@ void per_mode_receptor_init(trx_id_t trx, void *parameter)
 {
 	/* PER TEST Receptor sequence number */
 	seq_num_receptor[trx] = rand();
+
 	/* As tx power is already configure by TAL in tal_pib.c get it for
-	 *application*/
+	 * application*/
 	int8_t temp_dbm = TAL_TRANSMIT_POWER_DEFAULT;
 	tal_pib_set(trx, phyTransmitPower, (pib_value_t *)&temp_dbm);
 	printf("\r\n Starting PER Measurement mode as Reflector");
@@ -292,7 +293,7 @@ void per_mode_receptor_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 		}
 
 		/* Counting of wrong crc packets option enabled and received crc
-		 *is not OK */
+		 * is not OK */
 		if (false == crc_check_ok(trx)) {
 			if (msg->cmd_id != PER_TEST_PKT) {
 				/* Don't let in any packets with wrong CRC
@@ -305,7 +306,6 @@ void per_mode_receptor_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 			return;
 		}
 	}
-
 #endif /* #ifdef CRC_SETTING_ON_REMOTE_NODE */
 
 	switch ((msg->cmd_id)) {
@@ -396,7 +396,7 @@ void per_mode_receptor_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 							phy_mode).fsk.mod_idx);
 					printf("\r\nFsk data rate = %d",
 							(phy_temp->
-							phy_mode).fsk.data_rate);
+							phy_mode).fsk.sym_rate);
 					printf("\r\nFsk op mode = %d",
 							(phy_temp->
 							phy_mode).fsk.op_mode);
@@ -454,8 +454,9 @@ void per_mode_receptor_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 	case PER_TEST_PKT:
 	{
 		static uint8_t cur_seq_no[NUM_TRX], prev_seq_no[NUM_TRX];
+
 		/* if PER test frames received then increment number_rx_frames
-		 **/
+		**/
 		if (number_rx_frames[trx] == 0) {
 			printf("\r\nReceiving..");
 			aver_lqi[trx] += mac_frame_info->mpdu[lqi_pos];
@@ -480,6 +481,7 @@ void per_mode_receptor_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 				prev_seq_no[trx] = cur_seq_no[trx];
 				/* Extract LQI and  RSSI */
 				aver_lqi[trx] += mac_frame_info->mpdu[lqi_pos];
+
 				/* since -127 to 4 is the range add 127 to
 				 * change to positive scale,later handled by sub
 				 * 127 */
@@ -506,7 +508,7 @@ void per_mode_receptor_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 	case RESULT_REQ:
 	{
 		/* Calculate the expected frame size in case of RESULT_REQ cmd
-		 **/
+		**/
 		expected_frame_size
 			=  (FRAME_OVERHEAD + ((sizeof(app_payload_t) -
 				sizeof(general_pkt_t)) +
@@ -532,7 +534,6 @@ void per_mode_receptor_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 						"\r\nNumber of received frames with wrong CRC = %" PRIu32,
 						frames_with_wrong_crc[trx]);
 			}
-
 #endif /* #ifdef CRC_SETTING_ON_REMOTE_NODE */
 
 			number_rx_frames[trx] = 0;
@@ -561,7 +562,7 @@ void per_mode_receptor_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 	case CRC_STAT_REQ:
 	{
 		/* Calculate the expected frame size in case of CRC_STAT_REQ cmd
-		 **/
+		**/
 		expected_frame_size
 			=  (FRAME_OVERHEAD + ((sizeof(app_payload_t) -
 				sizeof(general_pkt_t)) +
@@ -576,7 +577,7 @@ void per_mode_receptor_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 	case CRC_SET_REQ:
 	{
 		/* Calculate the expected frame size in case of CRC_SET_REQ cmd
-		 **/
+		**/
 		expected_frame_size
 			= (FRAME_OVERHEAD + ((sizeof(app_payload_t) -
 				sizeof(general_pkt_t)) +
@@ -638,6 +639,7 @@ void per_mode_receptor_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 
 	case PEER_INFO_REQ:
 	{
+		printf("\r\nStarting Range Test in PER Mode...");
 		send_peer_info_rsp(trx);
 	}
 	break;
@@ -823,7 +825,6 @@ static void identify_timer_handler_cb(void *parameter)
 				(FUNC_PTR)identify_timer_handler_cb,
 				NULL);
 	}
-
 #endif
 	return;
 }
@@ -862,7 +863,6 @@ void marker_tx_timer_handler_cb(void *parameter)
 				(FUNC_PTR)marker_tx_timer_handler_cb,
 				NULL);
 	}
-
 #endif
 	return;
 }
@@ -900,7 +900,6 @@ void marker_rsp_timer_handler_cb(void *parameter)
 				(FUNC_PTR)marker_rsp_timer_handler_cb,
 				NULL);
 	}
-
 #endif
 	return;
 }
@@ -947,7 +946,7 @@ static void send_result_rsp(trx_id_t trx)
 	#endif /* #ifdef CRC_SETTING_ON_REMOTE_NODE */
 	{
 		/* Set a value of 0xffffffff if we are not counting CRC errors
-		 **/
+		**/
 		data->frames_with_wrong_crc
 			= CCPU_ENDIAN_TO_LE32((uint32_t)(-1));
 	}
@@ -1040,7 +1039,7 @@ static void send_range_test_rsp(trx_id_t trx, uint8_t seq_num,
 
 /**
  * \brief Function used to set default configurations on peer node on reception
- *of
+ * of
  * set_default req
  *
  */
@@ -1154,11 +1153,11 @@ static void send_crc_status_rsp(trx_id_t trx)
  *  uint16_t reg;
  *  uint16_t reg_start;
  *  uint16_t reg_end;
- *      printf("***********TRX Register Read/Write/Dump**************");
+ *  printf("***********TRX Register Read/Write/Dump**************");
  *  printf("\r\n R - to Read Reg");
  *  printf("\r\n W - to Write Reg");
  *  printf("\r\n D - to get register Dump");
- *      printf("\r\n Press Enter to Exit From this Menu");
+ *  printf("\r\n Press Enter to Exit From this Menu");
  *  printf("\r\n >");
  *
  *  / * Get input from terminal program / user. * /
@@ -1187,7 +1186,7 @@ static void send_crc_status_rsp(trx_id_t trx)
  *
  *              {
  *                  printf("\r\n Out of Range register value..");
- *                                      printf("\n\r Returning Back as
+ *                  printf("\n\r Returning Back as
  * Receptor... \n\r");
  *                  return;
  *              }
@@ -1213,7 +1212,7 @@ static void send_crc_status_rsp(trx_id_t trx)
  *              if (reg > 0X3FFE)
  *              {
  *                  printf("\r\n Out of Range register value..");
- *                                      printf("\n\r Returning Back as
+ *                  printf("\n\r Returning Back as
  * Receptor... \n\r");
  *                  return;
  *              }
@@ -1244,7 +1243,7 @@ static void send_crc_status_rsp(trx_id_t trx)
  *
  *              {
  *                  printf("\r\n Out of Range register value.. ");
- *                                      printf("\n\r Returning Back as
+ *                  printf("\n\r Returning Back as
  * Receptor... \n\r");
  *                  return;
  *              }
@@ -1381,11 +1380,11 @@ static void send_crc_status_rsp(trx_id_t trx)
  *          {
  *              printf("\r\n Wrong value..");
  *                              printf("\n\r Returning Back as Receptor...
- *\n\r");
+ **\n\r");
  *              return(false);
  *          }
  *          else if (input == '\r')/ * Proess and don't wait for the next
- *character * /
+ * character * /
  *          {
  *(value) = input_char[i - 1] ;
  *              return(true);

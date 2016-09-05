@@ -3,7 +3,7 @@
  *
  * \brief GMAC PHY (Ethernet MAC) driver for SAM.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -75,7 +75,7 @@ extern "C" {
  * \brief Wait PHY operation to be completed.
  *
  * \param p_gmac HW controller address.
- * \param ul_retry The retry times, 0 to wait forever until completeness.
+ * \param ul_retry The retry times.
  *
  * Return GMAC_OK if the operation is completed successfully.
  */
@@ -84,10 +84,6 @@ static uint8_t gmac_phy_wait(Gmac* p_gmac, const uint32_t ul_retry)
 	volatile uint32_t ul_retry_count = 0;
 
 	while (!gmac_is_phy_idle(p_gmac)) {
-		if (ul_retry == 0) {
-			continue;
-		}
-
 		ul_retry_count++;
 
 		if (ul_retry_count >= ul_retry) {

@@ -89,7 +89,7 @@
  *    \snippet qs_rtc_calendar_callback.c time
  * -# Configure and enable module.
  *    \snippet qs_rtc_calendar_callback.c run_conf
- *  -# Create a RTC configuration structure to hold the desired RTC driver
+ *  -# Create an RTC configuration structure to hold the desired RTC driver
  *     settings and fill it with the default driver configuration values.
  *     \snippet qs_rtc_calendar_callback.c init_conf
  *     \note This should always be performed before using the configuration

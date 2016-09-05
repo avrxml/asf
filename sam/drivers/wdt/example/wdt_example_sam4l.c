@@ -217,7 +217,7 @@ int main(void)
 	g_wdt_cfg.timeout_period = WDT_PERIOD_524288_CLK;
 	wdt_init(&g_wdt_inst, WDT, &g_wdt_cfg);
 	wdt_enable(&g_wdt_inst);
-
+	
 	printf("\r\nPlease press %s to simulate a deadlock.\r\n",
 			EXAMPLE_BUTTON_NAME);
 

@@ -298,7 +298,7 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../wdt</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
@@ -317,7 +317,7 @@
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
-					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../pio</state>
@@ -570,7 +570,7 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../wdt</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
@@ -589,7 +589,7 @@
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
-					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../pio</state>
@@ -1267,7 +1267,7 @@
 				<option>
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../wdt</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
@@ -1286,7 +1286,7 @@
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
-					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../pio</state>
@@ -1539,7 +1539,7 @@
 				<option>
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../wdt</state>
-					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
@@ -1558,7 +1558,7 @@
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
-					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../pio</state>

@@ -213,8 +213,10 @@ void tal_task(void)
 					RX_SAFE_MODE_DISABLE);         /*
 			                                                *
 			                                                *
+			                                                *
 			                                                *Disable
 			                                                * buffer
+			                                                *
 			                                                *
 			                                                *
 			                                                *protection
@@ -225,13 +227,17 @@ void tal_task(void)
 			trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /*
 			                                                      *
 			                                                      *
+			                                                      *
 			                                                      *Enable
+			                                                      *
 			                                                      *
 			                                                      *
 			                                                      *buffer
 			                                                      *
 			                                                      *
+			                                                      *
 			                                                      *protection
+			                                                      *
 			                                                      *
 			                                                      *
 			                                                      *mode

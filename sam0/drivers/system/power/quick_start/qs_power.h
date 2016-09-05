@@ -46,6 +46,7 @@
  * List of supported boards:
  *    - SAM L21 Xplained Pro
  *    - SAM L22 Xplained Pro
+ *    - SAM L22 Xplained Pro B
  *
  * This example demonstrates how to use the power driver. BUTTON0 is used to
  * wake up the system from the standby sleep mode and as an external wakeup pin

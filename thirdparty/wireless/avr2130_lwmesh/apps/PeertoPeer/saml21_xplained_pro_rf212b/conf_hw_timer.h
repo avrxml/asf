@@ -3,7 +3,7 @@
  *
  * \brief HW Timer Configuration.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -46,8 +46,7 @@
 /*! \name Configuration
  */
 /* ! @{ */
-#define TIMER                (TC3)
-#define TIMER_CHANNEL_ID     0
+#define TIMER                (TC0)
 /* ! @} */
 
 #endif /* CONF_HW_TIMER_H_INCLUDED */

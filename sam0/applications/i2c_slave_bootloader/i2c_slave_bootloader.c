@@ -3,7 +3,7 @@
  *
  * \brief SAM I2C Slave Bootloader
  *
- * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -88,7 +88,7 @@
  * This application implements a I2C Slave bootloader for SAM devices.
  *
  * This application has been tested on following boards:
- * - SAM D20/D21/R21/D11/L22 Xplained Pro
+ * - SAM D20/D21/R21/D11/L22/L21 Xplained Pro
  *
  * \section appdoc_sam0_i2c_slave_bootloader_mem_org Program Memory Organization
  * This bootloader implementation consumes around 8000 bytes (approximately),
@@ -110,6 +110,8 @@
  * on External header 1 (EXT1) of SAM D10/D11 Xplained Pro.
  * I2C master should be connected to PIN11 (PB30 - SDA) and PIN12 (PB31 - SCL)
  * on External header 1 (EXT1) of SAM L22 Xplained Pro.
+ * I2C master should be connected to PIN11 (PA08 - SDA) and PIN12 (PA09 - SCL)
+ * on External header 1 (EXT1) of SAM L21 Xplained Pro.
  * SW0 will be configured as BOOT_LOAD_PIN and LED0 will be used to
  * display the bootloader status. LED0 will be ON when the device is in
  * bootloader mode.

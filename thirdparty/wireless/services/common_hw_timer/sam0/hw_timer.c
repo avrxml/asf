@@ -4,7 +4,7 @@
  * @brief
  *
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -37,6 +37,9 @@
  * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * \asf_license_stop
+ *
  */
 
 #include <compiler.h>
@@ -44,7 +47,7 @@
 #include "tc.h"
 #include "tc_interrupt.h"
 #include "hw_timer.h"
-#if SAMD || SAMR21 || SAML21
+#if SAMD || SAMR21 || SAML21 || SAMR30
 #include "clock.h"
 #include <system_interrupt.h>
 #else

@@ -3,7 +3,7 @@
  *
  * \brief SAM Power Driver Quick Start
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -84,7 +84,7 @@ static void config_clock_output_and_extwake_pin(void)
 	system_pinmux_pin_set_config(CONF_GCLK0_OUTPUT_PIN, &pin_conf);
 	pin_conf.mux_position = CONF_GCLK1_OUTPUT_PINMUX;
 	system_pinmux_pin_set_config(CONF_GCLK1_OUTPUT_PIN, &pin_conf);
-#if SAML21
+#if SAML21 || SAMR30
 	pin_conf.direction = SYSTEM_PINMUX_PIN_DIR_INPUT;
 	pin_conf.input_pull = SYSTEM_PINMUX_PIN_PULL_UP;
 	pin_conf.mux_position = CONF_EXT_WAKEUP_PINMUX;
@@ -134,7 +134,7 @@ int main(void)
 //! [setup_init]
 
 //! [ext_wakeup]
-#if SAML21
+#if SAML21 || SAMR30
 	/* Check if the RESET is caused by external wakeup pin */
 	if (system_get_reset_cause() == SYSTEM_RESET_CAUSE_BACKUP
 		&& system_get_backup_exit_source() == SYSTEM_RESET_BACKKUP_EXIT_EXTWAKE
@@ -191,7 +191,7 @@ int main(void)
 		use led ON/OFF as an indication */
 	led_toggle_indication(2);
 
-#if SAML21
+#if SAML21 || SAMR30
 	/* Set external wakeup pin polarity */
 	system_set_pin_wakeup_polarity_low(1<<CONF_EXT_WAKEUP_PIN);
 

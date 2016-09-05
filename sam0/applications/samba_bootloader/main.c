@@ -3,7 +3,7 @@
  *
  * \brief SAM SAM-BA Bootloader
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -49,14 +49,15 @@
  *
  * \section Requirements
  *
- * This package can be used with SAM D21/L21 xplained pro.
+ * This package can be used with SAM C21/D21/DA1/L21/L22/R21 xplained pro.
  *
  * \section Description
  *
  * The bootloader code will be located at 0x0 and executed before any applicative code.
- * Applications compiled to be executed along with the bootloader will start at 0x2000.
+ * Applications compiled to be executed along with the bootloader will start at 0x2000
+ * (not support USBCDC interface) or 0x6000 (supoort USBCDC interface).
  * Before jumping to the application, the bootloader changes the VTOR register
- * to use the interrupt vectors of the application @0x2000.
+ * to use the interrupt vectors of the application.
  *
  * \section Usage
  *
@@ -82,6 +83,9 @@
 
 static void check_start_application(void);
 
+#ifdef CONF_USBCDC_INTERFACE_SUPPORT
+static volatile bool main_b_cdc_enable = false;
+#endif
 /**
  * \brief Check the application startup condition
  *
@@ -138,7 +142,6 @@ static void check_start_application(void)
 #	define DEBUG_PIN_LOW 	do{}while(0)
 #endif
 
-
 /**
  *  \brief SAM-BA Main loop.
  *  \return Unused (ANSI-C compatibility).
@@ -155,12 +158,26 @@ int main(void)
 	/* System initialization */
 	system_init();
 
+#ifdef CONF_USBCDC_INTERFACE_SUPPORT
+	/* Start USB stack */
+	udc_start();
+#endif
 	/* UART is enabled in all cases */
 	usart_open();
 
 	DEBUG_PIN_LOW;
 	/* Wait for a complete enum on usb or a '#' char on serial line */
 	while (1) {
+#ifdef CONF_USBCDC_INTERFACE_SUPPORT
+		/* Check if a USB enumeration has succeeded and com port was opened */
+		if(main_b_cdc_enable) {
+			sam_ba_monitor_init(SAM_BA_INTERFACE_USBCDC);
+			/* SAM-BA on USB loop */
+			while(1) {
+				sam_ba_monitor_run();
+			}
+		}
+#endif
 		/* Check if a '#' has been received */
 		if (usart_sharp_received()) {
 			sam_ba_monitor_init(SAM_BA_INTERFACE_USART);
@@ -171,3 +188,42 @@ int main(void)
 		}
 	}
 }
+
+#ifdef CONF_USBCDC_INTERFACE_SUPPORT
+#ifdef USB_DEVICE_LPM_SUPPORT
+void main_suspend_lpm_action(void)
+{
+}
+
+void main_remotewakeup_lpm_disable(void)
+{
+}
+
+void main_remotewakeup_lpm_enable(void)
+{
+}
+#endif
+
+bool main_cdc_enable(uint8_t port)
+{
+	main_b_cdc_enable = true;
+	return true;
+}
+
+void main_cdc_disable(uint8_t port)
+{
+	main_b_cdc_enable = false;
+}
+
+void main_cdc_set_dtr(uint8_t port, bool b_enable)
+{
+}
+
+void main_cdc_rx_notify(uint8_t port)
+{
+}
+
+void main_cdc_set_coding(uint8_t port, usb_cdc_line_coding_t * cfg)
+{
+}
+#endif

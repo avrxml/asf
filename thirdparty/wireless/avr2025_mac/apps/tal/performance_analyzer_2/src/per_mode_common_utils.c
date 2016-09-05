@@ -70,7 +70,7 @@
 void app_reset(trx_id_t trx)
 {
 	/* app reset - this is to make the node to restart application as boot
-	 *up */
+	 * up */
 	init_after_disconnect(trx);
 
 	/* INIT was a success - so change to WAIT_FOR_EVENT state */

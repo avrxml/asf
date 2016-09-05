@@ -51,6 +51,8 @@
 
 #include "board.h"
 
+#define ILI9488_SPI_BAUDRATE 20000000
+
 #if !defined(BOARD_ILI9488_ADDR)
 
 	#warning The ILI9488 EBI configuration does not exist in the board definition file. Using default settings.

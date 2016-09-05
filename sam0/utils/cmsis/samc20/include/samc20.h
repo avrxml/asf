@@ -3,7 +3,7 @@
  *
  * \brief Top header file for SAMC20
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -67,12 +67,20 @@
   #include "samc20g18a.h"
 #elif defined(__SAMC20J15A__) || defined(__ATSAMC20J15A__)
   #include "samc20j15a.h"
+#elif defined(__SAMC20J15AU__) || defined(__ATSAMC20J15AU__)
+  #include "samc20j15au.h"
 #elif defined(__SAMC20J16A__) || defined(__ATSAMC20J16A__)
   #include "samc20j16a.h"
+#elif defined(__SAMC20J16AU__) || defined(__ATSAMC20J16AU__)
+  #include "samc20j16au.h"
 #elif defined(__SAMC20J17A__) || defined(__ATSAMC20J17A__)
   #include "samc20j17a.h"
+#elif defined(__SAMC20J17AU__) || defined(__ATSAMC20J17AU__)
+  #include "samc20j17au.h"
 #elif defined(__SAMC20J18A__) || defined(__ATSAMC20J18A__)
   #include "samc20j18a.h"
+#elif defined(__SAMC20J18AU__) || defined(__ATSAMC20J18AU__)
+  #include "samc20j18au.h"
 #else
   #error Library does not support the specified device.
 #endif

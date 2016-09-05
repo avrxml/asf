@@ -302,16 +302,18 @@
 					<state>$PROJ_DIR$/../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
-					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/flashcalw</state>
+					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/ast/example1</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../ioport</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam4l8_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include</state>
@@ -567,16 +569,18 @@
 					<state>$PROJ_DIR$/../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
-					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/flashcalw</state>
+					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/ast/example1</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../ioport</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam4l8_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include</state>
@@ -1257,16 +1261,18 @@
 					<state>$PROJ_DIR$/../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
-					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/flashcalw</state>
+					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/ast/example1</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../ioport</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam4l8_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include</state>
@@ -1522,16 +1528,18 @@
 					<state>$PROJ_DIR$/../../../../delay</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../clock</state>
-					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
-					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/flashcalw</state>
+					<state>$PROJ_DIR$/../../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/ast/example1</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../ioport</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/../../../../../../sam/boards/sam4l8_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../sam/drivers/bpm</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include</state>

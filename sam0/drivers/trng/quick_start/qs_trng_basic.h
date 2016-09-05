@@ -3,7 +3,7 @@
  *
  * \brief SAM True Random Number Generator Driver Quick Start
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -53,10 +53,10 @@
  * \section asfdoc_sam0_trng_basic_use_case_setup Setup
  *
  * \subsection asfdoc_sam0_trng_basic_use_case_setup_prereq Prerequisites
- * There are no special set up requirements for this use-case.
+ * There are no special setup requirements for this use-case.
  *
  * \subsection asfdoc_sam0_trng_basic_use_case_setup_code Code
- * Copy-paste the following set up code to your user application:
+ * Copy-paste the following setup code to your user application:
  * \snippet qs_trng_basic.c setup
  *
  * Add to user application initialization (typically the start of \c main()):

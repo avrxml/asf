@@ -3,7 +3,7 @@
  *
  * \brief USB Device Communication Device Class (CDC) interface definitions.
  *
- * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -410,6 +410,17 @@ int udi_cdc_getc(void);
 iram_size_t udi_cdc_read_buf(void* buf, iram_size_t size);
 
 /**
+ * \brief Non polling reads of a up to 'size' data from CDC line
+ *
+ * \param port      Communication port number to manage
+ * \param buf       Buffer where to store read data
+ * \param size      Maximum number of data to read (size of buffer)
+ *
+ * \return the number of data effectively read
+ */
+iram_size_t udi_cdc_read_no_polling(void* buf, iram_size_t size);
+
+/**
  * \brief Gets the number of free byte in TX buffer
  *
  * \return the number of free byte in TX buffer
@@ -636,7 +647,7 @@ iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void* buf, iram_size_t s
 \endcode
  *
  * \subsection udi_cdc_basic_use_case_setup_flow Workflow
- * -# Ensure that conf_usb.h is available and contains the following configuration
+ * -# Ensure that conf_usb.h is available and contains the following configuration,
  * which is the USB device CDC configuration:
  *   - \code #define USB_DEVICE_SERIAL_NAME  "12...EF" // Disk SN for CDC \endcode
  *     \note The USB serial number is mandatory when a CDC interface is used.

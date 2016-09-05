@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief SAM D21/R21/L21/L22/DA1/C21 Quick Start Guide for Using SPI driver with DMA
+ * \brief SAM D21/R21/L21/L22/DA1/C21/R30 Quick Start Guide for Using SPI driver with DMA
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,6 +51,7 @@
  *    - SAM L22 Xplained Pro
  *    - SAM DA1 Xplained Pro
  *    - SAM C21 Xplained Pro
+ *    - SAM R30 Xplained Pro
  *
  * This quick start will transmit a buffer data from master to slave through DMA.
  * In this use case the SPI master will be configured with the following

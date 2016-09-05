@@ -479,15 +479,15 @@ void ed_scan_done(void);
  */
 #define TRX_RST_HIGH()                      (TRXPR |= _BV(TRXRST))  /**< Set
 	                                                             * Reset
-	                                                             *Bit.
+	                                                             * Bit.
 	                                                             **/
 #define TRX_RST_LOW()                       (TRXPR &= ~_BV(TRXRST)) /**< Clear
 	                                                             * Reset
-	                                                             *Bit.
+	                                                             * Bit.
 	                                                             **/
 #define TRX_SLP_TR_HIGH()                   (TRXPR |= _BV(SLPTR))   /**< Set
-	                                                            * Sleep/TR
-	                                                            * Bit. */
+	                                                             * Sleep/TR
+	                                                             * Bit. */
 #define TRX_SLP_TR_LOW()                    (TRXPR &= ~_BV(SLPTR))  /**< Clear
 	                                                             * Sleep/TR
 	                                                             * Bit. */

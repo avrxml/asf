@@ -4,7 +4,7 @@
  *
  * \brief WINC1500 Weather Client Example.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -22,9 +22,6 @@
  *
  * 3. The name of Atmel may not be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
  *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -71,14 +68,15 @@
  *    -- Compiled: xxx xx xxxx xx:xx:xx --
  *    Provision Mode started.
  *    Connect to [atmelconfig.com] via AP[WINC1500_xx:xx] and fill up the page.
- *    Wi-Fi IP is xxx.xxx.xxx.xxx
- *    wifi_cb: M2M_WIFI_RESP_PROVISION_INFO.
- *    Wi-Fi connected
- *    Wi-Fi IP is xxx.xxx.xxx.xxx
- *    Host IP is 144.76.102.166
- *    Host Name is openweathermap.org
- *    City: Seoul
- *    Temperature: 20.63
+ *    wifi_cb: M2M_WIFI_CONNECTED
+ *    wifi_cb: IP address is xxx.xxx.xxx.xxx
+ *    wifi_cb: M2M_WIFI_DISCONNECTED
+ *    wifi_cb: M2M_WIFI_RESP_PROVISION_INFO
+ *    wifi_cb: M2M_WIFI_CONNECTED
+ *    wifi_cb: IP address is xxx.xxx.xxx.xxx
+ *    resolve_cb: api.openweathermap.org IP address is xxx.xxx.xxx.xxx
+ *    City: Paris
+ *    Temperature: 24.50
  *    Weather Condition: sky is clear
  * \endcode
  *
@@ -115,14 +113,8 @@ static uint8_t gau8ReceivedBuffer[MAIN_WIFI_M2M_BUFFER_SIZE] = {0};
 /** Wi-Fi status variable. */
 static bool gbConnectedWifi = false;
 
-/** Weather client status variable. */
-static bool gbFinishedGetWeather = false;
-
 /** Get host IP status variable. */
 static bool gbHostIpByName = false;
-
-/** Continue Receive status variable. */
-static bool gbContinueReceive = false;
 
 /** TCP Connection status variable. */
 static bool gbTcpConnection = false;
@@ -159,9 +151,9 @@ static void resolve_cb(uint8_t *hostName, uint32_t hostIp)
 {
 	gu32HostIp = hostIp;
 	gbHostIpByName = true;
-	printf("Host IP is %d.%d.%d.%d\r\n", (int)IPV4_BYTE(hostIp, 0), (int)IPV4_BYTE(hostIp, 1),
+	printf("resolve_cb: %s IP address is %d.%d.%d.%d\r\n\r\n", hostName,
+			(int)IPV4_BYTE(hostIp, 0), (int)IPV4_BYTE(hostIp, 1),
 			(int)IPV4_BYTE(hostIp, 2), (int)IPV4_BYTE(hostIp, 3));
-	printf("Host Name is %s\r\n", hostName);
 }
 
 /**
@@ -207,77 +199,55 @@ static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
 
 			tstrSocketRecvMsg *pstrRecv = (tstrSocketRecvMsg *)pvMsg;
 			if (pstrRecv && pstrRecv->s16BufferSize > 0) {
-				if (!gbContinueReceive) {
-					/* Get city name */
-					pcIndxPtr = strstr((char *)pstrRecv->pu8Buffer, "name=");
-					printf("City: ");
-					if (NULL != pcIndxPtr) {
-						pcIndxPtr = pcIndxPtr + strlen("name=") + 1;
-						pcEndPtr = strstr(pcIndxPtr, "\">");
-						if (NULL != pcEndPtr) {
-							*pcEndPtr = 0;
-						}
 
-						printf("%s\r\n", pcIndxPtr);
-					} else {
-						printf("N/A\r\n");
-						break;
+				/* Get city name. */
+				pcIndxPtr = strstr((char *)pstrRecv->pu8Buffer, "name=");
+				printf("City: ");
+				if (NULL != pcIndxPtr) {
+					pcIndxPtr = pcIndxPtr + strlen("name=") + 1;
+					pcEndPtr = strstr(pcIndxPtr, "\">");
+					if (NULL != pcEndPtr) {
+						*pcEndPtr = 0;
 					}
 
-					/* Get temperature */
-					pcIndxPtr = strstr(pcEndPtr + 1, "temperature value");
-					printf("Temperature: ");
-					if (NULL != pcIndxPtr) {
-						pcIndxPtr = pcIndxPtr + strlen("temperature value") + 2;
-						pcEndPtr = strstr(pcIndxPtr, "\" ");
-						if (NULL != pcEndPtr) {
-							*pcEndPtr = 0;
-						}
-
-						printf("%s\r\n", pcIndxPtr);
-					} else {
-						printf("N/A\r\n");
-						break;
-					}
-
-					/* Get weather condition */
-					pcIndxPtr = strstr(pcEndPtr + 1, "weather number");
-					if (NULL != pcIndxPtr) {
-						printf("Weather Condition: ");
-						pcIndxPtr = pcIndxPtr + strlen("weather number") + 14;
-						pcEndPtr = strstr(pcIndxPtr, "\" ");
-						if (NULL != pcEndPtr) {
-							*pcEndPtr = 0;
-						}
-
-						printf("%s\r\n", pcIndxPtr);
-						ioport_set_pin_level(LED_0_PIN, false);
-						gbContinueReceive = false;
-						break;
-					} else {
-						gbContinueReceive = true;
-					}
+					printf("%s\r\n", pcIndxPtr);
 				} else {
-					/* Get weather condition */
-					pcIndxPtr = strstr((char *)pstrRecv->pu8Buffer, "weather number");
-					printf("Weather Condition: ");
-					if (NULL != pcIndxPtr) {
-						pcIndxPtr = pcIndxPtr + strlen("weather number") + 14;
-						pcEndPtr = strstr(pcIndxPtr, "\" ");
-						if (NULL != pcEndPtr) {
-							*pcEndPtr = 0;
-						}
+					printf("N/A\r\n");
+					break;
+				}
 
-						printf("%s\r\n", pcIndxPtr);
-						gbContinueReceive = false;
-						gbTcpConnection = false;
-						gbFinishedGetWeather = true;
-						ioport_set_pin_level(LED_0_PIN, false);
-						break;
-					} else {
-						gbContinueReceive = true;
-						printf("N/A\r\n");
+				/* Get temperature. */
+				pcIndxPtr = strstr(pcEndPtr + 1, "temperature value");
+				printf("Temperature: ");
+				if (NULL != pcIndxPtr) {
+					pcIndxPtr = pcIndxPtr + strlen("temperature value") + 2;
+					pcEndPtr = strstr(pcIndxPtr, "\" ");
+					if (NULL != pcEndPtr) {
+						*pcEndPtr = 0;
 					}
+
+					printf("%s\r\n", pcIndxPtr);
+				} else {
+					printf("N/A\r\n");
+					break;
+				}
+
+				/* Get weather condition. */
+				pcIndxPtr = strstr(pcEndPtr + 1, "weather number");
+				if (NULL != pcIndxPtr) {
+					printf("Weather Condition: ");
+					pcIndxPtr = pcIndxPtr + strlen("weather number") + 14;
+					pcEndPtr = strstr(pcIndxPtr, "\" ");
+					if (NULL != pcEndPtr) {
+						*pcEndPtr = 0;
+					}
+					printf("%s\r\n", pcIndxPtr);
+					
+					/* Response processed, now close connection. */
+					close(tcp_client_socket);
+					tcp_client_socket = -1;
+					ioport_set_pin_level(LED_0_PIN, false);
+					break;
 				}
 
 				memset(gau8ReceivedBuffer, 0, sizeof(gau8ReceivedBuffer));
@@ -325,10 +295,10 @@ static void wifi_cb(uint8_t u8MsgType, void *pvMsg)
 	{
 		tstrM2mWifiStateChanged *pstrWifiState = (tstrM2mWifiStateChanged *)pvMsg;
 		if (pstrWifiState->u8CurrState == M2M_WIFI_CONNECTED) {
-			printf("Wi-Fi connected\r\n");
+			printf("wifi_cb: M2M_WIFI_CONNECTED\r\n");
 			m2m_wifi_request_dhcp_client();
 		} else if (pstrWifiState->u8CurrState == M2M_WIFI_DISCONNECTED) {
-			printf("Wi-Fi disconnected\r\n");
+			printf("wifi_cb: M2M_WIFI_DISCONNECTED\r\n");
 			gbConnectedWifi = false;
 		}
 
@@ -338,8 +308,7 @@ static void wifi_cb(uint8_t u8MsgType, void *pvMsg)
 	case M2M_WIFI_REQ_DHCP_CONF:
 	{
 		uint8_t *pu8IPAddress = (uint8_t *)pvMsg;
-		/* Turn LED0 on to declare that IP address received. */
-		printf("Wi-Fi IP is %u.%u.%u.%u\r\n",
+		printf("wifi_cb: IP address is %u.%u.%u.%u\r\n",
 				pu8IPAddress[0], pu8IPAddress[1], pu8IPAddress[2], pu8IPAddress[3]);
 		gbConnectedWifi = true;
 		/* Obtain the IP Address by network name */
@@ -350,13 +319,13 @@ static void wifi_cb(uint8_t u8MsgType, void *pvMsg)
 	case M2M_WIFI_RESP_PROVISION_INFO:
 	{
 		tstrM2MProvisionInfo *pstrProvInfo = (tstrM2MProvisionInfo *)pvMsg;
-		printf("wifi_cb: M2M_WIFI_RESP_PROVISION_INFO.\r\n");
+		printf("wifi_cb: M2M_WIFI_RESP_PROVISION_INFO\r\n");
 
 		if (pstrProvInfo->u8Status == M2M_SUCCESS) {
 			m2m_wifi_connect((char *)pstrProvInfo->au8SSID, strlen((char *)pstrProvInfo->au8SSID), pstrProvInfo->u8SecType,
 					pstrProvInfo->au8Password, M2M_WIFI_CH_ALL);
 		} else {
-			printf("wifi_cb: Provision failed.\r\n");
+			printf("wifi_cb: provision failed!\r\n");
 		}
 	}
 	break;
@@ -415,8 +384,8 @@ int main(void)
 		m2m_wifi_set_mac_address(gau8MacAddr);
 	}
 
+	/* Retrieve MAC address of the WINC and use it for AP name. */
 	m2m_wifi_get_mac_address(gau8MacAddr);
-
 	set_dev_name_to_mac((uint8_t *)gacDeviceName, gau8MacAddr);
 	set_dev_name_to_mac((uint8_t *)gstrM2MAPConfig.au8SSID, gau8MacAddr);
 	m2m_wifi_set_device_name((uint8_t *)gacDeviceName, (uint8_t)m2m_strlen((uint8_t *)gacDeviceName));
@@ -425,8 +394,10 @@ int main(void)
 	gstrM2MAPConfig.au8DHCPServerIP[2] = 0x01; /* 1 */
 	gstrM2MAPConfig.au8DHCPServerIP[3] = 0x01; /* 1 */
 
+	/* Start web provisioning mode. */
 	m2m_wifi_start_provision_mode((tstrM2MAPConfig *)&gstrM2MAPConfig, (char *)gacHttpProvDomainName, 1);
-	printf("Provision Mode started.\r\nConnect to [%s] via AP[%s] and fill up the page.\r\n", MAIN_HTTP_PROV_SERVER_DOMAIN_NAME, gstrM2MAPConfig.au8SSID);
+	printf("\r\nProvision Mode started.\r\nConnect to [%s] via AP[%s] and fill up the page.\r\n\r\n",
+			MAIN_HTTP_PROV_SERVER_DOMAIN_NAME, gstrM2MAPConfig.au8SSID);
 
 	while (1) {
 		m2m_wifi_handle_events(NULL);
@@ -453,16 +424,7 @@ int main(void)
 				gbTcpConnection = true;
 			}
 		}
-
-		if (gbFinishedGetWeather) {
-			gbFinishedGetWeather = false;
-			gbHostIpByName = false;
-			break;
-		}
 	}
-
-	close(tcp_client_socket);
-	tcp_client_socket = -1;
 
 	return 0;
 }

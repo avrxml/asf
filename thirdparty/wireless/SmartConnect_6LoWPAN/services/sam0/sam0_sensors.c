@@ -162,7 +162,7 @@ static void samr21_adc_init(sensor_type_t sensor)
 void ADC_Handler(void)
 {
     LED_Toggle(LED0);
-    ADC->INTFLAG.reg |= ADC_INTFLAG_RESRDY;
+    ADC->INTFLAG.reg = ADC_INTFLAG_RESRDY;
 }
 #endif
 
@@ -174,7 +174,7 @@ static uint16_t adc_get_value(void)
 #if ADC_USE_STANDBY
     ADC->INTENSET.reg = ADC_INTENSET_RESRDY;
     /* clear pending IRQs */
-    ADC->INTFLAG.reg |= ADC_INTFLAG_RESRDY;
+    ADC->INTFLAG.reg = ADC_INTFLAG_RESRDY;
     ADC->CTRLA.reg = ADC_CTRLA_RUNSTDBY | ADC_CTRLA_ENABLE;
     WAIT_ADC_SYNC();
     NVIC_EnableIRQ(ADC_IRQn);

@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -93,6 +93,7 @@
   #define REG_PIOB_WPMR                     (0x400E10E4U) /**< \brief (PIOB) Write Protection Mode Register */
   #define REG_PIOB_WPSR                     (0x400E10E8U) /**< \brief (PIOB) Write Protection Status Register */
   #define REG_PIOB_SCHMITT                  (0x400E1100U) /**< \brief (PIOB) Schmitt Trigger Register */
+  #define REG_PIOB_DRIVER                   (0x400E1110U) /**< \brief (PIOB) PIO I/O Drive Register */
 #else
   #define REG_PIOB_PER     (*(__O  uint32_t*)0x400E1000U) /**< \brief (PIOB) PIO Enable Register */
   #define REG_PIOB_PDR     (*(__O  uint32_t*)0x400E1004U) /**< \brief (PIOB) PIO Disable Register */
@@ -140,6 +141,7 @@
   #define REG_PIOB_WPMR    (*(__IO uint32_t*)0x400E10E4U) /**< \brief (PIOB) Write Protection Mode Register */
   #define REG_PIOB_WPSR    (*(__I  uint32_t*)0x400E10E8U) /**< \brief (PIOB) Write Protection Status Register */
   #define REG_PIOB_SCHMITT (*(__IO uint32_t*)0x400E1100U) /**< \brief (PIOB) Schmitt Trigger Register */
+  #define REG_PIOB_DRIVER  (*(__IO uint32_t*)0x400E1110U) /**< \brief (PIOB) PIO I/O Drive Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAMG55_PIOB_INSTANCE_ */

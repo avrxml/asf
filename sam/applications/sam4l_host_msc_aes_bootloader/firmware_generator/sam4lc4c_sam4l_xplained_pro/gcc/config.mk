@@ -104,6 +104,8 @@ INC_PATH = \
        sam/boards/sam4l_xplained_pro                      \
        sam/drivers/aesa                                   \
        sam/drivers/ast                                    \
+       sam/drivers/ast/example1                           \
+       sam/drivers/ast/example2                           \
        sam/drivers/bpm                                    \
        sam/drivers/crccu                                  \
        sam/drivers/eic                                    \

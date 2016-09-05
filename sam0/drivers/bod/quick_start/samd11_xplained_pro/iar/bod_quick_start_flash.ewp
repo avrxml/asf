@@ -2097,6 +2097,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/usb.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/wdt.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/pac2.h</name>
 							</file>
 							<file>
@@ -2127,9 +2130,6 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/pm.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/wdt.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/port.h</name>
 							</file>
 							<file>
@@ -2142,10 +2142,16 @@
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11d14as.h</name>
 						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11c14a.h</name>
+						</file>
 						<group>
 							<name>pio</name>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/pio/samd11c14a.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/pio/samd11d14au.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/pio/samd11d14as.h</name>
@@ -2155,13 +2161,13 @@
 							</file>
 						</group>
 						<file>
-							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11c14a.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11d14am.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11d14au.h</name>
 						</file>
 					</group>
 				</group>

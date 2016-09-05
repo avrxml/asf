@@ -87,7 +87,7 @@
  * Area
  *     Networks (WPANs).\n\n
  * 2)  <a href="http://www.atmel.com/design-support/">Atmel Design
- *Support</a>.\n
+ * Support</a>.\n
  *
  * \section contactinfo Contact Information
  * For further information,visit
@@ -209,7 +209,9 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 		uint8_t mac_sec_level_table[4] = {  FRAME_TYPE_BEACON,  /*
 				                                         *
 				                                         *
+				                                         *
 				                                         *FrameType:
+				                                         *
 				                                         *
 				                                         *
 				                                         *Beacon
@@ -217,10 +219,12 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 						    CMD_FRAME_ID_NA,  /*
 				                                       *
 				                                       *
+				                                       *
 				                                       *CommandFrameIdentifier:
 				                                       * N/A */
 						    SECURITY_05_LEVEL,
 						    DEV_OVERRIDE_SEC_MIN /*
+				                                          *
 				                                          *
 				                                          *
 				                                          *DeviceOverrideSecurityMinimum:
@@ -243,10 +247,12 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				CMD_FRAME_ID_NA,              /*
 					                       *
 					                       *
+					                       *
 					                       *CommandFrameIdentifier:
 					                       * N/A */
 				SECURITY_05_LEVEL,
 				DEV_OVERRIDE_SEC_MIN          /*
+					                       *
 					                       *
 					                       *
 					                       *DeviceOverrideSecurityMinimum:
@@ -292,6 +298,7 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 			MAC_ZIP_MAX_KEY_ID_LOOKUP_LIST_ENTRIES, /*
 				                                 *
 				                                 *
+				                                 *
 				                                 *KeyIdLookupListEntries
 				                                 * = 1 */
 			/* KeyDeviceList[1] */
@@ -310,11 +317,13 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 			DEV_DESC_HANDLE_IDX_0,                   /*
 				                                  *
 				                                  *
+				                                  *
 				                                  *DeviceDescriptorHandle
 				                                  **/
 			true,          /* UniqueDevice */
 			false,          /* Blacklisted */
 			MAC_ZIP_MAX_KEY_DEV_LIST_ENTRIES, /*
+				                           *
 				                           *
 				                           *
 				                           *KeyDeviceListEntries
@@ -324,6 +333,7 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 			CMD_FRAME_ID_NA, /* CommandFrameIdentifier not used in
 				          * ZIP */
 			MAC_ZIP_MAX_KEY_USAGE_LIST_ENTRIES, /*
+				                             *
 				                             *
 				                             *
 				                             *KeyUsageListEntries
@@ -363,9 +373,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				default_key_source[0],                         /*
 						                                *
 						                                *
+						                                *
 						                                *LookupData[0]
 						                                **/
 				default_key_source[1],                         /*
+						                                *
 						                                *
 						                                *
 						                                *LookupData[1]
@@ -373,9 +385,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				default_key_source[2],                         /*
 						                                *
 						                                *
+						                                *
 						                                *LookupData[2]
 						                                **/
 				default_key_source[3],                         /*
+						                                *
 						                                *
 						                                *
 						                                *LookupData[3]
@@ -383,9 +397,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				default_key_source[4],                         /*
 						                                *
 						                                *
+						                                *
 						                                *LookupData[4]
 						                                **/
 				default_key_source[5],                         /*
+						                                *
 						                                *
 						                                *
 						                                *LookupData[5]
@@ -393,9 +409,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				default_key_source[6],                         /*
 						                                *
 						                                *
+						                                *
 						                                *LookupData[6]
 						                                **/
 				default_key_source[7],                         /*
+						                                *
 						                                *
 						                                *
 						                                *LookupData[7]
@@ -403,20 +421,25 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				KEY_INDEX_1,                                   /*
 						                                *
 						                                *
+						                                *
 						                                *LookupData[8]
 						                                **/
 				LOOKUP_DATA_SIZE_1,                         /*
 						                             *
 						                             *
+						                             *
 						                             *LookupDataSize:
+						                             *
 						                             *
 						                             *
 						                             *0x01
 						                             * :
 						                             *
 						                             *
+						                             *
 						                             *Size
 						                             * 9
+						                             *
 						                             *
 						                             *
 						                             *octets
@@ -424,9 +447,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				MAC_ZIP_MAX_KEY_ID_LOOKUP_LIST_ENTRIES,                         /*
 						                                                 *
 						                                                 *
+						                                                 *
 						                                                 *KeyIdLookupListEntries
 						                                                 *
 						                                                 *=
+						                                                 *
 						                                                 *
 						                                                 *
 						                                                 *1
@@ -435,14 +460,17 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				EMPTY_DEV_HANDLE,                                   /*
 						                                     *
 						                                     *
+						                                     *
 						                                     *DeviceDescriptorHandle
 						                                     **/
 				false,                                      /*
 						                             *
 						                             *
+						                             *
 						                             *UniqueDevice
 						                             **/
 				false,                                      /*
+						                             *
 						                             *
 						                             *
 						                             *Blacklisted
@@ -450,14 +478,17 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				EMPTY_DEV_HANDLE,                                   /*
 						                                     *
 						                                     *
+						                                     *
 						                                     *DeviceDescriptorHandle
 						                                     **/
 				false,                                      /*
 						                             *
 						                             *
+						                             *
 						                             *UniqueDevice
 						                             **/
 				false,                                      /*
+						                             *
 						                             *
 						                             *
 						                             *Blacklisted
@@ -465,14 +496,17 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				EMPTY_DEV_HANDLE,                                   /*
 						                                     *
 						                                     *
+						                                     *
 						                                     *DeviceDescriptorHandle
 						                                     **/
 				false,                                      /*
 						                             *
 						                             *
+						                             *
 						                             *UniqueDevice
 						                             **/
 				false,                                      /*
+						                             *
 						                             *
 						                             *
 						                             *Blacklisted
@@ -480,19 +514,23 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				EMPTY_DEV_HANDLE,                                   /*
 						                                     *
 						                                     *
+						                                     *
 						                                     *DeviceDescriptorHandle
 						                                     **/
 				false,                                      /*
 						                             *
 						                             *
+						                             *
 						                             *UniqueDevice
 						                             **/
 				false,                                      /*
+						                             *
 						                             *
 						                             *
 						                             *Blacklisted
 						                             **/
 				MAC_ZIP_MAX_KEY_DEV_LIST_ENTRIES,                         /*
+						                                           *
 						                                           *
 						                                           *
 						                                           *KeyDeviceListEntries
@@ -501,11 +539,14 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				FRAME_TYPE_DATA,                            /*
 						                             *
 						                             *
+						                             *
 						                             *FrameType
 						                             * -
 						                             *
 						                             *
+						                             *
 						                             *Data
+						                             *
 						                             *
 						                             *
 						                             *frames
@@ -513,21 +554,27 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				CMD_FRAME_ID_NA,                            /*
 						                             *
 						                             *
+						                             *
 						                             *CommandFrameIdentifier
+						                             *
 						                             *
 						                             *
 						                             *not
 						                             *
 						                             *
+						                             *
 						                             *used
+						                             *
 						                             *
 						                             *
 						                             *in
 						                             *
 						                             *
+						                             *
 						                             *ZIP
 						                             **/
 				MAC_ZIP_MAX_KEY_USAGE_LIST_ENTRIES,                         /*
+						                                             *
 						                                             *
 						                                             *
 						                                             *KeyUsageListEntries
@@ -564,9 +611,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				default_key_source[0],                         /*
 						                                *
 						                                *
+						                                *
 						                                *LookupData[0]
 						                                **/
 				default_key_source[1],                         /*
+						                                *
 						                                *
 						                                *
 						                                *LookupData[1]
@@ -574,9 +623,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				default_key_source[2],                         /*
 						                                *
 						                                *
+						                                *
 						                                *LookupData[2]
 						                                **/
 				default_key_source[3],                         /*
+						                                *
 						                                *
 						                                *
 						                                *LookupData[3]
@@ -584,9 +635,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				default_key_source[4],                         /*
 						                                *
 						                                *
+						                                *
 						                                *LookupData[4]
 						                                **/
 				default_key_source[5],                         /*
+						                                *
 						                                *
 						                                *
 						                                *LookupData[5]
@@ -594,9 +647,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				default_key_source[6],                         /*
 						                                *
 						                                *
+						                                *
 						                                *LookupData[6]
 						                                **/
 				default_key_source[7],                         /*
+						                                *
 						                                *
 						                                *
 						                                *LookupData[7]
@@ -604,20 +659,25 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				KEY_INDEX_2,                                   /*
 						                                *
 						                                *
+						                                *
 						                                *LookupData[8]
 						                                **/
 				LOOKUP_DATA_SIZE_1,                         /*
 						                             *
 						                             *
+						                             *
 						                             *LookupDataSize:
+						                             *
 						                             *
 						                             *
 						                             *0x01
 						                             * :
 						                             *
 						                             *
+						                             *
 						                             *Size
 						                             * 9
+						                             *
 						                             *
 						                             *
 						                             *octets
@@ -625,9 +685,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				MAC_ZIP_MAX_KEY_ID_LOOKUP_LIST_ENTRIES,                         /*
 						                                                 *
 						                                                 *
+						                                                 *
 						                                                 *KeyIdLookupListEntries
 						                                                 *
 						                                                 *=
+						                                                 *
 						                                                 *
 						                                                 *
 						                                                 *1
@@ -636,14 +698,17 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				EMPTY_DEV_HANDLE,                         /*
 						                           *
 						                           *
+						                           *
 						                           *DeviceDescriptorHandle
 						                           **/
 				false,                                      /*
 						                             *
 						                             *
+						                             *
 						                             *UniqueDevice
 						                             **/
 				false,                                      /*
+						                             *
 						                             *
 						                             *
 						                             *Blacklisted
@@ -651,14 +716,17 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				EMPTY_DEV_HANDLE,                         /*
 						                           *
 						                           *
+						                           *
 						                           *DeviceDescriptorHandle
 						                           **/
 				false,                                      /*
 						                             *
 						                             *
+						                             *
 						                             *UniqueDevice
 						                             **/
 				false,                                      /*
+						                             *
 						                             *
 						                             *
 						                             *Blacklisted
@@ -666,14 +734,17 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				EMPTY_DEV_HANDLE,                         /*
 						                           *
 						                           *
+						                           *
 						                           *DeviceDescriptorHandle
 						                           **/
 				false,                                      /*
 						                             *
 						                             *
+						                             *
 						                             *UniqueDevice
 						                             **/
 				false,                                      /*
+						                             *
 						                             *
 						                             *
 						                             *Blacklisted
@@ -681,9 +752,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				EMPTY_DEV_HANDLE,                                   /*
 						                                     *
 						                                     *
+						                                     *
 						                                     *DeviceDescriptorHandle
 						                                     **/
 				false,                                      /*
+						                             *
 						                             *
 						                             *
 						                             *UniqueDevice
@@ -691,9 +764,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				false,                                      /*
 						                             *
 						                             *
+						                             *
 						                             *Blacklisted
 						                             **/
 				MAC_ZIP_MAX_KEY_DEV_LIST_ENTRIES,                         /*
+						                                           *
 						                                           *
 						                                           *
 						                                           *KeyDeviceListEntries
@@ -702,11 +777,14 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				FRAME_TYPE_DATA,                            /*
 						                             *
 						                             *
+						                             *
 						                             *FrameType
 						                             * -
 						                             *
 						                             *
+						                             *
 						                             *Data
+						                             *
 						                             *
 						                             *
 						                             *frames
@@ -714,21 +792,27 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				CMD_FRAME_ID_NA,                            /*
 						                             *
 						                             *
+						                             *
 						                             *CommandFrameIdentifier
+						                             *
 						                             *
 						                             *
 						                             *not
 						                             *
 						                             *
+						                             *
 						                             *used
+						                             *
 						                             *
 						                             *
 						                             *in
 						                             *
 						                             *
+						                             *
 						                             *ZIP
 						                             **/
 				MAC_ZIP_MAX_KEY_USAGE_LIST_ENTRIES,                         /*
+						                                             *
 						                                             *
 						                                             *
 						                                             *KeyUsageListEntries
@@ -766,9 +850,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				default_key_source[0],                 /*
 						                        *
 						                        *
+						                        *
 						                        *LookupData[0]
 						                        **/
 				default_key_source[1],                 /*
+						                        *
 						                        *
 						                        *
 						                        *LookupData[1]
@@ -776,9 +862,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				default_key_source[2],                 /*
 						                        *
 						                        *
+						                        *
 						                        *LookupData[2]
 						                        **/
 				default_key_source[3],                 /*
+						                        *
 						                        *
 						                        *
 						                        *LookupData[3]
@@ -786,9 +874,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				default_key_source[4],                 /*
 						                        *
 						                        *
+						                        *
 						                        *LookupData[4]
 						                        **/
 				default_key_source[5],                 /*
+						                        *
 						                        *
 						                        *
 						                        *LookupData[5]
@@ -796,9 +886,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				default_key_source[6],                 /*
 						                        *
 						                        *
+						                        *
 						                        *LookupData[6]
 						                        **/
 				default_key_source[7],                 /*
+						                        *
 						                        *
 						                        *
 						                        *LookupData[7]
@@ -806,9 +898,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				KEY_INDEX_3,                           /*
 						                        *
 						                        *
+						                        *
 						                        *LookupData[8]
 						                        **/
 				LOOKUP_DATA_SIZE_1,                 /*
+						                     *
 						                     *
 						                     *
 						                     *LookupDataSize:
@@ -818,9 +912,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				MAC_ZIP_MAX_KEY_ID_LOOKUP_LIST_ENTRIES,                 /*
 						                                         *
 						                                         *
+						                                         *
 						                                         *KeyIdLookupListEntries
 						                                         *
 						                                         *=
+						                                         *
 						                                         *
 						                                         *
 						                                         *1
@@ -829,14 +925,17 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				EMPTY_DEV_HANDLE,                 /*
 						                   *
 						                   *
+						                   *
 						                   *DeviceDescriptorHandle
 						                   **/
 				false,                              /*
 						                     *
 						                     *
+						                     *
 						                     *UniqueDevice
 						                     **/
 				false,                              /*
+						                     *
 						                     *
 						                     *
 						                     *Blacklisted
@@ -844,14 +943,17 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				EMPTY_DEV_HANDLE,                 /*
 						                   *
 						                   *
+						                   *
 						                   *DeviceDescriptorHandle
 						                   **/
 				false,                              /*
 						                     *
 						                     *
+						                     *
 						                     *UniqueDevice
 						                     **/
 				false,                              /*
+						                     *
 						                     *
 						                     *
 						                     *Blacklisted
@@ -859,14 +961,17 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				EMPTY_DEV_HANDLE,                 /*
 						                   *
 						                   *
+						                   *
 						                   *DeviceDescriptorHandle
 						                   **/
 				false,                              /*
 						                     *
 						                     *
+						                     *
 						                     *UniqueDevice
 						                     **/
 				false,                              /*
+						                     *
 						                     *
 						                     *
 						                     *Blacklisted
@@ -874,9 +979,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				EMPTY_DEV_HANDLE,                           /*
 						                             *
 						                             *
+						                             *
 						                             *DeviceDescriptorHandle
 						                             **/
 				false,                              /*
+						                     *
 						                     *
 						                     *
 						                     *UniqueDevice
@@ -884,9 +991,11 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				false,                              /*
 						                     *
 						                     *
+						                     *
 						                     *Blacklisted
 						                     **/
 				MAC_ZIP_MAX_KEY_DEV_LIST_ENTRIES,                 /*
+						                                   *
 						                                   *
 						                                   *
 						                                   *KeyDeviceListEntries
@@ -898,10 +1007,12 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				CMD_FRAME_ID_NA,                    /*
 						                     *
 						                     *
+						                     *
 						                     *CommandFrameIdentifier
 						                     * not used
 						                     * in ZIP */
 				MAC_ZIP_MAX_KEY_USAGE_LIST_ENTRIES,                 /*
+						                                     *
 						                                     *
 						                                     *
 						                                     *KeyUsageListEntries
@@ -926,6 +1037,7 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 			};
 			wpan_mlme_set_req(macKeyTable,
 					INDEX_2,                            /*
+					                                     *
 					                                     *
 					                                     *
 					                                     *Index:
@@ -963,6 +1075,7 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 					coord_dev_index,                                            /*
 					                                                             *
 					                                                             *
+					                                                             *
 					                                                             *Index
 					                                                             **/
 					&mac_dev_table);
@@ -991,6 +1104,7 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 				NO_PIB_INDEX,                                                    /*
 			                                                                          *
 			                                                                          *
+			                                                                          *
 			                                                                          *Index
 			                                                                          **/
 				pan_coord_add);
@@ -1002,6 +1116,7 @@ static void init_secuity_pib(uint8_t PIBAttribute, uint8_t PIBAttributeIndex)
 		uint16_t short_add = COORD_SHORT_ADDR;
 		wpan_mlme_set_req(macPANCoordShortAddress,
 				NO_PIB_INDEX,                                                    /*
+			                                                                          *
 			                                                                          *
 			                                                                          *
 			                                                                          *Index
@@ -1081,7 +1196,9 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 			uint8_t mac_sec_level_table[4] = {FRAME_TYPE_DATA,  /*
 					                                     *
 					                                     *
+					                                     *
 					                                     *FrameType:
+					                                     *
 					                                     *
 					                                     *
 					                                     *Data
@@ -1089,7 +1206,9 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 							  CMD_FRAME_ID_NA,  /*
 					                                     *
 					                                     *
+					                                     *
 					                                     *CommandFrameIdentifier:
+					                                     *
 					                                     *
 					                                     *
 					                                     *N/A
@@ -1103,7 +1222,9 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 							  DEV_OVERRIDE_SEC_MIN /*
 					                                        *
 					                                        *
+					                                        *
 					                                        *DeviceOverrideSecurityMinimum:
+					                                        *
 					                                        *
 					                                        *
 					                                        *True
@@ -1133,9 +1254,11 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 				default_key_source[0],                 /*
 					                                *
 					                                *
+					                                *
 					                                *LookupData[0]
 					                                **/
 				default_key_source[1],                 /*
+					                                *
 					                                *
 					                                *
 					                                *LookupData[1]
@@ -1143,9 +1266,11 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 				default_key_source[2],                 /*
 					                                *
 					                                *
+					                                *
 					                                *LookupData[2]
 					                                **/
 				default_key_source[3],                 /*
+					                                *
 					                                *
 					                                *
 					                                *LookupData[3]
@@ -1153,9 +1278,11 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 				default_key_source[4],                 /*
 					                                *
 					                                *
+					                                *
 					                                *LookupData[4]
 					                                **/
 				default_key_source[5],                 /*
+					                                *
 					                                *
 					                                *
 					                                *LookupData[5]
@@ -1163,9 +1290,11 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 				default_key_source[6],                 /*
 					                                *
 					                                *
+					                                *
 					                                *LookupData[6]
 					                                **/
 				default_key_source[7],                 /*
+					                                *
 					                                *
 					                                *
 					                                *LookupData[7]
@@ -1173,9 +1302,11 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 				KEY_INDEX_0,                           /*
 					                                *
 					                                *
+					                                *
 					                                *LookupData[8]
 					                                **/
 				LOOKUP_DATA_SIZE_1,                 /*
+					                             *
 					                             *
 					                             *
 					                             *LookupDataSize:
@@ -1185,9 +1316,11 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 				MAC_ZIP_MAX_KEY_ID_LOOKUP_LIST_ENTRIES,                 /*
 					                                                 *
 					                                                 *
+					                                                 *
 					                                                 *KeyIdLookupListEntries
 					                                                 *
 					                                                 *=
+					                                                 *
 					                                                 *
 					                                                 *
 					                                                 *1
@@ -1196,14 +1329,17 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 				DEV_DESC_HANDLE_IDX_0,                           /*
 					                                          *
 					                                          *
+					                                          *
 					                                          *DeviceDescriptorHandle
 					                                          **/
 				true,                              /*
 					                            *
 					                            *
+					                            *
 					                            *UniqueDevice
 					                            **/
 				false,                              /*
+					                             *
 					                             *
 					                             *
 					                             *Blacklisted
@@ -1211,14 +1347,17 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 				DEV_DESC_HANDLE_IDX_0,                           /*
 					                                          *
 					                                          *
+					                                          *
 					                                          *DeviceDescriptorHandle
 					                                          **/
 				true,                              /*
 					                            *
 					                            *
+					                            *
 					                            *UniqueDevice
 					                            **/
 				false,                              /*
+					                             *
 					                             *
 					                             *
 					                             *Blacklisted
@@ -1226,14 +1365,17 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 				DEV_DESC_HANDLE_IDX_0,                           /*
 					                                          *
 					                                          *
+					                                          *
 					                                          *DeviceDescriptorHandle
 					                                          **/
 				true,                              /*
 					                            *
 					                            *
+					                            *
 					                            *UniqueDevice
 					                            **/
 				false,                              /*
+					                             *
 					                             *
 					                             *
 					                             *Blacklisted
@@ -1241,14 +1383,17 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 				DEV_DESC_HANDLE_IDX_0,                           /*
 					                                          *
 					                                          *
+					                                          *
 					                                          *DeviceDescriptorHandle
 					                                          **/
 				true,                              /*
 					                            *
 					                            *
+					                            *
 					                            *UniqueDevice
 					                            **/
 				false,                              /*
+					                             *
 					                             *
 					                             *
 					                             *Blacklisted
@@ -1256,10 +1401,12 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 				MAC_ZIP_MAX_KEY_DEV_LIST_ENTRIES,                 /*
 					                                           *
 					                                           *
+					                                           *
 					                                           *KeyDeviceListEntries
 					                                           **/
 				/*  KeyUsageList */
 				FRAME_TYPE_BEACON,                    /*
+					                               *
 					                               *
 					                               *
 					                               *FrameType
@@ -1270,10 +1417,12 @@ static void usr_mlme_set_conf_run_time(uint8_t status, uint8_t PIBAttribute,
 				CMD_FRAME_ID_NA,                    /*
 					                             *
 					                             *
+					                             *
 					                             *CommandFrameIdentifier
 					                             * not used
 					                             * in ZIP */
 				MAC_ZIP_MAX_KEY_USAGE_LIST_ENTRIES,                 /*
+					                                             *
 					                                             *
 					                                             *
 					                                             *KeyUsageListEntries

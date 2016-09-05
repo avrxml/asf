@@ -3,7 +3,7 @@
  *
  * \brief TCC Quick Start configuration
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,6 +48,18 @@
 #define CONF_QUICK_START_H_INCLUDED
 
 //[definition_pwm]
+#if SAMR30
+/** PWM module to use */
+#define CONF_PWM_MODULE      LED_0_PWM3CTRL_MODULE
+/** PWM channel */
+#define CONF_PWM_CHANNEL     LED_0_PWM3CTRL_CHANNEL
+/** PWM output */
+#define CONF_PWM_OUTPUT      LED_0_PWM3CTRL_OUTPUT
+/** PWM output pin */
+#define CONF_PWM_OUT_PIN     LED_0_PWM3CTRL_PIN
+/** PWM output pinmux */
+#define CONF_PWM_OUT_MUX     LED_0_PWM3CTRL_MUX
+#else
 /** PWM module to use */
 #define CONF_PWM_MODULE      LED_0_PWM4CTRL_MODULE
 /** PWM channel */
@@ -58,6 +70,7 @@
 #define CONF_PWM_OUT_PIN     LED_0_PWM4CTRL_PIN
 /** PWM output pinmux */
 #define CONF_PWM_OUT_MUX     LED_0_PWM4CTRL_MUX
+#endif
 //[definition_pwm]
 
 #endif /* CONF_QUICK_START_H_INCLUDED */

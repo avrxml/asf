@@ -103,6 +103,7 @@ void wdt_get_config_defaults(struct wdt_config *const cfg)
 	/* Default configuration values */
 	cfg->clk_src = WDT_CLK_SRC_RCSYS;
 	cfg->wdt_mode = WDT_MODE_BASIC;
+	cfg->wdt_int = WDT_INT_DIS;
 	cfg->timeout_period = WDT_PERIOD_131072_CLK;
 	cfg->window_period = WDT_PERIOD_NONE;
 	cfg->disable_flash_cali = true;
@@ -157,6 +158,7 @@ bool wdt_init(
 	/* Initialize the WDT with new configurations */
 	wdt_set_ctrl(cfg->clk_src |
 			cfg->wdt_mode |
+			cfg->wdt_int |
 			WDT_CTRL_PSEL(cfg->timeout_period) |
 			WDT_CTRL_TBAN(cfg->window_period) |
 			(cfg->disable_flash_cali ? WDT_CTRL_FCD : 0) |
@@ -254,6 +256,8 @@ bool wdt_reset_mcu(void)
 		/* Waiting for watchdog reset */
 	}
 }
+
+
 
 /**
  * @}

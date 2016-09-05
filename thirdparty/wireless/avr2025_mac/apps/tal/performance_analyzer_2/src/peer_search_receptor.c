@@ -360,15 +360,17 @@ static void wait_for_conf_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 				app_led_event(LED_EVENT_PEER_SEARCH_DONE);
 				switch (node_info[trx].main_state) {
 				case PEER_SEARCH_RANGE_RX:
+
 					/* Peer success - set the board to
-					 *RANGE_TEST_TX_OFF state */
+					 * RANGE_TEST_TX_OFF state */
 					set_main_state(trx, RANGE_TEST_TX_OFF,
 							0);
 					break;
 
 				case PEER_SEARCH_PER_RX:
+
 					/* Peer success - set the board to
-					 *RANGE_TEST_TX_OFF state */
+					 * RANGE_TEST_TX_OFF state */
 					set_main_state(trx, PER_TEST_RECEPTOR,
 							0);
 					break;

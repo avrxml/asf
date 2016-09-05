@@ -3,7 +3,7 @@
  *
  * \brief SAM Direct Memory Access Controller Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -277,7 +277,7 @@ void dma_get_config_defaults(struct dma_resource_config *config)
 	/* Only software/event trigger */
 	config->peripheral_trigger = 0;
 	/* Transaction trigger */
-	config->trigger_action = DMA_TRIGGER_ACTON_TRANSACTION;
+	config->trigger_action = DMA_TRIGGER_ACTION_TRANSACTION;
 
 	/* Event configurations, no event input/output */
 	config->event_config.input_action = DMA_EVENT_INPUT_NOACT;
@@ -311,7 +311,7 @@ enum status_code dma_allocate(struct dma_resource *resource,
 
 	if (!_dma_inst._dma_init) {
 		/* Initialize clocks for DMA */
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21)
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30)
 		system_ahb_clock_set_mask(MCLK_AHBMASK_DMAC);
 #else
 		system_ahb_clock_set_mask(PM_AHBMASK_DMAC);
@@ -472,7 +472,7 @@ enum status_code dma_start_transfer_job(struct dma_resource *resource)
  *
  * This function will abort a DMA transfer. The DMA channel used for the DMA
  * resource will be disabled.
- * The block transfer count will be also calculated and written to the DMA
+ * The block transfer count will also be calculated and written to the DMA
  * resource structure.
  *
  * \note The DMA resource will not be freed after calling this function.

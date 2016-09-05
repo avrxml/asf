@@ -3,7 +3,7 @@
  *
  * \brief USART Synchronous example for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -264,7 +264,7 @@ static void configure_usart(uint32_t ul_ismaster, uint32_t ul_baudrate)
 
 	/* Configure USART in SYNC. master or slave mode. */
 	if (ul_ismaster) {
-		usart_init_sync_master(BOARD_USART, &usart_console_settings, sysclk_get_cpu_hz());
+		usart_init_sync_master(BOARD_USART, &usart_console_settings, sysclk_get_peripheral_hz());
 	} else {
 		usart_init_sync_slave(BOARD_USART, &usart_console_settings);
 	}

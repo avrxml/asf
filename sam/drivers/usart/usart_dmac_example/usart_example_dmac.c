@@ -3,7 +3,7 @@
  *
  * \brief USART DMAC Example for SAM.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -212,7 +212,7 @@ static void configure_usart(void)
 
 	/* Configure USART in serial mode. */
 	usart_init_rs232(BOARD_USART, &usart_console_settings,
-			sysclk_get_cpu_hz());
+			sysclk_get_peripheral_hz());
 
 	/* Enable the receiver and transmitter. */
 	usart_enable_tx(BOARD_USART);

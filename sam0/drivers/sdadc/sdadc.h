@@ -3,7 +3,7 @@
  *
  * \brief SAM Sigma-Delta Analog-to-Digital Converter (SDADC) Driver
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -738,6 +738,11 @@ static inline enum status_code sdadc_disable(
 		/* Wait for synchronization */
 	}
 
+	/* Disbale interrupt */
+	sdadc_module->INTENCLR.reg = SDADC_INTENCLR_MASK;
+	/* Clear interrupt flag */
+	sdadc_module->INTFLAG.reg = SDADC_INTFLAG_MASK;
+
 	sdadc_module->CTRLA.reg &= ~SDADC_CTRLA_ENABLE;
 	return STATUS_OK;
 }
@@ -1142,7 +1147,7 @@ static inline void sdadc_disable_interrupt(struct sdadc_module *const module_ins
  *	</tr>
  *	<tr>
  *		<td>42496A</td>
- *		<td>08/2015</td>
+ *		<td>09/2015</td>
  *		<td>Initial document release</td>
  *	</tr>
  * </table>

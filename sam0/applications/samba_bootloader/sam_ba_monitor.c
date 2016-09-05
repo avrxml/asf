@@ -4,7 +4,7 @@
  * \brief Monitor functions for SAM-BA on SAM0
  * Port of rom monitor functions from legacy sam-ba software
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,9 +56,9 @@ const char RomBOOT_Version[] = SAM_BA_VERSION;
 typedef struct
 {
 	/* send one byte of data */
-	int (*putc)(uint8_t value);
+	int (*putc)(int value);
 	/* Get one byte */
-	uint8_t (*getc)(void);
+	int (*getc)(void);
 	/* Receive buffer not empty */
 	bool (*is_rx_ready)(void);
 	/* Send given data (polling) */
@@ -75,6 +75,14 @@ typedef struct
 const t_monitor_if uart_if =
 { usart_putc, usart_getc, usart_is_rx_ready, usart_putdata, usart_getdata,
 		usart_putdata_xmd, usart_getdata_xmd };
+
+#ifdef CONF_USBCDC_INTERFACE_SUPPORT
+//Please note that USB doesn't use Xmodem protocol, since USB already includes flow control and data verification
+//Data are simply forwarded without further coding.
+const t_monitor_if usbcdc_if =
+{ udi_cdc_putc, udi_cdc_getc, udi_cdc_is_rx_ready, udi_cdc_write_buf,
+		udi_cdc_read_no_polling, udi_cdc_write_buf, udi_cdc_read_buf };
+#endif
 
 /* The pointer to the interface object use by the monitor */
 t_monitor_if * ptr_monitor_if;
@@ -93,6 +101,10 @@ void sam_ba_monitor_init(uint8_t com_interface)
 	/* Selects the requested interface for future actions */
 	if (com_interface == SAM_BA_INTERFACE_USART)
 		ptr_monitor_if = (t_monitor_if*) &uart_if;
+#ifdef CONF_USBCDC_INTERFACE_SUPPORT
+	if (com_interface == SAM_BA_INTERFACE_USBCDC)
+		ptr_monitor_if = (t_monitor_if*) &usbcdc_if;
+#endif
 }
 
 
@@ -142,7 +154,7 @@ void sam_ba_putdata_term(uint8_t* data, uint32_t length)
 	return;
 }
 
-
+volatile uint32_t sp;
 /**
  * \brief Execute an applet from the specified address
  *
@@ -152,11 +164,12 @@ void call_applet(uint32_t address)
 {
 	uint32_t app_start_address;
 
+	cpu_irq_disable();
+
+	sp = __get_MSP();
+
 	/* Rebase the Stack Pointer */
 	__set_MSP(*(uint32_t *) address);
-
-	/* Rebase the vector table base address */
-	SCB->VTOR = ((uint32_t) address & SCB_VTOR_TBLOFF_Msk);
 
 	/* Load the Reset Handler address of the application */
 	app_start_address = *(uint32_t *)(address + 4);
@@ -257,6 +270,9 @@ void sam_ba_monitor_run(void)
 					else if (command == 'G')
 					{
 						call_applet(current_number);
+						/* Rebase the Stack Pointer */
+						__set_MSP(sp);
+						cpu_irq_enable();
 					}
 					else if (command == 'T')
 					{

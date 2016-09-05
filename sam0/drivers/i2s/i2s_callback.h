@@ -60,13 +60,13 @@ extern "C" {
 #include <i2s.h>
 
 /**
- * Enum for the possible types of I2S asynchronous jobs that may be issued to
+ * Enum for the possible types of I<SUP>2</SUP>S asynchronous jobs that may be issued to
  * the driver.
  */
 enum i2s_job_type {
-	/** Asynchronous I2S write from a user provided buffer */
+	/** Asynchronous I<SUP>2</SUP>S write from a user provided buffer */
 	I2S_JOB_WRITE_BUFFER,
-	/** Asynchronous I2S read into a user provided buffer */
+	/** Asynchronous I<SUP>2</SUP>S read into a user provided buffer */
 	I2S_JOB_READ_BUFFER
 };
 

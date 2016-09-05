@@ -712,7 +712,7 @@ bool mxt_is_message_pending(struct mxt_device *device)
  */
 int8_t mxt_get_message_count(struct mxt_device *device)
 {
-	uint8_t count_tmp;
+	uint8_t count_tmp = 0;
 	uint16_t obj_adr = mxt_get_object_address(device,
 			MXT_SPT_MESSAGECOUNT_T44, 0);
 

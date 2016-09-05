@@ -189,8 +189,10 @@ void mlme_disassociate_request(uint8_t *m)
 		                                                           * 2
 		                                                           *
 		                                                           *
+		                                                           *
 		                                                           *octets
 		                                                           * for
+		                                                           *
 		                                                           *
 		                                                           *
 		                                                           *FCS.

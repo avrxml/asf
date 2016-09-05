@@ -4,7 +4,7 @@
  *
  * \brief SD/MMC card driver using SPI interface.
  *
- * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -69,7 +69,7 @@
 
 /*_____ D E F I N I T I O N ________________________________________________*/
 
-static uint32_t  gl_ptr_mem;                       // Memory data pointer
+static uint64_t  gl_ptr_mem;                       // Memory data pointer
 static uint8_t   sector_buf[MMC_SECTOR_SIZE];  // Sector buffer
 static spi_options_t sd_mmc_opt;
 static unsigned int sd_mmc_pba_hz;
@@ -862,7 +862,7 @@ bool sd_mmc_spi_lock_operation(uint8_t operation, uint8_t pwd_lg, uint8_t * pwd)
 bool sd_mmc_spi_read_open (uint32_t pos)
 {
   // Set the global memory ptr at a Byte address.
-  gl_ptr_mem = pos << 9;        // gl_ptr_mem = pos * 512
+  gl_ptr_mem = (uint64_t)pos << 9;        // gl_ptr_mem = pos * 512
 
   // wait for MMC not busy
   return sd_mmc_spi_wait_not_busy();
@@ -894,7 +894,7 @@ bool sd_mmc_spi_read_close (void)
 bool sd_mmc_spi_write_open (uint32_t pos)
 {
   // Set the global memory ptr at a Byte address.
-  gl_ptr_mem = pos << 9; // gl_ptr_mem = pos * 512
+  gl_ptr_mem = (uint64_t)pos << 9; // gl_ptr_mem = pos * 512
 
   // wait for MMC not busy
   return sd_mmc_spi_wait_not_busy();
@@ -1064,7 +1064,7 @@ bool sd_mmc_spi_read_open_PDCA (uint32_t pos)
   uint16_t read_time_out;
 
   // Set the global memory ptr at a Byte address.
-  gl_ptr_mem = pos << 9;                    // gl_ptr_mem = pos * 512
+  gl_ptr_mem = (uint64_t)pos << 9;                    // gl_ptr_mem = pos * 512
 
   // wait for MMC not busy
   if (false == sd_mmc_spi_wait_not_busy())

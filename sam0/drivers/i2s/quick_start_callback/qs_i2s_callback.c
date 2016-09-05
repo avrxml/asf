@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM I2S - Inter-IC Sound Controller Callback Driver Quick Start
+ * \brief SAM I<SUP>2</SUP>S - Inter-IC Sound Controller Callback Driver Quick Start
  *
  * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *

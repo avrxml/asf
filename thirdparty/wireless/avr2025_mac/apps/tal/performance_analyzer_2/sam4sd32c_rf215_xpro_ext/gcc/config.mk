@@ -230,6 +230,7 @@ CPPFLAGS = \
        -D ANTENNA_DIVERSITY=0                             \
        -D ARM_MATH_CM4=true                               \
        -D BOARD=SAM4S_XPLAINED_PRO                        \
+       -D DIRECT_MODULATION                               \
        -D ENABLE_DEEP_SLEEP                               \
        -D ENABLE_LARGE_BUFFER                             \
        -D ENABLE_TFA                                      \
@@ -237,7 +238,7 @@ CPPFLAGS = \
        -D HIGHEST_STACK_LAYER=TAL                         \
        -D MULTI_TRX_SUPPORT                               \
        -D PAL_USE_SPI_TRX=1                               \
-       -D RF215V1                                         \
+       -D RF215v3                                         \
        -D SPECIFIC_TAL_CONFIG                             \
        -D SUPPORT_FSK                                     \
        -D SUPPORT_LEGACY_OQPSK                            \

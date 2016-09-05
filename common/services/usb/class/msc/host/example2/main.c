@@ -3,7 +3,7 @@
  *
  * \brief Main functions for USB host mass storage example
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -79,7 +79,7 @@ static int main_count_states(test_state_t state);
  */
 int main(void)
 {
-#if SAMD21 || SAML21
+#if SAMD21 || SAML21 || SAMR30
 	system_init();
 #else
 	sysclk_init();

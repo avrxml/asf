@@ -3,7 +3,7 @@
  *
  * \brief SDRAM controller (SDRAMC) driver for SAM.
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -60,7 +60,7 @@ extern "C" {
 /* SDRAM memory type */
 typedef struct sdramc_memory_dev {
 	/** Block 1 address */
-	uint32_t ul_bk1;
+	uint32_t ul_bk1;	/* Block1 is at the bit Bk+Row+Column+M0. */
 	/** SDRAM mode */
 	uint32_t ul_mode;
 	union sdramc_cr {

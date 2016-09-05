@@ -60,7 +60,7 @@ CSRCS = \
        common/utils/stdio/write.c                         \
        sam/boards/samv71_xplained_ultra/init.c            \
        sam/drivers/acc/acc.c                              \
-       sam/drivers/acc/acc_example/acc_example_samv71.c   \
+       sam/drivers/acc/acc_example/acc_example_canopus.c  \
        sam/drivers/afec/afec.c                            \
        sam/drivers/dacc/dacc.c                            \
        sam/drivers/mpu/mpu.c                              \

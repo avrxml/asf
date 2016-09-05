@@ -86,17 +86,17 @@
 #endif
 
 #ifdef IQ_RADIO
-#    define rf_blk_write(reg, addr, len)    pal_dev_write(RF215_RF, reg, addr, \
+#    define rf_blk_write(reg, addr, len)    trx_write(RF215_RF, reg, addr, \
 		len)
-#    define rf_bit_write(reg, val)          pal_dev_bit_write(RF215_RF, reg, \
+#    define rf_bit_write(reg, val)          trx_bit_write(RF215_RF, reg, \
 		val)
-#    define rf_reg_write(reg, val)          pal_dev_reg_write(RF215_RF, reg, \
+#    define rf_reg_write(reg, val)          trx_reg_write(RF215_RF, reg, \
 		val)
-#    define bb_bit_read(reg)                pal_dev_bit_read(RF215_BB, reg)
-#    define bb_reg_read(reg)                pal_dev_reg_read(RF215_BB, reg)
-#    define bb_bit_write(reg, val)          pal_dev_bit_write(RF215_BB, reg, \
+#    define bb_bit_read(reg)                trx_bit_read(RF215_BB, reg)
+#    define bb_reg_read(reg)                trx_reg_read(RF215_BB, reg)
+#    define bb_bit_write(reg, val)          trx_bit_write(RF215_BB, reg, \
 		val)
-#    define bb_blk_write(reg, addr, len)    pal_dev_write(RF215_BB, reg, addr, \
+#    define bb_blk_write(reg, addr, len)    trx_write(RF215_BB, reg, addr, \
 		len)
 #else
 #    define rf_blk_write(reg, addr, len)    trx_write(reg, addr, len)
@@ -117,6 +117,9 @@ FLASH_DECLARE(AGC_SETTLE_TABLE_TABLE_DATA_TYPE
 #endif
 #ifdef SUPPORT_FSK
 FLASH_DECLARE(uint8_t fsk_params_tbl[48][11]) = FSK_PARAMS;
+#   if (defined RF215v3)
+FLASH_DECLARE(uint8_t fsk_pe_tbl[3 * 6]) = FSK_PE_TABLE;
+#   endif
 #endif
 
 /* === PROTOTYPES ========================================================== */
@@ -178,6 +181,7 @@ retval_t ofdm_rfcfg(ofdm_option_t ofdm_opt, trx_id_t trx_id)
 		pdt = 3; break;
 
 	default:
+		/* ERROR: OFDM option musst be in [1..4]*/
 		status = FAILURE;
 		return status;
 
@@ -234,12 +238,12 @@ retval_t ofdm_rfcfg(ofdm_option_t ofdm_opt, trx_id_t trx_id)
 	bb_bit_write(reg_offset + SR_BBC0_OFDMSW_PDT, pdt);
 
 #ifdef IQ_RADIO
-	pal_dev_bit_write(RF215_BB, reg_offset + SR_RF09_TXCUTC_PARAMP,
-			RF_PARAMP32U);                                               /*
-	                                                                              *PA
-	                                                                              *rampup
-	                                                                              *time
-	                                                                              **/
+	trx_bit_write(RF215_BB, reg_offset + SR_RF09_TXCUTC_PARAMP,
+			RF_PARAMP32U);                                           /*
+	                                                                          *PA
+	                                                                          *rampup
+	                                                                          *time
+	                                                                          **/
 #endif /* #ifdef IQ_RADIO */
 
 #ifndef FWNAME
@@ -265,6 +269,10 @@ retval_t oqpsk_rfcfg(oqpsk_chip_rate_t chip_rate, trx_id_t trx_id)
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 
 	uint8_t paramp, lpfcut, txrcut, sr, rxbw, rxrcut, avgs;
+#if ((!defined RF215v1) && (defined DIRECT_MODULATION))
+	uint8_t dm;
+#endif
+
 	switch (chip_rate) {
 	case CHIP_RATE_100:    /* F_CHIP = 100 kHz */
 		/* -- TX
@@ -278,6 +286,9 @@ retval_t oqpsk_rfcfg(oqpsk_chip_rate_t chip_rate, trx_id_t trx_id)
 		rxbw = RF_BW160KHZ_IF250KHZ; /* analog rx-filter */
 		rxrcut = 1; /* DFE cut-off: 0.375 */
 		avgs = 2; /* AGC setup: 32 samples */
+#if ((!defined RF215v1) && (defined DIRECT_MODULATION))
+		dm = 1; /* Direct modulation */
+#endif
 		break;
 
 	case CHIP_RATE_200:    /* F_CHIP = 200 kHz */
@@ -292,6 +303,9 @@ retval_t oqpsk_rfcfg(oqpsk_chip_rate_t chip_rate, trx_id_t trx_id)
 		rxbw = RF_BW250KHZ_IF250KHZ; /* analog rx-filter */
 		rxrcut = 1; /* DFE cut-off: 0.375 */
 		avgs = 2; /* AGC setup: 32 samples */
+#if ((!defined RF215v1) && (defined DIRECT_MODULATION))
+		dm = 1; /* Direct modulation */
+#endif
 		break;
 
 	case CHIP_RATE_1000:    /* F_CHIP = 1000 KHz */
@@ -306,6 +320,9 @@ retval_t oqpsk_rfcfg(oqpsk_chip_rate_t chip_rate, trx_id_t trx_id)
 		rxbw = RF_BW1000KHZ_IF1000KHZ; /* analog rx-filter */
 		rxrcut = 0; /* DFE cut-off: 0.25 */
 		avgs = 0; /* AGC setup: 8 samples */
+#if ((!defined RF215v1) && (defined DIRECT_MODULATION))
+		dm = 0; /* Direct modulation */
+#endif
 		break;
 
 	case CHIP_RATE_2000:   /* F_CHIP = 2000 KHz */
@@ -320,9 +337,13 @@ retval_t oqpsk_rfcfg(oqpsk_chip_rate_t chip_rate, trx_id_t trx_id)
 		rxbw = RF_BW2000KHZ_IF2000KHZ; /* analog rx-filter */
 		rxrcut = 2; /* DFE cut-off: 0.5 */
 		avgs = 0; /* AGC setup: 8 samples */
+#if ((!defined RF215v1) && (defined DIRECT_MODULATION))
+		dm = 0; /* Direct modulation */
+#endif
 		break;
 
 	default:
+		/*ERROR: MODE_FCHIP  must be in [0..3]*/
 		return FAILURE;
 
 		break;
@@ -336,12 +357,19 @@ retval_t oqpsk_rfcfg(oqpsk_chip_rate_t chip_rate, trx_id_t trx_id)
 			TXCUTC_PARAMP_SHIFT) | (lpfcut << TXCUTC_LPFCUT_SHIFT);
 	/* TXDFE */
 	tx[1] = (txrcut << TXDFE_RCUT_SHIFT) | (sr << TXDFE_SR_SHIFT);
+#if ((!defined RF215v1) && (defined DIRECT_MODULATION))
+	tx[1] |= dm << TXDFE_DM_SHIFT; /* Direct modulation */
+#endif
 	/* PAC */
 	tx[2]
 		= (3 <<
 			PAC_PACUR_SHIFT) |
 			(DEFAULT_TX_PWR_REG << PAC_TXPWR_SHIFT);
 	rf_blk_write(reg_offset + RG_RF09_TXCUTC, tx, 3);
+
+#if ((!defined RF215v1) && (defined DIRECT_MODULATION))
+	bb_bit_write(reg_offset + SR_BBC0_OQPSKC0_DM, dm);
+#endif
 
 	/* Rx settings: RXBWC, RXDFE, AGCC, AGCS */
 	uint8_t rx[4];
@@ -363,7 +391,7 @@ retval_t oqpsk_rfcfg(oqpsk_chip_rate_t chip_rate, trx_id_t trx_id)
 
 #ifdef IQ_RADIO
 	/* PA ramp time 32 us to BB(!) */
-	pal_dev_bit_write(RF215_BB, reg_offset + SR_RF09_TXCUTC_PARAMP,
+	trx_bit_write(RF215_BB, reg_offset + SR_RF09_TXCUTC_PARAMP,
 			RF_PARAMP32U);
 #endif /* #ifdef IQ_RADIO */
 
@@ -382,35 +410,43 @@ retval_t oqpsk_rfcfg(oqpsk_chip_rate_t chip_rate, trx_id_t trx_id)
  * @brief Configures RF according FSK
  *
  * @param mod_type Modulation order / type; i.e. F2FSK or F4FSK
- * @param srate Data rate
+ * @param srate Symbol rate
  * @param mod_idx Modulation index
  * @param trx_id Transceiver identifier
  */
-retval_t fsk_rfcfg(fsk_mod_type_t mod_type, fsk_data_rate_t srate,
+retval_t fsk_rfcfg(fsk_mod_type_t mod_type, fsk_sym_rate_t srate,
 		mod_idx_t mod_idx, trx_id_t trx_id)
 {
 	retval_t status = MAC_SUCCESS;
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 	uint8_t srate_midx = (srate << 3) + mod_idx;
+	uint8_t temp[2];
 
 	/* TX configuration: */
 	/* - PA ramp time +  TX-SSBF fcut */
 	/* - DFE sampling rate reduction + TX-DFE fcut */
-	{
-		uint8_t temp[2];
-		PGM_READ_BLOCK(temp, (uint8_t *)&fsk_params_tbl[srate_midx][0],
-				2);
-		rf_blk_write(reg_offset + RG_RF09_TXCUTC, temp, 2);
-	}
+	PGM_READ_BLOCK(temp, (uint8_t *)&fsk_params_tbl[srate_midx][0], 2);
+#if ((!defined RF215v1) && (defined DIRECT_MODULATION))
+	temp[1] |= 1 << TXDFE_DM_SHIFT; /* DM */
+#endif
+	rf_blk_write(reg_offset + RG_RF09_TXCUTC, temp, 2);
+#if ((!defined RF215v1) && (defined DIRECT_MODULATION))
+	uint8_t pe[4];
+	pe[0] = (1 << FSKDM_EN_SHIFT) | (1 << FSKDM_PE_SHIFT); /* PE = 1, DM = 1
+	                                                        **/
+	PGM_READ_BLOCK((uint8_t *)&pe[1],
+			(uint8_t *)&fsk_pe_tbl[3 * (uint8_t)srate], 3);
+	bb_blk_write(reg_offset + RG_BBC0_FSKDM, pe, 4);
+#endif
 
 	/* - Transmit Power*/
 #ifdef IQ_RADIO
-	pal_dev_reg_write(RF215_RF, reg_offset + RG_RF09_PAC,
+	trx_reg_write(RF215_RF, reg_offset + RG_RF09_PAC,
 			((3 <<
 			PAC_PACUR_SHIFT) |
 			(DEFAULT_TX_PWR_REG << PAC_TXPWR_SHIFT)));
 #else
-	trx_reg_write(reg_offset + RG_RF09_PAC,
+	trx_reg_write( reg_offset + RG_RF09_PAC,
 			((3 <<
 			PAC_PACUR_SHIFT) |
 			(DEFAULT_TX_PWR_REG << PAC_TXPWR_SHIFT)));
@@ -420,25 +456,19 @@ retval_t fsk_rfcfg(fsk_mod_type_t mod_type, fsk_data_rate_t srate,
 	/* - RX-SSBF bandwidth + RX-SSBF IF shift */
 	/* - DFE sampling rate reduction  + RX-DFE cut-off ratio */
 	if (trx_id == RF09) {
-		uint8_t temp[2];
 		PGM_READ_BLOCK(temp, (uint8_t *)&fsk_params_tbl[srate_midx][5],
 				2);
-		rf_blk_write(RG_RF09_RXBWC, temp, 2);
 	} else {
-		uint8_t temp[2];
 		PGM_READ_BLOCK(temp, (uint8_t *)&fsk_params_tbl[srate_midx][7],
 				2);
-		rf_blk_write(RG_RF24_RXBWC, temp, 2);
 	}
+
+	rf_blk_write(reg_offset + RG_RF09_RXBWC, temp, 2);
 
 	/* - AGC input + AGC average period */
 	/* - AGC target */
-	{
-		uint8_t temp[2];
-		PGM_READ_BLOCK(temp, (uint8_t *)&fsk_params_tbl[srate_midx][9],
-				2);
-		rf_blk_write(reg_offset + RG_RF09_AGCC, temp, 2);
-	}
+	PGM_READ_BLOCK(temp, (uint8_t *)&fsk_params_tbl[srate_midx][9], 2);
+	rf_blk_write(reg_offset + RG_RF09_AGCC, temp, 2);
 
 #ifndef FWNAME
 	uint8_t agcc = (uint8_t)PGM_READ_BYTE(&fsk_params_tbl[srate_midx][9]);
@@ -456,10 +486,8 @@ retval_t fsk_rfcfg(fsk_mod_type_t mod_type, fsk_data_rate_t srate,
 		= get_agc_settling_period(sr, avgs, agci);
 #endif
 
-#if (!defined RF215v2)
 	/* Keep compiler happy */
 	mod_type = mod_type;
-#endif
 
 	return status;
 }

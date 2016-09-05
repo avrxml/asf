@@ -298,14 +298,16 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../qdebug</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/ast/example1</state>
 					<state>$PROJ_DIR$/../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -320,7 +322,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/flashcalw</state>
 					<state>$PROJ_DIR$/../../../common</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/ioport</state>
@@ -574,14 +576,16 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../qdebug</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/ast/example1</state>
 					<state>$PROJ_DIR$/../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -596,7 +600,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/flashcalw</state>
 					<state>$PROJ_DIR$/../../../common</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/ioport</state>
@@ -1275,14 +1279,16 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../qdebug</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/ast/example1</state>
 					<state>$PROJ_DIR$/../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -1297,7 +1303,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/flashcalw</state>
 					<state>$PROJ_DIR$/../../../common</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/ioport</state>
@@ -1551,14 +1557,16 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../../qdebug</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/ast/example2</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/serial</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/ast/example1</state>
 					<state>$PROJ_DIR$/../../../include</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/ast</state>
 					<state>$PROJ_DIR$/../../..</state>
@@ -1573,7 +1581,7 @@
 					<state>$PROJ_DIR$/../../../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../../sam/drivers/flashcalw</state>
 					<state>$PROJ_DIR$/../../../common</state>
 					<state>$PROJ_DIR$/../../../../../../../../common/services/ioport</state>

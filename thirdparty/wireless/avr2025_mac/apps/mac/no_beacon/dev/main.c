@@ -83,7 +83,7 @@
  * Area
  *     Networks (WPANs).\n\n
  * 2)  <a href="http://www.atmel.com/design-support/">Atmel Design
- *Support</a>.\n
+ * Support</a>.\n
  *
  * \section contactinfo Contact Information
  * For further information,visit
@@ -637,7 +637,7 @@ void usr_mlme_beacon_notify_ind(uint8_t BSN,
 		 * Use: bool wpan_mlme_associate_req(uint8_t LogicalChannel,
 		 *                                   uint8_t ChannelPage,
 		 *                                   wpan_addr_spec_t
-		 *****CoordAddrSpec,
+		 ******CoordAddrSpec,
 		 *                                   uint8_t
 		 * CapabilityInformation);
 		 * This request will cause a mlme associate confirm message ->
@@ -1066,7 +1066,7 @@ void usr_mlme_scan_conf(uint8_t status,
 				 * Use: bool wpan_mlme_set_req(uint8_t
 				 * PIBAttribute,
 				 *                             void
-				 *****PIBAttributeValue);
+				 ******PIBAttributeValue);
 				 *
 				 * This request leads to a set confirm message
 				 *-> usr_mlme_set_conf
@@ -1094,7 +1094,7 @@ void usr_mlme_scan_conf(uint8_t status,
 				 *
 				 *
 				 *                              wpan_addr_spec_t
-				 ****CoordAddrSpec,
+				 *****CoordAddrSpec,
 				 *                                   uint8_t
 				 * CapabilityInformation);
 				 * This request will cause a mlme associate
@@ -1408,15 +1408,18 @@ static void send_data(uint8_t *data)
 			ZIP_SEC_MIN,                                     /*
 	                                                                  *
 	                                                                  *
+	                                                                  *
 	                                                                  *SecurityLevel
 	                                                                  **/
 			NULL,
 			ZIP_KEY_ID_MODE,                                 /*
 	                                                                  *
 	                                                                  *
+	                                                                  *
 	                                                                  *KeyIdMode
 	                                                                  **/
 			deviceShortAddress);                                  /*
+	                                                                       *
 	                                                                       *
 	                                                                       *
 	                                                                       *KeyIndex

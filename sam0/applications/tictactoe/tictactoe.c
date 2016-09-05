@@ -3,7 +3,7 @@
  *
  * \brief Tic Tac Toe application for SAM Xplained Pro with OLED1 Xplained Pro
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -75,12 +75,12 @@
  * in a row.
  *
  * This application has been tested on following boards:
- * - SAM D20/D21/R21/L21/L22 Xplained Pro
+ * - SAM D20/D21/R21/L21/L22/R30 Xplained Pro
  *
  * \section appdoc_sam0_tictactoe_setup Hardware Setup
  * The OLED1 Xplained Pro extension board must be connected to extension
  * header 3 on the SAM D20/D21/L21/L22 Xplained Pro, and extension header 1 on the SAM
- * R21 Xplained Pro.
+ * R21/R30 Xplained Pro.
  * To use another extension header, edit the configuration in:
  * - \ref conf_board.h
  * - \ref conf_ssd1306.h

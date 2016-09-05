@@ -3,7 +3,7 @@
  *
  * \brief Serial Peripheral Interface (SPI) example for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -443,7 +443,13 @@ static void spi_master_initialize(void)
 	spi_set_bits_per_transfer(SPI_MASTER_BASE, SPI_CHIP_SEL,
 			SPI_CSR_BITS_8_BIT);
 	spi_set_baudrate_div(SPI_MASTER_BASE, SPI_CHIP_SEL,
-			(sysclk_get_cpu_hz() / gs_ul_spi_clock));
+			(
+#if (SAM4L)
+			sysclk_get_pba_hz()
+#else
+			sysclk_get_peripheral_hz()
+#endif
+			/ gs_ul_spi_clock));
 	spi_set_transfer_delay(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_DLYBS,
 			SPI_DLYBCT);
 	spi_enable(SPI_MASTER_BASE);

@@ -197,7 +197,7 @@ bool udi_msc_trans_block(bool b_read, uint8_t * block, iram_size_t block_size,
 	extern Ctrl_status usb_2_memory(U8 lun, U32 addr, U16 nb_sector);
  \endcode
  *
- * Then the ctrl_access dispatch the read/write operation to different LUNs.
+ * Then the ctrl_access dispatch the read/write operation to different Logic Unit Numbers (LUNs).
  *
  * The memory access in ctrl_access is configured through conf_access.h.
  * E.g., to use LUN0 to access virtual memory disk, the configuration should
@@ -284,7 +284,7 @@ bool udi_msc_trans_block(bool b_read, uint8_t * block, iram_size_t block_size,
 
  *
  * \subsection udi_msc_basic_use_case_setup_flow Workflow
- * -# Ensure that conf_usb.h is available and contains the following configuration
+ * -# Ensure that conf_usb.h is available and contains the following configuration,
  * which is the USB device MSC configuration:
  * \code
  #define USB_DEVICE_SERIAL_NAME  "12...EF" // Disk SN for MSC
@@ -477,7 +477,7 @@ bool udi_msc_trans_block(bool b_read, uint8_t * block, iram_size_t block_size,
  * \subsection asfdoc_udi_msc_config_examples_2_2 AT32UC3A0, AT32UC3A1, and AT32UC3B Devices (USBB)
  * \include example/at32uc3a0512_evk1100/conf_clock.h
  *
- * \subsection asfdoc_udi_msc_config_examples_2_3 AT32UC3A3, and AT32UC3A4 Devices (USBB with High Speed Support)
+ * \subsection asfdoc_udi_msc_config_examples_2_3 AT32UC3A3 and AT32UC3A4 Devices (USBB with High Speed Support)
  * \include example/at32uc3a3256_evk1104/conf_clock.h
  *
  * \subsection asfdoc_udi_msc_config_examples_2_4 AT32UC3C, ATUCXXD, ATUCXXL3U, and ATUCXXL4U Devices (USBC)
@@ -489,12 +489,12 @@ bool udi_msc_trans_block(bool b_read, uint8_t * block, iram_size_t block_size,
  * \subsection asfdoc_udi_msc_config_examples_2_6 SAM3U Device (UPDHS: USB Peripheral Device High Speed)
  * \include example/sam3u4e_sam3u_ek/conf_clock.h
  *
- * \subsection asfdoc_udi_msc_config_examples_2_7 SAM3X, and SAM3A Devices (UOTGHS: USB OTG High Speed)
+ * \subsection asfdoc_udi_msc_config_examples_2_7 SAM3X and SAM3A Devices (UOTGHS: USB OTG High Speed)
  * \include example/sam3x8h_sam3x_ek/conf_clock.h
  *
  * \section asfdoc_udi_msc_config_examples_3 conf_clocks.h
  *
- * \subsection asfdoc_udi_msc_config_examples_3_1 SAMD21 Device (USB)
+ * \subsection asfdoc_udi_msc_config_examples_3_1 SAM D21 Device (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_clocks.h
  *
  * \section asfdoc_udi_msc_config_examples_4 conf_board.h
@@ -502,16 +502,16 @@ bool udi_msc_trans_block(bool b_read, uint8_t * block, iram_size_t block_size,
  * \subsection asfdoc_udi_msc_config_examples_4_1 AT32UC3A0, AT32UC3A1, and AT32UC3B Devices (USBB)
  * \include example/at32uc3a0512_evk1100/conf_board.h
  *
- * \subsection asfdoc_udi_msc_config_examples_4_2 AT32UC3A3, and AT32UC3A4 Devices (USBB with High Speed Support)
+ * \subsection asfdoc_udi_msc_config_examples_4_2 AT32UC3A3 and AT32UC3A4 Devices (USBB with High Speed Support)
  * \include example/at32uc3a3256_evk1104/conf_board.h
  *
  * \subsection asfdoc_udi_msc_config_examples_4_3 AT32UC3C, ATUCXXD, ATUCXXL3U, and ATUCXXL4U Devices (USBC)
  * \include example/at32uc3c0512c_uc3c_ek/conf_board.h
  *
- * \subsection asfdoc_udi_msc_config_examples_4_4 SAM3X, and SAM3A Devices (UOTGHS: USB OTG High Speed)
+ * \subsection asfdoc_udi_msc_config_examples_4_4 SAM3X and SAM3A Devices (UOTGHS: USB OTG High Speed)
  * \include example/sam3x8h_sam3x_ek/conf_board.h
  *
- * \subsection asfdoc_udi_msc_config_examples_4_5 SAMD21 Device (USB)
+ * \subsection asfdoc_udi_msc_config_examples_4_5 SAM D21 Device (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_board.h
  *
  * \section asfdoc_udi_msc_config_examples_5 conf_access.h
@@ -520,7 +520,7 @@ bool udi_msc_trans_block(bool b_read, uint8_t * block, iram_size_t block_size,
  * On EVK1100, the AT45DBx and one SD/MMC are for MSC.
  * \include example/at32uc3a0512_evk1100/conf_access.h
  *
- * \subsection asfdoc_udi_msc_config_examples_5_2 AT32UC3A3, and AT32UC3A4 Devices (USBB with High Speed Support)
+ * \subsection asfdoc_udi_msc_config_examples_5_2 AT32UC3A3 and AT32UC3A4 Devices (USBB with High Speed Support)
  * On EVK1104, the AT45DBx and two SD/MMC slots are for MSC.
  * \include example/at32uc3a3256_evk1104/conf_access.h
  *
@@ -528,11 +528,11 @@ bool udi_msc_trans_block(bool b_read, uint8_t * block, iram_size_t block_size,
  * On EVK1100, the AT45DBx and one SD/MMC are for MSC.
  * \include example/at32uc3c0512c_uc3c_ek/conf_access.h
  *
- * \subsection asfdoc_udi_msc_config_examples_5_4 SAM3X, and SAM3A Devices (UOTGHS: USB OTG High Speed)
+ * \subsection asfdoc_udi_msc_config_examples_5_4 SAM3X and SAM3A Devices (UOTGHS: USB OTG High Speed)
  * On SAM3X-EK, the SD/MMC and on-board nand are for MSC.
  * \include example/sam3x8h_sam3x_ek/conf_access.h
  *
- * \subsection asfdoc_udi_msc_config_examples_5_5 SAMD21 Device (USB)
+ * \subsection asfdoc_udi_msc_config_examples_5_5 SAM D21 Device (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_access.h
  *
  * \section asfdoc_udi_msc_config_examples_6 conf_virtual_mem.h
@@ -549,14 +549,19 @@ bool udi_msc_trans_block(bool b_read, uint8_t * block, iram_size_t block_size,
  *
  * <table>
  * <tr>
- *    <th>Doc. Rev.</td>
- *    <th>Date</td>
- *    <th>Comments</td>
+ *    <th>Doc. Rev.</th>
+ *    <th>Date</th>
+ *    <th>Comments</th>
+ * </tr>
+ * <tr>
+ *    <td>42343B</td>
+ *    <td>12/2015</td>
+ *    <td>Fixed typos</td>
  * </tr>
  * <tr>
  *    <td>42343A</td>
  *    <td>12/2014</td>
- *    <td>Initial release.</td>
+ *    <td>Initial release</td>
  * </tr>
  * </table>
  */

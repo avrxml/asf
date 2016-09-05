@@ -2452,10 +2452,10 @@
 									<name>$PROJ_DIR$/../conf_usart_serial.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../conf_sio2host.h</name>
+									<name>$PROJ_DIR$/../conf_hw_timer.h</name>
 								</file>
 								<file>
-									<name>$PROJ_DIR$/../conf_hw_timer.h</name>
+									<name>$PROJ_DIR$/../conf_sio2host.h</name>
 								</file>
 								<group>
 									<name>iar</name>
@@ -2465,6 +2465,9 @@
 								</group>
 								<file>
 									<name>$PROJ_DIR$/../conf_clock.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../conf_perf_analyzer.h</name>
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../conf_board.h</name>

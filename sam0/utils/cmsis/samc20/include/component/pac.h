@@ -3,7 +3,7 @@
  *
  * \brief Component description for PAC
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -193,8 +193,7 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
     __I uint32_t RTC_:1;           /*!< bit:      9  RTC                                */
     __I uint32_t EIC_:1;           /*!< bit:     10  EIC                                */
     __I uint32_t FREQM_:1;         /*!< bit:     11  FREQM                              */
-    __I uint32_t TSENS_:1;         /*!< bit:     12  TSENS                              */
-    __I uint32_t :19;              /*!< bit: 13..31  Reserved                           */
+    __I uint32_t :20;              /*!< bit: 12..31  Reserved                           */
   } bit;                       /*!< Structure used for bit  access                  */
   uint32_t reg;                /*!< Type      used for register access              */
 } PAC_INTFLAGA_Type;
@@ -227,9 +226,7 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #define PAC_INTFLAGA_EIC            (0x1ul << PAC_INTFLAGA_EIC_Pos)
 #define PAC_INTFLAGA_FREQM_Pos      11           /**< \brief (PAC_INTFLAGA) FREQM */
 #define PAC_INTFLAGA_FREQM          (0x1ul << PAC_INTFLAGA_FREQM_Pos)
-#define PAC_INTFLAGA_TSENS_Pos      12           /**< \brief (PAC_INTFLAGA) TSENS */
-#define PAC_INTFLAGA_TSENS          (0x1ul << PAC_INTFLAGA_TSENS_Pos)
-#define PAC_INTFLAGA_MASK           0x00001FFFul /**< \brief (PAC_INTFLAGA) MASK Register */
+#define PAC_INTFLAGA_MASK           0x00000FFFul /**< \brief (PAC_INTFLAGA) MASK Register */
 
 /* -------- PAC_INTFLAGB : (PAC Offset: 0x18) (R/W 32) Peripheral interrupt flag status - Bridge B -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -273,10 +270,7 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
     __I uint32_t SERCOM1_:1;       /*!< bit:      2  SERCOM1                            */
     __I uint32_t SERCOM2_:1;       /*!< bit:      3  SERCOM2                            */
     __I uint32_t SERCOM3_:1;       /*!< bit:      4  SERCOM3                            */
-    __I uint32_t SERCOM4_:1;       /*!< bit:      5  SERCOM4                            */
-    __I uint32_t SERCOM5_:1;       /*!< bit:      6  SERCOM5                            */
-    __I uint32_t CAN0_:1;          /*!< bit:      7  CAN0                               */
-    __I uint32_t CAN1_:1;          /*!< bit:      8  CAN1                               */
+    __I uint32_t :4;               /*!< bit:  5.. 8  Reserved                           */
     __I uint32_t TCC0_:1;          /*!< bit:      9  TCC0                               */
     __I uint32_t TCC1_:1;          /*!< bit:     10  TCC1                               */
     __I uint32_t TCC2_:1;          /*!< bit:     11  TCC2                               */
@@ -286,10 +280,9 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
     __I uint32_t TC3_:1;           /*!< bit:     15  TC3                                */
     __I uint32_t TC4_:1;           /*!< bit:     16  TC4                                */
     __I uint32_t ADC0_:1;          /*!< bit:     17  ADC0                               */
-    __I uint32_t ADC1_:1;          /*!< bit:     18  ADC1                               */
-    __I uint32_t SDADC_:1;         /*!< bit:     19  SDADC                              */
+    __I uint32_t :2;               /*!< bit: 18..19  Reserved                           */
     __I uint32_t AC_:1;            /*!< bit:     20  AC                                 */
-    __I uint32_t DAC_:1;           /*!< bit:     21  DAC                                */
+    __I uint32_t :1;               /*!< bit:     21  Reserved                           */
     __I uint32_t PTC_:1;           /*!< bit:     22  PTC                                */
     __I uint32_t CCL_:1;           /*!< bit:     23  CCL                                */
     __I uint32_t TAL_:1;           /*!< bit:     24  TAL                                */
@@ -312,14 +305,6 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #define PAC_INTFLAGC_SERCOM2        (0x1ul << PAC_INTFLAGC_SERCOM2_Pos)
 #define PAC_INTFLAGC_SERCOM3_Pos    4            /**< \brief (PAC_INTFLAGC) SERCOM3 */
 #define PAC_INTFLAGC_SERCOM3        (0x1ul << PAC_INTFLAGC_SERCOM3_Pos)
-#define PAC_INTFLAGC_SERCOM4_Pos    5            /**< \brief (PAC_INTFLAGC) SERCOM4 */
-#define PAC_INTFLAGC_SERCOM4        (0x1ul << PAC_INTFLAGC_SERCOM4_Pos)
-#define PAC_INTFLAGC_SERCOM5_Pos    6            /**< \brief (PAC_INTFLAGC) SERCOM5 */
-#define PAC_INTFLAGC_SERCOM5        (0x1ul << PAC_INTFLAGC_SERCOM5_Pos)
-#define PAC_INTFLAGC_CAN0_Pos       7            /**< \brief (PAC_INTFLAGC) CAN0 */
-#define PAC_INTFLAGC_CAN0           (0x1ul << PAC_INTFLAGC_CAN0_Pos)
-#define PAC_INTFLAGC_CAN1_Pos       8            /**< \brief (PAC_INTFLAGC) CAN1 */
-#define PAC_INTFLAGC_CAN1           (0x1ul << PAC_INTFLAGC_CAN1_Pos)
 #define PAC_INTFLAGC_TCC0_Pos       9            /**< \brief (PAC_INTFLAGC) TCC0 */
 #define PAC_INTFLAGC_TCC0           (0x1ul << PAC_INTFLAGC_TCC0_Pos)
 #define PAC_INTFLAGC_TCC1_Pos       10           /**< \brief (PAC_INTFLAGC) TCC1 */
@@ -338,21 +323,15 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #define PAC_INTFLAGC_TC4            (0x1ul << PAC_INTFLAGC_TC4_Pos)
 #define PAC_INTFLAGC_ADC0_Pos       17           /**< \brief (PAC_INTFLAGC) ADC0 */
 #define PAC_INTFLAGC_ADC0           (0x1ul << PAC_INTFLAGC_ADC0_Pos)
-#define PAC_INTFLAGC_ADC1_Pos       18           /**< \brief (PAC_INTFLAGC) ADC1 */
-#define PAC_INTFLAGC_ADC1           (0x1ul << PAC_INTFLAGC_ADC1_Pos)
-#define PAC_INTFLAGC_SDADC_Pos      19           /**< \brief (PAC_INTFLAGC) SDADC */
-#define PAC_INTFLAGC_SDADC          (0x1ul << PAC_INTFLAGC_SDADC_Pos)
 #define PAC_INTFLAGC_AC_Pos         20           /**< \brief (PAC_INTFLAGC) AC */
 #define PAC_INTFLAGC_AC             (0x1ul << PAC_INTFLAGC_AC_Pos)
-#define PAC_INTFLAGC_DAC_Pos        21           /**< \brief (PAC_INTFLAGC) DAC */
-#define PAC_INTFLAGC_DAC            (0x1ul << PAC_INTFLAGC_DAC_Pos)
 #define PAC_INTFLAGC_PTC_Pos        22           /**< \brief (PAC_INTFLAGC) PTC */
 #define PAC_INTFLAGC_PTC            (0x1ul << PAC_INTFLAGC_PTC_Pos)
 #define PAC_INTFLAGC_CCL_Pos        23           /**< \brief (PAC_INTFLAGC) CCL */
 #define PAC_INTFLAGC_CCL            (0x1ul << PAC_INTFLAGC_CCL_Pos)
 #define PAC_INTFLAGC_TAL_Pos        24           /**< \brief (PAC_INTFLAGC) TAL */
 #define PAC_INTFLAGC_TAL            (0x1ul << PAC_INTFLAGC_TAL_Pos)
-#define PAC_INTFLAGC_MASK           0x01FFFFFFul /**< \brief (PAC_INTFLAGC) MASK Register */
+#define PAC_INTFLAGC_MASK           0x01D3FE1Ful /**< \brief (PAC_INTFLAGC) MASK Register */
 
 /* -------- PAC_STATUSA : (PAC Offset: 0x34) (R/  32) Peripheral write protection status - Bridge A -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -370,8 +349,7 @@ typedef union {
     uint32_t RTC_:1;           /*!< bit:      9  RTC APB Protect Enable             */
     uint32_t EIC_:1;           /*!< bit:     10  EIC APB Protect Enable             */
     uint32_t FREQM_:1;         /*!< bit:     11  FREQM APB Protect Enable           */
-    uint32_t TSENS_:1;         /*!< bit:     12  TSENS APB Protect Enable           */
-    uint32_t :19;              /*!< bit: 13..31  Reserved                           */
+    uint32_t :20;              /*!< bit: 12..31  Reserved                           */
   } bit;                       /*!< Structure used for bit  access                  */
   uint32_t reg;                /*!< Type      used for register access              */
 } PAC_STATUSA_Type;
@@ -404,9 +382,7 @@ typedef union {
 #define PAC_STATUSA_EIC             (0x1ul << PAC_STATUSA_EIC_Pos)
 #define PAC_STATUSA_FREQM_Pos       11           /**< \brief (PAC_STATUSA) FREQM APB Protect Enable */
 #define PAC_STATUSA_FREQM           (0x1ul << PAC_STATUSA_FREQM_Pos)
-#define PAC_STATUSA_TSENS_Pos       12           /**< \brief (PAC_STATUSA) TSENS APB Protect Enable */
-#define PAC_STATUSA_TSENS           (0x1ul << PAC_STATUSA_TSENS_Pos)
-#define PAC_STATUSA_MASK            0x00001FFFul /**< \brief (PAC_STATUSA) MASK Register */
+#define PAC_STATUSA_MASK            0x00000FFFul /**< \brief (PAC_STATUSA) MASK Register */
 
 /* -------- PAC_STATUSB : (PAC Offset: 0x38) (R/  32) Peripheral write protection status - Bridge B -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -450,10 +426,7 @@ typedef union {
     uint32_t SERCOM1_:1;       /*!< bit:      2  SERCOM1 APB Protect Enable         */
     uint32_t SERCOM2_:1;       /*!< bit:      3  SERCOM2 APB Protect Enable         */
     uint32_t SERCOM3_:1;       /*!< bit:      4  SERCOM3 APB Protect Enable         */
-    uint32_t SERCOM4_:1;       /*!< bit:      5  SERCOM4 APB Protect Enable         */
-    uint32_t SERCOM5_:1;       /*!< bit:      6  SERCOM5 APB Protect Enable         */
-    uint32_t CAN0_:1;          /*!< bit:      7  CAN0 APB Protect Enable            */
-    uint32_t CAN1_:1;          /*!< bit:      8  CAN1 APB Protect Enable            */
+    uint32_t :4;               /*!< bit:  5.. 8  Reserved                           */
     uint32_t TCC0_:1;          /*!< bit:      9  TCC0 APB Protect Enable            */
     uint32_t TCC1_:1;          /*!< bit:     10  TCC1 APB Protect Enable            */
     uint32_t TCC2_:1;          /*!< bit:     11  TCC2 APB Protect Enable            */
@@ -463,10 +436,9 @@ typedef union {
     uint32_t TC3_:1;           /*!< bit:     15  TC3 APB Protect Enable             */
     uint32_t TC4_:1;           /*!< bit:     16  TC4 APB Protect Enable             */
     uint32_t ADC0_:1;          /*!< bit:     17  ADC0 APB Protect Enable            */
-    uint32_t ADC1_:1;          /*!< bit:     18  ADC1 APB Protect Enable            */
-    uint32_t SDADC_:1;         /*!< bit:     19  SDADC APB Protect Enable           */
+    uint32_t :2;               /*!< bit: 18..19  Reserved                           */
     uint32_t AC_:1;            /*!< bit:     20  AC APB Protect Enable              */
-    uint32_t DAC_:1;           /*!< bit:     21  DAC APB Protect Enable             */
+    uint32_t :1;               /*!< bit:     21  Reserved                           */
     uint32_t PTC_:1;           /*!< bit:     22  PTC APB Protect Enable             */
     uint32_t CCL_:1;           /*!< bit:     23  CCL APB Protect Enable             */
     uint32_t TAL_:1;           /*!< bit:     24  TAL APB Protect Enable             */
@@ -489,14 +461,6 @@ typedef union {
 #define PAC_STATUSC_SERCOM2         (0x1ul << PAC_STATUSC_SERCOM2_Pos)
 #define PAC_STATUSC_SERCOM3_Pos     4            /**< \brief (PAC_STATUSC) SERCOM3 APB Protect Enable */
 #define PAC_STATUSC_SERCOM3         (0x1ul << PAC_STATUSC_SERCOM3_Pos)
-#define PAC_STATUSC_SERCOM4_Pos     5            /**< \brief (PAC_STATUSC) SERCOM4 APB Protect Enable */
-#define PAC_STATUSC_SERCOM4         (0x1ul << PAC_STATUSC_SERCOM4_Pos)
-#define PAC_STATUSC_SERCOM5_Pos     6            /**< \brief (PAC_STATUSC) SERCOM5 APB Protect Enable */
-#define PAC_STATUSC_SERCOM5         (0x1ul << PAC_STATUSC_SERCOM5_Pos)
-#define PAC_STATUSC_CAN0_Pos        7            /**< \brief (PAC_STATUSC) CAN0 APB Protect Enable */
-#define PAC_STATUSC_CAN0            (0x1ul << PAC_STATUSC_CAN0_Pos)
-#define PAC_STATUSC_CAN1_Pos        8            /**< \brief (PAC_STATUSC) CAN1 APB Protect Enable */
-#define PAC_STATUSC_CAN1            (0x1ul << PAC_STATUSC_CAN1_Pos)
 #define PAC_STATUSC_TCC0_Pos        9            /**< \brief (PAC_STATUSC) TCC0 APB Protect Enable */
 #define PAC_STATUSC_TCC0            (0x1ul << PAC_STATUSC_TCC0_Pos)
 #define PAC_STATUSC_TCC1_Pos        10           /**< \brief (PAC_STATUSC) TCC1 APB Protect Enable */
@@ -515,21 +479,15 @@ typedef union {
 #define PAC_STATUSC_TC4             (0x1ul << PAC_STATUSC_TC4_Pos)
 #define PAC_STATUSC_ADC0_Pos        17           /**< \brief (PAC_STATUSC) ADC0 APB Protect Enable */
 #define PAC_STATUSC_ADC0            (0x1ul << PAC_STATUSC_ADC0_Pos)
-#define PAC_STATUSC_ADC1_Pos        18           /**< \brief (PAC_STATUSC) ADC1 APB Protect Enable */
-#define PAC_STATUSC_ADC1            (0x1ul << PAC_STATUSC_ADC1_Pos)
-#define PAC_STATUSC_SDADC_Pos       19           /**< \brief (PAC_STATUSC) SDADC APB Protect Enable */
-#define PAC_STATUSC_SDADC           (0x1ul << PAC_STATUSC_SDADC_Pos)
 #define PAC_STATUSC_AC_Pos          20           /**< \brief (PAC_STATUSC) AC APB Protect Enable */
 #define PAC_STATUSC_AC              (0x1ul << PAC_STATUSC_AC_Pos)
-#define PAC_STATUSC_DAC_Pos         21           /**< \brief (PAC_STATUSC) DAC APB Protect Enable */
-#define PAC_STATUSC_DAC             (0x1ul << PAC_STATUSC_DAC_Pos)
 #define PAC_STATUSC_PTC_Pos         22           /**< \brief (PAC_STATUSC) PTC APB Protect Enable */
 #define PAC_STATUSC_PTC             (0x1ul << PAC_STATUSC_PTC_Pos)
 #define PAC_STATUSC_CCL_Pos         23           /**< \brief (PAC_STATUSC) CCL APB Protect Enable */
 #define PAC_STATUSC_CCL             (0x1ul << PAC_STATUSC_CCL_Pos)
 #define PAC_STATUSC_TAL_Pos         24           /**< \brief (PAC_STATUSC) TAL APB Protect Enable */
 #define PAC_STATUSC_TAL             (0x1ul << PAC_STATUSC_TAL_Pos)
-#define PAC_STATUSC_MASK            0x01FFFFFFul /**< \brief (PAC_STATUSC) MASK Register */
+#define PAC_STATUSC_MASK            0x01D3FE1Ful /**< \brief (PAC_STATUSC) MASK Register */
 
 /** \brief PAC hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))

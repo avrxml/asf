@@ -3,7 +3,7 @@
  *
  * \brief Commonly used includes, types and macros.
  *
- * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -608,7 +608,7 @@ typedef struct
  * \return The count of trailing zero bits in \a u.
  */
 #if (defined __GNUC__)
-  #define ctz(u)              __builtin_ctz(u)
+  #define ctz(u)              ((u) ? __builtin_ctz(u) : 32)
 #elif (defined __ICCAVR32__)
   #define ctz(u)              __count_trailing_zeros(u)
 #endif

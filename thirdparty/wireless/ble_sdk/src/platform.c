@@ -3,7 +3,7 @@
  *
  * \brief Platform Abstraction layer for BLE applications
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,76 +48,155 @@
 #include "platform.h"
 #include "conf_serialdrv.h"
 #include "serial_drv.h"
+#include "serial_fifo.h"
+#include "ble_utils.h"
+#include "timer_hw.h"
 
-static uint16_t rx_data;
+static uint8_t platform_bus_type;
+static void (*recv_async_cb)(uint8_t) = NULL;
+static volatile bool platform_timer_used = false;
 
-static volatile uint32_t cmd_cmpl_flag = 0;
-static volatile uint32_t event_flag = 0;
+#if ((UART_FLOWCONTROL_4WIRE_MODE == true) && (UART_FLOWCONTROL_6WIRE_MODE == true))
+#error "Invalid UART Flow Control mode Configuration. Choose only one mode"
+#endif
 
-void serial_rx_callback(void)
-{
-#if SAMG55
-	while(serial_read_byte(&rx_data) == STATUS_OK)
+//#define BLE_DBG_ENABLE
+#define DBG_LOG_BLE		DBG_LOG
+
+at_ble_status_t platform_init(uint8_t bus_type, uint8_t bus_flow_control_enabled)
+{	
+        (void)bus_flow_control_enabled;
+	platform_bus_type = bus_type;
+	if (platform_bus_type == AT_BLE_UART)
 	{
-		platform_interface_callback((uint8_t *)&rx_data, 1);
-	}		
-#endif
+		ble_configure_control_pin();
 		
-#if SAMD || SAMR21
-	do 
+		configure_serial_drv();
+		
+		return AT_BLE_SUCCESS;
+	}
+	return AT_BLE_INVALID_PARAM;	
+}
+
+void platform_send_sync(uint8_t *data, uint32_t len)
+{
+
+#ifdef BLE_DBG_ENABLE
+	uint32_t i;
+	DBG_LOG_BLE("\r\nTxLen:%d: ", len);
+	for (i = 0; i < len; i++)
 	{
-	  platform_interface_callback((uint8_t *)&rx_data, 1);
-	} while (serial_read_byte(&rx_data) == STATUS_BUSY);	
-#endif
-}
-
-void serial_tx_callback(void)
-{
-	ble_enable_pin_set_low();
-}
-
-
-at_ble_status_t platform_init(void* platform_params)
-{
-	ble_enable_pin_init();
-	configure_serial_drv();
-	serial_read_byte(&rx_data);
+		DBG_LOG_CONT("0x%X, ", data[i]);
 		
-	return AT_BLE_SUCCESS;
-}
-
-void platform_interface_send(uint8_t* data, uint32_t len)
-{
-	ble_enable_pin_set_high();
-	serial_drv_send(data, len);	
-#if SAMG55
-	ble_enable_pin_set_low();
+	}
 #endif
+	 if (AT_BLE_UART == platform_bus_type)
+	 {
+		serial_drv_send(data, (uint16_t)len);
+	 }
 }
 
-void platform_cmd_cmpl_signal()
+void platform_gpio_set(at_ble_gpio_pin_t pin, at_ble_gpio_status_t status)
 {
-	cmd_cmpl_flag = 1;
+	if (pin == AT_BLE_CHIP_ENABLE)
+	{
+		if (status == AT_BLE_HIGH)
+		{
+			ble_enable_pin_set_high();
+		}
+		else
+		{
+			ble_enable_pin_set_low();
+		}
+	}
+	else if (pin == AT_BLE_EXTERNAL_WAKEUP)
+	{
+		if (status == AT_BLE_HIGH)
+		{
+			ble_wakeup_pin_set_high();
+		} 
+		else
+		{
+			ble_wakeup_pin_set_low();
+		}
+	}
 }
 
-void platform_cmd_cmpl_wait(bool* timeout)
+void platform_recv_async(void (*recv_async_callback)(uint8_t))
 {
-	while(cmd_cmpl_flag != 1);
-	cmd_cmpl_flag = 0;
-	//*timeout = true; //Incase of timeout[default to 4000ms]
+	if (AT_BLE_UART == platform_bus_type)
+    {
+		recv_async_cb = recv_async_callback;
+        platfrom_start_rx();		
+    }
 }
 
-void platform_event_signal()
+void platform_process_rxdata(uint8_t t_rx_data)
 {
-	event_flag = 1;
+	if (AT_BLE_UART == platform_bus_type)
+	{
+		if(recv_async_cb != NULL)
+        {
+			recv_async_cb(t_rx_data);
+        }
+	}
 }
 
-uint8_t platform_event_wait(uint32_t timeout)
+void platform_dma_process_rxdata(uint8_t *buf, uint16_t len)
 {
-	/* Timeout in ms */
-	uint8_t status = AT_BLE_SUCCESS;//AT_BLE_TIMEOUT in case of timeout
-	while(event_flag != 1);
-	event_flag = 0;
-	return status;
+	if (AT_BLE_UART == platform_bus_type)
+	{
+		uint16_t idx;
+		for (idx = 0; idx < len; idx++)
+		{
+			recv_async_cb(buf[idx]);
+		}
+	}
+}
+
+void platform_configure_hw_fc_uart(void)
+{
+	configure_usart_after_patch();
+}
+
+void *platform_create_timer(void (*timer_cb)(void *))
+{
+	return (platform_configure_timer(timer_cb));
+}
+
+void platform_delete_timer(void *timer_handle)
+{
+  platform_enter_critical_section();
+  platform_delete_bus_timer(timer_handle);
+  platform_leave_critical_section();
+}
+
+void platform_start_timer(void *timer_handle, uint32_t ms)
+{
+	platform_enter_critical_section();
+	platform_start_bus_timer(timer_handle, ms);
+	platform_leave_critical_section();
+}
+
+void platform_stop_timer(void *timer_handle)
+{
+	platform_enter_critical_section();
+	platform_stop_bus_timer(timer_handle);
+	platform_leave_critical_section();
+}
+
+void platform_sleep(uint32_t ms)
+{
+	delay_ms(ms);
+}
+
+bool platform_wakeup_pin_status(void)
+{
+	return (ble_wakeup_pin_level());
+}
+
+void plaform_ble_rx_callback(void)
+{
+	ble_wakeup_pin_set_high();
 }
 

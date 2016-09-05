@@ -3,7 +3,7 @@
  *
  * \brief SAM TCC - Timer Counter for Control Applications Callback Driver Quick Start (with Recoverable Fault)
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,8 +45,10 @@
 #include <asf.h>
 #include <conf_quick_start_faultn.h>
 
+#ifndef SAMR30
 #if (CONF_PWM_CHANNEL != 0) && (CONF_PWM_CHANNEL != 1)
 #error Only TCC channel 0 and 1 support Recoverable Fault, please check CONF_PWM_CHANNEL
+#endif
 #endif
 
 //! [additional_include]

@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of functions for the AES on SAM devices.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -97,14 +97,14 @@ void AES_Handler(void)
 
 	if (status & AES_INTFLAG_ENCCMP) {
 		if (aes_callback_pointer[AES_CALLBACK_ENCRYPTION_COMPLETE]) {
-			AES->INTFLAG.reg |= AES_INTFLAG_ENCCMP;
+			AES->INTFLAG.reg = AES_INTFLAG_ENCCMP;
 			aes_callback_pointer[AES_CALLBACK_ENCRYPTION_COMPLETE]();
 		}
 	}
 
 	if (status & AES_INTFLAG_GFMCMP) {
 		if (aes_callback_pointer[AES_CALLBACK_ENCRYPTION_COMPLETE]) {
-			AES->INTFLAG.reg |= AES_INTFLAG_GFMCMP;
+			AES->INTFLAG.reg = AES_INTFLAG_GFMCMP;
 			aes_callback_pointer[AES_CALLBACK_ENCRYPTION_COMPLETE]();
 		}
 	}

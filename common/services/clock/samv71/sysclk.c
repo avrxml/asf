@@ -176,18 +176,21 @@ void sysclk_init(void)
 	if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_SLCK_RC) {
 		osc_enable(OSC_SLCK_32K_RC);
 		osc_wait_ready(OSC_SLCK_32K_RC);
+		pmc_mck_set_division(CONFIG_SYSCLK_DIV);
 		pmc_switch_mck_to_sclk(CONFIG_SYSCLK_PRES);
 	}
 
 	else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_SLCK_XTAL) {
 		osc_enable(OSC_SLCK_32K_XTAL);
 		osc_wait_ready(OSC_SLCK_32K_XTAL);
+		pmc_mck_set_division(CONFIG_SYSCLK_DIV);
 		pmc_switch_mck_to_sclk(CONFIG_SYSCLK_PRES);
 	}
 
 	else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_SLCK_BYPASS) {
 		osc_enable(OSC_SLCK_32K_BYPASS);
 		osc_wait_ready(OSC_SLCK_32K_BYPASS);
+		pmc_mck_set_division(CONFIG_SYSCLK_DIV);
 		pmc_switch_mck_to_sclk(CONFIG_SYSCLK_PRES);
 	}
 
@@ -198,24 +201,28 @@ void sysclk_init(void)
 	else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_8M_RC) {
 		osc_enable(OSC_MAINCK_8M_RC);
 		osc_wait_ready(OSC_MAINCK_8M_RC);
+		pmc_mck_set_division(CONFIG_SYSCLK_DIV);
 		pmc_switch_mck_to_mainck(CONFIG_SYSCLK_PRES);
 	}
 
 	else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_12M_RC) {
 		osc_enable(OSC_MAINCK_12M_RC);
 		osc_wait_ready(OSC_MAINCK_12M_RC);
+		pmc_mck_set_division(CONFIG_SYSCLK_DIV);
 		pmc_switch_mck_to_mainck(CONFIG_SYSCLK_PRES);
 	}
 
 	else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_XTAL) {
 		osc_enable(OSC_MAINCK_XTAL);
 		osc_wait_ready(OSC_MAINCK_XTAL);
+		pmc_mck_set_division(CONFIG_SYSCLK_DIV);
 		pmc_switch_mck_to_mainck(CONFIG_SYSCLK_PRES);
 	}
 
 	else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_BYPASS) {
 		osc_enable(OSC_MAINCK_BYPASS);
 		osc_wait_ready(OSC_MAINCK_BYPASS);
+		pmc_mck_set_division(CONFIG_SYSCLK_DIV);
 		pmc_switch_mck_to_mainck(CONFIG_SYSCLK_PRES);
 	}
 

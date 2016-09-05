@@ -52,6 +52,8 @@
  *
  * This package can be used with the following setup:
  *  - SAMG53 Xplained Pro kit
+ *  - SAMV71 Xplained Ultra kit
+ *  - SAME70 Xplained kit
  *
  * In addition, another device will be needed to act as the TWI master. The
  * twi_eeprom_example can be used for that, in which case a second kit

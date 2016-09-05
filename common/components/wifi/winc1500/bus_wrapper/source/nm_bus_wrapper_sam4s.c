@@ -4,7 +4,7 @@
  *
  * \brief This module contains NMC1000 bus wrapper APIs implementation.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -156,7 +156,7 @@ sint8 nm_bus_init(void *pvinit)
 	spi_set_clock_phase(CONF_WINC_SPI, CONF_WINC_SPI_NPCS, CONF_WINC_SPI_PHA);
 	spi_set_bits_per_transfer(CONF_WINC_SPI, CONF_WINC_SPI_NPCS, SPI_CSR_BITS_8_BIT);
 	spi_set_baudrate_div(CONF_WINC_SPI, CONF_WINC_SPI_NPCS,
-			(sysclk_get_cpu_hz() / CONF_WINC_SPI_CLOCK));
+			div_ceil(sysclk_get_peripheral_hz(), CONF_WINC_SPI_CLOCK));
 	spi_set_transfer_delay(CONF_WINC_SPI, CONF_WINC_SPI_NPCS, CONF_WINC_SPI_DLYBS,
 			CONF_WINC_SPI_DLYBCT);
 	spi_enable(CONF_WINC_SPI);

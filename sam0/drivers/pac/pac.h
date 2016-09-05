@@ -3,7 +3,7 @@
  *
  * \brief SAM Peripheral Access Controller Driver
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -195,7 +195,7 @@
  *
  * \subsection asfdoc_sam0_pac_code_run_away Run-away Code
  * Run-away code can be caused by the MCU being operated outside its
- * specification, faulty code or EMI issues. If a runaway code occurs, it is
+ * specification, faulty code, or EMI issues. If a runaway code occurs, it is
  * favorable to catch the issue as soon as possible. With a correct
  * implementation of the PAC, the runaway code can potentially be stopped.
  *
@@ -686,7 +686,7 @@ __no_inline enum status_code system_peripheral_unlock(
 		const uint32_t key);
 /** @}  */
 
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || defined(__DOXYGEN__)
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30) || defined(__DOXYGEN__)
 /** \name APIs available for SAM L21/L22/C20/C21.
  * @{
  */
@@ -981,8 +981,8 @@ static inline void system_pac_disable_event(void)
  *	</tr>
  *	<tr>
  *		<td>42107F</td>
- *		<td>08/2015</td>
- *		<td>Added support for SAM L21/L22, SAM C21, and SAM DA1</td>
+ *		<td>12/2015</td>
+ *		<td>Added support for SAM L21/L22, SAM C20/C21, SAM D09, and SAM DA1</td>
  *	</tr>
  *	<tr>
  *		<td>42107E</td>

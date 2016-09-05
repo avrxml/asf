@@ -254,7 +254,7 @@ void per_mode_initiator_ed_end_cb(trx_id_t trx, uint8_t energy_level);
 
 /**
  * \brief Initialize the application in PER Measurement mode as Receptor
- ***\param parameter Pointer to the paramter to be carried, if any.
+ ****\param parameter Pointer to the paramter to be carried, if any.
  */
 void per_mode_receptor_init(trx_id_t trx, void *parameter);
 

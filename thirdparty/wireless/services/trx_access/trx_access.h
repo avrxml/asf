@@ -3,7 +3,7 @@
  *
  * @brief HAL related APIs for externally plugged transceivers
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -65,7 +65,7 @@
 
 #include "compiler.h"
 #include "conf_trx_access.h"
-#if SAMD || SAMR21 || SAML21
+#if SAMD || SAMR21 || SAML21 || SAMR30
 #include "port.h"
 #include "extint.h"
 #else
@@ -109,7 +109,7 @@
 /**
  * Set TRX GPIO pins.
  */
-#if SAMD || SAMR21 || SAML21
+#if SAMD || SAMR21 || SAML21 || SAMR30
 #define RST_HIGH()                      port_pin_set_output_level( \
 		AT86RFX_RST_PIN, true)
 #define RST_LOW()                       port_pin_set_output_level( \

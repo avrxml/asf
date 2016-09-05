@@ -51,7 +51,8 @@
  *
  * \section Requirements
  *
- * This example can be used on SAM4E-EK boards , SAMV71-Xplained-Ultra.
+ * This example can be used on SAM4E-EK boards , SAMV71-Xplained-Ultra ,
+ * SAME70-Xplained.
  *
  * \section Description
  *
@@ -119,13 +120,13 @@ static void configure_console(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
-	#ifdef CONF_UART_CHAR_LENGTH
+#ifdef CONF_UART_CHAR_LENGTH
 		.charlength = CONF_UART_CHAR_LENGTH,
-	#endif
+#endif
 		.paritytype = CONF_UART_PARITY,
-	#ifdef CONF_UART_STOP_BITS
+#ifdef CONF_UART_STOP_BITS
 		.stopbits = CONF_UART_STOP_BITS,
-	#endif
+#endif
 	};
 
 	/* Configure console UART. */
@@ -175,7 +176,7 @@ int main(void)
 	afec_ch_get_config_defaults(&afec_ch_cfg);
 #if (SAMV71 || SAMV70 || SAME70 || SAMS70)
 	afec_ch_cfg.gain = AFEC_GAINVALUE_0;
-#endif 
+#endif
 	afec_ch_set_config(AFEC0, AFEC_TEMPERATURE_SENSOR, &afec_ch_cfg);
 
 #if (SAMV71 || SAMV70 || SAME70 || SAMS70)
@@ -212,7 +213,7 @@ int main(void)
 		if(is_conversion_done == true) {
 
 			ul_vol = g_ul_value * VOLT_REF / MAX_DIGITAL;
-			
+
 #if (SAMV71 || SAMV70 || SAME70 || SAMS70)
 			/*
 			 * According to datasheet, The output voltage VT = 0.72V at 27C
@@ -224,7 +225,7 @@ int main(void)
 			 * According to datasheet, The output voltage VT = 1.44V at 27C
 			 * and the temperature slope dVT/dT = 4.7 mV/C
 			 */
-			ul_temp = (ul_vol - 1440)  * 100 / 470 + 27;		
+			ul_temp = (ul_vol - 1440)  * 100 / 470 + 27;
 #endif
 
 			printf("Temperature is: %4d\r", (int)ul_temp);

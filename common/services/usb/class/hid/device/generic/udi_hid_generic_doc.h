@@ -439,12 +439,12 @@ bool udi_hid_generic_send_report_in(uint8_t *data);
  * \subsection asfdoc_udi_hid_generic_config_examples_2_1 AT32UC3C, ATUCXXD, ATUCXXL3U, ATUCXXL4U Devices (USBC)
  * \include example/at32uc3c0512c_uc3c_ek/conf_clock.h
  *
- * \subsection asfdoc_udi_hid_generic_config_examples_2_2 SAM3X, SAM3A Devices (UOTGHS: USB OTG High Speed)
+ * \subsection asfdoc_udi_hid_generic_config_examples_2_2 SAM3X and SAM3A Devices (UOTGHS: USB OTG High Speed)
  * \include example/sam3x8h_sam3x_ek/conf_clock.h
  *
  * \section asfdoc_udi_hid_generic_config_examples_3 conf_clocks.h
  *
- * \subsection asfdoc_udi_hid_generic_config_examples_3_1 SAMD21 Device (USB)
+ * \subsection asfdoc_udi_hid_generic_config_examples_3_1 SAM D21 Device (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_clocks.h
  *
  * \section asfdoc_udi_hid_generic_config_examples_4 conf_board.h
@@ -452,10 +452,10 @@ bool udi_hid_generic_send_report_in(uint8_t *data);
  * \subsection asfdoc_udi_hid_generic_config_examples_4_1 AT32UC3C, ATUCXXD, ATUCXXL3U, ATUCXXL4U Devices (USBC)
  * \include example/at32uc3c0512c_uc3c_ek/conf_board.h
  *
- * \subsection asfdoc_udi_hid_generic_config_examples_4_2 SAM3X, SAM3A Devices (UOTGHS: USB OTG High Speed)
+ * \subsection asfdoc_udi_hid_generic_config_examples_4_2 SAM3X and SAM3A Devices (UOTGHS: USB OTG High Speed)
  * \include example/sam3x8h_sam3x_ek/conf_board.h
  *
- * \subsection asfdoc_udi_hid_generic_config_examples_4_3 SAMD21 Device (USB)
+ * \subsection asfdoc_udi_hid_generic_config_examples_4_3 SAM D21 Device (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_board.h
  */
 
@@ -464,14 +464,19 @@ bool udi_hid_generic_send_report_in(uint8_t *data);
  *
  * <table>
  * <tr>
- *    <th>Doc. Rev.</td>
- *    <th>Date</td>
- *    <th>Comments</td>
+ *    <th>Doc. Rev.</th>
+ *    <th>Date</th>
+ *    <th>Comments</th>
+ * </tr>
+ * <tr>
+ *    <td>42339B</td>
+ *    <td>12/2015</td>
+ *    <td>Fixed typos</td>
  * </tr>
  * <tr>
  *    <td>42339A</td>
  *    <td>12/2014</td>
- *    <td>Initial release.</td>
+ *    <td>Initial release</td>
  * </tr>
  * </table>
  */

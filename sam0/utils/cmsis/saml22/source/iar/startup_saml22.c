@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -110,7 +110,7 @@ void Dummy_Handler(void);
 #pragma section  = ".intvec"
 #pragma location = ".intvec"
 const DeviceVectors __vector_table[] = {
-        __sfe("CSTACK"),
+        (void*) __sfe("CSTACK"),
         (void*) Reset_Handler,
         (void*) NMI_Handler,
         (void*) HardFault_Handler,
@@ -136,7 +136,7 @@ const DeviceVectors __vector_table[] = {
 #ifdef ID_USB
         (void*) USB_Handler,            /*  5 Universal Serial Bus */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /*  5 Reserved */
 #endif
         (void*) NVMCTRL_Handler,        /*  6 Non-Volatile Memory Controller */
         (void*) DMAC_Handler,           /*  7 Direct Memory Access Controller */
@@ -147,17 +147,17 @@ const DeviceVectors __vector_table[] = {
 #ifdef ID_SERCOM3
         (void*) SERCOM3_Handler,        /* 12 Serial Communication Interface 3 */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 12 Reserved */
 #endif
 #ifdef ID_SERCOM4
         (void*) SERCOM4_Handler,        /* 13 Serial Communication Interface 4 */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 13 Reserved */
 #endif
 #ifdef ID_SERCOM5
         (void*) SERCOM5_Handler,        /* 14 Serial Communication Interface 5 */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 14 Reserved */
 #endif
         (void*) TCC0_Handler,           /* 15 Timer Counter Control */
         (void*) TC0_Handler,            /* 16 Basic Timer Counter 0 */
@@ -169,18 +169,18 @@ const DeviceVectors __vector_table[] = {
 #ifdef ID_PTC
         (void*) PTC_Handler,            /* 22 Peripheral Touch Controller */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 22 Reserved */
 #endif
         (void*) SLCD_Handler,           /* 23 Segment Liquid Crystal Display Controller */
 #ifdef ID_AES
         (void*) AES_Handler,            /* 24 Advanced Encryption Standard */
 #else
-        (void*) (0UL), /* Reserved*/
+        (void*) (0UL),                  /* 24 Reserved */
 #endif
 #ifdef ID_TRNG
         (void*) TRNG_Handler            /* 25 True Random Generator */
 #else
-        (void*) (0UL)  /* Reserved*/
+        (void*) (0UL)                   /* 25 Reserved */
 #endif
 };
 

@@ -532,8 +532,9 @@ void per_mode_initiator_tx_done_cb(retval_t status, frame_info_t *frame)
 		if (status != MAC_SUCCESS) {
 			app_payload_t *msg;
 			uint8_t serial_data_len;
+
 			/* Point to the message : 1 =>size is first byte and
-			 *2=>FCS*/
+			 * 2=>FCS*/
 			msg
 				= (app_payload_t *)(frame->mpdu +
 					LENGTH_FIELD_LEN +
@@ -1064,7 +1065,7 @@ void per_mode_initiator_rx_cb(frame_info_t *mac_frame_info)
 		}
 
 		/*The CW_TX_TIMER is stopped in case it was started for the
-		 *RX_ON Req mode */
+		 * RX_ON Req mode */
 		if (sw_timer_is_running(CW_TX_TIMER)) {
 			sw_timer_stop(CW_TX_TIMER);
 		}
@@ -1176,16 +1177,16 @@ void per_mode_initiator_rx_cb(frame_info_t *mac_frame_info)
 							div_stat_rsp_data
 							.ant_sel) {
 						/*Antenna Diversity Disabled on
-						 *Remote Node and ANT2 is
-						 *selected*/
+						 * Remote Node and ANT2 is
+						 * selected*/
 						ant_div_settings = ANT_CTRL_1;
 					} else if (ENABLE_ANTENNA_2 ==
 							msg->payload.
 							div_stat_rsp_data
 							.ant_sel) {
 						/*Antenna Diversity Disabled on
-						 *Remote Node and ANT2 is
-						 *selected*/
+						 * Remote Node and ANT2 is
+						 * selected*/
 						ant_div_settings = ANT_CTRL_2;
 					} else {
 						ant_div_settings
@@ -1686,8 +1687,8 @@ void per_mode_initiator_ed_end_cb(uint8_t energy_level)
 /*
  * *\brief Function to set the various configuration parameters for PER Test
  *
- *****\param param_type   Type of the parameter to be set
- *****\param param_value  Pointer to the value to be set
+ ******\param param_type   Type of the parameter to be set
+ ******\param param_value  Pointer to the value to be set
  */
 
 void perf_set_req(uint8_t set_param_type, param_value_t *param_value)
@@ -1844,7 +1845,7 @@ void perf_set_req(uint8_t set_param_type, param_value_t *param_value)
 /*
  * *\brief Function to get the various configuration parameters for PER Test
  *
- *****\param param_type Parameter type to be read
+ ******\param param_type Parameter type to be read
  */
 void perf_get_req(uint8_t param_type_data)
 {
@@ -2562,7 +2563,6 @@ void set_default_configuration(void)
  */
 void get_current_configuration(void)
 {
-
 	/* Send the confirmation with the status as SUCCESS */
 	usr_get_current_config_confirm(MAC_SUCCESS, &curr_trx_config_params);
 }
@@ -2729,7 +2729,7 @@ static void config_antenna_diversity_peer_node(uint8_t config_value)
 		break;
 
 		/* Disable Antenna diversity on peer node request & select
-		 *ANT1*/
+		 * ANT1*/
 		case ENABLE_ANTENNA_1:
 		{
 			div_msg.status = ANT_DIV_DISABLE;
@@ -2738,7 +2738,7 @@ static void config_antenna_diversity_peer_node(uint8_t config_value)
 		break;
 
 		/* Disable Antenna diversity on peer node request & select
-		 *ANT2*/
+		 * ANT2*/
 		case ENABLE_ANTENNA_2:
 		{
 			div_msg.status = ANT_DIV_DISABLE;
@@ -4090,6 +4090,7 @@ static bool validate_tx_power(int8_t dbm_value)
 			if (0 == tal_pib.CurrentChannel) {
 				if (dbm_value > MAX_TX_PWR_OQPSK_100) { /*
 						                         *
+						                         *
 						                         *MAX_TX_PWR_OQPSK_100
 						                         **/
 					return (false);
@@ -4110,6 +4111,7 @@ static bool validate_tx_power(int8_t dbm_value)
 			{
 				if (dbm_value > MAX_TX_PWR_CHINA) { /*
 					                             *
+					                             *
 					                             *MAX_TX_PWR_CHINA
 					                             **/
 					return (false);
@@ -4122,6 +4124,7 @@ static bool validate_tx_power(int8_t dbm_value)
 
 		{
 			if (dbm_value > MAX_TX_PWR_CHINA_1000) { /*
+					                          *
 					                          *
 					                          *MAX_TX_PWR_CHINA_1000
 					                          **/
@@ -4137,12 +4140,14 @@ static bool validate_tx_power(int8_t dbm_value)
 			if (0 == tal_pib.CurrentChannel) {
 				if (dbm_value >  MAX_TX_PWR_OQPSK_200) { /*
 						                          *
+						                          *
 						                          *MAX_TX_PWR_OQPSK_200
 						                          **/
 					return (false);
 				}
 			} else { /* channels 1-10 */
 				if (dbm_value > MAX_TX_PWR_OQPSK_500) { /*
+						                         *
 						                         *
 						                         *MAX_TX_PWR_OQPSK_500
 						                         **/
@@ -4157,12 +4162,14 @@ static bool validate_tx_power(int8_t dbm_value)
 			if (0 == tal_pib.CurrentChannel) {
 				if (dbm_value >  MAX_TX_PWR_OQPSK_400) { /*
 						                          *
+						                          *
 						                          *MAX_TX_PWR_OQPSK_400
 						                          **/
 					return (false);
 				}
 			} else { /* channels 1-10 */
 				if (dbm_value > MAX_TX_PWR_OQPSK_1000) { /*
+						                          *
 						                          *
 						                          *MAX_TX_PWR_OQPSK_1000
 						                          **/

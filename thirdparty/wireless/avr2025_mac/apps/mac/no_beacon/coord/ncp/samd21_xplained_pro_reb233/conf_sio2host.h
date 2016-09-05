@@ -42,8 +42,9 @@
 
 #ifndef CONF_SIO2HOST_H_INCLUDED
 #define CONF_SIO2HOST_H_INCLUDED
+
 /** Since MCPS.DATA.indication requires max no of bytes of around 150 bytes than
- *all other primitives,the Maximum Buffer size is kept as 156 bytes */
+ * all other primitives,the Maximum Buffer size is kept as 156 bytes */
  #define SERIAL_RX_BUF_SIZE_HOST    156
 
 #define USART_HOST                 EDBG_CDC_MODULE

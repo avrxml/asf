@@ -225,7 +225,7 @@ int main(void)
 	for (i = 0; i < BUFFER_SIZE; i++) {
 		p_buffer[i] = 1 << (i % MAX_SHIFTING_NUMBER);
 	}
-#if (SAM4E || SAM4C || SAMV71)
+#if (SAM4E || SAM4C || SAME70 || SAMV71)
 	/**
 	 * The EWP command can only be used in 8 KBytes sector for SAM4E,
 	 * so an erase command is requried before write operation.

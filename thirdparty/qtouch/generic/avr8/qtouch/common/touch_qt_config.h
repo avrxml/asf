@@ -13,7 +13,7 @@
  *
  ******************************************************************************/
 
-/* Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
+/* Copyright (c) 2010-2016 Atmel Corporation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -126,10 +126,9 @@
   * Enabling _POWER_OPTIMIZATION_ will lead to a 40% reduction in power consumed
   * by the library, but by disabling spread spectrum feature. When power optimization
   * is enabled the unused pins, within a port used for QTouch, may not be usable for
-  * interrupt driven applications. This option is available only for ATtiny and ATmega
-  * devices.
+  * interrupt driven applications. This option is available only for ATmega devices.
   *
-  * Possible values: 0 or 1 (For ATtiny and ATmega devices)
+  * Possible values: 0 or 1 (For ATmega devices)
   *                  0 (For ATxmega devices)
   */
 

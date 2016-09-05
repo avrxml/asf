@@ -65,8 +65,8 @@ struct usart_module usart_instance;
 //! [slcd_var]
 
 //! [slcd_data]
-/*Charactor map 0-9,A-Z*/
-const uint32_t charactor_map[] = {
+/*Character map 0-9,A-Z*/
+const uint32_t character_map[] = {
 	0x2e74,0x440,0x23c4,0x25c4,0x5e0,0x25a4,0x27a4,0x444,0x27e4,0x25e4, /*0-9*/
 	0x7e4,0xa545,0x2224,0xa445,0x23a4,0x3a4,0x2724, /*A-G*/
 	0x7e0,0xa005,0x2640,0x12b0,0x2220,0x678,0x1668, /*H-N*/
@@ -148,7 +148,7 @@ static void configure_dma_acm(void)
 	dma_get_config_defaults(&acm_config);
 
 	acm_config.peripheral_trigger = SLCD_DMAC_ID_ACMDRDY;
-	acm_config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
+	acm_config.trigger_action = DMA_TRIGGER_ACTION_BEAT;
 
 	dma_allocate(&example_resource_acm, &acm_config);
 
@@ -181,7 +181,7 @@ static void configure_dma_abm(void)
 	struct dma_resource_config abm_config;
 	dma_get_config_defaults(&abm_config);
 	abm_config.peripheral_trigger = SLCD_DMAC_ID_ABMDRDY;
-	abm_config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
+	abm_config.trigger_action = DMA_TRIGGER_ACTION_BEAT;
 
 	dma_allocate(&example_resource_abm, &abm_config);
 
@@ -269,7 +269,7 @@ int main(void)
 	/* 3. Character map*/
 	slcd_character_map_set(SLCD_AUTOMATED_CHAR_START_FROM_BOTTOM_RIGHT,3);
 	for(uint32_t i = 0 ; i < 5 ; i++) {
-		slcd_character_write_data(0,4+i*4,charactor_map[10+i],0xFF4002);
+		slcd_character_write_data(0,4+i*4,character_map[10+i],0xFF4002);
 	}
 	delay_s(2);
 //! [use_cases_3]

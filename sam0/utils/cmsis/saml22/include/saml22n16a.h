@@ -3,7 +3,7 @@
  *
  * \brief Header file for SAML22N16A
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -100,13 +100,6 @@ typedef enum IRQn
   SysTick_IRQn             = -1, /**< 15 Cortex-M0+ System Tick Interrupt       */
   /******  SAML22N16A-specific Interrupt Numbers ***********************/
   SYSTEM_IRQn              =  0, /**<  0 SAML22N16A System Interrupts */
-  MCLK_IRQn                =  0, /**<  0 SAML22N16A Main Clock (MCLK) */
-  OSC32KCTRL_IRQn          =  0, /**<  0 SAML22N16A 32k Oscillators Control (OSC32KCTRL) */
-  OSCCTRL_IRQn             =  0, /**<  0 SAML22N16A Oscillators Control (OSCCTRL) */
-  PAC_IRQn                 =  0, /**<  0 SAML22N16A Peripheral Access Controller (PAC) */
-  PM_IRQn                  =  0, /**<  0 SAML22N16A Power Manager (PM) */
-  SUPC_IRQn                =  0, /**<  0 SAML22N16A Supply Controller (SUPC) */
-  TAL_IRQn                 =  0, /**<  0 SAML22N16A Trigger Allocator (TAL) */
   WDT_IRQn                 =  1, /**<  1 SAML22N16A Watchdog Timer (WDT) */
   RTC_IRQn                 =  2, /**<  2 SAML22N16A Real-Time Counter (RTC) */
   EIC_IRQn                 =  3, /**<  3 SAML22N16A External Interrupt Controller (EIC) */
@@ -145,16 +138,16 @@ typedef struct _DeviceVectors
   void* pfnReset_Handler;
   void* pfnNMI_Handler;
   void* pfnHardFault_Handler;
-  void* pfnReservedM12;
-  void* pfnReservedM11;
-  void* pfnReservedM10;
-  void* pfnReservedM9;
-  void* pfnReservedM8;
-  void* pfnReservedM7;
-  void* pfnReservedM6;
+  void* pvReservedM12;
+  void* pvReservedM11;
+  void* pvReservedM10;
+  void* pvReservedM9;
+  void* pvReservedM8;
+  void* pvReservedM7;
+  void* pvReservedM6;
   void* pfnSVC_Handler;
-  void* pfnReservedM4;
-  void* pfnReservedM3;
+  void* pvReservedM4;
+  void* pvReservedM3;
   void* pfnPendSV_Handler;
   void* pfnSysTick_Handler;
 
@@ -377,7 +370,7 @@ void TRNG_Handler                ( void );
 #define ID_TRNG          81 /**< \brief True Random Generator (TRNG) */
 #define ID_CCL           82 /**< \brief Configurable Custom Logic (CCL) */
 
-#define ID_PERIPH_COUNT  83 /**< \brief Number of peripheral IDs */
+#define ID_PERIPH_COUNT  83 /**< \brief Max number of peripheral IDs */
 /*@}*/
 
 /* ************************************************************************** */
@@ -516,6 +509,8 @@ void TRNG_Handler                ( void );
 #define PORT_IOBUS        ((Port     *)0x60000000UL) /**< \brief (PORT) IOBUS Base Address */
 #define PORT_INST_NUM     1                          /**< \brief (PORT) Number of instances */
 #define PORT_INSTS        { PORT }                   /**< \brief (PORT) Instances List */
+#define PORT_IOBUS_INST_NUM 1                          /**< \brief (PORT) Number of instances */
+#define PORT_IOBUS_INSTS  { PORT_IOBUS }             /**< \brief (PORT) Instances List */
 
 #define PTC_GCLK_ID       27
 #define PTC_INST_NUM      1                          /**< \brief (PTC) Number of instances */
@@ -603,7 +598,7 @@ void TRNG_Handler                ( void );
 #define HPB2_ADDR             (0x42000000u) /**< HPB2 base address */
 #define PPB_ADDR              (0xE0000000u) /**< PPB base address */
 
-#define DSU_DID_RESETVALUE    0x10820002UL
+#define DSU_DID_RESETVALUE    0x10820002U
 #define NVMCTRL_RWW_EEPROM_SIZE 0x800UL /* 2 kB */
 #define PORT_GROUPS           3
 

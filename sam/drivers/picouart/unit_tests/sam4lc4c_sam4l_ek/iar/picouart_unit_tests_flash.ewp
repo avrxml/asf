@@ -301,12 +301,13 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
-					<state>$PROJ_DIR$/../../../../../../common/boards</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../ast/example1</state>
+					<state>$PROJ_DIR$/../../../../ast/example2</state>
 					<state>$PROJ_DIR$/../../../../ast</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
@@ -321,6 +322,7 @@
 					<state>$PROJ_DIR$/../../../../usart</state>
 					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../flashcalw</state>
+					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../bpm</state>
 					<state>$PROJ_DIR$/.</state>
@@ -574,12 +576,13 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
-					<state>$PROJ_DIR$/../../../../../../common/boards</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../ast/example1</state>
+					<state>$PROJ_DIR$/../../../../ast/example2</state>
 					<state>$PROJ_DIR$/../../../../ast</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
@@ -594,6 +597,7 @@
 					<state>$PROJ_DIR$/../../../../usart</state>
 					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../flashcalw</state>
+					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../bpm</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1272,12 +1276,13 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
-					<state>$PROJ_DIR$/../../../../../../common/boards</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../ast/example1</state>
+					<state>$PROJ_DIR$/../../../../ast/example2</state>
 					<state>$PROJ_DIR$/../../../../ast</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
@@ -1292,6 +1297,7 @@
 					<state>$PROJ_DIR$/../../../../usart</state>
 					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../flashcalw</state>
+					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../bpm</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1545,12 +1551,13 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
-					<state>$PROJ_DIR$/../../../../../../common/boards</state>
+					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/include</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4l/source/templates</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/serial</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../ast/example1</state>
+					<state>$PROJ_DIR$/../../../../ast/example2</state>
 					<state>$PROJ_DIR$/../../../../ast</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
@@ -1565,6 +1572,7 @@
 					<state>$PROJ_DIR$/../../../../usart</state>
 					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../flashcalw</state>
+					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/ioport</state>
 					<state>$PROJ_DIR$/../../../../bpm</state>
 					<state>$PROJ_DIR$/.</state>

@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for FreeRTOS TWI Interface Layer.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -179,7 +179,7 @@ static void create_twi_task(Twi *twi_base, uint16_t stack_depth_words,
 	0,												/* There is no Rx buffer, so the rx buffer size is not used. */
 	configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY,	/* The priority used by the TWI interrupts. */
 	TWI_I2C_MASTER,									/* Communicating with the EEPROM requires the TWI to be configured as an I2C master. */
-	(USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE | WAIT_RX_COMPLETE)	/* The blocking driver is to be used, so WAIT_TX_COMPLETE and WAIT_RX_COMPLETE are set. */
+	(USE_TX_ACCESS_SEM | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE | WAIT_RX_COMPLETE)	/* The blocking driver is to be used, so WAIT_TX_COMPLETE and WAIT_RX_COMPLETE are set. */
 };
 
 	/* Initialize the FreeRTOS driver for blocking operation.  The

@@ -48,10 +48,10 @@
  *
  *
  * \page appdoc_preface Overview
- * This unit test carries out tests for the I2S driver.
+ * This unit test carries out tests for the I<SUP>2</SUP>S driver.
  * It consists of test cases for the following functionalities:
- *  - Test for polled mode transmit/receive of I2S.
- *  - Test for callback mode transmit/receive of I2S.
+ *  - Test for polled mode transmit/receive of I<SUP>2</SUP>S.
+ *  - Test for callback mode transmit/receive of I<SUP>2</SUP>S.
  */
 
 /**
@@ -67,7 +67,7 @@
  * \section appdoc_sam0_i2s_unit_test_intro Introduction
  * \copydetails appdoc_preface
  *
- * Tests will be performed for data transmitting and receiving of I2S.
+ * Tests will be performed for data transmitting and receiving of I<SUP>2</SUP>S.
  *
  * The following kit is required for carrying out the test:
  *  - SAM D21 Xplained Pro board
@@ -124,7 +124,7 @@ uint16_t test_rx_data[TEST_SIZE] = {0, 0, 0, 0};
 /* Structure for UART module connected to EDBG (used for unit test output) */
 struct usart_module cdc_uart_module;
 
-/* Structure instance for I2S module */
+/* Structure instance for I<SUP>2</SUP>S module */
 struct i2s_module i2s_instance;
 
 /* Flags for TX/RX */
@@ -155,7 +155,7 @@ static void cdc_uart_init(void)
 
 /**
  * \internal
- * \brief I2S data TX callback
+ * \brief I<SUP>2</SUP>S data TX callback
  */
 static void i2s_callback_tx(struct i2s_module *const module_inst)
 {
@@ -164,7 +164,7 @@ static void i2s_callback_tx(struct i2s_module *const module_inst)
 
 /**
  * \internal
- * \brief I2S data RX callback
+ * \brief I<SUP>2</SUP>S data RX callback
  */
 static void i2s_callback_rx(struct i2s_module *const module_inst)
 {
@@ -172,12 +172,12 @@ static void i2s_callback_rx(struct i2s_module *const module_inst)
 }
 
 /**
- * \brief Initialize the I2S module Clock Unit and Serializer
+ * \brief Initialize the I<SUP>2</SUP>S module Clock Unit and Serializer
  *
- * Reset I2S module.
+ * Reset I<SUP>2</SUP>S module.
  * Initialize Clock Unit 0 and Serializer 0 for TX.
  * Initialize Serializer 1 for RX.
- * Data format is I2S compatible 16 bit stream.
+ * Data format is I<SUP>2</SUP>S compatible 16 bit stream.
  */
 static void setup_i2s(void)
 {
@@ -266,7 +266,7 @@ static void setup_i2s(void)
  * \internal
  * \brief Setup function for polled mode test.
  *
- * This function sets up the I2S module.
+ * This function sets up the I<SUP>2</SUP>S module.
  *
  * \param test Current test case.
  */
@@ -279,7 +279,7 @@ static void setup_i2s_polled_mode_test(const struct test_case *test)
  * \internal
  * \brief Cleanup function for polled mode test.
  *
- * This function disables the I2S module.
+ * This function disables the I<SUP>2</SUP>S module.
  *
  * \param test Current test case.
  */
@@ -290,7 +290,7 @@ static void cleanup_i2s_polled_mode_test(const struct test_case *test)
 
 /**
  * \internal
- * \brief Test for I2S TX/RX by polling.
+ * \brief Test for I<SUP>2</SUP>S TX/RX by polling.
  *
  * Send several words by polling and receive them.
  * \note In polling mode, the first received word may not be the first one sent
@@ -330,7 +330,7 @@ static void run_i2s_polled_mode_test(const struct test_case *test)
  * \internal
  * \brief Setup function for callback mode test.
  *
- * This function sets up the I2S & the callback function.
+ * This function sets up the I<SUP>2</SUP>S & the callback function.
  *
  * \param test Current test case.
  */
@@ -352,7 +352,7 @@ static void setup_i2s_callback_mode_test(const struct test_case *test)
  * \internal
  * \brief Cleanup function for callback mode test.
  *
- * This function disables the callback & I2S module.
+ * This function disables the callback & I<SUP>2</SUP>S module.
  *
  * \param test Current test case.
  */
@@ -371,7 +371,7 @@ static void cleanup_i2s_callback_mode_test(const struct test_case *test)
 
 /**
  * \internal
- * \brief Test for I2S TX/RX using callback.
+ * \brief Test for I<SUP>2</SUP>S TX/RX using callback.
  *
  * \param test Current test case.
  */
@@ -400,10 +400,10 @@ static void run_i2s_callback_mode_test(const struct test_case *test)
 }
 
 /**
- * \brief Run I2S unit tests
+ * \brief Run I<SUP>2</SUP>S unit tests
  *
  * Initializes the system and serial output, then sets up the
- * I2S unit test suite and runs it.
+ * I<SUP>2</SUP>S unit test suite and runs it.
  */
 int main(void)
 {

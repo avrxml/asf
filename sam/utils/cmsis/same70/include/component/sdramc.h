@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -105,9 +105,9 @@ typedef struct {
 #define SDRAMC_CR_CAS_Pos 5
 #define SDRAMC_CR_CAS_Msk (0x3u << SDRAMC_CR_CAS_Pos) /**< \brief (SDRAMC_CR) CAS Latency */
 #define SDRAMC_CR_CAS(value) ((SDRAMC_CR_CAS_Msk & ((value) << SDRAMC_CR_CAS_Pos)))
-#define   SDRAMC_CR_CAS_LATENCY1 (0x0u << 5) /**< \brief (SDRAMC_CR) 1 cycle CAS latency */
-#define   SDRAMC_CR_CAS_LATENCY2 (0x1u << 5) /**< \brief (SDRAMC_CR) 2 cycle CAS latency */
-#define   SDRAMC_CR_CAS_LATENCY3 (0x2u << 5) /**< \brief (SDRAMC_CR) 3 cycle CAS latency */
+#define   SDRAMC_CR_CAS_LATENCY1 (0x1u << 5) /**< \brief (SDRAMC_CR) 1 cycle CAS latency */
+#define   SDRAMC_CR_CAS_LATENCY2 (0x2u << 5) /**< \brief (SDRAMC_CR) 2 cycle CAS latency */
+#define   SDRAMC_CR_CAS_LATENCY3 (0x3u << 5) /**< \brief (SDRAMC_CR) 3 cycle CAS latency */
 #define SDRAMC_CR_DBW (0x1u << 7) /**< \brief (SDRAMC_CR) Data Bus Width */
 #define SDRAMC_CR_TWR_Pos 8
 #define SDRAMC_CR_TWR_Msk (0xfu << SDRAMC_CR_TWR_Pos) /**< \brief (SDRAMC_CR) Write Recovery Delay */

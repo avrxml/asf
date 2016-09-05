@@ -129,7 +129,7 @@ void tal_ed_end_cb(trx_id_t trx_id, uint8_t energy_level);
  *
  * @return
  *      - @ref MAC_UNSUPPORTED_ATTRIBUTE if the TAL infobase attribute is not
- *found
+ * found
  *      - @ref MAC_SUCCESS otherwise
  * @ingroup apiTalApi
  */
@@ -148,6 +148,30 @@ retval_t tal_pib_get(trx_id_t trx_id, uint8_t attribute, uint8_t *value);
  *
  * @return
  *      - @ref MAC_UNSUPPORTED_ATTRIBUTE if the TAL info base attribute is not
+ * found
+ *      - @ref TAL_BUSY if the TAL is not in TAL_IDLE state. An exception is
+ *         macBeaconTxTime which can be accepted by TAL even if TAL is not
+ *         in TAL_IDLE state.
+ *      - @ref MAC_SUCCESS if the attempt to set the PIB attribute was
+ * successful
+ *      - @ref TAL_TRX_ASLEEP if trx is in SLEEP mode and access to trx is
+ * required
+ * @ingroup apiTalApi
+ */
+retval_t tal_pib_set(trx_id_t trx_id, uint8_t attribute, pib_value_t *value);
+
+/**
+ * @brief Sets a TAL PIB attribute for all existing trx Ids for this device
+ *
+ * This function is called to set the transceiver information base
+ * attributes for all transceivers on this device. This function simply calls
+ * function tal_pib_set() for all existing trx Ids.
+ *
+ * @param attribute TAL infobase attribute ID
+ * @param value TAL infobase attribute value to be set
+ *
+ * @return
+ *      - @ref MAC_UNSUPPORTED_ATTRIBUTE if the TAL info base attribute is not
  *found
  *      - @ref TAL_BUSY if the TAL is not in TAL_IDLE state. An exception is
  *         macBeaconTxTime which can be accepted by TAL even if TAL is not
@@ -158,7 +182,7 @@ retval_t tal_pib_get(trx_id_t trx_id, uint8_t attribute, uint8_t *value);
  *required
  * @ingroup apiTalApi
  */
-retval_t tal_pib_set(trx_id_t trx_id, uint8_t attribute, pib_value_t *value);
+retval_t tal_pib_set_all(uint8_t attribute, pib_value_t *value);
 
 /**
  * @brief Switches receiver on or off
@@ -170,7 +194,7 @@ retval_t tal_pib_set(trx_id_t trx_id, uint8_t attribute, pib_value_t *value);
  *
  * @return
  *      - @ref TAL_BUSY if the TAL state machine cannot switch receiver on or
- *off,
+ * off,
  *      - @ref PHY_TRX_OFF if receiver has been switched off, or
  *      - @ref PHY_RX_ON otherwise.
  * @ingroup apiTalApi
@@ -212,7 +236,7 @@ void rtb_rx_frame_cb(trx_id_t trx_id, frame_info_t *rx_frame);
  *                 to frame array to be transmitted
  * @param csma_mode Indicates mode of csma-ca to be performed for this frame
  * @param perform_frame_retry Indicates whether to retries are to be performed
- *for
+ * for
  *                            this frame
  *
  * @return

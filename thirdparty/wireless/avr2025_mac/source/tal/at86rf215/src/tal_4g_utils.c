@@ -207,18 +207,18 @@
 #define OQPSK_CH_SPAC_TABLE_COL_SIZE 2
 #define OQPSK_CH_SPAC_TABLE_DATA_TYPE  uint32_t
 
-/* FSK data rate divided by 10 */
-#define FSK_DATA_RATE_TABLE \
+/* FSK symbol rate divided by 10 */
+#define FSK_SYM_RATE_TABLE \
 	{ \
-		5, /* FSK_DATA_RATE_50 */ \
-		10, /* FSK_DATA_RATE_100 */ \
-		15, /* FSK_DATA_RATE_150 */ \
-		20, /* FSK_DATA_RATE_200 */ \
-		30, /* FSK_DATA_RATE_300 */ \
-		40 /* FSK_DATA_RATE_400 */ \
+		5, /* FSK_SYM_RATE_50 */ \
+		10, /* FSK_SYM_RATE_100 */ \
+		15, /* FSK_SYM_RATE_150 */ \
+		20, /* FSK_SYM_RATE_200 */ \
+		30, /* FSK_SYM_RATE_300 */ \
+		40 /* FSK_SYM_RATE_400 */ \
 	}
-#define FSK_DATA_RATE_TABLE_SIZE        6
-#define FSK_DATA_RATE_TABLE_DATA_TYPE   uint8_t
+#define FSK_SYM_RATE_TABLE_SIZE        6
+#define FSK_SYM_RATE_TABLE_DATA_TYPE   uint8_t
 
 /* Rate dependent ACK processing delay */
 #define FSK_PROCESSING_DELAY_ACK_TIMING	\
@@ -502,10 +502,9 @@ FLASH_DECLARE(uint32_t fsk_max_ch_map[FSK_TOTAL_CHANNELS_MAP_ROW_SIZE][
 
 FLASH_DECLARE(uint32_t fsk_ch_spacing_table[]) = { CH_SPAC_FSK_TABLE };
 
-FLASH_DECLARE(FSK_DATA_RATE_TABLE_DATA_TYPE fsk_data_rate_table[
-			FSK_DATA_RATE_TABLE_SIZE])
-	= FSK_DATA_RATE_TABLE;
-
+FLASH_DECLARE(FSK_SYM_RATE_TABLE_DATA_TYPE fsk_sym_rate_table[
+			FSK_SYM_RATE_TABLE_SIZE])
+	= FSK_SYM_RATE_TABLE;
 FLASH_DECLARE(FSK_CCA_THRES_DATA_TYPE fsk_cca_thres_table[
 			FSK_CCA_THRES_TABLE_SIZE])
 	= FSK_CCA_THRES_TABLE;
@@ -655,7 +654,7 @@ int8_t get_cca_thres(trx_id_t trx_id)
 		thres
 			= (int8_t)PGM_READ_BYTE(&fsk_cca_thres_table[tal_pib[
 					trx_id
-				].phy.phy_mode.fsk.data_rate]);
+				].phy.phy_mode.fsk.sym_rate]);
 		if (tal_pib[trx_id].FSKFECEnabled) {
 			thres -= FK_CCA_THRES_FEC_OFFSET;
 		}
@@ -668,9 +667,7 @@ int8_t get_cca_thres(trx_id_t trx_id)
 		thres
 			= (int8_t)PGM_READ_BYTE(&ofdm_cca_thres[tal_pib[trx_id].
 				OFDMMCS] \
-				[tal_pib[trx_id].phy.phy_mode.ofdm.option ]);           /* option
-		                                                                         * -
-		                                                                         * 1 */
+				[tal_pib[trx_id].phy.phy_mode.ofdm.option ]);
 		break;
 
 #endif
@@ -808,7 +805,7 @@ uint16_t get_AckTiming_us(trx_id_t trx_id)
 		ack
 			-= (uint8_t)PGM_READ_BYTE(&fsk_processing_delay_ack_timing[
 					tal_pib
-					[trx_id].phy.phy_mode.fsk.data_rate]);
+					[trx_id].phy.phy_mode.fsk.sym_rate]);
 		break;
 
 #endif
@@ -1029,7 +1026,7 @@ static uint16_t oqpsk_ack_psdu_duration_sym(trx_id_t trx_id)
  * @return Chip rate
  */
 #ifdef SUPPORT_OQPSK
-static uint16_t oqpsk_get_chip_rate(trx_id_t trx_id)
+uint16_t oqpsk_get_chip_rate(trx_id_t trx_id)
 {
 	uint16_t rate = 10 *
 			(uint16_t)PGM_READ_BYTE(&oqpsk_chip_rate_table[tal_pib[
@@ -1095,9 +1092,9 @@ float get_data_rate(trx_id_t trx_id)
 #ifdef SUPPORT_FSK
 	case FSK:
 		rate = 10 *
-				(uint8_t)PGM_READ_BYTE(&fsk_data_rate_table[
+				(uint8_t)PGM_READ_BYTE(&fsk_sym_rate_table[
 					tal_pib[trx_id
-					].phy.phy_mode.fsk.data_rate]);
+					].phy.phy_mode.fsk.sym_rate]);
 		if (tal_pib[trx_id].phy.phy_mode.fsk.mod_type == F4FSK) {
 			rate *= 2;
 		}
@@ -1114,9 +1111,7 @@ float get_data_rate(trx_id_t trx_id)
 			= (uint16_t)PGM_READ_WORD(&ofdm_data_rate_table[tal_pib[
 					trx_id
 				].OFDMMCS] \
-				[tal_pib[trx_id].phy.phy_mode.ofdm.option]);            /* optoin
-		                                                                         * -
-		                                                                         * 1 */
+				[tal_pib[trx_id].phy.phy_mode.ofdm.option]);
 		break;
 
 #endif
@@ -1284,11 +1279,13 @@ retval_t get_supported_channels_tuple(trx_id_t trx_id, uint32_t *value)
 			switch (tal_pib[trx_id].phy.freq_band) {
 			case CHINA_470:
 			case CHINA_780:
-				/* *value = (uint32_t)(0 | ((uint32_t)7 << 16)); */
+				/* *value = (uint32_t)(0 | ((uint32_t)7 << 16));
+				 **/
 				*(uint32_t *)value = 0x0000000F;
 				break;
 
 			case US_915:
+
 				/* *value = (uint32_t)(1 | ((uint32_t)10 <<
 				 * 16)); */
 				*(uint32_t *)value = 0x000007FE;
@@ -1299,7 +1296,7 @@ retval_t get_supported_channels_tuple(trx_id_t trx_id, uint32_t *value)
 				break;
 			}
 		} else { /* RF24 */
-			/* *value = (uint32_t)(11 | ((uint32_t)26 << 16)); */
+			 /* *value = (uint32_t)(11 | ((uint32_t)26 << 16)); */
 			*(uint32_t *)value = 0x07FFF800;
 		}
 		break;

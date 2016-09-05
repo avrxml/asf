@@ -66,7 +66,7 @@
 /*======================Globals===============================================*/
 
 /*This flag is used for packet streaming mode to check if the gap time is
- *acheived*/
+ * acheived*/
 extern bool rdy_to_tx;
 
 /* This flag is set as true when peer device found */
@@ -84,8 +84,9 @@ extern bool cw_ack_sent, remote_cw_start, remote_pulse_cw_start;
 extern uint8_t cw_start_mode;
 extern uint16_t cw_tmr_val;
 extern bool pulse_mode;
+
 /*Gap between consecutive frames in Packet Streaming Mode,This value is set by
- *the user from Performance Analyzer*/
+ * the user from Performance Analyzer*/
 extern uint32_t pkt_stream_gap_time;
 extern bool rx_on_mode;
 
@@ -93,7 +94,7 @@ extern bool rx_on_mode;
 extern frame_info_t *stream_pkt;
 
 /*If test request to the remote node is failed this falg is used to send a
- *failure confiramtion back to the UI*/
+ * failure confiramtion back to the UI*/
 extern bool remote_serial_tx_failure;
 
 /*========================Prototypes========================================= */
@@ -134,7 +135,7 @@ void initiate_range_test(void);
  * \param scan_duration parameter which is used to calculate the scan time
  *        on each channel
  * \param channel_sel_mask  Selected channel mask for which the Energy should be
- *detected
+ * detected
  */
 void start_ed_scan(uint8_t scan_duration, uint32_t channel_sel_mask);
 
@@ -197,14 +198,14 @@ void pulse_cw_transmission(void);
  * \brief Start CW transmission on current channel page
  * \param tx_mode  Continuous transmission mode
  * \param tmr_val  This parameter is used by the receptor node to stop the CW
- *transmission
+ * transmission
  */
 void start_cw_transmission(uint8_t tx_mode, uint16_t tmr_val);
 
 /**
  * \brief Stop CW transmission on current channel page
  * \param parameter Pointer to the variable which defines the Continuous
- *transmission mode
+ * transmission mode
  */
 void stop_cw_transmission(void *parameter);
 
@@ -287,11 +288,11 @@ void led_blinker_timer_handler_cb(void *parameter);
 /**
  * \brief This function is called to initiate the RX_ON test
  * The transceiver is put into the RX_ON mode and no requests are handled until
- *this mode is stopped.
+ * this mode is stopped.
  * On the receptor ,the mode is stopped only on reception of the RX_ON_STOP
- *command which is sent without ack_req
+ * command which is sent without ack_req
  * \param start_stop_param Indicates whether the request is to Start or Stop the
- *mode
+ * mode
  */
 void rx_on_test(bool start_stop_param);
 
@@ -352,7 +353,7 @@ void usr_range_test_start_confirm(uint8_t status);
 
 /**
  * The Received Remote Reply Command is converted into Serial Data and sent to
- *the Host interface
+ * the Host interface
  */
 void convert_ota_serial_frame_tx(uint8_t *buf, uint8_t len);
 
@@ -615,10 +616,10 @@ void usr_get_current_config_confirm(uint8_t status,
  * sent to
  * host application via serial interface.
  * Called by Performance application as Indication before starting/stopping the
- *packet stream
+ * packet stream
  * \param status                Confirmation to the packet stream request
  * \param start_stop            Parameter to indicate whether Packet streaming
- *is started or stopped
+ * is started or stopped
  *
  * \return void
  */
@@ -630,10 +631,10 @@ void usr_pkt_stream_confirm(uint8_t status, bool start_stop);
  * sent to
  * host application via serial interface.
  * Called by Performance application as Indication before starting/stopping the
- *rx_on mode
+ * rx_on mode
  * \param status                Confirmation to the rx_on_req request
  * \param start_stop            Parameter to indicate whether rx_on test is
- *started or stopped
+ * started or stopped
  *
  * \return void
  */

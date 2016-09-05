@@ -61,6 +61,8 @@
  * All SAM devices can be used.
  * This example has been tested with the following setup:
  * - SAM D21 Xplained Pro
+ * - SAM L21 Xplained Pro
+ * - SAM 4S Xplained Pro
  *
  * \section asfdoc_common_adp_example_setup Setup
  * To run the test:
@@ -141,7 +143,7 @@ static void adp_example_init(void)
 */
 static void executive_command(uint8_t* receive_buf)
 {
-	struct adp_msg_packet_data *receive_buf_s = receive_buf;
+	struct adp_msg_packet_data *receive_buf_s = (struct adp_msg_packet_data *)receive_buf;
 	
 	switch(receive_buf_s->stream_id) {
 		case STREAM_ID_LED_TOGGLE:

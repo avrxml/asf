@@ -2072,12 +2072,12 @@
 							</file>
 						</group>
 						<file>
+							<name>$PROJ_DIR$/../FreeRTOSConfig.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../conf_clock.h</name>
 						</file>
 					</group>
-					<file>
-						<name>$PROJ_DIR$/../../FreeRTOSConfig.h</name>
-					</file>
 				</group>
 			</group>
 		</group>

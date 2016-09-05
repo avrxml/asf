@@ -73,7 +73,7 @@ static void config_dma_for_tcc_ramp2a(void)
 	dma_get_config_defaults(&config);
 
 	/* select beat transfer */
-	config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
+	config.trigger_action = DMA_TRIGGER_ACTION_BEAT;
 
 	config.peripheral_trigger = TCC0_DMAC_ID_MC_0;
 

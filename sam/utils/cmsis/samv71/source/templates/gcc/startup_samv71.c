@@ -44,6 +44,10 @@
 
 #include "samv71.h"
 
+#if __FPU_USED /* CMSIS defined value to indicate usage of FPU */
+#include "fpu.h"
+#endif
+
 /* Initialize segments */
 extern uint32_t _sfixed;
 extern uint32_t _efixed;
@@ -317,6 +321,10 @@ void Reset_Handler(void)
         /* Set the vector table base address */
         pSrc = (uint32_t *) & _sfixed;
         SCB->VTOR = ((uint32_t) pSrc & SCB_VTOR_TBLOFF_Msk);
+
+#if __FPU_USED
+	fpu_enable();
+#endif
 
         /* Initialize the C library */
         __libc_init_array();

@@ -63,6 +63,8 @@
 # include "megarf_usart/usart_serial.h"
 #elif UC3
 # include "uc3_usart/usart_serial.h"
+#elif (SAMB)
+#include "samb_uart/uart_serial.h"
 #elif (SAM0)
 #include "sam0_usart/usart_serial.h"
 #elif SAM

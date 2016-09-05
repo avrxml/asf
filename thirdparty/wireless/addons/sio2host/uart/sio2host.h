@@ -3,7 +3,7 @@
  *
  * \brief Event handling Serial I/O  Functionalities
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -103,7 +103,7 @@ void sio2host_putchar(uint8_t);
  */
 int sio2host_getchar_nowait(void);
 
-#if SAMD || SAMR21 || SAML21
+#if SAMD || SAMR21 || SAML21 || SAMR30
 void USART_HOST_ISR_VECT(uint8_t instance);
 
 #endif

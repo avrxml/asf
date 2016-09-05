@@ -6,7 +6,7 @@
  *
  * This file defines configuration for the MACB interface on AVR32 devices.
  *
- * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -68,7 +68,7 @@ to use an MII interface. */
 #define ETHERNET_CONF_TX_BUFFER_SIZE       512
 
 /*! Clock definition */
-#define ETHERNET_CONF_SYSTEM_CLOCK         48000000
+#define ETHERNET_CONF_SYSTEM_CLOCK         60000000
 
 /*! this MAC address is an Atmel Corporation example */
 //! @{

@@ -109,11 +109,11 @@
 /* === PROTOTYPES =========================================================== */
 
 #ifdef ENABLE_FTN_PLL_CALIBRATION
-static void ftn_timer_cb(void *parameter);
+static void ftn_timer_cb(void *cb_timer_element);
 static void postpone_tuning(trx_id_t trx_id);
 
 #endif
-#ifdef RF215V1
+#ifdef RF215v1
 static inline uint8_t get_median(int *temp_array, uint8_t len_of_array);
 static inline int compare_uin32_t(const void *f1, const void *f2);
 
@@ -130,13 +130,11 @@ static inline int compare_uin32_t(const void *f1, const void *f2);
  */
 void start_ftn_timer(trx_id_t trx_id)
 {
-	uint8_t timer_id;
-
 	/* Handle PLL calibration and filter tuning. */
 	retval_t timer_status;
 
 	/* Calibration timer has already been stopped within this function. */
-
+	uint8_t timer_id;
 	if (trx_id == RF09) {
 		timer_id = TAL_T_CALIBRATION_0;
 	} else {
@@ -144,9 +142,11 @@ void start_ftn_timer(trx_id_t trx_id)
 	}
 
 	/* Start periodic calibration timer. */
-	timer_status = pal_timer_start(timer_id, TAL_CALIBRATION_TIMEOUT_US,
-			TIMEOUT_RELATIVE, (FUNC_PTR())ftn_timer_cb,
-			(void *)&timer_cb_parameter[trx_id]);
+	timer_status = pal_timer_start(timer_id,
+			TAL_CALIBRATION_TIMEOUT_US,
+			TIMEOUT_RELATIVE,
+			(FUNC_PTR())ftn_timer_cb,
+			(void *)trx_id);
 
 	if (timer_status != MAC_SUCCESS) {
 		Assert("PLL calibration timer start problem" == 0);
@@ -185,30 +185,45 @@ void stop_ftn_timer(trx_id_t trx_id)
  * This function executes the filter tuning and restarts its timer again.
  * @param parameter Pointer to trx_id
  */
-static void ftn_timer_cb(void *parameter)
+static void ftn_timer_cb(void *cb_timer_element)
 {
-	trx_id_t trx_id = *(trx_id_t *)parameter;
+	/* Immediately store trx id from callback. */
+	trx_id_t trx_id = (trx_id_t)cb_timer_element;
+	Assert((trx_id >= 0) && (trx_id < NUM_TRX));
 
-	if (tal_state[trx_id] == TAL_IDLE) {
+	if ((tal_state[trx_id] == TAL_IDLE) &&
+			(ack_transmitting[trx_id] == false)) {
 		if (trx_state[trx_id] == RF_RX) {
 			uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 
 			/* Check if current a frame is received */
 #ifdef IQ_RADIO
-			if (pal_dev_bit_read(RF215_RF, reg_offset +
+			if (trx_bit_read(RF215_RF, reg_offset +
 					SR_RF09_AGCC_FRZS) == 1)
 #else
 			if (trx_bit_read(reg_offset + SR_RF09_AGCC_FRZS) == 1)
 #endif
 			{
 				postpone_tuning(trx_id);
+
+				/*
+				 * The timer start is postponed due to ongoing
+				 *transaction.
+				 * No further processing required here.
+				 */
+				return;
 			} else {
-#ifdef RF215V1
+#ifdef RF215_v1
 				calibrate_LO(trx_id);
+#else
+				trx_reg_write( reg_offset + RG_RF09_CMD,
+						RF_TRXOFF);
+				trx_state[trx_id] = RF_TRXOFF;
 #endif
 				switch_to_rx(trx_id);
 			}
 		} else {
+			unexpected Trx state
 		}
 
 		start_ftn_timer(trx_id); /* Restart timer again */
@@ -229,7 +244,6 @@ static void ftn_timer_cb(void *parameter)
 static void postpone_tuning(trx_id_t trx_id)
 {
 	uint8_t timer_id;
-
 	if (trx_id == RF09) {
 		timer_id = TAL_T_CALIBRATION_0;
 	} else {
@@ -237,13 +251,16 @@ static void postpone_tuning(trx_id_t trx_id)
 	}
 
 	/* Postpone filter tuning, since TAL is busy */
-	pal_timer_start(timer_id, POSTPONE_PERIOD, TIMEOUT_RELATIVE,
-			(FUNC_PTR())ftn_timer_cb, NULL);
+	pal_timer_start(timer_id,
+			POSTPONE_PERIOD,
+			TIMEOUT_RELATIVE,
+			(FUNC_PTR())ftn_timer_cb,
+			(void *)trx_id);
 }
 
 #endif  /* ENABLE_FTN_PLL_CALIBRATION */
 
-#ifdef RF215V1
+#ifdef RF215v1
 
 /**
  * @brief Calibrate the LO value; workaround for errata reference #4807
@@ -260,34 +277,31 @@ void calibrate_LO(trx_id_t trx_id)
 
 	if (trx_state[trx_id] != RF_TRXOFF) {
 #ifdef IQ_RADIO
-		pal_dev_reg_write(RF215_RF, reg_offset + RG_RF09_CMD,
-				RF_TRXOFF);
+		trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_TRXOFF);
 #else
-		trx_reg_write(reg_offset + RG_RF09_CMD, RF_TRXOFF);
+		trx_reg_write( reg_offset + RG_RF09_CMD, RF_TRXOFF);
 #endif
 		trx_state[trx_id] = RF_TRXOFF;
 	}
 
 	for (uint8_t i = 0; i < TRIM_LOOPS; i++) {
 #ifdef IQ_RADIO
-		pal_dev_reg_write(RF215_RF, reg_offset + RG_RF09_CMD,
-				RF_TXPREP);
+		trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_TXPREP);
 #else
-		trx_reg_write(reg_offset + RG_RF09_CMD, RF_TXPREP);
+		trx_reg_write( reg_offset + RG_RF09_CMD, RF_TXPREP);
 #endif
 		wait_for_txprep(trx_id);
 #ifdef IQ_RADIO
-		pal_dev_reg_write(RF215_RF, reg_offset + RG_RF09_CMD,
-				RF_TRXOFF);
+		trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_TRXOFF);
 #else
-		trx_reg_write(reg_offset + RG_RF09_CMD, RF_TRXOFF);
+		trx_reg_write( reg_offset + RG_RF09_CMD, RF_TRXOFF);
 #endif
 		trx_state[trx_id] = RF_TRXOFF;
 #ifdef IQ_RADIO
-		pal_dev_read(RF215_RF, reg_offset + RG_RF09_TXCI,
-				(uint8_t *)&temp[i][0], 2);
+		trx_read(RF215_RF, reg_offset + 0x125, (uint8_t *)&temp[i][0],
+				2);
 #else
-		trx_read(reg_offset + RG_RF09_TXCI, (uint8_t *)&temp[i][0], 2);
+		trx_read( reg_offset + 0x125, (uint8_t *)&temp[i][0], 2);
 #endif
 
 		/* Check if the short loop measurement is sufficient */
@@ -341,9 +355,9 @@ void calibrate_LO(trx_id_t trx_id)
 	}
 }
 
-#endif /* #ifdef RF215V1 */
+#endif /* #ifdef RF215v1 */
 
-#ifdef RF215V1
+#ifdef RF215v1
 
 /**
  * @brief Implements required compare function for qsort().
@@ -353,9 +367,9 @@ static inline int compare_uin32_t(const void *f1, const void *f2)
 	return (*(int *)f1 - *(int *)f2);
 }
 
-#endif /* #ifdef RF215V1 */
+#endif /* #ifdef RF215v1 */
 
-#ifdef RF215V1
+#ifdef RF215v1
 
 /**
  * @brief Gets a median value
@@ -383,6 +397,6 @@ static inline uint8_t get_median(int *temp_array, uint8_t len_of_array)
 	}
 }
 
-#endif /* #ifdef RF215V1 */
+#endif /* #ifdef RF215v1 */
 
 /* EOF */

@@ -186,7 +186,7 @@ void sysclk_disable_usb(void)
 
 void sysclk_init(void)
 {
-#if SAMG54
+#if (SAMG54 || SAMG55)
 	uint32_t unique_id[32];
 	uint32_t trim_value;
 #endif
@@ -281,12 +281,26 @@ void sysclk_init(void)
 		efc_perform_read_sequence(EFC, EFC_FCMD_STUI, EFC_FCMD_SPUI,
 				unique_id, 32);
 #ifdef BOARD_VDDIO_18
-		trim_value = unique_id[0x10] & 0x000000FF;
+		trim_value = unique_id[10] & 0x000000FF;
 		supc_set_regulator_trim_user(SUPC, trim_value);
 #else
-		trim_value = unique_id[0x14] & 0x000000FF;
+		trim_value = unique_id[12] & 0x00FF0000;
+		trim_value = trim_value >> 16;
 		supc_set_regulator_trim_user(SUPC, trim_value);
 #endif
+	}
+#endif
+
+#if SAMG55
+	/* Set the trim value when system run near 120M */
+	if ((SystemCoreClock <= (CHIP_FREQ_CPU_MAX + (CHIP_FREQ_CPU_MAX >> 3))) &&
+	(SystemCoreClock >= (CHIP_FREQ_CPU_MAX - (CHIP_FREQ_CPU_MAX >> 3)))) {
+		/* Get the trim value from unique ID area */
+		efc_perform_read_sequence(EFC, EFC_FCMD_STUI, EFC_FCMD_SPUI,
+		unique_id, 32);
+
+		trim_value = unique_id[16] & 0x0000FFFF;
+		supc_set_regulator_trim_user(SUPC, trim_value);
 	}
 #endif
 

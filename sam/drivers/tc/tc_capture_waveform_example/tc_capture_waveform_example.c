@@ -3,7 +3,7 @@
  *
  * \brief TC Capture Waveform Example for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -136,7 +136,7 @@ static void tc_waveform_initialize(void)
 #if SAMG55
 	/* Enable PCK output */
 	pmc_disable_pck(PMC_PCK_3);
-	pmc_switch_pck_to_mck(PMC_PCK_3, PMC_PCK_PRES_CLK_1);
+	pmc_switch_pck_to_mck(PMC_PCK_3, PMC_PCK_PRES(0));
 	pmc_enable_pck(PMC_PCK_3);
 #endif
 
@@ -176,7 +176,7 @@ static void tc_capture_initialize(void)
 #if SAMG55
 	/* Enable PCK output */
 	pmc_disable_pck(PMC_PCK_3);
-	pmc_switch_pck_to_mck(PMC_PCK_3, PMC_PCK_PRES_CLK_1);
+	pmc_switch_pck_to_mck(PMC_PCK_3, PMC_PCK_PRES(0));
 	pmc_enable_pck(PMC_PCK_3);
 #endif
 

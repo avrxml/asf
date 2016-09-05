@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for AES driver.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -205,8 +205,8 @@ struct dma_resource example_resource_tx;
 struct dma_resource example_resource_rx;
 
 COMPILER_ALIGNED(16)
-DmacDescriptor example_descriptor_tx;
-DmacDescriptor example_descriptor_rx;
+DmacDescriptor example_descriptor_tx SECTION_DMAC_DESCRIPTOR;
+DmacDescriptor example_descriptor_rx SECTION_DMAC_DESCRIPTOR;
 
 /**
  * \brief Configure usart.
@@ -235,7 +235,7 @@ static void configure_dma_aes_wr(void)
 	dma_get_config_defaults(&tx_config);
 
 	tx_config.peripheral_trigger = AES_DMAC_ID_WR;
-	tx_config.trigger_action = DMA_TRIGGER_ACTON_BLOCK;
+	tx_config.trigger_action = DMA_TRIGGER_ACTION_BLOCK;
 
 	/* Allocate DMA resource.*/
 	dma_allocate(&example_resource_tx, &tx_config);
@@ -266,7 +266,7 @@ static void configure_dma_aes_rd(void)
 	dma_get_config_defaults(&rx_config);
 
 	rx_config.peripheral_trigger = AES_DMAC_ID_RD;
-	rx_config.trigger_action = DMA_TRIGGER_ACTON_BLOCK;
+	rx_config.trigger_action = DMA_TRIGGER_ACTION_BLOCK;
 
 	/* Allocate DMA resource.*/
 	dma_allocate(&example_resource_rx, &rx_config);

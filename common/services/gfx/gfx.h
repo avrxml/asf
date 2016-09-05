@@ -83,6 +83,10 @@ extern "C" {
 #elif defined(CONF_GFX_ILI93XX)
 # include "gfx_ili93xx.h"
 # include "gfx_generic.h"
+#elif defined(CONF_GFX_ILI9488)
+# include "gfx_ili9488_90_00028_a0.h"
+# include "gfx_generic.h"
+#define CONF_GFX_USE_CLIPPING
 #else
 #  error "Configuration for display controller/panel not selected"
 #endif

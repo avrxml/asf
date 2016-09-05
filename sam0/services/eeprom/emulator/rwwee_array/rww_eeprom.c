@@ -3,7 +3,7 @@
  *
  * \brief SAM Read While Write EEPROM Emulator
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -317,10 +317,112 @@ static void _rww_eeprom_emulator_format_memory(void)
 }
 
 /**
+ * \brief Check if a row is a full row
+ *  because the page is a invalid page, so if two pages have data,
+ *  it is the full row.
+ *
+ *  \param[in]  phy_page  Physical page that in a row
+ */
+static bool _rww_eeprom_emulator_is_full_row(uint16_t phy_page)
+{
+	if (CONF_LOGICAL_PAGE_NUM_IN_ROW == RWWEE_LOGICAL_PAGE_NUM_1) {
+		if(_eeprom_instance.rwwee_addr[phy_page].header.logical_page
+			== _eeprom_instance.rwwee_addr[phy_page+1].header.logical_page) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		if((_eeprom_instance.rwwee_addr[phy_page].header.logical_page
+			== _eeprom_instance.rwwee_addr[phy_page+2].header.logical_page)
+			|| (_eeprom_instance.rwwee_addr[phy_page+1].header.logical_page
+			== _eeprom_instance.rwwee_addr[phy_page+2].header.logical_page )) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
+/**
+ * \brief Erase one invalid page according to two invalid physical page
+ *
+ *  \param[in]  pre_phy_page  One physical invalid page
+ *  \param[in]  next_phy_page Another physical invalid page
+ */
+static void _rww_eeprom_emulator_erase_invalid_page(uint16_t pre_phy_page,uint16_t next_phy_page)
+{
+	bool flag;
+	struct _rww_eeprom_page temp;
+	flag =  _rww_eeprom_emulator_is_full_row(pre_phy_page);
+	 if(CONF_PAGE_CHECKSUM_ENABLE) {
+	 	if(flag) {
+			/* If the new row checksum is ok, erase the old one*/
+			if(_rww_eeprom_emulator_nvm_read_page(next_phy_page,&temp)) {
+				_rww_eeprom_emulator_nvm_erase_row(pre_phy_page/4);
+			} else {
+				_rww_eeprom_emulator_nvm_erase_row(next_phy_page/4);
+			}
+		} else {
+			if(_rww_eeprom_emulator_nvm_read_page(pre_phy_page,&temp)) {
+				_rww_eeprom_emulator_nvm_erase_row(next_phy_page/4);
+			} else {
+				_rww_eeprom_emulator_nvm_erase_row(pre_phy_page/4);
+			}
+		}
+	 } else {
+	 	/* Erase the old/full row*/
+		if(flag) {
+			 _rww_eeprom_emulator_nvm_erase_row(pre_phy_page/4);
+		} else {
+			_rww_eeprom_emulator_nvm_erase_row(next_phy_page/4);
+		}
+	 }
+}
+
+/**
+ * \brief Check if there exist rows with same logical pages due to power drop
+ *  when writing or erasing page.
+ *  when existed same logical page, if the new row checksums is valid,
+ *  the old(full) row will be erased, or the new row will be erased.
+ *  If page checksum disabled, the old(full) row will be erased.
+ */
+static void _rww_eeprom_emulator_check_logical_page(void)
+{
+	uint16_t i = 0, j = 0;
+	for (i = 0; i < _eeprom_instance.physical_pages; i=i+4) {
+
+		uint16_t pre_logical_page = _eeprom_instance.rwwee_addr[i].header.logical_page;
+		if( pre_logical_page == RWW_EEPROM_INVALID_PAGE_NUMBER) {
+			continue;
+		}
+
+		for (j = NVMCTRL_ROW_PAGES+i; j < _eeprom_instance.physical_pages; j=j+4) {
+
+			if (j == RWW_EEPROM_MASTER_PAGE_NUMBER) {
+				continue;
+			}
+			uint16_t next_logical_page = _eeprom_instance.rwwee_addr[j].header.logical_page;
+			if( next_logical_page == RWW_EEPROM_INVALID_PAGE_NUMBER) {
+				continue;
+			}
+
+			if(pre_logical_page == next_logical_page) {
+				/* Found invalid logical page and erase it */
+				_rww_eeprom_emulator_erase_invalid_page(i,j);
+			}
+		}
+	}
+}
+
+/**
  * \brief Creates a map in SRAM to translate logical RWW EEPROM pages to physical pages.
  */
 static void _rww_eeprom_emulator_update_page_mapping(void)
 {
+	/* Check if exists invalid logical page */
+	_rww_eeprom_emulator_check_logical_page();
+
 	/* Scan through all physical pages, to map physical and logical pages */
 	for (uint16_t c = 0; c < _eeprom_instance.physical_pages; c++) {
 		if (c == RWW_EEPROM_MASTER_PAGE_NUMBER) {

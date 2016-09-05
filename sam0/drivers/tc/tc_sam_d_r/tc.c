@@ -69,7 +69,7 @@
 /**
  * \internal Find the index of given TC module instance.
  *
- * \param[in] TC module instance pointer.
+ * \param[in] TC module instance pointer
  *
  * \return Index of the given TC module instance.
  */
@@ -638,7 +638,7 @@ enum status_code tc_reset(
  * any other purpose.
  *
  * \note This function is designed to be used in PWM or frequency
- *       match modes only. When the counter is set to 16- or 32-bit counter
+ *       match modes only, when the counter is set to 16- or 32-bit counter
  *       size. In 8-bit counter size it will always be possible to change the
  *       top value even in normal mode.
  *

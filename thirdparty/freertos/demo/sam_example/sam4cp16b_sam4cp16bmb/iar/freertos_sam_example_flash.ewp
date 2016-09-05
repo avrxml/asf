@@ -2027,6 +2027,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_rstc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_adc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_pioa.h</name>
 							</file>
 							<file>
@@ -2058,9 +2061,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_tc1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_adc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cp/include/instance/instance_cmcc1.h</name>
@@ -2132,9 +2132,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cp/include/component/component_trng.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cp/include/component/component_pmc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cp/include/component/component_uart.h</name>
 							</file>
 							<file>
@@ -2154,6 +2151,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cp/include/component/component_pwm.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4cp/include/component/component_pmc.h</name>
 							</file>
 						</group>
 						<file>
@@ -2304,9 +2304,6 @@
 					<file>
 						<name>$PROJ_DIR$/../../main.c</name>
 					</file>
-					<file>
-						<name>$PROJ_DIR$/../../FreeRTOSConfig.h</name>
-					</file>
 					<group>
 						<name>sam4cp16b_sam4cp16bmb</name>
 						<file>
@@ -2324,6 +2321,9 @@
 								<name>$PROJ_DIR$/asf.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../FreeRTOSConfig.h</name>
+						</file>
 					</group>
 				</group>
 			</group>

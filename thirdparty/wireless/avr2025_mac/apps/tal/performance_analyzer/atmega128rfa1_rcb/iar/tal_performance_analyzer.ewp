@@ -2399,6 +2399,9 @@
 									<name>$PROJ_DIR$/../conf_clock.h</name>
 								</file>
 								<file>
+									<name>$PROJ_DIR$/../conf_perf_analyzer.h</name>
+								</file>
+								<file>
 									<name>$PROJ_DIR$/../conf_board.h</name>
 								</file>
 								<file>
@@ -2459,13 +2462,13 @@
 						<name>$PROJ_DIR$/../../../../../include/avr2025_mac.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../../include/return_val.h</name>
-					</file>
-					<file>
 						<name>$PROJ_DIR$/../../../../../include/tal_build_config.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../include/ieee_const.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../include/return_val.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../include/stack_config.h</name>

@@ -5,7 +5,7 @@
  *        Refer following application note for details.
  *        AT42357 - Using the Timer Counter for Control Applications (TCC).
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \license
  * \asf_license_start
@@ -255,10 +255,10 @@ void configure_tcc(void)
 	/* Enable the Pattern Generator Output for 4 Waveform Outputs and 
 	   Load the PATT and PATTB register values respectively for Stepper Motor Pattern Generation */
 	TCC0->PATT.reg = TCC_PATT_PGE(0x0F) | TCC_PATT_PGV(sm_pattern[i++]);
-	while (TCC0->SYNCBUSY.bit.PATT) {
+	while (TCC0->SYNCBUSY.reg & TCC_SYNCBUSY_PATT) {
 	}
 	TCC0->PATTB.reg = TCC_PATTB_PGEB(0x0F) | TCC_PATTB_PGVB(sm_pattern[i++]);
-	while (TCC0->SYNCBUSY.bit.PATTB) {
+	while (TCC0->SYNCBUSY.reg & TCC_SYNCBUSY_PATTB) {
 	}
 #endif
 
@@ -286,11 +286,11 @@ void pattern_generation(void)
 	if (i == 4) {
 		i = 0;
 	}
-	while (!TCC0->INTFLAG.bit.MC0) {
+	while (!(TCC0->INTFLAG.reg & TCC_INTFLAG_MC0)) {
 	}
-	TCC0->INTFLAG.bit.MC0 = 1;
+	TCC0->INTFLAG.reg = TCC_INTFLAG_MC0;
 	TCC0->PATTB.reg = TCC_PATTB_PGEB(0x0F) | TCC_PATTB_PGVB(sm_pattern[i++]);
-	while (TCC0->SYNCBUSY.bit.PATTB) {
+	while (TCC0->SYNCBUSY.reg & TCC_SYNCBUSY_PATT) {
 	}
 }
 #endif
@@ -322,7 +322,7 @@ void swap_operation(void)
 	while (!port_pin_get_input_level(BUTTON_0_PIN)) {
 	}
 	TCC0->WAVE.reg ^= TCC_WAVE_SWAP0;
-	while (TCC0->SYNCBUSY.bit.WAVE) {
+	while (TCC0->SYNCBUSY.reg & TCC_SYNCBUSY_WAVE) {
 	}
 }
 #endif

@@ -2399,6 +2399,9 @@
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/sam4lc8c.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/sam4lc2c.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/sam4ls4c.h</name>
 						</file>
 						<file>
@@ -2427,9 +2430,6 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/sam4lc4c.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/sam4lc2c.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/sam4ls2a.h</name>
@@ -2618,9 +2618,6 @@
 					<file>
 						<name>$PROJ_DIR$/../../main.c</name>
 					</file>
-					<file>
-						<name>$PROJ_DIR$/../../FreeRTOSConfig.h</name>
-					</file>
 					<group>
 						<name>sam4lc4c_sam4l_xplained_pro</name>
 						<file>
@@ -2638,6 +2635,9 @@
 								<name>$PROJ_DIR$/asf.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../FreeRTOSConfig.h</name>
+						</file>
 					</group>
 				</group>
 			</group>

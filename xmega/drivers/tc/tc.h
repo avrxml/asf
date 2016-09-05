@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Timer Counter (TC) driver
  *
- * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -1409,7 +1409,9 @@ static inline void tc_hires_set_mode(HIRES_t * hires, HIRES_HREN_t hi_res_mode)
  * \code
 	static void my_callback(void)
 	{
-	    // User code to execute when the overflow occurs here
+		// User code to execute when the overflow occurs here
+		//Important to clear Interrupt Flag
+		tc_clear_overflow(&TCC0);
 	}
 \endcode
  * Add to, e.g., the main loop in the application C-file:

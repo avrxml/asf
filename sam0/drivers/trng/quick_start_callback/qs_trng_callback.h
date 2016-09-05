@@ -3,7 +3,7 @@
  *
  * \brief SAM True Random Number Generator Driver Quick Start
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,7 +45,7 @@
  * \page asfdoc_sam0_trng_basic_use_case_callback Quick Start Guide for TRNG - Callback
  *
  * In this use case, the True Random Number Generator (TRNG) module is configured for:
- *  \li The TRNG peripheral will not be stopped in standby sleep mode.
+ *  \li The TRNG peripheral will not be stopped in standby sleep mode
  *
  * This use case will read random data in interrupt mode repeatly. After reading
  * specific size of buffer data, the board LED will be toggled.

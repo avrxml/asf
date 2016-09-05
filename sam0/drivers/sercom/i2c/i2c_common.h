@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM I2C Common Driver
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -136,8 +136,15 @@ extern "C" {
  *		<td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21</td>
  *	</tr>
  * </table>
- * \note The specific features are only available in the driver when the
- * selected device supports those features.
+ * \note The specific features are only available in the driver when the selected
+ * device supports those features. 
+ * \note When using the I2C high-speed mode for off-board communication,
+ * there are various high frequency interference, which can lead to distortion of the signals 
+ * and communication failure. When using Xplained Pro boards in order to test I2C high-speed 
+ * communication, the following recommendation should be followed:
+ * - Use the SDA-line on PA08 and SCL-line on PA09 for both boards. This will provide stronger
+ * pull-ups on both SDA and SCL.
+ * - The SCL should not be higher than 1.5MHz.
  *
  * \subsection asfdoc_sam0_sercom_i2c_functional_desc Functional Description
  * The I<SUP>2</SUP>C provides a simple two-wire bidirectional bus consisting of a
@@ -344,7 +351,7 @@ extern "C" {
  *   <tr>
  *      <td>false</td>
  *      <td>Disabled, all reception is dropped</td>
- *      <td>GCLK disabled when master is idle</td>
+ *      <td>Generic Clock (GCLK) disabled when master is idle</td>
  *   </tr>
  *   <tr>
  *      <td>true</td>
@@ -399,7 +406,7 @@ extern "C" {
  * @{
  */
 #if (SAMD21) || (SAMR21) || (SAMD10) || (SAMD11) || (SAML21) || (SAMDA1) || \
-	(SAML22) || (SAMC20) || (SAMC21) || (SAMD09) || defined(__DOXYGEN__)
+	(SAML22) || (SAMC20) || (SAMC21) || (SAMD09) || (SAMR30) || defined(__DOXYGEN__)
 /** Fast mode plus and high speed support. */
 #  define FEATURE_I2C_FAST_MODE_PLUS_AND_HIGH_SPEED
 /** 10-bit address support */
@@ -513,7 +520,7 @@ enum i2c_transfer_direction {
  * applications for \ref asfdoc_sam0_sercom_i2c_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
  * use cases. Note that a QSG can be compiled as a standalone application or be
- * added to the user application.
+ * added to the user application.  
  *
  * \if I2C_MASTER_MODE
  * - \subpage asfdoc_sam0_sercom_i2c_master_basic_use_case "Quick Start Guide for the I2C Master module - Basic Use Case"
@@ -535,14 +542,14 @@ enum i2c_transfer_direction {
  * \if (I2C_MASTER_MODE || I2C_MASTER_CALLBACK_MODE)
  * <table>
  *	<tr>
- *		<th>Doc. Rev.</td>
- *		<th>Date</td>
- *		<th>Comments</td>
+ *		<th>Doc. Rev.</th>
+ *		<th>Date</th>
+ *		<th>Comments</th>
  *	</tr>
  *	<tr>
  *		<td>42117E</td>
- *		<td>08/2015</td>
- *		<td>Added support for SAM L21/L22, SAM DA1 and SAM C21</td>
+ *		<td>12/2015</td>
+ *		<td>Added support for SAM L21/L22, SAM DA1, SAM D09, and SAM C21</td>
  *	</tr>
  *	<tr>
  *		<td>42117D</td>
@@ -569,14 +576,14 @@ enum i2c_transfer_direction {
  * \else
  * <table>
  *	<tr>
- *		<th>Doc. Rev.</td>
- *		<th>Date</td>
- *		<th>Comments</td>
+ *		<th>Doc. Rev.</th>
+ *		<th>Date</th>
+ *		<th>Comments</th>
  *	</tr>
  *	<tr>
  *		<td>42116E</td>
- *		<td>08/2015</td>
- *		<td>Added support for SAM L21/L22, SAM DA1 and SAM C21</td>
+ *		<td>12/2015</td>
+ *		<td>Added support for SAM L21/L22, SAM DA1, SAM D09, and SAM C21</td>
  *	</tr>
  *	<tr>
  *		<td>42116D</td>

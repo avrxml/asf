@@ -3,7 +3,7 @@
  *
  * \brief SPI master common service for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -110,7 +110,11 @@ void spi_master_init(Spi *p_spi)
 void spi_master_setup_device(Spi *p_spi, struct spi_device *device,
 		spi_flags_t flags, uint32_t baud_rate, board_spi_select_id_t sel_id)
 {
-	int16_t baud_div = spi_calc_baudrate_div(baud_rate, sysclk_get_cpu_hz());
+#if (SAM4L)
+    int16_t baud_div = spi_calc_baudrate_div(baud_rate, sysclk_get_pba_hz());
+#else
+	int16_t baud_div = spi_calc_baudrate_div(baud_rate, sysclk_get_peripheral_hz());
+#endif
 	/* avoid Cppcheck Warning */
 	UNUSED(sel_id);
 	if (-1 == baud_div) {
@@ -249,4 +253,44 @@ status_code_t spi_read_packet(Spi *p_spi, uint8_t *data, size_t len)
 	return STATUS_OK;
 }
 
+/**
+ * \brief Send and receive a sequence of bytes from an SPI device.
+ *
+ * \param p_spi     Base address of the SPI instance.
+ * \param tx_data   Data buffer to send.
+ * \param rx_data   Data buffer to read.
+ * \param len       Length of data to be read.
+ *
+ * \pre SPI device must be selected with spi_select_device() first.
+ */
+status_code_t spi_transceive_packet(Spi *p_spi, uint8_t *tx_data, uint8_t *rx_data, size_t len)
+{
+	uint32_t timeout = SPI_TIMEOUT;
+	uint8_t val;
+	uint32_t i = 0;
+
+	while (len) {
+		timeout = SPI_TIMEOUT;
+		while (!spi_is_tx_ready(p_spi)) {
+			if (!timeout--) {
+				return ERR_TIMEOUT;
+			}
+		}
+		spi_write_single(p_spi, tx_data[i]);
+
+		timeout = SPI_TIMEOUT;
+		while (!spi_is_rx_ready(p_spi)) {
+			if (!timeout--) {
+				return ERR_TIMEOUT;
+			}
+		}
+		spi_read_single(p_spi, &val);
+
+		rx_data[i] = val;
+		i++;
+		len--;
+	}
+
+	return STATUS_OK;
+}
 //! @}

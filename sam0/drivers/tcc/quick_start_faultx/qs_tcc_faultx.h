@@ -52,31 +52,30 @@
  *
  * In this use case, the TCC will be used to generate a PWM signal, with a
  * varying duty cycle. Here the pulse width is increased each time the timer
- * count matches the set compare value. There is a non-recoverable faul input
- * which controls PWM output, when this fault is active (low) the PWM output
+ * count matches the set compare value. There is a non-recoverable fault input
+ * which controls PWM output. When this fault is active (low) the PWM output
  * will be forced to be high. When fault is released (input high) the PWM
- * output then will go on.
+ * output will go on.
  *
- * When connect PWM output to LED it makes the LED vary its light. If fault
- * input is from a button, the LED will be off when the button is down and on
- * when the button is up.
- * To see the PWM waveform, you may need an oscilloscope.
+ * When the PWM signal connects to LED, LED will light. If fault input is from
+ * a button, the LED will be off when the button is down and on when the button
+ * is up. To see the PWM waveform, you may need an oscilloscope.
  *
  * The PWM output and fault input is set up as follows:
  * <table>
- *  <tr><th> Board        </td><th> Pin  </td><th> Connect to </td></tr>
- *  <tr><td> SAMD21 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
- *  <tr><td> SAMD21 Xpro  </td><td> PA15 </td><td> SW0        </td></tr>
- *  <tr><td> SAMR21 Xpro  </td><td> PA19 </td><td> LED0       </td></tr>
- *  <tr><td> SAMR21 Xpro  </td><td> PA28 </td><td> SW0        </td></tr>
- *  <tr><td> SAML21 Xpro  </td><td> PB10 </td><td> LED0       </td></tr>
- *  <tr><td> SAML21 Xpro  </td><td> PA16 </td><td> SW0        </td></tr>
- *  <tr><td> SAML22 Xpro  </td><td> PC27 </td><td> LED0       </td></tr>
- *  <tr><td> SAML22 Xpro  </td><td> PC01 </td><td> SW0        </td></tr>
- *  <tr><td> SAMDA1 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
- *  <tr><td> SAMDA1 Xpro  </td><td> PA15 </td><td> SW0        </td></tr>
- *  <tr><td> SAMC21 Xpro  </td><td> PA15 </td><td> LED0       </td></tr>
- *  <tr><td> SAMC21 Xpro  </td><td> PA28 </td><td> SW0        </td></tr>
+ *  <tr><th> Board         </td><th> Pin  </td><th> Connect to </td></tr>
+ *  <tr><td> SAM D21 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM D21 Xpro  </td><td> PA15 </td><td> SW0        </td></tr>
+ *  <tr><td> SAM R21 Xpro  </td><td> PA19 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM R21 Xpro  </td><td> PA28 </td><td> SW0        </td></tr>
+ *  <tr><td> SAM L21 Xpro  </td><td> PB10 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM L21 Xpro  </td><td> PA16 </td><td> SW0        </td></tr>
+ *  <tr><td> SAM L22 Xpro  </td><td> PC27 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM L22 Xpro  </td><td> PC01 </td><td> SW0        </td></tr>
+ *  <tr><td> SAM DA1 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM DA1 Xpro  </td><td> PA15 </td><td> SW0        </td></tr>
+ *  <tr><td> SAM C21 Xpro  </td><td> PA15 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM C21 Xpro  </td><td> PA28 </td><td> SW0        </td></tr>
  * </table>
  *
  * The TCC module will be set up as follows:
@@ -105,22 +104,22 @@
  * \subsection asfdoc_sam0_tcc_faultx_use_case_setup_code Code
  *
  * Add to the main application source file, before any functions:
- * - SAM D21 Xplained Pro.
+ * - SAM D21 Xplained Pro
  *   \snippet samd21_xplained_pro/conf_quick_start_faultx.h definition_pwm
  *   \snippet samd21_xplained_pro/conf_quick_start_faultx.h definition_fault
- * - SAM R21 Xplained Pro.
+ * - SAM R21 Xplained Pro
  *   \snippet samr21_xplained_pro/conf_quick_start_faultx.h definition_pwm
  *   \snippet samr21_xplained_pro/conf_quick_start_faultx.h definition_fault
- * - SAM L21 Xplained Pro:
+ * - SAM L21 Xplained Pro
  *   \snippet saml21_xplained_pro/conf_quick_start_faultx.h definition_pwm
  *   \snippet saml21_xplained_pro/conf_quick_start_faultx.h definition_fault
- * - SAM L22 Xplained Pro:
+ * - SAM L22 Xplained Pro
  *   \snippet saml22_xplained_pro/conf_quick_start_faultx.h definition_pwm
  *   \snippet saml22_xplained_pro/conf_quick_start_faultx.h definition_fault
- * - SAM DA1 Xplained Pro.
+ * - SAM DA1 Xplained Pro
  *   \snippet samda1_xplained_pro/conf_quick_start_faultx.h definition_pwm
  *   \snippet samda1_xplained_pro/conf_quick_start_faultx.h definition_fault
- * - SAM C21 Xplained Pro:
+ * - SAM C21 Xplained Pro
  *   \snippet samc21_xplained_pro/conf_quick_start_faultx.h definition_pwm
  *   \snippet samc21_xplained_pro/conf_quick_start_faultx.h definition_fault
  *
@@ -161,7 +160,7 @@
  *          settings.
  *
  * -# Alter the TCC settings to configure the counter width, wave generation
- *    mode and the compare channel 0 value and fault options. Here the
+ *    mode, and the compare channel 0 value and fault options. Here the
  *    Non-Recoverable Fault output is enabled and set to high level (1).
  *    \snippet qs_tcc_faultx.c setup_change_config
  *    \snippet qs_tcc_faultx.c setup_change_config_faults
@@ -231,7 +230,7 @@
  *    \snippet qs_tcc_faultx.c eic_callback_setup_2
  *
  * \subsubsection asfdoc_sam0_tcc_faultx_use_case_setup_flow_evt Configure EVENTS for fault input
- * -# Create a event resource instance struct for the EVENTS module to store.
+ * -# Create an event resource instance struct for the EVENTS module to store.
  *    \snippet qs_tcc_faultx.c events_resource
  *    \note This should never go out of scope as long as the resource is in use.
  *          In most cases, this should be global.
@@ -245,9 +244,9 @@
  *          struct to ensure that all values are initialized to known default
  *          settings.
  *
- * -# Adjust the configuration struct to request that the channel be attached
- *    to the specified event generator, and that the asynchronous event path be
- *    used. Here the EIC channel connected to board button is the event
+ * -# Adjust the configuration struct to request that the channel will be attached
+ *    to the specified event generator, and that the asynchronous event path will
+ *    be used. Here the EIC channel connected to board button is the event
  *    generator.
  *    \snippet qs_tcc_faultx.c event_setup_3
  * -# Allocate and configure the channel using the configuration structure.
@@ -256,7 +255,7 @@
  *          values that have been altered from the default settings are taken
  *          into account by the user application.
  *
- * -# Attach an user to the channel. Here the user is TCC event0, which has been
+ * -# Attach a user to the channel. Here the user is TCC event0, which has been
  *    configured as input of Non-Recoverable Fault.
  *    \snippet qs_tcc_faultx.c event_setup_5
  *

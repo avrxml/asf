@@ -47,9 +47,9 @@
 #include "i2s.h"
 
 /**
- * \brief Initializes a hardware I2S module instance
+ * \brief Initializes a hardware I<SUP>2</SUP>S module instance
  *
- * Enables the clock and initialize the I2S module.
+ * Enables the clock and initialize the I<SUP>2</SUP>S module.
  *
  * \param[in,out] module_inst  Pointer to the software module instance struct
  * \param[in]     hw           Pointer to the TCC hardware module
@@ -115,14 +115,14 @@ enum status_code i2s_init(
 
 
 /**
- * \brief Configure specified I2S clock unit
+ * \brief Configure specified I<SUP>2</SUP>S clock unit
  *
  * Enables the clock and initialize the clock unit, based on the given
  * configurations.
  *
  * \param[in,out] module_inst  Pointer to the software module instance struct
- * \param[in]     clock_unit   I2S clock unit to initialize and configure
- * \param[in]     config       Pointer to the I2S clock unit configuration
+ * \param[in]     clock_unit   I<SUP>2</SUP>S clock unit to initialize and configure
+ * \param[in]     config       Pointer to the I<SUP>2</SUP>S clock unit configuration
  *                             options struct
  *
  * \return Status of the configuration procedure.
@@ -233,14 +233,14 @@ enum status_code i2s_clock_unit_set_config(
 
 
 /**
- * \brief Configure specified I2S serializer
+ * \brief Configure specified I<SUP>2</SUP>S serializer
  *
  * Enables the clock and initialize the serializer, based on the given
  * configurations.
  *
  * \param[in,out] module_inst  Pointer to the software module instance struct
- * \param[in]     serializer   I2S serializer to initialize and configure
- * \param[in]     config       Pointer to the I2S serializer configuration
+ * \param[in]     serializer   I<SUP>2</SUP>S serializer to initialize and configure
+ * \param[in]     config       Pointer to the I<SUP>2</SUP>S serializer configuration
  *                             options struct
  *
  * \return Status of the configuration procedure.
@@ -329,9 +329,9 @@ enum status_code i2s_serializer_set_config(
  *
  * Retrieves the status of the module, giving overall state information.
  *
- * \param[in] module_inst  Pointer to the I2S software instance struct
+ * \param[in] module_inst  Pointer to the I<SUP>2</SUP>S software instance struct
  *
- * \return Bitmask of \c I2S_STATUS_* flags
+ * \return Bitmask of \c I2S_STATUS_* flags.
  *
  * \retval I2S_STATUS_SYNC_BUSY            Module is busy synchronization
  * \retval I2S_STATUS_TRANSMIT_UNDERRUN(x) Serializer x (0~1) is underrun
@@ -389,7 +389,7 @@ uint32_t i2s_get_status(
  *
  * Clears the given status flags of the module.
  *
- * \param[in] module_inst   Pointer to the I2S software instance struct
+ * \param[in] module_inst   Pointer to the I<SUP>2</SUP>S software instance struct
  * \param[in] status        Bitmask of \c I2S_STATUS_* flags to clear
  */
 void i2s_clear_status(
@@ -432,12 +432,12 @@ void i2s_clear_status(
 /**
  * \brief Enable interrupts on status set
  *
- * Enable the given status interrupt request from the I2S module.
+ * Enable the given status interrupt request from the I<SUP>2</SUP>S module.
  *
- * \param[in] module_inst Pointer to the I2S software instance struct
+ * \param[in] module_inst Pointer to the I<SUP>2</SUP>S software instance struct
  * \param[in] status Status interrupts to enable
  *
- * \return Status of enable procedure
+ * \return Status of enable procedure.
  *
  * \retval STATUS_OK              Interrupt is enabled successfully
  * \retval STATUS_ERR_INVALID_ARG Status with no interrupt is passed
@@ -487,9 +487,9 @@ enum status_code i2s_enable_status_interrupt(
 /**
  * \brief Disable interrupts on status set
  *
- * Disable the given status interrupt request from the I2S module.
+ * Disable the given status interrupt request from the I<SUP>2</SUP>S module.
  *
- * \param[in] module_inst Pointer to the I2S software instance struct
+ * \param[in] module_inst Pointer to the I<SUP>2</SUP>S software instance struct
  * \param[in] status Status interrupts to disable
  */
 void i2s_disable_status_interrupt(
@@ -530,7 +530,7 @@ void i2s_disable_status_interrupt(
 
 
 /**
- * \brief Write buffer to the specified Serializer of I2S module
+ * \brief Write buffer to the specified Serializer of I<SUP>2</SUP>S module
  *
  * \param[in]  module_inst   Pointer to the software module instance struct
  * \param[in]  serializer    The serializer to write to
@@ -635,7 +635,7 @@ enum status_code i2s_serializer_write_buffer_wait(
 }
 
 /**
- * \brief Read from the specified Serializer of I2S module to a buffer
+ * \brief Read from the specified Serializer of I<SUP>2</SUP>S module to a buffer
  *
  * \param[in]  module_inst   Pointer to the software module instance struct
  * \param[in]  serializer    The serializer to write to

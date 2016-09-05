@@ -3,7 +3,7 @@
  *
  * \brief Pulse Width Modulation (PWM) driver for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -1141,23 +1141,18 @@ void pwm_channel_update_leading_edge(Pwm *p_pwm, pwm_channel_t *p_channel,
 		uint32_t ul_leading_edge_delay,
 		pwm_leading_edge_blanking_mode_t leading_edge_blanking_mode)
 {
-	uint32_t ul_mask;
 	/* Save new leading edge value */
 	p_channel->ul_leading_edge_delay = ul_leading_edge_delay;
 	p_channel->leading_edge_blanking_mode = leading_edge_blanking_mode;
 
 	/* Write channel leading edge update register */
 	if (p_channel->channel == 1) {
-		ul_mask = p_pwm->PWM_LEBR1;
 		p_pwm->PWM_LEBR1 = PWM_LEBR1_LEBDELAY(ul_leading_edge_delay) | leading_edge_blanking_mode;
 	} else if (p_channel->channel == 2) {
-		ul_mask = p_pwm->PWM_LEBR2;
 		p_pwm->PWM_LEBR2 = PWM_LEBR2_LEBDELAY(ul_leading_edge_delay) | leading_edge_blanking_mode;
 	} else if (p_channel->channel == 3) {
-		ul_mask = p_pwm->PWM_LEBR3;
 		p_pwm->PWM_LEBR3 = PWM_LEBR3_LEBDELAY(ul_leading_edge_delay) | leading_edge_blanking_mode;
 	} else if (p_channel->channel == 4) {
-		ul_mask = p_pwm->PWM_LEBR4;
 		p_pwm->PWM_LEBR4 = PWM_LEBR4_LEBDELAY(ul_leading_edge_delay) | leading_edge_blanking_mode;
 	}
 }

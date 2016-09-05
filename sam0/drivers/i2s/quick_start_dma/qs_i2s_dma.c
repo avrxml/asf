@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAM I2S - Inter-IC Sound Controller DMA Quickstart
+ * \brief SAM I<SUP>2</SUP>S - Inter-IC Sound Controller DMA Quickstart
  *
  * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
@@ -85,7 +85,7 @@ static void _config_dma_for_rx(void)
 	//! [dma_setup_2]
 
 	//! [dma_setup_3]
-	config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
+	config.trigger_action = DMA_TRIGGER_ACTION_BEAT;
 	config.peripheral_trigger = CONF_RX_TRIGGER;
 	//! [dma_setup_3]
 
@@ -139,7 +139,7 @@ static void _config_dma_for_tx(void)
 	//! [config_dma_resource_for_tx]
 	struct dma_resource_config config;
 	dma_get_config_defaults(&config);
-	config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
+	config.trigger_action = DMA_TRIGGER_ACTION_BEAT;
 	config.peripheral_trigger = CONF_TX_TRIGGER;
 	dma_allocate(&tx_dma_resource, &config);
 	//! [config_dma_resource_for_tx]

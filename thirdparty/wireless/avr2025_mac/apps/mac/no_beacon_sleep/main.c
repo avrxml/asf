@@ -73,7 +73,7 @@
  * Area
  *     Networks (WPANs).\n\n
  * 2)  <a href="http://www.atmel.com/design-support/">Atmel Design
- *Support</a>.\n
+ * Support</a>.\n
  *
  * \section contactinfo Contact Information
  * For further information,visit
@@ -564,7 +564,7 @@ void usr_mlme_scan_conf(uint8_t status,
 				 *
 				 *
 				 *                              wpan_addr_spec_t
-				 *****CoordAddrSpec,
+				 ******CoordAddrSpec,
 				 *                                   uint8_t
 				 * CapabilityInformation);
 				 * This request will cause a mlme associate
@@ -613,7 +613,9 @@ void usr_mlme_scan_conf(uint8_t status,
 			                                                   *
 			                                                   *
 			                                                   *
+			                                                   *
 			                                                   *high
+			                                                   *
 			                                                   *
 			                                                   *
 			                                                   *
@@ -651,7 +653,9 @@ void usr_mlme_scan_conf(uint8_t status,
 			                                                   *
 			                                                   *
 			                                                   *
+			                                                   *
 			                                                   *high
+			                                                   *
 			                                                   *
 			                                                   *
 			                                                   *
@@ -785,6 +789,7 @@ static bool assign_new_short_addr(uint64_t addr64, uint16_t *addr16)
 			                                                 *
 			                                                 *
 			                                                 *
+			                                                 *
 			                                                 *address
 			                                                 **/
 			device_list[i].ieee_addr = addr64; /* store extended
@@ -871,7 +876,7 @@ static void app_task(void)
 			 * Send some data and put MCU to sleep again.
 			 * Use: bool wpan_mcps_data_req(uint8_t SrcAddrMode,
 			 *                              wpan_addr_spec_t
-			 *****DstAddrSpec,
+			 ******DstAddrSpec,
 			 *                              uint8_t msduLength,
 			 *                              uint8_t *msdu,
 			 *                              uint8_t msduHandle,

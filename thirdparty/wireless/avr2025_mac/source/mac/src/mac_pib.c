@@ -544,6 +544,7 @@ retval_t mlme_set(uint8_t attribute, pib_value_t *attribute_value,
 
 			/*
 			 *
+			 *
 			 *ADDR_COPY_DST_SRC_16(mac_sec_pib.DeviceTable[attribute_index].DeviceDescriptor[0].PANId,
 			 *(uint16_t *)attribute_temp_ptr); */
 			attribute_temp_ptr += sizeof(uint16_t);

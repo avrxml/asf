@@ -4,7 +4,7 @@
  *
  * \brief AVR UC3 ISP boot.
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -130,11 +130,7 @@ test_isp_force:
               AVR32_PM_RCAUSE_BOD_MASK |\
               AVR32_PM_RCAUSE_EXT_MASK |\
               AVR32_PM_RCAUSE_JTAG_MASK |\
-              AVR32_PM_RCAUSE_OCDRST_MASK |\
-              AVR32_PM_RCAUSE_JTAGHARD_MASK |\
-              AVR32_PM_RCAUSE_AWIRE_MASK |\
-              AVR32_PM_RCAUSE_AWIREHARD_MASK |\
-              AVR32_PM_RCAUSE_BOD33_MASK // r4 = POR|BOD|EXT|OCD|JTAG|JTAGHARD|AWIRE|AWIREHARD|BOD33
+              AVR32_PM_RCAUSE_OCDRST_MASK // r4 = POR|BOD|EXT|OCD|JTAG
 #else
   mov.w   r4, AVR32_PM_RCAUSE_POR_MASK |\
               AVR32_PM_RCAUSE_BOD_MASK |\

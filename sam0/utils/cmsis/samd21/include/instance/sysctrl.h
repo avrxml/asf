@@ -3,7 +3,7 @@
  *
  * \brief Instance description for SYSCTRL
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,9 +39,6 @@
  *
  * \asf_license_stop
  *
- */
-/*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAMD21_SYSCTRL_INSTANCE_
@@ -102,14 +99,15 @@
 #define SYSCTRL_GCLK_ID_FDPLL32K    2        // Index of Generic Clock for DPLL 32K
 #define SYSCTRL_OSC32K_COARSE_CALIB_MSB 6       
 #define SYSCTRL_POR33_ENTEST_MSB    1       
+#define SYSCTRL_SYSTEM_CLOCK        1000000  // Initial system clock frequency
 #define SYSCTRL_ULPVREF_DIVLEV_MSB  3       
 #define SYSCTRL_ULPVREG_FORCEGAIN_MSB 1       
 #define SYSCTRL_ULPVREG_RAMREFSEL_MSB 2       
 #define SYSCTRL_VREF_CONTROL_MSB    48      
 #define SYSCTRL_VREF_STATUS_MSB     7       
 #define SYSCTRL_VREG_LEVEL_MSB      2       
-#define SYSCTRL_BOD12_VERSION       0x111   
-#define SYSCTRL_BOD33_VERSION       0x111   
+#define SYSCTRL_BOD12_VERSION       0x112   
+#define SYSCTRL_BOD33_VERSION       0x112   
 #define SYSCTRL_DFLL48M_VERSION     0x301   
 #define SYSCTRL_FDPLL_VERSION       0x111   
 #define SYSCTRL_OSCULP32K_VERSION   0x111   

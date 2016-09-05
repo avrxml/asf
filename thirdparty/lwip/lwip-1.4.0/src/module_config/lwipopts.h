@@ -1443,6 +1443,15 @@
 #define SO_REUSE_RXTOALL                0
 #endif
 
+/* ---------- Socket Options ---------- */
+
+#ifdef __GNUC__
+// Do not use the lwip timeval structure.
+#define LWIP_TIMEVAL_PRIVATE            0
+// Use the gnu libc struct timeval instead.
+//#include <sys/time.h>
+#endif
+
 /*
    ----------------------------------------
    ---------- Statistics options ----------

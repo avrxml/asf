@@ -4,7 +4,7 @@
  *
  * \brief WINC1500 configuration.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,15 +48,20 @@ extern "C" {
 
 #include "board.h"
 
+/* This configuration files comes with empty settings! */
+/* Default settings for SAML21 Xplained Pro with WINC on EXT1 are */
+/* available in comments for reference. */
+#warning Please modify conf_winc.h for WINC module settings!
+
 /*
    ---------------------------------
    ---------- PIN settings ---------
    ---------------------------------
 */
 
-#define CONF_WINC_PIN_RESET				PIN_PB06
-#define CONF_WINC_PIN_CHIP_ENABLE		PIN_PA02
-#define CONF_WINC_PIN_WAKE				PIN_PB07
+#define CONF_WINC_PIN_RESET				0 /* PIN_PB06 */
+#define CONF_WINC_PIN_CHIP_ENABLE		0 /* PIN_PA02 */
+#define CONF_WINC_PIN_WAKE				0 /* PIN_PB07 */
 
 /*
    ---------------------------------
@@ -67,18 +72,18 @@ extern "C" {
 #define CONF_WINC_USE_SPI				(1)
 
 /** SPI pin and instance settings. */
-#define CONF_WINC_SPI_MODULE			EXT1_SPI_MODULE
-#define CONF_WINC_SPI_SERCOM_MUX		EXT1_SPI_SERCOM_MUX_SETTING
-#define CONF_WINC_SPI_PINMUX_PAD0		EXT1_SPI_SERCOM_PINMUX_PAD0 /* in */
-#define CONF_WINC_SPI_PINMUX_PAD1		PINMUX_UNUSED /* cs driven from software */
-#define CONF_WINC_SPI_PINMUX_PAD2		EXT1_SPI_SERCOM_PINMUX_PAD2 /* out */
-#define CONF_WINC_SPI_PINMUX_PAD3		EXT1_SPI_SERCOM_PINMUX_PAD3 /* sck */
-#define CONF_WINC_SPI_CS_PIN			EXT1_PIN_SPI_SS_0
+#define CONF_WINC_SPI_MODULE			0 /* SERCOM0 */
+#define CONF_WINC_SPI_SERCOM_MUX		0 /* SPI_SIGNAL_MUX_SETTING_E */
+#define CONF_WINC_SPI_PINMUX_PAD0		0 /* PINMUX_PA04D_SERCOM0_PAD0 */ /* in */
+#define CONF_WINC_SPI_PINMUX_PAD1		0 /* PINMUX_PA04D_SERCOM0_PAD1 */ /* cs driven from software */
+#define CONF_WINC_SPI_PINMUX_PAD2		0 /* PINMUX_PA04D_SERCOM0_PAD2 */ /* out */
+#define CONF_WINC_SPI_PINMUX_PAD3		0 /* PINMUX_PA04D_SERCOM0_PAD3 */ /* sck */
+#define CONF_WINC_SPI_CS_PIN			0 /* PIN_PA05 */
 
 /** SPI interrupt pin. */
-#define CONF_WINC_SPI_INT_PIN			EXT1_IRQ_PIN
-#define CONF_WINC_SPI_INT_MUX			EXT1_IRQ_MUX
-#define CONF_WINC_SPI_INT_EIC			(4)
+#define CONF_WINC_SPI_INT_PIN			0 /* PIN_PB04A_EIC_EXTINT4 */
+#define CONF_WINC_SPI_INT_MUX			0 /* PINMUX_PB04A_EIC_EXTINT4 */
+#define CONF_WINC_SPI_INT_EIC			0 /* (4) */
 
 /** SPI clock. */
 #define CONF_WINC_SPI_CLOCK				(12000000)

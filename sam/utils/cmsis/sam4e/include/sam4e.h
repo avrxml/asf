@@ -52,6 +52,10 @@
 #include "sam4e8c.h"
 #elif defined (__SAM4E16C__)
 #include "sam4e16c.h"
+#elif defined (__SAM4E16CB__)
+#include "sam4e16cb.h"
+#elif defined (__SAM4E8CB__)
+#include "sam4e8cb.h"
 #else
   #error Library does not support the specified device.
 #endif

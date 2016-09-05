@@ -3,7 +3,7 @@
  *
  * \brief API driver for KSZ8061RNB PHY component.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -59,7 +59,7 @@ extern "C" {
 /// @endcond
 
 /**
- * \defgroup ksz8061rnb_ethernet_phy_group PHY component (KSZ8061RNB)
+ * \defgroup ksz8061rnbva_ethernet_phy_group PHY component (KSZ8061RNB)
  *
  * Driver for the ksz8061rnb component. This driver provides access to the main
  * features of the PHY.

@@ -3,7 +3,7 @@
  *
  * \brief megaRF TWI master and slave driver.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -320,7 +320,7 @@ status_code_t twi_master_write(volatile void *twi,const twi_package_t *package)
 status_code_t twi_master_read(volatile void *twi,const twi_package_t *package)
 {
 	/* Do a sanity check on the arguments. */
-	if ((package == NULL) || master_transfer.pkg->length == 0) {
+	if ((package == NULL) || package->length == 0) {
 		return ERR_INVALID_ARG;
 	}
 

@@ -2128,6 +2128,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_acifc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_wdt.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_tc1.h</name>
 							</file>
 							<file>
@@ -2183,9 +2186,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_pdca.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_wdt.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/sam4l/include/instance/instance_chipid.h</name>
@@ -2618,9 +2618,6 @@
 					<file>
 						<name>$PROJ_DIR$/../../main.c</name>
 					</file>
-					<file>
-						<name>$PROJ_DIR$/../../FreeRTOSConfig.h</name>
-					</file>
 					<group>
 						<name>sam4lc8c_sam4l8_xplained_pro</name>
 						<file>
@@ -2638,6 +2635,9 @@
 								<name>$PROJ_DIR$/asf.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../FreeRTOSConfig.h</name>
+						</file>
 					</group>
 				</group>
 			</group>

@@ -3,7 +3,7 @@
  *
  * \brief PDM driver for SAM.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -464,7 +464,7 @@ __always_inline static void pdm_enable(struct pdm_instance *const dev_inst)
 {
 	/* Sanity check arguments */
 	Assert(dev_inst);
-	Assert(dev_inst->hw_dev);
+	Assert(dev_inst->hw);
 
 	dev_inst->hw->PDMIC_CR = PDMIC_CR_ENPDM;
 }
@@ -476,7 +476,7 @@ __always_inline static void pdm_disable(struct pdm_instance *const dev_inst)
 {
 	/* Sanity check arguments */
 	Assert(dev_inst);
-	Assert(dev_inst->hw_dev);
+	Assert(dev_inst->hw);
 
 	dev_inst->hw->PDMIC_CR &= ~PDMIC_CR_ENPDM;
 }

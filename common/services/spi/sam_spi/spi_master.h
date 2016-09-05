@@ -3,7 +3,7 @@
  *
  * \brief SPI master common service for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -55,6 +55,14 @@
 /*! \name SPI Master Management Configuration */
 //! @{
 #include "conf_spi_master.h"
+
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+extern "C" {
+#endif
+/**INDENT-ON**/
+/// @endcond
 
 //! Default Configuration of SPI Master Delay BCS
 #ifndef CONFIG_SPI_MASTER_DELAY_BCS
@@ -220,5 +228,25 @@ static inline void spi_read_single(Spi *p_spi, uint8_t *data)
  * \pre SPI device must be selected with spi_select_device() first.
  */
 extern status_code_t spi_read_packet(Spi *p_spi, uint8_t *data, size_t len);
+
+/**
+ * \brief Send and receive a sequence of bytes from an SPI device.
+ *
+ * \param p_spi     Base address of the SPI instance.
+ * \param tx_data   Data buffer to send.
+ * \param rx_data   Data buffer to read.
+ * \param len       Length of data to be read.
+ *
+ * \pre SPI device must be selected with spi_select_device() first.
+ */
+extern status_code_t spi_transceive_packet(Spi *p_spi, uint8_t *tx_data, uint8_t *rx_data, size_t len);
+
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+}
+#endif
+/**INDENT-ON**/
+/// @endcond
 
 #endif // _SPI_MASTER_H_

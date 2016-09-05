@@ -3,7 +3,7 @@
  *
  * \brief Instance description for USB
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,6 +48,7 @@
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 #define REG_USB_CTRLA              (0x41000000U) /**< \brief (USB) Control A */
 #define REG_USB_SYNCBUSY           (0x41000002U) /**< \brief (USB) Synchronization Busy */
+#define REG_USB_QOSCTRL            (0x41000003U) /**< \brief (USB) USB Quality Of Service */
 #define REG_USB_FSMSTATUS          (0x4100000DU) /**< \brief (USB) Finite State Machine Status */
 #define REG_USB_DESCADD            (0x41000024U) /**< \brief (USB) Descriptor Address */
 #define REG_USB_PADCAL             (0x41000028U) /**< \brief (USB) USB PAD Calibration */
@@ -118,6 +119,7 @@
 #else
 #define REG_USB_CTRLA              (*(RwReg8 *)0x41000000U) /**< \brief (USB) Control A */
 #define REG_USB_SYNCBUSY           (*(RoReg8 *)0x41000002U) /**< \brief (USB) Synchronization Busy */
+#define REG_USB_QOSCTRL            (*(RwReg8 *)0x41000003U) /**< \brief (USB) USB Quality Of Service */
 #define REG_USB_FSMSTATUS          (*(RoReg8 *)0x4100000DU) /**< \brief (USB) Finite State Machine Status */
 #define REG_USB_DESCADD            (*(RwReg  *)0x41000024U) /**< \brief (USB) Descriptor Address */
 #define REG_USB_PADCAL             (*(RwReg16*)0x41000028U) /**< \brief (USB) USB PAD Calibration */

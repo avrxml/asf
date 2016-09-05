@@ -3,7 +3,7 @@
  *
  * \brief SAM C2x Generic Clock Driver
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -302,7 +302,7 @@ uint32_t system_gclk_gen_get_hz(
  * Writes out a given configuration of a Generic Clock configuration to the
  * hardware module. If the clock is currently running, it will be stopped.
  *
- * \note Once called the clock will not be running; to start the clock,
+ * \note Once called the clock will not be running. To start the clock,
  *       call \ref system_gclk_chan_enable() after configuring a clock channel.
  *
  * \param[in] channel   Generic Clock channel to configure
@@ -411,7 +411,7 @@ void system_gclk_chan_lock(
 {
 	system_interrupt_enter_critical_section();
 
-	 GCLK->PCHCTRL[channel].reg |= GCLK_PCHCTRL_WRTLOCK;
+	GCLK->PCHCTRL[channel].reg |= GCLK_PCHCTRL_WRTLOCK | GCLK_PCHCTRL_CHEN;
 	system_interrupt_leave_critical_section();
 }
 

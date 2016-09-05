@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM USART Asynchronous Driver
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -301,7 +301,7 @@ enum status_code usart_write_buffer_job(
 		return STATUS_ERR_INVALID_ARG;
 	}
 
-	/* Check that the receiver is enabled */
+	/* Check that the transmitter is enabled */
 	if (!(module->transmitter_enabled)) {
 		return STATUS_ERR_DENIED;
 	}
@@ -511,11 +511,10 @@ void _usart_interrupt_handler(
 		} else {
 			usart_hw->INTENCLR.reg = SERCOM_USART_INTFLAG_DRE;
 		}
+	}
 
 	/* Check if the Transmission Complete interrupt has occurred and
 	 * that the transmit buffer is empty */
-	}
-
 	if (interrupt_status & SERCOM_USART_INTFLAG_TXC) {
 
 		/* Disable TX Complete Interrupt, and set STATUS_OK */
@@ -526,11 +525,10 @@ void _usart_interrupt_handler(
 		if (callback_status & (1 << USART_CALLBACK_BUFFER_TRANSMITTED)) {
 			(*(module->callback[USART_CALLBACK_BUFFER_TRANSMITTED]))(module);
 		}
+	}
 
 	/* Check if the Receive Complete interrupt has occurred, and that
 	 * there's more data to receive */
-	}
-
 	if (interrupt_status & SERCOM_USART_INTFLAG_RXC) {
 
 		if (module->remaining_rx_buffer_length) {
@@ -554,28 +552,28 @@ void _usart_interrupt_handler(
 				if (error_code & SERCOM_USART_STATUS_FERR) {
 					/* Store the error code and clear flag by writing 1 to it */
 					module->rx_status = STATUS_ERR_BAD_FORMAT;
-					usart_hw->STATUS.reg |= SERCOM_USART_STATUS_FERR;
+					usart_hw->STATUS.reg = SERCOM_USART_STATUS_FERR;
 				} else if (error_code & SERCOM_USART_STATUS_BUFOVF) {
 					/* Store the error code and clear flag by writing 1 to it */
 					module->rx_status = STATUS_ERR_OVERFLOW;
-					usart_hw->STATUS.reg |= SERCOM_USART_STATUS_BUFOVF;
+					usart_hw->STATUS.reg = SERCOM_USART_STATUS_BUFOVF;
 				} else if (error_code & SERCOM_USART_STATUS_PERR) {
 					/* Store the error code and clear flag by writing 1 to it */
 					module->rx_status = STATUS_ERR_BAD_DATA;
-					usart_hw->STATUS.reg |= SERCOM_USART_STATUS_PERR;
+					usart_hw->STATUS.reg = SERCOM_USART_STATUS_PERR;
 				}
 #ifdef FEATURE_USART_LIN_SLAVE
 				else if (error_code & SERCOM_USART_STATUS_ISF) {
 					/* Store the error code and clear flag by writing 1 to it */
 					module->rx_status = STATUS_ERR_PROTOCOL;
-					usart_hw->STATUS.reg |= SERCOM_USART_STATUS_ISF;
+					usart_hw->STATUS.reg = SERCOM_USART_STATUS_ISF;
 				}
 #endif
 #ifdef FEATURE_USART_COLLISION_DECTION
 				else if (error_code & SERCOM_USART_STATUS_COLL) {
 					/* Store the error code and clear flag by writing 1 to it */
 					module->rx_status = STATUS_ERR_PACKET_COLLISION;
-					usart_hw->STATUS.reg |= SERCOM_USART_STATUS_COLL;
+					usart_hw->STATUS.reg = SERCOM_USART_STATUS_COLL;
 				}
 #endif
 

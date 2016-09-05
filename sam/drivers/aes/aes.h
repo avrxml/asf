@@ -51,7 +51,7 @@
 #define AES_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_aes_group SAM4C/4E Advanced Encryption Standard (AES) Driver
+ * \defgroup asfdoc_sam_drivers_aes_group SAM4C/4E/V71/V70/S70/E70 Advanced Encryption Standard (AES) Driver
  *
  * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides an interface for 
  * the configuration and management of the device's Advanced Encryption
@@ -70,6 +70,10 @@
  * Devices from the following series can use this module:
  * - Atmel | SMART SAM4C
  * - Atmel | SMART SAM4E
+ * - Atmel | SMART SAMV71
+ * - Atmel | SMART SAMV70
+ * - Atmel | SMART SAME70
+ * - Atmel | SMART SAMS70
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam_drivers_aes_prerequisites

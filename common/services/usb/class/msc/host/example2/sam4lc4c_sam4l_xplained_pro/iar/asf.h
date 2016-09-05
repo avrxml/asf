@@ -110,7 +110,7 @@
 #include <sysclk.h>
 
 // From module: USB Host MSC (Single Class support)
-#include <uhi_msc_mem.h>
+#include <uhi_msc.h>
 
 // From module: USB Host stack core
 #include <uhc.h>

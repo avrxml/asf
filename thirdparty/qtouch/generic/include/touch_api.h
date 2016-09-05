@@ -14,7 +14,7 @@
  *
  ******************************************************************************/
 
-/* Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
+/* Copyright (c) 2010-2016 Atmel Corporation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -103,6 +103,14 @@
 #ifdef __ICCAVR__
 #include <intrinsics.h>
 #endif /* (__ICCAVR__) */
+
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+extern "C" {
+#endif
+/**INDENT-ON**/
+/// @endcond
 
 /*----------------------------------------------------------------------------
                         Note: choice of library version
@@ -1132,5 +1140,13 @@ extern void qt_enable_slider (channel_t from_channel,
 			      uint8_t position_hysteresis);
 
 #endif
+
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+}
+#endif
+/**INDENT-ON**/
+/// @endcond
 
 #endif /* TOUCH_API_H */

@@ -3,6 +3,8 @@
  *
  * \brief WM8904 example for SAM.
  *
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
+ *
  * \asf_license_start
  *
  * \page License
@@ -96,8 +98,8 @@ extern "C" {
 /// @endcond
 
 #define STRING_EOL    "\r"
-#define STRING_HEADER "-- WM8904 Example --\r" \
-"-- "BOARD_NAME" --\r" \
+#define STRING_HEADER "-- WM8904 Example --\r\n" \
+"-- "BOARD_NAME" --\r\n" \
 "-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
 
 /** Wav feature. */
@@ -337,8 +339,6 @@ static void configure_codec(void)
 	delay_ms(5);
 	wm8904_write_register(WM8904_ANALOGUE_LEFT_INPUT_0, WM8904_LIN_VOL(0x10));
 	wm8904_write_register(WM8904_ANALOGUE_RIGHT_INPUT_0, WM8904_RIN_VOL(0x10));
-	wm8904_write_register(WM8904_ANALOGUE_LEFT_INPUT_1, WM8904_INL_CM_ENA | WM8904_L_IP_SEL_P_IN2L);
-	wm8904_write_register(WM8904_ANALOGUE_RIGHT_INPUT_1, WM8904_INR_CM_ENA | WM8904_R_IP_SEL_P_IN2L);
 	wm8904_write_register(WM8904_ANALOGUE_HP_0, 
 						WM8904_HPL_ENA | WM8904_HPR_ENA);
 	wm8904_write_register(WM8904_ANALOGUE_HP_0, 
@@ -370,7 +370,7 @@ int main(void)
 
 	/* Initialize the console UART. */
 	configure_console();
-	printf(STRING_HEADER);
+	puts(STRING_HEADER);
 
 	/* Initialize WM8904 TWI interface*/
 	if (wm8904_twi_init() != TWIHS_SUCCESS) {

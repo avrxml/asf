@@ -4,7 +4,7 @@
  *
  * \brief IoT Temperature Sensor Demo.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -22,9 +22,6 @@
  *
  * 3. The name of Atmel may not be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
  *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -226,7 +223,11 @@ static void demo_wifi_socket_handler(SOCKET sock, uint8 u8Msg, void *pvMsg)
 				memcpy(&report, pstrRx->pu8Buffer, sizeof(t_msg_temp_report));
 				if (report.id0 == 0 && report.id1 == 2 && (strcmp((char *)report.name, DEMO_PRODUCT_NAME) == 0)) {
 					puts("wifi_nc_data_callback: received app message");
+#if SAMD21
 					port_pin_set_output_level(LED_0_PIN, report.led ? true : false);
+#elif SAME70
+					ioport_set_pin_level(LED_0_PIN, report.led ? true : false);
+#endif
 					delay = 0;
 				}
 
@@ -313,7 +314,11 @@ static void demo_wifi_state(uint8 u8MsgType, void *pvMsg)
 					pu8IPAddress[0], pu8IPAddress[1], pu8IPAddress[2], pu8IPAddress[3]);
 			if(wifi_provisioned == 1){
 				/* Switch ON the LED when connected. */
+#if SAMD21
 				port_pin_set_output_level(LED_0_PIN, false); 
+#elif SAME70
+				ioport_set_pin_level(LED_0_PIN, false);
+#endif
 				wifi_connected = 1;
 			}
 			break;
@@ -390,7 +395,11 @@ void demo_start(void)
 		/* Calculate duration of time the button was pressed.
 		If button was pressed and held for more than 10s we would enter provisioning mode
 		short press would allow us to enter credentials from serial console. */
+#if SAMD21
 		int32_t button_pressed_duration_ms = button_press_duration(!port_pin_get_input_level(CREDENTIAL_ENTRY_BUTTON));
+#elif SAME70
+		int32_t button_pressed_duration_ms = button_press_duration(!ioport_get_pin_level(CREDENTIAL_ENTRY_BUTTON));
+#endif
 		if ((button_pressed_duration_ms != -1 && button_pressed_duration_ms < 2000)
 		 && !wifi_provisioned) {
 			printf("Enter Credentials and press ENTER\r\n");
@@ -423,7 +432,11 @@ void demo_start(void)
 		if (!wifi_provisioned) {
 			if(ms_ticks - toggle_led_ms >= 500) {
 				toggle_led_ms = ms_ticks;
-				port_pin_toggle_output_level(LED_0_PIN);	
+#if SAMD21
+				port_pin_toggle_output_level(LED_0_PIN);
+#elif SAME70
+				ioport_toggle_pin_level(LED_0_PIN);
+#endif
 			}
 		}
 		
@@ -453,7 +466,12 @@ void demo_start(void)
 			
 			/* Send client report. */
 			msg_temp_report.temp = (uint32_t)(at30tse_read_temperature() * 100);
+#if SAMD21
 			msg_temp_report.led = !port_pin_get_output_level(LED_0_PIN);
+#elif SAME70
+			msg_temp_report.led = !ioport_get_pin_level(LED_0_PIN);
+#endif
+			
 			ret = sendto(tx_socket, &msg_temp_report, sizeof(t_msg_temp_report), 0,
 					(struct sockaddr *)&addr, sizeof(addr));
 

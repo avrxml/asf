@@ -3,7 +3,7 @@
  *
  * \brief SAM4E-XPRO Board Definition.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -694,16 +694,17 @@
 #define AT86RFX_SPI_MISO             IOPORT_CREATE_PIN(PIOA, 12)
 #define AT86RFX_SPI_SCK              IOPORT_CREATE_PIN(PIOA, 14)
 
-void at86rfx_isr(void);
-#define AT86RFX_INTC_INIT()         ioport_set_pin_dir(AT86RFX_IRQ_PIN, IOPORT_DIR_INPUT);\
-									ioport_set_pin_sense_mode(AT86RFX_IRQ_PIN, IOPORT_SENSE_RISING);\
-									pmc_enable_periph_clk(ID_PIOA);\
-									pio_set_debounce_filter(PIOA, PIO_PA11, 10);\
-									pio_handler_set(PIOA, ID_PIOA, PIO_PA11, PIO_IT_HIGH_LEVEL, at86rfx_isr);\
-									NVIC_EnableIRQ((IRQn_Type) ID_PIOA);\
-									pio_enable_interrupt(PIOA, PIO_PA11);									
+void at86rfx_isr(uint32_t, uint32_t);
 
-#define AT86RFX_ISR()               void at86rfx_isr(void)
+#define AT86RFX_INTC_INIT()         ioport_set_pin_dir(AT86RFX_IRQ_PIN, IOPORT_DIR_INPUT);\
+                                    ioport_set_pin_sense_mode(AT86RFX_IRQ_PIN, IOPORT_SENSE_RISING);\
+                                    pmc_enable_periph_clk(ID_PIOA);\
+                                    pio_set_debounce_filter(PIOA, PIO_PA11, 10);\
+                                    pio_handler_set(PIOA, ID_PIOA, PIO_PA11, PIO_IT_HIGH_LEVEL, at86rfx_isr);\
+                                    NVIC_EnableIRQ((IRQn_Type) ID_PIOA);\
+                                    pio_enable_interrupt(PIOA, PIO_PA11);
+
+#define AT86RFX_ISR()               void at86rfx_isr(uint32_t arg1, uint32_t arg2)
 
 /** Enables the transceiver main interrupt. */
 #define ENABLE_TRX_IRQ()            pio_enable_pin_interrupt(AT86RFX_IRQ_PIN)

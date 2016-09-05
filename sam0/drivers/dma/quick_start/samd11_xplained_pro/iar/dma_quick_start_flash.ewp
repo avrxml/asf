@@ -2114,6 +2114,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/sercom1.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/dmac.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/adc.h</name>
 							</file>
 							<file>
@@ -2127,9 +2130,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/tc1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/dmac.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/instance/tcc0.h</name>
@@ -2255,6 +2255,9 @@
 						<group>
 							<name>pio</name>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/pio/samd11d14au.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/pio/samd11d14am.h</name>
 							</file>
 							<file>
@@ -2269,6 +2272,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11d14as.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11d14au.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include/samd11c14a.h</name>

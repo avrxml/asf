@@ -69,7 +69,7 @@ typedef struct uart_rs232_options {
 	/** Set baud rate of the USART (unused in slave modes). */
 	uint32_t baudrate;
 
-	/** Number of bits to transmit as a character (5 to 9). */
+	/** Number of bits to transmit as a character (5-bit to 9-bit). */
 	uint32_t charlength;
 
 	/**
@@ -78,12 +78,8 @@ typedef struct uart_rs232_options {
 	 */
 	uint32_t paritytype;
 
-	/** 
-	 * Number of stop bits between two characters:
-	 * true: 2 stop bits
-	 * false: 1 stop bit
-	 */
-	bool stopbits;
+	/** 1, 1.5 or 2 stop bits. */
+	uint32_t stopbits;
 
 } usart_rs232_options_t;
 

@@ -3,7 +3,7 @@
  *
  * \brief Main functions for USB host vendor example
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -113,7 +113,7 @@ static bool (*loop_back_tests[])(void) = {
  */
 int main(void)
 {
-#if SAMD21 || SAML21 || SAMDA1
+#if SAMD21 || SAML21 || SAMDA1 || SAMR30
 	system_init();
 #else
 	sysclk_init();

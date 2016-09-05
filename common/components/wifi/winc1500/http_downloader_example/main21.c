@@ -4,7 +4,7 @@
  *
  * \brief HTTP File Downloader Example.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -62,7 +62,7 @@
  *
  * -# Configure HTTP URL macro in the main.h file.
  * \code
- *    #define MAIN_HTTP_FILE_URL                   "http://www.atmel.com/Images/asf-releasenotes-3.22.0.pdf"
+ *    #define MAIN_HTTP_FILE_URL                   "http://www.atmel.com/Images/45093A-SmartConnectWINC1500_E_US_101014_web.pdf"
  * \endcode
  *
  * -# Build the program and download it into the board.
@@ -77,29 +77,33 @@
  *
  * -# Start the application.
  * -# In the terminal window, the following text should appear:<br>
- *    (This example may not work as it requires internet connectivity)
+ *
  * \code
- *    -- HTTP file download example --
+ *    -- HTTP file downloader example --
  *    -- SAMXXX_XPLAINED_PRO --
  *    -- Compiled: xxx xx xxxx xx:xx:xx --
- *    This example may not work as it requires internet connectivity.
- *    init_storage: Please plug an SD/MMC card in slot.
- *    init_storage: Mount SD card...
- *    init_storage: SD card Mount OK.
- *    main: Waiting for Wi-Fi connection. AP:DEMO_AP
- *    Wi-Fi connected
- *    Wi-Fi IP is xxx.xxx.xxx.xxx
- *    start_download: send http request.
- *    resolve_cb: Host Name:www.atmel.com, ip:125.56.214.83
- *    Http client socket connected
- *    Request completed
- *    Received response 200 data size 92267
- *    store_file_packet: Creating to file :0:asf-releasenotes-3.22.0.pdf
- *    store_file_packet: received[xxx], file size[92267]
+ *
+ *    This example requires the AP to have internet access.
+ *
+ *    init_storage: please plug an SD/MMC card in slot...
+ *    init_storage: mounting SD card...
+ *    init_storage: SD card mount OK.
+ *    main: connecting to WiFi AP DEMO_AP...
+ *    wifi_cb: M2M_WIFI_CONNECTED
+ *    wifi_cb: IP address is 192.168.1.107
+ *    start_download: sending HTTP request...
+ *    resolve_cb: www.atmel.com IP address is 72.246.56.186
+ *
+ *    http_client_callback: HTTP client socket connected.
+ *    http_client_callback: request completed.
+ *    http_client_callback: received response 200 data size 1147097
+ *    store_file_packet: creating file [0:45093A-SmartConnectWINC1500_E_US_101014_web.pdf]
+ *    store_file_packet: received[xxx], file size[1147097]
  *    ...
- *    store_file_packet: received[92267], file size[92267]
- *    store_file_packet: Download completed. location:[0:asf-releasenotes-3.22.0.pdf]
- *    main: Exit program. Please unplug the card.
+ *    store_file_packet: received[1147097], file size[1147097]
+ *    store_file_packet: file downloaded successfully.
+ *    main: please unplug the SD/MMC card.
+ *    main: done.
  * \endcode
  *
  * \section compinfo Compilation Information
@@ -126,7 +130,7 @@
 
 /** File download processing state. */
 static download_state down_state = NOT_READY;
-/** SD/MMC mount */
+/** SD/MMC mount. */
 static FATFS fatfs;
 /** File pointer for file download. */
 static FIL file_object;
@@ -134,7 +138,7 @@ static FIL file_object;
 static uint32_t http_file_size = 0;
 /** Receiving content length. */
 static uint32_t received_file_size = 0;
-/** Download file name. */
+/** File name to download. */
 static char save_file_name[MAIN_MAX_FILE_NAME_LENGTH + 1] = "0:";
 
 /** UART module for debug. */
@@ -147,7 +151,7 @@ struct sw_timer_module swt_module_inst;
 struct http_client_module http_client_module_inst;
 
 /**
- * \brief Initialize to download processing state.
+ * \brief Initialize download state to not ready.
  */
 static void init_state(void)
 {
@@ -276,7 +280,7 @@ static bool rename_to_unique(FIL *fp, char *file_path_name, uint8_t max_len)
 }
 
 /**
- * \brief Start file downloading via http connection.
+ * \brief Start file download via HTTP connection.
  */
 static void start_download(void)
 {
@@ -301,7 +305,7 @@ static void start_download(void)
 	}
 
 	/* Send the HTTP request. */
-	printf("start_download: send http request.\r\n");
+	printf("start_download: sending HTTP request...\r\n");
 	http_client_send_request(&http_client_module_inst, MAIN_HTTP_FILE_URL, HTTP_METHOD_GET, NULL, NULL);
 }
 
@@ -314,7 +318,7 @@ static void store_file_packet(char *data, uint32_t length)
 {
 	FRESULT ret;
 	if ((data == NULL) || (length < 1)) {
-		printf("store_file_packet: Empty data.\r\n");
+		printf("store_file_packet: empty data.\r\n");
 		return;
 	}
 
@@ -330,16 +334,16 @@ static void store_file_packet(char *data, uint32_t length)
 			cp++;
 			strcpy(&save_file_name[2], cp);
 		} else {
-			printf("store_file_packet: File name is invalid. Download canceled.\r\n");
+			printf("store_file_packet: file name is invalid. Download canceled.\r\n");
 			add_state(CANCELED);
 			return;
 		}
 
 		rename_to_unique(&file_object, save_file_name, MAIN_MAX_FILE_NAME_LENGTH);
-		printf("store_file_packet: Creating to file :%s\r\n", save_file_name);
+		printf("store_file_packet: creating file [%s]\r\n", save_file_name);
 		ret = f_open(&file_object, (char const *)save_file_name, FA_CREATE_ALWAYS | FA_WRITE);
 		if (ret != FR_OK) {
-			printf("store_file_packet: File create error! ret:%d\r\n", ret);
+			printf("store_file_packet: file creation error! ret:%d\r\n", ret);
 			return;
 		}
 
@@ -353,7 +357,7 @@ static void store_file_packet(char *data, uint32_t length)
 		if (ret != FR_OK) {
 			f_close(&file_object);
 			add_state(CANCELED);
-			printf("store_file_packet: File write error. Download canceled.\r\n");
+			printf("store_file_packet: file write error, download canceled.\r\n");
 			return;
 		}
 
@@ -361,7 +365,8 @@ static void store_file_packet(char *data, uint32_t length)
 		printf("store_file_packet: received[%lu], file size[%lu]\r\n", (unsigned long)received_file_size, (unsigned long)http_file_size);
 		if (received_file_size >= http_file_size) {
 			f_close(&file_object);
-			printf("store_file_packet: Download completed. location:[%s]\r\n", save_file_name);
+			printf("store_file_packet: file downloaded successfully.\r\n");
+			port_pin_set_output_level(LED_0_PIN, false);
 			add_state(COMPLETED);
 			return;
 		}
@@ -379,16 +384,16 @@ static void http_client_callback(struct http_client_module *module_inst, int typ
 {
 	switch (type) {
 	case HTTP_CLIENT_CALLBACK_SOCK_CONNECTED:
-		printf("Http client socket connected\r\n");
+		printf("http_client_callback: HTTP client socket connected.\r\n");
 		break;
 
 	case HTTP_CLIENT_CALLBACK_REQUESTED:
-		printf("Request completed\r\n");
+		printf("http_client_callback: request completed.\r\n");
 		add_state(GET_REQUESTED);
 		break;
 
 	case HTTP_CLIENT_CALLBACK_RECV_RESPONSE:
-		printf("Received response %u data size %u\r\n",
+		printf("http_client_callback: received response %u data size %u\r\n",
 				(unsigned int)data->recv_response.response_code,
 				(unsigned int)data->recv_response.content_length);
 		if ((unsigned int)data->recv_response.response_code == 200) {
@@ -399,7 +404,10 @@ static void http_client_callback(struct http_client_module *module_inst, int typ
 			add_state(CANCELED);
 			return;
 		}
-
+		if (data->recv_response.content_length <= MAIN_BUFFER_MAX_SIZE) {
+			store_file_packet(data->recv_response.content, data->recv_response.content_length);
+			add_state(COMPLETED);
+		}
 		break;
 
 	case HTTP_CLIENT_CALLBACK_RECV_CHUNKED_DATA:
@@ -411,7 +419,7 @@ static void http_client_callback(struct http_client_module *module_inst, int typ
 		break;
 
 	case HTTP_CLIENT_CALLBACK_DISCONNECTED:
-		printf("Disconnected reason:%d\r\n", data->disconnected.reason);
+		printf("http_client_callback: disconnection reason:%d\r\n", data->disconnected.reason);
 
 		/* If disconnect reason is equal to -ECONNRESET(-104),
 		 * It means the server has closed the connection (timeout).
@@ -467,11 +475,9 @@ static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
  */
 static void resolve_cb(uint8_t *pu8DomainName, uint32_t u32ServerIP)
 {
-	uint8_t ip1 = (uint8_t)(u32ServerIP & 0xff);
-	uint8_t ip2 = (uint8_t)((u32ServerIP >> 8) & 0xff);
-	uint8_t ip3 = (uint8_t)((u32ServerIP >> 16) & 0xff);
-	uint8_t ip4 = (uint8_t)((u32ServerIP >> 24) & 0xff);
-	printf("resolve_cb: Host Name:%s, ip:%u.%u.%u.%u\r\n", pu8DomainName, ip1, ip2, ip3, ip4);
+	printf("resolve_cb: %s IP address is %d.%d.%d.%d\r\n\r\n", pu8DomainName,
+			(int)IPV4_BYTE(u32ServerIP, 0), (int)IPV4_BYTE(u32ServerIP, 1),
+			(int)IPV4_BYTE(u32ServerIP, 2), (int)IPV4_BYTE(u32ServerIP, 3));
 	http_client_socket_resolve_handler(pu8DomainName, u32ServerIP);
 }
 
@@ -507,10 +513,10 @@ static void wifi_cb(uint8_t u8MsgType, void *pvMsg)
 	{
 		tstrM2mWifiStateChanged *pstrWifiState = (tstrM2mWifiStateChanged *)pvMsg;
 		if (pstrWifiState->u8CurrState == M2M_WIFI_CONNECTED) {
-			printf("Wi-Fi connected\r\n");
+			printf("wifi_cb: M2M_WIFI_CONNECTED\r\n");
 			m2m_wifi_request_dhcp_client();
 		} else if (pstrWifiState->u8CurrState == M2M_WIFI_DISCONNECTED) {
-			printf("Wi-Fi disconnected\r\n");
+			printf("wifi_cb: M2M_WIFI_DISCONNECTED\r\n");
 			clear_state(WIFI_CONNECTED);
 			if (is_state_set(DOWNLOADING)) {
 				f_close(&file_object);
@@ -531,9 +537,8 @@ static void wifi_cb(uint8_t u8MsgType, void *pvMsg)
 	case M2M_WIFI_REQ_DHCP_CONF:
 	{
 		uint8_t *pu8IPAddress = (uint8_t *)pvMsg;
-		/* Turn LED0 on to declare that IP address received. */
-		port_pin_set_output_level(LED_0_PIN, false);
-		printf("Wi-Fi IP is %u.%u.%u.%u\r\n", pu8IPAddress[0], pu8IPAddress[1], pu8IPAddress[2], pu8IPAddress[3]);
+		printf("wifi_cb: IP address is %u.%u.%u.%u\r\n",
+				pu8IPAddress[0], pu8IPAddress[1], pu8IPAddress[2], pu8IPAddress[3]);
 		add_state(WIFI_CONNECTED);
 		start_download();
 		break;
@@ -555,28 +560,28 @@ static void init_storage(void)
 	/* Initialize SD/MMC stack. */
 	sd_mmc_init();
 	while (true) {
-		printf("init_storage: Please plug an SD/MMC card in slot.\r\n");
+		printf("init_storage: please plug an SD/MMC card in slot...\r\n");
 
 		/* Wait card present and ready. */
 		do {
 			status = sd_mmc_test_unit_ready(0);
 			if (CTRL_FAIL == status) {
-				printf("init_storage: SD Card install Failed.\r\n");
-				printf("init_storage: Please unplug and re-plug the card.\r\n");
+				printf("init_storage: SD Card install failed.\r\n");
+				printf("init_storage: try unplug and re-plug the card.\r\n");
 				while (CTRL_NO_PRESENT != sd_mmc_check(0)) {
 				}
 			}
 		} while (CTRL_GOOD != status);
 
-		printf("init_storage: Mount SD card...\r\n");
+		printf("init_storage: mounting SD card...\r\n");
 		memset(&fatfs, 0, sizeof(FATFS));
 		res = f_mount(LUN_ID_SD_MMC_0_MEM, &fatfs);
 		if (FR_INVALID_DRIVE == res) {
-			printf("init_storage: SD card Mount failed. res %d\r\n", res);
+			printf("init_storage: SD card mount failed! (res %d)\r\n", res);
 			return;
 		}
 
-		printf("init_storage: SD card Mount OK.\r\n");
+		printf("init_storage: SD card mount OK.\r\n");
 		add_state(STORAGE_READY);
 		return;
 	}
@@ -628,7 +633,7 @@ static void configure_http_client(void)
 
 	ret = http_client_init(&http_client_module_inst, &httpc_conf);
 	if (ret < 0) {
-		printf("HTTP client initialization has failed(%s)\r\n", strerror(ret));
+		printf("configure_http_client: HTTP client initialization failed! (res %d)\r\n", ret);
 		while (1) {
 		} /* Loop forever. */
 	}
@@ -655,7 +660,7 @@ int main(void)
 	/* Initialize the UART console. */
 	configure_console();
 	printf(STRING_HEADER);
-	printf("This example may not work as it requires internet connectivity.\r\n");
+	printf("\r\nThis example requires the AP to have internet access.\r\n\r\n");
 
 	/* Initialize the Timer. */
 	configure_timer();
@@ -676,7 +681,7 @@ int main(void)
 	param.pfAppWifiCb = wifi_cb;
 	ret = m2m_wifi_init(&param);
 	if (M2M_SUCCESS != ret) {
-		printf("main: m2m_wifi_init call error!(%d)\r\n", ret);
+		printf("main: m2m_wifi_init call error! (res %d)\r\n", ret);
 		while (1) {
 		}
 	}
@@ -687,7 +692,7 @@ int main(void)
 	registerSocketCallback(socket_cb, resolve_cb);
 
 	/* Connect to router. */
-	printf("main: Waiting for Wi-Fi connection. AP:%s\r\n", (char *)MAIN_WLAN_SSID);
+	printf("main: connecting to WiFi AP %s...\r\n", (char *)MAIN_WLAN_SSID);
 	m2m_wifi_connect((char *)MAIN_WLAN_SSID, sizeof(MAIN_WLAN_SSID), MAIN_WLAN_AUTH, (char *)MAIN_WLAN_PSK, M2M_WIFI_CH_ALL);
 
 	while (!(is_state_set(COMPLETED) || is_state_set(CANCELED))) {
@@ -696,7 +701,8 @@ int main(void)
 		/* Checks the timer timeout. */
 		sw_timer_task(&swt_module_inst);
 	}
-	printf("main: Exit program. Please unplug the card.\r\n");
+	printf("main: please unplug the SD/MMC card.\r\n");
+	printf("main: done.\r\n");
 
 	while (1) {
 	} /* Loop forever. */

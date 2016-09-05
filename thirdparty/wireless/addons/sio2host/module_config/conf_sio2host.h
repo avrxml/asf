@@ -3,7 +3,7 @@
  *
  * \brief Serial Input & Output configuration
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -91,29 +91,38 @@
 
 /* ! \name Configuration for SAM4L */
 /* ! @{ */
-#if (SAM && !(SAMD || SAMR21 || SAML21))
-#define USART_HOST                 USART0
-/* / ** Baudrate setting * / */
-#define USART_HOST_BAUDRATE        9600
-/* / ** Character length setting * / */
-#define USART_HOST_CHAR_LENGTH     US_MR_CHRL_8_BIT
-/* / ** Parity setting * / */
-#define USART_HOST_PARITY          US_MR_PAR_NO
-/* / ** Stop bits setting * / */
-#define USART_HOST_STOP_BITS       US_MR_NBSTOP_1_BIT
+#if (SAM && !(SAMD || SAMR21 || SAML21 || SAMR30))
 
-#define USART_HOST_ISR_VECT()      ISR(USART0_Handler)
+#if SAMG55
+	/* Configuration for console uart IRQ handler */
+	#define USART_HOST_ISR_VECT()      ISR(FLEXCOM7_Handler)
+	/* UART Host IRQ Number */
+	#define USART_HOST_IRQn            FLEXCOM7_IRQn	
+#else
+	/* Configuration for console uart IRQ handler */
+	#define USART_HOST_ISR_VECT()      ISR(USART0_Handler)
+	/* UART Host IRQ Number */
+	#define USART_HOST_IRQn            USART0_IRQn
+#endif
 
-#define USART_HOST_IRQn            USART0_IRQn
-
+	#define USART_HOST                 USART0
+	/* / ** Baudrate setting * / */
+	#define USART_HOST_BAUDRATE        9600
+	/* / ** Character length setting * / */
+	#define USART_HOST_CHAR_LENGTH     US_MR_CHRL_8_BIT
+	/* / ** Parity setting * / */
+	#define USART_HOST_PARITY          US_MR_PAR_NO
+	/* / ** Stop bits setting * / */
+	#define USART_HOST_STOP_BITS       US_MR_NBSTOP_1_BIT
+	
 #define USART_HOST_RX_ISR_ENABLE() usart_enable_interrupt(USART_HOST, \
 		US_IER_RXRDY); \
 	NVIC_EnableIRQ(USART_HOST_IRQn);
-#endif /* SAM4L */
+#endif /* SAM */
 
 /* ! \name Configuration for SAMD20 */
 /* ! @{ */
-#if (SAMD || SAMR21 || SAML21)
+#if (SAMD || SAMR21 || SAML21 || SAMR30)
 #define USART_HOST                 SERCOM0
 #define HOST_SERCOM_MUX_SETTING    USART_RX_1_TX_0_XCK_1
 #define HOST_SERCOM_PINMUX_PAD0    PINMUX_PA04D_SERCOM0_PAD0

@@ -3,7 +3,7 @@
  *
  * \brief Platform Abstraction layer for BLE applications
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -53,76 +53,41 @@
 #include <string.h>
 #include "at_ble_api.h"
 
-typedef struct{
-	uint8_t (*wr_api32) (uint32_t memAddr,uint32_t* data,uint8_t size);
-	uint8_t (*wr_api32_reset) (uint32_t memAddr,uint32_t* data,uint8_t size);
-}wr_apis;
-/**
-@defgroup platform Platform API
-
-@{
-*/
-
- /** @brief implemets platform-specefic initialization
+ /**@ingroup platform_group_functions
+  * @brief implements platform-specific initialization
   *
-  * @param[in] platform_params platform specefic params, this pointer is passed from the 
-  * at_ble_init function and interpreted by the platform 
+  * @param[in] bus_type bus type can be UART or SPI
+  * @param[in] bus_flow_control_enabled bus type can have flow control Enable/Disable option
   *
-  * @return AT_BLE_SUCCESS operation completed successfully
-  * @return AT_BLE_FAILURE Generic error.
+  * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t 
   */
-at_ble_status_t platform_init(void* platform_params);
+at_ble_status_t platform_init(uint8_t bus_type, uint8_t bus_flow_control_enabled);
 
- /** @brief sends a message over the platform-specific bus
+ /**@ingroup platform_group_functions
+  * @brief sends a message over the platform-specific bus and blocks until Tx Completes
   *
-  * Sends a message over the platform-specific bus that might be UART, SPI or other
-  * if the BTLC1000 external wakeup signal is used, it is up to this function implementation
-  * to assert/deassert it appropiately
+  * Sends a message over the platform-specific bus that might be UART, SPI
   *
   * @param[in] data data to send over the interface
   * @param[in] len length of data
   *
   */
-void platform_interface_send(uint8_t* data, uint32_t len);
+void platform_send_sync(uint8_t *data, uint32_t len);
 
- /** @brief the callback to upper layers to process recieved packets
-  *
-  * This function is implemented by the upper layers (the event loop) and it is up
-  * to the platofrm implementaion to call it whenever data are recieved from the interface
-  *
-  * @param[in] data data received from the interface
-  * @param[in] len length of data
-  *
-  */
-void platform_interface_callback(uint8_t* data, uint32_t len);
+void platform_gpio_set(at_ble_gpio_pin_t pin, at_ble_gpio_status_t status);
 
- /** @brief fires the comand-complete signal
-  *  @note more details at the platform porting guide
-  *
-  */
-void platform_cmd_cmpl_signal(void);
+void platform_recv_async(void (*recv_async_callback)(uint8_t));
 
- /** @brief blocks until the command-complete signal is fired
-  *  @note more details at the platform porting guide
-  *
-  * @param[out] timeout a flag that indicates if waiting timed out
-  */
-void platform_cmd_cmpl_wait(bool* timeout);
+void platform_sleep(uint32_t ms);
+bool platform_wakeup_pin_status(void);
+void plaform_ble_rx_callback(void);
 
- /** @brief fires the event signal
-  *  @note more details at the platform porting guide
-  *
-  */
-void platform_event_signal(void);
-
- /** @brief blocks until the event signal is fired
-  *  @note more details at the platform porting guide
-  *
-  * @param[in] timeout timeout in ms passed by user
-  *
-  */
-uint8_t platform_event_wait(uint32_t timeout);
-void fw_led(bool tempo);
- /** @}*/
+void *platform_create_timer(void (*timer_cb)(void *));
+void platform_delete_timer(void *timer_handle);
+void platform_stop_timer(void *timer_handle);
+void platform_start_timer(void *timer_handle, uint32_t ms);
+void platform_configure_hw_fc_uart(void);
+void platform_process_rxdata(uint8_t t_rx_data);
+void platform_dma_process_rxdata(uint8_t *buf, uint16_t len);
 
 #endif // __PLATFORM_H__

@@ -3,7 +3,7 @@
  *
  * \brief Parallel Input/Output (PIO) Controller driver for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -581,15 +581,12 @@ void pio_configure_interrupt(Pio *p_pio, const uint32_t ul_mask,
 /**
  * \brief Enable the given interrupt source.
  * The PIO must be configured as an NVIC interrupt source as well.
- * The status register of the corresponding PIO controller is cleared
- * prior to enabling the interrupt.
  *
  * \param p_pio Pointer to a PIO instance.
  * \param ul_mask Interrupt sources bit map.
  */
 void pio_enable_interrupt(Pio *p_pio, const uint32_t ul_mask)
 {
-	p_pio->PIO_ISR;
 	p_pio->PIO_IER = ul_mask;
 }
 
@@ -605,11 +602,11 @@ void pio_disable_interrupt(Pio *p_pio, const uint32_t ul_mask)
 }
 
 /**
- * \brief Read PIO interrupt status.
+ * \brief Read and clear PIO interrupt status.
  *
  * \param p_pio Pointer to a PIO instance.
  *
- * \return The interrupt status mask value.
+ * \return The interrupt status value.
  */
 uint32_t pio_get_interrupt_status(const Pio *p_pio)
 {
@@ -768,7 +765,7 @@ void pio_toggle_pin(uint32_t ul_pin)
  * \brief Perform complete pin(s) configuration; general attributes and PIO init
  * if necessary.
  *
- * \param ul_pin Bitmask of one or more pin(s) to configure.
+ * \param ul_pin The pin index.
  * \param ul_flags Pins attributes.
  *
  * \return Whether the pin(s) have been configured properly.
@@ -1011,6 +1008,16 @@ uint32_t pio_get_pin_group_id(uint32_t ul_pin)
 	} else {
 		ul_id = ID_PIOA + (ul_pin >> 5);
 	}
+#elif (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	ul_id = ID_PIOA + (ul_pin >> 5);
+
+	#ifdef ID_PIOD 
+	if (ul_pin >= PIO_PD0_IDX) ul_id = ID_PIOD; 
+	#endif
+	
+	#ifdef ID_PIOE 
+	if (ul_pin >= PIO_PE0_IDX) ul_id = ID_PIOE; 
+	#endif 
 #else
 	ul_id = ID_PIOA + (ul_pin >> 5);
 #endif
@@ -1156,7 +1163,7 @@ Pdc *pio_capture_get_pdc_base(const Pio *p_pio)
 #endif
 #endif
 
-#if (SAM4C || SAM4CP || SAM4CM || SAMG55)
+#if (SAM4C || SAM4CP || SAM4CM || SAMG55 || SAMV71 || SAMV70 || SAME70 || SAMS70)
 /**
  * \brief Set PIO IO drive.
  *
@@ -1170,290 +1177,6 @@ void pio_set_io_drive(Pio *p_pio, uint32_t ul_line,
 	p_pio->PIO_DRIVER &= ~(1 << ul_line);
 	p_pio->PIO_DRIVER |= mode << ul_line;
 }
-#endif
-
-#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
-/**
- * \brief Enable PIO keypad controller.
- *
- * \param p_pio Pointer to a PIO instance.
- */
-void pio_keypad_enable(Pio *p_pio)
-{
-	p_pio->PIO_KER |= PIO_KER_KCE;
-}
-
-/**
- * \brief Disable PIO keypad controller.
- *
- * \param p_pio Pointer to a PIO instance.
- */
-void pio_keypad_disable(Pio *p_pio)
-{
-	p_pio->PIO_KER &= (~PIO_KER_KCE);
-}
-
-/**
- * \brief Set PIO keypad controller row number.
- *
- * \param p_pio Pointer to a PIO instance.
- * \param num   Number of row of the keypad matrix.
- */
-void pio_keypad_set_row_num(Pio *p_pio, uint8_t num)
-{
-	p_pio->PIO_KRCR &= (~PIO_KRCR_NBR_Msk);
-	p_pio->PIO_KRCR |= PIO_KRCR_NBR(num);
-}
-
-/**
- * \brief Get PIO keypad controller row number.
- *
- * \param p_pio Pointer to a PIO instance.
- * 
- * \return Number of row of the keypad matrix.
- */
-uint8_t pio_keypad_get_row_num(const Pio *p_pio)
-{
-	return ((p_pio->PIO_KRCR & PIO_KRCR_NBR_Msk) >> PIO_KRCR_NBR_Pos);
-}
-
-/**
- * \brief Set PIO keypad controller column number.
- *
- * \param p_pio Pointer to a PIO instance.
- * \param num   Number of column of the keypad matrix.
- */
-void pio_keypad_set_column_num(Pio *p_pio, uint8_t num)
-{
-	p_pio->PIO_KRCR &= (~PIO_KRCR_NBC_Msk);
-	p_pio->PIO_KRCR |= PIO_KRCR_NBC(num);
-}
-
-/**
- * \brief Get PIO keypad controller column number.
- *
- * \param p_pio Pointer to a PIO instance.
- * 
- * \return Number of column of the keypad matrix.
- */
-uint8_t pio_keypad_get_column_num(const Pio *p_pio)
-{
-	return ((p_pio->PIO_KRCR & PIO_KRCR_NBC_Msk) >> PIO_KRCR_NBC_Pos);
-}
-
-/**
- * \brief Set PIO keypad matrix debouncing value.
- *
- * \param p_pio Pointer to a PIO instance.
- * \param num   Number of debouncing value.
- */
-void pio_keypad_set_debouncing_value(Pio *p_pio, uint16_t value)
-{
-	p_pio->PIO_KDR = PIO_KDR_DBC(value);
-}
-
-/**
- * \brief Get PIO keypad matrix debouncing value.
- *
- * \param p_pio Pointer to a PIO instance.
- *
- * \return The keypad debouncing value.
- */
-uint16_t pio_keypad_get_debouncing_value(const Pio *p_pio)
-{
-	return ((p_pio->PIO_KDR & PIO_KDR_DBC_Msk) >> PIO_KDR_DBC_Pos);
-}
-
-/**
- * \brief Enable the interrupt source of PIO keypad.
- *
- * \param p_pio Pointer to a PIO instance.
- * \param ul_mask Interrupt sources bit map.
- */
-void pio_keypad_enable_interrupt(Pio *p_pio, uint32_t ul_mask)
-{
-	p_pio->PIO_KIER = ul_mask;
-}
-
-/**
- * \brief Disable the interrupt source of PIO keypad.
- *
- * \param p_pio Pointer to a PIO instance.
- * \param ul_mask Interrupt sources bit map.
- */
-void pio_keypad_disable_interrupt(Pio *p_pio, uint32_t ul_mask)
-{
-	p_pio->PIO_KIDR = ul_mask;
-}
-
-/**
- * \brief Get interrupt mask of PIO keypad.
- *
- * \param p_pio Pointer to a PIO instance.
- *
- * \return The interrupt mask value.
- */
-uint32_t pio_keypad_get_interrupt_mask(const Pio *p_pio)
-{
-	return p_pio->PIO_KIMR;
-}
-
-/**
- * \brief Get key press status of PIO keypad.
- *
- * \param p_pio Pointer to a PIO instance.
- *
- * \return The status of key press.
- * 0: No key press has been detected.
- * 1: At least one key press has been detected.
- */
-uint32_t pio_keypad_get_press_status(const Pio *p_pio)
-{
-	if (p_pio->PIO_KSR & PIO_KSR_KPR) {
-		return 1;
-	} else {
-		return 0;
-	}
-}
-
-/**
- * \brief Get key release status of PIO keypad.
- *
- * \param p_pio Pointer to a PIO instance.
- *
- * \return The status of key release.
- * 0 No key release has been detected.
- * 1 At least one key release has been detected.
- */
-uint32_t pio_keypad_get_release_status(const Pio *p_pio)
-{
-	if (p_pio->PIO_KSR & PIO_KSR_KRL) {
-		return 1;
-	} else {
-		return 0;
-	}
-}
-
-/**
- * \brief Get simultaneous key press number of PIO keypad.
- *
- * \param p_pio Pointer to a PIO instance.
- *
- * \return The number of simultaneous key press.
- */
-uint8_t pio_keypad_get_simult_press_num(const Pio *p_pio)
-{
-	return ((p_pio->PIO_KSR & PIO_KSR_NBKPR_Msk) >> PIO_KSR_NBKPR_Pos);
-}
-
-/**
- * \brief Get simultaneous key release number of PIO keypad.
- *
- * \param p_pio Pointer to a PIO instance.
- *
- * \return The number of simultaneous key release.
- */
-uint8_t pio_keypad_get_simult_release_num(const Pio *p_pio)
-{
-	return ((p_pio->PIO_KSR & PIO_KSR_NBKRL_Msk) >> PIO_KSR_NBKRL_Pos);
-}
-
-/**
- * \brief Get detected key press row index of PIO keypad.
- *
- * \param p_pio Pointer to a PIO instance.
- * \param queue The queue of key press row
- *
- * \return The index of detected key press row.
- */
-uint8_t pio_keypad_get_press_row_index(const Pio *p_pio, uint8_t queue)
-{
-	switch (queue) {
-	case 0:
-		return ((p_pio->PIO_KKPR & PIO_KKPR_KEY0ROW_Msk) >> PIO_KKPR_KEY0ROW_Pos);
-	case 1:
-		return ((p_pio->PIO_KKPR & PIO_KKPR_KEY1ROW_Msk) >> PIO_KKPR_KEY1ROW_Pos);
-	case 2:
-		return ((p_pio->PIO_KKPR & PIO_KKPR_KEY2ROW_Msk) >> PIO_KKPR_KEY2ROW_Pos);
-	case 3:
-		return ((p_pio->PIO_KKPR & PIO_KKPR_KEY3ROW_Msk) >> PIO_KKPR_KEY3ROW_Pos);
-	default:
-		return 0;
-	}
-}
-
-/**
- * \brief Get detected key press column index of PIO keypad.
- *
- * \param p_pio Pointer to a PIO instance.
- * \param queue The queue of key press column
- *
- * \return The index of detected key press column.
- */
-uint8_t pio_keypad_get_press_column_index(const Pio *p_pio, uint8_t queue)
-{
-	switch (queue) {
-	case 0:
-		return ((p_pio->PIO_KKPR & PIO_KKPR_KEY0COL_Msk) >> PIO_KKPR_KEY0COL_Pos);
-	case 1:
-		return ((p_pio->PIO_KKPR & PIO_KKPR_KEY1COL_Msk) >> PIO_KKPR_KEY1COL_Pos);
-	case 2:
-		return ((p_pio->PIO_KKPR & PIO_KKPR_KEY2COL_Msk) >> PIO_KKPR_KEY2COL_Pos);
-	case 3:
-		return ((p_pio->PIO_KKPR & PIO_KKPR_KEY3COL_Msk) >> PIO_KKPR_KEY3COL_Pos);
-	default:
-		return 0;
-	}
-}
-
-/**
- * \brief Get detected key release row index of PIO keypad.
- *
- * \param p_pio Pointer to a PIO instance.
- * \param queue The queue of key release row
- *
- * \return The index of detected key release row.
- */
-uint8_t pio_keypad_get_release_row_index(const Pio *p_pio, uint8_t queue)
-{
-	switch (queue) {
-	case 0:
-		return ((p_pio->PIO_KKRR & PIO_KKRR_KEY0ROW_Msk) >> PIO_KKRR_KEY0ROW_Pos);
-	case 1:
-		return ((p_pio->PIO_KKRR & PIO_KKRR_KEY1ROW_Msk) >> PIO_KKRR_KEY1ROW_Pos);
-	case 2:
-		return ((p_pio->PIO_KKRR & PIO_KKRR_KEY2ROW_Msk) >> PIO_KKRR_KEY2ROW_Pos);
-	case 3:
-		return ((p_pio->PIO_KKRR & PIO_KKRR_KEY3ROW_Msk) >> PIO_KKRR_KEY3ROW_Pos);
-	default:
-		return 0;
-	}
-}
-
-/**
- * \brief Get detected key release column index of PIO keypad.
- *
- * \param p_pio Pointer to a PIO instance.
- * \param queue The queue of key release column
- *
- * \return The index of detected key release column.
- */
-uint8_t pio_keypad_get_release_column_index(const Pio *p_pio, uint8_t queue)
-{
-	switch (queue) {
-	case 0:
-		return ((p_pio->PIO_KKRR & PIO_KKRR_KEY0COL_Msk) >> PIO_KKRR_KEY0COL_Pos);
-	case 1:
-		return ((p_pio->PIO_KKRR & PIO_KKRR_KEY1COL_Msk) >> PIO_KKRR_KEY1COL_Pos);
-	case 2:
-		return ((p_pio->PIO_KKRR & PIO_KKRR_KEY2COL_Msk) >> PIO_KKRR_KEY2COL_Pos);
-	case 3:
-		return ((p_pio->PIO_KKRR & PIO_KKRR_KEY3COL_Msk) >> PIO_KKRR_KEY3COL_Pos);
-	default:
-		return 0;
-	}
-}
-
 #endif
 
 //@}

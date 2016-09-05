@@ -3,7 +3,7 @@
  *
  * \brief AVR XMEGA Timer Counter type 4 or 5 (TC4/5) driver
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -134,7 +134,7 @@ enum tc45_cc_channel_mask_enable_t {
 	TC45_CCACAPT = TC45_CCAMODE_CAPT_gc,
 	/* ! Channel B Enable mask */
 	TC45_CCBCOMP = TC45_CCBMODE_COMP_gc,
-	TC45_CCBCAPT = TC45_CCCMODE_CAPT_gc,
+	TC45_CCBCAPT = TC45_CCBMODE_CAPT_gc,
 	/* ! Channel C Enable mask */
 	TC45_CCCCOMP = TC45_CCCMODE_COMP_gc,
 	TC45_CCCCAPT = TC45_CCCMODE_CAPT_gc,
@@ -2499,7 +2499,9 @@ static inline void tc45_hires_set_mode(HIRES_t *hires, HIRES_HREN_t hi_res_mode)
  * \code
 	static void my_callback(void)
 	{
-	    // User code to execute when the overflow occurs here
+		// User code to execute when the overflow occurs here
+		//Important to clear Interrupt Flag
+		tc45_clear_overflow(&TCC4);
 	}
 \endcode
  * Add to, e.g., the main loop in the application C-file:

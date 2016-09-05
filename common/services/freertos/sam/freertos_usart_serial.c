@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Peripheral Control API For the USART
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -404,7 +404,7 @@ freertos_usart_if freertos_usart_serial_init(Usart *p_usart,
  *     a call to freertos_usart_serial_init().  The
  *     freertos_driver_parameters.options_flags parameter passed to the
  *     initialization function defines the driver behavior.  If
- *     freertos_driver_parameters.options_flags had the USE_TX_ACCESS_MUTEX bit
+ *     freertos_driver_parameters.options_flags had the USE_TX_ACCESS_SEM bit
  *     set, then the driver will only write to the USART peripheral if it has
  *     first gained exclusive access to it.  block_time_ticks specifies the
  *     maximum amount of time the driver will wait to get exclusive access
@@ -447,7 +447,7 @@ status_code_t freertos_usart_write_packet_async(freertos_usart_if p_usart,
 
 	/* Don't do anything unless a valid USART pointer was used. */
 	if (usart_index < MAX_USARTS) {
-		return_value = freertos_obtain_peripheral_access_mutex(
+		return_value = freertos_obtain_peripheral_access_semphore(
 				&(tx_dma_control[usart_index]),
 				&block_time_ticks);
 
@@ -714,9 +714,9 @@ static void local_usart_handler(const portBASE_TYPE usart_index)
 
 		/* If the driver is supporting multi-threading, then return the access
 		mutex. */
-		if (tx_dma_control[usart_index].peripheral_access_mutex != NULL) {
+		if (tx_dma_control[usart_index].peripheral_access_sem != NULL) {
 			xSemaphoreGiveFromISR(
-					tx_dma_control[usart_index].peripheral_access_mutex,
+					tx_dma_control[usart_index].peripheral_access_sem,
 					&higher_priority_task_woken);
 		}
 
@@ -781,9 +781,9 @@ static void local_usart_handler(const portBASE_TYPE usart_index)
 		ensure the peripheral access mutex is made available to tasks. */
 		usart_reset_status(
 				all_usart_definitions[usart_index].peripheral_base_address);
-		if (tx_dma_control[usart_index].peripheral_access_mutex != NULL) {
+		if (tx_dma_control[usart_index].peripheral_access_sem != NULL) {
 			xSemaphoreGiveFromISR(
-					tx_dma_control[usart_index].peripheral_access_mutex,
+					tx_dma_control[usart_index].peripheral_access_sem,
 					&higher_priority_task_woken);
 		}
 	}

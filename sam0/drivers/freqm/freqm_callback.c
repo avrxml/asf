@@ -6,7 +6,7 @@
  *
  * This file defines a useful set of functions for the FREQM on SAM devices.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -134,7 +134,7 @@ void FREQM_Handler(void)
 	/* Check if data ready needs to be serviced */
 	if (status & FREQM_INTFLAG_DONE) {
 		if (module->callback[FREQM_CALLBACK_MEASURE_DONE]) {
-			FREQM->INTFLAG.reg |= FREQM_INTFLAG_DONE;
+			FREQM->INTFLAG.reg = FREQM_INTFLAG_DONE;
 			module->callback[FREQM_CALLBACK_MEASURE_DONE]();
 		}
 	}

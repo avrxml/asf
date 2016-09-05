@@ -1787,7 +1787,7 @@ void  BSP_USARTRxTxISR (void)
 /*$PAGE*/
 /*
 *********************************************************************************************************
-*                                       uC/OS-View, INITILIZE COM PORT
+*                                       uC/OS-View, INITIALIZE COM PORT
 *
 * Description: This function initializes the COM port.
 *

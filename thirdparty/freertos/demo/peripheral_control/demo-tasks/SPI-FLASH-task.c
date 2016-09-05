@@ -5,7 +5,7 @@
  * \brief FreeRTOS SPI Flash test task
  *
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -224,7 +224,7 @@ void create_spi_flash_test_task(Spi *spi_base, uint16_t stack_depth_words,
 		0,												/* There is no Rx buffer, so the rx buffer size is not used. */
 		configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY,	/* The priority used by the SPI interrupts. */
 		SPI_MASTER,										/* Communicating with the flash requires the peripheral to be configured as an SPI master. */
-		(USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE | WAIT_RX_COMPLETE)	/* The blocking driver is to be used, so WAIT_TX_COMPLETE and WAIT_RX_COMPLETE are set. */
+		(USE_TX_ACCESS_SEM | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE | WAIT_RX_COMPLETE)	/* The blocking driver is to be used, so WAIT_TX_COMPLETE and WAIT_RX_COMPLETE are set. */
 	};
 
 	/* async_driver_options is used if set_asynchronous_api is passed in as 0. */
@@ -233,7 +233,7 @@ void create_spi_flash_test_task(Spi *spi_base, uint16_t stack_depth_words,
 		0,												/* There is no Rx buffer, so the rx buffer size is not used. */
 		configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY,	/* The priority used by the SPI interrupts. */
 		SPI_MASTER,										/* Communicating with the flash requires the peripheral to be configured as an SPI master. */
-		(USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX)	/* The asynchronous driver is to be used, so WAIT_TX_COMPLETE and WAIT_RX_COMPLETE are clear. */
+		(USE_TX_ACCESS_SEM | USE_RX_ACCESS_MUTEX)	/* The asynchronous driver is to be used, so WAIT_TX_COMPLETE and WAIT_RX_COMPLETE are clear. */
 	};
 
 	/* Remember if the asynchronous or blocking API is being used. */

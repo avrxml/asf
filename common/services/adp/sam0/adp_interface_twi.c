@@ -60,7 +60,7 @@ struct i2c_master_module i2c_master_instance;
 * \brief Initialize EDBG I2C communication for SAM0
 *
 */
-bool adp_interface_init(void)
+enum status_code adp_interface_init(void)
 {
 	enum status_code return_value;
 
@@ -97,9 +97,9 @@ static enum status_code adp_interface_send(uint8_t* tx_buf, uint16_t length)
 * \param[in]  length  The length of the read data
 * \param[out] rx_buf  Pointer to store the received SPI character
 */
-bool adp_interface_read_response(uint8_t* rx_buf, uint16_t length)
+enum status_code adp_interface_read_response(uint8_t* rx_buf, uint16_t length)
 {
-	enum status_code status;
+	enum status_code status = STATUS_ERR_IO;
 	uint8_t data_len = 0;
 
 	struct i2c_master_packet packet = {

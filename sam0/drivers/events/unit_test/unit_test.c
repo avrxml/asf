@@ -3,7 +3,7 @@
  *
  * \brief SAM Event System Unit test
  *
- * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -85,6 +85,7 @@
  *      - SAM L22 Xplained Pro board
  *      - SAM DA1 Xplained Pro board
  *      - SAM C21 Xplained Pro board
+ *      - SAM R30 Xplained Pro board
  *
  * \section appdoc_sam0_events_unit_test_setup Setup
  * The following connections has to be made using wires:
@@ -126,8 +127,12 @@
 #include <string.h>
 #include "conf_test.h"
 
-/* Event user being TC3 */
+/* Event user being TC3 or TC1 */
+#if SAMR30
+#define TEST_EVENT_USER   EVSYS_ID_USER_TC1_EVU
+#else
 #define TEST_EVENT_USER   EVSYS_ID_USER_TC3_EVU
+#endif
 /* Event generator being RTC overflow */
 #define TEST_EVENT_GEN    EVSYS_ID_GEN_RTC_OVF
 
@@ -170,9 +175,9 @@ static void cdc_uart_init(void)
 }
 
 /**
- * \brief Initialize the TC3 & RTC for unit test
+ * \brief Initialize the (TC3 | TC1) & RTC for unit test
  *
- * Initializes the RTC module and TC3 module which are used as
+ * Initializes the RTC module and (TC3 | TC1) module which are used as
  * event generator and event user respectively.
  */
 static void test_event_gen_user_init(void)
@@ -187,8 +192,12 @@ static void test_event_gen_user_init(void)
 	config_tc.counter_16_bit.compare_capture_channel[0]
 		= (0xFFFF / 4);
 
-	/* Initialize the TC3 */
+	/* Initialize the TC3 or TC1 */
+#if SAMR30
+	status = tc_init(&tc_inst, TC1, &config_tc);
+#else
 	status = tc_init(&tc_inst, TC3, &config_tc);
+#endif
 	if (status != STATUS_OK) {
 		init_success = false;
 	}
@@ -200,7 +209,7 @@ static void test_event_gen_user_init(void)
 
 	tc_enable_events(&tc_inst, &events_tc);
 
-	/* Enable the TC3 */
+	/* Enable the TC3 or TC1 */
 	tc_enable(&tc_inst);
 
 	/* RTC configuration (Event Generator) */
@@ -322,7 +331,7 @@ static void run_synchronous_event_test(const struct test_case *test)
  * \brief Cleanup Function: Synchronous event propagation.
  *
  * This function disables the RTC, clears the RTC COUNT register and
- * stops the timer (TC3).
+ * stops the timer (TC3 | TC1).
  *
  * \param test Current test case.
  */
@@ -425,7 +434,7 @@ static void run_resynchronous_event_test(const struct test_case *test)
  * \brief Cleanup Function: Resynchronized event propagation.
  *
  * This function disables the RTC, clears the RTC COUNT register and
- * stops the timer (TC3).
+ * stops the timer (TC3 | TC1).
  *
  * \param test Current test case.
  */
@@ -505,7 +514,7 @@ static void run_asynchronous_event_test(const struct test_case *test)
  * \brief Cleanup Function: Asynchronous event propagation.
  *
  * This function disables the RTC, clears the RTC COUNT register and
- * stops the timer (TC3).
+ * stops the timer (TC3 | TC1).
  *
  * \param test Current test case.
  */

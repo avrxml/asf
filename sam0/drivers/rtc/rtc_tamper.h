@@ -59,13 +59,13 @@
  *
  * \note The Active Layer Protection is a means of detecting broken traces on the
  * PCB provided by RTC. In this mode an RTC output signal is routed over critical
- * components onthe board and fed back to one of the RTC inputs. The input and
+ * components on the board and fed back to one of the RTC inputs. The input and
  * output signals are compared and a tamper condition is detected when they do not match.
  *
  *
  * Separate debouncers are embedded for each external input. The detection time 
  * depends on whether the debouncer operates synchronously or asynchronously, 
- * and whether majority detection is enabled or not. Details refer to the section
+ * and whether majority detection is enabled or not. For details, refer to the section
  * "Tamper Detection" of datasheet.
  * \if RTC_COUNT_CALLBACK_MODE
  *  \addtogroup asfdoc_sam0_rtc_count_group

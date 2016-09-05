@@ -57,16 +57,23 @@ CSRCS = \
        common/services/freertos/sam/freertos_usart_serial.c \
        common/services/serial/usart_serial.c              \
        common/services/sleepmgr/sam/sleepmgr.c            \
+       common/services/usb/class/cdc/device/udi_cdc.c     \
+       common/services/usb/class/cdc/device/udi_cdc_desc.c \
+       common/services/usb/udc/udc.c                      \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        common/utils/stdio/read.c                          \
        common/utils/stdio/write.c                         \
        sam/boards/samg55_xplained_pro/board_init.c        \
        sam/drivers/efc/efc.c                              \
        sam/drivers/flexcom/flexcom.c                      \
+       sam/drivers/matrix/matrix.c                        \
        sam/drivers/pdc/pdc.c                              \
+       sam/drivers/pio/pio.c                              \
+       sam/drivers/pio/pio_handler.c                      \
        sam/drivers/pmc/pmc.c                              \
        sam/drivers/pmc/sleep.c                            \
        sam/drivers/supc/supc.c                            \
+       sam/drivers/udp/udp_device.c                       \
        sam/drivers/usart/usart.c                          \
        sam/utils/cmsis/samg/samg55/source/templates/gcc/startup_samg55.c \
        sam/utils/cmsis/samg/samg55/source/templates/system_samg55.c \
@@ -74,6 +81,7 @@ CSRCS = \
        thirdparty/freertos/demo/peripheral_control/demo-tasks/CLI-commands.c \
        thirdparty/freertos/demo/peripheral_control/demo-tasks/USART-CLI-task.c \
        thirdparty/freertos/demo/peripheral_control/demo-tasks/USART-echo-tasks.c \
+       thirdparty/freertos/demo/peripheral_control/demo-tasks/USB-CDC-CLI-task.c \
        thirdparty/freertos/demo/peripheral_control/main.c \
        thirdparty/freertos/demo/peripheral_control/partest.c \
        thirdparty/freertos/demo/peripheral_control/run-time-stats-utils.c \
@@ -97,16 +105,23 @@ INC_PATH = \
        common/services/serial                             \
        common/services/serial/sam_uart                    \
        common/services/sleepmgr                           \
+       common/services/usb                                \
+       common/services/usb/class/cdc                      \
+       common/services/usb/class/cdc/device               \
+       common/services/usb/udc                            \
        common/utils                                       \
        common/utils/stdio/stdio_serial                    \
        sam/boards                                         \
        sam/boards/samg55_xplained_pro                     \
        sam/drivers/efc                                    \
        sam/drivers/flexcom                                \
+       sam/drivers/matrix                                 \
        sam/drivers/pdc                                    \
        sam/drivers/pdc/pdc_uart_example                   \
+       sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
        sam/drivers/supc                                   \
+       sam/drivers/udp                                    \
        sam/drivers/usart                                  \
        sam/utils                                          \
        sam/utils/cmsis/samg/samg55/include                \
@@ -176,6 +191,7 @@ CFLAGS =  \
 CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
        -D BOARD=SAMG55_XPLAINED_PRO                       \
+       -D UDD_ENABLE                                      \
        -D __FREERTOS__                                    \
        -D __SAMG55J19__                                   \
        -D printf=iprintf                                  \

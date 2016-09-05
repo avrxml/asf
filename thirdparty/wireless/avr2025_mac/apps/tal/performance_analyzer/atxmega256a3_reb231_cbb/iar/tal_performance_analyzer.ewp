@@ -2263,6 +2263,9 @@
 									<name>$PROJ_DIR$/../conf_sio2host.h</name>
 								</file>
 								<file>
+									<name>$PROJ_DIR$/../conf_perf_analyzer.h</name>
+								</file>
+								<file>
 									<name>$PROJ_DIR$/../conf_clock.h</name>
 								</file>
 								<file>

@@ -3,7 +3,7 @@
  *
  * \brief TWI Slave driver for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -69,8 +69,10 @@ static inline void twi_slave_setup(twi_slave_t p_twi, uint32_t dw_device_addr)
 		sysclk_enable_peripheral_clock(ID_FLEXCOM5);
 	} else if (p_twi == TWI6) {
 		sysclk_enable_peripheral_clock(ID_FLEXCOM6);
+#ifdef _SAMG55_FLEXCOM7_INSTANCE_
 	} else if (p_twi == TWI7) {
 		sysclk_enable_peripheral_clock(ID_FLEXCOM7);
+#endif /* _SAMG55_FLEXCOM7_INSTANCE_*/
 	} else {
 		// Do Nothing
 	}

@@ -4,7 +4,7 @@
  * \brief SAM4L USB Host Mass Storage Bootloader Application with CRC Check and 
  * AES decryption support.
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -178,9 +178,10 @@ static void bootloader_mode_check()
 		/* Get the pointer to the GPIO Port Address */
 		temp = (uint32_t)((GPIO_ADDR +
 						(BOOT_LOAD_PIN >> 5) * sizeof(GpioPort)));
-		/* Enable the input mode in Boot GPIO Pin */
+		/* Enable the input mode in Boot GPIO Pin and enable the internal pull-up*/
 		((GpioPort *)temp)->GPIO_ODERC = GPIO_BOOT_PIN_MASK;
 		((GpioPort *)temp)->GPIO_STERS = GPIO_BOOT_PIN_MASK;
+		((GpioPort *)temp)->GPIO_PUERS = GPIO_BOOT_PIN_MASK;
 		/* Activation of bootloader mode pin */
 		boot_mode = ((((GpioPort *)temp)->GPIO_PVR & GPIO_BOOT_PIN_MASK)
 							== BOOT_LOAD_PIN_ACTIVE_LVL);

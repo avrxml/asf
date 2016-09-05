@@ -3,7 +3,7 @@
  *
  * \brief Handles Serial driver functionalities
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -83,5 +83,11 @@ uint16_t serial_drv_send(uint8_t* data, uint16_t len);
 uint8_t serial_read_data(uint8_t* data, uint16_t max_len);
 
 uint8_t serial_read_byte(uint16_t* data);
+void configure_usart_after_patch(void);
+uint32_t platform_serial_drv_tx_status(void);
 
+void platform_leave_critical_section(void);
+void platform_enter_critical_section(void);
+
+void platfrom_start_rx(void);
 #endif /* SIO2HOST_H */

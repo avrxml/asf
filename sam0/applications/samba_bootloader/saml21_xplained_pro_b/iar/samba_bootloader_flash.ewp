@@ -166,7 +166,10 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
+					<state>EXTINT_CALLBACK_MODE=true</state>
+					<state>UDD_ENABLE</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
+					<state>USB_DEVICE_LPM_SUPPORT</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
@@ -298,28 +301,38 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb/class/cdc/device</state>
+					<state>$PROJ_DIR$/../../../../drivers/port</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../boards/saml21_xplained_pro_b</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom</state>
-					<state>$PROJ_DIR$/../../../../drivers/port</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b</state>
+					<state>$PROJ_DIR$/../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb/class/cdc</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_l</state>
+					<state>$PROJ_DIR$/../../../../drivers/usb/usb_sam_l</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_saml21</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint/extint_sam_l_c</state>
+					<state>$PROJ_DIR$/../../../../drivers/usb/stack_interface</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb/udc</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock/clock_saml21</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_l</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/pinmux</state>
+					<state>$PROJ_DIR$/../../../../drivers/usb</state>
 					<state>$PROJ_DIR$/../../../../drivers/system</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/saml21/source</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
@@ -471,7 +484,10 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>EXTINT_CALLBACK_MODE=true</state>
+					<state>UDD_ENABLE</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
+					<state>USB_DEVICE_LPM_SUPPORT</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
@@ -570,28 +586,38 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb/class/cdc/device</state>
+					<state>$PROJ_DIR$/../../../../drivers/port</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../boards/saml21_xplained_pro_b</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom</state>
-					<state>$PROJ_DIR$/../../../../drivers/port</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b</state>
+					<state>$PROJ_DIR$/../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb/class/cdc</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_l</state>
+					<state>$PROJ_DIR$/../../../../drivers/usb/usb_sam_l</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_saml21</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint/extint_sam_l_c</state>
+					<state>$PROJ_DIR$/../../../../drivers/usb/stack_interface</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb/udc</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock/clock_saml21</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_l</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/pinmux</state>
+					<state>$PROJ_DIR$/../../../../drivers/usb</state>
 					<state>$PROJ_DIR$/../../../../drivers/system</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/saml21/source</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
@@ -778,6 +804,7 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
+					<state>--config_def __ICFEDIT_size_cstack__=0x400</state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1135,7 +1162,10 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
+					<state>EXTINT_CALLBACK_MODE=true</state>
+					<state>UDD_ENABLE</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
+					<state>USB_DEVICE_LPM_SUPPORT</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
@@ -1267,28 +1297,38 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb/class/cdc/device</state>
+					<state>$PROJ_DIR$/../../../../drivers/port</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../boards/saml21_xplained_pro_b</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom</state>
-					<state>$PROJ_DIR$/../../../../drivers/port</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b</state>
+					<state>$PROJ_DIR$/../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb/class/cdc</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_l</state>
+					<state>$PROJ_DIR$/../../../../drivers/usb/usb_sam_l</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_saml21</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint/extint_sam_l_c</state>
+					<state>$PROJ_DIR$/../../../../drivers/usb/stack_interface</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb/udc</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock/clock_saml21</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_l</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/pinmux</state>
+					<state>$PROJ_DIR$/../../../../drivers/usb</state>
 					<state>$PROJ_DIR$/../../../../drivers/system</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/saml21/source</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1440,7 +1480,10 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>EXTINT_CALLBACK_MODE=true</state>
+					<state>UDD_ENABLE</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
+					<state>USB_DEVICE_LPM_SUPPORT</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
@@ -1539,28 +1582,38 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb/class/cdc/device</state>
+					<state>$PROJ_DIR$/../../../../drivers/port</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/reset</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../boards/saml21_xplained_pro_b</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom</state>
-					<state>$PROJ_DIR$/../../../../drivers/port</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b</state>
+					<state>$PROJ_DIR$/../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb/class/cdc</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_l</state>
+					<state>$PROJ_DIR$/../../../../drivers/usb/usb_sam_l</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_saml21</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint/extint_sam_l_c</state>
+					<state>$PROJ_DIR$/../../../../drivers/usb/stack_interface</state>
+					<state>$PROJ_DIR$/../../../../../common/services/usb/udc</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock/clock_saml21</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_l</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/pinmux</state>
+					<state>$PROJ_DIR$/../../../../drivers/usb</state>
 					<state>$PROJ_DIR$/../../../../drivers/system</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/saml21/source</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1747,6 +1800,7 @@
 				</option>
 				<option>
 					<name>IlinkExtraOptions</name>
+					<state>--config_def __ICFEDIT_size_cstack__=0x400</state>
 				</option>
 				<option>
 					<name>IlinkLowLevelInterfaceSlave</name>
@@ -1943,16 +1997,34 @@
 		<group>
 			<name>drivers</name>
 			<group>
+				<name>extint</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/extint/extint_callback.c</name>
+				</file>
+				<group>
+					<name>extint_sam_l_c</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/extint/extint_sam_l_c/extint.c</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/extint/extint_callback.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/extint/extint.h</name>
+				</file>
+			</group>
+			<group>
 				<name>system</name>
 				<group>
 					<name>clock</name>
 					<group>
 						<name>clock_saml21</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_saml21/gclk.c</name>
+							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_saml21/clock.c</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_saml21/clock.c</name>
+							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_saml21/gclk.c</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_saml21/clock_feature.h</name>
@@ -1967,21 +2039,6 @@
 					<file>
 						<name>$PROJ_DIR$/../../../../drivers/system/clock/clock.h</name>
 					</file>
-				</group>
-				<group>
-					<name>pinmux</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/pinmux/pinmux.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/pinmux/pinmux.h</name>
-					</file>
-					<group>
-						<name>quick_start</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/pinmux/quick_start/qs_pinmux_basic.h</name>
-						</file>
-					</group>
 				</group>
 				<group>
 					<name>interrupt</name>
@@ -2001,6 +2058,21 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/system/system.c</name>
 				</file>
+				<group>
+					<name>pinmux</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/system/pinmux/pinmux.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/system/pinmux/pinmux.h</name>
+					</file>
+					<group>
+						<name>quick_start</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/pinmux/quick_start/qs_pinmux_basic.h</name>
+						</file>
+					</group>
+				</group>
 				<group>
 					<name>reset</name>
 					<group>
@@ -2024,18 +2096,27 @@
 				</file>
 			</group>
 			<group>
-				<name>port</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/port/port.c</name>
-				</file>
+				<name>usb</name>
 				<group>
-					<name>quick_start</name>
+					<name>usb_sam_l</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../drivers/port/quick_start/qs_port_basic.h</name>
+						<name>$PROJ_DIR$/../../../../drivers/usb/usb_sam_l/usb.c</name>
+					</file>
+				</group>
+				<group>
+					<name>stack_interface</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/usb/stack_interface/usb_dual.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/usb/stack_interface/usb_device_udd.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/usb/stack_interface/usb_dual.h</name>
 					</file>
 				</group>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/port/port.h</name>
+					<name>$PROJ_DIR$/../../../../drivers/usb/usb.h</name>
 				</file>
 			</group>
 			<group>
@@ -2095,6 +2176,72 @@
 					<name>$PROJ_DIR$/../../../../drivers/sercom/sercom_interrupt.h</name>
 				</file>
 			</group>
+			<group>
+				<name>port</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/port/port.c</name>
+				</file>
+				<group>
+					<name>quick_start</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/port/quick_start/qs_port_basic.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/port/port.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
+			<name>applications</name>
+			<group>
+				<name>samba_bootloader</name>
+				<file>
+					<name>$PROJ_DIR$/../../sam_ba_monitor.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../usart_sam_ba.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../main.c</name>
+				</file>
+				<group>
+					<name>saml21_xplained_pro_b</name>
+					<file>
+						<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../conf_board.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../conf_bootloader.h</name>
+					</file>
+					<group>
+						<name>iar</name>
+						<file>
+							<name>$PROJ_DIR$/asf.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../conf_usb.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../conf_extint.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../conf_clocks.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../sam_ba_monitor.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../main.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../usart_sam_ba.h</name>
+				</file>
+			</group>
 		</group>
 		<group>
 			<name>utils</name>
@@ -2120,133 +2267,10 @@
 					<group>
 						<name>include_b</name>
 						<group>
-							<name>instance</name>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/mtb.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/opamp.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tc4.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tc0.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/dmac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/dsu.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/osc32kctrl.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tc2.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/sercom5.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tcc0.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/wdt.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/pac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/nvmctrl.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/ac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/trng.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tcc1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/oscctrl.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/ccl.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/sercom2.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/gclk.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/adc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/rtc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tcc2.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tc1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/supc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/evsys.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/sercom3.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/eic.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/pm.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/sercom0.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tal.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/usb.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/dac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/aes.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/sercom4.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/port.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/sercom1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tc3.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/rstc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/mclk.h</name>
-							</file>
-						</group>
-						<file>
-							<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/saml21g18b.h</name>
-						</file>
-						<group>
 							<name>component</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/component/eic.h</name>
+							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/component/wdt.h</name>
 							</file>
@@ -2323,9 +2347,6 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/component/tal.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/component/eic.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/component/ac.h</name>
 							</file>
 							<file>
@@ -2336,6 +2357,132 @@
 							</file>
 						</group>
 						<group>
+							<name>instance</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/mtb.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/opamp.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tc4.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tc0.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/dmac.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/dsu.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tc2.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/sercom5.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tcc0.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/wdt.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/pac.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/nvmctrl.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/ac.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/trng.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tcc1.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/oscctrl.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/osc32kctrl.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/ccl.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/sercom2.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/gclk.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/adc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/rtc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tcc2.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tc1.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/supc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/evsys.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/sercom3.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/eic.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/pm.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/sercom0.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tal.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/usb.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/dac.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/aes.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/sercom4.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/port.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/sercom1.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/tc3.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/rstc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/instance/mclk.h</name>
+							</file>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/saml21g18b.h</name>
+						</file>
+						<group>
 							<name>pio</name>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21e17b.h</name>
@@ -2344,10 +2491,10 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21j16b.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21e16b.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21e15b.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21e18b.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21e16b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21g16b.h</name>
@@ -2359,10 +2506,10 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21g18b.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21g17b.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21e18b.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21e15b.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21g17b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/pio/saml21j18b.h</name>
@@ -2381,9 +2528,6 @@
 							<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/saml21g16b.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/saml21.h</name>
-						</file>
-						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/saml21j17b.h</name>
 						</file>
 						<file>
@@ -2391,6 +2535,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/saml21e17b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/saml21.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/saml21/include_b/saml21j16b.h</name>
@@ -2433,45 +2580,6 @@
 			</group>
 		</group>
 		<group>
-			<name>applications</name>
-			<group>
-				<name>samba_bootloader</name>
-				<file>
-					<name>$PROJ_DIR$/../../usart_sam_ba.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../sam_ba_monitor.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../main.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../sam_ba_monitor.h</name>
-				</file>
-				<group>
-					<name>saml21_xplained_pro_b</name>
-					<file>
-						<name>$PROJ_DIR$/../conf_board.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../conf_bootloader.h</name>
-					</file>
-					<group>
-						<name>iar</name>
-						<file>
-							<name>$PROJ_DIR$/asf.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../conf_clocks.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../usart_sam_ba.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
 			<name>boards</name>
 			<group>
 				<name>saml21_xplained_pro_b</name>
@@ -2503,6 +2611,75 @@
 			<file>
 				<name>$PROJ_DIR$/../../../../../common/utils/interrupt.h</name>
 			</file>
+		</group>
+		<group>
+			<name>services</name>
+			<group>
+				<name>sleepmgr</name>
+				<group>
+					<name>saml</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../common/services/sleepmgr/saml/sleepmgr.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../common/services/sleepmgr/saml/sleepmgr.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/services/sleepmgr/sleepmgr.h</name>
+				</file>
+			</group>
+			<group>
+				<name>usb</name>
+				<group>
+					<name>class</name>
+					<group>
+						<name>cdc</name>
+						<group>
+							<name>device</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../common/services/usb/class/cdc/device/udi_cdc_desc.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../common/services/usb/class/cdc/device/udi_cdc.c</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../common/services/usb/class/cdc/device/udi_cdc_conf.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../common/services/usb/class/cdc/device/udi_cdc.h</name>
+							</file>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../common/services/usb/class/cdc/usb_protocol_cdc.h</name>
+						</file>
+					</group>
+				</group>
+				<group>
+					<name>udc</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../common/services/usb/udc/udc.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../common/services/usb/udc/udd.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../common/services/usb/udc/udi.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../common/services/usb/udc/udc_desc.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../common/services/usb/udc/udc.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/services/usb/usb_atmel.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/services/usb/usb_protocol.h</name>
+				</file>
+			</group>
 		</group>
 		<group>
 			<name>boards</name>

@@ -298,6 +298,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4s_wpir_rd</state>
@@ -571,6 +572,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4s_wpir_rd</state>
@@ -1235,6 +1237,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4s_wpir_rd</state>
@@ -1508,6 +1511,7 @@
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/../../../../pmc</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/include</state>
 					<state>$PROJ_DIR$/../../../../../boards/sam4s_wpir_rd</state>

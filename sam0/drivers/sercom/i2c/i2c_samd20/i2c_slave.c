@@ -123,7 +123,7 @@ static enum status_code _i2c_slave_set_config(
 /**
  * \brief Initializes the requested I<SUP>2</SUP>C hardware module
  *
- * Initializes the SERCOM I<SUP>2</SUP>C Slave device requested and sets the provided
+ * Initializes the SERCOM I<SUP>2</SUP>C slave device requested and sets the provided
  * software module struct.  Run this function before any further use of
  * the driver.
  *

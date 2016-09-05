@@ -295,7 +295,7 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
@@ -304,6 +304,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam_cm4f</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -329,7 +330,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/services/resistive_touch</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
@@ -588,7 +589,7 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
@@ -597,6 +598,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam_cm4f</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -622,7 +624,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/services/resistive_touch</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
@@ -1274,7 +1276,7 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
@@ -1283,6 +1285,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam_cm4f</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -1308,7 +1311,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/services/resistive_touch</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
@@ -1567,7 +1570,7 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi/sam_spi</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc</state>
@@ -1576,6 +1579,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pio</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/display/ili93xx</state>
 					<state>$PROJ_DIR$/../../../../freertos/freertos-7.3.0/source/portable/iar/sam_cm4f</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/ebi/smc</state>
@@ -1601,7 +1605,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../common/services/spi</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/services/resistive_touch</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
@@ -2297,9 +2301,6 @@
 				<group>
 					<name>sam4e16e_sam4e_ek</name>
 					<file>
-						<name>$PROJ_DIR$/../lwipopts.h</name>
-					</file>
-					<file>
 						<name>$PROJ_DIR$/../conf_uart_serial.h</name>
 					</file>
 					<file>
@@ -2312,10 +2313,10 @@
 						<name>$PROJ_DIR$/../conf_eth.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../conf_spi_master.h</name>
+						<name>$PROJ_DIR$/../lwipopts.h</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../conf_ili93xx.h</name>
+						<name>$PROJ_DIR$/../conf_spi_master.h</name>
 					</file>
 					<group>
 						<name>iar</name>
@@ -2323,6 +2324,9 @@
 							<name>$PROJ_DIR$/asf.h</name>
 						</file>
 					</group>
+					<file>
+						<name>$PROJ_DIR$/../conf_ili93xx.h</name>
+					</file>
 					<file>
 						<name>$PROJ_DIR$/../conf_ads7843.h</name>
 					</file>
@@ -2721,6 +2725,9 @@
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/component/tc.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/sam4e8cb.h</name>
+						</file>
 						<group>
 							<name>instance</name>
 							<file>
@@ -2754,6 +2761,9 @@
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/instance/piod.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/instance/uart1.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/instance/twi0.h</name>
 							</file>
 							<file>
@@ -2761,9 +2771,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/instance/pwm.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/instance/uart1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/instance/gpbr.h</name>
@@ -2847,11 +2854,11 @@
 						<file>
 							<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/sam4e16c.h</name>
 						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/sam4e.h</name>
-						</file>
 						<group>
 							<name>pio</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/pio/sam4e8cb.h</name>
+							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/pio/sam4e8c.h</name>
 							</file>
@@ -2862,9 +2869,18 @@
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/pio/sam4e16e.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/pio/sam4e16cb.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/pio/sam4e8e.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/sam4e.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/sam4e16cb.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam4e/include/sam4e8c.h</name>
 						</file>

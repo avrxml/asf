@@ -52,11 +52,17 @@ TARGET_SRAM = samba_bootloader_sram.elf
 
 # List of C source files.
 CSRCS = \
+       common/services/sleepmgr/samd/sleepmgr.c           \
+       common/services/usb/class/cdc/device/udi_cdc.c     \
+       common/services/usb/class/cdc/device/udi_cdc_desc.c \
+       common/services/usb/udc/udc.c                      \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        sam0/applications/samba_bootloader/main.c          \
        sam0/applications/samba_bootloader/sam_ba_monitor.c \
        sam0/applications/samba_bootloader/usart_sam_ba.c  \
        sam0/boards/samd21_xplained_pro/board_init.c       \
+       sam0/drivers/extint/extint_callback.c              \
+       sam0/drivers/extint/extint_sam_d_r/extint.c        \
        sam0/drivers/port/port.c                           \
        sam0/drivers/sercom/sercom.c                       \
        sam0/drivers/sercom/sercom_interrupt.c             \
@@ -67,6 +73,9 @@ CSRCS = \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
+       sam0/drivers/usb/stack_interface/usb_device_udd.c  \
+       sam0/drivers/usb/stack_interface/usb_dual.c        \
+       sam0/drivers/usb/usb_sam_d_r/usb.c                 \
        sam0/utils/cmsis/samd21/source/gcc/startup_samd21.c \
        sam0/utils/cmsis/samd21/source/system_samd21.c     \
        sam0/utils/syscalls/gcc/syscalls.c
@@ -77,11 +86,18 @@ ASSRCS =
 # List of include paths.
 INC_PATH = \
        common/boards                                      \
+       common/services/sleepmgr                           \
+       common/services/usb                                \
+       common/services/usb/class/cdc                      \
+       common/services/usb/class/cdc/device               \
+       common/services/usb/udc                            \
        common/utils                                       \
        sam0/applications/samba_bootloader                 \
        sam0/applications/samba_bootloader/samd21_xplained_pro \
        sam0/boards                                        \
        sam0/boards/samd21_xplained_pro                    \
+       sam0/drivers/extint                                \
+       sam0/drivers/extint/extint_sam_d_r                 \
        sam0/drivers/port                                  \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/usart                          \
@@ -95,6 +111,9 @@ INC_PATH = \
        sam0/drivers/system/power/power_sam_d_r            \
        sam0/drivers/system/reset                          \
        sam0/drivers/system/reset/reset_sam_d_r            \
+       sam0/drivers/usb                                   \
+       sam0/drivers/usb/stack_interface                   \
+       sam0/drivers/usb/usb_sam_d_r                       \
        sam0/utils                                         \
        sam0/utils/cmsis/samd21/include                    \
        sam0/utils/cmsis/samd21/source                     \
@@ -152,11 +171,17 @@ CFLAGS =
 CPPFLAGS = \
        -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMD21_XPLAINED_PRO                       \
+       -D EXTINT_CALLBACK_MODE=true                       \
+       -D UDD_ENABLE                                      \
        -D USART_CALLBACK_MODE=true                        \
+       -D USB_DEVICE_LPM_SUPPORT                          \
        -D __SAMD21J18A__
 
 # Extra flags to use when linking
 LDFLAGS = \
+                                                          \
+       -Wl,--defsym,STACK_SIZE=0x400                      \
+       -Wl,--defsym,__stack_size__=0x400
 
 # Pre- and post-build commands
 PREBUILD_CMD = 

@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\phone_alert_status_saml21_xplained_pro_flash.ewp</path>
+	</project>
+</workspace>

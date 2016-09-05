@@ -1363,7 +1363,7 @@ SEARCH_INCLUDES        = YES
 # contain include files that are not input files but should be processed by
 # the preprocessor.
 
-INCLUDE_PATH           = .. ../.. ../../../../wdt ../../../../../utils ../../../../../utils/header_files ../../../../../utils/preprocessor ../../../../../../common/utils ../../../../../utils/cmsis/sam3x/include ../../../../../utils/cmsis/sam3x/source/templates ../../.. ../../../../gpbr ../../../../../../common/utils/stdio/stdio_serial ../../../../../../common/services/clock ../../../../pmc ../../../../../../common/services/serial ../../../../../../common/services/serial/sam_uart ../../../../uart ../../../../usart ../../../../../boards ../../../../../boards/sam3x_ek ../../../../../../common/boards ../../../../../../common/services/ioport ../../../../../../common/services/gpio ../../../../pio
+INCLUDE_PATH           = .. ../.. ../../../../wdt ../../../../../utils ../../../../../utils/header_files ../../../../../utils/preprocessor ../../../../../../common/utils ../../../../../utils/cmsis/sam3x/include ../../../../../utils/cmsis/sam3x/source/templates ../../.. ../../../example1 ../../../../gpbr ../../../../../../common/utils/stdio/stdio_serial ../../../../../../common/services/clock ../../../../pmc ../../../../../../common/services/serial ../../../../../../common/services/serial/sam_uart ../../../../uart ../../../../usart ../../../../../boards ../../../../../boards/sam3x_ek ../../../../../../common/boards ../../../../../../common/services/ioport ../../../../../../common/services/gpio ../../../../pio
 
 # You can use the INCLUDE_FILE_PATTERNS tag to specify one or more wildcard
 # patterns (like *.h and *.hpp) to filter out the header-files in the

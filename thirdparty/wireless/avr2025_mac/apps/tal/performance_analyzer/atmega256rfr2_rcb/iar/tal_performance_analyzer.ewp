@@ -2431,6 +2431,30 @@
 								<name>$PROJ_DIR$/../../main.c</name>
 							</file>
 							<group>
+								<name>atmega256rfr2_rcb</name>
+								<file>
+									<name>$PROJ_DIR$/../conf_perf_analyzer.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../conf_sio2host.h</name>
+								</file>
+								<group>
+									<name>iar</name>
+									<file>
+										<name>$PROJ_DIR$/asf.h</name>
+									</file>
+								</group>
+								<file>
+									<name>$PROJ_DIR$/../conf_clock.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../conf_board.h</name>
+								</file>
+								<file>
+									<name>$PROJ_DIR$/../conf_hw_timer.h</name>
+								</file>
+							</group>
+							<group>
 								<name>inc</name>
 								<file>
 									<name>$PROJ_DIR$/../../inc/perf_api_serial_handler.h</name>
@@ -2464,27 +2488,6 @@
 								</file>
 								<file>
 									<name>$PROJ_DIR$/../../inc/perf_api.h</name>
-								</file>
-							</group>
-							<group>
-								<name>atmega256rfr2_rcb</name>
-								<file>
-									<name>$PROJ_DIR$/../conf_sio2host.h</name>
-								</file>
-								<group>
-									<name>iar</name>
-									<file>
-										<name>$PROJ_DIR$/asf.h</name>
-									</file>
-								</group>
-								<file>
-									<name>$PROJ_DIR$/../conf_clock.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../conf_board.h</name>
-								</file>
-								<file>
-									<name>$PROJ_DIR$/../conf_hw_timer.h</name>
 								</file>
 							</group>
 							<file>

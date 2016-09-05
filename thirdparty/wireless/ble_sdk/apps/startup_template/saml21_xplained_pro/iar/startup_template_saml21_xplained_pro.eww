@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\startup_template_saml21_xplained_pro_flash.ewp</path>
+	</project>
+</workspace>

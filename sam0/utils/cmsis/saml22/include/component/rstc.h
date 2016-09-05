@@ -3,7 +3,7 @@
  *
  * \brief Component description for RSTC
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -73,20 +73,20 @@ typedef union {
 #define RSTC_RCAUSE_OFFSET          0x00         /**< \brief (RSTC_RCAUSE offset) Reset Cause */
 
 #define RSTC_RCAUSE_POR_Pos         0            /**< \brief (RSTC_RCAUSE) Power On Reset */
-#define RSTC_RCAUSE_POR             (0x1ul << RSTC_RCAUSE_POR_Pos)
+#define RSTC_RCAUSE_POR             (0x1u << RSTC_RCAUSE_POR_Pos)
 #define RSTC_RCAUSE_BODCORE_Pos     1            /**< \brief (RSTC_RCAUSE) Brown Out CORE Detector Reset */
-#define RSTC_RCAUSE_BODCORE         (0x1ul << RSTC_RCAUSE_BODCORE_Pos)
+#define RSTC_RCAUSE_BODCORE         (0x1u << RSTC_RCAUSE_BODCORE_Pos)
 #define RSTC_RCAUSE_BODVDD_Pos      2            /**< \brief (RSTC_RCAUSE) Brown Out VDD Detector Reset */
-#define RSTC_RCAUSE_BODVDD          (0x1ul << RSTC_RCAUSE_BODVDD_Pos)
+#define RSTC_RCAUSE_BODVDD          (0x1u << RSTC_RCAUSE_BODVDD_Pos)
 #define RSTC_RCAUSE_EXT_Pos         4            /**< \brief (RSTC_RCAUSE) External Reset */
-#define RSTC_RCAUSE_EXT             (0x1ul << RSTC_RCAUSE_EXT_Pos)
+#define RSTC_RCAUSE_EXT             (0x1u << RSTC_RCAUSE_EXT_Pos)
 #define RSTC_RCAUSE_WDT_Pos         5            /**< \brief (RSTC_RCAUSE) Watchdog Reset */
-#define RSTC_RCAUSE_WDT             (0x1ul << RSTC_RCAUSE_WDT_Pos)
+#define RSTC_RCAUSE_WDT             (0x1u << RSTC_RCAUSE_WDT_Pos)
 #define RSTC_RCAUSE_SYST_Pos        6            /**< \brief (RSTC_RCAUSE) System Reset Request */
-#define RSTC_RCAUSE_SYST            (0x1ul << RSTC_RCAUSE_SYST_Pos)
+#define RSTC_RCAUSE_SYST            (0x1u << RSTC_RCAUSE_SYST_Pos)
 #define RSTC_RCAUSE_BACKUP_Pos      7            /**< \brief (RSTC_RCAUSE) Backup Reset */
-#define RSTC_RCAUSE_BACKUP          (0x1ul << RSTC_RCAUSE_BACKUP_Pos)
-#define RSTC_RCAUSE_MASK            0xF7ul       /**< \brief (RSTC_RCAUSE) MASK Register */
+#define RSTC_RCAUSE_BACKUP          (0x1u << RSTC_RCAUSE_BACKUP_Pos)
+#define RSTC_RCAUSE_MASK            0xF7u        /**< \brief (RSTC_RCAUSE) MASK Register */
 
 /* -------- RSTC_BKUPEXIT : (RSTC Offset: 0x02) (R/   8) Backup Exit Source -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -102,15 +102,15 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define RSTC_BKUPEXIT_OFFSET        0x02         /**< \brief (RSTC_BKUPEXIT offset) Backup Exit Source */
-#define RSTC_BKUPEXIT_RESETVALUE    0x00ul       /**< \brief (RSTC_BKUPEXIT reset_value) Backup Exit Source */
+#define RSTC_BKUPEXIT_RESETVALUE    0x00u        /**< \brief (RSTC_BKUPEXIT reset_value) Backup Exit Source */
 
 #define RSTC_BKUPEXIT_EXTWAKE_Pos   0            /**< \brief (RSTC_BKUPEXIT) External Wakeup */
-#define RSTC_BKUPEXIT_EXTWAKE       (0x1ul << RSTC_BKUPEXIT_EXTWAKE_Pos)
+#define RSTC_BKUPEXIT_EXTWAKE       (0x1u << RSTC_BKUPEXIT_EXTWAKE_Pos)
 #define RSTC_BKUPEXIT_RTC_Pos       1            /**< \brief (RSTC_BKUPEXIT) Real Timer Counter Interrupt */
-#define RSTC_BKUPEXIT_RTC           (0x1ul << RSTC_BKUPEXIT_RTC_Pos)
+#define RSTC_BKUPEXIT_RTC           (0x1u << RSTC_BKUPEXIT_RTC_Pos)
 #define RSTC_BKUPEXIT_BBPS_Pos      2            /**< \brief (RSTC_BKUPEXIT) Battery Backup Power Switch */
-#define RSTC_BKUPEXIT_BBPS          (0x1ul << RSTC_BKUPEXIT_BBPS_Pos)
-#define RSTC_BKUPEXIT_MASK          0x07ul       /**< \brief (RSTC_BKUPEXIT) MASK Register */
+#define RSTC_BKUPEXIT_BBPS          (0x1u << RSTC_BKUPEXIT_BBPS_Pos)
+#define RSTC_BKUPEXIT_MASK          0x07u        /**< \brief (RSTC_BKUPEXIT) MASK Register */
 
 /** \brief RSTC hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))

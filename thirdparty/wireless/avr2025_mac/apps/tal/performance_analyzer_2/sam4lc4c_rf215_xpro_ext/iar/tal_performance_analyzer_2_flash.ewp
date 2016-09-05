@@ -169,23 +169,24 @@
 					<state>ANTENNA_DIVERSITY=0</state>
 					<state>FFD</state>
 					<state>SPECIFIC_TAL_CONFIG</state>
-					<state>BOARD=SAM4L_XPLAINED_PRO</state>
+					<state>DIRECT_MODULATION</state>
 					<state>ENABLE_TFA</state>
 					<state>_DEBUG_=0</state>
 					<state>__SAM4LC4C__</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
 					<state>UDD_ENABLE</state>
+					<state>RF215v3</state>
 					<state>MULTI_TRX_SUPPORT</state>
 					<state>TAL_TYPE=AT86RF215</state>
 					<state>SUPPORT_FSK</state>
 					<state>SUPPORT_OQPSK</state>
+					<state>BOARD=SAM4L_XPLAINED_PRO</state>
 					<state>ENABLE_DEEP_SLEEP</state>
 					<state>SUPPORT_LEGACY_OQPSK</state>
-					<state>PAL_USE_SPI_TRX=1</state>
 					<state>SUPPORT_OFDM</state>
 					<state>ARM_MATH_CM4=true</state>
 					<state>ENABLE_LARGE_BUFFER</state>
-					<state>RF215V1</state>
+					<state>PAL_USE_SPI_TRX=1</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -514,23 +515,24 @@
 					<state>ANTENNA_DIVERSITY=0</state>
 					<state>FFD</state>
 					<state>SPECIFIC_TAL_CONFIG</state>
-					<state>BOARD=SAM4L_XPLAINED_PRO</state>
+					<state>DIRECT_MODULATION</state>
 					<state>ENABLE_TFA</state>
 					<state>_DEBUG_=0</state>
 					<state>__SAM4LC4C__</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
 					<state>UDD_ENABLE</state>
+					<state>RF215v3</state>
 					<state>MULTI_TRX_SUPPORT</state>
 					<state>TAL_TYPE=AT86RF215</state>
 					<state>SUPPORT_FSK</state>
 					<state>SUPPORT_OQPSK</state>
+					<state>BOARD=SAM4L_XPLAINED_PRO</state>
 					<state>ENABLE_DEEP_SLEEP</state>
 					<state>SUPPORT_LEGACY_OQPSK</state>
-					<state>PAL_USE_SPI_TRX=1</state>
 					<state>SUPPORT_OFDM</state>
 					<state>ARM_MATH_CM4=true</state>
 					<state>ENABLE_LARGE_BUFFER</state>
-					<state>RF215V1</state>
+					<state>PAL_USE_SPI_TRX=1</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1218,23 +1220,24 @@
 					<state>ANTENNA_DIVERSITY=0</state>
 					<state>FFD</state>
 					<state>SPECIFIC_TAL_CONFIG</state>
-					<state>BOARD=SAM4L_XPLAINED_PRO</state>
+					<state>DIRECT_MODULATION</state>
 					<state>ENABLE_TFA</state>
 					<state>_DEBUG_=0</state>
 					<state>__SAM4LC4C__</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
 					<state>UDD_ENABLE</state>
+					<state>RF215v3</state>
 					<state>MULTI_TRX_SUPPORT</state>
 					<state>TAL_TYPE=AT86RF215</state>
 					<state>SUPPORT_FSK</state>
 					<state>SUPPORT_OQPSK</state>
+					<state>BOARD=SAM4L_XPLAINED_PRO</state>
 					<state>ENABLE_DEEP_SLEEP</state>
 					<state>SUPPORT_LEGACY_OQPSK</state>
-					<state>PAL_USE_SPI_TRX=1</state>
 					<state>SUPPORT_OFDM</state>
 					<state>ARM_MATH_CM4=true</state>
 					<state>ENABLE_LARGE_BUFFER</state>
-					<state>RF215V1</state>
+					<state>PAL_USE_SPI_TRX=1</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1563,23 +1566,24 @@
 					<state>ANTENNA_DIVERSITY=0</state>
 					<state>FFD</state>
 					<state>SPECIFIC_TAL_CONFIG</state>
-					<state>BOARD=SAM4L_XPLAINED_PRO</state>
+					<state>DIRECT_MODULATION</state>
 					<state>ENABLE_TFA</state>
 					<state>_DEBUG_=0</state>
 					<state>__SAM4LC4C__</state>
 					<state>HIGHEST_STACK_LAYER=TAL</state>
 					<state>UDD_ENABLE</state>
+					<state>RF215v3</state>
 					<state>MULTI_TRX_SUPPORT</state>
 					<state>TAL_TYPE=AT86RF215</state>
 					<state>SUPPORT_FSK</state>
 					<state>SUPPORT_OQPSK</state>
+					<state>BOARD=SAM4L_XPLAINED_PRO</state>
 					<state>ENABLE_DEEP_SLEEP</state>
 					<state>SUPPORT_LEGACY_OQPSK</state>
-					<state>PAL_USE_SPI_TRX=1</state>
 					<state>SUPPORT_OFDM</state>
 					<state>ARM_MATH_CM4=true</state>
 					<state>ENABLE_LARGE_BUFFER</state>
-					<state>RF215V1</state>
+					<state>PAL_USE_SPI_TRX=1</state>
 				</option>
 				<option>
 					<name>AList</name>

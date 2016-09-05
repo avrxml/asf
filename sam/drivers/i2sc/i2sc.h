@@ -77,18 +77,18 @@ enum i2s_number_of_channels {
 
 /** Supported Master Clock to Sample Frequency (fs) Ratio */
 enum i2s_fs_rate {
-	I2S_FS_RATE_16  = 0,
-	I2S_FS_RATE_32  = 1,
-	I2S_FS_RATE_48  = 2,
-	I2S_FS_RATE_64  = 3,
-	I2S_FS_RATE_96  = 5,
-	I2S_FS_RATE_128 = 7,
-	I2S_FS_RATE_192 = 11,
-	I2S_FS_RATE_256 = 15,
-	I2S_FS_RATE_384 = 23,
-	I2S_FS_RATE_512 = 31,
-	I2S_FS_RATE_768 = 47,
-	I2S_FS_RATE_1024 = 63,
+	I2S_FS_RATE_32  = 0,
+	I2S_FS_RATE_64  = 1,
+	I2S_FS_RATE_96  = 2,
+	I2S_FS_RATE_128 = 3,
+	I2S_FS_RATE_192 = 5,
+	I2S_FS_RATE_256 = 7,
+	I2S_FS_RATE_384 = 11,
+	I2S_FS_RATE_512 = 15,
+	I2S_FS_RATE_768 = 23,
+	I2S_FS_RATE_1024 = 31,
+	I2S_FS_RATE_1536 = 47,
+	I2S_FS_RATE_2048 = 63,
 };
 
 /** Data format */
@@ -141,6 +141,12 @@ struct i2s_config {
 
 	/* 1 for master clock generated, 0 for no master clock. */
 	bool master_clock_enable;
+	
+	/**
+	 * I2SMCK Master clock output frequency is Selected Clock 
+	 * divided by (IMCKDIV + 1), and master_clock_divide should not be 0. 
+	 */
+	uint8_t master_clock_divide;
 
 	/* 1 for previous sample, 0 for zero sample. */
 	bool transmit_mode_underrun;

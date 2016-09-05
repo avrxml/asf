@@ -341,7 +341,7 @@ static inline void process_incoming_sio_data(void)
 /**
  * \brief get the new buffer for next transmission through serial
  *
- *****\return unsigned integer pointer to buf
+ ******\return unsigned integer pointer to buf
  */
 static uint8_t *get_next_tx_buffer(void)
 {
@@ -1343,8 +1343,9 @@ void usr_perf_start_confirm(uint8_t status,
 #if ((TAL_TYPE != AT86RF212) && (TAL_TYPE != AT86RF212B))
 	*msg_buf++ = trx_config_params->tx_power_reg;
 #else
+
 	/* Tx Power in reg support is not given for RF212 and 212B transceivers
-	 **/
+	**/
 	*msg_buf++ = FIELD_DOES_NOT_EXIST;
 #endif
 	*msg_buf++ = (uint8_t)trx_config_params->csma_enabled;

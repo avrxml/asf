@@ -48,7 +48,7 @@
 #define ACC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_acc_group SAM3S/4E/4S Analog Comparator Controller (ACC) Driver
+ * \defgroup asfdoc_sam_drivers_acc_group SAM3S/4E/4S/V71/V70/S70/E70 Analog Comparator Controller (ACC) Driver
  *
  * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides an interface for 
  * the configuration and management of the device's Analog Comparator Controller functionality.
@@ -62,6 +62,10 @@
  * - Atmel | SMART SAM3S
  * - Atmel | SMART SAM4E
  * - Atmel | SMART SAM4S
+ * - Atmel | SMART SAMV71
+ * - Atmel | SMART SAMV70
+ * - Atmel | SMART SAME70
+ * - Atmel | SMART SAMS70
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam_drivers_acc_prerequisites

@@ -79,6 +79,7 @@ extern int (*ptr_put)(void volatile*, char);
 /** Pointer to the external low level read function. */
 extern void (*ptr_get)(void volatile*, char*);
 
+#if SAM0
 /** \brief Initializes the stdio in Serial Mode.
  *
  * \param module       Software USART instance to associate with the hardware.
@@ -106,6 +107,37 @@ static inline void stdio_serial_init(
 	// - getchar() requests only 1 byte to exit.
 #  endif
 }
+#endif
+
+#if SAMB
+/** \brief Initializes the stdio in Serial Mode.
+ *
+ * \param module       Software UART instance to associate with the hardware.
+ * \param hw           Base address of the UART hardware instance.
+ * \param config       UART configuration parameters for the STDIO stream.
+ *
+ */
+static inline void stdio_serial_init(
+		struct uart_module *const module,
+		Uart * const hw,
+		const struct uart_config *const config)
+{
+	stdio_base = (void *)module;
+	ptr_put = (int (*)(void volatile*,char))&usart_serial_putchar;
+	ptr_get = (void (*)(void volatile*,char*))&usart_serial_getchar;
+
+	usart_serial_init(module, hw, config);
+# if defined(__GNUC__)
+	// Specify that stdout and stdin should not be buffered.
+	setbuf(stdout, NULL);
+	setbuf(stdin, NULL);
+	// Note: Already the case in IAR's Normal DLIB default configuration
+	// and AVR GCC library:
+	// - printf() emits one character at a time.
+	// - getchar() requests only 1 byte to exit.
+#  endif
+}
+#endif
 
 /**
  * @}

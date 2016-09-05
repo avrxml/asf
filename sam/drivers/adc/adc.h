@@ -3,7 +3,7 @@
  *
  * \brief Analog-to-Digital Converter (ADC/ADC12B) driver for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -264,7 +264,7 @@ void adc_configure_power_save(Adc *p_adc, const uint8_t uc_sleep);
 #endif
 void adc_set_resolution(Adc *p_adc, const enum adc_resolution_t resolution);
 void adc_start(Adc *p_adc);
-void adc_stop(Adc *p_adc);
+void adc_reset(Adc *p_adc);
 void adc_enable_channel(Adc *p_adc, const enum adc_channel_num_t adc_ch);
 void adc_disable_channel(Adc *p_adc, const enum adc_channel_num_t adc_ch);
 void adc_enable_all_channel(Adc *p_adc);
@@ -356,7 +356,7 @@ void adc12b_configure_power_save(Adc12b *p_adc, const uint8_t uc_sleep,
 		const uint8_t uc_offmode);
 void adc12b_configure_timing(Adc12b *p_adc, const uint32_t ul_sh);
 void adc12b_start(Adc12b *p_adc);
-void adc12b_stop(Adc12b *p_adc);
+void adc12b_reset(Adc12b *p_adc);
 void adc12b_enable_channel(Adc12b *p_adc, const enum adc_channel_num_t adc_ch);
 void adc12b_disable_channel(Adc12b *p_adc, const enum adc_channel_num_t adc_ch);
 void adc12b_enable_all_channel(Adc12b *p_adc);

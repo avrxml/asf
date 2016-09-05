@@ -3,7 +3,7 @@
  *
  * \brief MAIN configuration.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -21,9 +21,6 @@
  *
  * 3. The name of Atmel may not be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
  *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -52,11 +49,11 @@ extern "C" {
 #define MAIN_WPS_PIN_NUMBER              "12345670"
 
 /** WPS Push Button Feature */
-#define MAIN_WPS_PUSH_BUTTON_FEATURE      false
+#define MAIN_WPS_PUSH_BUTTON_FEATURE     true
 
 /** Settings for button and timer */
-#define MAIN_BIT0                         (0x0001)
-#define MAIN_SW1                          MAIN_BIT0
+#define MAIN_BIT0                        (0x0001)
+#define MAIN_SW1                         MAIN_BIT0
 
 #ifdef __cplusplus
 }

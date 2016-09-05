@@ -3,7 +3,7 @@
  *
  * \brief Global interrupt management for 8-bit AVR
  *
- * Copyright (C) 2010-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2010-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -107,7 +107,7 @@ typedef uint8_t irqflags_t;
 
 static inline irqflags_t cpu_irq_save(void)
 {
-	irqflags_t flags = SREG;
+	volatile irqflags_t flags = SREG;
 	cpu_irq_disable();
 	return flags;
 }

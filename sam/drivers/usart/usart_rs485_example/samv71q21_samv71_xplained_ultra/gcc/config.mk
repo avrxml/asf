@@ -66,7 +66,7 @@ CSRCS = \
        sam/drivers/tc/tc.c                                \
        sam/drivers/uart/uart.c                            \
        sam/drivers/usart/usart.c                          \
-       sam/drivers/usart/usart_rs485_example/usart_rs485_example_samv71.c \
+       sam/drivers/usart/usart_rs485_example/usart_rs485_example_canopus.c \
        sam/utils/cmsis/samv71/source/templates/gcc/startup_samv71.c \
        sam/utils/cmsis/samv71/source/templates/system_samv71.c \
        sam/utils/syscalls/gcc/syscalls.c

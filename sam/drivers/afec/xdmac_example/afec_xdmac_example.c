@@ -50,12 +50,12 @@
  * feature inside the microcontroller. The RAW data of temperature sampled by
  * AFEC is taken by XDMAC and converted to temperature value ,which is output
  * to terminal console.  Three columns will be output to console, first column
- * is AFEC channel,for temperature sensor on SAMV71,it's channel 11, the second column
+ * is AFEC channel,for temperature sensor on SAMV71/SAME70,it's channel 11, the second column
  * is RAW data sampled, the third column is converted temperature value.
  *
  * \section Requirements
  *
- * This example can be used on SAMV71-Xplained-Ultra board.
+ * This example can be used on SAMV71-Xplained-Ultra/SAME70-Xplained-Pro board.
  *
  * \section Description
  *

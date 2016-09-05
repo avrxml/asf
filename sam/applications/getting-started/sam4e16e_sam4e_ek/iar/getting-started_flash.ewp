@@ -1970,9 +1970,6 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/dacc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/pmc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/hsmci.h</name>
 							</file>
 							<file>
@@ -2067,6 +2064,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/afec1.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/pmc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/instance/gpbr.h</name>
@@ -2168,11 +2168,11 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/component/twi.h</name>
 							</file>
 						</group>
-						<file>
-							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e8c.h</name>
-						</file>
 						<group>
 							<name>pio</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e16cb.h</name>
+							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e16c.h</name>
 							</file>
@@ -2183,9 +2183,15 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e16e.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e8cb.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/pio/sam4e8c.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e8c.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e16e.h</name>
 						</file>
@@ -2193,7 +2199,13 @@
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e8e.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e8cb.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e16c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e16cb.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/sam4e/include/sam4e.h</name>

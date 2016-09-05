@@ -3,7 +3,7 @@
  *
  * \brief SAM D21/R21/DA0/DA1 Generic Clock Driver
  *
- * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -464,7 +464,7 @@ void system_gclk_chan_lock(
 	*((uint8_t*)&GCLK->CLKCTRL.reg) = channel;
 
 	/* Lock the generic clock */
-	GCLK->CLKCTRL.reg |= GCLK_CLKCTRL_WRTLOCK;
+	GCLK->CLKCTRL.reg |= GCLK_CLKCTRL_WRTLOCK | GCLK_CLKCTRL_CLKEN;
 
 	system_interrupt_leave_critical_section();
 }

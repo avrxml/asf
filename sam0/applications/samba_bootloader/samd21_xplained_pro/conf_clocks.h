@@ -3,7 +3,7 @@
  *
  * \brief SAM D21 Clock configuration
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -90,12 +90,12 @@
 #  define CONF_CLOCK_OSC32K_RUN_IN_STANDBY        false
 
 /* SYSTEM_CLOCK_SOURCE_DFLL configuration - Digital Frequency Locked Loop */
-#  define CONF_CLOCK_DFLL_ENABLE                  false
-#  define CONF_CLOCK_DFLL_LOOP_MODE               SYSTEM_CLOCK_DFLL_LOOP_MODE_OPEN
+#  define CONF_CLOCK_DFLL_ENABLE                  true
+#  define CONF_CLOCK_DFLL_LOOP_MODE               SYSTEM_CLOCK_DFLL_LOOP_MODE_USB_RECOVERY
 #  define CONF_CLOCK_DFLL_ON_DEMAND               false
 
 /* DFLL open loop mode configuration */
-#  define CONF_CLOCK_DFLL_FINE_VALUE              (0xff / 4)
+#  define CONF_CLOCK_DFLL_FINE_VALUE              (512)
 
 /* DFLL closed loop mode configuration */
 #  define CONF_CLOCK_DFLL_SOURCE_GCLK_GENERATOR   GCLK_GENERATOR_1
@@ -154,9 +154,9 @@
 #  define CONF_CLOCK_GCLK_2_OUTPUT_ENABLE         false
 
 /* Configure GCLK generator 3 */
-#  define CONF_CLOCK_GCLK_3_ENABLE                false
+#  define CONF_CLOCK_GCLK_3_ENABLE                true
 #  define CONF_CLOCK_GCLK_3_RUN_IN_STANDBY        false
-#  define CONF_CLOCK_GCLK_3_CLOCK_SOURCE          SYSTEM_CLOCK_SOURCE_OSC8M
+#  define CONF_CLOCK_GCLK_3_CLOCK_SOURCE          SYSTEM_CLOCK_SOURCE_DFLL
 #  define CONF_CLOCK_GCLK_3_PRESCALER             1
 #  define CONF_CLOCK_GCLK_3_OUTPUT_ENABLE         false
 

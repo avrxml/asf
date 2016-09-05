@@ -175,13 +175,16 @@ retval_t tal_rxaack_prom_mode_ctrl(trx_id_t trx, bool prom_ctrl)
 	if (prom_ctrl) {
 		/* configure promiscuous mode */
 		trx_bit_write(rf_reg_offset + SR_BBC0_AFC0_PM, prom_ctrl);
-		trx_bit_write(rf_reg_offset + SR_BBC0_PC_FCSFE, 0X00); /* Disable
-		                                                        * FCSFE */
+		trx_bit_write(rf_reg_offset + SR_BBC0_PC_FCSFE, 0X00); /*
+		                                                       * Disable
+		                                                       * FCSFE
+		                                                       **/
 	} else {
 		/* configure promiscuous mode */
 		trx_bit_write(rf_reg_offset + SR_BBC0_AFC0_PM, prom_ctrl);
 		trx_bit_write(rf_reg_offset + SR_BBC0_PC_FCSFE, 0X01); /* Enable
-		                                                        * FCSFE */
+		                                                        * FCSFE
+		                                                        **/
 	}
 
 	temp = trx_bit_read(SR_BBC0_AFC0_PM);
@@ -258,7 +261,6 @@ retval_t tal_trx_reg_read(trx_id_t trx, uint16_t reg_addr, uint8_t *data)
 	if (reg_addr > MAX_REG_ADDR_VALUE) {
 		return MAC_INVALID_PARAMETER;
 	}
-
 #endif /* End of (TAL_TYPE == ATMEGARFA1) || (TAL_TYPE == ATMEGA256RFR2)*/
 
 	/* Read the corresponding transceiver register and return through data
@@ -288,7 +290,6 @@ retval_t  tal_trx_reg_write(trx_id_t trx, uint16_t reg_addr, uint8_t value)
 	if (reg_addr > MAX_REG_ADDR_VALUE) {
 		return MAC_INVALID_PARAMETER;
 	}
-
 #endif /* End of (TAL_TYPE == ATMEGARFA1) || (TAL_TYPE == ATMEGA256RFR2)*/
 	trx_reg_write(reg_addr, value);
 
@@ -361,7 +362,6 @@ retval_t tal_dump_registers(trx_id_t trx, uint16_t start_addr,
 	if (start_addr > MAX_REG_ADDR_VALUE || end_addr > MAX_REG_ADDR_VALUE) {
 		return MAC_INVALID_PARAMETER;
 	}
-
 #endif /* End of (TAL_TYPE == ATMEGARFA1) || (TAL_TYPE == ATMEGA256RFR2)*/
 	length = end_addr - start_addr;
 	if (length < 0) {

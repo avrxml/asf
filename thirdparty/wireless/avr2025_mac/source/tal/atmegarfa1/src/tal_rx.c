@@ -126,15 +126,17 @@ void handle_received_frame_irq(void)
 		trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_DISABLE); /* Disable
 		                                                       * buffer
 		                                                       *
+		                                                       *
 		                                                       *protection
 		                                                       * mode */
 		CONF_REG_WRITE();
 		pal_timer_delay(2); /* Allow pin change to get effective */
 		trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /* Enable
-		                                                      * buffer
-		                                                      *
-		                                                      *protection
-		                                                      * mode */
+		                                                     * buffer
+		                                                     *
+		                                                     *
+		                                                     *protection
+		                                                     * mode */
 		CONF_REG_WRITE();
 		return;
 	}
@@ -230,14 +232,16 @@ void handle_received_frame_irq(void)
 		trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_DISABLE); /* Disable
 		                                                       * buffer
 		                                                       *
+		                                                       *
 		                                                       *protection
 		                                                       * mode */
 		pal_timer_delay(2); /* Allow pin change to get effective */
 		trx_bit_write(SR_RX_SAFE_MODE, RX_SAFE_MODE_ENABLE); /* Enable
-		                                                      * buffer
-		                                                      *
-		                                                      *protection
-		                                                      * mode */
+		                                                     * buffer
+		                                                     *
+		                                                     *
+		                                                     *protection
+		                                                     * mode */
 
 		CONF_REG_WRITE();
 	}

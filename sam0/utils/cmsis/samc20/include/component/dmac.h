@@ -3,7 +3,7 @@
  *
  * \brief Component description for DMAC
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -817,14 +817,14 @@ typedef union {
 #define DMAC_BTCTRL_STEPSIZE_Pos    13           /**< \brief (DMAC_BTCTRL) Address Increment Step Size */
 #define DMAC_BTCTRL_STEPSIZE_Msk    (0x7ul << DMAC_BTCTRL_STEPSIZE_Pos)
 #define DMAC_BTCTRL_STEPSIZE(value) (DMAC_BTCTRL_STEPSIZE_Msk & ((value) << DMAC_BTCTRL_STEPSIZE_Pos))
-#define   DMAC_BTCTRL_STEPSIZE_X1_Val     0x0ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (BEATSIZE+1) * 1 */
-#define   DMAC_BTCTRL_STEPSIZE_X2_Val     0x1ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (BEATSIZE+1) * 2 */
-#define   DMAC_BTCTRL_STEPSIZE_X4_Val     0x2ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (BEATSIZE+1) * 4 */
-#define   DMAC_BTCTRL_STEPSIZE_X8_Val     0x3ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (BEATSIZE+1) * 8 */
-#define   DMAC_BTCTRL_STEPSIZE_X16_Val    0x4ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (BEATSIZE+1) * 16 */
-#define   DMAC_BTCTRL_STEPSIZE_X32_Val    0x5ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (BEATSIZE+1) * 32 */
-#define   DMAC_BTCTRL_STEPSIZE_X64_Val    0x6ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (BEATSIZE+1) * 64 */
-#define   DMAC_BTCTRL_STEPSIZE_X128_Val   0x7ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (BEATSIZE+1) * 128 */
+#define   DMAC_BTCTRL_STEPSIZE_X1_Val     0x0ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (1<<BEATSIZE) * 1 */
+#define   DMAC_BTCTRL_STEPSIZE_X2_Val     0x1ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (1<<BEATSIZE) * 2 */
+#define   DMAC_BTCTRL_STEPSIZE_X4_Val     0x2ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (1<<BEATSIZE) * 4 */
+#define   DMAC_BTCTRL_STEPSIZE_X8_Val     0x3ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (1<<BEATSIZE) * 8 */
+#define   DMAC_BTCTRL_STEPSIZE_X16_Val    0x4ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (1<<BEATSIZE) * 16 */
+#define   DMAC_BTCTRL_STEPSIZE_X32_Val    0x5ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (1<<BEATSIZE) * 32 */
+#define   DMAC_BTCTRL_STEPSIZE_X64_Val    0x6ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (1<<BEATSIZE) * 64 */
+#define   DMAC_BTCTRL_STEPSIZE_X128_Val   0x7ul  /**< \brief (DMAC_BTCTRL) Next ADDR = ADDR + (1<<BEATSIZE) * 128 */
 #define DMAC_BTCTRL_STEPSIZE_X1     (DMAC_BTCTRL_STEPSIZE_X1_Val   << DMAC_BTCTRL_STEPSIZE_Pos)
 #define DMAC_BTCTRL_STEPSIZE_X2     (DMAC_BTCTRL_STEPSIZE_X2_Val   << DMAC_BTCTRL_STEPSIZE_Pos)
 #define DMAC_BTCTRL_STEPSIZE_X4     (DMAC_BTCTRL_STEPSIZE_X4_Val   << DMAC_BTCTRL_STEPSIZE_Pos)
@@ -951,6 +951,7 @@ typedef struct {
 #endif
 ;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
+
 #define SECTION_DMAC_DESCRIPTOR
 
 /*@}*/

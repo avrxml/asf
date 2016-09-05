@@ -243,12 +243,14 @@ static void calculate_transaction_duration(void)
 		transaction_duration_octets += ACK_FRAME_LEN + PHY_OVERHEAD; /*
 		                                                              *
 		                                                              *
+		                                                              *
 		                                                              *octets
 		                                                              **/
 
 		/* Space is needed until the ACK is sent. */
 		transaction_duration_sym += aTurnaroundTime +
 				aUnitBackoffPeriod;                       /*
+		                                                           *
 		                                                           *
 		                                                           *
 		                                                           *symbols
@@ -294,12 +296,14 @@ uint16_t calc_frame_transmit_duration(uint8_t *phy_frame)
 		/* Ensure there is room for the ACK. */
 		transaction_duration_octets += ACK_FRAME_LEN + PHY_OVERHEAD; /**
 		                                                              *
+		                                                              *
 		                                                              *octets
 		                                                              **/
 
 		/* Space is needed until the ACK is sent. */
 		transaction_duration_sym += aTurnaroundTime +
 				aUnitBackoffPeriod;                       /**
+		                                                           *
 		                                                           *
 		                                                           *symbols
 		                                                           **/

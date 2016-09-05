@@ -3,7 +3,7 @@
  *
  * \brief Component description for WDT
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -68,15 +68,15 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define WDT_CTRLA_OFFSET            0x0          /**< \brief (WDT_CTRLA offset) Control */
-#define WDT_CTRLA_RESETVALUE        0x00ul       /**< \brief (WDT_CTRLA reset_value) Control */
+#define WDT_CTRLA_RESETVALUE        0x00u        /**< \brief (WDT_CTRLA reset_value) Control */
 
 #define WDT_CTRLA_ENABLE_Pos        1            /**< \brief (WDT_CTRLA) Enable */
-#define WDT_CTRLA_ENABLE            (0x1ul << WDT_CTRLA_ENABLE_Pos)
+#define WDT_CTRLA_ENABLE            (0x1u << WDT_CTRLA_ENABLE_Pos)
 #define WDT_CTRLA_WEN_Pos           2            /**< \brief (WDT_CTRLA) Watchdog Timer Window Mode Enable */
-#define WDT_CTRLA_WEN               (0x1ul << WDT_CTRLA_WEN_Pos)
+#define WDT_CTRLA_WEN               (0x1u << WDT_CTRLA_WEN_Pos)
 #define WDT_CTRLA_ALWAYSON_Pos      7            /**< \brief (WDT_CTRLA) Always-On */
-#define WDT_CTRLA_ALWAYSON          (0x1ul << WDT_CTRLA_ALWAYSON_Pos)
-#define WDT_CTRLA_MASK              0x86ul       /**< \brief (WDT_CTRLA) MASK Register */
+#define WDT_CTRLA_ALWAYSON          (0x1u << WDT_CTRLA_ALWAYSON_Pos)
+#define WDT_CTRLA_MASK              0x86u        /**< \brief (WDT_CTRLA) MASK Register */
 
 /* -------- WDT_CONFIG : (WDT Offset: 0x1) (R/W  8) Configuration -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -90,23 +90,23 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define WDT_CONFIG_OFFSET           0x1          /**< \brief (WDT_CONFIG offset) Configuration */
-#define WDT_CONFIG_RESETVALUE       0xBBul       /**< \brief (WDT_CONFIG reset_value) Configuration */
+#define WDT_CONFIG_RESETVALUE       0xBBu        /**< \brief (WDT_CONFIG reset_value) Configuration */
 
 #define WDT_CONFIG_PER_Pos          0            /**< \brief (WDT_CONFIG) Time-Out Period */
-#define WDT_CONFIG_PER_Msk          (0xFul << WDT_CONFIG_PER_Pos)
+#define WDT_CONFIG_PER_Msk          (0xFu << WDT_CONFIG_PER_Pos)
 #define WDT_CONFIG_PER(value)       (WDT_CONFIG_PER_Msk & ((value) << WDT_CONFIG_PER_Pos))
-#define   WDT_CONFIG_PER_CYC8_Val         0x0ul  /**< \brief (WDT_CONFIG) 8 clock cycles */
-#define   WDT_CONFIG_PER_CYC16_Val        0x1ul  /**< \brief (WDT_CONFIG) 16 clock cycles */
-#define   WDT_CONFIG_PER_CYC32_Val        0x2ul  /**< \brief (WDT_CONFIG) 32 clock cycles */
-#define   WDT_CONFIG_PER_CYC64_Val        0x3ul  /**< \brief (WDT_CONFIG) 64 clock cycles */
-#define   WDT_CONFIG_PER_CYC128_Val       0x4ul  /**< \brief (WDT_CONFIG) 128 clock cycles */
-#define   WDT_CONFIG_PER_CYC256_Val       0x5ul  /**< \brief (WDT_CONFIG) 256 clock cycles */
-#define   WDT_CONFIG_PER_CYC512_Val       0x6ul  /**< \brief (WDT_CONFIG) 512 clock cycles */
-#define   WDT_CONFIG_PER_CYC1024_Val      0x7ul  /**< \brief (WDT_CONFIG) 1024 clock cycles */
-#define   WDT_CONFIG_PER_CYC2048_Val      0x8ul  /**< \brief (WDT_CONFIG) 2048 clock cycles */
-#define   WDT_CONFIG_PER_CYC4096_Val      0x9ul  /**< \brief (WDT_CONFIG) 4096 clock cycles */
-#define   WDT_CONFIG_PER_CYC8192_Val      0xAul  /**< \brief (WDT_CONFIG) 8192 clock cycles */
-#define   WDT_CONFIG_PER_CYC16384_Val     0xBul  /**< \brief (WDT_CONFIG) 16384 clock cycles */
+#define   WDT_CONFIG_PER_CYC8_Val         0x0u   /**< \brief (WDT_CONFIG) 8 clock cycles */
+#define   WDT_CONFIG_PER_CYC16_Val        0x1u   /**< \brief (WDT_CONFIG) 16 clock cycles */
+#define   WDT_CONFIG_PER_CYC32_Val        0x2u   /**< \brief (WDT_CONFIG) 32 clock cycles */
+#define   WDT_CONFIG_PER_CYC64_Val        0x3u   /**< \brief (WDT_CONFIG) 64 clock cycles */
+#define   WDT_CONFIG_PER_CYC128_Val       0x4u   /**< \brief (WDT_CONFIG) 128 clock cycles */
+#define   WDT_CONFIG_PER_CYC256_Val       0x5u   /**< \brief (WDT_CONFIG) 256 clock cycles */
+#define   WDT_CONFIG_PER_CYC512_Val       0x6u   /**< \brief (WDT_CONFIG) 512 clock cycles */
+#define   WDT_CONFIG_PER_CYC1024_Val      0x7u   /**< \brief (WDT_CONFIG) 1024 clock cycles */
+#define   WDT_CONFIG_PER_CYC2048_Val      0x8u   /**< \brief (WDT_CONFIG) 2048 clock cycles */
+#define   WDT_CONFIG_PER_CYC4096_Val      0x9u   /**< \brief (WDT_CONFIG) 4096 clock cycles */
+#define   WDT_CONFIG_PER_CYC8192_Val      0xAu   /**< \brief (WDT_CONFIG) 8192 clock cycles */
+#define   WDT_CONFIG_PER_CYC16384_Val     0xBu   /**< \brief (WDT_CONFIG) 16384 clock cycles */
 #define WDT_CONFIG_PER_CYC8         (WDT_CONFIG_PER_CYC8_Val       << WDT_CONFIG_PER_Pos)
 #define WDT_CONFIG_PER_CYC16        (WDT_CONFIG_PER_CYC16_Val      << WDT_CONFIG_PER_Pos)
 #define WDT_CONFIG_PER_CYC32        (WDT_CONFIG_PER_CYC32_Val      << WDT_CONFIG_PER_Pos)
@@ -120,20 +120,20 @@ typedef union {
 #define WDT_CONFIG_PER_CYC8192      (WDT_CONFIG_PER_CYC8192_Val    << WDT_CONFIG_PER_Pos)
 #define WDT_CONFIG_PER_CYC16384     (WDT_CONFIG_PER_CYC16384_Val   << WDT_CONFIG_PER_Pos)
 #define WDT_CONFIG_WINDOW_Pos       4            /**< \brief (WDT_CONFIG) Window Mode Time-Out Period */
-#define WDT_CONFIG_WINDOW_Msk       (0xFul << WDT_CONFIG_WINDOW_Pos)
+#define WDT_CONFIG_WINDOW_Msk       (0xFu << WDT_CONFIG_WINDOW_Pos)
 #define WDT_CONFIG_WINDOW(value)    (WDT_CONFIG_WINDOW_Msk & ((value) << WDT_CONFIG_WINDOW_Pos))
-#define   WDT_CONFIG_WINDOW_CYC8_Val      0x0ul  /**< \brief (WDT_CONFIG) 8 clock cycles */
-#define   WDT_CONFIG_WINDOW_CYC16_Val     0x1ul  /**< \brief (WDT_CONFIG) 16 clock cycles */
-#define   WDT_CONFIG_WINDOW_CYC32_Val     0x2ul  /**< \brief (WDT_CONFIG) 32 clock cycles */
-#define   WDT_CONFIG_WINDOW_CYC64_Val     0x3ul  /**< \brief (WDT_CONFIG) 64 clock cycles */
-#define   WDT_CONFIG_WINDOW_CYC128_Val    0x4ul  /**< \brief (WDT_CONFIG) 128 clock cycles */
-#define   WDT_CONFIG_WINDOW_CYC256_Val    0x5ul  /**< \brief (WDT_CONFIG) 256 clock cycles */
-#define   WDT_CONFIG_WINDOW_CYC512_Val    0x6ul  /**< \brief (WDT_CONFIG) 512 clock cycles */
-#define   WDT_CONFIG_WINDOW_CYC1024_Val   0x7ul  /**< \brief (WDT_CONFIG) 1024 clock cycles */
-#define   WDT_CONFIG_WINDOW_CYC2048_Val   0x8ul  /**< \brief (WDT_CONFIG) 2048 clock cycles */
-#define   WDT_CONFIG_WINDOW_CYC4096_Val   0x9ul  /**< \brief (WDT_CONFIG) 4096 clock cycles */
-#define   WDT_CONFIG_WINDOW_CYC8192_Val   0xAul  /**< \brief (WDT_CONFIG) 8192 clock cycles */
-#define   WDT_CONFIG_WINDOW_CYC16384_Val  0xBul  /**< \brief (WDT_CONFIG) 16384 clock cycles */
+#define   WDT_CONFIG_WINDOW_CYC8_Val      0x0u   /**< \brief (WDT_CONFIG) 8 clock cycles */
+#define   WDT_CONFIG_WINDOW_CYC16_Val     0x1u   /**< \brief (WDT_CONFIG) 16 clock cycles */
+#define   WDT_CONFIG_WINDOW_CYC32_Val     0x2u   /**< \brief (WDT_CONFIG) 32 clock cycles */
+#define   WDT_CONFIG_WINDOW_CYC64_Val     0x3u   /**< \brief (WDT_CONFIG) 64 clock cycles */
+#define   WDT_CONFIG_WINDOW_CYC128_Val    0x4u   /**< \brief (WDT_CONFIG) 128 clock cycles */
+#define   WDT_CONFIG_WINDOW_CYC256_Val    0x5u   /**< \brief (WDT_CONFIG) 256 clock cycles */
+#define   WDT_CONFIG_WINDOW_CYC512_Val    0x6u   /**< \brief (WDT_CONFIG) 512 clock cycles */
+#define   WDT_CONFIG_WINDOW_CYC1024_Val   0x7u   /**< \brief (WDT_CONFIG) 1024 clock cycles */
+#define   WDT_CONFIG_WINDOW_CYC2048_Val   0x8u   /**< \brief (WDT_CONFIG) 2048 clock cycles */
+#define   WDT_CONFIG_WINDOW_CYC4096_Val   0x9u   /**< \brief (WDT_CONFIG) 4096 clock cycles */
+#define   WDT_CONFIG_WINDOW_CYC8192_Val   0xAu   /**< \brief (WDT_CONFIG) 8192 clock cycles */
+#define   WDT_CONFIG_WINDOW_CYC16384_Val  0xBu   /**< \brief (WDT_CONFIG) 16384 clock cycles */
 #define WDT_CONFIG_WINDOW_CYC8      (WDT_CONFIG_WINDOW_CYC8_Val    << WDT_CONFIG_WINDOW_Pos)
 #define WDT_CONFIG_WINDOW_CYC16     (WDT_CONFIG_WINDOW_CYC16_Val   << WDT_CONFIG_WINDOW_Pos)
 #define WDT_CONFIG_WINDOW_CYC32     (WDT_CONFIG_WINDOW_CYC32_Val   << WDT_CONFIG_WINDOW_Pos)
@@ -146,7 +146,7 @@ typedef union {
 #define WDT_CONFIG_WINDOW_CYC4096   (WDT_CONFIG_WINDOW_CYC4096_Val << WDT_CONFIG_WINDOW_Pos)
 #define WDT_CONFIG_WINDOW_CYC8192   (WDT_CONFIG_WINDOW_CYC8192_Val << WDT_CONFIG_WINDOW_Pos)
 #define WDT_CONFIG_WINDOW_CYC16384  (WDT_CONFIG_WINDOW_CYC16384_Val << WDT_CONFIG_WINDOW_Pos)
-#define WDT_CONFIG_MASK             0xFFul       /**< \brief (WDT_CONFIG) MASK Register */
+#define WDT_CONFIG_MASK             0xFFu        /**< \brief (WDT_CONFIG) MASK Register */
 
 /* -------- WDT_EWCTRL : (WDT Offset: 0x2) (R/W  8) Early Warning Interrupt Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -160,23 +160,23 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define WDT_EWCTRL_OFFSET           0x2          /**< \brief (WDT_EWCTRL offset) Early Warning Interrupt Control */
-#define WDT_EWCTRL_RESETVALUE       0x0Bul       /**< \brief (WDT_EWCTRL reset_value) Early Warning Interrupt Control */
+#define WDT_EWCTRL_RESETVALUE       0x0Bu        /**< \brief (WDT_EWCTRL reset_value) Early Warning Interrupt Control */
 
 #define WDT_EWCTRL_EWOFFSET_Pos     0            /**< \brief (WDT_EWCTRL) Early Warning Interrupt Time Offset */
-#define WDT_EWCTRL_EWOFFSET_Msk     (0xFul << WDT_EWCTRL_EWOFFSET_Pos)
+#define WDT_EWCTRL_EWOFFSET_Msk     (0xFu << WDT_EWCTRL_EWOFFSET_Pos)
 #define WDT_EWCTRL_EWOFFSET(value)  (WDT_EWCTRL_EWOFFSET_Msk & ((value) << WDT_EWCTRL_EWOFFSET_Pos))
-#define   WDT_EWCTRL_EWOFFSET_CYC8_Val    0x0ul  /**< \brief (WDT_EWCTRL) 8 clock cycles */
-#define   WDT_EWCTRL_EWOFFSET_CYC16_Val   0x1ul  /**< \brief (WDT_EWCTRL) 16 clock cycles */
-#define   WDT_EWCTRL_EWOFFSET_CYC32_Val   0x2ul  /**< \brief (WDT_EWCTRL) 32 clock cycles */
-#define   WDT_EWCTRL_EWOFFSET_CYC64_Val   0x3ul  /**< \brief (WDT_EWCTRL) 64 clock cycles */
-#define   WDT_EWCTRL_EWOFFSET_CYC128_Val  0x4ul  /**< \brief (WDT_EWCTRL) 128 clock cycles */
-#define   WDT_EWCTRL_EWOFFSET_CYC256_Val  0x5ul  /**< \brief (WDT_EWCTRL) 256 clock cycles */
-#define   WDT_EWCTRL_EWOFFSET_CYC512_Val  0x6ul  /**< \brief (WDT_EWCTRL) 512 clock cycles */
-#define   WDT_EWCTRL_EWOFFSET_CYC1024_Val 0x7ul  /**< \brief (WDT_EWCTRL) 1024 clock cycles */
-#define   WDT_EWCTRL_EWOFFSET_CYC2048_Val 0x8ul  /**< \brief (WDT_EWCTRL) 2048 clock cycles */
-#define   WDT_EWCTRL_EWOFFSET_CYC4096_Val 0x9ul  /**< \brief (WDT_EWCTRL) 4096 clock cycles */
-#define   WDT_EWCTRL_EWOFFSET_CYC8192_Val 0xAul  /**< \brief (WDT_EWCTRL) 8192 clock cycles */
-#define   WDT_EWCTRL_EWOFFSET_CYC16384_Val 0xBul  /**< \brief (WDT_EWCTRL) 16384 clock cycles */
+#define   WDT_EWCTRL_EWOFFSET_CYC8_Val    0x0u   /**< \brief (WDT_EWCTRL) 8 clock cycles */
+#define   WDT_EWCTRL_EWOFFSET_CYC16_Val   0x1u   /**< \brief (WDT_EWCTRL) 16 clock cycles */
+#define   WDT_EWCTRL_EWOFFSET_CYC32_Val   0x2u   /**< \brief (WDT_EWCTRL) 32 clock cycles */
+#define   WDT_EWCTRL_EWOFFSET_CYC64_Val   0x3u   /**< \brief (WDT_EWCTRL) 64 clock cycles */
+#define   WDT_EWCTRL_EWOFFSET_CYC128_Val  0x4u   /**< \brief (WDT_EWCTRL) 128 clock cycles */
+#define   WDT_EWCTRL_EWOFFSET_CYC256_Val  0x5u   /**< \brief (WDT_EWCTRL) 256 clock cycles */
+#define   WDT_EWCTRL_EWOFFSET_CYC512_Val  0x6u   /**< \brief (WDT_EWCTRL) 512 clock cycles */
+#define   WDT_EWCTRL_EWOFFSET_CYC1024_Val 0x7u   /**< \brief (WDT_EWCTRL) 1024 clock cycles */
+#define   WDT_EWCTRL_EWOFFSET_CYC2048_Val 0x8u   /**< \brief (WDT_EWCTRL) 2048 clock cycles */
+#define   WDT_EWCTRL_EWOFFSET_CYC4096_Val 0x9u   /**< \brief (WDT_EWCTRL) 4096 clock cycles */
+#define   WDT_EWCTRL_EWOFFSET_CYC8192_Val 0xAu   /**< \brief (WDT_EWCTRL) 8192 clock cycles */
+#define   WDT_EWCTRL_EWOFFSET_CYC16384_Val 0xBu   /**< \brief (WDT_EWCTRL) 16384 clock cycles */
 #define WDT_EWCTRL_EWOFFSET_CYC8    (WDT_EWCTRL_EWOFFSET_CYC8_Val  << WDT_EWCTRL_EWOFFSET_Pos)
 #define WDT_EWCTRL_EWOFFSET_CYC16   (WDT_EWCTRL_EWOFFSET_CYC16_Val << WDT_EWCTRL_EWOFFSET_Pos)
 #define WDT_EWCTRL_EWOFFSET_CYC32   (WDT_EWCTRL_EWOFFSET_CYC32_Val << WDT_EWCTRL_EWOFFSET_Pos)
@@ -189,7 +189,7 @@ typedef union {
 #define WDT_EWCTRL_EWOFFSET_CYC4096 (WDT_EWCTRL_EWOFFSET_CYC4096_Val << WDT_EWCTRL_EWOFFSET_Pos)
 #define WDT_EWCTRL_EWOFFSET_CYC8192 (WDT_EWCTRL_EWOFFSET_CYC8192_Val << WDT_EWCTRL_EWOFFSET_Pos)
 #define WDT_EWCTRL_EWOFFSET_CYC16384 (WDT_EWCTRL_EWOFFSET_CYC16384_Val << WDT_EWCTRL_EWOFFSET_Pos)
-#define WDT_EWCTRL_MASK             0x0Ful       /**< \brief (WDT_EWCTRL) MASK Register */
+#define WDT_EWCTRL_MASK             0x0Fu        /**< \brief (WDT_EWCTRL) MASK Register */
 
 /* -------- WDT_INTENCLR : (WDT Offset: 0x4) (R/W  8) Interrupt Enable Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -203,11 +203,11 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define WDT_INTENCLR_OFFSET         0x4          /**< \brief (WDT_INTENCLR offset) Interrupt Enable Clear */
-#define WDT_INTENCLR_RESETVALUE     0x00ul       /**< \brief (WDT_INTENCLR reset_value) Interrupt Enable Clear */
+#define WDT_INTENCLR_RESETVALUE     0x00u        /**< \brief (WDT_INTENCLR reset_value) Interrupt Enable Clear */
 
 #define WDT_INTENCLR_EW_Pos         0            /**< \brief (WDT_INTENCLR) Early Warning Interrupt Enable */
-#define WDT_INTENCLR_EW             (0x1ul << WDT_INTENCLR_EW_Pos)
-#define WDT_INTENCLR_MASK           0x01ul       /**< \brief (WDT_INTENCLR) MASK Register */
+#define WDT_INTENCLR_EW             (0x1u << WDT_INTENCLR_EW_Pos)
+#define WDT_INTENCLR_MASK           0x01u        /**< \brief (WDT_INTENCLR) MASK Register */
 
 /* -------- WDT_INTENSET : (WDT Offset: 0x5) (R/W  8) Interrupt Enable Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -221,11 +221,11 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define WDT_INTENSET_OFFSET         0x5          /**< \brief (WDT_INTENSET offset) Interrupt Enable Set */
-#define WDT_INTENSET_RESETVALUE     0x00ul       /**< \brief (WDT_INTENSET reset_value) Interrupt Enable Set */
+#define WDT_INTENSET_RESETVALUE     0x00u        /**< \brief (WDT_INTENSET reset_value) Interrupt Enable Set */
 
 #define WDT_INTENSET_EW_Pos         0            /**< \brief (WDT_INTENSET) Early Warning Interrupt Enable */
-#define WDT_INTENSET_EW             (0x1ul << WDT_INTENSET_EW_Pos)
-#define WDT_INTENSET_MASK           0x01ul       /**< \brief (WDT_INTENSET) MASK Register */
+#define WDT_INTENSET_EW             (0x1u << WDT_INTENSET_EW_Pos)
+#define WDT_INTENSET_MASK           0x01u        /**< \brief (WDT_INTENSET) MASK Register */
 
 /* -------- WDT_INTFLAG : (WDT Offset: 0x6) (R/W  8) Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -239,11 +239,11 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define WDT_INTFLAG_OFFSET          0x6          /**< \brief (WDT_INTFLAG offset) Interrupt Flag Status and Clear */
-#define WDT_INTFLAG_RESETVALUE      0x00ul       /**< \brief (WDT_INTFLAG reset_value) Interrupt Flag Status and Clear */
+#define WDT_INTFLAG_RESETVALUE      0x00u        /**< \brief (WDT_INTFLAG reset_value) Interrupt Flag Status and Clear */
 
 #define WDT_INTFLAG_EW_Pos          0            /**< \brief (WDT_INTFLAG) Early Warning */
-#define WDT_INTFLAG_EW              (0x1ul << WDT_INTFLAG_EW_Pos)
-#define WDT_INTFLAG_MASK            0x01ul       /**< \brief (WDT_INTFLAG) MASK Register */
+#define WDT_INTFLAG_EW              (0x1u << WDT_INTFLAG_EW_Pos)
+#define WDT_INTFLAG_MASK            0x01u        /**< \brief (WDT_INTFLAG) MASK Register */
 
 /* -------- WDT_SYNCBUSY : (WDT Offset: 0x8) (R/  32) Synchronization Busy -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -261,17 +261,17 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define WDT_SYNCBUSY_OFFSET         0x8          /**< \brief (WDT_SYNCBUSY offset) Synchronization Busy */
-#define WDT_SYNCBUSY_RESETVALUE     0x00000000ul /**< \brief (WDT_SYNCBUSY reset_value) Synchronization Busy */
+#define WDT_SYNCBUSY_RESETVALUE     0x00000000u  /**< \brief (WDT_SYNCBUSY reset_value) Synchronization Busy */
 
 #define WDT_SYNCBUSY_ENABLE_Pos     1            /**< \brief (WDT_SYNCBUSY) Enable Busy */
-#define WDT_SYNCBUSY_ENABLE         (0x1ul << WDT_SYNCBUSY_ENABLE_Pos)
+#define WDT_SYNCBUSY_ENABLE         (0x1u << WDT_SYNCBUSY_ENABLE_Pos)
 #define WDT_SYNCBUSY_WEN_Pos        2            /**< \brief (WDT_SYNCBUSY) Window Enable Busy */
-#define WDT_SYNCBUSY_WEN            (0x1ul << WDT_SYNCBUSY_WEN_Pos)
+#define WDT_SYNCBUSY_WEN            (0x1u << WDT_SYNCBUSY_WEN_Pos)
 #define WDT_SYNCBUSY_ALWAYSON_Pos   3            /**< \brief (WDT_SYNCBUSY) Always-On Busy */
-#define WDT_SYNCBUSY_ALWAYSON       (0x1ul << WDT_SYNCBUSY_ALWAYSON_Pos)
+#define WDT_SYNCBUSY_ALWAYSON       (0x1u << WDT_SYNCBUSY_ALWAYSON_Pos)
 #define WDT_SYNCBUSY_CLEAR_Pos      4            /**< \brief (WDT_SYNCBUSY) Clear Busy */
-#define WDT_SYNCBUSY_CLEAR          (0x1ul << WDT_SYNCBUSY_CLEAR_Pos)
-#define WDT_SYNCBUSY_MASK           0x0000001Eul /**< \brief (WDT_SYNCBUSY) MASK Register */
+#define WDT_SYNCBUSY_CLEAR          (0x1u << WDT_SYNCBUSY_CLEAR_Pos)
+#define WDT_SYNCBUSY_MASK           0x0000001Eu  /**< \brief (WDT_SYNCBUSY) MASK Register */
 
 /* -------- WDT_CLEAR : (WDT Offset: 0xC) ( /W  8) Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -284,14 +284,14 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define WDT_CLEAR_OFFSET            0xC          /**< \brief (WDT_CLEAR offset) Clear */
-#define WDT_CLEAR_RESETVALUE        0x00ul       /**< \brief (WDT_CLEAR reset_value) Clear */
+#define WDT_CLEAR_RESETVALUE        0x00u        /**< \brief (WDT_CLEAR reset_value) Clear */
 
 #define WDT_CLEAR_CLEAR_Pos         0            /**< \brief (WDT_CLEAR) Watchdog Clear */
-#define WDT_CLEAR_CLEAR_Msk         (0xFFul << WDT_CLEAR_CLEAR_Pos)
+#define WDT_CLEAR_CLEAR_Msk         (0xFFu << WDT_CLEAR_CLEAR_Pos)
 #define WDT_CLEAR_CLEAR(value)      (WDT_CLEAR_CLEAR_Msk & ((value) << WDT_CLEAR_CLEAR_Pos))
-#define   WDT_CLEAR_CLEAR_KEY_Val         0xA5ul  /**< \brief (WDT_CLEAR) Clear Key */
+#define   WDT_CLEAR_CLEAR_KEY_Val         0xA5u   /**< \brief (WDT_CLEAR) Clear Key */
 #define WDT_CLEAR_CLEAR_KEY         (WDT_CLEAR_CLEAR_KEY_Val       << WDT_CLEAR_CLEAR_Pos)
-#define WDT_CLEAR_MASK              0xFFul       /**< \brief (WDT_CLEAR) MASK Register */
+#define WDT_CLEAR_MASK              0xFFu        /**< \brief (WDT_CLEAR) MASK Register */
 
 /** \brief WDT hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))

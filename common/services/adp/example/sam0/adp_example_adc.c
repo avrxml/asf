@@ -54,7 +54,11 @@ void adp_example_adc_init(void)
 {
  	struct adc_config config_adc;
 	adc_get_config_defaults(&config_adc);
+#if (SAMD21)
 	config_adc.positive_input = ADC_POSITIVE_INPUT_PIN8;
+#else
+	config_adc.positive_input = ADC_POSITIVE_INPUT_PIN0;
+#endif
 	config_adc.clock_prescaler = ADC_CLOCK_PRESCALER_DIV64;
 	config_adc.reference = ADC_REFERENCE_INTVCC0;
 	adc_init(&adc_instance, EXT1_ADC_MODULE, &config_adc);

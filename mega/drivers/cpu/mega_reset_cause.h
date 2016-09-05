@@ -3,7 +3,7 @@
  *
  * \brief Chip-specific reset cause functions
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -81,7 +81,7 @@ typedef uint8_t         reset_cause_t;
 static inline reset_cause_t reset_cause_get_causes(void)
 {
 #if (MEGA_XX4 ||MEGA_XX4_A || MEGA_XX8 || MEGA_XX8_A || \
-	MEGA_XX || MEGA_XX_UN2 || MEGA_XX0_1 || MEGA_RF ) && !MEGA_XX_UN0 && !MEGA_XX_UN1
+	MEGA_XX || MEGA_XX_UN2 || MEGA_XX0_1 || MEGA_RF || MEGA_UNCATEGORIZED) && !MEGA_XX_UN0 && !MEGA_XX_UN1
 	uint8_t temp_mcsr = MCUSR ;
 	return temp_mcsr;
 #else	
@@ -93,7 +93,7 @@ static inline reset_cause_t reset_cause_get_causes(void)
 static inline void reset_cause_clear_causes(reset_cause_t causes)
 {
 #if (MEGA_XX4 ||MEGA_XX4_A || MEGA_XX8 || MEGA_XX8_A || \
-	MEGA_XX || MEGA_XX_UN2 || MEGA_XX0_1 || MEGA_RF ) && !MEGA_XX_UN0 && !MEGA_XX_UN1
+	MEGA_XX || MEGA_XX_UN2 || MEGA_XX0_1 || MEGA_RF || MEGA_UNCATEGORIZED) && !MEGA_XX_UN0 && !MEGA_XX_UN1
 	MCUSR &= ~causes;
 #else	
 	MCUCSR &= ~causes;

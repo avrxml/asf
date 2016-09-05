@@ -3,7 +3,7 @@
  *
  * \brief Common Delay Service
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -74,21 +74,21 @@ void delay_init(void);
  * \brief Delay in at least specified number of seconds.
  * \param delay Delay in seconds
  */
-#define delay_s(delay)          cpu_delay_s(delay)
+#define delay_s(delay)          ((delay) ? cpu_delay_s(delay) : cpu_delay_us(1))
 
 /**
  * \def delay_ms
  * \brief Delay in at least specified number of milliseconds.
  * \param delay Delay in milliseconds
  */
-#define delay_ms(delay)         cpu_delay_ms(delay)
+#define delay_ms(delay)         ((delay) ? cpu_delay_ms(delay) : cpu_delay_us(1))
 
 /**
  * \def delay_us
  * \brief Delay in at least specified number of microseconds.
  * \param delay Delay in microseconds
  */
-#define delay_us(delay)         cpu_delay_us(delay)
+#define delay_us(delay)         ((delay) ? cpu_delay_us(delay) : cpu_delay_us(1))
 
 #ifdef __cplusplus
 }

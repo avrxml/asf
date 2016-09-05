@@ -119,7 +119,7 @@ struct system_voltage_references_config {
 	enum system_voltage_references_sel  sel;
 	/** On demand control */
 	bool on_demand;
-	/** run in standby */
+	/** Run in standby */
 	bool run_in_standby;
 };
 
@@ -144,7 +144,7 @@ enum system_vreg_switch_mode {
 struct system_standby_config {
 	/** Regulator switch mode in standby */
 	enum system_vreg_switch_mode vreg_switch_mode;
-	/** Back bias for HMCRAMCHS (false : no, true: standby) */
+	/** Back bias for HMCRAMCHS (false: no, true: standby) */
 	bool hmcramchs_back_bias;
 };
 
@@ -173,7 +173,7 @@ static inline void system_voltage_regulator_get_config_defaults(
  *
  * Configures voltage regulator with the given configuration.
  *
- * \param[in] config  voltage regulator configuration structure containing
+ * \param[in] config  Voltage regulator configuration structure containing
  *                    the new config
  */
 static inline void system_voltage_regulator_set_config(
@@ -235,7 +235,7 @@ static inline void system_voltage_reference_get_config_defaults(
  *
  * Configures voltage reference with the given configuration.
  *
- * \param[in] config  voltage reference configuration structure containing
+ * \param[in] config  Voltage reference configuration structure containing
  *                    the new config
  */
 static inline void system_voltage_reference_set_config(
@@ -359,7 +359,7 @@ static inline void system_standby_get_config_defaults(
 	Assert(config);
 
 	config->vreg_switch_mode    = SYSTEM_VREG_SWITCH_AUTO;
-	config->hmcramchs_back_bias = true;
+	config->hmcramchs_back_bias = false;
 }
 
 /**
@@ -367,7 +367,7 @@ static inline void system_standby_get_config_defaults(
  *
  * Configures standby with the given configuration.
  *
- * \param[in] config  standby configuration structure containing
+ * \param[in] config  Standby configuration structure containing
  *                    the new config
  */
 static inline void system_standby_set_config(

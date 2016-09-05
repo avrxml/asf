@@ -3,7 +3,7 @@
  *
  * \brief SAM XOSC32K Runtime Failure Detector Application
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \license
  * \asf_license_start
@@ -81,11 +81,13 @@
  * This application has been tested on following boards:
  * - SAM L22 Xplained Pro
  * - SAM C21 Xplained Pro
+ * - SAM R30 Xplained Pro
  *
  * \section appdoc_sam0_xosc32k_fail_detect_usageinfo Usage
  * Connect an oscilloscope to the pin:
  * - SAM L22 Xplained Pro: PA15
  * - SAM C21 Xplained Pro: PA16
+ * - SAM R30 Xplained Pro: PA14
  * 
  * Run the example application, then press and hold the board button to turn 
  * off the external XOSC32K crystal clock source to observe the fail-over to 

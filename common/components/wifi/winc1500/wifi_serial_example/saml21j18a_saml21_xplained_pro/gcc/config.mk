@@ -55,6 +55,8 @@ CSRCS = \
        common/components/wifi/winc1500/bsp/source/nm_bsp_saml21.c \
        common/components/wifi/winc1500/bus_wrapper/source/nm_bus_wrapper_saml21.c \
        common/components/wifi/winc1500/common/source/nm_common.c \
+       common/components/wifi/winc1500/driver/source/m2m_ate_mode.c \
+       common/components/wifi/winc1500/driver/source/m2m_crypto.c \
        common/components/wifi/winc1500/driver/source/m2m_hif.c \
        common/components/wifi/winc1500/driver/source/m2m_ota.c \
        common/components/wifi/winc1500/driver/source/m2m_periph.c \
@@ -66,7 +68,7 @@ CSRCS = \
        common/components/wifi/winc1500/driver/source/nmspi.c \
        common/components/wifi/winc1500/driver/source/nmuart.c \
        common/components/wifi/winc1500/socket/source/socket.c \
-       common/components/wifi/winc1500/spi_flash/spi_flash.c \
+       common/components/wifi/winc1500/spi_flash/source/spi_flash.c \
        common/components/wifi/winc1500/wifi_serial_example/main21.c \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        common2/services/delay/sam0/systick_counter.c      \
@@ -98,22 +100,6 @@ ASSRCS =
 INC_PATH = \
        common/boards                                      \
        common/components/wifi/winc1500                    \
-       common/components/wifi/winc1500/bsp                \
-       common/components/wifi/winc1500/bsp/include        \
-       common/components/wifi/winc1500/bsp/source         \
-       common/components/wifi/winc1500/bus_wrapper        \
-       common/components/wifi/winc1500/bus_wrapper/include \
-       common/components/wifi/winc1500/bus_wrapper/source \
-       common/components/wifi/winc1500/common             \
-       common/components/wifi/winc1500/common/include     \
-       common/components/wifi/winc1500/common/source      \
-       common/components/wifi/winc1500/driver             \
-       common/components/wifi/winc1500/driver/include     \
-       common/components/wifi/winc1500/driver/source      \
-       common/components/wifi/winc1500/socket             \
-       common/components/wifi/winc1500/socket/include     \
-       common/components/wifi/winc1500/socket/source      \
-       common/components/wifi/winc1500/spi_flash          \
        common/components/wifi/winc1500/wifi_serial_example \
        common/components/wifi/winc1500/wifi_serial_example/saml21j18a_saml21_xplained_pro \
        common/services/serial                             \

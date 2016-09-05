@@ -438,11 +438,10 @@ static void dsp_configure_dacc(void)
 
 	/*
 	 * DACC setting
-	 * -Refresh Period = 1024*REFRESH/DACC Clock
 	 * -No max Speed Mode
 	 * -Startup time of 0 periods of DACClock
 	 */
-	dacc_set_timing(DACC, DACC_REFRESH, 0, DACC_MR_STARTUP_0);
+	dacc_set_timing(DACC, 0, DACC_MR_STARTUP_0);
 
 	/* Set TIO Output of TC Channel 1 as trigger */
 	dacc_set_trigger(DACC,2);

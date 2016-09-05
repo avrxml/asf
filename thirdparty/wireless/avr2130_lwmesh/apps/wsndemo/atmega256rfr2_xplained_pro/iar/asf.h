@@ -67,7 +67,7 @@
 // From module: IOPORT - General purpose I/O service
 #include <ioport.h>
 
-// From module: Interrupt management - megaAVR and tinyAVR implementation
+// From module: Interrupt management - megaAVR implementation
 #include <interrupt.h>
 
 // From module: MAC Symbol Counter

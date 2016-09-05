@@ -3,7 +3,7 @@
  *
  * \brief SAM4S Xplained Pro board definition and driver
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -573,7 +573,7 @@
 #define AT86RFX_CPS 	             EXT1_PIN_8
 
 
-void at86rfx_isr(void);
+void at86rfx_isr(uint32_t, uint32_t);
 
 #define AT86RFX_INTC_INIT()         ioport_set_pin_dir(AT86RFX_IRQ_PIN, IOPORT_DIR_INPUT);\
 									ioport_set_pin_sense_mode(AT86RFX_IRQ_PIN, IOPORT_SENSE_RISING);\
@@ -583,7 +583,7 @@ void at86rfx_isr(void);
 									NVIC_EnableIRQ((IRQn_Type) ID_PIOA);\
 									pio_enable_interrupt(PIOA, PIO_PA1);									
 
-#define AT86RFX_ISR()               void at86rfx_isr(void)
+#define AT86RFX_ISR()               void at86rfx_isr(uint32_t arg1, uint32_t arg2)
 
 /** Enables the transceiver main interrupt. */
 #define ENABLE_TRX_IRQ()            pio_enable_pin_interrupt(AT86RFX_IRQ_PIN)
@@ -603,9 +603,120 @@ void at86rfx_isr(void);
  */
 #define LEAVE_TRX_REGION()         pio_enable_pin_interrupt(AT86RFX_IRQ_PIN)
 
-
-
 /** @} */
+
+//! \name NandFlash
+//@{
+/** NandFlash pins definition: OE. */
+#define PIN_EBI_NANDOE    (PIO_PC9_IDX)
+#define PIN_EBI_NANDOE_FLAGS    (PIO_PERIPH_A | PIO_PULLUP)
+
+/** NandFlash pins definition: WE. */
+#define PIN_EBI_NANDWE    (PIO_PC10_IDX)
+#define PIN_EBI_NANDWE_FLAGS    (PIO_PERIPH_A | PIO_PULLUP)
+
+/** NandFlash pins definition: CLE. */
+#define PIN_EBI_NANDCLE    (PIO_PC17_IDX)
+#define PIN_EBI_NANDCLE_FLAGS    (PIO_PERIPH_A | PIO_PULLUP)
+
+/** NandFlash pins definition: ALE. */
+#define PIN_EBI_NANDALE    (PIO_PC16_IDX)
+#define PIN_EBI_NANDALE_FLAGS    (PIO_PERIPH_A | PIO_PULLUP)
+
+/** NandFlash pins definition: DATA. */
+#define PIN_EBI_NANDIO_0    (PIO_PC0_IDX)
+#define PIN_EBI_NANDIO_0_FLAGS    (PIO_PERIPH_A | PIO_PULLUP)
+
+#define PIN_EBI_NANDIO_1    (PIO_PC1_IDX)
+#define PIN_EBI_NANDIO_1_FLAGS    (PIO_PERIPH_A | PIO_PULLUP)
+
+#define PIN_EBI_NANDIO_2    (PIO_PC2_IDX)
+#define PIN_EBI_NANDIO_2_FLAGS    (PIO_PERIPH_A | PIO_PULLUP)
+
+#define PIN_EBI_NANDIO_3    (PIO_PC3_IDX)
+#define PIN_EBI_NANDIO_3_FLAGS    (PIO_PERIPH_A | PIO_PULLUP)
+
+#define PIN_EBI_NANDIO_4    (PIO_PC4_IDX)
+#define PIN_EBI_NANDIO_4_FLAGS    (PIO_PERIPH_A | PIO_PULLUP)
+
+#define PIN_EBI_NANDIO_5    (PIO_PC5_IDX)
+#define PIN_EBI_NANDIO_5_FLAGS    (PIO_PERIPH_A | PIO_PULLUP)
+
+#define PIN_EBI_NANDIO_6    (PIO_PC6_IDX)
+#define PIN_EBI_NANDIO_6_FLAGS    (PIO_PERIPH_A | PIO_PULLUP)
+
+#define PIN_EBI_NANDIO_7    (PIO_PC7_IDX)
+#define PIN_EBI_NANDIO_7_FLAGS    (PIO_PERIPH_A | PIO_PULLUP)
+
+/** Nandflash chip enable pin definition. */
+#define PIN_NF_CE_IDX    (PIO_PC14_IDX)
+#define PIN_NF_CE_FLAGS    (PIO_TYPE_PIO_OUTPUT_1 | PIO_DEFAULT)
+
+/** Nandflash ready/busy pin definition. */
+#define PIN_NF_RB_IDX    (PIO_PC13_IDX)
+#define PIN_NF_RB_FLAGS    (PIO_INPUT | PIO_PULLUP)
+
+/* Chip select number for nand */
+#define BOARD_NAND_CS    0
+
+/*----------------------------------------------------------------------------*/
+/**
+ * \page sam4s_ek_mem "SAM4S-XPLAINED-PRO - Memories"
+ * This page lists definitions related to internal & external on-board memories.
+ *
+ * \section NandFlash
+ * - \ref BOARD_NF_COMMAND_ADDR
+ * - \ref BOARD_NF_ADDRESS_ADDR
+ * - \ref BOARD_NF_DATA_ADDR
+ */
+
+/** Address for transferring command bytes to the nandflash. */
+#define BOARD_NF_COMMAND_ADDR   0x60400000
+/** Address for transferring address bytes to the nandflash. */
+#define BOARD_NF_ADDRESS_ADDR   0x60200000
+/** Address for transferring data bytes to the nandflash. */
+#define BOARD_NF_DATA_ADDR      0x60000000
+/* Bus width for NAND */
+#define CONF_NF_BUSWIDTH    8
+/* Access timing for NAND */
+#define CONF_NF_SETUP_TIMING (SMC_SETUP_NWE_SETUP(0) \
+		| SMC_SETUP_NCS_WR_SETUP(1) \
+		| SMC_SETUP_NRD_SETUP(0) \
+		| SMC_SETUP_NCS_RD_SETUP(1))
+#define CONF_NF_PULSE_TIMING (SMC_PULSE_NWE_PULSE(2) \
+		| SMC_PULSE_NCS_WR_PULSE(3) \
+		| SMC_PULSE_NRD_PULSE(4) \
+		| SMC_PULSE_NCS_RD_PULSE(4))
+#define CONF_NF_CYCLE_TIMING (SMC_CYCLE_NWE_CYCLE(4) \
+		| SMC_CYCLE_NRD_CYCLE(7))
+//@}
+
+//! \name HSMCI pins definition
+//@{
+/*! Number of slot connected on HSMCI interface */
+#define SD_MMC_HSMCI_MEM_CNT      1
+#define SD_MMC_HSMCI_SLOT_0_SIZE  4
+#define PINS_HSMCI   {0x3fUL << 26, PIOA, ID_PIOA, PIO_PERIPH_C, PIO_PULLUP}
+/** HSMCI MCCDA pin definition. */
+#define PIN_HSMCI_MCCDA_GPIO            (PIO_PA28_IDX)
+#define PIN_HSMCI_MCCDA_FLAGS           (PIO_PERIPH_C | PIO_DEFAULT)
+/** HSMCI MCCK pin definition. */
+#define PIN_HSMCI_MCCK_GPIO             (PIO_PA29_IDX)
+#define PIN_HSMCI_MCCK_FLAGS            (PIO_PERIPH_C | PIO_DEFAULT)
+/** HSMCI MCDA0 pin definition. */
+#define PIN_HSMCI_MCDA0_GPIO            (PIO_PA30_IDX)
+#define PIN_HSMCI_MCDA0_FLAGS           (PIO_PERIPH_C | PIO_DEFAULT)
+/** HSMCI MCDA1 pin definition. */
+#define PIN_HSMCI_MCDA1_GPIO            (PIO_PA31_IDX)
+#define PIN_HSMCI_MCDA1_FLAGS           (PIO_PERIPH_C | PIO_DEFAULT)
+/** HSMCI MCDA2 pin definition. */
+#define PIN_HSMCI_MCDA2_GPIO            (PIO_PA26_IDX)
+#define PIN_HSMCI_MCDA2_FLAGS           (PIO_PERIPH_C | PIO_DEFAULT)
+/** HSMCI MCDA3 pin definition. */
+#define PIN_HSMCI_MCDA3_GPIO            (PIO_PA27_IDX)
+#define PIN_HSMCI_MCDA3_FLAGS           (PIO_PERIPH_C | PIO_DEFAULT)
+/** SD/MMC card detect pin definition. */
+//@}
 
 /** @} */
 

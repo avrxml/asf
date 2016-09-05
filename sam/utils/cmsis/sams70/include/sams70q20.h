@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -617,23 +617,24 @@ void XDMAC_Handler      ( void );
 
 #define IFLASH_SIZE             (0x100000u)
 #define IFLASH_PAGE_SIZE        (512u)
-#define IFLASH_LOCK_REGION_SIZE (8192u)
+#define IFLASH_LOCK_REGION_SIZE (16384u)
 #define IFLASH_NB_OF_PAGES      (2048u)
 #define IFLASH_NB_OF_LOCK_BITS  (64u)
 #define IRAM_SIZE               (0x60000u)
 
-#define QSPIMEM_ADDR  (0x80000000u) /**< QSPI Memory base address */
-#define AXIMX_ADDR    (0xA0000000u) /**< AXI Bus Matrix base address */
-#define ITCM_ADDR     (0x00000000u) /**< Instruction Tightly Coupled Memory base address */
-#define IFLASH_ADDR   (0x00400000u) /**< Internal Flash base address */
-#define IROM_ADDR     (0x00800000u) /**< Internal ROM base address */
-#define DTCM_ADDR     (0x20000000u) /**< Data Tightly Coupled Memory base address */
-#define IRAM_ADDR     (0x20400000u) /**< Internal RAM base address */
-#define EBI_CS0_ADDR  (0x60000000u) /**< EBI Chip Select 0 base address */
-#define EBI_CS1_ADDR  (0x61000000u) /**< EBI Chip Select 1 base address */
-#define EBI_CS2_ADDR  (0x62000000u) /**< EBI Chip Select 2 base address */
-#define EBI_CS3_ADDR  (0x63000000u) /**< EBI Chip Select 3 base address */
-#define SDRAM_CS_ADDR (0x70000000u) /**< SDRAM Chip Select base address */
+#define QSPIMEM_ADDR   (0x80000000u) /**< QSPI Memory base address */
+#define AXIMX_ADDR     (0xA0000000u) /**< AXI Bus Matrix base address */
+#define ITCM_ADDR      (0x00000000u) /**< Instruction Tightly Coupled Memory base address */
+#define IFLASH_ADDR    (0x00400000u) /**< Internal Flash base address */
+#define IROM_ADDR      (0x00800000u) /**< Internal ROM base address */
+#define DTCM_ADDR      (0x20000000u) /**< Data Tightly Coupled Memory base address */
+#define IRAM_ADDR      (0x20400000u) /**< Internal RAM base address */
+#define EBI_CS0_ADDR   (0x60000000u) /**< EBI Chip Select 0 base address */
+#define EBI_CS1_ADDR   (0x61000000u) /**< EBI Chip Select 1 base address */
+#define EBI_CS2_ADDR   (0x62000000u) /**< EBI Chip Select 2 base address */
+#define EBI_CS3_ADDR   (0x63000000u) /**< EBI Chip Select 3 base address */
+#define SDRAM_CS_ADDR  (0x70000000u) /**< SDRAM Chip Select base address */
+#define USBHS_RAM_ADDR (0xA0100000u) /**< USBHS Chip Select base address */
 
 /* ************************************************************************** */
 /*   MISCELLANEOUS DEFINITIONS FOR SAMS70Q20 */

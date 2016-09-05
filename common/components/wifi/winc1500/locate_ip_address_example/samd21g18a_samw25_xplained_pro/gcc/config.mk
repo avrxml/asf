@@ -55,6 +55,8 @@ CSRCS = \
        common/components/wifi/winc1500/bsp/source/nm_bsp_samd21.c \
        common/components/wifi/winc1500/bus_wrapper/source/nm_bus_wrapper_samd21.c \
        common/components/wifi/winc1500/common/source/nm_common.c \
+       common/components/wifi/winc1500/driver/source/m2m_ate_mode.c \
+       common/components/wifi/winc1500/driver/source/m2m_crypto.c \
        common/components/wifi/winc1500/driver/source/m2m_hif.c \
        common/components/wifi/winc1500/driver/source/m2m_ota.c \
        common/components/wifi/winc1500/driver/source/m2m_periph.c \
@@ -70,7 +72,7 @@ CSRCS = \
        common/components/wifi/winc1500/locate_ip_address_example/iot/sw_timer.c \
        common/components/wifi/winc1500/locate_ip_address_example/main21.c \
        common/components/wifi/winc1500/socket/source/socket.c \
-       common/components/wifi/winc1500/spi_flash/spi_flash.c \
+       common/components/wifi/winc1500/spi_flash/source/spi_flash.c \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        common2/services/delay/sam0/systick_counter.c      \
        sam0/boards/samw25_xplained_pro/board_init.c       \
@@ -103,26 +105,10 @@ ASSRCS =
 INC_PATH = \
        common/boards                                      \
        common/components/wifi/winc1500                    \
-       common/components/wifi/winc1500/bsp                \
-       common/components/wifi/winc1500/bsp/include        \
-       common/components/wifi/winc1500/bsp/source         \
-       common/components/wifi/winc1500/bus_wrapper        \
-       common/components/wifi/winc1500/bus_wrapper/include \
-       common/components/wifi/winc1500/bus_wrapper/source \
-       common/components/wifi/winc1500/common             \
-       common/components/wifi/winc1500/common/include     \
-       common/components/wifi/winc1500/common/source      \
-       common/components/wifi/winc1500/driver             \
-       common/components/wifi/winc1500/driver/include     \
-       common/components/wifi/winc1500/driver/source      \
        common/components/wifi/winc1500/locate_ip_address_example \
        common/components/wifi/winc1500/locate_ip_address_example/iot \
        common/components/wifi/winc1500/locate_ip_address_example/iot/http \
        common/components/wifi/winc1500/locate_ip_address_example/samd21g18a_samw25_xplained_pro \
-       common/components/wifi/winc1500/socket             \
-       common/components/wifi/winc1500/socket/include     \
-       common/components/wifi/winc1500/socket/source      \
-       common/components/wifi/winc1500/spi_flash          \
        common/services/serial                             \
        common/utils                                       \
        common2/services/delay                             \

@@ -102,7 +102,7 @@ extern "C" {
  *	</tr>
  *	<tr>
  *		<td>FEATURE_SYSTEM_CLOCK_DPLL</td>
- *		<td>SAMD21, SAMR21, SAMD10, SAMD11</td>
+ *		<td>SAM D21, SAM R21, SAM D10, SAM D11</td>
  *	</tr>
  * </table>
  * \note The specific features are only available in the driver when the
@@ -387,7 +387,7 @@ enum system_osc8m_div {
 /**
  * \brief Frequency range for the internal 8MHz RC oscillator.
  *
- * Internal 8MHz RC oscillator frequency range setting
+ * Internal 8MHz RC oscillator frequency range setting.
  */
 enum system_osc8m_frequency_range {
 	/** Frequency range 4MHz to 6MHz. */
@@ -1409,7 +1409,7 @@ static inline void system_flash_set_waitstates(uint8_t wait_states)
  *	</tr>
  *	<tr>
  *		<td>
- *			\li Updated dfll configuration function to implement workaround for
+ *			\li Updated DFLL configuration function to implement workaround for
  *			    errata 9905 in the DFLL module
  *			\li Updated \c system_clock_init() to reset interrupt flags before
  *			    they are used

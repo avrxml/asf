@@ -4,7 +4,7 @@
  *
  * \brief This module contains NMC1000 bus wrapper APIs implementation.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -288,9 +288,12 @@ sint8 nm_bus_deinit(void)
 
 #ifdef CONF_WINC_USE_I2C
 	i2c_master_disable(&i2c_master_instance);
+	port_pin_set_config(CONF_WINC_I2C_SCL, &pin_conf);
+	port_pin_set_config(CONF_WINC_I2C_SDA, &pin_conf);
 #endif /* CONF_WINC_USE_I2C */
 #ifdef CONF_WINC_USE_SPI
-	spi_disable(&master);
+	spi_disable(&master);	
+
 #endif /* CONF_WINC_USE_SPI */
 	return result;
 }

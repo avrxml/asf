@@ -3,7 +3,7 @@
  *
  * \brief SAM Control Area Network (CAN) Low Level Driver
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -92,8 +92,7 @@ static void _can_message_memory_init(Can *hw)
 				CAN_RXF0C_F0S(CONF_CAN0_RX_FIFO_0_NUM);
 		hw->RXF1C.reg = CAN_RXF1C_F1SA((uint32_t)can0_rx_fifo_1) |
 				CAN_RXF1C_F1S(CONF_CAN0_RX_FIFO_1_NUM);
-		hw->RXBC.reg = CAN_RXBC_RBSA((uint32_t)can0_rx_buffer) |
-				CAN_RXF0C_F0S(CONF_CAN0_RX_BUFFER_NUM);
+		hw->RXBC.reg = CAN_RXBC_RBSA((uint32_t)can0_rx_buffer);
 		hw->TXBC.reg = CAN_TXBC_TBSA((uint32_t)can0_tx_buffer) |
 				CAN_TXBC_NDTB(CONF_CAN0_TX_BUFFER_NUM) |
 				CAN_TXBC_TFQS(CONF_CAN0_TX_FIFO_QUEUE_NUM);
@@ -108,8 +107,7 @@ static void _can_message_memory_init(Can *hw)
 				CAN_RXF0C_F0S(CONF_CAN1_RX_FIFO_0_NUM);
 		hw->RXF1C.reg = CAN_RXF1C_F1SA((uint32_t)can1_rx_fifo_1) |
 				CAN_RXF1C_F1S(CONF_CAN1_RX_FIFO_1_NUM);
-		hw->RXBC.reg = CAN_RXBC_RBSA((uint32_t)can1_rx_buffer) |
-				CAN_RXF0C_F0S(CONF_CAN1_RX_BUFFER_NUM);
+		hw->RXBC.reg = CAN_RXBC_RBSA((uint32_t)can1_rx_buffer);
 		hw->TXBC.reg = CAN_TXBC_TBSA((uint32_t)can1_tx_buffer) |
 				CAN_TXBC_NDTB(CONF_CAN1_TX_BUFFER_NUM) |
 				CAN_TXBC_TFQS(CONF_CAN1_TX_FIFO_QUEUE_NUM);
@@ -148,6 +146,10 @@ static void _can_set_configuration(Can *hw, struct can_config *config)
 			CAN_DBTP_DTSEG1(CONF_CAN_DBTP_DTSEG1_VALUE) |
 			CAN_DBTP_DTSEG2(CONF_CAN_DBTP_DTSEG2_VALUE);
 
+	if (config->tdc_enable) {
+		hw->DBTP.reg |= CAN_DBTP_TDC;
+	}
+	
 	if (config->run_in_standby) {
 		hw->MRCFG.reg |= 0x01<<6;
 	}
@@ -268,6 +270,46 @@ void can_init(struct can_module *const module_inst, Can *hw,
 	hw->TXBCIE.reg = CAN_TXBCIE_MASK;
 }
 
+void can_set_baudrate(Can *hw, uint32_t baudrate)
+{
+	uint32_t gclk_can_value = 0;
+	uint32_t can_nbtp_nbrp_value;
+	uint32_t can_nbtp_nsgw_value = 3, can_nbtp_ntseg1_value = 10, can_nbtp_ntseg2_value = 3;
+	
+	if (hw == CAN0) {
+		gclk_can_value = system_gclk_chan_get_hz(CAN0_GCLK_ID);
+		} else if (hw == CAN1) {
+		gclk_can_value = system_gclk_chan_get_hz(CAN1_GCLK_ID);
+	}
+	
+	can_nbtp_nbrp_value = gclk_can_value / baudrate / (3 + can_nbtp_ntseg1_value + can_nbtp_ntseg2_value);
+	
+	hw->NBTP.reg = CAN_NBTP_NBRP(can_nbtp_nbrp_value) |
+			CAN_NBTP_NSJW(can_nbtp_nsgw_value) |
+			CAN_NBTP_NTSEG1(can_nbtp_ntseg1_value) |
+			CAN_NBTP_NTSEG2(can_nbtp_ntseg2_value);
+}
+
+void can_fd_set_baudrate(Can *hw, uint32_t baudrate)
+{
+	uint32_t gclk_can_fd_value = 0;
+	uint32_t can_fd_dbtp_dbrp_value;
+	uint32_t can_fd_dbtp_dsgw_value = 3, can_fd_dbtp_dtseg1_value = 10, can_fd_dbtp_dtseg2_value = 3;
+	
+	if (hw == CAN0) {
+		gclk_can_fd_value = system_gclk_chan_get_hz(CAN0_GCLK_ID);
+		} else if (hw == CAN1) {
+		gclk_can_fd_value = system_gclk_chan_get_hz(CAN1_GCLK_ID);
+	}
+	
+	can_fd_dbtp_dbrp_value = gclk_can_fd_value / baudrate / (3 + can_fd_dbtp_dtseg1_value + can_fd_dbtp_dtseg2_value);
+	
+	hw->NBTP.reg = CAN_DBTP_DBRP(can_fd_dbtp_dbrp_value) |
+			CAN_DBTP_DSJW(can_fd_dbtp_dsgw_value) |
+			CAN_DBTP_DTSEG1(can_fd_dbtp_dtseg1_value) |
+			CAN_DBTP_DTSEG2(can_fd_dbtp_dtseg2_value);
+}
+
 void can_start(struct can_module *const module_inst)
 {
 	module_inst->hw->CCCR.reg &= ~CAN_CCCR_INIT;
@@ -372,7 +414,7 @@ void can_disable_test_mode(struct can_module *const module_inst)
 	module_inst->hw->CCCR.reg &= ~CAN_CCCR_TEST;
 }
 
-enum status_code can_set_rx_standand_filter(
+enum status_code can_set_rx_standard_filter(
 		struct can_module *const module_inst,
 		struct can_standard_message_filter_element *sd_filter, uint32_t index)
 {

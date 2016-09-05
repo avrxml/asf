@@ -3,7 +3,7 @@
  *
  * \brief Task configurations.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -53,9 +53,7 @@
 //#define confINCLUDE_UART_CLI
 #define confINCLUDE_USART_ECHO_TASKS
 #define confINCLUDE_USART_CLI
-//#define confINCLUDE_CDC_CLI
-//#define confINCLUDE_TWI_EEPROM_TASK
-//#define confINCLUDE_SPI_FLASH_TASK
+#define confINCLUDE_CDC_CLI
 
 /* Less user LEDS are available on this kit, so redefine the corresponding define. */
 #define partestNUM_LEDS                 (1UL)

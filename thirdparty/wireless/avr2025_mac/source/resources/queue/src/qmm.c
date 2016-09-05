@@ -156,7 +156,6 @@ void qmm_queue_append(queue_t *q, buffer_t *buf)
 		if (q->head == NULL) {
 			Assert("Corrupted queue: Null pointer has been queued");
 		}
-
 #endif
 
 #ifdef ENABLE_QUEUE_CAPACITY
@@ -168,7 +167,6 @@ void qmm_queue_append(queue_t *q, buffer_t *buf)
 
 #ifdef ENABLE_QUEUE_CAPACITY
 	return (status);
-
 #endif
 } /* qmm_queue_append */
 
@@ -230,12 +228,12 @@ static buffer_t *queue_read_or_remove(queue_t *q,
 			/* Remove buffer from the queue */
 			if (REMOVE_MODE == mode) {
 				/* Update head if buffer removed is first node
-				 **/
+				**/
 				if (buffer_current == q->head) {
 					q->head = buffer_current->next;
 				} else {
 					/* Update the link by removing the
-					 *buffer */
+					 * buffer */
 					buffer_previous->next
 						= buffer_current->next;
 				}
@@ -255,7 +253,7 @@ static buffer_t *queue_read_or_remove(queue_t *q,
 			/* Read buffer from the queue */
 			else {
 				/* Nothing needs done if the mode is READ_MODE
-				 **/
+				**/
 			}
 		}
 	} /* q->size != 0 */
@@ -263,7 +261,7 @@ static buffer_t *queue_read_or_remove(queue_t *q,
 	LEAVE_CRITICAL_REGION();
 
 	/* Return the buffer. note that pointer to header of buffer is returned
-	 **/
+	**/
 	return (buffer_current);
 } /* queue_read_or_remove */
 

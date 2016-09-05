@@ -3,7 +3,7 @@
  *
  * \brief  Main of Performance_Analyzer application
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,7 +52,7 @@
 int main(void)
 {
 	irq_initialize_vectors();
-#if SAMD || SAMR21 || SAML21
+#if SAMD || SAMR21 || SAML21 || SAMR30
 	system_init();
 	delay_init();
 #else

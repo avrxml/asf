@@ -3,7 +3,7 @@
  *
  * \brief Component description for SUPC
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -74,27 +74,27 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SUPC_INTENCLR_OFFSET        0x00         /**< \brief (SUPC_INTENCLR offset) Interrupt Enable Clear */
-#define SUPC_INTENCLR_RESETVALUE    0x00000000ul /**< \brief (SUPC_INTENCLR reset_value) Interrupt Enable Clear */
+#define SUPC_INTENCLR_RESETVALUE    0x00000000u  /**< \brief (SUPC_INTENCLR reset_value) Interrupt Enable Clear */
 
 #define SUPC_INTENCLR_BOD33RDY_Pos  0            /**< \brief (SUPC_INTENCLR) BOD33 Ready */
-#define SUPC_INTENCLR_BOD33RDY      (0x1ul << SUPC_INTENCLR_BOD33RDY_Pos)
+#define SUPC_INTENCLR_BOD33RDY      (0x1u << SUPC_INTENCLR_BOD33RDY_Pos)
 #define SUPC_INTENCLR_BOD33DET_Pos  1            /**< \brief (SUPC_INTENCLR) BOD33 Detection */
-#define SUPC_INTENCLR_BOD33DET      (0x1ul << SUPC_INTENCLR_BOD33DET_Pos)
+#define SUPC_INTENCLR_BOD33DET      (0x1u << SUPC_INTENCLR_BOD33DET_Pos)
 #define SUPC_INTENCLR_B33SRDY_Pos   2            /**< \brief (SUPC_INTENCLR) BOD33 Synchronization Ready */
-#define SUPC_INTENCLR_B33SRDY       (0x1ul << SUPC_INTENCLR_B33SRDY_Pos)
+#define SUPC_INTENCLR_B33SRDY       (0x1u << SUPC_INTENCLR_B33SRDY_Pos)
 #define SUPC_INTENCLR_BOD12RDY_Pos  3            /**< \brief (SUPC_INTENCLR) BOD12 Ready */
-#define SUPC_INTENCLR_BOD12RDY      (0x1ul << SUPC_INTENCLR_BOD12RDY_Pos)
+#define SUPC_INTENCLR_BOD12RDY      (0x1u << SUPC_INTENCLR_BOD12RDY_Pos)
 #define SUPC_INTENCLR_BOD12DET_Pos  4            /**< \brief (SUPC_INTENCLR) BOD12 Detection */
-#define SUPC_INTENCLR_BOD12DET      (0x1ul << SUPC_INTENCLR_BOD12DET_Pos)
+#define SUPC_INTENCLR_BOD12DET      (0x1u << SUPC_INTENCLR_BOD12DET_Pos)
 #define SUPC_INTENCLR_B12SRDY_Pos   5            /**< \brief (SUPC_INTENCLR) BOD12 Synchronization Ready */
-#define SUPC_INTENCLR_B12SRDY       (0x1ul << SUPC_INTENCLR_B12SRDY_Pos)
+#define SUPC_INTENCLR_B12SRDY       (0x1u << SUPC_INTENCLR_B12SRDY_Pos)
 #define SUPC_INTENCLR_VREGRDY_Pos   8            /**< \brief (SUPC_INTENCLR) Voltage Regulator Ready */
-#define SUPC_INTENCLR_VREGRDY       (0x1ul << SUPC_INTENCLR_VREGRDY_Pos)
+#define SUPC_INTENCLR_VREGRDY       (0x1u << SUPC_INTENCLR_VREGRDY_Pos)
 #define SUPC_INTENCLR_APWSRDY_Pos   9            /**< \brief (SUPC_INTENCLR) Automatic Power Switch Ready */
-#define SUPC_INTENCLR_APWSRDY       (0x1ul << SUPC_INTENCLR_APWSRDY_Pos)
+#define SUPC_INTENCLR_APWSRDY       (0x1u << SUPC_INTENCLR_APWSRDY_Pos)
 #define SUPC_INTENCLR_VCORERDY_Pos  10           /**< \brief (SUPC_INTENCLR) VDDCORE Ready */
-#define SUPC_INTENCLR_VCORERDY      (0x1ul << SUPC_INTENCLR_VCORERDY_Pos)
-#define SUPC_INTENCLR_MASK          0x0000073Ful /**< \brief (SUPC_INTENCLR) MASK Register */
+#define SUPC_INTENCLR_VCORERDY      (0x1u << SUPC_INTENCLR_VCORERDY_Pos)
+#define SUPC_INTENCLR_MASK          0x0000073Fu  /**< \brief (SUPC_INTENCLR) MASK Register */
 
 /* -------- SUPC_INTENSET : (SUPC Offset: 0x04) (R/W 32) Interrupt Enable Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -117,27 +117,27 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SUPC_INTENSET_OFFSET        0x04         /**< \brief (SUPC_INTENSET offset) Interrupt Enable Set */
-#define SUPC_INTENSET_RESETVALUE    0x00000000ul /**< \brief (SUPC_INTENSET reset_value) Interrupt Enable Set */
+#define SUPC_INTENSET_RESETVALUE    0x00000000u  /**< \brief (SUPC_INTENSET reset_value) Interrupt Enable Set */
 
 #define SUPC_INTENSET_BOD33RDY_Pos  0            /**< \brief (SUPC_INTENSET) BOD33 Ready */
-#define SUPC_INTENSET_BOD33RDY      (0x1ul << SUPC_INTENSET_BOD33RDY_Pos)
+#define SUPC_INTENSET_BOD33RDY      (0x1u << SUPC_INTENSET_BOD33RDY_Pos)
 #define SUPC_INTENSET_BOD33DET_Pos  1            /**< \brief (SUPC_INTENSET) BOD33 Detection */
-#define SUPC_INTENSET_BOD33DET      (0x1ul << SUPC_INTENSET_BOD33DET_Pos)
+#define SUPC_INTENSET_BOD33DET      (0x1u << SUPC_INTENSET_BOD33DET_Pos)
 #define SUPC_INTENSET_B33SRDY_Pos   2            /**< \brief (SUPC_INTENSET) BOD33 Synchronization Ready */
-#define SUPC_INTENSET_B33SRDY       (0x1ul << SUPC_INTENSET_B33SRDY_Pos)
+#define SUPC_INTENSET_B33SRDY       (0x1u << SUPC_INTENSET_B33SRDY_Pos)
 #define SUPC_INTENSET_BOD12RDY_Pos  3            /**< \brief (SUPC_INTENSET) BOD12 Ready */
-#define SUPC_INTENSET_BOD12RDY      (0x1ul << SUPC_INTENSET_BOD12RDY_Pos)
+#define SUPC_INTENSET_BOD12RDY      (0x1u << SUPC_INTENSET_BOD12RDY_Pos)
 #define SUPC_INTENSET_BOD12DET_Pos  4            /**< \brief (SUPC_INTENSET) BOD12 Detection */
-#define SUPC_INTENSET_BOD12DET      (0x1ul << SUPC_INTENSET_BOD12DET_Pos)
+#define SUPC_INTENSET_BOD12DET      (0x1u << SUPC_INTENSET_BOD12DET_Pos)
 #define SUPC_INTENSET_B12SRDY_Pos   5            /**< \brief (SUPC_INTENSET) BOD12 Synchronization Ready */
-#define SUPC_INTENSET_B12SRDY       (0x1ul << SUPC_INTENSET_B12SRDY_Pos)
+#define SUPC_INTENSET_B12SRDY       (0x1u << SUPC_INTENSET_B12SRDY_Pos)
 #define SUPC_INTENSET_VREGRDY_Pos   8            /**< \brief (SUPC_INTENSET) Voltage Regulator Ready */
-#define SUPC_INTENSET_VREGRDY       (0x1ul << SUPC_INTENSET_VREGRDY_Pos)
+#define SUPC_INTENSET_VREGRDY       (0x1u << SUPC_INTENSET_VREGRDY_Pos)
 #define SUPC_INTENSET_APWSRDY_Pos   9            /**< \brief (SUPC_INTENSET) Automatic Power Switch Ready */
-#define SUPC_INTENSET_APWSRDY       (0x1ul << SUPC_INTENSET_APWSRDY_Pos)
+#define SUPC_INTENSET_APWSRDY       (0x1u << SUPC_INTENSET_APWSRDY_Pos)
 #define SUPC_INTENSET_VCORERDY_Pos  10           /**< \brief (SUPC_INTENSET) VDDCORE Ready */
-#define SUPC_INTENSET_VCORERDY      (0x1ul << SUPC_INTENSET_VCORERDY_Pos)
-#define SUPC_INTENSET_MASK          0x0000073Ful /**< \brief (SUPC_INTENSET) MASK Register */
+#define SUPC_INTENSET_VCORERDY      (0x1u << SUPC_INTENSET_VCORERDY_Pos)
+#define SUPC_INTENSET_MASK          0x0000073Fu  /**< \brief (SUPC_INTENSET) MASK Register */
 
 /* -------- SUPC_INTFLAG : (SUPC Offset: 0x08) (R/W 32) Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -160,27 +160,27 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SUPC_INTFLAG_OFFSET         0x08         /**< \brief (SUPC_INTFLAG offset) Interrupt Flag Status and Clear */
-#define SUPC_INTFLAG_RESETVALUE     0x00000000ul /**< \brief (SUPC_INTFLAG reset_value) Interrupt Flag Status and Clear */
+#define SUPC_INTFLAG_RESETVALUE     0x00000000u  /**< \brief (SUPC_INTFLAG reset_value) Interrupt Flag Status and Clear */
 
 #define SUPC_INTFLAG_BOD33RDY_Pos   0            /**< \brief (SUPC_INTFLAG) BOD33 Ready */
-#define SUPC_INTFLAG_BOD33RDY       (0x1ul << SUPC_INTFLAG_BOD33RDY_Pos)
+#define SUPC_INTFLAG_BOD33RDY       (0x1u << SUPC_INTFLAG_BOD33RDY_Pos)
 #define SUPC_INTFLAG_BOD33DET_Pos   1            /**< \brief (SUPC_INTFLAG) BOD33 Detection */
-#define SUPC_INTFLAG_BOD33DET       (0x1ul << SUPC_INTFLAG_BOD33DET_Pos)
+#define SUPC_INTFLAG_BOD33DET       (0x1u << SUPC_INTFLAG_BOD33DET_Pos)
 #define SUPC_INTFLAG_B33SRDY_Pos    2            /**< \brief (SUPC_INTFLAG) BOD33 Synchronization Ready */
-#define SUPC_INTFLAG_B33SRDY        (0x1ul << SUPC_INTFLAG_B33SRDY_Pos)
+#define SUPC_INTFLAG_B33SRDY        (0x1u << SUPC_INTFLAG_B33SRDY_Pos)
 #define SUPC_INTFLAG_BOD12RDY_Pos   3            /**< \brief (SUPC_INTFLAG) BOD12 Ready */
-#define SUPC_INTFLAG_BOD12RDY       (0x1ul << SUPC_INTFLAG_BOD12RDY_Pos)
+#define SUPC_INTFLAG_BOD12RDY       (0x1u << SUPC_INTFLAG_BOD12RDY_Pos)
 #define SUPC_INTFLAG_BOD12DET_Pos   4            /**< \brief (SUPC_INTFLAG) BOD12 Detection */
-#define SUPC_INTFLAG_BOD12DET       (0x1ul << SUPC_INTFLAG_BOD12DET_Pos)
+#define SUPC_INTFLAG_BOD12DET       (0x1u << SUPC_INTFLAG_BOD12DET_Pos)
 #define SUPC_INTFLAG_B12SRDY_Pos    5            /**< \brief (SUPC_INTFLAG) BOD12 Synchronization Ready */
-#define SUPC_INTFLAG_B12SRDY        (0x1ul << SUPC_INTFLAG_B12SRDY_Pos)
+#define SUPC_INTFLAG_B12SRDY        (0x1u << SUPC_INTFLAG_B12SRDY_Pos)
 #define SUPC_INTFLAG_VREGRDY_Pos    8            /**< \brief (SUPC_INTFLAG) Voltage Regulator Ready */
-#define SUPC_INTFLAG_VREGRDY        (0x1ul << SUPC_INTFLAG_VREGRDY_Pos)
+#define SUPC_INTFLAG_VREGRDY        (0x1u << SUPC_INTFLAG_VREGRDY_Pos)
 #define SUPC_INTFLAG_APWSRDY_Pos    9            /**< \brief (SUPC_INTFLAG) Automatic Power Switch Ready */
-#define SUPC_INTFLAG_APWSRDY        (0x1ul << SUPC_INTFLAG_APWSRDY_Pos)
+#define SUPC_INTFLAG_APWSRDY        (0x1u << SUPC_INTFLAG_APWSRDY_Pos)
 #define SUPC_INTFLAG_VCORERDY_Pos   10           /**< \brief (SUPC_INTFLAG) VDDCORE Ready */
-#define SUPC_INTFLAG_VCORERDY       (0x1ul << SUPC_INTFLAG_VCORERDY_Pos)
-#define SUPC_INTFLAG_MASK           0x0000073Ful /**< \brief (SUPC_INTFLAG) MASK Register */
+#define SUPC_INTFLAG_VCORERDY       (0x1u << SUPC_INTFLAG_VCORERDY_Pos)
+#define SUPC_INTFLAG_MASK           0x0000073Fu  /**< \brief (SUPC_INTFLAG) MASK Register */
 
 /* -------- SUPC_STATUS : (SUPC Offset: 0x0C) (R/  32) Power and Clocks Status -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -204,29 +204,29 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SUPC_STATUS_OFFSET          0x0C         /**< \brief (SUPC_STATUS offset) Power and Clocks Status */
-#define SUPC_STATUS_RESETVALUE      0x00000000ul /**< \brief (SUPC_STATUS reset_value) Power and Clocks Status */
+#define SUPC_STATUS_RESETVALUE      0x00000000u  /**< \brief (SUPC_STATUS reset_value) Power and Clocks Status */
 
 #define SUPC_STATUS_BOD33RDY_Pos    0            /**< \brief (SUPC_STATUS) BOD33 Ready */
-#define SUPC_STATUS_BOD33RDY        (0x1ul << SUPC_STATUS_BOD33RDY_Pos)
+#define SUPC_STATUS_BOD33RDY        (0x1u << SUPC_STATUS_BOD33RDY_Pos)
 #define SUPC_STATUS_BOD33DET_Pos    1            /**< \brief (SUPC_STATUS) BOD33 Detection */
-#define SUPC_STATUS_BOD33DET        (0x1ul << SUPC_STATUS_BOD33DET_Pos)
+#define SUPC_STATUS_BOD33DET        (0x1u << SUPC_STATUS_BOD33DET_Pos)
 #define SUPC_STATUS_B33SRDY_Pos     2            /**< \brief (SUPC_STATUS) BOD33 Synchronization Ready */
-#define SUPC_STATUS_B33SRDY         (0x1ul << SUPC_STATUS_B33SRDY_Pos)
+#define SUPC_STATUS_B33SRDY         (0x1u << SUPC_STATUS_B33SRDY_Pos)
 #define SUPC_STATUS_BOD12RDY_Pos    3            /**< \brief (SUPC_STATUS) BOD12 Ready */
-#define SUPC_STATUS_BOD12RDY        (0x1ul << SUPC_STATUS_BOD12RDY_Pos)
+#define SUPC_STATUS_BOD12RDY        (0x1u << SUPC_STATUS_BOD12RDY_Pos)
 #define SUPC_STATUS_BOD12DET_Pos    4            /**< \brief (SUPC_STATUS) BOD12 Detection */
-#define SUPC_STATUS_BOD12DET        (0x1ul << SUPC_STATUS_BOD12DET_Pos)
+#define SUPC_STATUS_BOD12DET        (0x1u << SUPC_STATUS_BOD12DET_Pos)
 #define SUPC_STATUS_B12SRDY_Pos     5            /**< \brief (SUPC_STATUS) BOD12 Synchronization Ready */
-#define SUPC_STATUS_B12SRDY         (0x1ul << SUPC_STATUS_B12SRDY_Pos)
+#define SUPC_STATUS_B12SRDY         (0x1u << SUPC_STATUS_B12SRDY_Pos)
 #define SUPC_STATUS_VREGRDY_Pos     8            /**< \brief (SUPC_STATUS) Voltage Regulator Ready */
-#define SUPC_STATUS_VREGRDY         (0x1ul << SUPC_STATUS_VREGRDY_Pos)
+#define SUPC_STATUS_VREGRDY         (0x1u << SUPC_STATUS_VREGRDY_Pos)
 #define SUPC_STATUS_APWSRDY_Pos     9            /**< \brief (SUPC_STATUS) Automatic Power Switch Ready */
-#define SUPC_STATUS_APWSRDY         (0x1ul << SUPC_STATUS_APWSRDY_Pos)
+#define SUPC_STATUS_APWSRDY         (0x1u << SUPC_STATUS_APWSRDY_Pos)
 #define SUPC_STATUS_VCORERDY_Pos    10           /**< \brief (SUPC_STATUS) VDDCORE Ready */
-#define SUPC_STATUS_VCORERDY        (0x1ul << SUPC_STATUS_VCORERDY_Pos)
+#define SUPC_STATUS_VCORERDY        (0x1u << SUPC_STATUS_VCORERDY_Pos)
 #define SUPC_STATUS_BBPS_Pos        11           /**< \brief (SUPC_STATUS) Battery Backup Power Switch */
-#define SUPC_STATUS_BBPS            (0x1ul << SUPC_STATUS_BBPS_Pos)
-#define SUPC_STATUS_MASK            0x00000F3Ful /**< \brief (SUPC_STATUS) MASK Register */
+#define SUPC_STATUS_BBPS            (0x1u << SUPC_STATUS_BBPS_Pos)
+#define SUPC_STATUS_MASK            0x00000F3Fu  /**< \brief (SUPC_STATUS) MASK Register */
 
 /* -------- SUPC_BOD33 : (SUPC Offset: 0x10) (R/W 32) BOD33 Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -254,52 +254,52 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SUPC_BOD33_OFFSET           0x10         /**< \brief (SUPC_BOD33 offset) BOD33 Control */
-#define SUPC_BOD33_RESETVALUE       0x00000000ul /**< \brief (SUPC_BOD33 reset_value) BOD33 Control */
+#define SUPC_BOD33_RESETVALUE       0x00000000u  /**< \brief (SUPC_BOD33 reset_value) BOD33 Control */
 
 #define SUPC_BOD33_ENABLE_Pos       1            /**< \brief (SUPC_BOD33) Enable */
-#define SUPC_BOD33_ENABLE           (0x1ul << SUPC_BOD33_ENABLE_Pos)
+#define SUPC_BOD33_ENABLE           (0x1u << SUPC_BOD33_ENABLE_Pos)
 #define SUPC_BOD33_HYST_Pos         2            /**< \brief (SUPC_BOD33) Hysteresis Enable */
-#define SUPC_BOD33_HYST             (0x1ul << SUPC_BOD33_HYST_Pos)
+#define SUPC_BOD33_HYST             (0x1u << SUPC_BOD33_HYST_Pos)
 #define SUPC_BOD33_ACTION_Pos       3            /**< \brief (SUPC_BOD33) Action when Threshold Crossed */
-#define SUPC_BOD33_ACTION_Msk       (0x3ul << SUPC_BOD33_ACTION_Pos)
+#define SUPC_BOD33_ACTION_Msk       (0x3u << SUPC_BOD33_ACTION_Pos)
 #define SUPC_BOD33_ACTION(value)    (SUPC_BOD33_ACTION_Msk & ((value) << SUPC_BOD33_ACTION_Pos))
-#define   SUPC_BOD33_ACTION_NONE_Val      0x0ul  /**< \brief (SUPC_BOD33) No action */
-#define   SUPC_BOD33_ACTION_RESET_Val     0x1ul  /**< \brief (SUPC_BOD33) The BOD33 generates a reset */
-#define   SUPC_BOD33_ACTION_INT_Val       0x2ul  /**< \brief (SUPC_BOD33) The BOD33 generates an interrupt */
-#define   SUPC_BOD33_ACTION_BKUP_Val      0x3ul  /**< \brief (SUPC_BOD33) The BOD33 puts the device in backup sleep mode if VMON=0 */
+#define   SUPC_BOD33_ACTION_NONE_Val      0x0u   /**< \brief (SUPC_BOD33) No action */
+#define   SUPC_BOD33_ACTION_RESET_Val     0x1u   /**< \brief (SUPC_BOD33) The BOD33 generates a reset */
+#define   SUPC_BOD33_ACTION_INT_Val       0x2u   /**< \brief (SUPC_BOD33) The BOD33 generates an interrupt */
+#define   SUPC_BOD33_ACTION_BKUP_Val      0x3u   /**< \brief (SUPC_BOD33) The BOD33 puts the device in backup sleep mode if VMON=0 */
 #define SUPC_BOD33_ACTION_NONE      (SUPC_BOD33_ACTION_NONE_Val    << SUPC_BOD33_ACTION_Pos)
 #define SUPC_BOD33_ACTION_RESET     (SUPC_BOD33_ACTION_RESET_Val   << SUPC_BOD33_ACTION_Pos)
 #define SUPC_BOD33_ACTION_INT       (SUPC_BOD33_ACTION_INT_Val     << SUPC_BOD33_ACTION_Pos)
 #define SUPC_BOD33_ACTION_BKUP      (SUPC_BOD33_ACTION_BKUP_Val    << SUPC_BOD33_ACTION_Pos)
 #define SUPC_BOD33_STDBYCFG_Pos     5            /**< \brief (SUPC_BOD33) Configuration in Standby mode */
-#define SUPC_BOD33_STDBYCFG         (0x1ul << SUPC_BOD33_STDBYCFG_Pos)
+#define SUPC_BOD33_STDBYCFG         (0x1u << SUPC_BOD33_STDBYCFG_Pos)
 #define SUPC_BOD33_RUNSTDBY_Pos     6            /**< \brief (SUPC_BOD33) Run during Standby */
-#define SUPC_BOD33_RUNSTDBY         (0x1ul << SUPC_BOD33_RUNSTDBY_Pos)
+#define SUPC_BOD33_RUNSTDBY         (0x1u << SUPC_BOD33_RUNSTDBY_Pos)
 #define SUPC_BOD33_RUNBKUP_Pos      7            /**< \brief (SUPC_BOD33) Configuration in Backup mode */
-#define SUPC_BOD33_RUNBKUP          (0x1ul << SUPC_BOD33_RUNBKUP_Pos)
+#define SUPC_BOD33_RUNBKUP          (0x1u << SUPC_BOD33_RUNBKUP_Pos)
 #define SUPC_BOD33_ACTCFG_Pos       8            /**< \brief (SUPC_BOD33) Configuration in Active mode */
-#define SUPC_BOD33_ACTCFG           (0x1ul << SUPC_BOD33_ACTCFG_Pos)
+#define SUPC_BOD33_ACTCFG           (0x1u << SUPC_BOD33_ACTCFG_Pos)
 #define SUPC_BOD33_VMON_Pos         10           /**< \brief (SUPC_BOD33) Voltage Monitored in active and standby mode */
-#define SUPC_BOD33_VMON             (0x1ul << SUPC_BOD33_VMON_Pos)
+#define SUPC_BOD33_VMON             (0x1u << SUPC_BOD33_VMON_Pos)
 #define SUPC_BOD33_PSEL_Pos         12           /**< \brief (SUPC_BOD33) Prescaler Select */
-#define SUPC_BOD33_PSEL_Msk         (0xFul << SUPC_BOD33_PSEL_Pos)
+#define SUPC_BOD33_PSEL_Msk         (0xFu << SUPC_BOD33_PSEL_Pos)
 #define SUPC_BOD33_PSEL(value)      (SUPC_BOD33_PSEL_Msk & ((value) << SUPC_BOD33_PSEL_Pos))
-#define   SUPC_BOD33_PSEL_DIV2_Val        0x0ul  /**< \brief (SUPC_BOD33) Divide clock by 2 */
-#define   SUPC_BOD33_PSEL_DIV4_Val        0x1ul  /**< \brief (SUPC_BOD33) Divide clock by 4 */
-#define   SUPC_BOD33_PSEL_DIV8_Val        0x2ul  /**< \brief (SUPC_BOD33) Divide clock by 8 */
-#define   SUPC_BOD33_PSEL_DIV16_Val       0x3ul  /**< \brief (SUPC_BOD33) Divide clock by 16 */
-#define   SUPC_BOD33_PSEL_DIV32_Val       0x4ul  /**< \brief (SUPC_BOD33) Divide clock by 32 */
-#define   SUPC_BOD33_PSEL_DIV64_Val       0x5ul  /**< \brief (SUPC_BOD33) Divide clock by 64 */
-#define   SUPC_BOD33_PSEL_DIV128_Val      0x6ul  /**< \brief (SUPC_BOD33) Divide clock by 128 */
-#define   SUPC_BOD33_PSEL_DIV256_Val      0x7ul  /**< \brief (SUPC_BOD33) Divide clock by 256 */
-#define   SUPC_BOD33_PSEL_DIV512_Val      0x8ul  /**< \brief (SUPC_BOD33) Divide clock by 512 */
-#define   SUPC_BOD33_PSEL_DIV1024_Val     0x9ul  /**< \brief (SUPC_BOD33) Divide clock by 1024 */
-#define   SUPC_BOD33_PSEL_DIV2048_Val     0xAul  /**< \brief (SUPC_BOD33) Divide clock by 2048 */
-#define   SUPC_BOD33_PSEL_DIV4096_Val     0xBul  /**< \brief (SUPC_BOD33) Divide clock by 4096 */
-#define   SUPC_BOD33_PSEL_DIV8192_Val     0xCul  /**< \brief (SUPC_BOD33) Divide clock by 8192 */
-#define   SUPC_BOD33_PSEL_DIV16384_Val    0xDul  /**< \brief (SUPC_BOD33) Divide clock by 16384 */
-#define   SUPC_BOD33_PSEL_DIV32768_Val    0xEul  /**< \brief (SUPC_BOD33) Divide clock by 32768 */
-#define   SUPC_BOD33_PSEL_DIV65536_Val    0xFul  /**< \brief (SUPC_BOD33) Divide clock by 65536 */
+#define   SUPC_BOD33_PSEL_DIV2_Val        0x0u   /**< \brief (SUPC_BOD33) Divide clock by 2 */
+#define   SUPC_BOD33_PSEL_DIV4_Val        0x1u   /**< \brief (SUPC_BOD33) Divide clock by 4 */
+#define   SUPC_BOD33_PSEL_DIV8_Val        0x2u   /**< \brief (SUPC_BOD33) Divide clock by 8 */
+#define   SUPC_BOD33_PSEL_DIV16_Val       0x3u   /**< \brief (SUPC_BOD33) Divide clock by 16 */
+#define   SUPC_BOD33_PSEL_DIV32_Val       0x4u   /**< \brief (SUPC_BOD33) Divide clock by 32 */
+#define   SUPC_BOD33_PSEL_DIV64_Val       0x5u   /**< \brief (SUPC_BOD33) Divide clock by 64 */
+#define   SUPC_BOD33_PSEL_DIV128_Val      0x6u   /**< \brief (SUPC_BOD33) Divide clock by 128 */
+#define   SUPC_BOD33_PSEL_DIV256_Val      0x7u   /**< \brief (SUPC_BOD33) Divide clock by 256 */
+#define   SUPC_BOD33_PSEL_DIV512_Val      0x8u   /**< \brief (SUPC_BOD33) Divide clock by 512 */
+#define   SUPC_BOD33_PSEL_DIV1024_Val     0x9u   /**< \brief (SUPC_BOD33) Divide clock by 1024 */
+#define   SUPC_BOD33_PSEL_DIV2048_Val     0xAu   /**< \brief (SUPC_BOD33) Divide clock by 2048 */
+#define   SUPC_BOD33_PSEL_DIV4096_Val     0xBu   /**< \brief (SUPC_BOD33) Divide clock by 4096 */
+#define   SUPC_BOD33_PSEL_DIV8192_Val     0xCu   /**< \brief (SUPC_BOD33) Divide clock by 8192 */
+#define   SUPC_BOD33_PSEL_DIV16384_Val    0xDu   /**< \brief (SUPC_BOD33) Divide clock by 16384 */
+#define   SUPC_BOD33_PSEL_DIV32768_Val    0xEu   /**< \brief (SUPC_BOD33) Divide clock by 32768 */
+#define   SUPC_BOD33_PSEL_DIV65536_Val    0xFu   /**< \brief (SUPC_BOD33) Divide clock by 65536 */
 #define SUPC_BOD33_PSEL_DIV2        (SUPC_BOD33_PSEL_DIV2_Val      << SUPC_BOD33_PSEL_Pos)
 #define SUPC_BOD33_PSEL_DIV4        (SUPC_BOD33_PSEL_DIV4_Val      << SUPC_BOD33_PSEL_Pos)
 #define SUPC_BOD33_PSEL_DIV8        (SUPC_BOD33_PSEL_DIV8_Val      << SUPC_BOD33_PSEL_Pos)
@@ -317,12 +317,12 @@ typedef union {
 #define SUPC_BOD33_PSEL_DIV32768    (SUPC_BOD33_PSEL_DIV32768_Val  << SUPC_BOD33_PSEL_Pos)
 #define SUPC_BOD33_PSEL_DIV65536    (SUPC_BOD33_PSEL_DIV65536_Val  << SUPC_BOD33_PSEL_Pos)
 #define SUPC_BOD33_LEVEL_Pos        16           /**< \brief (SUPC_BOD33) Threshold Level for VDD */
-#define SUPC_BOD33_LEVEL_Msk        (0x3Ful << SUPC_BOD33_LEVEL_Pos)
+#define SUPC_BOD33_LEVEL_Msk        (0x3Fu << SUPC_BOD33_LEVEL_Pos)
 #define SUPC_BOD33_LEVEL(value)     (SUPC_BOD33_LEVEL_Msk & ((value) << SUPC_BOD33_LEVEL_Pos))
 #define SUPC_BOD33_BKUPLEVEL_Pos    24           /**< \brief (SUPC_BOD33) Threshold Level in backup sleep mode or for VBAT */
-#define SUPC_BOD33_BKUPLEVEL_Msk    (0x3Ful << SUPC_BOD33_BKUPLEVEL_Pos)
+#define SUPC_BOD33_BKUPLEVEL_Msk    (0x3Fu << SUPC_BOD33_BKUPLEVEL_Pos)
 #define SUPC_BOD33_BKUPLEVEL(value) (SUPC_BOD33_BKUPLEVEL_Msk & ((value) << SUPC_BOD33_BKUPLEVEL_Pos))
-#define SUPC_BOD33_MASK             0x3F3FF5FEul /**< \brief (SUPC_BOD33) MASK Register */
+#define SUPC_BOD33_MASK             0x3F3FF5FEu  /**< \brief (SUPC_BOD33) MASK Register */
 
 /* -------- SUPC_BOD12 : (SUPC Offset: 0x14) (R/W 32) BOD12 Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -346,46 +346,46 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SUPC_BOD12_OFFSET           0x14         /**< \brief (SUPC_BOD12 offset) BOD12 Control */
-#define SUPC_BOD12_RESETVALUE       0x00000000ul /**< \brief (SUPC_BOD12 reset_value) BOD12 Control */
+#define SUPC_BOD12_RESETVALUE       0x00000000u  /**< \brief (SUPC_BOD12 reset_value) BOD12 Control */
 
 #define SUPC_BOD12_ENABLE_Pos       1            /**< \brief (SUPC_BOD12) Enable */
-#define SUPC_BOD12_ENABLE           (0x1ul << SUPC_BOD12_ENABLE_Pos)
+#define SUPC_BOD12_ENABLE           (0x1u << SUPC_BOD12_ENABLE_Pos)
 #define SUPC_BOD12_HYST_Pos         2            /**< \brief (SUPC_BOD12) Hysteresis Enable */
-#define SUPC_BOD12_HYST             (0x1ul << SUPC_BOD12_HYST_Pos)
+#define SUPC_BOD12_HYST             (0x1u << SUPC_BOD12_HYST_Pos)
 #define SUPC_BOD12_ACTION_Pos       3            /**< \brief (SUPC_BOD12) Action when Threshold Crossed */
-#define SUPC_BOD12_ACTION_Msk       (0x3ul << SUPC_BOD12_ACTION_Pos)
+#define SUPC_BOD12_ACTION_Msk       (0x3u << SUPC_BOD12_ACTION_Pos)
 #define SUPC_BOD12_ACTION(value)    (SUPC_BOD12_ACTION_Msk & ((value) << SUPC_BOD12_ACTION_Pos))
-#define   SUPC_BOD12_ACTION_NONE_Val      0x0ul  /**< \brief (SUPC_BOD12) No action */
-#define   SUPC_BOD12_ACTION_RESET_Val     0x1ul  /**< \brief (SUPC_BOD12) The BOD12 generates a reset */
-#define   SUPC_BOD12_ACTION_INT_Val       0x2ul  /**< \brief (SUPC_BOD12) The BOD12 generates an interrupt */
+#define   SUPC_BOD12_ACTION_NONE_Val      0x0u   /**< \brief (SUPC_BOD12) No action */
+#define   SUPC_BOD12_ACTION_RESET_Val     0x1u   /**< \brief (SUPC_BOD12) The BOD12 generates a reset */
+#define   SUPC_BOD12_ACTION_INT_Val       0x2u   /**< \brief (SUPC_BOD12) The BOD12 generates an interrupt */
 #define SUPC_BOD12_ACTION_NONE      (SUPC_BOD12_ACTION_NONE_Val    << SUPC_BOD12_ACTION_Pos)
 #define SUPC_BOD12_ACTION_RESET     (SUPC_BOD12_ACTION_RESET_Val   << SUPC_BOD12_ACTION_Pos)
 #define SUPC_BOD12_ACTION_INT       (SUPC_BOD12_ACTION_INT_Val     << SUPC_BOD12_ACTION_Pos)
 #define SUPC_BOD12_STDBYCFG_Pos     5            /**< \brief (SUPC_BOD12) Configuration in Standby mode */
-#define SUPC_BOD12_STDBYCFG         (0x1ul << SUPC_BOD12_STDBYCFG_Pos)
+#define SUPC_BOD12_STDBYCFG         (0x1u << SUPC_BOD12_STDBYCFG_Pos)
 #define SUPC_BOD12_RUNSTDBY_Pos     6            /**< \brief (SUPC_BOD12) Run during Standby */
-#define SUPC_BOD12_RUNSTDBY         (0x1ul << SUPC_BOD12_RUNSTDBY_Pos)
+#define SUPC_BOD12_RUNSTDBY         (0x1u << SUPC_BOD12_RUNSTDBY_Pos)
 #define SUPC_BOD12_ACTCFG_Pos       8            /**< \brief (SUPC_BOD12) Configuration in Active mode */
-#define SUPC_BOD12_ACTCFG           (0x1ul << SUPC_BOD12_ACTCFG_Pos)
+#define SUPC_BOD12_ACTCFG           (0x1u << SUPC_BOD12_ACTCFG_Pos)
 #define SUPC_BOD12_PSEL_Pos         12           /**< \brief (SUPC_BOD12) Prescaler Select */
-#define SUPC_BOD12_PSEL_Msk         (0xFul << SUPC_BOD12_PSEL_Pos)
+#define SUPC_BOD12_PSEL_Msk         (0xFu << SUPC_BOD12_PSEL_Pos)
 #define SUPC_BOD12_PSEL(value)      (SUPC_BOD12_PSEL_Msk & ((value) << SUPC_BOD12_PSEL_Pos))
-#define   SUPC_BOD12_PSEL_DIV2_Val        0x0ul  /**< \brief (SUPC_BOD12) Divide clock by 2 */
-#define   SUPC_BOD12_PSEL_DIV4_Val        0x1ul  /**< \brief (SUPC_BOD12) Divide clock by 4 */
-#define   SUPC_BOD12_PSEL_DIV8_Val        0x2ul  /**< \brief (SUPC_BOD12) Divide clock by 8 */
-#define   SUPC_BOD12_PSEL_DIV16_Val       0x3ul  /**< \brief (SUPC_BOD12) Divide clock by 16 */
-#define   SUPC_BOD12_PSEL_DIV32_Val       0x4ul  /**< \brief (SUPC_BOD12) Divide clock by 32 */
-#define   SUPC_BOD12_PSEL_DIV64_Val       0x5ul  /**< \brief (SUPC_BOD12) Divide clock by 64 */
-#define   SUPC_BOD12_PSEL_DIV128_Val      0x6ul  /**< \brief (SUPC_BOD12) Divide clock by 128 */
-#define   SUPC_BOD12_PSEL_DIV256_Val      0x7ul  /**< \brief (SUPC_BOD12) Divide clock by 256 */
-#define   SUPC_BOD12_PSEL_DIV512_Val      0x8ul  /**< \brief (SUPC_BOD12) Divide clock by 512 */
-#define   SUPC_BOD12_PSEL_DIV1024_Val     0x9ul  /**< \brief (SUPC_BOD12) Divide clock by 1024 */
-#define   SUPC_BOD12_PSEL_DIV2048_Val     0xAul  /**< \brief (SUPC_BOD12) Divide clock by 2048 */
-#define   SUPC_BOD12_PSEL_DIV4096_Val     0xBul  /**< \brief (SUPC_BOD12) Divide clock by 4096 */
-#define   SUPC_BOD12_PSEL_DIV8192_Val     0xCul  /**< \brief (SUPC_BOD12) Divide clock by 8192 */
-#define   SUPC_BOD12_PSEL_DIV16384_Val    0xDul  /**< \brief (SUPC_BOD12) Divide clock by 16384 */
-#define   SUPC_BOD12_PSEL_DIV32768_Val    0xEul  /**< \brief (SUPC_BOD12) Divide clock by 32768 */
-#define   SUPC_BOD12_PSEL_DIV65536_Val    0xFul  /**< \brief (SUPC_BOD12) Divide clock by 65536 */
+#define   SUPC_BOD12_PSEL_DIV2_Val        0x0u   /**< \brief (SUPC_BOD12) Divide clock by 2 */
+#define   SUPC_BOD12_PSEL_DIV4_Val        0x1u   /**< \brief (SUPC_BOD12) Divide clock by 4 */
+#define   SUPC_BOD12_PSEL_DIV8_Val        0x2u   /**< \brief (SUPC_BOD12) Divide clock by 8 */
+#define   SUPC_BOD12_PSEL_DIV16_Val       0x3u   /**< \brief (SUPC_BOD12) Divide clock by 16 */
+#define   SUPC_BOD12_PSEL_DIV32_Val       0x4u   /**< \brief (SUPC_BOD12) Divide clock by 32 */
+#define   SUPC_BOD12_PSEL_DIV64_Val       0x5u   /**< \brief (SUPC_BOD12) Divide clock by 64 */
+#define   SUPC_BOD12_PSEL_DIV128_Val      0x6u   /**< \brief (SUPC_BOD12) Divide clock by 128 */
+#define   SUPC_BOD12_PSEL_DIV256_Val      0x7u   /**< \brief (SUPC_BOD12) Divide clock by 256 */
+#define   SUPC_BOD12_PSEL_DIV512_Val      0x8u   /**< \brief (SUPC_BOD12) Divide clock by 512 */
+#define   SUPC_BOD12_PSEL_DIV1024_Val     0x9u   /**< \brief (SUPC_BOD12) Divide clock by 1024 */
+#define   SUPC_BOD12_PSEL_DIV2048_Val     0xAu   /**< \brief (SUPC_BOD12) Divide clock by 2048 */
+#define   SUPC_BOD12_PSEL_DIV4096_Val     0xBu   /**< \brief (SUPC_BOD12) Divide clock by 4096 */
+#define   SUPC_BOD12_PSEL_DIV8192_Val     0xCu   /**< \brief (SUPC_BOD12) Divide clock by 8192 */
+#define   SUPC_BOD12_PSEL_DIV16384_Val    0xDu   /**< \brief (SUPC_BOD12) Divide clock by 16384 */
+#define   SUPC_BOD12_PSEL_DIV32768_Val    0xEu   /**< \brief (SUPC_BOD12) Divide clock by 32768 */
+#define   SUPC_BOD12_PSEL_DIV65536_Val    0xFu   /**< \brief (SUPC_BOD12) Divide clock by 65536 */
 #define SUPC_BOD12_PSEL_DIV2        (SUPC_BOD12_PSEL_DIV2_Val      << SUPC_BOD12_PSEL_Pos)
 #define SUPC_BOD12_PSEL_DIV4        (SUPC_BOD12_PSEL_DIV4_Val      << SUPC_BOD12_PSEL_Pos)
 #define SUPC_BOD12_PSEL_DIV8        (SUPC_BOD12_PSEL_DIV8_Val      << SUPC_BOD12_PSEL_Pos)
@@ -403,9 +403,9 @@ typedef union {
 #define SUPC_BOD12_PSEL_DIV32768    (SUPC_BOD12_PSEL_DIV32768_Val  << SUPC_BOD12_PSEL_Pos)
 #define SUPC_BOD12_PSEL_DIV65536    (SUPC_BOD12_PSEL_DIV65536_Val  << SUPC_BOD12_PSEL_Pos)
 #define SUPC_BOD12_LEVEL_Pos        16           /**< \brief (SUPC_BOD12) Threshold Level */
-#define SUPC_BOD12_LEVEL_Msk        (0x3Ful << SUPC_BOD12_LEVEL_Pos)
+#define SUPC_BOD12_LEVEL_Msk        (0x3Fu << SUPC_BOD12_LEVEL_Pos)
 #define SUPC_BOD12_LEVEL(value)     (SUPC_BOD12_LEVEL_Msk & ((value) << SUPC_BOD12_LEVEL_Pos))
-#define SUPC_BOD12_MASK             0x003FF17Eul /**< \brief (SUPC_BOD12) MASK Register */
+#define SUPC_BOD12_MASK             0x003FF17Eu  /**< \brief (SUPC_BOD12) MASK Register */
 
 /* -------- SUPC_VREG : (SUPC Offset: 0x18) (R/W 32) VREG Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -429,32 +429,32 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SUPC_VREG_OFFSET            0x18         /**< \brief (SUPC_VREG offset) VREG Control */
-#define SUPC_VREG_RESETVALUE        0x00000000ul /**< \brief (SUPC_VREG reset_value) VREG Control */
+#define SUPC_VREG_RESETVALUE        0x00000000u  /**< \brief (SUPC_VREG reset_value) VREG Control */
 
 #define SUPC_VREG_ENABLE_Pos        1            /**< \brief (SUPC_VREG) Enable */
-#define SUPC_VREG_ENABLE            (0x1ul << SUPC_VREG_ENABLE_Pos)
+#define SUPC_VREG_ENABLE            (0x1u << SUPC_VREG_ENABLE_Pos)
 #define SUPC_VREG_SEL_Pos           2            /**< \brief (SUPC_VREG) Voltage Regulator Selection in active mode */
-#define SUPC_VREG_SEL_Msk           (0x3ul << SUPC_VREG_SEL_Pos)
+#define SUPC_VREG_SEL_Msk           (0x3u << SUPC_VREG_SEL_Pos)
 #define SUPC_VREG_SEL(value)        (SUPC_VREG_SEL_Msk & ((value) << SUPC_VREG_SEL_Pos))
-#define   SUPC_VREG_SEL_LDO_Val           0x0ul  /**< \brief (SUPC_VREG) LDO selection */
-#define   SUPC_VREG_SEL_BUCK_Val          0x1ul  /**< \brief (SUPC_VREG) Buck selection */
-#define   SUPC_VREG_SEL_SCVREG_Val        0x2ul  /**< \brief (SUPC_VREG) Switched Cap selection */
+#define   SUPC_VREG_SEL_LDO_Val           0x0u   /**< \brief (SUPC_VREG) LDO selection */
+#define   SUPC_VREG_SEL_BUCK_Val          0x1u   /**< \brief (SUPC_VREG) Buck selection */
+#define   SUPC_VREG_SEL_SCVREG_Val        0x2u   /**< \brief (SUPC_VREG) Switched Cap selection */
 #define SUPC_VREG_SEL_LDO           (SUPC_VREG_SEL_LDO_Val         << SUPC_VREG_SEL_Pos)
 #define SUPC_VREG_SEL_BUCK          (SUPC_VREG_SEL_BUCK_Val        << SUPC_VREG_SEL_Pos)
 #define SUPC_VREG_SEL_SCVREG        (SUPC_VREG_SEL_SCVREG_Val      << SUPC_VREG_SEL_Pos)
 #define SUPC_VREG_STDBYPL0_Pos      5            /**< \brief (SUPC_VREG) Standby in PL0 */
-#define SUPC_VREG_STDBYPL0          (0x1ul << SUPC_VREG_STDBYPL0_Pos)
+#define SUPC_VREG_STDBYPL0          (0x1u << SUPC_VREG_STDBYPL0_Pos)
 #define SUPC_VREG_RUNSTDBY_Pos      6            /**< \brief (SUPC_VREG) Run during Standby */
-#define SUPC_VREG_RUNSTDBY          (0x1ul << SUPC_VREG_RUNSTDBY_Pos)
+#define SUPC_VREG_RUNSTDBY          (0x1u << SUPC_VREG_RUNSTDBY_Pos)
 #define SUPC_VREG_LPEFF_Pos         8            /**< \brief (SUPC_VREG) Low Power efficiency */
-#define SUPC_VREG_LPEFF             (0x1ul << SUPC_VREG_LPEFF_Pos)
+#define SUPC_VREG_LPEFF             (0x1u << SUPC_VREG_LPEFF_Pos)
 #define SUPC_VREG_VSVSTEP_Pos       16           /**< \brief (SUPC_VREG) Voltage Scaling Voltage Step */
-#define SUPC_VREG_VSVSTEP_Msk       (0xFul << SUPC_VREG_VSVSTEP_Pos)
+#define SUPC_VREG_VSVSTEP_Msk       (0xFu << SUPC_VREG_VSVSTEP_Pos)
 #define SUPC_VREG_VSVSTEP(value)    (SUPC_VREG_VSVSTEP_Msk & ((value) << SUPC_VREG_VSVSTEP_Pos))
 #define SUPC_VREG_VSPER_Pos         24           /**< \brief (SUPC_VREG) Voltage Scaling Period */
-#define SUPC_VREG_VSPER_Msk         (0xFFul << SUPC_VREG_VSPER_Pos)
+#define SUPC_VREG_VSPER_Msk         (0xFFu << SUPC_VREG_VSPER_Pos)
 #define SUPC_VREG_VSPER(value)      (SUPC_VREG_VSPER_Msk & ((value) << SUPC_VREG_VSPER_Pos))
-#define SUPC_VREG_MASK              0xFF0F016Eul /**< \brief (SUPC_VREG) MASK Register */
+#define SUPC_VREG_MASK              0xFF0F016Eu  /**< \brief (SUPC_VREG) MASK Register */
 
 /* -------- SUPC_VREF : (SUPC Offset: 0x1C) (R/W 32) VREF Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -476,29 +476,29 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SUPC_VREF_OFFSET            0x1C         /**< \brief (SUPC_VREF offset) VREF Control */
-#define SUPC_VREF_RESETVALUE        0x00000000ul /**< \brief (SUPC_VREF reset_value) VREF Control */
+#define SUPC_VREF_RESETVALUE        0x00000000u  /**< \brief (SUPC_VREF reset_value) VREF Control */
 
 #define SUPC_VREF_TSEN_Pos          1            /**< \brief (SUPC_VREF) Temperature Sensor Output Enable */
-#define SUPC_VREF_TSEN              (0x1ul << SUPC_VREF_TSEN_Pos)
+#define SUPC_VREF_TSEN              (0x1u << SUPC_VREF_TSEN_Pos)
 #define SUPC_VREF_VREFOE_Pos        2            /**< \brief (SUPC_VREF) Voltage Reference Output Enable */
-#define SUPC_VREF_VREFOE            (0x1ul << SUPC_VREF_VREFOE_Pos)
+#define SUPC_VREF_VREFOE            (0x1u << SUPC_VREF_VREFOE_Pos)
 #define SUPC_VREF_TSSEL_Pos         3            /**< \brief (SUPC_VREF) Temperature Sensor Selection */
-#define SUPC_VREF_TSSEL             (0x1ul << SUPC_VREF_TSSEL_Pos)
+#define SUPC_VREF_TSSEL             (0x1u << SUPC_VREF_TSSEL_Pos)
 #define SUPC_VREF_RUNSTDBY_Pos      6            /**< \brief (SUPC_VREF) Run during Standby */
-#define SUPC_VREF_RUNSTDBY          (0x1ul << SUPC_VREF_RUNSTDBY_Pos)
+#define SUPC_VREF_RUNSTDBY          (0x1u << SUPC_VREF_RUNSTDBY_Pos)
 #define SUPC_VREF_ONDEMAND_Pos      7            /**< \brief (SUPC_VREF) On Demand Contrl */
-#define SUPC_VREF_ONDEMAND          (0x1ul << SUPC_VREF_ONDEMAND_Pos)
+#define SUPC_VREF_ONDEMAND          (0x1u << SUPC_VREF_ONDEMAND_Pos)
 #define SUPC_VREF_SEL_Pos           16           /**< \brief (SUPC_VREF) Voltage Reference Selection */
-#define SUPC_VREF_SEL_Msk           (0xFul << SUPC_VREF_SEL_Pos)
+#define SUPC_VREF_SEL_Msk           (0xFu << SUPC_VREF_SEL_Pos)
 #define SUPC_VREF_SEL(value)        (SUPC_VREF_SEL_Msk & ((value) << SUPC_VREF_SEL_Pos))
-#define   SUPC_VREF_SEL_1V0_Val           0x0ul  /**< \brief (SUPC_VREF) 1.0V voltage reference typical value */
-#define   SUPC_VREF_SEL_1V1_Val           0x1ul  /**< \brief (SUPC_VREF) 1.1V voltage reference typical value */
-#define   SUPC_VREF_SEL_1V2_Val           0x2ul  /**< \brief (SUPC_VREF) 1.2V voltage reference typical value */
-#define   SUPC_VREF_SEL_1V25_Val          0x3ul  /**< \brief (SUPC_VREF) 1.25V voltage reference typical value */
-#define   SUPC_VREF_SEL_2V0_Val           0x4ul  /**< \brief (SUPC_VREF) 2.0V voltage reference typical value */
-#define   SUPC_VREF_SEL_2V2_Val           0x5ul  /**< \brief (SUPC_VREF) 2.2V voltage reference typical value */
-#define   SUPC_VREF_SEL_2V4_Val           0x6ul  /**< \brief (SUPC_VREF) 2.4V voltage reference typical value */
-#define   SUPC_VREF_SEL_2V5_Val           0x7ul  /**< \brief (SUPC_VREF) 2.5V voltage reference typical value */
+#define   SUPC_VREF_SEL_1V0_Val           0x0u   /**< \brief (SUPC_VREF) 1.0V voltage reference typical value */
+#define   SUPC_VREF_SEL_1V1_Val           0x1u   /**< \brief (SUPC_VREF) 1.1V voltage reference typical value */
+#define   SUPC_VREF_SEL_1V2_Val           0x2u   /**< \brief (SUPC_VREF) 1.2V voltage reference typical value */
+#define   SUPC_VREF_SEL_1V25_Val          0x3u   /**< \brief (SUPC_VREF) 1.25V voltage reference typical value */
+#define   SUPC_VREF_SEL_2V0_Val           0x4u   /**< \brief (SUPC_VREF) 2.0V voltage reference typical value */
+#define   SUPC_VREF_SEL_2V2_Val           0x5u   /**< \brief (SUPC_VREF) 2.2V voltage reference typical value */
+#define   SUPC_VREF_SEL_2V4_Val           0x6u   /**< \brief (SUPC_VREF) 2.4V voltage reference typical value */
+#define   SUPC_VREF_SEL_2V5_Val           0x7u   /**< \brief (SUPC_VREF) 2.5V voltage reference typical value */
 #define SUPC_VREF_SEL_1V0           (SUPC_VREF_SEL_1V0_Val         << SUPC_VREF_SEL_Pos)
 #define SUPC_VREF_SEL_1V1           (SUPC_VREF_SEL_1V1_Val         << SUPC_VREF_SEL_Pos)
 #define SUPC_VREF_SEL_1V2           (SUPC_VREF_SEL_1V2_Val         << SUPC_VREF_SEL_Pos)
@@ -507,7 +507,7 @@ typedef union {
 #define SUPC_VREF_SEL_2V2           (SUPC_VREF_SEL_2V2_Val         << SUPC_VREF_SEL_Pos)
 #define SUPC_VREF_SEL_2V4           (SUPC_VREF_SEL_2V4_Val         << SUPC_VREF_SEL_Pos)
 #define SUPC_VREF_SEL_2V5           (SUPC_VREF_SEL_2V5_Val         << SUPC_VREF_SEL_Pos)
-#define SUPC_VREF_MASK              0x000F00CEul /**< \brief (SUPC_VREF) MASK Register */
+#define SUPC_VREF_MASK              0x000F00CEu  /**< \brief (SUPC_VREF) MASK Register */
 
 /* -------- SUPC_BBPS : (SUPC Offset: 0x20) (R/W 32) Battery Backup Power Switch -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -523,24 +523,24 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SUPC_BBPS_OFFSET            0x20         /**< \brief (SUPC_BBPS offset) Battery Backup Power Switch */
-#define SUPC_BBPS_RESETVALUE        0x00000000ul /**< \brief (SUPC_BBPS reset_value) Battery Backup Power Switch */
+#define SUPC_BBPS_RESETVALUE        0x00000000u  /**< \brief (SUPC_BBPS reset_value) Battery Backup Power Switch */
 
 #define SUPC_BBPS_CONF_Pos          0            /**< \brief (SUPC_BBPS) Battery Backup Configuration */
-#define SUPC_BBPS_CONF_Msk          (0x3ul << SUPC_BBPS_CONF_Pos)
+#define SUPC_BBPS_CONF_Msk          (0x3u << SUPC_BBPS_CONF_Pos)
 #define SUPC_BBPS_CONF(value)       (SUPC_BBPS_CONF_Msk & ((value) << SUPC_BBPS_CONF_Pos))
-#define   SUPC_BBPS_CONF_NONE_Val         0x0ul  /**< \brief (SUPC_BBPS) The backup domain is always supplied by main power */
-#define   SUPC_BBPS_CONF_APWS_Val         0x1ul  /**< \brief (SUPC_BBPS) The power switch is handled by the automatic power switch */
-#define   SUPC_BBPS_CONF_FORCED_Val       0x2ul  /**< \brief (SUPC_BBPS) The backup domain is always supplied by battery backup power */
-#define   SUPC_BBPS_CONF_BOD33_Val        0x3ul  /**< \brief (SUPC_BBPS) The power switch is handled by the BOD33 */
+#define   SUPC_BBPS_CONF_NONE_Val         0x0u   /**< \brief (SUPC_BBPS) The backup domain is always supplied by main power */
+#define   SUPC_BBPS_CONF_APWS_Val         0x1u   /**< \brief (SUPC_BBPS) The power switch is handled by the automatic power switch */
+#define   SUPC_BBPS_CONF_FORCED_Val       0x2u   /**< \brief (SUPC_BBPS) The backup domain is always supplied by battery backup power */
+#define   SUPC_BBPS_CONF_BOD33_Val        0x3u   /**< \brief (SUPC_BBPS) The power switch is handled by the BOD33 */
 #define SUPC_BBPS_CONF_NONE         (SUPC_BBPS_CONF_NONE_Val       << SUPC_BBPS_CONF_Pos)
 #define SUPC_BBPS_CONF_APWS         (SUPC_BBPS_CONF_APWS_Val       << SUPC_BBPS_CONF_Pos)
 #define SUPC_BBPS_CONF_FORCED       (SUPC_BBPS_CONF_FORCED_Val     << SUPC_BBPS_CONF_Pos)
 #define SUPC_BBPS_CONF_BOD33        (SUPC_BBPS_CONF_BOD33_Val      << SUPC_BBPS_CONF_Pos)
 #define SUPC_BBPS_WAKEEN_Pos        2            /**< \brief (SUPC_BBPS) Wake Enable */
-#define SUPC_BBPS_WAKEEN            (0x1ul << SUPC_BBPS_WAKEEN_Pos)
+#define SUPC_BBPS_WAKEEN            (0x1u << SUPC_BBPS_WAKEEN_Pos)
 #define SUPC_BBPS_PSOKEN_Pos        3            /**< \brief (SUPC_BBPS) Power Supply OK Enable */
-#define SUPC_BBPS_PSOKEN            (0x1ul << SUPC_BBPS_PSOKEN_Pos)
-#define SUPC_BBPS_MASK              0x0000000Ful /**< \brief (SUPC_BBPS) MASK Register */
+#define SUPC_BBPS_PSOKEN            (0x1u << SUPC_BBPS_PSOKEN_Pos)
+#define SUPC_BBPS_MASK              0x0000000Fu  /**< \brief (SUPC_BBPS) MASK Register */
 
 /* -------- SUPC_BKOUT : (SUPC Offset: 0x24) (R/W 32) Backup Output Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -560,21 +560,21 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SUPC_BKOUT_OFFSET           0x24         /**< \brief (SUPC_BKOUT offset) Backup Output Control */
-#define SUPC_BKOUT_RESETVALUE       0x00000000ul /**< \brief (SUPC_BKOUT reset_value) Backup Output Control */
+#define SUPC_BKOUT_RESETVALUE       0x00000000u  /**< \brief (SUPC_BKOUT reset_value) Backup Output Control */
 
 #define SUPC_BKOUT_EN_Pos           0            /**< \brief (SUPC_BKOUT) Enable Output */
-#define SUPC_BKOUT_EN_Msk           (0x3ul << SUPC_BKOUT_EN_Pos)
+#define SUPC_BKOUT_EN_Msk           (0x3u << SUPC_BKOUT_EN_Pos)
 #define SUPC_BKOUT_EN(value)        (SUPC_BKOUT_EN_Msk & ((value) << SUPC_BKOUT_EN_Pos))
 #define SUPC_BKOUT_CLR_Pos          8            /**< \brief (SUPC_BKOUT) Clear Output */
-#define SUPC_BKOUT_CLR_Msk          (0x3ul << SUPC_BKOUT_CLR_Pos)
+#define SUPC_BKOUT_CLR_Msk          (0x3u << SUPC_BKOUT_CLR_Pos)
 #define SUPC_BKOUT_CLR(value)       (SUPC_BKOUT_CLR_Msk & ((value) << SUPC_BKOUT_CLR_Pos))
 #define SUPC_BKOUT_SET_Pos          16           /**< \brief (SUPC_BKOUT) Set Output */
-#define SUPC_BKOUT_SET_Msk          (0x3ul << SUPC_BKOUT_SET_Pos)
+#define SUPC_BKOUT_SET_Msk          (0x3u << SUPC_BKOUT_SET_Pos)
 #define SUPC_BKOUT_SET(value)       (SUPC_BKOUT_SET_Msk & ((value) << SUPC_BKOUT_SET_Pos))
 #define SUPC_BKOUT_RTCTGL_Pos       24           /**< \brief (SUPC_BKOUT) RTC Toggle Output */
-#define SUPC_BKOUT_RTCTGL_Msk       (0x3ul << SUPC_BKOUT_RTCTGL_Pos)
+#define SUPC_BKOUT_RTCTGL_Msk       (0x3u << SUPC_BKOUT_RTCTGL_Pos)
 #define SUPC_BKOUT_RTCTGL(value)    (SUPC_BKOUT_RTCTGL_Msk & ((value) << SUPC_BKOUT_RTCTGL_Pos))
-#define SUPC_BKOUT_MASK             0x03030303ul /**< \brief (SUPC_BKOUT) MASK Register */
+#define SUPC_BKOUT_MASK             0x03030303u  /**< \brief (SUPC_BKOUT) MASK Register */
 
 /* -------- SUPC_BKIN : (SUPC Offset: 0x28) (R/  32) Backup Input Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -588,12 +588,12 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define SUPC_BKIN_OFFSET            0x28         /**< \brief (SUPC_BKIN offset) Backup Input Control */
-#define SUPC_BKIN_RESETVALUE        0x00000000ul /**< \brief (SUPC_BKIN reset_value) Backup Input Control */
+#define SUPC_BKIN_RESETVALUE        0x00000000u  /**< \brief (SUPC_BKIN reset_value) Backup Input Control */
 
 #define SUPC_BKIN_BKIN_Pos          0            /**< \brief (SUPC_BKIN) Backup Input Value */
-#define SUPC_BKIN_BKIN_Msk          (0xFFul << SUPC_BKIN_BKIN_Pos)
+#define SUPC_BKIN_BKIN_Msk          (0xFFu << SUPC_BKIN_BKIN_Pos)
 #define SUPC_BKIN_BKIN(value)       (SUPC_BKIN_BKIN_Msk & ((value) << SUPC_BKIN_BKIN_Pos))
-#define SUPC_BKIN_MASK              0x000000FFul /**< \brief (SUPC_BKIN) MASK Register */
+#define SUPC_BKIN_MASK              0x000000FFu  /**< \brief (SUPC_BKIN) MASK Register */
 
 /** \brief SUPC hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))

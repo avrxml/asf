@@ -44,12 +44,12 @@
 /**
  * \page asfdoc_sam0_system_gclk_basic_use_case Quick Start Guide for SYSTEM CLOCK - GCLK Configuration
  *
- * In this use case, the GCLK module is configured for:
+ * In this use-case, the GCLK module is configured for:
  *  \li One generator attached to the internal 8MHz RC oscillator clock source
  *  \li Generator output equal to input frequency divided by a factor of 128
  *  \li One channel (connected to the TC0 module) enabled with the enabled generator selected
  *
- * This use case configures a clock channel to output a clock for a peripheral
+ * This use-case configures a clock channel to output a clock for a peripheral
  * within the device, by first setting up a clock generator from a master clock
  * source, and then linking the generator to the desired channel. This clock
  * can then be used to clock a module within the device.
@@ -114,7 +114,7 @@
  *    clock to the channel's peripheral module consumers.
  *    \snippet qs_gclk_basic.c setup_10
  *
- * \section asfdoc_sam0_system_gclk_basic_use_case_main Use Case
+ * \section asfdoc_sam0_system_gclk_basic_use_case_main Use-case
  *
  * \subsection asfdoc_sam0_system_gclk_basic_use_case_code Code
  * Copy-paste the following code to your user application:

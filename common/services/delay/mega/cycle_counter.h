@@ -3,7 +3,7 @@
  *
  * \brief AVR functions for busy-wait delay loops
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -86,13 +86,16 @@ extern "C" {
 __always_optimize
 static inline void __portable_avr_delay_cycles(unsigned long n)
 {
-	do { barrier(); } while (--n);
+	while (n) {
+		barrier();
+		n--;
+	}
 }
 
 #if !defined(__DELAY_CYCLE_INTRINSICS__)
 #	define delay_cycles            __portable_avr_delay_cycles
-#	define cpu_ms_2_cy(ms, f_cpu)  (((uint64_t)(ms) * (f_cpu) + 999) / 6e3)
-#	define cpu_us_2_cy(us, f_cpu)  (((uint64_t)(us) * (f_cpu) + 999999ul) / 6e6)
+#	define cpu_ms_2_cy(ms, f_cpu)  (((uint64_t)(ms) * (f_cpu) / 6 + 999) / 1e3)
+#	define cpu_us_2_cy(us, f_cpu)  (((uint64_t)(us) * (f_cpu) / 6 + 999999ul) / 1e6)
 #else
 #  if defined(__GNUC__)
 #       define delay_cycles            __builtin_avr_delay_cycles

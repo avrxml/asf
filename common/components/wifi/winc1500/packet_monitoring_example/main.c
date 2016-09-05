@@ -4,7 +4,7 @@
  *
  * \brief WINC1500 packet monitoring example.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -22,9 +22,6 @@
  *
  * 3. The name of Atmel may not be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
  *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -83,7 +80,6 @@
  *    -- Compiled: xxx xx xxxx xx:xx:xx --
  *    Packet monitoring started.
  *    ------------
- *    Channel : 11
  *    FrameType : 0xFF
  *    FrameSubtype : 0xFF
  *    Source MAC address : 00:00:00:00:00:00
@@ -181,9 +177,9 @@ static void configure_console(void)
 void start_packet_monitoring()
 {
 	if (!monitoring_enabled) {
-		wifi_monitor_conf.u8ChannelID           = 11; /* 1 or 6 or 11(Range:1~11) */
-		wifi_monitor_conf.u8FrameType           = M2M_WIFI_FRAME_TYPE_ANY;      /* refer tenuWifiFrameType //M2M_WIFI_FRAME_TYPE_ANY		, used if you need to receive any frame type */
-		wifi_monitor_conf.u8FrameSubtype        = M2M_WIFI_FRAME_SUB_TYPE_ANY;  /* refer tenuSubTypes //M2M_WIFI_FRAME_SUB_TYPE_ANY	, used if you need to receive any sub type of frame */
+		wifi_monitor_conf.u8ChannelID    = M2M_WIFI_CH_1;
+		wifi_monitor_conf.u8FrameType    = M2M_WIFI_FRAME_TYPE_ANY;
+		wifi_monitor_conf.u8FrameSubtype = M2M_WIFI_FRAME_SUB_TYPE_ANY;
 		/* memcpy(wifi_monitor_conf.au8SrcMacAddress, SRC_MAC_ADDR, sizeof(SRC_MAC_ADDR)); */
 		memcpy(wifi_monitor_conf.au8DstMacAddress, DST_MAC_ADDR, sizeof(DST_MAC_ADDR));
 
@@ -191,7 +187,6 @@ void start_packet_monitoring()
 		monitoring_enabled = true;
 		printf("Packet monitoring started.\r\n");
 		printf("------------\r\n");
-		printf("Channel : %d\r\n", wifi_monitor_conf.u8ChannelID);
 		printf("FrameType : 0x%02X\r\n", wifi_monitor_conf.u8FrameType);
 		printf("FrameSubtype : 0x%02X\r\n", wifi_monitor_conf.u8FrameSubtype);
 		printf("Source MAC address : %02X:%02X:%02X:%02X:%02X:%02X\r\n",

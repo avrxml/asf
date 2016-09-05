@@ -2192,6 +2192,9 @@
 									</file>
 								</group>
 								<file>
+									<name>$PROJ_DIR$/../conf_perf_analyzer.h</name>
+								</file>
+								<file>
 									<name>$PROJ_DIR$/../conf_sleepmgr.h</name>
 								</file>
 								<file>

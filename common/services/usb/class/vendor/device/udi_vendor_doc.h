@@ -647,7 +647,7 @@ bool udi_vendor_iso_out_run(uint8_t * buf, iram_size_t buf_size,
   *
  * \section asfdoc_udi_vendor_config_examples_3 conf_clocks.h
  *
- * \subsection asfdoc_udi_vendor_config_examples_3_1 SAMD21 Device (USB)
+ * \subsection asfdoc_udi_vendor_config_examples_3_1 SAM D21 Device (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_clocks.h
  *
  * \section asfdoc_udi_vendor_config_examples_4 conf_board.h
@@ -658,7 +658,7 @@ bool udi_vendor_iso_out_run(uint8_t * buf, iram_size_t buf_size,
  * \subsection asfdoc_udi_vendor_config_examples_4_2 SAM4L Device (USBC)
  * \include example/sam4lc4c_sam4l_ek/conf_board.h
  *
- * \subsection asfdoc_udi_vendor_config_examples_4_3 SAMD21 Device (USB)
+ * \subsection asfdoc_udi_vendor_config_examples_4_3 SAM D21 Device (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_board.h
  */
 
@@ -667,14 +667,19 @@ bool udi_vendor_iso_out_run(uint8_t * buf, iram_size_t buf_size,
  *
  * <table>
  * <tr>
- *    <th>Doc. Rev.</td>
- *    <th>Date</td>
- *    <th>Comments</td>
+ *    <th>Doc. Rev.</th>
+ *    <th>Date</th>
+ *    <th>Comments</th>
+ * </tr>
+ * <tr>
+ *    <td>42345B</td>
+ *    <td>12/2015</td>
+ *    <td>Fixed typos</td>
  * </tr>
  * <tr>
  *    <td>42345A</td>
  *    <td>12/2014</td>
- *    <td>Initial release.</td>
+ *    <td>Initial release</td>
  * </tr>
  * </table>
  */

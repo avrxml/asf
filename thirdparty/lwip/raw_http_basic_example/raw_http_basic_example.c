@@ -52,7 +52,7 @@
  *
  *  \section Requirements
  *
- *  This package can be used with SAM3X-EK and SAM4E-EK.
+ *  This package can be used with SAM3X-EK,SAM4E-EK,SAMV71 and SAME70.
  *
  *  \section Description
  *
@@ -97,7 +97,7 @@
 #include "ethernet.h"
 #include "httpd.h"
 
-#define STRING_EOL    "\n"
+#define STRING_EOL    "\r\n"
 #define STRING_HEADER "-- Raw HTTP Basic Example --"STRING_EOL \
 		"-- "BOARD_NAME" --"STRING_EOL \
 		"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL

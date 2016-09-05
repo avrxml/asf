@@ -1959,10 +1959,10 @@
 								<name>$PROJ_DIR$/../../../sam4e/source/templates/system_sam4e.c</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4e/source/templates/exceptions.h</name>
+								<name>$PROJ_DIR$/../../../sam4e/source/templates/system_sam4e.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../sam4e/source/templates/system_sam4e.h</name>
+								<name>$PROJ_DIR$/../../../sam4e/source/templates/exceptions.h</name>
 							</file>
 						</group>
 					</group>
@@ -2187,6 +2187,9 @@
 						<group>
 							<name>pio</name>
 							<file>
+								<name>$PROJ_DIR$/../../../sam4e/include/pio/sam4e16cb.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../sam4e/include/pio/sam4e16c.h</name>
 							</file>
 							<file>
@@ -2194,6 +2197,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4e/include/pio/sam4e8c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../sam4e/include/pio/sam4e8cb.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../sam4e/include/pio/sam4e16e.h</name>
@@ -2213,6 +2219,12 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../sam4e/include/sam4e8c.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../sam4e/include/sam4e16cb.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../sam4e/include/sam4e8cb.h</name>
 						</file>
 					</group>
 				</group>

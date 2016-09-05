@@ -2185,6 +2185,9 @@
 								<file>
 									<name>$PROJ_DIR$/../conf_board.h</name>
 								</file>
+								<file>
+									<name>$PROJ_DIR$/../conf_perf_analyzer.h</name>
+								</file>
 								<group>
 									<name>iar</name>
 									<file>

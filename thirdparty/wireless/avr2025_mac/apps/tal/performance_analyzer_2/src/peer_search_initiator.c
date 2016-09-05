@@ -161,7 +161,7 @@ void peer_search_initiator_init(trx_id_t trx, void *arg)
 	} while (!node_info[trx].peer_short_addr);
 
 	/* Reduce the TX power level to minium,if configuration mode is enabled
-	 **/
+	**/
 	if (true == node_info[trx].configure_mode) {
 		/* set the tx power to lowest in configuration mode */
 
@@ -305,14 +305,14 @@ static void peer_req_send_task(trx_id_t trx)
 		case PEER_SEARCH_PER_TX:
 		{
 			/* In confiuration mode allow the user to do peer search
-			 *again */
+			 * again */
 			if (node_info[trx].configure_mode == true) {
 				/* PEER REQ command failed - so change to
-				 *WAIT_FOR_EVENT state */
+				 * WAIT_FOR_EVENT state */
 				set_main_state(trx, WAIT_FOR_EVENT, NULL);
 			} else {
 				/* Peer search was failed in PER mode - so
-				 *change to SINGLE_NODE_TESTS state */
+				 * change to SINGLE_NODE_TESTS state */
 				set_main_state(trx, SINGLE_NODE_TESTS, NULL);
 			}
 		}
@@ -321,8 +321,9 @@ static void peer_req_send_task(trx_id_t trx)
 		case PEER_SEARCH_RANGE_TX:
 		{
 			print_event(trx, PRINT_PEER_SEARCH_FAILED);
+
 			/* PEER REQ command failed - so change to WAIT_FOR_EVENT
-			 *state */
+			 * state */
 			set_main_state(trx, WAIT_FOR_EVENT, NULL);
 		}
 		break;
@@ -387,7 +388,7 @@ static void peer_req_send_rx_cb(trx_id_t trx, frame_info_t *mac_frame_info)
 				= (msg->payload.peer_rsp_data.nwk_addr);
 
 			/* PEER_RESPONSE received - so change to PEER_RSP_RCVD
-			 *state */
+			 * state */
 			peer_search_initiator_set_sub_state(trx, PEER_RSP_RCVD,
 					&my_addr_from_peer);
 		}
@@ -474,9 +475,9 @@ static retval_t send_peer_req(trx_id_t trx)
 	return(app_transmit_frame(trx, FCF_SHORT_ADDR,
 	       (uint8_t *)(&dst_addr),            /* dst_addr is braodcast */
 	       FCF_LONG_ADDR,                     /* src_addr_mode use IEEE addr
-	                                           **/
+	                                          **/
 	       seq_num[trx],                           /* seq_num used as msdu
-	                                                *handle */
+	                                                * handle */
 	       (uint8_t *)&msg,
 	       payload_length,
 	       1));
@@ -499,7 +500,7 @@ static void peer_rsp_rcvd_init(trx_id_t trx, void *arg)
 			print_event(trx, PRINT_PEER_SEARCH_FAILED);
 		} else if (PEER_SEARCH_PER_TX == node_info[trx].main_state) {
 			/* Send the confirmation to the PC application via
-			 *Serial interface */
+			 * Serial interface */
 			usr_perf_start_confirm(trx,
 					NO_PEER_FOUND,
 					START_MODE_PER,
@@ -534,8 +535,9 @@ static void peer_rsp_rcvd_tx_cb(trx_id_t trx, retval_t status,
 		case PEER_SEARCH_RANGE_TX:
 		{
 			print_event(trx, PRINT_PEER_SEARCH_SUCCESS);
+
 			/* Peer success - set the board to RANGE_TEST_TX_ON
-			 *state */
+			 * state */
 			set_main_state(trx, RANGE_TEST_TX_ON, NULL);
 		}
 		break;
@@ -543,7 +545,7 @@ static void peer_rsp_rcvd_tx_cb(trx_id_t trx, retval_t status,
 		case PEER_SEARCH_PER_TX:
 		{
 			/* Peer success - set the board to PER_TEST_INITIATOR
-			 *state */
+			 * state */
 			set_main_state(trx, PER_TEST_INITIATOR, NULL);
 		}
 		break;
@@ -571,7 +573,7 @@ static void peer_rsp_rcvd_tx_cb(trx_id_t trx, retval_t status,
 			print_event(trx, PRINT_PEER_SEARCH_FAILED);
 		} else if (PEER_SEARCH_PER_TX == node_info[trx].main_state) {
 			/* Send the confirmation to the PC application via
-			 *Serial interface */
+			 * Serial interface */
 			usr_perf_start_confirm(trx,
 					NO_PEER_FOUND,
 					START_MODE_PER,
@@ -612,7 +614,7 @@ static void peer_rsp_rcvd_exit(trx_id_t trx)
 
 /**
  * \brief Send the peer confirmation confirming the node which has been
- *connected
+ * connected
  *        This frame is sent as a unicast to peer node. All other nodes which
  *        took part in the peer search process times out and resets peer search
  */
@@ -643,7 +645,7 @@ static retval_t send_peer_conf(trx_id_t trx)
 	       (uint8_t *)(&node_info[trx].peer_short_addr),
 	       FCF_SHORT_ADDR,
 	       seq_num[trx],                           /* seq_num used as msdu
-	                                                *handle */
+	                                                * handle */
 	       (uint8_t *)&msg,
 	       payload_length,
 	       1));

@@ -4,7 +4,7 @@
  *
  * @brief Return values of APIs
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -55,7 +55,7 @@
 /* === Includes ============================================================ */
 #include "compiler.h"
 
-#if (SAMD || SAMR21 || SAML21 || SAM4L || SAM4S || SAM4E)
+#if (SAMD || SAMR21 || SAML21 || SAM4L || SAM4S || SAM4E || SAMR30)
  #define __PACK__RST_DATA__  COMPILER_PACK_RESET()
  #define __PACK__DATA__          COMPILER_PACK_SET(1)
 #if (SAM4L || SAM4S || SAM4E)

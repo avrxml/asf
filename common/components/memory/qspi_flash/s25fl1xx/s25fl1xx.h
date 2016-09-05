@@ -40,22 +40,23 @@
  * \asf_license_stop
  *
  */
-
-/**
- * \file
- *
- * Interface for the S25fl1 Serialflash driver.
- *
+/*
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
+
 
 #ifndef S25FL1XX_H
 #define S25FL1XX_H
 
 #include "qspi.h"
 
-/*----------------------------------------------------------------------------
- *        Local definitions
- *----------------------------------------------------------------------------*/
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+extern "C" {
+#endif
+/**INDENT-ON**/
+/// @endcond
 
 /** Device is protected, operation cannot be carried out. */
 #define S25FL1XX_ERROR_PROTECTED                  1
@@ -201,9 +202,6 @@ enum block_size {
 	S25FL1XX_SIZE_2M
 };
 
-/*----------------------------------------------------------------------------
- *        Exported functions
- *----------------------------------------------------------------------------*/
 enum status_code s25fl1xx_initialize(Qspi *qspi, struct qspi_config_t *mode_config, uint32_t use_default_config);
 uint32_t s25fl1xx_read_jedec_id(struct qspid_t *qspid);
 void s25fl1xx_soft_reset(struct qspid_t *qspid);
@@ -222,11 +220,19 @@ uint8_t s25fl1xx_read(struct qspid_t *qspid, uint32_t *data,  uint32_t size, uin
 uint8_t s25fl1xx_read_dual(struct qspid_t *qspid, uint32_t *data, uint32_t size, uint32_t address);
 uint8_t s25fl1xx_read_quad(struct qspid_t *qspid, uint32_t *data, uint32_t size, uint32_t address);
 uint8_t s25fl1xx_read_dual_io(struct qspid_t *qspid, uint32_t *data, uint32_t size, uint32_t address,
-								   uint8_t cont_mode, uint8_t secure);
+		uint8_t cont_mode, uint8_t secure);
 uint8_t s25fl1xx_read_quad_io(struct qspid_t *qspid, uint32_t *data, uint32_t size, uint32_t address,
-								   uint8_t cont_mode, uint8_t secure);
+		uint8_t cont_mode, uint8_t secure);
 void s25fl1xx_continous_read_mode_reset(struct qspid_t *qspid);
 void s25fl1xx_enter_continous_read_mode(struct qspid_t *qspid);
+
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+}
+#endif
+/**INDENT-ON**/
+/// @endcond
 
 #endif // #ifndef S25FL1_H
 

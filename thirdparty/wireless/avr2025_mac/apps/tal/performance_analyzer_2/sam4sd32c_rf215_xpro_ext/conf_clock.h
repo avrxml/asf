@@ -43,7 +43,7 @@
 
 /**
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
- *Support</a>
+ * Support</a>
  */
 
 #ifndef CONF_CLOCK_H_INCLUDED
@@ -74,7 +74,7 @@
 /* ===== PLL0 (A) Options   (Fpll = (Fclk * PLL_mul) / PLL_div) */
 /* Use mul and div effective values here. */
 #define CONFIG_PLL0_SOURCE          PLL_SRC_MAINCK_XTAL
-#define CONFIG_PLL0_MUL             4
+#define CONFIG_PLL0_MUL             8
 #define CONFIG_PLL0_DIV             1
 
 /* ===== PLL1 (B) Options   (Fpll = (Fclk * PLL_mul) / PLL_div) */

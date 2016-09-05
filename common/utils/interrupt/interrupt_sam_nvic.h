@@ -3,7 +3,7 @@
  *
  * \brief Global interrupt management for SAM D20, SAM3 and SAM4 (NVIC based)
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -150,7 +150,7 @@ static volatile bool     cpu_irq_prev_interrupt_state;
 
 static inline irqflags_t cpu_irq_save(void)
 {
-	irqflags_t flags = cpu_irq_is_enabled();
+	volatile irqflags_t flags = cpu_irq_is_enabled();
 	cpu_irq_disable();
 	return flags;
 }

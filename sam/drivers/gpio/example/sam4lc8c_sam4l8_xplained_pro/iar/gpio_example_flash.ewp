@@ -313,8 +313,10 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../events/example2</state>
+					<state>$PROJ_DIR$/../../../../events/example1</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
 					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../flashcalw</state>
@@ -584,8 +586,10 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../events/example2</state>
+					<state>$PROJ_DIR$/../../../../events/example1</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
 					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../flashcalw</state>
@@ -1280,8 +1284,10 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../events/example2</state>
+					<state>$PROJ_DIR$/../../../../events/example1</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
 					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../flashcalw</state>
@@ -1551,8 +1557,10 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../..</state>
-					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../events/example2</state>
+					<state>$PROJ_DIR$/../../../../events/example1</state>
 					<state>$PROJ_DIR$/../../../../usart</state>
 					<state>$PROJ_DIR$/../../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../flashcalw</state>

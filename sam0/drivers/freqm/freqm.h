@@ -3,7 +3,7 @@
  *
  * \brief SAM Frequency Meter (FREQM) Driver
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -297,6 +297,11 @@ static inline void freqm_disable(
 
 	Freqm *const freqm_module = module_inst->hw;
 
+	/* Disbale interrupt */
+	freqm_module->INTENCLR.reg = FREQM_INTENCLR_MASK;
+	/* Clear interrupt flag */
+	freqm_module->INTFLAG.reg = FREQM_INTFLAG_MASK;
+
 	/* Disable FREQM */
 	freqm_module->CTRLA.reg &= ~FREQM_CTRLA_ENABLE;
 
@@ -340,7 +345,7 @@ static inline void freqm_clear_overflow(struct freqm_module *const module)
 	Assert(module->hw);
 
 	/* Clear overflow flag */
-	module->hw->STATUS.reg |= FREQM_STATUS_OVF;
+	module->hw->STATUS.reg = FREQM_STATUS_OVF;
 }
 
 enum freqm_status freqm_get_result_value(

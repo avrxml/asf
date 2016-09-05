@@ -166,14 +166,14 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>TC_ASYNC=false</state>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>_ASSERT_ENABLE_</state>
 					<state>RTC_COUNT_ASYNC=false</state>
 					<state>BOARD=SAMC21_XPLAINED_PRO</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>USART_CALLBACK_MODE=true</state>
-					<state>_ASSERT_ENABLE_</state>
 					<state>__SAMC21J18A__</state>
 				</option>
 				<option>
@@ -484,14 +484,14 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>TC_ASYNC=false</state>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>_ASSERT_ENABLE_</state>
 					<state>RTC_COUNT_ASYNC=false</state>
 					<state>BOARD=SAMC21_XPLAINED_PRO</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>USART_CALLBACK_MODE=true</state>
-					<state>_ASSERT_ENABLE_</state>
 					<state>__SAMC21J18A__</state>
 				</option>
 				<option>
@@ -1161,14 +1161,14 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>TC_ASYNC=false</state>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>_ASSERT_ENABLE_</state>
 					<state>RTC_COUNT_ASYNC=false</state>
 					<state>BOARD=SAMC21_XPLAINED_PRO</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>USART_CALLBACK_MODE=true</state>
-					<state>_ASSERT_ENABLE_</state>
 					<state>__SAMC21J18A__</state>
 				</option>
 				<option>
@@ -1479,14 +1479,14 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>TC_ASYNC=false</state>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>_ASSERT_ENABLE_</state>
 					<state>RTC_COUNT_ASYNC=false</state>
 					<state>BOARD=SAMC21_XPLAINED_PRO</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>USART_CALLBACK_MODE=true</state>
-					<state>_ASSERT_ENABLE_</state>
 					<state>__SAMC21J18A__</state>
 				</option>
 				<option>
@@ -2020,6 +2020,21 @@
 						<name>$PROJ_DIR$/../../../../system/clock/clock.h</name>
 					</file>
 				</group>
+				<group>
+					<name>interrupt</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt.h</name>
+					</file>
+					<group>
+						<name>system_interrupt_samc20_c21</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samc20_c21/system_interrupt_features.h</name>
+						</file>
+					</group>
+				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../system/system.c</name>
 				</file>
@@ -2037,21 +2052,6 @@
 					<file>
 						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.h</name>
 					</file>
-				</group>
-				<group>
-					<name>interrupt</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt.h</name>
-					</file>
-					<group>
-						<name>system_interrupt_samc20_c21</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samc20_c21/system_interrupt_features.h</name>
-						</file>
-					</group>
 				</group>
 				<group>
 					<name>reset</name>
@@ -2076,7 +2076,28 @@
 				</file>
 			</group>
 			<group>
+				<name>rtc</name>
+				<group>
+					<name>rtc_sam_l_c</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../rtc/rtc_sam_l_c/rtc_count.c</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../rtc/rtc_tamper.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../rtc/rtc_count.h</name>
+				</file>
+			</group>
+			<group>
 				<name>events</name>
+				<group>
+					<name>events_sam_l_c</name>
+					<file>
+						<name>$PROJ_DIR$/../../../events_sam_l_c/events.c</name>
+					</file>
+				</group>
 				<group>
 					<name>unit_test</name>
 					<file>
@@ -2104,18 +2125,6 @@
 						</file>
 					</group>
 				</group>
-				<group>
-					<name>events_sam_l_c</name>
-					<file>
-						<name>$PROJ_DIR$/../../../events_sam_l_c/events.c</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../events_hooks.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../events_hooks.h</name>
-				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../events.h</name>
 				</file>
@@ -2124,20 +2133,32 @@
 				</file>
 			</group>
 			<group>
+				<name>tc</name>
+				<group>
+					<name>tc_sam_l_c</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../tc/tc_sam_l_c/tc.c</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../tc/tc.h</name>
+				</file>
+			</group>
+			<group>
 				<name>sercom</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../sercom/sercom.c</name>
+					<name>$PROJ_DIR$/../../../../sercom/sercom_interrupt.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../sercom/sercom_interrupt.c</name>
+					<name>$PROJ_DIR$/../../../../sercom/sercom.c</name>
 				</file>
 				<group>
 					<name>usart</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../sercom/usart/usart_interrupt.c</name>
+						<name>$PROJ_DIR$/../../../../sercom/usart/usart.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../sercom/usart/usart.c</name>
+						<name>$PROJ_DIR$/../../../../sercom/usart/usart_interrupt.c</name>
 					</file>
 					<group>
 						<name>quick_start_lin</name>
@@ -2195,31 +2216,16 @@
 					</file>
 				</group>
 			</group>
+		</group>
+		<group>
+			<name>boards</name>
 			<group>
-				<name>rtc</name>
-				<group>
-					<name>rtc_sam_l_c</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../rtc/rtc_sam_l_c/rtc_count.c</name>
-					</file>
-				</group>
+				<name>samc21_xplained_pro</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../rtc/rtc_tamper.h</name>
+					<name>$PROJ_DIR$/../../../../../boards/samc21_xplained_pro/board_init.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../rtc/rtc_count.h</name>
-				</file>
-			</group>
-			<group>
-				<name>tc</name>
-				<group>
-					<name>tc_sam_l_c</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../tc/tc_sam_l_c/tc.c</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../tc/tc.h</name>
+					<name>$PROJ_DIR$/../../../../../boards/samc21_xplained_pro/samc21_xplained_pro.h</name>
 				</file>
 			</group>
 		</group>
@@ -2246,15 +2252,15 @@
 					<name>samc21</name>
 					<group>
 						<name>source</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../utils/cmsis/samc21/source/system_samc21.c</name>
-						</file>
 						<group>
 							<name>iar</name>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samc21/source/iar/startup_samc21.c</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/samc21/source/system_samc21.c</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/samc21/source/system_samc21.h</name>
 						</file>
@@ -2601,18 +2607,6 @@
 				<name>header_files</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../utils/header_files/io.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
-			<name>boards</name>
-			<group>
-				<name>samc21_xplained_pro</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../boards/samc21_xplained_pro/board_init.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../boards/samc21_xplained_pro/samc21_xplained_pro.h</name>
 				</file>
 			</group>
 		</group>

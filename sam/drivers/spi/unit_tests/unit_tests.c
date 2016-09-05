@@ -3,7 +3,7 @@
  *
  * \brief Unit tests for SPI driver.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -290,7 +290,13 @@ static void run_spi_trans_test(const struct test_case *test)
 		CONF_TEST_SPI_NPCS, SPI_CSR_BITS_8_BIT);
 	spi_set_baudrate_div(CONF_TEST_SPI,
 		CONF_TEST_SPI_NPCS,
-		(sysclk_get_cpu_hz() / TEST_CLOCK));
+		(
+#if (SAM4L)
+		sysclk_get_pba_hz()
+#else
+		sysclk_get_peripheral_hz()
+#endif
+		/ TEST_CLOCK));
 	spi_set_transfer_delay(CONF_TEST_SPI,
 		CONF_TEST_SPI_NPCS, SPI_DLYBS, SPI_DLYBCT);
 	spi_set_variable_peripheral_select(CONF_TEST_SPI);
@@ -772,7 +778,13 @@ static void run_spi_dataflash_test(const struct test_case *test)
 		CONF_TEST_DF_NPCS, SPI_CSR_BITS_8_BIT);
 	spi_set_baudrate_div(CONF_TEST_SPI,
 		CONF_TEST_DF_NPCS,
-		(sysclk_get_cpu_hz() / TEST_CLOCK));
+        (
+#if (SAM4L)
+		sysclk_get_pba_hz()
+#else
+		sysclk_get_peripheral_hz()
+#endif
+		/ TEST_CLOCK));
 	spi_set_transfer_delay(CONF_TEST_SPI,
 		CONF_TEST_DF_NPCS,
 		TEST_DF_DLYBS, TEST_DF_DLYBCT);

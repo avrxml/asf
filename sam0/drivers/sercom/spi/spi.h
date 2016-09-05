@@ -3,7 +3,7 @@
  *
  * \brief SAM Serial Peripheral Interface Driver
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -70,6 +70,7 @@
  *  - Atmel | SMART SAM L21/L22
  *  - Atmel | SMART SAM DA1
  *  - Atmel | SMART SAM C20/C21
+ *  - Atmel | SMART SAM R30
  *
  * The outline of this documentation is as follows:
  * - \ref asfdoc_sam0_sercom_spi_prerequisites
@@ -102,24 +103,24 @@
  * \subsection asfdoc_sam0_sercom_spi_module_features Driver Feature Macro Definition
  * <table>
  *  <tr>
- *    <th>Driver Feature Macro</th>
+ *    <th>Driver feature macro</th>
  *    <th>Supported devices</th>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_SPI_SLAVE_SELECT_LOW_DETECT</td>
- *    <td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21</td>
+ *    <td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21/R30</td>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_SPI_HARDWARE_SLAVE_SELECT</td>
- *    <td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21</td>
+ *    <td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21/R30</td>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_SPI_ERROR_INTERRUPT</td>
- *    <td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21</td>
+ *    <td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21/R30</td>
  *  </tr>
  *  <tr>
  *    <td>FEATURE_SPI_SYNC_SCHEME_VERSION_2</td>
- *    <td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21</td>
+ *    <td>SAM D21/R21/D10/D11/L21/L22/DA1/C20/C21/R30</td>
  *  </tr>
  * </table>
  * \note The specific features are only available in the driver when the
@@ -388,7 +389,7 @@ extern "C" {
  * @{
  */
 #  if (SAMD21) || (SAMR21) || (SAMD11) || (SAMD10) || (SAML21) || (SAMDA1) || \
-	  (SAML22) || (SAMC20) || (SAMC21) || (SAMD09) || defined(__DOXYGEN__)
+	  (SAML22) || (SAMC20) || (SAMC21) || (SAMD09) || (SAMR30) || defined(__DOXYGEN__)
 /** SPI slave select low detection. */
 #  define FEATURE_SPI_SLAVE_SELECT_LOW_DETECT
 /** Slave select can be controlled by hardware. */
@@ -1059,6 +1060,11 @@ static inline void spi_disable(
 		/* Wait until the synchronization is complete */
 	}
 
+	/* Disbale interrupt */
+	spi_module->INTENCLR.reg = SERCOM_SPI_INTENCLR_MASK;
+	/* Clear interrupt flag */
+	spi_module->INTFLAG.reg = SERCOM_SPI_INTFLAG_MASK;
+
 	/* Disable SPI */
 	spi_module->CTRLA.reg &= ~SERCOM_SPI_CTRLA_ENABLE;
 }
@@ -1305,7 +1311,7 @@ static inline enum status_code spi_read(
 	if (spi_module->STATUS.reg & SERCOM_SPI_STATUS_BUFOVF) {
 		retval = STATUS_ERR_OVERFLOW;
 		/* Clear overflow flag */
-		spi_module->STATUS.reg |= SERCOM_SPI_STATUS_BUFOVF;
+		spi_module->STATUS.reg = SERCOM_SPI_STATUS_BUFOVF;
 	}
 
 	/* Read the character from the DATA register */
@@ -1766,14 +1772,14 @@ enum status_code spi_select_slave(
   *
   * <table>
   *	<tr>
-  *		<th>Doc. Rev.</td>
-  *		<th>Date</td>
-  *		<th>Comments</td>
+  *		<th>Doc. Rev.</th>
+  *		<th>Date</th>
+  *		<th>Comments</th>
   *	</tr>
   *	<tr>
   *		<td>42115E</td>
-  *		<td>08/2015</td>
-  *		<td>Add SAM L21/L22, SAM DA1 and SAM C21 support</td>
+  *		<td>12/2015</td>
+  *		<td>Add SAM L21/L22, SAM DA1, SAM D09, SAMR30 and SAM C21 support</td>
   *	</tr>
   *	<tr>
   *		<td>42115D</td>

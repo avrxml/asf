@@ -105,18 +105,17 @@ retval_t conf_trx_modulation(trx_id_t trx_id)
 	/* Change PHY only in TRXOFF or TXPREP. Since TXPREP is not possible
 	 *here, check for TRXOFF */
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
-	rf_cmd_state_t previous_trx_state = trx_reg_read(
+	rf_cmd_state_t previous_trx_state = (rf_cmd_state_t)trx_reg_read(
 			reg_offset + RG_RF09_STATE);
 	if (previous_trx_state != RF_TRXOFF) {
 		trx_reg_write(reg_offset + RG_RF09_CMD, RF_TRXOFF);
 #ifdef IQ_RADIO
-		pal_dev_reg_write(RF215_RF, reg_offset + RG_RF09_CMD,
-				RF_TRXOFF);
+		trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_TRXOFF);
 #endif
 		trx_state[trx_id] = RF_TRXOFF;
-  #if (defined RF215V1) && ((defined SUPPORT_FSK) || (defined SUPPORT_OQPSK))
+#if (defined SUPPORT_FSK) || (defined SUPPORT_OQPSK)
 		stop_rpc(trx_id);
-  #endif
+#endif
 	}
 
 	switch (tal_pib[trx_id].phy.modulation) {
@@ -149,6 +148,27 @@ retval_t conf_trx_modulation(trx_id_t trx_id)
 		break;
 	}
 
+#if ((defined RF215v1) && (defined SUPPORT_LEGACY_OQPSK))
+	/* Workaround for errata #10 */
+	bb_irq_t irqm = (bb_irq_t)trx_reg_read( reg_offset + RG_BBC0_IRQM);
+	bb_irq_t previous_irqm = irqm;
+	if (tal_pib[trx_id].phy.modulation == LEG_OQPSK) {
+		irqm |= (bb_irq_t)(BB_IRQ_AGCR | BB_IRQ_AGCH | BB_IRQ_RXFS);
+	} else {
+#   ifdef ENABLE_TSTAMP
+		irqm &= (bb_irq_t)(~(BB_IRQ_AGCR | BB_IRQ_AGCH));
+#   else
+		irqm &= (bb_irq_t)(~(BB_IRQ_AGCR | BB_IRQ_AGCH | BB_IRQ_RXFS));
+#   endif
+	}
+
+	/* Update IRQM only if it actually required */
+	if (previous_irqm != irqm) {
+		trx_reg_write(reg_offset + RG_BBC0_IRQM, irqm);
+	}
+
+#endif
+
 	tal_pib[trx_id].TransmitPower = -17 + (int8_t)DEFAULT_TX_PWR_REG;
 
 	/* Restore previous state */
@@ -156,6 +176,9 @@ retval_t conf_trx_modulation(trx_id_t trx_id)
 	case RF_RX:
 		switch_to_txprep(trx_id);
 		switch_to_rx(trx_id);
+#if (defined SUPPORT_FSK) || (defined SUPPORT_OQPSK)
+		start_rpc(trx_id);
+#endif
 		break;
 
 	case RF_TXPREP:
@@ -187,8 +210,8 @@ static retval_t conf_ofdm(trx_id_t trx_id)
 		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 
 		/* Configure BB */
-		trx_bit_write(reg_offset + SR_BBC0_PC_PT, BB_MROFDM);
-		trx_bit_write(reg_offset + SR_BBC0_OFDMC_OPT,
+		trx_bit_write( reg_offset + SR_BBC0_PC_PT, BB_MROFDM);
+		trx_bit_write( reg_offset + SR_BBC0_OFDMC_OPT,
 				tal_pib[trx_id].phy.phy_mode.ofdm.option);
 	}
 
@@ -215,8 +238,8 @@ static retval_t conf_oqpsk(trx_id_t trx_id)
 		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 
 		/* Configure BB */
-		trx_bit_write(reg_offset + SR_BBC0_PC_PT, BB_MROQPSK);
-		trx_bit_write(reg_offset + SR_BBC0_OQPSKC0_FCHIP,
+		trx_bit_write( reg_offset + SR_BBC0_PC_PT, BB_MROQPSK);
+		trx_bit_write( reg_offset + SR_BBC0_OQPSKC0_FCHIP,
 				tal_pib[trx_id].phy.phy_mode.oqpsk.chip_rate);
 		trx_bit_write( reg_offset + SR_BBC0_OQPSKPHRTX_LEG, 0);
 		trx_bit_write( reg_offset + SR_BBC0_OQPSKC2_RXM, 0); /* MR mode
@@ -248,15 +271,16 @@ static retval_t conf_leg_oqpsk(trx_id_t trx_id)
 		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 
 		/* set bb_core0 baseband mode to OQPSK */
-		trx_bit_write(reg_offset + SR_BBC0_PC_PT, BB_MROQPSK);
-		trx_bit_write(reg_offset + SR_BBC0_OQPSKC0_FCHIP,
+		trx_bit_write( reg_offset + SR_BBC0_PC_PT, BB_MROQPSK);
+		trx_bit_write( reg_offset + SR_BBC0_OQPSKC0_FCHIP,
 				tal_pib[trx_id].phy.phy_mode.leg_oqpsk.chip_rate);
-		trx_bit_write(reg_offset + SR_BBC0_OQPSKC2_RXM, 1); /* legacy
-		                                                     * mode only */
-		trx_bit_write(reg_offset + SR_BBC0_OQPSKPHRTX_LEG, 1); /*
-		                                                        * configure
-		                                                        * legacy
-		                                                        * transmit */
+		trx_bit_write( reg_offset + SR_BBC0_OQPSKC2_RXM, 1); /* legacy
+		                                                      * mode
+		                                                      * only */
+		trx_bit_write( reg_offset + SR_BBC0_OQPSKPHRTX_LEG, 1); /*
+		                                                         * configure
+		                                                         * legacy
+		                                                         * transmit */
 	}
 
 	return status;
@@ -280,44 +304,32 @@ static retval_t conf_fsk(trx_id_t trx_id)
 	retval_t status;
 
 	/* Configure RF */
-	fsk_data_rate_t sym_rate;
-	if (tal_pib[trx_id].phy.phy_mode.fsk.mod_type == F2FSK) {
-		sym_rate = tal_pib[trx_id].phy.phy_mode.fsk.data_rate;
-	} else { /* F4FSK */
-		sym_rate
-			= (fsk_data_rate_t)(tal_pib[trx_id].phy.phy_mode.fsk.
-				data_rate
-				/ 2);
-	}
-
-	status = fsk_rfcfg(tal_pib[trx_id].phy.phy_mode.fsk.mod_type, sym_rate,
+	status = fsk_rfcfg(tal_pib[trx_id].phy.phy_mode.fsk.mod_type,
+			tal_pib[trx_id].phy.phy_mode.fsk.sym_rate,
 			tal_pib[trx_id].phy.phy_mode.fsk.mod_idx, trx_id);
 	if (status == MAC_SUCCESS) {
 		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
-
-		trx_bit_write(reg_offset + SR_BBC0_PC_PT, BB_MRFSK);
+		trx_bit_write( reg_offset + SR_BBC0_PC_PT, BB_MRFSK);
 		/* FSKC0 */
-		trx_bit_write(reg_offset + SR_BBC0_FSKC0_MORD,
+		trx_bit_write( reg_offset + SR_BBC0_FSKC0_MORD,
 				tal_pib[trx_id].phy.phy_mode.fsk.mod_type);
-		trx_bit_write(reg_offset + SR_BBC0_FSKC0_MIDX,
+		trx_bit_write( reg_offset + SR_BBC0_FSKC0_MIDX,
 				tal_pib[trx_id].phy.phy_mode.fsk.mod_idx);
-		trx_bit_write(reg_offset + SR_BBC0_FSKC0_BT,
+		trx_bit_write( reg_offset +  SR_BBC0_FSKC0_BT,
 				tal_pib[trx_id].phy.phy_mode.fsk.bt);
 		/* FSKC1 */
-		trx_bit_write( reg_offset + SR_BBC0_FSKC1_SRATE, sym_rate);
-		/* FSKC2 */
-		uint8_t pdtm;
-		if (tal_pib[trx_id].FSKPreambleLength < 8) {
-			pdtm = 1;
-		} else {
-			pdtm = 0;
-		}
-
-		trx_bit_write( reg_offset + SR_BBC0_FSKC2_PDTM, pdtm);
+		trx_bit_write( reg_offset + SR_BBC0_FSKC1_SRATE,
+				tal_pib[trx_id].phy.phy_mode.fsk.sym_rate);
 		/* Configure RPC */
-		config_fsk_rpc(trx_id, sym_rate);
+		config_fsk_rpc(trx_id,
+				tal_pib[trx_id].phy.phy_mode.fsk.sym_rate);
 		/* Configure SFD */
 		set_sfd(trx_id);
+
+#ifdef SUPPORT_FSK_RAW_MODE
+		/* Configure raw mode */
+		configure_raw_mode(trx_id, tal_pib[trx_id].FSKRawModeEnabled);
+#endif
 	}
 
 	return status;
@@ -331,74 +343,99 @@ static retval_t conf_fsk(trx_id_t trx_id)
  * @brief Configures reduced power consumption for FSK
  *
  * @param trx_id Transceiver identifier
+ * @param sym_rate Symbol rate
  */
-void config_fsk_rpc(trx_id_t trx_id, fsk_data_rate_t sym_rate)
+void config_fsk_rpc(trx_id_t trx_id, fsk_sym_rate_t sym_rate)
 {
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 
-	if (!tal_pib[trx_id].RPCEnabled) {
-		/* FSKRPC */
-		trx_bit_write( reg_offset + SR_BBC0_FSKRPC_EN, 0);
-		return;
-	}
+	uint16_t preamble_len;
 
 	/* Minimum preamble length depends on symbol rate */
-	uint8_t min_pream_len;
-	uint8_t div_reg;
+	uint8_t baset; /* sub register in BBCn_FSKRPC */
 	switch (sym_rate) {
 	default:
-	case FSK_DATA_RATE_50:
-		min_pream_len = 2;
-		div_reg = 6;
+	case FSK_SYM_RATE_50:
+		tal_pib[trx_id].FSKPreambleLengthMin = 2;
+		baset = 6;
 		break;
 
-	case FSK_DATA_RATE_100:
-		min_pream_len = 3;
-		div_reg = 5;
+	case FSK_SYM_RATE_100:
+		tal_pib[trx_id].FSKPreambleLengthMin = 3;
+		baset = 5;
 		break;
 
-	case FSK_DATA_RATE_150: /* fall through */
-	case FSK_DATA_RATE_200: /* fall through */
-	case FSK_DATA_RATE_300:
-		min_pream_len = 8;
-		div_reg = 4;
+	case FSK_SYM_RATE_150: /* fall through */
+	case FSK_SYM_RATE_200: /* fall through */
+	case FSK_SYM_RATE_300:
+		tal_pib[trx_id].FSKPreambleLengthMin = 8;
+		baset = 4;
 		break;
 
-	case FSK_DATA_RATE_400:
-		min_pream_len = 10;
-		div_reg = 3;
+	case FSK_SYM_RATE_400:
+		tal_pib[trx_id].FSKPreambleLengthMin = 10;
+		baset = 3;
 		break;
 	}
-	uint8_t div = 1 << (div_reg - 1);
+	uint8_t baset_val = 1 << (baset - 1); /* value in us according to baset
+	                                       * setting; not valid for baset ==
+	                                       * 0 */
 
-	if (tal_pib[trx_id].FSKPreambleLength > (2 * min_pream_len)) {
+	if (tal_pib[trx_id].FSKPreambleLength >
+			(2 * tal_pib[trx_id].FSKPreambleLengthMin)) {
 		/* Configure preamble length for reception */
-		trx_reg_write( reg_offset + RG_BBC0_FSKPLL,
-				min_pream_len & 0xFF);
-		trx_bit_write( reg_offset + SR_BBC0_FSKC1_FSKPLH,
-				min_pream_len >> 8);
-		/* Configure ton */
-		uint16_t ton = tal_pib[trx_id].OctetDuration_us * min_pream_len;
-		uint8_t reg_on = ton / div;
-		if ((ton % div) > 0) {
-			reg_on++;
-		}
+		if (tal_pib[trx_id].RPCEnabled) {
+			preamble_len = tal_pib[trx_id].FSKPreambleLengthMin;
 
-		/* Configure toff */
-		uint16_t toff = tal_pib[trx_id].FSKPreambleLength *
-				tal_pib[trx_id].OctetDuration_us;
-		toff -= 2 * reg_on * div;
-		uint8_t reg_off = toff / div;
-		/* Download settings to register */
-		uint8_t reg[3];
-		reg[0] = div_reg; /* FSKRPC; RPC is disabled */
-		reg[1] = reg_on; /* on time */
-		reg[2] = reg_off; /* off time */
-		trx_write(reg_offset + RG_BBC0_FSKRPC, reg, 3);
+			/* Calculate RPC on time and RPC off time, see section
+			 *"Reduced Power Consumption (RPC)" within section
+			 *"MR-FSK PHY" in the datasheet */
+			/* Configure ton */
+			uint16_t ton = tal_pib[trx_id].OctetDuration_us *
+					tal_pib[trx_id].FSKPreambleLengthMin;
+			uint8_t reg_on = ton / baset_val;
+			if ((ton % baset_val) > 0) {
+				reg_on++;
+			}
+
+			/* Configure toff */
+			uint16_t toff = tal_pib[trx_id].FSKPreambleLength *
+					tal_pib[trx_id].OctetDuration_us;
+			toff -= 2 * reg_on * baset_val;
+			uint8_t reg_off = toff / baset_val;
+			/* Download settings to register */
+			uint8_t reg[3];
+			reg[0] = baset; /* FSKRPC; RPC is disabled */
+			reg[1] = reg_on; /* on time */
+			reg[2] = reg_off; /* off time */
+			trx_write( reg_offset + RG_BBC0_FSKRPC, reg, 3);
+		} else {
+			preamble_len = tal_pib[trx_id].FSKPreambleLength;
+		}
 	} else {
 		/* Disable RPC, since preamble is too short. */
 		tal_pib[trx_id].RPCEnabled = false;
+		preamble_len = tal_pib[trx_id].FSKPreambleLength;
 	}
+
+	trx_reg_write( reg_offset + RG_BBC0_FSKPLL,
+			(uint8_t)(preamble_len & 0xFF));
+	trx_bit_write( reg_offset + SR_BBC0_FSKC1_FSKPLH,
+			(uint8_t)(preamble_len >> 8));
+
+	/* Configure PDTM */
+	uint8_t pdtm;
+	if (preamble_len < 8) {
+		pdtm = 1;
+	} else {
+		pdtm = 0;
+	}
+
+	trx_bit_write( reg_offset + SR_BBC0_FSKC2_PDTM, pdtm);
+
+	/* Set register value */
+	trx_bit_write( reg_offset + SR_BBC0_FSKRPC_EN,
+			tal_pib[trx_id].RPCEnabled);
 }
 
 #endif
@@ -423,7 +460,7 @@ void set_sfd(trx_id_t trx_id)
 				((uint32_t)F2FSK_SFD_1_CODED << 16);
 	}
 
-	trx_write(reg_offset + RG_BBC0_FSKSFD0L, (uint8_t *)&sfd, 4);
+	trx_write( reg_offset + RG_BBC0_FSKSFD0L, (uint8_t *)&sfd, 4);
 }
 
 #endif /* #ifdef SUPPORT_FSK */

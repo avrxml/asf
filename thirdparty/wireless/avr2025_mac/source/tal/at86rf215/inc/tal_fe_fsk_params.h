@@ -50,7 +50,7 @@
 #ifndef TAL_FE_FSK_PARAMS_H
 #define TAL_FE_FSK_PARAMS_H
 
-#ifdef RF215V1
+#ifdef RF215v1
 /* columns: {
  *txcutc,txdfe,pac04,pac09,pac24,rxbwc09,rxdfe09,rxbwc24,rxdfe24,agcc,agcs } */
 /* cow index: srate_midx = srate << 3 + midx */
@@ -250,7 +250,7 @@
 		                                                                                        **/ \
 	}
 
-#else /* #ifdef RF215V1 */
+#else /* #ifdef RF215v1 */
 
 /* columns: {
  *txcutc,txdfe,pac04,pac09,pac24,rxbwc09,rxdfe09,rxbwc24,rxdfe24,agcc,agcs } */
@@ -451,9 +451,9 @@
 		                                                                                        **/ \
 	}
 
-#endif /* #ifdef RF215V1 */
+#endif /* #ifdef RF215v1 */
 
-#if (defined RF215v2)
+#if (defined RF215v3)
 /* Pre-emphasis filter coefficients */
 /* row: FSK data rate, columns: values for registers FSKPE0, FSKPE1, FSKPE2 */
 #define FSK_PE_TABLE \

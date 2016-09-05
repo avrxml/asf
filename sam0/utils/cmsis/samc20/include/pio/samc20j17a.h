@@ -3,7 +3,7 @@
  *
  * \brief Peripheral I/O description for SAMC20J17A
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -760,6 +760,80 @@
 #define MUX_PB13F_TCC0_WO7                 5L
 #define PINMUX_PB13F_TCC0_WO7      ((PIN_PB13F_TCC0_WO7 << 16) | MUX_PB13F_TCC0_WO7)
 #define PORT_PB13F_TCC0_WO7        (1ul << 13)
+/* ========== PORT definition for TCC1 peripheral ========== */
+#define PIN_PA06E_TCC1_WO0                 6L  /**< \brief TCC1 signal: WO0 on PA06 mux E */
+#define MUX_PA06E_TCC1_WO0                 4L
+#define PINMUX_PA06E_TCC1_WO0      ((PIN_PA06E_TCC1_WO0 << 16) | MUX_PA06E_TCC1_WO0)
+#define PORT_PA06E_TCC1_WO0        (1ul <<  6)
+#define PIN_PA10E_TCC1_WO0                10L  /**< \brief TCC1 signal: WO0 on PA10 mux E */
+#define MUX_PA10E_TCC1_WO0                 4L
+#define PINMUX_PA10E_TCC1_WO0      ((PIN_PA10E_TCC1_WO0 << 16) | MUX_PA10E_TCC1_WO0)
+#define PORT_PA10E_TCC1_WO0        (1ul << 10)
+#define PIN_PA30E_TCC1_WO0                30L  /**< \brief TCC1 signal: WO0 on PA30 mux E */
+#define MUX_PA30E_TCC1_WO0                 4L
+#define PINMUX_PA30E_TCC1_WO0      ((PIN_PA30E_TCC1_WO0 << 16) | MUX_PA30E_TCC1_WO0)
+#define PORT_PA30E_TCC1_WO0        (1ul << 30)
+#define PIN_PA07E_TCC1_WO1                 7L  /**< \brief TCC1 signal: WO1 on PA07 mux E */
+#define MUX_PA07E_TCC1_WO1                 4L
+#define PINMUX_PA07E_TCC1_WO1      ((PIN_PA07E_TCC1_WO1 << 16) | MUX_PA07E_TCC1_WO1)
+#define PORT_PA07E_TCC1_WO1        (1ul <<  7)
+#define PIN_PA11E_TCC1_WO1                11L  /**< \brief TCC1 signal: WO1 on PA11 mux E */
+#define MUX_PA11E_TCC1_WO1                 4L
+#define PINMUX_PA11E_TCC1_WO1      ((PIN_PA11E_TCC1_WO1 << 16) | MUX_PA11E_TCC1_WO1)
+#define PORT_PA11E_TCC1_WO1        (1ul << 11)
+#define PIN_PA31E_TCC1_WO1                31L  /**< \brief TCC1 signal: WO1 on PA31 mux E */
+#define MUX_PA31E_TCC1_WO1                 4L
+#define PINMUX_PA31E_TCC1_WO1      ((PIN_PA31E_TCC1_WO1 << 16) | MUX_PA31E_TCC1_WO1)
+#define PORT_PA31E_TCC1_WO1        (1ul << 31)
+#define PIN_PA08F_TCC1_WO2                 8L  /**< \brief TCC1 signal: WO2 on PA08 mux F */
+#define MUX_PA08F_TCC1_WO2                 5L
+#define PINMUX_PA08F_TCC1_WO2      ((PIN_PA08F_TCC1_WO2 << 16) | MUX_PA08F_TCC1_WO2)
+#define PORT_PA08F_TCC1_WO2        (1ul <<  8)
+#define PIN_PA24F_TCC1_WO2                24L  /**< \brief TCC1 signal: WO2 on PA24 mux F */
+#define MUX_PA24F_TCC1_WO2                 5L
+#define PINMUX_PA24F_TCC1_WO2      ((PIN_PA24F_TCC1_WO2 << 16) | MUX_PA24F_TCC1_WO2)
+#define PORT_PA24F_TCC1_WO2        (1ul << 24)
+#define PIN_PB30F_TCC1_WO2                62L  /**< \brief TCC1 signal: WO2 on PB30 mux F */
+#define MUX_PB30F_TCC1_WO2                 5L
+#define PINMUX_PB30F_TCC1_WO2      ((PIN_PB30F_TCC1_WO2 << 16) | MUX_PB30F_TCC1_WO2)
+#define PORT_PB30F_TCC1_WO2        (1ul << 30)
+#define PIN_PA09F_TCC1_WO3                 9L  /**< \brief TCC1 signal: WO3 on PA09 mux F */
+#define MUX_PA09F_TCC1_WO3                 5L
+#define PINMUX_PA09F_TCC1_WO3      ((PIN_PA09F_TCC1_WO3 << 16) | MUX_PA09F_TCC1_WO3)
+#define PORT_PA09F_TCC1_WO3        (1ul <<  9)
+#define PIN_PA25F_TCC1_WO3                25L  /**< \brief TCC1 signal: WO3 on PA25 mux F */
+#define MUX_PA25F_TCC1_WO3                 5L
+#define PINMUX_PA25F_TCC1_WO3      ((PIN_PA25F_TCC1_WO3 << 16) | MUX_PA25F_TCC1_WO3)
+#define PORT_PA25F_TCC1_WO3        (1ul << 25)
+#define PIN_PB31F_TCC1_WO3                63L  /**< \brief TCC1 signal: WO3 on PB31 mux F */
+#define MUX_PB31F_TCC1_WO3                 5L
+#define PINMUX_PB31F_TCC1_WO3      ((PIN_PB31F_TCC1_WO3 << 16) | MUX_PB31F_TCC1_WO3)
+#define PORT_PB31F_TCC1_WO3        (1ul << 31)
+/* ========== PORT definition for TCC2 peripheral ========== */
+#define PIN_PA12E_TCC2_WO0                12L  /**< \brief TCC2 signal: WO0 on PA12 mux E */
+#define MUX_PA12E_TCC2_WO0                 4L
+#define PINMUX_PA12E_TCC2_WO0      ((PIN_PA12E_TCC2_WO0 << 16) | MUX_PA12E_TCC2_WO0)
+#define PORT_PA12E_TCC2_WO0        (1ul << 12)
+#define PIN_PA16E_TCC2_WO0                16L  /**< \brief TCC2 signal: WO0 on PA16 mux E */
+#define MUX_PA16E_TCC2_WO0                 4L
+#define PINMUX_PA16E_TCC2_WO0      ((PIN_PA16E_TCC2_WO0 << 16) | MUX_PA16E_TCC2_WO0)
+#define PORT_PA16E_TCC2_WO0        (1ul << 16)
+#define PIN_PA00E_TCC2_WO0                 0L  /**< \brief TCC2 signal: WO0 on PA00 mux E */
+#define MUX_PA00E_TCC2_WO0                 4L
+#define PINMUX_PA00E_TCC2_WO0      ((PIN_PA00E_TCC2_WO0 << 16) | MUX_PA00E_TCC2_WO0)
+#define PORT_PA00E_TCC2_WO0        (1ul <<  0)
+#define PIN_PA13E_TCC2_WO1                13L  /**< \brief TCC2 signal: WO1 on PA13 mux E */
+#define MUX_PA13E_TCC2_WO1                 4L
+#define PINMUX_PA13E_TCC2_WO1      ((PIN_PA13E_TCC2_WO1 << 16) | MUX_PA13E_TCC2_WO1)
+#define PORT_PA13E_TCC2_WO1        (1ul << 13)
+#define PIN_PA17E_TCC2_WO1                17L  /**< \brief TCC2 signal: WO1 on PA17 mux E */
+#define MUX_PA17E_TCC2_WO1                 4L
+#define PINMUX_PA17E_TCC2_WO1      ((PIN_PA17E_TCC2_WO1 << 16) | MUX_PA17E_TCC2_WO1)
+#define PORT_PA17E_TCC2_WO1        (1ul << 17)
+#define PIN_PA01E_TCC2_WO1                 1L  /**< \brief TCC2 signal: WO1 on PA01 mux E */
+#define MUX_PA01E_TCC2_WO1                 4L
+#define PINMUX_PA01E_TCC2_WO1      ((PIN_PA01E_TCC2_WO1 << 16) | MUX_PA01E_TCC2_WO1)
+#define PORT_PA01E_TCC2_WO1        (1ul <<  1)
 /* ========== PORT definition for TC0 peripheral ========== */
 #define PIN_PA22E_TC0_WO0                 22L  /**< \brief TC0 signal: WO0 on PA22 mux E */
 #define MUX_PA22E_TC0_WO0                  4L

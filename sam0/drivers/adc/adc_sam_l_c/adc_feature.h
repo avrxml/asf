@@ -3,7 +3,7 @@
  *
  * \brief SAM ADC functionality
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -56,7 +56,7 @@ extern "C" {
 #endif
 
 /*@{*/
-#if (SAML22) || (SAMC20) || (SAMC21) || defined(__DOXYGEN__)
+#if (SAMC20) || (SAMC21) || defined(__DOXYGEN__)
 /** Output Driver Strength Selection feature support. */
 #  define FEATURE_ADC_SUPPORT_MASTER_SLAVE
 #endif
@@ -111,7 +111,7 @@ enum adc_reference {
 	ADC_REFERENCE_INTVCC1 = ADC_REFCTRL_REFSEL_INTVCC1,
 	/** External reference A */
 	ADC_REFERENCE_AREFA   = ADC_REFCTRL_REFSEL_AREFA,
-#if (SAML21)
+#if (SAML21) || (SAMR30)
 	/** External reference B */
 	ADC_REFERENCE_AREFB   = ADC_REFCTRL_REFSEL_AREFB,
 #endif
@@ -260,7 +260,7 @@ enum adc_positive_input {
 	ADC_POSITIVE_INPUT_PIN18         = ADC_INPUTCTRL_MUXPOS_AIN18,
 	/** ADC19 pin */
 	ADC_POSITIVE_INPUT_PIN19         = ADC_INPUTCTRL_MUXPOS_AIN19,
-#if !(SAML22)
+#if !(SAML22 || SAMR30)
 	/** ADC20 pin. */
 	ADC_POSITIVE_INPUT_PIN20         = ADC_INPUTCTRL_MUXPOS_AIN20,
 	/** ADC21 pin */
@@ -279,7 +279,7 @@ enum adc_positive_input {
 	ADC_POSITIVE_INPUT_SCALEDCOREVCC = ADC_INPUTCTRL_MUXPOS_SCALEDCOREVCC,
 	/** 1/4 scaled I/O supply */
 	ADC_POSITIVE_INPUT_SCALEDIOVCC   = ADC_INPUTCTRL_MUXPOS_SCALEDIOVCC,
-#if !(SAML22)
+#if !(SAML22|| SAMR30)
 	/** DAC input */
 	ADC_POSITIVE_INPUT_DAC           = ADC_INPUTCTRL_MUXPOS_DAC,
 #endif
@@ -319,7 +319,7 @@ enum adc_negative_input {
 	ADC_NEGATIVE_INPUT_PIN4          = ADC_INPUTCTRL_MUXNEG_AIN4,
 	/** ADC5 pin */
 	ADC_NEGATIVE_INPUT_PIN5          = ADC_INPUTCTRL_MUXNEG_AIN5,
-#if !(SAMC20) && !(SAMC21)
+#if !(SAMC20) && !(SAMC21) && !(SAMR30)
 	/** ADC6 pin */
 	ADC_NEGATIVE_INPUT_PIN6          = ADC_INPUTCTRL_MUXNEG_AIN6,
 	/** ADC7 pin */
@@ -414,13 +414,13 @@ enum adc_interrupt_flag {
 enum adc_oversampling_and_decimation {
 	/** Don't use oversampling and decimation mode */
 	ADC_OVERSAMPLING_AND_DECIMATION_DISABLE = 0,
-	/** 1 bit resolution increase */
+	/** 1-bit resolution increase */
 	ADC_OVERSAMPLING_AND_DECIMATION_1BIT,
-	/** 2 bits resolution increase */
+	/** 2-bit resolution increase */
 	ADC_OVERSAMPLING_AND_DECIMATION_2BIT,
-	/** 3 bits resolution increase */
+	/** 3-bit resolution increase */
 	ADC_OVERSAMPLING_AND_DECIMATION_3BIT,
-	/** 4 bits resolution increase */
+	/** 4-bit resolution increase */
 	ADC_OVERSAMPLING_AND_DECIMATION_4BIT
 };
 

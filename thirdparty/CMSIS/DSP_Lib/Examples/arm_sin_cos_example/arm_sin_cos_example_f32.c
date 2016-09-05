@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------
-* Copyright (C) 2010-2012 ARM Limited. All rights reserved.
+* Copyright (C) 2010-2015 ARM Limited. All rights reserved.
 *
 * $Date:         12. March 2014
 * $Revision:     V1.4.3
@@ -9,7 +9,7 @@
 *
 * Description:   Example code demonstrating sin and cos calculation of input signal.
 *
-* Target Processor: Cortex-M4/Cortex-M3
+* Target Processor: Cortex-M4/Cortex-M3/Cortex-M7
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions

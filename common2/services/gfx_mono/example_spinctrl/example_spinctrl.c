@@ -3,7 +3,7 @@
  *
  * \brief Example application for GFX Monochrome spinner widget
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -71,6 +71,7 @@
  * - SAM R21 Xplained Pro
  * - SAM L21 Xplained Pro
  * - SAM L22 Xplained Pro
+ * - SAM R30 Xplained Pro
  *
  * \section asfdoc_common2_spinctrl_example_description Description of the example application
  * This example application will initialize string spinner and two integer

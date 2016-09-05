@@ -108,7 +108,11 @@ const DeviceVectors exception_table = {
 #else
 	(void*) Dummy_Handler,
 #endif
+#ifdef _SAM4E_PIOD_INSTANCE_
 	(void*) PIOD_Handler,   /* 12 Parallel I/O Controller D */
+#else
+	(void*)Dummy_Handler,
+#endif
 #ifdef _SAM4E_PIOE_INSTANCE_
 	(void*) PIOE_Handler,   /* 13 Parallel I/O Controller E */
 #else
@@ -160,7 +164,11 @@ const DeviceVectors exception_table = {
 	(void*) Dummy_Handler,
 	(void*) Dummy_Handler,
 	(void*) Dummy_Handler,
+#ifdef _SAM4E_GMAC_INSTANCE_
 	(void*) GMAC_Handler,   /* 44 EMAC */
+#else
+	(void*) Dummy_Handler,
+#endif
 	(void*) UART1_Handler   /* 45 UART */
 };
 

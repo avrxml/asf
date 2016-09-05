@@ -51,23 +51,23 @@
  *    - SAM D21/R21/L21/L22/DA1/C21 Xplained Pro
  *
  * In this use case, the TCC will be used to generate a PWM signal. Here
- * the pulse width varies through following values with the help of DMA
+ * the pulse width varies through the following values with the help of DMA
  * transfer: one quarter of the period, half of the period, and three quarters
  * of the period.
- * The PWM output can be used to drive an LED. The waveform can also be
+ * The PWM output can be used to drive a LED. The waveform can also be
  * viewed using an oscilloscope.
  * The output signal is also fed back to another TCC channel by event system,
  * the event stamps are captured and transferred to a buffer by DMA.
  *
  * The PWM output is set up as follows:
  * <table>
- *  <tr><th> Board        </td><th> Pin  </td><th> Connect to </td></tr>
- *  <tr><td> SAMD21 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
- *  <tr><td> SAMR21 Xpro  </td><td> PA19 </td><td> LED0       </td></tr>
- *  <tr><td> SAML21 Xpro  </td><td> PB10 </td><td> LED0       </td></tr>
- *  <tr><td> SAML22 Xpro  </td><td> PC27 </td><td> LED0       </td></tr>
- *  <tr><td> SAMDA1 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
- *  <tr><td> SAMC21 Xpro  </td><td> PA15 </td><td> LED0       </td></tr>
+ *  <tr><th> Board         </td><th> Pin  </td><th> Connect to </td></tr>
+ *  <tr><td> SAM D21 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM R21 Xpro  </td><td> PA19 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM L21 Xpro  </td><td> PB10 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM L22 Xpro  </td><td> PC27 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM DA1 Xpro  </td><td> PB30 </td><td> LED0       </td></tr>
+ *  <tr><td> SAM C21 Xpro  </td><td> PA15 </td><td> LED0       </td></tr>
  * </table>
  *
  * The TCC module will be setup as follows:
@@ -122,30 +122,30 @@
  *
  * Add to the main application source file, before any functions, according to
  * the kit used:
- * - SAM D21 Xplained Pro.
+ * - SAM D21 Xplained Pro
  * \snippet samd21_xplained_pro/conf_quick_start_dma.h definition_pwm
  * \snippet samd21_xplained_pro/conf_quick_start_dma.h definition_feedback
  * \snippet samd21_xplained_pro/conf_quick_start_dma.h definition_dma_compare_trigger
  * \snippet samd21_xplained_pro/conf_quick_start_dma.h definition_dma_capture_trigger
- * - SAM R21 Xplained Pro.
+ * - SAM R21 Xplained Pro
  * \snippet samr21_xplained_pro/conf_quick_start_dma.h definition_pwm
  * \snippet samr21_xplained_pro/conf_quick_start_dma.h definition_feedback
  * \snippet samr21_xplained_pro/conf_quick_start_dma.h definition_dma_compare_trigger
  * \snippet samr21_xplained_pro/conf_quick_start_dma.h definition_dma_capture_trigger
- * - SAM L21 Xplained Pro.
+ * - SAM L21 Xplained Pro
  * \snippet saml21_xplained_pro/conf_quick_start_dma.h definition_pwm
  * \snippet saml21_xplained_pro/conf_quick_start_dma.h definition_feedback
  * \snippet saml21_xplained_pro/conf_quick_start_dma.h definition_dma_compare_trigger
- * - SAM L22 Xplained Pro.
+ * - SAM L22 Xplained Pro
  * \snippet saml22_xplained_pro/conf_quick_start_dma.h definition_pwm
  * \snippet saml22_xplained_pro/conf_quick_start_dma.h definition_feedback
  * \snippet saml22_xplained_pro/conf_quick_start_dma.h definition_dma_compare_trigger
- * - SAM DA1 Xplained Pro.
+ * - SAM DA1 Xplained Pro
  * \snippet samda1_xplained_pro/conf_quick_start_dma.h definition_pwm
  * \snippet samda1_xplained_pro/conf_quick_start_dma.h definition_feedback
  * \snippet samda1_xplained_pro/conf_quick_start_dma.h definition_dma_compare_trigger
  * \snippet samda1_xplained_pro/conf_quick_start_dma.h definition_dma_capture_trigger
- * - SAM C21 Xplained Pro.
+ * - SAM C21 Xplained Pro
  * \snippet samc21_xplained_pro/conf_quick_start_dma.h definition_pwm
  * \snippet samc21_xplained_pro/conf_quick_start_dma.h definition_feedback
  * \snippet samc21_xplained_pro/conf_quick_start_dma.h definition_dma_compare_trigger
@@ -180,7 +180,7 @@
  *           struct to ensure that all values are initialized to known default
  *           settings.
  * -# Alter the TCC settings to configure the counter width, wave generation
- *     mode and the compare channel 0 value.
+ *     mode, and the compare channel 0 value.
  *     \snippet qs_tcc_dma.c setup_change_config
  * -# Alter the TCC settings to configure the PWM output on a physical device
  *     pin.
@@ -250,9 +250,9 @@
  * -# Start DMA transfer job with prepared descriptor.
  *  -# Add the DMA transfer descriptor to the allocated DMA resource.
  *       \snippet qs_tcc_dma.c dma_setup_10
- *       \note When adding multiple descriptors, the last added one is linked
- *             at the end of descriptor queue. If ringed list is needed, just
- *             add the first descriptor again to build the circle.
+ *       \note When adding multiple descriptors, the last one added is linked
+ *             at the end of the descriptor queue. If ringed list is needed,
+ *             just add the first descriptor again to build the circle.
  *  -# Start the DMA transfer job with the allocated DMA resource and
  *       transfer descriptor.
  *       \snippet qs_tcc_dma.c dma_setup_11

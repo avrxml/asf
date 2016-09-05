@@ -55,8 +55,8 @@ void board_init(void)
 {
 	/* On board LED initialization */
 	ioport_configure_pin(LED0, IOPORT_DIR_OUTPUT |  IOPORT_INIT_HIGH);
-		
+
 	/* On board Switch initialization */
-	ioport_configure_pin(GPIO_PUSH_BUTTON_0,	
+	ioport_configure_pin(GPIO_PUSH_BUTTON_0,
 	IOPORT_DIR_INPUT | IOPORT_PULL_UP);
 }

@@ -3,7 +3,7 @@
  *
  * \brief SAM True Random Number Generator (TRNG) Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -159,7 +159,7 @@ void TRNG_Handler(void)
  * \brief Read multiple random data from TRNG
  *
  * As soon as the TRNG is enabled, the module provides a new 32-bits
- * random data, for every 84 CLK_TRNG_APB clock cycles.
+ * random data for every 84 CLK_TRNG_APB clock cycles.
  *
  * \param[in]  module_inst  Pointer to the TRNG software instance struct
  * \param[in]  number       Number of random data to get
@@ -220,8 +220,6 @@ enum status_code trng_get_job_status(
 
 /**
  * \brief Aborts an ongoing job
- *
- * Aborts an ongoing job.
  *
  * \param [in]  module_inst Pointer to the TRNG software instance struct
  * \param [in]  type        Type of job to abort

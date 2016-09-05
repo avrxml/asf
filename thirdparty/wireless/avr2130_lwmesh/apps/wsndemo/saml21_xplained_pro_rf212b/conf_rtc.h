@@ -3,7 +3,7 @@
  *
  * \brief SAM RTC Driver Configuration Header
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,6 +50,6 @@
 /** Select RTC clock. Use 1.024kHz from 32kHz internal ULP oscillator(OSCULP32K)
  *  for RTC clock.
  */
-#  define RTC_CLOCK_SOURCE    RTC_CLOCK_SELECTION_OSC1K
+#  define RTC_CLOCK_SOURCE    RTC_CLOCK_SELECTION_ULP1K
 
 #endif

@@ -3,7 +3,7 @@
  *
  * \brief Serial Peripheral Interface (SPI) PDC example for SAM.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -306,7 +306,7 @@ static void spi_master_initialize(void)
 	spi_set_bits_per_transfer(SPI_MASTER_BASE, SPI_CHIP_SEL,
 			SPI_CSR_BITS_8_BIT);
 	spi_set_baudrate_div(SPI_MASTER_BASE, SPI_CHIP_SEL,
-			(sysclk_get_cpu_hz() / gs_ul_spi_clock));
+			(sysclk_get_peripheral_hz() / gs_ul_spi_clock));
 	spi_set_transfer_delay(SPI_MASTER_BASE, SPI_CHIP_SEL, SPI_DLYBS,
 			SPI_DLYBCT);
 	spi_enable(SPI_MASTER_BASE);
@@ -325,7 +325,7 @@ static void spi_set_clock_configuration(uint8_t configuration)
 	gs_ul_spi_clock = gs_ul_clock_configurations[configuration];
 	printf("Setting SPI clock #%lu ... \n\r", (unsigned long)gs_ul_spi_clock);
 	spi_set_baudrate_div(SPI_MASTER_BASE, SPI_CHIP_SEL,
-			(sysclk_get_cpu_hz() / gs_ul_spi_clock));
+			(sysclk_get_peripheral_hz() / gs_ul_spi_clock));
 }
 
 /**

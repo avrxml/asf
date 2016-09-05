@@ -3,7 +3,7 @@
  *
  * \brief USB configuration file for CDC application
  *
- * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -140,7 +140,7 @@
 
 //! Define it when the transfer CDC Device to Host is a low rate (<512000 bauds)
 //! to reduce CDC buffers size
-//#define  UDI_CDC_LOW_RATE
+#define  UDI_CDC_LOW_RATE
 
 //! Default configuration of communication port
 #if BOARD == UC3B_BOARD_CONTROLLER

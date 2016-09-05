@@ -70,7 +70,7 @@ typedef void (*wdt_callback_t)(void);
 enum wdt_callback
 {
 	/** Callback type for when an early warning callback from the WDT module
-	 *  is issued.
+	 *  is issued
 	 */
 	WDT_CALLBACK_EARLY_WARNING,
 };

@@ -3,7 +3,7 @@
  *
  * \brief GMAC (Ethernet MAC) driver for SAM.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -290,8 +290,16 @@ static void gmac_init_queue(Gmac* p_gmac, gmac_device_t* p_gmac_dev)
 	gmac_get_priority_interrupt_status(p_gmac, GMAC_QUE_2);
 	gmac_get_priority_interrupt_status(p_gmac, GMAC_QUE_1);
 
+	/* Set Tx Priority */
+	gs_tx_desc_null.addr = (uint32_t)0xFFFFFFFF;
+	gs_tx_desc_null.status.val = GMAC_TXD_WRAP | GMAC_TXD_USED;
 	gmac_set_tx_priority_queue(p_gmac, (uint32_t)&gs_tx_desc_null, GMAC_QUE_2);
 	gmac_set_tx_priority_queue(p_gmac, (uint32_t)&gs_tx_desc_null, GMAC_QUE_1);
+	
+	/* Set Rx Priority */
+	gs_rx_desc_null.addr.val = (uint32_t)0xFFFFFFFF & GMAC_RXD_ADDR_MASK;
+	gs_rx_desc_null.addr.val |= GMAC_RXD_WRAP;
+	gs_rx_desc_null.status.val = 0;
 	gmac_set_rx_priority_queue(p_gmac, (uint32_t)&gs_rx_desc_null, GMAC_QUE_2);
 	gmac_set_rx_priority_queue(p_gmac, (uint32_t)&gs_rx_desc_null, GMAC_QUE_1);
 

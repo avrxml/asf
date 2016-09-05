@@ -195,18 +195,30 @@ extern uint8_t TAL_T_0;
 extern uint8_t TAL_T_1;
 
 #ifdef ENABLE_FTN_PLL_CALIBRATION
-
 extern uint8_t TAL_T_CALIBRATION_0;
 extern uint8_t TAL_T_CALIBRATION_1;
+#endif
+
+#if ((defined RF215v1) && (defined SUPPORT_LEGACY_OQPSK))
+
+extern uint8_t TAL_T_AGC_0;
+extern uint8_t TAL_T_AGC_1;
 
 #endif
 
+#if ((defined RF215v1) && (defined SUPPORT_LEGACY_OQPSK))
+#ifdef ENABLE_FTN_PLL_CALIBRATION
+#define NUMBER_OF_TAL_TIMERS        (6)
+#else
+#define NUMBER_OF_TAL_TIMERS        (4)
+#endif /* ENABLE_FTN_PLL_CALIBRATION */
+#else
 #ifdef ENABLE_FTN_PLL_CALIBRATION
 #define NUMBER_OF_TAL_TIMERS        (4)
 #else
 #define NUMBER_OF_TAL_TIMERS        (2)
+#endif /* ENABLE_FTN_PLL_CALIBRATION */
 #endif
-
 #endif
 /* === PROTOTYPES ========================================================== */
 

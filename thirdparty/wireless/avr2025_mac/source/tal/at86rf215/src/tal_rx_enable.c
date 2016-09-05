@@ -88,8 +88,9 @@
  */
 uint8_t tal_rx_enable(trx_id_t trx_id, uint8_t state)
 {
-	uint8_t ret_val;
+	Assert((trx_id >= 0) && (trx_id < NUM_TRX));
 
+	uint8_t ret_val;
 	if (tal_state[trx_id] == TAL_SLEEP) {
 		return TAL_TRX_ASLEEP;
 	}
@@ -102,6 +103,17 @@ uint8_t tal_rx_enable(trx_id_t trx_id, uint8_t state)
 		return TAL_BUSY;
 	}
 
+	/*
+	 * Check current state
+	 */
+	if ((state == PHY_TRX_OFF) && (trx_state[trx_id] == RF_TRXOFF)) {
+		return PHY_TRX_OFF;
+	}
+
+	if ((state == PHY_RX_ON) && (trx_state[trx_id] == RF_RX)) {
+		return PHY_RX_ON;
+	}
+
 	if (state == PHY_TRX_OFF) {
 		/*
 		 * If the rx needs to be switched off,
@@ -109,12 +121,11 @@ uint8_t tal_rx_enable(trx_id_t trx_id, uint8_t state)
 		 *received.
 		 */
 		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
-		trx_reg_write(reg_offset + RG_RF09_CMD, RF_TRXOFF);
+		trx_reg_write( reg_offset + RG_RF09_CMD, RF_TRXOFF);
 #ifdef IQ_RADIO
-		pal_dev_reg_write(RF215_RF, GET_REG_ADDR(RG_RF09_CMD),
-				RF_TRXOFF);
+		trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_TRXOFF);
 #endif
-#if (defined RF215V1) && ((defined SUPPORT_FSK) || (defined SUPPORT_OQPSK))
+#if (defined SUPPORT_FSK) || (defined SUPPORT_OQPSK)
 		stop_rpc(trx_id);
 #endif
 		trx_state[trx_id] = RF_TRXOFF;
@@ -127,9 +138,32 @@ uint8_t tal_rx_enable(trx_id_t trx_id, uint8_t state)
 	} else {
 		switch_to_txprep(trx_id);
 		switch_to_rx(trx_id);
+#if (defined SUPPORT_FSK) || (defined SUPPORT_OQPSK)
+		start_rpc(trx_id);
+#endif
 		ret_val = PHY_RX_ON;
 #ifdef ENABLE_FTN_PLL_CALIBRATION
-		start_ftn_timer(trx_id);
+
+		/*
+		 * Start the FTN timer.
+		 *
+		 * Since we do not have control when tal_rx_enable is
+		 * from the NHLE, and this timer is running for quite some
+		 * time, we first need to check, if this timer has not been
+		 *started
+		 * been already. In this case we leave it running.
+		 * Otherwise this would lead to Assertions.
+		 */
+		uint8_t timer_id;
+		if (trx_id == RF09) {
+			timer_id = TAL_T_CALIBRATION_0;
+		} else {
+			timer_id = TAL_T_CALIBRATION_1;
+		}
+
+		if (!pal_is_timer_running(timer_id)) {
+			start_ftn_timer(trx_id);
+		}
 #endif  /* ENABLE_FTN_PLL_CALIBRATION */
 		trx_default_state[trx_id] = RF_RX;
 	}

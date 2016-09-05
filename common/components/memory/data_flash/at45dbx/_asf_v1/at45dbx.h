@@ -6,7 +6,7 @@
  *
  * This file manages the accesses to the AT45DBX data flash components.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -86,7 +86,11 @@
 //! @}
 
 //! Number of bits for addresses within sectors.
+#ifdef AT45DB641E
+#define AT45DBX_SECTOR_BITS     8
+#else
 #define AT45DBX_SECTOR_BITS     9
+#endif
 
 //! Sector size in bytes.
 #define AT45DBX_SECTOR_SIZE     (1 << AT45DBX_SECTOR_BITS)

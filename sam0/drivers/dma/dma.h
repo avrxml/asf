@@ -3,7 +3,7 @@
  *
  * \brief SAM Direct Memory Access Controller Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -51,16 +51,16 @@ extern "C" {
 #endif
 
 /**
- * \defgroup asfdoc_sam0_dma_group SAM Direct Memory Access Controller Driver (DMAC)
+ * \defgroup asfdoc_sam0_dma_group SAM Direct Memory Access Controller (DMAC) Driver
  *
- * This driver for Atmel&reg; | SMART SAM devices provides an interface for the configuration
+ * This driver for Atmel&reg; | SMART ARM®-based microcontrollers provides an interface for the configuration
  * and management of the Direct Memory Access Controller(DMAC) module within
  * the device. The DMAC can transfer data between memories and peripherals, and
  * thus off-load these tasks from the CPU. The module supports peripheral to
  * peripheral, peripheral to memory, memory to peripheral, and memory to memory
  * transfers.
  *
- * The following peripherals are used by the DMAC Driver:
+ * The following peripheral is used by the DMAC Driver:
  * - DMAC (Direct Memory Access Controller)
  *
  * The following devices can use this module:
@@ -70,6 +70,7 @@ extern "C" {
  *  - Atmel | SMART SAM L21/L22
  *  - Atmel | SMART SAM DA1
  *  - Atmel | SMART SAM C20/C21
+ *  - Atmel | SMART SAM R30
  *
  * The outline of this documentation is as follows:
  * - \ref asfdoc_sam0_dma_prerequisites
@@ -96,9 +97,9 @@ extern "C" {
  * The DMAC when used with Event System or peripheral triggers, provides a
  * considerable advantage by reducing the power consumption and performing
  * data transfer in the background.
- * For example if the ADC is configured to generate an event, it can trigger
- * the DMAC to transfer the data into another peripheral or into SRAM.
- * The CPU can remain in sleep during this time to reduce power consumption.
+ * For example, if the ADC is configured to generate an event, it can trigger
+ * the DMAC to transfer the data into another peripheral or SRAM.
+ * The CPU can remain in sleep during this time to reduce the power consumption.
  *
  * <table>
  *    <tr>
@@ -114,18 +115,18 @@ extern "C" {
  *      <td>6</td>
  *    </tr>
  *    <tr>
- *      <td>SAM L21</td>
+ *      <td>SAM L21,SAMR30</td>
  *      <td>16</td>
  *    </tr>
  * </table>
  * The DMA channel operation can be suspended at any time by software, by events
  * from event system, or after selectable descriptor execution. The operation
- * can be resumed by software or by events from event system.
+ * can be resumed by software or by events from the event system.
  * The DMAC driver for SAM supports four types of transfers such as
  * peripheral to peripheral, peripheral to memory, memory to peripheral, and
  * memory to memory.
  *
- * The basic transfer unit is a beat which is defined as a single bus access.
+ * The basic transfer unit is a beat, which is defined as a single bus access.
  * There can be multiple beats in a single block transfer and multiple block
  * transfers in a DMA transaction.
  * DMA transfer is based on descriptors, which holds transfer properties
@@ -135,13 +136,13 @@ extern "C" {
  * is performed. When linked, a number of transfer descriptors can be used to
  * enable multiple block transfers within a single DMA transaction.
  *
- * The implementation of the DMA driver is based on the idea that DMA channel
+ * The implementation of the DMA driver is based on the idea that the DMA channel
  * is a finite resource of entities with the same abilities. A DMA channel resource
  * is able to move a defined set of data from a source address to destination
  * address triggered by a transfer trigger. On the SAM devices there are 12
  * DMA resources available for allocation. Each of these DMA resources can trigger
  * interrupt callback routines and peripheral events.
- * The other main features are
+ * The other main features are:
  *
  * - Selectable transfer trigger source
  *  - Software
@@ -149,7 +150,7 @@ extern "C" {
  *  - Peripheral
  * - Event input and output is supported for the four lower channels
  * - Four level channel priority
- * - Optional interrupt generation on transfer complete, channel error or channel suspend
+ * - Optional interrupt generation on transfer complete, channel error, or channel suspend
  * - Supports multi-buffer or circular buffer mode by linking multiple descriptors
  * - Beat size configurable as 8-bit, 16-bit, or 32-bit
  *
@@ -189,7 +190,7 @@ extern "C" {
  *  </tr>
  *  <tr>
  *    <td>FEATURE_DMA_CHANNEL_STANDBY</td>
- *    <td>SAM L21/L22/C20/C21</td>
+ *    <td>SAM L21/L22/C20/C21/R30</td>
  *  </tr>
  * </table>
  * \note The specific features are only available in the driver when the
@@ -204,14 +205,14 @@ extern "C" {
  *    <tr>
  *     <td > Beat </td>
  *     <td > It is a single bus access by the DMAC.
- *           Configurable as 8-bit, 16-bit, or 32-bit
+ *           Configurable as 8-bit, 16-bit, or 32-bit.
  *     </td>
  *    </tr>
  *    <tr>
  *     <td > Burst </td>
  *     <td> It is a transfer of n-beats (n=1,4,8,16).
  *          For the DMAC module in SAM, the burst size is one beat.
- *          Arbitration takes place each time a burst transfer is completed
+ *          Arbitration takes place each time a burst transfer is completed.
  *     </td>
  *    </tr>
  *    <tr>
@@ -227,7 +228,7 @@ extern "C" {
  * along with the transfer descriptors defines the data transfer properties.
  * - The transfer control descriptor defines the source and destination
  * addresses, source and destination address increment settings, the
- * block transfer count and event output condition selection
+ * block transfer count, and event output condition selection
  * - Dedicated channel registers control the peripheral trigger source,
  * trigger mode settings, event input actions, and channel priority level
  * settings
@@ -319,7 +320,7 @@ extern "C" {
 #include <compiler.h>
 #include "conf_dma.h"
 
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || defined(__DOXYGEN__)
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30) || defined(__DOXYGEN__)
 #define FEATURE_DMA_CHANNEL_STANDBY
 #endif
 
@@ -442,11 +443,11 @@ enum dma_event_output_selection {
 /** DMA trigger action type. */
 enum dma_transfer_trigger_action{
 	/** Perform a block transfer when triggered. */
-	DMA_TRIGGER_ACTON_BLOCK = DMAC_CHCTRLB_TRIGACT_BLOCK_Val,
+	DMA_TRIGGER_ACTION_BLOCK = DMAC_CHCTRLB_TRIGACT_BLOCK_Val,
 	/** Perform a beat transfer when triggered. */
-	DMA_TRIGGER_ACTON_BEAT = DMAC_CHCTRLB_TRIGACT_BEAT_Val,
+	DMA_TRIGGER_ACTION_BEAT = DMAC_CHCTRLB_TRIGACT_BEAT_Val,
 	/** Perform a transaction when triggered. */
-	DMA_TRIGGER_ACTON_TRANSACTION = DMAC_CHCTRLB_TRIGACT_TRANSACTION_Val,
+	DMA_TRIGGER_ACTION_TRANSACTION = DMAC_CHCTRLB_TRIGACT_TRANSACTION_Val,
 };
 
 /**
@@ -473,21 +474,21 @@ enum dma_callback_type {
  */
 struct dma_descriptor_config {
 	/** Descriptor valid flag used to identify whether a descriptor is
-	    valid or not. */
+	    valid or not */
 	bool descriptor_valid;
 	/** This is used to generate an event on specific transfer action in
 	    a channel. Supported only in four lower channels. */
 	enum dma_event_output_selection event_output_selection;
-	/** Action taken when a block transfer is completed. */
+	/** Action taken when a block transfer is completed */
 	enum dma_block_action block_action;
-	/** Beat size is configurable as 8-bit, 16-bit, or 32-bit. */
+	/** Beat size is configurable as 8-bit, 16-bit, or 32-bit */
 	enum dma_beat_size beat_size;
-	/** Used for enabling the source address increment. */
+	/** Used for enabling the source address increment */
 	bool src_increment_enable;
-	/** Used for enabling the destination address increment. */
+	/** Used for enabling the destination address increment */
 	bool dst_increment_enable;
 	/** This bit selects whether the source or destination address is
-	    using the step size settings. */
+	    using the step size settings */
 	enum dma_step_selection step_selection;
 	/** The step size for source/destination address increment.
 	    The next address is calculated
@@ -496,9 +497,9 @@ struct dma_descriptor_config {
 	/** It is the number of beats in a block. This count value is
 	 * decremented by one after each beat data transfer. */
 	uint16_t block_transfer_count;
-	/** Transfer source address. */
+	/** Transfer source address */
 	uint32_t source_address;
-	/** Transfer destination address. */
+	/** Transfer destination address */
 	uint32_t destination_address;
 	/** Set to zero for static descriptors. This must have a valid memory
 	    address for linked descriptors. */
@@ -507,25 +508,25 @@ struct dma_descriptor_config {
 
 /** Configurations for DMA events. */
 struct dma_events_config {
-	/** Event input actions. */
+	/** Event input actions */
 	enum dma_event_input_action input_action;
-	/** Enable DMA event output. */
+	/** Enable DMA event output */
 	bool event_output_enable;
 };
 
 /** DMA configurations for transfer. */
 struct dma_resource_config {
-	/** DMA transfer priority. */
+	/** DMA transfer priority */
 	enum dma_priority_level priority;
-	/**DMA peripheral trigger index. */
+	/**DMA peripheral trigger index */
 	uint8_t peripheral_trigger;
-	/** DMA trigger action. */
+	/** DMA trigger action */
 	enum dma_transfer_trigger_action trigger_action;
 #ifdef FEATURE_DMA_CHANNEL_STANDBY
-	/** Keep DMA channel enabled in standby sleep mode if true. */
+	/** Keep DMA channel enabled in standby sleep mode if true */
 	bool run_in_standby;
 #endif
-	/** DMA events configurations. */
+	/** DMA events configurations */
 	struct dma_events_config event_config;
 };
 
@@ -536,17 +537,17 @@ typedef void (*dma_callback_t)(struct dma_resource *const resource);
 
 /** Structure for DMA transfer resource. */
 struct dma_resource {
-	/** Allocated DMA channel ID. */
+	/** Allocated DMA channel ID */
 	uint8_t channel_id;
-	/** Array of callback functions for DMA transfer job. */
+	/** Array of callback functions for DMA transfer job */
 	dma_callback_t callback[DMA_CALLBACK_N];
-	/** Bit mask for enabled callbacks. */
+	/** Bit mask for enabled callbacks */
 	uint8_t callback_enable;
-	/** Status of the last job. */
+	/** Status of the last job */
 	volatile enum status_code job_status;
-	/** Transferred data size. */
+	/** Transferred data size */
 	uint32_t transfered_size;
-	/** DMA transfer descriptor. */
+	/** DMA transfer descriptor */
 	DmacDescriptor* descriptor;
 };
 
@@ -823,6 +824,9 @@ enum status_code dma_add_descriptor(struct dma_resource *resource,
  *     <td>Add SAM L21 support</td>
  *   </tr>
  *   <tr>
+ *     <td>Add SAM R30 support</td>
+ *   </tr>
+ *   <tr>
  *     <td>Initial Release</td>
  *   </tr>
  * </table>
@@ -834,7 +838,7 @@ enum status_code dma_add_descriptor(struct dma_resource *resource,
  * This is a list of the available Quick Start Guides (QSGs) and example
  * applications for \ref asfdoc_sam0_dma_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  * - \subpage asfdoc_sam0_dma_basic_use_case
@@ -849,22 +853,22 @@ enum status_code dma_add_descriptor(struct dma_resource *resource,
  *
  * <table>
  *    <tr>
- *        <th>Doc. Rev.</td>
- *        <th>Date</td>
- *        <th>Comments</td>
+ *        <th>Doc. Rev.</th>
+ *        <th>Date</th>
+ *        <th>Comments</th>
  *    </tr>
  *    <tr>
- *        <td>C</td>
- *        <td>08/2015</td>
- *        <td>Added SAM L21/L22, SAM C21, and SAM DA1 support</td>
+ *        <td>42257C</td>
+ *        <td>12/2015</td>
+ *        <td>Added suppport for SAM L21/L22, SAM C21, SAM D09, SAMR30 and SAM DA1</td>
  *    </tr>
  *    <tr>
- *        <td>B</td>
+ *        <td>42257B</td>
  *        <td>12/2014</td>
- *        <td>Added SAM R21 and SAM D10/D11 support</td>
+ *        <td>Added support for SAM R21 and SAM D10/D11</td>
  *    </tr>
  *    <tr>
- *        <td>A</td>
+ *        <td>42257A</td>
  *        <td>02/2014</td>
  *        <td>Initial release</td>
  *    </tr>

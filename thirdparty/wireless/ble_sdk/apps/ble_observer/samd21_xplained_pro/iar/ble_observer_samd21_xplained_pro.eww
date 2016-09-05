@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\ble_observer_samd21_xplained_pro_flash.ewp</path>
+	</project>
+</workspace>

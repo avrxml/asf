@@ -3,7 +3,7 @@
  *
  * \brief Serial Console functionalities
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,10 +45,33 @@
 #include "asf.h"
 #include "console_serial.h"
 #include "conf_uart_serial.h"
+#include "usart.h"
+#include "platform.h"
+#include "timer_hw.h"
 
 /* === TYPES =============================================================== */
 
 /* === MACROS ============================================================== */
+
+#ifndef CONF_UART
+#define CONF_UART            CONSOLE_UART
+#endif
+
+#ifndef CONF_UART_BAUDRATE
+#define CONF_UART_BAUDRATE (115200UL)
+#endif
+
+#ifndef CONF_UART_CHAR_LENGTH
+#define CONF_UART_CHAR_LENGTH	US_MR_CHRL_8_BIT
+#endif
+
+#ifndef CONF_UART_PARITY
+#define CONF_UART_PARITY		US_MR_PAR_NO
+#endif
+
+#ifndef CONF_UART_STOP_BITS
+#define CONF_UART_STOP_BITS		US_MR_NBSTOP_1_BIT
+#endif
 
 /**
  *  Configure console.
@@ -71,6 +94,16 @@ void serial_console_init(void)
 	stdio_serial_init(CONF_UART, &uart_serial_options);
 }
 
+uint8_t getchar_timeout(uint32_t timeout)
+{
+	uint32_t temp = NULL;
+	
+	while((STATUS_OK != usart_read((Usart *)CONF_UART, &temp)) && timeout){
+		timeout--;
+		delay_ms(1);
+	}
 
+	return ((uint8_t)(temp & 0xFF));
+}
 
 /* EOF */

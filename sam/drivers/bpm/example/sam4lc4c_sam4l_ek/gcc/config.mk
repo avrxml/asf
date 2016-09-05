@@ -93,6 +93,8 @@ INC_PATH = \
        sam/boards                                         \
        sam/boards/sam4l_ek                                \
        sam/drivers/ast                                    \
+       sam/drivers/ast/example1                           \
+       sam/drivers/ast/example2                           \
        sam/drivers/bpm                                    \
        sam/drivers/bpm/example                            \
        sam/drivers/bpm/example/sam4lc4c_sam4l_ek          \

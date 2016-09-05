@@ -3,7 +3,7 @@
  *
  * \brief USART IrDA example for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -240,7 +240,7 @@ static void configure_usart(void)
 	sysclk_enable_peripheral_clock(BOARD_ID_USART);
 
 	/* Configure USART in IrDA mode. */
-	usart_init_irda(BOARD_USART, &usart_console_settings, sysclk_get_cpu_hz());
+	usart_init_irda(BOARD_USART, &usart_console_settings, sysclk_get_peripheral_hz());
 
 	/* Disable all the interrupts. */
 	usart_disable_interrupt(BOARD_USART, ALL_INTERRUPT_MASK);

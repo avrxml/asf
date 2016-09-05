@@ -492,7 +492,7 @@ static void adp_window_add_element_strem_to_control_dashboard(void)
 		.y = 20,
 		.width = 150,
 		.height = 50,
-		.element_type = (uint8_t)ADP_ELEMENT_TYPE_SEGMENT,
+		.element_type = ADP_ELEMENT_TYPE_SEGMENT,
 		.segment_count = 4,
 		.base = 10,
 		.transparency = 255,

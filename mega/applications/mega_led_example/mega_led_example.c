@@ -3,7 +3,7 @@
  *
  * \brief MEGA LED Example
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -65,6 +65,9 @@
  *
  * This application has been tested on following boards:
  * - ATmega328p Xplained Mini
+ * - ATmega328pb Xplained Mini
+ * - ATmega168pb Xplained Mini
+ * - ATmega324pb Xplained PRO
  *
  * \section appdoc_mega_led_app_usage Usage
  * The application uses button to control the LED, 
@@ -96,6 +99,5 @@ int main (void)
 		}else{
 			LED_On(LED0);
 		}
-	}
-	
+	}	
 }

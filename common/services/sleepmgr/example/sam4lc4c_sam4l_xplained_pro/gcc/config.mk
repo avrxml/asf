@@ -85,6 +85,8 @@ INC_PATH = \
        sam/boards                                         \
        sam/boards/sam4l_xplained_pro                      \
        sam/drivers/ast                                    \
+       sam/drivers/ast/example1                           \
+       sam/drivers/ast/example2                           \
        sam/drivers/bpm                                    \
        sam/drivers/flashcalw                              \
        sam/drivers/wdt                                    \

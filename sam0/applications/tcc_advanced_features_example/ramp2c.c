@@ -3,7 +3,7 @@
  *
  * \brief SAM D21 TCC RAMP2C Example Application
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \license
  * \asf_license_start
@@ -241,7 +241,7 @@ static void configure_evsys(void)
 /* Code to generate Fault input */
 void TCC0_Handler(void)
 {
-	TCC0->INTFLAG.bit.MC1     = 1;
+	TCC0->INTFLAG.reg = TCC_INTFLAG_MC1;
 	PORT->Group[0].OUTSET.reg = PORT_PA14;
 	
 	delay_us(200);
@@ -265,7 +265,7 @@ void config_ramp2c(void)
 	PORT->Group[0].DIRSET.reg = PORT_PA14;
 	PORT->Group[0].OUTCLR.reg = PORT_PA14;
 	
-	TCC0->INTENSET.bit.MC1 = 1;
+	TCC0->INTENSET.reg = TCC_INTFLAG_MC1;
 	
 	NVIC_EnableIRQ(TCC0_IRQn);
 	__enable_irq();	

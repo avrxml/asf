@@ -4,7 +4,7 @@
  *
  * \brief WINC1500 P2P Mode Example.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -22,9 +22,6 @@
  *
  * 3. The name of Atmel may not be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
  *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -44,10 +41,10 @@
 
 /** \mainpage
  * \section intro Introduction
- * This example demonstrates the use of the WINC1500 with the SAMD21 Xplained Pro
+ * This example demonstrates the use of the WINC1500 with the SAM Xplained Pro
  * board to enter P2P mode.<br>
  * It uses the following hardware:
- * - the SAMD21 Xplained Pro.
+ * - the SAM Xplained Pro.
  * - the WINC1500 on EXT1.
  *
  * \section files Main Files
@@ -204,7 +201,7 @@ int main(void)
 	}
 
 	/* Bring up P2P mode with channel number. */
-	ret = m2m_wifi_p2p(MAIN_WLAN_CHANNEL);
+	ret = m2m_wifi_p2p(M2M_WIFI_CH_6);
 	if (M2M_SUCCESS != ret) {
 		printf("main: m2m_wifi_p2p call error!\r\n");
 		while (1) {
@@ -212,6 +209,7 @@ int main(void)
 	}
 
 	printf("P2P mode started. You can connect to %s.\r\n", (char *)MAIN_WLAN_DEVICE_NAME);
+
 	while (1) {
 		/* Handle pending events from network controller. */
 		while (m2m_wifi_handle_events(NULL) != M2M_SUCCESS) {

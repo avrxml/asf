@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -95,6 +95,7 @@
   #define REG_PIOD_WPSR                     (0x400E14E8U) /**< \brief (PIOD) Write Protection Status Register */
   #define REG_PIOD_VERSION                  (0x400E14FCU) /**< \brief (PIOD) Version Register */
   #define REG_PIOD_SCHMITT                  (0x400E1500U) /**< \brief (PIOD) Schmitt Trigger Register */
+  #define REG_PIOD_DRIVER                   (0x400E1518U) /**< \brief (PIOD) I/O Drive Register */
   #define REG_PIOD_KER                      (0x400E1520U) /**< \brief (PIOD) Keypad Controller Enable Register */
   #define REG_PIOD_KRCR                     (0x400E1524U) /**< \brief (PIOD) Keypad Controller Row Column Register */
   #define REG_PIOD_KDR                      (0x400E1528U) /**< \brief (PIOD) Keypad Controller Debouncing Register */
@@ -159,6 +160,7 @@
   #define REG_PIOD_WPSR    (*(__I  uint32_t*)0x400E14E8U) /**< \brief (PIOD) Write Protection Status Register */
   #define REG_PIOD_VERSION (*(__I  uint32_t*)0x400E14FCU) /**< \brief (PIOD) Version Register */
   #define REG_PIOD_SCHMITT (*(__IO uint32_t*)0x400E1500U) /**< \brief (PIOD) Schmitt Trigger Register */
+  #define REG_PIOD_DRIVER  (*(__IO uint32_t*)0x400E1518U) /**< \brief (PIOD) I/O Drive Register */
   #define REG_PIOD_KER     (*(__IO uint32_t*)0x400E1520U) /**< \brief (PIOD) Keypad Controller Enable Register */
   #define REG_PIOD_KRCR    (*(__IO uint32_t*)0x400E1524U) /**< \brief (PIOD) Keypad Controller Row Column Register */
   #define REG_PIOD_KDR     (*(__IO uint32_t*)0x400E1528U) /**< \brief (PIOD) Keypad Controller Debouncing Register */

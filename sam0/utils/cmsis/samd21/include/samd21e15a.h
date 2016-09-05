@@ -3,7 +3,7 @@
  *
  * \brief Header file for SAMD21E15A
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -39,9 +39,6 @@
  *
  * \asf_license_stop
  *
- */
-/*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAMD21E15A_
@@ -139,16 +136,16 @@ typedef struct _DeviceVectors
   void* pfnReset_Handler;
   void* pfnNMI_Handler;
   void* pfnHardFault_Handler;
-  void* pfnReservedM12;
-  void* pfnReservedM11;
-  void* pfnReservedM10;
-  void* pfnReservedM9;
-  void* pfnReservedM8;
-  void* pfnReservedM7;
-  void* pfnReservedM6;
+  void* pvReservedM12;
+  void* pvReservedM11;
+  void* pvReservedM10;
+  void* pvReservedM9;
+  void* pvReservedM8;
+  void* pvReservedM7;
+  void* pvReservedM6;
   void* pfnSVC_Handler;
-  void* pfnReservedM4;
-  void* pfnReservedM3;
+  void* pvReservedM4;
+  void* pvReservedM3;
   void* pfnPendSV_Handler;
   void* pfnSysTick_Handler;
 
@@ -166,21 +163,22 @@ typedef struct _DeviceVectors
   void* pfnSERCOM1_Handler;               /* 10 Serial Communication Interface 1 */
   void* pfnSERCOM2_Handler;               /* 11 Serial Communication Interface 2 */
   void* pfnSERCOM3_Handler;               /* 12 Serial Communication Interface 3 */
-  void* pfnReserved13;
-  void* pfnReserved14;
+  void* pvReserved13;
+  void* pvReserved14;
   void* pfnTCC0_Handler;                  /* 15 Timer Counter Control 0 */
   void* pfnTCC1_Handler;                  /* 16 Timer Counter Control 1 */
   void* pfnTCC2_Handler;                  /* 17 Timer Counter Control 2 */
   void* pfnTC3_Handler;                   /* 18 Basic Timer Counter 3 */
   void* pfnTC4_Handler;                   /* 19 Basic Timer Counter 4 */
   void* pfnTC5_Handler;                   /* 20 Basic Timer Counter 5 */
-  void* pfnReserved21;
-  void* pfnReserved22;
+  void* pvReserved21;
+  void* pvReserved22;
   void* pfnADC_Handler;                   /* 23 Analog Digital Converter */
   void* pfnAC_Handler;                    /* 24 Analog Comparators */
   void* pfnDAC_Handler;                   /* 25 Digital Analog Converter */
   void* pfnPTC_Handler;                   /* 26 Peripheral Touch Controller */
   void* pfnI2S_Handler;                   /* 27 Inter-IC Sound Interface */
+  void* pvReserved28;
 } DeviceVectors;
 
 /* Cortex-M0+ processor handlers */
@@ -352,7 +350,7 @@ void I2S_Handler                 ( void );
 #define ID_PTC           83 /**< \brief Peripheral Touch Controller (PTC) */
 #define ID_I2S           84 /**< \brief Inter-IC Sound Interface (I2S) */
 
-#define ID_PERIPH_COUNT  85 /**< \brief Number of peripheral IDs */
+#define ID_PERIPH_COUNT  85 /**< \brief Max number of peripheral IDs */
 /*@}*/
 
 /* ************************************************************************** */
@@ -532,9 +530,14 @@ void I2S_Handler                 ( void );
 #define FLASH_NB_OF_PAGES     512
 #define FLASH_USER_PAGE_SIZE  64
 #define HMCRAMC0_SIZE         0x1000UL /* 4 kB */
-#define FLASH_ADDR            (0x00000000UL) /**< FLASH base address */
-#define FLASH_USER_PAGE_ADDR  (0x00800000UL) /**< FLASH_USER_PAGE base address */
-#define HMCRAMC0_ADDR         (0x20000000UL) /**< HMCRAMC0 base address */
+
+#define FLASH_ADDR            (0x00000000u) /**< FLASH base address */
+#define FLASH_USER_PAGE_ADDR  (0x00800000u) /**< FLASH_USER_PAGE base address */
+#define HMCRAMC0_ADDR         (0x20000000u) /**< HMCRAMC0 base address */
+#define HPB0_ADDR             (0x40000000u) /**< HPB0 base address */
+#define HPB1_ADDR             (0x41000000u) /**< HPB1 base address */
+#define HPB2_ADDR             (0x42000000u) /**< HPB2 base address */
+#define PPB_ADDR              (0xE0000000u) /**< PPB base address */
 
 #define DSU_DID_RESETVALUE    0x1001000DUL
 #define EIC_EXTINT_NUM        16

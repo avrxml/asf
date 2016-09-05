@@ -71,19 +71,21 @@
 /**
  * @brief Sets the transceiver to SLEEP
  *
- * This function sets the transceiver to state SLEEP.
+ * This function sets the entire device to state DEEP_SLEEP.
  *
  * @param trx_id Transceiver identifier
+ * @param mode Defines sleep mode of transceiver (Not used for 215 trx)
  *
  * @return
  *      - @ref TAL_BUSY - The transceiver is busy in TX or RX
  *      - @ref MAC_SUCCESS - The transceiver is put to sleep
  *      - @ref TAL_TRX_ASLEEP - The transceiver is already asleep
- *      - @ref MAC_INVALID_PARAMETER - The specified sleep mode is not supported
  * @ingroup apiTalApi
  */
 retval_t tal_trx_sleep(trx_id_t trx_id)
 {
+	Assert((trx_id >= 0) && (trx_id < NUM_TRX));
+
 	if (tal_state[trx_id] == TAL_SLEEP) {
 		return TAL_TRX_ASLEEP;
 	}
@@ -93,20 +95,33 @@ retval_t tal_trx_sleep(trx_id_t trx_id)
 		return TAL_BUSY;
 	}
 
+	{
+		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
+		trx_reg_write( reg_offset + RG_RF09_CMD, RF_TRXOFF);
+#ifdef IQ_RADIO
+		trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_TRXOFF);
+#endif
+	}
+	trx_state[trx_id] = RF_TRXOFF;
 	tal_state[trx_id] = TAL_SLEEP;
 
-	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
-	trx_reg_write(reg_offset + RG_RF09_CMD, RF_TRXOFF);
+	/* Enter DEEP_SLEEP if both transceiver suppose to enter SLEEP */
+#if ((defined RF215v1) || (defined RF215v3))
+	if ((tal_state[RF09] == TAL_SLEEP) && (tal_state[RF24] == TAL_SLEEP)) {
+		for (trx_id_t i = (trx_id_t)0; i < (trx_id_t)NUM_TRX; i++) {
+			uint16_t reg_offset = RF_BASE_ADDR_OFFSET * i;
+			trx_reg_write( reg_offset + RG_RF09_CMD, RF_SLEEP);
 #ifdef IQ_RADIO
-	pal_dev_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_TRXOFF);
+			trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD,
+					RF_SLEEP);
 #endif
-	trx_reg_write(reg_offset + RG_RF09_CMD, RF_SLEEP);
-#ifdef IQ_RADIO
-	pal_dev_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_SLEEP);
+			TAL_BB_IRQ_CLR_ALL(i);
+			TAL_RF_IRQ_CLR_ALL(i);
+			trx_state[i] = RF_SLEEP;
+		}
+	}
+
 #endif
-	TAL_BB_IRQ_CLR_ALL(trx_id);
-	TAL_RF_IRQ_CLR_ALL(trx_id);
-	trx_state[trx_id] = RF_SLEEP;
 
 	/*
 	 * Free TAL Rx buffer. During sleep no buffer is required.
@@ -119,6 +134,8 @@ retval_t tal_trx_sleep(trx_id_t trx_id)
 #ifdef ENABLE_FTN_PLL_CALIBRATION
 	stop_ftn_timer(trx_id);
 #endif  /* ENABLE_FTN_PLL_CALIBRATION */
+
+	/* Keep compiler happy */
 
 	return MAC_SUCCESS;
 }
@@ -138,86 +155,49 @@ retval_t tal_trx_sleep(trx_id_t trx_id)
  */
 retval_t tal_trx_wakeup(trx_id_t trx_id)
 {
+	Assert((trx_id >= 0) && (trx_id < NUM_TRX));
 	if (tal_state[trx_id] != TAL_SLEEP) {
 		return TAL_TRX_AWAKE;
 	}
 
-	tal_state[trx_id] = TAL_WAKING_UP;
-
-	/* Check if other trx is sleep too. */
-	uint8_t other_trx_id;
-	if (trx_id == RF09) {
-		other_trx_id = RF24;
-	} else {
-		other_trx_id = RF09;
-	}
-
-	if (tal_state[other_trx_id] == TAL_SLEEP) {
-		tal_state[other_trx_id] = TAL_WAKING_UP;
-	}
-
-	/* Write command to wake device up */
-	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
-	trx_reg_write(reg_offset + RG_RF09_CMD, RF_TRXOFF);
-#ifdef IQ_RADIO
-	pal_dev_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_TRXOFF);
+#if (defined RF215v1) || (defined RF215v3)
+	if ((tal_state[RF09] == TAL_SLEEP) && (tal_state[RF24] == TAL_SLEEP))
 #endif
-	trx_state[trx_id] = RF_TRXOFF;
-
-	/* Wait for transceiver wakeup */
-	uint32_t start_time;
-	uint32_t current_time;
-	pal_get_current_time(&start_time);
-	pal_get_current_time(&current_time);
-	while (1) {
-		if (TAL_RF_IS_IRQ_SET(trx_id, RF_IRQ_WAKEUP)) {
-			TAL_RF_IRQ_CLR(trx_id, RF_IRQ_WAKEUP);
-
-			if (tal_state[other_trx_id] == TAL_WAKING_UP) {
-				/* Wait for the other trx to wake-up as well. */
-				if (TAL_RF_IS_IRQ_SET(other_trx_id,
-						RF_IRQ_WAKEUP)) {
-					TAL_RF_IRQ_CLR(other_trx_id,
-							RF_IRQ_WAKEUP);
-					break;
+	{
+		tal_state[trx_id] = TAL_WAKING_UP; /* Intermediate state to
+		                                    *handle TRX IRQ */
+		/* Write command to wake device up */
+		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
+		trx_reg_write( reg_offset + RG_RF09_CMD, RF_TRXOFF);
+#ifdef IQ_RADIO
+		trx_reg_write(RF215_RF, reg_offset + RG_RF09_CMD, RF_TRXOFF);
+#endif
+		/* Wait for transceiver wakeup */
+		uint32_t start_time;
+		uint32_t current_time;
+		pal_get_current_time(&start_time);
+		pal_get_current_time(&current_time);
+		while (1) {
+			if (TAL_RF_IS_IRQ_SET(trx_id, RF_IRQ_WAKEUP)) {
+#if (defined RF215v1) || (defined RF215v3)
+				for (trx_id_t i = (trx_id_t)0;
+						i < (trx_id_t)NUM_TRX; i++) {
+					TAL_RF_IRQ_CLR(i, RF_IRQ_WAKEUP);
+					trx_state[i] = RF_TRXOFF;
 				}
-			} else {
+#endif
 				break;
 			}
-		}
 
-		pal_get_current_time(&current_time);
-		/* @ToDo: Use no magic number for "1000" */
-		if (pal_sub_time_us(current_time, start_time) > 1000) {
-			tal_state[trx_id] = TAL_SLEEP;
-			if (tal_state[other_trx_id] == TAL_WAKING_UP) {
-				tal_state[other_trx_id] = TAL_SLEEP;
+			pal_get_current_time(&current_time);
+			/* @ToDo: Use no magic number for "1000" */
+			if (pal_sub_time_us(current_time, start_time) > 1000) {
+				return FAILURE;
 			}
-
-			return FAILURE;
 		}
 	}
 
-	/*
-	 * If the other transceiver block was in SLEEP mode, enable SLEEP for
-	 *that
-	 * block again.
-	 */
-	if (tal_state[other_trx_id] == TAL_WAKING_UP) {
-		uint16_t other_reg_offset = RF_BASE_ADDR_OFFSET * other_trx_id;
-		trx_reg_write(other_reg_offset + RG_RF09_CMD, RF_SLEEP);
-#ifdef IQ_RADIO
-		pal_dev_reg_write(RF215_RF, other_reg_offset + RG_RF09_CMD,
-				RF_SLEEP);
-#endif
-		tal_state[other_trx_id] = TAL_SLEEP;
-		TAL_RF_IRQ_CLR_ALL(other_trx_id);
-		TAL_RF_IRQ_CLR_ALL(other_trx_id);
-	}
-
-	trx_config(trx_id); /* see tal_init.c */
-	write_all_tal_pib_to_trx(trx_id); /* see 'tal_pib.c' */
-	config_phy(trx_id);
+	tal_state[trx_id] = TAL_IDLE;
 
 	/*
 	 * Allocate a new buffer
@@ -225,8 +205,16 @@ retval_t tal_trx_wakeup(trx_id_t trx_id)
 	 */
 	tal_rx_buffer[trx_id] = bmm_buffer_alloc(LARGE_BUFFER_SIZE);
 
-	tal_state[trx_id] = TAL_IDLE;
+	/* Fill trx_id in new buffer */
+	if (tal_rx_buffer[trx_id] != NULL) {
+		frame_info_t *frm_info = (frame_info_t *)BMM_BUFFER_POINTER(
+				tal_rx_buffer[trx_id]);
+		frm_info->trx_id = trx_id;
+	}
 
+	trx_config(trx_id); /* see tal_init.c */
+	write_all_tal_pib_to_trx(trx_id); /* see 'tal_pib.c' */
+	config_phy(trx_id);
 	return MAC_SUCCESS;
 }
 

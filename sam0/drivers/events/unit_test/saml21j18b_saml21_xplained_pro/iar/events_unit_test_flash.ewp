@@ -166,14 +166,14 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>TC_ASYNC=false</state>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>_ASSERT_ENABLE_</state>
 					<state>RTC_COUNT_ASYNC=false</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
-					<state>_ASSERT_ENABLE_</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
 				</option>
 				<option>
@@ -484,14 +484,14 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>TC_ASYNC=false</state>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>_ASSERT_ENABLE_</state>
 					<state>RTC_COUNT_ASYNC=false</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
-					<state>_ASSERT_ENABLE_</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
 				</option>
 				<option>
@@ -1161,14 +1161,14 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>TC_ASYNC=false</state>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>_ASSERT_ENABLE_</state>
 					<state>RTC_COUNT_ASYNC=false</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
-					<state>_ASSERT_ENABLE_</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
 				</option>
 				<option>
@@ -1479,14 +1479,14 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=false</state>
 					<state>TC_ASYNC=false</state>
-					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>_ASSERT_ENABLE_</state>
 					<state>RTC_COUNT_ASYNC=false</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>TEST_SUITE_DEFINE_ASSERT_MACRO</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
-					<state>_ASSERT_ENABLE_</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
 				</option>
 				<option>
@@ -1995,139 +1995,7 @@
 		<group>
 			<name>drivers</name>
 			<group>
-				<name>system</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../system/system.c</name>
-				</file>
-				<group>
-					<name>clock</name>
-					<group>
-						<name>clock_saml21</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../system/clock/clock_saml21/gclk.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../system/clock/clock_saml21/clock.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../system/clock/clock_saml21/clock_feature.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../system/clock/clock_saml21/clock_config_check.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../system/clock/gclk.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../system/clock/clock.h</name>
-					</file>
-				</group>
-				<group>
-					<name>pinmux</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.c</name>
-					</file>
-					<group>
-						<name>quick_start</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../system/pinmux/quick_start/qs_pinmux_basic.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.h</name>
-					</file>
-				</group>
-				<group>
-					<name>interrupt</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt.c</name>
-					</file>
-					<group>
-						<name>system_interrupt_saml21</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_saml21/system_interrupt_features.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt.h</name>
-					</file>
-				</group>
-				<group>
-					<name>reset</name>
-					<group>
-						<name>reset_sam_l</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../system/reset/reset_sam_l/reset.h</name>
-						</file>
-					</group>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../system/system.h</name>
-				</file>
-				<group>
-					<name>power</name>
-					<group>
-						<name>power_sam_l</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../system/power/power_sam_l/power.h</name>
-						</file>
-					</group>
-				</group>
-			</group>
-			<group>
-				<name>events</name>
-				<file>
-					<name>$PROJ_DIR$/../../../events_hooks.c</name>
-				</file>
-				<group>
-					<name>unit_test</name>
-					<file>
-						<name>$PROJ_DIR$/../../unit_test.c</name>
-					</file>
-					<group>
-						<name>saml21j18b_saml21_xplained_pro</name>
-						<file>
-							<name>$PROJ_DIR$/../conf_rtc.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../conf_board.h</name>
-						</file>
-						<group>
-							<name>iar</name>
-							<file>
-								<name>$PROJ_DIR$/asf.h</name>
-							</file>
-						</group>
-						<file>
-							<name>$PROJ_DIR$/../conf_test.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../conf_clocks.h</name>
-						</file>
-					</group>
-				</group>
-				<group>
-					<name>events_sam_l_c</name>
-					<file>
-						<name>$PROJ_DIR$/../../../events_sam_l_c/events.c</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../events_hooks.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../events.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../events_common.h</name>
-				</file>
-			</group>
-			<group>
 				<name>sercom</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../sercom/sercom.c</name>
-				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../sercom/sercom_interrupt.c</name>
 				</file>
@@ -2171,6 +2039,9 @@
 					</group>
 				</group>
 				<file>
+					<name>$PROJ_DIR$/../../../../sercom/sercom.c</name>
+				</file>
+				<file>
 					<name>$PROJ_DIR$/../../../../sercom/sercom_pinout.h</name>
 				</file>
 				<file>
@@ -2179,21 +2050,6 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../sercom/sercom_interrupt.h</name>
 				</file>
-			</group>
-			<group>
-				<name>port</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../port/port.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../port/port.h</name>
-				</file>
-				<group>
-					<name>quick_start</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../port/quick_start/qs_port_basic.h</name>
-					</file>
-				</group>
 			</group>
 			<group>
 				<name>rtc</name>
@@ -2211,6 +2067,129 @@
 				</file>
 			</group>
 			<group>
+				<name>system</name>
+				<group>
+					<name>pinmux</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.c</name>
+					</file>
+					<group>
+						<name>quick_start</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/pinmux/quick_start/qs_pinmux_basic.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../system/system.c</name>
+				</file>
+				<group>
+					<name>clock</name>
+					<group>
+						<name>clock_saml21</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/clock/clock_saml21/gclk.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/clock/clock_saml21/clock.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/clock/clock_saml21/clock_feature.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/clock/clock_saml21/clock_config_check.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../system/clock/gclk.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../system/clock/clock.h</name>
+					</file>
+				</group>
+				<group>
+					<name>interrupt</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt.c</name>
+					</file>
+					<group>
+						<name>system_interrupt_saml21</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_saml21/system_interrupt_features.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../system/interrupt/system_interrupt.h</name>
+					</file>
+				</group>
+				<group>
+					<name>reset</name>
+					<group>
+						<name>reset_sam_l</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/reset/reset_sam_l/reset.h</name>
+						</file>
+					</group>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../system/system.h</name>
+				</file>
+				<group>
+					<name>power</name>
+					<group>
+						<name>power_sam_l</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/power/power_sam_l/power.h</name>
+						</file>
+					</group>
+				</group>
+			</group>
+			<group>
+				<name>events</name>
+				<group>
+					<name>events_sam_l_c</name>
+					<file>
+						<name>$PROJ_DIR$/../../../events_sam_l_c/events.c</name>
+					</file>
+				</group>
+				<group>
+					<name>unit_test</name>
+					<file>
+						<name>$PROJ_DIR$/../../unit_test.c</name>
+					</file>
+					<group>
+						<name>saml21j18b_saml21_xplained_pro</name>
+						<file>
+							<name>$PROJ_DIR$/../conf_rtc.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../conf_board.h</name>
+						</file>
+						<group>
+							<name>iar</name>
+							<file>
+								<name>$PROJ_DIR$/asf.h</name>
+							</file>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../conf_test.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../conf_clocks.h</name>
+						</file>
+					</group>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../events.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../events_common.h</name>
+				</file>
+			</group>
+			<group>
 				<name>tc</name>
 				<group>
 					<name>tc_sam_l_c</name>
@@ -2221,6 +2200,21 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../tc/tc.h</name>
 				</file>
+			</group>
+			<group>
+				<name>port</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../port/port.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../port/port.h</name>
+				</file>
+				<group>
+					<name>quick_start</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../port/quick_start/qs_port_basic.h</name>
+					</file>
+				</group>
 			</group>
 		</group>
 		<group>
@@ -2243,15 +2237,15 @@
 					<name>saml21</name>
 					<group>
 						<name>source</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../../utils/cmsis/saml21/source/system_saml21.c</name>
-						</file>
 						<group>
 							<name>iar</name>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/saml21/source/iar/startup_saml21.c</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/saml21/source/system_saml21.c</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/saml21/source/system_saml21.h</name>
 						</file>
@@ -2592,21 +2586,21 @@
 		<group>
 			<name>utils</name>
 			<group>
-				<name>interrupt</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../common/utils/interrupt/interrupt_sam_nvic.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../../../common/utils/interrupt/interrupt_sam_nvic.h</name>
-				</file>
-			</group>
-			<group>
 				<name>unit_test</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../common/utils/unit_test/suite.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../common/utils/unit_test/suite.h</name>
+				</file>
+			</group>
+			<group>
+				<name>interrupt</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../common/utils/interrupt/interrupt_sam_nvic.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../common/utils/interrupt/interrupt_sam_nvic.h</name>
 				</file>
 			</group>
 			<file>

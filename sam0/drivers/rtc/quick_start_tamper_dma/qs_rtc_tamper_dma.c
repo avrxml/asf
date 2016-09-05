@@ -128,7 +128,7 @@ void configure_dma_resource(struct dma_resource *resource)
 
 //! [setup_dma_set_config_extra]
 	config.peripheral_trigger = RTC_DMAC_ID_TIMESTAMP;
-	config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
+	config.trigger_action = DMA_TRIGGER_ACTION_BEAT;
 //! [setup_dma_set_config_extra]
 
 //! [allocate_dma_resource]

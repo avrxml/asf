@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM I2C Slave Quick Start Guide with Callbacks
  *
- * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -122,6 +122,10 @@ void configure_i2c_slave(void)
 	//! [conf_changes]
 	config_i2c_slave.address      = SLAVE_ADDRESS;
 	config_i2c_slave.address_mode = I2C_SLAVE_ADDRESS_MODE_MASK;
+#if SAMR30	
+	config_i2c_slave.pinmux_pad0    = CONF_SLAVE_SDA_PINMUX;
+	config_i2c_slave.pinmux_pad1    = CONF_SLAVE_SCK_PINMUX;
+#endif
 	//! [conf_changes]
 	/* Initialize and enable device with config */
 	//! [init_module]

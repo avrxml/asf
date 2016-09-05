@@ -3,7 +3,7 @@
  *
  * \brief SAM Temperature Sensor (TSENS) Driver
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,10 +50,11 @@
 /**
  * \defgroup asfdoc_sam0_tsens_group SAM Temperature Sensor (TSENS) Driver
  *
- * This driver for Atmel&reg; | SMART SAM devices provides an interface for the configuration
- * and management of the device's Configurable Custom Logic functionality.
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides
+ * an interface for the configuration and management of the device's
+ * Configurable Custom Logic functionality.
  *
- * The following peripherals are used by this module:
+ * The following peripheral is used by this module:
  *  - TSENS (Temperature Sensor)
  *
  * The following devices can use this module:
@@ -80,19 +81,19 @@
  * temperature of the device by comparing the difference in two temperature
  * dependent frequencies to a known frequency. The frequency of the
  * temperature dependent oscillator (TOSC) is measured twice: first with the
- * min configuration and next with the max configuration. The resulting signed
+ * min configuration and next with the maximum configuration. The resulting signed
  * value is proportional to the temperature and is corrected for offset by the
  * contents of the OFFSET register.
  *
  * Accurately measures a temperature:
- *  - +/-1°C over 0°C ~ 60°C
- *  - +/-3°C over -40°C ~ 85°C
- *  - +/-5°C over -40°C ~ 105°C
+ *  - ±1°C over 0°C ~ 60°C
+ *  - ±3°C over -40°C ~ 85°C
+ *  - ±5°C over -40°C ~ 105°C
  *
  * The number of periods of GCLK_TSENS used for the measurement is defined by
  * the GAIN register. The width of the resulting pulse is measured using a
- * counter clocked by GCLK_TSENS in the up direction for the 1st phase and in
- * the down 2nd phase. Register GAIN and OFFSET is loaded from NVM, or can also
+ * counter clocked by GCLK_TSENS in the up direction for the 1<SUP>st</SUP> phase and in
+ * the down 2<SUP>nd</SUP> phase. Register GAIN and OFFSET is loaded from NVM, or can also
  * be fixed by user.
  * \f[
  *    VALUE = OFFSET + (\frac{f_{TOSCMIN} - f_{TOSCMAX}}{f_{GCLK}}) \times GAIN
@@ -151,7 +152,7 @@
  *
  * \section asfdoc_sam0_tsens_extra_info Extra Information
  *
- * For extra information see \ref asfdoc_sam0_tsens_extra. This includes:
+ * For extra information, see \ref asfdoc_sam0_tsens_extra. This includes:
  *  - \ref asfdoc_sam0_tsens_extra_acronyms
  *  - \ref asfdoc_sam0_tsens_extra_dependencies
  *  - \ref asfdoc_sam0_tsens_extra_errata
@@ -397,7 +398,7 @@ static inline void tsens_clear_status(const uint32_t status_flags)
  */
 
 /**
- * \brief Determines if the hardware module(s) are currently synchronizing to the bus.
+ * \brief Determines if the hardware module is currently synchronizing to the bus.
  *
  * Checks to see if the underlying hardware peripheral module(s) are currently
  * synchronizing across multiple clock domains to the hardware bus. This
@@ -442,6 +443,8 @@ static inline void tsens_enable(void)
  */
 static inline void tsens_disable(void)
 {
+	TSENS->INTENCLR.reg = TSENS_INTENCLR_MASK;
+	TSENS->INTFLAG.reg = TSENS_INTFLAG_MASK;
 	TSENS->CTRLA.reg &= ~TSENS_CTRLA_ENABLE;
 
 	while (tsens_is_syncing()) {
@@ -474,7 +477,7 @@ static inline void tsens_reset(void)
  * \brief Enables an TSENS event output.
  *
  *  Enables one or more input or output events to or from the TSENS module. See
- *  \ref tsens_events "here" for a list of events this module supports.
+ *  \ref tsens_events "tsens_events" for a list of events this module supports.
  *
  *  \note Events cannot be altered while the module is enabled.
  *
@@ -499,7 +502,7 @@ static inline void tsens_enable_events(struct tsens_events *const events)
  * \brief Disables an TSENS event output.
  *
  *  Disables one or more output events to or from the TSENS module. See
- *  \ref tsens_events "here" for a list of events this module supports.
+ *  \ref tsens_events "tsens_events" for a list of events this module supports.
  *
  *  \note Events cannot be altered while the module is enabled.
  *
@@ -521,7 +524,7 @@ static inline void tsens_disable_events(struct tsens_events *const events)
 }
 
 /**
- * \brief Start an TSENS conversion.
+ * \brief Start a TSENS conversion.
  *
  * Start a new TSENS conversion.
  *
@@ -543,9 +546,9 @@ enum status_code tsens_read(int32_t *result);
 /**
  * \page asfdoc_sam0_tsens_extra Extra Information for TSENS Driver
  *
- * \section asfdoc_sam0_tsens_extra_acronyms Acronyms
- * Below is a table listing the acronyms used in this module, along with their
- * intended meanings.
+ * \section asfdoc_sam0_tsens_extra_acronyms Acronym
+ * Below is a table listing the acronym used in this module, along with their
+ * intended meaning.
  *
  * <table>
  *	<tr>
@@ -564,7 +567,7 @@ enum status_code tsens_read(int32_t *result);
  *
  *
  * \section asfdoc_sam0_tsens_extra_errata Errata
- * Errata reference: 14476:
+ * Errata reference: 14476.
  *
  * The magnitude of the temperature measurement value decreases with increasing
  * temperature, i.e. it has a negative temperature coefficient.
@@ -592,7 +595,7 @@ enum status_code tsens_read(int32_t *result);
  * This is a list of the available Quick Start guides (QSGs) and example
  * applications for \ref asfdoc_sam0_tsens_group. QSGs are simple examples with
  * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that QSGs can be compiled as a standalone application or be
+ * use cases. Note that a QSG can be compiled as a standalone application or be
  * added to the user application.
  *
  *  - \subpage asfdoc_sam0_tsens_basic_use_case
@@ -602,14 +605,14 @@ enum status_code tsens_read(int32_t *result);
  *
  * <table>
  *	<tr>
- *		<th>Doc. Rev.</td>
- *		<th>Date</td>
- *		<th>Comments</td>
+ *		<th>Doc. Rev.</th>
+ *		<th>Date</th>
+ *		<th>Comments</th>
  *	</tr>
  *	<tr>
- *		<td>A</td>
- *		<td>06/2015</td>
- *		<td>Initial release</td>
+ *		<td>42542A</td>
+ *		<td>12/2015</td>
+ *		<td>Initial document release</td>
  *	</tr>
  * </table>
  */

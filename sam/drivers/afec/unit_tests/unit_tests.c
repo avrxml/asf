@@ -75,7 +75,7 @@
  * - \ref conf_sleepmgr.h
  *
  * \section device_info Device Info
- * The SAM4E ,SAMV71-Xplained-Ultra devices can be used.
+ * The SAM4E ,SAMV71-Xplained-Ultra ,SAME70-Xplained-Pro devices can be used.
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers

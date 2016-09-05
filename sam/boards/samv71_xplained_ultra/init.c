@@ -3,7 +3,7 @@
  *
  * \brief SAMV71-XULTRA board init.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -93,7 +93,7 @@
 	} while (0)
 
 
-
+#ifdef CONF_BOARD_CONFIG_MPU_AT_INIT
 /**
  *	Default memory map
  *	Address range        Memory region      Memory type   Shareability  Cache policy
@@ -107,7 +107,6 @@
  *	0xE0000000- 0xFFFFFFFF System           -                  -
  */
 
-#ifdef CONF_BOARD_CONFIG_MPU_AT_INIT
 /**
  * \brief Set up a memory region.
  */
@@ -336,11 +335,83 @@ static void _setup_memory_region( void )
 }
 #endif
 
+#ifdef CONF_BOARD_ENABLE_TCM_AT_INIT
+#if defined(__GNUC__)
+extern char _itcm_lma, _sitcm, _eitcm;
+#endif
+
+/** \brief  TCM memory enable
+* The function enables TCM memories
+*/
+static inline void tcm_enable(void)
+{
+
+	__DSB();
+	__ISB();
+	
+	SCB->ITCMCR = (SCB_ITCMCR_EN_Msk  | SCB_ITCMCR_RMW_Msk | SCB_ITCMCR_RETEN_Msk);
+	SCB->DTCMCR = ( SCB_DTCMCR_EN_Msk | SCB_DTCMCR_RMW_Msk | SCB_DTCMCR_RETEN_Msk);
+	
+	__DSB();
+	__ISB();
+}
+#else
+/** \brief  TCM memory Disable
+
+	The function enables TCM memories
+ */
+static inline void tcm_disable(void) 
+{
+
+	__DSB();
+	__ISB();
+	SCB->ITCMCR &= ~(uint32_t)(1UL);
+	SCB->DTCMCR &= ~(uint32_t)SCB_DTCMCR_EN_Msk;
+	__DSB();
+	__ISB();
+}
+#endif
+
 void board_init(void)
 {
 #ifndef CONF_BOARD_KEEP_WATCHDOG_AT_INIT
 	/* Disable the watchdog */
 	WDT->WDT_MR = WDT_MR_WDDIS;
+#endif
+
+#ifdef CONF_BOARD_CONFIG_MPU_AT_INIT
+	_setup_memory_region();
+#endif
+
+#ifdef CONF_BOARD_ENABLE_CACHE_AT_INIT
+	/* Enabling the Cache */
+	SCB_EnableICache(); 
+	SCB_EnableDCache();
+#endif
+
+#ifdef CONF_BOARD_ENABLE_TCM_AT_INIT
+	/* TCM Configuration */
+	EFC->EEFC_FCR = (EEFC_FCR_FKEY_PASSWD | EEFC_FCR_FCMD_CGPB 
+					| EEFC_FCR_FARG(8));
+	EFC->EEFC_FCR = (EEFC_FCR_FKEY_PASSWD | EEFC_FCR_FCMD_SGPB
+					| EEFC_FCR_FARG(7));
+	tcm_enable();
+#if defined(__GNUC__)
+	volatile char *dst = &_sitcm;
+	volatile char *src = &_itcm_lma;
+	/* copy code_TCM from flash to ITCM */
+	while(dst < &_eitcm){
+		*dst++ = *src++;
+	}
+#endif
+#else
+	/* TCM Configuration */
+	EFC->EEFC_FCR = (EEFC_FCR_FKEY_PASSWD | EEFC_FCR_FCMD_CGPB 
+					| EEFC_FCR_FARG(8));
+	EFC->EEFC_FCR = (EEFC_FCR_FKEY_PASSWD | EEFC_FCR_FCMD_CGPB 
+					| EEFC_FCR_FARG(7));
+	
+	tcm_disable();
 #endif
 
 	/* Initialize IOPORTs */
@@ -448,7 +519,10 @@ void board_init(void)
 	ioport_set_pin_peripheral_mode(PIN_HSMCI_MCDA1_GPIO, PIN_HSMCI_MCDA1_FLAGS);
 	ioport_set_pin_peripheral_mode(PIN_HSMCI_MCDA2_GPIO, PIN_HSMCI_MCDA2_FLAGS);
 	ioport_set_pin_peripheral_mode(PIN_HSMCI_MCDA3_GPIO, PIN_HSMCI_MCDA3_FLAGS);
-	ioport_set_pin_peripheral_mode(SD_MMC_0_CD_GPIO, SD_MMC_0_CD_FLAGS);
+
+    /* Configure SD/MMC card detect pin */
+	ioport_set_pin_dir(SD_MMC_0_CD_GPIO, IOPORT_DIR_INPUT);
+	ioport_set_pin_mode(SD_MMC_0_CD_GPIO, SD_MMC_0_CD_FLAGS);
 #endif
 
 #ifdef CONF_BOARD_ILI9488
@@ -515,7 +589,24 @@ void board_init(void)
 	MATRIX->CCFG_SMCNFCS = CCFG_SMCNFCS_SDRAMEN;
 #endif
 
-#ifdef CONF_BOARD_CONFIG_MPU_AT_INIT
-	_setup_memory_region();
+#ifdef CONF_BOARD_ISI
+	pio_configure_pin(ISI_D0_PIO, ISI_D0_FLAGS);
+	pio_configure_pin(ISI_D1_PIO, ISI_D1_FLAGS);
+	pio_configure_pin(ISI_D2_PIO, ISI_D2_FLAGS);
+	pio_configure_pin(ISI_D3_PIO, ISI_D3_FLAGS);
+	pio_configure_pin(ISI_D4_PIO, ISI_D4_FLAGS);
+	pio_configure_pin(ISI_D5_PIO, ISI_D5_FLAGS);
+	pio_configure_pin(ISI_D6_PIO, ISI_D6_FLAGS);
+	pio_configure_pin(ISI_D7_PIO, ISI_D7_FLAGS);
+	pio_configure_pin(ISI_D8_PIO, ISI_D8_FLAGS);
+	pio_configure_pin(ISI_D9_PIO, ISI_D9_FLAGS);
+	pio_configure_pin(ISI_D10_PIO, ISI_D10_FLAGS);
+	pio_configure_pin(ISI_D11_PIO, ISI_D11_FLAGS);
+	pio_configure_pin(ISI_HSYNC_PIO, ISI_HSYNC_FLAGS);
+	pio_configure_pin(ISI_VSYNC_PIO, ISI_VSYNC_FLAGS);
+	pio_configure_pin(ISI_PCK_PIO, ISI_PCK_FLAGS);
+	pio_configure_pin(ISI_PCK0_PIO, ISI_PCK0_FLAGS);
+	pio_configure_pin(OV_PWD_GPIO, OV_PWD_FLAGS);
+	pio_configure_pin(OV_RST_GPIO, OV_RST_FLAGS);
 #endif
 }

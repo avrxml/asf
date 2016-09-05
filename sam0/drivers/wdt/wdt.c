@@ -3,7 +3,7 @@
  *
  * \brief SAM Watchdog Driver
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -60,7 +60,7 @@
  * \retval STATUS_ERR_INVALID_ARG   If invalid argument(s) were supplied
  * \retval STATUS_ERR_IO  If the Watchdog module is locked to be always on
  */
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21)
+#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21) || (SAMR30)
 enum status_code wdt_set_config(
 		const struct wdt_conf *const config)
 {

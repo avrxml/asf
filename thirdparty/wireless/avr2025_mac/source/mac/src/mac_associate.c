@@ -424,7 +424,7 @@ void mlme_associate_response(uint8_t *m)
 					LARGE_BUFFER_SIZE -
 					ASSOC_RESP_PAYLOAD_LEN - 2; /* Add 2
 	                                                             * octets
-	                                                             *for
+	                                                             * for
 	                                                             * FCS. */
 
 	/* Update the payload field. */

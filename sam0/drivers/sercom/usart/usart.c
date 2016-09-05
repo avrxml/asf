@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM USART Driver
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -335,8 +335,10 @@ enum status_code usart_init(
 
 	uint32_t sercom_index = _sercom_get_sercom_inst_index(module->hw);
 	uint32_t pm_index, gclk_index; 
-#if (SAML21) || (SAML22) || (SAMC20) || (SAMC21)
-#if (SAML21)
+#if (SAML22) || (SAMC20) 
+	pm_index	= sercom_index + MCLK_APBCMASK_SERCOM0_Pos;
+	gclk_index	= sercom_index + SERCOM0_GCLK_ID_CORE;
+#elif (SAML21) || (SAMR30)
 	if (sercom_index == 5) {
 		pm_index     = MCLK_APBDMASK_SERCOM5_Pos;
 		gclk_index   = SERCOM5_GCLK_ID_CORE;
@@ -344,10 +346,14 @@ enum status_code usart_init(
 		pm_index     = sercom_index + MCLK_APBCMASK_SERCOM0_Pos;
 		gclk_index   = sercom_index + SERCOM0_GCLK_ID_CORE;
 	}
-#else
-	pm_index     = sercom_index + MCLK_APBCMASK_SERCOM0_Pos;
-	gclk_index   = sercom_index + SERCOM0_GCLK_ID_CORE;
-#endif
+#elif (SAMC21)
+	pm_index	= sercom_index + MCLK_APBCMASK_SERCOM0_Pos;
+	
+	if (sercom_index == 5){
+		gclk_index	= SERCOM5_GCLK_ID_CORE;
+    } else {
+    	gclk_index	= sercom_index + SERCOM0_GCLK_ID_CORE;
+    }
 #else
 	pm_index     = sercom_index + PM_APBCMASK_SERCOM0_Pos;
 	gclk_index   = sercom_index + SERCOM0_GCLK_ID_CORE;
@@ -364,7 +370,7 @@ enum status_code usart_init(
 	}
 
 	/* Turn on module in PM */
-#if (SAML21)
+#if (SAML21) || (SAMR30)
 	if (sercom_index == 5) {
 		system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBD, 1 << pm_index);
 	} else {
@@ -597,7 +603,7 @@ enum status_code usart_read_wait(
 		else if (error_code & SERCOM_USART_STATUS_ISF) {
 			/* Clear flag by writing 1 to it  and
 			 *  return with an error code */
-			usart_hw->STATUS.reg |= SERCOM_USART_STATUS_ISF;
+			usart_hw->STATUS.reg = SERCOM_USART_STATUS_ISF;
 
 			return STATUS_ERR_PROTOCOL;
 		}
@@ -606,7 +612,7 @@ enum status_code usart_read_wait(
 		else if (error_code & SERCOM_USART_STATUS_COLL) {
 			/* Clear flag by writing 1 to it
 			 *  return with an error code */
-			usart_hw->STATUS.reg |= SERCOM_USART_STATUS_COLL;
+			usart_hw->STATUS.reg = SERCOM_USART_STATUS_COLL;
 
 			return STATUS_ERR_PACKET_COLLISION;
 		}

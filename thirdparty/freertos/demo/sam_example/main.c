@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Real Time Kernel example.
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -101,9 +101,10 @@ extern void vApplicationStackOverflowHook(xTaskHandle *pxTask,
 		signed char *pcTaskName);
 extern void vApplicationIdleHook(void);
 extern void vApplicationTickHook(void);
-
+extern void vApplicationMallocFailedHook(void);
 extern void xPortSysTickHandler(void);
 
+#if !(defined(SAMV71) || defined(SAME70))
 /**
  * \brief Handler for Sytem Tick interrupt.
  */
@@ -111,6 +112,7 @@ void SysTick_Handler(void)
 {
 	xPortSysTickHandler();
 }
+#endif
 
 /**
  * \brief Called if stack overflow during execution
@@ -138,6 +140,18 @@ extern void vApplicationIdleHook(void)
  */
 extern void vApplicationTickHook(void)
 {
+}
+
+extern void vApplicationMallocFailedHook(void)
+{
+	/* Called if a call to pvPortMalloc() fails because there is insufficient
+	free memory available in the FreeRTOS heap.  pvPortMalloc() is called
+	internally by FreeRTOS API functions that create tasks, queues, software
+	timers, and semaphores.  The size of the FreeRTOS heap is set by the
+	configTOTAL_HEAP_SIZE configuration constant in FreeRTOSConfig.h. */
+
+	/* Force an assert. */
+	configASSERT( ( volatile void * ) NULL );
 }
 
 /**
@@ -209,7 +223,7 @@ static void configure_console(void)
  */
 int main(void)
 {
-	/* Initilize the SAM system */
+	/* Initialize the SAM system */
 	sysclk_init();
 	board_init();
 

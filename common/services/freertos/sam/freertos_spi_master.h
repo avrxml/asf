@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS Peripheral Control API For the SPI
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -55,6 +55,14 @@
 /* ASF includes. */
 #include "spi_master.h"
 #include "freertos_peripheral_control.h"
+
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+extern "C" {
+#endif
+/**INDENT-ON**/
+/// @endcond
 
 #if XMEGA
 # error Unsupported chip type
@@ -131,7 +139,7 @@ status_code_t freertos_spi_full_duplex_packet_async(freertos_spi_if p_spi,
  *     call to freertos_spi_master_init().  The
  *     freertos_driver_parameters.options_flags parameter passed to the
  *     initialization function defines the driver behavior.  If
- *     freertos_driver_parameters.options_flags had the USE_TX_ACCESS_MUTEX bit
+ *     freertos_driver_parameters.options_flags had the USE_TX_ACCESS_SEM bit
  *     set, then the driver will only write to the SPI peripheral if it has
  *     first gained exclusive access to it.  block_time_ticks specifies the
  *     maximum amount of time the driver will wait to get exclusive access before
@@ -308,7 +316,7 @@ status_code_t freertos_spi_full_duplex_packet_async(freertos_spi_if p_spi,
 	     // function until the transmit is complete, and wait in the receive
 	     // function until reception is complete.  Note that other FreeRTOS tasks
 	     // will execute during the wait period.
-	     (USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE | WAIT_RX_COMPLETE)
+	     (USE_TX_ACCESS_SEM | USE_RX_ACCESS_MUTEX | WAIT_TX_COMPLETE | WAIT_RX_COMPLETE)
 	  };
 
 	  /////////////////////////////////////////////////////////////////////////////
@@ -377,7 +385,7 @@ status_code_t freertos_spi_full_duplex_packet_async(freertos_spi_if p_spi,
 
 	     // Flags set to allow access from multiple tasks.  Note the
 	     // WAIT_TX_COMPLETE and WAIT_RX_COMPLETE bits are *not* set.
-	     (USE_TX_ACCESS_MUTEX | USE_RX_ACCESS_MUTEX)
+	     (USE_TX_ACCESS_SEM | USE_RX_ACCESS_MUTEX)
 	  };
 
 	 /////////////////////////////////////////////////////////////////////////////
@@ -653,5 +661,13 @@ status_code_t freertos_spi_full_duplex_packet_async(freertos_spi_if p_spi,
 	  }
 \endcode
  */
+
+/// @cond 0
+/**INDENT-OFF**/
+#ifdef __cplusplus
+}
+#endif
+/**INDENT-ON**/
+/// @endcond
 
  #endif /* FREERTOS_SPI_MASTER_INCLUDED */

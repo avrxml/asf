@@ -485,7 +485,7 @@ int main(void)
 {
 	uint8_t uc_key;
 
-	/* Initilize the SAM system */
+	/* Initialize the SAM system */
 	sysclk_init();
 	board_init();
 

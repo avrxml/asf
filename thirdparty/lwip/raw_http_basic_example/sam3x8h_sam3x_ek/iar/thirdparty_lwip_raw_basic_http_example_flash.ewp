@@ -295,12 +295,13 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
-					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards/sam3x_ek</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../network</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam3x/source/templates</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include</state>
@@ -319,7 +320,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/ethernet_phy/dm9161a</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
@@ -574,12 +575,13 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
-					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards/sam3x_ek</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../network</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam3x/source/templates</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include</state>
@@ -598,7 +600,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/ethernet_phy/dm9161a</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
@@ -1246,12 +1248,13 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
-					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards/sam3x_ek</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../network</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam3x/source/templates</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include</state>
@@ -1270,7 +1273,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/ethernet_phy/dm9161a</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>
@@ -1525,12 +1528,13 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../network/httpserver</state>
-					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/ipv4</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include/lwip</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/pmc</state>
 					<state>$PROJ_DIR$/../../../../../sam/boards/sam3x_ek</state>
+					<state>$PROJ_DIR$/../../../../../sam/utils/header_files</state>
 					<state>$PROJ_DIR$/../../network</state>
 					<state>$PROJ_DIR$/../../../../../sam/utils/cmsis/sam3x/source/templates</state>
 					<state>$PROJ_DIR$/../../../lwip-1.4.1/src/include</state>
@@ -1549,7 +1553,7 @@
 					<state>$PROJ_DIR$/../../../../../sam/utils</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../../sam/drivers/usart</state>
-					<state>$PROJ_DIR$/../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../../../sam/drivers/rstc/example1</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../sam/components/ethernet_phy/dm9161a</state>
 					<state>$PROJ_DIR$/../../../../../common/services/ioport</state>

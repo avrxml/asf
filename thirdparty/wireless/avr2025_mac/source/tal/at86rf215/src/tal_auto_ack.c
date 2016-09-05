@@ -72,7 +72,7 @@
 
 /* === PROTOTYPES ========================================================== */
 
-static void ack_timout_cb(void *parameter);
+static void ack_timout_cb(void *cb_timer_element);
 
 /* === IMPLEMENTATION ====================================================== */
 
@@ -88,17 +88,42 @@ static void ack_timout_cb(void *parameter);
  */
 void ack_transmission_done(trx_id_t trx_id)
 {
+	ack_transmitting[trx_id] = false;
+
+#ifdef SUPPORT_FSK
+	if (tal_pib[trx_id].RPCEnabled && tal_pib[trx_id].phy.modulation ==
+			FSK) {
+		/* Configure preamble length for reception */
+		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
+		trx_reg_write( reg_offset + RG_BBC0_FSKPLL,
+				(uint8_t)(tal_pib[trx_id].FSKPreambleLengthMin &
+				0xFF));
+		trx_bit_write( reg_offset + SR_BBC0_FSKC1_FSKPLH,
+				(uint8_t)(tal_pib[trx_id].FSKPreambleLengthMin
+				>> 8));
+	}
+
+#endif
+
 #ifdef MEASURE_ON_AIR_DURATION
 	tal_pib[trx_id].OnAirDuration += tal_pib[trx_id].ACKDuration_us;
 #endif
 
-#ifdef RX_WHILE_BACKOFF
-	if (tx_state[trx_id] == TX_DEFER) {
-		csma_start(trx_id);
-	} else
-#endif
-	{
-		complete_rx_transaction(trx_id);
+	complete_rx_transaction(trx_id);
+
+	switch (tx_state[trx_id]) {
+	case TX_IDLE:
+		switch_to_rx(trx_id);
+		break;
+
+	case TX_DEFER:
+		/* Continue with deferred transmission */
+		continue_deferred_transmission(trx_id);
+		break;
+
+	default:
+		Assert("Unexpected tx_state" == 0);
+		break;
 	}
 }
 
@@ -162,7 +187,6 @@ bool is_ack_valid(trx_id_t trx_id)
 void start_ack_wait_timer(trx_id_t trx_id)
 {
 	tx_state[trx_id] = TX_WAITING_FOR_ACK;
-
 	uint8_t timer_id;
 	if (trx_id == RF09) {
 		timer_id = TAL_T_0;
@@ -171,15 +195,25 @@ void start_ack_wait_timer(trx_id_t trx_id)
 	}
 
 	retval_t status
-		= pal_timer_start(timer_id, tal_pib[trx_id].ACKWaitDuration,
+		= pal_timer_start(timer_id,
+			tal_pib[trx_id].ACKWaitDuration,
 			TIMEOUT_RELATIVE,
 			(FUNC_PTR)ack_timout_cb,
-			(void *)&timer_cb_parameter[trx_id]);
+			(void *)trx_id);
+	Assert(status == MAC_SUCCESS);
+
 	if (status != MAC_SUCCESS) {
 		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
-		trx_reg_write(reg_offset + RG_RF09_CMD, RF_TRXOFF);
+		trx_reg_write( reg_offset + RG_RF09_CMD, RF_TRXOFF);
 		trx_state[trx_id] = RF_TRXOFF;
 		tx_done_handling(trx_id, status);
+	} else {
+		/* Configure frame filter to receive only ACK frames */
+		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
+		trx_reg_write( reg_offset + RG_BBC0_AFFTM, ACK_FRAME_TYPE_ONLY);
+		/* Sync with Trx state; due to Tx2Rx the transceiver is
+		 *alreadyswitches automatically to Rx */
+		trx_state[trx_id] = RF_RX;
 	}
 }
 
@@ -190,20 +224,22 @@ void start_ack_wait_timer(trx_id_t trx_id)
  *
  * @param parameter Pointer to trx_id
  */
-void ack_timout_cb(void *parameter)
+void ack_timout_cb(void *cb_timer_element)
 {
-	trx_id_t trx_id = *(trx_id_t *)parameter;
+	/* Immediately store trx id from callback. */
+	trx_id_t trx_id = (trx_id_t)cb_timer_element;
+	Assert((trx_id >= 0) && (trx_id < NUM_TRX));
+
+	switch_to_txprep(trx_id);
 
 	/* Configure frame filter to receive all allowed frame types */
 	/* Re-store frame filter to pass "normal" frames */
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 #ifdef SUPPORT_FRAME_FILTER_CONFIGURATION
-	trx_reg_write(reg_offset + RG_BBC0_AFFTM, tal_pib[trx_id].frame_types);
+	trx_reg_write( reg_offset + RG_BBC0_AFFTM, tal_pib[trx_id].frame_types);
 #else
-	trx_reg_write(reg_offset + RG_BBC0_AFFTM, DEFAULT_FRAME_TYPES);
+	trx_reg_write( reg_offset + RG_BBC0_AFFTM, DEFAULT_FRAME_TYPES);
 #endif
-
-	stop_tal_timer(trx_id);
 
 	tx_done_handling(trx_id, MAC_NO_ACK);
 }

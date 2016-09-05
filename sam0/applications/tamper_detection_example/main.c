@@ -3,7 +3,7 @@
  *
  * \brief SAML22 RTC Tamper Detection Example
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -787,7 +787,7 @@ void configure_eeprom(void)
 	void SYSCTRL_Handler(void)
 	{
 		if (SYSCTRL->INTFLAG.reg & SYSCTRL_INTFLAG_BOD33DET) {
-			SYSCTRL->INTFLAG.reg |= SYSCTRL_INTFLAG_BOD33DET;
+			SYSCTRL->INTFLAG.reg = SYSCTRL_INTFLAG_BOD33DET;
 			rww_eeprom_emulator_commit_page_buffer();
 		}
 	}
@@ -807,7 +807,7 @@ static void configure_bod(void)
 		bod_set_config(BOD_BOD33, &config_bod33);
 		bod_enable(BOD_BOD33);
 
-		SYSCTRL->INTENSET.reg |= SYSCTRL_INTENCLR_BOD33DET;
+		SYSCTRL->INTENSET.reg = SYSCTRL_INTENCLR_BOD33DET;
 		system_interrupt_enable(SYSTEM_INTERRUPT_MODULE_SYSCTRL);
 	#endif
 }

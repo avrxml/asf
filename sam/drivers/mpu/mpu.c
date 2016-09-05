@@ -3,7 +3,7 @@
  *
  * \brief SAMV70/SAMV71/SAME70/SAMS70-XULTRA board mpu config.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -45,6 +45,11 @@
  */
 
 #include "mpu.h"
+
+/**
+ * \defgroup sam_drivers_mpu_group MPU - Memory Protect Unit
+ * @{
+ */
 
 /** \file */
 
@@ -153,9 +158,10 @@ uint32_t mpu_cal_mpu_region_size(uint32_t dw_actual_size_in_bytes)
  */
 void mpu_update_regions(uint32_t dw_region_num, uint32_t dw_region_base_addr, uint32_t dw_region_attr)
 {
+    volatile irqflags_t flags;
 
-	/* Disable interrupt */
-	__disable_irq();
+	/* Get and clear the global interrupt flags */
+	flags = cpu_irq_save();
 
 	/* Clean up data and instruction buffer */
 	__DSB();
@@ -175,6 +181,8 @@ void mpu_update_regions(uint32_t dw_region_num, uint32_t dw_region_base_addr, ui
 	__DSB();
 	__ISB();
 
-	/* Enable the interrupt */
-	__enable_irq();
+	/* Restore global interrupt flags */
+	cpu_irq_restore(flags);
 }
+
+//@}

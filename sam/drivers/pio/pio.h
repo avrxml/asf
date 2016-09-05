@@ -3,7 +3,7 @@
  *
  * \brief Parallel Input/Output (PIO) Controller driver for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -212,7 +212,7 @@ void pio_toggle_pin_group(Pio *p_pio, uint32_t ul_mask);
 uint32_t pio_configure_pin_group(Pio *p_pio, uint32_t ul_mask,
 		const uint32_t ul_flags);
 
-#if (SAM4C || SAM4CP || SAM4CM || SAMG55)
+#if (SAM4C || SAM4CP || SAM4CM || SAMG55 || SAMV71 || SAMV70 || SAME70 || SAMS70)
 enum pio_io_drive_mode {
 	PIO_IO_DRIVE_LOW = 0,
 	PIO_IO_DRIVE_HIGH,

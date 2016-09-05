@@ -313,6 +313,7 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -585,6 +586,7 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -1282,6 +1284,7 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -1554,6 +1557,7 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../gpio</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>

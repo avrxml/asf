@@ -3,7 +3,7 @@
  *
  * \brief SAM Control Area Network Driver Configuration Header
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -76,7 +76,7 @@
 /*
  * The setting of the nominal bit rate is based on the GCLK_CAN is 48M which you can
  * change in the conf_clock.h. Below is the default configuration. The
- * time quanta is 48MHz / (5+1) =  8MHz. And each bit is (3+10+3) = 16 time
+ * time quanta is 48MHz / (5+1) =  8MHz. And each bit is (1 + NTSEG1 + 1 + NTSEG2 + 1) = 16 time
  * quanta which means the bit rate is 8MHz/16=500KHz.
  */
 /* Nominal bit Baud Rate Prescaler */
@@ -91,7 +91,7 @@
 /*
  * The setting of the data bit rate is based on the GCLK_CAN is 48M which you can
  * change in the conf_clock.h. Below is the default configuration. The
- * time quanta is 48MHz / (5+1) =  8MHz. And each bit is (3+10+3) = 16 time
+ * time quanta is 48MHz / (5+1) =  8MHz. And each bit is (1 + DTSEG1 + 1 + DTSEG2 + 1) = 16 time
  * quanta which means the bit rate is 8MHz/16=500KHz.
  */
 /* Data bit Baud Rate Prescaler */

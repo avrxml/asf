@@ -245,14 +245,14 @@ static void configure_dma_resource(struct dma_resource *resource)
 		/* Set the peripheral trigger source */
 		config.peripheral_trigger = SLCD_DMAC_ID_ACMDRDY;
 		/* Set the trigger action */
-		config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
+		config.trigger_action = DMA_TRIGGER_ACTION_BEAT;
 	}
 
 	if (true == is_bitmapping) {
 		/* Set the peripheral trigger source */
 		config.peripheral_trigger = SLCD_DMAC_ID_ABMDRDY;
 		/* Set the trigger action */
-		config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
+		config.trigger_action = DMA_TRIGGER_ACTION_BEAT;
 	}
 
 	dma_allocate(resource, &config);

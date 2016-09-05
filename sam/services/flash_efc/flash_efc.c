@@ -3,7 +3,7 @@
  *
  * \brief Embedded Flash service for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -121,6 +121,9 @@ extern "C" {
 #elif (SAM4C32 || SAM4CMP32 || SAM4CMS32)
 /* The max GPNVM number SAM4C(M)32. */
 # define GPNVM_NUM_MAX        3
+#elif (SAMG)
+/* The max GPNVM number SAMG. */
+# define GPNVM_NUM_MAX        8
 #else
 /* The max GPNVM number. */
 # define GPNVM_NUM_MAX        2

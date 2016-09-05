@@ -3,7 +3,7 @@
  *
  * \brief Board specific definition for low power example.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -64,6 +64,11 @@
 #define STRING_ACTIVE \
 		"Entering active mode:\n\r" \
 		"- Press SW0 button to go out.\n\r"
+
+/** Hint message for sleep mode */
+#define STRING_SLEEP \
+		"Enter into sleep mode.\n\r" \
+		"- Press SW0 button to wake up.\n\r"
 
 /** Hint message for wait mode */
 #define STRING_WAIT \

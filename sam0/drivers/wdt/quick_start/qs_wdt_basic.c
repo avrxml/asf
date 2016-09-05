@@ -3,7 +3,7 @@
  *
  * \brief SAM Watchdog Driver Quick Start
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -62,7 +62,7 @@ void configure_wdt(void)
 	/* Set the Watchdog configuration settings */
 	//! [setup_3]
 	config_wdt.always_on      = false;
-#if !((SAML21) || (SAMC21) || (SAML22))
+#if !((SAML21) || (SAMC21) || (SAML22) || (SAMR30))
 	config_wdt.clock_source   = GCLK_GENERATOR_4;
 #endif
 	config_wdt.timeout_period = WDT_PERIOD_2048CLK;

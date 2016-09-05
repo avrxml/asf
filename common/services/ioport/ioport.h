@@ -132,7 +132,7 @@ enum ioport_sense {
 #elif SAM
 # if SAM4L
 #  include "sam/ioport_gpio.h"
-# elif (SAMD20 | SAMD21)
+# elif (SAMD20 | SAMD21 | SAML21)
 #  include "sam0/ioport.h"
 # else
 #  include "sam/ioport_pio.h"

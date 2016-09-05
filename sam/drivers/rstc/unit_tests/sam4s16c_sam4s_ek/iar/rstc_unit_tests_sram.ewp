@@ -295,7 +295,7 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
@@ -311,6 +311,7 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -568,7 +569,7 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
@@ -584,6 +585,7 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -1232,7 +1234,7 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
@@ -1248,6 +1250,7 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>
@@ -1505,7 +1508,7 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
+					<state>$PROJ_DIR$/../../../example1</state>
 					<state>$PROJ_DIR$/..</state>
 					<state>$PROJ_DIR$/../../..</state>
 					<state>$PROJ_DIR$/../../../../../utils/preprocessor</state>
@@ -1521,6 +1524,7 @@
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../common/services/gpio</state>
+					<state>$PROJ_DIR$/../../../../../../common/services/serial/sam_uart</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/sam4s/source/templates</state>
 					<state>$PROJ_DIR$/../../../../uart</state>
 					<state>$PROJ_DIR$/../../../../../utils</state>

@@ -3,7 +3,7 @@
  *
  * \brief SAM Frequency Meter (FREQM) Driver
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -154,7 +154,7 @@ enum freqm_status freqm_get_result_value(
 		} else {
 			/* Get measurement output data (it will clear data done flag) */
 			result_cal = freqm_hw->VALUE.reg;
-			freqm_hw->INTFLAG.reg |= FREQM_INTFLAG_DONE;
+			freqm_hw->INTFLAG.reg = FREQM_INTFLAG_DONE;
 
 			*result = result_cal * module_inst->ref_clock_freq / freqm_hw->CFGA.reg;
 			return FREQM_STATUS_MEASURE_DONE;

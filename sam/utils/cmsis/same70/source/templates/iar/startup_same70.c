@@ -44,127 +44,122 @@
 
 #include "same70.h"
 
-/* Initialize segments */
-extern uint32_t _sfixed;
-extern uint32_t _efixed;
-extern uint32_t _etext;
-extern uint32_t _srelocate;
-extern uint32_t _erelocate;
-extern uint32_t _szero;
-extern uint32_t _ezero;
-extern uint32_t _sstack;
-extern uint32_t _estack;
+typedef void (*intfunc) (void);
+typedef union { intfunc __fun; void * __ptr; } intvec_elem;
 
-/** \cond DOXYGEN_SHOULD_SKIP_THIS */
-int main(void);
-/** \endcond */
-
-void __libc_init_array(void);
+void __iar_program_start(void);
+int __low_level_init(void);
 
 /* Default empty handler */
 void Dummy_Handler(void);
 
 /* Cortex-M7 core handlers */
-void NMI_Handler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void HardFault_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void MemManage_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void BusFault_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void UsageFault_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void SVC_Handler        ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void DebugMon_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void PendSV_Handler     ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void SysTick_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak NMI_Handler=Dummy_Handler
+#pragma weak HardFault_Handler=Dummy_Handler
+#pragma weak MemManage_Handler=Dummy_Handler
+#pragma weak BusFault_Handler=Dummy_Handler
+#pragma weak UsageFault_Handler=Dummy_Handler
+#pragma weak SVC_Handler=Dummy_Handler
+#pragma weak DebugMon_Handler=Dummy_Handler
+#pragma weak PendSV_Handler=Dummy_Handler
+#pragma weak SysTick_Handler=Dummy_Handler
 
 /* Peripherals handlers */
-void SUPC_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void RSTC_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void RTC_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void RTT_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void WDT_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void PMC_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void EFC_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void UART0_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void UART1_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void PIOA_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void PIOB_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak SUPC_Handler=Dummy_Handler
+#pragma weak RSTC_Handler=Dummy_Handler
+#pragma weak RTC_Handler=Dummy_Handler
+#pragma weak RTT_Handler=Dummy_Handler
+#pragma weak WDT_Handler=Dummy_Handler
+#pragma weak PMC_Handler=Dummy_Handler
+#pragma weak EFC_Handler=Dummy_Handler
+#pragma weak UART0_Handler=Dummy_Handler
+#pragma weak UART1_Handler=Dummy_Handler
+#pragma weak PIOA_Handler=Dummy_Handler
+#pragma weak PIOB_Handler=Dummy_Handler
 #ifdef _SAME70_PIOC_INSTANCE_
-void PIOC_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak PIOC_Handler=Dummy_Handler
 #endif /* _SAME70_PIOC_INSTANCE_ */
-void USART0_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void USART1_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void USART2_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void PIOD_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak USART0_Handler=Dummy_Handler
+#pragma weak USART1_Handler=Dummy_Handler
+#pragma weak USART2_Handler=Dummy_Handler
+#pragma weak PIOD_Handler=Dummy_Handler
 #ifdef _SAME70_PIOE_INSTANCE_
-void PIOE_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak PIOE_Handler=Dummy_Handler
 #endif /* _SAME70_PIOE_INSTANCE_ */
 #ifdef _SAME70_HSMCI_INSTANCE_
-void HSMCI_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak HSMCI_Handler=Dummy_Handler
 #endif /* _SAME70_HSMCI_INSTANCE_ */
-void TWIHS0_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void TWIHS1_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void SPI0_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void SSC_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void TC0_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void TC1_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void TC2_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak TWIHS0_Handler=Dummy_Handler
+#pragma weak TWIHS1_Handler=Dummy_Handler
+#pragma weak SPI0_Handler=Dummy_Handler
+#pragma weak SSC_Handler=Dummy_Handler
+#pragma weak TC0_Handler=Dummy_Handler
+#pragma weak TC1_Handler=Dummy_Handler
+#pragma weak TC2_Handler=Dummy_Handler
 #ifdef _SAME70_TC1_INSTANCE_
-void TC3_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak TC3_Handler=Dummy_Handler
 #endif /* _SAME70_TC1_INSTANCE_ */
 #ifdef _SAME70_TC1_INSTANCE_
-void TC4_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak TC4_Handler=Dummy_Handler
 #endif /* _SAME70_TC1_INSTANCE_ */
 #ifdef _SAME70_TC1_INSTANCE_
-void TC5_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak TC5_Handler=Dummy_Handler
 #endif /* _SAME70_TC1_INSTANCE_ */
-void AFEC0_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak AFEC0_Handler=Dummy_Handler
 #ifdef _SAME70_DACC_INSTANCE_
-void DACC_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak DACC_Handler=Dummy_Handler
 #endif /* _SAME70_DACC_INSTANCE_ */
-void PWM0_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void ICM_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void ACC_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void USBHS_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void MCAN0_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void MCAN1_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void GMAC_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void AFEC1_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak PWM0_Handler=Dummy_Handler
+#pragma weak ICM_Handler=Dummy_Handler
+#pragma weak ACC_Handler=Dummy_Handler
+#pragma weak USBHS_Handler=Dummy_Handler
+#pragma weak MCAN0_Handler=Dummy_Handler
+#pragma weak MCAN1_Handler=Dummy_Handler
+#pragma weak GMAC_Handler=Dummy_Handler
+#pragma weak AFEC1_Handler=Dummy_Handler
 #ifdef _SAME70_TWIHS2_INSTANCE_
-void TWIHS2_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak TWIHS2_Handler=Dummy_Handler
 #endif /* _SAME70_TWIHS2_INSTANCE_ */
-void SPI1_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void QSPI_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void UART2_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void UART3_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void UART4_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak SPI1_Handler=Dummy_Handler
+#pragma weak QSPI_Handler=Dummy_Handler
+#pragma weak UART2_Handler=Dummy_Handler
+#pragma weak UART3_Handler=Dummy_Handler
+#pragma weak UART4_Handler=Dummy_Handler
 #ifdef _SAME70_TC2_INSTANCE_
-void TC6_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak TC6_Handler=Dummy_Handler
 #endif /* _SAME70_TC2_INSTANCE_ */
 #ifdef _SAME70_TC2_INSTANCE_
-void TC7_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak TC7_Handler=Dummy_Handler
 #endif /* _SAME70_TC2_INSTANCE_ */
 #ifdef _SAME70_TC2_INSTANCE_
-void TC8_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak TC8_Handler=Dummy_Handler
 #endif /* _SAME70_TC2_INSTANCE_ */
-void TC9_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void TC10_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void TC11_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void AES_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void TRNG_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void XDMAC_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void ISI_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
-void PWM1_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak TC9_Handler=Dummy_Handler
+#pragma weak TC10_Handler=Dummy_Handler
+#pragma weak TC11_Handler=Dummy_Handler
+#pragma weak AES_Handler=Dummy_Handler
+#pragma weak TRNG_Handler=Dummy_Handler
+#pragma weak XDMAC_Handler=Dummy_Handler
+#pragma weak ISI_Handler=Dummy_Handler
+#pragma weak PWM1_Handler=Dummy_Handler
 #ifdef _SAME70_SDRAMC_INSTANCE_
-void SDRAMC_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak SDRAMC_Handler=Dummy_Handler
 #endif /* _SAME70_SDRAMC_INSTANCE_ */
-void RSWDT_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#pragma weak RSWDT_Handler=Dummy_Handler
 
 /* Exception Table */
-__attribute__ ((section(".vectors")))
-const DeviceVectors exception_table = {
+#pragma language = extended
+#pragma segment = "CSTACK"
 
-        /* Configure Initial Stack Pointer, using linker-generated symbols */
-        .pvStack = (void*) (&_estack),
+/* The name "__vector_table" has special meaning for C-SPY: */
+/* it is where the SP start value is found, and the NVIC vector */
+/* table register (VTOR) is initialized to this address if != 0 */
 
+#pragma section = ".intvec"
+#pragma location = ".intvec"
+const DeviceVectors __vector_table = {
+        (void*) __sfe("CSTACK"),
+        
         .pfnReset_Handler      = (void*) Reset_Handler,
         .pfnNMI_Handler        = (void*) NMI_Handler,
         .pfnHardFault_Handler  = (void*) HardFault_Handler,
@@ -296,41 +291,26 @@ const DeviceVectors exception_table = {
         .pfnRSWDT_Handler  = (void*) RSWDT_Handler   /* 63 Reinforced Secure Watchdog Timer */
 };
 
-/**
- * \brief This is the code that gets called on processor reset.
- * To initialize the device, and call the main() routine.
- */
-void Reset_Handler(void)
+/**------------------------------------------------------------------------------
+ * This is the code that gets called on processor reset. To initialize the
+ * device.
+ *------------------------------------------------------------------------------*/
+int __low_level_init(void)
 {
-        uint32_t *pSrc, *pDest;
+        uint32_t *pSrc = __section_begin(".intvec");
 
-        /* Initialize the relocate segment */
-        pSrc = &_etext;
-        pDest = &_srelocate;
-
-        if (pSrc != pDest) {
-                for (; pDest < &_erelocate;) {
-                        *pDest++ = *pSrc++;
-                }
-        }
-
-        /* Clear the zero segment */
-        for (pDest = &_szero; pDest < &_ezero;) {
-                *pDest++ = 0;
-        }
-
-        /* Set the vector table base address */
-        pSrc = (uint32_t *) & _sfixed;
         SCB->VTOR = ((uint32_t) pSrc & SCB_VTOR_TBLOFF_Msk);
 
-        /* Initialize the C library */
-        __libc_init_array();
+        return 1; /* if return 0, the data sections will not be initialized */
+}
 
-        /* Branch to main function */
-        main();
-
-        /* Infinite loop */
-        while (1);
+/**------------------------------------------------------------------------------
+ * This is the code that gets called on processor reset. To initialize the
+ * device.
+ *------------------------------------------------------------------------------*/
+void Reset_Handler(void)
+{
+        __iar_program_start();
 }
 
 /**

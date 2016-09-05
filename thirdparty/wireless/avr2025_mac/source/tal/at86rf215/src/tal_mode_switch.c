@@ -138,11 +138,11 @@ FLASH_DECLARE(OQPSK_CHIP_RATE_REGION_TABLE_DATA_TYPE
 
 /* === PROTOTYPES ========================================================== */
 
-static void tx_actual_frame(void *parameter);
+static void tx_actual_frame(void *cb_timer_element);
 static void configure_new_tx_mode(trx_id_t trx_id);
-static void cancel_new_mode_reception(void *parameter);
+static void cancel_new_mode_reception(void *cb_timer_element);
 static retval_t convert_fsk_op_mode_to_data_rate(fsk_op_mode_t op_mode,
-		sun_freq_band_t band, fsk_data_rate_t *rate,
+		sun_freq_band_t band, fsk_sym_rate_t *rate,
 		fsk_mod_type_t *type);
 static inline uint16_t create_mode_switch_phr(trx_id_t trx_id);
 
@@ -167,7 +167,7 @@ void init_mode_switch(void)
 	csm_phy.modulation = FSK;
 	csm_phy.phy_mode.fsk.mod_type = F2FSK;
 	csm_phy.phy_mode.fsk.mod_idx = MOD_IDX_1_0;
-	csm_phy.phy_mode.fsk.data_rate = FSK_DATA_RATE_50;
+	csm_phy.phy_mode.fsk.sym_rate = FSK_SYM_RATE_50;
 }
 
 /* --- TX ------------------------------------------------------------------ */
@@ -250,12 +250,12 @@ static inline void download_ms_ppdu(trx_id_t trx_id)
 	/* fill length field */
 	uint16_t len = 2; /* fixed size - no CRC */
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
-	trx_write(reg_offset + RG_BBC0_TXFLL, (uint8_t *)&len, 2);
+	trx_write( reg_offset + RG_BBC0_TXFLL, (uint8_t *)&len, 2);
 
 	/* fill frame buffer */
 	uint16_t phr = create_mode_switch_phr(trx_id);
 	uint16_t tx_frm_buf_offset = BB_TX_FRM_BUF_OFFSET * trx_id;
-	trx_write(tx_frm_buf_offset + RG_BBC0_FBTXS, (uint8_t *)&phr, 2);
+	trx_write( tx_frm_buf_offset + RG_BBC0_FBTXS, (uint8_t *)&phr, 2);
 }
 
 /**
@@ -289,10 +289,10 @@ void tx_ms_ppdu(trx_id_t trx_id)
 		if (trx_state[RF09] == RF_TX) {
 		}
 	}
-	pal_dev_bit_write(RF215_BB, SR_RF_IQIFC2_CSELTX, trx_id);
+	trx_bit_write(RF215_BB, SR_RF_IQIFC2_CSELTX, trx_id);
 #endif
 
-	trx_reg_write(reg_offset + RG_RF09_CMD, RF_TX);
+	trx_reg_write( reg_offset + RG_RF09_CMD, RF_TX);
 	trx_state[trx_id] = RF_TX;
 
 	tx_state[trx_id] = TX_MS_PPDU;
@@ -387,9 +387,12 @@ void prepare_actual_transmission(trx_id_t trx_id)
 	uint32_t diff = tal_pib[trx_id].ModeSwitchSettlingDelay -
 			(now - rxe_txe_tstamp[trx_id]);
 	retval_t status
-		= pal_timer_start(timer_id, diff, TIMEOUT_RELATIVE,
-			(FUNC_PTR)tx_actual_frame,
-			(void *)&timer_cb_parameter[trx_id]);
+		= pal_timer_start(timer_id,
+			diff,
+			TIMEOUT_RELATIVE,
+			(FUNC_PTR())tx_actual_frame,
+			(void *)trx_id);
+
 	if (status == MAC_SUCCESS) {
 		configure_new_tx_mode(trx_id);
 		tx_state[trx_id] = TX_WAIT_FOR_NEW_MODE_TRANSMITTING;
@@ -414,7 +417,7 @@ static void configure_new_tx_mode(trx_id_t trx_id)
 	/* Check if ACK is requested */
 	if (*mac_frame_ptr[trx_id]->mpdu & FCF_ACK_REQUEST) {
 		uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
-		trx_bit_write(reg_offset + SR_BBC0_AMCS_TX2RX, 1);
+		trx_bit_write( reg_offset + SR_BBC0_AMCS_TX2RX, 1);
 	}
 
 	tal_pib[trx_id].phy.modulation
@@ -448,9 +451,12 @@ static void configure_new_tx_mode(trx_id_t trx_id)
  *
  * @param parameter Contains transceiver identifier
  */
-static void tx_actual_frame(void *parameter)
+static void tx_actual_frame(void *cb_timer_element)
 {
-	trx_id_t trx_id = *(trx_id_t *)parameter;
+	/* Immediately store trx id from callback. */
+	trx_id_t trx_id = (trx_id_t)cb_timer_element;
+	Assert((trx_id >= 0) && (trx_id < NUM_TRX));
+
 #ifndef BASIC_MODE
 	transmit_frame(trx_id, NO_CCA);
 #else
@@ -515,14 +521,14 @@ void restore_previous_phy(trx_id_t trx_id)
  */
 static retval_t convert_fsk_op_mode_to_data_rate(fsk_op_mode_t op_mode,
 		sun_freq_band_t band,
-		fsk_data_rate_t *rate, fsk_mod_type_t *type)
+		fsk_sym_rate_t *rate, fsk_mod_type_t *type)
 {
 	retval_t ret = MAC_SUCCESS;
 	*type = F2FSK;
 
 	switch (op_mode) {
 	case FSK_OP_MOD_1:
-		*rate = FSK_DATA_RATE_50;
+		*rate = FSK_SYM_RATE_50;
 		break;
 
 	case FSK_OP_MOD_2:
@@ -530,17 +536,17 @@ static retval_t convert_fsk_op_mode_to_data_rate(fsk_op_mode_t op_mode,
 		case US_915:
 		case KOREA_917:
 		case WORLD_2450:
-			*rate = FSK_DATA_RATE_150;
+			*rate = FSK_SYM_RATE_150;
 			break;
 
 		default:
-			*rate = FSK_DATA_RATE_100;
+			*rate = FSK_SYM_RATE_100;
 			break;
 		}
 		break;
 
 	case FSK_OP_MOD_3:
-		*rate = FSK_DATA_RATE_200;
+		*rate = FSK_SYM_RATE_200;
 		switch (band) {
 		case CHINA_470:
 		case CHINA_780:
@@ -554,7 +560,7 @@ static retval_t convert_fsk_op_mode_to_data_rate(fsk_op_mode_t op_mode,
 		break;
 
 	case FSK_OP_MOD_4:
-		*rate = FSK_DATA_RATE_400;
+		*rate = FSK_SYM_RATE_400;
 		switch (band) {
 		case JAPAN_920:
 		case JAPAN_950:
@@ -585,7 +591,7 @@ void handle_rx_ms_packet(trx_id_t trx_id)
 	/* Upload mode switch PHR */
 	uint16_t phr;
 	uint16_t rx_frm_buf_offset = BB_RX_FRM_BUF_OFFSET * trx_id;
-	trx_read(rx_frm_buf_offset + RG_BBC0_FBRXS, (uint8_t *)&phr, 2);
+	trx_read( rx_frm_buf_offset + RG_BBC0_FBRXS, (uint8_t *)&phr, 2);
 
 	/* BCH calculation */
 	/* @ToDo */
@@ -608,6 +614,7 @@ void handle_rx_ms_packet(trx_id_t trx_id)
 
 	/* Parse new mode */
 	modulation_t modulation = (modulation_t)(MOD0(phr) | (MOD1(phr) << 1));
+
 	uint8_t mode = MD0(phr) | (MD1(phr) << 1) | (MD2(phr) << 2);
 
 	phy_t temp_phy;
@@ -617,18 +624,19 @@ void handle_rx_ms_packet(trx_id_t trx_id)
 	switch (modulation) {
 	case FSK:
 	{
-		fsk_data_rate_t rate;
+		fsk_sym_rate_t rate;
 		fsk_mod_type_t type;
 
 		if (convert_fsk_op_mode_to_data_rate((fsk_op_mode_t)mode,
 				tal_pib[trx_id].phy.freq_band, &rate,
 				&type) != MAC_SUCCESS) {
 			/* Unsupported feature */
+
 			support_flag = false;
 			break;
 		}
 
-		tal_pib[trx_id].phy.phy_mode.fsk.data_rate = rate;
+		tal_pib[trx_id].phy.phy_mode.fsk.sym_rate = rate;
 		tal_pib[trx_id].phy.phy_mode.fsk.mod_type = type;
 		tal_pib[trx_id].phy.phy_mode.fsk.mod_idx = MOD_IDX_1_0;
 	}
@@ -644,6 +652,7 @@ void handle_rx_ms_packet(trx_id_t trx_id)
 
 #ifdef SUPPORT_OQPSK
 	case OQPSK:
+
 		/* Chip rate depends on current frequency band and region */
 	{
 		uint16_t rate = oqpsk_get_chip_rate_region(trx_id);
@@ -666,9 +675,6 @@ void handle_rx_ms_packet(trx_id_t trx_id)
 
 		if (conf_trx_modulation(trx_id) == MAC_SUCCESS) {
 			tal_state[trx_id] = TAL_NEW_MODE_RECEIVING;
-
-			/* Start timer to cancel receiving at new mode again -
-			 *in case no frame is received. */
 			uint8_t timer_id;
 			if (trx_id == RF09) {
 				timer_id = TAL_T_0;
@@ -676,11 +682,13 @@ void handle_rx_ms_packet(trx_id_t trx_id)
 				timer_id = TAL_T_1;
 			}
 
+			/* Start timer to cancel receiving at new mode again -
+			 *in case no frame is received. */
 			pal_timer_start(timer_id,
 					tal_pib[trx_id].ModeSwitchDuration,
 					TIMEOUT_RELATIVE,
-					(FUNC_PTR)cancel_new_mode_reception,
-					(void *)&timer_cb_parameter[trx_id]);
+					(FUNC_PTR())cancel_new_mode_reception,
+					(void *)trx_id);
 		} else {
 			support_flag = false;
 		}
@@ -700,9 +708,11 @@ void handle_rx_ms_packet(trx_id_t trx_id)
  *
  * @param parameter Transceiver identifier
  */
-static void cancel_new_mode_reception(void *parameter)
+static void cancel_new_mode_reception(void *cb_timer_element)
 {
-	trx_id_t trx_id = *(trx_id_t *)parameter;
+	/* Immediately store trx id from callback. */
+	trx_id_t trx_id = (trx_id_t)cb_timer_element;
+	Assert((trx_id >= 0) && (trx_id < NUM_TRX));
 
 	/* Restore previous PHY, i.e. CSM */
 	set_csm(trx_id);

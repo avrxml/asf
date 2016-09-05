@@ -85,11 +85,21 @@ void sio2host_init(void)
 
 uint8_t sio2host_tx(uint8_t *data, uint8_t length)
 {
-	uint16_t bytes_transmitted, bytes_remaining;
-	bytes_remaining = udi_cdc_write_buf((const int *)data, length);
-
-	bytes_transmitted = length - bytes_remaining;
-	return(bytes_transmitted);
+	int status;
+	uint8_t len;
+	len = length;
+	
+   while (len) {
+	  status = udi_cdc_putc(*data);
+	  /* Check transmission status */
+	  if(status)
+	   { 
+	   /* Put next byte if the previous transfer is successful */
+	    len--;
+	    data++;
+		}
+   }
+   return length;
 }
 
 uint8_t sio2host_rx(uint8_t *data, uint8_t max_length)

@@ -3,7 +3,7 @@
  *
  * \brief USART RS485 example with PDC for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -285,7 +285,11 @@ static void configure_usart(void)
 
 	/* Configure USART in RS485 mode. */
 	usart_init_rs485(BOARD_USART, &usart_console_settings,
-			sysclk_get_cpu_hz());
+#if (SAM4L)
+			sysclk_get_pba_hz());
+#else
+			sysclk_get_peripheral_hz());
+#endif
 
 	/* Disable all the interrupts. */
 	usart_disable_interrupt(BOARD_USART, ALL_INTERRUPT_MASK);

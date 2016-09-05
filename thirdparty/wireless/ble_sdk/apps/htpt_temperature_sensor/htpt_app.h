@@ -3,7 +3,7 @@
  *
  * \brief Health Thermometer Profile Application declarations
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,12 +50,14 @@
 
 #include "at_ble_api.h"
 
-#define DBG_LOG printf
-#define DBG_LOG_1LVL printf
+#define DBG_LOG_CONT	 printf
 
-#define APP_HT_FAST_ADV 100 //100 ms
+#define DBG_LOG		     printf("\r\n");\
+						 printf
 
-#define APP_HT_ADV_TIMEOUT 1000 // 100 Secs
+#define APP_HT_FAST_ADV 1600 //1000 ms
+
+#define APP_HT_ADV_TIMEOUT 655 // 100 Secs
 
 #define SCAN_RESP_LEN 10
 #define ADV_DATA_LEN 18
@@ -72,10 +74,10 @@
 
 #define HT_ADV_DATA_NAME_LEN	 (9)
 #define HT_ADV_DATA_NAME_TYPE	 (0x09)
-#define HT_ADV_DATA_NAME_DATA	 "ATMEL-BLE"
+#define HT_ADV_DATA_NAME_DATA	 "ATMEL-HTP"
 
 /* Typedef for health thermometer profile -  application */
-typedef struct htpt_app{	
+typedef struct htp_app{	
 	
 	/* Measured temperature value. Value may be Cecilius /Fahrenheit */
 	uint32_t temperature;	
@@ -99,7 +101,7 @@ typedef struct htpt_app{
 	at_ble_htpt_db_config_flag optional;
 	
 	at_ble_htpt_temp_flags flags;
-}htpt_app_t;
+}htp_app_t;
 
 /**@brief Temperature measurement stability type
 */
@@ -109,9 +111,17 @@ typedef enum
 	STABLE_TEMPERATURE_VAL=1
 }stable_temp_reading;
 
-void app_init(void);
-void htpt_init(htpt_app_t *htpt_temp);
-void htpt_temperature_send(htpt_app_t *htpt_temp);
-void timer_callback_handler(void);
-
+static at_ble_status_t app_connected_event_handler(void *params);
+static at_ble_status_t app_disconnected_event_handler(void *params);
+static at_ble_status_t app_pair_done_event_handler(void *params);
+static at_ble_status_t app_encryption_status_changed_handler(void *params);
+static at_ble_status_t  app_htpt_create_db_cfm_handler(void *params) ;
+static at_ble_status_t  app_htpt_error_ind_handler(void *params);
+static at_ble_status_t  app_htpt_disable_ind_handler(void *params);
+static at_ble_status_t  app_htpt_temp_send_cfm(void *params);
+static at_ble_status_t  app_htpt_meas_intv_chg_ind_handler(void *params);
+static at_ble_status_t  app_htpt_cfg_indntf_ind_handler(void *params);
+static at_ble_status_t  app_htptp_meas_intv_chg_req(void *params);
+static at_ble_status_t  app_htpt_enable_rsp_handler(void *params);
+static at_ble_status_t  app_htpt_meas_intv_upd_rsp(void *params);
 #endif /* __HTPT_APP_H__ */

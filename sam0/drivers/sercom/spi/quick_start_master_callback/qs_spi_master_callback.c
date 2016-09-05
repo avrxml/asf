@@ -3,7 +3,7 @@
  *
  * \brief SAM SPI Quick Start
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,7 +50,7 @@
 #define BUF_LENGTH 20
 //! [buf_length]
 //! [slave_select_pin]
-#define SLAVE_SELECT_PIN EXT1_PIN_SPI_SS_0
+#define SLAVE_SELECT_PIN CONF_MASTER_SS_PIN
 //! [slave_select_pin]
 //! [buffer]
 static uint8_t wr_buffer[BUF_LENGTH] = {
@@ -119,26 +119,16 @@ void configure_spi_master(void)
 	spi_get_config_defaults(&config_spi_master);
 //! [conf_defaults]
 //! [mux_setting]
-	config_spi_master.mux_setting = EXT1_SPI_SERCOM_MUX_SETTING;
+	config_spi_master.mux_setting = CONF_MASTER_MUX_SETTING;
 //! [mux_setting]
-	/* Configure pad 0 for data in */
-//! [di]
-	config_spi_master.pinmux_pad0 = EXT1_SPI_SERCOM_PINMUX_PAD0;
-//! [di]
-	/* Configure pad 1 as unused */
-//! [ss]
-	config_spi_master.pinmux_pad1 = PINMUX_UNUSED;
-//! [ss]
-	/* Configure pad 2 for data out */
-//! [do]
-	config_spi_master.pinmux_pad2 = EXT1_SPI_SERCOM_PINMUX_PAD2;
-//! [do]
-	/* Configure pad 3 for SCK */
-//! [sck]
-	config_spi_master.pinmux_pad3 = EXT1_SPI_SERCOM_PINMUX_PAD3;
-//! [sck]
+
+	config_spi_master.pinmux_pad0 = CONF_MASTER_PINMUX_PAD0;
+	config_spi_master.pinmux_pad1 = CONF_MASTER_PINMUX_PAD1;
+	config_spi_master.pinmux_pad2 = CONF_MASTER_PINMUX_PAD2;
+	config_spi_master.pinmux_pad3 = CONF_MASTER_PINMUX_PAD3;
+
 //! [init]
-	spi_init(&spi_master_instance, EXT1_SPI_MODULE, &config_spi_master);
+	spi_init(&spi_master_instance, CONF_MASTER_SPI_MODULE, &config_spi_master);
 //! [init]
 
 //! [enable]

@@ -3,7 +3,7 @@
  *
  * \brief TWIHS Master driver for SAM.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -57,7 +57,7 @@ typedef twihs_packet_t twihs_package_t;
 static inline uint32_t twihs_master_setup(twihs_master_t p_twihs,
 		twihs_master_options_t *p_opt)
 {
-	p_opt->master_clk = sysclk_get_cpu_hz();
+	p_opt->master_clk = sysclk_get_peripheral_hz();
 	p_opt->smbus      = 0;
 
 #if (SAMV70 || SAMV71 || SAME70 || SAMS70)

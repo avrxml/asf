@@ -103,6 +103,8 @@ INC_PATH = \
        sam/boards/sam4l_ek                                \
        sam/components/display/c42364a                     \
        sam/drivers/ast                                    \
+       sam/drivers/ast/example1                           \
+       sam/drivers/ast/example2                           \
        sam/drivers/bpm                                    \
        sam/drivers/eic                                    \
        sam/drivers/flashcalw                              \

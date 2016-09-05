@@ -438,8 +438,8 @@ void ssc_set_transmitter(Ssc *p_ssc, clock_opt_t *p_tx_clk_opt,
 				p_tx_clk_opt->ul_cko | p_tx_clk_opt->ul_cki |
 				p_tx_clk_opt->ul_ckg |
 				p_tx_clk_opt->ul_start_sel |
-				SSC_RCMR_PERIOD(p_tx_clk_opt->ul_period) |
-				SSC_RCMR_STTDLY(p_tx_clk_opt->ul_sttdly);
+				SSC_TCMR_PERIOD(p_tx_clk_opt->ul_period) |
+				SSC_TCMR_STTDLY(p_tx_clk_opt->ul_sttdly);
 	}
 
 	if (p_tx_data_frame == NULL) {
@@ -447,9 +447,9 @@ void ssc_set_transmitter(Ssc *p_ssc, clock_opt_t *p_tx_clk_opt,
 	} else {
 		p_ssc->SSC_TFMR |= SSC_RFMR_DATLEN(p_tx_data_frame->ul_datlen) |
 				p_tx_data_frame->ul_msbf |
-				SSC_RFMR_DATNB(p_tx_data_frame->ul_datnb) |
-				SSC_RFMR_FSLEN(p_tx_data_frame->ul_fslen) |
-				SSC_RFMR_FSLEN_EXT(p_tx_data_frame->ul_fslen_ext) |
+				SSC_TFMR_DATNB(p_tx_data_frame->ul_datnb) |
+				SSC_TFMR_FSLEN(p_tx_data_frame->ul_fslen) |
+				SSC_TFMR_FSLEN_EXT(p_tx_data_frame->ul_fslen_ext) |
 				p_tx_data_frame->ul_fsos |
 				p_tx_data_frame->ul_fsedge;
 	}

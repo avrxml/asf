@@ -92,6 +92,7 @@
  * - sam4cmp16c_sam4cmp_db
  * - sam4cms16c_sam4cms_db
  * - samv71q21_samv71_xplained_ultra
+ * - same70q21_same70_xplained_pro
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
@@ -204,7 +205,7 @@ static uint32_t is_serial_output_done(void)
 	if (usart_is_tx_empty(CONF_TEST_UART)) {
 #else
 	if (uart_is_tx_empty(CONF_TEST_UART)) {
-#endif		
+#endif
 		return 1;
 	} else {
 		return 0;
@@ -471,9 +472,9 @@ int main(void)
 {
 	const usart_serial_options_t uart_serial_options = {
 		.baudrate = CONF_TEST_BAUDRATE,
-	#ifdef CONF_UART_CHAR_LENGTH
+#ifdef CONF_UART_CHAR_LENGTH
 		.charlength = CONF_UART_CHAR_LENGTH,
-	#endif
+#endif
 		.paritytype = CONF_TEST_PARITY,
 #ifdef CONF_UART_STOP_BITS
 		.stopbits = CONF_UART_STOP_BITS,
@@ -534,7 +535,8 @@ int main(void)
 	DEFINE_TEST_ARRAY(pmc_tests) = {
 		&periph_clk_cfg_test,
 		&switch_slck_as_mck,
-		&switch_mainck_as_mck, &switch_pllack_as_mck,
+		&switch_mainck_as_mck,
+		&switch_pllack_as_mck,
 #if (SAM3S || SAM4S || SAM4C || SAM4CM || SAM4CP)
 		&switch_pllbck_as_mck,
 #endif

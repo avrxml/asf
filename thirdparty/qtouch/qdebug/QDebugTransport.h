@@ -68,6 +68,8 @@ extern "C"
 # include "touch_api_sam4l.h"
 #elif (SAMD20 || SAMD21)
 # include "touch_api_SAMD.h"
+#elif SAML22
+# include "touch_api_ptc.h"
 #else
 #include "touch_api.h"
 #endif

@@ -4,7 +4,7 @@
  * \brief USBC host driver
  * Compliance with common driver UHD
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -529,6 +529,8 @@ void otg_dual_disable(void)
 #endif
 	otg_disable();
 	sysclk_disable_usb();
+	NVIC_ClearPendingIRQ(USBC_IRQn);
+	NVIC_DisableIRQ(USBC_IRQn);
 	uhd_sleep_mode(UHD_STATE_OFF);
 }
 

@@ -208,7 +208,7 @@ static void configuration_mode_selection(trx_id_t trx)
 	/*
 	 * Wait for the user to release the button to proceed further, otherwise
 	 * button press will start Peer search in Range measurement mode which
-	 *is
+	 * is
 	 * not an intended behavior
 	 */
 	while (button_pressed()) {

@@ -4,7 +4,7 @@
  *
  * \brief WINC1500 configuration.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,6 +48,8 @@ extern "C" {
 
 #include "board.h"
 
+/** Default settings for SAMG53 Xplained Pro with WINC on EXT1. */
+
 /*
    ---------------------------------
    ---------- PIN settings ---------
@@ -55,7 +57,7 @@ extern "C" {
 */
 
 #define CONF_WINC_PIN_RESET				IOPORT_CREATE_PIN(PIOB, 3)
-#define CONF_WINC_PIN_CHIP_ENABLE		IOPORT_CREATE_PIN(PIOA, 17)
+#define CONF_WINC_PIN_CHIP_ENABLE		IOPORT_CREATE_PIN(PIOA, 20)
 #define CONF_WINC_PIN_WAKE				IOPORT_CREATE_PIN(PIOB, 9)
 
 /*
@@ -69,13 +71,13 @@ extern "C" {
 /** SPI pin and instance settings. */
 #define CONF_WINC_SPI					SPI
 #define CONF_WINC_SPI_ID				ID_SPI
-#define CONF_WINC_SPI_MISO_GPIO			SPI_MISO_GPIO
-#define CONF_WINC_SPI_MISO_FLAGS		SPI_MISO_FLAGS
-#define CONF_WINC_SPI_MOSI_GPIO			SPI_MOSI_GPIO
-#define CONF_WINC_SPI_MOSI_FLAGS		SPI_MOSI_FLAGS
-#define CONF_WINC_SPI_CLK_GPIO			SPI_SPCK_GPIO
-#define CONF_WINC_SPI_CLK_FLAGS			SPI_SPCK_FLAGS
-#define CONF_WINC_SPI_CS_GPIO			SPI_NPCS0_GPIO
+#define CONF_WINC_SPI_MISO_GPIO			PIO_PA12_IDX
+#define CONF_WINC_SPI_MISO_FLAGS		IOPORT_MODE_MUX_A
+#define CONF_WINC_SPI_MOSI_GPIO			PIO_PA13_IDX
+#define CONF_WINC_SPI_MOSI_FLAGS		IOPORT_MODE_MUX_A
+#define CONF_WINC_SPI_CLK_GPIO			PIO_PA14_IDX
+#define CONF_WINC_SPI_CLK_FLAGS			IOPORT_MODE_MUX_A
+#define CONF_WINC_SPI_CS_GPIO			PIO_PA11_IDX
 #define CONF_WINC_SPI_CS_FLAGS			PIO_OUTPUT_1
 #define CONF_WINC_SPI_NPCS				(0)
 

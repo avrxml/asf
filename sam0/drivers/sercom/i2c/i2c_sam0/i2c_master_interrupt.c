@@ -167,15 +167,16 @@ static void _i2c_master_async_address_response(
 			/* Return busy */
 			module->status = STATUS_ERR_PACKET_COLLISION;
 		}
-	} else if (i2c_module->STATUS.reg & SERCOM_I2CM_STATUS_RXNACK) {
-		/* Return bad address value */
-		module->status           = STATUS_ERR_BAD_ADDRESS;
-		module->buffer_remaining = 0;
+		/* No slave responds */
+		else if (i2c_module->STATUS.reg & SERCOM_I2CM_STATUS_RXNACK) {
+			module->status           = STATUS_ERR_BAD_ADDRESS;
+			module->buffer_remaining = 0;
 
-		if (module->send_stop) {
-			/* Send stop condition */
-			_i2c_master_wait_for_sync(module);
-			i2c_module->CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3);
+			if (module->send_stop) {
+				/* Send stop condition */
+				_i2c_master_wait_for_sync(module);
+				i2c_module->CTRLB.reg |= SERCOM_I2CM_CTRLB_CMD(3);
+			}
 		}
 	}
 
@@ -311,13 +312,19 @@ static enum status_code _i2c_master_read_packet(
 	module->transfer_direction = I2C_TRANSFER_READ;
 	module->status             = STATUS_BUSY;
 
+	bool sclsm_flag = i2c_module->CTRLA.bit.SCLSM;
+
 	/* Switch to high speed mode */
 	if (packet->high_speed) {
 		_i2c_master_send_hs_master_code(module, packet->hs_master_code);
 	}
 
-	/* Set action to ACK. */
-	i2c_module->CTRLB.reg &= ~SERCOM_I2CM_CTRLB_ACKACT;
+	/* Set action to ACK or NACK. */
+	if ((sclsm_flag) && (packet->data_length == 1)) {
+		i2c_module->CTRLB.reg |= SERCOM_I2CM_CTRLB_ACKACT;
+	} else {
+		i2c_module->CTRLB.reg &= ~SERCOM_I2CM_CTRLB_ACKACT;
+	}
 
 	if (packet->ten_bit_address) {
 		/*

@@ -55,24 +55,43 @@
 
 #warning "Using a default at45dbx configuration: edit and modify the file conf_at45dbx.h depending on the application."
 
-//! Select the SPI module AT45DBX is connected to
-#define AT45DBX_SPI                 EXT2_SPI_MODULE
-
 //! Size of AT45DBX data flash memories to manage.
 #define AT45DBX_MEM_SIZE            AT45DBX_8MB
 
 //! Number of AT45DBX components to manage.
 #define AT45DBX_MEM_CNT             1
 
-#define AT45DBX_SPI_PINMUX_SETTING  EXT2_SPI_SERCOM_MUX_SETTING
-#define AT45DBX_SPI_PINMUX_PAD0     EXT2_SPI_SERCOM_PINMUX_PAD0
-#define AT45DBX_SPI_PINMUX_PAD1     EXT2_SPI_SERCOM_PINMUX_PAD1
-#define AT45DBX_SPI_PINMUX_PAD2     EXT2_SPI_SERCOM_PINMUX_PAD2
-#define AT45DBX_SPI_PINMUX_PAD3     EXT2_SPI_SERCOM_PINMUX_PAD3
-
-#define AT45DBX_CS                  EXT2_PIN_15
-
 //! SPI master speed in Hz.
 #define AT45DBX_CLOCK_SPEED         9600
+
+#ifdef EXT2_SPI_MODULE
+//! Select the SPI module AT45DBX is connected to
+#  define AT45DBX_SPI                 EXT2_SPI_MODULE
+#  define AT45DBX_SPI_PINMUX_SETTING  EXT2_SPI_SERCOM_MUX_SETTING
+#  define AT45DBX_SPI_PINMUX_PAD0     EXT2_SPI_SERCOM_PINMUX_PAD0
+#  define AT45DBX_SPI_PINMUX_PAD1     EXT2_SPI_SERCOM_PINMUX_PAD1
+#  define AT45DBX_SPI_PINMUX_PAD2     EXT2_SPI_SERCOM_PINMUX_PAD2
+#  define AT45DBX_SPI_PINMUX_PAD3     EXT2_SPI_SERCOM_PINMUX_PAD3
+#  define AT45DBX_CS                  EXT2_PIN_15
+#else
+#  define AT45DBX_SPI                 0
+#  define AT45DBX_SPI_PINMUX_SETTING  0
+#  define AT45DBX_SPI_PINMUX_PAD0     0
+#  define AT45DBX_SPI_PINMUX_PAD1     0
+#  define AT45DBX_SPI_PINMUX_PAD2     0
+#  define AT45DBX_SPI_PINMUX_PAD3     0
+#  define AT45DBX_CS                  0
+#endif
+/*
+ * For ATSAMR21G18-MR210UA, AT45DB041E is connected to ATSAMR21G18A on board.
+ * pins connections as below:
+ * #define AT45DBX_SPI                 SERCOM5
+ * #define AT45DBX_SPI_PINMUX_SETTING  SPI_SIGNAL_MUX_SETTING_K
+ * #define AT45DBX_SPI_PINMUX_PAD0     PINMUX_UNUSED
+ * #define AT45DBX_SPI_PINMUX_PAD1     PINMUX_PB03D_SERCOM5_PAD1
+ * #define AT45DBX_SPI_PINMUX_PAD2     PINMUX_PB22D_SERCOM5_PAD2
+ * #define AT45DBX_SPI_PINMUX_PAD3     PINMUX_PB23D_SERCOM5_PAD3
+ * #define AT45DBX_CS                  PIN_PB02
+ */
 
 #endif  // _CONF_AT45DBX_H_

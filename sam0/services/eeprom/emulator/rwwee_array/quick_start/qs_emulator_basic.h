@@ -46,7 +46,7 @@
  *
  * In this use case, the RWW EEPROM emulator module is configured, and a sample page
  * is read and written. The first byte of the first RWW EEPROM page is toggled,
- * and a LED is turned on or off to reflect the new state. Each time the device
+ * and a LED is turned ON or OFF to reflect the new state. Each time the device
  * is reset, the LED should toggle to a different state to indicate correct
  * non-volatile storage and retrieval.
  *

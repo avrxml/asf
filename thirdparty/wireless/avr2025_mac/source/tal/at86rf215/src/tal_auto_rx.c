@@ -91,16 +91,42 @@ static bool upload_frame(trx_id_t trx_id);
  */
 void handle_rx_end_irq(trx_id_t trx_id)
 {
-	trx_state[trx_id] = RF_TXPREP;
-  #if (defined RF215V1) && ((defined SUPPORT_FSK) || (defined SUPPORT_OQPSK))
+	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
+
+#if (defined SUPPORT_FSK) || (defined SUPPORT_OQPSK)
 	stop_rpc(trx_id);
-  #endif
+#endif
+
+#ifdef SUPPORT_FSK
+	/* Check if incoming FSK frame uses the expected CRC length */
+	if (tal_pib[trx_id].phy.modulation == FSK) {
+		if (trx_bit_read(  reg_offset + SR_BBC0_FSKPHRRX_FCST) !=
+				(uint8_t)tal_pib[trx_id].FCSType) {
+			/* Received FCS value is not equal to the required value
+			 *-> cancel ACK transmission */
+			if (trx_bit_read( reg_offset + SR_BBC0_AMCS_AACKFT)) {
+				trx_bit_write(reg_offset + SR_BBC0_AMCS_AACK,
+						0);
+				trx_bit_write(reg_offset + SR_BBC0_AMCS_AACK,
+						1);
+			}
+
+			/* Continue receiving */
+			trx_reg_write( reg_offset + RG_RF09_CMD, RF_RX);
+			trx_state[trx_id] = RF_RX;
+			start_rpc(trx_id);
+			return;
+		}
+	}
+
+#endif
 
 	if (upload_frame(trx_id) == false) {
+		switch_to_rx(trx_id); /* buffer shortage will handled by
+		                       * tal_task() */
 		return;
 	}
 
-#ifdef RX_WHILE_BACKOFF
 	if (tx_state[trx_id] == TX_BACKOFF) {
 		/* Stop backoff timer */
 		stop_tal_timer(trx_id);
@@ -108,13 +134,11 @@ void handle_rx_end_irq(trx_id_t trx_id)
 		tal_pib[trx_id].NumRxFramesDuringBackoff++;
 	}
 
-#endif
-
 #ifdef SUPPORT_MODE_SWITCH
 	if (tal_pib[trx_id].ModeSwitchEnabled) {
 		if (tal_pib[trx_id].phy.modulation == FSK) {
 			uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
-			if (trx_bit_read(reg_offset + SR_BBC0_FSKPHRRX_MS) ==
+			if (trx_bit_read( reg_offset + SR_BBC0_FSKPHRRX_MS) ==
 					0x01) {
 				handle_rx_ms_packet(trx_id);
 				return;
@@ -135,6 +159,7 @@ void handle_rx_end_irq(trx_id_t trx_id)
 #ifdef PROMISCUOUS_MODE
 	if (tal_pib[trx_id].PromiscuousMode) {
 		complete_rx_transaction(trx_id);
+		switch_to_rx(trx_id);
 		return;
 	}
 
@@ -151,8 +176,8 @@ void handle_rx_end_irq(trx_id_t trx_id)
 static void handle_incoming_frame(trx_id_t trx_id)
 {
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
-
 	if (is_frame_an_ack(trx_id)) {
+		trx_state[trx_id] = RF_TXPREP;
 		if (tx_state[trx_id] == TX_WAITING_FOR_ACK) {
 			if (is_ack_valid(trx_id)) {
 				/* Stop ACK timeout timer */
@@ -162,13 +187,21 @@ static void handle_incoming_frame(trx_id_t trx_id)
 				/* Configure frame filter to receive all allowed
 				 *frame types */
 #ifdef SUPPORT_FRAME_FILTER_CONFIGURATION
-				trx_reg_write(reg_offset + RG_BBC0_AFFTM,
+				trx_reg_write( reg_offset + RG_BBC0_AFFTM,
 						tal_pib[trx_id].frame_types);
 #else
-				trx_reg_write(reg_offset + RG_BBC0_AFFTM,
+				trx_reg_write( reg_offset + RG_BBC0_AFFTM,
 						DEFAULT_FRAME_TYPES);
 #endif
-				tx_done_handling(trx_id, MAC_SUCCESS);
+				retval_t status;
+				if (rx_frm_info[trx_id]->mpdu[PL_POS_FCF_1] &
+						FCF_FRAME_PENDING) {
+					status = TAL_FRAME_PENDING;
+				} else {
+					status = MAC_SUCCESS;
+				}
+
+				tx_done_handling(trx_id, status);
 			} else {
 				/* Continue waiting for incoming ACK */
 				switch_to_rx(trx_id);
@@ -182,16 +215,42 @@ static void handle_incoming_frame(trx_id_t trx_id)
 	}
 
 	/* Check if ACK transmission is done by transceiver */
-	bool ack_transmitting = trx_bit_read(reg_offset + SR_BBC0_AMCS_AACKFT);
-	if (ack_transmitting) {
-	} else {
-		complete_rx_transaction(trx_id);
-#ifdef RX_WHILE_BACKOFF
-		if (tx_state[trx_id] == TX_DEFER) {
-			csma_start(trx_id);
+	ack_transmitting[trx_id] = (bool)trx_bit_read(
+			reg_offset + SR_BBC0_AMCS_AACKFT);
+
+#if (defined RF215v1) && (!defined BASIC_MODE)
+	/* Workaround for errata reference #4830 */
+	/* Check if workaround is applicable */
+	if (ack_transmitting[trx_id]) {
+		uint8_t fcf0 = rx_frm_info[trx_id]->mpdu[0];
+		if ((fcf0 & FCF_ACK_REQUEST) == 0x00) {
+			/* Unwanted ACK transmission has already by canceled
+			 *within ISR context */
+			ack_transmitting[trx_id] = false;
+		}
+	}
+
+#endif
+	if (ack_transmitting[trx_id]) {
+		trx_state[trx_id] = RF_TX; /* Sync with trx state; automatic
+		                            * state switch */
+#ifdef SUPPORT_FSK
+		if (tal_pib[trx_id].RPCEnabled &&
+				tal_pib[trx_id].phy.modulation == FSK) {
+			/* Configure preamble length for transmission */
+			trx_reg_write( reg_offset + RG_BBC0_FSKPLL,
+					(uint8_t)(tal_pib[trx_id].
+					FSKPreambleLength & 0xFF));
+			trx_bit_write( reg_offset + SR_BBC0_FSKC1_FSKPLH,
+					(uint8_t)(tal_pib[trx_id].
+					FSKPreambleLength >> 8));
 		}
 
 #endif
+	} else {
+		trx_state[trx_id] = RF_TXPREP;
+		complete_rx_transaction(trx_id);
+		switch_to_rx(trx_id);
 	}
 }
 
@@ -217,7 +276,7 @@ static bool upload_frame(trx_id_t trx_id)
 	/* Get Rx frame length */
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
 	uint16_t phy_frame_len;
-	trx_read(reg_offset + RG_BBC0_RXFLL, (uint8_t *)&phy_frame_len, 2);
+	trx_read((reg_offset + RG_BBC0_RXFLL), (uint8_t *)&phy_frame_len, 2);
 	rx_frm_info[trx_id]->len_no_crc = phy_frame_len -
 			tal_pib[trx_id].FCSLen;
 
@@ -238,7 +297,7 @@ static bool upload_frame(trx_id_t trx_id)
 	uint16_t len = rx_frm_info[trx_id]->len_no_crc;
 #endif
 	uint16_t rx_frm_buf_offset = BB_RX_FRM_BUF_OFFSET * trx_id;
-	trx_read(rx_frm_buf_offset + RG_BBC0_FBRXS, rx_frm_info[trx_id]->mpdu,
+	trx_read( rx_frm_buf_offset + RG_BBC0_FBRXS, rx_frm_info[trx_id]->mpdu,
 			len);
 
 	return true;
@@ -253,7 +312,7 @@ void complete_rx_transaction(trx_id_t trx_id)
 {
 	/* Get energy of received frame */
 	uint16_t reg_offset = RF_BASE_ADDR_OFFSET * trx_id;
-	uint8_t ed = trx_reg_read(reg_offset + RG_RF09_EDV);
+	uint8_t ed = trx_reg_read( reg_offset + RG_RF09_EDV);
 	uint16_t ed_pos = rx_frm_info[trx_id]->len_no_crc + 1 +
 			tal_pib[trx_id].FCSLen;
 	rx_frm_info[trx_id]->mpdu[ed_pos] = ed; /* PSDU, LQI, ED */
@@ -265,8 +324,12 @@ void complete_rx_transaction(trx_id_t trx_id)
 	/* The previous buffer is eaten up and a new buffer is not assigned yet.
 	 **/
 	tal_rx_buffer[trx_id] = bmm_buffer_alloc(LARGE_BUFFER_SIZE);
-	/* Switch to rx again to handle buffer shortage */
-	switch_to_rx(trx_id);
+	/* Fill trx_id in new buffer */
+	if (tal_rx_buffer[trx_id] != NULL) {
+		frame_info_t *frm_info = (frame_info_t *)BMM_BUFFER_POINTER(
+				tal_rx_buffer[trx_id]);
+		frm_info->trx_id = trx_id;
+	}
 }
 
 /**
@@ -285,8 +348,7 @@ void process_incoming_frame(trx_id_t trx_id, buffer_t *buf_ptr)
 	receive_frame->buffer_header = buf_ptr;
 
 	/* Scale ED value to a LQI value: 0x00 - 0xFF */
-	uint16_t lqi_pos = rx_frm_info[trx_id]->len_no_crc +
-			tal_pib[trx_id].FCSLen;
+	uint16_t lqi_pos = receive_frame->len_no_crc + tal_pib[trx_id].FCSLen;
 	receive_frame->mpdu[lqi_pos]
 		= scale_ed_value((int8_t)receive_frame->mpdu[lqi_pos + 1]);
 

@@ -2085,9 +2085,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/component/rtc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/component/eic.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/component/dsu.h</name>
 							</file>
 							<file>
@@ -2103,9 +2100,6 @@
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/component/wdt.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/component/tcc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/component/tc.h</name>
 							</file>
 							<file>
@@ -2118,10 +2112,16 @@
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/component/sysctrl.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/component/eic.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/component/pac.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/component/gclk.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/component/tcc.h</name>
 							</file>
 						</group>
 						<group>
@@ -2148,6 +2148,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/instance/usb.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/instance/pac1.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/instance/tc2.h</name>
 							</file>
 							<file>
@@ -2164,9 +2167,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/instance/sercom0.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/instance/pac1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/instance/pac0.h</name>
@@ -2214,6 +2214,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/pio/samd11d14as.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/pio/samd11d14au.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/pio/samd11d14am.h</name>
 							</file>
 							<file>
@@ -2228,6 +2231,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/samd11.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam0/utils/cmsis/samd11/include/samd11d14au.h</name>
 						</file>
 					</group>
 				</group>
@@ -2253,15 +2259,15 @@
 					<name>$PROJ_DIR$/../../../../../../sam0/utils/preprocessor/mrecursion.h</name>
 				</file>
 			</group>
+			<file>
+				<name>$PROJ_DIR$/../../../../../../sam0/utils/compiler.h</name>
+			</file>
 			<group>
 				<name>header_files</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../sam0/utils/header_files/io.h</name>
 				</file>
 			</group>
-			<file>
-				<name>$PROJ_DIR$/../../../../../../sam0/utils/compiler.h</name>
-			</file>
 		</group>
 		<group>
 			<name>boards</name>

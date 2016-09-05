@@ -326,6 +326,9 @@ typedef struct {
 #define TC_BMR_INVIDX (0x1u << 15) /**< \brief (TC_BMR) INVerted InDeX */
 #define TC_BMR_SWAP (0x1u << 16) /**< \brief (TC_BMR) SWAP PHA and PHB */
 #define TC_BMR_IDXPHB (0x1u << 17) /**< \brief (TC_BMR) InDeX pin is PHB pin */
+#define TC_BMR_AUTOC (0x1u << 18) /**< \brief (TC_BMR) Auto-Correction of missing pulses */
+#define   TC_BMR_AUTOC_DISABLED (0x0u << 18) /**< \brief (TC_BMR) the detection and auto-correction function is disabled. */
+#define   TC_BMR_AUTOC_ENABLED (0x1u << 18) /**< \brief (TC_BMR) the detection and auto-correction function is enabled. */
 #define TC_BMR_FILTER (0x1u << 19) /**< \brief (TC_BMR) Glitch Filter */
 #define TC_BMR_MAXFILT_Pos 20
 #define TC_BMR_MAXFILT_Msk (0x3fu << TC_BMR_MAXFILT_Pos) /**< \brief (TC_BMR) MAXimum FILTer */

@@ -3,7 +3,7 @@
  *
  * \brief Analog-Front-End Controller driver for SAM.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -104,7 +104,7 @@ enum afec_trigger {
 	AFEC_TRIG_FREERUN = 0xFF,
 };
 
-#if defined __SAM4E8C__  || defined __SAM4E16C__
+#if defined __SAM4E8C__  || defined __SAM4E16C__ || defined __SAM4E8CB__  || defined __SAM4E16CB__
 /** Definitions for AFEC channel number */
 enum afec_channel_num {
 	AFEC_CHANNEL_0 = 0,
@@ -238,7 +238,7 @@ struct afec_config {
 	uint32_t afec_clock;
 	/** Start Up Time */
 	enum afec_startup_time startup_time;
-	#if defined __SAM4E8C__  || defined __SAM4E16C__ || defined __SAM4E8E__  || defined __SAM4E16E__
+	#if  SAM4E
 		/** Analog Settling Time = (settling_time + 1) / AFEC clock */
 		enum afec_settling_time settling_time;
 	#endif
@@ -278,7 +278,7 @@ struct afec_temp_sensor_config {
 	uint16_t high_threshold;
 };
 
-#if defined __SAM4E8C__  || defined __SAM4E16C__
+#if defined __SAM4E8C__  || defined __SAM4E16C__ || defined __SAM4E8CB__  || defined __SAM4E16CB__
 /** AFEC interrupt source type */
 enum afec_interrupt_source {
 	AFEC_INTERRUPT_EOC_0 = 0,
@@ -391,7 +391,7 @@ static inline void afec_ch_sanity_check(Afec *const afec,
 		const enum afec_channel_num channel)
 {
 	if (afec == AFEC0) {
-	#if defined __SAM4E8C__  || defined __SAM4E16C__
+	#if defined __SAM4E8C__  || defined __SAM4E16C__ || defined __SAM4E8CB__  || defined __SAM4E16CB__
 		Assert((channel < NB_CH_AFE0) || (channel == AFEC_TEMPERATURE_SENSOR));
 	#elif defined __SAM4E8E__  || defined __SAM4E16E__
 		Assert(channel < NB_CH_AFE0);

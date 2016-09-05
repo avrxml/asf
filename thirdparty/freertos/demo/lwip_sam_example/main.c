@@ -3,7 +3,7 @@
  *
  * \brief FreeRTOS with lwIP example.
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -228,7 +228,7 @@ int main(void)
 	/* Disable the watchdog */
 	WDT->WDT_MR = WDT_MR_WDDIS;
 
-	/* Initilize the SAM system */
+	/* Initialize the SAM system */
 	sysclk_init();
 
 	/* Initialize the console uart */

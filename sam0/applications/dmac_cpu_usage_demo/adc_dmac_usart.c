@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief SAMD10/SAMD11 DMAC Application Note Example for the case 'ADC_DMAC_USART'
+ * \brief DMAC Application Note Example for the case 'ADC_DMAC_USART'
  *
  * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
  *
@@ -88,7 +88,7 @@ void configure_event(void);
 /* MACRO Definitions */
 
 /*! Maximum reload value that can be loaded to SysTick */
-#define SYSTICK_MAX_VALUE  (SysTick_LOAD_RELOAD_Msk - 1) //// Niyas - Not the right approach to load the maximum value; In this case it works as SysTick_LOAD_RELOAD_Pos is 0
+#define SYSTICK_MAX_VALUE  (SysTick_LOAD_RELOAD_Msk - 1) 
 
 /*! Number of ADC samples to be taken and transferred (for with and without case) */
 #define BLOCK_COUNT 1024
@@ -146,7 +146,7 @@ struct usart_module usart_instance;
 struct adc_module adc_instance;
 
 /*! brief PORT base address */
-volatile PortGroup *const port_base = PORT;
+volatile PortGroup *const port_base = (PortGroup *const)PORT;
 
 
 
@@ -156,7 +156,7 @@ volatile PortGroup *const port_base = PORT;
  */
  
  /*! \brief DMA Channel0 call back */
-static void dmac_calback_channel0( const struct dma_resource *const resource)
+static void dmac_calback_channel0(struct dma_resource *const resource)
 {
 	#if defined (ENABLE_PORT_TOGGLE)
 		/* 	 Use oscilloscope to probe the pin. */
@@ -166,7 +166,6 @@ static void dmac_calback_channel0( const struct dma_resource *const resource)
 	adc_dma_transfer_is_done = true;
 	/* Get time stamp */
 	time_stamp2 = SysTick->VAL;
-
 }
 
 
@@ -220,7 +219,7 @@ void configure_usart(void)
 	struct usart_config config_usart;
 	
 	/* USART base address */
-	SercomUsart *const usart_hw	= SERCOM2;
+	SercomUsart *const usart_hw	= (SercomUsart *const)EDBG_CDC_MODULE;
 	
 	/* Get USART default configuration */
 	usart_get_config_defaults(&config_usart);
@@ -265,7 +264,7 @@ void configure_dma_resource(struct dma_resource *resource, uint8_t channel_num)
 
 	case DMAC_CHANNEL0_ID:
 		/* Trigger is enabled for each beat transfer */
-		config.trigger_action = DMA_TRIGGER_ACTON_BEAT;
+		config.trigger_action = DMA_TRIGGER_ACTION_BEAT;
 		/* Peripheral trigger source is ADC result ready */
 		config.peripheral_trigger = ADC_DMAC_ID_RESRDY;
 		/* Generate event once DMA transfer is done */
@@ -317,18 +316,16 @@ void setup_transfer_descriptor(DmacDescriptor *descriptor, uint8_t descriptor_nu
 		/* Set source address as ADC RESULT register */
 		descriptor_config.source_address = (uint32_t)(&ADC->RESULT.reg);
 		/* Set destination address as USART DATA register */
-		descriptor_config.destination_address = (uint32_t)(&SERCOM2->USART.DATA.reg);
+		descriptor_config.destination_address = (uint32_t)(&EDBG_CDC_MODULE->USART.DATA.reg);
 		break;
 
 	default:
 		Assert(false);
 		break;
-
 	}
 
 	/* Create descriptor */
 	dma_descriptor_create(descriptor, &descriptor_config);
-
 }
 
 /**
@@ -400,7 +397,10 @@ void configure_adc(void)
 	/* Get default ADC configuration */
 	adc_get_config_defaults(&config_adc);
 
+#if (SAMD11) || (SAMD10)
 	config_adc.gain_factor     = ADC_GAIN_FACTOR_DIV2;
+#endif
+
 	config_adc.clock_prescaler = ADC_CLOCK_PRESCALER_DIV64;
 	config_adc.reference       = ADC_REFERENCE_INTVCC1;
 	config_adc.positive_input  = ADC_POSITIVE_INPUT_PIN0;
@@ -441,7 +441,7 @@ uint32_t calculate_cycles_taken(uint32_t start_cycle, uint32_t end_cycle)
  * \brief Configure port pins PA14 and PA16 as output with zero 
  * as initial out value.
  */
-void configure_port(void)// Niyas - why this configuration? Can be conditional if it is for debugging
+void configure_port(void)
 {
 	/* Set PA14 and PA15 as output */
 	port_base->DIRSET.reg = (1UL << PIN_PA14 % 32 ) | (1UL << PIN_PA16 % 32 );
@@ -465,7 +465,6 @@ void configure_port(void)// Niyas - why this configuration? Can be conditional i
  */
 int main(void)
 {
-
 	/* Initialize system clocks */
 	system_init();
 
@@ -556,7 +555,6 @@ int main(void)
 
 }//end of main
 
-
 // Application Documentation
 /*! \main page
  * \section intro Introduction
@@ -574,15 +572,10 @@ int main(void)
  * which executes whenever CPU is available. The proportion of these two values
  * are used to calculate the CPU usage for the chosen case.
  *
- * For more details about this application, please refer to the Application 
- * note "AT07685: CPU Usage demonstration using DMAC Application" in the 
- * link http://www.atmel.com/devices/ATSAMD11D14A.aspx?tab=documents
- *
  * \section referenceinfo References
- * - SAMD10/11 device data sheet
- * - SAMD11 Xplained Pro board schematics
+ * - SAM D10/D11 SAM L22 device data sheet
+ * - SAMD11 / SAML22 Xplained Pro board schematics
  * - IO1 Xplained board schematics
- * - ATxxxx Application note
  *
  * \section compinfo Compiler Support
  * This example application supports
@@ -590,50 +583,9 @@ int main(void)
  *
  * \section deviceinfo Device support
  * - ATSAMD11/10 Series
+ * - ATSAML22 Series
  *
  * \author
- * Atmel Corporation : http://www.atmel.com \n
+ * Atmel Corporation : http://www.atmel.com
  */
-
 #endif
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 

@@ -3,7 +3,7 @@
  *
  * \brief USART driver for AVR MEGA.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -61,12 +61,12 @@
  */
 static inline void usart_enable_module_clock(USART_t *usart)
 {
-#ifdef USARTA0
+#ifdef USART0
 	if ((uintptr_t)usart == (uintptr_t)&UCSR0A) {
 		sysclk_enable_module(POWER_RED_REG0, PRUSART0_bm);
 	}
 #endif
-#ifdef USARTA1
+#ifdef USART1
 	if ((uintptr_t)usart == (uintptr_t)&UCSR1A) {
 		sysclk_enable_module(POWER_RED_REG1, PRUSART1_bm);
 	}

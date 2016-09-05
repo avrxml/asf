@@ -8,7 +8,7 @@
  * @author    Support: http://www.atmel.com/design-support/
  */
 /*
- * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2016 Atmel Corporation. All rights reserved.
  *
  * 
  */
@@ -279,69 +279,6 @@
 #endif
 #if defined(__ATmega8__)
 #  define __AVR_ATmega8__      (__ATmega8__)
-#endif
-#if defined(__ATtiny11__)
-#  define __AVR_ATtiny11__     (__ATtiny11__)
-#endif
-#if defined(__ATtiny12__)
-#  define __AVR_ATtiny12__     (__ATtiny12__)
-#endif
-#if defined(__ATtiny13__)
-#  define __AVR_ATtiny13__     (__ATtiny13__)
-#endif
-#if defined(__ATtiny15__)
-#  define __AVR_ATtiny15__     (__ATtiny15__)
-#endif
-#if defined(__ATtiny167__)
-#  define __AVR_ATtiny167__    (__ATtiny167__)
-#endif
-#if defined(__ATtiny22__)
-#  define __AVR_ATtiny22__     (__ATtiny22__)
-#endif
-#if defined(__ATtiny2313__)
-#  define __AVR_ATtiny2313__   (__ATtiny2313__)
-#endif
-#if defined(__ATtiny24__)
-#  define __AVR_ATtiny24__     (__ATtiny24__)
-#endif
-#if defined(__ATtiny25__)
-#  define __AVR_ATtiny25__     (__ATtiny25__)
-#endif
-#if defined(__ATtiny261__)
-#  define __AVR_ATtiny261__    (__ATtiny261__)
-#endif
-#if defined(__ATtiny26__)
-#  define __AVR_ATtiny26__     (__ATtiny26__)
-#endif
-#if defined(__ATtiny28__)
-#  define __AVR_ATtiny28__     (__ATtiny28__)
-#endif
-#if defined(__ATtiny43U__)
-#  define __AVR_ATtiny43U__    (__ATtiny43U__)
-#endif
-#if defined(__ATtiny44__)
-#  define __AVR_ATtiny44__     (__ATtiny44__)
-#endif
-#if defined(__ATtiny45__)
-#  define __AVR_ATtiny45__     (__ATtiny45__)
-#endif
-#if defined(__ATtiny461__)
-#  define __AVR_ATtiny461__    (__ATtiny461__)
-#endif
-#if defined(__ATtiny48__)
-#  define __AVR_ATtiny48__     (__ATtiny48__)
-#endif
-#if defined(__ATtiny84__)
-#  define __AVR_ATtiny84__     (__ATtiny84__)
-#endif
-#if defined(__ATtiny85__)
-#  define __AVR_ATtiny85__     (__ATtiny85__)
-#endif
-#if defined(__ATtiny861__)
-#  define __AVR_ATtiny861__    (__ATtiny861__)
-#endif
-#if defined(__ATtiny88__)
-#  define __AVR_ATtiny88__     (__ATtiny88__)
 #endif
 #if defined(__ATxmega128A1__)
 #  define __AVR_ATxmega128A1__ (__ATxmega128A1__)

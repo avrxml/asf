@@ -137,10 +137,13 @@ typedef void (*uhi_msc_scsi_callback_t) (bool);
  * @{
  */
 
-/** LUN structure information. */
+/** Logical Unit Number (LUN) structure information. */
 typedef struct {
+	/** SBC-2 read capacity (10) parameter data */
 	struct sbc_read_capacity10_data capacity;
+	/** Write protect enable */
 	bool b_write_protected;
+	/** Status of LUN */
 	lun_status_t status;
 } uhi_msc_lun_t;
 
@@ -189,7 +192,8 @@ uhi_msc_lun_t* uhi_msc_get_lun_desc(uint8_t lun);
  * \param[in] lun       LUN number
  * \param[in] callback  Callback to call at the end of SCSI command
  *
- * \return True, if the SCSI command has been accepted.
+ * \return True, if the Small Computer System Interface (SCSI) command has
+ *         been accepted.
  */
 bool uhi_msc_scsi_test_unit_ready(uint8_t lun, uhi_msc_scsi_callback_t callback);
 
@@ -443,7 +447,7 @@ Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram);
  *
  * \section asfdoc_uhi_msc_config_examples_3 conf_clocks.h
  *
- * \subsection asfdoc_uhi_msc_config_examples_3_1 SAMD21 Devices (USB)
+ * \subsection asfdoc_uhi_msc_config_examples_3_1 SAM D21 Devices (USB)
  * \include example2/samd21j18a_samd21_xplained_pro/conf_clocks.h
  *
  * \section asfdoc_uhi_msc_config_examples_4 conf_board.h
@@ -451,7 +455,7 @@ Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram);
  * \subsection asfdoc_uhi_msc_config_examples_4_1 AT32UC3A0, AT32UC3A1, and AT32UC3B Devices (USBB)
  * \include example/at32uc3a0512_evk1100/conf_board.h
  *
- * \subsection asfdoc_uhi_msc_config_examples_4_2 AT32UC3A3, and AT32UC3A4 Devices (USBB with High Speed Support)
+ * \subsection asfdoc_uhi_msc_config_examples_4_2 AT32UC3A3 and AT32UC3A4 Devices (USBB with High Speed Support)
  * \include example/at32uc3a3256_evk1104/conf_board.h
  *
  * \subsection asfdoc_uhi_msc_config_examples_42_3 AT32UC3C, ATUCXXD, ATUCXXL3U, and ATUCXXL4U Devices (USBC)
@@ -460,7 +464,7 @@ Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram);
  * \subsection asfdoc_uhi_msc_config_examples_4_4 SAM3X and SAM3A Devices (UOTGHS: USB OTG High Speed)
  * \include example2/sam3x8h_sam3x_ek/conf_board.h
  *
- * \subsection asfdoc_uhi_msc_config_examples_4_5 SAMD21 Devices (USB)
+ * \subsection asfdoc_uhi_msc_config_examples_4_5 SAM D21 Devices (USB)
  * \include example2/samd21j18a_samd21_xplained_pro/conf_board.h
  */
 
@@ -469,14 +473,19 @@ Ctrl_status uhi_msc_mem_write_10_ram(uint32_t addr, const void *ram);
  *
  * <table>
  * <tr>
- *    <th>Doc. Rev.</td>
- *    <th>Date</td>
- *    <th>Comments</td>
+ *    <th>Doc. Rev.</th>
+ *    <th>Date</th>
+ *    <th>Comments</th>
+ * </tr>
+ * <tr>
+ *    <td>42344B</td>
+ *    <td>12/2015</td>
+ *    <td>Fixed typos</td>
  * </tr>
  * <tr>
  *    <td>42344A</td>
  *    <td>12/2014</td>
- *    <td>Initial release.</td>
+ *    <td>Initial release</td>
  * </tr>
  * </table>
  */

@@ -159,6 +159,7 @@ INC_PATH = \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
        sam/drivers/rstc                                   \
+       sam/drivers/rstc/example1                          \
        sam/drivers/spi                                    \
        sam/drivers/tc                                     \
        sam/drivers/uart                                   \

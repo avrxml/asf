@@ -1946,7 +1946,7 @@
 				<group>
 					<name>usart_synchronous_example</name>
 					<file>
-						<name>$PROJ_DIR$/../../usart_synchronous_example_samv71.c</name>
+						<name>$PROJ_DIR$/../../usart_synchronous_example_canopus.c</name>
 					</file>
 					<group>
 						<name>samv71q21_samv71_xplained_ultra</name>
@@ -2010,10 +2010,10 @@
 			<group>
 				<name>pio</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../pio/pio.c</name>
+					<name>$PROJ_DIR$/../../../../pio/pio_handler.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../pio/pio_handler.c</name>
+					<name>$PROJ_DIR$/../../../../pio/pio.c</name>
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../pio/pio_handler.h</name>
@@ -2042,15 +2042,15 @@
 						<name>source</name>
 						<group>
 							<name>templates</name>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/samv71/source/templates/system_samv71.c</name>
+							</file>
 							<group>
 								<name>iar</name>
 								<file>
 									<name>$PROJ_DIR$/../../../../../utils/cmsis/samv71/source/templates/iar/startup_samv71.c</name>
 								</file>
 							</group>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/samv71/source/templates/system_samv71.c</name>
-							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/samv71/source/templates/system_samv71.h</name>
 							</file>

@@ -3,7 +3,7 @@
  *
  * \brief Two-Wire Interface (TWIHS) driver for SAM.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -78,9 +78,11 @@ extern "C" {
  * @{
  */
 
+/* Low level time limit of I2C Fast Mode. */
+#define LOW_LEVEL_TIME_LIMIT   384000
 #define I2C_FAST_MODE_SPEED    400000
 #define TWIHS_CLK_DIVIDER      2
-#define TWIHS_CLK_CALC_ARGU    4
+#define TWIHS_CLK_CALC_ARGU    3
 #define TWIHS_CLK_DIV_MAX      0xFF
 #define TWIHS_CLK_DIV_MIN      7
 
@@ -156,26 +158,54 @@ uint32_t twihs_set_speed(Twihs *p_twihs, uint32_t ul_speed, uint32_t ul_mck)
 {
 	uint32_t ckdiv = 0;
 	uint32_t c_lh_div;
+	uint32_t cldiv, chdiv;
 
 	/* High-Speed can be only used in slave mode, 400k is the max speed allowed for master */
 	if (ul_speed > I2C_FAST_MODE_SPEED) {
 		return FAIL;
 	}
 
-	c_lh_div = ul_mck / (ul_speed * TWIHS_CLK_DIVIDER) - TWIHS_CLK_CALC_ARGU;
+	/* Low level time not less than 1.3us of I2C Fast Mode. */
+	if (ul_speed > LOW_LEVEL_TIME_LIMIT) {
+		/* Low level of time fixed for 1.3us. */
+		cldiv = ul_mck / (LOW_LEVEL_TIME_LIMIT * TWIHS_CLK_DIVIDER) - TWIHS_CLK_CALC_ARGU;
+		chdiv = ul_mck / ((ul_speed + (ul_speed - LOW_LEVEL_TIME_LIMIT)) * TWIHS_CLK_DIVIDER) - TWIHS_CLK_CALC_ARGU;
+		
+		/* cldiv must fit in 8 bits, ckdiv must fit in 3 bits */
+		while ((cldiv > TWIHS_CLK_DIV_MAX) && (ckdiv < TWIHS_CLK_DIV_MIN)) {
+			/* Increase clock divider */
+			ckdiv++;
+			/* Divide cldiv value */
+			cldiv /= TWIHS_CLK_DIVIDER;
+		}
+		/* chdiv must fit in 8 bits, ckdiv must fit in 3 bits */
+		while ((chdiv > TWIHS_CLK_DIV_MAX) && (ckdiv < TWIHS_CLK_DIV_MIN)) {
+			/* Increase clock divider */
+			ckdiv++;
+			/* Divide cldiv value */
+			chdiv /= TWIHS_CLK_DIVIDER;
+		}
 
-	/* cldiv must fit in 8 bits, ckdiv must fit in 3 bits */
-	while ((c_lh_div > TWIHS_CLK_DIV_MAX) && (ckdiv < TWIHS_CLK_DIV_MIN)) {
-		/* Increase clock divider */
-		ckdiv++;
-		/* Divide cldiv value */
-		c_lh_div /= TWIHS_CLK_DIVIDER;
+		/* set clock waveform generator register */
+		p_twihs->TWIHS_CWGR =
+				TWIHS_CWGR_CLDIV(cldiv) | TWIHS_CWGR_CHDIV(chdiv) |
+				TWIHS_CWGR_CKDIV(ckdiv);
+	} else {
+		c_lh_div = ul_mck / (ul_speed * TWIHS_CLK_DIVIDER) - TWIHS_CLK_CALC_ARGU;
+
+		/* cldiv must fit in 8 bits, ckdiv must fit in 3 bits */
+		while ((c_lh_div > TWIHS_CLK_DIV_MAX) && (ckdiv < TWIHS_CLK_DIV_MIN)) {
+			/* Increase clock divider */
+			ckdiv++;
+			/* Divide cldiv value */
+			c_lh_div /= TWIHS_CLK_DIVIDER;
+		}
+
+		/* set clock waveform generator register */
+		p_twihs->TWIHS_CWGR =
+				TWIHS_CWGR_CLDIV(c_lh_div) | TWIHS_CWGR_CHDIV(c_lh_div) |
+				TWIHS_CWGR_CKDIV(ckdiv);
 	}
-
-	/* set clock waveform generator register */
-	p_twihs->TWIHS_CWGR =
-			TWIHS_CWGR_CLDIV(c_lh_div) | TWIHS_CWGR_CHDIV(c_lh_div) |
-			TWIHS_CWGR_CKDIV(ckdiv);
 
 	return PASS;
 }

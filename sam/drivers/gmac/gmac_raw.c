@@ -3,7 +3,7 @@
  *
  * \brief GMAC (Ethernet MAC) driver for SAM.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -530,8 +530,7 @@ uint32_t gmac_dev_write(gmac_device_t* p_gmac_dev, void *p_buffer,
 	/* If no free TxTd, buffer can't be sent, schedule the wakeup callback */
 	if (CIRC_SPACE(p_gmac_dev->us_tx_head, p_gmac_dev->us_tx_tail,
 					p_gmac_dev->us_tx_list_size) == 0) {
-		if (p_tx_td[p_gmac_dev->us_tx_head].status.val & GMAC_TXD_USED)
-			return GMAC_TX_BUSY;
+		return GMAC_TX_BUSY;
 	}
 
 	/* Pointers to the current Tx callback */

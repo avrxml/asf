@@ -80,6 +80,7 @@
  * - sam4cp16b_sam4cp16bmb
  * - sam4cmp16c_sam4cmp_db
  * - sam4cms16c_sam4cms_db
+ * - same70q21_same70_xplained_pro
  * - samv71q21_samv71_xplained_ultra
  *
  * \section compinfo Compilation info

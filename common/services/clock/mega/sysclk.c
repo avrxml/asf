@@ -3,7 +3,7 @@
  *
  * \brief Chip-specific system clock management functions
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -58,7 +58,10 @@ void sysclk_init(void)
 #if !MEGA_XX_UN0 && !MEGA_XX_UN1
 	uint8_t *reg = (uint8_t *)&(POWER_REG_ADD);
 	uint8_t i;
-	/* Turn off all peripheral clocks that can be turned off. */
+	/* Turn off all peripheral clocks that can be turned off.
+	 * The debugWIRE system of some devices that shares system clock with the SPI module.
+	 * Thus the PRSPI bit in the PRR register must not be set when debugging.
+	 */
 	for (i = 0; i < NUMBER_OF_POWER_REG; i++) {
 		*(reg++) = 0xFF;
 	}

@@ -184,8 +184,12 @@ int main(void)
 	board_init();
 
 	/* Turn off LEDs */
+#if (SAME70)
+	ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+#else
 	ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
 	ioport_set_pin_level(LED1_GPIO, LED1_INACTIVE_LEVEL);
+#endif
 
 	/* Initialize the console UART */
 	configure_console();
@@ -208,8 +212,12 @@ int main(void)
 
 	if (twihs_master_setup(BOARD_AT24MAC_TWIHS_INSTANCE, &opt) != TWIHS_SUCCESS) {
 		puts("AT24MACXX initialization is failed.\r");
-		ioport_set_pin_level(LED0_GPIO, LED0_ACTIVE_LEVEL);
-		ioport_set_pin_level(LED1_GPIO, LED1_ACTIVE_LEVEL);
+#if (SAME70)
+		ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+#else
+		ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+		ioport_set_pin_level(LED1_GPIO, LED1_INACTIVE_LEVEL);
+#endif
 		while (1) {
 			/* Capture error */
 		}
@@ -222,8 +230,12 @@ int main(void)
 			AT24MAC_MEM_ADDR + TEST_DATA_LENGTH - 1,
 			MEMORY_PATTERN) != AT24MAC_WRITE_SUCCESS) {
 		puts("AT24MACXX pattern fill is failed.\r");
-		ioport_set_pin_level(LED0_GPIO, LED0_ACTIVE_LEVEL);
-		ioport_set_pin_level(LED1_GPIO, LED1_ACTIVE_LEVEL);
+#if (SAME70)
+			ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+#else
+			ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+			ioport_set_pin_level(LED1_GPIO, LED1_INACTIVE_LEVEL);
+#endif
 		while (1) {
 			/* Capture error */
 		}
@@ -235,8 +247,12 @@ int main(void)
 	if (at24macxx_read_continuous(AT24MAC_MEM_ADDR, TEST_DATA_LENGTH,
 			test_data_rx) != AT24MAC_READ_SUCCESS) {
 		puts("AT24MACXX read packet is failed.\r");
-		ioport_set_pin_level(LED0_GPIO, LED0_ACTIVE_LEVEL);
-		ioport_set_pin_level(LED1_GPIO, LED1_ACTIVE_LEVEL);
+#if (SAME70)
+		ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+#else
+		ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+		ioport_set_pin_level(LED1_GPIO, LED1_INACTIVE_LEVEL);
+#endif
 		while (1) {
 			/* Capture error */
 		}
@@ -247,8 +263,12 @@ int main(void)
 		if (MEMORY_PATTERN != test_data_rx[i]) {
 			/* No match */
 			puts("Pattern comparison: Unmatched!\r");
-			ioport_set_pin_level(LED0_GPIO, LED0_ACTIVE_LEVEL);
-			ioport_set_pin_level(LED1_GPIO, LED1_ACTIVE_LEVEL);
+#if (SAME70)
+			ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+#else
+			ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+			ioport_set_pin_level(LED1_GPIO, LED1_INACTIVE_LEVEL);
+#endif
 			while (1) {
 				/* Capture error */
 			}
@@ -260,8 +280,12 @@ int main(void)
 	if (at24macxx_write_continuous(AT24MAC_MEM_ADDR, TEST_DATA_LENGTH,
 			test_data_tx) != AT24MAC_WRITE_SUCCESS) {
 		puts("AT24MACXX write packet is failed.\r");
-		ioport_set_pin_level(LED0_GPIO, LED0_ACTIVE_LEVEL);
-		ioport_set_pin_level(LED1_GPIO, LED1_ACTIVE_LEVEL);
+#if (SAME70)
+		ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+#else
+		ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+		ioport_set_pin_level(LED1_GPIO, LED1_INACTIVE_LEVEL);
+#endif
 		while (1) {
 			/* Capture error */
 		}
@@ -274,8 +298,12 @@ int main(void)
 	if (at24macxx_read_continuous(AT24MAC_MEM_ADDR, TEST_DATA_LENGTH,
 			test_data_rx) != AT24MAC_READ_SUCCESS) {
 		puts("AT24MACXX read packet is failed.\r");
-		ioport_set_pin_level(LED0_GPIO, LED0_ACTIVE_LEVEL);
-		ioport_set_pin_level(LED1_GPIO, LED1_ACTIVE_LEVEL);
+#if (SAME70)
+		ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+#else
+		ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+		ioport_set_pin_level(LED1_GPIO, LED1_INACTIVE_LEVEL);
+#endif
 		while (1) {
 			/* Capture error */
 		}
@@ -286,8 +314,12 @@ int main(void)
 		if (test_data_tx[i] != test_data_rx[i]) {
 			/* No match */
 			puts("Data comparison: Unmatched!\r");
-			ioport_set_pin_level(LED0_GPIO, LED0_ACTIVE_LEVEL);
-			ioport_set_pin_level(LED1_GPIO, LED1_ACTIVE_LEVEL);
+#if (SAME70)
+			ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+#else
+			ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+			ioport_set_pin_level(LED1_GPIO, LED1_INACTIVE_LEVEL);
+#endif
 			while (1) {
 				/* Capture error */
 			}
@@ -305,8 +337,12 @@ int main(void)
 	if (at24macxx_write_page(PAGE_ADDR, PAGE_SIZE, page_write_buf) !=
 			AT24MAC_WRITE_SUCCESS) {
 		puts("AT24MACXX page write is failed.\r");
-		ioport_set_pin_level(LED0_GPIO, LED0_ACTIVE_LEVEL);
-		ioport_set_pin_level(LED1_GPIO, LED1_ACTIVE_LEVEL);
+#if (SAME70)
+		ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+#else
+		ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+		ioport_set_pin_level(LED1_GPIO, LED1_INACTIVE_LEVEL);
+#endif
 		while (1) {
 			/* Capture error */
 		}
@@ -315,8 +351,12 @@ int main(void)
 	if (at24macxx_read_page(PAGE_ADDR, PAGE_SIZE, page_read_buf) !=
 			AT24MAC_READ_SUCCESS) {
 		puts("AT24MACXX page read is failed.\r");
-		ioport_set_pin_level(LED0_GPIO, LED0_ACTIVE_LEVEL);
-		ioport_set_pin_level(LED1_GPIO, LED1_ACTIVE_LEVEL);
+#if (SAME70)
+		ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+#else
+		ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+		ioport_set_pin_level(LED1_GPIO, LED1_INACTIVE_LEVEL);
+#endif
 		while (1) {
 			/* Capture error */
 		}
@@ -326,8 +366,12 @@ int main(void)
 		if (page_read_buf[i] != page_write_buf[i]) {
 			/* No match */
 			puts("Page comparison: Unmatched!\r");
-			ioport_set_pin_level(LED0_GPIO, LED0_ACTIVE_LEVEL);
-			ioport_set_pin_level(LED1_GPIO, LED1_ACTIVE_LEVEL);
+#if (SAME70)
+			ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+#else
+			ioport_set_pin_level(LED0_GPIO, LED0_INACTIVE_LEVEL);
+			ioport_set_pin_level(LED1_GPIO, LED1_INACTIVE_LEVEL);
+#endif
 			while (1) {
 				/* Capture error */
 			}
@@ -335,6 +379,13 @@ int main(void)
 	}
 	/* Match */
 	puts("Page comparison: Matched!\r");
+	/* Turn on LEDs */
+#if (SAME70)
+	ioport_set_pin_level(LED0_GPIO, LED0_ACTIVE_LEVEL);
+#else
+	ioport_set_pin_level(LED0_GPIO, LED0_ACTIVE_LEVEL);
+	ioport_set_pin_level(LED1_GPIO, LED0_ACTIVE_LEVEL);
+#endif
 	while (1) {
 	}
 }

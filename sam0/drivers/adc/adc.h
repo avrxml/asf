@@ -3,7 +3,7 @@
  *
  * \brief SAM Peripheral Analog-to-Digital Converter Driver
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -380,7 +380,7 @@
  *
  * \note The connection of events between modules requires the use of the
  *       \ref asfdoc_sam0_events_group "SAM Event System Driver (EVENTS)"
- *       to route output event of one module to the the input event of another.
+ *       to route output event of one module to the input event of another.
  *       For more information on event routing, refer to the event driver
  *       documentation.
  *
@@ -611,6 +611,11 @@ static inline enum status_code adc_enable(
 #   endif
 #endif
 
+	/* Disbale interrupt */
+	adc_module->INTENCLR.reg = ADC_INTENCLR_MASK;
+	/* Clear interrupt flag */
+	adc_module->INTFLAG.reg = ADC_INTFLAG_MASK;
+
 	adc_module->CTRLA.reg |= ADC_CTRLA_ENABLE;
 
 	while (adc_is_syncing(module_inst)) {
@@ -649,6 +654,11 @@ static inline enum status_code adc_disable(
 		/* Wait for synchronization */
 	}
 
+	/* Disbale interrupt */
+	adc_module->INTENCLR.reg = ADC_INTENCLR_MASK;
+	/* Clear interrupt flag */
+	adc_module->INTFLAG.reg = ADC_INTFLAG_MASK;
+
 	adc_module->CTRLA.reg &= ~ADC_CTRLA_ENABLE;
 
 	while (adc_is_syncing(module_inst)) {
@@ -660,7 +670,7 @@ static inline enum status_code adc_disable(
 /**
  * \brief Resets the ADC module.
  *
- * Resets an ADC module, clearing all module state and registers to their
+ * Resets an ADC module, clearing all module state, and registers to their
  * default values.
  *
  * \param[in] module_inst  Pointer to the ADC software instance struct
@@ -1061,10 +1071,10 @@ static inline void adc_disable_interrupt(struct adc_module *const module_inst,
  * </tr>
  * \else
  *	<tr>
- *		<td>Added support for SAMR21</td>
+ *		<td>Added support for SAM R21</td>
  *	</tr>
  *	<tr>
- *		<td>Added support for SAMD21 and new DMA quick start guide</td>
+ *		<td>Added support for SAM D21 and new DMA quick start guide</td>
  *	</tr>
  *	<tr>
  *		<td>Added ADC calibration constant loading from the device signature
@@ -1096,14 +1106,14 @@ static inline void adc_disable_interrupt(struct adc_module *const module_inst,
  *
  * <table>
  *	<tr>
- *		<th>Doc. Rev.</td>
- *		<th>Date</td>
- *		<th>Comments</td>
+ *		<th>Doc. Rev.</th>
+ *		<th>Date</th>
+ *		<th>Comments</th>
  *	</tr>
  * \if DEVICE_SAML21_SUPPORT
   *	<tr>
  *		<td>42451B</td>
- *		<td>08/2015</td>
+ *		<td>12/2015</td>
  *		<td>Added support for SAM L22</td>
  *	</tr>
  *  <tr>
@@ -1114,18 +1124,18 @@ static inline void adc_disable_interrupt(struct adc_module *const module_inst,
  * \else
  *	<tr>
  *		<td>42109E</td>
- *		<td>04/2015</td>
- *		<td>Added support for SAMDAx.</td>
+ *		<td>12/2015</td>
+ *		<td>Added support for SAM DA1 and SAM D09</td>
  *	</tr>
  *	<tr>
  *		<td>42109D</td>
  *		<td>12/2014</td>
- *		<td>Added support for SAMR21 and SAMD10/D11</td>
+ *		<td>Added support for SAM R21 and SAM D10/D11</td>
  *	</tr>
  *	<tr>
  *		<td>42109C</td>
  *		<td>01/2014</td>
- *		<td>Added support for SAMD21</td>
+ *		<td>Added support for SAM D21</td>
  *	</tr>
  *	<tr>
  *		<td>42109B</td>

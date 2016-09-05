@@ -3,7 +3,7 @@
  *
  * \brief Component description for USART
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -1826,14 +1826,6 @@
 #define US_CSR_LIN_RXBRK            (0x1u << US_CSR_LIN_RXBRK_Pos)
 #define   US_CSR_LIN_RXBRK_0        (0x0u <<  2) /**< \brief (US_CSR_LIN) No Break received or End of Break detected since the last RSTSTA */
 #define   US_CSR_LIN_RXBRK_1        (0x1u <<  2) /**< \brief (US_CSR_LIN) Break Received or End of Break detected since the last RSTSTA */
-#define US_CSR_LIN_ENDRX_Pos        3            /**< \brief (US_CSR_LIN) End of Receiver Transfer */
-#define US_CSR_LIN_ENDRX            (0x1u << US_CSR_LIN_ENDRX_Pos)
-#define   US_CSR_LIN_ENDRX_0        (0x0u <<  3) /**< \brief (US_CSR_LIN) The End of Transfer signal from the Receive PDC channel is inactive */
-#define   US_CSR_LIN_ENDRX_1        (0x1u <<  3) /**< \brief (US_CSR_LIN) The End of Transfer signal from the Receive PDC channel is active */
-#define US_CSR_LIN_ENDTX_Pos        4            /**< \brief (US_CSR_LIN) End of Transmitter Transfer */
-#define US_CSR_LIN_ENDTX            (0x1u << US_CSR_LIN_ENDTX_Pos)
-#define   US_CSR_LIN_ENDTX_0        (0x0u <<  4) /**< \brief (US_CSR_LIN) The End of Transfer signal from the Transmit PDC channel is inactive */
-#define   US_CSR_LIN_ENDTX_1        (0x1u <<  4) /**< \brief (US_CSR_LIN) The End of Transfer signal from the Transmit PDC channel is active */
 #define US_CSR_LIN_OVRE_Pos         5            /**< \brief (US_CSR_LIN) Overrun Error */
 #define US_CSR_LIN_OVRE             (0x1u << US_CSR_LIN_OVRE_Pos)
 #define   US_CSR_LIN_OVRE_0         (0x0u <<  5) /**< \brief (US_CSR_LIN) No overrun error has occurred since since the last RSTSTA */
@@ -1858,10 +1850,6 @@
 #define US_CSR_LIN_ITER             (0x1u << US_CSR_LIN_ITER_Pos)
 #define   US_CSR_LIN_ITER_0         (0x0u << 10) /**< \brief (US_CSR_LIN) Maximum number of repetitions has not been reached since the last RSIT */
 #define   US_CSR_LIN_ITER_1         (0x1u << 10) /**< \brief (US_CSR_LIN) Maximum number of repetitions has been reached since the last RSIT */
-#define US_CSR_LIN_TXBUFE_Pos       11           /**< \brief (US_CSR_LIN) Transmission Buffer Empty */
-#define US_CSR_LIN_TXBUFE           (0x1u << US_CSR_LIN_TXBUFE_Pos)
-#define   US_CSR_LIN_TXBUFE_0       (0x0u << 11) /**< \brief (US_CSR_LIN) The signal Buffer Empty from the Transmit PDC channel is inactive */
-#define   US_CSR_LIN_TXBUFE_1       (0x1u << 11) /**< \brief (US_CSR_LIN) The signal Buffer Empty from the Transmit PDC channel is active */
 #define US_CSR_LIN_RXBUFF_Pos       12           /**< \brief (US_CSR_LIN) Reception Buffer Full */
 #define US_CSR_LIN_RXBUFF           (0x1u << US_CSR_LIN_RXBUFF_Pos)
 #define   US_CSR_LIN_RXBUFF_0       (0x0u << 12) /**< \brief (US_CSR_LIN) The signal Buffer Full from the Receive PDC channel is inactive */
@@ -1939,14 +1927,6 @@
 #define US_CSR_SPI_SLAVE_RXBRK      (0x1u << US_CSR_SPI_SLAVE_RXBRK_Pos)
 #define   US_CSR_SPI_SLAVE_RXBRK_0  (0x0u <<  2) /**< \brief (US_CSR_SPI_SLAVE) No Break received or End of Break detected since the last RSTSTA */
 #define   US_CSR_SPI_SLAVE_RXBRK_1  (0x1u <<  2) /**< \brief (US_CSR_SPI_SLAVE) Break Received or End of Break detected since the last RSTSTA */
-#define US_CSR_SPI_SLAVE_ENDRX_Pos  3            /**< \brief (US_CSR_SPI_SLAVE) End of Receiver Transfer */
-#define US_CSR_SPI_SLAVE_ENDRX      (0x1u << US_CSR_SPI_SLAVE_ENDRX_Pos)
-#define   US_CSR_SPI_SLAVE_ENDRX_0  (0x0u <<  3) /**< \brief (US_CSR_SPI_SLAVE) The End of Transfer signal from the Receive PDC channel is inactive */
-#define   US_CSR_SPI_SLAVE_ENDRX_1  (0x1u <<  3) /**< \brief (US_CSR_SPI_SLAVE) The End of Transfer signal from the Receive PDC channel is active */
-#define US_CSR_SPI_SLAVE_ENDTX_Pos  4            /**< \brief (US_CSR_SPI_SLAVE) End of Transmitter Transfer */
-#define US_CSR_SPI_SLAVE_ENDTX      (0x1u << US_CSR_SPI_SLAVE_ENDTX_Pos)
-#define   US_CSR_SPI_SLAVE_ENDTX_0  (0x0u <<  4) /**< \brief (US_CSR_SPI_SLAVE) The End of Transfer signal from the Transmit PDC channel is inactive */
-#define   US_CSR_SPI_SLAVE_ENDTX_1  (0x1u <<  4) /**< \brief (US_CSR_SPI_SLAVE) The End of Transfer signal from the Transmit PDC channel is active */
 #define US_CSR_SPI_SLAVE_OVRE_Pos   5            /**< \brief (US_CSR_SPI_SLAVE) Overrun Error */
 #define US_CSR_SPI_SLAVE_OVRE       (0x1u << US_CSR_SPI_SLAVE_OVRE_Pos)
 #define   US_CSR_SPI_SLAVE_OVRE_0   (0x0u <<  5) /**< \brief (US_CSR_SPI_SLAVE) No overrun error has occurred since since the last RSTSTA */
@@ -1971,15 +1951,11 @@
 #define US_CSR_SPI_SLAVE_UNRE       (0x1u << US_CSR_SPI_SLAVE_UNRE_Pos)
 #define   US_CSR_SPI_SLAVE_UNRE_0   (0x0u << 10) /**< \brief (US_CSR_SPI_SLAVE) No SPI underrun error has occurred since the last RSTSTA */
 #define   US_CSR_SPI_SLAVE_UNRE_1   (0x1u << 10) /**< \brief (US_CSR_SPI_SLAVE) At least one SPI underrun error has occurred since the last RSTSTA */
-#define US_CSR_SPI_SLAVE_TXBUFE_Pos 11           /**< \brief (US_CSR_SPI_SLAVE) Transmission Buffer Empty */
-#define US_CSR_SPI_SLAVE_TXBUFE     (0x1u << US_CSR_SPI_SLAVE_TXBUFE_Pos)
-#define   US_CSR_SPI_SLAVE_TXBUFE_0 (0x0u << 11) /**< \brief (US_CSR_SPI_SLAVE) The signal Buffer Empty from the Transmit PDC channel is inactive */
-#define   US_CSR_SPI_SLAVE_TXBUFE_1 (0x1u << 11) /**< \brief (US_CSR_SPI_SLAVE) The signal Buffer Empty from the Transmit PDC channel is active */
+#define US_CSR_SPI_SLAVE_NACK_Pos   13           /**< \brief (US_CSR_SPI_SLAVE) Non Acknowledge */
 #define US_CSR_SPI_SLAVE_RXBUFF_Pos 12           /**< \brief (US_CSR_SPI_SLAVE) Reception Buffer Full */
 #define US_CSR_SPI_SLAVE_RXBUFF     (0x1u << US_CSR_SPI_SLAVE_RXBUFF_Pos)
 #define   US_CSR_SPI_SLAVE_RXBUFF_0 (0x0u << 12) /**< \brief (US_CSR_SPI_SLAVE) The signal Buffer Full from the Receive PDC channel is inactive */
 #define   US_CSR_SPI_SLAVE_RXBUFF_1 (0x1u << 12) /**< \brief (US_CSR_SPI_SLAVE) The signal Buffer Full from the Receive PDC channel is active */
-#define US_CSR_SPI_SLAVE_NACK_Pos   13           /**< \brief (US_CSR_SPI_SLAVE) Non Acknowledge */
 #define US_CSR_SPI_SLAVE_NACK       (0x1u << US_CSR_SPI_SLAVE_NACK_Pos)
 #define   US_CSR_SPI_SLAVE_NACK_0   (0x0u << 13) /**< \brief (US_CSR_SPI_SLAVE) No Non Acknowledge has not been detected since the last RSTNACK */
 #define   US_CSR_SPI_SLAVE_NACK_1   (0x1u << 13) /**< \brief (US_CSR_SPI_SLAVE) At least one Non Acknowledge has been detected since the last RSTNACK */
@@ -2030,14 +2006,6 @@
 #define US_CSR_USART_RXBRK          (0x1u << US_CSR_USART_RXBRK_Pos)
 #define   US_CSR_USART_RXBRK_0      (0x0u <<  2) /**< \brief (US_CSR_USART) No Break received or End of Break detected since the last RSTSTA */
 #define   US_CSR_USART_RXBRK_1      (0x1u <<  2) /**< \brief (US_CSR_USART) Break Received or End of Break detected since the last RSTSTA */
-#define US_CSR_USART_ENDRX_Pos      3            /**< \brief (US_CSR_USART) End of Receiver Transfer */
-#define US_CSR_USART_ENDRX          (0x1u << US_CSR_USART_ENDRX_Pos)
-#define   US_CSR_USART_ENDRX_0      (0x0u <<  3) /**< \brief (US_CSR_USART) The End of Transfer signal from the Receive PDC channel is inactive */
-#define   US_CSR_USART_ENDRX_1      (0x1u <<  3) /**< \brief (US_CSR_USART) The End of Transfer signal from the Receive PDC channel is active */
-#define US_CSR_USART_ENDTX_Pos      4            /**< \brief (US_CSR_USART) End of Transmitter Transfer */
-#define US_CSR_USART_ENDTX          (0x1u << US_CSR_USART_ENDTX_Pos)
-#define   US_CSR_USART_ENDTX_0      (0x0u <<  4) /**< \brief (US_CSR_USART) The End of Transfer signal from the Transmit PDC channel is inactive */
-#define   US_CSR_USART_ENDTX_1      (0x1u <<  4) /**< \brief (US_CSR_USART) The End of Transfer signal from the Transmit PDC channel is active */
 #define US_CSR_USART_OVRE_Pos       5            /**< \brief (US_CSR_USART) Overrun Error */
 #define US_CSR_USART_OVRE           (0x1u << US_CSR_USART_OVRE_Pos)
 #define   US_CSR_USART_OVRE_0       (0x0u <<  5) /**< \brief (US_CSR_USART) No overrun error has occurred since since the last RSTSTA */
@@ -2062,10 +2030,6 @@
 #define US_CSR_USART_ITER           (0x1u << US_CSR_USART_ITER_Pos)
 #define   US_CSR_USART_ITER_0       (0x0u << 10) /**< \brief (US_CSR_USART) Maximum number of repetitions has not been reached since the last RSIT */
 #define   US_CSR_USART_ITER_1       (0x1u << 10) /**< \brief (US_CSR_USART) Maximum number of repetitions has been reached since the last RSIT */
-#define US_CSR_USART_TXBUFE_Pos     11           /**< \brief (US_CSR_USART) Transmission Buffer Empty */
-#define US_CSR_USART_TXBUFE         (0x1u << US_CSR_USART_TXBUFE_Pos)
-#define   US_CSR_USART_TXBUFE_0     (0x0u << 11) /**< \brief (US_CSR_USART) The signal Buffer Empty from the Transmit PDC channel is inactive */
-#define   US_CSR_USART_TXBUFE_1     (0x1u << 11) /**< \brief (US_CSR_USART) The signal Buffer Empty from the Transmit PDC channel is active */
 #define US_CSR_USART_RXBUFF_Pos     12           /**< \brief (US_CSR_USART) Reception Buffer Full */
 #define US_CSR_USART_RXBUFF         (0x1u << US_CSR_USART_RXBUFF_Pos)
 #define   US_CSR_USART_RXBUFF_0     (0x0u << 12) /**< \brief (US_CSR_USART) The signal Buffer Full from the Receive PDC channel is inactive */
@@ -2125,14 +2089,6 @@
 #define US_CSR_RXBRK                (0x1u << US_CSR_RXBRK_Pos)
 #define   US_CSR_RXBRK_0            (0x0u <<  2) /**< \brief (US_CSR) No Break received or End of Break detected since the last RSTSTA */
 #define   US_CSR_RXBRK_1            (0x1u <<  2) /**< \brief (US_CSR) Break Received or End of Break detected since the last RSTSTA */
-#define US_CSR_ENDRX_Pos            3            /**< \brief (US_CSR) End of Receiver Transfer */
-#define US_CSR_ENDRX                (0x1u << US_CSR_ENDRX_Pos)
-#define   US_CSR_ENDRX_0            (0x0u <<  3) /**< \brief (US_CSR) The End of Transfer signal from the Receive PDC channel is inactive */
-#define   US_CSR_ENDRX_1            (0x1u <<  3) /**< \brief (US_CSR) The End of Transfer signal from the Receive PDC channel is active */
-#define US_CSR_ENDTX_Pos            4            /**< \brief (US_CSR) End of Transmitter Transfer */
-#define US_CSR_ENDTX                (0x1u << US_CSR_ENDTX_Pos)
-#define   US_CSR_ENDTX_0            (0x0u <<  4) /**< \brief (US_CSR) The End of Transfer signal from the Transmit PDC channel is inactive */
-#define   US_CSR_ENDTX_1            (0x1u <<  4) /**< \brief (US_CSR) The End of Transfer signal from the Transmit PDC channel is active */
 #define US_CSR_OVRE_Pos             5            /**< \brief (US_CSR) Overrun Error */
 #define US_CSR_OVRE                 (0x1u << US_CSR_OVRE_Pos)
 #define   US_CSR_OVRE_0             (0x0u <<  5) /**< \brief (US_CSR) No overrun error has occurred since since the last RSTSTA */
@@ -2165,10 +2121,6 @@
 #define US_CSR_ITER                 (0x1u << US_CSR_ITER_Pos)
 #define   US_CSR_ITER_0             (0x0u << 10) /**< \brief (US_CSR) Maximum number of repetitions has not been reached since the last RSIT */
 #define   US_CSR_ITER_1             (0x1u << 10) /**< \brief (US_CSR) Maximum number of repetitions has been reached since the last RSIT */
-#define US_CSR_TXBUFE_Pos           11           /**< \brief (US_CSR) Transmission Buffer Empty */
-#define US_CSR_TXBUFE               (0x1u << US_CSR_TXBUFE_Pos)
-#define   US_CSR_TXBUFE_0           (0x0u << 11) /**< \brief (US_CSR) The signal Buffer Empty from the Transmit PDC channel is inactive */
-#define   US_CSR_TXBUFE_1           (0x1u << 11) /**< \brief (US_CSR) The signal Buffer Empty from the Transmit PDC channel is active */
 #define US_CSR_RXBUFF_Pos           12           /**< \brief (US_CSR) Reception Buffer Full */
 #define US_CSR_RXBUFF               (0x1u << US_CSR_RXBUFF_Pos)
 #define   US_CSR_RXBUFF_0           (0x0u << 12) /**< \brief (US_CSR) The signal Buffer Full from the Receive PDC channel is inactive */

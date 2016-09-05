@@ -3,7 +3,7 @@
  *
  * \brief Non volatile memories management for SAM devices
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -82,7 +82,7 @@ status_code_t nvm_sam0_read(mem_type_t mem, uint32_t address,
 		}
 
 		/* Clear error flags */
-		nvm_module->STATUS.reg |= NVMCTRL_STATUS_MASK;
+		nvm_module->STATUS.reg = NVMCTRL_STATUS_MASK;
 
 		uint32_t page_address = address / 2;
 

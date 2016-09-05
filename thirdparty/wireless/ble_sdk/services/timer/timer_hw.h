@@ -3,7 +3,7 @@
  *
  * \brief Handles timer functionalities
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,14 +40,19 @@
  * \asf_license_stop
  */
 
-#ifndef TIMER_SW_H
-#define TIMER_SW_H
+#ifndef __TIMER_HW_H__
+#define __TIMER_HW_H__
 
 typedef void (*hw_timer_callback_t)(void);
+typedef void (*platform_hw_timer_callback_t)(void *);
 
 void hw_timer_init(void);
 void hw_timer_register_callback(hw_timer_callback_t cb_ptr);
 void hw_timer_start(uint32_t timer_val);
 void hw_timer_stop(void);
 
-#endif /* TIMER_SW_H */
+void *platform_configure_timer(platform_hw_timer_callback_t bus_tc_cb_ptr);
+void platform_start_bus_timer(void *timer_handle, uint32_t ms);
+void platform_delete_bus_timer(void *timer_handle);
+void platform_stop_bus_timer(void *timer_handle);
+#endif /* __TIMER_HW_H__ */

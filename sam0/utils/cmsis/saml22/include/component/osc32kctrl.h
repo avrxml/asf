@@ -3,7 +3,7 @@
  *
  * \brief Component description for OSC32KCTRL
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -67,13 +67,13 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define OSC32KCTRL_INTENCLR_OFFSET  0x00         /**< \brief (OSC32KCTRL_INTENCLR offset) Interrupt Enable Clear */
-#define OSC32KCTRL_INTENCLR_RESETVALUE 0x00000000ul /**< \brief (OSC32KCTRL_INTENCLR reset_value) Interrupt Enable Clear */
+#define OSC32KCTRL_INTENCLR_RESETVALUE 0x00000000u  /**< \brief (OSC32KCTRL_INTENCLR reset_value) Interrupt Enable Clear */
 
 #define OSC32KCTRL_INTENCLR_XOSC32KRDY_Pos 0            /**< \brief (OSC32KCTRL_INTENCLR) XOSC32K Ready Interrupt Enable */
-#define OSC32KCTRL_INTENCLR_XOSC32KRDY (0x1ul << OSC32KCTRL_INTENCLR_XOSC32KRDY_Pos)
+#define OSC32KCTRL_INTENCLR_XOSC32KRDY (0x1u << OSC32KCTRL_INTENCLR_XOSC32KRDY_Pos)
 #define OSC32KCTRL_INTENCLR_CLKFAIL_Pos 2            /**< \brief (OSC32KCTRL_INTENCLR) XOSC32K Clock Failure Detector Interrupt Enable */
-#define OSC32KCTRL_INTENCLR_CLKFAIL (0x1ul << OSC32KCTRL_INTENCLR_CLKFAIL_Pos)
-#define OSC32KCTRL_INTENCLR_MASK    0x00000005ul /**< \brief (OSC32KCTRL_INTENCLR) MASK Register */
+#define OSC32KCTRL_INTENCLR_CLKFAIL (0x1u << OSC32KCTRL_INTENCLR_CLKFAIL_Pos)
+#define OSC32KCTRL_INTENCLR_MASK    0x00000005u  /**< \brief (OSC32KCTRL_INTENCLR) MASK Register */
 
 /* -------- OSC32KCTRL_INTENSET : (OSC32KCTRL Offset: 0x04) (R/W 32) Interrupt Enable Set -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -89,13 +89,13 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define OSC32KCTRL_INTENSET_OFFSET  0x04         /**< \brief (OSC32KCTRL_INTENSET offset) Interrupt Enable Set */
-#define OSC32KCTRL_INTENSET_RESETVALUE 0x00000000ul /**< \brief (OSC32KCTRL_INTENSET reset_value) Interrupt Enable Set */
+#define OSC32KCTRL_INTENSET_RESETVALUE 0x00000000u  /**< \brief (OSC32KCTRL_INTENSET reset_value) Interrupt Enable Set */
 
 #define OSC32KCTRL_INTENSET_XOSC32KRDY_Pos 0            /**< \brief (OSC32KCTRL_INTENSET) XOSC32K Ready Interrupt Enable */
-#define OSC32KCTRL_INTENSET_XOSC32KRDY (0x1ul << OSC32KCTRL_INTENSET_XOSC32KRDY_Pos)
+#define OSC32KCTRL_INTENSET_XOSC32KRDY (0x1u << OSC32KCTRL_INTENSET_XOSC32KRDY_Pos)
 #define OSC32KCTRL_INTENSET_CLKFAIL_Pos 2            /**< \brief (OSC32KCTRL_INTENSET) XOSC32K Clock Failure Detector Interrupt Enable */
-#define OSC32KCTRL_INTENSET_CLKFAIL (0x1ul << OSC32KCTRL_INTENSET_CLKFAIL_Pos)
-#define OSC32KCTRL_INTENSET_MASK    0x00000005ul /**< \brief (OSC32KCTRL_INTENSET) MASK Register */
+#define OSC32KCTRL_INTENSET_CLKFAIL (0x1u << OSC32KCTRL_INTENSET_CLKFAIL_Pos)
+#define OSC32KCTRL_INTENSET_MASK    0x00000005u  /**< \brief (OSC32KCTRL_INTENSET) MASK Register */
 
 /* -------- OSC32KCTRL_INTFLAG : (OSC32KCTRL Offset: 0x08) (R/W 32) Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -111,13 +111,13 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define OSC32KCTRL_INTFLAG_OFFSET   0x08         /**< \brief (OSC32KCTRL_INTFLAG offset) Interrupt Flag Status and Clear */
-#define OSC32KCTRL_INTFLAG_RESETVALUE 0x00000000ul /**< \brief (OSC32KCTRL_INTFLAG reset_value) Interrupt Flag Status and Clear */
+#define OSC32KCTRL_INTFLAG_RESETVALUE 0x00000000u  /**< \brief (OSC32KCTRL_INTFLAG reset_value) Interrupt Flag Status and Clear */
 
 #define OSC32KCTRL_INTFLAG_XOSC32KRDY_Pos 0            /**< \brief (OSC32KCTRL_INTFLAG) XOSC32K Ready */
-#define OSC32KCTRL_INTFLAG_XOSC32KRDY (0x1ul << OSC32KCTRL_INTFLAG_XOSC32KRDY_Pos)
+#define OSC32KCTRL_INTFLAG_XOSC32KRDY (0x1u << OSC32KCTRL_INTFLAG_XOSC32KRDY_Pos)
 #define OSC32KCTRL_INTFLAG_CLKFAIL_Pos 2            /**< \brief (OSC32KCTRL_INTFLAG) XOSC32K Clock Failure Detector */
-#define OSC32KCTRL_INTFLAG_CLKFAIL  (0x1ul << OSC32KCTRL_INTFLAG_CLKFAIL_Pos)
-#define OSC32KCTRL_INTFLAG_MASK     0x00000005ul /**< \brief (OSC32KCTRL_INTFLAG) MASK Register */
+#define OSC32KCTRL_INTFLAG_CLKFAIL  (0x1u << OSC32KCTRL_INTFLAG_CLKFAIL_Pos)
+#define OSC32KCTRL_INTFLAG_MASK     0x00000005u  /**< \brief (OSC32KCTRL_INTFLAG) MASK Register */
 
 /* -------- OSC32KCTRL_STATUS : (OSC32KCTRL Offset: 0x0C) (R/  32) Power and Clocks Status -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -134,15 +134,15 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define OSC32KCTRL_STATUS_OFFSET    0x0C         /**< \brief (OSC32KCTRL_STATUS offset) Power and Clocks Status */
-#define OSC32KCTRL_STATUS_RESETVALUE 0x00000000ul /**< \brief (OSC32KCTRL_STATUS reset_value) Power and Clocks Status */
+#define OSC32KCTRL_STATUS_RESETVALUE 0x00000000u  /**< \brief (OSC32KCTRL_STATUS reset_value) Power and Clocks Status */
 
 #define OSC32KCTRL_STATUS_XOSC32KRDY_Pos 0            /**< \brief (OSC32KCTRL_STATUS) XOSC32K Ready */
-#define OSC32KCTRL_STATUS_XOSC32KRDY (0x1ul << OSC32KCTRL_STATUS_XOSC32KRDY_Pos)
+#define OSC32KCTRL_STATUS_XOSC32KRDY (0x1u << OSC32KCTRL_STATUS_XOSC32KRDY_Pos)
 #define OSC32KCTRL_STATUS_CLKFAIL_Pos 2            /**< \brief (OSC32KCTRL_STATUS) XOSC32K Clock Failure Detector */
-#define OSC32KCTRL_STATUS_CLKFAIL   (0x1ul << OSC32KCTRL_STATUS_CLKFAIL_Pos)
+#define OSC32KCTRL_STATUS_CLKFAIL   (0x1u << OSC32KCTRL_STATUS_CLKFAIL_Pos)
 #define OSC32KCTRL_STATUS_CLKSW_Pos 3            /**< \brief (OSC32KCTRL_STATUS) XOSC32K Clock switch */
-#define OSC32KCTRL_STATUS_CLKSW     (0x1ul << OSC32KCTRL_STATUS_CLKSW_Pos)
-#define OSC32KCTRL_STATUS_MASK      0x0000000Dul /**< \brief (OSC32KCTRL_STATUS) MASK Register */
+#define OSC32KCTRL_STATUS_CLKSW     (0x1u << OSC32KCTRL_STATUS_CLKSW_Pos)
+#define OSC32KCTRL_STATUS_MASK      0x0000000Du  /**< \brief (OSC32KCTRL_STATUS) MASK Register */
 
 /* -------- OSC32KCTRL_RTCCTRL : (OSC32KCTRL Offset: 0x10) (R/W  8) RTC Clock Selection -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -156,24 +156,20 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define OSC32KCTRL_RTCCTRL_OFFSET   0x10         /**< \brief (OSC32KCTRL_RTCCTRL offset) RTC Clock Selection */
-#define OSC32KCTRL_RTCCTRL_RESETVALUE 0x00ul       /**< \brief (OSC32KCTRL_RTCCTRL reset_value) RTC Clock Selection */
+#define OSC32KCTRL_RTCCTRL_RESETVALUE 0x00u        /**< \brief (OSC32KCTRL_RTCCTRL reset_value) RTC Clock Selection */
 
 #define OSC32KCTRL_RTCCTRL_RTCSEL_Pos 0            /**< \brief (OSC32KCTRL_RTCCTRL) RTC Clock Selection */
-#define OSC32KCTRL_RTCCTRL_RTCSEL_Msk (0x7ul << OSC32KCTRL_RTCCTRL_RTCSEL_Pos)
+#define OSC32KCTRL_RTCCTRL_RTCSEL_Msk (0x7u << OSC32KCTRL_RTCCTRL_RTCSEL_Pos)
 #define OSC32KCTRL_RTCCTRL_RTCSEL(value) (OSC32KCTRL_RTCCTRL_RTCSEL_Msk & ((value) << OSC32KCTRL_RTCCTRL_RTCSEL_Pos))
-#define   OSC32KCTRL_RTCCTRL_RTCSEL_ULP1K_Val 0x0ul  /**< \brief (OSC32KCTRL_RTCCTRL) 1.024kHz from 32kHz internal ULP oscillator */
-#define   OSC32KCTRL_RTCCTRL_RTCSEL_ULP32K_Val 0x1ul  /**< \brief (OSC32KCTRL_RTCCTRL) 32.768kHz from 32kHz internal ULP oscillator */
-#define   OSC32KCTRL_RTCCTRL_RTCSEL_OSC1K_Val 0x2ul  /**< \brief (OSC32KCTRL_RTCCTRL) 1.024kHz from 32.768kHz internal oscillator */
-#define   OSC32KCTRL_RTCCTRL_RTCSEL_OSC32K_Val 0x3ul  /**< \brief (OSC32KCTRL_RTCCTRL) 32.768kHz from 32.768kHz internal oscillator */
-#define   OSC32KCTRL_RTCCTRL_RTCSEL_XOSC1K_Val 0x4ul  /**< \brief (OSC32KCTRL_RTCCTRL) 1.024kHz from 32.768kHz internal oscillator */
-#define   OSC32KCTRL_RTCCTRL_RTCSEL_XOSC32K_Val 0x5ul  /**< \brief (OSC32KCTRL_RTCCTRL) 32.768kHz from 32.768kHz external crystal oscillator */
+#define   OSC32KCTRL_RTCCTRL_RTCSEL_ULP1K_Val 0x0u   /**< \brief (OSC32KCTRL_RTCCTRL) 1.024kHz from 32kHz internal ULP oscillator */
+#define   OSC32KCTRL_RTCCTRL_RTCSEL_ULP32K_Val 0x1u   /**< \brief (OSC32KCTRL_RTCCTRL) 32.768kHz from 32kHz internal ULP oscillator */
+#define   OSC32KCTRL_RTCCTRL_RTCSEL_XOSC1K_Val 0x4u   /**< \brief (OSC32KCTRL_RTCCTRL) 1.024kHz from 32.768kHz external oscillator */
+#define   OSC32KCTRL_RTCCTRL_RTCSEL_XOSC32K_Val 0x5u   /**< \brief (OSC32KCTRL_RTCCTRL) 32.768kHz from 32.768kHz external crystal oscillator */
 #define OSC32KCTRL_RTCCTRL_RTCSEL_ULP1K (OSC32KCTRL_RTCCTRL_RTCSEL_ULP1K_Val << OSC32KCTRL_RTCCTRL_RTCSEL_Pos)
 #define OSC32KCTRL_RTCCTRL_RTCSEL_ULP32K (OSC32KCTRL_RTCCTRL_RTCSEL_ULP32K_Val << OSC32KCTRL_RTCCTRL_RTCSEL_Pos)
-#define OSC32KCTRL_RTCCTRL_RTCSEL_OSC1K (OSC32KCTRL_RTCCTRL_RTCSEL_OSC1K_Val << OSC32KCTRL_RTCCTRL_RTCSEL_Pos)
-#define OSC32KCTRL_RTCCTRL_RTCSEL_OSC32K (OSC32KCTRL_RTCCTRL_RTCSEL_OSC32K_Val << OSC32KCTRL_RTCCTRL_RTCSEL_Pos)
 #define OSC32KCTRL_RTCCTRL_RTCSEL_XOSC1K (OSC32KCTRL_RTCCTRL_RTCSEL_XOSC1K_Val << OSC32KCTRL_RTCCTRL_RTCSEL_Pos)
 #define OSC32KCTRL_RTCCTRL_RTCSEL_XOSC32K (OSC32KCTRL_RTCCTRL_RTCSEL_XOSC32K_Val << OSC32KCTRL_RTCCTRL_RTCSEL_Pos)
-#define OSC32KCTRL_RTCCTRL_MASK     0x07ul       /**< \brief (OSC32KCTRL_RTCCTRL) MASK Register */
+#define OSC32KCTRL_RTCCTRL_MASK     0x07u        /**< \brief (OSC32KCTRL_RTCCTRL) MASK Register */
 
 /* -------- OSC32KCTRL_SLCDCTRL : (OSC32KCTRL Offset: 0x11) (R/W  8) SLCD Clock Selection -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -187,11 +183,11 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define OSC32KCTRL_SLCDCTRL_OFFSET  0x11         /**< \brief (OSC32KCTRL_SLCDCTRL offset) SLCD Clock Selection */
-#define OSC32KCTRL_SLCDCTRL_RESETVALUE 0x00ul       /**< \brief (OSC32KCTRL_SLCDCTRL reset_value) SLCD Clock Selection */
+#define OSC32KCTRL_SLCDCTRL_RESETVALUE 0x00u        /**< \brief (OSC32KCTRL_SLCDCTRL reset_value) SLCD Clock Selection */
 
 #define OSC32KCTRL_SLCDCTRL_SLCDSEL_Pos 0            /**< \brief (OSC32KCTRL_SLCDCTRL) SLCD Clock Selection */
-#define OSC32KCTRL_SLCDCTRL_SLCDSEL (0x1ul << OSC32KCTRL_SLCDCTRL_SLCDSEL_Pos)
-#define OSC32KCTRL_SLCDCTRL_MASK    0x01ul       /**< \brief (OSC32KCTRL_SLCDCTRL) MASK Register */
+#define OSC32KCTRL_SLCDCTRL_SLCDSEL (0x1u << OSC32KCTRL_SLCDCTRL_SLCDSEL_Pos)
+#define OSC32KCTRL_SLCDCTRL_MASK    0x01u        /**< \brief (OSC32KCTRL_SLCDCTRL) MASK Register */
 
 /* -------- OSC32KCTRL_XOSC32K : (OSC32KCTRL Offset: 0x14) (R/W 16) 32kHz External Crystal Oscillator (XOSC32K) Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -215,26 +211,26 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define OSC32KCTRL_XOSC32K_OFFSET   0x14         /**< \brief (OSC32KCTRL_XOSC32K offset) 32kHz External Crystal Oscillator (XOSC32K) Control */
-#define OSC32KCTRL_XOSC32K_RESETVALUE 0x0080ul     /**< \brief (OSC32KCTRL_XOSC32K reset_value) 32kHz External Crystal Oscillator (XOSC32K) Control */
+#define OSC32KCTRL_XOSC32K_RESETVALUE 0x0080u      /**< \brief (OSC32KCTRL_XOSC32K reset_value) 32kHz External Crystal Oscillator (XOSC32K) Control */
 
 #define OSC32KCTRL_XOSC32K_ENABLE_Pos 1            /**< \brief (OSC32KCTRL_XOSC32K) Oscillator Enable */
-#define OSC32KCTRL_XOSC32K_ENABLE   (0x1ul << OSC32KCTRL_XOSC32K_ENABLE_Pos)
+#define OSC32KCTRL_XOSC32K_ENABLE   (0x1u << OSC32KCTRL_XOSC32K_ENABLE_Pos)
 #define OSC32KCTRL_XOSC32K_XTALEN_Pos 2            /**< \brief (OSC32KCTRL_XOSC32K) Crystal Oscillator Enable */
-#define OSC32KCTRL_XOSC32K_XTALEN   (0x1ul << OSC32KCTRL_XOSC32K_XTALEN_Pos)
+#define OSC32KCTRL_XOSC32K_XTALEN   (0x1u << OSC32KCTRL_XOSC32K_XTALEN_Pos)
 #define OSC32KCTRL_XOSC32K_EN32K_Pos 3            /**< \brief (OSC32KCTRL_XOSC32K) 32kHz Output Enable */
-#define OSC32KCTRL_XOSC32K_EN32K    (0x1ul << OSC32KCTRL_XOSC32K_EN32K_Pos)
+#define OSC32KCTRL_XOSC32K_EN32K    (0x1u << OSC32KCTRL_XOSC32K_EN32K_Pos)
 #define OSC32KCTRL_XOSC32K_EN1K_Pos 4            /**< \brief (OSC32KCTRL_XOSC32K) 1kHz Output Enable */
-#define OSC32KCTRL_XOSC32K_EN1K     (0x1ul << OSC32KCTRL_XOSC32K_EN1K_Pos)
+#define OSC32KCTRL_XOSC32K_EN1K     (0x1u << OSC32KCTRL_XOSC32K_EN1K_Pos)
 #define OSC32KCTRL_XOSC32K_RUNSTDBY_Pos 6            /**< \brief (OSC32KCTRL_XOSC32K) Run in Standby */
-#define OSC32KCTRL_XOSC32K_RUNSTDBY (0x1ul << OSC32KCTRL_XOSC32K_RUNSTDBY_Pos)
+#define OSC32KCTRL_XOSC32K_RUNSTDBY (0x1u << OSC32KCTRL_XOSC32K_RUNSTDBY_Pos)
 #define OSC32KCTRL_XOSC32K_ONDEMAND_Pos 7            /**< \brief (OSC32KCTRL_XOSC32K) On Demand Control */
-#define OSC32KCTRL_XOSC32K_ONDEMAND (0x1ul << OSC32KCTRL_XOSC32K_ONDEMAND_Pos)
+#define OSC32KCTRL_XOSC32K_ONDEMAND (0x1u << OSC32KCTRL_XOSC32K_ONDEMAND_Pos)
 #define OSC32KCTRL_XOSC32K_STARTUP_Pos 8            /**< \brief (OSC32KCTRL_XOSC32K) Oscillator Start-Up Time */
-#define OSC32KCTRL_XOSC32K_STARTUP_Msk (0x7ul << OSC32KCTRL_XOSC32K_STARTUP_Pos)
+#define OSC32KCTRL_XOSC32K_STARTUP_Msk (0x7u << OSC32KCTRL_XOSC32K_STARTUP_Pos)
 #define OSC32KCTRL_XOSC32K_STARTUP(value) (OSC32KCTRL_XOSC32K_STARTUP_Msk & ((value) << OSC32KCTRL_XOSC32K_STARTUP_Pos))
 #define OSC32KCTRL_XOSC32K_WRTLOCK_Pos 12           /**< \brief (OSC32KCTRL_XOSC32K) Write Lock */
-#define OSC32KCTRL_XOSC32K_WRTLOCK  (0x1ul << OSC32KCTRL_XOSC32K_WRTLOCK_Pos)
-#define OSC32KCTRL_XOSC32K_MASK     0x17DEul     /**< \brief (OSC32KCTRL_XOSC32K) MASK Register */
+#define OSC32KCTRL_XOSC32K_WRTLOCK  (0x1u << OSC32KCTRL_XOSC32K_WRTLOCK_Pos)
+#define OSC32KCTRL_XOSC32K_MASK     0x17DEu      /**< \brief (OSC32KCTRL_XOSC32K) MASK Register */
 
 /* -------- OSC32KCTRL_CFDCTRL : (OSC32KCTRL Offset: 0x16) (R/W  8) Clock Failure Detector Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -250,15 +246,15 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define OSC32KCTRL_CFDCTRL_OFFSET   0x16         /**< \brief (OSC32KCTRL_CFDCTRL offset) Clock Failure Detector Control */
-#define OSC32KCTRL_CFDCTRL_RESETVALUE 0x00ul       /**< \brief (OSC32KCTRL_CFDCTRL reset_value) Clock Failure Detector Control */
+#define OSC32KCTRL_CFDCTRL_RESETVALUE 0x00u        /**< \brief (OSC32KCTRL_CFDCTRL reset_value) Clock Failure Detector Control */
 
 #define OSC32KCTRL_CFDCTRL_CFDEN_Pos 0            /**< \brief (OSC32KCTRL_CFDCTRL) Clock Failure Detector Enable */
-#define OSC32KCTRL_CFDCTRL_CFDEN    (0x1ul << OSC32KCTRL_CFDCTRL_CFDEN_Pos)
+#define OSC32KCTRL_CFDCTRL_CFDEN    (0x1u << OSC32KCTRL_CFDCTRL_CFDEN_Pos)
 #define OSC32KCTRL_CFDCTRL_SWBACK_Pos 1            /**< \brief (OSC32KCTRL_CFDCTRL) Clock Switch Back */
-#define OSC32KCTRL_CFDCTRL_SWBACK   (0x1ul << OSC32KCTRL_CFDCTRL_SWBACK_Pos)
+#define OSC32KCTRL_CFDCTRL_SWBACK   (0x1u << OSC32KCTRL_CFDCTRL_SWBACK_Pos)
 #define OSC32KCTRL_CFDCTRL_CFDPRESC_Pos 2            /**< \brief (OSC32KCTRL_CFDCTRL) Clock Failure Detector Prescaler */
-#define OSC32KCTRL_CFDCTRL_CFDPRESC (0x1ul << OSC32KCTRL_CFDCTRL_CFDPRESC_Pos)
-#define OSC32KCTRL_CFDCTRL_MASK     0x07ul       /**< \brief (OSC32KCTRL_CFDCTRL) MASK Register */
+#define OSC32KCTRL_CFDCTRL_CFDPRESC (0x1u << OSC32KCTRL_CFDCTRL_CFDPRESC_Pos)
+#define OSC32KCTRL_CFDCTRL_MASK     0x07u        /**< \brief (OSC32KCTRL_CFDCTRL) MASK Register */
 
 /* -------- OSC32KCTRL_EVCTRL : (OSC32KCTRL Offset: 0x17) (R/W  8) Event Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -272,11 +268,11 @@ typedef union {
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #define OSC32KCTRL_EVCTRL_OFFSET    0x17         /**< \brief (OSC32KCTRL_EVCTRL offset) Event Control */
-#define OSC32KCTRL_EVCTRL_RESETVALUE 0x00ul       /**< \brief (OSC32KCTRL_EVCTRL reset_value) Event Control */
+#define OSC32KCTRL_EVCTRL_RESETVALUE 0x00u        /**< \brief (OSC32KCTRL_EVCTRL reset_value) Event Control */
 
 #define OSC32KCTRL_EVCTRL_CFDEO_Pos 0            /**< \brief (OSC32KCTRL_EVCTRL) Clock Failure Detector Event Output Enable */
-#define OSC32KCTRL_EVCTRL_CFDEO     (0x1ul << OSC32KCTRL_EVCTRL_CFDEO_Pos)
-#define OSC32KCTRL_EVCTRL_MASK      0x01ul       /**< \brief (OSC32KCTRL_EVCTRL) MASK Register */
+#define OSC32KCTRL_EVCTRL_CFDEO     (0x1u << OSC32KCTRL_EVCTRL_CFDEO_Pos)
+#define OSC32KCTRL_EVCTRL_MASK      0x01u        /**< \brief (OSC32KCTRL_EVCTRL) MASK Register */
 
 /* -------- OSC32KCTRL_OSCULP32K : (OSC32KCTRL Offset: 0x1C) (R/W 32) 32kHz Ultra Low Power Internal Oscillator (OSCULP32K) Control -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -298,15 +294,15 @@ typedef union {
 #define OSC32KCTRL_OSCULP32K_OFFSET 0x1C         /**< \brief (OSC32KCTRL_OSCULP32K offset) 32kHz Ultra Low Power Internal Oscillator (OSCULP32K) Control */
 
 #define OSC32KCTRL_OSCULP32K_EN32K_Pos 1            /**< \brief (OSC32KCTRL_OSCULP32K) Enable Out 32k */
-#define OSC32KCTRL_OSCULP32K_EN32K  (0x1ul << OSC32KCTRL_OSCULP32K_EN32K_Pos)
+#define OSC32KCTRL_OSCULP32K_EN32K  (0x1u << OSC32KCTRL_OSCULP32K_EN32K_Pos)
 #define OSC32KCTRL_OSCULP32K_EN1K_Pos 2            /**< \brief (OSC32KCTRL_OSCULP32K) Enable Out 1k */
-#define OSC32KCTRL_OSCULP32K_EN1K   (0x1ul << OSC32KCTRL_OSCULP32K_EN1K_Pos)
+#define OSC32KCTRL_OSCULP32K_EN1K   (0x1u << OSC32KCTRL_OSCULP32K_EN1K_Pos)
 #define OSC32KCTRL_OSCULP32K_CALIB_Pos 8            /**< \brief (OSC32KCTRL_OSCULP32K) Oscillator Calibration */
-#define OSC32KCTRL_OSCULP32K_CALIB_Msk (0x1Ful << OSC32KCTRL_OSCULP32K_CALIB_Pos)
+#define OSC32KCTRL_OSCULP32K_CALIB_Msk (0x1Fu << OSC32KCTRL_OSCULP32K_CALIB_Pos)
 #define OSC32KCTRL_OSCULP32K_CALIB(value) (OSC32KCTRL_OSCULP32K_CALIB_Msk & ((value) << OSC32KCTRL_OSCULP32K_CALIB_Pos))
 #define OSC32KCTRL_OSCULP32K_WRTLOCK_Pos 15           /**< \brief (OSC32KCTRL_OSCULP32K) Write Lock */
-#define OSC32KCTRL_OSCULP32K_WRTLOCK (0x1ul << OSC32KCTRL_OSCULP32K_WRTLOCK_Pos)
-#define OSC32KCTRL_OSCULP32K_MASK   0x00009F06ul /**< \brief (OSC32KCTRL_OSCULP32K) MASK Register */
+#define OSC32KCTRL_OSCULP32K_WRTLOCK (0x1u << OSC32KCTRL_OSCULP32K_WRTLOCK_Pos)
+#define OSC32KCTRL_OSCULP32K_MASK   0x00009F06u  /**< \brief (OSC32KCTRL_OSCULP32K) MASK Register */
 
 /** \brief OSC32KCTRL hardware registers */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))

@@ -47,7 +47,7 @@
 #define DAC_FEATURE_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam0_dac_group SAM Digital-to-Analog Driver (DAC)
+ * \defgroup asfdoc_sam0_dac_group SAM Digital-to-Analog (DAC) Driver
  *
  * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides an interface for the conversion of
  * digital values to analog voltage. The following driver API modes are covered
@@ -58,13 +58,13 @@
  *  - Callback APIs
  * \endif
  *
- * The following peripherals are used by this module:
+ * The following peripheral is used by this module:
  *  - DAC (Digital-to-Analog Converter)
  *
  * The following devices can use this module:
  *  - Atmel | SMART SAM D20/D21
  *  - Atmel | SMART SAM D10/D11
- *  - Atmel | SMART SAM DA0/DA1
+ *  - Atmel | SMART SAM DA1
  *  - Atmel | SMART SAM C21
  *
  * The outline of this documentation is as follows:
@@ -157,11 +157,10 @@
  * events will be generated when the DAC data buffer register becomes empty and
  * new data can be loaded to the buffer.
  *
- * \note The connection of events between modules requires the use of the
- *       \ref asfdoc_sam0_events_group "SAM Event System Driver (EVENTS)"
- *       to route output event of one module to the the input event of another.
- *       For more information on event routing, refer to the event driver
- *       documentation.
+ * \note The connection of events between modules requires the use of the event
+ *       driver to route output event of one module to the input event of another.
+ *       For more information on event routing, refer to the documentation
+ *       \ref asfdoc_sam0_events_group "SAM Event System (EVENTS) Driver".
  *
  * \subsection asfdoc_sam0_dac_data_adjust Left and Right Adjusted Values
  * The 10-bit input value to the DAC is contained in a 16-bit register. This
@@ -342,11 +341,11 @@ extern "C" {
  * Enum for the possible reference voltages for the DAC.
  */
 enum dac_reference {
-	/** 1V from the internal band-gap reference.*/
+	/** 1V from the internal band-gap reference*/
 	DAC_REFERENCE_INT1V = DAC_CTRLB_REFSEL(0),
-	/** Analog V<SUB>CC</SUB> as reference. */
+	/** Analog V<SUB>CC</SUB> as reference */
 	DAC_REFERENCE_AVCC  = DAC_CTRLB_REFSEL(1),
-	/** External reference on AREF. */
+	/** External reference on AREF */
 	DAC_REFERENCE_AREF  = DAC_CTRLB_REFSEL(2),
 };
 
@@ -370,7 +369,7 @@ enum dac_output {
  * Enum for the DAC channel selection.
  */
 enum dac_channel {
-	/** DAC output channel 0. */
+	/** DAC output channel 0 */
 	DAC_CHANNEL_0,
 };
 
@@ -385,26 +384,26 @@ enum dac_channel {
  */
 struct dac_module {
 #if !defined(__DOXYGEN__)
-	/** DAC hardware module. */
+	/** DAC hardware module */
 	Dac *hw;
-	/** DAC output selection. */
+	/** DAC output selection */
 	enum dac_output output;
-	/** Reference selection. */
+	/** Reference selection */
 	enum dac_reference reference;
-	/** DAC event selection. */
+	/** DAC event selection */
 	bool start_on_event;
 #  if DAC_CALLBACK_MODE == true
-	/** Pointer to buffer used for ADC results. */
+	/** Pointer to buffer used for ADC results */
 	volatile uint16_t *job_buffer;
-	/** Remaining number of conversions in current job. */
+	/** Remaining number of conversions in current job */
 	volatile uint16_t remaining_conversions;
-	/** Transferred number of conversions in current job. */
+	/** Transferred number of conversions in current job */
 	volatile uint16_t transferred_conversions;
-	/** DAC callback enable. */
+	/** DAC callback enable */
 	bool callback_enable[DAC_CALLBACK_N];
-	/** DAC registered callback functions. */
+	/** DAC registered callback functions */
 	dac_callback_t callback[DAC_CALLBACK_N];
-	/** Holds the status of the ongoing or last conversion job. */
+	/** Holds the status of the ongoing or last conversion job */
 	volatile enum status_code job_status;
 #  endif
 #endif
@@ -418,27 +417,27 @@ struct dac_module {
  * function before being modified by the user application.
  */
 struct dac_config {
-	/** Reference voltage. */
+	/** Reference voltage */
 	enum dac_reference reference;
-	/** Select DAC output. */
+	/** Select DAC output */
 	enum dac_output output;
-	/** Left adjusted data. */
+	/** Left adjusted data */
 	bool left_adjust;
-	/** GCLK generator used to clock the peripheral. */
+	/** GCLK generator used to clock the peripheral */
 	enum gclk_generator clock_source;
 #ifdef FEATURE_DAC_DATABUF_WRITE_PROTECTION
-	/** Bypass DATABUF write protection. */
+	/** Bypass DATABUF write protection */
 	bool databuf_protection_bypass;
 #endif
-	/** Voltage pump disable. */
+	/** Voltage pump disable */
 	bool voltage_pump_disable;
 	/**
 	 * The DAC behaves as in normal mode when the chip enters STANDBY sleep
-	 * mode.
+	 * mode
 	 */
 	bool run_in_standby;
 #if (SAMC21)
-	/** Dither mode enable data. */
+	/** Dither mode enable data */
 	bool dither_mode;
 #endif
 };
@@ -450,12 +449,12 @@ struct dac_config {
  * disable events via \ref dac_enable_events() and \ref dac_disable_events().
  */
 struct dac_events {
-	/** Start a new DAC conversion. */
+	/** Start a new DAC conversion */
 	bool on_event_start_conversion;
-	/** Enable event generation on data buffer empty. */
+	/** Enable event generation on data buffer empty */
 	bool generate_event_on_buffer_empty;
 #if (SAMC21)
-	/** Enable the falling edge of the input event for DAC1. */
+	/** Enable the falling edge of the input event for DAC1 */
 	bool generate_event_on_chan_falling_edge;
 #endif
 };
@@ -469,7 +468,7 @@ struct dac_events {
  */
 struct dac_chan_config {
 #if !defined(__DOXYGEN__)
-	/** Dummy value to ensure the struct has at least one member. */
+	/** Dummy value to ensure the struct has at least one member */
 	uint8_t _dummy;
 #endif
 };
@@ -599,18 +598,18 @@ void dac_chan_disable_output_buffer(
  *	</tr>
  *	<tr>
  *		<td>42110E</td>
- *		<td>06/2015</td>
- *		<td>Add SAMC21 and SAMDAx support</td>
+ *		<td>09/2015</td>
+ *		<td>Add SAM C21 and SAM DA1 support</td>
  *	</tr>
  *	<tr>
  *		<td>42110D</td>
  *		<td>12/2014</td>
- *		<td>Add SAMD10/D11 support</td>
+ *		<td>Add SAM D10/D11 support</td>
  *	</tr>
  *	<tr>
  *		<td>42110C</td>
  *		<td>01/2014</td>
- *		<td>Add SAMD21 support</td>
+ *		<td>Add SAM D21 support</td>
  *	</tr>
  *	<tr>
  *		<td>42110B</td>

@@ -50,13 +50,13 @@
  * \copydetails appdoc_preface
  *
  * \page appdoc_preface Overview
- * In this use case we will communicate with smart card via ISO7816, reset the
- * smart card, send the different command to the smart card through choice and
- * receive the responsible from the smart card.
+ * In this use case we will communicate with smart card (AT88SC1616C) via ISO7816, reset the
+ * smart card, send the couple of commands to the smart card through user choice 
+ * via EDBG VCP and receive the appropriate response from the smart card.
  *
  * The iso7816 software provide in this examples is use to transform APDU
- * commands to TPDU commands for the smart card. The iso7816 provide here
- * is for the protocol T=0 only. The send and the receive of a character
+ * commands to TPDU commands for the smart card. The iso7816 provided here
+ * is for the protocol T=0 only. The sending and reception of a character
  * is made under polling. User must change these pins according to his
  * environment.
  */
@@ -70,35 +70,42 @@
  * - \ref appdoc_sam0_smart_card_contactinfo
  *
  * \section  appdoc_sam0_smart_card_intro Introduction
- * In this use case we will communicate with smart card via ISO7816, reset the
- * smart card, send the different command to the smart card through choice and
- * receive the responsible from the smart card.
+ * In this use case we will communicate with smart card (AT88SC1616C) via ISO7816, reset the
+ * smart card, send the couple of commands to the smart card through user choice 
+ * via EDBG VCP and receive the appropriate response from the smart card.
  *
  * The iso7816 software provide in this examples is use to transform APDU
- * commands to TPDU commands for the smart card. The iso7816 provide here
- * is for the protocol T=0 only. The send and the receive of a character
+ * commands to TPDU commands for the smart card. The iso7816 provided here
+ * is for the protocol T=0 only. The sending and reception of a character
  * is made under polling. User must change these pins according to his
  * environment.
  *
  *
  * This application has been tested on following boards:
  * - SAM L22 Xplained Pro
+ * - Smart Card Xplained Pro Extension
+ * - Smart card used is, Atmel CryptoMemory (AT88SC1616C -in ISO Module form) 
  *
  * \section appdoc_sam0_smart_card_setup Hardware Setup
  * The Smart Card Xplained Pro extension board must be connected to extension
- * header 3 on the SAM L22 Xplained Pro.
- *
- * This example uses the SIM smart card to test.
+ * header 3 (EXT3) on the SAM L22 Xplained Pro.
  *
  * To run the test:
- *  - Connect the SAM Xplained Pro board to the computer using a
+ *  - Connect the Debug USB port of Xplained Pro board to the computer using a
  *    micro USB cable.
  *  - Open the virtual COM port in a terminal application.
+ *  - Terminal session settings are: 
+ *    Baud rate: 115200 
+ *    Data bits: 8 
+ *	  Parity: None 
+ *    Stop bits: 1 
+ *    Flow Control: None 
+ *    
  *    \note The USB composite firmware running on the Embedded Debugger (EDBG)
  *          will enumerate as debugger, virtual COM port and EDBG data
  *          gateway.
- *  - Build the project, program the target and run the application.
- *    The terminal shows the results of the unit test.
+ *  - Build the project, program the target board and run the application.
+ *    The terminal shows the Information about Demo and User input options.
  *
  * \section appdoc_sam0_smart_card_compinfo Compilation Info
  * This software was written for the GNU GCC and IAR for ARM.
@@ -108,17 +115,16 @@
  * For further information, visit
  * <a href="http://www.atmel.com">http://www.atmel.com</a>.
  */
-
+ 
 #include <asf.h>
-#include <stdio_serial.h>
 #include <string.h>
 #include "conf_iso7816.h"
 
 static struct usart_module cdc_uart_module, usart_instance;
 
 #define STRING_EOL      "\r"
-#define STRING_HEADER   "-- USART Smart Card(ISO7816) Example --\r\n" \
-						"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
+#define STRING_HEADER   "--Smart Card(ISO7816) Quick Start Example --\r\n" \
+"-- Compiled: "__DATE__" "__TIME__" --"STRING_EOL
 
 /* Maximum uc_size in bytes of the smart card answer to a uc_command. */
 #define MAX_ANSWER_SIZE         10
@@ -127,19 +133,19 @@ static struct usart_module cdc_uart_module, usart_instance;
 #define MAX_ATR_SIZE            55
 
 #define CMD1_LEN                7
-#define CMD2_LEN                7
-#define CMD3_LEN                4
-/* Test command #1. */
-const uint8_t test_cmd1[CMD1_LEN] = {0xA0, 0xA4, 0x00, 0x00, 0x02, 0x7F, 0x20};
-/* Test command #2. */
-const uint8_t test_cmd2[CMD2_LEN] = {0xA0, 0xA4, 0x00, 0x00, 0x02, 0x6F, 0x07};
-/* Test command #3. */
-const uint8_t test_cmd3[CMD3_LEN] = {0x00, 0x10, 0x00, 0x00};
+#define CMD2_LEN                5
+
+/* Test command #1 - Write to memory Test Zone {CLA, INS, Add, Add, No of bytes, Data}*/
+const uint8_t test_cmd1[CMD1_LEN] = {0x00, 0xB4, 0x00, 0x0A, 0x02, 0x25, 0x22};
+
+/* Test command #2 - Read from Memory Test Zone {CLA, INS, Add, Add, No of bytes}*/
+const uint8_t test_cmd2[CMD2_LEN] = {0x00, 0xB6, 0x00, 0x0A, 0x02};
+
 
 /**
- * \brief Initialize the USART for the example.
+ * \brief Initialize the USART for EDBG Virtual COM Port
  */
-static void cdc_uart_init(void)
+static void console_init(void)
 {
 	struct usart_config usart_conf;
 
@@ -170,17 +176,17 @@ static void smart_card_detect(void)
 	port_pin_set_config(CONF_ISO7816_PIN_DET, &pin_conf);
 
 	if(port_pin_get_input_level(CONF_ISO7816_PIN_DET) == false) {
-		printf("-Warning- Please insert Smart card. \r\n");
+		printf("-Message:- Please insert Smart card. \r\n");
 	}
 	while (port_pin_get_input_level(CONF_ISO7816_PIN_DET) == false) {
 		/* Wait insert smart card */
 	}
 
-	printf("-I- Smart card is detected. To begin testing... \r\n");
+	printf("Smart card is detected.\r\n");
 }
 
 /**
- * \brief Initialize the ISO7816 for smart card.
+ * \brief Initialize the SERCOM USART (ISO7816 mode) for smart card.
  */
 static void smart_card_init(void)
 {
@@ -199,17 +205,13 @@ static void smart_card_init(void)
 
 	/* Configure USART for output */
 	usart_get_config_defaults(&usart_conf);
-	usart_conf.mux_setting               = CONF_ISO7816_MUX_SETTING;
-	usart_conf.pinmux_pad0               = CONF_ISO7816_PINMUX_PAD0;
-	usart_conf.pinmux_pad1               = CONF_ISO7816_PINMUX_PAD1;
-	usart_conf.pinmux_pad2               = CONF_ISO7816_PINMUX_PAD2;
-	usart_conf.pinmux_pad3               = CONF_ISO7816_PINMUX_PAD3;
+	usart_conf.mux_setting            = CONF_ISO7816_MUX_SETTING;
+	usart_conf.pinmux_pad0            = CONF_ISO7816_PINMUX_PAD0;
+	usart_conf.pinmux_pad1            = CONF_ISO7816_PINMUX_PAD1;
+	usart_conf.pinmux_pad2            = CONF_ISO7816_PINMUX_PAD2;
+	usart_conf.pinmux_pad3            = CONF_ISO7816_PINMUX_PAD3;
+	usart_conf.baudrate               = CONF_ISO7816_BAUDRATE;
 	usart_conf.iso7816_config.enabled    = true;
-	usart_conf.iso7816_config.protocol_t = ISO7816_PROTOCOL_T_0;
-	usart_conf.transfer_mode             = USART_TRANSFER_SYNCHRONOUSLY;
-	usart_conf.baudrate                  = CONF_ISO7816_BAUDRATE;
-	usart_conf.parity                    = USART_PARITY_EVEN;
-	usart_conf.generator_source          = GCLK_GENERATOR_1;
 	usart_conf.iso7816_config.guard_time = ISO7816_GUARD_TIME_2_BIT;
 
 	usart_init(&usart_instance, CONF_ISO7816_USART, &usart_conf);
@@ -220,7 +222,7 @@ static void smart_card_init(void)
 	/* Config pinmux as smart card clock */
 	struct system_pinmux_config pin_clk_conf;
 	system_pinmux_get_config_defaults(&pin_clk_conf);
-	pin_clk_conf.direction = SYSTEM_PINMUX_PIN_DIR_OUTPUT;
+	pin_clk_conf.direction = PORT_PIN_DIR_OUTPUT;
 	pin_clk_conf.input_pull = SYSTEM_PINMUX_PIN_PULL_NONE;
 	pin_clk_conf.mux_position = PINMUX_PA15H_GCLK_IO1 & 0xFFFF;
 	system_pinmux_pin_set_config(PINMUX_PA15H_GCLK_IO1 >> 16, &pin_clk_conf);
@@ -246,26 +248,21 @@ static void send_receive_cmd(void)
 	}
 
 	/* Display menu. */
-	puts("-I- The following three commands can be sent:\r\n");
-	puts("  1. ");
+	puts("The following three User Inputs can be sent:\r\n");
+	puts("  1 - To Execute Write command");
 	for (i=0; i < CMD1_LEN; i++) {
 		printf("0x%02X ", test_cmd1[i]);
 	}
-	puts("\r\n  2. ");
+	puts("\r\n  2- To Execute Read Command");
 
 	for (i=0; i < CMD2_LEN; i++) {
 		printf("0x%02X ", test_cmd2[i]);
 	}
-	puts("\r\n  3. ");
-
-	for (i=0; i < CMD3_LEN; i++) {
-		printf("0x%02X ", test_cmd3[i]);
-	}
-
+    puts("\r\n  q - To Quit the Application. "); 
 	/* Get user input. */
 	uc_key = 0;
 	while (uc_key != 'q') {
-		puts("\r\nChoice ? (q to quit): ");
+		puts("\r\nChoice ? ('1' or '2' or 'q'): ");
 		while (usart_read_wait(&cdc_uart_module, &uc_key)) {
 		}
 		printf("%c\r\n", uc_key);
@@ -274,7 +271,7 @@ static void send_receive_cmd(void)
 		/* Check user input. */
 		uc_size = 0;
 		if (uc_command == 1) {
-			puts("-I- Sending test command #1 : ");
+			puts("Sending test command #1 (Writing 2 bytes in Memory Test Zone) :\r\n ");
 			for (i = 0; i < CMD1_LEN; i++) {
 				printf("0x%02X ", test_cmd1[i]);
 			}
@@ -282,78 +279,67 @@ static void send_receive_cmd(void)
 			uc_size = iso7816_xfr_block_tpdu_t0(test_cmd1, uc_message, CMD1_LEN);
 		} else {
 			if (uc_command == 2) {
-				puts("-I- Sending test command #2 : ");
+				puts("Sending test command #2 (Reading 2 bytes from Memory Test Zone):\r\n ");
 				for (i = 0; i < CMD2_LEN; i++) {
 					printf("0x%02X ", test_cmd2[i]);
 				}
 				puts("...");
 				uc_size = iso7816_xfr_block_tpdu_t0(test_cmd2, uc_message, CMD2_LEN);
-			} else {
-				if (uc_command == 3) {
-					puts("-I- Sending test command #3 : ");
-					for (i = 0; i < CMD3_LEN; i++) {
-						printf("0x%02X ", test_cmd3[i]);
-					}
-					puts("...");
-					uc_size = iso7816_xfr_block_tpdu_t0(test_cmd3, uc_message, CMD3_LEN);
-				}
-			}
+			} 
 	   }
 
 		/* Output smart card answer. */
-		puts("Answer: ");
 		if (uc_size > 0) {
+			puts("Answer: ");
 			for (i=0; i < uc_size; i++) {
 				printf("0x%02X ", uc_message[i]);
 			}
-		} else {
-			puts("Receive error! \r\n");
 		}
 	}
-	puts("Please waiting ... \r\n");
+	puts("Please wait.... \r\n");
 	port_pin_set_output_level(CONF_ISO7816_PIN_VCC, false);
-
 	puts("The smart card can now be safely removed. \r\n");
 }
-
-int main(void)
+int main (void)
 {
+	
 	uint8_t p_atr[MAX_ATR_SIZE];
 	uint8_t  uc_size;
 	uint16_t i;
-
+	
 	/* Init system. */
 	system_init();
-	/* Module configuration. */
-	cdc_uart_init();
-
-	/* Output example information. */
+	
+	/* EDBG UART Console Initilaization. */
+	console_init();
+	
+	/* Display example information. */
 	printf("%s \r\n", STRING_HEADER);
-
-	/* Smart card detect and receive respond. */
+	
+	/* Smart card detect and display the status. */
 	smart_card_detect();
-
-	/* Smart card init. */
+	
+	/* Smart card Initialization. */
 	smart_card_init();
 
 	/* Smart card warm reset. */
 	iso7816_warm_reset();
-
+	
 	memset(p_atr, 0, sizeof(p_atr));
 	iso7816_data_block_atr(p_atr, &uc_size);
 
 	if (uc_size != 0) {
-		puts("Reset respond: ");
+		puts("Reset response from Smart Card: ");
 		for(i = 0; i < uc_size; i++) {
 			printf("0x%02X ", p_atr[i]);
 		}
 		puts("\r\n");
 	}
 
-	/* Allow user to send some commands. */
+	/* User inputs commands to send / receive / quit. */
 	send_receive_cmd();
-
+	
 	while (1) {
-		/* Infinite loop */
+
 	}
 }

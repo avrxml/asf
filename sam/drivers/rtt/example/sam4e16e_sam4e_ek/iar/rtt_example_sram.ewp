@@ -1923,6 +1923,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/component/rtc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/component/pio.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/component/dacc.h</name>
 							</file>
 							<file>
@@ -1978,9 +1981,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/component/pdc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/component/pio.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/component/twi.h</name>
@@ -2118,10 +2118,16 @@
 						<group>
 							<name>pio</name>
 							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/pio/sam4e16cb.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/pio/sam4e16e.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/pio/sam4e8c.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/pio/sam4e8cb.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/pio/sam4e8e.h</name>
@@ -2130,6 +2136,9 @@
 								<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/pio/sam4e16c.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/sam4e16cb.h</name>
+						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/sam4e16c.h</name>
 						</file>
@@ -2141,6 +2150,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/sam4e16e.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../utils/cmsis/sam4e/include/sam4e8cb.h</name>
 						</file>
 					</group>
 				</group>

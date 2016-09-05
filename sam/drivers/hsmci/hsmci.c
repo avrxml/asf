@@ -3,7 +3,7 @@
  *
  * \brief SAM HSMCI driver
  *
- * Copyright (c) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -166,7 +166,7 @@ static void hsmci_reset(void)
  */
 static void hsmci_set_speed(uint32_t speed, uint32_t mck)
 {
-#if (SAM4E)
+#if (SAM4E || SAMV70 || SAMV71 || SAME70 || SAMS70)
 	uint32_t clkdiv = 0;
 	uint32_t clkodd = 0;
 	// clock divider, represent (((clkdiv << 1) + clkodd) + 2)
@@ -367,7 +367,7 @@ void hsmci_select_device(uint8_t slot, uint32_t clock, uint8_t bus_width, bool h
 		HSMCI->HSMCI_CFG &= ~HSMCI_CFG_HSMODE;
 	}
 
-	hsmci_set_speed(clock, sysclk_get_cpu_hz());
+	hsmci_set_speed(clock, sysclk_get_peripheral_hz());
 
 	switch (slot) {
 	case 0:

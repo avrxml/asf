@@ -3,7 +3,7 @@
  *
  * \brief SAM Brown Out Detector Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -404,6 +404,8 @@ static inline enum status_code bod33_enable(void)
  */
 static inline enum status_code bod33_disable(void)
 {
+	SUPC->INTENCLR.reg = SUPC_INTENCLR_BOD33RDY | SUPC_INTENCLR_BOD33DET | SUPC_INTENCLR_B33SRDY;
+	SUPC->INTFLAG.reg = SUPC_INTFLAG_BOD33RDY | SUPC_INTFLAG_BOD33DET | SUPC_INTFLAG_B33SRDY;
 	SUPC->BOD33.reg &= ~SUPC_BOD33_ENABLE;
 	return STATUS_OK;
 }
@@ -499,6 +501,8 @@ static inline enum status_code bod12_enable(void)
  */
 static inline enum status_code bod12_disable(void)
 {
+	SUPC->INTENCLR.reg = SUPC_INTENCLR_BOD12RDY | SUPC_INTENCLR_BOD12DET | SUPC_INTENCLR_B12SRDY;
+	SUPC->INTFLAG.reg = SUPC_INTFLAG_BOD12RDY | SUPC_INTFLAG_BOD12DET | SUPC_INTFLAG_B12SRDY;
 	SUPC->BOD12.reg &= ~SUPC_BOD12_ENABLE;
 	return STATUS_OK;
 }
@@ -553,7 +557,7 @@ static inline void bod12_clear_detected(void)
  *  </tr>
  *  <tr>
  *      <td>BOD</td>
- *      <td>Brown out detector</td>
+ *      <td>Brown Out Detector</td>
  *  </tr>
  * </table>
  *
@@ -611,13 +615,13 @@ static inline void bod12_clear_detected(void)
  *
  * <table>
  *	<tr>
- *		<th>Doc. Rev.</td>
- *		<th>Date</td>
- *		<th>Comments</td>
+ *		<th>Doc. Rev.</th>
+ *		<th>Date</th>
+ *		<th>Comments</th>
  *	</tr>
  *	<tr>
  *		<td>42453B</td>
- *		<td>08/2015</td>
+ *		<td>12/2015</td>
  *		<td>Added support for SAM L22</td>
  *	</tr>
  *	<tr>

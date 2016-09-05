@@ -4,7 +4,7 @@
  *
  * \brief lwIP abstraction layer for AVR32 UC3.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -512,3 +512,181 @@ void sys_arch_unprotect(sys_prot_t pval)
 {
   vPortExitCritical();
 }
+
+/* 
+ * This optional function returns the current time in milliseconds (don't care
+ * for wraparound, this is only used for time diffs).  Not implementing this function
+ * means you cannot use some modules (e.g. TCP  timestamps, internal timeouts 
+ * for NO_SYS==1).
+
+	u32_t sys_now(void)
+	{
+		return (sys_get_ms());
+	}
+
+ * 
+ * If FreeRTOS is used, the sys_get_ms() function can be realized by invoking 
+ * xTaskGetTickCount() function, like this: 
+
+	uint32_t sys_get_ms(void)
+	{
+		return xTaskGetTickCount();
+	}
+
+ *
+ * If there is no operating system, here is a solution to realizing u32_t sys_now()
+ * function, which is based on timer counter. To do it, a file can be created.
+
+	#include "sysclk.h"
+	#include "board.h"
+	#include "tc.h"
+	#include "lwip/init.h"
+	#include "lwip/sys.h"
+	#if defined (__GNUC__)
+	#  include "intc.h"
+	#endif
+
+	//Clock tick count.
+	static volatile uint32_t gs_ul_clk_tick;
+
+	//TC interrupt.
+	//The ISR handles RC compare interrupt and sets the update_timer flag to update the 
+	//timer value.
+
+	#if defined (__GNUC__)
+	__attribute__((__interrupt__))
+	#elif defined (__ICCAVR32__)
+	#pragma handler = AVR32_TC_IRQ_GROUP, 1
+	__interrupt
+	#endif
+	
+	static void tc_irq(void)
+	{
+		// Increment the ms seconds counter
+		gs_ul_clk_tick++;
+
+		// Clear the interrupt flag. This is a side effect of reading the TC SR.
+		tc_read_sr(&AVR32_TC, 0);
+	}
+
+	//TC Initialization.
+	//Initializes and start the TC module with the following:
+	//- Counter in Up mode with automatic reset on RC compare match.
+	//- fPBA/8 is used as clock source for TC
+	//- Enables RC compare match interrupt
+	//tc Base address of the TC module
+	static void tc_init(volatile avr32_tc_t *tc)
+	{
+		// Options for waveform generation.
+		static const tc_waveform_opt_t waveform_opt = {
+			// Channel selection.
+			.channel  = 0,
+			// Software trigger effect on TIOB.
+			.bswtrg   = TC_EVT_EFFECT_NOOP,
+			// External event effect on TIOB.
+			.beevt    = TC_EVT_EFFECT_NOOP,
+			// RC compare effect on TIOB.
+			.bcpc     = TC_EVT_EFFECT_NOOP,
+			// RB compare effect on TIOB.
+			.bcpb     = TC_EVT_EFFECT_NOOP,
+			// Software trigger effect on TIOA.
+			.aswtrg   = TC_EVT_EFFECT_NOOP,
+			// External event effect on TIOA.
+			.aeevt    = TC_EVT_EFFECT_NOOP,
+			// RC compare effect on TIOA.
+			.acpc     = TC_EVT_EFFECT_NOOP,
+
+			// RA compare effect on TIOA.
+			// (other possibilities are none, set and clear).
+
+				.acpa     = TC_EVT_EFFECT_NOOP,
+				
+				// Waveform selection: Up mode with automatic trigger(reset)
+				// on RC compare.
+			
+			.wavsel   = TC_WAVEFORM_SEL_UP_MODE_RC_TRIGGER,
+			// External event trigger enable.
+			.enetrg   = false,
+			// External event selection.
+			.eevt     = 0,
+			// External event edge selection.
+			.eevtedg  = TC_SEL_NO_EDGE,
+			// Counter disable when RC compare.
+			.cpcdis   = false,
+			// Counter clock stopped with RC compare.
+			.cpcstop  = false,
+			// Burst signal selection.
+			.burst    = false,
+			// Clock inversion.
+			.clki     = false,
+			// Internal source clock 3, connected to fPBA / 8.
+			.tcclks   = TC_CLOCK_SOURCE_TC3
+		};
+
+		// Options for enabling TC interrupts
+		static const tc_interrupt_t tc_interrupt = {
+			.etrgs = 0,
+			.ldrbs = 0,
+			.ldras = 0,
+			.cpcs  = 1, // Enable interrupt on RC compare alone
+			.cpbs  = 0,
+			.cpas  = 0,
+			.lovrs = 0,
+			.covfs = 0
+		};
+		// Initialize the timer/counter.
+		tc_init_waveform(tc, &waveform_opt);
+
+		// Set the compare triggers.
+		// We configure it to count every 1 milliseconds.
+		// We want: (1 / (fPBA / 8)) * RC = 1 ms, hence RC = (fPBA / 8) / 1000
+		// to get an interrupt every 10 ms.
+
+		tc_write_rc(tc, 0, (sysclk_get_pba_hz() / 8 / 1000));
+		// configure the timer interrupt
+		tc_configure_interrupts(tc, 0, &tc_interrupt);
+		// Start the timer/counter.
+		tc_start(tc, 0);
+	}
+
+	//Initialize the timer counter (AVR32_TC).
+	void sys_init_timing(void)
+	{
+		volatile avr32_tc_t *tc = &AVR32_TC;
+		
+		// Clear tick value.
+		gs_ul_clk_tick = 0;
+		
+		// Enable the clock to the selected example Timer/counter peripheral module.
+		sysclk_enable_peripheral_clock(&AVR32_TC);
+		
+		// Disable the interrupts
+		cpu_irq_disable();
+
+		#if defined (__GNUC__)
+		// Initialize interrupt vectors.
+		INTC_init_interrupts();
+		// Register the RTC interrupt handler to the interrupt controller.
+		INTC_register_interrupt(&tc_irq, AVR32_TC_IRQ0, AVR32_INTC_INT0);
+		#endif
+		// Enable the interrupts
+		cpu_irq_enable();
+		// Initialize the timer module
+		tc_init(tc);	
+	}
+
+	//Return the number of timer ticks (ms).
+	uint32_t sys_get_ms(void)
+	{
+		return gs_ul_clk_tick;
+	}
+
+	#if ((LWIP_VERSION) != ((1U << 24) | (3U << 16) | (2U << 8) | (LWIP_VERSION_RC)))
+	u32_t sys_now(void)
+	{
+		return (sys_get_ms());
+	}
+	#endif
+*
+*/
+

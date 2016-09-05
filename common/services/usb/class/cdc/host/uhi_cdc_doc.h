@@ -90,6 +90,7 @@
 
 /**
  * \brief Install interface
+ *
  * Allocate interface endpoints if supported.
  *
  * \param[in] uhc_device_t	  Device to request
@@ -198,6 +199,7 @@ bool uhi_cdc_is_tx_ready(uint8_t port);
 
 /**
  * \brief Puts a byte on CDC line
+ *
  * The type int is used to support printf redirection from compiler LIB.
  *
  * \param[in] port       Communication port number
@@ -362,18 +364,18 @@ iram_size_t uhi_cdc_write_buf(uint8_t port, const void* buf, iram_size_t size);
  * \subsection asfdoc_uhi_cdc_config_examples_2_1 AT32UC3A0, AT32UC3A1, AT32UC3B Devices (USBB)
  * \include example/at32uc3a0512_evk1100/conf_clock.h
  *
- * \subsection asfdoc_uhi_cdc_config_examples_2_2 AT32UC3A3, AT32UC3A4 Devices (USBB with High Speed Support)
+ * \subsection asfdoc_uhi_cdc_config_examples_2_2 AT32UC3A3 and AT32UC3A4 Devices (USBB with High Speed Support)
  * \include example/at32uc3a3256_evk1104/conf_clock.h
  *
  * \subsection asfdoc_uhi_cdc_config_examples_2_3 AT32UC3C, ATUCXXD, ATUCXXL3U, ATUCXXL4U Devices (USBC)
  * \include example/at32uc3c0512c_uc3c_ek/conf_clock.h
  *
- * \subsection asfdoc_uhi_cdc_config_examples_2_4 SAM3X, SAM3A Devices (UOTGHS: USB OTG High Speed)
+ * \subsection asfdoc_uhi_cdc_config_examples_2_4 SAM3X and SAM3A Devices (UOTGHS: USB OTG High Speed)
  * \include example/sam3x8h_sam3x_ek/conf_clock.h
  *
  * \section asfdoc_uhi_cdc_config_examples_3 conf_clocks.h
  *
- * \subsection asfdoc_uhi_cdc_config_examples_3_1 SAMD21 Devices (USB)
+ * \subsection asfdoc_uhi_cdc_config_examples_3_1 SAM D21 Devices (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_clocks.h
  *
  * \section asfdoc_uhi_cdc_config_examples_4 conf_board.h
@@ -381,16 +383,16 @@ iram_size_t uhi_cdc_write_buf(uint8_t port, const void* buf, iram_size_t size);
  * \subsection asfdoc_uhi_cdc_config_examples_4_1 AT32UC3A0, AT32UC3A1, AT32UC3B Devices (USBB)
  * \include example/at32uc3a0512_evk1100/conf_board.h
  *
- * \subsection asfdoc_uhi_cdc_config_examples_4_2 AT32UC3A3, AT32UC3A4 Devices (USBB with High Speed Support)
+ * \subsection asfdoc_uhi_cdc_config_examples_4_2 AT32UC3A3 and AT32UC3A4 Devices (USBB with High Speed Support)
  * \include example/at32uc3a3256_evk1104/conf_board.h
  *
  * \subsection asfdoc_uhi_cdc_config_examples_4_3 AT32UC3C, ATUCXXD, ATUCXXL3U, ATUCXXL4U Devices (USBC)
  * \include example/at32uc3c0512c_uc3c_ek/conf_board.h
  *
- * \subsection asfdoc_uhi_cdc_config_examples_4_4 SAM3X, SAM3A Devices (UOTGHS: USB OTG High Speed)
+ * \subsection asfdoc_uhi_cdc_config_examples_4_4 SAM3X and SAM3A Devices (UOTGHS: USB OTG High Speed)
  * \include example/sam3x8h_sam3x_ek/conf_board.h
  *
- * \subsection asfdoc_uhi_cdc_config_examples_4_5 SAMD21 Devices (USB)
+ * \subsection asfdoc_uhi_cdc_config_examples_4_5 SAM D21 Devices (USB)
  * \include example/samd21j18a_samd21_xplained_pro/conf_board.h
  */
 
@@ -399,14 +401,19 @@ iram_size_t uhi_cdc_write_buf(uint8_t port, const void* buf, iram_size_t size);
  *
  * <table>
  * <tr>
- *    <th>Doc. Rev.</td>
- *    <th>Date</td>
- *    <th>Comments</td>
+ *    <th>Doc. Rev.</th>
+ *    <th>Date</th>
+ *    <th>Comments</th>
+ * </tr>
+ * <tr>
+ *    <td>42338B</td>
+ *    <td>12/2015</td>
+ *    <td>Fixed typos</td>
  * </tr>
  * <tr>
  *    <td>42338A</td>
  *    <td>12/2014</td>
- *    <td>Initial release.</td>
+ *    <td>Initial release</td>
  * </tr>
  * </table>
  */

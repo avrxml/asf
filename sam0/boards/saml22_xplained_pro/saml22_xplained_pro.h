@@ -501,6 +501,7 @@ void system_board_init(void);
 #define EDBG_CDC_SERCOM_PINMUX_PAD3  PINMUX_PC25D_SERCOM4_PAD3
 #define EDBG_CDC_SERCOM_DMAC_ID_TX   SERCOM4_DMAC_ID_TX
 #define EDBG_CDC_SERCOM_DMAC_ID_RX   SERCOM4_DMAC_ID_RX
+#define EDBG_CDC_MODULE_IRQn         SERCOM4_IRQn
 /** @} */
 /** \name CCL interface definitions
  * @{

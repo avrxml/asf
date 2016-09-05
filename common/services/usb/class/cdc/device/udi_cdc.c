@@ -3,7 +3,7 @@
  *
  * \brief USB Device Communication Device Class (CDC) interface.
  *
- * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -957,6 +957,52 @@ udi_cdc_read_buf_loop_wait:
 		goto udi_cdc_read_buf_loop_wait;
 	}
 	return 0;
+}
+
+static iram_size_t udi_cdc_multi_read_no_polling(uint8_t port, void* buf, iram_size_t size)
+{
+	uint8_t *ptr_buf = (uint8_t *)buf;
+	iram_size_t nb_avail_data;
+	uint16_t pos;
+	uint8_t buf_sel;
+	irqflags_t flags;
+
+#if UDI_CDC_PORT_NB == 1 // To optimize code
+	port = 0;
+#endif
+
+	//Data interface not started... exit
+	if (!udi_cdc_data_running) {
+		return 0;
+	}
+	
+	//Get number of available data
+	// Check available data
+	flags = cpu_irq_save(); // to protect udi_cdc_rx_pos & udi_cdc_rx_buf_sel
+	pos = udi_cdc_rx_pos[port];
+	buf_sel = udi_cdc_rx_buf_sel[port];
+	nb_avail_data = udi_cdc_rx_buf_nb[port][buf_sel] - pos;
+	cpu_irq_restore(flags);
+	//If the buffer contains less than the requested number of data,
+	//adjust read size
+	if(nb_avail_data<size) {
+		size = nb_avail_data;
+	}
+	if(size>0) {
+		memcpy(ptr_buf, &udi_cdc_rx_buf[port][buf_sel][pos], size);
+		flags = cpu_irq_save(); // to protect udi_cdc_rx_pos
+		udi_cdc_rx_pos[port] += size;
+		cpu_irq_restore(flags);
+		
+		ptr_buf += size;
+		udi_cdc_rx_start(port);
+	}
+	return(nb_avail_data);
+}
+
+iram_size_t udi_cdc_read_no_polling(void* buf, iram_size_t size)
+{
+	return udi_cdc_multi_read_no_polling(0, buf, size);
 }
 
 iram_size_t udi_cdc_read_buf(void* buf, iram_size_t size)

@@ -221,6 +221,7 @@ void mlme_gts_request(uint8_t *m)
 						GTS_REQ_PAYLOAD_LEN - 2; /* Add
 		                                                          * 2
 		                                                          *
+		                                                          *
 		                                                          *octets
 		                                                          * for
 		                                                          * FCS.
@@ -444,14 +445,18 @@ uint8_t mac_add_gts_info(uint8_t *frame_ptr)
 			*frame_ptr
 				= mac_pan_gts_table[table_index].DevShortAddr >>
 					8;                                             /*
-			                                                                * GTS
+			                                                                *
+			                                                                *GTS
+			                                                                *
 			                                                                *
 			                                                                *List
 			                                                                **/
 			frame_ptr--;
 			*frame_ptr
 				= mac_pan_gts_table[table_index].DevShortAddr;    /*
-			                                                           * GTS
+			                                                           *
+			                                                           *GTS
+			                                                           *
 			                                                           *
 			                                                           *List
 			                                                           **/
@@ -637,19 +642,22 @@ bool mac_gts_deallocate(gts_char_t GtsCharacteristics, uint16_t DevAddress,
 				/*  */
 
 				/*
-				 * mac_pan_gts_table[table_index1].GtsDesc.GtsDirection
+				 *
+				 *mac_pan_gts_table[table_index1].GtsDesc.GtsDirection
 				 * = mac_pan_gts_table[table_index1 +
 				 * 1].GtsDesc.GtsDirection; */
 				/*  */
 
 				/*
-				 * mac_pan_gts_table[table_index1].GtsDesc.GtsLength
+				 *
+				 *mac_pan_gts_table[table_index1].GtsDesc.GtsLength
 				 * = mac_pan_gts_table[table_index1 +
 				 * 1].GtsDesc.GtsLength; */
 				/*  */
 
 				/*
-				 * mac_pan_gts_table[table_index1].GtsDesc.GtsStartingSlot
+				 *
+				 *mac_pan_gts_table[table_index1].GtsDesc.GtsStartingSlot
 				 * = mac_pan_gts_table[table_index1 +
 				 * 1].GtsDesc.GtsStartingSlot; */
 				/*  */
@@ -660,7 +668,8 @@ bool mac_gts_deallocate(gts_char_t GtsCharacteristics, uint16_t DevAddress,
 				/*  */
 
 				/*
-				 * mac_pan_gts_table[table_index1].PersistenceCount
+				 *
+				 *mac_pan_gts_table[table_index1].PersistenceCount
 				 * = mac_pan_gts_table[table_index1 +
 				 * 1].PersistenceCount; */
 				if (0 <

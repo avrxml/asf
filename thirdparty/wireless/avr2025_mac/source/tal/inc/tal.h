@@ -77,7 +77,7 @@
  */
 
 /* === TYPES =============================================================== */
-/* __PACK__DATA__ */
+__PACK__DATA__
 /* Structure implementing the PIB values stored in TAL */
 typedef struct tal_pib_tag {
 	/**
@@ -87,6 +87,16 @@ typedef struct tal_pib_tag {
 
 	/**
 	 * Supported channels
+	 *
+	 * Legacy trx:
+	 * Bit mask, whereas each bit position set indicates that the channel,
+	 * corresponding to this particular bit position, is actually supported
+	 *
+	 * Multi-Trx devices:
+	 * Min channel: Low word of variable SupportedChannels:
+	 *(uint16_t)(SupportedChannels)
+	 * Max channel: High word of variable SupportedChannels:
+	 *(uint16_t)(SupportedChannels >> 16)
 	 */
 	uint32_t SupportedChannels;
 
@@ -209,11 +219,10 @@ typedef struct tal_pib_tag {
 	bool PromiscuousMode;
 #endif
 #if (TAL_TYPE == AT86RF215)
-#ifdef RX_WHILE_BACKOFF
 
 	/**
 	 * Current number of frames received during backoff periods; valid
-	 *duriing
+	 * duriing
 	 * ongoing transmission only.
 	 */
 	uint8_t NumRxFramesDuringBackoff;
@@ -223,7 +232,6 @@ typedef struct tal_pib_tag {
 	 * backoff periods for a tx transaction.
 	 */
 	uint8_t MaxNumRxFramesDuringBackoff;
-#endif
 
 	/**
 	 * PHY mode
@@ -241,13 +249,13 @@ typedef struct tal_pib_tag {
 	/**
 	 * The maximum number of symbols in a frame:
 	 * = phySHRDuration + ceiling([aMaxPHYPacketSize + 1] x
-	 *phySymbolsPerOctet)
+	 * phySymbolsPerOctet)
 	 */
 	uint16_t MaxFrameDuration_sym;
 
 	/**
 	 * The duration of the synchronization header (SHR) in symbols for the
-	 *current
+	 * current
 	 * PHY.
 	 */
 	/* uint16_t SHRDuration_sym; */
@@ -288,17 +296,17 @@ typedef struct tal_pib_tag {
 
 	/**
 	 * A value of TRUE indicates that FEC is turned on. A value of FALSE
-	 *indicates
+	 * indicates
 	 * that FEC is turned off. This attribute is only valid for the MR-FSK
-	 *PHY.
+	 * PHY.
 	 */
 	bool FSKFECEnabled;
 
 	/**
 	 * A value of TRUE indicates that interleaving is enabled for RSC. A
-	 *value of
+	 * value of
 	 * FALSE indicates that interleaving is disabled for RSC. This attribute
-	 *is
+	 * is
 	 * only valid for the MR-FSK PHY.
 	 */
 	bool FSKFECInterleavingRSC;
@@ -307,7 +315,7 @@ typedef struct tal_pib_tag {
 	 * A value of zero indicates that a nonrecursive and nonsystematic code
 	 *(NRNSC)
 	 * is employed. A value of one indicates that a recursive and systematic
-	 *code
+	 * code
 	 * (RSC) is employed. This attribute is only valid for the MR-FSK PHY.
 	 */
 	bool FSKFECScheme;
@@ -319,6 +327,12 @@ typedef struct tal_pib_tag {
 	uint16_t FSKPreambleLength;
 
 	/**
+	 * Minimum FSK preamble length used for RPC.
+	 * This attribute is only valid for the MR-FSK PHY.
+	 */
+	uint16_t FSKPreambleLengthMin;
+
+	/**
 	 * Determines which group of SFDs is used.
 	 * This attribute is only valid for the MR-FSK PHY.
 	 */
@@ -326,7 +340,7 @@ typedef struct tal_pib_tag {
 
 	/**
 	 * A value of FALSE indicates that data whitening of the PSDU is
-	 *disabled.
+	 * disabled.
 	 * A value of TRUE indicates that data whitening of the PSDU is enabled.
 	 * This attribute is only valid for the MR-FSK PHY.
 	 */
@@ -335,18 +349,18 @@ typedef struct tal_pib_tag {
 
 	/**
 	 * A value of TRUE instructs the PHY entity to send a mode switch PPDU
-	 *first and then a
+	 * first and then a
 	 * following PPDU that contains the PSDU using the associated mode
-	 *switch parameters.
+	 * switch parameters.
 	 * This attribute is only valid for the MR-FSK PHY.
 	 */
 	bool ModeSwitchEnabled;
 
 	/**
 	 * The settling delay, in us, between the end of the final symbol of the
-	 *PPDU
+	 * PPDU
 	 * initiating the mode switch and the start of the PPDU transmitted
-	 *using the
+	 * using the
 	 * new PHY mode.
 	 */
 	uint16_t ModeSwitchSettlingDelay;
@@ -400,7 +414,7 @@ typedef struct tal_pib_tag {
 
 	/**
 	 * Defines the current frequency band, modulation scheme, and particular
-	 *PHY
+	 * PHY
 	 * mode when phyCurrentPage = 7 or 8.
 	 */
 	uint8_t CurrentSUNPageEntry;
@@ -412,7 +426,7 @@ typedef struct tal_pib_tag {
 
 	/**
 	 * A table of GenericPHYDescriptor entries, where each entry is used to
-	 *define
+	 * define
 	 * a channel page 10 PHY mode.
 	 */
 	/* uint8_t SUNGenericPHYDescriptors; */
@@ -425,7 +439,7 @@ typedef struct tal_pib_tag {
 	/**
 	 * An array of up to four rows, where each row consists of a set of
 	 * ModeSwitchDescriptor entries. This attribute is only valid for the
-	 *MR-FSK
+	 * MR-FSK
 	 * PHY.
 	 */
 	/* uint8_t ModeSwitchParameterEntries; */
@@ -435,7 +449,7 @@ typedef struct tal_pib_tag {
 	/**
 	 * A value of zero indicates an interleaving depth of one symbol.
 	 * A value of one indicates an interleaving depth of the number of
-	 *symbols
+	 * symbols
 	 * equal to the frequency domain spreading factor (SF).
 	 * This attribute is only valid for the MR-OFDM PHY.
 	 */
@@ -460,9 +474,9 @@ typedef struct tal_pib_tag {
 
 	/**
 	 * The type of the FCS. A value of zero indicates a 4-octet FCS. A value
-	 *of
+	 * of
 	 * one indicates a 2-octet FCS. This attribute is only valid for SUN
-	 *PHYs.
+	 * PHYs.
 	 */
 	bool FCSType;
 
@@ -634,6 +648,10 @@ typedef struct
 {
 	/** Message type of frame */
 	frame_msgtype_t msg_type;
+#if (TAL_TYPE == AT86RF215)
+	/** Trx id of transceiver handling frame */
+	trx_id_t trx_id;
+#endif
 	/** Pointer to buffer header of frame */
 	buffer_t *buffer_header;
 	/** MSDU handle */
@@ -686,7 +704,7 @@ typedef enum csma_mode_tag {
 	CSMA_UNSLOTTED,
 	CSMA_SLOTTED
 } csma_mode_t;
-/* __PACK__RST_DATA__ */
+__PACK__RST_DATA__
 /* === EXTERNALS =========================================================== */
 
 #if (defined SW_CONTROLLED_CSMA) && (defined TX_OCTET_COUNTER)
@@ -698,14 +716,9 @@ extern uint32_t tal_tx_octet_cnt;
 #endif
 
 #if (TAL_TYPE == AT86RF215)
-#   ifdef AT86RF215M
-#       define NUM_TRX                      1
-#       define ACTIVE_TRX                   RF09
-#   else
-#       define NUM_TRX                      2
-#   endif
+#   define NUM_TRX                      2
 #else
-#   define NUM_TRX                          1
+#   define NUM_TRX                      1
 #endif
 
 #ifdef MULTI_TRX_SUPPORT
@@ -737,8 +750,8 @@ extern tal_pib_t tal_pib;
 #if (TAL_TYPE == AT86RF230A) || (TAL_TYPE == AT86RF230B) || \
 	(TAL_TYPE == AT86RF231) || (TAL_TYPE == AT86RF232) || \
 	(TAL_TYPE == ATMEGARFA1) || (TAL_TYPE == AT86RF233) || \
-	(TAL_TYPE == ATMEGARFR2) || (TAL_TYPE == AT86RF234) || \
-	(TAL_TYPE == ATMEGARFA2)
+	(TAL_TYPE == ATMEGARFR2)
+
 /** RF band */
 #define RF_BAND                             BAND_2400
 #elif (TAL_TYPE == AT86RF212) || (TAL_TYPE == AT86RF212B)
@@ -1049,14 +1062,14 @@ retval_t tal_pib_get(uint8_t attribute, uint8_t *value);
  *
  * @return
  *      - @ref MAC_UNSUPPORTED_ATTRIBUTE if the TAL info base attribute is not
- *found
+ * found
  *      - @ref TAL_BUSY if the TAL is not in TAL_IDLE state. An exception is
  *         macBeaconTxTime which can be accepted by TAL even if TAL is not
  *         in TAL_IDLE state.
  *      - @ref MAC_SUCCESS if the attempt to set the PIB attribute was
- *successful
+ * successful
  *      - @ref TAL_TRX_ASLEEP if trx is in SLEEP mode and access to trx is
- *required
+ * required
  * @ingroup apiTalApi
  */
 retval_t tal_pib_set(uint8_t attribute, pib_value_t *value);
@@ -1070,7 +1083,7 @@ retval_t tal_pib_set(uint8_t attribute, pib_value_t *value);
  *
  * @return
  *      - @ref TAL_BUSY if the TAL state machine cannot switch receiver on or
- *off,
+ * off,
  *      - @ref PHY_TRX_OFF if receiver has been switched off, or
  *      - @ref PHY_RX_ON otherwise.
  * @ingroup apiTalApi
@@ -1124,7 +1137,7 @@ void tal_tx_beacon(frame_info_t *tx_frame);
  *                 to frame array to be transmitted
  * @param csma_mode Indicates mode of csma-ca to be performed for this frame
  * @param perform_frame_retry Indicates whether to retries are to be performed
- *for
+ * for
  *                            this frame
  *
  * @return MAC_SUCCESS  if the TAL has accepted the data from the MAC for frame

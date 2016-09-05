@@ -64,6 +64,10 @@
  * All SAM devices with an LCDCA connected to C42412A LCD Glass
  * component and a USART module can be used.
  *
+ * \note If using SAM4L Xplained Pro, make sure the jumper on "VLCD A"
+ * and "VLCD BC" are openned. A Segment LCD1 Xplained Pro extension may be used
+ * together for SLCD display.
+ *
  * \section configinfo Configuration Information
  * - PC terminal settings:
  *   - 115200 bps,

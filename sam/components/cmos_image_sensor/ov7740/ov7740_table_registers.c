@@ -3,7 +3,7 @@
  *
  * \brief Register table for OV7740 CMOS image sensor.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -52,7 +52,7 @@ extern "C" {
 #endif
 
 /**
- * \defgroup ov7740_CMOS_image_sensor_registers_group
+ * \defgroup ov7740_cmos_image_sensor_registers_group
  *
  * This file defines several arrays. Each of them contain adress of ov7740
  * register and corresponding value for a specific configuration.

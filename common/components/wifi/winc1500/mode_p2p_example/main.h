@@ -3,7 +3,7 @@
  *
  * \brief MAIN configuration.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -21,9 +21,6 @@
  *
  * 3. The name of Atmel may not be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
  *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -48,9 +45,8 @@
 extern "C" {
 #endif
 
-/** P2P mode Settings */
-#define MAIN_WLAN_DEVICE_NAME    "WINC1500_P2P" /* < P2P Device Name */
-#define MAIN_WLAN_CHANNEL        (6) /* < Channel number */
+/** P2P device name. */
+#define MAIN_WLAN_DEVICE_NAME    "WINC1500_P2P"
 
 #ifdef __cplusplus
 }

@@ -3,7 +3,7 @@
  *
  * \brief SAM TCC - Timer Counter for Control Applications Driver
  *
- * Copyright (C) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,7 +48,7 @@
 #define TCC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam0_tcc_group SAM Timer Counter for Control Applications Driver (TCC)
+ * \defgroup asfdoc_sam0_tcc_group SAM Timer Counter for Control Applications (TCC) Driver
  *
  * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides an interface for the configuration
  * and management of the TCC module within the device, for waveform
@@ -63,7 +63,7 @@
  *  - Callback APIs
  * \endif
  *
- * The following peripherals are used by this module:
+ * The following peripheral is used by this module:
  *  - TCC (Timer/Counter for Control Applications)
  *
  * The following devices can use this module:
@@ -73,6 +73,7 @@
  *  - Atmel | SMART SAM L21/L22
  *  - Atmel | SMART SAM DA1
  *  - Atmel | SMART SAM C20/C21
+ *  - Atmel | SMART SAM R30
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam0_tcc_prerequisites
@@ -190,22 +191,22 @@
  * (Generic Clock) channel. The GCLK channel can be connected to any of the GCLK
  * generators. The GCLK generators are configured to use one of the available
  * clock sources in the system such as internal oscillator, external crystals,
- * etc. - see the \ref asfdoc_sam0_system_clock_group "Generic Clock driver" for
+ * etc. See the \ref asfdoc_sam0_system_clock_group "Generic Clock driver" for
  * more information.
  *
  * Each TCC module in the SAM has its own individual clock prescaler, which
  * can be used to divide the input clock frequency used by the counter. This
  * prescaler only scales the clock used to provide clock pulses for the counter
  * to count, and does not affect the digital register interface portion of
- * the module, thus the timer registers will synchronized to the raw GCLK
+ * the module, thus the timer registers will be synchronized to the raw GCLK
  * frequency input to the module.
  *
  * As a result of this, when selecting a GCLK frequency and timer prescaler
- * value the user application should consider both the timer resolution
- * required and the synchronization frequency, to avoid lengthy
+ * value, the user application should consider both the timer resolution
+ * required and the synchronization frequency to avoid lengthy
  * synchronization times of the module if a very slow GCLK frequency is fed
  * into the TCC module. It is preferable to use a higher module GCLK frequency
- * as the input to the timer and prescale this down as much as possible to
+ * as the input to the timer, and prescale this down as much as possible to
  * obtain a suitable counter frequency in latency-sensitive applications.
  *
  * \subsubsection asfdoc_sam0_tcc_module_overview_tc_ctrl Timer/Counter Control Inputs (Events)
@@ -361,7 +362,7 @@
  *
  * Before checking for a new capture, \ref TCC_STATUS_COUNT_OVERFLOW
  * should be checked. The response to an overflow error is left to the user
- * application, however it may be necessary to clear both the overflow
+ * application, however, it may be necessary to clear both the overflow
  * flag and the capture flag upon each capture reading.
  *
  * \subsubsection asfdoc_sam0_tcc_module_overview_capt_pulse Capture Operations - Pulse Width
@@ -400,7 +401,7 @@
  *
  * \subsubsection asfdoc_sam0_tcc_module_overview_mc_wave Waveform Generation
  *
- * Waveform generation enables the TCC module to generate square waves, or if
+ * Waveform generation enables the TCC module to generate square waves, or, if
  * combined with an external passive low-pass filter, analog waveforms.
  *
  * \subsubsection asfdoc_sam0_tcc_module_overview_mc_wave_pwm Waveform Generation - PWM
@@ -571,14 +572,14 @@
  *
  * \subsection asfdoc_sam0_tcc_module_overview_buffering Double and Circular Buffering
  *
- * The pattern, period and the compare channels registers are double buffered.
+ * The pattern, period, and the compare channels registers are double buffered.
  * For these options there are effective registers (PATT, PER, and CCx) and
  * buffer registers (PATTB, PERB, and CCx). When writing to the buffer
  * registers, the values are buffered and will be committed to effective
  * registers on UPDATE condition.
  *
- * Usually the buffered value is cleared after it's committed, but there is also
- * option to circular the register buffers. The period (PER) and four lowest
+ * Usually the buffered value is cleared after it is committed, but there is also
+ * an option to circular the register buffers. The period (PER) and four lowest
  * compare channels register (CCx, x is 0 ~ 3) support this function. When
  * circular buffer is used, on UPDATE the previous period or compare values are
  * copied back into the corresponding period buffer and compare buffers.
@@ -618,7 +619,7 @@
  *  </tr>
  *  <tr>
  *    <td>FEATURE_TCC_GENERATE_DMA_TRIGGER</td>
- *    <td>SAM L21/L22</td>
+ *    <td>SAM L21/L22/R30</td>
  *  </tr>
  * </table>
  *
@@ -632,10 +633,10 @@
  * used.
  *
  * \subsubsection asfdoc_sam0_tcc_special_considerations_tcc_d21 SAM TCC Feature List
- * For SAM D21/R21/L21/L22/DA1/C21, the TCC features are:
+ * For SAM D21/R21/L21/L22/DA1/C21/R30, the TCC features are:
  * \anchor asfdoc_sam0_tcc_features_d21
  * <table>
- *   <caption>TCC module features for SAM D21/R21/L21/L22/DA1/C21</caption>
+ *   <caption>TCC module features for SAM D21/R21/L21/L22/DA1/C21/R30</caption>
  *   <tr>
  *     <th>TCC#</th>
  *     <th>Match/Capture channels</th>
@@ -717,7 +718,7 @@
  *   </tr>
  * </table>
  *
- * \subsection asfdoc_sam0_tcc_special_considerations_tcc_pin Channels vs. Pin outs
+ * \subsection asfdoc_sam0_tcc_special_considerations_tcc_pin Channels vs. Pinouts
  *
  * As the TCC module may have more waveform output pins than the number of
  * compare/capture channels, the free pins (with number higher than number of
@@ -767,11 +768,12 @@
 #endif
 
 /**
+ * \name Driver Feature Definition
  * Define port features set according to different device family.
  * @{
 */
-#if (SAML21) || (SAML22) || defined(__DOXYGEN__)
-/** Generate DMA triggers*/
+#if (SAML21) || (SAML22) || (SAMR30) || defined(__DOXYGEN__)
+/** Generate DMA triggers */
 #  define FEATURE_TCC_GENERATE_DMA_TRIGGER
 #endif
 /*@}*/
@@ -780,15 +782,15 @@
 extern "C" {
 #endif
 
-/* Generates a table enum list entry for a given type
+/** Generates a table enum list entry for a given type
    and index (e.g. "TCC_CALLBACK_MC_CHANNEL_0,"). */
 #define _TCC_ENUM(n, type) TCC_##type##_##n,
 
-/* Generates table enum list entries for all channels of a
+/** Generates table enum list entries for all channels of a
    given type and channel number on TCC module. */
 #define _TCC_CHANNEL_ENUM_LIST(type) \
 		MREPEAT(TCC_NUM_CHANNELS, _TCC_ENUM, type##_CHANNEL)
-/* Generates table enum list entries for all output of a
+/** Generates table enum list entries for all output of a
    given type and waveform output number on TCC module. */
 #define _TCC_WO_ENUM_LIST(type) \
 		MREPEAT(TCC_NUM_WAVE_OUTPUTS, _TCC_ENUM, type)
@@ -797,21 +799,21 @@ extern "C" {
 #if TCC_ASYNC == true
 /** Enum for the possible callback types for the TCC module. */
 enum tcc_callback {
-	/** Callback for TCC overflow. */
+	/** Callback for TCC overflow */
 	TCC_CALLBACK_OVERFLOW,
-	/** Callback for TCC Retrigger. */
+	/** Callback for TCC Retrigger */
 	TCC_CALLBACK_RETRIGGER,
-	/** Callback for TCC counter event. */
+	/** Callback for TCC counter event */
 	TCC_CALLBACK_COUNTER_EVENT,
-	/** Callback for capture overflow error. */
+	/** Callback for capture overflow error */
 	TCC_CALLBACK_ERROR,
-	/** Callback for Recoverable Fault A. */
+	/** Callback for Recoverable Fault A */
 	TCC_CALLBACK_FAULTA,
-	/** Callback for Recoverable Fault B. */
+	/** Callback for Recoverable Fault B */
 	TCC_CALLBACK_FAULTB,
-	/** Callback for Non-Recoverable Fault 0. */
+	/** Callback for Non-Recoverable Fault 0 */
 	TCC_CALLBACK_FAULT0,
-	/** Callback for Non-Recoverable Fault 1. */
+	/** Callback for Non-Recoverable Fault 1 */
 	TCC_CALLBACK_FAULT1,
 
 #  if defined(__DOXYGEN__)
@@ -824,12 +826,12 @@ enum tcc_callback {
 	 */
 	TCC_CALLBACK_CHANNEL_n = n,
 #  else
-	/** Callbacks for Match/Capture channels, e.g., TCC_CALLBACK_CHANNEL_0. */
+	/** Callbacks for Match/Capture channels, e.g., TCC_CALLBACK_CHANNEL_0 */
 	_TCC_CHANNEL_ENUM_LIST(CALLBACK)
 #  endif
 
 #  if !defined(__DOXYGEN__)
-	/** Number of available callbacks. */
+	/** Number of available callbacks */
 	TCC_CALLBACK_N
 #  endif
 };
@@ -879,7 +881,7 @@ enum tcc_callback {
  *  In ramp operation, each two period cycles are marked as cycle A and B,
  *  the index 0 represents cycle A and 1 represents cycle B. */
 #define TCC_STATUS_RAMP_CYCLE_INDEX                 (1UL << 28)
-/** The counter has been stopped (due to disable, stop command or one-shot). */
+/** The counter has been stopped (due to disable, stop command, or one-shot). */
 #define TCC_STATUS_STOPPED                          (1UL << 29)
 
 /** @} */
@@ -900,11 +902,11 @@ enum tcc_match_capture_channel {
 	 */
 	TCC_MATCH_CAPTURE_CHANNEL_n = n,
 #  else
-	/** Indexes of match capture channels, e.g., TCC_MATCH_CAPTURE_CHANNEL_0. */
+	/** Indexes of match capture channels, e.g., TCC_MATCH_CAPTURE_CHANNEL_0 */
 	_TCC_CHANNEL_ENUM_LIST(MATCH_CAPTURE)
 #  endif
 #  if !defined(__DOXYGEN__)
-	/** Number of supported channels. */
+	/** Number of supported channels */
 	TCC_MATCH_CAPTURE_CHANNEL_N
 #  endif
 };
@@ -925,11 +927,11 @@ enum tcc_wave_output {
 	 */
 	TCC_WAVE_OUTPUT_n = n,
 #  else
-	/** Indexes of match capture channels, e.g., TCC_WAVEFORM_OUTPUT_0. */
+	/** Indexes of match capture channels, e.g., TCC_WAVEFORM_OUTPUT_0 */
 	_TCC_WO_ENUM_LIST(WAVE_OUTPUT)
 #  endif
 #  if !defined(__DOXYGEN__)
-	/** Number of supported channels. */
+	/** Number of supported channels */
 	TCC_WAVE_OUTPUT_N
 #  endif
 };
@@ -942,27 +944,27 @@ enum tcc_wave_output {
  */
 enum tcc_wave_generation {
 	/** Normal Frequency: Top is the PER register, output toggled on each
-	 *  compare match. */
+	 *  compare match */
 	TCC_WAVE_GENERATION_NORMAL_FREQ = 0,
 	/** Match Frequency: Top is CC0 register, output toggles on each update
-	 *  condition. */
+	 *  condition */
 	TCC_WAVE_GENERATION_MATCH_FREQ = 1,
-	/** Single-Slope PWM: Top is the PER register, CCx controls duty cycle (
-	 *  output active when count is greater than CCx). */
+	/** Single-Slope PWM: Top is the PER register, CCx controls duty cycle
+	 *  (output active when count is greater than CCx) */
 	TCC_WAVE_GENERATION_SINGLE_SLOPE_PWM = 2,
 
 	/** Double-slope (count up and down), non centre-aligned: Top is the PER
 	 *  register, CC[x] controls duty cycle while counting up and CC[x+N/2]
-	 *  controls it while counting down. */
+	 *  controls it while counting down */
 	TCC_WAVE_GENERATION_DOUBLE_SLOPE_CRITICAL = 4,
 	/** Double-slope (count up and down), interrupt/event at Bottom (Top is the
-	 *  PER register, output active when count is greater than CCx). */
+	 *  PER register, output active when count is greater than CCx) */
 	TCC_WAVE_GENERATION_DOUBLE_SLOPE_BOTTOM = 5,
 	/** Double-slope (count up and down), interrupt/event at Bottom and Top: (Top is the
-	 *  PER register, output active when count is lower than CCx). */
+	 *  PER register, output active when count is lower than CCx) */
 	TCC_WAVE_GENERATION_DOUBLE_SLOPE_BOTH = 6,
 	/** Double-slope (count up and down), interrupt/event at Top (Top is the
-	 *  PER register, output active when count is greater than CCx). */
+	 *  PER register, output active when count is greater than CCx) */
 	TCC_WAVE_GENERATION_DOUBLE_SLOPE_TOP = 7,
 };
 
@@ -972,9 +974,9 @@ enum tcc_wave_generation {
  * Specifies whether the wave output needs to be inverted or not.
  */
 enum tcc_wave_polarity {
-	/** Wave output is not inverted. */
+	/** Wave output is not inverted */
 	TCC_WAVE_POLARITY_0,
-	/** Wave output is inverted. */
+	/** Wave output is inverted */
 	TCC_WAVE_POLARITY_1
 };
 
@@ -984,11 +986,11 @@ enum tcc_wave_polarity {
  * Used when disabling output pattern or when selecting a specific pattern.
  */
 enum tcc_output_pattern {
-	/** SWAP output pattern is not used. */
+	/** SWAP output pattern is not used */
 	TCC_OUTPUT_PATTERN_DISABLE,
-	/** Pattern 0 is applied to SWAP output. */
+	/** Pattern 0 is applied to SWAP output */
 	TCC_OUTPUT_PATTERN_0,
-	/** Pattern 1 is applied to SWAP output. */
+	/** Pattern 1 is applied to SWAP output */
 	TCC_OUTPUT_PATTERN_1
 };
 
@@ -998,7 +1000,7 @@ enum tcc_output_pattern {
  * Ramp operations which are supported in single-slope PWM generation.
  */
 enum tcc_ramp {
-	/** Default timer/counter PWM operation. */
+	/** Default timer/counter PWM operation */
 	TCC_RAMP_RAMP1 = 0,
 
 	/** Uses a single channel (CC0) to control both CC0/CC1 compare outputs.
@@ -1021,11 +1023,11 @@ enum tcc_ramp {
 enum tcc_ramp_index {
 	/** Default, cycle index toggles. */
 	TCC_RAMP_INDEX_DEFAULT,
-	/** Force next cycle to be cycle B (set to 1). */
+	/** Force next cycle to be cycle B (set to 1) */
 	TCC_RAMP_INDEX_FORCE_B,
-	/** Force next cycle to be cycle A (clear to 0). */
+	/** Force next cycle to be cycle A (clear to 0) */
 	TCC_RAMP_INDEX_FORCE_A,
-	/** Force next cycle keeping the same as current. */
+	/** Force next cycle keeping the same as current */
 	TCC_RAMP_INDEX_FORCE_KEEP
 };
 
@@ -1035,9 +1037,9 @@ enum tcc_ramp_index {
  * Used when enabling or disabling output inversion.
  */
 enum tcc_output_invertion {
-	/** Output inversion not to be enabled. */
+	/** Output inversion not to be enabled */
 	TCC_OUTPUT_INVERTION_DISABLE,
-	/** Invert the output from WO[x]. */
+	/** Invert the output from WO[x] */
 	TCC_OUTPUT_INVERTION_ENABLE
 };
 
@@ -1049,14 +1051,14 @@ enum tcc_output_invertion {
  */
 enum tcc_reload_action {
 	/** The counter is reloaded/reset on the next GCLK and starts
-	 * counting on the prescaler clock.
+	 * counting on the prescaler clock
 	 */
 	TCC_RELOAD_ACTION_GCLK,
-	/** The counter is reloaded/reset on the next prescaler clock.
+	/** The counter is reloaded/reset on the next prescaler clock
 	 */
 	TCC_RELOAD_ACTION_PRESC,
 	/** The counter is reloaded/reset on the next GCLK, and the
-	 * prescaler is restarted as well.
+	 * prescaler is restarted as well
 	 */
 	TCC_RELOAD_ACTION_RESYNC
 };
@@ -1070,21 +1072,21 @@ enum tcc_reload_action {
  * module to operate TCC at a slower clock rate.
  */
 enum tcc_clock_prescaler {
-	/** Divide clock by 1. */
+	/** Divide clock by 1 */
 	TCC_CLOCK_PRESCALER_DIV1,
-	/** Divide clock by 2. */
+	/** Divide clock by 2 */
 	TCC_CLOCK_PRESCALER_DIV2,
-	/** Divide clock by 4. */
+	/** Divide clock by 4 */
 	TCC_CLOCK_PRESCALER_DIV4,
-	/** Divide clock by 8. */
+	/** Divide clock by 8 */
 	TCC_CLOCK_PRESCALER_DIV8,
-	/** Divide clock by 16. */
+	/** Divide clock by 16 */
 	TCC_CLOCK_PRESCALER_DIV16,
-	/** Divide clock by 64. */
+	/** Divide clock by 64 */
 	TCC_CLOCK_PRESCALER_DIV64,
-	/** Divide clock by 256. */
+	/** Divide clock by 256 */
 	TCC_CLOCK_PRESCALER_DIV256,
-	/** Divide clock by 1024. */
+	/** Divide clock by 1024 */
 	TCC_CLOCK_PRESCALER_DIV1024
 };
 
@@ -1094,9 +1096,9 @@ enum tcc_clock_prescaler {
  * Used when selecting the Timer/Counter count direction.
  */
 enum tcc_count_direction {
-	/** Timer should count upward. */
+	/** Timer should count upward */
 	TCC_COUNT_DIRECTION_UP,
-	/** Timer should count downward. */
+	/** Timer should count downward */
 	TCC_COUNT_DIRECTION_DOWN,
 };
 
@@ -1108,12 +1110,12 @@ enum tcc_count_direction {
  */
 enum tcc_count_overflow_dma_trigger_mode {
 	/** TCC generates a DMA request on each cycle when an update condition 
-	 * is detected. 
+	 * is detected
 	 */
 	TCC_COUNT_OVERFLOW_DMA_TRIGGER_MODE_CONTINUE,
 	/** When an update condition is detected, the TCC generates a DMA trigger 
 	 * on the cycle following the DMA One-Shot Command written to the Control 
-	 * B register.
+	 * B register
 	 */
 	TCC_COUNT_OVERFLOW_DMA_TRIGGER_MODE_ONE_SHOT,
 };
@@ -1125,7 +1127,7 @@ enum tcc_count_overflow_dma_trigger_mode {
  * Event action to perform when the module is triggered by events.
  */
 enum tcc_event_action {
-	/** No event action. */
+	/** No event action */
 	TCC_EVENT_ACTION_OFF,
 	/** Stop counting, the counter will maintain its current value, waveforms
 	 *  are set to a defined Non-Recoverable State output
@@ -1148,12 +1150,12 @@ enum tcc_event_action {
 	 * direction. */
 	TCC_EVENT_ACTION_COUNT_EVENT,
 	/** The event source must be an asynchronous event, input value will
-	 *  overrides the direction settings (input low: counting up, input high
+	 *  overrides the direction settings (input low: counting up, input high:
 	 *  counting down). */
 	TCC_EVENT_ACTION_DIR_CONTROL,
-	/** Increment the counter on event, irrespective of count direction. */
+	/** Increment the counter on event, irrespective of count direction */
 	TCC_EVENT_ACTION_INCREMENT,
-	/** Decrement the counter on event, irrespective of count direction. */
+	/** Decrement the counter on event, irrespective of count direction */
 	TCC_EVENT_ACTION_DECREMENT,
 	/** Count during active state of asynchronous event. In this case,
 	* depending	on the count direction, the  count will be incremented 
@@ -1162,15 +1164,15 @@ enum tcc_event_action {
 	TCC_EVENT_ACTION_COUNT_DURING_ACTIVE,
 
 	/** Store period in capture register 0, pulse width in capture
-	 *  register 1.
+	 *  register 1
 	 */
 	TCC_EVENT_ACTION_PERIOD_PULSE_WIDTH_CAPTURE,
 	/** Store pulse width in capture register 0, period in capture
-	 *  register 1.
+	 *  register 1
 	 */
 	TCC_EVENT_ACTION_PULSE_WIDTH_PERIOD_CAPTURE,
 
-	/** Generate Non-Recoverable Fault on event. */
+	/** Generate Non-Recoverable Fault on event */
 	TCC_EVENT_ACTION_NON_RECOVERABLE_FAULT,
 };
 
@@ -1181,21 +1183,21 @@ enum tcc_event_action {
  * Event action to perform when the module is triggered by event0.
  */
 enum tcc_event0_action {
-	/** No event action. */
+	/** No event action */
 	TCC_EVENT0_ACTION_OFF                   = TCC_EVENT_ACTION_OFF,
-	/** Re-trigger Counter on event. */
+	/** Re-trigger Counter on event */
 	TCC_EVENT0_ACTION_RETRIGGER             = TCC_EVENT_ACTION_RETRIGGER,
-	/** Count events (increment or decrement, depending on count direction).
+	/** Count events (increment or decrement, depending on count direction)
 	 */
 	TCC_EVENT0_ACTION_COUNT_EVENT           = TCC_EVENT_ACTION_COUNT_EVENT,
-	/** Start counter on event. */
+	/** Start counter on event */
 	TCC_EVENT0_ACTION_START                 = TCC_EVENT_ACTION_START,
-	/** Increment counter on event. */
+	/** Increment counter on event */
 	TCC_EVENT0_ACTION_INCREMENT             = TCC_EVENT_ACTION_INCREMENT,
-	/** Count during active state of asynchronous event. */
+	/** Count during active state of asynchronous event */
 	TCC_EVENT0_ACTION_COUNT_DURING_ACTIVE   = TCC_EVENT_ACTION_COUNT_DURING_ACTIVE,
 
-	/** Generate Non-Recoverable Fault on event. */
+	/** Generate Non-Recoverable Fault on event */
 	TCC_EVENT0_ACTION_NON_RECOVERABLE_FAULT = TCC_EVENT_ACTION_NON_RECOVERABLE_FAULT
 };
 
@@ -1205,31 +1207,31 @@ enum tcc_event0_action {
  * Event action to perform when the module is triggered by event1.
  */
 enum tcc_event1_action {
-	/** No event action. */
+	/** No event action */
 	TCC_EVENT1_ACTION_OFF                   = TCC_EVENT_ACTION_OFF,
-	/** Re-trigger Counter on event. */
+	/** Re-trigger Counter on event */
 	TCC_EVENT1_ACTION_RETRIGGER             = TCC_EVENT_ACTION_RETRIGGER,
-	/** The event source must be an asynchronous event, input value will
-	 *  override the direction settings.
+	/** The event source must be an asynchronous event, and the input value
+	 *  will override the direction settings.
 	 *  If TCEINVx is 0 and input event is LOW: counter will count up.
 	 *  If TCEINVx is 0 and input event is HIGH: counter will count down.
 	 */
 	TCC_EVENT1_ACTION_DIR_CONTROL           = TCC_EVENT_ACTION_DIR_CONTROL,
-	/** Stop counter on event. */
+	/** Stop counter on event */
 	TCC_EVENT1_ACTION_STOP                  = TCC_EVENT_ACTION_STOP,
-	/** Decrement on event. */
+	/** Decrement on event */
 	TCC_EVENT1_ACTION_DECREMENT             = TCC_EVENT_ACTION_DECREMENT,
 
 	/** Store period in capture register 0, pulse width in capture
-	 *  register 1.
+	 *  register 1
 	 */
 	TCC_EVENT1_ACTION_PERIOD_PULSE_WIDTH_CAPTURE  = TCC_EVENT_ACTION_PERIOD_PULSE_WIDTH_CAPTURE,
 	/** Store pulse width in capture register 0, period in capture
-	 *  register 1.
+	 *  register 1
 	 */
 	TCC_EVENT1_ACTION_PULSE_WIDTH_PERIOD_CAPTURE  = TCC_EVENT_ACTION_PULSE_WIDTH_PERIOD_CAPTURE,
 
-	/** Generate Non-Recoverable Fault on event. */
+	/** Generate Non-Recoverable Fault on event */
 	TCC_EVENT1_ACTION_NON_RECOVERABLE_FAULT = TCC_EVENT_ACTION_NON_RECOVERABLE_FAULT
 };
 
@@ -1239,14 +1241,14 @@ enum tcc_event1_action {
  * This enum is used to define the point at which the counter event is generated.
  */
 enum tcc_event_generation_selection {
-	/** Counter Event is generated when a new counter cycle starts. */
+	/** Counter Event is generated when a new counter cycle starts */
 	TCC_EVENT_GENERATION_SELECTION_START,
-	/** Counter Event is generated when a counter cycle ends. */
+	/** Counter Event is generated when a counter cycle ends */
 	TCC_EVENT_GENERATION_SELECTION_END,
 	/** Counter Event is generated when a counter cycle ends, except for the
-	 *  first and last cycles. */
+	 *  first and last cycles */
 	TCC_EVENT_GENERATION_SELECTION_BETWEEN,
-	/** Counter Event is generated when a new counter cycle starts or ends. */
+	/** Counter Event is generated when a new counter cycle starts or ends */
 	TCC_EVENT_GENERATION_SELECTION_BOUNDARY
 };
 
@@ -1256,9 +1258,9 @@ enum tcc_event_generation_selection {
  * To set a timer channel either in compare or in capture mode.
  */
 enum tcc_channel_function {
-	/** TCC channel performs compare operation. */
+	/** TCC channel performs compare operation */
 	TCC_CHANNEL_FUNCTION_COMPARE,
-	/** TCC channel performs capture operation. */
+	/** TCC channel performs capture operation */
 	TCC_CHANNEL_FUNCTION_CAPTURE
 };
 
@@ -1268,11 +1270,11 @@ enum tcc_channel_function {
 enum tcc_fault_halt_action {
 	/** Halt action disabled. */
 	TCC_FAULT_HALT_ACTION_DISABLE,
-	/** Hardware halt action, counter is halted until restart. */
+	/** Hardware halt action, counter is halted until restart */
 	TCC_FAULT_HALT_ACTION_HW_HALT,
-	/** Software halt action, counter is halted until fault bit cleared. */
+	/** Software halt action, counter is halted until fault bit cleared */
 	TCC_FAULT_HALT_ACTION_SW_HALT,
-	/** Non-Recoverable fault, force output to pre-defined level. */
+	/** Non-Recoverable fault, force output to pre-defined level */
 	TCC_FAULT_HALT_ACTION_NON_RECOVERABLE
 };
 
@@ -1280,13 +1282,13 @@ enum tcc_fault_halt_action {
  * \brief TCC (recoverable) fault Capture action
  */
 enum tcc_fault_capture_action {
-	/** Capture disabled. */
+	/** Capture disabled */
 	TCC_FAULT_CAPTURE_DISABLE,
-	/** Capture on Fault, each value is captured. */
+	/** Capture on Fault, each value is captured */
 	TCC_FAULT_CAPTURE_EACH,
-	/** Capture the minimum detection, but notify on smaller ones. */
+	/** Capture the minimum detection, but notify on smaller ones */
 	TCC_FAULT_CAPTURE_MINIMUM,
-	/** Capture the maximum detection, but notify on bigger ones. */
+	/** Capture the maximum detection, but notify on bigger ones */
 	TCC_FAULT_CAPTURE_MAXIMUM,
 	/** Capture if the value is smaller than last, notify event or interrupt
 	 *  if previous stamp is confirmed to be "local minimum" (not bigger than
@@ -1296,7 +1298,7 @@ enum tcc_fault_capture_action {
 	 *  if previous stamp is confirmed to be "local maximum" (not smaller than
 	 *  current stamp). */
 	TCC_FAULT_CAPTURE_BIGGER,
-	/** Capture if the time stamps changes its increment direction. */
+	/** Capture if the time stamps changes its increment direction */
 	TCC_FAULT_CAPTURE_CHANGE
 };
 
@@ -1304,13 +1306,13 @@ enum tcc_fault_capture_action {
  * \brief Capture Channel triggered by TCC (recoverable) fault
  */
 enum tcc_fault_capture_channel {
-	/** Recoverable fault triggers channel 0 capture operation. */
+	/** Recoverable fault triggers channel 0 capture operation */
 	TCC_FAULT_CAPTURE_CHANNEL_0,
-	/** Recoverable fault triggers channel 1 capture operation. */
+	/** Recoverable fault triggers channel 1 capture operation */
 	TCC_FAULT_CAPTURE_CHANNEL_1,
-	/** Recoverable fault triggers channel 2 capture operation. */
+	/** Recoverable fault triggers channel 2 capture operation */
 	TCC_FAULT_CAPTURE_CHANNEL_2,
-	/** Recoverable fault triggers channel 3 capture operation. */
+	/** Recoverable fault triggers channel 3 capture operation */
 	TCC_FAULT_CAPTURE_CHANNEL_3
 };
 
@@ -1318,13 +1320,13 @@ enum tcc_fault_capture_channel {
  * \brief TCC (recoverable) fault Input Source
  */
 enum tcc_fault_source {
-	/** Fault input is disabled. */
+	/** Fault input is disabled */
 	TCC_FAULT_SOURCE_DISABLE,
-	/** Match Capture Event x (x=0,1) input. */
+	/** Match Capture Event x (x=0,1) input */
 	TCC_FAULT_SOURCE_ENABLE,
-	/** Inverted MCEx (x=0,1) event input. */
+	/** Inverted MCEx (x=0,1) event input */
 	TCC_FAULT_SOURCE_INVERT,
-	/** Alternate fault (A or B) state at the end of the previous period. */
+	/** Alternate fault (A or B) state at the end of the previous period */
 	TCC_FAULT_SOURCE_ALTFAULT
 };
 
@@ -1332,13 +1334,13 @@ enum tcc_fault_source {
  * \brief TCC (recoverable) fault Input Blanking Start Point
  */
 enum tcc_fault_blanking {
-	/** No blanking. */
+	/** No blanking */
 	TCC_FAULT_BLANKING_DISABLE,
-	/** Blanking applied from rising edge of the output waveform. */
+	/** Blanking applied from rising edge of the output waveform */
 	TCC_FAULT_BLANKING_RISING_EDGE,
-	/** Blanking applied from falling edge of the output waveform. */
+	/** Blanking applied from falling edge of the output waveform */
 	TCC_FAULT_BLANKING_FALLING_EDGE,
-	/** Blanking applied from each toggle of the output waveform. */
+	/** Blanking applied from each toggle of the output waveform */
 	TCC_FAULT_BLANKING_BOTH_EDGE
 };
 
@@ -1346,9 +1348,9 @@ enum tcc_fault_blanking {
  * \brief TCC (recoverable) fault Input Qualification Action
  */
 enum tcc_fault_qualification {
-	/** The input is not disabled on compare condition. */
+	/** The input is not disabled on compare condition */
 	TCC_FAULT_QUALIFICATION_DISABLE,
-	/** The input is disabled when match output signal is at inactive level. */
+	/** The input is disabled when match output signal is at inactive level */
 	TCC_FAULT_QUALIFICATION_BY_OUTPUT
 };
 
@@ -1356,9 +1358,9 @@ enum tcc_fault_qualification {
  * \brief TCC (recoverable) fault Output Keep Action
  */
 enum tcc_fault_keep {
-	/** Disable keeping, wave output released as soon as fault is released. */
+	/** Disable keeping, wave output released as soon as fault is released */
 	TCC_FAULT_KEEP_DISABLE,
-	/** Keep wave output until end of TCC cycle. */
+	/** Keep wave output until end of TCC cycle */
 	TCC_FAULT_KEEP_TILL_END
 };
 
@@ -1366,11 +1368,11 @@ enum tcc_fault_keep {
  * \brief TCC Non-recoverable State Outupt
  */
 enum tcc_fault_state_output {
-	/** Non-recoverable fault output is tri-stated. */
+	/** Non-recoverable fault output is tri-stated */
 	TCC_FAULT_STATE_OUTPUT_OFF,
-	/** Non-recoverable fault force output 0. */
+	/** Non-recoverable fault force output 0 */
 	TCC_FAULT_STATE_OUTPUT_0,
-	/** Non-recoverable fault force output 1. */
+	/** Non-recoverable fault force output 1 */
 	TCC_FAULT_STATE_OUTPUT_1
 };
 
@@ -1378,9 +1380,9 @@ enum tcc_fault_state_output {
  * \brief TCC (recoverable) fault Restart Action
  */
 enum tcc_fault_restart {
-	/** Restart Action disabled. */
+	/** Restart Action disabled */
 	TCC_FAULT_RESTART_DISABLE,
-	/** Restart Action enabled. */
+	/** Restart Action enabled */
 	TCC_FAULT_RESTART_ENABLE
 };
 
@@ -1393,16 +1395,16 @@ struct tcc_recoverable_fault_config {
 	 *  Apply to both recoverable and non-recoverable fault. */
 	uint8_t filter_value;
 	/** Fault blanking value (0 ~ 255), disable input source for several TCC
-	 * clocks after the detection of the waveform edge. */
+	 * clocks after the detection of the waveform edge */
 	uint8_t blanking_cycles;
 
-	/** Set to \c true to enable restart action. */
+	/** Set to \c true to enable restart action */
 	bool restart;
-	/** Set to \c true to enable keep action (keep until end of TCC cycle). */
+	/** Set to \c true to enable keep action (keep until end of TCC cycle) */
 	bool keep;
 
 	/** Set to \c true to enable input qualification
-	 *  (disable input when output is inactive). */
+	 *  (disable input when output is inactive) */
 	bool qualification;
 
 	/** Specifies if the event input generates recoverable Fault.
@@ -1410,14 +1412,14 @@ struct tcc_recoverable_fault_config {
 	 *  configured as asynchronous.
 	 */
 	enum tcc_fault_source source;
-	/** Fault Blanking Start Point for recoverable Fault. */
+	/** Fault Blanking Start Point for recoverable Fault */
 	enum tcc_fault_blanking blanking;
 
-	/** Halt action for recoverable Fault. */
+	/** Halt action for recoverable Fault */
 	enum tcc_fault_halt_action halt_action;
-	/** Capture action for recoverable Fault. */
+	/** Capture action for recoverable Fault */
 	enum tcc_fault_capture_action capture_action;
-	/** Channel triggered by recoverable Fault. */
+	/** Channel triggered by recoverable Fault */
 	enum tcc_fault_capture_channel capture_channel;
 };
 
@@ -1428,7 +1430,7 @@ struct tcc_non_recoverable_fault_config {
 	/** Fault filter value applied on TCEx event input line (0x0 ~ 0xF).
 	 *  Must be 0 when TCEx event is used as synchronous event. */
 	uint8_t filter_value;
-	/** Output. */
+	/** Output */
 	enum tcc_fault_state_output output;
 };
 
@@ -1438,11 +1440,11 @@ struct tcc_non_recoverable_fault_config {
  * For configuring an input event.
  */
 struct tcc_input_event_config {
-	/** Event action on incoming event. */
+	/** Event action on incoming event */
 	enum tcc_event_action action;
-	/** Modify event action. */
+	/** Modify event action */
 	bool modify_action;
-	/** Invert incoming event input line. */
+	/** Invert incoming event input line */
 	bool invert;
 };
 
@@ -1453,10 +1455,10 @@ struct tcc_input_event_config {
  */
 struct tcc_output_event_config {
 	/** It decides which part of the counter cycle the counter event output
-	 * is generated. */
+	 * is generated */
 	enum tcc_event_generation_selection generation_selection;
 	/** A switch to allow enable/disable of events, without modifying the
-	 *  event output configuration.
+	 *  event output configuration
 	 */
 	bool modify_generation_selection;
 };
@@ -1467,25 +1469,25 @@ struct tcc_output_event_config {
  * Event flags for the \ref tcc_enable_events() and \ref tcc_disable_events().
  */
 struct tcc_events {
-	/** Input events configuration. */
+	/** Input events configuration */
 	struct tcc_input_event_config input_config[2];
-	/** Output event configuration. */
+	/** Output event configuration */
 	struct tcc_output_event_config output_config;
 
 	/** Perform the configured event action when an incoming event is
-	 *  signalled. */
+	 *  signalled */
 	bool on_input_event_perform_action[2];
 
 	/** Perform the configured event action when an incoming channel event is
-	 *  signalled. */
+	 *  signalled */
 	bool on_event_perform_channel_action[TCC_NUM_CHANNELS];
 	/** Generate an output event on a channel capture/match.
-	 *  Specify which channels will generate events. */
+	 *  Specify which channels will generate events */
 	bool generate_event_on_channel[TCC_NUM_CHANNELS];
 
-	/** Generate an output event on counter overflow/underflow. */
+	/** Generate an output event on counter overflow/underflow */
 	bool generate_event_on_counter_overflow;
-	/** Generate an output event on counter retrigger. */
+	/** Generate an output event on counter retrigger */
 	bool generate_event_on_counter_retrigger;
 	/** Generate an output event on counter boundary.
 	 *  See \ref tcc_event_output_action. */
@@ -1498,30 +1500,30 @@ struct tcc_events {
  * Structure for configuring a TCC as a counter.
  */
 struct tcc_counter_config {
-	/** Value to initialize the count register. */
+	/** Value to initialize the count register */
 	uint32_t count;
-	/** Period/top and period/top buffer values for counter. */
+	/** Period/top and period/top buffer values for counter */
 	uint32_t period;
 
-	/** When \c true, counter will be stopped on the next hardware or
-	 * software re-trigger event or overflow/underflow.
+	/** When \c true, the counter will be stopped on the next hardware or
+	 * software re-trigger event or overflow/underflow
 	 */
 	bool oneshot;
 
 #ifdef FEATURE_TCC_GENERATE_DMA_TRIGGER	
-	/** Counter overflow trigger a DMA request mode. */
+	/** Counter overflow trigger a DMA request mode */
 	enum tcc_count_overflow_dma_trigger_mode dma_trigger_mode;
 #endif
 
-	/** Specifies the direction for the TCC to count. */
+	/** Specifies the direction for the TCC to count */
 	enum tcc_count_direction direction;
 
-	/** GCLK generator used to clock the peripheral. */
+	/** GCLK generator used to clock the peripheral */
 	enum gclk_generator clock_source;
-	/** Specifies the prescaler value for GCLK_TCC. */
+	/** Specifies the prescaler value for GCLK_TCC */
 	enum tcc_clock_prescaler clock_prescaler;
 	/** Specifies the reload or reset time of the counter and prescaler
-	 *  resynchronization on a re-trigger event for the TCC.
+	 *  resynchronization on a re-trigger event for the TCC
 	 */
 	enum tcc_reload_action reload_action;
 };
@@ -1532,7 +1534,7 @@ struct tcc_counter_config {
  * Structure used when configuring TCC channels in capture mode.
  */
 struct tcc_capture_config {
-	/** Channel functions selection (capture/match). */
+	/** Channel functions selection (capture/match) */
 	enum tcc_channel_function channel_function[TCC_NUM_CHANNELS];
 };
 
@@ -1543,17 +1545,17 @@ struct tcc_capture_config {
  * operation and wave generation.
  */
 struct tcc_match_wave_config {
-	/** Channel functions selection (capture/match). */
+	/** Channel functions selection (capture/match) */
 	enum tcc_channel_function channel_function[TCC_NUM_CHANNELS];
 
-	/** Specifies polarity for match output waveform generation. */
+	/** Specifies polarity for match output waveform generation */
 	enum tcc_wave_polarity wave_polarity[TCC_NUM_CHANNELS];
-	/** Specifies which waveform generation mode to use. */
+	/** Specifies which waveform generation mode to use */
 	enum tcc_wave_generation wave_generation;
-	/** Specifies Ramp mode for waveform generation. */
+	/** Specifies Ramp mode for waveform generation */
 	enum tcc_ramp wave_ramp;
 
-	/** Value to be used for compare match on each channel. */
+	/** Value to be used for compare match on each channel */
 	uint32_t match[TCC_NUM_CHANNELS];
 };
 
@@ -1563,14 +1565,14 @@ struct tcc_match_wave_config {
  * This structure is used to specify the waveform extension features for TCC.
  */
 struct tcc_wave_extension_config {
-	/** Configuration for recoverable faults. */
+	/** Configuration for recoverable faults */
 	struct tcc_recoverable_fault_config
 			recoverable_fault[TCC_NUM_FAULTS];
-	/** Configuration for non-recoverable faults. */
+	/** Configuration for non-recoverable faults */
 	struct tcc_non_recoverable_fault_config
 			non_recoverable_fault[TCC_NUM_WAVE_OUTPUTS];
 
-	/** Invert waveform final outputs lines. */
+	/** Invert waveform final outputs lines */
 	bool invert[TCC_NUM_WAVE_OUTPUTS];
 };
 
@@ -1580,11 +1582,11 @@ struct tcc_wave_extension_config {
  * Structure which is used when taking wave output from TCC.
  */
 struct tcc_pins_config {
-	/** Specifies pin output for each channel. */
+	/** Specifies pin output for each channel */
 	uint32_t wave_out_pin[TCC_NUM_WAVE_OUTPUTS];
-	/** Specifies MUX setting for each output channel pin. */
+	/** Specifies MUX setting for each output channel pin */
 	uint32_t wave_out_pin_mux[TCC_NUM_WAVE_OUTPUTS];
-	/** When \c true, PWM output pin for the given channel is enabled. */
+	/** When \c true, PWM output pin for the given channel is enabled */
 	bool enable_wave_out_pin[TCC_NUM_WAVE_OUTPUTS];
 };
 
@@ -1596,24 +1598,24 @@ struct tcc_pins_config {
  * modified by the user application.
  */
 struct tcc_config {
-	/** Structure for configuring TCC base timer/counter. */
+	/** Structure for configuring TCC base timer/counter */
 	struct tcc_counter_config counter;
-	/** TCC match/capture configurations. */
+	/** TCC match/capture configurations */
 	union {
-		/** Helps to configure a TCC channel in capture mode. */
+		/** Helps to configure a TCC channel in capture mode */
 		struct tcc_capture_config capture;
-		/** For configuring a TCC channel in compare mode. */
+		/** For configuring a TCC channel in compare mode */
 		struct tcc_match_wave_config compare;
 		/** Serves the same purpose as compare. Used as an alias for
 		 * compare,
-		 *  when a TCC channel is configured for wave generation. */
+		 *  when a TCC channel is configured for wave generation */
 		struct tcc_match_wave_config wave;
 	};
 
-	/** Structure for configuring TCC waveform extension. */
+	/** Structure for configuring TCC waveform extension */
 	struct tcc_wave_extension_config wave_ext;
 
-	/** Structure for configuring TCC output pins. */
+	/** Structure for configuring TCC output pins */
 	struct tcc_pins_config pins;
 
 	/** Set to \c true to enable double buffering write. When enabled any write
@@ -1623,12 +1625,12 @@ struct tcc_config {
 	 *  on UPDATE condition, if update is not locked.
 	 *
 	 *  \note The init values in \ref tcc_config for \ref tcc_init are always
-	 *        filled to effective registers, no matter double buffering
+	 *        filled to effective registers, no matter if double buffering is
 	 *        enabled or not.
 	 */
 	bool double_buffering_enabled;
 
-	/** When \c true the module is enabled during standby. */
+	/** When \c true the module is enabled during standby */
 	bool run_in_standby;
 };
 
@@ -1654,15 +1656,15 @@ struct tcc_module {
 	Tcc *hw;
 
 #  if TCC_ASYNC == true
-	/** Array of callbacks. */
+	/** Array of callbacks */
 	tcc_callback_t callback[TCC_CALLBACK_N];
-	/** Bit mask for callbacks registered. */
+	/** Bit mask for callbacks registered */
 	uint32_t register_callback_mask;
-	/** Bit mask for callbacks enabled. */
+	/** Bit mask for callbacks enabled */
 	uint32_t enable_callback_mask;
 #  endif
 
-	/** Set to \c true to write to buffered registers. */
+	/** Set to \c true to write to buffered registers */
 	bool double_buffering_enabled;
 };
 
@@ -1785,6 +1787,11 @@ static inline void tcc_disable(
 		/* Wait for sync */
 	}
 
+	/* Disbale interrupt */
+	tcc_module->INTENCLR.reg = TCC_INTENCLR_MASK;
+	/* Clear interrupt flag */
+	tcc_module->INTFLAG.reg = TCC_INTFLAG_MASK;
+
 	/* Disable the TCC module */
 	tcc_module->CTRLA.reg  &= ~TC_CTRLA_ENABLE;
 }
@@ -1852,7 +1859,7 @@ static inline void tcc_set_count_direction(
 	/* Get a pointer to the module's hardware instance */
 	Tcc *const tcc_module = module_inst->hw;
 
-	while (tcc_module->SYNCBUSY.bit.CTRLB) {
+	while (tcc_module->SYNCBUSY.reg & TCC_SYNCBUSY_CTRLB) {
 		/* Wait for sync */
 	}
 
@@ -1882,7 +1889,7 @@ static inline void tcc_toggle_count_direction(
 	/* Get a pointer to the module's hardware instance */
 	Tcc *const tcc_module = module_inst->hw;
 
-	while (tcc_module->SYNCBUSY.bit.CTRLB) {
+	while (tcc_module->SYNCBUSY.reg & TCC_SYNCBUSY_CTRLB) {
 		/* Wait for sync */
 	}
 	bool dir_value_1 = tcc_module->CTRLBSET.bit.DIR;
@@ -1937,7 +1944,7 @@ static inline void tcc_stop_counter(
 
 	/* Wait until last command is done */
 	do {
-		while (tcc_module->SYNCBUSY.bit.CTRLB) {
+		while (tcc_module->SYNCBUSY.reg & TCC_SYNCBUSY_CTRLB) {
 			/* Wait for sync */
 		}
 		last_cmd = tcc_module->CTRLBSET.reg & TCC_CTRLBSET_CMD_Msk;
@@ -1976,7 +1983,7 @@ static inline void tcc_restart_counter(
 
 	/* Wait until last command is done */
 	do {
-		while (tcc_module->SYNCBUSY.bit.CTRLB) {
+		while (tcc_module->SYNCBUSY.reg & TCC_SYNCBUSY_CTRLB) {
 			/* Wait for sync */
 		}
 		last_cmd = tcc_module->CTRLBSET.reg & TCC_CTRLBSET_CMD_Msk;
@@ -1999,7 +2006,7 @@ static inline void tcc_restart_counter(
 
 #ifdef FEATURE_TCC_GENERATE_DMA_TRIGGER
 /**
- * \name Generate TCC DMA Triggers command
+ * \name Generate TCC DMA Triggers Command
  * @{
  */
 
@@ -2020,23 +2027,23 @@ static inline void tcc_dma_trigger_command(
 	/* Get a pointer to the module's hardware instance */
 	Tcc *const tcc_module = module_inst->hw;
 
-	while (tcc_module->SYNCBUSY.bit.CTRLB) {
+	while (tcc_module->SYNCBUSY.reg & TCC_SYNCBUSY_CTRLB) {
 			/* Wait for sync */
 	}
 
 	/* Make certain that there are no conflicting commands in the register */
 	tcc_module->CTRLBCLR.reg = TCC_CTRLBCLR_CMD_NONE;
 
-	while (tcc_module->SYNCBUSY.bit.CTRLB) {
+	while (tcc_module->SYNCBUSY.reg & TCC_SYNCBUSY_CTRLB) {
 			/* Wait for sync */
 	}
 	
-#if !(SAML21 || SAML22)
+#if !(SAML21 || SAML22 || SAMR30)
 	/* Write command to execute */
 	tcc_module->CTRLBSET.reg = TCC_CTRLBSET_CMD_DMATRG;
 #endif
 
-#if (SAML21XXXB) || (SAML22)
+#if (SAML21XXXB) || (SAML22) || (SAMR30)
 	/* Write command to execute */
 	tcc_module->CTRLBSET.reg = TCC_CTRLBSET_CMD_DMAOS;
 #endif
@@ -2116,25 +2123,25 @@ static inline void tcc_set_ramp_index(
 
 	/* Wait until last command is done */
 	do {
-		while (tcc_module->SYNCBUSY.bit.CTRLB) {
+		while (tcc_module->SYNCBUSY.reg & TCC_SYNCBUSY_CTRLB) {
 			/* Wait for sync */
 		}
 		if (TCC_RAMP_INDEX_DEFAULT == ramp_index) {
 			/* Cancel pending command */
-			tcc_module->CTRLBCLR.reg = TCC_CTRLBSET_IDXCMD_DISABLE;
+			tcc_module->CTRLBCLR.reg = TCC_CTRLBSET_IDXCMD_HOLD;
 			return;
 		}
 		last_cmd = tcc_module->CTRLBSET.reg & TCC_CTRLBSET_IDXCMD_Msk;
 		if (last_cmd == TCC_CTRLBSET_IDXCMD_DISABLE) {
 			break;
-		} else if (last_cmd == TCC_CTRLBSET_CMD(ramp_index)) {
+		} else if (last_cmd == TCC_CTRLBSET_IDXCMD(ramp_index)) {
 			/* Command have been issued */
 			return;
 		}
 	} while (1);
 
 	/* Write command to execute */
-	tcc_module->CTRLBSET.reg = TCC_CTRLBSET_CMD(ramp_index);
+	tcc_module->CTRLBSET.reg = TCC_CTRLBSET_IDXCMD(ramp_index);
 }
 
 /** @} */
@@ -2181,13 +2188,13 @@ void tcc_clear_status(
 /**
  * \brief Enable TCC double buffering write
  *
- * When double buffering write is enabled, following function will write values
- * to buffered registers instead of effective ones (buffered):
+ * When double buffering write is enabled, the following function will write
+ * values to buffered registers instead of effective ones (buffered):
  * - PERB: through \ref tcc_set_top_value()
  * - CCBx(x is 0~3): through \ref tcc_set_compare_value()
  * - PATTB: through \ref tcc_set_pattern()
  *
- * Then on UPDATE condition the buffered registers are committed to regular ones
+ * Then, on UPDATE condition the buffered registers are committed to regular ones
  * to take effect.
  *
  * \param[in] module_inst  Pointer to the TCC software instance struct
@@ -2244,7 +2251,7 @@ static inline void tcc_lock_double_buffer_update(
 	Assert(module_inst);
 	Assert(module_inst->hw);
 
-	while (module_inst->hw->SYNCBUSY.bit.CTRLB) {
+	while (module_inst->hw->SYNCBUSY.reg & TCC_SYNCBUSY_CTRLB) {
 		/* Wait for sync */
 	}
 	module_inst->hw->CTRLBSET.reg = TCC_CTRLBSET_LUPD;
@@ -2266,7 +2273,7 @@ static inline void tcc_unlock_double_buffer_update(
 	Assert(module_inst);
 	Assert(module_inst->hw);
 
-	while (module_inst->hw->SYNCBUSY.bit.CTRLB) {
+	while (module_inst->hw->SYNCBUSY.reg & TCC_SYNCBUSY_CTRLB) {
 		/* Wait for sync */
 	}
 	module_inst->hw->CTRLBCLR.reg = TCC_CTRLBCLR_LUPD;
@@ -2291,7 +2298,7 @@ static inline void tcc_force_double_buffer_update(
 
 	/* Wait until last command is done */
 	do {
-		while (tcc_module->SYNCBUSY.bit.CTRLB) {
+		while (tcc_module->SYNCBUSY.reg & TCC_SYNCBUSY_CTRLB) {
 			/* Wait for sync */
 		}
 		last_cmd = tcc_module->CTRLBSET.reg & TCC_CTRLBSET_CMD_Msk;
@@ -2459,25 +2466,25 @@ enum status_code tcc_set_double_buffer_compare_values(
  *
  * <table>
  *  <tr>
- *      <th>Doc. Rev.</td>
- *      <th>Date</td>
- *      <th>Comments</td>
+ *      <th>Doc. Rev.</th>
+ *      <th>Date</th>
+ *      <th>Comments</th>
  *  </tr>
  *  <tr>
- *      <td>C</td>
- *      <td>04/2015</td>
- *      <td>Added support for SAML21 and SAMDAx</td>
+ *      <td>42256C</td>
+ *      <td>12/2015</td>
+ *      <td>Added support for SAM L21/L22, SAM DA1, and SAM C20/C21</td>
  *  </tr>
  *  <tr>
- *      <td>B</td>
+ *      <td>42256B</td>
  *      <td>12/2014</td>
- *      <td>Added fault handling functionality;
- *          Added double buffering functionality with use case;
- *          Added timer use case;
- *          Added SAM R21/D10/D11 support</td>
+ *      <td>Added fault handling functionality.
+ *          Added double buffering functionality with use case.
+ *          Added timer use case.
+ *          Added SAM R21/D10/D11 support.</td>
  *  </tr>
  *  <tr>
- *      <td>A</td>
+ *      <td>42256A</td>
  *      <td>01/2014</td>
  *      <td>Initial release</td>
  *  </tr>

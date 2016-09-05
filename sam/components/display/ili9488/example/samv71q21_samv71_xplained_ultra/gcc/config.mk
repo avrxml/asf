@@ -159,6 +159,7 @@ CFLAGS =  \
 CPPFLAGS = \
        -D ARM_MATH_CM7=true                               \
        -D BOARD=SAMV71_XPLAINED_ULTRA                     \
+       -D ILI9488_EBIMODE                                 \
        -D __SAMV71Q21__                                   \
        -D printf=iprintf                                  \
        -D scanf=iscanf

@@ -3,7 +3,7 @@
  *
  * \brief TWI Master driver for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -57,7 +57,7 @@ typedef twi_packet_t twi_package_t;
 static inline uint32_t twi_master_setup(twi_master_t p_twi,
 		twi_master_options_t *p_opt)
 {
-	p_opt->master_clk = sysclk_get_cpu_hz();
+	p_opt->master_clk = sysclk_get_peripheral_hz();
 	p_opt->smbus      = 0;
 #if SAMG55
 	if (p_twi == TWI0) {
@@ -74,8 +74,10 @@ static inline uint32_t twi_master_setup(twi_master_t p_twi,
 		sysclk_enable_peripheral_clock(ID_FLEXCOM5);
 	} else if (p_twi == TWI6) {
 		sysclk_enable_peripheral_clock(ID_FLEXCOM6);
+#ifdef _SAMG55_FLEXCOM7_INSTANCE_
 	} else if (p_twi == TWI7) {
 		sysclk_enable_peripheral_clock(ID_FLEXCOM7);
+#endif /* _SAMG55_FLEXCOM7_INSTANCE_*/
 	} else {
 		// Do Nothing
 	}

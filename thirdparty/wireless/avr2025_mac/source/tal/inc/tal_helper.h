@@ -50,7 +50,7 @@
 
 /**
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
- *Support</a>
+ * Support</a>
  */
 #ifndef TAL_HELPER_H
 #define TAL_HELPER_H

@@ -359,7 +359,7 @@ void supc_set_slcd_vol(Supc *p_supc, uint32_t vol)
 }
 #endif
 
-#if SAMG54
+#if (SAMG54 || SAMG55)
 /**
  * \brief Set the internal voltage regulator to use factory trim value.
  *
@@ -367,9 +367,14 @@ void supc_set_slcd_vol(Supc *p_supc, uint32_t vol)
  */
 void supc_set_regulator_trim_factory(Supc *p_supc)
 {
+#if SAMG54
 	uint32_t ul_mr = p_supc->SUPC_MR &
 			(~(SUPC_MR_VRVDD_Msk | SUPC_MR_VDDSEL_USER_VRVDD));
 	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr;
+#else
+	uint32_t ul_pwmr = p_supc->SUPC_PWMR & (~SUPC_PWMR_ECPWRS);
+	p_supc->SUPC_PWMR = SUPC_PWMR_KEY_PASSWD | ul_pwmr;
+#endif
 }
 
 /**
@@ -382,9 +387,15 @@ void supc_set_regulator_trim_factory(Supc *p_supc)
  */
 void supc_set_regulator_trim_user(Supc *p_supc, uint32_t value)
 {
+#if SAMG54
 	uint32_t ul_mr = p_supc->SUPC_MR & (~SUPC_MR_VRVDD_Msk);
 	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_VDDSEL_USER_VRVDD
 		 | SUPC_MR_VRVDD(value);
+#else
+	uint32_t ul_pwmr = p_supc->SUPC_PWMR & (~(0xFu << 9));
+	p_supc->SUPC_PWMR = SUPC_PWMR_KEY_PASSWD | ul_pwmr | SUPC_PWMR_ECPWRS
+		| ((value & 0xFu) << 9);
+#endif
 }
 
 #endif

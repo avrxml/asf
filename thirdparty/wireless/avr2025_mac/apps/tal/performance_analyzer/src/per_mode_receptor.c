@@ -4,7 +4,7 @@
  * \brief Receptor functionalities in PER Measurement mode - Performance
  * Analyzer
  * application
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -61,8 +61,10 @@
 #include "app_per_mode.h"
 #include "conf_board.h"
 #include "perf_api.h"
-#if !(SAMD || SAMR21 || SAML21)
+#if (LED_COUNT > 0)
+#if !(SAMD || SAMR21 || SAML21 || SAMR30)
 #include "led.h"
+#endif
 #endif
 
 /**
@@ -191,8 +193,9 @@ void per_mode_receptor_task(void)
 				if (send_range_test_marker_cmd()) {
 					printf(
 							"\r\nInitiating Marker Transmission...");
+
 					/* Timer for LED Blink for Marker
-					 *Transmission*/
+					 * Transmission*/
 					sw_timer_start(APP_TIMER_TO_TX,
 							LED_BLINK_RATE_IN_MICRO_SEC,
 							SW_TIMEOUT_RELATIVE,
@@ -284,7 +287,7 @@ void per_mode_receptor_tx_done_cb(retval_t status, frame_info_t *frame)
 	}
 
 	/*enable rx on mode in receptor after sending rxon confirm to the
-	 *initiator*/
+	 * initiator*/
 	if (rx_on_mode) {
 		set_trx_state(CMD_RX_ON);
 	}
@@ -388,7 +391,6 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 			return;
 		}
 	}
-
 #endif /* #ifdef CRC_SETTING_ON_REMOTE_NODE */
 
 	switch ((msg->cmd_id)) {
@@ -488,7 +490,6 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 						"\r\nNumber of received frames with wrong CRC = %" PRIu32,
 						frames_with_wrong_crc);
 			}
-
 #endif /* #ifdef CRC_SETTING_ON_REMOTE_NODE */
 
 			number_rx_frames = 0;
@@ -661,8 +662,9 @@ void per_mode_receptor_rx_cb(frame_info_t *mac_frame_info)
 		}
 
 		remote_cmd_seq_num = msg->seq_num;
+
 		/*Command received by the receptor to start a test ,from the
-		 *initiator node*/
+		 * initiator node*/
 		remote_cmd_len
 			= *(mac_frame_info->mpdu + LENGTH_FIELD_LEN +
 				FRAME_OVERHEAD + CMD_ID_LEN +
@@ -825,7 +827,6 @@ static void set_paramter_on_recptor_node(app_payload_t *msg)
 		printf("\r\n Frequency changed to %0.1fMHz", (double)frequency);
 	}
 	break;
-
 #endif
 	case CHANNEL_PAGE:
 	{
@@ -966,7 +967,6 @@ static void set_paramter_on_recptor_node(app_payload_t *msg)
 		}
 	}
 	break;
-
 #endif /* End of (TAL_TYPE != AT86RF212) */
 	default:
 		printf(" \r\nUnsupported Parameter");
@@ -1008,7 +1008,6 @@ void marker_tx_timer_handler_cb(void *parameter)
 				(FUNC_PTR)marker_tx_timer_handler_cb,
 				NULL);
 	}
-
 #endif
 	return;
 }
@@ -1046,7 +1045,6 @@ void marker_rsp_timer_handler_cb(void *parameter)
 				(FUNC_PTR)marker_rsp_timer_handler_cb,
 				NULL);
 	}
-
 #endif
 	return;
 }

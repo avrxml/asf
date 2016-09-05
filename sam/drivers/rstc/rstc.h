@@ -3,7 +3,7 @@
  *
  * \brief SAM Reset Controller (RSTC) driver.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,7 +48,7 @@
 #define RSTC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_rstc_group SAM3/4C/4CM/4CP/4E/4N/4S/G Reset Controller (RSTC) Driver
+ * \defgroup asfdoc_sam_drivers_rstc_group SAM3/4C/4CM/4CP/4E/4N/4S/G/V71/V70/S70/E70 Reset Controller (RSTC) Driver
  * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers 
  * provides an interface for the configuration and management of the device's 
  * Reset Controller functionality.
@@ -72,8 +72,8 @@
  * - Atmel | SMART SAM G
  * - Atmel | SMART SAMV71
  * - Atmel | SMART SAMV70
- * - Atmel | SMART SAMS70
  * - Atmel | SMART SAME70
+ * - Atmel | SMART SAMS70
  *
  * The outline of this documentation is as follows:
  *  - \ref asfdoc_sam_drivers_rstc_prerequisites
@@ -236,7 +236,7 @@ void rstc_reset_extern(Rstc *p_rstc);
 uint32_t rstc_get_status(Rstc* p_rstc);
 uint32_t rstc_get_reset_cause(Rstc* p_rstc);
 
-#if SAM4C || SAM4CP || defined(__DOXYGEN__)
+#if SAM4C || SAM4CM || SAM4CP || defined(__DOXYGEN__)
 #ifndef RSTC_CPMR_KEY_PASSWD
 /** \internal */
 #define RSTC_CPMR_KEY_PASSWD  RSTC_CPMR_CPKEY(0x5AU)
@@ -382,7 +382,7 @@ static inline void rstc_assert_reset_of_coprocessor(
  * \page asfdoc_sam_drivers_rstc_quick_start Quick Start guide for SAM RSTC driver
  *
  * This is the quick start guide for the
- * \ref asfdoc_sam_drivers_rstc_group "SAM Reset Controller (RSTC) driver",
+ * \ref asfdoc_sam_drivers_rstc_group,
  * with step-by-step instructions on how to configure and use the driver
  * in a selection of use cases.
  *

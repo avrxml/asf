@@ -356,11 +356,11 @@
 				</option>
 				<option>
 					<name>IExtraOptionsCheck</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IExtraOptions</name>
-					<state></state>
+					<state>--disable_inline_asm_label_replacement</state>
 				</option>
 				<option>
 					<name>CCModuleTypeOverride</name>
@@ -1241,11 +1241,11 @@
 				</option>
 				<option>
 					<name>IExtraOptionsCheck</name>
-					<state>0</state>
+					<state>1</state>
 				</option>
 				<option>
 					<name>IExtraOptions</name>
-					<state></state>
+					<state>--disable_inline_asm_label_replacement</state>
 				</option>
 				<option>
 					<name>CCModuleTypeOverride</name>

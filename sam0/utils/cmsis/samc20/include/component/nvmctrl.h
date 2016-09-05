@@ -3,7 +3,7 @@
  *
  * \brief Component description for NVMCTRL
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -458,16 +458,6 @@ typedef struct {
 #define ADC0_FUSES_BIASREFBUF_Msk   (0x7ul << ADC0_FUSES_BIASREFBUF_Pos)
 #define ADC0_FUSES_BIASREFBUF(value) (ADC0_FUSES_BIASREFBUF_Msk & ((value) << ADC0_FUSES_BIASREFBUF_Pos))
 
-#define ADC1_FUSES_BIASCOMP_ADDR    NVMCTRL_OTP5
-#define ADC1_FUSES_BIASCOMP_Pos     9            /**< \brief (NVMCTRL_OTP5) ADC Comparator Scaling */
-#define ADC1_FUSES_BIASCOMP_Msk     (0x7ul << ADC1_FUSES_BIASCOMP_Pos)
-#define ADC1_FUSES_BIASCOMP(value)  (ADC1_FUSES_BIASCOMP_Msk & ((value) << ADC1_FUSES_BIASCOMP_Pos))
-
-#define ADC1_FUSES_BIASREFBUF_ADDR  NVMCTRL_OTP5
-#define ADC1_FUSES_BIASREFBUF_Pos   6            /**< \brief (NVMCTRL_OTP5) ADC Bias Reference Buffer Scaling */
-#define ADC1_FUSES_BIASREFBUF_Msk   (0x7ul << ADC1_FUSES_BIASREFBUF_Pos)
-#define ADC1_FUSES_BIASREFBUF(value) (ADC1_FUSES_BIASREFBUF_Msk & ((value) << ADC1_FUSES_BIASREFBUF_Pos))
-
 #define FUSES_BODCOREUSERLEVEL_ADDR NVMCTRL_USER
 #define FUSES_BODCOREUSERLEVEL_Pos  17           /**< \brief (NVMCTRL_USER) BODCORE User Level */
 #define FUSES_BODCOREUSERLEVEL_Msk  (0x3Ful << FUSES_BODCOREUSERLEVEL_Pos)
@@ -542,31 +532,6 @@ typedef struct {
 #define NVMCTRL_FUSES_RWWEEP_Pos    0            /**< \brief (NVMCTRL_OTP1) Number of RWW EEPROM Pages */
 #define NVMCTRL_FUSES_RWWEEP_Msk    (0xFFul << NVMCTRL_FUSES_RWWEEP_Pos)
 #define NVMCTRL_FUSES_RWWEEP(value) (NVMCTRL_FUSES_RWWEEP_Msk & ((value) << NVMCTRL_FUSES_RWWEEP_Pos))
-
-#define TSENS_FUSES_FCAL_ADDR       NVMCTRL_TEMP_LOG
-#define TSENS_FUSES_FCAL_Pos        6            /**< \brief (NVMCTRL_TEMP_LOG) Frequency Calibration */
-#define TSENS_FUSES_FCAL_Msk        (0x3Ful << TSENS_FUSES_FCAL_Pos)
-#define TSENS_FUSES_FCAL(value)     (TSENS_FUSES_FCAL_Msk & ((value) << TSENS_FUSES_FCAL_Pos))
-
-#define TSENS_FUSES_GAIN_0_ADDR     NVMCTRL_TEMP_LOG
-#define TSENS_FUSES_GAIN_0_Pos      12           /**< \brief (NVMCTRL_TEMP_LOG) Gain Calibration bits 19:0 */
-#define TSENS_FUSES_GAIN_0_Msk      (0xFFFFFul << TSENS_FUSES_GAIN_0_Pos)
-#define TSENS_FUSES_GAIN_0(value)   (TSENS_FUSES_GAIN_0_Msk & ((value) << TSENS_FUSES_GAIN_0_Pos))
-
-#define TSENS_FUSES_GAIN_1_ADDR     (NVMCTRL_TEMP_LOG + 4)
-#define TSENS_FUSES_GAIN_1_Pos      0            /**< \brief (NVMCTRL_TEMP_LOG) Gain Calibration bits 23:20 */
-#define TSENS_FUSES_GAIN_1_Msk      (0xFul << TSENS_FUSES_GAIN_1_Pos)
-#define TSENS_FUSES_GAIN_1(value)   (TSENS_FUSES_GAIN_1_Msk & ((value) << TSENS_FUSES_GAIN_1_Pos))
-
-#define TSENS_FUSES_OFFSET_ADDR     (NVMCTRL_TEMP_LOG + 4)
-#define TSENS_FUSES_OFFSET_Pos      4            /**< \brief (NVMCTRL_TEMP_LOG) Offse Calibration */
-#define TSENS_FUSES_OFFSET_Msk      (0xFFFFFFul << TSENS_FUSES_OFFSET_Pos)
-#define TSENS_FUSES_OFFSET(value)   (TSENS_FUSES_OFFSET_Msk & ((value) << TSENS_FUSES_OFFSET_Pos))
-
-#define TSENS_FUSES_TCAL_ADDR       NVMCTRL_TEMP_LOG
-#define TSENS_FUSES_TCAL_Pos        0            /**< \brief (NVMCTRL_TEMP_LOG) Temperature Calibration */
-#define TSENS_FUSES_TCAL_Msk        (0x3Ful << TSENS_FUSES_TCAL_Pos)
-#define TSENS_FUSES_TCAL(value)     (TSENS_FUSES_TCAL_Msk & ((value) << TSENS_FUSES_TCAL_Pos))
 
 #define WDT_FUSES_ALWAYSON_ADDR     NVMCTRL_USER
 #define WDT_FUSES_ALWAYSON_Pos      27           /**< \brief (NVMCTRL_USER) WDT Always On */

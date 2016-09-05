@@ -3,7 +3,7 @@
  *
  * \brief Getting Started Application.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -249,6 +249,7 @@ static void configure_buttons(void)
  *  Interrupt handler for TC0 interrupt. Toggles the state of LED\#2.
  */
 // [main_tc0_handler]
+#ifndef BOARD_NO_LED_1
 void TC0_Handler(void)
 {
 	volatile uint32_t ul_dummy;
@@ -283,7 +284,7 @@ static void configure_tc(void)
 #if SAMG55
 	/* Enable PCK output */
 	pmc_disable_pck(PMC_PCK_3);
-	pmc_switch_pck_to_sclk(PMC_PCK_3, PMC_PCK_PRES_CLK_1);
+	pmc_switch_pck_to_sclk(PMC_PCK_3, PMC_PCK_PRES(0));
 	pmc_enable_pck(PMC_PCK_3);
 #endif
 
@@ -305,6 +306,7 @@ static void configure_tc(void)
 	tc_start(TC0, 0);
 #endif
 }
+#endif
 // [main_tc_configure]
 
 /**
@@ -361,13 +363,15 @@ int main(void)
 	board_init();
 //! [main_step_sys_init]
 
-#if (SAMV71 || SAMV70|| SAME70 || SAMS70)
+#ifndef BOARD_NO_PUSHBUTTON_2
+#if (SAMV71 || SAMV70 || SAMS70 || SAME70)
 	if (GPIO_PUSH_BUTTON_2 == PIO_PB12_IDX) {
 		matrix_set_system_io(matrix_get_system_io() | CCFG_SYSIO_SYSIO12);
 	}
 	ioport_set_pin_dir(GPIO_PUSH_BUTTON_2, IOPORT_DIR_INPUT);
 	ioport_set_pin_mode(GPIO_PUSH_BUTTON_2, GPIO_PUSH_BUTTON_2_FLAGS);
 	ioport_set_pin_sense_mode(GPIO_PUSH_BUTTON_2, GPIO_PUSH_BUTTON_2_SENSE);
+#endif
 #endif
 //! [main_step_console_init]
 	/* Initialize the console uart */
@@ -386,10 +390,12 @@ int main(void)
 	}
 //! [main_step_systick_init]
 
+#ifndef BOARD_NO_LED_1
 	puts("Configure TC.\r");
 //! [main_step_tc_init]
 	configure_tc();
 //! [main_step_tc_init]
+#endif
 
 	puts("Configure buttons with debouncing.\r");
 //! [main_step_btn_init]

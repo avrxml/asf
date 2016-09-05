@@ -70,7 +70,6 @@
 #define AT86RFX_IRQ_CHAN       EXT2_IRQ_INPUT
 #define AT86RFX_IRQ_PINMUX     EXT2_IRQ_PINMUX
 
-
 #ifdef EXT_RF_FRONT_END_CTRL /*For External PA for 233FEM*/
 
 #define EXT_PA_SE2431L

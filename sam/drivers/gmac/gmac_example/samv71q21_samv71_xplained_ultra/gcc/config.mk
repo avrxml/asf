@@ -67,6 +67,7 @@ CSRCS = \
        sam/drivers/pio/pio_handler.c                      \
        sam/drivers/pmc/pmc.c                              \
        sam/drivers/pmc/sleep.c                            \
+       sam/drivers/twihs/twihs.c                          \
        sam/drivers/uart/uart.c                            \
        sam/drivers/usart/usart.c                          \
        sam/utils/cmsis/samv71/source/templates/gcc/startup_samv71.c \
@@ -95,6 +96,7 @@ INC_PATH = \
        sam/drivers/mpu                                    \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
+       sam/drivers/twihs                                  \
        sam/drivers/uart                                   \
        sam/drivers/usart                                  \
        sam/utils                                          \

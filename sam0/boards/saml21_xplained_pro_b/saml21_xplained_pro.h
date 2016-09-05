@@ -3,7 +3,7 @@
  *
  * \brief SAM L21 Xplained Pro board definition
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -562,6 +562,60 @@ void system_board_init(void);
 #define CCL_LUT1_IN2_PIN  PIN_PA10I_CCL_IN5
 #define CCL_LUT1_OUT_PIN  PIN_PA11I_CCL_OUT1
 /** @} */
+
+
+/** \name 802.15.4 TRX Interface definitions for EXT1
+ * @{
+ */
+#ifndef EXT2_CONFIG
+#define AT86RFX_SPI                  EXT1_SPI_MODULE
+#define AT86RFX_RST_PIN              EXT1_PIN_7
+#define AT86RFX_MISC_PIN             EXT1_PIN_12
+#define AT86RFX_IRQ_PIN              EXT1_PIN_9
+#define AT86RFX_SLP_PIN              EXT1_PIN_10
+#define AT86RFX_SPI_CS               EXT1_PIN_15
+#define AT86RFX_SPI_MOSI             EXT1_PIN_16
+#define AT86RFX_SPI_MISO             EXT1_PIN_17
+#define AT86RFX_SPI_SCK              EXT1_PIN_18
+#define AT86RFX_CSD                  EXT1_PIN_5
+#define AT86RFX_CPS                  EXT1_PIN_8
+
+#define AT86RFX_SPI_SERCOM_MUX_SETTING   EXT1_SPI_SERCOM_MUX_SETTING
+#define AT86RFX_SPI_SERCOM_PINMUX_PAD0   EXT1_SPI_SERCOM_PINMUX_PAD0
+#define AT86RFX_SPI_SERCOM_PINMUX_PAD1   PINMUX_UNUSED
+#define AT86RFX_SPI_SERCOM_PINMUX_PAD2   EXT1_SPI_SERCOM_PINMUX_PAD2
+#define AT86RFX_SPI_SERCOM_PINMUX_PAD3   EXT1_SPI_SERCOM_PINMUX_PAD3
+
+#define AT86RFX_IRQ_CHAN       EXT1_IRQ_INPUT
+#define AT86RFX_IRQ_PINMUX     EXT1_IRQ_PINMUX
+
+#endif
+/** Enables the transceiver main interrupt. */
+#define ENABLE_TRX_IRQ()     \
+		extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+
+/** Disables the transceiver main interrupt. */
+#define DISABLE_TRX_IRQ()    \
+		extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+
+/** Clears the transceiver main interrupt. */
+#define CLEAR_TRX_IRQ()      \
+		extint_chan_clear_detected(AT86RFX_IRQ_CHAN);
+
+/*
+ * This macro saves the trx interrupt status and disables the trx interrupt.
+ */
+#define ENTER_TRX_REGION()   \
+		{ extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+
+/*
+ *  This macro restores the transceiver interrupt status
+ */
+#define LEAVE_TRX_REGION()   \
+		extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT); }
+
+/** @} */
+
 
 /**
  * \brief Turns off the specified LEDs.

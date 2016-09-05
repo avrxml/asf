@@ -3,7 +3,7 @@
  *
  * \brief Component description for EIC
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -230,7 +230,7 @@ typedef union { // __I to avoid read-modify-write on write-to-clear register
 #define EIC_INTFLAG_EXTINT(value)   (EIC_INTFLAG_EXTINT_Msk & ((value) << EIC_INTFLAG_EXTINT_Pos))
 #define EIC_INTFLAG_MASK            0x0000FFFFul /**< \brief (EIC_INTFLAG) MASK Register */
 
-/* -------- EIC_EIC_ASYNCH : (EIC Offset: 0x18) (R/W 32) EIC Asynchronous edge Detection Enable -------- */
+/* -------- EIC_ASYNCH : (EIC Offset: 0x18) (R/W 32) EIC Asynchronous edge Detection Enable -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 typedef union {
   struct {
@@ -238,16 +238,16 @@ typedef union {
     uint32_t :16;              /*!< bit: 16..31  Reserved                           */
   } bit;                       /*!< Structure used for bit  access                  */
   uint32_t reg;                /*!< Type      used for register access              */
-} EIC_EIC_ASYNCH_Type;
+} EIC_ASYNCH_Type;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
-#define EIC_EIC_ASYNCH_OFFSET       0x18         /**< \brief (EIC_EIC_ASYNCH offset) EIC Asynchronous edge Detection Enable */
-#define EIC_EIC_ASYNCH_RESETVALUE   0x00000000ul /**< \brief (EIC_EIC_ASYNCH reset_value) EIC Asynchronous edge Detection Enable */
+#define EIC_ASYNCH_OFFSET           0x18         /**< \brief (EIC_ASYNCH offset) EIC Asynchronous edge Detection Enable */
+#define EIC_ASYNCH_RESETVALUE       0x00000000ul /**< \brief (EIC_ASYNCH reset_value) EIC Asynchronous edge Detection Enable */
 
-#define EIC_EIC_ASYNCH_ASYNCH_Pos   0            /**< \brief (EIC_EIC_ASYNCH) EIC Asynchronous edge Detection Enable */
-#define EIC_EIC_ASYNCH_ASYNCH_Msk   (0xFFFFul << EIC_EIC_ASYNCH_ASYNCH_Pos)
-#define EIC_EIC_ASYNCH_ASYNCH(value) (EIC_EIC_ASYNCH_ASYNCH_Msk & ((value) << EIC_EIC_ASYNCH_ASYNCH_Pos))
-#define EIC_EIC_ASYNCH_MASK         0x0000FFFFul /**< \brief (EIC_EIC_ASYNCH) MASK Register */
+#define EIC_ASYNCH_ASYNCH_Pos       0            /**< \brief (EIC_ASYNCH) EIC Asynchronous edge Detection Enable */
+#define EIC_ASYNCH_ASYNCH_Msk       (0xFFFFul << EIC_ASYNCH_ASYNCH_Pos)
+#define EIC_ASYNCH_ASYNCH(value)    (EIC_ASYNCH_ASYNCH_Msk & ((value) << EIC_ASYNCH_ASYNCH_Pos))
+#define EIC_ASYNCH_MASK             0x0000FFFFul /**< \brief (EIC_ASYNCH) MASK Register */
 
 /* -------- EIC_CONFIG : (EIC Offset: 0x1C) (R/W 32) Configuration n -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -426,7 +426,7 @@ typedef struct {
   __IO EIC_INTENCLR_Type         INTENCLR;    /**< \brief Offset: 0x0C (R/W 32) Interrupt Enable Clear */
   __IO EIC_INTENSET_Type         INTENSET;    /**< \brief Offset: 0x10 (R/W 32) Interrupt Enable Set */
   __IO EIC_INTFLAG_Type          INTFLAG;     /**< \brief Offset: 0x14 (R/W 32) Interrupt Flag Status and Clear */
-  __IO EIC_EIC_ASYNCH_Type       EIC_ASYNCH;  /**< \brief Offset: 0x18 (R/W 32) EIC Asynchronous edge Detection Enable */
+  __IO EIC_ASYNCH_Type           ASYNCH;      /**< \brief Offset: 0x18 (R/W 32) EIC Asynchronous edge Detection Enable */
   __IO EIC_CONFIG_Type           CONFIG[2];   /**< \brief Offset: 0x1C (R/W 32) Configuration n */
 } Eic;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */

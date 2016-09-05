@@ -1974,11 +1974,41 @@
 				</file>
 			</group>
 			<group>
+				<name>pmc</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../pmc/sleep.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../pmc/pmc.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../pmc/pmc.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../pmc/sleep.h</name>
+				</file>
+			</group>
+			<group>
+				<name>pio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../pio/pio.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../pio/pio_handler.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../pio/pio_handler.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../pio/pio.h</name>
+				</file>
+			</group>
+			<group>
 				<name>acc</name>
 				<group>
 					<name>acc_example</name>
 					<file>
-						<name>$PROJ_DIR$/../../acc_example_samv71.c</name>
+						<name>$PROJ_DIR$/../../acc_example_canopus.c</name>
 					</file>
 					<group>
 						<name>samv71q21_samv71_xplained_ultra</name>
@@ -2010,36 +2040,6 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../acc.h</name>
-				</file>
-			</group>
-			<group>
-				<name>pmc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../pmc/sleep.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pmc/pmc.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pmc/pmc.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pmc/sleep.h</name>
-				</file>
-			</group>
-			<group>
-				<name>pio</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../pio/pio.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pio/pio_handler.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pio/pio_handler.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../pio/pio.h</name>
 				</file>
 			</group>
 			<group>

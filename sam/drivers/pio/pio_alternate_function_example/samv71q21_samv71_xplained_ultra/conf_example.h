@@ -3,7 +3,7 @@
  *
  * \brief Configuration for PIO example.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,7 +48,7 @@
 #define CONF_PIO_EXAMPLE_H_INCLUDED
 
 /** Button name. */
-#define BUTTON_STRING            "USRPB0"
+#define BUTTON_STRING            "SW0"
 
 /** Push button pin definition. */
 #define PUSH_BUTTON_PIO          PIOA
