@@ -3,45 +3,35 @@
  *
  * \brief SAM GPIO Driver for SAMB11
  *
- * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 #ifndef GPIO_H_INCLUDED
 #define GPIO_H_INCLUDED
@@ -80,8 +70,20 @@
  * is required. This driver provides an easy-to-use interface to the physical
  * pin input samplers and output drivers, so that pins can be read from or
  * written to for general purpose external hardware control.
+ * The GPIO I/O lines are differentiated based on whether digital or analog 
+ * functionalities are enabled, whether the pins are capable of waking-up the core
+ * from sleep into 3 groups called LP_GPIO_x, AO_GPIO_z, GPIO_MSy
  *
- * There are the different peripheral functions that are Software selectable
+ * The GPIO module also allows all GPIO pins (LP_GPIO_x, GPIO_MSy, AO_GPIO_z) to be
+ * configured as interrupt lines. Each interrupt line can be individually 
+ * masked and can generate an interrupt to CPU on rising, falling, or on high or 
+ * low levels.
+ *
+ * Only AO_GPIO_z pin can wakeup the ARM Subsystem as well as BLE Subsystem from ULP mode. 
+ * Along with wakeup configuration enabling as an external interrupt will wakeup ARM and
+ * generate interrupt request
+ *
+ * There are different peripheral functions that are Software selectable
  * on a per pin basis. This allows for maximum flexibility of mapping desired
  * interfaces on GPIO pins. MUX1 option allows for any MEGAMUX option to be
  * assigned to a GPIO.
@@ -171,6 +173,8 @@ enum gpio_pin_pull {
  *  \brief GPIO pinmux selection enum.
  *
  *  Enum for the pinmux settings of the GPIO pin configuration.
+ *  PINMUX = 0 to 3 is for AO_GPIO_z, PINMUX = 0 to 7 for LP_GPIO_x
+ *  PINMUX = 0,1 for GPIO_MSy
  */
 enum gpio_pinmux_sel {
 	/** PINMUX selection 0 */
@@ -237,14 +241,10 @@ struct gpio_config {
 	/** GPIO pull-up/pull-down for input pins */
 	enum gpio_pin_pull input_pull;
 
-	/** Enable lowest possible powerstate on the pin
-	 *
-	 *  \note All other configurations will be ignored, the pin will be disabled
-	 */
-	bool powersave;
 	/** Enable AON_GPIOs to wakeup MCU from ULP mode 
 	 *
-	 *  \note Only AON_GPIO_0, AON_GPIO_1, and AON_GPIO_2 could enable this feature
+	 *  \note Only AO_GPIO_0, could enable this feature as per current ROM firmware code
+	 *		Restrict to use only AO_GPIO_0 for waking up BLE and MCU
 	 */
 	bool aon_wakeup;
 };
@@ -289,12 +289,13 @@ bool gpio_pin_get_input_level(const uint8_t gpio_pin);
 bool gpio_pin_get_output_level(const uint8_t gpio_pin);
 void gpio_pin_set_output_level(const uint8_t gpio_pin, const bool level);
 void gpio_pin_toggle_output_level(const uint8_t gpio_pin);
+enum status_code gpio_pin_invert_output_level(const uint8_t gpio_pin, const bool invert);
 /** @} */
 
-/** \name PINMUX selection configuration
+/** \name PINMUX and MEGAMUX selection configuration.
  * @{
  */
-void gpio_pinmux_cofiguration(const uint8_t gpio_pin, uint16_t pinmux_sel);
+void gpio_pinmux_cofiguration(const uint8_t gpio_pin, uint16_t pinmux_megamux_sel);
 /** @}*/
 
 /** \name GPIO callback config
@@ -369,6 +370,7 @@ void gpio_init(void);
  * added to the user application.
  *
  *  - \subpage asfdoc_samb_gpio_basic_use_case
+ *  - \subpage asfdoc_samb_gpio_callback_use_case
  *
  * \page asfdoc_samb_gpio_document_revision_history Document Revision History
  *

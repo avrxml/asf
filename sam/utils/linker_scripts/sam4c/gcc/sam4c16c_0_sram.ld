@@ -3,7 +3,7 @@
  *
  * \brief SRAM Linker script for SAM.
  *
- * Copyright (c) 2013 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *

@@ -3,55 +3,103 @@
  *
  * \brief Health Thermometer Profile Application
  *
- * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
-/*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
- */
-
  /**
- * \mainpage
- * \section preface Preface
- * This is the reference manual for the Health Thermometer Profile Application
- */
+ * \mainpage Health Thermometer application
+ * \section Introduction
+ * ******************************Introduction ***********************************
+ *
+ *    The Health thermometer example application bring-up the Health thermometer 
+ *    profile defined by the Bluetooth SIG which would enables a Collector device
+ *    to connect and interact with a Thermometer sensor to use in healthcare 
+ *    applications.
+ *
+ * - Running the demo -
+ *  + 1. Build and flash the binary into supported evaluation board.
+ *  + 2. Open the console using TeraTerm or any serial port monitor.
+ *  + 3. Press the Reset button.
+ *  + 4. Wait for around 10 seconds for the patches to be downloaded device will initialize and start-up.
+ *  + 5. The device is now in advertising mode.
+ *  + 6. On a BLE compatible iPhone®/Android phone, enable Bluetooth in the Settings 
+ *       page. Start the 'Atmel Smart Connect Application' and scan for devices. ATMEL-HTPT will 
+ *       be appear among the devices scanned. Click on "ATMEL-HTPT" to connect to 
+ *       supported platform.
+ *  + 7. Once connected, Cient side will request for pairing procedure . 
+ *       The console log provides a guidance for the user to enter the pass-key.
+ *  + 8. Once paired, the application displays the Health Thermometer service.
+ *  + 9. On clicking the Health Thermometer service, user keeps getting notifications 
+ *       for Temperature measurement value, user can disable notifications. 
+ *  + 10.Press the SW0 button for different temperature types.
+ *
+ * \section Modules
+ * ***************************** MODULES ***************************************** 
+ * - BLE Manager - 
+ *  + The Event Manager is responsible for handling the following:
+ *    + Generic BLE Event Handling:-
+ *       + BLE Event Manager handles the events triggered by BLE stack and also responsible 
+ *  	 for invoking all registered callbacks for respective events. BLE Manager 
+ *  	 handles all GAP related functionality. In addition to that handles multiple connection 
+ *  	 instances, Pairing, Encryption, Scanning.
+ *    + Handling Multi-role/multi-connection:-
+ *  	  + BLE Event Manager is responsible for handling multiple connection instances 
+ *  	  and stores bonding information and Keys to retain the bonded device. 
+ *  	  BLE Manager is able to identify and remove the device information when pairing/encryption 
+ *		  gets failed. In case of multi-role, it handles the state/event handling of both central and peripheral in multiple contexts.
+ *    + Controlling the Advertisement data:-
+ *  	  + BLE Event Manager is responsible for generating the advertisement and scan response data
+ *  	  for BLE profiles/services that are attached with BLE Manager.
+ *
+ * - BLE Profile-
+ *    + The Health Thermometer Profile is used to enable a data collection device
+ *      to obtain data from a thermometer sensor that exposes the Health 
+ *      Thermometer Service.
+ *    + The Health Thermometer profile following service characteristics.
+ *     + Temperature measurement
+ *     + Temperature type
+ *
+ * - BLE Platform Services -
+ *  +  Serial Console COM port settings -
+ *    + Baudrate 115200
+ *	  + Parity None, Stop Bit 1, Start Bit 1
+ *	  + No Hardware Handshake
+ *
+ * \section BluSDK Package
+ * ***************************** BluSDK Package *****************************************
+ * - Links for Docs -
+  * 	 + http://www.microchip.com/wwwproducts/en/ATSAMB11
+  * 	 + http://www.microchip.com/developmenttools/productdetails.aspx?partno=atsamb11-xpro
+  *- Support and FAQ - visit -
+  * 	 + <a href="https://www.microchip.com/support/">Microchip Support</a>
 /*- Includes ---------------------------------------------------------------*/
 
 #include <asf.h>
+#include "profiles.h"
 #include "platform.h"
 #include "at_ble_api.h"
 #include "htpt_app.h"
@@ -63,6 +111,7 @@
 #include "ble_manager.h"
 #include "button.h"
 #include "led.h"
+#include "samb11_delay.h"
 
 
 #ifndef BLE_DEVICE_NAME
@@ -70,46 +119,31 @@
 #define BLE_DEVICE_NAME				"ATMEL-HTP"
 #endif
 
+/* Temperature measurement Locations */
+static const char *temp_measurement_loc[] = 
+		{"Armpit", "Body", "Ear", "Finger", "Gastro-intestinal Tract",
+		 "Mouth", "Rectum","Toe","Tympanum"};
+
 /** @brief device information service handler **/
 dis_gatt_service_handler_t dis_service_handler;
 
-
-#define APP_STACK_SIZE  (2048)
-
-volatile unsigned char app_stack_patch[APP_STACK_SIZE];
-
-static const ble_event_callback_t app_gap_handle[] = {
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	app_connected_event_handler,
-	app_disconnected_event_handler,
-	NULL,
-	NULL,
-	app_pair_done_event_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-    app_encryption_status_changed_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gap_event_cb_t app_gap_handle = {
+	.connected = app_connected_event_handler,
+	.disconnected = app_disconnected_event_handler,
+	.pair_done = app_pair_done_event_handler,
+	.encryption_status_changed = app_encryption_status_changed_handler
 };
 
-static const ble_event_callback_t app_htpt_handle[] = {
-	app_htpt_create_db_cfm_handler,
-	app_htpt_error_ind_handler,
-	app_htpt_disable_ind_handler,
-	app_htpt_temp_send_cfm,
-	app_htpt_meas_intv_chg_ind_handler,
-	app_htpt_cfg_indntf_ind_handler,
-	app_htpt_enable_rsp_handler,
-	app_htpt_meas_intv_upd_rsp,
-	app_htptp_meas_intv_chg_req
+static const ble_htpt_event_cb_t app_htpt_handle = {
+	.htpt_create_db_cfm = app_htpt_create_db_cfm_handler,
+	.htpt_error_ind = app_htpt_error_ind_handler,
+	.htpt_disable_ind = app_htpt_disable_ind_handler,
+	.htpt_temp_send_cfm = app_htpt_temp_send_cfm,
+	.htpt_meas_intv_chg_ind = app_htpt_meas_intv_chg_ind_handler,
+	.htpt_cfg_indntf_ind = app_htpt_cfg_indntf_ind_handler,
+	.htpt_enable_rsp = app_htpt_enable_rsp_handler,
+	.htpt_meas_intv_upd_rsp = app_htpt_meas_intv_upd_rsp,
+	.htpt_meas_intv_chg_req = app_htptp_meas_intv_chg_req
 };
 
 /* Initialize the BLE */
@@ -144,6 +178,9 @@ volatile bool button_pressed = false;
 at_ble_handle_t htpt_conn_handle;
 
 bool temp_send_notification = false;
+volatile bool app_init_done = false;
+extern bool button_debounce;
+
 
 /* BLE data send event confirmation */
 static void ble_data_sent_confim(void)
@@ -176,8 +213,18 @@ static void htp_init_defaults(htp_app_t *htp_temp)
 /* Sending the temperature value after reading it from IO1 Xplained Pro */
 static void htp_temperature_send(htp_app_t *htp_temp)
 {
-	at_ble_prf_date_time_t timestamp;
-	#if SAMD21 || SAML21 || SAMB11
+	at_ble_prf_date_time_t timestamp =
+	{
+		.day = 1,
+		.hour = 9,
+		.min = 2,
+		.month = 6,
+		.sec = 36,
+		.year = 16
+	};
+	
+	at_ble_status_t status;
+	#if SAMD21 || SAML21|| SAMB11
 	float temperature;
 	/* Read Temperature Value from IO1 Xplained Pro */
 	temperature = at30tse_read_temperature();
@@ -190,41 +237,31 @@ static void htp_temperature_send(htp_app_t *htp_temp)
 	at30tse_read_temperature(&temperature);
 	#endif
 
-	if(button_pressed)
-	{
-		update_temperature_type_location();
-		button_pressed = false;
-	}
-
 	if (htp_temp->flags & HTPT_FLAG_FAHRENHEIT)
 	{
 		temperature = (((temperature * 9.0)/5.0) + 32.0);
+	}	
+	
+	if(button_pressed)
+	{
+		update_temperature_type_location();		
+		button_pressed = false;
 	}
-	
-	timestamp.day = 1;
-	timestamp.hour = 9;
-	timestamp.min = 2;
-	timestamp.month = 8;
-	timestamp.sec = 36;
-	timestamp.year = 15;
-	
-	if(at_ble_htpt_temp_send(convert_ieee754_ieee11073_float((float)temperature),
+		
+	status = at_ble_htpt_temp_send(convert_ieee754_ieee11073_float((float)temperature),
 	&timestamp,
 	htp_temp->flags,
 	htp_temp->temperature_type,
-	STABLE_TEMPERATURE_VAL
-	) == AT_BLE_SUCCESS)
-	{
-		if (htp_temp->flags & HTPT_FLAG_FAHRENHEIT)
-		{
-			DBG_LOG("Temperature: %d Fahrenheit", (uint16_t)temperature);
-		}
-		else
-		{
-			DBG_LOG("Temperature: %d Deg Celsius", (uint16_t)temperature);
-		}
-		
-	}
+	STABLE_TEMPERATURE_VAL);
+	
+	DBG_LOG("Temperature%s: %d %s, Location: %s", 
+	((status == AT_BLE_SUCCESS)?"":" send failed"),
+	(uint16_t)temperature,
+	((htp_temp->flags & HTPT_FLAG_FAHRENHEIT)?"Fahrenheit":"Deg Celsius"),
+	 temp_measurement_loc[htp_temp->temperature_type-1]);
+
+	/* Stop the timer and wait for indication confirmation */
+	hw_timer_stop();
 }
 
 
@@ -274,8 +311,6 @@ static at_ble_status_t app_disconnected_event_handler(void *params)
 		LED_Off(LED0);
 		
 		temp_send_notification = false;
-		
-		DBG_LOG("Device disconnected Reason:0x%02x Handle=0x%x", disconnect.reason, disconnect.handle);
 		
 		if(at_ble_adv_start(AT_BLE_ADV_TYPE_UNDIRECTED, AT_BLE_ADV_GEN_DISCOVERABLE, NULL, AT_BLE_ADV_FP_ANY,
 		APP_HT_FAST_ADV, APP_HT_ADV_TIMEOUT, 0) != AT_BLE_SUCCESS)
@@ -330,9 +365,7 @@ static at_ble_status_t app_encryption_status_changed_handler(void *params)
 	at_ble_handle_t handle = 0;
 	memcpy((uint8_t *)&enc_status, params, sizeof(at_ble_encryption_status_changed_t));
 	if(enc_status.status == AT_BLE_SUCCESS)
-	{
-		DBG_LOG("Encryption completed successfully");
-		
+	{	
 		handle = enc_status.handle;
 		
 		/* Enable the HTP Profile */
@@ -360,13 +393,11 @@ static at_ble_status_t  app_htpt_create_db_cfm_handler(void *params)
 
 static at_ble_status_t  app_htpt_error_ind_handler(void *params)
 {
-	/*
 	prf_server_error_ind_t prf_htpt_error_ind;
 	memcpy((uint8_t *)&prf_htpt_error_ind, params, sizeof(prf_server_error_ind_t));
 	
 	DBG_LOG("HTP Error Indication received, msg_id=0x%x, handle=0x%x, status=0x%x",
 	prf_htpt_error_ind.msg_id, prf_htpt_error_ind.conhdl, prf_htpt_error_ind.status);
-	*/
 	
 	return AT_BLE_SUCCESS;
 }
@@ -386,14 +417,23 @@ static at_ble_status_t  app_htpt_disable_ind_handler(void *params)
 
 static at_ble_status_t  app_htpt_temp_send_cfm(void *params)
 {
-	at_ble_htpt_temp_send_cfm_t htpt_send_temp_cfm_params;
-	memcpy((uint8_t *)&htpt_send_temp_cfm_params, params, sizeof(at_ble_htpt_temp_send_cfm_t));
+	at_ble_htpt_temp_send_cfm_t *htpt_send_temp_cfm_params = (at_ble_htpt_temp_send_cfm_t *)params;
 	
-	/* Temperature sent confirmation */
-	ble_data_sent_confim();
+	if (htpt_send_temp_cfm_params->status == AT_BLE_SUCCESS)
+	{
+		/* Temperature sent confirmation */
+		ble_data_sent_confim();
+		
+		/* start the timer for next interval of  temperature send */
+		app_timer_done = false;
+		hw_timer_start(htp_data.measurement_interval);
+		DBG_LOG_DEV("Temperature Indication sent successfully");
+	}
+	else
+	{
+		DBG_LOG("Temperature Indication send failed, status:%d", htpt_send_temp_cfm_params->status);
+	}
 	
-	/* start the timer for next interval of  temperature send */
-	hw_timer_start(htp_data.measurement_interval);
 	return AT_BLE_SUCCESS;
 }
 
@@ -412,9 +452,9 @@ static at_ble_status_t  app_htpt_cfg_indntf_ind_handler(void *params)
 	memcpy((uint8_t *)&htpt_cfg_indntf_ind_params, params, sizeof(at_ble_htpt_cfg_indntf_ind_t));
 	if (htpt_cfg_indntf_ind_params.ntf_ind_cfg == 1)
 	{
-		DBG_LOG("Started HTP Temperature Notification");
+		DBG_LOG("Started HTP Temperature Indications");
 		temp_send_notification = true;
-		hw_timer_start(1);
+		htp_temperature_send(&htp_data);
 	}
 	else
 	{
@@ -568,18 +608,42 @@ void htpt_set_advertisement_data(void)
 		DBG_LOG("BLE started LE advertisement");
 	}							
 }
-
+/* Callback registered for AT_PLATFORM_EVENT event from stack */
+static at_ble_status_t platform_interrupt_app_event(void *param)
+{
+	at_ble_status_t status = AT_BLE_SUCCESS;
+	platform_isr_event_t *plf_isr_event = (platform_isr_event_t *)param;
+	
+	if ( (plf_isr_event->event_type == ((TIMER_EXPIRED_CALLBACK_TYPE_DETECT << 8)  | RAM_ISR_TABLE_TIMER0_INDEX)) && app_timer_done )
+	{
+		if (temp_send_notification)
+		{
+			htp_temperature_send(&htp_data);
+		}
+		app_timer_done = false;		
+	}
+	else if( (plf_isr_event->event_type == ((PORTINT_CALLBACK_TYPE_DETECT << 8)  | RAM_ISR_TABLE_PORT0_COMB_INDEX)) )
+	{
+		button_pressed = true;
+		status = AT_BLE_SUCCESS;
+		delay_ms(200);
+		button_debounce = true;
+	}
+	else
+		status = AT_BLE_FAILURE;	
+	return status;
+}
 static void button_cb(void)
 {
-	button_pressed = true;
-
-	send_plf_int_msg_ind(USER_TIMER_CALLBACK, TIMER_EXPIRED_CALLBACK_TYPE_DETECT, NULL, 0);
+	if(app_init_done && !button_pressed){
+		send_plf_int_msg_ind(RAM_ISR_TABLE_PORT0_COMB_INDEX, PORTINT_CALLBACK_TYPE_DETECT, NULL, 0);
+	}
 }
 
 /* Updating the location to read the temperature */
 static void update_temperature_type_location(void)
 {
-	htp_data.temperature_type = (at_ble_htpt_temp_type)((htp_data.temperature_type+1) % 9);
+	htp_data.temperature_type = (at_ble_htpt_temp_type)((htp_data.temperature_type % 9) + 1);
 	if ((htp_data.temperature_type == HTP_TYPE_ARMPIT) && (htp_data.flags == (HTPT_FLAG_CELSIUS | HTPT_FLAG_TYPE)))
 	{
 		htp_data.flags = (at_ble_htpt_temp_flags)(HTPT_FLAG_FAHRENHEIT | HTPT_FLAG_TYPE);
@@ -592,25 +656,17 @@ static void update_temperature_type_location(void)
 /* Timer callback */
 static void timer_callback_handler(void)
 {
-	hw_timer_stop();
-	app_timer_done = true;	
-
-	send_plf_int_msg_ind(USER_TIMER_CALLBACK, TIMER_EXPIRED_CALLBACK_TYPE_DETECT, NULL, 0);
-}
-
-static void user_event_callback_handler(void)
-{
-	uint16_t plf_event_type;
-	uint8_t plf_event_data[16];
-	uint16_t plf_event_data_len;
-	
-	platform_event_get(&plf_event_type, plf_event_data, &plf_event_data_len);
-	if (plf_event_type == ((TIMER_EXPIRED_CALLBACK_TYPE_DETECT << 8) | USER_TIMER_CALLBACK)) {
-		if (temp_send_notification) {
-			htp_temperature_send(&htp_data);
-		}
+	if(app_init_done){
+		hw_timer_stop();
+		app_timer_done = true;
+		send_plf_int_msg_ind(RAM_ISR_TABLE_TIMER0_INDEX, TIMER_EXPIRED_CALLBACK_TYPE_DETECT, NULL, 0);
 	}
 }
+
+/* Custom events like user defined event, platform event callback handlers for OTAU profile */
+static const ble_custom_event_cb_t htpt_app_custom_event_handle = {
+	.platform_event_ready = platform_interrupt_app_event /* This event not handled in BLE Manager */
+};
 
 uint8_t app_exec = true;
 
@@ -632,6 +688,9 @@ int main (void)
 	
 	DBG_LOG("Initializing HTP Application");
 	
+	/*Enable I2C  system clock */
+	system_clock_peripheral_enable(PERIPHERAL_I2C0_CORE);
+	
 	/* Initialize the temperature sensor */
 	at30tse_init();
 	
@@ -650,6 +709,7 @@ int main (void)
 	
 	ble_device_config(NULL);
 	
+	app_init_done = true;
 	/* Initialize the htp profile */
 	htp_init();	
 	
@@ -660,19 +720,22 @@ int main (void)
 	/* Registering the call backs for events with the ble manager */
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
 	BLE_GAP_EVENT_TYPE,
-	app_gap_handle);
+	&app_gap_handle);
 
 	/* Registering the call backs for events with the ble manager */
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
 	BLE_GATT_HTPT_EVENT_TYPE,
-	app_htpt_handle);
+	&app_htpt_handle);
 	
-	register_ble_user_event_cb(user_event_callback_handler);
-		
+	/* Register callbacks for custom related events */
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
+	BLE_CUSTOM_EVENT_TYPE,
+	&htpt_app_custom_event_handle);	
+	
 	while(app_exec) {
 		/* BLE Event Task */
-		ble_event_task(BLE_EVENT_TIMEOUT);
+		ble_event_task(0XFFFFFFFF);
 	}
 
-	return true;
+	return 0;
 }

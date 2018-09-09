@@ -3,7 +3,7 @@
  
   \brief Includes implementation for event_handler
  
-  Copyright (c) 2016, Atmel Corporation. All rights reserved.
+  * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
   Released under NDA
   Licensed under Atmel's Limited License Agreement.
  
@@ -20,7 +20,7 @@
   ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
   POSSIBILITY OF SUCH DAMAGE.
  
-  Atmel Corporation: http://www.atmel.com
+  Microchip Technology Inc: http://www.microchip.com
  
 ******************************************************************************/
 
@@ -90,7 +90,7 @@ plf_drv_status platform_event_get(uint16_t* event_type, uint8_t* data, uint16_t 
 	// block till an event is posted
 	while(platform_event_pending_list == NULL )
 	{	
-		status = platform_event_wait(0);
+		status = platform_event_wait((uint32_t)-1);
 	}
 	
 	event = platform_event_pending_list;

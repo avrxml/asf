@@ -3,47 +3,152 @@
  *
  * \brief Blood Pressure Sensor Application
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
-
-/*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
- *Support</a>
+ /*
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+ */
+/**
+ * \mainpage BLOOD PRESSURE SENSOR Example
+ * \section Introduction
+ * **************************** Introduction *********************************
+ * + The Blood Pressure example application bring-up the Blood Pressure profile defined by the Bluetooth SIG.
+ * + The Blood Pressure Profile (BLP) enables a device to connect and interact with a Blood Pressure Sensor
+ *   device that is used in consumer and professional health care applications.
+ * + This example demonstrates a Blood Pressure Sensor application (GATT Server role).
+ *- Blood Pressure Measurements -
+ * + The Intermediate Cuff Pressure characteristic may be notified frequently during the course of a measurement so that 
+ *   a receiving device can effectively update the display on its user interface during the measurement process.
+ *   When the Client Characteristic Configuration descriptor is configured for indications and Blood Pressure measurement is available, 
+ *   this characteristic shall be indicated while in a connection.
+ *   The Blood Pressure Measurement Application, which is the GATT server, will hold the characteristics and send the measurement 
+ *   values to the Blood Pressure Monitor.
+ * + The Blood Pressure Measurement characteristic shall be used to send Blood Pressure measurements
+ * + The Intermediate Cuff Pressure characteristic is used to send Current Cuff Pressure values to a device for display purposes while 
+ *   the measurement is in progress
+ * + The Blood Pressure Feature characteristic shall be used to describe the supported features of the Blood Pressure Sensor
+ * + ATBTLC1000 together with the host MCU simulates a Blood Pressure Sensor (GATT Server Role) and sends simulated values to 
+ *   the Blood Pressure Monitor (Smart Connect mobile application).
+ *- Supported Evolution Kit -
+ *	+ ATSAML21-XPRO-B + ATBTLC1000 XPRO
+ *	+ ATSAMD21-XPRO + ATBTLC1000 XPRO
+ *	+ ATSAMG55-XPRO + ATBTLC1000 XPRO
+ *	+ ATSAM4S-XPRO + ATBTLC1000 XPRO
+ *- Running the Demo -
+ * + 1. Build and flash the binary into supported evaluation board.
+ * + 2. Open the console using TeraTerm or any serial port monitor.
+ * + 3. Press the Reset button.
+ * + 4. Wait for around 10 seconds for the patches to be downloaded device will initialize and start-up.
+ * + 5. The device is now in advertising mode.
+ * + 6. On a BLE compatibl iPhone®/Android phone, enable Bluetooth in the Settings page. Start the Atmel Smart Connect App and scan for devices. 
+        ATMEL-BLP will be appear among the devices scanned. Click on **ATMEL-BLP** to connect to supported platform.
+ * + 7. Once connected, the client side will request for the pairing procedure . The console log provides a guidance for the user to 
+        enter the pass-key.
+ * + 8. Upon entering the Blood Pressure service page, the mobile application will enable the notifications and indications for interim 
+ *      cuff pressure and blood pressure characteristics respectively. The blood pressure sensor device simulated by ATBTLC1000 will send the 
+ *      current blood pressure values after receiving the indications enabling request.
+ * + 9. The SW0 button can be used on XPRO Board to receive updated blood pressure measurements. The blood pressure sensor will first sends 
+ *      the interim cuff pressure values as notifications and then sends the final blood pressure measurements as an indication. 
+ *      The blood pressure measurements sent by blood pressure sensor are simulated values. 
+ * + 10. The Atmel Smart Connect mobile App for Android also implements the same features and provides the same look and feel. 
+ *       Henceforth incase if a BLE compatible Android phone is used, the demo instructions from the mobile app perspective remains the same as above.
+ * \section Modules
+ * ***************************** Modules **************************************
+ *- BLE Manger -  
+ *  + The Event Manager is responsible for handling the following:
+ *    + Generic BLE Event Handling:-
+ *       + BLE Event Manager handles the events triggered by BLE stack and also responsible 
+ *  	 for invoking all registered callbacks for respective events. BLE Manager 
+ *  	 handles all GAP related functionality. In addition to that handles multiple connection 
+ *  	 instances, Pairing, Encryption, Scanning.
+ *    + Handling Multi-role/multi-connection:-
+ *  	  + BLE Event Manager is responsible for handling multiple connection instances 
+ *  	  and stores bonding information and Keys to retain the bonded device. 
+ *  	  BLE Manager is able to identify and remove the device information when pairing/encryption 
+ *		  gets failed. In case of multi-role, it handles the state/event handling of both central and peripheral in multiple contexts.
+ *    + Controlling the Advertisement data:-
+ *  	  + BLE Event Manager is responsible for generating the advertisement and scan response data
+ *  	  for BLE profiles/services that are attached with BLE Manager.
+ *
+ *- BLE Services -
+ *  + This service exposes blood pressure and other data from a blood pressure monitor intended for healthcare applications.
+ *  + The BLOOD PRESSURE Service exposes blood pressure and other data related to a blood pressure monitor.
+ *  + Blood Pressure service has three characteristics:
+ *    + **Blood Pressure Measurement**: 
+ *      + The BLOOD PRESSURE MEASUREMENT characteristic is used to send a Blood Pressure measurement.
+ *    + **Intermediate Cuff Pressure**: 
+ *      + The INTERMEDIATE CUFF PRESSURE characteristic is used to send intermediate Cuff Pressure values to a device for display purposes while the measurement is in progress.
+ *    + **Blood Pressure Feature**: 
+ *      + The Blood Pressure Feature characteristic is used to describe the supported features of the Blood Pressure Sensor.
+ *- BLE Platform Services -
+ *  +  Interface Settings -
+ *	  + Connect ATBTLC1000 XPRO to SAML21-XPRO-B -> EXT1
+ *	  + Connect ATBTLC1000 XPRO to SAMD21-XPRO -> EXT1
+ *	  + Connect ATBTLC1000 XPRO to SAMG55-XPRO -> EXT1
+ *	  + Connect ATBTLC1000 XPRO to SAM4S-XPRO  -> EXT1
+ *  +  Serial Console COM port settings -
+ *    + Baudrate 115200
+ *	  + Parity None, Stop Bit 1, Start Bit 1
+ *	  + No Hardware Handshake
+ *	+  6-Wire Mode Connection Setup -
+ *    + Pins are 1:1 match with SAML21/D21 Xpro EXT1 Header to BTLC1000 XPro Header
+ *	  + UART(No Flow Control)-SAM L21/D21 XPro Pins (Rx-Pin13, Tx-Pin14)
+ *	  + UART(With Flow Control)-SAM G55 Xpro Pins (Rx-Pin13, Tx-Pin14, RTS-Pin5, CTS-Pin6, Rx-Pin16, Tx-Pin17)
+ *	  + BTLC1000 Wakeup Pin-SAM G55 XPro Pins(Pin4)
+ *	  + BTLC1000 Chip Enable Pin-SAM G55 XPro Pins(Pin10)
+ *	  + BTLC1000 Vcc Pin-SAM L21/D21/G55 Xpro Pins(Pin20)
+ *	  + BTLC1000 GND Pin-SAM L21/D21/G55 Xpro Pins(Pin19)
+ *  +  4-Wire Mode Connection setup -
+ * 	  + UART(With Flow Control)-SAM L21/D21 XPro Pins (Rx-Pin15, Tx-Pin17, RTS-Pin16, CTS-Pin18)
+ * 	  + BTLC1000 Wakeup Pin-SAM L21/D21 XPro Pins (Rx-Pin6)
+ * 	  + BTLC1000 Chip Enable Pin-SAM L21/D21 XPro Pins (Rx-Pin4)
+ * 	  + UART(With Flow Control)-SAM G55/4S Xpro Pins (Rx-Pin13, Tx-Pin14, RTS-Pin5, CTS-Pin6)
+ * 	  + BTLC1000 Wakeup Pin-SAM G55/4S XPro Pins(Pin4)
+ * 	  + BTLC1000 Chip Enable Pin-SAM G55/4S XPro Pins(Pin10)
+ * 	  + BTLC1000 Vcc Pin-SAM L21/D21/G55/4S Xpro Pins(Pin20)
+ * 	  + BTLC1000 GND Pin-SAM L21/D21/G55/4S Xpro Pins(Pin19)
+ *
+ *\section BLE SDK Package
+ * ***************************** BLE SDK Package ******************************************
+ *- Links for BluSDK -
+ *		+ http://www.microchip.com/wwwproducts/en/ATBTLC1000?tab=documents
+ *- Links for ATBTLC1000 -
+ *		+ http://www.microchip.com/wwwproducts/en/ATBTLC1000
+ *- Development Kit -
+ *		+ http://www.microchip.com/wwwproducts/en/ATBTLC1000?tab=tools
+ *- SAM L21 + BTLC1000 XPro -
+ *		+ http://www.microchip.com/developmenttools/productdetails/atbtlc1000-xstk
+ *- BTLC1000 XPro -
+ *		+ http://www.microchip.com/developmenttools/productdetails/atbtlc1000-xpro
+ *- Applications -
+ *		+ http://www.microchip.com/wwwproducts/en/ATBTLC1000?tab=applications
+ *- Support and FAQ - visit 
+ *		+ <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 /****************************************************************************************
@@ -63,6 +168,24 @@
 /****************************************************************************************
 *							        Globals												*
 ****************************************************************************************/
+#define APP_INVALID_EVENT_ID	(0)
+#define APP_TIMER_EVENT_ID		(1)
+#define APP_BUTTON_EVENT_ID		(2)
+
+user_custom_event_t app_custom_event[2] = {
+	{
+		.id = APP_TIMER_EVENT_ID,
+		.bptr = NULL,
+	},
+	{
+		.id = APP_BUTTON_EVENT_ID,
+		.bptr = NULL
+	}
+};
+
+/* Flag to avoid spurious interrupt posting  during reset and initialization */
+volatile bool app_init_done = false;
+
 /** flag to check if indication has been sent successfully over the air*/
 volatile bool indication_sent = true;
 
@@ -131,40 +254,21 @@ uint16_t interim_map_mmhg = MAP_MIN_MMHG;
 
 uint16_t interim_map_kpa = MAP_MIN_KPA;
 
+static at_ble_status_t blp_sensor_app_custom_event(void *param);
 
-static const ble_event_callback_t app_gap_handle[] = {
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	app_connected_state_handler,
-	app_disconnected_state_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gap_event_cb_t app_gap_handle = {
+	.connected = app_connected_state_handler,
+	.disconnected = app_disconnected_state_handler
 };
 
-static const ble_event_callback_t app_gatt_server_handle[] = {
-	app_notification_confirmation_handler,
-	app_indication_confirmation_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gatt_server_event_cb_t app_gatt_server_handle = {
+	.notification_confirmed = app_notification_confirmation_handler,
+	.indication_confirmed = app_indication_confirmation_handler
+};
+
+/* All BLP Sensor Custom Event callback */
+static const ble_custom_event_cb_t blp_sensor_custom_event_cb = {
+	.custom_event = blp_sensor_app_custom_event
 };
 
 /****************************************************************************************
@@ -307,10 +411,10 @@ static at_ble_status_t app_indication_confirmation_handler(void *params)
 {
 	if (((at_ble_cmd_complete_event_t * )params)->status == AT_BLE_SUCCESS) {
 		DBG_LOG_DEV("App Indication successfully sent over the air");
+		DBG_LOG("\r\nPress the button to receive the blood pressure parameters");
 		indication_sent = true;
 		user_request_flag = false;
 		timer_count = 0;
-		DBG_LOG("\r\nPress the button to receive the blood pressure parameters");
 	} else {
 		DBG_LOG_DEV("Sending indication over the air failed reason %x ",
 								((at_ble_cmd_complete_event_t * )params)->status);
@@ -375,9 +479,9 @@ static void blp_value_update(uint8_t *data, uint8_t idx, uint16_t value, uint8_t
 	break;
 	}
 	
-	if (value == max_val) {
+	if (value >= max_val) {
 		operator[value_type] = -1;
-	} else if (value == min_val) {
+	} else if (value <= min_val) {
 		operator[value_type] = 1;
 	}
 	memcpy((data + idx),&value,2);
@@ -596,9 +700,82 @@ static void app_indication_handler(bool enable)
  */
 void button_cb(void)
 {
-	/* App connected state*/
-	if (app_state) {
-		if (user_request_flag == false) {
+	if(app_init_done)
+	{
+		/* Post the custom event */
+		at_ble_event_user_defined_post(&app_custom_event[1]);
+	}
+}
+
+/**
+ * \brief Timer callback handler called on timer expiry
+ */
+static void timer_callback_handler(void)
+{
+	/* Post the custom event */
+	at_ble_event_user_defined_post(&app_custom_event[0]);
+}
+
+static void update_blp_sensor_value(void)
+{
+	/* Checking for button press */
+	if (user_request_flag ) {
+		
+		/*Sending notifications of interim cuff pressure*/
+		
+		if (timer_count < INDICATION_TIMER_VAL ) {
+			
+			/* checking for notification enabled */
+			if (notification_flag) {
+				
+				/* Sending one notification per second */
+				if (notify) {
+					
+					/* Checking for previous notification sent over the air */
+					if (notification_sent) {
+						blp_char_notification();
+					}
+					notify = 0;
+				}
+			}
+		}
+		
+		if (timer_count == INDICATION_TIMER_VAL) {
+			if (indication_flag) {
+				/*Checking for previous indication sent over the  air */
+				if (indication_sent) {
+					
+					/* Send a indication */
+					blp_char_indication();
+					timer_count++;
+					} else {
+					DBG_LOG("Previous indication is failed and device is disconnecting");
+					blp_disconnection();
+				}
+			}
+		}
+	}
+}
+
+static at_ble_status_t blp_sensor_app_custom_event(void *param)
+{
+	at_ble_status_t status = AT_BLE_SUCCESS;
+	user_custom_event_t **blp_app_custom_event = (user_custom_event_t **)param;
+	
+	if ((*blp_app_custom_event)->id == APP_TIMER_EVENT_ID)
+	{
+		if (user_request_flag) {
+			timer_count++;
+			notify = true;
+		}
+		update_time_stamp();
+		update_blp_sensor_value();
+	}
+	else if((*blp_app_custom_event)->id == APP_BUTTON_EVENT_ID)
+	{
+		/* App connected state*/
+		if (app_state) {
+			if (user_request_flag == false) {
 				/** For changing the units for each button press*/
 				if (indication_flag) {
 					units = !units;
@@ -608,31 +785,25 @@ void button_cb(void)
 					
 					/** To trigger the blood pressure indication */
 					user_request_flag = true;
-					timer_count = 0;	
+					timer_count = 0;
 				}
 				
 				if (notification_flag) {
 					DBG_LOG("\r\nStarted sending Interim Cuff Pressure Values");
-				}	
+				}
+			}
+			
+			update_blp_sensor_value();
+			
 		}
 	}
-	
+	else
+	{
+		status = AT_BLE_FAILURE;
+	}
+	return status;
 }
 
-/**
- * \brief Timer callback handler called on timer expiry
- */
-static void timer_callback_handler(void)
-{
-	if (user_request_flag) {
-		timer_count++;	
-		notify = true;
-	} 
-	update_time_stamp();
-}
-
-/* To keep the app in execution mode */
-bool app_exec = true;
 /**
  * \brief Heart Rate Sensor Application main function
  */
@@ -674,6 +845,7 @@ int main(void)
 	
 	/* initialize the ble chip  and Set the device mac address */
 	ble_device_init(NULL);
+	app_init_done = true;
 
 	/* Initialize the blood pressure sensor profile */
 	blp_sensor_init(NULL);
@@ -682,56 +854,21 @@ int main(void)
 	blp_sensor_adv();
 	
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
-	BLE_GAP_EVENT_TYPE,
-	app_gap_handle);
+							BLE_GAP_EVENT_TYPE,
+							&app_gap_handle);
+							
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
-	BLE_GATT_SERVER_EVENT_TYPE,
-	app_gatt_server_handle);
+							BLE_GATT_SERVER_EVENT_TYPE,
+							&app_gatt_server_handle);
 	
+	/* Register callbacks for custom related events */
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
+							BLE_CUSTOM_EVENT_TYPE,
+							&blp_sensor_custom_event_cb);
 	
 	/* Capturing the events  */
-	while (app_exec) {
-		ble_event_task();
-		
-		/* Checking for button press */
-		if (user_request_flag ) {
-			
-				/*Sending notifications of interim cuff pressure*/
-				
-				if (timer_count < INDICATION_TIMER_VAL ) {
-				
-				/* checking for notification enabled */
-					if (notification_flag) {
-					
-					/* Sending one notification per second */
-						if (notify) {
-					
-							/* Checking for previous notification sent over the air */
-							if (notification_sent) {
-								blp_char_notification();
-							}
-							notify = 0;
-						}	
-					}
-				}
-				
-				if (timer_count == INDICATION_TIMER_VAL) {
-					if (indication_flag) {
-						/*Checking for previous indication sent over the  air */
-						if (indication_sent) {
-						
-							/* Send a indication */
-							blp_char_indication();
-							timer_count++;
-						} else {
-							DBG_LOG("Previous indication is failed and device is disconnecting");
-							blp_disconnection();
-						}
-					} 
-						//timer_count = 0;
-						//user_request_flag = 0;
-				}
-		}
+	while (1) {
+		ble_event_task();		
 	}
 	return 0;
 }

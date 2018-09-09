@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (c) 2001-2004 Swedish Institute of Computer Science.
+ * Copyright (c) 2001-2018 Swedish Institute of Computer Science.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -165,7 +165,7 @@
 #define LWIP_SO_SNDRCVTIMEO_SET(optval, val)  do { \
   s32_t loc = (val); \
   ((struct timeval *)(optval))->tv_sec = (loc) / 1000U; \
-  ((struct timeval *)(optval))->tv_sec = ((loc) % 1000U) * 1000U; }while(0)
+  ((struct timeval *)(optval))->tv_usec = ((loc) % 1000U) * 1000U; }while(0)
 #define LWIP_SO_SNDRCVTIMEO_GET_MS(optval) ((((struct timeval *)(optval))->tv_sec * 1000U) + (((struct timeval *)(optval))->tv_usec / 1000U))
 #endif
 

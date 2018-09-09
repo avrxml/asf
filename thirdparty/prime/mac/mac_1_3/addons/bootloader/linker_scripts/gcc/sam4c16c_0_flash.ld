@@ -3,7 +3,7 @@
  *
  * \brief Flash Linker script for SAM4C16C.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *

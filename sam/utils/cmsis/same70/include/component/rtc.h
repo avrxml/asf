@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70_RTC_COMPONENT_
@@ -54,18 +44,22 @@
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Rtc hardware registers */
 typedef struct {
-  __IO uint32_t RTC_CR;     /**< \brief (Rtc Offset: 0x00) Control Register */
-  __IO uint32_t RTC_MR;     /**< \brief (Rtc Offset: 0x04) Mode Register */
-  __IO uint32_t RTC_TIMR;   /**< \brief (Rtc Offset: 0x08) Time Register */
-  __IO uint32_t RTC_CALR;   /**< \brief (Rtc Offset: 0x0C) Calendar Register */
-  __IO uint32_t RTC_TIMALR; /**< \brief (Rtc Offset: 0x10) Time Alarm Register */
-  __IO uint32_t RTC_CALALR; /**< \brief (Rtc Offset: 0x14) Calendar Alarm Register */
-  __I  uint32_t RTC_SR;     /**< \brief (Rtc Offset: 0x18) Status Register */
-  __O  uint32_t RTC_SCCR;   /**< \brief (Rtc Offset: 0x1C) Status Clear Command Register */
-  __O  uint32_t RTC_IER;    /**< \brief (Rtc Offset: 0x20) Interrupt Enable Register */
-  __O  uint32_t RTC_IDR;    /**< \brief (Rtc Offset: 0x24) Interrupt Disable Register */
-  __I  uint32_t RTC_IMR;    /**< \brief (Rtc Offset: 0x28) Interrupt Mask Register */
-  __I  uint32_t RTC_VER;    /**< \brief (Rtc Offset: 0x2C) Valid Entry Register */
+  __IO uint32_t RTC_CR;        /**< \brief (Rtc Offset: 0x00) Control Register */
+  __IO uint32_t RTC_MR;        /**< \brief (Rtc Offset: 0x04) Mode Register */
+  __IO uint32_t RTC_TIMR;      /**< \brief (Rtc Offset: 0x08) Time Register */
+  __IO uint32_t RTC_CALR;      /**< \brief (Rtc Offset: 0x0C) Calendar Register */
+  __IO uint32_t RTC_TIMALR;    /**< \brief (Rtc Offset: 0x10) Time Alarm Register */
+  __IO uint32_t RTC_CALALR;    /**< \brief (Rtc Offset: 0x14) Calendar Alarm Register */
+  __I  uint32_t RTC_SR;        /**< \brief (Rtc Offset: 0x18) Status Register */
+  __O  uint32_t RTC_SCCR;      /**< \brief (Rtc Offset: 0x1C) Status Clear Command Register */
+  __O  uint32_t RTC_IER;       /**< \brief (Rtc Offset: 0x20) Interrupt Enable Register */
+  __O  uint32_t RTC_IDR;       /**< \brief (Rtc Offset: 0x24) Interrupt Disable Register */
+  __I  uint32_t RTC_IMR;       /**< \brief (Rtc Offset: 0x28) Interrupt Mask Register */
+  __I  uint32_t RTC_VER;       /**< \brief (Rtc Offset: 0x2C) Valid Entry Register */
+  __I  uint32_t Reserved1[45];
+  __IO uint32_t RTC_WPMR;      /**< \brief (Rtc Offset: 0xE4) Write Protection Mode Register */
+  __I  uint32_t Reserved2[5];
+  __I  uint32_t RTC_VERSION;   /**< \brief (Rtc Offset: 0xFC) Version Register */
 } Rtc;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- RTC_CR : (RTC Offset: 0x00) Control Register -------- */
@@ -234,6 +228,17 @@ typedef struct {
 #define RTC_VER_NVCAL (0x1u << 1) /**< \brief (RTC_VER) Non-valid Calendar */
 #define RTC_VER_NVTIMALR (0x1u << 2) /**< \brief (RTC_VER) Non-valid Time Alarm */
 #define RTC_VER_NVCALALR (0x1u << 3) /**< \brief (RTC_VER) Non-valid Calendar Alarm */
+/* -------- RTC_WPMR : (RTC Offset: 0xE4) Write Protection Mode Register -------- */
+#define RTC_WPMR_WPEN (0x1u << 0) /**< \brief (RTC_WPMR) Write Protection Enable */
+#define RTC_WPMR_WPKEY_Pos 8
+#define RTC_WPMR_WPKEY_Msk (0xffffffu << RTC_WPMR_WPKEY_Pos) /**< \brief (RTC_WPMR) Write Protection Key */
+#define RTC_WPMR_WPKEY(value) ((RTC_WPMR_WPKEY_Msk & ((value) << RTC_WPMR_WPKEY_Pos)))
+#define   RTC_WPMR_WPKEY_PASSWD (0x525443u << 8) /**< \brief (RTC_WPMR) Writing any other value in this field aborts the write operation of the WPEN bit.Always reads as 0. */
+/* -------- RTC_VERSION : (RTC Offset: 0xFC) Version Register -------- */
+#define RTC_VERSION_VERSION_Pos 0
+#define RTC_VERSION_VERSION_Msk (0xfffu << RTC_VERSION_VERSION_Pos) /**< \brief (RTC_VERSION) Version of the Hardware Module */
+#define RTC_VERSION_MFN_Pos 16
+#define RTC_VERSION_MFN_Msk (0x7u << RTC_VERSION_MFN_Pos) /**< \brief (RTC_VERSION) Metal Fix Number */
 
 /*@}*/
 

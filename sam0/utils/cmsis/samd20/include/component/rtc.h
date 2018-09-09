@@ -3,45 +3,35 @@
  *
  * \brief Component description for RTC
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAMD20_RTC_COMPONENT_
@@ -629,16 +619,16 @@ typedef union {
 
 /* -------- RTC_MODE0_INTFLAG : (RTC Offset: 0x08) (R/W  8) MODE0 MODE0 Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
+typedef union { // __I to avoid read-modify-write on write-to-clear register
   struct {
-    uint8_t  CMP0:1;           /*!< bit:      0  Compare 0                          */
-    uint8_t  :5;               /*!< bit:  1.. 5  Reserved                           */
-    uint8_t  SYNCRDY:1;        /*!< bit:      6  Synchronization Ready              */
-    uint8_t  OVF:1;            /*!< bit:      7  Overflow                           */
+    __I uint8_t  CMP0:1;       /*!< bit:      0  Compare 0                          */
+    __I uint8_t  :5;           /*!< bit:  1.. 5  Reserved                           */
+    __I uint8_t  SYNCRDY:1;    /*!< bit:      6  Synchronization Ready              */
+    __I uint8_t  OVF:1;        /*!< bit:      7  Overflow                           */
   } bit;                       /*!< Structure used for bit  access                  */
   struct {
-    uint8_t  CMP:1;            /*!< bit:      0  Compare x                          */
-    uint8_t  :7;               /*!< bit:  1.. 7  Reserved                           */
+    __I uint8_t  CMP:1;        /*!< bit:      0  Compare x                          */
+    __I uint8_t  :7;           /*!< bit:  1.. 7  Reserved                           */
   } vec;                       /*!< Structure used for vec  access                  */
   uint8_t reg;                 /*!< Type      used for register access              */
 } RTC_MODE0_INTFLAG_Type;
@@ -660,17 +650,17 @@ typedef union {
 
 /* -------- RTC_MODE1_INTFLAG : (RTC Offset: 0x08) (R/W  8) MODE1 MODE1 Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
+typedef union { // __I to avoid read-modify-write on write-to-clear register
   struct {
-    uint8_t  CMP0:1;           /*!< bit:      0  Compare 0                          */
-    uint8_t  CMP1:1;           /*!< bit:      1  Compare 1                          */
-    uint8_t  :4;               /*!< bit:  2.. 5  Reserved                           */
-    uint8_t  SYNCRDY:1;        /*!< bit:      6  Synchronization Ready              */
-    uint8_t  OVF:1;            /*!< bit:      7  Overflow                           */
+    __I uint8_t  CMP0:1;       /*!< bit:      0  Compare 0                          */
+    __I uint8_t  CMP1:1;       /*!< bit:      1  Compare 1                          */
+    __I uint8_t  :4;           /*!< bit:  2.. 5  Reserved                           */
+    __I uint8_t  SYNCRDY:1;    /*!< bit:      6  Synchronization Ready              */
+    __I uint8_t  OVF:1;        /*!< bit:      7  Overflow                           */
   } bit;                       /*!< Structure used for bit  access                  */
   struct {
-    uint8_t  CMP:2;            /*!< bit:  0.. 1  Compare x                          */
-    uint8_t  :6;               /*!< bit:  2.. 7  Reserved                           */
+    __I uint8_t  CMP:2;        /*!< bit:  0.. 1  Compare x                          */
+    __I uint8_t  :6;           /*!< bit:  2.. 7  Reserved                           */
   } vec;                       /*!< Structure used for vec  access                  */
   uint8_t reg;                 /*!< Type      used for register access              */
 } RTC_MODE1_INTFLAG_Type;
@@ -694,16 +684,16 @@ typedef union {
 
 /* -------- RTC_MODE2_INTFLAG : (RTC Offset: 0x08) (R/W  8) MODE2 MODE2 Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
+typedef union { // __I to avoid read-modify-write on write-to-clear register
   struct {
-    uint8_t  ALARM0:1;         /*!< bit:      0  Alarm 0                            */
-    uint8_t  :5;               /*!< bit:  1.. 5  Reserved                           */
-    uint8_t  SYNCRDY:1;        /*!< bit:      6  Synchronization Ready              */
-    uint8_t  OVF:1;            /*!< bit:      7  Overflow                           */
+    __I uint8_t  ALARM0:1;     /*!< bit:      0  Alarm 0                            */
+    __I uint8_t  :5;           /*!< bit:  1.. 5  Reserved                           */
+    __I uint8_t  SYNCRDY:1;    /*!< bit:      6  Synchronization Ready              */
+    __I uint8_t  OVF:1;        /*!< bit:      7  Overflow                           */
   } bit;                       /*!< Structure used for bit  access                  */
   struct {
-    uint8_t  ALARM:1;          /*!< bit:      0  Alarm x                            */
-    uint8_t  :7;               /*!< bit:  1.. 7  Reserved                           */
+    __I uint8_t  ALARM:1;      /*!< bit:      0  Alarm x                            */
+    __I uint8_t  :7;           /*!< bit:  1.. 7  Reserved                           */
   } vec;                       /*!< Structure used for vec  access                  */
   uint8_t reg;                 /*!< Type      used for register access              */
 } RTC_MODE2_INTFLAG_Type;
@@ -843,7 +833,9 @@ typedef union {
 #define RTC_MODE2_CLOCK_HOUR_Pos    12           /**< \brief (RTC_MODE2_CLOCK) Hour */
 #define RTC_MODE2_CLOCK_HOUR_Msk    (0x1Ful << RTC_MODE2_CLOCK_HOUR_Pos)
 #define RTC_MODE2_CLOCK_HOUR(value) ((RTC_MODE2_CLOCK_HOUR_Msk & ((value) << RTC_MODE2_CLOCK_HOUR_Pos)))
+#define   RTC_MODE2_CLOCK_HOUR_AM_Val     _U_(0x0)   /**< \brief (RTC_MODE2_CLOCK) AM when CLKREP in 12-hour */
 #define   RTC_MODE2_CLOCK_HOUR_PM_Val     0x10ul  /**< \brief (RTC_MODE2_CLOCK) Afternoon Hour */
+#define RTC_MODE2_CLOCK_HOUR_AM     (RTC_MODE2_CLOCK_HOUR_AM_Val   << RTC_MODE2_CLOCK_HOUR_Pos)
 #define RTC_MODE2_CLOCK_HOUR_PM     (RTC_MODE2_CLOCK_HOUR_PM_Val   << RTC_MODE2_CLOCK_HOUR_Pos)
 #define RTC_MODE2_CLOCK_DAY_Pos     17           /**< \brief (RTC_MODE2_CLOCK) Day */
 #define RTC_MODE2_CLOCK_DAY_Msk     (0x1Ful << RTC_MODE2_CLOCK_DAY_Pos)
@@ -937,6 +929,10 @@ typedef union {
 #define RTC_MODE2_ALARM_HOUR_Pos    12           /**< \brief (RTC_MODE2_ALARM) Hour */
 #define RTC_MODE2_ALARM_HOUR_Msk    (0x1Ful << RTC_MODE2_ALARM_HOUR_Pos)
 #define RTC_MODE2_ALARM_HOUR(value) ((RTC_MODE2_ALARM_HOUR_Msk & ((value) << RTC_MODE2_ALARM_HOUR_Pos)))
+#define   RTC_MODE2_ALARM_HOUR_AM_Val     _U_(0x0)   /**< \brief (RTC_MODE2_ALARM) Morning hour */
+#define   RTC_MODE2_ALARM_HOUR_PM_Val     _U_(0x10)   /**< \brief (RTC_MODE2_ALARM) Afternoon hour */
+#define RTC_MODE2_ALARM_HOUR_AM     (RTC_MODE2_ALARM_HOUR_AM_Val   << RTC_MODE2_ALARM_HOUR_Pos)
+#define RTC_MODE2_ALARM_HOUR_PM     (RTC_MODE2_ALARM_HOUR_PM_Val   << RTC_MODE2_ALARM_HOUR_Pos)
 #define RTC_MODE2_ALARM_DAY_Pos     17           /**< \brief (RTC_MODE2_ALARM) Day */
 #define RTC_MODE2_ALARM_DAY_Msk     (0x1Ful << RTC_MODE2_ALARM_DAY_Pos)
 #define RTC_MODE2_ALARM_DAY(value)  ((RTC_MODE2_ALARM_DAY_Msk & ((value) << RTC_MODE2_ALARM_DAY_Pos)))

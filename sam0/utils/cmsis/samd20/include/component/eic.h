@@ -3,45 +3,35 @@
  *
  * \brief Component description for EIC
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAMD20_EIC_COMPONENT_
@@ -359,29 +349,29 @@ typedef union {
 
 /* -------- EIC_INTFLAG : (EIC Offset: 0x10) (R/W 32) Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
+typedef union { // __I to avoid read-modify-write on write-to-clear register
   struct {
-    uint32_t EXTINT0:1;        /*!< bit:      0  External Interrupt 0               */
-    uint32_t EXTINT1:1;        /*!< bit:      1  External Interrupt 1               */
-    uint32_t EXTINT2:1;        /*!< bit:      2  External Interrupt 2               */
-    uint32_t EXTINT3:1;        /*!< bit:      3  External Interrupt 3               */
-    uint32_t EXTINT4:1;        /*!< bit:      4  External Interrupt 4               */
-    uint32_t EXTINT5:1;        /*!< bit:      5  External Interrupt 5               */
-    uint32_t EXTINT6:1;        /*!< bit:      6  External Interrupt 6               */
-    uint32_t EXTINT7:1;        /*!< bit:      7  External Interrupt 7               */
-    uint32_t EXTINT8:1;        /*!< bit:      8  External Interrupt 8               */
-    uint32_t EXTINT9:1;        /*!< bit:      9  External Interrupt 9               */
-    uint32_t EXTINT10:1;       /*!< bit:     10  External Interrupt 10              */
-    uint32_t EXTINT11:1;       /*!< bit:     11  External Interrupt 11              */
-    uint32_t EXTINT12:1;       /*!< bit:     12  External Interrupt 12              */
-    uint32_t EXTINT13:1;       /*!< bit:     13  External Interrupt 13              */
-    uint32_t EXTINT14:1;       /*!< bit:     14  External Interrupt 14              */
-    uint32_t EXTINT15:1;       /*!< bit:     15  External Interrupt 15              */
-    uint32_t :16;              /*!< bit: 16..31  Reserved                           */
+    __I uint32_t EXTINT0:1;    /*!< bit:      0  External Interrupt 0               */
+    __I uint32_t EXTINT1:1;    /*!< bit:      1  External Interrupt 1               */
+    __I uint32_t EXTINT2:1;    /*!< bit:      2  External Interrupt 2               */
+    __I uint32_t EXTINT3:1;    /*!< bit:      3  External Interrupt 3               */
+    __I uint32_t EXTINT4:1;    /*!< bit:      4  External Interrupt 4               */
+    __I uint32_t EXTINT5:1;    /*!< bit:      5  External Interrupt 5               */
+    __I uint32_t EXTINT6:1;    /*!< bit:      6  External Interrupt 6               */
+    __I uint32_t EXTINT7:1;    /*!< bit:      7  External Interrupt 7               */
+    __I uint32_t EXTINT8:1;    /*!< bit:      8  External Interrupt 8               */
+    __I uint32_t EXTINT9:1;    /*!< bit:      9  External Interrupt 9               */
+    __I uint32_t EXTINT10:1;   /*!< bit:     10  External Interrupt 10              */
+    __I uint32_t EXTINT11:1;   /*!< bit:     11  External Interrupt 11              */
+    __I uint32_t EXTINT12:1;   /*!< bit:     12  External Interrupt 12              */
+    __I uint32_t EXTINT13:1;   /*!< bit:     13  External Interrupt 13              */
+    __I uint32_t EXTINT14:1;   /*!< bit:     14  External Interrupt 14              */
+    __I uint32_t EXTINT15:1;   /*!< bit:     15  External Interrupt 15              */
+    __I uint32_t :16;          /*!< bit: 16..31  Reserved                           */
   } bit;                       /*!< Structure used for bit  access                  */
   struct {
-    uint32_t EXTINT:16;        /*!< bit:  0..15  External Interrupt x               */
-    uint32_t :16;              /*!< bit: 16..31  Reserved                           */
+    __I uint32_t EXTINT:16;    /*!< bit:  0..15  External Interrupt x               */
+    __I uint32_t :16;          /*!< bit: 16..31  Reserved                           */
   } vec;                       /*!< Structure used for vec  access                  */
   uint32_t reg;                /*!< Type      used for register access              */
 } EIC_INTFLAG_Type;

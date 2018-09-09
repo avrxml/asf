@@ -3,7 +3,7 @@
  *
  * \brief Linker script for running in internal FLASH on the SAMD20G17
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *
@@ -41,7 +41,7 @@
  *
  */
  /**
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.microchip.com/support/">Microchip Support</a>
  */
 
 

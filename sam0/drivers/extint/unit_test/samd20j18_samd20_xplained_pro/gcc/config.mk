@@ -57,7 +57,7 @@ CSRCS = \
        common2/services/delay/sam0/systick_counter.c      \
        sam0/boards/samd20_xplained_pro/board_init.c       \
        sam0/drivers/extint/extint_callback.c              \
-       sam0/drivers/extint/extint_sam_d_r/extint.c        \
+       sam0/drivers/extint/extint_sam_d_r_h/extint.c      \
        sam0/drivers/extint/unit_test/unit_test.c          \
        sam0/drivers/port/port.c                           \
        sam0/drivers/sercom/sercom.c                       \
@@ -88,7 +88,7 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samd20_xplained_pro                    \
        sam0/drivers/extint                                \
-       sam0/drivers/extint/extint_sam_d_r                 \
+       sam0/drivers/extint/extint_sam_d_r_h               \
        sam0/drivers/extint/unit_test                      \
        sam0/drivers/extint/unit_test/samd20j18_samd20_xplained_pro \
        sam0/drivers/port                                  \
@@ -101,9 +101,9 @@ INC_PATH = \
        sam0/drivers/system/interrupt/system_interrupt_samd20 \
        sam0/drivers/system/pinmux                         \
        sam0/drivers/system/power                          \
-       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/power/power_sam_d_r_h          \
        sam0/drivers/system/reset                          \
-       sam0/drivers/system/reset/reset_sam_d_r            \
+       sam0/drivers/system/reset/reset_sam_d_r_h          \
        sam0/utils                                         \
        sam0/utils/cmsis/samd20/include                    \
        sam0/utils/cmsis/samd20/source                     \

@@ -41,7 +41,19 @@ void hw_timer_start(uint32_t delay)
 	dualtimer_enable(DUALTIMER_TIMER1);
 }
 
+void hw_timer_start_ms(uint32_t delay_milliseconds)
+{
+	if (delay_milliseconds <= 0) {
+		delay_milliseconds = 1;
+	}
+	
+	dualtimer_set_counter(DUALTIMER_TIMER1, DUALTIMER_SET_CURRUNT_REG, (CONF_DUALTIMER_TIMER1_LOAD / 1000) * delay_milliseconds);
+	dualtimer_enable(DUALTIMER_TIMER1);
+}
+
 void hw_timer_stop(void)
 {
 	dualtimer_disable(DUALTIMER_TIMER1);
 }
+
+

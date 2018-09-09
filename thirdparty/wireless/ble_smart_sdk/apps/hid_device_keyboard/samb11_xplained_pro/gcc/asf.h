@@ -77,9 +77,6 @@
 // From module: Standard serial I/O (stdio)
 #include <stdio_serial.h>
 
-// From module: TIMER - Timer for SAMB
-#include <timer.h>
-
 // From module: UART - Universal Asynchronous Receiver/Transmitter interface for SAMB
 #include <uart.h>
 

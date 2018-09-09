@@ -309,9 +309,9 @@
 					<state>$PROJ_DIR$/../../../../system/power</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samc20_c21</state>
-					<state>$PROJ_DIR$/../../../dac_sam_d_c</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt</state>
+					<state>$PROJ_DIR$/../../../dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../../../../system/power/power_sam_c</state>
 					<state>$PROJ_DIR$/../../../../system/clock/clock_samc20_c21</state>
 					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_c</state>
@@ -581,9 +581,9 @@
 					<state>$PROJ_DIR$/../../../../system/power</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samc20_c21</state>
-					<state>$PROJ_DIR$/../../../dac_sam_d_c</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt</state>
+					<state>$PROJ_DIR$/../../../dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../../../../system/power/power_sam_c</state>
 					<state>$PROJ_DIR$/../../../../system/clock/clock_samc20_c21</state>
 					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_c</state>
@@ -1278,9 +1278,9 @@
 					<state>$PROJ_DIR$/../../../../system/power</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samc20_c21</state>
-					<state>$PROJ_DIR$/../../../dac_sam_d_c</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt</state>
+					<state>$PROJ_DIR$/../../../dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../../../../system/power/power_sam_c</state>
 					<state>$PROJ_DIR$/../../../../system/clock/clock_samc20_c21</state>
 					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_c</state>
@@ -1550,9 +1550,9 @@
 					<state>$PROJ_DIR$/../../../../system/power</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samc20_c21</state>
-					<state>$PROJ_DIR$/../../../dac_sam_d_c</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt</state>
+					<state>$PROJ_DIR$/../../../dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../../../../system/power/power_sam_c</state>
 					<state>$PROJ_DIR$/../../../../system/clock/clock_samc20_c21</state>
 					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_c</state>
@@ -1966,12 +1966,12 @@
 					</group>
 				</group>
 				<group>
-					<name>dac_sam_d_c</name>
+					<name>dac_sam_d_c_h</name>
 					<file>
-						<name>$PROJ_DIR$/../../../dac_sam_d_c/dac.c</name>
+						<name>$PROJ_DIR$/../../../dac_sam_d_c_h/dac.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../dac_sam_d_c/dac_feature.h</name>
+						<name>$PROJ_DIR$/../../../dac_sam_d_c_h/dac_feature.h</name>
 					</file>
 				</group>
 				<file>

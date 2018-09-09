@@ -66,13 +66,15 @@ CSRCS = \
        sam/utils/cmsis/sam4c/source/templates/system_sam4c.c \
        sam/utils/syscalls/gcc/syscalls.c                  \
        thirdparty/freertos/demo/sam_example/main.c        \
-       thirdparty/freertos/freertos-7.0.0/source/croutine.c \
-       thirdparty/freertos/freertos-7.0.0/source/list.c   \
-       thirdparty/freertos/freertos-7.0.0/source/portable/gcc/sam/port.c \
-       thirdparty/freertos/freertos-7.0.0/source/portable/memmang/heap_3.c \
-       thirdparty/freertos/freertos-7.0.0/source/queue.c  \
-       thirdparty/freertos/freertos-7.0.0/source/tasks.c  \
-       thirdparty/freertos/freertos-7.0.0/source/timers.c
+       thirdparty/freertos/freertos-10.0.0/Source/croutine.c \
+       thirdparty/freertos/freertos-10.0.0/Source/event_groups.c \
+       thirdparty/freertos/freertos-10.0.0/Source/list.c  \
+       thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM3/port.c \
+       thirdparty/freertos/freertos-10.0.0/Source/portable/MemMang/heap_1.c \
+       thirdparty/freertos/freertos-10.0.0/Source/queue.c \
+       thirdparty/freertos/freertos-10.0.0/Source/stream_buffer.c \
+       thirdparty/freertos/freertos-10.0.0/Source/tasks.c \
+       thirdparty/freertos/freertos-10.0.0/Source/timers.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -100,8 +102,8 @@ INC_PATH = \
        thirdparty/CMSIS/Lib/GCC                           \
        thirdparty/freertos/demo/sam_example               \
        thirdparty/freertos/demo/sam_example/sam4c16c_sam4c_ek \
-       thirdparty/freertos/freertos-7.0.0/source/include  \
-       thirdparty/freertos/freertos-7.0.0/source/portable/gcc/sam \
+       thirdparty/freertos/freertos-10.0.0/Source/include \
+       thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM3 \
        thirdparty/freertos/demo/sam_example/sam4c16c_sam4c_ek/gcc
 
 # Additional search paths for libraries.

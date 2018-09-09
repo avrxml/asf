@@ -3,7 +3,7 @@
  *
  * \brief Linker script for running in internal FLASH on the SAMD10D12AS
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *

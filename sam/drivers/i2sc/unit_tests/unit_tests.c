@@ -3,45 +3,35 @@
  *
  * \brief Unit tests for I2S driver.
  *
- * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include <asf.h>
@@ -56,10 +46,6 @@
  * It contains one test case for the I2SC module:
  * - Test audio data by set loop back mode.
  *
- * \note The delay between line 212 to 214 which is before enabling the I2SC
- * receiver is depend on the clock timing. So in different boards and MCK,
- * the delay need to be fine tune to fit the timing.
- *
  * \section files Main Files
  * - \ref unit_tests.c
  * - \ref conf_test.h
@@ -72,18 +58,58 @@
  * SAM devices with I2SC module can be used.
  * This example has been tested with the following setup:
  * - SAMG53 Xplained Pro
+ * - SAMG55 Xplained Pro
+ * - SAME70 Xplained Pro
+ * - SAMV71 Xplained Ultra
  *
  * \section compinfo Compilation info
  * This software was written for the GNU GCC and IAR for ARM. Other compilers
  * may or may not work.
  *
  * \section contactinfo Contact Information
- * For further information, visit <a href="http://www.atmel.com/">Atmel</a>.\n
- * Support and FAQ: http://www.atmel.com/design-support/
+ * For further information, visit <a href="http://www.microchip.com/">Microchip</a>.\n
+ * Support and FAQ: https://www.microchip.com/support/
  */
 
+#define TEST_OUT_LOOP 10
 #define SOUND_SAMPLES 0x100
-int16_t output_samples_left[SOUND_SAMPLES] = {
+#define CMP_BLOCK     32
+
+COMPILER_ALIGNED(4)
+int16_t output_samples_left[SOUND_SAMPLES * 2] = {
+	0x7F, 0x7F, 0x7D, 0x7E, 0x7D, 0x7E, 0x7D, 0x7E,
+	0x7D, 0x7D, 0x7D, 0x7F, 0x7E, 0x7D, 0x7E, 0x7D,
+	0x7D, 0x7D, 0x7C, 0x7A, 0x7B, 0x7C, 0x7A, 0x7A,
+	0x7C, 0x7B, 0x7E, 0x7F, 0x7F, 0x7F, 0x80, 0x80,
+	0x81, 0x82, 0x82, 0x83, 0x83, 0x83, 0x84, 0x84,
+	0x86, 0x83, 0x81, 0x81, 0x83, 0x83, 0x83, 0x84,
+	0x82, 0x84, 0x84, 0x83, 0x85, 0x85, 0x82, 0x83,
+	0x82, 0x82, 0x82, 0x82, 0x7F, 0x80, 0x81, 0x7E,
+	0x7E, 0x7E, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7E,
+	0x7C, 0x7E, 0x7E, 0x7F, 0x7F, 0x7D, 0x7D, 0x7C,
+	0x7D, 0x7D, 0x7D, 0x7B, 0x7C, 0x7B, 0x7C, 0x7D,
+	0x7E, 0x7E, 0x7F, 0x7E, 0x7D, 0x7F, 0x7E, 0x7D,
+	0x7D, 0x7B, 0x7D, 0x7D, 0x7E, 0x7D, 0x7D, 0x7E,
+	0x7D, 0x7D, 0x7D, 0x7E, 0x7E, 0x7C, 0x7E, 0x7E,
+	0x7F, 0x7F, 0x7E, 0x7E, 0x7F, 0x7F, 0x80, 0x81,
+	0x7F, 0x80, 0x81, 0x80, 0x81, 0x81, 0x81, 0x81,
+	0x82, 0x81, 0x82, 0x82, 0x81, 0x80, 0x7F, 0x80,
+	0x7F, 0x7F, 0x7E, 0x80, 0x81, 0x82, 0x83, 0x82,
+	0x83, 0x84, 0x81, 0x82, 0x82, 0x81, 0x82, 0x81,
+	0x80, 0x80, 0x82, 0x80, 0x80, 0x80, 0x80, 0x80,
+	0x80, 0x80, 0x7F, 0x80, 0x7F, 0x80, 0x81, 0x80,
+	0x80, 0x7F, 0x7F, 0x80, 0x81, 0x80, 0x80, 0x7E,
+	0x7E, 0x80, 0x7F, 0x7F, 0x80, 0x80, 0x7F, 0x7F,
+	0x80, 0x80, 0x81, 0x7E, 0x7F, 0x80, 0x7E, 0x7E,
+	0x7E, 0x7F, 0x7E, 0x7E, 0x7E, 0x7C, 0x7D, 0x7C,
+	0x81, 0x7D, 0x7C, 0x7C, 0x7B, 0x7D, 0x7C, 0x7D,
+	0x7D, 0x7D, 0x7B, 0x7D, 0x80, 0x80, 0x82, 0x80,
+	0x7F, 0x80, 0x83, 0x82, 0x80, 0x82, 0x84, 0x86,
+	0x86, 0x84, 0x84, 0x86, 0x87, 0x84, 0x85, 0x85,
+	0x85, 0x85, 0x86, 0x85, 0x85, 0x84, 0x83, 0x80,
+	0x81, 0x82, 0x83, 0x7F, 0x7E, 0x7F, 0x7F, 0x80,
+	0x7E, 0x7E, 0x7E, 0x7C, 0x7C, 0x7D, 0x7D, 0x7C,
+
 	0x7F, 0x7F, 0x7D, 0x7E, 0x7D, 0x7E, 0x7D, 0x7E,
 	0x7D, 0x7D, 0x7D, 0x7F, 0x7E, 0x7D, 0x7E, 0x7D,
 	0x7D, 0x7D, 0x7C, 0x7A, 0x7B, 0x7C, 0x7A, 0x7A,
@@ -117,7 +143,42 @@ int16_t output_samples_left[SOUND_SAMPLES] = {
 	0x81, 0x82, 0x83, 0x7F, 0x7E, 0x7F, 0x7F, 0x80,
 	0x7E, 0x7E, 0x7E, 0x7C, 0x7C, 0x7D, 0x7D, 0x7C
 };
-int16_t output_samples_right[SOUND_SAMPLES] = {
+
+COMPILER_ALIGNED(4)
+int16_t output_samples_right[SOUND_SAMPLES * 2] = {
+	0x5A, 0x7F, 0x7D, 0x7E, 0x7D, 0x7E, 0x7D, 0x7E,
+	0x7D, 0x7D, 0x7D, 0x7F, 0x7E, 0x7D, 0x7E, 0x7D,
+	0x7D, 0x7D, 0x7C, 0x7A, 0x7B, 0x7C, 0x7A, 0x7A,
+	0x7C, 0x7B, 0x7E, 0x7F, 0x7F, 0x7F, 0x80, 0x80,
+	0x81, 0x82, 0x82, 0x83, 0x83, 0x83, 0x84, 0x84,
+	0x86, 0x83, 0x81, 0x81, 0x83, 0x83, 0x83, 0x84,
+	0x82, 0x84, 0x84, 0x83, 0x85, 0x85, 0x82, 0x83,
+	0x82, 0x82, 0x82, 0x82, 0x7F, 0x80, 0x81, 0x7E,
+	0x7E, 0x7E, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7E,
+	0x7C, 0x7E, 0x7E, 0x7F, 0x7F, 0x7D, 0x7D, 0x7C,
+	0x7D, 0x7D, 0x7D, 0x7B, 0x7C, 0x7B, 0x7C, 0x7D,
+	0x7E, 0x7E, 0x7F, 0x7E, 0x7D, 0x7F, 0x7E, 0x7D,
+	0x7D, 0x7B, 0x7D, 0x7D, 0x7E, 0x7D, 0x7D, 0x7E,
+	0x7D, 0x7D, 0x7D, 0x7E, 0x7E, 0x7C, 0x7E, 0x7E,
+	0x7F, 0x7F, 0x7E, 0x7E, 0x7F, 0x7F, 0x80, 0x81,
+	0x7F, 0x80, 0x81, 0x80, 0x81, 0x81, 0x81, 0x81,
+	0x82, 0x81, 0x82, 0x82, 0x81, 0x80, 0x7F, 0x80,
+	0x7F, 0x7F, 0x7E, 0x80, 0x81, 0x82, 0x83, 0x82,
+	0x83, 0x84, 0x81, 0x82, 0x82, 0x81, 0x82, 0x81,
+	0x80, 0x80, 0x82, 0x80, 0x80, 0x80, 0x80, 0x80,
+	0x80, 0x80, 0x7F, 0x80, 0x7F, 0x80, 0x81, 0x80,
+	0x80, 0x7F, 0x7F, 0x80, 0x81, 0x80, 0x80, 0x7E,
+	0x7E, 0x80, 0x7F, 0x7F, 0x80, 0x80, 0x7F, 0x7F,
+	0x80, 0x80, 0x81, 0x7E, 0x7F, 0x80, 0x7E, 0x7E,
+	0x7E, 0x7F, 0x7E, 0x7E, 0x7E, 0x7C, 0x7D, 0x7C,
+	0x81, 0x7D, 0x7C, 0x7C, 0x7B, 0x7D, 0x7C, 0x7D,
+	0x7D, 0x7D, 0x7B, 0x7D, 0x80, 0x80, 0x82, 0x80,
+	0x7F, 0x80, 0x83, 0x82, 0x80, 0x82, 0x84, 0x86,
+	0x86, 0x84, 0x84, 0x86, 0x87, 0x84, 0x85, 0x85,
+	0x85, 0x85, 0x86, 0x85, 0x85, 0x84, 0x83, 0x80,
+	0x81, 0x82, 0x83, 0x7F, 0x7E, 0x7F, 0x7F, 0x80,
+	0x7E, 0x7E, 0x7E, 0x7C, 0x7C, 0x7D, 0x7D, 0xA5,
+
 	0x5A, 0x7F, 0x7D, 0x7E, 0x7D, 0x7E, 0x7D, 0x7E,
 	0x7D, 0x7D, 0x7D, 0x7F, 0x7E, 0x7D, 0x7E, 0x7D,
 	0x7D, 0x7D, 0x7C, 0x7A, 0x7B, 0x7C, 0x7A, 0x7A,
@@ -151,11 +212,69 @@ int16_t output_samples_right[SOUND_SAMPLES] = {
 	0x81, 0x82, 0x83, 0x7F, 0x7E, 0x7F, 0x7F, 0x80,
 	0x7E, 0x7E, 0x7E, 0x7C, 0x7C, 0x7D, 0x7D, 0xA5
 };
-int16_t input_samples_left[SOUND_SAMPLES];
-int16_t input_samples_right[SOUND_SAMPLES];
+COMPILER_ALIGNED(4)
+int16_t input_samples_left[SOUND_SAMPLES * 2];
+COMPILER_ALIGNED(4)
+int16_t input_samples_right[SOUND_SAMPLES * 2];
+COMPILER_ALIGNED(4)
+int16_t off_cmp_left[SOUND_SAMPLES/CMP_BLOCK];
+COMPILER_ALIGNED(4)
+int16_t off_cmp_right[SOUND_SAMPLES/CMP_BLOCK];
 
-/* Flag indicate */
-volatile uint32_t flag = true;
+/**
+ * \brief Start transfer for test
+ */
+static void start_transfer(struct i2s_dev_inst *dev_inst);
+/**
+ * \brief Wait transfer done for test
+ */
+static void wait_transfer(struct i2s_dev_inst *dev_inst);
+/**
+ * \brief Stop transfer for test
+ */
+static void stop_transfer(struct i2s_dev_inst *dev_inst);
+
+/**
+ * \brief Return true if samples check is good
+ */
+static bool check_samples(bool right)
+{
+	int16_t *buf = right ? input_samples_right : input_samples_left;
+	int16_t *cmp = right ? output_samples_right : output_samples_left;
+	int16_t *off = right ? off_cmp_right : off_cmp_left;
+	uint32_t i, n_blk;
+	/* Reset split offsets to -1 */
+	memset(off, 0xFF, sizeof(off_cmp_right));
+	/* Find all possible split offsets */
+	for (i = 0, n_blk = 0; i < SOUND_SAMPLES; i ++) {
+		if (0 == memcmp(&buf[i], cmp, CMP_BLOCK * 2)) {
+			off[n_blk ++] = i;
+		}
+	}
+	/* Found n_blk possible blocks */
+	for (i = 0; i < n_blk; i ++) {
+		int16_t start = off[i];
+		int16_t j;
+		if (start < 0) {
+			break; /* Not found!! */
+		}
+		/* Compare from start */
+		for (j = 0; j < SOUND_SAMPLES; j ++) {
+			if (buf[j + start] != cmp[j]) {
+				printf("%x <> %x @ %d\n\r", cmp[j], buf[j+start], j);
+				break;
+			}
+		}
+		if (j < SOUND_SAMPLES) {
+			/* Compare fail */
+			continue;
+		}
+		/* Comparation OK */
+		return true;
+	}
+
+	return false;
+}
 
 /**
  * \brief Test audio data transfer and receive.
@@ -164,86 +283,46 @@ volatile uint32_t flag = true;
  */
 static void run_i2s_test(const struct test_case *test)
 {
-	uint32_t i;
 	struct i2s_config config;
 	struct i2s_dev_inst dev_inst;
-	Pdc *p_i2sc_pdc;
-	Pdc *p_i2sc_pdc2;
-	pdc_packet_t pdc_i2sc_packet_tx, pdc_i2sc_packet_rx;
-	pdc_packet_t pdc2_i2sc_packet_tx, pdc2_i2sc_packet_rx;
 
 	/* Set the configuration */
 	i2s_get_config_defaults(&config);
-	config.data_format = I2S_DATE_16BIT;
+	config.data_format = I2S_DATA_16BIT;
 	config.fs_ratio = I2S_FS_RATE_256;
 	config.loopback = true;
-	i2s_init(&dev_inst, I2SC0, &config);
+	i2s_init(&dev_inst, CONF_I2SC, &config);
 
 	/* Enable the I2SC module. */
 	i2s_enable(&dev_inst);
 
-	/* Get pointer to I2SC PDC register base */
-	p_i2sc_pdc = i2s_get_pdc_base(&dev_inst);
-	p_i2sc_pdc2 = (Pdc *)((uint32_t)p_i2sc_pdc + 0x100U);
-	/* Initialize PDC data packet for transfer */
-	pdc_i2sc_packet_tx.ul_addr = (uint32_t) output_samples_left;
-	pdc_i2sc_packet_tx.ul_size = SOUND_SAMPLES;
-	pdc_i2sc_packet_rx.ul_addr = (uint32_t) input_samples_left;
-	pdc_i2sc_packet_rx.ul_size = SOUND_SAMPLES;
-	pdc2_i2sc_packet_tx.ul_addr = (uint32_t) output_samples_right;
-	pdc2_i2sc_packet_tx.ul_size = SOUND_SAMPLES;
-	pdc2_i2sc_packet_rx.ul_addr = (uint32_t) input_samples_right;
-	pdc2_i2sc_packet_rx.ul_size = SOUND_SAMPLES;
-	/* Configure PDC for data transfer */
-	pdc_tx_init(p_i2sc_pdc, &pdc_i2sc_packet_tx, NULL);
-	pdc_rx_init(p_i2sc_pdc, &pdc_i2sc_packet_rx, NULL);
-	pdc_tx_init(p_i2sc_pdc2, &pdc2_i2sc_packet_tx, NULL);
-	pdc_rx_init(p_i2sc_pdc2, &pdc2_i2sc_packet_rx, NULL);
-	/* Enable PDC transfers */
-	pdc_enable_transfer(p_i2sc_pdc, PERIPH_PTCR_TXTEN | PERIPH_PTCR_RXTEN);
-	pdc_enable_transfer(p_i2sc_pdc2, PERIPH_PTCR_TXTEN | PERIPH_PTCR_RXTEN);
+	/* Start DMA */
+	start_transfer(&dev_inst);
 
 	/* Enable the functions */
 	i2s_enable_transmission(&dev_inst);
+	i2s_enable_reception(&dev_inst);
 	i2s_enable_clocks(&dev_inst);
 
-	/**
-	 * Since the transfer and receive timing is not under control, we
-	 * need adjust here the enable sequence and add some delay
-	 * functions if it's needed.
-	 */
-	for (i = 0; i < 0x8; i++) {
-		input_samples_left[i] = i;
-	}
-
-	i2s_enable_reception(&dev_inst);
-
 	/* Wait transfer complete */
-	while (!(i2s_get_status(&dev_inst) & I2SC_SR_RXBUFF)) {
-	}
+	wait_transfer(&dev_inst);
 
-	/**
-	 * Wait a moment to let the PDC finish. The status bit is cleared
-	 * before all transfer finish.
-	 */
-	delay_us(10);
-
-	/* Disable the PDC module. */
-	pdc_disable_transfer(p_i2sc_pdc, PERIPH_PTCR_RXTDIS| PERIPH_PTCR_TXTDIS);
-	pdc_disable_transfer(p_i2sc_pdc2, PERIPH_PTCR_RXTDIS| PERIPH_PTCR_TXTDIS);
+	/* Stop DMA */
+	stop_transfer(&dev_inst);
 
 	/* Disable the I2SC module. */
 	i2s_disable(&dev_inst);
 
 	/* Compare the data. */
-	for (i = 0; i < SOUND_SAMPLES; i++) {
-		if ((input_samples_left[i] != output_samples_left[i]) ||
-			(input_samples_right[i] != output_samples_right[i])) {
-			flag = false;
-		}
-	}
+	/* Since I2S is continuous data stream,
+	   there may be delay between output and input
+	   stream, search first 16 bytes for start
+	   detection */
 
-	test_assert_true(test, flag == true, "Audio data did not match!");
+	test_assert_true(test, check_samples(false),
+		"Audio left channel data did not match!");
+	test_assert_true(test, check_samples(true),
+		"Audio right channel data did not match!");
 }
 
 /**
@@ -257,13 +336,13 @@ int main(void)
 	const usart_serial_options_t usart_serial_options = {
 		.baudrate = CONF_UART_BAUDRATE,
 		.paritytype = CONF_UART_PARITY,
-#if SAMG55
+#if SAMG55 || SAMV71B || SAMV70B || SAMS70B || SAME70B
 		.charlength = CONF_UART_CHAR_LENGTH,
 		.stopbits = CONF_UART_STOP_BITS,
 #endif
 	};
 
-	stdio_serial_init(CONF_TEST_USART, &usart_serial_options);
+	stdio_serial_init(CONF_UART, &usart_serial_options);
 
 	/* Define all the test cases. */
 	DEFINE_TEST_CASE(i2s_test, NULL, run_i2s_test, NULL,
@@ -284,3 +363,196 @@ int main(void)
 		/* Busy-wait forever. */
 	}
 }
+
+#ifdef CONF_TEST_DMA
+#if !CONF_TEST_DMA
+/**
+ * \brief Start PDC for test
+ */
+static void start_transfer(struct i2s_dev_inst *dev_inst)
+{
+	Pdc *p_i2sc_pdc;
+	Pdc *p_i2sc_pdc2;
+	pdc_packet_t pdc_i2sc_packet_tx, pdc_i2sc_packet_rx;
+	pdc_packet_t pdc2_i2sc_packet_tx, pdc2_i2sc_packet_rx;
+
+	/* Get pointer to I2SC PDC register base */
+	p_i2sc_pdc = i2s_get_pdc_base(dev_inst);
+	p_i2sc_pdc2 = (Pdc *)((uint32_t)p_i2sc_pdc + 0x100U);
+	/* Initialize PDC data packet for transfer */
+	pdc_i2sc_packet_tx.ul_addr = (uint32_t) output_samples_left;
+	pdc_i2sc_packet_tx.ul_size = SOUND_SAMPLES * 2;
+	pdc_i2sc_packet_rx.ul_addr = (uint32_t) input_samples_left;
+	pdc_i2sc_packet_rx.ul_size = SOUND_SAMPLES * 2;
+	pdc2_i2sc_packet_tx.ul_addr = (uint32_t) output_samples_right;
+	pdc2_i2sc_packet_tx.ul_size = SOUND_SAMPLES * 2;
+	pdc2_i2sc_packet_rx.ul_addr = (uint32_t) input_samples_right;
+	pdc2_i2sc_packet_rx.ul_size = SOUND_SAMPLES * 2;
+	/* Configure PDC for data transfer */
+	pdc_tx_init(p_i2sc_pdc, &pdc_i2sc_packet_tx, &pdc_i2sc_packet_tx);
+	pdc_rx_init(p_i2sc_pdc, &pdc_i2sc_packet_rx, &pdc_i2sc_packet_rx);
+	pdc_tx_init(p_i2sc_pdc2, &pdc2_i2sc_packet_tx, &pdc2_i2sc_packet_tx);
+	pdc_rx_init(p_i2sc_pdc2, &pdc2_i2sc_packet_rx, &pdc2_i2sc_packet_rx);
+	/* Enable PDC transfers */
+	pdc_enable_transfer(p_i2sc_pdc, PERIPH_PTCR_TXTEN | PERIPH_PTCR_RXTEN);
+	pdc_enable_transfer(p_i2sc_pdc2, PERIPH_PTCR_TXTEN | PERIPH_PTCR_RXTEN);
+}
+
+static void wait_transfer(struct i2s_dev_inst * dev_inst)
+{
+	while (!(i2s_get_status(dev_inst) & I2SC_SR_RXBUFF)) {
+	}
+}
+
+static void stop_transfer(struct i2s_dev_inst *dev_inst)
+{
+	Pdc *p_i2sc_pdc;
+	Pdc *p_i2sc_pdc2;
+
+	/* Get pointer to I2SC PDC register base */
+	p_i2sc_pdc = i2s_get_pdc_base(dev_inst);
+	p_i2sc_pdc2 = (Pdc *)((uint32_t)p_i2sc_pdc + 0x100U);
+	pdc_disable_transfer(p_i2sc_pdc, PERIPH_PTCR_RXTDIS| PERIPH_PTCR_TXTDIS);
+	pdc_disable_transfer(p_i2sc_pdc2, PERIPH_PTCR_RXTDIS| PERIPH_PTCR_TXTDIS);
+}
+#else /* CONF_TEST_DMA */
+
+#define DMA_DWIDTH    XDMAC_CC_DWIDTH_HALFWORD
+
+#define DMA_CH_FLAG_OUT_L (XDMAC_GS_ST0 << CONF_DMA_CH_OUT_L)
+#define DMA_CH_FLAG_IN_L (XDMAC_GS_ST0 << CONF_DMA_CH_IN_L)
+#define DMA_CH_FLAG_OUT_R (XDMAC_GS_ST0 << CONF_DMA_CH_OUT_R)
+#define DMA_CH_FLAG_IN_R (XDMAC_GS_ST0 << CONF_DMA_CH_IN_R)
+#define DMA_CH_FLAGS ( 0\
+		| DMA_CH_FLAG_OUT_L \
+		| DMA_CH_FLAG_IN_L \
+		| DMA_CH_FLAG_OUT_R \
+		| DMA_CH_FLAG_IN_R \
+		)
+
+static const uint32_t g_dma_src[4] = {
+	(uint32_t)output_samples_left,
+	(uint32_t)&CONF_I2SC->I2SC_RHR,
+	(uint32_t)output_samples_right,
+	(uint32_t)&CONF_I2SC->I2SC_RHR
+};
+static const uint32_t g_dma_dst[4] = {
+	(uint32_t)&CONF_I2SC->I2SC_THR,
+	(uint32_t)input_samples_left,
+	(uint32_t)&CONF_I2SC->I2SC_THR,
+	(uint32_t)input_samples_right
+};
+static const uint32_t g_dma_perid[4] = {
+	CONF_DMA_PERID_TX_L,
+	CONF_DMA_PERID_RX_L,
+	CONF_DMA_PERID_TX_R,
+	CONF_DMA_PERID_RX_R
+};
+
+/** XDMA channel configuration. */
+static xdmac_channel_config_t xdmac_channel_cfg;
+
+static void prepare_dma_channel(uint8_t ch)
+{
+	/* Enable clock of DMA */
+	if (!pmc_is_periph_clk_enabled(CONF_DMA_ID)) {
+		pmc_enable_periph_clk(CONF_DMA_ID);
+	}
+
+	/* Clear dummy status */
+	xdmac_channel_get_status(CONF_DMA);
+	xdmac_get_interrupt_status(CONF_DMA);
+
+	xdmac_channel_get_interrupt_status(CONF_DMA, ch);
+	/* Disable XDMAC interrupt for the channel */
+	xdmac_disable_interrupt(CONF_DMA, ch);
+	xdmac_channel_disable_interrupt(CONF_DMA, ch, 0xFF);
+	/* Disable the given DMA channel */
+	xdmac_channel_disable(CONF_DMA, ch);
+	xdmac_channel_set_source_addr(CONF_DMA, ch, 0);
+	xdmac_channel_set_destination_addr(CONF_DMA, ch, 0);
+	xdmac_channel_set_block_control(CONF_DMA, ch, 0);
+	xdmac_channel_set_config(CONF_DMA, ch, 0x20);
+	xdmac_channel_set_descriptor_addr(CONF_DMA, ch, 0, 0);
+	xdmac_channel_set_descriptor_control(CONF_DMA, ch, 0);
+}
+
+static void config_dma_channel_xfr(uint8_t ch)
+{
+	bool rx = (ch == CONF_DMA_CH_IN_L) || (ch == CONF_DMA_CH_IN_R);
+
+	memset(&xdmac_channel_cfg, 0, sizeof(xdmac_channel_cfg));
+	xdmac_channel_cfg.mbr_ubc = SOUND_SAMPLES * 2;
+	xdmac_channel_cfg.mbr_bc = 1 - 1;
+	xdmac_channel_cfg.mbr_sa = g_dma_src[ch];
+	xdmac_channel_cfg.mbr_da = g_dma_dst[ch];
+	xdmac_channel_cfg.mbr_cfg = XDMAC_CC_TYPE_PER_TRAN
+			| XDMAC_CC_MBSIZE_SINGLE
+			| (rx ? XDMAC_CC_DSYNC_PER2MEM : XDMAC_CC_DSYNC_MEM2PER)
+			| XDMAC_CC_SWREQ_HWR_CONNECTED
+			| XDMAC_CC_MEMSET_NORMAL_MODE
+			| XDMAC_CC_CSIZE_CHK_1
+			| DMA_DWIDTH
+			| (rx ? XDMAC_CC_SIF_AHB_IF1 : XDMAC_CC_SIF_AHB_IF0)
+			| (rx ? XDMAC_CC_DIF_AHB_IF0 : XDMAC_CC_DIF_AHB_IF1)
+			| (rx ? XDMAC_CC_SAM_FIXED_AM : XDMAC_CC_SAM_INCREMENTED_AM)
+			| (rx ? XDMAC_CC_DAM_INCREMENTED_AM : XDMAC_CC_DAM_FIXED_AM)
+			| XDMAC_CC_PERID(g_dma_perid[ch]);
+	xdmac_configure_transfer(CONF_DMA, ch, &xdmac_channel_cfg);
+	xdmac_channel_set_descriptor_addr(CONF_DMA, ch, 0, 0);
+	xdmac_channel_set_descriptor_control(CONF_DMA, ch, 0);
+}
+
+static void start_transfer(struct i2s_dev_inst *dev_inst)
+{
+	prepare_dma_channel(CONF_DMA_CH_OUT_L);
+	prepare_dma_channel(CONF_DMA_CH_OUT_R);
+	prepare_dma_channel(CONF_DMA_CH_IN_L);
+	prepare_dma_channel(CONF_DMA_CH_IN_R);
+
+	config_dma_channel_xfr(CONF_DMA_CH_OUT_L);
+	config_dma_channel_xfr(CONF_DMA_CH_OUT_R);
+	config_dma_channel_xfr(CONF_DMA_CH_IN_L);
+	config_dma_channel_xfr(CONF_DMA_CH_IN_R);
+	CONF_DMA->XDMAC_GE = DMA_CH_FLAGS;
+}
+
+static void wait_transfer(struct i2s_dev_inst *dev_inst)
+{
+	while(XDMAC->XDMAC_GS & DMA_CH_FLAGS) {
+		/* Channels still enabled (working) */
+	}
+}
+
+static void stop_transfer(struct i2s_dev_inst *dev_inst)
+{
+	CONF_DMA->XDMAC_GD = DMA_CH_FLAGS;
+}
+#endif
+#else /* CONF_TEST_DMA */
+static void start_transfer(struct i2s_dev_inst *dev_inst)
+{
+	(void)dev_inst;
+}
+static void wait_transfer(struct i2s_dev_inst *dev_inst)
+{
+	uint32_t i;
+	for (i = 0; i < SOUND_SAMPLES * 2; i ++) {
+		uint32_t tmp;
+		i2s_write(dev_inst, output_samples_left[i]);
+		__DMB();
+		i2s_write(dev_inst, output_samples_right[i]);
+		__DMB();
+		i2s_read(dev_inst, &tmp);
+		input_samples_left[i] = tmp;
+		__DMB();
+		i2s_read(dev_inst, &tmp);
+		input_samples_right[i] = tmp;
+		__DMB();
+	}
+}
+static void stop_transfer(struct i2s_dev_inst *dev_inst)
+{
+	(void)dev_inst;
+}
+#endif /* CONF_TEST_DMA */

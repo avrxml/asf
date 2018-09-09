@@ -54,7 +54,7 @@ TARGET_SRAM = dac_quick_start_sram.elf
 CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        sam0/boards/samc21_xplained_pro/board_init.c       \
-       sam0/drivers/dac/dac_sam_d_c/dac.c                 \
+       sam0/drivers/dac/dac_sam_d_c_h/dac.c               \
        sam0/drivers/dac/quick_start/qs_dac_basic.c        \
        sam0/drivers/port/port.c                           \
        sam0/drivers/system/clock/clock_samc20_c21/clock.c \
@@ -76,7 +76,7 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samc21_xplained_pro                    \
        sam0/drivers/dac                                   \
-       sam0/drivers/dac/dac_sam_d_c                       \
+       sam0/drivers/dac/dac_sam_d_c_h                     \
        sam0/drivers/dac/quick_start                       \
        sam0/drivers/dac/quick_start/samc21_xplained_pro   \
        sam0/drivers/port                                  \

@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70_ICM_COMPONENT_
@@ -56,7 +46,7 @@
 typedef struct {
   __IO uint32_t ICM_CFG;       /**< \brief (Icm Offset: 0x00) Configuration Register */
   __O  uint32_t ICM_CTRL;      /**< \brief (Icm Offset: 0x04) Control Register */
-  __O  uint32_t ICM_SR;        /**< \brief (Icm Offset: 0x08) Status Register */
+  __I  uint32_t ICM_SR;        /**< \brief (Icm Offset: 0x08) Status Register */
   __I  uint32_t Reserved1[1];
   __O  uint32_t ICM_IER;       /**< \brief (Icm Offset: 0x10) Interrupt Enable Register */
   __O  uint32_t ICM_IDR;       /**< \brief (Icm Offset: 0x14) Interrupt Disable Register */
@@ -67,6 +57,11 @@ typedef struct {
   __IO uint32_t ICM_DSCR;      /**< \brief (Icm Offset: 0x30) Region Descriptor Area Start Address Register */
   __IO uint32_t ICM_HASH;      /**< \brief (Icm Offset: 0x34) Region Hash Area Start Address Register */
   __O  uint32_t ICM_UIHVAL[8]; /**< \brief (Icm Offset: 0x38) User Initial Hash Value 0 Register */
+  __I  uint32_t Reserved3[37];
+  __I  uint32_t ICM_ADDRSIZE;  /**< \brief (Icm Offset: 0xEC) Address Size Register */
+  __I  uint32_t ICM_IPNAME[2]; /**< \brief (Icm Offset: 0xF0) IP Name 1 Register */
+  __I  uint32_t ICM_FEATURES;  /**< \brief (Icm Offset: 0xF8) Feature Register */
+  __I  uint32_t ICM_VERSION;   /**< \brief (Icm Offset: 0xFC) Version Register */
 } Icm;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- ICM_CFG : (ICM Offset: 0x00) Configuration Register -------- */
@@ -200,6 +195,33 @@ typedef struct {
 #define ICM_UIHVAL_VAL_Pos 0
 #define ICM_UIHVAL_VAL_Msk (0xffffffffu << ICM_UIHVAL_VAL_Pos) /**< \brief (ICM_UIHVAL[8]) Initial Hash Value */
 #define ICM_UIHVAL_VAL(value) ((ICM_UIHVAL_VAL_Msk & ((value) << ICM_UIHVAL_VAL_Pos)))
+/* -------- ICM_ADDRSIZE : (ICM Offset: 0xEC) Address Size Register -------- */
+#define ICM_ADDRSIZE_ADDRSIZE_Pos 0
+#define ICM_ADDRSIZE_ADDRSIZE_Msk (0xffffu << ICM_ADDRSIZE_ADDRSIZE_Pos) /**< \brief (ICM_ADDRSIZE) Peripheral Bus Address Area Size */
+/* -------- ICM_IPNAME[2] : (ICM Offset: 0xF0) IP Name 1 Register -------- */
+#define ICM_IPNAME_IPNAME_Pos 0
+#define ICM_IPNAME_IPNAME_Msk (0xffffffffu << ICM_IPNAME_IPNAME_Pos) /**< \brief (ICM_IPNAME[2]) IP Name in ASCII Format */
+/* -------- ICM_FEATURES : (ICM Offset: 0xF8) Feature Register -------- */
+#define ICM_FEATURES_CFGALGO (0x1u << 0) /**< \brief (ICM_FEATURES) Configurable Algorithms */
+#define ICM_FEATURES_RFU (0x1u << 1) /**< \brief (ICM_FEATURES) Reserved for Future Use */
+#define ICM_FEATURES_CFGPP (0x1u << 2) /**< \brief (ICM_FEATURES) Configurable Processing Period */
+#define ICM_FEATURES_HDPP (0x1u << 3) /**< \brief (ICM_FEATURES) Hardcoded Processing Period */
+#define ICM_FEATURES_PDC (0x1u << 4) /**< \brief (ICM_FEATURES) Peripheral DMA Logic */
+#define ICM_FEATURES_NAIS (0x1u << 5) /**< \brief (ICM_FEATURES) No Access to Intermediate State */
+#define ICM_FEATURES_EF (0x1u << 6) /**< \brief (ICM_FEATURES) Embedded LFSR */
+#define ICM_FEATURES_SI (0x1u << 7) /**< \brief (ICM_FEATURES) Scan Intrusion */
+#define ICM_FEATURES_BTYP (0x1u << 8) /**< \brief (ICM_FEATURES) Bridge Type */
+#define ICM_FEATURES_PDCOFF0C (0x1u << 9) /**< \brief (ICM_FEATURES) PDC Offset is 0x0C */
+#define ICM_FEATURES_HSHA1 (0x1u << 16) /**< \brief (ICM_FEATURES) SHA1 Hardcoded Mode */
+#define ICM_FEATURES_HSHA224 (0x1u << 17) /**< \brief (ICM_FEATURES) SHA224 Hardcoded Mode */
+#define ICM_FEATURES_HSHA256 (0x1u << 18) /**< \brief (ICM_FEATURES) SHA256 Hardcoded Mode */
+#define ICM_FEATURES_HSHA384 (0x1u << 19) /**< \brief (ICM_FEATURES) SHA384 Hardcoded Mode */
+#define ICM_FEATURES_HSHA512 (0x1u << 20) /**< \brief (ICM_FEATURES) SHA512 Hardcoded Mode */
+/* -------- ICM_VERSION : (ICM Offset: 0xFC) Version Register -------- */
+#define ICM_VERSION_VERSION_Pos 0
+#define ICM_VERSION_VERSION_Msk (0xfffu << ICM_VERSION_VERSION_Pos) /**< \brief (ICM_VERSION) Version of the Hardware Module */
+#define ICM_VERSION_MFN_Pos 16
+#define ICM_VERSION_MFN_Msk (0x7u << ICM_VERSION_MFN_Pos) /**< \brief (ICM_VERSION) Metal Fix Number */
 
 /*@}*/
 

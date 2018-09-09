@@ -3,45 +3,35 @@
  *
  * \brief SAM XDMA Controller (DMAC) driver.
  *
- * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef XDMAC_H_INCLUDED
@@ -117,49 +107,49 @@ extern "C" {
 /** @endcond */
 
 /** DMA channel hardware interface number */
-#define XDAMC_CHANNEL_HWID_HSMCI       0
-#define XDAMC_CHANNEL_HWID_SPI0_TX     1
-#define XDAMC_CHANNEL_HWID_SPI0_RX     2
-#define XDAMC_CHANNEL_HWID_SPI1_TX     3
-#define XDAMC_CHANNEL_HWID_SPI1_RX     4
-#define XDAMC_CHANNEL_HWID_QSPI_TX     5
-#define XDAMC_CHANNEL_HWID_QSPI_RX     6
-#define XDAMC_CHANNEL_HWID_USART0_TX   7
-#define XDAMC_CHANNEL_HWID_USART0_RX   8
-#define XDAMC_CHANNEL_HWID_USART1_TX   9
-#define XDAMC_CHANNEL_HWID_USART1_RX   10
-#define XDAMC_CHANNEL_HWID_USART2_TX   11
-#define XDAMC_CHANNEL_HWID_USART2_RX   12
-#define XDAMC_CHANNEL_HWID_PWM0        13
-#define XDAMC_CHANNEL_HWID_TWIHS0_TX   14
-#define XDAMC_CHANNEL_HWID_TWIHS0_RX   15
-#define XDAMC_CHANNEL_HWID_TWIHS1_TX   16
-#define XDAMC_CHANNEL_HWID_TWIHS1_RX   17
-#define XDAMC_CHANNEL_HWID_TWIHS2_TX   18
-#define XDAMC_CHANNEL_HWID_TWIHS2_RX   19
-#define XDAMC_CHANNEL_HWID_UART0_TX    20
-#define XDAMC_CHANNEL_HWID_UART0_RX    21
-#define XDAMC_CHANNEL_HWID_UART1_TX    22
-#define XDAMC_CHANNEL_HWID_UART1_RX    23
-#define XDAMC_CHANNEL_HWID_UART2_TX    24
-#define XDAMC_CHANNEL_HWID_UART2_RX    25
-#define XDAMC_CHANNEL_HWID_UART3_TX    26
-#define XDAMC_CHANNEL_HWID_UART3_RX    27
-#define XDAMC_CHANNEL_HWID_UART4_TX    28
-#define XDAMC_CHANNEL_HWID_UART4_RX    29
-#define XDAMC_CHANNEL_HWID_DAC         30
-#define XDAMC_CHANNEL_HWID_SSC_TX      32
-#define XDAMC_CHANNEL_HWID_SSC_RX      33
-#define XDAMC_CHANNEL_HWID_PIOA        34
-#define XDAMC_CHANNEL_HWID_AFEC0       35
-#define XDAMC_CHANNEL_HWID_AFEC1       36
-#define XDAMC_CHANNEL_HWID_AES_TX      37
-#define XDAMC_CHANNEL_HWID_AES_RX      38
-#define XDAMC_CHANNEL_HWID_PWM1        39
-#define XDAMC_CHANNEL_HWID_TC0         40
-#define XDAMC_CHANNEL_HWID_TC1         41
-#define XDAMC_CHANNEL_HWID_TC2         42
-#define XDAMC_CHANNEL_HWID_TC3         43
+#define XDMAC_CHANNEL_HWID_HSMCI       0
+#define XDMAC_CHANNEL_HWID_SPI0_TX     1
+#define XDMAC_CHANNEL_HWID_SPI0_RX     2
+#define XDMAC_CHANNEL_HWID_SPI1_TX     3
+#define XDMAC_CHANNEL_HWID_SPI1_RX     4
+#define XDMAC_CHANNEL_HWID_QSPI_TX     5
+#define XDMAC_CHANNEL_HWID_QSPI_RX     6
+#define XDMAC_CHANNEL_HWID_USART0_TX   7
+#define XDMAC_CHANNEL_HWID_USART0_RX   8
+#define XDMAC_CHANNEL_HWID_USART1_TX   9
+#define XDMAC_CHANNEL_HWID_USART1_RX   10
+#define XDMAC_CHANNEL_HWID_USART2_TX   11
+#define XDMAC_CHANNEL_HWID_USART2_RX   12
+#define XDMAC_CHANNEL_HWID_PWM0        13
+#define XDMAC_CHANNEL_HWID_TWIHS0_TX   14
+#define XDMAC_CHANNEL_HWID_TWIHS0_RX   15
+#define XDMAC_CHANNEL_HWID_TWIHS1_TX   16
+#define XDMAC_CHANNEL_HWID_TWIHS1_RX   17
+#define XDMAC_CHANNEL_HWID_TWIHS2_TX   18
+#define XDMAC_CHANNEL_HWID_TWIHS2_RX   19
+#define XDMAC_CHANNEL_HWID_UART0_TX    20
+#define XDMAC_CHANNEL_HWID_UART0_RX    21
+#define XDMAC_CHANNEL_HWID_UART1_TX    22
+#define XDMAC_CHANNEL_HWID_UART1_RX    23
+#define XDMAC_CHANNEL_HWID_UART2_TX    24
+#define XDMAC_CHANNEL_HWID_UART2_RX    25
+#define XDMAC_CHANNEL_HWID_UART3_TX    26
+#define XDMAC_CHANNEL_HWID_UART3_RX    27
+#define XDMAC_CHANNEL_HWID_UART4_TX    28
+#define XDMAC_CHANNEL_HWID_UART4_RX    29
+#define XDMAC_CHANNEL_HWID_DAC         30
+#define XDMAC_CHANNEL_HWID_SSC_TX      32
+#define XDMAC_CHANNEL_HWID_SSC_RX      33
+#define XDMAC_CHANNEL_HWID_PIOA        34
+#define XDMAC_CHANNEL_HWID_AFEC0       35
+#define XDMAC_CHANNEL_HWID_AFEC1       36
+#define XDMAC_CHANNEL_HWID_AES_TX      37
+#define XDMAC_CHANNEL_HWID_AES_RX      38
+#define XDMAC_CHANNEL_HWID_PWM1        39
+#define XDMAC_CHANNEL_HWID_TC0         40
+#define XDMAC_CHANNEL_HWID_TC1         41
+#define XDMAC_CHANNEL_HWID_TC2         42
+#define XDMAC_CHANNEL_HWID_TC3         43
 
 /* XDMA_MBR_UBC */
 #define   XDMAC_UBC_NDE            (0x1u << 24)
@@ -360,10 +350,10 @@ static inline void xdmac_channel_enable(Xdmac *xdmac, uint32_t channel_num)
 {
 	Assert(xdmac);
 	Assert(channel_num < XDMACCHID_NUMBER);
-	
+
 	/* Update DCache before DMA transmit */
 	SCB_CleanInvalidateDCache();
-	
+
 	xdmac->XDMAC_GE = (XDMAC_GE_EN0 << channel_num);
 }
 

@@ -1,6 +1,6 @@
 /*****************************************************************************
 *
-* Atmel Corporation
+* Microchip Technology Inc
 *
 * File              : twi_master.h
 * Compiler          : IAR EWAAVR 2.28a/3.10c
@@ -8,7 +8,7 @@
 * Date              : $Date: 24. mai 2004 11:31:22 $
 * Updated by        : $Author: ltwa $
 *
-* Support: http://www.atmel.com/design-support/
+* Support: https://www.microchip.com/support/
 *
 * Supported devices : All devices with a TWI module can be used.
 *                     The example is written for the ATmega16

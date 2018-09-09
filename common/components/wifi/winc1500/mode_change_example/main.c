@@ -4,36 +4,29 @@
  *
  * \brief WINC1500 Mode Change Example.
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
@@ -41,16 +34,16 @@
 
 /** \mainpage
  * \section intro Introduction
- * This example demonstrates the use of the WINC1500 with the SAM Xplained Pro
- * board to bring up as a station, an AP or a P2P mode.<br>
+ * This example demonstrates the use of the WINC1500 with the SAMD21 Xplained Pro
+ * board to bring up as a station and then switch to an AP.<br>
  * It uses the following hardware:
  * - the SAM Xplained Pro.
  * - the WINC1500 on EXT1.
  *
  * \section files Main Files
  * - main.c : Initialize the WINC1500. For the first time, the device act as
- * station mode. Then switch to AP mode and also P2P mode. For the details in each
- * mode, refer to the MODE_STA, MODE_AP and MODE_P2P example.
+ * station mode. Then switch to AP mode. For the details in each
+ * mode, refer to the MODE_STA and MODE_AP example.
  *
  * \section usage Usage
  * -# Configure below code in the main.h for AP information.
@@ -58,11 +51,6 @@
  *    #define MAIN_WLAN_SSID              "DEMO_AP"
  *    #define MAIN_WLAN_AUTH              M2M_WIFI_SEC_OPEN
  *    #define MAIN_WLAN_AP_CHANNEL        (6)
- * \endcode
- * -# Configure below code in the main.h for P2P information.
- * \code
- *    #define MAIN_WLAN_DEVICE_NAME       "WINC1500_P2P"
- *    #define MAIN_WLAN_P2P_CHANNEL       (6)
  * \endcode
  * -# Build the program and download it into the board.
  * -# On the computer, open and configure a terminal application as the follows.
@@ -81,8 +69,6 @@
  *    -- Compiled: xxx xx xxxx xx:xx:xx --
  *    AP mode, start
  *    AP mode, end
- *    P2P mode, start
- *    P2P mode, end
  * \endcode
  *
  * \section compinfo Compilation Information
@@ -91,7 +77,7 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit
- * <A href="http://www.atmel.com">Atmel</A>.\n
+ * <A href="http://www.microchip.com">Microchip</A>.\n
  */
 
 #include "asf.h"
@@ -169,43 +155,6 @@ static int8_t enable_disable_ap_mode(void)
 }
 
 /**
- * \brief P2P mode
- *
- * Initializes the P2P mode for a while and terminate.
- */
-static int8_t enable_disable_p2p_mode(void)
-{
-	int8_t ret;
-
-	printf("P2P mode, start\r\n");
-
-	/* Set device name. */
-	ret = m2m_wifi_set_device_name((uint8_t *)MAIN_WLAN_DEVICE_NAME, strlen(MAIN_WLAN_DEVICE_NAME));
-	if (M2M_SUCCESS != ret) {
-		return ret;
-	}
-
-	/* Start P2P with channel number. */
-	ret = m2m_wifi_p2p(MAIN_WLAN_P2P_CHANNEL);
-	if (M2M_SUCCESS != ret) {
-		return ret;
-	}
-
-	/* Keep in P2P mode for a while. */
-	nm_bsp_sleep(HOLD_TIME_IN_MODE);
-
-	/* Stop P2P mode. */
-	ret = m2m_wifi_p2p_disconnect();
-	if (M2M_SUCCESS != ret) {
-		return ret;
-	}
-
-	printf("P2P mode, end\r\n");
-
-	return ret;
-}
-
-/**
  * \brief Main application function.
  *
  * Application entry point.
@@ -258,17 +207,6 @@ int main(void)
 	}
 
 	nm_bsp_sleep(DELAY_FOR_MODE_CHANGE);
-
-	/**
-	 * P2P mode.
-	 * Turn On and off P2P mode.
-	 */
-	ret = enable_disable_p2p_mode();
-	if (M2M_SUCCESS != ret) {
-		printf("main: enable_disable_p2p_mode call error!\r\n");
-		while (1) {
-		}
-	}
 
 	return 0;
 }

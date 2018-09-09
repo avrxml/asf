@@ -43,7 +43,7 @@ PRJ_PATH = ../../../../../..
 ARCH = cortex-m7
 
 # Target part: none, sam3n4 or sam4l4aa
-PART = same70q21
+PART = same70q21b
 
 # Application target name. Given with suffix .a for library and .elf for a
 # standalone application.
@@ -156,7 +156,7 @@ CFLAGS =  \
 CPPFLAGS = \
        -D ARM_MATH_CM7=true                               \
        -D BOARD=SAME70_XPLAINED                           \
-       -D __SAME70Q21__                                   \
+       -D __SAME70Q21B__                                  \
        -D printf=iprintf                                  \
        -D scanf=iscanf
 

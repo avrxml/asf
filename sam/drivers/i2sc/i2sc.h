@@ -6,45 +6,35 @@
  *
  * This file defines a useful set of functions for the I2S on SAM devices.
  *
- * Copyright (c) 2013-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef I2S_H_INCLUDED
@@ -93,14 +83,14 @@ enum i2s_fs_rate {
 
 /** Data format */
 enum i2s_data_format {
-	I2S_DATE_32BIT = 0,
-	I2S_DATE_24BIT,
-	I2S_DATE_20BIT,
-	I2S_DATE_18BIT,
-	I2S_DATE_16BIT,
-	I2S_DATE_16BIT_COMPACT,
-	I2S_DATE_8BIT,
-	I2S_DATE_8BIT_COMPACT,
+	I2S_DATA_32BIT = 0,
+	I2S_DATA_24BIT,
+	I2S_DATA_20BIT,
+	I2S_DATA_18BIT,
+	I2S_DATA_16BIT,
+	I2S_DATA_16BIT_COMPACT,
+	I2S_DATA_8BIT,
+	I2S_DATA_8BIT_COMPACT,
 };
 
 /** DMA channel usage for I2S transfer */
@@ -141,10 +131,10 @@ struct i2s_config {
 
 	/* 1 for master clock generated, 0 for no master clock. */
 	bool master_clock_enable;
-	
+
 	/**
-	 * I2SMCK Master clock output frequency is Selected Clock 
-	 * divided by (IMCKDIV + 1), and master_clock_divide should not be 0. 
+	 * I2SMCK Master clock output frequency is Selected Clock
+	 * divided by (IMCKDIV + 1), and master_clock_divide should not be 0.
 	 */
 	uint8_t master_clock_divide;
 
@@ -186,7 +176,7 @@ static inline void i2s_get_config_defaults(struct i2s_config *const cfg)
 	/* Sanity check arguments */
 	Assert(cfg);
 
-	cfg->data_format = I2S_DATE_32BIT;
+	cfg->data_format = I2S_DATA_32BIT;
 	cfg->fs_ratio = I2S_FS_RATE_1024;
 	cfg->tx_channels = I2S_CHANNEL_STEREO;
 	cfg->rx_channels = I2S_CHANNEL_STEREO;
@@ -195,6 +185,7 @@ static inline void i2s_get_config_defaults(struct i2s_config *const cfg)
 	cfg->loopback = false;
 	cfg->master_mode = true;
 	cfg->master_clock_enable = true;
+	cfg->master_clock_divide = 1;
 	cfg->transmit_mode_underrun= true;
 	cfg->slot_length_24 = false;
 }
@@ -326,9 +317,9 @@ void i2s_disable(struct i2s_dev_inst *const dev_inst);
 
 enum status_code i2s_write(struct i2s_dev_inst *dev_inst, uint32_t data);
 enum status_code i2s_read(struct i2s_dev_inst *dev_inst, uint32_t *data);
-
+#if defined(PDC_I2SC) || defined(PDC_I2SC0) || defined(PDC_I2SC1)
 Pdc *i2s_get_pdc_base(struct i2s_dev_inst *const dev_inst);
-
+#endif
 /**
  * \}
  */

@@ -4,36 +4,29 @@
  *
  * \brief WINC1500 MQTT chat example.
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
@@ -88,14 +81,13 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit
- * <A href="http://www.atmel.com">Atmel</A>.\n
+ * <A href="http://www.microchip.com">Microchip</A>.\n
  */
 
 #include "asf.h"
 #include "main.h"
 #include "driver/include/m2m_wifi.h"
-#include "iot/mqtt/mqtt.h"
-#include "iot/sw_timer.h"
+#include "MQTTClient/Wrapper/mqtt.h"
 #include "socket/include/socket.h"
 
 /* Application instruction phrase. */
@@ -107,9 +99,6 @@
 /** UART module for debug. */
 static struct usart_module cdc_uart_module;
 
-/** Instance of Timer module. */
-struct sw_timer_module swt_module_inst;
-
 /** User name of chat. */
 char mqtt_user[64] = "";
 
@@ -117,7 +106,8 @@ char mqtt_user[64] = "";
 static struct mqtt_module mqtt_inst;
 
 /* Receive buffer of the MQTT service. */
-static char mqtt_buffer[MAIN_MQTT_BUFFER_SIZE];
+static unsigned char mqtt_read_buffer[MAIN_MQTT_BUFFER_SIZE];
+static unsigned char mqtt_send_buffer[MAIN_MQTT_BUFFER_SIZE];
 
 /** UART buffer. */
 static char uart_buffer[MAIN_CHAT_BUFFER_SIZE];
@@ -127,6 +117,9 @@ static int uart_buffer_written = 0;
 
 /** A buffer of character from the serial. */
 static uint16_t uart_ch_buffer;
+
+/** Prototype for MQTT subscribe Callback */
+void SubscribeHandler(MessageData *msgData);
 
 /**
  * \brief Callback of USART input.
@@ -235,6 +228,21 @@ static void socket_resolve_handler(uint8_t *doamin_name, uint32_t server_ip)
 }
 
 /**
+ * \brief Callback to receive the subscribed Message.
+ *
+ * \param[in] msgData Data to be received.
+ */
+
+void SubscribeHandler(MessageData *msgData)
+{
+	/* You received publish message which you had subscribed. */
+	/* Print Topic and message */
+	printf("\r\n %.*s",msgData->topicName->lenstring.len,msgData->topicName->lenstring.data);
+	printf(" >> ");
+	printf("%.*s",msgData->message->payloadlen,(char *)msgData->message->payload);	
+}
+
+/**
  * \brief Callback to get the MQTT status update.
  *
  * \param[in] conn_id instance id of connection which is being used.
@@ -258,6 +266,7 @@ static void mqtt_callback(struct mqtt_module *module_inst, int type, union mqtt_
 		 * Or else retry to connect to broker server.
 		 */
 		if (data->sock_connected.result >= 0) {
+			printf("\r\nConnecting to Broker...");
 			mqtt_connect_broker(module_inst, 1, NULL, NULL, mqtt_user, NULL, NULL, 0, 0, 0);
 		} else {
 			printf("Connect fail to server(%s)! retry it automatically.\r\n", main_mqtt_broker);
@@ -269,31 +278,13 @@ static void mqtt_callback(struct mqtt_module *module_inst, int type, union mqtt_
 	case MQTT_CALLBACK_CONNECTED:
 		if (data->connected.result == MQTT_CONN_RESULT_ACCEPT) {
 			/* Subscribe chat topic. */
-			mqtt_subscribe(module_inst, MAIN_CHAT_TOPIC "#", 0);
+			mqtt_subscribe(module_inst, MAIN_CHAT_TOPIC "#", 0, SubscribeHandler);
 			/* Enable USART receiving callback. */
 			usart_enable_callback(&cdc_uart_module, USART_CALLBACK_BUFFER_RECEIVED);
 			printf("Preparation of the chat has been completed.\r\n");
 		} else {
 			/* Cannot connect for some reason. */
 			printf("MQTT broker decline your access! error code %d\r\n", data->connected.result);
-		}
-
-		break;
-
-	case MQTT_CALLBACK_RECV_PUBLISH:
-		/* You received publish message which you had subscribed. */
-		if (data->recv_publish.topic != NULL && data->recv_publish.msg != NULL) {
-			if (!strncmp(data->recv_publish.topic, MAIN_CHAT_TOPIC, strlen(MAIN_CHAT_TOPIC))) {
-				/* Print user name and message */
-				for (int i = strlen(MAIN_CHAT_TOPIC); i < data->recv_publish.topic_size; i++) {
-					printf("%c", data->recv_publish.topic[i]);
-				}
-				printf(" >> ");
-				for (int i = 0; i < data->recv_publish.msg_size; i++) {
-					printf("%c", data->recv_publish.msg[i]);
-				}
-				printf("\r\n");
-			}
 		}
 
 		break;
@@ -328,18 +319,6 @@ static void configure_console(void)
 }
 
 /**
- * \brief Configure Timer module.
- */
-static void configure_timer(void)
-{
-	struct sw_timer_config swt_conf;
-	sw_timer_get_config_defaults(&swt_conf);
-
-	sw_timer_init(&swt_module_inst, &swt_conf);
-	sw_timer_enable(&swt_module_inst);
-}
-
-/**
  * \brief Configure MQTT service.
  */
 static void configure_mqtt(void)
@@ -349,10 +328,11 @@ static void configure_mqtt(void)
 
 	mqtt_get_config_defaults(&mqtt_conf);
 	/* To use the MQTT service, it is necessary to always set the buffer and the timer. */
-	mqtt_conf.timer_inst = &swt_module_inst;
-	mqtt_conf.recv_buffer = mqtt_buffer;
-	mqtt_conf.recv_buffer_size = MAIN_MQTT_BUFFER_SIZE;
-
+	mqtt_conf.read_buffer = mqtt_read_buffer;
+	mqtt_conf.read_buffer_size = MAIN_MQTT_BUFFER_SIZE;
+	mqtt_conf.send_buffer = mqtt_send_buffer;
+	mqtt_conf.send_buffer_size = MAIN_MQTT_BUFFER_SIZE;
+	
 	result = mqtt_init(&mqtt_inst, &mqtt_conf);
 	if (result < 0) {
 		printf("MQTT initialization failed. Error code is (%d)\r\n", result);
@@ -385,8 +365,8 @@ static void check_usart_buffer(char *topic)
 	} else {
 		for (i = 0; i < uart_buffer_written; i++) {
 			/* Find newline character ('\n' or '\r\n') and publish the previous string . */
-			if (uart_buffer[i] == '\n') {
-				mqtt_publish(&mqtt_inst, topic, uart_buffer, (i > 0 && uart_buffer[i - 1] == '\r') ? i - 1 : i, 0, 0);
+			if (uart_buffer[i] == 0x0d) {
+				mqtt_publish(&mqtt_inst, topic, uart_buffer, (i > 0 && uart_buffer[i - 1] == 0x0a) ? i - 1 : i, 0, 0);
 				/* Move remain data to start of the buffer. */
 				if (uart_buffer_written > i + 1) {
 					memmove(uart_buffer, uart_buffer + i + 1, uart_buffer_written - i - 1);
@@ -423,9 +403,6 @@ int main(void)
 	/* Output example information */
 	printf(STRING_HEADER);
 
-	/* Initialize the Timer. */
-	configure_timer();
-
 	/* Initialize the MQTT service. */
 	configure_mqtt();
 
@@ -437,7 +414,7 @@ int main(void)
 	scanf("%64s", mqtt_user);
 	printf("User : %s\r\n", mqtt_user);
 	sprintf(topic, "%s%s", MAIN_CHAT_TOPIC, mqtt_user);
-
+	printf("\r\nTopic : %s",topic);
 	/* Initialize Wi-Fi parameters structure. */
 	memset((uint8_t *)&param, 0, sizeof(tstrWifiInitParam));
 
@@ -458,14 +435,20 @@ int main(void)
 	m2m_wifi_connect((char *)MAIN_WLAN_SSID, sizeof(MAIN_WLAN_SSID),
 			MAIN_WLAN_AUTH, (char *)MAIN_WLAN_PSK, M2M_WIFI_CH_ALL);
 
+	if (SysTick_Config(system_cpu_clock_get_hz() / 1000)) 
+	{
+		puts("ERR>> Systick configuration error\r\n");
+		while (1);
+	}
+	
 	while (1) {
 		/* Handle pending events from network controller. */
 		m2m_wifi_handle_events(NULL);
 		/* Try to read user input from USART. */
 		usart_read_job(&cdc_uart_module, &uart_ch_buffer);
-		/* Checks the timer timeout. */
-		sw_timer_task(&swt_module_inst);
 		/* Checks the USART buffer. */
 		check_usart_buffer(topic);
+		if(mqtt_inst.isConnected)
+			mqtt_yield(&mqtt_inst, 0);
 	}
 }

@@ -3,7 +3,7 @@
  
   \brief Includes signatures and datatypes for Atmel BLE API for Applications
  
-  Copyright (c) 2016, Atmel Corporation. All rights reserved.
+  * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
   Released under NDA
   Licensed under Atmel's Limited License Agreement.
  
@@ -20,7 +20,7 @@
   ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
   POSSIBILITY OF SUCH DAMAGE.
  
-  Atmel Corporation: http://www.atmel.com
+  Microchip Technology Inc: http://www.microchip.com
  
 ******************************************************************************/
 
@@ -70,6 +70,9 @@ extern "C" {
 
 /** @brief Maximum size of advertising data in octets. */
 #define  AT_BLE_ADV_MAX_SIZE                (31)
+
+/** @brief Maximum size of scan response data in octets. */
+#define  AT_BLE_SCN_RESP_MAX_SIZE           (31)
 
 /** @brief UUID 16 size in bytes */
 #define AT_BLE_UUID_16_LEN                  (2)
@@ -121,17 +124,17 @@ extern "C" {
 /// Minimal Renew duration value (150 seconds); resolution of 10 mSeconds (N*10ms)
 #define AT_RENEW_DUR_VAL_MIN            (0x3A98)    //(15000)
 /// ATT MAximum Attribute Length
-#define AT_BLE_MAX_ATT_LEN          512
+#define AT_BLE_MAX_ATT_LEN              (512)
 /// Maximum number of channel mapping
-#define AT_BLE_CH_MAP_LEN           (0x05)
+#define AT_BLE_CH_MAP_LEN               (0x05)
 /// Default value used to automatic allocate handle
-#define AT_BLE_AUTO_ALLOC_HANDLE    (0x0000)
+#define AT_BLE_AUTO_ALLOC_HANDLE        (0x0000)
 /// Maximum number of connections at the same time
 /// Direct test mode defines
-#define AT_BLE_HCI_DTM_EVENT 0xBB
-#define AT_BLE_MAX_CONCURRENT_CONNS (8)
+#define AT_BLE_HCI_DTM_EVENT            (0xBB)
+#define AT_BLE_MAX_CONCURRENT_CONNS     (8)
 /// LE credit based max packet size
-#define AT_BLE_LECB_MAX_PKT_SIZE    0x200
+#define AT_BLE_LECB_MAX_PKT_SIZE        (0x200)
 
 /****************************************************************************************
 *                                   Basic types                                         *
@@ -148,10 +151,11 @@ typedef struct
 
 typedef struct
 {
-    at_ble_mempool_t	memPool; /**< Memory pool that library can use for storing data base related data */
-	at_ble_mempool_t    event_mem_pool; /**< Memory pool that the library should use to queue events */
-	at_ble_mempool_t   	event_params_mem_pool; /**< Memory pool that library should use to save queued events parameters */
-    void 				*plf_config; /**< Platform Configuration*/
+    at_ble_mempool_t memPool;              /**< Memory pool that library can use for storing data base related data */
+	at_ble_mempool_t event_mem_pool;       /**< Memory pool that the library should use to queue events */
+	at_ble_mempool_t event_params_mem_pool;/**< Memory pool that library should use to save queued events parameters */
+    void             *plf_config;          /**< Platform Configuration*/
+    uint8_t          samb11_module_version;/**< Either @ref AT_SAMB11_MR or @ref AT_SAMB11_ZR as one of enum @ref at_samb11_module_version_tag*/
 } at_ble_init_config_t;
 
 /**
@@ -165,7 +169,6 @@ typedef uint16_t at_ble_handle_t;
 
 /// Enumeration for BLE Status
 typedef at_ble_err_status_t at_ble_status_t;
-
 
 /// Enumeration for GAP Parameters
 typedef enum
@@ -225,9 +228,15 @@ typedef enum
     ///Byte value for advertising channel map for channel 37 enable
     AT_BLE_ADV_CHNL_37_EN                = 0x01,
     ///Byte value for advertising channel map for channel 38 enable
-    AT_BLE_ADV_CHNL_38_EN,
+    AT_BLE_ADV_CHNL_38_EN                = 0x02,
     ///Byte value for advertising channel map for channel 39 enable
     AT_BLE_ADV_CHNL_39_EN                = 0x04,
+	///Byte value for advertising channel map for channels 37 and 38 enable
+    AT_BLE_ADV_CHNL_37_38_EN             = AT_BLE_ADV_CHNL_37_EN | AT_BLE_ADV_CHNL_38_EN,
+    ///Byte value for advertising channel map for channels 37 and 39 enable
+	AT_BLE_ADV_CHNL_37_39_EN             = AT_BLE_ADV_CHNL_37_EN | AT_BLE_ADV_CHNL_39_EN,
+    ///Byte value for advertising channel map for channels 38 and 39 enable
+	AT_BLE_ADV_CHNL_38_39_EN             = AT_BLE_ADV_CHNL_38_EN | AT_BLE_ADV_CHNL_39_EN,
     ///Byte value for advertising channel map for channel 37, 38 and 39 enable
     AT_BLE_ADV_ALL_CHNLS_EN              = 0x07,
     ///Enumeration end value for advertising channels enable value check
@@ -238,22 +247,22 @@ typedef enum
 ///TX Power levels
 typedef enum
 {
-    AT_BLE_TX_PWR_LVL_NEG_55_DB = 0x00,
-    AT_BLE_TX_PWR_LVL_NEG_20_DB = 0x01,
-    AT_BLE_TX_PWR_LVL_NEG_14_DB = 0x02,
-    AT_BLE_TX_PWR_LVL_NEG_11_DB = 0x03,
-    AT_BLE_TX_PWR_LVL_NEG_09_DB = 0x04,
-    AT_BLE_TX_PWR_LVL_NEG_07_DB = 0x05,
-    AT_BLE_TX_PWR_LVL_NEG_06_DB = 0x06,
-    AT_BLE_TX_PWR_LVL_NEG_05_DB = 0x07,
-    AT_BLE_TX_PWR_LVL_NEG_04_DB = 0x08,
-    AT_BLE_TX_PWR_LVL_NEG_03_DB = 0x09,
-    AT_BLE_TX_PWR_LVL_NEG_02_DB = 0x0B,
-    AT_BLE_TX_PWR_LVL_NEG_01_DB = 0x0D,
-    AT_BLE_TX_PWR_LVL_ZERO_DB   = 0x11,
-    AT_BLE_TX_PWR_LVL_POS_01_DB = 0x15,
-    AT_BLE_TX_PWR_LVL_POS_02_DB = 0x20,
-    AT_BLE_TX_PWR_LVL_POS_03_DB = 0x3B
+    AT_BLE_TX_PWR_LVL_NEG_55_DB = 0x00,	/**< -55 db*/
+    AT_BLE_TX_PWR_LVL_NEG_20_DB = 0x01,	/**< -20 db*/
+    AT_BLE_TX_PWR_LVL_NEG_14_DB = 0x02,	/**< -14 db*/
+    AT_BLE_TX_PWR_LVL_NEG_11_DB = 0x03,	/**< -11 db*/
+    AT_BLE_TX_PWR_LVL_NEG_09_DB = 0x04,	/**< -9 db*/
+    AT_BLE_TX_PWR_LVL_NEG_07_DB = 0x05,	/**< -7 db*/
+    AT_BLE_TX_PWR_LVL_NEG_06_DB = 0x06,	/**< -6 db*/
+    AT_BLE_TX_PWR_LVL_NEG_05_DB = 0x07,	/**< -5 db*/
+    AT_BLE_TX_PWR_LVL_NEG_04_DB = 0x08,	/**< -4 db*/
+    AT_BLE_TX_PWR_LVL_NEG_03_DB = 0x09,	/**< -3 db*/
+    AT_BLE_TX_PWR_LVL_NEG_02_DB = 0x0B,	/**< -2 db*/
+    AT_BLE_TX_PWR_LVL_NEG_01_DB = 0x0D,	/**< -1 db*/
+    AT_BLE_TX_PWR_LVL_ZERO_DB   = 0x11,	/**< 0 db*/
+    AT_BLE_TX_PWR_LVL_POS_01_DB = 0x15,	/**< +1 db*/
+    AT_BLE_TX_PWR_LVL_POS_02_DB = 0x20,	/**< +2 db*/
+    AT_BLE_TX_PWR_LVL_POS_03_DB = 0x3B	/**< +3 db*/
 } at_ble_tx_power_level_t;
 
 /**@brief Events delivered from BLE stack to the application layer
@@ -271,6 +280,12 @@ typedef enum
      * Refer to @ref at_ble_scan_report_t
      */
     AT_BLE_SCAN_REPORT,
+
+    /** Advertising complete event , this event is received at the end of advertising event.
+
+    * Refer to @ref at_ble_adv_cmp_evt_t
+    */
+    AT_BLE_ADV_CMP_EVENT,
     /** Advertising report received if error has occurred or timeout happened.
     * Refer to @ref at_ble_adv_report_t
     */
@@ -284,8 +299,8 @@ typedef enum
      */
     AT_BLE_CONNECTED,
     /** peer device connection terminated. \n
-     *  Refer to @ref at_ble_disconnected_t and @ref at_ble_disconnect_reason_t for reason of disconnection.
-     *  If returned reason is not one of @ref at_ble_disconnect_reason_t, so check for error code @ref at_ble_status_t
+     *  Refer to @ref at_ble_disconnected_t , for reason of disconnection (see Bluetooth error code in Bluetooth core spec)
+     *  vol 2, Core System Package [BR/EDR Controller volume], Part D
      */
     AT_BLE_DISCONNECTED,
     /** connection parameters updated. It is requires to call @ref at_ble_conn_update_reply function to send response back if needed.\n
@@ -422,7 +437,7 @@ typedef enum
      */
     AT_BLE_CHARACTERISTIC_WRITE_CMD_CMP,
     /** The peer asks for a read Authorization. \n
-     * Refer to @ref at_ble_read_authorize_request_t
+     * Refer to @ref at_ble_characteristic_read_req_t
      */
     AT_BLE_READ_AUTHORIZE_REQUEST,
 
@@ -533,14 +548,22 @@ typedef enum
 */
 typedef enum
 {
+    /** indicates that pairing or authentication failed due to incorrect results in the pairing or authentication procedure.
+    This could be due to an incorrect PIN or link key. */
     AT_BLE_AUTH_FAILURE = 0x05,
 	AT_BLE_SUPERVISION_TIMEOUT = 0x08,
+ 	/** indicates that the user on the remote device terminated the connection. */
     AT_BLE_TERMINATED_BY_USER = 0x13,
+    /** indicates that the remote device terminated the connection because of low resources. */
     AT_BLE_REMOTE_DEV_TERM_LOW_RESOURCES,
+    /** indicates that the remote device terminated the connection because the device is about to power off. */
     AT_BLE_REMOTE_DEV_POWER_OFF,
 	AT_BLE_CON_TERM_BY_LOCAL_HOST,
+	/** indicates that the remote device does not support the feature associated with the issue command. */
     AT_BLE_UNSUPPORTED_REMOTE_FEATURE = 0x1A,
+    /** indicates that it was not possible to pair as a unit key was requested and it is not supported. */
     AT_BLE_PAIRING_WITH_UNIT_KEY_NOT_SUP = 0x29,
+    /** indicates that the remote device terminated the connection because of an unacceptable connection interval. */
     AT_BLE_UNACCEPTABLE_INTERVAL = 0x3B,
 } at_ble_disconnect_reason_t;
 
@@ -689,15 +712,42 @@ typedef enum
 
 typedef uint8_t at_ble_attr_permissions_t;
 
+/* bit[0-1] : read permission (0 = disable , 1 = enable , 2= UNAUTH , 3 = AUTH)
+   bit[3] : read authorization required
+   bit[4-5]: write permission (0 = disable , 1 = enable , 2= UNAUTH , 3 = AUTH)
+   bit[6] : encryption key size must be 16
+   bit[7]: write authorization required
+*/
+
 #define AT_BLE_ATTR_NO_PERMISSIONS               0x00
+/** @brief Read enable. */
 #define AT_BLE_ATTR_READABLE_NO_AUTHN_NO_AUTHR   0x01
-#define AT_BLE_ATTR_READABLE_REQ_AUTHN_NO_AUTHR  0x02
-#define AT_BLE_ATTR_READABLE_NO_AUTHN_REQ_AUTHR  0x03
-#define AT_BLE_ATTR_READABLE_REQ_AUTHN_REQ_AUTHR 0x04
+/** @brief  Read operation require MITM protected encrypted link & no authorization. */
+#define AT_BLE_ATTR_READABLE_REQ_AUTHN_NO_AUTHR  0x03
+/** @brief  Read operation require Authorization & no encryption. */
+#define AT_BLE_ATTR_READABLE_NO_AUTHN_REQ_AUTHR  0x09
+/** @brief  Read operation require MITM protected encrypted link & authorization. */
+#define AT_BLE_ATTR_READABLE_REQ_AUTHN_REQ_AUTHR 0x0B
+/** @brief Read operation require encrypted link , MITM protection not necessary & No authorization. */
+#define AT_BLE_ATTR_READABLE_REQ_ENC_NO_AUTHN_NO_AUTHR  0x02
+/** @brief Read operation require encrypted link, MITM protection not necessary & authorization. */
+#define AT_BLE_ATTR_READABLE_REQ_ENC_NO_AUTHN_REQ_AUTHR  0x0A
+
+/** @brief Write enable. */
 #define AT_BLE_ATTR_WRITABLE_NO_AUTHN_NO_AUTHR   0x10
-#define AT_BLE_ATTR_WRITABLE_REQ_AUTHN_NO_AUTHR  0x20
-#define AT_BLE_ATTR_WRITABLE_NO_AUTHN_REQ_AUTHR  0x30
-#define AT_BLE_ATTR_WRITABLE_REQ_AUTHN_REQ_AUTHR 0x40
+/** @brief  Write operation require MITM protected encrypted link & no authorization. */
+#define AT_BLE_ATTR_WRITABLE_REQ_AUTHN_NO_AUTHR  0x30
+/** @brief  Write operation require Authorization & no encryption. */
+#define AT_BLE_ATTR_WRITABLE_NO_AUTHN_REQ_AUTHR  0x90
+/** @brief  Write operation require MITM protected encrypted link & authorization. */
+#define AT_BLE_ATTR_WRITABLE_REQ_AUTHN_REQ_AUTHR 0xB0
+/** @brief Write operation require encrypted link , MITM protection not necessary & No authorization. */
+#define AT_BLE_ATTR_WRITABLE_REQ_ENC_NO_AUTHN_NO_AUTHR 0x20
+/** @brief Write operation require encrypted link, MITM protection not necessary & authorization. */
+#define AT_BLE_ATTR_WRITABLE_REQ_ENC_NO_AUTHN_REQ_AUTHR 0xA0
+/** @brief  Encryption key Size must be 16 bytes. */
+#define AT_BLE_ENC_KEY_SIZE_PERM 0X40
+
 
 typedef enum
 {
@@ -1214,17 +1264,17 @@ typedef struct
 */
 typedef struct
 {
-    /// Minimum of connection interval
+    /// Minimum connection interval N (Value Time = N *1.25 ms)
     uint16_t             con_intv_min;
-    /// Maximum of connection interval
+    /// Maximum connection interval N (Value Time = N *1.25 ms)
     uint16_t             con_intv_max;
-    /// Connection latency
+    /// Connection latency (number of events)
     uint16_t             con_latency;
-    /// Link supervision time-out
+    /// Link supervision time-out N (Value Time = N * 10 ms)
     uint16_t             superv_to;
-    /// Minimum CE length
+    /// Minimum CE length N (Value Time = N * 0.625 ms)
     uint16_t             ce_len_min;
-    /// Maximum CE length
+    /// Maximum CE length N (Value Time = N * 0.625 ms)
     uint16_t             ce_len_max;
 
 } at_ble_connection_params_t;
@@ -1326,7 +1376,8 @@ typedef struct
 typedef struct
 {
 
-    uint16_t desc_val_length; /**<  descriptor value length */
+    uint16_t desc_val_length; /**<  descriptor value initial length */
+    uint16_t desc_val_max_length;  /**<  maximum possible length of the descriptor value */
     at_ble_attr_permissions_t perm; /**<  descriptor permissions */
     at_ble_uuid_t uuid; /**<  descriptor uuid */
     at_ble_handle_t handle; /**< Here the stack will store the handle for future use */
@@ -1354,7 +1405,8 @@ typedef struct
     at_ble_char_properties_t properties; /**< Characteristic properties, values for Client Characteristic Configuration Descriptor and Server Characteristic Configuration Descriptor will be decided from this value*/
 
     uint8_t *init_value;  /**< initial value of this characteristic  */
-    uint16_t len; /**<  value length */
+    uint16_t len; /**<  initial value length */
+    uint16_t max_len; /**< maximum possible length of the char. value */
     at_ble_attr_permissions_t permissions; /**< Value permissions */ //TODO: can this value be deduced from properties field ?
 
 } at_ble_char_val_t;
@@ -1491,7 +1543,7 @@ typedef struct
     at_ble_adv_type_t type;
     ///Advertiser(Broadcaster) address
     at_ble_addr_t dev_addr;
-    ///Advertising data; This array will be zeros in case of adv_data_len < @ref AT_BLE_ADV_MAX_SIZE
+    ///Advertising data; This array will be zeros in case of @ref at_ble_scan_info_t::adv_data_len < @ref AT_BLE_ADV_MAX_SIZE
     uint8_t adv_data[AT_BLE_ADV_MAX_SIZE];
     ///Advertising data length
     uint8_t adv_data_len;
@@ -1507,6 +1559,15 @@ typedef struct
     at_ble_status_t status;
 } at_ble_scan_report_t;
 
+/** @brief Advertising complete event.
+*/
+typedef struct
+{
+    ///Status of operation,refer to @ref at_ble_status_t
+    at_ble_status_t status;
+    ///Count of advertising frame
+    uint32_t adv_pdu_cnt;
+} at_ble_adv_cmp_evt_t;
 /** @brief Advertising report status
 */
 typedef struct
@@ -1525,16 +1586,16 @@ typedef struct
     at_ble_handle_t handle;
     ///connection status, refer to @ref at_ble_status_t
     at_ble_status_t conn_status;
-	///Structure to save slave connection parameters
-	struct  
-	{
-		/// Connection interval
-		uint16_t con_interval;
-		/// Connection latency
-		uint16_t con_latency;
-		/// Link supervision timeout
-		uint16_t sup_to;
-	}conn_params;
+    ///Structure to save slave connection parameters
+    struct
+    {
+        /// Connection interval
+        uint16_t con_interval;
+        /// Connection latency
+        uint16_t con_latency;
+        /// Link supervision timeout
+        uint16_t sup_to;
+    } conn_params;
 } at_ble_connected_t;
 
 /**@brief Handle and Status of disconnected peer
@@ -1543,7 +1604,10 @@ typedef struct
 {
     ///connection handle
     at_ble_handle_t handle;
-    ///disconnection reason, refer to @ref at_ble_disconnect_reason_t
+    /// status of the operation
+    at_ble_status_t status;
+    ///disconnection reason (see Bluetooth error code in Bluetooth core spec)
+    ///vol 2, Core System Package [BR/EDR Controller volume], Part D
     uint8_t reason;
 } at_ble_disconnected_t;
 
@@ -1715,40 +1779,40 @@ typedef struct
 */
 typedef struct
 {
-	///Connection handle
+    ///Connection handle
     at_ble_handle_t conn_handle;
-	///Characteristic handle
+    ///Characteristic handle
     at_ble_handle_t char_handle;
-	///Data offset
+    ///Data offset
     uint16_t offset;
-	///Data length
+    ///Data length
     uint16_t length;
-	///Data with maximum length @ref AT_BLE_MAX_ATT_LEN
+    ///Data with maximum length @ref AT_BLE_MAX_ATT_LEN
     uint8_t value[AT_BLE_MAX_ATT_LEN];
 } at_ble_characteristic_write_request_t;
 
 typedef struct
 {
-	///Characteristic handle
+    ///Characteristic handle
     at_ble_handle_t char_handle;
 } at_ble_att_info_req_t;
 
 typedef struct
 {
-	///Connection handle
+    ///Connection handle
     at_ble_handle_t conn_handle;
-	///Characteristic handle
+    ///Characteristic handle
     at_ble_handle_t char_handle;
-	///Status of write operation, refer to @ref at_ble_status_t
+    ///Status of write operation, refer to @ref at_ble_status_t
     at_ble_status_t status;
 } at_ble_characteristic_write_response_t;
 
 typedef struct
 {
-	///Connection handle
+    ///Connection handle
     at_ble_handle_t conn_handle;
     /// length of packet to send
-    uint8_t         char_len;
+    uint16_t         char_len;
     /// characteristic handle
     at_ble_handle_t char_handle;
     /// data value
@@ -1757,10 +1821,10 @@ typedef struct
 
 typedef struct
 {
-	///Connection handle
+    ///Connection handle
     at_ble_handle_t conn_handle;
     /// length of packet to send
-    uint8_t         char_len;
+    uint16_t         char_len;
     /// characteristic handle
     at_ble_handle_t char_handle;
     /// data value with maximum length @ref AT_BLE_MAX_ATT_LEN
@@ -1769,11 +1833,11 @@ typedef struct
 
 typedef struct
 {
-	///Connection handle
+    ///Connection handle
     at_ble_handle_t conn_handle;
-	///Characteristic handle
+    ///Characteristic handle
     at_ble_handle_t char_handle;
-	///Status of indicating operation, refer to @ref at_ble_status_t
+    ///Status of indicating operation, refer to @ref at_ble_status_t
     at_ble_status_t status;
 } at_ble_indication_confirmed_t;
 
@@ -2081,6 +2145,27 @@ typedef struct
     /** Number of packets received (Read this variable only after calling @ref at_ble_dtm_stop_test api  with Event @ref AT_BLE_LE_PACKET_REPORT) */
     uint16_t number_of_packets;
 } at_ble_dtm_t;
+/**@ingroup gap_adv_group
+ * @brief use this structure when calling the api @ref at_ble_adv_data_update_on_the_fly to set the advertising data on the fly
+ */
+typedef struct
+{
+#define ADV_DATA_PRESENT        (0x01)
+#define SCN_RESP_DATA_PRESENT   (0x02)
+    /** Presence Bit Mask to indicate data availability
+     *  refer to the above defines @ref ADV_DATA_PRESENT @ref SCN_RESP_DATA_PRESENT
+     */
+    uint8_t presence_bit_mask;
+    /** advertising data to be placed in advertisement packet */
+    uint8_t *adv_data;
+    /** advertising data length (from 0 to 28 Bytes) */
+    uint8_t adv_data_len;
+    /** scan response data to be placed in scan response packet*/
+    uint8_t *scan_resp_data;
+    /** scan response data length (from 0 to 31 Bytes) */
+    uint8_t scan_response_data_len;
+} at_ble_adv_data_update_on_the_fly_t;
+
 /****************************************************************************************
 *         Documentation File Modules Structures Groups                                       *
 ****************************************************************************************/
@@ -2189,6 +2274,14 @@ typedef struct
 /**
 * @defgroup dtm_group Direct test Mode APIs (DTM)
 * @brief This group includes all Direct test mode APIs.
+* @{
+*/
+/** @}*/
+
+
+/**
+* @defgroup sec_engine_group Security engine APIs (DTM)
+* @brief This group includes APIs which access the AES and SHA security engine.
 * @{
 */
 /** @}*/
@@ -2371,9 +2464,9 @@ at_ble_status_t at_ble_event_user_defined_post(void *params);
  * @param[in] address       peer device address
  *
  * @note This command can be used at any time except when:
- *       the advertising filter policy uses the white list and advertising is enabled.
- *       the scanning filter policy uses the white list and scanning is enabled.
- *       the initiator filter policy uses the white list and a create connection command
+ *       - the advertising filter policy uses the white list and advertising is enabled.
+ *       - the scanning filter policy uses the white list and scanning is enabled.
+ *       - the initiator filter policy uses the white list and a create connection command
  *         is outstanding.
  *
  * @note The only addresses that should be added to the white-list is Public device address or random static device address
@@ -2397,9 +2490,9 @@ at_ble_status_t at_ble_whitelist_add(at_ble_addr_t *address);
  * @param[in] address       peer device address
  *
  * @note This command can be used at any time except when:
- *       the advertising filter policy uses the white list and advertising is enabled.
- *       the scanning filter policy uses the white list and scanning is enabled.
- *       the initiator filter policy uses the white list and a create connection command
+ *       - the advertising filter policy uses the white list and advertising is enabled.
+ *       - the scanning filter policy uses the white list and scanning is enabled.
+ *       - the initiator filter policy uses the white list and a create connection command
  *         is outstanding.
  *
  * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
@@ -2465,6 +2558,33 @@ at_ble_status_t at_ble_adv_data_set(uint8_t const *const  adv_data,
                                     uint8_t  scan_response_data_len
                                    );
 
+/** @ingroup gap_adv_group
+ *@brief Set, clear or update advertising data or scan response data or both on the fly (while an advertising operation is ongoing) .
+ *
+ * @note
+ * - to do any operation on Advertising data (clear or set) you must set the bit mask @ref at_ble_adv_data_update_on_the_fly_t::presence_bit_mask inside @ref at_ble_adv_data_update_on_the_fly_t to @ref ADV_DATA_PRESENT (0x01)
+ * - to do any operation on scan response data (clear or set) you must set the bit mask @ref at_ble_adv_data_update_on_the_fly_t::presence_bit_mask inside @ref at_ble_adv_data_update_on_the_fly_t to @ref SCN_RESP_DATA_PRESENT (0x02)
+ * - if the bit mask @ref at_ble_adv_data_update_on_the_fly_t::presence_bit_mask inside @ref at_ble_adv_data_update_on_the_fly_t is not set at all the call will fail
+ *
+ * - to clear Advertising data send @ref at_ble_adv_data_update_on_the_fly_t::adv_data_len in @ref at_ble_adv_data_update_on_the_fly_t  with value = 0
+ * - to clear scan response data send @ref at_ble_adv_data_update_on_the_fly_t::scan_response_data_len in @ref at_ble_adv_data_update_on_the_fly_t  with value = 0
+ *
+ * - Use this API only while an advertising activity has started by @ref at_ble_adv_start
+ * - the new advertise/scan response you set/clear by this API will be on the Air immediately and it will be stored and be used for future advertise events
+ * - to Set, clear or update the adv data while no Advertising activity is ongoing, use @ref at_ble_adv_data_set
+ *
+ * - The First three bytes in advertising data have been reserved in order to Fill Flags(0x01) AD type. This data is set
+ *   according to advertising mode selected.
+ *
+ * @param[in] update_on_the_fly_data  update on the fly request parameters, refer to @ref at_ble_adv_data_update_on_the_fly_t
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_adv_data_update_on_the_fly(at_ble_adv_data_update_on_the_fly_t *update_on_the_fly_data);
+
 
 /** @ingroup gap_adv_group
  *@brief Start advertising (GAP Discoverable, Connectable modes, Broadcast Procedure).
@@ -2491,6 +2611,44 @@ at_ble_status_t at_ble_adv_start(at_ble_adv_type_t type, at_ble_adv_mode_t mode 
                                  at_ble_addr_t *peer_addr, at_ble_filter_type_t filtered,
                                  uint16_t interval, uint16_t timeout, bool disable_randomness);
 
+// this macro is added for backward compatibility
+#define at_ble_set_adv_channel_Map at_ble_adv_channel_map_set
+
+/** @ingroup gap_adv_group
+ *@brief Get the count of Advertising frame.
+ *
+ *@param[in] adv_pdu_cnt the count of advertising frame since start of advertising.
+ *
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_get_adv_cnt(uint32_t *adv_pdu_cnt);
+
+/** @ingroup gap_adv_group
+ *@brief Reset the count of Advertising frame.
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_rst_adv_cnt(void);
+
+/** @ingroup gap_adv_group
+ *@brief Enable/Disable receiving advertising complete event @ref AT_BLE_ADV_CMP_EVENT with the end of advertising event.
+ *
+ *@param[in] en_adv_notification enable/disable receiving advertising complete event
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_en_recv_adv_cmp_event(bool en_adv_notification);
+
 /** @ingroup gap_adv_group
  *@brief Set advertising channel using one of @ref at_ble_adv_channel_map_t.
  *
@@ -2501,7 +2659,19 @@ at_ble_status_t at_ble_adv_start(at_ble_adv_type_t type, at_ble_adv_mode_t mode 
 ///@cond IGNORE_DOXYGEN
 AT_BLE_API
 ///@endcond
-at_ble_status_t at_ble_set_adv_channel_Map(at_ble_adv_channel_map_t ch);
+at_ble_status_t at_ble_adv_channel_map_set(at_ble_adv_channel_map_t ch);
+
+/** @ingroup gap_adv_group
+ *@brief get advertising channel.
+ *
+ * @param[in] ch used advertising channels @ref at_ble_adv_channel_map_t.
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_adv_channel_map_get(at_ble_adv_channel_map_t *ch);
 
 /** @ingroup gap_adv_group
  *@brief Stop advertising (GAP Discoverable, Connectable modes, Broadcast Procedure).
@@ -2668,8 +2838,8 @@ at_ble_status_t at_ble_set_channel_map(at_ble_channel_map_t *map);
  * @param[in] reason disconnection reason, more info at @ref at_ble_disconnect_reason_t
  *
  * @note
- * - At @ref AT_BLE_DISCONNECTED event, if returned reason is not one of @ref at_ble_disconnect_reason_t,
- *   so check the reason against error codes @ref at_ble_status_t because this means something wrong was happened
+ * - At @ref AT_BLE_DISCONNECTED event, for reason of disconnection see Bluetooth error code at Bluetooth core specification;
+ *   vol 2, Core System Package [BR/EDR Controller volume], Part D
  *
  * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
  */
@@ -2685,8 +2855,8 @@ at_ble_status_t at_ble_disconnect(at_ble_handle_t handle, at_ble_disconnect_reas
  * For master of the connection, new connection parameters will be applied immediately.\n
  * For slave of the connection, a connection update message request will be send to master. Then
  * master will be able to accept or refuse those parameters within 30 seconds otherwise link is automatically disconnected.
- * 
- * @note 
+ *
+ * @note
  * This API returns after programming the new values but before they take effect,
  * actual effect of the parameters is marked by the event @ref AT_BLE_CONN_PARAM_UPDATE_DONE
  *
@@ -2845,7 +3015,7 @@ at_ble_status_t at_ble_random_address_resolve(uint8_t nb_key, at_ble_addr_t *ran
 /** @ingroup gap_misc_group
  *@brief Sets TX power value
  *
- * @param[in] power  TX power value @ref at_ble_tx_power_level_t
+ * @param[in] power  TX power value @ref at_ble_tx_power_level_t. Default is 0 dBm.
  *
  * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
  */
@@ -2857,7 +3027,7 @@ at_ble_status_t at_ble_tx_power_set(at_ble_tx_power_level_t power);
 /** @ingroup gap_misc_group
  *@brief Gets TX power value
  *
- * @param[in] power TX power value @ref at_ble_tx_power_level_t
+ * @param[in] power TX power value @ref at_ble_tx_power_level_t. Default is 0 dBm.
  *
  * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
  */
@@ -2883,9 +3053,9 @@ AT_BLE_API
 at_ble_status_t at_ble_rx_power_get(at_ble_handle_t conn_handle, int8_t *rx_power);
 
 /** @ingroup gap_misc_group
- *@brief Gets BTLC1000 Chip ID
+ *@brief Gets SAMB11 Chip ID
  *
- * @param[out] chip_id BTLC1000 chip id
+ * @param[out] chip_id SAMB11 chip id
  *
  * @warning Not Supported before release version 2.5
  *
@@ -2913,9 +3083,9 @@ AT_BLE_API
 at_ble_status_t read_32_from_BTLC1000(uint32_t address, uint32_t *value);
 
 /** @ingroup gap_misc_group
- *@brief Gets BTLC1000 Firmware version
+ *@brief Gets SAMB11 Firmware version
  *
- * @param[out] fw_version BTLC1000 firmware version
+ * @param[out] fw_version SAMB11 firmware version
  *
  * @warning Not Supported before release version 2.5
  *
@@ -2927,6 +3097,20 @@ AT_BLE_API
 ///@endcond
 at_ble_status_t at_ble_firmware_version_get(uint32_t *fw_version);
 
+/** @ingroup gap_misc_group
+ *@brief Gets SAMB11 RF version
+ *
+ * @param[out] rf_version SAMB11 RF version
+ *
+ * @warning Not Supported before release version 6.1
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
+ * Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_rf_version_get(uint32_t *rf_version);
 /** @ingroup gatt_client_group
  *@brief Discover all Primary services in a peer device
  *
@@ -3711,9 +3895,9 @@ at_ble_uuid_type_t at_ble_uuid_len2type(uint8_t len);
 
 /** @ingroup calib_group
 *  @brief       Configures periodic Vbat/Vtemp calibration: enable/disable, number of ADC samples needed for averaging, frequency of the calibration in seconds
-*  @param[in]   calib_enable enables calibration if set to 1 and disables it if set to 0
-*  @param[in]   no_samples number of ADC samples needed to calculate the average ADC output, recommended range from 1 to 16 sample.
-*  @param[in]   cal_freq frequency of the calibration in seconds, recommended range from 1 to 60 seconds
+*  @param[in]   calib_enable enables calibration if set to 1 and disables it if set to 0. Calibration is enabled by default.
+*  @param[in]   no_samples number of ADC samples needed to calculate the average ADC output, recommended range from 1 to 16 sample. Default number of samples is 2.
+*  @param[in]   cal_freq frequency of the calibration in seconds, recommended range from 1 to 60 seconds. Default frequency is 2s.
 *
 * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
 * Otherwise the function shall return @ref at_ble_status_t
@@ -3734,12 +3918,12 @@ at_ble_status_t at_ble_calib_config(int calib_enable, uint32_t no_samples, uint3
 ///@cond IGNORE_DOXYGEN
 AT_BLE_API
 ///@endcond
-at_ble_status_t at_ble_calib_get_voltage(float* voltage);
+at_ble_status_t at_ble_calib_get_voltage(float *voltage);
 
 /** @ingroup calib_group
 *  @brief       Retrieves temperature value in Celsius
 *
-*  @param[in]   temp variable passed to the function to store the retrieved temperature value
+*  @param[in]   temperature variable passed to the function to store the retrieved temperature value
 *
 * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
 * Otherwise the function shall return @ref at_ble_status_t
@@ -3747,7 +3931,156 @@ at_ble_status_t at_ble_calib_get_voltage(float* voltage);
 ///@cond IGNORE_DOXYGEN
 AT_BLE_API
 ///@endcond
-at_ble_status_t at_ble_calib_get_temp(int* temp);
+at_ble_status_t at_ble_calib_get_temp(int *temperature);
+
+
+
+
+
+/** @ingroup sec_engine_group
+*  @brief       Encrypt the plain text by AES-128 block cipher in counter mode
+*  @param[in]   pu8IV variable passed to the function as pointer to initial vector of counter mode, should be 16 bytes in length. 
+*  @param[in]   pu8Data variable passed to the function as pointer to plain text up to 64 bytes. The encrypted data will overwrite the plain text after encryption
+*  @param[in]   u16DataSize variable indicates the size of plain text, up to 64.
+*  @param[in]   pu8Key variable passed to the function as pointer to the security key, should be 16 bytes in length.
+*
+* @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
+* Otherwise the function shall return @ref at_ble_status_t
+*/
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t AES128_CTR_Enc(uint8_t *pu8IV, uint8_t *pu8Data, uint16_t u16DataSize, uint8_t *pu8Key);
+
+/** @ingroup sec_engine_group
+*  @brief       Decrypt the encrypted data by AES-128 block cipher in counter mode
+*  @param[in]   pu8IV variable passed to the function as pointer to initial vector of counter mode, should be 16 bytes in length.
+*  @param[in]   pu8Data variable passed to the function as pointer to encrypted data up to 64 bytes. The decrypted plain text will overwrite the plain text after decryption
+*  @param[in]   u16DataSize variable indicates the size of encrypted data, up to 64.
+*  @param[in]   pu8Key variable passed to the function as pointer to the security key, should be 16 bytes in length.
+*
+* @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
+* Otherwise the function shall return @ref at_ble_status_t
+*/
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t AES128_CTR_Dec(uint8_t *pu8IV, uint8_t *pu8Data, uint16_t u16DataSize, uint8_t *pu8Key);
+
+/** @ingroup sec_engine_group
+*  @brief       Generate Message Authentication Code (MAC) from data based on AES 128 block cipher in CBC-MAC mode 
+*  @param[in]   pu8Data variable passed to the function as pointer to plain text up to 64 bytes. 
+*  @param[in]   u16DataSize variable indicates the size of plain text, up to 64.
+*  @param[in]   pu8Key variable passed to the function as pointer to the security key, should be 16 bytes in length.
+*  @param[in]   macSz variable indicates the desired MAC size. Valid values are 4/8/16
+*  @param[in]   mac variable passed to the function as pointer to retrieve the generated mac
+*
+* @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
+* Otherwise the function shall return @ref at_ble_status_t
+*/
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t AES128_CBC_MAC(uint8_t *pu8Data, uint16_t u16DataSize, uint8_t *pu8Key, uint8_t macSz, uint8_t* mac);
+
+
+/** @ingroup sec_engine_group
+*  @brief       Decrypt/authenticate the encrypted data by AES-128 block cipher in CCM mode
+*  @param[in]   pu8Nonce variable passed to the function as pointer to nonce, should be 13 bytes in length.
+*  @param[in]   pu8Data variable passed to the function as pointer to encrypted data up to 64 bytes, the decrypted plain text will overwrite the encrypted data if decryption is successful
+*  @param[in]   u16DataSize variable indicates the size of encrypted data, up to 64.
+*  @param[in]   pu8AData variable passed to the function as pointer to the additional data for authentication
+*  @param[in]   u16ADataSize variable indicates the size of additional data, up to 64
+*  @param[in]   pu8Key variable passed to the function as pointer to the security key, should be 16 bytes in length.
+*  @param[in]   micSz variable indicates the desired Message Integrity Code (MIC) size. Valid values are 4/8/16
+*  @param[in]   mic variable passed to the function as pointer to retrieve the generated MIC
+*
+* @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
+* Otherwise the function shall return @ref at_ble_status_t
+*/
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t AES128_CCM_Dec(uint8_t *pu8Nonce, uint8_t *pu8Data, uint16_t u16DataSize, uint8_t *pu8AData, uint16_t u16ADataSize, uint8_t *pu8Key, uint8_t micSz, uint8_t *pu8MIC);
+
+/** @ingroup sec_engine_group
+*  @brief       Encrypt/authenticate the plain text by AES-128 block cipher in CCM mode
+*  @param[in]   pu8Nonce variable passed to the function as pointer to nonce, should be 13 bytes in length.
+*  @param[in]   pu8Data variable passed to the function as pointer to plain text up to 64 bytes, the encrypted data will overwrite the plain text if encryption is successful
+*  @param[in]   u16DataSize variable indicates the size of plain text, up to 64.
+*  @param[in]   pu8AData variable passed to the function as pointer to the additional data for authentication
+*  @param[in]   u16ADataSize variable indicates the size of additional data, up to 64
+*  @param[in]   pu8Key variable passed to the function as pointer to the security key, should be 16 bytes in length.
+*  @param[in]   micSz variable indicates the desired Message Integrity Code (MIC) size. Valid values are 4/8/16
+*  @param[in]   mic variable passed to the function as pointer to retrieve the generated MIC
+*
+* @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
+* Otherwise the function shall return @ref at_ble_status_t
+*/
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t AES128_CCM_Enc(uint8_t *pu8Nonce, uint8_t *pu8Data, uint16_t u16DataSize, uint8_t *pu8AData, uint16_t u16ADataSize, uint8_t *pu8Key, uint8_t micSz, uint8_t *pu8MIC);
+
+/** @ingroup sec_engine_group
+*  @brief       Encrypt the plain text by AES-128 block cipher in CBC mode
+*  @param[in]   pu8IV variable passed to the function as pointer to initial vector, should be 16 bytes in length.
+*  @param[in]   pu8Data variable passed to the function as pointer to plain text up to 64 bytes, the encrypted data will overwrite the plain text if encryption is successful
+*  @param[in]   u16DataSize variable indicates the size of plain text, up to 64.
+*  @param[in]   pu8Key variable passed to the function as pointer to the security key, should be 16 bytes in length.
+*
+* @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
+* Otherwise the function shall return @ref at_ble_status_t
+*/
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t AES128_CBC_Enc(uint8_t *pu8IV, uint8_t *pu8Data, uint16_t u16DataSize, uint8_t *pu8Key);
+
+/** @ingroup sec_engine_group
+*  @brief       Decrypt the encrypted data by AES-128 block cipher in CBC mode
+*  @param[in]   pu8IV variable passed to the function as pointer to initial vector, should be 16 bytes in length.
+*  @param[in]   pu8Data variable passed to the function as pointer to encrypted data up to 64 bytes, the decrypted plain text will overwrite the encrypted data if decryption is successful
+*  @param[in]   u16DataSize variable indicates the size of encrypted data, up to 64.
+*  @param[in]   pu8Key variable passed to the function as pointer to the security key, should be 16 bytes in length.
+*
+* @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
+* Otherwise the function shall return @ref at_ble_status_t
+*/
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t AES128_CBC_Dec(uint8_t *pu8IV, uint8_t *pu8Data, uint16_t u16DataSize, uint8_t *pu8Key);
+
+/** @ingroup sec_engine_group
+*  @brief       generate hash code based on SHA-256
+*  @param[in]   pu8Data variable passed to the function as pointer to plain text up to 64 bytes, the encrypted data will overwrite the plain text if encryption is successful
+*  @param[in]   u16DataSize variable indicates the size of plain text, up to 64.
+*  @param[in]   pu8Key variable passed to the function as pointer to the security key, should be 16 bytes in length.
+*
+* @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
+* Otherwise the function shall return @ref at_ble_status_t
+*/
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t AES128_encoder(uint8_t *pu8Data, uint16_t u16DataSize, uint8_t *pu8Key);
+
+/** @ingroup sec_engine_group
+*  @brief       encrypt the plain text with AES-128 in ECB mode
+*  @param[in]   msg variable passed to the function as the pointer to the original message
+*  @param[in]   msg_len variable indicates the size of the original message
+*  @param[in]   Digest variable passed to the function as the pointer to the retrieved digest hash code
+*
+* @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
+* Otherwise the function shall return @ref at_ble_status_t
+*/
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+void SHA256_Hash(uint8_t *msg, uint16_t msg_len, uint8_t *Digest);
+
+
 #ifdef __cplusplus
 }
 #endif  //__cplusplus

@@ -3,7 +3,7 @@
 #
 # \brief Convert display data on a serial line to a graphical representation
 #
-# Copyright (C) 2011-2014 Atmel Corporation. All rights reserved.
+# Copyright (C) 2011-2018 Microchip Technology Inc. and its subsidiaries.
 #
 # \page License
 #

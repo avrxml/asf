@@ -1,41 +1,29 @@
-/**
- ****************************************************************************************
- *
- * @file at_ble_api.h
- *
- * @brief Atmel BLE API for Applications
- *
- * This module contains the public API and the necessary enumerations and structures that are required for
- * BLE Application Developers using Atmel BLE SDK
- *
- *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
- *  Redistribution and use in source and binary forms, with or without
- *  modification, are permitted provided that the following conditions are met:
- *
- *  1. Redistributions of source code must retain the above copyright notice, this
- *  list of conditions and the following disclaimer.
- *
- *  2. Redistributions in binary form must reproduce the above copyright notice,
- *  this list of conditions and the following disclaimer in the documentation
- *  and/or other materials provided with the distribution.
- *
- *  3. The name of Atmel may not be used to endorse or promote products derived from this software
- *  without specific prior written permission.
- *
- *  4. This software may only be redistributed and used in connection with an Atmel microcontroller product.
- *
- *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
-  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- *  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
- *  THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
- *  OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- *  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
- *  TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- *  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- ****************************************************************************************
- */
+/******************************************************************************
+  \file at_ble_api.h
+
+  \brief Includes Atmel BLE API related signatures and datatypes for Applications
+
+  * Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
+  Released under NDA
+  Licensed under Atmel's Limited License Agreement.
+
+
+  THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+  EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+  ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+  OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  POSSIBILITY OF SUCH DAMAGE.
+
+  Microchip Technology Inc: http://www.microchip.com
+
+******************************************************************************/
+
 #ifndef __AT_BLE_API_H__
 #define __AT_BLE_API_H__
 
@@ -53,10 +41,10 @@
 #else  //AT_BLE_EXPORTS
 #define AT_BLE_API __declspec(dllimport)
 #endif  //AT_BLE_EXPORTS
-///@endcond
 #else //WIN32
 #define AT_BLE_API
 #endif //WIN32
+///@endcond
 
 #ifdef __cplusplus
 extern "C" {
@@ -82,6 +70,8 @@ extern "C" {
 /** @brief Maximum size of advertising data in octets. */
 #define  AT_BLE_ADV_MAX_SIZE                (31)
 
+/** @brief Maximum size of scan response data in octets. */
+#define  AT_BLE_SCN_RESP_MAX_SIZE                (31)
 /** @brief UUID 16 size in bytes */
 #define AT_BLE_UUID_16_LEN                  (2)
 
@@ -132,17 +122,17 @@ extern "C" {
 /// Minimal Renew duration value (150 seconds); resolution of 10 mSeconds (N*10ms)
 #define AT_RENEW_DUR_VAL_MIN            (0x3A98)    //(15000)
 /// ATT MAximum Attribute Length
-#define AT_BLE_MAX_ATT_LEN          512
+#define AT_BLE_MAX_ATT_LEN              (512)
 /// Maximum number of channel mapping
-#define AT_BLE_CH_MAP_LEN           (0x05)
+#define AT_BLE_CH_MAP_LEN               (0x05)
 /// Default value used to automatic allocate handle
-#define AT_BLE_AUTO_ALLOC_HANDLE    (0x0000)
+#define AT_BLE_AUTO_ALLOC_HANDLE        (0x0000)
 /// Maximum number of connections at the same time
 /// Direct test mode defines
-#define AT_BLE_HCI_DTM_EVENT 0xBB
-#define AT_BLE_MAX_CONCURRENT_CONNS (8)
+#define AT_BLE_HCI_DTM_EVENT            (0xBB)
+#define AT_BLE_MAX_CONCURRENT_CONNS     (8)
 /// LE credit based max packet size
-#define AT_BLE_LECB_MAX_PKT_SIZE    0x200
+#define AT_BLE_LECB_MAX_PKT_SIZE        (0x200)
 
 /****************************************************************************************
 *                                   Basic types                                         *
@@ -152,16 +142,52 @@ extern "C" {
 */
 typedef enum
 {
-    AT_BLE_CHIP_ENABLE,
-    AT_BLE_EXTERNAL_WAKEUP
+    AT_BLE_CHIP_ENABLE,     /**<Used to identify chip enable pin to be set or cleared using @ref at_ble_gpio_status_t*/
+    AT_BLE_EXTERNAL_WAKEUP  /**<Used to identify external wakeup pin to be set or cleared using @ref at_ble_gpio_status_t*/
 } at_ble_gpio_pin_t;
 typedef enum
 {
-    AT_BLE_LOW,
-    AT_BLE_HIGH
+    AT_BLE_LOW,    /**<Logical Low */
+    AT_BLE_HIGH    /**<Logical High */
 } at_ble_gpio_status_t;
+/**<Definition for all status codes */
 typedef at_ble_err_status_t at_ble_status_t;
-
+enum btlc1000_gpio_tag
+{
+    NO_GPIO    =  0,
+    LP_GPIO_1  =  1,
+    LP_GPIO_2  =  2,
+    LP_GPIO_3  =  3,
+    LP_GPIO_4  =  4,
+    LP_GPIO_5  =  5,
+    LP_GPIO_6  =  6,
+    LP_GPIO_7  =  7,
+    LP_GPIO_8  =  8,
+    LP_GPIO_9  =  9,
+    LP_GPIO_10 = 10,
+    LP_GPIO_11 = 11,
+    LP_GPIO_12 = 12,
+    LP_GPIO_13 = 13,
+    LP_GPIO_14 = 14,
+    LP_GPIO_15 = 15,
+    LP_GPIO_16 = 16,
+    LP_GPIO_17 = 17,
+    LP_GPIO_18 = 18,
+    LP_GPIO_19 = 19,
+    LP_GPIO_20 = 20,
+    LP_GPIO_21 = 21,
+    LP_GPIO_22 = 22,
+    LP_GPIO_23 = 23,
+    LP_GPIO_24 = 24,
+    AO_GPIO_2  = 29,
+    AO_GPIO_1  = 30,
+    AO_GPIO_0  = 31,
+    GPIO_MS4   = 44,
+    GPIO_MS3   = 45,
+    GPIO_MS2   = 46,
+    GPIO_MS1   = 47,
+    BTLC1000_EXT_PIN9 =  GPIO_MS1
+};
 typedef struct platform_api_list_tag
 {
     /* Pointer to function that should be used to register new callback function for new one-shout HW timer
@@ -197,14 +223,24 @@ typedef struct platform_api_list_tag
        The function should receive a callback function to be called on receiving new byte
        Once a byte received from BTLC1000 callback function should be called with this byte as parameter.
        This function should be called for each byte in order to receive it and propagate it to the library,
-       If at_ble_recv_async didn’t be called platform should not read from the HW
-	   And flow control mechanism should stop data transfer from BTLC1000 side */
+       If at_ble_recv_async didn't be called platform should not read from the HW
+       And flow control mechanism should stop data transfer from BTLC1000 side */
+#ifdef SUPPORT_MULTIPLE_BYTES_RECV
+    void (*at_ble_recv_async)(void (*)(uint8_t*, uint32_t), uint8_t *, uint32_t);
+#else
     void (*at_ble_recv_async)(void (*)(uint8_t));
+#endif
     /* Pointer to function that should be used to reconfigure the UART during FW patching
        This function is temporary function,
        For now we are using this function to switch the default UART to another UART to enable flow control,
        It should be removed after HW fix */
-    void (*at_ble_reconfigure_usart)(void);
+    void (*at_ble_reconfigure_usart)(uint32_t);
+    /* Pointer to function that should be called to help cooperative multitasking scheduler to switch context to other tasks */
+    void (*at_ble_wait_for_signal)(uint32_t, void **);
+    void *(*at_ble_create_signal)(void);
+    void (*at_ble_delete_signal)(void *);
+    void (*at_ble_trigger_signal)(void *);
+    void (*at_ble_reset_signal)(void *);
 } at_ble_platform_api_list_t;
 typedef struct
 {
@@ -213,16 +249,24 @@ typedef struct
 } at_ble_mempool_t;
 typedef struct
 {
-    /// One of @ref interface_type; either @ref AT_BLE_UART or @ref AT_BLE_SPI
+    /// Either @ref AT_BLE_UART or @ref AT_BLE_SPI
     uint8_t bus_type;
-    /// In case of using @ref AT_BLE_UART as interface this is used to enable/disable flow control, true or false
-    uint8_t bus_flow_control_enabled;
+    /// In case of using @ref AT_BLE_UART as interface this is used to switch UART pin-out, true or false
+    uint8_t btlc1000_uart_pinout_switch;
+    /// Select BTLC1000 GPIO for host wakeup, for Wing board select BTLC1000_EXT_PIN9 only, for SoC use the enum values
+    uint8_t host_external_wakeup_gpio;
+    /// UART baudrate value one of @ref at_ble_uart_baudrate_tag values
+    uint32_t bus_baudrate;
 } at_ble_bus_info_t;
 typedef struct
 {
-    at_ble_mempool_t           memPool;          /**< Memory pool that library can use for storing data base related data */
-    at_ble_platform_api_list_t platform_api_list; /* platform APIs */
-    at_ble_bus_info_t          bus_info;         /**< Bus info */
+    at_ble_mempool_t           memPool;					/**< Memory pool that library can use for storing data base related data */
+    at_ble_mempool_t           event_mem_pool;          /**< Memory pool that the library should use to queue events */
+    at_ble_mempool_t           event_params_mem_pool;   /**< Memory pool that library should use to save queued events parameters */
+    at_ble_mempool_t           rx_fifo_mem_pool;        /**< Memory pool that library should use as Rx FIFO buffer */
+    at_ble_platform_api_list_t platform_api_list;       /**< platform APIs */
+    uint8_t                    btlc1000_module_version; /**< Either @ref AT_BTLC1000_MR or @ref AT_BTLC1000_ZR */
+    at_ble_bus_info_t          bus_info;                /**< Bus info with structure @ref at_ble_bus_info_t*/
 } at_ble_init_config_t;
 
 /**
@@ -234,13 +278,39 @@ typedef uint16_t at_ble_handle_t;
 *                                   Enumerations                                                                    *
 ****************************************************************************************/
 
-
+/**@enum    at_ble_bus_type_tag
+ * @ingroup platform_group_datatypes
+ * @brief   This enumeration used by @ref platform_config to select @ref platform_config::bus_type
+ *          either @ref AT_BLE_UART or @ref AT_BLE_SPI
+ */
 enum at_ble_bus_type_tag
 {
     /// UART Interface is used [Default]
     AT_BLE_UART = 1,
     /// SPI interface is used
     AT_BLE_SPI
+};
+
+enum at_btlc1000_module_version_tag
+{
+    /// BTLC1000 MR module [Default]
+    AT_BTLC1000_MR = 0,
+    /// BTLC1000 ZR module
+    AT_BTLC1000_ZR = 1,
+	/// BTLC1000 no module
+	AT_BTLC1000_NONE = 2
+};
+
+enum at_ble_uart_baudrate_tag
+{
+    AT_BLE_UART_BAUDRATE_9600   = 9600,     /**< 9600 Kbps*/
+    AT_BLE_UART_BAUDRATE_19200  = 19200,    /**< 19200 Kbps*/
+    AT_BLE_UART_BAUDRATE_38400  = 38400,    /**< 38400 Kbps*/
+    AT_BLE_UART_BAUDRATE_57600  = 57600,    /**< 57600 Kbps*/
+    AT_BLE_UART_BAUDRATE_115200 = 115200,   /**< 115200 Kbps*/
+    AT_BLE_UART_BAUDRATE_230400 = 230400,   /**< 230400 Kbps*/
+    AT_BLE_UART_BAUDRATE_460800 = 460800,   /**< 460800 Kbps*/
+    AT_BLE_UART_BAUDRATE_921600 = 921600    /**< 921600 Kbps*/
 };
 
 /// Enumeration for GAP Parameters
@@ -304,9 +374,12 @@ typedef enum
     AT_BLE_ADV_CHNL_38_EN                = 0x02,
     ///Byte value for advertising channel map for channel 39 enable
     AT_BLE_ADV_CHNL_39_EN                = 0x04,
+	///Byte value for advertising channel map for channels 37 and 38 enable
     AT_BLE_ADV_CHNL_37_38_EN             = AT_BLE_ADV_CHNL_37_EN | AT_BLE_ADV_CHNL_38_EN,
-    AT_BLE_ADV_CHNL_37_39_EN             = AT_BLE_ADV_CHNL_37_EN | AT_BLE_ADV_CHNL_39_EN,
-    AT_BLE_ADV_CHNL_38_39_EN             = AT_BLE_ADV_CHNL_38_EN | AT_BLE_ADV_CHNL_39_EN,
+    ///Byte value for advertising channel map for channels 37 and 39 enable
+	AT_BLE_ADV_CHNL_37_39_EN             = AT_BLE_ADV_CHNL_37_EN | AT_BLE_ADV_CHNL_39_EN,
+    ///Byte value for advertising channel map for channels 38 and 39 enable
+	AT_BLE_ADV_CHNL_38_39_EN             = AT_BLE_ADV_CHNL_38_EN | AT_BLE_ADV_CHNL_39_EN,
     ///Byte value for advertising channel map for channel 37, 38 and 39 enable
     AT_BLE_ADV_ALL_CHNLS_EN              = 0x07,
     ///Enumeration end value for advertising channels enable value check
@@ -317,23 +390,41 @@ typedef enum
 ///TX Power levels
 typedef enum
 {
-    AT_BLE_TX_PWR_LVL_NEG_55_DB = 0x00,
-    AT_BLE_TX_PWR_LVL_NEG_20_DB = 0x01,
-    AT_BLE_TX_PWR_LVL_NEG_14_DB = 0x02,
-    AT_BLE_TX_PWR_LVL_NEG_11_DB = 0x03,
-    AT_BLE_TX_PWR_LVL_NEG_09_DB = 0x04,
-    AT_BLE_TX_PWR_LVL_NEG_07_DB = 0x05,
-    AT_BLE_TX_PWR_LVL_NEG_06_DB = 0x06,
-    AT_BLE_TX_PWR_LVL_NEG_05_DB = 0x07,
-    AT_BLE_TX_PWR_LVL_NEG_04_DB = 0x08,
-    AT_BLE_TX_PWR_LVL_NEG_03_DB = 0x09,
-    AT_BLE_TX_PWR_LVL_NEG_02_DB = 0x0B,
-    AT_BLE_TX_PWR_LVL_NEG_01_DB = 0x0D,
-    AT_BLE_TX_PWR_LVL_ZERO_DB   = 0x11,
-    AT_BLE_TX_PWR_LVL_POS_01_DB = 0x15,
-    AT_BLE_TX_PWR_LVL_POS_02_DB = 0x20,
-    AT_BLE_TX_PWR_LVL_POS_03_DB = 0x3B
+    AT_BLE_TX_PWR_LVL_NEG_55_DB = 0x00,	/**< -55 db*/
+    AT_BLE_TX_PWR_LVL_NEG_20_DB = 0x01,	/**< -20 db*/
+    AT_BLE_TX_PWR_LVL_NEG_14_DB = 0x02,	/**< -14 db*/
+    AT_BLE_TX_PWR_LVL_NEG_11_DB = 0x03,	/**< -11 db*/
+    AT_BLE_TX_PWR_LVL_NEG_09_DB = 0x04,	/**< -9 db*/
+    AT_BLE_TX_PWR_LVL_NEG_07_DB = 0x05,	/**< -7 db*/
+    AT_BLE_TX_PWR_LVL_NEG_06_DB = 0x06,	/**< -6 db*/
+    AT_BLE_TX_PWR_LVL_NEG_05_DB = 0x07,	/**< -5 db*/
+    AT_BLE_TX_PWR_LVL_NEG_04_DB = 0x08,	/**< -4 db*/
+    AT_BLE_TX_PWR_LVL_NEG_03_DB = 0x09,	/**< -3 db*/
+    AT_BLE_TX_PWR_LVL_NEG_02_DB = 0x0B,	/**< -2 db*/
+    AT_BLE_TX_PWR_LVL_NEG_01_DB = 0x0D,	/**< -1 db*/
+    AT_BLE_TX_PWR_LVL_ZERO_DB   = 0x11,	/**< 0 db*/
+    AT_BLE_TX_PWR_LVL_POS_01_DB = 0x15,	/**< +1 db*/
+    AT_BLE_TX_PWR_LVL_POS_02_DB = 0x20,	/**< +2 db*/
+    AT_BLE_TX_PWR_LVL_POS_03_DB = 0x3B	/**< +3 db*/
 } at_ble_tx_power_level_t;
+
+///@cond IGNORE_DOXYGEN
+/**@brief Levels of BLE delays
+*/
+typedef enum
+{
+    /** Set Delay to Default value*/
+    AT_BLE_ULP_DELAY_DEFAULT,
+    /** Set Delay to 600 us*/
+    AT_BLE_ULP_DELAY_600u = AT_BLE_ULP_DELAY_DEFAULT,
+    /** Set Delay to 900 us*/
+    AT_BLE_ULP_DELAY_900u,
+    /** Set Delay to 1500 us*/
+    AT_BLE_ULP_DELAY_1500u,
+    /** End value for the enumeration */
+    AT_BLE_ULP_DELAY_END
+} at_ble_ulp_delay_t;
+///@endcond
 
 /**@brief Events delivered from BLE stack to the application layer
 */
@@ -350,6 +441,12 @@ typedef enum
      * Refer to @ref at_ble_scan_report_t
      */
     AT_BLE_SCAN_REPORT,
+
+    /** Advertising complete event , this event is received at the end of advertising event.
+
+    * Refer to @ref at_ble_adv_cmp_evt_t
+    */
+    AT_BLE_ADV_CMP_EVENT,
     /** Advertising report received if error has occurred or timeout happened.
     * Refer to @ref at_ble_adv_report_t
     */
@@ -364,6 +461,7 @@ typedef enum
     AT_BLE_CONNECTED,
     /** peer device connection terminated. \n
      *  Refer to @ref at_ble_disconnected_t , for reason of disconnection (see Bluetooth error code in Bluetooth core spec)
+     *  vol 2, Core System Package [BR/EDR Controller volume], Part D
      */
     AT_BLE_DISCONNECTED,
     /** connection parameters updated. It is requires to call @ref at_ble_conn_update_reply function to send response back if needed.\n
@@ -500,7 +598,7 @@ typedef enum
      */
     AT_BLE_CHARACTERISTIC_WRITE_CMD_CMP,
     /** The peer asks for a read Authorization. \n
-     * Refer to @ref at_ble_characteristic_read_req_t 
+     * Refer to @ref at_ble_characteristic_read_req_t
      */
     AT_BLE_READ_AUTHORIZE_REQUEST,
 
@@ -583,7 +681,10 @@ typedef enum
     AT_BLE_CUSTOM_EVENT,
 
     AT_BLE_DEVICE_READY,
-
+    /** inform app that device is dead, the application should start again from @ref at_ble_init */
+    AT_BLE_DEVICE_DEAD,
+    /** inform app that device was out of sync, last messages (one or more) sent from host to BTLC1000 has been discarded */
+    AT_BLE_DEVICE_OUT_OF_SYNC,
     AT_BLE_EVENT_MAX
 
 } at_ble_events_t;
@@ -780,9 +881,9 @@ typedef uint8_t at_ble_attr_permissions_t;
 #define AT_BLE_ATTR_NO_PERMISSIONS               0x00
 /** @brief Read enable. */
 #define AT_BLE_ATTR_READABLE_NO_AUTHN_NO_AUTHR   0x01
-/** @brief	Read operation require MITM protected encrypted link & no authorization. */
+/** @brief  Read operation require MITM protected encrypted link & no authorization. */
 #define AT_BLE_ATTR_READABLE_REQ_AUTHN_NO_AUTHR  0x03
-/** @brief	Read operation require Authorization & no encryption. */
+/** @brief  Read operation require Authorization & no encryption. */
 #define AT_BLE_ATTR_READABLE_NO_AUTHN_REQ_AUTHR  0x09
 /** @brief  Read operation require MITM protected encrypted link & authorization. */
 #define AT_BLE_ATTR_READABLE_REQ_AUTHN_REQ_AUTHR 0x0B
@@ -793,9 +894,9 @@ typedef uint8_t at_ble_attr_permissions_t;
 
 /** @brief Write enable. */
 #define AT_BLE_ATTR_WRITABLE_NO_AUTHN_NO_AUTHR   0x10
-/** @brief	Write operation require MITM protected encrypted link & no authorization. */
+/** @brief  Write operation require MITM protected encrypted link & no authorization. */
 #define AT_BLE_ATTR_WRITABLE_REQ_AUTHN_NO_AUTHR  0x30
-/** @brief	Write operation require Authorization & no encryption. */
+/** @brief  Write operation require Authorization & no encryption. */
 #define AT_BLE_ATTR_WRITABLE_NO_AUTHN_REQ_AUTHR  0x90
 /** @brief  Write operation require MITM protected encrypted link & authorization. */
 #define AT_BLE_ATTR_WRITABLE_REQ_AUTHN_REQ_AUTHR 0xB0
@@ -1434,7 +1535,8 @@ typedef struct
 typedef struct
 {
 
-    uint16_t desc_val_length; /**<  descriptor value length */
+    uint16_t desc_val_length; /**<  descriptor value initial length */
+    uint16_t desc_val_max_length;  /**<  maximum possible length of the descriptor value */
     at_ble_attr_permissions_t perm; /**<  descriptor permissions */
     at_ble_uuid_t uuid; /**<  descriptor uuid */
     at_ble_handle_t handle; /**< Here the stack will store the handle for future use */
@@ -1462,7 +1564,8 @@ typedef struct
     at_ble_char_properties_t properties; /**< Characteristic properties, values for Client Characteristic Configuration Descriptor and Server Characteristic Configuration Descriptor will be decided from this value*/
 
     uint8_t *init_value;  /**< initial value of this characteristic  */
-    uint16_t len; /**<  value length */
+    uint16_t len; /**<  initial value length */
+    uint16_t max_len; /**< maximum possible length of the char. value */
     at_ble_attr_permissions_t permissions; /**< Value permissions */ //TODO: can this value be deduced from properties field ?
 
 } at_ble_char_val_t;
@@ -1599,7 +1702,7 @@ typedef struct
     at_ble_adv_type_t type;
     ///Advertiser(Broadcaster) address
     at_ble_addr_t dev_addr;
-    ///Advertising data; This array will be zeros in case of adv_data_len < @ref AT_BLE_ADV_MAX_SIZE
+    ///Advertising data; This array will be zeros in case of @ref at_ble_scan_info_t::adv_data_len < @ref AT_BLE_ADV_MAX_SIZE
     uint8_t adv_data[AT_BLE_ADV_MAX_SIZE];
     ///Advertising data length
     uint8_t adv_data_len;
@@ -1615,6 +1718,15 @@ typedef struct
     at_ble_status_t status;
 } at_ble_scan_report_t;
 
+/** @brief Advertising complete event.
+*/
+typedef struct
+{
+    ///Status of operation,refer to @ref at_ble_status_t
+    at_ble_status_t status;
+    ///Count of advertising frame
+    uint32_t adv_pdu_cnt;
+} at_ble_adv_cmp_evt_t;
 /** @brief Advertising report status
 */
 typedef struct
@@ -1651,9 +1763,10 @@ typedef struct
 {
     ///connection handle
     at_ble_handle_t handle;
-   /// status of the operation
+    /// status of the operation
     at_ble_status_t status;
     ///disconnection reason (see Bluetooth error code in Bluetooth core spec)
+    ///vol 2, Core System Package [BR/EDR Controller volume], Part D
     uint8_t reason;
 } at_ble_disconnected_t;
 
@@ -1858,7 +1971,7 @@ typedef struct
     ///Connection handle
     at_ble_handle_t conn_handle;
     /// length of packet to send
-    uint8_t         char_len;
+    uint16_t         char_len;
     /// characteristic handle
     at_ble_handle_t char_handle;
     /// data value
@@ -1870,7 +1983,7 @@ typedef struct
     ///Connection handle
     at_ble_handle_t conn_handle;
     /// length of packet to send
-    uint8_t         char_len;
+    uint16_t         char_len;
     /// characteristic handle
     at_ble_handle_t char_handle;
     /// data value with maximum length @ref AT_BLE_MAX_ATT_LEN
@@ -2191,6 +2304,27 @@ typedef struct
     /** Number of packets received (Read this variable only after calling @ref at_ble_dtm_stop_test api  with Event @ref AT_BLE_LE_PACKET_REPORT) */
     uint16_t number_of_packets;
 } at_ble_dtm_t;
+/**@ingroup gap_adv_group
+ * @brief use this structure when calling the api @ref at_ble_adv_data_update_on_the_fly to set the advertising data on the fly
+ */
+typedef struct
+{
+#define ADV_DATA_PRESENT        (0x01)
+#define SCN_RESP_DATA_PRESENT   (0x02)
+    /** Presence Bit Mask to indicate data availability
+     *  refer to the above defines @ref ADV_DATA_PRESENT @ref SCN_RESP_DATA_PRESENT
+     */
+    uint8_t presence_bit_mask;
+    /** advertising data to be placed in advertisement packet */
+    uint8_t *adv_data;
+    /** advertising data length (from 0 to 28 Bytes) */
+    uint8_t adv_data_len;
+    /** scan response data to be placed in scan response packet*/
+    uint8_t *scan_resp_data;
+    /** scan response data length (from 0 to 31 Bytes) */
+    uint8_t scan_response_data_len;
+} at_ble_adv_data_update_on_the_fly_t;
+
 /****************************************************************************************
 *         Documentation File Modules Structures Groups                                       *
 ****************************************************************************************/
@@ -2286,7 +2420,7 @@ typedef struct
 */
 /** @}*/
 
-
+///@cond IGNORE_DOXYGEN
 // Platform APIs
 /**
 * @defgroup platform_group Platform APIs
@@ -2294,7 +2428,7 @@ typedef struct
 * @{
 */
 /** @}*/
-
+///@endcond
 
 // Error Codes
 /**
@@ -2477,9 +2611,9 @@ at_ble_status_t at_ble_event_user_defined_post(void *params);
  * @param[in] address       peer device address
  *
  * @note This command can be used at any time except when:
- *       • the advertising filter policy uses the white list and advertising is enabled.
- *       • the scanning filter policy uses the white list and scanning is enabled.
- *       • the initiator filter policy uses the white list and a create connection command
+ *       - the advertising filter policy uses the white list and advertising is enabled.
+ *       - the scanning filter policy uses the white list and scanning is enabled.
+ *       - the initiator filter policy uses the white list and a create connection command
  *         is outstanding.
  *
  * @note The only addresses that should be added to the white-list is Public device address or random static device address
@@ -2503,9 +2637,9 @@ at_ble_status_t at_ble_whitelist_add(at_ble_addr_t *address);
  * @param[in] address       peer device address
  *
  * @note This command can be used at any time except when:
- *       • the advertising filter policy uses the white list and advertising is enabled.
- *       • the scanning filter policy uses the white list and scanning is enabled.
- *       • the initiator filter policy uses the white list and a create connection command
+ *       - the advertising filter policy uses the white list and advertising is enabled.
+ *       - the scanning filter policy uses the white list and scanning is enabled.
+ *       - the initiator filter policy uses the white list and a create connection command
  *         is outstanding.
  *
  * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
@@ -2571,6 +2705,33 @@ at_ble_status_t at_ble_adv_data_set(uint8_t const *const  adv_data,
                                     uint8_t  scan_response_data_len
                                    );
 
+/** @ingroup gap_adv_group
+ *@brief Set, clear or update advertising data or scan response data or both on the fly (while an advertising operation is ongoing) .
+ *
+ * @note
+ * - to do any operation on Advertising data (clear or set) you must set the bit mask @ref at_ble_adv_data_update_on_the_fly_t::presence_bit_mask inside @ref at_ble_adv_data_update_on_the_fly_t to @ref ADV_DATA_PRESENT (0x01)
+ * - to do any operation on scan response data (clear or set) you must set the bit mask @ref at_ble_adv_data_update_on_the_fly_t::presence_bit_mask inside @ref at_ble_adv_data_update_on_the_fly_t to @ref SCN_RESP_DATA_PRESENT (0x02)
+ * - if the bit mask @ref at_ble_adv_data_update_on_the_fly_t::presence_bit_mask inside @ref at_ble_adv_data_update_on_the_fly_t is not set at all the call will fail
+ *
+ * - to clear Advertising data send @ref at_ble_adv_data_update_on_the_fly_t::adv_data_len in @ref at_ble_adv_data_update_on_the_fly_t  with value = 0
+ * - to clear scan response data send @ref at_ble_adv_data_update_on_the_fly_t::scan_response_data_len in @ref at_ble_adv_data_update_on_the_fly_t  with value = 0
+ *
+ * - Use this API only while an advertising activity has started by @ref at_ble_adv_start
+ * - the new advertise/scan response you set/clear by this API will be on the Air immediately and it will be stored and be used for future advertise events
+ * - to Set, clear or update the adv data while no Advertising activity is ongoing, use @ref at_ble_adv_data_set
+ *
+ * - The First three bytes in advertising data have been reserved in order to Fill Flags(0x01) AD type. This data is set
+ *   according to advertising mode selected.
+ *
+ * @param[in] update_on_the_fly_data  update on the fly request parameters, refer to @ref at_ble_adv_data_update_on_the_fly_t
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_adv_data_update_on_the_fly(at_ble_adv_data_update_on_the_fly_t *update_on_the_fly_data);
+
 
 /** @ingroup gap_adv_group
  *@brief Start advertising (GAP Discoverable, Connectable modes, Broadcast Procedure).
@@ -2597,6 +2758,44 @@ at_ble_status_t at_ble_adv_start(at_ble_adv_type_t type, at_ble_adv_mode_t mode 
                                  at_ble_addr_t *peer_addr, at_ble_filter_type_t filtered,
                                  uint16_t interval, uint16_t timeout, bool disable_randomness);
 
+// this macro is added for backward compatibility
+#define at_ble_set_adv_channel_Map at_ble_adv_channel_map_set
+
+/** @ingroup gap_adv_group
+ *@brief Get the count of Advertising frame.
+ *
+ *@param[in] adv_pdu_cnt the count of advertising frame since start of advertising.
+ *
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_get_adv_cnt(uint32_t *adv_pdu_cnt);
+
+/** @ingroup gap_adv_group
+ *@brief Reset the count of Advertising frame.
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_rst_adv_cnt(void);
+
+/** @ingroup gap_adv_group
+ *@brief Enable/Disable receiving advertising complete event @ref AT_BLE_ADV_CMP_EVENT with the end of advertising event.
+ *
+ *@param[in] en_adv_notification enable/disable receiving advertising complete event
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_en_recv_adv_cmp_event(bool en_adv_notification);
+
 /** @ingroup gap_adv_group
  *@brief Set advertising channel using one of @ref at_ble_adv_channel_map_t.
  *
@@ -2607,7 +2806,19 @@ at_ble_status_t at_ble_adv_start(at_ble_adv_type_t type, at_ble_adv_mode_t mode 
 ///@cond IGNORE_DOXYGEN
 AT_BLE_API
 ///@endcond
-at_ble_status_t at_ble_set_adv_channel_Map(at_ble_adv_channel_map_t ch);
+at_ble_status_t at_ble_adv_channel_map_set(at_ble_adv_channel_map_t ch);
+
+/** @ingroup gap_adv_group
+ *@brief get advertising channel.
+ *
+ * @param[in] ch used advertising channels @ref at_ble_adv_channel_map_t.
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_adv_channel_map_get(at_ble_adv_channel_map_t *ch);
 
 /** @ingroup gap_adv_group
  *@brief Stop advertising (GAP Discoverable, Connectable modes, Broadcast Procedure).
@@ -2774,7 +2985,8 @@ at_ble_status_t at_ble_set_channel_map(at_ble_channel_map_t *map);
  * @param[in] reason disconnection reason, more info at @ref at_ble_disconnect_reason_t
  *
  * @note
- * - At @ref AT_BLE_DISCONNECTED event, for reason of disconnection see Bluetooth error code at Bluetooth core specification
+ * - At @ref AT_BLE_DISCONNECTED event, for reason of disconnection see Bluetooth error code at Bluetooth core specification;
+ *   vol 2, Core System Package [BR/EDR Controller volume], Part D
  *
  * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
  */
@@ -3020,7 +3232,7 @@ at_ble_status_t read_32_from_BTLC1000(uint32_t address, uint32_t *value);
 /** @ingroup gap_misc_group
  *@brief Gets BTLC1000 Firmware version
  *
- * @param[out] chip_id BTLC1000 firmware version
+ * @param[out] fw_version BTLC1000 firmware version
  *
  * @warning Not Supported before release version 2.5
  *
@@ -3031,6 +3243,38 @@ at_ble_status_t read_32_from_BTLC1000(uint32_t address, uint32_t *value);
 AT_BLE_API
 ///@endcond
 at_ble_status_t at_ble_firmware_version_get(uint32_t *fw_version);
+
+/** @ingroup gap_misc_group
+ *@brief Gets BTLC1000 RF version
+ *
+ * @param[out] rf_version BTLC1000 RF version
+ *
+ * @warning Not Supported before release version 6.1
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
+ * Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_rf_version_get(uint32_t *rf_version);
+
+///@cond IGNORE_DOXYGEN
+/** @ingroup gap_misc_group
+ *@brief Change BTLC1000 ULP Delay time depend on input argument
+ *
+ * @param[in] arg Delay value
+ *
+ * @warning Not Supported before release version 3.2
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
+ * Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_set_ulp_delay(at_ble_ulp_delay_t arg);
+///@endcond
 
 /** @ingroup gatt_client_group
  *@brief Discover all Primary services in a peer device
@@ -3844,7 +4088,7 @@ at_ble_status_t at_ble_calib_get_voltage(float *voltage);
 /** @ingroup calib_group
 *  @brief       Retrieves temperature value in Celsius
 *
-*  @param[in]   temp variable passed to the function to store the retrieved temperature value
+*  @param[in]   temperature variable passed to the function to store the retrieved temperature value
 *
 * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS,
 * Otherwise the function shall return @ref at_ble_status_t
@@ -3853,8 +4097,22 @@ at_ble_status_t at_ble_calib_get_voltage(float *voltage);
 AT_BLE_API
 ///@endcond
 at_ble_status_t at_ble_calib_get_temp(int *temperature);
+
+/** @ingroup misc_group
+ * @brief Enable/disable deep sleep. Sleep is enabled by default.
+ *
+ * @param[in] en_sleep true to enable deep sleep or false to disable it
+ *
+ * @return Upon successful completion the function shall return @ref AT_BLE_SUCCESS, Otherwise the function shall return @ref at_ble_status_t
+ */
+///@cond IGNORE_DOXYGEN
+AT_BLE_API
+///@endcond
+at_ble_status_t at_ble_enable_sleep(bool en_sleep);
+
 #ifdef __cplusplus
 }
 #endif  //__cplusplus
 
 #endif //__AT_BLE_API_H__
+

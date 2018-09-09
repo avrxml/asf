@@ -3,45 +3,35 @@
  *
  * \brief SAM Peripheral Analog-to-Digital Converter Driver
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 #include "adc_callback.h"
 
@@ -52,28 +42,31 @@ static void _adc_interrupt_handler(const uint8_t instance)
 	struct adc_module *module = _adc_instances[instance];
 
 	/* get interrupt flags and mask out enabled callbacks */
-	uint32_t flags = module->hw->INTFLAG.reg;
+	uint32_t flags = module->hw->INTFLAG.reg & module->hw->INTENSET.reg;
 
 	if (flags & ADC_INTFLAG_RESRDY) {
-		if ((module->enabled_callback_mask & (1 << ADC_CALLBACK_READ_BUFFER)) &&
-				(module->registered_callback_mask & (1 << ADC_CALLBACK_READ_BUFFER))) {
-			/* clear interrupt flag */
-			module->hw->INTFLAG.reg = ADC_INTFLAG_RESRDY;
+		/* clear interrupt flag */
+		module->hw->INTFLAG.reg = ADC_INTFLAG_RESRDY;
 
-			/* store ADC result in job buffer */
-			*(module->job_buffer++) = module->hw->RESULT.reg;
+		/* store ADC result in job buffer */
+		*(module->job_buffer++) = module->hw->RESULT.reg;
 
-			if (--module->remaining_conversions > 0) {
-				if (module->software_trigger == true
-					&& (!(module->hw->SEQSTATUS.reg & ADC_SEQSTATUS_SEQBUSY))) {
-					adc_start_conversion(module);
-				}
-			} else {
-				if (module->job_status == STATUS_BUSY) {
-					/* job is complete. update status,disable interrupt
-					 *and call callback */
-					module->job_status = STATUS_OK;
-					adc_disable_interrupt(module, ADC_INTERRUPT_RESULT_READY);
+		if (--module->remaining_conversions > 0) {
+			if (module->software_trigger == true
+				&& (!(module->hw->SEQSTATUS.reg & ADC_SEQSTATUS_SEQBUSY))) {
+				adc_start_conversion(module);
+			}
+		} else {
+			adc_disable_interrupt(module, ADC_INTERRUPT_RESULT_READY);
+			if (module->job_status == STATUS_BUSY) {
+				/* job is complete. update status,disable interrupt
+				 *and call callback */
+				module->job_status = STATUS_OK;
+
+				if ((module->enabled_callback_mask &
+						(1 << ADC_CALLBACK_READ_BUFFER)) &&
+					(module->registered_callback_mask &
+						(1 << ADC_CALLBACK_READ_BUFFER))) {
 					(module->callback[ADC_CALLBACK_READ_BUFFER])(module);
 				}
 			}

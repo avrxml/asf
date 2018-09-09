@@ -1,7 +1,7 @@
 /*
    Optimized function for speeding up synthesis filter
    in MPEG Audio Decoding.
-   Copyright 2003-2006 Atmel Corporation.
+   Copyright 2003-2006 Microchip Technology Inc.
 
    Written by Ronny Pedersen and Lars Even Almaas, Atmel Norway
 

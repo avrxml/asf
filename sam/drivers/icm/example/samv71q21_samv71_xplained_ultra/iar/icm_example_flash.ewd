@@ -43,7 +43,7 @@
 				</option>
 				<option>
 					<name>MemFile</name>
-					<state>$TOOLKIT_DIR$\CONFIG\debugger\Atmel\ATSAMV71Q21.ddf</state>
+					<state>$TOOLKIT_DIR$\CONFIG\debugger\Atmel\ATSAMV71Q21B.ddf</state>
 				</option>
 				<option>
 					<name>RunToEnable</name>
@@ -115,7 +115,7 @@
 				</option>
 				<option>
 					<name>FlashLoadersV3</name>
-					<state>$TOOLKIT_DIR$\config\flashloader\Atmel\SAMV71Q21\samv71q21-flash.board</state>
+					<state>$TOOLKIT_DIR$\config\flashloader\Atmel\SAMV71Q21B\samv71q21b-flash.board</state>
 				</option>
 				<option>
 					<name>OCImagesSuppressCheck1</name>
@@ -1211,7 +1211,7 @@
 				</option>
 				<option>
 					<name>MemFile</name>
-					<state>$TOOLKIT_DIR$\CONFIG\debugger\Atmel\ATSAMV71Q21.ddf</state>
+					<state>$TOOLKIT_DIR$\CONFIG\debugger\Atmel\ATSAMV71Q21B.ddf</state>
 				</option>
 				<option>
 					<name>RunToEnable</name>

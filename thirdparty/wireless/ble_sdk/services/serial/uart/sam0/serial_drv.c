@@ -3,39 +3,29 @@
  *
  * \brief Handles Serial driver functionalities
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  */
@@ -44,9 +34,9 @@
 
 #include "asf.h"
 #include "serial_drv.h"
-#include "conf_serialdrv.h"
 #include "serial_fifo.h"
 #include "ble_utils.h"
+#include "conf_serialdrv.h"
 
 /* === TYPES =============================================================== */
 
@@ -61,19 +51,21 @@ static void serial_drv_write_cb(struct usart_module *const usart_module);
 struct usart_module usart_instance;
 
 static uint16_t rx_data;
-
+volatile bool wakeup_pin_status = true;
 
 /* === IMPLEMENTATION ====================================================== */
-static inline void usart_configure_flowcontrol(void)
+static inline void usart_configure_flowcontrol(uint32_t baudrate)
 {
 	struct usart_config config_usart;
-#if UART_FLOWCONTROL_6WIRE_MODE == true
-	usart_disable(&usart_instance);
-	usart_reset(&usart_instance);
-#endif
+	
+    if(usart_instance.hw)
+	{
+		usart_reset(&usart_instance);	
+	}
+	
 	usart_get_config_defaults(&config_usart);
 
-	config_usart.baudrate = CONF_FLCR_BLE_BAUDRATE;
+	config_usart.baudrate = baudrate;//CONF_FLCR_BLE_BAUDRATE;
 	config_usart.generator_source = CONF_FLCR_BLE_UART_CLOCK;
 	config_usart.mux_setting = CONF_FLCR_BLE_MUX_SETTING;
 	config_usart.pinmux_pad0 = CONF_FLCR_BLE_PINMUX_PAD0;
@@ -95,15 +87,22 @@ static inline void usart_configure_flowcontrol(void)
 	serial_read_byte(&rx_data);
 }
 
-uint8_t configure_serial_drv(void)
+uint8_t configure_serial_drv(uint32_t bus_baudrate)
 {
-	#if UART_FLOWCONTROL_4WIRE_MODE == true
-		usart_configure_flowcontrol();
-		#warning "This mode works only if Flow Control Permanently Enabled in the BTLC1000"
+	#if ((UART_FLOWCONTROL_4WIRE_MODE == true) || (BLE_MODULE == BTLC1000_ZR))
+		usart_configure_flowcontrol(bus_baudrate);
 	#else
 	struct usart_config config_usart;
+
+#ifdef BTLC_REINIT_SUPPORT
+	if(usart_instance.hw)
+	{
+		usart_reset(&usart_instance);
+	}
+#endif
+
 	usart_get_config_defaults(&config_usart);
-	config_usart.baudrate = CONF_BLE_BAUDRATE;
+	config_usart.baudrate = CONF_UART_BAUDRATE;
 	config_usart.generator_source = CONF_BLE_UART_CLOCK;
 	config_usart.mux_setting = CONF_BLE_MUX_SETTING;
 	config_usart.pinmux_pad0 = CONF_BLE_PINMUX_PAD0;
@@ -128,10 +127,10 @@ uint8_t configure_serial_drv(void)
 	return STATUS_OK;
 }
 
-void configure_usart_after_patch(void)
+void configure_usart_after_patch(uint32_t baudrate)
 {
-	#if UART_FLOWCONTROL_6WIRE_MODE == true
-	usart_configure_flowcontrol();
+	#if ((UART_FLOWCONTROL_6WIRE_MODE == true) && (BLE_MODULE == BTLC1000_MR))
+	usart_configure_flowcontrol(baudrate);
 	#endif	
 }
 
@@ -155,7 +154,19 @@ uint8_t serial_read_data(uint8_t* data, uint16_t max_len)
  return usart_read_buffer_job(&usart_instance, data, max_len);
 }
 
-void platfrom_start_rx(void)
+void platform_set_ble_rts_high(void)
+{
+	/* Disable the Receive Transfer before read which makes Host RTS high*/
+	usart_disable_transceiver(&usart_instance, USART_TRANSCEIVER_RX);
+}
+
+void platform_set_ble_rts_low(void)
+{
+	/* Enable the Receive Transfer which makes HOST RTS Low */
+	usart_enable_transceiver(&usart_instance, USART_TRANSCEIVER_RX);
+}
+
+void platform_start_rx(void)
 {
 	serial_read_byte(&rx_data);
 }
@@ -185,4 +196,32 @@ void platform_leave_critical_section(void)
 	system_interrupt_leave_critical_section();
 }
 
+/* Initialize the sleep manager */
+void platform_configure_sleep_manager(void)
+{
+	/* No need to initialize the sleep manager priorly in SAMD21/L21*/
+}
+
+/* Restore the Host from sleep */
+void platform_restore_from_sleep(void)
+{
+	
+}
+
+/* Set the Host in sleep */
+void platform_set_hostsleep(void)
+{		
+	system_set_sleepmode(HOST_SYSTEM_SLEEP_MODE);
+
+	system_sleep();
+}
+
+uint16_t serial_drive_rx_data_count(void)
+{
+	/*
+	This strategy is used in SAMG55/4S since pdc is used.
+	Since SAMD21/L21 returing zero
+	*/
+	return 0;
+}
 /* EOF */

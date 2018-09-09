@@ -3,47 +3,40 @@
  *
  * \brief SAM AON Sleep Timer Driver for SAMB11
  *
- * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 #include "aon_sleep_timer.h"
+
+#define AON_SLEEP_TIMER_CONTROL_SLP_TIMER_SINGLE_COUNT_ENABLE_DLY_BIT14_Msk (0x4u << AON_SLEEP_TIMER_CONTROL_SLP_TIMER_SINGLE_COUNT_ENABLE_DLY_Pos)
+#define AON_SLEEP_TIMER_CONTROL_SLP_TIMER_CLK_RELOAD_DLY_BIT9_Msk (0x2u << AON_SLEEP_TIMER_CONTROL_SLP_TIMER_CLK_RELOAD_DLY_Pos)
 
 static aon_sleep_timer_callback_t aon_sleep_timer_callback = NULL;
 
@@ -89,8 +82,12 @@ void aon_sleep_timer_disable(void)
 	regval &= ~AON_SLEEP_TIMER_CONTROL_SINGLE_COUNT_ENABLE;
 	AON_SLEEP_TIMER0->CONTROL.reg = regval;
 
-	while (AON_SLEEP_TIMER0->CONTROL.reg & (1 << 14)) {
+	while ((AON_SLEEP_TIMER0->CONTROL.reg & AON_SLEEP_TIMER_CONTROL_SLP_TIMER_SINGLE_COUNT_ENABLE_DLY_BIT14_Msk) || \
+	(AON_SLEEP_TIMER0->CONTROL.reg & AON_SLEEP_TIMER_CONTROL_SLP_TIMER_CLK_RELOAD_DLY_BIT9_Msk)) {
 	}
+
+	/* Reset the AON Timer to reset the current counter value to zero immediately */
+	system_peripheral_aon_reset(PERIPHERAL_AON_SLEEP_TIMER);
 }
 
 /**
@@ -119,7 +116,7 @@ bool aon_sleep_timer_sleep_timer_active(void)
  * This flag will be cleared automatically once the IRQ
  * has been seen on the sleep clock.
  */
-void aon_sleep_timer_clear_interrup(void)
+void aon_sleep_timer_clear_interrupt(void)
 {
 	AON_SLEEP_TIMER0->CONTROL.reg |= AON_SLEEP_TIMER_CONTROL_IRQ_CLEAR;
 }
@@ -127,23 +124,27 @@ void aon_sleep_timer_clear_interrup(void)
 /**
  * \brief Registers a callback.
  *
- * Registers and enable a callback function which is implemented by the user.
+ * Registers the user callback and enables the interrupt
  *
  * \param[in]     callback_func Pointer to callback function
  */
 void aon_sleep_timer_register_callback(aon_sleep_timer_callback_t fun)
 {
 	aon_sleep_timer_callback = fun;
+
+	NVIC_EnableIRQ(AON_SLEEP_TIMER0_IRQn);
 }
 
 /**
  * \brief Unregisters a callback.
  *
- * Unregisters and disable a callback function implemented by the user.
+ * Unregisters the user callback and disables the interrupt.
  *
  */
 void aon_sleep_timer_unregister_callback(void)
 {
+	NVIC_DisableIRQ(AON_SLEEP_TIMER0_IRQn);
+
 	aon_sleep_timer_callback = NULL;
 }
 
@@ -155,7 +156,7 @@ void aon_sleep_timer_unregister_callback(void)
  */
 static void aon_sleep_timer_isr_handler(void)
 {
-	aon_sleep_timer_clear_interrup();
+	aon_sleep_timer_clear_interrupt();
 
 	if (aon_sleep_timer_callback) {
 		aon_sleep_timer_callback();
@@ -181,16 +182,20 @@ void aon_sleep_timer_init(const struct aon_sleep_timer_config *config)
 				AON_PWR_SEQ_AON_ST_WAKEUP_CTRL_ARM_ENABLE |
 				AON_PWR_SEQ_AON_ST_WAKEUP_CTRL_BLE_ENABLE;
 	} else if (config->wakeup == AON_SLEEP_TIMER_WAKEUP_ARM) {
+		AON_PWR_SEQ0->AON_ST_WAKEUP_CTRL.reg &=
+				~AON_PWR_SEQ_AON_ST_WAKEUP_CTRL_BLE_ENABLE;
 		AON_PWR_SEQ0->AON_ST_WAKEUP_CTRL.reg |=
 				AON_PWR_SEQ_AON_ST_WAKEUP_CTRL_ARM_ENABLE;
 	}
 
+	system_clock_peripheral_aon_enable(PERIPHERAL_AON_SLEEP_TIMER);
+
 	aon_st_ctrl = AON_SLEEP_TIMER0->CONTROL.reg;
-	while (aon_st_ctrl & ((1UL << 31) - 1)) {
+	while (aon_st_ctrl & ~(AON_SLEEP_TIMER_CONTROL_SLEEP_TIMER_NOT_ACTIVE_Msk)) {
 		AON_SLEEP_TIMER0->CONTROL.reg = 0;
 		delay_cycle(3);
 		while (aon_st_ctrl & ((config->mode == AON_SLEEP_TIMER_RELOAD_MODE) ?
-				(1 << 9) : (1 << 14))) {
+				(AON_SLEEP_TIMER_CONTROL_SLP_TIMER_CLK_RELOAD_DLY_BIT9_Msk) : (AON_SLEEP_TIMER_CONTROL_SLP_TIMER_SINGLE_COUNT_ENABLE_DLY_BIT14_Msk))) {
 			aon_st_ctrl = AON_SLEEP_TIMER0->CONTROL.reg;
 		}
 		aon_st_ctrl = AON_SLEEP_TIMER0->CONTROL.reg;
@@ -211,7 +216,13 @@ void aon_sleep_timer_init(const struct aon_sleep_timer_config *config)
 				AON_SLEEP_TIMER_CONTROL_SLP_TIMER_SINGLE_COUNT_ENABLE_DLY_Msk)
 				!= AON_SLEEP_TIMER_CONTROL_SLP_TIMER_SINGLE_COUNT_ENABLE_DLY_Msk) {
 		}
-		AON_SLEEP_TIMER0->CONTROL.reg = 0;
+	}
+
+	if (config->mode == AON_SLEEP_TIMER_RELOAD_MODE) {
+		while ((AON_SLEEP_TIMER0->CONTROL.reg &
+				AON_SLEEP_TIMER_CONTROL_SLP_TIMER_CLK_RELOAD_DLY_Msk)
+				!= AON_SLEEP_TIMER_CONTROL_SLP_TIMER_CLK_RELOAD_DLY_Msk) {
+		}
 	}
 
 	system_register_isr(RAM_ISR_TABLE_AON_SLEEP_TIMER_INDEX, (uint32_t)aon_sleep_timer_isr_handler);

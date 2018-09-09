@@ -3,7 +3,7 @@
 #
 # \brief Output a 2 color bitmap as an uint8_t array
 #
-# Copyright (C) 2011-2014 Atmel Corporation. All rights reserved.
+# Copyright (C) 2011-2018 Microchip Technology Inc. and its subsidiaries.
 #
 # \page License
 #

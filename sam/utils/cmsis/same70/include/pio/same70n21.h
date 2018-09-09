@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70N21_PIO_
@@ -334,17 +324,6 @@
 #define PIO_PD12C_SPI0_NPCS2      (1u << 12) /**< \brief Spi0 signal: SPI0_NPCS2 */
 #define PIO_PD27B_SPI0_NPCS3      (1u << 27) /**< \brief Spi0 signal: SPI0_NPCS3 */
 #define PIO_PD22B_SPI0_SPCK       (1u << 22) /**< \brief Spi0 signal: SPI0_SPCK */
-/* ========== Pio definition for SPI1 peripheral ========== */
-#define PIO_PC26C_SPI1_MISO       (1u << 26) /**< \brief Spi1 signal: SPI1_MISO */
-#define PIO_PC27C_SPI1_MOSI       (1u << 27) /**< \brief Spi1 signal: SPI1_MOSI */
-#define PIO_PC25C_SPI1_NPCS0      (1u << 25) /**< \brief Spi1 signal: SPI1_NPCS0 */
-#define PIO_PC28C_SPI1_NPCS1      (1u << 28) /**< \brief Spi1 signal: SPI1_NPCS1 */
-#define PIO_PD0C_SPI1_NPCS1       (1u << 0)  /**< \brief Spi1 signal: SPI1_NPCS1 */
-#define PIO_PC29C_SPI1_NPCS2      (1u << 29) /**< \brief Spi1 signal: SPI1_NPCS2 */
-#define PIO_PD1C_SPI1_NPCS2       (1u << 1)  /**< \brief Spi1 signal: SPI1_NPCS2 */
-#define PIO_PC30C_SPI1_NPCS3      (1u << 30) /**< \brief Spi1 signal: SPI1_NPCS3 */
-#define PIO_PD2C_SPI1_NPCS3       (1u << 2)  /**< \brief Spi1 signal: SPI1_NPCS3 */
-#define PIO_PC24C_SPI1_SPCK       (1u << 24) /**< \brief Spi1 signal: SPI1_SPCK */
 /* ========== Pio definition for SSC peripheral ========== */
 #define PIO_PA10C_RD              (1u << 10) /**< \brief Ssc signal: RD */
 #define PIO_PD24B_RF              (1u << 24) /**< \brief Ssc signal: RF */

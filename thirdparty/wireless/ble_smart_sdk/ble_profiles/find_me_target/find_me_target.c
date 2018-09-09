@@ -1,48 +1,37 @@
-
 /**
  * \file
  *
  * \brief Find Me Target Profile
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Atmel
  * Support</a>
  */
 
@@ -60,45 +49,24 @@
 *							        Globals	                                     		*
 ****************************************************************************************/
 
-static /*const*/ ble_event_callback_t fmp_gap_handle[] = {
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	fmp_target_connected_state_handler,
-	fmp_target_disconnect_event_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gap_event_cb_t fmp_gap_handle = {
+	.connected = fmp_target_connected_state_handler,
+	.disconnected = fmp_target_disconnect_event_handler
 };
 
-static /*const*/ ble_event_callback_t fmp_gatt_server_handle[] = {
-	NULL,
-	NULL,
-	fmp_target_char_changed_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gatt_server_event_cb_t fmp_gatt_server_handle = {
+	.characteristic_changed = fmp_target_char_changed_handler
 };
+
 
 /* Immediate alert service declaration */
 #ifdef IMMEDIATE_ALERT_SERVICE
 gatt_service_handler_t ias_handle;
 #endif
+
+/** @brief Scan response data*/
+uint8_t scan_rsp_data[SCAN_RESP_LEN]
+	= {0x09, 0xff, 0x00, 0x06, 0xd6, 0xb2, 0xf0, 0x05, 0xf0, 0xf8};
 
 /** @brief Alert value used for immediate alert service */
 uint8_t immediate_alert_value = INVALID_IAS_PARAM;
@@ -195,18 +163,27 @@ at_ble_status_t fmp_target_connected_state_handler(void * params)
 {
 	at_ble_status_t status;
 	uint16_t len;
-
-	/* / * Upon connection set default value to no alert* / */
-	/* immediate_alert_cb(IAS_NO_ALERT); */
-	status = at_ble_characteristic_value_get(ias_handle.serv_chars.char_val_handle,
-						&immediate_alert_value,
-						&len);
-	if (status != AT_BLE_SUCCESS) {
+	at_ble_connected_t *conn_params;
+	conn_params = (at_ble_connected_t *)params;
+		
+	if ((status
+				= at_ble_characteristic_value_get(ias_handle.
+					serv_chars.char_val_handle,
+					&immediate_alert_value,
+					&len))) {
 		DBG_LOG(
 				"Read of alert value for Immediate alert service failed:reason %x",
 				status);
 	}
-
+	else
+	{
+			if (immediate_alert_value != INVALID_IAS_PARAM) 
+			{
+				immediate_alert_cb(immediate_alert_value);
+			}
+	}
+	
+        ALL_UNUSED(conn_params);
 	return AT_BLE_SUCCESS;
 }
 
@@ -215,6 +192,9 @@ at_ble_status_t fmp_target_connected_state_handler(void * params)
  */
 at_ble_status_t fmp_target_disconnect_event_handler(void * params)
 {
+	at_ble_disconnected_t *disconnect;
+	disconnect = (at_ble_disconnected_t *)params;
+	
 	if (at_ble_adv_start(AT_BLE_ADV_TYPE_UNDIRECTED,
 			AT_BLE_ADV_GEN_DISCOVERABLE, NULL, AT_BLE_ADV_FP_ANY,
 			APP_FMP_FAST_ADV, APP_FMP_ADV_TIMEOUT,
@@ -225,7 +205,7 @@ at_ble_status_t fmp_target_disconnect_event_handler(void * params)
 	} else {
 		DBG_LOG("Bluetooth Device is in Advertising Mode");
 	}
-
+        ALL_UNUSED(disconnect);
 	return AT_BLE_SUCCESS;
 }
 
@@ -235,37 +215,6 @@ at_ble_status_t fmp_target_disconnect_event_handler(void * params)
  */
 void fmp_target_init(void *param)
 {
-	fmp_gap_handle[0] = NULL;
-	fmp_gap_handle[1] = NULL;
-	fmp_gap_handle[2] = NULL;
-	fmp_gap_handle[3] = NULL;
-	fmp_gap_handle[4] = NULL;
-	fmp_gap_handle[5] = fmp_target_connected_state_handler;
-	fmp_gap_handle[6] = fmp_target_disconnect_event_handler;
-	fmp_gap_handle[7] = NULL;
-	fmp_gap_handle[8] = NULL;
-	fmp_gap_handle[9] = NULL;
-	fmp_gap_handle[10] = NULL;
-	fmp_gap_handle[11] = NULL;
-	fmp_gap_handle[12] = NULL;
-	fmp_gap_handle[13] = NULL;
-	fmp_gap_handle[14] = NULL;
-	fmp_gap_handle[15] = NULL;
-	fmp_gap_handle[16] = NULL;
-	fmp_gap_handle[17] = NULL;
-	fmp_gap_handle[18] = NULL;
-
-	fmp_gatt_server_handle[0] = NULL;
-	fmp_gatt_server_handle[1] = NULL;
-	fmp_gatt_server_handle[2] = fmp_target_char_changed_handler;
-	fmp_gatt_server_handle[3] = NULL;
-	fmp_gatt_server_handle[4] = NULL;
-	fmp_gatt_server_handle[5] = NULL;
-	fmp_gatt_server_handle[6] = NULL;
-	fmp_gatt_server_handle[7] = NULL;
-	fmp_gatt_server_handle[8] = NULL;
-	fmp_gatt_server_handle[9] = NULL;
-
 	/* find me services initialization*/
 	fmp_target_service_init();
 
@@ -276,8 +225,10 @@ void fmp_target_init(void *param)
 	fmp_target_adv();
 	
 	/* Callback registering for BLE-GAP Role */
-	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, BLE_GAP_EVENT_TYPE, fmp_gap_handle);
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, BLE_GAP_EVENT_TYPE, &fmp_gap_handle);
 	
 	/* Callback registering for BLE-GATT-Server Role */
-	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, BLE_GATT_SERVER_EVENT_TYPE, fmp_gatt_server_handle);
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, BLE_GATT_SERVER_EVENT_TYPE, &fmp_gatt_server_handle);
+	
+	ALL_UNUSED(param);
 }

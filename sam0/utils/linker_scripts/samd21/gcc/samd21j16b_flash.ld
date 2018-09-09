@@ -3,7 +3,7 @@
  *
  * \brief Linker script for running in internal FLASH on the SAMD21J16B
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *

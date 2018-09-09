@@ -3,45 +3,35 @@
  *
  * \brief SAMB Peripheral Analog-to-Digital Converter Driver
  *
- * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include "adc_sam_b.h"
@@ -155,6 +145,9 @@ void adc_init(struct adc_config *config)
 		/* Input channels time multiplexing is between channel 0 to channel 3 */
 		/* Config GPIO_MS1 ~ GPIO_MS4 pin */
 		AON_GP_REGS0->MS_GPIO_MODE.reg = AON_GP_REGS_MS_GPIO_MODE_MASK;
+		AON_GP_REGS0->RF_PMU_REGS_1.bit.SADC_CHN_CTRL = \
+		AON_GP_REGS_RF_PMU_REGS_1_SADC_CHN_CTRL_0_Val;
+		AON_GP_REGS0->RF_PMU_REGS_1.bit.SADC_CHN_SEL = ADC_INPUT_CH_GPIO_MS1;
 	} else if (config->channel_mode == ADC_CH_MODE_CH4_TO_CH7) {
 		/* Input channels time multiplexing is between channel 4 to channel 7 */
 		AON_GP_REGS0->RF_PMU_REGS_1.bit.SADC_CHN_SEL = 0x4;
@@ -236,8 +229,9 @@ void adc_reset(void)
  * \param[out] result         Pointer to store the result value in
  *
  * \return Status of the ADC read request.
- * \retval STATUS_OK           The result was retrieved successfully
- * \retval STATUS_BUSY         A conversion result was not ready
+ * \retval STATUS_OK           		The result was retrieved successfully
+ * \retval STATUS_BUSY         		A conversion result was not ready
+ * \retval STATUS_ERR_INVALID_ARG	Invalid argument
  */
 enum status_code adc_read(enum adc_input_channel input_channel, uint16_t *result)
 
@@ -274,6 +268,64 @@ enum status_code adc_read(enum adc_input_channel input_channel, uint16_t *result
 		case ADC_INPUT_CH_VREF:
 			*result = LPMCU_MISC_REGS0->SENS_ADC_CH3_DATA.reg;
 			break;
+
+		default:
+			return STATUS_ERR_INVALID_ARG;
+	}
+
+	return STATUS_OK;
+}
+
+/**
+ * \brief Reads the TDM Mode ADC result.
+ *
+ * Reads the result from TDM Mode ADC conversion that was previously started.
+ *
+ * \param[in]  input_channel  Input channel which need to read the result
+ * \param[out] result         Pointer to store the result value in
+ *
+ * \return Status of the TDM Mode ADC read request.
+ * \retval STATUS_OK           		The result was retrieved successfully
+ * \retval STATUS_BUSY         		A conversion result was not ready
+ * \retval STATUS_ERR_INVALID_ARG	Invalid argument
+ */
+enum status_code tdm_mode_adc_read(enum adc_input_channel input_channel, uint16_t *result)
+{
+	Assert(result);
+
+	/* The transition of the ADC_DONE signal from LO to HI indicates that the
+	 * ADC conversion is done. */
+	while (adc_get_status() & LPMCU_MISC_REGS_SENS_ADC_RAW_STATUS_ADC_DONE) {
+		/* Waiting... */
+	}
+
+	while(!(adc_get_status() & LPMCU_MISC_REGS_SENS_ADC_RAW_STATUS_ADC_DONE)) {
+		/* Waiting... */
+	}
+
+	switch (input_channel) {
+		case ADC_INPUT_CH_GPIO_MS1:
+		case ADC_INPUT_CH_TEMPERATURE:
+			*result = LPMCU_MISC_REGS0->SENS_ADC_CH3_DATA.reg;
+			break;
+
+		case ADC_INPUT_CH_GPIO_MS2:
+		case ADC_INPUT_CH_VBATT_4:
+			*result = LPMCU_MISC_REGS0->SENS_ADC_CH0_DATA.reg;
+			break;
+
+		case ADC_INPUT_CH_GPIO_MS3:
+		case ADC_INPUT_CH_LPD0_LDO:
+			*result = LPMCU_MISC_REGS0->SENS_ADC_CH1_DATA.reg;
+			break;
+
+		case ADC_INPUT_CH_GPIO_MS4:
+		case ADC_INPUT_CH_VREF:
+			*result = LPMCU_MISC_REGS0->SENS_ADC_CH2_DATA.reg;
+			break;
+
+		default:
+			return STATUS_ERR_INVALID_ARG;
 	}
 
 	return STATUS_OK;

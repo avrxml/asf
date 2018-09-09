@@ -10,12 +10,12 @@
  * - Supported devices:  ATxmega128a1.
  * - AppNote:
  *
- * \author               Atmel Corporation: http://www.atmel.com \n
- *                       Support and FAQ: http://www.atmel.com/design-support/
+ * \author               Microchip Technology Inc: http://www.microchip.com \n
+ *                       Support and FAQ: https://www.microchip.com/support/
  *
  ******************************************************************************/
 
-/* Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
+/* Copyright (c) 2010-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -46,7 +46,7 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _ATXMEGA128A1_QT600_H_

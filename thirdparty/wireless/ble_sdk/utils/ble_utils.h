@@ -3,51 +3,57 @@
 *
 * \brief BLE Utils declarations
 *
-* Copyright (c) 2016 Atmel Corporation. All rights reserved.
+* Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
 *
 * \asf_license_start
 *
 * \page License
 *
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
+* Subject to your compliance with these terms, you may use Microchip
+* software and any derivatives exclusively with Microchip products.
+* It is your responsibility to comply with third party license terms applicable
+* to your use of third party software (including open source software) that
+* may accompany Microchip software.
 *
-* 1. Redistributions of source code must retain the above copyright notice,
-*    this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-*    this list of conditions and the following disclaimer in the documentation
-*    and/or other materials provided with the distribution.
-*
-* 3. The name of Atmel may not be used to endorse or promote products derived
-*    from this software without specific prior written permission.
-*
-* 4. This software may only be redistributed and used in connection with an
-*    Atmel microcontroller product.
-*
-* THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
-* WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
-* EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
-* ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-* STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-* ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+* WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+* AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+* LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+* LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+* SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+* POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+* ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+* RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *
 * \asf_license_stop
 *
 */
 /*
-* Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+* Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
 */
 
 #ifndef __BLE_UTILS_H__
 #define __BLE_UTILS_H__
 
 #include <asf.h>
+
+/* Supported BLE Modules */
+#define BTLC1000_MR		0x00
+#define BTLC1000_ZR		0x01
+
+	/// BluSDK version
+#define BLE_SDK_MAJOR_NO(version)	((version >> 28) & 0x0000000F)
+#define BLE_SDK_MINOR_NO(version)	((version >> 24) & 0x0000000F)
+#define BLE_SDK_BUILD_NO(version)	(version & 0x0000FFFF)
+#define BLUSDK_VER_6_0	(0x60000000)
+#define BLUSDK_VER_6_1  (0x61000000)
+
+/* BluSDK Minor version Changes (If this value is non-zero then Library and API have No changes.) */
+#define BLE_SDK_MINOR_NO_INC	(1)
+
+#define BLE_SDK_VERSION BLUSDK_VER_6_1
 
     /// Observer role
 #define   BLE_ROLE_OBSERVER   0x01
@@ -60,15 +66,16 @@
     /// Device has all role, both peripheral and central
 #define   BLE_ROLE_ALL         0x0F
 
+#define BLE_ASSERT		(true)
 
-
-#define DBG_LOG_CONT	printf
-
-#define DBG_LOG		    printf("\r\n");\
-						printf
-
-#define DBG_LOG_ADV	    printf("\r\nBLE-ADV: ");\
-						printf
+#if (BLE_ASSERT == true)
+#define ble_assert(expr) \
+{\
+	if (!(expr)) while (true);\
+}
+#else
+#define ble_assert(expr) ((void) 0)
+#endif
 						
 #define UNUSED1(x) (void)(x)
 #define UNUSED2(x,y) (void)(x),(void)(y)
@@ -86,6 +93,18 @@
 #define ALL_UNUSED_IMPL(nargs) ALL_UNUSED_IMPL_(nargs)
 #define ALL_UNUSED(...) ALL_UNUSED_IMPL( VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__ )
 
+#if defined DEBUG_LOG_DISABLED
+	#define DBG_LOG_CONT	ALL_UNUSED
+	#define DBG_LOG		    ALL_UNUSED
+	#define DBG_LOG_ADV	    ALL_UNUSED
+#else
+	#define DBG_LOG_CONT	printf
+	#define DBG_LOG		    printf("\r\n");\
+							printf
+	#define DBG_LOG_ADV	    printf("\r\nBLE-ADV: ");\
+							printf
+#endif
+
 #ifdef ENABLE_PTS
 #define DBG_LOG_PTS			DBG_LOG
 #else
@@ -94,6 +113,8 @@
 
 #define DBG_LOG_DEV			ALL_UNUSED
 #define DBG_LOG_CONT_DEV	ALL_UNUSED
+
+#define BLU_SDK_API
 						
 #define IEEE11073_EXPONENT						(0xFF000000)
 
@@ -101,6 +122,18 @@
 
 #define IEEE754_TO_IEEE11073_FLOAT(f_val)		(IEEE11073_EXPONENT | \
 												IEEE754_MANTISA(f_val))
+												
+#define NIBBLE2ASCII(nibble) (((nibble < 0x0A) ? (nibble + '0') : (nibble + 0x57)))
+
+static inline void dump_hex_buffer(void *buf, uint32_t len)
+{
+	uint32_t idx;
+	uint8_t *buffer = (uint8_t *)buf;
+	for (idx = 0; idx < len; ++idx)
+	{
+		DBG_LOG_CONT("0x%X ", *buffer++);
+	}
+}
 
 static inline uint32_t convert_ieee754_ieee11073_float(float f_val)
 {

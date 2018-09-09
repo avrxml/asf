@@ -1,4 +1,4 @@
-/* Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
+* Copyright (c) 2009-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:

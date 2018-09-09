@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2001-2004 Swedish Institute of Computer Science.
+ * Copyright (c) 2001-2018 Swedish Institute of Computer Science.
  * All rights reserved. 
  * 
  * Redistribution and use in source and binary forms, with or without modification, 
@@ -42,7 +42,7 @@ extern "C" {
 
 /* If your port already typedef's in_addr_t, define IN_ADDR_T_DEFINED
    to prevent this code from redefining it. */
-#if !defined(in_addr_t) && !defined(IN_ADDR_T_DEFINED)
+#if !defined(in_addr_t) && !defined(_IN_ADDR_T_DECLARED)
 typedef u32_t in_addr_t;
 #endif
 /** For compatibility with BSD code */

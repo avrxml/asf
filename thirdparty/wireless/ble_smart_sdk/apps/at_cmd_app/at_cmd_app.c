@@ -3,45 +3,35 @@
  *
  * \brief AT CMD Application
  *
- * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
  /**
@@ -57,7 +47,6 @@
 #include <string.h>
 #include <conf_console_serial.h>
 #include "platform.h"
-
 #include "console_serial.h"
 #include "led.h"
 #include "button.h"
@@ -66,19 +55,7 @@
 #define NULL ((void *)0)
 #endif
 
-//from uart.h keil project
 #define UART_CONFIG_ISR_CHR_LEN		1
-#ifdef CHIPVERSION_B0
-#define UART0_RX_VECTOR_TABLE_INDEX		16
-#define UART0_TX_VECTOR_TABLE_INDEX		17
-#define UART1_RX_VECTOR_TABLE_INDEX		18
-#define UART1_TX_VECTOR_TABLE_INDEX		19
-#else
-#define UART0_RX_VECTOR_TABLE_INDEX		16
-#define UART0_TX_VECTOR_TABLE_INDEX		17
-#define UART1_RX_VECTOR_TABLE_INDEX		18
-#define UART1_TX_VECTOR_TABLE_INDEX		19
-#endif	//CHIPVERSION_B0
 
 #define UART_READ(buff)	uart_read_buffer_wait(UART_CONFIG_MODULE,buff, UART_CONFIG_ISR_CHR_LEN);
 
@@ -106,33 +83,11 @@ enum uart_rx_callback {
 /** Type definition for an GPIO/PORT pin interrupt module callback function. */
 typedef void (*portint_callback_t)(void);
 
-#ifdef CHIPVERSION_B0
-	#define GPIO0_COMBINED_VECTOR_TABLE_INDEX		39
-	#define GPIO1_COMBINED_VECTOR_TABLE_INDEX		40
-	#define GPIO2_COMBINED_VECTOR_TABLE_INDEX		41
-#else
-	#define GPIO0_COMBINED_VECTOR_TABLE_INDEX		23
-	#define GPIO1_COMBINED_VECTOR_TABLE_INDEX		24
-#endif	//CHIPVERSION_B0
-
-/** Enum for the possible callback types for the GPIO/PORT pin interrupt module. */
-enum portint_callback_type
-{
-	/** Callback type for when an external interrupt detects the configured
-	 *  channel criteria (i.e. edge or level detection)
-	 */
-	PORTINT_CALLBACK_TYPE_DETECT = 1,
-};
-
-
-//from uart.h keil project
-
 void callback_uart_rx(uint8_t input);
 void callback_btn(void);
 void callback_resume(void);
 void init_globals(void);
 
-//uint8_t gau8UartRxBuffer[UART_CONFIG_ISR_CHR_LEN+1]; //+1 for NULL terminator
 uint8_t gau8UartRxBuffer;
 static tstrAt_cmd_content	gstrAt_cmdContent;	
 static strAtCMD_Handler		gastrAtCMD_Handler[AT_MAX_COMMANDS_COUNT];
@@ -147,13 +102,12 @@ volatile static uint8_t 	carriage_return 	= 0;
 
 volatile uint32_t 	event_pool_memory[256] 		= {0};
 volatile uint32_t 	event_params_memory[1024] 	= {0};
+extern bool button_debounce;
 
 
 void callback_uart_rx(uint8_t input)
 {
-	//UART_READ(gau8UartRxBuffer);
-	send_plf_int_msg_ind(UART0_RX_VECTOR_TABLE_INDEX,UART_CALLBACK_RX_FIFO_HALF_FULL,NULL,0);
-	//gau8UartRxBuffer[UART_CONFIG_ISR_CHR_LEN] = 0;
+	send_plf_int_msg_ind(RAM_ISR_TABLE_UARTRX0_INDEX,UART_CALLBACK_RX_FIFO_HALF_FULL,NULL,0);
 	switch(gu8CmdStatus)
 	{
 		case AT_CMD_STATUS_IDLE:
@@ -197,7 +151,6 @@ void callback_uart_rx(uint8_t input)
 						if(gu8CmdStatus != AT_CMD_STATUS_CHECK)
 						{
 							gu8CmdStatus = AT_CMD_STATUS_CHECK;
-							//gau8DataBufferIndex = 0;
 							if(0 == strlen((const char *)gau8DataBuffer))
 							{
 								gu8InvalidPrinted = false;
@@ -233,14 +186,11 @@ EXIT:
 
 void callback_btn(void)
 {
-	send_plf_int_msg_ind(GPIO1_COMBINED_VECTOR_TABLE_INDEX,PORTINT_CALLBACK_TYPE_DETECT,NULL,0);
+	send_plf_int_msg_ind(RAM_ISR_TABLE_PORT1_COMB_INDEX,PORTINT_CALLBACK_TYPE_DETECT,NULL,0);
 }
 
 void callback_resume(void)
 {
-	//uart_config_init(UART_CONFIG_BAUD_RATE);
-	//gpio_config_led_init();
-	//gpio_config_btn_init(callback_btn);
 	serial_console_init();
 	gpio_init();
 	button_init();
@@ -265,11 +215,10 @@ at_ble_status_t init_ble_stack(void)
 	at_ble_status_t enuStatus;
 	at_ble_init_config_t pf_cfg;
 	at_ble_addr_t addr;
+	
 	/* BLE core Intialization */
-
 	memset((uint8_t *)event_pool_memory, 0, sizeof(event_pool_memory));
 	memset((uint8_t *)event_params_memory, 0, sizeof(event_params_memory));
-
 	memset(&pf_cfg,0,sizeof(pf_cfg));
 
 	pf_cfg.event_mem_pool.memStartAdd		 = (uint8_t *)event_pool_memory;
@@ -281,18 +230,18 @@ at_ble_status_t init_ble_stack(void)
     CHECK_ERROR(enuStatus, __EXIT);
 	//Set device name
     enuStatus = at_ble_device_name_set((uint8_t *)DEVICE_NAME, sizeof(DEVICE_NAME));
-    printf("Device name   : %s\r\n", DEVICE_NAME);
+    DBG_LOG("Device name   : %s", DEVICE_NAME);
 	CHECK_ERROR(enuStatus, __EXIT);
 	//Get device address
 	enuStatus = at_ble_addr_get(&addr);
-	printf("Device Address: ");
+	DBG_LOG("Device Address: ");
     CHECK_ERROR(enuStatus, __EXIT);
-    printf("0x%02X%02X%02X%02X%02X%02X,", addr.addr[5], addr.addr[4], addr.addr[3],
+    DBG_LOG("0x%02X%02X%02X%02X%02X%02X,", addr.addr[5], addr.addr[4], addr.addr[3],
 		 addr.addr[2], addr.addr[1], addr.addr[0]);
-	printf("\tType : %d\r\n", addr.type);
+	DBG_LOG("Type : %d", addr.type);
 	
 __EXIT:
-	printf("\r\n>>");
+	DBG_LOG(">>");
 	return enuStatus;
 }
 
@@ -308,15 +257,10 @@ int main(void)
 	platform_driver_init();
 	register_resume_callback(callback_resume);
 	
-	//uart_config_init(UART_CONFIG_BAUD_RATE);
-	//uart_config_callback(callback_uart_rx, gau8UartRxBuffer, UART_CONFIG_ISR_CHR_LEN); 
 	serial_console_init();
 	register_uart_callback(callback_uart_rx);
-
-	printf("UART Initialized\r\n");
+	DBG_LOG("UART Initialized\r\n");
 	
-	//gpio_config_btn_init(callback_btn);
-	//gpio_config_led_init();
 	gpio_init();
 	button_init();
 	button_register_callback(callback_btn);
@@ -324,10 +268,10 @@ int main(void)
 	
 	if(AT_BLE_SUCCESS != init_ble_stack())
 	{
-		printf("Unable to initialize BLE stack\r\n");
+		DBG_LOG("Unable to initialize BLE stack\r\n");
 		while(1);
 	}
-	printf("BLE Stack Initialized, use \"AT+\" for AT-Commands\r\n");
+	DBG_LOG("BLE Stack Initialized, use \"AT+\" for AT-Commands\r\n");
 	
 	init_at_cmd_handler(gastrAtCMD_Handler);
 	print_cmd_handler_arr(gastrAtCMD_Handler);
@@ -342,24 +286,24 @@ int main(void)
 				case AT_BLE_SCAN_INFO:
 				{
 						at_ble_scan_info_t *data = (at_ble_scan_info_t *)((void *)params);
-						printf("AT_BLE_SCAN_INFO: \r\n");
-						printf("\tDevice Addr.: 0x%02X%02X%02X%02X%02X%02X\r\n",
+						DBG_LOG("AT_BLE_SCAN_INFO: ");
+						DBG_LOG("Device Addr.: 0x%02X%02X%02X%02X%02X%02X",
 								data->dev_addr.addr[5], data->dev_addr.addr[4],
 								data->dev_addr.addr[3], data->dev_addr.addr[2],
 								data->dev_addr.addr[1], data->dev_addr.addr[0]
 						);
-						printf("\tAddrType    : 0x%02X\r\n", data->dev_addr.type);
-						printf("\tRSSI        : %d\r\n", data->rssi);
+						DBG_LOG("AddrType    : 0x%02X", data->dev_addr.type);
+						DBG_LOG("RSSI        : %d", data->rssi);
 				}
 				break;
 				case AT_BLE_SCAN_REPORT:
 				{
 					at_ble_scan_report_t *data = (at_ble_scan_report_t *)((void *)params);
-					printf("AT_BLE_SCAN_REPORT:\r\n");
+					DBG_LOG("AT_BLE_SCAN_REPORT:");
 					if (AT_BLE_SUCCESS == data->status)
 					{
-						printf("Scan has been finished\r\n");
-						printf("Status %d\r\n", data->status);
+						DBG_LOG("Scan has been finished");
+						DBG_LOG("Status %d", data->status);
 					}
 				}
 				break;
@@ -382,24 +326,22 @@ int main(void)
 uint8_t platform_event_handler(uint16_t type, uint8_t *data, uint16_t len)
 {
 	uint8_t u8Status = 0;
-	if(type == ((PORTINT_CALLBACK_TYPE_DETECT << 8)| GPIO1_COMBINED_VECTOR_TABLE_INDEX))
+	if(type == ((PORTINT_CALLBACK_TYPE_DETECT << 8)| RAM_ISR_TABLE_PORT1_COMB_INDEX))
 	{
-		printf(">>btn\r\n");
+		DBG_LOG(">>btn");
 		LED_Toggle(LED0);
-		//GPIO_CONFIG_LED_STATE(LED_TOGGLE);
+		button_debounce = true;
 	}
-	else if(type == ((UART_CALLBACK_RX_FIFO_HALF_FULL << 8)| UART0_RX_VECTOR_TABLE_INDEX))
+	else if(type == ((UART_CALLBACK_RX_FIFO_HALF_FULL << 8)| RAM_ISR_TABLE_UARTRX0_INDEX))
 	{
-//		#if ECHO
-			printf("%c",gau8UartRxBuffer);
-//		#endif		
+		DBG_LOG_CONT("%c",gau8UartRxBuffer);
 		switch(gu8CmdStatus)
 		{
 			case AT_CMD_STATUS_IDLE:
 			{
 				if(!gu8InvalidPrinted)
 				{
-					printf(":Invalid Input\r\n");
+					DBG_LOG(":Invalid Input\r\n");
 					memset((void *)gau8DataBuffer,0,sizeof(gau8DataBuffer));
 					gau8DataBufferIndex = 0;	
 					gu8InvalidPrinted = 1;
@@ -409,7 +351,7 @@ uint8_t platform_event_handler(uint16_t type, uint8_t *data, uint16_t len)
 			case AT_CMD_STATUS_CHECK:
 			{
 				int8_t s8Ret = -1;
-				printf("\r\n");
+				DBG_LOG("\r\n");
 				memcpy((void *)&gstrAt_cmdContent.au8Cmd[0], (void *)&gau8DataBuffer[strlen(AT_HEADER)], gau8DataBufferIndex);
 				gstrAt_cmdContent.u8NumOfParameters = 0;
 				s8Ret = get_index_cmdHandler(gstrAt_cmdContent, (strAtCMD_Handler *)&gastrAtCMD_Handler);
@@ -421,8 +363,7 @@ uint8_t platform_event_handler(uint16_t type, uint8_t *data, uint16_t len)
 				}
 				else
 				{
-					//printf("Invalid command\r\n", strlen(AT_HEADER));
-					printf("Invalid command\r\n");
+					DBG_LOG("Invalid command");
 					memset((void *)gau8DataBuffer,0,sizeof(gau8DataBuffer));
 					gu8CmdStatus = AT_CMD_STATUS_IDLE;
 					break;
@@ -430,11 +371,11 @@ uint8_t platform_event_handler(uint16_t type, uint8_t *data, uint16_t len)
 			}
 			case AT_CMD_STATUS_RUN:
 			{
-				printf("Processing...");
+				DBG_LOG("Processing...");
 				gs8CmdIndex = gastrAtCMD_Handler[gs8CmdIndex].at_cmd_handler(gstrAt_cmdContent, NULL, 0);
 				if(0 == gs8CmdIndex)
 				{
-					printf("DONE\r\n");
+					DBG_LOG("DONE\r\n");
 					if(strcmp((const char *)gstrAt_cmdContent.au8Cmd, (const char *)gastrAtCMD_Handler[AT_INDEX_INIT].au8AtCMD) == 0)
 					{
 						u8Status = 0xC0;	//start handling in at_ble_event_get
@@ -442,7 +383,7 @@ uint8_t platform_event_handler(uint16_t type, uint8_t *data, uint16_t len)
 				}
 				else
 				{
-					printf("Failed <%d>\r\n", gs8CmdIndex);
+					DBG_LOG("Failed <%d>", gs8CmdIndex);
 				}
 				gu8CmdStatus = AT_CMD_STATUS_IDLE;
 				memset((void *)gau8DataBuffer,0,sizeof(gau8DataBuffer));

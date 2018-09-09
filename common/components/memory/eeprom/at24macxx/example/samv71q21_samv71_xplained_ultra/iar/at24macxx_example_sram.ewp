@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>ATSAMV71Q21	Atmel ATSAMV71Q21</state>
+					<state>ATSAMV71Q21B	Atmel ATSAMV71Q21B</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -166,9 +166,9 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
+					<state>__SAMV71Q21B__</state>
 					<state>BOARD=SAMV71_XPLAINED_ULTRA</state>
 					<state>ARM_MATH_CM7=true</state>
-					<state>__SAMV71Q21__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -472,9 +472,9 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>__SAMV71Q21B__</state>
 					<state>BOARD=SAMV71_XPLAINED_ULTRA</state>
 					<state>ARM_MATH_CM7=true</state>
-					<state>__SAMV71Q21__</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1068,7 +1068,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>ATSAMV71Q21	Atmel ATSAMV71Q21</state>
+					<state>ATSAMV71Q21B	Atmel ATSAMV71Q21B</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1137,9 +1137,9 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
+					<state>__SAMV71Q21B__</state>
 					<state>BOARD=SAMV71_XPLAINED_ULTRA</state>
 					<state>ARM_MATH_CM7=true</state>
-					<state>__SAMV71Q21__</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1443,9 +1443,9 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>__SAMV71Q21B__</state>
 					<state>BOARD=SAMV71_XPLAINED_ULTRA</state>
 					<state>ARM_MATH_CM7=true</state>
-					<state>__SAMV71Q21__</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -2062,13 +2062,13 @@
 						<name>$PROJ_DIR$/../../../../../../../services/clock/samv71/pll.h</name>
 					</file>
 					<file>
+						<name>$PROJ_DIR$/../../../../../../../services/clock/samv71/genclk.h</name>
+					</file>
+					<file>
 						<name>$PROJ_DIR$/../../../../../../../services/clock/samv71/sysclk.h</name>
 					</file>
 					<file>
 						<name>$PROJ_DIR$/../../../../../../../services/clock/samv71/osc.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../../../../services/clock/samv71/genclk.h</name>
 					</file>
 				</group>
 				<file>
@@ -2162,10 +2162,10 @@
 					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pio/pio_handler.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pio/pio_handler.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pio/pio.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pio/pio.h</name>
+					<name>$PROJ_DIR$/../../../../../../../../sam/drivers/pio/pio_handler.h</name>
 				</file>
 			</group>
 			<group>
@@ -2297,6 +2297,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/acc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/uart1.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/pmc.h</name>
 							</file>
 							<file>
@@ -2304,9 +2307,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/piod.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/usart0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/rtc.h</name>
@@ -2321,10 +2321,10 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/gpbr.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/rtt.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/smc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/smc.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/rtt.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/mcan0.h</name>
@@ -2342,10 +2342,10 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/chipid.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/matrix.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/pwm1.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/uart1.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/matrix.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/usart2.h</name>
@@ -2354,7 +2354,10 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/dacc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/spi1.h</name>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/usart0.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/i2sc0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/afec1.h</name>
@@ -2381,7 +2384,13 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/twihs0.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/spi1.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/tc2.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/i2sc1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/usart1.h</name>
@@ -2402,9 +2411,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/rstc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/pwm1.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/mlb.h</name>
 							</file>
 							<file>
@@ -2420,6 +2426,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/instance/twihs1.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71q20b.h</name>
+						</file>
 						<group>
 							<name>pio</name>
 							<file>
@@ -2435,7 +2444,16 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71q20.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71n20b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71j19.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71q19b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71n19b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71q21.h</name>
@@ -2447,7 +2465,25 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71n19.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71n21b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71j21b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71n20.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71j19b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71j20b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71q21b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/pio/samv71q20b.h</name>
 							</file>
 						</group>
 						<file>
@@ -2471,6 +2507,9 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/pmc.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/acc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/uart.h</name>
 							</file>
 							<file>
@@ -2492,9 +2531,6 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/pwm.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/acc.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/smc.h</name>
 							</file>
 							<file>
@@ -2504,10 +2540,16 @@
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/aes.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/spi.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/hsmci.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/i2sc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/utmi.h</name>
@@ -2526,9 +2568,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/sdramc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/spi.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/component/usbhs.h</name>
@@ -2565,7 +2604,13 @@
 							</file>
 						</group>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71n20b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71j21.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71n21b.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71n19.h</name>
@@ -2574,16 +2619,34 @@
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71j20b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71q21.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71q19b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71j21b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71q21b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71q20.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71j19b.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71n20.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71j20.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../../../sam/utils/cmsis/samv71/include/samv71n19b.h</name>
 						</file>
 					</group>
 				</group>

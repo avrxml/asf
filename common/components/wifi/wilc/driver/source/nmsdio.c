@@ -4,45 +4,38 @@
  *
  * \brief This module contains NMC1000 SDIO protocol bus APIs implementation.
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 #include "common/include/nm_common.h"
-
 #ifdef CONF_WILC_USE_SDIO
 
 #include "bus_wrapper/include/nm_bus_wrapper.h"
+#include "nmsdio.h"
 
 #define WILC_SDIO_BLOCK_SIZE 512
 
@@ -56,21 +49,16 @@
 #define N_RESET					-1
 #define N_RETRY					-2
 
-#define INIT_RX_ALIGNED_BUF_SIZE 1600
-
-
 static int sdio_set_func0_csa_address(uint32_t adr);
 static int sdio_set_func0_block_size(uint32_t block_size);
 static int sdio_set_func1_block_size(uint32_t block_size);
 static int sdio_int_enable(void);
 
-static uint8* gpu8AlignedBuf = NULL;
-static uint32 gu32AlignedBufSize = INIT_RX_ALIGNED_BUF_SIZE;
-
+#define SDIO_ALGN_USE_STATIC_BUFFER
 
 static int sdio_write_reg(uint32_t addr, uint32_t data)
 {
-#ifdef BIG_ENDIAN
+#ifdef CONF_WILC_BIG_ENDIAN
 	data = BYTE_SWAP(data);
 #endif
 
@@ -83,7 +71,7 @@ static int sdio_write_reg(uint32_t addr, uint32_t data)
 		cmd.address = addr;
 		cmd.data = data;
 		if (nm_bus_ioctl(NM_BUS_IOCTL_CMD_52, &cmd)) {
-			M2M_ERR("[nmi sdio]: Failed cmd 52, read reg (%08x) ...\n", addr);
+			M2M_ERR("[nmi sdio]: Failed cmd 52, read reg (%08lx) ...\n", addr);
 			goto _fail_;
 		}
 	}
@@ -107,7 +95,7 @@ static int sdio_write_reg(uint32_t addr, uint32_t data)
 		cmd.block_size = WILC_SDIO_BLOCK_SIZE;
 	
 		if (nm_bus_ioctl(NM_BUS_IOCTL_CMD_53, &cmd)) {
-			M2M_ERR("[nmi sdio]: Failed cmd53, write reg (%08x)...\n", addr);
+			M2M_ERR("[nmi sdio]: Failed cmd53, write reg (%08lx)...\n", addr);
 			goto _fail_;
 		}
 
@@ -175,7 +163,7 @@ static int sdio_write(uint32_t addr, uint8_t *buf, uint32_t size)
 				goto _fail_;
 		}
 		if (nm_bus_ioctl(NM_BUS_IOCTL_CMD_53, &cmd)) {
-			M2M_ERR("Failed cmd53 [%x], block send\n", addr);
+			M2M_ERR("Failed cmd53 [%lx], block send\n", addr);
 			goto _fail_;
 		}
 		if (addr > 0)
@@ -197,7 +185,7 @@ static int sdio_write(uint32_t addr, uint8_t *buf, uint32_t size)
 				goto _fail_;
 		}
 		if (nm_bus_ioctl(NM_BUS_IOCTL_CMD_53, &cmd)) {
-			M2M_ERR("Failed cmd53 [%x], bytes send\n", addr);
+			M2M_ERR("Failed cmd53 [%lx], bytes send\n", addr);
 			goto _fail_;
 		}
 	}
@@ -217,7 +205,7 @@ static int sdio_read_reg(uint32_t addr, uint32_t *data)
 		cmd.raw = 0;
 		cmd.address= addr;
 		if (nm_bus_ioctl(NM_BUS_IOCTL_CMD_52, &cmd)) {
-			M2M_ERR( "[nmi sdio]: Failed cmd 52, read reg (%08x) ...\n", addr);
+			M2M_ERR( "[nmi sdio]: Failed cmd 52, read reg (%08lx) ...\n", addr);
 			goto _fail_;
 		}
 		*data = cmd.data;
@@ -241,7 +229,7 @@ static int sdio_read_reg(uint32_t addr, uint32_t *data)
 		cmd.block_size = WILC_SDIO_BLOCK_SIZE;
 
 		if (nm_bus_ioctl(NM_BUS_IOCTL_CMD_53, &cmd)) {
-			M2M_ERR( "[nmi sdio]: Failed cmd53, read reg (%08x)...\n", addr);
+			M2M_ERR( "[nmi sdio]: Failed cmd53, read reg (%08lx)...\n", addr);
 			goto _fail_;
 		}	
 
@@ -253,7 +241,7 @@ static int sdio_read_reg(uint32_t addr, uint32_t *data)
 #endif
 	}
 
-#ifdef BIG_ENDIAN
+#ifdef CONF_WILC_BIG_ENDIAN
 	*data = BYTE_SWAP(*data);
 #endif
 
@@ -313,7 +301,7 @@ static int sdio_read(uint32_t addr, uint8_t *buf, uint32_t size)
 				goto _fail_;
 		}
 		if (nm_bus_ioctl(NM_BUS_IOCTL_CMD_53, &cmd)) {
-			M2M_ERR("Failed cmd53 [%x], block read\n", addr);
+			M2M_ERR("Failed cmd53 [%lx], block read\n", addr);
 			goto _fail_;
 		}
 		if (addr > 0)
@@ -335,7 +323,7 @@ static int sdio_read(uint32_t addr, uint8_t *buf, uint32_t size)
 				goto _fail_;
 		}
 		if (nm_bus_ioctl(NM_BUS_IOCTL_CMD_53, &cmd)) {
-			M2M_ERR("Failed cmd53 [%x], bytes read\n", addr);
+			M2M_ERR("Failed cmd53 [%lx], bytes read\n", addr);
 			goto _fail_;
 		}
 	}
@@ -489,8 +477,6 @@ sint8 nm_sdio_init(void)
 {
 	tstrNmSdioCmd52 cmd;
 	int loop;
-	uint32_t chipid;
-	uint32 reg =0;
 
 	/*
 	 * function 0 csa enable
@@ -569,25 +555,9 @@ sint8 nm_sdio_init(void)
 		M2M_ERR("Fail cmd 52, set IEN register\n");
 		return M2M_ERR_BUS_FAIL;
 	}
-	
-	/**
-		make sure can read back chip id correctly
-	**/
-	if (sdio_read_reg(0x3b0000, &chipid)) {
-		M2M_ERR("[nmi sdio]: Fail cmd read chip id..., got %x\n", chipid);
-		return M2M_ERR_BUS_FAIL;
-	}
 
-	M2M_DBG("[nmi sdio]: chipid (%08x)\n", (unsigned int)chipid);
 	sdio_int_enable();
 
-	gpu8AlignedBuf = nm_bsp_malloc(INIT_RX_ALIGNED_BUF_SIZE);
-	if(gpu8AlignedBuf == NULL){
-		M2M_ERR("Failed to allocate buffer");
-		gu32AlignedBufSize = 0;
-		return M2M_ERR_MEM_ALLOC;
-	}
-	gu32AlignedBufSize = INIT_RX_ALIGNED_BUF_SIZE;
 	return M2M_SUCCESS;
 }
 
@@ -601,11 +571,6 @@ sint8 nm_sdio_init(void)
 */ 
 sint8 nm_sdio_deinit(void)
 {
-	if(gpu8AlignedBuf != NULL)
-		nm_bsp_free(gpu8AlignedBuf);
-	gpu8AlignedBuf = NULL;
-	gu32AlignedBufSize = 0;
-	
 	return M2M_SUCCESS;
 }
 	
@@ -686,27 +651,7 @@ sint8 nm_sdio_write_reg(uint32 u32Addr, uint32 u32Val)
 */ 
 sint8 nm_sdio_read_block(uint32 u32Addr, uint8 *puBuf, uint16 u16Sz)
 {
-	sint8 s8Ret;
-	sint8 rem = 4 - (((uint32)puBuf) %4);
-	if(rem == 4){
-		s8Ret = sdio_read(u32Addr, puBuf, u16Sz);	
-	}
-	else{	
-		if(gu32AlignedBufSize < u16Sz){
-			uint32 u32AlignedSize = (u16Sz+3) & (~0x3);
-			nm_bsp_free(gpu8AlignedBuf);
-			gpu8AlignedBuf = nm_bsp_malloc(u32AlignedSize);
-			if(gpu8AlignedBuf == NULL){
-				M2M_ERR("Failed to allocate buffer");
-				gu32AlignedBufSize = 0;
-				return M2M_ERR_MEM_ALLOC;
-			}
-			gu32AlignedBufSize = u32AlignedSize;
-		}
-		s8Ret = sdio_read(u32Addr, gpu8AlignedBuf, u16Sz);
-		m2m_memcpy(puBuf, gpu8AlignedBuf, u16Sz);
-	}
-	return s8Ret;
+	return sdio_read(u32Addr, puBuf, u16Sz);
 }
 
 /*
@@ -725,31 +670,12 @@ sint8 nm_sdio_read_block(uint32 u32Addr, uint8 *puBuf, uint16 u16Sz)
 */ 
 sint8 nm_sdio_write_block(uint32 u32Addr, uint8 *puBuf, uint16 u16Sz)
 {
-	sint8 s8Ret;
-	sint8 rem = 4 - (((uint32)puBuf) %4);
-	uint32 u32Reg=0;
-
-	if (rem== 4){
-		s8Ret = sdio_write(u32Addr, puBuf, u16Sz);
-	}
-	else{
-		if(gu32AlignedBufSize < u16Sz){
-			uint32 u32AlignedSize = (u16Sz+3) & (~0x3);
-			nm_bsp_free(gpu8AlignedBuf);
-			gpu8AlignedBuf = nm_bsp_malloc(u32AlignedSize);
-			if(gpu8AlignedBuf == NULL){
-				M2M_ERR("Failed to allocate buffer");
-				gu32AlignedBufSize = 0;
-				return M2M_ERR_MEM_ALLOC;
-			}
-			gu32AlignedBufSize = u32AlignedSize;
-		} 		
-		m2m_memcpy(gpu8AlignedBuf, puBuf, u16Sz);
-		s8Ret = sdio_write(u32Addr, gpu8AlignedBuf, u16Sz);
-	}
-
-	return s8Ret;
+#ifdef CHECK_SDIO_BUFFER_ALIGNMENT
+    if (((uint32) puBuf) % 4 != 0) {
+        return -1;
+    }
+#endif
+	return sdio_write(u32Addr, puBuf, u16Sz);
 }
-
 
 #endif

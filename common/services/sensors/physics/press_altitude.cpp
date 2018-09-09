@@ -14,7 +14,7 @@
  * atmosphere, but the actual rate varies from day to day and throughout the
  * day.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *

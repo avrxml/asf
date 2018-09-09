@@ -6,45 +6,35 @@
  *
  * This file defines a useful set of functions for the I2S on SAM devices.
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include "i2sc.h"
@@ -237,6 +227,7 @@ void i2s_enable_interrupt(struct i2s_dev_inst *const dev_inst,
 	case I2S_INTERRUPT_TXUR:
 		dev_inst->hw_dev->I2SC_IER = I2SC_IER_TXUR;
 		break;
+#if defined(PDC_I2SC) || defined(PDC_I2SC0) || defined(PDC_I2SC1)
 	case I2S_INTERRUPT_ENDRX:
 		dev_inst->hw_dev->I2SC_IER = I2SC_IER_ENDRX;
 		break;
@@ -249,6 +240,7 @@ void i2s_enable_interrupt(struct i2s_dev_inst *const dev_inst,
 	case I2S_INTERRUPT_TXBUFE:
 		dev_inst->hw_dev->I2SC_IER = I2SC_IER_TXEMPTY;
 		break;
+#endif
 	default:
 		break;
 	}
@@ -279,6 +271,7 @@ void i2s_disable_interrupt(struct i2s_dev_inst *const dev_inst,
 	case I2S_INTERRUPT_TXUR:
 		dev_inst->hw_dev->I2SC_IDR = I2SC_IDR_TXUR;
 		break;
+#if defined(PDC_I2SC) || defined(PDC_I2SC0) || defined(PDC_I2SC1)
 	case I2S_INTERRUPT_ENDRX:
 		dev_inst->hw_dev->I2SC_IDR = I2SC_IDR_ENDRX;
 		break;
@@ -291,6 +284,7 @@ void i2s_disable_interrupt(struct i2s_dev_inst *const dev_inst,
 	case I2S_INTERRUPT_TXBUFE:
 		dev_inst->hw_dev->I2SC_IDR = I2SC_IDR_TXEMPTY;
 		break;
+#endif
 	default:
 		break;
 	}
@@ -396,7 +390,7 @@ static void i2s_interrupt_handler(I2sc *i2sc)
 		row_num = 1;
 	}
 #endif
-	
+
 #if defined(ID_I2SC0)
 	if (i2sc == I2SC0) {
 		row_num = 0;
@@ -418,7 +412,7 @@ static void i2s_interrupt_handler(I2sc *i2sc)
 	if ((status & I2SC_SR_TXUR) && (mask & I2SC_IMR_TXUR)) {
 		i2s_callback_pointer[row_num][I2S_INTERRUPT_TXUR]();
 	}
-
+#if defined(PDC_I2SC) || defined(PDC_I2SC0) || defined(PDC_I2SC1)
 	if ((status & I2SC_SR_RXRDY) && (mask & I2SC_IMR_ENDRX)) {
 		i2s_callback_pointer[row_num][I2S_INTERRUPT_ENDRX]();
 	}
@@ -434,7 +428,7 @@ static void i2s_interrupt_handler(I2sc *i2sc)
 	if ((status & I2SC_SR_TXUR) && (mask & I2SC_IMR_TXEMPTY)) {
 		i2s_callback_pointer[row_num][I2S_INTERRUPT_TXBUFE]();
 	}
-
+#endif
 }
 
 #if defined(ID_I2SC0)
@@ -457,8 +451,11 @@ void I2SC1_Handler(void)
 }
 #endif
 
+#if defined(PDC_I2SC) || defined(PDC_I2SC0) || defined(PDC_I2SC1)
 /**
  * \brief Get I2SC PDC base address.
+ *
+ * \note The second PDC base address for the same instance is the return value plus 0x100.
  *
  * \param dev_inst  Device structure pointer.
  *
@@ -483,4 +480,4 @@ Pdc *i2s_get_pdc_base(struct i2s_dev_inst *const dev_inst)
 
 	return p_pdc_base;
 }
-
+#endif /* defined(PDC_I2SC) || defined(PDC_I2SC0) || defined(PDC_I2SC1) */

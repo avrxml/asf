@@ -54,7 +54,7 @@ TARGET_SRAM = bod_quick_start_sram.elf
 CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        sam0/boards/samr21_xplained_pro/board_init.c       \
-       sam0/drivers/bod/bod_sam_d_r/bod.c                 \
+       sam0/drivers/bod/bod_sam_d_r_h/bod.c               \
        sam0/drivers/bod/quick_start/qs_bod_basic_use.c    \
        sam0/drivers/port/port.c                           \
        sam0/drivers/system/pinmux/pinmux.c                \
@@ -72,7 +72,7 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samr21_xplained_pro                    \
        sam0/drivers/bod                                   \
-       sam0/drivers/bod/bod_sam_d_r                       \
+       sam0/drivers/bod/bod_sam_d_r_h                     \
        sam0/drivers/bod/quick_start                       \
        sam0/drivers/bod/quick_start/samr21_xplained_pro   \
        sam0/drivers/port                                  \

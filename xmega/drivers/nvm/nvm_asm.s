@@ -3,7 +3,7 @@
  *
  * \brief Non Volatile Memory controller driver
  *
- * Copyright (c) 2010 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *

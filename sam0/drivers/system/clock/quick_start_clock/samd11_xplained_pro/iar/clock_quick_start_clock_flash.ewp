@@ -297,23 +297,23 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../power</state>
+					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../reset</state>
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../clock_samd09_d10_d11</state>
-					<state>$PROJ_DIR$/../../../../../../utils</state>
-					<state>$PROJ_DIR$/../../../../../../boards/samd11_xplained_pro</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../../port</state>
+					<state>$PROJ_DIR$/../../../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../power</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../../reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/source</state>
 					<state>$PROJ_DIR$/../../../../interrupt</state>
-					<state>$PROJ_DIR$/../../../../power/power_sam_d_r</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../reset/reset_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd10_d11</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../power/power_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../pinmux</state>
 					<state>$PROJ_DIR$/../../../..</state>
@@ -566,23 +566,23 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../power</state>
+					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../reset</state>
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../clock_samd09_d10_d11</state>
-					<state>$PROJ_DIR$/../../../../../../utils</state>
-					<state>$PROJ_DIR$/../../../../../../boards/samd11_xplained_pro</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../../port</state>
+					<state>$PROJ_DIR$/../../../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../power</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../../reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/source</state>
 					<state>$PROJ_DIR$/../../../../interrupt</state>
-					<state>$PROJ_DIR$/../../../../power/power_sam_d_r</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../reset/reset_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd10_d11</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../power/power_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../pinmux</state>
 					<state>$PROJ_DIR$/../../../..</state>
@@ -1260,23 +1260,23 @@
 				</option>
 				<option>
 					<name>CCIncludePath2</name>
-					<state>$PROJ_DIR$/../../../../power</state>
+					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../reset</state>
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../clock_samd09_d10_d11</state>
-					<state>$PROJ_DIR$/../../../../../../utils</state>
-					<state>$PROJ_DIR$/../../../../../../boards/samd11_xplained_pro</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../../port</state>
+					<state>$PROJ_DIR$/../../../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../power</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../../reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/source</state>
 					<state>$PROJ_DIR$/../../../../interrupt</state>
-					<state>$PROJ_DIR$/../../../../power/power_sam_d_r</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../reset/reset_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd10_d11</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../power/power_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../pinmux</state>
 					<state>$PROJ_DIR$/../../../..</state>
@@ -1529,23 +1529,23 @@
 				</option>
 				<option>
 					<name>AUserIncludes</name>
-					<state>$PROJ_DIR$/../../../../power</state>
+					<state>$PROJ_DIR$/../../../../../port</state>
 					<state>$PROJ_DIR$/../../../../reset</state>
 					<state>$PROJ_DIR$/../../../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../clock_samd09_d10_d11</state>
-					<state>$PROJ_DIR$/../../../../../../utils</state>
-					<state>$PROJ_DIR$/../../../../../../boards/samd11_xplained_pro</state>
 					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../../port</state>
+					<state>$PROJ_DIR$/../../../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../power</state>
 					<state>$PROJ_DIR$/../../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../../reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/source</state>
 					<state>$PROJ_DIR$/../../../../interrupt</state>
-					<state>$PROJ_DIR$/../../../../power/power_sam_d_r</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../reset/reset_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../interrupt/system_interrupt_samd10_d11</state>
 					<state>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../power/power_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../pinmux</state>
 					<state>$PROJ_DIR$/../../../..</state>
@@ -2117,10 +2117,10 @@
 							</file>
 						</group>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/samd11.h</name>
+							<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/samd11d14au.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/samd11d14au.h</name>
+							<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/samd11.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../utils/cmsis/samd11/include/samd11d14am.h</name>
@@ -2248,20 +2248,20 @@
 					<name>$PROJ_DIR$/../../../../system.h</name>
 				</file>
 				<group>
-					<name>power</name>
+					<name>reset</name>
 					<group>
-						<name>power_sam_d_r</name>
+						<name>reset_sam_d_r_h</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../power/power_sam_d_r/power.h</name>
+							<name>$PROJ_DIR$/../../../../reset/reset_sam_d_r_h/reset.h</name>
 						</file>
 					</group>
 				</group>
 				<group>
-					<name>reset</name>
+					<name>power</name>
 					<group>
-						<name>reset_sam_d_r</name>
+						<name>power_sam_d_r_h</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../reset/reset_sam_d_r/reset.h</name>
+							<name>$PROJ_DIR$/../../../../power/power_sam_d_r_h/power.h</name>
 						</file>
 					</group>
 				</group>

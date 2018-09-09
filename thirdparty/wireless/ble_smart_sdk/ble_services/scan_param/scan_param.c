@@ -3,45 +3,35 @@
  *
  * \brief Scan Parameters service
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
  /**
@@ -64,10 +54,23 @@
  * @return none
  */
 
-extern at_ble_connected_t ble_dev_info[BLE_MAX_DEVICE_CONNECTED];
+extern at_ble_connected_t ble_dev_info[BLE_MAX_DEVICE_CONNECTION];
 
 bool volatile sps_notification_flag = false;
+static at_ble_status_t sps_disconnected_event_handler(void *params);
 
+static const ble_gap_event_cb_t sps_gap_cb = {
+	.disconnected = sps_disconnected_event_handler,
+};
+
+/* Callback registered for AT_BLE_DISCONNECTED event from stack */
+static at_ble_status_t sps_disconnected_event_handler(void *params)
+{
+	at_ble_disconnected_t *disconnected = (at_ble_disconnected_t *)params;
+	sps_notification_flag = false;
+	ALL_UNUSED(disconnected);
+	return AT_BLE_SUCCESS;
+}
 /**@brief Initialize the service with its included service, characteristics, and descriptors
  */
 void sps_init_service(sps_gatt_service_handler_t *sps_serv, uint16_t *scan_interval_window, uint8_t *scan_refresh)
@@ -120,6 +123,11 @@ void sps_init_service(sps_gatt_service_handler_t *sps_serv, uint16_t *scan_inter
 		sps_serv->serv_chars[1].client_config_handle = 0;         /*client config handles*/
 		sps_serv->serv_chars[1].server_config_handle = 0;         /*server config handles*/
 		sps_serv->serv_chars[1].presentation_format = NULL;       /* presentation format */
+		
+		/* Register callbacks for gap related events */
+		ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
+										BLE_GAP_EVENT_TYPE,
+										&sps_gap_cb);
 }
 
 /**@brief defining a initialized service 
@@ -134,7 +142,7 @@ at_ble_status_t sps_primary_service_define(sps_gatt_service_handler_t *sps_servi
 
 /**@brief Function used to update the scan refresh characteristic value during connection
  */
-at_ble_status_t sps_scan_refresh_char_update(sps_gatt_service_handler_t *sps_serv ,uint8_t scan_refresh_value, bool volatile *flag)
+at_ble_status_t sps_scan_refresh_char_update(sps_gatt_service_handler_t *sps_serv ,uint8_t scan_refresh_value)
 {
 	//updating application data
 	sps_serv->serv_chars[1].init_value = &scan_refresh_value;
@@ -155,7 +163,6 @@ at_ble_status_t sps_scan_refresh_char_update(sps_gatt_service_handler_t *sps_ser
 		else 
 		{
 			DBG_LOG_DEV("sending notification successful");
-			*flag = false;
 			return AT_BLE_SUCCESS;
 		}
 	}
@@ -165,7 +172,7 @@ at_ble_status_t sps_scan_refresh_char_update(sps_gatt_service_handler_t *sps_ser
 
 /**@brief function to check the client characteristic configuration value. 
  */
-at_ble_status_t	sps_char_changed_event(sps_gatt_service_handler_t *sps_service_handler, at_ble_characteristic_changed_t *char_handle, bool volatile *flag)
+at_ble_status_t	sps_char_changed_event(sps_gatt_service_handler_t *sps_service_handler, at_ble_characteristic_changed_t *char_handle)
 {
 	at_ble_characteristic_changed_t change_params;
 	uint16_t scan_interval_window[2];
@@ -183,7 +190,7 @@ at_ble_status_t	sps_char_changed_event(sps_gatt_service_handler_t *sps_service_h
 	
 	if(sps_service_handler->serv_chars[1].client_config_handle == change_params.char_handle)
 	{
-		if(change_params.char_new_value[0])
+		if(change_params.char_new_value[0] == SCP_NOTIFICATION_ENABLE)
 		{
 			sps_notification_flag = true;
 

@@ -3,45 +3,35 @@
  *
  * \brief USB Device Driver for USBHS. Compliant with common UDD driver.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include "conf_usb.h"
@@ -111,6 +101,94 @@
 //#define dbg_print printf
 #define dbg_print(...)
 
+#ifdef UDD_EP_DMA_SUPPORTED
+// for DCache
+/**
+ * \brief Flush content in DCache to physical memory
+ * \param addr The memory address to flush
+ * \param dsize The size of the memory
+ */
+static void _dcache_flush(void *addr, uint32_t dsize)
+{
+#ifdef CONF_BOARD_ENABLE_CACHE_AT_INIT
+	int32_t op_size = dsize;
+	uint32_t op_addr = (uint32_t) addr;
+	int32_t linesize = 32U;                // in Cortex-M7 size of cache line is fixed to 8 words (32 bytes)
+	if (op_addr & (linesize - 1)) {
+		op_size += op_addr & (linesize - 1);
+		op_addr &= ~(linesize - 1);
+	}
+	__ISB();
+	__DSB();
+
+	while (op_size > 0) {
+		SCB->DCCMVAC = op_addr;
+		op_addr += linesize;
+		op_size -= linesize;
+	}
+
+	__DSB();
+	__ISB();
+#endif
+}
+
+/**
+ * \brief Preparation for unaligned buffer invalidation
+ * \param addr The memory address to invalidate
+ * \param dsize The size of the memory
+ */
+static void _dcache_invalidate_prepare(void *addr, uint32_t dsize)
+{
+#ifdef CONF_BOARD_ENABLE_CACHE_AT_INIT
+	int32_t op_size = dsize;
+	uint32_t op_addr = (uint32_t) addr;
+	int32_t linesize = 32U;                // in Cortex-M7 size of cache line is fixed to 8 words (32 bytes)
+	uint32_t addr1 = op_addr;
+	uint32_t addr2 = op_addr + op_size;
+	if (addr1 & (linesize - 1) || addr2 & (linesize - 1)) {
+		addr1 &= ~(linesize - 1);
+		addr2 &= ~(linesize - 1);
+		__ISB();
+		__DSB();
+		SCB->DCCIMVAC = addr1;
+		SCB->DCCIMVAC = addr2;
+		__DSB();
+		__ISB();
+	}
+#endif
+}
+
+/**
+ * \brief Invalidate DCache of physical memory
+ * \param addr The memory address to invalidate
+ * \param dsize The size of the memory
+ */
+static void _dcache_invalidate(void *addr, uint32_t dsize)
+{
+#ifdef CONF_BOARD_ENABLE_CACHE_AT_INIT
+	int32_t op_size = dsize;
+	uint32_t op_addr = (uint32_t)addr;
+	int32_t linesize = 32U;                // in Cortex-M7 size of cache line is fixed to 8 words (32 bytes)
+	if (op_addr & (linesize - 1)) {
+		op_size += op_addr & (linesize - 1);
+		op_addr &= ~(linesize - 1);
+	}
+	__ISB();
+	__DSB();
+
+	while (op_size > 0) {
+		/* D-Cache Invalidate by MVA to PoC */
+		*(volatile uint32_t *)(0xE000EF5C) = op_addr;
+		op_addr += linesize;
+		op_size -= linesize;
+	}
+
+	__DSB();
+	__ISB();
+#endif
+}
+#endif
+
 /**
  * \ingroup udd_group
  * \defgroup udd_udphs_group USB High-Speed Port for device mode (USBHS)
@@ -136,6 +214,12 @@
  * UDD_INTERRUPT_NB_BANK(ep)<br>
  * Feature to reduce or increase interrupt endpoints buffering (1 to 2).
  * Default value 1.
+ *
+ * UDD_NO_SLEEP_MGR<br>
+ * Feature to work without sleep manager module.
+ * Default not defined.
+ * Note that with this feature defined sleep manager must not be used in
+ * application.
  *
  * \section Callbacks management
  * The USB driver is fully managed by interrupt and does not request periodique
@@ -571,6 +655,7 @@ void udd_interrupt(void)
 ISR(UDD_USB_INT_FUN)
 #endif
 {
+#ifndef UDD_NO_SLEEP_MGR
 	/* For fast wakeup clocks restore
 	 * In WAIT mode, clocks are switched to FASTRC.
 	 * After wakeup clocks should be restored, before that ISR should not
@@ -580,7 +665,7 @@ ISR(UDD_USB_INT_FUN)
 		cpu_irq_disable();
 		return;
 	}
-
+#endif
 	if (Is_udd_sof()) {
 		udd_ack_sof();
 		if (Is_udd_full_speed_mode()) {
@@ -1146,9 +1231,7 @@ bool udd_ep_run(udd_ep_id_t ep, bool b_shortpacket,
 		uint8_t * buf, iram_size_t buf_size,
 		udd_callback_trans_t callback)
 {
-#ifdef UDD_EP_FIFO_SUPPORTED
 	bool b_dir_in = Is_udd_endpoint_in(ep & USB_EP_ADDR_MASK);
-#endif
 	udd_ep_job_t *ptr_job;
 	irqflags_t flags;
 
@@ -1203,6 +1286,13 @@ bool udd_ep_run(udd_ep_id_t ep, bool b_shortpacket,
 #ifdef UDD_EP_DMA_SUPPORTED
 	// Request first DMA transfer
 	dbg_print("(exDMA%x) ", ep);
+	if (buf && buf_size) {
+		if (!b_dir_in) {
+			_dcache_invalidate_prepare(buf, buf_size);
+		} else {
+			_dcache_flush(buf, buf_size);
+		}
+	}
 	udd_ep_trans_done(ep);
 	return true;
 #endif
@@ -1228,6 +1318,8 @@ void udd_ep_abort(udd_ep_id_t ep)
 	}
 	udd_disable_endpoint_interrupt(ep_index);
 	// Kill IN banks
+	__DSB();
+	__ISB();
 	if (ep & USB_EP_DIR_IN) {
 		while(udd_nb_busy_bank(ep_index)) {
 			udd_kill_last_in_bank(ep_index);
@@ -1528,6 +1620,8 @@ static void udd_ctrl_in_sent(void)
 	udd_ctrl_payload_buf_cnt += nb_remain;
 
 	// Validate and send the data available in the control endpoint buffer
+	__DSB();
+	__ISB();
 	udd_ack_in_send(0);
 	udd_enable_in_send_interrupt(0);
 	// In case of abort of DATA IN phase, no need to enable nak OUT interrupt
@@ -1902,6 +1996,8 @@ static void udd_ep_trans_done(udd_ep_id_t ep)
 			udd_enable_endpoint_interrupt(ep);
 			return;
 		}
+	} else {
+		_dcache_invalidate(ptr_job->buf, ptr_job->buf_size);
 	}
 	dbg_print("dmaE ");
 	// Call callback to signal end of transfer
@@ -1948,6 +2044,8 @@ static void udd_ep_in_sent(udd_ep_id_t ep)
 			*ptr_dst++ = *ptr_src++;
 		}
 		// Switch to next bank
+		__DSB();
+		__ISB();
 		udd_ack_fifocon(ep);
 		// ZLP?
 		if (nb_data < pkt_size) {
@@ -1989,6 +2087,8 @@ static void udd_ep_out_received(udd_ep_id_t ep)
 		for (i = 0; i < nb_data; i++) {
 			*ptr_dst++ = *ptr_src++;
 		}
+		__DSB();
+		__ISB();
 	}
 	// Clear FIFO Status
 	udd_ack_fifocon(ep);

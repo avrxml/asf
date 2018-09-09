@@ -1,5 +1,5 @@
 @ECHO off
-@TITLE	Root Certificate Downloader - Atmel Corporation
+@TITLE	Root Certificate Downloader - Microchip Technology Inc
 setlocal EnableDelayedExpansion
 set /a c=0
 set seq=

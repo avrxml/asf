@@ -3,7 +3,7 @@
  *
  * \brief AVR UC3 boot process for bootloaders compiled with IAR.
  *
- * Copyright (c) 2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *

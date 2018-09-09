@@ -3,45 +3,35 @@
  *
  * \brief SAM SPI Flash Driver for SAMB11
  *
- * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 #include "spi_flash.h"
 
@@ -129,6 +119,7 @@ static uint8_t spi_flash_read_status_reg(void)
 static void spi_flash_page_program(uint32_t flash_addr, uint32_t memory_addr, uint16_t size)
 {
 	unsigned char cmd[8];
+	volatile uint32_t opt_delay = 0;
 
 	spi_flash_write_enable();
 
@@ -157,10 +148,12 @@ static void spi_flash_page_program(uint32_t flash_addr, uint32_t memory_addr, ui
 	 */
 	for(uint16_t i = 0; i < 0xFFFF; i++) {
 		/* Waiting... */
+		opt_delay++;
 	}
 	//spi_flash_read_status_reg();
 	while(spi_flash_read_status_reg() & 0x01);
 	spi_flash_write_disable();
+	(void)(opt_delay);
 }
 
 /**
@@ -172,7 +165,7 @@ void spi_flash_init(void)
 {
 	/* PINMUX init */
 	LPMCU_MISC_REGS0->PINMUX_SEL_3.reg = \
-							LPMCU_MISC_REGS_PINMUX_SEL_3_LP_SIP_0_SEL_SPI_FLASH0_SCK | \ 
+							LPMCU_MISC_REGS_PINMUX_SEL_3_LP_SIP_0_SEL_SPI_FLASH0_SCK | \
 							LPMCU_MISC_REGS_PINMUX_SEL_3_LP_SIP_1_SEL_SPI_FLASH0_TXD | \
 							LPMCU_MISC_REGS_PINMUX_SEL_3_LP_SIP_2_SEL_SPI_FLASH0_SSN | \
 							LPMCU_MISC_REGS_PINMUX_SEL_3_LP_SIP_3_SEL_SPI_FLASH0_RXD;
@@ -221,6 +214,7 @@ void spi_flash_read(uint8_t *read_buf, uint32_t flash_addr, uint32_t size)
 	uint32_t  memory_addr;
 	uint32_t  i=0;
 	uint8_t   *data = read_buf;
+	volatile uint32_t opt_delay = 0;
 
 	/* Get the destination buffer Address. */
 	if((flash_addr + size) > FLASH_MEMORY_SIZE) {
@@ -250,7 +244,9 @@ void spi_flash_read(uint8_t *read_buf, uint32_t flash_addr, uint32_t size)
 
 	for (i = 0; i < 0xFF; i++) {
 		/* Waiting...*/
+		opt_delay++;
 	}
+	(void)(opt_delay);
 	while ((SPI_FLASH0->IRQ_STATUS.bit.FLASH_TRANS_DONE != \
 			SPI_FLASH_IRQ_STATUS_FLASH_TRANS_DONE) && \
 			(spi_flash_read_status_reg() & 0x01)){
@@ -273,9 +269,11 @@ int8_t spi_flash_write(void *write_buf, uint32_t flash_addr, uint32_t size)
 	uint32_t    write_size;
 	uint32_t    offset;
 	uint32_t    memory_addr;
+	volatile uint32_t opt_delay = 0;
 
 	for (uint32_t i = 0; i < 0x1FFFF; i++) {
 		/* Waiting...*/
+		opt_delay++;
 	}
 	if((write_buf != NULL) && (size != 0)) {
 		/* Ensure the write size does not exceed the flash limit. */
@@ -309,6 +307,7 @@ int8_t spi_flash_write(void *write_buf, uint32_t flash_addr, uint32_t size)
 			ret = 0;
 		}
 	}
+	(void)(opt_delay);
 	EXIT:
 	return ret;
 }
@@ -323,6 +322,7 @@ void spi_flash_sector_erase(uint32_t flash_addr)
 {
 	uint8_t cmd[8] = {0,};
 	uint32_t  i=0;
+	volatile uint32_t opt_delay = 0;
 
 	cmd[0] = SPI_FLASH_CMD_SECTOR_ERASE;
 	cmd[1] = (char)(flash_addr >> 16);
@@ -343,6 +343,7 @@ void spi_flash_sector_erase(uint32_t flash_addr)
 
 	for (i = 0; i < 0xFF; i++) {
 		/* Waiting...*/
+		opt_delay++;
 	}
 
 	while ((SPI_FLASH0->IRQ_STATUS.bit.FLASH_TRANS_DONE != \
@@ -350,6 +351,7 @@ void spi_flash_sector_erase(uint32_t flash_addr)
 			(spi_flash_read_status_reg() & 0x01)){
 		/* Wait for current flash transaction done. */
 	}
+	(void)(opt_delay);
 }
 
 /**

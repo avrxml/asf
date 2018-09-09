@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70_GMAC_INSTANCE_
@@ -93,6 +83,7 @@
   #define REG_GMAC_EFRSH                      (0x400500ECU) /**< \brief (GMAC) PTP Event Frame Received Seconds High Register */
   #define REG_GMAC_PEFTSH                     (0x400500F0U) /**< \brief (GMAC) PTP Peer Event Frame Transmitted Seconds High Register */
   #define REG_GMAC_PEFRSH                     (0x400500F4U) /**< \brief (GMAC) PTP Peer Event Frame Received Seconds High Register */
+  #define REG_GMAC_MID                        (0x400500FCU) /**< \brief (GMAC) Module ID Register */
   #define REG_GMAC_OTLO                       (0x40050100U) /**< \brief (GMAC) Octets Transmitted Low Register */
   #define REG_GMAC_OTHI                       (0x40050104U) /**< \brief (GMAC) Octets Transmitted High Register */
   #define REG_GMAC_FT                         (0x40050108U) /**< \brief (GMAC) Frames Transmitted Register */
@@ -112,7 +103,7 @@
   #define REG_GMAC_EC                         (0x40050140U) /**< \brief (GMAC) Excessive Collisions Register */
   #define REG_GMAC_LC                         (0x40050144U) /**< \brief (GMAC) Late Collisions Register */
   #define REG_GMAC_DTF                        (0x40050148U) /**< \brief (GMAC) Deferred Transmission Frames Register */
-  #define REG_GMAC_CSE                        (0x4005014CU) /**< \brief (GMAC) Carrier Sense Errors Register Register */
+  #define REG_GMAC_CSE                        (0x4005014CU) /**< \brief (GMAC) Carrier Sense Errors Register */
   #define REG_GMAC_ORLO                       (0x40050150U) /**< \brief (GMAC) Octets Received Low Received Register */
   #define REG_GMAC_ORHI                       (0x40050154U) /**< \brief (GMAC) Octets Received High Received Register */
   #define REG_GMAC_FR                         (0x40050158U) /**< \brief (GMAC) Frames Received Register */
@@ -152,18 +143,22 @@
   #define REG_GMAC_PEFTN                      (0x400501F4U) /**< \brief (GMAC) PTP Peer Event Frame Transmitted Nanoseconds Register */
   #define REG_GMAC_PEFRSL                     (0x400501F8U) /**< \brief (GMAC) PTP Peer Event Frame Received Seconds Low Register */
   #define REG_GMAC_PEFRN                      (0x400501FCU) /**< \brief (GMAC) PTP Peer Event Frame Received Nanoseconds Register */
-  #define REG_GMAC_ISRPQ                      (0x40050400U) /**< \brief (GMAC) Interrupt Status Register Priority Queue (index = 1) */
-  #define REG_GMAC_TBQBAPQ                    (0x40050440U) /**< \brief (GMAC) Transmit Buffer Queue Base Address Register Priority Queue (index = 1) */
-  #define REG_GMAC_RBQBAPQ                    (0x40050480U) /**< \brief (GMAC) Receive Buffer Queue Base Address Register Priority Queue (index = 1) */
-  #define REG_GMAC_RBSRPQ                     (0x400504A0U) /**< \brief (GMAC) Receive Buffer Size Register Priority Queue (index = 1) */
+  #define REG_GMAC_RXLPI                      (0x40050270U) /**< \brief (GMAC) Received LPI Transitions */
+  #define REG_GMAC_RXLPITIME                  (0x40050274U) /**< \brief (GMAC) Received LPI Time */
+  #define REG_GMAC_TXLPI                      (0x40050278U) /**< \brief (GMAC) Transmit LPI Transitions */
+  #define REG_GMAC_TXLPITIME                  (0x4005027CU) /**< \brief (GMAC) Transmit LPI Time */
+  #define REG_GMAC_ISRPQ                      (0x400503FCU) /**< \brief (GMAC) Interrupt Status Register Priority Queue (index = 1) */
+  #define REG_GMAC_TBQBAPQ                    (0x4005043CU) /**< \brief (GMAC) Transmit Buffer Queue Base Address Register Priority Queue (index = 1) */
+  #define REG_GMAC_RBQBAPQ                    (0x4005047CU) /**< \brief (GMAC) Receive Buffer Queue Base Address Register Priority Queue (index = 1) */
+  #define REG_GMAC_RBSRPQ                     (0x4005049CU) /**< \brief (GMAC) Receive Buffer Size Register Priority Queue (index = 1) */
   #define REG_GMAC_CBSCR                      (0x400504BCU) /**< \brief (GMAC) Credit-Based Shaping Control Register */
   #define REG_GMAC_CBSISQA                    (0x400504C0U) /**< \brief (GMAC) Credit-Based Shaping IdleSlope Register for Queue A */
   #define REG_GMAC_CBSISQB                    (0x400504C4U) /**< \brief (GMAC) Credit-Based Shaping IdleSlope Register for Queue B */
   #define REG_GMAC_ST1RPQ                     (0x40050500U) /**< \brief (GMAC) Screening Type 1 Register Priority Queue (index = 0) */
   #define REG_GMAC_ST2RPQ                     (0x40050540U) /**< \brief (GMAC) Screening Type 2 Register Priority Queue (index = 0) */
-  #define REG_GMAC_IERPQ                      (0x40050600U) /**< \brief (GMAC) Interrupt Enable Register Priority Queue (index = 1) */
-  #define REG_GMAC_IDRPQ                      (0x40050620U) /**< \brief (GMAC) Interrupt Disable Register Priority Queue (index = 1) */
-  #define REG_GMAC_IMRPQ                      (0x40050640U) /**< \brief (GMAC) Interrupt Mask Register Priority Queue (index = 1) */
+  #define REG_GMAC_IERPQ                      (0x400505FCU) /**< \brief (GMAC) Interrupt Enable Register Priority Queue (index = 1) */
+  #define REG_GMAC_IDRPQ                      (0x4005061CU) /**< \brief (GMAC) Interrupt Disable Register Priority Queue (index = 1) */
+  #define REG_GMAC_IMRPQ                      (0x4005063CU) /**< \brief (GMAC) Interrupt Mask Register Priority Queue (index = 1) */
   #define REG_GMAC_ST2ER                      (0x400506E0U) /**< \brief (GMAC) Screening Type 2 Ethertype Register (index = 0) */
   #define REG_GMAC_ST2CW00                    (0x40050700U) /**< \brief (GMAC) Screening Type 2 Compare Word 0 Register (index = 0) */
   #define REG_GMAC_ST2CW10                    (0x40050704U) /**< \brief (GMAC) Screening Type 2 Compare Word 1 Register (index = 0) */
@@ -260,6 +255,7 @@
   #define REG_GMAC_EFRSH     (*(__I  uint32_t*)0x400500ECU) /**< \brief (GMAC) PTP Event Frame Received Seconds High Register */
   #define REG_GMAC_PEFTSH    (*(__I  uint32_t*)0x400500F0U) /**< \brief (GMAC) PTP Peer Event Frame Transmitted Seconds High Register */
   #define REG_GMAC_PEFRSH    (*(__I  uint32_t*)0x400500F4U) /**< \brief (GMAC) PTP Peer Event Frame Received Seconds High Register */
+  #define REG_GMAC_MID       (*(__I  uint32_t*)0x400500FCU) /**< \brief (GMAC) Module ID Register */
   #define REG_GMAC_OTLO      (*(__I  uint32_t*)0x40050100U) /**< \brief (GMAC) Octets Transmitted Low Register */
   #define REG_GMAC_OTHI      (*(__I  uint32_t*)0x40050104U) /**< \brief (GMAC) Octets Transmitted High Register */
   #define REG_GMAC_FT        (*(__I  uint32_t*)0x40050108U) /**< \brief (GMAC) Frames Transmitted Register */
@@ -279,7 +275,7 @@
   #define REG_GMAC_EC        (*(__I  uint32_t*)0x40050140U) /**< \brief (GMAC) Excessive Collisions Register */
   #define REG_GMAC_LC        (*(__I  uint32_t*)0x40050144U) /**< \brief (GMAC) Late Collisions Register */
   #define REG_GMAC_DTF       (*(__I  uint32_t*)0x40050148U) /**< \brief (GMAC) Deferred Transmission Frames Register */
-  #define REG_GMAC_CSE       (*(__I  uint32_t*)0x4005014CU) /**< \brief (GMAC) Carrier Sense Errors Register Register */
+  #define REG_GMAC_CSE       (*(__I  uint32_t*)0x4005014CU) /**< \brief (GMAC) Carrier Sense Errors Register */
   #define REG_GMAC_ORLO      (*(__I  uint32_t*)0x40050150U) /**< \brief (GMAC) Octets Received Low Received Register */
   #define REG_GMAC_ORHI      (*(__I  uint32_t*)0x40050154U) /**< \brief (GMAC) Octets Received High Received Register */
   #define REG_GMAC_FR        (*(__I  uint32_t*)0x40050158U) /**< \brief (GMAC) Frames Received Register */
@@ -319,18 +315,22 @@
   #define REG_GMAC_PEFTN     (*(__I  uint32_t*)0x400501F4U) /**< \brief (GMAC) PTP Peer Event Frame Transmitted Nanoseconds Register */
   #define REG_GMAC_PEFRSL    (*(__I  uint32_t*)0x400501F8U) /**< \brief (GMAC) PTP Peer Event Frame Received Seconds Low Register */
   #define REG_GMAC_PEFRN     (*(__I  uint32_t*)0x400501FCU) /**< \brief (GMAC) PTP Peer Event Frame Received Nanoseconds Register */
-  #define REG_GMAC_ISRPQ     (*(__I  uint32_t*)0x40050400U) /**< \brief (GMAC) Interrupt Status Register Priority Queue (index = 1) */
-  #define REG_GMAC_TBQBAPQ   (*(__IO uint32_t*)0x40050440U) /**< \brief (GMAC) Transmit Buffer Queue Base Address Register Priority Queue (index = 1) */
-  #define REG_GMAC_RBQBAPQ   (*(__IO uint32_t*)0x40050480U) /**< \brief (GMAC) Receive Buffer Queue Base Address Register Priority Queue (index = 1) */
-  #define REG_GMAC_RBSRPQ    (*(__IO uint32_t*)0x400504A0U) /**< \brief (GMAC) Receive Buffer Size Register Priority Queue (index = 1) */
+  #define REG_GMAC_RXLPI     (*(__I  uint32_t*)0x40050270U) /**< \brief (GMAC) Received LPI Transitions */
+  #define REG_GMAC_RXLPITIME (*(__I  uint32_t*)0x40050274U) /**< \brief (GMAC) Received LPI Time */
+  #define REG_GMAC_TXLPI     (*(__I  uint32_t*)0x40050278U) /**< \brief (GMAC) Transmit LPI Transitions */
+  #define REG_GMAC_TXLPITIME (*(__I  uint32_t*)0x4005027CU) /**< \brief (GMAC) Transmit LPI Time */
+  #define REG_GMAC_ISRPQ     (*(__I  uint32_t*)0x400503FCU) /**< \brief (GMAC) Interrupt Status Register Priority Queue (index = 1) 0 */
+  #define REG_GMAC_TBQBAPQ   (*(__IO uint32_t*)0x4005043CU) /**< \brief (GMAC) Transmit Buffer Queue Base Address Register Priority Queue (index = 1) */
+  #define REG_GMAC_RBQBAPQ   (*(__IO uint32_t*)0x4005047CU) /**< \brief (GMAC) Receive Buffer Queue Base Address Register Priority Queue (index = 1) */
+  #define REG_GMAC_RBSRPQ    (*(__IO uint32_t*)0x4005049CU) /**< \brief (GMAC) Receive Buffer Size Register Priority Queue (index = 1) */
   #define REG_GMAC_CBSCR     (*(__IO uint32_t*)0x400504BCU) /**< \brief (GMAC) Credit-Based Shaping Control Register */
   #define REG_GMAC_CBSISQA   (*(__IO uint32_t*)0x400504C0U) /**< \brief (GMAC) Credit-Based Shaping IdleSlope Register for Queue A */
   #define REG_GMAC_CBSISQB   (*(__IO uint32_t*)0x400504C4U) /**< \brief (GMAC) Credit-Based Shaping IdleSlope Register for Queue B */
   #define REG_GMAC_ST1RPQ    (*(__IO uint32_t*)0x40050500U) /**< \brief (GMAC) Screening Type 1 Register Priority Queue (index = 0) */
   #define REG_GMAC_ST2RPQ    (*(__IO uint32_t*)0x40050540U) /**< \brief (GMAC) Screening Type 2 Register Priority Queue (index = 0) */
-  #define REG_GMAC_IERPQ     (*(__O  uint32_t*)0x40050600U) /**< \brief (GMAC) Interrupt Enable Register Priority Queue (index = 1) */
-  #define REG_GMAC_IDRPQ     (*(__O  uint32_t*)0x40050620U) /**< \brief (GMAC) Interrupt Disable Register Priority Queue (index = 1) */
-  #define REG_GMAC_IMRPQ     (*(__IO uint32_t*)0x40050640U) /**< \brief (GMAC) Interrupt Mask Register Priority Queue (index = 1) */
+  #define REG_GMAC_IERPQ     (*(__O  uint32_t*)0x400505FCU) /**< \brief (GMAC) Interrupt Enable Register Priority Queue (index = 1) */
+  #define REG_GMAC_IDRPQ     (*(__O  uint32_t*)0x4005061CU) /**< \brief (GMAC) Interrupt Disable Register Priority Queue (index = 1) */
+  #define REG_GMAC_IMRPQ     (*(__IO uint32_t*)0x4005063CU) /**< \brief (GMAC) Interrupt Mask Register Priority Queue (index = 1) */
   #define REG_GMAC_ST2ER     (*(__IO uint32_t*)0x400506E0U) /**< \brief (GMAC) Screening Type 2 Ethertype Register (index = 0) */
   #define REG_GMAC_ST2CW00   (*(__IO uint32_t*)0x40050700U) /**< \brief (GMAC) Screening Type 2 Compare Word 0 Register (index = 0) */
   #define REG_GMAC_ST2CW10   (*(__IO uint32_t*)0x40050704U) /**< \brief (GMAC) Screening Type 2 Compare Word 1 Register (index = 0) */

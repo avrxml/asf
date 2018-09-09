@@ -166,27 +166,31 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>LLS_GATT_SERVER</state>
-					<state>SYSTICK_MODE</state>
-					<state>TXPS_GATT_SERVER</state>
-					<state>__SAML21J18A__</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>NENABLE_PTS</state>
-					<state>TC_ASYNC=true</state>
-					<state>ATT_DB_MEMORY</state>
-					<state>EXTINT_CALLBACK_MODE=true</state>
-					<state>IMMEDIATE_ALERT_SERVICE</state>
-					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
-					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
-					<state>ARM_MATH_CM0PLUS=true</state>
-					<state>USART_CALLBACK_MODE=true</state>
-					<state>PROXIMITY_REPORTER</state>
-					<state>IAS_GATT_SERVER</state>
-					<state>NEW_EVT_HANDLER</state>
 					<state>LINK_LOSS_SERVICE</state>
-					<state>BOARD=SAML21_XPLAINED_PRO</state>
+					<state>__SAML21J18A__</state>
 					<state>TX_POWER_SERVICE</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>TXPS_GATT_SERVER</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
+					<state>TC_ASYNC=true</state>
+					<state>ATT_DB_MEMORY</state>
+					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>ENABLE_POWER_SAVE</state>
+					<state>LLS_GATT_SERVER</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>EXTINT_CALLBACK_MODE=true</state>
+					<state>IMMEDIATE_ALERT_SERVICE</state>
+					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
+					<state>USART_CALLBACK_MODE=true</state>
+					<state>PROXIMITY_REPORTER</state>
+					<state>NEW_EVT_HANDLER</state>
+					<state>SYSTICK_MODE</state>
+					<state>IAS_GATT_SERVER</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
+					<state>BOARD=SAML21_XPLAINED_PRO</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -340,7 +344,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../ble_services/immediate_alert</state>
 					<state>$PROJ_DIR$/../../../../inc</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_saml21</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../../../common2/services/delay/sam0</state>
@@ -354,7 +358,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../services/serial_fifo</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../ble_profiles/pxp_reporter</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock</state>
@@ -507,27 +511,31 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>LLS_GATT_SERVER</state>
-					<state>SYSTICK_MODE</state>
-					<state>TXPS_GATT_SERVER</state>
-					<state>__SAML21J18A__</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>NENABLE_PTS</state>
-					<state>TC_ASYNC=true</state>
-					<state>ATT_DB_MEMORY</state>
-					<state>EXTINT_CALLBACK_MODE=true</state>
-					<state>IMMEDIATE_ALERT_SERVICE</state>
-					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
-					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
-					<state>ARM_MATH_CM0PLUS=true</state>
-					<state>USART_CALLBACK_MODE=true</state>
-					<state>PROXIMITY_REPORTER</state>
-					<state>IAS_GATT_SERVER</state>
-					<state>NEW_EVT_HANDLER</state>
 					<state>LINK_LOSS_SERVICE</state>
-					<state>BOARD=SAML21_XPLAINED_PRO</state>
+					<state>__SAML21J18A__</state>
 					<state>TX_POWER_SERVICE</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>TXPS_GATT_SERVER</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
+					<state>TC_ASYNC=true</state>
+					<state>ATT_DB_MEMORY</state>
+					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>ENABLE_POWER_SAVE</state>
+					<state>LLS_GATT_SERVER</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>EXTINT_CALLBACK_MODE=true</state>
+					<state>IMMEDIATE_ALERT_SERVICE</state>
+					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
+					<state>USART_CALLBACK_MODE=true</state>
+					<state>PROXIMITY_REPORTER</state>
+					<state>NEW_EVT_HANDLER</state>
+					<state>SYSTICK_MODE</state>
+					<state>IAS_GATT_SERVER</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
+					<state>BOARD=SAML21_XPLAINED_PRO</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -648,7 +656,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../ble_services/immediate_alert</state>
 					<state>$PROJ_DIR$/../../../../inc</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_saml21</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../../../common2/services/delay/sam0</state>
@@ -662,7 +670,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../services/serial_fifo</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../ble_profiles/pxp_reporter</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock</state>
@@ -1207,27 +1215,31 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>LLS_GATT_SERVER</state>
-					<state>SYSTICK_MODE</state>
-					<state>TXPS_GATT_SERVER</state>
-					<state>__SAML21J18A__</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>NENABLE_PTS</state>
-					<state>TC_ASYNC=true</state>
-					<state>ATT_DB_MEMORY</state>
-					<state>EXTINT_CALLBACK_MODE=true</state>
-					<state>IMMEDIATE_ALERT_SERVICE</state>
-					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
-					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
-					<state>ARM_MATH_CM0PLUS=true</state>
-					<state>USART_CALLBACK_MODE=true</state>
-					<state>PROXIMITY_REPORTER</state>
-					<state>IAS_GATT_SERVER</state>
-					<state>NEW_EVT_HANDLER</state>
 					<state>LINK_LOSS_SERVICE</state>
-					<state>BOARD=SAML21_XPLAINED_PRO</state>
+					<state>__SAML21J18A__</state>
 					<state>TX_POWER_SERVICE</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>TXPS_GATT_SERVER</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
+					<state>TC_ASYNC=true</state>
+					<state>ATT_DB_MEMORY</state>
+					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>ENABLE_POWER_SAVE</state>
+					<state>LLS_GATT_SERVER</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>EXTINT_CALLBACK_MODE=true</state>
+					<state>IMMEDIATE_ALERT_SERVICE</state>
+					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
+					<state>USART_CALLBACK_MODE=true</state>
+					<state>PROXIMITY_REPORTER</state>
+					<state>NEW_EVT_HANDLER</state>
+					<state>SYSTICK_MODE</state>
+					<state>IAS_GATT_SERVER</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
+					<state>BOARD=SAML21_XPLAINED_PRO</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1381,7 +1393,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../ble_services/immediate_alert</state>
 					<state>$PROJ_DIR$/../../../../inc</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_saml21</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../../../common2/services/delay/sam0</state>
@@ -1395,7 +1407,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../services/serial_fifo</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../ble_profiles/pxp_reporter</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock</state>
@@ -1548,27 +1560,31 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>LLS_GATT_SERVER</state>
-					<state>SYSTICK_MODE</state>
-					<state>TXPS_GATT_SERVER</state>
-					<state>__SAML21J18A__</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>NENABLE_PTS</state>
-					<state>TC_ASYNC=true</state>
-					<state>ATT_DB_MEMORY</state>
-					<state>EXTINT_CALLBACK_MODE=true</state>
-					<state>IMMEDIATE_ALERT_SERVICE</state>
-					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
-					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
-					<state>ARM_MATH_CM0PLUS=true</state>
-					<state>USART_CALLBACK_MODE=true</state>
-					<state>PROXIMITY_REPORTER</state>
-					<state>IAS_GATT_SERVER</state>
-					<state>NEW_EVT_HANDLER</state>
 					<state>LINK_LOSS_SERVICE</state>
-					<state>BOARD=SAML21_XPLAINED_PRO</state>
+					<state>__SAML21J18A__</state>
 					<state>TX_POWER_SERVICE</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>TXPS_GATT_SERVER</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
+					<state>TC_ASYNC=true</state>
+					<state>ATT_DB_MEMORY</state>
+					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>ENABLE_POWER_SAVE</state>
+					<state>LLS_GATT_SERVER</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>EXTINT_CALLBACK_MODE=true</state>
+					<state>IMMEDIATE_ALERT_SERVICE</state>
+					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
+					<state>USART_CALLBACK_MODE=true</state>
+					<state>PROXIMITY_REPORTER</state>
+					<state>NEW_EVT_HANDLER</state>
+					<state>SYSTICK_MODE</state>
+					<state>IAS_GATT_SERVER</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
+					<state>BOARD=SAML21_XPLAINED_PRO</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1689,7 +1705,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../ble_services/immediate_alert</state>
 					<state>$PROJ_DIR$/../../../../inc</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_saml21</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../../../common2/services/delay/sam0</state>
@@ -1703,7 +1719,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../services/serial_fifo</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../ble_profiles/pxp_reporter</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock</state>

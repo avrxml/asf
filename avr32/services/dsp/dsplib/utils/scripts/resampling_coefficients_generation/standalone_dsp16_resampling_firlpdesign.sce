@@ -105,12 +105,12 @@ if err == 0 then
   mputstr(" * - Compiler:           IAR EWAVR32 and GNU GCC for AVR32" + EOL, fd);
   mputstr(" * - Supported devices:  All AVR32 devices with a USART module can be used." + EOL, fd);
   mputstr(" *" + EOL, fd);
-  mputstr(" * \author               Atmel Corporation: http://www.atmel.com \n" + EOL, fd);
-  mputstr(" *                       Support and FAQ: http://www.atmel.com/design-support/" + EOL, fd);
+  mputstr(" * \author               Microchip Technology Inc: http://www.microchip.com \n" + EOL, fd);
+  mputstr(" *                       Support and FAQ: http://www.microchip.com/support/" + EOL, fd);
   mputstr(" *" + EOL, fd);
   mputstr(" ******************************************************************************/" + EOL, fd);
   mputstr("" + EOL, fd);
-  mputstr("/* Copyright (c) 2010-2014 Atmel Corporation. All rights reserved." + EOL, fd);
+  mputstr("/* Copyright (c) 2010-2018 Microchip Technology Inc. and its subsidiaries." + EOL, fd);
   mputstr(" *" + EOL, fd);
   mputstr(" * Redistribution and use in source and binary forms, with or without" + EOL, fd);
   mputstr(" * modification, are permitted provided that the following conditions are met:" + EOL, fd);

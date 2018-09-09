@@ -54,8 +54,8 @@ TARGET_SRAM = adc_quick_start_callback_sram.elf
 CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        sam0/boards/samd11_xplained_pro/board_init.c       \
-       sam0/drivers/adc/adc_sam_d_r/adc.c                 \
-       sam0/drivers/adc/adc_sam_d_r/adc_callback.c        \
+       sam0/drivers/adc/adc_sam_d_r_h/adc.c               \
+       sam0/drivers/adc/adc_sam_d_r_h/adc_callback.c      \
        sam0/drivers/adc/quick_start_callback/qs_adc_callback.c \
        sam0/drivers/port/port.c                           \
        sam0/drivers/system/clock/clock_samd09_d10_d11/clock.c \
@@ -77,7 +77,7 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samd11_xplained_pro                    \
        sam0/drivers/adc                                   \
-       sam0/drivers/adc/adc_sam_d_r                       \
+       sam0/drivers/adc/adc_sam_d_r_h                     \
        sam0/drivers/adc/quick_start_callback              \
        sam0/drivers/adc/quick_start_callback/samd11_xplained_pro \
        sam0/drivers/port                                  \
@@ -88,9 +88,9 @@ INC_PATH = \
        sam0/drivers/system/interrupt/system_interrupt_samd10_d11 \
        sam0/drivers/system/pinmux                         \
        sam0/drivers/system/power                          \
-       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/power/power_sam_d_r_h          \
        sam0/drivers/system/reset                          \
-       sam0/drivers/system/reset/reset_sam_d_r            \
+       sam0/drivers/system/reset/reset_sam_d_r_h          \
        sam0/utils                                         \
        sam0/utils/cmsis/samd11/include                    \
        sam0/utils/cmsis/samd11/source                     \

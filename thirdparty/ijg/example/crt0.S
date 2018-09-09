@@ -6,7 +6,7 @@
  *
  * This file has been built from the Newlib crt0.S.
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *

@@ -4,45 +4,35 @@
  * \brief USB host driver
  * Compliance with common driver UHD
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include "conf_usb_host.h"
@@ -141,6 +131,93 @@ extern void udc_start(void);
 # define UHC_VBUS_ERROR()
 #endif
 
+#ifdef UHD_PIPE_DMA_SUPPORTED
+// for DCache
+/**
+ * \brief Flush content in DCache to physical memory
+ * \param addr The memory address to flush
+ * \param dsize The size of the memory
+ */
+static inline void _dcache_flush(void *addr, uint32_t dsize)
+{
+#ifdef CONF_BOARD_ENABLE_CACHE_AT_INIT
+	int32_t op_size = dsize;
+	uint32_t op_addr = (uint32_t) addr;
+	int32_t linesize = 32U;                // in Cortex-M7 size of cache line is fixed to 8 words (32 bytes)
+	if (op_addr & 0x1F) {
+		op_size += op_addr & 0x1F;
+		op_addr &= ~0x1F;
+	}
+	__ISB();
+	__DSB();
+
+	while (op_size > 0) {
+		SCB->DCCMVAC = op_addr;
+		op_addr += linesize;
+		op_size -= linesize;
+	}
+
+	__DSB();
+	__ISB();
+#endif
+}
+
+/**
+ * \brief Preparation for unaligned buffer invalidation
+ * \param addr The memory address to invalidate
+ * \param dsize The size of the memory
+ */
+static void _dcache_invalidate_prepare(void *addr, uint32_t dsize)
+{
+#ifdef CONF_BOARD_ENABLE_CACHE_AT_INIT
+	int32_t op_size = dsize;
+	uint32_t op_addr = (uint32_t) addr;
+	uint32_t addr1 = op_addr;
+	uint32_t addr2 = op_addr + op_size;
+	if (addr1 & 0x1F || addr2 & 0x1F) {
+		addr1 &= ~0x1F;
+		addr2 &= ~0x1F;
+		__ISB();
+		__DSB();
+		SCB->DCCIMVAC = addr1;
+		SCB->DCCIMVAC = addr2;
+		__DSB();
+		__ISB();
+	}
+#endif
+}
+
+/**
+ * \brief Invalidate DCache of physical memory
+ * \param addr The memory address to invalidate
+ * \param dsize The size of the memory
+ */
+static void _dcache_invalidate(void *addr, uint32_t dsize)
+{
+#ifdef CONF_BOARD_ENABLE_CACHE_AT_INIT
+	int32_t op_size = dsize;
+	uint32_t op_addr = (uint32_t)addr;
+	int32_t linesize = 32U;                // in Cortex-M7 size of cache line is fixed to 8 words (32 bytes)
+	if (op_addr & 0x1F) {
+		op_size += op_addr & 0x1F;
+		op_addr &= ~0x1F;
+	}
+	__ISB();
+	__DSB();
+
+	while (op_size > 0) {
+		/* D-Cache Invalidate by MVA to PoC */
+		(*(volatile uint32_t *)(0xE000EF5C)) = op_addr;
+		op_addr += linesize;
+		op_size -= linesize;
+	}
+
+	__DSB();
+	__ISB();
+#endif
+}
+#endif
+
 /**
  * \ingroup usb_host_group
  * \defgroup uhd_group USB Host Driver (UHD)
@@ -170,6 +247,17 @@ extern void udc_start(void);
  * UHD_INTERRUPT_NB_BANK<br>
  * Feature to reduce or increase interrupt endpoints buffering (1 to 2).
  * Default value 1.
+ *
+ * UHD_BULK_INTERVAL_MIN<br>
+ * Feature to reduce or increase bulk token rate when it's NAKed (0, 1 ...).
+ * To adjust bandwidth usage.
+ * Default value 1.
+ *
+ * UHD_NO_SLEEP_MGR<br>
+ * Feature to work without sleep manager module.
+ * Default not defined.
+ * Note that with this feature defined sleep manager must not be used in
+ * application.
  *
  * \section Callbacks management
  * The USB driver is fully managed by interrupt and does not request periodic
@@ -206,6 +294,11 @@ extern void udc_start(void);
 #  if (UHD_INTERRUPT_NB_BANK < 1) || (UHD_INTERRUPT_NB_BANK > 2)
 #    error UHD_INTERRUPT_NB_BANK must be define with 1 or 2.
 #  endif
+#endif
+
+#ifndef UHD_BULK_INTERVAL_MIN
+/** Minimal bulk interval value */
+#  define UHD_BULK_INTERVAL_MIN 1
 #endif
 
 /**
@@ -440,6 +533,7 @@ static void uhd_pipe_out_ready(uint8_t pipe);
 static void uhd_pipe_in_received(uint8_t pipe);
 #endif
 #ifdef UHD_PIPE_DMA_SUPPORTED
+static uint32_t uhd_pipes_dma_nb_trans[USBHS_EPT_NUM - 1];
 static void uhd_pipe_trans_complet(uint8_t pipe);
 static void uhd_pipe_interrupt_dma(uint8_t pipe);
 #endif
@@ -471,7 +565,7 @@ ISR(UHD_USB_INT_FUN)
 	bool b_mode_device;
 
 	pmc_enable_periph_clk(ID_USBHS);
-
+#ifndef UHD_NO_SLEEP_MGR
 	/* For fast wakeup clocks restore
 	 * In WAIT mode, clocks are switched to FASTRC.
 	 * After wakeup clocks should be restored, before that ISR should not
@@ -481,7 +575,7 @@ ISR(UHD_USB_INT_FUN)
 		cpu_irq_disable();
 		return;
 	}
-
+#endif
 	b_mode_device = Is_otg_device_mode_forced();
 
 	// Redirection to host or device interrupt
@@ -626,6 +720,7 @@ void uhd_enable(void)
 		otg_unfreeze_clock();
 	}
 # else
+	uhd_enable_vbus(); // enable VBUS
 	USBHS->USBHS_HSTIER = USBHS_HSTIER_HWUPIES;
 	uhd_sleep_mode(UHD_STATE_DISCONNECT);
 #endif
@@ -635,7 +730,6 @@ void uhd_enable(void)
 	USBHS->USBHS_HSTIER = USBHS_HSTIER_DCONNIES | USBHS_HSTIER_HSOFIES
 				| USBHS_HSTIER_RSTIES;
 
-	otg_freeze_clock();
 	uhd_sleep_mode(UHD_STATE_NO_VBUS);
 
 	cpu_irq_restore(flags);
@@ -795,7 +889,7 @@ bool uhd_ep0_alloc(usb_add_t add, uint8_t ep_size)
 	return true;
 }
 
-bool uhd_ep_alloc(usb_add_t add, usb_ep_desc_t * ep_desc)
+bool uhd_ep_alloc(usb_add_t add, usb_ep_desc_t * ep_desc, uhd_speed_t speed)
 {
 	uint8_t ep_addr;
 	uint8_t ep_type;
@@ -817,16 +911,49 @@ bool uhd_ep_alloc(usb_add_t add, usb_ep_desc_t * ep_desc)
 		switch(ep_type) {
 		case USB_EP_TYPE_ISOCHRONOUS:
 			bank = UHD_ISOCHRONOUS_NB_BANK;
+#ifdef USB_HOST_HS_SUPPORT
+			if (speed == UHD_SPEED_HIGH) {
+				if (ep_desc->bInterval < 1) {
+					ep_interval = 1;
+				} else if (ep_desc->bInterval >= 16) {
+					ep_interval = 255;
+				} else {
+					ep_interval = 1 << (ep_desc->bInterval - 1);
+				}
+			} else {
+				ep_interval = ep_desc->bInterval;
+			}
+#else
 			ep_interval = ep_desc->bInterval;
+#endif
 			break;
 		case USB_EP_TYPE_INTERRUPT:
 			bank = UHD_INTERRUPT_NB_BANK;
+#ifdef USB_HOST_HS_SUPPORT
+			if (speed == UHD_SPEED_HIGH) {
+				if (ep_desc->bInterval < 1) {
+					ep_interval = 1;
+				} else if (ep_desc->bInterval >= 16) {
+					ep_interval = 255;
+				} else {
+					ep_interval = 1 << (ep_desc->bInterval - 1);
+				}
+			} else {
+				ep_interval = ep_desc->bInterval;
+			}
+#else
 			ep_interval = ep_desc->bInterval;
+#endif
 			break;
 		case USB_EP_TYPE_BULK:
 			bank = UHD_BULK_NB_BANK;
-			// 0 is required by USBHS hardware for bulk
-			ep_interval = 0;
+			if (ep_desc->bEndpointAddress & USB_EP_DIR_IN) {
+				ep_interval = 0;
+			} else if (ep_desc->bInterval > UHD_BULK_INTERVAL_MIN) {
+				ep_interval = ep_desc->bInterval;
+			} else {
+				ep_interval = UHD_BULK_INTERVAL_MIN;
+			}
 			break;
 		default:
 			Assert(false);
@@ -898,9 +1025,6 @@ void uhd_ep_free(usb_add_t add, usb_ep_t endp)
 				continue; // Mismatch
 			}
 		}
-		// Unalloc pipe
-		uhd_disable_pipe(pipe);
-		uhd_unallocate_memory(pipe);
 
 		// Stop transfer on this pipe
 #ifndef USB_HOST_HUB_SUPPORT
@@ -1016,6 +1140,13 @@ bool uhd_ep_run(usb_add_t add,
 			if (b_shortpacket) {
 				uhd_enable_short_packet_interrupt(pipe);
 			}
+#if UHD_BULK_INTERVAL_MIN
+			// Enable NAK for bandwidth control
+			if (Is_uhd_pipe_bulk(pipe)) {
+				uhd_ack_nak_received(pipe);
+				uhd_enable_nak_received_interrupt(pipe);
+			}
+#endif
 		} else {
 			uhd_disable_bank_interrupt(pipe);
 			uhd_enable_out_ready_interrupt(pipe);
@@ -1028,6 +1159,19 @@ bool uhd_ep_run(usb_add_t add,
 
 #ifdef UHD_PIPE_DMA_SUPPORTED
 	// Request first transfer
+	if (buf && buf_size) {
+		if (Is_uhd_pipe_out(pipe)) {
+			_dcache_flush(buf, buf_size);
+		} else {
+			_dcache_invalidate_prepare(buf, buf_size);
+#if UHD_BULK_INTERVAL_MIN
+			if (Is_uhd_pipe_bulk(pipe)) {
+				uhd_ack_nak_received(pipe);
+				uhd_enable_nak_received_interrupt(pipe);
+			}
+#endif
+		}
+	}
 	uhd_pipe_trans_complet(pipe);
 #endif
 	return true;
@@ -1126,6 +1270,9 @@ static void uhd_interrupt(void)
 		return;
 	}
 
+	// Check USB clock ready after asynchronous interrupt
+	while (!Is_otg_clock_usable());
+
 	// Manage dis/connection event
 	if (Is_uhd_disconnection() && Is_uhd_disconnection_int_enabled()) {
 		uhd_ack_disconnection();
@@ -1162,20 +1309,6 @@ static void uhd_interrupt(void)
 		uhd_resume_start = 0;
 		uhc_notify_connection(true);
 		return;
-	}
-
-      /* If Wakeup interrupt is enabled and triggered and connection intterupt is enabled  */
-	if(Is_uhd_wakeup() && Is_uhd_connection_int_enabled()) {
-		 // Check USB clock ready after asynchronous interrupt
-		while (!Is_otg_clock_usable());
-		otg_unfreeze_clock();
-		// Here the wakeup interrupt has been used to detect connection
-		// with an asynchrone interrupt
-		USBHS->USBHS_HSTIDR = USBHS_HSTIDR_HWUPIEC;
-		//uhd_sleep_mode(UHD_STATE_IDLE);
-		uhd_enable_vbus(); // enable VBUS
-		uhd_sleep_mode(UHD_STATE_DISCONNECT);
-		UHC_VBUS_CHANGE(true);
 	}
 
 	if (Is_uhd_wakeup_interrupt_enabled() && (Is_uhd_wakeup() ||
@@ -1266,8 +1399,10 @@ static void uhd_ctrl_timeout(void)
 	if (uhd_ctrl_request_timeout) {
 		// Setup request on-going
 		if (--uhd_ctrl_request_timeout == 0) {
-			// Stop request
-			uhd_freeze_pipe(0);
+			// Stop request (freezing pipe and reset FIFO)
+			uhd_reset_pipe(0);
+			uhd_enable_stall_interrupt(0);
+			uhd_enable_pipe_error_interrupt(0);
 			uhd_ctrl_request_end(UHD_TRANS_TIMEOUT);
 		}
 	}
@@ -1286,7 +1421,27 @@ static void uhd_ctrl_timeout(void)
  */
 static void uhd_sof_interrupt(void)
 {
+	uhd_pipe_job_t *ptr_job;
+	uint8_t pipe;
+
 	uhd_ack_sof();
+
+#if UHD_BULK_INTERVAL_MIN
+	// Start any busy frozen Bulk IN
+	for (pipe = 1; pipe < USBHS_EPT_NUM; pipe ++) {
+		ptr_job = &uhd_pipe_job[pipe-1];
+		if (!ptr_job->busy) {
+			continue;
+		}
+		if (!Is_uhd_pipe_bulk_in(pipe)) {
+			continue;
+		}
+		if (!Is_uhd_pipe_frozen(pipe)) {
+			continue;
+		}
+		uhd_unfreeze_pipe(pipe);
+	}
+#endif
 
 	// Manage the micro SOF
 	if (Is_uhd_high_speed_mode()) {
@@ -1316,8 +1471,7 @@ static void uhd_sof_interrupt(void)
 	uhd_ctrl_timeout();
 
 	// Manage the timeouts on endpoint transfer
-	uhd_pipe_job_t *ptr_job;
-	for (uint8_t pipe = 1; pipe < USBHS_EPT_NUM; pipe++) {
+	for (pipe = 1; pipe < USBHS_EPT_NUM; pipe++) {
 		ptr_job = &uhd_pipe_job[pipe-1];
 		if (ptr_job->busy == true) {
 			if (ptr_job->timeout) {
@@ -1346,6 +1500,9 @@ static void uhd_sof_interrupt(void)
  */
 static void uhd_ctrl_interrupt(void)
 {
+	bool rxen = Is_uhd_in_received_interrupt_enabled(0);
+	bool txen = Is_uhd_out_ready_interrupt_enabled(0);
+
 	// A setup request is on-going
 	Assert(uhd_ctrl_request_timeout!=0);
 
@@ -1375,7 +1532,7 @@ static void uhd_ctrl_interrupt(void)
 		}
 		return;
 	}
-	if (Is_uhd_in_received(0)) {
+	if (Is_uhd_in_received(0) && rxen) {
 		// In case of low USB speed and with a high CPU frequency,
 		// a ACK from host can be always running on USB line
 		// then wait end of ACK on IN pipe.
@@ -1396,7 +1553,7 @@ static void uhd_ctrl_interrupt(void)
 		}
 		return;
 	}
-	if (Is_uhd_out_ready(0)) {
+	if (Is_uhd_out_ready(0) && txen) {
 		// OUT packet sent
 		uhd_freeze_pipe(0);
 		uhd_ack_out_ready(0);
@@ -1416,6 +1573,10 @@ static void uhd_ctrl_interrupt(void)
 	if (Is_uhd_stall(0)) {
 		// Stall Handshake received
 		uhd_ack_stall(0);
+		// Reset FIFO
+		uhd_reset_pipe(0);
+		uhd_enable_stall_interrupt(0);
+		uhd_enable_pipe_error_interrupt(0);
 		uhd_ctrl_request_end(UHD_TRANS_STALL);
 		return;
 	}
@@ -1475,6 +1636,8 @@ static void uhd_ctrl_phase_setup(void)
 
 	uhd_ctrl_request_timeout = 5000;
 	uhd_enable_setup_ready_interrupt(0);
+	__DSB();
+	__ISB();
 	uhd_ack_fifocon(0);
 	uhd_unfreeze_pipe(0);
 }
@@ -1524,6 +1687,8 @@ uhd_ctrl_receiv_in_read_data:
 		uhd_ctrl_request_first->payload_size--;
 		nb_byte_received--;
 	}
+	__DSB();
+	__ISB();
 
 	if (!uhd_ctrl_request_first->payload_size && nb_byte_received) {
 		// payload buffer is full to store data remaining
@@ -1618,6 +1783,8 @@ static void uhd_ctrl_phase_data_out(void)
 		uhd_ctrl_request_first->payload_size--;
 	}
 	uhd_enable_out_ready_interrupt(0);
+	__DSB();
+	__ISB();
 	uhd_ack_fifocon(0);
 	uhd_unfreeze_pipe(0);
 }
@@ -1768,12 +1935,15 @@ static void uhd_pipe_in_received(uint8_t pipe)
 		for (i = 0; i < nb_data; i++) {
 			*ptr_dst++ = *ptr_src++;
 		}
+		__DSB();
+		__ISB();
 	}
 	// Clear FIFO Status
 	uhd_ack_fifocon(pipe);
 	// Finish job on error or short packet
 	if (b_full || b_short) {
 		uhd_freeze_pipe(pipe);
+		uhd_disable_nak_received_interrupt(pipe);
 		uhd_disable_short_packet_interrupt(pipe);
 		uhd_disable_in_received_interrupt(pipe);
 		uhd_disable_pipe_interrupt(pipe);
@@ -1816,6 +1986,8 @@ static void uhd_pipe_out_ready(uint8_t pipe)
 		for (i = 0; i < nb_data; i++) {
 			*ptr_dst++ = *ptr_src++;
 		}
+		__DSB();
+		__ISB();
 	}
 	// Switch to next bank
 	uhd_ack_fifocon(pipe);
@@ -1925,7 +2097,7 @@ static void uhd_pipe_trans_complet(uint8_t pipe)
 				}
 			}
 			uhd_pipe_dma_set_control(pipe, uhd_dma_ctrl);
-			ptr_job->nb_trans += next_trans;
+			uhd_pipes_dma_nb_trans[pipe - 1] = next_trans;
 			cpu_irq_restore(flags);
 			return;
 		}
@@ -1947,6 +2119,9 @@ static void uhd_pipe_trans_complet(uint8_t pipe)
 			uhd_enable_out_ready_interrupt(pipe);
 			return;
 		}
+	} else {
+		uhd_disable_nak_received_interrupt(pipe);
+		_dcache_invalidate(ptr_job->buf, ptr_job->nb_trans);
 	}
 	// Call callback to signal end of transfer
 	uhd_pipe_finish_job(pipe, UHD_TRANS_NOERROR);
@@ -1962,23 +2137,22 @@ static void uhd_pipe_interrupt_dma(uint8_t pipe)
 {
 	uhd_pipe_job_t *ptr_job;
 	uint32_t nb_remaining;
+	uint32_t stat = uhd_pipe_dma_get_status(pipe);
 
-	if (uhd_pipe_dma_get_status(pipe)
-			& USBHS_HSTDMASTATUS_CHANN_ENB) {
+	if (stat & USBHS_HSTDMASTATUS_CHANN_ENB) {
 		return; // Ignore EOT_STA interrupt
 	}
 	// Save number of data no transfered
-	nb_remaining = (uhd_pipe_dma_get_status(pipe) &
-			USBHS_HSTDMASTATUS_BUFF_COUNT_Msk)
+	nb_remaining = (stat & USBHS_HSTDMASTATUS_BUFF_COUNT_Msk)
 			>> USBHS_HSTDMASTATUS_BUFF_COUNT_Pos;
+
+	// Get job corresponding at endpoint
+	ptr_job = &uhd_pipe_job[pipe - 1];
+	// Update number of transfered data
+	ptr_job->nb_trans = uhd_pipes_dma_nb_trans[pipe - 1] - nb_remaining;
+
 	if (nb_remaining) {
-		// Get job corresponding at endpoint
-		ptr_job = &uhd_pipe_job[pipe - 1];
-
 		// Transfer no complete (short packet or ZLP) then:
-		// Update number of transfered data
-		ptr_job->nb_trans -= nb_remaining;
-
 		// Set transfer complete to stop the transfer
 		ptr_job->buf_size = ptr_job->nb_trans;
 	}
@@ -2026,6 +2200,18 @@ static void uhd_pipe_interrupt_dma(uint8_t pipe)
  */
 static void uhd_pipe_interrupt(uint8_t pipe)
 {
+#if UHD_BULK_INTERVAL_MIN
+	// for any bulk IN NAK endpoints, freeze to free bandwidth
+	if (Is_uhd_pipe_bulk_in(pipe)
+		&& Is_uhd_nak_received_interrupt_enabled(pipe)
+		&& Is_uhd_nak_received(pipe)) {
+		// Freeze until next frame start
+		uhd_freeze_pipe(pipe);
+		uhd_ack_nak_received(pipe);
+		return;
+	}
+#endif
+
 #ifdef UHD_PIPE_FIFO_SUPPORTED
 	// for none DMA endpoints
 	if (!Is_uhd_pipe_dma_supported(pipe)) {
@@ -2120,6 +2306,15 @@ static void uhd_pipe_interrupt(uint8_t pipe)
 static void uhd_ep_abort_pipe(uint8_t pipe, uhd_trans_status_t status)
 {
 	// Stop transfer
+#ifdef UHD_PIPE_DMA_SUPPORTED
+	if (Is_uhd_pipe_dma_supported(pipe)) {
+		uhd_pipe_job_t *ptr_job = &uhd_pipe_job[pipe - 1];
+		uhd_freeze_pipe(pipe);
+		ptr_job->nb_trans =
+				uhd_pipe_dma_get_addr(pipe) - (uint32_t)ptr_job->buf;
+		uhd_pipe_dma_set_control(pipe, 0);
+	}
+#endif
 	uhd_reset_pipe(pipe);
 
 	// Autoswitch bank and interrupts has been reseted, then re-enable it
@@ -2127,11 +2322,9 @@ static void uhd_ep_abort_pipe(uint8_t pipe, uhd_trans_status_t status)
 	uhd_enable_stall_interrupt(pipe);
 	uhd_enable_pipe_error_interrupt(pipe);
 	uhd_disable_out_ready_interrupt(pipe);
-#ifdef UHD_PIPE_DMA_SUPPORTED
-	if (Is_uhd_pipe_dma_supported(pipe)) {
-		uhd_pipe_dma_set_control(pipe, 0);
-	}
-#endif
+	uhd_disable_in_received_interrupt(pipe);
+	uhd_disable_nak_received_interrupt(pipe);
+
 	uhd_pipe_finish_job(pipe, status);
 }
 
@@ -2145,6 +2338,14 @@ static void uhd_ep_abort_pipe(uint8_t pipe, uhd_trans_status_t status)
 static void uhd_pipe_finish_job(uint8_t pipe, uhd_trans_status_t status)
 {
 	uhd_pipe_job_t *ptr_job;
+	uint32_t dev_addr = uhd_get_configured_address(pipe);
+	uint32_t dev_ep = uhd_get_pipe_endpoint_address(pipe);
+
+	if (status == UHD_TRANS_DISCONNECT) {
+		// Unalloc pipe
+		uhd_disable_pipe(pipe);
+		uhd_unallocate_memory(pipe);
+	}
 
 	// Get job corresponding at endpoint
 	ptr_job = &uhd_pipe_job[pipe - 1];
@@ -2155,8 +2356,6 @@ static void uhd_pipe_finish_job(uint8_t pipe, uhd_trans_status_t status)
 	if (NULL == ptr_job->call_end) {
 		return; // No callback linked to job
 	}
-	uint32_t dev_addr = uhd_get_configured_address(pipe);
-	uint32_t dev_ep = uhd_get_pipe_endpoint_address(pipe);
 	ptr_job->call_end(dev_addr, dev_ep, status, ptr_job->nb_trans);
 }
 

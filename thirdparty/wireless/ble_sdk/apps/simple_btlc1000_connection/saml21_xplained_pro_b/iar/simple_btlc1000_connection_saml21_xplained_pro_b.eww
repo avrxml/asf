@@ -1,6 +1,0 @@
-<workspace>
-	<batchBuild></batchBuild>
-	<project>
-		<path>$WS_DIR$\simple_btlc1000_connection_saml21_xplained_pro_b_flash.ewp</path>
-	</project>
-</workspace>

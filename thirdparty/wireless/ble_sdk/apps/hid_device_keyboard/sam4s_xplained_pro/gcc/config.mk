@@ -55,6 +55,7 @@ CSRCS = \
        common/services/clock/sam4s/sysclk.c               \
        common/services/delay/sam/cycle_counter.c          \
        common/services/serial/usart_serial.c              \
+       common/services/sleepmgr/sam/sleepmgr.c            \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        common/utils/stdio/read.c                          \
        common/utils/stdio/write.c                         \
@@ -94,6 +95,7 @@ INC_PATH = \
        common/services/ioport                             \
        common/services/serial                             \
        common/services/serial/sam_uart                    \
+       common/services/sleepmgr                           \
        common/utils                                       \
        common/utils/stdio/stdio_serial                    \
        sam/boards                                         \
@@ -147,7 +149,7 @@ DEBUG_SCRIPT_FLASH = sam/boards/sam4s_xplained_pro/debug_scripts/gcc/sam4s_xplai
 DEBUG_SCRIPT_SRAM  = sam/boards/sam4s_xplained_pro/debug_scripts/gcc/sam4s_xplained_pro_sram.gdb
 
 # Project type parameter: all, sram or flash
-PROJECT_TYPE        = all
+PROJECT_TYPE        = flash
 
 # Additional options for debugging. By default the common Makefile.in will
 # add -g3.
@@ -179,6 +181,7 @@ CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
        -D ATT_DB_MEMORY                                   \
        -D BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL             \
+       -D BLE_MODULE=BTLC1000_MR                          \
        -D BOARD=SAM4S_XPLAINED_PRO                        \
        -D DEVICE_INFORMATION_SERVICE                      \
        -D ENABLE_POWER_SAVE                               \
@@ -186,8 +189,11 @@ CPPFLAGS = \
        -D HID_GATT_SERVER                                 \
        -D HID_KEYBOARD_DEVICE                             \
        -D HID_SERVICE                                     \
+       -D HOST_SLEEP_ENABLE=true                          \
+       -D HOST_UART_BAUDRATE_CONFIG_VALUE=921600          \
        -D NENABLE_PTS                                     \
        -D NEW_EVT_HANDLER                                 \
+       -D SLEEP_WALKING_ENABLED=false                     \
        -D UART_FLOWCONTROL_4WIRE_MODE=true                \
        -D UART_FLOWCONTROL_6WIRE_MODE=false               \
        -D __SAM4SD32C__                                   \

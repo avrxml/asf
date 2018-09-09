@@ -47,8 +47,11 @@ void serial_console_init(void)
 	system_clock_config(CLOCK_RESOURCE_XO_26_MHZ, CLOCK_FREQ_26_MHZ);
 
 	uart_get_config_defaults(&config_uart);
-
+#ifdef SERIAL_CONSOLE_BAUDRATE
+	 config_uart.baud_rate = SERIAL_CONSOLE_BAUDRATE;
+#else
 	config_uart.baud_rate = CONF_STDIO_BAUDRATE;
+#endif 
 	config_uart.pin_number_pad[0] = EDBG_CDC_PIN_PAD0;
 	config_uart.pin_number_pad[1] = EDBG_CDC_PIN_PAD1;
 	config_uart.pin_number_pad[2] = EDBG_CDC_PIN_PAD2;
@@ -77,7 +80,7 @@ unsigned int _time_done()
 	return --tick;
 }
 
-int getchar_b11_timeout(unsigned int sec)
+int getchar_timeout(unsigned int sec)
 {
 	read_status = UART_READ_WAITING;
 	

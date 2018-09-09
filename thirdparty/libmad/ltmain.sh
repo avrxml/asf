@@ -1,7 +1,7 @@
 # ltmain.sh - Provide generalized library-building support services.
- /**
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
- */
+#
+# Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+#
 # NOTE: Changing this file will not affect anything until you rerun configure.
 #
 # Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005, 2006

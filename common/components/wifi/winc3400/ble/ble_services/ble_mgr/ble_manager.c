@@ -1,55 +1,45 @@
 /**
- * \file
- *
- * \brief BLE Manager.
- *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
- *
- * \asf_license_start
- *
- * \page License
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * \asf_license_stop
- *
- */
+* \file
+*
+* \brief BLE Manager
+*
+* Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
+*
+* \asf_license_start
+*
+* \page License
+*
+* Subject to your compliance with these terms, you may use Microchip
+* software and any derivatives exclusively with Microchip products.
+* It is your responsibility to comply with third party license terms applicable
+* to your use of third party software (including open source software) that
+* may accompany Microchip software.
+*
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+* WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+* AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+* LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+* LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+* SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+* POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+* ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+* RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+*
+* \asf_license_stop
+*
+*/
+/*
+* Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+*/
+
 
 #include <asf.h>
 #include <string.h>
-#include "ble/include/at_ble_api.h"
-#include "ble/ble_services/ble_mgr/ble_manager.h"
-#include "ble/utils/ble_utils.h"
-#include "ble/platform/include/platform.h"
-#include "ble/ble_stack/include/wifiprov_task.h"
-
-#include "driver/include/m2m_wifi.h"
-
-extern volatile bool init_done;
-at_ble_wifiprov_complete_ind gwifiprov_complete_ind = {.status = APP_PROV_IDLE};
+#include "at_ble_api.h"
+#include "ble_manager.h"
+#include "ble_utils.h"
 
 #if defined LINK_LOSS_SERVICE
 	#include "link_loss.h"
@@ -65,20 +55,14 @@ at_ble_wifiprov_complete_ind gwifiprov_complete_ind = {.status = APP_PROV_IDLE};
 
 #if defined PROXIMITY_REPORTER
 	#include "pxp_reporter.h"
-	#define ATT_DB_MEMORY 1
 #endif /* PROXIMITY_REPORTER */
 
 #if defined PROXIMITY_MONITOR
 	#include "pxp_monitor.h"
 #endif /* PROXIMITY_MONITOR */
 
-#if defined HID_DEVICE
-	#include "hid_device.h"
-#endif /*HID_DEVICE*/	
-
-#if defined ATT_DB_MEMORY
-uint8_t att_db_data[1000];
-#endif
+//Add for WINC3400
+#define AT_BLE_EVENT_PARAM_MAX_SIZE 524
 
 /** @brief information of the connected devices */
 at_ble_connected_t ble_connected_dev_info[MAX_DEVICE_CONNECTED];
@@ -88,8 +72,6 @@ ble_gap_event_callback_t ble_connected_cb = NULL;
 ble_gap_event_callback_t ble_disconnected_cb = NULL;
 ble_gap_event_callback_t ble_paired_cb = NULL;
 ble_characteristic_changed_callback_t ble_char_changed_cb = NULL;
-//ble_notification_confirmed_callback_t ble_notif_conf_cb = NULL;
-ble_indication_confirmed_callback_t ble_indic_conf_cb = NULL;
 
 #if ((BLE_DEVICE_ROLE == BLE_CENTRAL) || (BLE_DEVICE_ROLE == BLE_CENTRAL_AND_PERIPHERAL)|| (BLE_DEVICE_ROLE == BLE_OBSERVER))
 uint8_t scan_response_count = 0;
@@ -98,96 +80,42 @@ at_ble_scan_info_t scan_info[MAX_SCAN_DEVICE];
 
 at_ble_LTK_t app_bond_info;
 bool app_device_bond;
-at_ble_auth_t auth_info;
+uint8_t auth_info;
 
 at_ble_events_t event;
-uint8_t params[BLE_EVENT_PARAM_MAX_SIZE];
+uint8_t params[AT_BLE_EVENT_PARAM_MAX_SIZE];
 
-uint8 ble_wifi_scan_mode = 0;
 /** @brief initializes the platform */
-//static void ble_init(at_ble_init_config_t * args);
-
-/** @brief Set BLE Address, If address is NULL then it will use BD public address */
-//static void ble_set_address(at_ble_addr_t *addr);
+static void ble_init(void);
 
 /** @brief function to get event from stack */
 at_ble_status_t ble_event_task(void)
 {
-    if (at_ble_event_get(&event, params, BLE_EVENT_TIMEOUT) == AT_BLE_SUCCESS) 
-    {
-		switch(event)
-		{
-			case AT_BLE_WIFIPROV_SCAN_MODE_CHANGE_IND:
-			{
-				printf("AT_BLE_WIFIPROV_SCAN_MODE_CHANGE_IND\r\n");
-				at_ble_wifiprov_scan_mode_change_ind_t *ind = (at_ble_wifiprov_scan_mode_change_ind_t *)params;
-				#ifdef BLE_API_DBG
-				M2M_INFO("AT_BLE_WIFIPROV_SCAN_MODE_CHANGE_IND :%x\n", ind->scanmode);
-				#endif
-				if (ind->scanmode == WIFIPROV_SCANMODE_SCANNING)
-				{
-					m2m_wifi_request_scan(M2M_WIFI_CH_ALL);
-					wifiprov_scan_mode_change_ind_send(WIFIPROV_SCANMODE_SCANNING);
-				}
-				ble_wifi_scan_mode = ind->scanmode;
-			}
-			break;
-			
-			case AT_BLE_WIFIPROV_COMPLETE_IND:
-			{
-				printf("AT_BLE_WIFIPROV_COMPLETE_IND\r\n");
-				memcpy(&gwifiprov_complete_ind, params, sizeof(gwifiprov_complete_ind));
-				#ifdef BLE_API_DBG
-				M2M_INFO("AT_BLE_WIFIPROV_COMPLETE_IND :%x\n", gwifiprov_complete_ind.status);
-				#endif
-				ble_wifi_scan_mode = 0;
-				if (gwifiprov_complete_ind.status == APP_PROV_SUCCESS)
-				{
-					printf("Provisioning Successful \r\n");
-					//printf("Sec type   : %d\r\n", gwifiprov_complete_ind.sec_type);
-					//printf("SSID       : %s\r\n", gwifiprov_complete_ind.ssid);
-					//printf("SSID Lenght: %d\r\n", gwifiprov_complete_ind.ssid_length);
-					//printf("Passphrase : %s\r\n", gwifiprov_complete_ind.passphrase);
-					
-					void *strSecInfo = gwifiprov_complete_ind.passphrase;
-								
-					if (gwifiprov_complete_ind.sec_type == M2M_WIFI_SEC_WEP)
-					{
-						M2M_INFO("M2M_WIFI_SEC_WEP.\r\n");
-						tstrM2mWifiWepParams *wepParams = malloc(sizeof(tstrM2mWifiWepParams));
-						memset(wepParams, 0, sizeof(tstrM2mWifiWepParams));
-						wepParams->u8KeyIndx = M2M_WIFI_WEP_KEY_INDEX_1;
-						wepParams->u8KeySz  = (strlen((const char *)gwifiprov_complete_ind.passphrase)==WEP_40_KEY_STRING_SIZE)?WEP_40_KEY_STRING_SIZE+1:WEP_104_KEY_STRING_SIZE+1;
-						m2m_memcpy((uint8*)(&wepParams->au8WepKey), gwifiprov_complete_ind.passphrase, wepParams->u8KeySz-1);
-						strSecInfo = wepParams;
-					}
-					printf("Sec type   : %d\r\n", gwifiprov_complete_ind.sec_type);
-					printf("SSID       : %s\r\n", gwifiprov_complete_ind.ssid);
-					printf("SSID Lenght: %d\r\n", gwifiprov_complete_ind.ssid_length);
-					printf("Passphrase : %s\r\n", gwifiprov_complete_ind.passphrase);
+	if (at_ble_event_get(&event, params,
+		BLE_EVENT_TIMEOUT) == AT_BLE_SUCCESS) {
+		ble_event_manager(event, params);
+		return AT_BLE_SUCCESS;
+	}
+	return AT_BLE_FAILURE;
+}
 
-					M2M_INFO("Connecting..\r\n");
-					wifiprov_wifi_con_update(WIFIPROV_CON_STATE_CONNECTING);
-					m2m_wifi_connect((char *)&gwifiprov_complete_ind.ssid, (gwifiprov_complete_ind.ssid_length), gwifiprov_complete_ind.sec_type, &gwifiprov_complete_ind.passphrase, M2M_WIFI_CH_ALL);
-					if (gwifiprov_complete_ind.sec_type == M2M_WIFI_SEC_WEP)
-							free(strSecInfo);
-				}
-				else
-				{
-					M2M_INFO("Provisioning Failed \n");
-					gwifiprov_complete_ind.status = APP_PROV_IDLE;
-				}
-			}
-			break;
-			
-			default:
-				ble_event_manager(event, &params);
-				return AT_BLE_SUCCESS;
-			break;
-		}
-    }
-    
-    return AT_BLE_FAILURE;
+/** @brief BLE device initialization */
+void ble_device_init(at_ble_addr_t *addr)
+{
+	char *dev_name = NULL;
+	ble_init();
+	
+	dev_name = (char *)BLE_DEVICE_NAME;
+	if (ble_set_device_name((uint8_t *)dev_name, strlen(dev_name)) != AT_BLE_SUCCESS)
+	{
+		DBG_LOG("Device name set failed\r\n");
+	}
+	else
+	{
+		DBG_LOG("Device Name: %s\r\n",BLE_DEVICE_NAME);	
+	}
+	
+	BLE_PROFILE_INIT(NULL);
 }
 
 /** @brief set device name to BLE Device*/
@@ -198,6 +126,13 @@ at_ble_status_t ble_set_device_name(uint8_t *name, uint8_t name_len)
 		return AT_BLE_INVALID_PARAM;
 	}
 	return at_ble_device_name_set(name, name_len);
+}
+
+/* Initialize the BLE */
+static void ble_init(void)
+{
+	/* Initialize the platform */
+	DBG_LOG("BLE is initializing\n");
 }
 
 #if ((BLE_DEVICE_ROLE == BLE_CENTRAL) || (BLE_DEVICE_ROLE == BLE_CENTRAL_AND_PERIPHERAL) || (BLE_DEVICE_ROLE == BLE_OBSERVER))
@@ -343,23 +278,14 @@ uint8_t scan_info_parse(at_ble_scan_info_t *scan_info_data,
 /** @brief function to send slave security request */
 at_ble_status_t ble_send_slave_sec_request(at_ble_handle_t conn_handle)
 {
-	#if BLE_PAIR_ENABLE
-		if (at_ble_send_slave_sec_request(conn_handle, BLE_MITM_REQ, BLE_BOND_REQ) == AT_BLE_SUCCESS)
-		{
-			DBG_LOG_DEV("Slave security request successful");
-			return AT_BLE_SUCCESS;
-		}
-		else
-		{
-			DBG_LOG("Slave security request failed");
-		}
-	#else
-		BLE_ADDITIONAL_PAIR_DONE_HANDLER(NULL);
-		if (ble_paired_cb != NULL)
-		{
-			ble_paired_cb(conn_handle);
-		}
-	#endif
+	if (at_ble_send_slave_sec_request(conn_handle, true, true) == AT_BLE_SUCCESS)
+	{
+		DBG_LOG_DEV("Slave security request successful");
+		return AT_BLE_SUCCESS;
+	}
+	else {
+		DBG_LOG("Slave security request failed");
+	}
 	return AT_BLE_FAILURE;
 }
 
@@ -370,24 +296,22 @@ void ble_connected_state_handler(at_ble_connected_t *conn_params)
 	memcpy(ble_connected_dev_info, (uint8_t *)conn_params, sizeof(at_ble_connected_t));
 	if (conn_params->conn_status == AT_BLE_SUCCESS)
 	{
-		DBG_LOG("Connected to peer device with address 0x%02x%02x%02x%02x%02x%02x",
+		DBG_LOG("Connected to peer device with address %02x:%02x:%02x:%02x:%02x:%02x\n",
 		conn_params->peer_addr.addr[5],
 		conn_params->peer_addr.addr[4],
 		conn_params->peer_addr.addr[3],
 		conn_params->peer_addr.addr[2],
 		conn_params->peer_addr.addr[1],
-		conn_params->peer_addr.addr[0]);
+		conn_params->peer_addr.addr[0]);		
 		
-		DBG_LOG("Connection Handle %d", conn_params->handle);
+		#if (BLE_DEVICE_ROLE == BLE_PERIPHERAL)
+		ble_send_slave_sec_request(conn_params->handle);
+		#endif
 		
 		if (ble_connected_cb != NULL)
 		{
 			ble_connected_cb(conn_params->handle);
 		}
-		
-#if (BLE_DEVICE_ROLE == BLE_PERIPHERAL)
-	ble_send_slave_sec_request(conn_params->handle);
-#endif
 	} 
 	else
 	{
@@ -419,58 +343,69 @@ void register_ble_characteristic_changed_cb(ble_characteristic_changed_callback_
 	ble_char_changed_cb = char_changed_cb_fn;
 }
 
-/** @brief function to register callback to be called when indication pdu send over the air, this callback called by profile or service */
-void register_ble_indication_confirmed_cb(ble_indication_confirmed_callback_t indic_conf_cb_fn)
-{
-	ble_indic_conf_cb = indic_conf_cb_fn;
-}
-
 /** @brief function handles disconnection event received from stack */
 void ble_disconnected_state_handler(at_ble_disconnected_t *disconnect)
 {
-	DBG_LOG("Device disconnected Reason:0x%02x Handle=0x%x", disconnect->reason, disconnect->handle);	
 	if (ble_disconnected_cb != NULL)
 	{
 		ble_disconnected_cb(disconnect->handle);
 	}
+	DBG_LOG("Device disconnected Reason:0x%02x Handle=0x%x", disconnect->reason, disconnect->handle);
 }
 
 /** @brief connection update parameter function */
 void ble_conn_param_update(at_ble_conn_param_update_done_t * conn_param_update)
 {
-	DBG_LOG_DEV("AT_BLE_CONN_PARAM_UPDATE ");
-	ALL_UNUSED(conn_param_update);  //To avoid compiler warning
+	DBG_LOG("Connection parameter update: interval:%u latency:%u timeout:%u\n",
+	conn_param_update->con_intv,conn_param_update->con_latency,conn_param_update->superv_to);
 }
 
-void ble_conn_param_update_req(at_ble_conn_param_update_request_t * conn_param_req)
-{
-	conn_param_req->params.ce_len_min = 1;
-	conn_param_req->params.ce_len_max = 120;
-	at_ble_conn_update_reply(conn_param_req->handle, &(conn_param_req->params));
-}
-
-void ble_slave_security_handler(at_ble_slave_sec_request_t* slave_sec_req)
+/** @brief function handles pair request */
+void ble_pair_request_handler(at_ble_pair_request_t *at_ble_pair_req)
 {
 	at_ble_pair_features_t features;
 	uint8_t i = 0;
+	char bond;
 	
-	if (app_device_bond)
+	DBG_LOG("Remote device request pairing");
+	
+	/* Check if we are already bonded (Only one bonded connection is supported
+	in this example)*/
+	if(app_device_bond)
 	{
-		app_device_bond = false;
+		DBG_LOG("Bound relation exists with previously peer device");
+		DBG_LOG("To remove existing bonding information and accept pairing request from peer device press y else press n : ");
+		do
+		{
+			bond = 'y';
+			if((bond == 'Y') || (bond == 'y'))
+			{
+				app_device_bond = false;
+				break;
+			}
+			else if ((bond == 'N') || (bond == 'n'))
+			{
+				DBG_LOG("Pairing failed\n");
+				break;
+			}
+			else
+			{
+				DBG_LOG("Wrong value entered please try again");
+			}
+		}while(app_device_bond);
 	}
 	
 	if(!app_device_bond)
 	{
-
-		features.desired_auth =  BLE_AUTHENTICATION_LEVEL; 
-		features.bond = slave_sec_req->bond;
-		features.mitm_protection = slave_sec_req->mitm_protection;
+		/* Authentication requirement is bond and MITM*/
+		features.desired_auth =  AT_BLE_MODE1_L2_AUTH_PAIR_ENC;
+		features.bond = true;
+		features.mitm_protection = true;
+		features.oob_avaiable = false;
 		/* Device capabilities is display only , key will be generated
 		and displayed */
-		features.io_cababilities = AT_BLE_IO_CAP_KB_DISPLAY;
-
-		features.oob_avaiable = false;
-			
+		
+		features.io_cababilities = AT_BLE_IO_CAP_DISPLAY_ONLY;
 		/* Distribution of LTK is required */
 		features.initiator_keys =   AT_BLE_KEY_DIST_ENC;
 		features.responder_keys =   AT_BLE_KEY_DIST_ENC;
@@ -493,136 +428,46 @@ void ble_slave_security_handler(at_ble_slave_sec_request_t* slave_sec_req)
 		app_bond_info.key_size = 16;
 		/* Send pairing response */
 		DBG_LOG("Sending pairing response");
-		if(at_ble_authenticate(slave_sec_req->handle, &features, &app_bond_info, NULL) != AT_BLE_SUCCESS)
-		{
-			features.bond = false;
-			features.mitm_protection = false;
-			DBG_LOG(" != AT_BLE_SUCCESS ");
-			at_ble_authenticate(slave_sec_req->handle, &features, NULL, NULL);
-			
-		}
-	}
-}
-
-/** @brief function handles pair request */
-void ble_pair_request_handler(at_ble_pair_request_t *at_ble_pair_req)
-{
-	at_ble_pair_features_t features;
-	uint8_t idx = 0;
-	
-	DBG_LOG("Peer device request pairing");
-	
-	/* Check if we are already bonded (Only one bonded connection is supported
-	in this example)*/
-	if(app_device_bond)
-	{
-		DBG_LOG("Bonding information exists with peer device...Removing Bonding information");
-		app_device_bond = false;
-	}
-	
-	if(!app_device_bond)
-	{
-		/* Authentication requirement is bond and MITM*/
-		features.desired_auth = BLE_AUTHENTICATION_LEVEL;
-		features.bond = BLE_BOND_REQ;
-		features.mitm_protection = BLE_MITM_REQ;
-		features.io_cababilities = BLE_IO_CAPABALITIES;	
-		features.oob_avaiable = BLE_OOB_REQ;
-			
-		/* Distribution of LTK is required */
-		features.initiator_keys =   AT_BLE_KEY_DIST_ENC;
-		features.responder_keys =   AT_BLE_KEY_DIST_ENC;
-		features.max_key_size = 16;
-		features.min_key_size = 16;
-		
-		/* Generate LTK */
-		for(idx=0; idx<8; idx++)
-		{
-			app_bond_info.key[idx] = rand()&0x0f;
-			app_bond_info.nb[idx] = rand()&0x0f;
-		}
-		
-		for(idx=8 ; idx<16 ;idx++)
-		{
-			app_bond_info.key[idx] = rand()&0x0f;
-		}
-		
-		app_bond_info.ediv = rand()&0xffff;
-		app_bond_info.key_size = 16;
-		/* Send pairing response */
-		DBG_LOG("Sending pairing response");
 		if(at_ble_authenticate(ble_connected_dev_info->handle, &features, &app_bond_info, NULL) != AT_BLE_SUCCESS)
 		{
 			features.bond = false;
 			features.mitm_protection = false;
-			DBG_LOG("BLE Authentication Failed..Retrying without mitm without bond");
-			if(!(at_ble_authenticate(ble_connected_dev_info->handle, &features, NULL, NULL) == AT_BLE_SUCCESS))
-			{
-				DBG_LOG("BLE Authentication Retry Failed");
-			}			
+			DBG_LOG(" != AT_BLE_SUCCESS ");
+			at_ble_authenticate(ble_connected_dev_info->handle, &features, NULL, NULL);
+			
 		}
 	}
-	ALL_UNUSED(at_ble_pair_req);  //To avoid compiler warning
 }
 
 /** @brief function handles pair key request */
 void ble_pair_key_request_handler (at_ble_pair_key_request_t *pair_key)
 {
 	/* Passkey has fixed value in this example MSB */
-	uint8_t passkey[6]={'1','2','3','4','5','6'};
-	uint8_t idx = 0;
-        uint8_t pin;
-        
+	uint8_t passkey[6]={1,2,3,4,5,6};
+	uint8_t passkey_ascii[6];
+	uint8_t i = 0;
+	
 	at_ble_pair_key_request_t pair_key_request;
-        
-        memcpy((uint8_t *)&pair_key_request, pair_key, sizeof(at_ble_pair_key_request_t));
-        
-        if(pair_key_request.passkey_type == AT_BLE_PAIR_PASSKEY_ENTRY)
-        {
-          DBG_LOG("Enter the Passkey(6-Digit) in Terminal:");
-            
-          for(idx = 0; idx < 6; )
-          {          
-            pin = getchar();
-            if((pin >= '0') && ( pin <= '9'))
-            {
-              passkey[idx++] = pin;
-              DBG_LOG_CONT("%c", pin);
-            }
-          }
-        }	
+	memcpy((uint8_t *)&pair_key_request, pair_key, sizeof(at_ble_pair_key_request_t));
+	DBG_LOG_DEV("passkey_type 0x%02X ",pair_key_request.passkey_type);	
+	DBG_LOG_DEV("type 0x%02X ",pair_key_request.type);
 	
 	/* Display passkey */
-	if(((pair_key_request.passkey_type == AT_BLE_PAIR_PASSKEY_DISPLAY) &&
-	   (pair_key_request.type == AT_BLE_PAIR_PASSKEY)) || (pair_key_request.passkey_type == AT_BLE_PAIR_PASSKEY_ENTRY))
+	if(pair_key_request.passkey_type == AT_BLE_PAIR_PASSKEY_DISPLAY)
 	{
-          if(pair_key_request.passkey_type == AT_BLE_PAIR_PASSKEY_ENTRY)
-          {
-            DBG_LOG("Entered Pass-code:");
-          }
-          else
-          {
-            DBG_LOG("Please Enter the following Pass-code(on other Device):");
-          }
-          
-          /* Convert passkey to ASCII format */
-          for(idx=0; idx<AT_BLE_PASSKEY_LEN; idx++)
-          {
-                  DBG_LOG_CONT("%c",passkey[idx]);
-          }		
-          
-          if(!(at_ble_pair_key_reply(pair_key_request.handle, pair_key_request.type, passkey)) == AT_BLE_SUCCESS)
-          {
-                  DBG_LOG("Pair-key reply failed");
-          }
-	}
-	else 
-	{
-		if(pair_key_request.type == AT_BLE_PAIR_OOB)
+		/* Convert passkey to ASCII format */
+		for(i=0; i<AT_BLE_PASSKEY_LEN ; i++)
 		{
-			DBG_LOG("OOB Feature Not supported");
+			passkey_ascii[i] = (passkey[i] + 48);
 		}
-	}	
+		DBG_LOG("please enter the following pass-code on the other device:");
+		for(i=0; i < AT_BLE_PASSKEY_LEN ; i++)
+		{
+			DBG_LOG_CONT("%c",passkey_ascii[i]);
+		}
+		at_ble_pair_key_reply(pair_key_request.handle,pair_key_request.type,passkey_ascii);
+	}
+	
 }
 
 /** @brief function handles pair done event */
@@ -644,11 +489,8 @@ at_ble_status_t ble_pair_done_handler(at_ble_pair_done_t *pairing_params)
 	}
 	else
 	{
-		DBG_LOG("Pairing failed...Disconnecting");
-		if(!(at_ble_disconnect(ble_connected_dev_info->handle, AT_BLE_TERMINATED_BY_USER) == AT_BLE_SUCCESS))
-		{
-			DBG_LOG("Disconnect Request Failed");
-		}
+		DBG_LOG("Pairing failed\n");
+		at_ble_disconnect(ble_connected_dev_info->handle, AT_BLE_TERMINATED_BY_USER);
 	}
 	return(AT_BLE_SUCCESS);
 }
@@ -689,28 +531,18 @@ void ble_encryption_request_handler (at_ble_encryption_request_t *encry_req)
 	{
 		key_found = true;
 	}
-        else
-        {
-          DBG_LOG("Pairing information of peer device is not available."); 
-          DBG_LOG("Please unpair the device from peer device(mobile) settings menu and start pairing again");
-        }
 
-	if(!(at_ble_encryption_request_reply(ble_connected_dev_info->handle,auth_info ,key_found, app_bond_info) == AT_BLE_SUCCESS))
-	{
-		DBG_LOG("Encryption Request Reply Failed");
-	}
-	else
-	{
-		DBG_LOG_DEV("Encryption Request Reply");
-	}
+	at_ble_encryption_request_reply(ble_connected_dev_info->handle,auth_info ,key_found,app_bond_info);
 }
+
+
 
 void ble_event_manager(at_ble_events_t events, void *event_params)
 {
-	DBG_LOG_DEV("Event:%d", event);
 	switch(events)
-	{		
-	 /* GAP events */
+	{
+		
+		/* GAP events */
 	/** Undefined event received  */
 	case AT_BLE_UNDEFINED_EVENT:
 	{
@@ -735,10 +567,6 @@ void ble_event_manager(at_ble_events_t events, void *event_params)
 		BLE_SCAN_REPORT_HANDLER((at_ble_scan_report_t *)event_params);
 	}
 	break;
-	
-	/** Advertising report received if error has occurred or timeout happened.
-	* Refer to @ref at_ble_adv_report_t
-	*/
 	
 	/** Used random address. \n
 	 *	Refer to at_ble_rand_addr_changed_t
@@ -781,7 +609,15 @@ void ble_event_manager(at_ble_events_t events, void *event_params)
 	 */
 	case AT_BLE_CONN_PARAM_UPDATE_REQUEST:
 	{
-		BLE_CONN_PARAM_UPDATE_REQ_HANDLER((at_ble_conn_param_update_request_t *)event_params);
+		
+	}
+	break;
+	
+	 /** reported RX power value. \n
+	 *	Refer to at_ble_rx_power_value_t
+	 */	 
+	case AT_BLE_RX_POWER_VALUE:
+	{
 		
 	}
 	break;
@@ -809,7 +645,7 @@ void ble_event_manager(at_ble_events_t events, void *event_params)
 	 */
 	case AT_BLE_SLAVE_SEC_REQUEST:
 	{
-		BLE_SLAVE_SEC_REQUEST((at_ble_slave_sec_request_t *)event_params);
+		
 	}
 	break;
 	
@@ -930,7 +766,7 @@ void ble_event_manager(at_ble_events_t events, void *event_params)
 		BLE_NOTIFICATION_RECEIVED_HANDLER((at_ble_notification_recieved_t *)event_params);
 	}
 	break;
-		
+	
 	 /** An Indication is received. \n
 	  * Refer to @ref at_ble_indication_recieved_t
 	  */
@@ -941,28 +777,12 @@ void ble_event_manager(at_ble_events_t events, void *event_params)
 	break;
 	
 	/* GATT Server events */
-	/** Confirmation of notification packet send over the air. \n
-	  * Refer to @ref at_ble_cmd_complete_event_t
-	*/
-	//case AT_BLE_NOTIFICATION_CONFIRMED:
-	//{
-		//BLE_NOTIFICATION_CONFIRMED_HANDLER((at_ble_cmd_complete_event_t *) event_params);
-		//if(ble_notif_conf_cb)
-		//{
-			//ble_notif_conf_cb((at_ble_cmd_complete_event_t *) event_params);
-		//}
-	//}
-	//break;
 	 /** The peer confirmed that it has received an Indication. \n
-	  * Refer to @ref at_ble_cmd_complete_event_t
+	  * Refer to @ref at_ble_indication_confirmed_t
 	  */
 	case AT_BLE_INDICATION_CONFIRMED:
 	{
-		BLE_INDICATION_CONFIRMED_HANDLER((at_ble_indication_confirmed_t *) event_params);
-		if(ble_indic_conf_cb)
-		{
-			ble_indic_conf_cb((at_ble_indication_confirmed_t *) event_params);
-		}
+		
 	}
 	break;
 	
@@ -982,11 +802,11 @@ void ble_event_manager(at_ble_events_t events, void *event_params)
 	/** The peer has confirmed that it has received the service changed notification. \n
 	  * Refer to @ref at_ble_service_changed_notification_confirmed_t
 	  */
-	//case AT_BLE_SERVICE_CHANGED_INDICATION_SENT:
-	//{
-		//
-	//}
-	//break;
+	case AT_BLE_SERVICE_CHANGED_NOTIFICATION_CONFIRMED:
+	{
+		BLE_SERVICE_CHANGED(event_params);		
+	}
+	break;
 	
 	/** The peer asks for a write Authorization. \n
 	  * Refer to @ref at_ble_write_authorize_request_t
@@ -1001,6 +821,16 @@ void ble_event_manager(at_ble_events_t events, void *event_params)
 	  * Refer to @ref at_ble_read_authorize_request_t
 	  */
 	case AT_BLE_READ_AUTHORIZE_REQUEST:
+	{
+		
+	}
+	break;
+	
+	/* L2CAP events */
+	/** An L2CAP packet received from a registered custom CID. \n
+	  * Refer to @ref at_ble_l2cap_rx_t
+	  */
+	case AT_BLE_L2CAP_RX:
 	{
 		
 	}
@@ -1068,12 +898,14 @@ void ble_event_manager(at_ble_events_t events, void *event_params)
 		
 	}
 	break;
-
+	
 	default:
 	{
 		DBG_LOG_DEV("BLE-Manager:Unknown Event=0x%X", events);
-		DBG_LOG("\r\n");
 	}
 	break;		
 	}
 }
+
+
+

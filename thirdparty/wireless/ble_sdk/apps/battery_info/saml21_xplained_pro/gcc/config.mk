@@ -57,6 +57,7 @@ CSRCS = \
        sam0/boards/saml21_xplained_pro/board_init.c       \
        sam0/drivers/extint/extint_callback.c              \
        sam0/drivers/extint/extint_sam_l_c/extint.c        \
+       sam0/drivers/nvm/nvm.c                             \
        sam0/drivers/port/port.c                           \
        sam0/drivers/sercom/sercom.c                       \
        sam0/drivers/sercom/sercom_interrupt.c             \
@@ -78,6 +79,8 @@ CSRCS = \
        thirdparty/wireless/ble_sdk/ble_services/battery/battery.c \
        thirdparty/wireless/ble_sdk/ble_services/ble_mgr/ble_manager.c \
        thirdparty/wireless/ble_sdk/services/console/sam0/console_serial.c \
+       thirdparty/wireless/ble_sdk/services/pds/pds.c     \
+       thirdparty/wireless/ble_sdk/services/pds/sam0/pds_nvm.c \
        thirdparty/wireless/ble_sdk/services/serial/uart/sam0/serial_drv.c \
        thirdparty/wireless/ble_sdk/services/serial_fifo/serial_fifo.c \
        thirdparty/wireless/ble_sdk/services/timer/sam0/timer_hw.c \
@@ -97,6 +100,7 @@ INC_PATH = \
        sam0/boards/saml21_xplained_pro                    \
        sam0/drivers/extint                                \
        sam0/drivers/extint/extint_sam_l_c                 \
+       sam0/drivers/nvm                                   \
        sam0/drivers/port                                  \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/usart                          \
@@ -126,6 +130,7 @@ INC_PATH = \
        thirdparty/wireless/ble_sdk/ble_services/ble_mgr   \
        thirdparty/wireless/ble_sdk/inc                    \
        thirdparty/wireless/ble_sdk/services/console       \
+       thirdparty/wireless/ble_sdk/services/pds           \
        thirdparty/wireless/ble_sdk/services/serial/uart   \
        thirdparty/wireless/ble_sdk/services/serial_fifo   \
        thirdparty/wireless/ble_sdk/services/timer         \
@@ -184,11 +189,16 @@ CPPFLAGS = \
        -D ATT_DB_MEMORY                                   \
        -D BATTERY_SERVICE                                 \
        -D BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL             \
+       -D BLE_MODULE=BTLC1000_MR                          \
        -D BOARD=SAML21_XPLAINED_PRO                       \
        -D ENABLE_POWER_SAVE                               \
        -D EXTINT_CALLBACK_MODE=true                       \
+       -D HOST_SLEEP_ENABLE=true                          \
+       -D HOST_UART_BAUDRATE_CONFIG_VALUE=921600          \
        -D NENABLE_PTS                                     \
        -D NEW_EVT_HANDLER                                 \
+       -D PDS_SERVICE                                     \
+       -D SLEEP_WALKING_ENABLED=false                     \
        -D SYSTICK_MODE                                    \
        -D TC_ASYNC=true                                   \
        -D UART_FLOWCONTROL_4WIRE_MODE=false               \

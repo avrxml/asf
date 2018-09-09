@@ -168,16 +168,20 @@
 					<name>CCDefines</name>
 					<state>SYSTICK_MODE</state>
 					<state>DTM_MODE</state>
-					<state>NENABLE_PTS</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
+					<state>NENABLE_PTS</state>
 					<state>TC_ASYNC=true</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
 					<state>__SAML21J18A__</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
-					<state>ENABLE_POWER_SAVE</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>ENABLE_POWER_SAVE</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>NEW_EVT_HANDLER</state>
 				</option>
 				<option>
@@ -316,7 +320,7 @@
 					<state>$PROJ_DIR$/../../../../services/timer</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../../../services/console</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../config/saml21</state>
@@ -328,11 +332,11 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power/power_sam_l</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../inc</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../../../common2/services/delay/sam0</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
+					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_saml21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
@@ -342,7 +346,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../services/serial_fifo</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
@@ -496,16 +500,20 @@
 					<name>ADefines</name>
 					<state>SYSTICK_MODE</state>
 					<state>DTM_MODE</state>
-					<state>NENABLE_PTS</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
+					<state>NENABLE_PTS</state>
 					<state>TC_ASYNC=true</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
 					<state>__SAML21J18A__</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
-					<state>ENABLE_POWER_SAVE</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>ENABLE_POWER_SAVE</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>NEW_EVT_HANDLER</state>
 				</option>
 				<option>
@@ -611,7 +619,7 @@
 					<state>$PROJ_DIR$/../../../../services/timer</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../../../services/console</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../config/saml21</state>
@@ -623,11 +631,11 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power/power_sam_l</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../inc</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../../../common2/services/delay/sam0</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
+					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_saml21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
@@ -637,7 +645,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../services/serial_fifo</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1183,16 +1191,20 @@
 					<name>CCDefines</name>
 					<state>SYSTICK_MODE</state>
 					<state>DTM_MODE</state>
-					<state>NENABLE_PTS</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
+					<state>NENABLE_PTS</state>
 					<state>TC_ASYNC=true</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
 					<state>__SAML21J18A__</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
-					<state>ENABLE_POWER_SAVE</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>ENABLE_POWER_SAVE</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>NEW_EVT_HANDLER</state>
 				</option>
 				<option>
@@ -1331,7 +1343,7 @@
 					<state>$PROJ_DIR$/../../../../services/timer</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../../../services/console</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../config/saml21</state>
@@ -1343,11 +1355,11 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power/power_sam_l</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../inc</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../../../common2/services/delay/sam0</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
+					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_saml21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
@@ -1357,7 +1369,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../services/serial_fifo</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
@@ -1511,16 +1523,20 @@
 					<name>ADefines</name>
 					<state>SYSTICK_MODE</state>
 					<state>DTM_MODE</state>
-					<state>NENABLE_PTS</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
+					<state>NENABLE_PTS</state>
 					<state>TC_ASYNC=true</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
 					<state>__SAML21J18A__</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
-					<state>ENABLE_POWER_SAVE</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>ENABLE_POWER_SAVE</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>NEW_EVT_HANDLER</state>
 				</option>
 				<option>
@@ -1626,7 +1642,7 @@
 					<state>$PROJ_DIR$/../../../../services/timer</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
 					<state>$PROJ_DIR$/../../../../services/console</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../config/saml21</state>
@@ -1638,11 +1654,11 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/power/power_sam_l</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../inc</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils</state>
-					<state>$PROJ_DIR$/../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../../../common2/services/delay/sam0</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
+					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_saml21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
@@ -1652,7 +1668,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../services/serial_fifo</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/source</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
@@ -2460,10 +2476,10 @@
 			<group>
 				<name>stdio</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam0/utils/stdio/write.c</name>
+					<name>$PROJ_DIR$/../../../../../../../sam0/utils/stdio/read.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../../../../sam0/utils/stdio/read.c</name>
+					<name>$PROJ_DIR$/../../../../../../../sam0/utils/stdio/write.c</name>
 				</file>
 				<group>
 					<name>stdio_serial</name>

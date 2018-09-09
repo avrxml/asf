@@ -1,0 +1,6 @@
+<workspace>
+	<batchBuild></batchBuild>
+	<project>
+		<path>$WS_DIR$\usart_quick_start_rs485_flash.ewp</path>
+	</project>
+</workspace>

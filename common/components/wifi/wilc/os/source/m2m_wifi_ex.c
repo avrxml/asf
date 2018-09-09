@@ -4,36 +4,29 @@
  *
  * \brief Wireless Link Controller Driver.
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
@@ -48,7 +41,7 @@
 
 static int wifi_netif_init = 0;
 
-extern void winc_fill_callback_info(tstrEthInitParam *info);
+extern void wilc_fill_callback_info(tstrEthInitParam *info);
 
 struct init_params {
 	struct params_dispatch dispatch;
@@ -102,18 +95,18 @@ static void os_m2m_wifi_init_imp(void *pv)
 
 	/* Init low level. */
 	nm_bsp_init();
-
+#ifndef WILC_SERIAL_BRIDGE_INTERFACE
 	/* Register lwIP low level driver hook. */
-	winc_fill_callback_info(&p->init->strEthInitParam);
-	
+	wilc_fill_callback_info(&p->init->strEthInitParam);
+#endif	
 	/* Init WILC1000 driver. */
 	p->dispatch.retval = m2m_wifi_init(p->init);
-
+#ifndef WILC_SERIAL_BRIDGE_INTERFACE
 	if (M2M_SUCCESS == p->dispatch.retval) {
 		net_add_wilc_netif();
 		wifi_netif_init = 1;
 	}
-
+#endif
 	if (p->dispatch.signal_semaphore) {
 		os_hook_notify();
 	}
@@ -128,10 +121,6 @@ sint8 os_m2m_wifi_init(tstrWifiInitParam *param)
     /* Initialize the netif thread. */
 	os_hook_init();
 	os_hook_send_start(os_m2m_wifi_init_imp, &params.dispatch, &params);
-	
-	/* Give enough time to ensure FW is ready. */
-	vTaskDelay(50);
-	
 	return params.dispatch.retval;
 }
 
@@ -140,27 +129,27 @@ struct connect_params {
 	char *pcSsid;
 	uint8 u8SsidLen;
 	uint8 u8SecType;
-	void *pvAuthInfo;
+	tuniM2MWifiAuth *puniAuthInfo;
 	uint16 u16Ch;
 };
 
 static void os_m2m_wifi_connect_imp(void *pv)
 {
 	struct connect_params *p = (struct connect_params *) pv;
-	m2m_wifi_set_control_ifc(1);
-	p->dispatch.retval = m2m_wifi_connect(p->pcSsid, p->u8SsidLen, p->u8SecType, p->pvAuthInfo, p->u16Ch);
+	//m2m_wifi_set_control_ifc(1);
+	p->dispatch.retval = m2m_wifi_connect(p->pcSsid, p->u8SsidLen, p->u8SecType, p->puniAuthInfo, p->u16Ch);
 	if (p->dispatch.signal_semaphore) {
 		os_hook_notify();
 	}
 }
 
-sint8 os_m2m_wifi_connect(char *pcSsid, uint8 u8SsidLen, uint8 u8SecType, void *pvAuthInfo, uint16 u16Ch)
+sint8 os_m2m_wifi_connect(char *pcSsid, uint8 u8SsidLen, uint8 u8SecType, tuniM2MWifiAuth *puniAuthInfo, uint16 u16Ch)
 {
 	struct connect_params params;
 	params.pcSsid = pcSsid;
 	params.u8SsidLen = u8SsidLen;
 	params.u8SecType = u8SecType;
-	params.pvAuthInfo = pvAuthInfo;
+	params.puniAuthInfo = puniAuthInfo;
 	params.u16Ch = u16Ch;
 	params.dispatch.retval = M2M_ERR_TIME_OUT;
 
@@ -177,7 +166,7 @@ struct connect_ap_params {
 static void os_m2m_wifi_enable_ap_imp(void *pv)
 {	
 	struct connect_ap_params *p = (struct connect_ap_params *) pv;
-	m2m_wifi_set_control_ifc(2);
+	//m2m_wifi_set_control_ifc(2);
 	p->dispatch.retval = m2m_wifi_enable_ap(p->ap);
 	if (p->dispatch.signal_semaphore) {
 		os_hook_notify();
@@ -198,8 +187,6 @@ sint8 os_m2m_wifi_enable_ap(tstrM2MAPConfig *ap)
 	return params.dispatch.retval;
 }
 
-
-
 sint8 m2m_wifi_request_callback_ex(m2m_wifi_callback_t callback, void *arg)
 {
 	return tcpip_callback_with_block(callback, arg, 0);
@@ -208,6 +195,13 @@ sint8 m2m_wifi_request_callback_ex(m2m_wifi_callback_t callback, void *arg)
 sint8 m2m_wifi_request_dhcp_client_ex(void)
 {
 	net_set_mode(NET_IF_STA, NET_MODE_USE_DHCP);
+	return 0;
+}
+
+
+sint8 m2m_wifi_request_static_client_ex(void)
+{
+	net_set_mode(NET_IF_STA, NET_MODE_USE_STATIC);
 	return 0;
 }
 
@@ -250,25 +244,6 @@ static void func_uint_imp(void *pv)
 	OS_WIFI_NOTIFY(p);
 }
 
-sint8 os_m2m_wifi_download_mode(void)
-{
-	struct void_params params;
-	params.dispatch.retval = M2M_ERR_TIME_OUT;
-	params.fn = m2m_wifi_download_mode;
-	OS_WIFI_DISPATCH_WAIT(func_void_imp, &params);
-	return params.dispatch.retval;
-}
-
-sint8 os_m2m_wifi_default_connect(void)
-{
-	struct void_params params;
-	params.dispatch.retval = M2M_ERR_TIME_OUT;
-	params.fn = m2m_wifi_default_connect;
-	OS_WIFI_DISPATCH_WAIT(func_void_imp, &params);
-	return params.dispatch.retval;
-}
-
-
 sint8 os_m2m_wifi_disconnect(void)
 {
 	struct void_params params;
@@ -277,40 +252,6 @@ sint8 os_m2m_wifi_disconnect(void)
 	OS_WIFI_DISPATCH_WAIT(func_void_imp, &params);
 	return params.dispatch.retval;
 }
-
-#ifndef M2M_WILC1000
-struct wifi_start_provision_mode_params {
-	struct params_dispatch dispatch;
-	tstrM2MAPConfig* pstrAPConfig;
-	char* pcHttpServerDomainName;
-	uint8 bEnableHttpRedirect;
-};
-static void os_m2m_wifi_start_provision_mode_imp(void *pv)
-{
-	struct wifi_start_provision_mode_params *p = (struct wifi_start_provision_mode_params *) pv;
-	p->dispatch.retval = m2m_wifi_start_provision_mode(p->pstrAPConfig, p->pcHttpServerDomainName, p->bEnableHttpRedirect);
-	OS_WIFI_NOTIFY(p);
-}
-sint8 os_m2m_wifi_start_provision_mode(tstrM2MAPConfig* pstrAPConfig, char* pcHttpServerDomainName, uint8 bEnableHttpRedirect)
-{
-	struct wifi_start_provision_mode_params params;
-	params.pstrAPConfig = pstrAPConfig;
-	params.pcHttpServerDomainName = pcHttpServerDomainName;
-	params.bEnableHttpRedirect = bEnableHttpRedirect;
-	OS_WIFI_DISPATCH_WAIT(os_m2m_wifi_start_provision_mode_imp, &params);
-	return params.dispatch.retval;
-}
-
-
-sint8 os_m2m_wifi_stop_provision_mode(void)
-{
-	struct void_params params;
-	params.dispatch.retval = M2M_ERR_TIME_OUT;
-	params.fn = m2m_wifi_stop_provision_mode;
-	OS_WIFI_DISPATCH_WAIT(func_void_imp, &params);
-	return params.dispatch.retval;
-}
-#endif
 
 sint8 os_m2m_wifi_get_connection_info(void)
 {
@@ -324,18 +265,20 @@ sint8 os_m2m_wifi_get_connection_info(void)
 
 struct wifi_set_mac_address_params {
 	struct params_dispatch dispatch;
-	uint8* au8MacAddress;
+	uint8* au8MacAddress0;
+	uint8* au8MacAddress1;
 };
 static void os_m2m_wifi_set_mac_address_imp(void *pv)
 {
 	struct wifi_set_mac_address_params *p = (struct wifi_set_mac_address_params *) pv;
-	p->dispatch.retval = m2m_wifi_set_mac_address(p->au8MacAddress);
+	p->dispatch.retval = m2m_wifi_set_mac_address(p->au8MacAddress0, p->au8MacAddress1);
 	OS_WIFI_NOTIFY(p);
 }
-sint8 os_m2m_wifi_set_mac_address(uint8* au8MacAddress)
+sint8 os_m2m_wifi_set_mac_address(uint8* au8MacAddress0, uint8* au8MacAddress1)
 {
 	struct wifi_set_mac_address_params params;
-	params.au8MacAddress = au8MacAddress;
+	params.au8MacAddress0 = au8MacAddress0;
+	params.au8MacAddress1 = au8MacAddress1;
 	OS_WIFI_DISPATCH_WAIT(os_m2m_wifi_set_mac_address_imp, &params);
 	return params.dispatch.retval;
 }
@@ -410,26 +353,6 @@ sint8 os_m2m_wifi_ap_get_assoc_info(void)
 	OS_WIFI_DISPATCH_WAIT(func_void_imp, &params);
 	return params.dispatch.retval;
 }
-
-
-struct wifi_set_static_ip_params {
-	struct params_dispatch dispatch;
-	tstrM2MIPConfig* pstrStaticIPConf;
-};
-static void os_m2m_wifi_set_static_ip_imp(void *pv)
-{
-	struct wifi_set_static_ip_params *p = (struct wifi_set_static_ip_params *) pv;
-	p->dispatch.retval = m2m_wifi_set_static_ip(p->pstrStaticIPConf);
-	OS_WIFI_NOTIFY(p);
-}
-sint8 os_m2m_wifi_set_static_ip(tstrM2MIPConfig* pstrStaticIPConf)
-{
-	struct wifi_set_static_ip_params params;
-	params.pstrStaticIPConf = pstrStaticIPConf;
-	OS_WIFI_DISPATCH_WAIT(os_m2m_wifi_set_static_ip_imp, &params);
-	return params.dispatch.retval;
-}
-
 
 struct wifi_set_scan_options_params {
 	struct params_dispatch dispatch;
@@ -568,18 +491,20 @@ sint8 os_m2m_wifi_get_otp_mac_address(uint8* pu8MacAddr, uint8* pu8IsValid)
 
 struct wifi_get_mac_address_params {
 	struct params_dispatch dispatch;
-	uint8* pu8MacAddr;
+	uint8* pu8MacAddr0;
+	uint8* pu8MacAddr1;
 };
 static void os_m2m_wifi_get_mac_address_imp(void *pv)
 {
 	struct wifi_get_mac_address_params *p = (struct wifi_get_mac_address_params *) pv;
-	p->dispatch.retval = m2m_wifi_get_mac_address(p->pu8MacAddr);
+	p->dispatch.retval = m2m_wifi_get_mac_address(p->pu8MacAddr0, p->pu8MacAddr1);
 	OS_WIFI_NOTIFY(p);
 }
-sint8 os_m2m_wifi_get_mac_address(uint8* pu8MacAddr)
+sint8 os_m2m_wifi_get_mac_address(uint8* pu8MacAddr0, uint8* pu8MacAddr1)
 {
 	struct wifi_get_mac_address_params params;
-	params.pu8MacAddr = pu8MacAddr;
+	params.pu8MacAddr0 = pu8MacAddr0;
+	params.pu8MacAddr1 = pu8MacAddr1;
 	OS_WIFI_DISPATCH_WAIT(os_m2m_wifi_get_mac_address_imp, &params);
 	return params.dispatch.retval;
 }
@@ -604,48 +529,6 @@ sint8 os_m2m_wifi_set_sleep_mode(uint8 PsTyp, uint8 BcastEn)
 	OS_WIFI_DISPATCH_WAIT(os_m2m_wifi_set_sleep_mode_imp, &params);
 	return params.dispatch.retval;
 }
-
-
-struct wifi_request_sleep_params {
-	struct params_dispatch dispatch;
-	uint32 u32SlpReqTime;
-};
-static void os_m2m_wifi_request_sleep_imp(void *pv)
-{
-	struct wifi_request_sleep_params *p = (struct wifi_request_sleep_params *) pv;
-	p->dispatch.retval = m2m_wifi_request_sleep(p->u32SlpReqTime);
-	OS_WIFI_NOTIFY(p);
-}
-sint8 os_m2m_wifi_request_sleep(uint32 u32SlpReqTime)
-{
-	struct wifi_request_sleep_params params;
-	params.u32SlpReqTime = u32SlpReqTime;
-	OS_WIFI_DISPATCH_WAIT(os_m2m_wifi_request_sleep_imp, &params);
-	return params.dispatch.retval;
-}
-
-
-sint8 os_m2m_wifi_req_client_ctrl(uint8 cmd)
-{
-	struct uint_params params;
-	params.dispatch.retval = M2M_ERR_TIME_OUT;
-	params.arg = cmd;
-	params.fn = m2m_wifi_req_client_ctrl;
-	OS_WIFI_DISPATCH_WAIT(func_uint_imp, &params);
-	return params.dispatch.retval;
-}
-
-
-sint8 os_m2m_wifi_req_server_init(uint8 ch)
-{
-	struct uint_params params;
-	params.dispatch.retval = M2M_ERR_TIME_OUT;
-	params.arg = ch;
-	params.fn = m2m_wifi_req_server_init;
-	OS_WIFI_DISPATCH_WAIT(func_uint_imp, &params);
-	return params.dispatch.retval;
-}
-
 
 struct wifi_set_device_name_params {
 	struct params_dispatch dispatch;
@@ -690,23 +573,17 @@ sint8 os_m2m_wifi_set_lsn_int(tstrM2mLsnInt* pstrM2mLsnInt)
 struct wifi_enable_monitoring_mode_params {
 	struct params_dispatch dispatch;
 	tstrM2MWifiMonitorModeCtrl* pstrMtrCtrl;
-	uint8* pu8PayloadBuffer;
-	uint16 u16BufferSize;
-	uint16 u16DataOffset;
 };
 static void os_m2m_wifi_enable_monitoring_mode_imp(void *pv)
 {
 	struct wifi_enable_monitoring_mode_params *p = (struct wifi_enable_monitoring_mode_params *) pv;
-	p->dispatch.retval = m2m_wifi_enable_monitoring_mode(p->pstrMtrCtrl, p->pu8PayloadBuffer, p->u16BufferSize, p->u16DataOffset);
+	p->dispatch.retval = m2m_wifi_enable_monitoring_mode(p->pstrMtrCtrl);
 	OS_WIFI_NOTIFY(p);
 }
-sint8 os_m2m_wifi_enable_monitoring_mode(tstrM2MWifiMonitorModeCtrl* pstrMtrCtrl, uint8* pu8PayloadBuffer, uint16 u16BufferSize, uint16 u16DataOffset)
+sint8 os_m2m_wifi_enable_monitoring_mode(tstrM2MWifiMonitorModeCtrl* pstrMtrCtrl)
 {
 	struct wifi_enable_monitoring_mode_params params;
 	params.pstrMtrCtrl = pstrMtrCtrl;
-	params.pu8PayloadBuffer = pu8PayloadBuffer;
-	params.u16BufferSize = u16BufferSize;
-	params.u16DataOffset = u16DataOffset;
 	OS_WIFI_DISPATCH_WAIT(os_m2m_wifi_enable_monitoring_mode_imp, &params);
 	return params.dispatch.retval;
 }
@@ -749,40 +626,23 @@ struct wifi_send_ethernet_pkt_params {
 	struct params_dispatch dispatch;
 	uint8* pu8Packet;
 	uint16 u16PacketSize;
+	uint8	u8IfcId;
 };
 static void os_m2m_wifi_send_ethernet_pkt_imp(void *pv)
 {
 	struct wifi_send_ethernet_pkt_params *p = (struct wifi_send_ethernet_pkt_params *) pv;
-	p->dispatch.retval = m2m_wifi_send_ethernet_pkt(p->pu8Packet, p->u16PacketSize);
+	p->dispatch.retval = m2m_wifi_send_ethernet_pkt(p->pu8Packet, p->u16PacketSize,p->u8IfcId);
 	OS_WIFI_NOTIFY(p);
 }
-sint8 os_m2m_wifi_send_ethernet_pkt(uint8* pu8Packet, uint16 u16PacketSize)
+sint8 os_m2m_wifi_send_ethernet_pkt(uint8* pu8Packet, uint16 u16PacketSize, uint8 u8IfcId)
 {
 	struct wifi_send_ethernet_pkt_params params;
 	params.pu8Packet = pu8Packet;
 	params.u16PacketSize = u16PacketSize;
+	params.u8IfcId = u8IfcId;
 	OS_WIFI_DISPATCH_WAIT(os_m2m_wifi_send_ethernet_pkt_imp, &params);
 	return params.dispatch.retval;
 }
-
-struct wifi_set_sytem_time_params {
-	struct params_dispatch dispatch;
-	uint32 u32UTCSeconds;
-};
-static void os_m2m_wifi_set_sytem_time_imp(void *pv)
-{
-	struct wifi_set_sytem_time_params *p = (struct wifi_set_sytem_time_params *) pv;
-	p->dispatch.retval = m2m_wifi_set_sytem_time(p->u32UTCSeconds);
-	OS_WIFI_NOTIFY(p);
-}
-sint8 os_m2m_wifi_set_sytem_time(uint32 u32UTCSeconds)
-{
-	struct wifi_set_sytem_time_params params;
-	params.u32UTCSeconds = u32UTCSeconds;
-	OS_WIFI_DISPATCH_WAIT(os_m2m_wifi_set_sytem_time_imp, &params);
-	return params.dispatch.retval;
-}
-
 
 struct wifi_set_cust_InfoElement_params {
 	struct params_dispatch dispatch;
@@ -823,6 +683,23 @@ sint8 os_m2m_wifi_enable_mac_mcast(uint8* pu8MulticastMacAddress, uint8 u8AddRem
 	return params.dispatch.retval;
 }
 
+sint8 os_m2m_wifi_enable_mcast_filter(void)
+{
+	struct void_params params;
+	params.dispatch.retval = M2M_ERR_TIME_OUT;
+	params.fn = m2m_wifi_enable_mcast_filter;
+	OS_WIFI_DISPATCH_WAIT(func_void_imp, &params);
+	return params.dispatch.retval;	
+}
+
+sint8 os_m2m_wifi_disable_mcast_filter(void)
+{
+	struct void_params params;
+	params.dispatch.retval = M2M_ERR_TIME_OUT;
+	params.fn = m2m_wifi_disable_mcast_filter;
+	OS_WIFI_DISPATCH_WAIT(func_void_imp, &params);
+	return params.dispatch.retval;
+}
 
 struct wifi_set_receive_buffer_params {
 	struct params_dispatch dispatch;
@@ -845,34 +722,28 @@ sint8 os_m2m_wifi_set_receive_buffer(void* pvBuffer, uint16 u16BufferLen)
 }
 
 
-sint8 os_m2m_wifi_set_control_ifc(uint8 u8IfcId)
+/* os_m2m_wifi_set_p2p_control_ifc(uint8 u8IfcId)
+*  Where u8IfcId should be P2P_STA_CONCURRENCY_INTERFACE/P2P_AP_CONCURRENCY_INTERFACE
+*
+*  P2P_STA_CONCURRENCY_INTERFACE:
+*  This interface is used for P2P-Station concurrency mode.
+*  Both Station and P2P should be on the same social channels(M2M_WIFI_CH_1, M2M_WIFI_CH_6 or M2M_WIFI_CH_11)
+*  in order to create P2P-Station concurrency mode.
+*  Usage:  os_m2m_wifi_set_p2p_control_ifc(P2P_STA_CONCURRENCY_INTERFACE)
+*
+*  P2P_AP_CONCURRENCY_INTERFACE:
+*  This interface is used for P2P-AP concurrency mode.
+*  Both AP and P2P should be on the same social channels(M2M_WIFI_CH_1, M2M_WIFI_CH_6 or M2M_WIFI_CH_11)
+*  in order to create P2P-AP concurrency mode.
+*  Usage:  os_m2m_wifi_set_p2p_control_ifc(P2P_AP_CONCURRENCY_INTERFACE)
+*/
+sint8 os_m2m_wifi_set_p2p_control_ifc(uint8 u8IfcId)
 {
 	struct uint_params params;
 	params.dispatch.retval = M2M_ERR_TIME_OUT;
 	params.arg = u8IfcId;
-	params.fn = m2m_wifi_set_control_ifc;
+	params.fn = m2m_wifi_set_p2p_control_ifc;
 	OS_WIFI_DISPATCH_WAIT(func_uint_imp, &params);
-	return params.dispatch.retval;
-}
-
-
-struct wifi_send_ethernet_pkt_ifc1_params {
-	struct params_dispatch dispatch;
-	uint8* pu8Packet;
-	uint16 u16PacketSize;
-};
-static void os_m2m_wifi_send_ethernet_pkt_ifc1_imp(void *pv)
-{
-	struct wifi_send_ethernet_pkt_ifc1_params *p = (struct wifi_send_ethernet_pkt_ifc1_params *) pv;
-	p->dispatch.retval = m2m_wifi_send_ethernet_pkt_ifc1(p->pu8Packet, p->u16PacketSize);
-	OS_WIFI_NOTIFY(p);
-}
-sint8 os_m2m_wifi_send_ethernet_pkt_ifc1(uint8* pu8Packet, uint16 u16PacketSize)
-{
-	struct wifi_send_ethernet_pkt_ifc1_params params;
-	params.pu8Packet = pu8Packet;
-	params.u16PacketSize = u16PacketSize;
-	OS_WIFI_DISPATCH_WAIT(os_m2m_wifi_send_ethernet_pkt_ifc1_imp, &params);
 	return params.dispatch.retval;
 }
 
@@ -882,5 +753,29 @@ uint8 os_m2m_wifi_get_sleep_mode(void)
 	params.dispatch.retval = (int8_t)M2M_ERR_TIME_OUT;
 	params.fn = (func_void)m2m_wifi_get_sleep_mode;
 	OS_WIFI_DISPATCH_WAIT(func_void_imp, &params);
+	return params.dispatch.retval;
+}
+
+struct set_max_tx_rate_params {
+	struct params_dispatch dispatch;
+	tenuTxDataRate enuTxDataRate;
+};
+
+static void os_m2m_wifi_set_max_tx_rate_imp(void *pv)
+{
+	struct set_max_tx_rate_params *p = (struct set_max_tx_rate_params *) pv;
+	p->dispatch.retval = m2m_wifi_set_max_tx_rate(p->enuTxDataRate);
+	if (p->dispatch.signal_semaphore) {
+		os_hook_notify();
+	}
+}
+
+sint8 os_m2m_wifi_set_max_tx_rate(tenuTxDataRate enuTxDataRate)
+{
+	struct set_max_tx_rate_params params;
+	params.enuTxDataRate = enuTxDataRate;
+	params.dispatch.retval = M2M_ERR_TIME_OUT;
+
+	OS_WIFI_DISPATCH_WAIT(os_m2m_wifi_set_max_tx_rate_imp, &params);
 	return params.dispatch.retval;
 }

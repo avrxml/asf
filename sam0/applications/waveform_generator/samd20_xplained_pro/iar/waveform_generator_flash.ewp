@@ -308,18 +308,19 @@
 					<state>$PROJ_DIR$/../../../../boards/samd20_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd20/source</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r</state>
-					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r_h</state>
+					<state>$PROJ_DIR$/../../../../drivers/tc/tc_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd20/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/pinmux</state>
@@ -327,7 +328,6 @@
 					<state>$PROJ_DIR$/../../../../drivers/events</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock</state>
-					<state>$PROJ_DIR$/../../../../drivers/tc/tc_sam_d_r</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -586,18 +586,19 @@
 					<state>$PROJ_DIR$/../../../../boards/samd20_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd20/source</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r</state>
-					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r_h</state>
+					<state>$PROJ_DIR$/../../../../drivers/tc/tc_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd20/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/pinmux</state>
@@ -605,7 +606,6 @@
 					<state>$PROJ_DIR$/../../../../drivers/events</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock</state>
-					<state>$PROJ_DIR$/../../../../drivers/tc/tc_sam_d_r</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1289,18 +1289,19 @@
 					<state>$PROJ_DIR$/../../../../boards/samd20_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd20/source</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r</state>
-					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r_h</state>
+					<state>$PROJ_DIR$/../../../../drivers/tc/tc_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd20/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/pinmux</state>
@@ -1308,7 +1309,6 @@
 					<state>$PROJ_DIR$/../../../../drivers/events</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock</state>
-					<state>$PROJ_DIR$/../../../../drivers/tc/tc_sam_d_r</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1567,18 +1567,19 @@
 					<state>$PROJ_DIR$/../../../../boards/samd20_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd20/source</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
-					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c</state>
-					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
+					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd20</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r</state>
-					<state>$PROJ_DIR$/../..</state>
-					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r</state>
+					<state>$PROJ_DIR$/..</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r_h</state>
+					<state>$PROJ_DIR$/../../../../drivers/tc/tc_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd20/include</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/pinmux</state>
@@ -1586,7 +1587,6 @@
 					<state>$PROJ_DIR$/../../../../drivers/events</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock</state>
-					<state>$PROJ_DIR$/../../../../drivers/tc/tc_sam_d_r</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
 				<option>
@@ -1965,53 +1965,26 @@
 	<group>
 		<name>sam0</name>
 		<group>
-			<name>boards</name>
-			<group>
-				<name>samd20_xplained_pro</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../boards/samd20_xplained_pro/board_init.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../boards/samd20_xplained_pro/samd20_xplained_pro.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
 			<name>drivers</name>
 			<group>
-				<name>port</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/port/port.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/port/port.h</name>
-				</file>
+				<name>dac</name>
 				<group>
-					<name>quick_start</name>
+					<name>dac_sam_d_c_h</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../drivers/port/quick_start/qs_port_basic.h</name>
+						<name>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h/dac_callback.c</name>
 					</file>
-				</group>
-			</group>
-			<group>
-				<name>events</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/events/events_hooks.c</name>
-				</file>
-				<group>
-					<name>events_sam_d_r</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r/events.c</name>
+						<name>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h/dac.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h/dac_feature.h</name>
 					</file>
 				</group>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/events/events_hooks.h</name>
+					<name>$PROJ_DIR$/../../../../drivers/dac/dac_callback.h</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/events/events.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/events/events_common.h</name>
+					<name>$PROJ_DIR$/../../../../drivers/dac/dac.h</name>
 				</file>
 			</group>
 			<group>
@@ -2040,9 +2013,6 @@
 						<name>$PROJ_DIR$/../../../../drivers/system/clock/clock.h</name>
 					</file>
 				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/system/system.c</name>
-				</file>
 				<group>
 					<name>pinmux</name>
 					<file>
@@ -2073,21 +2043,24 @@
 						<name>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt.h</name>
 					</file>
 				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/system/system.c</name>
+				</file>
 				<group>
 					<name>reset</name>
 					<group>
-						<name>reset_sam_d_r</name>
+						<name>reset_sam_d_r_h</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r/reset.h</name>
+							<name>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r_h/reset.h</name>
 						</file>
 					</group>
 				</group>
 				<group>
 					<name>power</name>
 					<group>
-						<name>power_sam_d_r</name>
+						<name>power_sam_d_r_h</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r/power.h</name>
+							<name>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r_h/power.h</name>
 						</file>
 					</group>
 				</group>
@@ -2096,11 +2069,26 @@
 				</file>
 			</group>
 			<group>
+				<name>port</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/port/port.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/port/port.h</name>
+				</file>
+				<group>
+					<name>quick_start</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/port/quick_start/qs_port_basic.h</name>
+					</file>
+				</group>
+			</group>
+			<group>
 				<name>tc</name>
 				<group>
-					<name>tc_sam_d_r</name>
+					<name>tc_sam_d_r_h</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../drivers/tc/tc_sam_d_r/tc.c</name>
+						<name>$PROJ_DIR$/../../../../drivers/tc/tc_sam_d_r_h/tc.c</name>
 					</file>
 				</group>
 				<file>
@@ -2108,24 +2096,24 @@
 				</file>
 			</group>
 			<group>
-				<name>dac</name>
+				<name>events</name>
 				<group>
-					<name>dac_sam_d_c</name>
+					<name>events_sam_d_r_h</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c/dac_callback.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c/dac.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c/dac_feature.h</name>
+						<name>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r_h/events.c</name>
 					</file>
 				</group>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/dac/dac.h</name>
+					<name>$PROJ_DIR$/../../../../drivers/events/events_hooks.c</name>
 				</file>
 				<file>
-					<name>$PROJ_DIR$/../../../../drivers/dac/dac_callback.h</name>
+					<name>$PROJ_DIR$/../../../../drivers/events/events_hooks.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/events/events.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/events/events_common.h</name>
 				</file>
 			</group>
 		</group>
@@ -2153,12 +2141,21 @@
 					<group>
 						<name>include</name>
 						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20j14b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20j14.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20j16b.h</name>
 						</file>
 						<group>
 							<name>instance</name>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/evsys.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/pac2.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/tc1.h</name>
@@ -2173,19 +2170,16 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/eic.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/sercom2.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/pac2.h</name>
-							</file>
-							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/sercom1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/dac.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/rtc.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/pm.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/sercom2.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/ac.h</name>
@@ -2218,6 +2212,9 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/sercom5.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/sercom0.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/adc.h</name>
 							</file>
 							<file>
@@ -2230,7 +2227,7 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/sysctrl.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/pm.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/rtc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/tc7.h</name>
@@ -2243,9 +2240,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/pac1.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/instance/sercom0.h</name>
 							</file>
 						</group>
 						<file>
@@ -2308,6 +2302,9 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20g16.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20j15b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20e18.h</name>
 							</file>
 							<file>
@@ -2320,10 +2317,19 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20g18u.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20e15b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20e15.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20j14.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20e14b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20g15b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20j17.h</name>
@@ -2335,10 +2341,22 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20e17.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20j14b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20e16b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20g15.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20g14b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20e16.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20j16b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20j15.h</name>
@@ -2347,17 +2365,26 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20g17u.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20j16.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20g16b.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20g17.h</name>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20j16.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20g14.h</name>
 							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/pio/samd20g17.h</name>
+							</file>
 						</group>
 						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20e15b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20e14.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20j15b.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20g18.h</name>
@@ -2369,7 +2396,7 @@
 							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20e18.h</name>
 						</file>
 						<file>
-							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20g14.h</name>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20g14b.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20e16.h</name>
@@ -2382,6 +2409,15 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20g16.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20e14b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20g16b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20g14.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20e17.h</name>
@@ -2400,6 +2436,12 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20g18u.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20g15b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20e16b.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../utils/cmsis/samd20/include/samd20g15.h</name>
@@ -2460,6 +2502,18 @@
 						<name>$PROJ_DIR$/../conf_clocks.h</name>
 					</file>
 				</group>
+			</group>
+		</group>
+		<group>
+			<name>boards</name>
+			<group>
+				<name>samd20_xplained_pro</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../boards/samd20_xplained_pro/board_init.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../boards/samd20_xplained_pro/samd20_xplained_pro.h</name>
+				</file>
 			</group>
 		</group>
 	</group>

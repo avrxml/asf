@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70Q21_
@@ -117,8 +107,10 @@ typedef enum IRQn
   ICM_IRQn             = 32, /**< 32 SAME70Q21 Integrity Check Monitor (ICM) */
   ACC_IRQn             = 33, /**< 33 SAME70Q21 Analog Comparator (ACC) */
   USBHS_IRQn           = 34, /**< 34 SAME70Q21 USB Host / Device Controller (USBHS) */
-  MCAN0_IRQn           = 35, /**< 35 SAME70Q21 MCAN Controller 0 (MCAN0) */
-  MCAN1_IRQn           = 37, /**< 37 SAME70Q21 MCAN Controller 1 (MCAN1) */
+  MCAN0_INT0_IRQn      = 35, /**< 35 SAME70Q21 Controller Area Network (MCAN0) */
+  MCAN0_INT1_IRQn      = 36, /**< 36 SAME70Q21 Controller Area Network (MCAN0) */
+  MCAN1_INT0_IRQn      = 37, /**< 37 SAME70Q21 Controller Area Network (MCAN1) */
+  MCAN1_INT1_IRQn      = 38, /**< 38 SAME70Q21 Controller Area Network (MCAN1) */
   GMAC_IRQn            = 39, /**< 39 SAME70Q21 Ethernet MAC (GMAC) */
   AFEC1_IRQn           = 40, /**< 40 SAME70Q21 Analog Front End 1 (AFEC1) */
   TWIHS2_IRQn          = 41, /**< 41 SAME70Q21 Two Wire Interface 2 HS (TWIHS2) */
@@ -138,10 +130,16 @@ typedef enum IRQn
   XDMAC_IRQn           = 58, /**< 58 SAME70Q21 DMA (XDMAC) */
   ISI_IRQn             = 59, /**< 59 SAME70Q21 Camera Interface (ISI) */
   PWM1_IRQn            = 60, /**< 60 SAME70Q21 Pulse Width Modulation 1 (PWM1) */
+  FPU_IRQn             = 61, /**< 61 SAME70Q21 Floating Point Unit Registers (FPU) */
   SDRAMC_IRQn          = 62, /**< 62 SAME70Q21 SDRAM Controller (SDRAMC) */
-  RSWDT_IRQn           = 63, /**< 63 SAME70Q21 Reinforced Secure Watchdog Timer (RSWDT) */
+  RSWDT_IRQn           = 63, /**< 63 SAME70Q21 Reinforced Safety Watchdog Timer (RSWDT) */
+  CCW_IRQn             = 64, /**< 64 SAME70Q21 System Control Registers (SystemControl) */
+  CCF_IRQn             = 65, /**< 65 SAME70Q21 System Control Registers (SystemControl) */
+  GMAC_Q1_IRQn         = 66, /**< 66 SAME70Q21 Gigabit Ethernet MAC (GMAC) */
+  GMAC_Q2_IRQn         = 67, /**< 67 SAME70Q21 Gigabit Ethernet MAC (GMAC) */
+  IXC_IRQn             = 68, /**< 68 SAME70Q21 Floating Point Unit Registers (FPU) */
 
-  PERIPH_COUNT_IRQn    = 64  /**< Number of peripheral IDs */
+  PERIPH_COUNT_IRQn    = 74  /**< Number of peripheral IDs */
 } IRQn_Type;
 
 typedef struct _DeviceVectors
@@ -202,10 +200,10 @@ typedef struct _DeviceVectors
   void* pfnICM_Handler;    /* 32 Integrity Check Monitor */
   void* pfnACC_Handler;    /* 33 Analog Comparator */
   void* pfnUSBHS_Handler;  /* 34 USB Host / Device Controller */
-  void* pfnMCAN0_Handler;  /* 35 MCAN Controller 0 */
-  void* pvReserved36;
-  void* pfnMCAN1_Handler;  /* 37 MCAN Controller 1 */
-  void* pvReserved38;
+  void* pfnMCAN0_INT0_Handler;     /* 35  Controller Area Network (MCAN0) */
+  void* pfnMCAN0_INT1_Handler;     /* 36  Controller Area Network (MCAN0) */
+  void* pfnMCAN1_INT0_Handler;     /* 37  Controller Area Network (MCAN1) */
+  void* pfnMCAN1_INT1_Handler;     /* 38  Controller Area Network (MCAN1) */
   void* pfnGMAC_Handler;   /* 39 Ethernet MAC */
   void* pfnAFEC1_Handler;  /* 40 Analog Front End 1 */
   void* pfnTWIHS2_Handler; /* 41 Two Wire Interface 2 HS */
@@ -228,9 +226,19 @@ typedef struct _DeviceVectors
   void* pfnXDMAC_Handler;  /* 58 DMA */
   void* pfnISI_Handler;    /* 59 Camera Interface */
   void* pfnPWM1_Handler;   /* 60 Pulse Width Modulation 1 */
-  void* pvReserved61;
-  void* pfnSDRAMC_Handler; /* 62 SDRAM Controller */
-  void* pfnRSWDT_Handler;  /* 63 Reinforced Secure Watchdog Timer */
+  void* pfnFPU_Handler;    /* 61 Floating Point Unit Registers (FPU) */
+  void* pfnSDRAMC_Handler; /* 62 SDRAM Controller (SDRAMC) */
+  void* pfnRSWDT_Handler;  /* 63 Reinforced Safety Watchdog Timer (RSWDT) */
+  void* pfnCCW_Handler;    /* 64 System Control Registers (SystemControl) */
+  void* pfnCCF_Handler;    /* 65 System Control Registers (SystemControl) */
+  void* pfnGMAC_Q1_Handler;/* 66 Gigabit Ethernet MAC (GMAC) */
+  void* pfnGMAC_Q2_Handler;/* 67 Gigabit Ethernet MAC (GMAC) */
+  void* pfnIXC_Handler;    /* 68 Floating Point Unit Registers (FPU) */
+  void* pvReserved69;
+  void* pvReserved70;
+  void* pvReserved71;
+  void* pvReserved72;
+  void* pvReserved73;
 } DeviceVectors;
 
 /* Cortex-M7 core handlers */
@@ -250,14 +258,20 @@ void ACC_Handler        ( void );
 void AES_Handler        ( void );
 void AFEC0_Handler      ( void );
 void AFEC1_Handler      ( void );
+void CCF_Handler        ( void );
+void CCW_Handler        ( void );
 void DACC_Handler       ( void );
 void EFC_Handler        ( void );
+void FPU_Handler        ( void );
 void GMAC_Handler       ( void );
 void HSMCI_Handler      ( void );
 void ICM_Handler        ( void );
 void ISI_Handler        ( void );
-void MCAN0_Handler      ( void );
-void MCAN1_Handler      ( void );
+void IXC_Handler        ( void );
+void MCAN0_INT0_Handler ( void );
+void MCAN0_INT1_Handler ( void );
+void MCAN1_INT0_Handler ( void );
+void MCAN1_INT1_Handler ( void );
 void PIOA_Handler       ( void );
 void PIOB_Handler       ( void );
 void PIOC_Handler       ( void );
@@ -266,6 +280,8 @@ void PIOE_Handler       ( void );
 void PMC_Handler        ( void );
 void PWM0_Handler       ( void );
 void PWM1_Handler       ( void );
+void GMAC_Q1_Handler    ( void );
+void GMAC_Q2_Handler    ( void );
 void QSPI_Handler       ( void );
 void RSTC_Handler       ( void );
 void RSWDT_Handler      ( void );
@@ -318,6 +334,7 @@ void XDMAC_Handler      ( void );
 #define __DTCM_PRESENT         1      /**< SAME70Q21 does provide a Data TCM           */
 #define __ITCM_PRESENT         1      /**< SAME70Q21 does provide an Instruction TCM   */
 #define __Vendor_SysTickConfig 0      /**< Set to 1 if different SysTick Config is used */
+#define __SAM_M7_REVB		   0	  /**< SAME70Q21 Revision A */
 
 /*
  * \brief CMSIS includes
@@ -499,8 +516,9 @@ void XDMAC_Handler      ( void );
 #define ID_PWM1   (60) /**< \brief Pulse Width Modulation 1 (PWM1) */
 #define ID_SDRAMC (62) /**< \brief SDRAM Controller (SDRAMC) */
 #define ID_RSWDT  (63) /**< \brief Reinforced Secure Watchdog Timer (RSWDT) */
+#define ID_IXC    (68) /**< \brief Floating Point Unit - IXC (ARM) */
 
-#define ID_PERIPH_COUNT (64) /**< \brief Number of peripheral IDs */
+#define ID_PERIPH_COUNT (74) /**< \brief Number of peripheral IDs */
 /*@}*/
 
 /* ************************************************************************** */
@@ -637,7 +655,7 @@ void XDMAC_Handler      ( void );
 
 #define IFLASH_SIZE             (0x200000u)
 #define IFLASH_PAGE_SIZE        (512u)
-#define IFLASH_LOCK_REGION_SIZE (16384u)
+#define IFLASH_LOCK_REGION_SIZE (8192u)
 #define IFLASH_NB_OF_PAGES      (4096u)
 #define IFLASH_NB_OF_LOCK_BITS  (128u)
 #define IRAM_SIZE               (0x60000u)
@@ -680,13 +698,14 @@ void XDMAC_Handler      ( void );
 #define CHIP_FREQ_XTAL_32K              (32768UL)
 #define CHIP_FREQ_XTAL_12M              (12000000UL)
 
-/* Embedded Flash Read Wait State (VDDCORE set at 1.20V) */
-#define CHIP_FREQ_FWS_0                 (20000000UL)  /**< \brief Maximum operating frequency when FWS is 0 */
-#define CHIP_FREQ_FWS_1                 (40000000UL)  /**< \brief Maximum operating frequency when FWS is 1 */
-#define CHIP_FREQ_FWS_2                 (60000000UL)  /**< \brief Maximum operating frequency when FWS is 2 */
-#define CHIP_FREQ_FWS_3                 (80000000UL)  /**< \brief Maximum operating frequency when FWS is 3 */
-#define CHIP_FREQ_FWS_4                 (100000000UL) /**< \brief Maximum operating frequency when FWS is 4 */
-#define CHIP_FREQ_FWS_5                 (123000000UL) /**< \brief Maximum operating frequency when FWS is 5 */
+/* Embedded Flash Read Wait State (for Worst-Case Conditions) */
+#define CHIP_FREQ_FWS_0                 (23000000UL)  /**< \brief Maximum operating frequency when FWS is 0 */
+#define CHIP_FREQ_FWS_1                 (46000000UL)  /**< \brief Maximum operating frequency when FWS is 1 */
+#define CHIP_FREQ_FWS_2                 (69000000UL)  /**< \brief Maximum operating frequency when FWS is 2 */
+#define CHIP_FREQ_FWS_3                 (92000000UL)  /**< \brief Maximum operating frequency when FWS is 3 */
+#define CHIP_FREQ_FWS_4                 (115000000UL) /**< \brief Maximum operating frequency when FWS is 4 */
+#define CHIP_FREQ_FWS_5                 (138000000UL) /**< \brief Maximum operating frequency when FWS is 5 */
+#define CHIP_FREQ_FWS_6                 (150000000UL) /**< \brief Maximum operating frequency when FWS is 6 */
 
 #ifdef __cplusplus
 }

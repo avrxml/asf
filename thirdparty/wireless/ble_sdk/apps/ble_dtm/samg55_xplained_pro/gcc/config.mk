@@ -144,7 +144,7 @@ DEBUG_SCRIPT_FLASH = sam/boards/samg55_xplained_pro/debug_scripts/gcc/samg55_xpl
 DEBUG_SCRIPT_SRAM  = sam/boards/samg55_xplained_pro/debug_scripts/gcc/samg55_xplained_pro_sram.gdb
 
 # Project type parameter: all, sram or flash
-PROJECT_TYPE        = all
+PROJECT_TYPE        = flash
 
 # Additional options for debugging. By default the common Makefile.in will
 # add -g3.
@@ -178,11 +178,15 @@ CFLAGS =  \
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
+       -D BLE_MODULE=BTLC1000_MR                          \
        -D BOARD=SAMG55_XPLAINED_PRO                       \
        -D DTM_MODE                                        \
        -D ENABLE_POWER_SAVE                               \
+       -D HOST_SLEEP_ENABLE=true                          \
+       -D HOST_UART_BAUDRATE_CONFIG_VALUE=921600          \
        -D NENABLE_PTS                                     \
        -D NEW_EVT_HANDLER                                 \
+       -D SLEEP_WALKING_ENABLED=false                     \
        -D UART_FLOWCONTROL_4WIRE_MODE=true                \
        -D UART_FLOWCONTROL_6WIRE_MODE=false               \
        -D __SAMG55J19__                                   \

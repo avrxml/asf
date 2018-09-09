@@ -153,7 +153,7 @@ DEBUG_SCRIPT_FLASH = sam/boards/samg55_xplained_pro/debug_scripts/gcc/samg55_xpl
 DEBUG_SCRIPT_SRAM  = sam/boards/samg55_xplained_pro/debug_scripts/gcc/samg55_xplained_pro_sram.gdb
 
 # Project type parameter: all, sram or flash
-PROJECT_TYPE        = all
+PROJECT_TYPE        = flash
 
 # Additional options for debugging. By default the common Makefile.in will
 # add -g3.
@@ -189,8 +189,11 @@ CPPFLAGS = \
        -D ARM_MATH_CM4=true                               \
        -D ATT_DB_MEMORY                                   \
        -D BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL             \
+       -D BLE_MODULE=BTLC1000_MR                          \
        -D BOARD=SAMG55_XPLAINED_PRO                       \
        -D ENABLE_POWER_SAVE                               \
+       -D HOST_SLEEP_ENABLE=true                          \
+       -D HOST_UART_BAUDRATE_CONFIG_VALUE=921600          \
        -D IAS_GATT_SERVER                                 \
        -D IMMEDIATE_ALERT_SERVICE                         \
        -D LINK_LOSS_SERVICE                               \
@@ -198,6 +201,7 @@ CPPFLAGS = \
        -D NENABLE_PTS                                     \
        -D NEW_EVT_HANDLER                                 \
        -D PROXIMITY_REPORTER                              \
+       -D SLEEP_WALKING_ENABLED=false                     \
        -D TXPS_GATT_SERVER                                \
        -D TX_POWER_SERVICE                                \
        -D UART_FLOWCONTROL_4WIRE_MODE=true                \

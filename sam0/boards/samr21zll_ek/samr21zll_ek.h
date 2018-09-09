@@ -3,45 +3,35 @@
  *
  * \brief SAMR21ZLL-EK board definition
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef SAMR21ZLL_EK_H_INCLUDED
@@ -91,6 +81,9 @@ void system_board_init(void);
 #define LED0_INACTIVE             !LED0_ACTIVE
 #define LED0 LED0_PIN
 /** @} */
+
+/** Number of on-board LEDs */
+#define LED_COUNT                 1
 
 /** \name SW0 definitions
  *  @{ */
@@ -191,6 +184,89 @@ void system_board_init(void);
 #define EDBG_CDC_SERCOM_PINMUX_PAD3  PINMUX_UNUSED
 #define EDBG_CDC_SERCOM_DMAC_ID_TX   SERCOM3_DMAC_ID_TX
 #define EDBG_CDC_SERCOM_DMAC_ID_RX   SERCOM3_DMAC_ID_RX
+
+/** \name LCD Interface definitions
+ * @{
+ */
+#define LCD_SPI_MODULE              SERCOM5
+#define LCD_SPI_SERCOM_MUX_SETTING  SPI_SIGNAL_MUX_SETTING_C
+#define LCD_SPI_SERCOM_PINMUX_PAD0  PINMUX_PB02D_SERCOM5_PAD0
+#define LCD_SPI_SERCOM_PINMUX_PAD1  PINMUX_PB03D_SERCOM5_PAD1
+#define LCD_SPI_SERCOM_PINMUX_PAD2  PINMUX_PB22D_SERCOM5_PAD2
+#define LCD_SPI_SERCOM_PINMUX_PAD3  PINMUX_UNUSED
+#define LCD_DC_PIN                  PIN_PA22
+#define LCD_RESET_PIN               PIN_PA23
+#define LCD_CS_PIN                  PIN_PB22
+
+/** \name Joystick Interface definitions
+ * @{
+ */
+#define JOYSTICK_ADC_INPUT_PIN     EXT1_PIN_ADC_0
+
+#define RF_SPI_MODULE              SERCOM4
+#define RF_SPI_SERCOM_MUX_SETTING  SPI_SIGNAL_MUX_SETTING_E
+#define RF_SPI_SERCOM_PINMUX_PAD0  PINMUX_PC19F_SERCOM4_PAD0
+#define RF_SPI_SERCOM_PINMUX_PAD1  PINMUX_PB31D_SERCOM5_PAD1
+#define RF_SPI_SERCOM_PINMUX_PAD2  PINMUX_PB30F_SERCOM4_PAD2
+#define RF_SPI_SERCOM_PINMUX_PAD3  PINMUX_PC18F_SERCOM4_PAD3
+
+
+#define RF_IRQ_MODULE           EIC
+#define RF_IRQ_INPUT            0
+#define RF_IRQ_PIN              PIN_PB00A_EIC_EXTINT0
+#define RF_IRQ_MUX              MUX_PB00A_EIC_EXTINT0
+#define RF_IRQ_PINMUX           PINMUX_PB00A_EIC_EXTINT0
+
+/** \name 802.15.4 TRX Interface definitions
+ * @{
+ */
+
+#define AT86RFX_SPI                  SERCOM4
+#define AT86RFX_RST_PIN              PIN_PB15
+#define AT86RFX_IRQ_PIN              PIN_PB00
+#define AT86RFX_SLP_PIN              PIN_PA20
+#define AT86RFX_SPI_CS               PIN_PB31
+#define AT86RFX_SPI_MOSI             PIN_PB30
+#define AT86RFX_SPI_MISO             PIN_PC19
+#define AT86RFX_SPI_SCK              PIN_PC18
+#define PIN_RFCTRL1                  PIN_PA09
+#define PIN_RFCTRL2                  PIN_PA12
+#define RFCTRL_CFG_ANT_DIV           4
+
+
+#define AT86RFX_SPI_SERCOM_MUX_SETTING   RF_SPI_SERCOM_MUX_SETTING
+#define AT86RFX_SPI_SERCOM_PINMUX_PAD0   RF_SPI_SERCOM_PINMUX_PAD0
+#define AT86RFX_SPI_SERCOM_PINMUX_PAD1   PINMUX_UNUSED
+#define AT86RFX_SPI_SERCOM_PINMUX_PAD2   RF_SPI_SERCOM_PINMUX_PAD2
+#define AT86RFX_SPI_SERCOM_PINMUX_PAD3   RF_SPI_SERCOM_PINMUX_PAD3
+
+#define AT86RFX_IRQ_CHAN             RF_IRQ_INPUT
+#define AT86RFX_IRQ_PINMUX           RF_IRQ_PINMUX
+
+
+/** Enables the transceiver main interrupt. */
+#define ENABLE_TRX_IRQ()    \
+		extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+
+/** Disables the transceiver main interrupt. */
+#define DISABLE_TRX_IRQ()   \
+		extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+
+/** Clears the transceiver main interrupt. */
+#define CLEAR_TRX_IRQ()     \
+		extint_chan_clear_detected(AT86RFX_IRQ_CHAN);
+
+/*
+ * This macro saves the trx interrupt status and disables the trx interrupt.
+ */
+#define ENTER_TRX_REGION()   \
+		{ extint_chan_disable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT)
+
+/*
+ *  This macro restores the transceiver interrupt status
+ */
+#define LEAVE_TRX_REGION()   \
+		extint_chan_enable_callback(AT86RFX_IRQ_CHAN, EXTINT_CALLBACK_TYPE_DETECT); }
 
 /** @} */
 

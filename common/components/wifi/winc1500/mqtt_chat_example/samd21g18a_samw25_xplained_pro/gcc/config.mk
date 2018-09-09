@@ -52,31 +52,31 @@ TARGET_SRAM = winc1500_mqtt_chat_example_sram.elf
 
 # List of C source files.
 CSRCS = \
-       common/components/wifi/winc1500/bsp/source/nm_bsp_samd21.c \
-       common/components/wifi/winc1500/bus_wrapper/source/nm_bus_wrapper_samd21.c \
-       common/components/wifi/winc1500/common/source/nm_common.c \
-       common/components/wifi/winc1500/driver/source/m2m_ate_mode.c \
-       common/components/wifi/winc1500/driver/source/m2m_crypto.c \
-       common/components/wifi/winc1500/driver/source/m2m_hif.c \
-       common/components/wifi/winc1500/driver/source/m2m_ota.c \
-       common/components/wifi/winc1500/driver/source/m2m_periph.c \
-       common/components/wifi/winc1500/driver/source/m2m_wifi.c \
-       common/components/wifi/winc1500/driver/source/nmasic.c \
-       common/components/wifi/winc1500/driver/source/nmbus.c \
-       common/components/wifi/winc1500/driver/source/nmdrv.c \
-       common/components/wifi/winc1500/driver/source/nmi2c.c \
-       common/components/wifi/winc1500/driver/source/nmspi.c \
-       common/components/wifi/winc1500/driver/source/nmuart.c \
-       common/components/wifi/winc1500/mqtt_chat_example/iot/stream_writer.c \
-       common/components/wifi/winc1500/mqtt_chat_example/iot/sw_timer.c \
+       common/components/wifi/winc1500/host_drv/bsp/source/nm_bsp_samd21.c \
+       common/components/wifi/winc1500/host_drv/bus_wrapper/source/nm_bus_wrapper_samd21.c \
+       common/components/wifi/winc1500/host_drv/common/source/nm_common.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_ate_mode.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_crypto.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_hif.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_ota.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_periph.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_ssl.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_wifi.c \
+       common/components/wifi/winc1500/host_drv/driver/source/nmasic.c \
+       common/components/wifi/winc1500/host_drv/driver/source/nmbus.c \
+       common/components/wifi/winc1500/host_drv/driver/source/nmdrv.c \
+       common/components/wifi/winc1500/host_drv/driver/source/nmi2c.c \
+       common/components/wifi/winc1500/host_drv/driver/source/nmspi.c \
+       common/components/wifi/winc1500/host_drv/driver/source/nmuart.c \
+       common/components/wifi/winc1500/host_drv/socket/source/socket.c \
+       common/components/wifi/winc1500/host_drv/spi_flash/source/flexible_flash.c \
+       common/components/wifi/winc1500/host_drv/spi_flash/source/spi_flash.c \
        common/components/wifi/winc1500/mqtt_chat_example/main21.c \
-       common/components/wifi/winc1500/socket/source/socket.c \
-       common/components/wifi/winc1500/spi_flash/source/spi_flash.c \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        common2/services/delay/sam0/systick_counter.c      \
        sam0/boards/samw25_xplained_pro/board_init.c       \
        sam0/drivers/extint/extint_callback.c              \
-       sam0/drivers/extint/extint_sam_d_r/extint.c        \
+       sam0/drivers/extint/extint_sam_d_r_h/extint.c      \
        sam0/drivers/port/port.c                           \
        sam0/drivers/sercom/sercom.c                       \
        sam0/drivers/sercom/sercom_interrupt.c             \
@@ -84,8 +84,8 @@ CSRCS = \
        sam0/drivers/sercom/spi/spi_interrupt.c            \
        sam0/drivers/sercom/usart/usart.c                  \
        sam0/drivers/sercom/usart/usart_interrupt.c        \
-       sam0/drivers/system/clock/clock_samd21_r21_da/clock.c \
-       sam0/drivers/system/clock/clock_samd21_r21_da/gclk.c \
+       sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.c \
+       sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.c \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
@@ -95,7 +95,20 @@ CSRCS = \
        sam0/utils/cmsis/samd21/source/system_samd21.c     \
        sam0/utils/stdio/read.c                            \
        sam0/utils/stdio/write.c                           \
-       sam0/utils/syscalls/gcc/syscalls.c
+       sam0/utils/syscalls/gcc/syscalls.c                 \
+       thirdparty/pahomqtt/MQTTClient/MQTTClient.c        \
+       thirdparty/pahomqtt/MQTTClient/Platforms/MCHP_ATWx.c \
+       thirdparty/pahomqtt/MQTTClient/Wrapper/mqtt.c      \
+       thirdparty/pahomqtt/MQTTPacket/MQTTConnectClient.c \
+       thirdparty/pahomqtt/MQTTPacket/MQTTConnectServer.c \
+       thirdparty/pahomqtt/MQTTPacket/MQTTDeserializePublish.c \
+       thirdparty/pahomqtt/MQTTPacket/MQTTFormat.c        \
+       thirdparty/pahomqtt/MQTTPacket/MQTTPacket.c        \
+       thirdparty/pahomqtt/MQTTPacket/MQTTSerializePublish.c \
+       thirdparty/pahomqtt/MQTTPacket/MQTTSubscribeClient.c \
+       thirdparty/pahomqtt/MQTTPacket/MQTTSubscribeServer.c \
+       thirdparty/pahomqtt/MQTTPacket/MQTTUnsubscribeClient.c \
+       thirdparty/pahomqtt/MQTTPacket/MQTTUnsubscribeServer.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -103,10 +116,8 @@ ASSRCS =
 # List of include paths.
 INC_PATH = \
        common/boards                                      \
-       common/components/wifi/winc1500                    \
+       common/components/wifi/winc1500/host_drv           \
        common/components/wifi/winc1500/mqtt_chat_example  \
-       common/components/wifi/winc1500/mqtt_chat_example/iot \
-       common/components/wifi/winc1500/mqtt_chat_example/iot/mqtt \
        common/components/wifi/winc1500/mqtt_chat_example/samd21g18a_samw25_xplained_pro \
        common/services/serial                             \
        common/utils                                       \
@@ -115,21 +126,21 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samw25_xplained_pro                    \
        sam0/drivers/extint                                \
-       sam0/drivers/extint/extint_sam_d_r                 \
+       sam0/drivers/extint/extint_sam_d_r_h               \
        sam0/drivers/port                                  \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/spi                            \
        sam0/drivers/sercom/usart                          \
        sam0/drivers/system                                \
        sam0/drivers/system/clock                          \
-       sam0/drivers/system/clock/clock_samd21_r21_da      \
+       sam0/drivers/system/clock/clock_samd21_r21_da_ha1  \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samd21 \
        sam0/drivers/system/pinmux                         \
        sam0/drivers/system/power                          \
-       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/power/power_sam_d_r_h          \
        sam0/drivers/system/reset                          \
-       sam0/drivers/system/reset/reset_sam_d_r            \
+       sam0/drivers/system/reset/reset_sam_d_r_h          \
        sam0/drivers/tcc                                   \
        sam0/utils                                         \
        sam0/utils/cmsis/samd21/include                    \
@@ -138,17 +149,16 @@ INC_PATH = \
        sam0/utils/preprocessor                            \
        sam0/utils/stdio/stdio_serial                      \
        thirdparty/CMSIS/Include                           \
-       thirdparty/CMSIS/Lib/GCC \
+       thirdparty/CMSIS/Lib/GCC                           \
+       thirdparty/pahomqtt \
        common/components/wifi/winc1500/mqtt_chat_example/samd21g18a_samw25_xplained_pro/gcc
 
 # Additional search paths for libraries.
 LIB_PATH =  \
-       common/components/wifi/winc1500/mqtt_chat_example/iot/mqtt \
        thirdparty/CMSIS/Lib/GCC                          
 
 # List of libraries to use during linking.
 LIBS =  \
-       MQTT                                               \
        arm_cortexM0l_math                                
 
 # Path relative to top level directory pointing to a linker script.
@@ -192,6 +202,7 @@ CPPFLAGS = \
        -D ARM_MATH_CM0PLUS=true                           \
        -D BOARD=SAMW25_XPLAINED_PRO                       \
        -D EXTINT_CALLBACK_MODE=true                       \
+       -D MQTT_PLATFORM_WINC15x0                          \
        -D SPI_CALLBACK_MODE=true                          \
        -D SYSTICK_MODE                                    \
        -D TCC_ASYNC=true                                  \

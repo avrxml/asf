@@ -68,8 +68,8 @@ CSRCS = \
        sam0/drivers/sercom/sercom_interrupt.c             \
        sam0/drivers/sercom/spi/spi.c                      \
        sam0/drivers/sercom/spi/spi_interrupt.c            \
-       sam0/drivers/system/clock/clock_samd21_r21_da/clock.c \
-       sam0/drivers/system/clock/clock_samd21_r21_da/gclk.c \
+       sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.c \
+       sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.c \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
@@ -97,14 +97,14 @@ INC_PATH = \
        sam0/drivers/sercom/spi                            \
        sam0/drivers/system                                \
        sam0/drivers/system/clock                          \
-       sam0/drivers/system/clock/clock_samd21_r21_da      \
+       sam0/drivers/system/clock/clock_samd21_r21_da_ha1  \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samr21 \
        sam0/drivers/system/pinmux                         \
        sam0/drivers/system/power                          \
-       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/power/power_sam_d_r_h          \
        sam0/drivers/system/reset                          \
-       sam0/drivers/system/reset/reset_sam_d_r            \
+       sam0/drivers/system/reset/reset_sam_d_r_h          \
        sam0/utils                                         \
        sam0/utils/cmsis/samr21/include                    \
        sam0/utils/cmsis/samr21/source                     \

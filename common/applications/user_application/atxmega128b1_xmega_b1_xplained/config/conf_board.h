@@ -4,7 +4,7 @@
  * \brief XMEGA-B1 Xplained board configuration template
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef CONF_BOARD_H

@@ -163,15 +163,19 @@
 				<option>
 					<name>CCDefines</name>
 					<state>BOARD=SAMG55_XPLAINED_PRO</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>__SAMG55J19__</state>
 					<state>NEW_EVT_HANDLER</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=true</state>
 					<state>NENABLE_PTS</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
 					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
 					<state>PAS_SERVICE_CLIENT</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=false</state>
 					<state>PAS_CLIENT</state>
 					<state>ARM_MATH_CM4=true</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>ENABLE_POWER_SAVE</state>
 				</option>
 				<option>
@@ -488,15 +492,19 @@
 				<option>
 					<name>ADefines</name>
 					<state>BOARD=SAMG55_XPLAINED_PRO</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>__SAMG55J19__</state>
 					<state>NEW_EVT_HANDLER</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=true</state>
 					<state>NENABLE_PTS</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
 					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
 					<state>PAS_SERVICE_CLIENT</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=false</state>
 					<state>PAS_CLIENT</state>
 					<state>ARM_MATH_CM4=true</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>ENABLE_POWER_SAVE</state>
 				</option>
 				<option>
@@ -1138,15 +1146,19 @@
 				<option>
 					<name>CCDefines</name>
 					<state>BOARD=SAMG55_XPLAINED_PRO</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>__SAMG55J19__</state>
 					<state>NEW_EVT_HANDLER</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=true</state>
 					<state>NENABLE_PTS</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
 					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
 					<state>PAS_SERVICE_CLIENT</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=false</state>
 					<state>PAS_CLIENT</state>
 					<state>ARM_MATH_CM4=true</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>ENABLE_POWER_SAVE</state>
 				</option>
 				<option>
@@ -1463,15 +1475,19 @@
 				<option>
 					<name>ADefines</name>
 					<state>BOARD=SAMG55_XPLAINED_PRO</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>__SAMG55J19__</state>
 					<state>NEW_EVT_HANDLER</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=true</state>
 					<state>NENABLE_PTS</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
 					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
 					<state>PAS_SERVICE_CLIENT</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=false</state>
 					<state>PAS_CLIENT</state>
 					<state>ARM_MATH_CM4=true</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>ENABLE_POWER_SAVE</state>
 				</option>
 				<option>

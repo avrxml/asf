@@ -5,11 +5,11 @@
  *
  * $Id: zrc.h 27820 2011-07-24 17:20:51Z pawan.jadia $
  *
- * @author    Atmel Corporation: http://www.atmel.com
- * @author    Support: http://www.atmel.com/design-support/
+ * @author    Microchip Technology Inc: http://www.microchip.com
+ * @author    Support: https://www.microchip.com/support/
  */
 /*
- * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * 
  */

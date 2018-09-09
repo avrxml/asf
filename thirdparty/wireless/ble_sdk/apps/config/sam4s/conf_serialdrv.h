@@ -3,39 +3,29 @@
  *
  * \brief SAM4S serial driver configuration.
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
@@ -43,7 +33,8 @@
 
 #ifndef CONF_SERIALDRV_H_INCLUDED
 #define CONF_SERIALDRV_H_INCLUDED
-#if SAM4S	
+#if SAM4S
+	/* In order to fix compilation during jenkins validation job added the following dummy macros*/
 	#ifndef EXT1_PIN_4
 	#define EXT1_PIN_4 		PIO_PA18_IDX
 	#endif
@@ -78,27 +69,30 @@
 #endif	
 
 #if (UART_FLOWCONTROL_6WIRE_MODE == true)
-#error "This mode is not supported in SAM4S, due to insufficient of UART's in SAM4S XPro Extension Headers"
+#error "This mode is not supported in SAM4S, due to insufficient  UARTs in SAM4S XPro Extension Headers"
 #endif
 
 #if (UART_FLOWCONTROL_4WIRE_MODE == true)
-/* BTLC1000 Wakeup Pin */
-#define BTLC1000_WAKEUP_PIN			(EXT1_PIN_4)
+	#if (BLE_MODULE == BTLC1000_ZR)
+		/* BTLC1000 Wakeup Pin */
+		#define BTLC1000_WAKEUP_PIN			(EXT1_PIN_3)
 
-/* BTLC1000 Chip Enable Pin */
-#define BTLC1000_CHIP_ENABLE_PIN	(EXT1_PIN_10)
+		/* BTLC1000 Chip Enable Pin */
+		#define BTLC1000_CHIP_ENABLE_PIN	(EXT1_PIN_7)
 
-#if SAMG55 || SAM4S
-#warning "EXT1 PIN6 is configured as BTLC1000 Wakeup Pin. \
-Inorder to Use USART0 Hardware Flowcontrol, BTLC1000 Wakeup \
-Pin moved to EXT1 PIN 4 and BTLC1000 Chip Enable Pin moved to ETX1 PIN10"
-#endif
-#else
-/* BTLC1000 Wakeup Pin */
-#define BTLC1000_WAKEUP_PIN			(EXT1_PIN_6)
+ 	#elif (BLE_MODULE == BTLC1000_MR)
+		/* BTLC1000 Wakeup Pin */
+		#define BTLC1000_WAKEUP_PIN			(EXT1_PIN_4)
 
-/* BTLC1000 Chip Enable Pin */
-#define BTLC1000_CHIP_ENABLE_PIN	(EXT1_PIN_4)
+		/* BTLC1000 Chip Enable Pin */
+		#define BTLC1000_CHIP_ENABLE_PIN	(EXT1_PIN_10)
+
+		#if SAMG55 || SAM4S
+		#warning "EXT1 PIN6 is configured as BTLC1000 Wakeup Pin. \
+		Inorder to Use USART0 Hardware Flowcontrol, BTLC1000 Wakeup \
+		Pin moved to EXT1 PIN 4 and BTLC1000 Chip Enable Pin moved to ETX1 PIN10"
+		#endif
+	#endif
 #endif
 
 /* BTLC1000 50ms Reset Duration */
@@ -137,6 +131,70 @@ Pin moved to EXT1 PIN 4 and BTLC1000 Chip Enable Pin moved to ETX1 PIN10"
 
 #define BLE_MAX_RX_PAYLOAD_SIZE 1024
 #define BLE_MAX_TX_PAYLOAD_SIZE 1024
+
+/**
+ * BTLC1000 Host Wakeup Control
+ * @{
+ */
+/* BTLC1000 Host Wakeup Pin */
+#define BTLC1000_HOST_WAKEUP_PIN				(EXT1_PIN_9)
+#define BTLC1000_UART_CTS_PIN					(EXT1_PIN_5)
+#define PIN_BTLC1000_HOST_WAKEUP_PIO			PIOA
+#define PIN_BTLC1000_HOST_WAKEUP_MASK			PIO_PA1
+#define PIN_BTLC1000_HOST_WAKEUP_ID				ID_PIOA
+#define PIN_BTLC1000_HOST_WAKEUP_ATTR			PIO_DEFAULT
+#define BTLC1000_HOST_WAKEUP_WAIT_INPUT_ID		(1u << 1)
+#define BTLC1000_HOST_WAKEUP_BACKUP_INPUT_ID	(1u << 1)
+
+void platform_host_wake_interrupt_handler(void);
+static inline void btlc1000_host_wakeup_config(void);
+static inline void btlc1000_host_wakeup_handler(uint32_t ul_id, uint32_t ul_mask);
+
+
+/* BTLC1000 Host Wakeup Initialization */
+static inline void btlc1000_host_wakeup_config(void)
+{
+	/* Adjust PIO debounce filter parameters, using 1 KHz filter. */
+	pio_set_debounce_filter(PIN_BTLC1000_HOST_WAKEUP_PIO,
+						PIN_BTLC1000_HOST_WAKEUP_MASK, 1000);
+
+	/* Initialize PIO interrupt handlers, see PIO definition in board.h. */
+	pio_handler_set(PIN_BTLC1000_HOST_WAKEUP_PIO, PIN_BTLC1000_HOST_WAKEUP_ID,
+					PIN_BTLC1000_HOST_WAKEUP_MASK, PIN_BTLC1000_HOST_WAKEUP_ATTR,
+					btlc1000_host_wakeup_handler);
+
+	/* Enable PIO controller IRQs. */
+	NVIC_EnableIRQ((IRQn_Type)PIN_BTLC1000_HOST_WAKEUP_ID);
+
+	/* Enable PIO line interrupts. */
+	pio_enable_interrupt(PIN_BTLC1000_HOST_WAKEUP_PIO,
+				         PIN_BTLC1000_HOST_WAKEUP_MASK);
+}
+
+/**
+ * \brief Handler for button interrupt.
+ *
+ * \note This interrupt is for waking up from sleep mode or exiting from active
+ * mode.
+ */
+static inline void btlc1000_host_wakeup_handler(uint32_t ul_id, uint32_t ul_mask)
+{
+	if (PIN_BTLC1000_HOST_WAKEUP_ID == ul_id &&
+			PIN_BTLC1000_HOST_WAKEUP_MASK == ul_mask) {
+		platform_host_wake_interrupt_handler();
+	}
+}
+
+static inline bool host_event_data_ready_pin_level(void)
+{
+	return (ioport_get_pin_level(BTLC1000_HOST_WAKEUP_PIN));
+}
+
+static inline bool btlc1000_cts_pin_level(void)
+{
+	return (ioport_get_pin_level(BTLC1000_UART_CTS_PIN));
+}
+
 
 /* Set BLE Wakeup pin to be low */
 static inline bool ble_wakeup_pin_level(void)

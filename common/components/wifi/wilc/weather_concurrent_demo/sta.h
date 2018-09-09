@@ -4,36 +4,29 @@
  *
  * \brief STA Task.
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
@@ -46,10 +39,26 @@
 extern "C" {
 #endif
 
-/** Wi-Fi Settings. */
+/** Wi-Fi Settings - STA mode. */
 #define STA_WLAN_SSID                "DEMO_AP" /* < Destination SSID */
-#define STA_WLAN_AUTH                M2M_WIFI_SEC_WPA_PSK /* < Security manner */
-#define STA_WLAN_PSK                 "12345678" /* < Password for Destination SSID */
+#define STA_WLAN_AUTH                M2M_WIFI_SEC_OPEN/* < Security manner */
+#define STA_WLAN_PSK                 "1234567890" /* < Password for Destination SSID */
+
+/** WEP security setting for STA mode and/or AP mode */
+#define WEP_KEY_INDEX            M2M_WIFI_WEP_KEY_INDEX_1
+#define WEP_KEY                  "1234567890"
+#define WEP_KEY_SIZE             sizeof(WEP_KEY)
+#define WEP_AUTH_TYPE            WEP_ANY
+#define WEP_CONN_PARAM           {WEP_KEY_INDEX, WEP_KEY_SIZE, WEP_KEY, WEP_AUTH_TYPE}
+/* Note : In case of using WEP security on both STA and AP interfaces, the same
+password should be used for both interfaces. In addition to that, the same
+WEP authentication type (OPEN, SHARED, or ANY) should be used for both
+STA and AP interfaces.*/
+
+/** Wi-Fi Settings - AP mode. */
+#define AP_WLAN_SSID                "DEMO_AP" /* < WILC SSID */
+#define AP_WLAN_AUTH                M2M_WIFI_SEC_OPEN/* < Security manner M2M_WIFI_SEC_OPEN, M2M_WIFI_SEC_WPA_PSK*/
+#define AP_WLAN_PSK                 "1234567890" /* < Password for WILC SSID */
 
 /** Send buffer of TCP socket. */
 #define STA_PREFIX_BUFFER            "GET /data/2.5/weather?q="

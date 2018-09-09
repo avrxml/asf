@@ -80,6 +80,9 @@
 // From module: Generic board support
 #include <board.h>
 
+// From module: High Speed Multimedia Card Interface
+#include <hsmci.h>
+
 // From module: IOPORT - General purpose I/O service
 #include <ioport.h>
 
@@ -104,6 +107,9 @@
 
 // From module: SAMV71 XULTRA LED support enabled
 #include <led.h>
+
+// From module: SD/MMC stack on Multimedia Card interface
+#include <sd_mmc.h>
 
 // From module: SPI - Serial Peripheral Interface
 #include <spi.h>

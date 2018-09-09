@@ -3,7 +3,7 @@
  *
  * \brief Link binary image of core 1 into core 0.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *

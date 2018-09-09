@@ -3,45 +3,35 @@
  *
  * \brief SAM Brown Out Detector Driver
  *
- * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 #ifndef BOD_FEATURE_H_INCLUDED
 #define BOD_FEATURE_H_INCLUDED
@@ -162,7 +152,7 @@ enum bodvdd_prescale {
 enum bodvdd_mode_in_active {
 	/** BODVDD will sample the supply line continuously */
 	BODVDD_ACTCFG_CONTINUOUS = 0,
-	/** BODVDD will use the BODVDD sampling clock (1KHz) to sample the supply line */
+	/** BODVDD will use the BODVDD sampling clock (1kHz) to sample the supply line */
 	BODVDD_ACTCFG_SAMPLED    = SUPC_BODVDD_ACTCFG,
 };
 
@@ -174,7 +164,7 @@ enum bodvdd_mode_in_active {
 enum bodvdd_mode_in_standby {
 	/** BODVDD will sample the supply line continuously */
 	BODVDD_STDBYCFG_CONTINUOUS = 0,
-	/** BODVDD will use the BODVDD sampling clock (1KHz) to sample the supply line */
+	/** BODVDD will use the BODVDD sampling clock (1kHz) to sample the supply line */
 	BODVDD_STDBYCFG_SAMPLED    = SUPC_BODVDD_STDBYCFG,
 };
 
@@ -196,7 +186,7 @@ enum bodvdd_action {
 
 /** Configuration structure for a BODVDD module. */
 struct bodvdd_config {
-	/** Input sampler clock prescaler factor, to reduce the 1KHz clock from the
+	/** Input sampler clock prescaler factor, to reduce the 1kHz clock from the
 	 *  ULP32K to lower the sampling rate of the BODVDD */
 	enum bodvdd_prescale prescaler;
 	/** BODVDD configuration in active mode */
@@ -205,7 +195,7 @@ struct bodvdd_config {
 	enum bodvdd_mode_in_standby mode_in_standby;
 	/** Action to perform when a low power detection is made */
 	enum bodvdd_action action;
-	/** BODVDD level to trigger at when monitors VDD excpt in backup sleep mode */
+	/** BODVDD level to trigger at when monitors VDD except in backup sleep mode */
 	uint8_t level;
 	/** If \c true, the BODVDD is kept enabled and sampled during standby */
 	bool run_in_standby;
@@ -305,7 +295,7 @@ static inline bool bodvdd_is_detected(void)
 /**
  * \brief Clears the low voltage detection state of the BODVDD.
  *
- * Clears the low voltage condition of BODVDD module, so that new
+ * Clears the low voltage condition of the BODVDD module, so that new
  * low voltage conditions can be detected.
  *
  */
@@ -385,8 +375,8 @@ static inline void bodvdd_clear_detected(void)
  * When it is desirable to set it in software, see the below use case.
  *
  * In this use case, a new BODVDD level might be set in SW if the clock settings
- * are adjusted up after a battery has charged to a higher level. When the battery
- * discharges, the chip will reset when the battery level is below SW BODVDD level.
+ * are adjusted after a battery has charged to a higher level. When the battery
+ * discharges, the chip will reset when the battery level is below the SW BODVDD level.
  * Now the chip will run at a lower clock rate and the BODVDD level from fuse.
  * The chip should always measure the voltage before adjusting the frequency up.
  *
@@ -400,7 +390,7 @@ static inline void bodvdd_clear_detected(void)
  *	</tr>
  *	<tr>
  *		<td>42701A</td>
- *		<td>03/2016</td>
+ *		<td>07/2016</td>
  *		<td>Initial document release</td>
  *	</tr>
  * </table>

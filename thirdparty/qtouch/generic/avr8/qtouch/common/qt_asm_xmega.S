@@ -7,13 +7,13 @@
  * - Compiler:           IAR EWAVR and GNU GCC for AVR
  * - Supported devices:  Atmel AVR 8-bit Xmega.
  * - Userguide:          QTouch Library User Guide - doc8207.pdf.
- * - Support:            http://www.atmel.com/design-support/
+ * - Support:            http://www.microchip.com/support/
  *
- * \author               Atmel Corporation: http://www.atmel.com
+ * \author               Microchip Technology Inc: http://www.microchip.com
  *
  ******************************************************************************/
 
-/* Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
+/* Copyright (c) 2010-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:

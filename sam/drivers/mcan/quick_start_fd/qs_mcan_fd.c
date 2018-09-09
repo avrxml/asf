@@ -3,39 +3,29 @@
  *
  * \brief SAM MCAN Quick Start for FD modue
  *
- * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
@@ -77,12 +67,13 @@
 			"  -- Select the action:\r\n"
 			"  0: Set standard filter ID 0: 0x45A, store into Rx buffer. \r\n"
 			"  1: Set standard filter ID 1: 0x469, store into Rx FIFO 0. \r\n"
-			"  2: Send standard message with ID: 0x45A and 4 byte data 0 to 3. \r\n"
-			"  3: Send standard message with ID: 0x469 and 4 byte data 128 to 131. \r\n"
+			"  2: Send FD standard message with ID: 0x45A and 64 byte data 0 to 63. \r\n"
+			"  3: Send FD standard message with ID: 0x469 and 64 byte data 128 to 191. \r\n"
 			"  4: Set extended filter ID 0: 0x100000A5, store into Rx buffer. \r\n"
 			"  5: Set extended filter ID 1: 0x10000096, store into Rx FIFO 1. \r\n"
-			"  6: Send extended message with ID: 0x100000A5 and 8 byte data 0 to 7. \r\n"
-			"  7: Send extended message with ID: 0x10000096 and 8 byte data 128 to 135. \r\n"
+			"  6: Send FD extended message with ID: 0x100000A5 and 64 byte data 0 to 63. \r\n"
+			"  7: Send FD extended message with ID: 0x10000096 and 64 byte data 128 to 191. \r\n"
+			"  a: Send normal standard message with ID: 0x469 and 8 byte data 0 to 7. \r\n"
 			"  h: Display menu \r\n\r\n");
  \endcode
  *  -# Press '0' or '1' or '4'  or '5' key in the terminal window to configure one board to
@@ -92,7 +83,7 @@
  */
  
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 #include <asf.h>
 #include <string.h>
@@ -170,7 +161,7 @@ static void configure_mcan(void)
 	mcan_start(&mcan_instance);
 
 	/* Enable interrupts for this MCAN module */
-	irq_register_handler(MCAN1_IRQn, 1);
+	irq_register_handler(MCAN1_INT0_IRQn, 1);
 	mcan_enable_interrupt(&mcan_instance, MCAN_FORMAT_ERROR | MCAN_ACKNOWLEDGE_ERROR
 			| MCAN_BUS_OFF);
 }
@@ -282,7 +273,8 @@ static void mcan_fd_send_standard_message(uint32_t id_value, uint8_t *data)
 
 	mcan_get_tx_buffer_element_defaults(&tx_element);
 	tx_element.T0.reg |= MCAN_TX_ELEMENT_T0_STANDARD_ID(id_value);
-	tx_element.T1.reg = MCAN_TX_ELEMENT_T1_DLC(MCAN_TX_ELEMENT_T1_DLC_DATA64_Val);
+	tx_element.T1.reg = (MCAN_TX_ELEMENT_T1_DLC(MCAN_TX_ELEMENT_T1_DLC_DATA64_Val) |
+			MCAN_TX_ELEMENT_T1_FDF | MCAN_TX_ELEMENT_T1_BRS);
 	for (i = 0; i < CONF_MCAN_ELEMENT_DATA_SIZE; i++) {
 		tx_element.data[i] = *data;
 		data++;
@@ -307,8 +299,9 @@ static void mcan_fd_send_extended_message(uint32_t id_value, uint8_t *data)
 	mcan_get_tx_buffer_element_defaults(&tx_element);
 	tx_element.T0.reg |= MCAN_TX_ELEMENT_T0_EXTENDED_ID(id_value) |
 			MCAN_TX_ELEMENT_T0_XTD;
-	tx_element.T1.reg = MCAN_TX_ELEMENT_T1_EFC | 
-			MCAN_TX_ELEMENT_T1_DLC(MCAN_TX_ELEMENT_T1_DLC_DATA64_Val);
+	tx_element.T1.reg = (MCAN_TX_ELEMENT_T1_EFC | 
+			MCAN_TX_ELEMENT_T1_DLC(MCAN_TX_ELEMENT_T1_DLC_DATA64_Val) | 
+			MCAN_TX_ELEMENT_T1_FDF | MCAN_TX_ELEMENT_T1_BRS);
 	for (i = 0; i < CONF_MCAN_ELEMENT_DATA_SIZE; i++) {
 		tx_element.data[i] = *data;
 		data++;
@@ -323,7 +316,7 @@ static void mcan_fd_send_extended_message(uint32_t id_value, uint8_t *data)
  * \brief Interrupt handler for MCAN,
  *   inlcuding RX,TX,ERROR and so on processes.
  */
-void MCAN1_Handler(void)
+void MCAN1_INT0_Handler(void)
 {
 	volatile uint32_t status, i, rx_buffer_index;
 	status = mcan_read_interrupt_status(&mcan_instance);

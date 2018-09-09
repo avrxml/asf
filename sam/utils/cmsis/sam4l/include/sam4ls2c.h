@@ -3,45 +3,35 @@
  *
  * \brief Header file for SAM4LS2C
  *
- * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAM4LS2C_
@@ -73,7 +63,7 @@ typedef volatile       uint8_t  RoReg8;  /**< Read only  8-bit register (volatil
 #endif
 typedef volatile       uint32_t WoReg;   /**< Write only 32-bit register (volatile unsigned int) */
 typedef volatile       uint16_t WoReg16; /**< Write only 16-bit register (volatile unsigned int) */
-typedef volatile       uint32_t WoReg8;  /**< Write only  8-bit register (volatile unsigned int) */
+typedef volatile       uint8_t  WoReg8;  /**< Write only  8-bit register (volatile unsigned int) */
 typedef volatile       uint32_t RwReg;   /**< Read-Write 32-bit register (volatile unsigned int) */
 typedef volatile       uint16_t RwReg16; /**< Read-Write 16-bit register (volatile unsigned int) */
 typedef volatile       uint8_t  RwReg8;  /**< Read-Write  8-bit register (volatile unsigned int) */
@@ -385,7 +375,7 @@ void TWIM3_Handler               ( void );
  * \brief Configuration of the Cortex-M4 Processor and Core Peripherals
  */
 
-#define LITTLE_ENDIAN          1        
+#define LITTLE_ENDIAN          1
 #define __BB_PRESENT           0         /*!< BIT_BANDING present or not */
 #define __CLKGATE_PRESENT      1         /*!< CLKGATE present or not */
 #define __CM4_REV              1         /*!< Core revision r0p1 */
@@ -810,7 +800,7 @@ void TWIM3_Handler               ( void );
 /* ************************************************************************** */
 /** \addtogroup SAM4LS2C_compat Definitions */
 /*@{*/
-// These defines are used to keep compatibility with existing 
+// These defines are used to keep compatibility with existing
 // sam/drivers/usart implementation from SAM3/4 products with SAM4L product.
 #define US_MR_USART_MODE_HW_HANDSHAKING  US_MR_USART_MODE_HARDWARE
 #define US_MR_USART_MODE_IS07816_T_0     US_MR_USART_MODE_ISO7816_T0
@@ -833,20 +823,20 @@ void TWIM3_Handler               ( void );
 #define CHIP_FREQ_FLASH_HSEN_FWS_0 (18000000UL) /**< \brief Maximum operating frequency when FWS is 0 and the FLASH HS mode is enabled */
 #define CHIP_FREQ_FLASH_HSEN_FWS_1 (36000000UL) /**< \brief Maximum operating frequency when FWS is 1 and the FLASH HS mode is enabled */
 
-// These defines are used to keep compatibility with existing 
-// sam/drivers/tc implementation from SAM3/4 products with SAM4L product. 
+// These defines are used to keep compatibility with existing
+// sam/drivers/tc implementation from SAM3/4 products with SAM4L product.
 #define TC_CMR_LDRA_RISING    TC_CMR_LDRA_POS_EDGE_TIOA
 #define TC_CMR_LDRB_FALLING   TC_CMR_LDRB_NEG_EDGE_TIOA
 #define TC_CMR_ETRGEDG_FALLING TC_CMR_ETRGEDG_NEG_EDGE
 
-// These defines are used to keep compatibility with existing 
-// sam/drivers/spi implementation from SAM3/4 products with SAM4L product. 
+// These defines are used to keep compatibility with existing
+// sam/drivers/spi implementation from SAM3/4 products with SAM4L product.
 #define SPI_CSR_BITS_8_BIT    SPI_CSR_BITS_8_BPT
 #define SPI_WPCR_SPIWPKEY_VALUE SPI_WPCR_WPKEY_VALUE
 #define SPI_WPCR_SPIWPEN      SPI_WPCR_WPEN
 
-// These defines are used to keep compatibility with existing 
-// sam/drivers/crccu implementation from SAM3/4 products with SAM4L product. 
+// These defines are used to keep compatibility with existing
+// sam/drivers/crccu implementation from SAM3/4 products with SAM4L product.
 #define CRCCU_DMA_EN          CRCCU_DMAEN
 #define CRCCU_DMA_DIS         CRCCU_DMADIS
 #define CRCCU_DMA_SR          CRCCU_DMASR

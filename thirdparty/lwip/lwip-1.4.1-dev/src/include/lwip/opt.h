@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (c) 2001-2004 Swedish Institute of Computer Science.
+ * Copyright (c) 2001-2018 Swedish Institute of Computer Science.
  * All rights reserved. 
  * 
  * Redistribution and use in source and binary forms, with or without modification, 
@@ -356,7 +356,7 @@
  * (only needed if you use tcpip.c)
  */
 #ifndef MEMP_NUM_TCPIP_MSG_INPKT
-#define MEMP_NUM_TCPIP_MSG_INPKT        8
+#define MEMP_NUM_TCPIP_MSG_INPKT        32  //8
 #endif
 
 /**
@@ -1198,6 +1198,18 @@
 #define PBUF_POOL_BUFSIZE               LWIP_MEM_ALIGN_SIZE(TCP_MSS+40+PBUF_LINK_HLEN)
 #endif
 
+/**
+ * PBUF_LINK_ENCAPSULATION_HLEN: the number of bytes that should be allocated
+ * for an additional encapsulation header before ethernet headers (e.g. 802.11)
+ */
+#ifndef WINC1500_ETH_MODE
+#if !defined PBUF_LINK_ENCAPSULATION_HLEN
+#define M2M_ETHERNET_HDR_OFFSET							36
+#define PBUF_LINK_ENCAPSULATION_HLEN    M2M_ETHERNET_HDR_OFFSET
+#endif
+#else
+#define PBUF_LINK_ENCAPSULATION_HLEN    0
+#endif	
 /*
    ------------------------------------------------
    ---------- Network Interfaces options ----------

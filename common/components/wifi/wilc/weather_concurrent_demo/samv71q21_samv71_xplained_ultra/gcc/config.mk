@@ -43,7 +43,7 @@ PRJ_PATH = ../../../../../../..
 ARCH = cortex-m7
 
 # Target part: none, sam3n4 or sam4l4aa
-PART = samv71q21
+PART = samv71q21b
 
 # Application target name. Given with suffix .a for library and .elf for a
 # standalone application.
@@ -52,8 +52,10 @@ TARGET_SRAM = wilc1000_weather_concurrent_demo_sram.elf
 
 # List of C source files.
 CSRCS = \
+       common/components/memory/sd_mmc/sd_mmc.c           \
        common/components/wifi/wilc/bsp/source/nm_bsp_samv71.c \
        common/components/wifi/wilc/bus_wrapper/source/nm_bus_wrapper_samv71.c \
+       common/components/wifi/wilc/bus_wrapper/source/sdio_samv71.c \
        common/components/wifi/wilc/common/source/nm_common.c \
        common/components/wifi/wilc/driver/source/m2m_hif.c \
        common/components/wifi/wilc/driver/source/m2m_periph.c \
@@ -61,6 +63,8 @@ CSRCS = \
        common/components/wifi/wilc/driver/source/nmasic.c \
        common/components/wifi/wilc/driver/source/nmbus.c  \
        common/components/wifi/wilc/driver/source/nmdrv.c  \
+       common/components/wifi/wilc/driver/source/nmi2c.c  \
+       common/components/wifi/wilc/driver/source/nmsdio.c \
        common/components/wifi/wilc/driver/source/nmspi.c  \
        common/components/wifi/wilc/driver/source/spi_flash.c \
        common/components/wifi/wilc/drv_hash/PMK.c         \
@@ -79,6 +83,7 @@ CSRCS = \
        common/utils/stdio/read.c                          \
        common/utils/stdio/write.c                         \
        sam/boards/samv71_xplained_ultra/init.c            \
+       sam/drivers/hsmci/hsmci.c                          \
        sam/drivers/mpu/mpu.c                              \
        sam/drivers/pio/pio.c                              \
        sam/drivers/pio/pio_handler.c                      \
@@ -105,6 +110,7 @@ CSRCS = \
        thirdparty/lwip/lwip-1.4.1-dev/src/api/netbuf.c    \
        thirdparty/lwip/lwip-1.4.1-dev/src/api/netdb.c     \
        thirdparty/lwip/lwip-1.4.1-dev/src/api/netifapi.c  \
+       thirdparty/lwip/lwip-1.4.1-dev/src/api/ping.c      \
        thirdparty/lwip/lwip-1.4.1-dev/src/api/pppapi.c    \
        thirdparty/lwip/lwip-1.4.1-dev/src/api/sockets.c   \
        thirdparty/lwip/lwip-1.4.1-dev/src/api/tcpip.c     \
@@ -153,6 +159,7 @@ ASSRCS =
 # List of include paths.
 INC_PATH = \
        common/boards                                      \
+       common/components/memory/sd_mmc                    \
        common/components/wifi/wilc                        \
        common/components/wifi/wilc/weather_concurrent_demo \
        common/components/wifi/wilc/weather_concurrent_demo/samv71q21_samv71_xplained_ultra \
@@ -167,6 +174,7 @@ INC_PATH = \
        common/utils/stdio/stdio_serial                    \
        sam/boards                                         \
        sam/boards/samv71_xplained_ultra                   \
+       sam/drivers/hsmci                                  \
        sam/drivers/mpu                                    \
        sam/drivers/pio                                    \
        sam/drivers/pmc                                    \
@@ -244,7 +252,7 @@ CPPFLAGS = \
        -D ARM_MATH_CM7=true                               \
        -D BOARD=SAMV71_XPLAINED_ULTRA                     \
        -D __FREERTOS__                                    \
-       -D __SAMV71Q21__                                   \
+       -D __SAMV71Q21B__                                  \
        -D printf=iprintf                                  \
        -D scanf=iscanf
 

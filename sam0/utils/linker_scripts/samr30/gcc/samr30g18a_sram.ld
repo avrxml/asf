@@ -3,7 +3,7 @@
  *
  * \brief Linker script for running in internal SRAM on the SAML21G18A
  *
- * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *

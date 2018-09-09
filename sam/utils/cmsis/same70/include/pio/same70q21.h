@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70Q21_PIO_
@@ -564,6 +554,18 @@
 #define PIO_PD15B_RXD2            (1u << 15) /**< \brief Usart2 signal: RXD2 */
 #define PIO_PD17B_SCK2            (1u << 17) /**< \brief Usart2 signal: SCK2 */
 #define PIO_PD16B_TXD2            (1u << 16) /**< \brief Usart2 signal: TXD2 */
+/* ========== Pio definition for UTMI peripheral ========== */
+#define PIO_PC12D_UTMI_CDRBISTEN   (1u << 12) /**< \brief Utmi signal: UTMI_CDRBISTEN */
+#define PIO_PC29D_UTMI_CDRCPDIVEN  (1u << 29) /**< \brief Utmi signal: UTMI_CDRCPDIVEN */
+#define PIO_PC31D_UTMI_CDRCPSEL0   (1u << 31) /**< \brief Utmi signal: UTMI_CDRCPSEL0 */
+#define PIO_PC30D_UTMI_CDRCPSEL1   (1u << 30) /**< \brief Utmi signal: UTMI_CDRCPSEL1 */
+#define PIO_PC15D_UTMI_CDRCPSELDIV (1u << 15) /**< \brief Utmi signal: UTMI_CDRCPSELDIV */
+#define PIO_PC0D_UTMI_HDIS         (1u << 0)  /**< \brief Utmi signal: UTMI_HDIS */
+#define PIO_PC27D_UTMI_LS0         (1u << 27) /**< \brief Utmi signal: UTMI_LS0 */
+#define PIO_PC26D_UTMI_LS1         (1u << 26) /**< \brief Utmi signal: UTMI_LS1 */
+#define PIO_PE3D_UTMI_RXACT        (1u << 3)  /**< \brief Utmi signal: UTMI_RXACT */
+#define PIO_PE2D_UTMI_RXERR        (1u << 2)  /**< \brief Utmi signal: UTMI_RXERR */
+#define PIO_PE1D_UTMI_RXVAL        (1u << 1)  /**< \brief Utmi signal: UTMI_RXVAL */
 /* ========== Pio indexes ========== */
 #define PIO_PA0_IDX               0
 #define PIO_PA1_IDX               1

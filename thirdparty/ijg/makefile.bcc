@@ -1,6 +1,6 @@
 # Makefile for Independent JPEG Group's software
  /**
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.microchip.com/support/">Microchip Support</a>
  */
 
 # This makefile is suitable for Borland C on MS-DOS or OS/2.

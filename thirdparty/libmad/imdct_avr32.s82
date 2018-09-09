@@ -1,6 +1,6 @@
 /*
    Optimized 36-point Inverse Modified Cosine Transform (IMDCT)
-   Copyright 2003-2006 Atmel Corporation.
+   Copyright 2003-2006 Microchip Technology Inc.
 
    Written by Ronny Pedersen, Atmel Norway
 

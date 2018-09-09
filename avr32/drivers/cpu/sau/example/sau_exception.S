@@ -3,7 +3,7 @@
  *
  * \brief Exception and interrupt vectors
  *
- * Copyright (c) 2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2012 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *

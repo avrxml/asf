@@ -312,10 +312,10 @@
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samc20_c21</state>
 					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_l_c</state>
-					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc/tc_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_c</state>
@@ -590,10 +590,10 @@
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samc20_c21</state>
 					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_l_c</state>
-					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc/tc_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_c</state>
@@ -1293,10 +1293,10 @@
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samc20_c21</state>
 					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_l_c</state>
-					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc/tc_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_c</state>
@@ -1571,10 +1571,10 @@
 					<state>$PROJ_DIR$/../../../../boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samc20_c21</state>
 					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_l_c</state>
-					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc/tc_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
+					<state>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../drivers/tc</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_c</state>
@@ -1967,6 +1967,27 @@
 		<group>
 			<name>drivers</name>
 			<group>
+				<name>dac</name>
+				<group>
+					<name>dac_sam_d_c_h</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h/dac_callback.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h/dac.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c_h/dac_feature.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/dac/dac.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/dac/dac_callback.h</name>
+				</file>
+			</group>
+			<group>
 				<name>system</name>
 				<group>
 					<name>clock</name>
@@ -2060,27 +2081,6 @@
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../drivers/port/port.h</name>
-				</file>
-			</group>
-			<group>
-				<name>dac</name>
-				<group>
-					<name>dac_sam_d_c</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c/dac.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c/dac_callback.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/dac/dac_sam_d_c/dac_feature.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/dac/dac.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/dac/dac_callback.h</name>
 				</file>
 			</group>
 			<group>
@@ -2182,6 +2182,9 @@
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samc21/include/instance/adc0.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../utils/cmsis/samc21/include/instance/supc.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samc21/include/instance/osc32kctrl.h</name>
 							</file>
 							<file>
@@ -2198,9 +2201,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samc21/include/instance/rstc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../utils/cmsis/samc21/include/instance/supc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../utils/cmsis/samc21/include/instance/pac.h</name>

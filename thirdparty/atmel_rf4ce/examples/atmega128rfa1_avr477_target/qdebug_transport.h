@@ -1,11 +1,11 @@
 /******************************************************************************* 
 *   $FILE:  qdebug_transport.h
-*   Atmel Corporation:  http://www.atmel.com \n
-*   Support: http://www.atmel.com/design-support/
+*   Microchip Technology Inc:  http://www.microchip.com \n
+*   Support: https://www.microchip.com/support/
 ******************************************************************************/
 
 /*  License
- * Copyright (c) 2010-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2018 Microchip Technology Inc. and its subsidiaries.
 *   
 *   Redistribution and use in source and binary forms, with or without
 *   modification, are permitted provided that the following conditions are met:

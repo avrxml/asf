@@ -3,45 +3,35 @@
  *
  * \brief SAM Control Area Network (MCAN) Low Level Driver
  *
- * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include "mcan.h"
@@ -160,6 +150,24 @@ static void _mcan_message_memory_init(Mcan *hw)
  */
 static void _mcan_set_configuration(Mcan *hw, struct mcan_config *config)
 {
+#if (SAMV71B || SAME70B || SAMV70B)
+	/* Timing setting for Rev B */
+	hw->MCAN_NBTP = MCAN_NBTP_NBRP(CONF_MCAN_NBTP_NBRP_VALUE) |
+			MCAN_NBTP_NSJW(CONF_MCAN_NBTP_NSJW_VALUE) |
+			MCAN_NBTP_NTSEG1(CONF_MCAN_NBTP_NTSEG1_VALUE) |
+			MCAN_NBTP_NTSEG2(CONF_MCAN_NBTP_NTSEG2_VALUE);
+	hw->MCAN_DBTP = MCAN_DBTP_DBRP(CONF_MCAN_FBTP_FBRP_VALUE) |
+			MCAN_DBTP_DSJW(CONF_MCAN_FBTP_FSJW_VALUE) |
+			MCAN_DBTP_DTSEG1(CONF_MCAN_FBTP_FTSEG1_VALUE) |
+			MCAN_DBTP_DTSEG2(CONF_MCAN_FBTP_FTSEG2_VALUE);
+
+	hw->MCAN_TDCR = MCAN_TDCR_TDCO(config->delay_compensation_offset) |
+		    MCAN_TDCR_TDCF(config->delay_compensation_filter_window_length);
+
+	if (config->tdc_enable) {
+		hw->MCAN_DBTP |= MCAN_DBTP_TDC_ENABLED;
+	}
+#else
 	/* Timing setting. */
 	hw->MCAN_BTP = MCAN_BTP_BRP(CONF_MCAN_NBTP_NBRP_VALUE) |
 			MCAN_BTP_SJW(CONF_MCAN_NBTP_NSJW_VALUE) |
@@ -174,7 +182,7 @@ static void _mcan_set_configuration(Mcan *hw, struct mcan_config *config)
 	if (config->tdc_enable) {
 		hw->MCAN_FBTP |= MCAN_FBTP_TDC_ENABLED;
 	}
-	
+#endif
 	hw->MCAN_RWD |= MCAN_RWD_WDC(config->watchdog_configuration);
 
 	if (config->transmit_pause) {
@@ -297,11 +305,17 @@ void mcan_set_baudrate(Mcan *hw, uint32_t baudrate)
 	gclk_mcan_value = sysclk_get_peripheral_hz();
 
 	mcan_nbtp_nbrp_value = gclk_mcan_value / baudrate / (3 + mcan_nbtp_ntseg1_value + mcan_nbtp_ntseg2_value);
-	
+#if (SAMV71B || SAME70B || SAMV70B)
+	hw->MCAN_NBTP = MCAN_NBTP_NBRP(mcan_nbtp_nbrp_value) |
+			MCAN_NBTP_NSJW(mcan_nbtp_nsgw_value) |
+			MCAN_NBTP_NTSEG1(mcan_nbtp_ntseg1_value) |
+			MCAN_NBTP_NTSEG2(mcan_nbtp_ntseg2_value);
+#else
 	hw->MCAN_BTP = MCAN_BTP_BRP(mcan_nbtp_nbrp_value) |
 			MCAN_BTP_SJW(mcan_nbtp_nsgw_value) |
 			MCAN_BTP_TSEG1(mcan_nbtp_ntseg1_value) |
 			MCAN_BTP_TSEG2(mcan_nbtp_ntseg2_value);
+#endif
 }
 
 /**
@@ -319,11 +333,17 @@ void mcan_fd_set_baudrate(Mcan *hw, uint32_t baudrate)
 	gclk_mcan_fd_value = sysclk_get_peripheral_hz();
 	
 	mcan_fd_dbtp_dbrp_value = gclk_mcan_fd_value / baudrate / (3 + mcan_fd_dbtp_dtseg1_value + mcan_fd_dbtp_dtseg2_value);
-	
+#if (SAMV71B || SAME70B || SAMV70B)
+	hw->MCAN_DBTP = MCAN_DBTP_DBRP(mcan_fd_dbtp_dbrp_value) |
+			MCAN_DBTP_DSJW(mcan_fd_dbtp_dsgw_value) |
+			MCAN_DBTP_DTSEG1(mcan_fd_dbtp_dtseg1_value) |
+			MCAN_DBTP_DTSEG2(mcan_fd_dbtp_dtseg2_value);
+#else
 	hw->MCAN_FBTP = MCAN_FBTP_FBRP(mcan_fd_dbtp_dbrp_value) |
 			MCAN_FBTP_FSJW(mcan_fd_dbtp_dsgw_value) |
 			MCAN_FBTP_FTSEG1(mcan_fd_dbtp_dtseg1_value) |
 			MCAN_FBTP_FTSEG2(mcan_fd_dbtp_dtseg2_value);
+#endif
 }
 
 /**
@@ -364,9 +384,13 @@ void mcan_enable_fd_mode(struct mcan_module *const module_inst)
 	/* Wait for the sync. */
 	while (!(module_inst->hw->MCAN_CCCR & MCAN_CCCR_INIT));
 	module_inst->hw->MCAN_CCCR |= MCAN_CCCR_CCE;
-
+#if (SAMV71B || SAME70B || SAMV70B)
+	module_inst->hw->MCAN_CCCR |= (MCAN_CCCR_FDOE | MCAN_CCCR_BRSE);
+#else
 	module_inst->hw->MCAN_CCCR |= MCAN_CCCR_CME(2);
 	module_inst->hw->MCAN_CCCR |= MCAN_CCCR_CMR(2);
+#endif
+
 }
 
 /** 
@@ -377,7 +401,15 @@ void mcan_enable_fd_mode(struct mcan_module *const module_inst)
  */
 void mcan_disable_fd_mode(struct mcan_module *const module_inst)
 {
+	module_inst->hw->MCAN_CCCR |= MCAN_CCCR_INIT;
+	/* Wait for the sync. */
+	while (!(module_inst->hw->MCAN_CCCR & MCAN_CCCR_INIT));
+	module_inst->hw->MCAN_CCCR |= MCAN_CCCR_CCE;
+#if (SAMV71B || SAME70B || SAMV70B)
+	module_inst->hw->MCAN_CCCR &= MCAN_CCCR_FDOE;
+#else
 	module_inst->hw->MCAN_CCCR &= MCAN_CCCR_CME(MCAN_CCCR_CME_ISO11898_1);
+#endif
 }
 
 /**

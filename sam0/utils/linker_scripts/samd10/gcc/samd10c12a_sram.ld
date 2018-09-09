@@ -3,7 +3,7 @@
  *
  * \brief Linker script for running in internal SRAM on the SAMD10C12A
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *

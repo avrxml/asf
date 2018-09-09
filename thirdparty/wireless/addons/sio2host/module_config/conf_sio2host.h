@@ -1,51 +1,45 @@
 /**
- * \file *********************************************************************
- *
- * \brief Serial Input & Output configuration
- *
- * Copyright (c) 2013-2016 Atmel Corporation. All rights reserved.
+* \file
+*
+* \brief Serial Input & Output configuration
+*
+* Copyright (c) 2013-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
+ *
+ */
+/*
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef CONF_SIO2HOST_H_INCLUDED
 #define CONF_SIO2HOST_H_INCLUDED
- #define SERIAL_RX_BUF_SIZE_HOST    156
+#define SERIAL_RX_BUF_SIZE_HOST    156
 
 #warning \
-	"Using a default value. Edit this conf_sio2host.h file to modify that define value according to the current board."
+                "Using a default value. Edit this conf_sio2host.h file to modify that define value according to the current board."
 /* ! \name Configuration for Xmega */
 /* ! @{ */
 #if (XMEGA)
@@ -56,7 +50,7 @@
 #define USART_HOST_STOP_BITS      false
 
 #define USART_HOST_RX_ISR_ENABLE() usart_set_rx_interrupt_level(USART_HOST, \
-		USART_INT_LVL_HI)
+                                USART_INT_LVL_HI)
 #define USART_HOST_ISR_VECT()      ISR(USARTC0_RXC_vect)
 #endif /* XMEGA */
 /* ! @} */
@@ -94,35 +88,49 @@
 #if (SAM && !(SAMD || SAMR21 || SAML21 || SAMR30))
 
 #if SAMG55
-	/* Configuration for console uart IRQ handler */
-	#define USART_HOST_ISR_VECT()      ISR(FLEXCOM7_Handler)
-	/* UART Host IRQ Number */
-	#define USART_HOST_IRQn            FLEXCOM7_IRQn	
+                /* Configuration for console uart IRQ handler */
+                #define USART_HOST_ISR_VECT()      ISR(FLEXCOM7_Handler)
+                /* UART Host IRQ Number */
+                #define USART_HOST_IRQn            FLEXCOM7_IRQn        
 #else
-	/* Configuration for console uart IRQ handler */
-	#define USART_HOST_ISR_VECT()      ISR(USART0_Handler)
-	/* UART Host IRQ Number */
-	#define USART_HOST_IRQn            USART0_IRQn
+                /* Configuration for console uart IRQ handler */
+                #define USART_HOST_ISR_VECT()      ISR(USART0_Handler)
+                /* UART Host IRQ Number */
+                #define USART_HOST_IRQn            USART0_IRQn
 #endif
 
-	#define USART_HOST                 USART0
-	/* / ** Baudrate setting * / */
-	#define USART_HOST_BAUDRATE        9600
-	/* / ** Character length setting * / */
-	#define USART_HOST_CHAR_LENGTH     US_MR_CHRL_8_BIT
-	/* / ** Parity setting * / */
-	#define USART_HOST_PARITY          US_MR_PAR_NO
-	/* / ** Stop bits setting * / */
-	#define USART_HOST_STOP_BITS       US_MR_NBSTOP_1_BIT
-	
+                #define USART_HOST                 USART0
+                /* / ** Baudrate setting * / */
+                #define USART_HOST_BAUDRATE        9600
+                /* / ** Character length setting * / */
+                #define USART_HOST_CHAR_LENGTH     US_MR_CHRL_8_BIT
+                /* / ** Parity setting * / */
+                #define USART_HOST_PARITY          US_MR_PAR_NO
+                /* / ** Stop bits setting * / */
+                #define USART_HOST_STOP_BITS       US_MR_NBSTOP_1_BIT
+                
 #define USART_HOST_RX_ISR_ENABLE() usart_enable_interrupt(USART_HOST, \
-		US_IER_RXRDY); \
-	NVIC_EnableIRQ(USART_HOST_IRQn);
+                                US_IER_RXRDY); \
+                NVIC_EnableIRQ(USART_HOST_IRQn);
 #endif /* SAM */
 
 /* ! \name Configuration for SAMD20 */
 /* ! @{ */
 #if (SAMD || SAMR21 || SAML21 || SAMR30)
+#if (SAMR30E || SAMR21E)
+#define USART_HOST                 SERCOM0
+#define HOST_SERCOM_MUX_SETTING    USART_RX_1_TX_0_XCK_1
+#define HOST_SERCOM_PINMUX_PAD0    PINMUX_UNUSED
+#define HOST_SERCOM_PINMUX_PAD1    PINMUX_UNUSED
+#define HOST_SERCOM_PINMUX_PAD2    PINMUX_PA06D_SERCOM0_PAD2
+#define HOST_SERCOM_PINMUX_PAD3    PINMUX_PA07D_SERCOM0_PAD3
+/** Baudrate setting */
+#define USART_HOST_BAUDRATE        9600
+
+#define USART_HOST_RX_ISR_ENABLE()  _sercom_set_handler(0, USART_HOST_ISR_VECT); \
+USART_HOST->USART.INTENSET.reg = SERCOM_USART_INTFLAG_RXC; \
+system_interrupt_enable(SYSTEM_INTERRUPT_MODULE_SERCOM0);
+#else
 #define USART_HOST                 SERCOM0
 #define HOST_SERCOM_MUX_SETTING    USART_RX_1_TX_0_XCK_1
 #define HOST_SERCOM_PINMUX_PAD0    PINMUX_PA04D_SERCOM0_PAD0
@@ -133,9 +141,12 @@
 #define USART_HOST_BAUDRATE        9600
 
 #define USART_HOST_RX_ISR_ENABLE()  _sercom_set_handler(0, USART_HOST_ISR_VECT); \
-	USART_HOST->USART.INTENSET.reg = SERCOM_USART_INTFLAG_RXC; \
-	system_interrupt_enable(SYSTEM_INTERRUPT_MODULE_SERCOM0);
+USART_HOST->USART.INTENSET.reg = SERCOM_USART_INTFLAG_RXC; \
+system_interrupt_enable(SYSTEM_INTERRUPT_MODULE_SERCOM0);
 #endif /* SAMD || SAMR21 || SAML21 */
+
+#endif
 
 /* ! @} */
 #endif /* CONF_SIO2HOST_H_INCLUDED */
+

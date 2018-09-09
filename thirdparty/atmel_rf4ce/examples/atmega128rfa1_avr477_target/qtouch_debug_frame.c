@@ -8,12 +8,12 @@
  * - Supported devices:  All AVR32 devices with a USB module can be used.
  * - AppNote:
  *
- * \author               Atmel Corporation: http://www.atmel.com \n
- *                       Support and FAQ: http://www.atmel.com/design-support/
+ * \author               Microchip Technology Inc: http://www.microchip.com \n
+ *                       Support and FAQ: https://www.microchip.com/support/
  *
  ***************************************************************************/
 
-/* Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
+* Copyright (c) 2009-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:

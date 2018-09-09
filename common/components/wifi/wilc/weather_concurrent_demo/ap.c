@@ -4,36 +4,29 @@
  *
  * \brief AP Task.
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
@@ -46,6 +39,7 @@
 #include "osprintf.h"
 #include "ap.h"
 #include "sta.h"
+#include "driver/include/m2m_types.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -83,6 +77,7 @@ static char webpage[1024];
 
 extern char report[];
 extern uint32_t sta_connected;
+extern tstrM2MAPAssocInfo strApAssocInfo;
 
 /**
  * \brief Core HTTP server function processing the request.
@@ -93,7 +88,9 @@ static void http_request(struct netconn *conn)
 {
 	struct netbuf *rx_buf;
 	char *str;
+	static char tempWebpage[1024];
 	uint16_t len;
+	uint32_t i;
 
 	while (netconn_recv(conn, &rx_buf) != ERR_OK) {
 		vTaskDelay(webSHORT_DELAY);
@@ -115,9 +112,25 @@ static void http_request(struct netconn *conn)
 			webpage_hit++;
 			sprintf(cwebpage_hit, "%d", (int)webpage_hit);
 			strcat(webpage, cwebpage_hit);
-			sprintf(cwebpage_hit, "%d", (int)sta_connected);
+			sprintf(cwebpage_hit, "%d", (int)strApAssocInfo.u8NoConnSta);
 			strcat(webpage, "<br>Nb STA Connected = ");
-			strcat(webpage, cwebpage_hit);	
+			strcat(webpage, cwebpage_hit);
+			if(strApAssocInfo.u8NoConnSta > 0) {
+				strcat(webpage, "<table border=\"1\" bordercolor=\"#2477E6\" style=\"border-collapse:collapse;\"><tr><th>BSSID</th><th>RSSI</th></tr>");
+				strcpy(tempWebpage, webpage);	
+				for(i=0; i<strApAssocInfo.u8NoConnSta; i++) {
+					sprintf(webpage, "%s <tr><td>%02x:%02x:%02x:%02x:%02x:%02x</td><td> %d</td></tr>",
+						tempWebpage, 
+						strApAssocInfo.astrM2MAssocEntryInfo[i].BSSID[0],
+						strApAssocInfo.astrM2MAssocEntryInfo[i].BSSID[1],
+						strApAssocInfo.astrM2MAssocEntryInfo[i].BSSID[2],
+						strApAssocInfo.astrM2MAssocEntryInfo[i].BSSID[3],
+						strApAssocInfo.astrM2MAssocEntryInfo[i].BSSID[4],
+						strApAssocInfo.astrM2MAssocEntryInfo[i].BSSID[5],
+						strApAssocInfo.astrM2MAssocEntryInfo[i].s8RSSI);
+					}
+				strcat(webpage, "</table>");
+			}
 			strcat(webpage, "<p><pre><br>Task          State  Priority  Stack	#<br>************************************************<br>");
 			vTaskList((signed char *)webpage + strlen((char *)webpage));
 			strcat(webpage, "<p><pre><p><pre><br><br>Weather Bulletin (via AP ");
@@ -127,6 +140,8 @@ static void http_request(struct netconn *conn)
 
 			/* ... Finally the page footer. */
 			strcat(webpage, webHTML_END);
+			if(strlen(webpage) > sizeof(webpage))
+				osprint("ERROR: Webpage buffer exceeded maximum\r\n");
 
 			/* Write out the dynamically generated page. */
 			netconn_write(conn, webpage, strlen(webpage), NETCONN_COPY);
@@ -148,9 +163,6 @@ void ap_task(void *argument)
 	/* Just to avoid compiler warnings. */
 	UNUSED(argument);
 	
-	/* Give time for other thread to initialize lwIP. */
-	vTaskDelay(1000);
-
 	/* Create a new TCP connection handle */
 	conn = netconn_new(NETCONN_TCP);
 	if (conn == NULL) {

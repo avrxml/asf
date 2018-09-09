@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAMV70_AES_COMPONENT_
@@ -78,6 +68,7 @@ typedef struct {
 /* -------- AES_CR : (AES Offset: 0x00) Control Register -------- */
 #define AES_CR_START (0x1u << 0) /**< \brief (AES_CR) Start Processing */
 #define AES_CR_SWRST (0x1u << 8) /**< \brief (AES_CR) Software Reset */
+#define AES_CR_LOADSEED (0x1u << 16) /**< \brief (AES_CR) Random Number Generator Seed Loading */
 /* -------- AES_MR : (AES Offset: 0x04) Mode Register -------- */
 #define AES_MR_CIPHER (0x1u << 0) /**< \brief (AES_MR) Processing Mode */
 #define AES_MR_GTAGEN (0x1u << 1) /**< \brief (AES_MR) GCM Automatic Tag Generation Enable */
@@ -118,9 +109,27 @@ typedef struct {
 #define   AES_MR_CFBS_SIZE_16BIT (0x3u << 16) /**< \brief (AES_MR) 16-bit */
 #define   AES_MR_CFBS_SIZE_8BIT (0x4u << 16) /**< \brief (AES_MR) 8-bit */
 #define AES_MR_CKEY_Pos 20
-#define AES_MR_CKEY_Msk (0xfu << AES_MR_CKEY_Pos) /**< \brief (AES_MR) Key */
+#define AES_MR_CKEY_Msk (0xfu << AES_MR_CKEY_Pos) /**< \brief (AES_MR) Countermeasure Key */
 #define AES_MR_CKEY(value) ((AES_MR_CKEY_Msk & ((value) << AES_MR_CKEY_Pos)))
-#define   AES_MR_CKEY_PASSWD (0xEu << 20) /**< \brief (AES_MR) This field must be written with 0xE the first time that AES_MR is programmed. For subsequent programming of the AES_MR, any value can be written, including that of 0xE.Always reads as 0. */
+#define   AES_MR_CKEY_PASSWD (0xEu << 20) /**< \brief (AES_MR) This field must be written with 0xE to allow CMTYPx bit configuration changes. Any other values will abort the write operation in CMTYPx bits.Always reads as 0. */
+#define AES_MR_CMTYP1 (0x1u << 24) /**< \brief (AES_MR) Countermeasure Type 1 */
+#define   AES_MR_CMTYP1_NOPROT_EXTKEY (0x0u << 24) /**< \brief (AES_MR) Countermeasure type 1 is disabled. */
+#define   AES_MR_CMTYP1_PROT_EXTKEY (0x1u << 24) /**< \brief (AES_MR) Countermeasure type 1 is enabled. */
+#define AES_MR_CMTYP2 (0x1u << 25) /**< \brief (AES_MR) Countermeasure Type 2 */
+#define   AES_MR_CMTYP2_NO_PAUSE (0x0u << 25) /**< \brief (AES_MR) Countermeasure type 2 is disabled. */
+#define   AES_MR_CMTYP2_PAUSE (0x1u << 25) /**< \brief (AES_MR) Countermeasure type 2 is enabled. */
+#define AES_MR_CMTYP3 (0x1u << 26) /**< \brief (AES_MR) Countermeasure Type 3 */
+#define   AES_MR_CMTYP3_NO_DUMMY (0x0u << 26) /**< \brief (AES_MR) Countermeasure type 3 is disabled. */
+#define   AES_MR_CMTYP3_DUMMY (0x1u << 26) /**< \brief (AES_MR) Countermeasure type 3 is enabled. */
+#define AES_MR_CMTYP4 (0x1u << 27) /**< \brief (AES_MR) Countermeasure Type 4 */
+#define   AES_MR_CMTYP4_NO_RESTART (0x0u << 27) /**< \brief (AES_MR) Countermeasure type 4 is disabled. */
+#define   AES_MR_CMTYP4_RESTART (0x1u << 27) /**< \brief (AES_MR) Countermeasure type 4 is enabled. */
+#define AES_MR_CMTYP5 (0x1u << 28) /**< \brief (AES_MR) Countermeasure Type 5 */
+#define   AES_MR_CMTYP5_NO_ADDACCESS (0x0u << 28) /**< \brief (AES_MR) Countermeasure type 5 is disabled. */
+#define   AES_MR_CMTYP5_ADDACCESS (0x1u << 28) /**< \brief (AES_MR) Countermeasure type 5 is enabled. */
+#define AES_MR_CMTYP6 (0x1u << 29) /**< \brief (AES_MR) Countermeasure Type 6 */
+#define   AES_MR_CMTYP6_NO_IDLECURRENT (0x0u << 29) /**< \brief (AES_MR) Countermeasure type 6 is disabled. */
+#define   AES_MR_CMTYP6_IDLECURRENT (0x1u << 29) /**< \brief (AES_MR) Countermeasure type 6 is enabled. */
 /* -------- AES_IER : (AES Offset: 0x10) Interrupt Enable Register -------- */
 #define AES_IER_DATRDY (0x1u << 0) /**< \brief (AES_IER) Data Ready Interrupt Enable */
 #define AES_IER_URAD (0x1u << 8) /**< \brief (AES_IER) Unspecified Register Access Detection Interrupt Enable */

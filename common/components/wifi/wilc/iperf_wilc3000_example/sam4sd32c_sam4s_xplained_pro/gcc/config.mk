@@ -52,16 +52,18 @@ TARGET_SRAM = wilc3000_iperf_wilc3000_example_sram.elf
 
 # List of C source files.
 CSRCS = \
+       common/components/memory/sd_mmc/sd_mmc.c           \
        common/components/wifi/wilc/bsp/source/nm_bsp_sam4s.c \
        common/components/wifi/wilc/bus_wrapper/source/nm_bus_wrapper_sam4s.c \
+       common/components/wifi/wilc/bus_wrapper/source/sdio_sam4s.c \
        common/components/wifi/wilc/common/source/nm_common.c \
-       common/components/wifi/wilc/driver/source/m2m_coex.c \
        common/components/wifi/wilc/driver/source/m2m_hif.c \
        common/components/wifi/wilc/driver/source/m2m_periph.c \
        common/components/wifi/wilc/driver/source/m2m_wifi.c \
        common/components/wifi/wilc/driver/source/nmasic.c \
        common/components/wifi/wilc/driver/source/nmbus.c  \
        common/components/wifi/wilc/driver/source/nmdrv.c  \
+       common/components/wifi/wilc/driver/source/nmi2c.c  \
        common/components/wifi/wilc/driver/source/nmsdio.c \
        common/components/wifi/wilc/driver/source/nmspi.c  \
        common/components/wifi/wilc/driver/source/spi_flash.c \
@@ -80,6 +82,7 @@ CSRCS = \
        common/utils/stdio/read.c                          \
        common/utils/stdio/write.c                         \
        sam/boards/sam4s_xplained_pro/init.c               \
+       sam/drivers/hsmci/hsmci.c                          \
        sam/drivers/pdc/pdc.c                              \
        sam/drivers/pio/pio.c                              \
        sam/drivers/pio/pio_handler.c                      \
@@ -105,6 +108,7 @@ CSRCS = \
        thirdparty/lwip/lwip-1.4.1-dev/src/api/netbuf.c    \
        thirdparty/lwip/lwip-1.4.1-dev/src/api/netdb.c     \
        thirdparty/lwip/lwip-1.4.1-dev/src/api/netifapi.c  \
+       thirdparty/lwip/lwip-1.4.1-dev/src/api/ping.c      \
        thirdparty/lwip/lwip-1.4.1-dev/src/api/pppapi.c    \
        thirdparty/lwip/lwip-1.4.1-dev/src/api/sockets.c   \
        thirdparty/lwip/lwip-1.4.1-dev/src/api/tcpip.c     \
@@ -153,6 +157,7 @@ ASSRCS =
 # List of include paths.
 INC_PATH = \
        common/boards                                      \
+       common/components/memory/sd_mmc                    \
        common/components/wifi/wilc                        \
        common/components/wifi/wilc/iperf_wilc3000_example \
        common/components/wifi/wilc/iperf_wilc3000_example/sam4sd32c_sam4s_xplained_pro \
@@ -167,6 +172,7 @@ INC_PATH = \
        common/utils/stdio/stdio_serial                    \
        sam/boards                                         \
        sam/boards/sam4s_xplained_pro                      \
+       sam/drivers/hsmci                                  \
        sam/drivers/pdc                                    \
        sam/drivers/pdc/pdc_uart_example                   \
        sam/drivers/pio                                    \

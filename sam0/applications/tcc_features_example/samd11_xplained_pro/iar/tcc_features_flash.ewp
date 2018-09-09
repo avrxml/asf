@@ -166,10 +166,13 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM0PLUS=true</state>
-					<state>BOARD=SAMD11_XPLAINED_PRO</state>
-					<state>__SAMD11D14AM__</state>
 					<state>TCC_ASYNC=true</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>EXTINT_CALLBACK_MODE=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
+					<state>USART_CALLBACK_MODE=true</state>
+					<state>__SAMD11D14AM__</state>
+					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -300,26 +303,34 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/reset</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint/extint_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd09_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../drivers/port</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom/usart</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd10_d11</state>
-					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd11/source</state>
+					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/tcc</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/pinmux</state>
 					<state>$PROJ_DIR$/../../../../drivers/system</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint</state>
+					<state>$PROJ_DIR$/../../../../drivers/events</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -470,10 +481,13 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM0PLUS=true</state>
-					<state>BOARD=SAMD11_XPLAINED_PRO</state>
-					<state>__SAMD11D14AM__</state>
 					<state>TCC_ASYNC=true</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>EXTINT_CALLBACK_MODE=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
+					<state>USART_CALLBACK_MODE=true</state>
+					<state>__SAMD11D14AM__</state>
+					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -571,26 +585,34 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/reset</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint/extint_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd09_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../drivers/port</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom/usart</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd10_d11</state>
-					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd11/source</state>
+					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/tcc</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/pinmux</state>
 					<state>$PROJ_DIR$/../../../../drivers/system</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint</state>
+					<state>$PROJ_DIR$/../../../../drivers/events</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1133,10 +1155,13 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>ARM_MATH_CM0PLUS=true</state>
-					<state>BOARD=SAMD11_XPLAINED_PRO</state>
-					<state>__SAMD11D14AM__</state>
 					<state>TCC_ASYNC=true</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>EXTINT_CALLBACK_MODE=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
+					<state>USART_CALLBACK_MODE=true</state>
+					<state>__SAMD11D14AM__</state>
+					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1267,26 +1292,34 @@
 					<name>CCIncludePath2</name>
 					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/reset</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint/extint_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd09_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../drivers/port</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom/usart</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd10_d11</state>
-					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd11/source</state>
+					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/tcc</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/pinmux</state>
 					<state>$PROJ_DIR$/../../../../drivers/system</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint</state>
+					<state>$PROJ_DIR$/../../../../drivers/events</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1437,10 +1470,13 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>ARM_MATH_CM0PLUS=true</state>
-					<state>BOARD=SAMD11_XPLAINED_PRO</state>
-					<state>__SAMD11D14AM__</state>
 					<state>TCC_ASYNC=true</state>
+					<state>EVENTS_INTERRUPT_HOOKS_MODE=true</state>
+					<state>EXTINT_CALLBACK_MODE=true</state>
+					<state>ARM_MATH_CM0PLUS=true</state>
+					<state>USART_CALLBACK_MODE=true</state>
+					<state>__SAMD11D14AM__</state>
+					<state>BOARD=SAMD11_XPLAINED_PRO</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1538,26 +1574,34 @@
 					<name>AUserIncludes</name>
 					<state>$PROJ_DIR$/../../../../drivers/system/power</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/reset</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint/extint_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../utils/preprocessor</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd09_d10_d11</state>
 					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../boards/samd11_xplained_pro</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../drivers/port</state>
 					<state>$PROJ_DIR$/../../../../boards</state>
+					<state>$PROJ_DIR$/../../../../drivers/sercom/usart</state>
+					<state>$PROJ_DIR$/../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/..</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd10_d11</state>
-					<state>$PROJ_DIR$/../..</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd11/source</state>
+					<state>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r</state>
-					<state>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../drivers/tcc</state>
 					<state>$PROJ_DIR$/../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/pinmux</state>
 					<state>$PROJ_DIR$/../../../../drivers/system</state>
+					<state>$PROJ_DIR$/../../../../drivers/extint</state>
+					<state>$PROJ_DIR$/../../../../drivers/events</state>
 					<state>$PROJ_DIR$/../../../../utils/header_files</state>
+					<state>$PROJ_DIR$/../../../../utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../drivers/system/clock</state>
 					<state>$PROJ_DIR$/.</state>
 				</option>
@@ -1937,175 +1981,22 @@
 	<group>
 		<name>sam0</name>
 		<group>
-			<name>drivers</name>
-			<group>
-				<name>port</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/port/port.c</name>
-				</file>
-				<group>
-					<name>quick_start</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/port/quick_start/qs_port_basic.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/port/port.h</name>
-				</file>
-			</group>
-			<group>
-				<name>tcc</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/tcc/tcc.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/tcc/tcc_callback.c</name>
-				</file>
-				<group>
-					<name>quick_start_callback</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start_callback/qs_tcc_callback.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_faultx</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start_faultx/qs_tcc_faultx.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/tcc/tcc.h</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/tcc/tcc_callback.h</name>
-				</file>
-				<group>
-					<name>quick_start_dma</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start_dma/qs_tcc_dma.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start/qs_tcc_basic.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_timer</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start_timer/qs_tcc_timer.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_buffering</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start_buffering/qs_tcc_buffering.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_faultn</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start_faultn/qs_tcc_faultn.h</name>
-					</file>
-				</group>
-			</group>
-			<group>
-				<name>system</name>
-				<group>
-					<name>clock</name>
-					<group>
-						<name>clock_samd09_d10_d11</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd09_d10_d11/clock.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd09_d10_d11/gclk.c</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd09_d10_d11/clock_config_check.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd09_d10_d11/clock_feature.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/clock/gclk.h</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/clock/clock.h</name>
-					</file>
-				</group>
-				<group>
-					<name>pinmux</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/pinmux/pinmux.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/pinmux/pinmux.h</name>
-					</file>
-					<group>
-						<name>quick_start</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/pinmux/quick_start/qs_pinmux_basic.h</name>
-						</file>
-					</group>
-				</group>
-				<group>
-					<name>interrupt</name>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt.c</name>
-					</file>
-					<group>
-						<name>system_interrupt_samd10_d11</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd10_d11/system_interrupt_features.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/system/system.c</name>
-				</file>
-				<group>
-					<name>reset</name>
-					<group>
-						<name>reset_sam_d_r</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r/reset.h</name>
-						</file>
-					</group>
-				</group>
-				<group>
-					<name>power</name>
-					<group>
-						<name>power_sam_d_r</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r/power.h</name>
-						</file>
-					</group>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../../drivers/system/system.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
-			<name>boards</name>
-			<group>
-				<name>samd11_xplained_pro</name>
-				<file>
-					<name>$PROJ_DIR$/../../../../boards/samd11_xplained_pro/board_init.c</name>
-				</file>
-				<file>
-					<name>$PROJ_DIR$/../../../../boards/samd11_xplained_pro/samd11_xplained_pro.h</name>
-				</file>
-			</group>
-		</group>
-		<group>
 			<name>utils</name>
+			<group>
+				<name>stdio</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../utils/stdio/read.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../utils/stdio/write.c</name>
+				</file>
+				<group>
+					<name>stdio_serial</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../utils/stdio/stdio_serial/stdio_serial.h</name>
+					</file>
+				</group>
+			</group>
 			<group>
 				<name>cmsis</name>
 				<group>
@@ -2325,6 +2216,9 @@
 					<name>$PROJ_DIR$/../../../../utils/preprocessor/mrecursion.h</name>
 				</file>
 				<file>
+					<name>$PROJ_DIR$/../../../../utils/preprocessor/stringz.h</name>
+				</file>
+				<file>
 					<name>$PROJ_DIR$/../../../../utils/preprocessor/mrepeat.h</name>
 				</file>
 				<file>
@@ -2333,8 +2227,269 @@
 				<file>
 					<name>$PROJ_DIR$/../../../../utils/preprocessor/preprocessor.h</name>
 				</file>
+			</group>
+		</group>
+		<group>
+			<name>boards</name>
+			<group>
+				<name>samd11_xplained_pro</name>
 				<file>
-					<name>$PROJ_DIR$/../../../../utils/preprocessor/stringz.h</name>
+					<name>$PROJ_DIR$/../../../../boards/samd11_xplained_pro/board_init.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../boards/samd11_xplained_pro/samd11_xplained_pro.h</name>
+				</file>
+			</group>
+		</group>
+		<group>
+			<name>drivers</name>
+			<group>
+				<name>system</name>
+				<group>
+					<name>clock</name>
+					<group>
+						<name>clock_samd09_d10_d11</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd09_d10_d11/clock.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd09_d10_d11/gclk.c</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd09_d10_d11/clock_config_check.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/clock/clock_samd09_d10_d11/clock_feature.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/system/clock/gclk.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/system/clock/clock.h</name>
+					</file>
+				</group>
+				<group>
+					<name>pinmux</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/system/pinmux/pinmux.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/system/pinmux/pinmux.h</name>
+					</file>
+					<group>
+						<name>quick_start</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/pinmux/quick_start/qs_pinmux_basic.h</name>
+						</file>
+					</group>
+				</group>
+				<group>
+					<name>interrupt</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt.h</name>
+					</file>
+					<group>
+						<name>system_interrupt_samd10_d11</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/interrupt/system_interrupt_samd10_d11/system_interrupt_features.h</name>
+						</file>
+					</group>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/system/system.c</name>
+				</file>
+				<group>
+					<name>power</name>
+					<group>
+						<name>power_sam_d_r_h</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/power/power_sam_d_r_h/power.h</name>
+						</file>
+					</group>
+				</group>
+				<group>
+					<name>reset</name>
+					<group>
+						<name>reset_sam_d_r_h</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/system/reset/reset_sam_d_r_h/reset.h</name>
+						</file>
+					</group>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/system/system.h</name>
+				</file>
+			</group>
+			<group>
+				<name>extint</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/extint/extint_callback.c</name>
+				</file>
+				<group>
+					<name>extint_sam_d_r_h</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/extint/extint_sam_d_r_h/extint.c</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/extint/extint_callback.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/extint/extint.h</name>
+				</file>
+			</group>
+			<group>
+				<name>sercom</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/sercom/sercom.c</name>
+				</file>
+				<group>
+					<name>usart</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/sercom/usart/usart.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/sercom/usart/usart_interrupt.c</name>
+					</file>
+					<group>
+						<name>quick_start_dma</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/sercom/usart/quick_start_dma/qs_usart_dma_use.h</name>
+						</file>
+					</group>
+					<group>
+						<name>quick_start_callback</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/sercom/usart/quick_start_callback/qs_usart_callback.h</name>
+						</file>
+					</group>
+					<group>
+						<name>quick_start</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/sercom/usart/quick_start/qs_usart_basic_use.h</name>
+						</file>
+					</group>
+					<group>
+						<name>quick_start_lin</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../drivers/sercom/usart/quick_start_lin/qs_lin.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/sercom/usart/usart_interrupt.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/sercom/usart/usart.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/sercom/sercom_interrupt.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/sercom/sercom.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/sercom/sercom_pinout.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/sercom/sercom_interrupt.h</name>
+				</file>
+			</group>
+			<group>
+				<name>events</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/events/events_hooks.c</name>
+				</file>
+				<group>
+					<name>events_sam_d_r_h</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/events/events_sam_d_r_h/events.c</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/events/events_hooks.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/events/events.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/events/events_common.h</name>
+				</file>
+			</group>
+			<group>
+				<name>tcc</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/tcc/tcc.c</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/tcc/tcc_callback.c</name>
+				</file>
+				<group>
+					<name>quick_start_callback</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start_callback/qs_tcc_callback.h</name>
+					</file>
+				</group>
+				<group>
+					<name>quick_start_faultx</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start_faultx/qs_tcc_faultx.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/tcc/tcc.h</name>
+				</file>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/tcc/tcc_callback.h</name>
+				</file>
+				<group>
+					<name>quick_start_dma</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start_dma/qs_tcc_dma.h</name>
+					</file>
+				</group>
+				<group>
+					<name>quick_start</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start/qs_tcc_basic.h</name>
+					</file>
+				</group>
+				<group>
+					<name>quick_start_timer</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start_timer/qs_tcc_timer.h</name>
+					</file>
+				</group>
+				<group>
+					<name>quick_start_buffering</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start_buffering/qs_tcc_buffering.h</name>
+					</file>
+				</group>
+				<group>
+					<name>quick_start_faultn</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/tcc/quick_start_faultn/qs_tcc_faultn.h</name>
+					</file>
+				</group>
+			</group>
+			<group>
+				<name>port</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/port/port.c</name>
+				</file>
+				<group>
+					<name>quick_start</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../drivers/port/quick_start/qs_port_basic.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../drivers/port/port.h</name>
 				</file>
 			</group>
 		</group>
@@ -2361,6 +2516,9 @@
 					</group>
 					<file>
 						<name>$PROJ_DIR$/../conf_clocks.h</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../conf_extint.h</name>
 					</file>
 				</group>
 			</group>
@@ -2391,6 +2549,21 @@
 			<file>
 				<name>$PROJ_DIR$/../../../../../common/boards/board.h</name>
 			</file>
+		</group>
+		<group>
+			<name>services</name>
+			<group>
+				<name>serial</name>
+				<file>
+					<name>$PROJ_DIR$/../../../../../common/services/serial/serial.h</name>
+				</file>
+				<group>
+					<name>sam0_usart</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../common/services/serial/sam0_usart/usart_serial.h</name>
+					</file>
+				</group>
+			</group>
 		</group>
 	</group>
 </project>

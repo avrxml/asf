@@ -3,46 +3,36 @@
  *
  * \brief HID Service
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel micro controller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Atmel
  *Support</a>
  */
 
@@ -143,6 +133,7 @@ void hid_serv_init(uint8_t servinst, uint8_t device, uint8_t *mode, uint8_t repo
 	hid_inst[servinst].serv_chars[0].char_val.properties = (AT_BLE_CHAR_READ|AT_BLE_CHAR_WRITE_WITHOUT_RESPONSE);
 	hid_inst[servinst].serv_chars[0].char_val.init_value = mode;
 	hid_inst[servinst].serv_chars[0].char_val.len = sizeof(uint8_t);
+	hid_inst[servinst].serv_chars[0].char_val.max_len = sizeof(uint8_t);
 	
 	/* Configure the HID characteristic value permission */
 	hid_inst[servinst].serv_chars[0].char_val.permissions = (AT_BLE_ATTR_READABLE_NO_AUTHN_NO_AUTHR | AT_BLE_ATTR_WRITABLE_NO_AUTHN_NO_AUTHR);
@@ -222,6 +213,7 @@ void hid_serv_init(uint8_t servinst, uint8_t device, uint8_t *mode, uint8_t repo
 		hid_inst[servinst].serv_chars[id + 1].char_val.uuid.uuid[1] = (uint8_t)(HID_UUID_CHAR_REPORT >> 8);
 		hid_inst[servinst].serv_chars[id + 1].char_val.init_value = ((report_val[id-1]));
 		hid_inst[servinst].serv_chars[id + 1].char_val.len = report_len[id-1];
+		hid_inst[servinst].serv_chars[id + 1].char_val.max_len = report_len[id-1];
 
 		if(report_type[id-1] == INPUT_REPORT){
 
@@ -288,6 +280,7 @@ void hid_serv_init(uint8_t servinst, uint8_t device, uint8_t *mode, uint8_t repo
 		
 		/* Configure HID Report Reference Descriptor*/
 		hid_inst[servinst].serv_desc[id - 1].desc_val_length = (sizeof(uint8_t)*2);
+		hid_inst[servinst].serv_desc[id - 1].desc_val_max_length = (sizeof(uint8_t)*2);
 		hid_inst[servinst].serv_desc[id - 1].perm = AT_BLE_ATTR_READABLE_NO_AUTHN_NO_AUTHR;
 		hid_inst[servinst].serv_desc[id - 1].uuid.type = AT_BLE_UUID_16;
 		hid_inst[servinst].serv_desc[id - 1].uuid.uuid[0] =(uint8_t) HID_REPORT_REF_DESC;
@@ -329,6 +322,7 @@ void hid_serv_init(uint8_t servinst, uint8_t device, uint8_t *mode, uint8_t repo
 		hid_inst[servinst].serv_chars[id].char_val.uuid.uuid[1] = (uint8_t)(HID_UUID_CHAR_BOOT_MOUSE_INPUT_REPORT >> 8);
 		hid_inst[servinst].serv_chars[id].char_val.init_value = (uint8_t*)&mouse_in_report;
 		hid_inst[servinst].serv_chars[id].char_val.len = sizeof(mouse_in_report);
+		hid_inst[servinst].serv_chars[id].char_val.max_len = sizeof(mouse_in_report);
 		hid_inst[servinst].serv_chars[id].char_val.properties = (AT_BLE_CHAR_READ|AT_BLE_CHAR_NOTIFY);
 		
 		/* Configure the HID characteristic value permission */
@@ -392,7 +386,8 @@ void hid_serv_init(uint8_t servinst, uint8_t device, uint8_t *mode, uint8_t repo
 		hid_inst[servinst].serv_chars[id].char_val.uuid.uuid[0] =(uint8_t) HID_UUID_CHAR_BOOT_KEY_OUTPUT_REPORT;
 		hid_inst[servinst].serv_chars[id].char_val.uuid.uuid[1] = (uint8_t)(HID_UUID_CHAR_BOOT_KEY_OUTPUT_REPORT >> 8);
 		hid_inst[servinst].serv_chars[id].char_val.init_value = (uint8_t*)&Keyb_out_report; 
-		hid_inst[servinst].serv_chars[id].char_val.len = sizeof(uint8_t); 
+		hid_inst[servinst].serv_chars[id].char_val.len = sizeof(uint8_t);
+		hid_inst[servinst].serv_chars[id].char_val.max_len = sizeof(uint8_t); 
 		hid_inst[servinst].serv_chars[id].char_val.properties = (AT_BLE_CHAR_READ|AT_BLE_CHAR_WRITE_WITHOUT_RESPONSE|AT_BLE_CHAR_WRITE);
 		
 		/* Configure the HID characteristic value permission */
@@ -436,7 +431,8 @@ void hid_serv_init(uint8_t servinst, uint8_t device, uint8_t *mode, uint8_t repo
 		 hid_inst[servinst].serv_chars[id].char_val.uuid.uuid[0] =(uint8_t) HID_UUID_CHAR_BOOT_KEY_INPUT_REPORT;
 		 hid_inst[servinst].serv_chars[id].char_val.uuid.uuid[1] = (uint8_t)(HID_UUID_CHAR_BOOT_KEY_INPUT_REPORT >> 8);
 		 hid_inst[servinst].serv_chars[id].char_val.init_value = (uint8_t*)&keyb_in_report;
-		 hid_inst[servinst].serv_chars[id].char_val.len = sizeof(keyb_in_report); 
+		 hid_inst[servinst].serv_chars[id].char_val.len = sizeof(keyb_in_report);
+		 hid_inst[servinst].serv_chars[id].char_val.max_len = sizeof(keyb_in_report); 
 		 hid_inst[servinst].serv_chars[id].char_val.properties = (AT_BLE_CHAR_READ|AT_BLE_CHAR_NOTIFY);
 		 
 		 /* Configure the HID characteristic value permission */
@@ -483,6 +479,7 @@ void hid_serv_init(uint8_t servinst, uint8_t device, uint8_t *mode, uint8_t repo
     hid_inst[servinst].serv_chars[id].char_val.uuid.uuid[1] = (uint8_t)(HID_UUID_CHAR_HID_INFORMATION >> 8);
     hid_inst[servinst].serv_chars[id].char_val.init_value = (uint8_t*)info;
     hid_inst[servinst].serv_chars[id].char_val.len = sizeof(hid_info_t);
+	hid_inst[servinst].serv_chars[id].char_val.max_len = sizeof(hid_info_t);
     hid_inst[servinst].serv_chars[id].char_val.properties = AT_BLE_CHAR_READ;
 	
 	/* Configure the HID characteristic value permission */
@@ -527,6 +524,7 @@ void hid_serv_init(uint8_t servinst, uint8_t device, uint8_t *mode, uint8_t repo
 	hid_inst[servinst].serv_chars[id].char_val.uuid.uuid[1] = (uint8_t)(HID_UUID_CHAR_HID_CONTROL_POINT >> 8);
 	hid_inst[servinst].serv_chars[id].char_val.init_value = (uint8_t*)&ctrl_point;
 	hid_inst[servinst].serv_chars[id].char_val.len = sizeof(uint8_t);
+	hid_inst[servinst].serv_chars[id].char_val.max_len = sizeof(uint8_t);
 	hid_inst[servinst].serv_chars[id].char_val.properties = AT_BLE_CHAR_WRITE_WITHOUT_RESPONSE;
 	
 	/* Configure the HID characteristic value permission */
@@ -573,8 +571,10 @@ void hid_serv_report_map(uint8_t servinst, uint8_t *report_info, uint16_t len)
 {
 	hid_inst[servinst].serv_chars[1].char_val.init_value = report_info;
 	hid_inst[servinst].serv_chars[1].char_val.len = len;
+	hid_inst[servinst].serv_chars[1].char_val.max_len = len;
 	hid_serv_inst[servinst].hid_dev_report_map_char->char_val.init_value = report_info;
 	hid_serv_inst[servinst].hid_dev_report_map_char->char_val.len = len;
+	hid_serv_inst[servinst].hid_dev_report_map_char->char_val.max_len = len;
 }
 
 /**

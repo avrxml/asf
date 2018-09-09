@@ -3,7 +3,7 @@
  *
  * \brief QMatrix asm for tiny mega
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *
@@ -40,7 +40,7 @@
  * \asf_license_stop
  */ 
  /*
- * Copyright (c) 2014, Atmel Corporation All rights reserved.
+ * Copyright (c) 2014, Microchip Technology Inc All rights reserved.
  *
  * Licensed under Atmel's Limited License Agreement --> EULA.txt
  */

@@ -8,13 +8,13 @@
  *                       IAR Workbench and GNU GCC for Atmel ARM.
  * - Supported devices:  Atmel AVR 8-bit, AVR 32-bit, Atmel ARM.
  * - Userguide:          QTouch Library User Guide - doc8207.pdf.
- * - Support:            http://www.atmel.com/design-support/
+ * - Support:            https://www.microchip.com/support/
  *
- * \author               Atmel Corporation: http://www.atmel.com
+ * \author               Microchip Technology Inc: http://www.microchip.com
  *
  ******************************************************************************/
 
-/* Copyright (c) 2010-2016 Atmel Corporation. All rights reserved.
+/* Copyright (c) 2010-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -61,7 +61,7 @@
  */
 
 /*----------------------------------------------------------------------------
-                            nested include files
+							nested include files
 ----------------------------------------------------------------------------*/
 #include "parts.h"
 
@@ -95,7 +95,7 @@
 #endif
 #elif defined _QTOUCH_
 #include "touch_qt_config.h"
-#endif 
+#endif
 #endif /* MAKE_BUILD*/
 
 #endif /* MEGA */
@@ -113,7 +113,7 @@ extern "C" {
 /// @endcond
 
 /*----------------------------------------------------------------------------
-                        Note: choice of library version
+						Note: choice of library version
 -----------------------------------------------------------------------------*/
 /**
   * QTouch libraries are supplied built with a range of charge times.
@@ -321,7 +321,7 @@ extern "C" {
   */
 
 /*----------------------------------------------------------------------------
-                                    macros
+									macros
 ----------------------------------------------------------------------------*/
 /**
   * Utility macro for expanding port registers.
@@ -367,7 +367,7 @@ extern "C" {
 #define QTLIB_RESOLVE_POS_RECAL       (uint16_t) 0x1000
 
 /*----------------------------------------------------------------------------
-                                type definitions
+								type definitions
 ----------------------------------------------------------------------------*/
 #if defined (__ICCAVR32__)
 //! An signed 8-bit value.
@@ -508,7 +508,7 @@ extern void (*burst_proc) (TOUCH_DATA_T mask_index);
 #define QT_SNSK1_PORT SNSK1
 
 #if !defined(QT_SNS1_PORT) || !defined(QT_SNSK1_PORT) || !defined(QT_DELAY_CYCLES) || !defined(QT_NUM_CHANNELS) || \
-                !defined(QT_MAX_NUM_ROTORS_SLIDERS)
+				!defined(QT_MAX_NUM_ROTORS_SLIDERS)
 #error Need to define QT_SNS1_PORT, QT_SNSK1_PORT, QT_DELAY_CYCLES, QT_NUM_CHANNELS and QT_MAX_NUM_ROTORS_SLIDERS before including this header file.
 #endif
 #endif
@@ -525,7 +525,7 @@ extern void (*burst_proc) (TOUCH_DATA_T mask_index);
 #define QT_SNSK2_PORT SNSK2
 
 #if !defined(QT_SNS2_PORT) || !defined(QT_SNSK2_PORT) || !defined(QT_DELAY_CYCLES) || !defined(QT_NUM_CHANNELS) || \
-                !defined(QT_MAX_NUM_ROTORS_SLIDERS)
+				!defined(QT_MAX_NUM_ROTORS_SLIDERS)
 #error Need to define QT_SNS2_PORT, QT_SNSK2_PORT, QT_DELAY_CYCLES, QT_NUM_CHANNELS and QT_MAX_NUM_ROTORS_SLIDERS  before including this header file.
 #endif
 #endif
@@ -538,7 +538,7 @@ extern void (*burst_proc) (TOUCH_DATA_T mask_index);
 
 //! Build pointer to correct burst function.
 #define BURST_FUNC_NAME		BURST_JOIN( QT_DELAY_CYCLES, QT_SNSK1_PORT , QT_SNS1_PORT, QT_NUM_CHANNELS, \
-                QT_MAX_NUM_ROTORS_SLIDERS)
+				QT_MAX_NUM_ROTORS_SLIDERS)
 
 #elif (QTOUCH_SNS_PORT_COUNT == 2u)
 #if defined(_TOUCH_ARM_)
@@ -548,7 +548,7 @@ extern void (*burst_proc) (TOUCH_DATA_T mask_index);
 
 //! Build pointer to correct burst function.
 #define BURST_FUNC_NAME		BURST_JOIN( QT_DELAY_CYCLES, QT_SNSK1_PORT , QT_SNS1_PORT, QT_SNSK2_PORT , QT_SNS2_PORT, QT_NUM_CHANNELS, \
-                QT_MAX_NUM_ROTORS_SLIDERS)
+				QT_MAX_NUM_ROTORS_SLIDERS)
 #endif
 #else
 #error 'Invalid QTOUCH_SNS_PORT_COUNT value.'
@@ -698,25 +698,25 @@ typedef enum tag_channel_t
   CHANNEL_3
 #endif
 #if (QT_NUM_CHANNELS > 4u)
-    , CHANNEL_4,
+	, CHANNEL_4,
   CHANNEL_5,
   CHANNEL_6,
   CHANNEL_7
 #endif
 #if (QT_NUM_CHANNELS > 8u)
-    , CHANNEL_8,
+	, CHANNEL_8,
   CHANNEL_9,
   CHANNEL_10,
   CHANNEL_11
 #endif
 #if (QT_NUM_CHANNELS > 12u)
-    , CHANNEL_12,
+	, CHANNEL_12,
   CHANNEL_13,
   CHANNEL_14,
   CHANNEL_15
 #endif
 #if (QT_NUM_CHANNELS > 16u)
-    , CHANNEL_16,
+	, CHANNEL_16,
   CHANNEL_17,
   CHANNEL_18,
   CHANNEL_19,
@@ -726,7 +726,7 @@ typedef enum tag_channel_t
   CHANNEL_23
 #endif
 #if (QT_NUM_CHANNELS > 24u)
-    , CHANNEL_24,
+	, CHANNEL_24,
   CHANNEL_25,
   CHANNEL_26,
   CHANNEL_27,
@@ -736,7 +736,7 @@ typedef enum tag_channel_t
   CHANNEL_31
 #endif
 #if (QT_NUM_CHANNELS > 32u)
-    , CHANNEL_32,
+	, CHANNEL_32,
   CHANNEL_33,
   CHANNEL_34,
   CHANNEL_35,
@@ -762,7 +762,7 @@ typedef enum tag_channel_t
   CHANNEL_55
 #endif
 #if (QT_NUM_CHANNELS > 56u)
-    , CHANNEL_56,
+	, CHANNEL_56,
   CHANNEL_57,
   CHANNEL_58,
   CHANNEL_59,
@@ -845,24 +845,24 @@ recal_threshold_t;
 //! The state of the library sensors.
 typedef struct tag_qt_touch_status_t
 {
-    /**
-      * The state (on/off) of the library sensors.
-      *  Bit 'n' = state of sensor 'n'.
-      *  Bit 0 = sensor_states[0] bit 0
-      *  Bit 1 = sensor_states[0] bit 1
-      *  ...
-      *  Bit 7 = sensor_states[0] bit 7
-      *  Bit 8 = sensor_states[1] bit 0
-      *  Bit 9 = sensor_states[1] bit 1
-      *  ... etc
-      *  0 = not in detect, 1 = in detect.
-      */
+	/**
+	  * The state (on/off) of the library sensors.
+	  *  Bit 'n' = state of sensor 'n'.
+	  *  Bit 0 = sensor_states[0] bit 0
+	  *  Bit 1 = sensor_states[0] bit 1
+	  *  ...
+	  *  Bit 7 = sensor_states[0] bit 7
+	  *  Bit 8 = sensor_states[1] bit 0
+	  *  Bit 9 = sensor_states[1] bit 1
+	  *  ... etc
+	  *  0 = not in detect, 1 = in detect.
+	  */
   uint8_t sensor_states[QT_NUM_SENSOR_STATE_BYTES];
-    /**
-      * Rotor angles or slider positions.
-      *  These values are valid when sensor_states shows that the corresponding
-      *  rotor or slider sensor is in detect.
-      */
+	/**
+	  * Rotor angles or slider positions.
+	  *  These values are valid when sensor_states shows that the corresponding
+	  *  rotor or slider sensor is in detect.
+	  */
   uint8_t rotor_slider_values[QT_MAX_NUM_ROTORS_SLIDERS];
 }
 qt_touch_status_t;
@@ -923,24 +923,24 @@ typedef struct tag_sensor_t
   //! sensor detection threshold.
   uint8_t threshold;
 
-    /**
-      * sensor type, AKS group, positive recal flag, and hysteresis value
-      * bits 7..6: sensor type: 00: key
-      *                         01: rotor
-      *                         10: slider
-      *                         11: reserved
-      * bits 5..3: AKS group (0..7): 0 = no AKS group
-      * bit 2    : positive recal flag
-      * bits 1..0: hysteresis
-      */
+	/**
+	  * sensor type, AKS group, positive recal flag, and hysteresis value
+	  * bits 7..6: sensor type: 00: key
+	  *                         01: rotor
+	  *                         10: slider
+	  *                         11: reserved
+	  * bits 5..3: AKS group (0..7): 0 = no AKS group
+	  * bit 2    : positive recal flag
+	  * bits 1..0: hysteresis
+	  */
   uint8_t type_aks_pos_hyst;
 
-    /**
-      * sensor from and to channels
-      * keys: from channel = to channel
-      * rotors/sliders run between the from and to channels
-      * NB: only need to_channel for keys in rotors/sliders build
-      */
+	/**
+	  * sensor from and to channels
+	  * keys: from channel = to channel
+	  * rotors/sliders run between the from and to channels
+	  * NB: only need to_channel for keys in rotors/sliders build
+	  */
   uint8_t from_channel;
 
 #ifdef _ROTOR_SLIDER_
@@ -954,7 +954,7 @@ typedef struct tag_sensor_t
 sensor_t;
 
 /*----------------------------------------------------------------------------
-                                extern variables
+								extern variables
 ----------------------------------------------------------------------------*/
 /**
   * This configuration data structure parameters if needs to be changed will be
@@ -971,7 +971,7 @@ extern sensor_t sensors[QT_NUM_CHANNELS];
 extern uint16_t qt_measurement_period_msec;
 
 /*----------------------------------------------------------------------------
-                                api
+								api
 ----------------------------------------------------------------------------*/
 /*! \brief  This function is called after the library has made capacitive measurements,
  * but before it has processed them. The user can use this hook to apply filter
@@ -1018,7 +1018,7 @@ extern void qt_enable_key (channel_t channel,
 #define qt_init_sensing( ) qt_init_sensing_with_burst( BURST_FUNC_NAME ,CALCULATE_MASKS)
 extern void
 qt_init_sensing_with_burst (void (*burst_function) (TOUCH_DATA_T mask_index),
-			    void (*calculate_masks) (void));
+				void (*calculate_masks) (void));
 extern void calc_masks (void);
 #elif defined( _QMATRIX_ )
 
@@ -1100,12 +1100,12 @@ extern int16_t qt_get_sensor_delta (uint8_t sensor);
  * The reported rotor value is valid when the rotor is on.
  */
 extern void qt_enable_rotor (channel_t from_channel,
-			     channel_t to_channel,
-			     aks_group_t aks_group,
-			     threshold_t detect_threshold,
-			     hysteresis_t detect_hysteresis,
-			     resolution_t angle_resolution,
-			     uint8_t angle_hysteresis);
+				 channel_t to_channel,
+				 aks_group_t aks_group,
+				 threshold_t detect_threshold,
+				 hysteresis_t detect_hysteresis,
+				 resolution_t angle_resolution,
+				 uint8_t angle_hysteresis);
 
 /*! \brief enable a slider sensor.
  *
@@ -1132,12 +1132,12 @@ extern void qt_enable_rotor (channel_t from_channel,
  * The reported slider value is valid when the rotor is on.
  */
 extern void qt_enable_slider (channel_t from_channel,
-			      channel_t to_channel,
-			      aks_group_t aks_group,
-			      threshold_t detect_threshold,
-			      hysteresis_t detect_hysteresis,
-			      resolution_t position_resolution,
-			      uint8_t position_hysteresis);
+				  channel_t to_channel,
+				  aks_group_t aks_group,
+				  threshold_t detect_threshold,
+				  hysteresis_t detect_hysteresis,
+				  resolution_t position_resolution,
+				  uint8_t position_hysteresis);
 
 #endif
 

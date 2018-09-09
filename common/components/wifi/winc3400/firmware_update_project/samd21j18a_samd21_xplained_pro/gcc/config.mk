@@ -70,6 +70,8 @@ INC_PATH = \
        common/components/wifi/winc3400/firmware_update_project \
        common/components/wifi/winc3400/firmware_update_project/doc \
        common/components/wifi/winc3400/firmware_update_project/firmware/Tools/serial_bridge \
+       common/components/wifi/winc3400/firmware_update_project/firmware/tls_cert_store \
+       common/components/wifi/winc3400/firmware_update_project/firmware/tls_cert_store/CA \
        common/components/wifi/winc3400/firmware_update_project/samd21j18a_samd21_xplained_pro \
        common/utils                                       \
        sam0/boards                                        \

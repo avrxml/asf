@@ -55,18 +55,18 @@ CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        sam0/applications/dac_sound_player/dac_sound_player.c \
        sam0/boards/samd21_xplained_pro/board_init.c       \
-       sam0/drivers/dac/dac_sam_d_c/dac.c                 \
-       sam0/drivers/dac/dac_sam_d_c/dac_callback.c        \
+       sam0/drivers/dac/dac_sam_d_c_h/dac.c               \
+       sam0/drivers/dac/dac_sam_d_c_h/dac_callback.c      \
        sam0/drivers/events/events_hooks.c                 \
-       sam0/drivers/events/events_sam_d_r/events.c        \
+       sam0/drivers/events/events_sam_d_r_h/events.c      \
        sam0/drivers/port/port.c                           \
-       sam0/drivers/system/clock/clock_samd21_r21_da/clock.c \
-       sam0/drivers/system/clock/clock_samd21_r21_da/gclk.c \
+       sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.c \
+       sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.c \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
        sam0/drivers/tc/tc_interrupt.c                     \
-       sam0/drivers/tc/tc_sam_d_r/tc.c                    \
+       sam0/drivers/tc/tc_sam_d_r_h/tc.c                  \
        sam0/utils/cmsis/samd21/source/gcc/startup_samd21.c \
        sam0/utils/cmsis/samd21/source/system_samd21.c     \
        sam0/utils/syscalls/gcc/syscalls.c
@@ -83,22 +83,22 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samd21_xplained_pro                    \
        sam0/drivers/dac                                   \
-       sam0/drivers/dac/dac_sam_d_c                       \
+       sam0/drivers/dac/dac_sam_d_c_h                     \
        sam0/drivers/events                                \
-       sam0/drivers/events/events_sam_d_r                 \
+       sam0/drivers/events/events_sam_d_r_h               \
        sam0/drivers/port                                  \
        sam0/drivers/system                                \
        sam0/drivers/system/clock                          \
-       sam0/drivers/system/clock/clock_samd21_r21_da      \
+       sam0/drivers/system/clock/clock_samd21_r21_da_ha1  \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samd21 \
        sam0/drivers/system/pinmux                         \
        sam0/drivers/system/power                          \
-       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/power/power_sam_d_r_h          \
        sam0/drivers/system/reset                          \
-       sam0/drivers/system/reset/reset_sam_d_r            \
+       sam0/drivers/system/reset/reset_sam_d_r_h          \
        sam0/drivers/tc                                    \
-       sam0/drivers/tc/tc_sam_d_r                         \
+       sam0/drivers/tc/tc_sam_d_r_h                       \
        sam0/utils                                         \
        sam0/utils/cmsis/samd21/include                    \
        sam0/utils/cmsis/samd21/source                     \

@@ -2,45 +2,40 @@
  *
  * \file
  *
- * \brief This module contains SAM4S BSP APIs implementation.
+ * \brief This module contains SAM4S WILC BSP APIs implementation.
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 
 #include "bsp/include/nm_bsp.h"
+#include "sam4s.h"
 #include "common/include/nm_common.h"
+#include "component/component_cmcc.h"
 #include "asf.h"
 #include "conf_wilc.h"
 
@@ -83,6 +78,11 @@ sint8 nm_bsp_init(void)
 {
 	gpfIsr = NULL;
 
+	#if !defined (__SAM4S16C__)
+	/* Enable CPU cache*/
+	CMCC->CMCC_CTRL = CMCC_CTRL_CEN;
+	#endif
+	
 	/* Initialize chip IOs. */
 	init_chip_pins();
 
@@ -137,6 +137,8 @@ void nm_bsp_register_isr(tpfNmBspIsr pfIsr)
 	pio_pull_up(CONF_WILC_SPI_INT_PIO, CONF_WILC_SPI_INT_MASK, PIO_PULLUP);
 //	pio_set_debounce_filter(CONF_WILC_SPI_INT_PIO, CONF_WILC_SPI_INT_MASK, 10);
 	pio_handler_set_pin(CONF_WILC_SPI_INT_PIN, PIO_IT_LOW_LEVEL, chip_isr);
+	/* The status register of the PIO controller is cleared prior to enabling the interrupt */
+	pio_get_interrupt_status(CONF_WILC_SPI_INT_PIO);
 	pio_enable_interrupt(CONF_WILC_SPI_INT_PIO, CONF_WILC_SPI_INT_MASK);
 	pio_handler_set_priority(CONF_WILC_SPI_INT_PIO, (IRQn_Type)CONF_WILC_SPI_INT_PIO_ID,
 			CONF_WILC_SPI_INT_PRIORITY);
@@ -151,9 +153,35 @@ void nm_bsp_register_isr(tpfNmBspIsr pfIsr)
 void nm_bsp_interrupt_ctrl(uint8 u8Enable)
 {
 	if (u8Enable) {
+		/* The status register of the PIO controller is cleared prior to enabling the interrupt */
+		pio_get_interrupt_status(CONF_WILC_SPI_INT_PIO);
 		pio_enable_interrupt(CONF_WILC_SPI_INT_PIO, CONF_WILC_SPI_INT_MASK);
 	}
 	else {
 		pio_disable_interrupt(CONF_WILC_SPI_INT_PIO, CONF_WILC_SPI_INT_MASK);
 	}
 }
+
+/*
+*	@fn		nm_bsp_malloc
+*	@brief	Allocate memory
+*	@param [in]   u32Size
+*               Size of the requested memory 
+*	@return       Pointer to the allocated buffer, or NULL otherwise
+*/
+void* nm_bsp_malloc(uint32 u32Size)
+{
+	return malloc(u32Size);
+}
+
+/*
+*	@fn		nm_bsp_free
+*	@brief	Free memory
+*	@param [in]   pvMemBuffer
+*               Pointer to the buffer to be freed 
+*/
+void nm_bsp_free(void* pvMemBuffer)
+{
+	free(pvMemBuffer);
+}
+

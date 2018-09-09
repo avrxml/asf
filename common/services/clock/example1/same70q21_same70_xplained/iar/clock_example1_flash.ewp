@@ -97,7 +97,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>ATSAME70Q21	Atmel ATSAME70Q21</state>
+					<state>ATSAME70Q21xB	Microchip ATSAME70Q21xB</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -167,7 +167,7 @@
 				<option>
 					<name>CCDefines</name>
 					<state>BOARD=SAME70_XPLAINED</state>
-					<state>__SAME70Q21__</state>
+					<state>__SAME70Q21B__</state>
 					<state>ARM_MATH_CM7=true</state>
 				</option>
 				<option>
@@ -464,7 +464,7 @@
 				<option>
 					<name>ADefines</name>
 					<state>BOARD=SAME70_XPLAINED</state>
-					<state>__SAME70Q21__</state>
+					<state>__SAME70Q21B__</state>
 					<state>ARM_MATH_CM7=true</state>
 				</option>
 				<option>
@@ -1050,7 +1050,7 @@
 				</option>
 				<option>
 					<name>OGChipSelectEditMenu</name>
-					<state>ATSAME70Q21	Atmel ATSAME70Q21</state>
+					<state>ATSAME70Q21xB	Microchip ATSAME70Q21xB</state>
 				</option>
 				<option>
 					<name>GenLowLevelInterface</name>
@@ -1120,7 +1120,7 @@
 				<option>
 					<name>CCDefines</name>
 					<state>BOARD=SAME70_XPLAINED</state>
-					<state>__SAME70Q21__</state>
+					<state>__SAME70Q21B__</state>
 					<state>ARM_MATH_CM7=true</state>
 				</option>
 				<option>
@@ -1417,7 +1417,7 @@
 				<option>
 					<name>ADefines</name>
 					<state>BOARD=SAME70_XPLAINED</state>
-					<state>__SAME70Q21__</state>
+					<state>__SAME70Q21B__</state>
 					<state>ARM_MATH_CM7=true</state>
 				</option>
 				<option>
@@ -1982,10 +1982,10 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/pmc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/dacc.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/smc.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/smc.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/i2sc0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/mcan1.h</name>
@@ -2001,6 +2001,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/uart1.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/i2sc1.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/usart1.h</name>
@@ -2027,10 +2030,10 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/hsmci.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/usart2.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/xdmac.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/xdmac.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/uart0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/tc3.h</name>
@@ -2043,9 +2046,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/gmac.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/uart0.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/sdramc.h</name>
@@ -2084,6 +2084,9 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/spi0.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/usart2.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/icm.h</name>
 							</file>
 							<file>
@@ -2091,6 +2094,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/utmi.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/dacc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/afec1.h</name>
@@ -2105,10 +2111,10 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/mcan0.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/supc.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/gpbr.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/gpbr.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/supc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/instance/pwm1.h</name>
@@ -2156,21 +2162,51 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70j21.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70j19b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70q19b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70n21b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70n20.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70q21b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70q20b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70q20.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70j20b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70n19.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70n19b.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70q19.h</name>
 							</file>
 							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70n20b.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70j21b.h</name>
+							</file>
+							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/pio/same70n21.h</name>
 							</file>
 						</group>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70n21b.h</name>
+						</file>
 						<group>
 							<name>component</name>
 							<file>
@@ -2199,6 +2235,9 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/isi.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/icm.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/rstc.h</name>
@@ -2243,13 +2282,16 @@
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/mcan.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/dacc.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/supc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/rtt.h</name>
 							</file>
 							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/supc.h</name>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/i2sc.h</name>
+							</file>
+							<file>
+								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/dacc.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/pmc.h</name>
@@ -2265,9 +2307,6 @@
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/ssc.h</name>
-							</file>
-							<file>
-								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/icm.h</name>
 							</file>
 							<file>
 								<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/component/trng.h</name>
@@ -2292,10 +2331,31 @@
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70j19.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70n20b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70n20.h</name>
 						</file>
 						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70q21b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70q20b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70j20b.h</name>
+						</file>
+						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70j20.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70q19b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70j21b.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70j19b.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70j21.h</name>
@@ -2305,6 +2365,9 @@
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70n19.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70n19b.h</name>
 						</file>
 						<file>
 							<name>$PROJ_DIR$/../../../../../../sam/utils/cmsis/same70/include/same70q21.h</name>

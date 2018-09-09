@@ -56,13 +56,9 @@ The ASF documentation can be found online on http://asf.atmel.com.
 3 - Toolchain Header Files Update
 ---------------------------------
 
-For 8-bit AVR users it is recommended to update the toolchain header files, a
-description about how to do that is located in the readme.txt file under the
-xmega/utils/header_files/ directory.
-
 For AVR UC3 users using IAR, it is recommended to update the IAR header files.
 To do that, unzip the avr32-headers.zip file (located under
-the avr32/utils/header_files/ directory) to the IAR EWAVR32 installation folder
+the avr32/utils/header_files) to the IAR EWAVR32 installation folder
 under "IAR installation folder"/Embedded Workbench x.y/avr32/inc/.
 
 

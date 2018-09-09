@@ -1,9 +1,9 @@
 /*******************************************************************************
-*   Atmel Corporation:  http://www.atmel.com
-*   Support: http://www.atmel.com/design-support/
+*   Microchip Technology Inc:  http://www.microchip.com
+*   Support: http://www.microchip.com/support/
 ******************************************************************************/
 /*  License
-*   Copyright (c) 2010-2014, Atmel Corporation All rights reserved.
+*   Copyright (c) 2010-2014, Microchip Technology Inc All rights reserved.
 *
 *   Redistribution and use in source and binary forms, with or without
 *   modification, are permitted provided that the following conditions are met:

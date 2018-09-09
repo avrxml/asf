@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70_USART0_INSTANCE_
@@ -58,6 +48,9 @@
   #define REG_USART0_BRGR                      (0x40024020U) /**< \brief (USART0) Baud Rate Generator Register */
   #define REG_USART0_RTOR                      (0x40024024U) /**< \brief (USART0) Receiver Time-out Register */
   #define REG_USART0_TTGR                      (0x40024028U) /**< \brief (USART0) Transmitter Timeguard Register */
+  #define REG_USART0_FIDI                      (0x40024040U) /**< \brief (USART0) FI DI Ratio Register */
+  #define REG_USART0_NER                       (0x40024044U) /**< \brief (USART0) Number of Errors Register */
+  #define REG_USART0_IF                        (0x4002404CU) /**< \brief (USART0) IrDA Filter Register */
   #define REG_USART0_MAN                       (0x40024050U) /**< \brief (USART0) Manchester Configuration Register */
   #define REG_USART0_LINMR                     (0x40024054U) /**< \brief (USART0) LIN Mode Register */
   #define REG_USART0_LINIR                     (0x40024058U) /**< \brief (USART0) LIN Identifier Register */
@@ -75,6 +68,7 @@
   #define REG_USART0_ICDIFF                    (0x40024088U) /**< \brief (USART0) IC DIFF Register */
   #define REG_USART0_WPMR                      (0x400240E4U) /**< \brief (USART0) Write Protection Mode Register */
   #define REG_USART0_WPSR                      (0x400240E8U) /**< \brief (USART0) Write Protection Status Register */
+  #define REG_USART0_VERSION                   (0x400240FCU) /**< \brief (USART0) Version Register */
 #else
   #define REG_USART0_CR       (*(__O  uint32_t*)0x40024000U) /**< \brief (USART0) Control Register */
   #define REG_USART0_MR       (*(__IO uint32_t*)0x40024004U) /**< \brief (USART0) Mode Register */
@@ -87,6 +81,9 @@
   #define REG_USART0_BRGR     (*(__IO uint32_t*)0x40024020U) /**< \brief (USART0) Baud Rate Generator Register */
   #define REG_USART0_RTOR     (*(__IO uint32_t*)0x40024024U) /**< \brief (USART0) Receiver Time-out Register */
   #define REG_USART0_TTGR     (*(__IO uint32_t*)0x40024028U) /**< \brief (USART0) Transmitter Timeguard Register */
+  #define REG_USART0_FIDI     (*(__IO uint32_t*)0x40024040U) /**< \brief (USART0) FI DI Ratio Register */
+  #define REG_USART0_NER      (*(__I  uint32_t*)0x40024044U) /**< \brief (USART0) Number of Errors Register */
+  #define REG_USART0_IF       (*(__IO uint32_t*)0x4002404CU) /**< \brief (USART0) IrDA Filter Register */
   #define REG_USART0_MAN      (*(__IO uint32_t*)0x40024050U) /**< \brief (USART0) Manchester Configuration Register */
   #define REG_USART0_LINMR    (*(__IO uint32_t*)0x40024054U) /**< \brief (USART0) LIN Mode Register */
   #define REG_USART0_LINIR    (*(__IO uint32_t*)0x40024058U) /**< \brief (USART0) LIN Identifier Register */
@@ -104,6 +101,7 @@
   #define REG_USART0_ICDIFF   (*(__IO uint32_t*)0x40024088U) /**< \brief (USART0) IC DIFF Register */
   #define REG_USART0_WPMR     (*(__IO uint32_t*)0x400240E4U) /**< \brief (USART0) Write Protection Mode Register */
   #define REG_USART0_WPSR     (*(__I  uint32_t*)0x400240E8U) /**< \brief (USART0) Write Protection Status Register */
+  #define REG_USART0_VERSION  (*(__I  uint32_t*)0x400240FCU) /**< \brief (USART0) Version Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAME70_USART0_INSTANCE_ */

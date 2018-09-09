@@ -3,54 +3,117 @@
  *
  * \brief HID Mouse Device Profile Application declarations
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel micro controller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 
-/*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
- *Support</a>
+/**
+ * \mainpage HID Mouse Application
+ * \section Introduction
+ * ******************************Introduction ***********************************
+ *
+ * The HID Mouse example application bring-up the HID over GATT (HOGP) profile
+ * defined by the Bluetooth SIG.
+ * The HID over GATT (HOGP) profile defined by the Bluetooth SIG enables support
+ * of HID services over a Bluetooth Low Energy (BLE) protocol stack using 
+ * Generic Attribute profile (GATT). This allows devices like keyboard or mouse
+ * implementing HOGP to connect to a compatible HOGP/BLE host device 
+ * (e.g.: Mobile Phone, Tablet, TV, etc.). 
+ *
+ * - Running the demo -
+ *  + 1. Build and flash the binary into supported evaluation board.
+ *  + 2. Open the console using TeraTerm or any serial port monitor.
+ *  + 3. Press the Reset button.
+ *  + 4. Wait for around 10 seconds for the patches to be downloaded device will initialize and start-up.
+ *  + 5. The device is now in advertising mode.
+ *  + 6. The demo requires use of an Android mobile phone supporting HOGP.
+ *       The HOGP profile is natively supported in Android from version 4.4 
+ *      (Android KitKat) and higher versions. The phone must include support a Bluetooth
+ *       chipset supporting BT 4.0 or higher version on the mobile phone, In Bluetooth 
+ *       settings scan for the devices, device with “ATMEL-HID” will be found 
+ *       as shown below. Click on “ATMEL-HID” to get connected.
+ *  + 7. Once connected, the client side will request for the pairing procedure . 
+ *       The console log provides a guidance for the user to enter the pass-key.
+ *  + 8. Once the device connected to host (Phone). User can click on SW0 button
+ *       on supported platform for simulating mouse movement.
+ *  + 9. For every press on button, the user can see corresponding cursor movement
+ *       on HID host as described below:
+ *       + First 5 Button Press:	 Cursor moves right
+ *       + Next 5 Button Press:	 Cursor moved down
+ *       + Next 5 Button Press:	 Cursor moves left
+ *       + Next 5 Button Press:	 Cursor moved up.
+ *
+ * \section Modules
+ * ***************************** MODULES ***************************************** 
+ * - BLE Manager - 
+ *  + The Event Manager is responsible for handling the following:
+ *    + Generic BLE Event Handling:-
+ *       + BLE Event Manager handles the events triggered by BLE stack and also responsible 
+ *  	 for invoking all registered callbacks for respective events. BLE Manager 
+ *  	 handles all GAP related functionality. In addition to that handles multiple connection 
+ *  	 instances, Pairing, Encryption, Scanning.
+ *    + Handling Multi-role/multi-connection:-
+ *  	  + BLE Event Manager is responsible for handling multiple connection instances 
+ *  	  and stores bonding information and Keys to retain the bonded device. 
+ *  	  BLE Manager is able to identify and remove the device information when pairing/encryption 
+ *		  gets failed. In case of multi-role, it handles the state/event handling of both central and peripheral in multiple contexts.
+ *    + Controlling the Advertisement data:-
+ *  	  + BLE Event Manager is responsible for generating the advertisement and scan response data
+ *  	  for BLE profiles/services that are attached with BLE Manager.
+ *
+ * - BLE Profile-
+ *  + This profile defines how a device with Bluetooth low energy wireless 
+ *    communications can support HID services over the Bluetooth low energy
+ *    protocol stack using the Generic Attribute Profile.
+ *    HID Over GATT Profile supports two services:
+ *    + Human Interface Device - 
+ *      + The HID Service exposes characteristics required for a HID Device to
+ *        transfer HID report descriptors and reports to a HID Host. This also
+ *        exposes the characteristics for a HID Host to write to a Device. 
+ *        The Human Interface Device Service is instantiated as a Primary Service.
+ *    + Device Information service -
+ *      + The Device Information Service exposes manufacturer and/or vendor 
+ *        information about a device.
+ *  
+ * - BLE Platform Services -
+ *  +  Serial Console COM port settings -
+ *    + Baudrate 115200
+ *	  + Parity None, Stop Bit 1, Start Bit 1
+ *	  + No Hardware Handshake
+ *
+ * \section BluSDK Package
+ * ***************************** BluSDK Package *****************************************
+ * - Links for Docs -
+ *		+ http://www.microchip.com/wwwproducts/en/ATSAMB11
+ *		+ http://www.microchip.com/developmenttools/productdetails.aspx?partno=atsamb11-xpro
+ * - Support and FAQ - visit -
+ *		+ <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
-/**
- * \main page
- * \section preface Preface
- * This is the reference manual for the HID Keyboard Device Profile Application declarations
- */
 /*- Includes -----------------------------------------------------------------------*/
 #include <asf.h>
 #include "platform.h"
@@ -63,6 +126,7 @@
 #include "console_serial.h"
 #include "timer_hw.h"
 #include "button.h"
+#include "samb11_delay.h"
 
 /* =========================== GLOBALS ============================================================ */
 
@@ -87,14 +151,12 @@ int8_t app_mouse_report[4] = {0x00, 0x00, 0x00, 0x00};
 /* Profile connection status */
 uint8_t conn_status = 0;
 	
-/* Mouse status */
-uint8_t mouse_status = 0;
-
 /*Counter*/
 uint8_t cnt = 0;
 
 /*Mouse Movement Position*/
 uint8_t mouse_pos = MOUSE_RIGHT_MOVEMENT;
+extern bool button_debounce;
 
 /* Mouse report info*/
 static uint8_t hid_app_mouse_report_map[] =
@@ -129,51 +191,24 @@ static uint8_t hid_app_mouse_report_map[] =
 	0xC0,		/* End Collection                      */
 };
 
-static at_ble_status_t hid_connect_cb(void *params);
-
-static at_ble_status_t hid_disconnect_cb(void *params);
-
-static at_ble_status_t hid_notification_confirmed_cb(void *params);
-
-/** To keep the app executing continuously*/
-bool app_exec = true;
-
-static const ble_event_callback_t hid_app_gap_handle[] = {
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	hid_connect_cb,
-	hid_disconnect_cb,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gap_event_cb_t hid_app_gap_handle = {
+	.connected = hid_connect_cb,
+	.disconnected = hid_disconnect_cb
 };
 
-static const ble_event_callback_t hid_app_gatt_server_handle[] = {
-	hid_notification_confirmed_cb,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gatt_server_event_cb_t hid_app_gatt_server_handle = {
+	.notification_confirmed = hid_notification_confirmed_cb,
+
 };
 
 void button_cb(void);
+
+/* All BLE Manager Custom Event callback */
+static const ble_custom_event_cb_t hid_custom_event_cb = {
+	.platform_event_ready = hid_platform_event
+};
+
+
 
 /* Callback called during connection */
 static at_ble_status_t hid_connect_cb(void *params)
@@ -185,6 +220,7 @@ static at_ble_status_t hid_connect_cb(void *params)
 	app_mouse_report[1] = 0;
 	app_mouse_report[2] = 0;
 	app_mouse_report[3] = 0;
+	ALL_UNUSED(&params);
 	return AT_BLE_SUCCESS;
 }
 
@@ -250,9 +286,8 @@ static at_ble_status_t hid_notification_confirmed_cb(void *params)
 /* Callback called when user press the button for writing new characteristic value */
 void button_cb()
 {
-	if(!mouse_status){
-		mouse_status = 1;
-		send_plf_int_msg_ind(USER_TIMER_CALLBACK, TIMER_EXPIRED_CALLBACK_TYPE_DETECT, NULL, 0);
+	if(conn_status){
+	send_plf_int_msg_ind(RAM_ISR_TABLE_PORT0_COMB_INDEX, PORTINT_CALLBACK_TYPE_DETECT, NULL, 0);
 	}
 }
 
@@ -309,49 +344,14 @@ static bool hid_mouse_move(int8_t pos, uint8_t index_report)
 	return true;
 }
 
-
-int main(void )
+static at_ble_status_t hid_platform_event(void *param)
 {
-	/*intialize system driver */
-	platform_driver_init();
-	acquire_sleep_lock();
-
-	/* Initialize serial console */
-	serial_console_init();
-	
-	DBG_LOG("Initializing HID Mouse Application1111");
-
-	/* Initialize button*/
-	gpio_init();
-	button_init();
-	button_register_callback(button_cb);
-
-	/* Initialize the profile based on user input */
-	hid_mouse_app_init();
-	
-	/* initialize the ble chip  and Set the device mac address */
-	ble_device_init(NULL);
-	
-	hid_prf_init(NULL);
-	
-	/* Register the notification handler */
-	notify_report_ntf_handler(hid_prf_report_ntf_cb);
-	notify_boot_ntf_handler(hid_prf_boot_ntf_cb);
-	notify_protocol_mode_handler(hid_prf_protocol_mode_ntf_cb);
-	notify_control_point_handler(hid_prf_control_point_ntf_cb);
-	
-	/* Callback registering for BLE-GAP Role */
-	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, BLE_GAP_EVENT_TYPE, hid_app_gap_handle);
-	
-	/* Callback registering for BLE-GATT-Server Role */
-	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, BLE_GATT_SERVER_EVENT_TYPE, hid_app_gatt_server_handle);
-
-	ble_set_ulp_mode(BLE_ULP_MODE_CLEAR);
-	/* Capturing the events  */
-	while(app_exec){
-		ble_event_task(BLE_EVENT_TIMEOUT);
+	at_ble_status_t status = AT_BLE_SUCCESS;
+	platform_isr_event_t *plf_isr_event = (platform_isr_event_t *)param;
+	if(plf_isr_event->event_type == ((PORTINT_CALLBACK_TYPE_DETECT << 8)  | RAM_ISR_TABLE_PORT0_COMB_INDEX))
+	{
 		/* Check for key status */
-		if(mouse_status && conn_status){ 
+		if(conn_status){
 
 			switch(mouse_pos)
 			{
@@ -364,7 +364,7 @@ int main(void )
 						if(cnt == MOUSE_CHANGE_DIRECTION){
 							mouse_pos = MOUSE_DOWN_MOVEMENT;
 							cnt = 0;
-						}	
+						}
 					}
 				}
 				break;
@@ -413,11 +413,69 @@ int main(void )
 				break;
 			}
 			hid_prf_report_update(report_ntf_info.conn_handle, report_ntf_info.serv_inst, 1, (uint8_t *)app_mouse_report, sizeof(app_mouse_report));
-			mouse_status = 0;			
+			delay_ms(200);
+	}
+	else
+	{
+		status = AT_BLE_FAILURE;
+	}
+	button_debounce = true;
+	return status;
+	}
+}
+
+int main(void )
+{
+	/*intialize system driver */
+	platform_driver_init();
+	acquire_sleep_lock();
+
+	/* Initialize serial console */
+	serial_console_init();
+	
+	DBG_LOG("Initializing HID Mouse Application");
+
+	/* Initialize button*/
+	gpio_init();
+	button_init();
+	button_register_callback(button_cb);
+
+	/* Initialize the profile based on user input */
+	hid_mouse_app_init();
+	
+	/* initialize the ble chip  and Set the device mac address */
+	ble_device_init(NULL);
+	
+	hid_prf_init(NULL);
+	
+	/* Register the notification handler */
+	notify_report_ntf_handler(hid_prf_report_ntf_cb);
+	notify_boot_ntf_handler(hid_prf_boot_ntf_cb);
+	notify_protocol_mode_handler(hid_prf_protocol_mode_ntf_cb);
+	notify_control_point_handler(hid_prf_control_point_ntf_cb);
+	
+	/* Callback registering for BLE-GAP Role */
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, 
+									BLE_GAP_EVENT_TYPE, 
+									&hid_app_gap_handle);
+	
+	/* Callback registering for BLE-GATT-Server Role */
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, 
+									BLE_GATT_SERVER_EVENT_TYPE, 
+									&hid_app_gatt_server_handle);
+									
+	/* Register callbacks for custom related events */
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, 
+									BLE_CUSTOM_EVENT_TYPE, 
+									&hid_custom_event_cb);
+#ifdef ENABLE_ULP
+	ble_set_ulp_mode(BLE_ULP_MODE_CLEAR);
+#endif
+	/* Capturing the events  */
+	while(1){
+		ble_event_task(0xFFFFFFFF);
 		}
 	}
-	return 0;
-}
 
 
 

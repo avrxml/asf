@@ -3,54 +3,99 @@
  *
  * \brief HID Keyboard Device Profile Application declarations
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel micro controller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 
-/*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
- *Support</a>
+/**
+ * \mainpage HID KEY BOARD Example
+ * \section Introduction
+ * **************************** Introduction *********************************
+ * + The HID Key board example application bring-up the HID over GATT (HOGP) profile defined by the Bluetooth SIG.
+ * + The HID over GATT (HOGP) profile defined by the Bluetooth SIG enables support of HID services over a Bluetooth Low Energy (BLE) 
+ *   protocol stack using Generic Attribute profile (GATT). This allows devices like keyboard or mouse implementing HOGP to connect 
+ *   to a compatible HOGP/BLE host device (e.g.: Mobile Phone, Tablet, TV, etc.).
+ *- Running the Demo -
+ * + 1. Build and flash the binary into supported evaluation board.
+ * + 2. Open the console using TeraTerm or any serial port monitor.
+ * + 3. Press the Reset button.
+ * + 4. Wait for around 10 seconds for the patches to be downloaded device will initialize and start-up.
+ * + 5. The device is now in advertising mode.
+ * + 6. The demo requires use of an Android mobile phone supporting HOGP.  The HOGP profile is natively supported in 
+ *      Android from version 4.4 (Android KitKat) and higher versions. The phone must include support a Bluetooth chipset supporting BT 4.0 or 
+ *      higher version on the mobile phone, In Bluetooth settings scan for the devices, device with “ATMEL-HID” will be found as shown below. 
+ *      Click on “ATMEL-HID” to get connected.
+ * + 7. Once connected, the client side will request for the pairing procedure . The console log provides a guidance for the user to 
+        enter the pass-key.
+ * + 8. Once the device connected to host (Phone). User can click on SW0 button on supported platform for simulating mouse movement.
+ * + 9. For every press on button, the user can see corresponding string on HID host as described below: 
+ *      + Hello Atmel
+ * \section Modules
+ * ***************************** Modules **************************************
+ *- BLE Manger -  
+ *  + The Event Manager is responsible for handling the following:
+ *    + Generic BLE Event Handling:-
+ *       + BLE Event Manager handles the events triggered by BLE stack and also responsible 
+ *  	 for invoking all registered callbacks for respective events. BLE Manager 
+ *  	 handles all GAP related functionality. In addition to that handles multiple connection 
+ *  	 instances, Pairing, Encryption, Scanning.
+ *    + Handling Multi-role/multi-connection:-
+ *  	  + BLE Event Manager is responsible for handling multiple connection instances 
+ *  	  and stores bonding information and Keys to retain the bonded device. 
+ *  	  BLE Manager is able to identify and remove the device information when pairing/encryption 
+ *		  gets failed. In case of multi-role, it handles the state/event handling of both central and peripheral in multiple contexts.
+ *    + Controlling the Advertisement data:-
+ *  	  + BLE Event Manager is responsible for generating the advertisement and scan response data
+ *  	  for BLE profiles/services that are attached with BLE Manager.
+ *
+ *- BLE Profile -
+ *  + This profile defines how a device with Bluetooth low energy wireless communications can support HID services over the Bluetooth 
+ *    low energy protocol stack using the Generic Attribute Profile.
+ *  + HID Over GATT Profile supports two services:
+ *  + **Human Interface Device**: 
+ *    + The HID Service exposes characteristics required for a HID Device to transfer HID report descriptors and reports to a HID Host. 
+ *    This also exposes the characteristics for a HID Host to write to a Device. The Human Interface Device Service is instantiated as a Primary Service.
+ *  + **Device Information service**: 
+ *    + The Device Information Service exposes manufacturer and/or vendor information about a device.
+ *
+ *  +  Serial Console COM port settings -
+ *    + Baudrate 115200
+ *	  + Parity None, Stop Bit 1, Start Bit 1
+ *	  + No Hardware Handshake
+ *
+ *\section BLE SDK Package
+ * ***************************** BLE SDK Package ******************************************
+ * - Links for Docs -
+ *		+ http://www.microchip.com/wwwproducts/en/ATSAMB11
+ *		+ http://www.microchip.com/developmenttools/productdetails.aspx?partno=atsamb11-xpro
+ *- Support and FAQ - visit -
+ *		+ <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
-/**
- * \mainpage
- * \section preface Preface
- * This is the reference manual for the HID Keyboard Device Profile Application declarations
- */
 /*- Includes -----------------------------------------------------------------------*/
 #include <asf.h>
 #include "platform.h"
@@ -63,6 +108,7 @@
 #include "console_serial.h"
 #include "timer_hw.h"
 #include "button.h"
+#include "samb11_delay.h"
 
 /* =========================== GLOBALS ============================================================ */
 
@@ -94,49 +140,20 @@ uint8_t conn_status = 0;
 uint8_t app_keyb_report[8] = {0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00};	
 	
 /* Keyboard key status */
-volatile uint8_t key_status = 0;
+extern bool button_debounce;
 
-bool app_exec = true;
-
-static at_ble_status_t hid_connect_cb(void *params);
-
-static at_ble_status_t hid_disconnect_cb(void *params);
-
-static at_ble_status_t hid_notification_confirmed_cb(void *params);
-
-static const ble_event_callback_t hid_app_gap_handle[] = {
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	hid_connect_cb,
-	hid_disconnect_cb,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gap_event_cb_t hid_app_gap_handle = {
+	.connected = hid_connect_cb,
+	.disconnected = hid_disconnect_cb
 };
 
-static const ble_event_callback_t hid_app_gatt_server_handle[] = {
-	hid_notification_confirmed_cb,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gatt_server_event_cb_t hid_app_gatt_server_handle = {
+	.notification_confirmed = hid_notification_confirmed_cb
+};
+
+/* Custom events like user defined event, platform event callback handlers. */
+static const ble_custom_event_cb_t hid_custom_event_cb = {
+	.platform_event_ready = hid_platform_event
 };
 
 /* keyboard report */
@@ -174,25 +191,70 @@ static uint8_t hid_app_keyb_report_map[] =
    0x91, 0x01,		/* Output (Constant)                 */
    0xC0				/* End Collection                    */
 };
-
 void button_cb(void);
+
+static at_ble_status_t hid_platform_event(void *param)
+{
+	at_ble_status_t status = AT_BLE_SUCCESS;
+	platform_isr_event_t *plf_isr_event = (platform_isr_event_t *)param;
+	if(plf_isr_event->event_type == ((PORTINT_CALLBACK_TYPE_DETECT << 8)  | RAM_ISR_TABLE_PORT0_COMB_INDEX))
+	{
+		/* Check for key status */
+	if(conn_status){
+		DBG_LOG("Key Pressed...");
+
+		if((keyb_id == POSITION_ZERO) || (keyb_id == POSITION_SIX)){
+			app_keyb_report[0] = CAPS_ON;
+			}else{
+			app_keyb_report[0] = CAPS_OFF;
+		}
+		
+		app_keyb_report[2] = keyb_disp[keyb_id];
+		hid_prf_report_update(report_ntf_info.conn_handle, report_ntf_info.serv_inst, 1, app_keyb_report, sizeof(app_keyb_report));
+
+		app_keyb_report[2] = 0x00;
+		hid_prf_report_update(report_ntf_info.conn_handle, report_ntf_info.serv_inst, 1, app_keyb_report, sizeof(app_keyb_report));
+		delay_ms(200);	
+		if(keyb_id == MAX_TEXT_LEN)
+		{
+			keyb_id = 0;
+		}
+		else
+		{
+			++keyb_id;
+		}
+		
+	}
+	else
+	{
+		status = AT_BLE_FAILURE;
+	}
+	  
+	   button_debounce = true;
+	   return status;
+}
+}
 
 /* Callback called during connection */
 static at_ble_status_t hid_connect_cb(void *params)
 {
+	at_ble_handle_t *handle;
+	handle = (at_ble_handle_t *)params;
 	keyb_id = 0;
-	key_status = 0;
 	conn_status = 1;
-
+	ALL_UNUSED(&handle);
+	
 	return AT_BLE_SUCCESS;
 }
 
 /* Callback called during disconnect */
 static at_ble_status_t hid_disconnect_cb(void *params)
 {
-	key_status = 0;
+	at_ble_handle_t *handle;
+	handle =(at_ble_handle_t *)params;
 	keyb_id = 0;
 	conn_status = 0;
+    ALL_UNUSED(&handle);
 	return AT_BLE_SUCCESS;
 }
 
@@ -244,9 +306,8 @@ static at_ble_status_t hid_notification_confirmed_cb(void *params)
 void button_cb(void)
 {
 	if (conn_status) {
-		key_status = 1;
-		send_plf_int_msg_ind(USER_TIMER_CALLBACK, TIMER_EXPIRED_CALLBACK_TYPE_DETECT, NULL, 0);
-	}
+	send_plf_int_msg_ind(RAM_ISR_TABLE_PORT0_COMB_INDEX, PORTINT_CALLBACK_TYPE_DETECT, NULL, 0);
+    }
 }
 
 /* Initialize the application information for HID profile*/
@@ -348,12 +409,19 @@ int main(void )
 	notify_protocol_mode_handler(hid_prf_protocol_mode_ntf_cb);
 	notify_control_point_handler(hid_prf_control_point_ntf_cb);
 	
-	/* Callback registering for BLE-GAP Role */
-	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, BLE_GAP_EVENT_TYPE, hid_app_gap_handle);
+		ble_mgr_events_callback_handler(REGISTER_CALL_BACK, 
+									BLE_GAP_EVENT_TYPE, 
+									&hid_app_gap_handle);
 	
 	/* Callback registering for BLE-GATT-Server Role */
-	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, BLE_GATT_SERVER_EVENT_TYPE, hid_app_gatt_server_handle);
-
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, 
+									BLE_GATT_SERVER_EVENT_TYPE, 
+									&hid_app_gatt_server_handle);
+     
+	 /* Register callbacks for custom related events */
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, 
+									BLE_CUSTOM_EVENT_TYPE, 
+									&hid_custom_event_cb);
 #ifdef ENABLE_ULP
 	register_resume_callback(resume_cb);
 	configure_aon_gpio_callbacks();
@@ -361,36 +429,9 @@ int main(void )
 #endif
 
 	/* Capturing the events  */
-	while(app_exec)
+	while(1)
 	{
-		ble_event_task(BLE_EVENT_TIMEOUT);
+		ble_event_task(0xFFFFFFFF);
 
-		/* Check for key status */
-		if(key_status && conn_status){
-			DBG_LOG("Key Pressed...");
-
-			if((keyb_id == POSITION_ZERO) || (keyb_id == POSITION_SIX)){
-				app_keyb_report[0] = CAPS_ON;
-			}else{
-				app_keyb_report[0] = CAPS_OFF;
-			}
-			
-			app_keyb_report[2] = keyb_disp[keyb_id];
-			hid_prf_report_update(report_ntf_info.conn_handle, report_ntf_info.serv_inst, 1, app_keyb_report, sizeof(app_keyb_report));
-
-			app_keyb_report[2] = 0x00;
-			hid_prf_report_update(report_ntf_info.conn_handle, report_ntf_info.serv_inst, 1, app_keyb_report, sizeof(app_keyb_report));
-				
-			key_status = 0;
-			
-			if(keyb_id == MAX_TEXT_LEN)
-			{
-				keyb_id = 0;
-			}
-			else
-			{
-				++keyb_id;
-			}
-		}
 	}
 }

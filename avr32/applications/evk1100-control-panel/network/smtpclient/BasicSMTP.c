@@ -4,45 +4,35 @@
  *
  * \brief Basic SMTP Client for AVR32 UC3.
  *
- * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  *****************************************************************************/
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 
@@ -150,13 +140,16 @@ eSMTPCurrentStateType eSMTPCurrentState = eSMTPIdle;
 portCHAR cTempBuffer[200];
 
 //! mail recipient
-portCHAR cMailTo[40];
+#define C_MAIL_TO_STRING_SIZE 40
+portCHAR cMailTo[C_MAIL_TO_STRING_SIZE];
 
 //! mail sender
-portCHAR cMailFrom[40];
+#define C_MAIL_FROM_STRING_SIZE 40
+portCHAR cMailFrom[C_MAIL_FROM_STRING_SIZE];
 
 //! Server Name
-portCHAR cServerName[16];
+#define C_SERVER_NAME_STRING_SIZE 16
+portCHAR cServerName[C_SERVER_NAME_STRING_SIZE];
 
 //! SMTP port
 static unsigned int uiSMTPPort;
@@ -554,6 +547,7 @@ eExecStatus e_smtpclient_cmd_set_config( eModId xModId, signed short FsNavId,
                                      signed portCHAR **ppcStringReply )
 {
 #if (SMTP_USED == 1)
+
   if (config_file_set_value(SMTP_CONFIG_FILE, ac, av) != 0)
   {
     *ppcStringReply = (signed portCHAR *)SHELL_ERRMSG_CONFIGERROR;
@@ -570,21 +564,21 @@ eExecStatus e_smtpclient_cmd_set_config( eModId xModId, signed short FsNavId,
   else if (!strcmp((char *)av[0] , "mailto"))
   {
     cMailTo[0]='\0';
-    strncat(cMailTo, (char *)av[1], Min(sizeof(cMailTo),strlen((char *)av[1])));
+    strncat(cMailTo, (char *)av[1], Min(C_MAIL_TO_STRING_SIZE, strlen((char *)av[1])));
     *ppcStringReply = (signed portCHAR *)SHELL_MSG_CONFIG_SET;
     return( SHELL_EXECSTATUS_OK_NO_FREE );
   }
   else if (!strcmp((char *)av[0] , "mailfrom"))
   {
     cMailFrom[0]='\0';
-    strncat(cMailFrom, (char *)av[1], Min(sizeof(cMailFrom),strlen((char *)av[1])));
+    strncat(cMailFrom, (char *)av[1], Min(C_MAIL_FROM_STRING_SIZE ,strlen((char *)av[1])));
     *ppcStringReply = (signed portCHAR *)SHELL_MSG_CONFIG_SET;
     return( SHELL_EXECSTATUS_OK_NO_FREE );
   }
   else if (!strcmp((char *)av[0] , "server"))
   {
     cServerName[0]='\0';
-    strncat(cServerName, (char *)av[1], Min(sizeof(cServerName),strlen((char *)av[1])));
+    strncat(cServerName, (char *)av[1], Min(C_SERVER_NAME_STRING_SIZE, strlen((char *)av[1])));
     *ppcStringReply = (signed portCHAR *)SHELL_MSG_CONFIG_SET;
     return( SHELL_EXECSTATUS_OK_NO_FREE );
   }

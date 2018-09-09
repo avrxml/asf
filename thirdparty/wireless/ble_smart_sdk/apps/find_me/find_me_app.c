@@ -3,48 +3,96 @@
  *
  * \brief Find Me Profile Application
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
-
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
- *Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
+/**
+ * \mainpage FIND ME Example
+ * \section Introduction
+ * **************************** Introduction *********************************
+ * + The FIND-ME Application describes the bring-up of Bluetooth® Find Me Profile and Atmel® ATSAMB11 setup on supported platforms.
+ * + The Find Me Profile **(FMP)**  is an example application, which would provide smart alert signaling about SAMB11 device. 
+ *   Hence SAMB11 device can be tracked from BLE compatible Android/iPhone by using Atmel SMART Connect application.
+ *- Running the Demo -
+ * + 1. Build and flash the binary into supported evaluation board.
+ * + 2. Open the console using TeraTerm or any serial port monitor.
+ * + 3. Press the Reset button.
+ * + 4. Wait for around 10 seconds for the patches to be downloaded device will initialize and start-up.
+ * + 5. The device is now in advertising mode.
+ * + 6. On a BLE compatible iPhone®/Android phone, enable Bluetooth in the Settings page. Start the Atmel Smart Connect App and scan for devices. 
+ *      ATMEL-FMP will be appear amongst the devices scanned. Click on ATMEL-FMP to connect to supported platform.
+ * + 7. Once connected, the client side will request for the pairing procedure with the iPhone/Android phone. The console log provides a guidance for the user to 
+ *       enter the pass-key on iPhone/Android phone.
+ * + 8. Upon completion of connection establishment, User can see the notifications based on the alert level settings .
+ * \section Modules
+ * ***************************** Modules **************************************
+ *- BLE Manger -  
+ *  + The Event Manager is responsible for handling the following:
+ *    + Generic BLE Event Handling:-
+ *       + BLE Event Manager handles the events triggered by BLE stack and also responsible 
+ *  	 for invoking all registered callbacks for respective events. BLE Manager 
+ *  	 handles all GAP related functionality. In addition to that handles multiple connection 
+ *  	 instances, Pairing, Encryption, Scanning.
+ *    + Handling Multi-role/multi-connection:-
+ *  	  + BLE Event Manager is responsible for handling multiple connection instances 
+ *  	  and stores bonding information and Keys to retain the bonded device. 
+ *  	  BLE Manager is able to identify and remove the device information when pairing/encryption 
+ *		  gets failed. In case of multi-role, it handles the state/event handling of both central and peripheral in multiple contexts.
+ *    + Controlling the Advertisement data:-
+ *  	  + BLE Event Manager is responsible for generating the advertisement and scan response data
+ *  	  for BLE profiles/services that are attached with BLE Manager.
+ *
+ *- BLE Profile -
+ *  + The Find Me profile defines the behaviour when a button is pressed on a device to cause an immediate alert on a peer device. 
+ *    This can be used to allow users to find devices that have been misplaced.
+ *  + Find Me profile supports two services:
+ *  + **Immediate Alert service**: 
+ *    + The Immediate Alert service is instantiated as a Primary Service. There is only one instance of the Immediate Alert service on a device. 
+ *      There is only one instance of the Alert Level characteristic in an Immediate Alert service. This alert continues until one of following conditions occurs: 
+ *    + An implementation specific time out 
+ *    + User interaction on this device 
+ *    + A new alert level is written 
+ *    + The physical link is disconnected
+ *- BLE Platform Services -
+ *  +  Serial Console COM port settings -
+ *    + Baudrate 115200
+ *	  + Parity None, Stop Bit 1, Start Bit 1
+ *	  + No Hardware Handshake
+ *
+ *\section BLE SDK Package
+ * ***************************** BLE SDK Package ******************************************
+ * - Links for Docs -
+ *		+ http://www.microchip.com/wwwproducts/en/ATSAMB11
+ *		+ http://www.microchip.com/developmenttools/productdetails.aspx?partno=atsamb11-xpro
+ *- Support and FAQ - visit -
+ *		+ <a href="https://www.microchip.com/support/">Microchip Support</a>*/
 
 /****************************************************************************************
 *							        Includes	                                     	*
@@ -64,10 +112,6 @@
 
 /* === GLOBALS ============================================================ */
 
-/* Timer application task flag */
-
-bool app_timer_done = false;
-
 /** @brief Timer interval variable for application task */
 static uint8_t timer_interval = INIT_TIMER_INTERVAL;
 
@@ -76,13 +120,8 @@ static uint8_t timer_interval = INIT_TIMER_INTERVAL;
  */
 static void timer_callback_handler(void)
 {
-	/* Stop the timer */
-	hw_timer_stop();
-
-	/* Enable the flag the serve the task */
-	app_timer_done = true;
-
-	send_plf_int_msg_ind(USER_TIMER_CALLBACK, TIMER_EXPIRED_CALLBACK_TYPE_DETECT, NULL, 0);
+	
+	send_plf_int_msg_ind(RAM_ISR_TABLE_TIMER0_INDEX, TIMER_EXPIRED_CALLBACK_TYPE_DETECT, NULL, 0);
 }
 
 /**
@@ -111,24 +150,31 @@ static void app_immediate_alert(uint8_t alert_val)
 	}
 }
 
-/**
- * \brief User callback handler
- */
-static void user_callback_handler(void)
+/* Callback registered for AT_PLATFORM_EVENT event from stack */
+static at_ble_status_t platform_interrupt_app_event(void *param)
 {
-	uint16_t plf_event_type;
-	uint16_t plf_event_data_len;
-	uint8_t plf_event_data[16];
-
-	platform_event_get(&plf_event_type, plf_event_data, &plf_event_data_len);
-	if (plf_event_type == ((TIMER_EXPIRED_CALLBACK_TYPE_DETECT << 8) | USER_TIMER_CALLBACK)) {
-		if (app_timer_done) {
-			LED_Toggle(LED0);
-			hw_timer_start(timer_interval);
-			app_timer_done = false;
-		}
+	at_ble_status_t status = AT_BLE_SUCCESS;
+	platform_isr_event_t *plf_isr_event = (platform_isr_event_t *)param;
+	
+	/* Wait for some time */
+	if (plf_isr_event->event_type == ((TIMER_EXPIRED_CALLBACK_TYPE_DETECT << 8)  | RAM_ISR_TABLE_TIMER0_INDEX))
+	{
+		/* Stop the timer */
+		hw_timer_stop();
+		LED_Toggle(LED0);
+		hw_timer_start(timer_interval);
 	}
+	else if(plf_isr_event->event_type == ((PORTINT_CALLBACK_TYPE_DETECT << 8)  | RAM_ISR_TABLE_PORT0_COMB_INDEX))
+	{
+	
+	}
+	return status;
 }
+
+/* Custom events like user defined event, platform event callback handlers for Find Me profile */
+static const ble_custom_event_cb_t findme_app_custom_event_handle = {
+	.platform_event_ready = platform_interrupt_app_event /* This event not handled in BLE Manager */
+};
 
 /**
  * \brief Find Me Application main function
@@ -161,11 +207,14 @@ int main(void)
 	/* callback registration for immediate alert value*/
 	register_find_me_handler(app_immediate_alert);
 
-	register_ble_user_event_cb(user_callback_handler);
+	/* Register callbacks for user defined custom events */
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
+									BLE_CUSTOM_EVENT_TYPE,
+									&findme_app_custom_event_handle);
 
 	/* Capturing the events  */
 	while (1) {
 		/* BLE Event Task */
-		ble_event_task(BLE_EVENT_TIMEOUT);
+		ble_event_task(0XFFFFFFFF);
 	}
 }

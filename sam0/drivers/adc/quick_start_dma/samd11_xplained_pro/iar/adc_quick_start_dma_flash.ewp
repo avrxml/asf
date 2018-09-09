@@ -311,15 +311,15 @@
 					<state>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../system/power</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../adc_sam_d_r</state>
-					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r</state>
-					<state>$PROJ_DIR$/../../../../dac/dac_sam_d_c</state>
+					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/source</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../dac/dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../adc_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../system/pinmux</state>
 					<state>$PROJ_DIR$/../../../../system</state>
@@ -587,15 +587,15 @@
 					<state>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../system/power</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../adc_sam_d_r</state>
-					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r</state>
-					<state>$PROJ_DIR$/../../../../dac/dac_sam_d_c</state>
+					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/source</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../dac/dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../adc_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../system/pinmux</state>
 					<state>$PROJ_DIR$/../../../../system</state>
@@ -1288,15 +1288,15 @@
 					<state>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../system/power</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../adc_sam_d_r</state>
-					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r</state>
-					<state>$PROJ_DIR$/../../../../dac/dac_sam_d_c</state>
+					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/source</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../dac/dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../adc_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../system/pinmux</state>
 					<state>$PROJ_DIR$/../../../../system</state>
@@ -1564,15 +1564,15 @@
 					<state>$PROJ_DIR$/../../../../../boards/samd11_xplained_pro</state>
 					<state>$PROJ_DIR$/../../../../system/power</state>
 					<state>$PROJ_DIR$/../../../../../boards</state>
-					<state>$PROJ_DIR$/../../../adc_sam_d_r</state>
-					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r</state>
-					<state>$PROJ_DIR$/../../../../dac/dac_sam_d_c</state>
+					<state>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../common/utils</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/source</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt</state>
-					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r</state>
+					<state>$PROJ_DIR$/../../../../dac/dac_sam_d_c_h</state>
 					<state>$PROJ_DIR$/../../../../system/interrupt/system_interrupt_samd10_d11</state>
+					<state>$PROJ_DIR$/../../../adc_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../utils/cmsis/samd11/include</state>
+					<state>$PROJ_DIR$/../../../../system/power/power_sam_d_r_h</state>
 					<state>$PROJ_DIR$/../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../system/pinmux</state>
 					<state>$PROJ_DIR$/../../../../system</state>
@@ -1959,22 +1959,49 @@
 		<group>
 			<name>drivers</name>
 			<group>
-				<name>system</name>
+				<name>adc</name>
 				<group>
-					<name>pinmux</name>
+					<name>adc_sam_d_r_h</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.c</name>
+						<name>$PROJ_DIR$/../../../adc_sam_d_r_h/adc.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../adc_sam_d_r_h/adc_feature.h</name>
+					</file>
+				</group>
+				<group>
+					<name>quick_start_dma</name>
+					<file>
+						<name>$PROJ_DIR$/../../qs_adc_dma_use.c</name>
 					</file>
 					<group>
-						<name>quick_start</name>
+						<name>samd11_xplained_pro</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../system/pinmux/quick_start/qs_pinmux_basic.h</name>
+							<name>$PROJ_DIR$/../conf_board.h</name>
+						</file>
+						<group>
+							<name>iar</name>
+							<file>
+								<name>$PROJ_DIR$/asf.h</name>
+							</file>
+						</group>
+						<file>
+							<name>$PROJ_DIR$/../conf_dma.h</name>
+						</file>
+						<file>
+							<name>$PROJ_DIR$/../conf_clocks.h</name>
 						</file>
 					</group>
 					<file>
-						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.h</name>
+						<name>$PROJ_DIR$/../../qs_adc_dma_use.h</name>
 					</file>
 				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../adc.h</name>
+				</file>
+			</group>
+			<group>
+				<name>system</name>
 				<file>
 					<name>$PROJ_DIR$/../../../../system/system.c</name>
 				</file>
@@ -2018,81 +2045,54 @@
 					</file>
 				</group>
 				<group>
+					<name>pinmux</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.c</name>
+					</file>
+					<group>
+						<name>quick_start</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/pinmux/quick_start/qs_pinmux_basic.h</name>
+						</file>
+					</group>
+					<file>
+						<name>$PROJ_DIR$/../../../../system/pinmux/pinmux.h</name>
+					</file>
+				</group>
+				<group>
+					<name>reset</name>
+					<group>
+						<name>reset_sam_d_r_h</name>
+						<file>
+							<name>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r_h/reset.h</name>
+						</file>
+					</group>
+				</group>
+				<group>
 					<name>power</name>
 					<group>
-						<name>power_sam_d_r</name>
+						<name>power_sam_d_r_h</name>
 						<file>
-							<name>$PROJ_DIR$/../../../../system/power/power_sam_d_r/power.h</name>
+							<name>$PROJ_DIR$/../../../../system/power/power_sam_d_r_h/power.h</name>
 						</file>
 					</group>
 				</group>
 				<file>
 					<name>$PROJ_DIR$/../../../../system/system.h</name>
 				</file>
-				<group>
-					<name>reset</name>
-					<group>
-						<name>reset_sam_d_r</name>
-						<file>
-							<name>$PROJ_DIR$/../../../../system/reset/reset_sam_d_r/reset.h</name>
-						</file>
-					</group>
-				</group>
-			</group>
-			<group>
-				<name>adc</name>
-				<group>
-					<name>adc_sam_d_r</name>
-					<file>
-						<name>$PROJ_DIR$/../../../adc_sam_d_r/adc.c</name>
-					</file>
-					<file>
-						<name>$PROJ_DIR$/../../../adc_sam_d_r/adc_feature.h</name>
-					</file>
-				</group>
-				<group>
-					<name>quick_start_dma</name>
-					<file>
-						<name>$PROJ_DIR$/../../qs_adc_dma_use.c</name>
-					</file>
-					<group>
-						<name>samd11_xplained_pro</name>
-						<file>
-							<name>$PROJ_DIR$/../conf_board.h</name>
-						</file>
-						<group>
-							<name>iar</name>
-							<file>
-								<name>$PROJ_DIR$/asf.h</name>
-							</file>
-						</group>
-						<file>
-							<name>$PROJ_DIR$/../conf_dma.h</name>
-						</file>
-						<file>
-							<name>$PROJ_DIR$/../conf_clocks.h</name>
-						</file>
-					</group>
-					<file>
-						<name>$PROJ_DIR$/../../qs_adc_dma_use.h</name>
-					</file>
-				</group>
-				<file>
-					<name>$PROJ_DIR$/../../../adc.h</name>
-				</file>
 			</group>
 			<group>
 				<name>dac</name>
 				<group>
-					<name>dac_sam_d_c</name>
+					<name>dac_sam_d_c_h</name>
 					<file>
-						<name>$PROJ_DIR$/../../../../dac/dac_sam_d_c/dac.c</name>
+						<name>$PROJ_DIR$/../../../../dac/dac_sam_d_c_h/dac_callback.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../dac/dac_sam_d_c/dac_callback.c</name>
+						<name>$PROJ_DIR$/../../../../dac/dac_sam_d_c_h/dac.c</name>
 					</file>
 					<file>
-						<name>$PROJ_DIR$/../../../../dac/dac_sam_d_c/dac_feature.h</name>
+						<name>$PROJ_DIR$/../../../../dac/dac_sam_d_c_h/dac_feature.h</name>
 					</file>
 				</group>
 				<file>

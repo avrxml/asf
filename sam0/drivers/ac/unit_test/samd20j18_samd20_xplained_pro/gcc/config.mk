@@ -57,10 +57,10 @@ CSRCS = \
        common2/services/delay/sam0/systick_counter.c      \
        sam0/boards/samd20_xplained_pro/board_init.c       \
        sam0/drivers/ac/ac_callback.c                      \
-       sam0/drivers/ac/ac_sam_d_r/ac.c                    \
+       sam0/drivers/ac/ac_sam_d_r_h/ac.c                  \
        sam0/drivers/ac/unit_test/unit_test.c              \
-       sam0/drivers/dac/dac_sam_d_c/dac.c                 \
-       sam0/drivers/dac/dac_sam_d_c/dac_callback.c        \
+       sam0/drivers/dac/dac_sam_d_c_h/dac.c               \
+       sam0/drivers/dac/dac_sam_d_c_h/dac_callback.c      \
        sam0/drivers/port/port.c                           \
        sam0/drivers/sercom/sercom.c                       \
        sam0/drivers/sercom/sercom_interrupt.c             \
@@ -90,11 +90,11 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samd20_xplained_pro                    \
        sam0/drivers/ac                                    \
-       sam0/drivers/ac/ac_sam_d_r                         \
+       sam0/drivers/ac/ac_sam_d_r_h                       \
        sam0/drivers/ac/unit_test                          \
        sam0/drivers/ac/unit_test/samd20j18_samd20_xplained_pro \
        sam0/drivers/dac                                   \
-       sam0/drivers/dac/dac_sam_d_c                       \
+       sam0/drivers/dac/dac_sam_d_c_h                     \
        sam0/drivers/port                                  \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/usart                          \
@@ -105,9 +105,9 @@ INC_PATH = \
        sam0/drivers/system/interrupt/system_interrupt_samd20 \
        sam0/drivers/system/pinmux                         \
        sam0/drivers/system/power                          \
-       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/power/power_sam_d_r_h          \
        sam0/drivers/system/reset                          \
-       sam0/drivers/system/reset/reset_sam_d_r            \
+       sam0/drivers/system/reset/reset_sam_d_r_h          \
        sam0/utils                                         \
        sam0/utils/cmsis/samd20/include                    \
        sam0/utils/cmsis/samd20/source                     \

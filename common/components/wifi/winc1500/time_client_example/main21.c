@@ -4,36 +4,29 @@
  *
  * \brief WINC1500 Time Client Example.
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
@@ -84,7 +77,7 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit
- * <A href="http://www.atmel.com">Atmel</A>.\n
+ * <A href="http://www.microchip.com">Microchip</A>.\n
  */
 
 #include "asf.h"
@@ -100,12 +93,6 @@
 
 /** UART module for debug. */
 static struct usart_module cdc_uart_module;
-
-/** UDP socket handlers. */
-static SOCKET udp_socket = -1;
-
-/** Receive buffer definition. */
-static uint8_t gau8SocketBuffer[MAIN_WIFI_M2M_BUFFER_SIZE];
 
 /** Wi-Fi status variable. */
 static bool gbConnectedWifi = false;
@@ -127,114 +114,6 @@ static void configure_console(void)
 
 	stdio_serial_init(&cdc_uart_module, EDBG_CDC_MODULE, &usart_conf);
 	usart_enable(&cdc_uart_module);
-}
-
-/**
- * \brief Callback to get the Data from socket.
- *
- * \param[in] sock socket handler.
- * \param[in] u8Msg Type of Socket notification.
- * \param[in] pvMsg A structure contains notification informations.
- */
-static void socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
-{
-	/* Check for socket event on socket. */
-	int16_t ret;
-
-	switch (u8Msg) {
-	case SOCKET_MSG_BIND:
-	{
-		/* printf("socket_cb: socket_msg_bind!\r\n"); */
-		tstrSocketBindMsg *pstrBind = (tstrSocketBindMsg *)pvMsg;
-		if (pstrBind && pstrBind->status == 0) {
-			ret = recvfrom(sock, gau8SocketBuffer, MAIN_WIFI_M2M_BUFFER_SIZE, 0);
-			if (ret != SOCK_ERR_NO_ERROR) {
-				printf("socket_cb: recv error!\r\n");
-			}
-		} else {
-			printf("socket_cb: bind error!\r\n");
-		}
-
-		break;
-	}
-
-	case SOCKET_MSG_RECVFROM:
-	{
-		/* printf("socket_cb: socket_msg_recvfrom!\r\n"); */
-		tstrSocketRecvMsg *pstrRx = (tstrSocketRecvMsg *)pvMsg;
-		if (pstrRx->pu8Buffer && pstrRx->s16BufferSize) {
-			uint8_t packetBuffer[48];
-			memcpy(&packetBuffer, pstrRx->pu8Buffer, sizeof(packetBuffer));
-
-			if ((packetBuffer[0] & 0x7) != 4) {                   /* expect only server response */
-				printf("socket_cb: Expecting response from Server Only!\r\n");
-				return;                    /* MODE is not server, abort */
-			} else {
-				uint32_t secsSince1900 = packetBuffer[40] << 24 |
-						packetBuffer[41] << 16 |
-						packetBuffer[42] << 8 |
-						packetBuffer[43];
-
-				/* Now convert NTP time into everyday time.
-				 * Unix time starts on Jan 1 1970. In seconds, that's 2208988800.
-				 * Subtract seventy years.
-				 */
-				const uint32_t seventyYears = 2208988800UL;
-				uint32_t epoch = secsSince1900 - seventyYears;
-
-				/* Print the hour, minute and second.
-				 * GMT is the time at Greenwich Meridian.
-				 */
-				printf("socket_cb: The GMT time is %lu:%02lu:%02lu\r\n",
-						(epoch  % 86400L) / 3600,           /* hour (86400 equals secs per day) */
-						(epoch  % 3600) / 60,               /* minute (3600 equals secs per minute) */
-						epoch % 60);                        /* second */
-				port_pin_set_output_level(LED_0_PIN, false);
-
-				ret = close(sock);
-				if (ret == SOCK_ERR_NO_ERROR) {
-					udp_socket = -1;
-				}
-			}
-		}
-	}
-	break;
-
-	default:
-		break;
-	}
-}
-
-/**
- * \brief Callback to get the ServerIP from DNS lookup.
- *
- * \param[in] pu8DomainName Domain name.
- * \param[in] u32ServerIP Server IP.
- */
-static void resolve_cb(uint8_t *pu8DomainName, uint32_t u32ServerIP)
-{
-	struct sockaddr_in addr;
-	int8_t cDataBuf[48];
-	int16_t ret;
-
-	memset(cDataBuf, 0, sizeof(cDataBuf));
-	cDataBuf[0] = '\x1b'; /* time query */
-
-	printf("resolve_cb: DomainName %s\r\n", pu8DomainName);
-
-	if (udp_socket >= 0) {
-		/* Set NTP server socket address structure. */
-		addr.sin_family = AF_INET;
-		addr.sin_port = _htons(MAIN_SERVER_PORT_FOR_UDP);
-		addr.sin_addr.s_addr = u32ServerIP;
-
-		/*Send an NTP time query to the NTP server*/
-		ret = sendto(udp_socket, (int8_t *)&cDataBuf, sizeof(cDataBuf), 0, (struct sockaddr *)&addr, sizeof(addr));
-		if (ret != M2M_SUCCESS) {
-			printf("resolve_cb: failed to send  error!\r\n");
-			return;
-		}
-	}
 }
 
 /**
@@ -270,11 +149,23 @@ static void wifi_cb(uint8_t u8MsgType, void *pvMsg)
 				pu8IPAddress[0], pu8IPAddress[1], pu8IPAddress[2], pu8IPAddress[3]);
 		gbConnectedWifi = true;
 
-		/* Obtain the IP Address by network name */
-		gethostbyname((uint8_t *)MAIN_WORLDWIDE_NTP_POOL_HOSTNAME);
 		break;
 	}
+	case M2M_WIFI_RESP_GET_SYS_TIME:
+	/*Initial first callback will be provided by the WINC itself on the first communication with NTP */
+	{
 
+		tstrSystemTime *strSysTime_now = (tstrSystemTime *)pvMsg; 
+		
+		/* Print the hour, minute and second.
+		* GMT is the time at Greenwich Meridian.
+		*/
+		printf("socket_cb: The GMT time is %u:%02u:%02u\r\n",
+				strSysTime_now->u8Hour,           /* hour (86400 equals secs per day) */
+				strSysTime_now->u8Minute,         /* minute (3600 equals secs per minute) */
+				strSysTime_now->u8Second);        /* second */
+		break;
+	}
 	default:
 	{
 		break;
@@ -285,7 +176,7 @@ static void wifi_cb(uint8_t u8MsgType, void *pvMsg)
 /**
  * \brief Main application function.
  *
- * Initialize system, UART console, network then start time client.
+ * Initialize system, UART console, network then configure NTP server the SNTP client should use.
  *
  * \return Program return value.
  */
@@ -293,7 +184,6 @@ int main(void)
 {
 	tstrWifiInitParam param;
 	int8_t ret;
-	struct sockaddr_in addr_in;
 
 	/* Initialize the board. */
 	system_init();
@@ -317,15 +207,15 @@ int main(void)
 		}
 	}
 
-	/* Turn LED0 off initially. */
-	port_pin_set_output_level(LED_0_PIN, true);
-
 	/* Initialize Socket module */
 	socketInit();
 
-	/* Register socket handler, resolve handler */
-	registerSocketCallback(socket_cb, resolve_cb);
-
+	/* SNTP configuration */
+	ret = m2m_wifi_configure_sntp((uint8_t *)MAIN_WORLDWIDE_NTP_POOL_HOSTNAME, strlen(MAIN_WORLDWIDE_NTP_POOL_HOSTNAME), SNTP_ENABLE_DHCP);
+	if(M2M_SUCCESS != ret) {
+		printf("main: SNTP %s configuration Failure\r\n",MAIN_WORLDWIDE_NTP_POOL_HOSTNAME);
+	}
+	
 	/* Connect to router. */
 	m2m_wifi_connect((char *)MAIN_WLAN_SSID, sizeof(MAIN_WLAN_SSID),
 			MAIN_WLAN_AUTH, (char *)MAIN_WLAN_PSK, M2M_WIFI_CH_ALL);
@@ -333,26 +223,6 @@ int main(void)
 	while (1) {
 		/* Handle pending events from network controller. */
 		m2m_wifi_handle_events(NULL);
-
-		if (gbConnectedWifi) {
-			/*
-			 * Create the socket for the first time.
-			 */
-			if (udp_socket < 0) {
-				udp_socket = socket(AF_INET, SOCK_DGRAM, 0);
-				if (udp_socket < 0) {
-					printf("main: UDP Client Socket Creation Failed.\r\n");
-					continue;
-				}
-
-				/* Initialize default socket address structure. */
-				addr_in.sin_family = AF_INET;
-				addr_in.sin_addr.s_addr = _htonl(MAIN_DEFAULT_ADDRESS);
-				addr_in.sin_port = _htons(MAIN_DEFAULT_PORT);
-
-				bind(udp_socket, (struct sockaddr *)&addr_in, sizeof(struct sockaddr_in));
-			}
-		}
 	}
 
 	return 0;

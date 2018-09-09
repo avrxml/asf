@@ -3,45 +3,35 @@
  *
  * \brief iBeacon Application
  *
- * Copyright (c) 2014-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
  /**
@@ -50,7 +40,6 @@
  * This is the reference manual for the iBeacon Application
  */
 /*- Includes ---------------------------------------------------------------*/
-
 #include "at_ble_api.h"
 #include <asf.h>
 #include <string.h>
@@ -58,34 +47,25 @@
 #include "platform.h"
 #include <common.h>
 #include <spi_flash.h>
-#ifndef NULL
-#define NULL ((void *)0)
-#endif
+#include "ibeacon.h"
+#include "ble_utils.h"
 
-
-#define PRINT(...)                  printf(__VA_ARGS__)
-#define PRINT_H1(...)               printf("[APP]>> "/**/__VA_ARGS__)
-#define PRINT_H2(...)               printf("\t>> "/**/__VA_ARGS__)
-#define PRINT_H3(...)               printf("\t\t>> "/**/__VA_ARGS__)
-
-
-// Error Checking
-#define CHECK_ERROR(VAR,LABEL)  do{if(AT_BLE_SUCCESS != VAR){goto LABEL;}}while(0)
-
-
-#define APP_STACK_SIZE	(1024)
-#define BEACON_IDENTIFIER (0x13)
-static uint8_t adv_data[31];
-static uint8_t scan_rsp_data[31];
-struct uart_module uart_instance;
 at_ble_init_config_t pf_cfg;
-volatile unsigned char app_stack_patch[APP_STACK_SIZE];
+static uint32_t event_pool_memory[256] = {0};
+static uint32_t event_params_memory[1024] = {0};
+static uint8_t params[524];
+struct uart_module uart_instance;
 
-volatile uint8_t 	event_pool_memory[256] 		= {0};
-volatile uint8_t 	event_params_memory[1024] 	= {0};
+/* Initialize the BLE */
+static void ble_init(void);
 
-void ble_init(void);
-int main(void);
+/* Set BLE Address, If address is NULL then it will use BD public address */
+static void ble_set_address(at_ble_addr_t *addr);
+
+/* Beacon initialization */
+static void beacon_init(void);
+
+uint32_t ble_sdk_version(void);
 
 static void configure_uart(void)
 {
@@ -113,161 +93,188 @@ static void resume_cb(void)
 {
 	init_port_list();
 	configure_uart();
-	spi_flash_turn_off();//for power consumption.
+	spi_flash_turn_off();
 }
 
-static at_ble_status_t app_init(void)
+/* Set BLE Address, If address is NULL then it will use BD public address */
+static void ble_set_address(at_ble_addr_t *addr)
 {
-	at_ble_status_t status = AT_BLE_FAILURE;
-	at_ble_addr_t addr = {AT_BLE_ADDRESS_PUBLIC, {0x45, 0x75, 0x11, 0x6a, 0x7f, 0x7f} };
-	const uint8_t ro_adv_data[] = {0x1a, 0xff,
-							0x4c, 0x00,			//Company
-							0x02,							//Type
-							0x15,							//Length
-							0x21, 0x8A, 0xF6, 0x52, 0x73, 0xE3, 0x40, 0xB3, 0xB4, 0x1C, 0x19, 0x53, 0x24, 0x2C, 0x72, 0xf4,			//UUID
-							0x00, 0xbb,			//Major
-							0x00, 0x45,				//Minor
-							0xc5};							//RSSI at 1m
-
-	const uint8_t ro_scan_rsp_data[] = {0x11, 0x07, 0x1b, 0xc5, 0xd5, 0xa5, 0x02, 0x00,
-					    0x37, 0xaa, 0xe3, 0x11, 0x2a, 0xdc, 0x00, 0xcd,
-					    0x30, 0x57};
-	do
+	at_ble_addr_t address = {AT_BLE_ADDRESS_PUBLIC, {0xAB, 0xCD, 0xEF, 0xAB, 0xCD, 0xEF}};
+	at_ble_addr_t *address_ptr = addr;
+		
+	if (addr == NULL)
 	{
-		addr.addr[0] = BEACON_IDENTIFIER;
-		
-		memset(adv_data,0,sizeof(adv_data));
-		memset(scan_rsp_data,0,sizeof(scan_rsp_data));
-		memcpy(adv_data,ro_adv_data,sizeof(ro_adv_data));
-		memcpy(scan_rsp_data,ro_scan_rsp_data,sizeof(ro_scan_rsp_data));
-		
-		memset((uint8_t *)event_pool_memory, 0, sizeof(event_pool_memory));
-		memset((uint8_t *)event_params_memory, 0, sizeof(event_params_memory));
-		
-		memset(&pf_cfg,0,sizeof(pf_cfg));
-
-		pf_cfg.event_mem_pool.memStartAdd        = (uint8_t *)event_pool_memory;
-		pf_cfg.event_mem_pool.memSize            = sizeof(event_pool_memory);
-		pf_cfg.event_params_mem_pool.memStartAdd = (uint8_t *)event_params_memory;
-		pf_cfg.event_params_mem_pool.memSize     = sizeof(event_params_memory);
-
-		// init device
-		if((status = at_ble_init(&pf_cfg)) == AT_BLE_SUCCESS)
+		/* get BD address from BLE device */
+		if(at_ble_addr_get(&address) != AT_BLE_SUCCESS)
 		{
-			status = AT_BLE_FAILURE;
-			// Set the device address
-			status = at_ble_addr_set(&addr);
-			if(AT_BLE_SUCCESS != status)
-			{
-				break;
-			}
-
-			// Set TX Power level
-			//status = at_ble_tx_power_set(AT_BLE_TX_PWR_LVL_ZERO_DB);
-			
-			// start advertising
-			adv_data[25] = BEACON_IDENTIFIER;
-			status = at_ble_adv_data_set((uint8_t *)adv_data, sizeof(ro_adv_data), (uint8_t *)scan_rsp_data, sizeof(ro_scan_rsp_data));
-			if(AT_BLE_SUCCESS != status)
-			{
-				break;
-			}
-			
-			status = at_ble_adv_start(AT_BLE_ADV_TYPE_UNDIRECTED, AT_BLE_ADV_GEN_DISCOVERABLE, NULL, AT_BLE_ADV_FP_ANY, 1600, 0, 0);
+			DBG_LOG("BD address get failed");
 		}
-	}while(0);
-	return status;
+		address_ptr = &address;
+	}
+		
+	/* set the BD address */
+	if(at_ble_addr_set(address_ptr) != AT_BLE_SUCCESS)
+	{
+		DBG_LOG("BD address set failed");
+	}
+		
+	DBG_LOG("BD Address:0x%02X%02X%02X%02X%02X%02X, Address Type:%d",
+	address_ptr->addr[5],
+	address_ptr->addr[4],
+	address_ptr->addr[3],
+	address_ptr->addr[2],
+	address_ptr->addr[1],
+	address_ptr->addr[0], address_ptr->type);
 }
 
+uint32_t ble_sdk_version(void)
+{
+	uint32_t fw_ver, rf_ver;
+	if(at_ble_firmware_version_get(&fw_ver) == AT_BLE_SUCCESS)
+	{
+		/* Check the SDK and Library version compatibility */
+		if ( (BLE_SDK_MAJOR_NO(fw_ver) == BLE_SDK_MAJOR_NO(BLE_SDK_VERSION)) && \
+		(BLE_SDK_MINOR_NO(fw_ver) == BLE_SDK_MINOR_NO(BLE_SDK_VERSION)) )
+		{
+			DBG_LOG("BluSmartSDK Firmware Version:%X.%X.%X", (uint8_t)BLE_SDK_MAJOR_NO(fw_ver), \
+			((uint8_t)BLE_SDK_MINOR_NO(fw_ver) + BLE_SDK_MINOR_NO_INC), (uint16_t)BLE_SDK_BUILD_NO(fw_ver));
+		}
+		else
+		{
+			DBG_LOG("Error:Library version doesn't match with SDK version. Please use %X.%X version of library", \
+			BLE_SDK_MAJOR_NO(BLE_SDK_VERSION), BLE_SDK_MINOR_NO(BLE_SDK_VERSION));
+			fw_ver = 0;
+		}
+		
+		if(at_ble_rf_version_get(&rf_ver) == AT_BLE_SUCCESS)
+		{
+			DBG_LOG("SAMB11 RF Version:0x%8X", (unsigned int)rf_ver);
+		}
+		else
+		{
+			DBG_LOG("Error: Failed to get SAMB11 RF Version");
+			rf_ver = 0;
+		}
+	}
+	else
+	{
+		DBG_LOG("Error: Failed to get BluSmartSDK Firmware Version");
+		fw_ver = 0;
+	}
 
-static uint8_t params[100];
+	return fw_ver;
+}
+	
+/* Initialize the BLE */
+static void ble_init(void)
+{
+	uint32_t chip_id = 0xFFFFFFFF;
+	/*Memory allocation required by GATT Server DB*/
+	memset(&pf_cfg,0,sizeof(pf_cfg));
+	memset((void *)event_pool_memory,0,sizeof(event_pool_memory));
+	memset((void *)event_params_memory,0,sizeof(event_params_memory));
+
+	pf_cfg.memPool.memSize = 0;
+	pf_cfg.memPool.memStartAdd = NULL;
+	pf_cfg.event_mem_pool.memStartAdd        = (uint8_t *)event_pool_memory;
+	pf_cfg.event_mem_pool.memSize            = sizeof(event_pool_memory);
+	pf_cfg.event_params_mem_pool.memStartAdd = (uint8_t *)event_params_memory;
+	pf_cfg.event_params_mem_pool.memSize     = sizeof(event_params_memory);
+
+	#if (BLE_MODULE == SAMB11_ZR)
+		pf_cfg.samb11_module_version			 = AT_SAMB11_ZR;
+		DBG_LOG("SAMB11 XPro Module: SAMB11-ZR");
+	#elif (BLE_MODULE == SAMB11_MR)
+		pf_cfg.samb11_module_version			 = AT_SAMB11_MR;
+		DBG_LOG("SAMB11 XPro Module:MR SAMB11-MR");
+	#else
+		DBG_LOG("Error: Select a Valid SAMB11 XPro Module");
+		return;
+	#endif
+
+	/* Init BLE device */
+	if(at_ble_init(&pf_cfg) != AT_BLE_SUCCESS)
+	{
+		DBG_LOG("SAMB11 Initialization failed");
+		DBG_LOG("Please check the power and connection / hardware connector");
+		while(1);
+	}
+
+	if (at_ble_chip_id_get(&chip_id) == AT_BLE_SUCCESS)
+	{
+		DBG_LOG("SAMB11 Chip ID: 0x%6X", (unsigned int)chip_id);
+	}
+	else
+	{
+		DBG_LOG("SAMB11 Chip identification failed");
+		while(1);
+	}
+
+	/* set its own public address */
+	ble_set_address(NULL);
+
+	ble_sdk_version();
+}
+
+/* Define service, advertisement data set and start advertisement */
+static void beacon_init(void)
+{
+	uint8_t idx = 0;
+	static uint8_t adv_data[BEACON_ADV_LENGTH + BEACON_ADV_TYPE_LENGTH];
+	
+	/* Adding advertisement data length and advertisement 
+	data type to advertisement data */
+	adv_data[idx++] = BEACON_ADV_LENGTH;
+	adv_data[idx++] = BEACON_ADV_TYPE;
+	
+	/* Adding manufacturer specific data(company identifier code and 
+	additional manufacturer specific data) to advertisement data */
+	memcpy(&adv_data[idx], COMPANY_IDENTIFIER_CODE, COMPANY_IDENTIFIER_CODE_LENGTH);
+	idx += COMPANY_IDENTIFIER_CODE_LENGTH;
+	
+	memcpy(&adv_data[idx], ADDTIONAL_MANUFACTURER_SPECIFIC_DATA, ADDTIONAL_MANUFACTURER_SPECIFIC_DATA_LENGTH);
+	idx += ADDTIONAL_MANUFACTURER_SPECIFIC_DATA_LENGTH;
+
+	/* set beacon advertisement data */
+	if(at_ble_adv_data_set(adv_data, idx, NULL, BEACON_SCAN_RESPONSE_LENGTH) != AT_BLE_SUCCESS)
+	{
+		DBG_LOG("iBeacon advertisement data set failed");
+	}
+	
+	/* BLE start advertisement */
+	if(at_ble_adv_start(AT_BLE_ADV_TYPE_NONCONN_UNDIRECTED, AT_BLE_ADV_GEN_DISCOVERABLE, NULL, AT_BLE_ADV_FP_ANY, 
+	   BEACON_ADV_INTERVAL, BEACON_ADV_TIMEOUT, BEACON_ABSOLUTE_INTERVAL_ADV) != AT_BLE_SUCCESS)
+	{
+		DBG_LOG("iBeacon advertisement failed");
+	}
+	else
+	{
+		DBG_LOG("iBeacon Advertisement started");		
+	}
+}
+
 int main(void)
 {
 	at_ble_events_t event;
-	at_ble_status_t status = AT_BLE_SUCCESS;
+	platform_driver_init();	
+	acquire_sleep_lock();	
+	configure_uart();
+		
+	DBG_LOG("Initializing iBeacon SAMB11 Application");
+	
+	/* initialize the BLE chip */
+	ble_init();	
+	
+	/* Initialize the Beacon advertisement */
+	beacon_init();
 
 	memset(params, 0, sizeof(params));
-
-	platform_driver_init();
-	configure_uart();
-	status = app_init();
-	CHECK_ERROR(status, __EXIT);
-	PRINT_H1("Init done\r\n");
-	
 	register_resume_callback(resume_cb);
+
 	release_sleep_lock();
 	
-
-	while((status = at_ble_event_get(&event, params, (uint32_t)-1)) == AT_BLE_SUCCESS)
+	while(1)
 	{
-		acquire_sleep_lock();
-		switch(event)
-		{
-			case AT_BLE_CONNECTED:
-			{
-				volatile at_ble_connected_t *conn_params = (at_ble_connected_t *)((void *)params);
-				PRINT_H1("AT_BLE_CONNECTED:\r\n");
-				if (AT_BLE_SUCCESS == conn_params->conn_status)
-				{
-					PRINT_H2("Device connected:\r\n");
-					PRINT_H3("Conn. handle : 0x%04X\r\n", conn_params->handle);
-					PRINT_H3("Address      : 0x%02X%02X%02X%02X%02X%02X\r\n",
-						conn_params->peer_addr.addr[5],
-						conn_params->peer_addr.addr[4],
-						conn_params->peer_addr.addr[3],
-						conn_params->peer_addr.addr[2],
-						conn_params->peer_addr.addr[1],
-						conn_params->peer_addr.addr[0]
-					);
-				PRINT_H3("Conn.Interval: 0x%04X\r\n", conn_params->conn_params.con_interval);
-				PRINT_H3("Conn. Latency: 0x%04X\r\n", conn_params->conn_params.con_latency);
-				PRINT_H3("Supr. Timeout: 0x%04X\r\n", conn_params->conn_params.sup_to);
-				}
-				else
-				{
-					PRINT_H2("Unable to connect to device:\r\n");
-					PRINT_H3("Status : %d\r\n", conn_params->conn_status);
-				}
-			}
-			break;
-		case AT_BLE_MTU_CHANGED_INDICATION:
-		{
-			at_ble_mtu_changed_ind_t *args = (at_ble_mtu_changed_ind_t *)((void *)params);
-			PRINT_H1("AT_BLE_MTU_CHANGED_INDICATION\r\n");
-			PRINT_H2("New MTU for Conn. Handle 0x%02X is 0x%04X\r\n", args->conhdl, args->mtu_value);
-		}
-		break;
-		case AT_BLE_CONN_PARAM_UPDATE_DONE:
-		{
-			at_ble_conn_param_update_done_t *args = (at_ble_conn_param_update_done_t *)((void *)params);
-			PRINT_H1("AT_BLE_CONN_PARAM_UPDATE_DONE\r\n");
-			PRINT_H2("New Parameters Update for Conn. handle 0x%02X:\r\n", args->handle);
-			PRINT_H3("Conn. Interval    : 0x%04X\r\n",args->con_intv);
-			PRINT_H3("Conn. Latency     : 0x%04X\r\n",args->con_latency);
-			PRINT_H3("Conn. Sup. Timeout: 0x%04X\r\n",args->superv_to);
-		}
-		break;
-			case AT_BLE_DISCONNECTED:
-			{
-				at_ble_disconnected_t *disconn_params = (at_ble_disconnected_t *)((void *)params);
-				PRINT_H1("AT_BLE_DISCONNECTED:\r\n");
-				PRINT_H2("Device disconnected:\r\n");
-				PRINT_H3("Conn. handle : 0x%04X\r\n", disconn_params->handle);
-				PRINT_H3("Reason       : 0x%02X\r\n", disconn_params->reason);
-				PRINT_H2("Start Advertising again\r\n");
-				status = at_ble_adv_start(AT_BLE_ADV_TYPE_UNDIRECTED, AT_BLE_ADV_GEN_DISCOVERABLE, NULL, AT_BLE_ADV_FP_ANY, 1600, 0, 0);
-				PRINT_H3("Status : %d\r\n", status);
-			}
-			break;
-
-			default:
-				PRINT_H1("default: 0x%04X\r\n",event);
-			break;
-
-		}
-		release_sleep_lock();
+		at_ble_event_get(&event, params, (uint32_t)(-1));
 	}
-
-__EXIT:
-	return status;
 }

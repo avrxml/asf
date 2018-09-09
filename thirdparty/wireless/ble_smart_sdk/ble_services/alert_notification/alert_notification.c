@@ -3,45 +3,35 @@
 *
 * \brief ALert Notification Service
 *
-* Copyright (c) 2016 Atmel Corporation. All rights reserved.
+* Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
 *
 * \asf_license_start
 *
 * \page License
 *
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
+* Subject to your compliance with these terms, you may use Microchip
+* software and any derivatives exclusively with Microchip products.
+* It is your responsibility to comply with third party license terms applicable
+* to your use of third party software (including open source software) that
+* may accompany Microchip software.
 *
-* 1. Redistributions of source code must retain the above copyright notice,
-*    this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-*    this list of conditions and the following disclaimer in the documentation
-*    and/or other materials provided with the distribution.
-*
-* 3. The name of Atmel may not be used to endorse or promote products derived
-*    from this software without specific prior written permission.
-*
-* 4. This software may only be redistributed and used in connection with an
-*    Atmel micro controller product.
-*
-* THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
-* WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
-* EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
-* ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-* STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-* ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+* WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+* AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+* LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+* LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+* SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+* POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+* ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+* RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *
 * \asf_license_stop
 *
 */
 /*
-* Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+* Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
 */
 
 /***********************************************************************************
@@ -52,31 +42,14 @@
 #include "alert_notification.h"
 #include "ble_manager.h"
 
-char bitmask0[8][15];
-char bitmask1[3][30];
+const char *bitmask0[] = {"Simple Alert","Email","News","Call","Missed Call","Sms/Mms",
+							"Voice Mail","Schedule"};
+const char *bitmask1[] = {"High Prioritized Alert","Instant Message",
+							"Reserved For feature"};
 
 /***********************************************************************************
  *									Implementation	                               *
  **********************************************************************************/
-
-void anp_alert_init(void)
-{
-	memset(bitmask0, 0, sizeof(char) * 8 * 15);
-	memset(bitmask1, 0, sizeof(char) * 3 * 30);
-
-	memcpy(bitmask0[0], "Simple Alert", strlen("Simple Alert"));
-	memcpy(bitmask0[1], "Email", strlen("Email"));
-	memcpy(bitmask0[2], "News", strlen("News"));
-	memcpy(bitmask0[3], "Call", strlen("Call"));
-	memcpy(bitmask0[4], "Missed Call", strlen("Missed Call"));
-	memcpy(bitmask0[5], "Sms/Mms", strlen("Sms/Mms"));
-	memcpy(bitmask0[6], "Voice Mail", strlen("Voice Mail"));
-	memcpy(bitmask0[7], "Schedule", strlen("Schedule"));
-
-	memcpy(bitmask1[0], "High Prioritized Alert", strlen("High Prioritized Alert"));
-	memcpy(bitmask1[1], "Instant Message", strlen("Instant Message"));
-	memcpy(bitmask1[2], "Reserved For feature", strlen("Reserved For feature"));
-}
 
 /**
  * @brief anp_alert_noti invoked by the profile for enabling or disabling notifications
@@ -87,7 +60,7 @@ void anp_alert_init(void)
  */
 at_ble_status_t anp_alert_noti(at_ble_handle_t conn_handle,at_ble_handle_t desc_handle, bool noti)
 {
-	uint8_t desc_value[2] = {0, };
+	uint8_t desc_value[2] ;
 	
 	if(desc_handle == ANP_INVALID_CHAR_HANDLE) {
 		return (AT_BLE_ATT_INVALID_HANDLE);

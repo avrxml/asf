@@ -167,19 +167,23 @@
 				<option>
 					<name>CCDefines</name>
 					<state>CSC_SERVICE</state>
-					<state>EXTINT_CALLBACK_MODE=true</state>
-					<state>NEW_EVT_HANDLER</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>CSC_DEVICE</state>
 					<state>TC_ASYNC=true</state>
 					<state>ATT_DB_MEMORY</state>
 					<state>SYSTICK_MODE</state>
 					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
+					<state>EXTINT_CALLBACK_MODE=true</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
-					<state>BOARD=SAML21_XPLAINED_PRO</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>NEW_EVT_HANDLER</state>
+					<state>BOARD=SAML21_XPLAINED_PRO</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>ENABLE_POWER_SAVE</state>
 				</option>
 				<option>
@@ -502,19 +506,23 @@
 				<option>
 					<name>ADefines</name>
 					<state>CSC_SERVICE</state>
-					<state>EXTINT_CALLBACK_MODE=true</state>
-					<state>NEW_EVT_HANDLER</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>CSC_DEVICE</state>
 					<state>TC_ASYNC=true</state>
 					<state>ATT_DB_MEMORY</state>
 					<state>SYSTICK_MODE</state>
 					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
+					<state>EXTINT_CALLBACK_MODE=true</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
-					<state>BOARD=SAML21_XPLAINED_PRO</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>NEW_EVT_HANDLER</state>
+					<state>BOARD=SAML21_XPLAINED_PRO</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>ENABLE_POWER_SAVE</state>
 				</option>
 				<option>
@@ -1196,19 +1204,23 @@
 				<option>
 					<name>CCDefines</name>
 					<state>CSC_SERVICE</state>
-					<state>EXTINT_CALLBACK_MODE=true</state>
-					<state>NEW_EVT_HANDLER</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>CSC_DEVICE</state>
 					<state>TC_ASYNC=true</state>
 					<state>ATT_DB_MEMORY</state>
 					<state>SYSTICK_MODE</state>
 					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
+					<state>EXTINT_CALLBACK_MODE=true</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
-					<state>BOARD=SAML21_XPLAINED_PRO</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>NEW_EVT_HANDLER</state>
+					<state>BOARD=SAML21_XPLAINED_PRO</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>ENABLE_POWER_SAVE</state>
 				</option>
 				<option>
@@ -1531,19 +1543,23 @@
 				<option>
 					<name>ADefines</name>
 					<state>CSC_SERVICE</state>
-					<state>EXTINT_CALLBACK_MODE=true</state>
-					<state>NEW_EVT_HANDLER</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>CSC_DEVICE</state>
 					<state>TC_ASYNC=true</state>
 					<state>ATT_DB_MEMORY</state>
 					<state>SYSTICK_MODE</state>
 					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
+					<state>EXTINT_CALLBACK_MODE=true</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
-					<state>BOARD=SAML21_XPLAINED_PRO</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>NEW_EVT_HANDLER</state>
+					<state>BOARD=SAML21_XPLAINED_PRO</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>ENABLE_POWER_SAVE</state>
 				</option>
 				<option>

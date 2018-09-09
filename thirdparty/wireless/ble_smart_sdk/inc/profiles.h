@@ -3,7 +3,7 @@
  
   \brief Includes datatypes and signatures for profiles
  
-  Copyright (c) 2016, Atmel Corporation. All rights reserved.
+  * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
   Released under NDA
   Licensed under Atmel's Limited License Agreement.
  
@@ -20,7 +20,7 @@
   ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
   POSSIBILITY OF SUCH DAMAGE.
  
-  Atmel Corporation: http://www.atmel.com
+  Microchip Technology Inc: http://www.microchip.com
  
 ******************************************************************************/
 
@@ -31,12 +31,12 @@
  *      Author: aabdelfattah
  */
 
-/*
+
 #ifndef PRF_DEFS_H_
 #define PRF_DEFS_H_
 
 /// Message structure used to inform APP that an error has occurred in the profile server role task
-struct prf_server_error_ind
+typedef struct prf_server_error_ind
 {
     /// Connection Handle
     uint16_t conhdl;
@@ -44,9 +44,9 @@ struct prf_server_error_ind
     uint16_t msg_id;
     /// Status
     uint8_t status;
-};
+}prf_server_error_ind_t;
 /// Time profile information
-struct prf_date_time
+typedef struct prf_date_time
 {
     /// year time element
     uint16_t year;
@@ -60,14 +60,6 @@ struct prf_date_time
     uint8_t min;
     /// second time element
     uint8_t sec;
-};
-/// Connection type
-enum prf_con_type
-{
-    ///Discovery type connection
-    PRF_CON_DISCOVERY = 0x00,
-    /// Normal type connection
-    PRF_CON_NORMAL    = 0x01
-};
+}prf_date_time_t;
 
-#endif */ /* PRF_DEFS_H_ */
+#endif  /* PRF_DEFS_H_ */

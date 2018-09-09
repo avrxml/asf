@@ -3,45 +3,35 @@
  *
  * \brief Component description for EVSYS
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAMD20_EVSYS_COMPONENT_
@@ -151,7 +141,9 @@ typedef union {
 #define EVSYS_USER_CHANNEL_Pos      8            /**< \brief (EVSYS_USER) Channel Event Selection */
 #define EVSYS_USER_CHANNEL_Msk      (0xFul << EVSYS_USER_CHANNEL_Pos)
 #define EVSYS_USER_CHANNEL(value)   ((EVSYS_USER_CHANNEL_Msk & ((value) << EVSYS_USER_CHANNEL_Pos)))
-#define EVSYS_USER_MASK             0x0F0Ful     /**< \brief (EVSYS_USER) MASK Register */
+#define   EVSYS_USER_CHANNEL_0_Val        _U_(0x0)   /**< \brief (EVSYS_USER) No Channel Output Selected */
+#define EVSYS_USER_CHANNEL_0        (EVSYS_USER_CHANNEL_0_Val      << EVSYS_USER_CHANNEL_Pos)
+#define EVSYS_USER_MASK             _U_(0x0F0F)  /**< \brief (EVSYS_USER) MASK Register */
 
 /* -------- EVSYS_CHSTATUS : (EVSYS Offset: 0x0C) (R/  32) Channel Status -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
@@ -186,6 +178,7 @@ typedef union {
 
 #define EVSYS_CHSTATUS_OFFSET       0x0C         /**< \brief (EVSYS_CHSTATUS offset) Channel Status */
 #define EVSYS_CHSTATUS_RESETVALUE   0x00000000ul /**< \brief (EVSYS_CHSTATUS reset_value) Channel Status */
+#define EVSYS_CHSTATUS_RESETVALUE_VAR_B  _U_(0x000F00FF) /**< \brief (EVSYS_CHSTATUS reset_value) Channel Status */
 
 #define EVSYS_CHSTATUS_USRRDY0_Pos  0            /**< \brief (EVSYS_CHSTATUS) Channel 0 User Ready */
 #define EVSYS_CHSTATUS_USRRDY0      (1 << EVSYS_CHSTATUS_USRRDY0_Pos)
@@ -377,30 +370,30 @@ typedef union {
 
 /* -------- EVSYS_INTFLAG : (EVSYS Offset: 0x18) (R/W 32) Interrupt Flag Status and Clear -------- */
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-typedef union {
+typedef union { // __I to avoid read-modify-write on write-to-clear register
   struct {
-    uint32_t OVR0:1;           /*!< bit:      0  Channel 0 Overrun                  */
-    uint32_t OVR1:1;           /*!< bit:      1  Channel 1 Overrun                  */
-    uint32_t OVR2:1;           /*!< bit:      2  Channel 2 Overrun                  */
-    uint32_t OVR3:1;           /*!< bit:      3  Channel 3 Overrun                  */
-    uint32_t OVR4:1;           /*!< bit:      4  Channel 4 Overrun                  */
-    uint32_t OVR5:1;           /*!< bit:      5  Channel 5 Overrun                  */
-    uint32_t OVR6:1;           /*!< bit:      6  Channel 6 Overrun                  */
-    uint32_t OVR7:1;           /*!< bit:      7  Channel 7 Overrun                  */
-    uint32_t EVD0:1;           /*!< bit:      8  Channel 0 Event Detection          */
-    uint32_t EVD1:1;           /*!< bit:      9  Channel 1 Event Detection          */
-    uint32_t EVD2:1;           /*!< bit:     10  Channel 2 Event Detection          */
-    uint32_t EVD3:1;           /*!< bit:     11  Channel 3 Event Detection          */
-    uint32_t EVD4:1;           /*!< bit:     12  Channel 4 Event Detection          */
-    uint32_t EVD5:1;           /*!< bit:     13  Channel 5 Event Detection          */
-    uint32_t EVD6:1;           /*!< bit:     14  Channel 6 Event Detection          */
-    uint32_t EVD7:1;           /*!< bit:     15  Channel 7 Event Detection          */
-    uint32_t :16;              /*!< bit: 16..31  Reserved                           */
+    __I uint32_t OVR0:1;       /*!< bit:      0  Channel 0 Overrun                  */
+    __I uint32_t OVR1:1;       /*!< bit:      1  Channel 1 Overrun                  */
+    __I uint32_t OVR2:1;       /*!< bit:      2  Channel 2 Overrun                  */
+    __I uint32_t OVR3:1;       /*!< bit:      3  Channel 3 Overrun                  */
+    __I uint32_t OVR4:1;       /*!< bit:      4  Channel 4 Overrun                  */
+    __I uint32_t OVR5:1;       /*!< bit:      5  Channel 5 Overrun                  */
+    __I uint32_t OVR6:1;       /*!< bit:      6  Channel 6 Overrun                  */
+    __I uint32_t OVR7:1;       /*!< bit:      7  Channel 7 Overrun                  */
+    __I uint32_t EVD0:1;       /*!< bit:      8  Channel 0 Event Detection          */
+    __I uint32_t EVD1:1;       /*!< bit:      9  Channel 1 Event Detection          */
+    __I uint32_t EVD2:1;       /*!< bit:     10  Channel 2 Event Detection          */
+    __I uint32_t EVD3:1;       /*!< bit:     11  Channel 3 Event Detection          */
+    __I uint32_t EVD4:1;       /*!< bit:     12  Channel 4 Event Detection          */
+    __I uint32_t EVD5:1;       /*!< bit:     13  Channel 5 Event Detection          */
+    __I uint32_t EVD6:1;       /*!< bit:     14  Channel 6 Event Detection          */
+    __I uint32_t EVD7:1;       /*!< bit:     15  Channel 7 Event Detection          */
+    __I uint32_t :16;          /*!< bit: 16..31  Reserved                           */
   } bit;                       /*!< Structure used for bit  access                  */
   struct {
-    uint32_t OVR:8;            /*!< bit:  0.. 7  Channel x Overrun                  */
-    uint32_t EVD:8;            /*!< bit:  8..15  Channel x Event Detection          */
-    uint32_t :16;              /*!< bit: 16..31  Reserved                           */
+    __I uint32_t OVR:8;        /*!< bit:  0.. 7  Channel x Overrun                  */
+    __I uint32_t EVD:8;        /*!< bit:  8..15  Channel x Event Detection          */
+    __I uint32_t :16;          /*!< bit: 16..31  Reserved                           */
   } vec;                       /*!< Structure used for vec  access                  */
   uint32_t reg;                /*!< Type      used for register access              */
 } EVSYS_INTFLAG_Type;

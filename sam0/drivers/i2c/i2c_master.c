@@ -3,45 +3,35 @@
  *
  * \brief I2C Master Driver for SAMB
  *
- * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include "i2c_master.h"
@@ -142,8 +132,10 @@ enum status_code i2c_master_init(
 	i2c_disable(module->hw);
 	if (module->hw == I2C0) {
 		system_peripheral_reset(PERIPHERAL_I2C0_CORE);
+		system_clock_peripheral_enable(PERIPHERAL_I2C0_CORE);
 	} else if (module->hw == I2C1) {
 		system_peripheral_reset(PERIPHERAL_I2C1_CORE);
+		system_clock_peripheral_enable(PERIPHERAL_I2C1_CORE);
 	} else {
 		return STATUS_ERR_INVALID_ARG;
 	}
@@ -221,21 +213,22 @@ static enum status_code _i2c_master_read_packet(
 	/* Address I2C slave in case of Master mode enabled. */
 	i2c_module->TRANSMIT_DATA.reg = I2C_TRANSMIT_DATA_ADDRESS_FLAG_1 |
 			(packet->address << 1) | I2C_TRANSFER_READ;
-	do {
-		status = i2c_module->RECEIVE_STATUS.reg;
-		if (status & I2C_RECEIVE_STATUS_RX_FIFO_NOT_EMPTY)
-			packet->data[counter++] = i2c_module->RECEIVE_DATA.reg;
-	} while (counter < length); 
 
 	/* Now check whether the core has sent the data out and free the bus. */
 	while (!(status & I2C_TRANSMIT_STATUS_TX_FIFO_EMPTY)) {
 		status = i2c_module->TRANSMIT_STATUS.reg;
 	}
 
-	/* Send stop condition. */
-	if (!module->no_stop) {
-		i2c_module->I2C_ONBUS.reg = I2C_ONBUS_ONBUS_ENABLE_0;
-	}
+	do {
+		/* Send stop condition. */
+		if ((!module->no_stop) && (counter == (length - 1))) {
+			i2c_module->I2C_ONBUS.reg = I2C_ONBUS_ONBUS_ENABLE_0;
+		}
+
+		status = i2c_module->RECEIVE_STATUS.reg;
+		if (status & I2C_RECEIVE_STATUS_RX_FIFO_NOT_EMPTY)
+			packet->data[counter++] = i2c_module->RECEIVE_DATA.reg;
+	} while (counter < length);
 
 	return STATUS_OK;
 }

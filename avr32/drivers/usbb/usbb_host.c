@@ -4,45 +4,35 @@
  * \brief USB host driver
  * Compliance with common driver UHD
  *
- * Copyright (C) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include "conf_usb_host.h"
@@ -122,6 +112,11 @@ extern void udc_start(void);
  * Feature to reduce or increase interrupt endpoints buffering (1 to 2).
  * Default value 1.
  *
+ * UHD_BULK_INTERVAL_MIN<br>
+ * Feature to reduce or increase bulk token rate when it's NAKed (0, 1 ...).
+ * To adjust bandwidth usage.
+ * Default value 1.
+ *
  * \section Callbacks management
  * The USB driver is fully managed by interrupt and does not request periodic
  * task. Thereby, the USB events use callbacks to transfer the information.
@@ -164,6 +159,10 @@ extern void udc_start(void);
 #  endif
 #endif
 
+#ifndef UHD_BULK_INTERVAL_MIN
+/** Minimal bulk interval value */
+#  define UHD_BULK_INTERVAL_MIN 1
+#endif
 
 /**
  * \name Power management
@@ -716,7 +715,7 @@ bool uhd_ep0_alloc(usb_add_t add, uint8_t ep_size)
 	return true;
 }
 
-bool uhd_ep_alloc(usb_add_t add, usb_ep_desc_t * ep_desc)
+bool uhd_ep_alloc(usb_add_t add, usb_ep_desc_t * ep_desc, uhd_speed_t speed)
 {
 	uint8_t ep_addr;
 	uint8_t ep_type;
@@ -738,16 +737,49 @@ bool uhd_ep_alloc(usb_add_t add, usb_ep_desc_t * ep_desc)
 		switch(ep_type) {
 		case USB_EP_TYPE_ISOCHRONOUS:
 			bank = UHD_ISOCHRONOUS_NB_BANK;
+#ifdef USB_HOST_HS_SUPPORT
+			if (speed == UHD_SPEED_HIGH) {
+				if (ep_desc->bInterval < 1) {
+					ep_interval = 1;
+				} else if (ep_desc->bInterval >= 8) {
+					ep_interval = 255;
+				} else {
+					ep_interval = 1 << (ep_desc->bInterval - 1);
+				}
+			} else {
+				ep_interval = ep_desc->bInterval;
+			}
+#else
 			ep_interval = ep_desc->bInterval;
+#endif
 			break;
 		case USB_EP_TYPE_INTERRUPT:
 			bank = UHD_INTERRUPT_NB_BANK;
+#ifdef USB_HOST_HS_SUPPORT
+			if (speed == UHD_SPEED_HIGH) {
+				if (ep_desc->bInterval < 1) {
+					ep_interval = 1;
+				} else if (ep_desc->bInterval >= 8) {
+					ep_interval = 255;
+				} else {
+					ep_interval = 1 << (ep_desc->bInterval - 1);
+				}
+			} else {
+				ep_interval = ep_desc->bInterval;
+			}
+#else
 			ep_interval = ep_desc->bInterval;
+#endif
 			break;
 		case USB_EP_TYPE_BULK:
 			bank = UHD_BULK_NB_BANK;
-			// 0 is required by USBB hardware for bulk
-			ep_interval = 0;
+			if (ep_desc->bEndpointAddress & USB_EP_DIR_IN) {
+				ep_interval = 0;
+			} else if (ep_desc->bInterval > UHD_BULK_INTERVAL_MIN) {
+				ep_interval = ep_desc->bInterval;
+			} else {
+				ep_interval = UHD_BULK_INTERVAL_MIN;
+			}
 			break;
 		default:
 			Assert(false);
@@ -919,6 +951,12 @@ bool uhd_ep_run(
 	cpu_irq_restore(flags);
 
 	// Request first transfer
+#if UHD_BULK_INTERVAL_MIN
+	if (Is_uhd_pipe_bulk_in(pipe)) {
+		uhd_ack_nak_received(pipe);
+		uhd_enable_nak_received_interrupt(pipe);
+	}
+#endif
 	uhd_pipe_trans_complet(pipe);
 	return true;
 }
@@ -1108,6 +1146,26 @@ static void uhd_interrupt(void)
  */
 static void uhd_sof_interrupt(void)
 {
+	uhd_pipe_job_t *ptr_job;
+	uint8_t pipe;
+
+#if UHD_BULK_INTERVAL_MIN
+	// Start any busy frozen Bulk IN
+	for (pipe = 1; pipe < AVR32_USBB_EPT_NUM; pipe ++) {
+		ptr_job = &uhd_pipe_job[pipe-1];
+		if (!ptr_job->busy) {
+			continue;
+		}
+		if (!Is_uhd_pipe_bulk_in(pipe)) {
+			continue;
+		}
+		if (!Is_uhd_pipe_frozen(pipe)) {
+			continue;
+		}
+		uhd_unfreeze_pipe(pipe);
+	}
+#endif
+
 	// Manage the micro SOF
 	if (Is_uhd_high_speed_mode()) {
 		static uint8_t msof_cpt;
@@ -1178,8 +1236,7 @@ static void uhd_sof_interrupt(void)
 		}
 	}
 	// Manage the timeouts on endpoint transfer
-	uhd_pipe_job_t *ptr_job;
-	for (uint8_t pipe = 1; pipe < AVR32_USBB_EPT_NUM; pipe++) {
+	for (pipe = 1; pipe < AVR32_USBB_EPT_NUM; pipe++) {
 		ptr_job = &uhd_pipe_job[pipe-1];
 		if (ptr_job->busy == true) {
 			if (ptr_job->timeout) {
@@ -1694,6 +1751,8 @@ static void uhd_pipe_trans_complet(uint8_t pipe)
 			uhd_enable_out_ready_interrupt(pipe);
 			return;
 		}
+	} else {
+		uhd_disable_nak_received_interrupt(pipe);
 	}
 	// Call callback to signal end of transfer
 	uhd_pipe_finish_job(pipe, UHD_TRANS_NOERROR);
@@ -1766,6 +1825,18 @@ static void uhd_pipe_interrupt_dma(uint8_t pipe)
  */
 static void uhd_pipe_interrupt(uint8_t pipe)
 {
+#if UHD_BULK_INTERVAL_MIN
+	// for any bulk IN NAK endpoints, freeze to free bandwidth
+	if (Is_uhd_pipe_bulk_in(pipe)
+		&& Is_uhd_nak_received_interrupt_enabled(pipe)
+		&& Is_uhd_nak_received(pipe)) {
+		// Freeze until next frame start
+		uhd_freeze_pipe(pipe);
+		uhd_ack_nak_received(pipe);
+		return;
+	}
+#endif
+
 	if (Is_uhd_bank_interrupt_enabled(pipe) && (0==uhd_nb_busy_bank(pipe))) {
 		uhd_disable_bank_interrupt(pipe);
 		uhd_pipe_finish_job(pipe, UHD_TRANS_NOERROR);
@@ -1812,6 +1883,7 @@ static void uhd_ep_abort_pipe(uint8_t pipe, uhd_trans_status_t status)
 	uhd_enable_pipe_error_interrupt(pipe);
 
 	uhd_disable_out_ready_interrupt(pipe);
+	uhd_disable_nak_received_interrupt(pipe);
 	uhd_pipe_dma_set_control(pipe, 0);
 	uhd_pipe_finish_job(pipe, status);
 }

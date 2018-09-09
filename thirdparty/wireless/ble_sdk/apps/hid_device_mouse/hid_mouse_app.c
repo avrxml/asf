@@ -3,53 +3,157 @@
  *
  * \brief HID Mouse Device Profile Application declarations
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel micro controller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Atmel
  *Support</a>
  */
 
 /**
- * \main page
- * \section preface Preface
- * This is the reference manual for the HID Keyboard Device Profile Application declarations
+ * \mainpage HID Mouse Application
+ * \section Introduction
+ * ******************************Introduction ***********************************
+ *
+ * The HID Mouse example application bring-up the HID over GATT (HOGP) profile
+ * defined by the Bluetooth SIG.
+ * The HID over GATT (HOGP) profile defined by the Bluetooth SIG enables support
+ * of HID services over a Bluetooth Low Energy (BLE) protocol stack using 
+ * Generic Attribute profile (GATT). This allows devices like keyboard or mouse
+ * implementing HOGP to connect to a compatible HOGP/BLE host device 
+ * (e.g.: Mobile Phone, Tablet, TV, etc.). 
+ *
+ * - Supported Evolution Kit -
+ *	+ ATSAML21-XPRO-B + ATBTLC1000 XPRO
+ *	+ ATSAMD21-XPRO + ATBTLC1000 XPRO
+ *	+ ATSAMG55-XPRO + ATBTLC1000 XPRO
+ *	+ ATSAM4S-XPRO + ATBTLC1000 XPRO
+ * 
+ * - Running the demo -
+ *  + 1. Build and flash the binary into supported evaluation board.
+ *  + 2. Open the console using TeraTerm or any serial port monitor.
+ *  + 3. Press the Reset button.
+ *  + 4. Wait for around 10 seconds for the patches to be downloaded device will initialize and start-up.
+ *  + 5. The device is now in advertising mode.
+ *  + 6. The demo requires use of an Android mobile phone supporting HOGP.
+ *       The HOGP profile is natively supported in Android from version 4.4 
+ *      (Android KitKat) and higher versions. The phone must include support a Bluetooth
+ *       chipset supporting BT 4.0 or higher version on the mobile phone, In Bluetooth 
+ *       settings scan for the devices, device with “ATMEL-HID” will be found 
+ *       as shown below. Click on “ATMEL-HID” to get connected.
+ *  + 7. Once connected, the client side will request for the pairing procedure . 
+ *       The console log provides a guidance for the user to enter the pass-key.
+ *  + 8. Once the device connected to host (Phone). User can click on SW0 button
+ *       on supported platform for simulating mouse movement.
+ *  + 9. For every press on button, the user can see corresponding cursor movement
+ *       on HID host as described below:
+ *       + First 5 Button Press:	 Cursor moves right
+ *       + Next 5 Button Press:	 Cursor moved down
+ *       + Next 5 Button Press:	 Cursor moves left
+ *       + Next 5 Button Press:	 Cursor moved up.
+ *
+ * \section Modules
+ * ***************************** MODULES ***************************************** 
+ * - BLE Manager - 
+ *  + The Event Manager is responsible for handling the following:
+ *    + Generic BLE Event Handling:-
+ *       + BLE Event Manager handles the events triggered by BLE stack and also responsible 
+ *  	 for invoking all registered callbacks for respective events. BLE Manager 
+ *  	 handles all GAP related functionality. In addition to that handles multiple connection 
+ *  	 instances, Pairing, Encryption, Scanning.
+ *    + Handling Multi-role/multi-connection:-
+ *  	  + BLE Event Manager is responsible for handling multiple connection instances 
+ *  	  and stores bonding information and Keys to retain the bonded device. 
+ *  	  BLE Manager is able to identify and remove the device information when pairing/encryption 
+ *		  gets failed. In case of multi-role, it handles the state/event handling of both central and peripheral in multiple contexts.
+ *    + Controlling the Advertisement data:-
+ *  	  + BLE Event Manager is responsible for generating the advertisement and scan response data
+ *  	  for BLE profiles/services that are attached with BLE Manager.
+ *
+ * - BLE Profile-
+ *  + This profile defines how a device with Bluetooth low energy wireless 
+ *    communications can support HID services over the Bluetooth low energy
+ *    protocol stack using the Generic Attribute Profile.
+ *    HID Over GATT Profile supports two services:
+ *    + Human Interface Device - 
+ *      + The HID Service exposes characteristics required for a HID Device to
+ *        transfer HID report descriptors and reports to a HID Host. This also
+ *        exposes the characteristics for a HID Host to write to a Device. 
+ *        The Human Interface Device Service is instantiated as a Primary Service.
+ *    + Device Information service -
+ *      + The Device Information Service exposes manufacturer and/or vendor 
+ *        information about a device.
+ *  
+ * - BLE Platform Services -
+ *  +  Interface Settings -
+ *	  + Connect ATBTLC1000 XPRO to SAML21-XPRO-B -> EXT1
+ *	  + Connect ATBTLC1000 XPRO to SAMD21-XPRO -> EXT1
+ *	  + Connect ATBTLC1000 XPRO to SAMG55-XPRO -> EXT1
+ *	  + Connect ATBTLC1000 XPRO to SAM4S-XPRO  -> EXT1
+ *  +  Serial Console COM port settings -
+ *    + Baudrate 115200
+ *	  + Parity None, Stop Bit 1, Start Bit 1
+ *	  + No Hardware Handshake
+ *	+  6-Wire Mode Connection Setup -
+ *    + Pins are 1:1 match with SAML21/D21 Xpro EXT1 Header to BTLC1000 XPro Header
+ *	  + UART(No Flow Control)-SAM L21/D21 XPro Pins (Rx-Pin13, Tx-Pin14)
+ *	  + UART(With Flow Control)-SAM G55 Xpro Pins (Rx-Pin13, Tx-Pin14, RTS-Pin5, CTS-Pin6, Rx-Pin16, Tx-Pin17)
+ *	  + BTLC1000 Wakeup Pin-SAM G55 XPro Pins(Pin4)
+ *	  + BTLC1000 Chip Enable Pin-SAM G55 XPro Pins(Pin10)
+ *	  + BTLC1000 Vcc Pin-SAM L21/D21/G55 Xpro Pins(Pin20)
+ *	  + BTLC1000 GND Pin-SAM L21/D21/G55 Xpro Pins(Pin19)
+ *  +  4-Wire Mode Connection setup -
+ * 	  + UART(With Flow Control)-SAM L21/D21 XPro Pins (Rx-Pin15, Tx-Pin17, RTS-Pin16, CTS-Pin18)
+ * 	  + BTLC1000 Wakeup Pin-SAM L21/D21 XPro Pins (Rx-Pin6)
+ * 	  + BTLC1000 Chip Enable Pin-SAM L21/D21 XPro Pins (Rx-Pin4)
+ * 	  + UART(With Flow Control)-SAM G55/4S Xpro Pins (Rx-Pin13, Tx-Pin14, RTS-Pin5, CTS-Pin6)
+ * 	  + BTLC1000 Wakeup Pin-SAM G55/4S XPro Pins(Pin4)
+ * 	  + BTLC1000 Chip Enable Pin-SAM G55/4S XPro Pins(Pin10)
+ * 	  + BTLC1000 Vcc Pin-SAM L21/D21/G55/4S Xpro Pins(Pin20)
+ * 	  + BTLC1000 GND Pin-SAM L21/D21/G55/4S Xpro Pins(Pin19)
+ *
+ * \section BluSDK Package
+ * ***************************** BluSDK Package *****************************************
+ * - BluSDK -
+ *		+ http://www.microchip.com/wwwproducts/en/ATBTLC1000?tab=documents
+ * - ATBTLC1000 - 
+ *		+ http://www.microchip.com/wwwproducts/en/ATBTLC1000 
+ * - Developement kit -
+ *		+ http://www.microchip.com/wwwproducts/en/ATBTLC1000?tab=tools
+ *		+ SAM L21 + BTLC1000 XPro -
+ *			+ http://www.microchip.com/developmenttools/productdetails/atbtlc1000-xstk
+ *		+ BTLC1000 XPro -
+ *				+ http://www.microchip.com/developmenttools/productdetails/atbtlc1000-xpro
+ * - Applications - 
+ *		+ http://www.microchip.com/devices/ATBTLC1000.aspx?tab=applications
+ * - Support and FAQ visit - 
+ *		+ <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 /*- Includes -----------------------------------------------------------------------*/
 #include <asf.h>
@@ -95,6 +199,9 @@ uint8_t cnt = 0;
 /*Mouse Movement Position*/
 uint8_t mouse_pos = MOUSE_RIGHT_MOVEMENT;
 
+/* Flag to avoid spurious interrupt posting  during/before reset and initialization completed */
+volatile bool app_init_done = false;
+
 /* Mouse report info*/
 static uint8_t hid_app_mouse_report_map[] =
 {
@@ -128,53 +235,43 @@ static uint8_t hid_app_mouse_report_map[] =
 	0xC0,		/* End Collection                      */
 };
 
-static at_ble_status_t hid_connect_cb(void *params);
-
-static at_ble_status_t hid_disconnect_cb(void *params);
-
-static at_ble_status_t hid_notification_confirmed_cb(void *params);
-
 /** To keep the app executing continuously*/
 bool app_exec = true;
 
-static const ble_event_callback_t hid_app_gap_handle[] = {
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	hid_connect_cb,
-	hid_disconnect_cb,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+user_custom_event_t app_button_event =
+{
+	.id = APP_BUTTON_EVENT_ID,
+	.bptr = NULL
 };
 
-static const ble_event_callback_t hid_app_gatt_server_handle[] = {
-	hid_notification_confirmed_cb,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gap_event_cb_t hid_app_gap_handle = {
+	.connected = hid_connect_cb,
+	.disconnected = hid_disconnect_cb
 };
+
+static const ble_gatt_server_event_cb_t hid_app_gatt_server_handle = {
+	.notification_confirmed = hid_notification_confirmed_cb,
+
+};
+
+/* All BLE Manager Custom Event callback */
+static const ble_custom_event_cb_t hid_custom_event_cb = {
+	.custom_event = hid_custom_event
+};
+
+static at_ble_status_t hid_custom_event(void *param)
+{
+	at_ble_status_t status = AT_BLE_SUCCESS;
+	if(!mouse_status){
+		mouse_status = 1;
+	}
+	return status;
+}
 
 /* Callback called during connection */
 static at_ble_status_t hid_connect_cb(void *params)
 {
+	mouse_status = 0; 
 	mouse_pos = MOUSE_RIGHT_MOVEMENT;
 	conn_status = 1;
 	cnt = 0;
@@ -189,6 +286,7 @@ static at_ble_status_t hid_connect_cb(void *params)
 /* Callback called during disconnect */
 static at_ble_status_t hid_disconnect_cb(void *params)
 {
+	mouse_status = 0;
 	mouse_pos = MOUSE_RIGHT_MOVEMENT;
 	conn_status = 0;
 	cnt = 0;
@@ -248,9 +346,12 @@ static at_ble_status_t hid_notification_confirmed_cb(void *params)
 /* Callback called when user press the button for writing new characteristic value */
 void button_cb(void)
 {
-	if(!mouse_status){
+	if(app_init_done && !mouse_status)
+	{
 		mouse_status = 1;
+		at_ble_event_user_defined_post(&app_button_event);	
 	}
+		
 }
 
 /* Initialize the application information for HID profile*/
@@ -331,6 +432,8 @@ int main(void )
 	/* initialize the ble chip  and Set the device mac address */
 	ble_device_init(NULL);
 	
+	app_init_done = true;
+	
 	hid_prf_init(NULL);
 	
 	/* Register the notification handler */
@@ -340,10 +443,19 @@ int main(void )
 	notify_control_point_handler(hid_prf_control_point_ntf_cb);
 	
 	/* Callback registering for BLE-GAP Role */
-	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, BLE_GAP_EVENT_TYPE, hid_app_gap_handle);
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, 
+									BLE_GAP_EVENT_TYPE, 
+									&hid_app_gap_handle);
 	
 	/* Callback registering for BLE-GATT-Server Role */
-	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, BLE_GATT_SERVER_EVENT_TYPE, hid_app_gatt_server_handle);
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, 
+									BLE_GATT_SERVER_EVENT_TYPE, 
+									&hid_app_gatt_server_handle);
+	
+	/* Register callbacks for custom related events */
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK, 
+									BLE_CUSTOM_EVENT_TYPE, 
+									&hid_custom_event_cb);
 	
 	/* Capturing the events  */
 	while(app_exec){

@@ -3,54 +3,156 @@
 *
 * \brief Proximity Monitor Profile Application
 *
-* Copyright (c) 2016 Atmel Corporation. All rights reserved.
+* Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
 *
 * \asf_license_start
 *
 * \page License
 *
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
+* Subject to your compliance with these terms, you may use Microchip
+* software and any derivatives exclusively with Microchip products.
+* It is your responsibility to comply with third party license terms applicable
+* to your use of third party software (including open source software) that
+* may accompany Microchip software.
 *
-* 1. Redistributions of source code must retain the above copyright notice,
-*    this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-*    this list of conditions and the following disclaimer in the documentation
-*    and/or other materials provided with the distribution.
-*
-* 3. The name of Atmel may not be used to endorse or promote products derived
-*    from this software without specific prior written permission.
-*
-* 4. This software may only be redistributed and used in connection with an
-*    Atmel micro controller product.
-*
-* THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
-* WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
-* EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
-* ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-* STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-* ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+* WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+* AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+* LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+* LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+* SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+* POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+* ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+* RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *
 * \asf_license_stop
 *
 */
 
 /*
-* Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+* Support and FAQ: visit <a href="https://www.microchip.com/support/">Atmel
 *Support</a>
 */
 
 /**
-* \mainpage
-* \section preface Preface
-* This is the reference manual for the Proximity Monitor Profile Application
-*/
+ * \mainpage PXP monitor application
+ * \section Introduction
+ * ******************************Introduction ***********************************
+ *
+ * The PXP-Monitor example application bring-up the Proximity profile defined 
+ * by the Bluetooth SIG which would receives the proximity information from Proximity
+ * reporter enbled BLE device.
+ * The Proximity monitor example application supports the following features:
+ *  + Device discovery and disconnection.
+ *  + Services and characteristics discovery.
+ *  + Services : Link Loss Service, Immediate Alert Service and TX Power Service.
+ *  + Setting up path loss and link loss.
+ *  + RSSI sampling.
+ *
+ * - Supported Evolution Kit -
+ *	+ ATSAML21-XPRO-B + ATBTLC1000 XPRO
+ *	+ ATSAMD21-XPRO + ATBTLC1000 XPRO
+ *	+ ATSAMG55-XPRO + ATBTLC1000 XPRO
+ *	+ ATSAM4S-XPRO + ATBTLC1000 XPRO
+ * 
+ * - Running the demo -
+ *  + 1. Build and flash the binary into supported evaluation board.
+ *  + 2. Open the console using TeraTerm or any serial port monitor.
+ *  + 3. Press the Reset button.
+ *  + 4. Wait for around 10 seconds for the patches to be downloaded device will initialize and start-up.
+ *  + 5. Initializes the proximity monitor applications.
+ *  + 6. Device will start scan and will displays the list of all BLE devices which
+ *       are advertising. Proximity reporter devices(GATT server role) are indicated
+ *       with tag "--PXP".Select the appropriate index number of the proximity reporter
+ *       The Proximity Monitor will then connect to the selected peer device.
+ *  + 7. Once connection is established the PXP-Monitor will set link loss alert value
+ *       to high alert and starts monitoring the RSSI value of the reporter device.
+ *       The proximity reporter supports also ‘Immediate Alert Service’ and
+ *      ‘Tx-Power’ service. The Atmel Proximity Reporter application referred in 
+ *       this example supports both these optional services.
+ *
+ * \section Modules
+ * ***************************** MODULES ***************************************** 
+ * - BLE Manager - 
+ *  + The Event Manager is responsible for handling the following:
+ *    + Generic BLE Event Handling:-
+ *       + BLE Event Manager handles the events triggered by BLE stack and also responsible 
+ *  	 for invoking all registered callbacks for respective events. BLE Manager 
+ *  	 handles all GAP related functionality. In addition to that handles multiple connection 
+ *  	 instances, Pairing, Encryption, Scanning.
+ *    + Handling Multi-role/multi-connection:-
+ *  	  + BLE Event Manager is responsible for handling multiple connection instances 
+ *  	  and stores bonding information and Keys to retain the bonded device. 
+ *  	  BLE Manager is able to identify and remove the device information when pairing/encryption 
+ *		  gets failed. In case of multi-role, it handles the state/event handling of both central and peripheral in multiple contexts.
+ *    + Controlling the Advertisement data:-
+ *  	  + BLE Event Manager is responsible for generating the advertisement and scan response data
+ *  	  for BLE profiles/services that are attached with BLE Manager.
+ *
+ * - BLE Profile-
+ *  + The Proximity profile defines the behavior when a device moves away from a 
+ *    peer device so that the connection is dropped or the path loss increases 
+ *    above a preset level, causing an immediate alert. This alert can be used 
+ *     to notify the user about disconnection of the devices from each other. As a consequence
+ *    of this alert, a device may take further action, for example to lock one of
+ *    the devices so that it is no longer usable.
+ *	+ The Proximity monitor - shall be a GATT client.
+ *
+ *    The Proximity monitor Profile supports three services:
+ *    + Link Loss service -
+ *      + The Link Loss service defines behavior when a link is lost between two devices.
+ *    + Immediate Alert service -
+ *      + The Immediate Alert service defines behavior when a link is lost between two devices.
+ *    + Tx Power service -
+ *      + The Tx Power service exposes a device’s current transmit power level when in a connection.
+ *
+ * - BLE Platform Services -
+ *  +  Interface Settings -
+ *	  + Connect ATBTLC1000 XPRO to SAML21-XPRO-B -> EXT1
+ *	  + Connect ATBTLC1000 XPRO to SAMD21-XPRO -> EXT1
+ *	  + Connect ATBTLC1000 XPRO to SAMG55-XPRO -> EXT1
+ *	  + Connect ATBTLC1000 XPRO to SAM4S-XPRO  -> EXT1
+ *  +  Serial Console COM port settings -
+ *    + Baudrate 115200
+ *	  + Parity None, Stop Bit 1, Start Bit 1
+ *	  + No Hardware Handshake
+ *	+  6-Wire Mode Connection Setup -
+ *    + Pins are 1:1 match with SAML21/D21 Xpro EXT1 Header to BTLC1000 XPro Header
+ *	  + UART(No Flow Control)-SAM L21/D21 XPro Pins (Rx-Pin13, Tx-Pin14)
+ *	  + UART(With Flow Control)-SAM G55 Xpro Pins (Rx-Pin13, Tx-Pin14, RTS-Pin5, CTS-Pin6, Rx-Pin16, Tx-Pin17)
+ *	  + BTLC1000 Wakeup Pin-SAM G55 XPro Pins(Pin4)
+ *	  + BTLC1000 Chip Enable Pin-SAM G55 XPro Pins(Pin10)
+ *	  + BTLC1000 Vcc Pin-SAM L21/D21/G55 Xpro Pins(Pin20)
+ *	  + BTLC1000 GND Pin-SAM L21/D21/G55 Xpro Pins(Pin19)
+ *  +  4-Wire Mode Connection setup -
+ * 	  + UART(With Flow Control)-SAM L21/D21 XPro Pins (Rx-Pin15, Tx-Pin17, RTS-Pin16, CTS-Pin18)
+ * 	  + BTLC1000 Wakeup Pin-SAM L21/D21 XPro Pins (Rx-Pin6)
+ * 	  + BTLC1000 Chip Enable Pin-SAM L21/D21 XPro Pins (Rx-Pin4)
+ * 	  + UART(With Flow Control)-SAM G55/4S Xpro Pins (Rx-Pin13, Tx-Pin14, RTS-Pin5, CTS-Pin6)
+ * 	  + BTLC1000 Wakeup Pin-SAM G55/4S XPro Pins(Pin4)
+ * 	  + BTLC1000 Chip Enable Pin-SAM G55/4S XPro Pins(Pin10)
+ * 	  + BTLC1000 Vcc Pin-SAM L21/D21/G55/4S Xpro Pins(Pin20)
+ * 	  + BTLC1000 GND Pin-SAM L21/D21/G55/4S Xpro Pins(Pin19)
+ *
+ * \section BluSDK Package
+ * ***************************** BluSDK Package *****************************************
+ * - BluSDK -
+ *		+ http://www.microchip.com/wwwproducts/en/ATBTLC1000?tab=documents
+ * - ATBTLC1000 - 
+ *		+ http://www.microchip.com/wwwproducts/en/ATBTLC1000 
+ * - Developement kit -
+ *		+ http://www.microchip.com/wwwproducts/en/ATBTLC1000?tab=tools
+ *		+ SAM L21 + BTLC1000 XPro -
+ *			+ http://www.microchip.com/developmenttools/productdetails/atbtlc1000-xstk
+ *		+ BTLC1000 XPro -
+ *				+ http://www.microchip.com/developmenttools/productdetails/atbtlc1000-xpro
+ * - Applications - 
+ *		+ http://www.microchip.com/devices/ATBTLC1000.aspx?tab=applications
+ * - Support and FAQ visit - 
+ *		+ <a href="https://www.microchip.com/support/">Microchip Support</a>
+ */
 /*- Includes ---------------------------------------------------------------*/
 
 #include <asf.h>
@@ -81,17 +183,40 @@ extern gatt_txps_char_handler_t txps_handle;
 extern gatt_lls_char_handler_t lls_handle;
 extern gatt_ias_char_handler_t ias_handle;
 
-extern ble_connected_dev_info_t ble_dev_info[BLE_MAX_DEVICE_CONNECTED];
+extern ble_connected_dev_info_t ble_dev_info[BLE_MAX_DEVICE_CONNECTION];
 extern uint8_t pxp_connect_request_flag;
 
 volatile bool app_timer_done = false;
 pxp_current_alert_t alert_level = PXP_NO_ALERT;
 
+#define APP_INVALID_EVENT_ID	(0)
+#define APP_TIMER_EVENT_ID		(1)
+#define APP_BUTTON_EVENT_ID		(2)
+
+user_custom_event_t app_custom_event[2] = {
+	{
+		.id = APP_TIMER_EVENT_ID,
+		.bptr = NULL,
+	},
+	{
+		.id = APP_BUTTON_EVENT_ID,
+		.bptr = NULL
+	}
+};
+
 volatile bool button_pressed = false;
+/* Flag to avoid spurious interrupt posting  during reset and initialization */
+volatile bool app_init_done = false;
 
 void button_cb(void)
-{
-	button_pressed = true;
+{	
+	if(app_init_done)
+	{
+		button_pressed = true;
+		/* Post the custom event */
+		at_ble_event_user_defined_post(&app_custom_event[1]);
+	}
+	
 }
 
 /**@brief Check for Link Loss and Path Loss alert
@@ -180,48 +305,31 @@ static void timer_callback_handler(void)
 {
 	/* Stop the timer */
 	hw_timer_stop();
-
+	
 	/* Enable the flag the serve the task */
 	app_timer_done = true;
+	
+	/* Post the custom event */
+	at_ble_event_user_defined_post(&app_custom_event[0]);
 }
 
-int main(void)
-{	
-	#if SAMG55 || SAM4S
-	/* Initialize the SAM system. */
-	sysclk_init();
-	board_init();
-	#elif SAM0
-	system_init();
+static void pxp_monitor_app_timer_event(void)
+{
+	#ifndef ENABLE_PTS
+	/* Application timer event */
+	if (app_timer_done) {
+		if (pxp_connect_request_flag == PXP_DEV_CONNECTED) {
+			rssi_update(ble_dev_info[0].conn_info.handle);
+			hw_timer_start(PXP_RSSI_UPDATE_INTERVAL);
+		}
+	
+		app_timer_done = false;
+	}
 	#endif
+}
 
-	button_init();
-	
-	/* Initialize serial console */
-	serial_console_init();
-
-	/* Initialize the hardware timer */
-	hw_timer_init();
-
-	/* Register the callback */
-	hw_timer_register_callback(timer_callback_handler);
-	register_hw_timer_start_func_cb(hw_timer_start);
-	register_hw_timer_stop_func_cb(hw_timer_stop);
-
-	/* initialize the BLE chip  and Set the device mac address */
-	ble_device_init(NULL);
-	
-	pxp_monitor_init(NULL);
-
-	DBG_LOG("Initializing Proximity Monitor Application");
-
-	/* Initialize the pxp service */
-	pxp_app_init();
-
-	while (1) {
-		/* BLE Event Task */
-		ble_event_task();
-
+static void pxp_monitor_app_button_event(void)
+{
 		#ifdef ENABLE_PTS
 			if (button_pressed) {
 				DBG_LOG("Press 1 for service discovery");
@@ -286,32 +394,76 @@ int main(void)
 				button_pressed = false;
 				app_timer_done = false;
 			}
-	
-			/* Application Task */
-			if (app_timer_done) {
-				if (pxp_connect_request_flag == PXP_DEV_CONNECTING) {
-					at_ble_disconnected_t pxp_connect_request_fail;
-					pxp_connect_request_fail.reason
-						= AT_BLE_TERMINATED_BY_USER;
-					pxp_connect_request_fail.handle = ble_dev_info[0].conn_info.handle;
-					pxp_connect_request_flag = PXP_DEV_UNCONNECTED;
-					if (at_ble_connect_cancel() == AT_BLE_SUCCESS) {
-						DBG_LOG("Connection Timeout");
-						pxp_disconnect_event_handler(
-								&pxp_connect_request_fail);
-					} else {
-						DBG_LOG(
-								"Unable to connect with device. Reseting the device");
-						ble_device_init(NULL);
-						pxp_app_init();
-					}
-				} else if (pxp_connect_request_flag == PXP_DEV_CONNECTED) {
-					rssi_update(ble_dev_info[0].conn_info.handle);
-					hw_timer_start(PXP_RSSI_UPDATE_INTERVAL);
-				}
-	
-				app_timer_done = false;
-			}
 		#endif
+}
+
+static at_ble_status_t pxp_monitor_app_custom_event(void *param)
+{
+	at_ble_status_t status = AT_BLE_SUCCESS;
+	user_custom_event_t **pxp_app_custom_event = (user_custom_event_t **)param;
+	if ((*pxp_app_custom_event)->id == APP_TIMER_EVENT_ID)
+	{
+		pxp_monitor_app_timer_event();
+	} 
+	else if((*pxp_app_custom_event)->id == APP_BUTTON_EVENT_ID)
+	{
+		pxp_monitor_app_button_event();
+	}
+	else
+	{
+		status = AT_BLE_FAILURE;
+	}
+	return status;	
+}
+
+/* All PxP Monitor Custom Event callback */
+static const ble_custom_event_cb_t pxp_monitor_custom_event_cb = {
+	.custom_event = pxp_monitor_app_custom_event
+};
+
+int main(void)
+{	
+	#if SAMG55 || SAM4S
+	/* Initialize the SAM system. */
+	sysclk_init();
+	board_init();
+	#elif SAM0
+	system_init();
+	#endif
+
+	button_init();
+	
+	/* Initialize serial console */
+	serial_console_init();
+
+	/* Initialize the hardware timer */
+	hw_timer_init();
+
+	/* Register the callback */
+	hw_timer_register_callback(timer_callback_handler);
+	register_hw_timer_start_func_cb(hw_timer_start);
+	register_hw_timer_stop_func_cb(hw_timer_stop);
+
+	/* initialize the BLE chip  and Set the device mac address */
+	ble_device_init(NULL);
+	/* Set the Flag to accept the valid application interrupts */
+	app_init_done = true;
+	
+	pxp_monitor_init(NULL);
+
+	DBG_LOG("Initializing Proximity Monitor Application");
+
+	/* Initialize the pxp service */
+	pxp_app_init();
+	
+	/* Register callbacks for custom related events */
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
+									BLE_CUSTOM_EVENT_TYPE,
+									&pxp_monitor_custom_event_cb);
+	
+
+	while (1) {
+		/* BLE Event Task */
+		ble_event_task();
 	}
 }

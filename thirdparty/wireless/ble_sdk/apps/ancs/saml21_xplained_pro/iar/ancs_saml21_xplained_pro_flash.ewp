@@ -166,10 +166,13 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>SYSTICK_MODE</state>
 					<state>NEW_EVT_HANDLER</state>
+					<state>SYSTICK_MODE</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>ANP_CLIENT</state>
 					<state>TC_ASYNC=true</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
 					<state>__SAML21J18A__</state>
 					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
@@ -177,10 +180,11 @@
 					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
+					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
 					<state>ANP_GATT_CLIENT</state>
 					<state>NENABLE_PTS=false</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
-					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>ENABLE_POWER_SAVE</state>
 				</option>
 				<option>
@@ -322,7 +326,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../services/console</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../config/saml21</state>
@@ -335,15 +338,16 @@
 					<state>$PROJ_DIR$/../../../../inc</state>
 					<state>$PROJ_DIR$/../../../../ble_services/ancs</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_saml21</state>
-					<state>$PROJ_DIR$/../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../../../common2/services/delay/sam0</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_saml21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset/reset_sam_l</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/pinmux</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom/usart</state>
+					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../services/serial_fifo</state>
@@ -500,10 +504,13 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>SYSTICK_MODE</state>
 					<state>NEW_EVT_HANDLER</state>
+					<state>SYSTICK_MODE</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>ANP_CLIENT</state>
 					<state>TC_ASYNC=true</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
 					<state>__SAML21J18A__</state>
 					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
@@ -511,10 +518,11 @@
 					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
+					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
 					<state>ANP_GATT_CLIENT</state>
 					<state>NENABLE_PTS=false</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
-					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>ENABLE_POWER_SAVE</state>
 				</option>
 				<option>
@@ -623,7 +631,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../services/console</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../config/saml21</state>
@@ -636,15 +643,16 @@
 					<state>$PROJ_DIR$/../../../../inc</state>
 					<state>$PROJ_DIR$/../../../../ble_services/ancs</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_saml21</state>
-					<state>$PROJ_DIR$/../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../../../common2/services/delay/sam0</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_saml21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset/reset_sam_l</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/pinmux</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom/usart</state>
+					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../services/serial_fifo</state>
@@ -1193,10 +1201,13 @@
 				</option>
 				<option>
 					<name>CCDefines</name>
-					<state>SYSTICK_MODE</state>
 					<state>NEW_EVT_HANDLER</state>
+					<state>SYSTICK_MODE</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>ANP_CLIENT</state>
 					<state>TC_ASYNC=true</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
 					<state>__SAML21J18A__</state>
 					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
@@ -1204,10 +1215,11 @@
 					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
+					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
 					<state>ANP_GATT_CLIENT</state>
 					<state>NENABLE_PTS=false</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
-					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>ENABLE_POWER_SAVE</state>
 				</option>
 				<option>
@@ -1349,7 +1361,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../services/console</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../config/saml21</state>
@@ -1362,15 +1373,16 @@
 					<state>$PROJ_DIR$/../../../../inc</state>
 					<state>$PROJ_DIR$/../../../../ble_services/ancs</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_saml21</state>
-					<state>$PROJ_DIR$/../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../../../common2/services/delay/sam0</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_saml21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset/reset_sam_l</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/pinmux</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom/usart</state>
+					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../services/serial_fifo</state>
@@ -1527,10 +1539,13 @@
 				</option>
 				<option>
 					<name>ADefines</name>
-					<state>SYSTICK_MODE</state>
 					<state>NEW_EVT_HANDLER</state>
+					<state>SYSTICK_MODE</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>ANP_CLIENT</state>
 					<state>TC_ASYNC=true</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
 					<state>__SAML21J18A__</state>
 					<state>BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL</state>
@@ -1538,10 +1553,11 @@
 					<state>UART_FLOWCONTROL_6WIRE_MODE=true</state>
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
+					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
 					<state>ANP_GATT_CLIENT</state>
 					<state>NENABLE_PTS=false</state>
 					<state>BOARD=SAML21_XPLAINED_PRO</state>
-					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
 					<state>ENABLE_POWER_SAVE</state>
 				</option>
 				<option>
@@ -1650,7 +1666,6 @@
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/port</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/boards</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../services/console</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/serial</state>
 					<state>$PROJ_DIR$/../../../config/saml21</state>
@@ -1663,15 +1678,16 @@
 					<state>$PROJ_DIR$/../../../../inc</state>
 					<state>$PROJ_DIR$/../../../../ble_services/ancs</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/interrupt/system_interrupt_saml21</state>
-					<state>$PROJ_DIR$/../../../../utils</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint/extint_sam_l_c</state>
 					<state>$PROJ_DIR$/../../../../../../../common2/services/delay/sam0</state>
+					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom/usart</state>
 					<state>$PROJ_DIR$/../..</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/utils/cmsis/saml21/include</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/clock/clock_saml21</state>
 					<state>$PROJ_DIR$/../../../../../../../common/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/reset/reset_sam_l</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system/pinmux</state>
-					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/sercom/usart</state>
+					<state>$PROJ_DIR$/../../../../utils</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/system</state>
 					<state>$PROJ_DIR$/../../../../../../../sam0/drivers/extint</state>
 					<state>$PROJ_DIR$/../../../../services/serial_fifo</state>

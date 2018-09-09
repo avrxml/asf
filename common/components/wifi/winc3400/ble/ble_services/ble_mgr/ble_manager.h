@@ -1,99 +1,76 @@
 /**
- * \file
- *
- * \brief BLE Manager.
- *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
- *
- * \asf_license_start
- *
- * \page License
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * \asf_license_stop
- *
- */
+* \file
+*
+* \brief BLE Manager declarations
+*
+* Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
+*
+* \asf_license_start
+*
+* \page License
+*
+* Subject to your compliance with these terms, you may use Microchip
+* software and any derivatives exclusively with Microchip products.
+* It is your responsibility to comply with third party license terms applicable
+* to your use of third party software (including open source software) that
+* may accompany Microchip software.
+*
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+* WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+* AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+* LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+* LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+* SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+* POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+* ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+* RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+*
+* \asf_license_stop
+*
+*/
+/*
+* Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+*/
 
-#ifndef BLE_MANAGER_H_INCLUDED
-#define BLE_MANAGER_H_INCLUDED
+#ifndef __BLE_MANAGER_H__
+#define __BLE_MANAGER_H__
+
+
 
 #include <asf.h>
 #include <string.h>
 #include <stddef.h>
-#include "ble/include/at_ble_api.h"
-#include "ble/utils/ble_utils.h"
+#include "at_ble_api.h"
+#include "ble_utils.h"
+//Not for WINC3400
+//#include "platform.h"
 
-#include "ble/ble_stack/include/wifiprov_task.h"
+/**
+@defgroup sdk Atmel BLE SDK
 
-#define APP_PROV_IDLE			0xFF
-#define APP_PROV_IN_PROGRESS	0xFE
-#define APP_PROV_SUCCESS		0x0		// Should be same as what is in at_ble_wifiprov_complete_ind
-
-extern at_ble_wifiprov_complete_ind gwifiprov_complete_ind;
+@{
+*/
 
 #ifndef BLE_DEVICE_ROLE
-#define BLE_DEVICE_ROLE BLE_CENTRAL_AND_PERIPHERAL
+#define BLE_DEVICE_ROLE  BLE_PERIPHERAL
 #endif
 
-#if defined HID_DEVICE
-#include "hid_device.h"
-#ifdef HID_KEYBOARD_DEVICE
-#define BLE_DEVICE_NAME				"ATMEL-HIDK"
-#define BLE_AUTHENTICATION_LEVEL	(AT_BLE_NO_SEC)
-#define BLE_IO_CAPABALITIES			(AT_BLE_IO_CAP_NO_INPUT_NO_OUTPUT)
-#define BLE_MITM_REQ				(false)
-#define BLE_BOND_REQ				(false)
-#define BLE_PAIR_ENABLE				(false)
-#endif
-
-#ifdef HID_MOUSE_DEVICE
-#define BLE_DEVICE_NAME				"ATMEL-HIDM"
-#endif
-#endif /* HID_DEVICE */
+#if defined WIFI_PROVISIONING
+#include "wifi_provisioning.h"
+#define BLE_DEVICE_NAME				"ATMEL_BLE"
+#endif /* WIFI_PROVISIONING */
 
 #if defined PROXIMITY_REPORTER
 #include "pxp_reporter.h"
 #define BLE_DEVICE_NAME				"ATMEL-PXP"
 #endif /* PROXIMITY_REPORTER */
 
-#if defined HR_SENSOR
-#include "hr_sensor.h"
-#define BLE_DEVICE_NAME				"ATMEL-HR"
-#endif
-
 #if defined PROXIMITY_MONITOR
 #include "pxp_monitor.h"
 #define BLE_DEVICE_NAME				"ATMEL-MON"
 #endif /* PROXIMITY_MONITOR */
-
-#if defined BLP_SENSOR
-#include "blp_sensor.h"
-#define BLE_DEVICE_NAME				"ATMEL-BLP"
-#endif /* Blood_Pressure_Sensor*/
 
 #if (BLE_DEVICE_ROLE == BLE_OBSERVER)
 #include "ble_observer.h"
@@ -110,21 +87,9 @@ extern at_ble_wifiprov_complete_ind gwifiprov_complete_ind;
 #define BLE_DEVICE_NAME				"ATMEL-TIP"
 #endif /* TIP_CLIENT */
 
-#if defined FIND_ME_TARGET
-#include "find_me_target.h"
-#define BLE_DEVICE_NAME				"ATMEL-FMP"
-#endif /* PROXIMITY_REPORTER */
-
-#if defined ANP_SIG_CLIENT
-#include "alert_notification_profile.h"
-#define BLE_DEVICE_NAME				"ATMEL-ANP"
-#define BLE_PAIR_ENABLE					(false)
-#endif /* ANP_SIG_CLIENT */
-
-#if defined PAS_CLIENT
-#include "pas_client.h"
-#define BLE_DEVICE_NAME				"ATMEL-PAS"
-#endif /* PAS_CLIENT */
+#if defined TRANSPARENT_SERVICE
+#define BLE_DEVICE_NAME				"ATMEL-TRANS"
+#endif
 
 #if defined CSC_DEVICE
 #include "cscp.h"
@@ -137,7 +102,7 @@ extern at_ble_wifiprov_complete_ind gwifiprov_complete_ind;
 #endif
 
 /** @brief event timeout */
-#define BLE_EVENT_TIMEOUT			(20)
+#define BLE_EVENT_TIMEOUT			(0)
 
 /* Dummy BLE handler's for unused functions */
 static inline void ble_dummy_handler(void *param)
@@ -166,30 +131,6 @@ static inline at_ble_status_t BLE_UNUSED2_VAR(void *param1_var, void *param2_var
 #define APPEARANCE_SIZE					2
 #define TX_POWER_LEVEL_SIZE				1
 #define ADV_INTERVAL_SIZE				2
-
-#ifndef BLE_MITM_REQ
-#define BLE_MITM_REQ					(true)
-#endif
-
-#ifndef BLE_BOND_REQ
-#define BLE_BOND_REQ					(true)
-#endif
-
-#ifndef BLE_PAIR_ENABLE
-#define BLE_PAIR_ENABLE					(true)
-#endif
-
-#ifndef	BLE_AUTHENTICATION_LEVEL
-#define BLE_AUTHENTICATION_LEVEL		(AT_BLE_MODE1_L2_AUTH_PAIR_ENC)
-#endif
-
-#ifndef	BLE_IO_CAPABALITIES
-#define BLE_IO_CAPABALITIES				(AT_BLE_IO_CAP_DISPLAY_ONLY)
-#endif
-
-#ifndef BLE_OOB_REQ
-#define BLE_OOB_REQ						(false)
-#endif
 
 /** @brief Gap Advertisement Types */
 typedef enum
@@ -272,8 +213,58 @@ typedef enum
 #define	BLE_SCAN_DATA_HANDLER								ble_observer_scan_data_handler
 #endif /* (BLE_DEVICE_ROLE == BLE_OBSERVER) */
 
+//Default number of charaterstics for a service is 1
+#define TOTAL_CHARATERISTIC_NUM     1
+
+#if defined HEART_RATE_SERVICE
+#undef TOTAL_CHARATERISTIC_NUM
+#define TOTAL_CHARATERISTIC_NUM     3
+#endif
+
+#if defined TRANSPARENT_SERVICE
+#undef TOTAL_CHARATERISTIC_NUM
+#define TOTAL_CHARATERISTIC_NUM     3
+#endif
+
+#if defined GLUCOSE_SERVICE
+#undef TOTAL_CHARATERISTIC_NUM
+#define TOTAL_CHARATERISTIC_NUM     4
+#endif
 
 /** @brief Service UUID's */
+
+/* WiFi Con service UUID */
+#define WIFI_CON_SERVICE_UUID					("\x1b\xc5\xd5\xa5\x02\x00\x89\x86\xe4\x11\x29\xd2\x01\x00\x88\x77")
+/* WiFi Con State Characteristic UUID */
+#define WIFI_CON_STATE_CHAR_UUID				("\x1b\xc5\xd5\xa5\x02\x00\x89\x86\xe4\x11\x29\xd2\x02\x00\x88\x77")
+/* WiFi Con State Characteristic UUID */
+#define WIFI_CON_APPARAM_CHAR_UUID				("\x1b\xc5\xd5\xa5\x02\x00\x89\x86\xe4\x11\x29\xd2\x03\x00\x88\x77")
+
+/* WiFi Scan service UUID */
+#define WIFI_SCAN_SERVICE_UUID					("\x1b\xc5\xd5\xa5\x02\x00\xa1\x85\xe4\x11\x24\xd2\x01\x00\x8c\xfb")
+/* WiFi Scan Mode Characteristic UUID */
+#define WIFI_SCAN_MODE_CHAR_UUID				("\x1b\xc5\xd5\xa5\x02\x00\xa1\x85\xe4\x11\x24\xd2\x02\x00\x8c\xfb")
+/* WiFi Scan APcount Characteristic UUID */
+#define WIFI_SCAN_APCOUNT_CHAR_UUID				("\x1b\xc5\xd5\xa5\x02\x00\xa1\x85\xe4\x11\x24\xd2\x03\x00\x8c\xfb")
+/* WiFi Scan APdetails Characteristic UUID */
+#define WIFI_SCAN_APDETAILS_CHAR_UUID			("\x1b\xc5\xd5\xa5\x02\x00\xa1\x85\xe4\x11\x24\xd2\x00\x01\x8c\xfb")
+
+/** CSC Service UUID. */
+#define CSC_SERVICE_UUID						("\x1b\xc5\xd5\xa5\x02\x00\xa6\x85\xe5\x11\x35\x39\xa0\xbb\x5a\xfd")
+
+/** CSC Endpoint Characteristic UUID. */
+#define CSC_ENDPOINT_CHAR_UUID					("\x1b\xc5\xd5\xa5\x02\x00\xa6\x85\xe5\x11\x35\x39\xa1\xbb\x5a\xfd")
+
+#if 0
+#define UUID_MCHP_PROPRIETARY_SERVICE_16				("\x55\xE4\x05\xD2\xAF\x9F\xA9\x8F\xE5\x4A\x7D\xFE\x43\x53\x53\x49")
+#define UUID_MCHP_TRANS_TX_16							("\x16\x96\x24\x47\xC6\x23\x61\xBA\xD9\x4B\x4D\x1E\x43\x53\x53\x49")
+#define UUID_MCHP_TRANS_RX_16							("\xB3\x9B\x72\x34\xBE\xEC\xD4\xA8\xF4\x43\x41\x88\x43\x53\x53\x49")
+#define UUID_MCHP_TRANS_CTRL_16						("\x7e\x3b\x07\xff\x1c\x51\x49\x2f\xb3\x39\x8a\x4c\x43\x53\x53\x49")
+#endif
+#define UUID_MCHP_PROPRIETARY_SERVICE_16				0x55,0xE4,0x05,0xD2,0xAF,0x9F,0xA9,0x8F,0xE5,0x4A,0x7D,0xFE,0x43,0x53,0x53,0x49
+#define UUID_MCHP_TRANS_TX_16							0x16,0x96,0x24,0x47,0xC6,0x23,0x61,0xBA,0xD9,0x4B,0x4D,0x1E,0x43,0x53,0x53,0x49
+#define UUID_MCHP_TRANS_RX_16							0xB3,0x9B,0x72,0x34,0xBE,0xEC,0xD4,0xA8,0xF4,0x43,0x41,0x88,0x43,0x53,0x53,0x49
+#define UUID_MCHP_TRANS_CTRL_16						0x7e,0x3b,0x07,0xff,0x1c,0x51,0x49,0x2f,0xb3,0x39,0x8a,0x4c,0x43,0x53,0x53,0x49
 
 /* Immediate Alert service UUID  */
 #define IMMEDIATE_ALERT_SERVICE_UUID			(0x1802)
@@ -287,28 +278,20 @@ typedef enum
 /* Current time service UUID */
 #define CURRENT_TIME_SERVICE_UUID				(0x1805)
 
-/* Reference Time Update service UUID */
-#define REFERENCE_TIME_SERVICE_UUID				(0x1806)
+/*Glucose service UUID*/
+#define GLUCOSE_SERVICE_UUID				(0x1808)
 
-/* Next DST Change service UUID */
-#define NEXT_DST_SERVICE_UUID					(0x1807)
+/* Heart rate service UUID */
+#define HEART_RATE_SERVICE_UUID				(0x180D)
 
 /* device information service uuid */
 #define DIS_SERVICE_UUID 						(0x180A)
 
 /** battery service uuid */
 #define BAT_SERVICE_UUID 						(0x180F)
-/** Alert notification service uuid */
-#define ANP_SERVICE_UUID						(0x1811)
-
-/** HID Service UUID. */
-#define HID_SERV_UUID							(0x1812)
 
 /** Scan param service uuid */
 #define SPS_SERVICE_UUID 						(0x1813)
-
-/** CSC Service UUID. */
-#define CSC_SERVICE_UUID				("\x1b\xc5\xd5\xa5\x02\x00\xa6\x85\xe5\x11\x35\x39\xa0\xbb\x5a\xfd")
 
 /* Characteristics UUID's */
 /* Alert Level Characteristic UUID */
@@ -320,139 +303,70 @@ typedef enum
 /** battery level characteristic uuid */
 #define BAT_CHAR_BAT_LEVEL_UUID 				(0x2A19)
 
+/** heart rate measurement characteristic uuid */
+#define HEART_RATE_MEASUREMENT_CHAR_UUID	(0x2A37)
+
+/** Body Sensor location characteristic uuid */
+#define BODY_SENSOR_LOCATION_CHAR_UUID          (0x2A38)
+
+/** Heart Rate Control Point characteristic uuid */
+#define HEART_RATE_CONTROL_POINT_CHAR_UUID	(0x2A39)
+
+/** Glucose measurement characteristic uuid */
+#define GLUCOSE_MEASUREMENT_CHAR_UUID		(0x2A18)
+
+/** Glucose measurement context characteristic uuid */
+#define GLUCOSE_MEASUREMENT_CONTEXT_CHAR_UUID		(0x2A34)
+
+/** Glucose feature characteristic uuid */
+#define GLUCOSE_FEATURE_CHAR_UUID		(0x2A51)
+
+/** Record Access Control Point characteristic uuid */
+#define RECORD_ACCESS_CONTROL_POINT_CHAR_UUID		(0x2A52)
+
 /* device information service characteristics uuids */
 #define DIS_CHAR_SYSTEM_ID_UUID					(0x2A23)
-
 #define DIS_CHAR_MODEL_NUMBER_UUID				(0x2A24)
-
 #define DIS_CHAR_SERIAL_NUMBER_UUID				(0x2A25)
-
-#define DIS_CHAR_FIRMWARE_REIVSION_UUID			(0x2A26)
-
+#define DIS_CHAR_FIRMWARE_REIVSION_UUID			(0x2A26)															
 #define DIS_CHAR_HARDWARE_REVISION_UUID			(0x2A27)
-
 #define DIS_CHAR_SOFTWARE_REVISION_UUID			(0x2A28)
-
 #define DIS_CHAR_MANUFACTURER_NAME_UUID			(0x2A29)
-
 #define DIS_CHAR_IEEE_REG_CERT_DATA_LIST_UUID	(0x2A2A)
-
 /* Current Time char UUID */
 #define CURRENT_TIME_CHAR_UUID					(0x2A2B)
-
-/* Local Time Information char UUID */
-#define LOCAL_TIME_CHAR_UUID					(0x2A0F)
-
-/* Reference Time Information char UUID */
-#define REF_TIME_CHAR_UUID						(0x2A14)
-
-/* Time with DST char UUID */
-#define TIME_WITH_DST_CHAR_UUID					(0x2A11)
-
-/* Time Update Control Point char UUID */
-#define TIME_UPDATE_CP_CHAR_UUID				(0x2A16)
-
-/* Time Update State char UUID */
-#define TIME_UPDATE_STATE_CHAR_UUID				(0x2A17)
-
 /** scan refresh characteristic uuid */
 #define SPS_CHAR_SCAN_REFRESH_UUID 				(0x2A31)
 /** scan interval characteristic uuid */
-#define SPS_CHAR_SCAN_INT_VALUE_UUID 			(0x2A4F)
-
+#define SPS_CHAR_SCAN_INT_VALUE_UUID 			(0x2A4F)														
 #define DIS_CHAR_PNP_ID_UUID					(0x2A50)
 
-#define HID_REPORT_REF_DESC						(0x2908)
-/** HID Protocol Mode Characteristic UUID. */
-#define HID_UUID_CHAR_PROTOCOL_MODE				(0x2A4E)
 
-/** HID Protocol Mode Characteristic UUID. */
-#define HID_UUID_CHAR_REPORT_MAP				(0x2A4B)
-
-/** HID Report Characteristic UUID. */
-#define HID_UUID_CHAR_REPORT					(0x2A4D)
-
-/** HID Boot Keyboard Input Report UUID. */
-#define HID_UUID_CHAR_BOOT_KEY_INPUT_REPORT		(0x2A22)
-
-/** HID Boot Keyboard Output Report UUID. */
-#define HID_UUID_CHAR_BOOT_KEY_OUTPUT_REPORT    (0x2A32)
-
-/** HID Boot Mouse Input Report UUID. */
-#define HID_UUID_CHAR_BOOT_MOUSE_INPUT_REPORT	(0x2A33)
-
-/** HID Information UUID. */
-#define HID_UUID_CHAR_HID_INFORMATION			(0x2A4A)
-
-/** HID Control Point UUID. */
-#define HID_UUID_CHAR_HID_CONTROL_POINT			(0x2A4C)
-
-/** CSC Endpoint Characteristic UUID. */
-#define CSC_ENDPOINT_CHAR_UUID			("\x1b\xc5\xd5\xa5\x02\x00\xa6\x85\xe5\x11\x35\x39\xa1\xbb\x5a\xfd")
-
-/** gatt discover start handle */
-#define GATT_DISCOVERY_STARTING_HANDLE	(0x0001)
-/** gatt discover end handle */
-#define GATT_DISCOVERY_ENDING_HANDLE	(0xFFFF)
 
 /* All GAP Connection Parameter defined */
 #if ((BLE_DEVICE_ROLE == BLE_CENTRAL) || (BLE_DEVICE_ROLE == BLE_CENTRAL_AND_PERIPHERAL) || (BLE_DEVICE_ROLE == BLE_OBSERVER))
-
 /** minimum connection interval */
-//	<o> GAP Minimum Connection Interval in msec <0-1000:50>
-//	<i> Defines Minimum inteval for GAP Connection.
-//	<i> Default: 20
-//	<id> gap_conn_interval_min
 #define GAP_CONN_INTERVAL_MIN			(20)        //Connection interval min 20ms
-
 /** maximum connection interval */
-//	<o> GAP Maximum Connection Interval in msec <0-1000:50>
-//	<i> Defines Maximum inteval for GAP Connection.
-//	<i> Default: 40
-//	<id> gap_conn_interval_max
 #define GAP_CONN_INTERVAL_MAX			(40)		//Connection interval max 40ms
-
 /** connection slave latency */
-//	<o> GAP Slave Latency <0-4>
-//	<i> Defines Slave Latency for GAP Connection.
-//	<i> Default: 0
-//	<id> gap_conn_slave_latency
 #define GAP_CONN_SLAVE_LATENCY			(0)
-
 /** minimum length of local info parameters when using connection establishment proc */ 
 #define GAP_CE_LEN_MIN					(0)
 /** maximum length of local info parameters when using connection establishment proc */
 #define GAP_CE_LEN_MAX					(0)
-
 /** supervision time-out */
-//	<o> GAT Super Vison Timeout in msec <0-3000:50>
-//	<i> Defines SuperVision Timeout for GAP Connection.
-//	<i> Default: 0x1f4
-//	<id> gap_supervision_timout												
 #define GAP_SUPERVISION_TIMOUT			(0x1f4)		// 500 for supervision time-out
 
 /** number of connections */ 
 #define GAP_CONNECT_PEER_COUNT			(1)
+/** gatt discover start handle */ 
+#define GATT_DISCOVERY_STARTING_HANDLE	(0x0001)
+/** gatt discover end handle */
+#define GATT_DISCOVERY_ENDING_HANDLE	(0xFFFF)
 
-/* Max number of scan device */
-//	<o> Maximum Scan Device Buffer <0-30>
-//	<i> Defines maximum number of Scan device can have buffer .
-//	<i> Default: 10
-//	<id> max_scan_device
 #define MAX_SCAN_DEVICE					(10)			  //Max number of scan device
-
-/* Scan interval 30ms in term of 625us */
-//	<o> Scan Interval in units of 625us <1-1000:50>
-//	<i> Defines inteval to Scan device .
-//	<i> Default: 96
-//	<id> gap_scan_interval
 #define SCAN_INTERVAL					(96)              //Scan interval 30ms in term of 625us
-
-/* Scan window 30ms values in term of 625ms */
-//	<o> Scan Window in term of 625us <1-1000:50>
-//	<i> Defines Scan Window .
-//	<i> Default: 96
-//	<id> gap_scan_window
 #define SCAN_WINDOW						(96)              //Scan window 30ms values in term of 625ms
 #define SCAN_TIMEOUT					(0x0000)          //Timeout  Scan time-out, 0x0000 disables time-out
 #define SCAN_TYPE						(AT_BLE_SCAN_ACTIVE)
@@ -460,19 +374,14 @@ typedef enum
 #endif //((BLE_DEVICE_ROLE == BLE_CENTRAL) || (BLE_DEVICE_ROLE == BLE_CENTRAL_AND_PERIPHERAL) || (BLE_DEVICE_ROLE == BLE_OBSERVER))
 
 /** maximum number of devices connected */
-//	<o> Maximum number of device to connect <1-5>
-//	<i> Defines the central to connect maximun number to devices
-//	<i> Default: 1
-//	<id> gap_max_device_connected
 #define MAX_DEVICE_CONNECTED			(1)
 
 
 #if ((BLE_DEVICE_ROLE == BLE_PERIPHERAL) || (BLE_DEVICE_ROLE == BLE_CENTRAL_AND_PERIPHERAL))
 
 #if defined CSC_DEVICE
-#define BLE_PROFILE_INIT(param)								csc_prf_init(param); \
+#define BLE_PROFILE_INIT(param)								csc_prf_init(param);\
 															csc_prf_dev_adv();
-															
 #define BLE_ADDITIONAL_CONNECTED_STATE_HANDLER				csc_prf_connected_state_handler
 #define BLE_CHARACTERISTIC_CHANGED							csc_prf_char_changed_handler
 #define BLE_PRIMARY_SERVICE_FOUND_HANDLER					csc_prf_service_found_handler
@@ -483,18 +392,13 @@ typedef enum
 #define BLE_ADDITIONAL_PAIR_DONE_HANDLER					csc_prf_write_notification_handler
 #define BLE_ADDITIONAL_DISCONNECTED_STATE_HANDLER(param)	csc_prf_disconnect_event_handler(param);
 #define BLE_ADDITIONAL_ENCRYPTION_CHANGED_HANDLER(param)    csc_prf_write_notification_handler(param);
-#define BLE_NOTIFICATION_CONFIRMED_HANDLER					csc_notification_confirmation_handler
-
 #endif
 
-
-#if defined HID_DEVICE
-#define BLE_PROFILE_INIT(param)								hid_prf_init(param); \
-															hid_prf_dev_adv();
-#define BLE_ADDITIONAL_DISCONNECTED_STATE_HANDLER(param)	hid_prf_disconnect_event_handler(param);
-
-#define BLE_CHARACTERISTIC_CHANGED				hid_prf_char_changed_handler
-#endif
+#if defined WIFI_PROVISIONING
+#define BLE_PROFILE_INIT							wifi_provision_init
+#define BLE_CHARACTERISTIC_CHANGED					wifi_provision_char_changed_handler
+#define BLE_SERVICE_CHANGED							wifi_provision_svc_changed_handler
+#endif	/* WIFI_PROVISIONING	 */
 
 #if defined PROXIMITY_REPORTER
 #define BLE_PROFILE_INIT							pxp_reporter_init 
@@ -503,32 +407,6 @@ typedef enum
 #define BLE_CHARACTERISTIC_CHANGED					pxp_reporter_char_changed_handler
 #endif	/* PROXIMITY_REPORTER	 */
 
-#if defined BLP_SENSOR
-#define BLE_PROFILE_INIT							blp_sensor_init
-#define BLE_ADDITIONAL_CONNECTED_STATE_HANDLER		blp_sensor_connected_state_handler
-#define BLE_ADDITIONAL_DISCONNECTED_STATE_HANDLER	blp_sensor_disconnect_event_handler
-#define BLE_CHARACTERISTIC_CHANGED					blp_sensor_char_changed_handler
-#define BLE_NOTIFICATION_CONFIRMED_HANDLER			blp_notification_confirmation_handler
-#define BLE_INDICATION_CONFIRMED_HANDLER			blp_indication_confirmation_handler
-#endif 
-
-#if defined HR_SENSOR
-
-#define BLE_PROFILE_INIT							hr_sensor_init
-#define BLE_ADDITIONAL_CONNECTED_STATE_HANDLER		hr_sensor_connected_state_handler
-#define BLE_ADDITIONAL_DISCONNECTED_STATE_HANDLER	hr_sensor_disconnect_event_handler
-#define BLE_CHARACTERISTIC_CHANGED					hr_sensor_char_changed_handler
-#define BLE_NOTIFICATION_CONFIRMED_HANDLER			hr_notification_confirmation_handler
-#endif	/* HR_SENSOR*/
-
-#if defined FIND_ME_TARGET
-#define BLE_PROFILE_INIT							fmp_target_init
-#define BLE_ADDITIONAL_CONNECTED_STATE_HANDLER		fmp_target_connected_state_handler
-#define BLE_ADDITIONAL_DISCONNECTED_STATE_HANDLER	fmp_target_disconnect_event_handler
-#define BLE_CHARACTERISTIC_CHANGED					fmp_target_char_changed_handler
-#endif	/* FIND_ME */
-
-#define BLE_CONN_PARAM_UPDATE_REQ_HANDLER			ble_conn_param_update_req
 #define BLE_CONN_PARAM_UPDATE_DONE					ble_conn_param_update
 #define	BLE_PAIR_REQUEST							ble_pair_request_handler
 #define BLE_PAIR_KEY_REQUEST						ble_pair_key_request_handler
@@ -546,8 +424,6 @@ typedef enum
 #if ((BLE_DEVICE_ROLE == BLE_CENTRAL) || (BLE_DEVICE_ROLE == BLE_CENTRAL_AND_PERIPHERAL))
 #define BLE_SCAN_REPORT_HANDLER						ble_scan_report_handler
 #define BLE_SCAN_INFO_HANDLER						ble_scan_info_handler
-#define BLE_SLAVE_SEC_REQUEST						ble_slave_security_handler
-#define BLE_PAIR_KEY_REQUEST						ble_pair_key_request_handler
 
 /** @brief Function handlers for proximity monitor */
 #if defined PROXIMITY_MONITOR
@@ -559,8 +435,6 @@ typedef enum
 #define	BLE_SCAN_DATA_HANDLER						pxp_monitor_scan_data_handler
 #define BLE_CHARACTERISTIC_READ_RESPONSE			pxp_monitor_characteristic_read_response
 #define BLE_CHARACTERISTIC_FOUND_HANDLER			pxp_monitor_characteristic_found_handler
-#define BLE_SLAVE_SEC_REQUEST						ble_slave_security_handler
-#define BLE_PAIR_KEY_REQUEST						ble_pair_key_request_handler
 #endif /* PROXIMITY_MONITOR */
 
 /** @brief initializing function handlers for ANP client*/
@@ -572,6 +446,8 @@ typedef enum
 #define BLE_CHARACTERISTIC_FOUND_HANDLER						anp_client_characteristic_found_handler
 #define BLE_NOTIFICATION_RECEIVED_HANDLER						anp_client_notification_handler
 #define BLE_DESCRIPTOR_FOUND_HANDLER							anp_client_descriptor_found_handler
+#define	BLE_CHARACTERISTIC_CHANGED								anp_client_char_changed_handler
+
 #define BLE_PRIMARY_SERVICE_FOUND_HANDLER						anp_client_service_found_handler
 #define BLE_DISCOVERY_COMPLETE_HANDLER							anp_client_discovery_complete_handler
 #define BLE_ADDITIONAL_PAIR_DONE_HANDLER(param)					anp_client_write_notification_handler(param)
@@ -584,41 +460,12 @@ typedef enum
 #define BLE_ADDITIONAL_CONNECTED_STATE_HANDLER(param)			time_info_service_discover(param);
 #define BLE_ADDITIONAL_DISCONNECTED_STATE_HANDLER(param)		time_info_disconnected_event_handler(param);
 #define BLE_CHARACTERISTIC_FOUND_HANDLER						time_info_characteristic_found_handler
+#define	BLE_CHARACTERISTIC_CHANGED								time_info_char_changed_handler
+
 #define BLE_PRIMARY_SERVICE_FOUND_HANDLER						time_info_service_found_handler
 #define BLE_DISCOVERY_COMPLETE_HANDLER							time_info_discovery_complete_handler
 #define BLE_CHARACTERISTIC_READ_RESPONSE						time_info_characteristic_read_response
 #endif /* TIP_CLIENT */
-
-/** @brief initializing function handlers for ANP client*/
-#ifdef ANP_SIG_CLIENT
-#define BLE_PROFILE_INIT										anp_client_init
-#define BLE_ADDITIONAL_CONNECTED_STATE_HANDLER(param)			anp_info_service_discover(param);
-#define BLE_ADDITIONAL_DISCONNECTED_STATE_HANDLER(param)		anp_client_disconnected_event_handler(param);
-#define BLE_CHARACTERISTIC_WRITE_RESPONSE						anp_client_write_response_handler
-#define BLE_CHARACTERISTIC_READ_RESPONSE						anp_client_read_response_handler
-#define BLE_CHARACTERISTIC_FOUND_HANDLER						anp_client_characteristic_found_handler
-#define BLE_NOTIFICATION_RECEIVED_HANDLER						anp_client_notification_handler
-#define BLE_DESCRIPTOR_FOUND_HANDLER							anp_client_descriptor_found_handler
-#define BLE_PRIMARY_SERVICE_FOUND_HANDLER						anp_client_service_found_handler
-#define BLE_DISCOVERY_COMPLETE_HANDLER							anp_client_discovery_complete_handler
-#define BLE_ADDITIONAL_PAIR_DONE_HANDLER(param)					anp_client_security_done_handler(param)
-#define BLE_ADDITIONAL_ENCRYPTION_CHANGED_HANDLER(param)		anp_client_security_done_handler(param)
-#endif /* ANP_CLIENT */
-#ifdef PAS_CLIENT
-#define BLE_PROFILE_INIT										pas_client_init
-#define BLE_ADDITIONAL_CONNECTED_STATE_HANDLER(param)			pas_client_service_discovery(param);
-#define BLE_ADDITIONAL_DISCONNECTED_STATE_HANDLER(param)		pas_client_disconnected_event_handler(param);
-#define BLE_CHARACTERISTIC_WRITE_RESPONSE						pas_client_char_write_response_handler
-#define BLE_CHARACTERISTIC_READ_RESPONSE						pas_client_char_read_response_handler
-#define BLE_CHARACTERISTIC_FOUND_HANDLER						pas_client_characteristic_found_handler
-#define BLE_NOTIFICATION_RECEIVED_HANDLER						pas_client_notification_handler
-#define BLE_DESCRIPTOR_FOUND_HANDLER							pas_client_descriptor_found_handler
-
-#define BLE_PRIMARY_SERVICE_FOUND_HANDLER						pas_client_service_found_handler
-#define BLE_DISCOVERY_COMPLETE_HANDLER							pas_client_discovery_complete_handler
-#define BLE_ADDITIONAL_PAIR_DONE_HANDLER(param)					pas_client_write_notifications(param)
-#define BLE_ADDITIONAL_ENCRYPTION_CHANGED_HANDLER(param)		pas_client_write_notifications(param)
-#endif /* PAS_CLIENT */
 
 #endif /* ((BLE_DEVICE_ROLE == BLE_CENTRAL) || (BLE_DEVICE_ROLE == BLE_CENTRAL_AND_PERIPHERAL)) */
 
@@ -629,7 +476,9 @@ typedef enum
 #define BLE_DISCONNECTED_STATE_HANDLER(param)		ble_disconnected_state_handler(param);\
 													BLE_ADDITIONAL_DISCONNECTED_STATE_HANDLER(param);
 
-#define BLE_EVENT_PARAM_MAX_SIZE					512
+#ifndef BLE_SERVICE_CHANGED
+#define BLE_SERVICE_CHANGED										ble_dummy_handler
+#endif
 
 #ifndef BLE_PROFILE_INIT
 #define BLE_PROFILE_INIT										ble_dummy_handler
@@ -670,51 +519,6 @@ typedef enum
 #ifndef BLE_ENCRYPTION_STATUS_CHANGED
 #define BLE_ENCRYPTION_STATUS_CHANGED							ble_dummy_handler
 #endif
-													
-#ifndef BLE_CONN_PARAM_UPDATE_DONE
-#define BLE_CONN_PARAM_UPDATE_DONE								ble_dummy_handler
-#endif
-
-#ifndef	BLE_PROFILE_INIT
-#define BLE_PROFILE_INIT										ble_dummy_handler
-#endif
-
-#ifndef BLE_ADDITIONAL_CONNECTED_STATE_HANDLER
-#define BLE_ADDITIONAL_CONNECTED_STATE_HANDLER					ble_dummy_handler
-#endif
-
-#ifndef BLE_ADDITIONAL_DISCONNECTED_STATE_HANDLER
-#define BLE_ADDITIONAL_DISCONNECTED_STATE_HANDLER				ble_dummy_handler
-#endif
-
-#ifndef BLE_CHARACTERISTIC_CHANGED
-#define BLE_CHARACTERISTIC_CHANGED								ble_dummy_handler
-#endif
-
-#ifndef BLE_CONN_PARAM_UPDATE_DONE
-#define BLE_CONN_PARAM_UPDATE_DONE								ble_dummy_handler
-#endif
-
-#ifndef BLE_PAIR_REQUEST
-#define	BLE_PAIR_REQUEST										ble_dummy_handler
-#endif
-
-#ifndef BLE_PAIR_KEY_REQUEST
-#define BLE_PAIR_KEY_REQUEST									ble_dummy_handler
-#endif
-
-#ifndef BLE_PAIR_DONE
-#define BLE_PAIR_DONE											ble_dummy_handler
-#endif
-
-#ifndef BLE_ENCRYPTION_REQUEST
-#define BLE_ENCRYPTION_REQUEST									ble_dummy_handler
-#endif
-
-#ifndef BLE_ENCRYPTION_STATUS_CHANGED
-#define BLE_ENCRYPTION_STATUS_CHANGED							ble_dummy_handler
-#endif
-
 #ifndef BLE_SCAN_REPORT_HANDLER
 #define BLE_SCAN_REPORT_HANDLER									ble_dummy_handler
 #endif
@@ -739,16 +543,8 @@ typedef enum
 #define BLE_ADDITIONAL_ENCRYPTION_CHANGED_HANDLER				ble_dummy_handler
 #endif
 
-#ifndef BLE_DESCRIPTOR_FOUND_HANDLER
-#define BLE_DESCRIPTOR_FOUND_HANDLER							ble_dummy_handler
-#endif
-
 #ifndef BLE_NOTIFICATION_RECEIVED_HANDLER
 #define BLE_NOTIFICATION_RECEIVED_HANDLER						ble_dummy_handler
-#endif
-
-#ifndef BLE_NOTIFICATION_CONFIRMED_HANDLER
-#define BLE_NOTIFICATION_CONFIRMED_HANDLER						ble_dummy_handler
 #endif
 
 #ifndef BLE_CHARACTERISTIC_READ_RESPONSE
@@ -771,21 +567,13 @@ typedef enum
 #define BLE_CHARACTERISTIC_FOUND_HANDLER						ble_dummy_handler
 #endif
 
-#ifndef AT_BLE_MTU_CHANGED_INDICATION_HANDLER					
-#define AT_BLE_MTU_CHANGED_INDICATION_HANDLER					ble_dummy_handler
+#ifndef BLE_PAIR_ENABLE
+#define BLE_PAIR_ENABLE					(false)
 #endif
 
-#ifndef BLE_INDICATION_CONFIRMED_HANDLER
-#define BLE_INDICATION_CONFIRMED_HANDLER						ble_dummy_handler
-#endif
-
-#ifndef BLE_SLAVE_SEC_REQUEST
-#define BLE_SLAVE_SEC_REQUEST									ble_dummy_handler
-#endif
-
-#ifndef BLE_CONN_PARAM_UPDATE_REQ_HANDLER
-#define BLE_CONN_PARAM_UPDATE_REQ_HANDLER						ble_dummy_handler
-#endif
+/****************************************************************************************
+*							        Structures                                     		*
+****************************************************************************************/
 
 /** @brief advertisement data element
 */
@@ -801,14 +589,6 @@ typedef struct adv_element
 
 /** @brief GATT services handles
 */
-#if defined HID_SERVICE
-typedef struct gatt_service_handler
-{
-	at_ble_service_t		  serv;
-	at_ble_chr_t		      serv_chars[HID_CHARACTERISTIC_NUM];
-	at_ble_generic_att_desc_t serv_desc[HID_NUM_OF_REPORT];   /*Report descriptor*/
-}gatt_service_handler_t;
-#else
 typedef struct gatt_service_handler
 {
 	/// service uuid
@@ -816,21 +596,18 @@ typedef struct gatt_service_handler
 	/// service handle
 	at_ble_handle_t	serv_handle;
 	/// service characteristic
-	at_ble_characteristic_t	serv_chars;
+	at_ble_characteristic_t	serv_chars[TOTAL_CHARATERISTIC_NUM];
 }gatt_service_handler_t;
-#endif
+
+/****************************************************************************************
+*                                       Functions                                       *
+****************************************************************************************/
 
 /* Typedef for GAP event callbacks */
 typedef void (*ble_gap_event_callback_t)(at_ble_handle_t);
 
 /* Typedef for characteristic value changed event callback */
 typedef at_ble_status_t (*ble_characteristic_changed_callback_t)(at_ble_characteristic_changed_t *);
-
-/* Typedef for notification confirmed event callback */
-//typedef void (*ble_notification_confirmed_callback_t)(at_ble_cmd_complete_event_t *);
-
-/* Typedef for indication confirmed event callback */
-typedef void (*ble_indication_confirmed_callback_t)(at_ble_indication_confirmed_t *);
 
 /** @brief function to set the device name.
   *
@@ -852,15 +629,6 @@ at_ble_status_t ble_set_device_name(uint8_t *name, uint8_t name_len);
   */
 void ble_conn_param_update(at_ble_conn_param_update_done_t *conn_param_update);
 
-/** @brief function triggered on receiving a connection parameter update request from the peer.
-  *
-  * @param[in] conn_param_req @ref at_ble_conn_param_update_request_t parameters received.
-  *
-  * @return none.
-  *
-  */
-void ble_conn_param_update_req(at_ble_conn_param_update_request_t * conn_param_req);
-
 /** @brief function called when the AT_BLE_PAIR_REQUEST event is received from stack.
   *
   * @param[in] pair_key @ref at_ble_pair_request_t details for the pairing request from the peer.
@@ -869,8 +637,6 @@ void ble_conn_param_update_req(at_ble_conn_param_update_request_t * conn_param_r
   *
   */
 void ble_pair_request_handler(at_ble_pair_request_t *at_ble_pair_req);
-
-void ble_slave_security_handler(at_ble_slave_sec_request_t* slave_sec_req);
 
 /** @brief function called when the AT_BLE_PAIR_KEY_REQUEST event is received from stack.
   *
@@ -985,7 +751,6 @@ at_ble_status_t ble_event_task(void);
 /** @brief function sets both device address and device name which are exposed to all other devices.
   *
   * @param[in] addr address to be set as a device address.
-  * @param[in] args configuration required for initialization.
   *
   * @return none.
   *
@@ -1076,6 +841,6 @@ void register_ble_paired_event_cb(ble_gap_event_callback_t paired_cb_fn);
   */
 void register_ble_characteristic_changed_cb(ble_characteristic_changed_callback_t char_changed_cb_fn);
 
-void register_ble_indication_confirmed_cb(ble_indication_confirmed_callback_t indic_conf_cb_fn);
+/** @}*/
 
-#endif /* BLE_MANAGER_H_INCLUDED */
+#endif /*__BLE_MANAGER_H__*/

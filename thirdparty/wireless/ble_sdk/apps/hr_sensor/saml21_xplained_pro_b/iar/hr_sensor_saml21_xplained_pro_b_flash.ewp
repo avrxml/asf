@@ -167,9 +167,10 @@
 				<option>
 					<name>CCDefines</name>
 					<state>SYSTICK_MODE</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>DEVICE_INFORMATION_SERVICE</state>
 					<state>NEW_EVT_HANDLER</state>
-					<state>NENABLE_PTS</state>
+					<state>BOARD=SAML21_XPLAINED_PRO</state>
 					<state>TC_ASYNC=true</state>
 					<state>ATT_DB_MEMORY</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
@@ -178,11 +179,14 @@
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
-					<state>HEART_RATE_SERVICE</state>
-					<state>BOARD=SAML21_XPLAINED_PRO</state>
-					<state>HR_SENSOR</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>HEART_RATE_SERVICE</state>
 					<state>ENABLE_POWER_SAVE</state>
+					<state>HR_SENSOR</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
+					<state>NENABLE_PTS</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -503,9 +507,10 @@
 				<option>
 					<name>ADefines</name>
 					<state>SYSTICK_MODE</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>DEVICE_INFORMATION_SERVICE</state>
 					<state>NEW_EVT_HANDLER</state>
-					<state>NENABLE_PTS</state>
+					<state>BOARD=SAML21_XPLAINED_PRO</state>
 					<state>TC_ASYNC=true</state>
 					<state>ATT_DB_MEMORY</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
@@ -514,11 +519,14 @@
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
-					<state>HEART_RATE_SERVICE</state>
-					<state>BOARD=SAML21_XPLAINED_PRO</state>
-					<state>HR_SENSOR</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>HEART_RATE_SERVICE</state>
 					<state>ENABLE_POWER_SAVE</state>
+					<state>HR_SENSOR</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
+					<state>NENABLE_PTS</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1198,9 +1206,10 @@
 				<option>
 					<name>CCDefines</name>
 					<state>SYSTICK_MODE</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>DEVICE_INFORMATION_SERVICE</state>
 					<state>NEW_EVT_HANDLER</state>
-					<state>NENABLE_PTS</state>
+					<state>BOARD=SAML21_XPLAINED_PRO</state>
 					<state>TC_ASYNC=true</state>
 					<state>ATT_DB_MEMORY</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
@@ -1209,11 +1218,14 @@
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
-					<state>HEART_RATE_SERVICE</state>
-					<state>BOARD=SAML21_XPLAINED_PRO</state>
-					<state>HR_SENSOR</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>HEART_RATE_SERVICE</state>
 					<state>ENABLE_POWER_SAVE</state>
+					<state>HR_SENSOR</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
+					<state>NENABLE_PTS</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1534,9 +1546,10 @@
 				<option>
 					<name>ADefines</name>
 					<state>SYSTICK_MODE</state>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>DEVICE_INFORMATION_SERVICE</state>
 					<state>NEW_EVT_HANDLER</state>
-					<state>NENABLE_PTS</state>
+					<state>BOARD=SAML21_XPLAINED_PRO</state>
 					<state>TC_ASYNC=true</state>
 					<state>ATT_DB_MEMORY</state>
 					<state>EXTINT_CALLBACK_MODE=true</state>
@@ -1545,11 +1558,14 @@
 					<state>ARM_MATH_CM0PLUS=true</state>
 					<state>USART_CALLBACK_MODE=true</state>
 					<state>__SAML21J18B__</state>
-					<state>HEART_RATE_SERVICE</state>
-					<state>BOARD=SAML21_XPLAINED_PRO</state>
-					<state>HR_SENSOR</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=false</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>HEART_RATE_SERVICE</state>
 					<state>ENABLE_POWER_SAVE</state>
+					<state>HR_SENSOR</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
+					<state>NENABLE_PTS</state>
 				</option>
 				<option>
 					<name>AList</name>

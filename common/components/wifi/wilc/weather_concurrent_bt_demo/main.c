@@ -4,36 +4,29 @@
  *
  * \brief Weather concurrent and BT demo.
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
@@ -41,24 +34,26 @@
 
 /** \mainpage
  * \section intro Introduction
- * This example demonstrates the use of the WILC3000 with the SAM Xplained Pro
+ * This example demonstrates the use of the WILC with the SAM Xplained Pro
  * board using WiFi concurrent mode STA/AP.
  * STA mode is used to connect to a home router with internet connection to
  * retrieve weather information. 
- * AP mode is used to allow any WiFi capable devices to connect to the WILC3000
+ * AP mode is used to allow any WiFi capable devices to connect to the WILC
  * and then access an embedded webserver to read weather information as well as
  * host MCU status (up to 7 connected stations at the same time).<br>
  *
- * To access the HTTP server connect with your laptop to WiFi network "WILC3000", then
+ * To access the HTTP server connect with your laptop to WiFi network "WILC", then
  * open a browser at http://192.168.5.1<br>
  *
  * It uses the following hardware:
  * - the SAM Xplained Pro.
- * - the WILC3000 on EXT1 (WINC3400 can be used as well in bypass mode).
+ * - the WILC on EXT1 (WINC can be used as well in bypass mode).
+ * - WILC SD board can also be used connected to the SD Card Connector, with
+ *   IRQ line connected to Ex1[9]
  *
  * \section files Main Files
  * - main.c : Initialize the FreeRTOS scheduler.
- * - sta.c : Enable STA and AP mode for WILC3000. Retrieve weather information via STA mode.
+ * - sta.c : Enable STA and AP mode for WILC. Retrieve weather information via STA mode.
  * - ap.c : Enable HTTP server via AP mode.
  *
  * \section usage Usage
@@ -67,7 +62,19 @@
  *    #define STA_WLAN_SSID         "DEMO_AP"
  *    #define STA_WLAN_AUTH         M2M_WIFI_SEC_WPA_PSK
  *    #define STA_WLAN_PSK          "12345678"
+ *    #define STA_WEP_KEY_INDEX		M2M_WIFI_WEP_KEY_INDEX_1
+ *    #define STA_WEP_KEY			"1234567890"
+ *    #define STA_WEP_AUTH_TYPE		WEP_ANY
  * \endcode
+  * -# Configure below defines in sta.h to specify WILC AP mode to start with.
+  * \code
+  *    #define AP_WLAN_SSID         "WILC1000_AP"
+  *    #define AP_WLAN_AUTH         M2M_WIFI_SEC_WEP
+  *    #define AP_WLAN_PSK          "12345678"
+  *    #define AP_WEP_KEY_INDEX		M2M_WIFI_WEP_KEY_INDEX_1
+  *    #define AP_WEP_KEY			"1234567890"
+  *    #define AP_WEP_AUTH_TYPE		WEP_ANY
+  * \endcode
  * -# Build the program and download it into the board.
  * -# On the computer, open and configure a terminal application as the follows.
  * \code
@@ -97,7 +104,7 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit
- * <A href="http://www.atmel.com">Atmel</A>.\n
+ * <A href="http://www.microchip.com">Microchip</A>.\n
  */ 
 
 #include "asf.h"
@@ -139,6 +146,8 @@ void vApplicationMallocFailedHook(void)
 void vApplicationStackOverflowHook(xTaskHandle pxTask, signed char *pcTaskName);
 void vApplicationStackOverflowHook(xTaskHandle pxTask, signed char *pcTaskName)
 {
+	M2M_ERR("ERROR: STACK OVERFLOW");
+	M2M_ERR(pcTaskName);
 	for (;;) {
 	}
 }
@@ -149,6 +158,7 @@ void hard_fault(uint32_t *args, uint32_t lr);
 void hard_fault(uint32_t *args, uint32_t lr)
 {
 	fault_addr = args[6];
+	osprintf("Hard fault at address 0x%X\r\n", fault_addr);
 	for (;;) {
 	}
 }
@@ -205,11 +215,11 @@ int main(void)
 	puts(STRING_HEADER);
 	
 	/* Create main task. */
-	xTaskCreate(sta_task, (const void *)"WiFiSTA", TASK_STA_STACK_SIZE, 0,
+	xTaskCreate(sta_task, (signed char *)"WiFiSTA", TASK_STA_STACK_SIZE, 0,
 			TASK_STA_PRIORITY, 0);
 			
 	/* Create main task. */
-	xTaskCreate(ap_task, (const void *)"WiFiAP", TASK_AP_STACK_SIZE, 0,
+	xTaskCreate(ap_task, (signed char *)"WiFiAP", TASK_AP_STACK_SIZE, 0,
 			TASK_AP_PRIORITY, 0);
 
 	vTaskStartScheduler();

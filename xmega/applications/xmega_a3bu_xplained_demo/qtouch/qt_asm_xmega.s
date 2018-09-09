@@ -1,12 +1,12 @@
 /*******************************************************************************
 *   $FILE:  qt_asm_xmega.S
-*   Atmel Corporation:  http://www.atmel.com \n
-*   Support: http://www.atmel.com/design-support/
+*   Microchip Technology Inc:  http://www.microchip.com \n
+*   Support: http://www.microchip.com/support/
 ******************************************************************************/
 
 /**
  *
- * Copyright (c) 2010-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2010-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *

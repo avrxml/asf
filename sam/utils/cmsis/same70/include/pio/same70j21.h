@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70J21_PIO_
@@ -132,6 +122,10 @@
 #define PIO_PB5X1_TDO             (1u << 5)  /**< \brief Arm signal: TDO/TRACESWO/WKUP13 */
 #define PIO_PB5X1_TRACESWO        (1u << 5)  /**< \brief Arm signal: TDO/TRACESWO/WKUP13 */
 #define PIO_PB5X1_WKUP13          (1u << 5)  /**< \brief Arm signal: TDO/TRACESWO/WKUP13 */
+/* ========== Pio definition for DACC peripheral ========== */
+#define PIO_PB13X1_DAC0           (1u << 13) /**< \brief Dacc signal: DAC0 */
+#define PIO_PD0X1_DAC1            (1u << 0)  /**< \brief Dacc signal: DAC1 */
+#define PIO_PA2C_DATRG            (1u << 2)  /**< \brief Dacc signal: DATRG */
 /* ========== Pio definition for GMAC peripheral ========== */
 #define PIO_PD13A_GCOL            (1u << 13) /**< \brief Gmac signal: GCOL */
 #define PIO_PD10A_GCRS            (1u << 10) /**< \brief Gmac signal: GCRS */
@@ -155,13 +149,6 @@
 #define PIO_PD0A_GTXCK            (1u << 0)  /**< \brief Gmac signal: GTXCK */
 #define PIO_PD1A_GTXEN            (1u << 1)  /**< \brief Gmac signal: GTXEN */
 #define PIO_PD17A_GTXER           (1u << 17) /**< \brief Gmac signal: GTXER */
-/* ========== Pio definition for HSMCI peripheral ========== */
-#define PIO_PA28C_MCCDA           (1u << 28) /**< \brief Hsmci signal: MCCDA */
-#define PIO_PA25D_MCCK            (1u << 25) /**< \brief Hsmci signal: MCCK */
-#define PIO_PA30C_MCDA0           (1u << 30) /**< \brief Hsmci signal: MCDA0 */
-#define PIO_PA31C_MCDA1           (1u << 31) /**< \brief Hsmci signal: MCDA1 */
-#define PIO_PA26C_MCDA2           (1u << 26) /**< \brief Hsmci signal: MCDA2 */
-#define PIO_PA27C_MCDA3           (1u << 27) /**< \brief Hsmci signal: MCDA3 */
 /* ========== Pio definition for ISI peripheral ========== */
 #define PIO_PD22D_ISI_D0          (1u << 22) /**< \brief Isi signal: ISI_D0 */
 #define PIO_PD21D_ISI_D1          (1u << 21) /**< \brief Isi signal: ISI_D1 */
@@ -294,26 +281,6 @@
 #define PIO_PA17A_QIO2            (1u << 17) /**< \brief Qspi signal: QIO2 */
 #define PIO_PD31A_QIO3            (1u << 31) /**< \brief Qspi signal: QIO3 */
 #define PIO_PA14A_QSCK            (1u << 14) /**< \brief Qspi signal: QSCK */
-/* ========== Pio definition for SPI0 peripheral ========== */
-#define PIO_PD20B_SPI0_MISO       (1u << 20) /**< \brief Spi0 signal: SPI0_MISO */
-#define PIO_PD21B_SPI0_MOSI       (1u << 21) /**< \brief Spi0 signal: SPI0_MOSI */
-#define PIO_PB2D_SPI0_NPCS0       (1u << 2)  /**< \brief Spi0 signal: SPI0_NPCS0 */
-#define PIO_PA31A_SPI0_NPCS1      (1u << 31) /**< \brief Spi0 signal: SPI0_NPCS1 */
-#define PIO_PD25B_SPI0_NPCS1      (1u << 25) /**< \brief Spi0 signal: SPI0_NPCS1 */
-#define PIO_PD12C_SPI0_NPCS2      (1u << 12) /**< \brief Spi0 signal: SPI0_NPCS2 */
-#define PIO_PD27B_SPI0_NPCS3      (1u << 27) /**< \brief Spi0 signal: SPI0_NPCS3 */
-#define PIO_PD22B_SPI0_SPCK       (1u << 22) /**< \brief Spi0 signal: SPI0_SPCK */
-/* ========== Pio definition for SPI1 peripheral ========== */
-#define PIO_PC26C_SPI1_MISO       (1u << 26) /**< \brief Spi1 signal: SPI1_MISO */
-#define PIO_PC27C_SPI1_MOSI       (1u << 27) /**< \brief Spi1 signal: SPI1_MOSI */
-#define PIO_PC25C_SPI1_NPCS0      (1u << 25) /**< \brief Spi1 signal: SPI1_NPCS0 */
-#define PIO_PC28C_SPI1_NPCS1      (1u << 28) /**< \brief Spi1 signal: SPI1_NPCS1 */
-#define PIO_PD0C_SPI1_NPCS1       (1u << 0)  /**< \brief Spi1 signal: SPI1_NPCS1 */
-#define PIO_PC29C_SPI1_NPCS2      (1u << 29) /**< \brief Spi1 signal: SPI1_NPCS2 */
-#define PIO_PD1C_SPI1_NPCS2       (1u << 1)  /**< \brief Spi1 signal: SPI1_NPCS2 */
-#define PIO_PC30C_SPI1_NPCS3      (1u << 30) /**< \brief Spi1 signal: SPI1_NPCS3 */
-#define PIO_PD2C_SPI1_NPCS3       (1u << 2)  /**< \brief Spi1 signal: SPI1_NPCS3 */
-#define PIO_PC24C_SPI1_SPCK       (1u << 24) /**< \brief Spi1 signal: SPI1_SPCK */
 /* ========== Pio definition for SSC peripheral ========== */
 #define PIO_PA10C_RD              (1u << 10) /**< \brief Ssc signal: RD */
 #define PIO_PD24B_RF              (1u << 24) /**< \brief Ssc signal: RF */
@@ -360,14 +327,6 @@
 /* ========== Pio definition for UART2 peripheral ========== */
 #define PIO_PD25C_URXD2           (1u << 25) /**< \brief Uart2 signal: URXD2 */
 #define PIO_PD26C_UTXD2           (1u << 26) /**< \brief Uart2 signal: UTXD2 */
-/* ========== Pio definition for UART3 peripheral ========== */
-#define PIO_PD28A_URXD3           (1u << 28) /**< \brief Uart3 signal: URXD3 */
-#define PIO_PD30A_UTXD3           (1u << 30) /**< \brief Uart3 signal: UTXD3 */
-#define PIO_PD31B_UTXD3           (1u << 31) /**< \brief Uart3 signal: UTXD3 */
-/* ========== Pio definition for UART4 peripheral ========== */
-#define PIO_PD18C_URXD4           (1u << 18) /**< \brief Uart4 signal: URXD4 */
-#define PIO_PD3C_UTXD4            (1u << 3)  /**< \brief Uart4 signal: UTXD4 */
-#define PIO_PD19C_UTXD4           (1u << 19) /**< \brief Uart4 signal: UTXD4 */
 /* ========== Pio definition for USART0 peripheral ========== */
 #define PIO_PB2C_CTS0             (1u << 2)  /**< \brief Usart0 signal: CTS0 */
 #define PIO_PD0D_DCD0             (1u << 0)  /**< \brief Usart0 signal: DCD0 */
@@ -389,16 +348,6 @@
 #define PIO_PA21A_RXD1            (1u << 21) /**< \brief Usart1 signal: RXD1 */
 #define PIO_PA23A_SCK1            (1u << 23) /**< \brief Usart1 signal: SCK1 */
 #define PIO_PB4D_TXD1             (1u << 4)  /**< \brief Usart1 signal: TXD1 */
-/* ========== Pio definition for USART2 peripheral ========== */
-#define PIO_PD19B_CTS2            (1u << 19) /**< \brief Usart2 signal: CTS2 */
-#define PIO_PD4D_DCD2             (1u << 4)  /**< \brief Usart2 signal: DCD2 */
-#define PIO_PD6D_DSR2             (1u << 6)  /**< \brief Usart2 signal: DSR2 */
-#define PIO_PD5D_DTR2             (1u << 5)  /**< \brief Usart2 signal: DTR2 */
-#define PIO_PD7D_RI2              (1u << 7)  /**< \brief Usart2 signal: RI2 */
-#define PIO_PD18B_RTS2            (1u << 18) /**< \brief Usart2 signal: RTS2 */
-#define PIO_PD15B_RXD2            (1u << 15) /**< \brief Usart2 signal: RXD2 */
-#define PIO_PD17B_SCK2            (1u << 17) /**< \brief Usart2 signal: SCK2 */
-#define PIO_PD16B_TXD2            (1u << 16) /**< \brief Usart2 signal: TXD2 */
 /* ========== Pio indexes ========== */
 #define PIO_PA3_IDX               3
 #define PIO_PA4_IDX               4

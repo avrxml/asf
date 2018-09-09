@@ -19,7 +19,7 @@
  * implication, the location of a virtual fixed decimal point within the
  * mantissa.
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *

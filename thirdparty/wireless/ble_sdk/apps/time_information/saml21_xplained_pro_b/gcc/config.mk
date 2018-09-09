@@ -188,14 +188,18 @@ CFLAGS =
 CPPFLAGS = \
        -D ARM_MATH_CM0PLUS=true                           \
        -D BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL             \
+       -D BLE_MODULE=BTLC1000_MR                          \
        -D BOARD=SAML21_XPLAINED_PRO                       \
        -D CURRENT_TIME_SERVICE                            \
        -D ENABLE_POWER_SAVE                               \
        -D EXTINT_CALLBACK_MODE=true                       \
+       -D HOST_SLEEP_ENABLE=true                          \
+       -D HOST_UART_BAUDRATE_CONFIG_VALUE=921600          \
        -D NENABLE_PTS                                     \
        -D NEW_EVT_HANDLER                                 \
        -D NEXT_DST_SERVICE                                \
        -D REFERENCE_TIME_SERVICE                          \
+       -D SLEEP_WALKING_ENABLED=false                     \
        -D SYSTICK_MODE                                    \
        -D TC_ASYNC=true                                   \
        -D TIP_CLIENT                                      \

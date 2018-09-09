@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>Microchip WINC1500 AP Provision</title>
+</head>
+<script>
+function mainFunc() {
+var x = document.getElementById("sec").value;
+document.getElementById("passf").style.display = "none";
+document.getElementById("entsecf").style.display = "none";
+document.getElementById("filef").style.display = "none";
+if(x == 1){}
+else if(x == 2){
+document.getElementById("passf").style.display = "block";
+document.getElementById("pl").innerHTML="Passphrase";}
+else if(x == 3){
+document.getElementById("passf").style.display = "block";
+document.getElementById("pl").innerHTML="WEP Key";}
+else if(x == 4){
+document.getElementById("entsecf").style.display = "block";
+document.getElementById("passf").style.display = "none";
+document.getElementById("method").value = 0;}
+}
+function methodFunc() {
+var y = document.getElementById("method").value;
+document.getElementById("pl").innerHTML="Password";
+document.getElementById("passf").style.display = "none";
+document.getElementById("filef").style.display = "none";
+if(y == 1){document.getElementById("filef").style.display = "block";}
+else if(y == 2) {document.getElementById("passf").style.display = "block";}
+}
+function openCertFile(event,id) {
+var input = event.target;
+var reader = new FileReader();
+reader.onload = function(){
+var text = reader.result;
+console.log(text);
+document.getElementById(id).value=text;
+};
+reader.readAsText(input.files[0]);
+};
+</script>
+<body>
+<img src="logo.png" width="400" height="101">
+<div style="width:400px;background:linear-gradient(red, darkred);color:white;border:1px solid black;" align=center><b>Connect To Network</b></div>
+<br>
+<form style="width:400px;background:linear-gradient(white, silver);border:1px solid black;" method="post" action="/s_index.html" name="NETSET" enctype="text/plain" >
+<fieldset>
+<legend>Network Name:</legend>
+<input type="text" id="nwn" name="NETWNAME_" size="33">
+</fieldset>
+<fieldset>
+<legend>Security:</legend>
+<select name="SECTYPE_" id="sec" onchange="mainFunc()">
+<option value="1"selected>OPEN</option>
+<option value="2">WPA2_PSK</option>
+<option value="3">WEP</option>
+<option value="4">ENTERPRISE SECURITY</option>
+</select>
+</fieldset>
+<fieldset hidden id="entsecf">
+<legend id="usrnamel">User Name:</legend>
+<input type="text" id="usrname" name="USRNAME_" size="32">
+<p>The Supported Enterprise Security methods are<ul><li>EAP with TLS</li><li>PEAPv0 with TLS</li><li>PEAPv1 with TLS</li><li>TTLSv0 with MSCHAPv2</li><li>PEAPv0 with MSCHAPv2</li><li>PEAPv1 with MSCHAPv2</li></ul></p>
+<legend><br>Phase 2 Authentication Method:</legend>
+<select name="SECMETHOD_" id="method" onchange="methodFunc()">
+<option value="0"selected>Select here</option>
+<option value="1">TLS</option>
+<option value="2">MSCHAPV2</option>
+</select>
+</fieldset>
+<fieldset hidden id="passf">
+<legend id="pl">Passphrase:</legend>
+<input type="password" id="pd" name="PASSPHRASE_" size="35">
+</fieldset>
+<fieldset hidden id="filef">
+<legend id="cert_filel">Certificate:</legend>
+<p>Note: Certificate should be in pem or crt format (base64 encoded). DER format is not accepted</p>
+<input type="file" id="certd" name="CERT_" onchange='openCertFile(event,"cstr")'><br>
+<textarea id="cstr" name="CSTR_" value=""></textarea>
+<legend id="cert_filel">Key:</legend>
+<input type="file" id="keyd" name="KEY_" onchange='openCertFile(event,"kstr")'><br>
+<textarea id="kstr" name="KSTR_" value=""></textarea>
+</fieldset>
+<br><input type="submit" value="Connect" id="Connect">
+</form>
+<br>
+</body>
+</html>

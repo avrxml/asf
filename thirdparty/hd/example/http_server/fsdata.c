@@ -130,7 +130,7 @@ document_404_html_cb(const char** buf, int* len, char *arg)
 		"<body bgcolor=\"white\" text=\"black\">"
 		"<table width=\"100%\">"
 		"<tr valign=\"top\"><td width=\"80\">"
-		"<a href=\"http://www.atmel.com/\"><img src=\"image.gif\""
+		"<a href=\"http://www.microchip.com/\"><img src=\"image.gif\""
 		"border=\"0\" alt=\"logo\" title=\"logo\"></a>"
 		"</td><td width=\"500\">"
 		"<h2>802.11 WiFi on Atmel UC3A3256</h2>"

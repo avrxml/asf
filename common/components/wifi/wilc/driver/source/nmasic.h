@@ -2,38 +2,31 @@
  *
  * \file
  *
- * \brief This module contains NMC1500 ASIC specific internal APIs.
+ * \brief This module contains WILC ASIC specific internal APIs.
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
@@ -41,7 +34,7 @@
 #ifndef _NMASIC_H_
 #define _NMASIC_H_
 
-#include "common/include/nm_common.h"
+#include "../../common/include/nm_common.h"
 
 #define NMI_PERIPH_REG_BASE     0x1000
 #define NMI_CHIPID	            (NMI_PERIPH_REG_BASE)
@@ -56,40 +49,57 @@
 
 #ifdef CONF_WILC_USE_3000_REV_A
 #ifdef CONF_WILC_USE_SDIO
-	#define WILC_WAKEUP_REG 			0xf0
-	#define WILC_CLK_STATUS_REG 		0xf0
-	#define WILC_WAKEUP_BIT 			NBIT0
-	#define WILC_CLK_STATUS_BIT 		NBIT4
+	#define WILC_WAKEUP_REG 					0xf0
+	#define WILC_CLK_STATUS_REG 				0xf0
+	#define WILC_WAKEUP_BIT 					NBIT0
+	#define WILC_CLK_STATUS_BIT 				NBIT4
+	#define WILC_FROM_INTERFACE_TO_WF_REG		0xFA
+	#define WILC_FROM_INTERFACE_TO_WF_BIT		NBIT0
+	#define WILC_TO_INTERFACE_FROM_WF_REG		0xFC
+	#define WILC_TO_INTERFACE_FROM_WF_BIT		NBIT0
 
-	#define WILC_INT_STATUS_REG 	0xFE
-	#define WILC_INT_CLEAR_REG 		0xFE
+	#define WILC_INT_STATUS_REG 				0xFE
+	#define WILC_INT_CLEAR_REG 					0xFE
 #else
-	#define WILC_WAKEUP_REG 			0x1
-	#define WILC_CLK_STATUS_REG 		0x13
-	#define WILC_WAKEUP_BIT 			NBIT1
-	#define WILC_CLK_STATUS_BIT 		NBIT2
+	#define WILC_WAKEUP_REG 					0x1
+	#define WILC_CLK_STATUS_REG 				0x13
+	#define WILC_WAKEUP_BIT 					NBIT1
+	#define WILC_CLK_STATUS_BIT 				NBIT2
+	#define WILC_FROM_INTERFACE_TO_WF_REG		0x0E
+	#define WILC_FROM_INTERFACE_TO_WF_BIT		NBIT0
+	#define WILC_TO_INTERFACE_FROM_WF_REG		0x14 
+	#define WILC_TO_INTERFACE_FROM_WF_BIT		NBIT0
 
-	#define WILC_INT_STATUS_REG 	0x40
-	#define WILC_INT_CLEAR_REG 		0x44
+	#define WILC_INT_STATUS_REG 				0x40
+	#define WILC_INT_CLEAR_REG 					0x44
 
 #endif /* WILC_SDIO */
 
-#elif (defined CONF_WILC_USE_1000_REV_A || defined CONF_WILC_USE_1000_REV_B)
+#elif defined CONF_WILC_USE_1000_REV_B
 #ifdef CONF_WILC_USE_SDIO
-	#define WILC_WAKEUP_REG 			0xf0
-	#define WILC_CLK_STATUS_REG 		0xf1
-	#define WILC_WAKEUP_BIT  		NBIT0
-	#define WILC_CLK_STATUS_BIT 		NBIT1
+	#define WILC_WAKEUP_REG 					0xf0
+	#define WILC_CLK_STATUS_REG 				0xf1
+	#define WILC_WAKEUP_BIT  					NBIT0
+	#define WILC_CLK_STATUS_BIT 				NBIT0
+	#define WILC_FROM_INTERFACE_TO_WF_REG		0xFA
+	#define WILC_FROM_INTERFACE_TO_WF_BIT		NBIT0
+	#define WILC_TO_INTERFACE_FROM_WF_REG		0xFC
+	#define WILC_TO_INTERFACE_FROM_WF_BIT		NBIT0 
 
-	#define WILC_INT_STATUS_REG 	0xF8
-	#define WILC_INT_CLEAR_REG 		0xFE
+	#define WILC_INT_STATUS_REG 				0xF7
+	#define WILC_INT_CLEAR_REG 					0xF8
 #else
-	#define WILC_WAKEUP_REG 			0x1
-	#define WILC_WAKEUP_BIT 			NBIT1
-	#define WILC_CLK_STATUS_BIT 		NBIT2
+	#define WILC_WAKEUP_REG 					0x1
+	#define WILC_CLK_STATUS_REG					0xf /* Assume initially it is B0 chip */ 
+	#define WILC_WAKEUP_BIT 					NBIT1
+	#define WILC_CLK_STATUS_BIT 				NBIT2
 
-	#define WILC_INT_STATUS_REG 	0x40
-	#define WILC_INT_CLEAR_REG 		0x44
+	#define WILC_INT_STATUS_REG 				0x40
+	#define WILC_INT_CLEAR_REG 					0x44
+	#define WILC_FROM_INTERFACE_TO_WF_REG		0x0B
+	#define WILC_FROM_INTERFACE_TO_WF_BIT		NBIT0
+	#define WILC_TO_INTERFACE_FROM_WF_REG		0x10
+	#define WILC_TO_INTERFACE_FROM_WF_BIT		NBIT0
 
 #endif /* WILC_SDIO */
 #endif /* CONF_WILC_USE_3000_REV_A*/
@@ -116,7 +126,6 @@
 #define ISNMC1500(id)   (((id & 0xfffff000) == 0x150000) ? 1 : 0)
 #define REV(id)         ( ((id) & 0x00000fff ) )
 #define EFUSED_MAC(value) (value & 0xffff0000)
-
 
 #ifdef CONF_WILC_USE_3000_REV_A
 
@@ -186,16 +195,6 @@
 #endif
 
 /**
-*  @enum		tenuNmiCoexMode
-*  @brief		enum holding coexistence modes
-*/
-typedef enum{
-	NMI_COEX_MODE_WIFI,
-	NMI_COEX_MODE_BT,
-	NMI_COEX_MODE_COMBO,	
-}tenuNmiCoexMode;
-
-/**
 *  @struct		tstrM2mWifiGetRevision
 *  @brief		Structure holding firmware version parameters
 *  @sa			M2M_WIFI_AUTH_WEB, M2M_WIFI_AUTH_WPA, M2M_WIFI_AUTH_WPA2
@@ -215,19 +214,16 @@ typedef struct {
 #ifdef __cplusplus
      extern "C" {
  #endif
-/**
-*	@fn		nm_clkless_wake
-*	@brief	Wakeup the chip using clockless registers
-*	@return	ZERO in case of success and M2M_ERR_BUS_FAIL in case of failure
-*	@author	Samer Sarhan
-*/
-sint8 nm_clkless_wake(void);
+ 
 
 sint8 chip_wake(void);
-
+/*
+*	@fn		chip_sleep
+*	@brief	
+*/
+sint8 chip_sleep(void);
 void chip_idle(void);
 
-void enable_rf_blocks(void);
 
 sint8 enable_interrupts(void);
 
@@ -245,17 +241,17 @@ void nmi_set_sys_clk_src_to_xo(void);
 
 sint8 chip_reset(void);
 
-sint8 wait_for_bootrom(void);
-
 sint8 firmware_download(void);
 
-#ifdef CONF_WILC_USE_3000_REV_A
+#if	(defined CONF_WILC_USE_3000_REV_A && !defined WILC_SERIAL_BRIDGE_INTERFACE)
 sint8 cpu_start_bt(void);
+
 sint8 firmware_download_bt(void);
 #endif
 
-
 sint8 wait_for_firmware_start(void);
+
+sint8 wait_for_bootrom(void);
 
 sint8 chip_deinit(void);
 
@@ -272,12 +268,6 @@ sint8 pullup_ctrl(uint32 pinmask, uint8 enable);
 sint8 nmi_get_otp_mac_address(uint8 *pu8MacAddr, uint8 * pu8IsValid);
 
 sint8 nmi_get_mac_address(uint8 *pu8MacAddr);
-
-#ifdef CONF_WILC_USE_3000_REV_A
-sint8 nmi_coex_init(void);
-
-sint8 nmi_coex_set_mode(tenuNmiCoexMode enuCoexMode);
-#endif
 
 #ifdef __cplusplus
 	 }

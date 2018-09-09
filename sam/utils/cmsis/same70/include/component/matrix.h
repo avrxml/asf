@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70_MATRIX_COMPONENT_
@@ -72,7 +62,8 @@ typedef struct {
   __IO uint32_t MATRIX_MCFG9;               /**< \brief (Matrix Offset: 0x0024) Master Configuration Register 9 */
   __IO uint32_t MATRIX_MCFG10;              /**< \brief (Matrix Offset: 0x0028) Master Configuration Register 10 */
   __IO uint32_t MATRIX_MCFG11;              /**< \brief (Matrix Offset: 0x002C) Master Configuration Register 11 */
-  __I  uint32_t Reserved2[4];
+  __IO uint32_t MATRIX_MCFG12;              /**< \brief (Matrix Offset: 0x0030) Master Configuration Register 12 */
+  __I  uint32_t Reserved2[3];
   __IO uint32_t MATRIX_SCFG[9];             /**< \brief (Matrix Offset: 0x0040) Slave Configuration Register */
   __I  uint32_t Reserved3[7];
        MatrixPr MATRIX_PR[MATRIXPR_NUMBER]; /**< \brief (Matrix Offset: 0x0080) 0 .. 8 */
@@ -81,11 +72,15 @@ typedef struct {
   __I  uint32_t Reserved5[3];
   __IO uint32_t CCFG_CAN0;                  /**< \brief (Matrix Offset: 0x0110) CAN0 Configuration Register */
   __IO uint32_t CCFG_SYSIO;                 /**< \brief (Matrix Offset: 0x0114) System I/O and CAN1 Configuration Register */
-  __I  uint32_t Reserved6[3];
+  __IO uint32_t CCFG_PCCR;                  /**< \brief (Matrix Offset: 0x0118) Peripheral Clock Configuration Register */
+  __IO uint32_t CCFG_DYNCFG;                /**< \brief (Matrix Offset: 0x011C) Dynamic Clock Gating Register */
+  __I  uint32_t Reserved6[1];
   __IO uint32_t CCFG_SMCNFCS;               /**< \brief (Matrix Offset: 0x0124) SMC NAND Flash Chip Select Configuration Register */
   __I  uint32_t Reserved7[47];
   __IO uint32_t MATRIX_WPMR;                /**< \brief (Matrix Offset: 0x01E4) Write Protection Mode Register */
   __I  uint32_t MATRIX_WPSR;                /**< \brief (Matrix Offset: 0x01E8) Write Protection Status Register */
+  __I  uint32_t Reserved8[4];
+  __I  uint32_t MATRIX_VERSION;             /**< \brief (Matrix Offset: 0x01FC) Version Register */
 } Matrix;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- MATRIX_MCFG0 : (MATRIX Offset: 0x0000) Master Configuration Register 0 -------- */
@@ -268,6 +263,9 @@ typedef struct {
 #define MATRIX_PRBS_M11PR_Pos 12
 #define MATRIX_PRBS_M11PR_Msk (0x3u << MATRIX_PRBS_M11PR_Pos) /**< \brief (MATRIX_PRBS) Master 11 Priority */
 #define MATRIX_PRBS_M11PR(value) ((MATRIX_PRBS_M11PR_Msk & ((value) << MATRIX_PRBS_M11PR_Pos)))
+#define MATRIX_PRBS_M12PR_Pos 16
+#define MATRIX_PRBS_M12PR_Msk (0x3u << MATRIX_PRBS_M12PR_Pos) /**< \brief (MATRIX_PRBS) Master 12 Priority */
+#define MATRIX_PRBS_M12PR(value) ((MATRIX_PRBS_M12PR_Msk & ((value) << MATRIX_PRBS_M12PR_Pos)))
 /* -------- MATRIX_MRCR : (MATRIX Offset: 0x0100) Master Remap Control Register -------- */
 #define MATRIX_MRCR_RCB0 (0x1u << 0) /**< \brief (MATRIX_MRCR) Remap Command Bit for Master 0 */
 #define MATRIX_MRCR_RCB1 (0x1u << 1) /**< \brief (MATRIX_MRCR) Remap Command Bit for Master 1 */
@@ -280,6 +278,7 @@ typedef struct {
 #define MATRIX_MRCR_RCB9 (0x1u << 9) /**< \brief (MATRIX_MRCR) Remap Command Bit for Master 9 */
 #define MATRIX_MRCR_RCB10 (0x1u << 10) /**< \brief (MATRIX_MRCR) Remap Command Bit for Master 10 */
 #define MATRIX_MRCR_RCB11 (0x1u << 11) /**< \brief (MATRIX_MRCR) Remap Command Bit for Master 11 */
+#define MATRIX_MRCR_RCB12 (0x1u << 12) /**< \brief (MATRIX_MRCR) Remap Command Bit for Master 12 */
 /* -------- CCFG_CAN0 : (MATRIX Offset: 0x0110) CAN0 Configuration Register -------- */
 #define CCFG_CAN0_CAN0DMABA_Pos 16
 #define CCFG_CAN0_CAN0DMABA_Msk (0xffffu << CCFG_CAN0_CAN0DMABA_Pos) /**< \brief (CCFG_CAN0) CAN0 DMA Base Address */
@@ -291,8 +290,16 @@ typedef struct {
 #define CCFG_SYSIO_SYSIO7 (0x1u << 7) /**< \brief (CCFG_SYSIO) PB7 or TCK/SWCLK Assignment */
 #define CCFG_SYSIO_SYSIO12 (0x1u << 12) /**< \brief (CCFG_SYSIO) PB12 or ERASE Assignment */
 #define CCFG_SYSIO_CAN1DMABA_Pos 16
-#define CCFG_SYSIO_CAN1DMABA_Msk (0xffffu << CCFG_SYSIO_CAN1DMABA_Pos) /**< \brief (CCFG_SYSIO) CAN0 DMA Base Address */
+#define CCFG_SYSIO_CAN1DMABA_Msk (0xffffu << CCFG_SYSIO_CAN1DMABA_Pos) /**< \brief (CCFG_SYSIO) CAN1 DMA Base Address */
 #define CCFG_SYSIO_CAN1DMABA(value) ((CCFG_SYSIO_CAN1DMABA_Msk & ((value) << CCFG_SYSIO_CAN1DMABA_Pos)))
+/* -------- CCFG_PCCR : (MATRIX Offset: 0x0118) Peripheral Clock Configuration Register -------- */
+#define CCFG_PCCR_TC0CC (0x1u << 20) /**< \brief (CCFG_PCCR) TC0 Clock Configuration */
+#define CCFG_PCCR_I2SC0CC (0x1u << 21) /**< \brief (CCFG_PCCR) I2SC0 Clock Configuration */
+#define CCFG_PCCR_I2SC1CC (0x1u << 22) /**< \brief (CCFG_PCCR) I2SC1 Clock Configuration */
+/* -------- CCFG_DYNCKG : (MATRIX Offset: 0x11c) (R/W 32) Dynamic Clock Gating Register -------- */
+#define CCFG_DYNCKG_MATCKG  (0x1u << 0) /**< \brief (CCFG_DYNCKG) MATRIX Dynamic Clock Gating */
+#define CCFG_DYNCKG_BRIDCKG (0x1u << 1) /**< \brief (CCFG_DYNCKG) Bridge Dynamic Clock Gating Enable */
+#define CCFG_DYNCKG_EFCCKG  (0x1u << 2) /**< \brief (CCFG_DYNCKG) EFC Dynamic Clock Gating Enable */
 /* -------- CCFG_SMCNFCS : (MATRIX Offset: 0x0124) SMC NAND Flash Chip Select Configuration Register -------- */
 #define CCFG_SMCNFCS_SMC_NFCS0 (0x1u << 0) /**< \brief (CCFG_SMCNFCS) SMC NAND Flash Chip Select 0 Assignment */
 #define CCFG_SMCNFCS_SMC_NFCS1 (0x1u << 1) /**< \brief (CCFG_SMCNFCS) SMC NAND Flash Chip Select 1 Assignment */
@@ -309,6 +316,11 @@ typedef struct {
 #define MATRIX_WPSR_WPVS (0x1u << 0) /**< \brief (MATRIX_WPSR) Write Protection Violation Status */
 #define MATRIX_WPSR_WPVSRC_Pos 8
 #define MATRIX_WPSR_WPVSRC_Msk (0xffffu << MATRIX_WPSR_WPVSRC_Pos) /**< \brief (MATRIX_WPSR) Write Protection Violation Source */
+/* -------- MATRIX_VERSION : (MATRIX Offset: 0x01FC) Version Register -------- */
+#define MATRIX_VERSION_VERSION_Pos 0
+#define MATRIX_VERSION_VERSION_Msk (0xfffu << MATRIX_VERSION_VERSION_Pos) /**< \brief (MATRIX_VERSION) Version of the Hardware Module */
+#define MATRIX_VERSION_MFN_Pos 16
+#define MATRIX_VERSION_MFN_Msk (0x7u << MATRIX_VERSION_MFN_Pos) /**< \brief (MATRIX_VERSION) Metal Fix Number */
 
 /*@}*/
 

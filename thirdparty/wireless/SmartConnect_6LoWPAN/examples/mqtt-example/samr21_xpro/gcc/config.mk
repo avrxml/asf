@@ -55,26 +55,26 @@ CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        common2/services/delay/sam0/systick_counter.c      \
        sam0/boards/samr21_xplained_pro/board_init.c       \
-       sam0/drivers/adc/adc_sam_d_r/adc.c                 \
+       sam0/drivers/adc/adc_sam_d_r_h/adc.c               \
        sam0/drivers/extint/extint_callback.c              \
-       sam0/drivers/extint/extint_sam_d_r/extint.c        \
+       sam0/drivers/extint/extint_sam_d_r_h/extint.c      \
        sam0/drivers/nvm/nvm.c                             \
        sam0/drivers/port/port.c                           \
-       sam0/drivers/rtc/rtc_sam_d_r/rtc_count.c           \
-       sam0/drivers/rtc/rtc_sam_d_r/rtc_count_interrupt.c \
+       sam0/drivers/rtc/rtc_sam_d_r_h/rtc_count.c         \
+       sam0/drivers/rtc/rtc_sam_d_r_h/rtc_count_interrupt.c \
        sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.c      \
        sam0/drivers/sercom/sercom.c                       \
        sam0/drivers/sercom/sercom_interrupt.c             \
        sam0/drivers/sercom/spi/spi.c                      \
        sam0/drivers/sercom/usart/usart.c                  \
        sam0/drivers/sercom/usart/usart_interrupt.c        \
-       sam0/drivers/system/clock/clock_samd21_r21_da/clock.c \
-       sam0/drivers/system/clock/clock_samd21_r21_da/gclk.c \
+       sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.c \
+       sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.c \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
        sam0/drivers/tc/tc_interrupt.c                     \
-       sam0/drivers/tc/tc_sam_d_r/tc.c                    \
+       sam0/drivers/tc/tc_sam_d_r_h/tc.c                  \
        sam0/drivers/wdt/wdt.c                             \
        sam0/drivers/wdt/wdt_callback.c                    \
        sam0/utils/cmsis/samr21/source/gcc/startup_samr21.c \
@@ -206,13 +206,13 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samr21_xplained_pro                    \
        sam0/drivers/adc                                   \
-       sam0/drivers/adc/adc_sam_d_r                       \
+       sam0/drivers/adc/adc_sam_d_r_h                     \
        sam0/drivers/extint                                \
-       sam0/drivers/extint/extint_sam_d_r                 \
+       sam0/drivers/extint/extint_sam_d_r_h               \
        sam0/drivers/nvm                                   \
        sam0/drivers/port                                  \
        sam0/drivers/rtc                                   \
-       sam0/drivers/rtc/rtc_sam_d_r                       \
+       sam0/drivers/rtc/rtc_sam_d_r_h                     \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/i2c                            \
        sam0/drivers/sercom/i2c/i2c_sam0                   \
@@ -220,16 +220,16 @@ INC_PATH = \
        sam0/drivers/sercom/usart                          \
        sam0/drivers/system                                \
        sam0/drivers/system/clock                          \
-       sam0/drivers/system/clock/clock_samd21_r21_da      \
+       sam0/drivers/system/clock/clock_samd21_r21_da_ha1  \
        sam0/drivers/system/interrupt                      \
        sam0/drivers/system/interrupt/system_interrupt_samr21 \
        sam0/drivers/system/pinmux                         \
        sam0/drivers/system/power                          \
-       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/power/power_sam_d_r_h          \
        sam0/drivers/system/reset                          \
-       sam0/drivers/system/reset/reset_sam_d_r            \
+       sam0/drivers/system/reset/reset_sam_d_r_h          \
        sam0/drivers/tc                                    \
-       sam0/drivers/tc/tc_sam_d_r                         \
+       sam0/drivers/tc/tc_sam_d_r_h                       \
        sam0/drivers/wdt                                   \
        sam0/utils                                         \
        sam0/utils/cmsis/samr21/include                    \

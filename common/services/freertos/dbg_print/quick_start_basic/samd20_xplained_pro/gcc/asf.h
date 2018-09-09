@@ -60,17 +60,21 @@
 #include <dbg_print.h>
 #include <quick_start_basic/qs_dbg_print_basic.h>
 
-// From module: FreeRTOS - kernel 8.0.1
+// From module: FreeRTOS - kernel 10.0.0
 #include <FreeRTOS.h>
 #include <StackMacros.h>
 #include <croutine.h>
+#include <deprecated_definitions.h>
 #include <event_groups.h>
 #include <list.h>
+#include <message_buffer.h>
 #include <mpu_wrappers.h>
 #include <portable.h>
 #include <projdefs.h>
 #include <queue.h>
 #include <semphr.h>
+#include <stack_macros.h>
+#include <stream_buffer.h>
 #include <task.h>
 #include <timers.h>
 
@@ -107,10 +111,10 @@
 // From module: SYSTEM - Interrupt Driver
 #include <system_interrupt.h>
 
-// From module: SYSTEM - Power Management for SAM D20/D21/R21/D09/D10/D11/DA0/DA1
+// From module: SYSTEM - Power Management for SAM D20/D21/R21/D09/D10/D11/DA/HA
 #include <power.h>
 
-// From module: SYSTEM - Reset Management for SAM D20/D21/R21/D09/D10/D11/DA0/DA1
+// From module: SYSTEM - Reset Management for SAM D20/D21/R21/D09/D10/D11/DA/HA
 #include <reset.h>
 
 #endif // ASF_H

@@ -3,45 +3,35 @@
 *
 * \brief Alert Notification Profile
 *
-* Copyright (c) 2016 Atmel Corporation. All rights reserved.
+* Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
 *
 * \asf_license_start
 *
 * \page License
 *
-* Redistribution and use in source and binary forms, with or without
-* modification, are permitted provided that the following conditions are met:
+* Subject to your compliance with these terms, you may use Microchip
+* software and any derivatives exclusively with Microchip products.
+* It is your responsibility to comply with third party license terms applicable
+* to your use of third party software (including open source software) that
+* may accompany Microchip software.
 *
-* 1. Redistributions of source code must retain the above copyright notice,
-*    this list of conditions and the following disclaimer.
-*
-* 2. Redistributions in binary form must reproduce the above copyright notice,
-*    this list of conditions and the following disclaimer in the documentation
-*    and/or other materials provided with the distribution.
-*
-* 3. The name of Atmel may not be used to endorse or promote products derived
-*    from this software without specific prior written permission.
-*
-* 4. This software may only be redistributed and used in connection with an
-*    Atmel micro controller product.
-*
-* THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
-* WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
-* EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
-* ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-* STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-* ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-* POSSIBILITY OF SUCH DAMAGE.
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+* WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+* AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+* LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+* LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+* SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+* POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+* ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+* RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *
 * \asf_license_stop
 *
 */
 /*
-* Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+* Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
 */
 
 /**
@@ -85,49 +75,29 @@ gatt_anp_handler_t anp_handle = {0,0,AT_BLE_SUCCESS,AT_BLE_SUCCESS,
 								AT_BLE_INVALID_PARAM, NULL};
 #endif
 
-extern ble_connected_dev_info_t ble_dev_info[BLE_MAX_DEVICE_CONNECTED];
+extern ble_connected_dev_info_t ble_dev_info[BLE_MAX_DEVICE_CONNECTION];
 
 connected_callback_t connected_cb;
 
 uint8_t start_notification = 0;
 at_ble_handle_t anp_conn_handle = 0;
 
-
-static /*const*/ ble_event_callback_t anp_gap_handle[] = {
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	anp_info_connect_handler,
-	anp_client_disconnected_event_handler,
-	NULL,
-	NULL,
-	anp_info_service_discover,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	anp_info_service_discover,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gap_event_cb_t anp_gap_handle = {
+	.connected = anp_info_connect_handler,
+	.disconnected = anp_client_disconnected_event_handler,
+	.pair_done = anp_info_service_discover,
+	.encryption_status_changed = anp_info_service_discover
 };
 
-static /*const*/ ble_event_callback_t anp_gatt_client_handle[] = {
-	anp_client_service_found_handler,
-	NULL,
-	anp_client_characteristic_found_handler,
-	anp_client_descriptor_found_handler,
-	anp_client_discovery_complete_handler,
-	anp_client_read_response_handler,
-	NULL,
-	anp_client_write_response_handler,
-	anp_client_notification_handler,
-	NULL
+static const ble_gatt_client_event_cb_t anp_gatt_client_handle = {
+	.primary_service_found = anp_client_service_found_handler,
+	.characteristic_found = anp_client_characteristic_found_handler,
+	.descriptor_found = anp_client_descriptor_found_handler,
+	.discovery_complete = anp_client_discovery_complete_handler,
+	.characteristic_read_by_uuid_response = anp_client_read_response_handler,
+	.characteristic_write_response = anp_client_write_response_handler,
+	.notification_recieved = anp_client_notification_handler
 };
-
 
 /***********************************************************************************
  *									Implementation	                               *
@@ -151,86 +121,19 @@ void register_connected_callback(connected_callback_t app_connected_cb)
 void anp_client_init( void *params)
 {
 	at_ble_status_t status;
-
-#if defined ANS_CLIENT_SERVICE
-	memset(supp_new_char_data, 0, ANS_SUP_NEW_READ_LENGTH);
-	memset(new_alert_char_data, 0, ANS_NEW_ALERT_READ_LENGTH);
-	memset(supp_unread_char_data, 0, ANS_SUP_UNREA_READ_LENGTH);
-	memset(unread_alert_char_data, 0, ANS_UNREA_ALERT_READ_LENGTH);
-	memset(alert_np_char_data, 0, ANS_ALERT_NP_READ_LENGTH);
-
-	memset(&anp_handle, 0, sizeof(gatt_anp_handler_t));
-
-	anp_handle.start_handle = 0;
-	anp_handle.end_handle = 0;
-	anp_handle.char_discovery = AT_BLE_SUCCESS;
-	anp_handle.desc_discovery = AT_BLE_SUCCESS;
-	anp_handle.supp_new_char_handle = AT_BLE_INVALID_PARAM;
-	anp_handle.supp_new_char_data = NULL;
-	anp_handle.new_alert_char_handle = AT_BLE_INVALID_PARAM;
-	anp_handle.new_alert_char_data = NULL;
-	anp_handle.new_alert_desc_handle = AT_BLE_INVALID_PARAM;
-	anp_handle.supp_unread_char_handle = AT_BLE_INVALID_PARAM;
-	anp_handle.supp_unread_char_data = NULL;
-	anp_handle.unread_alert_char_handle = AT_BLE_INVALID_PARAM;
-	anp_handle.unread_alert_char_data = NULL;
-	anp_handle.unread_alert_desc_handle = AT_BLE_INVALID_PARAM;
-	anp_handle.alert_np_char_handle = AT_BLE_INVALID_PARAM;
-	anp_handle.alert_np_data = NULL;
-#endif
-
-	connected_cb = 0;
-	start_notification = 0;
-	anp_conn_handle = 0;
-	
-	anp_gap_handle[0] = NULL;
-	anp_gap_handle[1] = NULL;
-	anp_gap_handle[2] = NULL;
-	anp_gap_handle[3] = NULL;
-	anp_gap_handle[4] = NULL;
-	anp_gap_handle[5] = anp_info_connect_handler;
-	anp_gap_handle[6] = anp_client_disconnected_event_handler;
-	anp_gap_handle[7] = NULL;
-	anp_gap_handle[8] = NULL;
-	anp_gap_handle[9] = anp_info_service_discover;
-	anp_gap_handle[10] = NULL;
-	anp_gap_handle[11] = NULL;
-	anp_gap_handle[12] = NULL;
-	anp_gap_handle[13] = NULL;
-	anp_gap_handle[14] = anp_info_service_discover;
-	anp_gap_handle[15] = NULL;
-	anp_gap_handle[16] = NULL;
-	anp_gap_handle[17] = NULL;
-	anp_gap_handle[18] = NULL;
-
-	anp_gatt_client_handle[0] = anp_client_service_found_handler;
-	anp_gatt_client_handle[1] = NULL;
-	anp_gatt_client_handle[2] = anp_client_characteristic_found_handler;
-	anp_gatt_client_handle[3] = anp_client_descriptor_found_handler;
-	anp_gatt_client_handle[4] = anp_client_discovery_complete_handler;
-	anp_gatt_client_handle[5] = anp_client_read_response_handler;
-	anp_gatt_client_handle[6] = NULL;
-	anp_gatt_client_handle[7] = anp_client_write_response_handler;
-	anp_gatt_client_handle[8] = anp_client_notification_handler;
-	anp_gatt_client_handle[9] = NULL;
-
 	anp_info_init();
-
-	anp_alert_init();
-
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
 	BLE_GAP_EVENT_TYPE,
-	anp_gap_handle);
+	&anp_gap_handle);
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
 	BLE_GATT_CLIENT_EVENT_TYPE,
-	anp_gatt_client_handle);
+	&anp_gatt_client_handle);
 	
 	status = ble_advertisement_data_set();
 	if (status != AT_BLE_SUCCESS) {
 		DBG_LOG("Advertisement data set failed reason %d",status);
 	}
-
-	/*	UNUSED(params); */
+	UNUSED(params);
 }
 
 /**
@@ -308,6 +211,7 @@ at_ble_status_t anp_info_connect_handler(void *params)
  */
 at_ble_status_t anp_info_service_discover(void *params)
 {	
+	ALL_UNUSED(params);
 	return alert_service_discovery();
 }
 
@@ -324,10 +228,12 @@ at_ble_status_t anp_client_discovery_complete_handler(void *params)
 							 discover_status->status == AT_BLE_SUCCESS) {
 			#if defined ANS_CLIENT_SERVICE
 			if ((anp_handle.char_discovery == AT_BLE_SUCCESS) && (discover_char_flag)) {
-				if (at_ble_characteristic_discover_all(
+				at_ble_status_t ret = at_ble_characteristic_discover_all(
 				ble_dev_info[0].conn_info.handle,
 				anp_handle.start_handle,
-				anp_handle.end_handle) == AT_BLE_SUCCESS) {
+				anp_handle.end_handle);
+				DBG_LOG("ret is %d",ret);
+				if (ret == AT_BLE_SUCCESS) {
 					DBG_LOG_DEV("ANP Characteristic Discovery Started");
 				}
 				else {
@@ -385,7 +291,7 @@ at_ble_status_t anp_client_discovery_complete_handler(void *params)
  */
 at_ble_status_t anp_client_service_found_handler(void *params)
 {
-	at_ble_uuid_t *anp_service_uuid = 0;
+	at_ble_uuid_t *anp_service_uuid;
 	at_ble_primary_service_found_t * primary_service_params = (at_ble_primary_service_found_t *)params;
 	anp_service_uuid = &primary_service_params->service_uuid;
 	
@@ -399,9 +305,9 @@ at_ble_status_t anp_client_service_found_handler(void *params)
 			anp_handle.end_handle = primary_service_params->end_handle;
 			/* make it DBG_LOG_DEV */
 			DBG_LOG("Alert Notification service discovered");
-			DBG_LOG_DEV("Alert Notification service discovered %04X %04X",
+			DBG_LOG_PTS("Alert Notification service discovered %04X %04X",
 						 anp_handle.start_handle, anp_handle.end_handle);
-			DBG_LOG_DEV("UUID : 0x%02x%02x",primary_service_params->service_uuid.uuid[1],
+			DBG_LOG_PTS("UUID : 0x%02x%02x",primary_service_params->service_uuid.uuid[1],
 						primary_service_params->service_uuid.uuid[0]);
 			anp_handle.char_discovery= AT_BLE_SUCCESS;
 		}
@@ -417,7 +323,7 @@ at_ble_status_t anp_client_service_found_handler(void *params)
  */
 at_ble_status_t anp_client_characteristic_found_handler(void *params)
 {
-	uint16_t charac_16_uuid = 0;
+	uint16_t charac_16_uuid;
 	at_ble_characteristic_found_t *characteristic_found = (at_ble_characteristic_found_t *)params;
 	DBG_LOG_DEV("The characteristic type is %d",characteristic_found->char_uuid.type);
 	
@@ -431,16 +337,16 @@ at_ble_status_t anp_client_characteristic_found_handler(void *params)
 		{
 			anp_handle.supp_new_char_handle = characteristic_found->value_handle;
 			DBG_LOG("Supported new alert category characteristic discovered");
-			DBG_LOG_DEV("Supported New Alert Category characteristics "
+			DBG_LOG_PTS("Supported New Alert Category characteristics "
 						"%04X",anp_handle.supp_new_char_handle);
-			DBG_LOG_DEV("Characteristic Info ConnHandle 0x%02x : "
+			DBG_LOG_PTS("Characteristic Info ConnHandle 0x%02x : "
 						"Char handle 0x%02x : Value handle : 0x%02x :"
 						" Properties : 0x%02x",
 						characteristic_found->conn_handle,
 						characteristic_found->char_handle,
 						characteristic_found->value_handle,
 						characteristic_found->properties);
-			DBG_LOG_DEV("UUID : 0x%02x%02x",characteristic_found->char_uuid.uuid[1],
+			DBG_LOG_PTS("UUID : 0x%02x%02x",characteristic_found->char_uuid.uuid[1],
 						characteristic_found->char_uuid.uuid[0]);
 		}
 		break;
@@ -450,15 +356,15 @@ at_ble_status_t anp_client_characteristic_found_handler(void *params)
 		{
 			anp_handle.new_alert_char_handle = characteristic_found->value_handle;
 			DBG_LOG("New alert category characteristic discovered");
-			DBG_LOG_DEV("New Alert characteristics %04X",anp_handle.new_alert_char_handle);
-			DBG_LOG_DEV("Characteristic Info ConnHandle 0x%02x : "
+			DBG_LOG_PTS("New Alert characteristics %04X",anp_handle.new_alert_char_handle);
+			DBG_LOG_PTS("Characteristic Info ConnHandle 0x%02x : "
 						"Char handle 0x%02x : Value handle : 0x%02x"
 						" : Properties : 0x%02x",
 						characteristic_found->conn_handle,
 						characteristic_found->char_handle,
 						characteristic_found->value_handle,
 						characteristic_found->properties);
-			DBG_LOG_DEV("UUID : 0x%02x%02x",
+			DBG_LOG_PTS("UUID : 0x%02x%02x",
 						characteristic_found->char_uuid.uuid[1],
 						characteristic_found->char_uuid.uuid[0]);
 		}
@@ -469,15 +375,15 @@ at_ble_status_t anp_client_characteristic_found_handler(void *params)
 		{
 			anp_handle.supp_unread_char_handle = characteristic_found->value_handle;
 			DBG_LOG("Supported unread alert characteristic discovered");
-			DBG_LOG_DEV("Supported Unread Alert Category characteristics "
+			DBG_LOG_PTS("Supported Unread Alert Category characteristics "
 						"%04X",anp_handle.supp_unread_char_handle);
-			DBG_LOG_DEV("Characteristic Info ConnHandle 0x%02x : Char handle 0x%02x"
+			DBG_LOG_PTS("Characteristic Info ConnHandle 0x%02x : Char handle 0x%02x"
 						" : Value handle : 0x%02x : Properties : 0x%02x",
 						characteristic_found->conn_handle,
 						characteristic_found->char_handle,
 						characteristic_found->value_handle,
 						characteristic_found->properties);
-			DBG_LOG_DEV("UUID : 0x%02x%02x",characteristic_found->char_uuid.uuid[1],
+			DBG_LOG_PTS("UUID : 0x%02x%02x",characteristic_found->char_uuid.uuid[1],
 											characteristic_found->char_uuid.uuid[0]);
 		}
 		break;
@@ -487,15 +393,15 @@ at_ble_status_t anp_client_characteristic_found_handler(void *params)
 		{
 			anp_handle.unread_alert_char_handle = characteristic_found->value_handle;
 			DBG_LOG("Unread alert status characteristic discovered");
-			DBG_LOG_DEV("Unread Alert status characteristics "
+			DBG_LOG_PTS("Unread Alert status characteristics "
 						"%04X",anp_handle.unread_alert_char_handle);
-			DBG_LOG_DEV("Characteristic Info ConnHandle 0x%02x :"
+			DBG_LOG_PTS("Characteristic Info ConnHandle 0x%02x :"
 						" Char handle 0x%02x : Value handle : 0x%02x : Properties : 0x%02x",
 						characteristic_found->conn_handle,
 						characteristic_found->char_handle,
 						characteristic_found->value_handle,
 						characteristic_found->properties);
-			DBG_LOG_DEV("UUID : 0x%02x%02x",characteristic_found->char_uuid.uuid[1],
+			DBG_LOG_PTS("UUID : 0x%02x%02x",characteristic_found->char_uuid.uuid[1],
 						characteristic_found->char_uuid.uuid[0]);
 		}
 		break;
@@ -505,15 +411,15 @@ at_ble_status_t anp_client_characteristic_found_handler(void *params)
 		{
 			anp_handle.alert_np_char_handle = characteristic_found->value_handle;
 			DBG_LOG("Alert Notification control characteristic discovered");
-			DBG_LOG_DEV("Alert Notification Control Point"
+			DBG_LOG_PTS("Alert Notification Control Point"
 						" characteristics %04X",anp_handle.alert_np_char_handle);
-			DBG_LOG_DEV("Characteristic Info ConnHandle 0x%02x : Char handle 0x%02x :"
+			DBG_LOG_PTS("Characteristic Info ConnHandle 0x%02x : Char handle 0x%02x :"
 						" Value handle : 0x%02x : Properties : 0x%02x",
 						characteristic_found->conn_handle,
 						characteristic_found->char_handle,
 						characteristic_found->value_handle,
 						characteristic_found->properties);
-			DBG_LOG_DEV("UUID : 0x%02x%02x",
+			DBG_LOG_PTS("UUID : 0x%02x%02x",
 						characteristic_found->char_uuid.uuid[1],
 						characteristic_found->char_uuid.uuid[0]);
 		}
@@ -529,7 +435,7 @@ at_ble_status_t anp_client_characteristic_found_handler(void *params)
  */
 at_ble_status_t anp_client_descriptor_found_handler(void *params)
 {
-	uint16_t desc_16_uuid = 0;
+		uint16_t desc_16_uuid;
 		at_ble_descriptor_found_t *descriptor_found = (at_ble_descriptor_found_t *)params;
 		if(descriptor_found->desc_uuid.type == AT_BLE_UUID_16) {
 			desc_16_uuid = (uint16_t)((descriptor_found->desc_uuid.uuid[0]) | \
@@ -540,7 +446,7 @@ at_ble_status_t anp_client_descriptor_found_handler(void *params)
 					 (descriptor_found->desc_handle < (anp_handle.new_alert_char_handle+2))) {
 					DBG_LOG("Client characteristic configuration descriptor for"
 							" new alert discovered");
-					DBG_LOG_DEV("\r\nClient Characteristics Configuration "
+					DBG_LOG_PTS("\r\nClient Characteristics Configuration "
 								"Descriptor for new alert found"
 								" handle %x",descriptor_found->desc_handle);
 					anp_handle.new_alert_desc_handle = descriptor_found->desc_handle;
@@ -550,7 +456,7 @@ at_ble_status_t anp_client_descriptor_found_handler(void *params)
 							(anp_handle.unread_alert_char_handle+2))) {
 					DBG_LOG("Client characteristic configuration descriptor"
 							" for unread alert discovered");
-					DBG_LOG_DEV("\r\nClient Characteristics Configuration "
+					DBG_LOG_PTS("\r\nClient Characteristics Configuration "
 								"Descriptor for unread alert status found "
 								"handle %x ",descriptor_found->desc_handle);
 					anp_handle.unread_alert_desc_handle = descriptor_found->desc_handle;
@@ -568,7 +474,7 @@ at_ble_status_t anp_client_descriptor_found_handler(void *params)
 at_ble_status_t anp_client_disconnected_event_handler(void *params)
 {
 	connected_cb(false);
-	/*	ALL_UNUSED(params);  //To avoid compiler warning */
+	ALL_UNUSED(params);  //To avoid compiler warning
 	return AT_BLE_SUCCESS;
 }
 
@@ -625,7 +531,7 @@ at_ble_status_t anp_client_security_done_handler(void *param)
 	}
 	
 	DBG_LOG_DEV("Waiting for read response");
-	/*	UNUSED(param); */
+	UNUSED(param);
 	return AT_BLE_SUCCESS;
 }
 
@@ -680,7 +586,7 @@ void anp_client_disable_notification(void)
  */
 at_ble_status_t anp_client_read_response_handler(void *params)
 {
-	uint8_t read_status = 0;
+	uint8_t read_status;
 	at_ble_characteristic_read_response_t *char_read_resp = params;
 	#if defined ANS_CLIENT_SERVICE
 	    read_status = anp_alert_read_response(char_read_resp,&anp_handle);

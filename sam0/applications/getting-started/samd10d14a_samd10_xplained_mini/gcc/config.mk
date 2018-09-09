@@ -57,7 +57,7 @@ CSRCS = \
        sam0/applications/getting-started/main.c           \
        sam0/boards/samd10_xplained_mini/board_init.c      \
        sam0/drivers/extint/extint_callback.c              \
-       sam0/drivers/extint/extint_sam_d_r/extint.c        \
+       sam0/drivers/extint/extint_sam_d_r_h/extint.c      \
        sam0/drivers/port/port.c                           \
        sam0/drivers/sercom/sercom.c                       \
        sam0/drivers/sercom/sercom_interrupt.c             \
@@ -69,7 +69,7 @@ CSRCS = \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
        sam0/drivers/tc/tc_interrupt.c                     \
-       sam0/drivers/tc/tc_sam_d_r/tc.c                    \
+       sam0/drivers/tc/tc_sam_d_r_h/tc.c                  \
        sam0/utils/cmsis/samd10/source/gcc/startup_samd10.c \
        sam0/utils/cmsis/samd10/source/system_samd10.c     \
        sam0/utils/stdio/read.c                            \
@@ -91,7 +91,7 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samd10_xplained_mini                   \
        sam0/drivers/extint                                \
-       sam0/drivers/extint/extint_sam_d_r                 \
+       sam0/drivers/extint/extint_sam_d_r_h               \
        sam0/drivers/port                                  \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/usart                          \
@@ -102,11 +102,11 @@ INC_PATH = \
        sam0/drivers/system/interrupt/system_interrupt_samd10_d11 \
        sam0/drivers/system/pinmux                         \
        sam0/drivers/system/power                          \
-       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/power/power_sam_d_r_h          \
        sam0/drivers/system/reset                          \
-       sam0/drivers/system/reset/reset_sam_d_r            \
+       sam0/drivers/system/reset/reset_sam_d_r_h          \
        sam0/drivers/tc                                    \
-       sam0/drivers/tc/tc_sam_d_r                         \
+       sam0/drivers/tc/tc_sam_d_r_h                       \
        sam0/utils                                         \
        sam0/utils/cmsis/samd10/include                    \
        sam0/utils/cmsis/samd10/source                     \

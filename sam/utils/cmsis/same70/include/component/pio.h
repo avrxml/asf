@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70_PIO_COMPONENT_
@@ -111,10 +101,11 @@ typedef struct {
   __I  uint32_t PIO_LOCKSR;    /**< \brief (Pio Offset: 0x00E0) Lock Status */
   __IO uint32_t PIO_WPMR;      /**< \brief (Pio Offset: 0x00E4) Write Protection Mode Register */
   __I  uint32_t PIO_WPSR;      /**< \brief (Pio Offset: 0x00E8) Write Protection Status Register */
-  __I  uint32_t Reserved12[5];
+  __I  uint32_t Reserved12[4];
+  __I  uint32_t PIO_VERSION;    /**< \brief (Pio Offset: 0x00FC) Version Register */
   __IO uint32_t PIO_SCHMITT;   /**< \brief (Pio Offset: 0x0100) Schmitt Trigger Register */
   __I  uint32_t Reserved13[5];
-  __IO uint32_t PIO_DRIVER;     /**< (PIO Offset: 0x118) I/O Drive Register */
+  __IO uint32_t PIO_DRIVER;     /**< \brief (Pio Offset: 0x0118) I/O Drive Register */
   __I  uint32_t Reserved14[13];
   __IO uint32_t PIO_PCMR;      /**< \brief (Pio Offset: 0x0150) Parallel Capture Mode Register */
   __O  uint32_t PIO_PCIER;     /**< \brief (Pio Offset: 0x0154) Parallel Capture Interrupt Enable Register */
@@ -1557,6 +1548,11 @@ typedef struct {
 #define PIO_WPSR_WPVS (0x1u << 0) /**< \brief (PIO_WPSR) Write Protection Violation Status */
 #define PIO_WPSR_WPVSRC_Pos 8
 #define PIO_WPSR_WPVSRC_Msk (0xffffu << PIO_WPSR_WPVSRC_Pos) /**< \brief (PIO_WPSR) Write Protection Violation Source */
+/* -------- PIO_VERSION : (PIO Offset: 0x00FC) Version Register -------- */
+#define PIO_VERSION_VERSION_Pos 0
+#define PIO_VERSION_VERSION_Msk (0xfffu << PIO_VERSION_VERSION_Pos) /**< \brief (PIO_VERSION) Hardware Module Version */
+#define PIO_VERSION_MFN_Pos 16
+#define PIO_VERSION_MFN_Msk (0x7u << PIO_VERSION_MFN_Pos) /**< \brief (PIO_VERSION) Metal Fix Number */
 /* -------- PIO_SCHMITT : (PIO Offset: 0x0100) Schmitt Trigger Register -------- */
 #define PIO_SCHMITT_SCHMITT0 (0x1u << 0) /**< \brief (PIO_SCHMITT) Schmitt Trigger Control */
 #define PIO_SCHMITT_SCHMITT1 (0x1u << 1) /**< \brief (PIO_SCHMITT) Schmitt Trigger Control */
@@ -1590,6 +1586,103 @@ typedef struct {
 #define PIO_SCHMITT_SCHMITT29 (0x1u << 29) /**< \brief (PIO_SCHMITT) Schmitt Trigger Control */
 #define PIO_SCHMITT_SCHMITT30 (0x1u << 30) /**< \brief (PIO_SCHMITT) Schmitt Trigger Control */
 #define PIO_SCHMITT_SCHMITT31 (0x1u << 31) /**< \brief (PIO_SCHMITT) Schmitt Trigger Control */
+/* -------- PIO_DRIVER : (PIO Offset: 0x0118) I/O Drive Register -------- */
+#define PIO_DRIVER_LINE0 (0x1u << 0) /**< \brief (PIO_DRIVER) Drive of PIO Line 0 */
+#define   PIO_DRIVER_LINE0_LOW_DRIVE (0x0u << 0) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE0_HIGH_DRIVE (0x1u << 0) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE1 (0x1u << 1) /**< \brief (PIO_DRIVER) Drive of PIO Line 1 */
+#define   PIO_DRIVER_LINE1_LOW_DRIVE (0x0u << 1) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE1_HIGH_DRIVE (0x1u << 1) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE2 (0x1u << 2) /**< \brief (PIO_DRIVER) Drive of PIO Line 2 */
+#define   PIO_DRIVER_LINE2_LOW_DRIVE (0x0u << 2) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE2_HIGH_DRIVE (0x1u << 2) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE3 (0x1u << 3) /**< \brief (PIO_DRIVER) Drive of PIO Line 3 */
+#define   PIO_DRIVER_LINE3_LOW_DRIVE (0x0u << 3) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE3_HIGH_DRIVE (0x1u << 3) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE4 (0x1u << 4) /**< \brief (PIO_DRIVER) Drive of PIO Line 4 */
+#define   PIO_DRIVER_LINE4_LOW_DRIVE (0x0u << 4) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE4_HIGH_DRIVE (0x1u << 4) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE5 (0x1u << 5) /**< \brief (PIO_DRIVER) Drive of PIO Line 5 */
+#define   PIO_DRIVER_LINE5_LOW_DRIVE (0x0u << 5) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE5_HIGH_DRIVE (0x1u << 5) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE6 (0x1u << 6) /**< \brief (PIO_DRIVER) Drive of PIO Line 6 */
+#define   PIO_DRIVER_LINE6_LOW_DRIVE (0x0u << 6) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE6_HIGH_DRIVE (0x1u << 6) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE7 (0x1u << 7) /**< \brief (PIO_DRIVER) Drive of PIO Line 7 */
+#define   PIO_DRIVER_LINE7_LOW_DRIVE (0x0u << 7) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE7_HIGH_DRIVE (0x1u << 7) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE8 (0x1u << 8) /**< \brief (PIO_DRIVER) Drive of PIO Line 8 */
+#define   PIO_DRIVER_LINE8_LOW_DRIVE (0x0u << 8) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE8_HIGH_DRIVE (0x1u << 8) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE9 (0x1u << 9) /**< \brief (PIO_DRIVER) Drive of PIO Line 9 */
+#define   PIO_DRIVER_LINE9_LOW_DRIVE (0x0u << 9) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE9_HIGH_DRIVE (0x1u << 9) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE10 (0x1u << 10) /**< \brief (PIO_DRIVER) Drive of PIO Line 10 */
+#define   PIO_DRIVER_LINE10_LOW_DRIVE (0x0u << 10) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE10_HIGH_DRIVE (0x1u << 10) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE11 (0x1u << 11) /**< \brief (PIO_DRIVER) Drive of PIO Line 11 */
+#define   PIO_DRIVER_LINE11_LOW_DRIVE (0x0u << 11) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE11_HIGH_DRIVE (0x1u << 11) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE12 (0x1u << 12) /**< \brief (PIO_DRIVER) Drive of PIO Line 12 */
+#define   PIO_DRIVER_LINE12_LOW_DRIVE (0x0u << 12) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE12_HIGH_DRIVE (0x1u << 12) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE13 (0x1u << 13) /**< \brief (PIO_DRIVER) Drive of PIO Line 13 */
+#define   PIO_DRIVER_LINE13_LOW_DRIVE (0x0u << 13) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE13_HIGH_DRIVE (0x1u << 13) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE14 (0x1u << 14) /**< \brief (PIO_DRIVER) Drive of PIO Line 14 */
+#define   PIO_DRIVER_LINE14_LOW_DRIVE (0x0u << 14) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE14_HIGH_DRIVE (0x1u << 14) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE15 (0x1u << 15) /**< \brief (PIO_DRIVER) Drive of PIO Line 15 */
+#define   PIO_DRIVER_LINE15_LOW_DRIVE (0x0u << 15) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE15_HIGH_DRIVE (0x1u << 15) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE16 (0x1u << 16) /**< \brief (PIO_DRIVER) Drive of PIO Line 16 */
+#define   PIO_DRIVER_LINE16_LOW_DRIVE (0x0u << 16) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE16_HIGH_DRIVE (0x1u << 16) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE17 (0x1u << 17) /**< \brief (PIO_DRIVER) Drive of PIO Line 17 */
+#define   PIO_DRIVER_LINE17_LOW_DRIVE (0x0u << 17) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE17_HIGH_DRIVE (0x1u << 17) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE18 (0x1u << 18) /**< \brief (PIO_DRIVER) Drive of PIO Line 18 */
+#define   PIO_DRIVER_LINE18_LOW_DRIVE (0x0u << 18) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE18_HIGH_DRIVE (0x1u << 18) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE19 (0x1u << 19) /**< \brief (PIO_DRIVER) Drive of PIO Line 19 */
+#define   PIO_DRIVER_LINE19_LOW_DRIVE (0x0u << 19) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE19_HIGH_DRIVE (0x1u << 19) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE20 (0x1u << 20) /**< \brief (PIO_DRIVER) Drive of PIO Line 20 */
+#define   PIO_DRIVER_LINE20_LOW_DRIVE (0x0u << 20) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE20_HIGH_DRIVE (0x1u << 20) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE21 (0x1u << 21) /**< \brief (PIO_DRIVER) Drive of PIO Line 21 */
+#define   PIO_DRIVER_LINE21_LOW_DRIVE (0x0u << 21) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE21_HIGH_DRIVE (0x1u << 21) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE22 (0x1u << 22) /**< \brief (PIO_DRIVER) Drive of PIO Line 22 */
+#define   PIO_DRIVER_LINE22_LOW_DRIVE (0x0u << 22) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE22_HIGH_DRIVE (0x1u << 22) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE23 (0x1u << 23) /**< \brief (PIO_DRIVER) Drive of PIO Line 23 */
+#define   PIO_DRIVER_LINE23_LOW_DRIVE (0x0u << 23) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE23_HIGH_DRIVE (0x1u << 23) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE24 (0x1u << 24) /**< \brief (PIO_DRIVER) Drive of PIO Line 24 */
+#define   PIO_DRIVER_LINE24_LOW_DRIVE (0x0u << 24) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE24_HIGH_DRIVE (0x1u << 24) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE25 (0x1u << 25) /**< \brief (PIO_DRIVER) Drive of PIO Line 25 */
+#define   PIO_DRIVER_LINE25_LOW_DRIVE (0x0u << 25) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE25_HIGH_DRIVE (0x1u << 25) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE26 (0x1u << 26) /**< \brief (PIO_DRIVER) Drive of PIO Line 26 */
+#define   PIO_DRIVER_LINE26_LOW_DRIVE (0x0u << 26) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE26_HIGH_DRIVE (0x1u << 26) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE27 (0x1u << 27) /**< \brief (PIO_DRIVER) Drive of PIO Line 27 */
+#define   PIO_DRIVER_LINE27_LOW_DRIVE (0x0u << 27) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE27_HIGH_DRIVE (0x1u << 27) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE28 (0x1u << 28) /**< \brief (PIO_DRIVER) Drive of PIO Line 28 */
+#define   PIO_DRIVER_LINE28_LOW_DRIVE (0x0u << 28) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE28_HIGH_DRIVE (0x1u << 28) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE29 (0x1u << 29) /**< \brief (PIO_DRIVER) Drive of PIO Line 29 */
+#define   PIO_DRIVER_LINE29_LOW_DRIVE (0x0u << 29) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE29_HIGH_DRIVE (0x1u << 29) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE30 (0x1u << 30) /**< \brief (PIO_DRIVER) Drive of PIO Line 30 */
+#define   PIO_DRIVER_LINE30_LOW_DRIVE (0x0u << 30) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE30_HIGH_DRIVE (0x1u << 30) /**< \brief (PIO_DRIVER) Highest drive */
+#define PIO_DRIVER_LINE31 (0x1u << 31) /**< \brief (PIO_DRIVER) Drive of PIO Line 31 */
+#define   PIO_DRIVER_LINE31_LOW_DRIVE (0x0u << 31) /**< \brief (PIO_DRIVER) Lowest drive */
+#define   PIO_DRIVER_LINE31_HIGH_DRIVE (0x1u << 31) /**< \brief (PIO_DRIVER) Highest drive */
 /* -------- PIO_PCMR : (PIO Offset: 0x0150) Parallel Capture Mode Register -------- */
 #define PIO_PCMR_PCEN (0x1u << 0) /**< \brief (PIO_PCMR) Parallel Capture Mode Enable */
 #define PIO_PCMR_DSIZE_Pos 4

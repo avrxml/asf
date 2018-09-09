@@ -7,6 +7,7 @@ INCLUDES
 #include "at_ble_api.h"
 //#include "uart_config.h"
 //#include "gpio_config.h"
+#include "ble_utils.h"
 #include "at_cmd.h"
 
 

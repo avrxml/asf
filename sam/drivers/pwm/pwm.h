@@ -3,45 +3,35 @@
  *
  * \brief Pulse Width Modulation (PWM) driver for SAM.
  *
- * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef PWM_H_INCLUDED
@@ -129,13 +119,35 @@ typedef enum {
 	PWM_FAULT_PWMFI2 = (1 << 1),
 	PWM_FAULT_PWMFI0 = (1 << 2),
 	PWM_FAULT_PWMFI1 = (1 << 3),
-#elif (SAM3S || SAM4S || SAM4E || SAMV70 || SAMV71 || SAME70 || SAMS70)
-	PWM_FAULT_PWMFI1 = (1 << 0),
+#elif (SAM3S || SAM4S )
+	PWM_FAULT_PWMFI0 = (1 << 0),
 	PWM_FAULT_MAINOSC = (1 << 1),
 	PWM_FAULT_ADC = (1 << 2),
 	PWM_FAULT_ACC = (1 << 3),
 	PWM_FAULT_TIMER_0 = (1 << 4),
 	PWM_FAULT_TIMER_1 = (1 << 5),
+#elif (SAM4E )
+	PWM_FAULT_MAINOSC = (1 << 0),
+	PWM_FAULT_ADC = (1 << 1),
+	PWM_FAULT_PWMFI0 = (1 << 2),
+	PWM_FAULT_PWMFI1 = (1 << 3),
+	PWM_FAULT_PWMFI2 = (1 << 4),
+	PWM_FAULT_PWMFI3 = (1 << 5),
+	PWM_FAULT_PWMFI4 = (1 << 6),
+	PWM_FAULT_PWMFI5 = (1 << 7),
+#elif (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	PWM_FAULT_PWMC0_PWMFI0 = (1 << 0),
+	PWM_FAULT_PWMC0_PWMFI1 = (1 << 1),
+	PWM_FAULT_PWMC0_PWMFI2 = (1 << 2),
+	PWM_FAULT_PWMC1_PWMFI0 = (1 << 0),
+	PWM_FAULT_PWMC1_PWMFI1 = (1 << 1),
+	PWM_FAULT_PWMC1_PWMFI2 = (1 << 2),
+	PWM_FAULT_MAINOSC = (1 << 3),
+	PWM_FAULT_AFEC0 = (1 << 4),
+	PWM_FAULT_AFEC1 = (1 << 5),
+	PWM_FAULT_ACC = (1 << 6),
+	PWM_FAULT_TIMER_0 = (1 << 7),
+	PWM_FAULT_TIMER_1 = (1 << 7),
 #elif (SAM3XA)
 	PWM_FAULT_PWMFI0 = (1 << 0),
 	PWM_FAULT_PWMFI1 = (1 << 1),
@@ -207,14 +219,6 @@ typedef enum {
 	PWM_LEADING_EDGE2_MODE_LDEC = PWM_LEBR2_PWMLREN,
 	PWM_LEADING_EDGE2_MODE_HINC = PWM_LEBR2_PWMHFEN,
 	PWM_LEADING_EDGE2_MODE_HDEC = PWM_LEBR2_PWMHREN,
-	PWM_LEADING_EDGE3_MODE_LINC = PWM_LEBR3_PWMLFEN,
-	PWM_LEADING_EDGE3_MODE_LDEC = PWM_LEBR3_PWMLREN,
-	PWM_LEADING_EDGE3_MODE_HINC = PWM_LEBR3_PWMHFEN,
-	PWM_LEADING_EDGE3_MODE_HDEC = PWM_LEBR3_PWMHREN,
-	PWM_LEADING_EDGE4_MODE_LINC = PWM_LEBR4_PWMLFEN,
-	PWM_LEADING_EDGE4_MODE_LDEC = PWM_LEBR4_PWMLREN,
-	PWM_LEADING_EDGE4_MODE_HINC = PWM_LEBR4_PWMHFEN,
-	PWM_LEADING_EDGE4_MODE_HDEC = PWM_LEBR4_PWMHREN,
 } pwm_leading_edge_blanking_mode_t;
 #else
 typedef enum {

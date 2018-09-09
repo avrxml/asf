@@ -190,14 +190,18 @@ CPPFLAGS = \
        -D AT30TSE_TEMPERATURE_TWI_ADDR=0x48               \
        -D ATT_DB_MEMORY                                   \
        -D BLE_DEVICE_ROLE=BLE_ROLE_PERIPHERAL             \
+       -D BLE_MODULE=BTLC1000_MR                          \
        -D BOARD=SAML21_XPLAINED_PRO                       \
        -D DEVICE_INFORMATION_SERVICE                      \
        -D ENABLE_POWER_SAVE                               \
        -D EXTINT_CALLBACK_MODE=true                       \
+       -D HOST_SLEEP_ENABLE=true                          \
+       -D HOST_UART_BAUDRATE_CONFIG_VALUE=921600          \
        -D HTPT_SERVICE                                    \
        -D I2C_MASTER_CALLBACK_MODE=false                  \
        -D NENABLE_PTS=false                               \
        -D NEW_EVT_HANDLER                                 \
+       -D SLEEP_WALKING_ENABLED=false                     \
        -D SYSTICK_MODE                                    \
        -D TC_ASYNC=true                                   \
        -D UART_FLOWCONTROL_4WIRE_MODE=false               \

@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include "sams70.h"
@@ -90,17 +80,27 @@ void PIOB_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #ifdef _SAMS70_PIOC_INSTANCE_
 void PIOC_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #endif /* _SAMS70_PIOC_INSTANCE_ */
+#ifdef _SAMS70_USART0_INSTANCE_
 void USART0_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAMS70_USART0_INSTANCE_ */
+#ifdef _SAMS70_USART1_INSTANCE_
 void USART1_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAMS70_USART1_INSTANCE_ */
+#ifdef _SAMS70_USART2_INSTANCE_
 void USART2_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAMS70_USART2_INSTANCE_ */
 void PIOD_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #ifdef _SAMS70_PIOE_INSTANCE_
 void PIOE_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #endif /* _SAMS70_PIOE_INSTANCE_ */
+#ifdef _SAMS70_HSMCI_INSTANCE_
 void HSMCI_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAMS70_HSMCI_INSTANCE_ */
 void TWIHS0_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void TWIHS1_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#ifdef _SAMS70_SPI0_INSTANCE_
 void SPI0_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAMS70_SPI0_INSTANCE_ */
 void SSC_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void TC0_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void TC1_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
@@ -126,11 +126,17 @@ void AFEC1_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #ifdef _SAMS70_TWIHS2_INSTANCE_
 void TWIHS2_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #endif /* _SAMS70_TWIHS2_INSTANCE_ */
+#ifdef _SAMS70_SPI1_INSTANCE_
 void SPI1_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAMS70_SPI1_INSTANCE_ */
 void QSPI_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void UART2_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#ifdef _SAMS70_UART3_INSTANCE_
 void UART3_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAMS70_UART3_INSTANCE_ */
+#ifdef _SAMS70_UART4_INSTANCE_
 void UART4_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAMS70_UART4_INSTANCE_ */
 #ifdef _SAMS70_TC2_INSTANCE_
 void TC6_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #endif /* _SAMS70_TC2_INSTANCE_ */
@@ -148,10 +154,20 @@ void TRNG_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void XDMAC_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void ISI_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 void PWM1_Handler   ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void FPU_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #ifdef _SAMS70_SDRAMC_INSTANCE_
 void SDRAMC_Handler ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
 #endif /* _SAMS70_SDRAMC_INSTANCE_ */
 void RSWDT_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void CCW_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void CCF_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+void IXC_Handler    ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#ifdef _SAMS70_I2SC0_INSTANCE_
+void I2SC0_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAMS70_I2SC0_INSTANCE_ */
+#ifdef _SAMS70_I2SC1_INSTANCE_
+void I2SC1_Handler  ( void ) __attribute__ ((weak, alias("Dummy_Handler")));
+#endif /* _SAMS70_I2SC1_INSTANCE_ */
 
 /* Exception Table */
 __attribute__ ((section(".vectors")))
@@ -194,19 +210,39 @@ const DeviceVectors exception_table = {
 #else
         .pvReserved12      = (void*) (0UL),          /* 12 Reserved */
 #endif /* _SAMS70_PIOC_INSTANCE_ */
+#ifdef _SAMS70_USART0_INSTANCE_
         .pfnUSART0_Handler = (void*) USART0_Handler, /* 13 USART 0 */
+#else
+        .pvReserved13      = (void*) (0UL),          /* 13 Reserved */ 
+#endif /* _SAMS70_USART0_INSTANCE_ */
+#ifdef _SAMS70_USART1_INSTANCE_
         .pfnUSART1_Handler = (void*) USART1_Handler, /* 14 USART 1 */
+#else
+        .pvReserved14      = (void*) (0UL),          /* 14 Reserved */ 
+#endif /* _SAMS70_USART1_INSTANCE_ */
+#ifdef _SAMS70_USART2_INSTANCE_
         .pfnUSART2_Handler = (void*) USART2_Handler, /* 15 USART 2 */
+#else
+        .pvReserved15      = (void*) (0UL),          /* 15 Reserved */ 
+#endif /* _SAMS70_USART2_INSTANCE_ */
         .pfnPIOD_Handler   = (void*) PIOD_Handler,   /* 16 Parallel I/O Controller D */
 #ifdef _SAMS70_PIOE_INSTANCE_
         .pfnPIOE_Handler   = (void*) PIOE_Handler,   /* 17 Parallel I/O Controller E */
 #else
         .pvReserved17      = (void*) (0UL),          /* 17 Reserved */
 #endif /* _SAMS70_PIOE_INSTANCE_ */
+#ifdef _SAMS70_HSMCI_INSTANCE_
         .pfnHSMCI_Handler  = (void*) HSMCI_Handler,  /* 18 Multimedia Card Interface */
+#else
+        .pvReserved18      = (void*) (0UL),          /* 18 Reserved */
+#endif /* _SAMS70_HSMCI_INSTANCE_ */
         .pfnTWIHS0_Handler = (void*) TWIHS0_Handler, /* 19 Two Wire Interface 0 HS */
         .pfnTWIHS1_Handler = (void*) TWIHS1_Handler, /* 20 Two Wire Interface 1 HS */
+#ifdef _SAMS70_SPI0_INSTANCE_
         .pfnSPI0_Handler   = (void*) SPI0_Handler,   /* 21 Serial Peripheral Interface 0 */
+#else
+        .pvReserved21      = (void*) (0UL),          /* 21 Reserved */
+#endif /* _SAMS70_SPI0_INSTANCE_ */
         .pfnSSC_Handler    = (void*) SSC_Handler,    /* 22 Synchronous Serial Controller */
         .pfnTC0_Handler    = (void*) TC0_Handler,    /* 23 Timer/Counter 0 */
         .pfnTC1_Handler    = (void*) TC1_Handler,    /* 24 Timer/Counter 1 */
@@ -247,11 +283,23 @@ const DeviceVectors exception_table = {
 #else
         .pvReserved41      = (void*) (0UL),          /* 41 Reserved */
 #endif /* _SAMS70_TWIHS2_INSTANCE_ */
+#ifdef _SAMS70_SPI1_INSTANCE_
         .pfnSPI1_Handler   = (void*) SPI1_Handler,   /* 42 Serial Peripheral Interface 1 */
+#else
+        .pvReserved42      = (void*) (0UL),          /* 42 Reserved */
+#endif /* _SAMS70_SPI1_INSTANCE_ */
         .pfnQSPI_Handler   = (void*) QSPI_Handler,   /* 43 Quad I/O Serial Peripheral Interface */
         .pfnUART2_Handler  = (void*) UART2_Handler,  /* 44 UART 2 */
+#ifdef _SAMS70_UART3_INSTANCE_
         .pfnUART3_Handler  = (void*) UART3_Handler,  /* 45 UART 3 */
+#else
+        .pvReserved45      = (void*) (0UL),          /* 45 Reserved */
+#endif /* _SAMS70_UART3_INSTANCE_ */
+#ifdef _SAMS70_UART4_INSTANCE_
         .pfnUART4_Handler  = (void*) UART4_Handler,  /* 46 UART 4 */
+#else
+        .pvReserved46      = (void*) (0UL),          /* 46 Reserved */
+#endif /* _SAMS70_UART4_INSTANCE_ */
 #ifdef _SAMS70_TC2_INSTANCE_
         .pfnTC6_Handler    = (void*) TC6_Handler,    /* 47 Timer/Counter 6 */
 #else
@@ -278,13 +326,28 @@ const DeviceVectors exception_table = {
         .pfnXDMAC_Handler  = (void*) XDMAC_Handler,  /* 58 DMA */
         .pfnISI_Handler    = (void*) ISI_Handler,    /* 59 Camera Interface */
         .pfnPWM1_Handler   = (void*) PWM1_Handler,   /* 60 Pulse Width Modulation 1 */
-        .pvReserved61      = (void*) (0UL),          /* 61 Reserved */
+        .pfnFPU_Handler    = (void*) FPU_Handler,    /* 61 Floating Point Unit Registers */
 #ifdef _SAMS70_SDRAMC_INSTANCE_
         .pfnSDRAMC_Handler = (void*) SDRAMC_Handler, /* 62 SDRAM Controller */
 #else
         .pvReserved62      = (void*) (0UL),          /* 62 Reserved */
 #endif /* _SAMS70_SDRAMC_INSTANCE_ */
-        .pfnRSWDT_Handler  = (void*) RSWDT_Handler   /* 63 Reinforced Secure Watchdog Timer */
+        .pfnRSWDT_Handler  = (void*) RSWDT_Handler,  /* 63 Reinforced Secure Watchdog Timer */
+        .pfnCCW_Handler    = (void*) CCW_Handler,    /* 64 System Control Registers */
+        .pfnCCF_Handler    = (void*) CCF_Handler,    /* 65 System Control Registers */
+        .pvReserved66      = (void*) (0UL),          /* 66 Reserved */
+        .pvReserved67      = (void*) (0UL),          /* 67 Reserved */
+        .pfnIXC_Handler    = (void*) IXC_Handler,     /* 68 Floating Point Unit Registers */
+#ifdef _SAMS70_I2SC0_INSTANCE_
+        .pfnI2SC0_Handler  = (void*) I2SC0_Handler,  /* 69 Inter-IC Sound controller */
+#else
+        .pvReserved69      = (void*) (0UL),          /* 69 Reserved */
+#endif /* _SAMS70_I2SC0_INSTANCE_ */
+#ifdef _SAMS70_I2SC1_INSTANCE_
+        .pfnI2SC1_Handler  = (void*) I2SC1_Handler   /* 70 Inter-IC Sound controller */
+#else
+        .pvReserved70      = (void*) (0UL)           /* 70 Reserved */
+#endif /* _SAMS70_I2SC1_INSTANCE_ */
 };
 
 /**

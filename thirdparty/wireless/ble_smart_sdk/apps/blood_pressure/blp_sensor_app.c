@@ -3,47 +3,113 @@
  *
  * \brief Blood Pressure Sensor Application
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
-
-/*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
- *Support</a>
+/**
+ * \mainpage BLOOD PRESSURE SENSOR Example
+ * \section Introduction
+ * **************************** Introduction *********************************
+ * + The Blood Pressure example application bring-up the Blood Pressure profile defined by the Bluetooth SIG.
+ * + The Blood Pressure Profile (BLP) enables a device to connect and interact with a Blood Pressure Sensor
+ *   device that is used in consumer and professional health care applications.
+ * + This example demonstrates a Blood Pressure Sensor application (GATT Server role).
+ *- Blood Pressure Measurements -
+ * + The Intermediate Cuff Pressure characteristic may be notified frequently during the course of a measurement so that 
+ *   a receiving device can effectively update the display on its user interface during the measurement process.
+ *   When the Client Characteristic Configuration descriptor is configured for indications and Blood Pressure measurement is available, 
+ *   this characteristic shall be indicated while in a connection.
+ *   The Blood Pressure Measurement Application, which is the GATT server, will hold the characteristics and send the measurement 
+ *   values to the Blood Pressure Monitor.
+ * + The Blood Pressure Measurement characteristic shall be used to send Blood Pressure measurements
+ * + The Intermediate Cuff Pressure characteristic is used to send Current Cuff Pressure values to a device for display purposes while 
+ *   the measurement is in progress
+ * + The Blood Pressure Feature characteristic shall be used to describe the supported features of the Blood Pressure Sensor
+ * + ATBTLC1000 together with the host MCU simulates a Blood Pressure Sensor (GATT Server Role) and sends simulated values to 
+ *   the Blood Pressure Monitor (Smart Connect mobile application).
+ *- Running the Demo -
+ * + 1. Build and flash the binary into supported evaluation board.
+ * + 2. Open the console using TeraTerm or any serial port monitor.
+ * + 3. Press the Reset button.
+ * + 4. Wait for around 10 seconds for the patches to be downloaded device will initialize and start-up.
+ * + 5. The device is now in advertising mode.
+ * + 6. On a BLE compatibl iPhone®/Android phone, enable Bluetooth in the Settings page. Start the Atmel Smart Connect App and scan for devices. 
+        ATMEL-BLP will be appear among the devices scanned. Click on **ATMEL-BLP** to connect to supported platform.
+ * + 7. Once connected, the client side will request for the pairing procedure . The console log provides a guidance for the user to 
+        enter the pass-key.
+ * + 8. Upon entering the Blood Pressure service page, the mobile application will enable the notifications and indications for interim 
+ *      cuff pressure and blood pressure characteristics respectively. The blood pressure sensor device simulated by ATBTLC1000 will send the 
+ *      current blood pressure values after receiving the indications enabling request.
+ * + 9. The SW0 button can be used on XPRO Board to receive updated blood pressure measurements. The blood pressure sensor will first sends 
+ *      the interim cuff pressure values as notifications and then sends the final blood pressure measurements as an indication. 
+ *      The blood pressure measurements sent by blood pressure sensor are simulated values. 
+ * + 10. The Atmel Smart Connect mobile App for Android also implements the same features and provides the same look and feel. 
+ *       Henceforth incase if a BLE compatible Android phone is used, the demo instructions from the mobile app perspective remains the same as above.
+ * \section Modules
+ * ***************************** Modules **************************************
+ *- BLE Manger -  
+ *  + The Event Manager is responsible for handling the following:
+ *    + Generic BLE Event Handling:-
+ *       + BLE Event Manager handles the events triggered by BLE stack and also responsible 
+ *  	 for invoking all registered callbacks for respective events. BLE Manager 
+ *  	 handles all GAP related functionality. In addition to that handles multiple connection 
+ *  	 instances, Pairing, Encryption, Scanning.
+ *    + Handling Multi-role/multi-connection:-
+ *  	  + BLE Event Manager is responsible for handling multiple connection instances 
+ *  	  and stores bonding information and Keys to retain the bonded device. 
+ *  	  BLE Manager is able to identify and remove the device information when pairing/encryption 
+ *		  gets failed. In case of multi-role, it handles the state/event handling of both central and peripheral in multiple contexts.
+ *    + Controlling the Advertisement data:-
+ *  	  + BLE Event Manager is responsible for generating the advertisement and scan response data
+ *  	  for BLE profiles/services that are attached with BLE Manager.
+ *
+ *- BLE Services -
+ *  + This service exposes blood pressure and other data from a blood pressure monitor intended for healthcare applications.
+ *  + The BLOOD PRESSURE Service exposes blood pressure and other data related to a blood pressure monitor.
+ *  + Blood Pressure service has three characteristics:
+ *    + **Blood Pressure Measurement**: 
+ *      + The BLOOD PRESSURE MEASUREMENT characteristic is used to send a Blood Pressure measurement.
+ *    + **Intermediate Cuff Pressure**: 
+ *      + The INTERMEDIATE CUFF PRESSURE characteristic is used to send intermediate Cuff Pressure values to a device for display purposes while the measurement is in progress.
+ *    + **Blood Pressure Feature**: 
+ *      + The Blood Pressure Feature characteristic is used to describe the supported features of the Blood Pressure Sensor.
+ *- BLE Platform Services -
+ *  +  Serial Console COM port settings -
+ *    + Baudrate 115200
+ *	  + Parity None, Stop Bit 1, Start Bit 1
+ *	  + No Hardware Handshake
+ *
+ *\section BLE SDK Package
+ * ***************************** BLE SDK Package ******************************************
+ * - Links for Docs -
+ *		+ http://www.microchip.com/wwwproducts/en/ATSAMB11
+ *		+ http://www.microchip.com/developmenttools/productdetails.aspx?partno=atsamb11-xpro
+ *- Support and FAQ - visit -
+ *		+ <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 /****************************************************************************************
@@ -54,7 +120,6 @@
 #include "at_ble_api.h"
 #include "console_serial.h"
 #include "timer_hw.h"
-#include "timer.h"
 #include "button.h"
 #include "ble_manager.h"
 #include "ble_utils.h"
@@ -64,40 +129,36 @@
 /****************************************************************************************
 *							        Globals												*
 ****************************************************************************************/
-
-#define APP_STACK_SIZE  (1024)
-volatile unsigned char app_stack_patch[APP_STACK_SIZE];
-
 /** flag to check if indication has been sent successfully over the air*/
-/*volatile*/ bool indication_sent = true;
+volatile bool indication_sent = true;
 
 /** flag to check if notification has been sent successfully over the air*/
-/*volatile*/ bool notification_sent = true;
+volatile bool notification_sent = true;
 
 /** Flag to change the events from mmgh to kpa and vice versa*/
-/*volatile*/ bool units = APP_DEFAULT_VAL;
+volatile bool units = APP_DEFAULT_VAL;
 
 /** flag to send notifications */
-/*volatile*/ bool notification_flag = APP_DEFAULT_VAL;
+ volatile bool notification_flag = APP_DEFAULT_VAL;
 
 /** flag to send indication */
-/*volatile*/ bool indication_flag = APP_DEFAULT_VAL;
+volatile bool indication_flag = APP_DEFAULT_VAL;
 
 /** Flag to identify user request for indication and notification*/
-/*volatile*/ bool user_request_flag =  APP_DEFAULT_VAL;
+volatile bool user_request_flag =  APP_DEFAULT_VAL;
 
 /** Counter to maintain interval of indication*/
-/*volatile*/ uint8_t timer_count = APP_DEFAULT_VAL;
+volatile uint8_t timer_count = APP_DEFAULT_VAL;
 
 /** flag to send one notification for one second*/
-/*volatile*/ bool notify = 0;
+volatile bool notify = 0;
 
 /** flag to check the app state*/
-/*volatile*/ bool app_state;
+volatile bool app_state;
 
 /** flags for reversing the direction of characteristic*
- *       change for indication*/
-/*volatile*/ int8_t operator_blp[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
+	 change for indication*/
+volatile int8_t operator[9] = {1,1,1,1,1,1,1,1,1};
 
 /** Current systolic value  in mmhg*/
 uint16_t systolic_val_mmhg = SYSTOLIC_MIN_MMHG;
@@ -121,7 +182,7 @@ uint16_t map_val_kpa = MAP_MIN_KPA;
 uint16_t pulse_rate_val = PULSE_RATE_MIN;
 
 /** Current time stamp */
-at_ble_prf_date_time_t time_stamp;
+prf_date_time_t time_stamp;
 
 /* Intermediate Cuff Pressure Values for notification */
 uint16_t interim_diastolic_mmhg = DIASTOLIC_MIN_MMHG;
@@ -136,46 +197,22 @@ uint16_t interim_map_mmhg = MAP_MIN_MMHG;
 
 uint16_t interim_map_kpa = MAP_MIN_KPA;
 
+volatile bool app_init_done = false; 
 
-static /*const*/ ble_event_callback_t app_gap_handle[] = {
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	app_connected_state_handler,
-	app_disconnected_state_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gap_event_cb_t app_gap_handle = {
+	.connected = app_connected_state_handler,
+	.disconnected = app_disconnected_state_handler
 };
 
-static /*const*/ ble_event_callback_t app_gatt_server_handle[] = {
-	app_notification_confirmation_handler,
-	app_indication_confirmation_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gatt_server_event_cb_t app_gatt_server_handle = {
+	.notification_confirmed = app_notification_confirmation_handler,
+	.indication_confirmed = app_indication_confirmation_handler
 };
 
 /* To keep the app in execution mode */
 bool app_exec = true;
 
-bool isButton = false;
+extern bool button_debounce;
 bool isTimer = false;
 bool isIndication = false;
 uint8_t g_blp_data[BLP_DATA_LEN];
@@ -191,6 +228,7 @@ uint8_t g_idx = 0;
 static at_ble_status_t app_connected_state_handler(void *params)
 {
 	app_state = true;
+	ALL_UNUSED(params);
 	return AT_BLE_SUCCESS;
 }
 
@@ -223,7 +261,7 @@ static at_ble_status_t app_disconnected_state_handler(void *param)
 		
 		/* Starting advertisement */
 		blp_sensor_adv();
-		//ALL_UNUSED(param);
+		ALL_UNUSED(param);
 		return AT_BLE_SUCCESS;
 }
 
@@ -287,7 +325,7 @@ static void update_time_stamp(void)
  */
 static void time_stamp_init(void)
 {
-	memset((uint8_t *)&time_stamp, 0, sizeof(at_ble_prf_date_time_t));
+	memset((uint8_t *)&time_stamp, 0, sizeof(prf_date_time_t));
 	time_stamp.year = 2015;
 	time_stamp.day = 1;
 	time_stamp.month = 1;
@@ -320,10 +358,10 @@ static at_ble_status_t app_indication_confirmation_handler(void *params)
 {
 	if (((at_ble_cmd_complete_event_t * )params)->status == AT_BLE_SUCCESS) {
 		DBG_LOG_DEV("App Indication successfully sent over the air");
+		DBG_LOG("\r\nPress the button to receive the blood pressure parameters");
 		indication_sent = true;
 		user_request_flag = false;
-		DBG_LOG("\r\nPress the button to receive the blood pressure parameters");
-	} else {
+		} else {
 		DBG_LOG_DEV("Sending indication over the air failed reason %x ",
 								((at_ble_cmd_complete_event_t * )params)->status);
 		indication_sent = false;
@@ -387,10 +425,10 @@ static void blp_value_update(uint8_t *data, uint8_t idx, uint16_t value, uint8_t
 	break;
 	}
 	
-	if (value == max_val) {
-		operator_blp[value_type] = -1;
-	} else if (value == min_val) {
-		operator_blp[value_type] = 1;
+	if (value >= max_val) {
+		operator[value_type] = -1;
+	} else if (value <= min_val) {
+		operator[value_type] = 1;
 	}
 	memcpy((data + idx),&value,2);
 }
@@ -401,10 +439,7 @@ static void blp_char_indication(void)
 {
 	uint8_t blp_data[BLP_DATA_LEN];
 	uint8_t idx = 0;
-
-	memset(blp_data, 0, sizeof(uint8_t) * BLP_DATA_LEN);
-	idx = 0;
-
+	
 	DBG_LOG("\n\n");
 	
 	DBG_LOG("The Blood Pressure Values are:");
@@ -426,39 +461,39 @@ static void blp_char_indication(void)
 	blp_data[idx++] |= BLOOD_PRESSURE_MMT_STATUS_FLAG_MASK;
 	
 	if (units) {
-		systolic_val_mmhg = systolic_val_mmhg + (operator_blp[SYSTOLIC_MMHG]);
-		blp_value_update(blp_data, idx, systolic_val_mmhg, SYSTOLIC_MMHG);
+		systolic_val_mmhg = systolic_val_mmhg + (operator[SYSTOLIC_MMHG]);
+		blp_value_update(blp_data,idx,systolic_val_mmhg,SYSTOLIC_MMHG);
 		idx += 2;
-		DBG_LOG("%-12s", "Systolic");
-		DBG_LOG_CONT("   %d mmhg", systolic_val_mmhg);
-
-		diastolic_val_mmhg = diastolic_val_mmhg + (operator_blp[DIASTOLIC_MMHG]);
-		blp_value_update(blp_data, idx, diastolic_val_mmhg, DIASTOLIC_MMHG);
+		DBG_LOG("%-12s","Systolic");
+		DBG_LOG_CONT("   %d mmhg",systolic_val_mmhg);
+		
+		diastolic_val_mmhg = diastolic_val_mmhg + (operator[DIASTOLIC_MMHG]);
+		blp_value_update(blp_data,idx,diastolic_val_mmhg,DIASTOLIC_MMHG);
 		idx += 2;
-		DBG_LOG("%-12s", "Diastolic");
-		DBG_LOG_CONT("   %d mmhg", diastolic_val_mmhg);
-
-		map_val_mmhg = map_val_mmhg + (operator_blp[MAP_MMHG]);
-		blp_value_update(blp_data, idx, map_val_mmhg, MAP_MMHG);
+		DBG_LOG("%-12s","Diastolic");
+		DBG_LOG_CONT("   %d mmhg",diastolic_val_mmhg);
+		
+		map_val_mmhg = map_val_mmhg + (operator[MAP_MMHG]);
+		blp_value_update(blp_data,idx,map_val_mmhg,MAP_MMHG);
 		idx += 2;
-		DBG_LOG("%-12s", "Map");
-		DBG_LOG_CONT("   %d mmhg", map_val_mmhg);
+		DBG_LOG("%-12s","Map");
+		DBG_LOG_CONT("   %d mmhg",map_val_mmhg);
 	} else {
-		systolic_val_kpa = systolic_val_kpa + (operator_blp[SYSTOLIC_KPA]);
-		blp_value_update(blp_data, idx, systolic_val_kpa, SYSTOLIC_KPA);
+		systolic_val_kpa = systolic_val_kpa + (operator[SYSTOLIC_KPA]);
+		blp_value_update(blp_data,idx,systolic_val_kpa,SYSTOLIC_KPA);
 		idx += 2;
-		DBG_LOG("%-12s", "Systolic");
-		DBG_LOG_CONT("   %02d kpa", systolic_val_kpa);
-		diastolic_val_kpa = diastolic_val_kpa + (operator_blp[DIASTOLIC_KPA]);
-		blp_value_update(blp_data, idx, diastolic_val_kpa, DIASTOLIC_KPA);
+		DBG_LOG("%-12s","Systolic");
+		DBG_LOG_CONT("   %02d kpa",systolic_val_kpa);
+		diastolic_val_kpa = diastolic_val_kpa + (operator[DIASTOLIC_KPA]);
+		blp_value_update(blp_data,idx,diastolic_val_kpa,DIASTOLIC_KPA);
 		idx += 2;
-		DBG_LOG("%-12s", "Diastolic");
-		DBG_LOG_CONT("   %02d kpa", diastolic_val_kpa);
-		map_val_kpa = map_val_kpa + (operator_blp[MAP_KPA]);
-		blp_value_update(blp_data, idx, map_val_kpa, MAP_KPA);
+		DBG_LOG("%-12s","Diastolic");
+		DBG_LOG_CONT("   %02d kpa",diastolic_val_kpa);
+		map_val_kpa = map_val_kpa + (operator[MAP_KPA]);
+		blp_value_update(blp_data,idx,map_val_kpa,MAP_KPA);
 		idx += 2;
-		DBG_LOG("%-12s", "Map");
-		DBG_LOG_CONT("   %02d kpa", map_val_kpa);
+		DBG_LOG("%-12s","Map");
+		DBG_LOG_CONT("   %02d kpa",map_val_kpa);	
 	}
 		memcpy(&blp_data[idx],(uint8_t*)&(time_stamp.year),2);
 		idx += 2;
@@ -473,12 +508,13 @@ static void blp_char_indication(void)
 		memcpy(&blp_data[idx],(uint8_t*)&(time_stamp.sec),1);
 		idx += 1;
 		
-	pulse_rate_val = pulse_rate_val + (operator_blp[PULSE_RATE]);
-	blp_value_update(blp_data, idx, pulse_rate_val, PULSE_RATE);
+	pulse_rate_val = pulse_rate_val + (operator[PULSE_RATE]);
+	blp_value_update(blp_data,idx,pulse_rate_val,PULSE_RATE);
 	idx += 2;
-	DBG_LOG("%-12s", "Pulserate");
-	DBG_LOG_CONT("   %d bpm", pulse_rate_val);
-
+	DBG_LOG("%-12s","Pulserate");
+	DBG_LOG_CONT("   %d bpm",pulse_rate_val);
+	
+	
 	/** Appending User id */
 	if (units) {
 		blp_data[idx++] = USERID_1;
@@ -501,26 +537,24 @@ static void blp_char_notification(void)
 {
 	uint8_t blp_data[BLP_DATA_LEN];	
 	uint8_t idx = 0;
-
-	memset(blp_data, 0, sizeof(uint8_t) * BLP_DATA_LEN);
-	idx = 0;
-
+	blp_data[0] = 0;
+	
 	if (units) {
 		/** Units in mmhg*/
 		blp_data[idx++] |= (0x1)  & ~(BLOOD_PRESSURE_UNITS_FLAG_MASK);
-		blp_data[0] = blp_data[0] & 1;
-		DBG_LOG("Cuff pressure  %d mmhg", interim_systolic_mmhg);
-		blp_value_update(blp_data, idx, interim_systolic_mmhg, INTERIM_SYS_MMHG);
+		blp_data[0] = blp_data[0] & 1;	
+		DBG_LOG("Cuff pressure  %d mmhg",interim_systolic_mmhg);
+		blp_value_update(blp_data,idx,interim_systolic_mmhg,INTERIM_SYS_MMHG);
 		idx += 2;
-		interim_systolic_mmhg = interim_systolic_mmhg + (operator_blp[7]);
+		interim_systolic_mmhg = interim_systolic_mmhg + (operator[7]);
 	} else {
 		/** Units in kpa*/
 		blp_data[idx++] |=  (0x1)  | BLOOD_PRESSURE_UNITS_FLAG_MASK;
 		blp_data[0] = blp_data[0] & 1;
-		DBG_LOG("Cuff pressure  %02d kpa", interim_systolic_kpa);
-		blp_value_update(blp_data, idx, interim_systolic_kpa, INTERIM_SYS_KPA);
+		DBG_LOG("Cuff pressure  %02d kpa",interim_systolic_kpa);
+		blp_value_update(blp_data,idx,interim_systolic_kpa,INTERIM_SYS_KPA);
 		idx += 2;
-		interim_systolic_kpa = interim_systolic_kpa + (operator_blp[8]);
+		interim_systolic_kpa = interim_systolic_kpa + (operator[8]);
 	}
 
 	/** Appending diastolic in kpa*/
@@ -566,10 +600,6 @@ static void app_indication_handler(bool enable)
 {
 	uint8_t blp_data[BLP_DATA_LEN];
 	uint8_t idx = 0;	 
-
-	memset(blp_data, 0, sizeof(uint8_t) * BLP_DATA_LEN);
-	idx = 0;
-
 	indication_flag = enable;
 
 	if (indication_flag) {
@@ -608,7 +638,7 @@ static void app_indication_handler(bool enable)
 
 		memcpy(g_blp_data, blp_data, sizeof(uint8_t) * BLP_DATA_LEN);
 		g_idx = idx;
-		send_plf_int_msg_ind(USER_TIMER_CALLBACK, TIMER_EXPIRED_CALLBACK_TYPE_DETECT, NULL, 0);
+		send_plf_int_msg_ind(RAM_ISR_TABLE_TIMER0_INDEX, TIMER_EXPIRED_CALLBACK_TYPE_DETECT, NULL, 0);
 
 		/* Sending the default notification for the first time */
 		/* blp_sensor_send_indication(blp_data,idx); */
@@ -616,15 +646,106 @@ static void app_indication_handler(bool enable)
 		DBG_LOG("Disabled indication by the remote server for blood pressure");
 	}
 }
+/* Callback registered for AT_PLATFORM_EVENT event from stack */
+static at_ble_status_t platform_interrupt_app_event(void *param)
+{
+	at_ble_status_t status = AT_BLE_SUCCESS;
+	platform_isr_event_t *plf_isr_event = (platform_isr_event_t *)param;
+	if (plf_isr_event->event_type == ((TIMER_EXPIRED_CALLBACK_TYPE_DETECT << 8)  | RAM_ISR_TABLE_TIMER0_INDEX))
+	{
+		if (user_request_flag) {
+			timer_count++;
+			notify = true;
+		}
 
+		update_time_stamp();
 
+		hw_timer_start(TIMER_INTERVAL);
+	}
+	if(plf_isr_event->event_type == ((PORTINT_CALLBACK_TYPE_DETECT << 8)  | RAM_ISR_TABLE_PORT0_COMB_INDEX))
+	{
+	/* App connected state*/
+	if (app_state) {
+		if (user_request_flag == false) {
+			if (indication_flag) {
+				/** For changing the units for each button press*/
+				units = !units;
+			}
+
+			if (indication_flag || notification_flag) {
+				/** To trigger the blood pressure indication */
+				user_request_flag = true;
+				timer_count = 0;
+			}
+			if (notification_flag) {
+				DBG_LOG("\r\nStarted sending Interim Cuff Pressure Values");
+			}
+		}
+	}
+
+	button_debounce = true;
+	}
+	if (isIndication == true) {
+	/* Sending the default notification for the first time */
+	blp_sensor_send_indication(g_blp_data, g_idx);
+
+	isIndication = false;
+	}
+
+/* Checking for button press */
+	if (user_request_flag ) {
+	
+	/*Sending notifications of interim cuff pressure*/
+	
+	if (timer_count < INDICATION_TIMER_VAL ) {
+		
+		/* checking for notification enabled */
+		if (notification_flag) {
+			
+			/* Sending one notification per second */
+			if (notify) {
+				
+				/* Checking for previous notification sent over the air */
+				if (notification_sent) {
+					blp_char_notification();
+				}
+				notify = 0;
+			}
+		}
+	}
+	if (timer_count == INDICATION_TIMER_VAL) {
+		if (indication_flag) {
+			/*Checking for previous indication sent over the  air */
+			if (indication_sent) {
+				
+				/* Send a indication */
+				blp_char_indication();
+				} else {
+				DBG_LOG("Previous indication is failed and device is disconnecting");
+				blp_disconnection();
+				status = AT_BLE_FAILURE;
+			}
+		}
+		timer_count = 0;
+		user_request_flag = 0;
+		}
+	}
+	return status;
+}
 /**
  * @brief Button Press Callback
  */
 static void button_cb(void)
 {
-	isButton = true;
-	send_plf_int_msg_ind(USER_TIMER_CALLBACK, TIMER_EXPIRED_CALLBACK_TYPE_DETECT, NULL, 0);
+	if(!app_init_done)
+	{
+		//do nothing
+	}
+	else
+	{
+		DBG_LOG("button pressed");
+		send_plf_int_msg_ind(RAM_ISR_TABLE_PORT0_COMB_INDEX, PORTINT_CALLBACK_TYPE_DETECT, NULL, 0);
+	}
 }
 
 /**
@@ -632,12 +753,22 @@ static void button_cb(void)
  */
 static void timer_callback_handler(void)
 {
-	hw_timer_stop();
-
-	isTimer = true;
-	send_plf_int_msg_ind(USER_TIMER_CALLBACK, TIMER_EXPIRED_CALLBACK_TYPE_DETECT, NULL, 0);
+	if(!app_init_done)
+	{
+		//do nothing
+	}
+	else
+	{	
+		hw_timer_stop();
+		//isTimer = true;
+		send_plf_int_msg_ind(RAM_ISR_TABLE_TIMER0_INDEX, TIMER_EXPIRED_CALLBACK_TYPE_DETECT, NULL, 0);
+	}
 }
 
+/* Custom events like user defined event, platform event callback handlers for OTAU profile */
+static const ble_custom_event_cb_t blp_app_custom_event_handle = {
+	.platform_event_ready = platform_interrupt_app_event /* This event not handled in BLE Manager */
+};
 /**
  * \brief Heart Rate Sensor Application main function
  */
@@ -652,7 +783,7 @@ int main(void)
 	timer_count = APP_DEFAULT_VAL;
 	notify = 0;
 	app_state = 0;
-	memset(operator_blp, 1, sizeof(int8_t) * 9);
+	memset(operator, 1, sizeof(int8_t) * 9);
 	systolic_val_mmhg = SYSTOLIC_MIN_MMHG;
 	diastolic_val_mmhg = DIASTOLIC_MIN_MMHG;
 	map_val_mmhg = MAP_MIN_MMHG;
@@ -667,12 +798,11 @@ int main(void)
 	interim_map_mmhg = MAP_MIN_MMHG;
 	interim_map_kpa = MAP_MIN_KPA;
 	app_exec = true;
-	isButton = false;
 	isTimer = false;
 	isIndication = false;
 	memset(g_blp_data, 0, sizeof(uint8_t) * BLP_DATA_LEN);
 	g_idx = 0;
-
+/*
 	app_gap_handle[0] = NULL;
 	app_gap_handle[1] = NULL;
 	app_gap_handle[2] = NULL;
@@ -703,7 +833,7 @@ int main(void)
 	app_gatt_server_handle[7] = NULL;
 	app_gatt_server_handle[8] = NULL;
 	app_gatt_server_handle[9] = NULL;
-
+*/
 	platform_driver_init();
 	acquire_sleep_lock();
 
@@ -728,7 +858,8 @@ int main(void)
 
 	/* Initialize the blood pressure sensor profile */
 	blp_sensor_init(NULL);
-
+	
+	app_init_done =  true;
 	/** Initializing the application time stamp*/
 	time_stamp_init();
 
@@ -743,99 +874,21 @@ int main(void)
 	
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
 	BLE_GAP_EVENT_TYPE,
-	app_gap_handle);
+	&app_gap_handle);
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
 	BLE_GATT_SERVER_EVENT_TYPE,
-	app_gatt_server_handle);
-
+	&app_gatt_server_handle);
+	
+	/* Register callbacks for user defined custom events */
+	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
+	BLE_CUSTOM_EVENT_TYPE,
+	&blp_app_custom_event_handle);
 	/** Start the timer */
 	hw_timer_start(TIMER_INTERVAL);
 
 	/* Capturing the events  */
 	while (app_exec) {
-		ble_event_task(BLE_EVENT_TIMEOUT);
-
-		if (isTimer == true) {
-			if (user_request_flag) {
-				timer_count++;
-				notify = true;
-			}
-
-			update_time_stamp();
-
-			hw_timer_start(TIMER_INTERVAL);
-
-			isTimer = false;
-		}
-
-		if (isButton == true) {
-			/* App connected state*/
-			if (app_state) {
-				if (user_request_flag == false) {
-					if (indication_flag) {
-						/** For changing the units for each button press*/
-						units = !units;
-					}
-
-					if (indication_flag || notification_flag) {
-						/** To trigger the blood pressure indication */
-						user_request_flag = true;
-						timer_count = 0;
-					}
-					if (notification_flag) {
-						DBG_LOG("\r\nStarted sending Interim Cuff Pressure Values");
-					}
-				}
-			}
-
-			isButton = false;
-		}
-
-		if (isIndication == true) {
-			/* Sending the default notification for the first time */
-			blp_sensor_send_indication(g_blp_data, g_idx);
-
-			isIndication = false;
-		}
-
-		/* Checking for button press */
-		if (user_request_flag ) {
-			
-				/*Sending notifications of interim cuff pressure*/
-				
-				if (timer_count < INDICATION_TIMER_VAL ) {
-				
-				/* checking for notification enabled */
-					if (notification_flag) {
-					
-					/* Sending one notification per second */
-						if (notify) {
-					
-							/* Checking for previous notification sent over the air */
-							if (notification_sent) {
-								blp_char_notification();
-							}
-							notify = 0;
-						}	
-					}
-				}
-				
-				if (timer_count == INDICATION_TIMER_VAL) {
-					if (indication_flag) {
-						/*Checking for previous indication sent over the  air */
-						if (indication_sent) {
-						
-							/* Send a indication */
-							blp_char_indication();
-						} else {
-							DBG_LOG("Previous indication is failed and device is disconnecting");
-							blp_disconnection();
-						}
-					} 
-						timer_count = 0;
-						user_request_flag = 0;
-				}
-		}
+		ble_event_task(0xFFFFFFFF);
 	}
 	return 0;
 }

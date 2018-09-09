@@ -3,7 +3,7 @@
  *
  * \brief Common Sensor Service Direction Cosine Matrix Example
  *
- * Copyright (c) 2011-2012 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2011-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
@@ -52,7 +52,7 @@
  *
  * \section contactinfo Contact Information
  * For further information, visit
- * <a href="http://www.atmel.com/avr">Atmel AVR</a>.\n
+ * <a href="http://www.microchip.com/design-centers/8-bit">Atmel AVR</a>.\n
  */
 
 #include <stdio.h>

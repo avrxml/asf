@@ -1,37 +1,123 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" style="overflow:hidden;">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Log In</title>
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body id="body" style="overflow:hidden;">
+<body>
+
 <div id="log-in-form-container">
 <div id="logo-container">
-<br></br>
-<p>Connect to Network<p>
+<br /><br />
+<p>Connect to Network</p>
 </div>
+
 <div id="scroll">
 <div id="form-container">
-<form id="form-holder" method="post" action="">
+<div id="form-holder">
 <p>Network Name<p>
-<input type="text" name="login" value="" maxlength="32">
+<input type="text" id="login" maxlength="32">
 <p>Pass phrase</p>
-<input type="password" name="password" value="" maxlength="64">
+<input type="password" id="pass" maxlength="64">
 <p>Device Name<p>
-<input type="text" name="device-name" value="" maxlength="48">
-<input type="submit" name="connect" value="Connect" class="connect-button">
-</form>
-<div id="buffer"></div>
+<input type="text" id="devname" maxlength="48">
+<input type="button" id="connect" value="Connect" />
 </div>
+</div>
+
 <div id="detect-device-container">
-<form id="detect-device-holder" method="get" action="">
+<div id="detect-device-holder">
 <p>Detect Device</p>
-<input type="submit" name="refresh" value="Refresh" class="refresh-button">
-<div id="buffer"></div>
-</form>
+<input type="button" id="refresh" value="Refresh" />
+</div>
+<table id="scanlist">
+<thead>
+<tr>
+<th>SSID</th>
+<th>MAC Address</th>
+<th>Signal</th>
+</tr>
+</thead>
+<tbody>
+
+</tbody>
+</table>
+</div>
+
 </div>
 </div>
-</div>
+
+<script>
+(function() {
+var d = document;
+var elemId = d.getElementById.bind(d);
+var create = d.createElement.bind(d);
+
+function getJson(method, uri, callback)
+{
+	var xhr = new XMLHttpRequest();
+	xhr.open(method, uri);
+	xhr.onload = function() {
+		if(this.status === 200)
+			callback(JSON.parse(this.responseText));
+		else
+			alert('Request failed (' + this.status + ')');
+	};
+	xhr.ontimeout = function(){callback(false)};
+	xhr.onerror = function() {
+		alert('Request failed');
+	};
+	return xhr;
+}
+
+elemId('refresh').onclick = function(){
+
+	var tbody = elemId('scanlist').getElementsByTagName('tbody')[0];
+	var tbody_new = create('tbody');
+	tbody.parentNode.replaceChild(tbody_new, tbody);
+
+	var xhr = getJson('GET', '/?refresh', function(js){
+		if(js === false)
+			return;
+		var res = js.results;
+		for (var i=0;i<res.length;i++)
+		{
+			if(!res[i].hasOwnProperty('name'))
+				continue;
+			var row = create('tr');
+			row.appendChild(create('td')).innerText = res[i].name;
+			row.appendChild(create('td')).innerText = res[i].mac;
+			row.appendChild(create('td')).innerText = res[i].rssi;
+			tbody_new.appendChild(row);
+			row.onclick = function(){
+				elemId('login').value = this.getElementsByTagName('td')[0].innerText;
+			};
+		}
+	});
+	xhr.send();
+};
+
+elemId('connect').onclick = function(){
+	var login = encodeURIComponent(elemId('login').value);
+	var pass = encodeURIComponent(elemId('pass').value);
+	var devName = encodeURIComponent(elemId('devname').value);
+	var params = 'connect=connect&login=' + login + '&password=' + pass + '&device-name=' + devName;
+
+	var xhr = getJson('POST', '/', function(js){
+		if(js === false || js.status == 'ok')
+		{
+			elemId('form-holder').innerHTML = '<b>Connected!</b>';
+			var e = elemId('detect-device-container');
+			e.parentNode.removeChild(e);
+		}
+		else
+			alert('Request failed (' + js.status + ')');
+	});
+	xhr.timeout = 1000;
+	xhr.send(params);
+};
+})();
+</script>
 </body>
 </html>

@@ -3,7 +3,7 @@
  *
  * \brief Linker script for running in internal SRAM on the SAMD10D13AM
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *

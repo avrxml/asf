@@ -1,6 +1,6 @@
 dnl -*- m4 -*-
  /**
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.microchip.com/support/">Microchip Support</a>
  */
 dnl
 dnl libmad - MPEG audio decoder library

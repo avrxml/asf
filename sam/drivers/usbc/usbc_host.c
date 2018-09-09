@@ -4,45 +4,35 @@
  * \brief USBC host driver
  * Compliance with common driver UHD
  *
- * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2014-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include <string.h>
@@ -94,6 +84,11 @@ extern void udc_start(void);
 # define udc_start()
 #endif
 
+#ifndef UHD_BULK_INTERVAL_MIN
+// Minimal bulk interval value
+#  define UHD_BULK_INTERVAL_MIN 1
+#endif
+
 // Optional UHC callbacks
 #ifndef UHC_MODE_CHANGE
 # define UHC_MODE_CHANGE(arg)
@@ -125,6 +120,17 @@ extern void udc_start(void);
  *
  * UHD_USB_INT_FUN<br>
  * Option to fit interrupt function to what defined in exception table.
+ *
+ * UHD_BULK_INTERVAL_MIN<br>
+ * Feature to reduce or increase bulk token rate when it's NAKed (0, 1 ...).
+ * To adjust bandwidth usage.
+ * Default value 1.
+ *
+ * UHD_NO_SLEEP_MGR<br>
+ * Feature to work without sleep manager module.
+ * Default not defined.
+ * Note that with this feature defined sleep manager must not be used in
+ * application.
  *
  * \section Callbacks management
  * The USB driver is fully managed by interrupt and does not request periodic
@@ -780,12 +786,14 @@ bool uhd_ep0_alloc(
 
 bool uhd_ep_alloc(
 		usb_add_t add,
-		usb_ep_desc_t *ep_desc)
+		usb_ep_desc_t *ep_desc,
+		uhd_speed_t speed)
 {
 	uint8_t ep_addr;
 	uint8_t ep_type;
 	uint8_t ep_dir;
 	uint8_t ep_interval;
+	(void)speed; // No high speed currently
 
 	for (uint8_t pipe = 1; pipe < UHD_PEP_NB; pipe++) {
 		if (Is_uhd_pipe_enabled(pipe)) {
@@ -801,11 +809,19 @@ bool uhd_ep_alloc(
 				USBC_UPCFG0_PTOKEN_IN >> USBC_UPCFG0_PTOKEN_Pos:
 				USBC_UPCFG0_PTOKEN_OUT >> USBC_UPCFG0_PTOKEN_Pos;
 		ep_type = ep_desc->bmAttributes & USB_EP_TYPE_MASK;
+#if UHD_BULK_INTERVAL_MIN
 		if (ep_type == USB_EP_TYPE_BULK) {
-			ep_interval = 0; // Ignore bInterval for bulk endpoint
+			if (ep_desc->bInterval > UHD_BULK_INTERVAL_MIN) {
+				ep_interval = ep_desc->bInterval;
+			} else {
+				ep_interval = UHD_BULK_INTERVAL_MIN;
+			}
 		} else {
 			ep_interval = ep_desc->bInterval;
 		}
+#else
+		ep_interval = ep_desc->bInterval;
+#endif
 		uhd_configure_pipe(pipe, ep_interval, ep_addr, ep_type, ep_dir,
 				le16_to_cpu(ep_desc->wMaxPacketSize),
 				0);
@@ -1064,7 +1080,7 @@ static void uhd_interrupt(void)
 		uhd_disable_wakeup_interrupt();
 		goto uhd_interrupt_exit;
 	}
-	
+
 	if (Is_uhd_wakeup_interrupt_enabled() && (Is_uhd_wakeup() ||
 			Is_uhd_downstream_resume() || Is_uhd_upstream_resume())) {
 		dbg_print("Wkup ");
@@ -1868,6 +1884,12 @@ static void uhd_ep_abort_pipe(uint8_t pipe, uhd_trans_status_t status)
 {
 	bool old_toggle = uhd_data_toggle(pipe);
 	uint32_t config;
+	uhd_pipe_job_t *ptr_job = &uhd_pipe_job[pipe - 1];
+
+	// Freeze pipe and update nb_trans
+	uhd_freeze_pipe(pipe);
+	ptr_job->nb_trans += (uhd_is_pipe_out(pipe)) ?
+			uhd_udesc_get_buf0_size(pipe) : uhd_udesc_get_buf0_ctn(pipe);
 
 	// Reset pipe but keep configuration
 	config = USBC_ARRAY(USBC_UPCFG0,pipe);

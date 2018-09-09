@@ -3,7 +3,7 @@
  *
  * \brief SRAM Linker script for SAM.
  *
- * Copyright (c) 2013-2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2013-2018 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *
@@ -50,7 +50,7 @@ SEARCH_DIR(.)
 /* Memory Spaces Definitions */
 MEMORY
 {
-  ram1 (rx)  : ORIGIN = 0x20080000, LENGTH = 0x00008000
+  ram1 (rx)  : ORIGIN = 0x00000000, LENGTH = 0x00008000
   ram2 (rwx) : ORIGIN = 0x20100000, LENGTH = 0x00004000
 }
 

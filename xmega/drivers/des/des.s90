@@ -11,7 +11,7 @@
 //      Parameter registers: R25-R8 (2-byte alignment starting from R25)
 //      Return registers:    R25-R8 (2-byte alignment starting from R25)
 //
-// Copyright (c) 2010 Atmel Corporation. All rights reserved.
+// Copyright (c) 2010 Microchip Technology Inc. All rights reserved.
 // 
 // \asf_license_start
 //

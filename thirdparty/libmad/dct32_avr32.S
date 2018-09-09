@@ -1,6 +1,6 @@
 /*
    Optimized 32-point Discrete Cosine Transform (DCT)
-   Copyright 2003-2006 Atmel Corporation.
+   Copyright 2003-2006 Microchip Technology Inc.
 
    Written by Ronny Pedersen, Atmel Norway
 

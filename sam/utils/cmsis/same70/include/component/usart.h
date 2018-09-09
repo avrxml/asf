@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70_USART_COMPONENT_
@@ -65,7 +55,11 @@ typedef struct {
   __IO uint32_t US_BRGR;       /**< \brief (Usart Offset: 0x0020) Baud Rate Generator Register */
   __IO uint32_t US_RTOR;       /**< \brief (Usart Offset: 0x0024) Receiver Time-out Register */
   __IO uint32_t US_TTGR;       /**< \brief (Usart Offset: 0x0028) Transmitter Timeguard Register */
-  __I  uint32_t Reserved1[9];
+  __I  uint32_t Reserved1[5];
+  __IO uint32_t US_FIDI;       /**< \brief (Usart Offset: 0x0040) FI DI Ratio Register */
+  __I  uint32_t US_NER;        /**< \brief (Usart Offset: 0x0044) Number of Errors Register */
+  __I  uint32_t Reserved2[1];
+  __IO uint32_t US_IF;         /**< \brief (Usart Offset: 0x004C) IrDA Filter Register */
   __IO uint32_t US_MAN;        /**< \brief (Usart Offset: 0x0050) Manchester Configuration Register */
   __IO uint32_t US_LINMR;      /**< \brief (Usart Offset: 0x0054) LIN Mode Register */
   __IO uint32_t US_LINIR;      /**< \brief (Usart Offset: 0x0058) LIN Identifier Register */
@@ -81,9 +75,11 @@ typedef struct {
   __IO uint32_t US_IDTTX;      /**< \brief (Usart Offset: 0x0080) LON IDT Tx Register */
   __IO uint32_t US_IDTRX;      /**< \brief (Usart Offset: 0x0084) LON IDT Rx Register */
   __IO uint32_t US_ICDIFF;     /**< \brief (Usart Offset: 0x0088) IC DIFF Register */
-  __I  uint32_t Reserved2[22];
+  __I  uint32_t Reserved3[22];
   __IO uint32_t US_WPMR;       /**< \brief (Usart Offset: 0x00E4) Write Protection Mode Register */
   __I  uint32_t US_WPSR;       /**< \brief (Usart Offset: 0x00E8) Write Protection Status Register */
+  __I  uint32_t Reserved4[4];
+  __I  uint32_t US_VERSION;    /**< \brief (Usart Offset: 0x00FC) Version Register */
 } Usart;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- US_CR : (USART Offset: 0x0000) Control Register -------- */
@@ -98,7 +94,11 @@ typedef struct {
 #define US_CR_STPBRK (0x1u << 10) /**< \brief (US_CR) Stop Break */
 #define US_CR_STTTO (0x1u << 11) /**< \brief (US_CR) Clear TIMEOUT Flag and Start Time-out After Next Character Received */
 #define US_CR_SENDA (0x1u << 12) /**< \brief (US_CR) Send Address */
+#define US_CR_RSTIT (0x1u << 13) /**< \brief (US_CR) Reset Iterations */
+#define US_CR_RSTNACK (0x1u << 14) /**< \brief (US_CR) Reset Non Acknowledge */
 #define US_CR_RETTO (0x1u << 15) /**< \brief (US_CR) Start Time-out Immediately */
+#define US_CR_DTREN (0x1u << 16) /**< \brief (US_CR) Data Terminal Ready Enable */
+#define US_CR_DTRDIS (0x1u << 17) /**< \brief (US_CR) Data Terminal Ready Disable */
 #define US_CR_RTSEN (0x1u << 18) /**< \brief (US_CR) Request to Send Pin Control */
 #define US_CR_RTSDIS (0x1u << 19) /**< \brief (US_CR) Request to Send Pin Control */
 #define US_CR_LINABT (0x1u << 20) /**< \brief (US_CR) Abort LIN Transmission */
@@ -112,9 +112,15 @@ typedef struct {
 #define   US_MR_USART_MODE_NORMAL (0x0u << 0) /**< \brief (US_MR) Normal mode */
 #define   US_MR_USART_MODE_RS485 (0x1u << 0) /**< \brief (US_MR) RS485 */
 #define   US_MR_USART_MODE_HW_HANDSHAKING (0x2u << 0) /**< \brief (US_MR) Hardware Handshaking */
+#define   US_MR_USART_MODE_MODEM (0x3u << 0) /**< \brief (US_MR) Modem */
+#define   US_MR_USART_MODE_IS07816_T_0 (0x4u << 0) /**< \brief (US_MR) IS07816 Protocol: T = 0 */
+#define   US_MR_USART_MODE_IS07816_T_1 (0x6u << 0) /**< \brief (US_MR) IS07816 Protocol: T = 1 */
+#define   US_MR_USART_MODE_IRDA (0x8u << 0) /**< \brief (US_MR) IrDA */
 #define   US_MR_USART_MODE_LON (0x9u << 0) /**< \brief (US_MR) LON */
-#define   US_MR_USART_MODE_SPI_MASTER (0xEu << 0) /**< \brief (US_MR) SPI master */
-#define   US_MR_USART_MODE_SPI_SLAVE (0xFu << 0) /**< \brief (US_MR) SPI Slave */
+#define   US_MR_USART_MODE_LIN_MASTER (0xAu << 0) /**< \brief (US_MR) LIN Master mode */
+#define   US_MR_USART_MODE_LIN_SLAVE (0xBu << 0) /**< \brief (US_MR) LIN Slave mode */
+#define   US_MR_USART_MODE_SPI_MASTER (0xEu << 0) /**< \brief (US_MR) SPI master mode (CLKO must be written to 1 and USCLKS = 0, 1 or 2) */
+#define   US_MR_USART_MODE_SPI_SLAVE (0xFu << 0) /**< \brief (US_MR) SPI Slave mode */
 #define US_MR_USCLKS_Pos 4
 #define US_MR_USCLKS_Msk (0x3u << US_MR_USCLKS_Pos) /**< \brief (US_MR) Clock Selection */
 #define US_MR_USCLKS(value) ((US_MR_USCLKS_Msk & ((value) << US_MR_USCLKS_Pos)))
@@ -152,10 +158,17 @@ typedef struct {
 #define   US_MR_CHMODE_AUTOMATIC (0x1u << 14) /**< \brief (US_MR) Automatic Echo. Receiver input is connected to the TXD pin. */
 #define   US_MR_CHMODE_LOCAL_LOOPBACK (0x2u << 14) /**< \brief (US_MR) Local Loopback. Transmitter output is connected to the Receiver Input. */
 #define   US_MR_CHMODE_REMOTE_LOOPBACK (0x3u << 14) /**< \brief (US_MR) Remote Loopback. RXD pin is internally connected to the TXD pin. */
+#define US_MR_MSBF (0x1u << 16) /**< \brief (US_MR) Bit Order */
 #define US_MR_MODE9 (0x1u << 17) /**< \brief (US_MR) 9-bit Character Length */
 #define US_MR_CLKO (0x1u << 18) /**< \brief (US_MR) Clock Output Select */
 #define US_MR_OVER (0x1u << 19) /**< \brief (US_MR) Oversampling Mode */
+#define US_MR_INACK (0x1u << 20) /**< \brief (US_MR) Inhibit Non Acknowledge */
+#define US_MR_DSNACK (0x1u << 21) /**< \brief (US_MR) Disable Successive NACK */
 #define US_MR_VAR_SYNC (0x1u << 22) /**< \brief (US_MR) Variable Synchronization of Command/Data Sync Start Frame Delimiter */
+#define US_MR_INVDATA (0x1u << 23) /**< \brief (US_MR) Inverted Data */
+#define US_MR_MAX_ITERATION_Pos 24
+#define US_MR_MAX_ITERATION_Msk (0x7u << US_MR_MAX_ITERATION_Pos) /**< \brief (US_MR) Maximum Number of Automatic Iteration */
+#define US_MR_MAX_ITERATION(value) ((US_MR_MAX_ITERATION_Msk & ((value) << US_MR_MAX_ITERATION_Pos)))
 #define US_MR_FILTER (0x1u << 28) /**< \brief (US_MR) Receive Line Filter */
 #define US_MR_MAN (0x1u << 29) /**< \brief (US_MR) Manchester Encoder/Decoder Enable */
 #define US_MR_MODSYNC (0x1u << 30) /**< \brief (US_MR) Manchester Synchronization Mode */
@@ -172,9 +185,15 @@ typedef struct {
 #define US_IER_PARE (0x1u << 7) /**< \brief (US_IER) Parity Error Interrupt Enable */
 #define US_IER_TIMEOUT (0x1u << 8) /**< \brief (US_IER) Time-out Interrupt Enable */
 #define US_IER_TXEMPTY (0x1u << 9) /**< \brief (US_IER) TXEMPTY Interrupt Enable */
+#define US_IER_ITER (0x1u << 10) /**< \brief (US_IER) Max number of Repetitions Reached Interrupt Enable */
+#define US_IER_NACK (0x1u << 13) /**< \brief (US_IER) Non Acknowledge Interrupt Enable */
+#define US_IER_RIIC (0x1u << 16) /**< \brief (US_IER) Ring Indicator Input Change Enable */
+#define US_IER_DSRIC (0x1u << 17) /**< \brief (US_IER) Data Set Ready Input Change Enable */
+#define US_IER_DCDIC (0x1u << 18) /**< \brief (US_IER) Data Carrier Detect Input Change Interrupt Enable */
 #define US_IER_CTSIC (0x1u << 19) /**< \brief (US_IER) Clear to Send Input Change Interrupt Enable */
 #define US_IER_MANE (0x1u << 24) /**< \brief (US_IER) Manchester Error Interrupt Enable */
 #define US_IER_UNRE (0x1u << 10) /**< \brief (US_IER) SPI Underrun Error Interrupt Enable */
+#define US_IER_NSSE (0x1u << 19) /**< \brief (US_IER) NSS Line (Driving CTS Pin) Rising or Falling Edge Event Interrupt Enable */
 #define US_IER_LINBK (0x1u << 13) /**< \brief (US_IER) LIN Break Sent or LIN Break Received Interrupt Enable */
 #define US_IER_LINID (0x1u << 14) /**< \brief (US_IER) LIN Identifier Sent or LIN Identifier Received Interrupt Enable */
 #define US_IER_LINTC (0x1u << 15) /**< \brief (US_IER) LIN Transfer Completed Interrupt Enable */
@@ -201,9 +220,15 @@ typedef struct {
 #define US_IDR_PARE (0x1u << 7) /**< \brief (US_IDR) Parity Error Interrupt Disable */
 #define US_IDR_TIMEOUT (0x1u << 8) /**< \brief (US_IDR) Time-out Interrupt Disable */
 #define US_IDR_TXEMPTY (0x1u << 9) /**< \brief (US_IDR) TXEMPTY Interrupt Disable */
+#define US_IDR_ITER (0x1u << 10) /**< \brief (US_IDR) Max Number of Repetitions Reached Interrupt Disable */
+#define US_IDR_NACK (0x1u << 13) /**< \brief (US_IDR) Non Acknowledge Interrupt Disable */
+#define US_IDR_RIIC (0x1u << 16) /**< \brief (US_IDR) Ring Indicator Input Change Disable */
+#define US_IDR_DSRIC (0x1u << 17) /**< \brief (US_IDR) Data Set Ready Input Change Disable */
+#define US_IDR_DCDIC (0x1u << 18) /**< \brief (US_IDR) Data Carrier Detect Input Change Interrupt Disable */
 #define US_IDR_CTSIC (0x1u << 19) /**< \brief (US_IDR) Clear to Send Input Change Interrupt Disable */
 #define US_IDR_MANE (0x1u << 24) /**< \brief (US_IDR) Manchester Error Interrupt Disable */
 #define US_IDR_UNRE (0x1u << 10) /**< \brief (US_IDR) SPI Underrun Error Interrupt Disable */
+#define US_IDR_NSSE (0x1u << 19) /**< \brief (US_IDR) NSS Line (Driving CTS Pin) Rising or Falling Edge Event Interrupt Disable */
 #define US_IDR_LINBK (0x1u << 13) /**< \brief (US_IDR) LIN Break Sent or LIN Break Received Interrupt Disable */
 #define US_IDR_LINID (0x1u << 14) /**< \brief (US_IDR) LIN Identifier Sent or LIN Identifier Received Interrupt Disable */
 #define US_IDR_LINTC (0x1u << 15) /**< \brief (US_IDR) LIN Transfer Completed Interrupt Disable */
@@ -230,9 +255,15 @@ typedef struct {
 #define US_IMR_PARE (0x1u << 7) /**< \brief (US_IMR) Parity Error Interrupt Mask */
 #define US_IMR_TIMEOUT (0x1u << 8) /**< \brief (US_IMR) Time-out Interrupt Mask */
 #define US_IMR_TXEMPTY (0x1u << 9) /**< \brief (US_IMR) TXEMPTY Interrupt Mask */
+#define US_IMR_ITER (0x1u << 10) /**< \brief (US_IMR) Max Number of Repetitions Reached Interrupt Mask */
+#define US_IMR_NACK (0x1u << 13) /**< \brief (US_IMR) Non Acknowledge Interrupt Mask */
+#define US_IMR_RIIC (0x1u << 16) /**< \brief (US_IMR) Ring Indicator Input Change Mask */
+#define US_IMR_DSRIC (0x1u << 17) /**< \brief (US_IMR) Data Set Ready Input Change Mask */
+#define US_IMR_DCDIC (0x1u << 18) /**< \brief (US_IMR) Data Carrier Detect Input Change Interrupt Mask */
 #define US_IMR_CTSIC (0x1u << 19) /**< \brief (US_IMR) Clear to Send Input Change Interrupt Mask */
 #define US_IMR_MANE (0x1u << 24) /**< \brief (US_IMR) Manchester Error Interrupt Mask */
 #define US_IMR_UNRE (0x1u << 10) /**< \brief (US_IMR) SPI Underrun Error Interrupt Mask */
+#define US_IMR_NSSE (0x1u << 19) /**< \brief (US_IMR) NSS Line (Driving CTS Pin) Rising or Falling Edge Event Interrupt Mask */
 #define US_IMR_LINBK (0x1u << 13) /**< \brief (US_IMR) LIN Break Sent or LIN Break Received Interrupt Mask */
 #define US_IMR_LINID (0x1u << 14) /**< \brief (US_IMR) LIN Identifier Sent or LIN Identifier Received Interrupt Mask */
 #define US_IMR_LINTC (0x1u << 15) /**< \brief (US_IMR) LIN Transfer Completed Interrupt Mask */
@@ -259,10 +290,20 @@ typedef struct {
 #define US_CSR_PARE (0x1u << 7) /**< \brief (US_CSR) Parity Error (cleared by writing a one to bit US_CR.RSTSTA) */
 #define US_CSR_TIMEOUT (0x1u << 8) /**< \brief (US_CSR) Receiver Time-out (cleared by writing a one to bit US_CR.STTTO) */
 #define US_CSR_TXEMPTY (0x1u << 9) /**< \brief (US_CSR) Transmitter Empty (cleared by writing US_THR) */
+#define US_CSR_ITER (0x1u << 10) /**< \brief (US_CSR) Max Number of Repetitions Reached (cleared by writing a one to bit US_CR.RSTIT) */
+#define US_CSR_NACK (0x1u << 13) /**< \brief (US_CSR) Non Acknowledge Interrupt (cleared by writing a one to bit US_CR.RSTNACK) */
+#define US_CSR_RIIC (0x1u << 16) /**< \brief (US_CSR) Ring Indicator Input Change Flag (cleared on read) */
+#define US_CSR_DSRIC (0x1u << 17) /**< \brief (US_CSR) Data Set Ready Input Change Flag (cleared on read) */
+#define US_CSR_DCDIC (0x1u << 18) /**< \brief (US_CSR) Data Carrier Detect Input Change Flag (cleared on read) */
 #define US_CSR_CTSIC (0x1u << 19) /**< \brief (US_CSR) Clear to Send Input Change Flag (cleared on read) */
+#define US_CSR_RI (0x1u << 20) /**< \brief (US_CSR) Image of RI Input */
+#define US_CSR_DSR (0x1u << 21) /**< \brief (US_CSR) Image of DSR Input */
+#define US_CSR_DCD (0x1u << 22) /**< \brief (US_CSR) Image of DCD Input */
 #define US_CSR_CTS (0x1u << 23) /**< \brief (US_CSR) Image of CTS Input */
 #define US_CSR_MANERR (0x1u << 24) /**< \brief (US_CSR) Manchester Error (cleared by writing a one to the bit US_CR.RSTSTA) */
 #define US_CSR_UNRE (0x1u << 10) /**< \brief (US_CSR) Underrun Error (cleared by writing a one to bit US_CR.RSTSTA) */
+#define US_CSR_NSSE (0x1u << 19) /**< \brief (US_CSR) NSS Line (Driving CTS Pin) Rising or Falling Edge Event (cleared on read) */
+#define US_CSR_NSS (0x1u << 23) /**< \brief (US_CSR) NSS Line (Driving CTS Pin) Rising or Falling Edge Event (cleared on read) */
 #define US_CSR_LINBK (0x1u << 13) /**< \brief (US_CSR) LIN Break Sent or LIN Break Received (cleared by writing a one to bit US_CR.RSTSTA) */
 #define US_CSR_LINID (0x1u << 14) /**< \brief (US_CSR) LIN Identifier Sent or LIN Identifier Received (cleared by writing a one to bit US_CR.RSTSTA) */
 #define US_CSR_LINTC (0x1u << 15) /**< \brief (US_CSR) LIN Transfer Completed (cleared by writing a one to bit US_CR.RSTSTA) */
@@ -308,6 +349,20 @@ typedef struct {
 #define US_TTGR_PCYCLE_Pos 0
 #define US_TTGR_PCYCLE_Msk (0xffffffu << US_TTGR_PCYCLE_Pos) /**< \brief (US_TTGR) LON PCYCLE Length */
 #define US_TTGR_PCYCLE(value) ((US_TTGR_PCYCLE_Msk & ((value) << US_TTGR_PCYCLE_Pos)))
+/* -------- US_FIDI : (USART Offset: 0x0040) FI DI Ratio Register -------- */
+#define US_FIDI_FI_DI_RATIO_Pos 0
+#define US_FIDI_FI_DI_RATIO_Msk (0xffffu << US_FIDI_FI_DI_RATIO_Pos) /**< \brief (US_FIDI) FI Over DI Ratio Value */
+#define US_FIDI_FI_DI_RATIO(value) ((US_FIDI_FI_DI_RATIO_Msk & ((value) << US_FIDI_FI_DI_RATIO_Pos)))
+#define US_FIDI_BETA2_Pos 0
+#define US_FIDI_BETA2_Msk (0xffffffu << US_FIDI_BETA2_Pos) /**< \brief (US_FIDI) LON BETA2 Length */
+#define US_FIDI_BETA2(value) ((US_FIDI_BETA2_Msk & ((value) << US_FIDI_BETA2_Pos)))
+/* -------- US_NER : (USART Offset: 0x0044) Number of Errors Register -------- */
+#define US_NER_NB_ERRORS_Pos 0
+#define US_NER_NB_ERRORS_Msk (0xffu << US_NER_NB_ERRORS_Pos) /**< \brief (US_NER) Number of Errors */
+/* -------- US_IF : (USART Offset: 0x004C) IrDA Filter Register -------- */
+#define US_IF_IRDA_FILTER_Pos 0
+#define US_IF_IRDA_FILTER_Msk (0xffu << US_IF_IRDA_FILTER_Pos) /**< \brief (US_IF) IrDA Filter */
+#define US_IF_IRDA_FILTER(value) ((US_IF_IRDA_FILTER_Msk & ((value) << US_IF_IRDA_FILTER_Pos)))
 /* -------- US_MAN : (USART Offset: 0x0050) Manchester Configuration Register -------- */
 #define US_MAN_TX_PL_Pos 0
 #define US_MAN_TX_PL_Msk (0xfu << US_MAN_TX_PL_Pos) /**< \brief (US_MAN) Transmitter Preamble Length */
@@ -425,6 +480,11 @@ typedef struct {
 #define US_WPSR_WPVS (0x1u << 0) /**< \brief (US_WPSR) Write Protection Violation Status */
 #define US_WPSR_WPVSRC_Pos 8
 #define US_WPSR_WPVSRC_Msk (0xffffu << US_WPSR_WPVSRC_Pos) /**< \brief (US_WPSR) Write Protection Violation Source */
+/* -------- US_VERSION : (USART Offset: 0x00FC) Version Register -------- */
+#define US_VERSION_VERSION_Pos 0
+#define US_VERSION_VERSION_Msk (0xfffu << US_VERSION_VERSION_Pos) /**< \brief (US_VERSION) Hardware Module Version */
+#define US_VERSION_MFN_Pos 16
+#define US_VERSION_MFN_Msk (0x7u << US_VERSION_MFN_Pos) /**< \brief (US_VERSION) Metal Fix Number */
 
 /*@}*/
 

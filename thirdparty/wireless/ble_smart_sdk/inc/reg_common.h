@@ -3,7 +3,7 @@
  
   \brief Includes datatypes and signatures for reg_common
  
-  Copyright (c) 2016, Atmel Corporation. All rights reserved.
+  * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
   Released under NDA
   Licensed under Atmel's Limited License Agreement.
  
@@ -20,7 +20,7 @@
   ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
   POSSIBILITY OF SUCH DAMAGE.
  
-  Atmel Corporation: http://www.atmel.com
+  Microchip Technology Inc: http://www.microchip.com
  
 ******************************************************************************/
 

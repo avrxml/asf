@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70_USBHS_COMPONENT_
@@ -177,8 +167,6 @@ typedef struct {
 #define USBHS_DEVISR_PEP_7 (0x1u << 19) /**< \brief (USBHS_DEVISR) Endpoint 7 Interrupt */
 #define USBHS_DEVISR_PEP_8 (0x1u << 20) /**< \brief (USBHS_DEVISR) Endpoint 8 Interrupt */
 #define USBHS_DEVISR_PEP_9 (0x1u << 21) /**< \brief (USBHS_DEVISR) Endpoint 9 Interrupt */
-#define USBHS_DEVISR_PEP_10 (0x1u << 22) /**< \brief (USBHS_DEVISR) Endpoint 10 Interrupt */
-#define USBHS_DEVISR_PEP_11 (0x1u << 23) /**< \brief (USBHS_DEVISR) Endpoint 11 Interrupt */
 #define USBHS_DEVISR_DMA_1 (0x1u << 25) /**< \brief (USBHS_DEVISR) DMA Channel 1 Interrupt */
 #define USBHS_DEVISR_DMA_2 (0x1u << 26) /**< \brief (USBHS_DEVISR) DMA Channel 2 Interrupt */
 #define USBHS_DEVISR_DMA_3 (0x1u << 27) /**< \brief (USBHS_DEVISR) DMA Channel 3 Interrupt */
@@ -227,8 +215,6 @@ typedef struct {
 #define USBHS_DEVIMR_PEP_7 (0x1u << 19) /**< \brief (USBHS_DEVIMR) Endpoint 7 Interrupt Mask */
 #define USBHS_DEVIMR_PEP_8 (0x1u << 20) /**< \brief (USBHS_DEVIMR) Endpoint 8 Interrupt Mask */
 #define USBHS_DEVIMR_PEP_9 (0x1u << 21) /**< \brief (USBHS_DEVIMR) Endpoint 9 Interrupt Mask */
-#define USBHS_DEVIMR_PEP_10 (0x1u << 22) /**< \brief (USBHS_DEVIMR) Endpoint 10 Interrupt Mask */
-#define USBHS_DEVIMR_PEP_11 (0x1u << 23) /**< \brief (USBHS_DEVIMR) Endpoint 11 Interrupt Mask */
 #define USBHS_DEVIMR_DMA_1 (0x1u << 25) /**< \brief (USBHS_DEVIMR) DMA Channel 1 Interrupt Mask */
 #define USBHS_DEVIMR_DMA_2 (0x1u << 26) /**< \brief (USBHS_DEVIMR) DMA Channel 2 Interrupt Mask */
 #define USBHS_DEVIMR_DMA_3 (0x1u << 27) /**< \brief (USBHS_DEVIMR) DMA Channel 3 Interrupt Mask */
@@ -254,8 +240,6 @@ typedef struct {
 #define USBHS_DEVIDR_PEP_7 (0x1u << 19) /**< \brief (USBHS_DEVIDR) Endpoint 7 Interrupt Disable */
 #define USBHS_DEVIDR_PEP_8 (0x1u << 20) /**< \brief (USBHS_DEVIDR) Endpoint 8 Interrupt Disable */
 #define USBHS_DEVIDR_PEP_9 (0x1u << 21) /**< \brief (USBHS_DEVIDR) Endpoint 9 Interrupt Disable */
-#define USBHS_DEVIDR_PEP_10 (0x1u << 22) /**< \brief (USBHS_DEVIDR) Endpoint 10 Interrupt Disable */
-#define USBHS_DEVIDR_PEP_11 (0x1u << 23) /**< \brief (USBHS_DEVIDR) Endpoint 11 Interrupt Disable */
 #define USBHS_DEVIDR_DMA_1 (0x1u << 25) /**< \brief (USBHS_DEVIDR) DMA Channel 1 Interrupt Disable */
 #define USBHS_DEVIDR_DMA_2 (0x1u << 26) /**< \brief (USBHS_DEVIDR) DMA Channel 2 Interrupt Disable */
 #define USBHS_DEVIDR_DMA_3 (0x1u << 27) /**< \brief (USBHS_DEVIDR) DMA Channel 3 Interrupt Disable */
@@ -281,8 +265,6 @@ typedef struct {
 #define USBHS_DEVIER_PEP_7 (0x1u << 19) /**< \brief (USBHS_DEVIER) Endpoint 7 Interrupt Enable */
 #define USBHS_DEVIER_PEP_8 (0x1u << 20) /**< \brief (USBHS_DEVIER) Endpoint 8 Interrupt Enable */
 #define USBHS_DEVIER_PEP_9 (0x1u << 21) /**< \brief (USBHS_DEVIER) Endpoint 9 Interrupt Enable */
-#define USBHS_DEVIER_PEP_10 (0x1u << 22) /**< \brief (USBHS_DEVIER) Endpoint 10 Interrupt Enable */
-#define USBHS_DEVIER_PEP_11 (0x1u << 23) /**< \brief (USBHS_DEVIER) Endpoint 11 Interrupt Enable */
 #define USBHS_DEVIER_DMA_1 (0x1u << 25) /**< \brief (USBHS_DEVIER) DMA Channel 1 Interrupt Enable */
 #define USBHS_DEVIER_DMA_2 (0x1u << 26) /**< \brief (USBHS_DEVIER) DMA Channel 2 Interrupt Enable */
 #define USBHS_DEVIER_DMA_3 (0x1u << 27) /**< \brief (USBHS_DEVIER) DMA Channel 3 Interrupt Enable */
@@ -300,6 +282,7 @@ typedef struct {
 #define USBHS_DEVEPT_EPEN6 (0x1u << 6) /**< \brief (USBHS_DEVEPT) Endpoint 6 Enable */
 #define USBHS_DEVEPT_EPEN7 (0x1u << 7) /**< \brief (USBHS_DEVEPT) Endpoint 7 Enable */
 #define USBHS_DEVEPT_EPEN8 (0x1u << 8) /**< \brief (USBHS_DEVEPT) Endpoint 8 Enable */
+#define USBHS_DEVEPT_EPEN9 (0x1u << 9) /**< \brief (USBHS_DEVEPT) Endpoint 9 Enable */
 #define USBHS_DEVEPT_EPRST0 (0x1u << 16) /**< \brief (USBHS_DEVEPT) Endpoint 0 Reset */
 #define USBHS_DEVEPT_EPRST1 (0x1u << 17) /**< \brief (USBHS_DEVEPT) Endpoint 1 Reset */
 #define USBHS_DEVEPT_EPRST2 (0x1u << 18) /**< \brief (USBHS_DEVEPT) Endpoint 2 Reset */
@@ -309,6 +292,7 @@ typedef struct {
 #define USBHS_DEVEPT_EPRST6 (0x1u << 22) /**< \brief (USBHS_DEVEPT) Endpoint 6 Reset */
 #define USBHS_DEVEPT_EPRST7 (0x1u << 23) /**< \brief (USBHS_DEVEPT) Endpoint 7 Reset */
 #define USBHS_DEVEPT_EPRST8 (0x1u << 24) /**< \brief (USBHS_DEVEPT) Endpoint 8 Reset */
+#define USBHS_DEVEPT_EPRST9 (0x1u << 25) /**< \brief (USBHS_DEVEPT) Endpoint 9 Reset */
 /* -------- USBHS_DEVFNUM : (USBHS Offset: 0x0020) Device Frame Number Register -------- */
 #define USBHS_DEVFNUM_MFNUM_Pos 0
 #define USBHS_DEVFNUM_MFNUM_Msk (0x7u << USBHS_DEVFNUM_MFNUM_Pos) /**< \brief (USBHS_DEVFNUM) Micro Frame Number */
@@ -540,8 +524,6 @@ typedef struct {
 #define USBHS_HSTISR_PEP_7 (0x1u << 15) /**< \brief (USBHS_HSTISR) Pipe 7 Interrupt */
 #define USBHS_HSTISR_PEP_8 (0x1u << 16) /**< \brief (USBHS_HSTISR) Pipe 8 Interrupt */
 #define USBHS_HSTISR_PEP_9 (0x1u << 17) /**< \brief (USBHS_HSTISR) Pipe 9 Interrupt */
-#define USBHS_HSTISR_PEP_10 (0x1u << 18) /**< \brief (USBHS_HSTISR) Pipe 10 Interrupt */
-#define USBHS_HSTISR_PEP_11 (0x1u << 19) /**< \brief (USBHS_HSTISR) Pipe 11 Interrupt */
 #define USBHS_HSTISR_DMA_1 (0x1u << 25) /**< \brief (USBHS_HSTISR) DMA Channel 1 Interrupt */
 #define USBHS_HSTISR_DMA_2 (0x1u << 26) /**< \brief (USBHS_HSTISR) DMA Channel 2 Interrupt */
 #define USBHS_HSTISR_DMA_3 (0x1u << 27) /**< \brief (USBHS_HSTISR) DMA Channel 3 Interrupt */
@@ -590,8 +572,6 @@ typedef struct {
 #define USBHS_HSTIMR_PEP_7 (0x1u << 15) /**< \brief (USBHS_HSTIMR) Pipe 7 Interrupt Enable */
 #define USBHS_HSTIMR_PEP_8 (0x1u << 16) /**< \brief (USBHS_HSTIMR) Pipe 8 Interrupt Enable */
 #define USBHS_HSTIMR_PEP_9 (0x1u << 17) /**< \brief (USBHS_HSTIMR) Pipe 9 Interrupt Enable */
-#define USBHS_HSTIMR_PEP_10 (0x1u << 18) /**< \brief (USBHS_HSTIMR) Pipe 10 Interrupt Enable */
-#define USBHS_HSTIMR_PEP_11 (0x1u << 19) /**< \brief (USBHS_HSTIMR) Pipe 11 Interrupt Enable */
 #define USBHS_HSTIMR_DMA_1 (0x1u << 25) /**< \brief (USBHS_HSTIMR) DMA Channel 1 Interrupt Enable */
 #define USBHS_HSTIMR_DMA_2 (0x1u << 26) /**< \brief (USBHS_HSTIMR) DMA Channel 2 Interrupt Enable */
 #define USBHS_HSTIMR_DMA_3 (0x1u << 27) /**< \brief (USBHS_HSTIMR) DMA Channel 3 Interrupt Enable */
@@ -617,8 +597,6 @@ typedef struct {
 #define USBHS_HSTIDR_PEP_7 (0x1u << 15) /**< \brief (USBHS_HSTIDR) Pipe 7 Interrupt Disable */
 #define USBHS_HSTIDR_PEP_8 (0x1u << 16) /**< \brief (USBHS_HSTIDR) Pipe 8 Interrupt Disable */
 #define USBHS_HSTIDR_PEP_9 (0x1u << 17) /**< \brief (USBHS_HSTIDR) Pipe 9 Interrupt Disable */
-#define USBHS_HSTIDR_PEP_10 (0x1u << 18) /**< \brief (USBHS_HSTIDR) Pipe 10 Interrupt Disable */
-#define USBHS_HSTIDR_PEP_11 (0x1u << 19) /**< \brief (USBHS_HSTIDR) Pipe 11 Interrupt Disable */
 #define USBHS_HSTIDR_DMA_1 (0x1u << 25) /**< \brief (USBHS_HSTIDR) DMA Channel 1 Interrupt Disable */
 #define USBHS_HSTIDR_DMA_2 (0x1u << 26) /**< \brief (USBHS_HSTIDR) DMA Channel 2 Interrupt Disable */
 #define USBHS_HSTIDR_DMA_3 (0x1u << 27) /**< \brief (USBHS_HSTIDR) DMA Channel 3 Interrupt Disable */
@@ -644,8 +622,6 @@ typedef struct {
 #define USBHS_HSTIER_PEP_7 (0x1u << 15) /**< \brief (USBHS_HSTIER) Pipe 7 Interrupt Enable */
 #define USBHS_HSTIER_PEP_8 (0x1u << 16) /**< \brief (USBHS_HSTIER) Pipe 8 Interrupt Enable */
 #define USBHS_HSTIER_PEP_9 (0x1u << 17) /**< \brief (USBHS_HSTIER) Pipe 9 Interrupt Enable */
-#define USBHS_HSTIER_PEP_10 (0x1u << 18) /**< \brief (USBHS_HSTIER) Pipe 10 Interrupt Enable */
-#define USBHS_HSTIER_PEP_11 (0x1u << 19) /**< \brief (USBHS_HSTIER) Pipe 11 Interrupt Enable */
 #define USBHS_HSTIER_DMA_1 (0x1u << 25) /**< \brief (USBHS_HSTIER) DMA Channel 1 Interrupt Enable */
 #define USBHS_HSTIER_DMA_2 (0x1u << 26) /**< \brief (USBHS_HSTIER) DMA Channel 2 Interrupt Enable */
 #define USBHS_HSTIER_DMA_3 (0x1u << 27) /**< \brief (USBHS_HSTIER) DMA Channel 3 Interrupt Enable */
@@ -901,6 +877,7 @@ typedef struct {
 #define USBHS_HSTDMASTATUS_BUFF_COUNT(value) ((USBHS_HSTDMASTATUS_BUFF_COUNT_Msk & ((value) << USBHS_HSTDMASTATUS_BUFF_COUNT_Pos)))
 /* -------- USBHS_CTRL : (USBHS Offset: 0x0800) General Control Register -------- */
 #define USBHS_CTRL_RDERRE (0x1u << 4) /**< \brief (USBHS_CTRL) Remote Device Connection Error Interrupt Enable */
+#define USBHS_CTRL_VBUSHWC (0x1u << 8) /**< \brief (USBHS_CTRL) VBUS Hardware Control */
 #define USBHS_CTRL_FRZCLK (0x1u << 14) /**< \brief (USBHS_CTRL) Freeze USB Clock */
 #define USBHS_CTRL_USBE (0x1u << 15) /**< \brief (USBHS_CTRL) USBHS Enable */
 #define USBHS_CTRL_UIMOD (0x1u << 25) /**< \brief (USBHS_CTRL) USBHS Mode */

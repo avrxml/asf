@@ -74,21 +74,22 @@ CSRCS = \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
        sam0/drivers/tc/tc_interrupt.c                     \
-       sam0/drivers/tc/tc_sam_d_r/tc.c                    \
+       sam0/drivers/tc/tc_sam_d_r_h/tc.c                  \
        sam0/utils/cmsis/samd20/source/gcc/startup_samd20.c \
        sam0/utils/cmsis/samd20/source/system_samd20.c     \
        sam0/utils/syscalls/gcc/syscalls.c                 \
        thirdparty/freertos/demo/oled1_tickless_xpro_example/demotasks.c \
        thirdparty/freertos/demo/oled1_tickless_xpro_example/main.c \
        thirdparty/freertos/demo/oled1_tickless_xpro_example/tickless.c \
-       thirdparty/freertos/freertos-8.0.1/Source/croutine.c \
-       thirdparty/freertos/freertos-8.0.1/Source/event_groups.c \
-       thirdparty/freertos/freertos-8.0.1/Source/list.c   \
-       thirdparty/freertos/freertos-8.0.1/Source/portable/GCC/ARM_CM0/port.c \
-       thirdparty/freertos/freertos-8.0.1/Source/portable/MemMang/heap_1.c \
-       thirdparty/freertos/freertos-8.0.1/Source/queue.c  \
-       thirdparty/freertos/freertos-8.0.1/Source/tasks.c  \
-       thirdparty/freertos/freertos-8.0.1/Source/timers.c
+       thirdparty/freertos/freertos-10.0.0/Source/croutine.c \
+       thirdparty/freertos/freertos-10.0.0/Source/event_groups.c \
+       thirdparty/freertos/freertos-10.0.0/Source/list.c  \
+       thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM0/port.c \
+       thirdparty/freertos/freertos-10.0.0/Source/portable/MemMang/heap_1.c \
+       thirdparty/freertos/freertos-10.0.0/Source/queue.c \
+       thirdparty/freertos/freertos-10.0.0/Source/stream_buffer.c \
+       thirdparty/freertos/freertos-10.0.0/Source/tasks.c \
+       thirdparty/freertos/freertos-10.0.0/Source/timers.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -114,11 +115,11 @@ INC_PATH = \
        sam0/drivers/system/interrupt/system_interrupt_samd20 \
        sam0/drivers/system/pinmux                         \
        sam0/drivers/system/power                          \
-       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/power/power_sam_d_r_h          \
        sam0/drivers/system/reset                          \
-       sam0/drivers/system/reset/reset_sam_d_r            \
+       sam0/drivers/system/reset/reset_sam_d_r_h          \
        sam0/drivers/tc                                    \
-       sam0/drivers/tc/tc_sam_d_r                         \
+       sam0/drivers/tc/tc_sam_d_r_h                       \
        sam0/utils                                         \
        sam0/utils/cmsis/samd20/include                    \
        sam0/utils/cmsis/samd20/source                     \
@@ -128,8 +129,8 @@ INC_PATH = \
        thirdparty/CMSIS/Lib/GCC                           \
        thirdparty/freertos/demo/oled1_tickless_xpro_example \
        thirdparty/freertos/demo/oled1_tickless_xpro_example/samd20_xplained_pro \
-       thirdparty/freertos/freertos-8.0.1/Source/include  \
-       thirdparty/freertos/freertos-8.0.1/Source/portable/GCC/ARM_CM0 \
+       thirdparty/freertos/freertos-10.0.0/Source/include \
+       thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM0 \
        thirdparty/freertos/demo/oled1_tickless_xpro_example/samd20_xplained_pro/gcc
 
 # Additional search paths for libraries.

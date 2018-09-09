@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAMV70_PWM_COMPONENT_
@@ -134,12 +124,6 @@ typedef struct {
   __IO uint32_t  PWM_LEBR2;                    /**< \brief (Pwm Offset: 0x450) PWM Leading-Edge Blanking Register (trg_num = 2) */
   __I  uint32_t  Reserved14[3];
   __O  uint32_t  PWM_CMUPD3;                   /**< \brief (Pwm Offset: 0x460) PWM Channel Mode Update Register (ch_num = 3) */
-  __I  uint32_t  Reserved15[2];
-  __IO uint32_t  PWM_ETRG3;                    /**< \brief (Pwm Offset: 0x46C) PWM External Trigger Register (trg_num = 3) */
-  __IO uint32_t  PWM_LEBR3;                    /**< \brief (Pwm Offset: 0x470) PWM Leading-Edge Blanking Register (trg_num = 3) */
-  __I  uint32_t  Reserved16[6];
-  __IO uint32_t  PWM_ETRG4;                    /**< \brief (Pwm Offset: 0x48C) PWM External Trigger Register (trg_num = 4) */
-  __IO uint32_t  PWM_LEBR4;                    /**< \brief (Pwm Offset: 0x490) PWM Leading-Edge Blanking Register (trg_num = 4) */
 } Pwm;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- PWM_CLK : (PWM Offset: 0x00) PWM Clock Register -------- */
@@ -665,56 +649,6 @@ typedef struct {
 /* -------- PWM_CMUPD3 : (PWM Offset: 0x460) PWM Channel Mode Update Register (ch_num = 3) -------- */
 #define PWM_CMUPD3_CPOLUP (0x1u << 9) /**< \brief (PWM_CMUPD3) Channel Polarity Update */
 #define PWM_CMUPD3_CPOLINVUP (0x1u << 13) /**< \brief (PWM_CMUPD3) Channel Polarity Inversion Update */
-/* -------- PWM_ETRG3 : (PWM Offset: 0x46C) PWM External Trigger Register (trg_num = 3) -------- */
-#define PWM_ETRG3_MAXCNT_Pos 0
-#define PWM_ETRG3_MAXCNT_Msk (0xffffffu << PWM_ETRG3_MAXCNT_Pos) /**< \brief (PWM_ETRG3) Maximum Counter value */
-#define PWM_ETRG3_MAXCNT(value) ((PWM_ETRG3_MAXCNT_Msk & ((value) << PWM_ETRG3_MAXCNT_Pos)))
-#define PWM_ETRG3_TRGMODE_Pos 24
-#define PWM_ETRG3_TRGMODE_Msk (0x3u << PWM_ETRG3_TRGMODE_Pos) /**< \brief (PWM_ETRG3) External Trigger Mode */
-#define PWM_ETRG3_TRGMODE(value) ((PWM_ETRG3_TRGMODE_Msk & ((value) << PWM_ETRG3_TRGMODE_Pos)))
-#define   PWM_ETRG3_TRGMODE_OFF (0x0u << 24) /**< \brief (PWM_ETRG3) External trigger is not enabled. */
-#define   PWM_ETRG3_TRGMODE_MODE1 (0x1u << 24) /**< \brief (PWM_ETRG3) External PWM Reset Mode */
-#define   PWM_ETRG3_TRGMODE_MODE2 (0x2u << 24) /**< \brief (PWM_ETRG3) External PWM Start Mode */
-#define   PWM_ETRG3_TRGMODE_MODE3 (0x3u << 24) /**< \brief (PWM_ETRG3) Cycle-by-cycle Duty Mode */
-#define PWM_ETRG3_TRGEDGE (0x1u << 28) /**< \brief (PWM_ETRG3) Edge Selection */
-#define   PWM_ETRG3_TRGEDGE_FALLING_ZERO (0x0u << 28) /**< \brief (PWM_ETRG3) TRGMODE = 1: TRGINx event detection on falling edge.TRGMODE = 2, 3: TRGINx active level is 0 */
-#define   PWM_ETRG3_TRGEDGE_RISING_ONE (0x1u << 28) /**< \brief (PWM_ETRG3) TRGMODE = 1: TRGINx event detection on rising edge.TRGMODE = 2, 3: TRGINx active level is 1 */
-#define PWM_ETRG3_TRGFILT (0x1u << 29) /**< \brief (PWM_ETRG3) Filtered input */
-#define PWM_ETRG3_TRGSRC (0x1u << 30) /**< \brief (PWM_ETRG3) Trigger Source */
-#define PWM_ETRG3_RFEN (0x1u << 31) /**< \brief (PWM_ETRG3) Recoverable Fault Enable */
-/* -------- PWM_LEBR3 : (PWM Offset: 0x470) PWM Leading-Edge Blanking Register (trg_num = 3) -------- */
-#define PWM_LEBR3_LEBDELAY_Pos 0
-#define PWM_LEBR3_LEBDELAY_Msk (0x7fu << PWM_LEBR3_LEBDELAY_Pos) /**< \brief (PWM_LEBR3) Leading-Edge Blanking Delay for TRGINx */
-#define PWM_LEBR3_LEBDELAY(value) ((PWM_LEBR3_LEBDELAY_Msk & ((value) << PWM_LEBR3_LEBDELAY_Pos)))
-#define PWM_LEBR3_PWMLFEN (0x1u << 16) /**< \brief (PWM_LEBR3) PWML Falling Edge Enable */
-#define PWM_LEBR3_PWMLREN (0x1u << 17) /**< \brief (PWM_LEBR3) PWML Rising Edge Enable */
-#define PWM_LEBR3_PWMHFEN (0x1u << 18) /**< \brief (PWM_LEBR3) PWMH Falling Edge Enable */
-#define PWM_LEBR3_PWMHREN (0x1u << 19) /**< \brief (PWM_LEBR3) PWMH Rising Edge Enable */
-/* -------- PWM_ETRG4 : (PWM Offset: 0x48C) PWM External Trigger Register (trg_num = 4) -------- */
-#define PWM_ETRG4_MAXCNT_Pos 0
-#define PWM_ETRG4_MAXCNT_Msk (0xffffffu << PWM_ETRG4_MAXCNT_Pos) /**< \brief (PWM_ETRG4) Maximum Counter value */
-#define PWM_ETRG4_MAXCNT(value) ((PWM_ETRG4_MAXCNT_Msk & ((value) << PWM_ETRG4_MAXCNT_Pos)))
-#define PWM_ETRG4_TRGMODE_Pos 24
-#define PWM_ETRG4_TRGMODE_Msk (0x3u << PWM_ETRG4_TRGMODE_Pos) /**< \brief (PWM_ETRG4) External Trigger Mode */
-#define PWM_ETRG4_TRGMODE(value) ((PWM_ETRG4_TRGMODE_Msk & ((value) << PWM_ETRG4_TRGMODE_Pos)))
-#define   PWM_ETRG4_TRGMODE_OFF (0x0u << 24) /**< \brief (PWM_ETRG4) External trigger is not enabled. */
-#define   PWM_ETRG4_TRGMODE_MODE1 (0x1u << 24) /**< \brief (PWM_ETRG4) External PWM Reset Mode */
-#define   PWM_ETRG4_TRGMODE_MODE2 (0x2u << 24) /**< \brief (PWM_ETRG4) External PWM Start Mode */
-#define   PWM_ETRG4_TRGMODE_MODE3 (0x3u << 24) /**< \brief (PWM_ETRG4) Cycle-by-cycle Duty Mode */
-#define PWM_ETRG4_TRGEDGE (0x1u << 28) /**< \brief (PWM_ETRG4) Edge Selection */
-#define   PWM_ETRG4_TRGEDGE_FALLING_ZERO (0x0u << 28) /**< \brief (PWM_ETRG4) TRGMODE = 1: TRGINx event detection on falling edge.TRGMODE = 2, 3: TRGINx active level is 0 */
-#define   PWM_ETRG4_TRGEDGE_RISING_ONE (0x1u << 28) /**< \brief (PWM_ETRG4) TRGMODE = 1: TRGINx event detection on rising edge.TRGMODE = 2, 3: TRGINx active level is 1 */
-#define PWM_ETRG4_TRGFILT (0x1u << 29) /**< \brief (PWM_ETRG4) Filtered input */
-#define PWM_ETRG4_TRGSRC (0x1u << 30) /**< \brief (PWM_ETRG4) Trigger Source */
-#define PWM_ETRG4_RFEN (0x1u << 31) /**< \brief (PWM_ETRG4) Recoverable Fault Enable */
-/* -------- PWM_LEBR4 : (PWM Offset: 0x490) PWM Leading-Edge Blanking Register (trg_num = 4) -------- */
-#define PWM_LEBR4_LEBDELAY_Pos 0
-#define PWM_LEBR4_LEBDELAY_Msk (0x7fu << PWM_LEBR4_LEBDELAY_Pos) /**< \brief (PWM_LEBR4) Leading-Edge Blanking Delay for TRGINx */
-#define PWM_LEBR4_LEBDELAY(value) ((PWM_LEBR4_LEBDELAY_Msk & ((value) << PWM_LEBR4_LEBDELAY_Pos)))
-#define PWM_LEBR4_PWMLFEN (0x1u << 16) /**< \brief (PWM_LEBR4) PWML Falling Edge Enable */
-#define PWM_LEBR4_PWMLREN (0x1u << 17) /**< \brief (PWM_LEBR4) PWML Rising Edge Enable */
-#define PWM_LEBR4_PWMHFEN (0x1u << 18) /**< \brief (PWM_LEBR4) PWMH Falling Edge Enable */
-#define PWM_LEBR4_PWMHREN (0x1u << 19) /**< \brief (PWM_LEBR4) PWMH Rising Edge Enable */
 
 /*@}*/
 

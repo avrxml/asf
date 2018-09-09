@@ -3,45 +3,35 @@
  *
  * \brief ADP service implementation
  *
- * Copyright (C) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include <compiler.h>
@@ -706,7 +696,7 @@ bool adp_add_cursor_to_graph(struct adp_msg_add_cursor_to_graph *const config, c
 	
 	msg_format.protocol_token = ADP_TOKEN;
 	msg_format.protocol_msg_id = MSG_CONF_CURSOR_TO_GRAPH;
-	msg_format.data_length = MSG_CONF_CURSOR_TO_GRAPH_LEN;
+	msg_format.data_length = MSG_CONF_CURSOR_TO_GRAPH_LEN + label_len;
 	index = adp_add_send_byte((uint8_t*)&msg_format.data, index, (uint8_t*)&config->stream_id, 2);
 	index = adp_add_send_byte((uint8_t*)&msg_format.data, index, (uint8_t*)&config->graph_id, 2);
 	index = adp_add_send_byte((uint8_t*)&msg_format.data, index, (uint8_t*)&config->axis_id, 2);
@@ -785,7 +775,7 @@ bool adp_add_gpio_to_graph(struct adp_msg_conf_gpio_to_graph *const config, \
 }
 
 /**
-* \brief Add a dashboard
+* \brief Add a dashboard MSG_CONF_DASHBOARD
 *
 * \param[in] config    Pointer to dashboard configuration data struct
 * \param[in] label     Dashboard label (0-terminated string)
@@ -1301,10 +1291,13 @@ bool adp_transceive_stream(struct adp_msg_data_stream *const stream_data, uint8_
 	uint16_t data_length;
 	uint16_t index = 0;
 	uint8_t rx_buf[ADP_MAX_PACKET_LENGTH] = {0,};
+	uint16_t actual_bytes = 0;
 	
 	struct adp_msg_format msg_format;
 	
 	index = adp_add_send_byte((uint8_t*)&msg_format.data, index, (uint8_t*)&stream_data->number_of_streams, 1);
+	actual_bytes = 1; /* number of stream */
+
 	/* find packet size */
 	for (stream_num = 0; stream_num < stream_data->number_of_streams; stream_num++) {
 		index = adp_add_send_byte((uint8_t*)&msg_format.data, index, \
@@ -1314,11 +1307,13 @@ bool adp_transceive_stream(struct adp_msg_data_stream *const stream_data, uint8_
 		index = adp_add_send_byte((uint8_t*)&msg_format.data, index, \
 						stream_data->stream[stream_num].data, \
 						stream_data->stream[stream_num].data_size);
+		/* 2 bytes stream.stream_id and 1 byte stream.data_size */
+		actual_bytes += 2 + 1 + stream_data->stream[stream_num].data_size;
 	}
 	
 	msg_format.protocol_token = ADP_TOKEN;
 	msg_format.protocol_msg_id = MSG_DATA_STREAM;
-	msg_format.data_length = index;
+	msg_format.data_length = actual_bytes;
 	data_length = ADP_LENGTH_PACKET_HEADER + index;
 	
 	/* Send the protocol packet data */

@@ -8,6 +8,7 @@ INCLUDES
 //#include "uart_config.h"
 #include <asf.h>
 #include <string.h>
+#include "ble_utils.h"
 
 /***************************
 DEFINES
@@ -27,8 +28,8 @@ DEFINES
 /***************************
 MACROS
 ***************************/
-#define AT_SEND_ERROR(val,cmdTxt)	printf("\r\n+ERROR: %d\r\n,%s\r\n", val, (char *)cmdTxt)
-#define AT_SEND_OK(cmdTxt)				printf("\r\n+OK\r\n,%s\r\n", (char *)cmdTxt)
+#define AT_SEND_ERROR(val,cmdTxt)	DBG_LOG("\r\n+ERROR: %d\r\n,%s\r\n", val, (char *)cmdTxt)
+#define AT_SEND_OK(cmdTxt)				DBG_LOG("\r\n+OK\r\n,%s\r\n", (char *)cmdTxt)
 
 
 /***************************

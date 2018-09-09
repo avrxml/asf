@@ -6,7 +6,7 @@
  *
  * This file contains the code of the NLMS filter.
  *
- * Copyright (c) 2009 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009 Microchip Technology Inc. All rights reserved.
  *
  * \asf_license_start
  *

@@ -78,14 +78,15 @@ CSRCS = \
        sam0/utils/syscalls/gcc/syscalls.c                 \
        thirdparty/freertos/demo/oled1_xpro_example/demotasks.c \
        thirdparty/freertos/demo/oled1_xpro_example/main.c \
-       thirdparty/freertos/freertos-8.0.1/Source/croutine.c \
-       thirdparty/freertos/freertos-8.0.1/Source/event_groups.c \
-       thirdparty/freertos/freertos-8.0.1/Source/list.c   \
-       thirdparty/freertos/freertos-8.0.1/Source/portable/GCC/ARM_CM0/port.c \
-       thirdparty/freertos/freertos-8.0.1/Source/portable/MemMang/heap_1.c \
-       thirdparty/freertos/freertos-8.0.1/Source/queue.c  \
-       thirdparty/freertos/freertos-8.0.1/Source/tasks.c  \
-       thirdparty/freertos/freertos-8.0.1/Source/timers.c
+       thirdparty/freertos/freertos-10.0.0/Source/croutine.c \
+       thirdparty/freertos/freertos-10.0.0/Source/event_groups.c \
+       thirdparty/freertos/freertos-10.0.0/Source/list.c  \
+       thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM0/port.c \
+       thirdparty/freertos/freertos-10.0.0/Source/portable/MemMang/heap_1.c \
+       thirdparty/freertos/freertos-10.0.0/Source/queue.c \
+       thirdparty/freertos/freertos-10.0.0/Source/stream_buffer.c \
+       thirdparty/freertos/freertos-10.0.0/Source/tasks.c \
+       thirdparty/freertos/freertos-10.0.0/Source/timers.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -123,8 +124,8 @@ INC_PATH = \
        thirdparty/CMSIS/Lib/GCC                           \
        thirdparty/freertos/demo/oled1_xpro_example        \
        thirdparty/freertos/demo/oled1_xpro_example/samr30_xplained_pro \
-       thirdparty/freertos/freertos-8.0.1/Source/include  \
-       thirdparty/freertos/freertos-8.0.1/Source/portable/GCC/ARM_CM0 \
+       thirdparty/freertos/freertos-10.0.0/Source/include \
+       thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM0 \
        thirdparty/freertos/demo/oled1_xpro_example/samr30_xplained_pro/gcc
 
 # Additional search paths for libraries.

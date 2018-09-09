@@ -3,46 +3,36 @@
  *
  * \brief Custom Serial Chat Profile
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel micro controller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Atmel
  *Support</a>
  */
 
@@ -63,55 +53,25 @@
 ///* Scan response data */
 //uint8_t scan_rsp_data[SCAN_RESP_LEN] = {0x09,0xff, 0x00, 0x06, 0xd6, 0xb2, 0xf0, 0x05, 0xf0, 0xf8};
 	
-static const ble_event_callback_t csc_gap_handle[] = {
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	csc_prf_connected_state_handler,
-	csc_prf_disconnect_event_handler,
-	NULL,
-	NULL,
-	csc_prf_write_notification_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	csc_prf_write_notification_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gap_event_cb_t csc_gap_handle = {
+	.connected = csc_prf_connected_state_handler,
+	.disconnected = csc_prf_disconnect_event_handler,
+	.pair_done = csc_prf_write_notification_handler,
+	.encryption_status_changed = csc_prf_write_notification_handler
 };
 
-static const ble_event_callback_t csc_gatt_client_handle[] = {
-	csc_prf_service_found_handler,
-	NULL,
-	csc_prf_characteristic_found_handler,
-	csc_prf_descriptor_found_handler,
-	csc_prf_discovery_complete_handler,
-	NULL,
-	NULL,
-	NULL,
-	csc_prf_notification_handler,
-	NULL
+static const ble_gatt_client_event_cb_t csc_gatt_client_handle = {
+	.primary_service_found = csc_prf_service_found_handler,
+	.characteristic_found = csc_prf_characteristic_found_handler,
+	.descriptor_found = csc_prf_descriptor_found_handler,
+	.discovery_complete = csc_prf_discovery_complete_handler,
+	.notification_recieved = csc_prf_notification_handler
 };
 
-
-static const ble_event_callback_t csc_gatt_server_handle[] = {
-	csc_notification_confirmation_handler,
-	NULL,
-	csc_prf_char_changed_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gatt_server_event_cb_t csc_gatt_server_handle = {
+	.notification_confirmed = csc_notification_confirmation_handler,
+	.characteristic_changed = csc_prf_char_changed_handler
 };
-
 	
 /*Profile Information*/
 app_csc_data_t app_csc_info;	
@@ -138,13 +98,13 @@ void csc_prf_init(void *param)
 	
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
 	BLE_GAP_EVENT_TYPE,
-	csc_gap_handle);
+	&csc_gap_handle);
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
 	BLE_GATT_CLIENT_EVENT_TYPE,
-	csc_gatt_client_handle);
+	&csc_gatt_client_handle);
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
 	BLE_GATT_SERVER_EVENT_TYPE,
-	csc_gatt_server_handle);
+	&csc_gatt_server_handle);
 	
 	status = ble_advertisement_data_set();
 	if (status != AT_BLE_SUCCESS) {

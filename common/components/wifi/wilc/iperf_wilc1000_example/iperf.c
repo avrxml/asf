@@ -1,37 +1,27 @@
 /**
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
@@ -54,7 +44,12 @@
 
 #define IPERF_PORT						5001
 
-#define BUFSIZE                         1500
+//#define BUFSIZE                         1500
+#if IPERF_WIFI_UDP_BUFFER_SIZE > IPERF_WIFI_TCP_BUFFER_SIZE
+#define BUFSIZE							IPERF_WIFI_UDP_BUFFER_SIZE
+#else
+#define BUFSIZE							IPERF_WIFI_TCP_BUFFER_SIZE
+#endif
 
 enum iperf_status
 {
@@ -95,15 +90,15 @@ static void wifi_cb(uint8 msg_type, void *msg)
 	switch (msg_type) {
 		case M2M_WIFI_RESP_CON_STATE_CHANGED : {
 			tstrM2mWifiStateChanged *ctx = (tstrM2mWifiStateChanged*)msg;
-			if (ctx->u8IfcId == INTERFACE_1) {
+			if (ctx->u8IfcId == STATION_INTERFACE) {
 				if (ctx->u8CurrState == M2M_WIFI_CONNECTED) {
-					osprintf("wifi_cb: M2M_WIFI_CONNECTED\n");
+					osprintf("WiFi Connected\r\n");
 					net_interface_up(NET_IF_STA);
 					m2m_wifi_request_dhcp_client_ex();
 				}
 				if(ctx->u8CurrState == M2M_WIFI_DISCONNECTED) {
-					osprintf("wifi_cb: M2M_WIFI_DISCONNECTED\n");
-					osprintf("wifi_cb: reconnecting...\n");
+					osprintf("WiFi Disconnected\r\n");
+					osprintf("WiFi Reconnecting...\r\n");
 					net_interface_down(NET_IF_STA);
 					m2m_wifi_connect((char *)MAIN_WLAN_SSID, sizeof(MAIN_WLAN_SSID),
 							MAIN_WLAN_AUTH, (void *)MAIN_WLAN_PSK, M2M_WIFI_CH_ALL);
@@ -112,15 +107,15 @@ static void wifi_cb(uint8 msg_type, void *msg)
 		}
 		break;
 
-		case M2M_WIFI_REQ_DHCP_CONF : {
+		case NET_IF_REQ_DHCP_CONF : {
 			tstrM2MIPConfig2 *strIpConfig = msg;
 			uint16_t *a = (void *)strIpConfig->u8StaticIPv6;
-			osprintf("wifi_cb: STA M2M_WIFI_REQ_DHCP_CONF\n");
-			osprintf("wifi_cb: STA IPv4 addr: %d.%d.%d.%d\n", strIpConfig->u8StaticIP[0], strIpConfig->u8StaticIP[1],
+			osprintf("wifi_cb: STA M2M_WIFI_REQ_DHCP_CONF\r\n");
+			osprintf("wifi_cb: STA IPv4 addr: %d.%d.%d.%d\r\n", strIpConfig->u8StaticIP[0], strIpConfig->u8StaticIP[1],
 			strIpConfig->u8StaticIP[2], strIpConfig->u8StaticIP[3]);
-			osprintf("wifi_cb: STA IPv6 addr: %04x:%04x:%04x:%04x:%04x:%04x:%04x:%04x\n",
+			osprintf("wifi_cb: STA IPv6 addr: %04x:%04x:%04x:%04x:%04x:%04x:%04x:%04x\r\n",
 			htons(a[0]), htons(a[1]), htons(a[2]), htons(a[3]),
-			htons(a[4]), htons(a[5]), htons(a[6]), htons(a[7]));
+			htons(a[4]), htons(a[5]), htons(a[6]), htons(a[7]));	
 		}
 		break;
 
@@ -158,7 +153,7 @@ static void iperf_udp_recv(struct netconn *conn)
 				addr = netbuf_fromaddr(nbuf);
 				udp_client_port = netbuf_fromport(nbuf);
 				udp_client_ip = *addr;
-				osprintf("[  1] local 127.0.0.1 port 5001 connected with %lu.%lu.%lu.%lu port %d\n",
+				osprintf("[  1] local 127.0.0.1 port 5001 connected with %lu.%lu.%lu.%lu port %d\r\n",
 						(addr->addr & 0xFF), (addr->addr & 0xFF00) >> 8,
 						(addr->addr & 0xFF0000) >> 16, (addr->addr & 0xFF000000) >> 24,
 						udp_client_port);
@@ -201,8 +196,13 @@ static void iperf_udp_recv(struct netconn *conn)
 				hdr->flags        = htonl(HEADER_VERSION1);
 				hdr->total_len1   = htonl(0);
 				hdr->total_len2   = htonl(stats.udp_rx_total_size);
-				hdr->stop_sec     = htonl(stats.udp_rx_end_sec - stats.udp_rx_start_sec);
-				hdr->stop_usec    = htonl(stats.udp_rx_end_usec - stats.udp_rx_start_usec);
+				if(stats.udp_rx_end_usec > stats.udp_rx_start_usec){
+					hdr->stop_sec     = htonl(stats.udp_rx_end_sec - stats.udp_rx_start_sec);
+					hdr->stop_usec    = htonl(stats.udp_rx_end_usec - stats.udp_rx_start_usec);
+				}else{ // take carry from sec for usec subtraction
+					hdr->stop_sec     = htonl((stats.udp_rx_end_sec - 1) - stats.udp_rx_start_sec);
+					hdr->stop_usec    = htonl( (1000000 + stats.udp_rx_end_usec) - stats.udp_rx_start_usec);
+				}
 				hdr->error_cnt    = htonl(stats.udp_rx_lost);
 				hdr->outorder_cnt = htonl(stats.udp_rx_outorder);
 				hdr->datagrams    = htonl(stats.udp_rx_seq);
@@ -211,6 +211,12 @@ static void iperf_udp_recv(struct netconn *conn)
 
 				/* Send report to client. */
 				netconn_sendto(conn, nbuf2, &udp_client_ip, udp_client_port);
+				osprintf("========= UDP receive status =========\r\n");
+				osprintf("test run for %ld seconds\r\n",test_time);
+				osprintf("%ld bytes(%f MB) received\r\n",stats.udp_rx_total_size, (float)stats.udp_rx_total_size/(float)(1024*1024));
+				osprintf("%ld datagrams lost out of %ld datagrams\r\n",stats.udp_rx_lost, stats.udp_rx_seq);
+				osprintf("%ld datagrams received out of order\r\n",stats.udp_rx_outorder);
+				osprintf("======================================\r\n");
 				vTaskDelay(1);
 				netconn_sendto(conn, nbuf2, &udp_client_ip, udp_client_port);
 				done = 1;
@@ -239,7 +245,7 @@ static void iperf_udp_send(struct netconn *conn)
 				(udp_client_ip.addr & 0xFF0000) >> 16, (udp_client_ip.addr & 0xFF000000) >> 24);
 		osprintf("Sending %d byte datagrams\r\n", IPERF_WIFI_UDP_BUFFER_SIZE);
 		osprintf("------------------------------------------------------------\r\n");
-		osprintf("[  1] local 127.0.0.1 port ??? connected with %lu.%lu.%lu.%lu port 5001\n",
+		osprintf("[  1] local 127.0.0.1 port ??? connected with %lu.%lu.%lu.%lu port 5001\r\n",
 				(udp_client_ip.addr & 0xFF), (udp_client_ip.addr & 0xFF00) >> 8,
 				(udp_client_ip.addr & 0xFF0000) >> 16, (udp_client_ip.addr & 0xFF000000) >> 24);
 				
@@ -275,6 +281,11 @@ static void iperf_udp_send(struct netconn *conn)
 					netconn_sendto(conn, nbuf, &udp_client_ip, IPERF_PORT);
 					netbuf_delete(nbuf);
 				}
+				osprintf("========== UDP send status =========\r\n");
+				osprintf("test run for %ld seconds\r\n", test_time / 1000);
+				osprintf("sent %ld datagrams\r\n", datagramID);
+				osprintf("sent %ld bytes(%f MB)\r\n", IPERF_WIFI_UDP_BUFFER_SIZE * datagramID , (float)(IPERF_WIFI_UDP_BUFFER_SIZE * datagramID)/(float)(1024 * 1024));
+				osprintf("====================================\r\n");	
 				break;
 			}
 		}
@@ -321,6 +332,7 @@ static void iperf_tcp_recv(struct netconn *conn)
 	struct netbuf *inbuf = 0;
 	char *buf;
 	u16_t buflen;
+	uint32_t received_bytes = 0;
 
 	/* Read as much data as possible from the server. */
 	while (ERR_OK == netconn_recv(conn, &inbuf)) {
@@ -347,11 +359,14 @@ static void iperf_tcp_recv(struct netconn *conn)
 			}
 
 		}
-
+		received_bytes += inbuf->p->tot_len;
 		/* Free input resource. */
 		netbuf_delete(inbuf);
 	}
-
+	osprintf("========  TCP receive status =======\r\n");
+	osprintf("Received data for %ld seconds\r\n", (uint32_t)iperf.chdr.mAmount/1000);
+	osprintf("Received %ld bytes(%f MB)\r\n", received_bytes , (float)received_bytes/(float)(1024 * 1024));
+	osprintf("====================================\r\n");
 	/* Delete connection. */
 	netconn_delete(conn);
 	iperf.status = E_CLOSED;
@@ -361,11 +376,11 @@ static void iperf_tcp_send(ip_addr_t *local_ip, ip_addr_t *remote_ip)
 {
 	struct netconn *conn = netconn_new(NETCONN_TCP);
 	uint32_t start_time = 0;
-
-	osprintf("------------------------------------------------------------\n");
-	osprintf("Client connecting to %s, TCP port 5001\n", ipaddr_ntoa(remote_ip));
-	osprintf("TCP window size: %d Bytes\n", TCP_SND_BUF);
-	osprintf("------------------------------------------------------------\n");
+	uint32_t data_count = 0;
+	osprintf("------------------------------------------------------------\r\n");
+	osprintf("Client connecting to %s, TCP port 5001\r\n", ipaddr_ntoa(remote_ip));
+	osprintf("TCP window size: %d Bytes\r\n", TCP_SND_BUF);
+	osprintf("------------------------------------------------------------\r\n");
 
 	if (ERR_OK != netconn_bind(conn, local_ip, 0)) {
 		osprintf("iperf_tcp_send: bind failed\n");
@@ -386,8 +401,12 @@ static void iperf_tcp_send(ip_addr_t *local_ip, ip_addr_t *remote_ip)
 			osprintf("iperf_tcp_send: write failed\n");
 			break;
 		}
+		data_count++;
 	}
-
+	osprintf("========= TCP send status =========\r\n");
+	osprintf("Sent data for %ld seconds\r\n", (uint32_t)iperf.chdr.mAmount/1000);
+	osprintf("sent %ld bytes(%f MB)\r\n", BUFSIZE * data_count , (float)(BUFSIZE * data_count)/(float)(1024 * 1024));
+	osprintf("===================================\r\n");
 	/* Close connection. */
 	netconn_close(conn);
 	netconn_delete(conn);
@@ -438,10 +457,10 @@ void iperf_tcp_task(void *v)
 		while (1);
 	}
 
-	osprintf("------------------------------------------------------------\n");
-	osprintf("Server listening on TCP/UDP port 5001\n");
-	osprintf("TCP window size: %d Bytes\n", TCP_WND);
-	osprintf("------------------------------------------------------------\n");
+	osprintf("------------------------------------------------------------\r\n");
+	osprintf("Server listening on TCP/UDP port 5001\r\n");
+	osprintf("TCP window size: %d Bytes\r\n", TCP_WND);
+	osprintf("------------------------------------------------------------\r\n");
 
 	while (1) {
 
@@ -457,7 +476,7 @@ void iperf_tcp_task(void *v)
 			netconn_getaddr(conn, &local_ip, &port, 1);
 			osprintf("[  0] local %s port %d ", ipaddr_ntoa(&local_ip), port);
 			netconn_getaddr(conn, &remote_ip, &port, 0);
-			osprintf("connected with %s port %d\n", ipaddr_ntoa(&remote_ip), port);
+			osprintf("connected with %s port %d\r\n", ipaddr_ntoa(&remote_ip), port);
 
 			/* Test connection for receiving. */
 			iperf_tcp_recv(conn);

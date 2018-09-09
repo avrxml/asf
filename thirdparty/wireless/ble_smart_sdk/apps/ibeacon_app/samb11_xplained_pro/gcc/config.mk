@@ -64,12 +64,12 @@ CSRCS = \
        sam0/utils/stdio/write.c                           \
        sam0/utils/syscalls/gcc/syscalls.c                 \
        thirdparty/wireless/ble_smart_sdk/apps/ibeacon_app/app.c \
+       thirdparty/wireless/ble_smart_sdk/services/delay/samb11_delay.c \
        thirdparty/wireless/ble_smart_sdk/services/gpio/button.c \
        thirdparty/wireless/ble_smart_sdk/services/gpio/led.c \
        thirdparty/wireless/ble_smart_sdk/services/uart/console_serial.c \
        thirdparty/wireless/ble_smart_sdk/src/event_handler.c \
-       thirdparty/wireless/ble_smart_sdk/src/platform_drv.c \
-       thirdparty/wireless/ble_smart_sdk/src/port_from_sdk.c
+       thirdparty/wireless/ble_smart_sdk/src/platform_drv.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -96,8 +96,10 @@ INC_PATH = \
        thirdparty/wireless/ble_smart_sdk/apps/config/samb11 \
        thirdparty/wireless/ble_smart_sdk/apps/ibeacon_app \
        thirdparty/wireless/ble_smart_sdk/inc              \
+       thirdparty/wireless/ble_smart_sdk/services/delay   \
        thirdparty/wireless/ble_smart_sdk/services/gpio    \
-       thirdparty/wireless/ble_smart_sdk/services/uart \
+       thirdparty/wireless/ble_smart_sdk/services/uart    \
+       thirdparty/wireless/ble_smart_sdk/utils \
        thirdparty/wireless/ble_smart_sdk/apps/ibeacon_app/samb11_xplained_pro/gcc
 
 # Additional search paths for libraries.
@@ -149,6 +151,7 @@ CFLAGS =
 #   EXT_BOARD  Optional extension board in use, see boards/board.h for a list.
 CPPFLAGS = \
        -D ARM_MATH_CM0PLUS=true                           \
+       -D BLE_MODULE=SAMB11_MR                            \
        -D BOARD=SAMB11_XPLAINED_PRO                       \
        -D CHIPVERSION_B0                                  \
        -D OTAU_FEATURE=false                              \

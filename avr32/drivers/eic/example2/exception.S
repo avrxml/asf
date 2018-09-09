@@ -3,7 +3,7 @@
  *
  * \brief Exception and interrupt vectors mapping for the INTC Software Driver.
  *
- * Copyright (c) 2009-2011 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2009-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *

@@ -43,7 +43,7 @@ PRJ_PATH = ../../../../../../../../..
 ARCH = cortex-m7
 
 # Target part: none, sam3n4 or sam4l4aa
-PART = same70q21
+PART = same70q21b
 
 # Application target name. Given with suffix .a for library and .elf for a
 # standalone application.
@@ -74,13 +74,15 @@ CSRCS = \
        sam/utils/cmsis/same70/source/templates/gcc/startup_same70.c \
        sam/utils/cmsis/same70/source/templates/system_same70.c \
        sam/utils/syscalls/gcc/syscalls.c                  \
-       thirdparty/freertos/freertos-7.0.0/source/croutine.c \
-       thirdparty/freertos/freertos-7.0.0/source/list.c   \
-       thirdparty/freertos/freertos-7.0.0/source/portable/gcc/sam_cm4f/port.c \
-       thirdparty/freertos/freertos-7.0.0/source/portable/memmang/heap_3.c \
-       thirdparty/freertos/freertos-7.0.0/source/queue.c  \
-       thirdparty/freertos/freertos-7.0.0/source/tasks.c  \
-       thirdparty/freertos/freertos-7.0.0/source/timers.c
+       thirdparty/freertos/freertos-10.0.0/Source/croutine.c \
+       thirdparty/freertos/freertos-10.0.0/Source/event_groups.c \
+       thirdparty/freertos/freertos-10.0.0/Source/list.c  \
+       thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM7/r0p1/port.c \
+       thirdparty/freertos/freertos-10.0.0/Source/portable/MemMang/heap_1.c \
+       thirdparty/freertos/freertos-10.0.0/Source/queue.c \
+       thirdparty/freertos/freertos-10.0.0/Source/stream_buffer.c \
+       thirdparty/freertos/freertos-10.0.0/Source/tasks.c \
+       thirdparty/freertos/freertos-10.0.0/Source/timers.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -115,8 +117,8 @@ INC_PATH = \
        sam/utils/preprocessor                             \
        thirdparty/CMSIS/Include                           \
        thirdparty/CMSIS/Lib/GCC                           \
-       thirdparty/freertos/freertos-7.0.0/source/include  \
-       thirdparty/freertos/freertos-7.0.0/source/portable/gcc/sam_cm4f \
+       thirdparty/freertos/freertos-10.0.0/Source/include \
+       thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM7/r0p1 \
        common/services/usb/class/msc/device/example_freertos/same70q21_same70_xplained/gcc
 
 # Additional search paths for libraries.
@@ -177,7 +179,7 @@ CPPFLAGS = \
        -D UDD_ENABLE                                      \
        -D VIRTUAL_MEMORY_ENABLE                           \
        -D __FREERTOS__                                    \
-       -D __SAME70Q21__                                   \
+       -D __SAME70Q21B__                                  \
        -D printf=iprintf                                  \
        -D scanf=iscanf
 

@@ -1,6 +1,6 @@
 
 /**
-* Copyright (c) 2015 Atmel Corporation and 2012 – 2013, Thingsquare, http://www.thingsquare.com/. All rights reserved. 
+* Copyright (c) 2015 Microchip Technology Inc and 2012 – 2013, Thingsquare, http://www.thingsquare.com/. All rights reserved. 
 *  
 * Redistribution and use in source and binary forms, with or without 
 * modification, are permitted provided that the following conditions are met:

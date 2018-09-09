@@ -52,24 +52,26 @@ TARGET_SRAM = winc1500_provision_http_example_sram.elf
 
 # List of C source files.
 CSRCS = \
-       common/components/wifi/winc1500/bsp/source/nm_bsp_samg53.c \
-       common/components/wifi/winc1500/bus_wrapper/source/nm_bus_wrapper_samg53.c \
-       common/components/wifi/winc1500/common/source/nm_common.c \
-       common/components/wifi/winc1500/driver/source/m2m_ate_mode.c \
-       common/components/wifi/winc1500/driver/source/m2m_crypto.c \
-       common/components/wifi/winc1500/driver/source/m2m_hif.c \
-       common/components/wifi/winc1500/driver/source/m2m_ota.c \
-       common/components/wifi/winc1500/driver/source/m2m_periph.c \
-       common/components/wifi/winc1500/driver/source/m2m_wifi.c \
-       common/components/wifi/winc1500/driver/source/nmasic.c \
-       common/components/wifi/winc1500/driver/source/nmbus.c \
-       common/components/wifi/winc1500/driver/source/nmdrv.c \
-       common/components/wifi/winc1500/driver/source/nmi2c.c \
-       common/components/wifi/winc1500/driver/source/nmspi.c \
-       common/components/wifi/winc1500/driver/source/nmuart.c \
+       common/components/wifi/winc1500/host_drv/bsp/source/nm_bsp_samg53.c \
+       common/components/wifi/winc1500/host_drv/bus_wrapper/source/nm_bus_wrapper_samg53.c \
+       common/components/wifi/winc1500/host_drv/common/source/nm_common.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_ate_mode.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_crypto.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_hif.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_ota.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_periph.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_ssl.c \
+       common/components/wifi/winc1500/host_drv/driver/source/m2m_wifi.c \
+       common/components/wifi/winc1500/host_drv/driver/source/nmasic.c \
+       common/components/wifi/winc1500/host_drv/driver/source/nmbus.c \
+       common/components/wifi/winc1500/host_drv/driver/source/nmdrv.c \
+       common/components/wifi/winc1500/host_drv/driver/source/nmi2c.c \
+       common/components/wifi/winc1500/host_drv/driver/source/nmspi.c \
+       common/components/wifi/winc1500/host_drv/driver/source/nmuart.c \
+       common/components/wifi/winc1500/host_drv/socket/source/socket.c \
+       common/components/wifi/winc1500/host_drv/spi_flash/source/flexible_flash.c \
+       common/components/wifi/winc1500/host_drv/spi_flash/source/spi_flash.c \
        common/components/wifi/winc1500/provision_http_example/main.c \
-       common/components/wifi/winc1500/socket/source/socket.c \
-       common/components/wifi/winc1500/spi_flash/source/spi_flash.c \
        common/services/clock/samg/sysclk.c                \
        common/services/delay/sam/cycle_counter.c          \
        common/services/serial/usart_serial.c              \
@@ -98,7 +100,7 @@ ASSRCS =
 # List of include paths.
 INC_PATH = \
        common/boards                                      \
-       common/components/wifi/winc1500                    \
+       common/components/wifi/winc1500/host_drv           \
        common/components/wifi/winc1500/provision_http_example \
        common/components/wifi/winc1500/provision_http_example/samg53n19_samg_xplained_pro \
        common/services/clock                              \

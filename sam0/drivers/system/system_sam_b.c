@@ -3,45 +3,35 @@
  *
  * \brief SAM System related functionality
  *
- * Copyright (C) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include "system_sam_b.h"
@@ -805,10 +795,10 @@ enum status_code system_clock_peripheral_freq_config( \
  */
 void system_global_reset(void)
 {
-	LPMCU_MISC_REGS0->LPMCU_GLOBAL_RESET_0.reg &= \
-		~LPMCU_MISC_REGS_LPMCU_GLOBAL_RESET_0_GLOBAL_RSTN;
-	LPMCU_MISC_REGS0->LPMCU_GLOBAL_RESET_0.reg |= \
-		LPMCU_MISC_REGS_LPMCU_GLOBAL_RESET_0_GLOBAL_RSTN;
+	AON_GP_REGS0->AON_GLOBAL_RESET.reg &= \
+		~AON_GP_REGS_AON_GLOBAL_RESET_GLOBAL_RSTN;
+	AON_GP_REGS0->AON_GLOBAL_RESET.reg |= \
+			AON_GP_REGS_AON_GLOBAL_RESET_GLOBAL_RSTN;
 };
 
 /**
@@ -1518,6 +1508,35 @@ enum status_code system_clock_peripheral_aon_disable(enum system_peripheral_aon 
 
 		default:
 			return STATUS_ERR_INVALID_ARG;
+	}
+	return STATUS_OK;
+}
+
+/**
+ * \brief System aon peripheral reset
+ *
+ * Use this function to reset system aon peripheral.
+ *
+ * \param[in]  peripheral_aon    Selection peripheral
+ *
+ * \return Status of operation.
+ * \retval STATUS_OK               aon peripheral reset correctly
+ * \retval STATUS_ERR_INVALID_ARG  If data is invalid
+ */
+enum status_code system_peripheral_aon_reset(enum system_peripheral_aon peripheral_aon)
+{
+	switch (peripheral_aon) {
+		case PERIPHERAL_AON_SLEEP_TIMER:
+			AON_GP_REGS0->AON_GLOBAL_RESET.reg &= \
+				~AON_GP_REGS_AON_GLOBAL_RESET_SLEEP_TIMER_RSTN;
+			/* wait until sleep timer is not active */
+			while (!AON_SLEEP_TIMER0->CONTROL.bit.SLEEP_TIMER_NOT_ACTIVE);
+			AON_GP_REGS0->AON_GLOBAL_RESET.reg |= \
+				AON_GP_REGS_AON_GLOBAL_RESET_SLEEP_TIMER_RSTN;
+		break;
+
+		default:
+		return STATUS_ERR_INVALID_ARG;
 	}
 	return STATUS_OK;
 }

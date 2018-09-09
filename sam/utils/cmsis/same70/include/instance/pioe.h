@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70_PIOE_INSTANCE_
@@ -93,6 +83,7 @@
   #define REG_PIOE_LOCKSR                   (0x400E16E0U) /**< \brief (PIOE) Lock Status */
   #define REG_PIOE_WPMR                     (0x400E16E4U) /**< \brief (PIOE) Write Protection Mode Register */
   #define REG_PIOE_WPSR                     (0x400E16E8U) /**< \brief (PIOE) Write Protection Status Register */
+  #define REG_PIOE_VERSION                  (0x400E16FCU) /**< \brief (PIOE) Version Register */
   #define REG_PIOE_SCHMITT                  (0x400E1700U) /**< \brief (PIOE) Schmitt Trigger Register */
   #define REG_PIOE_DRIVER                   (0x400E1718U) /**< \brief (PIOE) PIO I/O Drive Register */
   #define REG_PIOE_KER                      (0x400E1720U) /**< \brief (PIOE) Keypad Controller Enable Register */
@@ -157,6 +148,7 @@
   #define REG_PIOE_LOCKSR  (*(__I  uint32_t*)0x400E16E0U) /**< \brief (PIOE) Lock Status */
   #define REG_PIOE_WPMR    (*(__IO uint32_t*)0x400E16E4U) /**< \brief (PIOE) Write Protection Mode Register */
   #define REG_PIOE_WPSR    (*(__I  uint32_t*)0x400E16E8U) /**< \brief (PIOE) Write Protection Status Register */
+  #define REG_PIOE_VERSION (*(__I  uint32_t*)0x400E16FCU) /**< \brief (PIOE) Version Register */
   #define REG_PIOE_SCHMITT (*(__IO uint32_t*)0x400E1700U) /**< \brief (PIOE) Schmitt Trigger Register */
   #define REG_PIOE_DRIVER  (*(__IO uint32_t*)0x400E1718U) /**< \brief (PIOE) PIO I/O Drive Register */
   #define REG_PIOE_KER     (*(__IO uint32_t*)0x400E1720U) /**< \brief (PIOE) Keypad Controller Enable Register */

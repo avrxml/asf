@@ -57,7 +57,6 @@ CSRCS = \
        sam0/drivers/dualtimer/dualtimer.c                 \
        sam0/drivers/gpio/gpio.c                           \
        sam0/drivers/system/system_sam_b.c                 \
-       sam0/drivers/timer/timer.c                         \
        sam0/drivers/uart/uart.c                           \
        sam0/utils/cmsis/samb11/source/gcc/startup_samb11.c \
        sam0/utils/cmsis/samb11/source/system_samb11.c     \
@@ -66,13 +65,13 @@ CSRCS = \
        sam0/utils/syscalls/gcc/syscalls.c                 \
        thirdparty/wireless/ble_smart_sdk/apps/startup_template/startup_template_app.c \
        thirdparty/wireless/ble_smart_sdk/ble_services/ble_mgr/ble_manager.c \
+       thirdparty/wireless/ble_smart_sdk/services/delay/samb11_delay.c \
        thirdparty/wireless/ble_smart_sdk/services/dualtimer/timer_hw.c \
        thirdparty/wireless/ble_smart_sdk/services/gpio/button.c \
        thirdparty/wireless/ble_smart_sdk/services/gpio/led.c \
        thirdparty/wireless/ble_smart_sdk/services/uart/console_serial.c \
        thirdparty/wireless/ble_smart_sdk/src/event_handler.c \
-       thirdparty/wireless/ble_smart_sdk/src/platform_drv.c \
-       thirdparty/wireless/ble_smart_sdk/src/port_from_sdk.c
+       thirdparty/wireless/ble_smart_sdk/src/platform_drv.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -87,7 +86,6 @@ INC_PATH = \
        sam0/drivers/dualtimer                             \
        sam0/drivers/gpio                                  \
        sam0/drivers/system                                \
-       sam0/drivers/timer                                 \
        sam0/drivers/uart                                  \
        sam0/utils                                         \
        sam0/utils/cmsis/samb11/include                    \
@@ -101,6 +99,7 @@ INC_PATH = \
        thirdparty/wireless/ble_smart_sdk/apps/startup_template \
        thirdparty/wireless/ble_smart_sdk/ble_services/ble_mgr \
        thirdparty/wireless/ble_smart_sdk/inc              \
+       thirdparty/wireless/ble_smart_sdk/services/delay   \
        thirdparty/wireless/ble_smart_sdk/services/dualtimer \
        thirdparty/wireless/ble_smart_sdk/services/gpio    \
        thirdparty/wireless/ble_smart_sdk/services/uart    \
@@ -157,6 +156,7 @@ CFLAGS =
 CPPFLAGS = \
        -D ARM_MATH_CM0PLUS=true                           \
        -D BLE_DEVICE_ROLE=BLE_ROLE_ALL                    \
+       -D BLE_MODULE=SAMB11_MR                            \
        -D BOARD=SAMB11_XPLAINED_PRO                       \
        -D CHIPVERSION_B0                                  \
        -D OTAU_FEATURE=false                              \

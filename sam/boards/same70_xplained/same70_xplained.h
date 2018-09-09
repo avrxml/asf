@@ -3,45 +3,35 @@
  *
  * \brief SAME70-XPLD Board Definition.
  *
- * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70_XPLD_H_
@@ -159,10 +149,10 @@
 #define LED_0_ACTIVE              LED0_ACTIVE_LEVEL
 #define LED_0_INACTIVE            LED0_INACTIVE_LEVEL
 
-#define PIN_LED_0       {PIO_PC8, PIOA, ID_PIOA, PIO_OUTPUT_1, PIO_DEFAULT}
+#define PIN_LED_0       {PIO_PC8, PIOC, ID_PIOC, PIO_OUTPUT_1, PIO_DEFAULT}
 #define PIN_LED_0_MASK  PIO_PC8
-#define PIN_LED_0_PIO   PIOA
-#define PIN_LED_0_ID    ID_PIOA
+#define PIN_LED_0_PIO   PIOC
+#define PIN_LED_0_ID    ID_PIOC
 #define PIN_LED_0_TYPE  PIO_OUTPUT_1
 #define PIN_LED_0_ATTR  PIO_DEFAULT
 //@}
@@ -220,6 +210,86 @@
 
 /** List of all push button definitions. */
 #define PINS_PUSHBUTTONS    {PIN_PUSHBUTTON_1}
+
+//! \name Extension header #1 pin definitions
+//@{
+#define EXT1_PIN_3                PIO_PC31_IDX
+#define EXT1_PIN_4                PIO_PA19_IDX
+#define EXT1_PIN_5                PIO_PB3_IDX
+#define EXT1_PIN_6                PIO_PB2_IDX
+#define EXT1_PIN_7                PIO_PA0_IDX
+#define EXT1_PIN_8                PIO_PC30_IDX
+#define EXT1_PIN_9                PIO_PD28_IDX
+#define EXT1_PIN_10               PIO_PC17_IDX
+#define EXT1_PIN_11               PIO_PA3_IDX
+#define EXT1_PIN_12               PIO_PA4_IDX
+#define EXT1_PIN_13               PIO_PB0_IDX
+#define EXT1_PIN_14               PIO_PB1_IDX
+#define EXT1_PIN_15               PIO_PD25_IDX
+#define EXT1_PIN_16               PIO_PD21_IDX
+#define EXT1_PIN_17               PIO_PD20_IDX
+#define EXT1_PIN_18               PIO_PD22_IDX
+//@}
+
+//! \name Extension header #1 pin definitions by function
+//@{
+#define EXT1_PIN_ADC_0            EXT1_PIN_3
+#define EXT1_PIN_ADC_1            EXT1_PIN_4
+#define EXT1_PIN_GPIO_0           EXT1_PIN_5
+#define EXT1_PIN_GPIO_1           EXT1_PIN_6
+#define EXT1_PIN_PWM_0            EXT1_PIN_7
+#define EXT1_PIN_PWM_1            EXT1_PIN_8
+#define EXT1_PIN_IRQ              EXT1_PIN_9
+#define EXT1_PIN_TWI_SDA          EXT1_PIN_11
+#define EXT1_PIN_TWI_SCL          EXT1_PIN_12
+#define EXT1_PIN_UART_RX          EXT1_PIN_13
+#define EXT1_PIN_UART_TX          EXT1_PIN_14
+#define EXT1_PIN_SPI_SS_1         EXT1_PIN_10
+#define EXT1_PIN_SPI_SS_0         EXT1_PIN_15
+#define EXT1_PIN_SPI_MOSI         EXT1_PIN_16
+#define EXT1_PIN_SPI_MISO         EXT1_PIN_17
+#define EXT1_PIN_SPI_SCK          EXT1_PIN_18
+//@}
+
+//! \name Extension header #2 pin definitions
+//@{
+#define EXT2_PIN_3                PIO_PD30_IDX
+#define EXT2_PIN_4                PIO_PC13_IDX
+#define EXT2_PIN_5                PIO_PA6_IDX
+#define EXT2_PIN_6                PIO_PD11_IDX
+#define EXT2_PIN_7                PIO_PC19_IDX
+#define EXT2_PIN_8                PIO_PD26_IDX
+#define EXT2_PIN_9                PIO_PA2_IDX
+#define EXT2_PIN_10               PIO_PA24_IDX
+#define EXT2_PIN_11               PIO_PA3_IDX
+#define EXT2_PIN_12               PIO_PA4_IDX
+#define EXT2_PIN_13               PIO_PA21_IDX
+#define EXT2_PIN_14               PIO_PB4_IDX
+#define EXT2_PIN_15               PIO_PD27_IDX
+#define EXT2_PIN_16               PIO_PD21_IDX
+#define EXT2_PIN_17               PIO_PD20_IDX
+#define EXT2_PIN_18               PIO_PD22_IDX
+//@}
+
+//! \name Extension header #2 pin definitions by function
+//@{
+#define EXT2_PIN_ADC_0            EXT2_PIN_3
+#define EXT2_PIN_ADC_1            EXT2_PIN_4
+#define EXT2_PIN_GPIO_0           EXT2_PIN_5
+#define EXT2_PIN_GPIO_1           EXT2_PIN_6
+#define EXT2_PIN_PWM_0            EXT2_PIN_7
+#define EXT2_PIN_PWM_1            EXT2_PIN_8
+#define EXT2_PIN_IRQ              EXT2_PIN_9
+#define EXT2_PIN_TWI_SDA          EXT2_PIN_11
+#define EXT2_PIN_TWI_SCL          EXT2_PIN_12
+#define EXT2_PIN_UART_RX          EXT2_PIN_13
+#define EXT2_PIN_UART_TX          EXT2_PIN_14
+#define EXT2_PIN_SPI_SS_1         EXT2_PIN_10
+#define EXT2_PIN_SPI_SS_0         EXT2_PIN_15
+#define EXT2_PIN_SPI_MOSI         EXT2_PIN_16
+#define EXT2_PIN_SPI_MISO         EXT2_PIN_17
+#define EXT2_PIN_SPI_SCK          EXT2_PIN_18
+//@}
 
 /** PCK0 pin definition (PA6) */
 #define PIN_PCK0         (PIO_PA6_IDX)

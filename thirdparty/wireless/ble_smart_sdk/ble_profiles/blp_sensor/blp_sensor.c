@@ -3,46 +3,36 @@
  *
  * \brief Blood Pressure Sensor Profile
  *
- * Copyright (c) 2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Atmel
  *Support</a>
  */
 
@@ -80,41 +70,17 @@ blp_indication_callback_t	indication_cb;
 /** @brief contains the connection handle functions **/
 at_ble_handle_t connection_handle;
 
-
-static /*const*/ ble_event_callback_t blp_sensor_gap_handle[] = {
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	blp_sensor_connected_state_handler,
-	blp_sensor_disconnect_event_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gap_event_cb_t blp_sensor_gap_handle = {
+	.connected = blp_sensor_connected_state_handler,
+	.disconnected = blp_sensor_disconnect_event_handler
 };
 
-static /*const*/ ble_event_callback_t blp_sensor_gatt_server_handle[] = {
-	blp_notification_confirmation_handler,
-	blp_indication_confirmation_handler,
-	blp_sensor_char_changed_handler,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+static const ble_gatt_server_event_cb_t blp_sensor_gatt_server_handle = {
+	.notification_confirmed = blp_notification_confirmation_handler,
+	.indication_confirmed = blp_indication_confirmation_handler,
+	.characteristic_changed = blp_sensor_char_changed_handler
 };
+
 /****************************************************************************************
 *							        Implementations										*
 ****************************************************************************************/
@@ -188,7 +154,7 @@ at_ble_status_t blp_indication_confirmation_handler(void *params)
  */
 void blp_sensor_send_notification(uint8_t *blp_data, uint8_t length)
 {
-	at_ble_status_t status = AT_BLE_SUCCESS;
+	at_ble_status_t status;
 
 	/** Updating the new characteristic value */
 	if ((status
@@ -204,7 +170,7 @@ void blp_sensor_send_notification(uint8_t *blp_data, uint8_t length)
 	/** Sending the notification for the updated characteristic */
 	if ((status	= at_ble_notification_send(connection_handle,
 					blp_service_handler.serv_chars[1]
-					.char_val_handle)) != AT_BLE_SUCCESS) {
+					.char_val_handle))) {
 		DBG_LOG("Send notification failed,reason %x", status);
 	}
 }
@@ -216,7 +182,7 @@ void blp_sensor_send_notification(uint8_t *blp_data, uint8_t length)
  */
 void blp_sensor_send_indication(uint8_t *blp_data, uint8_t length)
 {
-	at_ble_status_t status = AT_BLE_SUCCESS;
+	at_ble_status_t status;
 
 	/** Updating the new characteristic value */
 	if ((status
@@ -230,10 +196,10 @@ void blp_sensor_send_indication(uint8_t *blp_data, uint8_t length)
 	}
 
 	/** Sending the indication for the updated characteristic */
-	if ((status     = at_ble_indication_send(connection_handle,
-					blp_service_handler.serv_chars[0]
-					.char_val_handle)) != AT_BLE_SUCCESS) {
-		DBG_LOG("Send indication failed,reason %x", status);
+	if ((status	= at_ble_indication_send(connection_handle,
+						blp_service_handler.serv_chars[0]
+						.char_val_handle))) {
+			DBG_LOG("Send indication failed,reason %x", status);
 	}
 }
 
@@ -247,8 +213,8 @@ void blp_sensor_send_indication(uint8_t *blp_data, uint8_t length)
 at_ble_status_t blp_sensor_char_changed_handler(
 					void *char_handle)
 {
-	uint8_t action_event = 0;
-	at_ble_characteristic_changed_t change_params = {0, };
+	uint8_t action_event;
+	at_ble_characteristic_changed_t change_params;
 	memcpy((uint8_t *)&change_params, char_handle,
 			sizeof(at_ble_characteristic_changed_t));
 
@@ -282,7 +248,7 @@ at_ble_status_t blp_sensor_char_changed_handler(
 at_ble_status_t blp_sensor_disconnect_event_handler(
 					void *disconnect)
 {
-	/* ALL_UNUSED(disconnect); */
+    ALL_UNUSED(disconnect);
 	return AT_BLE_SUCCESS;
 }
 
@@ -315,7 +281,7 @@ void blp_disconnection(void)
  */
 void blp_sensor_adv(void)
 {
-	at_ble_status_t status = AT_BLE_SUCCESS;
+	at_ble_status_t status;
 	
 	/* Start of advertisement */
 	if ((status
@@ -338,7 +304,7 @@ void blp_sensor_adv(void)
  */
 void blp_sensor_service_define(void)
 {
-	at_ble_status_t status = AT_BLE_SUCCESS;
+	at_ble_status_t status;
 
 	if ((status = blp_primary_service_define(&blp_service_handler)) !=
 			AT_BLE_SUCCESS) {
@@ -371,52 +337,15 @@ void blp_sensor_service_init(void)
 void blp_sensor_init(void *param)
 {
 	at_ble_status_t status;
-
-	memset(&dis_service_handler, 0, sizeof(dis_gatt_service_handler_t));
-	memset(&blp_service_handler, 0, sizeof(blp_gatt_service_handler_t));
-	notification_cb = 0;
-	indication_cb = 0;
-	connection_handle = 0;
-
-	blp_sensor_gap_handle[0] = NULL;
-	blp_sensor_gap_handle[1] = NULL;
-	blp_sensor_gap_handle[2] = NULL;
-	blp_sensor_gap_handle[3] = NULL;
-	blp_sensor_gap_handle[4] = NULL;
-	blp_sensor_gap_handle[5] = blp_sensor_connected_state_handler;
-	blp_sensor_gap_handle[6] = blp_sensor_disconnect_event_handler;
-	blp_sensor_gap_handle[7] = NULL;
-	blp_sensor_gap_handle[8] = NULL;
-	blp_sensor_gap_handle[9] = NULL;
-	blp_sensor_gap_handle[10] = NULL;
-	blp_sensor_gap_handle[11] = NULL;
-	blp_sensor_gap_handle[12] = NULL;
-	blp_sensor_gap_handle[13] = NULL;
-	blp_sensor_gap_handle[14] = NULL;
-	blp_sensor_gap_handle[15] = NULL;
-	blp_sensor_gap_handle[16] = NULL;
-	blp_sensor_gap_handle[17] = NULL;
-	blp_sensor_gap_handle[18] = NULL;
-
-	blp_sensor_gatt_server_handle[0] = blp_notification_confirmation_handler;
-	blp_sensor_gatt_server_handle[1] = blp_indication_confirmation_handler;
-	blp_sensor_gatt_server_handle[2] = blp_sensor_char_changed_handler;
-	blp_sensor_gatt_server_handle[3] = NULL;
-	blp_sensor_gatt_server_handle[4] = NULL;
-	blp_sensor_gatt_server_handle[5] = NULL;
-	blp_sensor_gatt_server_handle[6] = NULL;
-	blp_sensor_gatt_server_handle[7] = NULL;
-	blp_sensor_gatt_server_handle[8] = NULL;
-	blp_sensor_gatt_server_handle[9] = NULL;
-
+	
 	blp_sensor_service_init();
 	blp_sensor_service_define();
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
 	BLE_GAP_EVENT_TYPE,
-	blp_sensor_gap_handle);
+	&blp_sensor_gap_handle);
 	ble_mgr_events_callback_handler(REGISTER_CALL_BACK,
 	BLE_GATT_SERVER_EVENT_TYPE,
-	blp_sensor_gatt_server_handle);
+	&blp_sensor_gatt_server_handle);
 							
 	status = ble_advertisement_data_set();
 	
@@ -470,5 +399,5 @@ void blp_sensor_init(void *param)
 							*(blp_service_handler.serv_chars[2].init_value));					
 							
 							
-	/* ALL_UNUSED(param); */
+    ALL_UNUSED(param);
 }

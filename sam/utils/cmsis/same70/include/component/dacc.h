@@ -1,45 +1,35 @@
 /**
  * \file
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #ifndef _SAME70_DACC_COMPONENT_
@@ -69,8 +59,10 @@ typedef struct {
   __I  uint32_t Reserved2[24];
   __IO uint32_t DACC_ACR;      /**< \brief (Dacc Offset: 0x94) Analog Current Register */
   __I  uint32_t Reserved3[19];
-  __IO uint32_t DACC_WPMR;     /**< \brief (Dacc Offset: 0xE4) Write Protection Mode register */
-  __I  uint32_t DACC_WPSR;     /**< \brief (Dacc Offset: 0xE8) Write Protection Status register */
+  __IO uint32_t DACC_WPMR;     /**< \brief (Dacc Offset: 0xE4) Write Protection Mode Register */
+  __I  uint32_t DACC_WPSR;     /**< \brief (Dacc Offset: 0xE8) Write Protection Status Register */
+  __I  uint32_t Reserved4[4];
+  __I  uint32_t DACC_VERSION;  /**< \brief (Dacc Offset: 0xFC) Version Register */
 } Dacc;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- DACC_CR : (DACC Offset: 0x00) Control Register -------- */
@@ -85,6 +77,7 @@ typedef struct {
 #define DACC_MR_WORD (0x1u << 4) /**< \brief (DACC_MR) Word Transfer Mode */
 #define   DACC_MR_WORD_DISABLED (0x0u << 4) /**< \brief (DACC_MR) One data to convert is written to the FIFO per access to DACC */
 #define   DACC_MR_WORD_ENABLED (0x1u << 4) /**< \brief (DACC_MR) Two data to convert are written to the FIFO per access to DACC (reduces number of requests to DMA and the number of system bus accesses) */
+#define DACC_MR_ZERO (0x1u << 5) /**< \brief (DACC_MR) Must always be written to 0. */
 #define DACC_MR_REFRESH_Pos 8
 #define DACC_MR_REFRESH_Msk (0xffu << DACC_MR_REFRESH_Pos) /**< \brief (DACC_MR) Refresh Period */
 #define DACC_MR_REFRESH(value) ((DACC_MR_REFRESH_Msk & ((value) << DACC_MR_REFRESH_Pos)))
@@ -104,23 +97,25 @@ typedef struct {
 #define DACC_TRIGR_TRGSEL0_Pos 4
 #define DACC_TRIGR_TRGSEL0_Msk (0x7u << DACC_TRIGR_TRGSEL0_Pos) /**< \brief (DACC_TRIGR) Trigger Selection of Channel 0 */
 #define DACC_TRIGR_TRGSEL0(value) ((DACC_TRIGR_TRGSEL0_Msk & ((value) << DACC_TRIGR_TRGSEL0_Pos)))
-#define   DACC_TRIGR_TRGSEL0_TRGSEL0 (0x0u << 4) /**< \brief (DACC_TRIGR) TC0 output */
-#define   DACC_TRIGR_TRGSEL0_TRGSEL1 (0x1u << 4) /**< \brief (DACC_TRIGR) TC1 output */
-#define   DACC_TRIGR_TRGSEL0_TRGSEL2 (0x2u << 4) /**< \brief (DACC_TRIGR) TC2 output */
-#define   DACC_TRIGR_TRGSEL0_TRGSEL3 (0x3u << 4) /**< \brief (DACC_TRIGR) PWM0 event 0 */
-#define   DACC_TRIGR_TRGSEL0_TRGSEL4 (0x4u << 4) /**< \brief (DACC_TRIGR) PWM0 event 1 */
-#define   DACC_TRIGR_TRGSEL0_TRGSEL5 (0x5u << 4) /**< \brief (DACC_TRIGR) PWM1 event 0 */
-#define   DACC_TRIGR_TRGSEL0_TRGSEL6 (0x6u << 4) /**< \brief (DACC_TRIGR) PWM1 event 1 */
+#define   DACC_TRIGR_TRGSEL0_TRGSEL0 (0x0u << 4) /**< \brief (DACC_TRIGR) DATRG */
+#define   DACC_TRIGR_TRGSEL0_TRGSEL1 (0x1u << 4) /**< \brief (DACC_TRIGR) TC0 output */
+#define   DACC_TRIGR_TRGSEL0_TRGSEL2 (0x2u << 4) /**< \brief (DACC_TRIGR) TC1 output */
+#define   DACC_TRIGR_TRGSEL0_TRGSEL3 (0x3u << 4) /**< \brief (DACC_TRIGR) TC2 output */
+#define   DACC_TRIGR_TRGSEL0_TRGSEL4 (0x4u << 4) /**< \brief (DACC_TRIGR) PWM0 event 0 */
+#define   DACC_TRIGR_TRGSEL0_TRGSEL5 (0x5u << 4) /**< \brief (DACC_TRIGR) PWM0 event 1 */
+#define   DACC_TRIGR_TRGSEL0_TRGSEL6 (0x6u << 4) /**< \brief (DACC_TRIGR) PWM1 event 0 */
+#define   DACC_TRIGR_TRGSEL0_TRGSEL7 (0x7u << 4) /**< \brief (DACC_TRIGR) PWM1 event 1 */
 #define DACC_TRIGR_TRGSEL1_Pos 8
 #define DACC_TRIGR_TRGSEL1_Msk (0x7u << DACC_TRIGR_TRGSEL1_Pos) /**< \brief (DACC_TRIGR) Trigger Selection of Channel 1 */
 #define DACC_TRIGR_TRGSEL1(value) ((DACC_TRIGR_TRGSEL1_Msk & ((value) << DACC_TRIGR_TRGSEL1_Pos)))
-#define   DACC_TRIGR_TRGSEL1_TRGSEL0 (0x0u << 8) /**< \brief (DACC_TRIGR) TC0 output */
-#define   DACC_TRIGR_TRGSEL1_TRGSEL1 (0x1u << 8) /**< \brief (DACC_TRIGR) TC1 output */
-#define   DACC_TRIGR_TRGSEL1_TRGSEL2 (0x2u << 8) /**< \brief (DACC_TRIGR) TC2 output */
-#define   DACC_TRIGR_TRGSEL1_TRGSEL3 (0x3u << 8) /**< \brief (DACC_TRIGR) PWM0 event 0 */
-#define   DACC_TRIGR_TRGSEL1_TRGSEL4 (0x4u << 8) /**< \brief (DACC_TRIGR) PWM0 event 1 */
-#define   DACC_TRIGR_TRGSEL1_TRGSEL5 (0x5u << 8) /**< \brief (DACC_TRIGR) PWM1 event 0 */
-#define   DACC_TRIGR_TRGSEL1_TRGSEL6 (0x6u << 8) /**< \brief (DACC_TRIGR) PWM1 event 1 */
+#define   DACC_TRIGR_TRGSEL1_TRGSEL0 (0x0u << 8) /**< \brief (DACC_TRIGR) DATRG */
+#define   DACC_TRIGR_TRGSEL1_TRGSEL1 (0x1u << 8) /**< \brief (DACC_TRIGR) TC0 output */
+#define   DACC_TRIGR_TRGSEL1_TRGSEL2 (0x2u << 8) /**< \brief (DACC_TRIGR) TC1 output */
+#define   DACC_TRIGR_TRGSEL1_TRGSEL3 (0x3u << 8) /**< \brief (DACC_TRIGR) TC2 output */
+#define   DACC_TRIGR_TRGSEL1_TRGSEL4 (0x4u << 8) /**< \brief (DACC_TRIGR) PWM0 event 0 */
+#define   DACC_TRIGR_TRGSEL1_TRGSEL5 (0x5u << 8) /**< \brief (DACC_TRIGR) PWM0 event 1 */
+#define   DACC_TRIGR_TRGSEL1_TRGSEL6 (0x6u << 8) /**< \brief (DACC_TRIGR) PWM1 event 0 */
+#define   DACC_TRIGR_TRGSEL1_TRGSEL7 (0x7u << 8) /**< \brief (DACC_TRIGR) PWM1 event 1 */
 #define DACC_TRIGR_OSR0_Pos 16
 #define DACC_TRIGR_OSR0_Msk (0x7u << DACC_TRIGR_OSR0_Pos) /**< \brief (DACC_TRIGR) Over Sampling Ratio of Channel 0 */
 #define DACC_TRIGR_OSR0(value) ((DACC_TRIGR_OSR0_Msk & ((value) << DACC_TRIGR_OSR0_Pos)))
@@ -210,6 +205,11 @@ typedef struct {
 #define DACC_WPSR_WPVS (0x1u << 0) /**< \brief (DACC_WPSR) Write Protection Violation Status */
 #define DACC_WPSR_WPVSRC_Pos 8
 #define DACC_WPSR_WPVSRC_Msk (0xffu << DACC_WPSR_WPVSRC_Pos) /**< \brief (DACC_WPSR) Write Protection Violation Source */
+/* -------- DACC_VERSION : (DACC Offset: 0xFC) Version Register -------- */
+#define DACC_VERSION_VERSION_Pos 0
+#define DACC_VERSION_VERSION_Msk (0xfffu << DACC_VERSION_VERSION_Pos) /**< \brief (DACC_VERSION) Version */
+#define DACC_VERSION_MFN_Pos 16
+#define DACC_VERSION_MFN_Msk (0x7u << DACC_VERSION_MFN_Pos) /**< \brief (DACC_VERSION) Metal Fix Number */
 
 /*@}*/
 

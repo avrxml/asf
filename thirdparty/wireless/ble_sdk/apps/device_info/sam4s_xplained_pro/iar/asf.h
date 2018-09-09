@@ -87,6 +87,10 @@
 // From module: SAM4S Xplained Pro LED support enabled
 #include <led.h>
 
+// From module: Sleep manager - SAM implementation
+#include <sam/sleepmgr.h>
+#include <sleepmgr.h>
+
 // From module: Standard serial I/O (stdio) - SAM implementation
 #include <stdio_serial.h>
 

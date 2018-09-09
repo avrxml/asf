@@ -3,7 +3,7 @@
  
   \brief Includes implementation for SAMB11 Platform Driver
  
-  Copyright (c) 2016, Atmel Corporation. All rights reserved.
+  * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
   Released under NDA
   Licensed under Atmel's Limited License Agreement.
  
@@ -20,7 +20,7 @@
   ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
   POSSIBILITY OF SUCH DAMAGE.
  
-  Atmel Corporation: http://www.atmel.com
+  Microchip Technology Inc: http://www.microchip.com
  
 ******************************************************************************/
 
@@ -30,18 +30,33 @@
 
 #include "platform.h"
 #include "gpio.h"
-
 #include "ke_msg.h"
-
 #include "common.h"
 #include "event_handler.h"
-
 #include "samb11.h"
-#include "gpio_from_sdk.h"
-
 #include "reg_common.h"
+#include "ble_utils.h"
 
-void init_clock(void);
+#define MAX_BLE_EVT_LEN						512
+#define MAX_PLF_EVT_LEN						128
+
+#define BLE_EVENT_BUFFER_START_INDEX		0
+#define PLF_EVENT_BUFFER_START_INDEX		(BLE_EVENT_BUFFER_START_INDEX + MAX_BLE_EVT_LEN)
+
+#define MAX_EVT_BUFF_LEN 					(MAX_BLE_EVT_LEN + MAX_PLF_EVT_LEN)
+#define REG_PL_WR(addr, value)       		(*(volatile uint32_t *)(addr)) = (value)
+#define REG_PL_RD(addr)              		(*(volatile uint32_t *)(addr))
+#define LPGPIO_MAX							25
+
+typedef union {
+	uint16_t port_info;
+	struct {
+		uint16_t gpio_num:8;
+		uint16_t available:1;
+		uint16_t configured:1;
+		uint16_t pack:6;
+	}bit;
+}port;
 
 uint8_t (*platform_register_isr)(uint8_t isr_index,void *fp);
 uint8_t (*platform_unregister_isr)(uint8_t isr_index);
@@ -49,33 +64,24 @@ uint32_t  *apps_resume_cb;
 uint32_t 	*actualfreq;
 uint32_t 	*wakeup_event_pending;
 uint32_t	*wakeup_source_active_cb;
+uint32_t	*samb11_module_type;
+uint32_t	*samb11_fw_version;
+uint32_t	*samb11_rf_version;
+portint_callback_t  wakeup_source_callback[PORT_WAKEUP_SOURCE_MAX_VAL];
+uint8_t rx_buffer[MAX_EVT_BUFF_LEN];
+uint16_t plf_event_buff_index;
+uint32_t default_samb11_clock_init[2];
+resume_callback samb11_app_resume_cb;
+volatile uint32_t platform_initialized = 0;
+port port_list[LPGPIO_MAX];
+
+void init_clock(void);
 void (*volatile updateuartbr_fp)(void);
 void (*rwip_prevent_sleep_set)(uint16_t prv_slp_bit);
 void (*rwip_prevent_sleep_clear)(uint16_t prv_slp_bit);
-//#ifdef CHIPVERSION_B0
 void (*handle_ext_wakeup_isr)(void);
 /** callback function type for handling wakeup source active callback */
 typedef void (*wakeup_source_active_callback) (uint32_t);
-extern void wakeup_active_event_callback(uint32_t wakeup_source);
-extern uint8_t wakeup_int_unregister_callback(uint8_t wakeup_source);
-
-//#endif	//CHIPVERSION_B0
-resume_callback samb11_app_resume_cb;
-#ifdef CHIPVERSION_A4
-uint8_t register_isr(uint8_t isr_index,void *fp);
-uint8_t unregister_isr(uint8_t isr_index);
-#endif	//CHIPVERSION_A4
-
-//#define TASK_INTERNAL_APP  62
-#define MAX_BLE_EVT_LEN						512
-#define MAX_PLF_EVT_LEN						128
-
-#define BLE_EVENT_BUFFER_START_INDEX		0
-#define PLF_EVENT_BUFFER_START_INDEX		(BLE_EVENT_BUFFER_START_INDEX + MAX_BLE_EVT_LEN)
-
-#define MAX_EVT_BUFF_LEN 	(MAX_BLE_EVT_LEN + MAX_PLF_EVT_LEN) 
-#define REG_PL_WR(addr, value)       (*(volatile uint32_t *)(addr)) = (value)
-#define REG_PL_RD(addr)              (*(volatile uint32_t *)(addr))
 
 /* pwr APIs */
 static void (*pwr_enable_arm_wakeup)(uint32_t wakeup_domain);
@@ -94,33 +100,9 @@ static int (*NMI_MsgQueueRecv)(void* pHandle,void ** pvRecvBuffer);
 static void (*ke_free)(void* mem_ptr);
 static ke_task_id_t (* gapm_get_task_from_id)(ke_msg_id_t id);
 static ke_task_id_t (* gapm_get_id_from_task)(ke_msg_id_t id);
-volatile uint8_t platform_initialized = 0;
-
 static platform_interface_callback ble_stack_message_handler;
-uint8_t rx_buffer[MAX_EVT_BUFF_LEN];
-uint16_t plf_event_buff_index;
-#define ISR_RAM_MAP_START_ADDRESS	(0x10000000)
-#define VECTOR_TABLE_LAST_INDEX		47
-
-port port_list[LPGPIO_MAX];
-uint32_t default_samb11_clock_init[2];
 void samb11_plf_resume_callback(void);
-
-void init_port_list(void)
-{
-	uint8_t i;
-	memset(port_list,0,sizeof(port_list));
-	for(i=0;i<(sizeof(port_list)/sizeof(port_list[0]));i++) {
-		port_list[i].bit.gpio_num = i;
-		port_list[i].bit.available = 1;
-		port_list[i].bit.configured = 0;
-	}
-	//Set the GPIO for SWD is not available
-	port_list[0].bit.available = 0;
-	port_list[1].bit.available = 0;
-	//GPIO 14 is used for Coex and controlled by Firmware
-	//port_list[14].bit.available = 0;
-}
+void aon_gpio0_config_default(void);
 
 void init_clock(void)
 {
@@ -132,7 +114,7 @@ void init_clock(void)
 	regval &= ~(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_0_CORTUS_SPI0_CORE_CLK_EN);
 	regval &= ~(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_0_CORTUS_SPI1_CORE_CLK_EN);
 	//disable I2C0 Core clocks
-	//regval &= ~(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_0_CORTUS_I2C0_CORE_CLK_EN);		//do not disable I2C because I2C driver in ASF will not enable.
+	regval &= ~(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_0_CORTUS_I2C0_CORE_CLK_EN); // I2C0 module is used by AT30TSE75X device (Temperature Sensor)
 	//disable ARM dual timer core clocks.
 	regval &= ~(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_0_DUALTIMER_CLK_EN);
 	//disable counter0 clock 
@@ -146,7 +128,7 @@ void init_clock(void)
 	regval &= ~(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_0_UART_1_CORE_CLK_EN);
 	regval &= ~(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_0_UART_1_IF_CLK_EN);
 	//disable I2C core 1 clocks
-	//regval &= ~(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_0_CORTUS_I2C1_CORE_CLK_EN);		//do not disable I2C because I2C driver in ASF will not enable.
+	regval &= ~(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_0_CORTUS_I2C1_CORE_CLK_EN);
 	REG_PL_WR(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_0,regval);
 	default_samb11_clock_init[0] = regval;
 	
@@ -163,25 +145,109 @@ void init_clock(void)
 	regval &= ~(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_1_SPI1_SCK_PHASE_INT_CLK_EN);
 	REG_PL_WR(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_1,regval);
 	default_samb11_clock_init[1] = regval;
-	//ARM debugger
-	
-	//store default values
 }
 
-plf_drv_status platform_driver_init()
+void init_port_list(void)
+{
+	uint8_t i;
+	memset(port_list,0,sizeof(port_list));
+	for(i=0;i<(sizeof(port_list)/sizeof(port_list[0]));i++) {
+		port_list[i].bit.gpio_num = i;
+		port_list[i].bit.available = 1;
+		port_list[i].bit.configured = 0;
+	}
+	//Set the GPIO for SWD is not available
+	port_list[0].bit.available = 0;
+	port_list[1].bit.available = 0;
+	//GPIO 14 is used for Coex and controlled by Firmware
+	//port_list[14].bit.available = 0;
+}
+												
+enum port_status_code wakeup_int_register_callback(enum port_wakeup_source wakeup_source,
+	portint_callback_t fp)
+{
+	enum port_status_code status = PORT_STATUS_OK;
+	if((fp != NULL) && ((wakeup_source == PORT_WAKEUP_SOURCE_AON_GPIO_0)
+	|| (wakeup_source == PORT_WAKEUP_SOURCE_AON_GPIO_1)
+	|| (wakeup_source == PORT_WAKEUP_SOURCE_AON_GPIO_2))) {
+		wakeup_source_callback[wakeup_source] = fp;
+	}
+	else {
+		status = PORT_STATUS_ERR_INVALID_ARG;
+	}
+	return status;
+}
+
+enum port_status_code wakeup_int_unregister_callback(enum port_wakeup_source wakeup_source)
+{
+	enum port_status_code status = PORT_STATUS_OK;
+	if(	(wakeup_source == PORT_WAKEUP_SOURCE_AON_GPIO_0) ||
+	(wakeup_source == PORT_WAKEUP_SOURCE_AON_GPIO_1) ||
+	(wakeup_source == PORT_WAKEUP_SOURCE_AON_GPIO_2) )
+	{
+		wakeup_source_callback[wakeup_source] = 0;
+	}
+	else
+	{
+		status = PORT_STATUS_ERR_INVALID_ARG;
+	}
+	return status;
+}
+
+void aon_gpio0_config_default(void)
+{
+	#if (BLE_MODULE == SAMB11_MR)
+		struct gpio_config config_gpio_pin;
+		gpio_get_config_defaults(&config_gpio_pin);
+		config_gpio_pin.direction  = GPIO_PIN_DIR_OUTPUT;
+		gpio_pin_set_config(PIN_AO_GPIO_0, &config_gpio_pin);
+		gpio_pin_set_output_level(PIN_AO_GPIO_0, false);
+	#endif
+}
+
+void wakeup_active_event_callback(uint32_t wakeup_source)
+{
+	portint_callback_t callback;
+	uint32_t *pu32WakeSource = (uint32_t *)wakeup_source;
+	if((*pu32WakeSource & 0xFF) == 1)
+	{
+		if(wakeup_source_callback[0] != NULL) {
+			callback = wakeup_source_callback[0];
+			callback();
+		}
+		*pu32WakeSource &= ~(0xFF);
+	}
+	if(((*pu32WakeSource >> 8) & 0xFF) == 1)
+	{
+		if(wakeup_source_callback[1] != NULL) {
+			callback = wakeup_source_callback[1];
+			callback();
+		}
+		*pu32WakeSource &= ~(0xFF << 8);
+	}
+	if(((*pu32WakeSource >> 16) & 0xFF) == 1)
+	{
+		if(wakeup_source_callback[2] != NULL) {
+			callback = wakeup_source_callback[2];
+			callback();
+		}
+		*pu32WakeSource &= ~(0xFF << 16);
+	}
+}
+
+plf_drv_status platform_driver_init(void)
 {
 	plf_drv_status status = STATUS_NOT_INITIALIZED;
 	if((platform_initialized == 0) || (platform_initialized != 1)) {
 		init_port_list();
 		init_clock();
+		aon_gpio0_config_default();
+		
 		// Initialize the ble stack message handler to NULL
 		ble_stack_message_handler = NULL;
-
-#ifdef CHIPVERSION_B0
+		
 		NVIC_DisableIRQ(GPIO0_IRQn);
 		NVIC_DisableIRQ(GPIO1_IRQn);
-		/* NVIC_DisableIRQ(PORT0_COMB_IRQn); */
-		/* NVIC_DisableIRQ(PORT1_COMB_IRQn); */
 		platform_register_isr = (uint8_t (*)(uint8_t ,void *))0x000007d7;
 		platform_unregister_isr = (uint8_t (*)(uint8_t ))0x000007bd;
 		handle_ext_wakeup_isr = (void (*)(void))0x1bc51;
@@ -194,42 +260,18 @@ plf_drv_status platform_driver_init()
 		updateuartbr_fp = (void (*)())0x10041FC4;
 		wakeup_source_active_cb = (uint32_t *)0x10041FD4;
 		wakeup_event_pending = (uint32_t *)0x10041FD8;
+		samb11_module_type = (uint32_t *)0x100084b4;
+		samb11_fw_version = (uint32_t *)0x1000821c;
+		samb11_rf_version = (uint32_t *)0x10008220;
 		/* power APIs */
 		pwr_enable_arm_wakeup = (void (*)(uint32_t wakeup_domain))0x0001cbe9;
 		pwr_disable_arm_wakeup = (void (*)(uint32_t wakeup_domain))0x0001cd8f;
 		pwr_arm_wakeup_req = (int (*)(void))0x0001cea3;
 		pwr_wait_BLE_out_of_reset = (int (*)(uint32_t threshold))0x0001cbcf;
-#else
-		NVIC_DisableIRQ(PORT0_ALL_IRQn);
-		NVIC_DisableIRQ(PORT1_ALL_IRQn);
-		platform_register_isr = register_isr;
-		platform_unregister_isr = unregister_isr;
-		handle_ext_wakeup_isr = (void (*)(void))0x14085;
-#endif
-		platform_unregister_isr(GPIO1_COMBINED_VECTOR_TABLE_INDEX);
-		platform_register_isr(GPIO1_COMBINED_VECTOR_TABLE_INDEX,(void*)PORT1_COMB_Handler);
-		platform_register_isr(GPIO0_COMBINED_VECTOR_TABLE_INDEX,(void*)gpio0_combined_isr_handler);
+		
+		platform_unregister_isr(RAM_ISR_TABLE_PORT1_COMB_INDEX);
 		
 		// Initializing the FW messaging functions.
-#ifdef CHIPVERSION_A3
-		ke_msg_send 	= (void (*)(void const *))0x00015cd9;
-		ke_msg_alloc 	= (void* (*)(ke_msg_id_t const id, ke_task_id_t const dest_id,
-										ke_task_id_t const src_id, uint16_t const param_len) ) 0x00015ca9;
-		os_sem_up 		= (int (*)(void*)) 0x00017aed;
-		gstrFwSem 		= (void*) 0x10000dec;
-		NMI_MsgQueueRecv = (int(*)(void*, void ** )) 0x00017c7b;
-		InternalAppMsgQHandle = (void*) 0x10002bd8;
-		ke_free = (void(*)(void*)) 0x00015bc9;
-//#elif CHIPVERSION_A4
-		//ke_msg_send     = (void (*)(void const *)) 0x00015f4d;
-		//ke_msg_alloc    = (void * (*)(ke_msg_id_t const id, ke_task_id_t const dest_id,
-				//ke_task_id_t const src_id, uint16_t const param_len)) 0x00015f1d;
-		//os_sem_up               = (int (*)(void *)) 0x00017dd9;
-		//gstrFwSem               = (void *)0x100004e4;
-		//NMI_MsgQueueRecv = (int (*)(void *, void ** )) 0x00017f67;
-		//InternalAppMsgQHandle = (void *)0x10001158;
-		//ke_free = (void (*)(void *)) 0x00015e3d;
-#elif CHIPVERSION_B0
 		ke_msg_send 	= (void (*)(void const *))(*((unsigned int *)0x100400e4));
 		ke_msg_alloc 	= (void* (*)(ke_msg_id_t const id, ke_task_id_t const dest_id,
 										ke_task_id_t const src_id, uint16_t const param_len) )0x00019fe9;
@@ -239,29 +281,11 @@ plf_drv_status platform_driver_init()
 		NMI_MsgQueueRecv = (int(*)(void*, void ** ))0x0001d5e3;
 		InternalAppMsgQHandle = (void*)0x10040c20;
 		ke_free = (void(*)(void*))0x00019f09;
-#endif
 		memset(rx_buffer,0,sizeof(rx_buffer));
 		plf_event_buff_index = PLF_EVENT_BUFFER_START_INDEX;
 		platform_event_init();
-		
-#ifdef CHIPVERSION_B0
-		/* NVIC_EnableIRQ(PORT0_COMB_IRQn); */
-		/* NVIC_EnableIRQ(PORT1_COMB_IRQn); */
 		NVIC_EnableIRQ(GPIO0_IRQn);
 		NVIC_EnableIRQ(GPIO1_IRQn);
-#else
-		/* chris.choi : check keil driver's CMSDK_CM0.h and asf's samb11g18a.h (it's different so i don't know what should be used. */
-		/* it's already asked to sanghai china team. */
-		/* NVIC_EnableIRQ(PORT0_ALL_IRQn); */
-		/* NVIC_EnableIRQ(PORT1_ALL_IRQn); */
-		NVIC_EnableIRQ(7);
-		NVIC_EnableIRQ(8);
-#endif	//CHIPVERSION_B0		
-		
-#ifndef CHIPVERSION_B0		
-		// spi_flash clock fix.
-		spi_flash_clock_init();
-#endif
 		samb11_app_resume_cb = NULL;
 		*apps_resume_cb = (uint32_t)((resume_callback)samb11_plf_resume_callback);
 		*wakeup_source_active_cb = (uint32_t)((wakeup_source_active_callback)wakeup_active_event_callback);
@@ -278,36 +302,18 @@ plf_drv_status platform_driver_init()
 	return status;
 }
 
-#ifdef CHIPVERSION_A4
-uint8_t unregister_isr(uint8_t isr_index)
+plf_drv_status platform_set_module_type(enum samb11_module_version_tag module_type)
 {
-	uint8_t result = INTC_OK;
-	if((isr_index < UART1_RX_VECTOR_TABLE_INDEX) || (VECTOR_TABLE_LAST_INDEX > 47))
-		return INTC_INVALID_IRQ;
-	else 
+	if((module_type != AT_SAMB11_MR) && (module_type != AT_SAMB11_ZR))
 	{
-		REG_PL_WR(isr_index*4 + ISR_RAM_MAP_START_ADDRESS, 0);
+		return STATUS_INVALID_ARGUMENT;
 	}
-	return result;
-}
-
-uint8_t register_isr(uint8_t isr_index,void *fp)
-{
-	uint8_t result = INTC_OK;
-	if((isr_index < UART1_RX_VECTOR_TABLE_INDEX) || (VECTOR_TABLE_LAST_INDEX > 47))
-		result = INTC_INVALID_IRQ;
-	else if(fp == NULL)
-		result = INTC_INVALID_ISR;
-	else if(REG_PL_RD(ISR_RAM_MAP_START_ADDRESS + (isr_index*4)) != NULL)
-		result = INTC_ISR_ALREADY_REGISTERED;
-	else 
+	else
 	{
-		REG_PL_WR(isr_index*4 + ISR_RAM_MAP_START_ADDRESS, (uint32_t) fp);
+		*samb11_module_type = module_type;
 	}
-	return result;
+	return STATUS_SUCCESS;
 }
-#endif	//CHIPVERSION_A4
-
 
 plf_drv_status platform_register_ble_msg_handler(platform_interface_callback fp)
 {
@@ -339,9 +345,6 @@ static void at_ke_msg_send(void const * param_ptr)
 			while (pwr_wait_BLE_out_of_reset(3));
 			pwr_disable_arm_wakeup(1<<1);
 			REG_PL_WR(0x4000B020, 1);
-#ifndef CHIPVERSION_B0
-			while(REG_PL_RD(0x4000B020));
-#endif	//CHIPVERSION_B0
 		}
 		else
 		{
@@ -353,7 +356,6 @@ static void at_ke_msg_send(void const * param_ptr)
 
 
 //Sends a message through RW kernel messaging API
-//struct ke_msg * p_msg;
 void platform_interface_send(uint8_t* data, uint32_t len)
 {
 	struct ke_msghdr *p_msg_hdr = (struct ke_msghdr *)((void *)data);
@@ -386,9 +388,6 @@ void platform_interface_send(uint8_t* data, uint32_t len)
 void send_plf_int_msg_ind(uint8_t intr_index, uint8_t callback_id, void *data, uint16_t data_len)
 {
 	void* params;
-//#if (CHIPVERSION_A4)	
-	//os_sem_up(gstrFwSem);
-//#endif
 	// Allocate the kernel message
 	params = ke_msg_alloc(PERIPHERAL_INTERRUPT_EVENT, TASK_INTERNAL_APP, BUILD_INTR_SRCID(callback_id,intr_index), data_len);
 											
@@ -412,21 +411,23 @@ struct dbg_ke_timer
     ///Status of Timer, 1-> Start, 0-> Stop
     uint8_t		status;
 };
-#if 0
+
+//Get number of messages in the queue
 static int NMI_MsgQueueNoMsgs(NMI_MsgQueueHandle* pHandle)
 {	
 	int MsgQueueNoMsgs = 0;
+	Message *pstrMessge;
 	os_sem_down(&pHandle->strCriticalSection);
-	while(pHandle->pstrMessageList != NULL)
+	pstrMessge = pHandle->pstrMessageList;
+	while(pstrMessge != NULL)
 	{
-		Message * pstrMessge = pHandle->pstrMessageList->pstrNext;
-		pHandle->pstrMessageList = pstrMessge;	
 		MsgQueueNoMsgs++;
+		pstrMessge = pstrMessge->pstrNext;
 	}
 	os_sem_up(&pHandle->strCriticalSection);
 	return MsgQueueNoMsgs;
 }
-#endif 
+
 static int NMI_MsgQueueDestroyOnKeID(NMI_MsgQueueHandle* pHandle, ke_msg_id_t u16KeMsgId)
 {
 	int num_of_freed=0;
@@ -530,6 +531,14 @@ plf_drv_status platform_event_wait(uint32_t timeout)
 		platform_start_event_timeout(timeout-1);
 		bEventTimeoutFlag = 1;
 	}
+	else if((uint32_t)0 == timeout)
+	{
+		if(!NMI_MsgQueueNoMsgs(InternalAppMsgQHandle))
+		{
+			status = STATUS_TIMEOUT;
+			return status;
+		}
+	}
 
 	do {
 		if(NMI_MsgQueueRecv(InternalAppMsgQHandle, (void**)&rcv_msg) == STATUS_SUCCESS)
@@ -574,11 +583,7 @@ plf_drv_status platform_event_wait(uint32_t timeout)
 					{
 						ke_msg_hdr = (struct ke_msghdr *)((void *)(rx_buffer+BLE_EVENT_BUFFER_START_INDEX));
 						ke_msg_hdr->id = rcv_msg->id;
-//#if (CHIPVERSION_A3 || CHIPVERSION_A4)
-					//ke_msg_hdr->src_id = rcv_msg->src_id;
-//#else
-					ke_msg_hdr->src_id = gapm_get_id_from_task(rcv_msg->src_id);
-//#endif  /* (CHIPVERSION_A3 || CHIPVERSION_A4) */
+						ke_msg_hdr->src_id = gapm_get_id_from_task(rcv_msg->src_id);
 						ke_msg_hdr->dest_id = rcv_msg->dest_id;
 						ke_msg_hdr->param_len = rcv_msg->param_len;
 						ke_msg_hdr++;
@@ -588,6 +593,10 @@ plf_drv_status platform_event_wait(uint32_t timeout)
 						ble_stack_message_handler(rx_buffer,(rcv_msg->param_len + sizeof(struct ke_msghdr)));
 						status = STATUS_RECEIVED_BLE_MSG;
 					}
+				}
+				else 
+				{
+					release_message_lock();
 				}
 			}
 			ke_free(rcv_msg);
@@ -609,7 +618,8 @@ plf_drv_status platform_event_wait(uint32_t timeout)
 plf_drv_status acquire_sleep_lock()
 {
 	plf_drv_status status = STATUS_RESOURCE_BUSY;
-	//uint8_t osc_en = REG_PL_RD(0x4000B1EC)&0x01;
+	uint8_t osc_en = REG_PL_RD(0x4000B1EC)&0x01;
+	osc_en = osc_en;
 	
 	rwip_prevent_sleep_set(APP_PREVENT_SLEEP);
 #if 0
@@ -638,21 +648,35 @@ plf_drv_status acquire_sleep_lock()
 plf_drv_status release_message_lock()
 {
 	plf_drv_status status = STATUS_SUCCESS;
-	rwip_prevent_sleep_clear(MSG_PREVENT_SLEEP);
+	
+	if(NMI_MsgQueueNoMsgs(InternalAppMsgQHandle) == 0)
+	{
+		rwip_prevent_sleep_clear(MSG_PREVENT_SLEEP);
+	}
+	
 	return status;
 }
 
 plf_drv_status release_sleep_lock()
 {
 	plf_drv_status status = STATUS_SUCCESS;
-	rwip_prevent_sleep_clear(MSG_PREVENT_SLEEP);
-	rwip_prevent_sleep_clear(APP_PREVENT_SLEEP);
+
+	
+	if(NMI_MsgQueueNoMsgs(InternalAppMsgQHandle) > 0)
+	{
+		rwip_prevent_sleep_set(MSG_PREVENT_SLEEP);
+		rwip_prevent_sleep_clear(APP_PREVENT_SLEEP);
+	}
+	else
+	{
+		rwip_prevent_sleep_clear(MSG_PREVENT_SLEEP | APP_PREVENT_SLEEP);
+	}
+	
 	return status;
 }
 
 void samb11_plf_resume_callback(void)
 {
-	//spi_flash_turn_off();
 	REG_PL_WR(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_0,default_samb11_clock_init[0]);
 	REG_PL_WR(LPMCU_CORTEX_MISC_REGS_LPMCU_CLOCK_ENABLES_1,default_samb11_clock_init[1]);
 	if(samb11_app_resume_cb != NULL)
@@ -671,7 +695,6 @@ plf_drv_status register_resume_callback(resume_callback cb)
 	else 
 	{
 		samb11_app_resume_cb = cb;
-		//*apps_resume_cb = (uint32_t)cb;
 	}
 	return status;
 }
@@ -679,7 +702,6 @@ plf_drv_status register_resume_callback(resume_callback cb)
 void platform_chip_reset(void)
 {
 	volatile uint32_t loop=0;
-#ifdef SAMB11
 	//Coldboot registers
 	*((uint32_t *)0x4000F040) = 0x00;
 	*((uint32_t *)0x4000F044) = 0x78;
@@ -700,7 +722,25 @@ void platform_chip_reset(void)
 	for(loop=0; loop<43210;loop++);
 	//AOn_global_reset
 	*((uint32_t *)0x4000F010) = 0x00;
-#else
-#endif
 	return;
+}
+
+plf_drv_status platform_get_fw_version(uint32_t *fw_version)
+{
+	if(samb11_fw_version != NULL)
+	{
+		*fw_version = (uint32_t)*samb11_fw_version;
+		return STATUS_SUCCESS;
+	}
+	return STATUS_FAILURE;
+}
+
+plf_drv_status platform_get_rf_version(uint32_t *rf_version)
+{
+	if(samb11_rf_version != NULL)
+	{
+		*rf_version = *samb11_rf_version;
+		return STATUS_SUCCESS;
+	}
+	return STATUS_FAILURE;
 }

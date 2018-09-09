@@ -3,39 +3,29 @@
  *
  * \brief Morse Code Encoder/Decorder example
  *
- * Copyright (c) 2015-2016 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * Subject to your compliance with these terms, you may use Microchip
+ * software and any derivatives exclusively with Microchip products.
+ * It is your responsibility to comply with third party license terms applicable
+ * to your use of third party software (including open source software) that
+ * may accompany Microchip software.
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * 3. The name of Atmel may not be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
- *
- * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
- * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
- * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
+ * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
+ * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
+ * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
+ * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
+ * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
+ * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
+ * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+ * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
  *
@@ -69,7 +59,7 @@
  * - ATmega324pb Xplained Pro
  *
  * \section appdoc_mega_remorse_app_usage Usage
- * The application uses usart to receive input and output remorse result, 
+ * The application uses usart to receive input and output remorse result,
  * once you input through usart, remorse result will output though usart,
  * if you press the button more than 4s, remorse will restart,
  * led will blink in remorse.
@@ -80,10 +70,10 @@
  *
  * \section appdoc_mega_remorse_app_contactinfo Contact Information
  * For further information, visit
- * <a href="http://www.atmel.com">http://www.atmel.com</a>.
+ * <a href="http://www.microchip.com">http://www.microchip.com</a>.
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
 #include <stddef.h>
@@ -133,14 +123,14 @@ typedef RING *RING_ID;
 /* macros */
 #define min(a,b)                \
    ({ __typeof__ (a) _a = (a);  \
-      __typeof__ (b) _b = (b);  \
-     _a < _b ? _a : _b; })
+	  __typeof__ (b) _b = (b);  \
+	 _a < _b ? _a : _b; })
 
 
 /* locals */
 
 /* buffer for morse characters read */
-static char                  morse_rx_buf[MORSE_RX_BUF_SIZE + 1]; 
+static char                  morse_rx_buf[MORSE_RX_BUF_SIZE + 1];
 /* morse receive buffer ring */
 static RING                  morse_rx_ring;
 /* morse receive buffer ring id */
@@ -207,13 +197,13 @@ const uint8_t morse_ascii_tbl[][2] = {
 	{4, 0x02}, // Q Q   – – · –         0010     81 81
 	{3, 0x05}, // R R   · – ·           101      82 82
 	{3, 0x07}, // S S   · · ·           111      83 83
-	{1, 0x00}, // T T   –               0        84 84 
+	{1, 0x00}, // T T   –               0        84 84
 	{3, 0x06}, // U U   · · –           110      85 85
 	{4, 0x0E}, // V V   · · · –         1110     86 86
 	{3, 0x04}, // W W   · – –           100      87 87
 	{4, 0x06}, // X X   – · · –         0110     88 88
 	{4, 0x04}, // Y Y   – · – –         0100     89 89
-	{4, 0x03}, // Z Z   – – · ·         0011     90 90 
+	{4, 0x03}, // Z Z   – – · ·         0011     90 90
 	{8, 0xFF}, // [ ERR · · · · · · · · 11111111 91 ERR Open Bracket [[]
 	{8, 0xFF}, // \ ERR · · · · · · · · 11111111 92 ERR Backslash [\]
 	{8, 0xFF}, // ] ERR · · · · · · · · 11111111 93 ERR Close Bracket []]
@@ -285,9 +275,9 @@ int main (void)
 
 	/* initialize ring buffers */
 	morse_rx_ring_id = rng_init (&morse_rx_ring, MORSE_RX_BUF_SIZE, morse_rx_buf);
-	
+
 	/* Enable global interrupts */
-	sei(); 
+	sei();
 
 	/* attach the serial port to stdio streams */
 	stdout = &tty_console;
@@ -335,8 +325,8 @@ int main (void)
 				// no input, clear error
 				clearerr (&tty_morse);
 			}
-		}   
-	} 
+		}
+	}
 
 	/* we should never get here */
 	return (0);
@@ -355,7 +345,7 @@ static int bsp_tty_putchar(char c, FILE *stream)
 	if (c == '\n') {
 		bsp_tty_putchar('\r', stream);
 	}
-	
+
 #if AVR8_PART_IS_DEFINED(ATmega324PB)
 	while (!usart_data_register_is_empty(&USART1)) {
 		// Do nothing until UDR is ready for more data to be written to it
@@ -388,7 +378,7 @@ static int bsp_tty_getchar(FILE *stream)
 	if (!usart_rx_is_complete(&USART1)) {
 		// No character available, so we return error
 		return (_FDEV_ERR);
-	}	
+	}
 
 	// Record the fact that we have received input
 	user_input = true;
@@ -527,7 +517,7 @@ static void remorse_instructions (void)
 	if (!user_input) {
 		printf_P (PSTR("\n"));
 		printf_P (PSTR("Morse Encoder/Decoder\n"));
-		printf_P (PSTR("Copyright (c) 2015 - 2016 Atmel Corporation. All rights reserved.\n"));
+		printf_P (PSTR("Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.\n"));
 		printf_P (PSTR("\n"));
 		printf_P (PSTR("Characters received from the serial port will be be echoed back in morse code.\n"));
 		printf_P (PSTR("Morse code tapped into button will be converted to ASCII.\n"));

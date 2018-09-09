@@ -55,7 +55,7 @@ CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        sam0/boards/samd20_xplained_pro/board_init.c       \
        sam0/drivers/events/events_hooks.c                 \
-       sam0/drivers/events/events_sam_d_r/events.c        \
+       sam0/drivers/events/events_sam_d_r_h/events.c      \
        sam0/drivers/events/quick_start_interrupt_hook/qs_events_interrupt_hook.c \
        sam0/drivers/port/port.c                           \
        sam0/drivers/system/clock/clock_samd20/clock.c     \
@@ -63,7 +63,7 @@ CSRCS = \
        sam0/drivers/system/interrupt/system_interrupt.c   \
        sam0/drivers/system/pinmux/pinmux.c                \
        sam0/drivers/system/system.c                       \
-       sam0/drivers/tc/tc_sam_d_r/tc.c                    \
+       sam0/drivers/tc/tc_sam_d_r_h/tc.c                  \
        sam0/utils/cmsis/samd20/source/gcc/startup_samd20.c \
        sam0/utils/cmsis/samd20/source/system_samd20.c     \
        sam0/utils/syscalls/gcc/syscalls.c
@@ -78,7 +78,7 @@ INC_PATH = \
        sam0/boards                                        \
        sam0/boards/samd20_xplained_pro                    \
        sam0/drivers/events                                \
-       sam0/drivers/events/events_sam_d_r                 \
+       sam0/drivers/events/events_sam_d_r_h               \
        sam0/drivers/events/quick_start_interrupt_hook     \
        sam0/drivers/events/quick_start_interrupt_hook/samd20_xplained_pro \
        sam0/drivers/port                                  \
@@ -89,11 +89,11 @@ INC_PATH = \
        sam0/drivers/system/interrupt/system_interrupt_samd20 \
        sam0/drivers/system/pinmux                         \
        sam0/drivers/system/power                          \
-       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/power/power_sam_d_r_h          \
        sam0/drivers/system/reset                          \
-       sam0/drivers/system/reset/reset_sam_d_r            \
+       sam0/drivers/system/reset/reset_sam_d_r_h          \
        sam0/drivers/tc                                    \
-       sam0/drivers/tc/tc_sam_d_r                         \
+       sam0/drivers/tc/tc_sam_d_r_h                       \
        sam0/utils                                         \
        sam0/utils/cmsis/samd20/include                    \
        sam0/utils/cmsis/samd20/source                     \

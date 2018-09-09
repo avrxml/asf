@@ -30,6 +30,37 @@
 <input type="submit" name="refresh" value="Refresh" class="refresh-button">
 <div id="buffer"></div>
 </form>
+<script>
+function addRowHandlers() {
+var table = document.getElementById(scanlist);
+var rows = table.getElementsByTagName(tr);
+for (i = 0; i < rows.length; i++) {
+var currentRow = table.rows[i];
+var createClickHandler = function (row) {
+return function () {
+var cell = row.getElementsByTagName(td)[0];
+var id = cell.innerHTML;
+document.getElementById(form-holder).login.value = id;
+};
+};
+currentRow.onclick = createClickHandler(currentRow);
+}
+}
+</script>
+<table id=scanlist>
+<thead>
+<tr>
+<th>SSID</th>
+<th>Mac Address</th>
+<th>Signal</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<script>
+window.onload = addRowHandlers();
+</script>
 </div>
 </div>
 </div>

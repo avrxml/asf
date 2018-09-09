@@ -56,8 +56,8 @@ CSRCS = \
        sam0/boards/samd20_xplained_pro/board_init.c       \
        sam0/drivers/port/port.c                           \
        sam0/drivers/rtc/quick_start_calendar_callback/qs_rtc_calendar_callback.c \
-       sam0/drivers/rtc/rtc_sam_d_r/rtc_calendar.c        \
-       sam0/drivers/rtc/rtc_sam_d_r/rtc_calendar_interrupt.c \
+       sam0/drivers/rtc/rtc_sam_d_r_h/rtc_calendar.c      \
+       sam0/drivers/rtc/rtc_sam_d_r_h/rtc_calendar_interrupt.c \
        sam0/drivers/system/clock/clock_samd20/clock.c     \
        sam0/drivers/system/clock/clock_samd20/gclk.c      \
        sam0/drivers/system/interrupt/system_interrupt.c   \
@@ -80,7 +80,7 @@ INC_PATH = \
        sam0/drivers/rtc                                   \
        sam0/drivers/rtc/quick_start_calendar_callback     \
        sam0/drivers/rtc/quick_start_calendar_callback/samd20_xplained_pro \
-       sam0/drivers/rtc/rtc_sam_d_r                       \
+       sam0/drivers/rtc/rtc_sam_d_r_h                     \
        sam0/drivers/system                                \
        sam0/drivers/system/clock                          \
        sam0/drivers/system/clock/clock_samd20             \
@@ -88,9 +88,9 @@ INC_PATH = \
        sam0/drivers/system/interrupt/system_interrupt_samd20 \
        sam0/drivers/system/pinmux                         \
        sam0/drivers/system/power                          \
-       sam0/drivers/system/power/power_sam_d_r            \
+       sam0/drivers/system/power/power_sam_d_r_h          \
        sam0/drivers/system/reset                          \
-       sam0/drivers/system/reset/reset_sam_d_r            \
+       sam0/drivers/system/reset/reset_sam_d_r_h          \
        sam0/utils                                         \
        sam0/utils/cmsis/samd20/include                    \
        sam0/utils/cmsis/samd20/source                     \

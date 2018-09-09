@@ -1,6 +1,0 @@
-<workspace>
-	<batchBuild></batchBuild>
-	<project>
-		<path>$WS_DIR$\multirole_multiconnect_sam4s_xplained_pro_flash.ewp</path>
-	</project>
-</workspace>

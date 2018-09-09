@@ -162,6 +162,7 @@
 				<debug>1</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>DEVICE_INFORMATION_SERVICE</state>
 					<state>NEW_EVT_HANDLER</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=true</state>
@@ -171,10 +172,13 @@
 					<state>BOARD_AT30TSE_DEVICE_ADDR=0x0</state>
 					<state>HTPT_SERVICE</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=false</state>
-					<state>NENABLE_PTS=false</state>
-					<state>ARM_MATH_CM4=true</state>
 					<state>__SAM4SD32C__</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>NENABLE_PTS=false</state>
 					<state>ENABLE_POWER_SAVE</state>
+					<state>ARM_MATH_CM4=true</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -325,6 +329,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../inc</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
@@ -489,6 +494,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>DEVICE_INFORMATION_SERVICE</state>
 					<state>NEW_EVT_HANDLER</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=true</state>
@@ -498,10 +504,13 @@
 					<state>BOARD_AT30TSE_DEVICE_ADDR=0x0</state>
 					<state>HTPT_SERVICE</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=false</state>
-					<state>NENABLE_PTS=false</state>
-					<state>ARM_MATH_CM4=true</state>
 					<state>__SAM4SD32C__</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>NENABLE_PTS=false</state>
 					<state>ENABLE_POWER_SAVE</state>
+					<state>ARM_MATH_CM4=true</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -619,6 +628,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../inc</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
@@ -1141,6 +1151,7 @@
 				<debug>0</debug>
 				<option>
 					<name>CCDefines</name>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>DEVICE_INFORMATION_SERVICE</state>
 					<state>NEW_EVT_HANDLER</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=true</state>
@@ -1150,10 +1161,13 @@
 					<state>BOARD_AT30TSE_DEVICE_ADDR=0x0</state>
 					<state>HTPT_SERVICE</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=false</state>
-					<state>NENABLE_PTS=false</state>
-					<state>ARM_MATH_CM4=true</state>
 					<state>__SAM4SD32C__</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>NENABLE_PTS=false</state>
 					<state>ENABLE_POWER_SAVE</state>
+					<state>ARM_MATH_CM4=true</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 				</option>
 				<option>
 					<name>CCPreprocFile</name>
@@ -1304,6 +1318,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../inc</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
@@ -1468,6 +1483,7 @@
 				</option>
 				<option>
 					<name>ADefines</name>
+					<state>HOST_UART_BAUDRATE_CONFIG_VALUE=921600</state>
 					<state>DEVICE_INFORMATION_SERVICE</state>
 					<state>NEW_EVT_HANDLER</state>
 					<state>UART_FLOWCONTROL_4WIRE_MODE=true</state>
@@ -1477,10 +1493,13 @@
 					<state>BOARD_AT30TSE_DEVICE_ADDR=0x0</state>
 					<state>HTPT_SERVICE</state>
 					<state>UART_FLOWCONTROL_6WIRE_MODE=false</state>
-					<state>NENABLE_PTS=false</state>
-					<state>ARM_MATH_CM4=true</state>
 					<state>__SAM4SD32C__</state>
+					<state>BLE_MODULE=BTLC1000_MR</state>
+					<state>NENABLE_PTS=false</state>
 					<state>ENABLE_POWER_SAVE</state>
+					<state>ARM_MATH_CM4=true</state>
+					<state>HOST_SLEEP_ENABLE=true</state>
+					<state>SLEEP_WALKING_ENABLED=false</state>
 				</option>
 				<option>
 					<name>AList</name>
@@ -1598,6 +1617,7 @@
 					<state>$PROJ_DIR$/../../../../../../../sam/boards</state>
 					<state>$PROJ_DIR$/../../../../../../../common/utils/stdio/stdio_serial</state>
 					<state>$PROJ_DIR$/../../../../inc</state>
+					<state>$PROJ_DIR$/../../../../../../../common/services/sleepmgr</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/delay</state>
 					<state>$PROJ_DIR$/../../../../../../../common/services/twi</state>
 					<state>$PROJ_DIR$/../../../../../../../sam/utils/cmsis/sam4s/source/templates</state>
@@ -2653,6 +2673,21 @@
 				</file>
 				<file>
 					<name>$PROJ_DIR$/../../../../../../../common/services/clock/genclk.h</name>
+				</file>
+			</group>
+			<group>
+				<name>sleepmgr</name>
+				<group>
+					<name>sam</name>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/sleepmgr/sam/sleepmgr.c</name>
+					</file>
+					<file>
+						<name>$PROJ_DIR$/../../../../../../../common/services/sleepmgr/sam/sleepmgr.h</name>
+					</file>
+				</group>
+				<file>
+					<name>$PROJ_DIR$/../../../../../../../common/services/sleepmgr/sleepmgr.h</name>
 				</file>
 			</group>
 			<group>

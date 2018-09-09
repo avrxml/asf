@@ -3,7 +3,7 @@
  
   \brief Includes datatypes and signatures for platform
  
-  Copyright (c) 2016, Atmel Corporation. All rights reserved.
+  * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
   Released under NDA
   Licensed under Atmel's Limited License Agreement.
  
@@ -20,7 +20,7 @@
   ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
   POSSIBILITY OF SUCH DAMAGE.
  
-  Atmel Corporation: http://www.atmel.com
+  Microchip Technology Inc: http://www.microchip.com
  
 ******************************************************************************/
 
@@ -69,7 +69,68 @@ typedef enum PLATFORM_STATUS
 	/** Invalid arugment */
 	STATUS_INVALID_ARGUMENT,
 }plf_drv_status;
-	
+
+enum samb11_module_version_tag
+{
+    /// SAMB11 MR module [Default]
+    AT_SAMB11_MR = 0,
+    /// SAMB11 ZR module
+    AT_SAMB11_ZR
+};
+
+/** Enum for the possible callback types for the GPIO/PORT pin interrupt module. */
+enum
+{
+	/** Callback type for when an external interrupt detects the configured
+	 *  channel criteria (i.e. edge or level detection)
+	 */
+	PORTINT_CALLBACK_TYPE_DETECT = 1,
+	AON_PIN_CALLBACK_TYPE_DETECT,
+};
+
+/** Enum for the possible callback types for the timer module. */
+enum timer_callback_type {
+	/** Callback for timer expiry*/
+	TIMER_EXPIRED_CALLBACK_TYPE_DETECT = 1,
+};
+
+
+/** Type definition for an GPIO/PORT pin interrupt module callback function. */
+typedef void (*portint_callback_t)(void);
+
+/**
+ * \brief Port Pin deep sleep wakeup source configuration enum.
+ *
+ * Enum for the possible external wakeup source pins
+ */
+enum port_wakeup_source {
+	/** External Wakeup source AON_GPIO_0 */
+	PORT_WAKEUP_SOURCE_AON_GPIO_0    = 0,
+	/** External Wakeup source AON_GPIO_1 */
+	PORT_WAKEUP_SOURCE_AON_GPIO_1,
+	/** External Wakeup source AON_GPIO_2 */
+	PORT_WAKEUP_SOURCE_AON_GPIO_2,
+	PORT_WAKEUP_SOURCE_MAX_VAL
+};
+
+/**
+ * \brief Port/GPIO Status codes.
+ *
+ * Status codes of PORT/GPIO drivers.
+ */
+enum port_status_code {
+	PORT_STATUS_OK = 0,
+	PORT_STATUS_RESOURCE_NOT_AVAILABLE,
+	PORT_STATUS_ERR_NOT_INITIALIZED,
+	PORT_STATUS_ERR_INVALID_ARG,
+};
+
+enum port_status_code wakeup_int_register_callback(enum port_wakeup_source wakeup_source,
+portint_callback_t fp);
+enum port_status_code wakeup_int_unregister_callback(enum port_wakeup_source wakeup_source);
+void wakeup_active_event_callback(uint32_t wakeup_source);
+
+
 /**
 @defgroup platform-drv platform Driver API
 
@@ -93,6 +154,18 @@ typedef enum PLATFORM_STATUS
  */
 plf_drv_status platform_driver_init(void);
 
+/**
+ * \brief Initialize the module to the correct type.
+ *
+ * Initializes the SAMB11 module to the correct type.
+ * \ref samb11_module_version_tag for supported module types.
+ *
+ * \return Status of platform driver initialization.
+ * \retval STATUS_SUCCESS								Platform driver initialized.
+ * \retval STATUS_INVALID_ARGUMENT			Argument passed is invalid.
+ */
+ plf_drv_status platform_set_module_type(enum samb11_module_version_tag module_type);
+ 
 /**
  * \brief Platform event wait function.
  *
@@ -242,9 +315,30 @@ void init_port_list(void);
   * @brief Reset BLE Chip.
   * @note This function will reset whole SoC, All running tasks including current will be terminated 
   * @warning This function should be called in BLE Context [event get loop] ONLY. 
-  *          If you want to post is as separate event, use @ref at_ble_event_user_defined_post.
+  *          If you want to post is as separate event, use at_ble_event_user_defined_post (refer to AT_BLE_API_USER_MANUAL.chm).
   */
 void platform_chip_reset(void);
+
+/**
+ * \brief Retrieves FW version.
+ *
+ *
+ * \return Status of reading FW version.
+ * \retval STATUS_SUCCESS			FW version read success.
+ * \retval STATUS_FAILURE			FW version read failure.
+ */
+ plf_drv_status platform_get_fw_version(uint32_t *fw_version);
+
+/**
+ * \brief Retrieves RF version.
+ *
+ *
+ * \return Status of reading RF version.
+ * \retval STATUS_SUCCESS			RF version read success.
+ * \retval STATUS_FAILURE			RF version read failure.
+ */
+ plf_drv_status platform_get_rf_version(uint32_t *rf_version);
+
 /** @} */
 
 /** @} */
